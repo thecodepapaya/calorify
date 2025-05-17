@@ -61,7 +61,7 @@ class MealLogCard extends StatelessWidget {
               Row(
                 children: [
                   Icon(
-                    LucideIcons.slice,
+                    LucideIcons.soup,
                     color: colorScheme.onSecondary.withValues(alpha: 0.7),
                     size: 12,
                   ),

@@ -78,23 +78,31 @@ class HealthService {
     }
   }
 
-  Future<bool> writeMealData(Meal meal) async {
-    final bool authorized = await requestAuthorization(); // Ensure authorized
-    if (!authorized) {
-      log("Not authorized to fetch health data.");
-      return false;
+  Future<bool> writeMealData(MealInfo meal) async {
+    final hasPermission =
+        await _health.hasPermissions(_types, permissions: _permissions) ??
+        false;
+
+    if (!hasPermission) {
+      final bool authorized = await requestAuthorization();
+      if (!authorized) {
+        log("Not authorized to fetch health data.");
+        return false;
+      }
     }
+
+    final now = DateTime.now();
 
     try {
       final healthData = await _health.writeMeal(
-        startTime: meal.startTime,
-        endTime: meal.endTime,
+        startTime: now.subtract(Duration(minutes: 10)),
+        endTime: DateTime.now(),
         mealType: meal.mealType,
-        caloriesConsumed: meal.caloriesInKcal,
-        protein: meal.proteinInGrams,
-        carbohydrates: meal.carbsInGrams,
-        fatTotal: meal.fatInGrams,
-        fiber: meal.fiberInGrams,
+        caloriesConsumed: meal.calories.toDouble(),
+        protein: meal.protein.toDouble(),
+        carbohydrates: meal.carbs.toDouble(),
+        fatTotal: meal.fat.toDouble(),
+        fiber: meal.fiber.toDouble(),
       );
 
       return healthData;
