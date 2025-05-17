@@ -1,3 +1,4 @@
+import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -22,11 +23,6 @@ class DailySummaryCard extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
 
-    final Color calorieIconColor = colorScheme.surfaceTint;
-    final Color proteinIconColor = colorScheme.tertiary;
-    final Color carbsIconColor = Color(0xFF4CB3B3);
-    final Color fiberIconColor = Color(0xFFE0B341);
-
     return Container(
       margin: globalMargin,
       padding: EdgeInsets.all(16),
@@ -37,6 +33,7 @@ class DailySummaryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(width: double.infinity),
           Text(
             'Daily Summary',
             style: textTheme.titleLarge?.copyWith(
@@ -45,8 +42,11 @@ class DailySummaryCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            alignment: WrapAlignment.start,
+
             children: [
               _NutrientTile(
                 icon: LucideIcons.flame,
@@ -56,18 +56,26 @@ class DailySummaryCard extends StatelessWidget {
                 iconColor: calorieIconColor,
               ),
               _NutrientTile(
+                icon: LucideIcons.wheat,
+                label: 'Carbs',
+                value: carbs,
+                unit: 'g',
+                iconColor: carbsIconColor,
+              ),
+              _NutrientTile(
                 icon: LucideIcons.drumstick,
                 label: 'Protein',
                 value: protein,
                 unit: 'g',
                 iconColor: proteinIconColor,
               ),
+
               _NutrientTile(
-                icon: LucideIcons.wheat,
-                label: 'Carbs',
+                icon: LucideIcons.egg,
+                label: 'Fat',
                 value: carbs,
                 unit: 'g',
-                iconColor: carbsIconColor,
+                iconColor: fatIconColor,
               ),
               _NutrientTile(
                 icon: LucideIcons.leaf,

@@ -1,5 +1,7 @@
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/services/health_service.dart';
 import 'package:flutter/material.dart';
+import 'package:health/health.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class HealthConnectPromptCard extends StatelessWidget {
@@ -9,7 +11,11 @@ class HealthConnectPromptCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
-    final textTheme = theme.textTheme;
+    final TextTheme textTheme = theme.textTheme;
+
+    final isInstallRequired =
+        HealthService.instance.status ==
+        HealthConnectSdkStatus.sdkUnavailableProviderUpdateRequired;
 
     return Container(
       margin: globalMargin,
@@ -22,7 +28,7 @@ class HealthConnectPromptCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(LucideIcons.link, size: 20),
+          Icon(LucideIcons.link, size: 20, color: colorScheme.primary),
           SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -42,8 +48,15 @@ class HealthConnectPromptCard extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(width: 8),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              isInstallRequired
+                  ? HealthService.instance.installHealthConnect
+                  : HealthService.instance.requestAuthorization();
+
+              HealthService.instance.requestAuthorization();
+            },
             style: ButtonStyle(
               backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
               foregroundColor: WidgetStatePropertyAll(colorScheme.onPrimary),
@@ -51,7 +64,7 @@ class HealthConnectPromptCard extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: globalRadius),
               ),
             ),
-            child: Text('Connect'),
+            child: Text(isInstallRequired ? 'Install' : 'Connect'),
           ),
         ],
       ),

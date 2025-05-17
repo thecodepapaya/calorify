@@ -130,3 +130,9 @@ class AppColors {
   // However, for theme-aware components, using Theme.of(context).colorScheme
   // is generally preferred for accessing dark theme colors.
 }
+
+final Color calorieIconColor = Color(0xFF3F8AE0);
+final Color proteinIconColor = Color(0xFFFC9B36);
+final Color carbsIconColor = Color(0xFF4CB3B3);
+final Color fatIconColor = Color(0xFF85B3E0);
+final Color fiberIconColor = Color(0xFFE0B341);
