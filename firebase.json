@@ -1,0 +1,21 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "calorify-1b40a",
+                    "appId": "1:140337179887:android:e959fa6fab2b459347bf1a",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "calorify-1b40a",
+                    "configurations": {
+                        "android": "1:140337179887:android:e959fa6fab2b459347bf1a"
+                    }
+                }
+            }
+        }
+    }
+}
