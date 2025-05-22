@@ -46,38 +46,36 @@ class DailySummaryCard extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             alignment: WrapAlignment.start,
-
             children: [
-              _NutrientTile(
+              NutrientTile(
                 icon: LucideIcons.flame,
                 label: 'Calories',
                 value: calories,
                 unit: 'kcal',
                 iconColor: calorieIconColor,
               ),
-              _NutrientTile(
+              NutrientTile(
                 icon: LucideIcons.wheat,
                 label: 'Carbs',
                 value: carbs,
                 unit: 'g',
                 iconColor: carbsIconColor,
               ),
-              _NutrientTile(
+              NutrientTile(
                 icon: LucideIcons.drumstick,
                 label: 'Protein',
                 value: protein,
                 unit: 'g',
                 iconColor: proteinIconColor,
               ),
-
-              _NutrientTile(
+              NutrientTile(
                 icon: LucideIcons.egg,
                 label: 'Fat',
                 value: carbs,
                 unit: 'g',
                 iconColor: fatIconColor,
               ),
-              _NutrientTile(
+              NutrientTile(
                 icon: LucideIcons.leaf,
                 label: 'Fiber',
                 value: fiber,
@@ -92,19 +90,22 @@ class DailySummaryCard extends StatelessWidget {
   }
 }
 
-class _NutrientTile extends StatelessWidget {
+class NutrientTile extends StatelessWidget {
   final IconData icon;
   final String label;
   final double value;
   final String unit;
   final Color iconColor;
+  final double width;
 
-  const _NutrientTile({
+  const NutrientTile({
+    super.key,
     required this.icon,
     required this.label,
     required this.value,
     required this.unit,
     required this.iconColor,
+    this.width = 90,
   });
 
   @override
@@ -113,7 +114,7 @@ class _NutrientTile extends StatelessWidget {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return Container(
-      constraints: BoxConstraints(minWidth: 90),
+      constraints: BoxConstraints(minWidth: width),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: iconColor.withValues(alpha: 0.1),

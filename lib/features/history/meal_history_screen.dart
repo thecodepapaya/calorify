@@ -1,7 +1,6 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/features/history/widgets/icon_nutrition.dart';
-import 'package:calorify/features/history/widgets/logged_meals.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -19,14 +18,14 @@ class MealHistoryScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _DateDivider(),
-              MealLogCard(),
-              MealLogCard(),
-              _DateDivider(),
-              MealLogCard(),
-              MealLogCard(),
-              MealLogCard(),
-              _DateDivider(),
-              MealLogCard(),
+              // MealLogCard(),
+              // MealLogCard(),
+              // _DateDivider(),
+              // MealLogCard(),
+              // MealLogCard(),
+              // MealLogCard(),
+              // _DateDivider(),
+              // MealLogCard(),
               SizedBox(height: 20),
             ],
           ),

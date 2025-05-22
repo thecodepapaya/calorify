@@ -1,11 +1,17 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/features/history/widgets/icon_nutrition.dart';
+import 'package:calorify/features/history/widgets/meal_quantity.dart';
+import 'package:calorify/features/history/widgets/meal_timestamp.dart';
+import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class MealLogCard extends StatelessWidget {
-  const MealLogCard({super.key});
+  const MealLogCard({super.key, required this.mealInfo});
+
+  final MealInfo mealInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +34,7 @@ class MealLogCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  'Chole bhature woth a ve sad asd ',
+                  mealInfo.mealName,
                   style: textTheme.titleMedium,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -41,55 +47,16 @@ class MealLogCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(),
                 ),
-                child: Row(
-                  children: [
-                    Icon(
-                      LucideIcons.utensils,
-                      color: colorScheme.onSurface,
-                      size: 12,
-                    ),
-                    SizedBox(width: 4),
-                    Text('Dinner', style: textTheme.labelSmall),
-                  ],
-                ),
+                child: MealTypeIndicator(mealType: mealInfo.mealType),
               ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  Icon(
-                    LucideIcons.soup,
-                    color: colorScheme.onSecondary.withValues(alpha: 0.7),
-                    size: 12,
-                  ),
-                  SizedBox(width: 2),
-                  Text(
-                    '1 bowl',
-                    style: textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onSecondary.withValues(alpha: 0.7),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(
-                    LucideIcons.clock,
-                    color: colorScheme.onSecondary.withValues(alpha: 0.7),
-                    size: 12,
-                  ),
-                  SizedBox(width: 2),
-                  Text(
-                    '1 hour ago',
-                    style: textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onSecondary.withValues(alpha: 0.7),
-                    ),
-                  ),
-                ],
-              ),
+              MealQuantityIndicator(quantity: mealInfo.mealQuantity),
+              // TODO
+              MealTimestamp(timestamp: DateTime.now()),
             ],
           ),
           SizedBox(height: 12),
@@ -97,31 +64,31 @@ class MealLogCard extends StatelessWidget {
             children: [
               NutrientIconWithValue(
                 icon: LucideIcons.flame,
-                value: 8000,
+                value: mealInfo.calories.toDouble(),
                 unit: '',
                 iconColor: calorieIconColor,
               ),
               NutrientIconWithValue(
                 icon: LucideIcons.wheat,
-                value: 120,
+                value: mealInfo.carbs.toDouble(),
                 unit: 'g',
                 iconColor: carbsIconColor,
               ),
               NutrientIconWithValue(
                 icon: LucideIcons.drumstick,
-                value: 80,
+                value: mealInfo.protein.toDouble(),
                 unit: 'g',
                 iconColor: proteinIconColor,
               ),
               NutrientIconWithValue(
                 icon: LucideIcons.egg,
-                value: 120,
+                value: mealInfo.fat.toDouble(),
                 unit: 'g',
                 iconColor: fatIconColor,
               ),
               NutrientIconWithValue(
                 icon: LucideIcons.leaf,
-                value: 30,
+                value: mealInfo.fiber.toDouble(),
                 unit: 'g',
                 iconColor: fiberIconColor,
               ),

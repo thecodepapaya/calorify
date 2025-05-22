@@ -11,6 +11,7 @@ class CalorifyApp extends StatelessWidget {
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
       home: HomeScreen(),
+      // home: LoginScreen(),
     );
   }
 }

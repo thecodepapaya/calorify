@@ -1,11 +1,30 @@
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/db/app_database.dart';
+import 'package:calorify/core/db/mappers/meal_info_mapper.dart';
+import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/features/history/meal_history_screen.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
+import 'package:calorify/shared_widgets/loading_indicator.dart';
+import 'package:drift/drift.dart' as db;
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-class MealLog extends StatelessWidget {
+class MealLog extends StatefulWidget {
   const MealLog({super.key});
+
+  @override
+  State<MealLog> createState() => _MealLogState();
+}
+
+class _MealLogState extends State<MealLog> {
+  bool isLoading = false;
+  List<MealInfo> meals = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getTodaysMeals();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +54,11 @@ class MealLog extends StatelessWidget {
             ],
           ),
           SizedBox(height: 8),
-          hasMealLogs ? _MealsList() : _EmptyLog(),
+          isLoading
+              ? AppLoader()
+              : hasMealLogs
+              ? _MealsList(meals)
+              : _EmptyLog(),
           SizedBox(height: 12),
           Align(
             alignment: Alignment.topCenter,
@@ -68,6 +91,31 @@ class MealLog extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _getTodaysMeals() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      final now = DateTime.now();
+      final startOfDay = DateTime(now.year, now.month, now.day);
+      final endOfDay = DateTime(now.year, now.month, now.day, 23, 59, 59, 999);
+
+      final rows =
+          await (appDb.select(appDb.mealInfoTable)..where(
+            (tbl) =>
+                tbl.timestamp.isBiggerOrEqualValue(startOfDay) &
+                tbl.timestamp.isSmallerOrEqualValue(endOfDay),
+          )).get();
+
+      meals = rows.map(MealInfoMapper.fromRow).toList();
+      setState(() {});
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 }
 
@@ -111,12 +159,14 @@ class _EmptyLog extends StatelessWidget {
 }
 
 class _MealsList extends StatelessWidget {
-  const _MealsList();
+  const _MealsList(this.meals);
+
+  final List<MealInfo> meals;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [MealLogCard(), MealLogCard(), MealLogCard(), MealLogCard()],
+      children: meals.map((e) => MealLogCard(mealInfo: e)).toList(),
     );
   }
 }

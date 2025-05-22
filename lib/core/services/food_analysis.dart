@@ -54,7 +54,7 @@ class FoodAnalysisService {
             "(e.g., '1 bowl', '2 slices', '1 medium apple', '1 serving').",
       ),
       'meal_type': Schema.enumString(
-        enumValues: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACKS', 'UNKNOWN'],
+        enumValues: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'UNKNOWN'],
       ),
       'calories': Schema.number(
         description:
