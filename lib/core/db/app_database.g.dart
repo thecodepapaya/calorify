@@ -104,15 +104,6 @@ class $MealInfoTableTable extends MealInfoTable
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _tipMeta = const VerificationMeta('tip');
-  @override
-  late final GeneratedColumn<String> tip = GeneratedColumn<String>(
-    'tip',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
   static const VerificationMeta _timestampMeta = const VerificationMeta(
     'timestamp',
   );
@@ -135,7 +126,6 @@ class $MealInfoTableTable extends MealInfoTable
     carbs,
     fat,
     fiber,
-    tip,
     timestamp,
   ];
   @override
@@ -220,14 +210,6 @@ class $MealInfoTableTable extends MealInfoTable
     } else if (isInserting) {
       context.missing(_fiberMeta);
     }
-    if (data.containsKey('tip')) {
-      context.handle(
-        _tipMeta,
-        tip.isAcceptableOrUnknown(data['tip']!, _tipMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_tipMeta);
-    }
     if (data.containsKey('timestamp')) {
       context.handle(
         _timestampMeta,
@@ -290,11 +272,6 @@ class $MealInfoTableTable extends MealInfoTable
             DriftSqlType.int,
             data['${effectivePrefix}fiber'],
           )!,
-      tip:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}tip'],
-          )!,
       timestamp:
           attachedDatabase.typeMapping.read(
             DriftSqlType.dateTime,
@@ -320,7 +297,6 @@ class MealInfoTableData extends DataClass
   final int carbs;
   final int fat;
   final int fiber;
-  final String tip;
   final DateTime timestamp;
   const MealInfoTableData({
     required this.id,
@@ -332,7 +308,6 @@ class MealInfoTableData extends DataClass
     required this.carbs,
     required this.fat,
     required this.fiber,
-    required this.tip,
     required this.timestamp,
   });
   @override
@@ -347,7 +322,6 @@ class MealInfoTableData extends DataClass
     map['carbs'] = Variable<int>(carbs);
     map['fat'] = Variable<int>(fat);
     map['fiber'] = Variable<int>(fiber);
-    map['tip'] = Variable<String>(tip);
     map['timestamp'] = Variable<DateTime>(timestamp);
     return map;
   }
@@ -363,7 +337,6 @@ class MealInfoTableData extends DataClass
       carbs: Value(carbs),
       fat: Value(fat),
       fiber: Value(fiber),
-      tip: Value(tip),
       timestamp: Value(timestamp),
     );
   }
@@ -383,7 +356,6 @@ class MealInfoTableData extends DataClass
       carbs: serializer.fromJson<int>(json['carbs']),
       fat: serializer.fromJson<int>(json['fat']),
       fiber: serializer.fromJson<int>(json['fiber']),
-      tip: serializer.fromJson<String>(json['tip']),
       timestamp: serializer.fromJson<DateTime>(json['timestamp']),
     );
   }
@@ -400,7 +372,6 @@ class MealInfoTableData extends DataClass
       'carbs': serializer.toJson<int>(carbs),
       'fat': serializer.toJson<int>(fat),
       'fiber': serializer.toJson<int>(fiber),
-      'tip': serializer.toJson<String>(tip),
       'timestamp': serializer.toJson<DateTime>(timestamp),
     };
   }
@@ -415,7 +386,6 @@ class MealInfoTableData extends DataClass
     int? carbs,
     int? fat,
     int? fiber,
-    String? tip,
     DateTime? timestamp,
   }) => MealInfoTableData(
     id: id ?? this.id,
@@ -427,7 +397,6 @@ class MealInfoTableData extends DataClass
     carbs: carbs ?? this.carbs,
     fat: fat ?? this.fat,
     fiber: fiber ?? this.fiber,
-    tip: tip ?? this.tip,
     timestamp: timestamp ?? this.timestamp,
   );
   MealInfoTableData copyWithCompanion(MealInfoTableCompanion data) {
@@ -444,7 +413,6 @@ class MealInfoTableData extends DataClass
       carbs: data.carbs.present ? data.carbs.value : this.carbs,
       fat: data.fat.present ? data.fat.value : this.fat,
       fiber: data.fiber.present ? data.fiber.value : this.fiber,
-      tip: data.tip.present ? data.tip.value : this.tip,
       timestamp: data.timestamp.present ? data.timestamp.value : this.timestamp,
     );
   }
@@ -461,7 +429,6 @@ class MealInfoTableData extends DataClass
           ..write('carbs: $carbs, ')
           ..write('fat: $fat, ')
           ..write('fiber: $fiber, ')
-          ..write('tip: $tip, ')
           ..write('timestamp: $timestamp')
           ..write(')'))
         .toString();
@@ -478,7 +445,6 @@ class MealInfoTableData extends DataClass
     carbs,
     fat,
     fiber,
-    tip,
     timestamp,
   );
   @override
@@ -494,7 +460,6 @@ class MealInfoTableData extends DataClass
           other.carbs == this.carbs &&
           other.fat == this.fat &&
           other.fiber == this.fiber &&
-          other.tip == this.tip &&
           other.timestamp == this.timestamp);
 }
 
@@ -508,7 +473,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   final Value<int> carbs;
   final Value<int> fat;
   final Value<int> fiber;
-  final Value<String> tip;
   final Value<DateTime> timestamp;
   const MealInfoTableCompanion({
     this.id = const Value.absent(),
@@ -520,7 +484,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     this.carbs = const Value.absent(),
     this.fat = const Value.absent(),
     this.fiber = const Value.absent(),
-    this.tip = const Value.absent(),
     this.timestamp = const Value.absent(),
   });
   MealInfoTableCompanion.insert({
@@ -533,7 +496,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     required int carbs,
     required int fat,
     required int fiber,
-    required String tip,
     required DateTime timestamp,
   }) : mealName = Value(mealName),
        mealQuantity = Value(mealQuantity),
@@ -543,7 +505,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
        carbs = Value(carbs),
        fat = Value(fat),
        fiber = Value(fiber),
-       tip = Value(tip),
        timestamp = Value(timestamp);
   static Insertable<MealInfoTableData> custom({
     Expression<int>? id,
@@ -555,7 +516,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Expression<int>? carbs,
     Expression<int>? fat,
     Expression<int>? fiber,
-    Expression<String>? tip,
     Expression<DateTime>? timestamp,
   }) {
     return RawValuesInsertable({
@@ -568,7 +528,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
       if (carbs != null) 'carbs': carbs,
       if (fat != null) 'fat': fat,
       if (fiber != null) 'fiber': fiber,
-      if (tip != null) 'tip': tip,
       if (timestamp != null) 'timestamp': timestamp,
     });
   }
@@ -583,7 +542,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Value<int>? carbs,
     Value<int>? fat,
     Value<int>? fiber,
-    Value<String>? tip,
     Value<DateTime>? timestamp,
   }) {
     return MealInfoTableCompanion(
@@ -596,7 +554,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
       carbs: carbs ?? this.carbs,
       fat: fat ?? this.fat,
       fiber: fiber ?? this.fiber,
-      tip: tip ?? this.tip,
       timestamp: timestamp ?? this.timestamp,
     );
   }
@@ -631,9 +588,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     if (fiber.present) {
       map['fiber'] = Variable<int>(fiber.value);
     }
-    if (tip.present) {
-      map['tip'] = Variable<String>(tip.value);
-    }
     if (timestamp.present) {
       map['timestamp'] = Variable<DateTime>(timestamp.value);
     }
@@ -652,7 +606,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
           ..write('carbs: $carbs, ')
           ..write('fat: $fat, ')
           ..write('fiber: $fiber, ')
-          ..write('tip: $tip, ')
           ..write('timestamp: $timestamp')
           ..write(')'))
         .toString();
@@ -681,7 +634,6 @@ typedef $$MealInfoTableTableCreateCompanionBuilder =
       required int carbs,
       required int fat,
       required int fiber,
-      required String tip,
       required DateTime timestamp,
     });
 typedef $$MealInfoTableTableUpdateCompanionBuilder =
@@ -695,7 +647,6 @@ typedef $$MealInfoTableTableUpdateCompanionBuilder =
       Value<int> carbs,
       Value<int> fat,
       Value<int> fiber,
-      Value<String> tip,
       Value<DateTime> timestamp,
     });
 
@@ -750,11 +701,6 @@ class $$MealInfoTableTableFilterComposer
 
   ColumnFilters<int> get fiber => $composableBuilder(
     column: $table.fiber,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get tip => $composableBuilder(
-    column: $table.tip,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -818,11 +764,6 @@ class $$MealInfoTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get tip => $composableBuilder(
-    column: $table.tip,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<DateTime> get timestamp => $composableBuilder(
     column: $table.timestamp,
     builder: (column) => ColumnOrderings(column),
@@ -866,9 +807,6 @@ class $$MealInfoTableTableAnnotationComposer
 
   GeneratedColumn<int> get fiber =>
       $composableBuilder(column: $table.fiber, builder: (column) => column);
-
-  GeneratedColumn<String> get tip =>
-      $composableBuilder(column: $table.tip, builder: (column) => column);
 
   GeneratedColumn<DateTime> get timestamp =>
       $composableBuilder(column: $table.timestamp, builder: (column) => column);
@@ -922,7 +860,6 @@ class $$MealInfoTableTableTableManager
                 Value<int> carbs = const Value.absent(),
                 Value<int> fat = const Value.absent(),
                 Value<int> fiber = const Value.absent(),
-                Value<String> tip = const Value.absent(),
                 Value<DateTime> timestamp = const Value.absent(),
               }) => MealInfoTableCompanion(
                 id: id,
@@ -934,7 +871,6 @@ class $$MealInfoTableTableTableManager
                 carbs: carbs,
                 fat: fat,
                 fiber: fiber,
-                tip: tip,
                 timestamp: timestamp,
               ),
           createCompanionCallback:
@@ -948,7 +884,6 @@ class $$MealInfoTableTableTableManager
                 required int carbs,
                 required int fat,
                 required int fiber,
-                required String tip,
                 required DateTime timestamp,
               }) => MealInfoTableCompanion.insert(
                 id: id,
@@ -960,7 +895,6 @@ class $$MealInfoTableTableTableManager
                 carbs: carbs,
                 fat: fat,
                 fiber: fiber,
-                tip: tip,
                 timestamp: timestamp,
               ),
           withReferenceMapper:

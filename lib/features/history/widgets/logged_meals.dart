@@ -9,9 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class MealLogCard extends StatelessWidget {
-  const MealLogCard({super.key, required this.mealInfo});
+  const MealLogCard({
+    super.key,
+    required this.mealInfo,
+    this.showTimestamp = true,
+  });
 
   final MealInfo mealInfo;
+  final bool showTimestamp;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +50,9 @@ class MealLogCard extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(),
+                  border: Border.all(
+                    color: colorScheme.onSecondary.withValues(alpha: 0.7),
+                  ),
                 ),
                 child: MealTypeIndicator(mealType: mealInfo.mealType),
               ),
@@ -55,8 +62,7 @@ class MealLogCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               MealQuantityIndicator(quantity: mealInfo.mealQuantity),
-              // TODO
-              MealTimestamp(timestamp: DateTime.now()),
+              if (showTimestamp) MealTimestamp(timestamp: mealInfo.timestamp),
             ],
           ),
           SizedBox(height: 12),

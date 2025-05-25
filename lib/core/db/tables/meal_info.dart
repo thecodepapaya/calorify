@@ -10,6 +10,5 @@ class MealInfoTable extends Table {
   IntColumn get carbs => integer()();
   IntColumn get fat => integer()();
   IntColumn get fiber => integer()();
-  TextColumn get tip => text()();
   DateTimeColumn get timestamp => dateTime()();
 }

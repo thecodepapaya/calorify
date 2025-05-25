@@ -95,15 +95,16 @@ class HealthService {
 
     try {
       final healthData = await _health.writeMeal(
-        startTime: now.subtract(Duration(minutes: 10)),
         name: meal.mealName,
-        endTime: DateTime.now(),
-        mealType: meal.mealType,
+        mealType: meal.mealType.asHealthConnectType,
         caloriesConsumed: meal.calories.toDouble(),
         protein: meal.protein.toDouble(),
         carbohydrates: meal.carbs.toDouble(),
         fatTotal: meal.fat.toDouble(),
         fiber: meal.fiber.toDouble(),
+        startTime: now.subtract(Duration(minutes: 10)),
+        endTime: DateTime.now(),
+        recordingMethod: RecordingMethod.active,
       );
 
       return healthData;

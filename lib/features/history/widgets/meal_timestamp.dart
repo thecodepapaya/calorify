@@ -1,3 +1,4 @@
+import 'package:calorify/core/utilities/date.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -21,7 +22,7 @@ class MealTimestamp extends StatelessWidget {
         ),
         SizedBox(width: 2),
         Text(
-          '1 hour ago',
+          timestamp.formatted,
           style: textTheme.bodySmall?.copyWith(
             color: colorScheme.onSecondary.withValues(alpha: 0.7),
           ),

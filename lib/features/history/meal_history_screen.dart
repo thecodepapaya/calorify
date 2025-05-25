@@ -7,6 +7,7 @@ import 'package:calorify/core/db/mappers/meal_info_mapper.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/features/history/widgets/icon_nutrition.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
+import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:drift/drift.dart' as db;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -32,7 +33,7 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
-    _fetchMeals(); // Initial fetch
+    _fetchMeals();
   }
 
   void _onScroll() {
@@ -50,20 +51,22 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
   }
 
   Future<void> _fetchMeals() async {
-    if (isLoading || allMealsLoaded) {
-      return;
-    }
+    if (isLoading || allMealsLoaded) return;
 
-    setState(() {
-      isLoading = true;
-    });
+    setState(() => isLoading = true);
 
     try {
-      final query = appDb.select(appDb.mealInfoTable)
-        ..orderBy([(t) => db.OrderingTerm(expression: t.timestamp, mode: db.OrderingMode.desc)])
-        ..limit(_mealsPerPage)
-        ..offset(currentPage * _mealsPerPage);
-      
+      final query =
+          appDb.select(appDb.mealInfoTable)
+            ..orderBy([
+              (t) => db.OrderingTerm(
+                expression: t.timestamp,
+                mode: db.OrderingMode.desc,
+              ),
+            ])
+            ..limit(_mealsPerPage);
+      // ..offset(currentPage * _mealsPerPage);
+
       final result = await query.get();
       final fetchedMeals = result.map(MealInfoMapper.fromRow).toList();
 
@@ -74,9 +77,7 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
       meals.addAll(fetchedMeals);
       currentPage++;
     } finally {
-      setState(() {
-        isLoading = false;
-      });
+      setState(() => isLoading = false);
     }
   }
 
@@ -91,18 +92,13 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
         child: Builder(
           builder: (context) {
             if (isLoading && groupedMeals.isEmpty) {
-              return Center(child: CircularProgressIndicator());
+              return AppLoader();
             }
 
-            if (groupedMeals.isEmpty && !allMealsLoaded) {
-              return Center(
-                child: Text(
-                  'No meals recorded yet.',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              );
+            if (groupedMeals.isEmpty && allMealsLoaded) {
+              return Center(child: _emptyView);
             }
-            
+
             return ListView.builder(
               controller: _scrollController,
               itemCount: groupedMeals.length + (allMealsLoaded ? 0 : 1),
@@ -110,7 +106,7 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
                 if (index == groupedMeals.length && !allMealsLoaded) {
                   return Center(child: CircularProgressIndicator());
                 }
-                if (index >= groupedMeals.length) { // Should not happen if allMealsLoaded is true
+                if (index >= groupedMeals.length) {
                   return SizedBox.shrink();
                 }
 
@@ -122,10 +118,11 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
                       date: dayData.date,
                       totalCalories: dayData.totalCalories,
                     ),
-                    ...dayData.mealsInDay
-                        .map((meal) => MealLogCard(mealInfo: meal))
-                        .toList(),
-                    if (index == groupedMeals.length -1 ) SizedBox(height: 20), // Add space at the very end
+                    ...dayData.mealsInDay.map(
+                      (meal) =>
+                          MealLogCard(mealInfo: meal, showTimestamp: false),
+                    ),
+                    if (index == groupedMeals.length - 1) SizedBox(height: 20),
                   ],
                 );
               },
@@ -136,10 +133,43 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
     );
   }
 
+  Widget get _emptyView {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Icon(
+          LucideIcons.listChecks,
+          size: 48,
+          color: colorScheme.onSecondary.withValues(alpha: 0.8),
+        ),
+        SizedBox(height: 20),
+        Text(
+          'No meals recorded',
+          style: textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+            color: colorScheme.onSecondary.withValues(alpha: 0.7),
+          ),
+        ),
+        SizedBox(height: 12),
+        Text(
+          'Snap a picture of your last meal to log here.',
+          textAlign: TextAlign.center,
+          style: textTheme.bodyMedium?.copyWith(
+            color: colorScheme.onSecondary.withValues(alpha: 0.7),
+          ),
+        ),
+        SizedBox(height: 120),
+      ],
+    );
+  }
+
   List<_DayMeals> _groupMealsByDay(List<MealInfo> allMeals) {
-    if (allMeals.isEmpty) {
-      return [];
-    }
+    if (allMeals.isEmpty) return [];
 
     List<_DayMeals> groupedDayMeals = [];
     DateTime? currentDay;
@@ -147,18 +177,22 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
     int caloriesForCurrentDay = 0;
 
     for (final meal in allMeals) {
-      final mealDate = DateTime(meal.timestamp.year, meal.timestamp.month, meal.timestamp.day);
+      final mealDate = DateTime(
+        meal.timestamp.year,
+        meal.timestamp.month,
+        meal.timestamp.day,
+      );
 
       if (currentDay == null) {
-        // First meal
         currentDay = mealDate;
       } else if (currentDay != mealDate) {
-        // New day started
-        groupedDayMeals.add(_DayMeals(
-          date: currentDay,
-          mealsInDay: List.from(mealsForCurrentDay), // Create a copy
-          totalCalories: caloriesForCurrentDay,
-        ));
+        groupedDayMeals.add(
+          _DayMeals(
+            date: currentDay,
+            mealsInDay: List.from(mealsForCurrentDay),
+            totalCalories: caloriesForCurrentDay,
+          ),
+        );
         mealsForCurrentDay.clear();
         caloriesForCurrentDay = 0;
         currentDay = mealDate;
@@ -168,15 +202,16 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
       caloriesForCurrentDay += meal.calories;
     }
 
-    // Add the last processed day
     if (currentDay != null && mealsForCurrentDay.isNotEmpty) {
-      groupedDayMeals.add(_DayMeals(
-        date: currentDay,
-        mealsInDay: List.from(mealsForCurrentDay),
-        totalCalories: caloriesForCurrentDay,
-      ));
+      groupedDayMeals.add(
+        _DayMeals(
+          date: currentDay,
+          mealsInDay: List.from(mealsForCurrentDay),
+          totalCalories: caloriesForCurrentDay,
+        ),
+      );
     }
-    // The list is already sorted by date descending because allMeals is sorted descending.
+
     return groupedDayMeals;
   }
 }
@@ -197,11 +232,7 @@ class _DateDivider extends StatelessWidget {
   final DateTime date;
   final int totalCalories;
 
-  const _DateDivider({
-    super.key,
-    required this.date,
-    required this.totalCalories,
-  });
+  const _DateDivider({required this.date, required this.totalCalories});
 
   String _formatDate(DateTime date) {
     final now = DateTime.now();
@@ -212,8 +243,10 @@ class _DateDivider extends StatelessWidget {
       return 'Today';
     } else if (date == yesterday) {
       return 'Yesterday';
-    } else {
+    } else if (now.year == date.year) {
       return DateFormat('dd MMM').format(date);
+    } else {
+      return DateFormat('dd MMM YYYY').format(date);
     }
   }
 
@@ -223,22 +256,24 @@ class _DateDivider extends StatelessWidget {
     final TextTheme textTheme = theme.textTheme;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0), // Added horizontal padding
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
           Text(
             _formatDate(date),
-            style: textTheme.titleMedium?.copyWith(fontSize: 18, fontWeight: FontWeight.w600), // Made it bold
+            style: textTheme.titleMedium?.copyWith(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
           ),
           SizedBox(width: 8),
           Expanded(child: Divider()),
           SizedBox(width: 8),
           NutrientIconWithValue(
             icon: LucideIcons.flame,
-            value: totalCalories,
-            unit: '', // kcal is usually implied or part of MealLogCard
-            iconColor: calorieIconColor, // Ensure this is defined or imported
-            textStyle: textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+            value: totalCalories.toDouble(),
+            unit: '',
+            iconColor: calorieIconColor,
           ),
         ],
       ),

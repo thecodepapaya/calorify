@@ -57,12 +57,19 @@ class _AppLoaderState extends State<AppLoader> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+
     return Center(
       child: RotationTransition(
         turns: _rotationTween.animate(_rotationAnimation),
         child: ScaleTransition(
           scale: _tween.animate(_sizeAnimation),
-          child: Icon(_allIcons.first, color: widget.color, size: 28),
+          child: Icon(
+            _allIcons.first,
+            color: widget.color ?? colorScheme.onSurface,
+            size: 28,
+          ),
         ),
       ),
     );

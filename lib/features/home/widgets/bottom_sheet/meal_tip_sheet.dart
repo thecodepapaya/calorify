@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/models/meal_detection_result.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/features/history/widgets/meal_quantity.dart';
 import 'package:calorify/features/history/widgets/meal_timestamp.dart';
@@ -13,7 +14,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 Future<void> showMealTip(
   BuildContext context,
   Uint8List imageData,
-  MealInfo mealInfo,
+  MealDetectionResult mealDetectionResult,
 ) {
   return showModalBottomSheet(
     context: context,
@@ -22,15 +23,20 @@ Future<void> showMealTip(
     enableDrag: true,
     isScrollControlled: true,
     builder:
-        (context) =>
-            _UnidentifiedMealTip(mealInfo: mealInfo, imageData: imageData),
+        (context) => _UnidentifiedMealTip(
+          mealDetectionResult: mealDetectionResult,
+          imageData: imageData,
+        ),
   );
 }
 
 class _UnidentifiedMealTip extends StatelessWidget {
-  const _UnidentifiedMealTip({required this.mealInfo, required this.imageData});
+  const _UnidentifiedMealTip({
+    required this.mealDetectionResult,
+    required this.imageData,
+  });
 
-  final MealInfo mealInfo;
+  final MealDetectionResult mealDetectionResult;
   final Uint8List imageData;
 
   @override
@@ -43,7 +49,7 @@ class _UnidentifiedMealTip extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (mealInfo.mealIdentified)
+          if (mealDetectionResult.mealIdentified)
             ..._mealIdentified(context)
           else
             ..._mealUnIdentified(context),
@@ -73,7 +79,7 @@ class _UnidentifiedMealTip extends StatelessWidget {
       ),
       SizedBox(height: 16),
       Text(
-        mealInfo.tip,
+        mealDetectionResult.tip,
         style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
       ),
       SizedBox(height: 12),
@@ -95,6 +101,7 @@ class _UnidentifiedMealTip extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
+    final MealInfo mealInfo = mealDetectionResult.mealInfo;
 
     return [
       Text(
@@ -124,7 +131,7 @@ class _UnidentifiedMealTip extends StatelessWidget {
       ),
       SizedBox(height: 16),
       Text(
-        mealInfo.tip,
+        mealDetectionResult.tip,
         style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
       ),
       SizedBox(height: 16),

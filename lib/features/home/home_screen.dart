@@ -37,12 +37,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 20),
             MealSnap(),
             SizedBox(height: 20),
-            DailySummaryCard(
-              calories: 1850,
-              protein: 75.5,
-              carbs: 220.2,
-              fiber: 30.1,
-            ),
+            DailySummaryCard(),
             SizedBox(height: 20),
             IntakeProgress(),
             SizedBox(height: 20),

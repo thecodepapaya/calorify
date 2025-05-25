@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/db/mappers/meal_info_mapper.dart';
+import 'package:calorify/core/models/meal_detection_result.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/core/services/health_service.dart';
@@ -170,9 +171,9 @@ class _MealSnapState extends State<MealSnap> {
       _isLoading = true;
     });
 
-    late final MealInfo mealInfo;
+    late final MealDetectionResult mealDetectionResult;
     try {
-      mealInfo = await _processImage(compressedImageByte);
+      mealDetectionResult = await _processImage(compressedImageByte);
     } on Exception catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(
@@ -184,11 +185,13 @@ class _MealSnapState extends State<MealSnap> {
     }
 
     if (!mounted) return;
-    await showMealTip(context, compressedImageByte, mealInfo);
-    if (!mealInfo.mealIdentified) return;
+    await showMealTip(context, compressedImageByte, mealDetectionResult);
+    if (!mealDetectionResult.mealIdentified) return;
 
     try {
-      await appDb.into(appDb.mealInfoTable).insert(mealInfo.toCompanion());
+      await appDb
+          .into(appDb.mealInfoTable)
+          .insert(mealDetectionResult.mealInfo.toCompanion());
     } on Exception catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(
@@ -196,7 +199,7 @@ class _MealSnapState extends State<MealSnap> {
       ).showSnackBar(_snack('Could not save Meal: $e'));
     }
 
-    await _writeDataToHealthConnect(mealInfo);
+    await _writeDataToHealthConnect(mealDetectionResult.mealInfo);
   }
 
   Future<bool> _writeDataToHealthConnect(MealInfo mealInfo) async {
@@ -245,7 +248,7 @@ class _MealSnapState extends State<MealSnap> {
     }
   }
 
-  Future<MealInfo> _processImage(Uint8List imageBytes) async {
+  Future<MealDetectionResult> _processImage(Uint8List imageBytes) async {
     final meal = await FoodAnalysisService().analyzeFoodImage(
       imageBytes: imageBytes,
     );

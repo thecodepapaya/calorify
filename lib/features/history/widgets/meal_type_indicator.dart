@@ -1,5 +1,5 @@
+import 'package:calorify/core/models/meal_type.dart';
 import 'package:flutter/material.dart';
-import 'package:health/health.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class MealTypeIndicator extends StatelessWidget {
@@ -14,11 +14,11 @@ class MealTypeIndicator extends StatelessWidget {
     final TextTheme textTheme = theme.textTheme;
 
     final icon = switch (mealType) {
-      MealType.BREAKFAST => LucideIcons.eggFried,
-      MealType.LUNCH => LucideIcons.sandwich,
-      MealType.DINNER => LucideIcons.soup,
-      MealType.SNACK => LucideIcons.cookie,
-      MealType.UNKNOWN => LucideIcons.utensils,
+      MealType.breakfast => LucideIcons.eggFried,
+      MealType.lunch => LucideIcons.sandwich,
+      MealType.dinner => LucideIcons.soup,
+      MealType.snack => LucideIcons.cookie,
+      MealType.unknown => LucideIcons.utensils,
     };
 
     return Row(
@@ -30,7 +30,7 @@ class MealTypeIndicator extends StatelessWidget {
         ),
         SizedBox(width: 4),
         Text(
-          mealType.name.capitalized,
+          mealType.name,
           style: textTheme.labelSmall?.copyWith(
             color: colorScheme.onSecondary.withValues(alpha: 0.7),
           ),
@@ -38,8 +38,4 @@ class MealTypeIndicator extends StatelessWidget {
       ],
     );
   }
-}
-
-extension on String {
-  String get capitalized => this[0] + substring(1).toLowerCase();
 }
