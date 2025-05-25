@@ -32,7 +32,7 @@ class _MealLogState extends State<MealLog> {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
 
-    final hasMealLogs = 2 % 2 == 0;
+    final hasMealLogs = meals.isNotEmpty;
 
     return Container(
       margin: globalMargin,
@@ -60,17 +60,18 @@ class _MealLogState extends State<MealLog> {
               ? _MealsList(meals)
               : _EmptyLog(),
           SizedBox(height: 12),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Text(
-              'Add a meal using the form above to see it here',
-              textAlign: TextAlign.center,
-              style: textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSecondary.withValues(alpha: 0.7),
+          if (!hasMealLogs && !isLoading)
+            Align(
+              alignment: Alignment.topCenter,
+              child: Text(
+                'Add a meal using the form above to see it here',
+                textAlign: TextAlign.center,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSecondary.withValues(alpha: 0.7),
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 4),
+          if (!hasMealLogs && !isLoading) const SizedBox(height: 4),
           Align(
             alignment: Alignment.bottomCenter,
             child: TextButton(
