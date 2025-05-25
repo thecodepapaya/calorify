@@ -1,5 +1,6 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/db/app_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -18,7 +19,41 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
   @override
   void initState() {
     super.initState();
-    _isEditing = _target == 0;
+    _loadGoalFromDb();
+  }
+
+  Future<void> _updateAndSaveGoal(int calories) async {
+    setState(() {
+      _target = calories;
+      _isEditing = false;
+    });
+
+    try {
+      await appDb.setDailyCalorieGoal(calories);
+
+      if (mounted) {}
+    } catch (e) {
+      print('Error saving daily goal: $e');
+
+      if (mounted) {}
+    }
+  }
+
+  Future<void> _loadGoalFromDb() async {
+    try {
+      final savedGoal = await appDb.getDailyCalorieGoal();
+      if (savedGoal != null) {
+        _target = savedGoal;
+        _isEditing = false;
+      } else {
+        _isEditing = true;
+      }
+    } catch (e) {
+      print('Error loading daily goal: $e');
+      _isEditing = true;
+    } finally {
+      setState(() {});
+    }
   }
 
   @override
@@ -68,19 +103,10 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
           ),
           const SizedBox(height: 20),
           _isEditing
-              ? _GoalInput(
-                onSetGoal:
-                    (calories) => setState(() {
-                      _target = calories;
-                      _isEditing = false;
-                    }),
-              )
+              ? _GoalInput(onSetGoal: _updateAndSaveGoal)
               : _ShowGoal(
                 caloriesGoal: _target,
-                onEdit:
-                    () => setState(() {
-                      _isEditing = true;
-                    }),
+                onEdit: () => setState(() => _isEditing = true),
               ),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:calorify/core/db/tables/meal_info.dart';
+import 'package:calorify/core/db/tables/user_settings.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
@@ -7,12 +8,30 @@ import 'package:path/path.dart' as p;
 
 part 'app_database.g.dart';
 
-@DriftDatabase(tables: [MealInfoTable])
+@DriftDatabase(tables: [MealInfoTable, UserSettingsTable])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;
+
+  static const int _userSettingsId = 1;
+
+  Future<int?> getDailyCalorieGoal() async {
+    final setting =
+        await (select(userSettingsTable)
+          ..where((tbl) => tbl.id.equals(_userSettingsId))).getSingleOrNull();
+    return setting?.dailyCalorieGoal;
+  }
+
+  Future<void> setDailyCalorieGoal(int goal) async {
+    await into(userSettingsTable).insertOnConflictUpdate(
+      UserSettingsTableCompanion.insert(
+        id: const Value(_userSettingsId),
+        dailyCalorieGoal: Value(goal),
+      ),
+    );
+  }
 }
 
 LazyDatabase _openConnection() {

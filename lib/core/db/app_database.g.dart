@@ -612,15 +612,240 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   }
 }
 
+class $UserSettingsTableTable extends UserSettingsTable
+    with TableInfo<$UserSettingsTableTable, UserSettingsTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $UserSettingsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _dailyCalorieGoalMeta = const VerificationMeta(
+    'dailyCalorieGoal',
+  );
+  @override
+  late final GeneratedColumn<int> dailyCalorieGoal = GeneratedColumn<int>(
+    'daily_calorie_goal',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, dailyCalorieGoal];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'user_settings_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<UserSettingsTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('daily_calorie_goal')) {
+      context.handle(
+        _dailyCalorieGoalMeta,
+        dailyCalorieGoal.isAcceptableOrUnknown(
+          data['daily_calorie_goal']!,
+          _dailyCalorieGoalMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  UserSettingsTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return UserSettingsTableData(
+      id:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}id'],
+          )!,
+      dailyCalorieGoal: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}daily_calorie_goal'],
+      ),
+    );
+  }
+
+  @override
+  $UserSettingsTableTable createAlias(String alias) {
+    return $UserSettingsTableTable(attachedDatabase, alias);
+  }
+}
+
+class UserSettingsTableData extends DataClass
+    implements Insertable<UserSettingsTableData> {
+  final int id;
+  final int? dailyCalorieGoal;
+  const UserSettingsTableData({required this.id, this.dailyCalorieGoal});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    if (!nullToAbsent || dailyCalorieGoal != null) {
+      map['daily_calorie_goal'] = Variable<int>(dailyCalorieGoal);
+    }
+    return map;
+  }
+
+  UserSettingsTableCompanion toCompanion(bool nullToAbsent) {
+    return UserSettingsTableCompanion(
+      id: Value(id),
+      dailyCalorieGoal:
+          dailyCalorieGoal == null && nullToAbsent
+              ? const Value.absent()
+              : Value(dailyCalorieGoal),
+    );
+  }
+
+  factory UserSettingsTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return UserSettingsTableData(
+      id: serializer.fromJson<int>(json['id']),
+      dailyCalorieGoal: serializer.fromJson<int?>(json['dailyCalorieGoal']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'dailyCalorieGoal': serializer.toJson<int?>(dailyCalorieGoal),
+    };
+  }
+
+  UserSettingsTableData copyWith({
+    int? id,
+    Value<int?> dailyCalorieGoal = const Value.absent(),
+  }) => UserSettingsTableData(
+    id: id ?? this.id,
+    dailyCalorieGoal:
+        dailyCalorieGoal.present
+            ? dailyCalorieGoal.value
+            : this.dailyCalorieGoal,
+  );
+  UserSettingsTableData copyWithCompanion(UserSettingsTableCompanion data) {
+    return UserSettingsTableData(
+      id: data.id.present ? data.id.value : this.id,
+      dailyCalorieGoal:
+          data.dailyCalorieGoal.present
+              ? data.dailyCalorieGoal.value
+              : this.dailyCalorieGoal,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UserSettingsTableData(')
+          ..write('id: $id, ')
+          ..write('dailyCalorieGoal: $dailyCalorieGoal')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, dailyCalorieGoal);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is UserSettingsTableData &&
+          other.id == this.id &&
+          other.dailyCalorieGoal == this.dailyCalorieGoal);
+}
+
+class UserSettingsTableCompanion
+    extends UpdateCompanion<UserSettingsTableData> {
+  final Value<int> id;
+  final Value<int?> dailyCalorieGoal;
+  const UserSettingsTableCompanion({
+    this.id = const Value.absent(),
+    this.dailyCalorieGoal = const Value.absent(),
+  });
+  UserSettingsTableCompanion.insert({
+    this.id = const Value.absent(),
+    this.dailyCalorieGoal = const Value.absent(),
+  });
+  static Insertable<UserSettingsTableData> custom({
+    Expression<int>? id,
+    Expression<int>? dailyCalorieGoal,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (dailyCalorieGoal != null) 'daily_calorie_goal': dailyCalorieGoal,
+    });
+  }
+
+  UserSettingsTableCompanion copyWith({
+    Value<int>? id,
+    Value<int?>? dailyCalorieGoal,
+  }) {
+    return UserSettingsTableCompanion(
+      id: id ?? this.id,
+      dailyCalorieGoal: dailyCalorieGoal ?? this.dailyCalorieGoal,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (dailyCalorieGoal.present) {
+      map['daily_calorie_goal'] = Variable<int>(dailyCalorieGoal.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UserSettingsTableCompanion(')
+          ..write('id: $id, ')
+          ..write('dailyCalorieGoal: $dailyCalorieGoal')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $MealInfoTableTable mealInfoTable = $MealInfoTableTable(this);
+  late final $UserSettingsTableTable userSettingsTable =
+      $UserSettingsTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [mealInfoTable];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    mealInfoTable,
+    userSettingsTable,
+  ];
 }
 
 typedef $$MealInfoTableTableCreateCompanionBuilder =
@@ -929,10 +1154,177 @@ typedef $$MealInfoTableTableProcessedTableManager =
       MealInfoTableData,
       PrefetchHooks Function()
     >;
+typedef $$UserSettingsTableTableCreateCompanionBuilder =
+    UserSettingsTableCompanion Function({
+      Value<int> id,
+      Value<int?> dailyCalorieGoal,
+    });
+typedef $$UserSettingsTableTableUpdateCompanionBuilder =
+    UserSettingsTableCompanion Function({
+      Value<int> id,
+      Value<int?> dailyCalorieGoal,
+    });
+
+class $$UserSettingsTableTableFilterComposer
+    extends Composer<_$AppDatabase, $UserSettingsTableTable> {
+  $$UserSettingsTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get dailyCalorieGoal => $composableBuilder(
+    column: $table.dailyCalorieGoal,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$UserSettingsTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $UserSettingsTableTable> {
+  $$UserSettingsTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get dailyCalorieGoal => $composableBuilder(
+    column: $table.dailyCalorieGoal,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$UserSettingsTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $UserSettingsTableTable> {
+  $$UserSettingsTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get dailyCalorieGoal => $composableBuilder(
+    column: $table.dailyCalorieGoal,
+    builder: (column) => column,
+  );
+}
+
+class $$UserSettingsTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $UserSettingsTableTable,
+          UserSettingsTableData,
+          $$UserSettingsTableTableFilterComposer,
+          $$UserSettingsTableTableOrderingComposer,
+          $$UserSettingsTableTableAnnotationComposer,
+          $$UserSettingsTableTableCreateCompanionBuilder,
+          $$UserSettingsTableTableUpdateCompanionBuilder,
+          (
+            UserSettingsTableData,
+            BaseReferences<
+              _$AppDatabase,
+              $UserSettingsTableTable,
+              UserSettingsTableData
+            >,
+          ),
+          UserSettingsTableData,
+          PrefetchHooks Function()
+        > {
+  $$UserSettingsTableTableTableManager(
+    _$AppDatabase db,
+    $UserSettingsTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer:
+              () => $$UserSettingsTableTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer:
+              () => $$UserSettingsTableTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer:
+              () => $$UserSettingsTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int?> dailyCalorieGoal = const Value.absent(),
+              }) => UserSettingsTableCompanion(
+                id: id,
+                dailyCalorieGoal: dailyCalorieGoal,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int?> dailyCalorieGoal = const Value.absent(),
+              }) => UserSettingsTableCompanion.insert(
+                id: id,
+                dailyCalorieGoal: dailyCalorieGoal,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$UserSettingsTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $UserSettingsTableTable,
+      UserSettingsTableData,
+      $$UserSettingsTableTableFilterComposer,
+      $$UserSettingsTableTableOrderingComposer,
+      $$UserSettingsTableTableAnnotationComposer,
+      $$UserSettingsTableTableCreateCompanionBuilder,
+      $$UserSettingsTableTableUpdateCompanionBuilder,
+      (
+        UserSettingsTableData,
+        BaseReferences<
+          _$AppDatabase,
+          $UserSettingsTableTable,
+          UserSettingsTableData
+        >,
+      ),
+      UserSettingsTableData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
   $AppDatabaseManager(this._db);
   $$MealInfoTableTableTableManager get mealInfoTable =>
       $$MealInfoTableTableTableManager(_db, _db.mealInfoTable);
+  $$UserSettingsTableTableTableManager get userSettingsTable =>
+      $$UserSettingsTableTableTableManager(_db, _db.userSettingsTable);
 }

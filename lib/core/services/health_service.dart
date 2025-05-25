@@ -36,18 +36,41 @@ class HealthService {
   Future<bool> get isHealthConnectAvailable =>
       _health.isHealthConnectAvailable();
 
-  Future<void> get installHealthConnect => _health.installHealthConnect();
+  // Future<void> get installHealthConnect => _health.installHealthConnect(); // Changed to method
+  Future<void> installHealthConnect() async {
+    try {
+      await _health.installHealthConnect();
+      // After attempting install, re-check status
+      // User will be taken outside the app, so when they return, status should be checked.
+      // For immediate effect if they don't leave app (unlikely), or for next init:
+      status =
+          await _health.getHealthConnectSdkStatus() ??
+          HealthConnectSdkStatus.sdkUnavailable;
+    } catch (e) {
+      log("Error during Health Connect install process: $e");
+      // Optionally update status here too
+    }
+  }
 
   Future<bool> requestAuthorization() async {
     try {
-      final authorized = await _health.requestAuthorization(
+      final success = await _health.requestAuthorization(
+        // Renamed 'authorized' to 'success' to avoid confusion
         _types,
         permissions: _permissions,
       );
-      log("Health authorization status: $authorized");
-      return authorized;
+      log("Health authorization request success: $success");
+      // After attempting authorization, re-check permissions and status
+      isAuthorized =
+          await _health.hasPermissions(_types, permissions: _permissions) ??
+          false;
+      status =
+          await _health.getHealthConnectSdkStatus() ??
+          HealthConnectSdkStatus.sdkUnavailable;
+      return isAuthorized; // Return the actual authorization status
     } catch (e) {
       log("Error requesting health authorization: $e");
+      // Optionally update status here too if error implies a specific state
       return false;
     }
   }

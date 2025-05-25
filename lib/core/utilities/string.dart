@@ -1,3 +1,4 @@
 extension StringX on String {
-  String get capitalized => this[0].toUpperCase() + substring(1).toLowerCase();
+  String get capitalized =>
+      isEmpty ? this : this[0].toUpperCase() + substring(1).toLowerCase();
 }

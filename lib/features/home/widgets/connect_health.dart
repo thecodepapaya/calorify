@@ -52,10 +52,8 @@ class HealthConnectPromptCard extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               isInstallRequired
-                  ? HealthService.instance.installHealthConnect
+                  ? HealthService.instance.installHealthConnect()
                   : HealthService.instance.requestAuthorization();
-
-              HealthService.instance.requestAuthorization();
             },
             style: ButtonStyle(
               backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
