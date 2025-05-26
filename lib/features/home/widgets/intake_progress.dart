@@ -59,6 +59,7 @@ class _IntakeProgressState extends State<IntakeProgress> {
           spots: spots,
           color: color,
           isCurved: true,
+          preventCurveOverShooting: true,
           barWidth: 3,
           dotData: FlDotData(show: false),
         ),

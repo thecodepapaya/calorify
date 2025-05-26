@@ -22,7 +22,7 @@ extension DateTimeHuman on DateTime {
         return "${difference.inMinutes} minutes ago";
       } else if (difference.inHours == 1) {
         return "1 hour ago";
-      } else if (difference.inHours < 12) {
+      } else if (difference.inHours < 24) {
         return "${difference.inHours} hours ago";
       } else {
         return "today";
