@@ -167,6 +167,7 @@ class _GoalInput extends StatefulWidget {
 
 class _GoalInputState extends State<_GoalInput> {
   final _controller = TextEditingController();
+  final _inputFocus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -183,6 +184,7 @@ class _GoalInputState extends State<_GoalInput> {
             SizedBox(
               width: 40,
               child: TextField(
+                focusNode: _inputFocus,
                 controller: _controller,
                 textAlign: TextAlign.end,
                 decoration: InputDecoration(
@@ -233,7 +235,10 @@ class _GoalInputState extends State<_GoalInput> {
 
   void _onSetGoal(String value) {
     final goal = int.tryParse(value);
-    if (goal == null) return;
+    if (goal == null) {
+      FocusScope.of(context).requestFocus(_inputFocus);
+      return;
+    }
     widget.onSetGoal(goal);
   }
 }

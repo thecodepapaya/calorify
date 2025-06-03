@@ -21,10 +21,10 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Calorify'),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(LucideIcons.moreVertical)),
-          SizedBox(width: 4),
-        ],
+        // actions: [
+        //   IconButton(onPressed: () {}, icon: Icon(LucideIcons.moreVertical)),
+        //   SizedBox(width: 4),
+        // ],
       ),
       body: SingleChildScrollView(
         child: Column(
