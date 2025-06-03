@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.health.READ_TOTAL_CALORIES_BURNED"/>
+    <!-- <uses-permission android:name="android.permission.health.READ_TOTAL_CALORIES_BURNED"/> -->
     <uses-permission android:name="android.permission.health.WRITE_NUTRITION"/>
-    <uses-permission android:name="android.permission.health.READ_NUTRITION"/>
+    <!-- <uses-permission android:name="android.permission.health.READ_NUTRITION"/> -->
     <!-- For reading historical data - more than 30 days ago since permission given -->
-    <uses-permission android:name="android.permission.health.READ_HEALTH_DATA_HISTORY"/>
+    <!-- <uses-permission android:name="android.permission.health.READ_HEALTH_DATA_HISTORY"/> -->
 
     <application
         android:label="Calorify"
