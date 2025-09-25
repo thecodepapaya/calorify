@@ -7,6 +7,7 @@ part 'meal_model.g.dart';
 @immutable
 @JsonSerializable()
 class MealInfo {
+  final int? id;
   @JsonKey(name: 'meal_name')
   final String mealName;
   @JsonKey(name: 'meal_quantity')
@@ -27,6 +28,7 @@ class MealInfo {
   final DateTime timestamp;
 
   const MealInfo({
+    this.id,
     required this.mealName,
     required this.mealQuantity,
     required this.mealType,

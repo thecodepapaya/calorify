@@ -1,6 +1,0 @@
-#include "Generated.xcconfig"
-
-bundle_suffix=
-app_name=Calorify
-PRODUCT_BUNDLE_IDENTIFIER=dev.thecodepapaya.calorify
-PRODUCT_NAME=Calorify

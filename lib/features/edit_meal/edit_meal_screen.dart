@@ -115,6 +115,7 @@ class _EditMealScreenState extends State<EditMealScreen> {
     );
 
     final updatedMealInfo = MealInfo(
+      id: widget.mealInfo.id,
       mealName: _nameController.text,
       calories: _calories,
       carbs: _carbs,
@@ -127,7 +128,7 @@ class _EditMealScreenState extends State<EditMealScreen> {
     );
 
     try {
-      final companion = MealInfoCompanion(
+      final companion = MealInfoTableCompanion(
         mealName: drift.Value(_nameController.text),
         calories: drift.Value(_calories),
         carbs: drift.Value(_carbs),
@@ -135,8 +136,13 @@ class _EditMealScreenState extends State<EditMealScreen> {
         fat: drift.Value(_fat),
         timestamp: drift.Value(newTimestamp),
       );
-      await (appDb.update(appDb.mealInfoTable)
-        ..where((tbl) => tbl.id.equals(widget.mealInfo.id))).write(companion);
+      if (widget.mealInfo.id != null) {
+        await (appDb.update(
+          appDb.mealInfoTable,
+        )..where((tbl) => tbl.id.equals(widget.mealInfo.id!))).write(companion);
+      } else {
+        await appDb.into(appDb.mealInfoTable).insert(companion);
+      }
       await HealthService.instance.writeMealData(updatedMealInfo);
 
       if (!mounted) return;

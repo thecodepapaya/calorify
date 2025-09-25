@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'calorify-1b40a',
     storageBucket: 'calorify-1b40a.firebasestorage.app',
   );
+
 }

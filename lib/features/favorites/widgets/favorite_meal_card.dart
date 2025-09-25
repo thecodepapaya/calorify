@@ -1,5 +1,6 @@
 import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/models/meal_type.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -58,7 +59,7 @@ class FavoriteMealCard extends StatelessWidget {
       final mealInfo = MealInfo(
         mealName: meal.mealName,
         mealQuantity: meal.mealQuantity,
-        mealType: meal.mealType,
+        mealType: MealType.values.byName(meal.mealType),
         calories: meal.calories,
         protein: meal.protein,
         carbs: meal.carbs,
@@ -73,7 +74,7 @@ class FavoriteMealCard extends StatelessWidget {
             MealInfoTableCompanion.insert(
               mealName: mealInfo.mealName,
               mealQuantity: mealInfo.mealQuantity,
-              mealType: mealInfo.mealType,
+              mealType: mealInfo.mealType.name,
               calories: mealInfo.calories,
               protein: mealInfo.protein,
               carbs: mealInfo.carbs,
