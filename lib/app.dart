@@ -1,3 +1,4 @@
+import 'package:calorify/core/config/app_config.dart';
 import 'package:calorify/core/constants/theme.dart';
 import 'package:calorify/features/home/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ class CalorifyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: AppConfig.title,
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
       home: HomeScreen(),

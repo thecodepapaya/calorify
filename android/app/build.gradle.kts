@@ -41,6 +41,19 @@ android {
         versionName = flutter.versionName
     }
 
+    flavorDimensions.add("flavor")
+
+    productFlavors {
+        create("staging") {
+            dimension = "flavor"
+            applicationIdSuffix = ".staging"
+            versionNameSuffix = "-staging"
+        }
+        create("prod") {
+            dimension = "flavor"
+        }
+    }
+
     signingConfigs {
         create("release") {
             keyAlias = keystoreProperties["keyAlias"] as String

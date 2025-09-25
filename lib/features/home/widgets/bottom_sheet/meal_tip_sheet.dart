@@ -2,8 +2,10 @@ import 'dart:typed_data';
 
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_detection_result.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
 import 'package:calorify/features/history/widgets/meal_quantity.dart';
 import 'package:calorify/features/history/widgets/meal_timestamp.dart';
 import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
@@ -200,6 +202,61 @@ class _UnidentifiedMealTip extends StatelessWidget {
           ),
         ],
       ),
+      SizedBox(height: 20),
+      Row(
+        children: [
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => EditMealScreen(
+                      mealInfo: mealInfo,
+                      imageData: imageData,
+                    ),
+                  ),
+                );
+              },
+              child: Text('Edit'),
+            ),
+          ),
+          SizedBox(width: 12),
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () async {
+                try {
+                  await appDb.into(appDb.favoriteMealTable).insert(
+                        FavoriteMealTableCompanion.insert(
+                          mealName: mealInfo.mealName,
+                          mealQuantity: mealInfo.mealQuantity,
+                          mealType: mealInfo.mealType,
+                          calories: mealInfo.calories.round(),
+                          protein: mealInfo.protein.round(),
+                          carbs: mealInfo.carbs.round(),
+                          fat: mealInfo.fat.round(),
+                          fiber: mealInfo.fiber.round(),
+                          timestamp: DateTime.now(),
+                        ),
+                      );
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Meal saved as favorite!')),
+                    );
+                    Navigator.of(context).pop();
+                  }
+                } on Exception catch (e) {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Could not save favorite: $e')),
+                    );
+                  }
+                }
+              },
+              child: Text('Save as Favorite'),
+            ),
+          ),
+        ],
+      )
     ];
   }
 }

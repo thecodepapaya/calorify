@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:calorify/core/db/tables/favorite_meal.dart';
 import 'package:calorify/core/db/tables/meal_info.dart';
 import 'package:calorify/core/db/tables/user_settings.dart';
 import 'package:drift/drift.dart';
@@ -8,12 +9,12 @@ import 'package:path/path.dart' as p;
 
 part 'app_database.g.dart';
 
-@DriftDatabase(tables: [MealInfoTable, UserSettingsTable])
+@DriftDatabase(tables: [MealInfoTable, UserSettingsTable, FavoriteMealTable])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   static const int _userSettingsId = 1;
 
