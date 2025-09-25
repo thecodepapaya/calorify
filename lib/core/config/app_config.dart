@@ -1,7 +1,4 @@
-enum Flavor {
-  staging,
-  prod,
-}
+enum Flavor { staging, prod }
 
 class AppConfig {
   static const _flavorString = String.fromEnvironment('flavor');
@@ -16,7 +13,6 @@ class AppConfig {
       case Flavor.staging:
         return 'Calorify (Staging)';
       case Flavor.prod:
-      default:
         return 'Calorify';
     }
   }

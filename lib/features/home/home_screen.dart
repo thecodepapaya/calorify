@@ -3,17 +3,10 @@ import 'package:calorify/features/home/widgets/connect_health.dart';
 import 'package:calorify/features/home/widgets/daily_goal.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/intake_progress.dart';
-import 'package:calorify/core/services/health_service.dart';
-import 'package:calorify/features/favorites/favorites_screen.dart';
-import 'package:calorify/features/home/widgets/connect_health.dart';
-import 'package:calorify/features/home/widgets/daily_goal.dart';
-import 'package:calorify/features/home/widgets/daily_summary.dart';
-import 'package:calorify/features/home/widgets/intake_progress.dart';
 import 'package:calorify/features/home/widgets/meal_log.dart';
 import 'package:calorify/features/home/widgets/meal_snap.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

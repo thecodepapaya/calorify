@@ -210,10 +210,11 @@ class _UnidentifiedMealTip extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => EditMealScreen(
-                      mealInfo: mealInfo,
-                      imageData: imageData,
-                    ),
+                    builder:
+                        (context) => EditMealScreen(
+                          mealInfo: mealInfo,
+                          imageData: imageData,
+                        ),
                   ),
                 );
               },
@@ -225,11 +226,13 @@ class _UnidentifiedMealTip extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () async {
                 try {
-                  await appDb.into(appDb.favoriteMealTable).insert(
+                  await appDb
+                      .into(appDb.favoriteMealTable)
+                      .insert(
                         FavoriteMealTableCompanion.insert(
                           mealName: mealInfo.mealName,
                           mealQuantity: mealInfo.mealQuantity,
-                          mealType: mealInfo.mealType,
+                          mealType: mealInfo.mealType.toString(),
                           calories: mealInfo.calories.round(),
                           protein: mealInfo.protein.round(),
                           carbs: mealInfo.carbs.round(),
@@ -256,7 +259,7 @@ class _UnidentifiedMealTip extends StatelessWidget {
             ),
           ),
         ],
-      )
+      ),
     ];
   }
 }

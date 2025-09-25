@@ -20,10 +20,7 @@ class FavoriteMealCard extends StatelessWidget {
           children: [
             Text(
               meal.mealName,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Row(
@@ -59,7 +56,6 @@ class FavoriteMealCard extends StatelessWidget {
   Future<void> _logMeal(BuildContext context) async {
     try {
       final mealInfo = MealInfo(
-        id: 0,
         mealName: meal.mealName,
         mealQuantity: meal.mealQuantity,
         mealType: meal.mealType,
@@ -71,7 +67,9 @@ class FavoriteMealCard extends StatelessWidget {
         timestamp: DateTime.now(),
       );
 
-      await appDb.into(appDb.mealInfoTable).insert(
+      await appDb
+          .into(appDb.mealInfoTable)
+          .insert(
             MealInfoTableCompanion.insert(
               mealName: mealInfo.mealName,
               mealQuantity: mealInfo.mealQuantity,
@@ -94,9 +92,9 @@ class FavoriteMealCard extends StatelessWidget {
       }
     } on Exception catch (e) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Could not log meal: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Could not log meal: $e')));
       }
     }
   }
@@ -104,12 +102,11 @@ class FavoriteMealCard extends StatelessWidget {
   Future<void> _deleteFavorite(BuildContext context) async {
     try {
       await (appDb.delete(appDb.favoriteMealTable)
-            ..where((tbl) => tbl.id.equals(meal.id)))
-          .go();
+        ..where((tbl) => tbl.id.equals(meal.id))).go();
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Favorite meal deleted!')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Favorite meal deleted!')));
       }
     } on Exception catch (e) {
       if (context.mounted) {

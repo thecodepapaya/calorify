@@ -23,21 +23,23 @@ class _EditMealScreenState extends State<EditMealScreen> {
   late TextEditingController _nameController;
   late TextEditingController _timeController;
   late TimeOfDay _selectedTime;
-  late double _calories;
-  late double _carbs;
-  late double _protein;
-  late double _fat;
+  late int _calories;
+  late int _carbs;
+  late int _protein;
+  late int _fat;
 
   @override
   void initState() {
     super.initState();
     _nameController = TextEditingController(text: widget.mealInfo.mealName);
     _selectedTime = TimeOfDay.fromDateTime(widget.mealInfo.timestamp);
-    _timeController = TextEditingController(text: _selectedTime.format(context));
+    _timeController = TextEditingController(
+      text: _selectedTime.format(context),
+    );
     _calories = widget.mealInfo.calories;
-    _carbs = widget.mealInfo.carbs.toDouble();
-    _protein = widget.mealInfo.protein.toDouble();
-    _fat = widget.mealInfo.fat.toDouble();
+    _carbs = widget.mealInfo.carbs;
+    _protein = widget.mealInfo.protein;
+    _fat = widget.mealInfo.fat;
   }
 
   @override
@@ -46,10 +48,7 @@ class _EditMealScreenState extends State<EditMealScreen> {
       appBar: AppBar(
         title: const Text('Edit Meal'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.check),
-            onPressed: _saveMeal,
-          ),
+          IconButton(icon: const Icon(Icons.check), onPressed: _saveMeal),
         ],
       ),
       body: SingleChildScrollView(
@@ -107,10 +106,15 @@ class _EditMealScreenState extends State<EditMealScreen> {
 
   Future<void> _saveMeal() async {
     final now = DateTime.now();
-    final newTimestamp = DateTime(now.year, now.month, now.day, _selectedTime.hour, _selectedTime.minute);
+    final newTimestamp = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      _selectedTime.hour,
+      _selectedTime.minute,
+    );
 
     final updatedMealInfo = MealInfo(
-      id: widget.mealInfo.id,
       mealName: _nameController.text,
       calories: _calories,
       carbs: _carbs,
@@ -131,7 +135,8 @@ class _EditMealScreenState extends State<EditMealScreen> {
         fat: drift.Value(_fat),
         timestamp: drift.Value(newTimestamp),
       );
-      await (appDb.update(appDb.mealInfoTable)..where((tbl) => tbl.id.equals(widget.mealInfo.id))).write(companion);
+      await (appDb.update(appDb.mealInfoTable)
+        ..where((tbl) => tbl.id.equals(widget.mealInfo.id))).write(companion);
       await HealthService.instance.writeMealData(updatedMealInfo);
 
       if (!mounted) return;
@@ -141,24 +146,30 @@ class _EditMealScreenState extends State<EditMealScreen> {
       Navigator.of(context).pop();
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error saving meal: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Error saving meal: $e')));
     }
   }
 
-  Widget _buildSlider(String label, double value, double min, double max, ValueChanged<double> onChanged) {
+  Widget _buildSlider(
+    String label,
+    int value,
+    int min,
+    int max,
+    ValueChanged<int> onChanged,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('$label: ${value.toStringAsFixed(1)}'),
         Slider(
-          value: value,
-          min: min,
-          max: max,
+          value: value.toDouble(),
+          min: min.toDouble(),
+          max: max.toDouble(),
           divisions: (max - min).toInt(),
           label: value.toStringAsFixed(1),
-          onChanged: onChanged,
+          onChanged: (value) => onChanged(value.toInt()),
         ),
       ],
     );
