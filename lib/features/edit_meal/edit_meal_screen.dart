@@ -6,13 +6,13 @@ import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 
 class EditMealScreen extends StatefulWidget {
-  final MealInfo mealInfo;
-  final Uint8List imageData;
+  final MealInfo? mealInfo;
+  final Uint8List? imageData;
 
   const EditMealScreen({
     super.key,
-    required this.mealInfo,
-    required this.imageData,
+    this.mealInfo,
+    this.imageData,
   });
 
   @override
@@ -28,25 +28,36 @@ class _EditMealScreenState extends State<EditMealScreen> {
   late int _protein;
   late int _fat;
 
+  bool get isEditing => widget.mealInfo != null;
+
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: widget.mealInfo.mealName);
-    _selectedTime = TimeOfDay.fromDateTime(widget.mealInfo.timestamp);
+    if (isEditing) {
+      _nameController = TextEditingController(text: widget.mealInfo!.mealName);
+      _selectedTime = TimeOfDay.fromDateTime(widget.mealInfo!.timestamp);
+      _calories = widget.mealInfo!.calories;
+      _carbs = widget.mealInfo!.carbs;
+      _protein = widget.mealInfo!.protein;
+      _fat = widget.mealInfo!.fat;
+    } else {
+      _nameController = TextEditingController();
+      _selectedTime = TimeOfDay.now();
+      _calories = 0;
+      _carbs = 0;
+      _protein = 0;
+      _fat = 0;
+    }
     _timeController = TextEditingController(
       text: _selectedTime.format(context),
     );
-    _calories = widget.mealInfo.calories;
-    _carbs = widget.mealInfo.carbs;
-    _protein = widget.mealInfo.protein;
-    _fat = widget.mealInfo.fat;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Meal'),
+        title: Text(isEditing ? 'Edit Meal' : 'Add Meal'),
         actions: [
           IconButton(icon: const Icon(Icons.check), onPressed: _saveMeal),
         ],
@@ -56,8 +67,10 @@ class _EditMealScreenState extends State<EditMealScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.memory(widget.imageData),
-            const SizedBox(height: 20),
+            if (widget.imageData != null) ...[
+              Image.memory(widget.imageData!),
+              const SizedBox(height: 20),
+            ],
             TextField(
               controller: _nameController,
               decoration: const InputDecoration(
@@ -68,6 +81,7 @@ class _EditMealScreenState extends State<EditMealScreen> {
             const SizedBox(height: 20),
             TextField(
               controller: _timeController,
+              readOnly: true,
               decoration: const InputDecoration(
                 labelText: 'Time of Meal',
                 border: OutlineInputBorder(),
@@ -114,16 +128,16 @@ class _EditMealScreenState extends State<EditMealScreen> {
       _selectedTime.minute,
     );
 
-    final updatedMealInfo = MealInfo(
-      id: widget.mealInfo.id,
+    final mealInfo = MealInfo(
+      id: isEditing ? widget.mealInfo!.id : null,
       mealName: _nameController.text,
       calories: _calories,
       carbs: _carbs,
       protein: _protein,
       fat: _fat,
-      fiber: widget.mealInfo.fiber,
-      mealType: widget.mealInfo.mealType,
-      mealQuantity: widget.mealInfo.mealQuantity,
+      fiber: isEditing ? widget.mealInfo!.fiber : 0,
+      mealType: isEditing ? widget.mealInfo!.mealType : 'Unknown',
+      mealQuantity: isEditing ? widget.mealInfo!.mealQuantity : 'Unknown',
       timestamp: newTimestamp,
     );
 
@@ -136,18 +150,20 @@ class _EditMealScreenState extends State<EditMealScreen> {
         fat: drift.Value(_fat),
         timestamp: drift.Value(newTimestamp),
       );
-      if (widget.mealInfo.id != null) {
-        await (appDb.update(
-          appDb.mealInfoTable,
-        )..where((tbl) => tbl.id.equals(widget.mealInfo.id!))).write(companion);
+      if (isEditing) {
+        await (appDb.update(appDb.mealInfoTable)
+              ..where((tbl) => tbl.id.equals(widget.mealInfo!.id!)))
+            .write(companion);
       } else {
         await appDb.into(appDb.mealInfoTable).insert(companion);
       }
-      await HealthService.instance.writeMealData(updatedMealInfo);
+      await HealthService.instance.writeMealData(mealInfo);
 
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Meal updated successfully!')),
+        SnackBar(
+          content: Text('Meal ${isEditing ? 'updated' : 'added'} successfully!'),
+        ),
       );
       Navigator.of(context).pop();
     } catch (e) {

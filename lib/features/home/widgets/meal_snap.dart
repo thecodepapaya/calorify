@@ -10,6 +10,7 @@ import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/picker_service.dart';
+import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/snap_disclaimer_sheet.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
@@ -84,7 +85,7 @@ class _MealSnapState extends State<MealSnap> {
                   height: 200,
                   child: AppLoader(color: colorScheme.surface),
                 ),
-              if (!_isLoading) ...[SizedBox(height: 10), _buttonRow],
+              if (!_isLoading) ...[SizedBox(height: 10), _buttons],
             ],
           ),
         ),
@@ -100,62 +101,103 @@ class _MealSnapState extends State<MealSnap> {
     );
   }
 
-  Widget get _buttonRow {
+  Widget get _buttons {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
 
-    return Row(
+    return Column(
       children: [
-        Expanded(
-          flex: 4,
-          child: ElevatedButton(
-            onPressed: () async {
-              final image = await ImagePickerService().pickImageFromCamera();
-              if (image == null) return;
-              _onSelectImage(image);
-            },
-            style: ButtonStyle(
-              minimumSize: WidgetStatePropertyAll(Size(double.infinity, 50)),
-              backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
-              foregroundColor: WidgetStatePropertyAll(colorScheme.onPrimary),
-              shape: WidgetStatePropertyAll(
-                RoundedRectangleBorder(borderRadius: globalRadius),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(LucideIcons.camera),
-                SizedBox(width: 6),
-                Text(
-                  'Open Camera',
-                  style: textTheme.bodyLarge?.copyWith(
-                    color: colorScheme.onPrimary,
+        Row(
+          children: [
+            Expanded(
+              flex: 4,
+              child: ElevatedButton(
+                onPressed: () async {
+                  final image =
+                      await ImagePickerService().pickImageFromCamera();
+                  if (image == null) return;
+                  _onSelectImage(image);
+                },
+                style: ButtonStyle(
+                  minimumSize:
+                      WidgetStatePropertyAll(Size(double.infinity, 50)),
+                  backgroundColor:
+                      WidgetStatePropertyAll(colorScheme.primary),
+                  foregroundColor:
+                      WidgetStatePropertyAll(colorScheme.onPrimary),
+                  shape: WidgetStatePropertyAll(
+                    RoundedRectangleBorder(borderRadius: globalRadius),
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
-        SizedBox(width: 12),
-        Expanded(
-          flex: 1,
-          child: ElevatedButton(
-            onPressed: () async {
-              final image = await ImagePickerService().pickImageFromGallery();
-              if (image == null) return;
-              _onSelectImage(image);
-            },
-            style: ButtonStyle(
-              minimumSize: WidgetStatePropertyAll(Size(double.infinity, 50)),
-              backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
-              foregroundColor: WidgetStatePropertyAll(colorScheme.onPrimary),
-              shape: WidgetStatePropertyAll(
-                RoundedRectangleBorder(borderRadius: globalRadius),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(LucideIcons.camera),
+                    SizedBox(width: 6),
+                    Text(
+                      'Open Camera',
+                      style: textTheme.bodyLarge?.copyWith(
+                        color: colorScheme.onPrimary,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            child: Icon(LucideIcons.imagePlus),
+            SizedBox(width: 12),
+            Expanded(
+              flex: 1,
+              child: ElevatedButton(
+                onPressed: () async {
+                  final image =
+                      await ImagePickerService().pickImageFromGallery();
+                  if (image == null) return;
+                  _onSelectImage(image);
+                },
+                style: ButtonStyle(
+                  minimumSize:
+                      WidgetStatePropertyAll(Size(double.infinity, 50)),
+                  backgroundColor:
+                      WidgetStatePropertyAll(colorScheme.primary),
+                  foregroundColor:
+                      WidgetStatePropertyAll(colorScheme.onPrimary),
+                  shape: WidgetStatePropertyAll(
+                    RoundedRectangleBorder(borderRadius: globalRadius),
+                  ),
+                ),
+                child: Icon(LucideIcons.imagePlus),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 12),
+        OutlinedButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => EditMealScreen(),
+              ),
+            );
+          },
+          style: ButtonStyle(
+            minimumSize: WidgetStatePropertyAll(Size(double.infinity, 50)),
+            shape: WidgetStatePropertyAll(
+              RoundedRectangleBorder(borderRadius: globalRadius),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(LucideIcons.edit3),
+              SizedBox(width: 6),
+              Text(
+                'Add Manually',
+                style: textTheme.bodyLarge?.copyWith(
+                  color: colorScheme.primary,
+                ),
+              ),
+            ],
           ),
         ),
       ],
