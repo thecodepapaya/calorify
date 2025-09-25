@@ -136,4 +136,26 @@ class HealthService {
       return false;
     }
   }
+
+  Future<double> getTotalCaloriesBurned() async {
+    final now = DateTime.now();
+    final startTime = DateTime(now.year, now.month, now.day);
+    final endTime = now;
+
+    final data = await fetchHealthData(
+      startTime,
+      endTime,
+      HealthDataType.TOTAL_CALORIES_BURNED,
+    );
+
+    if (data.isEmpty) {
+      return 0;
+    }
+
+    final totalCalories = data
+        .map((e) => (e.value as NumericHealthValue).numericValue.toDouble())
+        .reduce((value, element) => value + element);
+
+    return totalCalories;
+  }
 }
