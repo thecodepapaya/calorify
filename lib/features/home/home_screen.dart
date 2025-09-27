@@ -45,6 +45,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             if (!isHealthConnectUnsupported && !isHealthConnectAuthorized) ...[
+              SizedBox(height: 10),
               HealthConnectPromptCard(),
               SizedBox(height: 20),
             ],

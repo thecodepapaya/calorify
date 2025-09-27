@@ -175,9 +175,11 @@ class _MealTipState extends State<_MealTip> {
               if (widget.allowEdit)
                 IconButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    final navigator = Navigator.of(context);
+                    final parentContext = navigator.context;
+                    navigator.pop();
                     showEditMealSheet(
-                      context,
+                      parentContext,
                       mealInfo: mealInfo,
                       imageData: widget.imageData,
                     );

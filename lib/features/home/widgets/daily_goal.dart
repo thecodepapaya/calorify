@@ -80,68 +80,67 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
 
     final isTargetSet = _target > 0;
 
-    return StreamBuilder<List<MealInfo>>(
-      stream: appDb.watchAllMealsForToday(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return ErrorView(error: snapshot.error!);
-        }
-        final meals = snapshot.data ?? [];
-        final caloriesConsumed = meals.fold(
-          0,
-          (sum, meal) => sum + meal.calories,
-        );
-
-        return Container(
-          margin: globalMargin,
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: globalRadius,
-            border: Border.all(color: colorScheme.outline),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      margin: globalMargin,
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: globalRadius,
+        border: Border.all(color: colorScheme.outline),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  Icon(
-                    isTargetSet ? LucideIcons.compass : LucideIcons.target,
-                    color: colorScheme.primary,
-                  ),
-                  SizedBox(width: 8),
-                  Text(
-                    isTargetSet ? 'Your Daily Goal' : 'Set Your Daily Goal',
-                    style: textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: colorScheme.onSurface,
-                    ),
-                  ),
-                ],
+              Icon(
+                isTargetSet ? LucideIcons.compass : LucideIcons.target,
+                color: colorScheme.primary,
               ),
-              SizedBox(height: 8),
+              SizedBox(width: 8),
               Text(
-                isTargetSet
-                    ? 'Your compass is set! '
-                        'This is your daily calorie target to guide you.'
-                    : 'Ready to embark on your wellness journey? '
-                        'Set your daily calorie target below to kickstart your progress.',
-                style: textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSecondary.withValues(alpha: 0.7),
+                isTargetSet ? 'Your Daily Goal' : 'Set Your Daily Goal',
+                style: textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: colorScheme.onSurface,
                 ),
               ),
-              const SizedBox(height: 20),
-              _isEditing
+            ],
+          ),
+          SizedBox(height: 8),
+          Text(
+            isTargetSet
+                ? 'Your compass is set! '
+                    'This is your daily calorie target to guide you.'
+                : 'Ready to embark on your wellness journey? '
+                    'Set your daily calorie target below to kickstart your progress.',
+            style: textTheme.bodyMedium?.copyWith(
+              color: colorScheme.onSecondary.withValues(alpha: 0.7),
+            ),
+          ),
+          const SizedBox(height: 20),
+          StreamBuilder<List<MealInfo>>(
+            stream: appDb.watchAllMealsForToday(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return ErrorView(error: snapshot.error!);
+              }
+              final meals = snapshot.data ?? [];
+              final caloriesConsumed = meals.fold(
+                0,
+                (sum, meal) => sum + meal.calories,
+              );
+              return _isEditing
                   ? _GoalInput(onSetGoal: _updateAndSaveGoal)
                   : _ShowGoal(
                     caloriesGoal: _target,
                     caloriesBurned: _caloriesBurned,
                     caloriesConsumed: caloriesConsumed,
                     onEdit: () => setState(() => _isEditing = true),
-                  ),
-            ],
+                  );
+            },
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

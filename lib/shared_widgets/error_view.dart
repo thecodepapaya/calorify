@@ -18,6 +18,8 @@ class ErrorView extends StatelessWidget {
 
     return Center(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(LucideIcons.info, color: color, size: 24),
           SizedBox(height: 8),

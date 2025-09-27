@@ -12,6 +12,8 @@ class MealImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final normalizedImageUrl = imageUrl?.trim();
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: globalRadius,
@@ -19,9 +21,9 @@ class MealImage extends StatelessWidget {
           image:
               imageBytes != null
                   ? MemoryImage(imageBytes!)
-                  : imageUrl != null
-                  ? NetworkImage(imageUrl!)
-                  : AssetImage(Assets.foodPlaceholder) as ImageProvider,
+                  : normalizedImageUrl?.isNotEmpty == true
+                  ? NetworkImage(normalizedImageUrl!)
+                  : AssetImage(Assets.foodPlaceholder),
           fit: BoxFit.cover,
         ),
       ),
