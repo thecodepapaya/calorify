@@ -1,8 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/db/app_database.dart';
-import 'package:calorify/core/db/mappers/meal_info_mapper.dart';
 import 'package:calorify/core/models/meal_model.dart';
-import 'package:calorify/features/history/meal_history_screen.dart';
+import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:drift/drift.dart' as db;
@@ -77,9 +77,7 @@ class _MealLogState extends State<MealLog> {
             alignment: Alignment.bottomCenter,
             child: TextButton(
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => MealHistoryScreen()),
-                );
+                context.router.push(const MealHistoryRoute());
               },
               style: ButtonStyle(
                 textStyle: WidgetStatePropertyAll(
@@ -111,7 +109,7 @@ class _MealLogState extends State<MealLog> {
                 tbl.timestamp.isSmallerOrEqualValue(endOfDay),
           )).get();
 
-      meals = rows.map(MealInfoMapper.fromRow).toList();
+      meals = rows.map((row) => MealInfo.fromRow(row)).toList();
       setState(() {});
     } finally {
       setState(() {

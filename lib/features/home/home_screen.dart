@@ -1,13 +1,17 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/features/home/widgets/connect_health.dart';
 import 'package:calorify/features/home/widgets/daily_goal.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
+import 'package:calorify/features/home/widgets/facourite_meals.dart';
 import 'package:calorify/features/home/widgets/intake_progress.dart';
+import 'package:calorify/features/home/widgets/meal_description.dart';
 import 'package:calorify/features/home/widgets/meal_log.dart';
 import 'package:calorify/features/home/widgets/meal_snap.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
 
+@RoutePage()
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -33,6 +37,10 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 20),
             ],
             SetDailyGoal(),
+            SizedBox(height: 20),
+            DescribeMeal(),
+            SizedBox(height: 20),
+            FavoriteMeals(),
             SizedBox(height: 20),
             MealSnap(),
             SizedBox(height: 20),

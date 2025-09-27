@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:calorify/core/db/tables/favorite_meal.dart';
 import 'package:calorify/core/db/tables/meal_info.dart';
 import 'package:calorify/core/db/tables/user_settings.dart';
+import 'package:calorify/core/models/meal_model.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
@@ -31,6 +32,24 @@ class AppDatabase extends _$AppDatabase {
         id: const Value(_userSettingsId),
         dailyCalorieGoal: Value(goal),
       ),
+    );
+  }
+
+  Stream<List<MealInfo>> watchAllMealsForToday() {
+    final now = DateTime.now();
+    final startOfToday = DateTime(now.year, now.month, now.day);
+    final endOfToday = startOfToday.add(const Duration(days: 1));
+
+    return (select(mealInfoTable)..where(
+      (tbl) =>
+          tbl.timestamp.isBiggerOrEqualValue(startOfToday) &
+          tbl.timestamp.isSmallerThanValue(endOfToday),
+    )).watch().map((rows) => rows.map((row) => MealInfo.fromRow(row)).toList());
+  }
+
+  Stream<List<MealInfo>> watchAllFavoriteMeals() {
+    return select(favoriteMealTable).watch().map(
+      (rows) => rows.map((row) => MealInfo.fromDrift(row)).toList(),
     );
   }
 }

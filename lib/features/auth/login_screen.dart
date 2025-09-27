@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/services/auth_service.dart';
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart'; // If using Provider
 
+@RoutePage()
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
   // static const routeName = '/login';
@@ -13,7 +15,7 @@ class LoginScreen extends StatelessWidget {
     // If using Provider:
     // final authService = Provider.of<AuthService>(context, listen: false);
     // If not:
-    final authService = AuthService();
+    final authService = AuthService.instance;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Login')),

@@ -1,6 +1,7 @@
 import 'package:calorify/core/models/meal_type.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:calorify/core/db/app_database.dart';
 
 part 'meal_model.g.dart';
 
@@ -56,5 +57,35 @@ class MealInfo {
         'fat: $fat, '
         'fiber: $fiber, '
         'timestamp: $timestamp)';
+  }
+
+  factory MealInfo.fromRow(MealInfoTableData data) {
+    return MealInfo(
+      id: data.id,
+      mealName: data.mealName,
+      mealQuantity: data.mealQuantity,
+      mealType: MealType.values.byName(data.mealType),
+      calories: data.calories,
+      protein: data.protein,
+      carbs: data.carbs,
+      fat: data.fat,
+      fiber: data.fiber,
+      timestamp: data.timestamp,
+    );
+  }
+
+  factory MealInfo.fromDrift(dynamic data) {
+    return MealInfo(
+      id: data.id,
+      mealName: data.mealName,
+      mealQuantity: data.mealQuantity,
+      mealType: MealType.values.byName(data.mealType),
+      calories: data.calories,
+      protein: data.protein,
+      carbs: data.carbs,
+      fat: data.fat,
+      fiber: data.fiber,
+      timestamp: data.timestamp,
+    );
   }
 }

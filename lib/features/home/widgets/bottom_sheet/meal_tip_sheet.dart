@@ -1,21 +1,24 @@
 import 'dart:typed_data';
+import 'dart:ui';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_detection_result.dart';
 import 'package:calorify/core/models/meal_model.dart';
-import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
+import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/features/history/widgets/meal_quantity.dart';
 import 'package:calorify/features/history/widgets/meal_timestamp.dart';
 import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
+import 'package:calorify/features/home/widgets/meal_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 Future<void> showMealTip(
   BuildContext context,
-  Uint8List imageData,
+  Uint8List? imageData,
   MealDetectionResult mealDetectionResult,
 ) {
   return showModalBottomSheet(
@@ -39,7 +42,7 @@ class _UnidentifiedMealTip extends StatelessWidget {
   });
 
   final MealDetectionResult mealDetectionResult;
-  final Uint8List imageData;
+  final Uint8List? imageData;
 
   @override
   Widget build(BuildContext context) {
@@ -85,17 +88,7 @@ class _UnidentifiedMealTip extends StatelessWidget {
         style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
       ),
       SizedBox(height: 12),
-      Container(
-        decoration: BoxDecoration(
-          borderRadius: globalRadius,
-          image: DecorationImage(
-            image: MemoryImage(imageData),
-            fit: BoxFit.cover,
-          ),
-        ),
-        width: double.infinity,
-        height: 200,
-      ),
+      MealImage(imageBytes: imageData),
     ];
   }
 
@@ -106,31 +99,41 @@ class _UnidentifiedMealTip extends StatelessWidget {
     final MealInfo mealInfo = mealDetectionResult.mealInfo;
 
     return [
-      Text(
-        mealInfo.mealName,
-        style: textTheme.titleMedium?.copyWith(color: colorScheme.onSurface),
-      ),
       Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MealTypeIndicator(mealType: mealInfo.mealType),
-          SizedBox(width: 8),
-          MealQuantityIndicator(quantity: mealInfo.mealQuantity),
-          SizedBox(width: 8),
-          MealTimestamp(timestamp: DateTime.now()),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                mealInfo.mealName,
+                style: textTheme.titleMedium?.copyWith(
+                  color: colorScheme.onSurface,
+                ),
+              ),
+              Row(
+                children: [
+                  MealTypeIndicator(mealType: mealInfo.mealType),
+                  SizedBox(width: 8),
+                  MealQuantityIndicator(quantity: mealInfo.mealQuantity),
+                  SizedBox(width: 8),
+                  MealTimestamp(timestamp: DateTime.now()),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(width: 12),
+          IconButton(
+            onPressed: () {},
+            padding: EdgeInsets.zero,
+            visualDensity: VisualDensity.compact,
+            icon: Icon(LucideIcons.star, size: 24, color: colorScheme.tertiary),
+          ),
         ],
       ),
       SizedBox(height: 16),
-      Container(
-        decoration: BoxDecoration(
-          borderRadius: globalRadius,
-          image: DecorationImage(
-            image: MemoryImage(imageData),
-            fit: BoxFit.cover,
-          ),
-        ),
-        width: double.infinity,
-        height: 200,
-      ),
+      MealImage(imageBytes: imageData),
       SizedBox(height: 16),
       Text(
         mealDetectionResult.tip,
@@ -208,14 +211,8 @@ class _UnidentifiedMealTip extends StatelessWidget {
           Expanded(
             child: ElevatedButton(
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder:
-                        (context) => EditMealScreen(
-                          mealInfo: mealInfo,
-                          imageData: imageData,
-                        ),
-                  ),
+                context.router.push(
+                  EditMealRoute(mealInfo: mealInfo, imageData: imageData),
                 );
               },
               child: Text('Edit'),

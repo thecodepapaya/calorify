@@ -4,8 +4,10 @@ import 'package:calorify/core/models/meal_model.dart';
 import 'package:health/health.dart';
 
 class HealthService {
-  static HealthService instance = HealthService._();
   HealthService._();
+
+  static final _instance = HealthService._();
+  static get instance => _instance;
 
   final Health _health = Health(); // For Android specific
   Future<void> init() async {

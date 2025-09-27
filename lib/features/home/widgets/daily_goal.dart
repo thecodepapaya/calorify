@@ -1,6 +1,7 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/db/app_database.dart';
+import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -79,62 +80,65 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
     final isTargetSet = _target > 0;
 
     return StreamBuilder<List<MealInfo>>(
-        stream: appDb.watchAllMealsForToday(),
-        builder: (context, snapshot) {
-          final meals = snapshot.data ?? [];
-          final caloriesConsumed =
-              meals.fold(0, (sum, meal) => sum + meal.calories);
+      stream: appDb.watchAllMealsForToday(),
+      builder: (context, snapshot) {
+        final meals = snapshot.data ?? [];
+        final caloriesConsumed = meals.fold(
+          0,
+          (sum, meal) => sum + meal.calories,
+        );
 
-          return Container(
-            margin: globalMargin,
-            padding: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              borderRadius: globalRadius,
-              border: Border.all(color: colorScheme.outline),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(
-                      isTargetSet ? LucideIcons.compass : LucideIcons.target,
-                      color: colorScheme.primary,
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      isTargetSet ? 'Your Daily Goal' : 'Set Your Daily Goal',
-                      style: textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: colorScheme.onSurface,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8),
-                Text(
-                  isTargetSet
-                      ? 'Your compass is set! '
-                          'This is your daily calorie target to guide you.'
-                      : 'Ready to embark on your wellness journey? '
-                          'Set your daily calorie target below to kickstart your progress.',
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSecondary.withValues(alpha: 0.7),
+        return Container(
+          margin: globalMargin,
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            borderRadius: globalRadius,
+            border: Border.all(color: colorScheme.outline),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    isTargetSet ? LucideIcons.compass : LucideIcons.target,
+                    color: colorScheme.primary,
                   ),
+                  SizedBox(width: 8),
+                  Text(
+                    isTargetSet ? 'Your Daily Goal' : 'Set Your Daily Goal',
+                    style: textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: colorScheme.onSurface,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              Text(
+                isTargetSet
+                    ? 'Your compass is set! '
+                        'This is your daily calorie target to guide you.'
+                    : 'Ready to embark on your wellness journey? '
+                        'Set your daily calorie target below to kickstart your progress.',
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSecondary.withValues(alpha: 0.7),
                 ),
-                const SizedBox(height: 20),
-                _isEditing
-                    ? _GoalInput(onSetGoal: _updateAndSaveGoal)
-                    : _ShowGoal(
-                        caloriesGoal: _target,
-                        caloriesBurned: _caloriesBurned,
-                        caloriesConsumed: caloriesConsumed,
-                        onEdit: () => setState(() => _isEditing = true),
-                      ),
-              ],
-            ),
-          );
-        });
+              ),
+              const SizedBox(height: 20),
+              _isEditing
+                  ? _GoalInput(onSetGoal: _updateAndSaveGoal)
+                  : _ShowGoal(
+                    caloriesGoal: _target,
+                    caloriesBurned: _caloriesBurned,
+                    caloriesConsumed: caloriesConsumed,
+                    onEdit: () => setState(() => _isEditing = true),
+                  ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 
@@ -202,10 +206,7 @@ class _ShowGoal extends StatelessWidget {
             children: [
               Icon(LucideIcons.flame, color: Colors.orange),
               SizedBox(width: 8),
-              Text(
-                'Calories Burned: ',
-                style: textTheme.bodyLarge,
-              ),
+              Text('Calories Burned: ', style: textTheme.bodyLarge),
               Text(
                 '${caloriesBurned.toStringAsFixed(0)} kcal',
                 style: textTheme.bodyLarge?.copyWith(
@@ -238,8 +239,8 @@ class _ShowGoal extends StatelessWidget {
                 ),
               ),
             ],
-          )
-        ]
+          ),
+        ],
       ],
     );
   }

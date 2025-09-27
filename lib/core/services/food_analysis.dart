@@ -3,12 +3,21 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:calorify/core/models/meal_detection_result.dart';
+import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/models/meal_type.dart';
 import 'package:firebase_vertexai/firebase_vertexai.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class FoodAnalysisService {
-  static const _ = """
-    You are an expert food analysis AI. Given the following image of food.
-    Analyze the main food item(s) visible. Be precise with nutrient estimations.
+  FoodAnalysisService._();
+
+  static final _instance = FoodAnalysisService._();
+  static FoodAnalysisService get instance => _instance;
+
+  static const _systemPrompt = """
+    You are an expert food analysis AI. Given an image or a description of food,
+    analyze the main food item(s). Be precise with nutrient estimations.
     """;
 
   final _model = FirebaseVertexAI.instance.generativeModel(
@@ -17,10 +26,8 @@ class FoodAnalysisService {
       responseMimeType: 'application/json',
       responseSchema: _jsonSchema,
     ),
-    systemInstruction: Content.system(_),
+    systemInstruction: Content.system(_systemPrompt),
   );
-
-  FoodAnalysisService();
 
   static final _jsonSchema = Schema.object(
     properties: {
@@ -101,6 +108,28 @@ class FoodAnalysisService {
   Future<MealDetectionResult> analyzeFoodImage({
     required Uint8List imageBytes,
   }) async {
+    if (kDebugMode) {
+      return Future.delayed(
+        Durations.extralong4,
+        () => MealDetectionResult(
+          calorieConfidence: 10,
+          mealIdentified: true,
+          tip: 'You are doing good. Paneer is a versatile dish',
+          mealInfo: MealInfo(
+            mealName: 'Butter paneer',
+            mealQuantity: 'One bowl',
+            mealType: MealType.breakfast,
+            calories: 700,
+            protein: 20,
+            carbs: 40,
+            fat: 50,
+            fiber: 20,
+            timestamp: DateTime.now(),
+          ),
+        ),
+      );
+    }
+
     // Provide a prompt that contains text
     final prompt = [
       Content.text(
@@ -108,6 +137,40 @@ class FoodAnalysisService {
       ),
       Content.inlineData('image/jpeg', imageBytes),
     ];
+
+    // To generate text output, call generateContent with the text input
+    final response = await _model.generateContent(prompt);
+    log(response.text.toString());
+    return MealDetectionResult.fromJson(jsonDecode(response.text as String));
+  }
+
+  Future<MealDetectionResult> analyzeFoodDescription({
+    required String description,
+  }) async {
+    if (kDebugMode) {
+      return Future.delayed(
+        Durations.extralong4,
+        () => MealDetectionResult(
+          calorieConfidence: 10,
+          mealIdentified: true,
+          tip: 'You are doing good. Paneer is a versatile dish',
+          mealInfo: MealInfo(
+            mealName: 'Butter paneer',
+            mealQuantity: 'One bowl',
+            mealType: MealType.breakfast,
+            calories: 700,
+            protein: 20,
+            carbs: 40,
+            fat: 50,
+            fiber: 20,
+            timestamp: DateTime.now(),
+          ),
+        ),
+      );
+    }
+
+    // Provide a prompt that contains text
+    final prompt = [Content.text('Meal: $description')];
 
     // To generate text output, call generateContent with the text input
     final response = await _model.generateContent(prompt);

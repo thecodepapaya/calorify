@@ -7,6 +7,7 @@ part of 'meal_model.dart';
 // **************************************************************************
 
 MealInfo _$MealInfoFromJson(Map<String, dynamic> json) => MealInfo(
+  id: (json['id'] as num?)?.toInt(),
   mealName: json['meal_name'] as String,
   mealQuantity: json['meal_quantity'] as String,
   mealType: $enumDecode(_$MealTypeEnumMap, json['meal_type']),
@@ -19,6 +20,7 @@ MealInfo _$MealInfoFromJson(Map<String, dynamic> json) => MealInfo(
 );
 
 Map<String, dynamic> _$MealInfoToJson(MealInfo instance) => <String, dynamic>{
+  'id': instance.id,
   'meal_name': instance.mealName,
   'meal_quantity': instance.mealQuantity,
   'meal_type': _$MealTypeEnumMap[instance.mealType]!,

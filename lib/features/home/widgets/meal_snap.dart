@@ -3,14 +3,10 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/db/app_database.dart';
-import 'package:calorify/core/db/mappers/meal_info_mapper.dart';
 import 'package:calorify/core/models/meal_detection_result.dart';
-import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/food_analysis.dart';
-import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/picker_service.dart';
-import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/snap_disclaimer_sheet.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
@@ -120,12 +116,13 @@ class _MealSnapState extends State<MealSnap> {
                   _onSelectImage(image);
                 },
                 style: ButtonStyle(
-                  minimumSize:
-                      WidgetStatePropertyAll(Size(double.infinity, 50)),
-                  backgroundColor:
-                      WidgetStatePropertyAll(colorScheme.primary),
-                  foregroundColor:
-                      WidgetStatePropertyAll(colorScheme.onPrimary),
+                  minimumSize: WidgetStatePropertyAll(
+                    Size(double.infinity, 50),
+                  ),
+                  backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
+                  foregroundColor: WidgetStatePropertyAll(
+                    colorScheme.onPrimary,
+                  ),
                   shape: WidgetStatePropertyAll(
                     RoundedRectangleBorder(borderRadius: globalRadius),
                   ),
@@ -156,12 +153,13 @@ class _MealSnapState extends State<MealSnap> {
                   _onSelectImage(image);
                 },
                 style: ButtonStyle(
-                  minimumSize:
-                      WidgetStatePropertyAll(Size(double.infinity, 50)),
-                  backgroundColor:
-                      WidgetStatePropertyAll(colorScheme.primary),
-                  foregroundColor:
-                      WidgetStatePropertyAll(colorScheme.onPrimary),
+                  minimumSize: WidgetStatePropertyAll(
+                    Size(double.infinity, 50),
+                  ),
+                  backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
+                  foregroundColor: WidgetStatePropertyAll(
+                    colorScheme.onPrimary,
+                  ),
                   shape: WidgetStatePropertyAll(
                     RoundedRectangleBorder(borderRadius: globalRadius),
                   ),
@@ -170,35 +168,6 @@ class _MealSnapState extends State<MealSnap> {
               ),
             ),
           ],
-        ),
-        SizedBox(height: 12),
-        OutlinedButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => EditMealScreen(),
-              ),
-            );
-          },
-          style: ButtonStyle(
-            minimumSize: WidgetStatePropertyAll(Size(double.infinity, 50)),
-            shape: WidgetStatePropertyAll(
-              RoundedRectangleBorder(borderRadius: globalRadius),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(LucideIcons.edit3),
-              SizedBox(width: 6),
-              Text(
-                'Add Manually',
-                style: textTheme.bodyLarge?.copyWith(
-                  color: colorScheme.primary,
-                ),
-              ),
-            ],
-          ),
         ),
       ],
     );
@@ -220,7 +189,7 @@ class _MealSnapState extends State<MealSnap> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(_snack('Failed to process image: $e'));
+      ).showSnackBar(snack('Failed to process image: $e'));
       return;
     } finally {
       _reset();
@@ -230,36 +199,11 @@ class _MealSnapState extends State<MealSnap> {
     await showMealTip(context, compressedImageByte, mealDetectionResult);
     if (!mealDetectionResult.mealIdentified) return;
 
-    try {
-      await appDb
-          .into(appDb.mealInfoTable)
-          .insert(mealDetectionResult.mealInfo.toCompanion());
-    } on Exception catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(_snack('Could not save Meal: $e'));
-    }
+    if (!mounted) return;
+    await writeMealInfoToLocalDatabase(context, mealDetectionResult);
 
-    await _writeDataToHealthConnect(mealDetectionResult.mealInfo);
-  }
-
-  Future<bool> _writeDataToHealthConnect(MealInfo mealInfo) async {
-    try {
-      final isSuccess = await HealthService.instance.writeMealData(mealInfo);
-      if (!isSuccess) throw Exception('Could not sync to Health Connect');
-
-      if (!mounted) return false;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(_snack('Meal synced with Health Connect'));
-
-      return isSuccess;
-    } on Exception catch (e) {
-      if (!mounted) return false;
-      ScaffoldMessenger.of(context).showSnackBar(_snack('$e'));
-      return false;
-    }
+    if (!mounted) return;
+    await writeDataToHealthConnect(context, mealDetectionResult.mealInfo);
   }
 
   Future<Uint8List?> _compressImage(File image) async {
@@ -267,7 +211,7 @@ class _MealSnapState extends State<MealSnap> {
     try {
       final compressed = await FlutterImageCompress.compressWithList(
         original,
-        quality: 90,
+        quality: 70,
         format: CompressFormat.jpeg,
       );
 
@@ -285,13 +229,13 @@ class _MealSnapState extends State<MealSnap> {
       if (!mounted) return null;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(_snack('Error compressing image: $e'));
+      ).showSnackBar(snack('Error compressing image: $e'));
       return null;
     }
   }
 
   Future<MealDetectionResult> _processImage(Uint8List imageBytes) async {
-    final meal = await FoodAnalysisService().analyzeFoodImage(
+    final meal = await FoodAnalysisService.instance.analyzeFoodImage(
       imageBytes: imageBytes,
     );
 
@@ -304,6 +248,4 @@ class _MealSnapState extends State<MealSnap> {
       _file = null;
     });
   }
-
-  SnackBar _snack(String message) => SnackBar(content: Text(message));
 }

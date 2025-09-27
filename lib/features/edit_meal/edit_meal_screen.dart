@@ -1,19 +1,18 @@
 import 'dart:typed_data';
+import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/models/meal_type.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 
+@RoutePage()
 class EditMealScreen extends StatefulWidget {
   final MealInfo? mealInfo;
   final Uint8List? imageData;
 
-  const EditMealScreen({
-    super.key,
-    this.mealInfo,
-    this.imageData,
-  });
+  const EditMealScreen({super.key, this.mealInfo, this.imageData});
 
   @override
   _EditMealScreenState createState() => _EditMealScreenState();
@@ -27,6 +26,9 @@ class _EditMealScreenState extends State<EditMealScreen> {
   late int _carbs;
   late int _protein;
   late int _fat;
+  late int _fiber;
+  late MealType _mealType;
+  late TextEditingController _mealQuantityController;
 
   bool get isEditing => widget.mealInfo != null;
 
@@ -40,6 +42,11 @@ class _EditMealScreenState extends State<EditMealScreen> {
       _carbs = widget.mealInfo!.carbs;
       _protein = widget.mealInfo!.protein;
       _fat = widget.mealInfo!.fat;
+      _fiber = widget.mealInfo!.fiber;
+      _mealType = widget.mealInfo!.mealType;
+      _mealQuantityController = TextEditingController(
+        text: widget.mealInfo!.mealQuantity,
+      );
     } else {
       _nameController = TextEditingController();
       _selectedTime = TimeOfDay.now();
@@ -47,10 +54,17 @@ class _EditMealScreenState extends State<EditMealScreen> {
       _carbs = 0;
       _protein = 0;
       _fat = 0;
+      _fiber = 0;
+      _mealType = MealType.unknown;
+      _mealQuantityController = TextEditingController();
     }
-    _timeController = TextEditingController(
-      text: _selectedTime.format(context),
-    );
+    _timeController = TextEditingController();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _timeController.text = _selectedTime.format(context);
   }
 
   @override
@@ -100,6 +114,36 @@ class _EditMealScreenState extends State<EditMealScreen> {
               },
             ),
             const SizedBox(height: 20),
+            DropdownButtonFormField<MealType>(
+              value: _mealType,
+              decoration: const InputDecoration(
+                labelText: 'Meal Type',
+                border: OutlineInputBorder(),
+              ),
+              items:
+                  MealType.values
+                      .map(
+                        (type) => DropdownMenuItem(
+                          value: type,
+                          child: Text(type.name),
+                        ),
+                      )
+                      .toList(),
+              onChanged: (value) {
+                if (value != null) {
+                  setState(() => _mealType = value);
+                }
+              },
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              controller: _mealQuantityController,
+              decoration: const InputDecoration(
+                labelText: 'Meal Quantity',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 20),
             _buildSlider('Calories', _calories, 0, 1500, (value) {
               setState(() => _calories = value);
             }),
@@ -111,6 +155,9 @@ class _EditMealScreenState extends State<EditMealScreen> {
             }),
             _buildSlider('Fat (g)', _fat, 0, 200, (value) {
               setState(() => _fat = value);
+            }),
+            _buildSlider('Fiber (g)', _fiber, 0, 100, (value) {
+              setState(() => _fiber = value);
             }),
           ],
         ),
@@ -135,9 +182,9 @@ class _EditMealScreenState extends State<EditMealScreen> {
       carbs: _carbs,
       protein: _protein,
       fat: _fat,
-      fiber: isEditing ? widget.mealInfo!.fiber : 0,
-      mealType: isEditing ? widget.mealInfo!.mealType : 'Unknown',
-      mealQuantity: isEditing ? widget.mealInfo!.mealQuantity : 'Unknown',
+      fiber: _fiber,
+      mealType: _mealType,
+      mealQuantity: _mealQuantityController.text,
       timestamp: newTimestamp,
     );
 
@@ -148,12 +195,15 @@ class _EditMealScreenState extends State<EditMealScreen> {
         carbs: drift.Value(_carbs),
         protein: drift.Value(_protein),
         fat: drift.Value(_fat),
+        fiber: drift.Value(_fiber),
+        mealType: drift.Value(_mealType.name),
+        mealQuantity: drift.Value(_mealQuantityController.text),
         timestamp: drift.Value(newTimestamp),
       );
       if (isEditing) {
-        await (appDb.update(appDb.mealInfoTable)
-              ..where((tbl) => tbl.id.equals(widget.mealInfo!.id!)))
-            .write(companion);
+        await (appDb.update(appDb.mealInfoTable)..where(
+          (tbl) => tbl.id.equals(widget.mealInfo!.id!),
+        )).write(companion);
       } else {
         await appDb.into(appDb.mealInfoTable).insert(companion);
       }
@@ -162,7 +212,9 @@ class _EditMealScreenState extends State<EditMealScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Meal ${isEditing ? 'updated' : 'added'} successfully!'),
+          content: Text(
+            'Meal ${isEditing ? 'updated' : 'added'} successfully!',
+          ),
         ),
       );
       Navigator.of(context).pop();
