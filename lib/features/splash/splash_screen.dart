@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/health_service.dart';
@@ -22,10 +24,14 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _initializeApp() async {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    await HealthService.instance.init();
+    try {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      await HealthService.instance.init();
+    } on Exception catch (e, st) {
+      log('Error initializing:', error: e, stackTrace: st);
+    }
 
     if (mounted) {
       context.router.replace(const HomeRoute());
