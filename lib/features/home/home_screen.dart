@@ -3,11 +3,12 @@ import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/features/home/widgets/connect_health.dart';
 import 'package:calorify/features/home/widgets/daily_goal.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
-import 'package:calorify/features/home/widgets/facourite_meals.dart';
+import 'package:calorify/features/home/widgets/favorite_meals.dart';
 import 'package:calorify/features/home/widgets/intake_progress.dart';
 import 'package:calorify/features/home/widgets/meal_description.dart';
 import 'package:calorify/features/home/widgets/meal_log.dart';
 import 'package:calorify/features/home/widgets/meal_snap.dart';
+import 'package:calorify/shared_widgets/animated_leaf.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
 
@@ -21,13 +22,24 @@ class HomeScreen extends StatelessWidget {
         HealthService.instance.status == HealthConnectSdkStatus.sdkUnavailable;
     final isHealthConnectAuthorized = HealthService.instance.isAuthorized;
 
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Calorify'),
-        // actions: [
-        //   IconButton(onPressed: () {}, icon: Icon(LucideIcons.moreVertical)),
-        //   SizedBox(width: 4),
-        // ],
+        title: Row(
+          children: [
+            AnimatedLeaf(size: 36),
+            SizedBox(width: 6),
+            Text(
+              'Calorify',
+              style: textTheme.displaySmall?.copyWith(
+                color: colorScheme.primary,
+              ),
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -7,7 +7,7 @@ class HealthService {
   HealthService._();
 
   static final _instance = HealthService._();
-  static get instance => _instance;
+  static HealthService get instance => _instance;
 
   final Health _health = Health(); // For Android specific
   Future<void> init() async {

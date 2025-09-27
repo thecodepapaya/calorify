@@ -65,8 +65,7 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
                 mode: db.OrderingMode.desc,
               ),
             ])
-            ..limit(_mealsPerPage);
-      // ..offset(currentPage * _mealsPerPage);
+            ..limit(_mealsPerPage, offset: currentPage * _mealsPerPage);
 
       final result = await query.get();
       final fetchedMeals = result.map((row) => MealInfo.fromRow(row)).toList();
@@ -120,8 +119,11 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
                       totalCalories: dayData.totalCalories,
                     ),
                     ...dayData.mealsInDay.map(
-                      (meal) =>
-                          MealLogCard(mealInfo: meal, showTimestamp: false),
+                      (meal) => MealLogCard(
+                        mealInfo: meal,
+                        showTimestamp: false,
+                        allowEdit: true,
+                      ),
                     ),
                     if (index == groupedMeals.length - 1) SizedBox(height: 20),
                   ],

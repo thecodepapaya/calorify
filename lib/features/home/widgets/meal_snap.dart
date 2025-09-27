@@ -13,6 +13,7 @@ import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:calorify/core/db/app_database.dart';
 
 class MealSnap extends StatefulWidget {
   const MealSnap({super.key});
@@ -196,14 +197,16 @@ class _MealSnapState extends State<MealSnap> {
     }
 
     if (!mounted) return;
-    await showMealTip(context, compressedImageByte, mealDetectionResult);
+    await showMealTip(
+      context: context,
+      imageData: compressedImageByte,
+      mealDetectionResult: mealDetectionResult,
+      allowEdit: true,
+    );
     if (!mealDetectionResult.mealIdentified) return;
 
     if (!mounted) return;
-    await writeMealInfoToLocalDatabase(context, mealDetectionResult);
-
-    if (!mounted) return;
-    await writeDataToHealthConnect(context, mealDetectionResult.mealInfo);
+    await appDb.logMeal(mealDetectionResult.mealInfo);
   }
 
   Future<Uint8List?> _compressImage(File image) async {

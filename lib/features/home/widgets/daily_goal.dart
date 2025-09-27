@@ -3,6 +3,7 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -82,6 +83,9 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
     return StreamBuilder<List<MealInfo>>(
       stream: appDb.watchAllMealsForToday(),
       builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return ErrorView(error: snapshot.error!);
+        }
         final meals = snapshot.data ?? [];
         final caloriesConsumed = meals.fold(
           0,
@@ -282,8 +286,8 @@ class _GoalInputState extends State<_GoalInput> {
                   hintText: '0',
                   contentPadding: EdgeInsets.zero,
                   isDense: true,
-                  hintStyle: TextStyle(
-                    color: colorScheme.onSecondary.withValues(alpha: 0.7),
+                  hintStyle: textTheme.bodyLarge?.copyWith(
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
                     fontWeight: FontWeight.bold,
                   ),
                   counterText: '',

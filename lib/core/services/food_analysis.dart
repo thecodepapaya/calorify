@@ -3,11 +3,8 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:calorify/core/models/meal_detection_result.dart';
-import 'package:calorify/core/models/meal_model.dart';
-import 'package:calorify/core/models/meal_type.dart';
 import 'package:firebase_vertexai/firebase_vertexai.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 class FoodAnalysisService {
   FoodAnalysisService._();
@@ -108,28 +105,6 @@ class FoodAnalysisService {
   Future<MealDetectionResult> analyzeFoodImage({
     required Uint8List imageBytes,
   }) async {
-    if (kDebugMode) {
-      return Future.delayed(
-        Durations.extralong4,
-        () => MealDetectionResult(
-          calorieConfidence: 10,
-          mealIdentified: true,
-          tip: 'You are doing good. Paneer is a versatile dish',
-          mealInfo: MealInfo(
-            mealName: 'Butter paneer',
-            mealQuantity: 'One bowl',
-            mealType: MealType.breakfast,
-            calories: 700,
-            protein: 20,
-            carbs: 40,
-            fat: 50,
-            fiber: 20,
-            timestamp: DateTime.now(),
-          ),
-        ),
-      );
-    }
-
     // Provide a prompt that contains text
     final prompt = [
       Content.text(
@@ -147,28 +122,6 @@ class FoodAnalysisService {
   Future<MealDetectionResult> analyzeFoodDescription({
     required String description,
   }) async {
-    if (kDebugMode) {
-      return Future.delayed(
-        Durations.extralong4,
-        () => MealDetectionResult(
-          calorieConfidence: 10,
-          mealIdentified: true,
-          tip: 'You are doing good. Paneer is a versatile dish',
-          mealInfo: MealInfo(
-            mealName: 'Butter paneer',
-            mealQuantity: 'One bowl',
-            mealType: MealType.breakfast,
-            calories: 700,
-            protein: 20,
-            carbs: 40,
-            fat: 50,
-            fiber: 20,
-            timestamp: DateTime.now(),
-          ),
-        ),
-      );
-    }
-
     // Provide a prompt that contains text
     final prompt = [Content.text('Meal: $description')];
 

@@ -1,13 +1,29 @@
 import 'dart:typed_data';
-import 'package:auto_route/auto_route.dart';
+import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/models/meal_type.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/core/utilities/string_utils.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 
-@RoutePage()
+Future<void> showEditMealSheet(
+  BuildContext context, {
+  MealInfo? mealInfo,
+  Uint8List? imageData,
+}) {
+  return showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    isDismissible: true,
+    showDragHandle: true,
+    enableDrag: true,
+    builder:
+        (context) => EditMealScreen(mealInfo: mealInfo, imageData: imageData),
+  );
+}
+
 class EditMealScreen extends StatefulWidget {
   final MealInfo? mealInfo;
   final Uint8List? imageData;
@@ -69,98 +85,116 @@ class _EditMealScreenState extends State<EditMealScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(isEditing ? 'Edit Meal' : 'Add Meal'),
-        actions: [
-          IconButton(icon: const Icon(Icons.check), onPressed: _saveMeal),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (widget.imageData != null) ...[
-              Image.memory(widget.imageData!),
-              const SizedBox(height: 20),
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                isEditing ? 'Edit Meal' : 'Add Meal',
+                style: textTheme.titleLarge,
+              ),
+              IconButton(icon: const Icon(Icons.check), onPressed: _saveMeal),
             ],
-            TextField(
-              controller: _nameController,
-              decoration: const InputDecoration(
-                labelText: 'Meal Name',
-                border: OutlineInputBorder(),
-              ),
-            ),
+          ),
+          const SizedBox(height: 20),
+          if (widget.imageData != null) ...[
+            Image.memory(widget.imageData!),
             const SizedBox(height: 20),
-            TextField(
-              controller: _timeController,
-              readOnly: true,
-              decoration: const InputDecoration(
-                labelText: 'Time of Meal',
-                border: OutlineInputBorder(),
-              ),
-              onTap: () async {
-                final time = await showTimePicker(
-                  context: context,
-                  initialTime: _selectedTime,
-                );
-                if (time != null) {
-                  setState(() {
-                    _selectedTime = time;
-                    _timeController.text = time.format(context);
-                  });
-                }
-              },
-            ),
-            const SizedBox(height: 20),
-            DropdownButtonFormField<MealType>(
-              value: _mealType,
-              decoration: const InputDecoration(
-                labelText: 'Meal Type',
-                border: OutlineInputBorder(),
-              ),
-              items:
-                  MealType.values
-                      .map(
-                        (type) => DropdownMenuItem(
-                          value: type,
-                          child: Text(type.name),
-                        ),
-                      )
-                      .toList(),
-              onChanged: (value) {
-                if (value != null) {
-                  setState(() => _mealType = value);
-                }
-              },
-            ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: _mealQuantityController,
-              decoration: const InputDecoration(
-                labelText: 'Meal Quantity',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 20),
-            _buildSlider('Calories', _calories, 0, 1500, (value) {
-              setState(() => _calories = value);
-            }),
-            _buildSlider('Carbs (g)', _carbs, 0, 200, (value) {
-              setState(() => _carbs = value);
-            }),
-            _buildSlider('Protein (g)', _protein, 0, 200, (value) {
-              setState(() => _protein = value);
-            }),
-            _buildSlider('Fat (g)', _fat, 0, 200, (value) {
-              setState(() => _fat = value);
-            }),
-            _buildSlider('Fiber (g)', _fiber, 0, 100, (value) {
-              setState(() => _fiber = value);
-            }),
           ],
-        ),
+          TextField(
+            controller: _nameController,
+            decoration: InputDecoration(
+              labelText: 'Meal Name',
+              hintText: 'e.g., Scrambled Eggs with toast',
+              hintStyle: textTheme.bodyLarge?.copyWith(
+                color: colorScheme.onSurface.withValues(alpha: 0.6),
+              ),
+              border: OutlineInputBorder(borderRadius: globalRadius),
+            ),
+          ),
+          const SizedBox(height: 20),
+          TextField(
+            controller: _timeController,
+            readOnly: true,
+            decoration: InputDecoration(
+              labelText: 'Time of Meal',
+              hintText: 'Select the time you had your meal',
+              hintStyle: textTheme.bodyLarge?.copyWith(
+                color: colorScheme.onSurface.withValues(alpha: 0.6),
+              ),
+              border: OutlineInputBorder(borderRadius: globalRadius),
+            ),
+            onTap: () async {
+              final time = await showTimePicker(
+                context: context,
+                initialTime: _selectedTime,
+              );
+              if (time != null) {
+                setState(() {
+                  _selectedTime = time;
+                  _timeController.text = time.format(context);
+                });
+              }
+            },
+          ),
+          const SizedBox(height: 20),
+          DropdownButtonFormField<MealType>(
+            value: _mealType,
+            decoration: InputDecoration(
+              labelText: 'Meal Type',
+              border: OutlineInputBorder(borderRadius: globalRadius),
+            ),
+            items:
+                MealType.values
+                    .map(
+                      (type) => DropdownMenuItem(
+                        value: type,
+                        child: Text(type.name.capitalizeFirstLetter()),
+                      ),
+                    )
+                    .toList(),
+            onChanged: (value) {
+              if (value != null) {
+                setState(() => _mealType = value);
+              }
+            },
+          ),
+          const SizedBox(height: 20),
+          TextField(
+            controller: _mealQuantityController,
+            decoration: InputDecoration(
+              labelText: 'Meal Quantity',
+              hintText: 'e.g., 1 bowl, 2 slices',
+              hintStyle: textTheme.bodyLarge?.copyWith(
+                color: colorScheme.onSurface.withValues(alpha: 0.6),
+              ),
+              border: OutlineInputBorder(borderRadius: globalRadius),
+            ),
+          ),
+          const SizedBox(height: 20),
+          _buildSlider('Calories', _calories, 0, 1500, (value) {
+            setState(() => _calories = value);
+          }),
+          _buildSlider('Carbs (g)', _carbs, 0, 200, (value) {
+            setState(() => _carbs = value);
+          }),
+          _buildSlider('Protein (g)', _protein, 0, 200, (value) {
+            setState(() => _protein = value);
+          }),
+          _buildSlider('Fat (g)', _fat, 0, 200, (value) {
+            setState(() => _fat = value);
+          }),
+          _buildSlider('Fiber (g)', _fiber, 0, 100, (value) {
+            setState(() => _fiber = value);
+          }),
+        ],
       ),
     );
   }
@@ -205,7 +239,7 @@ class _EditMealScreenState extends State<EditMealScreen> {
           (tbl) => tbl.id.equals(widget.mealInfo!.id!),
         )).write(companion);
       } else {
-        await appDb.into(appDb.mealInfoTable).insert(companion);
+        await appDb.logMeal(mealInfo);
       }
       await HealthService.instance.writeMealData(mealInfo);
 

@@ -2,9 +2,9 @@ import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:drift/drift.dart';
 
-extension MealInfoMapper on MealInfo {
-  MealInfoTableCompanion toCompanion() {
-    return MealInfoTableCompanion(
+extension FavoriteMealMapper on MealInfo {
+  FavoriteMealTableCompanion toFavoriteCompanion() {
+    return FavoriteMealTableCompanion(
       mealName: Value(mealName),
       mealQuantity: Value(mealQuantity),
       mealType: Value(mealType.name),
@@ -15,6 +15,8 @@ extension MealInfoMapper on MealInfo {
       fiber: Value(fiber),
       timestamp: Value(timestamp),
       imageUrl: Value(imageUrl),
+      sourceMealId: Value(id),
+      createdAt: Value(DateTime.now()),
     );
   }
 }

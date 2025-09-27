@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 class RouteLogger extends AutoRouteObserver {
+  RouteLogger() : super();
+
   @override
   void didPush(Route route, Route? previousRoute) {
     debugPrint('New route pushed: ${route.settings.name}');

@@ -11,4 +11,5 @@ class MealInfoTable extends Table {
   IntColumn get fat => integer()();
   IntColumn get fiber => integer()();
   DateTimeColumn get timestamp => dateTime()();
+  TextColumn get imageUrl => text().nullable()();
 }

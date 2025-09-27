@@ -5,9 +5,10 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:flutter/material.dart';
 
 class MealImage extends StatelessWidget {
-  const MealImage({super.key, this.imageBytes});
+  const MealImage({super.key, this.imageBytes, this.imageUrl});
 
   final Uint8List? imageBytes;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,9 @@ class MealImage extends StatelessWidget {
           image:
               imageBytes != null
                   ? MemoryImage(imageBytes!)
-                  : AssetImage(Assets.foodPlaceholder),
+                  : imageUrl != null
+                  ? NetworkImage(imageUrl!)
+                  : AssetImage(Assets.foodPlaceholder) as ImageProvider,
           fit: BoxFit.cover,
         ),
       ),

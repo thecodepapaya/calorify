@@ -115,6 +115,17 @@ class $MealInfoTableTable extends MealInfoTable
     type: DriftSqlType.dateTime,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _imageUrlMeta = const VerificationMeta(
+    'imageUrl',
+  );
+  @override
+  late final GeneratedColumn<String> imageUrl = GeneratedColumn<String>(
+    'image_url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -127,6 +138,7 @@ class $MealInfoTableTable extends MealInfoTable
     fat,
     fiber,
     timestamp,
+    imageUrl,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -218,6 +230,12 @@ class $MealInfoTableTable extends MealInfoTable
     } else if (isInserting) {
       context.missing(_timestampMeta);
     }
+    if (data.containsKey('image_url')) {
+      context.handle(
+        _imageUrlMeta,
+        imageUrl.isAcceptableOrUnknown(data['image_url']!, _imageUrlMeta),
+      );
+    }
     return context;
   }
 
@@ -277,6 +295,10 @@ class $MealInfoTableTable extends MealInfoTable
             DriftSqlType.dateTime,
             data['${effectivePrefix}timestamp'],
           )!,
+      imageUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}image_url'],
+      ),
     );
   }
 
@@ -298,6 +320,7 @@ class MealInfoTableData extends DataClass
   final int fat;
   final int fiber;
   final DateTime timestamp;
+  final String? imageUrl;
   const MealInfoTableData({
     required this.id,
     required this.mealName,
@@ -309,6 +332,7 @@ class MealInfoTableData extends DataClass
     required this.fat,
     required this.fiber,
     required this.timestamp,
+    this.imageUrl,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -323,6 +347,9 @@ class MealInfoTableData extends DataClass
     map['fat'] = Variable<int>(fat);
     map['fiber'] = Variable<int>(fiber);
     map['timestamp'] = Variable<DateTime>(timestamp);
+    if (!nullToAbsent || imageUrl != null) {
+      map['image_url'] = Variable<String>(imageUrl);
+    }
     return map;
   }
 
@@ -338,6 +365,10 @@ class MealInfoTableData extends DataClass
       fat: Value(fat),
       fiber: Value(fiber),
       timestamp: Value(timestamp),
+      imageUrl:
+          imageUrl == null && nullToAbsent
+              ? const Value.absent()
+              : Value(imageUrl),
     );
   }
 
@@ -357,6 +388,7 @@ class MealInfoTableData extends DataClass
       fat: serializer.fromJson<int>(json['fat']),
       fiber: serializer.fromJson<int>(json['fiber']),
       timestamp: serializer.fromJson<DateTime>(json['timestamp']),
+      imageUrl: serializer.fromJson<String?>(json['imageUrl']),
     );
   }
   @override
@@ -373,6 +405,7 @@ class MealInfoTableData extends DataClass
       'fat': serializer.toJson<int>(fat),
       'fiber': serializer.toJson<int>(fiber),
       'timestamp': serializer.toJson<DateTime>(timestamp),
+      'imageUrl': serializer.toJson<String?>(imageUrl),
     };
   }
 
@@ -387,6 +420,7 @@ class MealInfoTableData extends DataClass
     int? fat,
     int? fiber,
     DateTime? timestamp,
+    Value<String?> imageUrl = const Value.absent(),
   }) => MealInfoTableData(
     id: id ?? this.id,
     mealName: mealName ?? this.mealName,
@@ -398,6 +432,7 @@ class MealInfoTableData extends DataClass
     fat: fat ?? this.fat,
     fiber: fiber ?? this.fiber,
     timestamp: timestamp ?? this.timestamp,
+    imageUrl: imageUrl.present ? imageUrl.value : this.imageUrl,
   );
   MealInfoTableData copyWithCompanion(MealInfoTableCompanion data) {
     return MealInfoTableData(
@@ -414,6 +449,7 @@ class MealInfoTableData extends DataClass
       fat: data.fat.present ? data.fat.value : this.fat,
       fiber: data.fiber.present ? data.fiber.value : this.fiber,
       timestamp: data.timestamp.present ? data.timestamp.value : this.timestamp,
+      imageUrl: data.imageUrl.present ? data.imageUrl.value : this.imageUrl,
     );
   }
 
@@ -429,7 +465,8 @@ class MealInfoTableData extends DataClass
           ..write('carbs: $carbs, ')
           ..write('fat: $fat, ')
           ..write('fiber: $fiber, ')
-          ..write('timestamp: $timestamp')
+          ..write('timestamp: $timestamp, ')
+          ..write('imageUrl: $imageUrl')
           ..write(')'))
         .toString();
   }
@@ -446,6 +483,7 @@ class MealInfoTableData extends DataClass
     fat,
     fiber,
     timestamp,
+    imageUrl,
   );
   @override
   bool operator ==(Object other) =>
@@ -460,7 +498,8 @@ class MealInfoTableData extends DataClass
           other.carbs == this.carbs &&
           other.fat == this.fat &&
           other.fiber == this.fiber &&
-          other.timestamp == this.timestamp);
+          other.timestamp == this.timestamp &&
+          other.imageUrl == this.imageUrl);
 }
 
 class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
@@ -474,6 +513,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   final Value<int> fat;
   final Value<int> fiber;
   final Value<DateTime> timestamp;
+  final Value<String?> imageUrl;
   const MealInfoTableCompanion({
     this.id = const Value.absent(),
     this.mealName = const Value.absent(),
@@ -485,6 +525,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     this.fat = const Value.absent(),
     this.fiber = const Value.absent(),
     this.timestamp = const Value.absent(),
+    this.imageUrl = const Value.absent(),
   });
   MealInfoTableCompanion.insert({
     this.id = const Value.absent(),
@@ -497,6 +538,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     required int fat,
     required int fiber,
     required DateTime timestamp,
+    this.imageUrl = const Value.absent(),
   }) : mealName = Value(mealName),
        mealQuantity = Value(mealQuantity),
        mealType = Value(mealType),
@@ -517,6 +559,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Expression<int>? fat,
     Expression<int>? fiber,
     Expression<DateTime>? timestamp,
+    Expression<String>? imageUrl,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -529,6 +572,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
       if (fat != null) 'fat': fat,
       if (fiber != null) 'fiber': fiber,
       if (timestamp != null) 'timestamp': timestamp,
+      if (imageUrl != null) 'image_url': imageUrl,
     });
   }
 
@@ -543,6 +587,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Value<int>? fat,
     Value<int>? fiber,
     Value<DateTime>? timestamp,
+    Value<String?>? imageUrl,
   }) {
     return MealInfoTableCompanion(
       id: id ?? this.id,
@@ -555,6 +600,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
       fat: fat ?? this.fat,
       fiber: fiber ?? this.fiber,
       timestamp: timestamp ?? this.timestamp,
+      imageUrl: imageUrl ?? this.imageUrl,
     );
   }
 
@@ -591,6 +637,9 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     if (timestamp.present) {
       map['timestamp'] = Variable<DateTime>(timestamp.value);
     }
+    if (imageUrl.present) {
+      map['image_url'] = Variable<String>(imageUrl.value);
+    }
     return map;
   }
 
@@ -606,7 +655,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
           ..write('carbs: $carbs, ')
           ..write('fat: $fat, ')
           ..write('fiber: $fiber, ')
-          ..write('timestamp: $timestamp')
+          ..write('timestamp: $timestamp, ')
+          ..write('imageUrl: $imageUrl')
           ..write(')'))
         .toString();
   }
@@ -944,6 +994,52 @@ class $FavoriteMealTableTable extends FavoriteMealTable
     type: DriftSqlType.dateTime,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _imageUrlMeta = const VerificationMeta(
+    'imageUrl',
+  );
+  @override
+  late final GeneratedColumn<String> imageUrl = GeneratedColumn<String>(
+    'image_url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _sourceMealIdMeta = const VerificationMeta(
+    'sourceMealId',
+  );
+  @override
+  late final GeneratedColumn<int> sourceMealId = GeneratedColumn<int>(
+    'source_meal_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: Constant(DateTime(2023)),
+  );
+  static const VerificationMeta _lastUsedAtMeta = const VerificationMeta(
+    'lastUsedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> lastUsedAt = GeneratedColumn<DateTime>(
+    'last_used_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -956,6 +1052,10 @@ class $FavoriteMealTableTable extends FavoriteMealTable
     fat,
     fiber,
     timestamp,
+    imageUrl,
+    sourceMealId,
+    createdAt,
+    lastUsedAt,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1047,6 +1147,36 @@ class $FavoriteMealTableTable extends FavoriteMealTable
     } else if (isInserting) {
       context.missing(_timestampMeta);
     }
+    if (data.containsKey('image_url')) {
+      context.handle(
+        _imageUrlMeta,
+        imageUrl.isAcceptableOrUnknown(data['image_url']!, _imageUrlMeta),
+      );
+    }
+    if (data.containsKey('source_meal_id')) {
+      context.handle(
+        _sourceMealIdMeta,
+        sourceMealId.isAcceptableOrUnknown(
+          data['source_meal_id']!,
+          _sourceMealIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    if (data.containsKey('last_used_at')) {
+      context.handle(
+        _lastUsedAtMeta,
+        lastUsedAt.isAcceptableOrUnknown(
+          data['last_used_at']!,
+          _lastUsedAtMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -1106,6 +1236,23 @@ class $FavoriteMealTableTable extends FavoriteMealTable
             DriftSqlType.dateTime,
             data['${effectivePrefix}timestamp'],
           )!,
+      imageUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}image_url'],
+      ),
+      sourceMealId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}source_meal_id'],
+      ),
+      createdAt:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}created_at'],
+          )!,
+      lastUsedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}last_used_at'],
+      ),
     );
   }
 
@@ -1127,6 +1274,10 @@ class FavoriteMealTableData extends DataClass
   final int fat;
   final int fiber;
   final DateTime timestamp;
+  final String? imageUrl;
+  final int? sourceMealId;
+  final DateTime createdAt;
+  final DateTime? lastUsedAt;
   const FavoriteMealTableData({
     required this.id,
     required this.mealName,
@@ -1138,6 +1289,10 @@ class FavoriteMealTableData extends DataClass
     required this.fat,
     required this.fiber,
     required this.timestamp,
+    this.imageUrl,
+    this.sourceMealId,
+    required this.createdAt,
+    this.lastUsedAt,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1152,6 +1307,16 @@ class FavoriteMealTableData extends DataClass
     map['fat'] = Variable<int>(fat);
     map['fiber'] = Variable<int>(fiber);
     map['timestamp'] = Variable<DateTime>(timestamp);
+    if (!nullToAbsent || imageUrl != null) {
+      map['image_url'] = Variable<String>(imageUrl);
+    }
+    if (!nullToAbsent || sourceMealId != null) {
+      map['source_meal_id'] = Variable<int>(sourceMealId);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    if (!nullToAbsent || lastUsedAt != null) {
+      map['last_used_at'] = Variable<DateTime>(lastUsedAt);
+    }
     return map;
   }
 
@@ -1167,6 +1332,19 @@ class FavoriteMealTableData extends DataClass
       fat: Value(fat),
       fiber: Value(fiber),
       timestamp: Value(timestamp),
+      imageUrl:
+          imageUrl == null && nullToAbsent
+              ? const Value.absent()
+              : Value(imageUrl),
+      sourceMealId:
+          sourceMealId == null && nullToAbsent
+              ? const Value.absent()
+              : Value(sourceMealId),
+      createdAt: Value(createdAt),
+      lastUsedAt:
+          lastUsedAt == null && nullToAbsent
+              ? const Value.absent()
+              : Value(lastUsedAt),
     );
   }
 
@@ -1186,6 +1364,10 @@ class FavoriteMealTableData extends DataClass
       fat: serializer.fromJson<int>(json['fat']),
       fiber: serializer.fromJson<int>(json['fiber']),
       timestamp: serializer.fromJson<DateTime>(json['timestamp']),
+      imageUrl: serializer.fromJson<String?>(json['imageUrl']),
+      sourceMealId: serializer.fromJson<int?>(json['sourceMealId']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      lastUsedAt: serializer.fromJson<DateTime?>(json['lastUsedAt']),
     );
   }
   @override
@@ -1202,6 +1384,10 @@ class FavoriteMealTableData extends DataClass
       'fat': serializer.toJson<int>(fat),
       'fiber': serializer.toJson<int>(fiber),
       'timestamp': serializer.toJson<DateTime>(timestamp),
+      'imageUrl': serializer.toJson<String?>(imageUrl),
+      'sourceMealId': serializer.toJson<int?>(sourceMealId),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'lastUsedAt': serializer.toJson<DateTime?>(lastUsedAt),
     };
   }
 
@@ -1216,6 +1402,10 @@ class FavoriteMealTableData extends DataClass
     int? fat,
     int? fiber,
     DateTime? timestamp,
+    Value<String?> imageUrl = const Value.absent(),
+    Value<int?> sourceMealId = const Value.absent(),
+    DateTime? createdAt,
+    Value<DateTime?> lastUsedAt = const Value.absent(),
   }) => FavoriteMealTableData(
     id: id ?? this.id,
     mealName: mealName ?? this.mealName,
@@ -1227,6 +1417,10 @@ class FavoriteMealTableData extends DataClass
     fat: fat ?? this.fat,
     fiber: fiber ?? this.fiber,
     timestamp: timestamp ?? this.timestamp,
+    imageUrl: imageUrl.present ? imageUrl.value : this.imageUrl,
+    sourceMealId: sourceMealId.present ? sourceMealId.value : this.sourceMealId,
+    createdAt: createdAt ?? this.createdAt,
+    lastUsedAt: lastUsedAt.present ? lastUsedAt.value : this.lastUsedAt,
   );
   FavoriteMealTableData copyWithCompanion(FavoriteMealTableCompanion data) {
     return FavoriteMealTableData(
@@ -1243,6 +1437,14 @@ class FavoriteMealTableData extends DataClass
       fat: data.fat.present ? data.fat.value : this.fat,
       fiber: data.fiber.present ? data.fiber.value : this.fiber,
       timestamp: data.timestamp.present ? data.timestamp.value : this.timestamp,
+      imageUrl: data.imageUrl.present ? data.imageUrl.value : this.imageUrl,
+      sourceMealId:
+          data.sourceMealId.present
+              ? data.sourceMealId.value
+              : this.sourceMealId,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      lastUsedAt:
+          data.lastUsedAt.present ? data.lastUsedAt.value : this.lastUsedAt,
     );
   }
 
@@ -1258,7 +1460,11 @@ class FavoriteMealTableData extends DataClass
           ..write('carbs: $carbs, ')
           ..write('fat: $fat, ')
           ..write('fiber: $fiber, ')
-          ..write('timestamp: $timestamp')
+          ..write('timestamp: $timestamp, ')
+          ..write('imageUrl: $imageUrl, ')
+          ..write('sourceMealId: $sourceMealId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('lastUsedAt: $lastUsedAt')
           ..write(')'))
         .toString();
   }
@@ -1275,6 +1481,10 @@ class FavoriteMealTableData extends DataClass
     fat,
     fiber,
     timestamp,
+    imageUrl,
+    sourceMealId,
+    createdAt,
+    lastUsedAt,
   );
   @override
   bool operator ==(Object other) =>
@@ -1289,7 +1499,11 @@ class FavoriteMealTableData extends DataClass
           other.carbs == this.carbs &&
           other.fat == this.fat &&
           other.fiber == this.fiber &&
-          other.timestamp == this.timestamp);
+          other.timestamp == this.timestamp &&
+          other.imageUrl == this.imageUrl &&
+          other.sourceMealId == this.sourceMealId &&
+          other.createdAt == this.createdAt &&
+          other.lastUsedAt == this.lastUsedAt);
 }
 
 class FavoriteMealTableCompanion
@@ -1304,6 +1518,10 @@ class FavoriteMealTableCompanion
   final Value<int> fat;
   final Value<int> fiber;
   final Value<DateTime> timestamp;
+  final Value<String?> imageUrl;
+  final Value<int?> sourceMealId;
+  final Value<DateTime> createdAt;
+  final Value<DateTime?> lastUsedAt;
   const FavoriteMealTableCompanion({
     this.id = const Value.absent(),
     this.mealName = const Value.absent(),
@@ -1315,6 +1533,10 @@ class FavoriteMealTableCompanion
     this.fat = const Value.absent(),
     this.fiber = const Value.absent(),
     this.timestamp = const Value.absent(),
+    this.imageUrl = const Value.absent(),
+    this.sourceMealId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.lastUsedAt = const Value.absent(),
   });
   FavoriteMealTableCompanion.insert({
     this.id = const Value.absent(),
@@ -1327,6 +1549,10 @@ class FavoriteMealTableCompanion
     required int fat,
     required int fiber,
     required DateTime timestamp,
+    this.imageUrl = const Value.absent(),
+    this.sourceMealId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.lastUsedAt = const Value.absent(),
   }) : mealName = Value(mealName),
        mealQuantity = Value(mealQuantity),
        mealType = Value(mealType),
@@ -1347,6 +1573,10 @@ class FavoriteMealTableCompanion
     Expression<int>? fat,
     Expression<int>? fiber,
     Expression<DateTime>? timestamp,
+    Expression<String>? imageUrl,
+    Expression<int>? sourceMealId,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? lastUsedAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1359,6 +1589,10 @@ class FavoriteMealTableCompanion
       if (fat != null) 'fat': fat,
       if (fiber != null) 'fiber': fiber,
       if (timestamp != null) 'timestamp': timestamp,
+      if (imageUrl != null) 'image_url': imageUrl,
+      if (sourceMealId != null) 'source_meal_id': sourceMealId,
+      if (createdAt != null) 'created_at': createdAt,
+      if (lastUsedAt != null) 'last_used_at': lastUsedAt,
     });
   }
 
@@ -1373,6 +1607,10 @@ class FavoriteMealTableCompanion
     Value<int>? fat,
     Value<int>? fiber,
     Value<DateTime>? timestamp,
+    Value<String?>? imageUrl,
+    Value<int?>? sourceMealId,
+    Value<DateTime>? createdAt,
+    Value<DateTime?>? lastUsedAt,
   }) {
     return FavoriteMealTableCompanion(
       id: id ?? this.id,
@@ -1385,6 +1623,10 @@ class FavoriteMealTableCompanion
       fat: fat ?? this.fat,
       fiber: fiber ?? this.fiber,
       timestamp: timestamp ?? this.timestamp,
+      imageUrl: imageUrl ?? this.imageUrl,
+      sourceMealId: sourceMealId ?? this.sourceMealId,
+      createdAt: createdAt ?? this.createdAt,
+      lastUsedAt: lastUsedAt ?? this.lastUsedAt,
     );
   }
 
@@ -1421,6 +1663,18 @@ class FavoriteMealTableCompanion
     if (timestamp.present) {
       map['timestamp'] = Variable<DateTime>(timestamp.value);
     }
+    if (imageUrl.present) {
+      map['image_url'] = Variable<String>(imageUrl.value);
+    }
+    if (sourceMealId.present) {
+      map['source_meal_id'] = Variable<int>(sourceMealId.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (lastUsedAt.present) {
+      map['last_used_at'] = Variable<DateTime>(lastUsedAt.value);
+    }
     return map;
   }
 
@@ -1436,7 +1690,11 @@ class FavoriteMealTableCompanion
           ..write('carbs: $carbs, ')
           ..write('fat: $fat, ')
           ..write('fiber: $fiber, ')
-          ..write('timestamp: $timestamp')
+          ..write('timestamp: $timestamp, ')
+          ..write('imageUrl: $imageUrl, ')
+          ..write('sourceMealId: $sourceMealId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('lastUsedAt: $lastUsedAt')
           ..write(')'))
         .toString();
   }
@@ -1473,6 +1731,7 @@ typedef $$MealInfoTableTableCreateCompanionBuilder =
       required int fat,
       required int fiber,
       required DateTime timestamp,
+      Value<String?> imageUrl,
     });
 typedef $$MealInfoTableTableUpdateCompanionBuilder =
     MealInfoTableCompanion Function({
@@ -1486,6 +1745,7 @@ typedef $$MealInfoTableTableUpdateCompanionBuilder =
       Value<int> fat,
       Value<int> fiber,
       Value<DateTime> timestamp,
+      Value<String?> imageUrl,
     });
 
 class $$MealInfoTableTableFilterComposer
@@ -1544,6 +1804,11 @@ class $$MealInfoTableTableFilterComposer
 
   ColumnFilters<DateTime> get timestamp => $composableBuilder(
     column: $table.timestamp,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get imageUrl => $composableBuilder(
+    column: $table.imageUrl,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -1606,6 +1871,11 @@ class $$MealInfoTableTableOrderingComposer
     column: $table.timestamp,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get imageUrl => $composableBuilder(
+    column: $table.imageUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$MealInfoTableTableAnnotationComposer
@@ -1648,6 +1918,9 @@ class $$MealInfoTableTableAnnotationComposer
 
   GeneratedColumn<DateTime> get timestamp =>
       $composableBuilder(column: $table.timestamp, builder: (column) => column);
+
+  GeneratedColumn<String> get imageUrl =>
+      $composableBuilder(column: $table.imageUrl, builder: (column) => column);
 }
 
 class $$MealInfoTableTableTableManager
@@ -1699,6 +1972,7 @@ class $$MealInfoTableTableTableManager
                 Value<int> fat = const Value.absent(),
                 Value<int> fiber = const Value.absent(),
                 Value<DateTime> timestamp = const Value.absent(),
+                Value<String?> imageUrl = const Value.absent(),
               }) => MealInfoTableCompanion(
                 id: id,
                 mealName: mealName,
@@ -1710,6 +1984,7 @@ class $$MealInfoTableTableTableManager
                 fat: fat,
                 fiber: fiber,
                 timestamp: timestamp,
+                imageUrl: imageUrl,
               ),
           createCompanionCallback:
               ({
@@ -1723,6 +1998,7 @@ class $$MealInfoTableTableTableManager
                 required int fat,
                 required int fiber,
                 required DateTime timestamp,
+                Value<String?> imageUrl = const Value.absent(),
               }) => MealInfoTableCompanion.insert(
                 id: id,
                 mealName: mealName,
@@ -1734,6 +2010,7 @@ class $$MealInfoTableTableTableManager
                 fat: fat,
                 fiber: fiber,
                 timestamp: timestamp,
+                imageUrl: imageUrl,
               ),
           withReferenceMapper:
               (p0) =>
@@ -1944,6 +2221,10 @@ typedef $$FavoriteMealTableTableCreateCompanionBuilder =
       required int fat,
       required int fiber,
       required DateTime timestamp,
+      Value<String?> imageUrl,
+      Value<int?> sourceMealId,
+      Value<DateTime> createdAt,
+      Value<DateTime?> lastUsedAt,
     });
 typedef $$FavoriteMealTableTableUpdateCompanionBuilder =
     FavoriteMealTableCompanion Function({
@@ -1957,6 +2238,10 @@ typedef $$FavoriteMealTableTableUpdateCompanionBuilder =
       Value<int> fat,
       Value<int> fiber,
       Value<DateTime> timestamp,
+      Value<String?> imageUrl,
+      Value<int?> sourceMealId,
+      Value<DateTime> createdAt,
+      Value<DateTime?> lastUsedAt,
     });
 
 class $$FavoriteMealTableTableFilterComposer
@@ -2015,6 +2300,26 @@ class $$FavoriteMealTableTableFilterComposer
 
   ColumnFilters<DateTime> get timestamp => $composableBuilder(
     column: $table.timestamp,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get imageUrl => $composableBuilder(
+    column: $table.imageUrl,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get sourceMealId => $composableBuilder(
+    column: $table.sourceMealId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get lastUsedAt => $composableBuilder(
+    column: $table.lastUsedAt,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -2077,6 +2382,26 @@ class $$FavoriteMealTableTableOrderingComposer
     column: $table.timestamp,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get imageUrl => $composableBuilder(
+    column: $table.imageUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get sourceMealId => $composableBuilder(
+    column: $table.sourceMealId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get lastUsedAt => $composableBuilder(
+    column: $table.lastUsedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$FavoriteMealTableTableAnnotationComposer
@@ -2119,6 +2444,22 @@ class $$FavoriteMealTableTableAnnotationComposer
 
   GeneratedColumn<DateTime> get timestamp =>
       $composableBuilder(column: $table.timestamp, builder: (column) => column);
+
+  GeneratedColumn<String> get imageUrl =>
+      $composableBuilder(column: $table.imageUrl, builder: (column) => column);
+
+  GeneratedColumn<int> get sourceMealId => $composableBuilder(
+    column: $table.sourceMealId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastUsedAt => $composableBuilder(
+    column: $table.lastUsedAt,
+    builder: (column) => column,
+  );
 }
 
 class $$FavoriteMealTableTableTableManager
@@ -2177,6 +2518,10 @@ class $$FavoriteMealTableTableTableManager
                 Value<int> fat = const Value.absent(),
                 Value<int> fiber = const Value.absent(),
                 Value<DateTime> timestamp = const Value.absent(),
+                Value<String?> imageUrl = const Value.absent(),
+                Value<int?> sourceMealId = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime?> lastUsedAt = const Value.absent(),
               }) => FavoriteMealTableCompanion(
                 id: id,
                 mealName: mealName,
@@ -2188,6 +2533,10 @@ class $$FavoriteMealTableTableTableManager
                 fat: fat,
                 fiber: fiber,
                 timestamp: timestamp,
+                imageUrl: imageUrl,
+                sourceMealId: sourceMealId,
+                createdAt: createdAt,
+                lastUsedAt: lastUsedAt,
               ),
           createCompanionCallback:
               ({
@@ -2201,6 +2550,10 @@ class $$FavoriteMealTableTableTableManager
                 required int fat,
                 required int fiber,
                 required DateTime timestamp,
+                Value<String?> imageUrl = const Value.absent(),
+                Value<int?> sourceMealId = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime?> lastUsedAt = const Value.absent(),
               }) => FavoriteMealTableCompanion.insert(
                 id: id,
                 mealName: mealName,
@@ -2212,6 +2565,10 @@ class $$FavoriteMealTableTableTableManager
                 fat: fat,
                 fiber: fiber,
                 timestamp: timestamp,
+                imageUrl: imageUrl,
+                sourceMealId: sourceMealId,
+                createdAt: createdAt,
+                lastUsedAt: lastUsedAt,
               ),
           withReferenceMapper:
               (p0) =>

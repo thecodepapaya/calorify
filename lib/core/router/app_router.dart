@@ -1,14 +1,9 @@
-import 'dart:typed_data';
-
 import 'package:auto_route/auto_route.dart';
-import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/features/auth/login_screen.dart';
-import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
 import 'package:calorify/features/favorites/favorites_screen.dart';
 import 'package:calorify/features/history/meal_history_screen.dart';
 import 'package:calorify/features/home/home_screen.dart';
 import 'package:calorify/features/splash/splash_screen.dart';
-import 'package:flutter/material.dart';
 
 part 'app_router.gr.dart';
 
@@ -22,7 +17,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SplashRoute.page, initial: true),
     AutoRoute(page: LoginRoute.page),
     AutoRoute(page: HomeRoute.page),
-    AutoRoute(page: EditMealRoute.page),
     AutoRoute(page: FavoritesRoute.page),
     AutoRoute(page: MealHistoryRoute.page),
   ];

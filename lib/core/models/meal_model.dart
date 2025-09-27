@@ -27,6 +27,8 @@ class MealInfo {
   final int fiber;
   @JsonKey(name: 'timestamp')
   final DateTime timestamp;
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
 
   const MealInfo({
     this.id,
@@ -39,6 +41,7 @@ class MealInfo {
     required this.fat,
     required this.fiber,
     required this.timestamp,
+    this.imageUrl,
   });
 
   factory MealInfo.fromJson(Map<String, dynamic> json) =>
@@ -71,6 +74,7 @@ class MealInfo {
       fat: data.fat,
       fiber: data.fiber,
       timestamp: data.timestamp,
+      imageUrl: data.imageUrl,
     );
   }
 
@@ -86,6 +90,35 @@ class MealInfo {
       fat: data.fat,
       fiber: data.fiber,
       timestamp: data.timestamp,
+      imageUrl: data.imageUrl,
+    );
+  }
+
+  MealInfo copyWith({
+    int? id,
+    String? mealName,
+    String? mealQuantity,
+    MealType? mealType,
+    int? calories,
+    int? protein,
+    int? carbs,
+    int? fat,
+    int? fiber,
+    DateTime? timestamp,
+    String? imageUrl,
+  }) {
+    return MealInfo(
+      id: id ?? this.id,
+      mealName: mealName ?? this.mealName,
+      mealQuantity: mealQuantity ?? this.mealQuantity,
+      mealType: mealType ?? this.mealType,
+      calories: calories ?? this.calories,
+      protein: protein ?? this.protein,
+      carbs: carbs ?? this.carbs,
+      fat: fat ?? this.fat,
+      fiber: fiber ?? this.fiber,
+      timestamp: timestamp ?? this.timestamp,
+      imageUrl: imageUrl ?? this.imageUrl,
     );
   }
 }

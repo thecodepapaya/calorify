@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class AnimatedLeaf extends StatefulWidget {
-  const AnimatedLeaf({super.key});
+  const AnimatedLeaf({super.key, required this.size});
+
+  final double size;
 
   @override
   State<AnimatedLeaf> createState() => _AnimatedLeafState();
@@ -22,7 +26,7 @@ class _AnimatedLeafState extends State<AnimatedLeaf>
       vsync: this,
     )..repeat(reverse: true);
 
-    final double maxRotationRadians = 10 * (3.1415926535 / 180);
+    final double maxRotationRadians = 10 * (pi / 180);
 
     _animation = Tween<double>(
       begin: -maxRotationRadians,
@@ -45,7 +49,7 @@ class _AnimatedLeafState extends State<AnimatedLeaf>
           child: Icon(
             LucideIcons.leaf,
             color: colorScheme.primary,
-            size: 150.0,
+            size: widget.size,
           ),
         );
       },

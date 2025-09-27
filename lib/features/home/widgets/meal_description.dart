@@ -5,6 +5,7 @@ import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:calorify/core/db/app_database.dart';
 
 class DescribeMeal extends StatefulWidget {
   const DescribeMeal({super.key});
@@ -123,14 +124,15 @@ class _DescribeMealState extends State<DescribeMeal> {
     }
 
     if (!mounted) return;
-    await showMealTip(context, null, mealDetectionResult);
+    await showMealTip(
+      context: context,
+      mealDetectionResult: mealDetectionResult,
+      allowEdit: true,
+    );
     if (!mealDetectionResult.mealIdentified) return;
 
     if (!mounted) return;
-    await writeMealInfoToLocalDatabase(context, mealDetectionResult);
-
-    if (!mounted) return;
-    await writeDataToHealthConnect(context, mealDetectionResult.mealInfo);
+    await appDb.logMeal(mealDetectionResult.mealInfo);
   }
 
   void _reset() {
@@ -138,5 +140,11 @@ class _DescribeMealState extends State<DescribeMeal> {
       _isLoading = false;
       _textController.text = '';
     });
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
   }
 }

@@ -1,10 +1,12 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/db/mappers/meal_detection_result_mapper.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/features/history/widgets/icon_nutrition.dart';
 import 'package:calorify/features/history/widgets/meal_quantity.dart';
 import 'package:calorify/features/history/widgets/meal_timestamp.dart';
 import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -13,10 +15,12 @@ class MealLogCard extends StatelessWidget {
     super.key,
     required this.mealInfo,
     this.showTimestamp = true,
+    required this.allowEdit,
   });
 
   final MealInfo mealInfo;
   final bool showTimestamp;
+  final bool allowEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -26,81 +30,94 @@ class MealLogCard extends StatelessWidget {
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4),
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
+      child: InkWell(
         borderRadius: globalRadius,
-        border: Border.all(color: colorScheme.outline),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+        onTap: () {
+          showMealTip(
+            context: context,
+            mealDetectionResult: mealInfo.toMealDetectionResult(),
+            allowEdit: allowEdit,
+          );
+        },
+        child: Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            borderRadius: globalRadius,
+            border: Border.all(color: colorScheme.outline),
+          ),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Text(
-                  mealInfo.mealName,
-                  style: textTheme.titleMedium,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              SizedBox(width: 12),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 4),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: colorScheme.onSecondary.withValues(alpha: 0.7),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      mealInfo.mealName,
+                      style: textTheme.titleMedium,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-                child: MealTypeIndicator(mealType: mealInfo.mealType),
+                  SizedBox(width: 12),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 4),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: colorScheme.onSecondary.withValues(alpha: 0.7),
+                      ),
+                    ),
+                    child: MealTypeIndicator(mealType: mealInfo.mealType),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MealQuantityIndicator(quantity: mealInfo.mealQuantity),
+                  if (showTimestamp)
+                    MealTimestamp(timestamp: mealInfo.timestamp),
+                ],
+              ),
+              SizedBox(height: 12),
+              Row(
+                children: [
+                  NutrientIconWithValue(
+                    icon: LucideIcons.flame,
+                    value: mealInfo.calories.toDouble(),
+                    unit: '',
+                    iconColor: calorieIconColor,
+                  ),
+                  NutrientIconWithValue(
+                    icon: LucideIcons.wheat,
+                    value: mealInfo.carbs.toDouble(),
+                    unit: 'g',
+                    iconColor: carbsIconColor,
+                  ),
+                  NutrientIconWithValue(
+                    icon: LucideIcons.drumstick,
+                    value: mealInfo.protein.toDouble(),
+                    unit: 'g',
+                    iconColor: proteinIconColor,
+                  ),
+                  NutrientIconWithValue(
+                    icon: LucideIcons.egg,
+                    value: mealInfo.fat.toDouble(),
+                    unit: 'g',
+                    iconColor: fatIconColor,
+                  ),
+                  NutrientIconWithValue(
+                    icon: LucideIcons.leaf,
+                    value: mealInfo.fiber.toDouble(),
+                    unit: 'g',
+                    iconColor: fiberIconColor,
+                  ),
+                ],
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              MealQuantityIndicator(quantity: mealInfo.mealQuantity),
-              if (showTimestamp) MealTimestamp(timestamp: mealInfo.timestamp),
-            ],
-          ),
-          SizedBox(height: 12),
-          Row(
-            children: [
-              NutrientIconWithValue(
-                icon: LucideIcons.flame,
-                value: mealInfo.calories.toDouble(),
-                unit: '',
-                iconColor: calorieIconColor,
-              ),
-              NutrientIconWithValue(
-                icon: LucideIcons.wheat,
-                value: mealInfo.carbs.toDouble(),
-                unit: 'g',
-                iconColor: carbsIconColor,
-              ),
-              NutrientIconWithValue(
-                icon: LucideIcons.drumstick,
-                value: mealInfo.protein.toDouble(),
-                unit: 'g',
-                iconColor: proteinIconColor,
-              ),
-              NutrientIconWithValue(
-                icon: LucideIcons.egg,
-                value: mealInfo.fat.toDouble(),
-                unit: 'g',
-                iconColor: fatIconColor,
-              ),
-              NutrientIconWithValue(
-                icon: LucideIcons.leaf,
-                value: mealInfo.fiber.toDouble(),
-                unit: 'g',
-                iconColor: fiberIconColor,
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }

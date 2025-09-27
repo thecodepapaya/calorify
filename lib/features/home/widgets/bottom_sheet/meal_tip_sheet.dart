@@ -1,26 +1,27 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_detection_result.dart';
 import 'package:calorify/core/models/meal_model.dart';
-import 'package:calorify/core/router/app_router.dart';
+import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
 import 'package:calorify/features/history/widgets/meal_quantity.dart';
 import 'package:calorify/features/history/widgets/meal_timestamp.dart';
 import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/meal_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-Future<void> showMealTip(
-  BuildContext context,
+Future<void> showMealTip({
+  required BuildContext context,
   Uint8List? imageData,
-  MealDetectionResult mealDetectionResult,
-) {
+  required MealDetectionResult mealDetectionResult,
+  required bool allowEdit,
+}) {
   return showModalBottomSheet(
     context: context,
     isDismissible: true,
@@ -28,21 +29,50 @@ Future<void> showMealTip(
     enableDrag: true,
     isScrollControlled: true,
     builder:
-        (context) => _UnidentifiedMealTip(
+        (context) => _MealTip(
           mealDetectionResult: mealDetectionResult,
           imageData: imageData,
+          allowEdit: allowEdit,
         ),
   );
 }
 
-class _UnidentifiedMealTip extends StatelessWidget {
-  const _UnidentifiedMealTip({
+class _MealTip extends StatefulWidget {
+  const _MealTip({
     required this.mealDetectionResult,
     required this.imageData,
+    this.allowEdit = false,
   });
 
   final MealDetectionResult mealDetectionResult;
   final Uint8List? imageData;
+  final bool allowEdit;
+
+  @override
+  State<_MealTip> createState() => _MealTipState();
+}
+
+class _MealTipState extends State<_MealTip> {
+  bool _isFavorite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.mealDetectionResult.mealIdentified) {
+      _checkIfFavorite();
+    }
+  }
+
+  Future<void> _checkIfFavorite() async {
+    final mealId = widget.mealDetectionResult.mealInfo.id;
+    if (mealId == null) return;
+    final isFavorite = await appDb.isFavoriteMeal(mealId);
+    if (mounted) {
+      setState(() {
+        _isFavorite = isFavorite;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +84,7 @@ class _UnidentifiedMealTip extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (mealDetectionResult.mealIdentified)
+          if (widget.mealDetectionResult.mealIdentified)
             ..._mealIdentified(context)
           else
             ..._mealUnIdentified(context),
@@ -84,11 +114,11 @@ class _UnidentifiedMealTip extends StatelessWidget {
       ),
       SizedBox(height: 16),
       Text(
-        mealDetectionResult.tip,
+        widget.mealDetectionResult.tip,
         style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
       ),
       SizedBox(height: 12),
-      MealImage(imageBytes: imageData),
+      MealImage(imageBytes: widget.imageData),
     ];
   }
 
@@ -96,7 +126,7 @@ class _UnidentifiedMealTip extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
-    final MealInfo mealInfo = mealDetectionResult.mealInfo;
+    final MealInfo mealInfo = widget.mealDetectionResult.mealInfo;
 
     return [
       Row(
@@ -124,21 +154,55 @@ class _UnidentifiedMealTip extends StatelessWidget {
             ],
           ),
           SizedBox(width: 12),
-          IconButton(
-            onPressed: () {},
-            padding: EdgeInsets.zero,
-            visualDensity: VisualDensity.compact,
-            icon: Icon(LucideIcons.star, size: 24, color: colorScheme.tertiary),
+          Row(
+            children: [
+              IconButton(
+                onPressed:
+                    widget.mealDetectionResult.mealInfo.id == null
+                        ? null
+                        : _toggleFavorite,
+                padding: EdgeInsets.zero,
+                visualDensity: VisualDensity.compact,
+                icon: Icon(
+                  LucideIcons.star,
+                  size: 24,
+                  color:
+                      _isFavorite
+                          ? colorScheme.tertiary
+                          : colorScheme.onSurface.withValues(alpha: 0.5),
+                ),
+              ),
+              if (widget.allowEdit)
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    showEditMealSheet(
+                      context,
+                      mealInfo: mealInfo,
+                      imageData: widget.imageData,
+                    );
+                  },
+                  padding: EdgeInsets.zero,
+                  visualDensity: VisualDensity.compact,
+                  icon: Icon(
+                    LucideIcons.pencil,
+                    size: 24,
+                    color: colorScheme.onSurface.withValues(alpha: 0.5),
+                  ),
+                ),
+            ],
           ),
         ],
       ),
       SizedBox(height: 16),
-      MealImage(imageBytes: imageData),
-      SizedBox(height: 16),
-      Text(
-        mealDetectionResult.tip,
-        style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
-      ),
+      MealImage(imageBytes: widget.imageData, imageUrl: mealInfo.imageUrl),
+      if (widget.mealDetectionResult.tip.isNotEmpty) ...[
+        SizedBox(height: 16),
+        Text(
+          widget.mealDetectionResult.tip,
+          style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
+        ),
+      ],
       SizedBox(height: 16),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -206,57 +270,35 @@ class _UnidentifiedMealTip extends StatelessWidget {
         ],
       ),
       SizedBox(height: 20),
-      Row(
-        children: [
-          Expanded(
-            child: ElevatedButton(
-              onPressed: () {
-                context.router.push(
-                  EditMealRoute(mealInfo: mealInfo, imageData: imageData),
-                );
-              },
-              child: Text('Edit'),
-            ),
-          ),
-          SizedBox(width: 12),
-          Expanded(
-            child: ElevatedButton(
-              onPressed: () async {
-                try {
-                  await appDb
-                      .into(appDb.favoriteMealTable)
-                      .insert(
-                        FavoriteMealTableCompanion.insert(
-                          mealName: mealInfo.mealName,
-                          mealQuantity: mealInfo.mealQuantity,
-                          mealType: mealInfo.mealType.toString(),
-                          calories: mealInfo.calories.round(),
-                          protein: mealInfo.protein.round(),
-                          carbs: mealInfo.carbs.round(),
-                          fat: mealInfo.fat.round(),
-                          fiber: mealInfo.fiber.round(),
-                          timestamp: DateTime.now(),
-                        ),
-                      );
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Meal saved as favorite!')),
-                    );
-                    Navigator.of(context).pop();
-                  }
-                } on Exception catch (e) {
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Could not save favorite: $e')),
-                    );
-                  }
-                }
-              },
-              child: Text('Save as Favorite'),
-            ),
-          ),
-        ],
-      ),
     ];
+  }
+
+  Future<void> _toggleFavorite() async {
+    final mealInfo = widget.mealDetectionResult.mealInfo;
+    try {
+      if (_isFavorite) {
+        await appDb.removeFavoriteMeal(mealInfo.id!);
+        if (!mounted) return;
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(snack('Removed from favorites!'));
+      } else {
+        await appDb.addFavoriteMeal(mealInfo);
+        if (!mounted) return;
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(snack('Meal saved as favorite!'));
+      }
+
+      setState(() {
+        _isFavorite = !_isFavorite;
+      });
+    } on Exception catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(snack('Could not update favorite: $e'));
+      }
+    }
   }
 }

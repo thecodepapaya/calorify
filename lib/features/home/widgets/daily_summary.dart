@@ -1,83 +1,13 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/db/app_database.dart';
-import 'package:drift/drift.dart' as db;
+import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-class DailySummaryCard extends StatefulWidget {
+class DailySummaryCard extends StatelessWidget {
   const DailySummaryCard({super.key});
-
-  @override
-  State<DailySummaryCard> createState() => _DailySummaryCardState();
-}
-
-class _DailySummaryCardState extends State<DailySummaryCard> {
-  double calories = 0.0;
-  double protein = 0.0;
-  double carbs = 0.0;
-  double fat = 0.0;
-  double fiber = 0.0;
-  bool isLoading = false;
-  String? error;
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchDailySummaryData();
-  }
-
-  Future<void> _fetchDailySummaryData() async {
-    setState(() {
-      isLoading = true;
-      error = null;
-    });
-
-    try {
-      final now = DateTime.now();
-      final startOfToday = DateTime(now.year, now.month, now.day);
-      final endOfToday = DateTime(
-        now.year,
-        now.month,
-        now.day,
-        23,
-        59,
-        59,
-        999,
-      );
-
-      final todaysMeals =
-          await (appDb.select(appDb.mealInfoTable)..where(
-            (tbl) => tbl.timestamp.isBetweenValues(startOfToday, endOfToday),
-          )).get();
-
-      double tempCalories = 0,
-          tempProtein = 0,
-          tempCarbs = 0,
-          tempFat = 0,
-          tempFiber = 0;
-
-      for (final meal in todaysMeals) {
-        tempCalories += meal.calories;
-        tempProtein += meal.protein;
-        tempCarbs += meal.carbs;
-        tempFat += meal.fat;
-        tempFiber += meal.fiber;
-      }
-
-      setState(() {
-        calories = tempCalories;
-        protein = tempProtein;
-        carbs = tempCarbs;
-        fat = tempFat;
-        fiber = tempFiber;
-      });
-    } catch (e) {
-      setState(() => error = e.toString());
-    } finally {
-      setState(() => isLoading = false);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,29 +15,9 @@ class _DailySummaryCardState extends State<DailySummaryCard> {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
 
-    // If error, show error message inside the card structure
-    if (error != null) {
-      return Container(
-        margin: globalMargin,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          borderRadius: globalRadius,
-          border: Border.all(color: colorScheme.outline),
-        ),
-        height: 200, // Approximate height
-        child: Center(
-          child: Text(
-            'Error: $error',
-            style: textTheme.bodyMedium?.copyWith(color: colorScheme.error),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      );
-    }
-
     return Container(
       margin: globalMargin,
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: globalRadius,
         border: Border.all(color: colorScheme.outline),
@@ -115,7 +25,7 @@ class _DailySummaryCardState extends State<DailySummaryCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: double.infinity),
+          const SizedBox(width: double.infinity),
           Text(
             'Daily Summary',
             style: textTheme.titleLarge?.copyWith(
@@ -124,47 +34,65 @@ class _DailySummaryCardState extends State<DailySummaryCard> {
             ),
           ),
           const SizedBox(height: 20),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            alignment: WrapAlignment.start,
-            children: [
-              NutrientTile(
-                icon: LucideIcons.flame,
-                label: 'Calories',
-                value: calories,
-                unit: 'kcal',
-                iconColor: calorieIconColor,
-              ),
-              NutrientTile(
-                icon: LucideIcons.wheat,
-                label: 'Carbs',
-                value: carbs,
-                unit: 'g',
-                iconColor: carbsIconColor,
-              ),
-              NutrientTile(
-                icon: LucideIcons.drumstick,
-                label: 'Protein',
-                value: protein,
-                unit: 'g',
-                iconColor: proteinIconColor,
-              ),
-              NutrientTile(
-                icon: LucideIcons.egg,
-                label: 'Fat',
-                value: fat,
-                unit: 'g',
-                iconColor: fatIconColor,
-              ),
-              NutrientTile(
-                icon: LucideIcons.leaf,
-                label: 'Fiber',
-                value: fiber,
-                unit: 'g',
-                iconColor: fiberIconColor,
-              ),
-            ],
+          StreamBuilder<List<MealInfo>>(
+            stream: appDb.watchAllMealsForToday(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return ErrorView(error: snapshot.error!);
+              }
+              final meals = snapshot.data ?? [];
+              double calories = 0, protein = 0, carbs = 0, fat = 0, fiber = 0;
+
+              for (final meal in meals) {
+                calories += meal.calories;
+                protein += meal.protein;
+                carbs += meal.carbs;
+                fat += meal.fat;
+                fiber += meal.fiber;
+              }
+              return Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                alignment: WrapAlignment.start,
+                children: [
+                  NutrientTile(
+                    icon: LucideIcons.flame,
+                    label: 'Calories',
+                    value: calories,
+                    unit: 'kcal',
+                    iconColor: calorieIconColor,
+                  ),
+                  NutrientTile(
+                    icon: LucideIcons.wheat,
+                    label: 'Carbs',
+                    value: carbs,
+                    unit: 'g',
+                    iconColor: carbsIconColor,
+                  ),
+                  NutrientTile(
+                    icon: LucideIcons.drumstick,
+                    label: 'Protein',
+                    value: protein,
+                    unit: 'g',
+                    iconColor: proteinIconColor,
+                  ),
+                  NutrientTile(
+                    icon: LucideIcons.egg,
+                    label: 'Fat',
+                    value: fat,
+                    unit: 'g',
+                    iconColor: fatIconColor,
+                  ),
+                  NutrientTile(
+                    icon: LucideIcons.leaf,
+                    label: 'Fiber',
+                    value: fiber,
+                    unit: 'g',
+                    iconColor: fiberIconColor,
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),
