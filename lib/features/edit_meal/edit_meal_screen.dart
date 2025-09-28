@@ -1,11 +1,11 @@
+import 'dart:developer';
 import 'dart:typed_data';
+
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/models/meal_type.dart';
-import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/utilities/string_utils.dart';
-import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 
 Future<void> showEditMealSheet(
@@ -100,7 +100,15 @@ class _EditMealScreenState extends State<EditMealScreen> {
                 isEditing ? 'Edit Meal' : 'Add Meal',
                 style: textTheme.titleLarge,
               ),
-              IconButton(icon: const Icon(Icons.check), onPressed: _saveMeal),
+              TextButton(
+                onPressed: _saveMeal,
+                child: Text(
+                  'Save',
+                  style: textTheme.titleMedium?.copyWith(
+                    color: colorScheme.primary,
+                  ),
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 20),
@@ -210,7 +218,7 @@ class _EditMealScreenState extends State<EditMealScreen> {
     );
 
     final mealInfo = MealInfo(
-      id: isEditing ? widget.mealInfo!.id : null,
+      id: isEditing ? widget.mealInfo?.id : null,
       mealName: _nameController.text,
       calories: _calories,
       carbs: _carbs,
@@ -223,25 +231,7 @@ class _EditMealScreenState extends State<EditMealScreen> {
     );
 
     try {
-      final companion = MealInfoTableCompanion(
-        mealName: drift.Value(_nameController.text),
-        calories: drift.Value(_calories),
-        carbs: drift.Value(_carbs),
-        protein: drift.Value(_protein),
-        fat: drift.Value(_fat),
-        fiber: drift.Value(_fiber),
-        mealType: drift.Value(_mealType.name),
-        mealQuantity: drift.Value(_mealQuantityController.text),
-        timestamp: drift.Value(newTimestamp),
-      );
-      if (isEditing) {
-        await (appDb.update(appDb.mealInfoTable)..where(
-          (tbl) => tbl.id.equals(widget.mealInfo!.id!),
-        )).write(companion);
-      } else {
-        await appDb.logMeal(mealInfo);
-      }
-      await HealthService.instance.writeMealData(mealInfo);
+      await appDb.upsertMeal(mealInfo);
 
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -252,8 +242,8 @@ class _EditMealScreenState extends State<EditMealScreen> {
         ),
       );
       Navigator.of(context).pop();
-    } catch (e) {
-      if (!mounted) return;
+    } on Exception catch (e, st) {
+      log('Error saving meal:', error: e, stackTrace: st);
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Error saving meal: $e')));

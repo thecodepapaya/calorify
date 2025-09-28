@@ -116,7 +116,10 @@ class FoodAnalysisService {
     // To generate text output, call generateContent with the text input
     final response = await _model.generateContent(prompt);
     log(response.text.toString());
-    return MealDetectionResult.fromJson(jsonDecode(response.text as String));
+    final result = MealDetectionResult.fromJson(
+      jsonDecode(response.text as String),
+    );
+    return _dateSanitizedResult(result);
   }
 
   Future<MealDetectionResult> analyzeFoodDescription({
@@ -128,6 +131,19 @@ class FoodAnalysisService {
     // To generate text output, call generateContent with the text input
     final response = await _model.generateContent(prompt);
     log(response.text.toString());
-    return MealDetectionResult.fromJson(jsonDecode(response.text as String));
+    final result = MealDetectionResult.fromJson(
+      jsonDecode(response.text as String),
+    );
+    return _dateSanitizedResult(result);
   }
+}
+
+MealDetectionResult _dateSanitizedResult(MealDetectionResult result) {
+  final mealInfo = result.mealInfo.copyWith(timestamp: DateTime.now());
+  return MealDetectionResult(
+    mealIdentified: result.mealIdentified,
+    calorieConfidence: result.calorieConfidence,
+    tip: result.tip,
+    mealInfo: mealInfo,
+  );
 }

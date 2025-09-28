@@ -1,8 +1,15 @@
+import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:flutter/material.dart';
 
-Future<bool> writeDataToHealthConnect(
+Future<void> logMeal(BuildContext context, MealInfo mealInfo) async {
+  await appDb.logMeal(mealInfo);
+  if (!context.mounted) return;
+  _writeDataToHealthConnect(context, mealInfo);
+}
+
+Future<bool> _writeDataToHealthConnect(
   BuildContext context,
   MealInfo mealInfo,
 ) async {

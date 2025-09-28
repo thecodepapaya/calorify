@@ -249,7 +249,7 @@ class _DateDivider extends StatelessWidget {
     } else if (now.year == date.year) {
       return DateFormat('dd MMM').format(date);
     } else {
-      return DateFormat('dd MMM YYYY').format(date);
+      return DateFormat('dd MMM yyyy').format(date);
     }
   }
 
@@ -258,12 +258,15 @@ class _DateDivider extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final TextTheme textTheme = theme.textTheme;
 
+    final datestr = _formatDate(date);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
           Text(
-            _formatDate(date),
+            datestr,
+            // _formatDate(date),
             style: textTheme.titleMedium?.copyWith(
               fontSize: 18,
               fontWeight: FontWeight.w600,

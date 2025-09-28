@@ -1,15 +1,15 @@
 import 'dart:io';
+
 import 'package:calorify/core/db/mappers/favorite_meal_mapper.dart';
+import 'package:calorify/core/db/mappers/meal_info_mapper.dart';
 import 'package:calorify/core/db/tables/favorite_meal.dart';
 import 'package:calorify/core/db/tables/meal_info.dart';
 import 'package:calorify/core/db/tables/user_settings.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
-import 'package:calorify/core/db/mappers/meal_info_mapper.dart';
-import 'package:calorify/core/services/health_service.dart';
+import 'package:path_provider/path_provider.dart';
 
 part 'app_database.g.dart';
 
@@ -86,7 +86,10 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> logMeal(MealInfo mealInfo) async {
     await into(mealInfoTable).insert(mealInfo.toCompanion());
-    await HealthService.instance.writeMealData(mealInfo);
+  }
+
+  Future<void> upsertMeal(MealInfo mealInfo) {
+    return into(mealInfoTable).insertOnConflictUpdate(mealInfo.toCompanion());
   }
 
   Stream<List<MealInfo>> watchAllFavoriteMeals() {

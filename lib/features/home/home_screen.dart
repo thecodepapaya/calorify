@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:calorify/core/config/app_config.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/features/home/widgets/connect_health.dart';
 import 'package:calorify/features/home/widgets/daily_goal.dart';
@@ -33,7 +34,7 @@ class HomeScreen extends StatelessWidget {
             AnimatedLeaf(size: 36),
             SizedBox(width: 6),
             Text(
-              'Calorify',
+              AppConfig.title,
               style: textTheme.displaySmall?.copyWith(
                 color: colorScheme.primary,
               ),

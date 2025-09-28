@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-import 'dart:ui';
 
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
@@ -271,6 +270,37 @@ class _MealTipState extends State<_MealTip> {
           ),
         ],
       ),
+      if (widget.allowEdit && widget.mealDetectionResult.mealIdentified) ...[
+        SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () async {
+            await appDb.logMeal(widget.mealDetectionResult.mealInfo);
+            if (!context.mounted) return;
+            Navigator.of(context).pop();
+          },
+          style: ButtonStyle(
+            minimumSize: WidgetStatePropertyAll(Size(double.infinity, 50)),
+            backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
+            foregroundColor: WidgetStatePropertyAll(colorScheme.onPrimary),
+            shape: WidgetStatePropertyAll(
+              RoundedRectangleBorder(borderRadius: globalRadius),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(LucideIcons.save),
+              SizedBox(width: 6),
+              Text(
+                'Save Meal',
+                style: textTheme.bodyLarge?.copyWith(
+                  color: colorScheme.onPrimary,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
       SizedBox(height: 20),
     ];
   }

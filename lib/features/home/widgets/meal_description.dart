@@ -3,9 +3,9 @@ import 'package:calorify/core/models/meal_detection_result.dart';
 import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
+import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:calorify/core/db/app_database.dart';
 
 class DescribeMeal extends StatefulWidget {
   const DescribeMeal({super.key});
@@ -75,10 +75,7 @@ class _DescribeMealState extends State<DescribeMeal> {
           ),
           SizedBox(height: 16),
           ElevatedButton(
-            onPressed:
-                _textController.text.isEmpty
-                    ? null
-                    : () => _onProcessMealDescription(),
+            onPressed: () => _onProcessMealDescription(),
             style: ButtonStyle(
               minimumSize: WidgetStatePropertyAll(Size(double.infinity, 50)),
               backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
@@ -90,7 +87,9 @@ class _DescribeMealState extends State<DescribeMeal> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(LucideIcons.wand2),
+                _isLoading
+                    ? AppLoader(color: colorScheme.onPrimary)
+                    : Icon(LucideIcons.wand2),
                 SizedBox(width: 6),
                 Text(
                   'Analyze meal',
@@ -131,10 +130,6 @@ class _DescribeMealState extends State<DescribeMeal> {
       mealDetectionResult: mealDetectionResult,
       allowEdit: true,
     );
-    if (!mealDetectionResult.mealIdentified) return;
-
-    if (!mounted) return;
-    await appDb.logMeal(mealDetectionResult.mealInfo);
   }
 
   void _reset() {
