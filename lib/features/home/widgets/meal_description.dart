@@ -76,7 +76,9 @@ class _DescribeMealState extends State<DescribeMeal> {
           SizedBox(height: 16),
           ElevatedButton(
             onPressed:
-                _textController.text.isEmpty ? null : _onProcessMealDescription,
+                _textController.text.isEmpty
+                    ? null
+                    : () => _onProcessMealDescription(),
             style: ButtonStyle(
               minimumSize: WidgetStatePropertyAll(Size(double.infinity, 50)),
               backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
