@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:calorify/core/constants/assets.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +11,11 @@ class MealImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final normalizedImageUrl = imageUrl?.trim();
+    final normalizedImageUrl = imageUrl?.trim() ?? '';
+
+    if (imageBytes?.isEmpty ?? true && normalizedImageUrl.isEmpty) {
+      return SizedBox();
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -21,9 +24,7 @@ class MealImage extends StatelessWidget {
           image:
               imageBytes != null
                   ? MemoryImage(imageBytes!)
-                  : normalizedImageUrl?.isNotEmpty == true
-                  ? NetworkImage(normalizedImageUrl!)
-                  : AssetImage(Assets.foodPlaceholder),
+                  : NetworkImage(normalizedImageUrl),
           fit: BoxFit.cover,
         ),
       ),

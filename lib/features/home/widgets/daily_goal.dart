@@ -29,11 +29,10 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
 
   Future<void> _fetchCaloriesBurned() async {
     final calories = await HealthService.instance.getTotalCaloriesBurned();
-    if (mounted) {
-      setState(() {
-        _caloriesBurned = calories;
-      });
-    }
+    if (!mounted || calories == null) return;
+    setState(() {
+      _caloriesBurned = calories;
+    });
   }
 
   Future<void> _updateAndSaveGoal(int calories) async {

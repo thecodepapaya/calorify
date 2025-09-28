@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/services/auth_service.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart'; // If using Provider
 
@@ -34,10 +35,9 @@ class LoginScreen extends StatelessWidget {
                 } else {
                   log("Sign in failed or cancelled.");
                   // Show a snackbar or message
+                  if (!context.mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Google Sign-In failed or was cancelled.'),
-                    ),
+                    snack('Google Sign-In failed or was cancelled.'),
                   );
                 }
               },

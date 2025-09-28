@@ -6,6 +6,7 @@ import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/models/meal_type.dart';
 import 'package:calorify/core/utilities/string_utils.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:flutter/material.dart';
 
 Future<void> showEditMealSheet(
@@ -20,21 +21,21 @@ Future<void> showEditMealSheet(
     showDragHandle: true,
     enableDrag: true,
     builder:
-        (context) => EditMealScreen(mealInfo: mealInfo, imageData: imageData),
+        (context) => _EditMealScreen(mealInfo: mealInfo, imageData: imageData),
   );
 }
 
-class EditMealScreen extends StatefulWidget {
+class _EditMealScreen extends StatefulWidget {
   final MealInfo? mealInfo;
   final Uint8List? imageData;
 
-  const EditMealScreen({super.key, this.mealInfo, this.imageData});
+  const _EditMealScreen({this.mealInfo, this.imageData});
 
   @override
   _EditMealScreenState createState() => _EditMealScreenState();
 }
 
-class _EditMealScreenState extends State<EditMealScreen> {
+class _EditMealScreenState extends State<_EditMealScreen> {
   late TextEditingController _nameController;
   late TextEditingController _timeController;
   late TimeOfDay _selectedTime;
@@ -235,18 +236,14 @@ class _EditMealScreenState extends State<EditMealScreen> {
 
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Meal ${isEditing ? 'updated' : 'added'} successfully!',
-          ),
-        ),
+        snack('Meal ${isEditing ? 'updated' : 'added'} successfully!'),
       );
       Navigator.of(context).pop();
     } on Exception catch (e, st) {
       log('Error saving meal:', error: e, stackTrace: st);
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Error saving meal: $e')));
+      ).showSnackBar(snack('Error saving meal: $e'));
     }
   }
 

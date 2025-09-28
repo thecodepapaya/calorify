@@ -209,7 +209,7 @@ class _MealSnapState extends State<MealSnap> {
     try {
       final compressed = await FlutterImageCompress.compressWithList(
         original,
-        quality: 70,
+        quality: 60,
         format: CompressFormat.jpeg,
       );
 

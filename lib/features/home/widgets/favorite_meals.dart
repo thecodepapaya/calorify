@@ -184,7 +184,7 @@ class _MealTile extends StatelessWidget {
               onPressed: () async {
                 try {
                   final newMeal = meal.copyWith(timestamp: DateTime.now());
-                  await appDb.logMeal(newMeal);
+                  await logMeal(context, newMeal);
                   await appDb.updateFavoriteLastUsedAt(meal.id!);
                   if (context.mounted) {
                     ScaffoldMessenger.of(

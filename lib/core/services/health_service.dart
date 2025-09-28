@@ -9,19 +9,21 @@ class HealthService {
   static final _instance = HealthService._();
   static HealthService get instance => _instance;
 
-  final Health _health = Health(); // For Android specific
+  final Health _health = Health();
+
+  HealthConnectSdkStatus status = HealthConnectSdkStatus.sdkUnavailable;
+  bool isAuthorized = false;
+
   Future<void> init() async {
     await _health.configure();
     status =
         await _health.getHealthConnectSdkStatus() ??
         HealthConnectSdkStatus.sdkUnavailable;
+
     isAuthorized =
         await _health.hasPermissions(_types, permissions: _permissions) ??
         false;
   }
-
-  HealthConnectSdkStatus status = HealthConnectSdkStatus.sdkUnavailable;
-  bool isAuthorized = false;
 
   // Define the health data types you want to access
   static const List<HealthDataType> _types = [
@@ -32,7 +34,7 @@ class HealthService {
   // Define permissions for each type
   static const List<HealthDataAccess> _permissions = [
     HealthDataAccess.READ,
-    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.WRITE,
   ];
 
   Future<bool> get isHealthConnectAvailable =>
@@ -70,8 +72,8 @@ class HealthService {
           await _health.getHealthConnectSdkStatus() ??
           HealthConnectSdkStatus.sdkUnavailable;
       return isAuthorized; // Return the actual authorization status
-    } catch (e) {
-      log("Error requesting health authorization: $e");
+    } on Exception catch (e, st) {
+      log("Error requesting health authorization:", error: e, stackTrace: st);
       // Optionally update status here too if error implies a specific state
       return false;
     }
@@ -82,7 +84,7 @@ class HealthService {
     DateTime endTime,
     HealthDataType type,
   ) async {
-    final bool authorized = await requestAuthorization(); // Ensure authorized
+    final bool authorized = await requestAuthorization();
     if (!authorized) {
       log("Not authorized to fetch health data.");
       return [];
@@ -96,7 +98,7 @@ class HealthService {
       );
       // Filter out duplicates if any (sometimes happens)
       healthData = _health.removeDuplicates(healthData);
-      return healthData;
+      return _dateSanitizedHealthPoints(healthData, startTime, endTime);
     } catch (e) {
       log("Error fetching health data for $type: $e");
       return [];
@@ -104,17 +106,7 @@ class HealthService {
   }
 
   Future<bool> writeMealData(MealInfo meal) async {
-    final hasPermission =
-        await _health.hasPermissions(_types, permissions: _permissions) ??
-        false;
-
-    if (!hasPermission) {
-      final bool authorized = await requestAuthorization();
-      if (!authorized) {
-        log("Not authorized to fetch health data.");
-        return false;
-      }
-    }
+    if (!await isNutritionAllowed) return false;
 
     final now = DateTime.now();
 
@@ -133,13 +125,15 @@ class HealthService {
       );
 
       return healthData;
-    } catch (e) {
-      log("Error writing meal data: $e");
+    } on Exception catch (e, st) {
+      log("Error writing meal data:", error: e, stackTrace: st);
       return false;
     }
   }
 
-  Future<double> getTotalCaloriesBurned() async {
+  Future<double?> getTotalCaloriesBurned() async {
+    if (!await isCaloriesBurnedAllowed) return null;
+
     final now = DateTime.now();
     final startTime = DateTime(now.year, now.month, now.day);
     final endTime = now;
@@ -150,9 +144,7 @@ class HealthService {
       HealthDataType.TOTAL_CALORIES_BURNED,
     );
 
-    if (data.isEmpty) {
-      return 0;
-    }
+    if (data.isEmpty) return null;
 
     final totalCalories = data
         .map((e) => (e.value as NumericHealthValue).numericValue.toDouble())
@@ -160,4 +152,33 @@ class HealthService {
 
     return totalCalories;
   }
+
+  Future<bool> get isNutritionAllowed async {
+    final types = [HealthDataType.NUTRITION];
+    final permissions = [HealthDataAccess.WRITE];
+
+    return await _health.hasPermissions(types, permissions: permissions) ??
+        false;
+  }
+
+  Future<bool> get isCaloriesBurnedAllowed async {
+    final types = [HealthDataType.TOTAL_CALORIES_BURNED];
+    final permissions = [HealthDataAccess.READ];
+
+    return await _health.hasPermissions(types, permissions: permissions) ??
+        false;
+  }
+}
+
+/// For some reason, when querying calories burned from midnight up-to this time
+/// today, I'm also getting calories for future date from now to end to today.
+List<HealthDataPoint> _dateSanitizedHealthPoints(
+  List<HealthDataPoint> dataPoints,
+  DateTime startTime,
+  DateTime endTime,
+) {
+  dataPoints.removeWhere(
+    (data) => data.dateFrom.isBefore(startTime) || data.dateTo.isAfter(endTime),
+  );
+  return dataPoints;
 }

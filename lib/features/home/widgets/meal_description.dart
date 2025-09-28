@@ -75,10 +75,12 @@ class _DescribeMealState extends State<DescribeMeal> {
           ),
           SizedBox(height: 16),
           ElevatedButton(
-            onPressed: () => _onProcessMealDescription(),
+            onPressed: _isLoading ? null : () => _onProcessMealDescription(),
             style: ButtonStyle(
               minimumSize: WidgetStatePropertyAll(Size(double.infinity, 50)),
-              backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
+              backgroundColor: WidgetStatePropertyAll(
+                _isLoading ? colorScheme.secondary : colorScheme.primary,
+              ),
               foregroundColor: WidgetStatePropertyAll(colorScheme.onPrimary),
               shape: WidgetStatePropertyAll(
                 RoundedRectangleBorder(borderRadius: globalRadius),

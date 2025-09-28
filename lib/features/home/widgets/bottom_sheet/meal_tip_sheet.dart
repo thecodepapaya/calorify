@@ -274,7 +274,7 @@ class _MealTipState extends State<_MealTip> {
         SizedBox(height: 20),
         ElevatedButton(
           onPressed: () async {
-            await appDb.logMeal(widget.mealDetectionResult.mealInfo);
+            await logMeal(context, widget.mealDetectionResult.mealInfo);
             if (!context.mounted) return;
             Navigator.of(context).pop();
           },

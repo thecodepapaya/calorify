@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 Future<void> logMeal(BuildContext context, MealInfo mealInfo) async {
   await appDb.logMeal(mealInfo);
   if (!context.mounted) return;
-  _writeDataToHealthConnect(context, mealInfo);
+  await _writeDataToHealthConnect(context, mealInfo);
 }
 
 Future<bool> _writeDataToHealthConnect(

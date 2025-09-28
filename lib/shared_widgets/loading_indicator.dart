@@ -10,48 +10,67 @@ class AppLoader extends StatefulWidget {
   State<AppLoader> createState() => _AppLoaderState();
 }
 
+// We need TickerProviderStateMixin again for two AnimationControllers
 class _AppLoaderState extends State<AppLoader> with TickerProviderStateMixin {
-  late final AnimationController _sizeController;
-  late final AnimationController _rotationController;
-  late final Animation<double> _sizeAnimation;
+  late final AnimationController _slideController; // Controller for slide (hop)
+  late final Animation<Offset> _slideAnimation;
+
+  late final AnimationController _rotationController; // Controller for rotation
   late final Animation<double> _rotationAnimation;
-  final _tween = Tween<double>(begin: 0.08, end: 1);
-  final _rotationTween = Tween<double>(begin: 0, end: 1);
+
+  // Tween for the rhythmic hop (small side-to-side and a small lift).
+  final _slideTween = Tween<Offset>(
+    begin: const Offset(-0.1, 0.0), // Start slightly left, on the 'ground'
+    end: const Offset(0.1, -0.05), // End slightly right, slightly 'lifted'
+  );
+
+  // Tween for a small rotation.
+  // We want it to rotate back and forth, so begin and end will be different.
+  final _rotationTween = Tween<double>(
+    begin:
+        -0.05, // Start with a slight counter-clockwise rotation (e.g., -18 degrees)
+    end: 0.05, // End with a slight clockwise rotation (e.g., +18 degrees)
+  );
 
   @override
   void initState() {
     super.initState();
 
-    _sizeController = AnimationController(
+    // --- Slide (Hop) Animation ---
+    _slideController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 600),
-      reverseDuration: Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 350),
+      reverseDuration: const Duration(milliseconds: 350),
     );
+    _slideAnimation = _slideTween.animate(
+      CurvedAnimation(
+        parent: _slideController,
+        curve: Curves.easeInOut,
+        reverseCurve: Curves.easeInOut,
+      ),
+    );
+    _slideController.repeat(reverse: true);
 
+    // --- Rotation Animation ---
     _rotationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 350), // Match hop speed
+      reverseDuration: const Duration(milliseconds: 350),
     );
-
-    _sizeAnimation = CurvedAnimation(
-      parent: _sizeController,
-      curve: Curves.easeInOutCubicEmphasized,
-      reverseCurve: Curves.easeInOutCubicEmphasized,
+    _rotationAnimation = _rotationTween.animate(
+      CurvedAnimation(
+        parent: _rotationController,
+        curve: Curves.easeInOut,
+        reverseCurve: Curves.easeInOut,
+      ),
     );
-
-    _rotationAnimation = CurvedAnimation(
-      parent: _rotationController,
-      curve: Curves.easeInOutCubicEmphasized,
-    );
-
-    _sizeController.repeat(reverse: true);
-    _rotationController.repeat(reverse: false);
+    _rotationController.repeat(reverse: true);
   }
 
   @override
   void dispose() {
-    _sizeController.dispose();
-    _rotationController.dispose();
+    _slideController.dispose();
+    _rotationController.dispose(); // Dispose the new controller
     super.dispose();
   }
 
@@ -61,12 +80,13 @@ class _AppLoaderState extends State<AppLoader> with TickerProviderStateMixin {
     final ColorScheme colorScheme = theme.colorScheme;
 
     return Center(
+      // Nest the RotationTransition around the SlideTransition
       child: RotationTransition(
-        turns: _rotationTween.animate(_rotationAnimation),
-        child: ScaleTransition(
-          scale: _tween.animate(_sizeAnimation),
+        turns: _rotationAnimation, // Use the rotation animation here
+        child: SlideTransition(
+          position: _slideAnimation, // Use the slide animation here
           child: Icon(
-            _allIcons.first,
+            _allIcons.first, // LucideIcons.apple
             color: widget.color ?? colorScheme.onSurface,
             size: 28,
           ),
@@ -76,6 +96,7 @@ class _AppLoaderState extends State<AppLoader> with TickerProviderStateMixin {
   }
 }
 
+// List of available icons
 final _allIcons = [
   LucideIcons.apple,
   LucideIcons.drumstick,
