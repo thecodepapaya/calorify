@@ -1,14 +1,23 @@
+import 'package:flutter/services.dart';
+
 enum Flavor { staging, prod }
 
 class AppConfig {
-  static const _flavorString = String.fromEnvironment('flavor');
-  static final Flavor flavor =
-      _flavorString == 'prod' ? Flavor.prod : Flavor.staging;
+  AppConfig._();
 
-  static bool get isProd => flavor == Flavor.prod;
-  static bool get isStaging => flavor == Flavor.staging;
+  static final _instance = AppConfig._();
+  static AppConfig get instance => _instance;
 
-  static String get title {
+  Flavor flavor = Flavor.staging;
+
+  bool get isProd => flavor == Flavor.prod;
+  bool get isStaging => flavor == Flavor.staging;
+
+  void init() {
+    flavor = appFlavor == 'prod' ? Flavor.prod : Flavor.staging;
+  }
+
+  String get title {
     switch (flavor) {
       case Flavor.staging:
         return 'Calorify (Staging)';

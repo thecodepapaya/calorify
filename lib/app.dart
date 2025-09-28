@@ -12,7 +12,7 @@ class CalorifyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: AppConfig.title,
+      title: AppConfig.instance.title,
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
       routerConfig: _appRouter.config(

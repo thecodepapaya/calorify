@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
             AnimatedLeaf(size: 36),
             SizedBox(width: 6),
             Text(
-              AppConfig.title,
+              AppConfig.instance.title,
               style: textTheme.displaySmall?.copyWith(
                 color: colorScheme.primary,
               ),
