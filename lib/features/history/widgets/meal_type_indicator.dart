@@ -1,6 +1,6 @@
 import 'package:calorify/core/models/meal_type.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class MealTypeIndicator extends StatelessWidget {
   const MealTypeIndicator({super.key, required this.mealType});

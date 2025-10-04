@@ -8,11 +8,12 @@ import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/core/services/picker_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/snap_disclaimer_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart';
+import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class MealSnap extends StatefulWidget {
   const MealSnap({super.key});
@@ -88,10 +89,7 @@ class _MealSnapState extends State<MealSnap> {
         Positioned(
           top: 0,
           right: 12,
-          child: IconButton(
-            icon: Icon(LucideIcons.helpCircle),
-            onPressed: () => showSnapDisclaimer(context),
-          ),
+          child: DisclaimerButton(data: snapDisclaimer),
         ),
       ],
     );

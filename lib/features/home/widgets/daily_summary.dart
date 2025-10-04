@@ -4,7 +4,7 @@ import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class DailySummaryCard extends StatelessWidget {
   const DailySummaryCard({super.key});

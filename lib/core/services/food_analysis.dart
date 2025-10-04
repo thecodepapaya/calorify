@@ -56,7 +56,7 @@ class FoodAnalysisService {
             description:
                 "A descriptive quantity of the food (e.g., '1 bowl', "
                 "'2 slices', '1 medium apple', '1 serving'). "
-                "Should not exceed 40 characters in length.",
+                "Must not exceed 30 characters in length.",
           ),
           'meal_type': Schema.enumString(
             enumValues: ['breakfast', 'lunch', 'dinner', 'snack', 'unknown'],

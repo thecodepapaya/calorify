@@ -13,7 +13,7 @@ import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/meal_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 Future<void> showMealTip({
   required BuildContext context,
@@ -149,7 +149,7 @@ class _MealTipState extends State<_MealTip> {
                   SizedBox(width: 8),
                   MealQuantityIndicator(quantity: mealInfo.mealQuantity),
                   SizedBox(width: 8),
-                  MealTimestamp(timestamp: DateTime.now()),
+                  MealTimestamp(timestamp: mealInfo.timestamp),
                 ],
               ),
             ],

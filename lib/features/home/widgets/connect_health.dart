@@ -2,7 +2,7 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class HealthConnectPromptCard extends StatelessWidget {
   const HealthConnectPromptCard({super.key});
