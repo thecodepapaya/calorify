@@ -1,7 +1,7 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -35,7 +35,7 @@ class DailySummaryCard extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           StreamBuilder<List<MealInfo>>(
-            stream: appDb.watchAllMealsForToday(),
+            stream: DatabaseService.databaseInterface.watchAllMealsForToday(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return ErrorView(error: snapshot.error!);

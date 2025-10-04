@@ -2,9 +2,9 @@ import 'dart:typed_data';
 
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_detection_result.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
 import 'package:calorify/features/history/widgets/meal_quantity.dart';
 import 'package:calorify/features/history/widgets/meal_timestamp.dart';
@@ -65,7 +65,9 @@ class _MealTipState extends State<_MealTip> {
   Future<void> _checkIfFavorite() async {
     final mealId = widget.mealDetectionResult.mealInfo.id;
     if (mealId == null) return;
-    final isFavorite = await appDb.isFavoriteMeal(mealId);
+    final isFavorite = await DatabaseService.databaseInterface.isFavoriteMeal(
+      mealId,
+    );
     if (mounted) {
       setState(() {
         _isFavorite = isFavorite;
@@ -309,13 +311,15 @@ class _MealTipState extends State<_MealTip> {
     final mealInfo = widget.mealDetectionResult.mealInfo;
     try {
       if (_isFavorite) {
-        await appDb.removeFavoriteMeal(mealInfo.id!);
+        await DatabaseService.databaseInterface.removeFavoriteMeal(
+          mealInfo.id!,
+        );
         if (!mounted) return;
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(snack('Removed from favorites!'));
       } else {
-        await appDb.addFavoriteMeal(mealInfo);
+        await DatabaseService.databaseInterface.addToFavorites(mealInfo);
         if (!mounted) return;
         ScaffoldMessenger.of(
           context,

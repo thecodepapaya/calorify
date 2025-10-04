@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
@@ -18,7 +18,7 @@ class FavoritesScreen extends StatelessWidget {
       body: Padding(
         padding: globalMargin,
         child: StreamBuilder<List<MealInfo>>(
-          stream: appDb.watchAllFavoriteMeals(),
+          stream: DatabaseService.databaseInterface.watchAllFavoriteMeals(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const AppLoader();

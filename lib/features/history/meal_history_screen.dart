@@ -3,12 +3,11 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/history/widgets/icon_nutrition.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
-import 'package:drift/drift.dart' as db;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -57,22 +56,10 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
     setState(() => isLoading = true);
 
     try {
-      final query =
-          appDb.select(appDb.mealInfoTable)
-            ..orderBy([
-              (t) => db.OrderingTerm(
-                expression: t.timestamp,
-                mode: db.OrderingMode.desc,
-              ),
-            ])
-            ..limit(_mealsPerPage, offset: currentPage * _mealsPerPage);
+      final fetchedMeals = await DatabaseService.databaseInterface
+          .paginatedMealsHistory(offset: currentPage * _mealsPerPage);
 
-      final result = await query.get();
-      final fetchedMeals = result.map((row) => MealInfo.fromRow(row)).toList();
-
-      if (fetchedMeals.length < _mealsPerPage) {
-        allMealsLoaded = true;
-      }
+      if (fetchedMeals.length < _mealsPerPage) allMealsLoaded = true;
 
       meals.addAll(fetchedMeals);
       currentPage++;
@@ -258,15 +245,14 @@ class _DateDivider extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final TextTheme textTheme = theme.textTheme;
 
-    final datestr = _formatDate(date);
+    final dateString = _formatDate(date);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
           Text(
-            datestr,
-            // _formatDate(date),
+            dateString,
             style: textTheme.titleMedium?.copyWith(
               fontSize: 18,
               fontWeight: FontWeight.w600,

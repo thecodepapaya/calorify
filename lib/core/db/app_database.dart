@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/db/mappers/favorite_meal_mapper.dart';
 import 'package:calorify/core/db/mappers/meal_info_mapper.dart';
 import 'package:calorify/core/db/tables/favorite_meal.dart';
@@ -14,7 +15,7 @@ import 'package:path_provider/path_provider.dart';
 part 'app_database.g.dart';
 
 @DriftDatabase(tables: [MealInfoTable, UserSettingsTable, FavoriteMealTable])
-class AppDatabase extends _$AppDatabase {
+class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   AppDatabase() : super(_openConnection());
 
   @override
@@ -40,6 +41,7 @@ class AppDatabase extends _$AppDatabase {
 
   static const int _userSettingsId = 1;
 
+  @override
   Future<int?> getDailyCalorieGoal() async {
     final setting =
         await (select(userSettingsTable)
@@ -47,6 +49,7 @@ class AppDatabase extends _$AppDatabase {
     return setting?.dailyCalorieGoal;
   }
 
+  @override
   Future<void> setDailyCalorieGoal(int goal) async {
     await into(userSettingsTable).insertOnConflictUpdate(
       UserSettingsTableCompanion.insert(
@@ -56,6 +59,7 @@ class AppDatabase extends _$AppDatabase {
     );
   }
 
+  @override
   Stream<List<MealInfo>> watchAllMealsForToday() {
     final now = DateTime.now();
     final startOfToday = DateTime(now.year, now.month, now.day);
@@ -68,6 +72,7 @@ class AppDatabase extends _$AppDatabase {
     )).watch().map((rows) => rows.map((row) => MealInfo.fromRow(row)).toList());
   }
 
+  @override
   Stream<List<MealInfo>> watchAllMealsForLast7Days() {
     final now = DateTime.now();
     final sevenDaysAgo = now.subtract(const Duration(days: 6));
@@ -84,20 +89,24 @@ class AppDatabase extends _$AppDatabase {
     );
   }
 
+  @override
   Future<void> logMeal(MealInfo mealInfo) async {
     await into(mealInfoTable).insert(mealInfo.toCompanion());
   }
 
+  @override
   Future<void> upsertMeal(MealInfo mealInfo) {
     return into(mealInfoTable).insertOnConflictUpdate(mealInfo.toCompanion());
   }
 
+  @override
   Stream<List<MealInfo>> watchAllFavoriteMeals() {
     return select(favoriteMealTable).watch().map(
       (rows) => rows.map((row) => MealInfo.fromDrift(row)).toList(),
     );
   }
 
+  @override
   Stream<List<MealInfo>> watchLastUsedFavoriteMeals() {
     return (select(favoriteMealTable)
           ..orderBy([
@@ -116,6 +125,7 @@ class AppDatabase extends _$AppDatabase {
         .map((rows) => rows.map((row) => MealInfo.fromDrift(row)).toList());
   }
 
+  @override
   Future<bool> isFavoriteMeal(int mealId) async {
     final meal =
         await (select(favoriteMealTable)
@@ -123,20 +133,41 @@ class AppDatabase extends _$AppDatabase {
     return meal != null;
   }
 
-  Future<void> addFavoriteMeal(MealInfo mealInfo) {
+  @override
+  Future<void> addToFavorites(MealInfo mealInfo) {
     return into(favoriteMealTable).insert(mealInfo.toFavoriteCompanion());
   }
 
+  @override
   Future<void> updateFavoriteLastUsedAt(int favoriteMealId) {
     return (update(favoriteMealTable)..where(
       (tbl) => tbl.id.equals(favoriteMealId),
     )).write(FavoriteMealTableCompanion(lastUsedAt: Value(DateTime.now())));
   }
 
+  @override
   Future<void> removeFavoriteMeal(int mealId) {
     return (delete(favoriteMealTable)
       ..where((tbl) => tbl.sourceMealId.equals(mealId))).go();
   }
+
+  @override
+  Future<List<MealInfo>> paginatedMealsHistory({
+    required int offset,
+    int mealsPerPage = 30,
+  }) {
+    return (select(mealInfoTable)
+          ..orderBy([
+            (t) =>
+                OrderingTerm(expression: t.timestamp, mode: OrderingMode.desc),
+          ])
+          ..limit(mealsPerPage, offset: offset * mealsPerPage))
+        .get()
+        .then((rows) => rows.map((row) => MealInfo.fromRow(row)).toList());
+  }
+
+  @override
+  DataSourceType get dataSourceType => DataSourceType.real;
 }
 
 LazyDatabase _openConnection() {
@@ -146,5 +177,3 @@ LazyDatabase _openConnection() {
     return NativeDatabase(file);
   });
 }
-
-final appDb = AppDatabase();

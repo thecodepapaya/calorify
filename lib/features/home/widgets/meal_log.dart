@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/router/app_router.dart';
+import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
@@ -39,7 +39,7 @@ class MealLog extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           StreamBuilder<List<MealInfo>>(
-            stream: appDb.watchAllMealsForToday(),
+            stream: DatabaseService.databaseInterface.watchAllMealsForToday(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return ErrorView(error: snapshot.error!);

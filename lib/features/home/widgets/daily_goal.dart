@@ -1,7 +1,7 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:flutter/material.dart';
@@ -36,25 +36,25 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
   }
 
   Future<void> _updateAndSaveGoal(int calories) async {
-    setState(() {
-      _target = calories;
-      _isEditing = false;
-    });
-
     try {
-      await appDb.setDailyCalorieGoal(calories);
+      await DatabaseService.databaseInterface.setDailyCalorieGoal(calories);
 
-      if (mounted) {}
+      setState(() {
+        _target = calories;
+      });
     } catch (e) {
       print('Error saving daily goal: $e');
-
-      if (mounted) {}
+    } finally {
+      setState(() {
+        _isEditing = false;
+      });
     }
   }
 
   Future<void> _loadGoalFromDb() async {
     try {
-      final savedGoal = await appDb.getDailyCalorieGoal();
+      final savedGoal =
+          await DatabaseService.databaseInterface.getDailyCalorieGoal();
       if (savedGoal != null) {
         _target = savedGoal;
         _isEditing = false;
@@ -118,7 +118,7 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
           ),
           const SizedBox(height: 20),
           StreamBuilder<List<MealInfo>>(
-            stream: appDb.watchAllMealsForToday(),
+            stream: DatabaseService.databaseInterface.watchAllMealsForToday(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return ErrorView(error: snapshot.error!);

@@ -1,10 +1,10 @@
-import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:flutter/material.dart';
 
 Future<void> logMeal(BuildContext context, MealInfo mealInfo) async {
-  await appDb.logMeal(mealInfo);
+  await DatabaseService.databaseInterface.logMeal(mealInfo);
   if (!context.mounted) return;
   await _writeDataToHealthConnect(context, mealInfo);
 }

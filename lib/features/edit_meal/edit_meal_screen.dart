@@ -2,9 +2,9 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/models/meal_type.dart';
+import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/utilities/string_utils.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:flutter/material.dart';
@@ -232,7 +232,7 @@ class _EditMealScreenState extends State<_EditMealScreen> {
     );
 
     try {
-      await appDb.upsertMeal(mealInfo);
+      await DatabaseService.databaseInterface.upsertMeal(mealInfo);
 
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

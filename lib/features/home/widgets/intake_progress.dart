@@ -1,7 +1,7 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/services/database_service.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -132,7 +132,8 @@ class IntakeProgress extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           StreamBuilder<List<MealInfo>>(
-            stream: appDb.watchAllMealsForLast7Days(),
+            stream:
+                DatabaseService.databaseInterface.watchAllMealsForLast7Days(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());

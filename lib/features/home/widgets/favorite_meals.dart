@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/db/mappers/meal_detection_result_mapper.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/router/app_router.dart';
+import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
@@ -56,7 +56,8 @@ class _FavoriteMealsState extends State<FavoriteMeals> {
           ),
           SizedBox(height: 20),
           StreamBuilder<List<MealInfo>>(
-            stream: appDb.watchLastUsedFavoriteMeals(),
+            stream:
+                DatabaseService.databaseInterface.watchLastUsedFavoriteMeals(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return ErrorView(error: snapshot.error!);
@@ -185,7 +186,8 @@ class _MealTile extends StatelessWidget {
                 try {
                   final newMeal = meal.copyWith(timestamp: DateTime.now());
                   await logMeal(context, newMeal);
-                  await appDb.updateFavoriteLastUsedAt(meal.id!);
+                  await DatabaseService.databaseInterface
+                      .updateFavoriteLastUsedAt(meal.id!);
                   if (context.mounted) {
                     ScaffoldMessenger.of(
                       context,
