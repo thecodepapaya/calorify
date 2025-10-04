@@ -1,0 +1,17 @@
+default_platform(:android)
+
+platform :android do
+  desc "Deploy a new version to the Google Play"
+  lane :release do
+    gradle(
+      task: "bundle",
+      build_type: "ProdRelease"
+    )
+    upload_to_play_store(
+      track: "production", # or 'internal', 'beta'
+      aab: "../build/app/outputs/bundle/prodRelease/app-prod-release.aab",
+      json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
+      submit_for_review: true
+    )
+  end
+end

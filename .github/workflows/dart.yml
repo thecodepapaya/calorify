@@ -1,0 +1,38 @@
+name: Flutter Android CI/CD
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.35.5" # adjust to your version
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Android AppBundle
+        run: flutter build appbundle --release --flavor=prod
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1"
+
+      - name: Install Fastlane
+        run: gem install fastlane
+
+      - name: Upload to Play Store
+        run: fastlane android release
+        env:
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+      
