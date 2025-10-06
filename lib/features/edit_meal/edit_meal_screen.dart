@@ -166,7 +166,7 @@ class _EditMealScreenState extends State<_EditMealScreen> {
                     .map(
                       (type) => DropdownMenuItem(
                         value: type,
-                        child: Text(type.name.capitalizeFirstLetter()),
+                        child: Text(type.name.capitalized),
                       ),
                     )
                     .toList(),

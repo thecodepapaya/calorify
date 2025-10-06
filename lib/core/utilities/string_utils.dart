@@ -1,7 +1,7 @@
 import 'package:characters/characters.dart';
 
 extension StringX on String {
-  String capitalizeFirstLetter() {
+  String get capitalized {
     if (isEmpty) return this;
     final graphemes = characters;
     final first = graphemes.first.toUpperCase();
