@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:flutter/material.dart';
 
 class RouteLogger extends AutoRouteObserver {
@@ -6,23 +9,31 @@ class RouteLogger extends AutoRouteObserver {
 
   @override
   void didPush(Route route, Route? previousRoute) {
-    debugPrint('New route pushed: ${route.settings.name}');
+    log('New route pushed: ${route.settings.name}');
+    _logScreen(route.settings.name);
   }
 
   @override
   void didPop(Route route, Route? previousRoute) {
-    debugPrint('Route popped: ${route.settings.name}');
+    log('Route popped: ${route.settings.name}');
+    _logScreen(previousRoute?.settings.name);
   }
 
   @override
   void didRemove(Route route, Route? previousRoute) {
-    debugPrint('Route removed: ${route.settings.name}');
+    log('Route removed: ${route.settings.name}');
+    _logScreen(previousRoute?.settings.name);
   }
 
   @override
   void didReplace({Route? newRoute, Route? oldRoute}) {
-    debugPrint(
+    log(
       'Route replaced: ${oldRoute?.settings.name} -> ${newRoute?.settings.name}',
     );
+    _logScreen(newRoute?.settings.name);
+  }
+
+  void _logScreen(String? screenName) {
+    Analytics.instance.setCurrentScreen(screenName ?? 'unknown');
   }
 }

@@ -46,6 +46,7 @@ dependencies:
   firebase_vertexai: ^2.2.0
   flutter_image_compress: ^2.4.0
   cloud_firestore: ^6.0.2
+  firebase_analytics: ^12.0.2
   drift: ^2.26.1
   sqlite3_flutter_libs: ^0.5.33
   path_provider: ^2.1.5

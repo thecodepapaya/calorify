@@ -2,15 +2,17 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
+@immutable
 class DisclaimerEntry {
-  DisclaimerEntry({required this.title, required this.description});
+  const DisclaimerEntry({required this.title, required this.description});
 
   final String title;
   final String description;
 }
 
+@immutable
 class DisclaimerData {
-  DisclaimerData({
+  const DisclaimerData({
     this.title = 'Please Note',
     required this.description,
     required this.bulletPoints,
@@ -18,7 +20,7 @@ class DisclaimerData {
 
   final String title;
   final String description;
-  List<DisclaimerEntry> bulletPoints;
+  final List<DisclaimerEntry> bulletPoints;
 }
 
 Future<void> showDisclaimer(BuildContext context, DisclaimerData data) {
@@ -28,6 +30,7 @@ Future<void> showDisclaimer(BuildContext context, DisclaimerData data) {
     showDragHandle: true,
     enableDrag: true,
     isScrollControlled: true,
+    routeSettings: RouteSettings(name: 'disclaimer_sheet'),
     builder: (context) => _MealSnapDisclaimer(data),
   );
 }

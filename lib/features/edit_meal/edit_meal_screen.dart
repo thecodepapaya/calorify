@@ -20,6 +20,7 @@ Future<void> showEditMealSheet(
     isDismissible: true,
     showDragHandle: true,
     enableDrag: true,
+    routeSettings: RouteSettings(name: 'edit_meal_sheet'),
     builder:
         (context) => _EditMealScreen(mealInfo: mealInfo, imageData: imageData),
   );

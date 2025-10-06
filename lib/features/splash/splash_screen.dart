@@ -2,10 +2,10 @@ import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/router/app_router.dart';
+import 'package:calorify/core/services/analytics.dart';
+import 'package:calorify/core/services/app_initialization.dart';
 import 'package:calorify/core/services/health_service.dart';
-import 'package:calorify/firebase_options.dart';
 import 'package:calorify/shared_widgets/animated_leaf.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -25,10 +25,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _initializeApp() async {
     try {
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
       await HealthService.instance.init();
+      // Initialize the database service with data source switching
+      await AppInitialization.initialize();
+      Analytics.instance.initialize();
     } on Exception catch (e, st) {
       log('Error initializing:', error: e, stackTrace: st);
     }

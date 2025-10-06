@@ -1,6 +1,6 @@
 import 'package:calorify/core/config/app_config.dart';
-import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/db/mock_data/data_source_config.dart';
+import 'package:calorify/core/services/database_service.dart';
 
 /// App initialization service that sets up the database service
 class AppInitialization {

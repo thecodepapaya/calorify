@@ -17,7 +17,7 @@ class DisclaimerButton extends StatelessWidget {
         LucideIcons.info,
         color: colorScheme.onSurface.withValues(alpha: 0.5),
       ),
-      onPressed: () => showDisclaimer(context, weightEstimateDisclaimer),
+      onPressed: () => showDisclaimer(context, data),
     );
   }
 }

@@ -27,6 +27,7 @@ Future<void> showMealTip({
     showDragHandle: true,
     enableDrag: true,
     isScrollControlled: true,
+    routeSettings: RouteSettings(name: 'meal_tip_sheet'),
     builder:
         (context) => _MealTip(
           mealDetectionResult: mealDetectionResult,

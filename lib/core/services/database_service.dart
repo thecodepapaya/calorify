@@ -4,6 +4,7 @@ import 'package:calorify/core/db/mock_data/data_source_config.dart';
 import 'package:calorify/core/db/mock_database_adapter.dart';
 import 'package:calorify/core/db/real_database_adapter.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/services/analytics.dart';
 
 /// Database service that can switch between mock and real data using interface-based architecture
 class DatabaseService implements DatabaseInterface {
@@ -95,6 +96,7 @@ class DatabaseService implements DatabaseInterface {
   Future<void> setDailyCalorieGoal(int goal) async {
     await _ensureInitialized();
     await databaseInterface.setDailyCalorieGoal(goal);
+    Analytics.instance.logEvent('set_calorie_goal', {'goal': goal});
   }
 
   /// Log a meal
@@ -102,6 +104,7 @@ class DatabaseService implements DatabaseInterface {
   Future<void> logMeal(MealInfo mealInfo) async {
     await _ensureInitialized();
     await databaseInterface.logMeal(mealInfo);
+    Analytics.instance.logEvent('log_meal', {'meal': mealInfo.toJson()});
   }
 
   /// Upsert a meal
@@ -109,6 +112,7 @@ class DatabaseService implements DatabaseInterface {
   Future<void> upsertMeal(MealInfo mealInfo) async {
     await _ensureInitialized();
     await databaseInterface.upsertMeal(mealInfo);
+    Analytics.instance.logEvent('update_meal', {'meal': mealInfo.toJson()});
   }
 
   /// Check if a meal is favorite
@@ -123,6 +127,7 @@ class DatabaseService implements DatabaseInterface {
   Future<void> addToFavorites(MealInfo mealInfo) async {
     await _ensureInitialized();
     await databaseInterface.addToFavorites(mealInfo);
+    Analytics.instance.logEvent('add_to_favorite', {'meal': mealInfo.toJson()});
   }
 
   /// Remove a meal from favorites
@@ -130,6 +135,7 @@ class DatabaseService implements DatabaseInterface {
   Future<void> removeFavoriteMeal(int mealId) async {
     await _ensureInitialized();
     await databaseInterface.removeFavoriteMeal(mealId);
+    Analytics.instance.logEvent('remove_favorite', {'meal_id': mealId});
   }
 
   /// Update last used time for a favorite meal
