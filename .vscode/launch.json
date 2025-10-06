@@ -20,6 +20,17 @@
                 "--flavor",
                 "prod"
             ]
+        },
+        {
+            "name": "Run Prod Profile",
+            "request": "launch",
+            "flutterMode": "profile",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [
+                "--flavor",
+                "prod"
+            ]
         }
     ]
 }

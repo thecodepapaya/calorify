@@ -40,19 +40,21 @@ class _AnimatedLeafState extends State<AnimatedLeaf>
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        return Transform.rotate(
-          angle: _animation.value,
-          alignment: Alignment.bottomCenter,
-          child: Icon(
-            LucideIcons.leaf,
-            color: colorScheme.primary,
-            size: widget.size,
-          ),
-        );
-      },
+    return RepaintBoundary(
+      child: AnimatedBuilder(
+        animation: _animation,
+        builder: (context, child) {
+          return Transform.rotate(
+            angle: _animation.value,
+            alignment: Alignment.bottomCenter,
+            child: Icon(
+              LucideIcons.leaf,
+              color: colorScheme.primary,
+              size: widget.size,
+            ),
+          );
+        },
+      ),
     );
   }
 

@@ -79,16 +79,18 @@ class _AppLoaderState extends State<AppLoader> with TickerProviderStateMixin {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
 
-    return Center(
-      // Nest the RotationTransition around the SlideTransition
-      child: RotationTransition(
-        turns: _rotationAnimation, // Use the rotation animation here
-        child: SlideTransition(
-          position: _slideAnimation, // Use the slide animation here
-          child: Icon(
-            _allIcons.first, // LucideIcons.apple
-            color: widget.color ?? colorScheme.onSurface,
-            size: 28,
+    return RepaintBoundary(
+      child: Center(
+        // Nest the RotationTransition around the SlideTransition
+        child: RotationTransition(
+          turns: _rotationAnimation, // Use the rotation animation here
+          child: SlideTransition(
+            position: _slideAnimation, // Use the slide animation here
+            child: Icon(
+              _allIcons.first, // LucideIcons.apple
+              color: widget.color ?? colorScheme.onSurface,
+              size: 28,
+            ),
           ),
         ),
       ),
