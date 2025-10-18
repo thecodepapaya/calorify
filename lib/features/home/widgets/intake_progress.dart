@@ -6,6 +6,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:calorify/shared_widgets/loading_indicator.dart';
 
 class IntakeProgress extends StatelessWidget {
   const IntakeProgress({super.key});
@@ -136,7 +137,7 @@ class IntakeProgress extends StatelessWidget {
                 DatabaseService.databaseInterface.watchAllMealsForLast7Days(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: AppLoader());
               }
               if (snapshot.hasError) {
                 return Center(

@@ -1,0 +1,42 @@
+{
+    "detectedMetricCountry": "We detected you're in a metric country. You can change this if needed.",
+    "@detectedMetricCountry": {
+        "description": "Message shown when the app detects the user is in a metric country"
+    },
+    "detectedImperialCountry": "We detected you're in an imperial country. You can change this if needed.",
+    "@detectedImperialCountry": {
+        "description": "Message shown when the app detects the user is in an imperial country"
+    },
+    "enterHeightCentimeters": "Enter your height in centimeters",
+    "@enterHeightCentimeters": {
+        "description": "Helper text for height input in metric system"
+    },
+    "enterHeightFeetInches": "Enter your height in feet and inches (e.g., 5'9\")",
+    "@enterHeightFeetInches": {
+        "description": "Helper text for height input in imperial system"
+    },
+    "enterWeightKilograms": "Enter your weight in kilograms",
+    "@enterWeightKilograms": {
+        "description": "Helper text for weight input in metric system"
+    },
+    "enterWeightPounds": "Enter your weight in pounds",
+    "@enterWeightPounds": {
+        "description": "Helper text for weight input in imperial system"
+    },
+    "heightValidationMetric": "Height must be between 100-250 cm (3'3\" - 8'2\")",
+    "@heightValidationMetric": {
+        "description": "Validation message for height in metric system"
+    },
+    "heightValidationImperial": "Height must be between 3-8 feet (91-244 cm)",
+    "@heightValidationImperial": {
+        "description": "Validation message for height in imperial system"
+    },
+    "weightValidationMetric": "Weight must be between 20-300 kg (44-660 lbs)",
+    "@weightValidationMetric": {
+        "description": "Validation message for weight in metric system"
+    },
+    "weightValidationImperial": "Weight must be between 44-660 lbs (20-300 kg)",
+    "@weightValidationImperial": {
+        "description": "Validation message for weight in imperial system"
+    }
+}

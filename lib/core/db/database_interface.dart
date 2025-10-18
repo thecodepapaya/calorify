@@ -1,4 +1,5 @@
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/models/profile_models.dart';
 
 enum DataSourceType { real, mock }
 
@@ -45,4 +46,14 @@ abstract class DatabaseInterface {
 
   /// Get the data source type
   DataSourceType get dataSourceType;
+
+  /// User Profile Operations
+  /// Save or update user profile (upsert)
+  Future<void> saveUserProfile(UserProfile profile);
+
+  /// Get user profile
+  Future<UserProfile?> getUserProfile();
+
+  /// Check if user profile exists
+  Future<bool> hasUserProfile();
 }

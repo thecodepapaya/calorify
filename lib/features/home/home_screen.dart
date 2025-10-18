@@ -9,9 +9,11 @@ import 'package:calorify/features/home/widgets/intake_progress.dart';
 import 'package:calorify/features/home/widgets/meal_description.dart';
 import 'package:calorify/features/home/widgets/meal_log.dart';
 import 'package:calorify/features/home/widgets/meal_snap.dart';
+import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/shared_widgets/animated_leaf.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -41,6 +43,25 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              if (value == 'profile') {
+                context.router.push(const ProfileRoute());
+              }
+            },
+            itemBuilder:
+                (BuildContext context) => <PopupMenuEntry<String>>[
+                  const PopupMenuItem<String>(
+                    value: 'profile',
+                    child: ListTile(
+                      leading: Icon(LucideIcons.user),
+                      title: Text('Profile'),
+                    ),
+                  ),
+                ],
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -91,7 +91,7 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
               itemCount: groupedMeals.length + (allMealsLoaded ? 0 : 1),
               itemBuilder: (context, index) {
                 if (index == groupedMeals.length && !allMealsLoaded) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(child: AppLoader());
                 }
                 if (index >= groupedMeals.length) {
                   return SizedBox.shrink();

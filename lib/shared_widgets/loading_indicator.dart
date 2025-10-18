@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class AppLoader extends StatefulWidget {
-  const AppLoader({super.key, this.color});
+  const AppLoader({super.key, this.color, this.size = 28});
 
   final Color? color;
+  final double size;
 
   @override
   State<AppLoader> createState() => _AppLoaderState();
@@ -89,7 +90,7 @@ class _AppLoaderState extends State<AppLoader> with TickerProviderStateMixin {
             child: Icon(
               _allIcons.first, // LucideIcons.apple
               color: widget.color ?? colorScheme.onSurface,
-              size: 28,
+              size: widget.size,
             ),
           ),
         ),
