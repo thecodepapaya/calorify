@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:calorify/shared_widgets/loading_indicator.dart';
 
 @RoutePage()
 class ProfileScreen extends StatefulWidget {
@@ -26,6 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _loadProfileData() async {
     final data = await OnboardingService.instance.getProfileData();
+    if (!mounted) return;
     setState(() {
       _userProfile = data;
       _isLoading = false;
@@ -138,14 +139,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildProfileHeader(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Theme.of(context).colorScheme.primary,
-            Theme.of(context).colorScheme.primaryContainer,
-          ],
+          colors: [colorScheme.primary, colorScheme.primaryContainer],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -168,7 +170,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Text(
                   'Your Profile',
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  style: textTheme.headlineSmall?.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
@@ -176,7 +178,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const SizedBox(height: 4),
                 Text(
                   'View and manage your health information',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  style: textTheme.bodyMedium?.copyWith(
                     color: Colors.white.withOpacity(0.9),
                   ),
                 ),
@@ -203,25 +205,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
     required String title,
     required List<Widget> children,
   }) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
-        ),
+        border: Border.all(color: colorScheme.outline.withOpacity(0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(
-                icon,
-                color: Theme.of(context).colorScheme.primary,
-                size: 20,
-              ),
+              Icon(icon, color: colorScheme.primary, size: 20),
               const SizedBox(width: 8),
               Text(
                 title,
@@ -239,6 +238,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildInfoRow(String label, String value, {Color? valueColor}) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
@@ -248,9 +250,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             width: 100,
             child: Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.w500,
-                color: Colors.grey,
+                color: colorScheme.onSurfaceVariant,
               ),
             ),
           ),
@@ -258,7 +260,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Text(
               value,
               style: TextStyle(
-                color: valueColor ?? Colors.black87,
+                color: valueColor ?? colorScheme.onSurface,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -274,14 +276,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final dailyCalorieGoal = OnboardingService.instance
         .calculateDailyCalorieGoal(_userProfile!);
 
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+        color: colorScheme.primaryContainer.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
-        ),
+        border: Border.all(color: colorScheme.primary.withOpacity(0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -290,7 +293,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Icon(
                 LucideIcons.calculator,
-                color: Theme.of(context).colorScheme.primary,
+                color: colorScheme.primary,
                 size: 20,
               ),
               const SizedBox(width: 8),

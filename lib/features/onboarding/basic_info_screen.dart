@@ -392,7 +392,7 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
     }
   }
 
-  void _continue() {
+  void _continue() async {
     if (_formKey.currentState!.validate()) {
       final profile = UserProfile(
         height: _height,
@@ -400,7 +400,7 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
         dateOfBirth: _dateOfBirth,
         gender: _selectedGender,
       );
-      OnboardingService.instance.saveProfileData(profile);
+      await OnboardingService.instance.saveProfileData(profile);
       widget.onContinue();
     }
   }

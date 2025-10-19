@@ -206,10 +206,10 @@ class _ActivityLevelScreenState extends State<ActivityLevelScreen> {
     }
   }
 
-  void _continue(UserProfile profile) {
+  void _continue(UserProfile profile) async {
     if (_selectedLevel != null) {
       final updatedProfile = profile.copyWith(activityLevel: _selectedLevel);
-      OnboardingService.instance.saveProfileData(updatedProfile);
+      await OnboardingService.instance.saveProfileData(updatedProfile);
       widget.onContinue();
     }
   }
