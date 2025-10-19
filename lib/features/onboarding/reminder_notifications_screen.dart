@@ -1,12 +1,19 @@
+import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:calorify/shared_widgets/loading_indicator.dart';
+import 'package:calorify/shared_widgets/secondary_button.dart';
 
 class ReminderNotificationsScreen extends StatefulWidget {
-  final VoidCallback onFinish;
-  const ReminderNotificationsScreen({super.key, required this.onFinish});
+  final VoidCallback onContinue;
+  final bool isEditing;
+  const ReminderNotificationsScreen({
+    super.key,
+    required this.onContinue,
+    this.isEditing = false,
+  });
 
   @override
   State<ReminderNotificationsScreen> createState() =>
@@ -44,6 +51,7 @@ class _ReminderNotificationsScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: widget.isEditing ? AppBar() : null,
       body: SafeArea(
         child: Column(
           children: [
@@ -83,7 +91,7 @@ class _ReminderNotificationsScreenState
 
                         _buildMealReminder(
                           context,
-                          icon: LucideIcons.sun,
+                          icon: LucideIcons.sunrise,
                           title: 'Breakfast',
                           enabled: _breakfastEnabled,
                           time: _breakfastTime,
@@ -146,47 +154,32 @@ class _ReminderNotificationsScreenState
               padding: const EdgeInsets.all(24.0),
               child: Column(
                 children: [
-                  // Enable Notifications Button
-                  if (!_notificationsEnabled) ...[
-                    SizedBox(
-                      width: double.infinity,
-                      child: FilledButton.icon(
-                        onPressed: _isLoading ? null : _enableNotifications,
-                        icon:
-                            _isLoading
-                                ? const AppLoader(size: 16)
-                                : const Icon(LucideIcons.bell),
-                        label: Text(
-                          _isLoading ? 'Enabling...' : 'Enable Notifications',
-                        ),
-                      ),
+                  if (_notificationsEnabled)
+                    PrimaryButton(
+                      analyticsEvent: AnalyticsEvent.onboardingSetReminders,
+                      onPressed: _isLoading ? null : _continue,
+                      text: widget.isEditing ? 'Save Changes' : 'Continue',
+                      leadingIcon: widget.isEditing ? LucideIcons.check : null,
+                      trailingIcon:
+                          widget.isEditing ? null : LucideIcons.arrowRight,
+                      isLoading: _isLoading,
+                    )
+                  else ...[
+                    PrimaryButton(
+                      analyticsEvent:
+                          AnalyticsEvent.onboardingEnableNotifications,
+                      onPressed: _isLoading ? null : _enableNotifications,
+                      text: 'Enable Notifications',
+                      leadingIcon: LucideIcons.bell,
+                      isLoading: _isLoading,
                     ),
                     const SizedBox(height: 16),
-                  ],
-
-                  // Continue Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: FilledButton.icon(
-                      onPressed: _isLoading ? null : _continue,
-                      icon:
-                          _isLoading
-                              ? const AppLoader(size: 16)
-                              : const Icon(LucideIcons.arrowRight),
-                      label: Text(_isLoading ? 'Setting up...' : 'Continue'),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton(
+                    SecondaryButton(
+                      analyticsEvent: AnalyticsEvent.onboardingSkipReminders,
                       onPressed: _skip,
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16.0),
-                        child: Text('Skip for now'),
-                      ),
+                      text: 'Skip for now',
                     ),
-                  ),
+                  ],
                 ],
               ),
             ),
@@ -379,7 +372,7 @@ class _ReminderNotificationsScreenState
 
       // Navigate to home
       if (mounted) {
-        widget.onFinish();
+        widget.onContinue();
       }
     } catch (e) {
       if (mounted) {
@@ -398,7 +391,7 @@ class _ReminderNotificationsScreenState
 
     // Navigate to home
     if (mounted) {
-      widget.onFinish();
+      widget.onContinue();
     }
   }
 

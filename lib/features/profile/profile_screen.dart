@@ -73,15 +73,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
               icon: LucideIcons.user,
               title: 'Personal Details',
               children: [
-                _buildInfoRow('Gender', _userProfile!.gender.displayName),
-                _buildInfoRow('Age', '${_userProfile!.age} years'),
+                _buildInfoRow(
+                  'Gender',
+                  _userProfile!.gender?.displayName ?? 'Not set',
+                ),
+                _buildInfoRow('Age', '${_userProfile!.age ?? 'N/A'} years'),
                 _buildInfoRow(
                   'Height',
-                  '${_userProfile!.height.toStringAsFixed(0)} cm',
+                  '${_userProfile!.height?.toStringAsFixed(0) ?? 'N/A'} cm',
                 ),
                 _buildInfoRow(
                   'Weight',
-                  '${_userProfile!.weight.toStringAsFixed(1)} kg',
+                  '${_userProfile!.weight?.toStringAsFixed(1) ?? 'N/A'} kg',
                 ),
               ],
             ),
@@ -95,10 +98,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               icon: LucideIcons.target,
               title: 'Weight Goal',
               children: [
-                _buildInfoRow('Goal', _userProfile!.weightGoal.displayName),
+                _buildInfoRow(
+                  'Goal',
+                  _userProfile!.weightGoal?.displayName ?? 'Not set',
+                ),
                 _buildInfoRow(
                   'Description',
-                  _userProfile!.weightGoal.description,
+                  _userProfile!.weightGoal?.description ?? 'Not set',
                 ),
               ],
             ),
@@ -108,10 +114,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               icon: LucideIcons.activity,
               title: 'Activity Level',
               children: [
-                _buildInfoRow('Level', _userProfile!.activityLevel.displayName),
+                _buildInfoRow(
+                  'Level',
+                  _userProfile!.activityLevel?.displayName ?? 'Not set',
+                ),
                 _buildInfoRow(
                   'Description',
-                  _userProfile!.activityLevel.description,
+                  _userProfile!.activityLevel?.description ?? 'Not set',
                 ),
               ],
             ),
@@ -122,9 +131,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(height: 16),
             _buildCalculatedValuesCard(context),
             const SizedBox(height: 32),
-
-            // Action Buttons
-            _buildActionButtons(context),
           ],
         ),
       ),
@@ -297,33 +303,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          _buildInfoRow('BMR', '${bmr.toStringAsFixed(0)} calories/day'),
-          _buildInfoRow('TDEE', '${tdee.toStringAsFixed(0)} calories/day'),
+          _buildInfoRow(
+            'BMR',
+            bmr != null ? '${bmr.toStringAsFixed(0)} calories/day' : 'N/A',
+          ),
+          _buildInfoRow(
+            'TDEE',
+            tdee != null ? '${tdee.toStringAsFixed(0)} calories/day' : 'N/A',
+          ),
           _buildInfoRow(
             'Daily Goal',
-            '${dailyCalorieGoal.toStringAsFixed(0)} calories/day',
+            dailyCalorieGoal != null
+                ? '${dailyCalorieGoal.toStringAsFixed(0)} calories/day'
+                : 'N/A',
           ),
         ],
       ),
     );
   }
 
-  Widget _buildActionButtons(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          width: double.infinity,
-          child: FilledButton.icon(
-            onPressed: _editProfile,
-            icon: const Icon(LucideIcons.pencil),
-            label: const Text('Edit Profile'),
-          ),
-        ),
-      ],
-    );
-  }
-
   Future<void> _editProfile() async {
+    if (_userProfile == null) return;
     // Navigate to edit profile screen and wait for it to be popped.
     await context.router.push(EditProfileRoute(userProfile: _userProfile!));
     // When we return, reload the data to reflect any changes.

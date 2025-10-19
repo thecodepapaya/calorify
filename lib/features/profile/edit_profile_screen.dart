@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:calorify/shared_widgets/value_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -34,12 +36,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   void _initializeData() {
-    _selectedGender = widget.userProfile.gender;
-    _selectedWeightGoal = widget.userProfile.weightGoal;
-    _selectedActivityLevel = widget.userProfile.activityLevel;
-    _height = widget.userProfile.height;
-    _weight = widget.userProfile.weight;
-    _dateOfBirth = widget.userProfile.dateOfBirth;
+    _selectedGender = widget.userProfile.gender ?? Gender.male;
+    _selectedWeightGoal =
+        widget.userProfile.weightGoal ?? WeightGoal.maintainWeight;
+    _selectedActivityLevel =
+        widget.userProfile.activityLevel ?? ActivityLevel.sedentary;
+    _height = widget.userProfile.height ?? 170;
+    _weight = widget.userProfile.weight ?? 70;
+    _dateOfBirth =
+        widget.userProfile.dateOfBirth ??
+        DateTime.now().subtract(const Duration(days: 365 * 25));
   }
 
   @override
@@ -50,19 +56,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Edit Profile'),
-        centerTitle: true,
-        actions: [
-          TextButton(
-            onPressed: _saveProfile,
-            child: const Text(
-              'Save',
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: const Text('Edit Profile'), centerTitle: true),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -265,21 +259,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               const SizedBox(height: 32),
 
               // Save Button
-              SizedBox(
-                width: double.infinity,
-                child: FilledButton(
-                  onPressed: _saveProfile,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                    child: Text(
-                      'Save Changes',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
+              PrimaryButton(
+                onPressed: _saveProfile,
+                analyticsEvent: AnalyticsEvent.profileEdit,
+                text: 'Save Changes',
               ),
             ],
           ),

@@ -7,22 +7,28 @@ part of 'profile_models.dart';
 // **************************************************************************
 
 UserProfile _$UserProfileFromJson(Map<String, dynamic> json) => UserProfile(
-  height: (json['height'] as num).toDouble(),
-  weight: (json['weight'] as num).toDouble(),
-  gender: $enumDecode(_$GenderEnumMap, json['gender']),
-  dateOfBirth: DateTime.parse(json['dateOfBirth'] as String),
-  weightGoal: $enumDecode(_$WeightGoalEnumMap, json['weightGoal']),
-  activityLevel: $enumDecode(_$ActivityLevelEnumMap, json['activityLevel']),
+  height: (json['height'] as num?)?.toDouble(),
+  weight: (json['weight'] as num?)?.toDouble(),
+  gender: $enumDecodeNullable(_$GenderEnumMap, json['gender']),
+  dateOfBirth:
+      json['dateOfBirth'] == null
+          ? null
+          : DateTime.parse(json['dateOfBirth'] as String),
+  weightGoal: $enumDecodeNullable(_$WeightGoalEnumMap, json['weightGoal']),
+  activityLevel: $enumDecodeNullable(
+    _$ActivityLevelEnumMap,
+    json['activityLevel'],
+  ),
 );
 
 Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
     <String, dynamic>{
       'height': instance.height,
       'weight': instance.weight,
-      'gender': _$GenderEnumMap[instance.gender]!,
-      'dateOfBirth': instance.dateOfBirth.toIso8601String(),
-      'weightGoal': _$WeightGoalEnumMap[instance.weightGoal]!,
-      'activityLevel': _$ActivityLevelEnumMap[instance.activityLevel]!,
+      'gender': _$GenderEnumMap[instance.gender],
+      'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
+      'weightGoal': _$WeightGoalEnumMap[instance.weightGoal],
+      'activityLevel': _$ActivityLevelEnumMap[instance.activityLevel],
     };
 
 const _$GenderEnumMap = {

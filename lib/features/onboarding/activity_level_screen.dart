@@ -1,6 +1,8 @@
+import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
+import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -81,24 +83,14 @@ class _ActivityLevelScreenState extends State<ActivityLevelScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(24.0),
-              child: SizedBox(
-                width: double.infinity,
-                child: FilledButton(
-                  onPressed:
-                      _selectedLevel != null
-                          ? () => _continue(_userProfile!)
-                          : null,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                    child: Text(
-                      'Continue',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
+              child: PrimaryButton(
+                analyticsEvent: AnalyticsEvent.onboardingSetActivityLevel,
+                onPressed:
+                    _selectedLevel != null
+                        ? () => _continue(_userProfile!)
+                        : null,
+                text: 'Continue',
+                trailingIcon: LucideIcons.arrowRight,
               ),
             ),
           ],

@@ -5,11 +5,9 @@ import 'package:calorify/features/auth/login_screen.dart';
 import 'package:calorify/features/favorites/favorites_screen.dart';
 import 'package:calorify/features/history/meal_history_screen.dart';
 import 'package:calorify/features/home/home_screen.dart';
-import 'package:calorify/features/onboarding/health_connect_screen.dart';
 import 'package:calorify/features/onboarding/onboarding_screen.dart';
-import 'package:calorify/features/onboarding/reminder_notifications_screen.dart';
-import 'package:calorify/features/onboarding/weight_goal_screen.dart';
 import 'package:calorify/features/profile/edit_profile_screen.dart';
+import 'package:calorify/features/profile/edit_reminder_screen.dart';
 import 'package:calorify/features/profile/profile_screen.dart';
 import 'package:calorify/features/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -35,5 +33,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: MealHistoryRoute.page, guards: [OnboardingGuard()]),
     AutoRoute(page: ProfileRoute.page, guards: [OnboardingGuard()]),
     AutoRoute(page: EditProfileRoute.page, guards: [OnboardingGuard()]),
+    AutoRoute(page: EditReminderRoute.page, guards: [OnboardingGuard()]),
   ];
 }

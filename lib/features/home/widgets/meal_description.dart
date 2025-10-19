@@ -5,7 +5,8 @@ import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
-import 'package:calorify/shared_widgets/loading_indicator.dart';
+import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -78,38 +79,12 @@ class _DescribeMealState extends State<DescribeMeal> {
                 maxLines: 3,
               ),
               SizedBox(height: 16),
-              ElevatedButton(
-                onPressed:
-                    _isLoading ? null : () => _onProcessMealDescription(),
-                style: ButtonStyle(
-                  minimumSize: WidgetStatePropertyAll(
-                    Size(double.infinity, 50),
-                  ),
-                  backgroundColor: WidgetStatePropertyAll(
-                    _isLoading ? colorScheme.secondary : colorScheme.primary,
-                  ),
-                  foregroundColor: WidgetStatePropertyAll(
-                    colorScheme.onPrimary,
-                  ),
-                  shape: WidgetStatePropertyAll(
-                    RoundedRectangleBorder(borderRadius: globalRadius),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _isLoading
-                        ? AppLoader(color: colorScheme.onPrimary)
-                        : Icon(LucideIcons.wandSparkles),
-                    SizedBox(width: 6),
-                    Text(
-                      'Analyze meal',
-                      style: textTheme.bodyLarge?.copyWith(
-                        color: colorScheme.onPrimary,
-                      ),
-                    ),
-                  ],
-                ),
+              PrimaryButton(
+                analyticsEvent: AnalyticsEvent.addMealFromDescription,
+                onPressed: _onProcessMealDescription,
+                text: 'Analyze meal',
+                leadingIcon: LucideIcons.wandSparkles,
+                isLoading: _isLoading,
               ),
             ],
           ),

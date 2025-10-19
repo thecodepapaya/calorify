@@ -36,38 +36,38 @@ class OnboardingService {
     // await DatabaseService().deleteUserProfile();
   }
 
-  /// Calculate age from date of birth
-  int _calculateAge(DateTime dateOfBirth) {
-    final now = DateTime.now();
-    int age = now.year - dateOfBirth.year;
-    if (now.month < dateOfBirth.month ||
-        (now.month == dateOfBirth.month && now.day < dateOfBirth.day)) {
-      age--;
-    }
-    return age;
-  }
-
   /// Calculate BMR (Basal Metabolic Rate) using Mifflin-St Jeor Equation
-  double calculateBMR(UserProfile data) {
-    final age = _calculateAge(data.dateOfBirth);
+  double? calculateBMR(UserProfile data) {
+    if (data.dateOfBirth == null ||
+        data.gender == null ||
+        data.weight == null ||
+        data.height == null) {
+      return null;
+    }
+    final age = data.age;
+    if (age == null) return null;
     if (data.gender == Gender.male) {
-      return (10 * data.weight) + (6.25 * data.height) - (5 * age) + 5;
+      return (10 * data.weight!) + (6.25 * data.height!) - (5 * age) + 5;
     } else {
-      return (10 * data.weight) + (6.25 * data.height) - (5 * age) - 161;
+      return (10 * data.weight!) + (6.25 * data.height!) - (5 * age) - 161;
     }
   }
 
   /// Calculate TDEE (Total Daily Energy Expenditure)
-  double calculateTDEE(UserProfile data) {
+  double? calculateTDEE(UserProfile data) {
+    if (data.activityLevel == null) return null;
     final bmr = calculateBMR(data);
-    return bmr * data.activityLevel.multiplier;
+    if (bmr == null) return null;
+    return bmr * data.activityLevel!.multiplier;
   }
 
   /// Calculate daily calorie goal based on weight goal
-  double calculateDailyCalorieGoal(UserProfile data) {
+  double? calculateDailyCalorieGoal(UserProfile data) {
+    if (data.weightGoal == null) return null;
     final tdee = calculateTDEE(data);
+    if (tdee == null) return null;
 
-    switch (data.weightGoal) {
+    switch (data.weightGoal!) {
       case WeightGoal.loseWeight:
         return tdee - 500; // 500 calorie deficit for ~1lb/week loss
       case WeightGoal.maintainWeight:

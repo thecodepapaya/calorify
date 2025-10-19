@@ -16,27 +16,28 @@ enum ActivityLevel {
 
 @JsonSerializable()
 class UserProfile {
-  final double height; // in cm
-  final double weight; // in kg
-  final Gender gender;
-  final DateTime dateOfBirth;
-  final WeightGoal weightGoal;
-  final ActivityLevel activityLevel;
+  final double? height; // in cm
+  final double? weight; // in kg
+  final Gender? gender;
+  final DateTime? dateOfBirth;
+  final WeightGoal? weightGoal;
+  final ActivityLevel? activityLevel;
 
   const UserProfile({
-    required this.height,
-    required this.weight,
-    required this.gender,
-    required this.dateOfBirth,
-    required this.weightGoal,
-    required this.activityLevel,
+    this.height,
+    this.weight,
+    this.gender,
+    this.dateOfBirth,
+    this.weightGoal,
+    this.activityLevel,
   });
 
-  int get age {
+  int? get age {
+    if (dateOfBirth == null) return null;
     final now = DateTime.now();
-    int age = now.year - dateOfBirth.year;
-    if (now.month < dateOfBirth.month ||
-        (now.month == dateOfBirth.month && now.day < dateOfBirth.day)) {
+    int age = now.year - dateOfBirth!.year;
+    if (now.month < dateOfBirth!.month ||
+        (now.month == dateOfBirth!.month && now.day < dateOfBirth!.day)) {
       age--;
     }
     return age;

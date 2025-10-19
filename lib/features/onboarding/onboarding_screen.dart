@@ -31,7 +31,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       WeightGoalScreen(onContinue: _nextPage),
       ActivityLevelScreen(onContinue: _nextPage),
       HealthConnectScreen(onContinue: _nextPage),
-      ReminderNotificationsScreen(onFinish: _finishOnboarding),
+      ReminderNotificationsScreen(onContinue: _finishOnboarding),
     ];
   }
 

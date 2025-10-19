@@ -1,5 +1,7 @@
+import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/services/health_service.dart';
-import 'package:calorify/shared_widgets/loading_indicator.dart';
+import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/shared_widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -15,6 +17,24 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
   bool _isLoading = false;
   bool _healthConnectEnabled = false;
   String _statusMessage = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _checkHealthConnectStatus();
+  }
+
+  Future<void> _checkHealthConnectStatus() async {
+    setState(() => _isLoading = true);
+    final isAuthorized = HealthService.instance.isAuthorized;
+    setState(() {
+      _healthConnectEnabled = isAuthorized;
+      _isLoading = false;
+      if (isAuthorized) {
+        _statusMessage = 'Health Connect is connected.';
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -153,48 +173,31 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
               padding: const EdgeInsets.all(24.0),
               child: Column(
                 children: [
-                  // Setup Button
-                  if (!_healthConnectEnabled)
-                    SizedBox(
-                      width: double.infinity,
-                      child: FilledButton.icon(
-                        onPressed: _isLoading ? null : _setupHealthConnect,
-                        icon:
-                            _isLoading
-                                ? const AppLoader(size: 16)
-                                : const Icon(LucideIcons.link),
-                        label: Text(
-                          _isLoading ? 'Setting up...' : 'Setup Health Connect',
-                        ),
-                      ),
+                  if (_healthConnectEnabled)
+                    PrimaryButton(
+                      analyticsEvent:
+                          AnalyticsEvent.onboardingContinueHealthConnect,
+                      onPressed: _navigateToReminderNotifications,
+                      text: 'Continue',
+                      trailingIcon: LucideIcons.arrowRight,
+                    )
+                  else ...[
+                    PrimaryButton(
+                      analyticsEvent:
+                          AnalyticsEvent.onboardingSetupHealthConnect,
+                      onPressed: _isLoading ? null : _setupHealthConnect,
+                      text: 'Setup Health Connect',
+                      leadingIcon: LucideIcons.link,
+                      isLoading: _isLoading,
                     ),
-                  if (!_healthConnectEnabled) const SizedBox(height: 16),
-
-                  // Continue Button (shown after successful setup or if skipped)
-                  SizedBox(
-                    width: double.infinity,
-                    child: FilledButton(
-                      onPressed: () => _navigateToReminderNotifications(),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16.0),
-                        child: Text('Continue'),
-                      ),
+                    const SizedBox(height: 16),
+                    SecondaryButton(
+                      analyticsEvent:
+                          AnalyticsEvent.onboardingSkipHealthConnect,
+                      onPressed: _navigateToReminderNotifications,
+                      text: 'Skip for now',
                     ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  // Skip Button (only shown if not connected)
-                  if (!_healthConnectEnabled)
-                    SizedBox(
-                      width: double.infinity,
-                      child: OutlinedButton(
-                        onPressed: _skip,
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 16.0),
-                          child: Text('Skip for now'),
-                        ),
-                      ),
-                    ),
+                  ],
                 ],
               ),
             ),
@@ -262,8 +265,12 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
         _statusMessage =
             success
                 ? 'Health Connect has been successfully connected!'
-                : 'Failed to connect to Health Connect. You can try again or skip for now.';
+                : 'Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.';
       });
+
+      if (success) {
+        _navigateToReminderNotifications();
+      }
     } catch (e) {
       setState(() {
         _healthConnectEnabled = false;
@@ -271,12 +278,7 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
       });
     } finally {
       setState(() => _isLoading = false);
-      _navigateToReminderNotifications();
     }
-  }
-
-  void _skip() {
-    _navigateToReminderNotifications();
   }
 
   void _navigateToReminderNotifications() {

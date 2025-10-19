@@ -6,6 +6,8 @@ import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
+import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -393,18 +395,12 @@ class _GoalInputState extends State<_GoalInput> {
         SizedBox(height: 12),
         Align(
           alignment: Alignment.centerRight,
-          child: ElevatedButton(
+          child: PrimaryButton(
+            analyticsEvent: AnalyticsEvent.setDailyGoal,
             onPressed: () {
               _onSetGoal(_controller.value.text);
             },
-            style: ButtonStyle(
-              backgroundColor: WidgetStatePropertyAll(colorScheme.tertiary),
-              foregroundColor: WidgetStatePropertyAll(colorScheme.onTertiary),
-              shape: WidgetStatePropertyAll(
-                RoundedRectangleBorder(borderRadius: globalRadius),
-              ),
-            ),
-            child: Text('Set Goal'),
+            text: 'Set Goal',
           ),
         ),
       ],

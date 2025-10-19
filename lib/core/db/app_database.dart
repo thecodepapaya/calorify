@@ -194,6 +194,9 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
 
   @override
   Future<UserProfile?> getUserProfile() async {
+    final hasProfile = await hasUserProfile();
+    if (!hasProfile) return null;
+
     final result =
         await (select(userSettingsTable)
           ..where((tbl) => tbl.id.equals(_userSettingsId))).getSingleOrNull();

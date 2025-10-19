@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
 
 class OnboardingGuard extends AutoRouteGuard {
   @override

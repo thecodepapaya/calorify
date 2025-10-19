@@ -7,10 +7,12 @@ import 'package:calorify/core/models/meal_detection_result.dart';
 import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/core/services/picker_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
+import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -96,73 +98,37 @@ class _MealSnapState extends State<MealSnap> {
   }
 
   Widget get _buttons {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
-
     return Column(
       children: [
         Row(
           children: [
             Expanded(
-              flex: 4,
-              child: ElevatedButton(
+              flex: 3,
+              child: PrimaryButton(
+                analyticsEvent: AnalyticsEvent.mealSnapFromCamera,
                 onPressed: () async {
                   final image =
                       await ImagePickerService().pickImageFromCamera();
                   if (image == null) return;
                   _onSelectImage(image);
                 },
-                style: ButtonStyle(
-                  minimumSize: WidgetStatePropertyAll(
-                    Size(double.infinity, 50),
-                  ),
-                  backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
-                  foregroundColor: WidgetStatePropertyAll(
-                    colorScheme.onPrimary,
-                  ),
-                  shape: WidgetStatePropertyAll(
-                    RoundedRectangleBorder(borderRadius: globalRadius),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(LucideIcons.camera),
-                    SizedBox(width: 6),
-                    Text(
-                      'Open Camera',
-                      style: textTheme.bodyLarge?.copyWith(
-                        color: colorScheme.onPrimary,
-                      ),
-                    ),
-                  ],
-                ),
+                text: 'Open Camera',
+                leadingIcon: LucideIcons.camera,
               ),
             ),
             SizedBox(width: 12),
             Expanded(
               flex: 1,
-              child: ElevatedButton(
+              child: PrimaryButton(
+                analyticsEvent: AnalyticsEvent.mealSnapFromGallery,
                 onPressed: () async {
                   final image =
                       await ImagePickerService().pickImageFromGallery();
                   if (image == null) return;
                   _onSelectImage(image);
                 },
-                style: ButtonStyle(
-                  minimumSize: WidgetStatePropertyAll(
-                    Size(double.infinity, 50),
-                  ),
-                  backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
-                  foregroundColor: WidgetStatePropertyAll(
-                    colorScheme.onPrimary,
-                  ),
-                  shape: WidgetStatePropertyAll(
-                    RoundedRectangleBorder(borderRadius: globalRadius),
-                  ),
-                ),
-                child: Icon(LucideIcons.imagePlus),
+                text: '',
+                leadingIcon: LucideIcons.imagePlus,
               ),
             ),
           ],

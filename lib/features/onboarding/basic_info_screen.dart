@@ -1,7 +1,9 @@
+import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/locale_utils.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
+import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:calorify/shared_widgets/value_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -119,25 +121,12 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                               ?.copyWith(fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(height: 8),
-                        Text(
-                          LocaleUtils.getUnitSystemDescription(
-                            context,
-                            _isMetric,
-                          ),
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodySmall?.copyWith(
-                            color:
-                                Theme.of(context).colorScheme.onSurfaceVariant,
-                          ),
-                        ),
-                        const SizedBox(height: 12),
                         Row(
                           children: [
                             Expanded(
                               child: _buildUnitToggle(
                                 context,
-                                label: 'Metric',
+                                label: 'cm/kg',
                                 icon: LucideIcons.ruler,
                                 isSelected: _isMetric,
                                 onTap: () => setState(() => _isMetric = true),
@@ -147,7 +136,7 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                             Expanded(
                               child: _buildUnitToggle(
                                 context,
-                                label: 'Imperial',
+                                label: 'ft/lbs',
                                 icon: LucideIcons.ruler,
                                 isSelected: !_isMetric,
                                 onTap: () => setState(() => _isMetric = false),
@@ -256,21 +245,11 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(24.0),
-              child: SizedBox(
-                width: double.infinity,
-                child: FilledButton(
-                  onPressed: _continue,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                    child: Text(
-                      'Continue',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
+              child: PrimaryButton(
+                analyticsEvent: AnalyticsEvent.onboardingSetBasicInfo,
+                onPressed: _continue,
+                text: 'Continue',
+                trailingIcon: LucideIcons.arrowRight,
               ),
             ),
           ],
@@ -281,10 +260,12 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
 
   void _initializeData(UserProfile? profile) {
     if (profile != null) {
-      _selectedGender = profile.gender;
-      _height = profile.height;
-      _weight = profile.weight;
-      _dateOfBirth = profile.dateOfBirth;
+      _selectedGender = profile.gender ?? Gender.male;
+      _height = profile.height ?? 170;
+      _weight = profile.weight ?? 70;
+      _dateOfBirth =
+          profile.dateOfBirth ??
+          DateTime.now().subtract(const Duration(days: 365 * 25));
     }
   }
 
@@ -418,8 +399,6 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
         weight: _weight,
         dateOfBirth: _dateOfBirth,
         gender: _selectedGender,
-        weightGoal: WeightGoal.maintainWeight, // Default value
-        activityLevel: ActivityLevel.sedentary, // Default value
       );
       OnboardingService.instance.saveProfileData(profile);
       widget.onContinue();

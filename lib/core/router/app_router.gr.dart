@@ -58,6 +58,22 @@ class EditProfileRouteArgs {
 }
 
 /// generated route for
+/// [EditReminderScreen]
+class EditReminderRoute extends PageRouteInfo<void> {
+  const EditReminderRoute({List<PageRouteInfo>? children})
+    : super(EditReminderRoute.name, initialChildren: children);
+
+  static const String name = 'EditReminderRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const EditReminderScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [FavoritesScreen]
 class FavoritesRoute extends PageRouteInfo<void> {
   const FavoritesRoute({List<PageRouteInfo>? children})

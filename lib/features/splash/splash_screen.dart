@@ -6,7 +6,9 @@ import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/app_initialization.dart';
 import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/shared_widgets/animated_leaf.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -29,11 +31,13 @@ class _SplashScreenState extends State<SplashScreen> {
     try {
       // Initialize Firebase Auth with guest user for AI services
       await _initializeFirebaseAuth();
+      await _initializeAppCheck();
 
       // Initialize core services
       await HealthService.instance.init();
+      await NotificationService.instance.initialize();
       await AppInitialization.initialize();
-      Analytics.instance.initialize();
+      await Analytics.instance.initialize();
 
       // Initialize AI services after authentication
       await FoodAnalysisService.instance.initialize();
@@ -47,6 +51,16 @@ class _SplashScreenState extends State<SplashScreen> {
     if (mounted) {
       // Navigate to home - the OnboardingGuard will handle redirecting to onboarding if needed
       context.router.replace(const HomeRoute());
+    }
+  }
+
+  Future<void> _initializeAppCheck() async {
+    try {
+      await FirebaseAppCheck.instance.activate();
+      log('Firebase App Check activated');
+    } catch (e) {
+      log('Failed to initialize Firebase App Check: $e');
+      // Don't throw - app can still work without it in some cases
     }
   }
 

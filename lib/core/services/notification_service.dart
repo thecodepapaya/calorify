@@ -1,9 +1,9 @@
 import 'dart:io';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 /// Service for managing local and push notifications (Android only)
@@ -23,11 +23,13 @@ class NotificationService {
   // Notification channels
   static const String remindersChannel = 'reminders';
   static const String generalChannel = 'general';
-  static const String miscellaneousChannel = 'miscellaneous';
 
   /// Initialize the notification service
   Future<void> initialize() async {
     if (_isInitialized) return;
+
+    // Initialize time zones
+    tz.initializeTimeZones();
 
     // Initialize local notifications
     await _initializeLocalNotifications();
@@ -74,14 +76,6 @@ class NotificationService {
           importance: Importance.defaultImportance,
         );
 
-    const AndroidNotificationChannel miscellaneousChannel =
-        AndroidNotificationChannel(
-          'miscellaneous',
-          'Miscellaneous',
-          description: 'Miscellaneous notifications',
-          importance: Importance.low,
-        );
-
     await _localNotifications
         .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin
@@ -93,12 +87,6 @@ class NotificationService {
           AndroidFlutterLocalNotificationsPlugin
         >()
         ?.createNotificationChannel(generalChannel);
-
-    await _localNotifications
-        .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin
-        >()
-        ?.createNotificationChannel(miscellaneousChannel);
   }
 
   /// Initialize Firebase messaging
@@ -227,9 +215,10 @@ class NotificationService {
       tz.TZDateTime.from(scheduledTime, tz.local),
       details,
       payload: payload,
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time,
     );
   }
 
@@ -335,35 +324,7 @@ class NotificationService {
     );
 
     await _localNotifications.show(
-      DateTime.now().millisecondsSinceEpoch.remainder(100000),
-      title,
-      body,
-      details,
-      payload: payload,
-    );
-  }
-
-  /// Show miscellaneous notification (Android only)
-  Future<void> showMiscellaneousNotification({
-    required String title,
-    required String body,
-    String? payload,
-  }) async {
-    const AndroidNotificationDetails androidDetails =
-        AndroidNotificationDetails(
-          'miscellaneous',
-          'Miscellaneous',
-          channelDescription: 'Miscellaneous notifications',
-          importance: Importance.low,
-          priority: Priority.low,
-        );
-
-    const NotificationDetails details = NotificationDetails(
-      android: androidDetails,
-    );
-
-    await _localNotifications.show(
-      DateTime.now().millisecondsSinceEpoch.remainder(100000),
+      DateTime.now().millisecondsSinceEpoch.remainder(100000) + 100,
       title,
       body,
       details,
