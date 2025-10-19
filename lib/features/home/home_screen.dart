@@ -5,6 +5,7 @@ import 'package:calorify/features/home/widgets/connect_health.dart';
 import 'package:calorify/features/home/widgets/daily_goal.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/favorite_meals.dart';
+import 'package:calorify/features/home/widgets/home_screen_menu.dart';
 import 'package:calorify/features/home/widgets/intake_progress.dart';
 import 'package:calorify/features/home/widgets/meal_description.dart';
 import 'package:calorify/features/home/widgets/meal_log.dart';
@@ -41,6 +42,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
+        actions: const [HomeScreenMenu()],
       ),
       body: SingleChildScrollView(
         child: Column(

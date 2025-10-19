@@ -156,7 +156,7 @@ class _EditMealScreenState extends State<_EditMealScreen> {
           ),
           const SizedBox(height: 20),
           DropdownButtonFormField<MealType>(
-            value: _mealType,
+            initialValue: _mealType,
             decoration: InputDecoration(
               labelText: 'Meal Type',
               border: OutlineInputBorder(borderRadius: globalRadius),

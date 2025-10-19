@@ -692,8 +692,103 @@ class $UserSettingsTableTable extends UserSettingsTable
     type: DriftSqlType.int,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _heightMeta = const VerificationMeta('height');
   @override
-  List<GeneratedColumn> get $columns => [id, dailyCalorieGoal];
+  late final GeneratedColumn<double> height = GeneratedColumn<double>(
+    'height',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _weightMeta = const VerificationMeta('weight');
+  @override
+  late final GeneratedColumn<double> weight = GeneratedColumn<double>(
+    'weight',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _genderMeta = const VerificationMeta('gender');
+  @override
+  late final GeneratedColumn<String> gender = GeneratedColumn<String>(
+    'gender',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _dateOfBirthMeta = const VerificationMeta(
+    'dateOfBirth',
+  );
+  @override
+  late final GeneratedColumn<DateTime> dateOfBirth = GeneratedColumn<DateTime>(
+    'date_of_birth',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _weightGoalMeta = const VerificationMeta(
+    'weightGoal',
+  );
+  @override
+  late final GeneratedColumn<String> weightGoal = GeneratedColumn<String>(
+    'weight_goal',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _activityLevelMeta = const VerificationMeta(
+    'activityLevel',
+  );
+  @override
+  late final GeneratedColumn<String> activityLevel = GeneratedColumn<String>(
+    'activity_level',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    dailyCalorieGoal,
+    height,
+    weight,
+    gender,
+    dateOfBirth,
+    weightGoal,
+    activityLevel,
+    createdAt,
+    updatedAt,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -718,6 +813,60 @@ class $UserSettingsTableTable extends UserSettingsTable
         ),
       );
     }
+    if (data.containsKey('height')) {
+      context.handle(
+        _heightMeta,
+        height.isAcceptableOrUnknown(data['height']!, _heightMeta),
+      );
+    }
+    if (data.containsKey('weight')) {
+      context.handle(
+        _weightMeta,
+        weight.isAcceptableOrUnknown(data['weight']!, _weightMeta),
+      );
+    }
+    if (data.containsKey('gender')) {
+      context.handle(
+        _genderMeta,
+        gender.isAcceptableOrUnknown(data['gender']!, _genderMeta),
+      );
+    }
+    if (data.containsKey('date_of_birth')) {
+      context.handle(
+        _dateOfBirthMeta,
+        dateOfBirth.isAcceptableOrUnknown(
+          data['date_of_birth']!,
+          _dateOfBirthMeta,
+        ),
+      );
+    }
+    if (data.containsKey('weight_goal')) {
+      context.handle(
+        _weightGoalMeta,
+        weightGoal.isAcceptableOrUnknown(data['weight_goal']!, _weightGoalMeta),
+      );
+    }
+    if (data.containsKey('activity_level')) {
+      context.handle(
+        _activityLevelMeta,
+        activityLevel.isAcceptableOrUnknown(
+          data['activity_level']!,
+          _activityLevelMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
     return context;
   }
 
@@ -736,6 +885,40 @@ class $UserSettingsTableTable extends UserSettingsTable
         DriftSqlType.int,
         data['${effectivePrefix}daily_calorie_goal'],
       ),
+      height: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}height'],
+      ),
+      weight: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}weight'],
+      ),
+      gender: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}gender'],
+      ),
+      dateOfBirth: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}date_of_birth'],
+      ),
+      weightGoal: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}weight_goal'],
+      ),
+      activityLevel: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}activity_level'],
+      ),
+      createdAt:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}created_at'],
+          )!,
+      updatedAt:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}updated_at'],
+          )!,
     );
   }
 
@@ -749,7 +932,26 @@ class UserSettingsTableData extends DataClass
     implements Insertable<UserSettingsTableData> {
   final int id;
   final int? dailyCalorieGoal;
-  const UserSettingsTableData({required this.id, this.dailyCalorieGoal});
+  final double? height;
+  final double? weight;
+  final String? gender;
+  final DateTime? dateOfBirth;
+  final String? weightGoal;
+  final String? activityLevel;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const UserSettingsTableData({
+    required this.id,
+    this.dailyCalorieGoal,
+    this.height,
+    this.weight,
+    this.gender,
+    this.dateOfBirth,
+    this.weightGoal,
+    this.activityLevel,
+    required this.createdAt,
+    required this.updatedAt,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -757,6 +959,26 @@ class UserSettingsTableData extends DataClass
     if (!nullToAbsent || dailyCalorieGoal != null) {
       map['daily_calorie_goal'] = Variable<int>(dailyCalorieGoal);
     }
+    if (!nullToAbsent || height != null) {
+      map['height'] = Variable<double>(height);
+    }
+    if (!nullToAbsent || weight != null) {
+      map['weight'] = Variable<double>(weight);
+    }
+    if (!nullToAbsent || gender != null) {
+      map['gender'] = Variable<String>(gender);
+    }
+    if (!nullToAbsent || dateOfBirth != null) {
+      map['date_of_birth'] = Variable<DateTime>(dateOfBirth);
+    }
+    if (!nullToAbsent || weightGoal != null) {
+      map['weight_goal'] = Variable<String>(weightGoal);
+    }
+    if (!nullToAbsent || activityLevel != null) {
+      map['activity_level'] = Variable<String>(activityLevel);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
 
@@ -767,6 +989,26 @@ class UserSettingsTableData extends DataClass
           dailyCalorieGoal == null && nullToAbsent
               ? const Value.absent()
               : Value(dailyCalorieGoal),
+      height:
+          height == null && nullToAbsent ? const Value.absent() : Value(height),
+      weight:
+          weight == null && nullToAbsent ? const Value.absent() : Value(weight),
+      gender:
+          gender == null && nullToAbsent ? const Value.absent() : Value(gender),
+      dateOfBirth:
+          dateOfBirth == null && nullToAbsent
+              ? const Value.absent()
+              : Value(dateOfBirth),
+      weightGoal:
+          weightGoal == null && nullToAbsent
+              ? const Value.absent()
+              : Value(weightGoal),
+      activityLevel:
+          activityLevel == null && nullToAbsent
+              ? const Value.absent()
+              : Value(activityLevel),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
     );
   }
 
@@ -778,6 +1020,14 @@ class UserSettingsTableData extends DataClass
     return UserSettingsTableData(
       id: serializer.fromJson<int>(json['id']),
       dailyCalorieGoal: serializer.fromJson<int?>(json['dailyCalorieGoal']),
+      height: serializer.fromJson<double?>(json['height']),
+      weight: serializer.fromJson<double?>(json['weight']),
+      gender: serializer.fromJson<String?>(json['gender']),
+      dateOfBirth: serializer.fromJson<DateTime?>(json['dateOfBirth']),
+      weightGoal: serializer.fromJson<String?>(json['weightGoal']),
+      activityLevel: serializer.fromJson<String?>(json['activityLevel']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
   }
   @override
@@ -786,18 +1036,43 @@ class UserSettingsTableData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'dailyCalorieGoal': serializer.toJson<int?>(dailyCalorieGoal),
+      'height': serializer.toJson<double?>(height),
+      'weight': serializer.toJson<double?>(weight),
+      'gender': serializer.toJson<String?>(gender),
+      'dateOfBirth': serializer.toJson<DateTime?>(dateOfBirth),
+      'weightGoal': serializer.toJson<String?>(weightGoal),
+      'activityLevel': serializer.toJson<String?>(activityLevel),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
   }
 
   UserSettingsTableData copyWith({
     int? id,
     Value<int?> dailyCalorieGoal = const Value.absent(),
+    Value<double?> height = const Value.absent(),
+    Value<double?> weight = const Value.absent(),
+    Value<String?> gender = const Value.absent(),
+    Value<DateTime?> dateOfBirth = const Value.absent(),
+    Value<String?> weightGoal = const Value.absent(),
+    Value<String?> activityLevel = const Value.absent(),
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) => UserSettingsTableData(
     id: id ?? this.id,
     dailyCalorieGoal:
         dailyCalorieGoal.present
             ? dailyCalorieGoal.value
             : this.dailyCalorieGoal,
+    height: height.present ? height.value : this.height,
+    weight: weight.present ? weight.value : this.weight,
+    gender: gender.present ? gender.value : this.gender,
+    dateOfBirth: dateOfBirth.present ? dateOfBirth.value : this.dateOfBirth,
+    weightGoal: weightGoal.present ? weightGoal.value : this.weightGoal,
+    activityLevel:
+        activityLevel.present ? activityLevel.value : this.activityLevel,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
   );
   UserSettingsTableData copyWithCompanion(UserSettingsTableCompanion data) {
     return UserSettingsTableData(
@@ -806,6 +1081,19 @@ class UserSettingsTableData extends DataClass
           data.dailyCalorieGoal.present
               ? data.dailyCalorieGoal.value
               : this.dailyCalorieGoal,
+      height: data.height.present ? data.height.value : this.height,
+      weight: data.weight.present ? data.weight.value : this.weight,
+      gender: data.gender.present ? data.gender.value : this.gender,
+      dateOfBirth:
+          data.dateOfBirth.present ? data.dateOfBirth.value : this.dateOfBirth,
+      weightGoal:
+          data.weightGoal.present ? data.weightGoal.value : this.weightGoal,
+      activityLevel:
+          data.activityLevel.present
+              ? data.activityLevel.value
+              : this.activityLevel,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
   }
 
@@ -813,50 +1101,133 @@ class UserSettingsTableData extends DataClass
   String toString() {
     return (StringBuffer('UserSettingsTableData(')
           ..write('id: $id, ')
-          ..write('dailyCalorieGoal: $dailyCalorieGoal')
+          ..write('dailyCalorieGoal: $dailyCalorieGoal, ')
+          ..write('height: $height, ')
+          ..write('weight: $weight, ')
+          ..write('gender: $gender, ')
+          ..write('dateOfBirth: $dateOfBirth, ')
+          ..write('weightGoal: $weightGoal, ')
+          ..write('activityLevel: $activityLevel, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, dailyCalorieGoal);
+  int get hashCode => Object.hash(
+    id,
+    dailyCalorieGoal,
+    height,
+    weight,
+    gender,
+    dateOfBirth,
+    weightGoal,
+    activityLevel,
+    createdAt,
+    updatedAt,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is UserSettingsTableData &&
           other.id == this.id &&
-          other.dailyCalorieGoal == this.dailyCalorieGoal);
+          other.dailyCalorieGoal == this.dailyCalorieGoal &&
+          other.height == this.height &&
+          other.weight == this.weight &&
+          other.gender == this.gender &&
+          other.dateOfBirth == this.dateOfBirth &&
+          other.weightGoal == this.weightGoal &&
+          other.activityLevel == this.activityLevel &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
 }
 
 class UserSettingsTableCompanion
     extends UpdateCompanion<UserSettingsTableData> {
   final Value<int> id;
   final Value<int?> dailyCalorieGoal;
+  final Value<double?> height;
+  final Value<double?> weight;
+  final Value<String?> gender;
+  final Value<DateTime?> dateOfBirth;
+  final Value<String?> weightGoal;
+  final Value<String?> activityLevel;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
   const UserSettingsTableCompanion({
     this.id = const Value.absent(),
     this.dailyCalorieGoal = const Value.absent(),
+    this.height = const Value.absent(),
+    this.weight = const Value.absent(),
+    this.gender = const Value.absent(),
+    this.dateOfBirth = const Value.absent(),
+    this.weightGoal = const Value.absent(),
+    this.activityLevel = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
   });
   UserSettingsTableCompanion.insert({
     this.id = const Value.absent(),
     this.dailyCalorieGoal = const Value.absent(),
+    this.height = const Value.absent(),
+    this.weight = const Value.absent(),
+    this.gender = const Value.absent(),
+    this.dateOfBirth = const Value.absent(),
+    this.weightGoal = const Value.absent(),
+    this.activityLevel = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
   });
   static Insertable<UserSettingsTableData> custom({
     Expression<int>? id,
     Expression<int>? dailyCalorieGoal,
+    Expression<double>? height,
+    Expression<double>? weight,
+    Expression<String>? gender,
+    Expression<DateTime>? dateOfBirth,
+    Expression<String>? weightGoal,
+    Expression<String>? activityLevel,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (dailyCalorieGoal != null) 'daily_calorie_goal': dailyCalorieGoal,
+      if (height != null) 'height': height,
+      if (weight != null) 'weight': weight,
+      if (gender != null) 'gender': gender,
+      if (dateOfBirth != null) 'date_of_birth': dateOfBirth,
+      if (weightGoal != null) 'weight_goal': weightGoal,
+      if (activityLevel != null) 'activity_level': activityLevel,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
     });
   }
 
   UserSettingsTableCompanion copyWith({
     Value<int>? id,
     Value<int?>? dailyCalorieGoal,
+    Value<double?>? height,
+    Value<double?>? weight,
+    Value<String?>? gender,
+    Value<DateTime?>? dateOfBirth,
+    Value<String?>? weightGoal,
+    Value<String?>? activityLevel,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
   }) {
     return UserSettingsTableCompanion(
       id: id ?? this.id,
       dailyCalorieGoal: dailyCalorieGoal ?? this.dailyCalorieGoal,
+      height: height ?? this.height,
+      weight: weight ?? this.weight,
+      gender: gender ?? this.gender,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+      weightGoal: weightGoal ?? this.weightGoal,
+      activityLevel: activityLevel ?? this.activityLevel,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
@@ -869,6 +1240,30 @@ class UserSettingsTableCompanion
     if (dailyCalorieGoal.present) {
       map['daily_calorie_goal'] = Variable<int>(dailyCalorieGoal.value);
     }
+    if (height.present) {
+      map['height'] = Variable<double>(height.value);
+    }
+    if (weight.present) {
+      map['weight'] = Variable<double>(weight.value);
+    }
+    if (gender.present) {
+      map['gender'] = Variable<String>(gender.value);
+    }
+    if (dateOfBirth.present) {
+      map['date_of_birth'] = Variable<DateTime>(dateOfBirth.value);
+    }
+    if (weightGoal.present) {
+      map['weight_goal'] = Variable<String>(weightGoal.value);
+    }
+    if (activityLevel.present) {
+      map['activity_level'] = Variable<String>(activityLevel.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
     return map;
   }
 
@@ -876,7 +1271,15 @@ class UserSettingsTableCompanion
   String toString() {
     return (StringBuffer('UserSettingsTableCompanion(')
           ..write('id: $id, ')
-          ..write('dailyCalorieGoal: $dailyCalorieGoal')
+          ..write('dailyCalorieGoal: $dailyCalorieGoal, ')
+          ..write('height: $height, ')
+          ..write('weight: $weight, ')
+          ..write('gender: $gender, ')
+          ..write('dateOfBirth: $dateOfBirth, ')
+          ..write('weightGoal: $weightGoal, ')
+          ..write('activityLevel: $activityLevel, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
   }
@@ -2048,11 +2451,27 @@ typedef $$UserSettingsTableTableCreateCompanionBuilder =
     UserSettingsTableCompanion Function({
       Value<int> id,
       Value<int?> dailyCalorieGoal,
+      Value<double?> height,
+      Value<double?> weight,
+      Value<String?> gender,
+      Value<DateTime?> dateOfBirth,
+      Value<String?> weightGoal,
+      Value<String?> activityLevel,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
     });
 typedef $$UserSettingsTableTableUpdateCompanionBuilder =
     UserSettingsTableCompanion Function({
       Value<int> id,
       Value<int?> dailyCalorieGoal,
+      Value<double?> height,
+      Value<double?> weight,
+      Value<String?> gender,
+      Value<DateTime?> dateOfBirth,
+      Value<String?> weightGoal,
+      Value<String?> activityLevel,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
     });
 
 class $$UserSettingsTableTableFilterComposer
@@ -2071,6 +2490,46 @@ class $$UserSettingsTableTableFilterComposer
 
   ColumnFilters<int> get dailyCalorieGoal => $composableBuilder(
     column: $table.dailyCalorieGoal,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get height => $composableBuilder(
+    column: $table.height,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get weight => $composableBuilder(
+    column: $table.weight,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get gender => $composableBuilder(
+    column: $table.gender,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get dateOfBirth => $composableBuilder(
+    column: $table.dateOfBirth,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get weightGoal => $composableBuilder(
+    column: $table.weightGoal,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get activityLevel => $composableBuilder(
+    column: $table.activityLevel,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -2093,6 +2552,46 @@ class $$UserSettingsTableTableOrderingComposer
     column: $table.dailyCalorieGoal,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<double> get height => $composableBuilder(
+    column: $table.height,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get weight => $composableBuilder(
+    column: $table.weight,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get gender => $composableBuilder(
+    column: $table.gender,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get dateOfBirth => $composableBuilder(
+    column: $table.dateOfBirth,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get weightGoal => $composableBuilder(
+    column: $table.weightGoal,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get activityLevel => $composableBuilder(
+    column: $table.activityLevel,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$UserSettingsTableTableAnnotationComposer
@@ -2111,6 +2610,36 @@ class $$UserSettingsTableTableAnnotationComposer
     column: $table.dailyCalorieGoal,
     builder: (column) => column,
   );
+
+  GeneratedColumn<double> get height =>
+      $composableBuilder(column: $table.height, builder: (column) => column);
+
+  GeneratedColumn<double> get weight =>
+      $composableBuilder(column: $table.weight, builder: (column) => column);
+
+  GeneratedColumn<String> get gender =>
+      $composableBuilder(column: $table.gender, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get dateOfBirth => $composableBuilder(
+    column: $table.dateOfBirth,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get weightGoal => $composableBuilder(
+    column: $table.weightGoal,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get activityLevel => $composableBuilder(
+    column: $table.activityLevel,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 }
 
 class $$UserSettingsTableTableTableManager
@@ -2161,17 +2690,49 @@ class $$UserSettingsTableTableTableManager
               ({
                 Value<int> id = const Value.absent(),
                 Value<int?> dailyCalorieGoal = const Value.absent(),
+                Value<double?> height = const Value.absent(),
+                Value<double?> weight = const Value.absent(),
+                Value<String?> gender = const Value.absent(),
+                Value<DateTime?> dateOfBirth = const Value.absent(),
+                Value<String?> weightGoal = const Value.absent(),
+                Value<String?> activityLevel = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
               }) => UserSettingsTableCompanion(
                 id: id,
                 dailyCalorieGoal: dailyCalorieGoal,
+                height: height,
+                weight: weight,
+                gender: gender,
+                dateOfBirth: dateOfBirth,
+                weightGoal: weightGoal,
+                activityLevel: activityLevel,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
               ),
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
                 Value<int?> dailyCalorieGoal = const Value.absent(),
+                Value<double?> height = const Value.absent(),
+                Value<double?> weight = const Value.absent(),
+                Value<String?> gender = const Value.absent(),
+                Value<DateTime?> dateOfBirth = const Value.absent(),
+                Value<String?> weightGoal = const Value.absent(),
+                Value<String?> activityLevel = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
               }) => UserSettingsTableCompanion.insert(
                 id: id,
                 dailyCalorieGoal: dailyCalorieGoal,
+                height: height,
+                weight: weight,
+                gender: gender,
+                dateOfBirth: dateOfBirth,
+                weightGoal: weightGoal,
+                activityLevel: activityLevel,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
               ),
           withReferenceMapper:
               (p0) =>

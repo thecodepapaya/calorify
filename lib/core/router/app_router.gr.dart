@@ -11,6 +11,69 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [EditProfileScreen]
+class EditProfileRoute extends PageRouteInfo<EditProfileRouteArgs> {
+  EditProfileRoute({
+    Key? key,
+    required UserProfile userProfile,
+    List<PageRouteInfo>? children,
+  }) : super(
+         EditProfileRoute.name,
+         args: EditProfileRouteArgs(key: key, userProfile: userProfile),
+         initialChildren: children,
+       );
+
+  static const String name = 'EditProfileRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<EditProfileRouteArgs>();
+      return EditProfileScreen(key: args.key, userProfile: args.userProfile);
+    },
+  );
+}
+
+class EditProfileRouteArgs {
+  const EditProfileRouteArgs({this.key, required this.userProfile});
+
+  final Key? key;
+
+  final UserProfile userProfile;
+
+  @override
+  String toString() {
+    return 'EditProfileRouteArgs{key: $key, userProfile: $userProfile}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! EditProfileRouteArgs) return false;
+    return key == other.key && userProfile == other.userProfile;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userProfile.hashCode;
+}
+
+/// generated route for
+/// [EditReminderScreen]
+class EditReminderRoute extends PageRouteInfo<void> {
+  const EditReminderRoute({List<PageRouteInfo>? children})
+    : super(EditReminderRoute.name, initialChildren: children);
+
+  static const String name = 'EditReminderRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const EditReminderScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [FavoritesScreen]
 class FavoritesRoute extends PageRouteInfo<void> {
   const FavoritesRoute({List<PageRouteInfo>? children})
@@ -70,6 +133,38 @@ class MealHistoryRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const MealHistoryScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [OnboardingScreen]
+class OnboardingRoute extends PageRouteInfo<void> {
+  const OnboardingRoute({List<PageRouteInfo>? children})
+    : super(OnboardingRoute.name, initialChildren: children);
+
+  static const String name = 'OnboardingRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const OnboardingScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ProfileScreen]
+class ProfileRoute extends PageRouteInfo<void> {
+  const ProfileRoute({List<PageRouteInfo>? children})
+    : super(ProfileRoute.name, initialChildren: children);
+
+  static const String name = 'ProfileRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProfileScreen();
     },
   );
 }

@@ -7,6 +7,8 @@ import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
+import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -181,7 +183,8 @@ class _MealTile extends StatelessWidget {
               ],
             ),
             SizedBox(width: 8),
-            ElevatedButton(
+            PrimaryButton(
+              analyticsEvent: AnalyticsEvent.addMealFromFavorites,
               onPressed: () async {
                 try {
                   final newMeal = meal.copyWith(timestamp: DateTime.now());
@@ -201,30 +204,10 @@ class _MealTile extends StatelessWidget {
                   }
                 }
               },
-              style: ButtonStyle(
-                padding: const WidgetStatePropertyAll(
-                  EdgeInsets.symmetric(horizontal: 12),
-                ),
-                minimumSize: const WidgetStatePropertyAll(Size(40, 40)),
-                backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
-                foregroundColor: WidgetStatePropertyAll(colorScheme.onPrimary),
-                shape: WidgetStatePropertyAll(
-                  RoundedRectangleBorder(borderRadius: globalRadius),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(LucideIcons.plus),
-                  SizedBox(width: 4),
-                  Text(
-                    'Add',
-                    style: textTheme.bodyLarge?.copyWith(
-                      color: colorScheme.onPrimary,
-                    ),
-                  ),
-                ],
-              ),
+              text: 'Add',
+              leadingIcon: LucideIcons.plus,
+              minimumSize: const Size(40, 40),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
             ),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/models/profile_models.dart';
 
 /// Adapter that wraps AppDatabase to implement DatabaseInterface
 class RealDatabaseAdapter implements DatabaseInterface {
@@ -75,4 +76,20 @@ class RealDatabaseAdapter implements DatabaseInterface {
 
   @override
   DataSourceType get dataSourceType => DataSourceType.real;
+
+  // User Profile Methods
+  @override
+  Future<void> saveUserProfile(UserProfile profile) async {
+    await _database.saveUserProfile(profile);
+  }
+
+  @override
+  Future<UserProfile?> getUserProfile() async {
+    return await _database.getUserProfile();
+  }
+
+  @override
+  Future<bool> hasUserProfile() async {
+    return await _database.hasUserProfile();
+  }
 }

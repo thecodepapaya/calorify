@@ -1,3 +1,4 @@
+import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 class Analytics {
@@ -6,12 +7,15 @@ class Analytics {
   static final Analytics _instance = Analytics._();
   static Analytics get instance => _instance;
 
-  void initialize() {
-    FirebaseAnalytics.instance.logAppOpen();
+  Future<void> initialize() async {
+    await FirebaseAnalytics.instance.logAppOpen();
   }
 
-  void logEvent(String name, Map<String, Object> parameters) {
-    FirebaseAnalytics.instance.logEvent(name: name, parameters: parameters);
+  void logEvent(AnalyticsEvent event, {Map<String, Object>? parameters}) {
+    FirebaseAnalytics.instance.logEvent(
+      name: event.name,
+      parameters: parameters,
+    );
   }
 
   void setUserProperty(String name, String value) {
