@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/db/mappers/favorite_meal_mapper.dart';
 import 'package:calorify/core/db/mappers/meal_info_mapper.dart';
+import 'package:calorify/core/db/mappers/user_profile_mapper.dart';
 import 'package:calorify/core/db/tables/favorite_meal.dart';
 import 'package:calorify/core/db/tables/meal_info.dart';
 import 'package:calorify/core/db/tables/user_settings.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/models/profile_models.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
@@ -19,7 +21,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration {
@@ -34,6 +36,16 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         }
         if (from < 5) {
           await m.addColumn(favoriteMealTable, favoriteMealTable.lastUsedAt);
+        }
+        if (from < 6) {
+          await m.addColumn(userSettingsTable, userSettingsTable.height);
+          await m.addColumn(userSettingsTable, userSettingsTable.weight);
+          await m.addColumn(userSettingsTable, userSettingsTable.gender);
+          await m.addColumn(userSettingsTable, userSettingsTable.dateOfBirth);
+          await m.addColumn(userSettingsTable, userSettingsTable.weightGoal);
+          await m.addColumn(userSettingsTable, userSettingsTable.activityLevel);
+          await m.addColumn(userSettingsTable, userSettingsTable.createdAt);
+          await m.addColumn(userSettingsTable, userSettingsTable.updatedAt);
         }
       },
     );
@@ -168,6 +180,45 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
 
   @override
   DataSourceType get dataSourceType => DataSourceType.real;
+
+  // User Profile Methods
+  @override
+  Future<void> saveUserProfile(UserProfile profile) async {
+    // Use upsert (insert or update) - always use id = 1 for single profile
+    await into(userSettingsTable).insertOnConflictUpdate(
+      UserProfileMapper.toDrift(
+        profile,
+      ).copyWith(id: const Value(_userSettingsId)),
+    );
+  }
+
+  @override
+  Future<UserProfile?> getUserProfile() async {
+    final hasProfile = await hasUserProfile();
+    if (!hasProfile) return null;
+
+    final result =
+        await (select(userSettingsTable)
+          ..where((tbl) => tbl.id.equals(_userSettingsId))).getSingleOrNull();
+    if (result == null || result.height == null) return null;
+
+    return UserProfileMapper.fromDrift(result);
+  }
+
+  @override
+  Future<bool> hasUserProfile() async {
+    final result =
+        await (select(userSettingsTable)
+          ..where((tbl) => tbl.id.equals(_userSettingsId))).getSingleOrNull();
+    if (result == null) return false;
+
+    return result.height != null &&
+        result.weight != null &&
+        result.gender != null &&
+        result.dateOfBirth != null &&
+        result.weightGoal != null &&
+        result.activityLevel != null;
+  }
 }
 
 LazyDatabase _openConnection() {

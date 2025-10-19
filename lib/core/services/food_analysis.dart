@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:typed_data';
 
 import 'package:calorify/core/models/meal_detection_result.dart';
-import 'package:firebase_vertexai/firebase_vertexai.dart';
+import 'package:firebase_ai/firebase_ai.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
 class FoodAnalysisService {
@@ -17,14 +17,30 @@ class FoodAnalysisService {
     analyze the main food item(s). Be precise with nutrient estimations.
     """;
 
-  final _model = FirebaseVertexAI.instance.generativeModel(
-    model: 'gemini-2.0-flash-lite-001',
-    generationConfig: GenerationConfig(
-      responseMimeType: 'application/json',
-      responseSchema: _jsonSchema,
-    ),
-    systemInstruction: Content.system(_systemPrompt),
-  );
+  late GenerativeModel _model;
+  bool _isInitialized = false;
+
+  /// Initialize the service with Firebase AI
+  Future<void> initialize() async {
+    if (_isInitialized) return;
+
+    try {
+      // Use Google AI backend for food analysis
+      final googleAI = FirebaseAI.googleAI(auth: FirebaseAuth.instance);
+      _model = googleAI.generativeModel(
+        model: 'gemini-2.0-flash-lite-001',
+        generationConfig: GenerationConfig(
+          responseMimeType: 'application/json',
+          responseSchema: _jsonSchema,
+        ),
+        systemInstruction: Content.system(_systemPrompt),
+      );
+      _isInitialized = true;
+    } catch (e) {
+      debugPrint('Failed to initialize Firebase AI: $e');
+      rethrow;
+    }
+  }
 
   static final _jsonSchema = Schema.object(
     properties: {
@@ -105,36 +121,58 @@ class FoodAnalysisService {
   Future<MealDetectionResult> analyzeFoodImage({
     required Uint8List imageBytes,
   }) async {
-    // Provide a prompt that contains text
-    final prompt = [
-      Content.text(
-        'Estimate calories in this meal picture and respond in JSON',
-      ),
-      Content.inlineData('image/jpeg', imageBytes),
-    ];
+    if (!_isInitialized) {
+      throw Exception(
+        'FoodAnalysisService not initialized. Please ensure the app has completed initialization.',
+      );
+    }
 
-    // To generate text output, call generateContent with the text input
-    final response = await _model.generateContent(prompt);
-    log(response.text.toString());
-    final result = MealDetectionResult.fromJson(
-      jsonDecode(response.text as String),
-    );
-    return _dateSanitizedResult(result);
+    try {
+      // Provide a prompt that contains text
+      final prompt = [
+        Content.text(
+          'Estimate calories in this meal picture and respond in JSON',
+        ),
+        Content.inlineData('image/jpeg', imageBytes),
+      ];
+
+      // To generate text output, call generateContent with the text input
+      final response = await _model.generateContent(prompt);
+      log(response.text.toString());
+      final result = MealDetectionResult.fromJson(
+        jsonDecode(response.text as String),
+      );
+      return _dateSanitizedResult(result);
+    } catch (e) {
+      debugPrint('Error analyzing food image: $e');
+      rethrow;
+    }
   }
 
   Future<MealDetectionResult> analyzeFoodDescription({
     required String description,
   }) async {
-    // Provide a prompt that contains text
-    final prompt = [Content.text('Meal: $description')];
+    if (!_isInitialized) {
+      throw Exception(
+        'FoodAnalysisService not initialized. Please ensure the app has completed initialization.',
+      );
+    }
 
-    // To generate text output, call generateContent with the text input
-    final response = await _model.generateContent(prompt);
-    log(response.text.toString());
-    final result = MealDetectionResult.fromJson(
-      jsonDecode(response.text as String),
-    );
-    return _dateSanitizedResult(result);
+    try {
+      // Provide a prompt that contains text
+      final prompt = [Content.text('Meal: $description')];
+
+      // To generate text output, call generateContent with the text input
+      final response = await _model.generateContent(prompt);
+      log(response.text.toString());
+      final result = MealDetectionResult.fromJson(
+        jsonDecode(response.text as String),
+      );
+      return _dateSanitizedResult(result);
+    } catch (e) {
+      debugPrint('Error analyzing food description: $e');
+      rethrow;
+    }
   }
 }
 

@@ -3,12 +3,14 @@ import 'package:calorify/core/db/mock_data/favorite_meal_mock.dart';
 import 'package:calorify/core/db/mock_data/meal_info_mock.dart';
 import 'package:calorify/core/db/mock_data/user_settings_mock.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/models/profile_models.dart' as profile_models;
 
 /// Mock database adapter that implements DatabaseInterface
 class MockDatabaseAdapter implements DatabaseInterface {
   final List<MealInfo> _meals = [];
   final List<MealInfo> _favorites = [];
   int? _dailyCalorieGoal;
+  profile_models.UserProfile? _userProfile;
 
   MockDatabaseAdapter() {
     _initializeMockData();
@@ -129,4 +131,20 @@ class MockDatabaseAdapter implements DatabaseInterface {
 
   @override
   DataSourceType get dataSourceType => DataSourceType.mock;
+
+  // User Profile Methods
+  @override
+  Future<void> saveUserProfile(profile_models.UserProfile profile) async {
+    _userProfile = profile;
+  }
+
+  @override
+  Future<profile_models.UserProfile?> getUserProfile() async {
+    return _userProfile;
+  }
+
+  @override
+  Future<bool> hasUserProfile() async {
+    return _userProfile != null;
+  }
 }

@@ -1,5 +1,7 @@
+import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -49,20 +51,15 @@ class HealthConnectPromptCard extends StatelessWidget {
             ),
           ),
           SizedBox(width: 8),
-          ElevatedButton(
+          PrimaryButton(
+            analyticsEvent: AnalyticsEvent.connectHealth,
             onPressed: () {
               isInstallRequired
                   ? HealthService.instance.installHealthConnect()
                   : HealthService.instance.requestAuthorization();
             },
-            style: ButtonStyle(
-              backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
-              foregroundColor: WidgetStatePropertyAll(colorScheme.onPrimary),
-              shape: WidgetStatePropertyAll(
-                RoundedRectangleBorder(borderRadius: globalRadius),
-              ),
-            ),
-            child: Text(isInstallRequired ? 'Install' : 'Connect'),
+            text: isInstallRequired ? 'Install' : 'Connect',
+            minimumSize: Size(40, 40),
           ),
         ],
       ),

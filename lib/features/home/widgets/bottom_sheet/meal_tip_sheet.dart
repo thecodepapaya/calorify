@@ -12,6 +12,8 @@ import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/meal_image.dart';
+import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -275,33 +277,15 @@ class _MealTipState extends State<_MealTip> {
       ),
       if (widget.allowEdit && widget.mealDetectionResult.mealIdentified) ...[
         SizedBox(height: 20),
-        ElevatedButton(
+        PrimaryButton(
+          analyticsEvent: AnalyticsEvent.mealSave,
           onPressed: () async {
             await logMeal(context, widget.mealDetectionResult.mealInfo);
             if (!context.mounted) return;
             Navigator.of(context).pop();
           },
-          style: ButtonStyle(
-            minimumSize: WidgetStatePropertyAll(Size(double.infinity, 50)),
-            backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
-            foregroundColor: WidgetStatePropertyAll(colorScheme.onPrimary),
-            shape: WidgetStatePropertyAll(
-              RoundedRectangleBorder(borderRadius: globalRadius),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(LucideIcons.save),
-              SizedBox(width: 6),
-              Text(
-                'Save Meal',
-                style: textTheme.bodyLarge?.copyWith(
-                  color: colorScheme.onPrimary,
-                ),
-              ),
-            ],
-          ),
+          text: 'Save Meal',
+          leadingIcon: LucideIcons.save,
         ),
       ],
       SizedBox(height: 20),

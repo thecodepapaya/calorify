@@ -52,11 +52,45 @@ The development process leverages multiple AI platforms to demonstrate their eff
 
 ### Core Functionality
 - **AI-Powered Food Analysis**: Take photos of your meals or describe them in text for automatic nutritional analysis (No more guessing if that's 200 or 500 calories! 🎯)
-- **Smart Meal Detection**: Uses Firebase Vertex AI to identify food items and calculate calories, protein, carbs, fat, and fiber (It's like having a nutritionist in your pocket! 👩‍⚕️)
+- **Smart Meal Detection**: Uses Firebase AI to identify food items and calculate calories, protein, carbs, fat, and fiber (It's like having a nutritionist in your pocket! 👩‍⚕️)
 - **Daily Goal Tracking**: Set and monitor your daily calorie goals with visual progress indicators (Because seeing progress is more motivating than a stern talking-to from your fitness tracker! 📊)
 - **Meal History**: Comprehensive history view with pagination showing all logged meals organized by date (Perfect for those "Wait, what did I eat yesterday?" moments! 🤔)
 - **Favorites System**: Save frequently eaten meals for quick logging (Because we all have that one meal we eat way too often! 🍕)
 - **Health Connect Integration**: Optional integration with Android Health Connect for comprehensive health tracking (Your phone already knows you're not sleeping enough, might as well let it help with nutrition too! 😴)
+
+### 📱 Comprehensive Onboarding Flow
+- **Welcome Screen**: Beautiful introduction to the app with animated elements
+- **Basic Information Collection**: Height, weight, gender, and age input with smart validation
+- **Weight Goals**: Set personalized weight management goals (lose, maintain, or gain weight)
+- **Activity Level Assessment**: Determine daily activity level for accurate calorie calculations
+- **Health Connect Setup**: Optional integration with Android Health Connect for automatic data sync
+- **Reminder Notifications**: Set up meal reminder notifications with customizable times
+- **Progress Tracking**: Visual progress bar throughout the onboarding process
+- **Smart Navigation**: Seamless flow between onboarding steps with data persistence
+
+### 🌍 Internationalization & Localization
+- **Automatic Unit Detection**: Automatically detects user's locale to set appropriate units (metric/imperial)
+- **Localized Messages**: Comprehensive localization system with ARB files
+- **Locale-Specific Validation**: Input validation messages adapt to user's locale
+- **Smart Unit Conversion**: Automatic conversion between metric and imperial units
+- **Regional Preferences**: Unit system selection based on geographic location
+
+### 🔔 Advanced Notification System
+- **Meal Reminders**: Customizable meal reminder notifications for breakfast, lunch, dinner, and snacks
+- **Multiple Notification Channels**: 
+  - **Reminders**: High-priority meal reminder notifications
+  - **General**: Standard app notifications
+  - **Miscellaneous**: Low-priority miscellaneous notifications
+- **Smart Scheduling**: Exact-time notification scheduling with Android's exact alarm system
+- **Permission Management**: Graceful handling of notification permissions
+- **Skippable Setup**: Optional notification setup during onboarding
+
+### 📊 Enhanced User Profile Management
+- **Comprehensive Profile**: Height, weight, gender, age, weight goals, and activity level
+- **BMR & TDEE Calculation**: Automatic calculation of Basal Metabolic Rate and Total Daily Energy Expenditure
+- **Profile Editing**: Full profile editing capabilities with validation
+- **Data Persistence**: Secure local storage with cloud synchronization
+- **Onboarding Guard**: Route protection ensuring complete user setup
 
 ### Key Components
 
@@ -93,11 +127,12 @@ The development process leverages multiple AI platforms to demonstrate their eff
 ### Backend & AI
 - **Firebase Core**: Backend infrastructure
 - **Firebase Auth**: User authentication
-- **Firebase Vertex AI**: AI-powered food analysis
+- **Firebase AI**: AI-powered food analysis (migrated from Vertex AI)
 - **Cloud Firestore**: Cloud database
 - **Firebase Analytics**: Usage analytics
 - **Firebase Crashlytics**: Crash reporting
 - **Firebase Performance**: Performance monitoring
+- **Firebase Messaging**: Push notifications
 
 ### Data Management
 - **Drift**: Local SQLite database with reactive streams
@@ -111,6 +146,12 @@ The development process leverages multiple AI platforms to demonstrate their eff
 ### Health Integration
 - **Health Connect**: Android health data integration
 - **Permission Handler**: Health data permissions
+
+### Notifications & Localization
+- **Flutter Local Notifications**: Local notification scheduling and management
+- **Firebase Messaging**: Push notification handling
+- **Intl**: Internationalization and locale detection
+- **JSON Serializable**: Code generation for data models
 
 ### Image Processing
 - **Image Picker**: Camera and gallery access
@@ -127,6 +168,16 @@ The development process leverages multiple AI platforms to demonstrate their eff
 
 ### Key Features Implementation
 
+#### 🚀 Onboarding Flow
+- **Welcome Screen**: Animated introduction with progress tracking
+- **Basic Information**: Height, weight, gender, age collection with validation
+- **Weight Goals**: Personalized goal setting (lose/maintain/gain weight)
+- **Activity Level**: Daily activity assessment for accurate calorie calculations
+- **Health Connect**: Optional Android health data integration
+- **Reminder Notifications**: Customizable meal reminder setup
+- **Progress Tracking**: Visual progress bar throughout the flow
+- **Data Persistence**: Seamless data passing between onboarding steps
+
 #### 🏠 Home Screen
 - Daily goal setting and tracking
 - Quick meal description input
@@ -138,10 +189,23 @@ The development process leverages multiple AI platforms to demonstrate their eff
 
 #### 📸 Meal Analysis
 - **Image Processing**: Compress and optimize images for AI analysis
-- **AI Integration**: Firebase Vertex AI for food identification
+- **AI Integration**: Firebase AI for food identification (migrated from Vertex AI)
 - **Nutritional Analysis**: Automatic calculation of calories and macronutrients
 - **Confidence Scoring**: AI confidence levels for nutritional estimates
 - **Smart Tips**: Contextual advice for better food logging
+
+#### 🔔 Notification System
+- **Local Notifications**: Scheduled meal reminders with exact timing
+- **Multiple Channels**: Reminders, General, and Miscellaneous notification channels
+- **Permission Management**: Graceful handling of notification permissions
+- **Smart Scheduling**: Android exact alarm system integration
+- **Customizable Times**: Individual meal reminder time settings
+
+#### 🌍 Internationalization
+- **Locale Detection**: Automatic unit system detection based on user's locale
+- **Localized Messages**: Comprehensive ARB file-based localization
+- **Unit Conversion**: Automatic metric/imperial unit conversion
+- **Regional Preferences**: Locale-specific validation and helper text
 
 #### 📊 Data Management
 - **Local Database**: SQLite with Drift for offline-first experience
@@ -178,9 +242,10 @@ The development process leverages multiple AI platforms to demonstrate their eff
 
 3. **Firebase Setup** (This is where it gets interesting! 🔥)
    - Create a Firebase project (Your very own AI playground!)
-   - Enable Authentication, Firestore, and Vertex AI (Turn on all the cool features!)
+   - Enable Authentication, Firestore, and Firebase AI (Turn on all the cool features!)
    - Download `google-services.json` for Android (The secret sauce for Android!)
    - Configure Firebase options (Make sure everything talks to each other!)
+   - Enable Firebase Messaging for push notifications (Get those meal reminders! 🔔)
 
 4. **Run the app** (The moment of truth! 🎉)
    ```bash
@@ -206,6 +271,8 @@ Configure build flavors in `android/app/build.gradle.kts` and update `AppConfig`
 - Camera access for food photography
 - Health data access (Android)
 - Storage access for image processing
+- Notification permissions for meal reminders (Android)
+- Health Connect permissions for data synchronization (Android)
 
 ## 📱 Supported Platforms
 
@@ -222,9 +289,6 @@ Configure build flavors in `android/app/build.gradle.kts` and update `AppConfig`
 
 ## 🔮 Future Enhancements
 
-- Barcode scanning for packaged foods (Because sometimes you just want to scan and go! 📱)
-- Recipe integration and meal planning (Turn your favorite recipes into calorie-tracked meals! 📝)
-- Social features and sharing (Show off your healthy meals to make your friends jealous! 😏)
 - Advanced analytics and insights (Get insights so good, you'll feel like a nutrition expert! 📊)
 - Wearable device integration (Your smartwatch will finally be useful for something other than telling time! ⌚)
 - Multi-language support (Because healthy eating is universal! 🌍)
