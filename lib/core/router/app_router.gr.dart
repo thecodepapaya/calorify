@@ -11,6 +11,22 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [DebugOptionsScreen]
+class DebugOptionsRoute extends PageRouteInfo<void> {
+  const DebugOptionsRoute({List<PageRouteInfo>? children})
+    : super(DebugOptionsRoute.name, initialChildren: children);
+
+  static const String name = 'DebugOptionsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DebugOptionsScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [EditProfileScreen]
 class EditProfileRoute extends PageRouteInfo<EditProfileRouteArgs> {
   EditProfileRoute({

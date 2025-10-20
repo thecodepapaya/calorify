@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -18,34 +19,52 @@ class HomeScreenMenu extends StatelessWidget {
           context.router.push(const ProfileRoute());
         } else if (value == 'reminders') {
           context.router.push(const EditReminderRoute());
+        } else if (value == 'debug') {
+          context.router.push(const DebugOptionsRoute());
         } else if (value == 'feedback') {
           _sendFeedbackEmail();
         }
       },
-      itemBuilder:
-          (BuildContext context) => <PopupMenuEntry<String>>[
+      itemBuilder: (BuildContext context) {
+        final menuItems = <PopupMenuEntry<String>>[
+          const PopupMenuItem<String>(
+            value: 'profile',
+            child: ListTile(
+              leading: Icon(LucideIcons.user),
+              title: Text('Profile'),
+            ),
+          ),
+          const PopupMenuItem<String>(
+            value: 'reminders',
+            child: ListTile(
+              leading: Icon(LucideIcons.bell),
+              title: Text('Edit Reminders'),
+            ),
+          ),
+          const PopupMenuItem<String>(
+            value: 'feedback',
+            child: ListTile(
+              leading: Icon(LucideIcons.mail),
+              title: Text('Feedback'),
+            ),
+          ),
+        ];
+
+        if (kDebugMode) {
+          menuItems.insert(
+            2,
             const PopupMenuItem<String>(
-              value: 'profile',
+              value: 'debug',
               child: ListTile(
-                leading: Icon(LucideIcons.user),
-                title: Text('Profile'),
+                leading: Icon(LucideIcons.bug),
+                title: Text('Debug Options'),
               ),
             ),
-            const PopupMenuItem<String>(
-              value: 'reminders',
-              child: ListTile(
-                leading: Icon(LucideIcons.bell),
-                title: Text('Edit Reminders'),
-              ),
-            ),
-            const PopupMenuItem<String>(
-              value: 'feedback',
-              child: ListTile(
-                leading: Icon(LucideIcons.mail),
-                title: Text('Feedback'),
-              ),
-            ),
-          ],
+          );
+        }
+
+        return menuItems;
+      },
     );
   }
 

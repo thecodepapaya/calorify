@@ -6,6 +6,7 @@ import 'package:calorify/features/favorites/favorites_screen.dart';
 import 'package:calorify/features/history/meal_history_screen.dart';
 import 'package:calorify/features/home/home_screen.dart';
 import 'package:calorify/features/onboarding/onboarding_screen.dart';
+import 'package:calorify/features/profile/debug_options_screen.dart';
 import 'package:calorify/features/profile/edit_profile_screen.dart';
 import 'package:calorify/features/profile/edit_reminder_screen.dart';
 import 'package:calorify/features/profile/profile_screen.dart';
@@ -34,5 +35,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ProfileRoute.page, guards: [OnboardingGuard()]),
     AutoRoute(page: EditProfileRoute.page, guards: [OnboardingGuard()]),
     AutoRoute(page: EditReminderRoute.page, guards: [OnboardingGuard()]),
+    AutoRoute(page: DebugOptionsRoute.page, guards: [OnboardingGuard()]),
   ];
 }

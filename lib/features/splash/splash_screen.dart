@@ -35,8 +35,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
       // Initialize core services
       await HealthService.instance.init();
-      await NotificationService.instance.initialize();
       await AppInitialization.initialize();
+      await NotificationService.instance.initialize();
       await Analytics.instance.initialize();
 
       // Initialize AI services after authentication

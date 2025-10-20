@@ -43,7 +43,7 @@ class NotificationService {
   /// Initialize local notifications (Android only)
   Future<void> _initializeLocalNotifications() async {
     const AndroidInitializationSettings androidSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('ic_notification');
 
     const InitializationSettings settings = InitializationSettings(
       android: androidSettings,
@@ -230,6 +230,12 @@ class NotificationService {
   /// Cancel all notifications
   Future<void> cancelAllNotifications() async {
     await _localNotifications.cancelAll();
+  }
+
+  Future<List<PendingNotificationRequest>> pendingNotificationRequests() async {
+    final pendingRequests =
+        await _localNotifications.pendingNotificationRequests();
+    return pendingRequests;
   }
 
   /// Get FCM token
