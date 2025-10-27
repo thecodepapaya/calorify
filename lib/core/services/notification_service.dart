@@ -34,9 +34,6 @@ class NotificationService {
     // Initialize local notifications
     await _initializeLocalNotifications();
 
-    // Initialize Firebase messaging
-    await _initializeFirebaseMessaging();
-
     _isInitialized = true;
   }
 
@@ -89,8 +86,8 @@ class NotificationService {
         ?.createNotificationChannel(generalChannel);
   }
 
-  /// Initialize Firebase messaging
-  Future<void> _initializeFirebaseMessaging() async {
+  /// Initialize Firebase messaging and request permissions
+  Future<void> initializeFirebaseMessaging() async {
     // Request permission for notifications
     final settings = await _firebaseMessaging.requestPermission(
       alert: true,

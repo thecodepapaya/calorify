@@ -74,21 +74,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Row(
-              children: [
-                if (_currentPage > 0)
+            if (_currentPage > 0)
+              Row(
+                children: [
                   IconButton(
                     icon: const Icon(Icons.arrow_back),
                     onPressed: _previousPage,
                   ),
-                Expanded(
-                  child: OnboardingProgressBar(
-                    currentStep: _currentPage,
-                    totalSteps: _pages.length,
+                  Expanded(
+                    child: OnboardingProgressBar(
+                      currentStep: _currentPage,
+                      totalSteps: _pages.length,
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
             Expanded(
               child: PageView(
                 controller: _pageController,

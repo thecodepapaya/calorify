@@ -330,6 +330,9 @@ class _ReminderNotificationsScreenState
     setState(() => _isLoading = true);
 
     try {
+      // Initialize firebase messaging and request permissions
+      await NotificationService.instance.initializeFirebaseMessaging();
+
       final granted = await NotificationService.instance.requestPermissions();
       if (granted) {
         setState(() => _notificationsEnabled = true);
