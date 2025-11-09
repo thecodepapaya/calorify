@@ -28,7 +28,7 @@ class _ActivityLevelScreenState extends State<ActivityLevelScreen> {
   Future<void> _loadProfileData() async {
     final data = await OnboardingService.instance.getProfileData();
     setState(() {
-      _userProfile = data;
+      _userProfile = data ?? const UserProfile();
       _selectedLevel = data?.activityLevel;
       _isLoading = false;
     });

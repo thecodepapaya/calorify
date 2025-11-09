@@ -28,7 +28,7 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
   Future<void> _loadProfileData() async {
     final data = await OnboardingService.instance.getProfileData();
     setState(() {
-      _userProfile = data;
+      _userProfile = data ?? const UserProfile();
       _selectedGoal = data?.weightGoal;
       _isLoading = false;
     });
