@@ -7,7 +7,9 @@ import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
+import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/services/performance_service.dart';
+import 'package:calorify/core/services/remote_db.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -83,6 +85,12 @@ class AppInitialization {
         parentSpan: span,
       );
 
+      Performance.trace(
+        TraceType.remoteDbProfileUpdate,
+        _updateRemoteDb,
+        parentSpan: span,
+      );
+
       log('App initialization completed successfully');
       Performance.instance.stopTrace(span);
     } on Exception catch (e, st) {
@@ -132,6 +140,25 @@ class AppInitialization {
     } catch (e) {
       log('Failed to sign in guest user: $e');
       // Don't throw - app can still work without AI features
+    }
+  }
+
+  static Future<void> _updateRemoteDb() async {
+    try {
+      final remoteDb = RemoteDb();
+      await NotificationService.instance.initializeFirebaseMessaging();
+      final fcmToken = NotificationService.instance.fcmToken;
+      if (fcmToken != null) {
+        await remoteDb.saveFcmToken(fcmToken);
+      }
+
+      final userProfile = await OnboardingService.instance.getProfileData();
+      if (userProfile != null) {
+        await remoteDb.updateUserProfile(userProfile);
+      }
+    } catch (e) {
+      log('Failed to update remote DB: $e');
+      // Don't throw - app can still work without remote DB
     }
   }
 
