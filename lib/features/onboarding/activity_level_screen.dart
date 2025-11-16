@@ -3,6 +3,8 @@ import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/shared_widgets/profile_enum_extensions.dart';
+import 'package:calorify/shared_widgets/selection_card.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -101,109 +103,21 @@ class _ActivityLevelScreenState extends State<ActivityLevelScreen> {
 
   Widget _buildActivityCard(BuildContext context, ActivityLevel level) {
     final isSelected = _selectedLevel == level;
-    final icon = _getActivityIcon(level);
-    final color = _getActivityColor(context, level);
+    final icon = level.icon;
+    final color = level.color(context);
 
-    return GestureDetector(
+    return SelectionCard(
+      title: level.displayName,
+      description: level.description,
+      icon: icon,
+      color: color,
+      isSelected: isSelected,
       onTap: () {
         setState(() {
           _selectedLevel = level;
         });
       },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color:
-              isSelected
-                  ? color.withOpacity(0.1)
-                  : Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isSelected ? color : Theme.of(context).colorScheme.outline,
-            width: isSelected ? 2 : 1,
-          ),
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color:
-                    isSelected
-                        ? color
-                        : Theme.of(context).colorScheme.surfaceVariant,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                icon,
-                color:
-                    isSelected
-                        ? Theme.of(context).colorScheme.onPrimary
-                        : Theme.of(context).colorScheme.onSurfaceVariant,
-                size: 24,
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    level.displayName,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color:
-                          isSelected
-                              ? color
-                              : Theme.of(context).colorScheme.onSurface,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    level.description,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            if (isSelected) Icon(LucideIcons.check, color: color, size: 24),
-          ],
-        ),
-      ),
     );
-  }
-
-  IconData _getActivityIcon(ActivityLevel level) {
-    switch (level) {
-      case ActivityLevel.sedentary:
-        return LucideIcons.sofa;
-      case ActivityLevel.lightlyActive:
-        return LucideIcons.user;
-      case ActivityLevel.moderatelyActive:
-        return LucideIcons.bike;
-      case ActivityLevel.veryActive:
-        return LucideIcons.dumbbell;
-      case ActivityLevel.extremelyActive:
-        return LucideIcons.flame;
-    }
-  }
-
-  Color _getActivityColor(BuildContext context, ActivityLevel level) {
-    switch (level) {
-      case ActivityLevel.sedentary:
-        return Colors.grey;
-      case ActivityLevel.lightlyActive:
-        return Colors.blue;
-      case ActivityLevel.moderatelyActive:
-        return Colors.green;
-      case ActivityLevel.veryActive:
-        return Colors.orange;
-      case ActivityLevel.extremelyActive:
-        return Colors.red;
-    }
   }
 
   void _continue(UserProfile profile) async {

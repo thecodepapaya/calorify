@@ -106,9 +106,10 @@ class MealInfo {
     int? fiber,
     DateTime? timestamp,
     String? imageUrl,
+    bool forceIdNull = false,
   }) {
     return MealInfo(
-      id: id ?? this.id,
+      id: forceIdNull ? null : id ?? this.id,
       mealName: mealName ?? this.mealName,
       mealQuantity: mealQuantity ?? this.mealQuantity,
       mealType: mealType ?? this.mealType,

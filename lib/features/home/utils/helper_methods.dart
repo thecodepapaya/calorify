@@ -25,7 +25,9 @@ Future<bool> _writeDataToHealthConnect(
     return isSuccess;
   } on Exception catch (e) {
     if (!context.mounted) return false;
-    ScaffoldMessenger.of(context).showSnackBar(snack('$e'));
+    if (HealthService.instance.isAuthorized) {
+      ScaffoldMessenger.of(context).showSnackBar(snack('$e'));
+    }
     return false;
   }
 }

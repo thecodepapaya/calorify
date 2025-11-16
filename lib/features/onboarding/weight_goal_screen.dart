@@ -3,6 +3,8 @@ import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/shared_widgets/profile_enum_extensions.dart';
+import 'package:calorify/shared_widgets/selection_card.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -75,7 +77,7 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
                           padding: const EdgeInsets.only(bottom: 16.0),
                           child: _buildGoalCard(context, goal),
                         );
-                      }).toList(),
+                      }),
                     ],
                   ),
                 ),
@@ -101,101 +103,21 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
 
   Widget _buildGoalCard(BuildContext context, WeightGoal goal) {
     final isSelected = _selectedGoal == goal;
-    final icon = _getGoalIcon(goal);
-    final color = _getGoalColor(context, goal);
+    final icon = goal.icon;
+    final color = goal.color(context);
 
-    return GestureDetector(
+    return SelectionCard(
+      title: goal.displayName,
+      description: goal.description,
+      icon: icon,
+      color: color,
+      isSelected: isSelected,
       onTap: () {
         setState(() {
           _selectedGoal = goal;
         });
       },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color:
-              isSelected
-                  ? color.withOpacity(0.1)
-                  : Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isSelected ? color : Theme.of(context).colorScheme.outline,
-            width: isSelected ? 2 : 1,
-          ),
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color:
-                    isSelected
-                        ? color
-                        : Theme.of(context).colorScheme.surfaceVariant,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                icon,
-                color:
-                    isSelected
-                        ? Theme.of(context).colorScheme.onPrimary
-                        : Theme.of(context).colorScheme.onSurfaceVariant,
-                size: 24,
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    goal.displayName,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color:
-                          isSelected
-                              ? color
-                              : Theme.of(context).colorScheme.onSurface,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    goal.description,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            if (isSelected) Icon(LucideIcons.check, color: color, size: 24),
-          ],
-        ),
-      ),
     );
-  }
-
-  IconData _getGoalIcon(WeightGoal goal) {
-    switch (goal) {
-      case WeightGoal.loseWeight:
-        return LucideIcons.trendingDown;
-      case WeightGoal.maintainWeight:
-        return LucideIcons.minus;
-      case WeightGoal.gainWeight:
-        return LucideIcons.trendingUp;
-    }
-  }
-
-  Color _getGoalColor(BuildContext context, WeightGoal goal) {
-    switch (goal) {
-      case WeightGoal.loseWeight:
-        return Colors.green;
-      case WeightGoal.maintainWeight:
-        return Theme.of(context).colorScheme.primary;
-      case WeightGoal.gainWeight:
-        return Colors.orange;
-    }
   }
 
   void _continue(UserProfile profile) {

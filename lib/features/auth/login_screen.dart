@@ -30,10 +30,10 @@ class LoginScreen extends StatelessWidget {
               onPressed: () async {
                 final userCredential = await authService.signInWithGoogle();
                 if (userCredential != null) {
-                  log("Signed in: ${userCredential.user?.displayName}");
+                  log('Signed in: ${userCredential.user?.displayName}');
                   // Navigation to HomeScreen is handled by StreamBuilder in app.dart
                 } else {
-                  log("Sign in failed or cancelled.");
+                  log('Sign in failed or cancelled.');
                   // Show a snackbar or message
                   if (!context.mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(

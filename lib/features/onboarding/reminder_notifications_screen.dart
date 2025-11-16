@@ -336,10 +336,12 @@ class _ReminderNotificationsScreenState
       final granted = await NotificationService.instance.requestPermissions();
       if (granted) {
         setState(() => _notificationsEnabled = true);
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Notifications enabled successfully!')),
         );
       } else {
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Notification permission denied')),
         );

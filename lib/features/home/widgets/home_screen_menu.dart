@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,41 +9,43 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+enum HomeScreenMenuItem { profile, reminders, feedback, debug }
+
 class HomeScreenMenu extends StatelessWidget {
   const HomeScreenMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
+    return PopupMenuButton<HomeScreenMenuItem>(
       onSelected: (value) {
-        if (value == 'profile') {
+        if (value == HomeScreenMenuItem.profile) {
           context.router.push(const ProfileRoute());
-        } else if (value == 'reminders') {
+        } else if (value == HomeScreenMenuItem.reminders) {
           context.router.push(const EditReminderRoute());
-        } else if (value == 'debug') {
+        } else if (value == HomeScreenMenuItem.debug) {
           context.router.push(const DebugOptionsRoute());
-        } else if (value == 'feedback') {
+        } else if (value == HomeScreenMenuItem.feedback) {
           _sendFeedbackEmail();
         }
       },
       itemBuilder: (BuildContext context) {
-        final menuItems = <PopupMenuEntry<String>>[
-          const PopupMenuItem<String>(
-            value: 'profile',
+        final menuItems = <PopupMenuEntry<HomeScreenMenuItem>>[
+          const PopupMenuItem<HomeScreenMenuItem>(
+            value: HomeScreenMenuItem.profile,
             child: ListTile(
               leading: Icon(LucideIcons.user),
               title: Text('Profile'),
             ),
           ),
-          const PopupMenuItem<String>(
-            value: 'reminders',
+          const PopupMenuItem<HomeScreenMenuItem>(
+            value: HomeScreenMenuItem.reminders,
             child: ListTile(
               leading: Icon(LucideIcons.bell),
               title: Text('Edit Reminders'),
             ),
           ),
-          const PopupMenuItem<String>(
-            value: 'feedback',
+          const PopupMenuItem<HomeScreenMenuItem>(
+            value: HomeScreenMenuItem.feedback,
             child: ListTile(
               leading: Icon(LucideIcons.mail),
               title: Text('Feedback'),
@@ -50,11 +53,11 @@ class HomeScreenMenu extends StatelessWidget {
           ),
         ];
 
-        if (kDebugMode) {
+        if (kDebugMode || EnvConfig.instance.isStaging) {
           menuItems.insert(
             2,
-            const PopupMenuItem<String>(
-              value: 'debug',
+            const PopupMenuItem<HomeScreenMenuItem>(
+              value: HomeScreenMenuItem.debug,
               child: ListTile(
                 leading: Icon(LucideIcons.bug),
                 title: Text('Debug Options'),
@@ -81,16 +84,15 @@ class HomeScreenMenu extends StatelessWidget {
     final uid = FirebaseAuth.instance.currentUser?.uid;
 
     final body = '''
-      Please provide your feedback below:
-      --------------------
+Please provide your feedback below:
+--------------------
 
       
-      --------------------
-      App Version: $version+$buildNumber
-      Device: $deviceModel
-      OS Version: $deviceVersion
-      UID: $uid
-      ''';
+--------------------
+App Version: $version+$buildNumber
+Device: $deviceModel
+OS Version: $deviceVersion
+UID: $uid''';
 
     final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
@@ -99,6 +101,6 @@ class HomeScreenMenu extends StatelessWidget {
           'subject=${Uri.encodeComponent('Calorify App Feedback')}&body=${Uri.encodeComponent(body)}',
     );
 
-    launchUrl(emailLaunchUri);
+    await launchUrl(emailLaunchUri);
   }
 }

@@ -22,6 +22,7 @@ class MealTypeIndicator extends StatelessWidget {
     };
 
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Icon(
           icon,

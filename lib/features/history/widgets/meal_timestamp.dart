@@ -14,6 +14,7 @@ class MealTimestamp extends StatelessWidget {
     final TextTheme textTheme = theme.textTheme;
 
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Icon(
           LucideIcons.clock,

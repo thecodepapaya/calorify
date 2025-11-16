@@ -40,7 +40,7 @@ class NotificationService {
   /// Initialize local notifications (Android only)
   Future<void> _initializeLocalNotifications() async {
     const AndroidInitializationSettings androidSettings =
-        AndroidInitializationSettings('ic_notification');
+        AndroidInitializationSettings('@drawable/ic_notification');
 
     const InitializationSettings settings = InitializationSettings(
       android: androidSettings,
@@ -213,8 +213,6 @@ class NotificationService {
       details,
       payload: payload,
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
     );
   }

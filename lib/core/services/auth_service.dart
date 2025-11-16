@@ -28,7 +28,7 @@ class AuthService {
       await _googleSignIn.signOut(); // Sign out from Google
       await _firebaseAuth.signOut(); // Sign out from Firebase
     } catch (e) {
-      log("Error signing out: $e");
+      log('Error signing out: $e');
     }
   }
 }

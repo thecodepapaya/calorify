@@ -132,50 +132,54 @@ class _MealTipState extends State<_MealTip> {
     final TextTheme textTheme = theme.textTheme;
     final MealInfo mealInfo = widget.mealDetectionResult.mealInfo;
 
+    final canShowMealImage =
+        widget.imageData != null ||
+        (mealInfo.imageUrl != null && mealInfo.imageUrl!.isNotEmpty);
+
     return [
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                mealInfo.mealName,
-                style: textTheme.titleMedium?.copyWith(
-                  color: colorScheme.onSurface,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  mealInfo.mealName,
+                  style: textTheme.titleMedium?.copyWith(
+                    color: colorScheme.onSurface,
+                  ),
                 ),
-              ),
-              Row(
-                children: [
-                  MealTypeIndicator(mealType: mealInfo.mealType),
-                  SizedBox(width: 8),
-                  MealQuantityIndicator(quantity: mealInfo.mealQuantity),
-                  SizedBox(width: 8),
-                  MealTimestamp(timestamp: mealInfo.timestamp),
-                ],
-              ),
-            ],
+                Wrap(
+                  children: [
+                    MealTypeIndicator(mealType: mealInfo.mealType),
+                    SizedBox(width: 8),
+                    MealQuantityIndicator(quantity: mealInfo.mealQuantity),
+                    SizedBox(width: 8),
+                    MealTimestamp(timestamp: mealInfo.timestamp),
+                  ],
+                ),
+              ],
+            ),
           ),
           SizedBox(width: 12),
           Row(
             children: [
-              IconButton(
-                onPressed:
-                    widget.mealDetectionResult.mealInfo.id == null
-                        ? null
-                        : _toggleFavorite,
-                padding: EdgeInsets.zero,
-                visualDensity: VisualDensity.compact,
-                icon: Icon(
-                  LucideIcons.star,
-                  size: 24,
-                  color:
-                      _isFavorite
-                          ? colorScheme.tertiary
-                          : colorScheme.onSurface.withValues(alpha: 0.5),
+              if (widget.mealDetectionResult.mealInfo.id != null)
+                IconButton(
+                  onPressed: _toggleFavorite,
+                  padding: EdgeInsets.zero,
+                  visualDensity: VisualDensity.compact,
+                  icon: Icon(
+                    LucideIcons.star,
+                    size: 24,
+                    color:
+                        _isFavorite
+                            ? colorScheme.tertiary
+                            : colorScheme.onSurface.withValues(alpha: 0.5),
+                  ),
                 ),
-              ),
               if (widget.allowEdit)
                 IconButton(
                   onPressed: () {
@@ -200,8 +204,10 @@ class _MealTipState extends State<_MealTip> {
           ),
         ],
       ),
-      SizedBox(height: 16),
-      MealImage(imageBytes: widget.imageData, imageUrl: mealInfo.imageUrl),
+      if (canShowMealImage) ...[
+        SizedBox(height: 16),
+        MealImage(imageBytes: widget.imageData, imageUrl: mealInfo.imageUrl),
+      ],
       if (widget.mealDetectionResult.tip.isNotEmpty) ...[
         SizedBox(height: 16),
         Text(
