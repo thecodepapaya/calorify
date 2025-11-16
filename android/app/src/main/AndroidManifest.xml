@@ -12,6 +12,7 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -49,6 +50,14 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="sh.measure.android.API_KEY" android:value="msrsh_edcc9ccd38bac9f3cb882b33e474d700925e0d2f88ec6d8b3cc70260c57bbd7d_78c62cda"/>
+        <meta-data android:name="sh.measure.android.API_URL" android:value="https://ingest.measure.sh"/>
+        <meta-data
+            android:name="flutter_local_notifications.default_icon"
+            android:resource="@drawable/ic_notification" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
         <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
         <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
             <intent-filter>

@@ -110,7 +110,7 @@ class _MealSnapState extends State<MealSnap> {
                   final image =
                       await ImagePickerService().pickImageFromCamera();
                   if (image == null) return;
-                  _onSelectImage(image);
+                  await _onSelectImage(image);
                 },
                 text: 'Open Camera',
                 leadingIcon: LucideIcons.camera,
@@ -125,7 +125,7 @@ class _MealSnapState extends State<MealSnap> {
                   final image =
                       await ImagePickerService().pickImageFromGallery();
                   if (image == null) return;
-                  _onSelectImage(image);
+                  await _onSelectImage(image);
                 },
                 text: '',
                 leadingIcon: LucideIcons.imagePlus,

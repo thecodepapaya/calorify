@@ -12,6 +12,28 @@
             ]
         },
         {
+            "name": "Run Staging Profile",
+            "request": "launch",
+            "flutterMode": "profile",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [
+                "--flavor",
+                "staging"
+            ]
+        },
+        {
+            "name": "Run Staging Release",
+            "request": "launch",
+            "flutterMode": "release",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [
+                "--flavor",
+                "staging"
+            ]
+        },
+        {
             "name": "Run Prod",
             "request": "launch",
             "type": "dart",

@@ -128,10 +128,10 @@ class _BulletPoint extends StatelessWidget {
 final snapDisclaimer = DisclaimerData(
   title: 'Please Note',
   description:
-      "Calorify provides estimated nutritional info. "
-      "Accuracy depends on your input & food variations. "
-      "Use as a guide, not a definitive source. Consult a professional "
-      "for personalized dietary advice.",
+      'Calorify provides estimated nutritional info. '
+      'Accuracy depends on your input & food variations. '
+      'Use as a guide, not a definitive source. Consult a professional '
+      'for personalized dietary advice.',
   bulletPoints: [
     DisclaimerEntry(
       title: 'Portion Size',
@@ -142,9 +142,9 @@ final snapDisclaimer = DisclaimerData(
     DisclaimerEntry(
       title: 'Preparation Methods',
       description:
-          "Cooking methods can significantly alter the nutritional "
+          'Cooking methods can significantly alter the nutritional '
           "content of food. Calorify's estimates may not always "
-          "account for these variations.",
+          'account for these variations.',
     ),
     DisclaimerEntry(
       title: 'Ingredients',
@@ -156,7 +156,7 @@ final snapDisclaimer = DisclaimerData(
       title: 'Database Limitations',
       description:
           "Calorify's food database is extensive but may not "
-          "include every single food item or variation.",
+          'include every single food item or variation.',
     ),
   ],
 );
@@ -164,10 +164,10 @@ final snapDisclaimer = DisclaimerData(
 final weightEstimateDisclaimer = DisclaimerData(
   title: 'About Weight Estimate',
   description:
-      "The projected weight change is a theoretical estimate based on "
-      "the simple calorie-in vs. calorie-out model. It is intended "
-      "for motivational guidance only, not as a prediction of your "
-      "actual weight.",
+      'The projected weight change is a theoretical estimate based on '
+      'the simple calorie-in vs. calorie-out model. It is intended '
+      'for motivational guidance only, not as a prediction of your '
+      'actual weight.',
   bulletPoints: [
     DisclaimerEntry(
       title: 'Calorie Accuracy',
@@ -179,23 +179,23 @@ final weightEstimateDisclaimer = DisclaimerData(
     DisclaimerEntry(
       title: 'Biological Factors',
       description:
-          "Actual weight loss/gain is influenced by metabolism, hormones, "
-          "sleep, stress, hydration, and other individual factors "
-          "that Calorify cannot measure.",
+          'Actual weight loss/gain is influenced by metabolism, hormones, '
+          'sleep, stress, hydration, and other individual factors '
+          'that Calorify cannot measure.',
     ),
     DisclaimerEntry(
       title: 'Water Weight & Fluctuations',
       description:
-          "Normal daily weight can fluctuate significantly due to "
-          "water retention, digestion, and timing. The estimate "
-          "does not account for these daily changes.",
+          'Normal daily weight can fluctuate significantly due to '
+          'water retention, digestion, and timing. The estimate '
+          'does not account for these daily changes.',
     ),
     DisclaimerEntry(
       title: 'Professional Guidance',
       description:
-          "Do not use this estimate to make medical decisions. "
-          "Always consult a healthcare professional or registered "
-          "dietitian for personalized weight management advice.",
+          'Do not use this estimate to make medical decisions. '
+          'Always consult a healthcare professional or registered '
+          'dietitian for personalized weight management advice.',
     ),
   ],
 );

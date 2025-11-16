@@ -11,7 +11,7 @@ class OnboardingGuard extends AutoRouteGuard {
       resolver.next(true); // Continue navigation
     } else {
       // Redirect to onboarding flow
-      router.replaceAll([const OnboardingRoute()]);
+      await router.replaceAll([const OnboardingRoute()]);
     }
   }
 }

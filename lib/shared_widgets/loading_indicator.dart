@@ -88,7 +88,7 @@ class _AppLoaderState extends State<AppLoader> with TickerProviderStateMixin {
           child: SlideTransition(
             position: _slideAnimation, // Use the slide animation here
             child: Icon(
-              _allIcons.first, // LucideIcons.apple
+              LucideIcons.apple,
               color: widget.color ?? colorScheme.onSurface,
               size: widget.size,
             ),
@@ -98,12 +98,3 @@ class _AppLoaderState extends State<AppLoader> with TickerProviderStateMixin {
     );
   }
 }
-
-// List of available icons
-final _allIcons = [
-  LucideIcons.apple,
-  LucideIcons.drumstick,
-  LucideIcons.leafyGreen,
-  LucideIcons.milk,
-  LucideIcons.soup,
-];

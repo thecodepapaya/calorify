@@ -3,6 +3,8 @@ import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/shared_widgets/profile_enum_extensions.dart';
+import 'package:calorify/shared_widgets/selection_card.dart';
 import 'package:calorify/shared_widgets/value_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -210,21 +212,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               const SizedBox(height: 12),
               ...WeightGoal.values.map((goal) {
                 return Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: RadioListTile<WeightGoal>(
-                    title: Text(goal.displayName),
-                    subtitle: Text(goal.description),
-                    value: goal,
-                    groupValue: _selectedWeightGoal,
-                    onChanged: (value) {
-                      if (value != null) {
-                        setState(() {
-                          _selectedWeightGoal = value;
-                        });
-                      }
-                    },
-                    contentPadding: EdgeInsets.zero,
-                  ),
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: _buildGoalCard(context, goal),
                 );
               }),
               const SizedBox(height: 24),
@@ -239,21 +228,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               const SizedBox(height: 12),
               ...ActivityLevel.values.map((level) {
                 return Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: RadioListTile<ActivityLevel>(
-                    title: Text(level.displayName),
-                    subtitle: Text(level.description),
-                    value: level,
-                    groupValue: _selectedActivityLevel,
-                    onChanged: (value) {
-                      if (value != null) {
-                        setState(() {
-                          _selectedActivityLevel = value;
-                        });
-                      }
-                    },
-                    contentPadding: EdgeInsets.zero,
-                  ),
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: _buildActivityCard(context, level),
                 );
               }),
               const SizedBox(height: 32),
@@ -320,6 +296,44 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildGoalCard(BuildContext context, WeightGoal goal) {
+    final isSelected = _selectedWeightGoal == goal;
+    final icon = goal.icon;
+    final color = goal.color(context);
+
+    return SelectionCard(
+      title: goal.displayName,
+      description: goal.description,
+      icon: icon,
+      color: color,
+      isSelected: isSelected,
+      onTap: () {
+        setState(() {
+          _selectedWeightGoal = goal;
+        });
+      },
+    );
+  }
+
+  Widget _buildActivityCard(BuildContext context, ActivityLevel level) {
+    final isSelected = _selectedActivityLevel == level;
+    final icon = level.icon;
+    final color = level.color(context);
+
+    return SelectionCard(
+      title: level.displayName,
+      description: level.description,
+      icon: icon,
+      color: color,
+      isSelected: isSelected,
+      onTap: () {
+        setState(() {
+          _selectedActivityLevel = level;
+        });
+      },
     );
   }
 

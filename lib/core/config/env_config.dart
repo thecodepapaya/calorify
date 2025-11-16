@@ -2,11 +2,11 @@ import 'package:flutter/services.dart';
 
 enum Flavor { staging, prod }
 
-class AppConfig {
-  AppConfig._();
+class EnvConfig {
+  EnvConfig._();
 
-  static final _instance = AppConfig._();
-  static AppConfig get instance => _instance;
+  static final _instance = EnvConfig._();
+  static EnvConfig get instance => _instance;
 
   Flavor flavor = Flavor.staging;
 

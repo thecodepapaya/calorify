@@ -12,7 +12,9 @@ class HealthService {
   final Health _health = Health();
 
   HealthConnectSdkStatus status = HealthConnectSdkStatus.sdkUnavailable;
-  bool isAuthorized = false;
+
+  bool _isAuthorized = false;
+  bool get isAuthorized => _isAuthorized;
 
   Future<void> init() async {
     await _health.configure();
@@ -20,7 +22,7 @@ class HealthService {
         await _health.getHealthConnectSdkStatus() ??
         HealthConnectSdkStatus.sdkUnavailable;
 
-    isAuthorized =
+    _isAuthorized =
         await _health.hasPermissions(_types, permissions: _permissions) ??
         false;
   }
@@ -51,7 +53,7 @@ class HealthService {
           await _health.getHealthConnectSdkStatus() ??
           HealthConnectSdkStatus.sdkUnavailable;
     } catch (e) {
-      log("Error during Health Connect install process: $e");
+      log('Error during Health Connect install process: $e');
       // Optionally update status here too
     }
   }
@@ -63,17 +65,17 @@ class HealthService {
         _types,
         permissions: _permissions,
       );
-      log("Health authorization request success: $success");
+      log('Health authorization request success: $success');
       // After attempting authorization, re-check permissions and status
-      isAuthorized =
+      _isAuthorized =
           await _health.hasPermissions(_types, permissions: _permissions) ??
           false;
       status =
           await _health.getHealthConnectSdkStatus() ??
           HealthConnectSdkStatus.sdkUnavailable;
-      return isAuthorized; // Return the actual authorization status
+      return _isAuthorized; // Return the actual authorization status
     } on Exception catch (e, st) {
-      log("Error requesting health authorization:", error: e, stackTrace: st);
+      log('Error requesting health authorization:', error: e, stackTrace: st);
       // Optionally update status here too if error implies a specific state
       return false;
     }
@@ -86,7 +88,7 @@ class HealthService {
   ) async {
     final bool authorized = await requestAuthorization();
     if (!authorized) {
-      log("Not authorized to fetch health data.");
+      log('Not authorized to fetch health data.');
       return [];
     }
 
@@ -100,7 +102,7 @@ class HealthService {
       healthData = _health.removeDuplicates(healthData);
       return _dateSanitizedHealthPoints(healthData, startTime, endTime);
     } catch (e) {
-      log("Error fetching health data for $type: $e");
+      log('Error fetching health data for $type: $e');
       return [];
     }
   }
@@ -126,7 +128,7 @@ class HealthService {
 
       return healthData;
     } on Exception catch (e, st) {
-      log("Error writing meal data:", error: e, stackTrace: st);
+      log('Error writing meal data:', error: e, stackTrace: st);
       return false;
     }
   }

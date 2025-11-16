@@ -11,21 +11,21 @@ extension DateTimeHuman on DateTime {
 
     if (now.year == year && now.month == month && now.day == day) {
       if (difference.inSeconds < 5) {
-        return "just now";
+        return 'just now';
       } else if (difference.inSeconds < 60) {
-        return "${difference.inSeconds} seconds ago";
+        return '${difference.inSeconds} seconds ago';
       } else if (difference.inMinutes == 1) {
-        return "a minute ago";
+        return 'a minute ago';
       } else if (difference.inMinutes < 10) {
-        return "few minutes ago";
+        return 'few minutes ago';
       } else if (difference.inMinutes < 60) {
-        return "${difference.inMinutes} minutes ago";
+        return '${difference.inMinutes} minutes ago';
       } else if (difference.inHours == 1) {
-        return "1 hour ago";
+        return '1 hour ago';
       } else if (difference.inHours < 24) {
-        return "${difference.inHours} hours ago";
+        return '${difference.inHours} hours ago';
       } else {
-        return "today";
+        return 'today';
       }
     }
 
@@ -33,7 +33,7 @@ extension DateTimeHuman on DateTime {
     if (yesterday.year == year &&
         yesterday.month == month &&
         yesterday.day == day) {
-      return "yesterday";
+      return 'yesterday';
     }
 
     if (now.year == year) {

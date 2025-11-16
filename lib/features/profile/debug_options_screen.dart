@@ -54,7 +54,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
           ),
           ListTile(
             leading: const Icon(LucideIcons.bellPlus),
-            title: const Text('Schedule Test Notification (15s)'),
+            title: const Text('Schedule Test Notification (10s)'),
             onTap: _scheduleTestNotification,
           ),
           ListTile(
@@ -82,7 +82,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       return;
     }
 
-    showDialog(
+    await showDialog(
       context: context,
       builder:
           (context) => AlertDialog(
@@ -116,10 +116,10 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     await NotificationService.instance.scheduleReminder(
       id: 99,
       title: 'Test Notification',
-      body: 'This is a test notification scheduled for 15 seconds from now.',
-      scheduledTime: DateTime.now().add(const Duration(seconds: 15)),
+      body: 'This is a test notification scheduled for 10 seconds from now.',
+      scheduledTime: DateTime.now().add(const Duration(seconds: 10)),
     );
-    _showSnackbar('Test notification scheduled for 15 seconds from now.');
+    _showSnackbar('Test notification scheduled for 10 seconds from now.');
   }
 
   Future<void> _triggerBreakfastNotification() async {

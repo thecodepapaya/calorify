@@ -1,21 +1,14 @@
-import 'dart:ui';
-
 import 'package:calorify/app.dart';
 import 'package:calorify/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:measure_flutter/measure_flutter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -23,5 +16,17 @@ Future<void> main() async {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-  runApp(const CalorifyApp());
+
+  await Measure.instance.init(
+    () => runApp(const CalorifyApp()),
+    config: const MeasureConfig(
+      traceSamplingRate: 1,
+      samplingRateForErrorFreeSessions: 1,
+    ),
+    clientInfo: ClientInfo(
+      apiKey:
+          'msrsh_edcc9ccd38bac9f3cb882b33e474d700925e0d2f88ec6d8b3cc70260c57bbd7d_78c62cda',
+      apiUrl: 'https://ingest.measure.sh',
+    ),
+  );
 }

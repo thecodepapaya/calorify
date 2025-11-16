@@ -13,6 +13,8 @@ Future<bool> _writeDataToHealthConnect(
   BuildContext context,
   MealInfo mealInfo,
 ) async {
+  if (!HealthService.instance.isAuthorized) return false;
+
   try {
     final isSuccess = await HealthService.instance.writeMealData(mealInfo);
     if (!isSuccess) throw Exception('Could not sync to Health Connect');
