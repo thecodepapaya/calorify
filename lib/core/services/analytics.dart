@@ -25,7 +25,7 @@ class Analytics {
   }
 
   Future<void> setUserId(String uid) async {
-    await FirebaseAnalytics.instance.setUserProperty(name: 'uid', value: uid);
+    await FirebaseAnalytics.instance.setUserId(id: uid);
     await Measure.instance.setUserId(uid);
   }
 

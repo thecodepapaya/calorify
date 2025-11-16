@@ -44,7 +44,7 @@ class Performance {
       final T res = await function();
       instance.stopTrace(span);
       return res;
-    } on Exception catch (_) {
+    } catch (_) {
       instance.traceError(span);
       rethrow;
     }

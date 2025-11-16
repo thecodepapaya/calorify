@@ -13,6 +13,8 @@ Future<bool> _writeDataToHealthConnect(
   BuildContext context,
   MealInfo mealInfo,
 ) async {
+  if (!HealthService.instance.isAuthorized) return false;
+
   try {
     final isSuccess = await HealthService.instance.writeMealData(mealInfo);
     if (!isSuccess) throw Exception('Could not sync to Health Connect');
@@ -25,9 +27,7 @@ Future<bool> _writeDataToHealthConnect(
     return isSuccess;
   } on Exception catch (e) {
     if (!context.mounted) return false;
-    if (HealthService.instance.isAuthorized) {
-      ScaffoldMessenger.of(context).showSnackBar(snack('$e'));
-    }
+    ScaffoldMessenger.of(context).showSnackBar(snack('$e'));
     return false;
   }
 }
