@@ -87,7 +87,7 @@ class HomeScreenMenu extends StatelessWidget {
 Please provide your feedback below:
 --------------------
 
-      
+
 --------------------
 App Version: $version+$buildNumber
 Device: $deviceModel
