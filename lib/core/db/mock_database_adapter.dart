@@ -61,6 +61,11 @@ class MockDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
+  Future<void> deleteMeal(int mealId) async {
+    _meals.removeWhere((meal) => meal.id == mealId);
+  }
+
+  @override
   Future<bool> isFavoriteMeal(int mealId) async {
     // In mock mode, we check if the meal exists in favorites
     // For simplicity, we'll check by meal name

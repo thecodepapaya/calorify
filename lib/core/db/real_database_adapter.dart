@@ -30,6 +30,11 @@ class RealDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
+  Future<void> deleteMeal(int mealId) async {
+    await _database.deleteMeal(mealId);
+  }
+
+  @override
   Future<bool> isFavoriteMeal(int mealId) async {
     return await _database.isFavoriteMeal(mealId);
   }

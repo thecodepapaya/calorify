@@ -17,6 +17,9 @@ abstract class DatabaseInterface {
   /// Upsert a meal
   Future<void> upsertMeal(MealInfo mealInfo);
 
+  /// Delete a meal
+  Future<void> deleteMeal(int mealId);
+
   /// Check if a meal is favorite
   Future<bool> isFavoriteMeal(int mealId);
 

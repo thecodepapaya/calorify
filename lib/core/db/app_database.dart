@@ -112,6 +112,11 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
+  Future<void> deleteMeal(int mealId) {
+    return (delete(mealInfoTable)..where((tbl) => tbl.id.equals(mealId))).go();
+  }
+
+  @override
   Stream<List<MealInfo>> watchAllFavoriteMeals() {
     return select(favoriteMealTable).watch().map(
       (rows) => rows.map((row) => MealInfo.fromDrift(row)).toList(),

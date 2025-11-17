@@ -14,6 +14,7 @@ import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/meal_image.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/shared_widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -180,26 +181,6 @@ class _MealTipState extends State<_MealTip> {
                             : colorScheme.onSurface.withValues(alpha: 0.5),
                   ),
                 ),
-              if (widget.allowEdit)
-                IconButton(
-                  onPressed: () {
-                    final navigator = Navigator.of(context);
-                    final parentContext = navigator.context;
-                    navigator.pop();
-                    showEditMealSheet(
-                      parentContext,
-                      mealInfo: mealInfo,
-                      imageData: widget.imageData,
-                    );
-                  },
-                  padding: EdgeInsets.zero,
-                  visualDensity: VisualDensity.compact,
-                  icon: Icon(
-                    LucideIcons.pencil,
-                    size: 24,
-                    color: colorScheme.onSurface.withValues(alpha: 0.5),
-                  ),
-                ),
             ],
           ),
         ],
@@ -283,19 +264,90 @@ class _MealTipState extends State<_MealTip> {
       ),
       if (widget.allowEdit && widget.mealDetectionResult.mealIdentified) ...[
         SizedBox(height: 20),
-        PrimaryButton(
-          analyticsEvent: AnalyticsEvent.mealSave,
-          onPressed: () async {
-            await logMeal(context, widget.mealDetectionResult.mealInfo);
-            if (!context.mounted) return;
-            Navigator.of(context).pop();
-          },
-          text: 'Save Meal',
-          leadingIcon: LucideIcons.save,
-        ),
+        if (mealInfo.id != null)
+          Row(
+            children: [
+              Expanded(
+                child: SecondaryButton(
+                  onPressed: () async {
+                    await _showDeleteConfirmation(context, mealInfo.id!);
+                  },
+                  text: 'Delete',
+                  icon: LucideIcons.trash2,
+                  analyticsEvent: AnalyticsEvent.mealDelete,
+                ),
+              ),
+              const SizedBox(width: 12),
+              if (widget.allowEdit)
+                Expanded(
+                  child: PrimaryButton(
+                    onPressed: () {
+                      final navigator = Navigator.of(context);
+                      final parentContext = navigator.context;
+                      navigator.pop();
+                      showEditMealSheet(
+                        parentContext,
+                        mealInfo: mealInfo,
+                        imageData: widget.imageData,
+                      );
+                    },
+                    text: 'Edit Meal',
+                    leadingIcon: LucideIcons.pencil,
+                    analyticsEvent: AnalyticsEvent.mealSave,
+                  ),
+                ),
+            ],
+          )
+        else
+          PrimaryButton(
+            analyticsEvent: AnalyticsEvent.mealSave,
+            onPressed: () async {
+              await logMeal(context, widget.mealDetectionResult.mealInfo);
+              if (!context.mounted) return;
+              Navigator.of(context).pop();
+            },
+            text: 'Save Meal',
+            leadingIcon: LucideIcons.save,
+          ),
       ],
       SizedBox(height: 20),
     ];
+  }
+
+  Future<void> _showDeleteConfirmation(BuildContext context, int mealId) {
+    final navigator = Navigator.of(context);
+    final theme = Theme.of(context);
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text('Delete Meal'),
+          content: const Text(
+            'Are you sure you want to delete this meal entry?',
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: theme.colorScheme.error,
+              ),
+              child: const Text('Delete'),
+              onPressed: () async {
+                await DatabaseService.databaseInterface.deleteMeal(mealId);
+                if (!context.mounted) return;
+                Navigator.of(dialogContext).pop();
+                navigator.pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> _toggleFavorite() async {
