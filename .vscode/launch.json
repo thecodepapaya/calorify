@@ -53,6 +53,12 @@
                 "--flavor",
                 "prod"
             ]
+        },
+        {
+            "name": "Webpage",
+            "request": "launch",
+            "type": "chrome",
+            "url": "file:///${workspaceFolder}/web/index.html"
         }
     ]
 }

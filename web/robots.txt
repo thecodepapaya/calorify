@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://calorify.thecodepapaya.dev/sitemap.xml
+
