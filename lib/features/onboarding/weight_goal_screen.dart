@@ -39,64 +39,50 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return const Scaffold(body: Center(child: AppLoader()));
+      return const Center(child: AppLoader());
     }
     if (_userProfile == null) {
-      return const Scaffold(
-        body: Center(child: Text('Error loading profile data')),
-      );
+      return const Center(child: Text('Error loading profile data'));
     }
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'What\'s your goal?',
-                        style: Theme.of(context).textTheme.headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Choose the goal that best describes what you want to achieve',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      const SizedBox(height: 32),
-
-                      // Weight Goal Options
-                      ...WeightGoal.values.map((goal) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: _buildGoalCard(context, goal),
-                        );
-                      }),
-                    ],
-                  ),
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 48),
+          Text(
+            'What\'s your goal?',
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Choose the goal that best describes what you want to achieve',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
-              ),
+          ),
+          const SizedBox(height: 32),
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: WeightGoal.values.map((goal) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: _buildGoalCard(context, goal),
+                );
+              }).toList(),
             ),
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: PrimaryButton(
-                analyticsEvent: AnalyticsEvent.onboardingSetWeightGoal,
-                onPressed:
-                    _selectedGoal != null
-                        ? () => _continue(_userProfile!)
-                        : null,
-                text: 'Continue',
-                trailingIcon: LucideIcons.arrowRight,
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24.0),
+            child: PrimaryButton(
+              analyticsEvent: AnalyticsEvent.onboardingSetWeightGoal,
+              onPressed: _selectedGoal != null ? () => _continue(_userProfile!) : null,
+              text: 'Continue',
+              trailingIcon: LucideIcons.arrowRight,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

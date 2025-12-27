@@ -4,103 +4,11 @@ import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
 
 class IntakeProgress extends StatelessWidget {
   const IntakeProgress({super.key});
-  List<LineChartBarData> _prepareChartData(
-    Map<DateTime, Map<String, double>> dailyNutrientData,
-  ) {
-    if (dailyNutrientData.isEmpty) {
-      return [];
-    }
-
-    final List<DateTime> dates = dailyNutrientData.keys.toList()..sort();
-    if (dates.isEmpty) {
-      return [];
-    }
-
-    List<LineChartBarData> chartBars = [];
-    final Map<String, Color> nutrientColors = {
-      'calories': calorieIconColor,
-      'protein': proteinIconColor,
-      'carbs': carbsIconColor,
-      'fat': fatIconColor,
-      'fiber': fiberIconColor,
-    };
-
-    nutrientColors.forEach((nutrientKey, color) {
-      List<FlSpot> spots = [];
-      for (int i = 0; i < dates.length; i++) {
-        final date = dates[i];
-        final value = dailyNutrientData[date]![nutrientKey] ?? 0.0;
-        spots.add(FlSpot(i.toDouble(), value));
-      }
-
-      chartBars.add(
-        LineChartBarData(
-          spots: spots,
-          color: color,
-          isCurved: true,
-          preventCurveOverShooting: true,
-          barWidth: 3,
-          dotData: const FlDotData(show: false),
-        ),
-      );
-    });
-
-    return chartBars;
-  }
-
-  Map<DateTime, Map<String, double>> _processMealsData(
-    List<MealInfo> mealsFromDb,
-  ) {
-    final now = DateTime.now();
-
-    final sevenDaysAgo = now.subtract(const Duration(days: 6));
-    final startOfSevenDaysAgo = DateTime(
-      sevenDaysAgo.year,
-      sevenDaysAgo.month,
-      sevenDaysAgo.day,
-    );
-    Map<DateTime, Map<String, double>> processedData = {};
-
-    for (int i = 0; i < 7; i++) {
-      final dayDate = startOfSevenDaysAgo.add(Duration(days: i));
-
-      final mapKeyDate = DateTime(dayDate.year, dayDate.month, dayDate.day);
-      processedData[mapKeyDate] = {
-        'calories': 0.0,
-        'protein': 0.0,
-        'carbs': 0.0,
-        'fat': 0.0,
-        'fiber': 0.0,
-      };
-    }
-
-    for (final meal in mealsFromDb) {
-      final mealDate = DateTime(
-        meal.timestamp.year,
-        meal.timestamp.month,
-        meal.timestamp.day,
-      );
-      if (processedData.containsKey(mealDate)) {
-        processedData[mealDate]!['calories'] =
-            (processedData[mealDate]!['calories'] ?? 0.0) + meal.calories;
-        processedData[mealDate]!['protein'] =
-            (processedData[mealDate]!['protein'] ?? 0.0) + meal.protein;
-        processedData[mealDate]!['carbs'] =
-            (processedData[mealDate]!['carbs'] ?? 0.0) + meal.carbs;
-        processedData[mealDate]!['fat'] =
-            (processedData[mealDate]!['fat'] ?? 0.0) + meal.fat;
-        processedData[mealDate]!['fiber'] =
-            (processedData[mealDate]!['fiber'] ?? 0.0) + meal.fiber;
-      }
-    }
-    return processedData;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,10 +28,10 @@ class IntakeProgress extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.trendingUp, color: colorScheme.primary),
+              Icon(LucideIcons.chartPie, color: colorScheme.primary),
               const SizedBox(width: 8),
               Text(
-                'Daily Intake Progress',
+                'Today\'s Macro Split',
                 style: textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
@@ -131,149 +39,179 @@ class IntakeProgress extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           StreamBuilder<List<MealInfo>>(
-            stream:
-                DatabaseService.databaseInterface.watchAllMealsForLast7Days(),
+            stream: DatabaseService.databaseInterface.watchAllMealsForToday(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: AppLoader());
               }
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text(
-                    'Error: ${snapshot.error}',
-                    style: const TextStyle(color: Colors.red),
-                  ),
-                );
-              }
               final meals = snapshot.data ?? [];
-              if (meals.isEmpty) {
-                return _emptyView(context);
-              }
-
-              final dailyNutrientData = _processMealsData(meals);
-              final lineBarsData = _prepareChartData(dailyNutrientData);
-              if (lineBarsData.isEmpty) {
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      'No chart data to display. Log some meals to see your progress!',
-                      textAlign: TextAlign.center,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSecondary.withValues(alpha: 0.7),
-                      ),
-                    ),
-                  ),
-                );
-              }
-
-              final sortedDates = dailyNutrientData.keys.toList()..sort();
-              return SizedBox(
-                height: 300,
-                child: LineChart(
-                  LineChartData(
-                    lineBarsData: lineBarsData,
-                    titlesData: FlTitlesData(
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          reservedSize: 30,
-                          interval: 1,
-                          getTitlesWidget: (double value, TitleMeta meta) {
-                            final index = value.toInt();
-                            if (index >= 0 && index < sortedDates.length) {
-                              final date = sortedDates[index];
-                              return Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Text(
-                                  DateFormat('E').format(date),
-                                  style: textTheme.labelSmall,
-                                ),
-                              );
-                            }
-                            return const Text('');
-                          },
+              
+              return StreamBuilder<int?>(
+                stream: DatabaseService.databaseInterface.watchDailyCalorieGoal(),
+                builder: (context, goalSnapshot) {
+                  final dailyGoal = goalSnapshot.data ?? 2000; // Default if not set
+                  
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: _MacroPieChart(
+                          title: 'Target',
+                          protein: dailyGoal * 0.25 / 4,
+                          carbs: dailyGoal * 0.50 / 4,
+                          fat: dailyGoal * 0.20 / 9,
+                          fiber: dailyGoal * 0.05 / 2, // Simplified fiber estimation
                         ),
                       ),
-                      leftTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          reservedSize: 40,
-                          getTitlesWidget: (double value, TitleMeta meta) {
-                            return Text(
-                              value.toInt().toString(),
-                              style: textTheme.labelSmall,
-                            );
-                          },
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: _MacroPieChart(
+                          title: 'Current',
+                          protein: meals.fold(0, (sum, m) => sum + m.protein).toDouble(),
+                          carbs: meals.fold(0, (sum, m) => sum + m.carbs).toDouble(),
+                          fat: meals.fold(0, (sum, m) => sum + m.fat).toDouble(),
+                          fiber: meals.fold(0, (sum, m) => sum + m.fiber).toDouble(),
+                          isEmpty: meals.isEmpty,
                         ),
                       ),
-                      topTitles: const AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      rightTitles: const AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                    ),
-                    gridData: const FlGridData(show: true),
-                    borderData: FlBorderData(
-                      show: true,
-                      border: Border.all(color: colorScheme.outline),
-                    ),
-                    lineTouchData: LineTouchData(
-                      touchTooltipData: LineTouchTooltipData(
-                        getTooltipColor:
-                            (touchedSpot) => Colors.blueGrey.withOpacity(0.8),
-                      ),
-                    ),
-                  ),
-                ),
+                    ],
+                  );
+                },
               );
             },
           ),
+          const SizedBox(height: 16),
+          const _MacroLegend(),
         ],
       ),
     );
   }
+}
 
-  Widget _emptyView(BuildContext context) {
+class _MacroPieChart extends StatelessWidget {
+  const _MacroPieChart({
+    required this.title,
+    required this.protein,
+    required this.carbs,
+    required this.fat,
+    required this.fiber,
+    this.isEmpty = false,
+  });
+
+  final String title;
+  final double protein;
+  final double carbs;
+  final double fat;
+  final double fiber;
+  final bool isEmpty;
+
+  @override
+  Widget build(BuildContext context) {
+    final total = protein + carbs + fat + fiber;
     final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 40),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(
-              LucideIcons.target,
-              size: 48,
-              color: colorScheme.primary.withValues(alpha: 0.7),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Ready To Map Your Munchies?',
-              style: textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: colorScheme.onSecondary.withValues(alpha: 0.7),
-              ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              'Log your first meal of the week to see your progress charted '
-              'here. Let the delicious data begin!',
-              textAlign: TextAlign.center,
-              style: textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSecondary.withValues(alpha: 0.7),
-              ),
-            ),
-          ],
+        Text(
+          title,
+          style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 40),
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 120,
+          child: isEmpty
+              ? PieChart(
+                  PieChartData(
+                    sections: [
+                      PieChartSectionData(
+                        color: theme.colorScheme.outline.withOpacity(0.2),
+                        value: 1,
+                        title: '',
+                        radius: 40,
+                      ),
+                    ],
+                  ),
+                )
+              : PieChart(
+                  PieChartData(
+                    sectionsSpace: 2,
+                    centerSpaceRadius: 20,
+                    sections: [
+                      PieChartSectionData(
+                        color: carbsIconColor,
+                        value: carbs,
+                        title: '${(carbs / total * 100).toStringAsFixed(0)}%',
+                        radius: 40,
+                        titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                      PieChartSectionData(
+                        color: proteinIconColor,
+                        value: protein,
+                        title: '${(protein / total * 100).toStringAsFixed(0)}%',
+                        radius: 40,
+                        titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                      PieChartSectionData(
+                        color: fatIconColor,
+                        value: fat,
+                        title: '${(fat / total * 100).toStringAsFixed(0)}%',
+                        radius: 40,
+                        titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                      PieChartSectionData(
+                        color: fiberIconColor,
+                        value: fiber,
+                        title: '${(fiber / total * 100).toStringAsFixed(0)}%',
+                        radius: 40,
+                        titleStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
+        ),
+      ],
+    );
+  }
+}
+
+class _MacroLegend extends StatelessWidget {
+  const _MacroLegend();
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 16,
+      runSpacing: 8,
+      alignment: WrapAlignment.center,
+      children: [
+        _LegendItem(color: carbsIconColor, label: 'Carbs'),
+        _LegendItem(color: proteinIconColor, label: 'Protein'),
+        _LegendItem(color: fatIconColor, label: 'Fat'),
+        _LegendItem(color: fiberIconColor, label: 'Fiber'),
+      ],
+    );
+  }
+}
+
+class _LegendItem extends StatelessWidget {
+  const _LegendItem({required this.color, required this.label});
+
+  final Color color;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 12,
+          height: 12,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
+        const SizedBox(width: 4),
+        Text(label, style: Theme.of(context).textTheme.bodySmall),
       ],
     );
   }

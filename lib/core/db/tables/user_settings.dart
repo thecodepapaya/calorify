@@ -5,6 +5,7 @@ class UserSettingsTable extends Table {
   IntColumn get dailyCalorieGoal => integer().nullable()();
   RealColumn get height => real().nullable()(); // in cm
   RealColumn get weight => real().nullable()(); // in kg
+  RealColumn get targetWeight => real().nullable()(); // in kg
   TextColumn get gender => text().nullable()(); // 'male', 'female', 'other'
   DateTimeColumn get dateOfBirth => dateTime().nullable()();
   TextColumn get weightGoal =>

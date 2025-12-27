@@ -18,6 +18,7 @@ enum ActivityLevel {
 class UserProfile {
   final double? height; // in cm
   final double? weight; // in kg
+  final double? targetWeight; // in kg
   final Gender? gender;
   final DateTime? dateOfBirth;
   final WeightGoal? weightGoal;
@@ -26,6 +27,7 @@ class UserProfile {
   const UserProfile({
     this.height,
     this.weight,
+    this.targetWeight,
     this.gender,
     this.dateOfBirth,
     this.weightGoal,
@@ -51,6 +53,7 @@ class UserProfile {
   UserProfile copyWith({
     double? height,
     double? weight,
+    double? targetWeight,
     Gender? gender,
     DateTime? dateOfBirth,
     WeightGoal? weightGoal,
@@ -59,6 +62,7 @@ class UserProfile {
     return UserProfile(
       height: height ?? this.height,
       weight: weight ?? this.weight,
+      targetWeight: targetWeight ?? this.targetWeight,
       gender: gender ?? this.gender,
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       weightGoal: weightGoal ?? this.weightGoal,

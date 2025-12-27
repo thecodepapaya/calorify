@@ -18,6 +18,8 @@ MealInfo _$MealInfoFromJson(Map<String, dynamic> json) => MealInfo(
   fiber: (json['fiber'] as num).toInt(),
   timestamp: DateTime.parse(json['timestamp'] as String),
   imageUrl: json['image_url'] as String?,
+  healthScore: (json['health_score'] as num?)?.toInt(),
+  healthScoreReason: json['health_score_reason'] as String?,
 );
 
 Map<String, dynamic> _$MealInfoToJson(MealInfo instance) => <String, dynamic>{
@@ -32,6 +34,8 @@ Map<String, dynamic> _$MealInfoToJson(MealInfo instance) => <String, dynamic>{
   'fiber': instance.fiber,
   'timestamp': instance.timestamp.toIso8601String(),
   'image_url': instance.imageUrl,
+  'health_score': instance.healthScore,
+  'health_score_reason': instance.healthScoreReason,
 };
 
 const _$MealTypeEnumMap = {

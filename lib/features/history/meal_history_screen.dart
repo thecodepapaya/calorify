@@ -112,7 +112,7 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
                         allowEdit: true,
                       ),
                     ),
-                    if (index == groupedMeals.length - 1) SizedBox(height: 20),
+                    if (index == groupedMeals.length - 1) const SizedBox(height: 120),
                   ],
                 );
               },

@@ -47,10 +47,10 @@ class _MealSnapState extends State<MealSnap> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                children: [
-                  Icon(LucideIcons.camera, color: colorScheme.primary),
-                  SizedBox(width: 8),
-                  Text(
+            children: [
+              Icon(LucideIcons.camera, color: colorScheme.primary),
+              SizedBox(width: 8),
+              Text(
                     'Snap & Track Your Meal',
                     style: textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w600,

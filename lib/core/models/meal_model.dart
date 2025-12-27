@@ -29,6 +29,10 @@ class MealInfo {
   final DateTime timestamp;
   @JsonKey(name: 'image_url')
   final String? imageUrl;
+  @JsonKey(name: 'health_score')
+  final int? healthScore;
+  @JsonKey(name: 'health_score_reason')
+  final String? healthScoreReason;
 
   const MealInfo({
     this.id,
@@ -42,6 +46,8 @@ class MealInfo {
     required this.fiber,
     required this.timestamp,
     this.imageUrl,
+    this.healthScore,
+    this.healthScoreReason,
   });
 
   factory MealInfo.fromJson(Map<String, dynamic> json) =>
@@ -75,6 +81,8 @@ class MealInfo {
       fiber: data.fiber,
       timestamp: data.timestamp,
       imageUrl: data.imageUrl,
+      healthScore: data.healthScore,
+      healthScoreReason: data.healthScoreReason,
     );
   }
 
@@ -91,6 +99,8 @@ class MealInfo {
       fiber: data.fiber,
       timestamp: data.timestamp,
       imageUrl: data.imageUrl,
+      healthScore: data.healthScore,
+      healthScoreReason: data.healthScoreReason,
     );
   }
 
@@ -106,6 +116,8 @@ class MealInfo {
     int? fiber,
     DateTime? timestamp,
     String? imageUrl,
+    int? healthScore,
+    String? healthScoreReason,
     bool forceIdNull = false,
   }) {
     return MealInfo(
@@ -120,6 +132,8 @@ class MealInfo {
       fiber: fiber ?? this.fiber,
       timestamp: timestamp ?? this.timestamp,
       imageUrl: imageUrl ?? this.imageUrl,
+      healthScore: healthScore ?? this.healthScore,
+      healthScoreReason: healthScoreReason ?? this.healthScoreReason,
     );
   }
 }

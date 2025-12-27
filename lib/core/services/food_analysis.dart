@@ -114,6 +114,24 @@ class FoodAnalysisService {
                 "format (e.g., '2023-10-27T10:30:00.000Z'). "
                 'This should always be present.',
           ),
+          'health_score': Schema.object(
+            description:
+                'Information on how healthy the meal is, or default/empty '
+                'if no meal was identified.',
+            properties: {
+              'score': Schema.enumString(
+                enumValues: ['healthy', 'neutral', 'unhealthy', 'unknown'],
+                description:
+                    'A health score for the meal based on how well '
+                    'balanced the nutritional values are.',
+              ),
+              'reason': Schema.string(
+                description:
+                    'A concise reasoning for the assigned health score, max '
+                    '100 characters.',
+              ),
+            },
+          ),
         },
       ),
     },

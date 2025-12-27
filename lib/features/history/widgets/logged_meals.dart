@@ -6,6 +6,7 @@ import 'package:calorify/features/history/widgets/icon_nutrition.dart';
 import 'package:calorify/features/history/widgets/meal_quantity.dart';
 import 'package:calorify/features/history/widgets/meal_timestamp.dart';
 import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/health_score_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -70,6 +71,13 @@ class MealLogCard extends StatelessWidget {
                     ),
                     child: MealTypeIndicator(mealType: mealInfo.mealType),
                   ),
+                  if (mealInfo.healthScore != null) ...[
+                    const SizedBox(width: 8),
+                    _HealthScoreIndicator(
+                      score: mealInfo.healthScore!,
+                      reason: mealInfo.healthScoreReason ?? '',
+                    ),
+                  ],
                 ],
               ),
               Row(
@@ -118,6 +126,55 @@ class MealLogCard extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _HealthScoreIndicator extends StatelessWidget {
+  const _HealthScoreIndicator({required this.score, required this.reason});
+
+  final int score;
+  final String reason;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    Color color;
+    IconData icon;
+
+    switch (score) {
+      case 1:
+        color = colorScheme.error;
+        icon = LucideIcons.frown;
+        break;
+      case 3:
+        color = Colors.green;
+        icon = LucideIcons.smile;
+        break;
+      case 2:
+      default:
+        color = Colors.orange;
+        icon = LucideIcons.meh;
+        break;
+    }
+
+    return GestureDetector(
+      onTap: () {
+        showHealthScoreReason(
+          context: context,
+          healthScore: score,
+          reason: reason,
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          shape: BoxShape.circle,
+          border: Border.all(color: color.withOpacity(0.5)),
+        ),
+        child: Icon(icon, color: color, size: 16),
       ),
     );
   }

@@ -121,7 +121,13 @@ class _NoFavorites extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
+          Icon(
+            LucideIcons.star,
+            size: 48,
+            color: colorScheme.onSecondary.withValues(alpha: 0.3),
+          ),
+          const SizedBox(height: 16),
           Text(
             'No favorite meals yet.',
             style: textTheme.bodyLarge?.copyWith(
@@ -134,7 +140,7 @@ class _NoFavorites extends StatelessWidget {
               color: colorScheme.onSecondary.withValues(alpha: 0.7),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
         ],
       ),
     );

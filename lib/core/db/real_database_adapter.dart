@@ -15,6 +15,11 @@ class RealDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
+  Stream<int?> watchDailyCalorieGoal() {
+    return _database.watchDailyCalorieGoal();
+  }
+
+  @override
   Future<void> setDailyCalorieGoal(int goal) async {
     await _database.setDailyCalorieGoal(goal);
   }

@@ -9,6 +9,7 @@ part of 'profile_models.dart';
 UserProfile _$UserProfileFromJson(Map<String, dynamic> json) => UserProfile(
   height: (json['height'] as num?)?.toDouble(),
   weight: (json['weight'] as num?)?.toDouble(),
+  targetWeight: (json['targetWeight'] as num?)?.toDouble(),
   gender: $enumDecodeNullable(_$GenderEnumMap, json['gender']),
   dateOfBirth:
       json['dateOfBirth'] == null
@@ -25,6 +26,7 @@ Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
     <String, dynamic>{
       'height': instance.height,
       'weight': instance.weight,
+      'targetWeight': instance.targetWeight,
       'gender': _$GenderEnumMap[instance.gender],
       'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
       'weightGoal': _$WeightGoalEnumMap[instance.weightGoal],

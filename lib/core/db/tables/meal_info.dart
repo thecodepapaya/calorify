@@ -12,4 +12,6 @@ class MealInfoTable extends Table {
   IntColumn get fiber => integer()();
   DateTimeColumn get timestamp => dateTime()();
   TextColumn get imageUrl => text().nullable()();
+  IntColumn get healthScore => integer().nullable()(); // 1-3
+  TextColumn get healthScoreReason => text().nullable()();
 }

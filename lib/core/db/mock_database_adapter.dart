@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/db/mock_data/favorite_meal_mock.dart';
 import 'package:calorify/core/db/mock_data/meal_info_mock.dart';
@@ -11,6 +13,8 @@ class MockDatabaseAdapter implements DatabaseInterface {
   final List<MealInfo> _favorites = [];
   int? _dailyCalorieGoal;
   profile_models.UserProfile? _userProfile;
+
+  final StreamController<int?> _goalController = StreamController<int?>.broadcast();
 
   MockDatabaseAdapter() {
     _initializeMockData();
@@ -26,6 +30,7 @@ class MockDatabaseAdapter implements DatabaseInterface {
     // Set a default calorie goal using UserSettingsMock
     final userSettings = UserSettingsMock.generateRealistic();
     _dailyCalorieGoal = userSettings['dailyCalorieGoal'] as int;
+    _goalController.add(_dailyCalorieGoal);
   }
 
   @override
@@ -34,8 +39,15 @@ class MockDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
+  Stream<int?> watchDailyCalorieGoal() async* {
+    yield _dailyCalorieGoal;
+    yield* _goalController.stream;
+  }
+
+  @override
   Future<void> setDailyCalorieGoal(int goal) async {
     _dailyCalorieGoal = goal;
+    _goalController.add(_dailyCalorieGoal);
   }
 
   @override

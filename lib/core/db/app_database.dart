@@ -21,7 +21,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 8;
 
   @override
   MigrationStrategy get migration {
@@ -47,6 +47,13 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           await m.addColumn(userSettingsTable, userSettingsTable.createdAt);
           await m.addColumn(userSettingsTable, userSettingsTable.updatedAt);
         }
+        if (from < 7) {
+          await m.addColumn(mealInfoTable, mealInfoTable.healthScore);
+          await m.addColumn(mealInfoTable, mealInfoTable.healthScoreReason);
+        }
+        if (from < 8) {
+          await m.addColumn(userSettingsTable, userSettingsTable.targetWeight);
+        }
       },
     );
   }
@@ -59,6 +66,14 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         await (select(userSettingsTable)
           ..where((tbl) => tbl.id.equals(_userSettingsId))).getSingleOrNull();
     return setting?.dailyCalorieGoal;
+  }
+
+  @override
+  Stream<int?> watchDailyCalorieGoal() {
+    return (select(userSettingsTable)
+          ..where((tbl) => tbl.id.equals(_userSettingsId)))
+        .watchSingleOrNull()
+        .map((row) => row?.dailyCalorieGoal);
   }
 
   @override
