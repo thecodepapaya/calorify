@@ -1,4 +1,5 @@
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -125,77 +126,52 @@ class _BulletPoint extends StatelessWidget {
   }
 }
 
-final snapDisclaimer = DisclaimerData(
-  title: 'Please Note',
-  description:
-      'Calorify provides estimated nutritional info. '
-      'Accuracy depends on your input & food variations. '
-      'Use as a guide, not a definitive source. Consult a professional '
-      'for personalized dietary advice.',
-  bulletPoints: [
-    DisclaimerEntry(
-      title: 'Portion Size',
-      description:
-          'The accuracy of the estimates heavily relies on '
-          'your correct assessment of the portion size.',
-    ),
-    DisclaimerEntry(
-      title: 'Preparation Methods',
-      description:
-          'Cooking methods can significantly alter the nutritional '
-          "content of food. Calorify's estimates may not always "
-          'account for these variations.',
-    ),
-    DisclaimerEntry(
-      title: 'Ingredients',
-      description:
-          'Complex dishes with many hidden ingredients '
-          'may lead to less accurate estimations.',
-    ),
-    DisclaimerEntry(
-      title: 'Database Limitations',
-      description:
-          "Calorify's food database is extensive but may not "
-          'include every single food item or variation.',
-    ),
-  ],
-);
+DisclaimerData getSnapDisclaimer() {
+  return DisclaimerData(
+    title: t.disclaimer.pleaseNote,
+    description: t.disclaimer.snap.description,
+    bulletPoints: [
+      DisclaimerEntry(
+        title: t.disclaimer.snap.portionSize.title,
+        description: t.disclaimer.snap.portionSize.description,
+      ),
+      DisclaimerEntry(
+        title: t.disclaimer.snap.preparationMethods.title,
+        description: t.disclaimer.snap.preparationMethods.description,
+      ),
+      DisclaimerEntry(
+        title: t.disclaimer.snap.ingredients.title,
+        description: t.disclaimer.snap.ingredients.description,
+      ),
+      DisclaimerEntry(
+        title: t.disclaimer.snap.databaseLimitations.title,
+        description: t.disclaimer.snap.databaseLimitations.description,
+      ),
+    ],
+  );
+}
 
-final weightEstimateDisclaimer = DisclaimerData(
-  title: 'About Weight Estimate',
-  description:
-      'The projected weight change is a theoretical estimate based on '
-      'the simple calorie-in vs. calorie-out model. It is intended '
-      'for motivational guidance only, not as a prediction of your '
-      'actual weight.',
-  bulletPoints: [
-    DisclaimerEntry(
-      title: 'Calorie Accuracy',
-      description:
-          'This estimate is only as accurate as your tracked calorie '
-          'intake and expenditure. Inaccurate logging will result '
-          'in an inaccurate projection.',
-    ),
-    DisclaimerEntry(
-      title: 'Biological Factors',
-      description:
-          'Actual weight loss/gain is influenced by metabolism, hormones, '
-          'sleep, stress, hydration, and other individual factors '
-          'that Calorify cannot measure.',
-    ),
-    DisclaimerEntry(
-      title: 'Water Weight & Fluctuations',
-      description:
-          'Normal daily weight can fluctuate significantly due to '
-          'water retention, digestion, and timing. The estimate '
-          'does not account for these daily changes.',
-    ),
-    DisclaimerEntry(
-      title: 'Professional Guidance',
-      description:
-          'Do not use this estimate to make medical decisions. '
-          'Always consult a healthcare professional or registered '
-          'dietitian for personalized weight management advice.',
-    ),
-  ],
-);
+DisclaimerData getWeightEstimateDisclaimer() {
+  return DisclaimerData(
+    title: t.disclaimer.weightEstimate.title,
+    description: t.disclaimer.weightEstimate.description,
+    bulletPoints: [
+      DisclaimerEntry(
+        title: t.disclaimer.weightEstimate.calorieAccuracy.title,
+        description: t.disclaimer.weightEstimate.calorieAccuracy.description,
+      ),
+      DisclaimerEntry(
+        title: t.disclaimer.weightEstimate.biologicalFactors.title,
+        description: t.disclaimer.weightEstimate.biologicalFactors.description,
+      ),
+      DisclaimerEntry(
+        title: t.disclaimer.weightEstimate.waterWeight.title,
+        description: t.disclaimer.weightEstimate.waterWeight.description,
+      ),
+      DisclaimerEntry(
+        title: t.disclaimer.weightEstimate.professionalGuidance.title,
+        description: t.disclaimer.weightEstimate.professionalGuidance.description,
+      ),
+    ],
+  );
+}

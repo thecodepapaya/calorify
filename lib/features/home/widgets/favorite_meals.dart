@@ -6,6 +6,7 @@ import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
@@ -41,7 +42,7 @@ class _FavoriteMealsState extends State<FavoriteMeals> {
               Icon(LucideIcons.star, color: colorScheme.primary),
               SizedBox(width: 8),
               Text(
-                'Favorite Meals',
+                t.home.favoriteMeals.title,
                 style: textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
@@ -51,7 +52,7 @@ class _FavoriteMealsState extends State<FavoriteMeals> {
           ),
           SizedBox(height: 8),
           Text(
-            'Quickly add one of your favorite meals.',
+            t.home.favoriteMeals.description,
             style: textTheme.bodyMedium?.copyWith(
               color: colorScheme.onSecondary.withValues(alpha: 0.7),
             ),
@@ -94,7 +95,7 @@ class _FavoriteMealsState extends State<FavoriteMeals> {
                         onPressed: () {
                           context.router.push(const FavoritesRoute());
                         },
-                        child: const Text('See all'),
+                        child: Text(t.home.favoriteMeals.seeAll),
                       ),
                     ),
                   ],
@@ -129,13 +130,13 @@ class _NoFavorites extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'No favorite meals yet.',
+            t.home.favoriteMeals.noFavorites,
             style: textTheme.bodyLarge?.copyWith(
               color: colorScheme.onSecondary.withValues(alpha: 0.7),
             ),
           ),
           Text(
-            'Click the star on a meal to mark it as a favorite.',
+            t.home.favoriteMeals.addFavoriteHint,
             style: textTheme.bodyMedium?.copyWith(
               color: colorScheme.onSecondary.withValues(alpha: 0.7),
             ),
@@ -203,17 +204,17 @@ class _MealTile extends StatelessWidget {
                   if (context.mounted) {
                     ScaffoldMessenger.of(
                       context,
-                    ).showSnackBar(snack('Meal added to your log!'));
+                    ).showSnackBar(snack(t.meal.addedToLog));
                   }
                 } on Exception catch (e) {
                   if (context.mounted) {
                     ScaffoldMessenger.of(
                       context,
-                    ).showSnackBar(snack('Could not add meal: $e'));
+                    ).showSnackBar(snack(t.meal.couldNotAdd.replaceAll('{error}', e.toString())));
                   }
                 }
               },
-              text: 'Add',
+              text: t.home.favoriteMeals.add,
               leadingIcon: LucideIcons.plus,
               minimumSize: const Size(40, 40),
               padding: const EdgeInsets.symmetric(horizontal: 12),

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/router/app_router.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -24,29 +25,29 @@ class HomeScreenMenu extends StatelessWidget {
       },
       itemBuilder: (BuildContext context) {
         final menuItems = <PopupMenuEntry<HomeScreenMenuItem>>[
-          const PopupMenuItem<HomeScreenMenuItem>(
+          PopupMenuItem<HomeScreenMenuItem>(
             value: HomeScreenMenuItem.profile,
             child: ListTile(
               leading: Icon(LucideIcons.user),
-              title: Text('Profile'),
+              title: Text(t.profile.title),
             ),
           ),
-          const PopupMenuItem<HomeScreenMenuItem>(
+          PopupMenuItem<HomeScreenMenuItem>(
             value: HomeScreenMenuItem.settings,
             child: ListTile(
               leading: Icon(LucideIcons.settings),
-              title: Text('Settings'),
+              title: Text(t.settings.title),
             ),
           ),
         ];
 
         if (kDebugMode || EnvConfig.instance.isStaging) {
           menuItems.add(
-            const PopupMenuItem<HomeScreenMenuItem>(
+            PopupMenuItem<HomeScreenMenuItem>(
               value: HomeScreenMenuItem.debug,
               child: ListTile(
                 leading: Icon(LucideIcons.bug),
-                title: Text('Debug Options'),
+                title: Text(t.settings.debugOptions.title),
               ),
             ),
           );

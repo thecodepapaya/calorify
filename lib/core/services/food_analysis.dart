@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:calorify/core/models/meal_detection_result.dart';
 import 'package:calorify/core/services/performance_service.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -13,10 +14,16 @@ class FoodAnalysisService {
   static final _instance = FoodAnalysisService._();
   static FoodAnalysisService get instance => _instance;
 
-  static const _systemPrompt = '''
-    You are an expert food analysis AI. Given an image or a description of food,
-    analyze the main food item(s). Be precise with nutrient estimations.
-    ''';
+  /// Get the system prompt with language instruction
+  static String _getSystemPrompt() {
+    final currentLocale = LocaleSettings.currentLocale;
+    final localeCode = currentLocale.languageCode;
+    return '''
+You are an expert food analysis AI. Given an image or a description of food,
+analyze the main food item(s). Be precise with nutrient estimations.
+Always respond in locale: $localeCode.
+''';
+  }
 
   late GenerativeModel _model;
   bool _isInitialized = false;
@@ -24,7 +31,17 @@ class FoodAnalysisService {
   /// Initialize the service with Firebase AI
   Future<void> initialize() async {
     if (_isInitialized) return;
+    await _initializeModel();
+  }
 
+  /// Reinitialize the model (useful when locale changes)
+  Future<void> reinitialize() async {
+    _isInitialized = false;
+    await _initializeModel();
+  }
+
+  /// Internal method to initialize the model
+  Future<void> _initializeModel() async {
     try {
       // Use Google AI backend for food analysis
       final googleAI = FirebaseAI.googleAI(auth: FirebaseAuth.instance);
@@ -34,7 +51,7 @@ class FoodAnalysisService {
           responseMimeType: 'application/json',
           responseSchema: _jsonSchema,
         ),
-        systemInstruction: Content.system(_systemPrompt),
+        systemInstruction: Content.system(_getSystemPrompt()),
       );
       _isInitialized = true;
     } catch (e) {
@@ -148,10 +165,12 @@ class FoodAnalysisService {
     }
 
     try {
-      // Provide a prompt that contains text
+      // Provide a prompt that contains text with locale instruction
+      final localeCode = LocaleSettings.currentLocale.languageCode;
       final prompt = [
         Content.text(
-          'Estimate calories in this meal picture and respond in JSON',
+          'Estimate calories in this meal picture and respond in JSON. '
+          'Must respond in locale: $localeCode',
         ),
         Content.inlineData('image/jpeg', imageBytes),
       ];
@@ -183,8 +202,14 @@ class FoodAnalysisService {
     }
 
     try {
-      // Provide a prompt that contains text
-      final prompt = [Content.text('Meal: $description')];
+      // Provide a prompt that contains text with locale instruction
+      final localeCode = LocaleSettings.currentLocale.languageCode;
+      final prompt = [
+        Content.text(
+          'Meal: $description. '
+          'Must respond in locale: $localeCode',
+        ),
+      ];
 
       // To generate text output, call generateContent with the text input
       final response = await Performance.trace<GenerateContentResponse>(

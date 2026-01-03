@@ -7,9 +7,10 @@ import 'package:calorify/core/models/meal_detection_result.dart';
 import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/core/services/picker_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart' show getSnapDisclaimer;
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
@@ -51,7 +52,7 @@ class _MealSnapState extends State<MealSnap> {
               Icon(LucideIcons.camera, color: colorScheme.primary),
               SizedBox(width: 8),
               Text(
-                    'Snap & Track Your Meal',
+                    t.home.mealSnap.title,
                     style: textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
@@ -61,7 +62,7 @@ class _MealSnapState extends State<MealSnap> {
               ),
               SizedBox(height: 8),
               Text(
-                'Use your camera to take a picture of your food for AI analysis.',
+                t.home.mealSnap.description,
                 style: textTheme.bodyMedium?.copyWith(
                   color: colorScheme.onSecondary.withValues(alpha: 0.7),
                 ),
@@ -91,7 +92,7 @@ class _MealSnapState extends State<MealSnap> {
         Positioned(
           top: 0,
           right: 12,
-          child: DisclaimerButton(data: snapDisclaimer),
+          child: DisclaimerButton(data: getSnapDisclaimer()),
         ),
       ],
     );
@@ -112,7 +113,7 @@ class _MealSnapState extends State<MealSnap> {
                   if (image == null) return;
                   await _onSelectImage(image);
                 },
-                text: 'Open Camera',
+                text: t.home.mealSnap.openCamera,
                 leadingIcon: LucideIcons.camera,
               ),
             ),
@@ -153,7 +154,7 @@ class _MealSnapState extends State<MealSnap> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(snack('Failed to process image: $e'));
+      ).showSnackBar(snack(t.meal.failedToProcessImage.replaceAll('{error}', e.toString())));
       return;
     } finally {
       _reset();
@@ -191,7 +192,7 @@ class _MealSnapState extends State<MealSnap> {
       if (!mounted) return null;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(snack('Error compressing image: $e'));
+      ).showSnackBar(snack(t.meal.errorCompressingImage.replaceAll('{error}', e.toString())));
       return null;
     }
   }

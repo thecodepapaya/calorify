@@ -12,6 +12,7 @@ import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/meal_image.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:calorify/shared_widgets/secondary_button.dart';
@@ -110,7 +111,7 @@ class _MealTipState extends State<_MealTip> {
           Icon(LucideIcons.searchX, color: colorScheme.onSurface, size: 28),
           SizedBox(width: 6),
           Text(
-            'Oh no!',
+            t.meal.ohNo,
             style: textTheme.headlineSmall?.copyWith(
               color: colorScheme.onSurface,
             ),
@@ -230,7 +231,7 @@ class _MealTipState extends State<_MealTip> {
         children: [
           NutrientTile(
             icon: LucideIcons.wheat,
-            label: 'Carbs',
+            label: t.home.dailySummary.carbs,
             value: mealInfo.carbs.toDouble(),
             unit: 'g',
             iconColor: carbsIconColor,
@@ -238,7 +239,7 @@ class _MealTipState extends State<_MealTip> {
           ),
           NutrientTile(
             icon: LucideIcons.drumstick,
-            label: 'Protein',
+            label: t.home.dailySummary.protein,
             value: mealInfo.protein.toDouble(),
             unit: 'g',
             iconColor: proteinIconColor,
@@ -246,7 +247,7 @@ class _MealTipState extends State<_MealTip> {
           ),
           NutrientTile(
             icon: LucideIcons.egg,
-            label: 'Fat',
+            label: t.home.dailySummary.fat,
             value: mealInfo.fat.toDouble(),
             unit: 'g',
             iconColor: fatIconColor,
@@ -254,7 +255,7 @@ class _MealTipState extends State<_MealTip> {
           ),
           NutrientTile(
             icon: LucideIcons.leaf,
-            label: 'Fiber',
+            label: t.home.dailySummary.fiber,
             value: mealInfo.fiber.toDouble(),
             unit: 'g',
             iconColor: fiberIconColor,
@@ -272,7 +273,7 @@ class _MealTipState extends State<_MealTip> {
                   onPressed: () async {
                     await _showDeleteConfirmation(context, mealInfo.id!);
                   },
-                  text: 'Delete',
+                  text: t.meal.delete,
                   icon: LucideIcons.trash2,
                   analyticsEvent: AnalyticsEvent.mealDelete,
                 ),
@@ -291,7 +292,7 @@ class _MealTipState extends State<_MealTip> {
                         imageData: widget.imageData,
                       );
                     },
-                    text: 'Edit Meal',
+                    text: t.meal.editMeal,
                     leadingIcon: LucideIcons.pencil,
                     analyticsEvent: AnalyticsEvent.mealSave,
                   ),
@@ -306,7 +307,7 @@ class _MealTipState extends State<_MealTip> {
               if (!context.mounted) return;
               Navigator.of(context).pop();
             },
-            text: 'Save Meal',
+            text: t.meal.saveMeal,
             leadingIcon: LucideIcons.save,
           ),
       ],
@@ -321,13 +322,11 @@ class _MealTipState extends State<_MealTip> {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: const Text('Delete Meal'),
-          content: const Text(
-            'Are you sure you want to delete this meal entry?',
-          ),
+          title: Text(t.meal.deleteConfirmation.title),
+          content: Text(t.meal.deleteConfirmation.message),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cancel'),
+              child: Text(t.meal.deleteConfirmation.cancel),
               onPressed: () {
                 Navigator.of(dialogContext).pop();
               },
@@ -336,7 +335,7 @@ class _MealTipState extends State<_MealTip> {
               style: TextButton.styleFrom(
                 foregroundColor: theme.colorScheme.error,
               ),
-              child: const Text('Delete'),
+              child: Text(t.meal.deleteConfirmation.delete),
               onPressed: () async {
                 await DatabaseService.databaseInterface.deleteMeal(mealId);
                 if (!context.mounted) return;
@@ -360,13 +359,13 @@ class _MealTipState extends State<_MealTip> {
         if (!mounted) return;
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(snack('Removed from favorites!'));
+        ).showSnackBar(snack(t.meal.removedFromFavorites));
       } else {
         await DatabaseService.databaseInterface.addToFavorites(mealInfo);
         if (!mounted) return;
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(snack('Meal saved as favorite!'));
+        ).showSnackBar(snack(t.meal.savedAsFavorite));
       }
 
       setState(() {
@@ -374,9 +373,11 @@ class _MealTipState extends State<_MealTip> {
       });
     } on Exception catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(snack('Could not update favorite: $e'));
+        ScaffoldMessenger.of(context).showSnackBar(
+          snack(
+            t.meal.couldNotUpdateFavorite.replaceAll('{error}', e.toString()),
+          ),
+        );
       }
     }
   }

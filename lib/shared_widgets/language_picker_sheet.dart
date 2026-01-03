@@ -1,4 +1,5 @@
 import 'package:calorify/core/models/profile_models.dart';
+import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
@@ -102,6 +103,13 @@ class LanguagePickerSheet extends StatelessWidget {
                           await OnboardingService.instance.saveProfileData(
                             UserProfile(languageCode: locale.languageCode),
                           );
+                        }
+
+                        // Reinitialize FoodAnalysisService with new locale
+                        try {
+                          await FoodAnalysisService.instance.reinitialize();
+                        } catch (e) {
+                          // Service might not be initialized yet, ignore error
                         }
 
                         if (context.mounted) Navigator.pop(context);

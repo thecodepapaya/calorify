@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -46,12 +47,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return Scaffold(
         backgroundColor: colorScheme.surface,
         appBar: AppBar(
-          title: const Text('Profile'),
+          title: Text(t.profile.title),
           centerTitle: true,
           backgroundColor: colorScheme.surface,
           elevation: 0,
         ),
-        body: const Center(child: Text('No profile data found')),
+        body: Center(child: Text(t.profile.noProfileData)),
       );
     }
 
@@ -76,9 +77,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: [
           // Basic Information Section
-          _buildCardSection('Profile', [_buildProfileHeader(context)]),
+          _buildCardSection(t.profile.sections.profile, [
+            _buildProfileHeader(context),
+          ]),
           const SizedBox(height: 16),
-          _buildCardSection('Basic Information', [
+          _buildCardSection(t.profile.sections.basicInformation, [
             _buildPersonalDetailsTile(),
             _buildHeightTile(),
             _buildWeightTile(),
@@ -87,14 +90,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(height: 16),
 
           // Goals & Activity Section
-          _buildCardSection('Goals & Activity', [
+          _buildCardSection(t.profile.sections.goalsAndActivity, [
             _buildWeightGoalTile(),
             _buildActivityLevelTile(),
           ]),
           const SizedBox(height: 16),
 
           // Calculated Values Section
-          _buildCardSection('Calculated Values', [
+          _buildCardSection(t.profile.sections.calculatedValues, [
             _buildCalculatedValuesTile(),
           ]),
           const SizedBox(height: 32),
@@ -150,14 +153,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         child: Icon(LucideIcons.user, color: colorScheme.primary, size: 24),
       ),
-      title: const Text(
-        'Your Profile',
+      title: Text(
+        t.profile.yourProfile,
         style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
       ),
-      subtitle: const Text(
-        'View and manage your health information',
-        style: TextStyle(fontSize: 13),
-      ),
+      subtitle: Text(t.profile.viewAndManage, style: TextStyle(fontSize: 13)),
     );
   }
 
@@ -175,8 +175,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         child: Icon(LucideIcons.user, color: colorScheme.primary, size: 20),
       ),
-      title: const Text(
-        'Gender',
+      title: Text(
+        t.profile.gender,
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Text(gender),
@@ -189,7 +189,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final height = _userProfile!.height;
     final heightUnit = _userProfile!.heightUnit;
 
-    String heightText = 'Not set';
+    String heightText = t.profile.notSet;
     if (height != null) {
       if (heightUnit.isMetric) {
         heightText = '${height.toStringAsFixed(0)} cm';
@@ -211,8 +211,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         child: Icon(LucideIcons.ruler, color: colorScheme.primary, size: 20),
       ),
-      title: const Text(
-        'Height',
+      title: Text(
+        t.profile.height,
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Text(heightText),
@@ -225,7 +225,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final weight = _userProfile!.weight;
     final weightUnit = _userProfile!.weightUnit;
 
-    String weightText = 'Not set';
+    String weightText = t.profile.notSet;
     if (weight != null) {
       final unit = weightUnit.isMetric ? 'kg' : 'lbs';
       weightText = '${weight.toStringAsFixed(1)} $unit';
@@ -240,8 +240,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         child: Icon(LucideIcons.scale, color: colorScheme.primary, size: 20),
       ),
-      title: const Text(
-        'Weight',
+      title: Text(
+        t.profile.weight,
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Text(weightText),
@@ -262,8 +262,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         child: Icon(LucideIcons.calendar, color: colorScheme.primary, size: 20),
       ),
-      title: const Text('Age', style: TextStyle(fontWeight: FontWeight.w600)),
-      subtitle: Text('$age years'),
+      title: Text(t.profile.age, style: TextStyle(fontWeight: FontWeight.w600)),
+      subtitle: Text('$age ${t.profile.years}'),
     );
   }
 
@@ -281,11 +281,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         child: Icon(LucideIcons.target, color: colorScheme.primary, size: 20),
       ),
-      title: const Text(
-        'Weight Goal',
+      title: Text(
+        t.profile.weightGoal,
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
-      subtitle: Text(weightGoal?.displayName ?? 'Not set'),
+      subtitle: Text(weightGoal?.displayName ?? t.profile.notSet),
     );
   }
 
@@ -303,11 +303,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         child: Icon(LucideIcons.activity, color: colorScheme.primary, size: 20),
       ),
-      title: const Text(
-        'Activity Level',
+      title: Text(
+        t.profile.activityLevel,
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
-      subtitle: Text(activityLevel?.displayName ?? 'Not set'),
+      subtitle: Text(activityLevel?.displayName ?? t.profile.notSet),
     );
   }
 
@@ -332,8 +332,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           size: 20,
         ),
       ),
-      title: const Text(
-        'Health Metrics',
+      title: Text(
+        t.profile.healthMetrics,
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Column(

@@ -4,6 +4,7 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class MealLog extends StatelessWidget {
               Icon(LucideIcons.packageOpen, color: colorScheme.primary),
               const SizedBox(width: 8),
               Text(
-                'Logged Meals',
+                t.home.mealLog.title,
                 style: textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
@@ -59,7 +60,7 @@ class MealLog extends StatelessWidget {
                     Align(
                       alignment: Alignment.topCenter,
                       child: Text(
-                        'Snap a picture of your last meal to log here.',
+                        t.home.mealLog.emptyMessage,
                         textAlign: TextAlign.center,
                         style: textTheme.bodyMedium?.copyWith(
                           color: colorScheme.onSecondary.withValues(alpha: 0.7),
@@ -85,7 +86,7 @@ class MealLog extends StatelessWidget {
                   textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
-              child: const Text('See all meals'),
+              child: Text(t.home.mealLog.seeAllMeals),
             ),
           ),
           const SizedBox(height: 40),
@@ -119,7 +120,7 @@ class _EmptyLog extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'No meals recorded for today',
+                t.home.mealLog.noMealsToday,
                 style: textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSecondary.withValues(alpha: 0.7),

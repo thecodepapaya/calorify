@@ -3,6 +3,7 @@ import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/locale_utils.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/profile_enum_extensions.dart';
 import 'package:calorify/shared_widgets/selection_card.dart';
 import 'package:calorify/shared_widgets/value_slider.dart';
@@ -170,7 +171,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        title: const Text('Edit Profile'),
+        title: Text(t.editProfile.title),
         centerTitle: true,
         backgroundColor: colorScheme.surface,
         elevation: 0,
@@ -196,21 +197,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
           children: [
             // Personal Information Section
-            _buildCardSection('Personal Information', [
+            _buildCardSection(t.editProfile.sections.personalInformation, [
               _buildGenderTile(),
               _buildDateOfBirthTile(),
             ]),
             const SizedBox(height: _sectionSpacing),
 
             // Physical Measurements Section
-            _buildCardSection('Physical Measurements', [
+            _buildCardSection(t.editProfile.sections.physicalMeasurements, [
               _buildHeightTile(),
               _buildWeightTile(),
             ]),
             const SizedBox(height: _sectionSpacing),
 
             // Goals & Activity Section
-            _buildCardSection('Goals & Activity', [
+            _buildCardSection(t.editProfile.sections.goalsAndActivity, [
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: _cardContentHorizontalPadding,
@@ -220,7 +221,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Weight Goal',
+                      t.editProfile.weightGoal,
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -245,7 +246,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Activity Level',
+                      t.editProfile.activityLevel,
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -327,8 +328,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           size: _iconSize,
         ),
       ),
-      title: const Text(
-        'Gender',
+      title: Text(
+        t.editProfile.gender,
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Padding(
@@ -399,8 +400,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           size: _iconSize,
         ),
       ),
-      title: const Text(
-        'Date of Birth',
+      title: Text(
+        t.editProfile.dateOfBirth,
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Text(DateFormat.yMMMMd().format(_dateOfBirth)),
@@ -436,7 +437,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text('Height', style: TextStyle(fontWeight: FontWeight.w600)),
+          Text(t.editProfile.height, style: TextStyle(fontWeight: FontWeight.w600)),
           _buildUnitSelector(
             context,
             currentUnit: _heightUnit,
@@ -513,7 +514,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text('Weight', style: TextStyle(fontWeight: FontWeight.w600)),
+          Text(t.editProfile.weight, style: TextStyle(fontWeight: FontWeight.w600)),
           _buildUnitSelector(
             context,
             currentUnit: _weightUnit,
@@ -583,9 +584,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     required ValueChanged<UnitSystem> onChanged,
   }) {
     return SegmentedButton<UnitSystem>(
-      segments: const [
-        ButtonSegment(value: UnitSystem.metric, label: Text('Metric')),
-        ButtonSegment(value: UnitSystem.imperial, label: Text('Imperial')),
+      segments: [
+        ButtonSegment(value: UnitSystem.metric, label: Text(t.editProfile.metric)),
+        ButtonSegment(value: UnitSystem.imperial, label: Text(t.editProfile.imperial)),
       ],
       selected: {currentUnit},
       onSelectionChanged: (Set<UnitSystem> selection) {
@@ -672,7 +673,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       // Show success message
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(snack('Profile updated successfully!'));
+      ).showSnackBar(snack(t.profile.updatedSuccessfully));
 
       // Navigate back
       context.router.maybePop();

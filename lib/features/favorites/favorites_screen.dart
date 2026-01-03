@@ -3,6 +3,7 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Favorites')),
+      appBar: AppBar(title: Text(t.favorites.title)),
       body: Padding(
         padding: globalMargin,
         child: StreamBuilder<List<MealInfo>>(
@@ -28,7 +29,7 @@ class FavoritesScreen extends StatelessWidget {
             }
             final meals = snapshot.data ?? [];
             if (meals.isEmpty) {
-              return const Center(child: Text('No favorite meals yet.'));
+              return Center(child: Text(t.favorites.empty));
             }
             return ListView.builder(
               itemCount: meals.length,

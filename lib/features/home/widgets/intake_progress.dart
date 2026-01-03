@@ -2,6 +2,7 @@ import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -31,7 +32,7 @@ class IntakeProgress extends StatelessWidget {
               Icon(LucideIcons.chartPie, color: colorScheme.primary),
               const SizedBox(width: 8),
               Text(
-                'Today\'s Macro Split',
+                t.home.intakeProgress.title,
                 style: textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
@@ -57,7 +58,7 @@ class IntakeProgress extends StatelessWidget {
                     children: [
                       Expanded(
                         child: _MacroPieChart(
-                          title: 'Target',
+                          title: t.home.intakeProgress.target,
                           protein: dailyGoal * 0.25 / 4,
                           carbs: dailyGoal * 0.50 / 4,
                           fat: dailyGoal * 0.20 / 9,
@@ -67,7 +68,7 @@ class IntakeProgress extends StatelessWidget {
                       const SizedBox(width: 16),
                       Expanded(
                         child: _MacroPieChart(
-                          title: 'Current',
+                          title: t.home.intakeProgress.current,
                           protein: meals.fold(0, (sum, m) => sum + m.protein).toDouble(),
                           carbs: meals.fold(0, (sum, m) => sum + m.carbs).toDouble(),
                           fat: meals.fold(0, (sum, m) => sum + m.fat).toDouble(),
@@ -185,10 +186,10 @@ class _MacroLegend extends StatelessWidget {
       runSpacing: 8,
       alignment: WrapAlignment.center,
       children: [
-        _LegendItem(color: carbsIconColor, label: 'Carbs'),
-        _LegendItem(color: proteinIconColor, label: 'Protein'),
-        _LegendItem(color: fatIconColor, label: 'Fat'),
-        _LegendItem(color: fiberIconColor, label: 'Fiber'),
+        _LegendItem(color: carbsIconColor, label: t.home.dailySummary.carbs),
+        _LegendItem(color: proteinIconColor, label: t.home.dailySummary.protein),
+        _LegendItem(color: fatIconColor, label: t.home.dailySummary.fat),
+        _LegendItem(color: fiberIconColor, label: t.home.dailySummary.fiber),
       ],
     );
   }

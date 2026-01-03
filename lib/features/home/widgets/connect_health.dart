@@ -1,6 +1,7 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
@@ -37,14 +38,14 @@ class HealthConnectPromptCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Sync with Health Connect',
+                  t.home.connectHealth.title,
                   style: textTheme.titleMedium?.copyWith(
                     color: colorScheme.primary,
                   ),
                 ),
                 SizedBox(height: 4),
                 Text(
-                  'Sync your nutrition data with Health Connect',
+                  t.home.connectHealth.description,
                   style: textTheme.bodyMedium,
                 ),
               ],
@@ -58,7 +59,7 @@ class HealthConnectPromptCard extends StatelessWidget {
                   ? HealthService.instance.installHealthConnect()
                   : HealthService.instance.requestAuthorization();
             },
-            text: isInstallRequired ? 'Install' : 'Connect',
+            text: isInstallRequired ? t.home.connectHealth.install : t.home.connectHealth.connect,
             minimumSize: Size(40, 40),
           ),
         ],

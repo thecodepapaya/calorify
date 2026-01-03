@@ -56,7 +56,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(t.settings.title),
         centerTitle: true,
         backgroundColor: colorScheme.surface,
         elevation: 0,
@@ -64,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: [
-          _buildCardSection('Profile', [
+          _buildCardSection(t.settings.sections.profile, [
             ListTile(
               leading: Container(
                 padding: const EdgeInsets.all(8),
@@ -78,11 +78,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   size: 20,
                 ),
               ),
-              title: const Text(
-                'Edit Profile',
+              title: Text(
+                t.settings.editProfile.title,
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
-              subtitle: const Text('Update your personal information'),
+              subtitle: Text(t.settings.editProfile.subtitle),
               trailing: const Icon(LucideIcons.chevronRight, size: 18),
               onTap:
                   _userProfile != null
@@ -97,13 +97,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ]),
           const SizedBox(height: 16),
-          _buildCardSection('Localization', [
+          _buildCardSection(t.settings.sections.localization, [
             _buildLanguageTile(),
             _buildHeightUnitTile(),
             _buildWeightUnitTile(),
           ]),
           const SizedBox(height: 16),
-          _buildCardSection('Notifications', [
+          _buildCardSection(t.settings.sections.notifications, [
             ListTile(
               leading: Container(
                 padding: const EdgeInsets.all(8),
@@ -117,17 +117,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   size: 20,
                 ),
               ),
-              title: const Text(
-                'Meal Reminders',
+              title: Text(
+                t.settings.mealReminders.title,
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
-              subtitle: const Text('Stay on track with timely alerts'),
+              subtitle: Text(t.settings.mealReminders.subtitle),
               trailing: const Icon(LucideIcons.chevronRight, size: 18),
               onTap: () => context.router.push(const EditReminderRoute()),
             ),
           ]),
           const SizedBox(height: 16),
-          _buildCardSection('Support & Legal', [
+          _buildCardSection(t.settings.sections.supportAndLegal, [
             ListTile(
               leading: Container(
                 padding: const EdgeInsets.all(8),
@@ -141,16 +141,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   size: 20,
                 ),
               ),
-              title: const Text(
-                'Send Feedback',
+              title: Text(
+                t.settings.sendFeedback.title,
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
-              subtitle: const Text('Help us improve Calorify'),
+              subtitle: Text(t.settings.sendFeedback.subtitle),
               onTap: _sendFeedbackEmail,
             ),
           ]),
           const SizedBox(height: 16),
-          _buildCardSection('Danger Zone', [
+          _buildCardSection(t.settings.sections.dangerZone, [
             ListTile(
               leading: Container(
                 padding: const EdgeInsets.all(8),
@@ -165,13 +165,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               title: Text(
-                'Clear All Data',
+                t.settings.clearAllData.title,
                 style: TextStyle(
                   color: colorScheme.error,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              subtitle: const Text('Irreversibly delete all your information'),
+              subtitle: Text(t.settings.clearAllData.subtitle),
               onTap: _showClearDataConfirmation,
             ),
           ]),
@@ -179,7 +179,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               kDebugMode ||
               EnvConfig.instance.isStaging) ...[
             const SizedBox(height: 16),
-            _buildCardSection('Developer', [
+            _buildCardSection(t.settings.sections.developer, [
               ListTile(
                 leading: Container(
                   padding: const EdgeInsets.all(8),
@@ -193,8 +193,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     size: 20,
                   ),
                 ),
-                title: const Text(
-                  'Debug Options',
+                title: Text(
+                  t.settings.debugOptions.title,
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 trailing: const Icon(LucideIcons.chevronRight, size: 18),
@@ -261,8 +261,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           size: 20,
         ),
       ),
-      title: const Text(
-        'Language',
+      title: Text(
+        t.settings.language.title,
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Text(currentLocale.translations.language),
@@ -288,17 +288,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         child: Icon(LucideIcons.ruler, color: colorScheme.primary, size: 20),
       ),
-      title: const Text(
-        'Height Unit',
+      title: Text(
+        t.settings.heightUnit.title,
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Text(
-        unitSystem == UnitSystem.metric ? 'Metric (cm)' : 'Imperial (ft/in)',
+        unitSystem == UnitSystem.metric
+            ? t.editProfile.metricCm
+            : t.editProfile.imperialFtIn,
       ),
       trailing: SegmentedButton<UnitSystem>(
-        segments: const [
-          ButtonSegment(value: UnitSystem.metric, label: Text('Metric')),
-          ButtonSegment(value: UnitSystem.imperial, label: Text('Imperial')),
+        segments: [
+          ButtonSegment(
+            value: UnitSystem.metric,
+            label: Text(t.editProfile.metric),
+          ),
+          ButtonSegment(
+            value: UnitSystem.imperial,
+            label: Text(t.editProfile.imperial),
+          ),
         ],
         selected: {unitSystem},
         showSelectedIcon: false,
@@ -353,17 +361,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         child: Icon(LucideIcons.scale, color: colorScheme.primary, size: 20),
       ),
-      title: const Text(
-        'Weight Unit',
+      title: Text(
+        t.settings.weightUnit.title,
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Text(
-        unitSystem == UnitSystem.metric ? 'Metric (kg)' : 'Imperial (lbs)',
+        unitSystem == UnitSystem.metric
+            ? t.editProfile.metricKg
+            : t.editProfile.imperialLbs,
       ),
       trailing: SegmentedButton<UnitSystem>(
-        segments: const [
-          ButtonSegment(value: UnitSystem.metric, label: Text('Metric')),
-          ButtonSegment(value: UnitSystem.imperial, label: Text('Imperial')),
+        segments: [
+          ButtonSegment(
+            value: UnitSystem.metric,
+            label: Text(t.editProfile.metric),
+          ),
+          ButtonSegment(
+            value: UnitSystem.imperial,
+            label: Text(t.editProfile.imperial),
+          ),
         ],
         selected: {unitSystem},
         showSelectedIcon: false,
@@ -419,14 +435,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text('Clear All Data?'),
-            content: const Text(
-              'This action cannot be undone. All your logged meals, favorites, and profile settings will be permanently deleted.',
-            ),
+            title: Text(t.settings.clearAllData.confirmationTitle),
+            content: Text(t.settings.clearAllData.confirmationMessage),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel'),
+                child: Text(t.settings.clearAllData.cancel),
               ),
               TextButton(
                 onPressed: () async {
@@ -438,8 +452,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     predicate: (route) => false,
                   );
                 },
-                child: const Text(
-                  'Clear Everything',
+                child: Text(
+                  t.settings.clearAllData.clearEverything,
                   style: TextStyle(color: Colors.red),
                 ),
               ),
@@ -495,8 +509,8 @@ UID: $uid''';
               if (_debugTapCount >= 7 && !_showDebugOptions) {
                 _showDebugOptions = true;
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Developer mode enabled!'),
+                  SnackBar(
+                    content: Text(t.settings.developerModeEnabled),
                     duration: Duration(seconds: 2),
                   ),
                 );

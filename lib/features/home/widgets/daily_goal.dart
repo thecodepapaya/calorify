@@ -3,8 +3,9 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart' show getWeightEstimateDisclaimer;
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
@@ -103,7 +104,7 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
                   ),
                   SizedBox(width: 8),
                   Text(
-                    isTargetSet ? 'Your Daily Goal' : 'Set Your Daily Goal',
+                    isTargetSet ? t.home.dailyGoal.titleSet : t.home.dailyGoal.title,
                     style: textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
@@ -114,10 +115,8 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
               SizedBox(height: 8),
               Text(
                 isTargetSet
-                    ? 'Your compass is set! '
-                        'This is your daily calorie target to guide you.'
-                    : 'Ready to embark on your wellness journey? '
-                        'Set your daily calorie target below to kickstart your progress.',
+                    ? t.home.dailyGoal.descriptionSet
+                    : t.home.dailyGoal.description,
                 style: textTheme.bodyMedium?.copyWith(
                   color: colorScheme.onSecondary.withValues(alpha: 0.7),
                 ),
@@ -152,7 +151,7 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
           Positioned(
             top: 0,
             right: 12,
-            child: DisclaimerButton(data: weightEstimateDisclaimer),
+            child: DisclaimerButton(data: getWeightEstimateDisclaimer()),
           ),
       ],
     );
@@ -188,7 +187,7 @@ class _ShowGoal extends StatelessWidget {
         Row(
           children: [
             Text(
-              'Your Goal',
+              t.home.dailyGoal.yourGoal,
               style: textTheme.bodyLarge?.copyWith(
                 color: colorScheme.onSecondary.withValues(alpha: 0.7),
               ),
@@ -208,7 +207,7 @@ class _ShowGoal extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: ' kcal',
+                    text: ' ${t.home.dailyGoal.kcal}',
                     style: textTheme.bodyLarge?.copyWith(
                       color: colorScheme.onSecondary.withValues(alpha: 0.7),
                     ),
@@ -232,13 +231,13 @@ class _ShowGoal extends StatelessWidget {
               _CalorieMetric(
                 icon: LucideIcons.flame,
                 color: colorScheme.tertiary,
-                label: 'Intake',
+                label: t.home.dailyGoal.intake,
                 value: caloriesConsumed,
               ),
               _CalorieMetric(
                 icon: LucideIcons.bike,
                 color: colorScheme.error,
-                label: 'Burned',
+                label: t.home.dailyGoal.burned,
                 value: caloriesBurned,
               ),
             ],
@@ -261,7 +260,7 @@ class _ShowGoal extends StatelessWidget {
                         ),
                       ),
                       WidgetSpan(child: SizedBox(width: 8)),
-                      TextSpan(text: 'Weight Impact'),
+                      TextSpan(text: t.home.dailyGoal.weightImpact),
                     ],
                   ),
                 ),
@@ -275,7 +274,7 @@ class _ShowGoal extends StatelessWidget {
                     color: isLosing ? Colors.green : Colors.red,
                   ),
                   SizedBox(width: 8),
-                  Text('Est. ${isLosing ? 'loss' : 'gain'} of'),
+                  Text(isLosing ? t.home.dailyGoal.estLoss : t.home.dailyGoal.estGain),
                   SizedBox(width: 4),
                   Text(
                     '${weightChangeGrams.abs().toStringAsFixed(0)}g',
@@ -360,7 +359,7 @@ class _GoalInputState extends State<_GoalInput> {
       children: [
         Row(
           children: [
-            Text('Daily calories (kcal)', style: textTheme.bodyLarge),
+            Text(t.home.dailyGoal.dailyCalories, style: textTheme.bodyLarge),
             Spacer(),
             SizedBox(
               width: 40,
@@ -389,7 +388,7 @@ class _GoalInputState extends State<_GoalInput> {
               ),
             ),
             SizedBox(width: 4),
-            Text('kcal', style: textTheme.bodyLarge),
+            Text(t.home.dailyGoal.kcal, style: textTheme.bodyLarge),
           ],
         ),
         SizedBox(height: 12),
@@ -400,7 +399,7 @@ class _GoalInputState extends State<_GoalInput> {
             onPressed: () {
               _onSetGoal(_controller.value.text);
             },
-            text: 'Set Goal',
+            text: t.home.dailyGoal.setGoal,
           ),
         ),
       ],

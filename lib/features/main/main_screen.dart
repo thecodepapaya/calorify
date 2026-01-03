@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/tabs.dart';
 import 'package:calorify/core/router/app_router.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/app_bar_title.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -64,7 +65,7 @@ class _FloatingDock extends StatelessWidget {
             children: [
               _DockItem(
                 icon: LucideIcons.layoutDashboard,
-                label: 'Dashboard',
+                label: t.tabs.dashboard,
                 isSelected: tabsRouter.activeIndex == MainTab.home.index,
                 onTap: () => tabsRouter.setActiveIndex(MainTab.home.index),
               ),
@@ -74,7 +75,7 @@ class _FloatingDock extends StatelessWidget {
               ),
               _DockItem(
                 icon: LucideIcons.history,
-                label: 'History',
+                label: t.tabs.history,
                 isSelected: tabsRouter.activeIndex == MainTab.mealHistory.index,
                 onTap:
                     () => tabsRouter.setActiveIndex(MainTab.mealHistory.index),
