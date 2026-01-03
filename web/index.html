@@ -12,7 +12,7 @@
     <link rel="dns-prefetch" href="https://unpkg.com">
 
     <meta name="description"
-        content="Track calories instantly with AI. Snap a photo of your meal and get nutritional estimates. No accounts, no ads, no manual logging. Download Calorify for Android.">
+        content="Track calories instantly with AI. Snap a photo or describe your meal for instant nutritional analysis. Privacy-first, zero friction, no ads. Download Calorify for Android.">
 
     <meta name="keywords"
         content="calorie tracker, AI food analysis, nutrition app, health connect, food scanner, calorify, weight loss app">
@@ -30,7 +30,7 @@
     <meta property="og:url" content="https://calorify.thecodepapaya.dev/">
     <meta property="og:title" content="Calorify - Effortless AI Calorie Tracking">
     <meta property="og:description"
-        content="Snap a photo, get calories. No manual logging, no accounts. The smartest way to track your nutrition with AI.">
+        content="Snap a photo or describe your meal for instant nutritional analysis. Privacy-first, zero friction, no ads. The smartest way to track your nutrition with AI.">
     <meta property="og:image" content="https://calorify.thecodepapaya.dev/assets/web-app-manifest-512x512.png">
 
     <!-- Twitter -->
@@ -38,7 +38,7 @@
     <meta property="twitter:url" content="https://calorify.thecodepapaya.dev/">
     <meta property="twitter:title" content="Calorify - Effortless AI Calorie Tracking">
     <meta property="twitter:description"
-        content="Snap a photo, get calories. No manual logging, no accounts. The smartest way to track your nutrition with AI.">
+        content="Snap a photo or describe your meal for instant nutritional analysis. Privacy-first, zero friction, no ads. The smartest way to track your nutrition with AI.">
     <meta property="twitter:image" content="https://calorify.thecodepapaya.dev/assets/web-app-manifest-512x512.png">
 
     <link rel="stylesheet" href="style.css">
@@ -64,7 +64,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": "AI-powered calorie tracking app that uses food image analysis for accurate nutritional logging.",
+      "description": "AI-powered calorie tracking app with photo and text analysis, smart goal tracking, Health Connect integration, and comprehensive nutrition analytics. Privacy-first, zero friction.",
       "downloadUrl": "https://play.google.com/store/apps/details?id=dev.thecodepapaya.calorify"
     }
     </script>
@@ -78,8 +78,8 @@
                 <span class="logo-text">Calorify</span>
             </div>
             <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
                 <li><a href="#how-it-works">How it Works</a></li>
+                <li><a href="#features">Features</a></li>
                 <li><a href="https://play.google.com/store/apps/details?id=dev.thecodepapaya.calorify"
                         class="btn-primary" target="_blank">Download</a></li>
             </ul>
@@ -90,8 +90,8 @@
         <section class="hero">
             <div class="hero-content">
                 <h1>Track your nutrition with the power of AI</h1>
-                <p>Calorify makes calorie tracking effortless — just snap a photo of your meal, and get an instant
-                    estimate. <strong>No manual logging, no accounts, no ads.</strong></p>
+                <p>Snap a photo or describe your meal. Get instant nutritional analysis. Track goals, view history, and
+                    sync with Health Connect. <strong>No manual logging, no accounts, no ads.</strong></p>
                 <div class="hero-btns">
                     <a href="https://play.google.com/store/apps/details?id=dev.thecodepapaya.calorify"
                         class="btn-primary" target="_blank">Get it on Google Play</a>
@@ -99,13 +99,24 @@
                 </div>
             </div>
             <div class="hero-image">
-                <div class="mockup">
-                    <div class="mockup-content">
-                        <div class="ai-scan-anim">
-                            <i data-lucide="scan"></i>
-                            <div class="scan-line"></div>
+                <div class="device-frame device-frame-hero">
+                    <div class="device-frame-inner">
+                        <div class="device-notch"></div>
+                        <div class="device-screen">
+                            <img src="assets/screenshots/hero-home.png" alt="Calorify Home Screen" class="screenshot-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="screenshot-placeholder screenshot-hero" style="display: none;">
+                                <div class="placeholder-content">
+                                    <i data-lucide="smartphone"></i>
+                                    <span>App Screenshot</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="floating-elements">
+                    <div class="floating-element floating-1"></div>
+                    <div class="floating-element floating-2"></div>
+                    <div class="floating-element floating-3"></div>
                 </div>
             </div>
         </section>
@@ -113,29 +124,31 @@
         <section id="how-it-works" class="how-it-works">
             <div class="features-header">
                 <h2>How it Works</h2>
-                <p class="subtitle">Logging your meals with Calorify is a simple 3-step process powered by advanced AI.
-                </p>
+                <p class="subtitle">Three simple steps to effortless nutrition tracking.</p>
             </div>
             <div class="steps-container">
                 <div class="step-item">
                     <div class="step-number">1</div>
                     <div class="step-content">
                         <h3>Snap or Describe</h3>
-                        <p>Take a photo of your meal or type a quick description in natural language.</p>
+                        <p>Take a photo or type a description. Our AI understands natural language—just tell it what you
+                            ate.</p>
                     </div>
                 </div>
                 <div class="step-item">
                     <div class="step-number">2</div>
                     <div class="step-content">
                         <h3>AI Analysis</h3>
-                        <p>Our proprietary AI identifies ingredients and estimates portion sizes instantly.</p>
+                        <p>Instant nutritional breakdown: calories, protein, carbs, fat, and fiber—calculated
+                            automatically.</p>
                     </div>
                 </div>
                 <div class="step-item">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <h3>Log & Track</h3>
-                        <p>Review the nutritional breakdown and save it to your history. That's it!</p>
+                        <h3>Track Progress</h3>
+                        <p>Review, save, and monitor your daily goals with beautiful charts and analytics. Your data
+                            stays private.</p>
                     </div>
                 </div>
             </div>
@@ -144,17 +157,148 @@
         <section id="features" class="features">
             <div class="features-header">
                 <h2>Why Calorify?</h2>
-                <p class="subtitle">Experience the next generation of calorie tracking. Built for speed, accuracy, and
-                    complete privacy.</p>
+                <p class="subtitle">Built for speed, accuracy, and complete privacy.</p>
             </div>
-            <div class="feature-grid">
+
+            <!-- Feature Showcases with Screenshots -->
+            <div class="feature-showcases">
+                <!-- AI-Powered Analysis -->
+                <div class="feature-showcase">
+                    <div class="feature-showcase-content">
+                        <div class="feature-showcase-icon">
+                            <i data-lucide="camera"></i>
+                        </div>
+                        <h3>AI-Powered Analysis</h3>
+                        <p class="feature-description">Snap a photo of your meal or describe it in natural language. Our advanced AI instantly identifies ingredients, estimates portion sizes, and calculates complete nutritional breakdown—calories, protein, carbs, fat, and fiber—all automatically.</p>
+                        <ul class="feature-benefits">
+                            <li><i data-lucide="check"></i> Photo or text input</li>
+                            <li><i data-lucide="check"></i> Instant nutritional analysis</li>
+                            <li><i data-lucide="check"></i> Accurate portion estimation</li>
+                        </ul>
+                    </div>
+                    <div class="feature-showcase-screenshot">
+                        <div class="device-frame">
+                            <div class="device-frame-inner">
+                                <div class="device-notch"></div>
+                                <div class="device-screen">
+                                    <img src="assets/screenshots/ai-analysis.png" alt="AI Analysis Screen" class="screenshot-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div class="screenshot-placeholder" style="display: none;">
+                                        <div class="placeholder-content">
+                                            <i data-lucide="camera"></i>
+                                            <span>AI Analysis</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Smart Tracking -->
+                <div class="feature-showcase feature-showcase-reverse">
+                    <div class="feature-showcase-content">
+                        <div class="feature-showcase-icon">
+                            <i data-lucide="target"></i>
+                        </div>
+                        <h3>Smart Tracking</h3>
+                        <p class="feature-description">Set personalized daily calorie goals and track your progress with beautiful visual charts. View your complete meal history, save favorites for quick logging, and get automatic BMR and TDEE calculations based on your profile.</p>
+                        <ul class="feature-benefits">
+                            <li><i data-lucide="check"></i> Personalized goal setting</li>
+                            <li><i data-lucide="check"></i> Visual progress charts</li>
+                            <li><i data-lucide="check"></i> BMR & TDEE calculations</li>
+                        </ul>
+                    </div>
+                    <div class="feature-showcase-screenshot">
+                        <div class="device-frame">
+                            <div class="device-frame-inner">
+                                <div class="device-notch"></div>
+                                <div class="device-screen">
+                                    <img src="assets/screenshots/smart-tracking.png" alt="Smart Tracking Analytics Screen" class="screenshot-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div class="screenshot-placeholder" style="display: none;">
+                                        <div class="placeholder-content">
+                                            <i data-lucide="chart-bar"></i>
+                                            <span>Analytics</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Health Connect -->
+                <div class="feature-showcase">
+                    <div class="feature-showcase-content">
+                        <div class="feature-showcase-icon">
+                            <i data-lucide="heart"></i>
+                        </div>
+                        <h3>Health Connect</h3>
+                        <p class="feature-description">Seamlessly integrate with Android Health Connect to automatically sync your nutrition and activity data across all your health apps. Keep everything in one place without manual entry.</p>
+                        <ul class="feature-benefits">
+                            <li><i data-lucide="check"></i> Automatic data sync</li>
+                            <li><i data-lucide="check"></i> Cross-app integration</li>
+                            <li><i data-lucide="check"></i> Optional setup</li>
+                        </ul>
+                    </div>
+                    <div class="feature-showcase-screenshot">
+                        <div class="device-frame">
+                            <div class="device-frame-inner">
+                                <div class="device-notch"></div>
+                                <div class="device-screen">
+                                    <img src="assets/screenshots/health-connect.png" alt="Health Connect Screen" class="screenshot-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div class="screenshot-placeholder" style="display: none;">
+                                        <div class="placeholder-content">
+                                            <i data-lucide="heart"></i>
+                                            <span>Health Connect</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Global Ready -->
+                <div class="feature-showcase feature-showcase-reverse">
+                    <div class="feature-showcase-content">
+                        <div class="feature-showcase-icon">
+                            <i data-lucide="globe"></i>
+                        </div>
+                        <h3>Global Ready</h3>
+                        <p class="feature-description">Multi-language support with automatic unit detection based on your locale. Fully customizable settings, meal reminders, and preferences—all tailored to your region and preferences.</p>
+                        <ul class="feature-benefits">
+                            <li><i data-lucide="check"></i> Multi-language support</li>
+                            <li><i data-lucide="check"></i> Automatic unit detection</li>
+                            <li><i data-lucide="check"></i> Customizable settings</li>
+                        </ul>
+                    </div>
+                    <div class="feature-showcase-screenshot">
+                        <div class="device-frame">
+                            <div class="device-frame-inner">
+                                <div class="device-notch"></div>
+                                <div class="device-screen">
+                                    <img src="assets/screenshots/global-ready.png" alt="Global Ready Settings Screen" class="screenshot-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div class="screenshot-placeholder" style="display: none;">
+                                        <div class="placeholder-content">
+                                            <i data-lucide="globe"></i>
+                                            <span>Settings</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simple Feature Cards (No Images) -->
+            <div class="feature-grid-simple">
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
                         <i data-lucide="shield-check"></i>
                     </div>
                     <h3>Privacy First</h3>
-                    <p>No accounts required. Your health data stays on your device and your personal cloud. Your privacy
-                        is our priority.</p>
+                    <p>No accounts required. Your health data stays on your device and your personal cloud.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
@@ -163,21 +307,17 @@
                     <h3>Zero Friction</h3>
                     <p>No ads, no subscriptions, no manual logging. Just snap, analyze, and go.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <i data-lucide="camera"></i>
-                    </div>
-                    <h3>AI Image Analysis</h3>
-                    <p>Just snap a photo of your plate and let our AI identify everything on it instantly.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <i data-lucide="heart"></i>
-                    </div>
-                    <h3>Health Sync</h3>
-                    <p>Integrates with Android Health Connect to keep all your physical activity and nutrition in sync.
-                    </p>
-                </div>
+            </div>
+
+            <!-- Download CTA -->
+            <div class="download-cta">
+                <h3>Ready to start tracking?</h3>
+                <p>Download Calorify now and experience effortless nutrition tracking powered by AI.</p>
+                <a href="https://play.google.com/store/apps/details?id=dev.thecodepapaya.calorify"
+                    class="btn-primary btn-primary-large" target="_blank">
+                    <i data-lucide="download"></i>
+                    Get it on Google Play
+                </a>
             </div>
         </section>
     </main>
@@ -218,9 +358,50 @@
 
     <script>
         window.addEventListener('load', () => {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
+            // Initialize Lucide icons
+            const initIcons = () => {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            };
+            initIcons();
+
+            // Re-initialize icons when new content is animated in
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                        // Re-initialize icons for newly visible content
+                        initIcons();
+                    }
+                });
+            }, observerOptions);
+
+            // Observe elements for animation
+            document.querySelectorAll('.step-item, .feature-card, .feature-showcase, .features-header').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Parallax effect for hero device
+            const heroDevice = document.querySelector('.device-frame-hero');
+            if (heroDevice) {
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.pageYOffset;
+                    const rate = scrolled * 0.3;
+                    heroDevice.style.transform = `translateY(${rate}px) rotateY(${scrolled * 0.05}deg)`;
+                });
             }
+
+            // Floating elements animation
+            const floatingElements = document.querySelectorAll('.floating-element');
+            floatingElements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.5}s`;
+            });
         });
     </script>
 </body>
