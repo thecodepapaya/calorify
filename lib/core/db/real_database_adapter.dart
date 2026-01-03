@@ -102,4 +102,9 @@ class RealDatabaseAdapter implements DatabaseInterface {
   Future<bool> hasUserProfile() async {
     return await _database.hasUserProfile();
   }
+
+  @override
+  Future<void> clearAllData() async {
+    await _database.clearAllData();
+  }
 }

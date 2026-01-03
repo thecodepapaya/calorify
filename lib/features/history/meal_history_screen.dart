@@ -73,7 +73,6 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
     final List<_DayMeals> groupedMeals = _groupMealsByDay(meals);
 
     return Scaffold(
-      appBar: AppBar(title: Text('History')),
       body: Padding(
         padding: globalMargin,
         child: Builder(
@@ -112,7 +111,8 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
                         allowEdit: true,
                       ),
                     ),
-                    if (index == groupedMeals.length - 1) const SizedBox(height: 120),
+                    if (index == groupedMeals.length - 1)
+                      const SizedBox(height: 120),
                   ],
                 );
               },

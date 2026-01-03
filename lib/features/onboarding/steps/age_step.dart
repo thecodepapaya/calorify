@@ -13,7 +13,9 @@ class AgeStepScreen extends StatefulWidget {
 }
 
 class _AgeStepScreenState extends State<AgeStepScreen> {
-  DateTime _dateOfBirth = DateTime.now().subtract(const Duration(days: 365 * 25));
+  DateTime _dateOfBirth = DateTime.now().subtract(
+    const Duration(days: 365 * 25),
+  );
 
   @override
   void initState() {
@@ -41,12 +43,16 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
           const SizedBox(height: 48),
           Text(
             'When is your birthday?',
-            style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
+            style: theme.textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(height: 12),
           Text(
             'Your age helps us calculate your calorie needs accurately.',
-            style: theme.textTheme.bodyLarge?.copyWith(color: colorScheme.onSurfaceVariant),
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
           ),
           const Spacer(),
           Center(
@@ -56,13 +62,20 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
                   onTap: () => _selectDate(context),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 20,
+                    ),
                     decoration: BoxDecoration(
                       color: colorScheme.surface,
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(color: colorScheme.primary, width: 2),
                       boxShadow: [
-                        BoxShadow(color: colorScheme.primary.withOpacity(0.1), blurRadius: 12, offset: const Offset(0, 4))
+                        BoxShadow(
+                          color: colorScheme.primary.withOpacity(0.1),
+                          blurRadius: 12,
+                          offset: const Offset(0, 4),
+                        ),
                       ],
                     ),
                     child: Column(
@@ -109,9 +122,14 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
               onPressed: _saveAndContinue,
               style: FilledButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
               ),
-              child: const Text('Next', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text(
+                'Next',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ],
@@ -122,7 +140,8 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
   int _calculateAge(DateTime birthDate) {
     DateTime today = DateTime.now();
     int age = today.year - birthDate.year;
-    if (today.month < birthDate.month || (today.month == birthDate.month && today.day < birthDate.day)) {
+    if (today.month < birthDate.month ||
+        (today.month == birthDate.month && today.day < birthDate.day)) {
       age--;
     }
     return age;
@@ -141,8 +160,12 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
   }
 
   Future<void> _saveAndContinue() async {
-    final profile = await OnboardingService.instance.getProfileData() ?? const UserProfile();
-    await OnboardingService.instance.saveProfileData(profile.copyWith(dateOfBirth: _dateOfBirth));
+    final profile =
+        await OnboardingService.instance.getProfileData() ??
+        const UserProfile();
+    await OnboardingService.instance.saveProfileData(
+      profile.copyWith(dateOfBirth: _dateOfBirth),
+    );
     widget.onContinue();
   }
 }

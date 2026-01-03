@@ -1,0 +1,23 @@
+{
+  "language": "日本語",
+  "flag": "🇯🇵",
+  "onboarding": {
+    "welcome": "Calorifyへようこそ",
+    "subtitle": "AIによるあなたの個人的な栄養コンパニオン",
+    "getStarted": "始める",
+    "features": {
+      "foodRecognition": {
+        "title": "スマートフード認識",
+        "description": "写真を撮ってAIに食事を特定させましょう"
+      },
+      "aiAnalysis": {
+        "title": "AI分析",
+        "description": "あなたの説明から即座に栄養情報を取得"
+      },
+      "healthIntegration": {
+        "title": "健康統合",
+        "description": "より良い洞察のためにHealth Connectと接続する"
+      }
+    }
+  }
+}

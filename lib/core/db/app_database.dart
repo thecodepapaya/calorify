@@ -21,7 +21,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 8;
+  int get schemaVersion => 11;
 
   @override
   MigrationStrategy get migration {
@@ -54,6 +54,13 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         if (from < 8) {
           await m.addColumn(userSettingsTable, userSettingsTable.targetWeight);
         }
+        if (from < 10) {
+          await m.addColumn(userSettingsTable, userSettingsTable.heightUnit);
+          await m.addColumn(userSettingsTable, userSettingsTable.weightUnit);
+        }
+        if (from < 11) {
+          await m.addColumn(userSettingsTable, userSettingsTable.languageCode);
+        }
       },
     );
   }
@@ -70,10 +77,9 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
 
   @override
   Stream<int?> watchDailyCalorieGoal() {
-    return (select(userSettingsTable)
-          ..where((tbl) => tbl.id.equals(_userSettingsId)))
-        .watchSingleOrNull()
-        .map((row) => row?.dailyCalorieGoal);
+    return (select(userSettingsTable)..where(
+      (tbl) => tbl.id.equals(_userSettingsId),
+    )).watchSingleOrNull().map((row) => row?.dailyCalorieGoal);
   }
 
   @override
@@ -238,6 +244,15 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         result.dateOfBirth != null &&
         result.weightGoal != null &&
         result.activityLevel != null;
+  }
+
+  @override
+  Future<void> clearAllData() async {
+    await transaction(() async {
+      await delete(mealInfoTable).go();
+      await delete(userSettingsTable).go();
+      await delete(favoriteMealTable).go();
+    });
   }
 }
 

@@ -6,6 +6,13 @@ enum Gender { male, female, other }
 
 enum WeightGoal { loseWeight, maintainWeight, gainWeight }
 
+enum UnitSystem { metric, imperial }
+
+extension UnitSystemExtension on UnitSystem {
+  bool get isMetric => this == UnitSystem.metric;
+  bool get isImperial => this == UnitSystem.imperial;
+}
+
 enum ActivityLevel {
   sedentary, // Little to no exercise
   lightlyActive, // Light exercise 1-3 days/week
@@ -16,13 +23,16 @@ enum ActivityLevel {
 
 @JsonSerializable()
 class UserProfile {
-  final double? height; // in cm
-  final double? weight; // in kg
-  final double? targetWeight; // in kg
+  final double? height;
+  final double? weight;
+  final double? targetWeight;
   final Gender? gender;
   final DateTime? dateOfBirth;
   final WeightGoal? weightGoal;
   final ActivityLevel? activityLevel;
+  final UnitSystem heightUnit;
+  final UnitSystem weightUnit;
+  final String? languageCode;
 
   const UserProfile({
     this.height,
@@ -32,6 +42,9 @@ class UserProfile {
     this.dateOfBirth,
     this.weightGoal,
     this.activityLevel,
+    this.heightUnit = UnitSystem.metric,
+    this.weightUnit = UnitSystem.metric,
+    this.languageCode,
   });
 
   int? get age {
@@ -58,6 +71,9 @@ class UserProfile {
     DateTime? dateOfBirth,
     WeightGoal? weightGoal,
     ActivityLevel? activityLevel,
+    UnitSystem? heightUnit,
+    UnitSystem? weightUnit,
+    String? languageCode,
   }) {
     return UserProfile(
       height: height ?? this.height,
@@ -67,6 +83,9 @@ class UserProfile {
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       weightGoal: weightGoal ?? this.weightGoal,
       activityLevel: activityLevel ?? this.activityLevel,
+      heightUnit: heightUnit ?? this.heightUnit,
+      weightUnit: weightUnit ?? this.weightUnit,
+      languageCode: languageCode ?? this.languageCode,
     );
   }
 }

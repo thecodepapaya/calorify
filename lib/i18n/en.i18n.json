@@ -1,0 +1,23 @@
+{
+  "language": "English",
+  "flag": "🇺🇸",
+  "onboarding": {
+    "welcome": "Welcome to Calorify",
+    "subtitle": "Your personal nutrition companion powered by AI",
+    "getStarted": "Get Started",
+    "features": {
+      "foodRecognition": {
+        "title": "Smart Food Recognition",
+        "description": "Take a photo and let AI identify your meal"
+      },
+      "aiAnalysis": {
+        "title": "AI Analysis",
+        "description": "Get instant nutrition facts from your descriptions"
+      },
+      "healthIntegration": {
+        "title": "Health Integration",
+        "description": "Connect with Health Connect for better insights"
+      }
+    }
+  }
+}

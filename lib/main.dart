@@ -1,5 +1,6 @@
 import 'package:calorify/app.dart';
 import 'package:calorify/firebase_options.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,9 @@ import 'package:measure_flutter/measure_flutter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize with device locale immediately (no DB access yet)
+  LocaleSettings.useDeviceLocaleSync();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
@@ -18,7 +22,7 @@ Future<void> main() async {
   );
 
   await Measure.instance.init(
-    () => runApp(const CalorifyApp()),
+    () => runApp(TranslationProvider(child: const CalorifyApp())),
     config: const MeasureConfig(
       traceSamplingRate: 1,
       samplingRateForErrorFreeSessions: 1,

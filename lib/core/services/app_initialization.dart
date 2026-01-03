@@ -10,6 +10,7 @@ import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/services/performance_service.dart';
 import 'package:calorify/core/services/remote_db.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -69,6 +70,14 @@ class AppInitialization {
         DatabaseService.initialize,
         parentSpan: span,
       );
+
+      // Load saved language preference after DB is initialized
+      final profile = await OnboardingService.instance.getProfileData();
+      if (profile?.languageCode != null) {
+        final locale = AppLocaleUtils.parse(profile!.languageCode!);
+        await LocaleSettings.setLocale(locale);
+      }
+
       await Performance.trace(
         TraceType.analyticsServiceInit,
         Analytics.instance.initialize,

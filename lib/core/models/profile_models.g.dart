@@ -20,6 +20,13 @@ UserProfile _$UserProfileFromJson(Map<String, dynamic> json) => UserProfile(
     _$ActivityLevelEnumMap,
     json['activityLevel'],
   ),
+  heightUnit:
+      $enumDecodeNullable(_$UnitSystemEnumMap, json['heightUnit']) ??
+      UnitSystem.metric,
+  weightUnit:
+      $enumDecodeNullable(_$UnitSystemEnumMap, json['weightUnit']) ??
+      UnitSystem.metric,
+  languageCode: json['languageCode'] as String?,
 );
 
 Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
@@ -31,6 +38,9 @@ Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
       'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
       'weightGoal': _$WeightGoalEnumMap[instance.weightGoal],
       'activityLevel': _$ActivityLevelEnumMap[instance.activityLevel],
+      'heightUnit': _$UnitSystemEnumMap[instance.heightUnit]!,
+      'weightUnit': _$UnitSystemEnumMap[instance.weightUnit]!,
+      'languageCode': instance.languageCode,
     };
 
 const _$GenderEnumMap = {
@@ -51,4 +61,9 @@ const _$ActivityLevelEnumMap = {
   ActivityLevel.moderatelyActive: 'moderatelyActive',
   ActivityLevel.veryActive: 'veryActive',
   ActivityLevel.extremelyActive: 'extremelyActive',
+};
+
+const _$UnitSystemEnumMap = {
+  UnitSystem.metric: 'metric',
+  UnitSystem.imperial: 'imperial',
 };

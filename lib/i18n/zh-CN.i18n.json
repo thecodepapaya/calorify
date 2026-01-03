@@ -1,0 +1,23 @@
+{
+  "language": "简体中文",
+  "flag": "🇨🇳",
+  "onboarding": {
+    "welcome": "欢迎使用 Calorify",
+    "subtitle": "您个性化的营养伴侣，基于 AI 技术",
+    "getStarted": "开始使用",
+    "features": {
+      "foodRecognition": {
+        "title": "智能食物识别",
+        "description": "拍摄照片，让 AI 识别您的餐点"
+      },
+      "aiAnalysis": {
+        "title": "AI 分析",
+        "description": "根据您的描述获取即时营养信息"
+      },
+      "healthIntegration": {
+        "title": "健康整合",
+        "description": "连接 Health Connect 以获得更好的洞察"
+      }
+    }
+  }
+}

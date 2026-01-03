@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/shared_widgets/profile_enum_extensions.dart';
 import 'package:calorify/shared_widgets/selection_card.dart';
 import 'package:calorify/shared_widgets/value_slider.dart';
@@ -29,7 +29,66 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late Gender _selectedGender;
   late WeightGoal _selectedWeightGoal;
   late ActivityLevel _selectedActivityLevel;
-  bool _isMetric = true;
+  late UnitSystem _heightUnit;
+  late UnitSystem _weightUnit;
+
+  // Store original values to detect changes
+  late double _originalHeight;
+  late double _originalWeight;
+  late DateTime _originalDateOfBirth;
+  late Gender _originalGender;
+  late WeightGoal _originalWeightGoal;
+  late ActivityLevel _originalActivityLevel;
+  late UnitSystem _originalHeightUnit;
+  late UnitSystem _originalWeightUnit;
+
+  // Height constants
+  static const double _minHeightMetric = 100.0;
+  static const double _maxHeightMetric = 250.0;
+  static const double _minHeightImperial = 3.3;
+  static const double _maxHeightImperial = 8.2;
+  static const double _defaultHeightMetric = 170.0;
+  static const double _defaultHeightImperial = 5.6;
+
+  // Weight constants
+  static const double _minWeightMetric = 30.0;
+  static const double _maxWeightMetric = 300.0;
+  static const double _minWeightImperial = 66.0;
+  static const double _maxWeightImperial = 660.0;
+  static const double _defaultWeightMetric = 70.0;
+  static const double _defaultWeightImperial = 154.0;
+
+  // Date constants
+  static const int _defaultAgeYears = 25;
+  static const int _daysInYear = 365;
+  static const int _earliestYear = 1900;
+
+  // Precision constants
+  static const int _metricHeightPrecision = 0;
+  static const int _imperialHeightPrecision = 1;
+  static const int _weightPrecision = 1;
+
+  // UI Layout constants
+  static const double _cardBorderRadius = 20.0;
+  static const double _sectionHeaderLetterSpacing = 1.2;
+  static const double _iconContainerOpacity = 0.4;
+  static const double _borderOpacity = 0.5;
+  static const double _iconSize = 20.0;
+  static const double _chevronIconSize = 18.0;
+  static const double _dividerHeight = 1.0;
+
+  // Padding constants
+  static const double _horizontalPadding = 16.0;
+  static const double _verticalPadding = 8.0;
+  static const double _sectionSpacing = 16.0;
+  static const double _extraLargeSpacing = 32.0;
+  static const double _cardContentHorizontalPadding = 16.0;
+  static const double _cardContentVerticalPadding = 8.0;
+  static const double _titleBottomPadding = 8.0;
+  static const double _subtitleTopPadding = 8.0;
+  static const double _itemSpacing = 12.0;
+  static const double _iconContainerPadding = 8.0;
+  static const double _sectionHeaderLeftPadding = 8.0;
 
   @override
   void initState() {
@@ -43,11 +102,59 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         widget.userProfile.weightGoal ?? WeightGoal.maintainWeight;
     _selectedActivityLevel =
         widget.userProfile.activityLevel ?? ActivityLevel.sedentary;
-    _height = widget.userProfile.height ?? 170;
-    _weight = widget.userProfile.weight ?? 70;
+    _heightUnit = widget.userProfile.heightUnit;
+    _weightUnit = widget.userProfile.weightUnit;
+
+    // Initialize height with clamping to ensure it's within bounds
+    final defaultHeight =
+        _heightUnit.isMetric ? _defaultHeightMetric : _defaultHeightImperial;
+    final minHeight =
+        _heightUnit.isMetric ? _minHeightMetric : _minHeightImperial;
+    final maxHeight =
+        _heightUnit.isMetric ? _maxHeightMetric : _maxHeightImperial;
+    _height = (widget.userProfile.height ?? defaultHeight).clamp(
+      minHeight,
+      maxHeight,
+    );
+
+    // Initialize weight with clamping to ensure it's within bounds
+    final defaultWeight =
+        _weightUnit.isMetric ? _defaultWeightMetric : _defaultWeightImperial;
+    final minWeight =
+        _weightUnit.isMetric ? _minWeightMetric : _minWeightImperial;
+    final maxWeight =
+        _weightUnit.isMetric ? _maxWeightMetric : _maxWeightImperial;
+    _weight = (widget.userProfile.weight ?? defaultWeight).clamp(
+      minWeight,
+      maxWeight,
+    );
+
     _dateOfBirth =
         widget.userProfile.dateOfBirth ??
-        DateTime.now().subtract(const Duration(days: 365 * 25));
+        DateTime.now().subtract(
+          const Duration(days: _daysInYear * _defaultAgeYears),
+        );
+
+    // Store original values for change detection
+    _originalHeight = _height;
+    _originalWeight = _weight;
+    _originalDateOfBirth = _dateOfBirth;
+    _originalGender = _selectedGender;
+    _originalWeightGoal = _selectedWeightGoal;
+    _originalActivityLevel = _selectedActivityLevel;
+    _originalHeightUnit = _heightUnit;
+    _originalWeightUnit = _weightUnit;
+  }
+
+  bool _hasChanges() {
+    return _height != _originalHeight ||
+        _weight != _originalWeight ||
+        _dateOfBirth != _originalDateOfBirth ||
+        _selectedGender != _originalGender ||
+        _selectedWeightGoal != _originalWeightGoal ||
+        _selectedActivityLevel != _originalActivityLevel ||
+        _heightUnit != _originalHeightUnit ||
+        _weightUnit != _originalWeightUnit;
   }
 
   @override
@@ -57,193 +164,402 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Edit Profile'), centerTitle: true),
+      backgroundColor: colorScheme.surface,
+      appBar: AppBar(
+        title: const Text('Edit Profile'),
+        centerTitle: true,
+        backgroundColor: colorScheme.surface,
+        elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: _hasChanges() ? _saveProfile : null,
+            icon: Icon(
+              LucideIcons.check,
+              color:
+                  _hasChanges()
+                      ? colorScheme.primary
+                      : colorScheme.onSurface.withOpacity(0.38),
+            ),
+          ),
+        ],
+      ),
       body: Form(
         key: _formKey,
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Gender Selection
-              Text(
-                'Gender',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children:
-                    Gender.values.map((gender) {
-                      return Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: FilterChip(
-                            label: Text(gender.displayName),
-                            selected: _selectedGender == gender,
-                            onSelected: (selected) {
-                              if (selected) {
-                                setState(() {
-                                  _selectedGender = gender;
-                                });
-                              }
-                            },
-                          ),
-                        ),
-                      );
-                    }).toList(),
-              ),
-              const SizedBox(height: 24),
+        child: ListView(
+          padding: const EdgeInsets.symmetric(
+            horizontal: _horizontalPadding,
+            vertical: _verticalPadding,
+          ),
+          children: [
+            // Personal Information Section
+            _buildCardSection('Personal Information', [
+              _buildGenderTile(),
+              _buildDateOfBirthTile(),
+            ]),
+            const SizedBox(height: _sectionSpacing),
 
-              // Unit System Toggle
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildUnitToggle(
-                      context,
-                      label: 'Metric',
-                      isSelected: _isMetric,
-                      onTap: () => setState(() => _isMetric = true),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _buildUnitToggle(
-                      context,
-                      label: 'Imperial',
-                      isSelected: !_isMetric,
-                      onTap: () => setState(() => _isMetric = false),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
+            // Physical Measurements Section
+            _buildCardSection('Physical Measurements', [
+              _buildHeightTile(),
+              _buildWeightTile(),
+            ]),
+            const SizedBox(height: _sectionSpacing),
 
-              // Height Input
-              Text(
-                'Height (${_isMetric ? "cm" : "ft"})',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 12),
-              ValueSlider(
-                label: 'Height',
-                unit: _isMetric ? 'cm' : 'ft',
-                min: _isMetric ? 100 : 3,
-                max: _isMetric ? 250 : 8,
-                value: _isMetric ? _height : _height / 30.48,
-                precision: _isMetric ? 0 : 2,
-                onChanged: (value) {
-                  setState(() {
-                    _height = _isMetric ? value : value * 30.48;
-                  });
-                },
-              ),
-              const SizedBox(height: 24),
-
-              // Weight Input
-              Text(
-                'Weight (${_isMetric ? "kg" : "lbs"})',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 12),
-              ValueSlider(
-                label: 'Weight',
-                unit: _isMetric ? 'kg' : 'lbs',
-                min: _isMetric ? 20 : 44,
-                max: _isMetric ? 300 : 660,
-                value: _isMetric ? _weight : _weight * 2.20462,
-                precision: 1,
-                onChanged: (value) {
-                  setState(() {
-                    _weight = _isMetric ? value : value / 2.20462;
-                  });
-                },
-              ),
-              const SizedBox(height: 24),
-
-              // Date of Birth Input
-              Text(
-                'Date of Birth',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 12),
-              InkWell(
-                onTap: () => _selectDate(context),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 16,
-                    horizontal: 12,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.outline,
-                    ),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(LucideIcons.calendar),
-                      const SizedBox(width: 12),
-                      Text(
-                        DateFormat.yMMMMd().format(_dateOfBirth),
-                        style: Theme.of(context).textTheme.bodyLarge,
+            // Goals & Activity Section
+            _buildCardSection('Goals & Activity', [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: _cardContentHorizontalPadding,
+                  vertical: _cardContentVerticalPadding,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Weight Goal',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: _itemSpacing),
+                    ...WeightGoal.values.map((goal) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: _itemSpacing),
+                        child: _buildGoalCard(context, goal),
+                      );
+                    }),
+                  ],
                 ),
               ),
-              const SizedBox(height: 32),
-
-              // Weight Goal Selection
-              Text(
-                'Weight Goal',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+              const Divider(height: _dividerHeight),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: _cardContentHorizontalPadding,
+                  vertical: _cardContentVerticalPadding,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Activity Level',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: _itemSpacing),
+                    ...ActivityLevel.values.map((level) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: _itemSpacing),
+                        child: _buildActivityCard(context, level),
+                      );
+                    }),
+                  ],
+                ),
               ),
-              const SizedBox(height: 12),
-              ...WeightGoal.values.map((goal) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
-                  child: _buildGoalCard(context, goal),
+            ]),
+            const SizedBox(height: _extraLargeSpacing),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCardSection(String title, List<Widget> children) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            left: _sectionHeaderLeftPadding,
+            bottom: _titleBottomPadding,
+          ),
+          child: Text(
+            title.toUpperCase(),
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: colorScheme.primary,
+              fontWeight: FontWeight.bold,
+              letterSpacing: _sectionHeaderLetterSpacing,
+            ),
+          ),
+        ),
+        Card(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(_cardBorderRadius),
+            side: BorderSide(
+              color: colorScheme.outlineVariant.withOpacity(_borderOpacity),
+            ),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Column(children: children),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGenderTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: _cardContentHorizontalPadding,
+        vertical: _cardContentVerticalPadding,
+      ),
+      leading: Container(
+        padding: const EdgeInsets.all(_iconContainerPadding),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withOpacity(
+            _iconContainerOpacity,
+          ),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          LucideIcons.user,
+          color: colorScheme.primary,
+          size: _iconSize,
+        ),
+      ),
+      title: const Text(
+        'Gender',
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+      subtitle: Padding(
+        padding: const EdgeInsets.only(top: _subtitleTopPadding),
+        child: SegmentedButton<Gender>(
+          segments:
+              Gender.values.map((gender) {
+                return ButtonSegment<Gender>(
+                  value: gender,
+                  label: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(_getGenderIcon(gender), size: 14),
+                      const SizedBox(width: 4),
+                      Text(gender.displayName),
+                    ],
+                  ),
                 );
-              }),
-              const SizedBox(height: 24),
-
-              // Activity Level Selection
-              Text(
-                'Activity Level',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 12),
-              ...ActivityLevel.values.map((level) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
-                  child: _buildActivityCard(context, level),
-                );
-              }),
-              const SizedBox(height: 32),
-
-              // Save Button
-              PrimaryButton(
-                onPressed: _saveProfile,
-                analyticsEvent: AnalyticsEvent.profileEdit,
-                text: 'Save Changes',
-              ),
-            ],
+              }).toList(),
+          selected: {_selectedGender},
+          onSelectionChanged: (Set<Gender> selection) {
+            setState(() {
+              _selectedGender = selection.first;
+            });
+          },
+          showSelectedIcon: false,
+          style: const ButtonStyle(
+            visualDensity: VisualDensity.compact,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
         ),
       ),
+      isThreeLine: true,
+    );
+  }
+
+  IconData _getGenderIcon(Gender gender) {
+    switch (gender) {
+      case Gender.male:
+        return LucideIcons.mars;
+      case Gender.female:
+        return LucideIcons.venus;
+      case Gender.other:
+        return LucideIcons.transgender;
+    }
+  }
+
+  Widget _buildDateOfBirthTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: _cardContentHorizontalPadding,
+        vertical: _cardContentVerticalPadding,
+      ),
+      leading: Container(
+        padding: const EdgeInsets.all(_iconContainerPadding),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withOpacity(
+            _iconContainerOpacity,
+          ),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          LucideIcons.calendar,
+          color: colorScheme.primary,
+          size: _iconSize,
+        ),
+      ),
+      title: const Text(
+        'Date of Birth',
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+      subtitle: Text(DateFormat.yMMMMd().format(_dateOfBirth)),
+      trailing: const Icon(LucideIcons.chevronRight, size: _chevronIconSize),
+      onTap: () => _selectDate(context),
+    );
+  }
+
+  Widget _buildHeightTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final heightUnitString = LocaleUtils.getHeightUnit(_heightUnit);
+
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: _cardContentHorizontalPadding,
+        vertical: _cardContentVerticalPadding,
+      ),
+      leading: Container(
+        padding: const EdgeInsets.all(_iconContainerPadding),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withOpacity(
+            _iconContainerOpacity,
+          ),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          LucideIcons.ruler,
+          color: colorScheme.primary,
+          size: _iconSize,
+        ),
+      ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('Height', style: TextStyle(fontWeight: FontWeight.w600)),
+          _buildUnitSelector(
+            context,
+            currentUnit: _heightUnit,
+            onChanged: (newUnit) {
+              setState(() {
+                if (newUnit.isMetric) {
+                  _height = LocaleUtils.convertHeightToMetric(
+                    _height,
+                  ).clamp(_minHeightMetric, _maxHeightMetric);
+                } else {
+                  _height = LocaleUtils.convertHeightToImperial(
+                    _height,
+                  ).clamp(_minHeightImperial, _maxHeightImperial);
+                }
+                _heightUnit = newUnit;
+              });
+            },
+          ),
+        ],
+      ),
+
+      subtitle: Padding(
+        padding: const EdgeInsets.only(top: _subtitleTopPadding, right: 0),
+        child: ValueSlider(
+          label: '',
+          unit: heightUnitString,
+          min: _heightUnit.isMetric ? _minHeightMetric : _minHeightImperial,
+          max: _heightUnit.isMetric ? _maxHeightMetric : _maxHeightImperial,
+          value: _height,
+          precision:
+              _heightUnit.isMetric
+                  ? _metricHeightPrecision
+                  : _imperialHeightPrecision,
+          step: _heightUnit.isMetric ? 1.0 : 0.1,
+          onChanged: (value) {
+            setState(() {
+              final min =
+                  _heightUnit.isMetric ? _minHeightMetric : _minHeightImperial;
+              final max =
+                  _heightUnit.isMetric ? _maxHeightMetric : _maxHeightImperial;
+              _height = value.clamp(min, max);
+            });
+          },
+        ),
+      ),
+      isThreeLine: true,
+    );
+  }
+
+  Widget _buildWeightTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final weightUnitString = LocaleUtils.getWeightUnit(_weightUnit);
+
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: _cardContentHorizontalPadding,
+        vertical: _cardContentVerticalPadding,
+      ),
+      leading: Container(
+        padding: const EdgeInsets.all(_iconContainerPadding),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withOpacity(
+            _iconContainerOpacity,
+          ),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          LucideIcons.scale,
+          color: colorScheme.primary,
+          size: _iconSize,
+        ),
+      ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('Weight', style: TextStyle(fontWeight: FontWeight.w600)),
+          _buildUnitSelector(
+            context,
+            currentUnit: _weightUnit,
+            onChanged: (newUnit) {
+              setState(() {
+                if (newUnit.isMetric) {
+                  _weight = LocaleUtils.convertWeightToMetric(
+                    _weight,
+                  ).clamp(_minWeightMetric, _maxWeightMetric);
+                } else {
+                  _weight = LocaleUtils.convertWeightToImperial(
+                    _weight,
+                  ).clamp(_minWeightImperial, _maxWeightImperial);
+                }
+                _weightUnit = newUnit;
+              });
+            },
+          ),
+        ],
+      ),
+
+      subtitle: Padding(
+        padding: const EdgeInsets.only(top: _subtitleTopPadding, right: 0),
+        child: ValueSlider(
+          label: '',
+          unit: weightUnitString,
+          min: _weightUnit.isMetric ? _minWeightMetric : _minWeightImperial,
+          max: _weightUnit.isMetric ? _maxWeightMetric : _maxWeightImperial,
+          value: _weight,
+          precision: _weightPrecision,
+          step: _weightUnit.isMetric ? 0.1 : 1.0,
+          onChanged: (value) {
+            setState(() {
+              final min =
+                  _weightUnit.isMetric ? _minWeightMetric : _minWeightImperial;
+              final max =
+                  _weightUnit.isMetric ? _maxWeightMetric : _maxWeightImperial;
+              // Floor the value for imperial (lbs) to ensure whole number increments
+              final adjustedValue =
+                  _weightUnit.isMetric ? value : value.floorToDouble();
+              _weight = adjustedValue.clamp(min, max);
+            });
+          },
+        ),
+      ),
+      isThreeLine: true,
     );
   }
 
@@ -251,7 +567,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: _dateOfBirth,
-      firstDate: DateTime(1900),
+      firstDate: DateTime(_earliestYear),
       lastDate: DateTime.now(),
     );
     if (picked != null && picked != _dateOfBirth) {
@@ -261,40 +577,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
 
-  Widget _buildUnitToggle(
+  Widget _buildUnitSelector(
     BuildContext context, {
-    required String label,
-    required bool isSelected,
-    required VoidCallback onTap,
+    required UnitSystem currentUnit,
+    required ValueChanged<UnitSystem> onChanged,
   }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        decoration: BoxDecoration(
-          color:
-              isSelected
-                  ? Theme.of(context).colorScheme.primaryContainer
-                  : Theme.of(context).colorScheme.surfaceVariant,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color:
-                isSelected
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.outline,
-          ),
-        ),
-        child: Text(
-          label,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color:
-                isSelected
-                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                    : Theme.of(context).colorScheme.onSurfaceVariant,
-            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-          ),
-        ),
+    return SegmentedButton<UnitSystem>(
+      segments: const [
+        ButtonSegment(value: UnitSystem.metric, label: Text('Metric')),
+        ButtonSegment(value: UnitSystem.imperial, label: Text('Imperial')),
+      ],
+      selected: {currentUnit},
+      onSelectionChanged: (Set<UnitSystem> selection) {
+        onChanged(selection.first);
+      },
+      showSelectedIcon: false,
+      style: const ButtonStyle(
+        visualDensity: VisualDensity.compact,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
     );
   }
@@ -337,27 +637,42 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  void _saveProfile() {
+  Future<void> _saveProfile() async {
+    if (!_hasChanges()) return;
+
     if (_formKey.currentState!.validate()) {
-      final updatedData = UserProfile(
+      final updatedData = widget.userProfile.copyWith(
         height: _height,
         weight: _weight,
         gender: _selectedGender,
         dateOfBirth: _dateOfBirth,
         weightGoal: _selectedWeightGoal,
         activityLevel: _selectedActivityLevel,
+        heightUnit: _heightUnit,
+        weightUnit: _weightUnit,
       );
 
       // Save the updated profile data (upsert)
-      OnboardingService.instance.saveProfileData(updatedData);
+      await OnboardingService.instance.saveProfileData(updatedData);
+
+      if (!mounted) return;
+
+      // Update original values to reflect saved state
+      setState(() {
+        _originalHeight = _height;
+        _originalWeight = _weight;
+        _originalDateOfBirth = _dateOfBirth;
+        _originalGender = _selectedGender;
+        _originalWeightGoal = _selectedWeightGoal;
+        _originalActivityLevel = _selectedActivityLevel;
+        _originalHeightUnit = _heightUnit;
+        _originalWeightUnit = _weightUnit;
+      });
 
       // Show success message
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Profile updated successfully!'),
-          backgroundColor: Colors.green,
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(snack('Profile updated successfully!'));
 
       // Navigate back
       context.router.maybePop();

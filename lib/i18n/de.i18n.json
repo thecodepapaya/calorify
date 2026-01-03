@@ -1,0 +1,23 @@
+{
+  "language": "Deutsch",
+  "flag": "🇩🇪",
+  "onboarding": {
+    "welcome": "Willkommen bei Calorify",
+    "subtitle": "Ihr persönlicher Ernährungsbegleiter, betrieben von KI",
+    "getStarted": "Loslegen",
+    "features": {
+      "foodRecognition": {
+        "title": "Intelligente Lebensmittelkennung",
+        "description": "Machen Sie ein Foto und lassen Sie die KI Ihre Mahlzeit identifizieren"
+      },
+      "aiAnalysis": {
+        "title": "KI-Analyse",
+        "description": "Erhalten Sie sofortige Nährwertinformationen aus Ihren Beschreibungen"
+      },
+      "healthIntegration": {
+        "title": "Gesundheitsintegration",
+        "description": "Verbinden Sie sich mit Health Connect für bessere Einblicke"
+      }
+    }
+  }
+}

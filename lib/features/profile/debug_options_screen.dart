@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
+import 'package:calorify/core/utilities/locale_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -26,6 +28,9 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
           const SizedBox(height: 24),
           _buildSectionTitle(context, 'Health Connect'),
           _buildHealthConnectOptions(context),
+          const SizedBox(height: 24),
+          _buildSectionTitle(context, 'App Info'),
+          _buildAppInfoOptions(context),
         ],
       ),
     );
@@ -161,6 +166,26 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
             onTap: _fetchTodaysCalories,
           ),
           ListTile(
+            leading: const Icon(LucideIcons.scale),
+            title: const Text('Fetch Latest Weight'),
+            onTap: _fetchLatestWeight,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.ruler),
+            title: const Text('Fetch Latest Height'),
+            onTap: _fetchLatestHeight,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.plus),
+            title: const Text('Write Test Weight (70kg)'),
+            onTap: _writeTestWeight,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.plus),
+            title: const Text('Write Test Height (175cm)'),
+            onTap: _writeTestHeight,
+          ),
+          ListTile(
             leading: const Icon(LucideIcons.refreshCw),
             title: const Text('Sync Last 7 Days'),
             onTap: _syncLast7Days,
@@ -170,9 +195,79 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     );
   }
 
+  Widget _buildAppInfoOptions(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(LucideIcons.languages),
+            title: const Text('Check Current Locale'),
+            onTap: _checkCurrentLocale,
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _checkCurrentLocale() {
+    final locale = LocaleUtils.getCurrentLocale(context);
+    final unitSystem = LocaleUtils.getDefaultUnitSystem(context);
+    final isMetric = unitSystem == UnitSystem.metric;
+    final countryCode = locale.countryCode ?? 'N/A';
+    final languageCode = locale.languageCode;
+
+    _showDataDialog(
+      'Current Locale',
+      'Language: $languageCode\nCountry: $countryCode\nUnit System: ${isMetric ? 'Metric' : 'Imperial'}',
+    );
+  }
+
   Future<void> _fetchTodaysSteps() async {
-    // TODO: Implement steps fetching
-    _showSnackbar('Steps fetching not implemented yet.');
+    final steps = await HealthService.instance.getTodaySteps();
+    _showDataDialog('Today\'s Steps', 'Steps: $steps');
+  }
+
+  Future<void> _fetchLatestWeight() async {
+    final weight = await HealthService.instance.getLatestWeight();
+    if (weight == null) {
+      _showSnackbar('No weight data found in the last 30 days.');
+    } else {
+      _showDataDialog(
+        'Latest Weight',
+        'Weight: ${weight.toStringAsFixed(1)} kg',
+      );
+    }
+  }
+
+  Future<void> _fetchLatestHeight() async {
+    final height = await HealthService.instance.getLatestHeight();
+    if (height == null) {
+      _showSnackbar('No height data found in the last year.');
+    } else {
+      // Height is usually in meters from Health Connect
+      _showDataDialog(
+        'Latest Height',
+        'Height: ${(height * 100).toStringAsFixed(1)} cm',
+      );
+    }
+  }
+
+  Future<void> _writeTestWeight() async {
+    final success = await HealthService.instance.writeWeight(70.0);
+    if (success) {
+      _showSnackbar('Successfully wrote test weight (70kg).');
+    } else {
+      _showSnackbar('Failed to write test weight.');
+    }
+  }
+
+  Future<void> _writeTestHeight() async {
+    final success = await HealthService.instance.writeHeight(175.0);
+    if (success) {
+      _showSnackbar('Successfully wrote test height (175cm).');
+    } else {
+      _showSnackbar('Failed to write test height.');
+    }
   }
 
   Future<void> _fetchTodaysCalories() async {
@@ -202,8 +297,31 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
   }
 
   Future<void> _syncLast7Days() async {
-    // TODO: Implement 7-day sync
-    _showSnackbar('7-day sync not implemented yet.');
+    final now = DateTime.now();
+    final sevenDaysAgo = now.subtract(const Duration(days: 7));
+
+    _showSnackbar('Fetching data for the last 7 days...');
+
+    final types = [
+      HealthDataType.STEPS,
+      HealthDataType.TOTAL_CALORIES_BURNED,
+      HealthDataType.WEIGHT,
+    ];
+
+    int totalPoints = 0;
+    for (final type in types) {
+      final data = await HealthService.instance.fetchHealthData(
+        sevenDaysAgo,
+        now,
+        type,
+      );
+      totalPoints += data.length;
+    }
+
+    _showDataDialog(
+      '7-Day Sync',
+      'Successfully fetched $totalPoints data points for Steps, Calories, and Weight over the last 7 days.',
+    );
   }
 
   void _showDataDialog(String title, String content) {

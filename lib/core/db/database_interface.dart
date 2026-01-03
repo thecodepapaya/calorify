@@ -62,4 +62,7 @@ abstract class DatabaseInterface {
 
   /// Check if user profile exists
   Future<bool> hasUserProfile();
+
+  /// Clear all data from the database
+  Future<void> clearAllData();
 }

@@ -1,0 +1,23 @@
+{
+  "language": "Français",
+  "flag": "🇫🇷",
+  "onboarding": {
+    "welcome": "Bienvenue sur Calorify",
+    "subtitle": "Votre compagnon personnel en nutrition propulsé par l'IA",
+    "getStarted": "Commencer",
+    "features": {
+      "foodRecognition": {
+        "title": "Reconnaissance Alimentaire Intelligente",
+        "description": "Prenez une photo et laissez l'IA identifier votre repas"
+      },
+      "aiAnalysis": {
+        "title": "Analyse par IA",
+        "description": "Obtenez des informations nutritionnelles instantanées à partir de vos descriptions"
+      },
+      "healthIntegration": {
+        "title": "Intégration Santé",
+        "description": "Connectez-vous à Health Connect pour de meilleurs aperçus"
+      }
+    }
+  }
+}

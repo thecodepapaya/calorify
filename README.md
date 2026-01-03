@@ -293,6 +293,17 @@ Configure build flavors in `android/app/build.gradle.kts` and update `AppConfig`
 - Wearable device integration (Your smartwatch will finally be useful for something other than telling time! ⌚)
 - Multi-language support (Because healthy eating is universal! 🌍)
 
+## ⚠️ Pre-Public Release Checklist
+
+Before making this repository public, ensure the following items are addressed:
+
+1.  **Remove Secrets**: 
+    - Delete or move the OpenAI API key from `lib/core/config/api_keys.dart`.
+    - **Crucial**: Delete `scripts/generate_translations.sh` as it contains the hardcoded API key.
+2.  **Signing Keys**: Ensure `android/key.properties` and any `.jks` files are removed from version control (they should be in `.gitignore`).
+3.  **Firebase Config**: Verify if you want to keep the production `google-services.json` in the repository or move it to a secure CI/CD secret.
+4.  **License**: Add an appropriate LICENSE file.
+
 ---
 
 **Calorify** - Making nutrition tracking simple and intelligent with the power of AI. Because counting calories shouldn't be harder than actually eating the food! 🍎✨

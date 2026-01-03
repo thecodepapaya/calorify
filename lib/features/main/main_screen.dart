@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:calorify/core/constants/tabs.dart';
 import 'package:calorify/core/router/app_router.dart';
+import 'package:calorify/shared_widgets/app_bar_title.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -18,6 +20,7 @@ class MainScreen extends StatelessWidget {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
           extendBody: true,
+          appBar: CommonAppBar(),
           body: child,
           bottomNavigationBar: _FloatingDock(tabsRouter: tabsRouter),
         );
@@ -62,18 +65,19 @@ class _FloatingDock extends StatelessWidget {
               _DockItem(
                 icon: LucideIcons.layoutDashboard,
                 label: 'Dashboard',
-                isSelected: tabsRouter.activeIndex == 0,
-                onTap: () => tabsRouter.setActiveIndex(0),
+                isSelected: tabsRouter.activeIndex == MainTab.home.index,
+                onTap: () => tabsRouter.setActiveIndex(MainTab.home.index),
               ),
               _CenterDockItem(
-                isSelected: tabsRouter.activeIndex == 1,
-                onTap: () => tabsRouter.setActiveIndex(1),
+                isSelected: tabsRouter.activeIndex == MainTab.log.index,
+                onTap: () => tabsRouter.setActiveIndex(MainTab.log.index),
               ),
               _DockItem(
                 icon: LucideIcons.history,
                 label: 'History',
-                isSelected: tabsRouter.activeIndex == 2,
-                onTap: () => tabsRouter.setActiveIndex(2),
+                isSelected: tabsRouter.activeIndex == MainTab.mealHistory.index,
+                onTap:
+                    () => tabsRouter.setActiveIndex(MainTab.mealHistory.index),
               ),
             ],
           ),

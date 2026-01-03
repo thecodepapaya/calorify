@@ -27,28 +27,32 @@ class ValueSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final showLabel = label.isNotEmpty;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              label,
-              style: textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w600,
+        if (showLabel) ...[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                label,
+                style: textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-            Text(
-              '${value.toStringAsFixed(precision)} $unit',
-              style: textTheme.titleMedium?.copyWith(
-                color: colorScheme.primary,
-                fontWeight: FontWeight.bold,
+              Text(
+                '${value.toStringAsFixed(precision)} $unit',
+                style: textTheme.titleMedium?.copyWith(
+                  color: colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
+            ],
+          ),
+          const SizedBox(height: 8),
+        ],
         Row(
           children: [
             IconButton(
@@ -59,20 +63,27 @@ class ValueSlider extends StatelessWidget {
                 ),
                 child: const Icon(LucideIcons.minus),
               ),
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
               onPressed: () {
-                if (value > min) {
-                  onChanged(value - step);
+                final newValue = (value - step).clamp(min, max);
+                if (newValue != value) {
+                  onChanged(newValue);
                 }
               },
             ),
             Expanded(
               child: Slider(
-                value: value,
+                value: value.clamp(min, max),
                 min: min,
                 max: max,
                 divisions: ((max - min) / step).round(),
-                label: value.toStringAsFixed(precision),
-                onChanged: onChanged,
+                label: '${value.toStringAsFixed(precision)} $unit',
+                onChanged: (newValue) {
+                  // Clamp the value to ensure it stays within bounds
+                  final clampedValue = newValue.clamp(min, max);
+                  onChanged(clampedValue);
+                },
               ),
             ),
             IconButton(
@@ -83,11 +94,30 @@ class ValueSlider extends StatelessWidget {
                 ),
                 child: const Icon(LucideIcons.plus),
               ),
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
               onPressed: () {
-                if (value < max) {
-                  onChanged(value + step);
+                final newValue = (value + step).clamp(min, max);
+                if (newValue != value) {
+                  onChanged(newValue);
                 }
               },
+            ),
+            // Show value on the right side of the slider row
+            Padding(
+              padding: const EdgeInsets.only(left: 4),
+              child: SizedBox(
+                width: 65,
+                child: Text(
+                  '${value.toStringAsFixed(precision)} $unit',
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.right,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ),
           ],
         ),

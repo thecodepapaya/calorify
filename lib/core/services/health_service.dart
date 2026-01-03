@@ -31,12 +31,16 @@ class HealthService {
   static const List<HealthDataType> _types = [
     HealthDataType.TOTAL_CALORIES_BURNED,
     HealthDataType.NUTRITION,
+    HealthDataType.WEIGHT,
+    HealthDataType.HEIGHT,
   ];
 
   // Define permissions for each type
   static const List<HealthDataAccess> _permissions = [
     HealthDataAccess.READ,
-    HealthDataAccess.WRITE,
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
   ];
 
   Future<bool> get isHealthConnectAvailable =>
@@ -108,7 +112,12 @@ class HealthService {
   }
 
   Future<bool> writeMealData(MealInfo meal) async {
-    if (!await isNutritionAllowed) return false;
+    if (!await hasPermission(
+      HealthDataType.NUTRITION,
+      HealthDataAccess.WRITE,
+    )) {
+      return false;
+    }
 
     final now = DateTime.now();
 
@@ -133,8 +142,86 @@ class HealthService {
     }
   }
 
+  Future<bool> writeWeight(double kg) async {
+    if (!await hasPermission(HealthDataType.WEIGHT, HealthDataAccess.WRITE)) {
+      return false;
+    }
+
+    final now = DateTime.now();
+    try {
+      return await _health.writeHealthData(
+        value: kg,
+        type: HealthDataType.WEIGHT,
+        startTime: now,
+        endTime: now,
+      );
+    } catch (e) {
+      log('Error writing weight: $e');
+      return false;
+    }
+  }
+
+  Future<bool> writeHeight(double cm) async {
+    if (!await hasPermission(HealthDataType.HEIGHT, HealthDataAccess.WRITE)) {
+      return false;
+    }
+
+    final now = DateTime.now();
+    try {
+      return await _health.writeHealthData(
+        value:
+            cm /
+            100, // Health Connect expects height in meters? No, usually it depends on the platform. The health package usually handles conversions or expects specific units.
+        // Actually, Health Connect expects meters for height.
+        type: HealthDataType.HEIGHT,
+        startTime: now,
+        endTime: now,
+      );
+    } catch (e) {
+      log('Error writing height: $e');
+      return false;
+    }
+  }
+
+  Future<double?> getLatestWeight() async {
+    final now = DateTime.now();
+    final data = await fetchHealthData(
+      now.subtract(const Duration(days: 30)),
+      now,
+      HealthDataType.WEIGHT,
+    );
+    if (data.isEmpty) return null;
+    return (data.last.value as NumericHealthValue).numericValue.toDouble();
+  }
+
+  Future<double?> getLatestHeight() async {
+    final now = DateTime.now();
+    final data = await fetchHealthData(
+      now.subtract(const Duration(days: 365)),
+      now,
+      HealthDataType.HEIGHT,
+    );
+    if (data.isEmpty) return null;
+    return (data.last.value as NumericHealthValue).numericValue.toDouble();
+  }
+
+  Future<int?> getTodaySteps() async {
+    final now = DateTime.now();
+    final midnight = DateTime(now.year, now.month, now.day);
+    final data = await fetchHealthData(midnight, now, HealthDataType.STEPS);
+    if (data.isEmpty) return 0;
+    return data
+        .map((e) => (e.value as NumericHealthValue).numericValue.toInt())
+        .reduce((a, b) => a + b);
+  }
+
   Future<double?> getTotalCaloriesBurned() async {
-    if (!await isCaloriesBurnedAllowed) return null;
+    if (!await hasPermission(
+      HealthDataType.TOTAL_CALORIES_BURNED,
+      HealthDataAccess.READ,
+    )) {
+      return null;
+    }
 
     final now = DateTime.now();
     final startTime = DateTime(now.year, now.month, now.day);
@@ -155,21 +242,20 @@ class HealthService {
     return totalCalories;
   }
 
-  Future<bool> get isNutritionAllowed async {
-    final types = [HealthDataType.NUTRITION];
-    final permissions = [HealthDataAccess.WRITE];
-
-    return await _health.hasPermissions(types, permissions: permissions) ??
-        false;
+  Future<bool> hasPermission(
+    HealthDataType type,
+    HealthDataAccess access,
+  ) async {
+    return await _health.hasPermissions([type], permissions: [access]) ?? false;
   }
 
-  Future<bool> get isCaloriesBurnedAllowed async {
-    final types = [HealthDataType.TOTAL_CALORIES_BURNED];
-    final permissions = [HealthDataAccess.READ];
+  Future<bool> get isNutritionAllowed async =>
+      hasPermission(HealthDataType.NUTRITION, HealthDataAccess.WRITE);
 
-    return await _health.hasPermissions(types, permissions: permissions) ??
-        false;
-  }
+  Future<bool> get isCaloriesBurnedAllowed async => hasPermission(
+    HealthDataType.TOTAL_CALORIES_BURNED,
+    HealthDataAccess.READ,
+  );
 }
 
 /// For some reason, when querying calories burned from midnight up-to this time

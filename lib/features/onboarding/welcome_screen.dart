@@ -1,4 +1,6 @@
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/animated_leaf.dart';
+import 'package:calorify/shared_widgets/language_picker_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -10,7 +12,8 @@ class WelcomeScreen extends StatefulWidget {
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin {
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
@@ -31,10 +34,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.2),
       end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: const Interval(0.2, 1.0, curve: Curves.easeOutBack),
-    ));
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.2, 1.0, curve: Curves.easeOutBack),
+      ),
+    );
 
     _controller.forward();
   }
@@ -47,87 +52,144 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        Expanded(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: FadeTransition(
-                opacity: _fadeAnimation,
-                child: SlideTransition(
-                  position: _slideAnimation,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 48),
-                      const AnimatedLeaf(size: 120),
-                      const SizedBox(height: 32),
-                      Text(
-                        'Welcome to Calorify',
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Your personal nutrition companion powered by AI',
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+        Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: FadeTransition(
+                    opacity: _fadeAnimation,
+                    child: SlideTransition(
+                      position: _slideAnimation,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 48),
+                          const AnimatedLeaf(size: 120),
+                          const SizedBox(height: 32),
+                          Text(
+                            t.onboarding.welcome,
+                            style: Theme.of(context).textTheme.headlineMedium
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            t.onboarding.subtitle,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyLarge?.copyWith(
+                              color:
+                                  Theme.of(
+                                    context,
+                                  ).colorScheme.onSurfaceVariant,
                             ),
-                        textAlign: TextAlign.center,
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 48),
+                          _buildFeatureItem(
+                            context,
+                            index: 0,
+                            icon: LucideIcons.camera,
+                            title: t.onboarding.features.foodRecognition.title,
+                            description:
+                                t
+                                    .onboarding
+                                    .features
+                                    .foodRecognition
+                                    .description,
+                          ),
+                          const SizedBox(height: 24),
+                          _buildFeatureItem(
+                            context,
+                            index: 1,
+                            icon: LucideIcons.wandSparkles,
+                            title: t.onboarding.features.aiAnalysis.title,
+                            description:
+                                t.onboarding.features.aiAnalysis.description,
+                          ),
+                          const SizedBox(height: 24),
+                          _buildFeatureItem(
+                            context,
+                            index: 2,
+                            icon: LucideIcons.activity,
+                            title:
+                                t.onboarding.features.healthIntegration.title,
+                            description:
+                                t
+                                    .onboarding
+                                    .features
+                                    .healthIntegration
+                                    .description,
+                          ),
+                          const SizedBox(height: 48),
+                        ],
                       ),
-                      const SizedBox(height: 48),
-                      _buildFeatureItem(
-                        context,
-                        index: 0,
-                        icon: LucideIcons.camera,
-                        title: 'Smart Food Recognition',
-                        description: 'Take a photo and let AI identify your meal',
-                      ),
-                      const SizedBox(height: 24),
-                      _buildFeatureItem(
-                        context,
-                        index: 1,
-                        icon: LucideIcons.wandSparkles,
-                        title: 'AI Analysis',
-                        description: 'Get instant nutrition facts from your descriptions',
-                      ),
-                      const SizedBox(height: 24),
-                      _buildFeatureItem(
-                        context,
-                        index: 2,
-                        icon: LucideIcons.activity,
-                        title: 'Health Integration',
-                        description: 'Connect with Health Connect for better insights',
-                      ),
-                      const SizedBox(height: 48),
-                    ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: FadeTransition(
-            opacity: _fadeAnimation,
-            child: SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: widget.onContinue,
-                style: FilledButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                ),
-                child: const Text(
-                  'Get Started',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: FadeTransition(
+                opacity: _fadeAnimation,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: widget.onContinue,
+                    style: FilledButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    child: Text(
+                      t.onboarding.getStarted,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
+          ],
+        ),
+        Positioned(top: 16, right: 16, child: _buildLanguageButton(context)),
+      ],
+    );
+  }
+
+  Widget _buildLanguageButton(BuildContext context) {
+    final currentLocale = TranslationProvider.of(context).locale;
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: ActionChip(
+        avatar: Icon(
+          LucideIcons.languages,
+          size: 16,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        label: Text(
+          currentLocale.translations.language,
+          style: TextStyle(
+            fontSize: 12,
+            color: Theme.of(context).colorScheme.primary,
+            fontWeight: FontWeight.bold,
           ),
         ),
-      ],
+        onPressed: () => LanguagePickerSheet.show(context),
+        backgroundColor: Theme.of(
+          context,
+        ).colorScheme.primaryContainer.withOpacity(0.4),
+        side: BorderSide.none,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      ),
     );
   }
 
@@ -144,13 +206,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
         final start = 0.4 + (index * 0.1);
         final animation = CurvedAnimation(
           parent: _controller,
-          curve: Interval(start.clamp(0.0, 1.0), (start + 0.4).clamp(0.0, 1.0), curve: Curves.easeOut),
+          curve: Interval(
+            start.clamp(0.0, 1.0),
+            (start + 0.4).clamp(0.0, 1.0),
+            curve: Curves.easeOut,
+          ),
         );
 
         return FadeTransition(
           opacity: animation,
           child: SlideTransition(
-            position: Tween<Offset>(begin: const Offset(0.2, 0), end: Offset.zero).animate(animation),
+            position: Tween<Offset>(
+              begin: const Offset(0.2, 0),
+              end: Offset.zero,
+            ).animate(animation),
             child: child,
           ),
         );
@@ -160,7 +229,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.5),
+              color: Theme.of(
+                context,
+              ).colorScheme.primaryContainer.withOpacity(0.5),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Icon(
@@ -176,14 +247,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
               children: [
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   description,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ],
             ),

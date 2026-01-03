@@ -13,7 +13,7 @@ class HeightStepScreen extends StatefulWidget {
 
 class _HeightStepScreenState extends State<HeightStepScreen> {
   double _height = 170;
-  late bool _isMetric;
+  UnitSystem _unitSystem = UnitSystem.metric;
   late ScrollController _scrollController;
   final TextEditingController _textController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
@@ -31,24 +31,31 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
     final val = double.tryParse(_textController.text);
     if (val != null) {
       setState(() {
-        if (_isMetric) {
+        if (_unitSystem.isMetric) {
           _height = val.clamp(100, 250);
         } else {
-          _height = LocaleUtils.convertHeightToMetric(val.clamp(3.3, 8.2));
+          _height = val.clamp(3.3, 8.2);
         }
         _syncRulerToValue();
       });
     }
   }
 
+  /// Syncs the horizontal ruler scroll position to the current numeric height value.
+  ///
+  /// The formula used depends on the unit system:
+  /// - Metric: Each cm is 10 pixels. The ruler starts at 100cm.
+  ///   Offset = (height - 100) * 10.0
+  /// - Imperial: Each 0.1ft is 10 pixels. The ruler starts at 3.3ft.
+  ///   We multiply by 10 to work with integer steps on the ruler.
+  ///   Offset = (height * 10.0 - 33) * 10.0
   void _syncRulerToValue() {
     if (!_scrollController.hasClients) return;
     final double offset;
-    if (_isMetric) {
+    if (_unitSystem.isMetric) {
       offset = (_height - 100) * 10.0;
     } else {
-      final imperial = LocaleUtils.convertHeightToImperial(_height);
-      offset = (imperial * 10.0 - 33) * 10.0;
+      offset = (_height * 10.0 - 33) * 10.0;
     }
     _scrollController.jumpTo(offset.clamp(0, 1500));
   }
@@ -56,7 +63,7 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _isMetric = LocaleUtils.isMetricSystem(context);
+    _unitSystem = LocaleUtils.getDefaultUnitSystem(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _syncRulerToValue();
     });
@@ -64,17 +71,20 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
 
   Future<void> _loadData() async {
     final profile = await OnboardingService.instance.getProfileData();
-    if (profile != null && profile.height != null && mounted) {
-      setState(() {
-        _height = profile.height!;
-        _updateTextField();
-      });
+    if (profile != null) {
+      _unitSystem = profile.heightUnit;
+      if (profile.height != null && mounted) {
+        setState(() {
+          _height = profile.height!;
+          _updateTextField();
+        });
+      }
     }
   }
 
   void _updateTextField() {
     _textController.text =
-        _isMetric
+        _unitSystem.isMetric
             ? _height.toStringAsFixed(0)
             : LocaleUtils.convertHeightToImperial(_height).toStringAsFixed(1);
   }
@@ -143,11 +153,9 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
                         textBaseline: TextBaseline.alphabetic,
                         children: [
                           Text(
-                            _isMetric
-                                ? _height.toStringAsFixed(0)
-                                : LocaleUtils.convertHeightToImperial(
-                                  _height,
-                                ).toStringAsFixed(1),
+                            _height.toStringAsFixed(
+                              _unitSystem.isMetric ? 0 : 1,
+                            ),
                             style: theme.textTheme.displayLarge?.copyWith(
                               fontWeight: FontWeight.w900,
                               color: colorScheme.primary,
@@ -155,7 +163,7 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            _isMetric ? 'cm' : 'ft',
+                            _unitSystem.isMetric ? 'cm' : 'ft',
                             style: theme.textTheme.titleLarge?.copyWith(
                               color: colorScheme.onSurfaceVariant,
                               fontWeight: FontWeight.bold,
@@ -192,17 +200,21 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _buildUnitButton('Metric', _isMetric, () {
+              _buildUnitButton('Metric', _unitSystem.isMetric, () {
+                if (_unitSystem.isMetric) return;
                 setState(() {
-                  _isMetric = true;
+                  _height = LocaleUtils.convertHeightToMetric(_height);
+                  _unitSystem = UnitSystem.metric;
                   _updateTextField();
                   _syncRulerToValue();
                 });
               }),
               const SizedBox(width: 16),
-              _buildUnitButton('Imperial', !_isMetric, () {
+              _buildUnitButton('Imperial', _unitSystem.isImperial, () {
+                if (_unitSystem.isImperial) return;
                 setState(() {
-                  _isMetric = false;
+                  _height = LocaleUtils.convertHeightToImperial(_height);
+                  _unitSystem = UnitSystem.imperial;
                   _updateTextField();
                   _syncRulerToValue();
                 });
@@ -265,11 +277,10 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
         if (notification is ScrollUpdateNotification && !_focusNode.hasFocus) {
           final offset = notification.metrics.pixels;
           setState(() {
-            if (_isMetric) {
+            if (_unitSystem.isMetric) {
               _height = (100 + (offset / 10.0)).clamp(100, 250);
             } else {
-              final imperial = (3.3 + (offset / 10.0)).clamp(3.3, 8.2);
-              _height = LocaleUtils.convertHeightToMetric(imperial);
+              _height = (3.3 + (offset / 10.0)).clamp(3.3, 8.2);
             }
             _updateTextField();
           });
@@ -294,7 +305,7 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: Text(
-                      _isMetric
+                      _unitSystem.isMetric
                           ? (100 + (index / 10)).toInt().toString()
                           : (3.3 + (index / 10)).toStringAsFixed(1),
                       style: TextStyle(
@@ -323,7 +334,7 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
         await OnboardingService.instance.getProfileData() ??
         const UserProfile();
     await OnboardingService.instance.saveProfileData(
-      profile.copyWith(height: _height),
+      profile.copyWith(height: _height, heightUnit: _unitSystem),
     );
     widget.onContinue();
   }

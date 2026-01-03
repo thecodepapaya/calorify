@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:calorify/core/constants/tabs.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/meal_model.dart';
-import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
@@ -76,7 +76,9 @@ class MealLog extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: TextButton(
               onPressed: () {
-                context.router.push(const MealHistoryRoute());
+                AutoTabsRouter.of(
+                  context,
+                ).setActiveIndex(MainTab.mealHistory.index);
               },
               style: ButtonStyle(
                 textStyle: WidgetStatePropertyAll(

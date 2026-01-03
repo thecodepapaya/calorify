@@ -1,0 +1,165 @@
+### Meta ###
+From: <en> lib/i18n/en.i18n.json
+To: <de,fr,ja,zh-CN,de,fr,ja,zh-CN> lib/i18n/_default_de,fr,ja,zh-CN,de,fr,ja,zh-CN.i18n.json
+
+### Tokens ###
+Input: 237
+Output: 796
+Total: 1033
+
+### Conversation ###
+
+>> System:
+The user wants to internationalize the app. The user will provide you with a JSON file containing the English strings.
+You will translate it to de,fr,ja,zh-CN,de,fr,ja,zh-CN.
+Parameters are interpolated with ${parameter} or $parameter.
+Linked translations are denoted with the "@:path0.path1" syntax.
+
+Here is the app description. Respect this context when translating:
+Calorify is a personal nutrition companion and calorie tracker app.
+It uses AI to recognize food from photos and calculate nutritional facts.
+The tone should be helpful, encouraging, and health-focused.
+
+
+>> User:
+{"language":"English","flag":"🇺🇸","onboarding":{"welcome":"Welcome to Calorify","subtitle":"Your personal nutrition companion powered by AI","getStarted":"Get Started","features":{"foodRecognition":{"title":"Smart Food Recognition","description":"Take a photo and let AI identify your meal"},"aiAnalysis":{"title":"AI Analysis","description":"Get instant nutrition facts from your descriptions"},"healthIntegration":{"title":"Health Integration","description":"Connect with Health Connect for better insights"}}}}
+
+>> Assistant:
+Here is the translation of the provided JSON file into German (de), French (fr), Japanese (ja), and Simplified Chinese (zh-CN):
+
+```json
+{
+  "language": "German",
+  "flag": "🇩🇪",
+  "onboarding": {
+    "welcome": "Willkommen bei Calorify",
+    "subtitle": "Ihr persönlicher Ernährungsbegleiter, unterstützt von KI",
+    "getStarted": "Loslegen",
+    "features": {
+      "foodRecognition": {
+        "title": "Intelligente Lebensmittelerkennung",
+        "description": "Machen Sie ein Foto und lassen Sie die KI Ihre Mahlzeit erkennen"
+      },
+      "aiAnalysis": {
+        "title": "KI-Analyse",
+        "description": "Erhalten Sie sofortige Nährwertangaben zu Ihren Beschreibungen"
+      },
+      "healthIntegration": {
+        "title": "Gesundheitsintegration",
+        "description": "Verbinden Sie sich mit Health Connect für bessere Einblicke"
+      }
+    }
+  }
+}
+```
+
+```json
+{
+  "language": "French",
+  "flag": "🇫🇷",
+  "onboarding": {
+    "welcome": "Bienvenue dans Calorify",
+    "subtitle": "Votre compagnon nutritionnel personnel alimenté par l'IA",
+    "getStarted": "Commencer",
+    "features": {
+      "foodRecognition": {
+        "title": "Reconnaissance Alimentaire Intelligente",
+        "description": "Prenez une photo et laissez l'IA identifier votre repas"
+      },
+      "aiAnalysis": {
+        "title": "Analyse par IA",
+        "description": "Obtenez des informations nutritionnelles instantanées à partir de vos descriptions"
+      },
+      "healthIntegration": {
+        "title": "Intégration Santé",
+        "description": "Connectez-vous à Health Connect pour de meilleures informations"
+      }
+    }
+  }
+}
+```
+
+```json
+{
+  "language": "Japanese",
+  "flag": "🇯🇵",
+  "onboarding": {
+    "welcome": "Calorifyへようこそ",
+    "subtitle": "AIによるあなたの個人栄養コンパニオン",
+    "getStarted": "始める",
+    "features": {
+      "foodRecognition": {
+        "title": "スマート食品認識",
+        "description": "写真を撮ってAIがあなたの食事を認識します"
+      },
+      "aiAnalysis": {
+        "title": "AI分析",
+        "description": "あなたの説明から瞬時に栄養情報を取得"
+      },
+      "healthIntegration": {
+        "title": "健康統合",
+        "description": "健康データのためにHealth Connectに接続する"
+      }
+    }
+  }
+}
+```
+
+```json
+{
+  "language": "Simplified Chinese",
+  "flag": "🇨🇳",
+  "onboarding": {
+    "welcome": "欢迎来到Calorify",
+    "subtitle": "您的个人营养助手，由AI驱动",
+    "getStarted": "开始",
+    "features": {
+      "foodRecognition": {
+        "title": "智能食品识别",
+        "description": "拍照让AI识别您的餐食"
+      },
+      "aiAnalysis": {
+        "title": "AI分析",
+        "description": "从您的描述中获取即时营养信息"
+      },
+      "healthIntegration": {
+        "title": "健康整合",
+        "description": "连接 Health Connect 以获取更好的见解"
+      }
+    }
+  }
+}
+```
+
+This translation maintains a helpful, encouraging, and health-focused tone suitable for the context of a personal nutrition companion app.
+
+### JSON ###
+Input:
+{
+  "language": "English",
+  "flag": "🇺🇸",
+  "onboarding": {
+    "welcome": "Welcome to Calorify",
+    "subtitle": "Your personal nutrition companion powered by AI",
+    "getStarted": "Get Started",
+    "features": {
+      "foodRecognition": {
+        "title": "Smart Food Recognition",
+        "description": "Take a photo and let AI identify your meal"
+      },
+      "aiAnalysis": {
+        "title": "AI Analysis",
+        "description": "Get instant nutrition facts from your descriptions"
+      },
+      "healthIntegration": {
+        "title": "Health Integration",
+        "description": "Connect with Health Connect for better insights"
+      }
+    }
+  }
+}
+
+Output:
+{
+  "!error": "Error: FormatException: Unexpected character (at line 24, character 1)\n```\n^\n"
+}

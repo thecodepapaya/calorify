@@ -18,6 +18,9 @@ class UserProfileMapper {
           data.activityLevel == null
               ? null
               : ActivityLevel.values.byName(data.activityLevel!),
+      heightUnit: UnitSystem.values.byName(data.heightUnit),
+      weightUnit: UnitSystem.values.byName(data.weightUnit),
+      languageCode: data.languageCode,
     );
   }
 
@@ -51,6 +54,12 @@ class UserProfileMapper {
           profile.activityLevel == null
               ? const Value.absent()
               : Value(profile.activityLevel!.name),
+      heightUnit: Value(profile.heightUnit.name),
+      weightUnit: Value(profile.weightUnit.name),
+      languageCode:
+          profile.languageCode == null
+              ? const Value.absent()
+              : Value(profile.languageCode!),
     );
   }
 }

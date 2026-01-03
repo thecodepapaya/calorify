@@ -879,6 +879,41 @@ class $UserSettingsTableTable extends UserSettingsTable
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _heightUnitMeta = const VerificationMeta(
+    'heightUnit',
+  );
+  @override
+  late final GeneratedColumn<String> heightUnit = GeneratedColumn<String>(
+    'height_unit',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('metric'),
+  );
+  static const VerificationMeta _weightUnitMeta = const VerificationMeta(
+    'weightUnit',
+  );
+  @override
+  late final GeneratedColumn<String> weightUnit = GeneratedColumn<String>(
+    'weight_unit',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('metric'),
+  );
+  static const VerificationMeta _languageCodeMeta = const VerificationMeta(
+    'languageCode',
+  );
+  @override
+  late final GeneratedColumn<String> languageCode = GeneratedColumn<String>(
+    'language_code',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
   );
@@ -914,6 +949,9 @@ class $UserSettingsTableTable extends UserSettingsTable
     dateOfBirth,
     weightGoal,
     activityLevel,
+    heightUnit,
+    weightUnit,
+    languageCode,
     createdAt,
     updatedAt,
   ];
@@ -992,6 +1030,27 @@ class $UserSettingsTableTable extends UserSettingsTable
         ),
       );
     }
+    if (data.containsKey('height_unit')) {
+      context.handle(
+        _heightUnitMeta,
+        heightUnit.isAcceptableOrUnknown(data['height_unit']!, _heightUnitMeta),
+      );
+    }
+    if (data.containsKey('weight_unit')) {
+      context.handle(
+        _weightUnitMeta,
+        weightUnit.isAcceptableOrUnknown(data['weight_unit']!, _weightUnitMeta),
+      );
+    }
+    if (data.containsKey('language_code')) {
+      context.handle(
+        _languageCodeMeta,
+        languageCode.isAcceptableOrUnknown(
+          data['language_code']!,
+          _languageCodeMeta,
+        ),
+      );
+    }
     if (data.containsKey('created_at')) {
       context.handle(
         _createdAtMeta,
@@ -1050,6 +1109,20 @@ class $UserSettingsTableTable extends UserSettingsTable
         DriftSqlType.string,
         data['${effectivePrefix}activity_level'],
       ),
+      heightUnit:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}height_unit'],
+          )!,
+      weightUnit:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}weight_unit'],
+          )!,
+      languageCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}language_code'],
+      ),
       createdAt:
           attachedDatabase.typeMapping.read(
             DriftSqlType.dateTime,
@@ -1080,6 +1153,9 @@ class UserSettingsTableData extends DataClass
   final DateTime? dateOfBirth;
   final String? weightGoal;
   final String? activityLevel;
+  final String heightUnit;
+  final String weightUnit;
+  final String? languageCode;
   final DateTime createdAt;
   final DateTime updatedAt;
   const UserSettingsTableData({
@@ -1092,6 +1168,9 @@ class UserSettingsTableData extends DataClass
     this.dateOfBirth,
     this.weightGoal,
     this.activityLevel,
+    required this.heightUnit,
+    required this.weightUnit,
+    this.languageCode,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -1122,6 +1201,11 @@ class UserSettingsTableData extends DataClass
     }
     if (!nullToAbsent || activityLevel != null) {
       map['activity_level'] = Variable<String>(activityLevel);
+    }
+    map['height_unit'] = Variable<String>(heightUnit);
+    map['weight_unit'] = Variable<String>(weightUnit);
+    if (!nullToAbsent || languageCode != null) {
+      map['language_code'] = Variable<String>(languageCode);
     }
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
@@ -1157,6 +1241,12 @@ class UserSettingsTableData extends DataClass
           activityLevel == null && nullToAbsent
               ? const Value.absent()
               : Value(activityLevel),
+      heightUnit: Value(heightUnit),
+      weightUnit: Value(weightUnit),
+      languageCode:
+          languageCode == null && nullToAbsent
+              ? const Value.absent()
+              : Value(languageCode),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
     );
@@ -1177,6 +1267,9 @@ class UserSettingsTableData extends DataClass
       dateOfBirth: serializer.fromJson<DateTime?>(json['dateOfBirth']),
       weightGoal: serializer.fromJson<String?>(json['weightGoal']),
       activityLevel: serializer.fromJson<String?>(json['activityLevel']),
+      heightUnit: serializer.fromJson<String>(json['heightUnit']),
+      weightUnit: serializer.fromJson<String>(json['weightUnit']),
+      languageCode: serializer.fromJson<String?>(json['languageCode']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
@@ -1194,6 +1287,9 @@ class UserSettingsTableData extends DataClass
       'dateOfBirth': serializer.toJson<DateTime?>(dateOfBirth),
       'weightGoal': serializer.toJson<String?>(weightGoal),
       'activityLevel': serializer.toJson<String?>(activityLevel),
+      'heightUnit': serializer.toJson<String>(heightUnit),
+      'weightUnit': serializer.toJson<String>(weightUnit),
+      'languageCode': serializer.toJson<String?>(languageCode),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
@@ -1209,6 +1305,9 @@ class UserSettingsTableData extends DataClass
     Value<DateTime?> dateOfBirth = const Value.absent(),
     Value<String?> weightGoal = const Value.absent(),
     Value<String?> activityLevel = const Value.absent(),
+    String? heightUnit,
+    String? weightUnit,
+    Value<String?> languageCode = const Value.absent(),
     DateTime? createdAt,
     DateTime? updatedAt,
   }) => UserSettingsTableData(
@@ -1225,6 +1324,9 @@ class UserSettingsTableData extends DataClass
     weightGoal: weightGoal.present ? weightGoal.value : this.weightGoal,
     activityLevel:
         activityLevel.present ? activityLevel.value : this.activityLevel,
+    heightUnit: heightUnit ?? this.heightUnit,
+    weightUnit: weightUnit ?? this.weightUnit,
+    languageCode: languageCode.present ? languageCode.value : this.languageCode,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
   );
@@ -1250,6 +1352,14 @@ class UserSettingsTableData extends DataClass
           data.activityLevel.present
               ? data.activityLevel.value
               : this.activityLevel,
+      heightUnit:
+          data.heightUnit.present ? data.heightUnit.value : this.heightUnit,
+      weightUnit:
+          data.weightUnit.present ? data.weightUnit.value : this.weightUnit,
+      languageCode:
+          data.languageCode.present
+              ? data.languageCode.value
+              : this.languageCode,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
@@ -1267,6 +1377,9 @@ class UserSettingsTableData extends DataClass
           ..write('dateOfBirth: $dateOfBirth, ')
           ..write('weightGoal: $weightGoal, ')
           ..write('activityLevel: $activityLevel, ')
+          ..write('heightUnit: $heightUnit, ')
+          ..write('weightUnit: $weightUnit, ')
+          ..write('languageCode: $languageCode, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -1284,6 +1397,9 @@ class UserSettingsTableData extends DataClass
     dateOfBirth,
     weightGoal,
     activityLevel,
+    heightUnit,
+    weightUnit,
+    languageCode,
     createdAt,
     updatedAt,
   );
@@ -1300,6 +1416,9 @@ class UserSettingsTableData extends DataClass
           other.dateOfBirth == this.dateOfBirth &&
           other.weightGoal == this.weightGoal &&
           other.activityLevel == this.activityLevel &&
+          other.heightUnit == this.heightUnit &&
+          other.weightUnit == this.weightUnit &&
+          other.languageCode == this.languageCode &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
 }
@@ -1315,6 +1434,9 @@ class UserSettingsTableCompanion
   final Value<DateTime?> dateOfBirth;
   final Value<String?> weightGoal;
   final Value<String?> activityLevel;
+  final Value<String> heightUnit;
+  final Value<String> weightUnit;
+  final Value<String?> languageCode;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
   const UserSettingsTableCompanion({
@@ -1327,6 +1449,9 @@ class UserSettingsTableCompanion
     this.dateOfBirth = const Value.absent(),
     this.weightGoal = const Value.absent(),
     this.activityLevel = const Value.absent(),
+    this.heightUnit = const Value.absent(),
+    this.weightUnit = const Value.absent(),
+    this.languageCode = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
@@ -1340,6 +1465,9 @@ class UserSettingsTableCompanion
     this.dateOfBirth = const Value.absent(),
     this.weightGoal = const Value.absent(),
     this.activityLevel = const Value.absent(),
+    this.heightUnit = const Value.absent(),
+    this.weightUnit = const Value.absent(),
+    this.languageCode = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
@@ -1353,6 +1481,9 @@ class UserSettingsTableCompanion
     Expression<DateTime>? dateOfBirth,
     Expression<String>? weightGoal,
     Expression<String>? activityLevel,
+    Expression<String>? heightUnit,
+    Expression<String>? weightUnit,
+    Expression<String>? languageCode,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
   }) {
@@ -1366,6 +1497,9 @@ class UserSettingsTableCompanion
       if (dateOfBirth != null) 'date_of_birth': dateOfBirth,
       if (weightGoal != null) 'weight_goal': weightGoal,
       if (activityLevel != null) 'activity_level': activityLevel,
+      if (heightUnit != null) 'height_unit': heightUnit,
+      if (weightUnit != null) 'weight_unit': weightUnit,
+      if (languageCode != null) 'language_code': languageCode,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
     });
@@ -1381,6 +1515,9 @@ class UserSettingsTableCompanion
     Value<DateTime?>? dateOfBirth,
     Value<String?>? weightGoal,
     Value<String?>? activityLevel,
+    Value<String>? heightUnit,
+    Value<String>? weightUnit,
+    Value<String?>? languageCode,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
   }) {
@@ -1394,6 +1531,9 @@ class UserSettingsTableCompanion
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       weightGoal: weightGoal ?? this.weightGoal,
       activityLevel: activityLevel ?? this.activityLevel,
+      heightUnit: heightUnit ?? this.heightUnit,
+      weightUnit: weightUnit ?? this.weightUnit,
+      languageCode: languageCode ?? this.languageCode,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -1429,6 +1569,15 @@ class UserSettingsTableCompanion
     if (activityLevel.present) {
       map['activity_level'] = Variable<String>(activityLevel.value);
     }
+    if (heightUnit.present) {
+      map['height_unit'] = Variable<String>(heightUnit.value);
+    }
+    if (weightUnit.present) {
+      map['weight_unit'] = Variable<String>(weightUnit.value);
+    }
+    if (languageCode.present) {
+      map['language_code'] = Variable<String>(languageCode.value);
+    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
@@ -1450,6 +1599,9 @@ class UserSettingsTableCompanion
           ..write('dateOfBirth: $dateOfBirth, ')
           ..write('weightGoal: $weightGoal, ')
           ..write('activityLevel: $activityLevel, ')
+          ..write('heightUnit: $heightUnit, ')
+          ..write('weightUnit: $weightUnit, ')
+          ..write('languageCode: $languageCode, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -2788,6 +2940,9 @@ typedef $$UserSettingsTableTableCreateCompanionBuilder =
       Value<DateTime?> dateOfBirth,
       Value<String?> weightGoal,
       Value<String?> activityLevel,
+      Value<String> heightUnit,
+      Value<String> weightUnit,
+      Value<String?> languageCode,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
     });
@@ -2802,6 +2957,9 @@ typedef $$UserSettingsTableTableUpdateCompanionBuilder =
       Value<DateTime?> dateOfBirth,
       Value<String?> weightGoal,
       Value<String?> activityLevel,
+      Value<String> heightUnit,
+      Value<String> weightUnit,
+      Value<String?> languageCode,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
     });
@@ -2857,6 +3015,21 @@ class $$UserSettingsTableTableFilterComposer
 
   ColumnFilters<String> get activityLevel => $composableBuilder(
     column: $table.activityLevel,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get heightUnit => $composableBuilder(
+    column: $table.heightUnit,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get weightUnit => $composableBuilder(
+    column: $table.weightUnit,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get languageCode => $composableBuilder(
+    column: $table.languageCode,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2925,6 +3098,21 @@ class $$UserSettingsTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get heightUnit => $composableBuilder(
+    column: $table.heightUnit,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get weightUnit => $composableBuilder(
+    column: $table.weightUnit,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get languageCode => $composableBuilder(
+    column: $table.languageCode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
@@ -2979,6 +3167,21 @@ class $$UserSettingsTableTableAnnotationComposer
 
   GeneratedColumn<String> get activityLevel => $composableBuilder(
     column: $table.activityLevel,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get heightUnit => $composableBuilder(
+    column: $table.heightUnit,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get weightUnit => $composableBuilder(
+    column: $table.weightUnit,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get languageCode => $composableBuilder(
+    column: $table.languageCode,
     builder: (column) => column,
   );
 
@@ -3044,6 +3247,9 @@ class $$UserSettingsTableTableTableManager
                 Value<DateTime?> dateOfBirth = const Value.absent(),
                 Value<String?> weightGoal = const Value.absent(),
                 Value<String?> activityLevel = const Value.absent(),
+                Value<String> heightUnit = const Value.absent(),
+                Value<String> weightUnit = const Value.absent(),
+                Value<String?> languageCode = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => UserSettingsTableCompanion(
@@ -3056,6 +3262,9 @@ class $$UserSettingsTableTableTableManager
                 dateOfBirth: dateOfBirth,
                 weightGoal: weightGoal,
                 activityLevel: activityLevel,
+                heightUnit: heightUnit,
+                weightUnit: weightUnit,
+                languageCode: languageCode,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
               ),
@@ -3070,6 +3279,9 @@ class $$UserSettingsTableTableTableManager
                 Value<DateTime?> dateOfBirth = const Value.absent(),
                 Value<String?> weightGoal = const Value.absent(),
                 Value<String?> activityLevel = const Value.absent(),
+                Value<String> heightUnit = const Value.absent(),
+                Value<String> weightUnit = const Value.absent(),
+                Value<String?> languageCode = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => UserSettingsTableCompanion.insert(
@@ -3082,6 +3294,9 @@ class $$UserSettingsTableTableTableManager
                 dateOfBirth: dateOfBirth,
                 weightGoal: weightGoal,
                 activityLevel: activityLevel,
+                heightUnit: heightUnit,
+                weightUnit: weightUnit,
+                languageCode: languageCode,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
               ),

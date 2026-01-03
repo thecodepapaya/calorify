@@ -14,7 +14,8 @@ class MockDatabaseAdapter implements DatabaseInterface {
   int? _dailyCalorieGoal;
   profile_models.UserProfile? _userProfile;
 
-  final StreamController<int?> _goalController = StreamController<int?>.broadcast();
+  final StreamController<int?> _goalController =
+      StreamController<int?>.broadcast();
 
   MockDatabaseAdapter() {
     _initializeMockData();
@@ -163,5 +164,14 @@ class MockDatabaseAdapter implements DatabaseInterface {
   @override
   Future<bool> hasUserProfile() async {
     return _userProfile != null;
+  }
+
+  @override
+  Future<void> clearAllData() async {
+    _meals.clear();
+    _favorites.clear();
+    _userProfile = null;
+    _dailyCalorieGoal = null;
+    _goalController.add(null);
   }
 }

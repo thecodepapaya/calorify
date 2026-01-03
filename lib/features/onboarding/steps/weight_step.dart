@@ -6,7 +6,11 @@ import 'package:flutter/material.dart';
 class WeightStepScreen extends StatefulWidget {
   final VoidCallback onContinue;
   final bool isTargetWeight;
-  const WeightStepScreen({super.key, required this.onContinue, this.isTargetWeight = false});
+  const WeightStepScreen({
+    super.key,
+    required this.onContinue,
+    this.isTargetWeight = false,
+  });
 
   @override
   State<WeightStepScreen> createState() => _WeightStepScreenState();
@@ -14,10 +18,20 @@ class WeightStepScreen extends StatefulWidget {
 
 class _WeightStepScreenState extends State<WeightStepScreen> {
   double _weight = 70;
-  late bool _isMetric;
+  UnitSystem _unitSystem = UnitSystem.metric;
   late ScrollController _scrollController;
   final TextEditingController _textController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
+
+  // Ruler constants
+  static const double _metricStart = 30.0;
+  static const double _metricEnd = 300.0;
+  static const double _imperialStart = 66.0;
+  static const double _imperialEnd = 660.0;
+
+  // Visual constants
+  static const double _itemWidth = 20.0; // Width of each tick container
+  static const int _ticksPerMajor = 5; // Number of ticks between labels
 
   @override
   void initState() {
@@ -32,54 +46,64 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
     final val = double.tryParse(_textController.text);
     if (val != null) {
       setState(() {
-        if (_isMetric) {
-          _weight = val.clamp(30, 300);
+        if (_unitSystem.isMetric) {
+          _weight = val.clamp(_metricStart, _metricEnd);
         } else {
-          _weight = LocaleUtils.convertWeightToMetric(val.clamp(66, 660));
+          _weight = val.clamp(_imperialStart, _imperialEnd);
         }
         _syncRulerToValue();
       });
     }
   }
 
+  /// Syncs the horizontal ruler scroll position to the current numeric weight value.
+  ///
+  /// The ruler works by mapping physical pixels to weight units:
+  /// - In both systems: 1 unit (kg or lb) = [_itemWidth] pixels.
+  /// - The scale starts at [_metricStart] kg or [_imperialStart] lbs.
   void _syncRulerToValue() {
     if (!_scrollController.hasClients) return;
     final double offset;
-    if (_isMetric) {
-      offset = (_weight - 30) * 20.0;
+    if (_unitSystem.isMetric) {
+      offset = (_weight - _metricStart) * _itemWidth;
     } else {
-      final imperial = LocaleUtils.convertWeightToImperial(_weight);
-      offset = (imperial - 66) * 20.0;
+      offset = (_weight - _imperialStart) * _itemWidth;
     }
-    _scrollController.jumpTo(offset.clamp(0, 10000));
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _isMetric = LocaleUtils.isMetricSystem(context);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _syncRulerToValue();
-    });
+    _scrollController.jumpTo(offset);
   }
 
   Future<void> _loadData() async {
     final profile = await OnboardingService.instance.getProfileData();
     if (profile != null) {
-      final weight = widget.isTargetWeight ? profile.targetWeight : profile.weight;
-      if (weight != null && mounted) {
-        setState(() {
+      setState(() {
+        _unitSystem = profile.weightUnit;
+        final weight =
+            widget.isTargetWeight ? profile.targetWeight : profile.weight;
+
+        if (weight != null) {
           _weight = weight;
-          _updateTextField();
-        });
-      }
+        } else {
+          // Calculate ideal weight as default if no value saved
+          final ideal = OnboardingService.instance.calculateIdealWeight(
+            profile,
+          );
+          if (ideal != null) {
+            _weight = ideal;
+          } else {
+            _weight = _unitSystem.isMetric ? 70.0 : 154.0;
+          }
+        }
+
+        _updateTextField();
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => _syncRulerToValue(),
+        );
+      });
     }
   }
 
   void _updateTextField() {
-    _textController.text = _isMetric 
-        ? _weight.toStringAsFixed(1) 
-        : LocaleUtils.convertWeightToImperial(_weight).toStringAsFixed(1);
+    _textController.text = _weight.toStringAsFixed(1);
   }
 
   @override
@@ -102,15 +126,21 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
         children: [
           const SizedBox(height: 48),
           Text(
-            widget.isTargetWeight ? 'What is your target weight?' : 'What is your current weight?',
-            style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
+            widget.isTargetWeight
+                ? 'What is your target weight?'
+                : 'What is your current weight?',
+            style: theme.textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(height: 12),
           Text(
-            widget.isTargetWeight 
-              ? 'Setting a goal weight helps us determine your long-term plan.' 
-              : 'Your current weight is essential for personalizing your daily goals.',
-            style: theme.textTheme.bodyLarge?.copyWith(color: colorScheme.onSurfaceVariant),
+            widget.isTargetWeight
+                ? 'Setting a goal weight helps us determine your long-term plan.'
+                : 'Your current weight is essential for personalizing your daily goals.',
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
           ),
           const Spacer(),
           Center(
@@ -130,7 +160,9 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
                           child: TextField(
                             controller: _textController,
                             focusNode: _focusNode,
-                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                            keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true,
+                            ),
                             onSubmitted: (_) => _focusNode.unfocus(),
                           ),
                         ),
@@ -141,9 +173,7 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
                         textBaseline: TextBaseline.alphabetic,
                         children: [
                           Text(
-                            _isMetric 
-                              ? _weight.toStringAsFixed(1) 
-                              : LocaleUtils.convertWeightToImperial(_weight).toStringAsFixed(1),
+                            _weight.toStringAsFixed(1),
                             style: theme.textTheme.displayLarge?.copyWith(
                               fontWeight: FontWeight.w900,
                               color: colorScheme.primary,
@@ -151,7 +181,7 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            _isMetric ? 'kg' : 'lbs',
+                            _unitSystem.isMetric ? 'kg' : 'lbs',
                             style: theme.textTheme.titleLarge?.copyWith(
                               color: colorScheme.onSurfaceVariant,
                               fontWeight: FontWeight.bold,
@@ -169,7 +199,6 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
                     alignment: Alignment.center,
                     children: [
                       _buildHorizontalRuler(),
-                      // Center Indicator
                       Container(
                         width: 2,
                         height: 60,
@@ -185,26 +214,35 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
             ),
           ),
           const Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildUnitButton('Metric', _isMetric, () {
-                setState(() {
-                  _isMetric = true;
-                  _updateTextField();
-                  _syncRulerToValue();
-                });
-              }),
-              const SizedBox(width: 16),
-              _buildUnitButton('Imperial', !_isMetric, () {
-                setState(() {
-                  _isMetric = false;
-                  _updateTextField();
-                  _syncRulerToValue();
-                });
-              }),
-            ],
-          ),
+          if (!widget.isTargetWeight)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildUnitButton('Metric', _unitSystem.isMetric, () {
+                  if (_unitSystem.isMetric) return;
+                  setState(() {
+                    _weight = LocaleUtils.convertWeightToMetric(
+                      _weight,
+                    ).clamp(_metricStart, _metricEnd);
+                    _unitSystem = UnitSystem.metric;
+                    _updateTextField();
+                    _syncRulerToValue();
+                  });
+                }),
+                const SizedBox(width: 16),
+                _buildUnitButton('Imperial', _unitSystem.isImperial, () {
+                  if (_unitSystem.isImperial) return;
+                  setState(() {
+                    _weight = LocaleUtils.convertWeightToImperial(
+                      _weight,
+                    ).clamp(_imperialStart, _imperialEnd);
+                    _unitSystem = UnitSystem.imperial;
+                    _updateTextField();
+                    _syncRulerToValue();
+                  });
+                }),
+              ],
+            ),
           const SizedBox(height: 32),
           SizedBox(
             width: double.infinity,
@@ -212,9 +250,14 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
               onPressed: _saveAndContinue,
               style: FilledButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
               ),
-              child: const Text('Next', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text(
+                'Next',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ],
@@ -230,13 +273,19 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? colorScheme.primary : colorScheme.surfaceVariant.withOpacity(0.5),
+          color:
+              isSelected
+                  ? colorScheme.primary
+                  : colorScheme.surfaceVariant.withOpacity(0.5),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
           label,
           style: TextStyle(
-            color: isSelected ? colorScheme.onPrimary : colorScheme.onSurfaceVariant,
+            color:
+                isSelected
+                    ? colorScheme.onPrimary
+                    : colorScheme.onSurfaceVariant,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),
         ),
@@ -250,11 +299,16 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
         if (notification is ScrollUpdateNotification && !_focusNode.hasFocus) {
           final offset = notification.metrics.pixels;
           setState(() {
-            if (_isMetric) {
-              _weight = (30 + (offset / 20.0)).clamp(30.0, 300.0);
+            if (_unitSystem.isMetric) {
+              _weight = (_metricStart + (offset / _itemWidth)).clamp(
+                _metricStart,
+                _metricEnd,
+              );
             } else {
-              final imperial = (66 + (offset / 20.0)).clamp(66.0, 660.0);
-              _weight = LocaleUtils.convertWeightToMetric(imperial);
+              _weight = (_imperialStart + (offset / _itemWidth)).clamp(
+                _imperialStart,
+                _imperialEnd,
+              );
             }
             _updateTextField();
           });
@@ -264,33 +318,45 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
       child: ListView.builder(
         controller: _scrollController,
         scrollDirection: Axis.horizontal,
-        itemCount: 1000, 
+        itemCount:
+            _unitSystem.isMetric
+                ? ((_metricEnd - _metricStart).toInt() + 1)
+                : ((_imperialEnd - _imperialStart).toInt() + 1),
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width / 2 - (_itemWidth / 2),
+        ),
         itemBuilder: (context, index) {
-          final value = _isMetric ? (30 + index) : (66 + index);
-          final isMajor = index % 5 == 0;
-          
-          return Container(
-            width: 20,
-            alignment: Alignment.bottomCenter,
+          final value =
+              _unitSystem.isMetric
+                  ? (_metricStart + index)
+                  : (_imperialStart + index);
+          final isMajor = index % _ticksPerMajor == 0;
+
+          return SizedBox(
+            width: _itemWidth,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 if (isMajor)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      value.toInt().toString(),
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        fontWeight: FontWeight.bold,
+                    child: OverflowBox(
+                      maxWidth: 100,
+                      child: Text(
+                        value.toInt().toString(),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontWeight: FontWeight.w900,
+                        ),
                       ),
                     ),
                   ),
                 Container(
                   width: isMajor ? 2 : 1,
                   height: isMajor ? 40 : 20,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(isMajor ? 0.8 : 0.3),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant
+                      .withOpacity(isMajor ? 0.8 : 0.3),
                 ),
               ],
             ),
@@ -301,10 +367,13 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
   }
 
   Future<void> _saveAndContinue() async {
-    final profile = await OnboardingService.instance.getProfileData() ?? const UserProfile();
-    final updatedProfile = widget.isTargetWeight 
-        ? profile.copyWith(targetWeight: _weight)
-        : profile.copyWith(weight: _weight);
+    final profile =
+        await OnboardingService.instance.getProfileData() ??
+        const UserProfile();
+    final updatedProfile =
+        widget.isTargetWeight
+            ? profile.copyWith(targetWeight: _weight, weightUnit: _unitSystem)
+            : profile.copyWith(weight: _weight, weightUnit: _unitSystem);
     await OnboardingService.instance.saveProfileData(updatedProfile);
     widget.onContinue();
   }
