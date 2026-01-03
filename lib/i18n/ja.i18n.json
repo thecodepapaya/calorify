@@ -19,5 +19,311 @@
         "description": "より良い洞察のためにHealth Connectと接続する"
       }
     }
+  },
+  "tabs": {
+    "dashboard": "ダッシュボード",
+    "history": "履歴"
+  },
+  "home": {
+    "dailyGoal": {
+      "title": "日々の目標を設定",
+      "titleSet": "あなたのデイリーゴール",
+      "description": "ウェルネスの旅を始める準備はできましたか？進捗を促進させるために、下にあなたのデイリーカロリー目標を設定してください。",
+      "descriptionSet": "コンパスが設定されました！これがあなたの進むべきデイリーカロリー目標です。",
+      "yourGoal": "あなたの目標",
+      "dailyCalories": "デイリーカロリー (kcal)",
+      "setGoal": "目標を設定",
+      "intake": "摂取",
+      "burned": "消費",
+      "weightImpact": "体重への影響",
+      "estLoss": "推定減少量",
+      "estGain": "推定増加量",
+      "kcal": "kcal"
+    },
+    "dailySummary": {
+      "title": "デイリーサマリー",
+      "calories": "カロリー",
+      "carbs": "炭水化物",
+      "protein": "タンパク質",
+      "fat": "脂肪",
+      "fiber": "繊維"
+    },
+    "intakeProgress": {
+      "title": "今日のマクロ分配",
+      "target": "目標",
+      "current": "現在"
+    },
+    "mealLog": {
+      "title": "ログされた食事",
+      "emptyMessage": "最後の食事の写真を撮ってここに記録しましょう。",
+      "noMealsToday": "今日の食事はまだ記録されていません",
+      "seeAllMeals": "すべての食事を見る"
+    },
+    "mealDescription": {
+      "title": "AIでクイック追加",
+      "description": "食事を説明して、AIに詳細を処理させましょう。",
+      "hint": "例：朝食に大きなオートミールのボウルをバナナスライスとホエイパウダーを加えて食べました...",
+      "analyzeMeal": "食事を分析"
+    },
+    "favoriteMeals": {
+      "title": "お気に入りの食事",
+      "description": "お気に入りの食事をすぐに追加します。",
+      "noFavorites": "まだお気に入りの食事はありません。",
+      "addFavoriteHint": "食事の星をクリックしてお気に入りにマークします。",
+      "seeAll": "すべてを見る",
+      "add": "追加"
+    },
+    "mealSnap": {
+      "title": "食事を撮影して追跡",
+      "description": "カメラを使って食べ物の写真を撮ってAI分析を行います。",
+      "openCamera": "カメラを開く"
+    },
+    "connectHealth": {
+      "title": "Health Connectと同期",
+      "description": "あなたの栄養データをHealth Connectと同期します",
+      "install": "インストール",
+      "connect": "接続"
+    }
+  },
+  "history": {
+    "title": "履歴",
+    "noMeals": "記録された食事はありません",
+    "emptyMessage": "最後の食事の写真を撮ってここに記録しましょう。",
+    "today": "今日",
+    "yesterday": "昨日"
+  },
+  "meal": {
+    "ohNo": "おっと！",
+    "delete": "削除",
+    "editMeal": "食事を編集",
+    "saveMeal": "食事を保存",
+    "deleteConfirmation": {
+      "title": "食事を削除",
+      "message": "本当にこの食事のエントリーを削除してもよろしいですか？",
+      "cancel": "キャンセル",
+      "delete": "削除"
+    },
+    "addedToLog": "食事がログに追加されました！",
+    "couldNotAdd": "食事を追加できませんでした: {error}",
+    "removedFromFavorites": "お気に入りから削除されました！",
+    "savedAsFavorite": "食事がお気に入りとして保存されました！",
+    "couldNotUpdateFavorite": "お気に入りの更新に失敗しました: {error}",
+    "failedToProcess": "処理に失敗しました: {error}",
+    "failedToProcessImage": "画像の処理に失敗しました: {error}",
+    "errorCompressingImage": "画像の圧縮エラー: {error}"
+  },
+  "favorites": {
+    "title": "お気に入り",
+    "empty": "まだお気に入りの食事はありません。"
+  },
+  "profile": {
+    "title": "プロフィール",
+    "editProfile": "プロフィールを編集",
+    "noProfileData": "プロフィールデータが見つかりません",
+    "yourProfile": "あなたのプロフィール",
+    "viewAndManage": "健康情報を表示・管理",
+    "sections": {
+      "profile": "プロフィール",
+      "basicInformation": "基本情報",
+      "goalsAndActivity": "目標と活動",
+      "calculatedValues": "計算された値"
+    },
+    "gender": "性別",
+    "height": "身長",
+    "weight": "体重",
+    "age": "年齢",
+    "weightGoal": "体重目標",
+    "activityLevel": "活動レベル",
+    "healthMetrics": "健康指標",
+    "notSet": "未設定",
+    "years": "年",
+    "updatedSuccessfully": "プロフィールが正常に更新されました！"
+  },
+  "editProfile": {
+    "title": "プロフィールを編集",
+    "sections": {
+      "personalInformation": "個人情報",
+      "physicalMeasurements": "身体測定",
+      "goalsAndActivity": "目標と活動"
+    },
+    "gender": "性別",
+    "dateOfBirth": "生年月日",
+    "height": "身長",
+    "weight": "体重",
+    "weightGoal": "体重目標",
+    "activityLevel": "活動レベル",
+    "metric": "メートル法",
+    "imperial": "インペリアル",
+    "metricCm": "メートル法 (cm)",
+    "imperialFtIn": "インペリアル (ft/in)",
+    "metricKg": "メートル法 (kg)",
+    "imperialLbs": "インペリアル (lbs)"
+  },
+  "settings": {
+    "title": "設定",
+    "sections": {
+      "profile": "プロフィール",
+      "localization": "ローカライズ",
+      "notifications": "通知",
+      "supportAndLegal": "サポートと法律",
+      "dangerZone": "危険ゾーン",
+      "developer": "開発者"
+    },
+    "editProfile": {
+      "title": "プロフィールを編集",
+      "subtitle": "個人情報を更新"
+    },
+    "language": {
+      "title": "言語"
+    },
+    "heightUnit": {
+      "title": "身長の単位"
+    },
+    "weightUnit": {
+      "title": "体重の単位"
+    },
+    "mealReminders": {
+      "title": "食事リマインダー",
+      "subtitle": "タイムリーなアラートで進捗を維持"
+    },
+    "sendFeedback": {
+      "title": "フィードバックを送信",
+      "subtitle": "Calorifyの改善にご協力ください"
+    },
+    "clearAllData": {
+      "title": "すべてのデータをクリア",
+      "subtitle": "すべての情報を取り消し不可能に削除します",
+      "confirmationTitle": "すべてのデータをクリアしますか？",
+      "confirmationMessage": "この操作は取り消せません。すべてのログされた食事、お気に入り、プロフィール設定は完全に削除されます。",
+      "cancel": "キャンセル",
+      "clearEverything": "すべてをクリア"
+    },
+    "debugOptions": {
+      "title": "デバッグオプション"
+    },
+    "developerModeEnabled": "開発者モードが有効になりました！"
+  },
+  "reminders": {
+    "title": "リマインダーで進捗を維持",
+    "description": "食事を記録し、栄養目標を一貫して守るための穏やかなリマインダーを受け取ります",
+    "notificationsEnabled": "通知が有効",
+    "notificationsDisabled": "通知が無効",
+    "enabledSubtitle": "食事リマインダーを受け取ります",
+    "disabledSubtitle": "通知を有効にして食事リマインダーを受け取りましょう",
+    "mealReminders": "食事リマインダー",
+    "breakfast": "朝食",
+    "lunch": "昼食",
+    "dinner": "夕食",
+    "snack": "スナック",
+    "change": "変更",
+    "enableNotifications": "通知を有効にする",
+    "skipForNow": "今はスキップ",
+    "saveChanges": "変更を保存",
+    "continue_": "続ける",
+    "enabledSuccessfully": "通知が正常に有効になりました！",
+    "permissionDenied": "通知の許可が拒否されました",
+    "errorEnabling": "通知を有効にする際のエラー: {error}",
+    "errorCompletingSetup": "セットアップの完了に関するエラー: {error}"
+  },
+  "notifications": {
+    "breakfast": {
+      "title": "朝食の時間！🍳",
+      "body": "朝食を記録するのを忘れないでください"
+    },
+    "lunch": {
+      "title": "昼食の時間！🥗",
+      "body": "昼食を記録する時間です"
+    },
+    "dinner": {
+      "title": "夕食の時間！🍽️",
+      "body": "夕食を記録するのを忘れないでください"
+    },
+    "snack": {
+      "title": "スナックの時間！🍎",
+      "body": "ヘルシーなスナックの時間です"
+    },
+    "test": {
+      "title": "テスト通知"
+    }
+  },
+  "login": {
+    "title": "ログイン",
+    "signInWithGoogle": "Googleでサインイン",
+    "signInFailed": "Googleサインインに失敗しましたまたはキャンセルされました。"
+  },
+  "disclaimer": {
+    "pleaseNote": "ご注意ください",
+    "snap": {
+      "description": "Calorifyは推定栄養情報を提供します。正確さはあなたの入力と食品の変動に依存します。ガイドとして使用し、確定的な情報源として使用しないでください。個別の食事アドバイスについては専門家に相談してください。",
+      "portionSize": {
+        "title": "ポーションサイズ",
+        "description": "推定の正確さは、ポーションサイズの正確な評価に大きく依存します。"
+      },
+      "preparationMethods": {
+        "title": "調理方法",
+        "description": "調理方法は食材の栄養成分に大きく影響を与えることがあります。Calorifyの推定値は、これらの変動を常に考慮しているわけではありません。"
+      },
+      "ingredients": {
+        "title": "材料",
+        "description": "隠れた材料が多い複雑な料理は、あまり正確な推定をもたらさない可能性があります。"
+      },
+      "databaseLimitations": {
+        "title": "データベースの制限",
+        "description": "Calorifyの食品データベースは広範ですが、すべての食品アイテムやバリエーションを含んでいるわけではありません。"
+      }
+    },
+    "weightEstimate": {
+      "title": "体重の推定について",
+      "description": "予測される体重変化は、単純なカロリー摂取対カロリー消費のモデルに基づく理論的な推定です。これはモチベーションのガイダンスを目的としており、実際の体重の予測として使わないでください。",
+      "calorieAccuracy": {
+        "title": "カロリーの正確性",
+        "description": "この推定値は、追跡されたカロリー摂取と消費の正確さに依存しています。不正確な記録は不正確な推定をもたらします。"
+      },
+      "biologicalFactors": {
+        "title": "生物的要因",
+        "description": "実際の体重の減少や増加は、代謝、ホルモン、睡眠、ストレス、水分摂取、その他の個別の要因によって影響を受けますが、Calorifyでは測定できません。"
+      },
+      "waterWeight": {
+        "title": "水分による体重の変動",
+        "description": "通常の体重は、水分貯留、消化、タイミングによる影響で大きく変動することがあります。推定値はこれらの毎日の変動を考慮していません。"
+      },
+      "professionalGuidance": {
+        "title": "専門家のガイダンス",
+        "description": "この推定を医療の決定に使用しないでください。個別の体重管理アドバイスについては、常に医療専門家または登録栄養士に相談してください。"
+      }
+    }
+  },
+  "common": {
+    "cancel": "キャンセル",
+    "save": "保存",
+    "delete": "削除",
+    "edit": "編集",
+    "close": "閉じる",
+    "continue": "続ける",
+    "skip": "スキップ",
+    "error": "エラー",
+    "loading": "読み込み中...",
+    "notSet": "未設定",
+    "today": "今日",
+    "yesterday": "昨日"
+  },
+  "errors": {
+    "loadingProfileData": "プロフィールデータの読み込みエラー",
+    "generic": "エラーが発生しました。再試行してください。"
+  },
+  "debug": {
+    "title": "デバッグオプション",
+    "showActiveNotifications": "アクティブな通知を表示",
+    "scheduleTestNotification": "テスト通知をスケジュール (10秒)",
+    "triggerBreakfastNotification": "朝食通知を発生させる",
+    "cancelAllNotifications": "すべての通知をキャンセル",
+    "activeNotifications": "アクティブな通知",
+    "id": "ID: {id}",
+    "fetchLatestWeight": "最新の体重を取得",
+    "fetchLatestHeight": "最新の身長を取得",
+    "writeTestWeight": "テスト体重を書く (70kg)",
+    "writeTestHeight": "テスト身長を書く (175cm)",
+    "syncLast7Days": "最後の7日間を同期",
+    "checkCurrentLocale": "現在のロケールを確認"
   }
 }

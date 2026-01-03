@@ -19,5 +19,311 @@
         "description": "连接 Health Connect 以获得更好的洞察"
       }
     }
+  },
+  "tabs": {
+    "dashboard": "仪表板",
+    "history": "历史记录"
+  },
+  "home": {
+    "dailyGoal": {
+      "title": "设定您的每日目标",
+      "titleSet": "您的每日目标",
+      "description": "准备好开始您的健康之旅了吗？在下面设定您的每日卡路里目标，开启您的进步之路。",
+      "descriptionSet": "您的指引已设定！这是您的每日卡路里目标，帮助您前行。",
+      "yourGoal": "您的目标",
+      "dailyCalories": "每日卡路里 (千卡)",
+      "setGoal": "设定目标",
+      "intake": "摄入",
+      "burned": "消耗",
+      "weightImpact": "体重影响",
+      "estLoss": "预估减少",
+      "estGain": "预估增加",
+      "kcal": "千卡"
+    },
+    "dailySummary": {
+      "title": "每日总结",
+      "calories": "卡路里",
+      "carbs": "碳水化合物",
+      "protein": "蛋白质",
+      "fat": "脂肪",
+      "fiber": "纤维"
+    },
+    "intakeProgress": {
+      "title": "今天的宏观营养分配",
+      "target": "目标",
+      "current": "当前"
+    },
+    "mealLog": {
+      "title": "已记录的餐点",
+      "emptyMessage": "拍一张您最近用餐的照片以记录在这里。",
+      "noMealsToday": "今天没有记录的餐点",
+      "seeAllMeals": "查看所有餐点"
+    },
+    "mealDescription": {
+      "title": "快速添加通过AI",
+      "description": "描述您的餐点，让AI处理详情。",
+      "hint": "例如：早饭我吃了一大碗燕麦粥，配上切片香蕉和一勺乳清蛋白...",
+      "analyzeMeal": "分析餐点"
+    },
+    "favoriteMeals": {
+      "title": "收藏餐点",
+      "description": "快速添加您最爱的餐点。",
+      "noFavorites": "尚未添加收藏餐点。",
+      "addFavoriteHint": "点击餐点旁的星星标记为收藏。",
+      "seeAll": "查看所有",
+      "add": "添加"
+    },
+    "mealSnap": {
+      "title": "拍照并记录您的餐点",
+      "description": "使用您的相机拍一张食物的照片进行AI分析。",
+      "openCamera": "打开相机"
+    },
+    "connectHealth": {
+      "title": "与健康应用同步",
+      "description": "将您的营养数据与健康应用同步",
+      "install": "安装",
+      "connect": "连接"
+    }
+  },
+  "history": {
+    "title": "历史记录",
+    "noMeals": "没有记录的餐点",
+    "emptyMessage": "拍一张您最近用餐的照片以记录在这里。",
+    "today": "今天",
+    "yesterday": "昨天"
+  },
+  "meal": {
+    "ohNo": "哦不！",
+    "delete": "删除",
+    "editMeal": "编辑餐点",
+    "saveMeal": "保存餐点",
+    "deleteConfirmation": {
+      "title": "删除餐点",
+      "message": "您确定要删除这个餐点记录吗？",
+      "cancel": "取消",
+      "delete": "删除"
+    },
+    "addedToLog": "餐点已添加到您的记录中！",
+    "couldNotAdd": "无法添加餐点：{error}",
+    "removedFromFavorites": "已从收藏中移除！",
+    "savedAsFavorite": "餐点已保存为收藏！",
+    "couldNotUpdateFavorite": "无法更新收藏：{error}",
+    "failedToProcess": "处理失败：{error}",
+    "failedToProcessImage": "处理图像失败：{error}",
+    "errorCompressingImage": "压缩图像时出错：{error}"
+  },
+  "favorites": {
+    "title": "收藏夹",
+    "empty": "尚未添加收藏餐点。"
+  },
+  "profile": {
+    "title": "个人资料",
+    "editProfile": "编辑个人资料",
+    "noProfileData": "未找到个人资料数据",
+    "yourProfile": "您的个人资料",
+    "viewAndManage": "查看并管理您的健康信息",
+    "sections": {
+      "profile": "个人资料",
+      "basicInformation": "基本信息",
+      "goalsAndActivity": "目标与活动",
+      "calculatedValues": "计算值"
+    },
+    "gender": "性别",
+    "height": "身高",
+    "weight": "体重",
+    "age": "年龄",
+    "weightGoal": "体重目标",
+    "activityLevel": "活动水平",
+    "healthMetrics": "健康指标",
+    "notSet": "未设定",
+    "years": "年",
+    "updatedSuccessfully": "个人资料更新成功！"
+  },
+  "editProfile": {
+    "title": "编辑个人资料",
+    "sections": {
+      "personalInformation": "个人信息",
+      "physicalMeasurements": "身体测量",
+      "goalsAndActivity": "目标与活动"
+    },
+    "gender": "性别",
+    "dateOfBirth": "出生日期",
+    "height": "身高",
+    "weight": "体重",
+    "weightGoal": "体重目标",
+    "activityLevel": "活动水平",
+    "metric": "公制",
+    "imperial": "英制",
+    "metricCm": "公制 (厘米)",
+    "imperialFtIn": "英制 (英尺/英寸)",
+    "metricKg": "公制 (千克)",
+    "imperialLbs": "英制 (磅)"
+  },
+  "settings": {
+    "title": "设置",
+    "sections": {
+      "profile": "个人资料",
+      "localization": "本地化",
+      "notifications": "通知",
+      "supportAndLegal": "支持与法律",
+      "dangerZone": "危险区域",
+      "developer": "开发者"
+    },
+    "editProfile": {
+      "title": "编辑个人资料",
+      "subtitle": "更新您的个人信息"
+    },
+    "language": {
+      "title": "语言"
+    },
+    "heightUnit": {
+      "title": "身高单位"
+    },
+    "weightUnit": {
+      "title": "体重单位"
+    },
+    "mealReminders": {
+      "title": "餐点提醒",
+      "subtitle": "通过及时的提醒保持正轨"
+    },
+    "sendFeedback": {
+      "title": "发送反馈",
+      "subtitle": "帮助我们改进Calorify"
+    },
+    "clearAllData": {
+      "title": "清除所有数据",
+      "subtitle": "不可逆转地删除您的所有信息",
+      "confirmationTitle": "清除所有数据？",
+      "confirmationMessage": "此操作无法撤销。您所有记录的餐点、收藏和个人资料设置将被永久删除。",
+      "cancel": "取消",
+      "clearEverything": "清除所有"
+    },
+    "debugOptions": {
+      "title": "调试选项"
+    },
+    "developerModeEnabled": "开发者模式已启用！"
+  },
+  "reminders": {
+    "title": "通过提醒保持正轨",
+    "description": "获取温馨提醒记录您的餐点，确保您与营养目标保持一致",
+    "notificationsEnabled": "通知已启用",
+    "notificationsDisabled": "通知已禁用",
+    "enabledSubtitle": "您将收到餐点提醒",
+    "disabledSubtitle": "启用通知以获取餐点提醒",
+    "mealReminders": "餐点提醒",
+    "breakfast": "早餐",
+    "lunch": "午餐",
+    "dinner": "晚餐",
+    "snack": "小吃",
+    "change": "更改",
+    "enableNotifications": "启用通知",
+    "skipForNow": "暂时跳过",
+    "saveChanges": "保存更改",
+    "continue_": "继续",
+    "enabledSuccessfully": "通知启用成功！",
+    "permissionDenied": "通知权限被拒绝",
+    "errorEnabling": "启用通知时出错：{error}",
+    "errorCompletingSetup": "完成设置时出错：{error}"
+  },
+  "notifications": {
+    "breakfast": {
+      "title": "早餐时间！🍳",
+      "body": "别忘了记录您的早餐"
+    },
+    "lunch": {
+      "title": "午餐时间！🥗",
+      "body": "是时候记录您的午餐了"
+    },
+    "dinner": {
+      "title": "晚餐时间！🍽️",
+      "body": "别忘了记录您的晚餐"
+    },
+    "snack": {
+      "title": "小吃时间！🍎",
+      "body": "该享受健康的小吃了"
+    },
+    "test": {
+      "title": "测试通知"
+    }
+  },
+  "login": {
+    "title": "登录",
+    "signInWithGoogle": "通过Google登录",
+    "signInFailed": "Google登录失败或被取消。"
+  },
+  "disclaimer": {
+    "pleaseNote": "请注意",
+    "snap": {
+      "description": "Calorify提供估计的营养信息。准确性取决于您的输入和食物变化。将其作为指南，而非最终来源。请咨询专业人士以获取个性化的饮食建议。",
+      "portionSize": {
+        "title": "食物份量",
+        "description": "估计的准确性在很大程度上依赖于您对食物份量的正确评估。"
+      },
+      "preparationMethods": {
+        "title": "烹饪方法",
+        "description": "烹饪方式会显著影响食物的营养成分。Calorify的估计可能并未总是考虑这些变化。"
+      },
+      "ingredients": {
+        "title": "成分",
+        "description": "成分复杂的菜肴可能导致估计的准确性降低。"
+      },
+      "databaseLimitations": {
+        "title": "数据库限制",
+        "description": "Calorify的食物数据库庞大，但可能不会包含每一种食物或变体。"
+      }
+    },
+    "weightEstimate": {
+      "title": "关于体重估计",
+      "description": "预计的体重变化是基于简单的卡路里摄入与消耗模型的理论估计。仅用于激励指导，而非对您实际体重的预测。",
+      "calorieAccuracy": {
+        "title": "卡路里准确性",
+        "description": "此估计的准确性仅依赖于您记录的卡路里摄入与消耗。不准确的记录将导致不准确的预测。"
+      },
+      "biologicalFactors": {
+        "title": "生物因素",
+        "description": "实际的体重减轻/增加受到新陈代谢、荷尔蒙、睡眠、压力、水分摄入和其他个体因素的影响，Calorify无法测量。"
+      },
+      "waterWeight": {
+        "title": "水分体重与波动",
+        "description": "正常的日常体重可能因水分滞留、消化和时间而有显著波动。该估计未考虑这些日常变化。"
+      },
+      "professionalGuidance": {
+        "title": "专业指导",
+        "description": "请勿仅凭此估计作出医疗决策。请始终咨询医疗专业人士或注册营养师以获取个性化的体重管理建议。"
+      }
+    }
+  },
+  "common": {
+    "cancel": "取消",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "close": "关闭",
+    "continue": "继续",
+    "skip": "跳过",
+    "error": "错误",
+    "loading": "加载中...",
+    "notSet": "未设定",
+    "today": "今天",
+    "yesterday": "昨天"
+  },
+  "errors": {
+    "loadingProfileData": "加载个人资料数据时出错",
+    "generic": "发生错误。请重试。"
+  },
+  "debug": {
+    "title": "调试选项",
+    "showActiveNotifications": "显示活动通知",
+    "scheduleTestNotification": "安排测试通知 (10秒)",
+    "triggerBreakfastNotification": "触发早餐通知",
+    "cancelAllNotifications": "取消所有通知",
+    "activeNotifications": "活动通知",
+    "id": "ID: {id}",
+    "fetchLatestWeight": "获取最新体重",
+    "fetchLatestHeight": "获取最新身高",
+    "writeTestWeight": "写入测试体重 (70kg)",
+    "writeTestHeight": "写入测试身高 (175cm)",
+    "syncLast7Days": "同步过去7天",
+    "checkCurrentLocale": "检查当前语言环境"
   }
 }
