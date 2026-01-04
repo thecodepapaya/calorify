@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/profile_enum_extensions.dart';
@@ -43,19 +44,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late UnitSystem _originalHeightUnit;
   late UnitSystem _originalWeightUnit;
 
-  // Height constants
-  static const double _minHeightMetric = 100.0;
-  static const double _maxHeightMetric = 250.0;
-  static const double _minHeightImperial = 3.3;
-  static const double _maxHeightImperial = 8.2;
+  // Default values (not in ScaleConstants as they're UI-specific)
   static const double _defaultHeightMetric = 170.0;
-  static const double _defaultHeightImperial = 5.6;
-
-  // Weight constants
-  static const double _minWeightMetric = 30.0;
-  static const double _maxWeightMetric = 300.0;
-  static const double _minWeightImperial = 66.0;
-  static const double _maxWeightImperial = 660.0;
+  static const double _defaultHeightImperial = 67.0; // 67 inches = 5'7"
   static const double _defaultWeightMetric = 70.0;
   static const double _defaultWeightImperial = 154.0;
 
@@ -63,11 +54,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   static const int _defaultAgeYears = 25;
   static const int _daysInYear = 365;
   static const int _earliestYear = 1900;
-
-  // Precision constants
-  static const int _metricHeightPrecision = 0;
-  static const int _imperialHeightPrecision = 1;
-  static const int _weightPrecision = 1;
 
   // UI Layout constants
   static const double _cardBorderRadius = 20.0;
@@ -109,25 +95,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     // Initialize height with clamping to ensure it's within bounds
     final defaultHeight =
         _heightUnit.isMetric ? _defaultHeightMetric : _defaultHeightImperial;
-    final minHeight =
-        _heightUnit.isMetric ? _minHeightMetric : _minHeightImperial;
-    final maxHeight =
-        _heightUnit.isMetric ? _maxHeightMetric : _maxHeightImperial;
     _height = (widget.userProfile.height ?? defaultHeight).clamp(
-      minHeight,
-      maxHeight,
+      _heightUnit.heightMin,
+      _heightUnit.heightMax,
     );
 
     // Initialize weight with clamping to ensure it's within bounds
     final defaultWeight =
         _weightUnit.isMetric ? _defaultWeightMetric : _defaultWeightImperial;
-    final minWeight =
-        _weightUnit.isMetric ? _minWeightMetric : _minWeightImperial;
-    final maxWeight =
-        _weightUnit.isMetric ? _maxWeightMetric : _maxWeightImperial;
     _weight = (widget.userProfile.weight ?? defaultWeight).clamp(
-      minWeight,
-      maxWeight,
+      _weightUnit.weightMin,
+      _weightUnit.weightMax,
     );
 
     _dateOfBirth =
@@ -183,7 +161,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               color:
                   _hasChanges()
                       ? colorScheme.primary
-                      : colorScheme.onSurface.withOpacity(0.38),
+                      : colorScheme.onSurface.withValues(alpha: 0.38),
             ),
           ),
         ],
@@ -295,7 +273,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(_cardBorderRadius),
             side: BorderSide(
-              color: colorScheme.outlineVariant.withOpacity(_borderOpacity),
+              color: colorScheme.outlineVariant.withValues(
+                alpha: _borderOpacity,
+              ),
             ),
           ),
           clipBehavior: Clip.antiAlias,
@@ -317,8 +297,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       leading: Container(
         padding: const EdgeInsets.all(_iconContainerPadding),
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withOpacity(
-            _iconContainerOpacity,
+          color: colorScheme.primaryContainer.withValues(
+            alpha: _iconContainerOpacity,
           ),
           shape: BoxShape.circle,
         ),
@@ -389,8 +369,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       leading: Container(
         padding: const EdgeInsets.all(_iconContainerPadding),
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withOpacity(
-            _iconContainerOpacity,
+          color: colorScheme.primaryContainer.withValues(
+            alpha: _iconContainerOpacity,
           ),
           shape: BoxShape.circle,
         ),
@@ -423,8 +403,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       leading: Container(
         padding: const EdgeInsets.all(_iconContainerPadding),
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withOpacity(
-            _iconContainerOpacity,
+          color: colorScheme.primaryContainer.withValues(
+            alpha: _iconContainerOpacity,
           ),
           shape: BoxShape.circle,
         ),
@@ -437,7 +417,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(t.editProfile.height, style: TextStyle(fontWeight: FontWeight.w600)),
+          Text(
+            t.editProfile.height,
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
           _buildUnitSelector(
             context,
             currentUnit: _heightUnit,
@@ -446,11 +429,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 if (newUnit.isMetric) {
                   _height = LocaleUtils.convertHeightToMetric(
                     _height,
-                  ).clamp(_minHeightMetric, _maxHeightMetric);
+                  ).clamp(newUnit.heightMin, newUnit.heightMax);
                 } else {
                   _height = LocaleUtils.convertHeightToImperial(
                     _height,
-                  ).clamp(_minHeightImperial, _maxHeightImperial);
+                  ).clamp(newUnit.heightMin, newUnit.heightMax);
                 }
                 _heightUnit = newUnit;
               });
@@ -462,23 +445,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       subtitle: Padding(
         padding: const EdgeInsets.only(top: _subtitleTopPadding, right: 0),
         child: ValueSlider(
-          label: '',
           unit: heightUnitString,
-          min: _heightUnit.isMetric ? _minHeightMetric : _minHeightImperial,
-          max: _heightUnit.isMetric ? _maxHeightMetric : _maxHeightImperial,
+          min: _heightUnit.heightMin,
+          max: _heightUnit.heightMax,
           value: _height,
-          precision:
-              _heightUnit.isMetric
-                  ? _metricHeightPrecision
-                  : _imperialHeightPrecision,
-          step: _heightUnit.isMetric ? 1.0 : 0.1,
+          precision: _heightUnit.heightPrecision,
+          step: _heightUnit.heightStep,
+          valueFormatter:
+              (value) => LocaleUtils.formatHeightValue(value, _heightUnit),
           onChanged: (value) {
             setState(() {
-              final min =
-                  _heightUnit.isMetric ? _minHeightMetric : _minHeightImperial;
-              final max =
-                  _heightUnit.isMetric ? _maxHeightMetric : _maxHeightImperial;
-              _height = value.clamp(min, max);
+              _height = value.clamp(
+                _heightUnit.heightMin,
+                _heightUnit.heightMax,
+              );
             });
           },
         ),
@@ -500,8 +480,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       leading: Container(
         padding: const EdgeInsets.all(_iconContainerPadding),
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withOpacity(
-            _iconContainerOpacity,
+          color: colorScheme.primaryContainer.withValues(
+            alpha: _iconContainerOpacity,
           ),
           shape: BoxShape.circle,
         ),
@@ -514,7 +494,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(t.editProfile.weight, style: TextStyle(fontWeight: FontWeight.w600)),
+          Text(
+            t.editProfile.weight,
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
           _buildUnitSelector(
             context,
             currentUnit: _weightUnit,
@@ -523,11 +506,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 if (newUnit.isMetric) {
                   _weight = LocaleUtils.convertWeightToMetric(
                     _weight,
-                  ).clamp(_minWeightMetric, _maxWeightMetric);
+                  ).clamp(newUnit.weightMin, newUnit.weightMax);
                 } else {
                   _weight = LocaleUtils.convertWeightToImperial(
                     _weight,
-                  ).clamp(_minWeightImperial, _maxWeightImperial);
+                  ).clamp(newUnit.weightMin, newUnit.weightMax);
                 }
                 _weightUnit = newUnit;
               });
@@ -539,23 +522,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       subtitle: Padding(
         padding: const EdgeInsets.only(top: _subtitleTopPadding, right: 0),
         child: ValueSlider(
-          label: '',
           unit: weightUnitString,
-          min: _weightUnit.isMetric ? _minWeightMetric : _minWeightImperial,
-          max: _weightUnit.isMetric ? _maxWeightMetric : _maxWeightImperial,
+          min: _weightUnit.weightMin,
+          max: _weightUnit.weightMax,
           value: _weight,
-          precision: _weightPrecision,
-          step: _weightUnit.isMetric ? 0.1 : 1.0,
+          precision: _weightUnit.weightPrecision,
+          step: _weightUnit.weightStep,
           onChanged: (value) {
             setState(() {
-              final min =
-                  _weightUnit.isMetric ? _minWeightMetric : _minWeightImperial;
-              final max =
-                  _weightUnit.isMetric ? _maxWeightMetric : _maxWeightImperial;
               // Floor the value for imperial (lbs) to ensure whole number increments
               final adjustedValue =
                   _weightUnit.isMetric ? value : value.floorToDouble();
-              _weight = adjustedValue.clamp(min, max);
+              _weight = adjustedValue.clamp(
+                _weightUnit.weightMin,
+                _weightUnit.weightMax,
+              );
             });
           },
         ),
@@ -585,8 +566,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }) {
     return SegmentedButton<UnitSystem>(
       segments: [
-        ButtonSegment(value: UnitSystem.metric, label: Text(t.editProfile.metric)),
-        ButtonSegment(value: UnitSystem.imperial, label: Text(t.editProfile.imperial)),
+        ButtonSegment(
+          value: UnitSystem.metric,
+          label: Text(t.editProfile.metric),
+        ),
+        ButtonSegment(
+          value: UnitSystem.imperial,
+          label: Text(t.editProfile.imperial),
+        ),
       ],
       selected: {currentUnit},
       onSelectionChanged: (Set<UnitSystem> selection) {
@@ -676,7 +663,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ).showSnackBar(snack(t.profile.updatedSuccessfully));
 
       // Navigate back
-      context.router.maybePop();
+      await context.router.maybePop();
     }
   }
 }

@@ -32,7 +32,7 @@ class AppRouter extends RootStackRouter {
       page: MainRoute.page,
       guards: [OnboardingGuard()],
       children: [
-        AutoRoute(page: HomeRoute.page),
+        AutoRoute(page: HomeRoute.page, initial: true),
         AutoRoute(page: LogRoute.page),
         AutoRoute(page: MealHistoryRoute.page),
       ],

@@ -130,11 +130,11 @@ class $MealInfoTableTable extends MealInfoTable
     'healthScore',
   );
   @override
-  late final GeneratedColumn<int> healthScore = GeneratedColumn<int>(
+  late final GeneratedColumn<String> healthScore = GeneratedColumn<String>(
     'health_score',
     aliasedName,
     true,
-    type: DriftSqlType.int,
+    type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
   static const VerificationMeta _healthScoreReasonMeta = const VerificationMeta(
@@ -343,7 +343,7 @@ class $MealInfoTableTable extends MealInfoTable
         data['${effectivePrefix}image_url'],
       ),
       healthScore: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
+        DriftSqlType.string,
         data['${effectivePrefix}health_score'],
       ),
       healthScoreReason: attachedDatabase.typeMapping.read(
@@ -372,7 +372,7 @@ class MealInfoTableData extends DataClass
   final int fiber;
   final DateTime timestamp;
   final String? imageUrl;
-  final int? healthScore;
+  final String? healthScore;
   final String? healthScoreReason;
   const MealInfoTableData({
     required this.id,
@@ -406,7 +406,7 @@ class MealInfoTableData extends DataClass
       map['image_url'] = Variable<String>(imageUrl);
     }
     if (!nullToAbsent || healthScore != null) {
-      map['health_score'] = Variable<int>(healthScore);
+      map['health_score'] = Variable<String>(healthScore);
     }
     if (!nullToAbsent || healthScoreReason != null) {
       map['health_score_reason'] = Variable<String>(healthScoreReason);
@@ -458,7 +458,7 @@ class MealInfoTableData extends DataClass
       fiber: serializer.fromJson<int>(json['fiber']),
       timestamp: serializer.fromJson<DateTime>(json['timestamp']),
       imageUrl: serializer.fromJson<String?>(json['imageUrl']),
-      healthScore: serializer.fromJson<int?>(json['healthScore']),
+      healthScore: serializer.fromJson<String?>(json['healthScore']),
       healthScoreReason: serializer.fromJson<String?>(
         json['healthScoreReason'],
       ),
@@ -479,7 +479,7 @@ class MealInfoTableData extends DataClass
       'fiber': serializer.toJson<int>(fiber),
       'timestamp': serializer.toJson<DateTime>(timestamp),
       'imageUrl': serializer.toJson<String?>(imageUrl),
-      'healthScore': serializer.toJson<int?>(healthScore),
+      'healthScore': serializer.toJson<String?>(healthScore),
       'healthScoreReason': serializer.toJson<String?>(healthScoreReason),
     };
   }
@@ -496,7 +496,7 @@ class MealInfoTableData extends DataClass
     int? fiber,
     DateTime? timestamp,
     Value<String?> imageUrl = const Value.absent(),
-    Value<int?> healthScore = const Value.absent(),
+    Value<String?> healthScore = const Value.absent(),
     Value<String?> healthScoreReason = const Value.absent(),
   }) => MealInfoTableData(
     id: id ?? this.id,
@@ -608,7 +608,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   final Value<int> fiber;
   final Value<DateTime> timestamp;
   final Value<String?> imageUrl;
-  final Value<int?> healthScore;
+  final Value<String?> healthScore;
   final Value<String?> healthScoreReason;
   const MealInfoTableCompanion({
     this.id = const Value.absent(),
@@ -660,7 +660,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Expression<int>? fiber,
     Expression<DateTime>? timestamp,
     Expression<String>? imageUrl,
-    Expression<int>? healthScore,
+    Expression<String>? healthScore,
     Expression<String>? healthScoreReason,
   }) {
     return RawValuesInsertable({
@@ -692,7 +692,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Value<int>? fiber,
     Value<DateTime>? timestamp,
     Value<String?>? imageUrl,
-    Value<int?>? healthScore,
+    Value<String?>? healthScore,
     Value<String?>? healthScoreReason,
   }) {
     return MealInfoTableCompanion(
@@ -749,7 +749,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
       map['image_url'] = Variable<String>(imageUrl.value);
     }
     if (healthScore.present) {
-      map['health_score'] = Variable<int>(healthScore.value);
+      map['health_score'] = Variable<String>(healthScore.value);
     }
     if (healthScoreReason.present) {
       map['health_score_reason'] = Variable<String>(healthScoreReason.value);
@@ -1736,11 +1736,11 @@ class $FavoriteMealTableTable extends FavoriteMealTable
     'healthScore',
   );
   @override
-  late final GeneratedColumn<int> healthScore = GeneratedColumn<int>(
+  late final GeneratedColumn<String> healthScore = GeneratedColumn<String>(
     'health_score',
     aliasedName,
     true,
-    type: DriftSqlType.int,
+    type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
   static const VerificationMeta _healthScoreReasonMeta = const VerificationMeta(
@@ -2011,7 +2011,7 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         data['${effectivePrefix}image_url'],
       ),
       healthScore: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
+        DriftSqlType.string,
         data['${effectivePrefix}health_score'],
       ),
       healthScoreReason: attachedDatabase.typeMapping.read(
@@ -2053,7 +2053,7 @@ class FavoriteMealTableData extends DataClass
   final int fiber;
   final DateTime timestamp;
   final String? imageUrl;
-  final int? healthScore;
+  final String? healthScore;
   final String? healthScoreReason;
   final int? sourceMealId;
   final DateTime createdAt;
@@ -2093,7 +2093,7 @@ class FavoriteMealTableData extends DataClass
       map['image_url'] = Variable<String>(imageUrl);
     }
     if (!nullToAbsent || healthScore != null) {
-      map['health_score'] = Variable<int>(healthScore);
+      map['health_score'] = Variable<String>(healthScore);
     }
     if (!nullToAbsent || healthScoreReason != null) {
       map['health_score_reason'] = Variable<String>(healthScoreReason);
@@ -2161,7 +2161,7 @@ class FavoriteMealTableData extends DataClass
       fiber: serializer.fromJson<int>(json['fiber']),
       timestamp: serializer.fromJson<DateTime>(json['timestamp']),
       imageUrl: serializer.fromJson<String?>(json['imageUrl']),
-      healthScore: serializer.fromJson<int?>(json['healthScore']),
+      healthScore: serializer.fromJson<String?>(json['healthScore']),
       healthScoreReason: serializer.fromJson<String?>(
         json['healthScoreReason'],
       ),
@@ -2185,7 +2185,7 @@ class FavoriteMealTableData extends DataClass
       'fiber': serializer.toJson<int>(fiber),
       'timestamp': serializer.toJson<DateTime>(timestamp),
       'imageUrl': serializer.toJson<String?>(imageUrl),
-      'healthScore': serializer.toJson<int?>(healthScore),
+      'healthScore': serializer.toJson<String?>(healthScore),
       'healthScoreReason': serializer.toJson<String?>(healthScoreReason),
       'sourceMealId': serializer.toJson<int?>(sourceMealId),
       'createdAt': serializer.toJson<DateTime>(createdAt),
@@ -2205,7 +2205,7 @@ class FavoriteMealTableData extends DataClass
     int? fiber,
     DateTime? timestamp,
     Value<String?> imageUrl = const Value.absent(),
-    Value<int?> healthScore = const Value.absent(),
+    Value<String?> healthScore = const Value.absent(),
     Value<String?> healthScoreReason = const Value.absent(),
     Value<int?> sourceMealId = const Value.absent(),
     DateTime? createdAt,
@@ -2340,7 +2340,7 @@ class FavoriteMealTableCompanion
   final Value<int> fiber;
   final Value<DateTime> timestamp;
   final Value<String?> imageUrl;
-  final Value<int?> healthScore;
+  final Value<String?> healthScore;
   final Value<String?> healthScoreReason;
   final Value<int?> sourceMealId;
   final Value<DateTime> createdAt;
@@ -2401,7 +2401,7 @@ class FavoriteMealTableCompanion
     Expression<int>? fiber,
     Expression<DateTime>? timestamp,
     Expression<String>? imageUrl,
-    Expression<int>? healthScore,
+    Expression<String>? healthScore,
     Expression<String>? healthScoreReason,
     Expression<int>? sourceMealId,
     Expression<DateTime>? createdAt,
@@ -2439,7 +2439,7 @@ class FavoriteMealTableCompanion
     Value<int>? fiber,
     Value<DateTime>? timestamp,
     Value<String?>? imageUrl,
-    Value<int?>? healthScore,
+    Value<String?>? healthScore,
     Value<String?>? healthScoreReason,
     Value<int?>? sourceMealId,
     Value<DateTime>? createdAt,
@@ -2502,7 +2502,7 @@ class FavoriteMealTableCompanion
       map['image_url'] = Variable<String>(imageUrl.value);
     }
     if (healthScore.present) {
-      map['health_score'] = Variable<int>(healthScore.value);
+      map['health_score'] = Variable<String>(healthScore.value);
     }
     if (healthScoreReason.present) {
       map['health_score_reason'] = Variable<String>(healthScoreReason.value);
@@ -2575,7 +2575,7 @@ typedef $$MealInfoTableTableCreateCompanionBuilder =
       required int fiber,
       required DateTime timestamp,
       Value<String?> imageUrl,
-      Value<int?> healthScore,
+      Value<String?> healthScore,
       Value<String?> healthScoreReason,
     });
 typedef $$MealInfoTableTableUpdateCompanionBuilder =
@@ -2591,7 +2591,7 @@ typedef $$MealInfoTableTableUpdateCompanionBuilder =
       Value<int> fiber,
       Value<DateTime> timestamp,
       Value<String?> imageUrl,
-      Value<int?> healthScore,
+      Value<String?> healthScore,
       Value<String?> healthScoreReason,
     });
 
@@ -2659,7 +2659,7 @@ class $$MealInfoTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<int> get healthScore => $composableBuilder(
+  ColumnFilters<String> get healthScore => $composableBuilder(
     column: $table.healthScore,
     builder: (column) => ColumnFilters(column),
   );
@@ -2734,7 +2734,7 @@ class $$MealInfoTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<int> get healthScore => $composableBuilder(
+  ColumnOrderings<String> get healthScore => $composableBuilder(
     column: $table.healthScore,
     builder: (column) => ColumnOrderings(column),
   );
@@ -2789,7 +2789,7 @@ class $$MealInfoTableTableAnnotationComposer
   GeneratedColumn<String> get imageUrl =>
       $composableBuilder(column: $table.imageUrl, builder: (column) => column);
 
-  GeneratedColumn<int> get healthScore => $composableBuilder(
+  GeneratedColumn<String> get healthScore => $composableBuilder(
     column: $table.healthScore,
     builder: (column) => column,
   );
@@ -2850,7 +2850,7 @@ class $$MealInfoTableTableTableManager
                 Value<int> fiber = const Value.absent(),
                 Value<DateTime> timestamp = const Value.absent(),
                 Value<String?> imageUrl = const Value.absent(),
-                Value<int?> healthScore = const Value.absent(),
+                Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
               }) => MealInfoTableCompanion(
                 id: id,
@@ -2880,7 +2880,7 @@ class $$MealInfoTableTableTableManager
                 required int fiber,
                 required DateTime timestamp,
                 Value<String?> imageUrl = const Value.absent(),
-                Value<int?> healthScore = const Value.absent(),
+                Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
               }) => MealInfoTableCompanion.insert(
                 id: id,
@@ -3349,7 +3349,7 @@ typedef $$FavoriteMealTableTableCreateCompanionBuilder =
       required int fiber,
       required DateTime timestamp,
       Value<String?> imageUrl,
-      Value<int?> healthScore,
+      Value<String?> healthScore,
       Value<String?> healthScoreReason,
       Value<int?> sourceMealId,
       Value<DateTime> createdAt,
@@ -3368,7 +3368,7 @@ typedef $$FavoriteMealTableTableUpdateCompanionBuilder =
       Value<int> fiber,
       Value<DateTime> timestamp,
       Value<String?> imageUrl,
-      Value<int?> healthScore,
+      Value<String?> healthScore,
       Value<String?> healthScoreReason,
       Value<int?> sourceMealId,
       Value<DateTime> createdAt,
@@ -3439,7 +3439,7 @@ class $$FavoriteMealTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<int> get healthScore => $composableBuilder(
+  ColumnFilters<String> get healthScore => $composableBuilder(
     column: $table.healthScore,
     builder: (column) => ColumnFilters(column),
   );
@@ -3529,7 +3529,7 @@ class $$FavoriteMealTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<int> get healthScore => $composableBuilder(
+  ColumnOrderings<String> get healthScore => $composableBuilder(
     column: $table.healthScore,
     builder: (column) => ColumnOrderings(column),
   );
@@ -3599,7 +3599,7 @@ class $$FavoriteMealTableTableAnnotationComposer
   GeneratedColumn<String> get imageUrl =>
       $composableBuilder(column: $table.imageUrl, builder: (column) => column);
 
-  GeneratedColumn<int> get healthScore => $composableBuilder(
+  GeneratedColumn<String> get healthScore => $composableBuilder(
     column: $table.healthScore,
     builder: (column) => column,
   );
@@ -3680,7 +3680,7 @@ class $$FavoriteMealTableTableTableManager
                 Value<int> fiber = const Value.absent(),
                 Value<DateTime> timestamp = const Value.absent(),
                 Value<String?> imageUrl = const Value.absent(),
-                Value<int?> healthScore = const Value.absent(),
+                Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
                 Value<int?> sourceMealId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
@@ -3716,7 +3716,7 @@ class $$FavoriteMealTableTableTableManager
                 required int fiber,
                 required DateTime timestamp,
                 Value<String?> imageUrl = const Value.absent(),
-                Value<int?> healthScore = const Value.absent(),
+                Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
                 Value<int?> sourceMealId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),

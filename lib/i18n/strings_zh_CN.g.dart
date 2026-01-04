@@ -46,6 +46,7 @@ class TranslationsZhCn with BaseTranslations<AppLocale, Translations> implements
 	@override late final _TranslationsMealZhCn meal = _TranslationsMealZhCn._(_root);
 	@override late final _TranslationsFavoritesZhCn favorites = _TranslationsFavoritesZhCn._(_root);
 	@override late final _TranslationsProfileZhCn profile = _TranslationsProfileZhCn._(_root);
+	@override late final _TranslationsHealthScoreZhCn healthScore = _TranslationsHealthScoreZhCn._(_root);
 	@override late final _TranslationsEditProfileZhCn editProfile = _TranslationsEditProfileZhCn._(_root);
 	@override late final _TranslationsSettingsZhCn settings = _TranslationsSettingsZhCn._(_root);
 	@override late final _TranslationsRemindersZhCn reminders = _TranslationsRemindersZhCn._(_root);
@@ -55,6 +56,7 @@ class TranslationsZhCn with BaseTranslations<AppLocale, Translations> implements
 	@override late final _TranslationsCommonZhCn common = _TranslationsCommonZhCn._(_root);
 	@override late final _TranslationsErrorsZhCn errors = _TranslationsErrorsZhCn._(_root);
 	@override late final _TranslationsDebugZhCn debug = _TranslationsDebugZhCn._(_root);
+	@override late final _TranslationsHealthZhCn health = _TranslationsHealthZhCn._(_root);
 }
 
 // Path: onboarding
@@ -68,6 +70,15 @@ class _TranslationsOnboardingZhCn implements TranslationsOnboardingEn {
 	@override String get subtitle => '您个性化的营养伴侣，基于 AI 技术';
 	@override String get getStarted => '开始使用';
 	@override late final _TranslationsOnboardingFeaturesZhCn features = _TranslationsOnboardingFeaturesZhCn._(_root);
+	@override late final _TranslationsOnboardingGenderZhCn gender = _TranslationsOnboardingGenderZhCn._(_root);
+	@override late final _TranslationsOnboardingHeightZhCn height = _TranslationsOnboardingHeightZhCn._(_root);
+	@override late final _TranslationsOnboardingWeightZhCn weight = _TranslationsOnboardingWeightZhCn._(_root);
+	@override late final _TranslationsOnboardingAgeZhCn age = _TranslationsOnboardingAgeZhCn._(_root);
+	@override late final _TranslationsOnboardingBmiScaleZhCn bmiScale = _TranslationsOnboardingBmiScaleZhCn._(_root);
+	@override late final _TranslationsOnboardingWeightGoalZhCn weightGoal = _TranslationsOnboardingWeightGoalZhCn._(_root);
+	@override late final _TranslationsOnboardingActivityLevelZhCn activityLevel = _TranslationsOnboardingActivityLevelZhCn._(_root);
+	@override late final _TranslationsOnboardingHealthConnectZhCn healthConnect = _TranslationsOnboardingHealthConnectZhCn._(_root);
+	@override late final _TranslationsOnboardingReinforcementZhCn reinforcement = _TranslationsOnboardingReinforcementZhCn._(_root);
 }
 
 // Path: tabs
@@ -91,6 +102,7 @@ class _TranslationsHomeZhCn implements TranslationsHomeEn {
 	@override late final _TranslationsHomeDailyGoalZhCn dailyGoal = _TranslationsHomeDailyGoalZhCn._(_root);
 	@override late final _TranslationsHomeDailySummaryZhCn dailySummary = _TranslationsHomeDailySummaryZhCn._(_root);
 	@override late final _TranslationsHomeIntakeProgressZhCn intakeProgress = _TranslationsHomeIntakeProgressZhCn._(_root);
+	@override late final _TranslationsHomeIntakeHistoryZhCn intakeHistory = _TranslationsHomeIntakeHistoryZhCn._(_root);
 	@override late final _TranslationsHomeMealLogZhCn mealLog = _TranslationsHomeMealLogZhCn._(_root);
 	@override late final _TranslationsHomeMealDescriptionZhCn mealDescription = _TranslationsHomeMealDescriptionZhCn._(_root);
 	@override late final _TranslationsHomeFavoriteMealsZhCn favoriteMeals = _TranslationsHomeFavoriteMealsZhCn._(_root);
@@ -105,7 +117,6 @@ class _TranslationsHistoryZhCn implements TranslationsHistoryEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '历史记录';
 	@override String get noMeals => '没有记录的餐点';
 	@override String get emptyMessage => '拍一张您最近用餐的照片以记录在这里。';
 	@override String get today => '今天';
@@ -122,16 +133,26 @@ class _TranslationsMealZhCn implements TranslationsMealEn {
 	@override String get ohNo => '哦不！';
 	@override String get delete => '删除';
 	@override String get editMeal => '编辑餐点';
+	@override String get addMeal => '添加餐点';
 	@override String get saveMeal => '保存餐点';
+	@override String get save => '保存';
+	@override String get mealName => '餐点名称';
+	@override String get mealQuantity => '餐数量';
+	@override String get mealQuantityHint => '例如：1碗，2片';
+	@override String get timeOfMeal => '餐点时间';
+	@override String get timeOfMealHint => '选择您吃餐的时间';
+	@override String get mealType => '餐点类型';
+	@override late final _TranslationsMealNutritionZhCn nutrition = _TranslationsMealNutritionZhCn._(_root);
 	@override late final _TranslationsMealDeleteConfirmationZhCn deleteConfirmation = _TranslationsMealDeleteConfirmationZhCn._(_root);
 	@override String get addedToLog => '餐点已添加到您的记录中！';
-	@override String get couldNotAdd => '无法添加餐点：{error}';
+	@override String couldNotAdd({required Object error}) => '无法添加餐点：${error}';
 	@override String get removedFromFavorites => '已从收藏中移除！';
 	@override String get savedAsFavorite => '餐点已保存为收藏！';
-	@override String get couldNotUpdateFavorite => '无法更新收藏：{error}';
-	@override String get failedToProcess => '处理失败：{error}';
-	@override String get failedToProcessImage => '处理图像失败：{error}';
-	@override String get errorCompressingImage => '压缩图像时出错：{error}';
+	@override String couldNotUpdateFavorite({required Object error}) => '无法更新收藏：${error}';
+	@override String failedToProcess({required Object error}) => '处理失败：${error}';
+	@override String failedToProcessImage({required Object error}) => '处理图像失败：${error}';
+	@override String errorCompressingImage({required Object error}) => '压缩图像时出错：${error}';
+	@override String get failedToSave => '数据保存失败。请再试一次。';
 }
 
 // Path: favorites
@@ -153,7 +174,6 @@ class _TranslationsProfileZhCn implements TranslationsProfileEn {
 
 	// Translations
 	@override String get title => '个人资料';
-	@override String get editProfile => '编辑个人资料';
 	@override String get noProfileData => '未找到个人资料数据';
 	@override String get yourProfile => '您的个人资料';
 	@override String get viewAndManage => '查看并管理您的健康信息';
@@ -168,6 +188,22 @@ class _TranslationsProfileZhCn implements TranslationsProfileEn {
 	@override String get notSet => '未设定';
 	@override String get years => '年';
 	@override String get updatedSuccessfully => '个人资料更新成功！';
+	@override late final _TranslationsProfileCalculatedValuesZhCn calculatedValues = _TranslationsProfileCalculatedValuesZhCn._(_root);
+}
+
+// Path: healthScore
+class _TranslationsHealthScoreZhCn implements TranslationsHealthScoreEn {
+	_TranslationsHealthScoreZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '健康评分';
+	@override String get whyThisScore => '为什么是这个评分？';
+	@override String get note => '此评分是基于识别的成分和营养密度的AI估算。始终咨询专业人士以获取饮食建议。';
+	@override String get unhealthy => '不健康';
+	@override String get healthy => '健康';
+	@override String get neutral => '中性';
 }
 
 // Path: editProfile
@@ -191,6 +227,9 @@ class _TranslationsEditProfileZhCn implements TranslationsEditProfileEn {
 	@override String get imperialFtIn => '英制 (英尺/英寸)';
 	@override String get metricKg => '公制 (千克)';
 	@override String get imperialLbs => '英制 (磅)';
+	@override late final _TranslationsEditProfileGendersZhCn genders = _TranslationsEditProfileGendersZhCn._(_root);
+	@override late final _TranslationsEditProfileWeightGoalsZhCn weightGoals = _TranslationsEditProfileWeightGoalsZhCn._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsZhCn activityLevels = _TranslationsEditProfileActivityLevelsZhCn._(_root);
 }
 
 // Path: settings
@@ -231,15 +270,15 @@ class _TranslationsRemindersZhCn implements TranslationsRemindersEn {
 	@override String get lunch => '午餐';
 	@override String get dinner => '晚餐';
 	@override String get snack => '小吃';
+	@override String get unknown => '未知';
 	@override String get change => '更改';
 	@override String get enableNotifications => '启用通知';
 	@override String get skipForNow => '暂时跳过';
 	@override String get saveChanges => '保存更改';
-	@override String get continue_ => '继续';
 	@override String get enabledSuccessfully => '通知启用成功！';
 	@override String get permissionDenied => '通知权限被拒绝';
-	@override String get errorEnabling => '启用通知时出错：{error}';
-	@override String get errorCompletingSetup => '完成设置时出错：{error}';
+	@override String errorEnabling({required Object error}) => '启用通知时出错：${error}';
+	@override String errorCompletingSetup({required Object error}) => '完成设置时出错：${error}';
 }
 
 // Path: notifications
@@ -287,18 +326,8 @@ class _TranslationsCommonZhCn implements TranslationsCommonEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get cancel => '取消';
-	@override String get save => '保存';
-	@override String get delete => '删除';
-	@override String get edit => '编辑';
 	@override String get close => '关闭';
 	@override String get kContinue => '继续';
-	@override String get skip => '跳过';
-	@override String get error => '错误';
-	@override String get loading => '加载中...';
-	@override String get notSet => '未设定';
-	@override String get today => '今天';
-	@override String get yesterday => '昨天';
 }
 
 // Path: errors
@@ -309,7 +338,7 @@ class _TranslationsErrorsZhCn implements TranslationsErrorsEn {
 
 	// Translations
 	@override String get loadingProfileData => '加载个人资料数据时出错';
-	@override String get generic => '发生错误。请重试。';
+	@override String get somethingWentWrong => '出现了一些问题。';
 }
 
 // Path: debug
@@ -320,18 +349,55 @@ class _TranslationsDebugZhCn implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => '调试选项';
+	@override late final _TranslationsDebugSectionsZhCn sections = _TranslationsDebugSectionsZhCn._(_root);
 	@override String get showActiveNotifications => '显示活动通知';
 	@override String get scheduleTestNotification => '安排测试通知 (10秒)';
 	@override String get triggerBreakfastNotification => '触发早餐通知';
 	@override String get cancelAllNotifications => '取消所有通知';
 	@override String get activeNotifications => '活动通知';
-	@override String get id => 'ID: {id}';
+	@override String get noTitle => '无标题';
+	@override String get noBody => '无内容';
+	@override String get fetchTodaysSteps => '获取今天的步数';
+	@override String get fetchTodaysCalories => '获取今天的卡路里';
 	@override String get fetchLatestWeight => '获取最新体重';
 	@override String get fetchLatestHeight => '获取最新身高';
 	@override String get writeTestWeight => '写入测试体重 (70kg)';
 	@override String get writeTestHeight => '写入测试身高 (175cm)';
 	@override String get syncLast7Days => '同步过去7天';
+	@override String get sync7DaysTitle => '7天同步';
 	@override String get checkCurrentLocale => '检查当前语言环境';
+	@override String get currentLocale => '当前语言环境';
+	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => '语言：${languageCode}\n国家：${countryCode}\n单位系统：${unitSystem}';
+	@override String get latestWeight => '最新体重';
+	@override String get latestHeight => '最新身高';
+	@override String get todaysCalories => '今天的卡路里';
+	@override String totalCaloriesBurned({required Object calories}) => '总消耗卡路里：${calories}';
+	@override String syncSuccess({required Object count}) => '成功获取过去7天的${count}个数据点（步数、卡路里和体重）。';
+	@override String get noWeightData => '过去30天未找到体重数据。';
+	@override String get noHeightData => '过去一年未找到身高数据。';
+	@override String get noCalorieData => '今天未找到卡路里数据。';
+	@override String get weightWritten => '成功写入测试体重（70公斤）。';
+	@override String get weightWriteFailed => '写入测试体重失败。';
+	@override String get heightWritten => '成功写入测试身高（175厘米）。';
+	@override String get heightWriteFailed => '写入测试身高失败。';
+	@override String get noNotifications => '没有活动通知。';
+	@override String get testNotificationScheduled => '测试通知已安排在10秒后发送。';
+	@override String get testNotificationBody => '这是安排在10秒后发送的测试通知。';
+	@override String get breakfastNotificationTriggered => '早餐通知已触发。';
+	@override String get allNotificationsCancelled => '所有通知已取消。';
+	@override String get fetchingData => '正在获取过去7天的数据...';
+	@override String id({required Object id}) => 'ID: ${id}';
+}
+
+// Path: health
+class _TranslationsHealthZhCn implements TranslationsHealthEn {
+	_TranslationsHealthZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncFailed => '无法同步到健康连接';
+	@override String get mealSynced => '餐点已与健康连接同步';
 }
 
 // Path: onboarding.features
@@ -344,6 +410,131 @@ class _TranslationsOnboardingFeaturesZhCn implements TranslationsOnboardingFeatu
 	@override late final _TranslationsOnboardingFeaturesFoodRecognitionZhCn foodRecognition = _TranslationsOnboardingFeaturesFoodRecognitionZhCn._(_root);
 	@override late final _TranslationsOnboardingFeaturesAiAnalysisZhCn aiAnalysis = _TranslationsOnboardingFeaturesAiAnalysisZhCn._(_root);
 	@override late final _TranslationsOnboardingFeaturesHealthIntegrationZhCn healthIntegration = _TranslationsOnboardingFeaturesHealthIntegrationZhCn._(_root);
+}
+
+// Path: onboarding.gender
+class _TranslationsOnboardingGenderZhCn implements TranslationsOnboardingGenderEn {
+	_TranslationsOnboardingGenderZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '您的性别是什么？';
+	@override String get description => '性别帮助我们准确计算您的基础代谢率（BMR）。';
+	@override String get next => '下一步';
+}
+
+// Path: onboarding.height
+class _TranslationsOnboardingHeightZhCn implements TranslationsOnboardingHeightEn {
+	_TranslationsOnboardingHeightZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '你多高？';
+	@override String get description => '你的身高有助于我们准确计算你的BMI和能量需求。';
+	@override String get metric => '公制';
+	@override String get imperial => '英制';
+	@override String get next => '下一步';
+}
+
+// Path: onboarding.weight
+class _TranslationsOnboardingWeightZhCn implements TranslationsOnboardingWeightEn {
+	_TranslationsOnboardingWeightZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get currentTitle => '你当前的体重是多少？';
+	@override String get currentDescription => '你的当前体重对于个性化你的日常目标至关重要。';
+	@override String get targetTitle => '你的目标体重是多少？';
+	@override String get targetDescription => '设定目标体重有助于我们制定你的长期计划。';
+	@override String get metric => '公制';
+	@override String get imperial => '英制';
+	@override String get next => '下一步';
+}
+
+// Path: onboarding.age
+class _TranslationsOnboardingAgeZhCn implements TranslationsOnboardingAgeEn {
+	_TranslationsOnboardingAgeZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '你的生日是什么时候？';
+	@override String get description => '你的年龄有助于我们准确计算你的卡路里需求。';
+	@override String get next => '下一步';
+}
+
+// Path: onboarding.bmiScale
+class _TranslationsOnboardingBmiScaleZhCn implements TranslationsOnboardingBmiScaleEn {
+	_TranslationsOnboardingBmiScaleZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get underweight => '体重过轻';
+	@override String get healthy => '健康';
+	@override String get overweight => '超重';
+	@override String get obese => '肥胖';
+	@override late final _TranslationsOnboardingBmiScaleCategoriesZhCn categories = _TranslationsOnboardingBmiScaleCategoriesZhCn._(_root);
+	@override late final _TranslationsOnboardingBmiScaleMessagesZhCn messages = _TranslationsOnboardingBmiScaleMessagesZhCn._(_root);
+}
+
+// Path: onboarding.weightGoal
+class _TranslationsOnboardingWeightGoalZhCn implements TranslationsOnboardingWeightGoalEn {
+	_TranslationsOnboardingWeightGoalZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '您的目标是什么？';
+	@override String get description => '选择最能描述您想要达到的目标';
+}
+
+// Path: onboarding.activityLevel
+class _TranslationsOnboardingActivityLevelZhCn implements TranslationsOnboardingActivityLevelEn {
+	_TranslationsOnboardingActivityLevelZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '您有多活跃？';
+	@override String get description => '这有助于我们更准确地计算您的每日卡路里需求';
+}
+
+// Path: onboarding.healthConnect
+class _TranslationsOnboardingHealthConnectZhCn implements TranslationsOnboardingHealthConnectEn {
+	_TranslationsOnboardingHealthConnectZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '与健康连接';
+	@override String get description => '同步您的健康数据以获得更好的洞察和自动卡路里追踪';
+	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingZhCn automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingZhCn._(_root);
+	@override late final _TranslationsOnboardingHealthConnectProgressInsightsZhCn progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsZhCn._(_root);
+	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationZhCn seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationZhCn._(_root);
+	@override String get connected => '健康连接已连接';
+	@override String get notConnected => '健康连接未连接';
+	@override String get setup => '设置健康连接';
+	@override String get skipForNow => '暂时跳过';
+	@override String get statusConnected => '健康连接已连接。';
+	@override String get statusSuccess => '健康连接成功连接！';
+	@override String get statusPermissionDenied => '权限被拒绝。请在你的手机设置中为Calorify启用健康连接权限。';
+	@override String statusError({required Object error}) => '设置健康连接时出错: ${error}';
+}
+
+// Path: onboarding.reinforcement
+class _TranslationsOnboardingReinforcementZhCn implements TranslationsOnboardingReinforcementEn {
+	_TranslationsOnboardingReinforcementZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsOnboardingReinforcementTrackingSuccessZhCn trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessZhCn._(_root);
+	@override late final _TranslationsOnboardingReinforcementHealthProfileZhCn healthProfile = _TranslationsOnboardingReinforcementHealthProfileZhCn._(_root);
+	@override late final _TranslationsOnboardingReinforcementGoalLifestyleZhCn goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleZhCn._(_root);
 }
 
 // Path: home.dailyGoal
@@ -393,6 +584,18 @@ class _TranslationsHomeIntakeProgressZhCn implements TranslationsHomeIntakeProgr
 	@override String get title => '今天的宏观营养分配';
 	@override String get target => '目标';
 	@override String get current => '当前';
+}
+
+// Path: home.intakeHistory
+class _TranslationsHomeIntakeHistoryZhCn implements TranslationsHomeIntakeHistoryEn {
+	_TranslationsHomeIntakeHistoryZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '7天宏观历史';
+	@override String get noHistoryYet => '还没有历史记录';
+	@override String get startLogging => '开始记录餐点，以查看您在此处的\n7天宏观趋势';
 }
 
 // Path: home.mealLog
@@ -461,6 +664,20 @@ class _TranslationsHomeConnectHealthZhCn implements TranslationsHomeConnectHealt
 	@override String get connect => '连接';
 }
 
+// Path: meal.nutrition
+class _TranslationsMealNutritionZhCn implements TranslationsMealNutritionEn {
+	_TranslationsMealNutritionZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get calories => '卡路里';
+	@override String get carbs => '碳水化合物 (克)';
+	@override String get protein => '蛋白质 (克)';
+	@override String get fat => '脂肪 (克)';
+	@override String get fiber => '纤维 (克)';
+}
+
 // Path: meal.deleteConfirmation
 class _TranslationsMealDeleteConfirmationZhCn implements TranslationsMealDeleteConfirmationEn {
 	_TranslationsMealDeleteConfirmationZhCn._(this._root);
@@ -487,6 +704,20 @@ class _TranslationsProfileSectionsZhCn implements TranslationsProfileSectionsEn 
 	@override String get calculatedValues => '计算值';
 }
 
+// Path: profile.calculatedValues
+class _TranslationsProfileCalculatedValuesZhCn implements TranslationsProfileCalculatedValuesEn {
+	_TranslationsProfileCalculatedValuesZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get bmr => '基础代谢率';
+	@override String get tdee => '总日常能量消耗';
+	@override String get dailyGoal => '每日目标';
+	@override String get calPerDay => '卡路里/天';
+	@override String get notAvailable => '不可用';
+}
+
 // Path: editProfile.sections
 class _TranslationsEditProfileSectionsZhCn implements TranslationsEditProfileSectionsEn {
 	_TranslationsEditProfileSectionsZhCn._(this._root);
@@ -497,6 +728,44 @@ class _TranslationsEditProfileSectionsZhCn implements TranslationsEditProfileSec
 	@override String get personalInformation => '个人信息';
 	@override String get physicalMeasurements => '身体测量';
 	@override String get goalsAndActivity => '目标与活动';
+}
+
+// Path: editProfile.genders
+class _TranslationsEditProfileGendersZhCn implements TranslationsEditProfileGendersEn {
+	_TranslationsEditProfileGendersZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get male => '男性';
+	@override String get female => '女性';
+	@override String get other => '其他';
+}
+
+// Path: editProfile.weightGoals
+class _TranslationsEditProfileWeightGoalsZhCn implements TranslationsEditProfileWeightGoalsEn {
+	_TranslationsEditProfileWeightGoalsZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsEditProfileWeightGoalsLoseWeightZhCn loseWeight = _TranslationsEditProfileWeightGoalsLoseWeightZhCn._(_root);
+	@override late final _TranslationsEditProfileWeightGoalsMaintainWeightZhCn maintainWeight = _TranslationsEditProfileWeightGoalsMaintainWeightZhCn._(_root);
+	@override late final _TranslationsEditProfileWeightGoalsGainWeightZhCn gainWeight = _TranslationsEditProfileWeightGoalsGainWeightZhCn._(_root);
+}
+
+// Path: editProfile.activityLevels
+class _TranslationsEditProfileActivityLevelsZhCn implements TranslationsEditProfileActivityLevelsEn {
+	_TranslationsEditProfileActivityLevelsZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsEditProfileActivityLevelsSedentaryZhCn sedentary = _TranslationsEditProfileActivityLevelsSedentaryZhCn._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsLightlyActiveZhCn lightlyActive = _TranslationsEditProfileActivityLevelsLightlyActiveZhCn._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsModeratelyActiveZhCn moderatelyActive = _TranslationsEditProfileActivityLevelsModeratelyActiveZhCn._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsVeryActiveZhCn veryActive = _TranslationsEditProfileActivityLevelsVeryActiveZhCn._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsExtremelyActiveZhCn extremelyActive = _TranslationsEditProfileActivityLevelsExtremelyActiveZhCn._(_root);
 }
 
 // Path: settings.sections
@@ -533,6 +802,7 @@ class _TranslationsSettingsLanguageZhCn implements TranslationsSettingsLanguageE
 
 	// Translations
 	@override String get title => '语言';
+	@override String get subtitle => '选择您的首选语言';
 }
 
 // Path: settings.heightUnit
@@ -575,6 +845,12 @@ class _TranslationsSettingsSendFeedbackZhCn implements TranslationsSettingsSendF
 	// Translations
 	@override String get title => '发送反馈';
 	@override String get subtitle => '帮助我们改进Calorify';
+	@override String get emailSubject => 'Calorify应用反馈';
+	@override String get emailBodyPrefix => '请在下面提供您的反馈：';
+	@override String get appVersion => '应用版本';
+	@override String get device => '设备';
+	@override String get osVersion => '操作系统版本';
+	@override String get uid => '用户ID';
 }
 
 // Path: settings.clearAllData
@@ -685,6 +961,18 @@ class _TranslationsDisclaimerWeightEstimateZhCn implements TranslationsDisclaime
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceZhCn professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceZhCn._(_root);
 }
 
+// Path: debug.sections
+class _TranslationsDebugSectionsZhCn implements TranslationsDebugSectionsEn {
+	_TranslationsDebugSectionsZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get notifications => '通知';
+	@override String get healthConnect => '健康连接';
+	@override String get appInfo => '应用信息';
+}
+
 // Path: onboarding.features.foodRecognition
 class _TranslationsOnboardingFeaturesFoodRecognitionZhCn implements TranslationsOnboardingFeaturesFoodRecognitionEn {
 	_TranslationsOnboardingFeaturesFoodRecognitionZhCn._(this._root);
@@ -716,6 +1004,206 @@ class _TranslationsOnboardingFeaturesHealthIntegrationZhCn implements Translatio
 	// Translations
 	@override String get title => '健康整合';
 	@override String get description => '连接 Health Connect 以获得更好的洞察';
+}
+
+// Path: onboarding.bmiScale.categories
+class _TranslationsOnboardingBmiScaleCategoriesZhCn implements TranslationsOnboardingBmiScaleCategoriesEn {
+	_TranslationsOnboardingBmiScaleCategoriesZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get underweight => '体重过轻';
+	@override String get healthyWeight => '健康体重';
+	@override String get overweight => '超重';
+	@override String get obese => '肥胖';
+}
+
+// Path: onboarding.bmiScale.messages
+class _TranslationsOnboardingBmiScaleMessagesZhCn implements TranslationsOnboardingBmiScaleMessagesEn {
+	_TranslationsOnboardingBmiScaleMessagesZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get underweight => '我们可以帮助您制定健康计划，通过营养丰富的餐食来达到均衡体重。';
+	@override String get healthy => '干得好！您处于健康范围内。我们将帮助您维持活力和能量水平。';
+	@override String get overweight => 'Calorify将通过AI驱动的跟踪，简化您的旅程，帮助您舒适地达到目标。';
+	@override String get obese => '我们在这里支持您，为您的健康目标提供个性化指导和可持续策略。';
+}
+
+// Path: onboarding.healthConnect.automaticTracking
+class _TranslationsOnboardingHealthConnectAutomaticTrackingZhCn implements TranslationsOnboardingHealthConnectAutomaticTrackingEn {
+	_TranslationsOnboardingHealthConnectAutomaticTrackingZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '自动卡路里追踪';
+	@override String get description => '从您的健身应用中跟踪消耗的卡路里';
+}
+
+// Path: onboarding.healthConnect.progressInsights
+class _TranslationsOnboardingHealthConnectProgressInsightsZhCn implements TranslationsOnboardingHealthConnectProgressInsightsEn {
+	_TranslationsOnboardingHealthConnectProgressInsightsZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '进展洞察';
+	@override String get description => '获取您的健康趋势的详细洞察';
+}
+
+// Path: onboarding.healthConnect.seamlessIntegration
+class _TranslationsOnboardingHealthConnectSeamlessIntegrationZhCn implements TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
+	_TranslationsOnboardingHealthConnectSeamlessIntegrationZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '无缝集成';
+	@override String get description => '同步您最喜欢的健康应用的数据';
+}
+
+// Path: onboarding.reinforcement.trackingSuccess
+class _TranslationsOnboardingReinforcementTrackingSuccessZhCn implements TranslationsOnboardingReinforcementTrackingSuccessEn {
+	_TranslationsOnboardingReinforcementTrackingSuccessZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '你并不孤单';
+	@override String get instantPhotoAnalysis => '即时照片分析';
+	@override String get automaticLogging => '自动营养记录';
+	@override String get progressVisualizations => '进展可视化让您保持动力';
+	@override String get genericMessage => '研究显示，持续跟踪是长期成功的首要预测因素。';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => '对于一个 ${age} 岁的 ${gender}，想要 ${goal}，持续跟踪是成功的首要预测因素。';
+	@override String get closingMessage => 'Calorify 让这一切变得比手动操作轻松10倍。';
+	@override String get button => '开始吧';
+	@override String get defaultGender => '个体';
+	@override String get defaultGoal => '更健康的你';
+}
+
+// Path: onboarding.reinforcement.healthProfile
+class _TranslationsOnboardingReinforcementHealthProfileZhCn implements TranslationsOnboardingReinforcementHealthProfileEn {
+	_TranslationsOnboardingReinforcementHealthProfileZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '您的健康资料';
+	@override String bmiDescription({required Object bmi}) => '根据你的数据，你的BMI是 ${bmi}。';
+	@override String get finalizeDescription => '让我们完成你的资料，以定制你的体验。';
+	@override String get goalGain => '增加';
+	@override String get goalLose => '减少';
+	@override String goalReach({required Object direction, required Object diff, required Object unit}) => '为了达到你的目标，你需要 ${direction} ${diff} ${unit}。';
+	@override String get goalReached => '你已达到目标体重！我们将帮助你维持这个体重。';
+	@override String get button => '开始吧';
+}
+
+// Path: onboarding.reinforcement.goalLifestyle
+class _TranslationsOnboardingReinforcementGoalLifestyleZhCn implements TranslationsOnboardingReinforcementGoalLifestyleEn {
+	_TranslationsOnboardingReinforcementGoalLifestyleZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '优秀的开始！';
+	@override String description({required Object goalText, required Object activityText}) => '你已经迈出了朝着 ${goalText} 的第一步。由于你是 ${activityText}，Calorify 将根据你的生活方式调整你的目标。';
+	@override String get personalizedTargets => '个性化的卡路里目标';
+	@override String get aiMealDetection => '人工智能驱动的餐点检测';
+	@override String get macroBreakdowns => '详细的宏观营养素分析';
+	@override String get button => '开始吧';
+	@override String get defaultGoal => '你的目标';
+	@override String get defaultActivity => '活跃';
+}
+
+// Path: editProfile.weightGoals.loseWeight
+class _TranslationsEditProfileWeightGoalsLoseWeightZhCn implements TranslationsEditProfileWeightGoalsLoseWeightEn {
+	_TranslationsEditProfileWeightGoalsLoseWeightZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '减重';
+	@override String get description => '创建卡路里赤字以减轻体重';
+}
+
+// Path: editProfile.weightGoals.maintainWeight
+class _TranslationsEditProfileWeightGoalsMaintainWeightZhCn implements TranslationsEditProfileWeightGoalsMaintainWeightEn {
+	_TranslationsEditProfileWeightGoalsMaintainWeightZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '维持体重';
+	@override String get description => '保持你目前的体重';
+}
+
+// Path: editProfile.weightGoals.gainWeight
+class _TranslationsEditProfileWeightGoalsGainWeightZhCn implements TranslationsEditProfileWeightGoalsGainWeightEn {
+	_TranslationsEditProfileWeightGoalsGainWeightZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '增重';
+	@override String get description => '创建卡路里盈余以增加体重';
+}
+
+// Path: editProfile.activityLevels.sedentary
+class _TranslationsEditProfileActivityLevelsSedentaryZhCn implements TranslationsEditProfileActivityLevelsSedentaryEn {
+	_TranslationsEditProfileActivityLevelsSedentaryZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '久坐';
+	@override String get description => '几乎没有运动';
+}
+
+// Path: editProfile.activityLevels.lightlyActive
+class _TranslationsEditProfileActivityLevelsLightlyActiveZhCn implements TranslationsEditProfileActivityLevelsLightlyActiveEn {
+	_TranslationsEditProfileActivityLevelsLightlyActiveZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '轻度活跃';
+	@override String get description => '每周轻度运动1-3天';
+}
+
+// Path: editProfile.activityLevels.moderatelyActive
+class _TranslationsEditProfileActivityLevelsModeratelyActiveZhCn implements TranslationsEditProfileActivityLevelsModeratelyActiveEn {
+	_TranslationsEditProfileActivityLevelsModeratelyActiveZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '中度活跃';
+	@override String get description => '每周中度运动3-5天';
+}
+
+// Path: editProfile.activityLevels.veryActive
+class _TranslationsEditProfileActivityLevelsVeryActiveZhCn implements TranslationsEditProfileActivityLevelsVeryActiveEn {
+	_TranslationsEditProfileActivityLevelsVeryActiveZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '高度活跃';
+	@override String get description => '每周剧烈运动6-7天';
+}
+
+// Path: editProfile.activityLevels.extremelyActive
+class _TranslationsEditProfileActivityLevelsExtremelyActiveZhCn implements TranslationsEditProfileActivityLevelsExtremelyActiveEn {
+	_TranslationsEditProfileActivityLevelsExtremelyActiveZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '极度活跃';
+	@override String get description => '非常剧烈的运动或体力工作';
 }
 
 // Path: disclaimer.snap.portionSize
@@ -825,6 +1313,82 @@ extension on TranslationsZhCn {
 			'onboarding.features.aiAnalysis.description' => '根据您的描述获取即时营养信息',
 			'onboarding.features.healthIntegration.title' => '健康整合',
 			'onboarding.features.healthIntegration.description' => '连接 Health Connect 以获得更好的洞察',
+			'onboarding.gender.title' => '您的性别是什么？',
+			'onboarding.gender.description' => '性别帮助我们准确计算您的基础代谢率（BMR）。',
+			'onboarding.gender.next' => '下一步',
+			'onboarding.height.title' => '你多高？',
+			'onboarding.height.description' => '你的身高有助于我们准确计算你的BMI和能量需求。',
+			'onboarding.height.metric' => '公制',
+			'onboarding.height.imperial' => '英制',
+			'onboarding.height.next' => '下一步',
+			'onboarding.weight.currentTitle' => '你当前的体重是多少？',
+			'onboarding.weight.currentDescription' => '你的当前体重对于个性化你的日常目标至关重要。',
+			'onboarding.weight.targetTitle' => '你的目标体重是多少？',
+			'onboarding.weight.targetDescription' => '设定目标体重有助于我们制定你的长期计划。',
+			'onboarding.weight.metric' => '公制',
+			'onboarding.weight.imperial' => '英制',
+			'onboarding.weight.next' => '下一步',
+			'onboarding.age.title' => '你的生日是什么时候？',
+			'onboarding.age.description' => '你的年龄有助于我们准确计算你的卡路里需求。',
+			'onboarding.age.next' => '下一步',
+			'onboarding.bmiScale.underweight' => '体重过轻',
+			'onboarding.bmiScale.healthy' => '健康',
+			'onboarding.bmiScale.overweight' => '超重',
+			'onboarding.bmiScale.obese' => '肥胖',
+			'onboarding.bmiScale.categories.underweight' => '体重过轻',
+			'onboarding.bmiScale.categories.healthyWeight' => '健康体重',
+			'onboarding.bmiScale.categories.overweight' => '超重',
+			'onboarding.bmiScale.categories.obese' => '肥胖',
+			'onboarding.bmiScale.messages.underweight' => '我们可以帮助您制定健康计划，通过营养丰富的餐食来达到均衡体重。',
+			'onboarding.bmiScale.messages.healthy' => '干得好！您处于健康范围内。我们将帮助您维持活力和能量水平。',
+			'onboarding.bmiScale.messages.overweight' => 'Calorify将通过AI驱动的跟踪，简化您的旅程，帮助您舒适地达到目标。',
+			'onboarding.bmiScale.messages.obese' => '我们在这里支持您，为您的健康目标提供个性化指导和可持续策略。',
+			'onboarding.weightGoal.title' => '您的目标是什么？',
+			'onboarding.weightGoal.description' => '选择最能描述您想要达到的目标',
+			'onboarding.activityLevel.title' => '您有多活跃？',
+			'onboarding.activityLevel.description' => '这有助于我们更准确地计算您的每日卡路里需求',
+			'onboarding.healthConnect.title' => '与健康连接',
+			'onboarding.healthConnect.description' => '同步您的健康数据以获得更好的洞察和自动卡路里追踪',
+			'onboarding.healthConnect.automaticTracking.title' => '自动卡路里追踪',
+			'onboarding.healthConnect.automaticTracking.description' => '从您的健身应用中跟踪消耗的卡路里',
+			'onboarding.healthConnect.progressInsights.title' => '进展洞察',
+			'onboarding.healthConnect.progressInsights.description' => '获取您的健康趋势的详细洞察',
+			'onboarding.healthConnect.seamlessIntegration.title' => '无缝集成',
+			'onboarding.healthConnect.seamlessIntegration.description' => '同步您最喜欢的健康应用的数据',
+			'onboarding.healthConnect.connected' => '健康连接已连接',
+			'onboarding.healthConnect.notConnected' => '健康连接未连接',
+			'onboarding.healthConnect.setup' => '设置健康连接',
+			'onboarding.healthConnect.skipForNow' => '暂时跳过',
+			'onboarding.healthConnect.statusConnected' => '健康连接已连接。',
+			'onboarding.healthConnect.statusSuccess' => '健康连接成功连接！',
+			'onboarding.healthConnect.statusPermissionDenied' => '权限被拒绝。请在你的手机设置中为Calorify启用健康连接权限。',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => '设置健康连接时出错: ${error}',
+			'onboarding.reinforcement.trackingSuccess.title' => '你并不孤单',
+			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => '即时照片分析',
+			'onboarding.reinforcement.trackingSuccess.automaticLogging' => '自动营养记录',
+			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => '进展可视化让您保持动力',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => '研究显示，持续跟踪是长期成功的首要预测因素。',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '对于一个 ${age} 岁的 ${gender}，想要 ${goal}，持续跟踪是成功的首要预测因素。',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify 让这一切变得比手动操作轻松10倍。',
+			'onboarding.reinforcement.trackingSuccess.button' => '开始吧',
+			'onboarding.reinforcement.trackingSuccess.defaultGender' => '个体',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => '更健康的你',
+			'onboarding.reinforcement.healthProfile.title' => '您的健康资料',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => '根据你的数据，你的BMI是 ${bmi}。',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => '让我们完成你的资料，以定制你的体验。',
+			'onboarding.reinforcement.healthProfile.goalGain' => '增加',
+			'onboarding.reinforcement.healthProfile.goalLose' => '减少',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => '为了达到你的目标，你需要 ${direction} ${diff} ${unit}。',
+			'onboarding.reinforcement.healthProfile.goalReached' => '你已达到目标体重！我们将帮助你维持这个体重。',
+			'onboarding.reinforcement.healthProfile.button' => '开始吧',
+			'onboarding.reinforcement.goalLifestyle.title' => '优秀的开始！',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => '你已经迈出了朝着 ${goalText} 的第一步。由于你是 ${activityText}，Calorify 将根据你的生活方式调整你的目标。',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => '个性化的卡路里目标',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => '人工智能驱动的餐点检测',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => '详细的宏观营养素分析',
+			'onboarding.reinforcement.goalLifestyle.button' => '开始吧',
+			'onboarding.reinforcement.goalLifestyle.defaultGoal' => '你的目标',
+			'onboarding.reinforcement.goalLifestyle.defaultActivity' => '活跃',
 			'tabs.dashboard' => '仪表板',
 			'tabs.history' => '历史记录',
 			'home.dailyGoal.title' => '设定您的每日目标',
@@ -849,6 +1413,9 @@ extension on TranslationsZhCn {
 			'home.intakeProgress.title' => '今天的宏观营养分配',
 			'home.intakeProgress.target' => '目标',
 			'home.intakeProgress.current' => '当前',
+			'home.intakeHistory.title' => '7天宏观历史',
+			'home.intakeHistory.noHistoryYet' => '还没有历史记录',
+			'home.intakeHistory.startLogging' => '开始记录餐点，以查看您在此处的\n7天宏观趋势',
 			'home.mealLog.title' => '已记录的餐点',
 			'home.mealLog.emptyMessage' => '拍一张您最近用餐的照片以记录在这里。',
 			'home.mealLog.noMealsToday' => '今天没有记录的餐点',
@@ -870,7 +1437,6 @@ extension on TranslationsZhCn {
 			'home.connectHealth.description' => '将您的营养数据与健康应用同步',
 			'home.connectHealth.install' => '安装',
 			'home.connectHealth.connect' => '连接',
-			'history.title' => '历史记录',
 			'history.noMeals' => '没有记录的餐点',
 			'history.emptyMessage' => '拍一张您最近用餐的照片以记录在这里。',
 			'history.today' => '今天',
@@ -878,23 +1444,36 @@ extension on TranslationsZhCn {
 			'meal.ohNo' => '哦不！',
 			'meal.delete' => '删除',
 			'meal.editMeal' => '编辑餐点',
+			'meal.addMeal' => '添加餐点',
 			'meal.saveMeal' => '保存餐点',
+			'meal.save' => '保存',
+			'meal.mealName' => '餐点名称',
+			'meal.mealQuantity' => '餐数量',
+			'meal.mealQuantityHint' => '例如：1碗，2片',
+			'meal.timeOfMeal' => '餐点时间',
+			'meal.timeOfMealHint' => '选择您吃餐的时间',
+			'meal.mealType' => '餐点类型',
+			'meal.nutrition.calories' => '卡路里',
+			'meal.nutrition.carbs' => '碳水化合物 (克)',
+			'meal.nutrition.protein' => '蛋白质 (克)',
+			'meal.nutrition.fat' => '脂肪 (克)',
+			'meal.nutrition.fiber' => '纤维 (克)',
 			'meal.deleteConfirmation.title' => '删除餐点',
 			'meal.deleteConfirmation.message' => '您确定要删除这个餐点记录吗？',
 			'meal.deleteConfirmation.cancel' => '取消',
 			'meal.deleteConfirmation.delete' => '删除',
 			'meal.addedToLog' => '餐点已添加到您的记录中！',
-			'meal.couldNotAdd' => '无法添加餐点：{error}',
+			'meal.couldNotAdd' => ({required Object error}) => '无法添加餐点：${error}',
 			'meal.removedFromFavorites' => '已从收藏中移除！',
 			'meal.savedAsFavorite' => '餐点已保存为收藏！',
-			'meal.couldNotUpdateFavorite' => '无法更新收藏：{error}',
-			'meal.failedToProcess' => '处理失败：{error}',
-			'meal.failedToProcessImage' => '处理图像失败：{error}',
-			'meal.errorCompressingImage' => '压缩图像时出错：{error}',
+			'meal.couldNotUpdateFavorite' => ({required Object error}) => '无法更新收藏：${error}',
+			'meal.failedToProcess' => ({required Object error}) => '处理失败：${error}',
+			'meal.failedToProcessImage' => ({required Object error}) => '处理图像失败：${error}',
+			'meal.errorCompressingImage' => ({required Object error}) => '压缩图像时出错：${error}',
+			'meal.failedToSave' => '数据保存失败。请再试一次。',
 			'favorites.title' => '收藏夹',
 			'favorites.empty' => '尚未添加收藏餐点。',
 			'profile.title' => '个人资料',
-			'profile.editProfile' => '编辑个人资料',
 			'profile.noProfileData' => '未找到个人资料数据',
 			'profile.yourProfile' => '您的个人资料',
 			'profile.viewAndManage' => '查看并管理您的健康信息',
@@ -912,6 +1491,17 @@ extension on TranslationsZhCn {
 			'profile.notSet' => '未设定',
 			'profile.years' => '年',
 			'profile.updatedSuccessfully' => '个人资料更新成功！',
+			'profile.calculatedValues.bmr' => '基础代谢率',
+			'profile.calculatedValues.tdee' => '总日常能量消耗',
+			'profile.calculatedValues.dailyGoal' => '每日目标',
+			'profile.calculatedValues.calPerDay' => '卡路里/天',
+			'profile.calculatedValues.notAvailable' => '不可用',
+			'healthScore.title' => '健康评分',
+			'healthScore.whyThisScore' => '为什么是这个评分？',
+			'healthScore.note' => '此评分是基于识别的成分和营养密度的AI估算。始终咨询专业人士以获取饮食建议。',
+			'healthScore.unhealthy' => '不健康',
+			'healthScore.healthy' => '健康',
+			'healthScore.neutral' => '中性',
 			'editProfile.title' => '编辑个人资料',
 			'editProfile.sections.personalInformation' => '个人信息',
 			'editProfile.sections.physicalMeasurements' => '身体测量',
@@ -928,6 +1518,25 @@ extension on TranslationsZhCn {
 			'editProfile.imperialFtIn' => '英制 (英尺/英寸)',
 			'editProfile.metricKg' => '公制 (千克)',
 			'editProfile.imperialLbs' => '英制 (磅)',
+			'editProfile.genders.male' => '男性',
+			'editProfile.genders.female' => '女性',
+			'editProfile.genders.other' => '其他',
+			'editProfile.weightGoals.loseWeight.name' => '减重',
+			'editProfile.weightGoals.loseWeight.description' => '创建卡路里赤字以减轻体重',
+			'editProfile.weightGoals.maintainWeight.name' => '维持体重',
+			'editProfile.weightGoals.maintainWeight.description' => '保持你目前的体重',
+			'editProfile.weightGoals.gainWeight.name' => '增重',
+			'editProfile.weightGoals.gainWeight.description' => '创建卡路里盈余以增加体重',
+			'editProfile.activityLevels.sedentary.name' => '久坐',
+			'editProfile.activityLevels.sedentary.description' => '几乎没有运动',
+			'editProfile.activityLevels.lightlyActive.name' => '轻度活跃',
+			'editProfile.activityLevels.lightlyActive.description' => '每周轻度运动1-3天',
+			'editProfile.activityLevels.moderatelyActive.name' => '中度活跃',
+			'editProfile.activityLevels.moderatelyActive.description' => '每周中度运动3-5天',
+			'editProfile.activityLevels.veryActive.name' => '高度活跃',
+			'editProfile.activityLevels.veryActive.description' => '每周剧烈运动6-7天',
+			'editProfile.activityLevels.extremelyActive.name' => '极度活跃',
+			'editProfile.activityLevels.extremelyActive.description' => '非常剧烈的运动或体力工作',
 			'settings.title' => '设置',
 			'settings.sections.profile' => '个人资料',
 			'settings.sections.localization' => '本地化',
@@ -938,12 +1547,19 @@ extension on TranslationsZhCn {
 			'settings.editProfile.title' => '编辑个人资料',
 			'settings.editProfile.subtitle' => '更新您的个人信息',
 			'settings.language.title' => '语言',
+			'settings.language.subtitle' => '选择您的首选语言',
 			'settings.heightUnit.title' => '身高单位',
 			'settings.weightUnit.title' => '体重单位',
 			'settings.mealReminders.title' => '餐点提醒',
 			'settings.mealReminders.subtitle' => '通过及时的提醒保持正轨',
 			'settings.sendFeedback.title' => '发送反馈',
 			'settings.sendFeedback.subtitle' => '帮助我们改进Calorify',
+			'settings.sendFeedback.emailSubject' => 'Calorify应用反馈',
+			'settings.sendFeedback.emailBodyPrefix' => '请在下面提供您的反馈：',
+			'settings.sendFeedback.appVersion' => '应用版本',
+			'settings.sendFeedback.device' => '设备',
+			'settings.sendFeedback.osVersion' => '操作系统版本',
+			'settings.sendFeedback.uid' => '用户ID',
 			'settings.clearAllData.title' => '清除所有数据',
 			'settings.clearAllData.subtitle' => '不可逆转地删除您的所有信息',
 			'settings.clearAllData.confirmationTitle' => '清除所有数据？',
@@ -963,15 +1579,15 @@ extension on TranslationsZhCn {
 			'reminders.lunch' => '午餐',
 			'reminders.dinner' => '晚餐',
 			'reminders.snack' => '小吃',
+			'reminders.unknown' => '未知',
 			'reminders.change' => '更改',
 			'reminders.enableNotifications' => '启用通知',
 			'reminders.skipForNow' => '暂时跳过',
 			'reminders.saveChanges' => '保存更改',
-			'reminders.continue_' => '继续',
 			'reminders.enabledSuccessfully' => '通知启用成功！',
 			'reminders.permissionDenied' => '通知权限被拒绝',
-			'reminders.errorEnabling' => '启用通知时出错：{error}',
-			'reminders.errorCompletingSetup' => '完成设置时出错：{error}',
+			'reminders.errorEnabling' => ({required Object error}) => '启用通知时出错：${error}',
+			'reminders.errorCompletingSetup' => ({required Object error}) => '完成设置时出错：${error}',
 			'notifications.breakfast.title' => '早餐时间！🍳',
 			'notifications.breakfast.body' => '别忘了记录您的早餐',
 			'notifications.lunch.title' => '午餐时间！🥗',
@@ -1004,33 +1620,53 @@ extension on TranslationsZhCn {
 			'disclaimer.weightEstimate.waterWeight.description' => '正常的日常体重可能因水分滞留、消化和时间而有显著波动。该估计未考虑这些日常变化。',
 			'disclaimer.weightEstimate.professionalGuidance.title' => '专业指导',
 			'disclaimer.weightEstimate.professionalGuidance.description' => '请勿仅凭此估计作出医疗决策。请始终咨询医疗专业人士或注册营养师以获取个性化的体重管理建议。',
-			'common.cancel' => '取消',
-			'common.save' => '保存',
-			'common.delete' => '删除',
-			'common.edit' => '编辑',
 			'common.close' => '关闭',
 			'common.kContinue' => '继续',
-			'common.skip' => '跳过',
-			'common.error' => '错误',
-			'common.loading' => '加载中...',
-			'common.notSet' => '未设定',
-			'common.today' => '今天',
-			'common.yesterday' => '昨天',
 			'errors.loadingProfileData' => '加载个人资料数据时出错',
-			'errors.generic' => '发生错误。请重试。',
+			'errors.somethingWentWrong' => '出现了一些问题。',
 			'debug.title' => '调试选项',
+			'debug.sections.notifications' => '通知',
+			'debug.sections.healthConnect' => '健康连接',
+			'debug.sections.appInfo' => '应用信息',
 			'debug.showActiveNotifications' => '显示活动通知',
 			'debug.scheduleTestNotification' => '安排测试通知 (10秒)',
 			'debug.triggerBreakfastNotification' => '触发早餐通知',
 			'debug.cancelAllNotifications' => '取消所有通知',
 			'debug.activeNotifications' => '活动通知',
-			'debug.id' => 'ID: {id}',
+			'debug.noTitle' => '无标题',
+			'debug.noBody' => '无内容',
+			'debug.fetchTodaysSteps' => '获取今天的步数',
+			'debug.fetchTodaysCalories' => '获取今天的卡路里',
 			'debug.fetchLatestWeight' => '获取最新体重',
 			'debug.fetchLatestHeight' => '获取最新身高',
 			'debug.writeTestWeight' => '写入测试体重 (70kg)',
 			'debug.writeTestHeight' => '写入测试身高 (175cm)',
 			'debug.syncLast7Days' => '同步过去7天',
+			'debug.sync7DaysTitle' => '7天同步',
 			'debug.checkCurrentLocale' => '检查当前语言环境',
+			'debug.currentLocale' => '当前语言环境',
+			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => '语言：${languageCode}\n国家：${countryCode}\n单位系统：${unitSystem}',
+			'debug.latestWeight' => '最新体重',
+			'debug.latestHeight' => '最新身高',
+			'debug.todaysCalories' => '今天的卡路里',
+			'debug.totalCaloriesBurned' => ({required Object calories}) => '总消耗卡路里：${calories}',
+			'debug.syncSuccess' => ({required Object count}) => '成功获取过去7天的${count}个数据点（步数、卡路里和体重）。',
+			'debug.noWeightData' => '过去30天未找到体重数据。',
+			'debug.noHeightData' => '过去一年未找到身高数据。',
+			'debug.noCalorieData' => '今天未找到卡路里数据。',
+			'debug.weightWritten' => '成功写入测试体重（70公斤）。',
+			'debug.weightWriteFailed' => '写入测试体重失败。',
+			'debug.heightWritten' => '成功写入测试身高（175厘米）。',
+			'debug.heightWriteFailed' => '写入测试身高失败。',
+			'debug.noNotifications' => '没有活动通知。',
+			'debug.testNotificationScheduled' => '测试通知已安排在10秒后发送。',
+			'debug.testNotificationBody' => '这是安排在10秒后发送的测试通知。',
+			'debug.breakfastNotificationTriggered' => '早餐通知已触发。',
+			'debug.allNotificationsCancelled' => '所有通知已取消。',
+			'debug.fetchingData' => '正在获取过去7天的数据...',
+			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'health.syncFailed' => '无法同步到健康连接',
+			'health.mealSynced' => '餐点已与健康连接同步',
 			_ => null,
 		};
 	}

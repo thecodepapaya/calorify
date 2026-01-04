@@ -7,6 +7,7 @@ import 'package:calorify/core/models/meal_type.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/utilities/string_utils.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 Future<void> showEditMealSheet(
@@ -99,13 +100,13 @@ class _EditMealScreenState extends State<_EditMealScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                isEditing ? 'Edit Meal' : 'Add Meal',
+                isEditing ? t.meal.editMeal : t.meal.addMeal,
                 style: textTheme.titleLarge,
               ),
               TextButton(
                 onPressed: _saveMeal,
                 child: Text(
-                  'Save',
+                  t.meal.save,
                   style: textTheme.titleMedium?.copyWith(
                     color: colorScheme.primary,
                   ),
@@ -121,7 +122,7 @@ class _EditMealScreenState extends State<_EditMealScreen> {
           TextField(
             controller: _nameController,
             decoration: InputDecoration(
-              labelText: 'Meal Name',
+              labelText: t.meal.mealName,
               hintText: 'e.g., Scrambled Eggs with toast',
               hintStyle: textTheme.bodyLarge?.copyWith(
                 color: colorScheme.onSurface.withValues(alpha: 0.6),
@@ -134,8 +135,8 @@ class _EditMealScreenState extends State<_EditMealScreen> {
             controller: _timeController,
             readOnly: true,
             decoration: InputDecoration(
-              labelText: 'Time of Meal',
-              hintText: 'Select the time you had your meal',
+              labelText: t.meal.timeOfMeal,
+              hintText: t.meal.timeOfMealHint,
               hintStyle: textTheme.bodyLarge?.copyWith(
                 color: colorScheme.onSurface.withValues(alpha: 0.6),
               ),
@@ -158,7 +159,7 @@ class _EditMealScreenState extends State<_EditMealScreen> {
           DropdownButtonFormField<MealType>(
             initialValue: _mealType,
             decoration: InputDecoration(
-              labelText: 'Meal Type',
+              labelText: t.meal.mealType,
               border: OutlineInputBorder(borderRadius: globalRadius),
             ),
             items:
@@ -180,8 +181,8 @@ class _EditMealScreenState extends State<_EditMealScreen> {
           TextField(
             controller: _mealQuantityController,
             decoration: InputDecoration(
-              labelText: 'Meal Quantity',
-              hintText: 'e.g., 1 bowl, 2 slices',
+              labelText: t.meal.mealQuantity,
+              hintText: t.meal.mealQuantityHint,
               hintStyle: textTheme.bodyLarge?.copyWith(
                 color: colorScheme.onSurface.withValues(alpha: 0.6),
               ),
@@ -189,19 +190,19 @@ class _EditMealScreenState extends State<_EditMealScreen> {
             ),
           ),
           const SizedBox(height: 20),
-          _buildSlider('Calories', _calories, 0, 1500, (value) {
+          _buildSlider(t.meal.nutrition.calories, _calories, 0, 1500, (value) {
             setState(() => _calories = value);
           }),
-          _buildSlider('Carbs (g)', _carbs, 0, 200, (value) {
+          _buildSlider(t.meal.nutrition.carbs, _carbs, 0, 200, (value) {
             setState(() => _carbs = value);
           }),
-          _buildSlider('Protein (g)', _protein, 0, 200, (value) {
+          _buildSlider(t.meal.nutrition.protein, _protein, 0, 200, (value) {
             setState(() => _protein = value);
           }),
-          _buildSlider('Fat (g)', _fat, 0, 200, (value) {
+          _buildSlider(t.meal.nutrition.fat, _fat, 0, 200, (value) {
             setState(() => _fat = value);
           }),
-          _buildSlider('Fiber (g)', _fiber, 0, 100, (value) {
+          _buildSlider(t.meal.nutrition.fiber, _fiber, 0, 100, (value) {
             setState(() => _fiber = value);
           }),
         ],

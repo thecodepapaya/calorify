@@ -7,7 +7,8 @@ import 'package:calorify/core/models/meal_detection_result.dart';
 import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/core/services/picker_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart' show getSnapDisclaimer;
+import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
+    show getSnapDisclaimer;
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:calorify/i18n/strings.g.dart';
@@ -48,11 +49,12 @@ class _MealSnapState extends State<MealSnap> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-            children: [
-              Icon(LucideIcons.camera, color: colorScheme.primary),
-              SizedBox(width: 8),
-              Text(
+                children: [
+                  Icon(LucideIcons.camera, color: colorScheme.primary),
+                  SizedBox(width: 8),
+                  Text(
                     t.home.mealSnap.title,
+                    maxLines: 2,
                     style: textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
@@ -154,7 +156,7 @@ class _MealSnapState extends State<MealSnap> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(snack(t.meal.failedToProcessImage.replaceAll('{error}', e.toString())));
+      ).showSnackBar(snack(t.meal.failedToProcessImage(error: e)));
       return;
     } finally {
       _reset();
@@ -192,7 +194,7 @@ class _MealSnapState extends State<MealSnap> {
       if (!mounted) return null;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(snack(t.meal.errorCompressingImage.replaceAll('{error}', e.toString())));
+      ).showSnackBar(snack(t.meal.errorCompressingImage(error: e)));
       return null;
     }
   }

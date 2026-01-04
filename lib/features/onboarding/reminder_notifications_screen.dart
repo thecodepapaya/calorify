@@ -64,14 +64,16 @@ class _ReminderNotificationsScreenState
                   const SizedBox(height: 48),
                   Text(
                     t.reminders.title,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     t.reminders.description,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
                   ),
                   const SizedBox(height: 32),
 
@@ -83,7 +85,9 @@ class _ReminderNotificationsScreenState
                   if (_notificationsEnabled) ...[
                     Text(
                       t.reminders.mealReminders,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: 16),
 
@@ -93,8 +97,11 @@ class _ReminderNotificationsScreenState
                       title: t.reminders.breakfast,
                       enabled: _breakfastEnabled,
                       time: _breakfastTime,
-                      onToggle: (enabled) => setState(() => _breakfastEnabled = enabled),
-                      onTimeChanged: (time) => setState(() => _breakfastTime = time),
+                      onToggle:
+                          (enabled) =>
+                              setState(() => _breakfastEnabled = enabled),
+                      onTimeChanged:
+                          (time) => setState(() => _breakfastTime = time),
                     ),
                     const SizedBox(height: 12),
 
@@ -104,8 +111,10 @@ class _ReminderNotificationsScreenState
                       title: t.reminders.lunch,
                       enabled: _lunchEnabled,
                       time: _lunchTime,
-                      onToggle: (enabled) => setState(() => _lunchEnabled = enabled),
-                      onTimeChanged: (time) => setState(() => _lunchTime = time),
+                      onToggle:
+                          (enabled) => setState(() => _lunchEnabled = enabled),
+                      onTimeChanged:
+                          (time) => setState(() => _lunchTime = time),
                     ),
                     const SizedBox(height: 12),
 
@@ -115,8 +124,10 @@ class _ReminderNotificationsScreenState
                       title: t.reminders.dinner,
                       enabled: _dinnerEnabled,
                       time: _dinnerTime,
-                      onToggle: (enabled) => setState(() => _dinnerEnabled = enabled),
-                      onTimeChanged: (time) => setState(() => _dinnerTime = time),
+                      onToggle:
+                          (enabled) => setState(() => _dinnerEnabled = enabled),
+                      onTimeChanged:
+                          (time) => setState(() => _dinnerTime = time),
                     ),
                     const SizedBox(height: 12),
 
@@ -126,8 +137,10 @@ class _ReminderNotificationsScreenState
                       title: t.reminders.snack,
                       enabled: _snackEnabled,
                       time: _snackTime,
-                      onToggle: (enabled) => setState(() => _snackEnabled = enabled),
-                      onTimeChanged: (time) => setState(() => _snackTime = time),
+                      onToggle:
+                          (enabled) => setState(() => _snackEnabled = enabled),
+                      onTimeChanged:
+                          (time) => setState(() => _snackTime = time),
                     ),
                   ],
                 ],
@@ -142,14 +155,19 @@ class _ReminderNotificationsScreenState
                   PrimaryButton(
                     analyticsEvent: AnalyticsEvent.onboardingSetReminders,
                     onPressed: _isLoading ? null : _continue,
-                    text: widget.isEditing ? t.reminders.saveChanges : t.reminders.continue_,
+                    text:
+                        widget.isEditing
+                            ? t.reminders.saveChanges
+                            : t.common.kContinue,
                     leadingIcon: widget.isEditing ? LucideIcons.check : null,
-                    trailingIcon: widget.isEditing ? null : LucideIcons.arrowRight,
+                    trailingIcon:
+                        widget.isEditing ? null : LucideIcons.arrowRight,
                     isLoading: _isLoading,
                   )
                 else ...[
                   PrimaryButton(
-                    analyticsEvent: AnalyticsEvent.onboardingEnableNotifications,
+                    analyticsEvent:
+                        AnalyticsEvent.onboardingEnableNotifications,
                     onPressed: _isLoading ? null : _enableNotifications,
                     text: t.reminders.enableNotifications,
                     leadingIcon: LucideIcons.bell,
@@ -185,7 +203,7 @@ class _ReminderNotificationsScreenState
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: color),
       ),
@@ -208,7 +226,7 @@ class _ReminderNotificationsScreenState
                 Text(
                   subtitle,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: color.withOpacity(0.8),
+                    color: color.withValues(alpha: 0.8),
                   ),
                 ),
               ],
@@ -235,8 +253,8 @@ class _ReminderNotificationsScreenState
             enabled
                 ? Theme.of(
                   context,
-                ).colorScheme.primaryContainer.withOpacity(0.3)
-                : Theme.of(context).colorScheme.surfaceVariant,
+                ).colorScheme.primaryContainer.withValues(alpha: 0.3)
+                : Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color:
@@ -273,7 +291,7 @@ class _ReminderNotificationsScreenState
                 if (enabled) ...[
                   const SizedBox(height: 4),
                   Text(
-                    '${time.format(context)}',
+                    time.format(context),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.primary,
                     ),
@@ -323,13 +341,13 @@ class _ReminderNotificationsScreenState
         );
       } else {
         if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(t.reminders.permissionDenied)),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(t.reminders.permissionDenied)));
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(t.reminders.errorEnabling.replaceAll('{error}', e.toString()))),
+        SnackBar(content: Text(t.reminders.errorEnabling(error: e))),
       );
     } finally {
       setState(() => _isLoading = false);
@@ -362,9 +380,9 @@ class _ReminderNotificationsScreenState
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(t.reminders.errorCompletingSetup.replaceAll('{error}', e.toString()))));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(t.reminders.errorCompletingSetup(error: e))),
+        );
       }
     } finally {
       setState(() => _isLoading = false);

@@ -46,6 +46,7 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsMealJa meal = _TranslationsMealJa._(_root);
 	@override late final _TranslationsFavoritesJa favorites = _TranslationsFavoritesJa._(_root);
 	@override late final _TranslationsProfileJa profile = _TranslationsProfileJa._(_root);
+	@override late final _TranslationsHealthScoreJa healthScore = _TranslationsHealthScoreJa._(_root);
 	@override late final _TranslationsEditProfileJa editProfile = _TranslationsEditProfileJa._(_root);
 	@override late final _TranslationsSettingsJa settings = _TranslationsSettingsJa._(_root);
 	@override late final _TranslationsRemindersJa reminders = _TranslationsRemindersJa._(_root);
@@ -55,6 +56,7 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsCommonJa common = _TranslationsCommonJa._(_root);
 	@override late final _TranslationsErrorsJa errors = _TranslationsErrorsJa._(_root);
 	@override late final _TranslationsDebugJa debug = _TranslationsDebugJa._(_root);
+	@override late final _TranslationsHealthJa health = _TranslationsHealthJa._(_root);
 }
 
 // Path: onboarding
@@ -68,6 +70,15 @@ class _TranslationsOnboardingJa implements TranslationsOnboardingEn {
 	@override String get subtitle => 'AIによるあなたの個人的な栄養コンパニオン';
 	@override String get getStarted => '始める';
 	@override late final _TranslationsOnboardingFeaturesJa features = _TranslationsOnboardingFeaturesJa._(_root);
+	@override late final _TranslationsOnboardingGenderJa gender = _TranslationsOnboardingGenderJa._(_root);
+	@override late final _TranslationsOnboardingHeightJa height = _TranslationsOnboardingHeightJa._(_root);
+	@override late final _TranslationsOnboardingWeightJa weight = _TranslationsOnboardingWeightJa._(_root);
+	@override late final _TranslationsOnboardingAgeJa age = _TranslationsOnboardingAgeJa._(_root);
+	@override late final _TranslationsOnboardingBmiScaleJa bmiScale = _TranslationsOnboardingBmiScaleJa._(_root);
+	@override late final _TranslationsOnboardingWeightGoalJa weightGoal = _TranslationsOnboardingWeightGoalJa._(_root);
+	@override late final _TranslationsOnboardingActivityLevelJa activityLevel = _TranslationsOnboardingActivityLevelJa._(_root);
+	@override late final _TranslationsOnboardingHealthConnectJa healthConnect = _TranslationsOnboardingHealthConnectJa._(_root);
+	@override late final _TranslationsOnboardingReinforcementJa reinforcement = _TranslationsOnboardingReinforcementJa._(_root);
 }
 
 // Path: tabs
@@ -91,6 +102,7 @@ class _TranslationsHomeJa implements TranslationsHomeEn {
 	@override late final _TranslationsHomeDailyGoalJa dailyGoal = _TranslationsHomeDailyGoalJa._(_root);
 	@override late final _TranslationsHomeDailySummaryJa dailySummary = _TranslationsHomeDailySummaryJa._(_root);
 	@override late final _TranslationsHomeIntakeProgressJa intakeProgress = _TranslationsHomeIntakeProgressJa._(_root);
+	@override late final _TranslationsHomeIntakeHistoryJa intakeHistory = _TranslationsHomeIntakeHistoryJa._(_root);
 	@override late final _TranslationsHomeMealLogJa mealLog = _TranslationsHomeMealLogJa._(_root);
 	@override late final _TranslationsHomeMealDescriptionJa mealDescription = _TranslationsHomeMealDescriptionJa._(_root);
 	@override late final _TranslationsHomeFavoriteMealsJa favoriteMeals = _TranslationsHomeFavoriteMealsJa._(_root);
@@ -105,7 +117,6 @@ class _TranslationsHistoryJa implements TranslationsHistoryEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '履歴';
 	@override String get noMeals => '記録された食事はありません';
 	@override String get emptyMessage => '最後の食事の写真を撮ってここに記録しましょう。';
 	@override String get today => '今日';
@@ -122,16 +133,26 @@ class _TranslationsMealJa implements TranslationsMealEn {
 	@override String get ohNo => 'おっと！';
 	@override String get delete => '削除';
 	@override String get editMeal => '食事を編集';
+	@override String get addMeal => '食事を追加';
 	@override String get saveMeal => '食事を保存';
+	@override String get save => '保存';
+	@override String get mealName => '食事の名前';
+	@override String get mealQuantity => '食事の分量';
+	@override String get mealQuantityHint => '例：1杯、2枚';
+	@override String get timeOfMeal => '食事の時間';
+	@override String get timeOfMealHint => '食事をした時間を選択してください';
+	@override String get mealType => '食事の種類';
+	@override late final _TranslationsMealNutritionJa nutrition = _TranslationsMealNutritionJa._(_root);
 	@override late final _TranslationsMealDeleteConfirmationJa deleteConfirmation = _TranslationsMealDeleteConfirmationJa._(_root);
 	@override String get addedToLog => '食事がログに追加されました！';
-	@override String get couldNotAdd => '食事を追加できませんでした: {error}';
+	@override String couldNotAdd({required Object error}) => '食事を追加できませんでした: ${error}';
 	@override String get removedFromFavorites => 'お気に入りから削除されました！';
 	@override String get savedAsFavorite => '食事がお気に入りとして保存されました！';
-	@override String get couldNotUpdateFavorite => 'お気に入りの更新に失敗しました: {error}';
-	@override String get failedToProcess => '処理に失敗しました: {error}';
-	@override String get failedToProcessImage => '画像の処理に失敗しました: {error}';
-	@override String get errorCompressingImage => '画像の圧縮エラー: {error}';
+	@override String couldNotUpdateFavorite({required Object error}) => 'お気に入りの更新に失敗しました: ${error}';
+	@override String failedToProcess({required Object error}) => '処理に失敗しました: ${error}';
+	@override String failedToProcessImage({required Object error}) => '画像の処理に失敗しました: ${error}';
+	@override String errorCompressingImage({required Object error}) => '画像の圧縮エラー: ${error}';
+	@override String get failedToSave => 'データの保存に失敗しました。再試行してください。';
 }
 
 // Path: favorites
@@ -153,7 +174,6 @@ class _TranslationsProfileJa implements TranslationsProfileEn {
 
 	// Translations
 	@override String get title => 'プロフィール';
-	@override String get editProfile => 'プロフィールを編集';
 	@override String get noProfileData => 'プロフィールデータが見つかりません';
 	@override String get yourProfile => 'あなたのプロフィール';
 	@override String get viewAndManage => '健康情報を表示・管理';
@@ -168,6 +188,22 @@ class _TranslationsProfileJa implements TranslationsProfileEn {
 	@override String get notSet => '未設定';
 	@override String get years => '年';
 	@override String get updatedSuccessfully => 'プロフィールが正常に更新されました！';
+	@override late final _TranslationsProfileCalculatedValuesJa calculatedValues = _TranslationsProfileCalculatedValuesJa._(_root);
+}
+
+// Path: healthScore
+class _TranslationsHealthScoreJa implements TranslationsHealthScoreEn {
+	_TranslationsHealthScoreJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '健康スコア';
+	@override String get whyThisScore => 'このスコアの理由は？';
+	@override String get note => 'このスコアは、特定された成分と栄養密度に基づくAIの推定値です。食事に関するアドバイスは常に専門家に相談してください。';
+	@override String get unhealthy => '不健康';
+	@override String get healthy => '健康';
+	@override String get neutral => '中立';
 }
 
 // Path: editProfile
@@ -191,6 +227,9 @@ class _TranslationsEditProfileJa implements TranslationsEditProfileEn {
 	@override String get imperialFtIn => 'インペリアル (ft/in)';
 	@override String get metricKg => 'メートル法 (kg)';
 	@override String get imperialLbs => 'インペリアル (lbs)';
+	@override late final _TranslationsEditProfileGendersJa genders = _TranslationsEditProfileGendersJa._(_root);
+	@override late final _TranslationsEditProfileWeightGoalsJa weightGoals = _TranslationsEditProfileWeightGoalsJa._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsJa activityLevels = _TranslationsEditProfileActivityLevelsJa._(_root);
 }
 
 // Path: settings
@@ -231,15 +270,15 @@ class _TranslationsRemindersJa implements TranslationsRemindersEn {
 	@override String get lunch => '昼食';
 	@override String get dinner => '夕食';
 	@override String get snack => 'スナック';
+	@override String get unknown => '不明';
 	@override String get change => '変更';
 	@override String get enableNotifications => '通知を有効にする';
 	@override String get skipForNow => '今はスキップ';
 	@override String get saveChanges => '変更を保存';
-	@override String get continue_ => '続ける';
 	@override String get enabledSuccessfully => '通知が正常に有効になりました！';
 	@override String get permissionDenied => '通知の許可が拒否されました';
-	@override String get errorEnabling => '通知を有効にする際のエラー: {error}';
-	@override String get errorCompletingSetup => 'セットアップの完了に関するエラー: {error}';
+	@override String errorEnabling({required Object error}) => '通知を有効にする際のエラー: ${error}';
+	@override String errorCompletingSetup({required Object error}) => 'セットアップの完了に関するエラー: ${error}';
 }
 
 // Path: notifications
@@ -265,7 +304,7 @@ class _TranslationsLoginJa implements TranslationsLoginEn {
 	// Translations
 	@override String get title => 'ログイン';
 	@override String get signInWithGoogle => 'Googleでサインイン';
-	@override String get signInFailed => 'Googleサインインに失敗しましたまたはキャンセルされました。';
+	@override String get signInFailed => 'Googleサインインに失敗しました、またはキャンセルされました。';
 }
 
 // Path: disclaimer
@@ -287,18 +326,8 @@ class _TranslationsCommonJa implements TranslationsCommonEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get cancel => 'キャンセル';
-	@override String get save => '保存';
-	@override String get delete => '削除';
-	@override String get edit => '編集';
 	@override String get close => '閉じる';
 	@override String get kContinue => '続ける';
-	@override String get skip => 'スキップ';
-	@override String get error => 'エラー';
-	@override String get loading => '読み込み中...';
-	@override String get notSet => '未設定';
-	@override String get today => '今日';
-	@override String get yesterday => '昨日';
 }
 
 // Path: errors
@@ -309,7 +338,7 @@ class _TranslationsErrorsJa implements TranslationsErrorsEn {
 
 	// Translations
 	@override String get loadingProfileData => 'プロフィールデータの読み込みエラー';
-	@override String get generic => 'エラーが発生しました。再試行してください。';
+	@override String get somethingWentWrong => '何かがうまくいきませんでした。';
 }
 
 // Path: debug
@@ -320,18 +349,55 @@ class _TranslationsDebugJa implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'デバッグオプション';
+	@override late final _TranslationsDebugSectionsJa sections = _TranslationsDebugSectionsJa._(_root);
 	@override String get showActiveNotifications => 'アクティブな通知を表示';
 	@override String get scheduleTestNotification => 'テスト通知をスケジュール (10秒)';
 	@override String get triggerBreakfastNotification => '朝食通知を発生させる';
 	@override String get cancelAllNotifications => 'すべての通知をキャンセル';
 	@override String get activeNotifications => 'アクティブな通知';
-	@override String get id => 'ID: {id}';
+	@override String get noTitle => 'タイトルなし';
+	@override String get noBody => '本文なし';
+	@override String get fetchTodaysSteps => '今日のステップを取得';
+	@override String get fetchTodaysCalories => '今日のカロリーを取得';
 	@override String get fetchLatestWeight => '最新の体重を取得';
 	@override String get fetchLatestHeight => '最新の身長を取得';
 	@override String get writeTestWeight => 'テスト体重を書く (70kg)';
 	@override String get writeTestHeight => 'テスト身長を書く (175cm)';
 	@override String get syncLast7Days => '最後の7日間を同期';
+	@override String get sync7DaysTitle => '7日間の同期';
 	@override String get checkCurrentLocale => '現在のロケールを確認';
+	@override String get currentLocale => '現在のロケール';
+	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => '言語: ${languageCode}\n国: ${countryCode}\n単位システム: ${unitSystem}';
+	@override String get latestWeight => '最新の体重';
+	@override String get latestHeight => '最新の身長';
+	@override String get todaysCalories => '今日のカロリー';
+	@override String totalCaloriesBurned({required Object calories}) => '過去7日間で燃焼した合計カロリー: ${calories}';
+	@override String syncSuccess({required Object count}) => '過去7日間のステップ、カロリー、体重に関する ${count} データポイントを正常に取得しました。';
+	@override String get noWeightData => '過去30日間に体重データが見つかりませんでした。';
+	@override String get noHeightData => '過去1年間に身長データが見つかりませんでした。';
+	@override String get noCalorieData => '今日はカロリーデータが見つかりませんでした。';
+	@override String get weightWritten => 'テスト体重 (70kg) を正常に書き込みました。';
+	@override String get weightWriteFailed => 'テスト体重の書き込みに失敗しました。';
+	@override String get heightWritten => 'テスト身長 (175cm) を正常に書き込みました。';
+	@override String get heightWriteFailed => 'テスト身長の書き込みに失敗しました。';
+	@override String get noNotifications => 'アクティブな通知はありません。';
+	@override String get testNotificationScheduled => '10秒後にテスト通知がスケジュールされました。';
+	@override String get testNotificationBody => 'これは、今から10秒後にスケジュールされたテスト通知です。';
+	@override String get breakfastNotificationTriggered => '朝食通知がトリガーされました。';
+	@override String get allNotificationsCancelled => 'すべての通知がキャンセルされました。';
+	@override String get fetchingData => '過去7日間のデータを取得しています...';
+	@override String id({required Object id}) => 'ID: ${id}';
+}
+
+// Path: health
+class _TranslationsHealthJa implements TranslationsHealthEn {
+	_TranslationsHealthJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncFailed => 'Health Connectへの同期に失敗しました。';
+	@override String get mealSynced => '食事がHealth Connectと同期されました。';
 }
 
 // Path: onboarding.features
@@ -344,6 +410,131 @@ class _TranslationsOnboardingFeaturesJa implements TranslationsOnboardingFeature
 	@override late final _TranslationsOnboardingFeaturesFoodRecognitionJa foodRecognition = _TranslationsOnboardingFeaturesFoodRecognitionJa._(_root);
 	@override late final _TranslationsOnboardingFeaturesAiAnalysisJa aiAnalysis = _TranslationsOnboardingFeaturesAiAnalysisJa._(_root);
 	@override late final _TranslationsOnboardingFeaturesHealthIntegrationJa healthIntegration = _TranslationsOnboardingFeaturesHealthIntegrationJa._(_root);
+}
+
+// Path: onboarding.gender
+class _TranslationsOnboardingGenderJa implements TranslationsOnboardingGenderEn {
+	_TranslationsOnboardingGenderJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'あなたの性別は何ですか？';
+	@override String get description => '性別は基礎代謝率 (BMR) を正確に計算するのに役立ちます。';
+	@override String get next => '次へ';
+}
+
+// Path: onboarding.height
+class _TranslationsOnboardingHeightJa implements TranslationsOnboardingHeightEn {
+	_TranslationsOnboardingHeightJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'あなたの身長はどれくらいですか？';
+	@override String get description => 'あなたの身長は、BMIとエネルギーの必要量を正確に計算するのに役立ちます。';
+	@override String get metric => 'メートル法';
+	@override String get imperial => 'インペリアル';
+	@override String get next => '次へ';
+}
+
+// Path: onboarding.weight
+class _TranslationsOnboardingWeightJa implements TranslationsOnboardingWeightEn {
+	_TranslationsOnboardingWeightJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get currentTitle => '現在の体重はどれくらいですか？';
+	@override String get currentDescription => '現在の体重は、あなたの日々の目標をパーソナライズするために重要です。';
+	@override String get targetTitle => '目標体重はどれくらいですか？';
+	@override String get targetDescription => '目標体重を設定することで、長期的な計画を決定する手助けになります。';
+	@override String get metric => 'メートル法';
+	@override String get imperial => 'インペリアル';
+	@override String get next => '次へ';
+}
+
+// Path: onboarding.age
+class _TranslationsOnboardingAgeJa implements TranslationsOnboardingAgeEn {
+	_TranslationsOnboardingAgeJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'あなたの誕生日はいつですか？';
+	@override String get description => 'あなたの年齢は、カロリーの必要量を正確に計算するのに役立ちます。';
+	@override String get next => '次へ';
+}
+
+// Path: onboarding.bmiScale
+class _TranslationsOnboardingBmiScaleJa implements TranslationsOnboardingBmiScaleEn {
+	_TranslationsOnboardingBmiScaleJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get underweight => '低体重';
+	@override String get healthy => '健康';
+	@override String get overweight => '過体重';
+	@override String get obese => '肥満';
+	@override late final _TranslationsOnboardingBmiScaleCategoriesJa categories = _TranslationsOnboardingBmiScaleCategoriesJa._(_root);
+	@override late final _TranslationsOnboardingBmiScaleMessagesJa messages = _TranslationsOnboardingBmiScaleMessagesJa._(_root);
+}
+
+// Path: onboarding.weightGoal
+class _TranslationsOnboardingWeightGoalJa implements TranslationsOnboardingWeightGoalEn {
+	_TranslationsOnboardingWeightGoalJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'あなたの目標は何ですか？';
+	@override String get description => '達成したいことを最もよく表す目標を選んでください。';
+}
+
+// Path: onboarding.activityLevel
+class _TranslationsOnboardingActivityLevelJa implements TranslationsOnboardingActivityLevelEn {
+	_TranslationsOnboardingActivityLevelJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'あなたはどれくらい活動的ですか？';
+	@override String get description => 'これにより、日々のカロリー必要量をより正確に計算できます。';
+}
+
+// Path: onboarding.healthConnect
+class _TranslationsOnboardingHealthConnectJa implements TranslationsOnboardingHealthConnectEn {
+	_TranslationsOnboardingHealthConnectJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connectと接続';
+	@override String get description => '健康データを同期して、より良い洞察を得て自動カロリートラッキングを行いましょう';
+	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingJa automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingJa._(_root);
+	@override late final _TranslationsOnboardingHealthConnectProgressInsightsJa progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsJa._(_root);
+	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationJa seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationJa._(_root);
+	@override String get connected => 'Health Connectに接続済み';
+	@override String get notConnected => 'Health Connectに未接続';
+	@override String get setup => 'Health Connectを設定';
+	@override String get skipForNow => '今はスキップ';
+	@override String get statusConnected => 'Health Connectが接続されました。';
+	@override String get statusSuccess => 'Health Connectが正常に接続されました！';
+	@override String get statusPermissionDenied => '権限が拒否されました。Calorifyのために電話の設定からHealth Connectの権限を有効にしてください。';
+	@override String statusError({required Object error}) => 'Health Connectの設定中にエラーが発生しました: ${error}';
+}
+
+// Path: onboarding.reinforcement
+class _TranslationsOnboardingReinforcementJa implements TranslationsOnboardingReinforcementEn {
+	_TranslationsOnboardingReinforcementJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsOnboardingReinforcementTrackingSuccessJa trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessJa._(_root);
+	@override late final _TranslationsOnboardingReinforcementHealthProfileJa healthProfile = _TranslationsOnboardingReinforcementHealthProfileJa._(_root);
+	@override late final _TranslationsOnboardingReinforcementGoalLifestyleJa goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleJa._(_root);
 }
 
 // Path: home.dailyGoal
@@ -393,6 +584,18 @@ class _TranslationsHomeIntakeProgressJa implements TranslationsHomeIntakeProgres
 	@override String get title => '今日のマクロ分配';
 	@override String get target => '目標';
 	@override String get current => '現在';
+}
+
+// Path: home.intakeHistory
+class _TranslationsHomeIntakeHistoryJa implements TranslationsHomeIntakeHistoryEn {
+	_TranslationsHomeIntakeHistoryJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '7日間のマクロ履歴';
+	@override String get noHistoryYet => '履歴はまだありません。';
+	@override String get startLogging => '食事を記録し始めて、ここで7日間のマクロトレンドを確認しましょう。';
 }
 
 // Path: home.mealLog
@@ -461,6 +664,20 @@ class _TranslationsHomeConnectHealthJa implements TranslationsHomeConnectHealthE
 	@override String get connect => '接続';
 }
 
+// Path: meal.nutrition
+class _TranslationsMealNutritionJa implements TranslationsMealNutritionEn {
+	_TranslationsMealNutritionJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get calories => 'カロリー';
+	@override String get carbs => '炭水化物 (g)';
+	@override String get protein => 'たんぱく質 (g)';
+	@override String get fat => '脂肪 (g)';
+	@override String get fiber => '繊維 (g)';
+}
+
 // Path: meal.deleteConfirmation
 class _TranslationsMealDeleteConfirmationJa implements TranslationsMealDeleteConfirmationEn {
 	_TranslationsMealDeleteConfirmationJa._(this._root);
@@ -487,6 +704,20 @@ class _TranslationsProfileSectionsJa implements TranslationsProfileSectionsEn {
 	@override String get calculatedValues => '計算された値';
 }
 
+// Path: profile.calculatedValues
+class _TranslationsProfileCalculatedValuesJa implements TranslationsProfileCalculatedValuesEn {
+	_TranslationsProfileCalculatedValuesJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get bmr => '基礎代謝率 (BMR)';
+	@override String get tdee => '1日の総消費カロリー (TDEE)';
+	@override String get dailyGoal => '1日の目標';
+	@override String get calPerDay => 'カロリー/日';
+	@override String get notAvailable => '利用不可';
+}
+
 // Path: editProfile.sections
 class _TranslationsEditProfileSectionsJa implements TranslationsEditProfileSectionsEn {
 	_TranslationsEditProfileSectionsJa._(this._root);
@@ -497,6 +728,44 @@ class _TranslationsEditProfileSectionsJa implements TranslationsEditProfileSecti
 	@override String get personalInformation => '個人情報';
 	@override String get physicalMeasurements => '身体測定';
 	@override String get goalsAndActivity => '目標と活動';
+}
+
+// Path: editProfile.genders
+class _TranslationsEditProfileGendersJa implements TranslationsEditProfileGendersEn {
+	_TranslationsEditProfileGendersJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get male => '男性';
+	@override String get female => '女性';
+	@override String get other => 'その他';
+}
+
+// Path: editProfile.weightGoals
+class _TranslationsEditProfileWeightGoalsJa implements TranslationsEditProfileWeightGoalsEn {
+	_TranslationsEditProfileWeightGoalsJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsEditProfileWeightGoalsLoseWeightJa loseWeight = _TranslationsEditProfileWeightGoalsLoseWeightJa._(_root);
+	@override late final _TranslationsEditProfileWeightGoalsMaintainWeightJa maintainWeight = _TranslationsEditProfileWeightGoalsMaintainWeightJa._(_root);
+	@override late final _TranslationsEditProfileWeightGoalsGainWeightJa gainWeight = _TranslationsEditProfileWeightGoalsGainWeightJa._(_root);
+}
+
+// Path: editProfile.activityLevels
+class _TranslationsEditProfileActivityLevelsJa implements TranslationsEditProfileActivityLevelsEn {
+	_TranslationsEditProfileActivityLevelsJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsEditProfileActivityLevelsSedentaryJa sedentary = _TranslationsEditProfileActivityLevelsSedentaryJa._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsLightlyActiveJa lightlyActive = _TranslationsEditProfileActivityLevelsLightlyActiveJa._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsModeratelyActiveJa moderatelyActive = _TranslationsEditProfileActivityLevelsModeratelyActiveJa._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsVeryActiveJa veryActive = _TranslationsEditProfileActivityLevelsVeryActiveJa._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsExtremelyActiveJa extremelyActive = _TranslationsEditProfileActivityLevelsExtremelyActiveJa._(_root);
 }
 
 // Path: settings.sections
@@ -533,6 +802,7 @@ class _TranslationsSettingsLanguageJa implements TranslationsSettingsLanguageEn 
 
 	// Translations
 	@override String get title => '言語';
+	@override String get subtitle => 'お好みの言語を選択してください';
 }
 
 // Path: settings.heightUnit
@@ -575,6 +845,12 @@ class _TranslationsSettingsSendFeedbackJa implements TranslationsSettingsSendFee
 	// Translations
 	@override String get title => 'フィードバックを送信';
 	@override String get subtitle => 'Calorifyの改善にご協力ください';
+	@override String get emailSubject => 'Calorifyアプリのフィードバック';
+	@override String get emailBodyPrefix => '以下にフィードバックをご記入ください:';
+	@override String get appVersion => 'アプリのバージョン';
+	@override String get device => 'デバイス';
+	@override String get osVersion => 'OSバージョン';
+	@override String get uid => 'UID';
 }
 
 // Path: settings.clearAllData
@@ -685,6 +961,18 @@ class _TranslationsDisclaimerWeightEstimateJa implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceJa professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceJa._(_root);
 }
 
+// Path: debug.sections
+class _TranslationsDebugSectionsJa implements TranslationsDebugSectionsEn {
+	_TranslationsDebugSectionsJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get notifications => '通知';
+	@override String get healthConnect => 'Health Connect';
+	@override String get appInfo => 'アプリ情報';
+}
+
 // Path: onboarding.features.foodRecognition
 class _TranslationsOnboardingFeaturesFoodRecognitionJa implements TranslationsOnboardingFeaturesFoodRecognitionEn {
 	_TranslationsOnboardingFeaturesFoodRecognitionJa._(this._root);
@@ -716,6 +1004,206 @@ class _TranslationsOnboardingFeaturesHealthIntegrationJa implements Translations
 	// Translations
 	@override String get title => '健康統合';
 	@override String get description => 'より良い洞察のためにHealth Connectと接続する';
+}
+
+// Path: onboarding.bmiScale.categories
+class _TranslationsOnboardingBmiScaleCategoriesJa implements TranslationsOnboardingBmiScaleCategoriesEn {
+	_TranslationsOnboardingBmiScaleCategoriesJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get underweight => '低体重';
+	@override String get healthyWeight => '健康体重';
+	@override String get overweight => '過体重';
+	@override String get obese => '肥満';
+}
+
+// Path: onboarding.bmiScale.messages
+class _TranslationsOnboardingBmiScaleMessagesJa implements TranslationsOnboardingBmiScaleMessagesEn {
+	_TranslationsOnboardingBmiScaleMessagesJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get underweight => '栄養価の高い食事でバランスの取れた体重に到達するための健康的なプランを一緒に作りましょう。';
+	@override String get healthy => '素晴らしい！あなたは健康的な範囲にいます。活力とエネルギーレベルを維持するお手伝いをします。';
+	@override String get overweight => 'CalorifyがAIを活用したトラッキングで、快適に目標を達成する手助けをします。';
+	@override String get obese => 'あなたの健康目標のために、個別の指導と持続可能な戦略でサポートします。';
+}
+
+// Path: onboarding.healthConnect.automaticTracking
+class _TranslationsOnboardingHealthConnectAutomaticTrackingJa implements TranslationsOnboardingHealthConnectAutomaticTrackingEn {
+	_TranslationsOnboardingHealthConnectAutomaticTrackingJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '自動カロリートラッキング';
+	@override String get description => 'フィットネスアプリから消費カロリーを追跡します';
+}
+
+// Path: onboarding.healthConnect.progressInsights
+class _TranslationsOnboardingHealthConnectProgressInsightsJa implements TranslationsOnboardingHealthConnectProgressInsightsEn {
+	_TranslationsOnboardingHealthConnectProgressInsightsJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '進捗の洞察';
+	@override String get description => '健康トレンドに関する詳細な洞察を得ましょう';
+}
+
+// Path: onboarding.healthConnect.seamlessIntegration
+class _TranslationsOnboardingHealthConnectSeamlessIntegrationJa implements TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
+	_TranslationsOnboardingHealthConnectSeamlessIntegrationJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'シームレスな統合';
+	@override String get description => 'お気に入りの健康アプリからデータを同期します';
+}
+
+// Path: onboarding.reinforcement.trackingSuccess
+class _TranslationsOnboardingReinforcementTrackingSuccessJa implements TranslationsOnboardingReinforcementTrackingSuccessEn {
+	_TranslationsOnboardingReinforcementTrackingSuccessJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'あなたは一人じゃない';
+	@override String get instantPhotoAnalysis => '即時フォト分析';
+	@override String get automaticLogging => '自動栄養ログ';
+	@override String get progressVisualizations => 'やる気を引き出す進捗視覚化';
+	@override String get genericMessage => '研究によると、一貫したトラッキングは長期的な成功の最も大きな予測因子です。';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => '${age}歳の${gender}が${goal}を目指すためには、一貫したトラッキングが成功の最も大きな予測因子です。';
+	@override String get closingMessage => 'Calorifyを使えば、手動で行うよりも10倍簡単です。';
+	@override String get button => '行きましょう';
+	@override String get defaultGender => '個人';
+	@override String get defaultGoal => 'より健康的な自分';
+}
+
+// Path: onboarding.reinforcement.healthProfile
+class _TranslationsOnboardingReinforcementHealthProfileJa implements TranslationsOnboardingReinforcementHealthProfileEn {
+	_TranslationsOnboardingReinforcementHealthProfileJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'あなたの健康プロフィール';
+	@override String bmiDescription({required Object bmi}) => 'あなたの指標に基づくと、あなたのBMIは${bmi}です。';
+	@override String get finalizeDescription => 'あなたの体験をカスタマイズするためにプロフィールを最終化しましょう。';
+	@override String get goalGain => '増加';
+	@override String get goalLose => '減少';
+	@override String goalReach({required Object direction, required Object diff, required Object unit}) => '目標を達成するには、${direction} ${diff} ${unit}しなければなりません。';
+	@override String get goalReached => 'あなたは目標体重に達しました！維持を支援します。';
+	@override String get button => '行きましょう';
+}
+
+// Path: onboarding.reinforcement.goalLifestyle
+class _TranslationsOnboardingReinforcementGoalLifestyleJa implements TranslationsOnboardingReinforcementGoalLifestyleEn {
+	_TranslationsOnboardingReinforcementGoalLifestyleJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '素晴らしいスタート！';
+	@override String description({required Object goalText, required Object activityText}) => 'あなたは${goalText}に向けて第一歩を踏み出しました。あなたが${activityText}であるため、Calorifyはあなたのライフスタイルに合った目標を調整します。';
+	@override String get personalizedTargets => 'パーソナライズされたカロリターゲット';
+	@override String get aiMealDetection => 'AIによる食事検出';
+	@override String get macroBreakdowns => '詳細なマクロ栄養素の内訳';
+	@override String get button => '行きましょう';
+	@override String get defaultGoal => 'あなたの目標';
+	@override String get defaultActivity => '活動的';
+}
+
+// Path: editProfile.weightGoals.loseWeight
+class _TranslationsEditProfileWeightGoalsLoseWeightJa implements TranslationsEditProfileWeightGoalsLoseWeightEn {
+	_TranslationsEditProfileWeightGoalsLoseWeightJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '体重を減らす';
+	@override String get description => '体重を減らすためにカロリー不足を作る';
+}
+
+// Path: editProfile.weightGoals.maintainWeight
+class _TranslationsEditProfileWeightGoalsMaintainWeightJa implements TranslationsEditProfileWeightGoalsMaintainWeightEn {
+	_TranslationsEditProfileWeightGoalsMaintainWeightJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '体重を維持する';
+	@override String get description => '現在の体重を維持する';
+}
+
+// Path: editProfile.weightGoals.gainWeight
+class _TranslationsEditProfileWeightGoalsGainWeightJa implements TranslationsEditProfileWeightGoalsGainWeightEn {
+	_TranslationsEditProfileWeightGoalsGainWeightJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '体重を増やす';
+	@override String get description => '体重を増やすためにカロリー過剰を作る';
+}
+
+// Path: editProfile.activityLevels.sedentary
+class _TranslationsEditProfileActivityLevelsSedentaryJa implements TranslationsEditProfileActivityLevelsSedentaryEn {
+	_TranslationsEditProfileActivityLevelsSedentaryJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '座りがち';
+	@override String get description => 'ほとんど運動しない';
+}
+
+// Path: editProfile.activityLevels.lightlyActive
+class _TranslationsEditProfileActivityLevelsLightlyActiveJa implements TranslationsEditProfileActivityLevelsLightlyActiveEn {
+	_TranslationsEditProfileActivityLevelsLightlyActiveJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '軽度に活動的';
+	@override String get description => '週に1-3日の軽い運動';
+}
+
+// Path: editProfile.activityLevels.moderatelyActive
+class _TranslationsEditProfileActivityLevelsModeratelyActiveJa implements TranslationsEditProfileActivityLevelsModeratelyActiveEn {
+	_TranslationsEditProfileActivityLevelsModeratelyActiveJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '中程度に活動的';
+	@override String get description => '週に3-5日の中程度の運動';
+}
+
+// Path: editProfile.activityLevels.veryActive
+class _TranslationsEditProfileActivityLevelsVeryActiveJa implements TranslationsEditProfileActivityLevelsVeryActiveEn {
+	_TranslationsEditProfileActivityLevelsVeryActiveJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '非常に活動的';
+	@override String get description => '週に6-7日のハードな運動';
+}
+
+// Path: editProfile.activityLevels.extremelyActive
+class _TranslationsEditProfileActivityLevelsExtremelyActiveJa implements TranslationsEditProfileActivityLevelsExtremelyActiveEn {
+	_TranslationsEditProfileActivityLevelsExtremelyActiveJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => '極度に活動的';
+	@override String get description => '非常にハードな運動や肉体労働';
 }
 
 // Path: disclaimer.snap.portionSize
@@ -825,6 +1313,82 @@ extension on TranslationsJa {
 			'onboarding.features.aiAnalysis.description' => 'あなたの説明から即座に栄養情報を取得',
 			'onboarding.features.healthIntegration.title' => '健康統合',
 			'onboarding.features.healthIntegration.description' => 'より良い洞察のためにHealth Connectと接続する',
+			'onboarding.gender.title' => 'あなたの性別は何ですか？',
+			'onboarding.gender.description' => '性別は基礎代謝率 (BMR) を正確に計算するのに役立ちます。',
+			'onboarding.gender.next' => '次へ',
+			'onboarding.height.title' => 'あなたの身長はどれくらいですか？',
+			'onboarding.height.description' => 'あなたの身長は、BMIとエネルギーの必要量を正確に計算するのに役立ちます。',
+			'onboarding.height.metric' => 'メートル法',
+			'onboarding.height.imperial' => 'インペリアル',
+			'onboarding.height.next' => '次へ',
+			'onboarding.weight.currentTitle' => '現在の体重はどれくらいですか？',
+			'onboarding.weight.currentDescription' => '現在の体重は、あなたの日々の目標をパーソナライズするために重要です。',
+			'onboarding.weight.targetTitle' => '目標体重はどれくらいですか？',
+			'onboarding.weight.targetDescription' => '目標体重を設定することで、長期的な計画を決定する手助けになります。',
+			'onboarding.weight.metric' => 'メートル法',
+			'onboarding.weight.imperial' => 'インペリアル',
+			'onboarding.weight.next' => '次へ',
+			'onboarding.age.title' => 'あなたの誕生日はいつですか？',
+			'onboarding.age.description' => 'あなたの年齢は、カロリーの必要量を正確に計算するのに役立ちます。',
+			'onboarding.age.next' => '次へ',
+			'onboarding.bmiScale.underweight' => '低体重',
+			'onboarding.bmiScale.healthy' => '健康',
+			'onboarding.bmiScale.overweight' => '過体重',
+			'onboarding.bmiScale.obese' => '肥満',
+			'onboarding.bmiScale.categories.underweight' => '低体重',
+			'onboarding.bmiScale.categories.healthyWeight' => '健康体重',
+			'onboarding.bmiScale.categories.overweight' => '過体重',
+			'onboarding.bmiScale.categories.obese' => '肥満',
+			'onboarding.bmiScale.messages.underweight' => '栄養価の高い食事でバランスの取れた体重に到達するための健康的なプランを一緒に作りましょう。',
+			'onboarding.bmiScale.messages.healthy' => '素晴らしい！あなたは健康的な範囲にいます。活力とエネルギーレベルを維持するお手伝いをします。',
+			'onboarding.bmiScale.messages.overweight' => 'CalorifyがAIを活用したトラッキングで、快適に目標を達成する手助けをします。',
+			'onboarding.bmiScale.messages.obese' => 'あなたの健康目標のために、個別の指導と持続可能な戦略でサポートします。',
+			'onboarding.weightGoal.title' => 'あなたの目標は何ですか？',
+			'onboarding.weightGoal.description' => '達成したいことを最もよく表す目標を選んでください。',
+			'onboarding.activityLevel.title' => 'あなたはどれくらい活動的ですか？',
+			'onboarding.activityLevel.description' => 'これにより、日々のカロリー必要量をより正確に計算できます。',
+			'onboarding.healthConnect.title' => 'Health Connectと接続',
+			'onboarding.healthConnect.description' => '健康データを同期して、より良い洞察を得て自動カロリートラッキングを行いましょう',
+			'onboarding.healthConnect.automaticTracking.title' => '自動カロリートラッキング',
+			'onboarding.healthConnect.automaticTracking.description' => 'フィットネスアプリから消費カロリーを追跡します',
+			'onboarding.healthConnect.progressInsights.title' => '進捗の洞察',
+			'onboarding.healthConnect.progressInsights.description' => '健康トレンドに関する詳細な洞察を得ましょう',
+			'onboarding.healthConnect.seamlessIntegration.title' => 'シームレスな統合',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'お気に入りの健康アプリからデータを同期します',
+			'onboarding.healthConnect.connected' => 'Health Connectに接続済み',
+			'onboarding.healthConnect.notConnected' => 'Health Connectに未接続',
+			'onboarding.healthConnect.setup' => 'Health Connectを設定',
+			'onboarding.healthConnect.skipForNow' => '今はスキップ',
+			'onboarding.healthConnect.statusConnected' => 'Health Connectが接続されました。',
+			'onboarding.healthConnect.statusSuccess' => 'Health Connectが正常に接続されました！',
+			'onboarding.healthConnect.statusPermissionDenied' => '権限が拒否されました。Calorifyのために電話の設定からHealth Connectの権限を有効にしてください。',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connectの設定中にエラーが発生しました: ${error}',
+			'onboarding.reinforcement.trackingSuccess.title' => 'あなたは一人じゃない',
+			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => '即時フォト分析',
+			'onboarding.reinforcement.trackingSuccess.automaticLogging' => '自動栄養ログ',
+			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'やる気を引き出す進捗視覚化',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => '研究によると、一貫したトラッキングは長期的な成功の最も大きな予測因子です。',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '${age}歳の${gender}が${goal}を目指すためには、一貫したトラッキングが成功の最も大きな予測因子です。',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorifyを使えば、手動で行うよりも10倍簡単です。',
+			'onboarding.reinforcement.trackingSuccess.button' => '行きましょう',
+			'onboarding.reinforcement.trackingSuccess.defaultGender' => '個人',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'より健康的な自分',
+			'onboarding.reinforcement.healthProfile.title' => 'あなたの健康プロフィール',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'あなたの指標に基づくと、あなたのBMIは${bmi}です。',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'あなたの体験をカスタマイズするためにプロフィールを最終化しましょう。',
+			'onboarding.reinforcement.healthProfile.goalGain' => '増加',
+			'onboarding.reinforcement.healthProfile.goalLose' => '減少',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => '目標を達成するには、${direction} ${diff} ${unit}しなければなりません。',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'あなたは目標体重に達しました！維持を支援します。',
+			'onboarding.reinforcement.healthProfile.button' => '行きましょう',
+			'onboarding.reinforcement.goalLifestyle.title' => '素晴らしいスタート！',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'あなたは${goalText}に向けて第一歩を踏み出しました。あなたが${activityText}であるため、Calorifyはあなたのライフスタイルに合った目標を調整します。',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'パーソナライズされたカロリターゲット',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AIによる食事検出',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => '詳細なマクロ栄養素の内訳',
+			'onboarding.reinforcement.goalLifestyle.button' => '行きましょう',
+			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'あなたの目標',
+			'onboarding.reinforcement.goalLifestyle.defaultActivity' => '活動的',
 			'tabs.dashboard' => 'ダッシュボード',
 			'tabs.history' => '履歴',
 			'home.dailyGoal.title' => '日々の目標を設定',
@@ -849,6 +1413,9 @@ extension on TranslationsJa {
 			'home.intakeProgress.title' => '今日のマクロ分配',
 			'home.intakeProgress.target' => '目標',
 			'home.intakeProgress.current' => '現在',
+			'home.intakeHistory.title' => '7日間のマクロ履歴',
+			'home.intakeHistory.noHistoryYet' => '履歴はまだありません。',
+			'home.intakeHistory.startLogging' => '食事を記録し始めて、ここで7日間のマクロトレンドを確認しましょう。',
 			'home.mealLog.title' => 'ログされた食事',
 			'home.mealLog.emptyMessage' => '最後の食事の写真を撮ってここに記録しましょう。',
 			'home.mealLog.noMealsToday' => '今日の食事はまだ記録されていません',
@@ -870,7 +1437,6 @@ extension on TranslationsJa {
 			'home.connectHealth.description' => 'あなたの栄養データをHealth Connectと同期します',
 			'home.connectHealth.install' => 'インストール',
 			'home.connectHealth.connect' => '接続',
-			'history.title' => '履歴',
 			'history.noMeals' => '記録された食事はありません',
 			'history.emptyMessage' => '最後の食事の写真を撮ってここに記録しましょう。',
 			'history.today' => '今日',
@@ -878,23 +1444,36 @@ extension on TranslationsJa {
 			'meal.ohNo' => 'おっと！',
 			'meal.delete' => '削除',
 			'meal.editMeal' => '食事を編集',
+			'meal.addMeal' => '食事を追加',
 			'meal.saveMeal' => '食事を保存',
+			'meal.save' => '保存',
+			'meal.mealName' => '食事の名前',
+			'meal.mealQuantity' => '食事の分量',
+			'meal.mealQuantityHint' => '例：1杯、2枚',
+			'meal.timeOfMeal' => '食事の時間',
+			'meal.timeOfMealHint' => '食事をした時間を選択してください',
+			'meal.mealType' => '食事の種類',
+			'meal.nutrition.calories' => 'カロリー',
+			'meal.nutrition.carbs' => '炭水化物 (g)',
+			'meal.nutrition.protein' => 'たんぱく質 (g)',
+			'meal.nutrition.fat' => '脂肪 (g)',
+			'meal.nutrition.fiber' => '繊維 (g)',
 			'meal.deleteConfirmation.title' => '食事を削除',
 			'meal.deleteConfirmation.message' => '本当にこの食事のエントリーを削除してもよろしいですか？',
 			'meal.deleteConfirmation.cancel' => 'キャンセル',
 			'meal.deleteConfirmation.delete' => '削除',
 			'meal.addedToLog' => '食事がログに追加されました！',
-			'meal.couldNotAdd' => '食事を追加できませんでした: {error}',
+			'meal.couldNotAdd' => ({required Object error}) => '食事を追加できませんでした: ${error}',
 			'meal.removedFromFavorites' => 'お気に入りから削除されました！',
 			'meal.savedAsFavorite' => '食事がお気に入りとして保存されました！',
-			'meal.couldNotUpdateFavorite' => 'お気に入りの更新に失敗しました: {error}',
-			'meal.failedToProcess' => '処理に失敗しました: {error}',
-			'meal.failedToProcessImage' => '画像の処理に失敗しました: {error}',
-			'meal.errorCompressingImage' => '画像の圧縮エラー: {error}',
+			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'お気に入りの更新に失敗しました: ${error}',
+			'meal.failedToProcess' => ({required Object error}) => '処理に失敗しました: ${error}',
+			'meal.failedToProcessImage' => ({required Object error}) => '画像の処理に失敗しました: ${error}',
+			'meal.errorCompressingImage' => ({required Object error}) => '画像の圧縮エラー: ${error}',
+			'meal.failedToSave' => 'データの保存に失敗しました。再試行してください。',
 			'favorites.title' => 'お気に入り',
 			'favorites.empty' => 'まだお気に入りの食事はありません。',
 			'profile.title' => 'プロフィール',
-			'profile.editProfile' => 'プロフィールを編集',
 			'profile.noProfileData' => 'プロフィールデータが見つかりません',
 			'profile.yourProfile' => 'あなたのプロフィール',
 			'profile.viewAndManage' => '健康情報を表示・管理',
@@ -912,6 +1491,17 @@ extension on TranslationsJa {
 			'profile.notSet' => '未設定',
 			'profile.years' => '年',
 			'profile.updatedSuccessfully' => 'プロフィールが正常に更新されました！',
+			'profile.calculatedValues.bmr' => '基礎代謝率 (BMR)',
+			'profile.calculatedValues.tdee' => '1日の総消費カロリー (TDEE)',
+			'profile.calculatedValues.dailyGoal' => '1日の目標',
+			'profile.calculatedValues.calPerDay' => 'カロリー/日',
+			'profile.calculatedValues.notAvailable' => '利用不可',
+			'healthScore.title' => '健康スコア',
+			'healthScore.whyThisScore' => 'このスコアの理由は？',
+			'healthScore.note' => 'このスコアは、特定された成分と栄養密度に基づくAIの推定値です。食事に関するアドバイスは常に専門家に相談してください。',
+			'healthScore.unhealthy' => '不健康',
+			'healthScore.healthy' => '健康',
+			'healthScore.neutral' => '中立',
 			'editProfile.title' => 'プロフィールを編集',
 			'editProfile.sections.personalInformation' => '個人情報',
 			'editProfile.sections.physicalMeasurements' => '身体測定',
@@ -928,6 +1518,25 @@ extension on TranslationsJa {
 			'editProfile.imperialFtIn' => 'インペリアル (ft/in)',
 			'editProfile.metricKg' => 'メートル法 (kg)',
 			'editProfile.imperialLbs' => 'インペリアル (lbs)',
+			'editProfile.genders.male' => '男性',
+			'editProfile.genders.female' => '女性',
+			'editProfile.genders.other' => 'その他',
+			'editProfile.weightGoals.loseWeight.name' => '体重を減らす',
+			'editProfile.weightGoals.loseWeight.description' => '体重を減らすためにカロリー不足を作る',
+			'editProfile.weightGoals.maintainWeight.name' => '体重を維持する',
+			'editProfile.weightGoals.maintainWeight.description' => '現在の体重を維持する',
+			'editProfile.weightGoals.gainWeight.name' => '体重を増やす',
+			'editProfile.weightGoals.gainWeight.description' => '体重を増やすためにカロリー過剰を作る',
+			'editProfile.activityLevels.sedentary.name' => '座りがち',
+			'editProfile.activityLevels.sedentary.description' => 'ほとんど運動しない',
+			'editProfile.activityLevels.lightlyActive.name' => '軽度に活動的',
+			'editProfile.activityLevels.lightlyActive.description' => '週に1-3日の軽い運動',
+			'editProfile.activityLevels.moderatelyActive.name' => '中程度に活動的',
+			'editProfile.activityLevels.moderatelyActive.description' => '週に3-5日の中程度の運動',
+			'editProfile.activityLevels.veryActive.name' => '非常に活動的',
+			'editProfile.activityLevels.veryActive.description' => '週に6-7日のハードな運動',
+			'editProfile.activityLevels.extremelyActive.name' => '極度に活動的',
+			'editProfile.activityLevels.extremelyActive.description' => '非常にハードな運動や肉体労働',
 			'settings.title' => '設定',
 			'settings.sections.profile' => 'プロフィール',
 			'settings.sections.localization' => 'ローカライズ',
@@ -938,12 +1547,19 @@ extension on TranslationsJa {
 			'settings.editProfile.title' => 'プロフィールを編集',
 			'settings.editProfile.subtitle' => '個人情報を更新',
 			'settings.language.title' => '言語',
+			'settings.language.subtitle' => 'お好みの言語を選択してください',
 			'settings.heightUnit.title' => '身長の単位',
 			'settings.weightUnit.title' => '体重の単位',
 			'settings.mealReminders.title' => '食事リマインダー',
 			'settings.mealReminders.subtitle' => 'タイムリーなアラートで進捗を維持',
 			'settings.sendFeedback.title' => 'フィードバックを送信',
 			'settings.sendFeedback.subtitle' => 'Calorifyの改善にご協力ください',
+			'settings.sendFeedback.emailSubject' => 'Calorifyアプリのフィードバック',
+			'settings.sendFeedback.emailBodyPrefix' => '以下にフィードバックをご記入ください:',
+			'settings.sendFeedback.appVersion' => 'アプリのバージョン',
+			'settings.sendFeedback.device' => 'デバイス',
+			'settings.sendFeedback.osVersion' => 'OSバージョン',
+			'settings.sendFeedback.uid' => 'UID',
 			'settings.clearAllData.title' => 'すべてのデータをクリア',
 			'settings.clearAllData.subtitle' => 'すべての情報を取り消し不可能に削除します',
 			'settings.clearAllData.confirmationTitle' => 'すべてのデータをクリアしますか？',
@@ -963,15 +1579,15 @@ extension on TranslationsJa {
 			'reminders.lunch' => '昼食',
 			'reminders.dinner' => '夕食',
 			'reminders.snack' => 'スナック',
+			'reminders.unknown' => '不明',
 			'reminders.change' => '変更',
 			'reminders.enableNotifications' => '通知を有効にする',
 			'reminders.skipForNow' => '今はスキップ',
 			'reminders.saveChanges' => '変更を保存',
-			'reminders.continue_' => '続ける',
 			'reminders.enabledSuccessfully' => '通知が正常に有効になりました！',
 			'reminders.permissionDenied' => '通知の許可が拒否されました',
-			'reminders.errorEnabling' => '通知を有効にする際のエラー: {error}',
-			'reminders.errorCompletingSetup' => 'セットアップの完了に関するエラー: {error}',
+			'reminders.errorEnabling' => ({required Object error}) => '通知を有効にする際のエラー: ${error}',
+			'reminders.errorCompletingSetup' => ({required Object error}) => 'セットアップの完了に関するエラー: ${error}',
 			'notifications.breakfast.title' => '朝食の時間！🍳',
 			'notifications.breakfast.body' => '朝食を記録するのを忘れないでください',
 			'notifications.lunch.title' => '昼食の時間！🥗',
@@ -983,7 +1599,7 @@ extension on TranslationsJa {
 			'notifications.test.title' => 'テスト通知',
 			'login.title' => 'ログイン',
 			'login.signInWithGoogle' => 'Googleでサインイン',
-			'login.signInFailed' => 'Googleサインインに失敗しましたまたはキャンセルされました。',
+			'login.signInFailed' => 'Googleサインインに失敗しました、またはキャンセルされました。',
 			'disclaimer.pleaseNote' => 'ご注意ください',
 			'disclaimer.snap.description' => 'Calorifyは推定栄養情報を提供します。正確さはあなたの入力と食品の変動に依存します。ガイドとして使用し、確定的な情報源として使用しないでください。個別の食事アドバイスについては専門家に相談してください。',
 			'disclaimer.snap.portionSize.title' => 'ポーションサイズ',
@@ -1004,33 +1620,53 @@ extension on TranslationsJa {
 			'disclaimer.weightEstimate.waterWeight.description' => '通常の体重は、水分貯留、消化、タイミングによる影響で大きく変動することがあります。推定値はこれらの毎日の変動を考慮していません。',
 			'disclaimer.weightEstimate.professionalGuidance.title' => '専門家のガイダンス',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'この推定を医療の決定に使用しないでください。個別の体重管理アドバイスについては、常に医療専門家または登録栄養士に相談してください。',
-			'common.cancel' => 'キャンセル',
-			'common.save' => '保存',
-			'common.delete' => '削除',
-			'common.edit' => '編集',
 			'common.close' => '閉じる',
 			'common.kContinue' => '続ける',
-			'common.skip' => 'スキップ',
-			'common.error' => 'エラー',
-			'common.loading' => '読み込み中...',
-			'common.notSet' => '未設定',
-			'common.today' => '今日',
-			'common.yesterday' => '昨日',
 			'errors.loadingProfileData' => 'プロフィールデータの読み込みエラー',
-			'errors.generic' => 'エラーが発生しました。再試行してください。',
+			'errors.somethingWentWrong' => '何かがうまくいきませんでした。',
 			'debug.title' => 'デバッグオプション',
+			'debug.sections.notifications' => '通知',
+			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.appInfo' => 'アプリ情報',
 			'debug.showActiveNotifications' => 'アクティブな通知を表示',
 			'debug.scheduleTestNotification' => 'テスト通知をスケジュール (10秒)',
 			'debug.triggerBreakfastNotification' => '朝食通知を発生させる',
 			'debug.cancelAllNotifications' => 'すべての通知をキャンセル',
 			'debug.activeNotifications' => 'アクティブな通知',
-			'debug.id' => 'ID: {id}',
+			'debug.noTitle' => 'タイトルなし',
+			'debug.noBody' => '本文なし',
+			'debug.fetchTodaysSteps' => '今日のステップを取得',
+			'debug.fetchTodaysCalories' => '今日のカロリーを取得',
 			'debug.fetchLatestWeight' => '最新の体重を取得',
 			'debug.fetchLatestHeight' => '最新の身長を取得',
 			'debug.writeTestWeight' => 'テスト体重を書く (70kg)',
 			'debug.writeTestHeight' => 'テスト身長を書く (175cm)',
 			'debug.syncLast7Days' => '最後の7日間を同期',
+			'debug.sync7DaysTitle' => '7日間の同期',
 			'debug.checkCurrentLocale' => '現在のロケールを確認',
+			'debug.currentLocale' => '現在のロケール',
+			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => '言語: ${languageCode}\n国: ${countryCode}\n単位システム: ${unitSystem}',
+			'debug.latestWeight' => '最新の体重',
+			'debug.latestHeight' => '最新の身長',
+			'debug.todaysCalories' => '今日のカロリー',
+			'debug.totalCaloriesBurned' => ({required Object calories}) => '過去7日間で燃焼した合計カロリー: ${calories}',
+			'debug.syncSuccess' => ({required Object count}) => '過去7日間のステップ、カロリー、体重に関する ${count} データポイントを正常に取得しました。',
+			'debug.noWeightData' => '過去30日間に体重データが見つかりませんでした。',
+			'debug.noHeightData' => '過去1年間に身長データが見つかりませんでした。',
+			'debug.noCalorieData' => '今日はカロリーデータが見つかりませんでした。',
+			'debug.weightWritten' => 'テスト体重 (70kg) を正常に書き込みました。',
+			'debug.weightWriteFailed' => 'テスト体重の書き込みに失敗しました。',
+			'debug.heightWritten' => 'テスト身長 (175cm) を正常に書き込みました。',
+			'debug.heightWriteFailed' => 'テスト身長の書き込みに失敗しました。',
+			'debug.noNotifications' => 'アクティブな通知はありません。',
+			'debug.testNotificationScheduled' => '10秒後にテスト通知がスケジュールされました。',
+			'debug.testNotificationBody' => 'これは、今から10秒後にスケジュールされたテスト通知です。',
+			'debug.breakfastNotificationTriggered' => '朝食通知がトリガーされました。',
+			'debug.allNotificationsCancelled' => 'すべての通知がキャンセルされました。',
+			'debug.fetchingData' => '過去7日間のデータを取得しています...',
+			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'health.syncFailed' => 'Health Connectへの同期に失敗しました。',
+			'health.mealSynced' => '食事がHealth Connectと同期されました。',
 			_ => null,
 		};
 	}

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
@@ -31,7 +33,7 @@ class LanguagePickerSheet extends StatelessWidget {
         borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, -5),
           ),
@@ -46,14 +48,14 @@ class LanguagePickerSheet extends StatelessWidget {
             width: 36,
             height: 4,
             decoration: BoxDecoration(
-              color: colorScheme.outlineVariant.withOpacity(0.5),
+              color: colorScheme.outlineVariant.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
           const SizedBox(height: 24),
 
           Text(
-            'App Language',
+            t.settings.language.title,
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w800,
               letterSpacing: -0.5,
@@ -61,7 +63,7 @@ class LanguagePickerSheet extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Choose your preferred language',
+            t.settings.language.subtitle,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
@@ -89,8 +91,8 @@ class LanguagePickerSheet extends StatelessWidget {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () async {
-                        HapticFeedback.lightImpact();
-                        LocaleSettings.setLocale(locale);
+                        unawaited(HapticFeedback.lightImpact());
+                        await LocaleSettings.setLocale(locale);
 
                         // Save language preference to database
                         final profile =
@@ -124,10 +126,11 @@ class LanguagePickerSheet extends StatelessWidget {
                         decoration: BoxDecoration(
                           color:
                               isSelected
-                                  ? colorScheme.primaryContainer.withOpacity(
-                                    0.5,
+                                  ? colorScheme.primaryContainer.withValues(
+                                    alpha: 0.5,
                                   )
-                                  : colorScheme.surfaceVariant.withOpacity(0.2),
+                                  : colorScheme.surfaceContainerHighest
+                                      .withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                             color:
@@ -147,8 +150,8 @@ class LanguagePickerSheet extends StatelessWidget {
                                 boxShadow: [
                                   if (isSelected)
                                     BoxShadow(
-                                      color: colorScheme.primary.withOpacity(
-                                        0.1,
+                                      color: colorScheme.primary.withValues(
+                                        alpha: 0.1,
                                       ),
                                       blurRadius: 8,
                                       spreadRadius: 2,

@@ -1,6 +1,7 @@
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 Future<void> logMeal(BuildContext context, MealInfo mealInfo) async {
@@ -17,12 +18,10 @@ Future<bool> _writeDataToHealthConnect(
 
   try {
     final isSuccess = await HealthService.instance.writeMealData(mealInfo);
-    if (!isSuccess) throw Exception('Could not sync to Health Connect');
+    if (!isSuccess) throw Exception(t.health.syncFailed);
 
     if (!context.mounted) return false;
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(snack('Meal synced with Health Connect'));
+    ScaffoldMessenger.of(context).showSnackBar(snack(t.health.mealSynced));
 
     return isSuccess;
   } on Exception catch (e) {

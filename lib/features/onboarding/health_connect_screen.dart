@@ -1,5 +1,6 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:calorify/shared_widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
       _healthConnectEnabled = isAuthorized;
       _isLoading = false;
       if (isAuthorized) {
-        _statusMessage = 'Health Connect is connected.';
+        _statusMessage = t.onboarding.healthConnect.statusConnected;
       }
     });
   }
@@ -53,14 +54,14 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
                 children: [
                   const SizedBox(height: 48),
                   Text(
-                    'Connect with Health Connect',
+                    t.onboarding.healthConnect.title,
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Sync your health data for better insights and automatic calorie tracking',
+                    t.onboarding.healthConnect.description,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                     ),
@@ -71,25 +72,35 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
                   _buildBenefitItem(
                     context,
                     icon: LucideIcons.activity,
-                    title: 'Automatic Calorie Tracking',
-                    description: 'Track calories burned from your fitness apps',
+                    title: t.onboarding.healthConnect.automaticTracking.title,
+                    description:
+                        t
+                            .onboarding
+                            .healthConnect
+                            .automaticTracking
+                            .description,
                   ),
                   const SizedBox(height: 16),
 
                   _buildBenefitItem(
                     context,
                     icon: LucideIcons.trendingUp,
-                    title: 'Progress Insights',
+                    title: t.onboarding.healthConnect.progressInsights.title,
                     description:
-                        'Get detailed insights into your health trends',
+                        t.onboarding.healthConnect.progressInsights.description,
                   ),
                   const SizedBox(height: 16),
 
                   _buildBenefitItem(
                     context,
                     icon: LucideIcons.link,
-                    title: 'Seamless Integration',
-                    description: 'Sync data from your favorite health apps',
+                    title: t.onboarding.healthConnect.seamlessIntegration.title,
+                    description:
+                        t
+                            .onboarding
+                            .healthConnect
+                            .seamlessIntegration
+                            .description,
                   ),
                   const SizedBox(height: 32),
 
@@ -99,14 +110,16 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
                     decoration: BoxDecoration(
                       color:
                           _healthConnectEnabled
-                              ? Colors.green.withOpacity(0.1)
-                              : colorScheme.surfaceVariant.withOpacity(0.5),
+                              ? Colors.green.withValues(alpha: 0.1)
+                              : colorScheme.surfaceContainerHighest.withValues(
+                                alpha: 0.5,
+                              ),
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
                         color:
                             _healthConnectEnabled
                                 ? Colors.green
-                                : colorScheme.outline.withOpacity(0.2),
+                                : colorScheme.outline.withValues(alpha: 0.2),
                       ),
                     ),
                     child: Row(
@@ -127,8 +140,8 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
                             children: [
                               Text(
                                 _healthConnectEnabled
-                                    ? 'Health Connect Connected'
-                                    : 'Health Connect Not Connected',
+                                    ? t.onboarding.healthConnect.connected
+                                    : t.onboarding.healthConnect.notConnected,
                                 style: theme.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.w600,
                                   color:
@@ -165,14 +178,14 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
                     analyticsEvent:
                         AnalyticsEvent.onboardingContinueHealthConnect,
                     onPressed: _navigateToReminderNotifications,
-                    text: 'Continue',
+                    text: t.common.kContinue,
                     trailingIcon: LucideIcons.arrowRight,
                   )
                 else ...[
                   PrimaryButton(
                     analyticsEvent: AnalyticsEvent.onboardingSetupHealthConnect,
                     onPressed: _isLoading ? null : _setupHealthConnect,
-                    text: 'Setup Health Connect',
+                    text: t.onboarding.healthConnect.setup,
                     leadingIcon: LucideIcons.link,
                     isLoading: _isLoading,
                   ),
@@ -180,7 +193,7 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
                   SecondaryButton(
                     analyticsEvent: AnalyticsEvent.onboardingSkipHealthConnect,
                     onPressed: _navigateToReminderNotifications,
-                    text: 'Skip for now',
+                    text: t.onboarding.healthConnect.skipForNow,
                   ),
                 ],
               ],
@@ -248,8 +261,8 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
         _healthConnectEnabled = success;
         _statusMessage =
             success
-                ? 'Health Connect has been successfully connected!'
-                : 'Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.';
+                ? t.onboarding.healthConnect.statusSuccess
+                : t.onboarding.healthConnect.statusPermissionDenied;
       });
 
       if (success) {
@@ -258,7 +271,9 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
     } catch (e) {
       setState(() {
         _healthConnectEnabled = false;
-        _statusMessage = 'Error setting up Health Connect: ${e.toString()}';
+        _statusMessage = t.onboarding.healthConnect.statusError(
+          error: e.toString(),
+        );
       });
     } finally {
       setState(() => _isLoading = false);

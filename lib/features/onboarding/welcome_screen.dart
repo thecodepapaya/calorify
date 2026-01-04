@@ -186,7 +186,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
         onPressed: () => LanguagePickerSheet.show(context),
         backgroundColor: Theme.of(
           context,
-        ).colorScheme.primaryContainer.withOpacity(0.4),
+        ).colorScheme.primaryContainer.withValues(alpha: 0.4),
         side: BorderSide.none,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
@@ -231,7 +231,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             decoration: BoxDecoration(
               color: Theme.of(
                 context,
-              ).colorScheme.primaryContainer.withOpacity(0.5),
+              ).colorScheme.primaryContainer.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Icon(

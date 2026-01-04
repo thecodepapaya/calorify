@@ -1,6 +1,8 @@
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:calorify/i18n/strings.g.dart';
+import 'package:calorify/shared_widgets/height_scale_widget.dart';
 import 'package:flutter/material.dart';
 
 class HeightStepScreen extends StatefulWidget {
@@ -14,14 +16,13 @@ class HeightStepScreen extends StatefulWidget {
 class _HeightStepScreenState extends State<HeightStepScreen> {
   double _height = 170;
   UnitSystem _unitSystem = UnitSystem.metric;
-  late ScrollController _scrollController;
   final TextEditingController _textController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
+  bool _unitSystemInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
     _loadData();
     _textController.addListener(_onTextChanged);
   }
@@ -31,67 +32,41 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
     final val = double.tryParse(_textController.text);
     if (val != null) {
       setState(() {
-        if (_unitSystem.isMetric) {
-          _height = val.clamp(100, 250);
-        } else {
-          _height = val.clamp(3.3, 8.2);
-        }
-        _syncRulerToValue();
+        _height = val.clamp(_unitSystem.heightMin, _unitSystem.heightMax);
       });
     }
-  }
-
-  /// Syncs the horizontal ruler scroll position to the current numeric height value.
-  ///
-  /// The formula used depends on the unit system:
-  /// - Metric: Each cm is 10 pixels. The ruler starts at 100cm.
-  ///   Offset = (height - 100) * 10.0
-  /// - Imperial: Each 0.1ft is 10 pixels. The ruler starts at 3.3ft.
-  ///   We multiply by 10 to work with integer steps on the ruler.
-  ///   Offset = (height * 10.0 - 33) * 10.0
-  void _syncRulerToValue() {
-    if (!_scrollController.hasClients) return;
-    final double offset;
-    if (_unitSystem.isMetric) {
-      offset = (_height - 100) * 10.0;
-    } else {
-      offset = (_height * 10.0 - 33) * 10.0;
-    }
-    _scrollController.jumpTo(offset.clamp(0, 1500));
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _unitSystem = LocaleUtils.getDefaultUnitSystem(context);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _syncRulerToValue();
-    });
+    // Only set locale-based default on first initialization
+    if (!_unitSystemInitialized) {
+      _unitSystem = LocaleUtils.getDefaultUnitSystem(context);
+      _unitSystemInitialized = true;
+    }
   }
 
   Future<void> _loadData() async {
     final profile = await OnboardingService.instance.getProfileData();
     if (profile != null) {
-      _unitSystem = profile.heightUnit;
-      if (profile.height != null && mounted) {
-        setState(() {
+      setState(() {
+        _unitSystem = profile.heightUnit;
+        _unitSystemInitialized = true;
+        if (profile.height != null) {
           _height = profile.height!;
           _updateTextField();
-        });
-      }
+        }
+      });
     }
   }
 
   void _updateTextField() {
-    _textController.text =
-        _unitSystem.isMetric
-            ? _height.toStringAsFixed(0)
-            : LocaleUtils.convertHeightToImperial(_height).toStringAsFixed(1);
+    _textController.text = LocaleUtils.formatHeightValue(_height, _unitSystem);
   }
 
   @override
   void dispose() {
-    _scrollController.dispose();
     _textController.dispose();
     _focusNode.dispose();
     super.dispose();
@@ -109,14 +84,14 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
         children: [
           const SizedBox(height: 48),
           Text(
-            'How tall are you?',
+            t.onboarding.height.title,
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 12),
           Text(
-            'Your height helps us calculate your BMI and energy needs accurately.',
+            t.onboarding.height.description,
             style: theme.textTheme.bodyLarge?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
@@ -153,9 +128,7 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
                         textBaseline: TextBaseline.alphabetic,
                         children: [
                           Text(
-                            _height.toStringAsFixed(
-                              _unitSystem.isMetric ? 0 : 1,
-                            ),
+                            LocaleUtils.formatHeightValue(_height, _unitSystem),
                             style: theme.textTheme.displayLarge?.copyWith(
                               fontWeight: FontWeight.w900,
                               color: colorScheme.primary,
@@ -175,23 +148,15 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
                   ),
                 ),
                 const SizedBox(height: 48),
-                SizedBox(
-                  height: 100,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      _buildHorizontalRuler(),
-                      // Center Indicator
-                      Container(
-                        width: 2,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: colorScheme.primary,
-                          borderRadius: BorderRadius.circular(1),
-                        ),
-                      ),
-                    ],
-                  ),
+                HeightScaleWidget(
+                  value: _height,
+                  unitSystem: _unitSystem,
+                  onValueChanged: (newHeight) {
+                    setState(() {
+                      _height = newHeight;
+                      _updateTextField();
+                    });
+                  },
                 ),
               ],
             ),
@@ -200,25 +165,31 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _buildUnitButton('Metric', _unitSystem.isMetric, () {
-                if (_unitSystem.isMetric) return;
-                setState(() {
-                  _height = LocaleUtils.convertHeightToMetric(_height);
-                  _unitSystem = UnitSystem.metric;
-                  _updateTextField();
-                  _syncRulerToValue();
-                });
-              }),
+              _buildUnitButton(
+                t.onboarding.height.metric,
+                _unitSystem.isMetric,
+                () {
+                  if (_unitSystem.isMetric) return;
+                  setState(() {
+                    _height = LocaleUtils.convertHeightToMetric(_height);
+                    _unitSystem = UnitSystem.metric;
+                    _updateTextField();
+                  });
+                },
+              ),
               const SizedBox(width: 16),
-              _buildUnitButton('Imperial', _unitSystem.isImperial, () {
-                if (_unitSystem.isImperial) return;
-                setState(() {
-                  _height = LocaleUtils.convertHeightToImperial(_height);
-                  _unitSystem = UnitSystem.imperial;
-                  _updateTextField();
-                  _syncRulerToValue();
-                });
-              }),
+              _buildUnitButton(
+                t.onboarding.height.imperial,
+                _unitSystem.isImperial,
+                () {
+                  if (_unitSystem.isImperial) return;
+                  setState(() {
+                    _height = LocaleUtils.convertHeightToImperial(_height);
+                    _unitSystem = UnitSystem.imperial;
+                    _updateTextField();
+                  });
+                },
+              ),
             ],
           ),
           const SizedBox(height: 32),
@@ -232,9 +203,12 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
                   borderRadius: BorderRadius.circular(16),
                 ),
               ),
-              child: const Text(
-                'Next',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              child: Text(
+                t.onboarding.height.next,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -254,7 +228,7 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
           color:
               isSelected
                   ? colorScheme.primary
-                  : colorScheme.surfaceVariant.withOpacity(0.5),
+                  : colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
@@ -267,64 +241,6 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildHorizontalRuler() {
-    return NotificationListener<ScrollNotification>(
-      onNotification: (notification) {
-        if (notification is ScrollUpdateNotification && !_focusNode.hasFocus) {
-          final offset = notification.metrics.pixels;
-          setState(() {
-            if (_unitSystem.isMetric) {
-              _height = (100 + (offset / 10.0)).clamp(100, 250);
-            } else {
-              _height = (3.3 + (offset / 10.0)).clamp(3.3, 8.2);
-            }
-            _updateTextField();
-          });
-        }
-        return true;
-      },
-      child: ListView.builder(
-        controller: _scrollController,
-        scrollDirection: Axis.horizontal,
-        itemCount: 1501,
-        itemBuilder: (context, index) {
-          final isMajor = index % 10 == 0;
-          final isMedium = index % 5 == 0;
-
-          return Container(
-            width: 10,
-            alignment: Alignment.bottomCenter,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if (isMajor)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      _unitSystem.isMetric
-                          ? (100 + (index / 10)).toInt().toString()
-                          : (3.3 + (index / 10)).toStringAsFixed(1),
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                Container(
-                  width: isMajor ? 2 : 1,
-                  height: isMajor ? 40 : (isMedium ? 25 : 15),
-                  color: Theme.of(context).colorScheme.onSurfaceVariant
-                      .withOpacity(isMajor ? 0.8 : 0.3),
-                ),
-              ],
-            ),
-          );
-        },
       ),
     );
   }

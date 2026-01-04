@@ -48,7 +48,7 @@ class PrimaryButton extends StatelessWidget {
             if (isLoading) {
               return colorScheme.secondary;
             } else {
-              return colorScheme.onSurface.withOpacity(0.12);
+              return colorScheme.onSurface.withValues(alpha: 0.12);
             }
           }
           return colorScheme.primary;
@@ -58,7 +58,7 @@ class PrimaryButton extends StatelessWidget {
             if (isLoading) {
               return colorScheme.onPrimary;
             } else {
-              return colorScheme.onSurface.withOpacity(0.38);
+              return colorScheme.onSurface.withValues(alpha: 0.38);
             }
           }
           return colorScheme.onPrimary;
@@ -70,7 +70,7 @@ class PrimaryButton extends StatelessWidget {
               return baseStyle?.copyWith(color: colorScheme.onPrimary);
             } else {
               return baseStyle?.copyWith(
-                color: colorScheme.onSurface.withOpacity(0.38),
+                color: colorScheme.onSurface.withValues(alpha: 0.38),
               );
             }
           }

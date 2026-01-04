@@ -109,9 +109,9 @@ class _DescribeMealState extends State<DescribeMeal> {
           .analyzeFoodDescription(description: _textController.text);
     } on Exception catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        snack(t.meal.failedToProcess.replaceAll('{error}', e.toString())),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(snack(t.meal.failedToProcess(error: e)));
       return;
     } finally {
       _reset();

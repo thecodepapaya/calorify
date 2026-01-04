@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: Text(t.profile.title),
         centerTitle: true,
         backgroundColor: colorScheme.surface,
         elevation: 0,
@@ -129,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
             side: BorderSide(
-              color: colorScheme.outlineVariant.withOpacity(0.5),
+              color: colorScheme.outlineVariant.withValues(alpha: 0.5),
             ),
           ),
           clipBehavior: Clip.antiAlias,
@@ -148,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       leading: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withOpacity(0.4),
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(LucideIcons.user, color: colorScheme.primary, size: 24),
@@ -164,13 +166,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildPersonalDetailsTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final gender = _userProfile!.gender?.displayName ?? 'Not set';
+    final gender = _userProfile!.gender?.displayName ?? t.profile.notSet;
 
     return ListTile(
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withOpacity(0.4),
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(LucideIcons.user, color: colorScheme.primary, size: 20),
@@ -191,22 +193,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     String heightText = t.profile.notSet;
     if (height != null) {
-      if (heightUnit.isMetric) {
-        heightText = '${height.toStringAsFixed(0)} cm';
-      } else {
-        // Convert feet to feet and inches for display
-        // Height is stored in feet (e.g., 5.5 feet = 5'6")
-        final feet = height.floor();
-        final inches = ((height - feet) * 12).round();
-        heightText = '$feet\'$inches"';
-      }
+      heightText = LocaleUtils.formatHeight(height, heightUnit);
     }
 
     return ListTile(
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withOpacity(0.4),
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(LucideIcons.ruler, color: colorScheme.primary, size: 20),
@@ -228,14 +222,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     String weightText = t.profile.notSet;
     if (weight != null) {
       final unit = weightUnit.isMetric ? 'kg' : 'lbs';
-      weightText = '${weight.toStringAsFixed(1)} $unit';
+      weightText =
+          '${weight.toStringAsFixed(weightUnit.weightPrecision)} $unit';
     }
 
     return ListTile(
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withOpacity(0.4),
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(LucideIcons.scale, color: colorScheme.primary, size: 20),
@@ -257,7 +252,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withOpacity(0.4),
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(LucideIcons.calendar, color: colorScheme.primary, size: 20),
@@ -276,7 +271,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withOpacity(0.4),
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(LucideIcons.target, color: colorScheme.primary, size: 20),
@@ -298,7 +293,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withOpacity(0.4),
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(LucideIcons.activity, color: colorScheme.primary, size: 20),
@@ -323,7 +318,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: colorScheme.tertiaryContainer.withOpacity(0.4),
+          color: colorScheme.tertiaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(
@@ -341,17 +336,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           const SizedBox(height: 4),
           Text(
-            'BMR: ${bmr != null ? '${bmr.toStringAsFixed(0)} cal/day' : 'N/A'}',
+            '${t.profile.calculatedValues.bmr}: ${bmr != null ? '${bmr.toStringAsFixed(0)} ${t.profile.calculatedValues.calPerDay}' : t.profile.calculatedValues.notAvailable}',
             style: const TextStyle(fontSize: 13),
           ),
           const SizedBox(height: 2),
           Text(
-            'TDEE: ${tdee != null ? '${tdee.toStringAsFixed(0)} cal/day' : 'N/A'}',
+            '${t.profile.calculatedValues.tdee}: ${tdee != null ? '${tdee.toStringAsFixed(0)} ${t.profile.calculatedValues.calPerDay}' : t.profile.calculatedValues.notAvailable}',
             style: const TextStyle(fontSize: 13),
           ),
           const SizedBox(height: 2),
           Text(
-            'Daily Goal: ${dailyCalorieGoal != null ? '${dailyCalorieGoal.toStringAsFixed(0)} cal/day' : 'N/A'}',
+            '${t.profile.calculatedValues.dailyGoal}: ${dailyCalorieGoal != null ? '${dailyCalorieGoal.toStringAsFixed(0)} ${t.profile.calculatedValues.calPerDay}' : t.profile.calculatedValues.notAvailable}',
             style: const TextStyle(fontSize: 13),
           ),
         ],

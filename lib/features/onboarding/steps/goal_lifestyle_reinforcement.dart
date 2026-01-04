@@ -1,5 +1,7 @@
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/core/utilities/profile_localization.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -19,10 +21,12 @@ class _GoalLifestyleReinforcementState extends State<GoalLifestyleReinforcement>
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
   late Animation<double> _scaleAnimation;
+  late Future<UserProfile?> _profileFuture;
 
   @override
   void initState() {
     super.initState();
+    _profileFuture = OnboardingService.instance.getProfileData();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1200),
       vsync: this,
@@ -66,13 +70,16 @@ class _GoalLifestyleReinforcementState extends State<GoalLifestyleReinforcement>
 
     return Scaffold(
       body: FutureBuilder<UserProfile?>(
-        future: OnboardingService.instance.getProfileData(),
+        future: _profileFuture,
         builder: (context, snapshot) {
           final profile = snapshot.data;
+          final t = Translations.of(context);
           final goalText =
-              profile?.weightGoal?.displayName.toLowerCase() ?? 'your goals';
+              profile?.weightGoal?.displayName.toLowerCase() ??
+              t.onboarding.reinforcement.goalLifestyle.defaultGoal;
           final activityText =
-              profile?.activityLevel?.displayName.toLowerCase() ?? 'active';
+              profile?.activityLevel?.displayName.toLowerCase() ??
+              t.onboarding.reinforcement.goalLifestyle.defaultActivity;
 
           return Stack(
             children: [
@@ -132,7 +139,11 @@ class _GoalLifestyleReinforcementState extends State<GoalLifestyleReinforcement>
                                 ),
                                 const SizedBox(height: 48),
                                 Text(
-                                  'Excellent Start!',
+                                  t
+                                      .onboarding
+                                      .reinforcement
+                                      .goalLifestyle
+                                      .title,
                                   style: theme.textTheme.displaySmall?.copyWith(
                                     fontWeight: FontWeight.w900,
                                     color: colorScheme.onSurface,
@@ -146,7 +157,11 @@ class _GoalLifestyleReinforcementState extends State<GoalLifestyleReinforcement>
                                     horizontal: 12,
                                   ),
                                   child: Text(
-                                    'You\'ve taken the first step towards $goalText. Since you\'re $activityText, Calorify will adjust your targets to match your lifestyle.',
+                                    t.onboarding.reinforcement.goalLifestyle
+                                        .description(
+                                          goalText: goalText,
+                                          activityText: activityText,
+                                        ),
                                     style: theme.textTheme.titleMedium
                                         ?.copyWith(
                                           color: colorScheme.onSurfaceVariant,
@@ -157,17 +172,29 @@ class _GoalLifestyleReinforcementState extends State<GoalLifestyleReinforcement>
                                 ),
                                 const SizedBox(height: 48),
                                 _buildFeatureItem(
-                                  'AI-powered meal detection',
+                                  t
+                                      .onboarding
+                                      .reinforcement
+                                      .goalLifestyle
+                                      .aiMealDetection,
                                   colorScheme,
                                   theme,
                                 ),
                                 _buildFeatureItem(
-                                  'Personalized calorie targets',
+                                  t
+                                      .onboarding
+                                      .reinforcement
+                                      .goalLifestyle
+                                      .personalizedTargets,
                                   colorScheme,
                                   theme,
                                 ),
                                 _buildFeatureItem(
-                                  'Detailed macro-nutrient breakdowns',
+                                  t
+                                      .onboarding
+                                      .reinforcement
+                                      .goalLifestyle
+                                      .macroBreakdowns,
                                   colorScheme,
                                   theme,
                                 ),
@@ -183,16 +210,15 @@ class _GoalLifestyleReinforcementState extends State<GoalLifestyleReinforcement>
                           child: FilledButton(
                             onPressed: widget.onContinue,
                             style: FilledButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 18),
+                              padding: const EdgeInsets.symmetric(vertical: 16),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                              elevation: 2,
                             ),
-                            child: const Text(
-                              'Let\'s Go',
-                              style: TextStyle(
-                                fontSize: 18,
+                            child: Text(
+                              t.onboarding.reinforcement.goalLifestyle.button,
+                              style: const TextStyle(
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

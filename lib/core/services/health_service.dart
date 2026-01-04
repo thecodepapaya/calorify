@@ -249,10 +249,10 @@ class HealthService {
     return await _health.hasPermissions([type], permissions: [access]) ?? false;
   }
 
-  Future<bool> get isNutritionAllowed async =>
+  Future<bool> get isNutritionAllowed =>
       hasPermission(HealthDataType.NUTRITION, HealthDataAccess.WRITE);
 
-  Future<bool> get isCaloriesBurnedAllowed async => hasPermission(
+  Future<bool> get isCaloriesBurnedAllowed => hasPermission(
     HealthDataType.TOTAL_CALORIES_BURNED,
     HealthDataAccess.READ,
   );

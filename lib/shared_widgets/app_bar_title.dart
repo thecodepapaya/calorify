@@ -4,9 +4,7 @@ import 'package:calorify/shared_widgets/animated_leaf.dart';
 import 'package:flutter/material.dart';
 
 class AppBarTitle extends StatelessWidget {
-  final bool showMenu;
-
-  const AppBarTitle({super.key, this.showMenu = false});
+  const AppBarTitle({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -75,7 +75,8 @@ class _OnboardingProgressBarState extends State<OnboardingProgressBar>
             borderRadius: BorderRadius.circular(8),
             child: LinearProgressIndicator(
               value: _animation.value,
-              backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+              backgroundColor:
+                  Theme.of(context).colorScheme.surfaceContainerHighest,
               valueColor: AlwaysStoppedAnimation<Color>(
                 Theme.of(context).colorScheme.primary,
               ),

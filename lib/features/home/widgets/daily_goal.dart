@@ -1,9 +1,13 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/meal_model.dart';
+import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart' show getWeightEstimateDisclaimer;
+import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
+    show getWeightEstimateDisclaimer;
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
@@ -104,7 +108,9 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
                   ),
                   SizedBox(width: 8),
                   Text(
-                    isTargetSet ? t.home.dailyGoal.titleSet : t.home.dailyGoal.title,
+                    isTargetSet
+                        ? t.home.dailyGoal.titleSet
+                        : t.home.dailyGoal.title,
                     style: textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
@@ -243,46 +249,65 @@ class _ShowGoal extends StatelessWidget {
             ],
           ),
           SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: RichText(
-                  text: TextSpan(
-                    style: textTheme.bodyLarge?.copyWith(
-                      color: colorScheme.onSurface.withValues(alpha: 0.7),
-                    ),
-                    children: [
-                      WidgetSpan(
-                        child: Icon(
-                          LucideIcons.weight,
-                          size: 20,
+          FutureBuilder<UserProfile?>(
+            future: OnboardingService.instance.getProfileData(),
+            builder: (context, profileSnapshot) {
+              // Default to metric if profile not available
+              final weightUnit =
+                  profileSnapshot.data?.weightUnit ?? UnitSystem.metric;
+              final formattedWeightChange = LocaleUtils.formatWeightChange(
+                weightChangeGrams,
+                weightUnit,
+              );
+
+              return Row(
+                children: [
+                  Expanded(
+                    child: RichText(
+                      text: TextSpan(
+                        style: textTheme.bodyLarge?.copyWith(
                           color: colorScheme.onSurface.withValues(alpha: 0.7),
                         ),
+                        children: [
+                          WidgetSpan(
+                            child: Icon(
+                              LucideIcons.weight,
+                              size: 20,
+                              color: colorScheme.onSurface.withValues(
+                                alpha: 0.7,
+                              ),
+                            ),
+                          ),
+                          WidgetSpan(child: SizedBox(width: 8)),
+                          TextSpan(text: t.home.dailyGoal.weightImpact),
+                        ],
                       ),
-                      WidgetSpan(child: SizedBox(width: 8)),
-                      TextSpan(text: t.home.dailyGoal.weightImpact),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        isLosing
+                            ? LucideIcons.trendingDown
+                            : LucideIcons.trendingUp,
+                        color: isLosing ? Colors.green : Colors.red,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        isLosing
+                            ? t.home.dailyGoal.estLoss
+                            : t.home.dailyGoal.estGain,
+                      ),
+                      SizedBox(width: 4),
+                      Text(
+                        formattedWeightChange,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ],
                   ),
-                ),
-              ),
-              Row(
-                children: [
-                  Icon(
-                    isLosing
-                        ? LucideIcons.trendingDown
-                        : LucideIcons.trendingUp,
-                    color: isLosing ? Colors.green : Colors.red,
-                  ),
-                  SizedBox(width: 8),
-                  Text(isLosing ? t.home.dailyGoal.estLoss : t.home.dailyGoal.estGain),
-                  SizedBox(width: 4),
-                  Text(
-                    '${weightChangeGrams.abs().toStringAsFixed(0)}g',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
                 ],
-              ),
-            ],
+              );
+            },
           ),
         ],
       ],

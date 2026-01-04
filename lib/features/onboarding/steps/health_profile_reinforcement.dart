@@ -2,6 +2,7 @@ import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/onboarding_utils.dart';
 import 'package:calorify/features/onboarding/steps/bmi_scale.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -21,10 +22,12 @@ class _HealthProfileReinforcementState extends State<HealthProfileReinforcement>
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
   late Animation<double> _scaleAnimation;
+  late Future<UserProfile?> _profileFuture;
 
   @override
   void initState() {
     super.initState();
+    _profileFuture = OnboardingService.instance.getProfileData();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1200),
       vsync: this,
@@ -65,10 +68,11 @@ class _HealthProfileReinforcementState extends State<HealthProfileReinforcement>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final t = Translations.of(context);
 
     return Scaffold(
       body: FutureBuilder<UserProfile?>(
-        future: OnboardingService.instance.getProfileData(),
+        future: _profileFuture,
         builder: (context, snapshot) {
           final profile = snapshot.data;
           final bmi =
@@ -79,20 +83,28 @@ class _HealthProfileReinforcementState extends State<HealthProfileReinforcement>
 
           String description =
               profile != null
-                  ? 'Based on your metrics, your BMI is ${bmi.toStringAsFixed(1)}.'
-                  : 'Let\'s finalize your profile to customize your experience.';
+                  ? t.onboarding.reinforcement.healthProfile.bmiDescription(
+                    bmi: bmi.toStringAsFixed(1),
+                  )
+                  : t
+                      .onboarding
+                      .reinforcement
+                      .healthProfile
+                      .finalizeDescription;
 
           if (profile?.targetWeight != null && profile?.weight != null) {
             final diff = (profile!.targetWeight! - profile.weight!).abs();
             final direction =
-                profile.targetWeight! > profile.weight! ? 'gain' : 'lose';
+                profile.targetWeight! > profile.weight!
+                    ? t.onboarding.reinforcement.healthProfile.goalGain
+                    : t.onboarding.reinforcement.healthProfile.goalLose;
             final unit = profile.weightUnit.isMetric ? 'kg' : 'lbs';
             if (diff > 0) {
               description +=
-                  ' To reach your goal, you\'ll $direction ${diff.toStringAsFixed(1)} $unit.';
+                  ' ${t.onboarding.reinforcement.healthProfile.goalReach(direction: direction, diff: diff.toStringAsFixed(1), unit: unit)}';
             } else {
               description +=
-                  ' You\'re at your target weight! We\'ll help you maintain it.';
+                  ' ${t.onboarding.reinforcement.healthProfile.goalReached}';
             }
           }
 
@@ -154,7 +166,11 @@ class _HealthProfileReinforcementState extends State<HealthProfileReinforcement>
                                 ),
                                 const SizedBox(height: 48),
                                 Text(
-                                  'Your Health Profile',
+                                  t
+                                      .onboarding
+                                      .reinforcement
+                                      .healthProfile
+                                      .title,
                                   style: theme.textTheme.displaySmall?.copyWith(
                                     fontWeight: FontWeight.w900,
                                     color: colorScheme.onSurface,
@@ -231,16 +247,15 @@ class _HealthProfileReinforcementState extends State<HealthProfileReinforcement>
                           child: FilledButton(
                             onPressed: widget.onContinue,
                             style: FilledButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 18),
+                              padding: const EdgeInsets.symmetric(vertical: 16),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                              elevation: 2,
                             ),
-                            child: const Text(
-                              'Let\'s Go',
-                              style: TextStyle(
-                                fontSize: 18,
+                            child: Text(
+                              t.onboarding.reinforcement.healthProfile.button,
+                              style: const TextStyle(
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

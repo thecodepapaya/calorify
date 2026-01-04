@@ -210,7 +210,7 @@ class _MealTile extends StatelessWidget {
                   if (context.mounted) {
                     ScaffoldMessenger.of(
                       context,
-                    ).showSnackBar(snack(t.meal.couldNotAdd.replaceAll('{error}', e.toString())));
+                    ).showSnackBar(snack(t.meal.couldNotAdd(error: e)));
                   }
                 }
               },

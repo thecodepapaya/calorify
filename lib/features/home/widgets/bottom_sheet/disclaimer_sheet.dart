@@ -14,7 +14,7 @@ class DisclaimerEntry {
 @immutable
 class DisclaimerData {
   const DisclaimerData({
-    this.title = 'Please Note',
+    required this.title,
     required this.description,
     required this.bulletPoints,
   });
@@ -170,7 +170,8 @@ DisclaimerData getWeightEstimateDisclaimer() {
       ),
       DisclaimerEntry(
         title: t.disclaimer.weightEstimate.professionalGuidance.title,
-        description: t.disclaimer.weightEstimate.professionalGuidance.description,
+        description:
+            t.disclaimer.weightEstimate.professionalGuidance.description,
       ),
     ],
   );

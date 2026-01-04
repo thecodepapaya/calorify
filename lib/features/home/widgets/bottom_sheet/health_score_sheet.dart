@@ -1,58 +1,35 @@
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/models/health_score.dart';
+import 'package:calorify/i18n/strings.g.dart';
+import 'package:calorify/shared_widgets/health_score_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 Future<void> showHealthScoreReason({
   required BuildContext context,
-  required int healthScore,
+  required HealthScore healthScore,
   required String reason,
 }) {
   return showModalBottomSheet(
     context: context,
     showDragHandle: true,
-    builder: (context) => _HealthScoreSheet(
-      healthScore: healthScore,
-      reason: reason,
-    ),
+    builder:
+        (context) =>
+            _HealthScoreSheet(healthScore: healthScore, reason: reason),
   );
 }
 
 class _HealthScoreSheet extends StatelessWidget {
-  const _HealthScoreSheet({
-    required this.healthScore,
-    required this.reason,
-  });
+  const _HealthScoreSheet({required this.healthScore, required this.reason});
 
-  final int healthScore;
+  final HealthScore healthScore;
   final String reason;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-
-    Color scoreColor;
-    String scoreText;
-    IconData scoreIcon;
-
-    switch (healthScore) {
-      case 1:
-        scoreColor = colorScheme.error;
-        scoreText = 'Unhealthy';
-        scoreIcon = LucideIcons.frown;
-        break;
-      case 3:
-        scoreColor = Colors.green;
-        scoreText = 'Healthy';
-        scoreIcon = LucideIcons.smile;
-        break;
-      case 2:
-      default:
-        scoreColor = Colors.orange;
-        scoreText = 'Neutral';
-        scoreIcon = LucideIcons.meh;
-        break;
-    }
+    final scoreColor = healthScore.color(context);
+    final scoreText = healthScore.displayText;
 
     return Container(
       padding: globalSheetPadding,
@@ -62,10 +39,10 @@ class _HealthScoreSheet extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(scoreIcon, color: scoreColor, size: 32),
+              Icon(healthScore.icon, color: scoreColor, size: 32),
               const SizedBox(width: 12),
               Text(
-                'Health Score: $scoreText',
+                '${t.healthScore.title}: $scoreText',
                 style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: scoreColor,
@@ -75,8 +52,10 @@ class _HealthScoreSheet extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            'Why this score?',
-            style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            t.healthScore.whyThisScore,
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(height: 8),
           Text(
@@ -87,7 +66,7 @@ class _HealthScoreSheet extends StatelessWidget {
           ),
           const SizedBox(height: 32),
           Text(
-            'Note: This score is an AI estimate based on the identified ingredients and nutritional density. Always consult a professional for dietary advice.',
+            t.healthScore.note,
             style: theme.textTheme.bodySmall?.copyWith(
               fontStyle: FontStyle.italic,
               color: colorScheme.onSurface.withValues(alpha: 0.6),
@@ -99,4 +78,3 @@ class _HealthScoreSheet extends StatelessWidget {
     );
   }
 }
-

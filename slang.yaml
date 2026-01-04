@@ -10,6 +10,9 @@ strict: true
 # Disable lazy loading so all language names are available for the picker immediately
 lazy: false
 
+# Configure string interpolation to generate functions for variables
+string_interpolation: braces
+
 gpt:
   model: gpt-4o-mini
   description: |

@@ -1,3 +1,4 @@
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 class BMIScale extends StatelessWidget {
@@ -63,9 +64,9 @@ class BMIScale extends StatelessWidget {
                         borderRadius: BorderRadius.circular(2),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
+                            color: Colors.black.withValues(alpha: 0.2),
                             blurRadius: 4,
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -80,9 +81,22 @@ class BMIScale extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _buildLabel('15', theme),
-            _buildLabel('Underweight', theme, isBold: bmi < 18.5),
-            _buildLabel('Healthy', theme, isBold: bmi >= 18.5 && bmi < 25),
-            _buildLabel('Overweight', theme, isBold: bmi >= 25 && bmi < 30),
+            _buildLabel(
+              t.onboarding.bmiScale.underweight,
+              theme,
+              isBold: bmi < 18.5,
+            ),
+            _buildLabel(
+              t.onboarding.bmiScale.healthy,
+              theme,
+              isBold: bmi >= 18.5 && bmi < 25,
+            ),
+            _buildLabel(
+              t.onboarding.bmiScale.overweight,
+              theme,
+              isBold: bmi >= 25 && bmi < 30,
+            ),
+            _buildLabel(t.onboarding.bmiScale.obese, theme, isBold: bmi >= 30),
             _buildLabel('35', theme),
           ],
         ),
@@ -90,13 +104,20 @@ class BMIScale extends StatelessWidget {
     );
   }
 
-  Widget _buildDivider() => Container(width: 1, height: 16, color: Colors.white.withOpacity(0.5));
+  Widget _buildDivider() => Container(
+    width: 1,
+    height: 16,
+    color: Colors.white.withValues(alpha: 0.5),
+  );
 
   Widget _buildLabel(String text, ThemeData theme, {bool isBold = false}) {
     return Text(
       text,
       style: theme.textTheme.labelSmall?.copyWith(
-        color: isBold ? theme.colorScheme.primary : theme.colorScheme.onSurfaceVariant,
+        color:
+            isBold
+                ? theme.colorScheme.primary
+                : theme.colorScheme.onSurfaceVariant,
         fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
         fontSize: isBold ? 10 : 9,
       ),
@@ -105,4 +126,3 @@ class BMIScale extends StatelessWidget {
 
   double? lerpDouble(num a, num b, double t) => a + (b - a) * t;
 }
-

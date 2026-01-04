@@ -1,5 +1,7 @@
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/core/utilities/profile_localization.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -20,10 +22,12 @@ class _TrackingSuccessReinforcementState
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
   late Animation<double> _scaleAnimation;
+  late Future<UserProfile?> _profileFuture;
 
   @override
   void initState() {
     super.initState();
+    _profileFuture = OnboardingService.instance.getProfileData();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1200),
       vsync: this,
@@ -67,20 +71,27 @@ class _TrackingSuccessReinforcementState
 
     return Scaffold(
       body: FutureBuilder<UserProfile?>(
-        future: OnboardingService.instance.getProfileData(),
+        future: _profileFuture,
         builder: (context, snapshot) {
           final profile = snapshot.data;
+          final t = Translations.of(context);
           final age = profile?.age;
           final gender =
-              profile?.gender?.displayName.toLowerCase() ?? 'individual';
+              profile?.gender?.displayName.toLowerCase() ??
+              t.onboarding.reinforcement.trackingSuccess.defaultGender;
           final goal =
-              profile?.weightGoal?.displayName.toLowerCase() ?? 'healthier you';
+              profile?.weightGoal?.displayName.toLowerCase() ??
+              t.onboarding.reinforcement.trackingSuccess.defaultGoal;
 
           String personalizedMsg =
-              'Research shows that consistent tracking is the #1 predictor of long-term success.';
+              t.onboarding.reinforcement.trackingSuccess.genericMessage;
           if (age != null) {
-            personalizedMsg =
-                'For a $age year old $gender looking to $goal, consistent tracking is the #1 predictor of success.';
+            personalizedMsg = t.onboarding.reinforcement.trackingSuccess
+                .personalizedMessage(
+                  age: age.toString(),
+                  gender: gender,
+                  goal: goal,
+                );
           }
 
           return Stack(
@@ -141,7 +152,11 @@ class _TrackingSuccessReinforcementState
                                 ),
                                 const SizedBox(height: 48),
                                 Text(
-                                  'You\'re Not Alone',
+                                  t
+                                      .onboarding
+                                      .reinforcement
+                                      .trackingSuccess
+                                      .title,
                                   style: theme.textTheme.displaySmall?.copyWith(
                                     fontWeight: FontWeight.w900,
                                     color: colorScheme.onSurface,
@@ -155,7 +170,7 @@ class _TrackingSuccessReinforcementState
                                     horizontal: 12,
                                   ),
                                   child: Text(
-                                    '$personalizedMsg Calorify makes it 10x easier than doing it manually.',
+                                    '$personalizedMsg ${t.onboarding.reinforcement.trackingSuccess.closingMessage}',
                                     style: theme.textTheme.titleMedium
                                         ?.copyWith(
                                           color: colorScheme.onSurfaceVariant,
@@ -166,17 +181,29 @@ class _TrackingSuccessReinforcementState
                                 ),
                                 const SizedBox(height: 48),
                                 _buildFeatureItem(
-                                  'Instant photo analysis',
+                                  t
+                                      .onboarding
+                                      .reinforcement
+                                      .trackingSuccess
+                                      .instantPhotoAnalysis,
                                   colorScheme,
                                   theme,
                                 ),
                                 _buildFeatureItem(
-                                  'Automatic nutritional logging',
+                                  t
+                                      .onboarding
+                                      .reinforcement
+                                      .trackingSuccess
+                                      .automaticLogging,
                                   colorScheme,
                                   theme,
                                 ),
                                 _buildFeatureItem(
-                                  'Progress visualizations that keep you motivated',
+                                  t
+                                      .onboarding
+                                      .reinforcement
+                                      .trackingSuccess
+                                      .progressVisualizations,
                                   colorScheme,
                                   theme,
                                 ),
@@ -192,16 +219,15 @@ class _TrackingSuccessReinforcementState
                           child: FilledButton(
                             onPressed: widget.onContinue,
                             style: FilledButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 18),
+                              padding: const EdgeInsets.symmetric(vertical: 16),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                              elevation: 2,
                             ),
-                            child: const Text(
-                              'Let\'s Go',
-                              style: TextStyle(
-                                fontSize: 18,
+                            child: Text(
+                              t.onboarding.reinforcement.trackingSuccess.button,
+                              style: const TextStyle(
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

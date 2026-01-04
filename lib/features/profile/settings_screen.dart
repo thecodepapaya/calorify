@@ -69,7 +69,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: colorScheme.primaryContainer.withOpacity(0.4),
+                  color: colorScheme.primaryContainer.withValues(alpha: 0.4),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -108,7 +108,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: colorScheme.primaryContainer.withOpacity(0.4),
+                  color: colorScheme.primaryContainer.withValues(alpha: 0.4),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -132,7 +132,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: colorScheme.primaryContainer.withOpacity(0.4),
+                  color: colorScheme.primaryContainer.withValues(alpha: 0.4),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -155,7 +155,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: colorScheme.errorContainer.withOpacity(0.2),
+                  color: colorScheme.errorContainer.withValues(alpha: 0.2),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -184,7 +184,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 leading: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: colorScheme.tertiaryContainer.withOpacity(0.4),
+                    color: colorScheme.tertiaryContainer.withValues(alpha: 0.4),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -233,7 +233,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
             side: BorderSide(
-              color: colorScheme.outlineVariant.withOpacity(0.5),
+              color: colorScheme.outlineVariant.withValues(alpha: 0.5),
             ),
           ),
           clipBehavior: Clip.antiAlias,
@@ -246,13 +246,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildLanguageTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final currentLocale = TranslationProvider.of(context).locale;
 
     return ListTile(
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withOpacity(0.4),
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(
@@ -265,7 +264,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         t.settings.language.title,
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
-      subtitle: Text(currentLocale.translations.language),
+      subtitle: Row(
+        children: [
+          Text(t.flag, style: const TextStyle(fontSize: 16)),
+          const SizedBox(width: 8),
+          Text(t.language),
+        ],
+      ),
       trailing: const Icon(LucideIcons.chevronRight, size: 18),
       onTap: () async {
         await LanguagePickerSheet.show(context);
@@ -283,7 +288,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withOpacity(0.4),
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(LucideIcons.ruler, color: colorScheme.primary, size: 20),
@@ -313,7 +318,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         style: const ButtonStyle(
           visualDensity: VisualDensity.compact,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          padding: MaterialStatePropertyAll(
+          padding: WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           ),
         ),
@@ -356,7 +361,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withOpacity(0.4),
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(LucideIcons.scale, color: colorScheme.primary, size: 20),
@@ -386,7 +391,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         style: const ButtonStyle(
           visualDensity: VisualDensity.compact,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          padding: MaterialStatePropertyAll(
+          padding: WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           ),
         ),
@@ -445,9 +450,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               TextButton(
                 onPressed: () async {
                   await DatabaseService.databaseInterface.clearAllData();
-                  if (!mounted) return;
+                  if (!context.mounted) return;
                   Navigator.pop(context);
-                  context.router.pushAndPopUntil(
+                  await context.router.pushAndPopUntil(
                     const OnboardingRoute(),
                     predicate: (route) => false,
                   );
@@ -475,21 +480,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final uid = FirebaseAuth.instance.currentUser?.uid;
 
     final body = '''
-Please provide your feedback below:
+${t.settings.sendFeedback.emailBodyPrefix}
 --------------------
 
 
 --------------------
-App Version: $version+$buildNumber
-Device: $deviceModel
-OS Version: $deviceVersion
-UID: $uid''';
+${t.settings.sendFeedback.appVersion}: $version+$buildNumber
+${t.settings.sendFeedback.device}: $deviceModel
+${t.settings.sendFeedback.osVersion}: $deviceVersion
+${t.settings.sendFeedback.uid}: $uid''';
 
     final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'calorify@thecodepapaya.dev',
       query:
-          'subject=${Uri.encodeComponent('Calorify App Feedback')}&body=${Uri.encodeComponent(body)}',
+          'subject=${Uri.encodeComponent(t.settings.sendFeedback.emailSubject)}&body=${Uri.encodeComponent(body)}',
     );
 
     await launchUrl(emailLaunchUri);

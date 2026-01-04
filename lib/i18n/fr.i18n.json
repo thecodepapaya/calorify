@@ -18,6 +18,116 @@
         "title": "Intégration Santé",
         "description": "Connectez-vous à Health Connect pour de meilleurs aperçus"
       }
+    },
+    "gender": {
+      "title": "Quel est votre sexe ?",
+      "description": "Le sexe nous aide à calculer avec précision votre taux métabolique de base (TMB).",
+      "next": "Suivant"
+    },
+    "height": {
+      "title": "Quelle est votre taille ?",
+      "description": "Votre taille nous aide à calculer votre IMC et vos besoins énergétiques avec précision.",
+      "metric": "Métrique",
+      "imperial": "Impérial",
+      "next": "Suivant"
+    },
+    "weight": {
+      "currentTitle": "Quel est votre poids actuel ?",
+      "currentDescription": "Votre poids actuel est essentiel pour personnaliser vos objectifs quotidiens.",
+      "targetTitle": "Quel est votre poids cible ?",
+      "targetDescription": "Fixer un poids cible nous aide à déterminer votre plan à long terme.",
+      "metric": "Métrique",
+      "imperial": "Impérial",
+      "next": "Suivant"
+    },
+    "age": {
+      "title": "Quand est votre anniversaire ?",
+      "description": "Votre âge nous aide à calculer vos besoins caloriques avec précision.",
+      "next": "Suivant"
+    },
+    "bmiScale": {
+      "underweight": "Insuffisance pondérale",
+      "healthy": "Sain",
+      "overweight": "Surpoids",
+      "obese": "Obésité",
+      "categories": {
+        "underweight": "Insuffisance pondérale",
+        "healthyWeight": "Poids santé",
+        "overweight": "Surpoids",
+        "obese": "Obésité"
+      },
+      "messages": {
+        "underweight": "Nous pouvons vous aider à établir un plan sain pour atteindre un poids équilibré avec des repas riches en nutriments.",
+        "healthy": "Excellent travail ! Vous êtes dans une fourchette saine. Nous vous aiderons à maintenir votre vitalité et vos niveaux d'énergie.",
+        "overweight": "Calorify simplifiera votre parcours avec un suivi alimenté par l'IA pour vous aider à atteindre votre objectif en toute sérénité.",
+        "obese": "Nous sommes ici pour vous soutenir avec des conseils personnalisés et des stratégies durables pour vos objectifs de santé."
+      }
+    },
+    "weightGoal": {
+      "title": "Quel est votre objectif ?",
+      "description": "Choisissez l'objectif qui décrit le mieux ce que vous souhaitez réaliser"
+    },
+    "activityLevel": {
+      "title": "Quelle est votre activité ?",
+      "description": "Cela nous aide à calculer plus précisément vos besoins caloriques quotidiens"
+    },
+    "healthConnect": {
+      "title": "Connectez-vous à Health Connect",
+      "description": "Synchronisez vos données de santé pour obtenir de meilleurs aperçus et un suivi automatique des calories",
+      "automaticTracking": {
+        "title": "Suivi Automatique des Calories",
+        "description": "Suivez les calories brûlées à partir de vos applications de fitness"
+      },
+      "progressInsights": {
+        "title": "Aperçus des Progrès",
+        "description": "Obtenez des informations détaillées sur vos tendances de santé"
+      },
+      "seamlessIntegration": {
+        "title": "Intégration Transparente",
+        "description": "Synchronisez les données de vos applications de santé préférées"
+      },
+      "connected": "Health Connect Connecté",
+      "notConnected": "Health Connect Non Connecté",
+      "setup": "Configurer Health Connect",
+      "skipForNow": "Passer pour le moment",
+      "statusConnected": "Health Connect est connecté.",
+      "statusSuccess": "Health Connect a été connecté avec succès !",
+      "statusPermissionDenied": "Permission refusée. Veuillez activer les autorisations Health Connect dans les paramètres de votre téléphone pour Calorify.",
+      "statusError": "Erreur lors de la configuration de Health Connect : {error}"
+    },
+    "reinforcement": {
+      "trackingSuccess": {
+        "title": "Vous n'êtes pas seul",
+        "instantPhotoAnalysis": "Analyse photo instantanée",
+        "automaticLogging": "Journalisation nutritionnelle automatique",
+        "progressVisualizations": "Visualisations de progrès qui vous motivent",
+        "genericMessage": "Des recherches montrent que le suivi régulier est le meilleur indicateur de succès à long terme.",
+        "personalizedMessage": "Pour un(e) {age} ans {gender} cherchant à {goal}, le suivi régulier est le meilleur indicateur de succès.",
+        "closingMessage": "Calorify rend cela 10 fois plus facile que de le faire manuellement.",
+        "button": "C'est parti",
+        "defaultGender": "individu",
+        "defaultGoal": "vous en meilleure santé"
+      },
+      "healthProfile": {
+        "title": "Votre Profil de Santé",
+        "bmiDescription": "Selon vos métriques, votre IMC est de {bmi}.",
+        "finalizeDescription": "Finalisons votre profil pour personnaliser votre expérience.",
+        "goalGain": "gagner",
+        "goalLose": "perdre",
+        "goalReach": "Pour atteindre votre objectif, vous devrez {direction} {diff} {unit}.",
+        "goalReached": "Vous êtes à votre poids cible ! Nous allons vous aider à le maintenir.",
+        "button": "C'est parti"
+      },
+      "goalLifestyle": {
+        "title": "Excellente première étape !",
+        "description": "Vous avez franchi la première étape vers {goalText}. Comme vous êtes {activityText}, Calorify ajustera vos objectifs pour correspondre à votre style de vie.",
+        "personalizedTargets": "Objectifs caloriques personnalisés",
+        "aiMealDetection": "Détection de repas par IA",
+        "macroBreakdowns": "Détails des macronutriments",
+        "button": "C'est parti",
+        "defaultGoal": "vos objectifs",
+        "defaultActivity": "actif"
+      }
     }
   },
   "tabs": {
@@ -28,7 +138,7 @@
     "dailyGoal": {
       "title": "Définir Votre Objectif Journalier",
       "titleSet": "Votre Objectif Journalier",
-      "description": "Prêt à commencer votre parcours de bien-être ? Définissez votre objectif calorique quotidien ci-dessous pour commencer vos progrès.",
+      "description": "Prêt à commencer votre parcours de bien-être ? Définissez votre objectif calorique quotidien ci-dessous pour suivre vos progrès.",
       "descriptionSet": "Votre boussole est réglée ! Voici votre objectif calorique quotidien pour vous guider.",
       "yourGoal": "Votre Objectif",
       "dailyCalories": "Calories quotidiennes (kcal)",
@@ -52,6 +162,11 @@
       "title": "Répartition des Macros d'Aujourd'hui",
       "target": "Objectif",
       "current": "Actuel"
+    },
+    "intakeHistory": {
+      "title": "Historique des Macronutriments sur 7 Jours",
+      "noHistoryYet": "Pas encore d'historique",
+      "startLogging": "Commencez à enregistrer vos repas pour voir vos\ntendances de macronutriments sur 7 jours ici"
     },
     "mealLog": {
       "title": "Repas Enregistrés",
@@ -86,7 +201,6 @@
     }
   },
   "history": {
-    "title": "Historique",
     "noMeals": "Aucun repas enregistré",
     "emptyMessage": "Prenez une photo de votre dernier repas pour l'enregistrer ici.",
     "today": "Aujourd'hui",
@@ -96,7 +210,22 @@
     "ohNo": "Oh non !",
     "delete": "Supprimer",
     "editMeal": "Modifier le Repas",
+    "addMeal": "Ajouter un repas",
     "saveMeal": "Enregistrer le Repas",
+    "save": "Enregistrer",
+    "mealName": "Nom du repas",
+    "mealQuantity": "Quantité de repas",
+    "mealQuantityHint": "par exemple, 1 bol, 2 tranches",
+    "timeOfMeal": "Heure du repas",
+    "timeOfMealHint": "Sélectionnez l'heure à laquelle vous avez pris votre repas",
+    "mealType": "Type de repas",
+    "nutrition": {
+      "calories": "Calories",
+      "carbs": "Glucides (g)",
+      "protein": "Protéines (g)",
+      "fat": "Graisses (g)",
+      "fiber": "Fibres (g)"
+    },
     "deleteConfirmation": {
       "title": "Supprimer le Repas",
       "message": "Êtes-vous sûr de vouloir supprimer cette entrée de repas ?",
@@ -110,7 +239,8 @@
     "couldNotUpdateFavorite": "Impossible de mettre à jour le favori : {error}",
     "failedToProcess": "Échec du traitement : {error}",
     "failedToProcessImage": "Échec du traitement de l'image : {error}",
-    "errorCompressingImage": "Erreur de compression de l'image : {error}"
+    "errorCompressingImage": "Erreur de compression de l'image : {error}",
+    "failedToSave": "Échec de l'enregistrement des données. Veuillez réessayer."
   },
   "favorites": {
     "title": "Favoris",
@@ -118,7 +248,6 @@
   },
   "profile": {
     "title": "Profil",
-    "editProfile": "Modifier le Profil",
     "noProfileData": "Aucune donnée de profil trouvée",
     "yourProfile": "Votre Profil",
     "viewAndManage": "Voir et gérer vos informations de santé",
@@ -137,7 +266,22 @@
     "healthMetrics": "Métriques de Santé",
     "notSet": "Non défini",
     "years": "ans",
-    "updatedSuccessfully": "Profil mis à jour avec succès !"
+    "updatedSuccessfully": "Profil mis à jour avec succès !",
+    "calculatedValues": {
+      "bmr": "BMR",
+      "tdee": "TDEE",
+      "dailyGoal": "Objectif Quotidien",
+      "calPerDay": "cal/jour",
+      "notAvailable": "N/A"
+    }
+  },
+  "healthScore": {
+    "title": "Score de Santé",
+    "whyThisScore": "Pourquoi ce score ?",
+    "note": "Ce score est une estimation de l'IA basée sur les ingrédients identifiés et la densité nutritionnelle. Consultez toujours un professionnel pour des conseils diététiques.",
+    "unhealthy": "Pas sain",
+    "healthy": "Sain",
+    "neutral": "Neutre"
   },
   "editProfile": {
     "title": "Modifier le Profil",
@@ -157,7 +301,48 @@
     "metricCm": "Métrique (cm)",
     "imperialFtIn": "Impérial (ft/in)",
     "metricKg": "Métrique (kg)",
-    "imperialLbs": "Impérial (lbs)"
+    "imperialLbs": "Impérial (lbs)",
+    "genders": {
+      "male": "Homme",
+      "female": "Femme",
+      "other": "Autre"
+    },
+    "weightGoals": {
+      "loseWeight": {
+        "name": "Perdre du Poids",
+        "description": "Créer un déficit calorique pour perdre du poids"
+      },
+      "maintainWeight": {
+        "name": "Maintenir le Poids",
+        "description": "Maintenir votre poids actuel"
+      },
+      "gainWeight": {
+        "name": "Gagner du Poids",
+        "description": "Créer un surplus calorique pour gagner du poids"
+      }
+    },
+    "activityLevels": {
+      "sedentary": {
+        "name": "Sédentaire",
+        "description": "Peu ou pas d'exercice"
+      },
+      "lightlyActive": {
+        "name": "Légèrement Actif",
+        "description": "Exercice léger 1-3 jours/semaine"
+      },
+      "moderatelyActive": {
+        "name": "Modérément Actif",
+        "description": "Exercice modéré 3-5 jours/semaine"
+      },
+      "veryActive": {
+        "name": "Très Actif",
+        "description": "Exercice intense 6-7 jours/semaine"
+      },
+      "extremelyActive": {
+        "name": "Extrêmement Actif",
+        "description": "Exercice très intense, travail physique"
+      }
+    }
   },
   "settings": {
     "title": "Paramètres",
@@ -174,7 +359,8 @@
       "subtitle": "Mettez à jour vos informations personnelles"
     },
     "language": {
-      "title": "Langue"
+      "title": "Langue",
+      "subtitle": "Choisissez votre langue préférée"
     },
     "heightUnit": {
       "title": "Unité de Taille"
@@ -188,7 +374,13 @@
     },
     "sendFeedback": {
       "title": "Envoyer un Retour",
-      "subtitle": "Aidez-nous à améliorer Calorify"
+      "subtitle": "Aidez-nous à améliorer Calorify",
+      "emailSubject": "Retour d'expérience sur l'application Calorify",
+      "emailBodyPrefix": "Veuillez fournir vos commentaires ci-dessous :",
+      "appVersion": "Version de l'application",
+      "device": "Appareil",
+      "osVersion": "Version du système d'exploitation",
+      "uid": "UID"
     },
     "clearAllData": {
       "title": "Effacer Toutes les Données",
@@ -215,11 +407,11 @@
     "lunch": "Déjeuner",
     "dinner": "Dîner",
     "snack": "Collation",
+    "unknown": "Inconnu",
     "change": "Changer",
     "enableNotifications": "Activer les Notifications",
     "skipForNow": "Ignorer pour le moment",
     "saveChanges": "Enregistrer les Modifications",
-    "continue_": "Continuer",
     "enabledSuccessfully": "Notifications activées avec succès !",
     "permissionDenied": "Autorisation de notification refusée",
     "errorEnabling": "Erreur lors de l'activation des notifications : {error}",
@@ -294,36 +486,60 @@
     }
   },
   "common": {
-    "cancel": "Annuler",
-    "save": "Enregistrer",
-    "delete": "Supprimer",
-    "edit": "Modifier",
     "close": "Fermer",
-    "continue": "Continuer",
-    "skip": "Ignorer",
-    "error": "Erreur",
-    "loading": "Chargement...",
-    "notSet": "Non défini",
-    "today": "Aujourd'hui",
-    "yesterday": "Hier"
+    "continue": "Continuer"
   },
   "errors": {
     "loadingProfileData": "Erreur de chargement des données du profil",
-    "generic": "Une erreur s'est produite. Veuillez réessayer."
+    "somethingWentWrong": "Une erreur s'est produite."
   },
   "debug": {
     "title": "Options de Débogage",
+    "sections": {
+      "notifications": "Notifications",
+      "healthConnect": "Health Connect",
+      "appInfo": "Informations sur l'application"
+    },
     "showActiveNotifications": "Afficher les Notifications Actives",
     "scheduleTestNotification": "Planifier une Notification de Test (10s)",
     "triggerBreakfastNotification": "Déclencher la Notification du Petit-Déjeuner",
     "cancelAllNotifications": "Annuler Toutes les Notifications",
     "activeNotifications": "Notifications Actives",
-    "id": "ID : {id}",
+    "noTitle": "Pas de titre",
+    "noBody": "Pas de contenu",
+    "fetchTodaysSteps": "Récupérer les pas d'aujourd'hui",
+    "fetchTodaysCalories": "Récupérer les calories d'aujourd'hui",
     "fetchLatestWeight": "Récupérer le Dernier Poids",
     "fetchLatestHeight": "Récupérer la Dernière Taille",
     "writeTestWeight": "Écrire le Poids de Test (70kg)",
     "writeTestHeight": "Écrire la Taille de Test (175cm)",
     "syncLast7Days": "Synchroniser les 7 Derniers Jours",
-    "checkCurrentLocale": "Vérifier la Locale Actuelle"
+    "sync7DaysTitle": "Synchronisation sur 7 Jours",
+    "checkCurrentLocale": "Vérifier la Locale Actuelle",
+    "currentLocale": "Paramètres régionaux actuels",
+    "localeInfo": "Langue : {languageCode}\nPays : {countryCode}\nSystème d'unités : {unitSystem}",
+    "latestWeight": "Dernier poids",
+    "latestHeight": "Dernière hauteur",
+    "todaysCalories": "Calories d'aujourd'hui",
+    "totalCaloriesBurned": "Total des calories brûlées : {calories}",
+    "syncSuccess": "Récupération réussie de {count} points de données pour les Pas, les Calories et le Poids au cours des 7 derniers jours.",
+    "noWeightData": "Aucune donnée de poids trouvée au cours des 30 derniers jours.",
+    "noHeightData": "Aucune donnée de taille trouvée au cours de la dernière année.",
+    "noCalorieData": "Aucune donnée de calories trouvée pour aujourd'hui.",
+    "weightWritten": "Poids de test enregistré avec succès (70kg).",
+    "weightWriteFailed": "Échec de l'enregistrement du poids de test.",
+    "heightWritten": "Hauteur de test enregistrée avec succès (175cm).",
+    "heightWriteFailed": "Échec de l'enregistrement de la hauteur de test.",
+    "noNotifications": "Aucune notification active.",
+    "testNotificationScheduled": "Notification de test programmée dans 10 secondes.",
+    "testNotificationBody": "Ceci est une notification de test programmée dans 10 secondes.",
+    "breakfastNotificationTriggered": "Notification de petit-déjeuner déclenchée.",
+    "allNotificationsCancelled": "Toutes les notifications annulées.",
+    "fetchingData": "Récupération des données des 7 derniers jours...",
+    "id": "ID : {id}"
+  },
+  "health": {
+    "syncFailed": "Échec de la synchronisation avec Health Connect",
+    "mealSynced": "Repas synchronisé avec Health Connect"
   }
 }

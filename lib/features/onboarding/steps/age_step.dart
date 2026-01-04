@@ -1,5 +1,6 @@
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -13,8 +14,10 @@ class AgeStepScreen extends StatefulWidget {
 }
 
 class _AgeStepScreenState extends State<AgeStepScreen> {
-  DateTime _dateOfBirth = DateTime.now().subtract(
-    const Duration(days: 365 * 25),
+  DateTime _dateOfBirth = DateTime(
+    DateTime.now().year - 25,
+    DateTime.now().month,
+    DateTime.now().day,
   );
 
   @override
@@ -42,14 +45,14 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
         children: [
           const SizedBox(height: 48),
           Text(
-            'When is your birthday?',
+            t.onboarding.age.title,
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 12),
           Text(
-            'Your age helps us calculate your calorie needs accurately.',
+            t.onboarding.age.description,
             style: theme.textTheme.bodyLarge?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
@@ -72,28 +75,26 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
                       border: Border.all(color: colorScheme.primary, width: 2),
                       boxShadow: [
                         BoxShadow(
-                          color: colorScheme.primary.withOpacity(0.1),
+                          color: colorScheme.primary.withValues(alpha: 0.1),
                           blurRadius: 12,
                           offset: const Offset(0, 4),
                         ),
                       ],
                     ),
-                    child: Column(
-                      children: [
-                        Text(
-                          DateFormat('MMMM d, yyyy').format(_dateOfBirth),
-                          style: theme.textTheme.headlineSmall?.copyWith(
-                            color: colorScheme.primary,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                    child: Text(
+                      DateFormat.yMMMMd(
+                        Localizations.localeOf(context).toString(),
+                      ).format(_dateOfBirth),
+                      style: theme.textTheme.headlineSmall?.copyWith(
+                        color: colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  '${_calculateAge(_dateOfBirth)} years old',
+                  '${_calculateAge(_dateOfBirth)} ${t.profile.years}',
                   style: theme.textTheme.titleLarge?.copyWith(
                     color: colorScheme.onSurfaceVariant,
                   ),
@@ -126,9 +127,12 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
                   borderRadius: BorderRadius.circular(16),
                 ),
               ),
-              child: const Text(
-                'Next',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              child: Text(
+                t.onboarding.age.next,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),

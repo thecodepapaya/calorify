@@ -1,3 +1,4 @@
+import 'package:calorify/core/models/health_score.dart';
 import 'package:calorify/core/models/meal_type.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -29,8 +30,12 @@ class MealInfo {
   final DateTime timestamp;
   @JsonKey(name: 'image_url')
   final String? imageUrl;
-  @JsonKey(name: 'health_score')
-  final int? healthScore;
+  @JsonKey(
+    name: 'health_score',
+    fromJson: _healthScoreFromJson,
+    toJson: _healthScoreToJson,
+  )
+  final HealthScore? healthScore;
   @JsonKey(name: 'health_score_reason')
   final String? healthScoreReason;
 
@@ -50,8 +55,17 @@ class MealInfo {
     this.healthScoreReason,
   });
 
-  factory MealInfo.fromJson(Map<String, dynamic> json) =>
-      _$MealInfoFromJson(json);
+  factory MealInfo.fromJson(Map<String, dynamic> json) {
+    // Handle nested health_score object from API: {score: 'healthy', reason: '...'}
+    if (json['health_score'] is Map<String, dynamic>) {
+      final healthScoreObj = json['health_score'] as Map<String, dynamic>;
+      json = Map<String, dynamic>.from(json);
+      json['health_score'] = healthScoreObj['score'];
+      json['health_score_reason'] =
+          healthScoreObj['reason'] ?? json['health_score_reason'];
+    }
+    return _$MealInfoFromJson(json);
+  }
 
   Map<String, dynamic> toJson() => _$MealInfoToJson(this);
 
@@ -81,7 +95,10 @@ class MealInfo {
       fiber: data.fiber,
       timestamp: data.timestamp,
       imageUrl: data.imageUrl,
-      healthScore: data.healthScore,
+      healthScore:
+          data.healthScore != null && data.healthScore is String
+              ? HealthScore.values.byName(data.healthScore as String)
+              : null,
       healthScoreReason: data.healthScoreReason,
     );
   }
@@ -99,7 +116,10 @@ class MealInfo {
       fiber: data.fiber,
       timestamp: data.timestamp,
       imageUrl: data.imageUrl,
-      healthScore: data.healthScore,
+      healthScore:
+          data.healthScore != null && data.healthScore is String
+              ? HealthScore.values.byName(data.healthScore as String)
+              : null,
       healthScoreReason: data.healthScoreReason,
     );
   }
@@ -116,7 +136,7 @@ class MealInfo {
     int? fiber,
     DateTime? timestamp,
     String? imageUrl,
-    int? healthScore,
+    HealthScore? healthScore,
     String? healthScoreReason,
     bool forceIdNull = false,
   }) {
@@ -135,5 +155,41 @@ class MealInfo {
       healthScore: healthScore ?? this.healthScore,
       healthScoreReason: healthScoreReason ?? this.healthScoreReason,
     );
+  }
+
+  /// Helper function to parse health_score from JSON
+  /// Handles nested object format {score: 'healthy', reason: '...'} from API
+  static HealthScore? _healthScoreFromJson(dynamic json) {
+    if (json == null) return null;
+
+    // Handle nested object format from API: {score: 'healthy', reason: '...'}
+    if (json is Map<String, dynamic>) {
+      final scoreValue = json['score'];
+      if (scoreValue is String) {
+        try {
+          return HealthScore.values.byName(scoreValue);
+        } catch (e) {
+          return null;
+        }
+      }
+      return null;
+    }
+
+    // Handle string format: 'healthy', 'neutral', 'unhealthy', 'unknown'
+    if (json is String) {
+      try {
+        return HealthScore.values.byName(json);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    return null;
+  }
+
+  /// Helper function to serialize health_score to JSON
+  static dynamic _healthScoreToJson(HealthScore? score) {
+    if (score == null) return null;
+    return score.name;
   }
 }

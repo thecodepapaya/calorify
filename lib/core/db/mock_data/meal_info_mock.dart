@@ -1,3 +1,4 @@
+import 'package:calorify/core/models/health_score.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/models/meal_type.dart';
 
@@ -112,7 +113,7 @@ class MealInfoMock {
         fiber: nutrition['fiber']!,
         timestamp: time,
         imageUrl: imgUrl,
-        healthScore: healthData['score'] as int,
+        healthScore: healthData['score'] as HealthScore,
         healthScoreReason: healthData['reason'] as String,
       );
       meals.add(meal);
@@ -150,7 +151,7 @@ class MealInfoMock {
       fiber: nutrition['fiber']!,
       timestamp: time,
       imageUrl: imgUrl,
-      healthScore: healthData['score'] as int,
+      healthScore: healthData['score'] as HealthScore,
       healthScoreReason: healthData['reason'] as String,
     );
   }
@@ -396,14 +397,14 @@ class MealInfoMock {
       'Dark Chocolate',
     ];
 
-    int score = 2; // Default: Neutral
+    HealthScore score = HealthScore.neutral; // Default: Neutral
     String reason = 'Balanced meal with moderate nutritional value.';
 
     if (healthyKeywords.any((k) => name.contains(k))) {
-      score = 3;
+      score = HealthScore.healthy;
       reason = 'Nutrient-dense ingredients with high fiber and quality protein.';
     } else if (unhealthyKeywords.any((k) => name.contains(k))) {
-      score = 1;
+      score = HealthScore.unhealthy;
       reason = 'High in processed elements, sodium, or saturated fats.';
     }
 

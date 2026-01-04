@@ -16,8 +16,7 @@ class FoodAnalysisService {
 
   /// Get the system prompt with language instruction
   static String _getSystemPrompt() {
-    final currentLocale = LocaleSettings.currentLocale;
-    final localeCode = currentLocale.languageCode;
+    final localeCode = LocaleSettings.currentLocale.languageCode;
     return '''
 You are an expert food analysis AI. Given an image or a description of food,
 analyze the main food item(s). Be precise with nutrient estimations.
@@ -31,17 +30,17 @@ Always respond in locale: $localeCode.
   /// Initialize the service with Firebase AI
   Future<void> initialize() async {
     if (_isInitialized) return;
-    await _initializeModel();
+    _initializeModel();
   }
 
   /// Reinitialize the model (useful when locale changes)
   Future<void> reinitialize() async {
     _isInitialized = false;
-    await _initializeModel();
+    _initializeModel();
   }
 
   /// Internal method to initialize the model
-  Future<void> _initializeModel() async {
+  void _initializeModel() {
     try {
       // Use Google AI backend for food analysis
       final googleAI = FirebaseAI.googleAI(auth: FirebaseAuth.instance);
@@ -165,12 +164,9 @@ Always respond in locale: $localeCode.
     }
 
     try {
-      // Provide a prompt that contains text with locale instruction
-      final localeCode = LocaleSettings.currentLocale.languageCode;
       final prompt = [
         Content.text(
-          'Estimate calories in this meal picture and respond in JSON. '
-          'Must respond in locale: $localeCode',
+          'Estimate calories in this meal picture and respond in JSON.',
         ),
         Content.inlineData('image/jpeg', imageBytes),
       ];
@@ -202,14 +198,7 @@ Always respond in locale: $localeCode.
     }
 
     try {
-      // Provide a prompt that contains text with locale instruction
-      final localeCode = LocaleSettings.currentLocale.languageCode;
-      final prompt = [
-        Content.text(
-          'Meal: $description. '
-          'Must respond in locale: $localeCode',
-        ),
-      ];
+      final prompt = [Content.text('Meal: $description.')];
 
       // To generate text output, call generateContent with the text input
       final response = await Performance.trace<GenerateContentResponse>(

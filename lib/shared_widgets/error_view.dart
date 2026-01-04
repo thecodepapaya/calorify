@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -24,7 +25,7 @@ class ErrorView extends StatelessWidget {
           Icon(LucideIcons.info, color: color, size: 24),
           SizedBox(height: 8),
           Text(
-            'Something went wrong.',
+            t.errors.somethingWentWrong,
             style: textTheme.bodyLarge?.copyWith(color: color),
           ),
         ],

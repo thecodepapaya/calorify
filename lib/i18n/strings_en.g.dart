@@ -54,6 +54,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsMealEn meal = TranslationsMealEn._(_root);
 	late final TranslationsFavoritesEn favorites = TranslationsFavoritesEn._(_root);
 	late final TranslationsProfileEn profile = TranslationsProfileEn._(_root);
+	late final TranslationsHealthScoreEn healthScore = TranslationsHealthScoreEn._(_root);
 	late final TranslationsEditProfileEn editProfile = TranslationsEditProfileEn._(_root);
 	late final TranslationsSettingsEn settings = TranslationsSettingsEn._(_root);
 	late final TranslationsRemindersEn reminders = TranslationsRemindersEn._(_root);
@@ -63,6 +64,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsCommonEn common = TranslationsCommonEn._(_root);
 	late final TranslationsErrorsEn errors = TranslationsErrorsEn._(_root);
 	late final TranslationsDebugEn debug = TranslationsDebugEn._(_root);
+	late final TranslationsHealthEn health = TranslationsHealthEn._(_root);
 }
 
 // Path: onboarding
@@ -83,6 +85,15 @@ class TranslationsOnboardingEn {
 	String get getStarted => 'Get Started';
 
 	late final TranslationsOnboardingFeaturesEn features = TranslationsOnboardingFeaturesEn._(_root);
+	late final TranslationsOnboardingGenderEn gender = TranslationsOnboardingGenderEn._(_root);
+	late final TranslationsOnboardingHeightEn height = TranslationsOnboardingHeightEn._(_root);
+	late final TranslationsOnboardingWeightEn weight = TranslationsOnboardingWeightEn._(_root);
+	late final TranslationsOnboardingAgeEn age = TranslationsOnboardingAgeEn._(_root);
+	late final TranslationsOnboardingBmiScaleEn bmiScale = TranslationsOnboardingBmiScaleEn._(_root);
+	late final TranslationsOnboardingWeightGoalEn weightGoal = TranslationsOnboardingWeightGoalEn._(_root);
+	late final TranslationsOnboardingActivityLevelEn activityLevel = TranslationsOnboardingActivityLevelEn._(_root);
+	late final TranslationsOnboardingHealthConnectEn healthConnect = TranslationsOnboardingHealthConnectEn._(_root);
+	late final TranslationsOnboardingReinforcementEn reinforcement = TranslationsOnboardingReinforcementEn._(_root);
 }
 
 // Path: tabs
@@ -110,6 +121,7 @@ class TranslationsHomeEn {
 	late final TranslationsHomeDailyGoalEn dailyGoal = TranslationsHomeDailyGoalEn._(_root);
 	late final TranslationsHomeDailySummaryEn dailySummary = TranslationsHomeDailySummaryEn._(_root);
 	late final TranslationsHomeIntakeProgressEn intakeProgress = TranslationsHomeIntakeProgressEn._(_root);
+	late final TranslationsHomeIntakeHistoryEn intakeHistory = TranslationsHomeIntakeHistoryEn._(_root);
 	late final TranslationsHomeMealLogEn mealLog = TranslationsHomeMealLogEn._(_root);
 	late final TranslationsHomeMealDescriptionEn mealDescription = TranslationsHomeMealDescriptionEn._(_root);
 	late final TranslationsHomeFavoriteMealsEn favoriteMeals = TranslationsHomeFavoriteMealsEn._(_root);
@@ -124,9 +136,6 @@ class TranslationsHistoryEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'History'
-	String get title => 'History';
 
 	/// en: 'No meals recorded'
 	String get noMeals => 'No meals recorded';
@@ -158,16 +167,41 @@ class TranslationsMealEn {
 	/// en: 'Edit Meal'
 	String get editMeal => 'Edit Meal';
 
+	/// en: 'Add Meal'
+	String get addMeal => 'Add Meal';
+
 	/// en: 'Save Meal'
 	String get saveMeal => 'Save Meal';
 
+	/// en: 'Save'
+	String get save => 'Save';
+
+	/// en: 'Meal Name'
+	String get mealName => 'Meal Name';
+
+	/// en: 'Meal Quantity'
+	String get mealQuantity => 'Meal Quantity';
+
+	/// en: 'e.g., 1 bowl, 2 slices'
+	String get mealQuantityHint => 'e.g., 1 bowl, 2 slices';
+
+	/// en: 'Time of Meal'
+	String get timeOfMeal => 'Time of Meal';
+
+	/// en: 'Select the time you had your meal'
+	String get timeOfMealHint => 'Select the time you had your meal';
+
+	/// en: 'Meal Type'
+	String get mealType => 'Meal Type';
+
+	late final TranslationsMealNutritionEn nutrition = TranslationsMealNutritionEn._(_root);
 	late final TranslationsMealDeleteConfirmationEn deleteConfirmation = TranslationsMealDeleteConfirmationEn._(_root);
 
 	/// en: 'Meal added to your log!'
 	String get addedToLog => 'Meal added to your log!';
 
 	/// en: 'Could not add meal: {error}'
-	String get couldNotAdd => 'Could not add meal: {error}';
+	String couldNotAdd({required Object error}) => 'Could not add meal: ${error}';
 
 	/// en: 'Removed from favorites!'
 	String get removedFromFavorites => 'Removed from favorites!';
@@ -176,16 +210,19 @@ class TranslationsMealEn {
 	String get savedAsFavorite => 'Meal saved as favorite!';
 
 	/// en: 'Could not update favorite: {error}'
-	String get couldNotUpdateFavorite => 'Could not update favorite: {error}';
+	String couldNotUpdateFavorite({required Object error}) => 'Could not update favorite: ${error}';
 
 	/// en: 'Failed to process: {error}'
-	String get failedToProcess => 'Failed to process: {error}';
+	String failedToProcess({required Object error}) => 'Failed to process: ${error}';
 
 	/// en: 'Failed to process image: {error}'
-	String get failedToProcessImage => 'Failed to process image: {error}';
+	String failedToProcessImage({required Object error}) => 'Failed to process image: ${error}';
 
 	/// en: 'Error compressing image: {error}'
-	String get errorCompressingImage => 'Error compressing image: {error}';
+	String errorCompressingImage({required Object error}) => 'Error compressing image: ${error}';
+
+	/// en: 'Failed to save data. Please try again.'
+	String get failedToSave => 'Failed to save data. Please try again.';
 }
 
 // Path: favorites
@@ -213,9 +250,6 @@ class TranslationsProfileEn {
 
 	/// en: 'Profile'
 	String get title => 'Profile';
-
-	/// en: 'Edit Profile'
-	String get editProfile => 'Edit Profile';
 
 	/// en: 'No profile data found'
 	String get noProfileData => 'No profile data found';
@@ -257,6 +291,35 @@ class TranslationsProfileEn {
 
 	/// en: 'Profile updated successfully!'
 	String get updatedSuccessfully => 'Profile updated successfully!';
+
+	late final TranslationsProfileCalculatedValuesEn calculatedValues = TranslationsProfileCalculatedValuesEn._(_root);
+}
+
+// Path: healthScore
+class TranslationsHealthScoreEn {
+	TranslationsHealthScoreEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Health Score'
+	String get title => 'Health Score';
+
+	/// en: 'Why this score?'
+	String get whyThisScore => 'Why this score?';
+
+	/// en: 'This score is an AI estimate based on the identified ingredients and nutritional density. Always consult a professional for dietary advice.'
+	String get note => 'This score is an AI estimate based on the identified ingredients and nutritional density. Always consult a professional for dietary advice.';
+
+	/// en: 'Unhealthy'
+	String get unhealthy => 'Unhealthy';
+
+	/// en: 'Healthy'
+	String get healthy => 'Healthy';
+
+	/// en: 'Neutral'
+	String get neutral => 'Neutral';
 }
 
 // Path: editProfile
@@ -307,6 +370,10 @@ class TranslationsEditProfileEn {
 
 	/// en: 'Imperial (lbs)'
 	String get imperialLbs => 'Imperial (lbs)';
+
+	late final TranslationsEditProfileGendersEn genders = TranslationsEditProfileGendersEn._(_root);
+	late final TranslationsEditProfileWeightGoalsEn weightGoals = TranslationsEditProfileWeightGoalsEn._(_root);
+	late final TranslationsEditProfileActivityLevelsEn activityLevels = TranslationsEditProfileActivityLevelsEn._(_root);
 }
 
 // Path: settings
@@ -375,6 +442,9 @@ class TranslationsRemindersEn {
 	/// en: 'Snack'
 	String get snack => 'Snack';
 
+	/// en: 'Unknown'
+	String get unknown => 'Unknown';
+
 	/// en: 'Change'
 	String get change => 'Change';
 
@@ -387,9 +457,6 @@ class TranslationsRemindersEn {
 	/// en: 'Save Changes'
 	String get saveChanges => 'Save Changes';
 
-	/// en: 'Continue'
-	String get continue_ => 'Continue';
-
 	/// en: 'Notifications enabled successfully!'
 	String get enabledSuccessfully => 'Notifications enabled successfully!';
 
@@ -397,10 +464,10 @@ class TranslationsRemindersEn {
 	String get permissionDenied => 'Notification permission denied';
 
 	/// en: 'Error enabling notifications: {error}'
-	String get errorEnabling => 'Error enabling notifications: {error}';
+	String errorEnabling({required Object error}) => 'Error enabling notifications: ${error}';
 
 	/// en: 'Error completing setup: {error}'
-	String get errorCompletingSetup => 'Error completing setup: {error}';
+	String errorCompletingSetup({required Object error}) => 'Error completing setup: ${error}';
 }
 
 // Path: notifications
@@ -458,41 +525,11 @@ class TranslationsCommonEn {
 
 	// Translations
 
-	/// en: 'Cancel'
-	String get cancel => 'Cancel';
-
-	/// en: 'Save'
-	String get save => 'Save';
-
-	/// en: 'Delete'
-	String get delete => 'Delete';
-
-	/// en: 'Edit'
-	String get edit => 'Edit';
-
 	/// en: 'Close'
 	String get close => 'Close';
 
 	/// en: 'Continue'
 	String get kContinue => 'Continue';
-
-	/// en: 'Skip'
-	String get skip => 'Skip';
-
-	/// en: 'Error'
-	String get error => 'Error';
-
-	/// en: 'Loading...'
-	String get loading => 'Loading...';
-
-	/// en: 'Not set'
-	String get notSet => 'Not set';
-
-	/// en: 'Today'
-	String get today => 'Today';
-
-	/// en: 'Yesterday'
-	String get yesterday => 'Yesterday';
 }
 
 // Path: errors
@@ -506,8 +543,8 @@ class TranslationsErrorsEn {
 	/// en: 'Error loading profile data'
 	String get loadingProfileData => 'Error loading profile data';
 
-	/// en: 'An error occurred. Please try again.'
-	String get generic => 'An error occurred. Please try again.';
+	/// en: 'Something went wrong.'
+	String get somethingWentWrong => 'Something went wrong.';
 }
 
 // Path: debug
@@ -520,6 +557,8 @@ class TranslationsDebugEn {
 
 	/// en: 'Debug Options'
 	String get title => 'Debug Options';
+
+	late final TranslationsDebugSectionsEn sections = TranslationsDebugSectionsEn._(_root);
 
 	/// en: 'Show Active Notifications'
 	String get showActiveNotifications => 'Show Active Notifications';
@@ -536,8 +575,17 @@ class TranslationsDebugEn {
 	/// en: 'Active Notifications'
 	String get activeNotifications => 'Active Notifications';
 
-	/// en: 'ID: {id}'
-	String get id => 'ID: {id}';
+	/// en: 'No Title'
+	String get noTitle => 'No Title';
+
+	/// en: 'No Body'
+	String get noBody => 'No Body';
+
+	/// en: 'Fetch Today's Steps'
+	String get fetchTodaysSteps => 'Fetch Today\'s Steps';
+
+	/// en: 'Fetch Today's Calories'
+	String get fetchTodaysCalories => 'Fetch Today\'s Calories';
 
 	/// en: 'Fetch Latest Weight'
 	String get fetchLatestWeight => 'Fetch Latest Weight';
@@ -554,8 +602,89 @@ class TranslationsDebugEn {
 	/// en: 'Sync Last 7 Days'
 	String get syncLast7Days => 'Sync Last 7 Days';
 
+	/// en: '7-Day Sync'
+	String get sync7DaysTitle => '7-Day Sync';
+
 	/// en: 'Check Current Locale'
 	String get checkCurrentLocale => 'Check Current Locale';
+
+	/// en: 'Current Locale'
+	String get currentLocale => 'Current Locale';
+
+	/// en: 'Language: {languageCode} Country: {countryCode} Unit System: {unitSystem}'
+	String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Language: ${languageCode}\nCountry: ${countryCode}\nUnit System: ${unitSystem}';
+
+	/// en: 'Latest Weight'
+	String get latestWeight => 'Latest Weight';
+
+	/// en: 'Latest Height'
+	String get latestHeight => 'Latest Height';
+
+	/// en: 'Today's Calories'
+	String get todaysCalories => 'Today\'s Calories';
+
+	/// en: 'Total calories burned: {calories}'
+	String totalCaloriesBurned({required Object calories}) => 'Total calories burned: ${calories}';
+
+	/// en: 'Successfully fetched {count} data points for Steps, Calories, and Weight over the last 7 days.'
+	String syncSuccess({required Object count}) => 'Successfully fetched ${count} data points for Steps, Calories, and Weight over the last 7 days.';
+
+	/// en: 'No weight data found in the last 30 days.'
+	String get noWeightData => 'No weight data found in the last 30 days.';
+
+	/// en: 'No height data found in the last year.'
+	String get noHeightData => 'No height data found in the last year.';
+
+	/// en: 'No calorie data found for today.'
+	String get noCalorieData => 'No calorie data found for today.';
+
+	/// en: 'Successfully wrote test weight (70kg).'
+	String get weightWritten => 'Successfully wrote test weight (70kg).';
+
+	/// en: 'Failed to write test weight.'
+	String get weightWriteFailed => 'Failed to write test weight.';
+
+	/// en: 'Successfully wrote test height (175cm).'
+	String get heightWritten => 'Successfully wrote test height (175cm).';
+
+	/// en: 'Failed to write test height.'
+	String get heightWriteFailed => 'Failed to write test height.';
+
+	/// en: 'No active notifications.'
+	String get noNotifications => 'No active notifications.';
+
+	/// en: 'Test notification scheduled for 10 seconds from now.'
+	String get testNotificationScheduled => 'Test notification scheduled for 10 seconds from now.';
+
+	/// en: 'This is a test notification scheduled for 10 seconds from now.'
+	String get testNotificationBody => 'This is a test notification scheduled for 10 seconds from now.';
+
+	/// en: 'Breakfast notification triggered.'
+	String get breakfastNotificationTriggered => 'Breakfast notification triggered.';
+
+	/// en: 'All notifications cancelled.'
+	String get allNotificationsCancelled => 'All notifications cancelled.';
+
+	/// en: 'Fetching data for the last 7 days...'
+	String get fetchingData => 'Fetching data for the last 7 days...';
+
+	/// en: 'ID: {id}'
+	String id({required Object id}) => 'ID: ${id}';
+}
+
+// Path: health
+class TranslationsHealthEn {
+	TranslationsHealthEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Could not sync to Health Connect'
+	String get syncFailed => 'Could not sync to Health Connect';
+
+	/// en: 'Meal synced with Health Connect'
+	String get mealSynced => 'Meal synced with Health Connect';
 }
 
 // Path: onboarding.features
@@ -568,6 +697,205 @@ class TranslationsOnboardingFeaturesEn {
 	late final TranslationsOnboardingFeaturesFoodRecognitionEn foodRecognition = TranslationsOnboardingFeaturesFoodRecognitionEn._(_root);
 	late final TranslationsOnboardingFeaturesAiAnalysisEn aiAnalysis = TranslationsOnboardingFeaturesAiAnalysisEn._(_root);
 	late final TranslationsOnboardingFeaturesHealthIntegrationEn healthIntegration = TranslationsOnboardingFeaturesHealthIntegrationEn._(_root);
+}
+
+// Path: onboarding.gender
+class TranslationsOnboardingGenderEn {
+	TranslationsOnboardingGenderEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'What is your gender?'
+	String get title => 'What is your gender?';
+
+	/// en: 'Gender helps us accurately calculate your basal metabolic rate (BMR).'
+	String get description => 'Gender helps us accurately calculate your basal metabolic rate (BMR).';
+
+	/// en: 'Next'
+	String get next => 'Next';
+}
+
+// Path: onboarding.height
+class TranslationsOnboardingHeightEn {
+	TranslationsOnboardingHeightEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'How tall are you?'
+	String get title => 'How tall are you?';
+
+	/// en: 'Your height helps us calculate your BMI and energy needs accurately.'
+	String get description => 'Your height helps us calculate your BMI and energy needs accurately.';
+
+	/// en: 'Metric'
+	String get metric => 'Metric';
+
+	/// en: 'Imperial'
+	String get imperial => 'Imperial';
+
+	/// en: 'Next'
+	String get next => 'Next';
+}
+
+// Path: onboarding.weight
+class TranslationsOnboardingWeightEn {
+	TranslationsOnboardingWeightEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'What is your current weight?'
+	String get currentTitle => 'What is your current weight?';
+
+	/// en: 'Your current weight is essential for personalizing your daily goals.'
+	String get currentDescription => 'Your current weight is essential for personalizing your daily goals.';
+
+	/// en: 'What is your target weight?'
+	String get targetTitle => 'What is your target weight?';
+
+	/// en: 'Setting a goal weight helps us determine your long-term plan.'
+	String get targetDescription => 'Setting a goal weight helps us determine your long-term plan.';
+
+	/// en: 'Metric'
+	String get metric => 'Metric';
+
+	/// en: 'Imperial'
+	String get imperial => 'Imperial';
+
+	/// en: 'Next'
+	String get next => 'Next';
+}
+
+// Path: onboarding.age
+class TranslationsOnboardingAgeEn {
+	TranslationsOnboardingAgeEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'When is your birthday?'
+	String get title => 'When is your birthday?';
+
+	/// en: 'Your age helps us calculate your calorie needs accurately.'
+	String get description => 'Your age helps us calculate your calorie needs accurately.';
+
+	/// en: 'Next'
+	String get next => 'Next';
+}
+
+// Path: onboarding.bmiScale
+class TranslationsOnboardingBmiScaleEn {
+	TranslationsOnboardingBmiScaleEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Underweight'
+	String get underweight => 'Underweight';
+
+	/// en: 'Healthy'
+	String get healthy => 'Healthy';
+
+	/// en: 'Overweight'
+	String get overweight => 'Overweight';
+
+	/// en: 'Obese'
+	String get obese => 'Obese';
+
+	late final TranslationsOnboardingBmiScaleCategoriesEn categories = TranslationsOnboardingBmiScaleCategoriesEn._(_root);
+	late final TranslationsOnboardingBmiScaleMessagesEn messages = TranslationsOnboardingBmiScaleMessagesEn._(_root);
+}
+
+// Path: onboarding.weightGoal
+class TranslationsOnboardingWeightGoalEn {
+	TranslationsOnboardingWeightGoalEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'What's your goal?'
+	String get title => 'What\'s your goal?';
+
+	/// en: 'Choose the goal that best describes what you want to achieve'
+	String get description => 'Choose the goal that best describes what you want to achieve';
+}
+
+// Path: onboarding.activityLevel
+class TranslationsOnboardingActivityLevelEn {
+	TranslationsOnboardingActivityLevelEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'How active are you?'
+	String get title => 'How active are you?';
+
+	/// en: 'This helps us calculate your daily calorie needs more accurately'
+	String get description => 'This helps us calculate your daily calorie needs more accurately';
+}
+
+// Path: onboarding.healthConnect
+class TranslationsOnboardingHealthConnectEn {
+	TranslationsOnboardingHealthConnectEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Connect with Health Connect'
+	String get title => 'Connect with Health Connect';
+
+	/// en: 'Sync your health data for better insights and automatic calorie tracking'
+	String get description => 'Sync your health data for better insights and automatic calorie tracking';
+
+	late final TranslationsOnboardingHealthConnectAutomaticTrackingEn automaticTracking = TranslationsOnboardingHealthConnectAutomaticTrackingEn._(_root);
+	late final TranslationsOnboardingHealthConnectProgressInsightsEn progressInsights = TranslationsOnboardingHealthConnectProgressInsightsEn._(_root);
+	late final TranslationsOnboardingHealthConnectSeamlessIntegrationEn seamlessIntegration = TranslationsOnboardingHealthConnectSeamlessIntegrationEn._(_root);
+
+	/// en: 'Health Connect Connected'
+	String get connected => 'Health Connect Connected';
+
+	/// en: 'Health Connect Not Connected'
+	String get notConnected => 'Health Connect Not Connected';
+
+	/// en: 'Setup Health Connect'
+	String get setup => 'Setup Health Connect';
+
+	/// en: 'Skip for now'
+	String get skipForNow => 'Skip for now';
+
+	/// en: 'Health Connect is connected.'
+	String get statusConnected => 'Health Connect is connected.';
+
+	/// en: 'Health Connect has been successfully connected!'
+	String get statusSuccess => 'Health Connect has been successfully connected!';
+
+	/// en: 'Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.'
+	String get statusPermissionDenied => 'Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.';
+
+	/// en: 'Error setting up Health Connect: {error}'
+	String statusError({required Object error}) => 'Error setting up Health Connect: ${error}';
+}
+
+// Path: onboarding.reinforcement
+class TranslationsOnboardingReinforcementEn {
+	TranslationsOnboardingReinforcementEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsOnboardingReinforcementTrackingSuccessEn trackingSuccess = TranslationsOnboardingReinforcementTrackingSuccessEn._(_root);
+	late final TranslationsOnboardingReinforcementHealthProfileEn healthProfile = TranslationsOnboardingReinforcementHealthProfileEn._(_root);
+	late final TranslationsOnboardingReinforcementGoalLifestyleEn goalLifestyle = TranslationsOnboardingReinforcementGoalLifestyleEn._(_root);
 }
 
 // Path: home.dailyGoal
@@ -663,6 +991,24 @@ class TranslationsHomeIntakeProgressEn {
 	String get current => 'Current';
 }
 
+// Path: home.intakeHistory
+class TranslationsHomeIntakeHistoryEn {
+	TranslationsHomeIntakeHistoryEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: '7-Day Macro History'
+	String get title => '7-Day Macro History';
+
+	/// en: 'No history yet'
+	String get noHistoryYet => 'No history yet';
+
+	/// en: 'Start logging meals to see your 7-day macro trends here'
+	String get startLogging => 'Start logging meals to see your\n7-day macro trends here';
+}
+
 // Path: home.mealLog
 class TranslationsHomeMealLogEn {
 	TranslationsHomeMealLogEn._(this._root);
@@ -698,8 +1044,8 @@ class TranslationsHomeMealDescriptionEn {
 	/// en: 'Describe your meal, and let AI handle the details.'
 	String get description => 'Describe your meal, and let AI handle the details.';
 
-	/// en: 'eg. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...'
-	String get hint => 'eg. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...';
+	/// en: 'e.g. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...'
+	String get hint => 'e.g. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...';
 
 	/// en: 'Analyze meal'
 	String get analyzeMeal => 'Analyze meal';
@@ -771,6 +1117,30 @@ class TranslationsHomeConnectHealthEn {
 	String get connect => 'Connect';
 }
 
+// Path: meal.nutrition
+class TranslationsMealNutritionEn {
+	TranslationsMealNutritionEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Calories'
+	String get calories => 'Calories';
+
+	/// en: 'Carbs (g)'
+	String get carbs => 'Carbs (g)';
+
+	/// en: 'Protein (g)'
+	String get protein => 'Protein (g)';
+
+	/// en: 'Fat (g)'
+	String get fat => 'Fat (g)';
+
+	/// en: 'Fiber (g)'
+	String get fiber => 'Fiber (g)';
+}
+
 // Path: meal.deleteConfirmation
 class TranslationsMealDeleteConfirmationEn {
 	TranslationsMealDeleteConfirmationEn._(this._root);
@@ -813,6 +1183,30 @@ class TranslationsProfileSectionsEn {
 	String get calculatedValues => 'CALCULATED VALUES';
 }
 
+// Path: profile.calculatedValues
+class TranslationsProfileCalculatedValuesEn {
+	TranslationsProfileCalculatedValuesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'BMR'
+	String get bmr => 'BMR';
+
+	/// en: 'TDEE'
+	String get tdee => 'TDEE';
+
+	/// en: 'Daily Goal'
+	String get dailyGoal => 'Daily Goal';
+
+	/// en: 'cal/day'
+	String get calPerDay => 'cal/day';
+
+	/// en: 'N/A'
+	String get notAvailable => 'N/A';
+}
+
 // Path: editProfile.sections
 class TranslationsEditProfileSectionsEn {
 	TranslationsEditProfileSectionsEn._(this._root);
@@ -829,6 +1223,50 @@ class TranslationsEditProfileSectionsEn {
 
 	/// en: 'GOALS & ACTIVITY'
 	String get goalsAndActivity => 'GOALS & ACTIVITY';
+}
+
+// Path: editProfile.genders
+class TranslationsEditProfileGendersEn {
+	TranslationsEditProfileGendersEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Male'
+	String get male => 'Male';
+
+	/// en: 'Female'
+	String get female => 'Female';
+
+	/// en: 'Other'
+	String get other => 'Other';
+}
+
+// Path: editProfile.weightGoals
+class TranslationsEditProfileWeightGoalsEn {
+	TranslationsEditProfileWeightGoalsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsEditProfileWeightGoalsLoseWeightEn loseWeight = TranslationsEditProfileWeightGoalsLoseWeightEn._(_root);
+	late final TranslationsEditProfileWeightGoalsMaintainWeightEn maintainWeight = TranslationsEditProfileWeightGoalsMaintainWeightEn._(_root);
+	late final TranslationsEditProfileWeightGoalsGainWeightEn gainWeight = TranslationsEditProfileWeightGoalsGainWeightEn._(_root);
+}
+
+// Path: editProfile.activityLevels
+class TranslationsEditProfileActivityLevelsEn {
+	TranslationsEditProfileActivityLevelsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsEditProfileActivityLevelsSedentaryEn sedentary = TranslationsEditProfileActivityLevelsSedentaryEn._(_root);
+	late final TranslationsEditProfileActivityLevelsLightlyActiveEn lightlyActive = TranslationsEditProfileActivityLevelsLightlyActiveEn._(_root);
+	late final TranslationsEditProfileActivityLevelsModeratelyActiveEn moderatelyActive = TranslationsEditProfileActivityLevelsModeratelyActiveEn._(_root);
+	late final TranslationsEditProfileActivityLevelsVeryActiveEn veryActive = TranslationsEditProfileActivityLevelsVeryActiveEn._(_root);
+	late final TranslationsEditProfileActivityLevelsExtremelyActiveEn extremelyActive = TranslationsEditProfileActivityLevelsExtremelyActiveEn._(_root);
 }
 
 // Path: settings.sections
@@ -883,6 +1321,9 @@ class TranslationsSettingsLanguageEn {
 
 	/// en: 'Language'
 	String get title => 'Language';
+
+	/// en: 'Choose your preferred language'
+	String get subtitle => 'Choose your preferred language';
 }
 
 // Path: settings.heightUnit
@@ -937,6 +1378,24 @@ class TranslationsSettingsSendFeedbackEn {
 
 	/// en: 'Help us improve Calorify'
 	String get subtitle => 'Help us improve Calorify';
+
+	/// en: 'Calorify App Feedback'
+	String get emailSubject => 'Calorify App Feedback';
+
+	/// en: 'Please provide your feedback below:'
+	String get emailBodyPrefix => 'Please provide your feedback below:';
+
+	/// en: 'App Version'
+	String get appVersion => 'App Version';
+
+	/// en: 'Device'
+	String get device => 'Device';
+
+	/// en: 'OS Version'
+	String get osVersion => 'OS Version';
+
+	/// en: 'UID'
+	String get uid => 'UID';
 }
 
 // Path: settings.clearAllData
@@ -1087,6 +1546,24 @@ class TranslationsDisclaimerWeightEstimateEn {
 	late final TranslationsDisclaimerWeightEstimateProfessionalGuidanceEn professionalGuidance = TranslationsDisclaimerWeightEstimateProfessionalGuidanceEn._(_root);
 }
 
+// Path: debug.sections
+class TranslationsDebugSectionsEn {
+	TranslationsDebugSectionsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Notifications'
+	String get notifications => 'Notifications';
+
+	/// en: 'Health Connect'
+	String get healthConnect => 'Health Connect';
+
+	/// en: 'App Info'
+	String get appInfo => 'App Info';
+}
+
 // Path: onboarding.features.foodRecognition
 class TranslationsOnboardingFeaturesFoodRecognitionEn {
 	TranslationsOnboardingFeaturesFoodRecognitionEn._(this._root);
@@ -1130,6 +1607,318 @@ class TranslationsOnboardingFeaturesHealthIntegrationEn {
 
 	/// en: 'Connect with Health Connect for better insights'
 	String get description => 'Connect with Health Connect for better insights';
+}
+
+// Path: onboarding.bmiScale.categories
+class TranslationsOnboardingBmiScaleCategoriesEn {
+	TranslationsOnboardingBmiScaleCategoriesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Underweight'
+	String get underweight => 'Underweight';
+
+	/// en: 'Healthy weight'
+	String get healthyWeight => 'Healthy weight';
+
+	/// en: 'Overweight'
+	String get overweight => 'Overweight';
+
+	/// en: 'Obese'
+	String get obese => 'Obese';
+}
+
+// Path: onboarding.bmiScale.messages
+class TranslationsOnboardingBmiScaleMessagesEn {
+	TranslationsOnboardingBmiScaleMessagesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'We can help you build a healthy plan to reach a balanced weight with nutrient-dense meals.'
+	String get underweight => 'We can help you build a healthy plan to reach a balanced weight with nutrient-dense meals.';
+
+	/// en: 'Great job! You're in a healthy range. We'll help you maintain your vitality and energy levels.'
+	String get healthy => 'Great job! You\'re in a healthy range. We\'ll help you maintain your vitality and energy levels.';
+
+	/// en: 'Calorify will simplify your journey with AI-powered tracking to help you reach your target comfortably.'
+	String get overweight => 'Calorify will simplify your journey with AI-powered tracking to help you reach your target comfortably.';
+
+	/// en: 'We're here to support you with personalized guidance and sustainable strategies for your health goals.'
+	String get obese => 'We\'re here to support you with personalized guidance and sustainable strategies for your health goals.';
+}
+
+// Path: onboarding.healthConnect.automaticTracking
+class TranslationsOnboardingHealthConnectAutomaticTrackingEn {
+	TranslationsOnboardingHealthConnectAutomaticTrackingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Automatic Calorie Tracking'
+	String get title => 'Automatic Calorie Tracking';
+
+	/// en: 'Track calories burned from your fitness apps'
+	String get description => 'Track calories burned from your fitness apps';
+}
+
+// Path: onboarding.healthConnect.progressInsights
+class TranslationsOnboardingHealthConnectProgressInsightsEn {
+	TranslationsOnboardingHealthConnectProgressInsightsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Progress Insights'
+	String get title => 'Progress Insights';
+
+	/// en: 'Get detailed insights into your health trends'
+	String get description => 'Get detailed insights into your health trends';
+}
+
+// Path: onboarding.healthConnect.seamlessIntegration
+class TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
+	TranslationsOnboardingHealthConnectSeamlessIntegrationEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Seamless Integration'
+	String get title => 'Seamless Integration';
+
+	/// en: 'Sync data from your favorite health apps'
+	String get description => 'Sync data from your favorite health apps';
+}
+
+// Path: onboarding.reinforcement.trackingSuccess
+class TranslationsOnboardingReinforcementTrackingSuccessEn {
+	TranslationsOnboardingReinforcementTrackingSuccessEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'You're Not Alone'
+	String get title => 'You\'re Not Alone';
+
+	/// en: 'Instant photo analysis'
+	String get instantPhotoAnalysis => 'Instant photo analysis';
+
+	/// en: 'Automatic nutritional logging'
+	String get automaticLogging => 'Automatic nutritional logging';
+
+	/// en: 'Progress visualizations that keep you motivated'
+	String get progressVisualizations => 'Progress visualizations that keep you motivated';
+
+	/// en: 'Research shows that consistent tracking is the #1 predictor of long-term success.'
+	String get genericMessage => 'Research shows that consistent tracking is the #1 predictor of long-term success.';
+
+	/// en: 'For a {age} year old {gender} looking to {goal}, consistent tracking is the #1 predictor of success.'
+	String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'For a ${age} year old ${gender} looking to ${goal}, consistent tracking is the #1 predictor of success.';
+
+	/// en: 'Calorify makes it 10x easier than doing it manually.'
+	String get closingMessage => 'Calorify makes it 10x easier than doing it manually.';
+
+	/// en: 'Let's Go'
+	String get button => 'Let\'s Go';
+
+	/// en: 'individual'
+	String get defaultGender => 'individual';
+
+	/// en: 'healthier you'
+	String get defaultGoal => 'healthier you';
+}
+
+// Path: onboarding.reinforcement.healthProfile
+class TranslationsOnboardingReinforcementHealthProfileEn {
+	TranslationsOnboardingReinforcementHealthProfileEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Your Health Profile'
+	String get title => 'Your Health Profile';
+
+	/// en: 'Based on your metrics, your BMI is {bmi}.'
+	String bmiDescription({required Object bmi}) => 'Based on your metrics, your BMI is ${bmi}.';
+
+	/// en: 'Let's finalize your profile to customize your experience.'
+	String get finalizeDescription => 'Let\'s finalize your profile to customize your experience.';
+
+	/// en: 'gain'
+	String get goalGain => 'gain';
+
+	/// en: 'lose'
+	String get goalLose => 'lose';
+
+	/// en: 'To reach your goal, you'll {direction} {diff} {unit}.'
+	String goalReach({required Object direction, required Object diff, required Object unit}) => 'To reach your goal, you\'ll ${direction} ${diff} ${unit}.';
+
+	/// en: 'You're at your target weight! We'll help you maintain it.'
+	String get goalReached => 'You\'re at your target weight! We\'ll help you maintain it.';
+
+	/// en: 'Let's Go'
+	String get button => 'Let\'s Go';
+}
+
+// Path: onboarding.reinforcement.goalLifestyle
+class TranslationsOnboardingReinforcementGoalLifestyleEn {
+	TranslationsOnboardingReinforcementGoalLifestyleEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Excellent Start!'
+	String get title => 'Excellent Start!';
+
+	/// en: 'You've taken the first step towards {goalText}. Since you're {activityText}, Calorify will adjust your targets to match your lifestyle.'
+	String description({required Object goalText, required Object activityText}) => 'You\'ve taken the first step towards ${goalText}. Since you\'re ${activityText}, Calorify will adjust your targets to match your lifestyle.';
+
+	/// en: 'Personalized calorie targets'
+	String get personalizedTargets => 'Personalized calorie targets';
+
+	/// en: 'AI-powered meal detection'
+	String get aiMealDetection => 'AI-powered meal detection';
+
+	/// en: 'Detailed macro-nutrient breakdowns'
+	String get macroBreakdowns => 'Detailed macro-nutrient breakdowns';
+
+	/// en: 'Let's Go'
+	String get button => 'Let\'s Go';
+
+	/// en: 'your goals'
+	String get defaultGoal => 'your goals';
+
+	/// en: 'active'
+	String get defaultActivity => 'active';
+}
+
+// Path: editProfile.weightGoals.loseWeight
+class TranslationsEditProfileWeightGoalsLoseWeightEn {
+	TranslationsEditProfileWeightGoalsLoseWeightEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Lose Weight'
+	String get name => 'Lose Weight';
+
+	/// en: 'Create a calorie deficit to lose weight'
+	String get description => 'Create a calorie deficit to lose weight';
+}
+
+// Path: editProfile.weightGoals.maintainWeight
+class TranslationsEditProfileWeightGoalsMaintainWeightEn {
+	TranslationsEditProfileWeightGoalsMaintainWeightEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Maintain Weight'
+	String get name => 'Maintain Weight';
+
+	/// en: 'Maintain your current weight'
+	String get description => 'Maintain your current weight';
+}
+
+// Path: editProfile.weightGoals.gainWeight
+class TranslationsEditProfileWeightGoalsGainWeightEn {
+	TranslationsEditProfileWeightGoalsGainWeightEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Gain Weight'
+	String get name => 'Gain Weight';
+
+	/// en: 'Create a calorie surplus to gain weight'
+	String get description => 'Create a calorie surplus to gain weight';
+}
+
+// Path: editProfile.activityLevels.sedentary
+class TranslationsEditProfileActivityLevelsSedentaryEn {
+	TranslationsEditProfileActivityLevelsSedentaryEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Sedentary'
+	String get name => 'Sedentary';
+
+	/// en: 'Little to no exercise'
+	String get description => 'Little to no exercise';
+}
+
+// Path: editProfile.activityLevels.lightlyActive
+class TranslationsEditProfileActivityLevelsLightlyActiveEn {
+	TranslationsEditProfileActivityLevelsLightlyActiveEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Lightly Active'
+	String get name => 'Lightly Active';
+
+	/// en: 'Light exercise 1-3 days/week'
+	String get description => 'Light exercise 1-3 days/week';
+}
+
+// Path: editProfile.activityLevels.moderatelyActive
+class TranslationsEditProfileActivityLevelsModeratelyActiveEn {
+	TranslationsEditProfileActivityLevelsModeratelyActiveEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Moderately Active'
+	String get name => 'Moderately Active';
+
+	/// en: 'Moderate exercise 3-5 days/week'
+	String get description => 'Moderate exercise 3-5 days/week';
+}
+
+// Path: editProfile.activityLevels.veryActive
+class TranslationsEditProfileActivityLevelsVeryActiveEn {
+	TranslationsEditProfileActivityLevelsVeryActiveEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Very Active'
+	String get name => 'Very Active';
+
+	/// en: 'Hard exercise 6-7 days/week'
+	String get description => 'Hard exercise 6-7 days/week';
+}
+
+// Path: editProfile.activityLevels.extremelyActive
+class TranslationsEditProfileActivityLevelsExtremelyActiveEn {
+	TranslationsEditProfileActivityLevelsExtremelyActiveEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Extremely Active'
+	String get name => 'Extremely Active';
+
+	/// en: 'Very hard exercise, physical job'
+	String get description => 'Very hard exercise, physical job';
 }
 
 // Path: disclaimer.snap.portionSize
@@ -1271,6 +2060,82 @@ extension on Translations {
 			'onboarding.features.aiAnalysis.description' => 'Get instant nutrition facts from your descriptions',
 			'onboarding.features.healthIntegration.title' => 'Health Integration',
 			'onboarding.features.healthIntegration.description' => 'Connect with Health Connect for better insights',
+			'onboarding.gender.title' => 'What is your gender?',
+			'onboarding.gender.description' => 'Gender helps us accurately calculate your basal metabolic rate (BMR).',
+			'onboarding.gender.next' => 'Next',
+			'onboarding.height.title' => 'How tall are you?',
+			'onboarding.height.description' => 'Your height helps us calculate your BMI and energy needs accurately.',
+			'onboarding.height.metric' => 'Metric',
+			'onboarding.height.imperial' => 'Imperial',
+			'onboarding.height.next' => 'Next',
+			'onboarding.weight.currentTitle' => 'What is your current weight?',
+			'onboarding.weight.currentDescription' => 'Your current weight is essential for personalizing your daily goals.',
+			'onboarding.weight.targetTitle' => 'What is your target weight?',
+			'onboarding.weight.targetDescription' => 'Setting a goal weight helps us determine your long-term plan.',
+			'onboarding.weight.metric' => 'Metric',
+			'onboarding.weight.imperial' => 'Imperial',
+			'onboarding.weight.next' => 'Next',
+			'onboarding.age.title' => 'When is your birthday?',
+			'onboarding.age.description' => 'Your age helps us calculate your calorie needs accurately.',
+			'onboarding.age.next' => 'Next',
+			'onboarding.bmiScale.underweight' => 'Underweight',
+			'onboarding.bmiScale.healthy' => 'Healthy',
+			'onboarding.bmiScale.overweight' => 'Overweight',
+			'onboarding.bmiScale.obese' => 'Obese',
+			'onboarding.bmiScale.categories.underweight' => 'Underweight',
+			'onboarding.bmiScale.categories.healthyWeight' => 'Healthy weight',
+			'onboarding.bmiScale.categories.overweight' => 'Overweight',
+			'onboarding.bmiScale.categories.obese' => 'Obese',
+			'onboarding.bmiScale.messages.underweight' => 'We can help you build a healthy plan to reach a balanced weight with nutrient-dense meals.',
+			'onboarding.bmiScale.messages.healthy' => 'Great job! You\'re in a healthy range. We\'ll help you maintain your vitality and energy levels.',
+			'onboarding.bmiScale.messages.overweight' => 'Calorify will simplify your journey with AI-powered tracking to help you reach your target comfortably.',
+			'onboarding.bmiScale.messages.obese' => 'We\'re here to support you with personalized guidance and sustainable strategies for your health goals.',
+			'onboarding.weightGoal.title' => 'What\'s your goal?',
+			'onboarding.weightGoal.description' => 'Choose the goal that best describes what you want to achieve',
+			'onboarding.activityLevel.title' => 'How active are you?',
+			'onboarding.activityLevel.description' => 'This helps us calculate your daily calorie needs more accurately',
+			'onboarding.healthConnect.title' => 'Connect with Health Connect',
+			'onboarding.healthConnect.description' => 'Sync your health data for better insights and automatic calorie tracking',
+			'onboarding.healthConnect.automaticTracking.title' => 'Automatic Calorie Tracking',
+			'onboarding.healthConnect.automaticTracking.description' => 'Track calories burned from your fitness apps',
+			'onboarding.healthConnect.progressInsights.title' => 'Progress Insights',
+			'onboarding.healthConnect.progressInsights.description' => 'Get detailed insights into your health trends',
+			'onboarding.healthConnect.seamlessIntegration.title' => 'Seamless Integration',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'Sync data from your favorite health apps',
+			'onboarding.healthConnect.connected' => 'Health Connect Connected',
+			'onboarding.healthConnect.notConnected' => 'Health Connect Not Connected',
+			'onboarding.healthConnect.setup' => 'Setup Health Connect',
+			'onboarding.healthConnect.skipForNow' => 'Skip for now',
+			'onboarding.healthConnect.statusConnected' => 'Health Connect is connected.',
+			'onboarding.healthConnect.statusSuccess' => 'Health Connect has been successfully connected!',
+			'onboarding.healthConnect.statusPermissionDenied' => 'Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Error setting up Health Connect: ${error}',
+			'onboarding.reinforcement.trackingSuccess.title' => 'You\'re Not Alone',
+			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Instant photo analysis',
+			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Automatic nutritional logging',
+			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Progress visualizations that keep you motivated',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Research shows that consistent tracking is the #1 predictor of long-term success.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'For a ${age} year old ${gender} looking to ${goal}, consistent tracking is the #1 predictor of success.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify makes it 10x easier than doing it manually.',
+			'onboarding.reinforcement.trackingSuccess.button' => 'Let\'s Go',
+			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'individual',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'healthier you',
+			'onboarding.reinforcement.healthProfile.title' => 'Your Health Profile',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Based on your metrics, your BMI is ${bmi}.',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Let\'s finalize your profile to customize your experience.',
+			'onboarding.reinforcement.healthProfile.goalGain' => 'gain',
+			'onboarding.reinforcement.healthProfile.goalLose' => 'lose',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'To reach your goal, you\'ll ${direction} ${diff} ${unit}.',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'You\'re at your target weight! We\'ll help you maintain it.',
+			'onboarding.reinforcement.healthProfile.button' => 'Let\'s Go',
+			'onboarding.reinforcement.goalLifestyle.title' => 'Excellent Start!',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'You\'ve taken the first step towards ${goalText}. Since you\'re ${activityText}, Calorify will adjust your targets to match your lifestyle.',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Personalized calorie targets',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI-powered meal detection',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Detailed macro-nutrient breakdowns',
+			'onboarding.reinforcement.goalLifestyle.button' => 'Let\'s Go',
+			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'your goals',
+			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'active',
 			'tabs.dashboard' => 'Dashboard',
 			'tabs.history' => 'History',
 			'home.dailyGoal.title' => 'Set Your Daily Goal',
@@ -1295,13 +2160,16 @@ extension on Translations {
 			'home.intakeProgress.title' => 'Today\'s Macro Split',
 			'home.intakeProgress.target' => 'Target',
 			'home.intakeProgress.current' => 'Current',
+			'home.intakeHistory.title' => '7-Day Macro History',
+			'home.intakeHistory.noHistoryYet' => 'No history yet',
+			'home.intakeHistory.startLogging' => 'Start logging meals to see your\n7-day macro trends here',
 			'home.mealLog.title' => 'Logged Meals',
 			'home.mealLog.emptyMessage' => 'Snap a picture of your last meal to log here.',
 			'home.mealLog.noMealsToday' => 'No meals recorded for today',
 			'home.mealLog.seeAllMeals' => 'See all meals',
 			'home.mealDescription.title' => 'Quick Add with AI',
 			'home.mealDescription.description' => 'Describe your meal, and let AI handle the details.',
-			'home.mealDescription.hint' => 'eg. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...',
+			'home.mealDescription.hint' => 'e.g. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...',
 			'home.mealDescription.analyzeMeal' => 'Analyze meal',
 			'home.favoriteMeals.title' => 'Favorite Meals',
 			'home.favoriteMeals.description' => 'Quickly add one of your favorite meals.',
@@ -1316,7 +2184,6 @@ extension on Translations {
 			'home.connectHealth.description' => 'Sync your nutrition data with Health Connect',
 			'home.connectHealth.install' => 'Install',
 			'home.connectHealth.connect' => 'Connect',
-			'history.title' => 'History',
 			'history.noMeals' => 'No meals recorded',
 			'history.emptyMessage' => 'Snap a picture of your last meal to log here.',
 			'history.today' => 'Today',
@@ -1324,23 +2191,36 @@ extension on Translations {
 			'meal.ohNo' => 'Oh no!',
 			'meal.delete' => 'Delete',
 			'meal.editMeal' => 'Edit Meal',
+			'meal.addMeal' => 'Add Meal',
 			'meal.saveMeal' => 'Save Meal',
+			'meal.save' => 'Save',
+			'meal.mealName' => 'Meal Name',
+			'meal.mealQuantity' => 'Meal Quantity',
+			'meal.mealQuantityHint' => 'e.g., 1 bowl, 2 slices',
+			'meal.timeOfMeal' => 'Time of Meal',
+			'meal.timeOfMealHint' => 'Select the time you had your meal',
+			'meal.mealType' => 'Meal Type',
+			'meal.nutrition.calories' => 'Calories',
+			'meal.nutrition.carbs' => 'Carbs (g)',
+			'meal.nutrition.protein' => 'Protein (g)',
+			'meal.nutrition.fat' => 'Fat (g)',
+			'meal.nutrition.fiber' => 'Fiber (g)',
 			'meal.deleteConfirmation.title' => 'Delete Meal',
 			'meal.deleteConfirmation.message' => 'Are you sure you want to delete this meal entry?',
 			'meal.deleteConfirmation.cancel' => 'Cancel',
 			'meal.deleteConfirmation.delete' => 'Delete',
 			'meal.addedToLog' => 'Meal added to your log!',
-			'meal.couldNotAdd' => 'Could not add meal: {error}',
+			'meal.couldNotAdd' => ({required Object error}) => 'Could not add meal: ${error}',
 			'meal.removedFromFavorites' => 'Removed from favorites!',
 			'meal.savedAsFavorite' => 'Meal saved as favorite!',
-			'meal.couldNotUpdateFavorite' => 'Could not update favorite: {error}',
-			'meal.failedToProcess' => 'Failed to process: {error}',
-			'meal.failedToProcessImage' => 'Failed to process image: {error}',
-			'meal.errorCompressingImage' => 'Error compressing image: {error}',
+			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Could not update favorite: ${error}',
+			'meal.failedToProcess' => ({required Object error}) => 'Failed to process: ${error}',
+			'meal.failedToProcessImage' => ({required Object error}) => 'Failed to process image: ${error}',
+			'meal.errorCompressingImage' => ({required Object error}) => 'Error compressing image: ${error}',
+			'meal.failedToSave' => 'Failed to save data. Please try again.',
 			'favorites.title' => 'Favorites',
 			'favorites.empty' => 'No favorite meals yet.',
 			'profile.title' => 'Profile',
-			'profile.editProfile' => 'Edit Profile',
 			'profile.noProfileData' => 'No profile data found',
 			'profile.yourProfile' => 'Your Profile',
 			'profile.viewAndManage' => 'View and manage your health information',
@@ -1358,6 +2238,17 @@ extension on Translations {
 			'profile.notSet' => 'Not set',
 			'profile.years' => 'years',
 			'profile.updatedSuccessfully' => 'Profile updated successfully!',
+			'profile.calculatedValues.bmr' => 'BMR',
+			'profile.calculatedValues.tdee' => 'TDEE',
+			'profile.calculatedValues.dailyGoal' => 'Daily Goal',
+			'profile.calculatedValues.calPerDay' => 'cal/day',
+			'profile.calculatedValues.notAvailable' => 'N/A',
+			'healthScore.title' => 'Health Score',
+			'healthScore.whyThisScore' => 'Why this score?',
+			'healthScore.note' => 'This score is an AI estimate based on the identified ingredients and nutritional density. Always consult a professional for dietary advice.',
+			'healthScore.unhealthy' => 'Unhealthy',
+			'healthScore.healthy' => 'Healthy',
+			'healthScore.neutral' => 'Neutral',
 			'editProfile.title' => 'Edit Profile',
 			'editProfile.sections.personalInformation' => 'PERSONAL INFORMATION',
 			'editProfile.sections.physicalMeasurements' => 'PHYSICAL MEASUREMENTS',
@@ -1374,6 +2265,25 @@ extension on Translations {
 			'editProfile.imperialFtIn' => 'Imperial (ft/in)',
 			'editProfile.metricKg' => 'Metric (kg)',
 			'editProfile.imperialLbs' => 'Imperial (lbs)',
+			'editProfile.genders.male' => 'Male',
+			'editProfile.genders.female' => 'Female',
+			'editProfile.genders.other' => 'Other',
+			'editProfile.weightGoals.loseWeight.name' => 'Lose Weight',
+			'editProfile.weightGoals.loseWeight.description' => 'Create a calorie deficit to lose weight',
+			'editProfile.weightGoals.maintainWeight.name' => 'Maintain Weight',
+			'editProfile.weightGoals.maintainWeight.description' => 'Maintain your current weight',
+			'editProfile.weightGoals.gainWeight.name' => 'Gain Weight',
+			'editProfile.weightGoals.gainWeight.description' => 'Create a calorie surplus to gain weight',
+			'editProfile.activityLevels.sedentary.name' => 'Sedentary',
+			'editProfile.activityLevels.sedentary.description' => 'Little to no exercise',
+			'editProfile.activityLevels.lightlyActive.name' => 'Lightly Active',
+			'editProfile.activityLevels.lightlyActive.description' => 'Light exercise 1-3 days/week',
+			'editProfile.activityLevels.moderatelyActive.name' => 'Moderately Active',
+			'editProfile.activityLevels.moderatelyActive.description' => 'Moderate exercise 3-5 days/week',
+			'editProfile.activityLevels.veryActive.name' => 'Very Active',
+			'editProfile.activityLevels.veryActive.description' => 'Hard exercise 6-7 days/week',
+			'editProfile.activityLevels.extremelyActive.name' => 'Extremely Active',
+			'editProfile.activityLevels.extremelyActive.description' => 'Very hard exercise, physical job',
 			'settings.title' => 'Settings',
 			'settings.sections.profile' => 'PROFILE',
 			'settings.sections.localization' => 'LOCALIZATION',
@@ -1384,12 +2294,19 @@ extension on Translations {
 			'settings.editProfile.title' => 'Edit Profile',
 			'settings.editProfile.subtitle' => 'Update your personal information',
 			'settings.language.title' => 'Language',
+			'settings.language.subtitle' => 'Choose your preferred language',
 			'settings.heightUnit.title' => 'Height Unit',
 			'settings.weightUnit.title' => 'Weight Unit',
 			'settings.mealReminders.title' => 'Meal Reminders',
 			'settings.mealReminders.subtitle' => 'Stay on track with timely alerts',
 			'settings.sendFeedback.title' => 'Send Feedback',
 			'settings.sendFeedback.subtitle' => 'Help us improve Calorify',
+			'settings.sendFeedback.emailSubject' => 'Calorify App Feedback',
+			'settings.sendFeedback.emailBodyPrefix' => 'Please provide your feedback below:',
+			'settings.sendFeedback.appVersion' => 'App Version',
+			'settings.sendFeedback.device' => 'Device',
+			'settings.sendFeedback.osVersion' => 'OS Version',
+			'settings.sendFeedback.uid' => 'UID',
 			'settings.clearAllData.title' => 'Clear All Data',
 			'settings.clearAllData.subtitle' => 'Irreversibly delete all your information',
 			'settings.clearAllData.confirmationTitle' => 'Clear All Data?',
@@ -1409,15 +2326,15 @@ extension on Translations {
 			'reminders.lunch' => 'Lunch',
 			'reminders.dinner' => 'Dinner',
 			'reminders.snack' => 'Snack',
+			'reminders.unknown' => 'Unknown',
 			'reminders.change' => 'Change',
 			'reminders.enableNotifications' => 'Enable Notifications',
 			'reminders.skipForNow' => 'Skip for now',
 			'reminders.saveChanges' => 'Save Changes',
-			'reminders.continue_' => 'Continue',
 			'reminders.enabledSuccessfully' => 'Notifications enabled successfully!',
 			'reminders.permissionDenied' => 'Notification permission denied',
-			'reminders.errorEnabling' => 'Error enabling notifications: {error}',
-			'reminders.errorCompletingSetup' => 'Error completing setup: {error}',
+			'reminders.errorEnabling' => ({required Object error}) => 'Error enabling notifications: ${error}',
+			'reminders.errorCompletingSetup' => ({required Object error}) => 'Error completing setup: ${error}',
 			'notifications.breakfast.title' => 'Breakfast Time! 🍳',
 			'notifications.breakfast.body' => 'Don\'t forget to log your breakfast',
 			'notifications.lunch.title' => 'Lunch Time! 🥗',
@@ -1450,33 +2367,53 @@ extension on Translations {
 			'disclaimer.weightEstimate.waterWeight.description' => 'Normal daily weight can fluctuate significantly due to water retention, digestion, and timing. The estimate does not account for these daily changes.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Professional Guidance',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.',
-			'common.cancel' => 'Cancel',
-			'common.save' => 'Save',
-			'common.delete' => 'Delete',
-			'common.edit' => 'Edit',
 			'common.close' => 'Close',
 			'common.kContinue' => 'Continue',
-			'common.skip' => 'Skip',
-			'common.error' => 'Error',
-			'common.loading' => 'Loading...',
-			'common.notSet' => 'Not set',
-			'common.today' => 'Today',
-			'common.yesterday' => 'Yesterday',
 			'errors.loadingProfileData' => 'Error loading profile data',
-			'errors.generic' => 'An error occurred. Please try again.',
+			'errors.somethingWentWrong' => 'Something went wrong.',
 			'debug.title' => 'Debug Options',
+			'debug.sections.notifications' => 'Notifications',
+			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.appInfo' => 'App Info',
 			'debug.showActiveNotifications' => 'Show Active Notifications',
 			'debug.scheduleTestNotification' => 'Schedule Test Notification (10s)',
 			'debug.triggerBreakfastNotification' => 'Trigger Breakfast Notification',
 			'debug.cancelAllNotifications' => 'Cancel All Notifications',
 			'debug.activeNotifications' => 'Active Notifications',
-			'debug.id' => 'ID: {id}',
+			'debug.noTitle' => 'No Title',
+			'debug.noBody' => 'No Body',
+			'debug.fetchTodaysSteps' => 'Fetch Today\'s Steps',
+			'debug.fetchTodaysCalories' => 'Fetch Today\'s Calories',
 			'debug.fetchLatestWeight' => 'Fetch Latest Weight',
 			'debug.fetchLatestHeight' => 'Fetch Latest Height',
 			'debug.writeTestWeight' => 'Write Test Weight (70kg)',
 			'debug.writeTestHeight' => 'Write Test Height (175cm)',
 			'debug.syncLast7Days' => 'Sync Last 7 Days',
+			'debug.sync7DaysTitle' => '7-Day Sync',
 			'debug.checkCurrentLocale' => 'Check Current Locale',
+			'debug.currentLocale' => 'Current Locale',
+			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Language: ${languageCode}\nCountry: ${countryCode}\nUnit System: ${unitSystem}',
+			'debug.latestWeight' => 'Latest Weight',
+			'debug.latestHeight' => 'Latest Height',
+			'debug.todaysCalories' => 'Today\'s Calories',
+			'debug.totalCaloriesBurned' => ({required Object calories}) => 'Total calories burned: ${calories}',
+			'debug.syncSuccess' => ({required Object count}) => 'Successfully fetched ${count} data points for Steps, Calories, and Weight over the last 7 days.',
+			'debug.noWeightData' => 'No weight data found in the last 30 days.',
+			'debug.noHeightData' => 'No height data found in the last year.',
+			'debug.noCalorieData' => 'No calorie data found for today.',
+			'debug.weightWritten' => 'Successfully wrote test weight (70kg).',
+			'debug.weightWriteFailed' => 'Failed to write test weight.',
+			'debug.heightWritten' => 'Successfully wrote test height (175cm).',
+			'debug.heightWriteFailed' => 'Failed to write test height.',
+			'debug.noNotifications' => 'No active notifications.',
+			'debug.testNotificationScheduled' => 'Test notification scheduled for 10 seconds from now.',
+			'debug.testNotificationBody' => 'This is a test notification scheduled for 10 seconds from now.',
+			'debug.breakfastNotificationTriggered' => 'Breakfast notification triggered.',
+			'debug.allNotificationsCancelled' => 'All notifications cancelled.',
+			'debug.fetchingData' => 'Fetching data for the last 7 days...',
+			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'health.syncFailed' => 'Could not sync to Health Connect',
+			'health.mealSynced' => 'Meal synced with Health Connect',
 			_ => null,
 		};
 	}

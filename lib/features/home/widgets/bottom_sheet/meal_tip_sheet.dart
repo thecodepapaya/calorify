@@ -373,11 +373,9 @@ class _MealTipState extends State<_MealTip> {
       });
     } on Exception catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          snack(
-            t.meal.couldNotUpdateFavorite.replaceAll('{error}', e.toString()),
-          ),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(snack(t.meal.couldNotUpdateFavorite(error: e)));
       }
     }
   }
