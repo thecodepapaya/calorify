@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -263,8 +264,8 @@ class NotificationService {
     if (breakfastEnabled) {
       await scheduleReminder(
         id: 1,
-        title: 'Breakfast Time! 🍳',
-        body: 'Don\'t forget to log your breakfast',
+        title: t.notifications.breakfast.title,
+        body: t.notifications.breakfast.body,
         scheduledTime: breakfastTime,
         payload: 'meal_reminder_breakfast',
         channel: remindersChannel,
@@ -274,8 +275,8 @@ class NotificationService {
     if (lunchEnabled) {
       await scheduleReminder(
         id: 2,
-        title: 'Lunch Time! 🥗',
-        body: 'Time to log your lunch',
+        title: t.notifications.lunch.title,
+        body: t.notifications.lunch.body,
         scheduledTime: lunchTime,
         payload: 'meal_reminder_lunch',
         channel: remindersChannel,
@@ -285,8 +286,8 @@ class NotificationService {
     if (dinnerEnabled) {
       await scheduleReminder(
         id: 3,
-        title: 'Dinner Time! 🍽️',
-        body: 'Don\'t forget to log your dinner',
+        title: t.notifications.dinner.title,
+        body: t.notifications.dinner.body,
         scheduledTime: dinnerTime,
         payload: 'meal_reminder_dinner',
         channel: remindersChannel,
@@ -296,8 +297,8 @@ class NotificationService {
     if (snackEnabled) {
       await scheduleReminder(
         id: 4,
-        title: 'Snack Time! 🍎',
-        body: 'Time for a healthy snack',
+        title: t.notifications.snack.title,
+        body: t.notifications.snack.body,
         scheduledTime: snackTime,
         payload: 'meal_reminder_snack',
         channel: remindersChannel,

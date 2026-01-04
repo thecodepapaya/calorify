@@ -1,12 +1,30 @@
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/core/utilities/locale_utils.dart';
 
 class OnboardingService {
   OnboardingService._();
 
   static final _instance = OnboardingService._();
   static OnboardingService get instance => _instance;
+
+  // --- Constants for health calculations ---
+
+  /// Mifflin-St Jeor Equation constants
+  static const double _bmrWeightMult = 10.0;
+  static const double _bmrHeightMult = 6.25;
+  static const double _bmrAgeMult = 5.0;
+  static const double _bmrMaleOffset = 5.0;
+  static const double _bmrFemaleOffset = -161.0;
+
+  /// Calorie goal constants
+  static const int _weightLossDeficit = 500; // ~0.5kg/week loss
+  static const int _weightGainSurplus = 500; // ~0.5kg/week gain
+
+  /// Ideal weight calculation constants
+  /// 22.0 is the healthy midpoint of the BMI range (18.5 - 24.9)
+  static const double _targetBMI = 22.0;
 
   /// Check if onboarding has been completed
   Future<bool> isOnboardingCompleted() async {
@@ -36,20 +54,30 @@ class OnboardingService {
     // await DatabaseService().deleteUserProfile();
   }
 
-  /// Calculate BMR (Basal Metabolic Rate) using Mifflin-St Jeor Equation
+  /// Calculate BMR (Basal Metabolic Rate) using Mifflin-St Jeor Equation:
+  /// BMR = (10 * weight_kg) + (6.25 * height_cm) - (5 * age_y) + offset
   double? calculateBMR(UserProfile data) {
+    final height = _getNormalizedHeight(data);
+    final weight = _getNormalizedWeight(data);
+
     if (data.dateOfBirth == null ||
         data.gender == null ||
-        data.weight == null ||
-        data.height == null) {
+        weight == null ||
+        height == null) {
       return null;
     }
     final age = data.age;
     if (age == null) return null;
+
+    final baseBmr =
+        (_bmrWeightMult * weight) +
+        (_bmrHeightMult * height) -
+        (_bmrAgeMult * age);
+
     if (data.gender == Gender.male) {
-      return (10 * data.weight!) + (6.25 * data.height!) - (5 * age) + 5;
+      return baseBmr + _bmrMaleOffset;
     } else {
-      return (10 * data.weight!) + (6.25 * data.height!) - (5 * age) - 161;
+      return baseBmr + _bmrFemaleOffset;
     }
   }
 
@@ -69,12 +97,53 @@ class OnboardingService {
 
     switch (data.weightGoal!) {
       case WeightGoal.loseWeight:
-        return tdee - 500; // 500 calorie deficit for ~1lb/week loss
+        return tdee - _weightLossDeficit;
       case WeightGoal.maintainWeight:
         return tdee;
       case WeightGoal.gainWeight:
-        return tdee + 500; // 500 calorie surplus for ~1lb/week gain
+        return tdee + _weightGainSurplus;
     }
+  }
+
+  /// Calculate ideal weight based on height using the formula:
+  /// Ideal Weight (kg) = Target BMI * (Height in meters)^2
+  double? calculateIdealWeight(UserProfile data) {
+    final heightCm = _getNormalizedHeight(data);
+    if (heightCm == null) return null;
+
+    final heightInMeters = heightCm / 100;
+    final idealWeightKg = _targetBMI * (heightInMeters * heightInMeters);
+
+    // Return in user's preferred weight unit
+    return data.weightUnit.isMetric
+        ? idealWeightKg
+        : LocaleUtils.convertWeightToImperial(idealWeightKg);
+  }
+
+  /// Calculate BMI (Body Mass Index)
+  /// BMI = weight_kg / (height_m^2)
+  double? calculateBMI(UserProfile data) {
+    final heightCm = _getNormalizedHeight(data);
+    final weightKg = _getNormalizedWeight(data);
+
+    if (heightCm == null || weightKg == null || heightCm <= 0) return null;
+
+    final heightM = heightCm / 100;
+    return weightKg / (heightM * heightM);
+  }
+
+  double? _getNormalizedHeight(UserProfile data) {
+    if (data.height == null) return null;
+    return data.heightUnit.isMetric
+        ? data.height
+        : LocaleUtils.convertHeightToMetric(data.height!);
+  }
+
+  double? _getNormalizedWeight(UserProfile data) {
+    if (data.weight == null) return null;
+    return data.weightUnit.isMetric
+        ? data.weight
+        : LocaleUtils.convertWeightToMetric(data.weight!);
   }
 
   /// Setup Health Connect integration

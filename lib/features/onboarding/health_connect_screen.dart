@@ -1,5 +1,6 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:calorify/shared_widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
@@ -31,178 +32,174 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
       _healthConnectEnabled = isAuthorized;
       _isLoading = false;
       if (isAuthorized) {
-        _statusMessage = 'Health Connect is connected.';
+        _statusMessage = t.onboarding.healthConnect.statusConnected;
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Connect with Health Connect',
-                        style: Theme.of(context).textTheme.headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Sync your health data for better insights and automatic calorie tracking',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      const SizedBox(height: 32),
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
-                      // Health Connect Benefits
-                      _buildBenefitItem(
-                        context,
-                        icon: LucideIcons.activity,
-                        title: 'Automatic Calorie Tracking',
-                        description:
-                            'Track calories burned from your fitness apps',
-                      ),
-                      const SizedBox(height: 16),
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.zero,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 48),
+                  Text(
+                    t.onboarding.healthConnect.title,
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    t.onboarding.healthConnect.description,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
 
-                      _buildBenefitItem(
-                        context,
-                        icon: LucideIcons.trendingUp,
-                        title: 'Progress Insights',
-                        description:
-                            'Get detailed insights into your health trends',
-                      ),
-                      const SizedBox(height: 16),
+                  // Health Connect Benefits
+                  _buildBenefitItem(
+                    context,
+                    icon: LucideIcons.activity,
+                    title: t.onboarding.healthConnect.automaticTracking.title,
+                    description:
+                        t
+                            .onboarding
+                            .healthConnect
+                            .automaticTracking
+                            .description,
+                  ),
+                  const SizedBox(height: 16),
 
-                      _buildBenefitItem(
-                        context,
-                        icon: LucideIcons.link,
-                        title: 'Seamless Integration',
-                        description: 'Sync data from your favorite health apps',
-                      ),
-                      const SizedBox(height: 32),
+                  _buildBenefitItem(
+                    context,
+                    icon: LucideIcons.trendingUp,
+                    title: t.onboarding.healthConnect.progressInsights.title,
+                    description:
+                        t.onboarding.healthConnect.progressInsights.description,
+                  ),
+                  const SizedBox(height: 16),
 
-                      // Health Connect Status
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
+                  _buildBenefitItem(
+                    context,
+                    icon: LucideIcons.link,
+                    title: t.onboarding.healthConnect.seamlessIntegration.title,
+                    description:
+                        t
+                            .onboarding
+                            .healthConnect
+                            .seamlessIntegration
+                            .description,
+                  ),
+                  const SizedBox(height: 32),
+
+                  // Health Connect Status
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color:
+                          _healthConnectEnabled
+                              ? Colors.green.withValues(alpha: 0.1)
+                              : colorScheme.surfaceContainerHighest.withValues(
+                                alpha: 0.5,
+                              ),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color:
+                            _healthConnectEnabled
+                                ? Colors.green
+                                : colorScheme.outline.withValues(alpha: 0.2),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          _healthConnectEnabled
+                              ? LucideIcons.check
+                              : LucideIcons.info,
                           color:
                               _healthConnectEnabled
-                                  ? Colors.green.withOpacity(0.1)
-                                  : Theme.of(
-                                    context,
-                                  ).colorScheme.surfaceVariant,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color:
+                                  ? Colors.green
+                                  : colorScheme.onSurfaceVariant,
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
                                 _healthConnectEnabled
-                                    ? Colors.green
-                                    : Theme.of(context).colorScheme.outline,
+                                    ? t.onboarding.healthConnect.connected
+                                    : t.onboarding.healthConnect.notConnected,
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color:
+                                      _healthConnectEnabled
+                                          ? Colors.green
+                                          : colorScheme.onSurface,
+                                ),
+                              ),
+                              if (_statusMessage.isNotEmpty) ...[
+                                const SizedBox(height: 4),
+                                Text(
+                                  _statusMessage,
+                                  style: theme.textTheme.bodySmall?.copyWith(
+                                    color: colorScheme.onSurfaceVariant,
+                                  ),
+                                ),
+                              ],
+                            ],
                           ),
                         ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              _healthConnectEnabled
-                                  ? LucideIcons.check
-                                  // TODO: Add a warning icon
-                                  : LucideIcons.messageSquareWarning600,
-                              color:
-                                  _healthConnectEnabled
-                                      ? Colors.green
-                                      : Theme.of(
-                                        context,
-                                      ).colorScheme.onSurfaceVariant,
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    _healthConnectEnabled
-                                        ? 'Health Connect Connected'
-                                        : 'Health Connect Not Connected',
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.titleMedium?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color:
-                                          _healthConnectEnabled
-                                              ? Colors.green
-                                              : Theme.of(
-                                                context,
-                                              ).colorScheme.onSurface,
-                                    ),
-                                  ),
-                                  if (_statusMessage.isNotEmpty) ...[
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      _statusMessage,
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.bodySmall?.copyWith(
-                                        color:
-                                            Theme.of(
-                                              context,
-                                            ).colorScheme.onSurfaceVariant,
-                                      ),
-                                    ),
-                                  ],
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                children: [
-                  if (_healthConnectEnabled)
-                    PrimaryButton(
-                      analyticsEvent:
-                          AnalyticsEvent.onboardingContinueHealthConnect,
-                      onPressed: _navigateToReminderNotifications,
-                      text: 'Continue',
-                      trailingIcon: LucideIcons.arrowRight,
-                    )
-                  else ...[
-                    PrimaryButton(
-                      analyticsEvent:
-                          AnalyticsEvent.onboardingSetupHealthConnect,
-                      onPressed: _isLoading ? null : _setupHealthConnect,
-                      text: 'Setup Health Connect',
-                      leadingIcon: LucideIcons.link,
-                      isLoading: _isLoading,
-                    ),
-                    const SizedBox(height: 16),
-                    SecondaryButton(
-                      analyticsEvent:
-                          AnalyticsEvent.onboardingSkipHealthConnect,
-                      onPressed: _navigateToReminderNotifications,
-                      text: 'Skip for now',
-                    ),
-                  ],
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24.0),
+            child: Column(
+              children: [
+                if (_healthConnectEnabled)
+                  PrimaryButton(
+                    analyticsEvent:
+                        AnalyticsEvent.onboardingContinueHealthConnect,
+                    onPressed: _navigateToReminderNotifications,
+                    text: t.common.kContinue,
+                    trailingIcon: LucideIcons.arrowRight,
+                  )
+                else ...[
+                  PrimaryButton(
+                    analyticsEvent: AnalyticsEvent.onboardingSetupHealthConnect,
+                    onPressed: _isLoading ? null : _setupHealthConnect,
+                    text: t.onboarding.healthConnect.setup,
+                    leadingIcon: LucideIcons.link,
+                    isLoading: _isLoading,
+                  ),
+                  const SizedBox(height: 16),
+                  SecondaryButton(
+                    analyticsEvent: AnalyticsEvent.onboardingSkipHealthConnect,
+                    onPressed: _navigateToReminderNotifications,
+                    text: t.onboarding.healthConnect.skipForNow,
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -264,8 +261,8 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
         _healthConnectEnabled = success;
         _statusMessage =
             success
-                ? 'Health Connect has been successfully connected!'
-                : 'Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.';
+                ? t.onboarding.healthConnect.statusSuccess
+                : t.onboarding.healthConnect.statusPermissionDenied;
       });
 
       if (success) {
@@ -274,7 +271,9 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
     } catch (e) {
       setState(() {
         _healthConnectEnabled = false;
-        _statusMessage = 'Error setting up Health Connect: ${e.toString()}';
+        _statusMessage = t.onboarding.healthConnect.statusError(
+          error: e.toString(),
+        );
       });
     } finally {
       setState(() => _isLoading = false);

@@ -2,6 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:calorify/core/utilities/profile_localization.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -35,293 +38,320 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     if (_isLoading) {
       return const Scaffold(body: Center(child: AppLoader()));
     }
 
     if (_userProfile == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Profile'), centerTitle: true),
-        body: const Center(child: Text('No profile data found')),
+        backgroundColor: colorScheme.surface,
+        appBar: AppBar(
+          title: Text(t.profile.title),
+          centerTitle: true,
+          backgroundColor: colorScheme.surface,
+          elevation: 0,
+        ),
+        body: Center(child: Text(t.profile.noProfileData)),
       );
     }
 
     return Scaffold(
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: Text(t.profile.title),
         centerTitle: true,
+        backgroundColor: colorScheme.surface,
+        elevation: 0,
         actions: [
           IconButton(
             onPressed: _editProfile,
-            icon: const Icon(LucideIcons.pencil),
+            icon: const Icon(LucideIcons.pencil, size: 20),
+            iconSize: 20,
+            padding: const EdgeInsets.all(8),
+            constraints: const BoxConstraints(),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Profile Header
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        children: [
+          // Basic Information Section
+          _buildCardSection(t.profile.sections.profile, [
             _buildProfileHeader(context),
-            const SizedBox(height: 32),
+          ]),
+          const SizedBox(height: 16),
+          _buildCardSection(t.profile.sections.basicInformation, [
+            _buildPersonalDetailsTile(),
+            _buildHeightTile(),
+            _buildWeightTile(),
+            if (_userProfile!.age != null) _buildAgeTile(),
+          ]),
+          const SizedBox(height: 16),
 
-            // Basic Information Section
-            _buildSectionHeader(context, 'Basic Information'),
-            const SizedBox(height: 16),
-            _buildInfoCard(
-              context,
-              icon: LucideIcons.user,
-              title: 'Personal Details',
-              children: [
-                _buildInfoRow(
-                  'Gender',
-                  _userProfile!.gender?.displayName ?? 'Not set',
-                ),
-                _buildInfoRow('Age', '${_userProfile!.age ?? 'N/A'} years'),
-                _buildInfoRow(
-                  'Height',
-                  '${_userProfile!.height?.toStringAsFixed(0) ?? 'N/A'} cm',
-                ),
-                _buildInfoRow(
-                  'Weight',
-                  '${_userProfile!.weight?.toStringAsFixed(1) ?? 'N/A'} kg',
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
+          // Goals & Activity Section
+          _buildCardSection(t.profile.sections.goalsAndActivity, [
+            _buildWeightGoalTile(),
+            _buildActivityLevelTile(),
+          ]),
+          const SizedBox(height: 16),
 
-            // Goals Section
-            _buildSectionHeader(context, 'Goals & Activity'),
-            const SizedBox(height: 16),
-            _buildInfoCard(
-              context,
-              icon: LucideIcons.target,
-              title: 'Weight Goal',
-              children: [
-                _buildInfoRow(
-                  'Goal',
-                  _userProfile!.weightGoal?.displayName ?? 'Not set',
-                ),
-                _buildInfoRow(
-                  'Description',
-                  _userProfile!.weightGoal?.description ?? 'Not set',
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _buildInfoCard(
-              context,
-              icon: LucideIcons.activity,
-              title: 'Activity Level',
-              children: [
-                _buildInfoRow(
-                  'Level',
-                  _userProfile!.activityLevel?.displayName ?? 'Not set',
-                ),
-                _buildInfoRow(
-                  'Description',
-                  _userProfile!.activityLevel?.description ?? 'Not set',
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-
-            // Calculated Values Section
-            _buildSectionHeader(context, 'Calculated Values'),
-            const SizedBox(height: 16),
-            _buildCalculatedValuesCard(context),
-            const SizedBox(height: 32),
-          ],
-        ),
+          // Calculated Values Section
+          _buildCardSection(t.profile.sections.calculatedValues, [
+            _buildCalculatedValuesTile(),
+          ]),
+          const SizedBox(height: 32),
+        ],
       ),
+    );
+  }
+
+  Widget _buildCardSection(String title, List<Widget> children) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 8, bottom: 8),
+          child: Text(
+            title.toUpperCase(),
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: colorScheme.primary,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.2,
+            ),
+          ),
+        ),
+        Card(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(
+              color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+            ),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Column(children: children),
+        ),
+      ],
     );
   }
 
   Widget _buildProfileHeader(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [colorScheme.primary, colorScheme.primaryContainer],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      leading: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+          shape: BoxShape.circle,
         ),
-        borderRadius: BorderRadius.circular(16),
+        child: Icon(LucideIcons.user, color: colorScheme.primary, size: 24),
       ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Icon(LucideIcons.user, color: Colors.white, size: 32),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Your Profile',
-                  style: textTheme.headlineSmall?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'View and manage your health information',
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: Colors.white.withOpacity(0.9),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+      title: Text(
+        t.profile.yourProfile,
+        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
       ),
+      subtitle: Text(t.profile.viewAndManage, style: TextStyle(fontSize: 13)),
     );
   }
 
-  Widget _buildSectionHeader(BuildContext context, String title) {
-    return Text(
-      title,
-      style: Theme.of(
-        context,
-      ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+  Widget _buildPersonalDetailsTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final gender = _userProfile!.gender?.displayName ?? t.profile.notSet;
+
+    return ListTile(
+      leading: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(LucideIcons.user, color: colorScheme.primary, size: 20),
+      ),
+      title: Text(
+        t.profile.gender,
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+      subtitle: Text(gender),
     );
   }
 
-  Widget _buildInfoCard(
-    BuildContext context, {
-    required IconData icon,
-    required String title,
-    required List<Widget> children,
-  }) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
+  Widget _buildHeightTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final height = _userProfile!.height;
+    final heightUnit = _userProfile!.heightUnit;
 
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: colorScheme.outline.withOpacity(0.2)),
+    String heightText = t.profile.notSet;
+    if (height != null) {
+      heightText = LocaleUtils.formatHeight(height, heightUnit);
+    }
+
+    return ListTile(
+      leading: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(LucideIcons.ruler, color: colorScheme.primary, size: 20),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(icon, color: colorScheme.primary, size: 20),
-              const SizedBox(width: 8),
-              Text(
-                title,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          ...children,
-        ],
+      title: Text(
+        t.profile.height,
+        style: TextStyle(fontWeight: FontWeight.w600),
       ),
+      subtitle: Text(heightText),
     );
   }
 
-  Widget _buildInfoRow(String label, String value, {Color? valueColor}) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
+  Widget _buildWeightTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final weight = _userProfile!.weight;
+    final weightUnit = _userProfile!.weightUnit;
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 100,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                color: colorScheme.onSurfaceVariant,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              value,
-              style: TextStyle(
-                color: valueColor ?? colorScheme.onSurface,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ],
+    String weightText = t.profile.notSet;
+    if (weight != null) {
+      final unit = weightUnit.isMetric ? 'kg' : 'lbs';
+      weightText =
+          '${weight.toStringAsFixed(weightUnit.weightPrecision)} $unit';
+    }
+
+    return ListTile(
+      leading: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(LucideIcons.scale, color: colorScheme.primary, size: 20),
       ),
+      title: Text(
+        t.profile.weight,
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+      subtitle: Text(weightText),
     );
   }
 
-  Widget _buildCalculatedValuesCard(BuildContext context) {
+  Widget _buildAgeTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final age = _userProfile!.age;
+
+    return ListTile(
+      leading: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(LucideIcons.calendar, color: colorScheme.primary, size: 20),
+      ),
+      title: Text(t.profile.age, style: TextStyle(fontWeight: FontWeight.w600)),
+      subtitle: Text('$age ${t.profile.years}'),
+    );
+  }
+
+  Widget _buildWeightGoalTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final weightGoal = _userProfile!.weightGoal;
+
+    return ListTile(
+      leading: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(LucideIcons.target, color: colorScheme.primary, size: 20),
+      ),
+      title: Text(
+        t.profile.weightGoal,
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+      subtitle: Text(weightGoal?.displayName ?? t.profile.notSet),
+    );
+  }
+
+  Widget _buildActivityLevelTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final activityLevel = _userProfile!.activityLevel;
+
+    return ListTile(
+      leading: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(LucideIcons.activity, color: colorScheme.primary, size: 20),
+      ),
+      title: Text(
+        t.profile.activityLevel,
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+      subtitle: Text(activityLevel?.displayName ?? t.profile.notSet),
+    );
+  }
+
+  Widget _buildCalculatedValuesTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final bmr = OnboardingService.instance.calculateBMR(_userProfile!);
     final tdee = OnboardingService.instance.calculateTDEE(_userProfile!);
     final dailyCalorieGoal = OnboardingService.instance
         .calculateDailyCalorieGoal(_userProfile!);
 
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: colorScheme.primaryContainer.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: colorScheme.primary.withOpacity(0.3)),
+    return ListTile(
+      leading: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: colorScheme.tertiaryContainer.withValues(alpha: 0.4),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          LucideIcons.calculator,
+          color: colorScheme.tertiary,
+          size: 20,
+        ),
       ),
-      child: Column(
+      title: Text(
+        t.profile.healthMetrics,
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+      subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(
-                LucideIcons.calculator,
-                color: colorScheme.primary,
-                size: 20,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                'Calculated Values',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
-              ),
-            ],
+          const SizedBox(height: 4),
+          Text(
+            '${t.profile.calculatedValues.bmr}: ${bmr != null ? '${bmr.toStringAsFixed(0)} ${t.profile.calculatedValues.calPerDay}' : t.profile.calculatedValues.notAvailable}',
+            style: const TextStyle(fontSize: 13),
           ),
-          const SizedBox(height: 16),
-          _buildInfoRow(
-            'BMR',
-            bmr != null ? '${bmr.toStringAsFixed(0)} calories/day' : 'N/A',
+          const SizedBox(height: 2),
+          Text(
+            '${t.profile.calculatedValues.tdee}: ${tdee != null ? '${tdee.toStringAsFixed(0)} ${t.profile.calculatedValues.calPerDay}' : t.profile.calculatedValues.notAvailable}',
+            style: const TextStyle(fontSize: 13),
           ),
-          _buildInfoRow(
-            'TDEE',
-            tdee != null ? '${tdee.toStringAsFixed(0)} calories/day' : 'N/A',
-          ),
-          _buildInfoRow(
-            'Daily Goal',
-            dailyCalorieGoal != null
-                ? '${dailyCalorieGoal.toStringAsFixed(0)} calories/day'
-                : 'N/A',
+          const SizedBox(height: 2),
+          Text(
+            '${t.profile.calculatedValues.dailyGoal}: ${dailyCalorieGoal != null ? '${dailyCalorieGoal.toStringAsFixed(0)} ${t.profile.calculatedValues.calPerDay}' : t.profile.calculatedValues.notAvailable}',
+            style: const TextStyle(fontSize: 13),
           ),
         ],
       ),
+      isThreeLine: true,
     );
   }
 

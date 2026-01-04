@@ -2,6 +2,7 @@ import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -27,7 +28,7 @@ class DailySummaryCard extends StatelessWidget {
         children: [
           const SizedBox(width: double.infinity),
           Text(
-            'Daily Summary',
+            t.home.dailySummary.title,
             style: textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w600,
               color: colorScheme.onSurface,
@@ -57,35 +58,35 @@ class DailySummaryCard extends StatelessWidget {
                 children: [
                   NutrientTile(
                     icon: LucideIcons.flame,
-                    label: 'Calories',
+                    label: t.home.dailySummary.calories,
                     value: calories,
                     unit: 'kcal',
                     iconColor: calorieIconColor,
                   ),
                   NutrientTile(
                     icon: LucideIcons.wheat,
-                    label: 'Carbs',
+                    label: t.home.dailySummary.carbs,
                     value: carbs,
                     unit: 'g',
                     iconColor: carbsIconColor,
                   ),
                   NutrientTile(
                     icon: LucideIcons.drumstick,
-                    label: 'Protein',
+                    label: t.home.dailySummary.protein,
                     value: protein,
                     unit: 'g',
                     iconColor: proteinIconColor,
                   ),
                   NutrientTile(
                     icon: LucideIcons.egg,
-                    label: 'Fat',
+                    label: t.home.dailySummary.fat,
                     value: fat,
                     unit: 'g',
                     iconColor: fatIconColor,
                   ),
                   NutrientTile(
                     icon: LucideIcons.leaf,
-                    label: 'Fiber',
+                    label: t.home.dailySummary.fiber,
                     value: fiber,
                     unit: 'g',
                     iconColor: fiberIconColor,

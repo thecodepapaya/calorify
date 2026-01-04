@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/services/auth_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart'; // If using Provider
 
@@ -19,14 +20,14 @@ class LoginScreen extends StatelessWidget {
     final authService = AuthService.instance;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(title: Text(t.login.title)),
       body: Column(
         children: [
           Row(children: [Text('Kal')]),
           Center(
             child: ElevatedButton.icon(
               icon: const Icon(Icons.login), // Or a Google logo
-              label: const Text('Sign in with Google'),
+              label: Text(t.login.signInWithGoogle),
               onPressed: () async {
                 final userCredential = await authService.signInWithGoogle();
                 if (userCredential != null) {
@@ -37,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                   // Show a snackbar or message
                   if (!context.mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(
-                    snack('Google Sign-In failed or was cancelled.'),
+                    snack(t.login.signInFailed),
                   );
                 }
               },

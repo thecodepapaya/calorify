@@ -1,6 +1,7 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -50,141 +51,139 @@ class _ReminderNotificationsScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: widget.isEditing ? AppBar() : null,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Stay on track with reminders',
-                        style: Theme.of(context).textTheme.headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Get gentle reminders to log your meals and stay consistent with your nutrition goals',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      const SizedBox(height: 32),
-
-                      // Notification Permission Status
-                      _buildPermissionStatus(context),
-                      const SizedBox(height: 24),
-
-                      // Meal Reminder Settings
-                      if (_notificationsEnabled) ...[
-                        Text(
-                          'Meal Reminders',
-                          style: Theme.of(context).textTheme.titleMedium
-                              ?.copyWith(fontWeight: FontWeight.w600),
-                        ),
-                        const SizedBox(height: 16),
-
-                        _buildMealReminder(
-                          context,
-                          icon: LucideIcons.sunrise,
-                          title: 'Breakfast',
-                          enabled: _breakfastEnabled,
-                          time: _breakfastTime,
-                          onToggle:
-                              (enabled) =>
-                                  setState(() => _breakfastEnabled = enabled),
-                          onTimeChanged:
-                              (time) => setState(() => _breakfastTime = time),
-                        ),
-                        const SizedBox(height: 12),
-
-                        _buildMealReminder(
-                          context,
-                          icon: LucideIcons.sun,
-                          title: 'Lunch',
-                          enabled: _lunchEnabled,
-                          time: _lunchTime,
-                          onToggle:
-                              (enabled) =>
-                                  setState(() => _lunchEnabled = enabled),
-                          onTimeChanged:
-                              (time) => setState(() => _lunchTime = time),
-                        ),
-                        const SizedBox(height: 12),
-
-                        _buildMealReminder(
-                          context,
-                          icon: LucideIcons.moon,
-                          title: 'Dinner',
-                          enabled: _dinnerEnabled,
-                          time: _dinnerTime,
-                          onToggle:
-                              (enabled) =>
-                                  setState(() => _dinnerEnabled = enabled),
-                          onTimeChanged:
-                              (time) => setState(() => _dinnerTime = time),
-                        ),
-                        const SizedBox(height: 12),
-
-                        _buildMealReminder(
-                          context,
-                          icon: LucideIcons.apple,
-                          title: 'Snack',
-                          enabled: _snackEnabled,
-                          time: _snackTime,
-                          onToggle:
-                              (enabled) =>
-                                  setState(() => _snackEnabled = enabled),
-                          onTimeChanged:
-                              (time) => setState(() => _snackTime = time),
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(24.0),
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.zero,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (_notificationsEnabled)
-                    PrimaryButton(
-                      analyticsEvent: AnalyticsEvent.onboardingSetReminders,
-                      onPressed: _isLoading ? null : _continue,
-                      text: widget.isEditing ? 'Save Changes' : 'Continue',
-                      leadingIcon: widget.isEditing ? LucideIcons.check : null,
-                      trailingIcon:
-                          widget.isEditing ? null : LucideIcons.arrowRight,
-                      isLoading: _isLoading,
-                    )
-                  else ...[
-                    PrimaryButton(
-                      analyticsEvent:
-                          AnalyticsEvent.onboardingEnableNotifications,
-                      onPressed: _isLoading ? null : _enableNotifications,
-                      text: 'Enable Notifications',
-                      leadingIcon: LucideIcons.bell,
-                      isLoading: _isLoading,
+                  const SizedBox(height: 48),
+                  Text(
+                    t.reminders.title,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    t.reminders.description,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+
+                  // Notification Permission Status
+                  _buildPermissionStatus(context),
+                  const SizedBox(height: 24),
+
+                  // Meal Reminder Settings
+                  if (_notificationsEnabled) ...[
+                    Text(
+                      t.reminders.mealReminders,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: 16),
-                    SecondaryButton(
-                      analyticsEvent: AnalyticsEvent.onboardingSkipReminders,
-                      onPressed: _skip,
-                      text: 'Skip for now',
+
+                    _buildMealReminder(
+                      context,
+                      icon: LucideIcons.sunrise,
+                      title: t.reminders.breakfast,
+                      enabled: _breakfastEnabled,
+                      time: _breakfastTime,
+                      onToggle:
+                          (enabled) =>
+                              setState(() => _breakfastEnabled = enabled),
+                      onTimeChanged:
+                          (time) => setState(() => _breakfastTime = time),
+                    ),
+                    const SizedBox(height: 12),
+
+                    _buildMealReminder(
+                      context,
+                      icon: LucideIcons.sun,
+                      title: t.reminders.lunch,
+                      enabled: _lunchEnabled,
+                      time: _lunchTime,
+                      onToggle:
+                          (enabled) => setState(() => _lunchEnabled = enabled),
+                      onTimeChanged:
+                          (time) => setState(() => _lunchTime = time),
+                    ),
+                    const SizedBox(height: 12),
+
+                    _buildMealReminder(
+                      context,
+                      icon: LucideIcons.moon,
+                      title: t.reminders.dinner,
+                      enabled: _dinnerEnabled,
+                      time: _dinnerTime,
+                      onToggle:
+                          (enabled) => setState(() => _dinnerEnabled = enabled),
+                      onTimeChanged:
+                          (time) => setState(() => _dinnerTime = time),
+                    ),
+                    const SizedBox(height: 12),
+
+                    _buildMealReminder(
+                      context,
+                      icon: LucideIcons.apple,
+                      title: t.reminders.snack,
+                      enabled: _snackEnabled,
+                      time: _snackTime,
+                      onToggle:
+                          (enabled) => setState(() => _snackEnabled = enabled),
+                      onTimeChanged:
+                          (time) => setState(() => _snackTime = time),
                     ),
                   ],
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24.0),
+            child: Column(
+              children: [
+                if (_notificationsEnabled)
+                  PrimaryButton(
+                    analyticsEvent: AnalyticsEvent.onboardingSetReminders,
+                    onPressed: _isLoading ? null : _continue,
+                    text:
+                        widget.isEditing
+                            ? t.reminders.saveChanges
+                            : t.common.kContinue,
+                    leadingIcon: widget.isEditing ? LucideIcons.check : null,
+                    trailingIcon:
+                        widget.isEditing ? null : LucideIcons.arrowRight,
+                    isLoading: _isLoading,
+                  )
+                else ...[
+                  PrimaryButton(
+                    analyticsEvent:
+                        AnalyticsEvent.onboardingEnableNotifications,
+                    onPressed: _isLoading ? null : _enableNotifications,
+                    text: t.reminders.enableNotifications,
+                    leadingIcon: LucideIcons.bell,
+                    isLoading: _isLoading,
+                  ),
+                  const SizedBox(height: 16),
+                  SecondaryButton(
+                    analyticsEvent: AnalyticsEvent.onboardingSkipReminders,
+                    onPressed: _skip,
+                    text: t.reminders.skipForNow,
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -194,17 +193,17 @@ class _ReminderNotificationsScreenState
     final icon = _notificationsEnabled ? LucideIcons.check : LucideIcons.x;
     final title =
         _notificationsEnabled
-            ? 'Notifications Enabled'
-            : 'Notifications Disabled';
+            ? t.reminders.notificationsEnabled
+            : t.reminders.notificationsDisabled;
     final subtitle =
         _notificationsEnabled
-            ? 'You\'ll receive meal reminders'
-            : 'Enable notifications to get meal reminders';
+            ? t.reminders.enabledSubtitle
+            : t.reminders.disabledSubtitle;
 
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: color),
       ),
@@ -227,7 +226,7 @@ class _ReminderNotificationsScreenState
                 Text(
                   subtitle,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: color.withOpacity(0.8),
+                    color: color.withValues(alpha: 0.8),
                   ),
                 ),
               ],
@@ -254,8 +253,8 @@ class _ReminderNotificationsScreenState
             enabled
                 ? Theme.of(
                   context,
-                ).colorScheme.primaryContainer.withOpacity(0.3)
-                : Theme.of(context).colorScheme.surfaceVariant,
+                ).colorScheme.primaryContainer.withValues(alpha: 0.3)
+                : Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color:
@@ -292,7 +291,7 @@ class _ReminderNotificationsScreenState
                 if (enabled) ...[
                   const SizedBox(height: 4),
                   Text(
-                    '${time.format(context)}',
+                    time.format(context),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.primary,
                     ),
@@ -304,7 +303,7 @@ class _ReminderNotificationsScreenState
           if (enabled)
             TextButton(
               onPressed: () => _selectTime(context, time, onTimeChanged),
-              child: Text('Change'),
+              child: Text(t.reminders.change),
             ),
           Switch(value: enabled, onChanged: onToggle),
         ],
@@ -338,17 +337,17 @@ class _ReminderNotificationsScreenState
         setState(() => _notificationsEnabled = true);
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Notifications enabled successfully!')),
+          SnackBar(content: Text(t.reminders.enabledSuccessfully)),
         );
       } else {
         if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Notification permission denied')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(t.reminders.permissionDenied)));
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error enabling notifications: $e')),
+        SnackBar(content: Text(t.reminders.errorEnabling(error: e))),
       );
     } finally {
       setState(() => _isLoading = false);
@@ -381,9 +380,9 @@ class _ReminderNotificationsScreenState
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Error completing setup: $e')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(t.reminders.errorCompletingSetup(error: e))),
+        );
       }
     } finally {
       setState(() => _isLoading = false);

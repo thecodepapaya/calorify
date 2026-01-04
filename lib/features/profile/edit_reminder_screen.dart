@@ -8,9 +8,12 @@ class EditReminderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ReminderNotificationsScreen(
-      onContinue: () => context.router.pop(),
-      isEditing: true,
+    return Scaffold(
+      appBar: AppBar(),
+      body: ReminderNotificationsScreen(
+        onContinue: () => context.router.pop(),
+        isEditing: true,
+      ),
     );
   }
 }

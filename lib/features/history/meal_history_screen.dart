@@ -7,6 +7,7 @@ import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/history/widgets/icon_nutrition.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -73,7 +74,6 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
     final List<_DayMeals> groupedMeals = _groupMealsByDay(meals);
 
     return Scaffold(
-      appBar: AppBar(title: Text('History')),
       body: Padding(
         padding: globalMargin,
         child: Builder(
@@ -112,7 +112,8 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
                         allowEdit: true,
                       ),
                     ),
-                    if (index == groupedMeals.length - 1) SizedBox(height: 20),
+                    if (index == groupedMeals.length - 1)
+                      const SizedBox(height: 120),
                   ],
                 );
               },
@@ -139,7 +140,7 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
         ),
         SizedBox(height: 20),
         Text(
-          'No meals recorded',
+          t.history.noMeals,
           style: textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
             color: colorScheme.onSecondary.withValues(alpha: 0.7),
@@ -147,7 +148,7 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
         ),
         SizedBox(height: 12),
         Text(
-          'Snap a picture of your last meal to log here.',
+          t.history.emptyMessage,
           textAlign: TextAlign.center,
           style: textTheme.bodyMedium?.copyWith(
             color: colorScheme.onSecondary.withValues(alpha: 0.7),
@@ -230,9 +231,9 @@ class _DateDivider extends StatelessWidget {
     final yesterday = DateTime(now.year, now.month, now.day - 1);
 
     if (date == today) {
-      return 'Today';
+      return t.history.today;
     } else if (date == yesterday) {
-      return 'Yesterday';
+      return t.history.yesterday;
     } else if (now.year == date.year) {
       return DateFormat('dd MMM').format(date);
     } else {

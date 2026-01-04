@@ -29,7 +29,7 @@ class SelectionCard<T> extends StatelessWidget {
         decoration: BoxDecoration(
           color:
               isSelected
-                  ? color.withOpacity(0.1)
+                  ? color.withValues(alpha: 0.1)
                   : Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
@@ -45,7 +45,7 @@ class SelectionCard<T> extends StatelessWidget {
                 color:
                     isSelected
                         ? color
-                        : Theme.of(context).colorScheme.surfaceVariant,
+                        : Theme.of(context).colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(

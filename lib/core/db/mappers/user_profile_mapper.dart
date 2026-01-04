@@ -7,6 +7,7 @@ class UserProfileMapper {
     return UserProfile(
       height: data.height,
       weight: data.weight,
+      targetWeight: data.targetWeight,
       gender: data.gender == null ? null : Gender.values.byName(data.gender!),
       dateOfBirth: data.dateOfBirth,
       weightGoal:
@@ -17,6 +18,9 @@ class UserProfileMapper {
           data.activityLevel == null
               ? null
               : ActivityLevel.values.byName(data.activityLevel!),
+      heightUnit: UnitSystem.values.byName(data.heightUnit),
+      weightUnit: UnitSystem.values.byName(data.weightUnit),
+      languageCode: data.languageCode,
     );
   }
 
@@ -30,6 +34,10 @@ class UserProfileMapper {
           profile.weight == null
               ? const Value.absent()
               : Value(profile.weight!),
+      targetWeight:
+          profile.targetWeight == null
+              ? const Value.absent()
+              : Value(profile.targetWeight!),
       gender:
           profile.gender == null
               ? const Value.absent()
@@ -46,6 +54,12 @@ class UserProfileMapper {
           profile.activityLevel == null
               ? const Value.absent()
               : Value(profile.activityLevel!.name),
+      heightUnit: Value(profile.heightUnit.name),
+      weightUnit: Value(profile.weightUnit.name),
+      languageCode:
+          profile.languageCode == null
+              ? const Value.absent()
+              : Value(profile.languageCode!),
     );
   }
 }

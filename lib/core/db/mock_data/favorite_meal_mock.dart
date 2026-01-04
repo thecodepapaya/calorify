@@ -52,6 +52,8 @@ class FavoriteMealMock {
       fiber: sourceMeal.fiber,
       timestamp: DateTime.now(), // Current time when favorited
       imageUrl: sourceMeal.imageUrl,
+      healthScore: sourceMeal.healthScore,
+      healthScoreReason: sourceMeal.healthScoreReason,
     );
   }
 

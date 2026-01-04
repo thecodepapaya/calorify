@@ -16,6 +16,12 @@ extension MealInfoMapper on MealInfo {
       fiber: Value(fiber),
       timestamp: Value(timestamp),
       imageUrl: Value(imageUrl),
+      healthScore:
+          healthScore != null ? Value(healthScore!.name) : const Value.absent(),
+      healthScoreReason:
+          healthScoreReason != null
+              ? Value(healthScoreReason!)
+              : const Value.absent(),
     );
   }
 }

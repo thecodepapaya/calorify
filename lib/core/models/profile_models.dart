@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:calorify/core/constants/scale_constants.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'profile_models.g.dart';
@@ -5,6 +8,61 @@ part 'profile_models.g.dart';
 enum Gender { male, female, other }
 
 enum WeightGoal { loseWeight, maintainWeight, gainWeight }
+
+enum UnitSystem {
+  metric(heightPrecision: 0, weightPrecision: 1),
+  imperial(heightPrecision: 1, weightPrecision: 0);
+
+  const UnitSystem({
+    required this.heightPrecision,
+    required this.weightPrecision,
+  });
+
+  /// Precision for displaying height values
+  final int heightPrecision;
+
+  /// Precision for displaying weight values
+  final int weightPrecision;
+}
+
+extension UnitSystemExtension on UnitSystem {
+  bool get isMetric => this == UnitSystem.metric;
+  bool get isImperial => this == UnitSystem.imperial;
+
+  /// Step size for height slider based on height precision
+  /// Formula: step = 1 / (10 ^ precision)
+  /// Examples: precision 0 → 1.0, precision 1 → 0.1, precision 2 → 0.01
+  double get heightStep => 1.0 / pow(10, heightPrecision);
+
+  /// Step size for weight slider based on weight precision
+  /// Formula: step = 1 / (10 ^ precision)
+  /// Examples: precision 0 → 1.0, precision 1 → 0.1, precision 2 → 0.01
+  double get weightStep => 1.0 / pow(10, weightPrecision);
+
+  /// Minimum height value for this unit system
+  double get heightMin =>
+      isMetric
+          ? ScaleConstants.heightMetricMin
+          : ScaleConstants.heightImperialMin;
+
+  /// Maximum height value for this unit system
+  double get heightMax =>
+      isMetric
+          ? ScaleConstants.heightMetricMax
+          : ScaleConstants.heightImperialMax;
+
+  /// Minimum weight value for this unit system
+  double get weightMin =>
+      isMetric
+          ? ScaleConstants.weightMetricMin
+          : ScaleConstants.weightImperialMin;
+
+  /// Maximum weight value for this unit system
+  double get weightMax =>
+      isMetric
+          ? ScaleConstants.weightMetricMax
+          : ScaleConstants.weightImperialMax;
+}
 
 enum ActivityLevel {
   sedentary, // Little to no exercise
@@ -16,20 +74,28 @@ enum ActivityLevel {
 
 @JsonSerializable()
 class UserProfile {
-  final double? height; // in cm
-  final double? weight; // in kg
+  final double? height;
+  final double? weight;
+  final double? targetWeight;
   final Gender? gender;
   final DateTime? dateOfBirth;
   final WeightGoal? weightGoal;
   final ActivityLevel? activityLevel;
+  final UnitSystem heightUnit;
+  final UnitSystem weightUnit;
+  final String? languageCode;
 
   const UserProfile({
     this.height,
     this.weight,
+    this.targetWeight,
     this.gender,
     this.dateOfBirth,
     this.weightGoal,
     this.activityLevel,
+    this.heightUnit = UnitSystem.metric,
+    this.weightUnit = UnitSystem.metric,
+    this.languageCode,
   });
 
   int? get age {
@@ -51,90 +117,31 @@ class UserProfile {
   UserProfile copyWith({
     double? height,
     double? weight,
+    double? targetWeight,
     Gender? gender,
     DateTime? dateOfBirth,
     WeightGoal? weightGoal,
     ActivityLevel? activityLevel,
+    UnitSystem? heightUnit,
+    UnitSystem? weightUnit,
+    String? languageCode,
   }) {
     return UserProfile(
       height: height ?? this.height,
       weight: weight ?? this.weight,
+      targetWeight: targetWeight ?? this.targetWeight,
       gender: gender ?? this.gender,
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       weightGoal: weightGoal ?? this.weightGoal,
       activityLevel: activityLevel ?? this.activityLevel,
+      heightUnit: heightUnit ?? this.heightUnit,
+      weightUnit: weightUnit ?? this.weightUnit,
+      languageCode: languageCode ?? this.languageCode,
     );
   }
 }
 
-extension GenderExtension on Gender {
-  String get displayName {
-    switch (this) {
-      case Gender.male:
-        return 'Male';
-      case Gender.female:
-        return 'Female';
-      case Gender.other:
-        return 'Other';
-    }
-  }
-}
-
-extension WeightGoalExtension on WeightGoal {
-  String get displayName {
-    switch (this) {
-      case WeightGoal.loseWeight:
-        return 'Lose Weight';
-      case WeightGoal.maintainWeight:
-        return 'Maintain Weight';
-      case WeightGoal.gainWeight:
-        return 'Gain Weight';
-    }
-  }
-
-  String get description {
-    switch (this) {
-      case WeightGoal.loseWeight:
-        return 'Create a calorie deficit to lose weight';
-      case WeightGoal.maintainWeight:
-        return 'Maintain your current weight';
-      case WeightGoal.gainWeight:
-        return 'Create a calorie surplus to gain weight';
-    }
-  }
-}
-
 extension ActivityLevelExtension on ActivityLevel {
-  String get displayName {
-    switch (this) {
-      case ActivityLevel.sedentary:
-        return 'Sedentary';
-      case ActivityLevel.lightlyActive:
-        return 'Lightly Active';
-      case ActivityLevel.moderatelyActive:
-        return 'Moderately Active';
-      case ActivityLevel.veryActive:
-        return 'Very Active';
-      case ActivityLevel.extremelyActive:
-        return 'Extremely Active';
-    }
-  }
-
-  String get description {
-    switch (this) {
-      case ActivityLevel.sedentary:
-        return 'Little to no exercise';
-      case ActivityLevel.lightlyActive:
-        return 'Light exercise 1-3 days/week';
-      case ActivityLevel.moderatelyActive:
-        return 'Moderate exercise 3-5 days/week';
-      case ActivityLevel.veryActive:
-        return 'Hard exercise 6-7 days/week';
-      case ActivityLevel.extremelyActive:
-        return 'Very hard exercise, physical job';
-    }
-  }
-
   double get multiplier {
     switch (this) {
       case ActivityLevel.sedentary:

@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
+import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -17,15 +20,18 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Debug Options')),
+      appBar: AppBar(title: Text(t.debug.title)),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          _buildSectionTitle(context, 'Notifications'),
+          _buildSectionTitle(context, t.debug.sections.notifications),
           _buildNotificationOptions(context),
           const SizedBox(height: 24),
-          _buildSectionTitle(context, 'Health Connect'),
+          _buildSectionTitle(context, t.debug.sections.healthConnect),
           _buildHealthConnectOptions(context),
+          const SizedBox(height: 24),
+          _buildSectionTitle(context, t.debug.sections.appInfo),
+          _buildAppInfoOptions(context),
         ],
       ),
     );
@@ -49,22 +55,22 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
         children: [
           ListTile(
             leading: const Icon(LucideIcons.list),
-            title: const Text('Show Active Notifications'),
+            title: Text(t.debug.showActiveNotifications),
             onTap: _showActiveNotifications,
           ),
           ListTile(
             leading: const Icon(LucideIcons.bellPlus),
-            title: const Text('Schedule Test Notification (10s)'),
+            title: Text(t.debug.scheduleTestNotification),
             onTap: _scheduleTestNotification,
           ),
           ListTile(
             leading: const Icon(LucideIcons.bellRing),
-            title: const Text('Trigger Breakfast Notification'),
+            title: Text(t.debug.triggerBreakfastNotification),
             onTap: _triggerBreakfastNotification,
           ),
           ListTile(
             leading: const Icon(LucideIcons.bellOff),
-            title: const Text('Cancel All Notifications'),
+            title: Text(t.debug.cancelAllNotifications),
             onTap: _cancelAllNotifications,
           ),
         ],
@@ -78,7 +84,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     if (!mounted) return;
 
     if (pendingRequests.isEmpty) {
-      _showSnackbar('No active notifications.');
+      _showSnackbar(t.debug.noNotifications);
       return;
     }
 
@@ -86,7 +92,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text('Active Notifications'),
+            title: Text(t.debug.activeNotifications),
             content: SizedBox(
               width: double.maxFinite,
               child: ListView.builder(
@@ -95,9 +101,9 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
                 itemBuilder: (context, index) {
                   final request = pendingRequests[index];
                   return ListTile(
-                    title: Text(request.title ?? 'No Title'),
-                    subtitle: Text(request.body ?? 'No Body'),
-                    trailing: Text('ID: ${request.id}'),
+                    title: Text(request.title ?? t.debug.noTitle),
+                    subtitle: Text(request.body ?? t.debug.noBody),
+                    trailing: Text(t.debug.id(id: request.id)),
                   );
                 },
               ),
@@ -105,7 +111,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Close'),
+                child: Text(t.common.close),
               ),
             ],
           ),
@@ -115,28 +121,28 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
   Future<void> _scheduleTestNotification() async {
     await NotificationService.instance.scheduleReminder(
       id: 99,
-      title: 'Test Notification',
-      body: 'This is a test notification scheduled for 10 seconds from now.',
+      title: t.notifications.test.title,
+      body: t.debug.testNotificationBody,
       scheduledTime: DateTime.now().add(const Duration(seconds: 10)),
     );
-    _showSnackbar('Test notification scheduled for 10 seconds from now.');
+    _showSnackbar(t.debug.testNotificationScheduled);
   }
 
   Future<void> _triggerBreakfastNotification() async {
     await NotificationService.instance.scheduleReminder(
       id: 1,
-      title: 'Breakfast Time! 🍳',
-      body: 'Don\'t forget to log your breakfast',
+      title: t.notifications.breakfast.title,
+      body: t.notifications.breakfast.body,
       scheduledTime: DateTime.now().add(const Duration(seconds: 5)),
       payload: 'meal_reminder_breakfast',
       channel: NotificationService.remindersChannel,
     );
-    _showSnackbar('Breakfast notification triggered.');
+    _showSnackbar(t.debug.breakfastNotificationTriggered);
   }
 
   Future<void> _cancelAllNotifications() async {
     await NotificationService.instance.cancelAllNotifications();
-    _showSnackbar('All notifications cancelled.');
+    _showSnackbar(t.debug.allNotificationsCancelled);
   }
 
   void _showSnackbar(String message) {
@@ -152,17 +158,37 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
         children: [
           ListTile(
             leading: const Icon(LucideIcons.activity),
-            title: const Text('Fetch Today\'s Steps'),
+            title: Text(t.debug.fetchTodaysSteps),
             onTap: _fetchTodaysSteps,
           ),
           ListTile(
             leading: const Icon(LucideIcons.flame),
-            title: const Text('Fetch Today\'s Calories'),
+            title: Text(t.debug.fetchTodaysCalories),
             onTap: _fetchTodaysCalories,
           ),
           ListTile(
+            leading: const Icon(LucideIcons.scale),
+            title: Text(t.debug.fetchLatestWeight),
+            onTap: _fetchLatestWeight,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.ruler),
+            title: Text(t.debug.fetchLatestHeight),
+            onTap: _fetchLatestHeight,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.plus),
+            title: Text(t.debug.writeTestWeight),
+            onTap: _writeTestWeight,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.plus),
+            title: Text(t.debug.writeTestHeight),
+            onTap: _writeTestHeight,
+          ),
+          ListTile(
             leading: const Icon(LucideIcons.refreshCw),
-            title: const Text('Sync Last 7 Days'),
+            title: Text(t.debug.syncLast7Days),
             onTap: _syncLast7Days,
           ),
         ],
@@ -170,9 +196,83 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     );
   }
 
+  Widget _buildAppInfoOptions(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(LucideIcons.languages),
+            title: Text(t.debug.checkCurrentLocale),
+            onTap: _checkCurrentLocale,
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _checkCurrentLocale() {
+    final locale = LocaleUtils.getCurrentLocale(context);
+    final unitSystem = LocaleUtils.getDefaultUnitSystem(context);
+    final isMetric = unitSystem == UnitSystem.metric;
+    final countryCode = locale.countryCode ?? 'N/A';
+    final languageCode = locale.languageCode;
+
+    _showDataDialog(
+      t.debug.currentLocale,
+      t.debug.localeInfo(
+        languageCode: languageCode,
+        countryCode: countryCode,
+        unitSystem: isMetric ? t.editProfile.metric : t.editProfile.imperial,
+      ),
+    );
+  }
+
   Future<void> _fetchTodaysSteps() async {
-    // TODO: Implement steps fetching
-    _showSnackbar('Steps fetching not implemented yet.');
+    final steps = await HealthService.instance.getTodaySteps();
+    _showDataDialog('Today\'s Steps', 'Steps: $steps');
+  }
+
+  Future<void> _fetchLatestWeight() async {
+    final weight = await HealthService.instance.getLatestWeight();
+    if (weight == null) {
+      _showSnackbar(t.debug.noWeightData);
+    } else {
+      _showDataDialog(
+        t.debug.latestWeight,
+        'Weight: ${weight.toStringAsFixed(UnitSystem.metric.weightPrecision)} kg',
+      );
+    }
+  }
+
+  Future<void> _fetchLatestHeight() async {
+    final height = await HealthService.instance.getLatestHeight();
+    if (height == null) {
+      _showSnackbar(t.debug.noHeightData);
+    } else {
+      // Height is usually in meters from Health Connect
+      _showDataDialog(
+        t.debug.latestHeight,
+        'Height: ${(height * 100).toStringAsFixed(UnitSystem.metric.heightPrecision)} cm',
+      );
+    }
+  }
+
+  Future<void> _writeTestWeight() async {
+    final success = await HealthService.instance.writeWeight(70.0);
+    if (success) {
+      _showSnackbar(t.debug.weightWritten);
+    } else {
+      _showSnackbar(t.debug.weightWriteFailed);
+    }
+  }
+
+  Future<void> _writeTestHeight() async {
+    final success = await HealthService.instance.writeHeight(175.0);
+    if (success) {
+      _showSnackbar(t.debug.heightWritten);
+    } else {
+      _showSnackbar(t.debug.heightWriteFailed);
+    }
   }
 
   Future<void> _fetchTodaysCalories() async {
@@ -187,7 +287,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     if (!mounted) return;
 
     if (calories.isEmpty) {
-      _showSnackbar('No calorie data found for today.');
+      _showSnackbar(t.debug.noCalorieData);
       return;
     }
 
@@ -196,14 +296,37 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
         .reduce((value, element) => value + element);
 
     _showDataDialog(
-      'Today\'s Calories',
-      'Total calories burned: ${totalCalories.toStringAsFixed(2)}',
+      t.debug.todaysCalories,
+      t.debug.totalCaloriesBurned(calories: totalCalories.toStringAsFixed(2)),
     );
   }
 
   Future<void> _syncLast7Days() async {
-    // TODO: Implement 7-day sync
-    _showSnackbar('7-day sync not implemented yet.');
+    final now = DateTime.now();
+    final sevenDaysAgo = now.subtract(const Duration(days: 7));
+
+    _showSnackbar(t.debug.fetchingData);
+
+    final types = [
+      HealthDataType.STEPS,
+      HealthDataType.TOTAL_CALORIES_BURNED,
+      HealthDataType.WEIGHT,
+    ];
+
+    int totalPoints = 0;
+    for (final type in types) {
+      final data = await HealthService.instance.fetchHealthData(
+        sevenDaysAgo,
+        now,
+        type,
+      );
+      totalPoints += data.length;
+    }
+
+    _showDataDialog(
+      t.debug.sync7DaysTitle,
+      t.debug.syncSuccess(count: totalPoints),
+    );
   }
 
   void _showDataDialog(String title, String content) {
@@ -216,7 +339,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Close'),
+                child: Text(t.common.close),
               ),
             ],
           ),

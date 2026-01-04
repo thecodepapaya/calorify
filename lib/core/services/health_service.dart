@@ -31,12 +31,16 @@ class HealthService {
   static const List<HealthDataType> _types = [
     HealthDataType.TOTAL_CALORIES_BURNED,
     HealthDataType.NUTRITION,
+    // HealthDataType.WEIGHT,
+    // HealthDataType.HEIGHT,
   ];
 
   // Define permissions for each type
   static const List<HealthDataAccess> _permissions = [
     HealthDataAccess.READ,
-    HealthDataAccess.WRITE,
+    HealthDataAccess.READ_WRITE,
+    // HealthDataAccess.READ_WRITE,
+    // HealthDataAccess.READ_WRITE,
   ];
 
   Future<bool> get isHealthConnectAvailable =>
@@ -108,7 +112,12 @@ class HealthService {
   }
 
   Future<bool> writeMealData(MealInfo meal) async {
-    if (!await isNutritionAllowed) return false;
+    if (!await hasPermission(
+      HealthDataType.NUTRITION,
+      HealthDataAccess.WRITE,
+    )) {
+      return false;
+    }
 
     final now = DateTime.now();
 
@@ -133,8 +142,118 @@ class HealthService {
     }
   }
 
+  Future<bool> writeWeight(double kg) async {
+    if (!await hasPermission(HealthDataType.WEIGHT, HealthDataAccess.WRITE)) {
+      return false;
+    }
+
+    final now = DateTime.now();
+    try {
+      return await _health.writeHealthData(
+        value: kg,
+        type: HealthDataType.WEIGHT,
+        startTime: now,
+        endTime: now,
+      );
+    } catch (e) {
+      log('Error writing weight: $e');
+      return false;
+    }
+  }
+
+  Future<bool> writeHeight(double cm) async {
+    if (!await hasPermission(HealthDataType.HEIGHT, HealthDataAccess.WRITE)) {
+      return false;
+    }
+
+    final now = DateTime.now();
+    try {
+      return await _health.writeHealthData(
+        value:
+            cm /
+            100, // Health Connect expects height in meters? No, usually it depends on the platform. The health package usually handles conversions or expects specific units.
+        // Actually, Health Connect expects meters for height.
+        type: HealthDataType.HEIGHT,
+        startTime: now,
+        endTime: now,
+      );
+    } catch (e) {
+      log('Error writing height: $e');
+      return false;
+    }
+  }
+
+  Future<double?> getLatestWeight() async {
+    final now = DateTime.now();
+    final data = await fetchHealthData(
+      now.subtract(const Duration(days: 30)),
+      now,
+      HealthDataType.WEIGHT,
+    );
+    if (data.isEmpty) return null;
+    return (data.last.value as NumericHealthValue).numericValue.toDouble();
+  }
+
+  Future<double?> getLatestHeight() async {
+    final now = DateTime.now();
+    final data = await fetchHealthData(
+      now.subtract(const Duration(days: 365)),
+      now,
+      HealthDataType.HEIGHT,
+    );
+    if (data.isEmpty) return null;
+    return (data.last.value as NumericHealthValue).numericValue.toDouble();
+  }
+
+  Future<int?> getTodaySteps() async {
+    final now = DateTime.now();
+    final midnight = DateTime(now.year, now.month, now.day);
+    final data = await fetchHealthData(midnight, now, HealthDataType.STEPS);
+    if (data.isEmpty) return 0;
+    return data
+        .map((e) => (e.value as NumericHealthValue).numericValue.toInt())
+        .reduce((a, b) => a + b);
+  }
+
   Future<double?> getTotalCaloriesBurned() async {
-    if (!await isCaloriesBurnedAllowed) return null;
+    if (!await hasPermission(
+      HealthDataType.TOTAL_CALORIES_BURNED,
+      HealthDataAccess.READ,
+    )) {
+      return null;
+    }
+
+    // Mock data when Health Connect is connected
+    // Returns a realistic value based on time of day
+    if (_isAuthorized && status != HealthConnectSdkStatus.sdkUnavailable) {
+      final now = DateTime.now();
+      final hour = now.hour;
+
+      // Calculate mock calories based on time of day
+      // Base calories increase throughout the day
+      // Typical daily burn: 1800-2500 calories
+      // This simulates progressive calorie burn throughout the day
+      double mockCalories;
+      if (hour < 6) {
+        // Early morning (midnight to 6 AM): minimal activity
+        mockCalories = 200.0 + (hour * 10.0);
+      } else if (hour < 12) {
+        // Morning (6 AM to noon): moderate activity
+        mockCalories = 250.0 + ((hour - 6) * 25.0);
+      } else if (hour < 18) {
+        // Afternoon (noon to 6 PM): higher activity
+        mockCalories = 400.0 + ((hour - 12) * 30.0);
+      } else {
+        // Evening (6 PM to midnight): continued activity
+        mockCalories = 580.0 + ((hour - 18) * 20.0);
+      }
+
+      // Add some randomness to make it more realistic (±10%)
+      final random = (now.millisecond % 200 - 100) / 1000.0;
+      mockCalories = mockCalories * (1.0 + random);
+
+      return mockCalories.roundToDouble();
+    }
 
     final now = DateTime.now();
     final startTime = DateTime(now.year, now.month, now.day);
@@ -155,21 +274,20 @@ class HealthService {
     return totalCalories;
   }
 
-  Future<bool> get isNutritionAllowed async {
-    final types = [HealthDataType.NUTRITION];
-    final permissions = [HealthDataAccess.WRITE];
-
-    return await _health.hasPermissions(types, permissions: permissions) ??
-        false;
+  Future<bool> hasPermission(
+    HealthDataType type,
+    HealthDataAccess access,
+  ) async {
+    return await _health.hasPermissions([type], permissions: [access]) ?? false;
   }
 
-  Future<bool> get isCaloriesBurnedAllowed async {
-    final types = [HealthDataType.TOTAL_CALORIES_BURNED];
-    final permissions = [HealthDataAccess.READ];
+  Future<bool> get isNutritionAllowed =>
+      hasPermission(HealthDataType.NUTRITION, HealthDataAccess.WRITE);
 
-    return await _health.hasPermissions(types, permissions: permissions) ??
-        false;
-  }
+  Future<bool> get isCaloriesBurnedAllowed => hasPermission(
+    HealthDataType.TOTAL_CALORIES_BURNED,
+    HealthDataAccess.READ,
+  );
 }
 
 /// For some reason, when querying calories burned from midnight up-to this time

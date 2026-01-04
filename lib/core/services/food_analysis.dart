@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:calorify/core/models/meal_detection_result.dart';
 import 'package:calorify/core/services/performance_service.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -13,10 +14,15 @@ class FoodAnalysisService {
   static final _instance = FoodAnalysisService._();
   static FoodAnalysisService get instance => _instance;
 
-  static const _systemPrompt = '''
-    You are an expert food analysis AI. Given an image or a description of food,
-    analyze the main food item(s). Be precise with nutrient estimations.
-    ''';
+  /// Get the system prompt with language instruction
+  static String _getSystemPrompt() {
+    final localeCode = LocaleSettings.currentLocale.languageCode;
+    return '''
+You are an expert food analysis AI. Given an image or a description of food,
+analyze the main food item(s). Be precise with nutrient estimations.
+Always respond in locale: $localeCode.
+''';
+  }
 
   late GenerativeModel _model;
   bool _isInitialized = false;
@@ -24,7 +30,17 @@ class FoodAnalysisService {
   /// Initialize the service with Firebase AI
   Future<void> initialize() async {
     if (_isInitialized) return;
+    _initializeModel();
+  }
 
+  /// Reinitialize the model (useful when locale changes)
+  Future<void> reinitialize() async {
+    _isInitialized = false;
+    _initializeModel();
+  }
+
+  /// Internal method to initialize the model
+  void _initializeModel() {
     try {
       // Use Google AI backend for food analysis
       final googleAI = FirebaseAI.googleAI(auth: FirebaseAuth.instance);
@@ -34,7 +50,7 @@ class FoodAnalysisService {
           responseMimeType: 'application/json',
           responseSchema: _jsonSchema,
         ),
-        systemInstruction: Content.system(_systemPrompt),
+        systemInstruction: Content.system(_getSystemPrompt()),
       );
       _isInitialized = true;
     } catch (e) {
@@ -114,6 +130,24 @@ class FoodAnalysisService {
                 "format (e.g., '2023-10-27T10:30:00.000Z'). "
                 'This should always be present.',
           ),
+          'health_score': Schema.object(
+            description:
+                'Information on how healthy the meal is, or default/empty '
+                'if no meal was identified.',
+            properties: {
+              'score': Schema.enumString(
+                enumValues: ['healthy', 'neutral', 'unhealthy', 'unknown'],
+                description:
+                    'A health score for the meal based on how well '
+                    'balanced the nutritional values are.',
+              ),
+              'reason': Schema.string(
+                description:
+                    'A concise reasoning for the assigned health score, max '
+                    '100 characters.',
+              ),
+            },
+          ),
         },
       ),
     },
@@ -130,10 +164,9 @@ class FoodAnalysisService {
     }
 
     try {
-      // Provide a prompt that contains text
       final prompt = [
         Content.text(
-          'Estimate calories in this meal picture and respond in JSON',
+          'Estimate calories in this meal picture and respond in JSON.',
         ),
         Content.inlineData('image/jpeg', imageBytes),
       ];
@@ -165,8 +198,7 @@ class FoodAnalysisService {
     }
 
     try {
-      // Provide a prompt that contains text
-      final prompt = [Content.text('Meal: $description')];
+      final prompt = [Content.text('Meal: $description.')];
 
       // To generate text output, call generateContent with the text input
       final response = await Performance.trace<GenerateContentResponse>(

@@ -6,7 +6,9 @@ import 'package:calorify/features/history/widgets/icon_nutrition.dart';
 import 'package:calorify/features/history/widgets/meal_quantity.dart';
 import 'package:calorify/features/history/widgets/meal_timestamp.dart';
 import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/health_score_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
+import 'package:calorify/shared_widgets/health_score_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -70,6 +72,19 @@ class MealLogCard extends StatelessWidget {
                     ),
                     child: MealTypeIndicator(mealType: mealInfo.mealType),
                   ),
+                  if (mealInfo.healthScore != null) ...[
+                    const SizedBox(width: 8),
+                    HealthScoreIndicator(
+                      healthScore: mealInfo.healthScore!,
+                      onTap: () {
+                        showHealthScoreReason(
+                          context: context,
+                          healthScore: mealInfo.healthScore!,
+                          reason: mealInfo.healthScoreReason ?? '',
+                        );
+                      },
+                    ),
+                  ],
                 ],
               ),
               Row(

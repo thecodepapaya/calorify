@@ -8,6 +8,9 @@ abstract class DatabaseInterface {
   /// Get daily calorie goal
   Future<int?> getDailyCalorieGoal();
 
+  /// Watch daily calorie goal
+  Stream<int?> watchDailyCalorieGoal();
+
   /// Set daily calorie goal
   Future<void> setDailyCalorieGoal(int goal);
 
@@ -59,4 +62,7 @@ abstract class DatabaseInterface {
 
   /// Check if user profile exists
   Future<bool> hasUserProfile();
+
+  /// Clear all data from the database
+  Future<void> clearAllData();
 }

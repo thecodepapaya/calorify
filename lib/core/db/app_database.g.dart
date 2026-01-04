@@ -126,6 +126,29 @@ class $MealInfoTableTable extends MealInfoTable
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _healthScoreMeta = const VerificationMeta(
+    'healthScore',
+  );
+  @override
+  late final GeneratedColumn<String> healthScore = GeneratedColumn<String>(
+    'health_score',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _healthScoreReasonMeta = const VerificationMeta(
+    'healthScoreReason',
+  );
+  @override
+  late final GeneratedColumn<String> healthScoreReason =
+      GeneratedColumn<String>(
+        'health_score_reason',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -139,6 +162,8 @@ class $MealInfoTableTable extends MealInfoTable
     fiber,
     timestamp,
     imageUrl,
+    healthScore,
+    healthScoreReason,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -236,6 +261,24 @@ class $MealInfoTableTable extends MealInfoTable
         imageUrl.isAcceptableOrUnknown(data['image_url']!, _imageUrlMeta),
       );
     }
+    if (data.containsKey('health_score')) {
+      context.handle(
+        _healthScoreMeta,
+        healthScore.isAcceptableOrUnknown(
+          data['health_score']!,
+          _healthScoreMeta,
+        ),
+      );
+    }
+    if (data.containsKey('health_score_reason')) {
+      context.handle(
+        _healthScoreReasonMeta,
+        healthScoreReason.isAcceptableOrUnknown(
+          data['health_score_reason']!,
+          _healthScoreReasonMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -299,6 +342,14 @@ class $MealInfoTableTable extends MealInfoTable
         DriftSqlType.string,
         data['${effectivePrefix}image_url'],
       ),
+      healthScore: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}health_score'],
+      ),
+      healthScoreReason: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}health_score_reason'],
+      ),
     );
   }
 
@@ -321,6 +372,8 @@ class MealInfoTableData extends DataClass
   final int fiber;
   final DateTime timestamp;
   final String? imageUrl;
+  final String? healthScore;
+  final String? healthScoreReason;
   const MealInfoTableData({
     required this.id,
     required this.mealName,
@@ -333,6 +386,8 @@ class MealInfoTableData extends DataClass
     required this.fiber,
     required this.timestamp,
     this.imageUrl,
+    this.healthScore,
+    this.healthScoreReason,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -349,6 +404,12 @@ class MealInfoTableData extends DataClass
     map['timestamp'] = Variable<DateTime>(timestamp);
     if (!nullToAbsent || imageUrl != null) {
       map['image_url'] = Variable<String>(imageUrl);
+    }
+    if (!nullToAbsent || healthScore != null) {
+      map['health_score'] = Variable<String>(healthScore);
+    }
+    if (!nullToAbsent || healthScoreReason != null) {
+      map['health_score_reason'] = Variable<String>(healthScoreReason);
     }
     return map;
   }
@@ -369,6 +430,14 @@ class MealInfoTableData extends DataClass
           imageUrl == null && nullToAbsent
               ? const Value.absent()
               : Value(imageUrl),
+      healthScore:
+          healthScore == null && nullToAbsent
+              ? const Value.absent()
+              : Value(healthScore),
+      healthScoreReason:
+          healthScoreReason == null && nullToAbsent
+              ? const Value.absent()
+              : Value(healthScoreReason),
     );
   }
 
@@ -389,6 +458,10 @@ class MealInfoTableData extends DataClass
       fiber: serializer.fromJson<int>(json['fiber']),
       timestamp: serializer.fromJson<DateTime>(json['timestamp']),
       imageUrl: serializer.fromJson<String?>(json['imageUrl']),
+      healthScore: serializer.fromJson<String?>(json['healthScore']),
+      healthScoreReason: serializer.fromJson<String?>(
+        json['healthScoreReason'],
+      ),
     );
   }
   @override
@@ -406,6 +479,8 @@ class MealInfoTableData extends DataClass
       'fiber': serializer.toJson<int>(fiber),
       'timestamp': serializer.toJson<DateTime>(timestamp),
       'imageUrl': serializer.toJson<String?>(imageUrl),
+      'healthScore': serializer.toJson<String?>(healthScore),
+      'healthScoreReason': serializer.toJson<String?>(healthScoreReason),
     };
   }
 
@@ -421,6 +496,8 @@ class MealInfoTableData extends DataClass
     int? fiber,
     DateTime? timestamp,
     Value<String?> imageUrl = const Value.absent(),
+    Value<String?> healthScore = const Value.absent(),
+    Value<String?> healthScoreReason = const Value.absent(),
   }) => MealInfoTableData(
     id: id ?? this.id,
     mealName: mealName ?? this.mealName,
@@ -433,6 +510,11 @@ class MealInfoTableData extends DataClass
     fiber: fiber ?? this.fiber,
     timestamp: timestamp ?? this.timestamp,
     imageUrl: imageUrl.present ? imageUrl.value : this.imageUrl,
+    healthScore: healthScore.present ? healthScore.value : this.healthScore,
+    healthScoreReason:
+        healthScoreReason.present
+            ? healthScoreReason.value
+            : this.healthScoreReason,
   );
   MealInfoTableData copyWithCompanion(MealInfoTableCompanion data) {
     return MealInfoTableData(
@@ -450,6 +532,12 @@ class MealInfoTableData extends DataClass
       fiber: data.fiber.present ? data.fiber.value : this.fiber,
       timestamp: data.timestamp.present ? data.timestamp.value : this.timestamp,
       imageUrl: data.imageUrl.present ? data.imageUrl.value : this.imageUrl,
+      healthScore:
+          data.healthScore.present ? data.healthScore.value : this.healthScore,
+      healthScoreReason:
+          data.healthScoreReason.present
+              ? data.healthScoreReason.value
+              : this.healthScoreReason,
     );
   }
 
@@ -466,7 +554,9 @@ class MealInfoTableData extends DataClass
           ..write('fat: $fat, ')
           ..write('fiber: $fiber, ')
           ..write('timestamp: $timestamp, ')
-          ..write('imageUrl: $imageUrl')
+          ..write('imageUrl: $imageUrl, ')
+          ..write('healthScore: $healthScore, ')
+          ..write('healthScoreReason: $healthScoreReason')
           ..write(')'))
         .toString();
   }
@@ -484,6 +574,8 @@ class MealInfoTableData extends DataClass
     fiber,
     timestamp,
     imageUrl,
+    healthScore,
+    healthScoreReason,
   );
   @override
   bool operator ==(Object other) =>
@@ -499,7 +591,9 @@ class MealInfoTableData extends DataClass
           other.fat == this.fat &&
           other.fiber == this.fiber &&
           other.timestamp == this.timestamp &&
-          other.imageUrl == this.imageUrl);
+          other.imageUrl == this.imageUrl &&
+          other.healthScore == this.healthScore &&
+          other.healthScoreReason == this.healthScoreReason);
 }
 
 class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
@@ -514,6 +608,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   final Value<int> fiber;
   final Value<DateTime> timestamp;
   final Value<String?> imageUrl;
+  final Value<String?> healthScore;
+  final Value<String?> healthScoreReason;
   const MealInfoTableCompanion({
     this.id = const Value.absent(),
     this.mealName = const Value.absent(),
@@ -526,6 +622,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     this.fiber = const Value.absent(),
     this.timestamp = const Value.absent(),
     this.imageUrl = const Value.absent(),
+    this.healthScore = const Value.absent(),
+    this.healthScoreReason = const Value.absent(),
   });
   MealInfoTableCompanion.insert({
     this.id = const Value.absent(),
@@ -539,6 +637,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     required int fiber,
     required DateTime timestamp,
     this.imageUrl = const Value.absent(),
+    this.healthScore = const Value.absent(),
+    this.healthScoreReason = const Value.absent(),
   }) : mealName = Value(mealName),
        mealQuantity = Value(mealQuantity),
        mealType = Value(mealType),
@@ -560,6 +660,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Expression<int>? fiber,
     Expression<DateTime>? timestamp,
     Expression<String>? imageUrl,
+    Expression<String>? healthScore,
+    Expression<String>? healthScoreReason,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -573,6 +675,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
       if (fiber != null) 'fiber': fiber,
       if (timestamp != null) 'timestamp': timestamp,
       if (imageUrl != null) 'image_url': imageUrl,
+      if (healthScore != null) 'health_score': healthScore,
+      if (healthScoreReason != null) 'health_score_reason': healthScoreReason,
     });
   }
 
@@ -588,6 +692,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Value<int>? fiber,
     Value<DateTime>? timestamp,
     Value<String?>? imageUrl,
+    Value<String?>? healthScore,
+    Value<String?>? healthScoreReason,
   }) {
     return MealInfoTableCompanion(
       id: id ?? this.id,
@@ -601,6 +707,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
       fiber: fiber ?? this.fiber,
       timestamp: timestamp ?? this.timestamp,
       imageUrl: imageUrl ?? this.imageUrl,
+      healthScore: healthScore ?? this.healthScore,
+      healthScoreReason: healthScoreReason ?? this.healthScoreReason,
     );
   }
 
@@ -640,6 +748,12 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     if (imageUrl.present) {
       map['image_url'] = Variable<String>(imageUrl.value);
     }
+    if (healthScore.present) {
+      map['health_score'] = Variable<String>(healthScore.value);
+    }
+    if (healthScoreReason.present) {
+      map['health_score_reason'] = Variable<String>(healthScoreReason.value);
+    }
     return map;
   }
 
@@ -656,7 +770,9 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
           ..write('fat: $fat, ')
           ..write('fiber: $fiber, ')
           ..write('timestamp: $timestamp, ')
-          ..write('imageUrl: $imageUrl')
+          ..write('imageUrl: $imageUrl, ')
+          ..write('healthScore: $healthScore, ')
+          ..write('healthScoreReason: $healthScoreReason')
           ..write(')'))
         .toString();
   }
@@ -710,6 +826,17 @@ class $UserSettingsTableTable extends UserSettingsTable
     type: DriftSqlType.double,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _targetWeightMeta = const VerificationMeta(
+    'targetWeight',
+  );
+  @override
+  late final GeneratedColumn<double> targetWeight = GeneratedColumn<double>(
+    'target_weight',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _genderMeta = const VerificationMeta('gender');
   @override
   late final GeneratedColumn<String> gender = GeneratedColumn<String>(
@@ -752,6 +879,41 @@ class $UserSettingsTableTable extends UserSettingsTable
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _heightUnitMeta = const VerificationMeta(
+    'heightUnit',
+  );
+  @override
+  late final GeneratedColumn<String> heightUnit = GeneratedColumn<String>(
+    'height_unit',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('metric'),
+  );
+  static const VerificationMeta _weightUnitMeta = const VerificationMeta(
+    'weightUnit',
+  );
+  @override
+  late final GeneratedColumn<String> weightUnit = GeneratedColumn<String>(
+    'weight_unit',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('metric'),
+  );
+  static const VerificationMeta _languageCodeMeta = const VerificationMeta(
+    'languageCode',
+  );
+  @override
+  late final GeneratedColumn<String> languageCode = GeneratedColumn<String>(
+    'language_code',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
   );
@@ -782,10 +944,14 @@ class $UserSettingsTableTable extends UserSettingsTable
     dailyCalorieGoal,
     height,
     weight,
+    targetWeight,
     gender,
     dateOfBirth,
     weightGoal,
     activityLevel,
+    heightUnit,
+    weightUnit,
+    languageCode,
     createdAt,
     updatedAt,
   ];
@@ -825,6 +991,15 @@ class $UserSettingsTableTable extends UserSettingsTable
         weight.isAcceptableOrUnknown(data['weight']!, _weightMeta),
       );
     }
+    if (data.containsKey('target_weight')) {
+      context.handle(
+        _targetWeightMeta,
+        targetWeight.isAcceptableOrUnknown(
+          data['target_weight']!,
+          _targetWeightMeta,
+        ),
+      );
+    }
     if (data.containsKey('gender')) {
       context.handle(
         _genderMeta,
@@ -852,6 +1027,27 @@ class $UserSettingsTableTable extends UserSettingsTable
         activityLevel.isAcceptableOrUnknown(
           data['activity_level']!,
           _activityLevelMeta,
+        ),
+      );
+    }
+    if (data.containsKey('height_unit')) {
+      context.handle(
+        _heightUnitMeta,
+        heightUnit.isAcceptableOrUnknown(data['height_unit']!, _heightUnitMeta),
+      );
+    }
+    if (data.containsKey('weight_unit')) {
+      context.handle(
+        _weightUnitMeta,
+        weightUnit.isAcceptableOrUnknown(data['weight_unit']!, _weightUnitMeta),
+      );
+    }
+    if (data.containsKey('language_code')) {
+      context.handle(
+        _languageCodeMeta,
+        languageCode.isAcceptableOrUnknown(
+          data['language_code']!,
+          _languageCodeMeta,
         ),
       );
     }
@@ -893,6 +1089,10 @@ class $UserSettingsTableTable extends UserSettingsTable
         DriftSqlType.double,
         data['${effectivePrefix}weight'],
       ),
+      targetWeight: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}target_weight'],
+      ),
       gender: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}gender'],
@@ -908,6 +1108,20 @@ class $UserSettingsTableTable extends UserSettingsTable
       activityLevel: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}activity_level'],
+      ),
+      heightUnit:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}height_unit'],
+          )!,
+      weightUnit:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}weight_unit'],
+          )!,
+      languageCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}language_code'],
       ),
       createdAt:
           attachedDatabase.typeMapping.read(
@@ -934,10 +1148,14 @@ class UserSettingsTableData extends DataClass
   final int? dailyCalorieGoal;
   final double? height;
   final double? weight;
+  final double? targetWeight;
   final String? gender;
   final DateTime? dateOfBirth;
   final String? weightGoal;
   final String? activityLevel;
+  final String heightUnit;
+  final String weightUnit;
+  final String? languageCode;
   final DateTime createdAt;
   final DateTime updatedAt;
   const UserSettingsTableData({
@@ -945,10 +1163,14 @@ class UserSettingsTableData extends DataClass
     this.dailyCalorieGoal,
     this.height,
     this.weight,
+    this.targetWeight,
     this.gender,
     this.dateOfBirth,
     this.weightGoal,
     this.activityLevel,
+    required this.heightUnit,
+    required this.weightUnit,
+    this.languageCode,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -965,6 +1187,9 @@ class UserSettingsTableData extends DataClass
     if (!nullToAbsent || weight != null) {
       map['weight'] = Variable<double>(weight);
     }
+    if (!nullToAbsent || targetWeight != null) {
+      map['target_weight'] = Variable<double>(targetWeight);
+    }
     if (!nullToAbsent || gender != null) {
       map['gender'] = Variable<String>(gender);
     }
@@ -976,6 +1201,11 @@ class UserSettingsTableData extends DataClass
     }
     if (!nullToAbsent || activityLevel != null) {
       map['activity_level'] = Variable<String>(activityLevel);
+    }
+    map['height_unit'] = Variable<String>(heightUnit);
+    map['weight_unit'] = Variable<String>(weightUnit);
+    if (!nullToAbsent || languageCode != null) {
+      map['language_code'] = Variable<String>(languageCode);
     }
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
@@ -993,6 +1223,10 @@ class UserSettingsTableData extends DataClass
           height == null && nullToAbsent ? const Value.absent() : Value(height),
       weight:
           weight == null && nullToAbsent ? const Value.absent() : Value(weight),
+      targetWeight:
+          targetWeight == null && nullToAbsent
+              ? const Value.absent()
+              : Value(targetWeight),
       gender:
           gender == null && nullToAbsent ? const Value.absent() : Value(gender),
       dateOfBirth:
@@ -1007,6 +1241,12 @@ class UserSettingsTableData extends DataClass
           activityLevel == null && nullToAbsent
               ? const Value.absent()
               : Value(activityLevel),
+      heightUnit: Value(heightUnit),
+      weightUnit: Value(weightUnit),
+      languageCode:
+          languageCode == null && nullToAbsent
+              ? const Value.absent()
+              : Value(languageCode),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
     );
@@ -1022,10 +1262,14 @@ class UserSettingsTableData extends DataClass
       dailyCalorieGoal: serializer.fromJson<int?>(json['dailyCalorieGoal']),
       height: serializer.fromJson<double?>(json['height']),
       weight: serializer.fromJson<double?>(json['weight']),
+      targetWeight: serializer.fromJson<double?>(json['targetWeight']),
       gender: serializer.fromJson<String?>(json['gender']),
       dateOfBirth: serializer.fromJson<DateTime?>(json['dateOfBirth']),
       weightGoal: serializer.fromJson<String?>(json['weightGoal']),
       activityLevel: serializer.fromJson<String?>(json['activityLevel']),
+      heightUnit: serializer.fromJson<String>(json['heightUnit']),
+      weightUnit: serializer.fromJson<String>(json['weightUnit']),
+      languageCode: serializer.fromJson<String?>(json['languageCode']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
@@ -1038,10 +1282,14 @@ class UserSettingsTableData extends DataClass
       'dailyCalorieGoal': serializer.toJson<int?>(dailyCalorieGoal),
       'height': serializer.toJson<double?>(height),
       'weight': serializer.toJson<double?>(weight),
+      'targetWeight': serializer.toJson<double?>(targetWeight),
       'gender': serializer.toJson<String?>(gender),
       'dateOfBirth': serializer.toJson<DateTime?>(dateOfBirth),
       'weightGoal': serializer.toJson<String?>(weightGoal),
       'activityLevel': serializer.toJson<String?>(activityLevel),
+      'heightUnit': serializer.toJson<String>(heightUnit),
+      'weightUnit': serializer.toJson<String>(weightUnit),
+      'languageCode': serializer.toJson<String?>(languageCode),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
@@ -1052,10 +1300,14 @@ class UserSettingsTableData extends DataClass
     Value<int?> dailyCalorieGoal = const Value.absent(),
     Value<double?> height = const Value.absent(),
     Value<double?> weight = const Value.absent(),
+    Value<double?> targetWeight = const Value.absent(),
     Value<String?> gender = const Value.absent(),
     Value<DateTime?> dateOfBirth = const Value.absent(),
     Value<String?> weightGoal = const Value.absent(),
     Value<String?> activityLevel = const Value.absent(),
+    String? heightUnit,
+    String? weightUnit,
+    Value<String?> languageCode = const Value.absent(),
     DateTime? createdAt,
     DateTime? updatedAt,
   }) => UserSettingsTableData(
@@ -1066,11 +1318,15 @@ class UserSettingsTableData extends DataClass
             : this.dailyCalorieGoal,
     height: height.present ? height.value : this.height,
     weight: weight.present ? weight.value : this.weight,
+    targetWeight: targetWeight.present ? targetWeight.value : this.targetWeight,
     gender: gender.present ? gender.value : this.gender,
     dateOfBirth: dateOfBirth.present ? dateOfBirth.value : this.dateOfBirth,
     weightGoal: weightGoal.present ? weightGoal.value : this.weightGoal,
     activityLevel:
         activityLevel.present ? activityLevel.value : this.activityLevel,
+    heightUnit: heightUnit ?? this.heightUnit,
+    weightUnit: weightUnit ?? this.weightUnit,
+    languageCode: languageCode.present ? languageCode.value : this.languageCode,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
   );
@@ -1083,6 +1339,10 @@ class UserSettingsTableData extends DataClass
               : this.dailyCalorieGoal,
       height: data.height.present ? data.height.value : this.height,
       weight: data.weight.present ? data.weight.value : this.weight,
+      targetWeight:
+          data.targetWeight.present
+              ? data.targetWeight.value
+              : this.targetWeight,
       gender: data.gender.present ? data.gender.value : this.gender,
       dateOfBirth:
           data.dateOfBirth.present ? data.dateOfBirth.value : this.dateOfBirth,
@@ -1092,6 +1352,14 @@ class UserSettingsTableData extends DataClass
           data.activityLevel.present
               ? data.activityLevel.value
               : this.activityLevel,
+      heightUnit:
+          data.heightUnit.present ? data.heightUnit.value : this.heightUnit,
+      weightUnit:
+          data.weightUnit.present ? data.weightUnit.value : this.weightUnit,
+      languageCode:
+          data.languageCode.present
+              ? data.languageCode.value
+              : this.languageCode,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
@@ -1104,10 +1372,14 @@ class UserSettingsTableData extends DataClass
           ..write('dailyCalorieGoal: $dailyCalorieGoal, ')
           ..write('height: $height, ')
           ..write('weight: $weight, ')
+          ..write('targetWeight: $targetWeight, ')
           ..write('gender: $gender, ')
           ..write('dateOfBirth: $dateOfBirth, ')
           ..write('weightGoal: $weightGoal, ')
           ..write('activityLevel: $activityLevel, ')
+          ..write('heightUnit: $heightUnit, ')
+          ..write('weightUnit: $weightUnit, ')
+          ..write('languageCode: $languageCode, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -1120,10 +1392,14 @@ class UserSettingsTableData extends DataClass
     dailyCalorieGoal,
     height,
     weight,
+    targetWeight,
     gender,
     dateOfBirth,
     weightGoal,
     activityLevel,
+    heightUnit,
+    weightUnit,
+    languageCode,
     createdAt,
     updatedAt,
   );
@@ -1135,10 +1411,14 @@ class UserSettingsTableData extends DataClass
           other.dailyCalorieGoal == this.dailyCalorieGoal &&
           other.height == this.height &&
           other.weight == this.weight &&
+          other.targetWeight == this.targetWeight &&
           other.gender == this.gender &&
           other.dateOfBirth == this.dateOfBirth &&
           other.weightGoal == this.weightGoal &&
           other.activityLevel == this.activityLevel &&
+          other.heightUnit == this.heightUnit &&
+          other.weightUnit == this.weightUnit &&
+          other.languageCode == this.languageCode &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
 }
@@ -1149,10 +1429,14 @@ class UserSettingsTableCompanion
   final Value<int?> dailyCalorieGoal;
   final Value<double?> height;
   final Value<double?> weight;
+  final Value<double?> targetWeight;
   final Value<String?> gender;
   final Value<DateTime?> dateOfBirth;
   final Value<String?> weightGoal;
   final Value<String?> activityLevel;
+  final Value<String> heightUnit;
+  final Value<String> weightUnit;
+  final Value<String?> languageCode;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
   const UserSettingsTableCompanion({
@@ -1160,10 +1444,14 @@ class UserSettingsTableCompanion
     this.dailyCalorieGoal = const Value.absent(),
     this.height = const Value.absent(),
     this.weight = const Value.absent(),
+    this.targetWeight = const Value.absent(),
     this.gender = const Value.absent(),
     this.dateOfBirth = const Value.absent(),
     this.weightGoal = const Value.absent(),
     this.activityLevel = const Value.absent(),
+    this.heightUnit = const Value.absent(),
+    this.weightUnit = const Value.absent(),
+    this.languageCode = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
@@ -1172,10 +1460,14 @@ class UserSettingsTableCompanion
     this.dailyCalorieGoal = const Value.absent(),
     this.height = const Value.absent(),
     this.weight = const Value.absent(),
+    this.targetWeight = const Value.absent(),
     this.gender = const Value.absent(),
     this.dateOfBirth = const Value.absent(),
     this.weightGoal = const Value.absent(),
     this.activityLevel = const Value.absent(),
+    this.heightUnit = const Value.absent(),
+    this.weightUnit = const Value.absent(),
+    this.languageCode = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
@@ -1184,10 +1476,14 @@ class UserSettingsTableCompanion
     Expression<int>? dailyCalorieGoal,
     Expression<double>? height,
     Expression<double>? weight,
+    Expression<double>? targetWeight,
     Expression<String>? gender,
     Expression<DateTime>? dateOfBirth,
     Expression<String>? weightGoal,
     Expression<String>? activityLevel,
+    Expression<String>? heightUnit,
+    Expression<String>? weightUnit,
+    Expression<String>? languageCode,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
   }) {
@@ -1196,10 +1492,14 @@ class UserSettingsTableCompanion
       if (dailyCalorieGoal != null) 'daily_calorie_goal': dailyCalorieGoal,
       if (height != null) 'height': height,
       if (weight != null) 'weight': weight,
+      if (targetWeight != null) 'target_weight': targetWeight,
       if (gender != null) 'gender': gender,
       if (dateOfBirth != null) 'date_of_birth': dateOfBirth,
       if (weightGoal != null) 'weight_goal': weightGoal,
       if (activityLevel != null) 'activity_level': activityLevel,
+      if (heightUnit != null) 'height_unit': heightUnit,
+      if (weightUnit != null) 'weight_unit': weightUnit,
+      if (languageCode != null) 'language_code': languageCode,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
     });
@@ -1210,10 +1510,14 @@ class UserSettingsTableCompanion
     Value<int?>? dailyCalorieGoal,
     Value<double?>? height,
     Value<double?>? weight,
+    Value<double?>? targetWeight,
     Value<String?>? gender,
     Value<DateTime?>? dateOfBirth,
     Value<String?>? weightGoal,
     Value<String?>? activityLevel,
+    Value<String>? heightUnit,
+    Value<String>? weightUnit,
+    Value<String?>? languageCode,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
   }) {
@@ -1222,10 +1526,14 @@ class UserSettingsTableCompanion
       dailyCalorieGoal: dailyCalorieGoal ?? this.dailyCalorieGoal,
       height: height ?? this.height,
       weight: weight ?? this.weight,
+      targetWeight: targetWeight ?? this.targetWeight,
       gender: gender ?? this.gender,
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       weightGoal: weightGoal ?? this.weightGoal,
       activityLevel: activityLevel ?? this.activityLevel,
+      heightUnit: heightUnit ?? this.heightUnit,
+      weightUnit: weightUnit ?? this.weightUnit,
+      languageCode: languageCode ?? this.languageCode,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -1246,6 +1554,9 @@ class UserSettingsTableCompanion
     if (weight.present) {
       map['weight'] = Variable<double>(weight.value);
     }
+    if (targetWeight.present) {
+      map['target_weight'] = Variable<double>(targetWeight.value);
+    }
     if (gender.present) {
       map['gender'] = Variable<String>(gender.value);
     }
@@ -1257,6 +1568,15 @@ class UserSettingsTableCompanion
     }
     if (activityLevel.present) {
       map['activity_level'] = Variable<String>(activityLevel.value);
+    }
+    if (heightUnit.present) {
+      map['height_unit'] = Variable<String>(heightUnit.value);
+    }
+    if (weightUnit.present) {
+      map['weight_unit'] = Variable<String>(weightUnit.value);
+    }
+    if (languageCode.present) {
+      map['language_code'] = Variable<String>(languageCode.value);
     }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
@@ -1274,10 +1594,14 @@ class UserSettingsTableCompanion
           ..write('dailyCalorieGoal: $dailyCalorieGoal, ')
           ..write('height: $height, ')
           ..write('weight: $weight, ')
+          ..write('targetWeight: $targetWeight, ')
           ..write('gender: $gender, ')
           ..write('dateOfBirth: $dateOfBirth, ')
           ..write('weightGoal: $weightGoal, ')
           ..write('activityLevel: $activityLevel, ')
+          ..write('heightUnit: $heightUnit, ')
+          ..write('weightUnit: $weightUnit, ')
+          ..write('languageCode: $languageCode, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -1408,6 +1732,29 @@ class $FavoriteMealTableTable extends FavoriteMealTable
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _healthScoreMeta = const VerificationMeta(
+    'healthScore',
+  );
+  @override
+  late final GeneratedColumn<String> healthScore = GeneratedColumn<String>(
+    'health_score',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _healthScoreReasonMeta = const VerificationMeta(
+    'healthScoreReason',
+  );
+  @override
+  late final GeneratedColumn<String> healthScoreReason =
+      GeneratedColumn<String>(
+        'health_score_reason',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
   static const VerificationMeta _sourceMealIdMeta = const VerificationMeta(
     'sourceMealId',
   );
@@ -1456,6 +1803,8 @@ class $FavoriteMealTableTable extends FavoriteMealTable
     fiber,
     timestamp,
     imageUrl,
+    healthScore,
+    healthScoreReason,
     sourceMealId,
     createdAt,
     lastUsedAt,
@@ -1556,6 +1905,24 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         imageUrl.isAcceptableOrUnknown(data['image_url']!, _imageUrlMeta),
       );
     }
+    if (data.containsKey('health_score')) {
+      context.handle(
+        _healthScoreMeta,
+        healthScore.isAcceptableOrUnknown(
+          data['health_score']!,
+          _healthScoreMeta,
+        ),
+      );
+    }
+    if (data.containsKey('health_score_reason')) {
+      context.handle(
+        _healthScoreReasonMeta,
+        healthScoreReason.isAcceptableOrUnknown(
+          data['health_score_reason']!,
+          _healthScoreReasonMeta,
+        ),
+      );
+    }
     if (data.containsKey('source_meal_id')) {
       context.handle(
         _sourceMealIdMeta,
@@ -1643,6 +2010,14 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         DriftSqlType.string,
         data['${effectivePrefix}image_url'],
       ),
+      healthScore: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}health_score'],
+      ),
+      healthScoreReason: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}health_score_reason'],
+      ),
       sourceMealId: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}source_meal_id'],
@@ -1678,6 +2053,8 @@ class FavoriteMealTableData extends DataClass
   final int fiber;
   final DateTime timestamp;
   final String? imageUrl;
+  final String? healthScore;
+  final String? healthScoreReason;
   final int? sourceMealId;
   final DateTime createdAt;
   final DateTime? lastUsedAt;
@@ -1693,6 +2070,8 @@ class FavoriteMealTableData extends DataClass
     required this.fiber,
     required this.timestamp,
     this.imageUrl,
+    this.healthScore,
+    this.healthScoreReason,
     this.sourceMealId,
     required this.createdAt,
     this.lastUsedAt,
@@ -1712,6 +2091,12 @@ class FavoriteMealTableData extends DataClass
     map['timestamp'] = Variable<DateTime>(timestamp);
     if (!nullToAbsent || imageUrl != null) {
       map['image_url'] = Variable<String>(imageUrl);
+    }
+    if (!nullToAbsent || healthScore != null) {
+      map['health_score'] = Variable<String>(healthScore);
+    }
+    if (!nullToAbsent || healthScoreReason != null) {
+      map['health_score_reason'] = Variable<String>(healthScoreReason);
     }
     if (!nullToAbsent || sourceMealId != null) {
       map['source_meal_id'] = Variable<int>(sourceMealId);
@@ -1739,6 +2124,14 @@ class FavoriteMealTableData extends DataClass
           imageUrl == null && nullToAbsent
               ? const Value.absent()
               : Value(imageUrl),
+      healthScore:
+          healthScore == null && nullToAbsent
+              ? const Value.absent()
+              : Value(healthScore),
+      healthScoreReason:
+          healthScoreReason == null && nullToAbsent
+              ? const Value.absent()
+              : Value(healthScoreReason),
       sourceMealId:
           sourceMealId == null && nullToAbsent
               ? const Value.absent()
@@ -1768,6 +2161,10 @@ class FavoriteMealTableData extends DataClass
       fiber: serializer.fromJson<int>(json['fiber']),
       timestamp: serializer.fromJson<DateTime>(json['timestamp']),
       imageUrl: serializer.fromJson<String?>(json['imageUrl']),
+      healthScore: serializer.fromJson<String?>(json['healthScore']),
+      healthScoreReason: serializer.fromJson<String?>(
+        json['healthScoreReason'],
+      ),
       sourceMealId: serializer.fromJson<int?>(json['sourceMealId']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       lastUsedAt: serializer.fromJson<DateTime?>(json['lastUsedAt']),
@@ -1788,6 +2185,8 @@ class FavoriteMealTableData extends DataClass
       'fiber': serializer.toJson<int>(fiber),
       'timestamp': serializer.toJson<DateTime>(timestamp),
       'imageUrl': serializer.toJson<String?>(imageUrl),
+      'healthScore': serializer.toJson<String?>(healthScore),
+      'healthScoreReason': serializer.toJson<String?>(healthScoreReason),
       'sourceMealId': serializer.toJson<int?>(sourceMealId),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'lastUsedAt': serializer.toJson<DateTime?>(lastUsedAt),
@@ -1806,6 +2205,8 @@ class FavoriteMealTableData extends DataClass
     int? fiber,
     DateTime? timestamp,
     Value<String?> imageUrl = const Value.absent(),
+    Value<String?> healthScore = const Value.absent(),
+    Value<String?> healthScoreReason = const Value.absent(),
     Value<int?> sourceMealId = const Value.absent(),
     DateTime? createdAt,
     Value<DateTime?> lastUsedAt = const Value.absent(),
@@ -1821,6 +2222,11 @@ class FavoriteMealTableData extends DataClass
     fiber: fiber ?? this.fiber,
     timestamp: timestamp ?? this.timestamp,
     imageUrl: imageUrl.present ? imageUrl.value : this.imageUrl,
+    healthScore: healthScore.present ? healthScore.value : this.healthScore,
+    healthScoreReason:
+        healthScoreReason.present
+            ? healthScoreReason.value
+            : this.healthScoreReason,
     sourceMealId: sourceMealId.present ? sourceMealId.value : this.sourceMealId,
     createdAt: createdAt ?? this.createdAt,
     lastUsedAt: lastUsedAt.present ? lastUsedAt.value : this.lastUsedAt,
@@ -1841,6 +2247,12 @@ class FavoriteMealTableData extends DataClass
       fiber: data.fiber.present ? data.fiber.value : this.fiber,
       timestamp: data.timestamp.present ? data.timestamp.value : this.timestamp,
       imageUrl: data.imageUrl.present ? data.imageUrl.value : this.imageUrl,
+      healthScore:
+          data.healthScore.present ? data.healthScore.value : this.healthScore,
+      healthScoreReason:
+          data.healthScoreReason.present
+              ? data.healthScoreReason.value
+              : this.healthScoreReason,
       sourceMealId:
           data.sourceMealId.present
               ? data.sourceMealId.value
@@ -1865,6 +2277,8 @@ class FavoriteMealTableData extends DataClass
           ..write('fiber: $fiber, ')
           ..write('timestamp: $timestamp, ')
           ..write('imageUrl: $imageUrl, ')
+          ..write('healthScore: $healthScore, ')
+          ..write('healthScoreReason: $healthScoreReason, ')
           ..write('sourceMealId: $sourceMealId, ')
           ..write('createdAt: $createdAt, ')
           ..write('lastUsedAt: $lastUsedAt')
@@ -1885,6 +2299,8 @@ class FavoriteMealTableData extends DataClass
     fiber,
     timestamp,
     imageUrl,
+    healthScore,
+    healthScoreReason,
     sourceMealId,
     createdAt,
     lastUsedAt,
@@ -1904,6 +2320,8 @@ class FavoriteMealTableData extends DataClass
           other.fiber == this.fiber &&
           other.timestamp == this.timestamp &&
           other.imageUrl == this.imageUrl &&
+          other.healthScore == this.healthScore &&
+          other.healthScoreReason == this.healthScoreReason &&
           other.sourceMealId == this.sourceMealId &&
           other.createdAt == this.createdAt &&
           other.lastUsedAt == this.lastUsedAt);
@@ -1922,6 +2340,8 @@ class FavoriteMealTableCompanion
   final Value<int> fiber;
   final Value<DateTime> timestamp;
   final Value<String?> imageUrl;
+  final Value<String?> healthScore;
+  final Value<String?> healthScoreReason;
   final Value<int?> sourceMealId;
   final Value<DateTime> createdAt;
   final Value<DateTime?> lastUsedAt;
@@ -1937,6 +2357,8 @@ class FavoriteMealTableCompanion
     this.fiber = const Value.absent(),
     this.timestamp = const Value.absent(),
     this.imageUrl = const Value.absent(),
+    this.healthScore = const Value.absent(),
+    this.healthScoreReason = const Value.absent(),
     this.sourceMealId = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.lastUsedAt = const Value.absent(),
@@ -1953,6 +2375,8 @@ class FavoriteMealTableCompanion
     required int fiber,
     required DateTime timestamp,
     this.imageUrl = const Value.absent(),
+    this.healthScore = const Value.absent(),
+    this.healthScoreReason = const Value.absent(),
     this.sourceMealId = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.lastUsedAt = const Value.absent(),
@@ -1977,6 +2401,8 @@ class FavoriteMealTableCompanion
     Expression<int>? fiber,
     Expression<DateTime>? timestamp,
     Expression<String>? imageUrl,
+    Expression<String>? healthScore,
+    Expression<String>? healthScoreReason,
     Expression<int>? sourceMealId,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? lastUsedAt,
@@ -1993,6 +2419,8 @@ class FavoriteMealTableCompanion
       if (fiber != null) 'fiber': fiber,
       if (timestamp != null) 'timestamp': timestamp,
       if (imageUrl != null) 'image_url': imageUrl,
+      if (healthScore != null) 'health_score': healthScore,
+      if (healthScoreReason != null) 'health_score_reason': healthScoreReason,
       if (sourceMealId != null) 'source_meal_id': sourceMealId,
       if (createdAt != null) 'created_at': createdAt,
       if (lastUsedAt != null) 'last_used_at': lastUsedAt,
@@ -2011,6 +2439,8 @@ class FavoriteMealTableCompanion
     Value<int>? fiber,
     Value<DateTime>? timestamp,
     Value<String?>? imageUrl,
+    Value<String?>? healthScore,
+    Value<String?>? healthScoreReason,
     Value<int?>? sourceMealId,
     Value<DateTime>? createdAt,
     Value<DateTime?>? lastUsedAt,
@@ -2027,6 +2457,8 @@ class FavoriteMealTableCompanion
       fiber: fiber ?? this.fiber,
       timestamp: timestamp ?? this.timestamp,
       imageUrl: imageUrl ?? this.imageUrl,
+      healthScore: healthScore ?? this.healthScore,
+      healthScoreReason: healthScoreReason ?? this.healthScoreReason,
       sourceMealId: sourceMealId ?? this.sourceMealId,
       createdAt: createdAt ?? this.createdAt,
       lastUsedAt: lastUsedAt ?? this.lastUsedAt,
@@ -2069,6 +2501,12 @@ class FavoriteMealTableCompanion
     if (imageUrl.present) {
       map['image_url'] = Variable<String>(imageUrl.value);
     }
+    if (healthScore.present) {
+      map['health_score'] = Variable<String>(healthScore.value);
+    }
+    if (healthScoreReason.present) {
+      map['health_score_reason'] = Variable<String>(healthScoreReason.value);
+    }
     if (sourceMealId.present) {
       map['source_meal_id'] = Variable<int>(sourceMealId.value);
     }
@@ -2095,6 +2533,8 @@ class FavoriteMealTableCompanion
           ..write('fiber: $fiber, ')
           ..write('timestamp: $timestamp, ')
           ..write('imageUrl: $imageUrl, ')
+          ..write('healthScore: $healthScore, ')
+          ..write('healthScoreReason: $healthScoreReason, ')
           ..write('sourceMealId: $sourceMealId, ')
           ..write('createdAt: $createdAt, ')
           ..write('lastUsedAt: $lastUsedAt')
@@ -2135,6 +2575,8 @@ typedef $$MealInfoTableTableCreateCompanionBuilder =
       required int fiber,
       required DateTime timestamp,
       Value<String?> imageUrl,
+      Value<String?> healthScore,
+      Value<String?> healthScoreReason,
     });
 typedef $$MealInfoTableTableUpdateCompanionBuilder =
     MealInfoTableCompanion Function({
@@ -2149,6 +2591,8 @@ typedef $$MealInfoTableTableUpdateCompanionBuilder =
       Value<int> fiber,
       Value<DateTime> timestamp,
       Value<String?> imageUrl,
+      Value<String?> healthScore,
+      Value<String?> healthScoreReason,
     });
 
 class $$MealInfoTableTableFilterComposer
@@ -2212,6 +2656,16 @@ class $$MealInfoTableTableFilterComposer
 
   ColumnFilters<String> get imageUrl => $composableBuilder(
     column: $table.imageUrl,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get healthScore => $composableBuilder(
+    column: $table.healthScore,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get healthScoreReason => $composableBuilder(
+    column: $table.healthScoreReason,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -2279,6 +2733,16 @@ class $$MealInfoTableTableOrderingComposer
     column: $table.imageUrl,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get healthScore => $composableBuilder(
+    column: $table.healthScore,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get healthScoreReason => $composableBuilder(
+    column: $table.healthScoreReason,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$MealInfoTableTableAnnotationComposer
@@ -2324,6 +2788,16 @@ class $$MealInfoTableTableAnnotationComposer
 
   GeneratedColumn<String> get imageUrl =>
       $composableBuilder(column: $table.imageUrl, builder: (column) => column);
+
+  GeneratedColumn<String> get healthScore => $composableBuilder(
+    column: $table.healthScore,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get healthScoreReason => $composableBuilder(
+    column: $table.healthScoreReason,
+    builder: (column) => column,
+  );
 }
 
 class $$MealInfoTableTableTableManager
@@ -2376,6 +2850,8 @@ class $$MealInfoTableTableTableManager
                 Value<int> fiber = const Value.absent(),
                 Value<DateTime> timestamp = const Value.absent(),
                 Value<String?> imageUrl = const Value.absent(),
+                Value<String?> healthScore = const Value.absent(),
+                Value<String?> healthScoreReason = const Value.absent(),
               }) => MealInfoTableCompanion(
                 id: id,
                 mealName: mealName,
@@ -2388,6 +2864,8 @@ class $$MealInfoTableTableTableManager
                 fiber: fiber,
                 timestamp: timestamp,
                 imageUrl: imageUrl,
+                healthScore: healthScore,
+                healthScoreReason: healthScoreReason,
               ),
           createCompanionCallback:
               ({
@@ -2402,6 +2880,8 @@ class $$MealInfoTableTableTableManager
                 required int fiber,
                 required DateTime timestamp,
                 Value<String?> imageUrl = const Value.absent(),
+                Value<String?> healthScore = const Value.absent(),
+                Value<String?> healthScoreReason = const Value.absent(),
               }) => MealInfoTableCompanion.insert(
                 id: id,
                 mealName: mealName,
@@ -2414,6 +2894,8 @@ class $$MealInfoTableTableTableManager
                 fiber: fiber,
                 timestamp: timestamp,
                 imageUrl: imageUrl,
+                healthScore: healthScore,
+                healthScoreReason: healthScoreReason,
               ),
           withReferenceMapper:
               (p0) =>
@@ -2453,10 +2935,14 @@ typedef $$UserSettingsTableTableCreateCompanionBuilder =
       Value<int?> dailyCalorieGoal,
       Value<double?> height,
       Value<double?> weight,
+      Value<double?> targetWeight,
       Value<String?> gender,
       Value<DateTime?> dateOfBirth,
       Value<String?> weightGoal,
       Value<String?> activityLevel,
+      Value<String> heightUnit,
+      Value<String> weightUnit,
+      Value<String?> languageCode,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
     });
@@ -2466,10 +2952,14 @@ typedef $$UserSettingsTableTableUpdateCompanionBuilder =
       Value<int?> dailyCalorieGoal,
       Value<double?> height,
       Value<double?> weight,
+      Value<double?> targetWeight,
       Value<String?> gender,
       Value<DateTime?> dateOfBirth,
       Value<String?> weightGoal,
       Value<String?> activityLevel,
+      Value<String> heightUnit,
+      Value<String> weightUnit,
+      Value<String?> languageCode,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
     });
@@ -2503,6 +2993,11 @@ class $$UserSettingsTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<double> get targetWeight => $composableBuilder(
+    column: $table.targetWeight,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<String> get gender => $composableBuilder(
     column: $table.gender,
     builder: (column) => ColumnFilters(column),
@@ -2520,6 +3015,21 @@ class $$UserSettingsTableTableFilterComposer
 
   ColumnFilters<String> get activityLevel => $composableBuilder(
     column: $table.activityLevel,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get heightUnit => $composableBuilder(
+    column: $table.heightUnit,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get weightUnit => $composableBuilder(
+    column: $table.weightUnit,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get languageCode => $composableBuilder(
+    column: $table.languageCode,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2563,6 +3073,11 @@ class $$UserSettingsTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<double> get targetWeight => $composableBuilder(
+    column: $table.targetWeight,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get gender => $composableBuilder(
     column: $table.gender,
     builder: (column) => ColumnOrderings(column),
@@ -2580,6 +3095,21 @@ class $$UserSettingsTableTableOrderingComposer
 
   ColumnOrderings<String> get activityLevel => $composableBuilder(
     column: $table.activityLevel,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get heightUnit => $composableBuilder(
+    column: $table.heightUnit,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get weightUnit => $composableBuilder(
+    column: $table.weightUnit,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get languageCode => $composableBuilder(
+    column: $table.languageCode,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -2617,6 +3147,11 @@ class $$UserSettingsTableTableAnnotationComposer
   GeneratedColumn<double> get weight =>
       $composableBuilder(column: $table.weight, builder: (column) => column);
 
+  GeneratedColumn<double> get targetWeight => $composableBuilder(
+    column: $table.targetWeight,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<String> get gender =>
       $composableBuilder(column: $table.gender, builder: (column) => column);
 
@@ -2632,6 +3167,21 @@ class $$UserSettingsTableTableAnnotationComposer
 
   GeneratedColumn<String> get activityLevel => $composableBuilder(
     column: $table.activityLevel,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get heightUnit => $composableBuilder(
+    column: $table.heightUnit,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get weightUnit => $composableBuilder(
+    column: $table.weightUnit,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get languageCode => $composableBuilder(
+    column: $table.languageCode,
     builder: (column) => column,
   );
 
@@ -2692,10 +3242,14 @@ class $$UserSettingsTableTableTableManager
                 Value<int?> dailyCalorieGoal = const Value.absent(),
                 Value<double?> height = const Value.absent(),
                 Value<double?> weight = const Value.absent(),
+                Value<double?> targetWeight = const Value.absent(),
                 Value<String?> gender = const Value.absent(),
                 Value<DateTime?> dateOfBirth = const Value.absent(),
                 Value<String?> weightGoal = const Value.absent(),
                 Value<String?> activityLevel = const Value.absent(),
+                Value<String> heightUnit = const Value.absent(),
+                Value<String> weightUnit = const Value.absent(),
+                Value<String?> languageCode = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => UserSettingsTableCompanion(
@@ -2703,10 +3257,14 @@ class $$UserSettingsTableTableTableManager
                 dailyCalorieGoal: dailyCalorieGoal,
                 height: height,
                 weight: weight,
+                targetWeight: targetWeight,
                 gender: gender,
                 dateOfBirth: dateOfBirth,
                 weightGoal: weightGoal,
                 activityLevel: activityLevel,
+                heightUnit: heightUnit,
+                weightUnit: weightUnit,
+                languageCode: languageCode,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
               ),
@@ -2716,10 +3274,14 @@ class $$UserSettingsTableTableTableManager
                 Value<int?> dailyCalorieGoal = const Value.absent(),
                 Value<double?> height = const Value.absent(),
                 Value<double?> weight = const Value.absent(),
+                Value<double?> targetWeight = const Value.absent(),
                 Value<String?> gender = const Value.absent(),
                 Value<DateTime?> dateOfBirth = const Value.absent(),
                 Value<String?> weightGoal = const Value.absent(),
                 Value<String?> activityLevel = const Value.absent(),
+                Value<String> heightUnit = const Value.absent(),
+                Value<String> weightUnit = const Value.absent(),
+                Value<String?> languageCode = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => UserSettingsTableCompanion.insert(
@@ -2727,10 +3289,14 @@ class $$UserSettingsTableTableTableManager
                 dailyCalorieGoal: dailyCalorieGoal,
                 height: height,
                 weight: weight,
+                targetWeight: targetWeight,
                 gender: gender,
                 dateOfBirth: dateOfBirth,
                 weightGoal: weightGoal,
                 activityLevel: activityLevel,
+                heightUnit: heightUnit,
+                weightUnit: weightUnit,
+                languageCode: languageCode,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
               ),
@@ -2783,6 +3349,8 @@ typedef $$FavoriteMealTableTableCreateCompanionBuilder =
       required int fiber,
       required DateTime timestamp,
       Value<String?> imageUrl,
+      Value<String?> healthScore,
+      Value<String?> healthScoreReason,
       Value<int?> sourceMealId,
       Value<DateTime> createdAt,
       Value<DateTime?> lastUsedAt,
@@ -2800,6 +3368,8 @@ typedef $$FavoriteMealTableTableUpdateCompanionBuilder =
       Value<int> fiber,
       Value<DateTime> timestamp,
       Value<String?> imageUrl,
+      Value<String?> healthScore,
+      Value<String?> healthScoreReason,
       Value<int?> sourceMealId,
       Value<DateTime> createdAt,
       Value<DateTime?> lastUsedAt,
@@ -2866,6 +3436,16 @@ class $$FavoriteMealTableTableFilterComposer
 
   ColumnFilters<String> get imageUrl => $composableBuilder(
     column: $table.imageUrl,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get healthScore => $composableBuilder(
+    column: $table.healthScore,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get healthScoreReason => $composableBuilder(
+    column: $table.healthScoreReason,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2949,6 +3529,16 @@ class $$FavoriteMealTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get healthScore => $composableBuilder(
+    column: $table.healthScore,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get healthScoreReason => $composableBuilder(
+    column: $table.healthScoreReason,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<int> get sourceMealId => $composableBuilder(
     column: $table.sourceMealId,
     builder: (column) => ColumnOrderings(column),
@@ -3008,6 +3598,16 @@ class $$FavoriteMealTableTableAnnotationComposer
 
   GeneratedColumn<String> get imageUrl =>
       $composableBuilder(column: $table.imageUrl, builder: (column) => column);
+
+  GeneratedColumn<String> get healthScore => $composableBuilder(
+    column: $table.healthScore,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get healthScoreReason => $composableBuilder(
+    column: $table.healthScoreReason,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get sourceMealId => $composableBuilder(
     column: $table.sourceMealId,
@@ -3080,6 +3680,8 @@ class $$FavoriteMealTableTableTableManager
                 Value<int> fiber = const Value.absent(),
                 Value<DateTime> timestamp = const Value.absent(),
                 Value<String?> imageUrl = const Value.absent(),
+                Value<String?> healthScore = const Value.absent(),
+                Value<String?> healthScoreReason = const Value.absent(),
                 Value<int?> sourceMealId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime?> lastUsedAt = const Value.absent(),
@@ -3095,6 +3697,8 @@ class $$FavoriteMealTableTableTableManager
                 fiber: fiber,
                 timestamp: timestamp,
                 imageUrl: imageUrl,
+                healthScore: healthScore,
+                healthScoreReason: healthScoreReason,
                 sourceMealId: sourceMealId,
                 createdAt: createdAt,
                 lastUsedAt: lastUsedAt,
@@ -3112,6 +3716,8 @@ class $$FavoriteMealTableTableTableManager
                 required int fiber,
                 required DateTime timestamp,
                 Value<String?> imageUrl = const Value.absent(),
+                Value<String?> healthScore = const Value.absent(),
+                Value<String?> healthScoreReason = const Value.absent(),
                 Value<int?> sourceMealId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime?> lastUsedAt = const Value.absent(),
@@ -3127,6 +3733,8 @@ class $$FavoriteMealTableTableTableManager
                 fiber: fiber,
                 timestamp: timestamp,
                 imageUrl: imageUrl,
+                healthScore: healthScore,
+                healthScoreReason: healthScoreReason,
                 sourceMealId: sourceMealId,
                 createdAt: createdAt,
                 lastUsedAt: lastUsedAt,

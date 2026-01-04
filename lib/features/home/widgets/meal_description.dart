@@ -2,9 +2,11 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/meal_detection_result.dart';
 import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
+    show getSnapDisclaimer;
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +46,7 @@ class _DescribeMealState extends State<DescribeMeal> {
                   Icon(LucideIcons.wandSparkles, color: colorScheme.primary),
                   SizedBox(width: 8),
                   Text(
-                    'Quick Add with AI',
+                    t.home.mealDescription.title,
                     style: textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
@@ -54,7 +56,7 @@ class _DescribeMealState extends State<DescribeMeal> {
               ),
               SizedBox(height: 8),
               Text(
-                'Describe your meal, and let AI handle the details.',
+                t.home.mealDescription.description,
                 style: textTheme.bodyMedium?.copyWith(
                   color: colorScheme.onSecondary.withValues(alpha: 0.7),
                 ),
@@ -68,9 +70,7 @@ class _DescribeMealState extends State<DescribeMeal> {
                     borderRadius: globalRadius,
                     borderSide: BorderSide(color: colorScheme.outline),
                   ),
-                  hintText:
-                      'eg. For breakfast I had a large bowl of '
-                      'oatmeal with a sliced banana and a scoop of whey ...',
+                  hintText: t.home.mealDescription.hint,
                   hintStyle: textTheme.bodyLarge?.copyWith(
                     color: colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
@@ -82,7 +82,7 @@ class _DescribeMealState extends State<DescribeMeal> {
               PrimaryButton(
                 analyticsEvent: AnalyticsEvent.addMealFromDescription,
                 onPressed: _onProcessMealDescription,
-                text: 'Analyze meal',
+                text: t.home.mealDescription.analyzeMeal,
                 leadingIcon: LucideIcons.wandSparkles,
                 isLoading: _isLoading,
               ),
@@ -92,7 +92,7 @@ class _DescribeMealState extends State<DescribeMeal> {
         Positioned(
           top: 0,
           right: 12,
-          child: DisclaimerButton(data: snapDisclaimer),
+          child: DisclaimerButton(data: getSnapDisclaimer()),
         ),
       ],
     );
@@ -111,7 +111,7 @@ class _DescribeMealState extends State<DescribeMeal> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(snack('Failed to process: $e'));
+      ).showSnackBar(snack(t.meal.failedToProcess(error: e)));
       return;
     } finally {
       _reset();

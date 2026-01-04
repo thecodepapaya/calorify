@@ -1,3 +1,4 @@
+import 'package:calorify/core/models/health_score.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/models/meal_type.dart';
 
@@ -99,6 +100,7 @@ class MealInfoMock {
       final imgUrl = _getRandomImageUrl();
 
       final nutrition = _generateNutritionForType(type);
+      final healthData = _generateHealthScoreForMeal(name);
 
       final meal = MealInfo(
         mealName: name,
@@ -111,6 +113,8 @@ class MealInfoMock {
         fiber: nutrition['fiber']!,
         timestamp: time,
         imageUrl: imgUrl,
+        healthScore: healthData['score'] as HealthScore,
+        healthScoreReason: healthData['reason'] as String,
       );
       meals.add(meal);
     }
@@ -134,6 +138,7 @@ class MealInfoMock {
 
     // Generate realistic nutritional values based on meal type
     final nutrition = _generateNutritionForType(type);
+    final healthData = _generateHealthScoreForMeal(name);
 
     return MealInfo(
       mealName: name,
@@ -146,6 +151,8 @@ class MealInfoMock {
       fiber: nutrition['fiber']!,
       timestamp: time,
       imageUrl: imgUrl,
+      healthScore: healthData['score'] as HealthScore,
+      healthScoreReason: healthData['reason'] as String,
     );
   }
 
@@ -362,5 +369,45 @@ class MealInfoMock {
       'fat': (baseNutrition['fat']! * (1 + variation * 0.2)).round(),
       'fiber': (baseNutrition['fiber']! * (1 + variation * 0.3)).round(),
     };
+  }
+
+  static Map<String, dynamic> _generateHealthScoreForMeal(String name) {
+    // Simple heuristic-based health scoring for mock data
+    final healthyKeywords = [
+      'Salad',
+      'Grilled',
+      'Quinoa',
+      'Buddha Bowl',
+      'Salmon',
+      'Baked',
+      'Vegetable',
+      'Fruit',
+      'Apple',
+      'Banana',
+      'Hummus',
+    ];
+    final unhealthyKeywords = [
+      'Burger',
+      'Fries',
+      'Pizza',
+      'Carbonara',
+      'Syrup',
+      'Pancakes',
+      'Cream Cheese',
+      'Dark Chocolate',
+    ];
+
+    HealthScore score = HealthScore.neutral; // Default: Neutral
+    String reason = 'Balanced meal with moderate nutritional value.';
+
+    if (healthyKeywords.any((k) => name.contains(k))) {
+      score = HealthScore.healthy;
+      reason = 'Nutrient-dense ingredients with high fiber and quality protein.';
+    } else if (unhealthyKeywords.any((k) => name.contains(k))) {
+      score = HealthScore.unhealthy;
+      reason = 'High in processed elements, sodium, or saturated fats.';
+    }
+
+    return {'score': score, 'reason': reason};
   }
 }

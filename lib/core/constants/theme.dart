@@ -27,13 +27,10 @@ class AppThemes {
       errorContainer: AppColors.errorContainer,
       onErrorContainer: AppColors.onErrorContainer,
 
-      background: AppColors.background,
-      onBackground: AppColors.onBackground,
-
       surface: AppColors.surface,
       onSurface: AppColors.onSurface,
 
-      surfaceVariant: AppColors.surfaceVariant,
+      surfaceContainerHighest: AppColors.surfaceVariant,
       onSurfaceVariant: AppColors.onSurfaceVariant,
 
       outline: AppColors.outline,
@@ -74,13 +71,10 @@ class AppThemes {
       errorContainer: AppColors.errorContainer,
       onErrorContainer: AppColors.onErrorContainer,
 
-      background: AppColors.background,
-      onBackground: AppColors.onBackground,
-
       surface: AppColors.surface,
       onSurface: AppColors.onSurface,
 
-      surfaceVariant: AppColors.surfaceVariant,
+      surfaceContainerHighest: AppColors.surfaceVariant,
       onSurfaceVariant: AppColors.onSurfaceVariant,
 
       outline: AppColors.outline,
