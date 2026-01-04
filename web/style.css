@@ -340,43 +340,7 @@ nav {
 }
 
 .device-notch {
-    position: absolute;
-    top: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    z-index: 10;
-}
-
-/* Android Punch Hole Camera */
-.device-notch::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 18px;
-    height: 18px;
-    background: #000;
-    border-radius: 50%;
-    box-shadow:
-        0 0 0 2px rgba(0, 0, 0, 0.3),
-        inset 0 0 0 2px rgba(255, 255, 255, 0.05);
-}
-
-/* Optional: Add a subtle inner ring for depth */
-.device-notch::after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 14px;
-    height: 14px;
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
+    display: none;
 }
 
 .device-screen {

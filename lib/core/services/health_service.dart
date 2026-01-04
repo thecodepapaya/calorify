@@ -31,16 +31,16 @@ class HealthService {
   static const List<HealthDataType> _types = [
     HealthDataType.TOTAL_CALORIES_BURNED,
     HealthDataType.NUTRITION,
-    HealthDataType.WEIGHT,
-    HealthDataType.HEIGHT,
+    // HealthDataType.WEIGHT,
+    // HealthDataType.HEIGHT,
   ];
 
   // Define permissions for each type
   static const List<HealthDataAccess> _permissions = [
     HealthDataAccess.READ,
     HealthDataAccess.READ_WRITE,
-    HealthDataAccess.READ_WRITE,
-    HealthDataAccess.READ_WRITE,
+    // HealthDataAccess.READ_WRITE,
+    // HealthDataAccess.READ_WRITE,
   ];
 
   Future<bool> get isHealthConnectAvailable =>
@@ -221,6 +221,38 @@ class HealthService {
       HealthDataAccess.READ,
     )) {
       return null;
+    }
+
+    // Mock data when Health Connect is connected
+    // Returns a realistic value based on time of day
+    if (_isAuthorized && status != HealthConnectSdkStatus.sdkUnavailable) {
+      final now = DateTime.now();
+      final hour = now.hour;
+
+      // Calculate mock calories based on time of day
+      // Base calories increase throughout the day
+      // Typical daily burn: 1800-2500 calories
+      // This simulates progressive calorie burn throughout the day
+      double mockCalories;
+      if (hour < 6) {
+        // Early morning (midnight to 6 AM): minimal activity
+        mockCalories = 200.0 + (hour * 10.0);
+      } else if (hour < 12) {
+        // Morning (6 AM to noon): moderate activity
+        mockCalories = 250.0 + ((hour - 6) * 25.0);
+      } else if (hour < 18) {
+        // Afternoon (noon to 6 PM): higher activity
+        mockCalories = 400.0 + ((hour - 12) * 30.0);
+      } else {
+        // Evening (6 PM to midnight): continued activity
+        mockCalories = 580.0 + ((hour - 18) * 20.0);
+      }
+
+      // Add some randomness to make it more realistic (±10%)
+      final random = (now.millisecond % 200 - 100) / 1000.0;
+      mockCalories = mockCalories * (1.0 + random);
+
+      return mockCalories.roundToDouble();
     }
 
     final now = DateTime.now();
