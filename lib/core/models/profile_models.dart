@@ -83,7 +83,6 @@ class UserProfile {
   final ActivityLevel? activityLevel;
   final UnitSystem heightUnit;
   final UnitSystem weightUnit;
-  final String? languageCode;
 
   const UserProfile({
     this.height,
@@ -95,7 +94,6 @@ class UserProfile {
     this.activityLevel,
     this.heightUnit = UnitSystem.metric,
     this.weightUnit = UnitSystem.metric,
-    this.languageCode,
   });
 
   int? get age {
@@ -124,7 +122,6 @@ class UserProfile {
     ActivityLevel? activityLevel,
     UnitSystem? heightUnit,
     UnitSystem? weightUnit,
-    String? languageCode,
   }) {
     return UserProfile(
       height: height ?? this.height,
@@ -136,7 +133,6 @@ class UserProfile {
       activityLevel: activityLevel ?? this.activityLevel,
       heightUnit: heightUnit ?? this.heightUnit,
       weightUnit: weightUnit ?? this.weightUnit,
-      languageCode: languageCode ?? this.languageCode,
     );
   }
 }

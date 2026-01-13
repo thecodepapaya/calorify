@@ -1,0 +1,556 @@
+{
+  "language": "Nederlands",
+  "flag": "🇳🇱",
+  "onboarding": {
+    "welcome": "Welkom bij Calorify",
+    "subtitle": "Jouw persoonlijke voedingsgenoot aangedreven door AI",
+    "getStarted": "Aan de Slag",
+    "features": {
+      "foodRecognition": {
+        "title": "Slimme Voedselherkenning",
+        "description": "Neem een foto en laat AI je maaltijd identificeren"
+      },
+      "aiAnalysis": {
+        "title": "AI Analyse",
+        "description": "Ontvang directe voedingsinformatie van je beschrijvingen"
+      },
+      "healthIntegration": {
+        "title": "Gezondheidsintegratie",
+        "description": "Verbind met Health Connect voor betere inzichten"
+      }
+    },
+    "gender": {
+      "title": "Wat is je geslacht?",
+      "description": "Geslacht helpt ons om je basaal metabolisme (BMR) nauwkeurig te berekenen.",
+      "next": "Volgende"
+    },
+    "height": {
+      "title": "Hoe lang ben je?",
+      "description": "Je lengte helpt ons om je BMI en energiebehoeften nauwkeurig te berekenen.",
+      "metric": "Metrisch",
+      "imperial": "Imperiaal",
+      "next": "Volgende"
+    },
+    "weight": {
+      "currentTitle": "Wat is je huidige gewicht?",
+      "currentDescription": "Je huidige gewicht is essentieel voor het personaliseren van je dagelijkse doelen.",
+      "targetTitle": "Wat is je streefgewicht?",
+      "targetDescription": "Een doelgewicht instellen helpt ons om je langetermijnplan te bepalen.",
+      "metric": "Metrisch",
+      "imperial": "Imperiaal",
+      "next": "Volgende"
+    },
+    "age": {
+      "title": "Wanneer is je verjaardag?",
+      "description": "Je leeftijd helpt ons om je caloriebehoefte nauwkeurig te berekenen.",
+      "next": "Volgende"
+    },
+    "bmiScale": {
+      "underweight": "Ondergewicht",
+      "healthy": "Gezond",
+      "overweight": "Overgewicht",
+      "obese": "Obesitas",
+      "categories": {
+        "underweight": "Ondergewicht",
+        "healthyWeight": "Gezond gewicht",
+        "overweight": "Overgewicht",
+        "obese": "Obesitas"
+      },
+      "messages": {
+        "underweight": "We kunnen je helpen een gezond plan op te stellen om een evenwichtig gewicht te bereiken met voedzame maaltijden.",
+        "healthy": "Goed gedaan! Je zit in een gezond bereik. We helpen je je vitaliteit en energieniveaus te behouden.",
+        "overweight": "Calorify vereenvoudigt je reis met AI-aangedreven tracking om je comfortabel naar je doel te helpen.",
+        "obese": "We zijn hier om je te ondersteunen met gepersonaliseerde begeleiding en duurzame strategieën voor je gezondheidsdoelen."
+      }
+    },
+    "weightGoal": {
+      "title": "Wat is je doel?",
+      "description": "Kies het doel dat het beste beschrijft wat je wilt bereiken"
+    },
+    "activityLevel": {
+      "title": "Hoe actief ben je?",
+      "description": "Dit helpt ons om je dagelijkse caloriebehoefte nauwkeuriger te berekenen"
+    },
+    "healthConnect": {
+      "title": "Verbind met Health Connect",
+      "description": "Synchroniseer je gezondheidsgegevens voor betere inzichten en automatische calorie-tracking",
+      "automaticTracking": {
+        "title": "Automatische Calorie-tracking",
+        "description": "Houd calorieën bij die verbrand zijn vanuit je fitness-apps"
+      },
+      "progressInsights": {
+        "title": "Voortgangsinzichten",
+        "description": "Ontvang gedetailleerde inzichten in je gezondheidstrends"
+      },
+      "seamlessIntegration": {
+        "title": "Naadloze Integratie",
+        "description": "Synchroniseer gegevens van je favoriete gezondheidsapps"
+      },
+      "connected": "Health Connect Verbonden",
+      "notConnected": "Health Connect Niet Verbonden",
+      "setup": "Instellingen Health Connect",
+      "skipForNow": "Voor nu overslaan",
+      "statusConnected": "Health Connect is verbonden.",
+      "statusSuccess": "Health Connect is succesvol verbonden!",
+      "statusPermissionDenied": "Toestemming geweigerd. Schakel Health Connect-toestemmingen in via je telefoonsinstellingen voor Calorify.",
+      "statusError": "Fout bij het instellen van Health Connect: {error}"
+    },
+    "reinforcement": {
+      "trackingSuccess": {
+        "title": "Je Bent Niet Alleen",
+        "genericMessage": "Onderzoek toont aan dat consistente tracking de belangrijkste voorspeller is van langdurig succes.",
+        "personalizedMessage": "Voor een {age} jaar oude {gender} die {goal} wil, is consistente tracking de belangrijkste voorspeller van succes.",
+        "closingMessage": "Calorify maakt het 10 keer gemakkelijker dan handmatig doen.",
+        "getStartedTitle": "Klaar om te beginnen?",
+        "tipPhoto": "Neem een foto van je maaltijden voor onmiddellijke analyse",
+        "tipConsistency": "Houd regelmatig bij om betekenisvolle vooruitgang te zien",
+        "tipProgress": "Volg je voortgang dagelijks om gemotiveerd te blijven",
+        "button": "Laten We Gaan",
+        "defaultGender": "persoon",
+        "defaultGoal": "gezondere jij",
+        "instantPhotoAnalysis": "Directe foto-analyse",
+        "automaticLogging": "Automatische voedingslogboeken",
+        "progressVisualizations": "Voortgang visualisaties die je gemotiveerd houden"
+      },
+      "healthProfile": {
+        "title": "Je Gezondheidsprofiel",
+        "bmiDescription": "Op basis van je metrics is je BMI {bmi}.",
+        "finalizeDescription": "Laten we je profiel afronden om je ervaring te personaliseren.",
+        "goalGain": "gewichtstoename",
+        "goalLose": "gewichtsverlies",
+        "goalReach": "Om je doel te bereiken, moet je {direction} {diff} {unit}.",
+        "goalReached": "Je bent op je streefgewicht! We helpen je het te behouden.",
+        "button": "Laten We Gaan"
+      },
+      "goalLifestyle": {
+        "title": "Uitstekende Start!",
+        "description": "Je hebt de eerste stap gezet richting {goalText}. Aangezien je {activityText} bent, zal Calorify je doelen aanpassen aan jouw levensstijl.",
+        "personalizedTargets": "Gepersonaliseerde calorie-doelen",
+        "aiMealDetection": "AI-gestuurde maaltijddetectie",
+        "macroBreakdowns": "Gedetailleerde macro-nutrienten analyses",
+        "button": "Laten We Gaan",
+        "defaultGoal": "jouw doelen",
+        "defaultActivity": "actief"
+      }
+    }
+  },
+  "tabs": {
+    "dashboard": "Dashboard",
+    "history": "Geschiedenis"
+  },
+  "home": {
+    "dailyGoal": {
+      "title": "Stel Je Dagdoel In",
+      "titleSet": "Je Dagdoel",
+      "description": "Klaar om aan je welzijnsreis te beginnen? Stel hieronder je dagelijkse calorie-target in om je voortgang te starten.",
+      "descriptionSet": "Je kompas is ingesteld! Dit is je dagelijkse calorie-target om je te begeleiden.",
+      "yourGoal": "Je Doel",
+      "dailyCalories": "Dagelijkse calorieën (kcal)",
+      "setGoal": "Stel Doel In",
+      "intake": "Inname",
+      "burned": "Verbrand",
+      "weightImpact": "Gewichtsimpact",
+      "estLoss": "Geschatte verlies van",
+      "estGain": "Geschatte winst van",
+      "kcal": "kcal"
+    },
+    "dailySummary": {
+      "title": "Dagelijkse Samenvatting",
+      "calories": "Calorieën",
+      "carbs": "Koolhydraten",
+      "protein": "Eiwit",
+      "fat": "Vetten",
+      "fiber": "Vezels"
+    },
+    "intakeProgress": {
+      "title": "Vandaag's Macro Verhoudingen",
+      "target": "Doel",
+      "current": "Huidig"
+    },
+    "intakeHistory": {
+      "title": "7-Daagse Macro Geschiedenis",
+      "noHistoryYet": "Geen geschiedenis tot nu toe",
+      "startLogging": "Begin met het bijhouden van maaltijden om je\n7-daagse macrotrends hier te zien"
+    },
+    "mealLog": {
+      "title": "Ingevoerde Maaltijden",
+      "emptyMessage": "Neem een foto van je laatste maaltijd om deze hier in te voeren.",
+      "noMealsToday": "Geen maaltijden geregistreerd voor vandaag",
+      "seeAllMeals": "Bekijk alle maaltijden"
+    },
+    "mealDescription": {
+      "title": "Snel Toevoegen met AI",
+      "description": "Beschrijf je maaltijd, en laat AI de details afhandelen.",
+      "hint": "bijv. Voor het ontbijt had ik een grote kom havermout met een gesneden banaan en een lepel whey ...",
+      "analyzeMeal": "Analyseer maaltijd"
+    },
+    "favoriteMeals": {
+      "title": "Favoriete Maaltijden",
+      "description": "Voeg snel een van je favoriete maaltijden toe.",
+      "noFavorites": "Nog geen favoriete maaltijden.",
+      "addFavoriteHint": "Klik op de ster bij een maaltijd om het als favoriet te markeren.",
+      "seeAll": "Bekijk alles",
+      "add": "Toevoegen"
+    },
+    "mealSnap": {
+      "title": "Neem een Foto & Volg Je Maaltijd",
+      "description": "Gebruik je camera om een foto van je voedsel te maken voor AI-analyse.",
+      "openCamera": "Open Camera"
+    },
+    "connectHealth": {
+      "title": "Sync met Health Connect",
+      "description": "Synchroniseer je voedingsgegevens met Health Connect",
+      "install": "Installeer",
+      "connect": "Verbind"
+    }
+  },
+  "history": {
+    "noMeals": "Geen maaltijden geregistreerd",
+    "emptyMessage": "Neem een foto van je laatste maaltijd om deze hier in te voeren.",
+    "today": "Vandaag",
+    "yesterday": "Gisteren"
+  },
+  "meal": {
+    "ohNo": "Oh nee!",
+    "delete": "Verwijderen",
+    "editMeal": "Bewerk Maaltijd",
+    "addMeal": "Voeg Maaltijd Toe",
+    "saveMeal": "Sla Maaltijd Op",
+    "save": "Opslaan",
+    "mealName": "Maaltijd Naam",
+    "mealQuantity": "Maaltijd Hoeveelheid",
+    "mealQuantityHint": "bijv., 1 kom, 2 plakken",
+    "timeOfMeal": "Tijd van Maaltijd",
+    "timeOfMealHint": "Selecteer de tijd waarop je je maaltijd had",
+    "mealType": "Maaltijd Type",
+    "nutrition": {
+      "calories": "Calorieën",
+      "carbs": "Koolhydraten (g)",
+      "protein": "Eiwit (g)",
+      "fat": "Vetten (g)",
+      "fiber": "Vezels (g)"
+    },
+    "deleteConfirmation": {
+      "title": "Verwijder Maaltijd",
+      "message": "Weet je zeker dat je deze maaltijdinvoer wilt verwijderen?",
+      "cancel": "Annuleren",
+      "delete": "Verwijderen"
+    },
+    "addedToLog": "Maaltijd toegevoegd aan je logboek!",
+    "couldNotAdd": "Kon maaltijd niet toevoegen: {error}",
+    "removedFromFavorites": "Verwijderd uit favorieten!",
+    "savedAsFavorite": "Maaltijd opgeslagen als favoriet!",
+    "couldNotUpdateFavorite": "Kon favoriet niet bijwerken: {error}",
+    "failedToProcess": "Kon niet verwerken: {error}",
+    "failedToProcessImage": "Kon afbeelding niet verwerken: {error}",
+    "errorCompressingImage": "Fout bij het comprimeren van afbeelding: {error}",
+    "failedToSave": "Kon gegevens niet opslaan. Probeer het opnieuw."
+  },
+  "favorites": {
+    "title": "Favorieten",
+    "empty": "Nog geen favoriete maaltijden."
+  },
+  "profile": {
+    "title": "Profiel",
+    "noProfileData": "Geen profielgegevens gevonden",
+    "yourProfile": "Je Profiel",
+    "viewAndManage": "Bekijk en beheer je gezondheidsinformatie",
+    "sections": {
+      "profile": "PROFIEL",
+      "basicInformation": "BASIC INFORMATIE",
+      "goalsAndActivity": "DOELEN & ACTIVITEIT",
+      "calculatedValues": "GECALCULEERDE WAARDEN"
+    },
+    "gender": "Geslacht",
+    "height": "Lengte",
+    "weight": "Gewicht",
+    "age": "Leeftijd",
+    "weightGoal": "Gewichtsdoel",
+    "activityLevel": "Activiteitsniveau",
+    "healthMetrics": "Gezondheidsmetrics",
+    "notSet": "Niet ingesteld",
+    "years": "jaren",
+    "updatedSuccessfully": "Profiel succesvol bijgewerkt!",
+    "calculatedValues": {
+      "bmr": "BMR",
+      "tdee": "TDEE",
+      "dailyGoal": "Dagdoel",
+      "calPerDay": "cal/dag",
+      "notAvailable": "N/B"
+    }
+  },
+  "healthScore": {
+    "title": "Gezondheidsscore",
+    "whyThisScore": "Waarom deze score?",
+    "note": "Deze score is een AI-schatting op basis van de geïdentificeerde ingrediënten en voedingsdichtheid. Raadpleeg altijd een professional voor dieetadvies.",
+    "unhealthy": "Ongezond",
+    "healthy": "Gezond",
+    "neutral": "Neutraal"
+  },
+  "editProfile": {
+    "title": "Bewerk Profiel",
+    "sections": {
+      "personalInformation": "PERSOONLIJKE INFORMATIE",
+      "physicalMeasurements": "FYSIEKE METINGEN",
+      "goalsAndActivity": "DOELEN & ACTIVITEIT"
+    },
+    "gender": "Geslacht",
+    "dateOfBirth": "Geboortedatum",
+    "height": "Lengte",
+    "weight": "Gewicht",
+    "weightGoal": "Gewichtsdoel",
+    "activityLevel": "Activiteitsniveau",
+    "metric": "Metrisch",
+    "imperial": "Imperiaal",
+    "metricCm": "Metrisch (cm)",
+    "imperialFtIn": "Imperiaal (ft/in)",
+    "metricKg": "Metrisch (kg)",
+    "imperialLbs": "Imperiaal (lbs)",
+    "genders": {
+      "male": "Man",
+      "female": "Vrouw",
+      "other": "Overig"
+    },
+    "weightGoals": {
+      "loseWeight": {
+        "name": "Afvallen",
+        "description": "Creëer een calorie tekort om af te vallen"
+      },
+      "maintainWeight": {
+        "name": "Gewicht Behouden",
+        "description": "Behoud je huidige gewicht"
+      },
+      "gainWeight": {
+        "name": "Aankomen",
+        "description": "Creëer een calorie overschot om aan te komen"
+      }
+    },
+    "activityLevels": {
+      "sedentary": {
+        "name": "Sedentair",
+        "description": "Weinig tot geen beweging"
+      },
+      "lightlyActive": {
+        "name": "Licht Actief",
+        "description": "Lichte oefeningen 1-3 dagen/week"
+      },
+      "moderatelyActive": {
+        "name": "Gemiddeld Actief",
+        "description": "Matige oefeningen 3-5 dagen/week"
+      },
+      "veryActive": {
+        "name": "Zeer Actief",
+        "description": "Zware oefeningen 6-7 dagen/week"
+      },
+      "extremelyActive": {
+        "name": "Extreem Actief",
+        "description": "Zeer zware oefeningen, fysiek werk"
+      }
+    }
+  },
+  "settings": {
+    "title": "Instellingen",
+    "sections": {
+      "profile": "PROFIEL",
+      "localization": "LOCALISATIE",
+      "notifications": "MELDINGEN",
+      "supportAndLegal": "ONDERSTEUNING & JURIDISCH",
+      "dangerZone": "GEVAARZONE",
+      "developer": "ONTWIKKELAAR"
+    },
+    "editProfile": {
+      "title": "Bewerk Profiel",
+      "subtitle": "Update je persoonlijke informatie"
+    },
+    "language": {
+      "title": "Taal",
+      "subtitle": "Kies je voorkeurstaal"
+    },
+    "heightUnit": {
+      "title": "Lengte-eenheid"
+    },
+    "weightUnit": {
+      "title": "Gewicht-eenheid"
+    },
+    "theme": {
+      "title": "Theme",
+      "subtitle": "Choose your preferred theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "mealReminders": {
+      "title": "Maaltijdherinneringen",
+      "subtitle": "Blijf op koers met tijdige waarschuwingen"
+    },
+    "sendFeedback": {
+      "title": "Feedback Versturen",
+      "subtitle": "Help ons Calorify te verbeteren",
+      "emailSubject": "Calorify App Feedback",
+      "emailBodyPrefix": "Gelieve je feedback hieronder te geven:",
+      "appVersion": "App Versie",
+      "device": "Apparaat",
+      "osVersion": "OS Versie",
+      "uid": "UID"
+    },
+    "clearAllData": {
+      "title": "Verwijder Alle Gegevens",
+      "subtitle": "Verwijder al je informatie onherroepelijk",
+      "confirmationTitle": "Alle Gegevens Verwijderen?",
+      "confirmationMessage": "Deze actie kan niet ongedaan worden gemaakt. Al je geregistreerde maaltijden, favorieten en profielinstellingen worden permanent verwijderd.",
+      "cancel": "Annuleren",
+      "clearEverything": "Verwijder Alles"
+    },
+    "debugOptions": {
+      "title": "Debug Opties"
+    },
+    "developerModeEnabled": "Ontwikkelaarsmode ingeschakeld!"
+  },
+  "reminders": {
+    "title": "Blijf op koers met herinneringen",
+    "description": "Krijg vriendelijke herinneringen om je maaltijden bij te houden en consistent te blijven met je voedingsdoelen",
+    "notificationsEnabled": "Meldingen Ingeschakeld",
+    "notificationsDisabled": "Meldingen Uitgeschakeld",
+    "enabledSubtitle": "Je ontvangt maaltijdherinneringen",
+    "disabledSubtitle": "Schakel meldingen in om maaltijdherinneringen te ontvangen",
+    "mealReminders": "Maaltijdherinneringen",
+    "breakfast": "Ontbijt",
+    "lunch": "Lunch",
+    "dinner": "Diner",
+    "snack": "Tussendoortje",
+    "unknown": "Onbekend",
+    "change": "Wijzig",
+    "enableNotifications": "Meldingen Inschakelen",
+    "skipForNow": "Voor nu overslaan",
+    "saveChanges": "Wijzigingen Opslaan",
+    "enabledSuccessfully": "Meldingen succesvol ingeschakeld!",
+    "permissionDenied": "Toestemming voor meldingen geweigerd",
+    "errorEnabling": "Fout bij het inschakelen van meldingen: {error}",
+    "errorCompletingSetup": "Fout bij het voltooien van de instellingen: {error}"
+  },
+  "notifications": {
+    "breakfast": {
+      "title": "Ontbijttijd! 🍳",
+      "body": "Vergeet niet je ontbijt te registreren"
+    },
+    "lunch": {
+      "title": "Lunchtijd! 🥗",
+      "body": "Tijd om je lunch te registreren"
+    },
+    "dinner": {
+      "title": "Dinnertijd! 🍽️",
+      "body": "Vergeet niet je diner te registreren"
+    },
+    "snack": {
+      "title": "Tussendoortje Tijd! 🍎",
+      "body": "Tijd voor een gezond tussendoortje"
+    },
+    "test": {
+      "title": "Testmelding"
+    }
+  },
+  "login": {
+    "title": "Inloggen",
+    "signInWithGoogle": "Inloggen met Google",
+    "signInFailed": "Google-inloggen mislukt of geannuleerd."
+  },
+  "disclaimer": {
+    "pleaseNote": "Gelieve Op Te Merken",
+    "snap": {
+      "description": "Calorify biedt geschatte voedingsinformatie. De nauwkeurigheid hangt af van je invoer & voedselvariaties. Gebruik het als een gids, niet als een definitieve bron. Raadpleeg een professional voor gepersonaliseerd dieetadvies.",
+      "portionSize": {
+        "title": "Portiegrootte",
+        "description": "De nauwkeurigheid van de schattingen hangt sterk af van je correcte beoordeling van de portiegrootte."
+      },
+      "preparationMethods": {
+        "title": "Bereidingsmethoden",
+        "description": "Kookmethoden kunnen de nutritionele inhoud van voedsel aanzienlijk veranderen. De schattingen van Calorify houden mogelijk niet altijd rekening met deze variaties."
+      },
+      "ingredients": {
+        "title": "Ingrediënten",
+        "description": "Complexe gerechten met veel verborgen ingrediënten kunnen leiden tot minder nauwkeurige schattingen."
+      },
+      "databaseLimitations": {
+        "title": "Database Beperkingen",
+        "description": "De voedseldatabase van Calorify is uitgebreid, maar bevat mogelijk niet elk enkel voedingsitem of variaties."
+      }
+    },
+    "weightEstimate": {
+      "title": "Over Gewichtsschatting",
+      "description": "De verwachte gewichtsverandering is een theoretische schatting op basis van het eenvoudige calorie-in versus calorie-uit model. Het is uitsluitend bedoeld voor motiverende begeleiding, niet als een voorspelling van je werkelijke gewicht.",
+      "calorieAccuracy": {
+        "title": "Calorie Nauwkeurigheid",
+        "description": "Deze schatting is alleen zo nauwkeurig als je bijgehouden calorie-inname en -uitgave. Ongenaue logging resulteert in een onjuiste projectie."
+      },
+      "biologicalFactors": {
+        "title": "Biologische Factoren",
+        "description": "Werkelijke gewichtsverlies/-winst wordt beïnvloed door metabolisme, hormonen, slaap, stress, hydratatie en andere individuele factoren die Calorify niet kan meten."
+      },
+      "waterWeight": {
+        "title": "Watergewicht & Schommelingen",
+        "description": "Het normale dagelijkse gewicht kan aanzienlijk fluctueren door waterretentie, spijsvertering en timing. De schatting houdt geen rekening met deze dagelijkse veranderingen."
+      },
+      "professionalGuidance": {
+        "title": "Professionele Begeleiding",
+        "description": "Gebruik deze schatting niet om medische beslissingen te nemen. Raadpleeg altijd een zorgprofessional of geregistreerde diëtist voor gepersonaliseerd advies voor gewichtsmanagement."
+      }
+    }
+  },
+  "common": {
+    "close": "Sluiten",
+    "continue": "Doorgaan"
+  },
+  "errors": {
+    "loadingProfileData": "Fout bij het laden van profielgegevens",
+    "somethingWentWrong": "Er is iets misgegaan."
+  },
+  "debug": {
+    "title": "Debug Opties",
+    "sections": {
+      "notifications": "Meldingen",
+      "healthConnect": "Health Connect",
+      "appInfo": "App Informatie"
+    },
+    "showActiveNotifications": "Toon Actieve Meldingen",
+    "scheduleTestNotification": "Plan Testmelding (10s)",
+    "triggerBreakfastNotification": "Activeer Ontbijtmelding",
+    "cancelAllNotifications": "Annuleer Alle Meldingen",
+    "activeNotifications": "Actieve Meldingen",
+    "noTitle": "Geen Titel",
+    "noBody": "Geen Body",
+    "fetchTodaysSteps": "Haal Vandaag's Stappen Op",
+    "fetchTodaysCalories": "Haal Vandaag's Calorieën Op",
+    "fetchLatestWeight": "Haal Laatste Gewicht Op",
+    "fetchLatestHeight": "Haal Laatste Lengte Op",
+    "writeTestWeight": "Schrijf Testgewicht (70kg)",
+    "writeTestHeight": "Schrijf Testlengte (175cm)",
+    "syncLast7Days": "Synchroniseer Laatste 7 Dagen",
+    "sync7DaysTitle": "7-Daagse Synchronisatie",
+    "checkCurrentLocale": "Controleer Huidige Locale",
+    "currentLocale": "Huidige Locale",
+    "localeInfo": "Taal: {languageCode}\nLand: {countryCode}\nEenheidssysteem: {unitSystem}",
+    "latestWeight": "Laatste Gewicht",
+    "latestHeight": "Laatste Lengte",
+    "todaysCalories": "Vandaag's Calorieën",
+    "totalCaloriesBurned": "Totaal verbrande calorieën: {calories}",
+    "syncSuccess": "Met succes {count} gegevenspunten opgehaald voor Stappen, Calorieën en Gewicht over de afgelopen 7 dagen.",
+    "noWeightData": "Geen gewichtsgegevens gevonden in de afgelopen 30 dagen.",
+    "noHeightData": "Geen lengtedata gevonden in het afgelopen jaar.",
+    "noCalorieData": "Geen caloriedata gevonden voor vandaag.",
+    "weightWritten": "Testgewicht (70kg) succesvol geschreven.",
+    "weightWriteFailed": "Kon testgewicht niet schrijven.",
+    "heightWritten": "Testlengte (175cm) succesvol geschreven.",
+    "heightWriteFailed": "Kon testlengte niet schrijven.",
+    "noNotifications": "Geen actieve meldingen.",
+    "testNotificationScheduled": "Testmelding gepland voor 10 seconden vanaf nu.",
+    "testNotificationBody": "Dit is een testmelding gepland voor 10 seconden vanaf nu.",
+    "breakfastNotificationTriggered": "Ontbijtmelding geactiveerd.",
+    "allNotificationsCancelled": "Alle meldingen geannuleerd.",
+    "fetchingData": "Gegevens ophalen voor de afgelopen 7 dagen...",
+    "id": "ID: {id}"
+  },
+  "health": {
+    "syncFailed": "Kon niet synchroniseren met Health Connect",
+    "mealSynced": "Maaltijd gesynchroniseerd met Health Connect"
+  }
+}

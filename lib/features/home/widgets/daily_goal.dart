@@ -1,4 +1,5 @@
 import 'package:calorify/core/constants/colors.dart';
+import 'package:calorify/core/constants/colors/color_scheme_extensions.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/models/profile_models.dart';
@@ -290,7 +291,8 @@ class _ShowGoal extends StatelessWidget {
                         isLosing
                             ? LucideIcons.trendingDown
                             : LucideIcons.trendingUp,
-                        color: isLosing ? Colors.green : Colors.red,
+                        color:
+                            isLosing ? colorScheme.success : colorScheme.error,
                       ),
                       SizedBox(width: 8),
                       Text(

@@ -21,7 +21,6 @@ class _HealthProfileReinforcementState extends State<HealthProfileReinforcement>
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
-  late Animation<double> _scaleAnimation;
   late Future<UserProfile?> _profileFuture;
 
   @override
@@ -29,7 +28,7 @@ class _HealthProfileReinforcementState extends State<HealthProfileReinforcement>
     super.initState();
     _profileFuture = OnboardingService.instance.getProfileData();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 800),
       vsync: this,
     );
 
@@ -39,19 +38,12 @@ class _HealthProfileReinforcementState extends State<HealthProfileReinforcement>
     );
 
     _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.15),
+      begin: const Offset(0, 0.1),
       end: Offset.zero,
     ).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.2, 1.0, curve: Curves.easeOutBack),
-      ),
-    );
-
-    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.0, 0.8, curve: Curves.elasticOut),
+        curve: const Interval(0.2, 1.0, curve: Curves.easeOut),
       ),
     );
 
@@ -70,8 +62,9 @@ class _HealthProfileReinforcementState extends State<HealthProfileReinforcement>
     final colorScheme = theme.colorScheme;
     final t = Translations.of(context);
 
-    return Scaffold(
-      body: FutureBuilder<UserProfile?>(
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: FutureBuilder<UserProfile?>(
         future: _profileFuture,
         builder: (context, snapshot) {
           final profile = snapshot.data;
@@ -80,9 +73,10 @@ class _HealthProfileReinforcementState extends State<HealthProfileReinforcement>
                   ? OnboardingService.instance.calculateBMI(profile) ?? 0.0
                   : 0.0;
           final bmiCategory = OnboardingUtils.getBMICategory(bmi);
+          final hasValidBmi = bmi > 0;
 
           String description =
-              profile != null
+              profile != null && hasValidBmi
                   ? t.onboarding.reinforcement.healthProfile.bmiDescription(
                     bmi: bmi.toStringAsFixed(1),
                   )
@@ -108,161 +102,116 @@ class _HealthProfileReinforcementState extends State<HealthProfileReinforcement>
             }
           }
 
-          return Stack(
+          return Column(
             children: [
-              Positioned(
-                top: -100,
-                right: -50,
-                child: _CircleDecorator(
-                  color: colorScheme.primary.withValues(alpha: 0.05),
-                  size: 300,
-                ),
-              ),
-              Positioned(
-                bottom: -50,
-                left: -50,
-                child: _CircleDecorator(
-                  color: colorScheme.secondary.withValues(alpha: 0.05),
-                  size: 200,
-                ),
-              ),
-              SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: FadeTransition(
-                          opacity: _fadeAnimation,
-                          child: SlideTransition(
-                            position: _slideAnimation,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ScaleTransition(
-                                  scale: _scaleAnimation,
-                                  child: Container(
-                                    padding: const EdgeInsets.all(32),
-                                    decoration: BoxDecoration(
-                                      color: colorScheme.primaryContainer
-                                          .withValues(alpha: 0.4),
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: colorScheme.primary.withValues(
-                                            alpha: 0.1,
-                                          ),
-                                          blurRadius: 20,
-                                          spreadRadius: 5,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Icon(
-                                      LucideIcons.activity,
-                                      size: 80,
-                                      color: colorScheme.primary,
-                                    ),
-                                  ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: FadeTransition(
+                    opacity: _fadeAnimation,
+                    child: SlideTransition(
+                      position: _slideAnimation,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 48),
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: colorScheme.primaryContainer
+                                      .withValues(alpha: 0.5),
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
-                                const SizedBox(height: 48),
-                                Text(
+                                child: Icon(
+                                  LucideIcons.activity,
+                                  color: colorScheme.primary,
+                                  size: 24,
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Text(
                                   t
                                       .onboarding
                                       .reinforcement
                                       .healthProfile
                                       .title,
-                                  style: theme.textTheme.displaySmall?.copyWith(
-                                    fontWeight: FontWeight.w900,
-                                    color: colorScheme.onSurface,
-                                    letterSpacing: -0.5,
-                                  ),
-                                  textAlign: TextAlign.center,
+                                  style: theme.textTheme.headlineMedium
+                                      ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
-                                const SizedBox(height: 16),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                  ),
-                                  child: Text(
-                                    description,
-                                    style: theme.textTheme.titleMedium
-                                        ?.copyWith(
-                                          color: colorScheme.onSurfaceVariant,
-                                          height: 1.5,
-                                        ),
-                                    textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            description,
+                            style: theme.textTheme.bodyLarge?.copyWith(
+                              color: colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                          if (profile != null && hasValidBmi) ...[
+                            const SizedBox(height: 32),
+                            Container(
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: colorScheme.surface,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: colorScheme.outline.withValues(
+                                    alpha: 0.2,
                                   ),
                                 ),
-                                if (profile != null) ...[
-                                  const SizedBox(height: 32),
-                                  Container(
-                                    padding: const EdgeInsets.all(20),
-                                    decoration: BoxDecoration(
-                                      color: colorScheme.surfaceContainerHighest
-                                          .withValues(alpha: 0.5),
-                                      borderRadius: BorderRadius.circular(24),
-                                      border: Border.all(
-                                        color: colorScheme.outline.withValues(
-                                          alpha: 0.1,
-                                        ),
-                                      ),
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    bmiCategory,
+                                    style: theme.textTheme.titleLarge?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: colorScheme.primary,
                                     ),
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          bmiCategory,
-                                          style: theme.textTheme.headlineSmall
-                                              ?.copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: colorScheme.primary,
-                                              ),
-                                        ),
-                                        const SizedBox(height: 24),
-                                        BMIScale(bmi: bmi),
-                                        const SizedBox(height: 24),
-                                        Text(
-                                          OnboardingUtils.getBMIMessage(bmi),
-                                          textAlign: TextAlign.center,
-                                          style: theme.textTheme.bodyMedium
-                                              ?.copyWith(
-                                                fontStyle: FontStyle.italic,
-                                                color:
-                                                    colorScheme
-                                                        .onSurfaceVariant,
-                                              ),
-                                        ),
-                                      ],
+                                  ),
+                                  const SizedBox(height: 20),
+                                  BMIScale(bmi: bmi),
+                                  const SizedBox(height: 20),
+                                  Text(
+                                    OnboardingUtils.getBMIMessage(bmi),
+                                    textAlign: TextAlign.center,
+                                    style: theme.textTheme.bodyMedium?.copyWith(
+                                      color: colorScheme.onSurfaceVariant,
+                                      height: 1.4,
                                     ),
                                   ),
                                 ],
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: FilledButton(
-                            onPressed: widget.onContinue,
-                            style: FilledButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
                               ),
                             ),
-                            child: Text(
-                              t.onboarding.reinforcement.healthProfile.button,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
+                          ],
+                        ],
                       ),
-                    ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 0.0, top: 8.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: widget.onContinue,
+                    style: FilledButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    child: Text(
+                      t.onboarding.reinforcement.healthProfile.button,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -270,22 +219,6 @@ class _HealthProfileReinforcementState extends State<HealthProfileReinforcement>
           );
         },
       ),
-    );
-  }
-}
-
-class _CircleDecorator extends StatelessWidget {
-  final Color color;
-  final double size;
-
-  const _CircleDecorator({required this.color, required this.size});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
     );
   }
 }

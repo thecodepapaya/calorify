@@ -98,12 +98,13 @@
     "reinforcement": {
       "trackingSuccess": {
         "title": "You're Not Alone",
-        "instantPhotoAnalysis": "Instant photo analysis",
-        "automaticLogging": "Automatic nutritional logging",
-        "progressVisualizations": "Progress visualizations that keep you motivated",
         "genericMessage": "Research shows that consistent tracking is the #1 predictor of long-term success.",
         "personalizedMessage": "For a {age} year old {gender} looking to {goal}, consistent tracking is the #1 predictor of success.",
         "closingMessage": "Calorify makes it 10x easier than doing it manually.",
+        "getStartedTitle": "Ready to get started?",
+        "tipPhoto": "Take a photo of your meals for instant analysis",
+        "tipConsistency": "Log consistently to see meaningful progress",
+        "tipProgress": "Track your progress daily to stay motivated",
         "button": "Let's Go",
         "defaultGender": "individual",
         "defaultGoal": "healthier you"
@@ -367,6 +368,13 @@
     },
     "weightUnit": {
       "title": "Weight Unit"
+    },
+    "theme": {
+      "title": "Theme",
+      "subtitle": "Choose your preferred theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
     },
     "mealReminders": {
       "title": "Meal Reminders",

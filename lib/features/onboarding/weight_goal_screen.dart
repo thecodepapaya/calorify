@@ -79,7 +79,7 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24.0),
+            padding: const EdgeInsets.only(bottom: 0.0, top: 24.0),
             child: PrimaryButton(
               analyticsEvent: AnalyticsEvent.onboardingSetWeightGoal,
               onPressed:

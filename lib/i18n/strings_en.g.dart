@@ -392,6 +392,7 @@ class TranslationsSettingsEn {
 	late final TranslationsSettingsLanguageEn language = TranslationsSettingsLanguageEn._(_root);
 	late final TranslationsSettingsHeightUnitEn heightUnit = TranslationsSettingsHeightUnitEn._(_root);
 	late final TranslationsSettingsWeightUnitEn weightUnit = TranslationsSettingsWeightUnitEn._(_root);
+	late final TranslationsSettingsThemeEn theme = TranslationsSettingsThemeEn._(_root);
 	late final TranslationsSettingsMealRemindersEn mealReminders = TranslationsSettingsMealRemindersEn._(_root);
 	late final TranslationsSettingsSendFeedbackEn sendFeedback = TranslationsSettingsSendFeedbackEn._(_root);
 	late final TranslationsSettingsClearAllDataEn clearAllData = TranslationsSettingsClearAllDataEn._(_root);
@@ -1350,6 +1351,30 @@ class TranslationsSettingsWeightUnitEn {
 	String get title => 'Weight Unit';
 }
 
+// Path: settings.theme
+class TranslationsSettingsThemeEn {
+	TranslationsSettingsThemeEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Theme'
+	String get title => 'Theme';
+
+	/// en: 'Choose your preferred theme'
+	String get subtitle => 'Choose your preferred theme';
+
+	/// en: 'Light'
+	String get light => 'Light';
+
+	/// en: 'Dark'
+	String get dark => 'Dark';
+
+	/// en: 'System'
+	String get system => 'System';
+}
+
 // Path: settings.mealReminders
 class TranslationsSettingsMealRemindersEn {
 	TranslationsSettingsMealRemindersEn._(this._root);
@@ -1707,15 +1732,6 @@ class TranslationsOnboardingReinforcementTrackingSuccessEn {
 	/// en: 'You're Not Alone'
 	String get title => 'You\'re Not Alone';
 
-	/// en: 'Instant photo analysis'
-	String get instantPhotoAnalysis => 'Instant photo analysis';
-
-	/// en: 'Automatic nutritional logging'
-	String get automaticLogging => 'Automatic nutritional logging';
-
-	/// en: 'Progress visualizations that keep you motivated'
-	String get progressVisualizations => 'Progress visualizations that keep you motivated';
-
 	/// en: 'Research shows that consistent tracking is the #1 predictor of long-term success.'
 	String get genericMessage => 'Research shows that consistent tracking is the #1 predictor of long-term success.';
 
@@ -1724,6 +1740,18 @@ class TranslationsOnboardingReinforcementTrackingSuccessEn {
 
 	/// en: 'Calorify makes it 10x easier than doing it manually.'
 	String get closingMessage => 'Calorify makes it 10x easier than doing it manually.';
+
+	/// en: 'Ready to get started?'
+	String get getStartedTitle => 'Ready to get started?';
+
+	/// en: 'Take a photo of your meals for instant analysis'
+	String get tipPhoto => 'Take a photo of your meals for instant analysis';
+
+	/// en: 'Log consistently to see meaningful progress'
+	String get tipConsistency => 'Log consistently to see meaningful progress';
+
+	/// en: 'Track your progress daily to stay motivated'
+	String get tipProgress => 'Track your progress daily to stay motivated';
 
 	/// en: 'Let's Go'
 	String get button => 'Let\'s Go';
@@ -2111,12 +2139,13 @@ extension on Translations {
 			'onboarding.healthConnect.statusPermissionDenied' => 'Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Error setting up Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'You\'re Not Alone',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Instant photo analysis',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Automatic nutritional logging',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Progress visualizations that keep you motivated',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Research shows that consistent tracking is the #1 predictor of long-term success.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'For a ${age} year old ${gender} looking to ${goal}, consistent tracking is the #1 predictor of success.',
 			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify makes it 10x easier than doing it manually.',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Ready to get started?',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Take a photo of your meals for instant analysis',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Log consistently to see meaningful progress',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Track your progress daily to stay motivated',
 			'onboarding.reinforcement.trackingSuccess.button' => 'Let\'s Go',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'individual',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'healthier you',
@@ -2297,6 +2326,11 @@ extension on Translations {
 			'settings.language.subtitle' => 'Choose your preferred language',
 			'settings.heightUnit.title' => 'Height Unit',
 			'settings.weightUnit.title' => 'Weight Unit',
+			'settings.theme.title' => 'Theme',
+			'settings.theme.subtitle' => 'Choose your preferred theme',
+			'settings.theme.light' => 'Light',
+			'settings.theme.dark' => 'Dark',
+			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => 'Meal Reminders',
 			'settings.mealReminders.subtitle' => 'Stay on track with timely alerts',
 			'settings.sendFeedback.title' => 'Send Feedback',

@@ -7,8 +7,6 @@ enum TraceType {
   firebaseAuthInit,
   firebaseCrashlyticsInit,
   firebaseAppCheckInit,
-  envConfigInit,
-  dataSourceConfigInit,
   healthServiceInit,
   databaseServiceInit,
   notificationServiceInit,

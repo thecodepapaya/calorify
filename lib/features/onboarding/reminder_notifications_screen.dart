@@ -1,4 +1,5 @@
 import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/constants/colors/color_scheme_extensions.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/i18n/strings.g.dart';
@@ -61,7 +62,7 @@ class _ReminderNotificationsScreenState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 48),
+                  if (!widget.isEditing) const SizedBox(height: 48),
                   Text(
                     t.reminders.title,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
@@ -148,7 +149,7 @@ class _ReminderNotificationsScreenState
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24.0),
+            padding: const EdgeInsets.only(bottom: 0.0, top: 24.0),
             child: Column(
               children: [
                 if (_notificationsEnabled)
@@ -189,7 +190,9 @@ class _ReminderNotificationsScreenState
   }
 
   Widget _buildPermissionStatus(BuildContext context) {
-    final color = _notificationsEnabled ? Colors.green : Colors.orange;
+    final colorScheme = Theme.of(context).colorScheme;
+    final color =
+        _notificationsEnabled ? colorScheme.success : colorScheme.tertiary;
     final icon = _notificationsEnabled ? LucideIcons.check : LucideIcons.x;
     final title =
         _notificationsEnabled
@@ -246,31 +249,24 @@ class _ReminderNotificationsScreenState
     required ValueChanged<bool> onToggle,
     required ValueChanged<TimeOfDay> onTimeChanged,
   }) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color:
             enabled
-                ? Theme.of(
-                  context,
-                ).colorScheme.primaryContainer.withValues(alpha: 0.3)
-                : Theme.of(context).colorScheme.surfaceContainerHighest,
+                ? colorScheme.primaryContainer.withValues(alpha: 0.3)
+                : colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color:
-              enabled
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.outline,
+          color: enabled ? colorScheme.primary : colorScheme.outline,
         ),
       ),
       child: Row(
         children: [
           Icon(
             icon,
-            color:
-                enabled
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.onSurfaceVariant,
+            color: enabled ? colorScheme.primary : colorScheme.onSurfaceVariant,
             size: 24,
           ),
           const SizedBox(width: 12),
@@ -284,8 +280,8 @@ class _ReminderNotificationsScreenState
                     fontWeight: FontWeight.w600,
                     color:
                         enabled
-                            ? Theme.of(context).colorScheme.onSurface
-                            : Theme.of(context).colorScheme.onSurfaceVariant,
+                            ? colorScheme.onSurface
+                            : colorScheme.onSurfaceVariant,
                   ),
                 ),
                 if (enabled) ...[

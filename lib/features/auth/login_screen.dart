@@ -18,6 +18,7 @@ class LoginScreen extends StatelessWidget {
     // final authService = Provider.of<AuthService>(context, listen: false);
     // If not:
     final authService = AuthService.instance;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(title: Text(t.login.title)),
@@ -37,14 +38,14 @@ class LoginScreen extends StatelessWidget {
                   log('Sign in failed or cancelled.');
                   // Show a snackbar or message
                   if (!context.mounted) return;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    snack(t.login.signInFailed),
-                  );
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(snack(t.login.signInFailed));
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
-                foregroundColor: Colors.white,
+                backgroundColor: colorScheme.primary,
+                foregroundColor: colorScheme.onPrimary,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 12,

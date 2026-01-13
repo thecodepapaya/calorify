@@ -1,5 +1,5 @@
-import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/i18n/strings.g.dart';
+import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -31,7 +31,7 @@ Future<void> showDisclaimer(BuildContext context, DisclaimerData data) {
     showDragHandle: true,
     enableDrag: true,
     isScrollControlled: true,
-    routeSettings: RouteSettings(name: 'disclaimer_sheet'),
+    routeSettings: const RouteSettings(name: 'disclaimer_sheet'),
     builder: (context) => _MealSnapDisclaimer(data),
   );
 }
@@ -47,10 +47,7 @@ class _MealSnapDisclaimer extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
 
-    return Container(
-      width: double.infinity,
-      padding: globalSheetPadding,
-      decoration: BoxDecoration(borderRadius: globalRadius),
+    return BaseBottomSheet(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -63,7 +60,7 @@ class _MealSnapDisclaimer extends StatelessWidget {
                 color: colorScheme.onSurface,
                 size: 32,
               ),
-              SizedBox(width: 6),
+              const SizedBox(width: 6),
               Expanded(
                 child: Text(
                   data.title,
@@ -74,16 +71,16 @@ class _MealSnapDisclaimer extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text(
             data.description,
             style: textTheme.bodyMedium?.copyWith(
               color: colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           ...data.bulletPoints.map((e) => _BulletPoint(e.title, e.description)),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
         ],
       ),
     );

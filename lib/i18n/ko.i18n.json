@@ -1,0 +1,556 @@
+{
+  "language": "한국어",
+  "flag": "🇰🇷",
+  "onboarding": {
+    "welcome": "칼로리파이에 오신 것을 환영합니다",
+    "subtitle": "AI가 지원하는 개인 영양 동반자",
+    "getStarted": "시작하기",
+    "features": {
+      "foodRecognition": {
+        "title": "스마트 음식 인식",
+        "description": "사진을 찍고 AI에게 식사를 인식하게 하세요"
+      },
+      "aiAnalysis": {
+        "title": "AI 분석",
+        "description": "설명을 통해 즉각적인 영양 정보를 받아보세요"
+      },
+      "healthIntegration": {
+        "title": "건강 통합",
+        "description": "Health Connect와 연결하여 더 나은 통찰력을 제공합니다"
+      }
+    },
+    "gender": {
+      "title": "당신의 성별은 무엇인가요?",
+      "description": "성별은 기초 대사율(BMR)을 정확하게 계산하는 데 도움이 됩니다.",
+      "next": "다음"
+    },
+    "height": {
+      "title": "당신의 키는 얼마인가요?",
+      "description": "키는 BMI와 에너지 필요를 정확히 계산하는 데 도움이 됩니다.",
+      "metric": "미터법",
+      "imperial": "영국식",
+      "next": "다음"
+    },
+    "weight": {
+      "currentTitle": "현재 체중은 얼마인가요?",
+      "currentDescription": "현재 체중은 일일 목표를 개인화하는 데 중요합니다.",
+      "targetTitle": "목표 체중은 얼마인가요?",
+      "targetDescription": "목표 체중을 설정하면 장기 계획을 결정하는 데 도움이 됩니다.",
+      "metric": "미터법",
+      "imperial": "영국식",
+      "next": "다음"
+    },
+    "age": {
+      "title": "당신의 생일은 언제인가요?",
+      "description": "나이는 칼로리 요구량을 정확히 계산하는 데 도움이 됩니다.",
+      "next": "다음"
+    },
+    "bmiScale": {
+      "underweight": "저체중",
+      "healthy": "정상 체중",
+      "overweight": "과체중",
+      "obese": "비만",
+      "categories": {
+        "underweight": "저체중",
+        "healthyWeight": "정상 체중",
+        "overweight": "과체중",
+        "obese": "비만"
+      },
+      "messages": {
+        "underweight": "우리는 영양이 풍부한 식사를 통해 균형 잡힌 체중에 도달하기 위한 건강한 계획을 세우도록 도와드릴 수 있습니다.",
+        "healthy": "잘하고 계세요! 당신은 건강한 범위에 있습니다. 우리는 당신의 활력과 에너지 수준을 유지하도록 도와드릴 것입니다.",
+        "overweight": "칼로리파이는 목표에 편안하게 도달할 수 있도록 AI 기반 추적으로 여러분의 여정을 간소화합니다.",
+        "obese": "우리는 개별적인 지침과 지속 가능한 전략으로 여러분의 건강 목표를 지원합니다."
+      }
+    },
+    "weightGoal": {
+      "title": "당신의 목표는 무엇인가요?",
+      "description": "달성하고자 하는 목표를 선택하세요"
+    },
+    "activityLevel": {
+      "title": "당신은 얼마나 활동적이신가요?",
+      "description": "이 정보는 일일 칼로리 필요량을 더 정확하게 계산하는 데 도움이 됩니다."
+    },
+    "healthConnect": {
+      "title": "Health Connect와 연결하세요",
+      "description": "더 나은 통찰력과 자동 칼로리 추적을 위한 건강 데이터를 동기화하세요",
+      "automaticTracking": {
+        "title": "자동 칼로리 추적",
+        "description": "피트니스 앱에서 소모된 칼로리를 추적하세요"
+      },
+      "progressInsights": {
+        "title": "진행 상황 통찰력",
+        "description": "건강 추세에 대한 자세한 통찰력을 얻으세요"
+      },
+      "seamlessIntegration": {
+        "title": "원활한 통합",
+        "description": "좋아하는 건강 앱에서 데이터를 동기화하세요"
+      },
+      "connected": "Health Connect 연결됨",
+      "notConnected": "Health Connect 미연결",
+      "setup": "Health Connect 설정하기",
+      "skipForNow": "지금은 건너뛰기",
+      "statusConnected": "Health Connect가 연결되었습니다.",
+      "statusSuccess": "Health Connect가 성공적으로 연결되었습니다!",
+      "statusPermissionDenied": "권한이 거부되었습니다. 칼로리파이에 대한 Health Connect 권한을 활성화해 주세요.",
+      "statusError": "Health Connect를 설정하는 중 오류 발생: {error}"
+    },
+    "reinforcement": {
+      "trackingSuccess": {
+        "title": "당신은 혼자가 아닙니다",
+        "genericMessage": "연구에 따르면, 꾸준한 추적이 장기적인 성공의 #1 예측因자입니다.",
+        "personalizedMessage": "{goal}를 원하시는 {age}세 {gender}님께, 꾸준한 추적이 성공의 #1 예측因자입니다.",
+        "closingMessage": "칼로리파이는 수동으로 하는 것보다 10배 더 쉽게 만듭니다.",
+        "getStartedTitle": "시작할 준비가 되셨나요?",
+        "tipPhoto": "즉각적인 분석을 위해 식사 사진을 촬영하세요",
+        "tipConsistency": "의미 있는 변화를 보려면 꾸준히 기록하세요",
+        "tipProgress": "동기 부여를 위해 매일 진행 상황을 기록하세요",
+        "button": "출발하자",
+        "defaultGender": "개인",
+        "defaultGoal": "더 건강한 당신",
+        "instantPhotoAnalysis": "즉각적인 사진 분석",
+        "automaticLogging": "자동 영양 기록",
+        "progressVisualizations": "동기 부여를 유지하는 진행 상황 시각화"
+      },
+      "healthProfile": {
+        "title": "당신의 건강 프로필",
+        "bmiDescription": "당신의 지표에 기반하여, BMI는 {bmi}입니다.",
+        "finalizeDescription": "사용자 경험을 맞춤화하기 위해 프로필을 마무리합시다.",
+        "goalGain": "증가 목표",
+        "goalLose": "감소 목표",
+        "goalReach": "목표에 도달하기 위해, 당신은 {direction} {diff} {unit} 해야 합니다.",
+        "goalReached": "당신은 목표 체중에 도달했습니다! 우리는 이를 유지할 수 있도록 도와드릴 것입니다.",
+        "button": "출발하자"
+      },
+      "goalLifestyle": {
+        "title": "훌륭한 출발입니다!",
+        "description": "{activityText}인 당신은 {goalText}을 향해 첫걸음을 내디뎠습니다. 칼로리파이는 당신의 라이프스타일에 맞춰 목표를 조정합니다.",
+        "personalizedTargets": "개인화된 칼로리 목표",
+        "aiMealDetection": "AI 기반 식사 인식",
+        "macroBreakdowns": "세부 매크로 영양소 분석",
+        "button": "출발하자",
+        "defaultGoal": "당신의 목표",
+        "defaultActivity": "활동적"
+      }
+    }
+  },
+  "tabs": {
+    "dashboard": "대시보드",
+    "history": "기록"
+  },
+  "home": {
+    "dailyGoal": {
+      "title": "일일 목표 설정",
+      "titleSet": "당신의 일일 목표",
+      "description": "웰빙 여정을 시작할 준비가 되셨나요? 아래에 일일 칼로리 목표를 설정하여 진행을 시작하세요.",
+      "descriptionSet": "당신의 나침반이 설정되었습니다! 이것은 당신을 안내할 일일 칼로리 목표입니다.",
+      "yourGoal": "당신의 목표",
+      "dailyCalories": "일일 칼로리 (kcal)",
+      "setGoal": "목표 설정하기",
+      "intake": "섭취량",
+      "burned": "소모된",
+      "weightImpact": "체중에 미치는 영향",
+      "estLoss": "추정 손실량",
+      "estGain": "추정 증가량",
+      "kcal": "kcal"
+    },
+    "dailySummary": {
+      "title": "일일 요약",
+      "calories": "칼로리",
+      "carbs": "탄수화물",
+      "protein": "단백질",
+      "fat": "지방",
+      "fiber": "섬유질"
+    },
+    "intakeProgress": {
+      "title": "오늘의 매크로 분포",
+      "target": "목표",
+      "current": "현재"
+    },
+    "intakeHistory": {
+      "title": "7일 매크로 기록",
+      "noHistoryYet": "기록이 없습니다.",
+      "startLogging": "여기에서 7일 매크로 트렌드를 확인하기 위해 식사를 기록하기 시작하세요."
+    },
+    "mealLog": {
+      "title": "기록된 식사",
+      "emptyMessage": "마지막 식사의 사진을 찍어 여기에서 기록하세요.",
+      "noMealsToday": "오늘 기록된 식사가 없습니다.",
+      "seeAllMeals": "모든 식사 보기"
+    },
+    "mealDescription": {
+      "title": "AI로 간단하게 추가하기",
+      "description": "식사를 설명하고 AI가 세부사항을 처리하도록 하세요.",
+      "hint": "예: 아침으로 큰 그릇의 오트밀을 바나나 한 개와 유청 단백질 한 스푼을 넣어 먹었습니다 ...",
+      "analyzeMeal": "식사 분석하기"
+    },
+    "favoriteMeals": {
+      "title": "즐겨찾는 식사",
+      "description": "즐겨찾는 식사를 빠르게 추가하세요.",
+      "noFavorites": "즐겨찾는 식사가 없습니다.",
+      "addFavoriteHint": "식사를 즐겨찾기로 표시하려면 별표를 클릭하세요.",
+      "seeAll": "모두 보기",
+      "add": "추가"
+    },
+    "mealSnap": {
+      "title": "식사 찍고 추적하기",
+      "description": "AI 분석을 위해 음식 사진을 찍으세요.",
+      "openCamera": "카메라 열기"
+    },
+    "connectHealth": {
+      "title": "Health Connect와 동기화",
+      "description": "Nutrition 데이터를 Health Connect와 동기화하세요",
+      "install": "설치하기",
+      "connect": "연결하기"
+    }
+  },
+  "history": {
+    "noMeals": "기록된 식사가 없습니다.",
+    "emptyMessage": "마지막 식사의 사진을 찍어 여기에서 기록하세요.",
+    "today": "오늘",
+    "yesterday": "어제"
+  },
+  "meal": {
+    "ohNo": "아니요!",
+    "delete": "삭제",
+    "editMeal": "식사 수정",
+    "addMeal": "식사 추가",
+    "saveMeal": "식사 저장",
+    "save": "저장",
+    "mealName": "식사 이름",
+    "mealQuantity": "식사 양",
+    "mealQuantityHint": "예: 1 그릇, 2 조각",
+    "timeOfMeal": "식사 시간",
+    "timeOfMealHint": "식사를 한 시간을 선택하세요",
+    "mealType": "식사 유형",
+    "nutrition": {
+      "calories": "칼로리",
+      "carbs": "탄수화물 (g)",
+      "protein": "단백질 (g)",
+      "fat": "지방 (g)",
+      "fiber": "섬유질 (g)"
+    },
+    "deleteConfirmation": {
+      "title": "식사 삭제",
+      "message": "이 식사 항목을 삭제하시겠습니까?",
+      "cancel": "취소",
+      "delete": "삭제"
+    },
+    "addedToLog": "식사가 기록되었습니다!",
+    "couldNotAdd": "식사를 추가할 수 없습니다: {error}",
+    "removedFromFavorites": "즐겨찾기에서 제거되었습니다!",
+    "savedAsFavorite": "식사가 즐겨찾기로 저장되었습니다!",
+    "couldNotUpdateFavorite": "즐겨찾기를 업데이트할 수 없습니다: {error}",
+    "failedToProcess": "처리 실패: {error}",
+    "failedToProcessImage": "이미지 처리 실패: {error}",
+    "errorCompressingImage": "이미지 압축 오류: {error}",
+    "failedToSave": "데이터 저장 실패. 다시 시도해 주세요."
+  },
+  "favorites": {
+    "title": "즐겨찾기",
+    "empty": "즐겨찾는 식사가 없습니다."
+  },
+  "profile": {
+    "title": "프로필",
+    "noProfileData": "프로필 데이터가 없습니다.",
+    "yourProfile": "당신의 프로필",
+    "viewAndManage": "건강 정보를 보고 관리하세요",
+    "sections": {
+      "profile": "프로필",
+      "basicInformation": "기본 정보",
+      "goalsAndActivity": "목표 및 활동",
+      "calculatedValues": "계산된 값"
+    },
+    "gender": "성별",
+    "height": "키",
+    "weight": "체중",
+    "age": "나이",
+    "weightGoal": "체중 목표",
+    "activityLevel": "활동 수준",
+    "healthMetrics": "건강 지표",
+    "notSet": "설정되지 않음",
+    "years": "세",
+    "updatedSuccessfully": "프로필이 성공적으로 업데이트되었습니다!",
+    "calculatedValues": {
+      "bmr": "BMR",
+      "tdee": "TDEE",
+      "dailyGoal": "일일 목표",
+      "calPerDay": "칼로리/일",
+      "notAvailable": "N/A"
+    }
+  },
+  "healthScore": {
+    "title": "건강 점수",
+    "whyThisScore": "왜 이 점수인가요?",
+    "note": "이 점수는 인식된 재료와 영양 밀도를 기반으로 한 AI 추정치입니다. 항상 전문의와 상담하여 식이 조언을 받으세요.",
+    "unhealthy": "불건전",
+    "healthy": "건전",
+    "neutral": "중립"
+  },
+  "editProfile": {
+    "title": "프로필 수정",
+    "sections": {
+      "personalInformation": "개인 정보",
+      "physicalMeasurements": "신체 치수",
+      "goalsAndActivity": "목표 및 활동"
+    },
+    "gender": "성별",
+    "dateOfBirth": "생년월일",
+    "height": "키",
+    "weight": "체중",
+    "weightGoal": "체중 목표",
+    "activityLevel": "활동 수준",
+    "metric": "미터법",
+    "imperial": "영국식",
+    "metricCm": "미터법 (cm)",
+    "imperialFtIn": "영국식 (ft/in)",
+    "metricKg": "미터법 (kg)",
+    "imperialLbs": "영국식 (lbs)",
+    "genders": {
+      "male": "남성",
+      "female": "여성",
+      "other": "기타"
+    },
+    "weightGoals": {
+      "loseWeight": {
+        "name": "체중 감량",
+        "description": "체중을 줄이기 위해 칼로리 적자를 만듭니다."
+      },
+      "maintainWeight": {
+        "name": "체중 유지",
+        "description": "현재 체중을 유지합니다."
+      },
+      "gainWeight": {
+        "name": "체중 증가",
+        "description": "체중을 늘리기 위해 칼로리 과잉을 만듭니다."
+      }
+    },
+    "activityLevels": {
+      "sedentary": {
+        "name": "좌식",
+        "description": "거의 운동이 없습니다."
+      },
+      "lightlyActive": {
+        "name": "약간 활동적",
+        "description": "주 1-3일 경량 운동."
+      },
+      "moderatelyActive": {
+        "name": "중간 정도 활동적",
+        "description": "주 3-5일 중간 운동."
+      },
+      "veryActive": {
+        "name": "활동적",
+        "description": "주 6-7일 강렬한 운동."
+      },
+      "extremelyActive": {
+        "name": "매우 활동적",
+        "description": "매우 힘든 운동, 육체 노동."
+      }
+    }
+  },
+  "settings": {
+    "title": "설정",
+    "sections": {
+      "profile": "프로필",
+      "localization": "지역화",
+      "notifications": "알림",
+      "supportAndLegal": "지원 및 법률",
+      "dangerZone": "위험 지역",
+      "developer": "개발자"
+    },
+    "editProfile": {
+      "title": "프로필 수정",
+      "subtitle": "개인 정보를 업데이트하세요"
+    },
+    "language": {
+      "title": "언어",
+      "subtitle": "선호하는 언어를 선택하세요"
+    },
+    "heightUnit": {
+      "title": "키 단위"
+    },
+    "weightUnit": {
+      "title": "체중 단위"
+    },
+    "theme": {
+      "title": "Theme",
+      "subtitle": "Choose your preferred theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "mealReminders": {
+      "title": "식사 알림",
+      "subtitle": "시기적절한 알림으로 계획을 계속 유지하세요"
+    },
+    "sendFeedback": {
+      "title": "피드백 보내기",
+      "subtitle": "칼로리파이를 개선하는 데 도움을 주세요",
+      "emailSubject": "칼로리파이 앱 피드백",
+      "emailBodyPrefix": "아래에 귀하의 피드백을 제공해 주세요:",
+      "appVersion": "앱 버전",
+      "device": "장치",
+      "osVersion": "OS 버전",
+      "uid": "UID"
+    },
+    "clearAllData": {
+      "title": "모든 데이터 지우기",
+      "subtitle": "모든 정보를 영구히 삭제합니다.",
+      "confirmationTitle": "모든 데이터 지우기?",
+      "confirmationMessage": "이 작업은 취소할 수 없습니다. 로그된 모든 식사, 즐겨찾기 및 프로필 설정이 영구적으로 삭제됩니다.",
+      "cancel": "취소",
+      "clearEverything": "모두 지우기"
+    },
+    "debugOptions": {
+      "title": "디버그 옵션"
+    },
+    "developerModeEnabled": "개발자 모드가 활성화되었습니다!"
+  },
+  "reminders": {
+    "title": "알림으로 계획을 계속 유지하세요",
+    "description": "식사를 기록하고 영양 목표를 지속할 수 있도록 부드러운 리마인더를 받으세요",
+    "notificationsEnabled": "알림이 활성화되었습니다",
+    "notificationsDisabled": "알림이 비활성화되었습니다",
+    "enabledSubtitle": "식사 알림을 받게 됩니다",
+    "disabledSubtitle": "식사 알림을 받으려면 알림을 활성화하세요",
+    "mealReminders": "식사 알림",
+    "breakfast": "아침",
+    "lunch": "점심",
+    "dinner": "저녁",
+    "snack": "간식",
+    "unknown": "알 수 없음",
+    "change": "변경",
+    "enableNotifications": "알림 활성화",
+    "skipForNow": "지금은 건너뛰기",
+    "saveChanges": "변경 사항 저장",
+    "enabledSuccessfully": "알림을 성공적으로 활성화했습니다!",
+    "permissionDenied": "알림 권한이 거부되었습니다",
+    "errorEnabling": "알림 활성화 오류: {error}",
+    "errorCompletingSetup": "설정 완료 오류: {error}"
+  },
+  "notifications": {
+    "breakfast": {
+      "title": "아침 식사 시간! 🍳",
+      "body": "아침 식사를 기록하는 것을 잊지 마세요"
+    },
+    "lunch": {
+      "title": "점심 식사 시간! 🥗",
+      "body": "점심을 기록할 시간입니다"
+    },
+    "dinner": {
+      "title": "저녁 식사 시간! 🍽️",
+      "body": "저녁을 기록하는 것을 잊지 마세요"
+    },
+    "snack": {
+      "title": "간식 시간! 🍎",
+      "body": "건강한 간식을 먹을 시간입니다"
+    },
+    "test": {
+      "title": "테스트 알림"
+    }
+  },
+  "login": {
+    "title": "로그인",
+    "signInWithGoogle": "Google로 로그인",
+    "signInFailed": "Google 로그인 실패 또는 취소되었습니다."
+  },
+  "disclaimer": {
+    "pleaseNote": "참고하세요",
+    "snap": {
+      "description": "칼로리파이는 추정된 영양 정보를 제공합니다. 정확성은 입력 및 음식 변형에 따라 다릅니다. 가이드로 사용하시고, 개인화된 식이 조언은 전문가와 상담하세요.",
+      "portionSize": {
+        "title": "부분 크기",
+        "description": "추정 정확도는 부분 크기를 올바르게 평가하는 것에 크게 의존합니다."
+      },
+      "preparationMethods": {
+        "title": "조리 방법",
+        "description": "조리 방법은 음식의 영양 성분을 크게 변경할 수 있습니다. 칼로리파이의 추정치가 이러한 변형을 항상 고려하는 것은 아닙니다."
+      },
+      "ingredients": {
+        "title": "재료",
+        "description": "복합 요리에서 많은 숨겨진 재료가 있을 경우, 덜 정확한 추정치가 나올 수 있습니다."
+      },
+      "databaseLimitations": {
+        "title": "데이터베이스 한계",
+        "description": "칼로리파이의 음식 데이터베이스는 방대하지만 모든 음식 항목이나 변형을 포함하지 않을 수 있습니다."
+      }
+    },
+    "weightEstimate": {
+      "title": "체중 추정 안내",
+      "description": "예상 체중 변화는 단순 칼로리 대 칼로리 모델을 바탕으로 한 이론적 추정입니다. 이는 동기 부여 가이드를 위한 것이며, 실제 체중 예측이 아닙니다.",
+      "calorieAccuracy": {
+        "title": "칼로리 정확도",
+        "description": "이 추정치는 추적된 칼로리 섭취 및 소비에 따라 정확성이 달라집니다. 부정확한 기록은 부정확한 추정으로 이어집니다."
+      },
+      "biologicalFactors": {
+        "title": "생물학적 요인",
+        "description": "실제 체중 손실/증가는 대사, 호르몬, 수면, 스트레스, 수분 및 칼로리파이가 측정할 수 없는 기타 개인 요인에 의해 영향을 받습니다."
+      },
+      "waterWeight": {
+        "title": "수분 체중 및 변동",
+        "description": "일일 체중은 수분 저류, 소화 및 타이밍으로 인해 상당히 변동할 수 있습니다. 이 추정치는 이러한 일일 변화를 고려하지 않습니다."
+      },
+      "professionalGuidance": {
+        "title": "전문가의 조언",
+        "description": "이 추정치를 의료 결정에 사용하지 마세요. 항상 의료 전문가나 등록된 영양사와 상담하여 개인화된 체중 관리 조언을 받으세요."
+      }
+    }
+  },
+  "common": {
+    "close": "닫기",
+    "continue": "계속하기"
+  },
+  "errors": {
+    "loadingProfileData": "프로필 데이터 로드 중 오류 발생",
+    "somethingWentWrong": "문제가 발생했습니다."
+  },
+  "debug": {
+    "title": "디버그 옵션",
+    "sections": {
+      "notifications": "알림",
+      "healthConnect": "Health Connect",
+      "appInfo": "앱 정보"
+    },
+    "showActiveNotifications": "활성 알림 표시",
+    "scheduleTestNotification": "테스트 알림 예약하기 (10초)",
+    "triggerBreakfastNotification": "아침 식사 알림 트리거",
+    "cancelAllNotifications": "모든 알림 취소",
+    "activeNotifications": "활성 알림",
+    "noTitle": "제목 없음",
+    "noBody": "내용 없음",
+    "fetchTodaysSteps": "오늘의 걸음 수 가져오기",
+    "fetchTodaysCalories": "오늘의 칼로리 가져오기",
+    "fetchLatestWeight": "최신 체중 가져오기",
+    "fetchLatestHeight": "최신 키 가져오기",
+    "writeTestWeight": "테스트 체중 작성 (70kg)",
+    "writeTestHeight": "테스트 키 작성 (175cm)",
+    "syncLast7Days": "최근 7일 동기화",
+    "sync7DaysTitle": "7일 동기화",
+    "checkCurrentLocale": "현재 지역 확인",
+    "currentLocale": "현재 지역",
+    "localeInfo": "언어: {languageCode}\n국가: {countryCode}\n단위 시스템: {unitSystem}",
+    "latestWeight": "최신 체중",
+    "latestHeight": "최신 키",
+    "todaysCalories": "오늘의 칼로리",
+    "totalCaloriesBurned": "소모된 총 칼로리: {calories}",
+    "syncSuccess": "최근 7일 동안 {count} 데이터 포인트가 성공적으로 가져와졌습니다.",
+    "noWeightData": "최근 30일 이내의 체중 데이터가 없습니다.",
+    "noHeightData": "지난 1년 이내의 키 데이터가 없습니다.",
+    "noCalorieData": "오늘의 칼로리 데이터가 없습니다.",
+    "weightWritten": "테스트 체중 (70kg)을 성공적으로 기록했습니다.",
+    "weightWriteFailed": "테스트 체중을 기록하는 데 실패했습니다.",
+    "heightWritten": "테스트 키 (175cm)를 성공적으로 기록했습니다.",
+    "heightWriteFailed": "테스트 키를 기록하는 데 실패했습니다.",
+    "noNotifications": "활성 알림이 없습니다.",
+    "testNotificationScheduled": "10초 후에 예약된 테스트 알림.",
+    "testNotificationBody": "10초 후에 예약된 테스트 알림입니다.",
+    "breakfastNotificationTriggered": "아침 식사 알림이 트리거되었습니다.",
+    "allNotificationsCancelled": "모든 알림이 취소되었습니다.",
+    "fetchingData": "최근 7일 동안의 데이터 가져오기...",
+    "id": "ID: {id}"
+  },
+  "health": {
+    "syncFailed": "Health Connect와 동기화할 수 없습니다.",
+    "mealSynced": "식사가 Health Connect와 동기화되었습니다."
+  }
+}

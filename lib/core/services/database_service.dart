@@ -13,7 +13,7 @@ class DatabaseService {
   static bool _initialized = false;
 
   /// Initialize the database service
-  static Future<void> initialize() async {
+  static void initialize() {
     if (!_initialized) {
       if (DataSourceConfig.isMockDataEnabled) {
         _databaseInterface = MockDatabaseAdapter();
@@ -26,36 +26,23 @@ class DatabaseService {
   }
 
   /// Reinitialize with current configuration
-  static Future<void> reinitialize() async {
+  static void reinitialize() {
     _initialized = false;
     _database = null;
     _databaseInterface = null;
-    await initialize();
+    initialize();
   }
 
   /// Switch to mock data
   static Future<void> switchToMockData() async {
     DataSourceConfig.enableMockData();
-    await reinitialize();
+    reinitialize();
   }
 
   /// Switch to real data
   static Future<void> switchToRealData() async {
     DataSourceConfig.enableRealData();
-    await reinitialize();
-  }
-
-  /// Get the current database instance (for real data)
-  static AppDatabase get database {
-    if (!_initialized) {
-      throw StateError(
-        'DatabaseService not initialized. Call initialize() first.',
-      );
-    }
-    if (_database == null) {
-      throw StateError('Database not available. Using mock data mode.');
-    }
-    return _database!;
+    reinitialize();
   }
 
   /// Get the current database interface

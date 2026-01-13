@@ -98,15 +98,19 @@
     "reinforcement": {
       "trackingSuccess": {
         "title": "你并不孤单",
-        "instantPhotoAnalysis": "即时照片分析",
-        "automaticLogging": "自动营养记录",
-        "progressVisualizations": "进展可视化让您保持动力",
         "genericMessage": "研究显示，持续跟踪是长期成功的首要预测因素。",
         "personalizedMessage": "对于一个 {age} 岁的 {gender}，想要 {goal}，持续跟踪是成功的首要预测因素。",
         "closingMessage": "Calorify 让这一切变得比手动操作轻松10倍。",
+        "getStartedTitle": "准备好开始了吗？",
+        "tipPhoto": "拍摄您的餐点以进行即时分析",
+        "tipConsistency": "保持记录以看到有意义的进展",
+        "tipProgress": "每天记录您的进展，保持动力",
         "button": "开始吧",
         "defaultGender": "个体",
-        "defaultGoal": "更健康的你"
+        "defaultGoal": "更健康的你",
+        "instantPhotoAnalysis": "即时照片分析",
+        "automaticLogging": "自动营养记录",
+        "progressVisualizations": "进展可视化让您保持动力"
       },
       "healthProfile": {
         "title": "您的健康资料",
@@ -367,6 +371,13 @@
     },
     "weightUnit": {
       "title": "体重单位"
+    },
+    "theme": {
+      "title": "主题",
+      "subtitle": "选择您的首选主题",
+      "light": "明亮",
+      "dark": "黑暗",
+      "system": "系统"
     },
     "mealReminders": {
       "title": "餐点提醒",

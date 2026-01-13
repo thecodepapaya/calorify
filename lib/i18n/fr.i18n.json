@@ -98,15 +98,19 @@
     "reinforcement": {
       "trackingSuccess": {
         "title": "Vous n'êtes pas seul",
-        "instantPhotoAnalysis": "Analyse photo instantanée",
-        "automaticLogging": "Journalisation nutritionnelle automatique",
-        "progressVisualizations": "Visualisations de progrès qui vous motivent",
         "genericMessage": "Des recherches montrent que le suivi régulier est le meilleur indicateur de succès à long terme.",
         "personalizedMessage": "Pour un(e) {age} ans {gender} cherchant à {goal}, le suivi régulier est le meilleur indicateur de succès.",
         "closingMessage": "Calorify rend cela 10 fois plus facile que de le faire manuellement.",
+        "getStartedTitle": "Prêt à commencer ?",
+        "tipPhoto": "Prenez une photo de vos repas pour une analyse instantanée",
+        "tipConsistency": "Consignez vos repas régulièrement pour voir des progrès significatifs",
+        "tipProgress": "Suivez vos progrès quotidiennement pour rester motivé",
         "button": "C'est parti",
         "defaultGender": "individu",
-        "defaultGoal": "vous en meilleure santé"
+        "defaultGoal": "vous en meilleure santé",
+        "instantPhotoAnalysis": "Analyse photo instantanée",
+        "automaticLogging": "Journalisation nutritionnelle automatique",
+        "progressVisualizations": "Visualisations de progrès qui vous motivent"
       },
       "healthProfile": {
         "title": "Votre Profil de Santé",
@@ -367,6 +371,13 @@
     },
     "weightUnit": {
       "title": "Unité de Poids"
+    },
+    "theme": {
+      "title": "Theme",
+      "subtitle": "Choose your preferred theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
     },
     "mealReminders": {
       "title": "Rappels de Repas",

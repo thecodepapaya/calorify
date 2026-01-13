@@ -245,6 +245,7 @@ class _TranslationsSettingsDe implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageDe language = _TranslationsSettingsLanguageDe._(_root);
 	@override late final _TranslationsSettingsHeightUnitDe heightUnit = _TranslationsSettingsHeightUnitDe._(_root);
 	@override late final _TranslationsSettingsWeightUnitDe weightUnit = _TranslationsSettingsWeightUnitDe._(_root);
+	@override late final _TranslationsSettingsThemeDe theme = _TranslationsSettingsThemeDe._(_root);
 	@override late final _TranslationsSettingsMealRemindersDe mealReminders = _TranslationsSettingsMealRemindersDe._(_root);
 	@override late final _TranslationsSettingsSendFeedbackDe sendFeedback = _TranslationsSettingsSendFeedbackDe._(_root);
 	@override late final _TranslationsSettingsClearAllDataDe clearAllData = _TranslationsSettingsClearAllDataDe._(_root);
@@ -825,6 +826,20 @@ class _TranslationsSettingsWeightUnitDe implements TranslationsSettingsWeightUni
 	@override String get title => 'Gewichtseinheit';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeDe implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeDe._(this._root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Theme';
+	@override String get subtitle => 'Choose your preferred theme';
+	@override String get light => 'Light';
+	@override String get dark => 'Dark';
+	@override String get system => 'System';
+}
+
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersDe implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersDe._(this._root);
@@ -1073,15 +1088,19 @@ class _TranslationsOnboardingReinforcementTrackingSuccessDe implements Translati
 
 	// Translations
 	@override String get title => 'Sie sind nicht allein';
-	@override String get instantPhotoAnalysis => 'Sofortige Fotoanalyse';
-	@override String get automaticLogging => 'Automatische Nahrungsmittelerfassung';
-	@override String get progressVisualizations => 'Fortschrittsvisualisierungen, die Sie motivieren';
 	@override String get genericMessage => 'Studien zeigen, dass konsequentes Tracking der wichtigste Indikator für langfristigen Erfolg ist.';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Für einen ${age} Jahre alten ${gender}, der ${goal} erreichen möchte, ist konsequentes Tracking der wichtigste Erfolgsfaktor.';
 	@override String get closingMessage => 'Calorify macht es 10-mal einfacher, als es manuell zu tun.';
+	@override String get getStartedTitle => 'Bereit, loszulegen?';
+	@override String get tipPhoto => 'Mach ein Foto deiner Mahlzeiten für eine sofortige Analyse';
+	@override String get tipConsistency => 'Halte ein konsistentes Protokoll, um bedeutenden Fortschritt zu sehen';
+	@override String get tipProgress => 'Verfolge deinen Fortschritt täglich, um motiviert zu bleiben';
 	@override String get button => 'Loslegen';
 	@override String get defaultGender => 'Person';
 	@override String get defaultGoal => 'gesundere Sie';
+	@override String get instantPhotoAnalysis => 'Sofortige Fotoanalyse';
+	@override String get automaticLogging => 'Automatische Nahrungsmittelerfassung';
+	@override String get progressVisualizations => 'Fortschrittsvisualisierungen, die Sie motivieren';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1364,15 +1383,19 @@ extension on TranslationsDe {
 			'onboarding.healthConnect.statusPermissionDenied' => 'Zugriff verweigert. Bitte aktivieren Sie die Berechtigungen für Health Connect in den Einstellungen Ihres Telefons für Calorify.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Fehler beim Einrichten von Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Sie sind nicht allein',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Sofortige Fotoanalyse',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Automatische Nahrungsmittelerfassung',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Fortschrittsvisualisierungen, die Sie motivieren',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Studien zeigen, dass konsequentes Tracking der wichtigste Indikator für langfristigen Erfolg ist.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Für einen ${age} Jahre alten ${gender}, der ${goal} erreichen möchte, ist konsequentes Tracking der wichtigste Erfolgsfaktor.',
 			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify macht es 10-mal einfacher, als es manuell zu tun.',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Bereit, loszulegen?',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Mach ein Foto deiner Mahlzeiten für eine sofortige Analyse',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Halte ein konsistentes Protokoll, um bedeutenden Fortschritt zu sehen',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Verfolge deinen Fortschritt täglich, um motiviert zu bleiben',
 			'onboarding.reinforcement.trackingSuccess.button' => 'Loslegen',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'Person',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'gesundere Sie',
+			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Sofortige Fotoanalyse',
+			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Automatische Nahrungsmittelerfassung',
+			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Fortschrittsvisualisierungen, die Sie motivieren',
 			'onboarding.reinforcement.healthProfile.title' => 'Ihr Gesundheitsprofil',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Basierend auf Ihren Werten beträgt Ihr BMI ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Lassen Sie uns Ihr Profil vervollständigen, um Ihr Erlebnis zu personalisieren.',
@@ -1550,6 +1573,11 @@ extension on TranslationsDe {
 			'settings.language.subtitle' => 'Wählen Sie Ihre bevorzugte Sprache',
 			'settings.heightUnit.title' => 'Größeneinheit',
 			'settings.weightUnit.title' => 'Gewichtseinheit',
+			'settings.theme.title' => 'Theme',
+			'settings.theme.subtitle' => 'Choose your preferred theme',
+			'settings.theme.light' => 'Light',
+			'settings.theme.dark' => 'Dark',
+			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => 'Mahlzeit Erinnerungen',
 			'settings.mealReminders.subtitle' => 'Bleibe mit zeitgerechten Erinnerungen auf Kurs',
 			'settings.sendFeedback.title' => 'Feedback senden',

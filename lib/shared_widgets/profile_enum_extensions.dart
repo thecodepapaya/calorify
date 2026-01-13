@@ -1,3 +1,4 @@
+import 'package:calorify/core/constants/colors/color_scheme_extensions.dart';
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -15,13 +16,14 @@ extension WeightGoalExtension on WeightGoal {
   }
 
   Color color(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     switch (this) {
       case WeightGoal.loseWeight:
-        return Colors.green;
+        return colorScheme.success;
       case WeightGoal.maintainWeight:
-        return Theme.of(context).colorScheme.primary;
+        return colorScheme.primary;
       case WeightGoal.gainWeight:
-        return Colors.orange;
+        return colorScheme.tertiary;
     }
   }
 }
@@ -43,17 +45,18 @@ extension ActivityLevelExtension on ActivityLevel {
   }
 
   Color color(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     switch (this) {
       case ActivityLevel.sedentary:
-        return Colors.grey;
+        return colorScheme.onSurfaceVariant;
       case ActivityLevel.lightlyActive:
-        return Colors.blue;
+        return colorScheme.primary;
       case ActivityLevel.moderatelyActive:
-        return Colors.green;
+        return colorScheme.success;
       case ActivityLevel.veryActive:
-        return Colors.orange;
+        return colorScheme.tertiary;
       case ActivityLevel.extremelyActive:
-        return Colors.red;
+        return colorScheme.error;
     }
   }
 }

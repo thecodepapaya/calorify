@@ -63,7 +63,9 @@ class MealLogCard extends StatelessWidget {
                   ),
                   SizedBox(width: 12),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 4),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 4,
+                    ).copyWith(top: 2),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(

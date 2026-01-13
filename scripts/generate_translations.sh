@@ -10,7 +10,7 @@
 # 7. Prints translation statistics
 
 # Hardcoded OpenAI API Key (Private Repository)
-API_KEY="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"
+API_KEY="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"
 
 I18N_DIR="lib/i18n"
 

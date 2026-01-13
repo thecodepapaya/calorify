@@ -21,7 +21,6 @@ class _TrackingSuccessReinforcementState
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
-  late Animation<double> _scaleAnimation;
   late Future<UserProfile?> _profileFuture;
 
   @override
@@ -29,7 +28,7 @@ class _TrackingSuccessReinforcementState
     super.initState();
     _profileFuture = OnboardingService.instance.getProfileData();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 800),
       vsync: this,
     );
 
@@ -39,19 +38,12 @@ class _TrackingSuccessReinforcementState
     );
 
     _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.15),
+      begin: const Offset(0, 0.1),
       end: Offset.zero,
     ).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.2, 1.0, curve: Curves.easeOutBack),
-      ),
-    );
-
-    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.0, 0.8, curve: Curves.elasticOut),
+        curve: const Interval(0.2, 1.0, curve: Curves.easeOut),
       ),
     );
 
@@ -69,8 +61,9 @@ class _TrackingSuccessReinforcementState
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return Scaffold(
-      body: FutureBuilder<UserProfile?>(
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: FutureBuilder<UserProfile?>(
         future: _profileFuture,
         builder: (context, snapshot) {
           final profile = snapshot.data;
@@ -94,147 +87,117 @@ class _TrackingSuccessReinforcementState
                 );
           }
 
-          return Stack(
+          return Column(
             children: [
-              Positioned(
-                top: -100,
-                right: -50,
-                child: _CircleDecorator(
-                  color: colorScheme.primary.withValues(alpha: 0.05),
-                  size: 300,
-                ),
-              ),
-              Positioned(
-                bottom: -50,
-                left: -50,
-                child: _CircleDecorator(
-                  color: colorScheme.secondary.withValues(alpha: 0.05),
-                  size: 200,
-                ),
-              ),
-              SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: FadeTransition(
-                          opacity: _fadeAnimation,
-                          child: SlideTransition(
-                            position: _slideAnimation,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ScaleTransition(
-                                  scale: _scaleAnimation,
-                                  child: Container(
-                                    padding: const EdgeInsets.all(32),
-                                    decoration: BoxDecoration(
-                                      color: colorScheme.primaryContainer
-                                          .withValues(alpha: 0.4),
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: colorScheme.primary.withValues(
-                                            alpha: 0.1,
-                                          ),
-                                          blurRadius: 20,
-                                          spreadRadius: 5,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Icon(
-                                      LucideIcons.users,
-                                      size: 80,
-                                      color: colorScheme.primary,
-                                    ),
-                                  ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: FadeTransition(
+                    opacity: _fadeAnimation,
+                    child: SlideTransition(
+                      position: _slideAnimation,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 48),
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: colorScheme.primaryContainer
+                                      .withValues(alpha: 0.5),
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
-                                const SizedBox(height: 48),
-                                Text(
+                                child: Icon(
+                                  LucideIcons.users,
+                                  color: colorScheme.primary,
+                                  size: 24,
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Text(
                                   t
                                       .onboarding
                                       .reinforcement
                                       .trackingSuccess
                                       .title,
-                                  style: theme.textTheme.displaySmall?.copyWith(
-                                    fontWeight: FontWeight.w900,
-                                    color: colorScheme.onSurface,
-                                    letterSpacing: -0.5,
-                                  ),
-                                  textAlign: TextAlign.center,
+                                  style: theme.textTheme.headlineMedium
+                                      ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
-                                const SizedBox(height: 16),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                  ),
-                                  child: Text(
-                                    '$personalizedMsg ${t.onboarding.reinforcement.trackingSuccess.closingMessage}',
-                                    style: theme.textTheme.titleMedium
-                                        ?.copyWith(
-                                          color: colorScheme.onSurfaceVariant,
-                                          height: 1.5,
-                                        ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                const SizedBox(height: 48),
-                                _buildFeatureItem(
-                                  t
-                                      .onboarding
-                                      .reinforcement
-                                      .trackingSuccess
-                                      .instantPhotoAnalysis,
-                                  colorScheme,
-                                  theme,
-                                ),
-                                _buildFeatureItem(
-                                  t
-                                      .onboarding
-                                      .reinforcement
-                                      .trackingSuccess
-                                      .automaticLogging,
-                                  colorScheme,
-                                  theme,
-                                ),
-                                _buildFeatureItem(
-                                  t
-                                      .onboarding
-                                      .reinforcement
-                                      .trackingSuccess
-                                      .progressVisualizations,
-                                  colorScheme,
-                                  theme,
-                                ),
-                              ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            '$personalizedMsg ${t.onboarding.reinforcement.trackingSuccess.closingMessage}',
+                            style: theme.textTheme.bodyLarge?.copyWith(
+                              color: colorScheme.onSurfaceVariant,
                             ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: FilledButton(
-                            onPressed: widget.onContinue,
-                            style: FilledButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            child: Text(
-                              t.onboarding.reinforcement.trackingSuccess.button,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          const SizedBox(height: 32),
+                          Text(
+                            t
+                                .onboarding
+                                .reinforcement
+                                .trackingSuccess
+                                .getStartedTitle,
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: colorScheme.onSurface,
                             ),
                           ),
-                        ),
+                          const SizedBox(height: 16),
+                          _buildTipItem(
+                            context,
+                            t.onboarding.reinforcement.trackingSuccess.tipPhoto,
+                            LucideIcons.camera,
+                          ),
+                          const SizedBox(height: 16),
+                          _buildTipItem(
+                            context,
+                            t
+                                .onboarding
+                                .reinforcement
+                                .trackingSuccess
+                                .tipConsistency,
+                            LucideIcons.repeat,
+                          ),
+                          const SizedBox(height: 16),
+                          _buildTipItem(
+                            context,
+                            t
+                                .onboarding
+                                .reinforcement
+                                .trackingSuccess
+                                .tipProgress,
+                            LucideIcons.chartBar,
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 0.0, top: 8.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: widget.onContinue,
+                    style: FilledButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    child: Text(
+                      t.onboarding.reinforcement.trackingSuccess.button,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -245,68 +208,30 @@ class _TrackingSuccessReinforcementState
     );
   }
 
-  Widget _buildFeatureItem(
-    String text,
-    ColorScheme colorScheme,
-    ThemeData theme,
-  ) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.1)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+  Widget _buildTipItem(BuildContext context, String text, IconData icon) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: colorScheme.primaryContainer.withValues(alpha: 0.5),
+            borderRadius: BorderRadius.circular(16),
           ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: colorScheme.primary.withValues(alpha: 0.1),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              LucideIcons.sparkles,
-              size: 18,
-              color: colorScheme.primary,
+          child: Icon(icon, color: colorScheme.primary, size: 24),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Text(
+            text,
+            style: theme.textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Text(
-              text,
-              style: theme.textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: colorScheme.onSurface,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CircleDecorator extends StatelessWidget {
-  final Color color;
-  final double size;
-
-  const _CircleDecorator({required this.color, required this.size});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
+      ],
     );
   }
 }

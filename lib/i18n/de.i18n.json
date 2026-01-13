@@ -98,15 +98,19 @@
     "reinforcement": {
       "trackingSuccess": {
         "title": "Sie sind nicht allein",
-        "instantPhotoAnalysis": "Sofortige Fotoanalyse",
-        "automaticLogging": "Automatische Nahrungsmittelerfassung",
-        "progressVisualizations": "Fortschrittsvisualisierungen, die Sie motivieren",
         "genericMessage": "Studien zeigen, dass konsequentes Tracking der wichtigste Indikator für langfristigen Erfolg ist.",
         "personalizedMessage": "Für einen {age} Jahre alten {gender}, der {goal} erreichen möchte, ist konsequentes Tracking der wichtigste Erfolgsfaktor.",
         "closingMessage": "Calorify macht es 10-mal einfacher, als es manuell zu tun.",
+        "getStartedTitle": "Bereit, loszulegen?",
+        "tipPhoto": "Mach ein Foto deiner Mahlzeiten für eine sofortige Analyse",
+        "tipConsistency": "Halte ein konsistentes Protokoll, um bedeutenden Fortschritt zu sehen",
+        "tipProgress": "Verfolge deinen Fortschritt täglich, um motiviert zu bleiben",
         "button": "Loslegen",
         "defaultGender": "Person",
-        "defaultGoal": "gesundere Sie"
+        "defaultGoal": "gesundere Sie",
+        "instantPhotoAnalysis": "Sofortige Fotoanalyse",
+        "automaticLogging": "Automatische Nahrungsmittelerfassung",
+        "progressVisualizations": "Fortschrittsvisualisierungen, die Sie motivieren"
       },
       "healthProfile": {
         "title": "Ihr Gesundheitsprofil",
@@ -367,6 +371,13 @@
     },
     "weightUnit": {
       "title": "Gewichtseinheit"
+    },
+    "theme": {
+      "title": "Theme",
+      "subtitle": "Choose your preferred theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
     },
     "mealReminders": {
       "title": "Mahlzeit Erinnerungen",

@@ -245,6 +245,7 @@ class _TranslationsSettingsZhCn implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageZhCn language = _TranslationsSettingsLanguageZhCn._(_root);
 	@override late final _TranslationsSettingsHeightUnitZhCn heightUnit = _TranslationsSettingsHeightUnitZhCn._(_root);
 	@override late final _TranslationsSettingsWeightUnitZhCn weightUnit = _TranslationsSettingsWeightUnitZhCn._(_root);
+	@override late final _TranslationsSettingsThemeZhCn theme = _TranslationsSettingsThemeZhCn._(_root);
 	@override late final _TranslationsSettingsMealRemindersZhCn mealReminders = _TranslationsSettingsMealRemindersZhCn._(_root);
 	@override late final _TranslationsSettingsSendFeedbackZhCn sendFeedback = _TranslationsSettingsSendFeedbackZhCn._(_root);
 	@override late final _TranslationsSettingsClearAllDataZhCn clearAllData = _TranslationsSettingsClearAllDataZhCn._(_root);
@@ -825,6 +826,20 @@ class _TranslationsSettingsWeightUnitZhCn implements TranslationsSettingsWeightU
 	@override String get title => '体重单位';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeZhCn implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '主题';
+	@override String get subtitle => '选择您的首选主题';
+	@override String get light => '明亮';
+	@override String get dark => '黑暗';
+	@override String get system => '系统';
+}
+
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersZhCn implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersZhCn._(this._root);
@@ -1073,15 +1088,19 @@ class _TranslationsOnboardingReinforcementTrackingSuccessZhCn implements Transla
 
 	// Translations
 	@override String get title => '你并不孤单';
-	@override String get instantPhotoAnalysis => '即时照片分析';
-	@override String get automaticLogging => '自动营养记录';
-	@override String get progressVisualizations => '进展可视化让您保持动力';
 	@override String get genericMessage => '研究显示，持续跟踪是长期成功的首要预测因素。';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => '对于一个 ${age} 岁的 ${gender}，想要 ${goal}，持续跟踪是成功的首要预测因素。';
 	@override String get closingMessage => 'Calorify 让这一切变得比手动操作轻松10倍。';
+	@override String get getStartedTitle => '准备好开始了吗？';
+	@override String get tipPhoto => '拍摄您的餐点以进行即时分析';
+	@override String get tipConsistency => '保持记录以看到有意义的进展';
+	@override String get tipProgress => '每天记录您的进展，保持动力';
 	@override String get button => '开始吧';
 	@override String get defaultGender => '个体';
 	@override String get defaultGoal => '更健康的你';
+	@override String get instantPhotoAnalysis => '即时照片分析';
+	@override String get automaticLogging => '自动营养记录';
+	@override String get progressVisualizations => '进展可视化让您保持动力';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1364,15 +1383,19 @@ extension on TranslationsZhCn {
 			'onboarding.healthConnect.statusPermissionDenied' => '权限被拒绝。请在你的手机设置中为Calorify启用健康连接权限。',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => '设置健康连接时出错: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => '你并不孤单',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => '即时照片分析',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => '自动营养记录',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => '进展可视化让您保持动力',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => '研究显示，持续跟踪是长期成功的首要预测因素。',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '对于一个 ${age} 岁的 ${gender}，想要 ${goal}，持续跟踪是成功的首要预测因素。',
 			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify 让这一切变得比手动操作轻松10倍。',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => '准备好开始了吗？',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => '拍摄您的餐点以进行即时分析',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => '保持记录以看到有意义的进展',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => '每天记录您的进展，保持动力',
 			'onboarding.reinforcement.trackingSuccess.button' => '开始吧',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => '个体',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => '更健康的你',
+			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => '即时照片分析',
+			'onboarding.reinforcement.trackingSuccess.automaticLogging' => '自动营养记录',
+			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => '进展可视化让您保持动力',
 			'onboarding.reinforcement.healthProfile.title' => '您的健康资料',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => '根据你的数据，你的BMI是 ${bmi}。',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => '让我们完成你的资料，以定制你的体验。',
@@ -1550,6 +1573,11 @@ extension on TranslationsZhCn {
 			'settings.language.subtitle' => '选择您的首选语言',
 			'settings.heightUnit.title' => '身高单位',
 			'settings.weightUnit.title' => '体重单位',
+			'settings.theme.title' => '主题',
+			'settings.theme.subtitle' => '选择您的首选主题',
+			'settings.theme.light' => '明亮',
+			'settings.theme.dark' => '黑暗',
+			'settings.theme.system' => '系统',
 			'settings.mealReminders.title' => '餐点提醒',
 			'settings.mealReminders.subtitle' => '通过及时的提醒保持正轨',
 			'settings.sendFeedback.title' => '发送反馈',

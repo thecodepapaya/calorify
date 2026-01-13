@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/models/profile_models.dart';
+import 'package:calorify/core/providers/theme_provider.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
@@ -11,19 +12,20 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
-class SettingsScreen extends StatefulWidget {
+class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
+  ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   UserProfile? _userProfile;
   bool _isLoading = true;
   int _debugTapCount = 0;
@@ -99,6 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const SizedBox(height: 16),
           _buildCardSection(t.settings.sections.localization, [
             _buildLanguageTile(),
+            _buildThemeTile(),
             _buildHeightUnitTile(),
             _buildWeightUnitTile(),
           ]),
@@ -240,6 +243,59 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(children: children),
         ),
       ],
+    );
+  }
+
+  Widget _buildThemeTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final currentThemeMode = ref.watch(appThemeProvider);
+
+    return ListTile(
+      leading: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(LucideIcons.palette, color: colorScheme.primary, size: 20),
+      ),
+      title: Text(
+        t.settings.theme.title,
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+      subtitle: Text(t.settings.theme.subtitle),
+      trailing: SegmentedButton<ThemeMode>(
+        segments: [
+          ButtonSegment(
+            value: ThemeMode.light,
+            label: Text(t.settings.theme.light),
+          ),
+          ButtonSegment(
+            value: ThemeMode.dark,
+            label: Text(t.settings.theme.dark),
+          ),
+          ButtonSegment(
+            value: ThemeMode.system,
+            label: Text(t.settings.theme.system),
+          ),
+        ],
+        selected: {currentThemeMode},
+        showSelectedIcon: false,
+        style: const ButtonStyle(
+          visualDensity: VisualDensity.compact,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          padding: WidgetStatePropertyAll(
+            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          ),
+        ),
+        onSelectionChanged: (Set<ThemeMode> selection) async {
+          final newMode = selection.first;
+          if (newMode == currentThemeMode) return;
+
+          await ref.read(appThemeProvider.notifier).setTheme(newMode);
+        },
+      ),
     );
   }
 
@@ -438,32 +494,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _showClearDataConfirmation() {
     showDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: Text(t.settings.clearAllData.confirmationTitle),
-            content: Text(t.settings.clearAllData.confirmationMessage),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text(t.settings.clearAllData.cancel),
+      builder: (context) {
+        final colorScheme = Theme.of(context).colorScheme;
+        return AlertDialog(
+          title: Text(t.settings.clearAllData.confirmationTitle),
+          content: Text(t.settings.clearAllData.confirmationMessage),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(t.settings.clearAllData.cancel),
+            ),
+            TextButton(
+              onPressed: () async {
+                await DatabaseService.databaseInterface.clearAllData();
+                if (!context.mounted) return;
+                Navigator.pop(context);
+                await context.router.pushAndPopUntil(
+                  const OnboardingRoute(),
+                  predicate: (route) => false,
+                );
+              },
+              child: Text(
+                t.settings.clearAllData.clearEverything,
+                style: TextStyle(color: colorScheme.error),
               ),
-              TextButton(
-                onPressed: () async {
-                  await DatabaseService.databaseInterface.clearAllData();
-                  if (!context.mounted) return;
-                  Navigator.pop(context);
-                  await context.router.pushAndPopUntil(
-                    const OnboardingRoute(),
-                    predicate: (route) => false,
-                  );
-                },
-                child: Text(
-                  t.settings.clearAllData.clearEverything,
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
+        );
+      },
     );
   }
 

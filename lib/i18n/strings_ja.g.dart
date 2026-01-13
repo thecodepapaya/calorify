@@ -245,6 +245,7 @@ class _TranslationsSettingsJa implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageJa language = _TranslationsSettingsLanguageJa._(_root);
 	@override late final _TranslationsSettingsHeightUnitJa heightUnit = _TranslationsSettingsHeightUnitJa._(_root);
 	@override late final _TranslationsSettingsWeightUnitJa weightUnit = _TranslationsSettingsWeightUnitJa._(_root);
+	@override late final _TranslationsSettingsThemeJa theme = _TranslationsSettingsThemeJa._(_root);
 	@override late final _TranslationsSettingsMealRemindersJa mealReminders = _TranslationsSettingsMealRemindersJa._(_root);
 	@override late final _TranslationsSettingsSendFeedbackJa sendFeedback = _TranslationsSettingsSendFeedbackJa._(_root);
 	@override late final _TranslationsSettingsClearAllDataJa clearAllData = _TranslationsSettingsClearAllDataJa._(_root);
@@ -825,6 +826,20 @@ class _TranslationsSettingsWeightUnitJa implements TranslationsSettingsWeightUni
 	@override String get title => '体重の単位';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeJa implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Theme';
+	@override String get subtitle => 'Choose your preferred theme';
+	@override String get light => 'Light';
+	@override String get dark => 'Dark';
+	@override String get system => 'System';
+}
+
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersJa implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersJa._(this._root);
@@ -1073,15 +1088,19 @@ class _TranslationsOnboardingReinforcementTrackingSuccessJa implements Translati
 
 	// Translations
 	@override String get title => 'あなたは一人じゃない';
-	@override String get instantPhotoAnalysis => '即時フォト分析';
-	@override String get automaticLogging => '自動栄養ログ';
-	@override String get progressVisualizations => 'やる気を引き出す進捗視覚化';
 	@override String get genericMessage => '研究によると、一貫したトラッキングは長期的な成功の最も大きな予測因子です。';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => '${age}歳の${gender}が${goal}を目指すためには、一貫したトラッキングが成功の最も大きな予測因子です。';
 	@override String get closingMessage => 'Calorifyを使えば、手動で行うよりも10倍簡単です。';
+	@override String get getStartedTitle => '始める準備はできましたか？';
+	@override String get tipPhoto => '食事の写真を撮影して瞬時に分析します';
+	@override String get tipConsistency => '一貫して記録して、意味のある進捗を確認しましょう';
+	@override String get tipProgress => 'やる気を保つために、毎日進捗を追跡しましょう';
 	@override String get button => '行きましょう';
 	@override String get defaultGender => '個人';
 	@override String get defaultGoal => 'より健康的な自分';
+	@override String get instantPhotoAnalysis => '即時フォト分析';
+	@override String get automaticLogging => '自動栄養ログ';
+	@override String get progressVisualizations => 'やる気を引き出す進捗視覚化';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1364,15 +1383,19 @@ extension on TranslationsJa {
 			'onboarding.healthConnect.statusPermissionDenied' => '権限が拒否されました。Calorifyのために電話の設定からHealth Connectの権限を有効にしてください。',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connectの設定中にエラーが発生しました: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'あなたは一人じゃない',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => '即時フォト分析',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => '自動栄養ログ',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'やる気を引き出す進捗視覚化',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => '研究によると、一貫したトラッキングは長期的な成功の最も大きな予測因子です。',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '${age}歳の${gender}が${goal}を目指すためには、一貫したトラッキングが成功の最も大きな予測因子です。',
 			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorifyを使えば、手動で行うよりも10倍簡単です。',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => '始める準備はできましたか？',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => '食事の写真を撮影して瞬時に分析します',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => '一貫して記録して、意味のある進捗を確認しましょう',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'やる気を保つために、毎日進捗を追跡しましょう',
 			'onboarding.reinforcement.trackingSuccess.button' => '行きましょう',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => '個人',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'より健康的な自分',
+			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => '即時フォト分析',
+			'onboarding.reinforcement.trackingSuccess.automaticLogging' => '自動栄養ログ',
+			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'やる気を引き出す進捗視覚化',
 			'onboarding.reinforcement.healthProfile.title' => 'あなたの健康プロフィール',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'あなたの指標に基づくと、あなたのBMIは${bmi}です。',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'あなたの体験をカスタマイズするためにプロフィールを最終化しましょう。',
@@ -1550,6 +1573,11 @@ extension on TranslationsJa {
 			'settings.language.subtitle' => 'お好みの言語を選択してください',
 			'settings.heightUnit.title' => '身長の単位',
 			'settings.weightUnit.title' => '体重の単位',
+			'settings.theme.title' => 'Theme',
+			'settings.theme.subtitle' => 'Choose your preferred theme',
+			'settings.theme.light' => 'Light',
+			'settings.theme.dark' => 'Dark',
+			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => '食事リマインダー',
 			'settings.mealReminders.subtitle' => 'タイムリーなアラートで進捗を維持',
 			'settings.sendFeedback.title' => 'フィードバックを送信',

@@ -98,15 +98,19 @@
     "reinforcement": {
       "trackingSuccess": {
         "title": "あなたは一人じゃない",
-        "instantPhotoAnalysis": "即時フォト分析",
-        "automaticLogging": "自動栄養ログ",
-        "progressVisualizations": "やる気を引き出す進捗視覚化",
         "genericMessage": "研究によると、一貫したトラッキングは長期的な成功の最も大きな予測因子です。",
         "personalizedMessage": "{age}歳の{gender}が{goal}を目指すためには、一貫したトラッキングが成功の最も大きな予測因子です。",
         "closingMessage": "Calorifyを使えば、手動で行うよりも10倍簡単です。",
+        "getStartedTitle": "始める準備はできましたか？",
+        "tipPhoto": "食事の写真を撮影して瞬時に分析します",
+        "tipConsistency": "一貫して記録して、意味のある進捗を確認しましょう",
+        "tipProgress": "やる気を保つために、毎日進捗を追跡しましょう",
         "button": "行きましょう",
         "defaultGender": "個人",
-        "defaultGoal": "より健康的な自分"
+        "defaultGoal": "より健康的な自分",
+        "instantPhotoAnalysis": "即時フォト分析",
+        "automaticLogging": "自動栄養ログ",
+        "progressVisualizations": "やる気を引き出す進捗視覚化"
       },
       "healthProfile": {
         "title": "あなたの健康プロフィール",
@@ -367,6 +371,13 @@
     },
     "weightUnit": {
       "title": "体重の単位"
+    },
+    "theme": {
+      "title": "Theme",
+      "subtitle": "Choose your preferred theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
     },
     "mealReminders": {
       "title": "食事リマインダー",

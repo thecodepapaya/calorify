@@ -1,4 +1,5 @@
 import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/constants/colors/color_scheme_extensions.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
@@ -110,7 +111,7 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
                     decoration: BoxDecoration(
                       color:
                           _healthConnectEnabled
-                              ? Colors.green.withValues(alpha: 0.1)
+                              ? colorScheme.successContainer
                               : colorScheme.surfaceContainerHighest.withValues(
                                 alpha: 0.5,
                               ),
@@ -118,7 +119,7 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
                       border: Border.all(
                         color:
                             _healthConnectEnabled
-                                ? Colors.green
+                                ? colorScheme.success
                                 : colorScheme.outline.withValues(alpha: 0.2),
                       ),
                     ),
@@ -130,7 +131,7 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
                               : LucideIcons.info,
                           color:
                               _healthConnectEnabled
-                                  ? Colors.green
+                                  ? colorScheme.success
                                   : colorScheme.onSurfaceVariant,
                         ),
                         const SizedBox(width: 12),
@@ -146,7 +147,7 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
                                   fontWeight: FontWeight.w600,
                                   color:
                                       _healthConnectEnabled
-                                          ? Colors.green
+                                          ? colorScheme.onSuccessContainer
                                           : colorScheme.onSurface,
                                 ),
                               ),
@@ -170,7 +171,7 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24.0),
+            padding: const EdgeInsets.only(bottom: 0.0, top: 24.0),
             child: Column(
               children: [
                 if (_healthConnectEnabled)
