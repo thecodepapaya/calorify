@@ -21,6 +21,12 @@ jobs:
         working-directory: app
         run: flutter pub get
 
+      - name: Decode Android signing files
+        working-directory: app/android
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 --decode > signing-certificate.jks
+          echo "${{ secrets.ANDROID_KEY_PROPERTIES_B64 }}" | base64 --decode > key.properties
+
       - name: Build Android AppBundle
         working-directory: app
         run: flutter build appbundle --release --flavor=prod
@@ -34,6 +40,7 @@ jobs:
         run: gem install fastlane
 
       - name: Upload to Play Store
+        working-directory: app
         run: fastlane android release
         env:
           SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
