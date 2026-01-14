@@ -8,14 +8,16 @@
 
 set -e
 
-# Check dependencies
-if ! command -v python3 &> /dev/null; then
-    echo "Error: python3 is required but not installed."
-    exit 1
-fi
+# Source common utilities
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/common.sh"
 
-if ! command -v curl &> /dev/null; then
-    echo "Error: curl is required but not installed."
+# Store original directory and change to git root
+store_original_dir
+GIT_ROOT=$(change_to_git_root)
+
+# Check dependencies
+if ! check_command python3 || ! check_command curl; then
     exit 1
 fi
 
@@ -42,11 +44,28 @@ get_locale_name() {
 # List of all supported locales
 LOCALES="en-US fr-FR es-ES de-DE it-IT pt-BR ja-JP ko-KR zh-CN zh-TW"
 
-# Get version code from pubspec.yaml
-VERSION_CODE=$(grep "^version:" pubspec.yaml | sed -E 's/version: [0-9]+\.[0-9]+\.[0-9]+\+([0-9]+)/\1/')
+# Changelog character limit (Play Store requirement)
+CHANGELOG_MAX_LENGTH=500
+
+# Function to validate changelog length
+validate_changelog_length() {
+    local content="$1"
+    local locale="$2"
+    local length=${#content}
+    
+    if [ $length -gt $CHANGELOG_MAX_LENGTH ]; then
+        print_error "Changelog for $locale exceeds ${CHANGELOG_MAX_LENGTH} characters (${length} characters)"
+        print_info "Please shorten the changelog text and try again."
+        return 1
+    fi
+    return 0
+}
+
+# Get version code from pubspec.yaml (relative to git root)
+VERSION_CODE=$(grep "^version:" "$GIT_ROOT/app/pubspec.yaml" 2>/dev/null | sed -E 's/version: [0-9]+\.[0-9]+\.[0-9]+\+([0-9]+)/\1/' || echo "")
 
 if [ -z "$VERSION_CODE" ]; then
-    echo "Error: Could not extract version code from pubspec.yaml"
+    print_error "Could not extract version code from app/pubspec.yaml"
     exit 1
 fi
 
@@ -81,7 +100,7 @@ payload = {
     "messages": [
         {
             "role": "system",
-            "content": f"You are a professional translator. Translate the following app changelog text to {target_language}. Maintain the exact formatting, including emojis, bullet points, and line breaks. Keep the tone professional and user-friendly. Do not add or remove any content, only translate."
+            "content": f"You are a professional translator. Translate the following app changelog text to {target_language}. Maintain the exact formatting, including emojis, bullet points, and line breaks. Keep the tone professional and user-friendly. Do not add or remove any content, only translate. IMPORTANT: The translated text must not exceed 500 characters. If the translation would exceed this limit, use more concise wording while preserving the meaning."
         },
         {
             "role": "user",
@@ -107,7 +126,7 @@ PYTHON_EOF
     # Check for API errors
     if echo "$response" | grep -q '"error"'; then
         local error_msg=$(echo "$response" | python3 -c "import sys, json; data = json.load(sys.stdin); print(data.get('error', {}).get('message', 'Unknown error'))" 2>/dev/null || echo "API Error")
-        echo "API Error: $error_msg" >&2
+        print_error "API Error: $error_msg"
         return 1
     fi
     
@@ -129,12 +148,21 @@ create_changelog_for_locale() {
     local locale="$1"
     local content="$2"
     
-    local changelog_dir="fastlane/metadata/android/${locale}/changelogs"
+    # Validate length before creating
+    if ! validate_changelog_length "$content" "$locale"; then
+        return 1
+    fi
+    
+    local changelog_dir="$GIT_ROOT/fastlane/metadata/android/${locale}/changelogs"
     mkdir -p "$changelog_dir"
     
     local changelog_file="${changelog_dir}/${VERSION_CODE}.txt"
     echo -e "$content" > "$changelog_file"
-    echo "✓ Created: $changelog_file"
+    local length=${#content}
+    # Show relative path from git root
+    local rel_path="fastlane/metadata/android/${locale}/changelogs/${VERSION_CODE}.txt"
+    print_success "Created: $rel_path (${length}/${CHANGELOG_MAX_LENGTH} chars)"
+    return 0
 }
 
 # Parse arguments
@@ -147,11 +175,15 @@ if [ "$1" == "--file" ] || [ "$1" == "-f" ]; then
     MODE="from_file"
     SOURCE_FILE="$2"
     if [ -z "$SOURCE_FILE" ]; then
-        echo "Error: --file requires a file path"
+        print_error "--file requires a file path"
         exit 1
     fi
+    # Handle relative paths - if not absolute, make it relative to git root
+    if [[ "$SOURCE_FILE" != /* ]]; then
+        SOURCE_FILE="$GIT_ROOT/$SOURCE_FILE"
+    fi
     if [ ! -f "$SOURCE_FILE" ]; then
-        echo "Error: File not found: $SOURCE_FILE"
+        print_error "File not found: $SOURCE_FILE"
         exit 1
     fi
     ENGLISH_TEXT=$(cat "$SOURCE_FILE")
@@ -160,7 +192,7 @@ elif [ "$1" == "--locale" ] || [ "$1" == "-l" ]; then
     TARGET_LOCALE="$2"
     ENGLISH_TEXT="$3"
     if [ -z "$TARGET_LOCALE" ] || [ -z "$ENGLISH_TEXT" ]; then
-        echo "Error: --locale requires locale and text"
+        print_error "--locale requires locale and text"
         echo "Usage: $0 --locale en-US \"Your changelog text\""
         exit 1
     fi
@@ -170,12 +202,12 @@ else
         ENGLISH_TEXT="$1"
     else
         # Try to read from existing English changelog
-        ENGLISH_CHANGELOG="fastlane/metadata/android/en-US/changelogs/${VERSION_CODE}.txt"
+        ENGLISH_CHANGELOG="$GIT_ROOT/fastlane/metadata/android/en-US/changelogs/${VERSION_CODE}.txt"
         if [ -f "$ENGLISH_CHANGELOG" ]; then
-            echo "Reading existing English changelog..."
+            print_info "Reading existing English changelog..."
             ENGLISH_TEXT=$(cat "$ENGLISH_CHANGELOG")
         else
-            echo "Error: No changelog text provided and no existing changelog found."
+            print_error "No changelog text provided and no existing changelog found."
             echo "Usage: $0 \"Your changelog text\""
             echo "   or: $0 --file path/to/changelog.txt"
             exit 1
@@ -183,23 +215,38 @@ else
     fi
 fi
 
-echo "=========================================="
-echo "Changelog Generator & Translator"
-echo "=========================================="
-echo "Version Code: $VERSION_CODE"
+print_header "Changelog Generator & Translator"
+print_info "Version Code: $VERSION_CODE"
+print_info "Character limit: ${CHANGELOG_MAX_LENGTH} characters per language"
+echo ""
+
+# Validate English text length upfront
+if ! validate_changelog_length "$ENGLISH_TEXT" "en-US"; then
+    print_error "English changelog text is too long. Please shorten it and try again."
+    exit 1
+fi
+
+ENGLISH_LENGTH=${#ENGLISH_TEXT}
+print_info "English changelog length: ${ENGLISH_LENGTH}/${CHANGELOG_MAX_LENGTH} characters"
 echo ""
 
 # Create English changelog first
 if [ "$MODE" != "single_locale" ] || [ "$TARGET_LOCALE" == "en-US" ]; then
-    echo "Creating English changelog..."
-    create_changelog_for_locale "en-US" "$ENGLISH_TEXT"
+    print_step "1" "Creating English changelog"
+    if ! create_changelog_for_locale "en-US" "$ENGLISH_TEXT"; then
+        print_error "Failed to create English changelog due to character limit"
+        exit 1
+    fi
     echo ""
 fi
 
 # Translate and create changelogs for other languages
 if [ "$MODE" == "translate_all" ]; then
-    echo "Translating to all supported languages..."
+    print_step "2" "Translating to all supported languages"
     echo ""
+    
+    TRANSLATED=0
+    FAILED=0
     
     for locale in $LOCALES; do
         if [ "$locale" == "en-US" ]; then
@@ -211,27 +258,41 @@ if [ "$MODE" == "translate_all" ]; then
             continue
         fi
         
-        echo "Translating to $locale_name ($locale)..."
+        echo -e "${BOLD}${BLUE}${ARROW} ${locale_name} (${locale})${NC}"
         translated_text=$(translate_text "$ENGLISH_TEXT" "$locale_name")
         
-        if [ -z "$translated_text" ] || [ "$translated_text" == "null" ]; then
-            echo "⚠ Warning: Translation failed for $locale, skipping..."
-            continue
+        if [ $? -eq 0 ] && [ -n "$translated_text" ] && [ "$translated_text" != "null" ]; then
+            if create_changelog_for_locale "$locale" "$translated_text"; then
+                ((TRANSLATED++))
+            else
+                print_warning "Changelog for $locale exceeds character limit, skipping..."
+                ((FAILED++))
+            fi
+        else
+            print_warning "Translation failed for $locale, skipping..."
+            ((FAILED++))
         fi
-        
-        create_changelog_for_locale "$locale" "$translated_text"
         echo ""
         
         # Small delay to avoid rate limiting
         sleep 1
     done
     
-    echo "=========================================="
-    echo "✓ Done! Changelogs created for all languages."
-    echo "=========================================="
+    print_separator
+    print_summary_header
+    print_summary_success "$TRANSLATED" "Translated"
+    if [ $FAILED -gt 0 ]; then
+        print_summary_failed "$FAILED" "Failed"
+    fi
+    print_summary_all_success "Changelogs created for all languages!"
+    print_separator
+    
 elif [ "$MODE" == "from_file" ]; then
-    echo "Translating from file: $SOURCE_FILE"
+    print_info "Translating from file: $SOURCE_FILE"
     echo ""
+    
+    TRANSLATED=0
+    FAILED=0
     
     for locale in $LOCALES; do
         if [ "$locale" == "en-US" ]; then
@@ -243,43 +304,57 @@ elif [ "$MODE" == "from_file" ]; then
             continue
         fi
         
-        echo "Translating to $locale_name ($locale)..."
+        echo -e "${BOLD}${BLUE}${ARROW} ${locale_name} (${locale})${NC}"
         translated_text=$(translate_text "$ENGLISH_TEXT" "$locale_name")
         
-        if [ -z "$translated_text" ] || [ "$translated_text" == "null" ]; then
-            echo "⚠ Warning: Translation failed for $locale, skipping..."
-            continue
+        if [ $? -eq 0 ] && [ -n "$translated_text" ] && [ "$translated_text" != "null" ]; then
+            if create_changelog_for_locale "$locale" "$translated_text"; then
+                ((TRANSLATED++))
+            else
+                print_warning "Changelog for $locale exceeds character limit, skipping..."
+                ((FAILED++))
+            fi
+        else
+            print_warning "Translation failed for $locale, skipping..."
+            ((FAILED++))
         fi
-        
-        create_changelog_for_locale "$locale" "$translated_text"
         echo ""
         
         sleep 1
     done
     
-    echo "=========================================="
-    echo "✓ Done! Changelogs created for all languages."
-    echo "=========================================="
+    print_separator
+    print_summary_header
+    print_summary_success "$TRANSLATED" "Translated"
+    if [ $FAILED -gt 0 ]; then
+        print_summary_failed "$FAILED" "Failed"
+    fi
+    print_summary_all_success "Changelogs created for all languages!"
+    print_separator
+    
 elif [ "$MODE" == "single_locale" ]; then
     if [ "$TARGET_LOCALE" == "en-US" ]; then
-        echo "✓ English changelog created."
+        print_success "English changelog created."
     else
         locale_name=$(get_locale_name "$TARGET_LOCALE")
         if [ -z "$locale_name" ]; then
-            echo "Error: Unsupported locale: $TARGET_LOCALE"
+            print_error "Unsupported locale: $TARGET_LOCALE"
             exit 1
         fi
         
-        echo "Translating to $locale_name ($TARGET_LOCALE)..."
+        print_info "Translating to $locale_name ($TARGET_LOCALE)..."
         translated_text=$(translate_text "$ENGLISH_TEXT" "$locale_name")
         
-        if [ -z "$translated_text" ] || [ "$translated_text" == "null" ]; then
-            echo "Error: Translation failed for $TARGET_LOCALE"
+        if [ $? -ne 0 ] || [ -z "$translated_text" ] || [ "$translated_text" == "null" ]; then
+            print_error "Translation failed for $TARGET_LOCALE"
             exit 1
         fi
         
-        create_changelog_for_locale "$TARGET_LOCALE" "$translated_text"
+        if ! create_changelog_for_locale "$TARGET_LOCALE" "$translated_text"; then
+            print_error "Changelog for $TARGET_LOCALE exceeds character limit"
+            exit 1
+        fi
         echo ""
-        echo "✓ Changelog created for $TARGET_LOCALE"
+        print_success "Changelog created for $TARGET_LOCALE"
     fi
 fi

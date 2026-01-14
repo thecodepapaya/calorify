@@ -5,12 +5,4 @@ What's New:
 • Support for more languages
 • Stability and bug fixes
 
-✨ Features:
-• AI food analysis from photos or text
-• Smart goal tracking with progress charts
-• Health Connect integration
-• BMR/TDEE calculation
-• Multi-language support
-• Meal history & favorites
-
 🔒 Privacy-first: No accounts required.

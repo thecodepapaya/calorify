@@ -5,12 +5,4 @@ Novedades:
 • Soporte para más idiomas
 • Estabilidad y corrección de errores
 
-✨ Características:
-• Análisis de alimentos por IA a partir de fotos o texto
-• Seguimiento de objetivos inteligentes con gráficos de progreso
-• Integración con Health Connect
-• Cálculo de BMR/TDEE
-• Soporte multilingüe
-• Historial de comidas y favoritos
-
 🔒 Privacidad ante todo: No se requieren cuentas.

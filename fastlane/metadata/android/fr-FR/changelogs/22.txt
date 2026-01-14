@@ -1,16 +1,8 @@
 Suivi des calories alimenté par l'IA. Prenez des photos ou décrivez vos repas pour une analyse nutritionnelle instantanée.
 
 Quoi de neuf :
-• Support du thème sombre
-• Support pour plus de langues
+• Support du mode sombre
+• Support de plus de langues
 • Améliorations de la stabilité et corrections de bugs
 
-✨ Fonctionnalités :
-• Analyse alimentaire par IA à partir de photos ou de texte
-• Suivi des objectifs intelligents avec graphiques de progression
-• Intégration de Health Connect
-• Calcul du BMR/TDEE
-• Support multilingue
-• Historique des repas & favoris
-
-🔒 Priorité à la confidentialité : Aucun compte requis.
+🔒 Priorité à la vie privée : Aucun compte requis.
