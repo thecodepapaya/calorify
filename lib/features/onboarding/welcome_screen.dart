@@ -1,3 +1,4 @@
+import 'package:calorify/core/utilities/string_utils.dart';
 import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/animated_leaf.dart';
 import 'package:calorify/shared_widgets/language_picker_sheet.dart';
@@ -5,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  final VoidCallback onContinue;
   const WelcomeScreen({super.key, required this.onContinue});
+
+  final VoidCallback onContinue;
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
@@ -70,7 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           const AnimatedLeaf(size: 120),
                           const SizedBox(height: 32),
                           Text(
-                            t.onboarding.welcome,
+                            t.onboarding.welcome(appLabel: t.appLabelValue),
                             style: Theme.of(context).textTheme.headlineMedium
                                 ?.copyWith(fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,

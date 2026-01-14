@@ -1,8 +1,9 @@
 {
   "language": "Finnish",
   "flag": "🇫🇮",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Tervetuloa Calorifyyn",
+    "welcome": "Tervetuloa {appLabel} -sovellukseen",
     "subtitle": "Henkilökohtainen ravitsemuskumppanisi, jota ohjaa tekoäly",
     "getStarted": "Aloita",
     "features": {
@@ -59,7 +60,7 @@
       "messages": {
         "underweight": "Voimme auttaa sinua luomaan terveellisen suunnitelman, jotta saavutat tasapainoisen painon ravinteikkalla ruualla.",
         "healthy": "Hienoa! Olet terveellisellä alueella. Autamme sinua ylläpitämään elinvoimaasi ja energiatasojasi.",
-        "overweight": "Calorify yksinkertaistaa matkaasi tekoälypohjaisen seurannan avulla, jotta voit saavuttaa tavoitteesi mukavasti.",
+        "overweight": "{appLabel} helpottaa matkaasi tekoälypohjaisella seurannalla, jotta voit saavuttaa tavoitteesi mukavasti.",
         "obese": "Olemme täällä tukemassa sinua henkilökohtaisella ohjauksella ja kestävämmillä strategioilla terveyshaaveidesi saavuttamiseksi."
       }
     },
@@ -92,7 +93,7 @@
       "skipForNow": "Ohita nyt",
       "statusConnected": "Health Connect on yhdistetty.",
       "statusSuccess": "Health Connect on onnistuneesti yhdistetty!",
-      "statusPermissionDenied": "Sovelmat eivät pääse. Ota käyttöön Health Connect -oikeudet puhelimesi asetuksista Calorifyä varten.",
+      "statusPermissionDenied": "Käyttöoikeus evätty. Ota käyttöön Health Connect -käyttöoikeudet puhelimesi asetuksista {appLabel} -sovellusta varten.",
       "statusError": "Virhe Health Connectin asettamiseen: {error}"
     },
     "reinforcement": {
@@ -100,17 +101,14 @@
         "title": "Et ole yksin",
         "genericMessage": "Tutkimukset osoittavat, että johdonmukainen seuranta on ykköskäyttäjä pitkäaikaisen menestyksen ennustajana.",
         "personalizedMessage": " {age}-vuotiaalle {gender}, joka haluaa {goal}, johdonmukainen seuranta on ykköskäyttäjä menestyksen ennustajana.",
-        "closingMessage": "Calorify tekee sen kymmenen kertaa helpommaksi kuin manuaalisesti tekeminen.",
+        "closingMessage": "{appLabel} tekee sen 10 kertaa helpommaksi kuin manuaalisesti tekeminen.",
         "getStartedTitle": "Valmiina aloittamaan?",
         "tipPhoto": "Ota kuva aterioistasi saadaksesi välitöntä analyysiä",
         "tipConsistency": "Kirjaa ruokasi säännöllisesti nähdäksesi merkittävää edistystä",
         "tipProgress": "Seuraa edistymistäsi päivittäin pysyäksesi motivoituneena",
         "button": "Mennään!",
         "defaultGender": "yksilö",
-        "defaultGoal": "terveellisempi sinä",
-        "instantPhotoAnalysis": "Välitön valokuva-analyysi",
-        "automaticLogging": "Automaattinen ravitsemusten kirjaaminen",
-        "progressVisualizations": "Edistymisen visualisoinnit, jotka pitävät sinut motivoituneena"
+        "defaultGoal": "terveellisempi sinä"
       },
       "healthProfile": {
         "title": "Terveysprofiilisi",
@@ -124,7 +122,7 @@
       },
       "goalLifestyle": {
         "title": "Erinomainen Aloitus!",
-        "description": "Olet ottanut ensimmäisen askeleen kohti {goalText}. Koska olet {activityText}, Calorify mukauttaa tavoitteesi elämänrytmiisi.",
+        "description": "Olet ottanut ensimmäisen askeleen kohti {goalText}. Koska olet {activityText}, {appLabel} säätää tavoitteesi vastaamaan elämäntapaasi.",
         "personalizedTargets": "Personoidut kaloritavoitteet",
         "aiMealDetection": "Tekoälypohjainen ateriatunnistus",
         "macroBreakdowns": "Yksityiskohtaiset makroravinteiden purkaukset",
@@ -372,21 +370,21 @@
     "weightUnit": {
       "title": "Painoyksikkö"
     },
-    "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
-    },
     "mealReminders": {
       "title": "Ateriavaroitukset",
       "subtitle": "Pysy mahdollisuudesi kulkee ajoissa"
     },
+    "theme": {
+      "title": "Teema",
+      "subtitle": "Valitse suosikkiteemasi",
+      "light": "Vaalea",
+      "dark": "Tumma",
+      "system": "Järjestelmä"
+    },
     "sendFeedback": {
       "title": "Lähetä palautetta",
-      "subtitle": "Autat meitä parantamaan Calorifyä",
-      "emailSubject": "Calorify-sovellus Palautetta",
+      "subtitle": "Auta meitä parantamaan {appLabel}",
+      "emailSubject": "{appLabel} -sovelluksen palautetta",
       "emailBodyPrefix": "Ole hyvä ja anna palautteesi alla:",
       "appVersion": "Sovellusversio",
       "device": "Laite",
@@ -457,14 +455,14 @@
   "disclaimer": {
     "pleaseNote": "Ole hyvä ja huomaa",
     "snap": {
-      "description": "Calorify tarjoaa arvioituja ravitsemustietoja. Tarkkuus riippuu syötteistäsi ja ruokavariaatioista. Käytä opastavana, ei lopullisena lähteenä. Konsultoi ammattilaista henkilökohtaisille ravitsemusneuvoille.",
+      "description": "{appLabel} antaa arvioidut ravintoarvot. Tarkkuus riippuu syötteestäsi ja ruokavariaatioista. Käytä opastuksena, ei ehdottomana lähteenä. Konsultoi asiantuntijaa saadaksesi henkilökohtaisia ruokavalio-ohjeita.",
       "portionSize": {
         "title": "Annoksen Koko",
         "description": "Arvioiden tarkkuus riippuu suuresti oikeasta arvioinnistasi annoksen koosta."
       },
       "preparationMethods": {
         "title": "Valmistusmenetelmät",
-        "description": "Ruokavalteen valmistusmenetelmät voivat merkittävästi muuttaa ravintosisältöä. Calorifyn arviot eivät aina ota huomioon näitä vaihteluja."
+        "description": "Valmistusmenetelmät voivat merkittävästi muuttaa ruoan ravintosisältöä. {appLabel}:n arviot eivät välttämättä aina ota näitä vaihteluita huomioon."
       },
       "ingredients": {
         "title": "Ainesosat",
@@ -472,7 +470,7 @@
       },
       "databaseLimitations": {
         "title": "Tietokannan Rajoitukset",
-        "description": "Calorifyn ruokadatabaasi on laaja, mutta ei välttämättä sisällä jokaista yksittäistä ruokatuotetta tai variaatiota."
+        "description": "{appLabel}:n ruokakanta on laaja, mutta se ei välttämättä sisällä jokaista yksittäistä ruokaa tai variaatiota."
       }
     },
     "weightEstimate": {
@@ -484,7 +482,7 @@
       },
       "biologicalFactors": {
         "title": "Biologiset Tekijät",
-        "description": "Todellinen painon pudotus/nousu vaikuttavat aineenvaihduntaan, hormoneihin, uneen, stressiin, nesteytykseen ja muihin yksilöllisiin tekijöihin, joita Calorify ei voi mitata."
+        "description": "Todelliseen painonpudotukseen/kasvuun vaikuttavat aineenvaihdunta, hormonit, uni, stressi, nesteytys ja muut yksilölliset tekijät, joita {appLabel} ei voi mitata."
       },
       "waterWeight": {
         "title": "Veden Paino & Heilahtelut",

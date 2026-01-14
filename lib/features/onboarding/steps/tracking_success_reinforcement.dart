@@ -1,6 +1,8 @@
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
+import 'package:calorify/core/utilities/string_utils.dart';
+import 'package:calorify/features/onboarding/steps/reinforcement_components.dart';
 import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -58,9 +60,6 @@ class _TrackingSuccessReinforcementState
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: FutureBuilder<UserProfile?>(
@@ -89,117 +88,16 @@ class _TrackingSuccessReinforcementState
 
           return Column(
             children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: FadeTransition(
-                    opacity: _fadeAnimation,
-                    child: SlideTransition(
-                      position: _slideAnimation,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 48),
-                          Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                  color: colorScheme.primaryContainer
-                                      .withValues(alpha: 0.5),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: Icon(
-                                  LucideIcons.users,
-                                  color: colorScheme.primary,
-                                  size: 24,
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: Text(
-                                  t
-                                      .onboarding
-                                      .reinforcement
-                                      .trackingSuccess
-                                      .title,
-                                  style: theme.textTheme.headlineMedium
-                                      ?.copyWith(fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            '$personalizedMsg ${t.onboarding.reinforcement.trackingSuccess.closingMessage}',
-                            style: theme.textTheme.bodyLarge?.copyWith(
-                              color: colorScheme.onSurfaceVariant,
-                            ),
-                          ),
-                          const SizedBox(height: 32),
-                          Text(
-                            t
-                                .onboarding
-                                .reinforcement
-                                .trackingSuccess
-                                .getStartedTitle,
-                            style: theme.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: colorScheme.onSurface,
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          _buildTipItem(
-                            context,
-                            t.onboarding.reinforcement.trackingSuccess.tipPhoto,
-                            LucideIcons.camera,
-                          ),
-                          const SizedBox(height: 16),
-                          _buildTipItem(
-                            context,
-                            t
-                                .onboarding
-                                .reinforcement
-                                .trackingSuccess
-                                .tipConsistency,
-                            LucideIcons.repeat,
-                          ),
-                          const SizedBox(height: 16),
-                          _buildTipItem(
-                            context,
-                            t
-                                .onboarding
-                                .reinforcement
-                                .trackingSuccess
-                                .tipProgress,
-                            LucideIcons.chartBar,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+              ReinforcementScrollableContent(
+                child: ReinforcementAnimatedContent(
+                  fadeAnimation: _fadeAnimation,
+                  slideAnimation: _slideAnimation,
+                  child: _buildContent(context, personalizedMsg, t),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 0.0, top: 8.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: FilledButton(
-                    onPressed: widget.onContinue,
-                    style: FilledButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    ),
-                    child: Text(
-                      t.onboarding.reinforcement.trackingSuccess.button,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
+              ReinforcementContinueButton(
+                onPressed: widget.onContinue,
+                buttonText: t.onboarding.reinforcement.trackingSuccess.button,
               ),
             ],
           );
@@ -208,28 +106,51 @@ class _TrackingSuccessReinforcementState
     );
   }
 
-  Widget _buildTipItem(BuildContext context, String text, IconData icon) {
+  Widget _buildContent(
+    BuildContext context,
+    String personalizedMsg,
+    Translations t,
+  ) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: colorScheme.primaryContainer.withValues(alpha: 0.5),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Icon(icon, color: colorScheme.primary, size: 24),
+        const SizedBox(height: 48),
+        ReinforcementHeader(
+          title: t.onboarding.reinforcement.trackingSuccess.title,
+          icon: LucideIcons.users,
         ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: Text(
-            text,
-            style: theme.textTheme.bodyLarge?.copyWith(
-              fontWeight: FontWeight.w500,
-            ),
+        const SizedBox(height: 16),
+        Text(
+          '$personalizedMsg ${t.onboarding.reinforcement.trackingSuccess.closingMessage(appLabel: t.appLabelValue)}',
+          style: theme.textTheme.bodyLarge?.copyWith(
+            color: colorScheme.onSurfaceVariant,
           ),
+        ),
+        const SizedBox(height: 32),
+        Text(
+          t.onboarding.reinforcement.trackingSuccess.getStartedTitle,
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: colorScheme.onSurface,
+          ),
+        ),
+        const SizedBox(height: 16),
+        ReinforcementFeatureItem(
+          text: t.onboarding.reinforcement.trackingSuccess.tipPhoto,
+          icon: LucideIcons.camera,
+        ),
+        const SizedBox(height: 16),
+        ReinforcementFeatureItem(
+          text: t.onboarding.reinforcement.trackingSuccess.tipConsistency,
+          icon: LucideIcons.repeat,
+        ),
+        const SizedBox(height: 16),
+        ReinforcementFeatureItem(
+          text: t.onboarding.reinforcement.trackingSuccess.tipProgress,
+          icon: LucideIcons.chartBar,
         ),
       ],
     );

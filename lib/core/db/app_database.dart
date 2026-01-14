@@ -113,11 +113,13 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
     return prefs;
   }
 
+  @override
   Future<String?> getLanguageCode() async {
     final prefs = await _getOrInitPreferences();
     return prefs.languageCode;
   }
 
+  @override
   Future<void> setLanguageCode(String? code) async {
     await into(userPreferencesTable).insertOnConflictUpdate(
       UserPreferencesTableCompanion.insert(
@@ -303,19 +305,16 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
 
   @override
   Future<UserProfile?> getUserProfile() async {
-    final hasProfile = await hasUserProfile();
-    if (!hasProfile) return null;
-
     final result =
         await (select(userProfileTable)
           ..where((tbl) => tbl.id.equals(_userProfileId))).getSingleOrNull();
-    if (result == null || result.height == null) return null;
+    if (result == null) return null;
 
     return UserProfileMapper.fromDrift(result);
   }
 
   @override
-  Future<bool> hasUserProfile() async {
+  Future<bool> isProfileComplete() async {
     final result =
         await (select(userProfileTable)
           ..where((tbl) => tbl.id.equals(_userProfileId))).getSingleOrNull();

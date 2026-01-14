@@ -37,8 +37,9 @@ class TranslationsTe with BaseTranslations<AppLocale, Translations> implements T
 	TranslationsTe $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsTe(meta: meta ?? this.$meta);
 
 	// Translations
-	@override String get language => 'English';
-	@override String get flag => '🇺🇸';
+	@override String get language => 'తెలుగు';
+	@override String get flag => '🇮🇳';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingTe onboarding = _TranslationsOnboardingTe._(_root);
 	@override late final _TranslationsTabsTe tabs = _TranslationsTabsTe._(_root);
 	@override late final _TranslationsHomeTe home = _TranslationsHomeTe._(_root);
@@ -66,9 +67,9 @@ class _TranslationsOnboardingTe implements TranslationsOnboardingEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Welcome to Calorify';
-	@override String get subtitle => 'Your personal nutrition companion powered by AI';
-	@override String get getStarted => 'Get Started';
+	@override String welcome({required Object appLabel}) => '${appLabel} లో స్వాగతం';
+	@override String get subtitle => 'మీ వ్యక్తిగత పోషణ సహాయకుడు AI తో';
+	@override String get getStarted => 'ప్రారంభించండి';
 	@override late final _TranslationsOnboardingFeaturesTe features = _TranslationsOnboardingFeaturesTe._(_root);
 	@override late final _TranslationsOnboardingGenderTe gender = _TranslationsOnboardingGenderTe._(_root);
 	@override late final _TranslationsOnboardingHeightTe height = _TranslationsOnboardingHeightTe._(_root);
@@ -88,8 +89,8 @@ class _TranslationsTabsTe implements TranslationsTabsEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get dashboard => 'Dashboard';
-	@override String get history => 'History';
+	@override String get dashboard => 'డాష్బోర్డు';
+	@override String get history => 'చరిత్ర';
 }
 
 // Path: home
@@ -117,10 +118,10 @@ class _TranslationsHistoryTe implements TranslationsHistoryEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get noMeals => 'No meals recorded';
-	@override String get emptyMessage => 'Snap a picture of your last meal to log here.';
-	@override String get today => 'Today';
-	@override String get yesterday => 'Yesterday';
+	@override String get noMeals => 'లోగా డేటా లేదు';
+	@override String get emptyMessage => 'మీ చివరి భోజనానికి ఒక ఫొటో తీసి ఇక్కడ నమోదు చేయండి.';
+	@override String get today => 'ఈ రోజు';
+	@override String get yesterday => 'నేడు';
 }
 
 // Path: meal
@@ -130,29 +131,29 @@ class _TranslationsMealTe implements TranslationsMealEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get ohNo => 'Oh no!';
-	@override String get delete => 'Delete';
-	@override String get editMeal => 'Edit Meal';
-	@override String get addMeal => 'Add Meal';
-	@override String get saveMeal => 'Save Meal';
-	@override String get save => 'Save';
-	@override String get mealName => 'Meal Name';
-	@override String get mealQuantity => 'Meal Quantity';
-	@override String get mealQuantityHint => 'e.g., 1 bowl, 2 slices';
-	@override String get timeOfMeal => 'Time of Meal';
-	@override String get timeOfMealHint => 'Select the time you had your meal';
-	@override String get mealType => 'Meal Type';
+	@override String get ohNo => 'ఓహ్ లేదు!';
+	@override String get delete => 'తొలగించు';
+	@override String get editMeal => 'భోజనాన్ని సంపాదించు';
+	@override String get addMeal => 'భోజనాన్ని చేర్చండి';
+	@override String get saveMeal => 'భోజనాన్ని నిల్వ చేయు';
+	@override String get save => 'సేవ్';
+	@override String get mealName => 'భోజనంలోని పేరు';
+	@override String get mealQuantity => 'భోజనంలోని పరిమాణం';
+	@override String get mealQuantityHint => 'ఉదా: 1 ప్యాకెట్, 2 తుక్కలు';
+	@override String get timeOfMeal => 'భోజన సమయం';
+	@override String get timeOfMealHint => 'మీరు మీ భోజనాన్ని తీసుకున్న సమయాన్ని ఎంచుకోండి';
+	@override String get mealType => 'భోజన పురుషత్వం';
 	@override late final _TranslationsMealNutritionTe nutrition = _TranslationsMealNutritionTe._(_root);
 	@override late final _TranslationsMealDeleteConfirmationTe deleteConfirmation = _TranslationsMealDeleteConfirmationTe._(_root);
-	@override String get addedToLog => 'Meal added to your log!';
-	@override String couldNotAdd({required Object error}) => 'Could not add meal: ${error}';
-	@override String get removedFromFavorites => 'Removed from favorites!';
-	@override String get savedAsFavorite => 'Meal saved as favorite!';
-	@override String couldNotUpdateFavorite({required Object error}) => 'Could not update favorite: ${error}';
-	@override String failedToProcess({required Object error}) => 'Failed to process: ${error}';
-	@override String failedToProcessImage({required Object error}) => 'Failed to process image: ${error}';
-	@override String errorCompressingImage({required Object error}) => 'Error compressing image: ${error}';
-	@override String get failedToSave => 'Failed to save data. Please try again.';
+	@override String get addedToLog => 'భోజనం మీ లాగ్ కు చేరిష్టించబడింది!';
+	@override String couldNotAdd({required Object error}) => 'భోజనాన్ని చేర్చలేకపోయినా: ${error}';
+	@override String get removedFromFavorites => 'ప్రియమైనదుల నుంచి తొలగించబడింది!';
+	@override String get savedAsFavorite => 'భోజనం ప్రియమైనదిగా నిల్వ చేయబడింది!';
+	@override String couldNotUpdateFavorite({required Object error}) => 'ప్రియమైనదిని నవీకరించలేకపోయింది: ${error}';
+	@override String failedToProcess({required Object error}) => 'సాధనం చేయడంలో వైఫల్యం: ${error}';
+	@override String failedToProcessImage({required Object error}) => 'చిత్రాన్ని చదవడంలో విఫలమైంది: ${error}';
+	@override String errorCompressingImage({required Object error}) => 'చిత్రం సంకోచించడంలో వైఫల్యం: ${error}';
+	@override String get failedToSave => 'డేటాను నిల్వ చేయడంలో విఫలమైంది. ప్రస్తుత మధ్యలో ప్రయత్నించండి.';
 }
 
 // Path: favorites
@@ -162,8 +163,8 @@ class _TranslationsFavoritesTe implements TranslationsFavoritesEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Favorites';
-	@override String get empty => 'No favorite meals yet.';
+	@override String get title => 'ప్రియమైనవి';
+	@override String get empty => 'ఇప్పటివరకు ప్రియమైన భోజనాలు లేవు.';
 }
 
 // Path: profile
@@ -173,21 +174,21 @@ class _TranslationsProfileTe implements TranslationsProfileEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Profile';
-	@override String get noProfileData => 'No profile data found';
-	@override String get yourProfile => 'Your Profile';
-	@override String get viewAndManage => 'View and manage your health information';
+	@override String get title => 'ప్రొఫైల్';
+	@override String get noProfileData => 'ప్రొఫైల్ డేటా లేదు';
+	@override String get yourProfile => 'మీ ప్రొఫైల్';
+	@override String get viewAndManage => 'మీ ఆరోగ్య సమాచారాన్ని చూడండి మరియు నిర్వహించండి';
 	@override late final _TranslationsProfileSectionsTe sections = _TranslationsProfileSectionsTe._(_root);
-	@override String get gender => 'Gender';
-	@override String get height => 'Height';
-	@override String get weight => 'Weight';
-	@override String get age => 'Age';
-	@override String get weightGoal => 'Weight Goal';
-	@override String get activityLevel => 'Activity Level';
-	@override String get healthMetrics => 'Health Metrics';
-	@override String get notSet => 'Not set';
-	@override String get years => 'years';
-	@override String get updatedSuccessfully => 'Profile updated successfully!';
+	@override String get gender => 'లింగం';
+	@override String get height => 'ఊపరితనం';
+	@override String get weight => 'బరువు';
+	@override String get age => 'వయస్సు';
+	@override String get weightGoal => 'బరువు లక్ష్యం';
+	@override String get activityLevel => 'యాక్టివిటీ స్థాయి';
+	@override String get healthMetrics => 'ఆరోగ్య మెట్రిక్‌లు';
+	@override String get notSet => 'సెట్ కాలేదు';
+	@override String get years => 'వారాలు';
+	@override String get updatedSuccessfully => 'ప్రొఫైల్ విజయవంతంగా నవీకరించబడింది!';
 	@override late final _TranslationsProfileCalculatedValuesTe calculatedValues = _TranslationsProfileCalculatedValuesTe._(_root);
 }
 
@@ -198,12 +199,12 @@ class _TranslationsHealthScoreTe implements TranslationsHealthScoreEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Health Score';
-	@override String get whyThisScore => 'Why this score?';
-	@override String get note => 'This score is an AI estimate based on the identified ingredients and nutritional density. Always consult a professional for dietary advice.';
-	@override String get unhealthy => 'Unhealthy';
-	@override String get healthy => 'Healthy';
-	@override String get neutral => 'Neutral';
+	@override String get title => 'ఆరోగ్య స్కోర్';
+	@override String get whyThisScore => 'ఈ స్కోర్ ఎందుకు?';
+	@override String get note => 'మీ ఆరోగ్యాన్ని సమర్థవంతంగా అంచనా వేయడానికి జరిగిన తీయకుండా ఈ స్కోరు పేషేష్ మరియు పోషక సందర్భాల ఆధారంగా ఉండవచ్చు. ఎప్పుడూ పూర్వ సలహా కోసం ఒక నిపుణుడిని సంప్రదించండి.';
+	@override String get unhealthy => 'ఆరోగ్యకరమైనది కాదు';
+	@override String get healthy => 'ఆరోగ్యకరమైనది';
+	@override String get neutral => 'నత్వర్రేణు';
 }
 
 // Path: editProfile
@@ -213,20 +214,20 @@ class _TranslationsEditProfileTe implements TranslationsEditProfileEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Edit Profile';
+	@override String get title => 'ప్రొఫైల్ క్రింది';
 	@override late final _TranslationsEditProfileSectionsTe sections = _TranslationsEditProfileSectionsTe._(_root);
-	@override String get gender => 'Gender';
-	@override String get dateOfBirth => 'Date of Birth';
-	@override String get height => 'Height';
-	@override String get weight => 'Weight';
-	@override String get weightGoal => 'Weight Goal';
-	@override String get activityLevel => 'Activity Level';
-	@override String get metric => 'Metric';
-	@override String get imperial => 'Imperial';
-	@override String get metricCm => 'Metric (cm)';
-	@override String get imperialFtIn => 'Imperial (ft/in)';
-	@override String get metricKg => 'Metric (kg)';
-	@override String get imperialLbs => 'Imperial (lbs)';
+	@override String get gender => 'లింగం';
+	@override String get dateOfBirth => 'పుట్టిన తేదీ';
+	@override String get height => 'ఊపరితనం';
+	@override String get weight => 'బరువు';
+	@override String get weightGoal => 'బరువు లక్ష్యం';
+	@override String get activityLevel => 'యాక్టివిటీ స్థాయి';
+	@override String get metric => 'మెట్రిక్';
+	@override String get imperial => 'ఇంపీరియల్';
+	@override String get metricCm => 'మెట్రిక్ (సెం)';
+	@override String get imperialFtIn => 'ఇంపీరియల్ (అంగుళాలు)';
+	@override String get metricKg => 'మెట్రిక్ (కేజీలు)';
+	@override String get imperialLbs => 'ఇంపీరియల్ (పౌండ్స్)';
 	@override late final _TranslationsEditProfileGendersTe genders = _TranslationsEditProfileGendersTe._(_root);
 	@override late final _TranslationsEditProfileWeightGoalsTe weightGoals = _TranslationsEditProfileWeightGoalsTe._(_root);
 	@override late final _TranslationsEditProfileActivityLevelsTe activityLevels = _TranslationsEditProfileActivityLevelsTe._(_root);
@@ -239,18 +240,18 @@ class _TranslationsSettingsTe implements TranslationsSettingsEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Settings';
+	@override String get title => 'సెట్టింగులు';
 	@override late final _TranslationsSettingsSectionsTe sections = _TranslationsSettingsSectionsTe._(_root);
 	@override late final _TranslationsSettingsEditProfileTe editProfile = _TranslationsSettingsEditProfileTe._(_root);
 	@override late final _TranslationsSettingsLanguageTe language = _TranslationsSettingsLanguageTe._(_root);
 	@override late final _TranslationsSettingsHeightUnitTe heightUnit = _TranslationsSettingsHeightUnitTe._(_root);
 	@override late final _TranslationsSettingsWeightUnitTe weightUnit = _TranslationsSettingsWeightUnitTe._(_root);
-	@override late final _TranslationsSettingsThemeTe theme = _TranslationsSettingsThemeTe._(_root);
 	@override late final _TranslationsSettingsMealRemindersTe mealReminders = _TranslationsSettingsMealRemindersTe._(_root);
+	@override late final _TranslationsSettingsThemeTe theme = _TranslationsSettingsThemeTe._(_root);
 	@override late final _TranslationsSettingsSendFeedbackTe sendFeedback = _TranslationsSettingsSendFeedbackTe._(_root);
 	@override late final _TranslationsSettingsClearAllDataTe clearAllData = _TranslationsSettingsClearAllDataTe._(_root);
 	@override late final _TranslationsSettingsDebugOptionsTe debugOptions = _TranslationsSettingsDebugOptionsTe._(_root);
-	@override String get developerModeEnabled => 'Developer mode enabled!';
+	@override String get developerModeEnabled => 'డెవలపర్ మోడ్ సాధనంలో ఉంది!';
 }
 
 // Path: reminders
@@ -260,26 +261,26 @@ class _TranslationsRemindersTe implements TranslationsRemindersEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Stay on track with reminders';
-	@override String get description => 'Get gentle reminders to log your meals and stay consistent with your nutrition goals';
-	@override String get notificationsEnabled => 'Notifications Enabled';
-	@override String get notificationsDisabled => 'Notifications Disabled';
-	@override String get enabledSubtitle => 'You\'ll receive meal reminders';
-	@override String get disabledSubtitle => 'Enable notifications to get meal reminders';
-	@override String get mealReminders => 'Meal Reminders';
-	@override String get breakfast => 'Breakfast';
-	@override String get lunch => 'Lunch';
-	@override String get dinner => 'Dinner';
-	@override String get snack => 'Snack';
-	@override String get unknown => 'Unknown';
-	@override String get change => 'Change';
-	@override String get enableNotifications => 'Enable Notifications';
-	@override String get skipForNow => 'Skip for now';
-	@override String get saveChanges => 'Save Changes';
-	@override String get enabledSuccessfully => 'Notifications enabled successfully!';
-	@override String get permissionDenied => 'Notification permission denied';
-	@override String errorEnabling({required Object error}) => 'Error enabling notifications: ${error}';
-	@override String errorCompletingSetup({required Object error}) => 'Error completing setup: ${error}';
+	@override String get title => 'సమయానికి కప్పడం';
+	@override String get description => 'మీ భోజనాలను లాగ్ చేయడానికి మరియు మీ పోషక లక్ష్యాలతో కర్రీగా ఉండాలి';
+	@override String get notificationsEnabled => 'గమనికలు చేర్చబడ్డాయి';
+	@override String get notificationsDisabled => 'గమనికలు ప్రాధమికం';
+	@override String get enabledSubtitle => 'మీకు భోజనాన్ని గుర్తించారు';
+	@override String get disabledSubtitle => 'భోజనాన్ని గుర్తించడానికి గమనికలకు అనుమతులు ఇవ్వండి';
+	@override String get mealReminders => 'భోజన మరణాలు';
+	@override String get breakfast => 'నాస్తా';
+	@override String get lunch => 'మధ్యాహ్న భోజనం';
+	@override String get dinner => 'రాత్రి భోజనం';
+	@override String get snack => 'స్నాక్';
+	@override String get unknown => 'తెలియని';
+	@override String get change => 'మార్చు';
+	@override String get enableNotifications => 'గమనికలను ఎంచుకోండి';
+	@override String get skipForNow => 'ఇప్పుడు మానుకోండి';
+	@override String get saveChanges => 'మార్గాలను సేవ్ చేయండి';
+	@override String get enabledSuccessfully => 'గమనికలు విజయవంతంగా ప్రారంభించారు!';
+	@override String get permissionDenied => 'గమనికల అనుమతి అంగీకరించబడలేదు';
+	@override String errorEnabling({required Object error}) => 'గమనికలు ప్రారంభించడంలో వైఫల్యం: ${error}';
+	@override String errorCompletingSetup({required Object error}) => 'శుభ్రమైన సెటప్ పొరపులు: ${error}';
 }
 
 // Path: notifications
@@ -303,9 +304,9 @@ class _TranslationsLoginTe implements TranslationsLoginEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Login';
-	@override String get signInWithGoogle => 'Sign in with Google';
-	@override String get signInFailed => 'Google Sign-In failed or was cancelled.';
+	@override String get title => 'లాగిన్';
+	@override String get signInWithGoogle => 'గూగుల్ తో లాగిన్ కావాలి';
+	@override String get signInFailed => 'గూగుల్ సైన్-ఇన్ విఫలమైంది లేదా రద్దు చేయబడింది.';
 }
 
 // Path: disclaimer
@@ -315,7 +316,7 @@ class _TranslationsDisclaimerTe implements TranslationsDisclaimerEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get pleaseNote => 'Please Note';
+	@override String get pleaseNote => 'దయచేసి గమనించండి';
 	@override late final _TranslationsDisclaimerSnapTe snap = _TranslationsDisclaimerSnapTe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateTe weightEstimate = _TranslationsDisclaimerWeightEstimateTe._(_root);
 }
@@ -327,8 +328,8 @@ class _TranslationsCommonTe implements TranslationsCommonEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get close => 'Close';
-	@override String get kContinue => 'Continue';
+	@override String get close => 'క్లోజ్';
+	@override String get kContinue => 'కొనసాగించండి';
 }
 
 // Path: errors
@@ -338,8 +339,8 @@ class _TranslationsErrorsTe implements TranslationsErrorsEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get loadingProfileData => 'Error loading profile data';
-	@override String get somethingWentWrong => 'Something went wrong.';
+	@override String get loadingProfileData => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం';
+	@override String get somethingWentWrong => 'ఏదో తప్పు జరిగింది.';
 }
 
 // Path: debug
@@ -349,44 +350,44 @@ class _TranslationsDebugTe implements TranslationsDebugEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Debug Options';
+	@override String get title => 'డిబగ్ ఆప్షన్స్';
 	@override late final _TranslationsDebugSectionsTe sections = _TranslationsDebugSectionsTe._(_root);
-	@override String get showActiveNotifications => 'Show Active Notifications';
-	@override String get scheduleTestNotification => 'Schedule Test Notification (10s)';
-	@override String get triggerBreakfastNotification => 'Trigger Breakfast Notification';
-	@override String get cancelAllNotifications => 'Cancel All Notifications';
-	@override String get activeNotifications => 'Active Notifications';
-	@override String get noTitle => 'No Title';
-	@override String get noBody => 'No Body';
-	@override String get fetchTodaysSteps => 'Fetch Today\'s Steps';
-	@override String get fetchTodaysCalories => 'Fetch Today\'s Calories';
-	@override String get fetchLatestWeight => 'Fetch Latest Weight';
-	@override String get fetchLatestHeight => 'Fetch Latest Height';
-	@override String get writeTestWeight => 'Write Test Weight (70kg)';
-	@override String get writeTestHeight => 'Write Test Height (175cm)';
-	@override String get syncLast7Days => 'Sync Last 7 Days';
-	@override String get sync7DaysTitle => '7-Day Sync';
-	@override String get checkCurrentLocale => 'Check Current Locale';
-	@override String get currentLocale => 'Current Locale';
-	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Language: ${languageCode}\nCountry: ${countryCode}\nUnit System: ${unitSystem}';
-	@override String get latestWeight => 'Latest Weight';
-	@override String get latestHeight => 'Latest Height';
-	@override String get todaysCalories => 'Today\'s Calories';
-	@override String totalCaloriesBurned({required Object calories}) => 'Total calories burned: ${calories}';
-	@override String syncSuccess({required Object count}) => 'Successfully fetched ${count} data points for Steps, Calories, and Weight over the last 7 days.';
-	@override String get noWeightData => 'No weight data found in the last 30 days.';
-	@override String get noHeightData => 'No height data found in the last year.';
-	@override String get noCalorieData => 'No calorie data found for today.';
-	@override String get weightWritten => 'Successfully wrote test weight (70kg).';
-	@override String get weightWriteFailed => 'Failed to write test weight.';
-	@override String get heightWritten => 'Successfully wrote test height (175cm).';
-	@override String get heightWriteFailed => 'Failed to write test height.';
-	@override String get noNotifications => 'No active notifications.';
-	@override String get testNotificationScheduled => 'Test notification scheduled for 10 seconds from now.';
-	@override String get testNotificationBody => 'This is a test notification scheduled for 10 seconds from now.';
-	@override String get breakfastNotificationTriggered => 'Breakfast notification triggered.';
-	@override String get allNotificationsCancelled => 'All notifications cancelled.';
-	@override String get fetchingData => 'Fetching data for the last 7 days...';
+	@override String get showActiveNotifications => 'సకాలంలో గమనికలను చూపు';
+	@override String get scheduleTestNotification => 'పరీక్ష గమనికను షెడ్యూల్ చేయండి (10సె)';
+	@override String get triggerBreakfastNotification => 'అనాంర్త్న ఫలిపట్టు భోజనం గమనిక';
+	@override String get cancelAllNotifications => 'అన్నీ గమనికలను రద్దు చేయండి';
+	@override String get activeNotifications => 'సక్రమ గమనికలు';
+	@override String get noTitle => 'శీర్షిక లేదు';
+	@override String get noBody => 'శరీర లేదు';
+	@override String get fetchTodaysSteps => 'ఈ రోజు యొక్క దారులు పొందండి';
+	@override String get fetchTodaysCalories => 'ఈ రోజు యొక్క కేలొరీలు పొందండి';
+	@override String get fetchLatestWeight => 'తాజా బరువు పొందండి';
+	@override String get fetchLatestHeight => 'తాజా ఎత్తు పొందండి';
+	@override String get writeTestWeight => 'టెస్ట్ బరువును రాయండి (70కేజీ)';
+	@override String get writeTestHeight => 'టెస్ట్ ఎత్తును రాయండి (175సెం)';
+	@override String get syncLast7Days => 'మునుపటి 7 రోజుల సమాచారానికి సింక్';
+	@override String get sync7DaysTitle => '7-రోజుల సింక్';
+	@override String get checkCurrentLocale => 'ప్రస్తుత స్థానాన్ని తనిఖీ చేయండి';
+	@override String get currentLocale => 'ప్రస్తుత స్థానిక సంస్థాన';
+	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'భాష: ${languageCode}\nచిత్రం: ${countryCode}\nయూనిట్ వ్యవస్థ: ${unitSystem}';
+	@override String get latestWeight => 'తాజా బరువు';
+	@override String get latestHeight => 'తాజా ఎత్తు';
+	@override String get todaysCalories => 'ఈరోజు యొక్క కేలొరీలు';
+	@override String totalCaloriesBurned({required Object calories}) => '${calories} మొత్తం కేలొరీలు వెలికితీయబడ్డాయి.';
+	@override String syncSuccess({required Object count}) => 'గత 7 రోజులకు ${count} డేటా పాయింట్లను విజయవంతంగా పొందించారు.';
+	@override String get noWeightData => 'గత 30 రోజులలో ఎక్క పట్టిన బరువు లభించలేదు.';
+	@override String get noHeightData => 'గత 1 సంవత్సరంలో ఎక్క పట్టిన ఎత్తు లభించలేదు.';
+	@override String get noCalorieData => 'ఈ రోజు కేలొరీని పొందలేకపోయింది.';
+	@override String get weightWritten => '70కేజీ లో బరువును విజయవంతంగా రాశారు.';
+	@override String get weightWriteFailed => 'బరువును రాయడంలో విఫలమైంది.';
+	@override String get heightWritten => '175సెం ఎత్తును విజయవంతంగా రాశారు.';
+	@override String get heightWriteFailed => 'ఎత్తును రాయడంలో విఫలమైంది.';
+	@override String get noNotifications => 'సక్రమ గమనికలు లేవు.';
+	@override String get testNotificationScheduled => '10 సెకన్లలో పరీక్ష గమనిక షెడ్యూల్ చేయబడింది.';
+	@override String get testNotificationBody => 'ఇది 10 సెకన్లలో షెడ్యూల్ చేయబడిన పరీక్ష గమనిక.';
+	@override String get breakfastNotificationTriggered => 'నాస్తా ద్వారా గమనిక చూపింది.';
+	@override String get allNotificationsCancelled => 'అన్ని గమనికలు రద్దు చేయబడ్డాయి.';
+	@override String get fetchingData => 'గత 7 రోజుల సమాచారం పొందడం...';
 	@override String id({required Object id}) => 'ID: ${id}';
 }
 
@@ -397,8 +398,8 @@ class _TranslationsHealthTe implements TranslationsHealthEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get syncFailed => 'Could not sync to Health Connect';
-	@override String get mealSynced => 'Meal synced with Health Connect';
+	@override String get syncFailed => 'హెల్త్ కనెక్ట్ కు సింక్ చేయడంలో విఫలమైంది';
+	@override String get mealSynced => 'భోజనం హెల్త్ కనెక్ట్ తో సింక్ చేయబడింది';
 }
 
 // Path: onboarding.features
@@ -420,9 +421,9 @@ class _TranslationsOnboardingGenderTe implements TranslationsOnboardingGenderEn 
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What is your gender?';
-	@override String get description => 'Gender helps us accurately calculate your basal metabolic rate (BMR).';
-	@override String get next => 'Next';
+	@override String get title => 'మీ లింగం ఏమిటి?';
+	@override String get description => 'లింగం మనకు మీ బేసల్ మెటబాలిక్ రేట్ (BMR)ను ఖచ్చితంగా లెక్కించటానికి సహాయపడుతుంది.';
+	@override String get next => 'తరువాత';
 }
 
 // Path: onboarding.height
@@ -432,11 +433,11 @@ class _TranslationsOnboardingHeightTe implements TranslationsOnboardingHeightEn 
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How tall are you?';
-	@override String get description => 'Your height helps us calculate your BMI and energy needs accurately.';
-	@override String get metric => 'Metric';
-	@override String get imperial => 'Imperial';
-	@override String get next => 'Next';
+	@override String get title => 'మీ ఎత్తు ఎంత?';
+	@override String get description => 'మీ ఎత్తు మీ BMI మరియు శక్తి అవసరాలను ఖచ్చితంగా లెక్కించడానికి సహాయపడుతుంది.';
+	@override String get metric => 'మెట్రిక్';
+	@override String get imperial => 'ఇంపీరియల్';
+	@override String get next => 'తరువాత';
 }
 
 // Path: onboarding.weight
@@ -446,13 +447,13 @@ class _TranslationsOnboardingWeightTe implements TranslationsOnboardingWeightEn 
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get currentTitle => 'What is your current weight?';
-	@override String get currentDescription => 'Your current weight is essential for personalizing your daily goals.';
-	@override String get targetTitle => 'What is your target weight?';
-	@override String get targetDescription => 'Setting a goal weight helps us determine your long-term plan.';
-	@override String get metric => 'Metric';
-	@override String get imperial => 'Imperial';
-	@override String get next => 'Next';
+	@override String get currentTitle => 'మీ ప్రస్తుత బరువు ఎంత?';
+	@override String get currentDescription => 'మీ ప్రస్తుత బరువు మీ రోజువారీ లక్ష్యాలను వ్యక్తిగతీకరించడానికి అవసరం.';
+	@override String get targetTitle => 'మీ లక్ష్య బరువు ఎంత?';
+	@override String get targetDescription => 'లక్ష్య బరువును ఏర్పరచడం మా దీర్ఘకాలిక ఆలోచనను నిర్ధారించడంలో సహాయపడుతుంది.';
+	@override String get metric => 'మెట్రిక్';
+	@override String get imperial => 'ఇంపీరియల్';
+	@override String get next => 'తరువాత';
 }
 
 // Path: onboarding.age
@@ -462,9 +463,9 @@ class _TranslationsOnboardingAgeTe implements TranslationsOnboardingAgeEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'When is your birthday?';
-	@override String get description => 'Your age helps us calculate your calorie needs accurately.';
-	@override String get next => 'Next';
+	@override String get title => 'మీ పుట్టినరోజు ఎప్పుడు?';
+	@override String get description => 'మీ వయస్సు మీ కేలొరీ అవసరాలను ఖచ్చితంగా లెక్కించడంలో సహాయపడుతుంది.';
+	@override String get next => 'తరువాత';
 }
 
 // Path: onboarding.bmiScale
@@ -474,10 +475,10 @@ class _TranslationsOnboardingBmiScaleTe implements TranslationsOnboardingBmiScal
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Underweight';
-	@override String get healthy => 'Healthy';
-	@override String get overweight => 'Overweight';
-	@override String get obese => 'Obese';
+	@override String get underweight => 'తక్కువ బరువు';
+	@override String get healthy => 'ఆరోగ్యకరమైన';
+	@override String get overweight => 'అధిక బరువు';
+	@override String get obese => 'వడ్డించిన';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesTe categories = _TranslationsOnboardingBmiScaleCategoriesTe._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesTe messages = _TranslationsOnboardingBmiScaleMessagesTe._(_root);
 }
@@ -489,8 +490,8 @@ class _TranslationsOnboardingWeightGoalTe implements TranslationsOnboardingWeigh
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What\'s your goal?';
-	@override String get description => 'Choose the goal that best describes what you want to achieve';
+	@override String get title => 'మీ లక్ష్యం ఏమంటి?';
+	@override String get description => 'మీరు సాధించాలని కోరుకునే లక్ష్యాన్ని వర్ణించండి';
 }
 
 // Path: onboarding.activityLevel
@@ -500,8 +501,8 @@ class _TranslationsOnboardingActivityLevelTe implements TranslationsOnboardingAc
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How active are you?';
-	@override String get description => 'This helps us calculate your daily calorie needs more accurately';
+	@override String get title => 'మీ యాక్టివ్ స్థాయి ఎంత?';
+	@override String get description => 'ఇది మీ రోజుల కేలొరీ అవసరాలు ఖచ్చితంగా లెక్కించడంలో సహాయపడుతుంది';
 }
 
 // Path: onboarding.healthConnect
@@ -511,19 +512,19 @@ class _TranslationsOnboardingHealthConnectTe implements TranslationsOnboardingHe
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Connect with Health Connect';
-	@override String get description => 'Sync your health data for better insights and automatic calorie tracking';
+	@override String get title => 'హెల్త్ కనెక్ట్ తో కనెక్ట్ చేయండి';
+	@override String get description => 'భిన్నమైన సమాచారం మరియు ఆటోమేటిక్ కేలొరీ ట్రాకింగ్ కోసం మీ ఆరోగ్య డేటాను సింక్ చేయండి';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingTe automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingTe._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsTe progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsTe._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationTe seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationTe._(_root);
-	@override String get connected => 'Health Connect Connected';
-	@override String get notConnected => 'Health Connect Not Connected';
-	@override String get setup => 'Setup Health Connect';
-	@override String get skipForNow => 'Skip for now';
-	@override String get statusConnected => 'Health Connect is connected.';
-	@override String get statusSuccess => 'Health Connect has been successfully connected!';
-	@override String get statusPermissionDenied => 'Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.';
-	@override String statusError({required Object error}) => 'Error setting up Health Connect: ${error}';
+	@override String get connected => 'హెల్త్ కనెక్ట్ కనెక్ట్ అయ్యింది';
+	@override String get notConnected => 'హెల్త్ కనెక్ట్ కనెక్ట్ కాని';
+	@override String get setup => 'హెల్త్ కనెక్ట్ సెట్టప్ చేయండి';
+	@override String get skipForNow => 'ఇప్పుడు అభ్యాసించండి';
+	@override String get statusConnected => 'హెల్త్ కనెక్ట్ కనెక్ట్ అయింది.';
+	@override String get statusSuccess => 'హెల్త్ కనెక్ట్ విజయం సుస్పష్టం అయింది!';
+	@override String statusPermissionDenied({required Object appLabel}) => 'అనుమతి అంగీకరించలేదు. దయచేసి ${appLabel} కోసం మీ ఫోన్ సెట్టింగ్‌లలో హెల్త్ కనెక్ట్ అనుమతులను నిరాకరించండి.';
+	@override String statusError({required Object error}) => 'హెల్త్ కనెక్ట్ ను సెటప్ చేయడం లో లోపం: ${error}';
 }
 
 // Path: onboarding.reinforcement
@@ -545,18 +546,18 @@ class _TranslationsHomeDailyGoalTe implements TranslationsHomeDailyGoalEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Set Your Daily Goal';
-	@override String get titleSet => 'Your Daily Goal';
-	@override String get description => 'Ready to embark on your wellness journey? Set your daily calorie target below to kickstart your progress.';
-	@override String get descriptionSet => 'Your compass is set! This is your daily calorie target to guide you.';
-	@override String get yourGoal => 'Your Goal';
-	@override String get dailyCalories => 'Daily calories (kcal)';
-	@override String get setGoal => 'Set Goal';
-	@override String get intake => 'Intake';
-	@override String get burned => 'Burned';
-	@override String get weightImpact => 'Weight Impact';
-	@override String get estLoss => 'Est. loss of';
-	@override String get estGain => 'Est. gain of';
+	@override String get title => 'మీ రోజువారీ లక్ష్యాన్ని సెట్ చేయండి';
+	@override String get titleSet => 'మీ రోజువారీ లక్ష్యం';
+	@override String get description => 'మీ ఆరోగ్య ప్రయాణం ప్రారంభించడానికి సిద్ధమైనారా? మీ ప్రగతిని ప్రారంభించడానికి కింద మీ రోజువారీ కేలొరీ లక్ష్యాన్ని సెట్ చేయండి.';
+	@override String get descriptionSet => 'మీ కొలతలు సృష్టించబడ్డాయి! ఇదే మీ దిశగా మార్గదర్శకంగా ఉంటుంది.';
+	@override String get yourGoal => 'మీ లక్ష్యం';
+	@override String get dailyCalories => 'రోజువారీ కేలొరీలు (kcal)';
+	@override String get setGoal => 'లక్ష్యం నియమించు';
+	@override String get intake => 'ఆహారం';
+	@override String get burned => 'బర్న్';
+	@override String get weightImpact => 'బరువు ప్రభావం';
+	@override String get estLoss => 'అనుమానిస్థాయిలో నష్ట పరిణామం';
+	@override String get estGain => 'అనుమానిస్థాయిలో నష్ట పరిణామం';
 	@override String get kcal => 'kcal';
 }
 
@@ -567,12 +568,12 @@ class _TranslationsHomeDailySummaryTe implements TranslationsHomeDailySummaryEn 
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Daily Summary';
-	@override String get calories => 'Calories';
-	@override String get carbs => 'Carbs';
-	@override String get protein => 'Protein';
-	@override String get fat => 'Fat';
-	@override String get fiber => 'Fiber';
+	@override String get title => 'రోజు విడివిడిగా';
+	@override String get calories => 'కేలొరీలు';
+	@override String get carbs => 'కార్బ్స్';
+	@override String get protein => 'ప్రోటీన్';
+	@override String get fat => 'మాంసం';
+	@override String get fiber => 'ఫైబర్';
 }
 
 // Path: home.intakeProgress
@@ -582,9 +583,9 @@ class _TranslationsHomeIntakeProgressTe implements TranslationsHomeIntakeProgres
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Today\'s Macro Split';
-	@override String get target => 'Target';
-	@override String get current => 'Current';
+	@override String get title => 'ఈ రోజు యొక్క మాక్రో విభజన';
+	@override String get target => 'లక్ష్యం';
+	@override String get current => 'ప్రస్తుత';
 }
 
 // Path: home.intakeHistory
@@ -594,9 +595,9 @@ class _TranslationsHomeIntakeHistoryTe implements TranslationsHomeIntakeHistoryE
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '7-Day Macro History';
-	@override String get noHistoryYet => 'No history yet';
-	@override String get startLogging => 'Start logging meals to see your\n7-day macro trends here';
+	@override String get title => '7-రోజుల మాక్రో చరిత్ర';
+	@override String get noHistoryYet => 'ఇప్పటివరకు చరిత్ర లేదు';
+	@override String get startLogging => 'మీ భోజనాలను లాగ్ చేయడం ప్రారంభించడం ద్వారా మీ\n7-రోజుల మాక్రో ధోరణులను ఇక్కడ చూడండి';
 }
 
 // Path: home.mealLog
@@ -606,10 +607,10 @@ class _TranslationsHomeMealLogTe implements TranslationsHomeMealLogEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Logged Meals';
-	@override String get emptyMessage => 'Snap a picture of your last meal to log here.';
-	@override String get noMealsToday => 'No meals recorded for today';
-	@override String get seeAllMeals => 'See all meals';
+	@override String get title => 'లాగ్ చేసిన భోజనలు';
+	@override String get emptyMessage => 'మీ చివరి భోజనానికి ఒక ఫొటో తీసి ఇక్కడ నమోదు చేయండి.';
+	@override String get noMealsToday => 'ఈ రోజు భోజనం నమోదు చేయడంలేదు';
+	@override String get seeAllMeals => 'అన్ని భోజనాలను చూడండి';
 }
 
 // Path: home.mealDescription
@@ -619,10 +620,10 @@ class _TranslationsHomeMealDescriptionTe implements TranslationsHomeMealDescript
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Quick Add with AI';
-	@override String get description => 'Describe your meal, and let AI handle the details.';
-	@override String get hint => 'e.g. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...';
-	@override String get analyzeMeal => 'Analyze meal';
+	@override String get title => 'AI తో త్వరిత చేర్చు';
+	@override String get description => 'మీ భోజనాన్ని వర్ణించండి, AI వివరాలను నిర్వహించనివ్వండి.';
+	@override String get hint => 'ఉదా: నేను ప్రతి రోజున ఒక పెద్ద తిన్న ప్రోటీన్ పానీయం మరియు ఒక నష్టభోజనాన్ని కలిగుంటాను ...';
+	@override String get analyzeMeal => 'భోజనాన్ని విశ్లేషించండి';
 }
 
 // Path: home.favoriteMeals
@@ -632,12 +633,12 @@ class _TranslationsHomeFavoriteMealsTe implements TranslationsHomeFavoriteMealsE
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Favorite Meals';
-	@override String get description => 'Quickly add one of your favorite meals.';
-	@override String get noFavorites => 'No favorite meals yet.';
-	@override String get addFavoriteHint => 'Click the star on a meal to mark it as a favorite.';
-	@override String get seeAll => 'See all';
-	@override String get add => 'Add';
+	@override String get title => 'ప్రియమైన భోజనాలు';
+	@override String get description => 'మీ ప్రియమైన భోజనాలను త్వరితంగా చేర్చండి.';
+	@override String get noFavorites => 'ఇప్పటివరకు ప్రియమైన భోజనాలు లేవు.';
+	@override String get addFavoriteHint => 'ఒక భోజనాన్ని ప్రియంగా గుర్తించడానికి నక్షత్రంపై క్లిక్ చేయండి.';
+	@override String get seeAll => 'అన్ని చూడండి';
+	@override String get add => 'చేర్చండి';
 }
 
 // Path: home.mealSnap
@@ -647,9 +648,9 @@ class _TranslationsHomeMealSnapTe implements TranslationsHomeMealSnapEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Snap & Track Your Meal';
-	@override String get description => 'Use your camera to take a picture of your food for AI analysis.';
-	@override String get openCamera => 'Open Camera';
+	@override String get title => 'ఫొటో తీసి మీ భోజనాన్ని ట్రాక్ చేయండి';
+	@override String get description => 'AI విశ్లేషణ కోసం మీ ఆహారానికి మైక్రోాన్ని ఘనంగా దృష్టించండి.';
+	@override String get openCamera => 'కెమెరాను తెరవండి';
 }
 
 // Path: home.connectHealth
@@ -659,10 +660,10 @@ class _TranslationsHomeConnectHealthTe implements TranslationsHomeConnectHealthE
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Sync with Health Connect';
-	@override String get description => 'Sync your nutrition data with Health Connect';
-	@override String get install => 'Install';
-	@override String get connect => 'Connect';
+	@override String get title => 'హెల్త్ కనెక్ట్ తో సింక్ చేయండి';
+	@override String get description => 'మీ పోషకాలు డేటా హెల్త్ కనెక్ట్ తో సింక్ చేయండి';
+	@override String get install => 'సంస్థాపన చేయండి';
+	@override String get connect => 'కనెక్ట్ చేయండి';
 }
 
 // Path: meal.nutrition
@@ -672,11 +673,11 @@ class _TranslationsMealNutritionTe implements TranslationsMealNutritionEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get calories => 'Calories';
-	@override String get carbs => 'Carbs (g)';
-	@override String get protein => 'Protein (g)';
-	@override String get fat => 'Fat (g)';
-	@override String get fiber => 'Fiber (g)';
+	@override String get calories => 'కేలొరీలు';
+	@override String get carbs => 'కార్బ్స్ (గ్రా)';
+	@override String get protein => 'ప్రోటీన్ (గ్రా)';
+	@override String get fat => 'చిట్టిన మాంసం (గ్రా)';
+	@override String get fiber => 'ఫైబర్ (గ్రా)';
 }
 
 // Path: meal.deleteConfirmation
@@ -686,10 +687,10 @@ class _TranslationsMealDeleteConfirmationTe implements TranslationsMealDeleteCon
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Delete Meal';
-	@override String get message => 'Are you sure you want to delete this meal entry?';
-	@override String get cancel => 'Cancel';
-	@override String get delete => 'Delete';
+	@override String get title => 'భోజనాన్ని తొలగించండి';
+	@override String get message => 'మీరు ఈ భోజనాన్ని తొలగించాలని నిర్ధారించుకుంటున్నారా?';
+	@override String get cancel => 'రద్దు';
+	@override String get delete => 'తొలగించు';
 }
 
 // Path: profile.sections
@@ -699,10 +700,10 @@ class _TranslationsProfileSectionsTe implements TranslationsProfileSectionsEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get profile => 'PROFILE';
-	@override String get basicInformation => 'BASIC INFORMATION';
-	@override String get goalsAndActivity => 'GOALS & ACTIVITY';
-	@override String get calculatedValues => 'CALCULATED VALUES';
+	@override String get profile => 'ప్రొఫైల్';
+	@override String get basicInformation => 'ప్రాథమిక సమాచారం';
+	@override String get goalsAndActivity => 'లక్ష్యాలు & యాక్టివిటీ';
+	@override String get calculatedValues => 'లెక్కించిన విలువలు';
 }
 
 // Path: profile.calculatedValues
@@ -714,9 +715,9 @@ class _TranslationsProfileCalculatedValuesTe implements TranslationsProfileCalcu
 	// Translations
 	@override String get bmr => 'BMR';
 	@override String get tdee => 'TDEE';
-	@override String get dailyGoal => 'Daily Goal';
-	@override String get calPerDay => 'cal/day';
-	@override String get notAvailable => 'N/A';
+	@override String get dailyGoal => 'రోజువారీ లక్ష్యం';
+	@override String get calPerDay => 'కేల/రోజు';
+	@override String get notAvailable => 'అందుబాటులో లేదు';
 }
 
 // Path: editProfile.sections
@@ -726,9 +727,9 @@ class _TranslationsEditProfileSectionsTe implements TranslationsEditProfileSecti
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get personalInformation => 'PERSONAL INFORMATION';
-	@override String get physicalMeasurements => 'PHYSICAL MEASUREMENTS';
-	@override String get goalsAndActivity => 'GOALS & ACTIVITY';
+	@override String get personalInformation => 'వ్యక్తిగత సమాచారం';
+	@override String get physicalMeasurements => 'శారీరక కొలతలు';
+	@override String get goalsAndActivity => 'లక్ష్యాలు & యాక్టివిటీ';
 }
 
 // Path: editProfile.genders
@@ -738,9 +739,9 @@ class _TranslationsEditProfileGendersTe implements TranslationsEditProfileGender
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get male => 'Male';
-	@override String get female => 'Female';
-	@override String get other => 'Other';
+	@override String get male => 'పురుష';
+	@override String get female => 'స్త్రీ';
+	@override String get other => 'ఇతర';
 }
 
 // Path: editProfile.weightGoals
@@ -776,12 +777,12 @@ class _TranslationsSettingsSectionsTe implements TranslationsSettingsSectionsEn 
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get profile => 'PROFILE';
-	@override String get localization => 'LOCALIZATION';
-	@override String get notifications => 'NOTIFICATIONS';
-	@override String get supportAndLegal => 'SUPPORT & LEGAL';
-	@override String get dangerZone => 'DANGER ZONE';
-	@override String get developer => 'DEVELOPER';
+	@override String get profile => 'ప్రొఫైల్';
+	@override String get localization => 'స్థానికీకరణ';
+	@override String get notifications => 'అవగాహనలు';
+	@override String get supportAndLegal => 'మద్దతు & న్యాయ';
+	@override String get dangerZone => 'పోలిక మాండి';
+	@override String get developer => 'డెవలపర్';
 }
 
 // Path: settings.editProfile
@@ -791,8 +792,8 @@ class _TranslationsSettingsEditProfileTe implements TranslationsSettingsEditProf
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Edit Profile';
-	@override String get subtitle => 'Update your personal information';
+	@override String get title => 'ప్రొఫైల్ క్రింది';
+	@override String get subtitle => 'మీ వ్యక్తిగత సమాచారాన్ని నవీకరించండి';
 }
 
 // Path: settings.language
@@ -802,8 +803,8 @@ class _TranslationsSettingsLanguageTe implements TranslationsSettingsLanguageEn 
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Language';
-	@override String get subtitle => 'Choose your preferred language';
+	@override String get title => 'భాష';
+	@override String get subtitle => 'మీ ఇష్టమైన భాషను ఎంచుకోండి';
 }
 
 // Path: settings.heightUnit
@@ -813,7 +814,7 @@ class _TranslationsSettingsHeightUnitTe implements TranslationsSettingsHeightUni
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Height Unit';
+	@override String get title => 'ఎత్తు యూనిట్';
 }
 
 // Path: settings.weightUnit
@@ -823,21 +824,7 @@ class _TranslationsSettingsWeightUnitTe implements TranslationsSettingsWeightUni
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Weight Unit';
-}
-
-// Path: settings.theme
-class _TranslationsSettingsThemeTe implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeTe._(this._root);
-
-	final TranslationsTe _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
+	@override String get title => 'బరువు యూనిట్';
 }
 
 // Path: settings.mealReminders
@@ -847,8 +834,22 @@ class _TranslationsSettingsMealRemindersTe implements TranslationsSettingsMealRe
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Meal Reminders';
-	@override String get subtitle => 'Stay on track with timely alerts';
+	@override String get title => 'భోజన మరుగుదలను';
+	@override String get subtitle => 'సమయానికి ముగింపు సందేశాలను తోడ్పించగలము';
+}
+
+// Path: settings.theme
+class _TranslationsSettingsThemeTe implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'థీమ్';
+	@override String get subtitle => 'మీ ఇష్టమైన థీమ్ ఎంచుకోండి';
+	@override String get light => 'దివి';
+	@override String get dark => 'ఇరుక';
+	@override String get system => 'సిస్టమ్';
 }
 
 // Path: settings.sendFeedback
@@ -858,13 +859,13 @@ class _TranslationsSettingsSendFeedbackTe implements TranslationsSettingsSendFee
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Send Feedback';
-	@override String get subtitle => 'Help us improve Calorify';
-	@override String get emailSubject => 'Calorify App Feedback';
-	@override String get emailBodyPrefix => 'Please provide your feedback below:';
-	@override String get appVersion => 'App Version';
-	@override String get device => 'Device';
-	@override String get osVersion => 'OS Version';
+	@override String get title => 'ఫీడ్‌బ్యాక్ పంపండి';
+	@override String subtitle({required Object appLabel}) => '${appLabel}ను మెరుగుపరచడం';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} యాప్ ఫీడ్‌బ్యాక్';
+	@override String get emailBodyPrefix => 'దయచేసి మీ అభిప్రాయాన్ని ఇక్కడ నమోదు చేయండి:';
+	@override String get appVersion => 'యాప్ వెర్షన్';
+	@override String get device => 'పరికరం';
+	@override String get osVersion => 'OS వెర్షన్';
 	@override String get uid => 'UID';
 }
 
@@ -875,12 +876,12 @@ class _TranslationsSettingsClearAllDataTe implements TranslationsSettingsClearAl
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Clear All Data';
-	@override String get subtitle => 'Irreversibly delete all your information';
-	@override String get confirmationTitle => 'Clear All Data?';
-	@override String get confirmationMessage => 'This action cannot be undone. All your logged meals, favorites, and profile settings will be permanently deleted.';
-	@override String get cancel => 'Cancel';
-	@override String get clearEverything => 'Clear Everything';
+	@override String get title => 'అన్ని డేటాను క్లియర్ చేయండి';
+	@override String get subtitle => 'మీ సమాచారం కార్యరహితంగా తొలగించండి';
+	@override String get confirmationTitle => 'అన్ని డేటాను క్లియర్ చేయాలనుకుంటున్నారు?';
+	@override String get confirmationMessage => 'ఈ చర్యను తిరిగి లేదు. మీరు నమోదు చేసిన అన్ని భోజనాలు, ప్రియమైనవి, మరియు ప్రొఫైల్ సెట్టింగులు శాశ్వతంగా తొలగించబడత్ర.';
+	@override String get cancel => 'రద్దు';
+	@override String get clearEverything => 'అన్నీ క్లియర్ చేయండి';
 }
 
 // Path: settings.debugOptions
@@ -890,7 +891,7 @@ class _TranslationsSettingsDebugOptionsTe implements TranslationsSettingsDebugOp
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Debug Options';
+	@override String get title => 'డిబగ్ ఆప్షన్స్';
 }
 
 // Path: notifications.breakfast
@@ -900,8 +901,8 @@ class _TranslationsNotificationsBreakfastTe implements TranslationsNotifications
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Breakfast Time! 🍳';
-	@override String get body => 'Don\'t forget to log your breakfast';
+	@override String get title => 'నాస్తా సమయం! 🍳';
+	@override String get body => 'మీ నాస్తా నమోదు చేయడం మర్చిపోద్దు';
 }
 
 // Path: notifications.lunch
@@ -911,8 +912,8 @@ class _TranslationsNotificationsLunchTe implements TranslationsNotificationsLunc
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Lunch Time! 🥗';
-	@override String get body => 'Time to log your lunch';
+	@override String get title => 'మధ్యాహ్న భోజనం సమయం! 🥗';
+	@override String get body => 'మీ మధ్యాహ్న భోజనాన్ని నమోదు చేయడానికి సమయం';
 }
 
 // Path: notifications.dinner
@@ -922,8 +923,8 @@ class _TranslationsNotificationsDinnerTe implements TranslationsNotificationsDin
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Dinner Time! 🍽️';
-	@override String get body => 'Don\'t forget to log your dinner';
+	@override String get title => 'రాత్రి భోజన సమయం! 🍽️';
+	@override String get body => 'మీ రాత్రి భోజనాన్ని నమోదు చేయడం మర్చిపోద్దు';
 }
 
 // Path: notifications.snack
@@ -933,8 +934,8 @@ class _TranslationsNotificationsSnackTe implements TranslationsNotificationsSnac
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Snack Time! 🍎';
-	@override String get body => 'Time for a healthy snack';
+	@override String get title => 'స్నాక్ సమయం! 🍎';
+	@override String get body => 'ఆరోగ్యకరమైన స్నాక్ సాధించుటకు సమయం';
 }
 
 // Path: notifications.test
@@ -944,7 +945,7 @@ class _TranslationsNotificationsTestTe implements TranslationsNotificationsTestE
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Test Notification';
+	@override String get title => 'పరీక్ష గమనిక';
 }
 
 // Path: disclaimer.snap
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapTe implements TranslationsDisclaimerSnapEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Calorify provides estimated nutritional info. Accuracy depends on your input & food variations. Use as a guide, not a definitive source. Consult a professional for personalized dietary advice.';
+	@override String description({required Object appLabel}) => '${appLabel} అంచనా పెట్టిన పోషిణ సమాచారం అందిస్తుంది. ఖచ్చితత్వం మీ సమాచారం & ఆహార రకాల ఆధారంగా ఉంటుంది. ఈ అది జ్ఞాన మార్గదర్శకంగా ఉపయోగించండి, ఖచ్చితమైన మూలాలుగా కాదు. వ్యక్తిగత పోషణ సలహాలో పరిశోధనా నవీనత ఫలితంగా నిపుణుడితో అభిప్రాయం ఇవ్వండి.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeTe portionSize = _TranslationsDisclaimerSnapPortionSizeTe._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsTe preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsTe._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsTe ingredients = _TranslationsDisclaimerSnapIngredientsTe._(_root);
@@ -968,8 +969,8 @@ class _TranslationsDisclaimerWeightEstimateTe implements TranslationsDisclaimerW
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'About Weight Estimate';
-	@override String get description => 'The projected weight change is a theoretical estimate based on the simple calorie-in vs. calorie-out model. It is intended for motivational guidance only, not as a prediction of your actual weight.';
+	@override String get title => 'బరువు అంచనా గురించి';
+	@override String get description => 'అంచనా ప్రాతిపదికలో కేలొరీ-లోపు బరువు మార్పులు అంచనా పెంచడం కోసం మాత్రమే ఉద్దేశించబడ్డాయి, మీ నిజమైన బరువును కనిపెట్టడానికి కాదు.';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyTe calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyTe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsTe biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsTe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightTe waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightTe._(_root);
@@ -983,9 +984,9 @@ class _TranslationsDebugSectionsTe implements TranslationsDebugSectionsEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get notifications => 'Notifications';
-	@override String get healthConnect => 'Health Connect';
-	@override String get appInfo => 'App Info';
+	@override String get notifications => 'గమనికలు';
+	@override String get healthConnect => 'హెల్త్ కనెక్ట్';
+	@override String get appInfo => 'యాప్ సమాచారం';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -995,8 +996,8 @@ class _TranslationsOnboardingFeaturesFoodRecognitionTe implements TranslationsOn
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Smart Food Recognition';
-	@override String get description => 'Take a photo and let AI identify your meal';
+	@override String get title => 'స్మార్ట్ ఆహారం గుర్తింపు';
+	@override String get description => 'ఒక ఫొటో తీసి, AI మీ భోజనాన్ని గుర్తించనివ్వండి';
 }
 
 // Path: onboarding.features.aiAnalysis
@@ -1006,8 +1007,8 @@ class _TranslationsOnboardingFeaturesAiAnalysisTe implements TranslationsOnboard
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'AI Analysis';
-	@override String get description => 'Get instant nutrition facts from your descriptions';
+	@override String get title => 'AI విశ్లేషణ';
+	@override String get description => 'మీ వర్ణనల నుండి తక్షణ పోషక పరకంగా పొందండి';
 }
 
 // Path: onboarding.features.healthIntegration
@@ -1017,8 +1018,8 @@ class _TranslationsOnboardingFeaturesHealthIntegrationTe implements Translations
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Health Integration';
-	@override String get description => 'Connect with Health Connect for better insights';
+	@override String get title => 'ఆరోగ్య సమన్వయం';
+	@override String get description => 'మరింత సమాచారం కోసం హెల్త్ కనెక్ట్ తో కనెక్ట్ చేయండి';
 }
 
 // Path: onboarding.bmiScale.categories
@@ -1028,10 +1029,10 @@ class _TranslationsOnboardingBmiScaleCategoriesTe implements TranslationsOnboard
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Underweight';
-	@override String get healthyWeight => 'Healthy weight';
-	@override String get overweight => 'Overweight';
-	@override String get obese => 'Obese';
+	@override String get underweight => 'తక్కువ బరువు';
+	@override String get healthyWeight => 'ఆరోగ్యకరమైన బరువు';
+	@override String get overweight => 'అధిక బరువు';
+	@override String get obese => 'వడ్డించిన';
 }
 
 // Path: onboarding.bmiScale.messages
@@ -1041,10 +1042,10 @@ class _TranslationsOnboardingBmiScaleMessagesTe implements TranslationsOnboardin
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'We can help you build a healthy plan to reach a balanced weight with nutrient-dense meals.';
-	@override String get healthy => 'Great job! You\'re in a healthy range. We\'ll help you maintain your vitality and energy levels.';
-	@override String get overweight => 'Calorify will simplify your journey with AI-powered tracking to help you reach your target comfortably.';
-	@override String get obese => 'We\'re here to support you with personalized guidance and sustainable strategies for your health goals.';
+	@override String get underweight => 'సంతులిత బరువును చేరడానికి పోషక-సంపన్న భోజనాలతో ఆరోగ్యకరమైన ప్రణాళికను నిర్మించడంలో మీకు సహాయపడతాము.';
+	@override String get healthy => 'చక్కగా! మీరు ఆరోగ్యకరమైన పరిధిలో ఉన్నారు. మీ ఉత్సాహం మరియు శక్తి స్థాయిలను కొనసాగించడంలో మీకు సహాయపడతాము.';
+	@override String overweight({required Object appLabel}) => '${appLabel} మీ లక్ష్యాన్ని సౌకర్యంగా చేరడానికి AI ఆధారిత ట్రాకింగ్ తో మీ పయనాన్ని సరళంగా చేస్తుంది.';
+	@override String get obese => 'మీ ఆరోగ్య లక్ష్యాలకు వ్యక్తిగత మార్గదర్శకం మరియు స్థిరమైన వ్యూహాలతో మిమ్మల్ని మద్దతు కోసం ఇక్కడ ఉన్నాము.';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1054,8 +1055,8 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingTe implements Transla
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Automatic Calorie Tracking';
-	@override String get description => 'Track calories burned from your fitness apps';
+	@override String get title => 'ఆటోమేటిక్ కేలొరీ ట్రాకింగ్';
+	@override String get description => 'మీ ఫిట్‌ನೆస్ యాప్‌ల నుండి వేయించిన కేలొరీలను ట్రాక్ చేయండి';
 }
 
 // Path: onboarding.healthConnect.progressInsights
@@ -1065,8 +1066,8 @@ class _TranslationsOnboardingHealthConnectProgressInsightsTe implements Translat
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Progress Insights';
-	@override String get description => 'Get detailed insights into your health trends';
+	@override String get title => 'ప్రోగ్రెస్ సమాచారం';
+	@override String get description => 'మీ ఆరోగ్య ధోరణులపై వివరణాత్మక సమాచారం పొందండి';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1076,8 +1077,8 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationTe implements Trans
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Seamless Integration';
-	@override String get description => 'Sync data from your favorite health apps';
+	@override String get title => 'సాధారణ సమన్వయం';
+	@override String get description => 'మీ ఇష్టమైన ఆరోగ్య యాప్‌ల నుండి డేటాను సింక్ చేయండి';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1087,20 +1088,17 @@ class _TranslationsOnboardingReinforcementTrackingSuccessTe implements Translati
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'You\'re Not Alone';
-	@override String get genericMessage => 'Research shows that consistent tracking is the #1 predictor of long-term success.';
-	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'For a ${age} year old ${gender} looking to ${goal}, consistent tracking is the #1 predictor of success.';
-	@override String get closingMessage => 'Calorify makes it 10x easier than doing it manually.';
-	@override String get getStartedTitle => 'ప్రారంభించడానికి సిద్ధమైనారా?';
-	@override String get tipPhoto => 'తక్షణ విశ్లేషణ కోసం మీ భోజనాల ఫోటోను తీశారు';
-	@override String get tipConsistency => 'సామాన్యతతో నమోదు చేయండి, అర్థవంతమైన పురోగతి చూసేందుకు';
-	@override String get tipProgress => 'మీ పురోగతిని ప్రతిరోజూ ట్రాక్ చేయండి, ఉత్సాహంగా ఉండటానికి';
-	@override String get button => 'Let\'s Go';
-	@override String get defaultGender => 'individual';
-	@override String get defaultGoal => 'healthier you';
-	@override String get instantPhotoAnalysis => 'Instant photo analysis';
-	@override String get automaticLogging => 'Automatic nutritional logging';
-	@override String get progressVisualizations => 'Progress visualizations that keep you motivated';
+	@override String get title => 'మీరు ఒంటరిగా లేరు';
+	@override String get genericMessage => 'నిరంతరంగా ట్రాకింగ్ చేయడం అనేది దీర్ఘకాలిక విజయానికి #1 సూచిక అని పరిశోధన చూపిస్తుంది.';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'ఒక ${age} సంవత్సరాల ${gender} గా ${goal} చేయాలని అనుకుంటున్నట్లయితే, నిరంతరంగా ట్రాకింగ్ చేయడం విజయానికి #1 సూచిక.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} ఇది మాన్యువల్ గా చేయడం కన్నా 10 రెట్లు సులభం చేస్తుంది.';
+	@override String get getStartedTitle => 'ప్రారంభించడానికి సిద్ధమా?';
+	@override String get tipPhoto => 'తక్షణ విశ্লేషణ కోసం మీ భోజనాలను ఫొటో తీసుకోండి';
+	@override String get tipConsistency => 'సరైన మార్గదర్శకాలతో చూస్తున్న పరిణామాలను చూనుముట';
+	@override String get tipProgress => 'సమయానికి మీ పురోగతిని ట్రాక్ చేయండి మరియు ప్రోత్సాహాన్ని కొనసాగించండి';
+	@override String get button => 'ప్రారంభిద్దాం';
+	@override String get defaultGender => 'వ్యక్తి';
+	@override String get defaultGoal => 'ఆరోగ్యకరమైన మీరు';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1110,14 +1108,14 @@ class _TranslationsOnboardingReinforcementHealthProfileTe implements Translation
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Your Health Profile';
-	@override String bmiDescription({required Object bmi}) => 'Based on your metrics, your BMI is ${bmi}.';
-	@override String get finalizeDescription => 'Let\'s finalize your profile to customize your experience.';
-	@override String get goalGain => 'gain';
-	@override String get goalLose => 'lose';
-	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'To reach your goal, you\'ll ${direction} ${diff} ${unit}.';
-	@override String get goalReached => 'You\'re at your target weight! We\'ll help you maintain it.';
-	@override String get button => 'Let\'s Go';
+	@override String get title => 'మీ ఆరోగ్య ప్రొఫైల్';
+	@override String bmiDescription({required Object bmi}) => 'మీ నిఘా ఆధారంగా, మీ BMI ${bmi}.';
+	@override String get finalizeDescription => 'మీ అనుభవాన్ని వ్యక్తిగతీకరించడానికి మీ ప్రొఫైల్ ని పూర్తి చేద్దాం.';
+	@override String get goalGain => 'ఎదురుచు';
+	@override String get goalLose => 'తక్కువ';
+	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'మీ లక్ష్యాన్ని చేరడానికి, మీరు ${direction} ${diff} ${unit}.';
+	@override String get goalReached => 'మీరు మీ లక్ష్య బరువులో ఉన్నారు! మేము దాన్ని కొనసాగించడంలో మీకు సహాయపడతాం.';
+	@override String get button => 'ప్రారంభిద్దాం';
 }
 
 // Path: onboarding.reinforcement.goalLifestyle
@@ -1127,14 +1125,14 @@ class _TranslationsOnboardingReinforcementGoalLifestyleTe implements Translation
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Excellent Start!';
-	@override String description({required Object goalText, required Object activityText}) => 'You\'ve taken the first step towards ${goalText}. Since you\'re ${activityText}, Calorify will adjust your targets to match your lifestyle.';
-	@override String get personalizedTargets => 'Personalized calorie targets';
-	@override String get aiMealDetection => 'AI-powered meal detection';
-	@override String get macroBreakdowns => 'Detailed macro-nutrient breakdowns';
-	@override String get button => 'Let\'s Go';
-	@override String get defaultGoal => 'your goals';
-	@override String get defaultActivity => 'active';
+	@override String get title => 'అద్భుతమైన ప్రారంభం!';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'మీరు ${goalText} వైపు ప Erste తప్పని దశను తీసుకున్నారు. మీరు ${activityText} గా ఉండడం వల్ల, ${appLabel} మీ లక్ష్యాలను మీ జీవనశైలికి సరిపోల్చుతుంది.';
+	@override String get personalizedTargets => 'ఆర్థిక కేలొరీ లక్ష్యాలు';
+	@override String get aiMealDetection => 'AI ఆధారిత భోజన గుర్తింపు';
+	@override String get macroBreakdowns => 'వివిరించిన మాక్రో-అవసరాలు';
+	@override String get button => 'ప్రారంభిద్దాం';
+	@override String get defaultGoal => 'మీ లక్ష్యాలు';
+	@override String get defaultActivity => 'యాక్టివ్';
 }
 
 // Path: editProfile.weightGoals.loseWeight
@@ -1144,8 +1142,8 @@ class _TranslationsEditProfileWeightGoalsLoseWeightTe implements TranslationsEdi
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Lose Weight';
-	@override String get description => 'Create a calorie deficit to lose weight';
+	@override String get name => 'బరువు కోల్పోవడం';
+	@override String get description => 'బరువు తగ్గించడానికి కేలొరీ లోపాన్ని సృష్టించండి';
 }
 
 // Path: editProfile.weightGoals.maintainWeight
@@ -1155,8 +1153,8 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightTe implements Translation
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Maintain Weight';
-	@override String get description => 'Maintain your current weight';
+	@override String get name => 'బరువును నిలుపు';
+	@override String get description => 'మీ ప్రస్తుత బరువును నిలుపు చేయండి';
 }
 
 // Path: editProfile.weightGoals.gainWeight
@@ -1166,8 +1164,8 @@ class _TranslationsEditProfileWeightGoalsGainWeightTe implements TranslationsEdi
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Gain Weight';
-	@override String get description => 'Create a calorie surplus to gain weight';
+	@override String get name => 'బరువును పెంచడం';
+	@override String get description => 'బరువు పెంచడానికి కేలొరీ అధికతను ఆకట్టుకోండి';
 }
 
 // Path: editProfile.activityLevels.sedentary
@@ -1177,8 +1175,8 @@ class _TranslationsEditProfileActivityLevelsSedentaryTe implements TranslationsE
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Sedentary';
-	@override String get description => 'Little to no exercise';
+	@override String get name => 'ఆసక్తి లేని';
+	@override String get description => 'తక్కువ వ్యాయామం';
 }
 
 // Path: editProfile.activityLevels.lightlyActive
@@ -1188,8 +1186,8 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveTe implements Translati
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Lightly Active';
-	@override String get description => 'Light exercise 1-3 days/week';
+	@override String get name => 'సులభంగా యాక్టీవ్';
+	@override String get description => 'ప్రతి వారం 1-3 రోజులు చాలా కొద్దిగా వ్యాయామం';
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
@@ -1199,8 +1197,8 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveTe implements Transl
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Moderately Active';
-	@override String get description => 'Moderate exercise 3-5 days/week';
+	@override String get name => 'మోస్తారు యాక్టీవ్';
+	@override String get description => 'ప్రతి వారం 3-5 రోజులు మోస్తారు వ్యాయామం';
 }
 
 // Path: editProfile.activityLevels.veryActive
@@ -1210,8 +1208,8 @@ class _TranslationsEditProfileActivityLevelsVeryActiveTe implements Translations
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Very Active';
-	@override String get description => 'Hard exercise 6-7 days/week';
+	@override String get name => 'చాలా యాక్టీవ్';
+	@override String get description => 'ప్రతి వారం 6-7 రోజుల క్రత్యం వ్యాయామం';
 }
 
 // Path: editProfile.activityLevels.extremelyActive
@@ -1221,8 +1219,8 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveTe implements Transla
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Extremely Active';
-	@override String get description => 'Very hard exercise, physical job';
+	@override String get name => 'అత్యంత యాక్టివ్';
+	@override String get description => 'చాలా తీవ్రమైన వ్యాయామం, శారీరక పని';
 }
 
 // Path: disclaimer.snap.portionSize
@@ -1232,8 +1230,8 @@ class _TranslationsDisclaimerSnapPortionSizeTe implements TranslationsDisclaimer
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Portion Size';
-	@override String get description => 'The accuracy of the estimates heavily relies on your correct assessment of the portion size.';
+	@override String get title => 'పోర్షన్ పరిమాణం';
+	@override String get description => 'అంచనాల ఖచ్చితత్వం మీ సరైన అభ్యాసం ఆధారంగా ఉంటుంది.';
 }
 
 // Path: disclaimer.snap.preparationMethods
@@ -1243,8 +1241,8 @@ class _TranslationsDisclaimerSnapPreparationMethodsTe implements TranslationsDis
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Preparation Methods';
-	@override String get description => 'Cooking methods can significantly alter the nutritional content of food. Calorify\'s estimates may not always account for these variations.';
+	@override String get title => 'సిద్ధీకరణ పద్ధతులు';
+	@override String description({required Object appLabel}) => 'క్షా మోతాదులో కీలకంగా ఉంటుంది. ${appLabel} రన్ను అంచనాల పరిష్కారాలు ఈ మార్పులు ఎప్పుడూ పరిశీలిస్తాయి.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1254,8 +1252,8 @@ class _TranslationsDisclaimerSnapIngredientsTe implements TranslationsDisclaimer
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ingredients';
-	@override String get description => 'Complex dishes with many hidden ingredients may lead to less accurate estimations.';
+	@override String get title => 'కూరగాయలు';
+	@override String get description => 'వివిధ రకాల లోపులను కలిగి ఉండే సంక్లిష్ట వంటకాలు కొంత అంచన్లను ఉన్నత అసమర్ధతం లభిస్తుంది.';
 }
 
 // Path: disclaimer.snap.databaseLimitations
@@ -1265,8 +1263,8 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsTe implements TranslationsDi
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Database Limitations';
-	@override String get description => 'Calorify\'s food database is extensive but may not include every single food item or variation.';
+	@override String get title => 'డాటాబేస్ పరిమితులు';
+	@override String description({required Object appLabel}) => '${appLabel} యొక్క ఆహారం డేటాబేస్ విస్తృతం కానవడంతో కానీ అన్ని ఆహార చిహ్నాలతో ఉండకపోవచ్చు.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1276,8 +1274,8 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyTe implements Translat
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Calorie Accuracy';
-	@override String get description => 'This estimate is only as accurate as your tracked calorie intake and expenditure. Inaccurate logging will result in an inaccurate projection.';
+	@override String get title => 'కేలొరీ ఖచ్చితత్వం';
+	@override String get description => 'ఈ అంచనా మీ ట్రాక్ కేలొరీ అందించిన ఖచ్చితంగా మంచిని మాత్రమే అవుతుంది. ఖచ్చితమైన లాగర్లు ఖచ్చితమైన అంచనాలను ఇవ్వడం.';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1287,8 +1285,8 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsTe implements Transl
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Biological Factors';
-	@override String get description => 'Actual weight loss/gain is influenced by metabolism, hormones, sleep, stress, hydration, and other individual factors that Calorify cannot measure.';
+	@override String get title => 'జీవశాస్త్ర因素';
+	@override String description({required Object appLabel}) => 'నిర్వహణ, హార్మోన్లు, నిద్ర, ఒత్తిడి, నీటి సరఫరా మరియు ${appLabel} కొలిచే ఇతర వ్యక్తిగత పరిస్థితులు వంటి అవిధేయాలను ప్రభావితం చేస్తుంది.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1298,8 +1296,8 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightTe implements Translations
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Water Weight & Fluctuations';
-	@override String get description => 'Normal daily weight can fluctuate significantly due to water retention, digestion, and timing. The estimate does not account for these daily changes.';
+	@override String get title => 'నీటి బరువు & మార్పులు';
+	@override String get description => 'ప్రతి రోజున బరువు ఎక్కువగా ఉపచ్చులు మరియు వేగం వల్ల వ్యత్యాసాలు మరియు నీటి తట్టువులెవరూ ఉన్నాయి. అంచనా ఈ రోజువారీ మార్పులను జోడించాలి లేదు.';
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
@@ -1309,8 +1307,8 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTe implements Tra
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Professional Guidance';
-	@override String get description => 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.';
+	@override String get title => 'పోతు ప్రాజ్ఞానం';
+	@override String get description => 'ఈ అంచనాను వైద్య నిర్ణయాల కోసం ఉపయోగించకండి. ఎప్పుడూ వ్యక్తిగత బరువు నిర్వహణ సమాచారానికి ఒక ఆరోగ్య నిపుణుడిని సంప్రదించండి.';
 }
 
 /// The flat map containing all translations for locale <te>.
@@ -1321,380 +1319,378 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTe implements Tra
 extension on TranslationsTe {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'language' => 'English',
-			'flag' => '🇺🇸',
-			'onboarding.welcome' => 'Welcome to Calorify',
-			'onboarding.subtitle' => 'Your personal nutrition companion powered by AI',
-			'onboarding.getStarted' => 'Get Started',
-			'onboarding.features.foodRecognition.title' => 'Smart Food Recognition',
-			'onboarding.features.foodRecognition.description' => 'Take a photo and let AI identify your meal',
-			'onboarding.features.aiAnalysis.title' => 'AI Analysis',
-			'onboarding.features.aiAnalysis.description' => 'Get instant nutrition facts from your descriptions',
-			'onboarding.features.healthIntegration.title' => 'Health Integration',
-			'onboarding.features.healthIntegration.description' => 'Connect with Health Connect for better insights',
-			'onboarding.gender.title' => 'What is your gender?',
-			'onboarding.gender.description' => 'Gender helps us accurately calculate your basal metabolic rate (BMR).',
-			'onboarding.gender.next' => 'Next',
-			'onboarding.height.title' => 'How tall are you?',
-			'onboarding.height.description' => 'Your height helps us calculate your BMI and energy needs accurately.',
-			'onboarding.height.metric' => 'Metric',
-			'onboarding.height.imperial' => 'Imperial',
-			'onboarding.height.next' => 'Next',
-			'onboarding.weight.currentTitle' => 'What is your current weight?',
-			'onboarding.weight.currentDescription' => 'Your current weight is essential for personalizing your daily goals.',
-			'onboarding.weight.targetTitle' => 'What is your target weight?',
-			'onboarding.weight.targetDescription' => 'Setting a goal weight helps us determine your long-term plan.',
-			'onboarding.weight.metric' => 'Metric',
-			'onboarding.weight.imperial' => 'Imperial',
-			'onboarding.weight.next' => 'Next',
-			'onboarding.age.title' => 'When is your birthday?',
-			'onboarding.age.description' => 'Your age helps us calculate your calorie needs accurately.',
-			'onboarding.age.next' => 'Next',
-			'onboarding.bmiScale.underweight' => 'Underweight',
-			'onboarding.bmiScale.healthy' => 'Healthy',
-			'onboarding.bmiScale.overweight' => 'Overweight',
-			'onboarding.bmiScale.obese' => 'Obese',
-			'onboarding.bmiScale.categories.underweight' => 'Underweight',
-			'onboarding.bmiScale.categories.healthyWeight' => 'Healthy weight',
-			'onboarding.bmiScale.categories.overweight' => 'Overweight',
-			'onboarding.bmiScale.categories.obese' => 'Obese',
-			'onboarding.bmiScale.messages.underweight' => 'We can help you build a healthy plan to reach a balanced weight with nutrient-dense meals.',
-			'onboarding.bmiScale.messages.healthy' => 'Great job! You\'re in a healthy range. We\'ll help you maintain your vitality and energy levels.',
-			'onboarding.bmiScale.messages.overweight' => 'Calorify will simplify your journey with AI-powered tracking to help you reach your target comfortably.',
-			'onboarding.bmiScale.messages.obese' => 'We\'re here to support you with personalized guidance and sustainable strategies for your health goals.',
-			'onboarding.weightGoal.title' => 'What\'s your goal?',
-			'onboarding.weightGoal.description' => 'Choose the goal that best describes what you want to achieve',
-			'onboarding.activityLevel.title' => 'How active are you?',
-			'onboarding.activityLevel.description' => 'This helps us calculate your daily calorie needs more accurately',
-			'onboarding.healthConnect.title' => 'Connect with Health Connect',
-			'onboarding.healthConnect.description' => 'Sync your health data for better insights and automatic calorie tracking',
-			'onboarding.healthConnect.automaticTracking.title' => 'Automatic Calorie Tracking',
-			'onboarding.healthConnect.automaticTracking.description' => 'Track calories burned from your fitness apps',
-			'onboarding.healthConnect.progressInsights.title' => 'Progress Insights',
-			'onboarding.healthConnect.progressInsights.description' => 'Get detailed insights into your health trends',
-			'onboarding.healthConnect.seamlessIntegration.title' => 'Seamless Integration',
-			'onboarding.healthConnect.seamlessIntegration.description' => 'Sync data from your favorite health apps',
-			'onboarding.healthConnect.connected' => 'Health Connect Connected',
-			'onboarding.healthConnect.notConnected' => 'Health Connect Not Connected',
-			'onboarding.healthConnect.setup' => 'Setup Health Connect',
-			'onboarding.healthConnect.skipForNow' => 'Skip for now',
-			'onboarding.healthConnect.statusConnected' => 'Health Connect is connected.',
-			'onboarding.healthConnect.statusSuccess' => 'Health Connect has been successfully connected!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.',
-			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Error setting up Health Connect: ${error}',
-			'onboarding.reinforcement.trackingSuccess.title' => 'You\'re Not Alone',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Research shows that consistent tracking is the #1 predictor of long-term success.',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'For a ${age} year old ${gender} looking to ${goal}, consistent tracking is the #1 predictor of success.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify makes it 10x easier than doing it manually.',
-			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'ప్రారంభించడానికి సిద్ధమైనారా?',
-			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'తక్షణ విశ్లేషణ కోసం మీ భోజనాల ఫోటోను తీశారు',
-			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'సామాన్యతతో నమోదు చేయండి, అర్థవంతమైన పురోగతి చూసేందుకు',
-			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'మీ పురోగతిని ప్రతిరోజూ ట్రాక్ చేయండి, ఉత్సాహంగా ఉండటానికి',
-			'onboarding.reinforcement.trackingSuccess.button' => 'Let\'s Go',
-			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'individual',
-			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'healthier you',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Instant photo analysis',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Automatic nutritional logging',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Progress visualizations that keep you motivated',
-			'onboarding.reinforcement.healthProfile.title' => 'Your Health Profile',
-			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Based on your metrics, your BMI is ${bmi}.',
-			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Let\'s finalize your profile to customize your experience.',
-			'onboarding.reinforcement.healthProfile.goalGain' => 'gain',
-			'onboarding.reinforcement.healthProfile.goalLose' => 'lose',
-			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'To reach your goal, you\'ll ${direction} ${diff} ${unit}.',
-			'onboarding.reinforcement.healthProfile.goalReached' => 'You\'re at your target weight! We\'ll help you maintain it.',
-			'onboarding.reinforcement.healthProfile.button' => 'Let\'s Go',
-			'onboarding.reinforcement.goalLifestyle.title' => 'Excellent Start!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'You\'ve taken the first step towards ${goalText}. Since you\'re ${activityText}, Calorify will adjust your targets to match your lifestyle.',
-			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Personalized calorie targets',
-			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI-powered meal detection',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Detailed macro-nutrient breakdowns',
-			'onboarding.reinforcement.goalLifestyle.button' => 'Let\'s Go',
-			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'your goals',
-			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'active',
-			'tabs.dashboard' => 'Dashboard',
-			'tabs.history' => 'History',
-			'home.dailyGoal.title' => 'Set Your Daily Goal',
-			'home.dailyGoal.titleSet' => 'Your Daily Goal',
-			'home.dailyGoal.description' => 'Ready to embark on your wellness journey? Set your daily calorie target below to kickstart your progress.',
-			'home.dailyGoal.descriptionSet' => 'Your compass is set! This is your daily calorie target to guide you.',
-			'home.dailyGoal.yourGoal' => 'Your Goal',
-			'home.dailyGoal.dailyCalories' => 'Daily calories (kcal)',
-			'home.dailyGoal.setGoal' => 'Set Goal',
-			'home.dailyGoal.intake' => 'Intake',
-			'home.dailyGoal.burned' => 'Burned',
-			'home.dailyGoal.weightImpact' => 'Weight Impact',
-			'home.dailyGoal.estLoss' => 'Est. loss of',
-			'home.dailyGoal.estGain' => 'Est. gain of',
+			'language' => 'తెలుగు',
+			'flag' => '🇮🇳',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} లో స్వాగతం',
+			'onboarding.subtitle' => 'మీ వ్యక్తిగత పోషణ సహాయకుడు AI తో',
+			'onboarding.getStarted' => 'ప్రారంభించండి',
+			'onboarding.features.foodRecognition.title' => 'స్మార్ట్ ఆహారం గుర్తింపు',
+			'onboarding.features.foodRecognition.description' => 'ఒక ఫొటో తీసి, AI మీ భోజనాన్ని గుర్తించనివ్వండి',
+			'onboarding.features.aiAnalysis.title' => 'AI విశ్లేషణ',
+			'onboarding.features.aiAnalysis.description' => 'మీ వర్ణనల నుండి తక్షణ పోషక పరకంగా పొందండి',
+			'onboarding.features.healthIntegration.title' => 'ఆరోగ్య సమన్వయం',
+			'onboarding.features.healthIntegration.description' => 'మరింత సమాచారం కోసం హెల్త్ కనెక్ట్ తో కనెక్ట్ చేయండి',
+			'onboarding.gender.title' => 'మీ లింగం ఏమిటి?',
+			'onboarding.gender.description' => 'లింగం మనకు మీ బేసల్ మెటబాలిక్ రేట్ (BMR)ను ఖచ్చితంగా లెక్కించటానికి సహాయపడుతుంది.',
+			'onboarding.gender.next' => 'తరువాత',
+			'onboarding.height.title' => 'మీ ఎత్తు ఎంత?',
+			'onboarding.height.description' => 'మీ ఎత్తు మీ BMI మరియు శక్తి అవసరాలను ఖచ్చితంగా లెక్కించడానికి సహాయపడుతుంది.',
+			'onboarding.height.metric' => 'మెట్రిక్',
+			'onboarding.height.imperial' => 'ఇంపీరియల్',
+			'onboarding.height.next' => 'తరువాత',
+			'onboarding.weight.currentTitle' => 'మీ ప్రస్తుత బరువు ఎంత?',
+			'onboarding.weight.currentDescription' => 'మీ ప్రస్తుత బరువు మీ రోజువారీ లక్ష్యాలను వ్యక్తిగతీకరించడానికి అవసరం.',
+			'onboarding.weight.targetTitle' => 'మీ లక్ష్య బరువు ఎంత?',
+			'onboarding.weight.targetDescription' => 'లక్ష్య బరువును ఏర్పరచడం మా దీర్ఘకాలిక ఆలోచనను నిర్ధారించడంలో సహాయపడుతుంది.',
+			'onboarding.weight.metric' => 'మెట్రిక్',
+			'onboarding.weight.imperial' => 'ఇంపీరియల్',
+			'onboarding.weight.next' => 'తరువాత',
+			'onboarding.age.title' => 'మీ పుట్టినరోజు ఎప్పుడు?',
+			'onboarding.age.description' => 'మీ వయస్సు మీ కేలొరీ అవసరాలను ఖచ్చితంగా లెక్కించడంలో సహాయపడుతుంది.',
+			'onboarding.age.next' => 'తరువాత',
+			'onboarding.bmiScale.underweight' => 'తక్కువ బరువు',
+			'onboarding.bmiScale.healthy' => 'ఆరోగ్యకరమైన',
+			'onboarding.bmiScale.overweight' => 'అధిక బరువు',
+			'onboarding.bmiScale.obese' => 'వడ్డించిన',
+			'onboarding.bmiScale.categories.underweight' => 'తక్కువ బరువు',
+			'onboarding.bmiScale.categories.healthyWeight' => 'ఆరోగ్యకరమైన బరువు',
+			'onboarding.bmiScale.categories.overweight' => 'అధిక బరువు',
+			'onboarding.bmiScale.categories.obese' => 'వడ్డించిన',
+			'onboarding.bmiScale.messages.underweight' => 'సంతులిత బరువును చేరడానికి పోషక-సంపన్న భోజనాలతో ఆరోగ్యకరమైన ప్రణాళికను నిర్మించడంలో మీకు సహాయపడతాము.',
+			'onboarding.bmiScale.messages.healthy' => 'చక్కగా! మీరు ఆరోగ్యకరమైన పరిధిలో ఉన్నారు. మీ ఉత్సాహం మరియు శక్తి స్థాయిలను కొనసాగించడంలో మీకు సహాయపడతాము.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} మీ లక్ష్యాన్ని సౌకర్యంగా చేరడానికి AI ఆధారిత ట్రాకింగ్ తో మీ పయనాన్ని సరళంగా చేస్తుంది.',
+			'onboarding.bmiScale.messages.obese' => 'మీ ఆరోగ్య లక్ష్యాలకు వ్యక్తిగత మార్గదర్శకం మరియు స్థిరమైన వ్యూహాలతో మిమ్మల్ని మద్దతు కోసం ఇక్కడ ఉన్నాము.',
+			'onboarding.weightGoal.title' => 'మీ లక్ష్యం ఏమంటి?',
+			'onboarding.weightGoal.description' => 'మీరు సాధించాలని కోరుకునే లక్ష్యాన్ని వర్ణించండి',
+			'onboarding.activityLevel.title' => 'మీ యాక్టివ్ స్థాయి ఎంత?',
+			'onboarding.activityLevel.description' => 'ఇది మీ రోజుల కేలొరీ అవసరాలు ఖచ్చితంగా లెక్కించడంలో సహాయపడుతుంది',
+			'onboarding.healthConnect.title' => 'హెల్త్ కనెక్ట్ తో కనెక్ట్ చేయండి',
+			'onboarding.healthConnect.description' => 'భిన్నమైన సమాచారం మరియు ఆటోమేటిక్ కేలొరీ ట్రాకింగ్ కోసం మీ ఆరోగ్య డేటాను సింక్ చేయండి',
+			'onboarding.healthConnect.automaticTracking.title' => 'ఆటోమేటిక్ కేలొరీ ట్రాకింగ్',
+			'onboarding.healthConnect.automaticTracking.description' => 'మీ ఫిట్‌ನೆస్ యాప్‌ల నుండి వేయించిన కేలొరీలను ట్రాక్ చేయండి',
+			'onboarding.healthConnect.progressInsights.title' => 'ప్రోగ్రెస్ సమాచారం',
+			'onboarding.healthConnect.progressInsights.description' => 'మీ ఆరోగ్య ధోరణులపై వివరణాత్మక సమాచారం పొందండి',
+			'onboarding.healthConnect.seamlessIntegration.title' => 'సాధారణ సమన్వయం',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'మీ ఇష్టమైన ఆరోగ్య యాప్‌ల నుండి డేటాను సింక్ చేయండి',
+			'onboarding.healthConnect.connected' => 'హెల్త్ కనెక్ట్ కనెక్ట్ అయ్యింది',
+			'onboarding.healthConnect.notConnected' => 'హెల్త్ కనెక్ట్ కనెక్ట్ కాని',
+			'onboarding.healthConnect.setup' => 'హెల్త్ కనెక్ట్ సెట్టప్ చేయండి',
+			'onboarding.healthConnect.skipForNow' => 'ఇప్పుడు అభ్యాసించండి',
+			'onboarding.healthConnect.statusConnected' => 'హెల్త్ కనెక్ట్ కనెక్ట్ అయింది.',
+			'onboarding.healthConnect.statusSuccess' => 'హెల్త్ కనెక్ట్ విజయం సుస్పష్టం అయింది!',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'అనుమతి అంగీకరించలేదు. దయచేసి ${appLabel} కోసం మీ ఫోన్ సెట్టింగ్‌లలో హెల్త్ కనెక్ట్ అనుమతులను నిరాకరించండి.',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'హెల్త్ కనెక్ట్ ను సెటప్ చేయడం లో లోపం: ${error}',
+			'onboarding.reinforcement.trackingSuccess.title' => 'మీరు ఒంటరిగా లేరు',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'నిరంతరంగా ట్రాకింగ్ చేయడం అనేది దీర్ఘకాలిక విజయానికి #1 సూచిక అని పరిశోధన చూపిస్తుంది.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'ఒక ${age} సంవత్సరాల ${gender} గా ${goal} చేయాలని అనుకుంటున్నట్లయితే, నిరంతరంగా ట్రాకింగ్ చేయడం విజయానికి #1 సూచిక.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} ఇది మాన్యువల్ గా చేయడం కన్నా 10 రెట్లు సులభం చేస్తుంది.',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'ప్రారంభించడానికి సిద్ధమా?',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'తక్షణ విశ্লేషణ కోసం మీ భోజనాలను ఫొటో తీసుకోండి',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'సరైన మార్గదర్శకాలతో చూస్తున్న పరిణామాలను చూనుముట',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'సమయానికి మీ పురోగతిని ట్రాక్ చేయండి మరియు ప్రోత్సాహాన్ని కొనసాగించండి',
+			'onboarding.reinforcement.trackingSuccess.button' => 'ప్రారంభిద్దాం',
+			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'వ్యక్తి',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'ఆరోగ్యకరమైన మీరు',
+			'onboarding.reinforcement.healthProfile.title' => 'మీ ఆరోగ్య ప్రొఫైల్',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'మీ నిఘా ఆధారంగా, మీ BMI ${bmi}.',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'మీ అనుభవాన్ని వ్యక్తిగతీకరించడానికి మీ ప్రొఫైల్ ని పూర్తి చేద్దాం.',
+			'onboarding.reinforcement.healthProfile.goalGain' => 'ఎదురుచు',
+			'onboarding.reinforcement.healthProfile.goalLose' => 'తక్కువ',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'మీ లక్ష్యాన్ని చేరడానికి, మీరు ${direction} ${diff} ${unit}.',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'మీరు మీ లక్ష్య బరువులో ఉన్నారు! మేము దాన్ని కొనసాగించడంలో మీకు సహాయపడతాం.',
+			'onboarding.reinforcement.healthProfile.button' => 'ప్రారంభిద్దాం',
+			'onboarding.reinforcement.goalLifestyle.title' => 'అద్భుతమైన ప్రారంభం!',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'మీరు ${goalText} వైపు ప Erste తప్పని దశను తీసుకున్నారు. మీరు ${activityText} గా ఉండడం వల్ల, ${appLabel} మీ లక్ష్యాలను మీ జీవనశైలికి సరిపోల్చుతుంది.',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'ఆర్థిక కేలొరీ లక్ష్యాలు',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI ఆధారిత భోజన గుర్తింపు',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'వివిరించిన మాక్రో-అవసరాలు',
+			'onboarding.reinforcement.goalLifestyle.button' => 'ప్రారంభిద్దాం',
+			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'మీ లక్ష్యాలు',
+			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'యాక్టివ్',
+			'tabs.dashboard' => 'డాష్బోర్డు',
+			'tabs.history' => 'చరిత్ర',
+			'home.dailyGoal.title' => 'మీ రోజువారీ లక్ష్యాన్ని సెట్ చేయండి',
+			'home.dailyGoal.titleSet' => 'మీ రోజువారీ లక్ష్యం',
+			'home.dailyGoal.description' => 'మీ ఆరోగ్య ప్రయాణం ప్రారంభించడానికి సిద్ధమైనారా? మీ ప్రగతిని ప్రారంభించడానికి కింద మీ రోజువారీ కేలొరీ లక్ష్యాన్ని సెట్ చేయండి.',
+			'home.dailyGoal.descriptionSet' => 'మీ కొలతలు సృష్టించబడ్డాయి! ఇదే మీ దిశగా మార్గదర్శకంగా ఉంటుంది.',
+			'home.dailyGoal.yourGoal' => 'మీ లక్ష్యం',
+			'home.dailyGoal.dailyCalories' => 'రోజువారీ కేలొరీలు (kcal)',
+			'home.dailyGoal.setGoal' => 'లక్ష్యం నియమించు',
+			'home.dailyGoal.intake' => 'ఆహారం',
+			'home.dailyGoal.burned' => 'బర్న్',
+			'home.dailyGoal.weightImpact' => 'బరువు ప్రభావం',
+			'home.dailyGoal.estLoss' => 'అనుమానిస్థాయిలో నష్ట పరిణామం',
+			'home.dailyGoal.estGain' => 'అనుమానిస్థాయిలో నష్ట పరిణామం',
 			'home.dailyGoal.kcal' => 'kcal',
-			'home.dailySummary.title' => 'Daily Summary',
-			'home.dailySummary.calories' => 'Calories',
-			'home.dailySummary.carbs' => 'Carbs',
-			'home.dailySummary.protein' => 'Protein',
-			'home.dailySummary.fat' => 'Fat',
-			'home.dailySummary.fiber' => 'Fiber',
-			'home.intakeProgress.title' => 'Today\'s Macro Split',
-			'home.intakeProgress.target' => 'Target',
-			'home.intakeProgress.current' => 'Current',
-			'home.intakeHistory.title' => '7-Day Macro History',
-			'home.intakeHistory.noHistoryYet' => 'No history yet',
-			'home.intakeHistory.startLogging' => 'Start logging meals to see your\n7-day macro trends here',
-			'home.mealLog.title' => 'Logged Meals',
-			'home.mealLog.emptyMessage' => 'Snap a picture of your last meal to log here.',
-			'home.mealLog.noMealsToday' => 'No meals recorded for today',
-			'home.mealLog.seeAllMeals' => 'See all meals',
-			'home.mealDescription.title' => 'Quick Add with AI',
-			'home.mealDescription.description' => 'Describe your meal, and let AI handle the details.',
-			'home.mealDescription.hint' => 'e.g. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...',
-			'home.mealDescription.analyzeMeal' => 'Analyze meal',
-			'home.favoriteMeals.title' => 'Favorite Meals',
-			'home.favoriteMeals.description' => 'Quickly add one of your favorite meals.',
-			'home.favoriteMeals.noFavorites' => 'No favorite meals yet.',
-			'home.favoriteMeals.addFavoriteHint' => 'Click the star on a meal to mark it as a favorite.',
-			'home.favoriteMeals.seeAll' => 'See all',
-			'home.favoriteMeals.add' => 'Add',
-			'home.mealSnap.title' => 'Snap & Track Your Meal',
-			'home.mealSnap.description' => 'Use your camera to take a picture of your food for AI analysis.',
-			'home.mealSnap.openCamera' => 'Open Camera',
-			'home.connectHealth.title' => 'Sync with Health Connect',
-			'home.connectHealth.description' => 'Sync your nutrition data with Health Connect',
-			'home.connectHealth.install' => 'Install',
-			'home.connectHealth.connect' => 'Connect',
-			'history.noMeals' => 'No meals recorded',
-			'history.emptyMessage' => 'Snap a picture of your last meal to log here.',
-			'history.today' => 'Today',
-			'history.yesterday' => 'Yesterday',
-			'meal.ohNo' => 'Oh no!',
-			'meal.delete' => 'Delete',
-			'meal.editMeal' => 'Edit Meal',
-			'meal.addMeal' => 'Add Meal',
-			'meal.saveMeal' => 'Save Meal',
-			'meal.save' => 'Save',
-			'meal.mealName' => 'Meal Name',
-			'meal.mealQuantity' => 'Meal Quantity',
-			'meal.mealQuantityHint' => 'e.g., 1 bowl, 2 slices',
-			'meal.timeOfMeal' => 'Time of Meal',
-			'meal.timeOfMealHint' => 'Select the time you had your meal',
-			'meal.mealType' => 'Meal Type',
-			'meal.nutrition.calories' => 'Calories',
-			'meal.nutrition.carbs' => 'Carbs (g)',
-			'meal.nutrition.protein' => 'Protein (g)',
-			'meal.nutrition.fat' => 'Fat (g)',
-			'meal.nutrition.fiber' => 'Fiber (g)',
-			'meal.deleteConfirmation.title' => 'Delete Meal',
-			'meal.deleteConfirmation.message' => 'Are you sure you want to delete this meal entry?',
-			'meal.deleteConfirmation.cancel' => 'Cancel',
-			'meal.deleteConfirmation.delete' => 'Delete',
-			'meal.addedToLog' => 'Meal added to your log!',
-			'meal.couldNotAdd' => ({required Object error}) => 'Could not add meal: ${error}',
-			'meal.removedFromFavorites' => 'Removed from favorites!',
-			'meal.savedAsFavorite' => 'Meal saved as favorite!',
-			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Could not update favorite: ${error}',
-			'meal.failedToProcess' => ({required Object error}) => 'Failed to process: ${error}',
-			'meal.failedToProcessImage' => ({required Object error}) => 'Failed to process image: ${error}',
-			'meal.errorCompressingImage' => ({required Object error}) => 'Error compressing image: ${error}',
-			'meal.failedToSave' => 'Failed to save data. Please try again.',
-			'favorites.title' => 'Favorites',
-			'favorites.empty' => 'No favorite meals yet.',
-			'profile.title' => 'Profile',
-			'profile.noProfileData' => 'No profile data found',
-			'profile.yourProfile' => 'Your Profile',
-			'profile.viewAndManage' => 'View and manage your health information',
-			'profile.sections.profile' => 'PROFILE',
-			'profile.sections.basicInformation' => 'BASIC INFORMATION',
-			'profile.sections.goalsAndActivity' => 'GOALS & ACTIVITY',
-			'profile.sections.calculatedValues' => 'CALCULATED VALUES',
-			'profile.gender' => 'Gender',
-			'profile.height' => 'Height',
-			'profile.weight' => 'Weight',
-			'profile.age' => 'Age',
-			'profile.weightGoal' => 'Weight Goal',
-			'profile.activityLevel' => 'Activity Level',
-			'profile.healthMetrics' => 'Health Metrics',
-			'profile.notSet' => 'Not set',
-			'profile.years' => 'years',
-			'profile.updatedSuccessfully' => 'Profile updated successfully!',
+			'home.dailySummary.title' => 'రోజు విడివిడిగా',
+			'home.dailySummary.calories' => 'కేలొరీలు',
+			'home.dailySummary.carbs' => 'కార్బ్స్',
+			'home.dailySummary.protein' => 'ప్రోటీన్',
+			'home.dailySummary.fat' => 'మాంసం',
+			'home.dailySummary.fiber' => 'ఫైబర్',
+			'home.intakeProgress.title' => 'ఈ రోజు యొక్క మాక్రో విభజన',
+			'home.intakeProgress.target' => 'లక్ష్యం',
+			'home.intakeProgress.current' => 'ప్రస్తుత',
+			'home.intakeHistory.title' => '7-రోజుల మాక్రో చరిత్ర',
+			'home.intakeHistory.noHistoryYet' => 'ఇప్పటివరకు చరిత్ర లేదు',
+			'home.intakeHistory.startLogging' => 'మీ భోజనాలను లాగ్ చేయడం ప్రారంభించడం ద్వారా మీ\n7-రోజుల మాక్రో ధోరణులను ఇక్కడ చూడండి',
+			'home.mealLog.title' => 'లాగ్ చేసిన భోజనలు',
+			'home.mealLog.emptyMessage' => 'మీ చివరి భోజనానికి ఒక ఫొటో తీసి ఇక్కడ నమోదు చేయండి.',
+			'home.mealLog.noMealsToday' => 'ఈ రోజు భోజనం నమోదు చేయడంలేదు',
+			'home.mealLog.seeAllMeals' => 'అన్ని భోజనాలను చూడండి',
+			'home.mealDescription.title' => 'AI తో త్వరిత చేర్చు',
+			'home.mealDescription.description' => 'మీ భోజనాన్ని వర్ణించండి, AI వివరాలను నిర్వహించనివ్వండి.',
+			'home.mealDescription.hint' => 'ఉదా: నేను ప్రతి రోజున ఒక పెద్ద తిన్న ప్రోటీన్ పానీయం మరియు ఒక నష్టభోజనాన్ని కలిగుంటాను ...',
+			'home.mealDescription.analyzeMeal' => 'భోజనాన్ని విశ్లేషించండి',
+			'home.favoriteMeals.title' => 'ప్రియమైన భోజనాలు',
+			'home.favoriteMeals.description' => 'మీ ప్రియమైన భోజనాలను త్వరితంగా చేర్చండి.',
+			'home.favoriteMeals.noFavorites' => 'ఇప్పటివరకు ప్రియమైన భోజనాలు లేవు.',
+			'home.favoriteMeals.addFavoriteHint' => 'ఒక భోజనాన్ని ప్రియంగా గుర్తించడానికి నక్షత్రంపై క్లిక్ చేయండి.',
+			'home.favoriteMeals.seeAll' => 'అన్ని చూడండి',
+			'home.favoriteMeals.add' => 'చేర్చండి',
+			'home.mealSnap.title' => 'ఫొటో తీసి మీ భోజనాన్ని ట్రాక్ చేయండి',
+			'home.mealSnap.description' => 'AI విశ్లేషణ కోసం మీ ఆహారానికి మైక్రోాన్ని ఘనంగా దృష్టించండి.',
+			'home.mealSnap.openCamera' => 'కెమెరాను తెరవండి',
+			'home.connectHealth.title' => 'హెల్త్ కనెక్ట్ తో సింక్ చేయండి',
+			'home.connectHealth.description' => 'మీ పోషకాలు డేటా హెల్త్ కనెక్ట్ తో సింక్ చేయండి',
+			'home.connectHealth.install' => 'సంస్థాపన చేయండి',
+			'home.connectHealth.connect' => 'కనెక్ట్ చేయండి',
+			'history.noMeals' => 'లోగా డేటా లేదు',
+			'history.emptyMessage' => 'మీ చివరి భోజనానికి ఒక ఫొటో తీసి ఇక్కడ నమోదు చేయండి.',
+			'history.today' => 'ఈ రోజు',
+			'history.yesterday' => 'నేడు',
+			'meal.ohNo' => 'ఓహ్ లేదు!',
+			'meal.delete' => 'తొలగించు',
+			'meal.editMeal' => 'భోజనాన్ని సంపాదించు',
+			'meal.addMeal' => 'భోజనాన్ని చేర్చండి',
+			'meal.saveMeal' => 'భోజనాన్ని నిల్వ చేయు',
+			'meal.save' => 'సేవ్',
+			'meal.mealName' => 'భోజనంలోని పేరు',
+			'meal.mealQuantity' => 'భోజనంలోని పరిమాణం',
+			'meal.mealQuantityHint' => 'ఉదా: 1 ప్యాకెట్, 2 తుక్కలు',
+			'meal.timeOfMeal' => 'భోజన సమయం',
+			'meal.timeOfMealHint' => 'మీరు మీ భోజనాన్ని తీసుకున్న సమయాన్ని ఎంచుకోండి',
+			'meal.mealType' => 'భోజన పురుషత్వం',
+			'meal.nutrition.calories' => 'కేలొరీలు',
+			'meal.nutrition.carbs' => 'కార్బ్స్ (గ్రా)',
+			'meal.nutrition.protein' => 'ప్రోటీన్ (గ్రా)',
+			'meal.nutrition.fat' => 'చిట్టిన మాంసం (గ్రా)',
+			'meal.nutrition.fiber' => 'ఫైబర్ (గ్రా)',
+			'meal.deleteConfirmation.title' => 'భోజనాన్ని తొలగించండి',
+			'meal.deleteConfirmation.message' => 'మీరు ఈ భోజనాన్ని తొలగించాలని నిర్ధారించుకుంటున్నారా?',
+			'meal.deleteConfirmation.cancel' => 'రద్దు',
+			'meal.deleteConfirmation.delete' => 'తొలగించు',
+			'meal.addedToLog' => 'భోజనం మీ లాగ్ కు చేరిష్టించబడింది!',
+			'meal.couldNotAdd' => ({required Object error}) => 'భోజనాన్ని చేర్చలేకపోయినా: ${error}',
+			'meal.removedFromFavorites' => 'ప్రియమైనదుల నుంచి తొలగించబడింది!',
+			'meal.savedAsFavorite' => 'భోజనం ప్రియమైనదిగా నిల్వ చేయబడింది!',
+			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'ప్రియమైనదిని నవీకరించలేకపోయింది: ${error}',
+			'meal.failedToProcess' => ({required Object error}) => 'సాధనం చేయడంలో వైఫల్యం: ${error}',
+			'meal.failedToProcessImage' => ({required Object error}) => 'చిత్రాన్ని చదవడంలో విఫలమైంది: ${error}',
+			'meal.errorCompressingImage' => ({required Object error}) => 'చిత్రం సంకోచించడంలో వైఫల్యం: ${error}',
+			'meal.failedToSave' => 'డేటాను నిల్వ చేయడంలో విఫలమైంది. ప్రస్తుత మధ్యలో ప్రయత్నించండి.',
+			'favorites.title' => 'ప్రియమైనవి',
+			'favorites.empty' => 'ఇప్పటివరకు ప్రియమైన భోజనాలు లేవు.',
+			'profile.title' => 'ప్రొఫైల్',
+			'profile.noProfileData' => 'ప్రొఫైల్ డేటా లేదు',
+			'profile.yourProfile' => 'మీ ప్రొఫైల్',
+			'profile.viewAndManage' => 'మీ ఆరోగ్య సమాచారాన్ని చూడండి మరియు నిర్వహించండి',
+			'profile.sections.profile' => 'ప్రొఫైల్',
+			'profile.sections.basicInformation' => 'ప్రాథమిక సమాచారం',
+			'profile.sections.goalsAndActivity' => 'లక్ష్యాలు & యాక్టివిటీ',
+			'profile.sections.calculatedValues' => 'లెక్కించిన విలువలు',
+			'profile.gender' => 'లింగం',
+			'profile.height' => 'ఊపరితనం',
+			'profile.weight' => 'బరువు',
+			'profile.age' => 'వయస్సు',
+			'profile.weightGoal' => 'బరువు లక్ష్యం',
+			'profile.activityLevel' => 'యాక్టివిటీ స్థాయి',
+			'profile.healthMetrics' => 'ఆరోగ్య మెట్రిక్‌లు',
+			'profile.notSet' => 'సెట్ కాలేదు',
+			'profile.years' => 'వారాలు',
+			'profile.updatedSuccessfully' => 'ప్రొఫైల్ విజయవంతంగా నవీకరించబడింది!',
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
-			'profile.calculatedValues.dailyGoal' => 'Daily Goal',
-			'profile.calculatedValues.calPerDay' => 'cal/day',
-			'profile.calculatedValues.notAvailable' => 'N/A',
-			'healthScore.title' => 'Health Score',
-			'healthScore.whyThisScore' => 'Why this score?',
-			'healthScore.note' => 'This score is an AI estimate based on the identified ingredients and nutritional density. Always consult a professional for dietary advice.',
-			'healthScore.unhealthy' => 'Unhealthy',
-			'healthScore.healthy' => 'Healthy',
-			'healthScore.neutral' => 'Neutral',
-			'editProfile.title' => 'Edit Profile',
-			'editProfile.sections.personalInformation' => 'PERSONAL INFORMATION',
-			'editProfile.sections.physicalMeasurements' => 'PHYSICAL MEASUREMENTS',
-			'editProfile.sections.goalsAndActivity' => 'GOALS & ACTIVITY',
-			'editProfile.gender' => 'Gender',
-			'editProfile.dateOfBirth' => 'Date of Birth',
-			'editProfile.height' => 'Height',
-			'editProfile.weight' => 'Weight',
-			'editProfile.weightGoal' => 'Weight Goal',
-			'editProfile.activityLevel' => 'Activity Level',
-			'editProfile.metric' => 'Metric',
-			'editProfile.imperial' => 'Imperial',
-			'editProfile.metricCm' => 'Metric (cm)',
-			'editProfile.imperialFtIn' => 'Imperial (ft/in)',
-			'editProfile.metricKg' => 'Metric (kg)',
-			'editProfile.imperialLbs' => 'Imperial (lbs)',
-			'editProfile.genders.male' => 'Male',
-			'editProfile.genders.female' => 'Female',
-			'editProfile.genders.other' => 'Other',
-			'editProfile.weightGoals.loseWeight.name' => 'Lose Weight',
-			'editProfile.weightGoals.loseWeight.description' => 'Create a calorie deficit to lose weight',
-			'editProfile.weightGoals.maintainWeight.name' => 'Maintain Weight',
-			'editProfile.weightGoals.maintainWeight.description' => 'Maintain your current weight',
-			'editProfile.weightGoals.gainWeight.name' => 'Gain Weight',
-			'editProfile.weightGoals.gainWeight.description' => 'Create a calorie surplus to gain weight',
-			'editProfile.activityLevels.sedentary.name' => 'Sedentary',
-			'editProfile.activityLevels.sedentary.description' => 'Little to no exercise',
-			'editProfile.activityLevels.lightlyActive.name' => 'Lightly Active',
-			'editProfile.activityLevels.lightlyActive.description' => 'Light exercise 1-3 days/week',
-			'editProfile.activityLevels.moderatelyActive.name' => 'Moderately Active',
-			'editProfile.activityLevels.moderatelyActive.description' => 'Moderate exercise 3-5 days/week',
-			'editProfile.activityLevels.veryActive.name' => 'Very Active',
-			'editProfile.activityLevels.veryActive.description' => 'Hard exercise 6-7 days/week',
-			'editProfile.activityLevels.extremelyActive.name' => 'Extremely Active',
-			'editProfile.activityLevels.extremelyActive.description' => 'Very hard exercise, physical job',
-			'settings.title' => 'Settings',
-			'settings.sections.profile' => 'PROFILE',
-			'settings.sections.localization' => 'LOCALIZATION',
-			'settings.sections.notifications' => 'NOTIFICATIONS',
-			'settings.sections.supportAndLegal' => 'SUPPORT & LEGAL',
-			'settings.sections.dangerZone' => 'DANGER ZONE',
-			'settings.sections.developer' => 'DEVELOPER',
-			'settings.editProfile.title' => 'Edit Profile',
-			'settings.editProfile.subtitle' => 'Update your personal information',
-			'settings.language.title' => 'Language',
-			'settings.language.subtitle' => 'Choose your preferred language',
-			'settings.heightUnit.title' => 'Height Unit',
-			'settings.weightUnit.title' => 'Weight Unit',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
-			'settings.mealReminders.title' => 'Meal Reminders',
-			'settings.mealReminders.subtitle' => 'Stay on track with timely alerts',
-			'settings.sendFeedback.title' => 'Send Feedback',
-			'settings.sendFeedback.subtitle' => 'Help us improve Calorify',
-			'settings.sendFeedback.emailSubject' => 'Calorify App Feedback',
-			'settings.sendFeedback.emailBodyPrefix' => 'Please provide your feedback below:',
-			'settings.sendFeedback.appVersion' => 'App Version',
-			'settings.sendFeedback.device' => 'Device',
-			'settings.sendFeedback.osVersion' => 'OS Version',
+			'profile.calculatedValues.dailyGoal' => 'రోజువారీ లక్ష్యం',
+			'profile.calculatedValues.calPerDay' => 'కేల/రోజు',
+			'profile.calculatedValues.notAvailable' => 'అందుబాటులో లేదు',
+			'healthScore.title' => 'ఆరోగ్య స్కోర్',
+			'healthScore.whyThisScore' => 'ఈ స్కోర్ ఎందుకు?',
+			'healthScore.note' => 'మీ ఆరోగ్యాన్ని సమర్థవంతంగా అంచనా వేయడానికి జరిగిన తీయకుండా ఈ స్కోరు పేషేష్ మరియు పోషక సందర్భాల ఆధారంగా ఉండవచ్చు. ఎప్పుడూ పూర్వ సలహా కోసం ఒక నిపుణుడిని సంప్రదించండి.',
+			'healthScore.unhealthy' => 'ఆరోగ్యకరమైనది కాదు',
+			'healthScore.healthy' => 'ఆరోగ్యకరమైనది',
+			'healthScore.neutral' => 'నత్వర్రేణు',
+			'editProfile.title' => 'ప్రొఫైల్ క్రింది',
+			'editProfile.sections.personalInformation' => 'వ్యక్తిగత సమాచారం',
+			'editProfile.sections.physicalMeasurements' => 'శారీరక కొలతలు',
+			'editProfile.sections.goalsAndActivity' => 'లక్ష్యాలు & యాక్టివిటీ',
+			'editProfile.gender' => 'లింగం',
+			'editProfile.dateOfBirth' => 'పుట్టిన తేదీ',
+			'editProfile.height' => 'ఊపరితనం',
+			'editProfile.weight' => 'బరువు',
+			'editProfile.weightGoal' => 'బరువు లక్ష్యం',
+			'editProfile.activityLevel' => 'యాక్టివిటీ స్థాయి',
+			'editProfile.metric' => 'మెట్రిక్',
+			'editProfile.imperial' => 'ఇంపీరియల్',
+			'editProfile.metricCm' => 'మెట్రిక్ (సెం)',
+			'editProfile.imperialFtIn' => 'ఇంపీరియల్ (అంగుళాలు)',
+			'editProfile.metricKg' => 'మెట్రిక్ (కేజీలు)',
+			'editProfile.imperialLbs' => 'ఇంపీరియల్ (పౌండ్స్)',
+			'editProfile.genders.male' => 'పురుష',
+			'editProfile.genders.female' => 'స్త్రీ',
+			'editProfile.genders.other' => 'ఇతర',
+			'editProfile.weightGoals.loseWeight.name' => 'బరువు కోల్పోవడం',
+			'editProfile.weightGoals.loseWeight.description' => 'బరువు తగ్గించడానికి కేలొరీ లోపాన్ని సృష్టించండి',
+			'editProfile.weightGoals.maintainWeight.name' => 'బరువును నిలుపు',
+			'editProfile.weightGoals.maintainWeight.description' => 'మీ ప్రస్తుత బరువును నిలుపు చేయండి',
+			'editProfile.weightGoals.gainWeight.name' => 'బరువును పెంచడం',
+			'editProfile.weightGoals.gainWeight.description' => 'బరువు పెంచడానికి కేలొరీ అధికతను ఆకట్టుకోండి',
+			'editProfile.activityLevels.sedentary.name' => 'ఆసక్తి లేని',
+			'editProfile.activityLevels.sedentary.description' => 'తక్కువ వ్యాయామం',
+			'editProfile.activityLevels.lightlyActive.name' => 'సులభంగా యాక్టీవ్',
+			'editProfile.activityLevels.lightlyActive.description' => 'ప్రతి వారం 1-3 రోజులు చాలా కొద్దిగా వ్యాయామం',
+			'editProfile.activityLevels.moderatelyActive.name' => 'మోస్తారు యాక్టీవ్',
+			'editProfile.activityLevels.moderatelyActive.description' => 'ప్రతి వారం 3-5 రోజులు మోస్తారు వ్యాయామం',
+			'editProfile.activityLevels.veryActive.name' => 'చాలా యాక్టీవ్',
+			'editProfile.activityLevels.veryActive.description' => 'ప్రతి వారం 6-7 రోజుల క్రత్యం వ్యాయామం',
+			'editProfile.activityLevels.extremelyActive.name' => 'అత్యంత యాక్టివ్',
+			'editProfile.activityLevels.extremelyActive.description' => 'చాలా తీవ్రమైన వ్యాయామం, శారీరక పని',
+			'settings.title' => 'సెట్టింగులు',
+			'settings.sections.profile' => 'ప్రొఫైల్',
+			'settings.sections.localization' => 'స్థానికీకరణ',
+			'settings.sections.notifications' => 'అవగాహనలు',
+			'settings.sections.supportAndLegal' => 'మద్దతు & న్యాయ',
+			'settings.sections.dangerZone' => 'పోలిక మాండి',
+			'settings.sections.developer' => 'డెవలపర్',
+			'settings.editProfile.title' => 'ప్రొఫైల్ క్రింది',
+			'settings.editProfile.subtitle' => 'మీ వ్యక్తిగత సమాచారాన్ని నవీకరించండి',
+			'settings.language.title' => 'భాష',
+			'settings.language.subtitle' => 'మీ ఇష్టమైన భాషను ఎంచుకోండి',
+			'settings.heightUnit.title' => 'ఎత్తు యూనిట్',
+			'settings.weightUnit.title' => 'బరువు యూనిట్',
+			'settings.mealReminders.title' => 'భోజన మరుగుదలను',
+			'settings.mealReminders.subtitle' => 'సమయానికి ముగింపు సందేశాలను తోడ్పించగలము',
+			'settings.theme.title' => 'థీమ్',
+			'settings.theme.subtitle' => 'మీ ఇష్టమైన థీమ్ ఎంచుకోండి',
+			'settings.theme.light' => 'దివి',
+			'settings.theme.dark' => 'ఇరుక',
+			'settings.theme.system' => 'సిస్టమ్',
+			'settings.sendFeedback.title' => 'ఫీడ్‌బ్యాక్ పంపండి',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => '${appLabel}ను మెరుగుపరచడం',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} యాప్ ఫీడ్‌బ్యాక్',
+			'settings.sendFeedback.emailBodyPrefix' => 'దయచేసి మీ అభిప్రాయాన్ని ఇక్కడ నమోదు చేయండి:',
+			'settings.sendFeedback.appVersion' => 'యాప్ వెర్షన్',
+			'settings.sendFeedback.device' => 'పరికరం',
+			'settings.sendFeedback.osVersion' => 'OS వెర్షన్',
 			'settings.sendFeedback.uid' => 'UID',
-			'settings.clearAllData.title' => 'Clear All Data',
-			'settings.clearAllData.subtitle' => 'Irreversibly delete all your information',
-			'settings.clearAllData.confirmationTitle' => 'Clear All Data?',
-			'settings.clearAllData.confirmationMessage' => 'This action cannot be undone. All your logged meals, favorites, and profile settings will be permanently deleted.',
-			'settings.clearAllData.cancel' => 'Cancel',
-			'settings.clearAllData.clearEverything' => 'Clear Everything',
-			'settings.debugOptions.title' => 'Debug Options',
-			'settings.developerModeEnabled' => 'Developer mode enabled!',
-			'reminders.title' => 'Stay on track with reminders',
-			'reminders.description' => 'Get gentle reminders to log your meals and stay consistent with your nutrition goals',
-			'reminders.notificationsEnabled' => 'Notifications Enabled',
-			'reminders.notificationsDisabled' => 'Notifications Disabled',
-			'reminders.enabledSubtitle' => 'You\'ll receive meal reminders',
-			'reminders.disabledSubtitle' => 'Enable notifications to get meal reminders',
-			'reminders.mealReminders' => 'Meal Reminders',
-			'reminders.breakfast' => 'Breakfast',
-			'reminders.lunch' => 'Lunch',
-			'reminders.dinner' => 'Dinner',
-			'reminders.snack' => 'Snack',
-			'reminders.unknown' => 'Unknown',
-			'reminders.change' => 'Change',
-			'reminders.enableNotifications' => 'Enable Notifications',
-			'reminders.skipForNow' => 'Skip for now',
-			'reminders.saveChanges' => 'Save Changes',
-			'reminders.enabledSuccessfully' => 'Notifications enabled successfully!',
-			'reminders.permissionDenied' => 'Notification permission denied',
-			'reminders.errorEnabling' => ({required Object error}) => 'Error enabling notifications: ${error}',
-			'reminders.errorCompletingSetup' => ({required Object error}) => 'Error completing setup: ${error}',
-			'notifications.breakfast.title' => 'Breakfast Time! 🍳',
-			'notifications.breakfast.body' => 'Don\'t forget to log your breakfast',
-			'notifications.lunch.title' => 'Lunch Time! 🥗',
-			'notifications.lunch.body' => 'Time to log your lunch',
-			'notifications.dinner.title' => 'Dinner Time! 🍽️',
-			'notifications.dinner.body' => 'Don\'t forget to log your dinner',
-			'notifications.snack.title' => 'Snack Time! 🍎',
-			'notifications.snack.body' => 'Time for a healthy snack',
-			'notifications.test.title' => 'Test Notification',
-			'login.title' => 'Login',
-			'login.signInWithGoogle' => 'Sign in with Google',
-			'login.signInFailed' => 'Google Sign-In failed or was cancelled.',
-			'disclaimer.pleaseNote' => 'Please Note',
-			'disclaimer.snap.description' => 'Calorify provides estimated nutritional info. Accuracy depends on your input & food variations. Use as a guide, not a definitive source. Consult a professional for personalized dietary advice.',
-			'disclaimer.snap.portionSize.title' => 'Portion Size',
-			'disclaimer.snap.portionSize.description' => 'The accuracy of the estimates heavily relies on your correct assessment of the portion size.',
-			'disclaimer.snap.preparationMethods.title' => 'Preparation Methods',
-			'disclaimer.snap.preparationMethods.description' => 'Cooking methods can significantly alter the nutritional content of food. Calorify\'s estimates may not always account for these variations.',
-			'disclaimer.snap.ingredients.title' => 'Ingredients',
-			'disclaimer.snap.ingredients.description' => 'Complex dishes with many hidden ingredients may lead to less accurate estimations.',
-			'disclaimer.snap.databaseLimitations.title' => 'Database Limitations',
-			'disclaimer.snap.databaseLimitations.description' => 'Calorify\'s food database is extensive but may not include every single food item or variation.',
-			'disclaimer.weightEstimate.title' => 'About Weight Estimate',
-			'disclaimer.weightEstimate.description' => 'The projected weight change is a theoretical estimate based on the simple calorie-in vs. calorie-out model. It is intended for motivational guidance only, not as a prediction of your actual weight.',
-			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Calorie Accuracy',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'This estimate is only as accurate as your tracked calorie intake and expenditure. Inaccurate logging will result in an inaccurate projection.',
-			'disclaimer.weightEstimate.biologicalFactors.title' => 'Biological Factors',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'Actual weight loss/gain is influenced by metabolism, hormones, sleep, stress, hydration, and other individual factors that Calorify cannot measure.',
-			'disclaimer.weightEstimate.waterWeight.title' => 'Water Weight & Fluctuations',
-			'disclaimer.weightEstimate.waterWeight.description' => 'Normal daily weight can fluctuate significantly due to water retention, digestion, and timing. The estimate does not account for these daily changes.',
-			'disclaimer.weightEstimate.professionalGuidance.title' => 'Professional Guidance',
-			'disclaimer.weightEstimate.professionalGuidance.description' => 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.',
-			'common.close' => 'Close',
-			'common.kContinue' => 'Continue',
-			'errors.loadingProfileData' => 'Error loading profile data',
-			'errors.somethingWentWrong' => 'Something went wrong.',
-			'debug.title' => 'Debug Options',
-			'debug.sections.notifications' => 'Notifications',
-			'debug.sections.healthConnect' => 'Health Connect',
-			'debug.sections.appInfo' => 'App Info',
-			'debug.showActiveNotifications' => 'Show Active Notifications',
-			'debug.scheduleTestNotification' => 'Schedule Test Notification (10s)',
-			'debug.triggerBreakfastNotification' => 'Trigger Breakfast Notification',
-			'debug.cancelAllNotifications' => 'Cancel All Notifications',
-			'debug.activeNotifications' => 'Active Notifications',
-			'debug.noTitle' => 'No Title',
-			'debug.noBody' => 'No Body',
-			'debug.fetchTodaysSteps' => 'Fetch Today\'s Steps',
-			'debug.fetchTodaysCalories' => 'Fetch Today\'s Calories',
-			'debug.fetchLatestWeight' => 'Fetch Latest Weight',
-			'debug.fetchLatestHeight' => 'Fetch Latest Height',
-			'debug.writeTestWeight' => 'Write Test Weight (70kg)',
-			'debug.writeTestHeight' => 'Write Test Height (175cm)',
-			'debug.syncLast7Days' => 'Sync Last 7 Days',
-			'debug.sync7DaysTitle' => '7-Day Sync',
-			'debug.checkCurrentLocale' => 'Check Current Locale',
-			'debug.currentLocale' => 'Current Locale',
-			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Language: ${languageCode}\nCountry: ${countryCode}\nUnit System: ${unitSystem}',
-			'debug.latestWeight' => 'Latest Weight',
-			'debug.latestHeight' => 'Latest Height',
-			'debug.todaysCalories' => 'Today\'s Calories',
-			'debug.totalCaloriesBurned' => ({required Object calories}) => 'Total calories burned: ${calories}',
-			'debug.syncSuccess' => ({required Object count}) => 'Successfully fetched ${count} data points for Steps, Calories, and Weight over the last 7 days.',
-			'debug.noWeightData' => 'No weight data found in the last 30 days.',
-			'debug.noHeightData' => 'No height data found in the last year.',
-			'debug.noCalorieData' => 'No calorie data found for today.',
-			'debug.weightWritten' => 'Successfully wrote test weight (70kg).',
-			'debug.weightWriteFailed' => 'Failed to write test weight.',
-			'debug.heightWritten' => 'Successfully wrote test height (175cm).',
-			'debug.heightWriteFailed' => 'Failed to write test height.',
-			'debug.noNotifications' => 'No active notifications.',
-			'debug.testNotificationScheduled' => 'Test notification scheduled for 10 seconds from now.',
-			'debug.testNotificationBody' => 'This is a test notification scheduled for 10 seconds from now.',
-			'debug.breakfastNotificationTriggered' => 'Breakfast notification triggered.',
-			'debug.allNotificationsCancelled' => 'All notifications cancelled.',
-			'debug.fetchingData' => 'Fetching data for the last 7 days...',
+			'settings.clearAllData.title' => 'అన్ని డేటాను క్లియర్ చేయండి',
+			'settings.clearAllData.subtitle' => 'మీ సమాచారం కార్యరహితంగా తొలగించండి',
+			'settings.clearAllData.confirmationTitle' => 'అన్ని డేటాను క్లియర్ చేయాలనుకుంటున్నారు?',
+			'settings.clearAllData.confirmationMessage' => 'ఈ చర్యను తిరిగి లేదు. మీరు నమోదు చేసిన అన్ని భోజనాలు, ప్రియమైనవి, మరియు ప్రొఫైల్ సెట్టింగులు శాశ్వతంగా తొలగించబడత్ర.',
+			'settings.clearAllData.cancel' => 'రద్దు',
+			'settings.clearAllData.clearEverything' => 'అన్నీ క్లియర్ చేయండి',
+			'settings.debugOptions.title' => 'డిబగ్ ఆప్షన్స్',
+			'settings.developerModeEnabled' => 'డెవలపర్ మోడ్ సాధనంలో ఉంది!',
+			'reminders.title' => 'సమయానికి కప్పడం',
+			'reminders.description' => 'మీ భోజనాలను లాగ్ చేయడానికి మరియు మీ పోషక లక్ష్యాలతో కర్రీగా ఉండాలి',
+			'reminders.notificationsEnabled' => 'గమనికలు చేర్చబడ్డాయి',
+			'reminders.notificationsDisabled' => 'గమనికలు ప్రాధమికం',
+			'reminders.enabledSubtitle' => 'మీకు భోజనాన్ని గుర్తించారు',
+			'reminders.disabledSubtitle' => 'భోజనాన్ని గుర్తించడానికి గమనికలకు అనుమతులు ఇవ్వండి',
+			'reminders.mealReminders' => 'భోజన మరణాలు',
+			'reminders.breakfast' => 'నాస్తా',
+			'reminders.lunch' => 'మధ్యాహ్న భోజనం',
+			'reminders.dinner' => 'రాత్రి భోజనం',
+			'reminders.snack' => 'స్నాక్',
+			'reminders.unknown' => 'తెలియని',
+			'reminders.change' => 'మార్చు',
+			'reminders.enableNotifications' => 'గమనికలను ఎంచుకోండి',
+			'reminders.skipForNow' => 'ఇప్పుడు మానుకోండి',
+			'reminders.saveChanges' => 'మార్గాలను సేవ్ చేయండి',
+			'reminders.enabledSuccessfully' => 'గమనికలు విజయవంతంగా ప్రారంభించారు!',
+			'reminders.permissionDenied' => 'గమనికల అనుమతి అంగీకరించబడలేదు',
+			'reminders.errorEnabling' => ({required Object error}) => 'గమనికలు ప్రారంభించడంలో వైఫల్యం: ${error}',
+			'reminders.errorCompletingSetup' => ({required Object error}) => 'శుభ్రమైన సెటప్ పొరపులు: ${error}',
+			'notifications.breakfast.title' => 'నాస్తా సమయం! 🍳',
+			'notifications.breakfast.body' => 'మీ నాస్తా నమోదు చేయడం మర్చిపోద్దు',
+			'notifications.lunch.title' => 'మధ్యాహ్న భోజనం సమయం! 🥗',
+			'notifications.lunch.body' => 'మీ మధ్యాహ్న భోజనాన్ని నమోదు చేయడానికి సమయం',
+			'notifications.dinner.title' => 'రాత్రి భోజన సమయం! 🍽️',
+			'notifications.dinner.body' => 'మీ రాత్రి భోజనాన్ని నమోదు చేయడం మర్చిపోద్దు',
+			'notifications.snack.title' => 'స్నాక్ సమయం! 🍎',
+			'notifications.snack.body' => 'ఆరోగ్యకరమైన స్నాక్ సాధించుటకు సమయం',
+			'notifications.test.title' => 'పరీక్ష గమనిక',
+			'login.title' => 'లాగిన్',
+			'login.signInWithGoogle' => 'గూగుల్ తో లాగిన్ కావాలి',
+			'login.signInFailed' => 'గూగుల్ సైన్-ఇన్ విఫలమైంది లేదా రద్దు చేయబడింది.',
+			'disclaimer.pleaseNote' => 'దయచేసి గమనించండి',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} అంచనా పెట్టిన పోషిణ సమాచారం అందిస్తుంది. ఖచ్చితత్వం మీ సమాచారం & ఆహార రకాల ఆధారంగా ఉంటుంది. ఈ అది జ్ఞాన మార్గదర్శకంగా ఉపయోగించండి, ఖచ్చితమైన మూలాలుగా కాదు. వ్యక్తిగత పోషణ సలహాలో పరిశోధనా నవీనత ఫలితంగా నిపుణుడితో అభిప్రాయం ఇవ్వండి.',
+			'disclaimer.snap.portionSize.title' => 'పోర్షన్ పరిమాణం',
+			'disclaimer.snap.portionSize.description' => 'అంచనాల ఖచ్చితత్వం మీ సరైన అభ్యాసం ఆధారంగా ఉంటుంది.',
+			'disclaimer.snap.preparationMethods.title' => 'సిద్ధీకరణ పద్ధతులు',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'క్షా మోతాదులో కీలకంగా ఉంటుంది. ${appLabel} రన్ను అంచనాల పరిష్కారాలు ఈ మార్పులు ఎప్పుడూ పరిశీలిస్తాయి.',
+			'disclaimer.snap.ingredients.title' => 'కూరగాయలు',
+			'disclaimer.snap.ingredients.description' => 'వివిధ రకాల లోపులను కలిగి ఉండే సంక్లిష్ట వంటకాలు కొంత అంచన్లను ఉన్నత అసమర్ధతం లభిస్తుంది.',
+			'disclaimer.snap.databaseLimitations.title' => 'డాటాబేస్ పరిమితులు',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} యొక్క ఆహారం డేటాబేస్ విస్తృతం కానవడంతో కానీ అన్ని ఆహార చిహ్నాలతో ఉండకపోవచ్చు.',
+			'disclaimer.weightEstimate.title' => 'బరువు అంచనా గురించి',
+			'disclaimer.weightEstimate.description' => 'అంచనా ప్రాతిపదికలో కేలొరీ-లోపు బరువు మార్పులు అంచనా పెంచడం కోసం మాత్రమే ఉద్దేశించబడ్డాయి, మీ నిజమైన బరువును కనిపెట్టడానికి కాదు.',
+			'disclaimer.weightEstimate.calorieAccuracy.title' => 'కేలొరీ ఖచ్చితత్వం',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'ఈ అంచనా మీ ట్రాక్ కేలొరీ అందించిన ఖచ్చితంగా మంచిని మాత్రమే అవుతుంది. ఖచ్చితమైన లాగర్లు ఖచ్చితమైన అంచనాలను ఇవ్వడం.',
+			'disclaimer.weightEstimate.biologicalFactors.title' => 'జీవశాస్త్ర因素',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'నిర్వహణ, హార్మోన్లు, నిద్ర, ఒత్తిడి, నీటి సరఫరా మరియు ${appLabel} కొలిచే ఇతర వ్యక్తిగత పరిస్థితులు వంటి అవిధేయాలను ప్రభావితం చేస్తుంది.',
+			'disclaimer.weightEstimate.waterWeight.title' => 'నీటి బరువు & మార్పులు',
+			'disclaimer.weightEstimate.waterWeight.description' => 'ప్రతి రోజున బరువు ఎక్కువగా ఉపచ్చులు మరియు వేగం వల్ల వ్యత్యాసాలు మరియు నీటి తట్టువులెవరూ ఉన్నాయి. అంచనా ఈ రోజువారీ మార్పులను జోడించాలి లేదు.',
+			'disclaimer.weightEstimate.professionalGuidance.title' => 'పోతు ప్రాజ్ఞానం',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'ఈ అంచనాను వైద్య నిర్ణయాల కోసం ఉపయోగించకండి. ఎప్పుడూ వ్యక్తిగత బరువు నిర్వహణ సమాచారానికి ఒక ఆరోగ్య నిపుణుడిని సంప్రదించండి.',
+			'common.close' => 'క్లోజ్',
+			'common.kContinue' => 'కొనసాగించండి',
+			'errors.loadingProfileData' => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం',
+			'errors.somethingWentWrong' => 'ఏదో తప్పు జరిగింది.',
+			'debug.title' => 'డిబగ్ ఆప్షన్స్',
+			'debug.sections.notifications' => 'గమనికలు',
+			'debug.sections.healthConnect' => 'హెల్త్ కనెక్ట్',
+			'debug.sections.appInfo' => 'యాప్ సమాచారం',
+			'debug.showActiveNotifications' => 'సకాలంలో గమనికలను చూపు',
+			'debug.scheduleTestNotification' => 'పరీక్ష గమనికను షెడ్యూల్ చేయండి (10సె)',
+			'debug.triggerBreakfastNotification' => 'అనాంర్త్న ఫలిపట్టు భోజనం గమనిక',
+			'debug.cancelAllNotifications' => 'అన్నీ గమనికలను రద్దు చేయండి',
+			'debug.activeNotifications' => 'సక్రమ గమనికలు',
+			'debug.noTitle' => 'శీర్షిక లేదు',
+			'debug.noBody' => 'శరీర లేదు',
+			'debug.fetchTodaysSteps' => 'ఈ రోజు యొక్క దారులు పొందండి',
+			'debug.fetchTodaysCalories' => 'ఈ రోజు యొక్క కేలొరీలు పొందండి',
+			'debug.fetchLatestWeight' => 'తాజా బరువు పొందండి',
+			'debug.fetchLatestHeight' => 'తాజా ఎత్తు పొందండి',
+			'debug.writeTestWeight' => 'టెస్ట్ బరువును రాయండి (70కేజీ)',
+			'debug.writeTestHeight' => 'టెస్ట్ ఎత్తును రాయండి (175సెం)',
+			'debug.syncLast7Days' => 'మునుపటి 7 రోజుల సమాచారానికి సింక్',
+			'debug.sync7DaysTitle' => '7-రోజుల సింక్',
+			'debug.checkCurrentLocale' => 'ప్రస్తుత స్థానాన్ని తనిఖీ చేయండి',
+			'debug.currentLocale' => 'ప్రస్తుత స్థానిక సంస్థాన',
+			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'భాష: ${languageCode}\nచిత్రం: ${countryCode}\nయూనిట్ వ్యవస్థ: ${unitSystem}',
+			'debug.latestWeight' => 'తాజా బరువు',
+			'debug.latestHeight' => 'తాజా ఎత్తు',
+			'debug.todaysCalories' => 'ఈరోజు యొక్క కేలొరీలు',
+			'debug.totalCaloriesBurned' => ({required Object calories}) => '${calories} మొత్తం కేలొరీలు వెలికితీయబడ్డాయి.',
+			'debug.syncSuccess' => ({required Object count}) => 'గత 7 రోజులకు ${count} డేటా పాయింట్లను విజయవంతంగా పొందించారు.',
+			'debug.noWeightData' => 'గత 30 రోజులలో ఎక్క పట్టిన బరువు లభించలేదు.',
+			'debug.noHeightData' => 'గత 1 సంవత్సరంలో ఎక్క పట్టిన ఎత్తు లభించలేదు.',
+			'debug.noCalorieData' => 'ఈ రోజు కేలొరీని పొందలేకపోయింది.',
+			'debug.weightWritten' => '70కేజీ లో బరువును విజయవంతంగా రాశారు.',
+			'debug.weightWriteFailed' => 'బరువును రాయడంలో విఫలమైంది.',
+			'debug.heightWritten' => '175సెం ఎత్తును విజయవంతంగా రాశారు.',
+			'debug.heightWriteFailed' => 'ఎత్తును రాయడంలో విఫలమైంది.',
+			'debug.noNotifications' => 'సక్రమ గమనికలు లేవు.',
+			'debug.testNotificationScheduled' => '10 సెకన్లలో పరీక్ష గమనిక షెడ్యూల్ చేయబడింది.',
+			'debug.testNotificationBody' => 'ఇది 10 సెకన్లలో షెడ్యూల్ చేయబడిన పరీక్ష గమనిక.',
+			'debug.breakfastNotificationTriggered' => 'నాస్తా ద్వారా గమనిక చూపింది.',
+			'debug.allNotificationsCancelled' => 'అన్ని గమనికలు రద్దు చేయబడ్డాయి.',
+			'debug.fetchingData' => 'గత 7 రోజుల సమాచారం పొందడం...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
-			'health.syncFailed' => 'Could not sync to Health Connect',
-			'health.mealSynced' => 'Meal synced with Health Connect',
+			'health.syncFailed' => 'హెల్త్ కనెక్ట్ కు సింక్ చేయడంలో విఫలమైంది',
+			'health.mealSynced' => 'భోజనం హెల్త్ కనెక్ట్ తో సింక్ చేయబడింది',
 			_ => null,
 		};
 	}

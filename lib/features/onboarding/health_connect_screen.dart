@@ -1,6 +1,7 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors/color_scheme_extensions.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/core/utilities/string_utils.dart';
 import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:calorify/shared_widgets/secondary_button.dart';
@@ -263,7 +264,9 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
         _statusMessage =
             success
                 ? t.onboarding.healthConnect.statusSuccess
-                : t.onboarding.healthConnect.statusPermissionDenied;
+                : t.onboarding.healthConnect.statusPermissionDenied(
+                  appLabel: t.appLabelValue,
+                );
       });
 
       if (success) {

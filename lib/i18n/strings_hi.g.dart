@@ -39,6 +39,7 @@ class TranslationsHi with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => 'Hindi';
 	@override String get flag => '🇮🇳';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingHi onboarding = _TranslationsOnboardingHi._(_root);
 	@override late final _TranslationsTabsHi tabs = _TranslationsTabsHi._(_root);
 	@override late final _TranslationsHomeHi home = _TranslationsHomeHi._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingHi implements TranslationsOnboardingEn {
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Calorify में आपका स्वागत है';
+	@override String welcome({required Object appLabel}) => '${appLabel} में आपका स्वागत है';
 	@override String get subtitle => 'AI द्वारा समर्थित आपका व्यक्तिगत पोषण साथी';
 	@override String get getStarted => 'शुरू करें';
 	@override late final _TranslationsOnboardingFeaturesHi features = _TranslationsOnboardingFeaturesHi._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsHi implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageHi language = _TranslationsSettingsLanguageHi._(_root);
 	@override late final _TranslationsSettingsHeightUnitHi heightUnit = _TranslationsSettingsHeightUnitHi._(_root);
 	@override late final _TranslationsSettingsWeightUnitHi weightUnit = _TranslationsSettingsWeightUnitHi._(_root);
-	@override late final _TranslationsSettingsThemeHi theme = _TranslationsSettingsThemeHi._(_root);
 	@override late final _TranslationsSettingsMealRemindersHi mealReminders = _TranslationsSettingsMealRemindersHi._(_root);
+	@override late final _TranslationsSettingsThemeHi theme = _TranslationsSettingsThemeHi._(_root);
 	@override late final _TranslationsSettingsSendFeedbackHi sendFeedback = _TranslationsSettingsSendFeedbackHi._(_root);
 	@override late final _TranslationsSettingsClearAllDataHi clearAllData = _TranslationsSettingsClearAllDataHi._(_root);
 	@override late final _TranslationsSettingsDebugOptionsHi debugOptions = _TranslationsSettingsDebugOptionsHi._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectHi implements TranslationsOnboardingHe
 	@override String get skipForNow => 'अभी छोड़ें';
 	@override String get statusConnected => 'Health Connect जुड़ गया है।';
 	@override String get statusSuccess => 'Health Connect सफलतापूर्वक जुड़ गया है!';
-	@override String get statusPermissionDenied => 'अनुमति अस्वीकृत। कृपया Calorify के लिए अपने फोन सेटिंग से Health Connect अनुमतियाँ सक्षम करें।';
+	@override String statusPermissionDenied({required Object appLabel}) => 'अनुमति अस्वीकृत। कृपया अपने फोन की सेटिंग्स से ${appLabel} के लिए स्वास्थ्य संयोजन अनुमतियाँ सक्षम करें।';
 	@override String statusError({required Object error}) => 'Health Connect सेट करने में त्रुटि: ${error}';
 }
 
@@ -826,20 +827,6 @@ class _TranslationsSettingsWeightUnitHi implements TranslationsSettingsWeightUni
 	@override String get title => 'वजन यूनिट';
 }
 
-// Path: settings.theme
-class _TranslationsSettingsThemeHi implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeHi._(this._root);
-
-	final TranslationsHi _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
-}
-
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersHi implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersHi._(this._root);
@@ -851,6 +838,20 @@ class _TranslationsSettingsMealRemindersHi implements TranslationsSettingsMealRe
 	@override String get subtitle => 'समय पर सूचनाओं के साथ ट्रैक पर रहें';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeHi implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeHi._(this._root);
+
+	final TranslationsHi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'थीम';
+	@override String get subtitle => 'अपनी पसंदीदा थीम चुनें';
+	@override String get light => 'हल्का';
+	@override String get dark => 'गहरा';
+	@override String get system => 'सिस्टम';
+}
+
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackHi implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackHi._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackHi implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'प्रतिक्रिया भेजें';
-	@override String get subtitle => 'Calorify में सुधार करने में मदद करें';
-	@override String get emailSubject => 'Calorify ऐप फीडबैक';
+	@override String subtitle({required Object appLabel}) => '${appLabel} में सुधार करने में मदद करें';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} ऐप फीडबैक';
 	@override String get emailBodyPrefix => 'कृपया नीचे अपनी प्रतिक्रिया दें:';
 	@override String get appVersion => 'ऐप संस्करण';
 	@override String get device => 'डिवाइस';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapHi implements TranslationsDisclaimerSnapEn {
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Calorify अनुमानित पोषण जानकारी प्रदान करता है। सटीकता आपके इनपुट और खाद्य भिन्नताओं पर निर्भर करती है। इसे एक मार्गदर्शक के रूप में उपयोग करें, न कि एक निश्चित स्रोत के रूप में। व्यक्तिगत आहार सलाह के लिए हमेशा एक पेशेवर से परामर्श करें।';
+	@override String description({required Object appLabel}) => '${appLabel} अनुमानित पोषण संबंधी जानकारी प्रदान करता है। सटीकता आपके इनपुट और खाद्य प्रकारों पर निर्भर करती है। इसे एक मार्गदर्शक के रूप में उपयोग करें, न कि एक निश्चित स्रोत के रूप में। व्यक्तिगत आहार सलाह के लिए पेशेवर से परामर्श करें।';
 	@override late final _TranslationsDisclaimerSnapPortionSizeHi portionSize = _TranslationsDisclaimerSnapPortionSizeHi._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsHi preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsHi._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsHi ingredients = _TranslationsDisclaimerSnapIngredientsHi._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesHi implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => 'हम आपको पोषक-घने भोजन के साथ संतुलित वजन पाने के लिए एक स्वस्थ योजना बनाने में मदद कर सकते हैं।';
 	@override String get healthy => 'बढ़िया काम! आप स्वस्थ सीमा में हैं। हम आपकी जीवन शक्ति और ऊर्जा स्तर बनाए रखने में मदद करेंगे।';
-	@override String get overweight => 'Calorify आपके लक्ष्य को आराम से प्राप्त करने के लिए AI-संचालित ट्रैकिंग के साथ आपकी यात्रा को आसान बनाएगा।';
+	@override String overweight({required Object appLabel}) => '${appLabel} आपके सफर को सरल बनाएगा, AI-संचालित ट्रैकिंग के साथ ताकि आप आराम से अपने लक्ष्य को हासिल कर सकें।';
 	@override String get obese => 'हम आपके स्वास्थ्य लक्ष्यों के लिए व्यक्तिगत मार्गदर्शन और स्थायी रणनीतियों के साथ समर्थन करने के लिए यहां हैं।';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessHi implements Translati
 	@override String get title => 'आप अकेले नहीं हैं';
 	@override String get genericMessage => 'अध्ययन दर्शाते हैं कि लगातार ट्रैकिंग दीर्घकालिक सफलता का #1 भविष्यवक्ता है।';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'एक ${age} वर्षीय ${gender} के लिए जो ${goal} देख रहा है, लगातार ट्रैकिंग सफलता का #1 भविष्यवक्ता है।';
-	@override String get closingMessage => 'Calorify इसे मैन्युअल रूप से करने की तुलना में 10 गुना आसान बनाता है।';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} इसे मैन्युअल रूप से करने से 10 गुना आसान बना देता है।';
 	@override String get getStartedTitle => 'शुरू करने के लिए तैयार हैं?';
 	@override String get tipPhoto => 'तत्काल विश्लेषण के लिए अपने भोजन की फोटो लें';
 	@override String get tipConsistency => 'अर्थपूर्ण प्रगति देखने के लिए लगातार लॉग करें';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessHi implements Translati
 	@override String get button => 'चलें';
 	@override String get defaultGender => 'व्यक्ति';
 	@override String get defaultGoal => 'स्वस्थ आप';
-	@override String get instantPhotoAnalysis => 'तत्काल फोटो विश्लेषण';
-	@override String get automaticLogging => 'स्वचालित पोषण लॉगिंग';
-	@override String get progressVisualizations => 'प्रगति दृश्य जो आपको प्रेरित रखते हैं';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleHi implements Translation
 
 	// Translations
 	@override String get title => 'शानदार शुरुआत!';
-	@override String description({required Object goalText, required Object activityText}) => 'आपने ${goalText} की दिशा में पहला कदम उठाया है। चूंकि आप ${activityText} हैं, Calorify आपके लक्ष्यों को आपके जीवनशैली के अनुसार समायोजित करेगा।';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'आपने ${goalText} की ओर पहला कदम बढ़ाया है। चूंकि आप ${activityText} हैं, ${appLabel} आपके लक्ष्यों को आपके जीवनशैली के अनुसार समायोजित करेगा।';
 	@override String get personalizedTargets => 'व्यक्तिगत कैलोरी लक्ष्य';
 	@override String get aiMealDetection => 'AI-संचालित भोजन पहचान';
 	@override String get macroBreakdowns => 'विस्तृत मैक्रो-न्यूट्रिएंट उम्दन';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsHi implements TranslationsDis
 
 	// Translations
 	@override String get title => 'पकाने के तरीके';
-	@override String get description => 'पकाने के तरीके खाद्य पोषण सामग्री को काफी हद तक बदल सकते हैं। Calorify के अनुमान हमेशा इन भिन्नताओं को ध्यान में नहीं रखते।';
+	@override String description({required Object appLabel}) => 'खाने के पकाने के तरीके पोषण संबंधी सामग्री को महत्वपूर्ण रूप से बदल सकते हैं। ${appLabel} के अनुमान हमेशा इन भिन्नताओं पर विचार नहीं कर सकते।';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsHi implements TranslationsDi
 
 	// Translations
 	@override String get title => 'डेटाबेस सीमाएँ';
-	@override String get description => 'Calorify का खाद्य डेटाबेस व्यापक है लेकिन इसमें हर एक खाद्य वस्तु या भिन्नता शामिल नहीं हो सकती।';
+	@override String description({required Object appLabel}) => '${appLabel} का खाद्य डेटाबेस विस्तृत है लेकिन इसमें प्रत्येक खाद्य पदार्थ या भिन्नता शामिल नहीं हो सकती।';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsHi implements Transl
 
 	// Translations
 	@override String get title => 'जीवविज्ञान संबंधी कारक';
-	@override String get description => 'वास्तविक वजन घटाने/बढ़ने पर चयापचय, हार्मोन्स, नींद, तनाव, जलयोजन, और Calorify द्वारा मापी जा सकने वाले अन्य व्यक्तिगत कारक प्रभाव डालते हैं।';
+	@override String description({required Object appLabel}) => 'वास्तविक वजन घटाने/बढ़ाने पर चयापचय, हार्मोन, नींद, तनाव, जलयोजन और अन्य व्यक्तिगत कारकों का प्रभाव होता है, जिसे ${appLabel} माप नहीं सकता।';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsHi {
 		return switch (path) {
 			'language' => 'Hindi',
 			'flag' => '🇮🇳',
-			'onboarding.welcome' => 'Calorify में आपका स्वागत है',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} में आपका स्वागत है',
 			'onboarding.subtitle' => 'AI द्वारा समर्थित आपका व्यक्तिगत पोषण साथी',
 			'onboarding.getStarted' => 'शुरू करें',
 			'onboarding.features.foodRecognition.title' => 'स्मार्ट खाद्य पहचान',
@@ -1360,7 +1359,7 @@ extension on TranslationsHi {
 			'onboarding.bmiScale.categories.obese' => 'मोटापा',
 			'onboarding.bmiScale.messages.underweight' => 'हम आपको पोषक-घने भोजन के साथ संतुलित वजन पाने के लिए एक स्वस्थ योजना बनाने में मदद कर सकते हैं।',
 			'onboarding.bmiScale.messages.healthy' => 'बढ़िया काम! आप स्वस्थ सीमा में हैं। हम आपकी जीवन शक्ति और ऊर्जा स्तर बनाए रखने में मदद करेंगे।',
-			'onboarding.bmiScale.messages.overweight' => 'Calorify आपके लक्ष्य को आराम से प्राप्त करने के लिए AI-संचालित ट्रैकिंग के साथ आपकी यात्रा को आसान बनाएगा।',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} आपके सफर को सरल बनाएगा, AI-संचालित ट्रैकिंग के साथ ताकि आप आराम से अपने लक्ष्य को हासिल कर सकें।',
 			'onboarding.bmiScale.messages.obese' => 'हम आपके स्वास्थ्य लक्ष्यों के लिए व्यक्तिगत मार्गदर्शन और स्थायी रणनीतियों के साथ समर्थन करने के लिए यहां हैं।',
 			'onboarding.weightGoal.title' => 'आपका लक्ष्य क्या है?',
 			'onboarding.weightGoal.description' => 'उस लक्ष्य का चयन करें जो सबसे अच्छी तरह से यह वर्णन करता है कि आप क्या हासिल करना चाहते हैं',
@@ -1380,12 +1379,12 @@ extension on TranslationsHi {
 			'onboarding.healthConnect.skipForNow' => 'अभी छोड़ें',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect जुड़ गया है।',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect सफलतापूर्वक जुड़ गया है!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'अनुमति अस्वीकृत। कृपया Calorify के लिए अपने फोन सेटिंग से Health Connect अनुमतियाँ सक्षम करें।',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'अनुमति अस्वीकृत। कृपया अपने फोन की सेटिंग्स से ${appLabel} के लिए स्वास्थ्य संयोजन अनुमतियाँ सक्षम करें।',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connect सेट करने में त्रुटि: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'आप अकेले नहीं हैं',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'अध्ययन दर्शाते हैं कि लगातार ट्रैकिंग दीर्घकालिक सफलता का #1 भविष्यवक्ता है।',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'एक ${age} वर्षीय ${gender} के लिए जो ${goal} देख रहा है, लगातार ट्रैकिंग सफलता का #1 भविष्यवक्ता है।',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify इसे मैन्युअल रूप से करने की तुलना में 10 गुना आसान बनाता है।',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} इसे मैन्युअल रूप से करने से 10 गुना आसान बना देता है।',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'शुरू करने के लिए तैयार हैं?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'तत्काल विश्लेषण के लिए अपने भोजन की फोटो लें',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'अर्थपूर्ण प्रगति देखने के लिए लगातार लॉग करें',
@@ -1393,9 +1392,6 @@ extension on TranslationsHi {
 			'onboarding.reinforcement.trackingSuccess.button' => 'चलें',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'व्यक्ति',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'स्वस्थ आप',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'तत्काल फोटो विश्लेषण',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'स्वचालित पोषण लॉगिंग',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'प्रगति दृश्य जो आपको प्रेरित रखते हैं',
 			'onboarding.reinforcement.healthProfile.title' => 'आपकी स्वास्थ्य प्रोफ़ाइल',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'आपकी मेट्रिक्स के आधार पर, आपका BMI ${bmi} है।',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'आपके अनुभव को अनुकूलित करने के लिए अपनी प्रोफ़ाइल को अंतिम रूप दें।',
@@ -1405,7 +1401,7 @@ extension on TranslationsHi {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'आप अपने लक्ष्य वजन पर हैं! हम इसमें मदद करेंगे।',
 			'onboarding.reinforcement.healthProfile.button' => 'चलें',
 			'onboarding.reinforcement.goalLifestyle.title' => 'शानदार शुरुआत!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'आपने ${goalText} की दिशा में पहला कदम उठाया है। चूंकि आप ${activityText} हैं, Calorify आपके लक्ष्यों को आपके जीवनशैली के अनुसार समायोजित करेगा।',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'आपने ${goalText} की ओर पहला कदम बढ़ाया है। चूंकि आप ${activityText} हैं, ${appLabel} आपके लक्ष्यों को आपके जीवनशैली के अनुसार समायोजित करेगा।',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'व्यक्तिगत कैलोरी लक्ष्य',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI-संचालित भोजन पहचान',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'विस्तृत मैक्रो-न्यूट्रिएंट उम्दन',
@@ -1573,16 +1569,16 @@ extension on TranslationsHi {
 			'settings.language.subtitle' => 'अपनी पसंदीदा भाषा चुनें',
 			'settings.heightUnit.title' => 'ऊँचाई इकाई',
 			'settings.weightUnit.title' => 'वजन यूनिट',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => 'भोजन अनुस्मारक',
 			'settings.mealReminders.subtitle' => 'समय पर सूचनाओं के साथ ट्रैक पर रहें',
+			'settings.theme.title' => 'थीम',
+			'settings.theme.subtitle' => 'अपनी पसंदीदा थीम चुनें',
+			'settings.theme.light' => 'हल्का',
+			'settings.theme.dark' => 'गहरा',
+			'settings.theme.system' => 'सिस्टम',
 			'settings.sendFeedback.title' => 'प्रतिक्रिया भेजें',
-			'settings.sendFeedback.subtitle' => 'Calorify में सुधार करने में मदद करें',
-			'settings.sendFeedback.emailSubject' => 'Calorify ऐप फीडबैक',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => '${appLabel} में सुधार करने में मदद करें',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} ऐप फीडबैक',
 			'settings.sendFeedback.emailBodyPrefix' => 'कृपया नीचे अपनी प्रतिक्रिया दें:',
 			'settings.sendFeedback.appVersion' => 'ऐप संस्करण',
 			'settings.sendFeedback.device' => 'डिवाइस',
@@ -1629,21 +1625,21 @@ extension on TranslationsHi {
 			'login.signInWithGoogle' => 'Google के साथ साइन इन करें',
 			'login.signInFailed' => 'Google Sign-In असफल हुआ या रद्द कर दिया गया।',
 			'disclaimer.pleaseNote' => 'कृपया ध्यान दें',
-			'disclaimer.snap.description' => 'Calorify अनुमानित पोषण जानकारी प्रदान करता है। सटीकता आपके इनपुट और खाद्य भिन्नताओं पर निर्भर करती है। इसे एक मार्गदर्शक के रूप में उपयोग करें, न कि एक निश्चित स्रोत के रूप में। व्यक्तिगत आहार सलाह के लिए हमेशा एक पेशेवर से परामर्श करें।',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} अनुमानित पोषण संबंधी जानकारी प्रदान करता है। सटीकता आपके इनपुट और खाद्य प्रकारों पर निर्भर करती है। इसे एक मार्गदर्शक के रूप में उपयोग करें, न कि एक निश्चित स्रोत के रूप में। व्यक्तिगत आहार सलाह के लिए पेशेवर से परामर्श करें।',
 			'disclaimer.snap.portionSize.title' => 'पार्श्व आकार',
 			'disclaimer.snap.portionSize.description' => 'अनुमानों की सटीकता आपके हिस्से के आकार के सही आकलन पर बहुत अधिक निर्भर करती है।',
 			'disclaimer.snap.preparationMethods.title' => 'पकाने के तरीके',
-			'disclaimer.snap.preparationMethods.description' => 'पकाने के तरीके खाद्य पोषण सामग्री को काफी हद तक बदल सकते हैं। Calorify के अनुमान हमेशा इन भिन्नताओं को ध्यान में नहीं रखते।',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'खाने के पकाने के तरीके पोषण संबंधी सामग्री को महत्वपूर्ण रूप से बदल सकते हैं। ${appLabel} के अनुमान हमेशा इन भिन्नताओं पर विचार नहीं कर सकते।',
 			'disclaimer.snap.ingredients.title' => 'सामग्री',
 			'disclaimer.snap.ingredients.description' => 'जटिल व्यंजन जिनमें कई छिपी हुई सामग्री होती हैं उनमें कम सटीकता के अनुमान हो सकते हैं।',
 			'disclaimer.snap.databaseLimitations.title' => 'डेटाबेस सीमाएँ',
-			'disclaimer.snap.databaseLimitations.description' => 'Calorify का खाद्य डेटाबेस व्यापक है लेकिन इसमें हर एक खाद्य वस्तु या भिन्नता शामिल नहीं हो सकती।',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} का खाद्य डेटाबेस विस्तृत है लेकिन इसमें प्रत्येक खाद्य पदार्थ या भिन्नता शामिल नहीं हो सकती।',
 			'disclaimer.weightEstimate.title' => 'वजन अनुमान के बारे में',
 			'disclaimer.weightEstimate.description' => 'अनुमानित वजन परिवर्तन कैलोरी-इन बनाम कैलोरी-आउट के सरल मॉडल पर आधारित एक सैद्धांतिक अनुमान है। इसका उद्देश्य केवल प्रेरक मार्गदर्शन प्रदान करना है, न कि आपके वास्तविक वजन की भविष्यवाणी करना।',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'कैलोरी सटीकता',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'यह अनुमान केवल आपकी ट्रैक की गई कैलोरी समर्पण और व्यय के रूप में सटीक है। गलत लॉगिंग का परिणाम गलत प्रक्षेपण में होगा।',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'जीवविज्ञान संबंधी कारक',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'वास्तविक वजन घटाने/बढ़ने पर चयापचय, हार्मोन्स, नींद, तनाव, जलयोजन, और Calorify द्वारा मापी जा सकने वाले अन्य व्यक्तिगत कारक प्रभाव डालते हैं।',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'वास्तविक वजन घटाने/बढ़ाने पर चयापचय, हार्मोन, नींद, तनाव, जलयोजन और अन्य व्यक्तिगत कारकों का प्रभाव होता है, जिसे ${appLabel} माप नहीं सकता।',
 			'disclaimer.weightEstimate.waterWeight.title' => 'जल का वजन और उतार-चढ़ाव',
 			'disclaimer.weightEstimate.waterWeight.description' => 'सामान्य दैनिक वजन जल संरक्षण, पाचन और समय के कारण महत्वपूर्ण रूप से बदल सकता है। अनुमान इन दैनिक परिवर्तनों को ध्यान में नहीं रखता।',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'पेशेवर मार्गदर्शन',

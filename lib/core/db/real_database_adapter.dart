@@ -100,8 +100,8 @@ class RealDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
-  Future<bool> hasUserProfile() async {
-    return await _database.hasUserProfile();
+  Future<bool> isProfileComplete() async {
+    return await _database.isProfileComplete();
   }
 
   @override

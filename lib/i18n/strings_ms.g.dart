@@ -39,6 +39,7 @@ class TranslationsMs with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => 'Malay';
 	@override String get flag => '🇲🇾';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingMs onboarding = _TranslationsOnboardingMs._(_root);
 	@override late final _TranslationsTabsMs tabs = _TranslationsTabsMs._(_root);
 	@override late final _TranslationsHomeMs home = _TranslationsHomeMs._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingMs implements TranslationsOnboardingEn {
 	final TranslationsMs _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Selamat datang ke Calorify';
+	@override String welcome({required Object appLabel}) => 'Selamat datang ke ${appLabel}';
 	@override String get subtitle => 'Rakan pemakanan peribadi anda yang dikuasakan oleh AI';
 	@override String get getStarted => 'Mulakan';
 	@override late final _TranslationsOnboardingFeaturesMs features = _TranslationsOnboardingFeaturesMs._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsMs implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageMs language = _TranslationsSettingsLanguageMs._(_root);
 	@override late final _TranslationsSettingsHeightUnitMs heightUnit = _TranslationsSettingsHeightUnitMs._(_root);
 	@override late final _TranslationsSettingsWeightUnitMs weightUnit = _TranslationsSettingsWeightUnitMs._(_root);
-	@override late final _TranslationsSettingsThemeMs theme = _TranslationsSettingsThemeMs._(_root);
 	@override late final _TranslationsSettingsMealRemindersMs mealReminders = _TranslationsSettingsMealRemindersMs._(_root);
+	@override late final _TranslationsSettingsThemeMs theme = _TranslationsSettingsThemeMs._(_root);
 	@override late final _TranslationsSettingsSendFeedbackMs sendFeedback = _TranslationsSettingsSendFeedbackMs._(_root);
 	@override late final _TranslationsSettingsClearAllDataMs clearAllData = _TranslationsSettingsClearAllDataMs._(_root);
 	@override late final _TranslationsSettingsDebugOptionsMs debugOptions = _TranslationsSettingsDebugOptionsMs._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectMs implements TranslationsOnboardingHe
 	@override String get skipForNow => 'Lupakan buat masa sekarang';
 	@override String get statusConnected => 'Health Connect disambungkan.';
 	@override String get statusSuccess => 'Health Connect telah berjaya disambungkan!';
-	@override String get statusPermissionDenied => 'Kebenaran ditolak. Sila benarkan kebenaran Health Connect dari tetapan telefon anda untuk Calorify.';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Kebenaran ditolak. Sila aktifkan kebenaran Health Connect dari tetapan telefon anda untuk ${appLabel}.';
 	@override String statusError({required Object error}) => 'Ralat membuat persediaan Health Connect: ${error}';
 }
 
@@ -826,20 +827,6 @@ class _TranslationsSettingsWeightUnitMs implements TranslationsSettingsWeightUni
 	@override String get title => 'Unit Berat';
 }
 
-// Path: settings.theme
-class _TranslationsSettingsThemeMs implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeMs._(this._root);
-
-	final TranslationsMs _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
-}
-
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersMs implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersMs._(this._root);
@@ -851,6 +838,20 @@ class _TranslationsSettingsMealRemindersMs implements TranslationsSettingsMealRe
 	@override String get subtitle => 'Tetap pada landasan dengan pemberitahuan tepat pada masanya';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeMs implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tema';
+	@override String get subtitle => 'Pilih tema pilihan anda';
+	@override String get light => 'Cerah';
+	@override String get dark => 'Gelap';
+	@override String get system => 'Sistem';
+}
+
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackMs implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackMs._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackMs implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'Hantar Maklumbalas';
-	@override String get subtitle => 'Bantu kami memperbaiki Calorify';
-	@override String get emailSubject => 'Maklumbalas Aplikasi Calorify';
+	@override String subtitle({required Object appLabel}) => 'Bantu kami memperbaiki ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => 'Maklum Balas Aplikasi ${appLabel}';
 	@override String get emailBodyPrefix => 'Sila berikan maklumbalas anda di bawah:';
 	@override String get appVersion => 'Versi Aplikasi';
 	@override String get device => 'Peranti';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapMs implements TranslationsDisclaimerSnapEn {
 	final TranslationsMs _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Calorify memberikan maklumat nutrisi yang dianggarkan. Ketepatan bergantung pada input dan variasi makanan anda. Gunakan sebagai panduan, bukan sumber mutlak. Rujuk profesional untuk nasihat diet peribadi.';
+	@override String description({required Object appLabel}) => '${appLabel} menyediakan info nutrisi anggaran. Ketepatan bergantung pada input anda & variasi makanan. Gunakan sebagai panduan, bukan sumber definitif. Rujuk kepada profesional untuk nasihat diet peribadi.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeMs portionSize = _TranslationsDisclaimerSnapPortionSizeMs._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsMs preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsMs._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsMs ingredients = _TranslationsDisclaimerSnapIngredientsMs._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesMs implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => 'Kami dapat membantu anda membina pelan sihat untuk mencapai berat badan seimbang dengan pemakanan yang padat nutrisi.';
 	@override String get healthy => 'Kerja yang bagus! Anda berada dalam julat yang sihat. Kami akan membantu anda mempertahankan vitaliti dan tahap tenaga anda.';
-	@override String get overweight => 'Calorify akan memudahkan perjalanan anda dengan penjejakan kuasa AI untuk membantu anda mencapai sasaran dengan selesa.';
+	@override String overweight({required Object appLabel}) => '${appLabel} akan mempermudahkan perjalanan anda dengan penjejakan berkuasa AI untuk membantu anda mencapai sasaran dengan selesa.';
 	@override String get obese => 'Kami di sini untuk menyokong anda dengan bimbingan peribadi dan strategi yang berkelanjutan untuk matlamat kesihatan anda.';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessMs implements Translati
 	@override String get title => 'Anda Tidak Sendirian';
 	@override String get genericMessage => 'Penyelidikan menunjukkan bahawa penjejakan yang konsisten adalah pengamal utama kejayaan jangka panjang.';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Untuk seorang ${age} tahun ${gender} yang ingin ${goal}, penjejakan yang konsisten adalah pengamal utama kejayaan.';
-	@override String get closingMessage => 'Calorify menjadikannya 10x lebih mudah daripada melakukannya secara manual.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} menjadikannya 10x lebih mudah daripada melakukannya secara manual.';
 	@override String get getStartedTitle => 'Bersedia untuk memulakan?';
 	@override String get tipPhoto => 'Ambil gambar makanan anda untuk analisis segera';
 	@override String get tipConsistency => 'Catat secara konsisten untuk melihat kemajuan yang bermakna';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessMs implements Translati
 	@override String get button => 'Jom pergi';
 	@override String get defaultGender => 'individu';
 	@override String get defaultGoal => 'anda yang lebih sihat';
-	@override String get instantPhotoAnalysis => 'Analisis foto segera';
-	@override String get automaticLogging => 'Pencatatan nutrisi automatik';
-	@override String get progressVisualizations => 'Visualisasi kemajuan yang memotivasi anda';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleMs implements Translation
 
 	// Translations
 	@override String get title => 'Permulaan yang Hebat!';
-	@override String description({required Object goalText, required Object activityText}) => 'Anda telah mengambil langkah pertama menuju ${goalText}. Oleh kerana anda ${activityText}, Calorify akan menyesuaikan sasaran anda untuk menyamai gaya hidup anda.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Anda telah mengambil langkah pertama ke arah ${goalText}. Memandangkan anda ${activityText}, ${appLabel} akan menyesuaikan sasaran anda untuk sepadan dengan gaya hidup anda.';
 	@override String get personalizedTargets => 'Sasaran kalori peribadi';
 	@override String get aiMealDetection => 'Pengesanan hidangan berkuasa AI';
 	@override String get macroBreakdowns => 'Pecahan makro-nutrien terperinci';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsMs implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Kaedah Penyediaan';
-	@override String get description => 'Kaedah memasak boleh mengubah kandungan nutrisi makanan secara signifikan. Anggaran Calorify mungkin tidak selalu mengambil kira variasi ini.';
+	@override String description({required Object appLabel}) => 'Kaedah memasak boleh mengubah kandungan nutrisi makanan secara signifikan. Anggaran ${appLabel} mungkin tidak selalu mengambil kira variasi ini.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsMs implements TranslationsDi
 
 	// Translations
 	@override String get title => 'Had Pangkalan Data';
-	@override String get description => 'Pangkalan data makanan Calorify sangat luas tetapi mungkin tidak merangkumi setiap item makanan atau variasi.';
+	@override String description({required Object appLabel}) => 'Pangkalan data makanan ${appLabel} adalah luas tetapi mungkin tidak termasuk setiap item makanan atau variasi.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsMs implements Transl
 
 	// Translations
 	@override String get title => 'Faktor Biologi';
-	@override String get description => 'Kehilangan/penggandaan berat sebenar dipengaruhi oleh metabolisme, hormon, tidur, tekanan, hidrasi, dan faktor individu lain yang tidak dapat diukur oleh Calorify.';
+	@override String description({required Object appLabel}) => 'Kehilangan/pertambahan berat badan yang sebenar dipengaruhi oleh metabolisme, hormon, tidur, tekanan, penghidratan, dan faktor individu lain yang tidak dapat diukur oleh ${appLabel}.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsMs {
 		return switch (path) {
 			'language' => 'Malay',
 			'flag' => '🇲🇾',
-			'onboarding.welcome' => 'Selamat datang ke Calorify',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => 'Selamat datang ke ${appLabel}',
 			'onboarding.subtitle' => 'Rakan pemakanan peribadi anda yang dikuasakan oleh AI',
 			'onboarding.getStarted' => 'Mulakan',
 			'onboarding.features.foodRecognition.title' => 'Pengiktirafan Makanan Pintar',
@@ -1360,7 +1359,7 @@ extension on TranslationsMs {
 			'onboarding.bmiScale.categories.obese' => 'Obes',
 			'onboarding.bmiScale.messages.underweight' => 'Kami dapat membantu anda membina pelan sihat untuk mencapai berat badan seimbang dengan pemakanan yang padat nutrisi.',
 			'onboarding.bmiScale.messages.healthy' => 'Kerja yang bagus! Anda berada dalam julat yang sihat. Kami akan membantu anda mempertahankan vitaliti dan tahap tenaga anda.',
-			'onboarding.bmiScale.messages.overweight' => 'Calorify akan memudahkan perjalanan anda dengan penjejakan kuasa AI untuk membantu anda mencapai sasaran dengan selesa.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} akan mempermudahkan perjalanan anda dengan penjejakan berkuasa AI untuk membantu anda mencapai sasaran dengan selesa.',
 			'onboarding.bmiScale.messages.obese' => 'Kami di sini untuk menyokong anda dengan bimbingan peribadi dan strategi yang berkelanjutan untuk matlamat kesihatan anda.',
 			'onboarding.weightGoal.title' => 'Apakah matlamat anda?',
 			'onboarding.weightGoal.description' => 'Pilih matlamat yang paling menggambarkan apa yang anda ingin capai',
@@ -1380,12 +1379,12 @@ extension on TranslationsMs {
 			'onboarding.healthConnect.skipForNow' => 'Lupakan buat masa sekarang',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect disambungkan.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect telah berjaya disambungkan!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'Kebenaran ditolak. Sila benarkan kebenaran Health Connect dari tetapan telefon anda untuk Calorify.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Kebenaran ditolak. Sila aktifkan kebenaran Health Connect dari tetapan telefon anda untuk ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Ralat membuat persediaan Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Anda Tidak Sendirian',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Penyelidikan menunjukkan bahawa penjejakan yang konsisten adalah pengamal utama kejayaan jangka panjang.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Untuk seorang ${age} tahun ${gender} yang ingin ${goal}, penjejakan yang konsisten adalah pengamal utama kejayaan.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify menjadikannya 10x lebih mudah daripada melakukannya secara manual.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} menjadikannya 10x lebih mudah daripada melakukannya secara manual.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Bersedia untuk memulakan?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Ambil gambar makanan anda untuk analisis segera',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Catat secara konsisten untuk melihat kemajuan yang bermakna',
@@ -1393,9 +1392,6 @@ extension on TranslationsMs {
 			'onboarding.reinforcement.trackingSuccess.button' => 'Jom pergi',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'individu',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'anda yang lebih sihat',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Analisis foto segera',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Pencatatan nutrisi automatik',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Visualisasi kemajuan yang memotivasi anda',
 			'onboarding.reinforcement.healthProfile.title' => 'Profil Kesihatan Anda',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Berdasarkan metrik anda, BMI anda adalah ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Mari kita akhir profil anda untuk menyesuaikan pengalaman anda.',
@@ -1405,7 +1401,7 @@ extension on TranslationsMs {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'Anda sudah mencapai berat sasaran anda! Kami akan membantu anda mengekalkannya.',
 			'onboarding.reinforcement.healthProfile.button' => 'Jom pergi',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Permulaan yang Hebat!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'Anda telah mengambil langkah pertama menuju ${goalText}. Oleh kerana anda ${activityText}, Calorify akan menyesuaikan sasaran anda untuk menyamai gaya hidup anda.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Anda telah mengambil langkah pertama ke arah ${goalText}. Memandangkan anda ${activityText}, ${appLabel} akan menyesuaikan sasaran anda untuk sepadan dengan gaya hidup anda.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Sasaran kalori peribadi',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Pengesanan hidangan berkuasa AI',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Pecahan makro-nutrien terperinci',
@@ -1573,16 +1569,16 @@ extension on TranslationsMs {
 			'settings.language.subtitle' => 'Pilih bahasa pilihan anda',
 			'settings.heightUnit.title' => 'Unit Tinggi',
 			'settings.weightUnit.title' => 'Unit Berat',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => 'Peringatan Hidangan',
 			'settings.mealReminders.subtitle' => 'Tetap pada landasan dengan pemberitahuan tepat pada masanya',
+			'settings.theme.title' => 'Tema',
+			'settings.theme.subtitle' => 'Pilih tema pilihan anda',
+			'settings.theme.light' => 'Cerah',
+			'settings.theme.dark' => 'Gelap',
+			'settings.theme.system' => 'Sistem',
 			'settings.sendFeedback.title' => 'Hantar Maklumbalas',
-			'settings.sendFeedback.subtitle' => 'Bantu kami memperbaiki Calorify',
-			'settings.sendFeedback.emailSubject' => 'Maklumbalas Aplikasi Calorify',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Bantu kami memperbaiki ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'Maklum Balas Aplikasi ${appLabel}',
 			'settings.sendFeedback.emailBodyPrefix' => 'Sila berikan maklumbalas anda di bawah:',
 			'settings.sendFeedback.appVersion' => 'Versi Aplikasi',
 			'settings.sendFeedback.device' => 'Peranti',
@@ -1629,21 +1625,21 @@ extension on TranslationsMs {
 			'login.signInWithGoogle' => 'Log masuk dengan Google',
 			'login.signInFailed' => 'Log Masuk Google gagal atau dibatalkan.',
 			'disclaimer.pleaseNote' => 'Sila Ambil Perhatian',
-			'disclaimer.snap.description' => 'Calorify memberikan maklumat nutrisi yang dianggarkan. Ketepatan bergantung pada input dan variasi makanan anda. Gunakan sebagai panduan, bukan sumber mutlak. Rujuk profesional untuk nasihat diet peribadi.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} menyediakan info nutrisi anggaran. Ketepatan bergantung pada input anda & variasi makanan. Gunakan sebagai panduan, bukan sumber definitif. Rujuk kepada profesional untuk nasihat diet peribadi.',
 			'disclaimer.snap.portionSize.title' => 'Saiz Hidangan',
 			'disclaimer.snap.portionSize.description' => 'Ketepatan anggaran sangat bergantung pada penilaian saiz hidangan anda yang betul.',
 			'disclaimer.snap.preparationMethods.title' => 'Kaedah Penyediaan',
-			'disclaimer.snap.preparationMethods.description' => 'Kaedah memasak boleh mengubah kandungan nutrisi makanan secara signifikan. Anggaran Calorify mungkin tidak selalu mengambil kira variasi ini.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Kaedah memasak boleh mengubah kandungan nutrisi makanan secara signifikan. Anggaran ${appLabel} mungkin tidak selalu mengambil kira variasi ini.',
 			'disclaimer.snap.ingredients.title' => 'Bahan',
 			'disclaimer.snap.ingredients.description' => 'Hidangan yang kompleks dengan banyak bahan tersembunyi mungkin menyebabkan anggaran kurang tepat.',
 			'disclaimer.snap.databaseLimitations.title' => 'Had Pangkalan Data',
-			'disclaimer.snap.databaseLimitations.description' => 'Pangkalan data makanan Calorify sangat luas tetapi mungkin tidak merangkumi setiap item makanan atau variasi.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Pangkalan data makanan ${appLabel} adalah luas tetapi mungkin tidak termasuk setiap item makanan atau variasi.',
 			'disclaimer.weightEstimate.title' => 'Tentang Anggaran Berat',
 			'disclaimer.weightEstimate.description' => 'Perubahan berat yang diramalkan adalah anggaran teori berdasarkan model kalori masuk vs. kalori keluar yang mudah. Ia bertujuan sebagai panduan motivasi sahaja, bukan sebagai ramalan berat sebenar anda.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Ketepatan Kalori',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Anggaran ini hanya seakurat pengambilan kalori anda yang dicatat dan perbelanjaan. Pencatatan yang tidak tepat akan menghasilkan anggaran yang tidak tepat.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Faktor Biologi',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'Kehilangan/penggandaan berat sebenar dipengaruhi oleh metabolisme, hormon, tidur, tekanan, hidrasi, dan faktor individu lain yang tidak dapat diukur oleh Calorify.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Kehilangan/pertambahan berat badan yang sebenar dipengaruhi oleh metabolisme, hormon, tidur, tekanan, penghidratan, dan faktor individu lain yang tidak dapat diukur oleh ${appLabel}.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Berat Air & Fluktuasi',
 			'disclaimer.weightEstimate.waterWeight.description' => 'Berat harian normal boleh berfluktuasi dengan ketara disebabkan oleh penahanan air, pencernaan, dan masa. Anggaran ini tidak mengambil kira perubahan harian ini.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Bimbingan Profesional',

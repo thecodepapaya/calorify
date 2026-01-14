@@ -6,6 +6,7 @@ import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:calorify/core/utilities/string_utils.dart';
 import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/language_picker_sheet.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -148,7 +149,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 t.settings.sendFeedback.title,
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
-              subtitle: Text(t.settings.sendFeedback.subtitle),
+              subtitle: Text(
+                t.settings.sendFeedback.subtitle(appLabel: t.appLabelValue),
+              ),
               onTap: _sendFeedbackEmail,
             ),
           ]),
@@ -552,7 +555,7 @@ ${t.settings.sendFeedback.uid}: $uid''';
       scheme: 'mailto',
       path: 'calorify@thecodepapaya.dev',
       query:
-          'subject=${Uri.encodeComponent(t.settings.sendFeedback.emailSubject)}&body=${Uri.encodeComponent(body)}',
+          'subject=${Uri.encodeComponent(t.settings.sendFeedback.emailSubject(appLabel: t.appLabelValue))}&body=${Uri.encodeComponent(body)}',
     );
 
     await launchUrl(emailLaunchUri);

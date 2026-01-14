@@ -1,8 +1,9 @@
 {
   "language": "简体中文",
   "flag": "🇨🇳",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "欢迎使用 Calorify",
+    "welcome": "欢迎使用{appLabel}",
     "subtitle": "您个性化的营养伴侣，基于 AI 技术",
     "getStarted": "开始使用",
     "features": {
@@ -59,7 +60,7 @@
       "messages": {
         "underweight": "我们可以帮助您制定健康计划，通过营养丰富的餐食来达到均衡体重。",
         "healthy": "干得好！您处于健康范围内。我们将帮助您维持活力和能量水平。",
-        "overweight": "Calorify将通过AI驱动的跟踪，简化您的旅程，帮助您舒适地达到目标。",
+        "overweight": "{appLabel}将通过人工智能支持的追踪简化您的旅程，帮助您轻松达到目标。",
         "obese": "我们在这里支持您，为您的健康目标提供个性化指导和可持续策略。"
       }
     },
@@ -92,7 +93,7 @@
       "skipForNow": "暂时跳过",
       "statusConnected": "健康连接已连接。",
       "statusSuccess": "健康连接成功连接！",
-      "statusPermissionDenied": "权限被拒绝。请在你的手机设置中为Calorify启用健康连接权限。",
+      "statusPermissionDenied": "权限被拒绝。请在手机设置中启用{appLabel}的健康连接权限。",
       "statusError": "设置健康连接时出错: {error}"
     },
     "reinforcement": {
@@ -100,17 +101,14 @@
         "title": "你并不孤单",
         "genericMessage": "研究显示，持续跟踪是长期成功的首要预测因素。",
         "personalizedMessage": "对于一个 {age} 岁的 {gender}，想要 {goal}，持续跟踪是成功的首要预测因素。",
-        "closingMessage": "Calorify 让这一切变得比手动操作轻松10倍。",
+        "closingMessage": "{appLabel}让这一切比手动操作轻松10倍。",
         "getStartedTitle": "准备好开始了吗？",
         "tipPhoto": "拍摄您的餐点以进行即时分析",
         "tipConsistency": "保持记录以看到有意义的进展",
         "tipProgress": "每天记录您的进展，保持动力",
         "button": "开始吧",
         "defaultGender": "个体",
-        "defaultGoal": "更健康的你",
-        "instantPhotoAnalysis": "即时照片分析",
-        "automaticLogging": "自动营养记录",
-        "progressVisualizations": "进展可视化让您保持动力"
+        "defaultGoal": "更健康的你"
       },
       "healthProfile": {
         "title": "您的健康资料",
@@ -124,7 +122,7 @@
       },
       "goalLifestyle": {
         "title": "优秀的开始！",
-        "description": "你已经迈出了朝着 {goalText} 的第一步。由于你是 {activityText}，Calorify 将根据你的生活方式调整你的目标。",
+        "description": "您已迈出了通向{goalText}的第一步。既然您{activityText}，{appLabel}将根据您的生活方式调整目标。",
         "personalizedTargets": "个性化的卡路里目标",
         "aiMealDetection": "人工智能驱动的餐点检测",
         "macroBreakdowns": "详细的宏观营养素分析",
@@ -372,6 +370,10 @@
     "weightUnit": {
       "title": "体重单位"
     },
+    "mealReminders": {
+      "title": "餐点提醒",
+      "subtitle": "通过及时的提醒保持正轨"
+    },
     "theme": {
       "title": "主题",
       "subtitle": "选择您的首选主题",
@@ -379,14 +381,10 @@
       "dark": "黑暗",
       "system": "系统"
     },
-    "mealReminders": {
-      "title": "餐点提醒",
-      "subtitle": "通过及时的提醒保持正轨"
-    },
     "sendFeedback": {
       "title": "发送反馈",
-      "subtitle": "帮助我们改进Calorify",
-      "emailSubject": "Calorify应用反馈",
+      "subtitle": "帮助我们改善{appLabel}",
+      "emailSubject": "{appLabel}应用反馈",
       "emailBodyPrefix": "请在下面提供您的反馈：",
       "appVersion": "应用版本",
       "device": "设备",
@@ -457,14 +455,14 @@
   "disclaimer": {
     "pleaseNote": "请注意",
     "snap": {
-      "description": "Calorify提供估计的营养信息。准确性取决于您的输入和食物变化。将其作为指南，而非最终来源。请咨询专业人士以获取个性化的饮食建议。",
+      "description": "{appLabel}提供的营养信息为估算值。准确性取决于您的输入和食物变种。请将其用作参考，而非绝对来源。如需个性化的饮食建议，请咨询专业人士。",
       "portionSize": {
         "title": "食物份量",
         "description": "估计的准确性在很大程度上依赖于您对食物份量的正确评估。"
       },
       "preparationMethods": {
         "title": "烹饪方法",
-        "description": "烹饪方式会显著影响食物的营养成分。Calorify的估计可能并未总是考虑这些变化。"
+        "description": "烹饪方法可能会显著改变食物的营养成分。{appLabel}的估算可能并未始终考虑这些变化。"
       },
       "ingredients": {
         "title": "成分",
@@ -472,7 +470,7 @@
       },
       "databaseLimitations": {
         "title": "数据库限制",
-        "description": "Calorify的食物数据库庞大，但可能不会包含每一种食物或变体。"
+        "description": "{appLabel}的食物数据库庞大，但可能不包括每个单独的食物项目或变种。"
       }
     },
     "weightEstimate": {
@@ -484,7 +482,7 @@
       },
       "biologicalFactors": {
         "title": "生物因素",
-        "description": "实际的体重减轻/增加受到新陈代谢、荷尔蒙、睡眠、压力、水分摄入和其他个体因素的影响，Calorify无法测量。"
+        "description": "实际的体重减轻/增加受代谢、荷尔蒙、睡眠、压力、水合作用以及{appLabel}无法测量的其他个体因素影响。"
       },
       "waterWeight": {
         "title": "水分体重与波动",

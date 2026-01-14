@@ -1,8 +1,9 @@
 {
   "language": "Français",
   "flag": "🇫🇷",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Bienvenue sur Calorify",
+    "welcome": "Bienvenue dans {appLabel}",
     "subtitle": "Votre compagnon personnel en nutrition propulsé par l'IA",
     "getStarted": "Commencer",
     "features": {
@@ -59,7 +60,7 @@
       "messages": {
         "underweight": "Nous pouvons vous aider à établir un plan sain pour atteindre un poids équilibré avec des repas riches en nutriments.",
         "healthy": "Excellent travail ! Vous êtes dans une fourchette saine. Nous vous aiderons à maintenir votre vitalité et vos niveaux d'énergie.",
-        "overweight": "Calorify simplifiera votre parcours avec un suivi alimenté par l'IA pour vous aider à atteindre votre objectif en toute sérénité.",
+        "overweight": "{appLabel} simplifiera votre parcours avec le suivi assisté par IA pour vous aider à atteindre votre objectif confortablement.",
         "obese": "Nous sommes ici pour vous soutenir avec des conseils personnalisés et des stratégies durables pour vos objectifs de santé."
       }
     },
@@ -92,7 +93,7 @@
       "skipForNow": "Passer pour le moment",
       "statusConnected": "Health Connect est connecté.",
       "statusSuccess": "Health Connect a été connecté avec succès !",
-      "statusPermissionDenied": "Permission refusée. Veuillez activer les autorisations Health Connect dans les paramètres de votre téléphone pour Calorify.",
+      "statusPermissionDenied": "Permission refusée. Veuillez activer les permissions de Health Connect depuis les paramètres de votre téléphone pour {appLabel}.",
       "statusError": "Erreur lors de la configuration de Health Connect : {error}"
     },
     "reinforcement": {
@@ -100,17 +101,14 @@
         "title": "Vous n'êtes pas seul",
         "genericMessage": "Des recherches montrent que le suivi régulier est le meilleur indicateur de succès à long terme.",
         "personalizedMessage": "Pour un(e) {age} ans {gender} cherchant à {goal}, le suivi régulier est le meilleur indicateur de succès.",
-        "closingMessage": "Calorify rend cela 10 fois plus facile que de le faire manuellement.",
+        "closingMessage": "{appLabel} rend le suivi 10 fois plus facile que de le faire manuellement.",
         "getStartedTitle": "Prêt à commencer ?",
         "tipPhoto": "Prenez une photo de vos repas pour une analyse instantanée",
         "tipConsistency": "Consignez vos repas régulièrement pour voir des progrès significatifs",
         "tipProgress": "Suivez vos progrès quotidiennement pour rester motivé",
         "button": "C'est parti",
         "defaultGender": "individu",
-        "defaultGoal": "vous en meilleure santé",
-        "instantPhotoAnalysis": "Analyse photo instantanée",
-        "automaticLogging": "Journalisation nutritionnelle automatique",
-        "progressVisualizations": "Visualisations de progrès qui vous motivent"
+        "defaultGoal": "vous en meilleure santé"
       },
       "healthProfile": {
         "title": "Votre Profil de Santé",
@@ -124,7 +122,7 @@
       },
       "goalLifestyle": {
         "title": "Excellente première étape !",
-        "description": "Vous avez franchi la première étape vers {goalText}. Comme vous êtes {activityText}, Calorify ajustera vos objectifs pour correspondre à votre style de vie.",
+        "description": "Vous avez fait le premier pas vers {goalText}. Puisque vous êtes {activityText}, {appLabel} ajustera vos objectifs pour correspondre à votre style de vie.",
         "personalizedTargets": "Objectifs caloriques personnalisés",
         "aiMealDetection": "Détection de repas par IA",
         "macroBreakdowns": "Détails des macronutriments",
@@ -372,21 +370,21 @@
     "weightUnit": {
       "title": "Unité de Poids"
     },
-    "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
-    },
     "mealReminders": {
       "title": "Rappels de Repas",
       "subtitle": "Restez sur la bonne voie avec des alertes temporisées"
     },
+    "theme": {
+      "title": "Thème",
+      "subtitle": "Choisissez votre thème préféré",
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "Système"
+    },
     "sendFeedback": {
       "title": "Envoyer un Retour",
-      "subtitle": "Aidez-nous à améliorer Calorify",
-      "emailSubject": "Retour d'expérience sur l'application Calorify",
+      "subtitle": "Aidez-nous à améliorer {appLabel}",
+      "emailSubject": "Retour sur l'application {appLabel}",
       "emailBodyPrefix": "Veuillez fournir vos commentaires ci-dessous :",
       "appVersion": "Version de l'application",
       "device": "Appareil",
@@ -457,14 +455,14 @@
   "disclaimer": {
     "pleaseNote": "Veuillez Noter",
     "snap": {
-      "description": "Calorify fournit des informations nutritionnelles estimées. L'exactitude dépend de vos entrées et des variations alimentaires. Utilisez-le comme un guide, pas comme une source définitive. Consultez un professionnel pour des conseils diététiques personnalisés.",
+      "description": "{appLabel} fournit des informations nutritionnelles estimées. L'exactitude dépend de vos saisies et des variations alimentaires. À utiliser comme guide, pas comme source définitive. Consultez un professionnel pour des conseils diététiques personnalisés.",
       "portionSize": {
         "title": "Taille de Portion",
         "description": "L'exactitude des estimations repose beaucoup sur votre évaluation correcte de la taille de la portion."
       },
       "preparationMethods": {
         "title": "Méthodes de Préparation",
-        "description": "Les méthodes de cuisson peuvent modifier de manière significative le contenu nutritionnel des aliments. Les estimations de Calorify peuvent ne pas toujours tenir compte de ces variations."
+        "description": "Les méthodes de cuisson peuvent modifier de manière significative la composition nutritionnelle des aliments. Les estimations de {appLabel} peuvent ne pas toujours tenir compte de ces variations."
       },
       "ingredients": {
         "title": "Ingrédients",
@@ -472,7 +470,7 @@
       },
       "databaseLimitations": {
         "title": "Limitations de la Base de Données",
-        "description": "La base de données alimentaire de Calorify est vaste mais peut ne pas inclure chaque aliment ou variation."
+        "description": "La base de données alimentaire de {appLabel} est vaste mais peut ne pas inclure chaque aliment ou variation existante."
       }
     },
     "weightEstimate": {
@@ -484,7 +482,7 @@
       },
       "biologicalFactors": {
         "title": "Facteurs Biologiques",
-        "description": "La perte/gain de poids réelle est influencée par le métabolisme, les hormones, le sommeil, le stress, l'hydratation et d'autres facteurs individuels que Calorify ne peut pas mesurer."
+        "description": "La perte/gain de poids réel est influencée par le métabolisme, les hormones, le sommeil, le stress, l'hydratation et d'autres facteurs individuels que {appLabel} ne peut pas mesurer."
       },
       "waterWeight": {
         "title": "Poids de l'Eau & Fluctuations",

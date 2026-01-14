@@ -39,6 +39,7 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => '日本語';
 	@override String get flag => '🇯🇵';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingJa onboarding = _TranslationsOnboardingJa._(_root);
 	@override late final _TranslationsTabsJa tabs = _TranslationsTabsJa._(_root);
 	@override late final _TranslationsHomeJa home = _TranslationsHomeJa._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingJa implements TranslationsOnboardingEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Calorifyへようこそ';
+	@override String welcome({required Object appLabel}) => '${appLabel}へようこそ';
 	@override String get subtitle => 'AIによるあなたの個人的な栄養コンパニオン';
 	@override String get getStarted => '始める';
 	@override late final _TranslationsOnboardingFeaturesJa features = _TranslationsOnboardingFeaturesJa._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsJa implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageJa language = _TranslationsSettingsLanguageJa._(_root);
 	@override late final _TranslationsSettingsHeightUnitJa heightUnit = _TranslationsSettingsHeightUnitJa._(_root);
 	@override late final _TranslationsSettingsWeightUnitJa weightUnit = _TranslationsSettingsWeightUnitJa._(_root);
-	@override late final _TranslationsSettingsThemeJa theme = _TranslationsSettingsThemeJa._(_root);
 	@override late final _TranslationsSettingsMealRemindersJa mealReminders = _TranslationsSettingsMealRemindersJa._(_root);
+	@override late final _TranslationsSettingsThemeJa theme = _TranslationsSettingsThemeJa._(_root);
 	@override late final _TranslationsSettingsSendFeedbackJa sendFeedback = _TranslationsSettingsSendFeedbackJa._(_root);
 	@override late final _TranslationsSettingsClearAllDataJa clearAllData = _TranslationsSettingsClearAllDataJa._(_root);
 	@override late final _TranslationsSettingsDebugOptionsJa debugOptions = _TranslationsSettingsDebugOptionsJa._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectJa implements TranslationsOnboardingHe
 	@override String get skipForNow => '今はスキップ';
 	@override String get statusConnected => 'Health Connectが接続されました。';
 	@override String get statusSuccess => 'Health Connectが正常に接続されました！';
-	@override String get statusPermissionDenied => '権限が拒否されました。Calorifyのために電話の設定からHealth Connectの権限を有効にしてください。';
+	@override String statusPermissionDenied({required Object appLabel}) => '権限が拒否されました。${appLabel}のために、お使いの電話の設定からHealth Connectの権限を有効にしてください。';
 	@override String statusError({required Object error}) => 'Health Connectの設定中にエラーが発生しました: ${error}';
 }
 
@@ -826,20 +827,6 @@ class _TranslationsSettingsWeightUnitJa implements TranslationsSettingsWeightUni
 	@override String get title => '体重の単位';
 }
 
-// Path: settings.theme
-class _TranslationsSettingsThemeJa implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeJa._(this._root);
-
-	final TranslationsJa _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
-}
-
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersJa implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersJa._(this._root);
@@ -851,6 +838,20 @@ class _TranslationsSettingsMealRemindersJa implements TranslationsSettingsMealRe
 	@override String get subtitle => 'タイムリーなアラートで進捗を維持';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeJa implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'テーマ';
+	@override String get subtitle => 'お好みのテーマを選択してください';
+	@override String get light => 'ライト';
+	@override String get dark => 'ダーク';
+	@override String get system => 'システム';
+}
+
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackJa implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackJa._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackJa implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'フィードバックを送信';
-	@override String get subtitle => 'Calorifyの改善にご協力ください';
-	@override String get emailSubject => 'Calorifyアプリのフィードバック';
+	@override String subtitle({required Object appLabel}) => '${appLabel}の改善にご協力ください';
+	@override String emailSubject({required Object appLabel}) => '${appLabel}アプリフィードバック';
 	@override String get emailBodyPrefix => '以下にフィードバックをご記入ください:';
 	@override String get appVersion => 'アプリのバージョン';
 	@override String get device => 'デバイス';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapJa implements TranslationsDisclaimerSnapEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Calorifyは推定栄養情報を提供します。正確さはあなたの入力と食品の変動に依存します。ガイドとして使用し、確定的な情報源として使用しないでください。個別の食事アドバイスについては専門家に相談してください。';
+	@override String description({required Object appLabel}) => '${appLabel}は推定栄養情報を提供します。正確性は、入力内容や食材のバリエーションに依存します。ガイドとして使用し、確定的な情報源とは見なさないでください。個別の食事アドバイスについては専門家に相談してください。';
 	@override late final _TranslationsDisclaimerSnapPortionSizeJa portionSize = _TranslationsDisclaimerSnapPortionSizeJa._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsJa preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsJa._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsJa ingredients = _TranslationsDisclaimerSnapIngredientsJa._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesJa implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => '栄養価の高い食事でバランスの取れた体重に到達するための健康的なプランを一緒に作りましょう。';
 	@override String get healthy => '素晴らしい！あなたは健康的な範囲にいます。活力とエネルギーレベルを維持するお手伝いをします。';
-	@override String get overweight => 'CalorifyがAIを活用したトラッキングで、快適に目標を達成する手助けをします。';
+	@override String overweight({required Object appLabel}) => '${appLabel}は、AIを活用したトラッキングで、快適に目標を達成する手助けをします。';
 	@override String get obese => 'あなたの健康目標のために、個別の指導と持続可能な戦略でサポートします。';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessJa implements Translati
 	@override String get title => 'あなたは一人じゃない';
 	@override String get genericMessage => '研究によると、一貫したトラッキングは長期的な成功の最も大きな予測因子です。';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => '${age}歳の${gender}が${goal}を目指すためには、一貫したトラッキングが成功の最も大きな予測因子です。';
-	@override String get closingMessage => 'Calorifyを使えば、手動で行うよりも10倍簡単です。';
+	@override String closingMessage({required Object appLabel}) => '${appLabel}は手動で行うよりも10倍簡単にします。';
 	@override String get getStartedTitle => '始める準備はできましたか？';
 	@override String get tipPhoto => '食事の写真を撮影して瞬時に分析します';
 	@override String get tipConsistency => '一貫して記録して、意味のある進捗を確認しましょう';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessJa implements Translati
 	@override String get button => '行きましょう';
 	@override String get defaultGender => '個人';
 	@override String get defaultGoal => 'より健康的な自分';
-	@override String get instantPhotoAnalysis => '即時フォト分析';
-	@override String get automaticLogging => '自動栄養ログ';
-	@override String get progressVisualizations => 'やる気を引き出す進捗視覚化';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleJa implements Translation
 
 	// Translations
 	@override String get title => '素晴らしいスタート！';
-	@override String description({required Object goalText, required Object activityText}) => 'あなたは${goalText}に向けて第一歩を踏み出しました。あなたが${activityText}であるため、Calorifyはあなたのライフスタイルに合った目標を調整します。';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => '${goalText}に向けて第一歩を踏み出しましたね。あなたが${activityText}であるため、${appLabel}は生活スタイルに合わせて目標を調整します。';
 	@override String get personalizedTargets => 'パーソナライズされたカロリターゲット';
 	@override String get aiMealDetection => 'AIによる食事検出';
 	@override String get macroBreakdowns => '詳細なマクロ栄養素の内訳';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsJa implements TranslationsDis
 
 	// Translations
 	@override String get title => '調理方法';
-	@override String get description => '調理方法は食材の栄養成分に大きく影響を与えることがあります。Calorifyの推定値は、これらの変動を常に考慮しているわけではありません。';
+	@override String description({required Object appLabel}) => '調理方法は食材の栄養価に大きく影響します。${appLabel}の推定値は、これらのバリエーションを常に考慮しているわけではありません。';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsJa implements TranslationsDi
 
 	// Translations
 	@override String get title => 'データベースの制限';
-	@override String get description => 'Calorifyの食品データベースは広範ですが、すべての食品アイテムやバリエーションを含んでいるわけではありません。';
+	@override String description({required Object appLabel}) => '${appLabel}の食品データベースは広範囲ですが、すべての食品アイテムやバリエーションが含まれていない場合があります。';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsJa implements Transl
 
 	// Translations
 	@override String get title => '生物的要因';
-	@override String get description => '実際の体重の減少や増加は、代謝、ホルモン、睡眠、ストレス、水分摂取、その他の個別の要因によって影響を受けますが、Calorifyでは測定できません。';
+	@override String description({required Object appLabel}) => '実際の体重減少/増加は、代謝、ホルモン、睡眠、ストレス、水分補給、その他の個々の要因によって影響され、${appLabel}では測定できません。';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsJa {
 		return switch (path) {
 			'language' => '日本語',
 			'flag' => '🇯🇵',
-			'onboarding.welcome' => 'Calorifyへようこそ',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel}へようこそ',
 			'onboarding.subtitle' => 'AIによるあなたの個人的な栄養コンパニオン',
 			'onboarding.getStarted' => '始める',
 			'onboarding.features.foodRecognition.title' => 'スマートフード認識',
@@ -1360,7 +1359,7 @@ extension on TranslationsJa {
 			'onboarding.bmiScale.categories.obese' => '肥満',
 			'onboarding.bmiScale.messages.underweight' => '栄養価の高い食事でバランスの取れた体重に到達するための健康的なプランを一緒に作りましょう。',
 			'onboarding.bmiScale.messages.healthy' => '素晴らしい！あなたは健康的な範囲にいます。活力とエネルギーレベルを維持するお手伝いをします。',
-			'onboarding.bmiScale.messages.overweight' => 'CalorifyがAIを活用したトラッキングで、快適に目標を達成する手助けをします。',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel}は、AIを活用したトラッキングで、快適に目標を達成する手助けをします。',
 			'onboarding.bmiScale.messages.obese' => 'あなたの健康目標のために、個別の指導と持続可能な戦略でサポートします。',
 			'onboarding.weightGoal.title' => 'あなたの目標は何ですか？',
 			'onboarding.weightGoal.description' => '達成したいことを最もよく表す目標を選んでください。',
@@ -1380,12 +1379,12 @@ extension on TranslationsJa {
 			'onboarding.healthConnect.skipForNow' => '今はスキップ',
 			'onboarding.healthConnect.statusConnected' => 'Health Connectが接続されました。',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connectが正常に接続されました！',
-			'onboarding.healthConnect.statusPermissionDenied' => '権限が拒否されました。Calorifyのために電話の設定からHealth Connectの権限を有効にしてください。',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => '権限が拒否されました。${appLabel}のために、お使いの電話の設定からHealth Connectの権限を有効にしてください。',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connectの設定中にエラーが発生しました: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'あなたは一人じゃない',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => '研究によると、一貫したトラッキングは長期的な成功の最も大きな予測因子です。',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '${age}歳の${gender}が${goal}を目指すためには、一貫したトラッキングが成功の最も大きな予測因子です。',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorifyを使えば、手動で行うよりも10倍簡単です。',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel}は手動で行うよりも10倍簡単にします。',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => '始める準備はできましたか？',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => '食事の写真を撮影して瞬時に分析します',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => '一貫して記録して、意味のある進捗を確認しましょう',
@@ -1393,9 +1392,6 @@ extension on TranslationsJa {
 			'onboarding.reinforcement.trackingSuccess.button' => '行きましょう',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => '個人',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'より健康的な自分',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => '即時フォト分析',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => '自動栄養ログ',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'やる気を引き出す進捗視覚化',
 			'onboarding.reinforcement.healthProfile.title' => 'あなたの健康プロフィール',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'あなたの指標に基づくと、あなたのBMIは${bmi}です。',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'あなたの体験をカスタマイズするためにプロフィールを最終化しましょう。',
@@ -1405,7 +1401,7 @@ extension on TranslationsJa {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'あなたは目標体重に達しました！維持を支援します。',
 			'onboarding.reinforcement.healthProfile.button' => '行きましょう',
 			'onboarding.reinforcement.goalLifestyle.title' => '素晴らしいスタート！',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'あなたは${goalText}に向けて第一歩を踏み出しました。あなたが${activityText}であるため、Calorifyはあなたのライフスタイルに合った目標を調整します。',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => '${goalText}に向けて第一歩を踏み出しましたね。あなたが${activityText}であるため、${appLabel}は生活スタイルに合わせて目標を調整します。',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'パーソナライズされたカロリターゲット',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AIによる食事検出',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => '詳細なマクロ栄養素の内訳',
@@ -1573,16 +1569,16 @@ extension on TranslationsJa {
 			'settings.language.subtitle' => 'お好みの言語を選択してください',
 			'settings.heightUnit.title' => '身長の単位',
 			'settings.weightUnit.title' => '体重の単位',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => '食事リマインダー',
 			'settings.mealReminders.subtitle' => 'タイムリーなアラートで進捗を維持',
+			'settings.theme.title' => 'テーマ',
+			'settings.theme.subtitle' => 'お好みのテーマを選択してください',
+			'settings.theme.light' => 'ライト',
+			'settings.theme.dark' => 'ダーク',
+			'settings.theme.system' => 'システム',
 			'settings.sendFeedback.title' => 'フィードバックを送信',
-			'settings.sendFeedback.subtitle' => 'Calorifyの改善にご協力ください',
-			'settings.sendFeedback.emailSubject' => 'Calorifyアプリのフィードバック',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => '${appLabel}の改善にご協力ください',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel}アプリフィードバック',
 			'settings.sendFeedback.emailBodyPrefix' => '以下にフィードバックをご記入ください:',
 			'settings.sendFeedback.appVersion' => 'アプリのバージョン',
 			'settings.sendFeedback.device' => 'デバイス',
@@ -1629,21 +1625,21 @@ extension on TranslationsJa {
 			'login.signInWithGoogle' => 'Googleでサインイン',
 			'login.signInFailed' => 'Googleサインインに失敗しました、またはキャンセルされました。',
 			'disclaimer.pleaseNote' => 'ご注意ください',
-			'disclaimer.snap.description' => 'Calorifyは推定栄養情報を提供します。正確さはあなたの入力と食品の変動に依存します。ガイドとして使用し、確定的な情報源として使用しないでください。個別の食事アドバイスについては専門家に相談してください。',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel}は推定栄養情報を提供します。正確性は、入力内容や食材のバリエーションに依存します。ガイドとして使用し、確定的な情報源とは見なさないでください。個別の食事アドバイスについては専門家に相談してください。',
 			'disclaimer.snap.portionSize.title' => 'ポーションサイズ',
 			'disclaimer.snap.portionSize.description' => '推定の正確さは、ポーションサイズの正確な評価に大きく依存します。',
 			'disclaimer.snap.preparationMethods.title' => '調理方法',
-			'disclaimer.snap.preparationMethods.description' => '調理方法は食材の栄養成分に大きく影響を与えることがあります。Calorifyの推定値は、これらの変動を常に考慮しているわけではありません。',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '調理方法は食材の栄養価に大きく影響します。${appLabel}の推定値は、これらのバリエーションを常に考慮しているわけではありません。',
 			'disclaimer.snap.ingredients.title' => '材料',
 			'disclaimer.snap.ingredients.description' => '隠れた材料が多い複雑な料理は、あまり正確な推定をもたらさない可能性があります。',
 			'disclaimer.snap.databaseLimitations.title' => 'データベースの制限',
-			'disclaimer.snap.databaseLimitations.description' => 'Calorifyの食品データベースは広範ですが、すべての食品アイテムやバリエーションを含んでいるわけではありません。',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}の食品データベースは広範囲ですが、すべての食品アイテムやバリエーションが含まれていない場合があります。',
 			'disclaimer.weightEstimate.title' => '体重の推定について',
 			'disclaimer.weightEstimate.description' => '予測される体重変化は、単純なカロリー摂取対カロリー消費のモデルに基づく理論的な推定です。これはモチベーションのガイダンスを目的としており、実際の体重の予測として使わないでください。',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'カロリーの正確性',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'この推定値は、追跡されたカロリー摂取と消費の正確さに依存しています。不正確な記録は不正確な推定をもたらします。',
 			'disclaimer.weightEstimate.biologicalFactors.title' => '生物的要因',
-			'disclaimer.weightEstimate.biologicalFactors.description' => '実際の体重の減少や増加は、代謝、ホルモン、睡眠、ストレス、水分摂取、その他の個別の要因によって影響を受けますが、Calorifyでは測定できません。',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => '実際の体重減少/増加は、代謝、ホルモン、睡眠、ストレス、水分補給、その他の個々の要因によって影響され、${appLabel}では測定できません。',
 			'disclaimer.weightEstimate.waterWeight.title' => '水分による体重の変動',
 			'disclaimer.weightEstimate.waterWeight.description' => '通常の体重は、水分貯留、消化、タイミングによる影響で大きく変動することがあります。推定値はこれらの毎日の変動を考慮していません。',
 			'disclaimer.weightEstimate.professionalGuidance.title' => '専門家のガイダンス',

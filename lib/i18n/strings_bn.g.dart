@@ -39,6 +39,7 @@ class TranslationsBn with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => 'Bengali';
 	@override String get flag => '🇧🇩';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingBn onboarding = _TranslationsOnboardingBn._(_root);
 	@override late final _TranslationsTabsBn tabs = _TranslationsTabsBn._(_root);
 	@override late final _TranslationsHomeBn home = _TranslationsHomeBn._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingBn implements TranslationsOnboardingEn {
 	final TranslationsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'ক্যালোরিফিতে স্বাগতম';
+	@override String welcome({required Object appLabel}) => '${appLabel} এ স্বাগতম';
 	@override String get subtitle => 'এটি আপনার ব্যক্তিগত পুষ্টি সঙ্গী, যা AI দ্বারা পরিচালিত';
 	@override String get getStarted => 'শুরু করুন';
 	@override late final _TranslationsOnboardingFeaturesBn features = _TranslationsOnboardingFeaturesBn._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsBn implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageBn language = _TranslationsSettingsLanguageBn._(_root);
 	@override late final _TranslationsSettingsHeightUnitBn heightUnit = _TranslationsSettingsHeightUnitBn._(_root);
 	@override late final _TranslationsSettingsWeightUnitBn weightUnit = _TranslationsSettingsWeightUnitBn._(_root);
-	@override late final _TranslationsSettingsThemeBn theme = _TranslationsSettingsThemeBn._(_root);
 	@override late final _TranslationsSettingsMealRemindersBn mealReminders = _TranslationsSettingsMealRemindersBn._(_root);
+	@override late final _TranslationsSettingsThemeBn theme = _TranslationsSettingsThemeBn._(_root);
 	@override late final _TranslationsSettingsSendFeedbackBn sendFeedback = _TranslationsSettingsSendFeedbackBn._(_root);
 	@override late final _TranslationsSettingsClearAllDataBn clearAllData = _TranslationsSettingsClearAllDataBn._(_root);
 	@override late final _TranslationsSettingsDebugOptionsBn debugOptions = _TranslationsSettingsDebugOptionsBn._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectBn implements TranslationsOnboardingHe
 	@override String get skipForNow => 'এখন বাদ দিন';
 	@override String get statusConnected => 'স্বাস্থ্য সংযোগ সংযুক্ত হয়েছে।';
 	@override String get statusSuccess => 'স্বাস্থ্য সংযোগ সফলভাবে সংযুক্ত হয়েছে!';
-	@override String get statusPermissionDenied => 'অনুমতি অস্বীকৃত। ক্যালোরিফির জন্য আপনার ফোনের সেটিংস থেকে স্বাস্থ্য সংযোগের অনুমতি সক্রিয় করুন।';
+	@override String statusPermissionDenied({required Object appLabel}) => '${appLabel} এর জন্য আপনার ফোনের সেটিংস থেকে স্বাস্থ্য সংযোগের অনুমতি সক্ষম করুন।';
 	@override String statusError({required Object error}) => 'স্বাস্থ্য সংযোগ সেটআপ করতে ত্রুটি: ${error}';
 }
 
@@ -826,20 +827,6 @@ class _TranslationsSettingsWeightUnitBn implements TranslationsSettingsWeightUni
 	@override String get title => 'ওজনের ইউনিট';
 }
 
-// Path: settings.theme
-class _TranslationsSettingsThemeBn implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeBn._(this._root);
-
-	final TranslationsBn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
-}
-
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersBn implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersBn._(this._root);
@@ -851,6 +838,20 @@ class _TranslationsSettingsMealRemindersBn implements TranslationsSettingsMealRe
 	@override String get subtitle => 'সঠিক সময়ে সতর্কতা দিয়ে পথৈঁচ রাখতে';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeBn implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'থিম';
+	@override String get subtitle => 'আপনার পছন্দের থিম নির্বাচন করুন';
+	@override String get light => 'লাইট';
+	@override String get dark => 'ডার্ক';
+	@override String get system => 'সিস্টেম';
+}
+
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackBn implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackBn._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackBn implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'ফিডব্যাক পাঠান';
-	@override String get subtitle => 'ক্যালোরিফিকে উন্নত করতে আমাদের সাহায্য করুন';
-	@override String get emailSubject => 'ক্যালোরিফি অ্যাপ ফিডব্যাক';
+	@override String subtitle({required Object appLabel}) => '${appLabel} উন্নত করতে আমাদের সাহায্য করুন';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} অ্যাপ ফিডব্যাক';
 	@override String get emailBodyPrefix => 'অনুগ্রহ করে আপনার মন্তব্য নীচে লেখুন:';
 	@override String get appVersion => 'অ্যাপ সংস্করণ';
 	@override String get device => 'যন্ত্র';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapBn implements TranslationsDisclaimerSnapEn {
 	final TranslationsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'ক্যালোরিফি অনুমানের ভিত্তিতে পুষ্টিগত তথ্য প্রদান করে। সঠিকতা আপনার ইনপুট ও খাবারের পরিবর্তনের উপর নির্ভর করে। এটিকে একটি নির্দেশ হিসেবে ব্যবহার করুন, নির্দিষ্ট উৎসেরূপে নয়। ব্যক্তিগত পুষ্টিগত পরামর্শের জন্য সর্বদা একজন পেশাদারকে পরামর্শ করুন।';
+	@override String description({required Object appLabel}) => '${appLabel} আনুমানিক পুষ্টির তথ্য প্রদান করে। সঠিকতা আপনার ইনপুট এবং খাবারের পরিবর্তনের ওপর নির্ভর করে। একটি গাইড হিসেবে ব্যবহার করুন, Definitive source হিসেবে নয়। ব্যক্তিগত খাদ্যগত পরামর্শের জন্য একটি পেশাদারের সাথে পরামর্শ করুন।';
 	@override late final _TranslationsDisclaimerSnapPortionSizeBn portionSize = _TranslationsDisclaimerSnapPortionSizeBn._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsBn preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsBn._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsBn ingredients = _TranslationsDisclaimerSnapIngredientsBn._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesBn implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => 'আমরা আপনাকে পুষ্টিকর খাদ্যের মাধ্যমে একটি স্বাস্থ্যকর পরিকল্পনা তৈরি করতে সাহায্য করতে পারি।';
 	@override String get healthy => 'দারুণ কাজ! আপনি একটি স্বাস্থ্যকর পরিসরে আছেন। আমরা আপনাকে আপনার সক্রিয়তা এবং শক্তির স্তর বজায় রাখতে সাহায্য করবো।';
-	@override String get overweight => 'ক্যালোরিফি আপনার লক্ষ্য অর্জনে সাহায্য করতে AI-চালিত ট্র্যাকিংয়ের সাহায্যে আপনার যাত্রাকে সহজ করে তুলবে।';
+	@override String overweight({required Object appLabel}) => '${appLabel} আপনাকে স্বাচ্ছন্দ্যে লক্ষ্য অর্জনের জন্য AI-সক্ষম ট্র্যাকিংয়ের মাধ্যমে আপনার সফর সহজ করবে।';
 	@override String get obese => 'আপনার স্বাস্থ্য লক্ষ্যগুলি পূরণ করার জন্য ব্যক্তিগতকৃত নির্দেশনা এবং টেকসই কৌশলগুলির সঙ্গে আমরা আপনাকে সমর্থন করতে এখানে আছি।';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessBn implements Translati
 	@override String get title => 'আপনি একা নয়';
 	@override String get genericMessage => 'গবেষণায় দেখা গেছে যে ধারাবাহিক ট্র্যাকিং দীর্ঘমেয়াদী সফলতার শীর্ষ পূর্বাভাসক।';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'একটি ${age} বছর বয়সী ${gender} যে ${goal} করতে চায়, ধারাবাহিক ট্র্যাকিং সফলতার শীর্ষ পূর্বাভাসক।';
-	@override String get closingMessage => 'ক্যালোরিফি এটি ম্যানুয়ালি করার চেয়ে 10 গুণ সহজ করে দেয়।';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} এটা ম্যানুয়ালি করার চেয়ে ১০ গুণ সহজ করে তোলে।';
 	@override String get getStartedTitle => 'শুরু করার জন্য তৈরি?';
 	@override String get tipPhoto => 'আপনার খাবারের ছবি তুলুন তাত্ক্ষণিক বিশ্লেষণের জন্য';
 	@override String get tipConsistency => 'অর্থপূর্ণ উন্নতি দেখতে নিয়মিত লগ করুন';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessBn implements Translati
 	@override String get button => 'চলুন যাওয়া যাক';
 	@override String get defaultGender => 'ব্যক্তি';
 	@override String get defaultGoal => 'স্বাস্থ্যকর আপনি';
-	@override String get instantPhotoAnalysis => 'ততক্ষণে ছবি বিশ্লেষণ';
-	@override String get automaticLogging => 'স্বয়ংক্রিয় পুষ্টি লগিং';
-	@override String get progressVisualizations => 'আপনাকে উৎসাহিত রাখতে অগ্রগতি চিত্রণ';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleBn implements Translation
 
 	// Translations
 	@override String get title => 'শুভ সূচনা!';
-	@override String description({required Object goalText, required Object activityText}) => 'আপনি ${goalText}-এর দিকে প্রথম পদক্ষেপ নিয়েছেন। যেহেতু আপনি ${activityText}, ক্যালোরিফি আপনার লক্ষ্যগুলির সাথে আপনার লক্ষ্যগুলি সমন্বয় করবে।';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'আপনি ${goalText} এর দিকে প্রথম পদক্ষেপ নিয়েছেন। যেহেতু আপনি ${activityText}, ${appLabel} আপনার লক্ষ্যগুলোকে আপনার জীবনধারার সাথে সামঞ্জস্য করতে সমন্বয় করবে।';
 	@override String get personalizedTargets => 'ব্যক্তিগতকৃত ক্যালোরির লক্ষ্য';
 	@override String get aiMealDetection => 'AI-চালিত খাবার সনাক্তকরণ';
 	@override String get macroBreakdowns => 'বিন্যাসিত ম্যাক্রো-নিউট্রিয়েন্ট বিভাজন';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsBn implements TranslationsDis
 
 	// Translations
 	@override String get title => 'প্রস্তুতি পদ্ধতি';
-	@override String get description => 'রান্নার পদ্ধতি খাবারের পুষ্টিগত বিষয়বরণ পরিবর্তন করতে পারে। ক্যালোরিফির অনুমানগুলি এই পরিবর্তনের জন্য সর্বদা হিসাব নাও করতে পারে।';
+	@override String description({required Object appLabel}) => 'রান্নার পদ্ধতিগুলি খাবারের পুষ্টিগত মূল্যের ওপর গুরুত্বপূর্ণভাবে প্রভাব ফেলতে পারে। ${appLabel} এর আনুমানিক হিসাব এই পরিবর্তনগুলো সবসময় অন্তর্ভুক্ত নাও করতে পারে।';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsBn implements TranslationsDi
 
 	// Translations
 	@override String get title => 'ডেটাবেসের সীমাবদ্ধতা';
-	@override String get description => 'ক্যালোরিফির খাবারের ডেটাবেস ব্যাপক কিন্তু প্রতিটি খাবার আইটেম বা পরিবর্তন অন্তর্ভুক্ত নাও থাকতে পারে।';
+	@override String description({required Object appLabel}) => '${appLabel} এর খাবারের ডাটাবেজ ব্যাপক কিন্তু এতে প্রতিটি খাদ্য আইটেম বা ভ্যারিয়েশন অন্তর্ভুক্ত নাও হতে পারে।';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsBn implements Transl
 
 	// Translations
 	@override String get title => 'জীববৈচিত্র্যগত উপাদান';
-	@override String get description => 'বাস্তব ওজনের হ্রাস/বৃদ্ধি বিপাক, হরমোন, ঘুম, চাপ, জলাধার এবং অন্যান্য ব্যক্তিগত উপাদানের দ্বারা প্রভাবিত হয় যা ক্যালোরিফি পরিমাপ করতে পারে না।';
+	@override String description({required Object appLabel}) => 'বাস্তব ওজন কমানো/বাড়ানো বিপাক, হরমোন, ঘুম, চাপ, জল দেহের প্রভাব ও অন্যান্য ব্যক্তিগত ফ্যাক্টরের দ্বারা প্রভাবিত হয় যা ${appLabel} মাপতে পারে না।';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsBn {
 		return switch (path) {
 			'language' => 'Bengali',
 			'flag' => '🇧🇩',
-			'onboarding.welcome' => 'ক্যালোরিফিতে স্বাগতম',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} এ স্বাগতম',
 			'onboarding.subtitle' => 'এটি আপনার ব্যক্তিগত পুষ্টি সঙ্গী, যা AI দ্বারা পরিচালিত',
 			'onboarding.getStarted' => 'শুরু করুন',
 			'onboarding.features.foodRecognition.title' => 'বুদ্ধিমান খাদ্য চিহ্নিতকরণ',
@@ -1360,7 +1359,7 @@ extension on TranslationsBn {
 			'onboarding.bmiScale.categories.obese' => 'মোটা',
 			'onboarding.bmiScale.messages.underweight' => 'আমরা আপনাকে পুষ্টিকর খাদ্যের মাধ্যমে একটি স্বাস্থ্যকর পরিকল্পনা তৈরি করতে সাহায্য করতে পারি।',
 			'onboarding.bmiScale.messages.healthy' => 'দারুণ কাজ! আপনি একটি স্বাস্থ্যকর পরিসরে আছেন। আমরা আপনাকে আপনার সক্রিয়তা এবং শক্তির স্তর বজায় রাখতে সাহায্য করবো।',
-			'onboarding.bmiScale.messages.overweight' => 'ক্যালোরিফি আপনার লক্ষ্য অর্জনে সাহায্য করতে AI-চালিত ট্র্যাকিংয়ের সাহায্যে আপনার যাত্রাকে সহজ করে তুলবে।',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} আপনাকে স্বাচ্ছন্দ্যে লক্ষ্য অর্জনের জন্য AI-সক্ষম ট্র্যাকিংয়ের মাধ্যমে আপনার সফর সহজ করবে।',
 			'onboarding.bmiScale.messages.obese' => 'আপনার স্বাস্থ্য লক্ষ্যগুলি পূরণ করার জন্য ব্যক্তিগতকৃত নির্দেশনা এবং টেকসই কৌশলগুলির সঙ্গে আমরা আপনাকে সমর্থন করতে এখানে আছি।',
 			'onboarding.weightGoal.title' => 'আপনার লক্ষ্য কি?',
 			'onboarding.weightGoal.description' => 'যা আপনি অর্জন করতে চান তা বর্ণনা করে এমন লক্ষ্যটি বেছে নিন',
@@ -1380,12 +1379,12 @@ extension on TranslationsBn {
 			'onboarding.healthConnect.skipForNow' => 'এখন বাদ দিন',
 			'onboarding.healthConnect.statusConnected' => 'স্বাস্থ্য সংযোগ সংযুক্ত হয়েছে।',
 			'onboarding.healthConnect.statusSuccess' => 'স্বাস্থ্য সংযোগ সফলভাবে সংযুক্ত হয়েছে!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'অনুমতি অস্বীকৃত। ক্যালোরিফির জন্য আপনার ফোনের সেটিংস থেকে স্বাস্থ্য সংযোগের অনুমতি সক্রিয় করুন।',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => '${appLabel} এর জন্য আপনার ফোনের সেটিংস থেকে স্বাস্থ্য সংযোগের অনুমতি সক্ষম করুন।',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'স্বাস্থ্য সংযোগ সেটআপ করতে ত্রুটি: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'আপনি একা নয়',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'গবেষণায় দেখা গেছে যে ধারাবাহিক ট্র্যাকিং দীর্ঘমেয়াদী সফলতার শীর্ষ পূর্বাভাসক।',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'একটি ${age} বছর বয়সী ${gender} যে ${goal} করতে চায়, ধারাবাহিক ট্র্যাকিং সফলতার শীর্ষ পূর্বাভাসক।',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'ক্যালোরিফি এটি ম্যানুয়ালি করার চেয়ে 10 গুণ সহজ করে দেয়।',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} এটা ম্যানুয়ালি করার চেয়ে ১০ গুণ সহজ করে তোলে।',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'শুরু করার জন্য তৈরি?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'আপনার খাবারের ছবি তুলুন তাত্ক্ষণিক বিশ্লেষণের জন্য',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'অর্থপূর্ণ উন্নতি দেখতে নিয়মিত লগ করুন',
@@ -1393,9 +1392,6 @@ extension on TranslationsBn {
 			'onboarding.reinforcement.trackingSuccess.button' => 'চলুন যাওয়া যাক',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'ব্যক্তি',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'স্বাস্থ্যকর আপনি',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'ততক্ষণে ছবি বিশ্লেষণ',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'স্বয়ংক্রিয় পুষ্টি লগিং',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'আপনাকে উৎসাহিত রাখতে অগ্রগতি চিত্রণ',
 			'onboarding.reinforcement.healthProfile.title' => 'আপনার স্বাস্থ্য প্রোফাইল',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'আপনার পরিমাপের ভিত্তিতে, আপনার BMI ${bmi}।',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'আপনার অভিজ্ঞতা কাস্টমাইজ করতে চলুন আপনার প্রোফাইলটি চূড়ান্ত করুন।',
@@ -1405,7 +1401,7 @@ extension on TranslationsBn {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'আপনার লক্ষ্য ওজন অর্জন হয়েছে! আমরা আপনাকে এটিকে বজায় রাখতে সাহায্য করবো।',
 			'onboarding.reinforcement.healthProfile.button' => 'চলুন যাওয়া যাক',
 			'onboarding.reinforcement.goalLifestyle.title' => 'শুভ সূচনা!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'আপনি ${goalText}-এর দিকে প্রথম পদক্ষেপ নিয়েছেন। যেহেতু আপনি ${activityText}, ক্যালোরিফি আপনার লক্ষ্যগুলির সাথে আপনার লক্ষ্যগুলি সমন্বয় করবে।',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'আপনি ${goalText} এর দিকে প্রথম পদক্ষেপ নিয়েছেন। যেহেতু আপনি ${activityText}, ${appLabel} আপনার লক্ষ্যগুলোকে আপনার জীবনধারার সাথে সামঞ্জস্য করতে সমন্বয় করবে।',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'ব্যক্তিগতকৃত ক্যালোরির লক্ষ্য',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI-চালিত খাবার সনাক্তকরণ',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'বিন্যাসিত ম্যাক্রো-নিউট্রিয়েন্ট বিভাজন',
@@ -1573,16 +1569,16 @@ extension on TranslationsBn {
 			'settings.language.subtitle' => 'আপনার পছন্দের ভাষা নির্বাচন করুন',
 			'settings.heightUnit.title' => 'উচ্চতার ইউনিট',
 			'settings.weightUnit.title' => 'ওজনের ইউনিট',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => 'খাবার স্মরণিকার্ণ',
 			'settings.mealReminders.subtitle' => 'সঠিক সময়ে সতর্কতা দিয়ে পথৈঁচ রাখতে',
+			'settings.theme.title' => 'থিম',
+			'settings.theme.subtitle' => 'আপনার পছন্দের থিম নির্বাচন করুন',
+			'settings.theme.light' => 'লাইট',
+			'settings.theme.dark' => 'ডার্ক',
+			'settings.theme.system' => 'সিস্টেম',
 			'settings.sendFeedback.title' => 'ফিডব্যাক পাঠান',
-			'settings.sendFeedback.subtitle' => 'ক্যালোরিফিকে উন্নত করতে আমাদের সাহায্য করুন',
-			'settings.sendFeedback.emailSubject' => 'ক্যালোরিফি অ্যাপ ফিডব্যাক',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => '${appLabel} উন্নত করতে আমাদের সাহায্য করুন',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} অ্যাপ ফিডব্যাক',
 			'settings.sendFeedback.emailBodyPrefix' => 'অনুগ্রহ করে আপনার মন্তব্য নীচে লেখুন:',
 			'settings.sendFeedback.appVersion' => 'অ্যাপ সংস্করণ',
 			'settings.sendFeedback.device' => 'যন্ত্র',
@@ -1629,21 +1625,21 @@ extension on TranslationsBn {
 			'login.signInWithGoogle' => 'গুগলের সাথে লগ ইন করুন',
 			'login.signInFailed' => 'গুগল সাইন ইন ব্যর্থ হয়েছে অথবা বাতিল হয়েছে।',
 			'disclaimer.pleaseNote' => 'দয়া করে মনে রাখবেন',
-			'disclaimer.snap.description' => 'ক্যালোরিফি অনুমানের ভিত্তিতে পুষ্টিগত তথ্য প্রদান করে। সঠিকতা আপনার ইনপুট ও খাবারের পরিবর্তনের উপর নির্ভর করে। এটিকে একটি নির্দেশ হিসেবে ব্যবহার করুন, নির্দিষ্ট উৎসেরূপে নয়। ব্যক্তিগত পুষ্টিগত পরামর্শের জন্য সর্বদা একজন পেশাদারকে পরামর্শ করুন।',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} আনুমানিক পুষ্টির তথ্য প্রদান করে। সঠিকতা আপনার ইনপুট এবং খাবারের পরিবর্তনের ওপর নির্ভর করে। একটি গাইড হিসেবে ব্যবহার করুন, Definitive source হিসেবে নয়। ব্যক্তিগত খাদ্যগত পরামর্শের জন্য একটি পেশাদারের সাথে পরামর্শ করুন।',
 			'disclaimer.snap.portionSize.title' => 'পোর্শনের আকার',
 			'disclaimer.snap.portionSize.description' => 'অনুমানের সঠিকতা আপনার সঠিকভাবে পরিমাণ নির্ধারণের উপর নির্ভর করে।',
 			'disclaimer.snap.preparationMethods.title' => 'প্রস্তুতি পদ্ধতি',
-			'disclaimer.snap.preparationMethods.description' => 'রান্নার পদ্ধতি খাবারের পুষ্টিগত বিষয়বরণ পরিবর্তন করতে পারে। ক্যালোরিফির অনুমানগুলি এই পরিবর্তনের জন্য সর্বদা হিসাব নাও করতে পারে।',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'রান্নার পদ্ধতিগুলি খাবারের পুষ্টিগত মূল্যের ওপর গুরুত্বপূর্ণভাবে প্রভাব ফেলতে পারে। ${appLabel} এর আনুমানিক হিসাব এই পরিবর্তনগুলো সবসময় অন্তর্ভুক্ত নাও করতে পারে।',
 			'disclaimer.snap.ingredients.title' => 'উপকরণ',
 			'disclaimer.snap.ingredients.description' => 'যথেষ্ট উপকরণ নিয়ে গঠিত জটিল খাবারগুলি কম সঠিক অনুমান প্রদান করে।',
 			'disclaimer.snap.databaseLimitations.title' => 'ডেটাবেসের সীমাবদ্ধতা',
-			'disclaimer.snap.databaseLimitations.description' => 'ক্যালোরিফির খাবারের ডেটাবেস ব্যাপক কিন্তু প্রতিটি খাবার আইটেম বা পরিবর্তন অন্তর্ভুক্ত নাও থাকতে পারে।',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} এর খাবারের ডাটাবেজ ব্যাপক কিন্তু এতে প্রতিটি খাদ্য আইটেম বা ভ্যারিয়েশন অন্তর্ভুক্ত নাও হতে পারে।',
 			'disclaimer.weightEstimate.title' => 'ওজনের আনুমানিক সম্পর্কে',
 			'disclaimer.weightEstimate.description' => 'প্রোজেক্টেড ওজন পরিবর্তনটি সাধারণ ক্যালোরি-তে বাস/ক্যালোরি-এলপ স্রাব মডেলের উপর ভিত্তি করে একটি তাত্ত্বিক মান। এটি শুধুমাত্র অনুপ্রেরণামূলক নির্দেশিকা হিসেবে তৈরি করা হয়েছে, আপনার আসল ওজনের পূর্বাভাস হিসেবে নয়।',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'ক্যালোরির সঠিকতা',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'এই অনুমানটি আপনার ট্র্যাক করা ক্যালোরির গ্রহণ ও ব্যয় অনুযায়ী শুধুমাত্র সঠিক। অমূল্য লগিং একটি অমূল্য পূর্বাভাস সৃষ্টি করবে।',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'জীববৈচিত্র্যগত উপাদান',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'বাস্তব ওজনের হ্রাস/বৃদ্ধি বিপাক, হরমোন, ঘুম, চাপ, জলাধার এবং অন্যান্য ব্যক্তিগত উপাদানের দ্বারা প্রভাবিত হয় যা ক্যালোরিফি পরিমাপ করতে পারে না।',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'বাস্তব ওজন কমানো/বাড়ানো বিপাক, হরমোন, ঘুম, চাপ, জল দেহের প্রভাব ও অন্যান্য ব্যক্তিগত ফ্যাক্টরের দ্বারা প্রভাবিত হয় যা ${appLabel} মাপতে পারে না।',
 			'disclaimer.weightEstimate.waterWeight.title' => 'জল ওজন এবং পরিবর্তন',
 			'disclaimer.weightEstimate.waterWeight.description' => 'সাধারণ দৈনিক ওজন ব্যাপকভাবে জল ধারণ, পাচন এবং সময়ের কারনে পরিবর্তিত হতে পারে। অনুমানগুলি এই দৈনিক পরিবর্তনগুলির হিসাব করে না।',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'পেশাদার নির্দেশিকা',

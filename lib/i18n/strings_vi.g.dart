@@ -39,6 +39,7 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => 'Tiếng Việt';
 	@override String get flag => '🇻🇳';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingVi onboarding = _TranslationsOnboardingVi._(_root);
 	@override late final _TranslationsTabsVi tabs = _TranslationsTabsVi._(_root);
 	@override late final _TranslationsHomeVi home = _TranslationsHomeVi._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingVi implements TranslationsOnboardingEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Chào mừng bạn đến với Calorify';
+	@override String welcome({required Object appLabel}) => 'Chào mừng bạn đến với ${appLabel}';
 	@override String get subtitle => 'Người bạn đồng hành dinh dưỡng cá nhân của bạn được hỗ trợ bởi AI';
 	@override String get getStarted => 'Bắt đầu';
 	@override late final _TranslationsOnboardingFeaturesVi features = _TranslationsOnboardingFeaturesVi._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsVi implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageVi language = _TranslationsSettingsLanguageVi._(_root);
 	@override late final _TranslationsSettingsHeightUnitVi heightUnit = _TranslationsSettingsHeightUnitVi._(_root);
 	@override late final _TranslationsSettingsWeightUnitVi weightUnit = _TranslationsSettingsWeightUnitVi._(_root);
-	@override late final _TranslationsSettingsThemeVi theme = _TranslationsSettingsThemeVi._(_root);
 	@override late final _TranslationsSettingsMealRemindersVi mealReminders = _TranslationsSettingsMealRemindersVi._(_root);
+	@override late final _TranslationsSettingsThemeVi theme = _TranslationsSettingsThemeVi._(_root);
 	@override late final _TranslationsSettingsSendFeedbackVi sendFeedback = _TranslationsSettingsSendFeedbackVi._(_root);
 	@override late final _TranslationsSettingsClearAllDataVi clearAllData = _TranslationsSettingsClearAllDataVi._(_root);
 	@override late final _TranslationsSettingsDebugOptionsVi debugOptions = _TranslationsSettingsDebugOptionsVi._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectVi implements TranslationsOnboardingHe
 	@override String get skipForNow => 'Bỏ qua tạm thời';
 	@override String get statusConnected => 'Health Connect đã được kết nối.';
 	@override String get statusSuccess => 'Health Connect đã được kết nối thành công!';
-	@override String get statusPermissionDenied => 'Đã từ chối quyền truy cập. Vui lòng bật quyền Health Connect từ cài đặt điện thoại của bạn cho Calorify.';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Quyền truy cập đã bị từ chối. Vui lòng bật quyền truy cập Health Connect từ cài đặt điện thoại của bạn để sử dụng ${appLabel}.';
 	@override String statusError({required Object error}) => 'Lỗi cài đặt Health Connect: ${error}';
 }
 
@@ -826,6 +827,17 @@ class _TranslationsSettingsWeightUnitVi implements TranslationsSettingsWeightUni
 	@override String get title => 'Đơn vị cân nặng';
 }
 
+// Path: settings.mealReminders
+class _TranslationsSettingsMealRemindersVi implements TranslationsSettingsMealRemindersEn {
+	_TranslationsSettingsMealRemindersVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Nhắc nhở bữa ăn';
+	@override String get subtitle => 'Giúp bạn theo dõi đúng thời gian với những thông báo kịp thời';
+}
+
 // Path: settings.theme
 class _TranslationsSettingsThemeVi implements TranslationsSettingsThemeEn {
 	_TranslationsSettingsThemeVi._(this._root);
@@ -840,17 +852,6 @@ class _TranslationsSettingsThemeVi implements TranslationsSettingsThemeEn {
 	@override String get system => 'Hệ thống';
 }
 
-// Path: settings.mealReminders
-class _TranslationsSettingsMealRemindersVi implements TranslationsSettingsMealRemindersEn {
-	_TranslationsSettingsMealRemindersVi._(this._root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Nhắc nhở bữa ăn';
-	@override String get subtitle => 'Giúp bạn theo dõi đúng thời gian với những thông báo kịp thời';
-}
-
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackVi implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackVi._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackVi implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'Gửi phản hồi';
-	@override String get subtitle => 'Giúp chúng tôi cải thiện Calorify';
-	@override String get emailSubject => 'Phản hồi ứng dụng Calorify';
+	@override String subtitle({required Object appLabel}) => 'Giúp chúng tôi cải thiện ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => 'Phản hồi về ứng dụng ${appLabel}';
 	@override String get emailBodyPrefix => 'Vui lòng cung cấp phản hồi của bạn bên dưới:';
 	@override String get appVersion => 'Phiên bản ứng dụng';
 	@override String get device => 'Thiết bị';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapVi implements TranslationsDisclaimerSnapEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Calorify cung cấp thông tin dinh dưỡng ước tính. Độ chính xác phụ thuộc vào đầu vào và sự biến đổi thực phẩm của bạn. Sử dụng như một hướng dẫn, không phải là một nguồn chính xác. Tham khảo ý kiến chuyên gia để có lời khuyên chế độ ăn uống cá nhân hóa.';
+	@override String description({required Object appLabel}) => '${appLabel} cung cấp thông tin dinh dưỡng ước tính. Độ chính xác phụ thuộc vào dữ liệu bạn nhập và các biến thể thực phẩm. Sử dụng như một hướng dẫn, không phải là nguồn thông tin chính xác. Hãy tham khảo ý kiến chuyên gia để được tư vấn dinh dưỡng cá nhân.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeVi portionSize = _TranslationsDisclaimerSnapPortionSizeVi._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsVi preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsVi._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsVi ingredients = _TranslationsDisclaimerSnapIngredientsVi._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesVi implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => 'Chúng tôi có thể giúp bạn xây dựng một kế hoạch lành mạnh để đạt được trọng lượng cân bằng với những bữa ăn giàu dinh dưỡng.';
 	@override String get healthy => 'Tuyệt vời! Bạn đang ở mức độ khỏe mạnh. Chúng tôi sẽ giúp bạn duy trì sức sống và mức năng lượng.';
-	@override String get overweight => 'Calorify sẽ đơn giản hóa hành trình của bạn với việc theo dõi được hỗ trợ bởi AI để giúp bạn đạt được mục tiêu một cách thoải mái.';
+	@override String overweight({required Object appLabel}) => '${appLabel} sẽ đơn giản hóa hành trình của bạn với việc theo dõi bằng AI để giúp bạn đạt được mục tiêu của mình một cách thoải mái.';
 	@override String get obese => 'Chúng tôi ở đây để hỗ trợ bạn với hướng dẫn cá nhân hóa và các chiến lược bền vững cho các mục tiêu sức khỏe của bạn.';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessVi implements Translati
 	@override String get title => 'Bạn không đơn độc';
 	@override String get genericMessage => 'Nghiên cứu cho thấy việc theo dõi liên tục là dự đoán số 1 cho thành công lâu dài.';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Đối với một ${age} tuổi ${gender} muốn ${goal}, việc theo dõi liên tục là dự đoán số 1 cho thành công.';
-	@override String get closingMessage => 'Calorify làm cho mọi việc trở nên dễ dàng hơn gấp 10 lần so với việc làm thủ công.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} giúp bạn dễ dàng hơn gấp 10 lần so với việc thực hiện thủ công.';
 	@override String get getStartedTitle => 'Sẵn sàng để bắt đầu chưa?';
 	@override String get tipPhoto => 'Chụp ảnh bữa ăn của bạn để phân tích ngay lập tức';
 	@override String get tipConsistency => 'Ghi chép thường xuyên để thấy được tiến bộ rõ rệt';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessVi implements Translati
 	@override String get button => 'Đi nào';
 	@override String get defaultGender => 'người';
 	@override String get defaultGoal => 'khỏe mạnh hơn';
-	@override String get instantPhotoAnalysis => 'Phân tích ảnh ngay lập tức';
-	@override String get automaticLogging => 'Nhật ký dinh dưỡng tự động';
-	@override String get progressVisualizations => 'Các hình ảnh minh họa tiến trình giúp bạn có động lực';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleVi implements Translation
 
 	// Translations
 	@override String get title => 'Khởi đầu tuyệt vời!';
-	@override String description({required Object goalText, required Object activityText}) => 'Bạn đã thực hiện bước đầu tiên hướng tới ${goalText}. Vì bạn ${activityText}, Calorify sẽ điều chỉnh các mục tiêu của bạn để phù hợp với lối sống của bạn.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Bạn đã bước những bước đầu tiên hướng tới ${goalText}. Vì bạn đang ${activityText}, ${appLabel} sẽ điều chỉnh các mục tiêu của bạn để phù hợp với lối sống của bạn.';
 	@override String get personalizedTargets => 'Mục tiêu calo cá nhân hóa';
 	@override String get aiMealDetection => 'Nhận diện bữa ăn được hỗ trợ bởi AI';
 	@override String get macroBreakdowns => 'Chi tiết về phân bổ chất dinh dưỡng';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsVi implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Phương pháp chế biến';
-	@override String get description => 'Các phương pháp nấu ăn có thể thay đổi đáng kể thành phần dinh dưỡng của thực phẩm. Các ước tính của Calorify có thể không phải lúc nào cũng tính đến những sự biến đổi này.';
+	@override String description({required Object appLabel}) => 'Phương pháp chế biến có thể thay đổi đáng kể thành phần dinh dưỡng của thực phẩm. Các ước tính của ${appLabel} có thể không luôn dự đoán được những biến đổi này.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsVi implements TranslationsDi
 
 	// Translations
 	@override String get title => 'Giới hạn cơ sở dữ liệu';
-	@override String get description => 'Cơ sở dữ liệu thực phẩm của Calorify rất phong phú nhưng có thể không bao gồm mọi món ăn hoặc biến thể.';
+	@override String description({required Object appLabel}) => 'Cơ sở dữ liệu thực phẩm của ${appLabel} rất phong phú nhưng có thể không bao gồm mọi món ăn hay biến thể nào.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsVi implements Transl
 
 	// Translations
 	@override String get title => 'Các yếu tố sinh học';
-	@override String get description => 'Sự giảm/ tăng trọng lượng thực tế bị ảnh hưởng bởi chuyển hóa, hormone, giấc ngủ, căng thẳng, nước và các yếu tố cá nhân khác mà Calorify không thể đo lường.';
+	@override String description({required Object appLabel}) => 'Sự thay đổi cân nặng thực tế bị ảnh hưởng bởi chuyển hóa, hormone, giấc ngủ, căng thẳng, độ ẩm, và các yếu tố cá nhân khác mà ${appLabel} không thể đo được.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsVi {
 		return switch (path) {
 			'language' => 'Tiếng Việt',
 			'flag' => '🇻🇳',
-			'onboarding.welcome' => 'Chào mừng bạn đến với Calorify',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => 'Chào mừng bạn đến với ${appLabel}',
 			'onboarding.subtitle' => 'Người bạn đồng hành dinh dưỡng cá nhân của bạn được hỗ trợ bởi AI',
 			'onboarding.getStarted' => 'Bắt đầu',
 			'onboarding.features.foodRecognition.title' => 'Nhận diện thực phẩm thông minh',
@@ -1360,7 +1359,7 @@ extension on TranslationsVi {
 			'onboarding.bmiScale.categories.obese' => 'Béo phì',
 			'onboarding.bmiScale.messages.underweight' => 'Chúng tôi có thể giúp bạn xây dựng một kế hoạch lành mạnh để đạt được trọng lượng cân bằng với những bữa ăn giàu dinh dưỡng.',
 			'onboarding.bmiScale.messages.healthy' => 'Tuyệt vời! Bạn đang ở mức độ khỏe mạnh. Chúng tôi sẽ giúp bạn duy trì sức sống và mức năng lượng.',
-			'onboarding.bmiScale.messages.overweight' => 'Calorify sẽ đơn giản hóa hành trình của bạn với việc theo dõi được hỗ trợ bởi AI để giúp bạn đạt được mục tiêu một cách thoải mái.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} sẽ đơn giản hóa hành trình của bạn với việc theo dõi bằng AI để giúp bạn đạt được mục tiêu của mình một cách thoải mái.',
 			'onboarding.bmiScale.messages.obese' => 'Chúng tôi ở đây để hỗ trợ bạn với hướng dẫn cá nhân hóa và các chiến lược bền vững cho các mục tiêu sức khỏe của bạn.',
 			'onboarding.weightGoal.title' => 'Mục tiêu của bạn là gì?',
 			'onboarding.weightGoal.description' => 'Chọn mục tiêu mà bạn muốn đạt được nhất',
@@ -1380,12 +1379,12 @@ extension on TranslationsVi {
 			'onboarding.healthConnect.skipForNow' => 'Bỏ qua tạm thời',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect đã được kết nối.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect đã được kết nối thành công!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'Đã từ chối quyền truy cập. Vui lòng bật quyền Health Connect từ cài đặt điện thoại của bạn cho Calorify.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Quyền truy cập đã bị từ chối. Vui lòng bật quyền truy cập Health Connect từ cài đặt điện thoại của bạn để sử dụng ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Lỗi cài đặt Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Bạn không đơn độc',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Nghiên cứu cho thấy việc theo dõi liên tục là dự đoán số 1 cho thành công lâu dài.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Đối với một ${age} tuổi ${gender} muốn ${goal}, việc theo dõi liên tục là dự đoán số 1 cho thành công.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify làm cho mọi việc trở nên dễ dàng hơn gấp 10 lần so với việc làm thủ công.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} giúp bạn dễ dàng hơn gấp 10 lần so với việc thực hiện thủ công.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Sẵn sàng để bắt đầu chưa?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Chụp ảnh bữa ăn của bạn để phân tích ngay lập tức',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Ghi chép thường xuyên để thấy được tiến bộ rõ rệt',
@@ -1393,9 +1392,6 @@ extension on TranslationsVi {
 			'onboarding.reinforcement.trackingSuccess.button' => 'Đi nào',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'người',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'khỏe mạnh hơn',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Phân tích ảnh ngay lập tức',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Nhật ký dinh dưỡng tự động',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Các hình ảnh minh họa tiến trình giúp bạn có động lực',
 			'onboarding.reinforcement.healthProfile.title' => 'Hồ sơ sức khỏe của bạn',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Dựa trên các chỉ số của bạn, chỉ số BMI của bạn là ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Hãy hoàn thiện hồ sơ của bạn để tùy chỉnh trải nghiệm của bạn.',
@@ -1405,7 +1401,7 @@ extension on TranslationsVi {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'Bạn đã đạt được trọng lượng mong muốn! Chúng tôi sẽ giúp bạn duy trì nó.',
 			'onboarding.reinforcement.healthProfile.button' => 'Đi nào',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Khởi đầu tuyệt vời!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'Bạn đã thực hiện bước đầu tiên hướng tới ${goalText}. Vì bạn ${activityText}, Calorify sẽ điều chỉnh các mục tiêu của bạn để phù hợp với lối sống của bạn.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Bạn đã bước những bước đầu tiên hướng tới ${goalText}. Vì bạn đang ${activityText}, ${appLabel} sẽ điều chỉnh các mục tiêu của bạn để phù hợp với lối sống của bạn.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Mục tiêu calo cá nhân hóa',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Nhận diện bữa ăn được hỗ trợ bởi AI',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Chi tiết về phân bổ chất dinh dưỡng',
@@ -1573,16 +1569,16 @@ extension on TranslationsVi {
 			'settings.language.subtitle' => 'Chọn ngôn ngữ bạn ưa thích',
 			'settings.heightUnit.title' => 'Đơn vị chiều cao',
 			'settings.weightUnit.title' => 'Đơn vị cân nặng',
+			'settings.mealReminders.title' => 'Nhắc nhở bữa ăn',
+			'settings.mealReminders.subtitle' => 'Giúp bạn theo dõi đúng thời gian với những thông báo kịp thời',
 			'settings.theme.title' => 'Chủ đề',
 			'settings.theme.subtitle' => 'Chọn chủ đề bạn ưa thích',
 			'settings.theme.light' => 'Sáng',
 			'settings.theme.dark' => 'Tối',
 			'settings.theme.system' => 'Hệ thống',
-			'settings.mealReminders.title' => 'Nhắc nhở bữa ăn',
-			'settings.mealReminders.subtitle' => 'Giúp bạn theo dõi đúng thời gian với những thông báo kịp thời',
 			'settings.sendFeedback.title' => 'Gửi phản hồi',
-			'settings.sendFeedback.subtitle' => 'Giúp chúng tôi cải thiện Calorify',
-			'settings.sendFeedback.emailSubject' => 'Phản hồi ứng dụng Calorify',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Giúp chúng tôi cải thiện ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'Phản hồi về ứng dụng ${appLabel}',
 			'settings.sendFeedback.emailBodyPrefix' => 'Vui lòng cung cấp phản hồi của bạn bên dưới:',
 			'settings.sendFeedback.appVersion' => 'Phiên bản ứng dụng',
 			'settings.sendFeedback.device' => 'Thiết bị',
@@ -1629,21 +1625,21 @@ extension on TranslationsVi {
 			'login.signInWithGoogle' => 'Đăng nhập bằng Google',
 			'login.signInFailed' => 'Đăng nhập bằng Google thất bại hoặc đã bị hủy.',
 			'disclaimer.pleaseNote' => 'Xin lưu ý',
-			'disclaimer.snap.description' => 'Calorify cung cấp thông tin dinh dưỡng ước tính. Độ chính xác phụ thuộc vào đầu vào và sự biến đổi thực phẩm của bạn. Sử dụng như một hướng dẫn, không phải là một nguồn chính xác. Tham khảo ý kiến chuyên gia để có lời khuyên chế độ ăn uống cá nhân hóa.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} cung cấp thông tin dinh dưỡng ước tính. Độ chính xác phụ thuộc vào dữ liệu bạn nhập và các biến thể thực phẩm. Sử dụng như một hướng dẫn, không phải là nguồn thông tin chính xác. Hãy tham khảo ý kiến chuyên gia để được tư vấn dinh dưỡng cá nhân.',
 			'disclaimer.snap.portionSize.title' => 'Kích thước phần',
 			'disclaimer.snap.portionSize.description' => 'Độ chính xác của các ước tính phụ thuộc rất nhiều vào việc bạn đánh giá đúng kích thước phần.',
 			'disclaimer.snap.preparationMethods.title' => 'Phương pháp chế biến',
-			'disclaimer.snap.preparationMethods.description' => 'Các phương pháp nấu ăn có thể thay đổi đáng kể thành phần dinh dưỡng của thực phẩm. Các ước tính của Calorify có thể không phải lúc nào cũng tính đến những sự biến đổi này.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Phương pháp chế biến có thể thay đổi đáng kể thành phần dinh dưỡng của thực phẩm. Các ước tính của ${appLabel} có thể không luôn dự đoán được những biến đổi này.',
 			'disclaimer.snap.ingredients.title' => 'Nguyên liệu',
 			'disclaimer.snap.ingredients.description' => 'Những món ăn phức tạp với nhiều nguyên liệu ẩn có thể dẫn đến ước tính kém chính xác.',
 			'disclaimer.snap.databaseLimitations.title' => 'Giới hạn cơ sở dữ liệu',
-			'disclaimer.snap.databaseLimitations.description' => 'Cơ sở dữ liệu thực phẩm của Calorify rất phong phú nhưng có thể không bao gồm mọi món ăn hoặc biến thể.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Cơ sở dữ liệu thực phẩm của ${appLabel} rất phong phú nhưng có thể không bao gồm mọi món ăn hay biến thể nào.',
 			'disclaimer.weightEstimate.title' => 'Về ước tính trọng lượng',
 			'disclaimer.weightEstimate.description' => 'Sự thay đổi trọng lượng dự kiến là một ước tính lý thuyết dựa trên mô hình calo vào so với calo ra. Nó chỉ được dùng để hướng dẫn động lực, không phải dự đoán trọng lượng thực tế của bạn.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Độ chính xác calo',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Ước tính này chỉ chính xác như lượng calo bạn đã theo dõi vào và ra. Ghi chú kém chính xác sẽ dẫn đến ước tính không chính xác.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Các yếu tố sinh học',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'Sự giảm/ tăng trọng lượng thực tế bị ảnh hưởng bởi chuyển hóa, hormone, giấc ngủ, căng thẳng, nước và các yếu tố cá nhân khác mà Calorify không thể đo lường.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Sự thay đổi cân nặng thực tế bị ảnh hưởng bởi chuyển hóa, hormone, giấc ngủ, căng thẳng, độ ẩm, và các yếu tố cá nhân khác mà ${appLabel} không thể đo được.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Trọng lượng nước & Biến động',
 			'disclaimer.weightEstimate.waterWeight.description' => 'Trọng lượng hàng ngày bình thường có thể biến động đáng kể do giữ nước, tiêu hóa và thời gian. Ước tính không tính đến những thay đổi hàng ngày này.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Hướng dẫn chuyên nghiệp',

@@ -39,6 +39,7 @@ class TranslationsRo with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => 'Română';
 	@override String get flag => '🇷🇴';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingRo onboarding = _TranslationsOnboardingRo._(_root);
 	@override late final _TranslationsTabsRo tabs = _TranslationsTabsRo._(_root);
 	@override late final _TranslationsHomeRo home = _TranslationsHomeRo._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingRo implements TranslationsOnboardingEn {
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Bun venit la Calorify';
+	@override String welcome({required Object appLabel}) => 'Bine ai venit la ${appLabel}';
 	@override String get subtitle => 'Companionul tău personal în nutriție alimentat de AI';
 	@override String get getStarted => 'Începe';
 	@override late final _TranslationsOnboardingFeaturesRo features = _TranslationsOnboardingFeaturesRo._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsRo implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageRo language = _TranslationsSettingsLanguageRo._(_root);
 	@override late final _TranslationsSettingsHeightUnitRo heightUnit = _TranslationsSettingsHeightUnitRo._(_root);
 	@override late final _TranslationsSettingsWeightUnitRo weightUnit = _TranslationsSettingsWeightUnitRo._(_root);
-	@override late final _TranslationsSettingsThemeRo theme = _TranslationsSettingsThemeRo._(_root);
 	@override late final _TranslationsSettingsMealRemindersRo mealReminders = _TranslationsSettingsMealRemindersRo._(_root);
+	@override late final _TranslationsSettingsThemeRo theme = _TranslationsSettingsThemeRo._(_root);
 	@override late final _TranslationsSettingsSendFeedbackRo sendFeedback = _TranslationsSettingsSendFeedbackRo._(_root);
 	@override late final _TranslationsSettingsClearAllDataRo clearAllData = _TranslationsSettingsClearAllDataRo._(_root);
 	@override late final _TranslationsSettingsDebugOptionsRo debugOptions = _TranslationsSettingsDebugOptionsRo._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectRo implements TranslationsOnboardingHe
 	@override String get skipForNow => 'Sari deocamdată';
 	@override String get statusConnected => 'Health Connect este conectat.';
 	@override String get statusSuccess => 'Health Connect a fost conectat cu succes!';
-	@override String get statusPermissionDenied => 'Permisiune refuzată. Te rugăm să activezi permisiunile Health Connect din setările telefonului tău pentru Calorify.';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Permisiune refuzată. Te rugăm să activezi permisiunile Health Connect din setările telefonului pentru ${appLabel}.';
 	@override String statusError({required Object error}) => 'Eroare la configurarea Health Connect: ${error}';
 }
 
@@ -826,20 +827,6 @@ class _TranslationsSettingsWeightUnitRo implements TranslationsSettingsWeightUni
 	@override String get title => 'Unitate de Greutate';
 }
 
-// Path: settings.theme
-class _TranslationsSettingsThemeRo implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeRo._(this._root);
-
-	final TranslationsRo _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
-}
-
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersRo implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersRo._(this._root);
@@ -851,6 +838,20 @@ class _TranslationsSettingsMealRemindersRo implements TranslationsSettingsMealRe
 	@override String get subtitle => 'Rămâi pe drumul cel bun cu alerte la timp';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeRo implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tema';
+	@override String get subtitle => 'Alege tema ta preferată';
+	@override String get light => 'Lumină';
+	@override String get dark => 'Întunecat';
+	@override String get system => 'Sistem';
+}
+
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackRo implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackRo._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackRo implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'Trimite Feedback';
-	@override String get subtitle => 'Ajută-ne să îmbunătățim Calorify';
-	@override String get emailSubject => 'Feedback pentru aplicația Calorify';
+	@override String subtitle({required Object appLabel}) => 'Ajută-ne să îmbunătățim ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => 'Feedback despre aplicația ${appLabel}';
 	@override String get emailBodyPrefix => 'Te rog oferă feedback-ul tău mai jos:';
 	@override String get appVersion => 'Versiunea Aplicației';
 	@override String get device => 'Dispozitiv';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapRo implements TranslationsDisclaimerSnapEn {
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Calorify oferă informații nutriționale estimate. Precizia depinde de input-ul tău și variațiile alimentelor. Folosește ca un ghid, nu ca o sursă definitivă. Consultă un profesionist pentru sfaturi dietetice personalizate.';
+	@override String description({required Object appLabel}) => '${appLabel} oferă informații nutriționale estimate. Precizia depinde de inputul tău și de variațiile alimentelor. Folosește-le ca ghid, nu ca o sursă definitivă. Consultă un specialist pentru sfaturi dietetice personalizate.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeRo portionSize = _TranslationsDisclaimerSnapPortionSizeRo._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsRo preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsRo._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsRo ingredients = _TranslationsDisclaimerSnapIngredientsRo._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesRo implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => 'Te putem ajuta să creezi un plan sănătos pentru a ajunge la o greutate echilibrată cu mese bogate în nutrienți.';
 	@override String get healthy => 'Bravo! Ești într-un interval sănătos. Te vom ajuta să îți menții vitalitatea și nivelurile de energie.';
-	@override String get overweight => 'Calorify îți va simplifica călătoria cu o urmărire alimentată de AI pentru a te ajuta să ajungi confortabil la ținta ta.';
+	@override String overweight({required Object appLabel}) => '${appLabel} îți va simplifica parcursul cu urmărirea powered by AI pentru a te ajuta să îți atingi obiectivul confortabil.';
 	@override String get obese => 'Suntem aici să te susținem cu îndrumări personalizate și strategii sustenabile pentru obiectivele tale de sănătate.';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessRo implements Translati
 	@override String get title => 'Nu ești Singur';
 	@override String get genericMessage => 'Cercetările arată că urmărirea constantă este predictorul principal al succesului pe termen lung.';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Pentru un ${age} ani ${gender} care vrea să ${goal}, urmărirea constantă este predictorul principal al succesului.';
-	@override String get closingMessage => 'Calorify face totul de 10 ori mai ușor decât să o faci manual.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} face ca totul să fie de 10 ori mai ușor decât să o faci manual.';
 	@override String get getStartedTitle => 'Ești gata să începi?';
 	@override String get tipPhoto => 'Fă o fotografie a meselor tale pentru o analiză instantanee';
 	@override String get tipConsistency => 'Înregistrează constant pentru a vedea progrese semnificative';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessRo implements Translati
 	@override String get button => 'Să Mergem';
 	@override String get defaultGender => 'individual';
 	@override String get defaultGoal => 'să fii mai sănătos';
-	@override String get instantPhotoAnalysis => 'Analiză instantanee a fotografiilor';
-	@override String get automaticLogging => 'Încărcare automată a nutrienților';
-	@override String get progressVisualizations => 'Vizualizări ale progresului care te mențin motivat';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleRo implements Translation
 
 	// Translations
 	@override String get title => 'Început Excelent!';
-	@override String description({required Object goalText, required Object activityText}) => 'Ai făcut primul pas spre ${goalText}. Deoarece ești ${activityText}, Calorify va ajusta țintele tale pentru a se potrivi stilului tău de viață.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Ai făcut primul pas către ${goalText}. Deoarece ești ${activityText}, ${appLabel} îți va ajusta obiectivele pentru a se potrivi stilului tău de viață.';
 	@override String get personalizedTargets => 'Ținte personalizate de calorii';
 	@override String get aiMealDetection => 'Detectarea meselor alimentată de AI';
 	@override String get macroBreakdowns => 'Detalii despre macronutrienți';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsRo implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Metode de Preparare';
-	@override String get description => 'Metodele de gătit pot altera semnificativ conținutul nutrițional al alimentelor. Estimările Calorify s-ar putea să nu țină cont întotdeauna de aceste variații.';
+	@override String description({required Object appLabel}) => 'Metodele de gătit pot altera semnificativ conținutul nutrițional al alimentelor. Estimările ${appLabel} s-ar putea să nu țină întotdeauna cont de aceste variații.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsRo implements TranslationsDi
 
 	// Translations
 	@override String get title => 'Limitările Bazei de Date';
-	@override String get description => 'Baza de date a alimentelor Calorify este extinsă, dar poate să nu includă fiecare articol alimentar sau variație.';
+	@override String description({required Object appLabel}) => 'Baza de date a alimentelor ${appLabel} este extinsă, dar s-ar putea să nu includă fiecare aliment sau variație.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsRo implements Transl
 
 	// Translations
 	@override String get title => 'Factori Biologici';
-	@override String get description => 'Pierderile sau câștigurile efective în greutate sunt influențate de metabolism, hormoni, somn, stres, hidratare și alți factori individuali pe care Calorify nu îi poate măsura.';
+	@override String description({required Object appLabel}) => 'Scăderea sau creșterea în greutate efectivă este influențată de metabolism, hormoni, somn, stres, hidratare și alți factori individuali pe care ${appLabel} nu îi poate măsura.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsRo {
 		return switch (path) {
 			'language' => 'Română',
 			'flag' => '🇷🇴',
-			'onboarding.welcome' => 'Bun venit la Calorify',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => 'Bine ai venit la ${appLabel}',
 			'onboarding.subtitle' => 'Companionul tău personal în nutriție alimentat de AI',
 			'onboarding.getStarted' => 'Începe',
 			'onboarding.features.foodRecognition.title' => 'Recunoaștere Inteligentă a Alimentelor',
@@ -1360,7 +1359,7 @@ extension on TranslationsRo {
 			'onboarding.bmiScale.categories.obese' => 'Obez',
 			'onboarding.bmiScale.messages.underweight' => 'Te putem ajuta să creezi un plan sănătos pentru a ajunge la o greutate echilibrată cu mese bogate în nutrienți.',
 			'onboarding.bmiScale.messages.healthy' => 'Bravo! Ești într-un interval sănătos. Te vom ajuta să îți menții vitalitatea și nivelurile de energie.',
-			'onboarding.bmiScale.messages.overweight' => 'Calorify îți va simplifica călătoria cu o urmărire alimentată de AI pentru a te ajuta să ajungi confortabil la ținta ta.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} îți va simplifica parcursul cu urmărirea powered by AI pentru a te ajuta să îți atingi obiectivul confortabil.',
 			'onboarding.bmiScale.messages.obese' => 'Suntem aici să te susținem cu îndrumări personalizate și strategii sustenabile pentru obiectivele tale de sănătate.',
 			'onboarding.weightGoal.title' => 'Care este obiectivul tău?',
 			'onboarding.weightGoal.description' => 'Alege obiectivul care descrie cel mai bine ce vrei să atingi',
@@ -1380,12 +1379,12 @@ extension on TranslationsRo {
 			'onboarding.healthConnect.skipForNow' => 'Sari deocamdată',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect este conectat.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect a fost conectat cu succes!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'Permisiune refuzată. Te rugăm să activezi permisiunile Health Connect din setările telefonului tău pentru Calorify.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Permisiune refuzată. Te rugăm să activezi permisiunile Health Connect din setările telefonului pentru ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Eroare la configurarea Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Nu ești Singur',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Cercetările arată că urmărirea constantă este predictorul principal al succesului pe termen lung.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Pentru un ${age} ani ${gender} care vrea să ${goal}, urmărirea constantă este predictorul principal al succesului.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify face totul de 10 ori mai ușor decât să o faci manual.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} face ca totul să fie de 10 ori mai ușor decât să o faci manual.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Ești gata să începi?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Fă o fotografie a meselor tale pentru o analiză instantanee',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Înregistrează constant pentru a vedea progrese semnificative',
@@ -1393,9 +1392,6 @@ extension on TranslationsRo {
 			'onboarding.reinforcement.trackingSuccess.button' => 'Să Mergem',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'individual',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'să fii mai sănătos',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Analiză instantanee a fotografiilor',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Încărcare automată a nutrienților',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Vizualizări ale progresului care te mențin motivat',
 			'onboarding.reinforcement.healthProfile.title' => 'Profilul Tău de Sănătate',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Pe baza metrilor tăi, IMC-ul tău este ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Să finalizăm profilul tău pentru a personaliza experiența.',
@@ -1405,7 +1401,7 @@ extension on TranslationsRo {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'Ești la greutatea ta țintă! Te vom ajuta să o menții.',
 			'onboarding.reinforcement.healthProfile.button' => 'Să Mergem',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Început Excelent!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'Ai făcut primul pas spre ${goalText}. Deoarece ești ${activityText}, Calorify va ajusta țintele tale pentru a se potrivi stilului tău de viață.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Ai făcut primul pas către ${goalText}. Deoarece ești ${activityText}, ${appLabel} îți va ajusta obiectivele pentru a se potrivi stilului tău de viață.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Ținte personalizate de calorii',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Detectarea meselor alimentată de AI',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Detalii despre macronutrienți',
@@ -1573,16 +1569,16 @@ extension on TranslationsRo {
 			'settings.language.subtitle' => 'Alege limba preferată',
 			'settings.heightUnit.title' => 'Unitate de Înălțime',
 			'settings.weightUnit.title' => 'Unitate de Greutate',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => 'Memento-uri pentru Mese',
 			'settings.mealReminders.subtitle' => 'Rămâi pe drumul cel bun cu alerte la timp',
+			'settings.theme.title' => 'Tema',
+			'settings.theme.subtitle' => 'Alege tema ta preferată',
+			'settings.theme.light' => 'Lumină',
+			'settings.theme.dark' => 'Întunecat',
+			'settings.theme.system' => 'Sistem',
 			'settings.sendFeedback.title' => 'Trimite Feedback',
-			'settings.sendFeedback.subtitle' => 'Ajută-ne să îmbunătățim Calorify',
-			'settings.sendFeedback.emailSubject' => 'Feedback pentru aplicația Calorify',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Ajută-ne să îmbunătățim ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'Feedback despre aplicația ${appLabel}',
 			'settings.sendFeedback.emailBodyPrefix' => 'Te rog oferă feedback-ul tău mai jos:',
 			'settings.sendFeedback.appVersion' => 'Versiunea Aplicației',
 			'settings.sendFeedback.device' => 'Dispozitiv',
@@ -1629,21 +1625,21 @@ extension on TranslationsRo {
 			'login.signInWithGoogle' => 'Autentificare cu Google',
 			'login.signInFailed' => 'Autentificarea Google a eșuat sau a fost anulată.',
 			'disclaimer.pleaseNote' => 'Te rugăm să reții',
-			'disclaimer.snap.description' => 'Calorify oferă informații nutriționale estimate. Precizia depinde de input-ul tău și variațiile alimentelor. Folosește ca un ghid, nu ca o sursă definitivă. Consultă un profesionist pentru sfaturi dietetice personalizate.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} oferă informații nutriționale estimate. Precizia depinde de inputul tău și de variațiile alimentelor. Folosește-le ca ghid, nu ca o sursă definitivă. Consultă un specialist pentru sfaturi dietetice personalizate.',
 			'disclaimer.snap.portionSize.title' => 'Dimensiunea Porției',
 			'disclaimer.snap.portionSize.description' => 'Precizia estimărilor depinde mult de evaluarea corectă a dimensiunii porției.',
 			'disclaimer.snap.preparationMethods.title' => 'Metode de Preparare',
-			'disclaimer.snap.preparationMethods.description' => 'Metodele de gătit pot altera semnificativ conținutul nutrițional al alimentelor. Estimările Calorify s-ar putea să nu țină cont întotdeauna de aceste variații.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Metodele de gătit pot altera semnificativ conținutul nutrițional al alimentelor. Estimările ${appLabel} s-ar putea să nu țină întotdeauna cont de aceste variații.',
 			'disclaimer.snap.ingredients.title' => 'Ingrediente',
 			'disclaimer.snap.ingredients.description' => 'Preparatele complexe cu multe ingrediente ascunse pot duce la estimări mai puțin precise.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limitările Bazei de Date',
-			'disclaimer.snap.databaseLimitations.description' => 'Baza de date a alimentelor Calorify este extinsă, dar poate să nu includă fiecare articol alimentar sau variație.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Baza de date a alimentelor ${appLabel} este extinsă, dar s-ar putea să nu includă fiecare aliment sau variație.',
 			'disclaimer.weightEstimate.title' => 'Despre Estimarea Greutății',
 			'disclaimer.weightEstimate.description' => 'Schimbarea estimată a greutății este o estimare teoretică bazată pe modelul simplu de calorii consumate vs. calorii arse. Este destinată doar pentru îndrumare motivațională, nu ca o predicție a greutății tale reale.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Precizia Caloriilor',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Această estimare este la fel de precisă precum aportul tău caloric și cheltuielile urmărite. Înregistrarea imprecisă va duce la o proiecție imprecisă.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Factori Biologici',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'Pierderile sau câștigurile efective în greutate sunt influențate de metabolism, hormoni, somn, stres, hidratare și alți factori individuali pe care Calorify nu îi poate măsura.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Scăderea sau creșterea în greutate efectivă este influențată de metabolism, hormoni, somn, stres, hidratare și alți factori individuali pe care ${appLabel} nu îi poate măsura.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Greutatea și Fluctuațiile Apei',
 			'disclaimer.weightEstimate.waterWeight.description' => 'Greutatea normală zilnică poate fluctua semnificativ din cauza retenției de apă, digestiei și temporizării. Estimarea nu ia în considerare aceste schimbări zilnice.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Îndrumare Profesională',

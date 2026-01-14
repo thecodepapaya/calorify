@@ -371,9 +371,7 @@ class _ReminderNotificationsScreenState
       await OnboardingService.instance.completeOnboarding();
 
       // Navigate to home
-      if (mounted) {
-        widget.onContinue();
-      }
+      if (mounted) widget.onContinue();
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

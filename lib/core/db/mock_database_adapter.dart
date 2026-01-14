@@ -165,8 +165,9 @@ class MockDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
-  Future<bool> hasUserProfile() async {
-    return _userProfile != null;
+  Future<bool> isProfileComplete() async {
+    if (_userProfile == null) return false;
+    return _userProfile!.isProfileComplete;
   }
 
   @override

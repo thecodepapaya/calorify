@@ -1,8 +1,9 @@
 {
   "language": "Nederlands",
   "flag": "🇳🇱",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Welkom bij Calorify",
+    "welcome": "Welkom bij {appLabel}",
     "subtitle": "Jouw persoonlijke voedingsgenoot aangedreven door AI",
     "getStarted": "Aan de Slag",
     "features": {
@@ -59,7 +60,7 @@
       "messages": {
         "underweight": "We kunnen je helpen een gezond plan op te stellen om een evenwichtig gewicht te bereiken met voedzame maaltijden.",
         "healthy": "Goed gedaan! Je zit in een gezond bereik. We helpen je je vitaliteit en energieniveaus te behouden.",
-        "overweight": "Calorify vereenvoudigt je reis met AI-aangedreven tracking om je comfortabel naar je doel te helpen.",
+        "overweight": "{appLabel} zal jouw reis vereenvoudigen met AI-gestuurde tracking om je te helpen je doel comfortabel te bereiken.",
         "obese": "We zijn hier om je te ondersteunen met gepersonaliseerde begeleiding en duurzame strategieën voor je gezondheidsdoelen."
       }
     },
@@ -92,7 +93,7 @@
       "skipForNow": "Voor nu overslaan",
       "statusConnected": "Health Connect is verbonden.",
       "statusSuccess": "Health Connect is succesvol verbonden!",
-      "statusPermissionDenied": "Toestemming geweigerd. Schakel Health Connect-toestemmingen in via je telefoonsinstellingen voor Calorify.",
+      "statusPermissionDenied": "Toestemming geweigerd. Schakel de Health Connect-permissies in via de instellingen van je telefoon voor {appLabel}.",
       "statusError": "Fout bij het instellen van Health Connect: {error}"
     },
     "reinforcement": {
@@ -100,17 +101,14 @@
         "title": "Je Bent Niet Alleen",
         "genericMessage": "Onderzoek toont aan dat consistente tracking de belangrijkste voorspeller is van langdurig succes.",
         "personalizedMessage": "Voor een {age} jaar oude {gender} die {goal} wil, is consistente tracking de belangrijkste voorspeller van succes.",
-        "closingMessage": "Calorify maakt het 10 keer gemakkelijker dan handmatig doen.",
+        "closingMessage": "{appLabel} maakt het 10x gemakkelijker dan het handmatig doen.",
         "getStartedTitle": "Klaar om te beginnen?",
         "tipPhoto": "Neem een foto van je maaltijden voor onmiddellijke analyse",
         "tipConsistency": "Houd regelmatig bij om betekenisvolle vooruitgang te zien",
         "tipProgress": "Volg je voortgang dagelijks om gemotiveerd te blijven",
         "button": "Laten We Gaan",
         "defaultGender": "persoon",
-        "defaultGoal": "gezondere jij",
-        "instantPhotoAnalysis": "Directe foto-analyse",
-        "automaticLogging": "Automatische voedingslogboeken",
-        "progressVisualizations": "Voortgang visualisaties die je gemotiveerd houden"
+        "defaultGoal": "gezondere jij"
       },
       "healthProfile": {
         "title": "Je Gezondheidsprofiel",
@@ -124,7 +122,7 @@
       },
       "goalLifestyle": {
         "title": "Uitstekende Start!",
-        "description": "Je hebt de eerste stap gezet richting {goalText}. Aangezien je {activityText} bent, zal Calorify je doelen aanpassen aan jouw levensstijl.",
+        "description": "Je hebt de eerste stap gezet naar {goalText}. Aangezien je {activityText} bent, past {appLabel} je doelen aan om bij jouw levensstijl te passen.",
         "personalizedTargets": "Gepersonaliseerde calorie-doelen",
         "aiMealDetection": "AI-gestuurde maaltijddetectie",
         "macroBreakdowns": "Gedetailleerde macro-nutrienten analyses",
@@ -372,21 +370,21 @@
     "weightUnit": {
       "title": "Gewicht-eenheid"
     },
-    "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
-    },
     "mealReminders": {
       "title": "Maaltijdherinneringen",
       "subtitle": "Blijf op koers met tijdige waarschuwingen"
     },
+    "theme": {
+      "title": "Thema",
+      "subtitle": "Kies je voorkeursthema",
+      "light": "Licht",
+      "dark": "Donker",
+      "system": "Systeem"
+    },
     "sendFeedback": {
       "title": "Feedback Versturen",
-      "subtitle": "Help ons Calorify te verbeteren",
-      "emailSubject": "Calorify App Feedback",
+      "subtitle": "Help ons {appLabel} te verbeteren",
+      "emailSubject": "Feedback over de {appLabel} App",
       "emailBodyPrefix": "Gelieve je feedback hieronder te geven:",
       "appVersion": "App Versie",
       "device": "Apparaat",
@@ -457,14 +455,14 @@
   "disclaimer": {
     "pleaseNote": "Gelieve Op Te Merken",
     "snap": {
-      "description": "Calorify biedt geschatte voedingsinformatie. De nauwkeurigheid hangt af van je invoer & voedselvariaties. Gebruik het als een gids, niet als een definitieve bron. Raadpleeg een professional voor gepersonaliseerd dieetadvies.",
+      "description": "{appLabel} biedt geschatte voedingsinformatie. De nauwkeurigheid hangt af van jouw invoer en voedselvariaties. Gebruik dit als een richtlijn, niet als een definitieve bron. Raadpleeg een professional voor gepersonaliseerd voedingsadvies.",
       "portionSize": {
         "title": "Portiegrootte",
         "description": "De nauwkeurigheid van de schattingen hangt sterk af van je correcte beoordeling van de portiegrootte."
       },
       "preparationMethods": {
         "title": "Bereidingsmethoden",
-        "description": "Kookmethoden kunnen de nutritionele inhoud van voedsel aanzienlijk veranderen. De schattingen van Calorify houden mogelijk niet altijd rekening met deze variaties."
+        "description": "Kookmethoden kunnen de voedingswaarde van voedsel aanzienlijk wijzigen. De schattingen van {appLabel} houden mogelijk niet altijd rekening met deze variaties."
       },
       "ingredients": {
         "title": "Ingrediënten",
@@ -472,7 +470,7 @@
       },
       "databaseLimitations": {
         "title": "Database Beperkingen",
-        "description": "De voedseldatabase van Calorify is uitgebreid, maar bevat mogelijk niet elk enkel voedingsitem of variaties."
+        "description": "{appLabel}'s voedseldatabase is uitgebreid, maar bevat mogelijk niet elk enkel voedingsmiddel of variatie."
       }
     },
     "weightEstimate": {
@@ -484,7 +482,7 @@
       },
       "biologicalFactors": {
         "title": "Biologische Factoren",
-        "description": "Werkelijke gewichtsverlies/-winst wordt beïnvloed door metabolisme, hormonen, slaap, stress, hydratatie en andere individuele factoren die Calorify niet kan meten."
+        "description": "Werkelijke gewicht verliezen/winnen wordt beïnvloed door metabolisme, hormonen, slaap, stress, hydratatie en andere individuele factoren die {appLabel} niet kan meten."
       },
       "waterWeight": {
         "title": "Watergewicht & Schommelingen",

@@ -8,6 +8,20 @@
 # 5. Renames the generated files to match the project's naming convention.
 # 6. Runs slang to regenerate the Dart translation classes.
 # 7. Prints translation statistics
+#
+# Usage:
+#   ./generate_translations.sh          # Partial translation (only missing keys)
+#   ./generate_translations.sh --full    # Full translation regeneration (all keys)
+
+# Parse command-line arguments
+FULL_TRANSLATION=false
+if [[ "$1" == "--full" ]] || [[ "$1" == "-f" ]]; then
+    FULL_TRANSLATION=true
+    echo "Mode: FULL translation regeneration (all keys will be regenerated)"
+else
+    echo "Mode: PARTIAL translation (only missing keys will be updated)"
+fi
+echo ""
 
 # Hardcoded OpenAI API Key (Private Repository)
 API_KEY="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"
@@ -56,12 +70,36 @@ echo "Target locales: $LOCALES"
 # Process each locale individually to generate separate translation files
 for locale in $LOCALES; do
     echo "Translating to $locale..."
-    dart run slang_gpt --target=$locale --api-key=$API_KEY
+    
+    # If full translation mode, use --full flag to regenerate all keys
+    if [ "$FULL_TRANSLATION" = true ]; then
+        # Use --full flag to translate all keys, including those already translated
+        dart run slang_gpt --full --target=$locale --api-key=$API_KEY
+    else
+        # Default behavior: only translate missing keys (partial translation)
+        dart run slang_gpt --target=$locale --api-key=$API_KEY
+    fi
+    
+    # Immediately rename _default_ prefixed files to prevent deprecation warnings
+    # This must happen right after slang_gpt creates them, before any other slang commands run
+    default_file="$I18N_DIR/_default_$locale.i18n.json"
+    if [ -f "$default_file" ]; then
+        new_name="$locale.i18n.json"
+        
+        # Special case: map zh-Hans (GPT default) to zh-CN (our project convention)
+        if [ "$locale" == "zh-Hans" ]; then
+            new_name="zh-CN.i18n.json"
+            echo "  Renaming $default_file to $I18N_DIR/$new_name"
+            mv "$default_file" "$I18N_DIR/$new_name"
+        else
+            echo "  Renaming $default_file to $I18N_DIR/$new_name"
+            mv "$default_file" "$I18N_DIR/$new_name"
+        fi
+    fi
 done
 
-echo "Step 5: Renaming files to project convention..."
-# Automatically rename any file starting with _default_ to the clean locale name
-# e.g., _default_de.i18n.json -> de.i18n.json
+echo "Step 5: Cleaning up any remaining _default_ files..."
+# Clean up any remaining _default_ prefixed files (shouldn't happen, but just in case)
 for file in "$I18N_DIR"/_default_*.i18n.json; do
     if [ -f "$file" ]; then
         # Extract the locale (e.g., de from _default_de.i18n.json)

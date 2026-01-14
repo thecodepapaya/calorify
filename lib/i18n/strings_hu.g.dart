@@ -39,6 +39,7 @@ class TranslationsHu with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => 'Hungarian';
 	@override String get flag => '🇭🇺';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingHu onboarding = _TranslationsOnboardingHu._(_root);
 	@override late final _TranslationsTabsHu tabs = _TranslationsTabsHu._(_root);
 	@override late final _TranslationsHomeHu home = _TranslationsHomeHu._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingHu implements TranslationsOnboardingEn {
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Üdvözöljük a Calorify-ban';
+	@override String welcome({required Object appLabel}) => 'Üdvözöljük a(z) ${appLabel} alkalmazásban';
 	@override String get subtitle => 'Személyes táplálkozási társ, amelyet az AI hajt';
 	@override String get getStarted => 'Kezdjük el';
 	@override late final _TranslationsOnboardingFeaturesHu features = _TranslationsOnboardingFeaturesHu._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsHu implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageHu language = _TranslationsSettingsLanguageHu._(_root);
 	@override late final _TranslationsSettingsHeightUnitHu heightUnit = _TranslationsSettingsHeightUnitHu._(_root);
 	@override late final _TranslationsSettingsWeightUnitHu weightUnit = _TranslationsSettingsWeightUnitHu._(_root);
-	@override late final _TranslationsSettingsThemeHu theme = _TranslationsSettingsThemeHu._(_root);
 	@override late final _TranslationsSettingsMealRemindersHu mealReminders = _TranslationsSettingsMealRemindersHu._(_root);
+	@override late final _TranslationsSettingsThemeHu theme = _TranslationsSettingsThemeHu._(_root);
 	@override late final _TranslationsSettingsSendFeedbackHu sendFeedback = _TranslationsSettingsSendFeedbackHu._(_root);
 	@override late final _TranslationsSettingsClearAllDataHu clearAllData = _TranslationsSettingsClearAllDataHu._(_root);
 	@override late final _TranslationsSettingsDebugOptionsHu debugOptions = _TranslationsSettingsDebugOptionsHu._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectHu implements TranslationsOnboardingHe
 	@override String get skipForNow => 'Most hagyd ki';
 	@override String get statusConnected => 'A Health Connect csatlakoztatva van.';
 	@override String get statusSuccess => 'A Health Connect sikeresen csatlakoztatva lett!';
-	@override String get statusPermissionDenied => 'Engedély megtagadva. Kérlek, engedélyezd a Health Connect jogosultságait a telefon beállításaiban a Calorify számára.';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Hozzáférés megtagadva. Kérjük, engedélyezze a Health Connect engedélyeket a telefon beállításaiból a(z) ${appLabel} számára.';
 	@override String statusError({required Object error}) => 'Hiba történt a Health Connect beállításánál: ${error}';
 }
 
@@ -826,20 +827,6 @@ class _TranslationsSettingsWeightUnitHu implements TranslationsSettingsWeightUni
 	@override String get title => 'Súly Mértékegysége';
 }
 
-// Path: settings.theme
-class _TranslationsSettingsThemeHu implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeHu._(this._root);
-
-	final TranslationsHu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
-}
-
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersHu implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersHu._(this._root);
@@ -851,6 +838,20 @@ class _TranslationsSettingsMealRemindersHu implements TranslationsSettingsMealRe
 	@override String get subtitle => 'Tartsd az ütemet időben érkező értesítésekkel';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeHu implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Téma';
+	@override String get subtitle => 'Válaszd ki a preferált témádat';
+	@override String get light => 'Világos';
+	@override String get dark => 'Sötét';
+	@override String get system => 'Rendszer';
+}
+
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackHu implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackHu._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackHu implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'Visszajelzés Küldése';
-	@override String get subtitle => 'Segíts nekünk fejleszteni a Calorify-t';
-	@override String get emailSubject => 'Calorify Alkalmazás Visszajelzés';
+	@override String subtitle({required Object appLabel}) => 'Segítsen nekünk fejleszteni a(z) ${appLabel} alkalmazást';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} Alkalmazás Visszajelzés';
 	@override String get emailBodyPrefix => 'Kérlek, írd meg visszajelzésed alább:';
 	@override String get appVersion => 'Alkalmazás Verzió';
 	@override String get device => 'Eszköz';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapHu implements TranslationsDisclaimerSnapEn {
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'A Calorify becsült táplálkozási információt nyújt. A pontosság a megadásaidtól és az ételek változatosságától függ. Használd útmutatóként, ne pedig végleges forrásként. Konzultálj szakemberrel személyre szabott diétás tanácsadásért.';
+	@override String description({required Object appLabel}) => 'A(z) ${appLabel} becsült tápanyaginformációkat nyújt. A pontosság a megadott adatoktól és az ételek változatosságától függ. Használja útmutatóként, ne pedig végérvényes forrásként. Kérjük, konzultáljon szakemberrel a személyre szabott táplálkozási tanácsokért.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeHu portionSize = _TranslationsDisclaimerSnapPortionSizeHu._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsHu preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsHu._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsHu ingredients = _TranslationsDisclaimerSnapIngredientsHu._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesHu implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => 'Segíthetünk egy egészséges tervet kialakítani, hogy kiegyensúlyozott súlyt érj el tápanyagban gazdag ételekkel.';
 	@override String get healthy => 'Nagyszerű munka! Egészséges tartományban vagy. Segítünk fenntartani az életerődet és energiaszintedet.';
-	@override String get overweight => 'A Calorify egyszerűsíteni fogja az utadat az AI-alapú nyomon követéssel, hogy kényelmesen elérd a célodat.';
+	@override String overweight({required Object appLabel}) => 'A(z) ${appLabel} egyszerűsíti az utazását az AI-alapú nyomon követéssel, hogy kényelmesen elérje a célját.';
 	@override String get obese => 'Itt vagyunk, hogy támogassunk téged a személyre szabott útmutatással és fenntartható stratégiákkal az egészségi céljaid elérésében.';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessHu implements Translati
 	@override String get title => 'Nem vagy Egyedül';
 	@override String get genericMessage => 'A kutatások azt mutatják, hogy a következetes nyomon követés a hosszú távú siker legfontosabb előrejelzője.';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Egy ${age} éves ${gender} számára, aki ${goal}-t szeretne elérni, a következetes nyomon követés a siker legfontosabb előrejelzője.';
-	@override String get closingMessage => 'A Calorify 10-szer könnyebbé teszi a manuális folyamatnál.';
+	@override String closingMessage({required Object appLabel}) => 'A(z) ${appLabel} 10-szer könnyebbé teszi a dolgot, mint ha manuálisan csinálná.';
 	@override String get getStartedTitle => 'Készen állsz a kezdésre?';
 	@override String get tipPhoto => 'Készíts képet az ételeidről az azonnali elemzéshez';
 	@override String get tipConsistency => 'Rendszeresen jegyezd fel az étkezéseidet a lényeges fejlődés érdekében';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessHu implements Translati
 	@override String get button => 'Induljunk!';
 	@override String get defaultGender => 'személy';
 	@override String get defaultGoal => 'egészségesebb te';
-	@override String get instantPhotoAnalysis => 'Azonnali fénykép-elemzés';
-	@override String get automaticLogging => 'Automatikus tápanyagnaplózás';
-	@override String get progressVisualizations => 'Haladási vizualizációk, amelyek motiválnak téged';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleHu implements Translation
 
 	// Translations
 	@override String get title => 'Kiváló Kezdés!';
-	@override String description({required Object goalText, required Object activityText}) => 'Megted az első lépést ${goalText} felé. Mivel ${activityText} vagy, a Calorify igazítani fogja a céljaidat, hogy illeszkedjenek az életstílusodhoz.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Megtette az első lépést a(z) ${goalText} felé. Mivel Ön ${activityText}, a(z) ${appLabel} hozzáigazítja a céljait az életmódjához.';
 	@override String get personalizedTargets => 'Személyre szabott kalória- célok';
 	@override String get aiMealDetection => 'AI-alapú étkezés-felismerés';
 	@override String get macroBreakdowns => 'Részletes makrotápanyagbontások';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsHu implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Előkészítési Módszerek';
-	@override String get description => 'A főzési módszerek jelentősen megváltoztathatják az ételek tápanyagtartalmát. A Calorify becslései nem mindig veszik figyelembe ezeket a változásokat.';
+	@override String description({required Object appLabel}) => 'A főzési módszerek jelentősen befolyásolhatják az ételek tápanyagtartalmát. A(z) ${appLabel} becslései nem mindig veszik figyelembe ezeket a változásokat.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsHu implements TranslationsDi
 
 	// Translations
 	@override String get title => 'Adatbázis Korlátozások';
-	@override String get description => 'A Calorify ételek adatbázisa széleskörű, de nem tartalmazhat minden egyes élelmiszer tételt vagy változatot.';
+	@override String description({required Object appLabel}) => 'A(z) ${appLabel} élelmiszer-adatbázisa széleskörű, de előfordulhat, hogy nem tartalmazza az összes élelmiszert vagy változatot.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsHu implements Transl
 
 	// Translations
 	@override String get title => 'Biológiai Tényezők';
-	@override String get description => 'A tényleges súlycsökkenést/gyarapodást befolyásolja az anyagcsere, hormonok, alvás, stressz, hidratáltság és más egyéni tényezők, amiket a Calorify nem tud mérni.';
+	@override String description({required Object appLabel}) => 'A valódi súlyvesztést/gyarapodást a metabolizmus, hormonok, alvás, stressz, hidratáció és egyéb egyéni tényezők befolyásolják, amelyeket a(z) ${appLabel} nem tud mérni.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsHu {
 		return switch (path) {
 			'language' => 'Hungarian',
 			'flag' => '🇭🇺',
-			'onboarding.welcome' => 'Üdvözöljük a Calorify-ban',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => 'Üdvözöljük a(z) ${appLabel} alkalmazásban',
 			'onboarding.subtitle' => 'Személyes táplálkozási társ, amelyet az AI hajt',
 			'onboarding.getStarted' => 'Kezdjük el',
 			'onboarding.features.foodRecognition.title' => 'Intelligens Étel Felismerés',
@@ -1360,7 +1359,7 @@ extension on TranslationsHu {
 			'onboarding.bmiScale.categories.obese' => 'Elhízott',
 			'onboarding.bmiScale.messages.underweight' => 'Segíthetünk egy egészséges tervet kialakítani, hogy kiegyensúlyozott súlyt érj el tápanyagban gazdag ételekkel.',
 			'onboarding.bmiScale.messages.healthy' => 'Nagyszerű munka! Egészséges tartományban vagy. Segítünk fenntartani az életerődet és energiaszintedet.',
-			'onboarding.bmiScale.messages.overweight' => 'A Calorify egyszerűsíteni fogja az utadat az AI-alapú nyomon követéssel, hogy kényelmesen elérd a célodat.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => 'A(z) ${appLabel} egyszerűsíti az utazását az AI-alapú nyomon követéssel, hogy kényelmesen elérje a célját.',
 			'onboarding.bmiScale.messages.obese' => 'Itt vagyunk, hogy támogassunk téged a személyre szabott útmutatással és fenntartható stratégiákkal az egészségi céljaid elérésében.',
 			'onboarding.weightGoal.title' => 'Mi a célod?',
 			'onboarding.weightGoal.description' => 'Válaszd ki a célt, ami legjobban leírja, mit szeretnél elérni',
@@ -1380,12 +1379,12 @@ extension on TranslationsHu {
 			'onboarding.healthConnect.skipForNow' => 'Most hagyd ki',
 			'onboarding.healthConnect.statusConnected' => 'A Health Connect csatlakoztatva van.',
 			'onboarding.healthConnect.statusSuccess' => 'A Health Connect sikeresen csatlakoztatva lett!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'Engedély megtagadva. Kérlek, engedélyezd a Health Connect jogosultságait a telefon beállításaiban a Calorify számára.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Hozzáférés megtagadva. Kérjük, engedélyezze a Health Connect engedélyeket a telefon beállításaiból a(z) ${appLabel} számára.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Hiba történt a Health Connect beállításánál: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Nem vagy Egyedül',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'A kutatások azt mutatják, hogy a következetes nyomon követés a hosszú távú siker legfontosabb előrejelzője.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Egy ${age} éves ${gender} számára, aki ${goal}-t szeretne elérni, a következetes nyomon követés a siker legfontosabb előrejelzője.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'A Calorify 10-szer könnyebbé teszi a manuális folyamatnál.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => 'A(z) ${appLabel} 10-szer könnyebbé teszi a dolgot, mint ha manuálisan csinálná.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Készen állsz a kezdésre?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Készíts képet az ételeidről az azonnali elemzéshez',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Rendszeresen jegyezd fel az étkezéseidet a lényeges fejlődés érdekében',
@@ -1393,9 +1392,6 @@ extension on TranslationsHu {
 			'onboarding.reinforcement.trackingSuccess.button' => 'Induljunk!',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'személy',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'egészségesebb te',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Azonnali fénykép-elemzés',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Automatikus tápanyagnaplózás',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Haladási vizualizációk, amelyek motiválnak téged',
 			'onboarding.reinforcement.healthProfile.title' => 'Az Egészségügyi Profilod',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'A metrikáid alapján a BMI-d: ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Fejezzük be a profilod, hogy testre szabhassuk az élményed.',
@@ -1405,7 +1401,7 @@ extension on TranslationsHu {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'Elérted a cél súlyodat! Segítünk fenntartani.',
 			'onboarding.reinforcement.healthProfile.button' => 'Induljunk!',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Kiváló Kezdés!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'Megted az első lépést ${goalText} felé. Mivel ${activityText} vagy, a Calorify igazítani fogja a céljaidat, hogy illeszkedjenek az életstílusodhoz.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Megtette az első lépést a(z) ${goalText} felé. Mivel Ön ${activityText}, a(z) ${appLabel} hozzáigazítja a céljait az életmódjához.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Személyre szabott kalória- célok',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI-alapú étkezés-felismerés',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Részletes makrotápanyagbontások',
@@ -1573,16 +1569,16 @@ extension on TranslationsHu {
 			'settings.language.subtitle' => 'Válaszd ki preferált nyelved',
 			'settings.heightUnit.title' => 'Magasság Mértékegysége',
 			'settings.weightUnit.title' => 'Súly Mértékegysége',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => 'Étkezés Emlékeztetők',
 			'settings.mealReminders.subtitle' => 'Tartsd az ütemet időben érkező értesítésekkel',
+			'settings.theme.title' => 'Téma',
+			'settings.theme.subtitle' => 'Válaszd ki a preferált témádat',
+			'settings.theme.light' => 'Világos',
+			'settings.theme.dark' => 'Sötét',
+			'settings.theme.system' => 'Rendszer',
 			'settings.sendFeedback.title' => 'Visszajelzés Küldése',
-			'settings.sendFeedback.subtitle' => 'Segíts nekünk fejleszteni a Calorify-t',
-			'settings.sendFeedback.emailSubject' => 'Calorify Alkalmazás Visszajelzés',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Segítsen nekünk fejleszteni a(z) ${appLabel} alkalmazást',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} Alkalmazás Visszajelzés',
 			'settings.sendFeedback.emailBodyPrefix' => 'Kérlek, írd meg visszajelzésed alább:',
 			'settings.sendFeedback.appVersion' => 'Alkalmazás Verzió',
 			'settings.sendFeedback.device' => 'Eszköz',
@@ -1629,21 +1625,21 @@ extension on TranslationsHu {
 			'login.signInWithGoogle' => 'Bejelentkezés Google-lal',
 			'login.signInFailed' => 'A Google-bejelentkezés sikertelen vagy megszakadt.',
 			'disclaimer.pleaseNote' => 'Kérlek, vedd figyelembe',
-			'disclaimer.snap.description' => 'A Calorify becsült táplálkozási információt nyújt. A pontosság a megadásaidtól és az ételek változatosságától függ. Használd útmutatóként, ne pedig végleges forrásként. Konzultálj szakemberrel személyre szabott diétás tanácsadásért.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => 'A(z) ${appLabel} becsült tápanyaginformációkat nyújt. A pontosság a megadott adatoktól és az ételek változatosságától függ. Használja útmutatóként, ne pedig végérvényes forrásként. Kérjük, konzultáljon szakemberrel a személyre szabott táplálkozási tanácsokért.',
 			'disclaimer.snap.portionSize.title' => 'Adag Méret',
 			'disclaimer.snap.portionSize.description' => 'A becslések pontossága erősen függ a megfelelő adagméret megítélésétől.',
 			'disclaimer.snap.preparationMethods.title' => 'Előkészítési Módszerek',
-			'disclaimer.snap.preparationMethods.description' => 'A főzési módszerek jelentősen megváltoztathatják az ételek tápanyagtartalmát. A Calorify becslései nem mindig veszik figyelembe ezeket a változásokat.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'A főzési módszerek jelentősen befolyásolhatják az ételek tápanyagtartalmát. A(z) ${appLabel} becslései nem mindig veszik figyelembe ezeket a változásokat.',
 			'disclaimer.snap.ingredients.title' => 'Összetevők',
 			'disclaimer.snap.ingredients.description' => 'A bonyolult ételek sok rejtett összetevője miatt a becslések kevésbé pontosak lehetnek.',
 			'disclaimer.snap.databaseLimitations.title' => 'Adatbázis Korlátozások',
-			'disclaimer.snap.databaseLimitations.description' => 'A Calorify ételek adatbázisa széleskörű, de nem tartalmazhat minden egyes élelmiszer tételt vagy változatot.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'A(z) ${appLabel} élelmiszer-adatbázisa széleskörű, de előfordulhat, hogy nem tartalmazza az összes élelmiszert vagy változatot.',
 			'disclaimer.weightEstimate.title' => 'A Súlybecslésről',
 			'disclaimer.weightEstimate.description' => 'A becsült súlyváltozás egy elméleti becslés, amely az egyszerű kalória-bevitel és -kiadás modell alapján készül. Csak motiváló útmutatásként szolgál, nem pedig a tényleges súlyod előrejelzéseként.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalória Pontosság',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Ez a becslés csak annyira pontos, amennyire a nyomon követett kalória bevitel és kiadás akkurátus. A pontatlan naplózás pontatlan előrejelzést eredményez.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Biológiai Tényezők',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'A tényleges súlycsökkenést/gyarapodást befolyásolja az anyagcsere, hormonok, alvás, stressz, hidratáltság és más egyéni tényezők, amiket a Calorify nem tud mérni.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'A valódi súlyvesztést/gyarapodást a metabolizmus, hormonok, alvás, stressz, hidratáció és egyéb egyéni tényezők befolyásolják, amelyeket a(z) ${appLabel} nem tud mérni.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Víz Súly & Ingadozások',
 			'disclaimer.weightEstimate.waterWeight.description' => 'A normális napi súly jelentősen ingadozhat a vízvisszatartás, emésztés és időzítés miatt. A becslés nem veszi figyelembe ezeket a napi változásokat.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Szakmai Útmutatás',

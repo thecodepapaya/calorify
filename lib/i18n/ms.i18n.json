@@ -1,8 +1,9 @@
 {
   "language": "Malay",
   "flag": "🇲🇾",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Selamat datang ke Calorify",
+    "welcome": "Selamat datang ke {appLabel}",
     "subtitle": "Rakan pemakanan peribadi anda yang dikuasakan oleh AI",
     "getStarted": "Mulakan",
     "features": {
@@ -59,7 +60,7 @@
       "messages": {
         "underweight": "Kami dapat membantu anda membina pelan sihat untuk mencapai berat badan seimbang dengan pemakanan yang padat nutrisi.",
         "healthy": "Kerja yang bagus! Anda berada dalam julat yang sihat. Kami akan membantu anda mempertahankan vitaliti dan tahap tenaga anda.",
-        "overweight": "Calorify akan memudahkan perjalanan anda dengan penjejakan kuasa AI untuk membantu anda mencapai sasaran dengan selesa.",
+        "overweight": "{appLabel} akan mempermudahkan perjalanan anda dengan penjejakan berkuasa AI untuk membantu anda mencapai sasaran dengan selesa.",
         "obese": "Kami di sini untuk menyokong anda dengan bimbingan peribadi dan strategi yang berkelanjutan untuk matlamat kesihatan anda."
       }
     },
@@ -92,7 +93,7 @@
       "skipForNow": "Lupakan buat masa sekarang",
       "statusConnected": "Health Connect disambungkan.",
       "statusSuccess": "Health Connect telah berjaya disambungkan!",
-      "statusPermissionDenied": "Kebenaran ditolak. Sila benarkan kebenaran Health Connect dari tetapan telefon anda untuk Calorify.",
+      "statusPermissionDenied": "Kebenaran ditolak. Sila aktifkan kebenaran Health Connect dari tetapan telefon anda untuk {appLabel}.",
       "statusError": "Ralat membuat persediaan Health Connect: {error}"
     },
     "reinforcement": {
@@ -100,17 +101,14 @@
         "title": "Anda Tidak Sendirian",
         "genericMessage": "Penyelidikan menunjukkan bahawa penjejakan yang konsisten adalah pengamal utama kejayaan jangka panjang.",
         "personalizedMessage": "Untuk seorang {age} tahun {gender} yang ingin {goal}, penjejakan yang konsisten adalah pengamal utama kejayaan.",
-        "closingMessage": "Calorify menjadikannya 10x lebih mudah daripada melakukannya secara manual.",
+        "closingMessage": "{appLabel} menjadikannya 10x lebih mudah daripada melakukannya secara manual.",
         "getStartedTitle": "Bersedia untuk memulakan?",
         "tipPhoto": "Ambil gambar makanan anda untuk analisis segera",
         "tipConsistency": "Catat secara konsisten untuk melihat kemajuan yang bermakna",
         "tipProgress": "Jejaki kemajuan anda setiap hari untuk kekal bersemangat",
         "button": "Jom pergi",
         "defaultGender": "individu",
-        "defaultGoal": "anda yang lebih sihat",
-        "instantPhotoAnalysis": "Analisis foto segera",
-        "automaticLogging": "Pencatatan nutrisi automatik",
-        "progressVisualizations": "Visualisasi kemajuan yang memotivasi anda"
+        "defaultGoal": "anda yang lebih sihat"
       },
       "healthProfile": {
         "title": "Profil Kesihatan Anda",
@@ -124,7 +122,7 @@
       },
       "goalLifestyle": {
         "title": "Permulaan yang Hebat!",
-        "description": "Anda telah mengambil langkah pertama menuju {goalText}. Oleh kerana anda {activityText}, Calorify akan menyesuaikan sasaran anda untuk menyamai gaya hidup anda.",
+        "description": "Anda telah mengambil langkah pertama ke arah {goalText}. Memandangkan anda {activityText}, {appLabel} akan menyesuaikan sasaran anda untuk sepadan dengan gaya hidup anda.",
         "personalizedTargets": "Sasaran kalori peribadi",
         "aiMealDetection": "Pengesanan hidangan berkuasa AI",
         "macroBreakdowns": "Pecahan makro-nutrien terperinci",
@@ -372,21 +370,21 @@
     "weightUnit": {
       "title": "Unit Berat"
     },
-    "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
-    },
     "mealReminders": {
       "title": "Peringatan Hidangan",
       "subtitle": "Tetap pada landasan dengan pemberitahuan tepat pada masanya"
     },
+    "theme": {
+      "title": "Tema",
+      "subtitle": "Pilih tema pilihan anda",
+      "light": "Cerah",
+      "dark": "Gelap",
+      "system": "Sistem"
+    },
     "sendFeedback": {
       "title": "Hantar Maklumbalas",
-      "subtitle": "Bantu kami memperbaiki Calorify",
-      "emailSubject": "Maklumbalas Aplikasi Calorify",
+      "subtitle": "Bantu kami memperbaiki {appLabel}",
+      "emailSubject": "Maklum Balas Aplikasi {appLabel}",
       "emailBodyPrefix": "Sila berikan maklumbalas anda di bawah:",
       "appVersion": "Versi Aplikasi",
       "device": "Peranti",
@@ -457,14 +455,14 @@
   "disclaimer": {
     "pleaseNote": "Sila Ambil Perhatian",
     "snap": {
-      "description": "Calorify memberikan maklumat nutrisi yang dianggarkan. Ketepatan bergantung pada input dan variasi makanan anda. Gunakan sebagai panduan, bukan sumber mutlak. Rujuk profesional untuk nasihat diet peribadi.",
+      "description": "{appLabel} menyediakan info nutrisi anggaran. Ketepatan bergantung pada input anda & variasi makanan. Gunakan sebagai panduan, bukan sumber definitif. Rujuk kepada profesional untuk nasihat diet peribadi.",
       "portionSize": {
         "title": "Saiz Hidangan",
         "description": "Ketepatan anggaran sangat bergantung pada penilaian saiz hidangan anda yang betul."
       },
       "preparationMethods": {
         "title": "Kaedah Penyediaan",
-        "description": "Kaedah memasak boleh mengubah kandungan nutrisi makanan secara signifikan. Anggaran Calorify mungkin tidak selalu mengambil kira variasi ini."
+        "description": "Kaedah memasak boleh mengubah kandungan nutrisi makanan secara signifikan. Anggaran {appLabel} mungkin tidak selalu mengambil kira variasi ini."
       },
       "ingredients": {
         "title": "Bahan",
@@ -472,7 +470,7 @@
       },
       "databaseLimitations": {
         "title": "Had Pangkalan Data",
-        "description": "Pangkalan data makanan Calorify sangat luas tetapi mungkin tidak merangkumi setiap item makanan atau variasi."
+        "description": "Pangkalan data makanan {appLabel} adalah luas tetapi mungkin tidak termasuk setiap item makanan atau variasi."
       }
     },
     "weightEstimate": {
@@ -484,7 +482,7 @@
       },
       "biologicalFactors": {
         "title": "Faktor Biologi",
-        "description": "Kehilangan/penggandaan berat sebenar dipengaruhi oleh metabolisme, hormon, tidur, tekanan, hidrasi, dan faktor individu lain yang tidak dapat diukur oleh Calorify."
+        "description": "Kehilangan/pertambahan berat badan yang sebenar dipengaruhi oleh metabolisme, hormon, tidur, tekanan, penghidratan, dan faktor individu lain yang tidak dapat diukur oleh {appLabel}."
       },
       "waterWeight": {
         "title": "Berat Air & Fluktuasi",

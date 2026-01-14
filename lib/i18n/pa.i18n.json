@@ -1,556 +1,554 @@
 {
-  "language": "English",
-  "flag": "🇺🇸",
+  "language": "Punjabi",
+  "flag": "🇮🇳",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Welcome to Calorify",
-    "subtitle": "Your personal nutrition companion powered by AI",
-    "getStarted": "Get Started",
+    "welcome": "{appLabel} ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ",
+    "subtitle": "ਇਹ ਤੁਹਾਡਾ ਨਿੱਜੀ ਪੋਸ਼ਣ ਸਾਥੀ ਹੈ ਜੋ ਏ.ਆਈ. ਦੁਆਰਾ ਸਹਾਇਤ ਕੀਤਾ ਗਿਆ ਹੈ",
+    "getStarted": "ਸ਼ੁਰੂ ਕਰੀਏ",
     "features": {
       "foodRecognition": {
-        "title": "Smart Food Recognition",
-        "description": "Take a photo and let AI identify your meal"
+        "title": "ਸਮਾਰਟ ਫੂਡ ਪਹਿਚਾਣ",
+        "description": "ਇੱਕ ਤਸਵੀਰ ਲਓ ਅਤੇ ਏ.ਆਈ. ਨੂੰ ਤੁਹਾਡੇ ਭੋਜਨ ਦੀ ਪਹਚਾਣ ਕਰਨ ਦਿਓ"
       },
       "aiAnalysis": {
-        "title": "AI Analysis",
-        "description": "Get instant nutrition facts from your descriptions"
+        "title": "ਏ.ਆਈ. ਵਿਸ਼ਲੇਸ਼ਣ",
+        "description": "ਤੁਹਾਡੇ ਵੇਰਵਿਆਂ ਤੋਂ ਤੁਰੰਤ ਪੋਸ਼ਣ ਲਈ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰੋ"
       },
       "healthIntegration": {
-        "title": "Health Integration",
-        "description": "Connect with Health Connect for better insights"
+        "title": "ਸਿਹਤ ਇੰਟੇਗ੍ਰੇਸ਼ਨ",
+        "description": "ਬਿਹਤਰ ਦ੍ਰਿਸ਼ਟੀਕੋਣ ਲਈ ਹੈਲਥ ਕਨੈਕਟ ਨਾਲ ਜੁੜੋ"
       }
     },
     "gender": {
-      "title": "What is your gender?",
-      "description": "Gender helps us accurately calculate your basal metabolic rate (BMR).",
-      "next": "Next"
+      "title": "ਤੁਹਾਡਾ ਲਿੰਗ ਕੀ ਹੈ?",
+      "description": "ਲਿੰਗ ਸਾਨੂੰ ਤੁਹਾਡਾ ਬੇਸਲ ਮੈਟਾਬੋਲਿਕ ਦਰ (BMR) ਸਹੀ ਢੰਗ ਨਾਲ ਗਿਣਤੀ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।",
+      "next": "ਅੱਗੇ"
     },
     "height": {
-      "title": "How tall are you?",
-      "description": "Your height helps us calculate your BMI and energy needs accurately.",
-      "metric": "Metric",
-      "imperial": "Imperial",
-      "next": "Next"
+      "title": "ਤੁਸੀਂ ਕਿੰਨੀ ਉੱਚੇ ਹੋ?",
+      "description": "ਤੁਹਾਡੇ ਕਿੱਤੇ ਦੀ ਮਦਦ ਨਾਲ ਅਸੀਂ ਤੁਹਾਡਾ BMI ਅਤੇ ऊर्जा ਦੀ ਲੋੜ ਸਹੀ ਢੰਗ ਨਾਲ ਗਿਣਤੀ ਕਰ ਸਕਦੇ ਹਾਂ।",
+      "metric": "ਮੀਟਰਿਕ",
+      "imperial": "ਅੰਤਰ੍ਰਾਸ਼ਟਰੀ",
+      "next": "ਅੱਗੇ"
     },
     "weight": {
-      "currentTitle": "What is your current weight?",
-      "currentDescription": "Your current weight is essential for personalizing your daily goals.",
-      "targetTitle": "What is your target weight?",
-      "targetDescription": "Setting a goal weight helps us determine your long-term plan.",
-      "metric": "Metric",
-      "imperial": "Imperial",
-      "next": "Next"
+      "currentTitle": "ਤੁਹਾਡਾ ਮੋਜੂਦਾ ਵਜ਼ਨ ਕੀ ਹੈ?",
+      "currentDescription": "ਤੁਹਾਡਾ ਮੋਜੂਦਾ ਵਜ਼ਨ ਤੁਹਾਡੇ ਰੋਜ਼ਾਨਾ ਨਿਸ਼ਾਨਿਆਂ ਨੂੰ ਵਿਅਕਤੀਗਤ ਕਰਨ ਲਈ ਜਰੂਰੀ ਹੈ।",
+      "targetTitle": "ਤੁਹਾਡਾ ਲਕਸ਼ ਵਜ਼ਨ ਕੀ ਹੈ?",
+      "targetDescription": "ਇੱਕ ਲਕਸ਼ ਵਜ਼ਨ ਸੈੱਟ ਕਰਨਾ ਸਾਨੂੰ ਤੁਹਾਡੀ ਦਿਰਘਕਾਲੀ ਯੋਜਨਾ ਨਿਰਧਾਰਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।",
+      "metric": "ਮੀਟਰਿਕ",
+      "imperial": "ਅੰਤਰ੍ਰਾਸ਼ਟਰੀ",
+      "next": "ਅੱਗੇ"
     },
     "age": {
-      "title": "When is your birthday?",
-      "description": "Your age helps us calculate your calorie needs accurately.",
-      "next": "Next"
+      "title": "ਤੁਹਾਡੀ ਜਨਮਤਾਰੀਖ ਕਦੋਂ ਹੈ?",
+      "description": "ਤੁਹਾਡੀ ਉਮਰ ਸਾਨੂੰ ਤੁਹਾਡੇ ਕੈਲੋਰੀਆਂ ਦੀ ਜਰੂਰਤ ਨੂੰ ਸਹੀ ਢੰਗ ਨਾਲ ਗਿਣਤੀ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।",
+      "next": "ਅੱਗੇ"
     },
     "bmiScale": {
-      "underweight": "Underweight",
-      "healthy": "Healthy",
-      "overweight": "Overweight",
-      "obese": "Obese",
+      "underweight": "ਗੁਣਾਕਾਰ",
+      "healthy": "ਸਿਹਤਮੰਦ",
+      "overweight": "ਓਬਰਵੇਟ",
+      "obese": "ਮੋਰਬਿਡ",
       "categories": {
-        "underweight": "Underweight",
-        "healthyWeight": "Healthy weight",
-        "overweight": "Overweight",
-        "obese": "Obese"
+        "underweight": "ਗੁਣਾਕਾਰ",
+        "healthyWeight": "ਸਿਹਤਮੰਦ ਵਜ਼ਨ",
+        "overweight": "ਓਬਰਵੇਟ",
+        "obese": "ਮੋਰਬਿਡ"
       },
       "messages": {
-        "underweight": "We can help you build a healthy plan to reach a balanced weight with nutrient-dense meals.",
-        "healthy": "Great job! You're in a healthy range. We'll help you maintain your vitality and energy levels.",
-        "overweight": "Calorify will simplify your journey with AI-powered tracking to help you reach your target comfortably.",
-        "obese": "We're here to support you with personalized guidance and sustainable strategies for your health goals."
+        "underweight": "ਅਸੀਂ ਤੁਹਾਨੂੰ ਪੋਸ਼ਣ ਭਰਪੂਰ ਭੋਜਨ ਦੇ ਨਾਲ ਸਹਿਜ ਵਜ਼ਨ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਸਹਾਇਤਾ ਕਰ ਸਕਦੇ ਹਾਂ।",
+        "healthy": "ਸ਼੍ਲਾਘਨੀ ਕਾਰਜ! ਤੁਸੀਂ ਸਿਹਤਮੰਦ ਰੇਖਾ ਵਿੱਚ ਹੋ। ਅਸੀਂ ਤੁਹਾਨੂੰ ਤੁਹਾਡੀ ਉਤਜ਼ਾਕਤਾ ਅਤੇ energy ਵੇਲਿਊ ਬਣਾਈ ਰੱਖਣ ਵਿੱਚ ਮਦਦ ਕਰਾਂਗੇ।",
+        "overweight": "{appLabel} ਤੁਹਾਡੇ ਲਕਸ਼ ਨੂੰ ਆਰਾਮ ਨਾਲ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਨ ਲਈ ਏ.ਆਈ. ਨਿਰਧਾਰਿਤ ਟਰੈਕਿੰਗ ਦੇ ਨਾਲ ਤੁਹਾਡੇ ਸਫ਼ਰ ਨੂੰ ਆਸਾਨ ਬਣਾਏਗਾ।",
+        "obese": "ਅਸੀਂ ਤੁਹਾਡੇ ਸਿਹਤ ਲਕਸ਼ ਲਈ ਵਿਅਕਤੀਗਤ ਰਾਹਦਾਰੀ ਅਤੇ ਸਥਾਈ ਰਣਨੀਤੀਆਂ ਨਾਲ ਤੁਹਾਡੀ ਸਹਾਇਤਾ ਲਈ ਤਿਆਰ ਹਾਂ।"
       }
     },
     "weightGoal": {
-      "title": "What's your goal?",
-      "description": "Choose the goal that best describes what you want to achieve"
+      "title": "ਤੁਹਾਡਾ ਲਕਸ਼ ਕੀ ਹੈ?",
+      "description": "ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ ਲਕਸ਼ ਚੁਣੋ ਜੋ ਤੁਹਾਨੂੰ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ"
     },
     "activityLevel": {
-      "title": "How active are you?",
-      "description": "This helps us calculate your daily calorie needs more accurately"
+      "title": "ਤੁਸੀਂ ਕਿੰਨੇ ਸਰਗਰਮ ਹੋ?",
+      "description": "ਇਹ ਸਾਨੂੰ ਤੁਹਾਡੇ ਰੋਜ਼ਾਨਾ ਕੈਲੋਰੀਆਂ ਦੀ ਜਰੂਰਤ ਨੂੰ ਸਹੀ ਢੰਗ ਨਾਲ ਗਿਣਤੀ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ"
     },
     "healthConnect": {
-      "title": "Connect with Health Connect",
-      "description": "Sync your health data for better insights and automatic calorie tracking",
+      "title": "ਹੈਲਥ ਕਨੈਕਟ ਨਾਲ ਜੁੜੋ",
+      "description": "ਬਿਹਤਰ ਦ੍ਰਿਸ਼ਟੀਕੋਣ ਅਤੇ ਸੁਚਾਰੂ ਕੈਲੋਰੀ ਟਰੈਕਿੰਗ ਲਈ ਆਪਣੇ ਸਿਹਤ ਡਾਟਾ ਨੂੰ ਸੰਕਲਨ ਕਰੋ",
       "automaticTracking": {
-        "title": "Automatic Calorie Tracking",
-        "description": "Track calories burned from your fitness apps"
+        "title": "ਆਟੋਮੈਟਿਕ ਕੈਲੋਰੀ ਟਰੈਕਿੰਗ",
+        "description": "ਤੁਹਾਡੇ ਫਿਟਨੈਸ ਐਪਸ ਤੋਂ ਜ਼ਰੁਰਤੀਂ ਕੈਲੋਰੀਆਂ ਦੀ ਮੈਨਾ"
       },
       "progressInsights": {
-        "title": "Progress Insights",
-        "description": "Get detailed insights into your health trends"
+        "title": "ਤਰੱਕੀ ਬਾਰੇ ਜਾਣਕਾਰੀ",
+        "description": "ਤੁਹਾਡੇ ਸਿਹਤ ਰੁਝਾਨਾਂ ਵਿੱਚ ਵਿਸਥਾਰਿਤ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰੋ"
       },
       "seamlessIntegration": {
-        "title": "Seamless Integration",
-        "description": "Sync data from your favorite health apps"
+        "title": "ਸਹਿਜ ਇੰਟੇਗ੍ਰੇਸ਼ਨ",
+        "description": "ਤੁਹਾਡੇ ਮਨਪਸੰਦ ਸਿਹਤ ਐਪਸ ਤੋਂ ਡਾਟਾ ਸੰਕਲਨ ਕਰੋ"
       },
-      "connected": "Health Connect Connected",
-      "notConnected": "Health Connect Not Connected",
-      "setup": "Setup Health Connect",
-      "skipForNow": "Skip for now",
-      "statusConnected": "Health Connect is connected.",
-      "statusSuccess": "Health Connect has been successfully connected!",
-      "statusPermissionDenied": "Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.",
-      "statusError": "Error setting up Health Connect: {error}"
+      "connected": "ਹੈਲਥ ਕਨੈਕਟ ਜੁੜਿਆ ਹੋਇਆ",
+      "notConnected": "ਹੈਲਥ ਕਨੈਕਟ ਜੁੜਿਆ ਹੋਇਆ ਨਹੀਂ",
+      "setup": "ਹੈਲਥ ਕਨੈਕਟ ਸੈਟਅਪ ਕਰੋ",
+      "skipForNow": "ਹੁਣ ਛੱਡੋ",
+      "statusConnected": "ਹੈਲਥ ਕਨੈਕਟ ਜੁੜਿਆ ਹੋਇਆ ਹੈ।",
+      "statusSuccess": "ਹੈਲਥ ਕਨੈਕਟ ਬਾਗ਼ ਕਾਮਯਾਬੀ ਨਾਲ ਜੁੜਿਆ ਹੋਇਆ ਹੈ!",
+      "statusPermissionDenied": "ਅਧਿਕਾਰ ਇਨਕਾਰ ਕੀਤਾ ਗਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਫ਼ੋਨ ਦੇ ਸੈਟਿੰਗਾਂ ਵਿੱਚ {appLabel} ਲਈ ਹੈਲਥ ਕਨੈਕਟ ਅਧਿਕਾਰਾਂ ਨੂੰ ਮਨਜੂਰੀ ਦਿਓ।",
+      "statusError": "ਹੈਲਥ ਕਨੈਕਟ ਸੈਟਅਪ ਕਰਨ ਵਿੱਚ ਗਲਤੀ: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
-        "title": "You're Not Alone",
-        "genericMessage": "Research shows that consistent tracking is the #1 predictor of long-term success.",
-        "personalizedMessage": "For a {age} year old {gender} looking to {goal}, consistent tracking is the #1 predictor of success.",
-        "closingMessage": "Calorify makes it 10x easier than doing it manually.",
-        "getStartedTitle": "ਕੀ ਤੁਸੀਂ ਤਿਆਰ ਹੋ? ਸਟਾਰਟ ਕਰਨ ਦਾ ਸਮਾਂ ਹੈ!",
-        "tipPhoto": "ਆਪਣੇ ਖਾਣੇ ਦੀਆਂ ਫੋਟੋਆਂ ਖਿੱਚੋ ਤੁਰੰਤ ਵਿਸ਼ਲੇਸ਼ਣ ਲਈ",
-        "tipConsistency": "ਲਗਾਤਾਰ ਲਾਗ ਕਰਕੇ ਮਤਲਬੀ ਬਦਲਾਅ ਵੇਖੋ",
-        "tipProgress": "ਰੋਜ਼ਾਨਾ ਆਪਣੀ ਤਰੱਕੀ ਨੂੰ ਮਾਨ-monitor ਕਰਕੇ ਪ੍ਰੇਰਨਾ ਬਣੇ ਰਹੋ",
-        "button": "Let's Go",
-        "defaultGender": "individual",
-        "defaultGoal": "healthier you",
-        "instantPhotoAnalysis": "Instant photo analysis",
-        "automaticLogging": "Automatic nutritional logging",
-        "progressVisualizations": "Progress visualizations that keep you motivated"
+        "title": "ਤੁਸੀਂ ਇਕੱਲੇ ਨਹੀਂ ਹੋ",
+        "genericMessage": "ਖੋਜ ਦਿਖਾਉਂਦੀ ਹੈ ਕਿ ਨਿਰੰਤਰ ਨਿਗ੍ਰਾਨੀ ਲੰਬੇ ਸਮੇਂ ਦੇ ਸਫਲਤਾ ਦਾ ਪਹਿਲਾ ਅਨੁਮਾਨਕ ਹੈ।",
+        "personalizedMessage": " ਇੱਕ {age} ਸਾਲ ਦਾ {gender} ਜੋ {goal} ਦੀ ਤਲਾਸ਼ ਵਿੱਚ ਹੈ, ਨਿਰੰਤਰ ਨਿਗ੍ਰਾਨੀ ਸਫਲਤਾ ਦਾ ਪਹਿਲਾ ਅਨੁਮਾਨਕ ਹੈ।",
+        "closingMessage": "{appLabel} ਨਾਲ ਇਹ ਦਸਤਾਵੇਜ਼ੀ ਕਰਨ ਵਿੱਚ 10x ਜ਼ਿਆਦਾ ਆਸਾਨ ਹੈ।",
+        "getStartedTitle": "ਕੀ ਤੁਸੀਂ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਤਿਆਰ ਹੋ?",
+        "tipPhoto": "ਤੁਰੰਤ ਵਿਸ਼ਲੇਸ਼ਣ ਲਈ ਆਪਣੇ ਭੋਜਨਾਂ ਦੀ ਤਸਵੀਰ ਲਓ",
+        "tipConsistency": "ਮਤਲਬੀ ਮੁਨਾਸਿਬਤਾ ਲਈ ਨਿਯਮਤ ਰੋਜ਼ਾਨਾ ਰਾਹੜਾ ਕਰੋ",
+        "tipProgress": "ਮੋਟਿਵੇਟਡ ਰਹਿਣ ਲਈ ਦਿਨਦਰਦ ਪਗਦੰਡਾਂ ਦਾ ਟਰੈਕ ਕਰਨਾ",
+        "button": "ਚੱਲੀਏ",
+        "defaultGender": "ਵਿਅਕਤੀ",
+        "defaultGoal": "ਸਿਹਤਮੰਦ ਤੁਸੀਂ"
       },
       "healthProfile": {
-        "title": "Your Health Profile",
-        "bmiDescription": "Based on your metrics, your BMI is {bmi}.",
-        "finalizeDescription": "Let's finalize your profile to customize your experience.",
-        "goalGain": "gain",
-        "goalLose": "lose",
-        "goalReach": "To reach your goal, you'll {direction} {diff} {unit}.",
-        "goalReached": "You're at your target weight! We'll help you maintain it.",
-        "button": "Let's Go"
+        "title": "ਤੁਹਾਡੀ ਸਿਹਤ ਪ੍ਰੋਫਾਈਲ",
+        "bmiDescription": "ਤੁਹਾਡੇ ਮਾਪਾਂ ਦੇ ਆਧਾਰ 'ਤੇ, ਤੁਹਾਡਾ BMI {bmi} ਹੈ।",
+        "finalizeDescription": "ਆਉ ਸਾਡੀ ਪੋਰਫਾਈਲ ਨੂੰ ਆਖਰੀ ਬਣਾਈਏ ਤਾਂ ਜੋ ਤੁਸੀਂ ਆਪਣਾ ਤਜ਼ੁਰਬਾ ਵਿਅਕਤੀਗਤ ਕਰ ਸਕੋ।",
+        "goalGain": "ਲੈਣਾ",
+        "goalLose": "ਘਟਾਉਣਾ",
+        "goalReach": "ਤੁਸੀਂ ਆਪਣੇ ਲਕਸ਼ ਦੁਲਾ ਲਿਆ ਹੈ, ਤੁਸੀਂ {direction} {diff} {unit}.",
+        "goalReached": "ਤੁਸੀਂ ਆਪਣੇ ਲਕਸ਼ ਵਜ਼ਨ 'ਤੇ ਹੋ! ਅਸੀਂ ਤੁਹਾਨੂੰ ਇਹ ਬਰਕਰਾਰ ਰੱਖਣ ਵਿੱਚ ਮਦਦ ਕਰਾਂਗੇ।",
+        "button": "ਚੱਲੀਏ"
       },
       "goalLifestyle": {
-        "title": "Excellent Start!",
-        "description": "You've taken the first step towards {goalText}. Since you're {activityText}, Calorify will adjust your targets to match your lifestyle.",
-        "personalizedTargets": "Personalized calorie targets",
-        "aiMealDetection": "AI-powered meal detection",
-        "macroBreakdowns": "Detailed macro-nutrient breakdowns",
-        "button": "Let's Go",
-        "defaultGoal": "your goals",
-        "defaultActivity": "active"
+        "title": "ਸ਼ानदार ਸ਼ੁਰੂਆਤ!",
+        "description": "ਤੁਸੀਂ {goalText} ਦੀtowards ਪਹਿਲਾ ਕਦਮ ਚੁੱਕਿਆ ਹੈ। ਚੁੱਕੀਏ {activityText}, {appLabel} ਤੁਹਾਡੇ ਲਕਸ਼ਾਂ ਨੂੰ ਤੁਹਾਡੇ ਜੀਵਨ ਅਨੁਸਾਰ ਅਨੁਕੂਲ ਕਰੈਗਾ।",
+        "personalizedTargets": "ਵਿਅਕਤੀਗਤ ਕੈਲੋਰੀ ਲਕਸ਼",
+        "aiMealDetection": "ਏ.ਆਈ.-ਸਮਰਥਿਤ ਮੀਲ ਡਿਸਕਸ਼ਨ",
+        "macroBreakdowns": "ਵਿਸਥਾਰਿਤ ਮੈਕਰੋ-ਪੋਸ਼ਣ ਪਾਰਖ",
+        "button": "ਚੱਲੀਏ",
+        "defaultGoal": "ਤੁਹਾਡੇ ਲਕਸ਼",
+        "defaultActivity": "ਸਰਗਰਮ"
       }
     }
   },
   "tabs": {
-    "dashboard": "Dashboard",
-    "history": "History"
+    "dashboard": "ਡੈਸ਼ਬੋਰਡ",
+    "history": "ਇਤਿਹਾਸ"
   },
   "home": {
     "dailyGoal": {
-      "title": "Set Your Daily Goal",
-      "titleSet": "Your Daily Goal",
-      "description": "Ready to embark on your wellness journey? Set your daily calorie target below to kickstart your progress.",
-      "descriptionSet": "Your compass is set! This is your daily calorie target to guide you.",
-      "yourGoal": "Your Goal",
-      "dailyCalories": "Daily calories (kcal)",
-      "setGoal": "Set Goal",
-      "intake": "Intake",
-      "burned": "Burned",
-      "weightImpact": "Weight Impact",
-      "estLoss": "Est. loss of",
-      "estGain": "Est. gain of",
-      "kcal": "kcal"
+      "title": "ਤੁਹਾਡਾ ਰੋਜ਼ਾਨਾ ਲਕਸ਼ ਸੈੱਟ ਕਰੋ",
+      "titleSet": "ਤੁਹਾਡਾ ਰੋਜ਼ਾਨਾ ਲਕਸ਼",
+      "description": "ਕੀ ਤੁਸੀਂ ਆਪਣੀ ਵੈਲਨੈੱਸ ਯਾਤਰਾ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਤਿਆਰ ਹੋ? ਆਪਣੇ ਰੋਜ਼ਾਨਾ ਕੈਲੋਰੀ ਲਕਸ਼ ਨੂੰ ਤਹਿਤ ਕਰੋ ਤਾ ਕਿ ਤੁਸੀਂ ਆਪਣੀ ਪ੍ਰਗਤੀ ਨੂੰ ਸ਼ੁਰੂ ਕਰ ਸੱਕੋ।",
+      "descriptionSet": "ਤੁਹਾਡਾ ਕੰਪਾਸ ਸੈੱਟ ਹੈ! ਇਹ ਤੁਹਾਡਾ ਰੋਜ਼ਾਨਾ ਕੈਲੋਰੀ ਲਕਸ਼ ਹੀ ਤੁਹਾਨੂੰ ਗਾਈਡ ਕਰਨ ਲਈ ਹੈ।",
+      "yourGoal": "ਤੁਹਾਡਾ ਲਕਸ਼",
+      "dailyCalories": "ਰੋਜ਼ਾਨਾ ਕੈਲੋਰੀ (kcal)",
+      "setGoal": "ਲਕਸ਼ ਸੈੱਟ ਕਰੋ",
+      "intake": "ਵਾਟਾ",
+      "burned": "ਜਲਾਈ",
+      "weightImpact": "ਵਜ਼ਨ ਤੇ ਪ੍ਰਭਾਵ",
+      "estLoss": "ਅੰਦਾਜ਼ੀ ਹਾਨੀ",
+      "estGain": "ਅੰਦਾਜ਼ੀ ਲਾਭ",
+      "kcal": "ਕੈਲੋਰੀ"
     },
     "dailySummary": {
-      "title": "Daily Summary",
-      "calories": "Calories",
-      "carbs": "Carbs",
-      "protein": "Protein",
-      "fat": "Fat",
-      "fiber": "Fiber"
+      "title": "ਰੋਜ਼ਾਨਾ ਸਾਰ",
+      "calories": "ਕੈਲੋਰੀ",
+      "carbs": "ਕਾਰਬ",
+      "protein": "ਪਰੋਟੀਨ",
+      "fat": "ਚਰਬੀ",
+      "fiber": "ਫਾਈਬਰ"
     },
     "intakeProgress": {
-      "title": "Today's Macro Split",
-      "target": "Target",
-      "current": "Current"
+      "title": "ਅੱਜ ਦਾ ਮੈਕਰੋ ਵੰਡ",
+      "target": "ਲਕਸ਼",
+      "current": "ਵਰਤਮਾਨ"
     },
     "intakeHistory": {
-      "title": "7-Day Macro History",
-      "noHistoryYet": "No history yet",
-      "startLogging": "Start logging meals to see your\n7-day macro trends here"
+      "title": "7-ਦਿਨਾਂ ਦਾ ਮੈਕਰੋ ਇਤਿਹਾਸ",
+      "noHistoryYet": "ਅਜੇ ਤੱਕ ਕੋਈ ਇਤਿਹਾਸ ਨਹੀਂ",
+      "startLogging": "ਮੀਲਾਂ ਨੂੰ ਲੋਗ ਕਰਨ ਸ਼ੁਰੂ ਕਰੋ ਤਾਂ ਜੋ ਤੁਸੀਂ ਇੱਥੇ ਆਪਣੇ 7-ਦਿਨਾਂ ਦੇ ਮੈਕਰੋ ਰੁਝਾਨਾਂ ਨੂੰ ਦੇਖ ਸਕੋ"
     },
     "mealLog": {
-      "title": "Logged Meals",
-      "emptyMessage": "Snap a picture of your last meal to log here.",
-      "noMealsToday": "No meals recorded for today",
-      "seeAllMeals": "See all meals"
+      "title": "ਲੋਗ ਕੀਤੀਆਂ ਮੀਲਾਂ",
+      "emptyMessage": "ਆਪਣੀ ਆਖਰੀ ਮੀਲ ਦੀ ਤਸਵੀਰ ਲਓ ਤਾਂ ਜੋ ਇਹ ਇੱਥੇ ਲੋਗ ਹੋ ਸਕੇ.",
+      "noMealsToday": "ਅੱਜ ਲਈ ਕੋਈ ਮੀਲਾਂ ਨਹੀ ਦਰਜ ਕੀਤੀਆਂ",
+      "seeAllMeals": "ਸਭ ਮੀਲਾਂ ਦੇਖੋ"
     },
     "mealDescription": {
-      "title": "Quick Add with AI",
-      "description": "Describe your meal, and let AI handle the details.",
-      "hint": "e.g. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...",
-      "analyzeMeal": "Analyze meal"
+      "title": "ਏ.ਆਈ. ਨਾਲ ਤੇਜ਼ੀ ਨਾਲ ਜੋੜੋ",
+      "description": "ਆਪਣੀ ਮੀਲ ਦਾ ਵੇਰਵਾ ਦਿਓ, ਅਤੇ ਏ.ਆਈ. ਨੂੰ ਵੇਰਵਿਆਂ ਨੂੰ ਸੰਭਾਲਣ ਦਿਓ।",
+      "hint": "ਉਦਾਹਰਨ: ਮੇਰੇ ਨਾਸ਼ਤੇ ਵਿੱਚ ਮੈਂ ਇੱਕ ਵੱਡੇ ਬੋਲ ਚੀਲੇ ਦਾ ਨਾਮ &quot; ਕੀਤੇ ਅਤੇ ਇੱਕ ਲੱਖੇ ਬਨਾਨਾ ਅਤੇ ਇੱਕ ਹੁਇ ਪੋਡੀ ...",
+      "analyzeMeal": "ਮੀਲ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰੋ"
     },
     "favoriteMeals": {
-      "title": "Favorite Meals",
-      "description": "Quickly add one of your favorite meals.",
-      "noFavorites": "No favorite meals yet.",
-      "addFavoriteHint": "Click the star on a meal to mark it as a favorite.",
-      "seeAll": "See all",
-      "add": "Add"
+      "title": "ਪੀਰੇ ਮੀਲਾਂ",
+      "description": "ਆਪਣੀਆਂ ਪਸੰਦੀਆਂ ਮੀਲਾਂ ਵਿੱਚੋਂ ਇੱਕ ਨੂੰ ਤੇਜ਼ੀ ਨਾਲ ਜੋੜੋ",
+      "noFavorites": "ਕੋਈ ਪਸੰਦ ਕੀਤੀਆਂ ਮੀਲਾਂ ਨਹੀਂ।",
+      "addFavoriteHint": "ਕਿਸੇ ਮੀਲ 'ਤੇ ਸਟਾਰ 'ਤੇ ਕਲਿਕ ਕਰੋ, ਇਸ ਨੂੰ ਪਸੰਦ ਕਰਨ ਲਈ ਮਾਰਕ ਕਰਨ ਲਈ।",
+      "seeAll": "ਸਭ ਦੇਖੋ",
+      "add": "ਜੋੜੋ"
     },
     "mealSnap": {
-      "title": "Snap & Track Your Meal",
-      "description": "Use your camera to take a picture of your food for AI analysis.",
-      "openCamera": "Open Camera"
+      "title": "ਤਸਵੀਰ ਲਓ &amp; ਆਪਣੀ ਮੀਲ ਨੂੰ ਟ੍ਰੈਕ ਕਰੋ",
+      "description": "ਏ.ਆਈ. ਵਿਸ਼ਲੇਸ਼ਣ ਲਈ ਆਪਣੇ ਭੋਜਨ ਦੀ ਤਸਵੀਰ ਲੈਣ ਲਈ ਆਪਣੇ ਕੈਮਰੇ ਦਾ ਉਪਯੋਗ ਕਰੋ।",
+      "openCamera": "ਕੈਮਰੇ ਨੂੰ ਖੋਲ੍ਹੋ"
     },
     "connectHealth": {
-      "title": "Sync with Health Connect",
-      "description": "Sync your nutrition data with Health Connect",
-      "install": "Install",
-      "connect": "Connect"
+      "title": "ਹੈਲਥ ਕਨੈਕਟ ਨਾਲ ਸੰਕਲਨ ਕਰੋ",
+      "description": "ਆਪਣੇ ਪੋਸ਼ਣ ਡਾਟਾ ਨੂੰ ਹੈਲਥ ਕਨੈਕਟ ਨਾਲ ਸੰਕਲਨ ਕਰੋ",
+      "install": "ਇੰਸਟਾਲ ਕਰੋ",
+      "connect": "ਜੁੜੋ"
     }
   },
   "history": {
-    "noMeals": "No meals recorded",
-    "emptyMessage": "Snap a picture of your last meal to log here.",
-    "today": "Today",
-    "yesterday": "Yesterday"
+    "noMeals": "ਕੋਈ ਮੀਲਾਂ ਦਰਜ ਨਹੀਂ",
+    "emptyMessage": "ਆਪਣੀ ਆਖਰੀ ਮੀਲ ਦੀ ਤਸਵੀਰ ਲਓ ਤਾਂ ਜੋ ਇਹ ਇੱਥੇ ਲੋਗ ਹੋ ਸਕੇ.",
+    "today": "ਅੱਜ",
+    "yesterday": "ਕਲ"
   },
   "meal": {
-    "ohNo": "Oh no!",
-    "delete": "Delete",
-    "editMeal": "Edit Meal",
-    "addMeal": "Add Meal",
-    "saveMeal": "Save Meal",
-    "save": "Save",
-    "mealName": "Meal Name",
-    "mealQuantity": "Meal Quantity",
-    "mealQuantityHint": "e.g., 1 bowl, 2 slices",
-    "timeOfMeal": "Time of Meal",
-    "timeOfMealHint": "Select the time you had your meal",
-    "mealType": "Meal Type",
+    "ohNo": "ਓ ਹਣ!",
+    "delete": "ਮਿਟਾਓ",
+    "editMeal": "ਮੀਲ ਸੋਧੋ",
+    "addMeal": "ਮੀਲ ਜੋੜੋ",
+    "saveMeal": "ਮੀਲ ਸੰਭਾਲੋ",
+    "save": "ਸੰਭਾਲੋ",
+    "mealName": "ਮੀਲ ਦਾ ਨਾਂ",
+    "mealQuantity": "ਮੀਲ ਦੀ ਮਾਤਰਾ",
+    "mealQuantityHint": "ਉਦਾਹਰਨ: 1 ਬੋਲ, 2 ਕਟਕ",
+    "timeOfMeal": "ਮੀਲ ਦਾ ਸਮਾਂ",
+    "timeOfMealHint": "ਜਿਸ ਸਮੇਂ ਤੁਸੀਂ ਆਪਣੀ ਮੀਲ ਕੀਤੀ ਸੀ ਦਾ ਚੋਣ ਕਰੋ",
+    "mealType": "ਮੀਲ ਦੀ ਕਿਸਮ",
     "nutrition": {
-      "calories": "Calories",
-      "carbs": "Carbs (g)",
-      "protein": "Protein (g)",
-      "fat": "Fat (g)",
-      "fiber": "Fiber (g)"
+      "calories": "ਕੈਲੋਰੀ",
+      "carbs": "ਕਾਰਬਸ (ਗ)",
+      "protein": "ਪਰੋਟੀਨ (ਗ)",
+      "fat": "ਚਰਬੀ (ਗ)",
+      "fiber": "ਫਾਈਬਰ (ਗ)"
     },
     "deleteConfirmation": {
-      "title": "Delete Meal",
-      "message": "Are you sure you want to delete this meal entry?",
-      "cancel": "Cancel",
-      "delete": "Delete"
+      "title": "ਮੀਲ ਮਿਟਾਓ",
+      "message": "ਕੀ ਤੁਸੀਂ ਇਸ ਮੀਲ ਦੇ ਦਰਜ ਨੂੰ ਮਿਟਾਉਣ ਲਈ ਯਕੀਨੀ ਹੋ?",
+      "cancel": "ਰੱਦ ਕਰੋ",
+      "delete": "ਮਿਟਾਓ"
     },
-    "addedToLog": "Meal added to your log!",
-    "couldNotAdd": "Could not add meal: {error}",
-    "removedFromFavorites": "Removed from favorites!",
-    "savedAsFavorite": "Meal saved as favorite!",
-    "couldNotUpdateFavorite": "Could not update favorite: {error}",
-    "failedToProcess": "Failed to process: {error}",
-    "failedToProcessImage": "Failed to process image: {error}",
-    "errorCompressingImage": "Error compressing image: {error}",
-    "failedToSave": "Failed to save data. Please try again."
+    "addedToLog": "ਮੀਲ ਤੁਹਾਡੇ ਲੋਗ ਵਿੱਚ ਜੋੜੀ ਗਈ!",
+    "couldNotAdd": "ਮੀਲ ਜੋੜ ਸਕੀ: {error}",
+    "removedFromFavorites": "ਫੇਰ ਨਹੀ ਹੈ!",
+    "savedAsFavorite": "ਮੀਲ ਪਸੰਦ ਦੇ ਤੌਰ 'ਤੇ ਸੰਭਾਲੀ ਗਈ!",
+    "couldNotUpdateFavorite": "ਪਸੰਦ ਅਪਡੇਟ ਕਰਨ ਵਿੱਚ ਅਸਫਲ: {error}",
+    "failedToProcess": "ਪ੍ਰਕਿਰਿਆ ਕਰਨ ਵਿੱਚ ਅਸਫਲ: {error}",
+    "failedToProcessImage": "ਤਸਵੀਰ ਨੂੰ ਸੰਭਾਲਣ ਵਿੱਚ ਅਸਫਲ: {error}",
+    "errorCompressingImage": "ਤਸਵੀਰ ਨੂੰ ਸੰਕੁਚਿਤ ਕਰਨ ਵਿੱਚ ਗਲਤੀ: {error}",
+    "failedToSave": "ਡਾਟਾ ਨੂੰ ਸੰਭਾਲਣ ਵਿੱਚ ਅਸਫਲ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
   },
   "favorites": {
-    "title": "Favorites",
-    "empty": "No favorite meals yet."
+    "title": "ਪਸੰਦੀਆਂ",
+    "empty": "ਕੋਈ ਪਸੰਦ ਕੀਤੀਆਂ ਮੀਲਾਂ ਨਹੀਂ।"
   },
   "profile": {
-    "title": "Profile",
-    "noProfileData": "No profile data found",
-    "yourProfile": "Your Profile",
-    "viewAndManage": "View and manage your health information",
+    "title": "ਪ੍ਰੋਫਾਈਲ",
+    "noProfileData": "ਕੋਈ ਪ੍ਰੋਫਾਈਲ ਡਾਟਾ ਨਹੀਂ ਮਿਲਿਆ",
+    "yourProfile": "ਤੁਹਾਡੀ ਪ੍ਰੋਫਾਈਲ",
+    "viewAndManage": "ਆਪਣੀ ਸਿਹਤ ਜਾਣਕਾਰੀ ਵੇਖੋ ਅਤੇ ਸੰਭਾਲੋ",
     "sections": {
-      "profile": "PROFILE",
-      "basicInformation": "BASIC INFORMATION",
-      "goalsAndActivity": "GOALS & ACTIVITY",
-      "calculatedValues": "CALCULATED VALUES"
+      "profile": "ਪ੍ਰੋਫਾਈਲ",
+      "basicInformation": "ਮੁਲ ਬੇਨਤੀ ਜਾਣਕਾਰੀ",
+      "goalsAndActivity": "ਲਕਸ਼ਾਂ ਅਤੇ ਸਰਗਰਮੀ",
+      "calculatedValues": "ਗਿਣਤੀ ਕੀਤੇ ਗਏ ਮੁੱਲ"
     },
-    "gender": "Gender",
-    "height": "Height",
-    "weight": "Weight",
-    "age": "Age",
-    "weightGoal": "Weight Goal",
-    "activityLevel": "Activity Level",
-    "healthMetrics": "Health Metrics",
-    "notSet": "Not set",
-    "years": "years",
-    "updatedSuccessfully": "Profile updated successfully!",
+    "gender": "ਲਿੰਗ",
+    "height": "ਉਚਾਈ",
+    "weight": "ਵਜ਼ਨ",
+    "age": "ਉਮਰ",
+    "weightGoal": "ਵਜ਼ਨ ਦਾ ਲਕਸ਼",
+    "activityLevel": "ਸਰਗਰਮੀ ਦੀ ਪੱਧਰ",
+    "healthMetrics": "ਸਿਹਤ ਪਰਿਮਾਣ",
+    "notSet": "ਸੈੱਟ ਨਹੀਂ ਕੀਤਾ",
+    "years": "ਸਾਲ",
+    "updatedSuccessfully": "ਪ੍ਰੋਫਾਈਲ ਸਫਲਤਾ ਨਾਲ ਅਪਡੇਟ ਕੀਤੀ!",
     "calculatedValues": {
-      "bmr": "BMR",
-      "tdee": "TDEE",
-      "dailyGoal": "Daily Goal",
-      "calPerDay": "cal/day",
-      "notAvailable": "N/A"
+      "bmr": "ਬੀ.ਐਮ.ਆਰ.",
+      "tdee": "ਟੀ.ਡੀ.ਈ.ਈ.",
+      "dailyGoal": "ਰੋਜ਼ਾਨਾ ਲਕਸ਼",
+      "calPerDay": "ਕੈਲੋਰੀ/ਦਿਨ",
+      "notAvailable": "ਐੱਨ/ਏ"
     }
   },
   "healthScore": {
-    "title": "Health Score",
-    "whyThisScore": "Why this score?",
-    "note": "This score is an AI estimate based on the identified ingredients and nutritional density. Always consult a professional for dietary advice.",
-    "unhealthy": "Unhealthy",
-    "healthy": "Healthy",
-    "neutral": "Neutral"
+    "title": "ਸਿਹਤ ਸਕੋਰ",
+    "whyThisScore": "ਇਹ ਸਕੋਰ ਕਿਉਂ ਹੈ?",
+    "note": "ਇਹ ਸਕੋਰ ਪਛਾਏ ਗਏ ਸਮੱਗਰੀਆਂ ਅਤੇ ਪੋਸ਼ਣ ਸਮੰਚਿਤਾ ਦੇ ਆਧਾਰ 'ਤੇ ਏ.ਆਈ. ਦਾ ਅਨੁਮਾਨ ਹੈ। ਹਮੇਸ਼ਾ ਪੋਸ਼ਣ ਮੁਰਖ ਦੇ ਸੰਦਰਭ ਵਿੱਚ ਕਿਸੇ ਵਿਸ਼ੇਸ਼ ਹੈਲਥਕੇਅਰ ਪ੍ਰੋਫੈਸਨਲ ਨਾਲ ਜਾਚ ਕਰੋ।",
+    "unhealthy": "ਅਸਿਹਤਮੰਦ",
+    "healthy": "ਸਿਹਤਮੰਦ",
+    "neutral": "ਤਟਸਥ"
   },
   "editProfile": {
-    "title": "Edit Profile",
+    "title": "ਪ੍ਰੋਫਾਈਲ ਸੋਧੋ",
     "sections": {
-      "personalInformation": "PERSONAL INFORMATION",
-      "physicalMeasurements": "PHYSICAL MEASUREMENTS",
-      "goalsAndActivity": "GOALS & ACTIVITY"
+      "personalInformation": "ਜਾਣਕਾਰੀ",
+      "physicalMeasurements": "ਭੌਤਿਕ ਮਾਪ",
+      "goalsAndActivity": "ਲਕਸ਼ ਅਤੇ ਸਰਗਰਮੀ"
     },
-    "gender": "Gender",
-    "dateOfBirth": "Date of Birth",
-    "height": "Height",
-    "weight": "Weight",
-    "weightGoal": "Weight Goal",
-    "activityLevel": "Activity Level",
-    "metric": "Metric",
-    "imperial": "Imperial",
-    "metricCm": "Metric (cm)",
-    "imperialFtIn": "Imperial (ft/in)",
-    "metricKg": "Metric (kg)",
-    "imperialLbs": "Imperial (lbs)",
+    "gender": "ਲਿੰਗ",
+    "dateOfBirth": "ਜਨਮਤਾਰੀਖ",
+    "height": "ਉਚਾਈ",
+    "weight": "ਵਜ਼ਨ",
+    "weightGoal": "ਵਜ਼ਨ ਦਾ ਲਕਸ਼",
+    "activityLevel": "ਸਰਗਰਮੀ ਪੱਧਰ",
+    "metric": "ਮੀਟਰਿਕ",
+    "imperial": "ਇੰਪਿਰੀਅਲ",
+    "metricCm": "ਮੀਟਰਿਕ (ਸੈਮ)",
+    "imperialFtIn": "ਇੰਪਿਰੀਅਲ (ਫੁੱਟ/ਇੰਚ)",
+    "metricKg": "ਮੀਟਰਿਕ (ਕਿਗ੍ਰਾਮ)",
+    "imperialLbs": "ਇੰਪਿਰੀਅਲ (ਪਾਊਂਡ)",
     "genders": {
-      "male": "Male",
-      "female": "Female",
-      "other": "Other"
+      "male": "ਮਰਦ",
+      "female": "ਜਨਾਨੀ",
+      "other": "ਹੋਰ"
     },
     "weightGoals": {
       "loseWeight": {
-        "name": "Lose Weight",
-        "description": "Create a calorie deficit to lose weight"
+        "name": "ਵਜ਼ਨ ਘਟਾਓ",
+        "description": "ਵਜ਼ਨ ਘਟਾਣ ਲਈ ਕੈਲੋਰੀ ਘਾਟ ਬਣਾਓ"
       },
       "maintainWeight": {
-        "name": "Maintain Weight",
-        "description": "Maintain your current weight"
+        "name": "ਵਜ਼ਨ ਬਰਕਰਾਰ ਰੱਖੋ",
+        "description": "ਆਪਣਾ ਮੋਜੂਦਾ ਵਜ਼ਨ ਬਰਕਰਾਰ ਰੱਖੋ"
       },
       "gainWeight": {
-        "name": "Gain Weight",
-        "description": "Create a calorie surplus to gain weight"
+        "name": "ਵਜ਼ਨ ਵਧਾਓ",
+        "description": "ਵਜ਼ਨ ਵਧਾਣ ਲਈ ਕੈਲੋਰੀਆਂ ਵਿੱਚ ਵਾਧਾ ਕਰੋ"
       }
     },
     "activityLevels": {
       "sedentary": {
-        "name": "Sedentary",
-        "description": "Little to no exercise"
+        "name": "ਬੈਠਕ",
+        "description": "ਬਹੁਤ ਥੋੜ੍ਹਾ ਵਰਕਆਉਟ"
       },
       "lightlyActive": {
-        "name": "Lightly Active",
-        "description": "Light exercise 1-3 days/week"
+        "name": "ਹਲਕੇ ਸਰਗਰਮ",
+        "description": "ਹਲਕੇ ਵਰਕਆਉਟ 1-3 ਦਿਨਾਂ/ਸਪਤਾਹ"
       },
       "moderatelyActive": {
-        "name": "Moderately Active",
-        "description": "Moderate exercise 3-5 days/week"
+        "name": "ਮਿਧਮ ਸਰਗਰਮ",
+        "description": "ਮੁਲਾਂਕਣ 3-5 ਦਿਨਾਂ/ਸਪਤਾਹ"
       },
       "veryActive": {
-        "name": "Very Active",
-        "description": "Hard exercise 6-7 days/week"
+        "name": "ਬਹੁਤ ਸਰਗਰਮ",
+        "description": "ਕਠੋਰ ਵਰਕਆਉਟ 6-7 ਦਿਨਾਂ/ਸਪਤਾਹ"
       },
       "extremelyActive": {
-        "name": "Extremely Active",
-        "description": "Very hard exercise, physical job"
+        "name": "ਬਹੁਤ ਬਹੁਤ ਸਰਗਰਮ",
+        "description": "ਬਹੁਤ ਕਿਸਮ ਦੇ ਵਰਕਆਉਟ, ਭੌਤਿਕ ਨੌਕਰੀ"
       }
     }
   },
   "settings": {
-    "title": "Settings",
+    "title": "ਸੈਟਿੰਗਜ਼",
     "sections": {
-      "profile": "PROFILE",
-      "localization": "LOCALIZATION",
-      "notifications": "NOTIFICATIONS",
-      "supportAndLegal": "SUPPORT & LEGAL",
-      "dangerZone": "DANGER ZONE",
-      "developer": "DEVELOPER"
+      "profile": "ਪ੍ਰੋਫਾਈਲ",
+      "localization": "ਅੰਤਰਰਾਸ਼ਟੀਕਰਨ",
+      "notifications": "ਸੂਚਨਾਵਾਂ",
+      "supportAndLegal": "ਸਹਾਇਤਾ ਅਤੇ ਕਾਨੂੰਨੀ",
+      "dangerZone": "ਖਤਰੇ ਵਾਲਾ ਇਲਾਕਾ",
+      "developer": "ਡਿਵੈਲਪਰ"
     },
     "editProfile": {
-      "title": "Edit Profile",
-      "subtitle": "Update your personal information"
+      "title": "ਪ੍ਰੋਫਾਈਲ ਸੋਧੋ",
+      "subtitle": "ਆਪਣੀ ਜਾਣਕਾਰੀ ਨੂੰ ਅਪਡੇਟ ਕਰੋ"
     },
     "language": {
-      "title": "Language",
-      "subtitle": "Choose your preferred language"
+      "title": "ਭਾਸ਼ਾ",
+      "subtitle": "ਆਪਣੀ ਪਸੰਦੀਦਾ ਭਾਸ਼ਾ ਚੁਣੋ"
     },
     "heightUnit": {
-      "title": "Height Unit"
+      "title": "ਉਚਾਈ ਦੀ ਇਕਾਈ"
     },
     "weightUnit": {
-      "title": "Weight Unit"
-    },
-    "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
+      "title": "ਵਜ਼ਨ ਦੀ ਇਕਾਈ"
     },
     "mealReminders": {
-      "title": "Meal Reminders",
-      "subtitle": "Stay on track with timely alerts"
+      "title": "ਮੀਲ ਮਿਤੀ",
+      "subtitle": "ਕਾਲਾਂਦਰੀਆਂ ਨਾਲ ਸੁਰੱਖਿਅਤ ਰੱਖੋ"
+    },
+    "theme": {
+      "title": "ਥੀਮ",
+      "subtitle": "ਆਪਣੀ ਪਸੰਦੀਦਾ ਥੀਮ ਚੁਣੋ",
+      "light": "ਪਹਿਲੀ",
+      "dark": "ਅੰਧੇਰਾ",
+      "system": "ਸਿਸਟਮ"
     },
     "sendFeedback": {
-      "title": "Send Feedback",
-      "subtitle": "Help us improve Calorify",
-      "emailSubject": "Calorify App Feedback",
-      "emailBodyPrefix": "Please provide your feedback below:",
-      "appVersion": "App Version",
-      "device": "Device",
-      "osVersion": "OS Version",
-      "uid": "UID"
+      "title": "ਫੀਡਬੈਕ ਭੇਜੋ",
+      "subtitle": "{appLabel} ਨੂੰ ਸੁਧਾਰਣ ਵਿੱਚ ਸਹਾਇਤਾ ਕਰੋ",
+      "emailSubject": "{appLabel} ਐਪ ਫੀਡਬੈਕ",
+      "emailBodyPrefix": "ਕਿਰਪਾ ਕਰਕੇ ਹੇਠਾਂ ਆਪਣਾ ਫੀਡਬੈਕ ਦਿਓ:",
+      "appVersion": "ਐਪ ਵਰਜਨ",
+      "device": " ਡਿਵਾਈਸ",
+      "osVersion": "ਓ.എസ്. ਵਰਜਨ",
+      "uid": "ਯੂ.ਆਈ.ਡੀ."
     },
     "clearAllData": {
-      "title": "Clear All Data",
-      "subtitle": "Irreversibly delete all your information",
-      "confirmationTitle": "Clear All Data?",
-      "confirmationMessage": "This action cannot be undone. All your logged meals, favorites, and profile settings will be permanently deleted.",
-      "cancel": "Cancel",
-      "clearEverything": "Clear Everything"
+      "title": "ਸਾਰੀ ਜਾਣਕਾਰੀ ਮਿਟਾਓ",
+      "subtitle": "ਤੁਹਾਡੀ ਸਾਰੀ ਜਾਣਕਾਰੀ ਨੂੰ ਅਬਾਦੀ ਦਾ ਹਾਜ਼ਰ ਕੀਤਾ",
+      "confirmationTitle": "ਸਾਰੀ ਜਾਣਕਾਰੀ ਮਿਟਾਓ?",
+      "confirmationMessage": "ਇਹ ਕਾਰਵਾਈ ਰਿਵਾਜ਼ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਤੁਹਾਡੀਆਂ ਸਾਰੀਆਂ ਦਰਜ ਕੀਤੀਆਂ ਮੀਲਾਂ, ਪ੍ਰੀਫਰੈਂਸ ਅਤੇ ਪ੍ਰੋਫਾਈਲ ਸੈਟਿੰਗਾਂ ਅਬਾਦੀ ਧਿਆਨ ਨਾਲ ਮਿਟਾਈਆਂ ਜਾਣਗੀਆਂ।",
+      "cancel": "ਰੱਦ ਕਰੋ",
+      "clearEverything": "ਸਾਰੀ ਮਿਟਾਓ"
     },
     "debugOptions": {
-      "title": "Debug Options"
+      "title": "ਡਿਬੱਗ ਵਿਕਲਪ"
     },
-    "developerModeEnabled": "Developer mode enabled!"
+    "developerModeEnabled": "ਡਿਵੈਲਪਰ ਮੋਡ ਚਾਲੂ ਹੈ!"
   },
   "reminders": {
-    "title": "Stay on track with reminders",
-    "description": "Get gentle reminders to log your meals and stay consistent with your nutrition goals",
-    "notificationsEnabled": "Notifications Enabled",
-    "notificationsDisabled": "Notifications Disabled",
-    "enabledSubtitle": "You'll receive meal reminders",
-    "disabledSubtitle": "Enable notifications to get meal reminders",
-    "mealReminders": "Meal Reminders",
-    "breakfast": "Breakfast",
-    "lunch": "Lunch",
-    "dinner": "Dinner",
-    "snack": "Snack",
-    "unknown": "Unknown",
-    "change": "Change",
-    "enableNotifications": "Enable Notifications",
-    "skipForNow": "Skip for now",
-    "saveChanges": "Save Changes",
-    "enabledSuccessfully": "Notifications enabled successfully!",
-    "permissionDenied": "Notification permission denied",
-    "errorEnabling": "Error enabling notifications: {error}",
-    "errorCompletingSetup": "Error completing setup: {error}"
+    "title": "ਸੁਰੱਖਿਅਤ ਰਹਿਣ ਕਿ ਯਾਦ ਦਿਵਾਈਏ",
+    "description": "ਮੀਲਾਂਨੂੰ ਲੋਗ ਕਰਨ ਲਈ ਹੌਲੇ ਹੌਲੇ ਯਾਦ ਦਿਵਾਈਏ ਅਤੇ ਆਪਣੀਆਂ ਪੋਸ਼ਣ ਲਕਸ਼ਾਂ ਨਾਲ ਸੁਰੱਖਿਅਤ ਰਹਿਣ",
+    "notificationsEnabled": "ਸੂਚਨਾਵਾਂ ਚਾਲੂ",
+    "notificationsDisabled": "ਸੂਚਨਾਵਾਂ ਬੰਦ",
+    "enabledSubtitle": "ਤੁਸੀਂ ਮੀਲ ਮਿਤੀਆਂ ਪ੍ਰਾਪਤ ਕਰੋਗੇ",
+    "disabledSubtitle": "ਮੀਲ ਮਿਤੀਆਂ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ",
+    "mealReminders": "ਮੀਲਾਂ ਦੀ ਯਾਦ ਦਿਵਾਈਏ",
+    "breakfast": "ਨਾਸ਼ਤੇ",
+    "lunch": "ਦੁਪਹਰ ਦਾ ਖਾਣਾ",
+    "dinner": "ਰਾਤ ਦਾ ਖਾਣਾ",
+    "snack": "ਸਨੈਕ",
+    "unknown": "ਅਣਜਾਣ",
+    "change": "ਬਦਲੋ",
+    "enableNotifications": "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ",
+    "skipForNow": "ਹੁਣ ਛੱਡੋ",
+    "saveChanges": "ਬਦਲਾਅ ਸੰਭਾਲੋ",
+    "enabledSuccessfully": "ਸੂਚਨਾਵਾਂ ਸਫਲਤਾ ਨਾਲ ਚਾਲੂ ਕੀਤੀਆਂ ਗਈਆਂ!",
+    "permissionDenied": "ਸੂਚਨਾ ਦੀ ਅਧਿਕਾਰ ਨਹੀਂ ਮਿਲੀ",
+    "errorEnabling": "ਸੂਚਨਾਂ ਨੂੰ ਚਾਲੂ ਕਰਨ ਵਿੱਚ ਗਲਤੀ: {error}",
+    "errorCompletingSetup": "ਸੈਟਅਪ ਪੂਰਾ ਕਰਨ ਵਿੱਚ ਗਲਤੀ: {error}"
   },
   "notifications": {
     "breakfast": {
-      "title": "Breakfast Time! 🍳",
-      "body": "Don't forget to log your breakfast"
+      "title": "ਨਾਸ਼ਤ ਦਾ ਸਮਾਂ! 🍳",
+      "body": "ਆਪਣੀ ਨਾਸ਼ਤੇ ਨੂੰ ਲੋਗ ਕਰਨਾ ਨਾ ਭੁੱਲੋ"
     },
     "lunch": {
-      "title": "Lunch Time! 🥗",
-      "body": "Time to log your lunch"
+      "title": "ਦੁਪਹਰ ਦਾ ਖਾਣਾ ਸਮਾਂ! 🥗",
+      "body": "ਤੁਹਾਡੇ ਦੁਪਹਰ ਦਾ ਖਾਣਾ ਲੋਗ ਕਰਨ ਸਮਾਂ"
     },
     "dinner": {
-      "title": "Dinner Time! 🍽️",
-      "body": "Don't forget to log your dinner"
+      "title": "ਰਾਤ ਦਾ ਖਾਣਾ ਸਮਾਂ! 🍽️",
+      "body": "ਆਪਣੀ ਰਾਤ ਦਾ ਖਾਣਾ ਲੋਗ ਕਰਨਾ ਨਾ ਭੁੱਲੋ"
     },
     "snack": {
-      "title": "Snack Time! 🍎",
-      "body": "Time for a healthy snack"
+      "title": "ਸਨੈਕ ਸਮਾਂ! 🍎",
+      "body": "ਇੱਕ ਸਿਹਤਮੰਦ ਸਨੈਕ ਲਈ ਸਮਾਂ"
     },
     "test": {
-      "title": "Test Notification"
+      "title": "ਟੈਸਟ ਸੂਚਨਾ"
     }
   },
   "login": {
-    "title": "Login",
-    "signInWithGoogle": "Sign in with Google",
-    "signInFailed": "Google Sign-In failed or was cancelled."
+    "title": "ਲਾਗਿਨ ਕਰੋ",
+    "signInWithGoogle": "ਗੂਗਲ ਨਾਲ ਸਾਈਨ ਇਨ ਕਰੋ",
+    "signInFailed": "ਗੂਗਲ ਸਾਈਨ ਇਨ ਕਰਨਾ ਅਸਫਲ ਹੋਇਆ ਜਾਂ ਰੱਦ ਕੀਤਾ ਗਿਆ।"
   },
   "disclaimer": {
-    "pleaseNote": "Please Note",
+    "pleaseNote": "ਕ੍ਰਿਪਾ ਕਰਕੇ ਨੋਟ ਕਰੋ",
     "snap": {
-      "description": "Calorify provides estimated nutritional info. Accuracy depends on your input & food variations. Use as a guide, not a definitive source. Consult a professional for personalized dietary advice.",
+      "description": "{appLabel} ਅਦ੍ਧਾਰਿਤ ਪੋਸ਼ਣ ਦੀ ਜਾਣਕਾਰੀ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ। ਸਹੀਤਾ ਤੁਹਾਡੇ ਦਰਜ ਅਤੇ ਭੋਜਨ ਦੇ ਤਰੀਕਿਆਂ 'ਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ। ਗਾਈਡ ਦੇ ਤੌਰ 'ਤੇ ਵਰਤੋਂ ਕਰੋ, ਨਿਰਧਾਰਿਤ ਸਰੋਤ ਨਹੀਂ। ਵਿਅਕਤੀਗਤ ਪੋਸ਼ਣ ਸਲਾਹ ਲਈ ਕਿਸੇ ਪ੍ਰੋਫੈਸ਼ਨਲ ਨਾਲ ਯੋਗ ਕਰੋ।",
       "portionSize": {
-        "title": "Portion Size",
-        "description": "The accuracy of the estimates heavily relies on your correct assessment of the portion size."
+        "title": "ਪ੍ਰਸ਼ਾਸ਼ਤ ਮਾਤਰਾ",
+        "description": "ਅੰਦਾਜ਼ੇ ਦੀ ਸਹੀਤਾ ਤੁਹਾਡੇ ਜਾਣਕਾਰੀ ਦੇ ਮਾਪ 'ਤੇ ਬਹੁਤ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।"
       },
       "preparationMethods": {
-        "title": "Preparation Methods",
-        "description": "Cooking methods can significantly alter the nutritional content of food. Calorify's estimates may not always account for these variations."
+        "title": "ਤਿਆਰੀ ਦੇ ਤਰੀਕੇ",
+        "description": "ਕੁੱਝ ਭੋਜਨਾਂ ਤੋਂ ਪੋਸ਼ਣ ਦੀ ਸਮੱਗਰੀ ਦਰਾਰ ਕਰ ਸਕਦੀ ਹੈ। {appLabel} ਦੇ ਅੰਦਾਜ਼ੇ ਆਮ ਤੌਰ 'ਤੇ ਵੱਖ-ਵੱਖ ਕੁਝ ਵੀ ਸ਼ਾਮਿਲ ਨਹੀਂ ਹੁੰਦੇ।"
       },
       "ingredients": {
-        "title": "Ingredients",
-        "description": "Complex dishes with many hidden ingredients may lead to less accurate estimations."
+        "title": "ਸਮੱਗਰੀਆਂ",
+        "description": "ਪ੍ਰਕਿਰਿਆ ਸ਼੍ਰੇਣੀ ਨਾਲ ਜਪ ਮੀਲਾਂ ਸ਼ਾਮਿਲ ਹੋ ਸਕਦੀਆਂ ਹਨ ਜੋ ਢੁਕਵੇਂ ਅੰਦਾਜ਼ੇ ਦੇ ਬਾਹਰ ਲਿਆ ਸਕਦੀਆਂ ਹਨ।"
       },
       "databaseLimitations": {
-        "title": "Database Limitations",
-        "description": "Calorify's food database is extensive but may not include every single food item or variation."
+        "title": "ਡਾਟਾਬੇਸ ਸੀਮਾ",
+        "description": "{appLabel} ਦਾ ਭੋਜਨ ਡ੍ਰਾਈਸ ਵਿਸ਼ਾਲ ਹੈ ਪਰ ਹਰ ਪੋਟਲ ਜਾਂ ਸੰਕਰ ਪੋਸ਼ਨ ਨੂੰ ਸ਼ਾਮਿਲ ਕਰਨ ਵਿੱਚ ਸਮਰੱਥ ਨਹੀਂ ਹੋ ਸਕਦਾ।"
       }
     },
     "weightEstimate": {
-      "title": "About Weight Estimate",
-      "description": "The projected weight change is a theoretical estimate based on the simple calorie-in vs. calorie-out model. It is intended for motivational guidance only, not as a prediction of your actual weight.",
+      "title": "ਵਜ਼ਨ ਅੰਦਾਜ਼ੇ ਬਾਰੇ",
+      "description": "ਅੰਦਾਜ਼ੇ ਦੀ ਰੋਜ਼ਾਨਾ ਹਲਾਤ ਵਰਤੇ ਜਾ ਰਹੀ ਕੈਲੋਰੀਆਂ ਦੇ ਆਧਾਰ 'ਤੇ ਉਮੀਦ ਕੀਤੀ ਜਾਣ ਵਾਲੀ ਵਜ਼ਨ ਬਦਲਬੇਦ ਹੋਣ ਦੀ ਇੱਕ ਸੀਮਿਤ ਨਜ਼ਰ ਹੈ। ਇਹ ਇਸ ਲੇਖਕਤਾਇ ਪੇਸ਼ ਕਰਨ ਲਈ ਨਹੀਂ ਹੈ, ਸਿਰਫ ਇੱਕ ਮੋਟਿਵਿਤਿਵਣਾ ਰਾਹਿਨਿਸ਼ਾਨ ਦੇ ਤੌਰ 'ਤੇ।",
       "calorieAccuracy": {
-        "title": "Calorie Accuracy",
-        "description": "This estimate is only as accurate as your tracked calorie intake and expenditure. Inaccurate logging will result in an inaccurate projection."
+        "title": "ਕੈਲੋਰੀ ਦੀ ਸਹੀਤਾ",
+        "description": "ਇਹ ਅੰਦਾਜ਼ਾ ਤਾਂ ਹੀ ਸਹੀ ਹੈ ਜਦੋਂ ਤੁਸੀਂ ਆਪਣੇ ਦਰਜ ਕੀਤੇ ਗਏ ਅਹਿਸਾਸਾਂ ਤੇ ਬਿਲਕੁਲ ਧਿਆਨ ਦਿੰਦੇ ਹੋ। ਗਲਤ ਲੋਗਿੰਗ ਨਾਲ ਗਲਤ projection ਇਹ ਰਾਹਿਨਿਸ਼ਾਨ ਦਾ ਨਿਆਸ ਕੀਤਾ ਜੇਗਾ।"
       },
       "biologicalFactors": {
-        "title": "Biological Factors",
-        "description": "Actual weight loss/gain is influenced by metabolism, hormones, sleep, stress, hydration, and other individual factors that Calorify cannot measure."
+        "title": "ਜੀਵ ਵਿਗਿਆਨਿਕ ਕਾਰਕ",
+        "description": "ਅਸਲ ਵਿੱਚ ਵਜ਼ਨ ਘਟਣਾ/ਵਧਾਉਣਾ ਮੈਟਾਬੋਲਿਸਮ, ਹਾਰਮੋਨ, ਨੀਂਦ, ਤਣਾਅ, ਪਾਣੀ, ਅਤੇ ਹੋਰ ਵਿਅਕਤੀਗਤ ਕਾਰਕਾਂ ਦੇ ਪ੍ਰਭਾਵ ਵਿਚ ਹੁੰਦੀ ਹੈ ਜੋ {appLabel} ਨਹੀਂ ਮਾਪ ਸਕਦਾ।"
       },
       "waterWeight": {
-        "title": "Water Weight & Fluctuations",
-        "description": "Normal daily weight can fluctuate significantly due to water retention, digestion, and timing. The estimate does not account for these daily changes."
+        "title": "ਪਾਣੀ ਦਾ ਵਜ਼ਨ ਅਤੇ ਬਦਲਾਅ",
+        "description": "ਦਿਨ ਦੀਆਂ ਨਿਸ਼ਾਨਾਂ ਦਾ ਵਜ਼ਨ ਅਕਸਰ ਪਾਣੀ ਰੋਕਣ ਵਾਲੇ, ਅੰਨਦ-ਸਮਸਿਆ ਅਤੇ ਸਮਿਆਂ ਪਦਾਰਥ ਦੇ ਪ੍ਰਭਾਵ ਵਿੱਚ ਬਦਲ ਸਕਦਾ ਹੈ। ਅੰਦਾਜ਼ਾ ਯਹ੍ ਬਦਲਾਅ ਸ਼ਾਮਿਲ ਨਹੀਂ ਹੁੰਦਾ।"
       },
       "professionalGuidance": {
-        "title": "Professional Guidance",
-        "description": "Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice."
+        "title": "ਪ੍ਰੋਫੈਸ਼ਨਲ ਗਾਈਡਸ",
+        "description": "ਇਸ ਅੰਦਾਜੇ ਦੇ ਅਧਾਰ 'ਤੇ ਕੋਈ ਮੈਡੀਕਲ ਫ਼ੈਸਲਾ ਕਰਨ ਲਈ ਨਾ ਵਰਤੋ। ਹਮੇਸ਼ਾ ਕਿਸੇ ਸਿਹਤ ਸੰਭਾਲ ਪ੍ਰੋਫੈਸ਼ਨਲ ਜਾਂ ਰਜਿਸਟਰਡ ਡਾਇਟੀਸ਼ੀਅਨ ਨਾਲ ਵਿਅਕਤੀਗਤ ਵਜ਼ਨ ਪ੍ਰਬੰਧਨ ਸਲਾਹ ਲਈ ਸੰਪਰਕ ਕਰੋ।"
       }
     }
   },
   "common": {
-    "close": "Close",
-    "continue": "Continue"
+    "close": "ਬੰਦ ਕਰੋ",
+    "continue": "ਜਾਰੀ ਰੱਖੋ"
   },
   "errors": {
-    "loadingProfileData": "Error loading profile data",
-    "somethingWentWrong": "Something went wrong."
+    "loadingProfileData": "ਪ੍ਰੋਫਾਈਲ ਡਾਟਾ ਲੋਡ ਕਰਨ ਵਿੱਚ ਗਲਤੀ",
+    "somethingWentWrong": "ਕچھ ਗਲਤ ਹੋ ਗਿਆ ਹੈ।"
   },
   "debug": {
-    "title": "Debug Options",
+    "title": "ਡਿਬੱਗ ਵਿਕਲਪ",
     "sections": {
-      "notifications": "Notifications",
-      "healthConnect": "Health Connect",
-      "appInfo": "App Info"
+      "notifications": "ਸੂਚਨਾਵਾਂ",
+      "healthConnect": "ਹੈਲਥ ਕਨੈਕਟ",
+      "appInfo": "ਐਪ ਜਾਣਕਾਰੀ"
     },
-    "showActiveNotifications": "Show Active Notifications",
-    "scheduleTestNotification": "Schedule Test Notification (10s)",
-    "triggerBreakfastNotification": "Trigger Breakfast Notification",
-    "cancelAllNotifications": "Cancel All Notifications",
-    "activeNotifications": "Active Notifications",
-    "noTitle": "No Title",
-    "noBody": "No Body",
-    "fetchTodaysSteps": "Fetch Today's Steps",
-    "fetchTodaysCalories": "Fetch Today's Calories",
-    "fetchLatestWeight": "Fetch Latest Weight",
-    "fetchLatestHeight": "Fetch Latest Height",
-    "writeTestWeight": "Write Test Weight (70kg)",
-    "writeTestHeight": "Write Test Height (175cm)",
-    "syncLast7Days": "Sync Last 7 Days",
-    "sync7DaysTitle": "7-Day Sync",
-    "checkCurrentLocale": "Check Current Locale",
-    "currentLocale": "Current Locale",
-    "localeInfo": "Language: {languageCode}\nCountry: {countryCode}\nUnit System: {unitSystem}",
-    "latestWeight": "Latest Weight",
-    "latestHeight": "Latest Height",
-    "todaysCalories": "Today's Calories",
-    "totalCaloriesBurned": "Total calories burned: {calories}",
-    "syncSuccess": "Successfully fetched {count} data points for Steps, Calories, and Weight over the last 7 days.",
-    "noWeightData": "No weight data found in the last 30 days.",
-    "noHeightData": "No height data found in the last year.",
-    "noCalorieData": "No calorie data found for today.",
-    "weightWritten": "Successfully wrote test weight (70kg).",
-    "weightWriteFailed": "Failed to write test weight.",
-    "heightWritten": "Successfully wrote test height (175cm).",
-    "heightWriteFailed": "Failed to write test height.",
-    "noNotifications": "No active notifications.",
-    "testNotificationScheduled": "Test notification scheduled for 10 seconds from now.",
-    "testNotificationBody": "This is a test notification scheduled for 10 seconds from now.",
-    "breakfastNotificationTriggered": "Breakfast notification triggered.",
-    "allNotificationsCancelled": "All notifications cancelled.",
-    "fetchingData": "Fetching data for the last 7 days...",
+    "showActiveNotifications": "ਸਰਗਰਮ ਸੂਚਨਾਵਾਂ ਦਿਖਾਓ",
+    "scheduleTestNotification": "ਟੈਸਟ ਸੂਚਨਾ ਸ਼ੇਡਯੂਲ ਕਰੋ (10 ਸੈਕੰਡ)",
+    "triggerBreakfastNotification": "ਨਾਸ਼ਤੇ ਦੀ ਸੂਚਨਾ ਨੂੰ ਚਾਲੂ ਕਰੋ",
+    "cancelAllNotifications": "ਸਭ ਸੂਚਨਾਵਾਂ ਰੱਦ ਕਰੋ",
+    "activeNotifications": "ਸਰਗਰਮ ਸੂਚਨਾਵਾਂ",
+    "noTitle": "ਕੋਈ ਸ਼ਿਰਲੇਖ ਨਹੀਂ",
+    "noBody": "ਕੋਈ ਪੇਸ਼ਕਾਰ ਨਹੀਂ",
+    "fetchTodaysSteps": "ਅੱਜ ਦੇ ਕਦਮ ਲਿਆਉ",
+    "fetchTodaysCalories": "ਅੱਜ ਦੀਆਂ ਕੈਲੋਰੀਆਂ ਜਾਣੋ",
+    "fetchLatestWeight": "ਹਾਲੀਆ ਵਜ਼ਨ ਲਿਆਉ",
+    "fetchLatestHeight": "ਹਾਲੀਆ ਉਚਾਈ ਲਿਆਉ",
+    "writeTestWeight": "ਟੈਸਟ ਵਜ਼ਨ ਲਿਖੋ (70kg)",
+    "writeTestHeight": "ਟੈਸਟ ਉਚਾਈ ਲਿਖੋ (175cm)",
+    "syncLast7Days": "ਅੰਤਿਮ 7 ਦਿਨਾਂ ਤੋਂ ਸਿੰਕ ਕਰੋ",
+    "sync7DaysTitle": "7-ਦਿਨਾਂ ਦਾ ਸਿੰਕ",
+    "checkCurrentLocale": "ਵਰਤਮਾਨ.Locale ਨੂੰ ਚੈੱਕ ਕਰੋ",
+    "currentLocale": "ਵਰਤਮਾਨ.Locale",
+    "localeInfo": "ਭਾਸ਼ਾ: {languageCode}\nਦੇਸ਼: {countryCode}\nਇਕਾਈ ਸਿਸਟਮ: {unitSystem}",
+    "latestWeight": "ਹਾਲੀਆ ਵਜ਼ਨ",
+    "latestHeight": "ਹਾਲੀਆ ਉਚਾਈ",
+    "todaysCalories": "ਅੱਜ ਦੀਆਂ ਕੈਲੋਰੀਆਂ",
+    "totalCaloriesBurned": "ਕੁੱਲ ਕੈਲੋਰੀਆਂ ਜੋ ਜਲਾਈਆਂ ਗਈਆਂ: {calories}",
+    "syncSuccess": "ਪਿਛਲੇ 7 ਦਿਨਾਂ ਵਿੱਚ ਕਦਮ, ਕੈਲੋਰੀਆਂ ਅਤੇ ਵਜ਼ਨ ਲਈ {count} ਡੇਟਾ ਪੁਇੰਟ ਲਿਆਉਣ ਵਿੱਚ ਸਫਲਤਾ!",
+    "noWeightData": "ਪਿਛਲੇ 30 ਦਿਨਾਂ ਵਿੱਚ ਕੋਈ ਵਜ਼ਨ ਡਾਟਾ ਨਹੀਂ ਮਿਲਿਆ।",
+    "noHeightData": "ਪਿਛਲੇ ਸਾਲ ਵਿੱਚ ਕੋਈ ਉਚਾਈ ਡਾਟਾ ਨਹੀਂ ਮਿਲਿਆ।",
+    "noCalorieData": "ਅੱਜ ਲਈ ਕੋਈ ਕੈਲੋਰੀਆਂ ਡਾਟਾ ਮਿਲਿਆ ਨਹੀਂ।",
+    "weightWritten": "ਟੈਸਟ ਵਜ਼ਨ (70kg) ਸੁਚਿਤਤਾ ਨਾਲ ਲਿਖਿਆ ਗਿਆ।",
+    "weightWriteFailed": "ਟੈਸਟ ਵਜ਼ਨ ਲਿਖਣ ਵਿੱਚ ਅਸਫਲ।",
+    "heightWritten": "ਟੈਸਟ ਉਚਾਈ (175cm) ਸੁਚਿਤਤਾ ਨਾਲ ਲਿਖੀ ਗਈ।",
+    "heightWriteFailed": "ਟੈਸਟ ਉਚਾਈ ਲਿਖਣ ਵਿੱਚ ਅਸਫਲ।",
+    "noNotifications": "ਕੋਈ ਸਰਗਰਮ ਸੂਚਨਾਵਾਂ ਨਹੀਂ।",
+    "testNotificationScheduled": "ਟੈਸਟ ਸੂਚਨਾ 10 ਸਕਿੰਟ ਤੋਂ ਬਾਅਦ ਸਮਾਂ ਦਰਜ ਕੀਤੀ ਗਈ",
+    "testNotificationBody": "ਇਹ 10 ਸਕਿੰਟ ਤੋਂ ਬਾਅਦ ਸਮਾਂ ਦਰਜ ਲਈ ਇੱਕ ਟੈਸਟ ਸੂਚਨਾ ਹੈ.",
+    "breakfastNotificationTriggered": "ਨਾਸ਼ਤਾ ਸੂਚਨਾ ਨੂੰ ਚਾਲੂ ਕੀਤਾ ਗਿਆ ਹੈ.",
+    "allNotificationsCancelled": "ਸਭ ਸੂਚਨਾਵਾਂ ਰੱਦ ਕੀਤੀਆਂ ਗਈਆਂ ਹਨ.",
+    "fetchingData": "ਪਿਛਲੇ 7 ਦਿਨਾਂ ਲਈ ਡਾਟਾ ਲਿਆਉਂਦੇ ਹੋਏ...",
     "id": "ID: {id}"
   },
   "health": {
-    "syncFailed": "Could not sync to Health Connect",
-    "mealSynced": "Meal synced with Health Connect"
+    "syncFailed": "ਹੈਲਥ ਕਨੈਕਟ ਨਾਲ ਸਿੰਕ ਕਰਨ ਵਿੱਚ ਅਸਫਲ",
+    "mealSynced": "ਮੀਲ ਨੂੰ ਹੈਲਥ ਕਨੈਕਟ ਨਾਲ ਸਿੰਕ ਕੀਤਾ ਗਿਆ"
   }
 }

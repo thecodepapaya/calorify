@@ -1,8 +1,9 @@
 {
   "language": "Română",
   "flag": "🇷🇴",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Bun venit la Calorify",
+    "welcome": "Bine ai venit la {appLabel}",
     "subtitle": "Companionul tău personal în nutriție alimentat de AI",
     "getStarted": "Începe",
     "features": {
@@ -59,7 +60,7 @@
       "messages": {
         "underweight": "Te putem ajuta să creezi un plan sănătos pentru a ajunge la o greutate echilibrată cu mese bogate în nutrienți.",
         "healthy": "Bravo! Ești într-un interval sănătos. Te vom ajuta să îți menții vitalitatea și nivelurile de energie.",
-        "overweight": "Calorify îți va simplifica călătoria cu o urmărire alimentată de AI pentru a te ajuta să ajungi confortabil la ținta ta.",
+        "overweight": "{appLabel} îți va simplifica parcursul cu urmărirea powered by AI pentru a te ajuta să îți atingi obiectivul confortabil.",
         "obese": "Suntem aici să te susținem cu îndrumări personalizate și strategii sustenabile pentru obiectivele tale de sănătate."
       }
     },
@@ -92,7 +93,7 @@
       "skipForNow": "Sari deocamdată",
       "statusConnected": "Health Connect este conectat.",
       "statusSuccess": "Health Connect a fost conectat cu succes!",
-      "statusPermissionDenied": "Permisiune refuzată. Te rugăm să activezi permisiunile Health Connect din setările telefonului tău pentru Calorify.",
+      "statusPermissionDenied": "Permisiune refuzată. Te rugăm să activezi permisiunile Health Connect din setările telefonului pentru {appLabel}.",
       "statusError": "Eroare la configurarea Health Connect: {error}"
     },
     "reinforcement": {
@@ -100,17 +101,14 @@
         "title": "Nu ești Singur",
         "genericMessage": "Cercetările arată că urmărirea constantă este predictorul principal al succesului pe termen lung.",
         "personalizedMessage": "Pentru un {age} ani {gender} care vrea să {goal}, urmărirea constantă este predictorul principal al succesului.",
-        "closingMessage": "Calorify face totul de 10 ori mai ușor decât să o faci manual.",
+        "closingMessage": "{appLabel} face ca totul să fie de 10 ori mai ușor decât să o faci manual.",
         "getStartedTitle": "Ești gata să începi?",
         "tipPhoto": "Fă o fotografie a meselor tale pentru o analiză instantanee",
         "tipConsistency": "Înregistrează constant pentru a vedea progrese semnificative",
         "tipProgress": "Urmărește-ți progresul zilnic pentru a rămâne motivat",
         "button": "Să Mergem",
         "defaultGender": "individual",
-        "defaultGoal": "să fii mai sănătos",
-        "instantPhotoAnalysis": "Analiză instantanee a fotografiilor",
-        "automaticLogging": "Încărcare automată a nutrienților",
-        "progressVisualizations": "Vizualizări ale progresului care te mențin motivat"
+        "defaultGoal": "să fii mai sănătos"
       },
       "healthProfile": {
         "title": "Profilul Tău de Sănătate",
@@ -124,7 +122,7 @@
       },
       "goalLifestyle": {
         "title": "Început Excelent!",
-        "description": "Ai făcut primul pas spre {goalText}. Deoarece ești {activityText}, Calorify va ajusta țintele tale pentru a se potrivi stilului tău de viață.",
+        "description": "Ai făcut primul pas către {goalText}. Deoarece ești {activityText}, {appLabel} îți va ajusta obiectivele pentru a se potrivi stilului tău de viață.",
         "personalizedTargets": "Ținte personalizate de calorii",
         "aiMealDetection": "Detectarea meselor alimentată de AI",
         "macroBreakdowns": "Detalii despre macronutrienți",
@@ -372,21 +370,21 @@
     "weightUnit": {
       "title": "Unitate de Greutate"
     },
-    "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
-    },
     "mealReminders": {
       "title": "Memento-uri pentru Mese",
       "subtitle": "Rămâi pe drumul cel bun cu alerte la timp"
     },
+    "theme": {
+      "title": "Tema",
+      "subtitle": "Alege tema ta preferată",
+      "light": "Lumină",
+      "dark": "Întunecat",
+      "system": "Sistem"
+    },
     "sendFeedback": {
       "title": "Trimite Feedback",
-      "subtitle": "Ajută-ne să îmbunătățim Calorify",
-      "emailSubject": "Feedback pentru aplicația Calorify",
+      "subtitle": "Ajută-ne să îmbunătățim {appLabel}",
+      "emailSubject": "Feedback despre aplicația {appLabel}",
       "emailBodyPrefix": "Te rog oferă feedback-ul tău mai jos:",
       "appVersion": "Versiunea Aplicației",
       "device": "Dispozitiv",
@@ -457,14 +455,14 @@
   "disclaimer": {
     "pleaseNote": "Te rugăm să reții",
     "snap": {
-      "description": "Calorify oferă informații nutriționale estimate. Precizia depinde de input-ul tău și variațiile alimentelor. Folosește ca un ghid, nu ca o sursă definitivă. Consultă un profesionist pentru sfaturi dietetice personalizate.",
+      "description": "{appLabel} oferă informații nutriționale estimate. Precizia depinde de inputul tău și de variațiile alimentelor. Folosește-le ca ghid, nu ca o sursă definitivă. Consultă un specialist pentru sfaturi dietetice personalizate.",
       "portionSize": {
         "title": "Dimensiunea Porției",
         "description": "Precizia estimărilor depinde mult de evaluarea corectă a dimensiunii porției."
       },
       "preparationMethods": {
         "title": "Metode de Preparare",
-        "description": "Metodele de gătit pot altera semnificativ conținutul nutrițional al alimentelor. Estimările Calorify s-ar putea să nu țină cont întotdeauna de aceste variații."
+        "description": "Metodele de gătit pot altera semnificativ conținutul nutrițional al alimentelor. Estimările {appLabel} s-ar putea să nu țină întotdeauna cont de aceste variații."
       },
       "ingredients": {
         "title": "Ingrediente",
@@ -472,7 +470,7 @@
       },
       "databaseLimitations": {
         "title": "Limitările Bazei de Date",
-        "description": "Baza de date a alimentelor Calorify este extinsă, dar poate să nu includă fiecare articol alimentar sau variație."
+        "description": "Baza de date a alimentelor {appLabel} este extinsă, dar s-ar putea să nu includă fiecare aliment sau variație."
       }
     },
     "weightEstimate": {
@@ -484,7 +482,7 @@
       },
       "biologicalFactors": {
         "title": "Factori Biologici",
-        "description": "Pierderile sau câștigurile efective în greutate sunt influențate de metabolism, hormoni, somn, stres, hidratare și alți factori individuali pe care Calorify nu îi poate măsura."
+        "description": "Scăderea sau creșterea în greutate efectivă este influențată de metabolism, hormoni, somn, stres, hidratare și alți factori individuali pe care {appLabel} nu îi poate măsura."
       },
       "waterWeight": {
         "title": "Greutatea și Fluctuațiile Apei",

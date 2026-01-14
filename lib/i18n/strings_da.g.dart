@@ -39,6 +39,7 @@ class TranslationsDa with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => 'Danish';
 	@override String get flag => '🇩🇰';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingDa onboarding = _TranslationsOnboardingDa._(_root);
 	@override late final _TranslationsTabsDa tabs = _TranslationsTabsDa._(_root);
 	@override late final _TranslationsHomeDa home = _TranslationsHomeDa._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingDa implements TranslationsOnboardingEn {
 	final TranslationsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Velkommen til Calorify';
+	@override String welcome({required Object appLabel}) => 'Velkommen til ${appLabel}';
 	@override String get subtitle => 'Din personlige ernæringseftersyn drevet af AI';
 	@override String get getStarted => 'Kom i gang';
 	@override late final _TranslationsOnboardingFeaturesDa features = _TranslationsOnboardingFeaturesDa._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsDa implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageDa language = _TranslationsSettingsLanguageDa._(_root);
 	@override late final _TranslationsSettingsHeightUnitDa heightUnit = _TranslationsSettingsHeightUnitDa._(_root);
 	@override late final _TranslationsSettingsWeightUnitDa weightUnit = _TranslationsSettingsWeightUnitDa._(_root);
-	@override late final _TranslationsSettingsThemeDa theme = _TranslationsSettingsThemeDa._(_root);
 	@override late final _TranslationsSettingsMealRemindersDa mealReminders = _TranslationsSettingsMealRemindersDa._(_root);
+	@override late final _TranslationsSettingsThemeDa theme = _TranslationsSettingsThemeDa._(_root);
 	@override late final _TranslationsSettingsSendFeedbackDa sendFeedback = _TranslationsSettingsSendFeedbackDa._(_root);
 	@override late final _TranslationsSettingsClearAllDataDa clearAllData = _TranslationsSettingsClearAllDataDa._(_root);
 	@override late final _TranslationsSettingsDebugOptionsDa debugOptions = _TranslationsSettingsDebugOptionsDa._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectDa implements TranslationsOnboardingHe
 	@override String get skipForNow => 'Spring over for nu';
 	@override String get statusConnected => 'Health Connect er forbundet.';
 	@override String get statusSuccess => 'Health Connect er blevet forbundet med succes!';
-	@override String get statusPermissionDenied => 'Tilladelse nægtet. Aktivér Health Connect tilladelser fra dine telefonindstillinger for Calorify.';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Adgang nægtet. Aktiver venligst Health Connect-tilladelser fra din telephones indstillinger for ${appLabel}.';
 	@override String statusError({required Object error}) => 'Fejl under opsætning af Health Connect: ${error}';
 }
 
@@ -826,20 +827,6 @@ class _TranslationsSettingsWeightUnitDa implements TranslationsSettingsWeightUni
 	@override String get title => 'Vægt Enhed';
 }
 
-// Path: settings.theme
-class _TranslationsSettingsThemeDa implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeDa._(this._root);
-
-	final TranslationsDa _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
-}
-
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersDa implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersDa._(this._root);
@@ -851,6 +838,20 @@ class _TranslationsSettingsMealRemindersDa implements TranslationsSettingsMealRe
 	@override String get subtitle => 'Hold dig på sporet med rettidige alarmer';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeDa implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeDa._(this._root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tema';
+	@override String get subtitle => 'Vælg dit foretrukne tema';
+	@override String get light => 'Lys';
+	@override String get dark => 'Mørk';
+	@override String get system => 'System';
+}
+
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackDa implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackDa._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackDa implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'Send Feedback';
-	@override String get subtitle => 'Hjælp os med at forbedre Calorify';
-	@override String get emailSubject => 'Calorify App Feedback';
+	@override String subtitle({required Object appLabel}) => 'Hjælp os med at forbedre ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} App Feedback';
 	@override String get emailBodyPrefix => 'Venligst giv din feedback nedenfor:';
 	@override String get appVersion => 'App Version';
 	@override String get device => 'Enhed';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapDa implements TranslationsDisclaimerSnapEn {
 	final TranslationsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Calorify giver estimerede ernæringsoplysninger. Nøjagtigheden afhænger af dit input & madvariationer. Brug som en vejledning, ikke en definitiv kilde. Konsulter en professionel for personlig diætvejledning.';
+	@override String description({required Object appLabel}) => '${appLabel} giver estimeret ernæringsinfo. Nøjagtighed afhænger af din input og fødevarevariationer. Brug det som en vejledning, ikke en definit kilde. Konsulter en professionel for personlig kostrådgivning.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeDa portionSize = _TranslationsDisclaimerSnapPortionSizeDa._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsDa preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsDa._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsDa ingredients = _TranslationsDisclaimerSnapIngredientsDa._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesDa implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => 'Vi kan hjælpe dig med at opbygge en sund plan for at nå en balanceret vægt med næringsrige måltider.';
 	@override String get healthy => 'Godt klaret! Du er inden for en sund rækkevidde. Vi hjælper dig med at opretholde din vitalitet og energiniveau.';
-	@override String get overweight => 'Calorify vil forenkle din rejse med AI-drevet tracking for at hjælpe dig med at nå dit mål komfortabelt.';
+	@override String overweight({required Object appLabel}) => '${appLabel} vil forenkle din rejse med AI-drevet tracking for at hjælpe dig med at nå dit mål komfortabelt.';
 	@override String get obese => 'Vi er her for at støtte dig med personlig vejledning og bæredygtige strategier for dine sundhedsmål.';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessDa implements Translati
 	@override String get title => 'Du er ikke alene';
 	@override String get genericMessage => 'Forskning viser, at konsekvent sporing er den vigtigste indikator for langsigtet succes.';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'For en ${age} år gammel ${gender} der ønsker at ${goal}, er konsekvent sporing den vigtigste indikator for succes.';
-	@override String get closingMessage => 'Calorify gør det 10 gange lettere end at gøre det manuelt.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} gør det 10 gange lettere end at gøre det manuelt.';
 	@override String get getStartedTitle => 'Klar til at komme i gang?';
 	@override String get tipPhoto => 'Tag et billede af dine måltider for øjeblikkelig analyse';
 	@override String get tipConsistency => 'Log konsekvent for at se meningsfuld fremgang';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessDa implements Translati
 	@override String get button => 'Lad os gå';
 	@override String get defaultGender => 'individ';
 	@override String get defaultGoal => 'en sundere dig';
-	@override String get instantPhotoAnalysis => 'Øjeblikkelig fotoanalyse';
-	@override String get automaticLogging => 'Automatisk ernæringsregistrering';
-	@override String get progressVisualizations => 'Fremdriftsvisualiseringer der holder dig motiveret';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleDa implements Translation
 
 	// Translations
 	@override String get title => 'Fremragende Start!';
-	@override String description({required Object goalText, required Object activityText}) => 'Du har taget det første skridt mod ${goalText}. Da du er ${activityText}, vil Calorify justere dine mål for at matche din livsstil.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Du har taget det første skridt mod ${goalText}. Da du er ${activityText}, vil ${appLabel} justere dine mål til at matche din livsstil.';
 	@override String get personalizedTargets => 'Personlige kaloriemål';
 	@override String get aiMealDetection => 'AI-drevet måltidsdetektion';
 	@override String get macroBreakdowns => 'Detaljerede makronæringsopgørelser';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsDa implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Tilberedningsmetoder';
-	@override String get description => 'Tilberedningsmetoder kan i høj grad ændre den ernæringsmæssige værdi af mad. Calorifys estimater tager muligvis ikke altid højde for disse variationer.';
+	@override String description({required Object appLabel}) => 'Tilberedningsmetoder kan betydeligt ændre den ernæringsmæssige værdi af mad. ${appLabel}\'s estimater medregner ikke altid disse variationer.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsDa implements TranslationsDi
 
 	// Translations
 	@override String get title => 'Database Begrænsninger';
-	@override String get description => 'Calorifys fødevaredatabase er omfattende, men inkluderer muligvis ikke hver eneste fødevareposition eller variation.';
+	@override String description({required Object appLabel}) => '${appLabel}\'s fødevaredatabase er omfattende, men den inkluderer muligvis ikke hver enkelt fødevare eller variation.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsDa implements Transl
 
 	// Translations
 	@override String get title => 'Biologiske Faktorer';
-	@override String get description => 'Faktisk vægttab/-gevinst påvirkes af stofskifte, hormoner, søvn, stress, hydrering og andre individuelle faktorer, som Calorify ikke kan måle.';
+	@override String description({required Object appLabel}) => 'Egentlig vægttab/-øgning påvirkes af stofskifte, hormoner, søvn, stress, hydrering og andre individuelle faktorer, som ${appLabel} ikke kan måle.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsDa {
 		return switch (path) {
 			'language' => 'Danish',
 			'flag' => '🇩🇰',
-			'onboarding.welcome' => 'Velkommen til Calorify',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => 'Velkommen til ${appLabel}',
 			'onboarding.subtitle' => 'Din personlige ernæringseftersyn drevet af AI',
 			'onboarding.getStarted' => 'Kom i gang',
 			'onboarding.features.foodRecognition.title' => 'Intelligent Madgenkendelse',
@@ -1360,7 +1359,7 @@ extension on TranslationsDa {
 			'onboarding.bmiScale.categories.obese' => 'Fedme',
 			'onboarding.bmiScale.messages.underweight' => 'Vi kan hjælpe dig med at opbygge en sund plan for at nå en balanceret vægt med næringsrige måltider.',
 			'onboarding.bmiScale.messages.healthy' => 'Godt klaret! Du er inden for en sund rækkevidde. Vi hjælper dig med at opretholde din vitalitet og energiniveau.',
-			'onboarding.bmiScale.messages.overweight' => 'Calorify vil forenkle din rejse med AI-drevet tracking for at hjælpe dig med at nå dit mål komfortabelt.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} vil forenkle din rejse med AI-drevet tracking for at hjælpe dig med at nå dit mål komfortabelt.',
 			'onboarding.bmiScale.messages.obese' => 'Vi er her for at støtte dig med personlig vejledning og bæredygtige strategier for dine sundhedsmål.',
 			'onboarding.weightGoal.title' => 'Hvad er dit mål?',
 			'onboarding.weightGoal.description' => 'Vælg det mål, der bedst beskriver, hvad du ønsker at opnå',
@@ -1380,12 +1379,12 @@ extension on TranslationsDa {
 			'onboarding.healthConnect.skipForNow' => 'Spring over for nu',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect er forbundet.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect er blevet forbundet med succes!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'Tilladelse nægtet. Aktivér Health Connect tilladelser fra dine telefonindstillinger for Calorify.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Adgang nægtet. Aktiver venligst Health Connect-tilladelser fra din telephones indstillinger for ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Fejl under opsætning af Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Du er ikke alene',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Forskning viser, at konsekvent sporing er den vigtigste indikator for langsigtet succes.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'For en ${age} år gammel ${gender} der ønsker at ${goal}, er konsekvent sporing den vigtigste indikator for succes.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify gør det 10 gange lettere end at gøre det manuelt.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} gør det 10 gange lettere end at gøre det manuelt.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Klar til at komme i gang?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Tag et billede af dine måltider for øjeblikkelig analyse',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Log konsekvent for at se meningsfuld fremgang',
@@ -1393,9 +1392,6 @@ extension on TranslationsDa {
 			'onboarding.reinforcement.trackingSuccess.button' => 'Lad os gå',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'individ',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'en sundere dig',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Øjeblikkelig fotoanalyse',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Automatisk ernæringsregistrering',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Fremdriftsvisualiseringer der holder dig motiveret',
 			'onboarding.reinforcement.healthProfile.title' => 'Din Sundhedsprofil',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Baseret på dine målinger, er din BMI ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Lad os færdiggøre din profil for at tilpasse din oplevelse.',
@@ -1405,7 +1401,7 @@ extension on TranslationsDa {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'Du er på din målvægt! Vi hjælper dig med at opretholde den.',
 			'onboarding.reinforcement.healthProfile.button' => 'Lad os gå',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Fremragende Start!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'Du har taget det første skridt mod ${goalText}. Da du er ${activityText}, vil Calorify justere dine mål for at matche din livsstil.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Du har taget det første skridt mod ${goalText}. Da du er ${activityText}, vil ${appLabel} justere dine mål til at matche din livsstil.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Personlige kaloriemål',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI-drevet måltidsdetektion',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Detaljerede makronæringsopgørelser',
@@ -1573,16 +1569,16 @@ extension on TranslationsDa {
 			'settings.language.subtitle' => 'Vælg dit foretrukne sprog',
 			'settings.heightUnit.title' => 'Højde Enhed',
 			'settings.weightUnit.title' => 'Vægt Enhed',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => 'Måltidspåmindelser',
 			'settings.mealReminders.subtitle' => 'Hold dig på sporet med rettidige alarmer',
+			'settings.theme.title' => 'Tema',
+			'settings.theme.subtitle' => 'Vælg dit foretrukne tema',
+			'settings.theme.light' => 'Lys',
+			'settings.theme.dark' => 'Mørk',
+			'settings.theme.system' => 'System',
 			'settings.sendFeedback.title' => 'Send Feedback',
-			'settings.sendFeedback.subtitle' => 'Hjælp os med at forbedre Calorify',
-			'settings.sendFeedback.emailSubject' => 'Calorify App Feedback',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Hjælp os med at forbedre ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} App Feedback',
 			'settings.sendFeedback.emailBodyPrefix' => 'Venligst giv din feedback nedenfor:',
 			'settings.sendFeedback.appVersion' => 'App Version',
 			'settings.sendFeedback.device' => 'Enhed',
@@ -1629,21 +1625,21 @@ extension on TranslationsDa {
 			'login.signInWithGoogle' => 'Log ind med Google',
 			'login.signInFailed' => 'Google Login fejlede eller blev annulleret.',
 			'disclaimer.pleaseNote' => 'Bemærk venligst',
-			'disclaimer.snap.description' => 'Calorify giver estimerede ernæringsoplysninger. Nøjagtigheden afhænger af dit input & madvariationer. Brug som en vejledning, ikke en definitiv kilde. Konsulter en professionel for personlig diætvejledning.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} giver estimeret ernæringsinfo. Nøjagtighed afhænger af din input og fødevarevariationer. Brug det som en vejledning, ikke en definit kilde. Konsulter en professionel for personlig kostrådgivning.',
 			'disclaimer.snap.portionSize.title' => 'Portionsstørrelse',
 			'disclaimer.snap.portionSize.description' => 'Nøjagtigheden af estimaterne afhænger i høj grad af din korrekte vurdering af portionsstørrelsen.',
 			'disclaimer.snap.preparationMethods.title' => 'Tilberedningsmetoder',
-			'disclaimer.snap.preparationMethods.description' => 'Tilberedningsmetoder kan i høj grad ændre den ernæringsmæssige værdi af mad. Calorifys estimater tager muligvis ikke altid højde for disse variationer.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Tilberedningsmetoder kan betydeligt ændre den ernæringsmæssige værdi af mad. ${appLabel}\'s estimater medregner ikke altid disse variationer.',
 			'disclaimer.snap.ingredients.title' => 'Ingredienser',
 			'disclaimer.snap.ingredients.description' => 'Komplekse retter med mange skjulte ingredienser kan føre til mindre præcise estimeringer.',
 			'disclaimer.snap.databaseLimitations.title' => 'Database Begrænsninger',
-			'disclaimer.snap.databaseLimitations.description' => 'Calorifys fødevaredatabase er omfattende, men inkluderer muligvis ikke hver eneste fødevareposition eller variation.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'s fødevaredatabase er omfattende, men den inkluderer muligvis ikke hver enkelt fødevare eller variation.',
 			'disclaimer.weightEstimate.title' => 'Om Vægtestimering',
 			'disclaimer.weightEstimate.description' => 'Den forventede vægtændring er et teoretisk estimat baseret på den simple kalorie-inde vs. kalorie-ude model. Det er beregnet til motivationsvejledning, ikke som en forudsigelse af din faktiske vægt.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalorie Nøjagtighed',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Dette estimat er kun så præcist som dit registrerede kalorieindtag og udgifter. Unøjagtig registrering vil resultere i en unøjagtig projektion.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Biologiske Faktorer',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'Faktisk vægttab/-gevinst påvirkes af stofskifte, hormoner, søvn, stress, hydrering og andre individuelle faktorer, som Calorify ikke kan måle.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Egentlig vægttab/-øgning påvirkes af stofskifte, hormoner, søvn, stress, hydrering og andre individuelle faktorer, som ${appLabel} ikke kan måle.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Vandvægt & Fluktuationer',
 			'disclaimer.weightEstimate.waterWeight.description' => 'Normal daglig vægt kan fluktuere betydeligt på grund af vandretention, fordøjelse og timing. Estimatet tager ikke højde for disse daglige ændringer.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Professionel Vejledning',

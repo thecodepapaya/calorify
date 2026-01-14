@@ -1,8 +1,9 @@
 {
   "language": "Norsk",
   "flag": "🇳🇴",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Velkommen til Calorify",
+    "welcome": "Velkommen til {appLabel}",
     "subtitle": "Din personlige kostholdsassistent drevet av AI",
     "getStarted": "Kom i gang",
     "features": {
@@ -59,7 +60,7 @@
       "messages": {
         "underweight": "Vi kan hjelpe deg med å lage en sunn plan for å nå en balansert vekt med næringsrike måltider.",
         "healthy": "Flott jobbet! Du ligger innenfor et sunt område. Vi hjelper deg med å opprettholde din vitalitet og energinivå.",
-        "overweight": "Calorify vil forenkle reisen din med AI-drevet sporing for å hjelpe deg å nå målet ditt på en komfortabel måte.",
+        "overweight": "{appLabel} vil forenkle reisen din med AI-drevet sporing for å hjelpe deg å nå målet ditt på en komfortabel måte.",
         "obese": "Vi er her for å støtte deg med personlig veiledning og bærekraftige strategier for dine helse mål."
       }
     },
@@ -92,7 +93,7 @@
       "skipForNow": "Hopp over for nå",
       "statusConnected": "Health Connect er tilkoblet.",
       "statusSuccess": "Health Connect har blitt tilkoblet med suksess!",
-      "statusPermissionDenied": "Tillatelse nektert. Vennligst aktiver Health Connect-tillatelser fra telefoninnstillingene for Calorify.",
+      "statusPermissionDenied": "Tillatelse nektet. Vennligst aktiver helseforbindelsestillatelser fra telefoninnstillingene dine for {appLabel}.",
       "statusError": "Feil under oppsett av Health Connect: {error}"
     },
     "reinforcement": {
@@ -100,17 +101,14 @@
         "title": "Du er ikke alene",
         "genericMessage": "Forskning viser at konsekvent sporing er den største prediktoren for langsiktig suksess.",
         "personalizedMessage": "For en {age} år gammel {gender} som ønsker å {goal}, er konsekvent sporing den største prediktoren for suksess.",
-        "closingMessage": "Calorify gjør det 10 ganger enklere enn å gjøre det manuelt.",
+        "closingMessage": "{appLabel} gjør det 10 ganger lettere enn å gjøre det manuelt.",
         "getStartedTitle": "Klar til å komme i gang?",
         "tipPhoto": "Ta et bilde av måltidene dine for umiddelbar analyse",
         "tipConsistency": "Registrer konsekvent for å se meningsfull fremgang",
         "tipProgress": "Spor fremgangen din daglig for å holde deg motivert",
         "button": "La oss gå",
         "defaultGender": "individ",
-        "defaultGoal": "en sunnere deg",
-        "instantPhotoAnalysis": "Umiddelbar bildeanalyse",
-        "automaticLogging": "Automatisk næringslogg",
-        "progressVisualizations": "Fremdriftsvisualiseringer som holder deg motivert"
+        "defaultGoal": "en sunnere deg"
       },
       "healthProfile": {
         "title": "Din Helseprofil",
@@ -124,7 +122,7 @@
       },
       "goalLifestyle": {
         "title": "Utmerket Start!",
-        "description": "Du har tatt det første skrittet mot {goalText}. Siden du er {activityText}, vil Calorify justere målene dine for å matche livsstilen din.",
+        "description": "Du har tatt det første steget mot {goalText}. Siden du er {activityText}, vil {appLabel} justere målene dine for å samsvare med livsstilen din.",
         "personalizedTargets": "Personlige kalori mål",
         "aiMealDetection": "AI-drevet måltidsdeteksjon",
         "macroBreakdowns": "Detaljerte makronæringsnedbrytinger",
@@ -372,21 +370,21 @@
     "weightUnit": {
       "title": "Vektenhet"
     },
-    "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
-    },
     "mealReminders": {
       "title": "Måltidspåminnelser",
       "subtitle": "Hold deg på sporet med tidsriktige varsler"
     },
+    "theme": {
+      "title": "Tema",
+      "subtitle": "Velg ditt foretrukne tema",
+      "light": "Lys",
+      "dark": "Mørk",
+      "system": "System"
+    },
     "sendFeedback": {
       "title": "Send tilbakemelding",
-      "subtitle": "Hjelp oss å forbedre Calorify",
-      "emailSubject": "Tilbakemelding på Calorify App",
+      "subtitle": "Hjelp oss med å forbedre {appLabel}",
+      "emailSubject": "{appLabel} App Tilbakemelding",
       "emailBodyPrefix": "Vennligst gi tilbakemeldingen din nedenfor:",
       "appVersion": "App Versjon",
       "device": "Enhet",
@@ -457,14 +455,14 @@
   "disclaimer": {
     "pleaseNote": "Vennligst merk",
     "snap": {
-      "description": "Calorify gir estimerte næringsopplysninger. Nøyaktighet avhenger av innspillene dine og variasjoner i mat. Bruk som en guide, ikke som en definitv kilde. Konsulter en profesjonell for personlig kostholdsråd.",
+      "description": "{appLabel} gir estimert ernæringsinformasjon. Nøyaktigheten avhenger av innspillene dine og variasjoner i maten. Bruk som en veiledning, ikke som en definitiv kilde. Konsulter en profesjonell for personlig kostholdsrådgivning.",
       "portionSize": {
         "title": "Porsjonsstørrelse",
         "description": "Nøyaktigheten til estimatene avhenger sterkt av din korrekte vurdering av porsjonsstørrelsen."
       },
       "preparationMethods": {
         "title": "Tilberedningsmetoder",
-        "description": "Matlagingsmetoder kan betydelig endre næringsinnholdet i maten. Calorifys estimater tar ikke alltid hensyn til disse variasjonene."
+        "description": "Kokemetoder kan betydelig endre ernæringsinnholdet i maten. Estimatene til {appLabel} tar kanskje ikke alltid hensyn til disse variasjonene."
       },
       "ingredients": {
         "title": "Ingredienser",
@@ -472,7 +470,7 @@
       },
       "databaseLimitations": {
         "title": "Databasebegrensninger",
-        "description": "Calorifys matdatabase er omfattende, men det kan ikke inkludere hver eneste matvare eller variasjon."
+        "description": "{appLabel}s matdatabase er omfattende, men inkluderer kanskje ikke hver eneste matvare eller variasjon."
       }
     },
     "weightEstimate": {
@@ -484,7 +482,7 @@
       },
       "biologicalFactors": {
         "title": "Biologiske Faktorer",
-        "description": "Faktisk vekttap/økning påvirkes av metabolisme, hormoner, søvn, stress, hydrering og andre individuelle faktorer som Calorify ikke kan måle."
+        "description": "Faktisk vekttap/økning påvirkes av metabolisme, hormoner, søvn, stress, hydrering og andre individuelle faktorer som {appLabel} ikke kan måle."
       },
       "waterWeight": {
         "title": "Vekt av Vann & Svingninger",

@@ -1,556 +1,554 @@
 {
-  "language": "English",
-  "flag": "🇺🇸",
+  "language": "Kannada",
+  "flag": "🇮🇳",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Welcome to Calorify",
-    "subtitle": "Your personal nutrition companion powered by AI",
-    "getStarted": "Get Started",
+    "welcome": "{appLabel} ಗೆ ಸುಸ್ವಾಗತ",
+    "subtitle": "ಎಐ ಗೆ ಶಕ್ತಿಯಾದ ನಿಮ್ಮ ವೈಯುಕ್ತಿಕ ಪೋಷಣಾ ಸಂಗಾತಿ",
+    "getStarted": "ಪ್ರಾರಂಭಿಸಿ",
     "features": {
       "foodRecognition": {
-        "title": "Smart Food Recognition",
-        "description": "Take a photo and let AI identify your meal"
+        "title": "ಸುಧಾರಿತ ಆಹಾರ ಗುರುತಿಸುವಿಕೆ",
+        "description": "ಒಬ್ಬ ಫೋಟೋ ತೆಗೆದು, ಏಐ ಅವರಿಗೆ ನಿಮ್ಮ ಆಹಾರವನ್ನು ಗುರುತಿಸಲು ಬಿಡಿ"
       },
       "aiAnalysis": {
-        "title": "AI Analysis",
-        "description": "Get instant nutrition facts from your descriptions"
+        "title": "ಎಐ ವಿಶ್ಲೇಷಣೆ",
+        "description": "ನಿಮ್ಮ ವಿವರಣೆಗಳಿಂದ ತಕ್ಷಣದ ಪೋಷಣಾ ಮಾಹಿತಿಯನ್ನು ಪಡೆಯಿರಿ"
       },
       "healthIntegration": {
-        "title": "Health Integration",
-        "description": "Connect with Health Connect for better insights"
+        "title": "ಆರೋಗ್ಯ ಸಮಾವೇಶ",
+        "description": "ಬಹುದೂರವಾದ ಒಳನೋಟಗಳಿಗಾಗಿ ಆರೋಗ್ಯ ಸಂಪರ್ಕವನ್ನು ಸಂಪರ್ಕಿಸಿ"
       }
     },
     "gender": {
-      "title": "What is your gender?",
-      "description": "Gender helps us accurately calculate your basal metabolic rate (BMR).",
-      "next": "Next"
+      "title": "ನೀವು ಯಾವುದೇ ಲಿಂಗದದ್ದೇ?",
+      "description": "ಲಿಂಗವು ನಿಮ್ಮ ಮೂಲ ವರ್ಗ ಪರಿಚಯವನ್ನು (ಬಿಎಂಆರ್) ನಿಖರವಾಗಿ ಗಣನೆ ಮಾಡಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.",
+      "next": "ಮುಂದೆ"
     },
     "height": {
-      "title": "How tall are you?",
-      "description": "Your height helps us calculate your BMI and energy needs accurately.",
-      "metric": "Metric",
-      "imperial": "Imperial",
-      "next": "Next"
+      "title": "ನೀವು ಎಷ್ಟು ಎದ್ದಿದ್ದಾರೆ?",
+      "description": "ನಿಮ್ಮ ಎತ್ತರವು ನಿಮ್ಮ ಬಿಎಂಐ ಮತ್ತು ಶಕ್ತಿಯ ಅಗತ್ಯಗಳನ್ನು ನಿಖರವಾಗಿ ಗಣನೆ ಮಾಡುತ್ತವೆ.",
+      "metric": "ಮೆಟ್ರಿಕ್",
+      "imperial": "ಮೋಸದ",
+      "next": "ಮುಂದೆ"
     },
     "weight": {
-      "currentTitle": "What is your current weight?",
-      "currentDescription": "Your current weight is essential for personalizing your daily goals.",
-      "targetTitle": "What is your target weight?",
-      "targetDescription": "Setting a goal weight helps us determine your long-term plan.",
-      "metric": "Metric",
-      "imperial": "Imperial",
-      "next": "Next"
+      "currentTitle": "ನಿಮ್ಮ ಪ್ರಸ್ತುತ ತೂಕ ಎಷ್ಟು?",
+      "currentDescription": "ನಿಮ್ಮ ಪ್ರಸ್ತುತ ತೂಕವು ನಿಮ್ಮ ದೈನಂದಿನ ಗುರಿಗಳನ್ನು ವೈಯುಕ್ತಿಕಗೊಳಿಸಲು ಅಗತ್ಯವಿದೆ.",
+      "targetTitle": "ನಿಮ್ಮ ಗುರಿ ತೂಕ ಯಾವುದು?",
+      "targetDescription": "ಲೆಕ್ಕ ಹಾಕಲಾದ ಗುರಿ ತೂಕವು ನಿಮ್ಮ ದೀರ್ಘಕಾಲीन ಯೋಧೆಯಲ್ಲಿ ನಮಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ.",
+      "metric": "ಮೆಟ್ರಿಕ್",
+      "imperial": "ಮೋಸದ",
+      "next": "ಮುಂದೆ"
     },
     "age": {
-      "title": "When is your birthday?",
-      "description": "Your age helps us calculate your calorie needs accurately.",
-      "next": "Next"
+      "title": "ನಿಮ್ಮ ಜನ್ಮದಿನ ಏನು?",
+      "description": "ನಿಮ್ಮ ಬಳಿಯ ವಯಸ್ಸು ನೀವು ಎಷ್ಟು ಕ್ಯಾಲೊರಿಗೆ ಅಗತ್ಯವಿದೆ ಎಂದು ನಿಖರವಾಗಿ ಗಣನೆ ಮಾಡಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.",
+      "next": "ಮುಂದೆ"
     },
     "bmiScale": {
-      "underweight": "Underweight",
-      "healthy": "Healthy",
-      "overweight": "Overweight",
-      "obese": "Obese",
+      "underweight": "ಇಳಿವಟ್ಟ",
+      "healthy": "ಆರೋಗ್ಯಕರ",
+      "overweight": "ಒಬ್ಬರಿಗೂ ಹೆಚ್ಚು",
+      "obese": "ಮೋಡೋಣ",
       "categories": {
-        "underweight": "Underweight",
-        "healthyWeight": "Healthy weight",
-        "overweight": "Overweight",
-        "obese": "Obese"
+        "underweight": "ಇಳಿವಟ್ಟ",
+        "healthyWeight": "ಆರೋಗ್ಯಕರ ತೂಕ",
+        "overweight": "ಒಬ್ಬರಿಗೂ ಹೆಚ್ಚು",
+        "obese": "ಮೋಡೋಣ"
       },
       "messages": {
-        "underweight": "We can help you build a healthy plan to reach a balanced weight with nutrient-dense meals.",
-        "healthy": "Great job! You're in a healthy range. We'll help you maintain your vitality and energy levels.",
-        "overweight": "Calorify will simplify your journey with AI-powered tracking to help you reach your target comfortably.",
-        "obese": "We're here to support you with personalized guidance and sustainable strategies for your health goals."
+        "underweight": "ನಾವು ನಿಮಗೆ ಪೋಷಕ-ಸಮೃದ್ಧವಾದ ನೀಡುವ ಮೂಲಕ ಸಮತೋಲನ ತೂಕವನ್ನು ತಲುಪಲು ಸಹಾಯ ಮಾಡಬಹುದು.",
+        "healthy": "ಚೆನ್ನಾಗಿದೆ! ನೀವು ಆರೋಗ್ಯಕರ ಶ್ರೇಣಿಯಲ್ಲಿ ಇದ್ದೀರಿ. ನಾವು ನಿಮ್ಮ ಜೀವಂತತೆ ಮತ್ತು ಶಕ್ತಿ ಮಟ್ಟವನ್ನು ಉಳಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತೇವೆ.",
+        "overweight": "{appLabel} ನಿಮ್ಮ ಗುರಿಯನ್ನು ಸುಲಭವಾಗಿ ತಲುಪಲು ಎಐ-ಶಕ್ತಿಯ ಉಲ್ಲೇಖವನ್ನು ಸಹಾಯ ಮಾಡುತ್ತದೆ.",
+        "obese": "ನಾವು ನಿಮ್ಮ ಆರೋಗ್ಯದ ಗುರಿಗಳಿಗಾಗಿ ವೈಯುಕ್ತಿಕ ಮಾರ್ಗದರ್ಶನ ಮತ್ತು ನಿರಂತರ ತಂತ್ರಗಳನ್ನು ಬೆಂಬಲಿಸುತ್ತೇವೆ."
       }
     },
     "weightGoal": {
-      "title": "What's your goal?",
-      "description": "Choose the goal that best describes what you want to achieve"
+      "title": "ನಿಮ್ಮ ಗುರಿ ಯಾವುದು?",
+      "description": "ನೀವು ಏನು ಸಾಧಿಸಲು ಬಯಸುತ್ತೀರಿ ಎಂಬುದನ್ನು ಉತ್ತಮವಾಗಿ ವಿವರಿಸುವ ಗುರಿಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ"
     },
     "activityLevel": {
-      "title": "How active are you?",
-      "description": "This helps us calculate your daily calorie needs more accurately"
+      "title": "ನೀವು ಎಷ್ಟು ಕ್ರಿಯಾತ್ಮಕ?",
+      "description": "ಇದು ನಿಮ್ಮ ದೈನಂದಿನ ಕ್ಯಾಲೊರಿಗಳನ್ನು ಹೆಚ್ಚು ನಿಖರವಾಗಿ ಗಣನೆ ಮಾಡಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ"
     },
     "healthConnect": {
-      "title": "Connect with Health Connect",
-      "description": "Sync your health data for better insights and automatic calorie tracking",
+      "title": "ಆರೋಗ್ಯ ಸಂಪರ್ಕವನ್ನು ಸಂಪರ್ಕಿಸಿ",
+      "description": "ಉತ್ತಮ ಪರಿಣಾಮಗಳು ಮತ್ತು ಸ್ವಾಯತ್ತ ಕ್ಯಾಲೊರಿ ಲೆಕ್ಕಾಂಶಕ್ಕಾಗಿ ನಿಮ್ಮ ಆರೋಗ್ಯದ ಮಾಹಿತಿ ಸಂಕಲನ ಮಾಡಿ",
       "automaticTracking": {
-        "title": "Automatic Calorie Tracking",
-        "description": "Track calories burned from your fitness apps"
+        "title": "ಸ್ವಾಯತ್ತ ಕ್ಯಾಲೊರಿ ಲೆಕ್ಕಾಚಾರ",
+        "description": "ನಿಮ್ಮ ಫಿಟ್ನೆಸ್ ಆಪ್‌ಗಳಿಂದ ಉಲ್ಲೇಖಿತ ಫಲಾನುಭವಗಳನ್ನು ಲೆಕ್ಕ ಹಾಕಿ"
       },
       "progressInsights": {
-        "title": "Progress Insights",
-        "description": "Get detailed insights into your health trends"
+        "title": "ಪ್ರಗತಿ ಒಳನೋಟಗಳು",
+        "description": "ನೀವು ಆರೋಗ್ಯದ ತ್ರೇಂಡುಗಳ ಬಗ್ಗೆ ವಿವರವಾದ ಒಳನೋಟಗಳನ್ನು ಪಡೆಯಿರಿ"
       },
       "seamlessIntegration": {
-        "title": "Seamless Integration",
-        "description": "Sync data from your favorite health apps"
+        "title": "ಸರಳವಾದ ಸಮಾವೇಶ",
+        "description": "ನಿಮ್ಮ ಆಯ್ಕೆಪಡಿಸಿದ ಆರೋಗ್ಯ ಆಪ್ಸ್ ಸ್ಥಳಾಂತರಿಸಿ"
       },
-      "connected": "Health Connect Connected",
-      "notConnected": "Health Connect Not Connected",
-      "setup": "Setup Health Connect",
-      "skipForNow": "Skip for now",
-      "statusConnected": "Health Connect is connected.",
-      "statusSuccess": "Health Connect has been successfully connected!",
-      "statusPermissionDenied": "Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.",
-      "statusError": "Error setting up Health Connect: {error}"
+      "connected": "ಆರೋಗ್ಯ ಸಂಪರ್ಕ ಬಿಗಿಯಾದ",
+      "notConnected": "ಆರೋಗ್ಯ ಸಂಪರ್ಕ ಬಿಗಿಯಿಲ್ಲ",
+      "setup": "ಆರೋಗ್ಯ ಸಂಪರ್ಕವನ್ನು ನೀಡಲು",
+      "skipForNow": "ಈಗ ಉಲ್ಲೇಖವನ್ನು ತಪ್ಪಿಸಲು",
+      "statusConnected": "ಆರೋಗ್ಯ ಸಂಪರ್ಕ ಜೋಡಿಸಲಾಗಿದೆ.",
+      "statusSuccess": "ಆರೋಗ್ಯ ಸಂಪರ್ಕ ಯಶಸ್ವಿಯಾಗಿ ಜೋಡಿಸಲಾಗಿಯೋದು!",
+      "statusPermissionDenied": "ಅನುಮತಿ ನಿರಾಕರಿಸಲಾಗಿದೆ. ದಯವಿಟ್ಟು {appLabel} ಗೆ ಸೋಮವಾರದ ಮಾಹಿತಿಯ ಅನುಮತಿಯನ್ನು ಚಲಾಯಿಸಿ.",
+      "statusError": "ಆರೋಗ್ಯವನ್ನು ಹೊಂದಿಸಲು ಸಮಸ್ಯೆ: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
-        "title": "You're Not Alone",
-        "genericMessage": "Research shows that consistent tracking is the #1 predictor of long-term success.",
-        "personalizedMessage": "For a {age} year old {gender} looking to {goal}, consistent tracking is the #1 predictor of success.",
-        "closingMessage": "Calorify makes it 10x easier than doing it manually.",
-        "getStartedTitle": "ಆರಂಭಿಸಲು ಸಿದ್ಧವೇ?",
-        "tipPhoto": "ತ್ವರಿತ ವಿಶ್ಲೇಷಣೆಗೆ ನೀವು ಸೇವಿಸುವ ಆಹಾರಗಳ ಫೋಟೋವನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ",
-        "tipConsistency": "ಸಂಪೂರ್ಣ ಏಕಕಾಲದಲ್ಲಿ ಲಾಗ್ ಮಾಡಿ, ಅರ್ಥಪೂರ್ಣ ಅಭಿವೃದ್ಧಿ ಕಾಣಲು",
-        "tipProgress": "ಪ್ರೇರಣೆಯಲ್ಲಿರಲು ದಿನನಿತ್ಯ ನಿಮ್ಮ ಪ್ರಗತಿಯನ್ನು ಟ್ರಾಕ್ ಮಾಡಿ",
-        "button": "Let's Go",
-        "defaultGender": "individual",
-        "defaultGoal": "healthier you",
-        "instantPhotoAnalysis": "Instant photo analysis",
-        "automaticLogging": "Automatic nutritional logging",
-        "progressVisualizations": "Progress visualizations that keep you motivated"
+        "title": "ನೀವು ಒಬ್ಬರಿಗೆ ಮಾತ್ರ ಅಲ್ಲ",
+        "genericMessage": "ಶೋಧನೆ ನಿಖರವಾಗಿ ಲೆಕ್ಕವನ್ನು ಹೊಂದಿದ್ದು, ದೀರ್ಘಕಾಲದ ಯಶಸ್ಸಿನ #1 ನಿರ್ಧಾರವನ್ನು ಹೊಂದಿದೆ.",
+        "personalizedMessage": "ನೀವು {goal} ಪಡೆಯಲು ಹುಡುಕುತ್ತಿರುವ {age} ವರ್ಷದ {gender} ಗೆ, ನಿಖರ ಮಾಹಿತಿಯ ಲೆಕ್ಕವೂ #1 ಯಶಸ್ಸಿನ ನಿರ್ಧಾರ.",
+        "closingMessage": "{appLabel} ಕೈಯಿಂದ ಮಾಡುವುದು ವಿನ್ಯಾಸವಾಗುತ್ತದೆ, 10x ಸುಲಭವಾಗಿದೆ.",
+        "getStartedTitle": "ಪ್ರಾರಂಭಿಸಲು ತಯಾರಾಗಿದ್ದೀರಾ?",
+        "tipPhoto": "ತ್ವರಿತ ವಿಶ್ಲೇಶಣೆಗಾಗಿ ನಿಮ್ಮ ಆಹಾರಗಳ ಛಾಯಾಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ",
+        "tipConsistency": "ಸಂಯೋಜಿತವಾಗಿರುವ ಲೆಕ್ಕವನ್ನು ಲೆಕ್ಕಹಾಕಲು ನಿರಂತರವಾಗಿ ಲೆಕ್ಕ ಹಾಕಿ",
+        "tipProgress": "ಪ್ರೇರಿತವಾಗಲು ನಿಮ್ಮ ಪ್ರಗತಿ ಪ್ರತಿ ದಿನವು ಅನ್ವಯವಾಗುತ್ತದೆ",
+        "button": "ಹೋಗೋಣ",
+        "defaultGender": "ವ್ಯಕ್ತಿ",
+        "defaultGoal": "ಹೆಚ್ಚಿನ ಆರೋಗ್ಯ"
       },
       "healthProfile": {
-        "title": "Your Health Profile",
-        "bmiDescription": "Based on your metrics, your BMI is {bmi}.",
-        "finalizeDescription": "Let's finalize your profile to customize your experience.",
-        "goalGain": "gain",
-        "goalLose": "lose",
-        "goalReach": "To reach your goal, you'll {direction} {diff} {unit}.",
-        "goalReached": "You're at your target weight! We'll help you maintain it.",
-        "button": "Let's Go"
+        "title": "ನಿಮ್ಮ ಆರೋಗ್ಯ ಪ್ರವೃತ್ತಿ",
+        "bmiDescription": "ನಿಮ್ಮ ಮೆಟ್ರಿಕ್‌ಗಳನ್ನು ಆಧರಿಸಿ, ನಿಮ್ಮ BMI {bmi} ಆಗಿದೆ.",
+        "finalizeDescription": "ನಿಮ್ಮ ಅನುಭವವನ್ನು ವ್ಯಾಪಕವಾಗಿ ರೂಪಿಸಲು ನಿಮ್ಮ ಪ್ರವೃತ್ತಿಯನ್ನು النهಾಯಿ ಮಾಡೋಣ.",
+        "goalGain": "ಹಾಡಿಕೊಳ್ಳು",
+        "goalLose": "ಲಾಭ",
+        "goalReach": "ನೀವು ನಿಮ್ಮ ಗುರಿಯನ್ನು ತಲುಪಲು {direction} {diff} {unit} ಮಾಡಬೇಕು.",
+        "goalReached": "ನೀವು ನಿಮ್ಮ ಗುರಿಯ ತೂಕವನ್ನು ತಲುಪಿದ್ದೀರಿ! ನಾವು ನಿಮ್ಮನ್ನು ಇದನ್ನು ಕಾಪಾಡಲು ಸಹಾಯಿಸುತ್ತೇವೆ.",
+        "button": "ಹೋಗೋಣ"
       },
       "goalLifestyle": {
-        "title": "Excellent Start!",
-        "description": "You've taken the first step towards {goalText}. Since you're {activityText}, Calorify will adjust your targets to match your lifestyle.",
-        "personalizedTargets": "Personalized calorie targets",
-        "aiMealDetection": "AI-powered meal detection",
-        "macroBreakdowns": "Detailed macro-nutrient breakdowns",
-        "button": "Let's Go",
-        "defaultGoal": "your goals",
-        "defaultActivity": "active"
+        "title": "ಅದ್ಭುತ ಪ್ರಾರಂಭ!",
+        "description": "ನೀವು {goalText} ಬದ್ಧವಾದ ಪ್ರಥಮ ಹೆಜ್ಜೆ எடுத்தಿದ್ದೀರಿ. ನೀವು {activityText} ಇದ್ದಾಗ, {appLabel} ನಿಮ್ಮ ಜೀವನ ಶೈಲಿಗೆ ಹೊಂದುವಂತೆ ನಿಮ್ಮ ಗುರಿಗಳನ್ನು ಹೊಂದಿಸುತ್ತದೆ.",
+        "personalizedTargets": "ವೈಯಕ್ತಿಕ calorie ಗುರಿಗಳು",
+        "aiMealDetection": "AI ಮೂಲಕ ತಿನಿಸುವ ಮೇಲೆ ಪತ್ತೆ",
+        "macroBreakdowns": "ವಿವರವಾದ ಮಾಕ್ರೋ-ಜೀರ್ಣಪದಾರ್ಥ ಮೇಲ್ವಿಚಾರಣೆಗಳು",
+        "button": "ಹೋಗೋಣ",
+        "defaultGoal": "ನಿಮ್ಮ ಗುರಿಗಳು",
+        "defaultActivity": "ಸಕ್ರಿಯ"
       }
     }
   },
   "tabs": {
-    "dashboard": "Dashboard",
-    "history": "History"
+    "dashboard": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
+    "history": "ಅವರಿಗೆ ನಾನು ಏನು ಮಾಡಿದ್ದೆನು"
   },
   "home": {
     "dailyGoal": {
-      "title": "Set Your Daily Goal",
-      "titleSet": "Your Daily Goal",
-      "description": "Ready to embark on your wellness journey? Set your daily calorie target below to kickstart your progress.",
-      "descriptionSet": "Your compass is set! This is your daily calorie target to guide you.",
-      "yourGoal": "Your Goal",
-      "dailyCalories": "Daily calories (kcal)",
-      "setGoal": "Set Goal",
-      "intake": "Intake",
-      "burned": "Burned",
-      "weightImpact": "Weight Impact",
-      "estLoss": "Est. loss of",
-      "estGain": "Est. gain of",
-      "kcal": "kcal"
+      "title": "ನಿಮ್ಮ ದೈನಂದಿನ ಗುರಿ ಹೊಂದಿಸಲು",
+      "titleSet": "ನಿಮ್ಮ ದೈನಂದಿನ ಗುರಿ",
+      "description": "ನಿಮ್ಮ ಆರೋಗ್ಯದ ಪ್ರವಾಸವನ್ನು ಪ್ರಾರಂಭಿಸಲು ದೊರೆತ ಕರವೇ, ನಿಮ್ಮ ದೈನಂದಿನ ಕ್ಯಾಲೊರಿಗಳನ್ನು ಇಲ್ಲಿ ಕಿಕ್‌ಆರ್ ಅನ್ನು ಹೊಂದಿಸಲು.",
+      "descriptionSet": "ನಿಮ್ಮ ಸುಕ್ತಿಯು ಹೊಂದಿಸಲಾಗಿದೆ! ಇದು ನಿಮ್ಮ ದೈನಂದಿನ ಕ್ಯಾಲೊರಿಗಳನ್ನು ನಿಮಗೆ ಮಾರ್ಗದರ್ಶನ ನೀಡುತ್ತದೆ.",
+      "yourGoal": "ನಿನ್ನ ಗುರಿ",
+      "dailyCalories": "ದೈನಂದಿನ ಕ್ಯಾಲೊರಿ (ಕೆಕ್ಯಲ್)",
+      "setGoal": "ಗುರಿ ಹೊಂದಿಸಿ",
+      "intake": "ಭೋಜನ",
+      "burned": "ಹರಿದ",
+      "weightImpact": "ತೂಕ ಪರಿಣಾಮ",
+      "estLoss": "ಎಂ. ಇಷ್ಟ. ಕಳೆದುಕೊಂಡು",
+      "estGain": "ಎಂ. ಇಷ್ಟ. ಗಳಿಸುವ",
+      "kcal": "ಕೆಕ್ಯಲ್"
     },
     "dailySummary": {
-      "title": "Daily Summary",
-      "calories": "Calories",
-      "carbs": "Carbs",
-      "protein": "Protein",
-      "fat": "Fat",
-      "fiber": "Fiber"
+      "title": "ದೈನಂದಿನ ಸಾರಾಂಶ",
+      "calories": "ಕ್ಯಾಲೊರಿ",
+      "carbs": "ಕೋಶ",
+      "protein": "ಪ್ರೋಟೀನ್",
+      "fat": "ಹೆಣ್ಣೆ",
+      "fiber": "ಕಬ್ಬು"
     },
     "intakeProgress": {
-      "title": "Today's Macro Split",
-      "target": "Target",
-      "current": "Current"
+      "title": "ಇಂದು ಮತ್ತು ಪೂರೈಸುವ ಸ್ಥಳ",
+      "target": "ಗುರಿ",
+      "current": "ಪ್ರಸ್ತುತ"
     },
     "intakeHistory": {
-      "title": "7-Day Macro History",
-      "noHistoryYet": "No history yet",
-      "startLogging": "Start logging meals to see your\n7-day macro trends here"
+      "title": "7-ದಿನ ಕರುಡ ಕಹವು",
+      "noHistoryYet": "ಇನ್ನು ಯಾವುದೇ ಐತಿಹಾಸಿಕ ದಾಖಲೆ ಇಲ್ಲ",
+      "startLogging": "ನಿಮ್ಮ ಆಹಾರವನ್ನು ಲೆಕ್ಕ ಹಾಕುವುದು ಇಲ್ಲಿ 7 ದಿನಗಳ ಕಾಲ ಪ್ರಮಾಣವನ್ನು ನೋಡಲು ಹೊಂದಿಸುತ್ತದೆ."
     },
     "mealLog": {
-      "title": "Logged Meals",
-      "emptyMessage": "Snap a picture of your last meal to log here.",
-      "noMealsToday": "No meals recorded for today",
-      "seeAllMeals": "See all meals"
+      "title": "ಲಾಗ್ ಮಾಡಿದ ಆಹಾರ",
+      "emptyMessage": "ನಿಮ್ಮ ಅಂತಿಮ ಆಹಾರವನ್ನು ಲೆಕ್ಕ ಹಾಕಲು ಛಾಯಾಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ.",
+      "noMealsToday": "ಇಂದ ಮೊದಲಾದ ಆಹಾರ ಯಾವುದೇ ದಾಖಲೆ ಇಲ್ಲ",
+      "seeAllMeals": "ಎಲ್ಲಾ ಆಹಾರಗಳನ್ನು ನೋಡಿ"
     },
     "mealDescription": {
-      "title": "Quick Add with AI",
-      "description": "Describe your meal, and let AI handle the details.",
-      "hint": "e.g. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...",
-      "analyzeMeal": "Analyze meal"
+      "title": "ಎಐ ಮೂಲಕ ತ್ವರಿತ ಸೇರಿಸುವಿಕೆ",
+      "description": "ನಿಮ್ಮ ಆಹಾರವನ್ನು ವಿವರಿಸಿರಿ ಮತ್ತು ಏಐ ವಿವರಗಳನ್ನು ನಿರ್ವಹಿಸಲು ಬಿಡಿ.",
+      "hint": "ಉದಾಹರಣೆಗೆ: ನಾನು ಬೆಳಗಿನ ಕಾಳಲ್ಲಿ ಒಂದು ದೊಡ್ಡ ತಟ್ಟೆ ಒಡೆಯಿತು ...",
+      "analyzeMeal": "ಆಹಾರವನ್ನು ವಿಶ್ಲೇಷಿಸಿ"
     },
     "favoriteMeals": {
-      "title": "Favorite Meals",
-      "description": "Quickly add one of your favorite meals.",
-      "noFavorites": "No favorite meals yet.",
-      "addFavoriteHint": "Click the star on a meal to mark it as a favorite.",
-      "seeAll": "See all",
-      "add": "Add"
+      "title": "ಮುಗಿಯುತ್ತಿರುವ ಆಹಾರ",
+      "description": "ನಿಮ್ಮ ಮೆಚ್ಚಿನ ಆಹಾರದಲ್ಲಿ ಸುಲಭವಾಗಿ ಸೇರಿಸಿ.",
+      "noFavorites": "ಏನೂ ಶುಭಾಶಯ ವಹಿಸುವ ಆಹಾರ ಇಲ್ಲ.",
+      "addFavoriteHint": "ಅವಶ್ಯ ಫಾಕ್ನ್ನಿ, ಆಹಾರವನ್ನು ಮರು ಪ್ರಮುಖ ಹಾಗೆ ಪ್ರಕಟಿಸಲು.",
+      "seeAll": "ಎಲ್ಲಾ ನೋಡಿ",
+      "add": "ಸೇರಿಸು"
     },
     "mealSnap": {
-      "title": "Snap & Track Your Meal",
-      "description": "Use your camera to take a picture of your food for AI analysis.",
-      "openCamera": "Open Camera"
+      "title": "ನಿಮ್ಮ ಆಹಾರವನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ ಮತ್ತು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ",
+      "description": "ನಿಮ್ಮ ಆಹಾರಕ್ಕೆ ಛಾಯಾಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಂಡು, ಏಐ ವಿಶ್ಲೇಷಣೆಗಾಗಿ ಬಿಡಿ.",
+      "openCamera": "ಕ್ಯಾಮೆರಾವನ್ನು ತೆರೆಯಿರಿ"
     },
     "connectHealth": {
-      "title": "Sync with Health Connect",
-      "description": "Sync your nutrition data with Health Connect",
-      "install": "Install",
-      "connect": "Connect"
+      "title": "ಆರೋಗ್ಯವನ್ನು ಆರ್ ಬಾಗಣೆ",
+      "description": "ಆರೋಗ್ಯ ಸಂಪರ್ಕದೊಂದಿಗೆ ನಿಮ್ಮ ಪೋಷಣಾ ಮಂಡಿತೆಯನ್ನು ಸಂಪೂರ್ಣಗೊಳಿಸು",
+      "install": "ಸ್ಥಾಪಿಸು",
+      "connect": "ಸಂಪರ್ಕ"
     }
   },
   "history": {
-    "noMeals": "No meals recorded",
-    "emptyMessage": "Snap a picture of your last meal to log here.",
-    "today": "Today",
-    "yesterday": "Yesterday"
+    "noMeals": "ಏನೂ भोजन ದಾಖಲಿಲಿಲ್ಲ",
+    "emptyMessage": "ನೀವು ಹಾಕಿದ ಹಕ್ಕಿನಿಂದ ಸ್ನಾಪ್ ತೆಗೆದುಕೊಳ್ಳಿ.",
+    "today": "ಇಂದು",
+    "yesterday": "ಕಳೆದ ದಿನ"
   },
   "meal": {
-    "ohNo": "Oh no!",
-    "delete": "Delete",
-    "editMeal": "Edit Meal",
-    "addMeal": "Add Meal",
-    "saveMeal": "Save Meal",
-    "save": "Save",
-    "mealName": "Meal Name",
-    "mealQuantity": "Meal Quantity",
-    "mealQuantityHint": "e.g., 1 bowl, 2 slices",
-    "timeOfMeal": "Time of Meal",
-    "timeOfMealHint": "Select the time you had your meal",
-    "mealType": "Meal Type",
+    "ohNo": "ಓ ಹಾ!",
+    "delete": "ಅಳಿಸಿ",
+    "editMeal": "ಆಹಾರವನ್ನು ಸಂಪಾದಿಸಿ",
+    "addMeal": "ಆಹಾರ ಸೇರಿಸಿ",
+    "saveMeal": "ಆಹಾರ ಶೇಖರಿಸಿ",
+    "save": "ಉಳಿತಾಯ",
+    "mealName": "ಆಹಾರದ ಹೆಸರು",
+    "mealQuantity": "ಆಹಾರ ಪ್ರಮಾಣ",
+    "mealQuantityHint": "ಉಪಾಯ, 1 ತಟ್ಟೆ, 2 ಕ್ಕಕಲು",
+    "timeOfMeal": "ಆಹಾರದ ಸಮಯ",
+    "timeOfMealHint": "ನೀವು ಕಳೆಯುತ್ತಿದ್ದಾಗ ಆಯ್ಕೆ ಮಾಡಿ",
+    "mealType": "ಆಹಾರದ ವರ್ಗ",
     "nutrition": {
-      "calories": "Calories",
-      "carbs": "Carbs (g)",
-      "protein": "Protein (g)",
-      "fat": "Fat (g)",
-      "fiber": "Fiber (g)"
+      "calories": "ಕ್ಯಾಲೊರಿ",
+      "carbs": "ಕೋಶ (ಗಾಗಿ)",
+      "protein": "ಪ್ರೋಟೀನ (ಗಾಗಿ)",
+      "fat": "ಹೆಣ್ಣೆ (ಗಾಗಿ)",
+      "fiber": "ಕಬ್ಬು (ಗಾಗಿ)"
     },
     "deleteConfirmation": {
-      "title": "Delete Meal",
-      "message": "Are you sure you want to delete this meal entry?",
-      "cancel": "Cancel",
-      "delete": "Delete"
+      "title": "ಆಹಾರವನ್ನು ಅಳಿಸುವಿರಾ?",
+      "message": "ನೀವು ಈ ಆಹಾರವನ್ನು ಅಳಿಸಲು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳುತ್ತೀರಾ?",
+      "cancel": "ರದ್ದು",
+      "delete": "ಅಳಿಸಿ"
     },
-    "addedToLog": "Meal added to your log!",
-    "couldNotAdd": "Could not add meal: {error}",
-    "removedFromFavorites": "Removed from favorites!",
-    "savedAsFavorite": "Meal saved as favorite!",
-    "couldNotUpdateFavorite": "Could not update favorite: {error}",
-    "failedToProcess": "Failed to process: {error}",
-    "failedToProcessImage": "Failed to process image: {error}",
-    "errorCompressingImage": "Error compressing image: {error}",
-    "failedToSave": "Failed to save data. Please try again."
+    "addedToLog": "ಆಹಾರ ನಿಮ್ಮ ಲಾಗ್‌ನಲ್ಲಿ ಸೇರಿಸಲಾಗಿದೆ!",
+    "couldNotAdd": "ಆಹಾರವನ್ನು ಸೇರಿಸುವುದಾಗಿ ಸಾಧ್ಯವಾಗಲಿಲ್ಲ: {error}",
+    "removedFromFavorites": "ಮುಗಿಯಲು ತೆಗೆದು ಹಾಕಲಾಯಿತು!",
+    "savedAsFavorite": "ಆಹಾರವು ಮುಗಿಯಲು ಉಳಿಸಲಾಗಿದೆ!",
+    "couldNotUpdateFavorite": "ಮುಗಿಯಲು ನವೀಕರಣ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ: {error}",
+    "failedToProcess": "ಆಹಾರವನ್ನು ಒಂದು ಕಂಪೊಜುತ್ತಾರೆ: {error}",
+    "failedToProcessImage": "ಚಿತ್ರವನ್ನು ಒಂದು ಕಂಪೊಜಿದ್ದರು: {error}",
+    "errorCompressingImage": "ಚಿತ್ರವನ್ನು ಒಪ್ಪಿಸಿ: {error}",
+    "failedToSave": "ಮಾಹಿತಿಯ ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಪುನರಯಿಸಲು ಪ್ರಯತ್ನಿಸಿ."
   },
   "favorites": {
-    "title": "Favorites",
-    "empty": "No favorite meals yet."
+    "title": "ಮುಗಿಯಲು",
+    "empty": "ಏನೂ ಮುಗಿಯಿಲ್ಲ."
   },
   "profile": {
-    "title": "Profile",
-    "noProfileData": "No profile data found",
-    "yourProfile": "Your Profile",
-    "viewAndManage": "View and manage your health information",
+    "title": "ಪ್ರೊಫೈಲ್",
+    "noProfileData": "ಯಾವುದೇ ಪ್ರೊಫೈಲ್ ಡೇಟಾ ಬಂದಿಲ್ಲ",
+    "yourProfile": "ನಿಮ್ಮ ಪ್ರೊಫೈಲ್",
+    "viewAndManage": "ನಿಮ್ಮ ಆರೋಗ್ಯದ ಮಾಹಿತಿಯನ್ನು ನೋಡುವ ಮತ್ತು ನಿರ್ವಹಿಸಲು",
     "sections": {
-      "profile": "PROFILE",
-      "basicInformation": "BASIC INFORMATION",
-      "goalsAndActivity": "GOALS & ACTIVITY",
-      "calculatedValues": "CALCULATED VALUES"
+      "profile": "ಪ್ರೊಫೈಲ್",
+      "basicInformation": "ಮೂಲ ಮಾಹಿತಿ",
+      "goalsAndActivity": "ಗುರಿಗಳು ಮತ್ತು ಚಟುವಟಿಕೆ",
+      "calculatedValues": "ಚೆನ್ನಾಗಳ ತ್ಯಾಜ್ಯ"
     },
-    "gender": "Gender",
-    "height": "Height",
-    "weight": "Weight",
-    "age": "Age",
-    "weightGoal": "Weight Goal",
-    "activityLevel": "Activity Level",
-    "healthMetrics": "Health Metrics",
-    "notSet": "Not set",
-    "years": "years",
-    "updatedSuccessfully": "Profile updated successfully!",
+    "gender": "ಲಿಂಗ",
+    "height": "ಎತ್ತರ",
+    "weight": "ತೂಕ",
+    "age": "ವಯಸ್ಸು",
+    "weightGoal": "ತೂಕ ಗುರಿ",
+    "activityLevel": "ಚಟುವಟಿಕೆ ಹಂತ",
+    "healthMetrics": "ಆರೋಗ್ಯ ಅಂಕಿಅಂಗಗಳು",
+    "notSet": "ಸೆಟ್ನಿಲ್ಲ",
+    "years": "ಆಯು",
+    "updatedSuccessfully": "ಪ್ರೊಫೈಲ್ ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಣ ಮಾಡಲಾಗಿದೆ!",
     "calculatedValues": {
-      "bmr": "BMR",
-      "tdee": "TDEE",
-      "dailyGoal": "Daily Goal",
-      "calPerDay": "cal/day",
-      "notAvailable": "N/A"
+      "bmr": "ಬಿಎಂಆರ್",
+      "tdee": "ಟಿಡಿಈಇ",
+      "dailyGoal": "ದೈನಂದಿನ ಗುರಿ",
+      "calPerDay": "ಕ್ಯಾಲೊರಿ/ದಿನ",
+      "notAvailable": "ಲಭ್ಯವಿಲ್ಲ"
     }
   },
   "healthScore": {
-    "title": "Health Score",
-    "whyThisScore": "Why this score?",
-    "note": "This score is an AI estimate based on the identified ingredients and nutritional density. Always consult a professional for dietary advice.",
-    "unhealthy": "Unhealthy",
-    "healthy": "Healthy",
-    "neutral": "Neutral"
+    "title": "ಆರೋಗ್ಯ ಶ್ರೇಣೀಕರಣ",
+    "whyThisScore": "ನೀವು ಈ ಶ್ರೇಣಿಕೆಯು ಏಕೆ?",
+    "note": "ಈ ಶ್ರೇಣೀಕರಣವು ಗುರುತಿಸಲಾದ ಅಂಶಗಳು ಮತ್ತು ಪೋಷಣಾ ತೀವ್ರತೆಗೆ ಆಧಾರಿತ ಎಐ ಅಂದಾಜು. ವ್ಯಾಖ್ಯಾನದಿಂದಲೇ ಸಲಹೆಗೆ ಸಾರ್ವಜನಿಕ ವೈದ್ಯಕೀಯ ಸಲಹೆಯನ್ನು ಕೇಳಿರಿ.",
+    "unhealthy": "ಅರೋಗ್ಯಕರ",
+    "healthy": "ಆರೋಗ್ಯಕರ",
+    "neutral": "ನಿಷ್ಕ್ರಿಯ"
   },
   "editProfile": {
-    "title": "Edit Profile",
+    "title": "ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸಿ",
     "sections": {
-      "personalInformation": "PERSONAL INFORMATION",
-      "physicalMeasurements": "PHYSICAL MEASUREMENTS",
-      "goalsAndActivity": "GOALS & ACTIVITY"
+      "personalInformation": "ವೈಯುಕ್ತಿಕ ಮಾಹಿತಿ",
+      "physicalMeasurements": "ದೇಹದ ಅಳೆಯೆಗಳು",
+      "goalsAndActivity": "ಗುರಿಗಳು ಮತ್ತು ಚಟುವಟಿಕೆ"
     },
-    "gender": "Gender",
-    "dateOfBirth": "Date of Birth",
-    "height": "Height",
-    "weight": "Weight",
-    "weightGoal": "Weight Goal",
-    "activityLevel": "Activity Level",
-    "metric": "Metric",
-    "imperial": "Imperial",
-    "metricCm": "Metric (cm)",
-    "imperialFtIn": "Imperial (ft/in)",
-    "metricKg": "Metric (kg)",
-    "imperialLbs": "Imperial (lbs)",
+    "gender": "ಲಿಂಗ",
+    "dateOfBirth": "ಜನ್ಮ ತಾರೀಕು",
+    "height": "ಎತ್ತರ",
+    "weight": "ತೂಕ",
+    "weightGoal": "ತೂಕ ಗುರಿ",
+    "activityLevel": "ಚಟುವಟಿಕೆ ಹಂತ",
+    "metric": "ಮೆಟ್ರಿಕ್",
+    "imperial": "ಮೊಸ",
+    "metricCm": "ಮೆಟ್ರಿಕ್ (ಸೆಂಚಿ)",
+    "imperialFtIn": "ಮೊಸದ (ಅಂಗುಕ)",
+    "metricKg": "ಮೆಟ್ರಿಕ್ (ಕಿಲೋ)",
+    "imperialLbs": "ಮೊಸದ (ಪೌಂಡು)",
     "genders": {
-      "male": "Male",
-      "female": "Female",
-      "other": "Other"
+      "male": "ಮಹಿಳ",
+      "female": "ಹೆಣ್ಣು",
+      "other": "ಇತರ"
     },
     "weightGoals": {
       "loseWeight": {
-        "name": "Lose Weight",
-        "description": "Create a calorie deficit to lose weight"
+        "name": "ತೂಕ ಕಳೆದುಕೊಳ್ಳಿ",
+        "description": "ತೂಕವನ್ನು ಕಳೆದುಕೊಳ್ಳುವುದು ಮಾಡಲು ಕ್ಯಾಲೊರಿ ಕಡಿಮೆ ಮಾಡಿ"
       },
       "maintainWeight": {
-        "name": "Maintain Weight",
-        "description": "Maintain your current weight"
+        "name": "ತೂಕವನ್ನು ಉಳಿಸಿ",
+        "description": "ನಿಮ್ಮ ಪ್ರಸ್ತುತ ತೂಕವನ್ನು ಉಳಿಸುವುದು"
       },
       "gainWeight": {
-        "name": "Gain Weight",
-        "description": "Create a calorie surplus to gain weight"
+        "name": "ತೂಕ ಹೆಚ್ಚಿಸಿ",
+        "description": "ಹೆಚ್ಚನ್ನು ಪಡೆಯಲು ಕ್ಯಾಲೊರಿ ಹೆಚ್ಚಿಸಿ"
       }
     },
     "activityLevels": {
       "sedentary": {
-        "name": "Sedentary",
-        "description": "Little to no exercise"
+        "name": "ಹೆಸರಾಯಿತ",
+        "description": "ಊಟಸದ ಇರನೆಯನ್ನು ಮಾಡಿಲ್ಲ"
       },
       "lightlyActive": {
-        "name": "Lightly Active",
-        "description": "Light exercise 1-3 days/week"
+        "name": "ಸ್ವಲ್ಪ ಕ್ರಿಯಾತ್ಮಕ",
+        "description": "ಮೆದುಳ ಚಟುವಟಿಕೆ 1-3 ದಿನ/ನೀವು"
       },
       "moderatelyActive": {
-        "name": "Moderately Active",
-        "description": "Moderate exercise 3-5 days/week"
+        "name": "ಮದ್ವಿನಾ ಕ್ರಿಯಾತ್ಮಕ",
+        "description": "ಮದ್ಯಮ ಚಟುವಟಿಕೆ 3-5 ದಿನ/ನೀವು"
       },
       "veryActive": {
-        "name": "Very Active",
-        "description": "Hard exercise 6-7 days/week"
+        "name": "ಚಂಡಾಲವಾದ ಚಟುವಟಿಕೆ",
+        "description": "ಕಠಿಣ ಚಟುವಟಿಕೆಗಳು 6-7 ದಿನ/ನೀವು"
       },
       "extremelyActive": {
-        "name": "Extremely Active",
-        "description": "Very hard exercise, physical job"
+        "name": "ಅತಿ ಚಟುವಟಿಕೆ",
+        "description": "ಲೆಕ್ಕ ಹಾಕುವ ದುಡಿಯುವಂತೆ કંಸು ಸೇರುವಂತೆ"
       }
     }
   },
   "settings": {
-    "title": "Settings",
+    "title": "ಅನುದಾನ",
     "sections": {
-      "profile": "PROFILE",
-      "localization": "LOCALIZATION",
-      "notifications": "NOTIFICATIONS",
-      "supportAndLegal": "SUPPORT & LEGAL",
-      "dangerZone": "DANGER ZONE",
-      "developer": "DEVELOPER"
+      "profile": "ಪ್ರೊಫೈಲ್",
+      "localization": "ಸ್ಥಳಾಂತರ",
+      "notifications": "ಅಗತ್ಯದ",
+      "supportAndLegal": "ಸೆಟರ್ ಮತ್ತು ಕಾನೂನು",
+      "dangerZone": "ಸ್ವಯಂ ದಾರಿಯಿಂದ",
+      "developer": "ಅನಿ ಈವೆಂಟ್"
     },
     "editProfile": {
-      "title": "Edit Profile",
-      "subtitle": "Update your personal information"
+      "title": "ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸಿ",
+      "subtitle": "ನಿಮ್ಮ ವೈಯುಕ್ತಿಕ ಮಾಹಿತಿಯನ್ನು ನವೀಕರಣ ಮಾಡಲು"
     },
     "language": {
-      "title": "Language",
-      "subtitle": "Choose your preferred language"
+      "title": "ಭಾಷೆ",
+      "subtitle": "ನೀವು ಇಷ್ಟಪಡುವ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ"
     },
     "heightUnit": {
-      "title": "Height Unit"
+      "title": "ಎತ್ತರದ ಘಟಕ"
     },
     "weightUnit": {
-      "title": "Weight Unit"
-    },
-    "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
+      "title": "ತೂಕದ ಘಟಕ"
     },
     "mealReminders": {
-      "title": "Meal Reminders",
-      "subtitle": "Stay on track with timely alerts"
+      "title": "ಆಹಾರವನ್ನು ನೆನಪಿಸುವಿಕೆ",
+      "subtitle": "ಸಮಯವು ತೊಂದರೆಯಿಲ್ಲವನ್ನು ತಡೆಯುತ್ತಿದೆ"
+    },
+    "theme": {
+      "title": "ಥೀಮ್",
+      "subtitle": "ನೀವು ಇಷ್ಟಪಟ್ಟ ಥೀಮ್ ಅನ್ನು ಆಯ್ಕೆ ಮಾಡಿ",
+      "light": "ಬೆಳಕಿನ",
+      "dark": "ಕಾರಣ",
+      "system": "ಸಿಸ್ಟಮ್"
     },
     "sendFeedback": {
-      "title": "Send Feedback",
-      "subtitle": "Help us improve Calorify",
-      "emailSubject": "Calorify App Feedback",
-      "emailBodyPrefix": "Please provide your feedback below:",
-      "appVersion": "App Version",
-      "device": "Device",
-      "osVersion": "OS Version",
-      "uid": "UID"
+      "title": "ಫೀಡ್‌ಬಾಕ್ ನೀಡುವಿಕೆ",
+      "subtitle": "{appLabel} ಅನ್ನು ಉತ್ತಮವಾಗಿ ಮಾಡಲು ಸಹಾಯ",
+      "emailSubject": "{appLabel} ನ ಆರೋಪ",
+      "emailBodyPrefix": "ದಯವಿಟ್ಟು, ನಿಮ್ಮ ಫೀಡ್‌ಬಾಕ್ ನೀಡಿ:",
+      "appVersion": "ಆಪ್ಲಿಕೇಶನ್ ಆವೃತ್ತಿ",
+      "device": " ಸಾಧನ",
+      "osVersion": "ಆಪರೇಟಿಂಗ್ ಸಿಸ್ಟಮ್ ಆವೃತ್ತಿ",
+      "uid": "ಯುಐಡಿ"
     },
     "clearAllData": {
-      "title": "Clear All Data",
-      "subtitle": "Irreversibly delete all your information",
-      "confirmationTitle": "Clear All Data?",
-      "confirmationMessage": "This action cannot be undone. All your logged meals, favorites, and profile settings will be permanently deleted.",
-      "cancel": "Cancel",
-      "clearEverything": "Clear Everything"
+      "title": "ಎಲ್ಲಾ ಮಾಹಿತಿಗೆ ತೆರವುಗೊಳಿಸಲು",
+      "subtitle": "ನೀವು ಎಲ್ಲಾ ಮಾಹಿತಿ ಅಳಿಸಿದರೆ, ನಿಮ್ಮ ಭಾಗಾತ್ಮಕ ಚಿತ್ರ ಸ್ಥಾಯ್ಡಿನ್ ಅನ್ನು ಸುರಕ್ಷಿತವಾಗಿ ತೆಗೆದುಕೊಳ್ಳಿರಿ.",
+      "confirmationTitle": "ಹವಾ ಇಲ್ಲಿ ತೆರವುಗೊಳಿಸುತ್ತಿರಾ?",
+      "confirmationMessage": "ಈ ಕ್ರಮವನ್ನು ಯಶಸ್ವಿಯಾಗಿಸುವುದು ಸಾಧ್ಯವಿಲ್ಲ. ನಿಮ್ಮ ಎಲ್ಲಾ ಲಾಗ್ ಮಾಡಿದ ಆಹಾರ, ಮುತನಗಳು ಮತ್ತು ಪ್ರೊಫೈಲ್ ಸೆಟಿಂಗ್‌ಗಳನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಲಾಗುವುದು.",
+      "cancel": "ರದ್ದು",
+      "clearEverything": "ಎಲ್ಲವನ್ನು ತೆರವುಗೊಳಿಸಲು"
     },
     "debugOptions": {
-      "title": "Debug Options"
+      "title": "ಡಿಬಗ್ ಆಯ-options"
     },
-    "developerModeEnabled": "Developer mode enabled!"
+    "developerModeEnabled": "ವಿಕಾಸಕ ಮೋಡ್ ಸಕ್ರಿಯ!"
   },
   "reminders": {
-    "title": "Stay on track with reminders",
-    "description": "Get gentle reminders to log your meals and stay consistent with your nutrition goals",
-    "notificationsEnabled": "Notifications Enabled",
-    "notificationsDisabled": "Notifications Disabled",
-    "enabledSubtitle": "You'll receive meal reminders",
-    "disabledSubtitle": "Enable notifications to get meal reminders",
-    "mealReminders": "Meal Reminders",
-    "breakfast": "Breakfast",
-    "lunch": "Lunch",
-    "dinner": "Dinner",
-    "snack": "Snack",
-    "unknown": "Unknown",
-    "change": "Change",
-    "enableNotifications": "Enable Notifications",
-    "skipForNow": "Skip for now",
-    "saveChanges": "Save Changes",
-    "enabledSuccessfully": "Notifications enabled successfully!",
-    "permissionDenied": "Notification permission denied",
-    "errorEnabling": "Error enabling notifications: {error}",
-    "errorCompletingSetup": "Error completing setup: {error}"
+    "title": "ನಿಮ್ಮ ಎನಕ ಸುಂದರವಾಗಿ ನೆನಪಿಸಲು",
+    "description": "ನಿಮ್ಮ ಆಹಾರವನ್ನು ಲೆಕ್ಕ ಹಾಕಲು ಮತ್ತು ನಿಖರವಾಗಬೇಕಾದ ಐತಿಹಾಸಿಕ ಮಾರ್ಗದರ್ಶನವನ್ನು ದೊರಕಿಸಿ",
+    "notificationsEnabled": "ಅಗತ್ಯಗಳು ಸೇರಿಸಿದವು",
+    "notificationsDisabled": "ಅಗತ್ಯಗಳು ವಿಫಲ ಲಕ್ಷಣಗಳು",
+    "enabledSubtitle": "ನೀವು ಆಹಾರವನ್ನು ನೆನೆಪಿಸಲು ಬೇಕಾದುದಿಲ್ಲ",
+    "disabledSubtitle": "ಅಗತ್ಯಗಳನ್ನು ಪ್ರವೇಶಿಸಲು ವಿನಂತಿ ಮಾಡಿ",
+    "mealReminders": "ಆಹಾರಗಳನ್ನು ನೆನಪಿಸುವಿಕೆ",
+    "breakfast": "ಬೆಳಗಿನ ಊಟ",
+    "lunch": "ಮಧ್ಯಾಹ್ನದ ಊಟ",
+    "dinner": "ರಾತ್ರಿ ಊಟ",
+    "snack": "ಸ್ನಾಕ್ಸ್",
+    "unknown": "ಅಜ್ಞಾತ",
+    "change": "ಬದಲಾಯಿಸು",
+    "enableNotifications": "ಅಗತ್ಯದ ಸೇರಿಸು",
+    "skipForNow": "ಈಗ ಬಿಡುತ್ತೇನೆ",
+    "saveChanges": "ಹೆಸರು ಬದಲಾಯಿಸು",
+    "enabledSuccessfully": "ಅಗತ್ಯವನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಸ್ಥಾಪಿಸಲಾಗಿದೆ!",
+    "permissionDenied": "ಅಗತ್ಯಕ್ಕೆ ವಕರ್ಮ ಸ್ಥಳಾಂತರ ನಿರಾಕರಿಸಲಾಗಿದೆ.",
+    "errorEnabling": "ಅಗತ್ಯವನ್ನು ಸಕ್ರಿಯ ಮಾಡಲು ತಪ್ಪು: {error}",
+    "errorCompletingSetup": "ಸ್ಥಾಪನೆಯು ಸಂಪೂರ್ಣವಾದಾಗಂತ ತಪ್ಪು: {error}"
   },
   "notifications": {
     "breakfast": {
-      "title": "Breakfast Time! 🍳",
-      "body": "Don't forget to log your breakfast"
+      "title": "ಬೆಳಗಾಗುವ ಹೊಸ್ತಲು! 🍳",
+      "body": "ನೀವು ಬೆಳಗಿನ ಆಹಾರವನ್ನು ತಪ್ಪಿಸಲು ಮರೆಯುವಿಕೆ"
     },
     "lunch": {
-      "title": "Lunch Time! 🥗",
-      "body": "Time to log your lunch"
+      "title": "ಮಧ್ಯಾಹ್ನದಲ್ಲಿ ಹೊಸ್ಟಲು! 🥗",
+      "body": "ನಾನು ಮಧ್ಯಾಹ್ನದ ಆಹಾರವನ್ನು ತಪ್ಪಿಸಲು ಮರೆಯುವಿಕೆ"
     },
     "dinner": {
-      "title": "Dinner Time! 🍽️",
-      "body": "Don't forget to log your dinner"
+      "title": "ಯಜಮಾನದ ಹೊಸ್ತಲು! 🍽️",
+      "body": "ನೀವು ರಾತ್ರಿ ಆಹಾರವನ್ನು ತಪ್ಪಿಸಲು ಮರೆಯುವಿಕೆ"
     },
     "snack": {
-      "title": "Snack Time! 🍎",
-      "body": "Time for a healthy snack"
+      "title": "ಸ್ನ್ಯಾಕ್ ಸಮಯ! 🍎",
+      "body": "ಅರೋಗ್ಯಕರ ಸ್ನಾಕ್ಗೆ ಸಮಯ"
     },
     "test": {
-      "title": "Test Notification"
+      "title": "ಪರೀಕ್ಷಾರೂಪ : ಸಾಯಿಸಿ"
     }
   },
   "login": {
-    "title": "Login",
-    "signInWithGoogle": "Sign in with Google",
-    "signInFailed": "Google Sign-In failed or was cancelled."
+    "title": "ಲಾಗಿನ್",
+    "signInWithGoogle": "ಗೂಗಲ್ ನೊಂದಿಗೆ ಲಾಗಿನ್",
+    "signInFailed": "ಗೂಗಲ್ ಲಾಗಿನ್ ವಿಫಲವಾಗಿರುವುದು ಅಥವಾ ರದ್ದುವಾದಾಗ."
   },
   "disclaimer": {
-    "pleaseNote": "Please Note",
+    "pleaseNote": "ದಯವಿಟ್ಟು ಗಮನಿಸಿ",
     "snap": {
-      "description": "Calorify provides estimated nutritional info. Accuracy depends on your input & food variations. Use as a guide, not a definitive source. Consult a professional for personalized dietary advice.",
+      "description": "{appLabel} ಸುಮಾರು ಹಂಪಿಯಿಂದ ಎನ್ಕಳಾದ ಮಾಹಿತಿಯನ್ನು ಒದಗಿಸುವುದು. ನಿಮ್ಮ ಪೂರಕ ಬದಲಾವಣೆಯ ಮೇಲೆ ಆದಾರಿತ ವೈರುದ್ದು. ಮಾರ್ಗದರ್ಶಕವಾಗಿ ಬಳಸಬೇಕು, ಖಚಿತ ಮೂಲವಾಗಿ ಇಲ್ಲ. ವೈಯುಕ್ತಿಕ ಪೋಷಣಾ ಸಲಹೆಗೆ ಸಾರ್ವಜನಿಕ ವೈದ್ಯಕೀಯ ಸಲಹೆ ಪಡೆಯಿರಿ.",
       "portionSize": {
-        "title": "Portion Size",
-        "description": "The accuracy of the estimates heavily relies on your correct assessment of the portion size."
+        "title": "ಕೋಶದ ಗಾತ್ರ",
+        "description": "ಮೌಲ್ಯವನ್ನು ನಿಖರವಾಗಿ ಪರಿಗಣಿಸುವ ನೀವು ಪ್ರಮಾಣವನ್ನು ಸರಿ ಮಾಡಲು ಸದಾ ಬಳಸಬೇಕು."
       },
       "preparationMethods": {
-        "title": "Preparation Methods",
-        "description": "Cooking methods can significantly alter the nutritional content of food. Calorify's estimates may not always account for these variations."
+        "title": "ಆಹಾರ ನಿರ್ಣಯಗಳು",
+        "description": "ಚೆನ್ನಾಗು ಶೇಖರಣೆ ವಿಧಾನಗಳು ಆಹಾರದ ಪೋಷಕಾಂಶ ಬೆಲೆಗಳನ್ನು ಮಹತ್ವಪೂರ್ಣವಾಗಿ ಬದಲಾಯಿಸಬಹುದು. {appLabel} ಸಹಜವಾಗಿ ಈ ಬದಲಾವಣೆಗಳನ್ನು ಪರಿಗಣಿಸುವುದಿಲ್ಲ."
       },
       "ingredients": {
-        "title": "Ingredients",
-        "description": "Complex dishes with many hidden ingredients may lead to less accurate estimations."
+        "title": "ಪದಾರ್ಥಗಳು",
+        "description": "ಒಂದು ಸಾಕಷ್ಟು ಮಾಹಿತಿಯಿಂದ ವಂಚಿತ ಮಾಡಲು ಅಂಗಸಂಭಂಧವಿದ್ದರೂ, ಆಡಳಿತ ಅಥವಾ ಏನೂ ಸಹ ವ್ಯಕ್ತಿಯನ್ನು ಸೂಚಿಸುತ್ತದೆ."
       },
       "databaseLimitations": {
-        "title": "Database Limitations",
-        "description": "Calorify's food database is extensive but may not include every single food item or variation."
+        "title": "ಡೇಟಾಬೇಸ್ ಪ್ರಯೋಜನಗಳ",
+        "description": "{appLabel} ಆಹಾರ ಡೇಟಾಬೇಸ್ ಅನೇಕದಾದರೂ ಅಧಿಕ ಪ್ರಾಬಲ್ಯದವಾದ ಆಹಾರ ವಸ್ತುವನ್ನು ಒಳಗೊಂಡಿಲ್ಲ."
       }
     },
     "weightEstimate": {
-      "title": "About Weight Estimate",
-      "description": "The projected weight change is a theoretical estimate based on the simple calorie-in vs. calorie-out model. It is intended for motivational guidance only, not as a prediction of your actual weight.",
+      "title": "ತರಾಷ್ಟ್ರೀಯ ತುIm",
+      "description": "ಹೊರೆಯದ ಪ್ರಮಾಣವು ಸ್ಥಳೀಯ ಸಾಮಾನ್ಯ ಪ್ರಧಾನಿಗಳ ಮೇಲೆ ಬಲವಾದ ಸಂಪೂರ್ಣ ಸೂಚಕ.",
       "calorieAccuracy": {
-        "title": "Calorie Accuracy",
-        "description": "This estimate is only as accurate as your tracked calorie intake and expenditure. Inaccurate logging will result in an inaccurate projection."
+        "title": "ಕ್ಯಾಲೊರಿ ಖಚಿತತೆಗೆ",
+        "description": "ಈ ಅಂದಾಜು ನೀವು ದಾಖಲಿಸಿರುವ ಕ್ಯಾಲೊರಿ ಸೇರ್ಪಡೆಯು ಮತ್ತು ವ್ಯಯಕ್ಕಿಂತ ಬೇರೆ ಯಾವುದಕ್ಕೂ ಸಚಾಟ್ ಆಗಿಯೇ ಇರುವಂತಾಗಿಲ್ಲ. ತಪ್ಪಾದ ಲಾಗಿಂಗ್‌ನಲ್ಲಿ ತಪ್ಪಾಗಿ ಮುನಿಸಿಕೊಂಡ ಸಂಪೂರ್ಣವಾಗಿ ಹಾನಿ ಅಂದಾಜು ಹೊರತಾಗಿದೆ."
       },
       "biologicalFactors": {
-        "title": "Biological Factors",
-        "description": "Actual weight loss/gain is influenced by metabolism, hormones, sleep, stress, hydration, and other individual factors that Calorify cannot measure."
+        "title": "ಜೀವಶಾಸ್ತ್ರಾತ್ಮಕ ಕಾರಣಗಳು",
+        "description": "ನಿಜವಾದ ತೂಕ ಕಣ್ಮರೆಯಾಗಲು/ಲಾಭಕ್ಕೆ ಮೆಟಬೊಲಿಸ್, ಹಾರ್ಮೋನ್ಸ್, ನಿದ್ರೆ, ಒತ್ತಣೆ, ನೀರಿನ ಮಟ್ಟ ಮತ್ತು ಇತರೆ ವ್ಯಕ್ತಿಗತ ಕಾರಣಗಳು ಅವಶ್ಯಕವನ್ನು ಗುಣಪಡಿಸುತ್ತವೆ ಎಂದು {appLabel} ಅಳೆಯಲಾರದು."
       },
       "waterWeight": {
-        "title": "Water Weight & Fluctuations",
-        "description": "Normal daily weight can fluctuate significantly due to water retention, digestion, and timing. The estimate does not account for these daily changes."
+        "title": "ನೀರು ತೂಕ ಮತ್ತು ಏರಿಳಿತಗಳು",
+        "description": "ನಿಯಮಿತ ದಿನದ ತೂಕವು ನೀರಿನ ಹೊಡೆತ, ಜೀರ್ಣಪ್ರಕ್ರಿಯೆ ಮತ್ತು ಸಮಯದ ಕಾರಣದಿಂದ ಸಾಕಷ್ಟು ಬದಲಾಯಿಸಬಹುದು. ಅಂದಾಜು ಇದರಿಂದ ಸಂಭವಿಸುವ ದಿನಸಿ ಬದಲಾವಣೆಗಳನ್ನು ಪರಿಗಣಿಸುವುದಿಲ್ಲ."
       },
       "professionalGuidance": {
-        "title": "Professional Guidance",
-        "description": "Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice."
+        "title": "ವೃತ್ತಿಪರ ಮಾರ್ಗದರ್ಶನ",
+        "description": "ಈ ಅಂದಾಜನ್ನು ವೈದ್ಯಕೀಯ ತೀರ್ಮಾನಗಳನ್ನು ಮಾಡುವುದಕ್ಕಾಗಿ ಬಳಸные. ವೈಯಕ್ತಿಕ ತೂಕ ನಿರ್ವಹಣೆಯ ಸಲಹೆಗಾಗಿ ಯಾವಾಗಲೂ ಆರೋಗ್ಯೋಪಾಯ ವೃತ್ತಿಪರ ಅಥವಾ ನೋಂದಾಯಿತ ವ್ಯಕ್ತಿವಿಶಾರೆಜ್ ಆಗಬೇಕು."
       }
     }
   },
   "common": {
-    "close": "Close",
-    "continue": "Continue"
+    "close": "ಹೊರೆಯಿರಿ",
+    "continue": "ಮುಂದೆ"
   },
   "errors": {
-    "loadingProfileData": "Error loading profile data",
-    "somethingWentWrong": "Something went wrong."
+    "loadingProfileData": "ಪ್ರೊಫೈಲ್ ಡೇಟಾ ಲೋಡ್ ಮಾಡುವಾಗ ತಪ್ಪು",
+    "somethingWentWrong": "ಏನೋ ತಪ್ಪಾಗಿದೆ."
   },
   "debug": {
-    "title": "Debug Options",
+    "title": "ಡಿಬಗ್ ಆಯ್ಕೆಗಳು",
     "sections": {
-      "notifications": "Notifications",
-      "healthConnect": "Health Connect",
-      "appInfo": "App Info"
+      "notifications": "ಅಗತ್ಯಗಳು",
+      "healthConnect": "ಆರೋಗ್ಯ ಸಂಪರ್ಕ",
+      "appInfo": "ಆಪ್ಲಿಕೇಶನ್ ಮಾಹಿತಿಗೆ"
     },
-    "showActiveNotifications": "Show Active Notifications",
-    "scheduleTestNotification": "Schedule Test Notification (10s)",
-    "triggerBreakfastNotification": "Trigger Breakfast Notification",
-    "cancelAllNotifications": "Cancel All Notifications",
-    "activeNotifications": "Active Notifications",
-    "noTitle": "No Title",
-    "noBody": "No Body",
-    "fetchTodaysSteps": "Fetch Today's Steps",
-    "fetchTodaysCalories": "Fetch Today's Calories",
-    "fetchLatestWeight": "Fetch Latest Weight",
-    "fetchLatestHeight": "Fetch Latest Height",
-    "writeTestWeight": "Write Test Weight (70kg)",
-    "writeTestHeight": "Write Test Height (175cm)",
-    "syncLast7Days": "Sync Last 7 Days",
-    "sync7DaysTitle": "7-Day Sync",
-    "checkCurrentLocale": "Check Current Locale",
-    "currentLocale": "Current Locale",
-    "localeInfo": "Language: {languageCode}\nCountry: {countryCode}\nUnit System: {unitSystem}",
-    "latestWeight": "Latest Weight",
-    "latestHeight": "Latest Height",
-    "todaysCalories": "Today's Calories",
-    "totalCaloriesBurned": "Total calories burned: {calories}",
-    "syncSuccess": "Successfully fetched {count} data points for Steps, Calories, and Weight over the last 7 days.",
-    "noWeightData": "No weight data found in the last 30 days.",
-    "noHeightData": "No height data found in the last year.",
-    "noCalorieData": "No calorie data found for today.",
-    "weightWritten": "Successfully wrote test weight (70kg).",
-    "weightWriteFailed": "Failed to write test weight.",
-    "heightWritten": "Successfully wrote test height (175cm).",
-    "heightWriteFailed": "Failed to write test height.",
-    "noNotifications": "No active notifications.",
-    "testNotificationScheduled": "Test notification scheduled for 10 seconds from now.",
-    "testNotificationBody": "This is a test notification scheduled for 10 seconds from now.",
-    "breakfastNotificationTriggered": "Breakfast notification triggered.",
-    "allNotificationsCancelled": "All notifications cancelled.",
-    "fetchingData": "Fetching data for the last 7 days...",
-    "id": "ID: {id}"
+    "showActiveNotifications": "ಚಾಲನೆಯ ಅಗತ್ಯಗಳನ್ನು ತೋರಿಸಲು",
+    "scheduleTestNotification": "ಪರೀಕ್ಷ್ಸಾಮಾಗ್ರಿಕ ಅವರ ಅಗತ್ಯಾ ಸೂಚಿಯು ಕಾರ್ಯನಿರ್ವಹಣೆಗೆ (10ಸೆ)",
+    "triggerBreakfastNotification": "ಬೆಳಗಿನ ಆಹಾರವನ್ನು ಒಳಗೊಳ್ಳಲು",
+    "cancelAllNotifications": "ಎಲ್ಲಾ ಅಗತ್ಯವನ್ನು ರದ್ದು",
+    "activeNotifications": "ಚಾಲನೆ ಅಗತ್ಯಗಳು",
+    "noTitle": "ಯಾವುದೇ ಶೀರ್ಷಿಕೆ ಇಲ್ಲ",
+    "noBody": "ಯಾವುದೇ ಶರೀರವಿಲ್ಲ",
+    "fetchTodaysSteps": "ಈಗ ಆರಧ್ಯ ಪ್ರಗತಿಯೇನು?",
+    "fetchTodaysCalories": "ಈಗ ಅಣಿಯವು ಯಾವಾಗ?",
+    "fetchLatestWeight": "ಈಗ ತೋರುವ ಅಳೆಯಷ್ಟು?",
+    "fetchLatestHeight": "ಈಗ ಎತ್ತರವನ್ನು ಪ್ರಗತಿಯೇನು?",
+    "writeTestWeight": "70 ಕಿಲೋತ್ಲಕದ ಸಂಪನ್ಮೂಲವನ್ನು ಬರಿಯಿರಿ",
+    "writeTestHeight": "175 ಸೆಂ.ಮೀ. ಬರೆಯಿರಿ",
+    "syncLast7Days": "ಕಳೆದ 7 ದಿನಗಳ ಅನುಕೂಲವನ್ನು ಸಿಂಕ್ಚಿಂಡಾ",
+    "sync7DaysTitle": "7-ದಿನಾಂಕ ಅನುവുമായി",
+    "checkCurrentLocale": "ಪಿಎಸಿ ಕನ್ನಡ",
+    "currentLocale": "ಪ್ರದರ್ಶನ ಸ್ಥಳೀಯ",
+    "localeInfo": "ಭಾಷೆ: {languageCode}\nರಾಜ್ಯ: {countryCode}\n ಘಟನಾಂತರ ವ್ಯವಸ್ಥೆ: {unitSystem}",
+    "latestWeight": "ಇತ್ತೀಚಿನ ತೂಕ",
+    "latestHeight": "ಇತ್ತೀಚಿನ ಎತ್ತರ",
+    "todaysCalories": "ಇಂದು ಕ್ಯಾಲೊರಿ",
+    "totalCaloriesBurned": "ತುಂಬಾ ಹೊಂದಿರ(node): {calories}",
+    "syncSuccess": "ಕ_LAST 7 ದಿನಗಳಲ್ಲಿ {count} ಮಾಹಿತಿ ಪಡೆಯಲು ಯಶಸ್ವಿಯಾಗಿ ಹೊಂದಿಸಿದ್ದೀರಿ.",
+    "noWeightData": "ಕೇವಲ 30 ದಿನಗಳಲ್ಲಿ ತೂಕದ ಬಗ್ಗೆ ಯಾವುದೇ ಮಾಹಿತಿಯು ಕಂಡಿಲ್ಲ.",
+    "noHeightData": "ಕೇವಲ 1 ವರ್ಷದಲ್ಲಿ ಎತ್ತರದಿಂದ ಪ್ರಕಾರಕ್ಕೆ ಯಾವುದೇ ಮಾಹಿತಿಯು ಕಂಡಿಲ್ಲ.",
+    "noCalorieData": "ಇಂದು ಕ್ಯಾಲೊರಿಗಳ ಬಗ್ಗೆ ಯಾವುದೇ ಮಾಹಿತಿ ನಿರ್ಧಾರೆಯಿಲ್ಲ.",
+    "weightWritten": "ವಿಭಗಿನ ಮೋದಿ ತೂಕವನ್ನು ನಿರ್ಧಾಯಿಸಲಾಗಿದೆ (70 ಕಿಲೋ).",
+    "weightWriteFailed": "ಲೇಖೆ ಬೆಂಬ್ರವರೆಗೆ ಬಾಗಗಳೆಯು.",
+    "heightWritten": "175 ಸೆಂ.ಮೀ. ಒಳ. ತಲುಪಿಸಿದ್ದು.",
+    "heightWriteFailed": "ಈಗ ದಾಖಲಿಸಲು ಸಮಯವನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+    "noNotifications": "ಯಾವುದೇ ಕರೆಯದ ಅಗತ್ಯಗಳಲ್ಲಿ ಇಲ್ಲ.",
+    "testNotificationScheduled": "ನೀವು ಕಲ್ಪನೆಯ ತರավարման ಹೊಸ್ತಾರ್ನ ಮೇಲೆ 10 ಸೆಕೆಂಡು.",
+    "testNotificationBody": "ಈವು ನಿಯೋಜನೆಯು 10 ಸೆಕೆಂಡುಗಳಲ್ಲಿಯಲ್ಲೂ.",
+    "breakfastNotificationTriggered": "ನೀವು ಬೆಳಗಿನ ಆಹಾರದ ಸೂಚನೆಯನ್ನು ಪೊಲೀಸರು.",
+    "allNotificationsCancelled": "ಎಲ್ಲಾ ಅಗತ್ಯವನ್ನು ನಿರ್ದಿಷ್ಟನಾಡಿಲ್ಲ.",
+    "fetchingData": "ಕಳೆದ 7 ದಿನಗಳಲ್ಲಿ ಮಾಹಿತಿಗಳನ್ನು ವೀಕ್ಷಿಸುತ್ತೇವೆ...",
+    "id": "ಐಡಿ: {id}"
   },
   "health": {
-    "syncFailed": "Could not sync to Health Connect",
-    "mealSynced": "Meal synced with Health Connect"
+    "syncFailed": "ಆರೋಗ್ಯ ಸಂಪರ್ಕಕ್ಕೆ ಸಮಾನೂಕರಣ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ",
+    "mealSynced": "ಆಹಾರವನ್ನು ಆರೋಗ್ಯ ಸಂಪರ್ಕದೊಂದಿಗೆ ಸಮನ್ವಯಿತವಾಗಿತ್ತು"
   }
 }

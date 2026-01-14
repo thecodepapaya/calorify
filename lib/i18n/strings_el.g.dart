@@ -39,6 +39,7 @@ class TranslationsEl with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => 'Ελληνικά';
 	@override String get flag => '🇬🇷';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingEl onboarding = _TranslationsOnboardingEl._(_root);
 	@override late final _TranslationsTabsEl tabs = _TranslationsTabsEl._(_root);
 	@override late final _TranslationsHomeEl home = _TranslationsHomeEl._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingEl implements TranslationsOnboardingEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Καλώς ήρθες στο Calorify';
+	@override String welcome({required Object appLabel}) => 'Καλώς ήρθατε στο ${appLabel}';
 	@override String get subtitle => 'Ο προσωπικός σου συνοδοιπόρος στη διατροφή που στηρίζεται στην τεχνητή νοημοσύνη';
 	@override String get getStarted => 'Ας ξεκινήσουμε';
 	@override late final _TranslationsOnboardingFeaturesEl features = _TranslationsOnboardingFeaturesEl._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsEl implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageEl language = _TranslationsSettingsLanguageEl._(_root);
 	@override late final _TranslationsSettingsHeightUnitEl heightUnit = _TranslationsSettingsHeightUnitEl._(_root);
 	@override late final _TranslationsSettingsWeightUnitEl weightUnit = _TranslationsSettingsWeightUnitEl._(_root);
-	@override late final _TranslationsSettingsThemeEl theme = _TranslationsSettingsThemeEl._(_root);
 	@override late final _TranslationsSettingsMealRemindersEl mealReminders = _TranslationsSettingsMealRemindersEl._(_root);
+	@override late final _TranslationsSettingsThemeEl theme = _TranslationsSettingsThemeEl._(_root);
 	@override late final _TranslationsSettingsSendFeedbackEl sendFeedback = _TranslationsSettingsSendFeedbackEl._(_root);
 	@override late final _TranslationsSettingsClearAllDataEl clearAllData = _TranslationsSettingsClearAllDataEl._(_root);
 	@override late final _TranslationsSettingsDebugOptionsEl debugOptions = _TranslationsSettingsDebugOptionsEl._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectEl implements TranslationsOnboardingHe
 	@override String get skipForNow => 'Παράκαμψη για τώρα';
 	@override String get statusConnected => 'Η υγειονομική σύνδεση είναι συνδεδεμένη.';
 	@override String get statusSuccess => 'Η υγειονομική σύνδεση έχει συνδεθεί με επιτυχία!';
-	@override String get statusPermissionDenied => 'Απορρίφθηκε η άδεια. Παρακαλώ ενεργοποίησε τις άδειες Health Connect από τις ρυθμίσεις του τηλεφώνου σου για το Calorify.';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Η άδεια απορρίφθηκε. Παρακαλώ ενεργοποιήστε τις άδειες Health Connect από τις ρυθμίσεις του τηλεφώνου σας για το ${appLabel}.';
 	@override String statusError({required Object error}) => 'Λάθος κατά τη ρύθμιση της Υγειονομικής Σύνδεσης: ${error}';
 }
 
@@ -826,20 +827,6 @@ class _TranslationsSettingsWeightUnitEl implements TranslationsSettingsWeightUni
 	@override String get title => 'Μονάδα Βάρους';
 }
 
-// Path: settings.theme
-class _TranslationsSettingsThemeEl implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeEl._(this._root);
-
-	final TranslationsEl _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
-}
-
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersEl implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersEl._(this._root);
@@ -851,6 +838,20 @@ class _TranslationsSettingsMealRemindersEl implements TranslationsSettingsMealRe
 	@override String get subtitle => 'Μείνε συνεπής με κατάλληλες ειδοποιήσεις';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeEl implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Θέμα';
+	@override String get subtitle => 'Επιλέξτε το προτιμώμενο θέμα σας';
+	@override String get light => 'Φωτεινό';
+	@override String get dark => 'Σκοτεινό';
+	@override String get system => 'Σύστημα';
+}
+
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackEl implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackEl._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackEl implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'Στείλε Σχόλιο';
-	@override String get subtitle => 'Βοήθησέ μας να βελτιώσουμε το Calorify';
-	@override String get emailSubject => 'Σχόλιο Εφαρμογής Calorify';
+	@override String subtitle({required Object appLabel}) => 'Βοηθήστε μας να βελτιώσουμε το ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} Σχόλια Εφαρμογής';
 	@override String get emailBodyPrefix => 'Παρακαλώ παρέχετε τη γνώμη σου παρακάτω:';
 	@override String get appVersion => 'Έκδοση Εφαρμογής';
 	@override String get device => 'Συσκευή';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapEl implements TranslationsDisclaimerSnapEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Το Calorify παρέχει εκτιμήσεις διατροφικών πληροφοριών. Η ακρίβεια εξαρτάται από την είσοδό σου και τις παραλλαγές των τροφών. Χρησιμοποίησε το ως οδηγό, όχι ως οριστική πηγή. Συμβουλεύσου έναν επαγγελματία για προσωπικές διατροφικές συμβουλές.';
+	@override String description({required Object appLabel}) => 'Το ${appLabel} παρέχει εκτιμήσεις διατροφικών πληροφοριών. Η ακρίβεια εξαρτάται από την είσοδό σας και τις παραλλαγές τροφίμων. Χρησιμοποιήστε το ως οδηγό, όχι ως ακριβή πηγή. Συμβουλευτείτε έναν επαγγελματία για εξατομικευμένες διατροφικές συμβουλές.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeEl portionSize = _TranslationsDisclaimerSnapPortionSizeEl._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsEl preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsEl._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsEl ingredients = _TranslationsDisclaimerSnapIngredientsEl._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesEl implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => 'Μπορούμε να σε βοηθήσουμε να δημιουργήσεις ένα υγιές σχέδιο για να φτάσεις σε ισορροπημένο βάρος με πλούσιες σε θρεπτικά συστατικά γεύματα.';
 	@override String get healthy => 'Μπράβο! Είσαι σε μια υγιή κατηγορία. Θα σε βοηθήσουμε να διατηρήσεις την ενέργεια και τη ζωτικότητά σου.';
-	@override String get overweight => 'Το Calorify θα απλοποιήσει το ταξίδι σου με παρακολούθηση που υποστηρίζεται από την τεχνητή νοημοσύνη για να φτάσεις το στόχο σου άνετα.';
+	@override String overweight({required Object appLabel}) => 'Το ${appLabel} θα απλοποιήσει το ταξίδι σας με παρακολούθηση ενισχυμένη από AI, για να σας βοηθήσει να φτάσετε στον στόχο σας άνετα.';
 	@override String get obese => 'Είμαστε εδώ για να σε υποστηρίξουμε με εξατομικευμένη καθοδήγηση και βιώσιμες στρατηγικές για τους στόχους υγείας σου.';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessEl implements Translati
 	@override String get title => 'Δεν Είσαι Μόνος/η';
 	@override String get genericMessage => 'Η έρευνα δείχνει ότι η συνεπής καταγραφή είναι ο νούμερο ένα προάγγελος μακροχρόνιας επιτυχίας.';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Για έναν ${age} χρονών ${gender} που προσπαθεί να ${goal}, η συνεπής καταγραφή είναι ο νούμερο ένα προάγγελος επιτυχίας.';
-	@override String get closingMessage => 'Το Calorify το καθιστά 10 φορές πιο εύκολο από το να το κάνεις χειροκίνητα.';
+	@override String closingMessage({required Object appLabel}) => 'Το ${appLabel} το καθιστά 10 φορές πιο εύκολο από το να το κάνετε χειροκίνητα.';
 	@override String get getStartedTitle => 'Έτοιμος να ξεκινήσεις;';
 	@override String get tipPhoto => 'Βγάλε μια φωτογραφία των γευμάτων σου για άμεση ανάλυση';
 	@override String get tipConsistency => 'Κατέγραψε τακτικά για να δεις ουσιαστική πρόοδο';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessEl implements Translati
 	@override String get button => 'Πάμε';
 	@override String get defaultGender => 'άτομο';
 	@override String get defaultGoal => 'πιο υγιής εσύ';
-	@override String get instantPhotoAnalysis => 'Άμεση ανάλυση φωτογραφίας';
-	@override String get automaticLogging => 'Αυτόματη καταγραφή διατροφής';
-	@override String get progressVisualizations => 'Οπτικοποιήσεις προόδου που σε κρατούν κινητοποιημένο/η';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleEl implements Translation
 
 	// Translations
 	@override String get title => 'Εξαιρετική Αφετηρία!';
-	@override String description({required Object goalText, required Object activityText}) => 'Έχεις κάνει το πρώτο βήμα προς ${goalText}. Από τη στιγμή που είσαι ${activityText}, το Calorify θα προσαρμόσει τους στόχους σου για να ταιριάζουν με τον τρόπο ζωής σου.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Έχετε κάνει το πρώτο βήμα προς το ${goalText}. Εφόσον είστε ${activityText}, το ${appLabel} θα προσαρμόσει τους στόχους σας για να ταιριάζουν με τον τρόπο ζωής σας.';
 	@override String get personalizedTargets => 'Εξατομικευμένοι στόχοι θερμίδων';
 	@override String get aiMealDetection => 'Αναγνώριση γεύματος με υποστήριξη τεχνητής νοημοσύνης';
 	@override String get macroBreakdowns => 'Λεπτομερείς αναλύσεις μακροθρεπτικών συστατικών';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsEl implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Μέθοδοι Παρασκευής';
-	@override String get description => 'Οι μέθοδοι μαγειρέματος μπορούν να αλλάξουν σημαντικά την θρεπτική περιεκτικότητα των τροφών. Οι εκτιμήσεις του Calorify δεν λαμβάνουν πάντα υπόψη αυτές τις παραλλαγές.';
+	@override String description({required Object appLabel}) => 'Οι μέθοδοι μαγειρέματος μπορούν να αλλάξουν σημαντικά το θρεπτικό περιεχόμενο των τροφίμων. Οι εκτιμήσεις του ${appLabel} δεν λαμβάνουν πάντα υπόψη αυτές τις παραλλαγές.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsEl implements TranslationsDi
 
 	// Translations
 	@override String get title => 'Περιορισμοί Βάσης Δεδομένων';
-	@override String get description => 'Η βάση δεδομένων τροφίμων του Calorify είναι εκτενής αλλά μπορεί να μην περιλαμβάνει κάθε ενιαίο τρόφιμο ή παραλλαγή.';
+	@override String description({required Object appLabel}) => 'Η βάση δεδομένων τροφίμων του ${appLabel} είναι εκτενής, αλλά ενδέχεται να μην περιλαμβάνει κάθε ενιαίο τρόφιμο ή παραλλαγή.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsEl implements Transl
 
 	// Translations
 	@override String get title => 'Βιολογικοί Παράγοντες';
-	@override String get description => 'Η πραγματική απώλεια ή αύξηση βάρους επηρεάζεται από το μεταβολισμό, τις ορμόνες, τον ύπνο, το άγχος, την ενυδάτωση και άλλους ατομικούς παράγοντες που το Calorify δεν μπορεί να μετρήσει.';
+	@override String description({required Object appLabel}) => 'Η πραγματική απώλεια/κέρδος βάρους επηρεάζεται από το μεταβολισμό, τις ορμόνες, τον ύπνο, το άγχος, την ενυδάτωση και άλλους ατομικούς παράγοντες που το ${appLabel} δεν μπορεί να μετρήσει.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsEl {
 		return switch (path) {
 			'language' => 'Ελληνικά',
 			'flag' => '🇬🇷',
-			'onboarding.welcome' => 'Καλώς ήρθες στο Calorify',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => 'Καλώς ήρθατε στο ${appLabel}',
 			'onboarding.subtitle' => 'Ο προσωπικός σου συνοδοιπόρος στη διατροφή που στηρίζεται στην τεχνητή νοημοσύνη',
 			'onboarding.getStarted' => 'Ας ξεκινήσουμε',
 			'onboarding.features.foodRecognition.title' => 'Έξυπνη Αναγνώριση Φαγητού',
@@ -1360,7 +1359,7 @@ extension on TranslationsEl {
 			'onboarding.bmiScale.categories.obese' => 'Παχυσαρκία',
 			'onboarding.bmiScale.messages.underweight' => 'Μπορούμε να σε βοηθήσουμε να δημιουργήσεις ένα υγιές σχέδιο για να φτάσεις σε ισορροπημένο βάρος με πλούσιες σε θρεπτικά συστατικά γεύματα.',
 			'onboarding.bmiScale.messages.healthy' => 'Μπράβο! Είσαι σε μια υγιή κατηγορία. Θα σε βοηθήσουμε να διατηρήσεις την ενέργεια και τη ζωτικότητά σου.',
-			'onboarding.bmiScale.messages.overweight' => 'Το Calorify θα απλοποιήσει το ταξίδι σου με παρακολούθηση που υποστηρίζεται από την τεχνητή νοημοσύνη για να φτάσεις το στόχο σου άνετα.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => 'Το ${appLabel} θα απλοποιήσει το ταξίδι σας με παρακολούθηση ενισχυμένη από AI, για να σας βοηθήσει να φτάσετε στον στόχο σας άνετα.',
 			'onboarding.bmiScale.messages.obese' => 'Είμαστε εδώ για να σε υποστηρίξουμε με εξατομικευμένη καθοδήγηση και βιώσιμες στρατηγικές για τους στόχους υγείας σου.',
 			'onboarding.weightGoal.title' => 'Ποιος είναι ο στόχος σου;',
 			'onboarding.weightGoal.description' => 'Επίλεξε τον στόχο που περιγράφει καλύτερα αυτό που θέλεις να πετύχεις',
@@ -1380,12 +1379,12 @@ extension on TranslationsEl {
 			'onboarding.healthConnect.skipForNow' => 'Παράκαμψη για τώρα',
 			'onboarding.healthConnect.statusConnected' => 'Η υγειονομική σύνδεση είναι συνδεδεμένη.',
 			'onboarding.healthConnect.statusSuccess' => 'Η υγειονομική σύνδεση έχει συνδεθεί με επιτυχία!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'Απορρίφθηκε η άδεια. Παρακαλώ ενεργοποίησε τις άδειες Health Connect από τις ρυθμίσεις του τηλεφώνου σου για το Calorify.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Η άδεια απορρίφθηκε. Παρακαλώ ενεργοποιήστε τις άδειες Health Connect από τις ρυθμίσεις του τηλεφώνου σας για το ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Λάθος κατά τη ρύθμιση της Υγειονομικής Σύνδεσης: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Δεν Είσαι Μόνος/η',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Η έρευνα δείχνει ότι η συνεπής καταγραφή είναι ο νούμερο ένα προάγγελος μακροχρόνιας επιτυχίας.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Για έναν ${age} χρονών ${gender} που προσπαθεί να ${goal}, η συνεπής καταγραφή είναι ο νούμερο ένα προάγγελος επιτυχίας.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Το Calorify το καθιστά 10 φορές πιο εύκολο από το να το κάνεις χειροκίνητα.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => 'Το ${appLabel} το καθιστά 10 φορές πιο εύκολο από το να το κάνετε χειροκίνητα.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Έτοιμος να ξεκινήσεις;',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Βγάλε μια φωτογραφία των γευμάτων σου για άμεση ανάλυση',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Κατέγραψε τακτικά για να δεις ουσιαστική πρόοδο',
@@ -1393,9 +1392,6 @@ extension on TranslationsEl {
 			'onboarding.reinforcement.trackingSuccess.button' => 'Πάμε',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'άτομο',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'πιο υγιής εσύ',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Άμεση ανάλυση φωτογραφίας',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Αυτόματη καταγραφή διατροφής',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Οπτικοποιήσεις προόδου που σε κρατούν κινητοποιημένο/η',
 			'onboarding.reinforcement.healthProfile.title' => 'Το Προφίλ Υγείας σου',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Με βάση τις μετρήσεις σου, ο ΔΜΣ σου είναι ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Ας ολοκληρώσουμε το προφίλ σου για να εξατομικεύσουμε την εμπειρία σου.',
@@ -1405,7 +1401,7 @@ extension on TranslationsEl {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'Είσαι στο στοχοθετημένο βάρος σου! Θα σε βοηθήσουμε να το διατηρήσεις.',
 			'onboarding.reinforcement.healthProfile.button' => 'Πάμε',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Εξαιρετική Αφετηρία!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'Έχεις κάνει το πρώτο βήμα προς ${goalText}. Από τη στιγμή που είσαι ${activityText}, το Calorify θα προσαρμόσει τους στόχους σου για να ταιριάζουν με τον τρόπο ζωής σου.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Έχετε κάνει το πρώτο βήμα προς το ${goalText}. Εφόσον είστε ${activityText}, το ${appLabel} θα προσαρμόσει τους στόχους σας για να ταιριάζουν με τον τρόπο ζωής σας.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Εξατομικευμένοι στόχοι θερμίδων',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Αναγνώριση γεύματος με υποστήριξη τεχνητής νοημοσύνης',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Λεπτομερείς αναλύσεις μακροθρεπτικών συστατικών',
@@ -1573,16 +1569,16 @@ extension on TranslationsEl {
 			'settings.language.subtitle' => 'Επίλεξε την προτιμώμενη γλώσσα σου',
 			'settings.heightUnit.title' => 'Μονάδα Ύψους',
 			'settings.weightUnit.title' => 'Μονάδα Βάρους',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => 'Υπενθυμίσεις Γευμάτων',
 			'settings.mealReminders.subtitle' => 'Μείνε συνεπής με κατάλληλες ειδοποιήσεις',
+			'settings.theme.title' => 'Θέμα',
+			'settings.theme.subtitle' => 'Επιλέξτε το προτιμώμενο θέμα σας',
+			'settings.theme.light' => 'Φωτεινό',
+			'settings.theme.dark' => 'Σκοτεινό',
+			'settings.theme.system' => 'Σύστημα',
 			'settings.sendFeedback.title' => 'Στείλε Σχόλιο',
-			'settings.sendFeedback.subtitle' => 'Βοήθησέ μας να βελτιώσουμε το Calorify',
-			'settings.sendFeedback.emailSubject' => 'Σχόλιο Εφαρμογής Calorify',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Βοηθήστε μας να βελτιώσουμε το ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} Σχόλια Εφαρμογής',
 			'settings.sendFeedback.emailBodyPrefix' => 'Παρακαλώ παρέχετε τη γνώμη σου παρακάτω:',
 			'settings.sendFeedback.appVersion' => 'Έκδοση Εφαρμογής',
 			'settings.sendFeedback.device' => 'Συσκευή',
@@ -1629,21 +1625,21 @@ extension on TranslationsEl {
 			'login.signInWithGoogle' => 'Σύνδεση με Google',
 			'login.signInFailed' => 'Η σύνδεση με Google απέτυχε ή ακυρώθηκε.',
 			'disclaimer.pleaseNote' => 'Παρακαλώ Σημείωσε',
-			'disclaimer.snap.description' => 'Το Calorify παρέχει εκτιμήσεις διατροφικών πληροφοριών. Η ακρίβεια εξαρτάται από την είσοδό σου και τις παραλλαγές των τροφών. Χρησιμοποίησε το ως οδηγό, όχι ως οριστική πηγή. Συμβουλεύσου έναν επαγγελματία για προσωπικές διατροφικές συμβουλές.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => 'Το ${appLabel} παρέχει εκτιμήσεις διατροφικών πληροφοριών. Η ακρίβεια εξαρτάται από την είσοδό σας και τις παραλλαγές τροφίμων. Χρησιμοποιήστε το ως οδηγό, όχι ως ακριβή πηγή. Συμβουλευτείτε έναν επαγγελματία για εξατομικευμένες διατροφικές συμβουλές.',
 			'disclaimer.snap.portionSize.title' => 'Μέγεθος Μερίδας',
 			'disclaimer.snap.portionSize.description' => 'Η ακρίβεια των εκτιμήσεων εξαρτάται σε μεγάλο βαθμό από την σωστή εκτίμηση του μεγέθους της μερίδας.',
 			'disclaimer.snap.preparationMethods.title' => 'Μέθοδοι Παρασκευής',
-			'disclaimer.snap.preparationMethods.description' => 'Οι μέθοδοι μαγειρέματος μπορούν να αλλάξουν σημαντικά την θρεπτική περιεκτικότητα των τροφών. Οι εκτιμήσεις του Calorify δεν λαμβάνουν πάντα υπόψη αυτές τις παραλλαγές.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Οι μέθοδοι μαγειρέματος μπορούν να αλλάξουν σημαντικά το θρεπτικό περιεχόμενο των τροφίμων. Οι εκτιμήσεις του ${appLabel} δεν λαμβάνουν πάντα υπόψη αυτές τις παραλλαγές.',
 			'disclaimer.snap.ingredients.title' => 'Συστατικά',
 			'disclaimer.snap.ingredients.description' => 'Σύνθετα πιάτα με πολλά κρυμμένα συστατικά μπορεί να οδηγήσουν σε λιγότερο ακριβείς εκτιμήσεις.',
 			'disclaimer.snap.databaseLimitations.title' => 'Περιορισμοί Βάσης Δεδομένων',
-			'disclaimer.snap.databaseLimitations.description' => 'Η βάση δεδομένων τροφίμων του Calorify είναι εκτενής αλλά μπορεί να μην περιλαμβάνει κάθε ενιαίο τρόφιμο ή παραλλαγή.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Η βάση δεδομένων τροφίμων του ${appLabel} είναι εκτενής, αλλά ενδέχεται να μην περιλαμβάνει κάθε ενιαίο τρόφιμο ή παραλλαγή.',
 			'disclaimer.weightEstimate.title' => 'Σχετικά με την Εκτίμηση Βάρους',
 			'disclaimer.weightEstimate.description' => 'Η προβλεπόμενη αλλαγή βάρους είναι μια θεωρητική εκτίμηση που βασίζεται στο απλό μοντέλο θερμίδων-εισόδου και θερμίδων-εξόδου. Προορίζεται μόνο για κινητοποίηση και όχι ως πρόβλεψη του πραγματικού σας βάρους.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Ακρίβεια Θερμίδων',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Αυτή η εκτίμηση είναι μόνο όσο ακριβής είναι η καταγραμμένη πρόσληψη και κατανάλωση θερμίδων σου. Η ανακριβής καταγραφή θα έχει ως αποτέλεσμα ανακριβή πρόβλεψη.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Βιολογικοί Παράγοντες',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'Η πραγματική απώλεια ή αύξηση βάρους επηρεάζεται από το μεταβολισμό, τις ορμόνες, τον ύπνο, το άγχος, την ενυδάτωση και άλλους ατομικούς παράγοντες που το Calorify δεν μπορεί να μετρήσει.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Η πραγματική απώλεια/κέρδος βάρους επηρεάζεται από το μεταβολισμό, τις ορμόνες, τον ύπνο, το άγχος, την ενυδάτωση και άλλους ατομικούς παράγοντες που το ${appLabel} δεν μπορεί να μετρήσει.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Βάρος Νερού & Διακυμάνσεις',
 			'disclaimer.weightEstimate.waterWeight.description' => 'Το φυσιολογικό καθημερινό βάρος μπορεί να διακυμανθεί σημαντικά λόγω κατακράτησης νερού, πέψης και χρονοδιαγράμματος. Η εκτίμηση δεν λαμβάνει υπόψη αυτές τις ημερήσιες αλλαγές.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Επαγγελματική Καθοδήγηση',

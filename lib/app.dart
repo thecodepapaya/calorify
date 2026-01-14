@@ -16,9 +16,10 @@ class CalorifyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(appThemeProvider);
+    final t = Translations.of(context);
 
     return MaterialApp.router(
-      title: EnvConfig.instance.title,
+      title: t.appLabel(env: EnvConfig.instance.envSuffix),
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
       themeMode: themeMode,

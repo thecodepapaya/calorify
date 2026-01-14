@@ -39,6 +39,7 @@ class TranslationsHe with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => 'Hebrew';
 	@override String get flag => '🇮🇱';
+	@override String appLabel({required Object env}) => 'קלוריפיי${env}';
 	@override late final _TranslationsOnboardingHe onboarding = _TranslationsOnboardingHe._(_root);
 	@override late final _TranslationsTabsHe tabs = _TranslationsTabsHe._(_root);
 	@override late final _TranslationsHomeHe home = _TranslationsHomeHe._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingHe implements TranslationsOnboardingEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'ברוך הבא לקלוריפי';
+	@override String welcome({required Object appLabel}) => 'ברוך הבא ל${appLabel}';
 	@override String get subtitle => 'בן זוגך האישי לתזונה המונע על ידי בינה מלאכותית';
 	@override String get getStarted => 'בוא נתחיל';
 	@override late final _TranslationsOnboardingFeaturesHe features = _TranslationsOnboardingFeaturesHe._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsHe implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageHe language = _TranslationsSettingsLanguageHe._(_root);
 	@override late final _TranslationsSettingsHeightUnitHe heightUnit = _TranslationsSettingsHeightUnitHe._(_root);
 	@override late final _TranslationsSettingsWeightUnitHe weightUnit = _TranslationsSettingsWeightUnitHe._(_root);
-	@override late final _TranslationsSettingsThemeHe theme = _TranslationsSettingsThemeHe._(_root);
 	@override late final _TranslationsSettingsMealRemindersHe mealReminders = _TranslationsSettingsMealRemindersHe._(_root);
+	@override late final _TranslationsSettingsThemeHe theme = _TranslationsSettingsThemeHe._(_root);
 	@override late final _TranslationsSettingsSendFeedbackHe sendFeedback = _TranslationsSettingsSendFeedbackHe._(_root);
 	@override late final _TranslationsSettingsClearAllDataHe clearAllData = _TranslationsSettingsClearAllDataHe._(_root);
 	@override late final _TranslationsSettingsDebugOptionsHe debugOptions = _TranslationsSettingsDebugOptionsHe._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectHe implements TranslationsOnboardingHe
 	@override String get skipForNow => 'דלג לעכשיו';
 	@override String get statusConnected => 'Health Connect מחובר.';
 	@override String get statusSuccess => 'Health Connect הוגדר בהצלחה!';
-	@override String get statusPermissionDenied => 'הרשאה נדחתה. אנא אפשר הרשאות Health Connect מהגדרות הטלפון שלך לקלוריפי.';
+	@override String statusPermissionDenied({required Object appLabel}) => 'גישה נדחתה. אנא אפשר את הרשאות Health Connect בהגדרות הטלפון שלך עבור ${appLabel}.';
 	@override String statusError({required Object error}) => 'שגיאה בהגדרת Health Connect: ${error}';
 }
 
@@ -826,20 +827,6 @@ class _TranslationsSettingsWeightUnitHe implements TranslationsSettingsWeightUni
 	@override String get title => 'יחידת משקל';
 }
 
-// Path: settings.theme
-class _TranslationsSettingsThemeHe implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeHe._(this._root);
-
-	final TranslationsHe _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
-}
-
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersHe implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersHe._(this._root);
@@ -851,6 +838,20 @@ class _TranslationsSettingsMealRemindersHe implements TranslationsSettingsMealRe
 	@override String get subtitle => 'שמור על הקצב עם התראות בזמן';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeHe implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'נושא';
+	@override String get subtitle => 'בחר את העיצוב המועדף עליך';
+	@override String get light => 'בהיר';
+	@override String get dark => 'חשוך';
+	@override String get system => 'מערכת';
+}
+
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackHe implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackHe._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackHe implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'שלח משוב';
-	@override String get subtitle => 'עזור לנו לשפר את קלוריפי';
-	@override String get emailSubject => 'משוב על אפליקציית קלוריפי';
+	@override String subtitle({required Object appLabel}) => 'עזור לנו לשפר את ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} משוב על האפליקציה';
 	@override String get emailBodyPrefix => 'אנא ספק את המשוב שלך למטה:';
 	@override String get appVersion => 'גרסת אפליקציה';
 	@override String get device => 'מכשיר';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapHe implements TranslationsDisclaimerSnapEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'קלוריפי מספק מידע תזונתי מוערך. הדיוק תלוי בקלט שלך ובשונות במזון. השתמש כמדריך, לא כמקור חד משמעי. התייעץ עם מקצוען להמלצות תזונה מותאמות אישית.';
+	@override String description({required Object appLabel}) => '${appLabel} מספק מידע תזונתי משוער. דיוק תלוי בקלט שלך ובשונות המזון. השתמש בזה כמדריך, ולא כמקור סופי. התייעץ עם מקצוען עבור ייעוץ תזונתי מותאם אישית.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeHe portionSize = _TranslationsDisclaimerSnapPortionSizeHe._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsHe preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsHe._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsHe ingredients = _TranslationsDisclaimerSnapIngredientsHe._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesHe implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => 'נוכל לעזור לך לבנות תוכנית בריאה להגיע למשקל מאוזן עם ארוחות עשירות בחומרים המזינים.';
 	@override String get healthy => 'עבודה מצוינת! אתה בטווח בריא. נעזור לך לשמור על חיוניות ורמות אנרגיה.';
-	@override String get overweight => 'קלוריפי יקל על המסע שלך עם מעקב מונע בינה מלאכותית כדי לעזור לך להגיע ליעד שלך בנוחות.';
+	@override String overweight({required Object appLabel}) => '${appLabel} יפשט את המסע שלך עם מעקב מבוסס בינה מלאכותית כדי לעזור לך להגיע למטרה שלך בנוחות.';
 	@override String get obese => 'אנחנו כאן כדי לתמוך בך עם הנחיות מותאמות ואסטרטגיות ברות קיימא למטרות הבריאות שלך.';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessHe implements Translati
 	@override String get title => 'אתה לא לבד';
 	@override String get genericMessage => 'מחקרים מראים שמעקב מתמיד הוא המנבא מספר 1 להצלחה ארוכת טווח.';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'עבור ${age} שנים ${gender} שמעוניין ב-${goal}, מעקב מתמיד הוא המנבא מספר 1 להצלחה.';
-	@override String get closingMessage => 'קלוריפי הופך את זה ל-10x יותר קל מאשר לעשות את זה ידנית.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} מקל 10 פעמים יותר מאשר לעשות את זה ידנית.';
 	@override String get getStartedTitle => 'מוכן להתחיל?';
 	@override String get tipPhoto => 'צלם תמונה של הארוחות שלך לניתוח מיידי';
 	@override String get tipConsistency => 'נהל יומן באופן קבוע כדי לראות שיפורים משמעותיים';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessHe implements Translati
 	@override String get button => 'בוא נלך';
 	@override String get defaultGender => 'אדם';
 	@override String get defaultGoal => 'ב-version בריאה יותר';
-	@override String get instantPhotoAnalysis => 'ניתוח מיידי של תמונות';
-	@override String get automaticLogging => 'רישום תזונתי אוטומטי';
-	@override String get progressVisualizations => 'הדמיות התקדמות שישמרו אותך ממוקד';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleHe implements Translation
 
 	// Translations
 	@override String get title => 'התחלה מצוינת!';
-	@override String description({required Object goalText, required Object activityText}) => 'עשית את הצעד הראשון לקראת ${goalText}. מאחר ואתה ${activityText}, קלוריפי יתאים את היעדים שלך כדי להתאים לאורח החיים שלך.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'עשית את הצעד הראשון לקראת ${goalText}. מכיוון ש${activityText}, ${appLabel} יתאים את המטרות שלך כדי להתאים לאורח החיים שלך.';
 	@override String get personalizedTargets => 'יעדי קלוריות מותאמים אישית';
 	@override String get aiMealDetection => 'זיהוי ארוחות המונע על ידי בינה מלאכותית';
 	@override String get macroBreakdowns => 'פירוטים מפורטים של מיקרו-נוטריינטים';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsHe implements TranslationsDis
 
 	// Translations
 	@override String get title => 'שיטות הכנה';
-	@override String get description => 'שיטות בישול יכולות לשנות באופן משמעותי את תוכן התזונה של המזון. ההערכות של קלוריפי עשויות שלא תמיד לקחת בחשבון את השוניות הללו.';
+	@override String description({required Object appLabel}) => 'שיטות הבישול יכולות לשנות באופן משמעותי את התוכן התזונתי של המזון. ההערכות של ${appLabel} עשויות שלא לקחת תמיד בחשבון את השונות הללו.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsHe implements TranslationsDi
 
 	// Translations
 	@override String get title => 'מגבלות בסיס נתונים';
-	@override String get description => 'בסיס הנתונים של קלוריפי הוא רחב אבל עשוי לא לכלול כל פריט מזון או שונות.';
+	@override String description({required Object appLabel}) => 'המאגר המזון של ${appLabel} רחב מאוד אך עשוי שלא לכלול כל פריט מזון או וריאציה.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsHe implements Transl
 
 	// Translations
 	@override String get title => 'גורמים ביולוגיים';
-	@override String get description => 'ירידה או עלייה במשקל בפועל מושפעת מחילוף חומרים, הורמונים, שינה, לחץ, הידרציה ומכוחות אחרים שקלוריפי לא יכול למדוד.';
+	@override String description({required Object appLabel}) => 'ירידה/עלייה במשקל בפועל מושפעת מהמטבוליזם, הורמונים, שינה, לחץ, הידרציה וגורמים אישיים אחרים ש${appLabel} לא יכול למדוד.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsHe {
 		return switch (path) {
 			'language' => 'Hebrew',
 			'flag' => '🇮🇱',
-			'onboarding.welcome' => 'ברוך הבא לקלוריפי',
+			'appLabel' => ({required Object env}) => 'קלוריפיי${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => 'ברוך הבא ל${appLabel}',
 			'onboarding.subtitle' => 'בן זוגך האישי לתזונה המונע על ידי בינה מלאכותית',
 			'onboarding.getStarted' => 'בוא נתחיל',
 			'onboarding.features.foodRecognition.title' => 'זיהוי מזון חכם',
@@ -1360,7 +1359,7 @@ extension on TranslationsHe {
 			'onboarding.bmiScale.categories.obese' => 'השמנה',
 			'onboarding.bmiScale.messages.underweight' => 'נוכל לעזור לך לבנות תוכנית בריאה להגיע למשקל מאוזן עם ארוחות עשירות בחומרים המזינים.',
 			'onboarding.bmiScale.messages.healthy' => 'עבודה מצוינת! אתה בטווח בריא. נעזור לך לשמור על חיוניות ורמות אנרגיה.',
-			'onboarding.bmiScale.messages.overweight' => 'קלוריפי יקל על המסע שלך עם מעקב מונע בינה מלאכותית כדי לעזור לך להגיע ליעד שלך בנוחות.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} יפשט את המסע שלך עם מעקב מבוסס בינה מלאכותית כדי לעזור לך להגיע למטרה שלך בנוחות.',
 			'onboarding.bmiScale.messages.obese' => 'אנחנו כאן כדי לתמוך בך עם הנחיות מותאמות ואסטרטגיות ברות קיימא למטרות הבריאות שלך.',
 			'onboarding.weightGoal.title' => 'מהי מטרתך?',
 			'onboarding.weightGoal.description' => 'בחר את המטרה שמתארת בצורה הטובה ביותר מה אתה רוצה להשיג',
@@ -1380,12 +1379,12 @@ extension on TranslationsHe {
 			'onboarding.healthConnect.skipForNow' => 'דלג לעכשיו',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect מחובר.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect הוגדר בהצלחה!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'הרשאה נדחתה. אנא אפשר הרשאות Health Connect מהגדרות הטלפון שלך לקלוריפי.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'גישה נדחתה. אנא אפשר את הרשאות Health Connect בהגדרות הטלפון שלך עבור ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'שגיאה בהגדרת Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'אתה לא לבד',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'מחקרים מראים שמעקב מתמיד הוא המנבא מספר 1 להצלחה ארוכת טווח.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'עבור ${age} שנים ${gender} שמעוניין ב-${goal}, מעקב מתמיד הוא המנבא מספר 1 להצלחה.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'קלוריפי הופך את זה ל-10x יותר קל מאשר לעשות את זה ידנית.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} מקל 10 פעמים יותר מאשר לעשות את זה ידנית.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'מוכן להתחיל?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'צלם תמונה של הארוחות שלך לניתוח מיידי',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'נהל יומן באופן קבוע כדי לראות שיפורים משמעותיים',
@@ -1393,9 +1392,6 @@ extension on TranslationsHe {
 			'onboarding.reinforcement.trackingSuccess.button' => 'בוא נלך',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'אדם',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'ב-version בריאה יותר',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'ניתוח מיידי של תמונות',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'רישום תזונתי אוטומטי',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'הדמיות התקדמות שישמרו אותך ממוקד',
 			'onboarding.reinforcement.healthProfile.title' => 'פרופיל הבריאות שלך',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'בהתבסס על המדדים שלך, ה-BMI שלך הוא ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'בוא נשלים את הפרופיל שלך כדי להתאים אישית את החוויה שלך.',
@@ -1405,7 +1401,7 @@ extension on TranslationsHe {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'אתה במשקל היעד שלך! נעזור לך לשמור עליו.',
 			'onboarding.reinforcement.healthProfile.button' => 'בוא נלך',
 			'onboarding.reinforcement.goalLifestyle.title' => 'התחלה מצוינת!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'עשית את הצעד הראשון לקראת ${goalText}. מאחר ואתה ${activityText}, קלוריפי יתאים את היעדים שלך כדי להתאים לאורח החיים שלך.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'עשית את הצעד הראשון לקראת ${goalText}. מכיוון ש${activityText}, ${appLabel} יתאים את המטרות שלך כדי להתאים לאורח החיים שלך.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'יעדי קלוריות מותאמים אישית',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'זיהוי ארוחות המונע על ידי בינה מלאכותית',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'פירוטים מפורטים של מיקרו-נוטריינטים',
@@ -1573,16 +1569,16 @@ extension on TranslationsHe {
 			'settings.language.subtitle' => 'בחר את השפה המועדפת עליך',
 			'settings.heightUnit.title' => 'יחידת גובה',
 			'settings.weightUnit.title' => 'יחידת משקל',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => 'תזכורות לארוחת',
 			'settings.mealReminders.subtitle' => 'שמור על הקצב עם התראות בזמן',
+			'settings.theme.title' => 'נושא',
+			'settings.theme.subtitle' => 'בחר את העיצוב המועדף עליך',
+			'settings.theme.light' => 'בהיר',
+			'settings.theme.dark' => 'חשוך',
+			'settings.theme.system' => 'מערכת',
 			'settings.sendFeedback.title' => 'שלח משוב',
-			'settings.sendFeedback.subtitle' => 'עזור לנו לשפר את קלוריפי',
-			'settings.sendFeedback.emailSubject' => 'משוב על אפליקציית קלוריפי',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'עזור לנו לשפר את ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} משוב על האפליקציה',
 			'settings.sendFeedback.emailBodyPrefix' => 'אנא ספק את המשוב שלך למטה:',
 			'settings.sendFeedback.appVersion' => 'גרסת אפליקציה',
 			'settings.sendFeedback.device' => 'מכשיר',
@@ -1629,21 +1625,21 @@ extension on TranslationsHe {
 			'login.signInWithGoogle' => 'התחבר עם גוגל',
 			'login.signInFailed' => 'ההתחברות עם גוגל נכשלה או בוטלה.',
 			'disclaimer.pleaseNote' => 'אנא שים לב',
-			'disclaimer.snap.description' => 'קלוריפי מספק מידע תזונתי מוערך. הדיוק תלוי בקלט שלך ובשונות במזון. השתמש כמדריך, לא כמקור חד משמעי. התייעץ עם מקצוען להמלצות תזונה מותאמות אישית.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} מספק מידע תזונתי משוער. דיוק תלוי בקלט שלך ובשונות המזון. השתמש בזה כמדריך, ולא כמקור סופי. התייעץ עם מקצוען עבור ייעוץ תזונתי מותאם אישית.',
 			'disclaimer.snap.portionSize.title' => 'גודל המנה',
 			'disclaimer.snap.portionSize.description' => 'הדיוק של ההערכות תלוי במידה רבה בהערכה הנכונה שלך של גודל המנה.',
 			'disclaimer.snap.preparationMethods.title' => 'שיטות הכנה',
-			'disclaimer.snap.preparationMethods.description' => 'שיטות בישול יכולות לשנות באופן משמעותי את תוכן התזונה של המזון. ההערכות של קלוריפי עשויות שלא תמיד לקחת בחשבון את השוניות הללו.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'שיטות הבישול יכולות לשנות באופן משמעותי את התוכן התזונתי של המזון. ההערכות של ${appLabel} עשויות שלא לקחת תמיד בחשבון את השונות הללו.',
 			'disclaimer.snap.ingredients.title' => 'מרכיבים',
 			'disclaimer.snap.ingredients.description' => 'מנות מורכבות עם מרכיבים מוסתרים רבים עשויות להוביל להערכות פחות מדויקות.',
 			'disclaimer.snap.databaseLimitations.title' => 'מגבלות בסיס נתונים',
-			'disclaimer.snap.databaseLimitations.description' => 'בסיס הנתונים של קלוריפי הוא רחב אבל עשוי לא לכלול כל פריט מזון או שונות.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'המאגר המזון של ${appLabel} רחב מאוד אך עשוי שלא לכלול כל פריט מזון או וריאציה.',
 			'disclaimer.weightEstimate.title' => 'על הערכת המשקל',
 			'disclaimer.weightEstimate.description' => 'שינוי המשקל המשוער הוא הערכה תיאורטית המבוססת על מודל הקלוריות הנכנסות מול הקלוריות היוצאות. היא מיועדת למדריך מוטיבציה בלבד, לא ככלי לחזות את המשקל שלך.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'דיוק קלורי',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'ההערכה הזו מדויקת רק כמו צריכת הקלוריות שעקבת אחריה וההוצאות. רישום לא מדויק יגרום להערכה לא מדויקת.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'גורמים ביולוגיים',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'ירידה או עלייה במשקל בפועל מושפעת מחילוף חומרים, הורמונים, שינה, לחץ, הידרציה ומכוחות אחרים שקלוריפי לא יכול למדוד.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'ירידה/עלייה במשקל בפועל מושפעת מהמטבוליזם, הורמונים, שינה, לחץ, הידרציה וגורמים אישיים אחרים ש${appLabel} לא יכול למדוד.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'משקל מים ו fluctuations',
 			'disclaimer.weightEstimate.waterWeight.description' => 'משקל יומי רגיל יכול להשתנות באופן משמעותי בגלל החזקת מים, עיכול וזמן. ההערכה לא לוקחת בחשבון את השינויים היומיים הללו.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'הנחיה מקצועית',

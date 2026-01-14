@@ -193,6 +193,9 @@ class NotificationService {
     String? payload,
     String channel = 'reminders',
   }) async {
+    // Ensure service is initialized before using timezone functions
+    await initialize();
+
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(
           'reminders',
@@ -258,6 +261,9 @@ class NotificationService {
     required DateTime dinnerTime,
     required DateTime snackTime,
   }) async {
+    // Ensure service is initialized before using timezone functions
+    await initialize();
+
     // Cancel existing meal reminders
     await cancelAllNotifications();
 

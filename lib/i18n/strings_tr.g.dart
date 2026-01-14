@@ -39,6 +39,7 @@ class TranslationsTr with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => 'Türkçe';
 	@override String get flag => '🇹🇷';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingTr onboarding = _TranslationsOnboardingTr._(_root);
 	@override late final _TranslationsTabsTr tabs = _TranslationsTabsTr._(_root);
 	@override late final _TranslationsHomeTr home = _TranslationsHomeTr._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingTr implements TranslationsOnboardingEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Calorify\'e Hoş Geldiniz';
+	@override String welcome({required Object appLabel}) => '${appLabel}\'ye hoş geldiniz';
 	@override String get subtitle => 'AI ile güçlendirilmiş kişisel beslenme danışmanınız';
 	@override String get getStarted => 'Başlayın';
 	@override late final _TranslationsOnboardingFeaturesTr features = _TranslationsOnboardingFeaturesTr._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsTr implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageTr language = _TranslationsSettingsLanguageTr._(_root);
 	@override late final _TranslationsSettingsHeightUnitTr heightUnit = _TranslationsSettingsHeightUnitTr._(_root);
 	@override late final _TranslationsSettingsWeightUnitTr weightUnit = _TranslationsSettingsWeightUnitTr._(_root);
-	@override late final _TranslationsSettingsThemeTr theme = _TranslationsSettingsThemeTr._(_root);
 	@override late final _TranslationsSettingsMealRemindersTr mealReminders = _TranslationsSettingsMealRemindersTr._(_root);
+	@override late final _TranslationsSettingsThemeTr theme = _TranslationsSettingsThemeTr._(_root);
 	@override late final _TranslationsSettingsSendFeedbackTr sendFeedback = _TranslationsSettingsSendFeedbackTr._(_root);
 	@override late final _TranslationsSettingsClearAllDataTr clearAllData = _TranslationsSettingsClearAllDataTr._(_root);
 	@override late final _TranslationsSettingsDebugOptionsTr debugOptions = _TranslationsSettingsDebugOptionsTr._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectTr implements TranslationsOnboardingHe
 	@override String get skipForNow => 'Şu an için atla';
 	@override String get statusConnected => 'Health Connect bağlı.';
 	@override String get statusSuccess => 'Health Connect başarıyla bağlandı!';
-	@override String get statusPermissionDenied => 'İzin reddedildi. Lütfen Calorify için telefon ayarlarınızdan Health Connect izinlerini etkinleştirin.';
+	@override String statusPermissionDenied({required Object appLabel}) => 'İzin reddedildi. Lütfen ${appLabel} için telefon ayarlarınızdan Sağlık Bağlantısı izinlerini etkinleştirin.';
 	@override String statusError({required Object error}) => 'Health Connect kurulurken hata: ${error}';
 }
 
@@ -826,6 +827,17 @@ class _TranslationsSettingsWeightUnitTr implements TranslationsSettingsWeightUni
 	@override String get title => 'Kilo Birimi';
 }
 
+// Path: settings.mealReminders
+class _TranslationsSettingsMealRemindersTr implements TranslationsSettingsMealRemindersEn {
+	_TranslationsSettingsMealRemindersTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Yemek Hatırlatıcıları';
+	@override String get subtitle => 'Zamanında uyarılarla doğru yolda kalın';
+}
+
 // Path: settings.theme
 class _TranslationsSettingsThemeTr implements TranslationsSettingsThemeEn {
 	_TranslationsSettingsThemeTr._(this._root);
@@ -840,17 +852,6 @@ class _TranslationsSettingsThemeTr implements TranslationsSettingsThemeEn {
 	@override String get system => 'Sistem';
 }
 
-// Path: settings.mealReminders
-class _TranslationsSettingsMealRemindersTr implements TranslationsSettingsMealRemindersEn {
-	_TranslationsSettingsMealRemindersTr._(this._root);
-
-	final TranslationsTr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Yemek Hatırlatıcıları';
-	@override String get subtitle => 'Zamanında uyarılarla doğru yolda kalın';
-}
-
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackTr implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackTr._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackTr implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'Geri Bildirim Gönder';
-	@override String get subtitle => 'Calorify\'i geliştirmemize yardımcı olun';
-	@override String get emailSubject => 'Calorify Uygulama Geri Bildirimi';
+	@override String subtitle({required Object appLabel}) => '${appLabel}\'yi geliştirmemize yardımcı olun';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} Uygulaması Geri Bildirimi';
 	@override String get emailBodyPrefix => 'Lütfen geri bildiriminizi aşağıda belirtin:';
 	@override String get appVersion => 'Uygulama Versiyonu';
 	@override String get device => 'Cihaz';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapTr implements TranslationsDisclaimerSnapEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Calorify tahmini beslenme bilgilerini sağlar. Doğruluk, girdiğiniz bilgilere ve gıda varyasyonlarına bağlıdır. Bir rehber olarak kullanın, kesin bir kaynak olarak değil. Kişiye özgü diyet tavsiyeleri için her zaman bir profesyonele danışın.';
+	@override String description({required Object appLabel}) => '${appLabel}, tahmini besin bilgileri sağlar. Doğruluk, girdiğiniz bilgilere ve gıda çeşitliliklerine bağlıdır. Rehber olarak kullanın, kesin bir kaynak olarak değil. Kişisel diyet tavsiyesi için bir uzmana danışın.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeTr portionSize = _TranslationsDisclaimerSnapPortionSizeTr._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsTr preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsTr._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsTr ingredients = _TranslationsDisclaimerSnapIngredientsTr._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesTr implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => 'Dengeli bir kiloya ulaşmak için sağlıklı besinlerle bir plan oluşturmanıza yardımcı olabiliriz.';
 	@override String get healthy => 'Harika bir iş çıkardınız! Sağlıklı bir aralıktasınız. Enerjinizi ve canlılığınızı korumanıza yardımcı olacağız.';
-	@override String get overweight => 'Calorify, hedefinize rahatça ulaşmanız için AI destekli izleme ile sürecinizi basitleştirecek.';
+	@override String overweight({required Object appLabel}) => '${appLabel}, AI destekli takibiyle hedefinize ulaşmanızı kolaylaştıracak.';
 	@override String get obese => 'Sağlık hedefleriniz için kişiselleştirilmiş rehberlik ve sürdürülebilir stratejilerle destek olmak için buradayız.';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessTr implements Translati
 	@override String get title => 'Yalnız Değilsiniz';
 	@override String get genericMessage => 'Araştırmalar, sürekli takibin uzun vadeli başarının en önemli belirleyicisi olduğunu gösteriyor.';
 	@override String personalizedMessage({required Object goal, required Object gender, required Object age}) => '${goal} hedefini ulaşmak isteyen ${gender} bir ${age} yaşındaki biri için, sürekli takip başarı için en önemli belirleyicidir.';
-	@override String get closingMessage => 'Calorify, bunu manuel yapmaktan 10 kat daha kolay hale getiriyor.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel}, bunu manuel olarak yapmaktan 10 kat daha kolay hale getiriyor.';
 	@override String get getStartedTitle => 'Başlamaya hazır mısın?';
 	@override String get tipPhoto => 'Anında analiz için yemeklerinin fotoğrafını çek';
 	@override String get tipConsistency => 'Anlamlı ilerleme görmek için düzenli kaydet';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessTr implements Translati
 	@override String get button => 'Hadi Gidelim';
 	@override String get defaultGender => 'birey';
 	@override String get defaultGoal => 'daha sağlıklı bir siz';
-	@override String get instantPhotoAnalysis => 'Anlık fotoğraf analizi';
-	@override String get automaticLogging => 'Otomatik besin kaydı';
-	@override String get progressVisualizations => 'Sizi motive eden ilerleme görselleştirmeleri';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleTr implements Translation
 
 	// Translations
 	@override String get title => 'Mükemmel Bir Başlangıç!';
-	@override String description({required Object goalText, required Object activityText}) => 'Hedefinize ${goalText} ulaşmak için ilk adımı attınız. ${activityText} olduğunuz için, Calorify hedeflerinizi yaşam tarzınıza uyacak şekilde ayarlayacaktır.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => '${goalText} yönünde ilk adımı attınız. ${activityText} olduğunuz için, ${appLabel} hedeflerinizi yaşam tarzınıza uyacak şekilde ayarlayacak.';
 	@override String get personalizedTargets => 'Kişiselleştirilmiş kalori hedefleri';
 	@override String get aiMealDetection => 'AI destekli yemek tespiti';
 	@override String get macroBreakdowns => 'Detaylı makro besin dağılımları';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsTr implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Hazırlama Yöntemleri';
-	@override String get description => 'Pişirme yöntemleri, gıdaların besin içeriğini önemli ölçüde değiştirebilir. Calorify\'nin tahminleri, bu varyasyonları her zaman dikkate almayabilir.';
+	@override String description({required Object appLabel}) => 'Pişirme yöntemleri, gıdaların besin içeriğini önemli ölçüde etkileyebilir. ${appLabel}\'nin tahminleri bu çeşitlilikleri her zaman hesaba katmayabilir.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsTr implements TranslationsDi
 
 	// Translations
 	@override String get title => 'Veritabanı Sınırlamaları';
-	@override String get description => 'Calorify\'nin gıda veritabanı geniştir ancak her bir yiyecek veya varyasyonu içermeyebilir.';
+	@override String description({required Object appLabel}) => '${appLabel}\'nin gıda veritabanı geniştir ancak her bir gıda maddesini veya varyasyonunu içermeyebilir.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsTr implements Transl
 
 	// Translations
 	@override String get title => 'Biyolojik Faktörler';
-	@override String get description => 'Gerçek kilo kaybı/kazancı metabolizma, hormonlar, uyku, stres, su alımı ve Calorify\'nin ölçemediği diğer bireysel faktörlerden etkilenir.';
+	@override String description({required Object appLabel}) => 'Gerçek kilo kaybı/almayı etkileyen metabolizma, hormonlar, uyku, stres, hidrasyon ve diğer bireysel faktörler, ${appLabel} tarafından ölçülemez.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsTr {
 		return switch (path) {
 			'language' => 'Türkçe',
 			'flag' => '🇹🇷',
-			'onboarding.welcome' => 'Calorify\'e Hoş Geldiniz',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel}\'ye hoş geldiniz',
 			'onboarding.subtitle' => 'AI ile güçlendirilmiş kişisel beslenme danışmanınız',
 			'onboarding.getStarted' => 'Başlayın',
 			'onboarding.features.foodRecognition.title' => 'Akıllı Gıda Tanıma',
@@ -1360,7 +1359,7 @@ extension on TranslationsTr {
 			'onboarding.bmiScale.categories.obese' => 'Obez',
 			'onboarding.bmiScale.messages.underweight' => 'Dengeli bir kiloya ulaşmak için sağlıklı besinlerle bir plan oluşturmanıza yardımcı olabiliriz.',
 			'onboarding.bmiScale.messages.healthy' => 'Harika bir iş çıkardınız! Sağlıklı bir aralıktasınız. Enerjinizi ve canlılığınızı korumanıza yardımcı olacağız.',
-			'onboarding.bmiScale.messages.overweight' => 'Calorify, hedefinize rahatça ulaşmanız için AI destekli izleme ile sürecinizi basitleştirecek.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel}, AI destekli takibiyle hedefinize ulaşmanızı kolaylaştıracak.',
 			'onboarding.bmiScale.messages.obese' => 'Sağlık hedefleriniz için kişiselleştirilmiş rehberlik ve sürdürülebilir stratejilerle destek olmak için buradayız.',
 			'onboarding.weightGoal.title' => 'Hedefiniz nedir?',
 			'onboarding.weightGoal.description' => 'Başarmak istediğinizi en iyi tanımlayan hedefi seçin',
@@ -1380,12 +1379,12 @@ extension on TranslationsTr {
 			'onboarding.healthConnect.skipForNow' => 'Şu an için atla',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect bağlı.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect başarıyla bağlandı!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'İzin reddedildi. Lütfen Calorify için telefon ayarlarınızdan Health Connect izinlerini etkinleştirin.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'İzin reddedildi. Lütfen ${appLabel} için telefon ayarlarınızdan Sağlık Bağlantısı izinlerini etkinleştirin.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connect kurulurken hata: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Yalnız Değilsiniz',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Araştırmalar, sürekli takibin uzun vadeli başarının en önemli belirleyicisi olduğunu gösteriyor.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object goal, required Object gender, required Object age}) => '${goal} hedefini ulaşmak isteyen ${gender} bir ${age} yaşındaki biri için, sürekli takip başarı için en önemli belirleyicidir.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify, bunu manuel yapmaktan 10 kat daha kolay hale getiriyor.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel}, bunu manuel olarak yapmaktan 10 kat daha kolay hale getiriyor.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Başlamaya hazır mısın?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Anında analiz için yemeklerinin fotoğrafını çek',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Anlamlı ilerleme görmek için düzenli kaydet',
@@ -1393,9 +1392,6 @@ extension on TranslationsTr {
 			'onboarding.reinforcement.trackingSuccess.button' => 'Hadi Gidelim',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'birey',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'daha sağlıklı bir siz',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Anlık fotoğraf analizi',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Otomatik besin kaydı',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Sizi motive eden ilerleme görselleştirmeleri',
 			'onboarding.reinforcement.healthProfile.title' => 'Sağlık Profiliniz',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Metreklerinize dayalı olarak, BMI\'niz ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Deneyiminizi kişiselleştirmek için profilinizi sonlandıralım.',
@@ -1405,7 +1401,7 @@ extension on TranslationsTr {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'Hedef kilonuzdasınız! Bunu korumanıza yardımcı olacağız.',
 			'onboarding.reinforcement.healthProfile.button' => 'Hadi Gidelim',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Mükemmel Bir Başlangıç!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'Hedefinize ${goalText} ulaşmak için ilk adımı attınız. ${activityText} olduğunuz için, Calorify hedeflerinizi yaşam tarzınıza uyacak şekilde ayarlayacaktır.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => '${goalText} yönünde ilk adımı attınız. ${activityText} olduğunuz için, ${appLabel} hedeflerinizi yaşam tarzınıza uyacak şekilde ayarlayacak.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Kişiselleştirilmiş kalori hedefleri',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI destekli yemek tespiti',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Detaylı makro besin dağılımları',
@@ -1573,16 +1569,16 @@ extension on TranslationsTr {
 			'settings.language.subtitle' => 'Tercih ettiğiniz dili seçin',
 			'settings.heightUnit.title' => 'Boy Birimi',
 			'settings.weightUnit.title' => 'Kilo Birimi',
+			'settings.mealReminders.title' => 'Yemek Hatırlatıcıları',
+			'settings.mealReminders.subtitle' => 'Zamanında uyarılarla doğru yolda kalın',
 			'settings.theme.title' => 'Tema',
 			'settings.theme.subtitle' => 'Tercih ettiğiniz temayı seçin',
 			'settings.theme.light' => 'Açık',
 			'settings.theme.dark' => 'Koyu',
 			'settings.theme.system' => 'Sistem',
-			'settings.mealReminders.title' => 'Yemek Hatırlatıcıları',
-			'settings.mealReminders.subtitle' => 'Zamanında uyarılarla doğru yolda kalın',
 			'settings.sendFeedback.title' => 'Geri Bildirim Gönder',
-			'settings.sendFeedback.subtitle' => 'Calorify\'i geliştirmemize yardımcı olun',
-			'settings.sendFeedback.emailSubject' => 'Calorify Uygulama Geri Bildirimi',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => '${appLabel}\'yi geliştirmemize yardımcı olun',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} Uygulaması Geri Bildirimi',
 			'settings.sendFeedback.emailBodyPrefix' => 'Lütfen geri bildiriminizi aşağıda belirtin:',
 			'settings.sendFeedback.appVersion' => 'Uygulama Versiyonu',
 			'settings.sendFeedback.device' => 'Cihaz',
@@ -1629,21 +1625,21 @@ extension on TranslationsTr {
 			'login.signInWithGoogle' => 'Google ile giriş yap',
 			'login.signInFailed' => 'Google Girişi başarısız oldu veya iptal edildi.',
 			'disclaimer.pleaseNote' => 'Lütfen Dikkate Alın',
-			'disclaimer.snap.description' => 'Calorify tahmini beslenme bilgilerini sağlar. Doğruluk, girdiğiniz bilgilere ve gıda varyasyonlarına bağlıdır. Bir rehber olarak kullanın, kesin bir kaynak olarak değil. Kişiye özgü diyet tavsiyeleri için her zaman bir profesyonele danışın.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel}, tahmini besin bilgileri sağlar. Doğruluk, girdiğiniz bilgilere ve gıda çeşitliliklerine bağlıdır. Rehber olarak kullanın, kesin bir kaynak olarak değil. Kişisel diyet tavsiyesi için bir uzmana danışın.',
 			'disclaimer.snap.portionSize.title' => 'Porsiyon Boyutu',
 			'disclaimer.snap.portionSize.description' => 'Tahminlerin doğruluğu, porsiyon boyutunun doğru bir şekilde değerlendirilmesine dayanmaktadır.',
 			'disclaimer.snap.preparationMethods.title' => 'Hazırlama Yöntemleri',
-			'disclaimer.snap.preparationMethods.description' => 'Pişirme yöntemleri, gıdaların besin içeriğini önemli ölçüde değiştirebilir. Calorify\'nin tahminleri, bu varyasyonları her zaman dikkate almayabilir.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Pişirme yöntemleri, gıdaların besin içeriğini önemli ölçüde etkileyebilir. ${appLabel}\'nin tahminleri bu çeşitlilikleri her zaman hesaba katmayabilir.',
 			'disclaimer.snap.ingredients.title' => 'Bileşenler',
 			'disclaimer.snap.ingredients.description' => 'Çok sayıda gizli bileşeni olan karmaşık yemekler, daha az doğru tahminlere yol açabilir.',
 			'disclaimer.snap.databaseLimitations.title' => 'Veritabanı Sınırlamaları',
-			'disclaimer.snap.databaseLimitations.description' => 'Calorify\'nin gıda veritabanı geniştir ancak her bir yiyecek veya varyasyonu içermeyebilir.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'nin gıda veritabanı geniştir ancak her bir gıda maddesini veya varyasyonunu içermeyebilir.',
 			'disclaimer.weightEstimate.title' => 'Kilo Tahmini Hakkında',
 			'disclaimer.weightEstimate.description' => 'Proje edilen kilo değişikliği, basit kalori-giriş vs. kalori-çıkış modeline dayanan bir teorik tahmindir. Bu sadece motivasyonel rehberlik içindir, gerçek kilonuzu tahmin etmek için değil.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalori Doğruluğu',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Bu tahmin, yalnızca takip edilen kalori alımınız ve harcamanıza ne kadar doğru olduğuna bağlıdır. Hatalı kayıt, hatalı bir projeksiyona neden olacaktır.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Biyolojik Faktörler',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'Gerçek kilo kaybı/kazancı metabolizma, hormonlar, uyku, stres, su alımı ve Calorify\'nin ölçemediği diğer bireysel faktörlerden etkilenir.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Gerçek kilo kaybı/almayı etkileyen metabolizma, hormonlar, uyku, stres, hidrasyon ve diğer bireysel faktörler, ${appLabel} tarafından ölçülemez.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Su Ağırlığı ve Dalgalanmalar',
 			'disclaimer.weightEstimate.waterWeight.description' => 'Normal günlük ağırlık, su tutma, sindirim ve zamanlama nedeniyle önemli ölçüde dalgalanabilir. Tahmin, bu günlük değişiklikleri dikkate almaz.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Profesyonel Rehberlik',

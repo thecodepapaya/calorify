@@ -1,8 +1,9 @@
 {
   "language": "Czech",
   "flag": "🇨🇿",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Vítejte v Calorify",
+    "welcome": "Vítejte v {appLabel}",
     "subtitle": "Váš osobní nutriční společník, který využívá umělou inteligenci",
     "getStarted": "Začít",
     "features": {
@@ -59,7 +60,7 @@
       "messages": {
         "underweight": "Můžeme vám pomoci vytvořit zdravý plán, abyste dosáhli vyvážené hmotnosti s výživnými jídly.",
         "healthy": "Skvěle! Jste v zdravém rozmezí. Pomůžeme vám udržet vaši vitalitu a energii.",
-        "overweight": "Calorify vám usnadní cestu s AI-poháněným sledováním, abyste pohodlně dosáhli svého cíle.",
+        "overweight": "{appLabel} vám usnadní cestu pomocí sledování na bázi AI, které vám pomůže dosáhnout vašich cílů s lehkostí.",
         "obese": "Jsme tu, abychom vás podpořili s personalizovaným poradenstvím a udržitelnými strategiemi pro vaše zdraví."
       }
     },
@@ -92,7 +93,7 @@
       "skipForNow": "Přeskočit nyní",
       "statusConnected": "Health Connect je připojeno.",
       "statusSuccess": "Health Connect byl úspěšně připojen!",
-      "statusPermissionDenied": "Povolení zamítnuto. Povolte oprávnění Health Connect v nastavení telefonu pro Calorify.",
+      "statusPermissionDenied": "Odmítnuto. Prosím, povolte oprávnění pro Health Connect v nastavení vašeho telefonu pro {appLabel}.",
       "statusError": "Chyba při nastavování Health Connect: {error}"
     },
     "reinforcement": {
@@ -100,17 +101,14 @@
         "title": "Nejste sami",
         "genericMessage": "Výzkum ukazuje, že konzistentní sledování je prvním prediktorem dlouhodobého úspěchu.",
         "personalizedMessage": "Pro {age}-letého {gender}, který se snaží {goal}, je konzistentní sledování prvním prediktorem úspěchu.",
-        "closingMessage": "Calorify to dělá 10x jednodušší než manuálně.",
+        "closingMessage": "{appLabel} to dělá 10x snazší než to dělat ručně.",
         "getStartedTitle": "Připraveni začít?",
         "tipPhoto": "Pořiďte fotografii svých jídel pro okamžitou analýzu",
         "tipConsistency": "Zaznamenávejte pravidelně, abyste viděli smysluplný pokrok",
         "tipProgress": "Sledujte svůj pokrok denně, abyste zůstali motivováni",
         "button": "Jdeme na to",
         "defaultGender": "osoba",
-        "defaultGoal": "zdravější vy",
-        "instantPhotoAnalysis": "Okamžité analýzy fotografií",
-        "automaticLogging": "Automatické zaznamenávání výživy",
-        "progressVisualizations": "Vizualizace pokroku, které vás udrží motivované"
+        "defaultGoal": "zdravější vy"
       },
       "healthProfile": {
         "title": "Váš zdravotní profil",
@@ -124,7 +122,7 @@
       },
       "goalLifestyle": {
         "title": "Skvělý začátek!",
-        "description": "Udělal(a) jste první krok k {goalText}. Protože jste {activityText}, Calorify přizpůsobí vaše cíle vašemu životnímu stylu.",
+        "description": "Udělal(a) jste první krok směrem k {goalText}. Protože jste {activityText}, {appLabel} upraví vaše cíle tak, aby odpovídaly vašemu životnímu stylu.",
         "personalizedTargets": "Personalizované cíle v kaloriích",
         "aiMealDetection": "Detekce jídel pomocí AI",
         "macroBreakdowns": "Podrobné rozdělení makroživin",
@@ -372,21 +370,21 @@
     "weightUnit": {
       "title": "Jednotka hmotnosti"
     },
-    "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
-    },
     "mealReminders": {
       "title": "Připomínky jídel",
       "subtitle": "Zůstaňte na správné cestě s včasnými upozorněními"
     },
+    "theme": {
+      "title": "Téma",
+      "subtitle": "Vyberte si své preferované téma",
+      "light": "Světlé",
+      "dark": "Tmavé",
+      "system": "Systémové"
+    },
     "sendFeedback": {
       "title": "Odeslat zpětnou vazbu",
-      "subtitle": "Pomozte nám zlepšit Calorify",
-      "emailSubject": "Zpětná vazba na aplikaci Calorify",
+      "subtitle": "Pomozte nám zlepšit {appLabel}",
+      "emailSubject": "Zpětná vazba k aplikaci {appLabel}",
       "emailBodyPrefix": "Prosím, poskytněte zpětnou vazbu níže:",
       "appVersion": "Verze aplikace",
       "device": "Zařízení",
@@ -457,14 +455,14 @@
   "disclaimer": {
     "pleaseNote": "Prosím vezměte na vědomí",
     "snap": {
-      "description": "Calorify poskytuje odhadované nutriční informace. Přesnost závisí na vašem vstupu a variacích potravin. Používejte jako vodítko, nikoli jako definitivní zdroj. Poraďte se s odborníkem o personalizovaném výživovém poradenství.",
+      "description": "{appLabel} poskytuje odhadované nutriční informace. Přesnost závisí na vašem vstupu a variacích potravin. Používejte jako vodítko, nikoli jako definitivní zdroj. Konzultujte s odborníkem pro personalizované dietní rady.",
       "portionSize": {
         "title": "Velikost porce",
         "description": "Přesnost odhadů silně závisí na vašem správném vyhodnocení velikosti porce."
       },
       "preparationMethods": {
         "title": "Metody přípravy",
-        "description": "Způsoby vaření mohou výrazně změnit nutriční hodnotu potravin. Odhady od Calorify nemusí vždy zohledňovat tyto variace."
+        "description": "Způsoby přípravy mohou značně ovlivnit nutriční obsah potravin. Odhady {appLabel} nemusí vždy zohlednit tyto variace."
       },
       "ingredients": {
         "title": "Ingredience",
@@ -472,7 +470,7 @@
       },
       "databaseLimitations": {
         "title": "Omezení databáze",
-        "description": "Databáze Calorify je rozsáhlá, ale nemusí zahrnovat každý jednotlivý potravinový produkt nebo variantu."
+        "description": "Databáze potravin {appLabel} je rozsáhlá, ale nemusí obsahovat každou jednotlivou potravinu nebo její variantu."
       }
     },
     "weightEstimate": {
@@ -484,7 +482,7 @@
       },
       "biologicalFactors": {
         "title": "Biologické faktory",
-        "description": "Skutečná ztráta/nabírání hmotnosti je ovlivněno metabolismem, hormony, spánkem, stresem, hydratací a dalšími individuálními faktory, které Calorify nemůže měřit."
+        "description": "Skutečná ztráta/přírůstek hmotnosti je ovlivněna metabolismem, hormony, spánkem, stresem, hydratací a jinými individuálními faktory, které {appLabel} nemůže změřit."
       },
       "waterWeight": {
         "title": "Hmotnost vody a výkyvy",

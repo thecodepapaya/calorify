@@ -39,6 +39,7 @@ class TranslationsFi with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => 'Finnish';
 	@override String get flag => '🇫🇮';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingFi onboarding = _TranslationsOnboardingFi._(_root);
 	@override late final _TranslationsTabsFi tabs = _TranslationsTabsFi._(_root);
 	@override late final _TranslationsHomeFi home = _TranslationsHomeFi._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingFi implements TranslationsOnboardingEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Tervetuloa Calorifyyn';
+	@override String welcome({required Object appLabel}) => 'Tervetuloa ${appLabel} -sovellukseen';
 	@override String get subtitle => 'Henkilökohtainen ravitsemuskumppanisi, jota ohjaa tekoäly';
 	@override String get getStarted => 'Aloita';
 	@override late final _TranslationsOnboardingFeaturesFi features = _TranslationsOnboardingFeaturesFi._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsFi implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageFi language = _TranslationsSettingsLanguageFi._(_root);
 	@override late final _TranslationsSettingsHeightUnitFi heightUnit = _TranslationsSettingsHeightUnitFi._(_root);
 	@override late final _TranslationsSettingsWeightUnitFi weightUnit = _TranslationsSettingsWeightUnitFi._(_root);
-	@override late final _TranslationsSettingsThemeFi theme = _TranslationsSettingsThemeFi._(_root);
 	@override late final _TranslationsSettingsMealRemindersFi mealReminders = _TranslationsSettingsMealRemindersFi._(_root);
+	@override late final _TranslationsSettingsThemeFi theme = _TranslationsSettingsThemeFi._(_root);
 	@override late final _TranslationsSettingsSendFeedbackFi sendFeedback = _TranslationsSettingsSendFeedbackFi._(_root);
 	@override late final _TranslationsSettingsClearAllDataFi clearAllData = _TranslationsSettingsClearAllDataFi._(_root);
 	@override late final _TranslationsSettingsDebugOptionsFi debugOptions = _TranslationsSettingsDebugOptionsFi._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectFi implements TranslationsOnboardingHe
 	@override String get skipForNow => 'Ohita nyt';
 	@override String get statusConnected => 'Health Connect on yhdistetty.';
 	@override String get statusSuccess => 'Health Connect on onnistuneesti yhdistetty!';
-	@override String get statusPermissionDenied => 'Sovelmat eivät pääse. Ota käyttöön Health Connect -oikeudet puhelimesi asetuksista Calorifyä varten.';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Käyttöoikeus evätty. Ota käyttöön Health Connect -käyttöoikeudet puhelimesi asetuksista ${appLabel} -sovellusta varten.';
 	@override String statusError({required Object error}) => 'Virhe Health Connectin asettamiseen: ${error}';
 }
 
@@ -826,20 +827,6 @@ class _TranslationsSettingsWeightUnitFi implements TranslationsSettingsWeightUni
 	@override String get title => 'Painoyksikkö';
 }
 
-// Path: settings.theme
-class _TranslationsSettingsThemeFi implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeFi._(this._root);
-
-	final TranslationsFi _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
-}
-
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersFi implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersFi._(this._root);
@@ -851,6 +838,20 @@ class _TranslationsSettingsMealRemindersFi implements TranslationsSettingsMealRe
 	@override String get subtitle => 'Pysy mahdollisuudesi kulkee ajoissa';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeFi implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeFi._(this._root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Teema';
+	@override String get subtitle => 'Valitse suosikkiteemasi';
+	@override String get light => 'Vaalea';
+	@override String get dark => 'Tumma';
+	@override String get system => 'Järjestelmä';
+}
+
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackFi implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackFi._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackFi implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'Lähetä palautetta';
-	@override String get subtitle => 'Autat meitä parantamaan Calorifyä';
-	@override String get emailSubject => 'Calorify-sovellus Palautetta';
+	@override String subtitle({required Object appLabel}) => 'Auta meitä parantamaan ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} -sovelluksen palautetta';
 	@override String get emailBodyPrefix => 'Ole hyvä ja anna palautteesi alla:';
 	@override String get appVersion => 'Sovellusversio';
 	@override String get device => 'Laite';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapFi implements TranslationsDisclaimerSnapEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Calorify tarjoaa arvioituja ravitsemustietoja. Tarkkuus riippuu syötteistäsi ja ruokavariaatioista. Käytä opastavana, ei lopullisena lähteenä. Konsultoi ammattilaista henkilökohtaisille ravitsemusneuvoille.';
+	@override String description({required Object appLabel}) => '${appLabel} antaa arvioidut ravintoarvot. Tarkkuus riippuu syötteestäsi ja ruokavariaatioista. Käytä opastuksena, ei ehdottomana lähteenä. Konsultoi asiantuntijaa saadaksesi henkilökohtaisia ruokavalio-ohjeita.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeFi portionSize = _TranslationsDisclaimerSnapPortionSizeFi._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsFi preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsFi._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsFi ingredients = _TranslationsDisclaimerSnapIngredientsFi._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesFi implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => 'Voimme auttaa sinua luomaan terveellisen suunnitelman, jotta saavutat tasapainoisen painon ravinteikkalla ruualla.';
 	@override String get healthy => 'Hienoa! Olet terveellisellä alueella. Autamme sinua ylläpitämään elinvoimaasi ja energiatasojasi.';
-	@override String get overweight => 'Calorify yksinkertaistaa matkaasi tekoälypohjaisen seurannan avulla, jotta voit saavuttaa tavoitteesi mukavasti.';
+	@override String overweight({required Object appLabel}) => '${appLabel} helpottaa matkaasi tekoälypohjaisella seurannalla, jotta voit saavuttaa tavoitteesi mukavasti.';
 	@override String get obese => 'Olemme täällä tukemassa sinua henkilökohtaisella ohjauksella ja kestävämmillä strategioilla terveyshaaveidesi saavuttamiseksi.';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessFi implements Translati
 	@override String get title => 'Et ole yksin';
 	@override String get genericMessage => 'Tutkimukset osoittavat, että johdonmukainen seuranta on ykköskäyttäjä pitkäaikaisen menestyksen ennustajana.';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => ' ${age}-vuotiaalle ${gender}, joka haluaa ${goal}, johdonmukainen seuranta on ykköskäyttäjä menestyksen ennustajana.';
-	@override String get closingMessage => 'Calorify tekee sen kymmenen kertaa helpommaksi kuin manuaalisesti tekeminen.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} tekee sen 10 kertaa helpommaksi kuin manuaalisesti tekeminen.';
 	@override String get getStartedTitle => 'Valmiina aloittamaan?';
 	@override String get tipPhoto => 'Ota kuva aterioistasi saadaksesi välitöntä analyysiä';
 	@override String get tipConsistency => 'Kirjaa ruokasi säännöllisesti nähdäksesi merkittävää edistystä';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessFi implements Translati
 	@override String get button => 'Mennään!';
 	@override String get defaultGender => 'yksilö';
 	@override String get defaultGoal => 'terveellisempi sinä';
-	@override String get instantPhotoAnalysis => 'Välitön valokuva-analyysi';
-	@override String get automaticLogging => 'Automaattinen ravitsemusten kirjaaminen';
-	@override String get progressVisualizations => 'Edistymisen visualisoinnit, jotka pitävät sinut motivoituneena';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleFi implements Translation
 
 	// Translations
 	@override String get title => 'Erinomainen Aloitus!';
-	@override String description({required Object goalText, required Object activityText}) => 'Olet ottanut ensimmäisen askeleen kohti ${goalText}. Koska olet ${activityText}, Calorify mukauttaa tavoitteesi elämänrytmiisi.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Olet ottanut ensimmäisen askeleen kohti ${goalText}. Koska olet ${activityText}, ${appLabel} säätää tavoitteesi vastaamaan elämäntapaasi.';
 	@override String get personalizedTargets => 'Personoidut kaloritavoitteet';
 	@override String get aiMealDetection => 'Tekoälypohjainen ateriatunnistus';
 	@override String get macroBreakdowns => 'Yksityiskohtaiset makroravinteiden purkaukset';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsFi implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Valmistusmenetelmät';
-	@override String get description => 'Ruokavalteen valmistusmenetelmät voivat merkittävästi muuttaa ravintosisältöä. Calorifyn arviot eivät aina ota huomioon näitä vaihteluja.';
+	@override String description({required Object appLabel}) => 'Valmistusmenetelmät voivat merkittävästi muuttaa ruoan ravintosisältöä. ${appLabel}:n arviot eivät välttämättä aina ota näitä vaihteluita huomioon.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsFi implements TranslationsDi
 
 	// Translations
 	@override String get title => 'Tietokannan Rajoitukset';
-	@override String get description => 'Calorifyn ruokadatabaasi on laaja, mutta ei välttämättä sisällä jokaista yksittäistä ruokatuotetta tai variaatiota.';
+	@override String description({required Object appLabel}) => '${appLabel}:n ruokakanta on laaja, mutta se ei välttämättä sisällä jokaista yksittäistä ruokaa tai variaatiota.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsFi implements Transl
 
 	// Translations
 	@override String get title => 'Biologiset Tekijät';
-	@override String get description => 'Todellinen painon pudotus/nousu vaikuttavat aineenvaihduntaan, hormoneihin, uneen, stressiin, nesteytykseen ja muihin yksilöllisiin tekijöihin, joita Calorify ei voi mitata.';
+	@override String description({required Object appLabel}) => 'Todelliseen painonpudotukseen/kasvuun vaikuttavat aineenvaihdunta, hormonit, uni, stressi, nesteytys ja muut yksilölliset tekijät, joita ${appLabel} ei voi mitata.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsFi {
 		return switch (path) {
 			'language' => 'Finnish',
 			'flag' => '🇫🇮',
-			'onboarding.welcome' => 'Tervetuloa Calorifyyn',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => 'Tervetuloa ${appLabel} -sovellukseen',
 			'onboarding.subtitle' => 'Henkilökohtainen ravitsemuskumppanisi, jota ohjaa tekoäly',
 			'onboarding.getStarted' => 'Aloita',
 			'onboarding.features.foodRecognition.title' => 'Älykäs Ruokantunnistus',
@@ -1360,7 +1359,7 @@ extension on TranslationsFi {
 			'onboarding.bmiScale.categories.obese' => 'Lihava',
 			'onboarding.bmiScale.messages.underweight' => 'Voimme auttaa sinua luomaan terveellisen suunnitelman, jotta saavutat tasapainoisen painon ravinteikkalla ruualla.',
 			'onboarding.bmiScale.messages.healthy' => 'Hienoa! Olet terveellisellä alueella. Autamme sinua ylläpitämään elinvoimaasi ja energiatasojasi.',
-			'onboarding.bmiScale.messages.overweight' => 'Calorify yksinkertaistaa matkaasi tekoälypohjaisen seurannan avulla, jotta voit saavuttaa tavoitteesi mukavasti.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} helpottaa matkaasi tekoälypohjaisella seurannalla, jotta voit saavuttaa tavoitteesi mukavasti.',
 			'onboarding.bmiScale.messages.obese' => 'Olemme täällä tukemassa sinua henkilökohtaisella ohjauksella ja kestävämmillä strategioilla terveyshaaveidesi saavuttamiseksi.',
 			'onboarding.weightGoal.title' => 'Mikä on tavoitteesi?',
 			'onboarding.weightGoal.description' => 'Valitse tavoite, joka parhaiten kuvaa mitä haluat saavuttaa',
@@ -1380,12 +1379,12 @@ extension on TranslationsFi {
 			'onboarding.healthConnect.skipForNow' => 'Ohita nyt',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect on yhdistetty.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect on onnistuneesti yhdistetty!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'Sovelmat eivät pääse. Ota käyttöön Health Connect -oikeudet puhelimesi asetuksista Calorifyä varten.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Käyttöoikeus evätty. Ota käyttöön Health Connect -käyttöoikeudet puhelimesi asetuksista ${appLabel} -sovellusta varten.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Virhe Health Connectin asettamiseen: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Et ole yksin',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Tutkimukset osoittavat, että johdonmukainen seuranta on ykköskäyttäjä pitkäaikaisen menestyksen ennustajana.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => ' ${age}-vuotiaalle ${gender}, joka haluaa ${goal}, johdonmukainen seuranta on ykköskäyttäjä menestyksen ennustajana.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify tekee sen kymmenen kertaa helpommaksi kuin manuaalisesti tekeminen.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} tekee sen 10 kertaa helpommaksi kuin manuaalisesti tekeminen.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Valmiina aloittamaan?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Ota kuva aterioistasi saadaksesi välitöntä analyysiä',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Kirjaa ruokasi säännöllisesti nähdäksesi merkittävää edistystä',
@@ -1393,9 +1392,6 @@ extension on TranslationsFi {
 			'onboarding.reinforcement.trackingSuccess.button' => 'Mennään!',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'yksilö',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'terveellisempi sinä',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Välitön valokuva-analyysi',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Automaattinen ravitsemusten kirjaaminen',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Edistymisen visualisoinnit, jotka pitävät sinut motivoituneena',
 			'onboarding.reinforcement.healthProfile.title' => 'Terveysprofiilisi',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Pohjalta mittarisi mukaan, BMI:si on ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Viimeistelemme profiilisi, jotta voimme räätälöidä kokemuksesi.',
@@ -1405,7 +1401,7 @@ extension on TranslationsFi {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'Olet tavoitepainossasi! Autamme sinua ylläpitämään sitä.',
 			'onboarding.reinforcement.healthProfile.button' => 'Mennään!',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Erinomainen Aloitus!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'Olet ottanut ensimmäisen askeleen kohti ${goalText}. Koska olet ${activityText}, Calorify mukauttaa tavoitteesi elämänrytmiisi.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Olet ottanut ensimmäisen askeleen kohti ${goalText}. Koska olet ${activityText}, ${appLabel} säätää tavoitteesi vastaamaan elämäntapaasi.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Personoidut kaloritavoitteet',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Tekoälypohjainen ateriatunnistus',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Yksityiskohtaiset makroravinteiden purkaukset',
@@ -1573,16 +1569,16 @@ extension on TranslationsFi {
 			'settings.language.subtitle' => 'Valitse haluamasi kieli',
 			'settings.heightUnit.title' => 'Pituusyksikkö',
 			'settings.weightUnit.title' => 'Painoyksikkö',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => 'Ateriavaroitukset',
 			'settings.mealReminders.subtitle' => 'Pysy mahdollisuudesi kulkee ajoissa',
+			'settings.theme.title' => 'Teema',
+			'settings.theme.subtitle' => 'Valitse suosikkiteemasi',
+			'settings.theme.light' => 'Vaalea',
+			'settings.theme.dark' => 'Tumma',
+			'settings.theme.system' => 'Järjestelmä',
 			'settings.sendFeedback.title' => 'Lähetä palautetta',
-			'settings.sendFeedback.subtitle' => 'Autat meitä parantamaan Calorifyä',
-			'settings.sendFeedback.emailSubject' => 'Calorify-sovellus Palautetta',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Auta meitä parantamaan ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} -sovelluksen palautetta',
 			'settings.sendFeedback.emailBodyPrefix' => 'Ole hyvä ja anna palautteesi alla:',
 			'settings.sendFeedback.appVersion' => 'Sovellusversio',
 			'settings.sendFeedback.device' => 'Laite',
@@ -1629,21 +1625,21 @@ extension on TranslationsFi {
 			'login.signInWithGoogle' => 'Kirjaudu sisään Googlella',
 			'login.signInFailed' => 'Google-sisäänkirjautuminen epäonnistui tai se peruutettiin.',
 			'disclaimer.pleaseNote' => 'Ole hyvä ja huomaa',
-			'disclaimer.snap.description' => 'Calorify tarjoaa arvioituja ravitsemustietoja. Tarkkuus riippuu syötteistäsi ja ruokavariaatioista. Käytä opastavana, ei lopullisena lähteenä. Konsultoi ammattilaista henkilökohtaisille ravitsemusneuvoille.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} antaa arvioidut ravintoarvot. Tarkkuus riippuu syötteestäsi ja ruokavariaatioista. Käytä opastuksena, ei ehdottomana lähteenä. Konsultoi asiantuntijaa saadaksesi henkilökohtaisia ruokavalio-ohjeita.',
 			'disclaimer.snap.portionSize.title' => 'Annoksen Koko',
 			'disclaimer.snap.portionSize.description' => 'Arvioiden tarkkuus riippuu suuresti oikeasta arvioinnistasi annoksen koosta.',
 			'disclaimer.snap.preparationMethods.title' => 'Valmistusmenetelmät',
-			'disclaimer.snap.preparationMethods.description' => 'Ruokavalteen valmistusmenetelmät voivat merkittävästi muuttaa ravintosisältöä. Calorifyn arviot eivät aina ota huomioon näitä vaihteluja.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Valmistusmenetelmät voivat merkittävästi muuttaa ruoan ravintosisältöä. ${appLabel}:n arviot eivät välttämättä aina ota näitä vaihteluita huomioon.',
 			'disclaimer.snap.ingredients.title' => 'Ainesosat',
 			'disclaimer.snap.ingredients.description' => 'Monimuotoiset annokset, joissa on monia piilotettuja ainesosia, voivat johtaa vähemmän tarkkoihin arvioihin.',
 			'disclaimer.snap.databaseLimitations.title' => 'Tietokannan Rajoitukset',
-			'disclaimer.snap.databaseLimitations.description' => 'Calorifyn ruokadatabaasi on laaja, mutta ei välttämättä sisällä jokaista yksittäistä ruokatuotetta tai variaatiota.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}:n ruokakanta on laaja, mutta se ei välttämättä sisällä jokaista yksittäistä ruokaa tai variaatiota.',
 			'disclaimer.weightEstimate.title' => 'Tietoa Painoarviosta',
 			'disclaimer.weightEstimate.description' => 'Arvioitu painon muutos on teoreettinen arvio perus kalori-in vs. kalori-out malli. Se on tarkoitettu vain motivoivaksi oppaaksi, ei ennusteeksi oikeasta painostasi.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalorin Tarkkuus',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Tämä arvio on yhtä tarkka kuin kirjatut kalori saanti ja kulutus. Epätarkka kirjaaminen johtaa epätarkkaan ennusteeseen.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Biologiset Tekijät',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'Todellinen painon pudotus/nousu vaikuttavat aineenvaihduntaan, hormoneihin, uneen, stressiin, nesteytykseen ja muihin yksilöllisiin tekijöihin, joita Calorify ei voi mitata.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Todelliseen painonpudotukseen/kasvuun vaikuttavat aineenvaihdunta, hormonit, uni, stressi, nesteytys ja muut yksilölliset tekijät, joita ${appLabel} ei voi mitata.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Veden Paino & Heilahtelut',
 			'disclaimer.weightEstimate.waterWeight.description' => 'Normaali päivittäinen paino voi vaihdella merkittävästi veden pidätyksen, ruoansulatuksen ja ajoituksen vuoksi. Arvio ei ota huomioon näitä päivittäisiä muutoksia.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Ammattiohjaus',

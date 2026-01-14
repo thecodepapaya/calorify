@@ -39,6 +39,7 @@ class TranslationsKo with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => '한국어';
 	@override String get flag => '🇰🇷';
+	@override String appLabel({required Object env}) => '칼로리파이${env}';
 	@override late final _TranslationsOnboardingKo onboarding = _TranslationsOnboardingKo._(_root);
 	@override late final _TranslationsTabsKo tabs = _TranslationsTabsKo._(_root);
 	@override late final _TranslationsHomeKo home = _TranslationsHomeKo._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingKo implements TranslationsOnboardingEn {
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => '칼로리파이에 오신 것을 환영합니다';
+	@override String welcome({required Object appLabel}) => '${appLabel}에 오신 것을 환영합니다';
 	@override String get subtitle => 'AI가 지원하는 개인 영양 동반자';
 	@override String get getStarted => '시작하기';
 	@override late final _TranslationsOnboardingFeaturesKo features = _TranslationsOnboardingFeaturesKo._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsKo implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageKo language = _TranslationsSettingsLanguageKo._(_root);
 	@override late final _TranslationsSettingsHeightUnitKo heightUnit = _TranslationsSettingsHeightUnitKo._(_root);
 	@override late final _TranslationsSettingsWeightUnitKo weightUnit = _TranslationsSettingsWeightUnitKo._(_root);
-	@override late final _TranslationsSettingsThemeKo theme = _TranslationsSettingsThemeKo._(_root);
 	@override late final _TranslationsSettingsMealRemindersKo mealReminders = _TranslationsSettingsMealRemindersKo._(_root);
+	@override late final _TranslationsSettingsThemeKo theme = _TranslationsSettingsThemeKo._(_root);
 	@override late final _TranslationsSettingsSendFeedbackKo sendFeedback = _TranslationsSettingsSendFeedbackKo._(_root);
 	@override late final _TranslationsSettingsClearAllDataKo clearAllData = _TranslationsSettingsClearAllDataKo._(_root);
 	@override late final _TranslationsSettingsDebugOptionsKo debugOptions = _TranslationsSettingsDebugOptionsKo._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectKo implements TranslationsOnboardingHe
 	@override String get skipForNow => '지금은 건너뛰기';
 	@override String get statusConnected => 'Health Connect가 연결되었습니다.';
 	@override String get statusSuccess => 'Health Connect가 성공적으로 연결되었습니다!';
-	@override String get statusPermissionDenied => '권한이 거부되었습니다. 칼로리파이에 대한 Health Connect 권한을 활성화해 주세요.';
+	@override String statusPermissionDenied({required Object appLabel}) => '권한이 거부되었습니다. ${appLabel}을 사용하려면 휴대폰 설정에서 Health Connect 권한을 활성화해 주세요.';
 	@override String statusError({required Object error}) => 'Health Connect를 설정하는 중 오류 발생: ${error}';
 }
 
@@ -826,20 +827,6 @@ class _TranslationsSettingsWeightUnitKo implements TranslationsSettingsWeightUni
 	@override String get title => '체중 단위';
 }
 
-// Path: settings.theme
-class _TranslationsSettingsThemeKo implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeKo._(this._root);
-
-	final TranslationsKo _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
-}
-
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersKo implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersKo._(this._root);
@@ -851,6 +838,20 @@ class _TranslationsSettingsMealRemindersKo implements TranslationsSettingsMealRe
 	@override String get subtitle => '시기적절한 알림으로 계획을 계속 유지하세요';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeKo implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '테마';
+	@override String get subtitle => '선호하는 테마를 선택하세요';
+	@override String get light => '라이트';
+	@override String get dark => '다크';
+	@override String get system => '시스템';
+}
+
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackKo implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackKo._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackKo implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => '피드백 보내기';
-	@override String get subtitle => '칼로리파이를 개선하는 데 도움을 주세요';
-	@override String get emailSubject => '칼로리파이 앱 피드백';
+	@override String subtitle({required Object appLabel}) => '${appLabel}을(A를) 개선하는 데 도움을 주세요';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} 앱 피드백';
 	@override String get emailBodyPrefix => '아래에 귀하의 피드백을 제공해 주세요:';
 	@override String get appVersion => '앱 버전';
 	@override String get device => '장치';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapKo implements TranslationsDisclaimerSnapEn {
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => '칼로리파이는 추정된 영양 정보를 제공합니다. 정확성은 입력 및 음식 변형에 따라 다릅니다. 가이드로 사용하시고, 개인화된 식이 조언은 전문가와 상담하세요.';
+	@override String description({required Object appLabel}) => '${appLabel}은(A는) 추정된 영양 정보를 제공합니다. 정확도는 입력 및 음식 변동성에 따라 다릅니다. 참고용으로만 사용하고, 확정적인 출처로는 사용하지 마세요. 개인 맞춤형 식이 조언은 전문가와 상담하세요.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeKo portionSize = _TranslationsDisclaimerSnapPortionSizeKo._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsKo preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsKo._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsKo ingredients = _TranslationsDisclaimerSnapIngredientsKo._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesKo implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => '우리는 영양이 풍부한 식사를 통해 균형 잡힌 체중에 도달하기 위한 건강한 계획을 세우도록 도와드릴 수 있습니다.';
 	@override String get healthy => '잘하고 계세요! 당신은 건강한 범위에 있습니다. 우리는 당신의 활력과 에너지 수준을 유지하도록 도와드릴 것입니다.';
-	@override String get overweight => '칼로리파이는 목표에 편안하게 도달할 수 있도록 AI 기반 추적으로 여러분의 여정을 간소화합니다.';
+	@override String overweight({required Object appLabel}) => '${appLabel}은(A는) AI 기반의 추적을 통해 목표에 쉽게 도달할 수 있도록 여정을 단순화합니다.';
 	@override String get obese => '우리는 개별적인 지침과 지속 가능한 전략으로 여러분의 건강 목표를 지원합니다.';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessKo implements Translati
 	@override String get title => '당신은 혼자가 아닙니다';
 	@override String get genericMessage => '연구에 따르면, 꾸준한 추적이 장기적인 성공의 #1 예측因자입니다.';
 	@override String personalizedMessage({required Object goal, required Object age, required Object gender}) => '${goal}를 원하시는 ${age}세 ${gender}님께, 꾸준한 추적이 성공의 #1 예측因자입니다.';
-	@override String get closingMessage => '칼로리파이는 수동으로 하는 것보다 10배 더 쉽게 만듭니다.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel}을(A를) 사용하면 수작업보다 10배 쉬워집니다.';
 	@override String get getStartedTitle => '시작할 준비가 되셨나요?';
 	@override String get tipPhoto => '즉각적인 분석을 위해 식사 사진을 촬영하세요';
 	@override String get tipConsistency => '의미 있는 변화를 보려면 꾸준히 기록하세요';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessKo implements Translati
 	@override String get button => '출발하자';
 	@override String get defaultGender => '개인';
 	@override String get defaultGoal => '더 건강한 당신';
-	@override String get instantPhotoAnalysis => '즉각적인 사진 분석';
-	@override String get automaticLogging => '자동 영양 기록';
-	@override String get progressVisualizations => '동기 부여를 유지하는 진행 상황 시각화';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleKo implements Translation
 
 	// Translations
 	@override String get title => '훌륭한 출발입니다!';
-	@override String description({required Object activityText, required Object goalText}) => '${activityText}인 당신은 ${goalText}을 향해 첫걸음을 내디뎠습니다. 칼로리파이는 당신의 라이프스타일에 맞춰 목표를 조정합니다.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => '당신은 ${goalText}을 향한 첫 단계를 내디뎠습니다. 당신이 ${activityText}이므로, ${appLabel}은 당신의 라이프스타일에 맞게 목표를 조정할 것입니다.';
 	@override String get personalizedTargets => '개인화된 칼로리 목표';
 	@override String get aiMealDetection => 'AI 기반 식사 인식';
 	@override String get macroBreakdowns => '세부 매크로 영양소 분석';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsKo implements TranslationsDis
 
 	// Translations
 	@override String get title => '조리 방법';
-	@override String get description => '조리 방법은 음식의 영양 성분을 크게 변경할 수 있습니다. 칼로리파이의 추정치가 이러한 변형을 항상 고려하는 것은 아닙니다.';
+	@override String description({required Object appLabel}) => '조리 방법은 음식의 영양 성분에 상당한 영향을 미칠 수 있습니다. ${appLabel}의 추정치는 이러한 변동성을 항상 고려하지 않을 수 있습니다.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsKo implements TranslationsDi
 
 	// Translations
 	@override String get title => '데이터베이스 한계';
-	@override String get description => '칼로리파이의 음식 데이터베이스는 방대하지만 모든 음식 항목이나 변형을 포함하지 않을 수 있습니다.';
+	@override String description({required Object appLabel}) => '${appLabel}의 음식 데이터베이스는 방대하지만 모든 음식 항목이나 변형을 포함하지는 않을 수 있습니다.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsKo implements Transl
 
 	// Translations
 	@override String get title => '생물학적 요인';
-	@override String get description => '실제 체중 손실/증가는 대사, 호르몬, 수면, 스트레스, 수분 및 칼로리파이가 측정할 수 없는 기타 개인 요인에 의해 영향을 받습니다.';
+	@override String description({required Object appLabel}) => '실제 체중 감소/증가는 신진대사, 호르몬, 수면, 스트레스, 수분 섭취 및 ${appLabel}이 측정할 수 없는 기타 개인 요인에 의해 영향을 받습니다.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsKo {
 		return switch (path) {
 			'language' => '한국어',
 			'flag' => '🇰🇷',
-			'onboarding.welcome' => '칼로리파이에 오신 것을 환영합니다',
+			'appLabel' => ({required Object env}) => '칼로리파이${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel}에 오신 것을 환영합니다',
 			'onboarding.subtitle' => 'AI가 지원하는 개인 영양 동반자',
 			'onboarding.getStarted' => '시작하기',
 			'onboarding.features.foodRecognition.title' => '스마트 음식 인식',
@@ -1360,7 +1359,7 @@ extension on TranslationsKo {
 			'onboarding.bmiScale.categories.obese' => '비만',
 			'onboarding.bmiScale.messages.underweight' => '우리는 영양이 풍부한 식사를 통해 균형 잡힌 체중에 도달하기 위한 건강한 계획을 세우도록 도와드릴 수 있습니다.',
 			'onboarding.bmiScale.messages.healthy' => '잘하고 계세요! 당신은 건강한 범위에 있습니다. 우리는 당신의 활력과 에너지 수준을 유지하도록 도와드릴 것입니다.',
-			'onboarding.bmiScale.messages.overweight' => '칼로리파이는 목표에 편안하게 도달할 수 있도록 AI 기반 추적으로 여러분의 여정을 간소화합니다.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel}은(A는) AI 기반의 추적을 통해 목표에 쉽게 도달할 수 있도록 여정을 단순화합니다.',
 			'onboarding.bmiScale.messages.obese' => '우리는 개별적인 지침과 지속 가능한 전략으로 여러분의 건강 목표를 지원합니다.',
 			'onboarding.weightGoal.title' => '당신의 목표는 무엇인가요?',
 			'onboarding.weightGoal.description' => '달성하고자 하는 목표를 선택하세요',
@@ -1380,12 +1379,12 @@ extension on TranslationsKo {
 			'onboarding.healthConnect.skipForNow' => '지금은 건너뛰기',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect가 연결되었습니다.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect가 성공적으로 연결되었습니다!',
-			'onboarding.healthConnect.statusPermissionDenied' => '권한이 거부되었습니다. 칼로리파이에 대한 Health Connect 권한을 활성화해 주세요.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => '권한이 거부되었습니다. ${appLabel}을 사용하려면 휴대폰 설정에서 Health Connect 권한을 활성화해 주세요.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connect를 설정하는 중 오류 발생: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => '당신은 혼자가 아닙니다',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => '연구에 따르면, 꾸준한 추적이 장기적인 성공의 #1 예측因자입니다.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object goal, required Object age, required Object gender}) => '${goal}를 원하시는 ${age}세 ${gender}님께, 꾸준한 추적이 성공의 #1 예측因자입니다.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => '칼로리파이는 수동으로 하는 것보다 10배 더 쉽게 만듭니다.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel}을(A를) 사용하면 수작업보다 10배 쉬워집니다.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => '시작할 준비가 되셨나요?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => '즉각적인 분석을 위해 식사 사진을 촬영하세요',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => '의미 있는 변화를 보려면 꾸준히 기록하세요',
@@ -1393,9 +1392,6 @@ extension on TranslationsKo {
 			'onboarding.reinforcement.trackingSuccess.button' => '출발하자',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => '개인',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => '더 건강한 당신',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => '즉각적인 사진 분석',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => '자동 영양 기록',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => '동기 부여를 유지하는 진행 상황 시각화',
 			'onboarding.reinforcement.healthProfile.title' => '당신의 건강 프로필',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => '당신의 지표에 기반하여, BMI는 ${bmi}입니다.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => '사용자 경험을 맞춤화하기 위해 프로필을 마무리합시다.',
@@ -1405,7 +1401,7 @@ extension on TranslationsKo {
 			'onboarding.reinforcement.healthProfile.goalReached' => '당신은 목표 체중에 도달했습니다! 우리는 이를 유지할 수 있도록 도와드릴 것입니다.',
 			'onboarding.reinforcement.healthProfile.button' => '출발하자',
 			'onboarding.reinforcement.goalLifestyle.title' => '훌륭한 출발입니다!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object activityText, required Object goalText}) => '${activityText}인 당신은 ${goalText}을 향해 첫걸음을 내디뎠습니다. 칼로리파이는 당신의 라이프스타일에 맞춰 목표를 조정합니다.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => '당신은 ${goalText}을 향한 첫 단계를 내디뎠습니다. 당신이 ${activityText}이므로, ${appLabel}은 당신의 라이프스타일에 맞게 목표를 조정할 것입니다.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => '개인화된 칼로리 목표',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI 기반 식사 인식',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => '세부 매크로 영양소 분석',
@@ -1573,16 +1569,16 @@ extension on TranslationsKo {
 			'settings.language.subtitle' => '선호하는 언어를 선택하세요',
 			'settings.heightUnit.title' => '키 단위',
 			'settings.weightUnit.title' => '체중 단위',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => '식사 알림',
 			'settings.mealReminders.subtitle' => '시기적절한 알림으로 계획을 계속 유지하세요',
+			'settings.theme.title' => '테마',
+			'settings.theme.subtitle' => '선호하는 테마를 선택하세요',
+			'settings.theme.light' => '라이트',
+			'settings.theme.dark' => '다크',
+			'settings.theme.system' => '시스템',
 			'settings.sendFeedback.title' => '피드백 보내기',
-			'settings.sendFeedback.subtitle' => '칼로리파이를 개선하는 데 도움을 주세요',
-			'settings.sendFeedback.emailSubject' => '칼로리파이 앱 피드백',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => '${appLabel}을(A를) 개선하는 데 도움을 주세요',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} 앱 피드백',
 			'settings.sendFeedback.emailBodyPrefix' => '아래에 귀하의 피드백을 제공해 주세요:',
 			'settings.sendFeedback.appVersion' => '앱 버전',
 			'settings.sendFeedback.device' => '장치',
@@ -1629,21 +1625,21 @@ extension on TranslationsKo {
 			'login.signInWithGoogle' => 'Google로 로그인',
 			'login.signInFailed' => 'Google 로그인 실패 또는 취소되었습니다.',
 			'disclaimer.pleaseNote' => '참고하세요',
-			'disclaimer.snap.description' => '칼로리파이는 추정된 영양 정보를 제공합니다. 정확성은 입력 및 음식 변형에 따라 다릅니다. 가이드로 사용하시고, 개인화된 식이 조언은 전문가와 상담하세요.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel}은(A는) 추정된 영양 정보를 제공합니다. 정확도는 입력 및 음식 변동성에 따라 다릅니다. 참고용으로만 사용하고, 확정적인 출처로는 사용하지 마세요. 개인 맞춤형 식이 조언은 전문가와 상담하세요.',
 			'disclaimer.snap.portionSize.title' => '부분 크기',
 			'disclaimer.snap.portionSize.description' => '추정 정확도는 부분 크기를 올바르게 평가하는 것에 크게 의존합니다.',
 			'disclaimer.snap.preparationMethods.title' => '조리 방법',
-			'disclaimer.snap.preparationMethods.description' => '조리 방법은 음식의 영양 성분을 크게 변경할 수 있습니다. 칼로리파이의 추정치가 이러한 변형을 항상 고려하는 것은 아닙니다.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '조리 방법은 음식의 영양 성분에 상당한 영향을 미칠 수 있습니다. ${appLabel}의 추정치는 이러한 변동성을 항상 고려하지 않을 수 있습니다.',
 			'disclaimer.snap.ingredients.title' => '재료',
 			'disclaimer.snap.ingredients.description' => '복합 요리에서 많은 숨겨진 재료가 있을 경우, 덜 정확한 추정치가 나올 수 있습니다.',
 			'disclaimer.snap.databaseLimitations.title' => '데이터베이스 한계',
-			'disclaimer.snap.databaseLimitations.description' => '칼로리파이의 음식 데이터베이스는 방대하지만 모든 음식 항목이나 변형을 포함하지 않을 수 있습니다.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}의 음식 데이터베이스는 방대하지만 모든 음식 항목이나 변형을 포함하지는 않을 수 있습니다.',
 			'disclaimer.weightEstimate.title' => '체중 추정 안내',
 			'disclaimer.weightEstimate.description' => '예상 체중 변화는 단순 칼로리 대 칼로리 모델을 바탕으로 한 이론적 추정입니다. 이는 동기 부여 가이드를 위한 것이며, 실제 체중 예측이 아닙니다.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => '칼로리 정확도',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => '이 추정치는 추적된 칼로리 섭취 및 소비에 따라 정확성이 달라집니다. 부정확한 기록은 부정확한 추정으로 이어집니다.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => '생물학적 요인',
-			'disclaimer.weightEstimate.biologicalFactors.description' => '실제 체중 손실/증가는 대사, 호르몬, 수면, 스트레스, 수분 및 칼로리파이가 측정할 수 없는 기타 개인 요인에 의해 영향을 받습니다.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => '실제 체중 감소/증가는 신진대사, 호르몬, 수면, 스트레스, 수분 섭취 및 ${appLabel}이 측정할 수 없는 기타 개인 요인에 의해 영향을 받습니다.',
 			'disclaimer.weightEstimate.waterWeight.title' => '수분 체중 및 변동',
 			'disclaimer.weightEstimate.waterWeight.description' => '일일 체중은 수분 저류, 소화 및 타이밍으로 인해 상당히 변동할 수 있습니다. 이 추정치는 이러한 일일 변화를 고려하지 않습니다.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => '전문가의 조언',

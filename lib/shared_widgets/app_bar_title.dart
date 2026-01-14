@@ -1,5 +1,6 @@
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/features/home/widgets/home_screen_menu.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/animated_leaf.dart';
 import 'package:flutter/material.dart';
 
@@ -11,13 +12,14 @@ class AppBarTitle extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
+    final t = Translations.of(context);
 
     return Row(
       children: [
         AnimatedLeaf(size: 36),
         SizedBox(width: 6),
         Text(
-          EnvConfig.instance.title,
+          t.appLabel(env: EnvConfig.instance.envSuffix),
           style: textTheme.displaySmall?.copyWith(color: colorScheme.primary),
           overflow: TextOverflow.ellipsis,
         ),

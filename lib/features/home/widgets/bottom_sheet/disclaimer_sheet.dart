@@ -1,3 +1,4 @@
+import 'package:calorify/core/utilities/string_utils.dart';
 import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -126,7 +127,7 @@ class _BulletPoint extends StatelessWidget {
 DisclaimerData getSnapDisclaimer() {
   return DisclaimerData(
     title: t.disclaimer.pleaseNote,
-    description: t.disclaimer.snap.description,
+    description: t.disclaimer.snap.description(appLabel: t.appLabelValue),
     bulletPoints: [
       DisclaimerEntry(
         title: t.disclaimer.snap.portionSize.title,
@@ -134,7 +135,9 @@ DisclaimerData getSnapDisclaimer() {
       ),
       DisclaimerEntry(
         title: t.disclaimer.snap.preparationMethods.title,
-        description: t.disclaimer.snap.preparationMethods.description,
+        description: t.disclaimer.snap.preparationMethods.description(
+          appLabel: t.appLabelValue,
+        ),
       ),
       DisclaimerEntry(
         title: t.disclaimer.snap.ingredients.title,
@@ -142,7 +145,9 @@ DisclaimerData getSnapDisclaimer() {
       ),
       DisclaimerEntry(
         title: t.disclaimer.snap.databaseLimitations.title,
-        description: t.disclaimer.snap.databaseLimitations.description,
+        description: t.disclaimer.snap.databaseLimitations.description(
+          appLabel: t.appLabelValue,
+        ),
       ),
     ],
   );
@@ -159,7 +164,9 @@ DisclaimerData getWeightEstimateDisclaimer() {
       ),
       DisclaimerEntry(
         title: t.disclaimer.weightEstimate.biologicalFactors.title,
-        description: t.disclaimer.weightEstimate.biologicalFactors.description,
+        description: t.disclaimer.weightEstimate.biologicalFactors.description(
+          appLabel: t.appLabelValue,
+        ),
       ),
       DisclaimerEntry(
         title: t.disclaimer.weightEstimate.waterWeight.title,

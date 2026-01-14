@@ -1,8 +1,9 @@
 {
   "language": "한국어",
   "flag": "🇰🇷",
+  "appLabel": "칼로리파이{env}",
   "onboarding": {
-    "welcome": "칼로리파이에 오신 것을 환영합니다",
+    "welcome": "{appLabel}에 오신 것을 환영합니다",
     "subtitle": "AI가 지원하는 개인 영양 동반자",
     "getStarted": "시작하기",
     "features": {
@@ -59,7 +60,7 @@
       "messages": {
         "underweight": "우리는 영양이 풍부한 식사를 통해 균형 잡힌 체중에 도달하기 위한 건강한 계획을 세우도록 도와드릴 수 있습니다.",
         "healthy": "잘하고 계세요! 당신은 건강한 범위에 있습니다. 우리는 당신의 활력과 에너지 수준을 유지하도록 도와드릴 것입니다.",
-        "overweight": "칼로리파이는 목표에 편안하게 도달할 수 있도록 AI 기반 추적으로 여러분의 여정을 간소화합니다.",
+        "overweight": "{appLabel}은(A는) AI 기반의 추적을 통해 목표에 쉽게 도달할 수 있도록 여정을 단순화합니다.",
         "obese": "우리는 개별적인 지침과 지속 가능한 전략으로 여러분의 건강 목표를 지원합니다."
       }
     },
@@ -92,7 +93,7 @@
       "skipForNow": "지금은 건너뛰기",
       "statusConnected": "Health Connect가 연결되었습니다.",
       "statusSuccess": "Health Connect가 성공적으로 연결되었습니다!",
-      "statusPermissionDenied": "권한이 거부되었습니다. 칼로리파이에 대한 Health Connect 권한을 활성화해 주세요.",
+      "statusPermissionDenied": "권한이 거부되었습니다. {appLabel}을 사용하려면 휴대폰 설정에서 Health Connect 권한을 활성화해 주세요.",
       "statusError": "Health Connect를 설정하는 중 오류 발생: {error}"
     },
     "reinforcement": {
@@ -100,17 +101,14 @@
         "title": "당신은 혼자가 아닙니다",
         "genericMessage": "연구에 따르면, 꾸준한 추적이 장기적인 성공의 #1 예측因자입니다.",
         "personalizedMessage": "{goal}를 원하시는 {age}세 {gender}님께, 꾸준한 추적이 성공의 #1 예측因자입니다.",
-        "closingMessage": "칼로리파이는 수동으로 하는 것보다 10배 더 쉽게 만듭니다.",
+        "closingMessage": "{appLabel}을(A를) 사용하면 수작업보다 10배 쉬워집니다.",
         "getStartedTitle": "시작할 준비가 되셨나요?",
         "tipPhoto": "즉각적인 분석을 위해 식사 사진을 촬영하세요",
         "tipConsistency": "의미 있는 변화를 보려면 꾸준히 기록하세요",
         "tipProgress": "동기 부여를 위해 매일 진행 상황을 기록하세요",
         "button": "출발하자",
         "defaultGender": "개인",
-        "defaultGoal": "더 건강한 당신",
-        "instantPhotoAnalysis": "즉각적인 사진 분석",
-        "automaticLogging": "자동 영양 기록",
-        "progressVisualizations": "동기 부여를 유지하는 진행 상황 시각화"
+        "defaultGoal": "더 건강한 당신"
       },
       "healthProfile": {
         "title": "당신의 건강 프로필",
@@ -124,7 +122,7 @@
       },
       "goalLifestyle": {
         "title": "훌륭한 출발입니다!",
-        "description": "{activityText}인 당신은 {goalText}을 향해 첫걸음을 내디뎠습니다. 칼로리파이는 당신의 라이프스타일에 맞춰 목표를 조정합니다.",
+        "description": "당신은 {goalText}을 향한 첫 단계를 내디뎠습니다. 당신이 {activityText}이므로, {appLabel}은 당신의 라이프스타일에 맞게 목표를 조정할 것입니다.",
         "personalizedTargets": "개인화된 칼로리 목표",
         "aiMealDetection": "AI 기반 식사 인식",
         "macroBreakdowns": "세부 매크로 영양소 분석",
@@ -372,21 +370,21 @@
     "weightUnit": {
       "title": "체중 단위"
     },
-    "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
-    },
     "mealReminders": {
       "title": "식사 알림",
       "subtitle": "시기적절한 알림으로 계획을 계속 유지하세요"
     },
+    "theme": {
+      "title": "테마",
+      "subtitle": "선호하는 테마를 선택하세요",
+      "light": "라이트",
+      "dark": "다크",
+      "system": "시스템"
+    },
     "sendFeedback": {
       "title": "피드백 보내기",
-      "subtitle": "칼로리파이를 개선하는 데 도움을 주세요",
-      "emailSubject": "칼로리파이 앱 피드백",
+      "subtitle": "{appLabel}을(A를) 개선하는 데 도움을 주세요",
+      "emailSubject": "{appLabel} 앱 피드백",
       "emailBodyPrefix": "아래에 귀하의 피드백을 제공해 주세요:",
       "appVersion": "앱 버전",
       "device": "장치",
@@ -457,14 +455,14 @@
   "disclaimer": {
     "pleaseNote": "참고하세요",
     "snap": {
-      "description": "칼로리파이는 추정된 영양 정보를 제공합니다. 정확성은 입력 및 음식 변형에 따라 다릅니다. 가이드로 사용하시고, 개인화된 식이 조언은 전문가와 상담하세요.",
+      "description": "{appLabel}은(A는) 추정된 영양 정보를 제공합니다. 정확도는 입력 및 음식 변동성에 따라 다릅니다. 참고용으로만 사용하고, 확정적인 출처로는 사용하지 마세요. 개인 맞춤형 식이 조언은 전문가와 상담하세요.",
       "portionSize": {
         "title": "부분 크기",
         "description": "추정 정확도는 부분 크기를 올바르게 평가하는 것에 크게 의존합니다."
       },
       "preparationMethods": {
         "title": "조리 방법",
-        "description": "조리 방법은 음식의 영양 성분을 크게 변경할 수 있습니다. 칼로리파이의 추정치가 이러한 변형을 항상 고려하는 것은 아닙니다."
+        "description": "조리 방법은 음식의 영양 성분에 상당한 영향을 미칠 수 있습니다. {appLabel}의 추정치는 이러한 변동성을 항상 고려하지 않을 수 있습니다."
       },
       "ingredients": {
         "title": "재료",
@@ -472,7 +470,7 @@
       },
       "databaseLimitations": {
         "title": "데이터베이스 한계",
-        "description": "칼로리파이의 음식 데이터베이스는 방대하지만 모든 음식 항목이나 변형을 포함하지 않을 수 있습니다."
+        "description": "{appLabel}의 음식 데이터베이스는 방대하지만 모든 음식 항목이나 변형을 포함하지는 않을 수 있습니다."
       }
     },
     "weightEstimate": {
@@ -484,7 +482,7 @@
       },
       "biologicalFactors": {
         "title": "생물학적 요인",
-        "description": "실제 체중 손실/증가는 대사, 호르몬, 수면, 스트레스, 수분 및 칼로리파이가 측정할 수 없는 기타 개인 요인에 의해 영향을 받습니다."
+        "description": "실제 체중 감소/증가는 신진대사, 호르몬, 수면, 스트레스, 수분 섭취 및 {appLabel}이 측정할 수 없는 기타 개인 요인에 의해 영향을 받습니다."
       },
       "waterWeight": {
         "title": "수분 체중 및 변동",

@@ -1,42 +1,43 @@
 {
   "language": "Arabic",
   "flag": "🇸🇩",
+  "appLabel": "كالوري في {env}",
   "onboarding": {
-    "welcome": "مرحبًا بك في كالرِفاي",
-    "subtitle": "رفيقك الشخصي في التغذية المدعوم بالذكاء الاصطناعي",
-    "getStarted": "ابدأ",
+    "welcome": "مرحبًا بكم في {appLabel}",
+    "subtitle": "رفيقك الشخصي للتغذية المدعوم بالذكاء الاصطناعي",
+    "getStarted": "ابدأ الآن",
     "features": {
       "foodRecognition": {
-        "title": "تعرف ذكي على الطعام",
+        "title": "التمييز الذكي للطعام",
         "description": "التقط صورة ودع الذكاء الاصطناعي يتعرف على وجبتك"
       },
       "aiAnalysis": {
         "title": "تحليل الذكاء الاصطناعي",
-        "description": "احصل على معلومات غذائية فورية من أوصافك"
+        "description": "احصل على حقائق غذائية فورية من أوصافك"
       },
       "healthIntegration": {
         "title": "تكامل الصحة",
-        "description": "اتصل بتطبيق Health Connect للحصول على رؤى أفضل"
+        "description": "تواصل مع Health Connect للحصول على رؤى أفضل"
       }
     },
     "gender": {
       "title": "ما هو جنسك؟",
-      "description": "يساعدنا الجنس في حساب معدل الأيض الأساسي (BMR) بدقة.",
+      "description": "يساعد الجنس في حساب معدل الأيض الأساسي (BMR) بدقة.",
       "next": "التالي"
     },
     "height": {
-      "title": "ما طولك؟",
-      "description": "طولك يساعدنا في حساب مؤشر كتلة الجسم (BMI) واحتياجات الطاقة بدقة.",
-      "metric": "متري",
+      "title": "ما هو طولك؟",
+      "description": "يساعد طولك في حساب مؤشر كتلة الجسم (BMI) واحتياجات الطاقة بدقة.",
+      "metric": "متر",
       "imperial": "إمبراطوري",
       "next": "التالي"
     },
     "weight": {
       "currentTitle": "ما هو وزنك الحالي؟",
-      "currentDescription": "وزنك الحالي أساسي لتخصيص أهدافك اليومية.",
+      "currentDescription": "وزنك الحالي ضروري لتخصيص أهدافك اليومية.",
       "targetTitle": "ما هو وزنك المستهدف؟",
-      "targetDescription": "تحديد وزن مستهدف يساعدنا في تحديد خطتك طويلة الأمد.",
-      "metric": "متري",
+      "targetDescription": "تحديد وزن هدف يساعدنا في تحديد خطتك على المدى الطويل.",
+      "metric": "متر",
       "imperial": "إمبراطوري",
       "next": "التالي"
     },
@@ -49,34 +50,34 @@
       "underweight": "نقص الوزن",
       "healthy": "وزن صحي",
       "overweight": "زيادة الوزن",
-      "obese": "بدانة",
+      "obese": "السمنة",
       "categories": {
         "underweight": "نقص الوزن",
         "healthyWeight": "وزن صحي",
         "overweight": "زيادة الوزن",
-        "obese": "بدانة"
+        "obese": "السمنة"
       },
       "messages": {
         "underweight": "يمكننا مساعدتك في بناء خطة صحية للوصول إلى وزن متوازن مع وجبات غنية بالمغذيات.",
-        "healthy": "عمل رائع! أنت في نطاق صحي. سنساعدك في الحفاظ على حيويتك ومستويات طاقتك.",
-        "overweight": "سيبسط كالرِفاي رحلتك مع تتبع مدعوم بالذكاء الاصطناعي لمساعدتك في الوصول إلى هدفك براحة.",
-        "obese": "نحن هنا لدعمك مع توجيهات مخصصة واستراتيجيات مستدامة لأهداف صحتك."
+        "healthy": "عمل رائع! أنت في نطاق صحي. سنساعدك في الحفاظ على حيويتك ومستويات الطاقة لديك.",
+        "overweight": "{appLabel} ستبسط رحلتك مع تتبع مدعوم بالذكاء الاصطناعي لمساعدتك في الوصول إلى هدفك براحة.",
+        "obese": "نحن هنا لدعمك مع إرشادات شخصية واستراتيجيات مستدامة لأهدافك الصحية."
       }
     },
     "weightGoal": {
-      "title": "ما هدفك؟",
-      "description": "اختر الهدف الذي يصف بشكل أفضل ما تريد تحقيقه"
+      "title": "ما هو هدفك؟",
+      "description": "اختر الهدف الذي يصف ما تريد تحقيقه بشكل أفضل"
     },
     "activityLevel": {
       "title": "ما مدى نشاطك؟",
-      "description": "يساعدنا هذا في حساب احتياجاتك اليومية من السعرات الحرارية بدقة أكبر"
+      "description": "يساعدنا ذلك في حساب احتياجاتك اليومية من السعرات الحرارية بدقة أكبر"
     },
     "healthConnect": {
-      "title": "اتصل بتطبيق Health Connect",
-      "description": "زامن بيانات صحتك للحصول على رؤى أفضل وتسجيل السعرات الحرارية تلقائيًا",
+      "title": "الاتصال مع Health Connect",
+      "description": "مزامنة بيانات صحتك للحصول على رؤى أفضل وتتبع السعرات الحرارية تلقائيًا",
       "automaticTracking": {
-        "title": "تتبع السعرات الحرارية تلقائيًا",
-        "description": "تتبع السعرات الحرارية المحروقة من التطبيقات الرياضية الخاصة بك"
+        "title": "التتبع التلقائي للسعرات الحرارية",
+        "description": "تتبع السعرات الحرارية المحترقة من تطبيقات اللياقة البدنية الخاصة بك"
       },
       "progressInsights": {
         "title": "رؤى التقدم",
@@ -84,50 +85,47 @@
       },
       "seamlessIntegration": {
         "title": "تكامل سلس",
-        "description": "زامن البيانات من تطبيقات الصحة المفضلة لديك"
+        "description": "قم بمزامنة البيانات من تطبيقات الصحة المفضلة لديك"
       },
-      "connected": "تم الاتصال بتطبيق Health Connect",
-      "notConnected": "لم يتم الاتصال بتطبيق Health Connect",
-      "setup": "إعداد تطبيق Health Connect",
-      "skipForNow": "تخطى في الوقت الحالي",
-      "statusConnected": "تم الاتصال بتطبيق Health Connect.",
-      "statusSuccess": "تم الاتصال بتطبيق Health Connect بنجاح!",
-      "statusPermissionDenied": "تم رفض الإذن. يرجى تفعيل أذونات Health Connect من إعدادات هاتفك لتطبيق كالرِفاي.",
-      "statusError": "خطأ في إعداد تطبيق Health Connect: {error}"
+      "connected": "تم الاتصال بـ Health Connect",
+      "notConnected": "لم يتم الاتصال بـ Health Connect",
+      "setup": "إعداد Health Connect",
+      "skipForNow": "تخطي الآن",
+      "statusConnected": "تم الاتصال بـ Health Connect.",
+      "statusSuccess": "تم الاتصال بـ Health Connect بنجاح!",
+      "statusPermissionDenied": "تم رفض الإذن. يرجى تمكين أذونات Health Connect من إعدادات هاتفك لـ {appLabel}.",
+      "statusError": "خطأ أثناء إعداد Health Connect: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
         "title": "لست وحدك",
-        "genericMessage": "تظهر الأبحاث أن التسجيل المستمر هو أفضل مؤشر على النجاح طويل الأمد.",
-        "personalizedMessage": "بالنسبة لشخص {age} عامًا {gender} يتطلع إلى {goal}، فإن التسجيل المستمر هو أفضل مؤشر على النجاح.",
-        "closingMessage": "يجعل كالرِفاي الأمر أسهل بـ 10 مرات من القيام بذلك يدويًا.",
+        "genericMessage": "تشير الأبحاث إلى أن التتبع المستمر هو أفضل مؤشر على النجاح على المدى الطويل.",
+        "personalizedMessage": "بالنسبة لـ {age} عامًا {gender} يسعى إلى {goal}، فإن التتبع المستمر هو أفضل مؤشر للنجاح.",
+        "closingMessage": "{appLabel} تجعل الأمر أسهل بـ 10 مرات مما هو الحال عند القيام بذلك يدويًا.",
         "getStartedTitle": "هل أنت مستعد للبدء؟",
-        "tipPhoto": "التقط صورة لوجباتك لتحليل فوري",
-        "tipConsistency": "سجل باستمرار لرؤية تقدم ملحوظ",
-        "tipProgress": "تابع تقدمك يومياً لتحفيز نفسك",
+        "tipPhoto": "التقط صورة لوجباتك للحصول على تحليل فوري",
+        "tipConsistency": "سجل بشكل متسق لرؤية تقدم ذي معنى",
+        "tipProgress": "تتبع تقدمك يوميًا للبقاء محفزًا",
         "button": "لنذهب",
         "defaultGender": "فرد",
-        "defaultGoal": "أنت أكثر صحة",
-        "instantPhotoAnalysis": "تحليل فوري للصورة",
-        "automaticLogging": "تسجيل غذائي تلقائي",
-        "progressVisualizations": "تصورات للتقدم تحافظ على تحفيزك"
+        "defaultGoal": "أنت أكثر صحة"
       },
       "healthProfile": {
         "title": "ملفك الصحي",
-        "bmiDescription": "استنادًا إلى مقاييسك، فإن مؤشر كتلة الجسم لديك هو {bmi}.",
-        "finalizeDescription": "لنُنهي ملفك لتخصيص تجربتك.",
+        "bmiDescription": "استنادًا إلى قياساتك، فإن مؤشر كتلة جسمك هو {bmi}.",
+        "finalizeDescription": "دعنا ننهي ملفك لتخصيص تجربتك.",
         "goalGain": "زيادة",
-        "goalLose": "خسارة",
+        "goalLose": "فقدان",
         "goalReach": "للوصول إلى هدفك، ستحتاج إلى {direction} {diff} {unit}.",
-        "goalReached": "أنت في وزنك المستهدف! سنساعدك في الحفاظ عليه.",
+        "goalReached": "أنت في وزن الهدف الخاص بك! سنساعدك في الحفاظ عليه.",
         "button": "لنذهب"
       },
       "goalLifestyle": {
         "title": "بداية ممتازة!",
-        "description": "لقد اتخذت الخطوة الأولى نحو {goalText}. نظرًا لأنك {activityText}، سيتكيف كالرِفاي مع أهدافك لتناسب أسلوب حياتك.",
-        "personalizedTargets": "أهداف السعرات المخصصة",
-        "aiMealDetection": "اكتشاف الوجبات المدعوم بالذكاء الاصطناعي",
-        "macroBreakdowns": "تفصيل دقيق للمغذيات",
+        "description": "لقد اتخذت الخطوة الأولى نحو {goalText}. نظرًا لأنك {activityText}، سيقوم {appLabel} بتعديل أهدافك لتناسب نمط حياتك.",
+        "personalizedTargets": "أهداف السعرات الحرارية المخصصة",
+        "aiMealDetection": "كشف الوجبات المدعوم بالذكاء الاصطناعي",
+        "macroBreakdowns": "تفاصيل دقيقة عن العناصر الغذائية",
         "button": "لنذهب",
         "defaultGoal": "أهدافك",
         "defaultActivity": "نشط"
@@ -136,95 +134,95 @@
   },
   "tabs": {
     "dashboard": "لوحة التحكم",
-    "history": "السجل"
+    "history": "التاريخ"
   },
   "home": {
     "dailyGoal": {
       "title": "حدد هدفك اليومي",
       "titleSet": "هدفك اليومي",
-      "description": "هل أنت مستعد للبدء في رحلة العافية الخاصة بك؟ حدد هدف السعرات الحرارية اليومي أدناه لبدء تقدمك.",
-      "descriptionSet": "لقد تم تحديد بوصلتك! هذا هو هدف السعرات الحرارية اليومية الخاصة بك لتوجيهك.",
+      "description": "هل أنت مستعد للانطلاق في رحلة الصحة الخاصة بك؟ حدد هدف السعرات الحرارية اليومية أدناه لبدء تقدمك.",
+      "descriptionSet": "تم تعيين بوصلتك! هذا هو هدف السعرات الحرارية اليومية لتوجيهك.",
       "yourGoal": "هدفك",
-      "dailyCalories": "السعرات اليومية (كالوري)",
+      "dailyCalories": "السعرات الحرارية اليومية (كيلو كالوري)",
       "setGoal": "حدد الهدف",
-      "intake": "الاستهلاك",
-      "burned": "المحروقة",
-      "weightImpact": "تأثير الوزن",
-      "estLoss": "الخسارة المقدرة لـ",
-      "estGain": "الاكتساب المقدر لـ",
-      "kcal": "كالوري"
+      "intake": "تناول",
+      "burned": "محترقة",
+      "weightImpact": "أثر الوزن",
+      "estLoss": "التقريب لخسارة",
+      "estGain": "التقريب لزيادة",
+      "kcal": "كيلو كالوري"
     },
     "dailySummary": {
-      "title": "ملخص يومي",
-      "calories": "السعرات",
+      "title": "الملخص اليومي",
+      "calories": "السعرات الحرارية",
       "carbs": "الكربوهيدرات",
       "protein": "البروتين",
       "fat": "الدهون",
       "fiber": "الألياف"
     },
     "intakeProgress": {
-      "title": "تقسيم المغذيات اليوم",
+      "title": "نسبة الماكرو اليوم",
       "target": "الهدف",
       "current": "الحالي"
     },
     "intakeHistory": {
-      "title": "تاريخ المغذيات لمدة 7 أيام",
-      "noHistoryYet": "لا توجد تاريخ بعد",
-      "startLogging": "ابدأ تسجيل الوجبات لرؤية اتجاهات المغذيات لمدة 7 أيام هنا"
+      "title": "تاريخ الماكرو لمدة 7 أيام",
+      "noHistoryYet": "لا يوجد تاريخ بعد",
+      "startLogging": "ابدأ بتسجيل الوجبات لترى اتجاهات الماكرو لدينا هنا"
     },
     "mealLog": {
       "title": "الوجبات المسجلة",
-      "emptyMessage": "التقط صورة لوجبتك الأخيرة لتسجيلها هنا.",
+      "emptyMessage": "قم بالتقاط صورة لوجبتك الأخيرة لتسجيلها هنا.",
       "noMealsToday": "لا توجد وجبات مسجلة اليوم",
-      "seeAllMeals": "شاهد جميع الوجبات"
+      "seeAllMeals": "رؤية جميع الوجبات"
     },
     "mealDescription": {
       "title": "إضافة سريعة باستخدام الذكاء الاصطناعي",
-      "description": "وصف وجبتك، ودع الذكاء الاصطناعي يتولى التفاصيل.",
-      "hint": "على سبيل المثال، الإفطار: وعاء كبير من الشوفان مع موزة مقطعة وحصة من بروتين مصل اللبن...",
+      "description": "قم بوصف وجبتك، ودع الذكاء الاصطناعي يتولى التفاصيل.",
+      "hint": "مثل: للإفطار كان لدي وعاء كبير من الشوفان مع موزة مقطعة وملعقة من بروتين مصل الحليب ...",
       "analyzeMeal": "تحليل الوجبة"
     },
     "favoriteMeals": {
       "title": "الوجبات المفضلة",
       "description": "أضف بسرعة واحدة من وجباتك المفضلة.",
       "noFavorites": "لا توجد وجبات مفضلة بعد.",
-      "addFavoriteHint": "اضغط على النجم لتصنيف الوجبة كمفضلة.",
-      "seeAll": "شاهد الجميع",
+      "addFavoriteHint": "اضغط على النجمة في وجبة لتحديدها كمفضلة.",
+      "seeAll": "رؤية الكل",
       "add": "إضافة"
     },
     "mealSnap": {
-      "title": "التقط وتتبع وجبتك",
-      "description": "استخدم الكاميرا لالتقاط صورة لطعامك من أجل تحليل الذكاء الاصطناعي.",
+      "title": "التقط وتابع وجبتك",
+      "description": "استخدم الكاميرا لالتقاط صورة لطعامك لتحليل الذكاء الاصطناعي.",
       "openCamera": "فتح الكاميرا"
     },
     "connectHealth": {
-      "title": "زامن مع تطبيق Health Connect",
-      "description": "زامن بيانات التغذية الخاصة بك مع تطبيق Health Connect",
+      "title": "مزامنة مع Health Connect",
+      "description": "قم بمزامنة بيانات التغذية الخاصة بك مع Health Connect",
       "install": "تثبيت",
-      "connect": "اتصل"
+      "connect": "الاتصال"
     }
   },
   "history": {
     "noMeals": "لا توجد وجبات مسجلة",
-    "emptyMessage": "التقط صورة لوجبتك الأخيرة لتسجيلها هنا.",
+    "emptyMessage": "قم بالتقاط صورة لوجبتك الأخيرة لتسجيلها هنا.",
     "today": "اليوم",
     "yesterday": "أمس"
   },
   "meal": {
     "ohNo": "أوه لا!",
-    "delete": "حذف",
-    "editMeal": "تحرير الوجبة",
-    "addMeal": "إضافة وجبة",
-    "saveMeal": "حفظ الوجبة",
-    "save": "حفظ",
+    "delete": "احذف",
+    "editMeal": "تعديل الوجبة",
+    "addMeal": "أضف وجبة",
+    "saveMeal": "احفظ الوجبة",
+    "save": "احفظ",
     "mealName": "اسم الوجبة",
     "mealQuantity": "كمية الوجبة",
-    "mealQuantityHint": "مثل، 1 وعاء، 2 شريحة",
+    "mealQuantityHint": "مثل: 1 وعاء، 2 شريحة",
     "timeOfMeal": "وقت الوجبة",
     "timeOfMealHint": "اختر الوقت الذي تناولت فيه وجبتك",
     "mealType": "نوع الوجبة",
     "nutrition": {
-      "calories": "السعرات",
+      "calories": "السعرات الحرارية",
       "carbs": "الكربوهيدرات (غ)",
       "protein": "البروتين (غ)",
       "fat": "الدهون (غ)",
@@ -232,15 +230,15 @@
     },
     "deleteConfirmation": {
       "title": "حذف الوجبة",
-      "message": "هل أنت متأكد أنك تريد حذف هذا التسجيل للوجبة؟",
+      "message": "هل أنت متأكد أنك تريد حذف إدخال هذه الوجبة؟",
       "cancel": "إلغاء",
-      "delete": "حذف"
+      "delete": "احذف"
     },
     "addedToLog": "تمت إضافة الوجبة إلى سجلك!",
-    "couldNotAdd": "لم يتمكن من إضافة الوجبة: {error}",
-    "removedFromFavorites": "تمت إزالة من المفضلات!",
-    "savedAsFavorite": "تم حفظ الوجبة كمفضلة!",
-    "couldNotUpdateFavorite": "لم يتمكن من تحديث المفضلة: {error}",
+    "couldNotAdd": "تعذر إضافة الوجبة: {error}",
+    "removedFromFavorites": "تمت إزالتها من المفضلات!",
+    "savedAsFavorite": "تمت حفظ الوجبة كمفضلة!",
+    "couldNotUpdateFavorite": "تعذر تحديث المفضلة: {error}",
     "failedToProcess": "فشل في المعالجة: {error}",
     "failedToProcessImage": "فشل في معالجة الصورة: {error}",
     "errorCompressingImage": "خطأ في ضغط الصورة: {error}",
@@ -252,12 +250,12 @@
   },
   "profile": {
     "title": "الملف الشخصي",
-    "noProfileData": "لا توجد بيانات للملف الشخصي",
+    "noProfileData": "لا توجد بيانات ملف شخصية",
     "yourProfile": "ملفك الشخصي",
     "viewAndManage": "عرض وإدارة معلومات صحتك",
     "sections": {
       "profile": "الملف الشخصي",
-      "basicInformation": "معلومات أساسية",
+      "basicInformation": "المعلومات الأساسية",
       "goalsAndActivity": "الأهداف والنشاط",
       "calculatedValues": "القيم المحسوبة"
     },
@@ -268,30 +266,30 @@
     "weightGoal": "هدف الوزن",
     "activityLevel": "مستوى النشاط",
     "healthMetrics": "مقاييس الصحة",
-    "notSet": "غير محدد",
+    "notSet": "لم يتم تعيينه",
     "years": "سنوات",
     "updatedSuccessfully": "تم تحديث الملف الشخصي بنجاح!",
     "calculatedValues": {
       "bmr": "معدل الأيض الأساسي",
-      "tdee": "مجموع السعرات الحرارية اليومية",
+      "tdee": "المجموع اليومي لإحتياج السعرات الحرارية",
       "dailyGoal": "الهدف اليومي",
-      "calPerDay": "كالوري/يوم",
-      "notAvailable": "غير متاح"
+      "calPerDay": "سعرات حرارية / يوم",
+      "notAvailable": "غير متوفر"
     }
   },
   "healthScore": {
-    "title": "نقطة الصحة",
-    "whyThisScore": "لماذا هذه النتيجة؟",
-    "note": "تعتبر هذه النقطة تقديرًا مقدّمًا من الذكاء الاصطناعي استنادًا إلى المكونات المعروفة والكثافة الغذائية. استشر دائمًا محترفًا للحصول على نصائح غذائية.",
+    "title": "درجة الصحة",
+    "whyThisScore": "لماذا هذه الدرجة؟",
+    "note": "هذه الدرجة هي تقدير من الذكاء الاصطناعي استنادًا إلى المكونات المحددة وكثافة العناصر الغذائية. استشر دائمًا محترفًا للحصول على مشورة غذائية.",
     "unhealthy": "غير صحي",
     "healthy": "صحي",
     "neutral": "محايد"
   },
   "editProfile": {
-    "title": "تحرير الملف الشخصي",
+    "title": "تعديل الملف الشخصي",
     "sections": {
       "personalInformation": "المعلومات الشخصية",
-      "physicalMeasurements": "القياسات البدنية",
+      "physicalMeasurements": "القياسات الجسدية",
       "goalsAndActivity": "الأهداف والنشاط"
     },
     "gender": "الجنس",
@@ -300,12 +298,12 @@
     "weight": "الوزن",
     "weightGoal": "هدف الوزن",
     "activityLevel": "مستوى النشاط",
-    "metric": "نظام القياس المتري",
-    "imperial": "نظام القياس الإمبراطوري",
+    "metric": "متري",
+    "imperial": "إمبراطوري",
     "metricCm": "متري (سم)",
-    "imperialFtIn": "إمبراطوري (قدم/إنش)",
+    "imperialFtIn": "إمبراطوري (قدم/بوصة)",
     "metricKg": "متري (كجم)",
-    "imperialLbs": "إمبراطوري (رطل)",
+    "imperialLbs": "إمبراطوري (أرطال)",
     "genders": {
       "male": "ذكر",
       "female": "أنثى",
@@ -314,7 +312,7 @@
     "weightGoals": {
       "loseWeight": {
         "name": "فقدان الوزن",
-        "description": "خلق عجز في السعرات لفقدان الوزن"
+        "description": "إنشاء عجز في السعرات الحرارية لفقدان الوزن"
       },
       "maintainWeight": {
         "name": "الحفاظ على الوزن",
@@ -322,29 +320,29 @@
       },
       "gainWeight": {
         "name": "زيادة الوزن",
-        "description": "خلق فائض في السعرات لزيادة الوزن"
+        "description": "إنشاء فائض في السعرات الحرارية لزيادة الوزن"
       }
     },
     "activityLevels": {
       "sedentary": {
-        "name": "غير نشط",
-        "description": "قليل أو عدم ممارسة الرياضة"
+        "name": "كثير الجلوس",
+        "description": "قليل جدًا من التمارين"
       },
       "lightlyActive": {
-        "name": "نشط قليلاً",
-        "description": "ممارسة رياضة خفيفة 1-3 أيام/الأسبوع"
+        "name": "نشاط خفيف",
+        "description": "تمارين خفيفة 1-3 أيام/أسبوع"
       },
       "moderatelyActive": {
-        "name": "نشط بشكل معتدل",
-        "description": "ممارسة رياضة متوسطة 3-5 أيام/الأسبوع"
+        "name": "نشاط متوسط",
+        "description": "تمارين متوسطة 3-5 أيام/أسبوع"
       },
       "veryActive": {
-        "name": "نشط جداً",
-        "description": "ممارسة رياضة شاقة 6-7 أيام/الأسبوع"
+        "name": "نشاط عالي",
+        "description": "تمارين شاقة 6-7 أيام/أسبوع"
       },
       "extremelyActive": {
-        "name": "نشط للغاية",
-        "description": "ممارسة رياضة شاقة جداً، أو وظيفة بدنية"
+        "name": "نشاط شديد",
+        "description": "تمارين شديدة، وظيفة بدنية"
       }
     }
   },
@@ -352,14 +350,14 @@
     "title": "الإعدادات",
     "sections": {
       "profile": "الملف الشخصي",
-      "localization": "تحديد الموقع",
+      "localization": "الترجمة",
       "notifications": "الإشعارات",
-      "supportAndLegal": "الدعم والقوانين",
+      "supportAndLegal": "الدعم والقانوني",
       "dangerZone": "منطقة الخطر",
       "developer": "المطور"
     },
     "editProfile": {
-      "title": "تحرير الملف الشخصي",
+      "title": "تعديل الملف الشخصي",
       "subtitle": "قم بتحديث معلوماتك الشخصية"
     },
     "language": {
@@ -372,32 +370,32 @@
     "weightUnit": {
       "title": "وحدة الوزن"
     },
-    "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
-    },
     "mealReminders": {
       "title": "تذكيرات الوجبات",
-      "subtitle": "ابقَ على المسار الصحيح مع تنبيهات في الوقت المناسب"
+      "subtitle": "ابق على المسار الصحيح مع تنبيهات في الوقت المناسب"
+    },
+    "theme": {
+      "title": "الثيم",
+      "subtitle": "اختر ثيمك المفضل",
+      "light": "فاتح",
+      "dark": "داكن",
+      "system": "نظام"
     },
     "sendFeedback": {
-      "title": "إرسال ملاحظات",
-      "subtitle": "ساعدنا على تحسين كالرِفاي",
-      "emailSubject": "ملاحظات عن تطبيق كالرِفاي",
+      "title": "أرسل ملاحظات",
+      "subtitle": "ساعدنا في تحسين {appLabel}",
+      "emailSubject": "ملاحظات تطبيق {appLabel}",
       "emailBodyPrefix": "يرجى تقديم ملاحظاتك أدناه:",
       "appVersion": "إصدار التطبيق",
       "device": "الجهاز",
       "osVersion": "إصدار نظام التشغيل",
-      "uid": "معرف المستخدم"
+      "uid": "UID"
     },
     "clearAllData": {
       "title": "مسح جميع البيانات",
-      "subtitle": "احذف جميع معلوماتك بشكل غير قابل للتراجع",
+      "subtitle": "حذف جميع معلوماتك بشكل لا يمكن التراجع عنه",
       "confirmationTitle": "مسح جميع البيانات؟",
-      "confirmationMessage": "لا يمكن التراجع عن هذا الإجراء. سيتم حذف جميع وجباتك المسجلة، المفضلات، وإعدادات الملف الشخصي بشكل دائم.",
+      "confirmationMessage": "لا يمكن التراجع عن هذا الإجراء. سيتم حذف جميع وجباتك المسجلة، والمفضلات، وإعدادات الملف الشخصي بشكل دائم.",
       "cancel": "إلغاء",
       "clearEverything": "مسح كل شيء"
     },
@@ -407,150 +405,150 @@
     "developerModeEnabled": "تم تفعيل وضع المطور!"
   },
   "reminders": {
-    "title": "ابقَ على المسار الصحيح مع التذكيرات",
-    "description": "احصل على تذكيرات لطيفة لتسجيل وجباتك والبقاء متسقًا مع أهداف التغذية الخاصة بك",
-    "notificationsEnabled": "الإشعارات مفعلة",
-    "notificationsDisabled": "الإشعارات معطلة",
+    "title": "ابق على المسار الصحيح مع التذكيرات",
+    "description": "احصل على تذكيرات لطيفة لتسجيل وجباتك والبقاء متسقًا مع أهداف تغذيتك",
+    "notificationsEnabled": "التنبيهات مفعلة",
+    "notificationsDisabled": "التنبيهات معطلة",
     "enabledSubtitle": "ستتلقى تذكيرات بالوجبات",
-    "disabledSubtitle": "قم بتمكين الإشعارات للحصول على تذكيرات بالوجبات",
+    "disabledSubtitle": "قم بتمكين التنبيهات للتوصل بتذكيرات بالوجبات",
     "mealReminders": "تذكيرات الوجبات",
-    "breakfast": "إفطار",
-    "lunch": "غداء",
-    "dinner": "عشاء",
+    "breakfast": "الإفطار",
+    "lunch": "الغداء",
+    "dinner": "العشاء",
     "snack": "وجبة خفيفة",
-    "unknown": "غير معروف",
+    "unknown": "غير معلوم",
     "change": "تغيير",
-    "enableNotifications": "تفعيل الإشعارات",
-    "skipForNow": "تخطى في الوقت الحالي",
+    "enableNotifications": "تفعيل التنبيهات",
+    "skipForNow": "تخطي الآن",
     "saveChanges": "احفظ التغييرات",
-    "enabledSuccessfully": "تفعيل الإشعارات بنجاح!",
-    "permissionDenied": "تم رفض إذن الإشعارات",
-    "errorEnabling": "خطأ في تفعيل الإشعارات: {error}",
+    "enabledSuccessfully": "تم تفعيل التنبيهات بنجاح!",
+    "permissionDenied": "تم رفض إذن التنبيه",
+    "errorEnabling": "خطأ في تفعيل التنبيهات: {error}",
     "errorCompletingSetup": "خطأ في إكمال الإعداد: {error}"
   },
   "notifications": {
     "breakfast": {
       "title": "وقت الإفطار! 🍳",
-      "body": "لا تنسَ تسجيل إفطارك"
+      "body": "لا تنسى تسجيل إفطارك"
     },
     "lunch": {
       "title": "وقت الغداء! 🥗",
-      "body": "حان وقت تسجيل غدائك"
+      "body": "حان وقت تسجيل الغداء"
     },
     "dinner": {
       "title": "وقت العشاء! 🍽️",
-      "body": "لا تنسَ تسجيل عشاءك"
+      "body": "لا تنسى تسجيل عشاءك"
     },
     "snack": {
       "title": "وقت الوجبة الخفيفة! 🍎",
-      "body": "حان وقت وجبة خفيفة صحية"
+      "body": "حان وقت الوجبة الخفيفة الصحية"
     },
     "test": {
-      "title": "اختبار الإشعار"
+      "title": "تنبيه اختبار"
     }
   },
   "login": {
     "title": "تسجيل الدخول",
     "signInWithGoogle": "تسجيل الدخول باستخدام جوجل",
-    "signInFailed": "فشل تسجيل الدخول باستخدام جوجل أو تم إلغاؤه."
+    "signInFailed": "فشل تسجيل دخول جوجل أو تم إلغاؤه."
   },
   "disclaimer": {
     "pleaseNote": "يرجى ملاحظة",
     "snap": {
-      "description": "يوفر كالرِفاي معلومات غذائية تقديرية. الدقة تعتمد على مدخلاتك وتباين الأطعمة. استخدم كدليل، وليس كمصدر نهائي. استشر محترفًا للحصول على نصائح غذائية شخصية.",
+      "description": "{appLabel} يقدم معلومات غذائية تقديرية. تعتمد الدقة على إدخالاتك وتفاوتات الغذاء. استخدمها كدليل، وليس كمصدر نهائي. استشر محترفًا للحصول على نصيحة غذائية مخصصة.",
       "portionSize": {
         "title": "حجم الحصة",
         "description": "تعتمد دقة التقديرات بشكل كبير على تقييمك الصحيح لحجم الحصة."
       },
       "preparationMethods": {
         "title": "طرق التحضير",
-        "description": "يمكن أن تؤثر طرق الطهي بشكل كبير على محتوى العناصر الغذائية للطعام. قد لا تأخذ تقديرات كالرِفاي دائمًا في الاعتبار هذه التباينات."
+        "description": "يمكن أن تؤثر طرق الطهي بشكل كبير على المحتوى الغذائي للغذاء. قد لا تأخذ تقديرات {appLabel} دائمًا في الاعتبار هذه التفاوتات."
       },
       "ingredients": {
         "title": "المكونات",
-        "description": "الأطباق المعقدة التي تحتوي على العديد من المكونات المخفية قد تؤدي إلى تقديرات أقل دقة."
+        "description": "يمكن أن تؤدي الأطباق المعقدة ذات المكونات الخفية إلى تقديرات أقل دقة."
       },
       "databaseLimitations": {
         "title": "قيود قاعدة البيانات",
-        "description": "قاعدة بيانات طعام كالرِفاي شاملة ولكن قد لا تشمل كل عنصر طعام أو تباين."
+        "description": "قاعدة بيانات الطعام الخاصة بـ {appLabel} واسعة لكنها قد لا تشمل كل عنصر غذائي أو تفاوت."
       }
     },
     "weightEstimate": {
       "title": "حول تقدير الوزن",
-      "description": "تغيير الوزن المتوقع هو تقدير نظري يعتمد على نموذج السعرات الحرارية المدخلة مقابل السعرات المحروقة. يهدف إلى توجيه تحفيزي فقط، وليس كتنبيه لوزنك الفعلي.",
+      "description": "التغيير في الوزن المتوقع هو تقدير نظري يستند إلى نموذج السعرات الحرارية入 مقابل السعرات الحرارية الخارجة. وهو مخصص للتوجيه التحفيزي فقط، وليس كتنبوء لوزنك الفعلي.",
       "calorieAccuracy": {
         "title": "دقة السعرات الحرارية",
-        "description": "هذه التقديرات دقيقة فقط بقدر دقة المدخلات والسعرات التي تتبعها. تسجيل غير دقيق سيؤدي إلى مشروع غير دقيق."
+        "description": "هذا التقدير دقيق فقط بقدر ما هو دقيق تناول السعرات الحرارية وتلك التي أنفقت. سيؤدي التسجيل غير الدقيق إلى توقع غير دقيق."
       },
       "biologicalFactors": {
-        "title": "عوامل بيولوجية",
-        "description": "فقدان/زيادة الوزن الفعلي يتأثر بالأيض، الهرمونات، النوم، الضغط النفسي، الترطيب، وعوامل أخرى فردية لا يمكن لكالرِفاي قياسها."
+        "title": "العوامل البيولوجية",
+        "description": "فقدان أو زيادة الوزن الفعلي يتأثر بالتمثيل الغذائي، والهرمونات، والنوم، والضغط، وتوازن السوائل، وعوامل فردية أخرى لا يمكن لـ {appLabel} قياسها."
       },
       "waterWeight": {
-        "title": "وزن الماء وتقلباته",
-        "description": "يمكن أن يتقلب الوزن اليومي بشكل كبير بسبب احتباس الماء، والهضم، والتوقيت. لا يؤدي التقدير إلى حساب هذه التغييرات اليومية."
+        "title": "وزن الماء والتقلبات",
+        "description": "يمكن أن يتقلب الوزن الطبيعي اليوم بشكل ملحوظ بسبب احتباس الماء، والهضم، والتوقيت. لا يأخذ التقدير في اعتباره هذه التغيرات اليومية."
       },
       "professionalGuidance": {
-        "title": "نصائح مهنية",
-        "description": "لا تستخدم هذا التقدير لاتخاذ قرارات طبية. دائمًا استشر محترف الرعاية الصحية أو أخصائي تغذية مسجل للحصول على نصائح شخصية بشأن إدارة الوزن."
+        "title": "التوجيه المهني",
+        "description": "لا تستخدم هذا التقدير لاتخاذ قرارات طبية. استشر دائمًا محترف رعاية صحية أو أخصائي تغذية مسجّل للحصول على نصائح إدارة الوزن مخصصة."
       }
     }
   },
   "common": {
     "close": "إغلاق",
-    "continue": "متابعة"
+    "continue": "استمر"
   },
   "errors": {
-    "loadingProfileData": "حدث خطأ في تحميل بيانات الملف الشخصي",
+    "loadingProfileData": "خطأ في تحميل بيانات الملف الشخصي",
     "somethingWentWrong": "حدث خطأ ما."
   },
   "debug": {
     "title": "خيارات التصحيح",
     "sections": {
-      "notifications": "الإشعارات",
-      "healthConnect": "تطبيق Health Connect",
+      "notifications": "التنبيهات",
+      "healthConnect": "Health Connect",
       "appInfo": "معلومات التطبيق"
     },
-    "showActiveNotifications": "عرض الإشعارات النشطة",
-    "scheduleTestNotification": "جدولة إشعار اختبار (10 ثوانٍ)",
-    "triggerBreakfastNotification": "تنشيط إشعار الإفطار",
-    "cancelAllNotifications": "إلغاء جميع الإشعارات",
-    "activeNotifications": "الإشعارات النشطة",
+    "showActiveNotifications": "عرض التنبيهات النشطة",
+    "scheduleTestNotification": "جدولة تنبيه اختبار (10 ثواني)",
+    "triggerBreakfastNotification": "تنبيه إفطار مُفعّل",
+    "cancelAllNotifications": "إلغاء جميع التنبيهات",
+    "activeNotifications": "التنبيهات النشطة",
     "noTitle": "لا عنوان",
     "noBody": "لا محتوى",
     "fetchTodaysSteps": "جلب خطوات اليوم",
-    "fetchTodaysCalories": "جلب سعرات اليوم",
-    "fetchLatestWeight": "جلب الوزن الأحدث",
-    "fetchLatestHeight": "جلب الطول الأحدث",
-    "writeTestWeight": "تسجيل وزن الاختبار (70كجم)",
-    "writeTestHeight": "تسجيل طول الاختبار (175سم)",
+    "fetchTodaysCalories": "جلب السعرات الحرارية اليوم",
+    "fetchLatestWeight": "جلب أحدث وزن",
+    "fetchLatestHeight": "جلب أحدث طول",
+    "writeTestWeight": "كتابة وزن اختبار (70 كجم)",
+    "writeTestHeight": "كتابة طول اختبار (175 سم)",
     "syncLast7Days": "مزامنة آخر 7 أيام",
     "sync7DaysTitle": "مزامنة 7 أيام",
-    "checkCurrentLocale": "التحقق من الإعدادات المحلية الحالية",
-    "currentLocale": "الإعدادات المحلية الحالية",
-    "localeInfo": "اللغة: {languageCode}\nالبلد: {countryCode}\nنظام القياس: {unitSystem}",
-    "latestWeight": "أحدث وزن",
-    "latestHeight": "أحدث طول",
+    "checkCurrentLocale": "التحقق من اللغة الحالية",
+    "currentLocale": "اللغة الحالية",
+    "localeInfo": "اللغة: {languageCode}\nالبلد: {countryCode}\nنظام الوحدة: {unitSystem}",
+    "latestWeight": "آخر وزن",
+    "latestHeight": "آخر طول",
     "todaysCalories": "سعرات اليوم",
-    "totalCaloriesBurned": "إجمالي السعرات المحروقة: {calories}",
-    "syncSuccess": "تم جلب {count} نقطة بيانات بنجاح لخطوات، وسعرات، ووزن آخر 7 أيام.",
-    "noWeightData": "لا توجد بيانات وزن موجودة في آخر 30 يومًا.",
-    "noHeightData": "لا توجد بيانات طول موجودة في العام الماضي.",
-    "noCalorieData": "لا توجد بيانات سعرات غذائية موجودة لهذا اليوم.",
-    "weightWritten": "تم تسجيل الوزن الاختباري بنجاح (70كجم).",
-    "weightWriteFailed": "فشل في تسجيل الوزن الاختباري.",
-    "heightWritten": "تم تسجيل الطول الاختباري بنجاح (175سم).",
-    "heightWriteFailed": "فشل في تسجيل الطول الاختباري.",
-    "noNotifications": "لا توجد إشعارات نشطة.",
-    "testNotificationScheduled": "تم جدولة إشعار اختبار لمدة 10 ثوانٍ من الآن.",
-    "testNotificationBody": "هذا إشعار اختبار تم جدولة لمدة 10 ثوانٍ من الآن.",
-    "breakfastNotificationTriggered": "تم تفعيل إشعار الإفطار.",
-    "allNotificationsCancelled": "تم إلغاء جميع الإشعارات.",
-    "fetchingData": "جارٍ جلب البيانات لآخر 7 أيام...",
-    "id": "المعرف: {id}"
+    "totalCaloriesBurned": "إجمالي السعرات الحرارية المحترقة: {calories}",
+    "syncSuccess": "تم جلب {count} بيانات بنجاح لخطوات، سعرات، ووزن الأيام السبعة الماضية.",
+    "noWeightData": "لا توجد بيانات وزن خلال الثلاثين يومًا الماضية.",
+    "noHeightData": "لا توجد بيانات طول خلال العام الماضي.",
+    "noCalorieData": "لا توجد بيانات سعرات لهذا اليوم.",
+    "weightWritten": "تم كتابة وزن الاختبار بنجاح (70 كجم).",
+    "weightWriteFailed": "فشل في كتابة وزن الاختبار.",
+    "heightWritten": "تم كتابة طول الاختبار بنجاح (175 سم).",
+    "heightWriteFailed": "فشل في كتابة طول الاختبار.",
+    "noNotifications": "لا توجد تنبيهات نشطة.",
+    "testNotificationScheduled": "تم جدولة تنبيه اختبار لمدة 10 ثوانٍ من الآن.",
+    "testNotificationBody": "هذا تنبيه اختبار مجدول لمدة 10 ثوانٍ من الآن.",
+    "breakfastNotificationTriggered": "تم تفعيل تنبيه الإفطار.",
+    "allNotificationsCancelled": "تم إلغاء جميع التنبيهات.",
+    "fetchingData": "جاري جلب البيانات لآخر 7 أيام...",
+    "id": "معرف: {id}"
   },
   "health": {
-    "syncFailed": "لم يتمكن من المزامنة مع تطبيق Health Connect",
-    "mealSynced": "تمت مزامنة الوجبة مع تطبيق Health Connect"
+    "syncFailed": "تعذر المزامنة مع Health Connect",
+    "mealSynced": "تمت مزامنة الوجبة مع Health Connect"
   }
 }

@@ -153,3 +153,15 @@ extension ActivityLevelExtension on ActivityLevel {
     }
   }
 }
+
+extension UserProfileExtension on UserProfile {
+  /// Check if the profile is complete (all required fields are present)
+  bool get isProfileComplete {
+    return height != null &&
+        weight != null &&
+        gender != null &&
+        dateOfBirth != null &&
+        weightGoal != null &&
+        activityLevel != null;
+  }
+}

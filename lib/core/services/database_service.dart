@@ -1,5 +1,6 @@
 import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/db/database_interface.dart';
+import 'package:calorify/core/db/database_logger.dart';
 import 'package:calorify/core/db/mock_data/data_source_config.dart';
 import 'package:calorify/core/db/mock_database_adapter.dart';
 import 'package:calorify/core/db/real_database_adapter.dart';
@@ -15,12 +16,15 @@ class DatabaseService {
   /// Initialize the database service
   static void initialize() {
     if (!_initialized) {
+      DatabaseInterface adapter;
       if (DataSourceConfig.isMockDataEnabled) {
-        _databaseInterface = MockDatabaseAdapter();
+        adapter = MockDatabaseAdapter();
       } else {
         _database = AppDatabase();
-        _databaseInterface = RealDatabaseAdapter(_database!);
+        adapter = RealDatabaseAdapter(_database!);
       }
+      // Wrap with logger to track all DB operations
+      _databaseInterface = DatabaseLogger(adapter);
       _initialized = true;
     }
   }

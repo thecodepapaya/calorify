@@ -37,8 +37,9 @@ class TranslationsUr with BaseTranslations<AppLocale, Translations> implements T
 	TranslationsUr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsUr(meta: meta ?? this.$meta);
 
 	// Translations
-	@override String get language => 'English';
-	@override String get flag => '🇺🇸';
+	@override String get language => 'Urdu';
+	@override String get flag => '🇵🇰';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingUr onboarding = _TranslationsOnboardingUr._(_root);
 	@override late final _TranslationsTabsUr tabs = _TranslationsTabsUr._(_root);
 	@override late final _TranslationsHomeUr home = _TranslationsHomeUr._(_root);
@@ -66,9 +67,9 @@ class _TranslationsOnboardingUr implements TranslationsOnboardingEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Welcome to Calorify';
-	@override String get subtitle => 'Your personal nutrition companion powered by AI';
-	@override String get getStarted => 'Get Started';
+	@override String welcome({required Object appLabel}) => '${appLabel} میں خوش آمدید';
+	@override String get subtitle => 'آپ کا ذاتی غذائیت ساتھی جو AI کی طاقت سے ہے';
+	@override String get getStarted => 'شروع کریں';
 	@override late final _TranslationsOnboardingFeaturesUr features = _TranslationsOnboardingFeaturesUr._(_root);
 	@override late final _TranslationsOnboardingGenderUr gender = _TranslationsOnboardingGenderUr._(_root);
 	@override late final _TranslationsOnboardingHeightUr height = _TranslationsOnboardingHeightUr._(_root);
@@ -88,8 +89,8 @@ class _TranslationsTabsUr implements TranslationsTabsEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get dashboard => 'Dashboard';
-	@override String get history => 'History';
+	@override String get dashboard => 'ڈیش بورڈ';
+	@override String get history => 'تاریخ';
 }
 
 // Path: home
@@ -117,10 +118,10 @@ class _TranslationsHistoryUr implements TranslationsHistoryEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get noMeals => 'No meals recorded';
-	@override String get emptyMessage => 'Snap a picture of your last meal to log here.';
-	@override String get today => 'Today';
-	@override String get yesterday => 'Yesterday';
+	@override String get noMeals => 'کوئی کھانے کا ریکارڈ نہیں';
+	@override String get emptyMessage => 'اپنے آخری کھانے کی تصویر لیں اور اسے یہاں درج کریں۔';
+	@override String get today => 'آج';
+	@override String get yesterday => 'کل';
 }
 
 // Path: meal
@@ -130,29 +131,29 @@ class _TranslationsMealUr implements TranslationsMealEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get ohNo => 'Oh no!';
-	@override String get delete => 'Delete';
-	@override String get editMeal => 'Edit Meal';
-	@override String get addMeal => 'Add Meal';
-	@override String get saveMeal => 'Save Meal';
-	@override String get save => 'Save';
-	@override String get mealName => 'Meal Name';
-	@override String get mealQuantity => 'Meal Quantity';
-	@override String get mealQuantityHint => 'e.g., 1 bowl, 2 slices';
-	@override String get timeOfMeal => 'Time of Meal';
-	@override String get timeOfMealHint => 'Select the time you had your meal';
-	@override String get mealType => 'Meal Type';
+	@override String get ohNo => 'اوہ نہیں!';
+	@override String get delete => 'حذف کریں';
+	@override String get editMeal => 'کھانا ترمیم کریں';
+	@override String get addMeal => 'کھانا شامل کریں';
+	@override String get saveMeal => 'کھانا محفوظ کریں';
+	@override String get save => 'محفوظ کریں';
+	@override String get mealName => 'کھانے کا نام';
+	@override String get mealQuantity => 'کھانے کی مقدار';
+	@override String get mealQuantityHint => 'جیسے، 1 پیالی، 2 ٹکڑے';
+	@override String get timeOfMeal => 'کھانے کا وقت';
+	@override String get timeOfMealHint => 'چنیں کہ آپ نے کھانا کب لیا';
+	@override String get mealType => 'کھانے کی قسم';
 	@override late final _TranslationsMealNutritionUr nutrition = _TranslationsMealNutritionUr._(_root);
 	@override late final _TranslationsMealDeleteConfirmationUr deleteConfirmation = _TranslationsMealDeleteConfirmationUr._(_root);
-	@override String get addedToLog => 'Meal added to your log!';
-	@override String couldNotAdd({required Object error}) => 'Could not add meal: ${error}';
-	@override String get removedFromFavorites => 'Removed from favorites!';
-	@override String get savedAsFavorite => 'Meal saved as favorite!';
-	@override String couldNotUpdateFavorite({required Object error}) => 'Could not update favorite: ${error}';
-	@override String failedToProcess({required Object error}) => 'Failed to process: ${error}';
-	@override String failedToProcessImage({required Object error}) => 'Failed to process image: ${error}';
-	@override String errorCompressingImage({required Object error}) => 'Error compressing image: ${error}';
-	@override String get failedToSave => 'Failed to save data. Please try again.';
+	@override String get addedToLog => 'کھانا آپ کے لاگ میں شامل کیا گیا!';
+	@override String couldNotAdd({required Object error}) => 'کھانا شامل نہیں کیا جا سکا: ${error}';
+	@override String get removedFromFavorites => 'پسندیدہ سے ہٹا دیا گیا!';
+	@override String get savedAsFavorite => 'کھانا پسندیدہ کے طور پر محفوظ کر لیا گیا!';
+	@override String couldNotUpdateFavorite({required Object error}) => 'پسندیدہ کو اپ ڈیٹ نہیں کر سکا: ${error}';
+	@override String failedToProcess({required Object error}) => 'عملدرآمد میں ناکامی: ${error}';
+	@override String failedToProcessImage({required Object error}) => 'تصویر کے عمل میں ناکامی: ${error}';
+	@override String errorCompressingImage({required Object error}) => 'تصویر کمپریس کرنے میں خرابی: ${error}';
+	@override String get failedToSave => 'ڈیٹا محفوظ کرنے میں ناکامی. براہ کرم دوبارہ کوشش کریں.';
 }
 
 // Path: favorites
@@ -162,8 +163,8 @@ class _TranslationsFavoritesUr implements TranslationsFavoritesEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Favorites';
-	@override String get empty => 'No favorite meals yet.';
+	@override String get title => 'پسندیدہ';
+	@override String get empty => 'ابھی کوئی پسندیدہ کھانے نہیں ہیں۔';
 }
 
 // Path: profile
@@ -173,21 +174,21 @@ class _TranslationsProfileUr implements TranslationsProfileEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Profile';
-	@override String get noProfileData => 'No profile data found';
-	@override String get yourProfile => 'Your Profile';
-	@override String get viewAndManage => 'View and manage your health information';
+	@override String get title => 'پروفائل';
+	@override String get noProfileData => 'کوئی پروفائل ڈیٹا نہیں ملا';
+	@override String get yourProfile => 'آپ کا پروفائل';
+	@override String get viewAndManage => 'اپنی صحت کی معلومات دیکھیں اور انتظام کریں';
 	@override late final _TranslationsProfileSectionsUr sections = _TranslationsProfileSectionsUr._(_root);
-	@override String get gender => 'Gender';
-	@override String get height => 'Height';
-	@override String get weight => 'Weight';
-	@override String get age => 'Age';
-	@override String get weightGoal => 'Weight Goal';
-	@override String get activityLevel => 'Activity Level';
-	@override String get healthMetrics => 'Health Metrics';
-	@override String get notSet => 'Not set';
-	@override String get years => 'years';
-	@override String get updatedSuccessfully => 'Profile updated successfully!';
+	@override String get gender => 'جنس';
+	@override String get height => 'قد';
+	@override String get weight => 'وزن';
+	@override String get age => 'عمر';
+	@override String get weightGoal => 'وزن کا ہدف';
+	@override String get activityLevel => 'سرگرمی کی سطح';
+	@override String get healthMetrics => 'صحت کے میٹرکس';
+	@override String get notSet => 'مقرر نہیں';
+	@override String get years => 'سال';
+	@override String get updatedSuccessfully => 'پروفائل کامیابی سے اپ ڈیٹ ہو گئی!';
 	@override late final _TranslationsProfileCalculatedValuesUr calculatedValues = _TranslationsProfileCalculatedValuesUr._(_root);
 }
 
@@ -198,12 +199,12 @@ class _TranslationsHealthScoreUr implements TranslationsHealthScoreEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Health Score';
-	@override String get whyThisScore => 'Why this score?';
-	@override String get note => 'This score is an AI estimate based on the identified ingredients and nutritional density. Always consult a professional for dietary advice.';
-	@override String get unhealthy => 'Unhealthy';
-	@override String get healthy => 'Healthy';
-	@override String get neutral => 'Neutral';
+	@override String get title => 'صحت کا اسکور';
+	@override String get whyThisScore => 'یہ اسکور کیوں؟';
+	@override String get note => 'یہ اسکور شناخت شدہ اجزاء اور غذائیت کی کثافت کی بنیاد پر AI کا اندازہ ہے۔ ہمیشہ غذائیت کی مشاورت کے لیے پیشہ ور سے مشورہ کریں۔';
+	@override String get unhealthy => 'غیر صحت مند';
+	@override String get healthy => 'صحت مند';
+	@override String get neutral => 'غیر جانبدار';
 }
 
 // Path: editProfile
@@ -213,20 +214,20 @@ class _TranslationsEditProfileUr implements TranslationsEditProfileEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Edit Profile';
+	@override String get title => 'پروفائل ترمیم کریں';
 	@override late final _TranslationsEditProfileSectionsUr sections = _TranslationsEditProfileSectionsUr._(_root);
-	@override String get gender => 'Gender';
-	@override String get dateOfBirth => 'Date of Birth';
-	@override String get height => 'Height';
-	@override String get weight => 'Weight';
-	@override String get weightGoal => 'Weight Goal';
-	@override String get activityLevel => 'Activity Level';
-	@override String get metric => 'Metric';
-	@override String get imperial => 'Imperial';
-	@override String get metricCm => 'Metric (cm)';
-	@override String get imperialFtIn => 'Imperial (ft/in)';
-	@override String get metricKg => 'Metric (kg)';
-	@override String get imperialLbs => 'Imperial (lbs)';
+	@override String get gender => 'جنس';
+	@override String get dateOfBirth => 'تاریخ پیدائش';
+	@override String get height => 'قد';
+	@override String get weight => 'وزن';
+	@override String get weightGoal => 'وزن کا ہدف';
+	@override String get activityLevel => 'سرگرمی کی سطح';
+	@override String get metric => 'میٹرک';
+	@override String get imperial => 'امپیریل';
+	@override String get metricCm => 'میٹرک (سینٹی میٹر)';
+	@override String get imperialFtIn => 'امپیریل (فیٹ/انچ)';
+	@override String get metricKg => 'میٹرک (کلو)';
+	@override String get imperialLbs => 'امپیریل (پاؤنڈ)';
 	@override late final _TranslationsEditProfileGendersUr genders = _TranslationsEditProfileGendersUr._(_root);
 	@override late final _TranslationsEditProfileWeightGoalsUr weightGoals = _TranslationsEditProfileWeightGoalsUr._(_root);
 	@override late final _TranslationsEditProfileActivityLevelsUr activityLevels = _TranslationsEditProfileActivityLevelsUr._(_root);
@@ -239,18 +240,18 @@ class _TranslationsSettingsUr implements TranslationsSettingsEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Settings';
+	@override String get title => 'ترتیبات';
 	@override late final _TranslationsSettingsSectionsUr sections = _TranslationsSettingsSectionsUr._(_root);
 	@override late final _TranslationsSettingsEditProfileUr editProfile = _TranslationsSettingsEditProfileUr._(_root);
 	@override late final _TranslationsSettingsLanguageUr language = _TranslationsSettingsLanguageUr._(_root);
 	@override late final _TranslationsSettingsHeightUnitUr heightUnit = _TranslationsSettingsHeightUnitUr._(_root);
 	@override late final _TranslationsSettingsWeightUnitUr weightUnit = _TranslationsSettingsWeightUnitUr._(_root);
-	@override late final _TranslationsSettingsThemeUr theme = _TranslationsSettingsThemeUr._(_root);
 	@override late final _TranslationsSettingsMealRemindersUr mealReminders = _TranslationsSettingsMealRemindersUr._(_root);
+	@override late final _TranslationsSettingsThemeUr theme = _TranslationsSettingsThemeUr._(_root);
 	@override late final _TranslationsSettingsSendFeedbackUr sendFeedback = _TranslationsSettingsSendFeedbackUr._(_root);
 	@override late final _TranslationsSettingsClearAllDataUr clearAllData = _TranslationsSettingsClearAllDataUr._(_root);
 	@override late final _TranslationsSettingsDebugOptionsUr debugOptions = _TranslationsSettingsDebugOptionsUr._(_root);
-	@override String get developerModeEnabled => 'Developer mode enabled!';
+	@override String get developerModeEnabled => 'ڈیولپر موڈ فعال ہو گیا!';
 }
 
 // Path: reminders
@@ -260,26 +261,26 @@ class _TranslationsRemindersUr implements TranslationsRemindersEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Stay on track with reminders';
-	@override String get description => 'Get gentle reminders to log your meals and stay consistent with your nutrition goals';
-	@override String get notificationsEnabled => 'Notifications Enabled';
-	@override String get notificationsDisabled => 'Notifications Disabled';
-	@override String get enabledSubtitle => 'You\'ll receive meal reminders';
-	@override String get disabledSubtitle => 'Enable notifications to get meal reminders';
-	@override String get mealReminders => 'Meal Reminders';
-	@override String get breakfast => 'Breakfast';
-	@override String get lunch => 'Lunch';
-	@override String get dinner => 'Dinner';
-	@override String get snack => 'Snack';
-	@override String get unknown => 'Unknown';
-	@override String get change => 'Change';
-	@override String get enableNotifications => 'Enable Notifications';
-	@override String get skipForNow => 'Skip for now';
-	@override String get saveChanges => 'Save Changes';
-	@override String get enabledSuccessfully => 'Notifications enabled successfully!';
-	@override String get permissionDenied => 'Notification permission denied';
-	@override String errorEnabling({required Object error}) => 'Error enabling notifications: ${error}';
-	@override String errorCompletingSetup({required Object error}) => 'Error completing setup: ${error}';
+	@override String get title => 'یاد دہانیوں کے ساتھ ٹریک پر رہیں';
+	@override String get description => 'اپنے کھانوں کے اندراج کے لیے آپ کو نرم یاد دہانیاں موصول ہوں گی تاکہ آپ اپنے غذائیت کے اہداف کے ساتھ مستقل رہ سکیں';
+	@override String get notificationsEnabled => 'نوٹیفیکیشن فعال ہیں';
+	@override String get notificationsDisabled => 'نوٹیفیکیشن غیر فعال ہیں';
+	@override String get enabledSubtitle => 'آپ کو کھانے کی یاد دہانیاں موصول ہوں گی';
+	@override String get disabledSubtitle => 'کھانے کی یاد دہانیوں کے لیے نوٹیفیکیشن فعال کریں';
+	@override String get mealReminders => 'کھانے کی یاد دہانیاں';
+	@override String get breakfast => 'ناشتہ';
+	@override String get lunch => 'دوپہر کا کھانا';
+	@override String get dinner => 'رات کا کھانا';
+	@override String get snack => 'اسنک';
+	@override String get unknown => 'نامعلوم';
+	@override String get change => 'تبدیل کریں';
+	@override String get enableNotifications => 'نوٹیفیکیشن فعال کریں';
+	@override String get skipForNow => 'ابھی چھوڑ دیں';
+	@override String get saveChanges => 'تبدیلیاں محفوظ کریں';
+	@override String get enabledSuccessfully => 'نوٹیفیکیشن کامیابی سے فعال ہو گئے!';
+	@override String get permissionDenied => 'نوٹیفیکیشن کی اجازت مسترد کر دی گئی';
+	@override String errorEnabling({required Object error}) => 'نوٹیفیکیشن کو فعال کرنے میں خرابی: ${error}';
+	@override String errorCompletingSetup({required Object error}) => 'سیٹ اپ مکمل کرنے میں خرابی: ${error}';
 }
 
 // Path: notifications
@@ -303,9 +304,9 @@ class _TranslationsLoginUr implements TranslationsLoginEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Login';
-	@override String get signInWithGoogle => 'Sign in with Google';
-	@override String get signInFailed => 'Google Sign-In failed or was cancelled.';
+	@override String get title => 'لاگ ان';
+	@override String get signInWithGoogle => 'گوگل کے ساتھ سائن ان کریں';
+	@override String get signInFailed => 'گوگل سائن ان ناکام ہوا یا منسوخ کر دیا گیا۔';
 }
 
 // Path: disclaimer
@@ -315,7 +316,7 @@ class _TranslationsDisclaimerUr implements TranslationsDisclaimerEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get pleaseNote => 'Please Note';
+	@override String get pleaseNote => 'براہ کرم نوٹ کریں';
 	@override late final _TranslationsDisclaimerSnapUr snap = _TranslationsDisclaimerSnapUr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateUr weightEstimate = _TranslationsDisclaimerWeightEstimateUr._(_root);
 }
@@ -327,8 +328,8 @@ class _TranslationsCommonUr implements TranslationsCommonEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get close => 'Close';
-	@override String get kContinue => 'Continue';
+	@override String get close => 'بند کریں';
+	@override String get kContinue => 'جاری رکھیں';
 }
 
 // Path: errors
@@ -338,8 +339,8 @@ class _TranslationsErrorsUr implements TranslationsErrorsEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get loadingProfileData => 'Error loading profile data';
-	@override String get somethingWentWrong => 'Something went wrong.';
+	@override String get loadingProfileData => 'پروفائل کا ڈیٹا لوڈ کرنے میں خرابی';
+	@override String get somethingWentWrong => 'کچھ غلط ہوگیا۔';
 }
 
 // Path: debug
@@ -349,44 +350,44 @@ class _TranslationsDebugUr implements TranslationsDebugEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Debug Options';
+	@override String get title => 'ڈیبگ کے اختیارات';
 	@override late final _TranslationsDebugSectionsUr sections = _TranslationsDebugSectionsUr._(_root);
-	@override String get showActiveNotifications => 'Show Active Notifications';
-	@override String get scheduleTestNotification => 'Schedule Test Notification (10s)';
-	@override String get triggerBreakfastNotification => 'Trigger Breakfast Notification';
-	@override String get cancelAllNotifications => 'Cancel All Notifications';
-	@override String get activeNotifications => 'Active Notifications';
-	@override String get noTitle => 'No Title';
-	@override String get noBody => 'No Body';
-	@override String get fetchTodaysSteps => 'Fetch Today\'s Steps';
-	@override String get fetchTodaysCalories => 'Fetch Today\'s Calories';
-	@override String get fetchLatestWeight => 'Fetch Latest Weight';
-	@override String get fetchLatestHeight => 'Fetch Latest Height';
-	@override String get writeTestWeight => 'Write Test Weight (70kg)';
-	@override String get writeTestHeight => 'Write Test Height (175cm)';
-	@override String get syncLast7Days => 'Sync Last 7 Days';
-	@override String get sync7DaysTitle => '7-Day Sync';
-	@override String get checkCurrentLocale => 'Check Current Locale';
-	@override String get currentLocale => 'Current Locale';
-	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Language: ${languageCode}\nCountry: ${countryCode}\nUnit System: ${unitSystem}';
-	@override String get latestWeight => 'Latest Weight';
-	@override String get latestHeight => 'Latest Height';
-	@override String get todaysCalories => 'Today\'s Calories';
-	@override String totalCaloriesBurned({required Object calories}) => 'Total calories burned: ${calories}';
-	@override String syncSuccess({required Object count}) => 'Successfully fetched ${count} data points for Steps, Calories, and Weight over the last 7 days.';
-	@override String get noWeightData => 'No weight data found in the last 30 days.';
-	@override String get noHeightData => 'No height data found in the last year.';
-	@override String get noCalorieData => 'No calorie data found for today.';
-	@override String get weightWritten => 'Successfully wrote test weight (70kg).';
-	@override String get weightWriteFailed => 'Failed to write test weight.';
-	@override String get heightWritten => 'Successfully wrote test height (175cm).';
-	@override String get heightWriteFailed => 'Failed to write test height.';
-	@override String get noNotifications => 'No active notifications.';
-	@override String get testNotificationScheduled => 'Test notification scheduled for 10 seconds from now.';
-	@override String get testNotificationBody => 'This is a test notification scheduled for 10 seconds from now.';
-	@override String get breakfastNotificationTriggered => 'Breakfast notification triggered.';
-	@override String get allNotificationsCancelled => 'All notifications cancelled.';
-	@override String get fetchingData => 'Fetching data for the last 7 days...';
+	@override String get showActiveNotifications => 'فعال نوٹیفیکیشن دکھائیں';
+	@override String get scheduleTestNotification => 'ٹیسٹ نوٹیفیکیشن کا شیڈول بنائیں (10 سیکنڈ)';
+	@override String get triggerBreakfastNotification => 'ناشتے کی نوٹیفیکیشن متحرک کریں';
+	@override String get cancelAllNotifications => 'تمام نوٹیفیکیشن منسوخ کریں';
+	@override String get activeNotifications => 'فعال نوٹیفیکیشن';
+	@override String get noTitle => 'کوئی عنوان نہیں';
+	@override String get noBody => 'کوئی مواد نہیں';
+	@override String get fetchTodaysSteps => 'آج کے قدم حاصل کریں';
+	@override String get fetchTodaysCalories => 'آج کی کیلوریز حاصل کریں';
+	@override String get fetchLatestWeight => 'آخری وزن حاصل کریں';
+	@override String get fetchLatestHeight => 'آخری قد حاصل کریں';
+	@override String get writeTestWeight => 'ٹیسٹ وزن لکھیں (70kg)';
+	@override String get writeTestHeight => 'ٹیسٹ قد لکھیں (175cm)';
+	@override String get syncLast7Days => 'آخری 7 دن ہم آہنگ کریں';
+	@override String get sync7DaysTitle => '7 دن کی ہم آہنگی';
+	@override String get checkCurrentLocale => 'موجودہ لوکیل چیک کریں';
+	@override String get currentLocale => 'موجودہ لوکیل';
+	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'زبان: ${languageCode}\nملک: ${countryCode}\nیونٹ کا نظام: ${unitSystem}';
+	@override String get latestWeight => 'آخری وزن';
+	@override String get latestHeight => 'آخری قد';
+	@override String get todaysCalories => 'آج کی کیلوریز';
+	@override String totalCaloriesBurned({required Object calories}) => 'کل جلائی گئی کیلوریز: ${calories}';
+	@override String syncSuccess({required Object count}) => 'پچھلے 7 دنوں کے لیے قدم، کیلوریز، اور وزن کے لیے ${count} ڈیٹا پوائنٹس کامیابی سے حاصل کر لیے گئے۔';
+	@override String get noWeightData => 'آخری 30 دنوں میں کوئی وزن کا ڈیٹا نہیں ملا۔';
+	@override String get noHeightData => 'آخری سال میں کوئی قد کا ڈیٹا نہیں ملا۔';
+	@override String get noCalorieData => 'آج کے لیے کوئی کیلوری کا ڈیٹا نہیں ملا۔';
+	@override String get weightWritten => 'کامیابی سے ٹیسٹ وزن (70kg) لکھا گیا۔';
+	@override String get weightWriteFailed => 'ٹیسٹ وزن لکھنے میں ناکامی.';
+	@override String get heightWritten => 'کامیابی سے ٹیسٹ قد (175cm) لکھا گیا۔';
+	@override String get heightWriteFailed => 'ٹیسٹ قد لکھنے میں ناکامی.';
+	@override String get noNotifications => 'کوئی فعال نوٹیفیکیشن نہیں ہیں۔';
+	@override String get testNotificationScheduled => '10 سیکنڈ کے اندر ٹیسٹ نوٹیفیکیشن کا شیڈول بنایا گیا۔';
+	@override String get testNotificationBody => 'یہ ایک ٹیسٹ نوٹیفیکیشن ہے جو 10 سیکنڈ کے اندر شیڈول کیا گیا ہے۔';
+	@override String get breakfastNotificationTriggered => 'ناشتے کی نوٹیفیکیشن متحرک ہوگئی۔';
+	@override String get allNotificationsCancelled => 'تمام نوٹیفیکیشن منسوخ کر دی گئی ہیں۔';
+	@override String get fetchingData => 'آخری 7 دنوں کے لیے ڈیٹا حاصل کیا جا رہا ہے...';
 	@override String id({required Object id}) => 'ID: ${id}';
 }
 
@@ -397,8 +398,8 @@ class _TranslationsHealthUr implements TranslationsHealthEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get syncFailed => 'Could not sync to Health Connect';
-	@override String get mealSynced => 'Meal synced with Health Connect';
+	@override String get syncFailed => 'ہیلتھ کنیکٹ میں ہم آہنگ نہیں ہو سکا';
+	@override String get mealSynced => 'کھانا ہیلتھ کنیکٹ کے ساتھ ہم آہنگ ہو گیا';
 }
 
 // Path: onboarding.features
@@ -420,9 +421,9 @@ class _TranslationsOnboardingGenderUr implements TranslationsOnboardingGenderEn 
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What is your gender?';
-	@override String get description => 'Gender helps us accurately calculate your basal metabolic rate (BMR).';
-	@override String get next => 'Next';
+	@override String get title => 'آپ کا جنس کیا ہے؟';
+	@override String get description => 'جنس ہماری مدد کرتا ہے کہ ہم آپ کی بنیادی میٹابولک ریٹ (BMR) کو درست طریقے سے شمار کریں۔';
+	@override String get next => 'اگلا';
 }
 
 // Path: onboarding.height
@@ -432,11 +433,11 @@ class _TranslationsOnboardingHeightUr implements TranslationsOnboardingHeightEn 
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How tall are you?';
-	@override String get description => 'Your height helps us calculate your BMI and energy needs accurately.';
-	@override String get metric => 'Metric';
-	@override String get imperial => 'Imperial';
-	@override String get next => 'Next';
+	@override String get title => 'آپ کی اونچائی کیا ہے؟';
+	@override String get description => 'آپ کی اونچائی ہماری مدد کرتی ہے کہ ہم آپ کا BMI اور توانائی کی ضروریات کو درست طریقے سے شمار کریں۔';
+	@override String get metric => 'میٹرک';
+	@override String get imperial => 'امپیرئل';
+	@override String get next => 'اگلا';
 }
 
 // Path: onboarding.weight
@@ -446,13 +447,13 @@ class _TranslationsOnboardingWeightUr implements TranslationsOnboardingWeightEn 
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get currentTitle => 'What is your current weight?';
-	@override String get currentDescription => 'Your current weight is essential for personalizing your daily goals.';
-	@override String get targetTitle => 'What is your target weight?';
-	@override String get targetDescription => 'Setting a goal weight helps us determine your long-term plan.';
-	@override String get metric => 'Metric';
-	@override String get imperial => 'Imperial';
-	@override String get next => 'Next';
+	@override String get currentTitle => 'آپ کا موجودہ وزن کیا ہے؟';
+	@override String get currentDescription => 'آپ کا موجودہ وزن آپ کے روزانہ کے اہداف کو شخصی بنانے کے لئے اہم ہے۔';
+	@override String get targetTitle => 'آپ کا ہدف وزن کیا ہے؟';
+	@override String get targetDescription => 'ہدف وزن طے کرنا ہماری مدد کرتا ہے کہ ہم آپ کا طویل مدتی منصوبہ طے کریں۔';
+	@override String get metric => 'میٹرک';
+	@override String get imperial => 'امپیرئل';
+	@override String get next => 'اگلا';
 }
 
 // Path: onboarding.age
@@ -462,9 +463,9 @@ class _TranslationsOnboardingAgeUr implements TranslationsOnboardingAgeEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'When is your birthday?';
-	@override String get description => 'Your age helps us calculate your calorie needs accurately.';
-	@override String get next => 'Next';
+	@override String get title => 'آپ کی سالگرہ کب ہے؟';
+	@override String get description => 'آپ کی عمر ہماری مدد کرتی ہے کہ ہم آپ کی کیلوری کی ضروریات کو درست طریقے سے شمار کریں۔';
+	@override String get next => 'اگلا';
 }
 
 // Path: onboarding.bmiScale
@@ -474,10 +475,10 @@ class _TranslationsOnboardingBmiScaleUr implements TranslationsOnboardingBmiScal
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Underweight';
-	@override String get healthy => 'Healthy';
-	@override String get overweight => 'Overweight';
-	@override String get obese => 'Obese';
+	@override String get underweight => 'کم وزن';
+	@override String get healthy => 'صحت مند';
+	@override String get overweight => 'زیادہ وزن';
+	@override String get obese => 'موٹا';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesUr categories = _TranslationsOnboardingBmiScaleCategoriesUr._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesUr messages = _TranslationsOnboardingBmiScaleMessagesUr._(_root);
 }
@@ -489,8 +490,8 @@ class _TranslationsOnboardingWeightGoalUr implements TranslationsOnboardingWeigh
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What\'s your goal?';
-	@override String get description => 'Choose the goal that best describes what you want to achieve';
+	@override String get title => 'آپ کا مقصد کیا ہے؟';
+	@override String get description => 'وہ مقصد منتخب کریں جو بیان کرتا ہے کہ آپ کیا حاصل کرنا چاہتے ہیں';
 }
 
 // Path: onboarding.activityLevel
@@ -500,8 +501,8 @@ class _TranslationsOnboardingActivityLevelUr implements TranslationsOnboardingAc
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'How active are you?';
-	@override String get description => 'This helps us calculate your daily calorie needs more accurately';
+	@override String get title => 'آپ کتنے ایکٹو ہیں؟';
+	@override String get description => 'یہ ہماری مدد کرتا ہے کہ ہم آپ کی روزانہ کی کیلوری کی ضروریات کو مزید درست طریقے سے شمار کریں';
 }
 
 // Path: onboarding.healthConnect
@@ -511,19 +512,19 @@ class _TranslationsOnboardingHealthConnectUr implements TranslationsOnboardingHe
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Connect with Health Connect';
-	@override String get description => 'Sync your health data for better insights and automatic calorie tracking';
+	@override String get title => 'Health Connect کے ساتھ جڑیں';
+	@override String get description => 'بہتر بصیرت اور خودکار کیلوری ٹریکنگ کے لیے اپنے صحت کے ڈیٹا کو ہم آہنگ کریں';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingUr automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingUr._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsUr progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsUr._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationUr seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationUr._(_root);
-	@override String get connected => 'Health Connect Connected';
-	@override String get notConnected => 'Health Connect Not Connected';
-	@override String get setup => 'Setup Health Connect';
-	@override String get skipForNow => 'Skip for now';
-	@override String get statusConnected => 'Health Connect is connected.';
-	@override String get statusSuccess => 'Health Connect has been successfully connected!';
-	@override String get statusPermissionDenied => 'Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.';
-	@override String statusError({required Object error}) => 'Error setting up Health Connect: ${error}';
+	@override String get connected => 'Health Connect جڑا ہوا ہے';
+	@override String get notConnected => 'Health Connect جڑا ہوا نہیں ہے';
+	@override String get setup => 'Health Connect کو ترتیب دیں';
+	@override String get skipForNow => 'فی الحال چھوڑیں';
+	@override String get statusConnected => 'Health Connect جڑا ہوا ہے۔';
+	@override String get statusSuccess => 'Health Connect کامیابی سے جڑا گیا ہے!';
+	@override String statusPermissionDenied({required Object appLabel}) => 'اجازت مسترد کر دی گئی ہے۔ براہ کرم اپنے فون کی سیٹنگز سے ${appLabel} کے لئے Health Connect کی اجازتیں فعال کریں۔';
+	@override String statusError({required Object error}) => 'Health Connect ترتیب دینے میں خرابی: ${error}';
 }
 
 // Path: onboarding.reinforcement
@@ -545,18 +546,18 @@ class _TranslationsHomeDailyGoalUr implements TranslationsHomeDailyGoalEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Set Your Daily Goal';
-	@override String get titleSet => 'Your Daily Goal';
-	@override String get description => 'Ready to embark on your wellness journey? Set your daily calorie target below to kickstart your progress.';
-	@override String get descriptionSet => 'Your compass is set! This is your daily calorie target to guide you.';
-	@override String get yourGoal => 'Your Goal';
-	@override String get dailyCalories => 'Daily calories (kcal)';
-	@override String get setGoal => 'Set Goal';
-	@override String get intake => 'Intake';
-	@override String get burned => 'Burned';
-	@override String get weightImpact => 'Weight Impact';
-	@override String get estLoss => 'Est. loss of';
-	@override String get estGain => 'Est. gain of';
+	@override String get title => 'اپنا روزانہ کا ہدف مقرر کریں';
+	@override String get titleSet => 'آپ کا روزانہ کا ہدف';
+	@override String get description => 'کیا آپ اپنی صحت کے سفر کا آغاز کرنے کے لیے تیار ہیں؟ نیچے اپنے روزانہ کے کیلوری کے ہدف کا تعین کریں تاکہ آپ کی ترقی کا آغاز ہو جائے۔';
+	@override String get descriptionSet => 'آپ کا کمپاس مقرر ہو گیا ہے! یہ آپ کا روزانہ کیلوری کا ہدف ہے جو آپ کی رہنمائی کرے گا۔';
+	@override String get yourGoal => 'آپ کا ہدف';
+	@override String get dailyCalories => 'روزانہ کیلوریز (kcal)';
+	@override String get setGoal => 'ہدف مقرر کریں';
+	@override String get intake => 'استعمال';
+	@override String get burned => 'جلائے گئے';
+	@override String get weightImpact => 'وزن کا اثر';
+	@override String get estLoss => 'اندازاً کمی';
+	@override String get estGain => 'اندازاً اضافہ';
 	@override String get kcal => 'kcal';
 }
 
@@ -567,12 +568,12 @@ class _TranslationsHomeDailySummaryUr implements TranslationsHomeDailySummaryEn 
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Daily Summary';
-	@override String get calories => 'Calories';
-	@override String get carbs => 'Carbs';
-	@override String get protein => 'Protein';
-	@override String get fat => 'Fat';
-	@override String get fiber => 'Fiber';
+	@override String get title => 'روزانہ کا خلاصہ';
+	@override String get calories => 'کیلوریز';
+	@override String get carbs => 'کاربوہائیڈریٹس';
+	@override String get protein => 'پروٹین';
+	@override String get fat => 'چربی';
+	@override String get fiber => 'ریشہ';
 }
 
 // Path: home.intakeProgress
@@ -582,9 +583,9 @@ class _TranslationsHomeIntakeProgressUr implements TranslationsHomeIntakeProgres
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Today\'s Macro Split';
-	@override String get target => 'Target';
-	@override String get current => 'Current';
+	@override String get title => 'آج کی میکرو تقسیم';
+	@override String get target => 'ہدف';
+	@override String get current => 'موجودہ';
 }
 
 // Path: home.intakeHistory
@@ -594,9 +595,9 @@ class _TranslationsHomeIntakeHistoryUr implements TranslationsHomeIntakeHistoryE
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '7-Day Macro History';
-	@override String get noHistoryYet => 'No history yet';
-	@override String get startLogging => 'Start logging meals to see your\n7-day macro trends here';
+	@override String get title => '7 دنوں کی میکرو تاریخ';
+	@override String get noHistoryYet => 'ابھی کوئی تاریخ نہیں';
+	@override String get startLogging => 'اپنے کھانے کے اندراج شروع کریں تاکہ آپ یہاں اپنی 7 دن کی میکرو کی ٹرینڈز دیکھ سکیں';
 }
 
 // Path: home.mealLog
@@ -606,10 +607,10 @@ class _TranslationsHomeMealLogUr implements TranslationsHomeMealLogEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Logged Meals';
-	@override String get emptyMessage => 'Snap a picture of your last meal to log here.';
-	@override String get noMealsToday => 'No meals recorded for today';
-	@override String get seeAllMeals => 'See all meals';
+	@override String get title => 'اندراج شدہ کھانے';
+	@override String get emptyMessage => 'اپنے آخری کھانے کی تصویر لیں اور اسے یہاں درج کریں۔';
+	@override String get noMealsToday => 'آج کے لئے کوئی کھانے کا ریکارڈ نہیں';
+	@override String get seeAllMeals => 'تمام کھانے دیکھیں';
 }
 
 // Path: home.mealDescription
@@ -619,10 +620,10 @@ class _TranslationsHomeMealDescriptionUr implements TranslationsHomeMealDescript
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Quick Add with AI';
-	@override String get description => 'Describe your meal, and let AI handle the details.';
-	@override String get hint => 'e.g. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...';
-	@override String get analyzeMeal => 'Analyze meal';
+	@override String get title => 'AI کے ذریعے فوری شامل کریں';
+	@override String get description => 'اپنے کھانے کی وضاحت کریں اور AI کو تفصیلات کا خیال رکھنے دیں.';
+	@override String get hint => 'جیسے، صبح کے ناشتے میں میں نے ایک بڑی پیالی دلیا اور ایک کٹے ہوئے کیلے کے ساتھ ایک سکوب پروٹین لی ...';
+	@override String get analyzeMeal => 'کھانے کا تجزیہ کریں';
 }
 
 // Path: home.favoriteMeals
@@ -632,12 +633,12 @@ class _TranslationsHomeFavoriteMealsUr implements TranslationsHomeFavoriteMealsE
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Favorite Meals';
-	@override String get description => 'Quickly add one of your favorite meals.';
-	@override String get noFavorites => 'No favorite meals yet.';
-	@override String get addFavoriteHint => 'Click the star on a meal to mark it as a favorite.';
-	@override String get seeAll => 'See all';
-	@override String get add => 'Add';
+	@override String get title => 'پسندیدہ کھانے';
+	@override String get description => 'اپنے پسندیدہ کھانے میں سے ایک کو جلدی شامل کریں۔';
+	@override String get noFavorites => 'ابھی کوئی پسندیدہ کھانے نہیں ہیں۔';
+	@override String get addFavoriteHint => 'کسی کھانے پر ستارہ دبائیں تاکہ اسے پسندیدہ کے طور پر نشان زد کریں۔';
+	@override String get seeAll => 'تمام دیکھیں';
+	@override String get add => 'شامل کریں';
 }
 
 // Path: home.mealSnap
@@ -647,9 +648,9 @@ class _TranslationsHomeMealSnapUr implements TranslationsHomeMealSnapEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Snap & Track Your Meal';
-	@override String get description => 'Use your camera to take a picture of your food for AI analysis.';
-	@override String get openCamera => 'Open Camera';
+	@override String get title => 'اپنے کھانے کی تصویر لیں اور ٹریک کریں';
+	@override String get description => 'اپنے کھانے کی تصویر لینے کے لیے اپنے کیمرے کا استعمال کریں تاکہ AI اسے تجزیہ کر سکے۔';
+	@override String get openCamera => 'کیمرہ کھولیں';
 }
 
 // Path: home.connectHealth
@@ -659,10 +660,10 @@ class _TranslationsHomeConnectHealthUr implements TranslationsHomeConnectHealthE
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Sync with Health Connect';
-	@override String get description => 'Sync your nutrition data with Health Connect';
-	@override String get install => 'Install';
-	@override String get connect => 'Connect';
+	@override String get title => 'ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں';
+	@override String get description => 'اپرا غذائیت کے ڈیٹا کو ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں';
+	@override String get install => 'انسٹال کریں';
+	@override String get connect => 'ہم آہنگ کریں';
 }
 
 // Path: meal.nutrition
@@ -672,11 +673,11 @@ class _TranslationsMealNutritionUr implements TranslationsMealNutritionEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get calories => 'Calories';
-	@override String get carbs => 'Carbs (g)';
-	@override String get protein => 'Protein (g)';
-	@override String get fat => 'Fat (g)';
-	@override String get fiber => 'Fiber (g)';
+	@override String get calories => 'کیلوریز';
+	@override String get carbs => 'کاربوہائیڈریٹس (g)';
+	@override String get protein => 'پروٹین (g)';
+	@override String get fat => 'چربی (g)';
+	@override String get fiber => 'ریشہ (g)';
 }
 
 // Path: meal.deleteConfirmation
@@ -686,10 +687,10 @@ class _TranslationsMealDeleteConfirmationUr implements TranslationsMealDeleteCon
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Delete Meal';
-	@override String get message => 'Are you sure you want to delete this meal entry?';
-	@override String get cancel => 'Cancel';
-	@override String get delete => 'Delete';
+	@override String get title => 'کھانا حذف کریں';
+	@override String get message => 'کیا آپ واقعی اس کھانے کا اندراج حذف کرنا چاہتے ہیں؟';
+	@override String get cancel => 'کینسل کریں';
+	@override String get delete => 'حذف کریں';
 }
 
 // Path: profile.sections
@@ -699,10 +700,10 @@ class _TranslationsProfileSectionsUr implements TranslationsProfileSectionsEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get profile => 'PROFILE';
-	@override String get basicInformation => 'BASIC INFORMATION';
-	@override String get goalsAndActivity => 'GOALS & ACTIVITY';
-	@override String get calculatedValues => 'CALCULATED VALUES';
+	@override String get profile => 'پروفائل';
+	@override String get basicInformation => 'بنیادی معلومات';
+	@override String get goalsAndActivity => 'اہداف اور سرگرمی';
+	@override String get calculatedValues => 'حساب شدہ قیمتیں';
 }
 
 // Path: profile.calculatedValues
@@ -712,11 +713,11 @@ class _TranslationsProfileCalculatedValuesUr implements TranslationsProfileCalcu
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get bmr => 'BMR';
-	@override String get tdee => 'TDEE';
-	@override String get dailyGoal => 'Daily Goal';
-	@override String get calPerDay => 'cal/day';
-	@override String get notAvailable => 'N/A';
+	@override String get bmr => 'بی ایم آر';
+	@override String get tdee => 'ٹی ڈی ای ای';
+	@override String get dailyGoal => 'روزانہ کا ہدف';
+	@override String get calPerDay => 'کیلوری /دن';
+	@override String get notAvailable => 'نہیں دستیاب';
 }
 
 // Path: editProfile.sections
@@ -726,9 +727,9 @@ class _TranslationsEditProfileSectionsUr implements TranslationsEditProfileSecti
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get personalInformation => 'PERSONAL INFORMATION';
-	@override String get physicalMeasurements => 'PHYSICAL MEASUREMENTS';
-	@override String get goalsAndActivity => 'GOALS & ACTIVITY';
+	@override String get personalInformation => 'ذاتی معلومات';
+	@override String get physicalMeasurements => 'طبی پیمائش';
+	@override String get goalsAndActivity => 'اہداف اور سرگرمی';
 }
 
 // Path: editProfile.genders
@@ -738,9 +739,9 @@ class _TranslationsEditProfileGendersUr implements TranslationsEditProfileGender
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get male => 'Male';
-	@override String get female => 'Female';
-	@override String get other => 'Other';
+	@override String get male => 'مرد';
+	@override String get female => 'عورت';
+	@override String get other => 'دیگر';
 }
 
 // Path: editProfile.weightGoals
@@ -776,12 +777,12 @@ class _TranslationsSettingsSectionsUr implements TranslationsSettingsSectionsEn 
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get profile => 'PROFILE';
-	@override String get localization => 'LOCALIZATION';
-	@override String get notifications => 'NOTIFICATIONS';
-	@override String get supportAndLegal => 'SUPPORT & LEGAL';
-	@override String get dangerZone => 'DANGER ZONE';
-	@override String get developer => 'DEVELOPER';
+	@override String get profile => 'پروفائل';
+	@override String get localization => 'ترجمہ';
+	@override String get notifications => 'نوٹیفیکیشن';
+	@override String get supportAndLegal => 'مدد اور قانونی';
+	@override String get dangerZone => 'خطرے کا زون';
+	@override String get developer => 'ڈیولپر';
 }
 
 // Path: settings.editProfile
@@ -791,8 +792,8 @@ class _TranslationsSettingsEditProfileUr implements TranslationsSettingsEditProf
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Edit Profile';
-	@override String get subtitle => 'Update your personal information';
+	@override String get title => 'پروفائل ترمیم کریں';
+	@override String get subtitle => 'اپنی ذاتی معلومات کو تازہ کریں';
 }
 
 // Path: settings.language
@@ -802,8 +803,8 @@ class _TranslationsSettingsLanguageUr implements TranslationsSettingsLanguageEn 
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Language';
-	@override String get subtitle => 'Choose your preferred language';
+	@override String get title => 'زبان';
+	@override String get subtitle => 'اپنی پسندیدہ زبان منتخب کریں';
 }
 
 // Path: settings.heightUnit
@@ -813,7 +814,7 @@ class _TranslationsSettingsHeightUnitUr implements TranslationsSettingsHeightUni
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Height Unit';
+	@override String get title => 'قد کی اکائی';
 }
 
 // Path: settings.weightUnit
@@ -823,21 +824,7 @@ class _TranslationsSettingsWeightUnitUr implements TranslationsSettingsWeightUni
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Weight Unit';
-}
-
-// Path: settings.theme
-class _TranslationsSettingsThemeUr implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeUr._(this._root);
-
-	final TranslationsUr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
+	@override String get title => 'وزن کی اکائی';
 }
 
 // Path: settings.mealReminders
@@ -847,8 +834,22 @@ class _TranslationsSettingsMealRemindersUr implements TranslationsSettingsMealRe
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Meal Reminders';
-	@override String get subtitle => 'Stay on track with timely alerts';
+	@override String get title => 'کھانے کی یاد دہانیاں';
+	@override String get subtitle => 'مناسب وقت پر الرٹس کے ساتھ ٹریک پر رہیں';
+}
+
+// Path: settings.theme
+class _TranslationsSettingsThemeUr implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'تھیم';
+	@override String get subtitle => 'اپنی پسندیدہ تھیم منتخب کریں';
+	@override String get light => 'ہلکا';
+	@override String get dark => 'تاریک';
+	@override String get system => 'نظام';
 }
 
 // Path: settings.sendFeedback
@@ -858,14 +859,14 @@ class _TranslationsSettingsSendFeedbackUr implements TranslationsSettingsSendFee
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Send Feedback';
-	@override String get subtitle => 'Help us improve Calorify';
-	@override String get emailSubject => 'Calorify App Feedback';
-	@override String get emailBodyPrefix => 'Please provide your feedback below:';
-	@override String get appVersion => 'App Version';
-	@override String get device => 'Device';
-	@override String get osVersion => 'OS Version';
-	@override String get uid => 'UID';
+	@override String get title => 'آراء ارسال کریں';
+	@override String subtitle({required Object appLabel}) => '${appLabel} کو بہتر بنانے میں ہماری مدد کریں';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} ایپ آراء';
+	@override String get emailBodyPrefix => 'براہ کرم نیچے اپنی آراء فراہم کریں:';
+	@override String get appVersion => 'ایپ کا ورژن';
+	@override String get device => 'آلہ';
+	@override String get osVersion => 'او ایس ورژن';
+	@override String get uid => 'یو آئی ڈی';
 }
 
 // Path: settings.clearAllData
@@ -875,12 +876,12 @@ class _TranslationsSettingsClearAllDataUr implements TranslationsSettingsClearAl
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Clear All Data';
-	@override String get subtitle => 'Irreversibly delete all your information';
-	@override String get confirmationTitle => 'Clear All Data?';
-	@override String get confirmationMessage => 'This action cannot be undone. All your logged meals, favorites, and profile settings will be permanently deleted.';
-	@override String get cancel => 'Cancel';
-	@override String get clearEverything => 'Clear Everything';
+	@override String get title => 'تمام ڈیٹا صاف کریں';
+	@override String get subtitle => 'اپنی تمام معلومات کو ناقابل واپسی طور پر حذف کریں';
+	@override String get confirmationTitle => 'کیا آپ تمام ڈیٹا صاف کرنا چاہتے ہیں؟';
+	@override String get confirmationMessage => 'یہ عمل واپس نہیں کیا جا سکتا۔ آپ کے تمام اندراج کردہ کھانے، پسندیدہ، اور پروفائل کی ترتیبات مستقل طور پر حذف ہو جائیں گی۔';
+	@override String get cancel => 'کینسل کریں';
+	@override String get clearEverything => 'سب کچھ صاف کریں';
 }
 
 // Path: settings.debugOptions
@@ -890,7 +891,7 @@ class _TranslationsSettingsDebugOptionsUr implements TranslationsSettingsDebugOp
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Debug Options';
+	@override String get title => 'ڈیبگ کے اختیارات';
 }
 
 // Path: notifications.breakfast
@@ -900,8 +901,8 @@ class _TranslationsNotificationsBreakfastUr implements TranslationsNotifications
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Breakfast Time! 🍳';
-	@override String get body => 'Don\'t forget to log your breakfast';
+	@override String get title => 'ناشتے کا وقت! 🍳';
+	@override String get body => 'اپنے ناشتہ کا اندراج کرنا نہ بھولیں';
 }
 
 // Path: notifications.lunch
@@ -911,8 +912,8 @@ class _TranslationsNotificationsLunchUr implements TranslationsNotificationsLunc
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Lunch Time! 🥗';
-	@override String get body => 'Time to log your lunch';
+	@override String get title => 'دوپہر کے کھانے کا وقت! 🥗';
+	@override String get body => 'اپنے دوپہر کے کھانے کا اندراج کرنے کا وقت';
 }
 
 // Path: notifications.dinner
@@ -922,8 +923,8 @@ class _TranslationsNotificationsDinnerUr implements TranslationsNotificationsDin
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Dinner Time! 🍽️';
-	@override String get body => 'Don\'t forget to log your dinner';
+	@override String get title => 'رات کے کھانے کا وقت! 🍽️';
+	@override String get body => 'اپنے رات کے کھانے کا اندراج کرنا نہ بھولیں';
 }
 
 // Path: notifications.snack
@@ -933,8 +934,8 @@ class _TranslationsNotificationsSnackUr implements TranslationsNotificationsSnac
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Snack Time! 🍎';
-	@override String get body => 'Time for a healthy snack';
+	@override String get title => 'اسنیک کا وقت! 🍎';
+	@override String get body => 'ایک صحت مند اسنیک کا وقت';
 }
 
 // Path: notifications.test
@@ -944,7 +945,7 @@ class _TranslationsNotificationsTestUr implements TranslationsNotificationsTestE
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Test Notification';
+	@override String get title => 'تجرباتی نوٹیفیکیشن';
 }
 
 // Path: disclaimer.snap
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapUr implements TranslationsDisclaimerSnapEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Calorify provides estimated nutritional info. Accuracy depends on your input & food variations. Use as a guide, not a definitive source. Consult a professional for personalized dietary advice.';
+	@override String description({required Object appLabel}) => '${appLabel} تخمینی غذائیت کی معلومات فراہم کرتا ہے۔ درستگی آپ کی ان پٹ اور خوراک کی مختلف حالتوں پر منحصر ہے۔ یہ ایک رہنما کے طور پر استعمال کریں، نہ کہ ایک حتمی ماخذ کے طور پر۔ ذاتی غذائیت کی مشاورت کے لیے پیشہ ور کی خدمات حاصل کریں۔';
 	@override late final _TranslationsDisclaimerSnapPortionSizeUr portionSize = _TranslationsDisclaimerSnapPortionSizeUr._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsUr preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsUr._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsUr ingredients = _TranslationsDisclaimerSnapIngredientsUr._(_root);
@@ -968,8 +969,8 @@ class _TranslationsDisclaimerWeightEstimateUr implements TranslationsDisclaimerW
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'About Weight Estimate';
-	@override String get description => 'The projected weight change is a theoretical estimate based on the simple calorie-in vs. calorie-out model. It is intended for motivational guidance only, not as a prediction of your actual weight.';
+	@override String get title => 'وزن کے اندازے کے بارے میں';
+	@override String get description => 'وزن میں تبدیلی کا اندازہ نظریاتی ہے جو کیلوری کی زیادہ اور کم کے ماڈل پر مبنی ہے۔ یہ صرف حوصلہ افزائی کی رہنمائی کے لیے ہے، آپ کے اصل وزن کی پیش گوئی کے طور پر نہیں۔';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyUr calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyUr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsUr biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsUr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightUr waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightUr._(_root);
@@ -983,9 +984,9 @@ class _TranslationsDebugSectionsUr implements TranslationsDebugSectionsEn {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get notifications => 'Notifications';
-	@override String get healthConnect => 'Health Connect';
-	@override String get appInfo => 'App Info';
+	@override String get notifications => 'نوٹیفیکیشن';
+	@override String get healthConnect => 'ہیلتھ کنیکٹ';
+	@override String get appInfo => 'ایپ کی معلومات';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -995,8 +996,8 @@ class _TranslationsOnboardingFeaturesFoodRecognitionUr implements TranslationsOn
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Smart Food Recognition';
-	@override String get description => 'Take a photo and let AI identify your meal';
+	@override String get title => 'ذہین غذائی شناخت';
+	@override String get description => 'ایک تصویر لیں اور AI کو اپنے کھانے کی شناخت کرنے دیں';
 }
 
 // Path: onboarding.features.aiAnalysis
@@ -1006,8 +1007,8 @@ class _TranslationsOnboardingFeaturesAiAnalysisUr implements TranslationsOnboard
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'AI Analysis';
-	@override String get description => 'Get instant nutrition facts from your descriptions';
+	@override String get title => 'AI تجزیہ';
+	@override String get description => 'اپنی تفصیلات سے فوری غذائیت کی معلومات حاصل کریں';
 }
 
 // Path: onboarding.features.healthIntegration
@@ -1017,8 +1018,8 @@ class _TranslationsOnboardingFeaturesHealthIntegrationUr implements Translations
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Health Integration';
-	@override String get description => 'Connect with Health Connect for better insights';
+	@override String get title => 'صحت کا انضمام';
+	@override String get description => 'بہتر بصیرت کے لیے Health Connect سے جڑیں';
 }
 
 // Path: onboarding.bmiScale.categories
@@ -1028,10 +1029,10 @@ class _TranslationsOnboardingBmiScaleCategoriesUr implements TranslationsOnboard
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Underweight';
-	@override String get healthyWeight => 'Healthy weight';
-	@override String get overweight => 'Overweight';
-	@override String get obese => 'Obese';
+	@override String get underweight => 'کم وزن';
+	@override String get healthyWeight => 'صحت مند وزن';
+	@override String get overweight => 'زیادہ وزن';
+	@override String get obese => 'موٹا';
 }
 
 // Path: onboarding.bmiScale.messages
@@ -1041,10 +1042,10 @@ class _TranslationsOnboardingBmiScaleMessagesUr implements TranslationsOnboardin
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'We can help you build a healthy plan to reach a balanced weight with nutrient-dense meals.';
-	@override String get healthy => 'Great job! You\'re in a healthy range. We\'ll help you maintain your vitality and energy levels.';
-	@override String get overweight => 'Calorify will simplify your journey with AI-powered tracking to help you reach your target comfortably.';
-	@override String get obese => 'We\'re here to support you with personalized guidance and sustainable strategies for your health goals.';
+	@override String get underweight => 'ہم آپ کو غذائیت سے بھرپور کھانوں کے ساتھ متوازن وزن تک پہنچنے کے لئے صحت مند منصوبہ بنانے میں مدد کر سکتے ہیں۔';
+	@override String get healthy => 'بہت اچھا! آپ صحت مند رینج میں ہیں۔ ہم آپ کی توانائی اور قوت برقرار رکھنے میں مدد کریں گے۔';
+	@override String overweight({required Object appLabel}) => '${appLabel} آپ کے سفر کو آسان بنائے گا، AI کی طاقت سے ٹریکنگ کی مدد سے آپ کو آرام سے آپ کے ہدف تک پہنچنے میں مدد کرے گا۔';
+	@override String get obese => 'ہم آپ کے صحت کے اہداف کے لئے شخصی رہنمائی اور پائیدار حکمت عملیوں کے ساتھ آپ کی مدد کرنے کے لئے یہاں ہیں۔';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1054,8 +1055,8 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingUr implements Transla
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Automatic Calorie Tracking';
-	@override String get description => 'Track calories burned from your fitness apps';
+	@override String get title => 'خودکار کیلوری ٹریکنگ';
+	@override String get description => 'اپنی صحت کی ایپس سے جلائی گئی کیلوریز کو ٹریک کریں';
 }
 
 // Path: onboarding.healthConnect.progressInsights
@@ -1065,8 +1066,8 @@ class _TranslationsOnboardingHealthConnectProgressInsightsUr implements Translat
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Progress Insights';
-	@override String get description => 'Get detailed insights into your health trends';
+	@override String get title => 'ترقی کی بصیرت';
+	@override String get description => 'آپ کے صحت کے رجحانات کی تفصیلی بصیرت حاصل کریں';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1076,8 +1077,8 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationUr implements Trans
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Seamless Integration';
-	@override String get description => 'Sync data from your favorite health apps';
+	@override String get title => 'پہچان میں انضمام';
+	@override String get description => 'اپنی پسندیدہ صحت ایپس سے ڈیٹا ہم آہنگ کریں';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1087,20 +1088,17 @@ class _TranslationsOnboardingReinforcementTrackingSuccessUr implements Translati
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'You\'re Not Alone';
-	@override String get genericMessage => 'Research shows that consistent tracking is the #1 predictor of long-term success.';
-	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'For a ${age} year old ${gender} looking to ${goal}, consistent tracking is the #1 predictor of success.';
-	@override String get closingMessage => 'Calorify makes it 10x easier than doing it manually.';
-	@override String get getStartedTitle => 'کیا آپ شروع کرنے کے لئے تیار ہیں؟';
-	@override String get tipPhoto => 'اپنی خوراک کی تصاویر لیں اور فوری تجزیہ حاصل کریں';
-	@override String get tipConsistency => 'محنت سے لاگ کریں تاکہ آپ معنی خیز ترقی دیکھ سکیں';
-	@override String get tipProgress => 'روزانہ اپنی ترقی کا اندراج کریں تاکہ آپ متحرک رہیں';
-	@override String get button => 'Let\'s Go';
-	@override String get defaultGender => 'individual';
-	@override String get defaultGoal => 'healthier you';
-	@override String get instantPhotoAnalysis => 'Instant photo analysis';
-	@override String get automaticLogging => 'Automatic nutritional logging';
-	@override String get progressVisualizations => 'Progress visualizations that keep you motivated';
+	@override String get title => 'آپ اکیلے نہیں ہیں';
+	@override String get genericMessage => 'تحقیق ظاہر کرتی ہے کہ مستقل ٹریکنگ طویل مدتی کامیابی کا #1 اشارے ہے۔';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'ایک ${age} سالہ ${gender} کے لیے جو ${goal} حاصل کرنا چاہتا ہے، مستقل ٹریکنگ کامیابی کا #1 اشارے ہے۔';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} یہ کرنے کے مقابلے میں 10 گنا آسان بناتا ہے جو دستی طور پر کرنے کے لئے۔';
+	@override String get getStartedTitle => 'آغاز کرنے کے لیے تیار ہیں؟';
+	@override String get tipPhoto => 'اپنے کھانے کی تصویر لیں تاکہ فوری تجزیہ حاصل ہو';
+	@override String get tipConsistency => 'معنی خیز ترقی دیکھنے کے لئے مستقل طور پر لاگ کریں';
+	@override String get tipProgress => 'حوصلہ افزائی برقرار رکھنے کے لئے روزانہ اپنی ترقی کو ٹریک کریں';
+	@override String get button => 'چلو شروع کریں';
+	@override String get defaultGender => 'انفرادی';
+	@override String get defaultGoal => 'صحت مند آپ';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1110,14 +1108,14 @@ class _TranslationsOnboardingReinforcementHealthProfileUr implements Translation
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Your Health Profile';
-	@override String bmiDescription({required Object bmi}) => 'Based on your metrics, your BMI is ${bmi}.';
-	@override String get finalizeDescription => 'Let\'s finalize your profile to customize your experience.';
-	@override String get goalGain => 'gain';
-	@override String get goalLose => 'lose';
-	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'To reach your goal, you\'ll ${direction} ${diff} ${unit}.';
-	@override String get goalReached => 'You\'re at your target weight! We\'ll help you maintain it.';
-	@override String get button => 'Let\'s Go';
+	@override String get title => 'آپ پروفائل';
+	@override String bmiDescription({required Object bmi}) => 'آپ کے میٹرکس کی بنیاد پر، آپ کا BMI ${bmi} ہے۔';
+	@override String get finalizeDescription => 'آئیے آپ کے تجربے کو حسب ضرورت بنانے کے لئے آپ کا پروفائل مکمل کریں۔';
+	@override String get goalGain => 'بڑھانا';
+	@override String get goalLose => 'کم کرنا';
+	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'اپنا ہدف حاصل کرنے کے لیے، آپ کو ${direction} ${diff} ${unit} کرنا ہوگا۔';
+	@override String get goalReached => 'آپ اپنے ہدف وزن پر ہیں! ہم آپ کو اسے برقرار رکھنے میں مدد کریں گے۔';
+	@override String get button => 'چلو شروع کریں';
 }
 
 // Path: onboarding.reinforcement.goalLifestyle
@@ -1127,14 +1125,14 @@ class _TranslationsOnboardingReinforcementGoalLifestyleUr implements Translation
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Excellent Start!';
-	@override String description({required Object goalText, required Object activityText}) => 'You\'ve taken the first step towards ${goalText}. Since you\'re ${activityText}, Calorify will adjust your targets to match your lifestyle.';
-	@override String get personalizedTargets => 'Personalized calorie targets';
-	@override String get aiMealDetection => 'AI-powered meal detection';
-	@override String get macroBreakdowns => 'Detailed macro-nutrient breakdowns';
-	@override String get button => 'Let\'s Go';
-	@override String get defaultGoal => 'your goals';
-	@override String get defaultActivity => 'active';
+	@override String get title => 'شاندار آغاز!';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'آپ نے ${goalText} کے لئے پہلا قدم اٹھایا ہے۔ چونکہ آپ ${activityText} ہیں، ${appLabel} آپ کے طرز زندگی سے میل کھاتے ہوئے آپ کے اہداف کو ایڈجسٹ کرے گا۔';
+	@override String get personalizedTargets => 'حسب ضرورت کی کیلوریز کے اہداف';
+	@override String get aiMealDetection => 'AI کی طاقت سے کھانے کی شناخت';
+	@override String get macroBreakdowns => 'تفصیلی میکرو نیوٹرینٹ تقسیم';
+	@override String get button => 'چلو شروع کریں';
+	@override String get defaultGoal => 'آپ کے اہداف';
+	@override String get defaultActivity => 'ایکٹو';
 }
 
 // Path: editProfile.weightGoals.loseWeight
@@ -1144,8 +1142,8 @@ class _TranslationsEditProfileWeightGoalsLoseWeightUr implements TranslationsEdi
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Lose Weight';
-	@override String get description => 'Create a calorie deficit to lose weight';
+	@override String get name => 'وزن کم کریں';
+	@override String get description => 'وزن کم کرنے کے لیے کیلوری کی کمی کریں';
 }
 
 // Path: editProfile.weightGoals.maintainWeight
@@ -1155,8 +1153,8 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightUr implements Translation
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Maintain Weight';
-	@override String get description => 'Maintain your current weight';
+	@override String get name => 'وزن برقرار رکھیں';
+	@override String get description => 'اپنا موجودہ وزن برقرار رکھیں';
 }
 
 // Path: editProfile.weightGoals.gainWeight
@@ -1166,8 +1164,8 @@ class _TranslationsEditProfileWeightGoalsGainWeightUr implements TranslationsEdi
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Gain Weight';
-	@override String get description => 'Create a calorie surplus to gain weight';
+	@override String get name => 'وزن بڑھائیں';
+	@override String get description => 'وزن بڑھانے کے لیے کیلوری کی اضافت کریں';
 }
 
 // Path: editProfile.activityLevels.sedentary
@@ -1177,8 +1175,8 @@ class _TranslationsEditProfileActivityLevelsSedentaryUr implements TranslationsE
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Sedentary';
-	@override String get description => 'Little to no exercise';
+	@override String get name => 'سست';
+	@override String get description => 'بہت کم ورزش';
 }
 
 // Path: editProfile.activityLevels.lightlyActive
@@ -1188,8 +1186,8 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveUr implements Translati
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Lightly Active';
-	@override String get description => 'Light exercise 1-3 days/week';
+	@override String get name => 'ہلکی سرگرمی';
+	@override String get description => 'ہلکی ورزش 1-3 دن/ہفتہ';
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
@@ -1199,8 +1197,8 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveUr implements Transl
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Moderately Active';
-	@override String get description => 'Moderate exercise 3-5 days/week';
+	@override String get name => 'اعتدال پسند سرگرمی';
+	@override String get description => 'اعتدال پسند ورزش 3-5 دن/ہفتہ';
 }
 
 // Path: editProfile.activityLevels.veryActive
@@ -1210,8 +1208,8 @@ class _TranslationsEditProfileActivityLevelsVeryActiveUr implements Translations
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Very Active';
-	@override String get description => 'Hard exercise 6-7 days/week';
+	@override String get name => 'بہت فعال';
+	@override String get description => 'کڑی ورزش 6-7 دن/ہفتہ';
 }
 
 // Path: editProfile.activityLevels.extremelyActive
@@ -1221,8 +1219,8 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveUr implements Transla
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Extremely Active';
-	@override String get description => 'Very hard exercise, physical job';
+	@override String get name => 'انتہائی فعال';
+	@override String get description => 'بہت سخت ورزش، جسمانی کام';
 }
 
 // Path: disclaimer.snap.portionSize
@@ -1232,8 +1230,8 @@ class _TranslationsDisclaimerSnapPortionSizeUr implements TranslationsDisclaimer
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Portion Size';
-	@override String get description => 'The accuracy of the estimates heavily relies on your correct assessment of the portion size.';
+	@override String get title => 'حصے کا سائز';
+	@override String get description => 'تخمینوں کی درستگی آپ کی طرف سے حصے کے صحیح اندازے پر بہت زیادہ منحصر ہے۔';
 }
 
 // Path: disclaimer.snap.preparationMethods
@@ -1243,8 +1241,8 @@ class _TranslationsDisclaimerSnapPreparationMethodsUr implements TranslationsDis
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Preparation Methods';
-	@override String get description => 'Cooking methods can significantly alter the nutritional content of food. Calorify\'s estimates may not always account for these variations.';
+	@override String get title => 'تیاری کے طریقے';
+	@override String description({required Object appLabel}) => 'پکانے کے طریقے کھانے کی غذائیت کی مواد کو بڑی حد تک تبدیل کر سکتے ہیں۔ ${appLabel} کے تخمینے ہمیشہ ان مختلف حالتوں کا حساب نہیں لگاتے۔';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1254,8 +1252,8 @@ class _TranslationsDisclaimerSnapIngredientsUr implements TranslationsDisclaimer
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ingredients';
-	@override String get description => 'Complex dishes with many hidden ingredients may lead to less accurate estimations.';
+	@override String get title => 'اجزاء';
+	@override String get description => 'پیچیدہ پکوان جن میں بہت سے پوشیدہ اجزاء ہوتے ہیں وہ کم درست اندازوں کی طرف لے جا سکتے ہیں۔';
 }
 
 // Path: disclaimer.snap.databaseLimitations
@@ -1265,8 +1263,8 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsUr implements TranslationsDi
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Database Limitations';
-	@override String get description => 'Calorify\'s food database is extensive but may not include every single food item or variation.';
+	@override String get title => 'ڈیٹا بیس کی حدود';
+	@override String description({required Object appLabel}) => '${appLabel} کا غذائی ڈیٹا بیس وسیع ہے لیکن ہر واحد غذائی چیز یا مختلف حالت کو شامل نہیں کر سکتا۔';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1276,8 +1274,8 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyUr implements Translat
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Calorie Accuracy';
-	@override String get description => 'This estimate is only as accurate as your tracked calorie intake and expenditure. Inaccurate logging will result in an inaccurate projection.';
+	@override String get title => 'کیلوری کی درستگی';
+	@override String get description => 'یہ تخمینہ صرف آپ کی ٹریک کردہ کیلوری کے استعمال اور خرچ کرنے کے اعتبار سے درست ہے۔ غلط اندراج کرنے سے غلط تخمینہ ملے گا۔';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1287,8 +1285,8 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsUr implements Transl
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Biological Factors';
-	@override String get description => 'Actual weight loss/gain is influenced by metabolism, hormones, sleep, stress, hydration, and other individual factors that Calorify cannot measure.';
+	@override String get title => 'حیاتیاتی عوامل';
+	@override String description({required Object appLabel}) => 'اصل وزن میں کمی/اضافہ میٹابولزم، ہارمونز، نیند، دباؤ، ہائیڈریشن اور دوسری انفرادی عوامل سے متاثر ہوتا ہے جو ${appLabel} نہیں ناپ سکتا۔';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1298,8 +1296,8 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightUr implements Translations
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Water Weight & Fluctuations';
-	@override String get description => 'Normal daily weight can fluctuate significantly due to water retention, digestion, and timing. The estimate does not account for these daily changes.';
+	@override String get title => 'پانی کا وزن اور اتار چڑھاؤ';
+	@override String get description => 'روزانہ کا معمولی وزن پانی کی زیادتی، ہضم، اور وقت کی وجہ سے بڑی صورت میں تبدیل ہو سکتا ہے۔ یہ تخمینہ ان روزانہ کی تبدیلیوں کا بہ لحاظ نہیں رکھتا۔';
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
@@ -1309,8 +1307,8 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceUr implements Tra
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Professional Guidance';
-	@override String get description => 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.';
+	@override String get title => 'پیشہ ورانہ رہنمائی';
+	@override String get description => 'اس تخمینے کا استعمال طبی فیصلے کرنے کے لیے نہ کریں۔ ہمیشہ ذاتی وزن کے انتظام کے مشورے کے لیے صحت کی دیکھ بھال کرنے والے پیشہ ور یا رجسٹرڈ غذائی ماہر سے مشورہ کریں۔';
 }
 
 /// The flat map containing all translations for locale <ur>.
@@ -1321,380 +1319,378 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceUr implements Tra
 extension on TranslationsUr {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'language' => 'English',
-			'flag' => '🇺🇸',
-			'onboarding.welcome' => 'Welcome to Calorify',
-			'onboarding.subtitle' => 'Your personal nutrition companion powered by AI',
-			'onboarding.getStarted' => 'Get Started',
-			'onboarding.features.foodRecognition.title' => 'Smart Food Recognition',
-			'onboarding.features.foodRecognition.description' => 'Take a photo and let AI identify your meal',
-			'onboarding.features.aiAnalysis.title' => 'AI Analysis',
-			'onboarding.features.aiAnalysis.description' => 'Get instant nutrition facts from your descriptions',
-			'onboarding.features.healthIntegration.title' => 'Health Integration',
-			'onboarding.features.healthIntegration.description' => 'Connect with Health Connect for better insights',
-			'onboarding.gender.title' => 'What is your gender?',
-			'onboarding.gender.description' => 'Gender helps us accurately calculate your basal metabolic rate (BMR).',
-			'onboarding.gender.next' => 'Next',
-			'onboarding.height.title' => 'How tall are you?',
-			'onboarding.height.description' => 'Your height helps us calculate your BMI and energy needs accurately.',
-			'onboarding.height.metric' => 'Metric',
-			'onboarding.height.imperial' => 'Imperial',
-			'onboarding.height.next' => 'Next',
-			'onboarding.weight.currentTitle' => 'What is your current weight?',
-			'onboarding.weight.currentDescription' => 'Your current weight is essential for personalizing your daily goals.',
-			'onboarding.weight.targetTitle' => 'What is your target weight?',
-			'onboarding.weight.targetDescription' => 'Setting a goal weight helps us determine your long-term plan.',
-			'onboarding.weight.metric' => 'Metric',
-			'onboarding.weight.imperial' => 'Imperial',
-			'onboarding.weight.next' => 'Next',
-			'onboarding.age.title' => 'When is your birthday?',
-			'onboarding.age.description' => 'Your age helps us calculate your calorie needs accurately.',
-			'onboarding.age.next' => 'Next',
-			'onboarding.bmiScale.underweight' => 'Underweight',
-			'onboarding.bmiScale.healthy' => 'Healthy',
-			'onboarding.bmiScale.overweight' => 'Overweight',
-			'onboarding.bmiScale.obese' => 'Obese',
-			'onboarding.bmiScale.categories.underweight' => 'Underweight',
-			'onboarding.bmiScale.categories.healthyWeight' => 'Healthy weight',
-			'onboarding.bmiScale.categories.overweight' => 'Overweight',
-			'onboarding.bmiScale.categories.obese' => 'Obese',
-			'onboarding.bmiScale.messages.underweight' => 'We can help you build a healthy plan to reach a balanced weight with nutrient-dense meals.',
-			'onboarding.bmiScale.messages.healthy' => 'Great job! You\'re in a healthy range. We\'ll help you maintain your vitality and energy levels.',
-			'onboarding.bmiScale.messages.overweight' => 'Calorify will simplify your journey with AI-powered tracking to help you reach your target comfortably.',
-			'onboarding.bmiScale.messages.obese' => 'We\'re here to support you with personalized guidance and sustainable strategies for your health goals.',
-			'onboarding.weightGoal.title' => 'What\'s your goal?',
-			'onboarding.weightGoal.description' => 'Choose the goal that best describes what you want to achieve',
-			'onboarding.activityLevel.title' => 'How active are you?',
-			'onboarding.activityLevel.description' => 'This helps us calculate your daily calorie needs more accurately',
-			'onboarding.healthConnect.title' => 'Connect with Health Connect',
-			'onboarding.healthConnect.description' => 'Sync your health data for better insights and automatic calorie tracking',
-			'onboarding.healthConnect.automaticTracking.title' => 'Automatic Calorie Tracking',
-			'onboarding.healthConnect.automaticTracking.description' => 'Track calories burned from your fitness apps',
-			'onboarding.healthConnect.progressInsights.title' => 'Progress Insights',
-			'onboarding.healthConnect.progressInsights.description' => 'Get detailed insights into your health trends',
-			'onboarding.healthConnect.seamlessIntegration.title' => 'Seamless Integration',
-			'onboarding.healthConnect.seamlessIntegration.description' => 'Sync data from your favorite health apps',
-			'onboarding.healthConnect.connected' => 'Health Connect Connected',
-			'onboarding.healthConnect.notConnected' => 'Health Connect Not Connected',
-			'onboarding.healthConnect.setup' => 'Setup Health Connect',
-			'onboarding.healthConnect.skipForNow' => 'Skip for now',
-			'onboarding.healthConnect.statusConnected' => 'Health Connect is connected.',
-			'onboarding.healthConnect.statusSuccess' => 'Health Connect has been successfully connected!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.',
-			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Error setting up Health Connect: ${error}',
-			'onboarding.reinforcement.trackingSuccess.title' => 'You\'re Not Alone',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Research shows that consistent tracking is the #1 predictor of long-term success.',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'For a ${age} year old ${gender} looking to ${goal}, consistent tracking is the #1 predictor of success.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify makes it 10x easier than doing it manually.',
-			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'کیا آپ شروع کرنے کے لئے تیار ہیں؟',
-			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'اپنی خوراک کی تصاویر لیں اور فوری تجزیہ حاصل کریں',
-			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'محنت سے لاگ کریں تاکہ آپ معنی خیز ترقی دیکھ سکیں',
-			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'روزانہ اپنی ترقی کا اندراج کریں تاکہ آپ متحرک رہیں',
-			'onboarding.reinforcement.trackingSuccess.button' => 'Let\'s Go',
-			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'individual',
-			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'healthier you',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Instant photo analysis',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Automatic nutritional logging',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Progress visualizations that keep you motivated',
-			'onboarding.reinforcement.healthProfile.title' => 'Your Health Profile',
-			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Based on your metrics, your BMI is ${bmi}.',
-			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Let\'s finalize your profile to customize your experience.',
-			'onboarding.reinforcement.healthProfile.goalGain' => 'gain',
-			'onboarding.reinforcement.healthProfile.goalLose' => 'lose',
-			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'To reach your goal, you\'ll ${direction} ${diff} ${unit}.',
-			'onboarding.reinforcement.healthProfile.goalReached' => 'You\'re at your target weight! We\'ll help you maintain it.',
-			'onboarding.reinforcement.healthProfile.button' => 'Let\'s Go',
-			'onboarding.reinforcement.goalLifestyle.title' => 'Excellent Start!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'You\'ve taken the first step towards ${goalText}. Since you\'re ${activityText}, Calorify will adjust your targets to match your lifestyle.',
-			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Personalized calorie targets',
-			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI-powered meal detection',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Detailed macro-nutrient breakdowns',
-			'onboarding.reinforcement.goalLifestyle.button' => 'Let\'s Go',
-			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'your goals',
-			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'active',
-			'tabs.dashboard' => 'Dashboard',
-			'tabs.history' => 'History',
-			'home.dailyGoal.title' => 'Set Your Daily Goal',
-			'home.dailyGoal.titleSet' => 'Your Daily Goal',
-			'home.dailyGoal.description' => 'Ready to embark on your wellness journey? Set your daily calorie target below to kickstart your progress.',
-			'home.dailyGoal.descriptionSet' => 'Your compass is set! This is your daily calorie target to guide you.',
-			'home.dailyGoal.yourGoal' => 'Your Goal',
-			'home.dailyGoal.dailyCalories' => 'Daily calories (kcal)',
-			'home.dailyGoal.setGoal' => 'Set Goal',
-			'home.dailyGoal.intake' => 'Intake',
-			'home.dailyGoal.burned' => 'Burned',
-			'home.dailyGoal.weightImpact' => 'Weight Impact',
-			'home.dailyGoal.estLoss' => 'Est. loss of',
-			'home.dailyGoal.estGain' => 'Est. gain of',
+			'language' => 'Urdu',
+			'flag' => '🇵🇰',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} میں خوش آمدید',
+			'onboarding.subtitle' => 'آپ کا ذاتی غذائیت ساتھی جو AI کی طاقت سے ہے',
+			'onboarding.getStarted' => 'شروع کریں',
+			'onboarding.features.foodRecognition.title' => 'ذہین غذائی شناخت',
+			'onboarding.features.foodRecognition.description' => 'ایک تصویر لیں اور AI کو اپنے کھانے کی شناخت کرنے دیں',
+			'onboarding.features.aiAnalysis.title' => 'AI تجزیہ',
+			'onboarding.features.aiAnalysis.description' => 'اپنی تفصیلات سے فوری غذائیت کی معلومات حاصل کریں',
+			'onboarding.features.healthIntegration.title' => 'صحت کا انضمام',
+			'onboarding.features.healthIntegration.description' => 'بہتر بصیرت کے لیے Health Connect سے جڑیں',
+			'onboarding.gender.title' => 'آپ کا جنس کیا ہے؟',
+			'onboarding.gender.description' => 'جنس ہماری مدد کرتا ہے کہ ہم آپ کی بنیادی میٹابولک ریٹ (BMR) کو درست طریقے سے شمار کریں۔',
+			'onboarding.gender.next' => 'اگلا',
+			'onboarding.height.title' => 'آپ کی اونچائی کیا ہے؟',
+			'onboarding.height.description' => 'آپ کی اونچائی ہماری مدد کرتی ہے کہ ہم آپ کا BMI اور توانائی کی ضروریات کو درست طریقے سے شمار کریں۔',
+			'onboarding.height.metric' => 'میٹرک',
+			'onboarding.height.imperial' => 'امپیرئل',
+			'onboarding.height.next' => 'اگلا',
+			'onboarding.weight.currentTitle' => 'آپ کا موجودہ وزن کیا ہے؟',
+			'onboarding.weight.currentDescription' => 'آپ کا موجودہ وزن آپ کے روزانہ کے اہداف کو شخصی بنانے کے لئے اہم ہے۔',
+			'onboarding.weight.targetTitle' => 'آپ کا ہدف وزن کیا ہے؟',
+			'onboarding.weight.targetDescription' => 'ہدف وزن طے کرنا ہماری مدد کرتا ہے کہ ہم آپ کا طویل مدتی منصوبہ طے کریں۔',
+			'onboarding.weight.metric' => 'میٹرک',
+			'onboarding.weight.imperial' => 'امپیرئل',
+			'onboarding.weight.next' => 'اگلا',
+			'onboarding.age.title' => 'آپ کی سالگرہ کب ہے؟',
+			'onboarding.age.description' => 'آپ کی عمر ہماری مدد کرتی ہے کہ ہم آپ کی کیلوری کی ضروریات کو درست طریقے سے شمار کریں۔',
+			'onboarding.age.next' => 'اگلا',
+			'onboarding.bmiScale.underweight' => 'کم وزن',
+			'onboarding.bmiScale.healthy' => 'صحت مند',
+			'onboarding.bmiScale.overweight' => 'زیادہ وزن',
+			'onboarding.bmiScale.obese' => 'موٹا',
+			'onboarding.bmiScale.categories.underweight' => 'کم وزن',
+			'onboarding.bmiScale.categories.healthyWeight' => 'صحت مند وزن',
+			'onboarding.bmiScale.categories.overweight' => 'زیادہ وزن',
+			'onboarding.bmiScale.categories.obese' => 'موٹا',
+			'onboarding.bmiScale.messages.underweight' => 'ہم آپ کو غذائیت سے بھرپور کھانوں کے ساتھ متوازن وزن تک پہنچنے کے لئے صحت مند منصوبہ بنانے میں مدد کر سکتے ہیں۔',
+			'onboarding.bmiScale.messages.healthy' => 'بہت اچھا! آپ صحت مند رینج میں ہیں۔ ہم آپ کی توانائی اور قوت برقرار رکھنے میں مدد کریں گے۔',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} آپ کے سفر کو آسان بنائے گا، AI کی طاقت سے ٹریکنگ کی مدد سے آپ کو آرام سے آپ کے ہدف تک پہنچنے میں مدد کرے گا۔',
+			'onboarding.bmiScale.messages.obese' => 'ہم آپ کے صحت کے اہداف کے لئے شخصی رہنمائی اور پائیدار حکمت عملیوں کے ساتھ آپ کی مدد کرنے کے لئے یہاں ہیں۔',
+			'onboarding.weightGoal.title' => 'آپ کا مقصد کیا ہے؟',
+			'onboarding.weightGoal.description' => 'وہ مقصد منتخب کریں جو بیان کرتا ہے کہ آپ کیا حاصل کرنا چاہتے ہیں',
+			'onboarding.activityLevel.title' => 'آپ کتنے ایکٹو ہیں؟',
+			'onboarding.activityLevel.description' => 'یہ ہماری مدد کرتا ہے کہ ہم آپ کی روزانہ کی کیلوری کی ضروریات کو مزید درست طریقے سے شمار کریں',
+			'onboarding.healthConnect.title' => 'Health Connect کے ساتھ جڑیں',
+			'onboarding.healthConnect.description' => 'بہتر بصیرت اور خودکار کیلوری ٹریکنگ کے لیے اپنے صحت کے ڈیٹا کو ہم آہنگ کریں',
+			'onboarding.healthConnect.automaticTracking.title' => 'خودکار کیلوری ٹریکنگ',
+			'onboarding.healthConnect.automaticTracking.description' => 'اپنی صحت کی ایپس سے جلائی گئی کیلوریز کو ٹریک کریں',
+			'onboarding.healthConnect.progressInsights.title' => 'ترقی کی بصیرت',
+			'onboarding.healthConnect.progressInsights.description' => 'آپ کے صحت کے رجحانات کی تفصیلی بصیرت حاصل کریں',
+			'onboarding.healthConnect.seamlessIntegration.title' => 'پہچان میں انضمام',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'اپنی پسندیدہ صحت ایپس سے ڈیٹا ہم آہنگ کریں',
+			'onboarding.healthConnect.connected' => 'Health Connect جڑا ہوا ہے',
+			'onboarding.healthConnect.notConnected' => 'Health Connect جڑا ہوا نہیں ہے',
+			'onboarding.healthConnect.setup' => 'Health Connect کو ترتیب دیں',
+			'onboarding.healthConnect.skipForNow' => 'فی الحال چھوڑیں',
+			'onboarding.healthConnect.statusConnected' => 'Health Connect جڑا ہوا ہے۔',
+			'onboarding.healthConnect.statusSuccess' => 'Health Connect کامیابی سے جڑا گیا ہے!',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'اجازت مسترد کر دی گئی ہے۔ براہ کرم اپنے فون کی سیٹنگز سے ${appLabel} کے لئے Health Connect کی اجازتیں فعال کریں۔',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connect ترتیب دینے میں خرابی: ${error}',
+			'onboarding.reinforcement.trackingSuccess.title' => 'آپ اکیلے نہیں ہیں',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'تحقیق ظاہر کرتی ہے کہ مستقل ٹریکنگ طویل مدتی کامیابی کا #1 اشارے ہے۔',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'ایک ${age} سالہ ${gender} کے لیے جو ${goal} حاصل کرنا چاہتا ہے، مستقل ٹریکنگ کامیابی کا #1 اشارے ہے۔',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} یہ کرنے کے مقابلے میں 10 گنا آسان بناتا ہے جو دستی طور پر کرنے کے لئے۔',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'آغاز کرنے کے لیے تیار ہیں؟',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'اپنے کھانے کی تصویر لیں تاکہ فوری تجزیہ حاصل ہو',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'معنی خیز ترقی دیکھنے کے لئے مستقل طور پر لاگ کریں',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'حوصلہ افزائی برقرار رکھنے کے لئے روزانہ اپنی ترقی کو ٹریک کریں',
+			'onboarding.reinforcement.trackingSuccess.button' => 'چلو شروع کریں',
+			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'انفرادی',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'صحت مند آپ',
+			'onboarding.reinforcement.healthProfile.title' => 'آپ پروفائل',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'آپ کے میٹرکس کی بنیاد پر، آپ کا BMI ${bmi} ہے۔',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'آئیے آپ کے تجربے کو حسب ضرورت بنانے کے لئے آپ کا پروفائل مکمل کریں۔',
+			'onboarding.reinforcement.healthProfile.goalGain' => 'بڑھانا',
+			'onboarding.reinforcement.healthProfile.goalLose' => 'کم کرنا',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'اپنا ہدف حاصل کرنے کے لیے، آپ کو ${direction} ${diff} ${unit} کرنا ہوگا۔',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'آپ اپنے ہدف وزن پر ہیں! ہم آپ کو اسے برقرار رکھنے میں مدد کریں گے۔',
+			'onboarding.reinforcement.healthProfile.button' => 'چلو شروع کریں',
+			'onboarding.reinforcement.goalLifestyle.title' => 'شاندار آغاز!',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'آپ نے ${goalText} کے لئے پہلا قدم اٹھایا ہے۔ چونکہ آپ ${activityText} ہیں، ${appLabel} آپ کے طرز زندگی سے میل کھاتے ہوئے آپ کے اہداف کو ایڈجسٹ کرے گا۔',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'حسب ضرورت کی کیلوریز کے اہداف',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI کی طاقت سے کھانے کی شناخت',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'تفصیلی میکرو نیوٹرینٹ تقسیم',
+			'onboarding.reinforcement.goalLifestyle.button' => 'چلو شروع کریں',
+			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'آپ کے اہداف',
+			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'ایکٹو',
+			'tabs.dashboard' => 'ڈیش بورڈ',
+			'tabs.history' => 'تاریخ',
+			'home.dailyGoal.title' => 'اپنا روزانہ کا ہدف مقرر کریں',
+			'home.dailyGoal.titleSet' => 'آپ کا روزانہ کا ہدف',
+			'home.dailyGoal.description' => 'کیا آپ اپنی صحت کے سفر کا آغاز کرنے کے لیے تیار ہیں؟ نیچے اپنے روزانہ کے کیلوری کے ہدف کا تعین کریں تاکہ آپ کی ترقی کا آغاز ہو جائے۔',
+			'home.dailyGoal.descriptionSet' => 'آپ کا کمپاس مقرر ہو گیا ہے! یہ آپ کا روزانہ کیلوری کا ہدف ہے جو آپ کی رہنمائی کرے گا۔',
+			'home.dailyGoal.yourGoal' => 'آپ کا ہدف',
+			'home.dailyGoal.dailyCalories' => 'روزانہ کیلوریز (kcal)',
+			'home.dailyGoal.setGoal' => 'ہدف مقرر کریں',
+			'home.dailyGoal.intake' => 'استعمال',
+			'home.dailyGoal.burned' => 'جلائے گئے',
+			'home.dailyGoal.weightImpact' => 'وزن کا اثر',
+			'home.dailyGoal.estLoss' => 'اندازاً کمی',
+			'home.dailyGoal.estGain' => 'اندازاً اضافہ',
 			'home.dailyGoal.kcal' => 'kcal',
-			'home.dailySummary.title' => 'Daily Summary',
-			'home.dailySummary.calories' => 'Calories',
-			'home.dailySummary.carbs' => 'Carbs',
-			'home.dailySummary.protein' => 'Protein',
-			'home.dailySummary.fat' => 'Fat',
-			'home.dailySummary.fiber' => 'Fiber',
-			'home.intakeProgress.title' => 'Today\'s Macro Split',
-			'home.intakeProgress.target' => 'Target',
-			'home.intakeProgress.current' => 'Current',
-			'home.intakeHistory.title' => '7-Day Macro History',
-			'home.intakeHistory.noHistoryYet' => 'No history yet',
-			'home.intakeHistory.startLogging' => 'Start logging meals to see your\n7-day macro trends here',
-			'home.mealLog.title' => 'Logged Meals',
-			'home.mealLog.emptyMessage' => 'Snap a picture of your last meal to log here.',
-			'home.mealLog.noMealsToday' => 'No meals recorded for today',
-			'home.mealLog.seeAllMeals' => 'See all meals',
-			'home.mealDescription.title' => 'Quick Add with AI',
-			'home.mealDescription.description' => 'Describe your meal, and let AI handle the details.',
-			'home.mealDescription.hint' => 'e.g. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...',
-			'home.mealDescription.analyzeMeal' => 'Analyze meal',
-			'home.favoriteMeals.title' => 'Favorite Meals',
-			'home.favoriteMeals.description' => 'Quickly add one of your favorite meals.',
-			'home.favoriteMeals.noFavorites' => 'No favorite meals yet.',
-			'home.favoriteMeals.addFavoriteHint' => 'Click the star on a meal to mark it as a favorite.',
-			'home.favoriteMeals.seeAll' => 'See all',
-			'home.favoriteMeals.add' => 'Add',
-			'home.mealSnap.title' => 'Snap & Track Your Meal',
-			'home.mealSnap.description' => 'Use your camera to take a picture of your food for AI analysis.',
-			'home.mealSnap.openCamera' => 'Open Camera',
-			'home.connectHealth.title' => 'Sync with Health Connect',
-			'home.connectHealth.description' => 'Sync your nutrition data with Health Connect',
-			'home.connectHealth.install' => 'Install',
-			'home.connectHealth.connect' => 'Connect',
-			'history.noMeals' => 'No meals recorded',
-			'history.emptyMessage' => 'Snap a picture of your last meal to log here.',
-			'history.today' => 'Today',
-			'history.yesterday' => 'Yesterday',
-			'meal.ohNo' => 'Oh no!',
-			'meal.delete' => 'Delete',
-			'meal.editMeal' => 'Edit Meal',
-			'meal.addMeal' => 'Add Meal',
-			'meal.saveMeal' => 'Save Meal',
-			'meal.save' => 'Save',
-			'meal.mealName' => 'Meal Name',
-			'meal.mealQuantity' => 'Meal Quantity',
-			'meal.mealQuantityHint' => 'e.g., 1 bowl, 2 slices',
-			'meal.timeOfMeal' => 'Time of Meal',
-			'meal.timeOfMealHint' => 'Select the time you had your meal',
-			'meal.mealType' => 'Meal Type',
-			'meal.nutrition.calories' => 'Calories',
-			'meal.nutrition.carbs' => 'Carbs (g)',
-			'meal.nutrition.protein' => 'Protein (g)',
-			'meal.nutrition.fat' => 'Fat (g)',
-			'meal.nutrition.fiber' => 'Fiber (g)',
-			'meal.deleteConfirmation.title' => 'Delete Meal',
-			'meal.deleteConfirmation.message' => 'Are you sure you want to delete this meal entry?',
-			'meal.deleteConfirmation.cancel' => 'Cancel',
-			'meal.deleteConfirmation.delete' => 'Delete',
-			'meal.addedToLog' => 'Meal added to your log!',
-			'meal.couldNotAdd' => ({required Object error}) => 'Could not add meal: ${error}',
-			'meal.removedFromFavorites' => 'Removed from favorites!',
-			'meal.savedAsFavorite' => 'Meal saved as favorite!',
-			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Could not update favorite: ${error}',
-			'meal.failedToProcess' => ({required Object error}) => 'Failed to process: ${error}',
-			'meal.failedToProcessImage' => ({required Object error}) => 'Failed to process image: ${error}',
-			'meal.errorCompressingImage' => ({required Object error}) => 'Error compressing image: ${error}',
-			'meal.failedToSave' => 'Failed to save data. Please try again.',
-			'favorites.title' => 'Favorites',
-			'favorites.empty' => 'No favorite meals yet.',
-			'profile.title' => 'Profile',
-			'profile.noProfileData' => 'No profile data found',
-			'profile.yourProfile' => 'Your Profile',
-			'profile.viewAndManage' => 'View and manage your health information',
-			'profile.sections.profile' => 'PROFILE',
-			'profile.sections.basicInformation' => 'BASIC INFORMATION',
-			'profile.sections.goalsAndActivity' => 'GOALS & ACTIVITY',
-			'profile.sections.calculatedValues' => 'CALCULATED VALUES',
-			'profile.gender' => 'Gender',
-			'profile.height' => 'Height',
-			'profile.weight' => 'Weight',
-			'profile.age' => 'Age',
-			'profile.weightGoal' => 'Weight Goal',
-			'profile.activityLevel' => 'Activity Level',
-			'profile.healthMetrics' => 'Health Metrics',
-			'profile.notSet' => 'Not set',
-			'profile.years' => 'years',
-			'profile.updatedSuccessfully' => 'Profile updated successfully!',
-			'profile.calculatedValues.bmr' => 'BMR',
-			'profile.calculatedValues.tdee' => 'TDEE',
-			'profile.calculatedValues.dailyGoal' => 'Daily Goal',
-			'profile.calculatedValues.calPerDay' => 'cal/day',
-			'profile.calculatedValues.notAvailable' => 'N/A',
-			'healthScore.title' => 'Health Score',
-			'healthScore.whyThisScore' => 'Why this score?',
-			'healthScore.note' => 'This score is an AI estimate based on the identified ingredients and nutritional density. Always consult a professional for dietary advice.',
-			'healthScore.unhealthy' => 'Unhealthy',
-			'healthScore.healthy' => 'Healthy',
-			'healthScore.neutral' => 'Neutral',
-			'editProfile.title' => 'Edit Profile',
-			'editProfile.sections.personalInformation' => 'PERSONAL INFORMATION',
-			'editProfile.sections.physicalMeasurements' => 'PHYSICAL MEASUREMENTS',
-			'editProfile.sections.goalsAndActivity' => 'GOALS & ACTIVITY',
-			'editProfile.gender' => 'Gender',
-			'editProfile.dateOfBirth' => 'Date of Birth',
-			'editProfile.height' => 'Height',
-			'editProfile.weight' => 'Weight',
-			'editProfile.weightGoal' => 'Weight Goal',
-			'editProfile.activityLevel' => 'Activity Level',
-			'editProfile.metric' => 'Metric',
-			'editProfile.imperial' => 'Imperial',
-			'editProfile.metricCm' => 'Metric (cm)',
-			'editProfile.imperialFtIn' => 'Imperial (ft/in)',
-			'editProfile.metricKg' => 'Metric (kg)',
-			'editProfile.imperialLbs' => 'Imperial (lbs)',
-			'editProfile.genders.male' => 'Male',
-			'editProfile.genders.female' => 'Female',
-			'editProfile.genders.other' => 'Other',
-			'editProfile.weightGoals.loseWeight.name' => 'Lose Weight',
-			'editProfile.weightGoals.loseWeight.description' => 'Create a calorie deficit to lose weight',
-			'editProfile.weightGoals.maintainWeight.name' => 'Maintain Weight',
-			'editProfile.weightGoals.maintainWeight.description' => 'Maintain your current weight',
-			'editProfile.weightGoals.gainWeight.name' => 'Gain Weight',
-			'editProfile.weightGoals.gainWeight.description' => 'Create a calorie surplus to gain weight',
-			'editProfile.activityLevels.sedentary.name' => 'Sedentary',
-			'editProfile.activityLevels.sedentary.description' => 'Little to no exercise',
-			'editProfile.activityLevels.lightlyActive.name' => 'Lightly Active',
-			'editProfile.activityLevels.lightlyActive.description' => 'Light exercise 1-3 days/week',
-			'editProfile.activityLevels.moderatelyActive.name' => 'Moderately Active',
-			'editProfile.activityLevels.moderatelyActive.description' => 'Moderate exercise 3-5 days/week',
-			'editProfile.activityLevels.veryActive.name' => 'Very Active',
-			'editProfile.activityLevels.veryActive.description' => 'Hard exercise 6-7 days/week',
-			'editProfile.activityLevels.extremelyActive.name' => 'Extremely Active',
-			'editProfile.activityLevels.extremelyActive.description' => 'Very hard exercise, physical job',
-			'settings.title' => 'Settings',
-			'settings.sections.profile' => 'PROFILE',
-			'settings.sections.localization' => 'LOCALIZATION',
-			'settings.sections.notifications' => 'NOTIFICATIONS',
-			'settings.sections.supportAndLegal' => 'SUPPORT & LEGAL',
-			'settings.sections.dangerZone' => 'DANGER ZONE',
-			'settings.sections.developer' => 'DEVELOPER',
-			'settings.editProfile.title' => 'Edit Profile',
-			'settings.editProfile.subtitle' => 'Update your personal information',
-			'settings.language.title' => 'Language',
-			'settings.language.subtitle' => 'Choose your preferred language',
-			'settings.heightUnit.title' => 'Height Unit',
-			'settings.weightUnit.title' => 'Weight Unit',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
-			'settings.mealReminders.title' => 'Meal Reminders',
-			'settings.mealReminders.subtitle' => 'Stay on track with timely alerts',
-			'settings.sendFeedback.title' => 'Send Feedback',
-			'settings.sendFeedback.subtitle' => 'Help us improve Calorify',
-			'settings.sendFeedback.emailSubject' => 'Calorify App Feedback',
-			'settings.sendFeedback.emailBodyPrefix' => 'Please provide your feedback below:',
-			'settings.sendFeedback.appVersion' => 'App Version',
-			'settings.sendFeedback.device' => 'Device',
-			'settings.sendFeedback.osVersion' => 'OS Version',
-			'settings.sendFeedback.uid' => 'UID',
-			'settings.clearAllData.title' => 'Clear All Data',
-			'settings.clearAllData.subtitle' => 'Irreversibly delete all your information',
-			'settings.clearAllData.confirmationTitle' => 'Clear All Data?',
-			'settings.clearAllData.confirmationMessage' => 'This action cannot be undone. All your logged meals, favorites, and profile settings will be permanently deleted.',
-			'settings.clearAllData.cancel' => 'Cancel',
-			'settings.clearAllData.clearEverything' => 'Clear Everything',
-			'settings.debugOptions.title' => 'Debug Options',
-			'settings.developerModeEnabled' => 'Developer mode enabled!',
-			'reminders.title' => 'Stay on track with reminders',
-			'reminders.description' => 'Get gentle reminders to log your meals and stay consistent with your nutrition goals',
-			'reminders.notificationsEnabled' => 'Notifications Enabled',
-			'reminders.notificationsDisabled' => 'Notifications Disabled',
-			'reminders.enabledSubtitle' => 'You\'ll receive meal reminders',
-			'reminders.disabledSubtitle' => 'Enable notifications to get meal reminders',
-			'reminders.mealReminders' => 'Meal Reminders',
-			'reminders.breakfast' => 'Breakfast',
-			'reminders.lunch' => 'Lunch',
-			'reminders.dinner' => 'Dinner',
-			'reminders.snack' => 'Snack',
-			'reminders.unknown' => 'Unknown',
-			'reminders.change' => 'Change',
-			'reminders.enableNotifications' => 'Enable Notifications',
-			'reminders.skipForNow' => 'Skip for now',
-			'reminders.saveChanges' => 'Save Changes',
-			'reminders.enabledSuccessfully' => 'Notifications enabled successfully!',
-			'reminders.permissionDenied' => 'Notification permission denied',
-			'reminders.errorEnabling' => ({required Object error}) => 'Error enabling notifications: ${error}',
-			'reminders.errorCompletingSetup' => ({required Object error}) => 'Error completing setup: ${error}',
-			'notifications.breakfast.title' => 'Breakfast Time! 🍳',
-			'notifications.breakfast.body' => 'Don\'t forget to log your breakfast',
-			'notifications.lunch.title' => 'Lunch Time! 🥗',
-			'notifications.lunch.body' => 'Time to log your lunch',
-			'notifications.dinner.title' => 'Dinner Time! 🍽️',
-			'notifications.dinner.body' => 'Don\'t forget to log your dinner',
-			'notifications.snack.title' => 'Snack Time! 🍎',
-			'notifications.snack.body' => 'Time for a healthy snack',
-			'notifications.test.title' => 'Test Notification',
-			'login.title' => 'Login',
-			'login.signInWithGoogle' => 'Sign in with Google',
-			'login.signInFailed' => 'Google Sign-In failed or was cancelled.',
-			'disclaimer.pleaseNote' => 'Please Note',
-			'disclaimer.snap.description' => 'Calorify provides estimated nutritional info. Accuracy depends on your input & food variations. Use as a guide, not a definitive source. Consult a professional for personalized dietary advice.',
-			'disclaimer.snap.portionSize.title' => 'Portion Size',
-			'disclaimer.snap.portionSize.description' => 'The accuracy of the estimates heavily relies on your correct assessment of the portion size.',
-			'disclaimer.snap.preparationMethods.title' => 'Preparation Methods',
-			'disclaimer.snap.preparationMethods.description' => 'Cooking methods can significantly alter the nutritional content of food. Calorify\'s estimates may not always account for these variations.',
-			'disclaimer.snap.ingredients.title' => 'Ingredients',
-			'disclaimer.snap.ingredients.description' => 'Complex dishes with many hidden ingredients may lead to less accurate estimations.',
-			'disclaimer.snap.databaseLimitations.title' => 'Database Limitations',
-			'disclaimer.snap.databaseLimitations.description' => 'Calorify\'s food database is extensive but may not include every single food item or variation.',
-			'disclaimer.weightEstimate.title' => 'About Weight Estimate',
-			'disclaimer.weightEstimate.description' => 'The projected weight change is a theoretical estimate based on the simple calorie-in vs. calorie-out model. It is intended for motivational guidance only, not as a prediction of your actual weight.',
-			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Calorie Accuracy',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'This estimate is only as accurate as your tracked calorie intake and expenditure. Inaccurate logging will result in an inaccurate projection.',
-			'disclaimer.weightEstimate.biologicalFactors.title' => 'Biological Factors',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'Actual weight loss/gain is influenced by metabolism, hormones, sleep, stress, hydration, and other individual factors that Calorify cannot measure.',
-			'disclaimer.weightEstimate.waterWeight.title' => 'Water Weight & Fluctuations',
-			'disclaimer.weightEstimate.waterWeight.description' => 'Normal daily weight can fluctuate significantly due to water retention, digestion, and timing. The estimate does not account for these daily changes.',
-			'disclaimer.weightEstimate.professionalGuidance.title' => 'Professional Guidance',
-			'disclaimer.weightEstimate.professionalGuidance.description' => 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.',
-			'common.close' => 'Close',
-			'common.kContinue' => 'Continue',
-			'errors.loadingProfileData' => 'Error loading profile data',
-			'errors.somethingWentWrong' => 'Something went wrong.',
-			'debug.title' => 'Debug Options',
-			'debug.sections.notifications' => 'Notifications',
-			'debug.sections.healthConnect' => 'Health Connect',
-			'debug.sections.appInfo' => 'App Info',
-			'debug.showActiveNotifications' => 'Show Active Notifications',
-			'debug.scheduleTestNotification' => 'Schedule Test Notification (10s)',
-			'debug.triggerBreakfastNotification' => 'Trigger Breakfast Notification',
-			'debug.cancelAllNotifications' => 'Cancel All Notifications',
-			'debug.activeNotifications' => 'Active Notifications',
-			'debug.noTitle' => 'No Title',
-			'debug.noBody' => 'No Body',
-			'debug.fetchTodaysSteps' => 'Fetch Today\'s Steps',
-			'debug.fetchTodaysCalories' => 'Fetch Today\'s Calories',
-			'debug.fetchLatestWeight' => 'Fetch Latest Weight',
-			'debug.fetchLatestHeight' => 'Fetch Latest Height',
-			'debug.writeTestWeight' => 'Write Test Weight (70kg)',
-			'debug.writeTestHeight' => 'Write Test Height (175cm)',
-			'debug.syncLast7Days' => 'Sync Last 7 Days',
-			'debug.sync7DaysTitle' => '7-Day Sync',
-			'debug.checkCurrentLocale' => 'Check Current Locale',
-			'debug.currentLocale' => 'Current Locale',
-			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Language: ${languageCode}\nCountry: ${countryCode}\nUnit System: ${unitSystem}',
-			'debug.latestWeight' => 'Latest Weight',
-			'debug.latestHeight' => 'Latest Height',
-			'debug.todaysCalories' => 'Today\'s Calories',
-			'debug.totalCaloriesBurned' => ({required Object calories}) => 'Total calories burned: ${calories}',
-			'debug.syncSuccess' => ({required Object count}) => 'Successfully fetched ${count} data points for Steps, Calories, and Weight over the last 7 days.',
-			'debug.noWeightData' => 'No weight data found in the last 30 days.',
-			'debug.noHeightData' => 'No height data found in the last year.',
-			'debug.noCalorieData' => 'No calorie data found for today.',
-			'debug.weightWritten' => 'Successfully wrote test weight (70kg).',
-			'debug.weightWriteFailed' => 'Failed to write test weight.',
-			'debug.heightWritten' => 'Successfully wrote test height (175cm).',
-			'debug.heightWriteFailed' => 'Failed to write test height.',
-			'debug.noNotifications' => 'No active notifications.',
-			'debug.testNotificationScheduled' => 'Test notification scheduled for 10 seconds from now.',
-			'debug.testNotificationBody' => 'This is a test notification scheduled for 10 seconds from now.',
-			'debug.breakfastNotificationTriggered' => 'Breakfast notification triggered.',
-			'debug.allNotificationsCancelled' => 'All notifications cancelled.',
-			'debug.fetchingData' => 'Fetching data for the last 7 days...',
+			'home.dailySummary.title' => 'روزانہ کا خلاصہ',
+			'home.dailySummary.calories' => 'کیلوریز',
+			'home.dailySummary.carbs' => 'کاربوہائیڈریٹس',
+			'home.dailySummary.protein' => 'پروٹین',
+			'home.dailySummary.fat' => 'چربی',
+			'home.dailySummary.fiber' => 'ریشہ',
+			'home.intakeProgress.title' => 'آج کی میکرو تقسیم',
+			'home.intakeProgress.target' => 'ہدف',
+			'home.intakeProgress.current' => 'موجودہ',
+			'home.intakeHistory.title' => '7 دنوں کی میکرو تاریخ',
+			'home.intakeHistory.noHistoryYet' => 'ابھی کوئی تاریخ نہیں',
+			'home.intakeHistory.startLogging' => 'اپنے کھانے کے اندراج شروع کریں تاکہ آپ یہاں اپنی 7 دن کی میکرو کی ٹرینڈز دیکھ سکیں',
+			'home.mealLog.title' => 'اندراج شدہ کھانے',
+			'home.mealLog.emptyMessage' => 'اپنے آخری کھانے کی تصویر لیں اور اسے یہاں درج کریں۔',
+			'home.mealLog.noMealsToday' => 'آج کے لئے کوئی کھانے کا ریکارڈ نہیں',
+			'home.mealLog.seeAllMeals' => 'تمام کھانے دیکھیں',
+			'home.mealDescription.title' => 'AI کے ذریعے فوری شامل کریں',
+			'home.mealDescription.description' => 'اپنے کھانے کی وضاحت کریں اور AI کو تفصیلات کا خیال رکھنے دیں.',
+			'home.mealDescription.hint' => 'جیسے، صبح کے ناشتے میں میں نے ایک بڑی پیالی دلیا اور ایک کٹے ہوئے کیلے کے ساتھ ایک سکوب پروٹین لی ...',
+			'home.mealDescription.analyzeMeal' => 'کھانے کا تجزیہ کریں',
+			'home.favoriteMeals.title' => 'پسندیدہ کھانے',
+			'home.favoriteMeals.description' => 'اپنے پسندیدہ کھانے میں سے ایک کو جلدی شامل کریں۔',
+			'home.favoriteMeals.noFavorites' => 'ابھی کوئی پسندیدہ کھانے نہیں ہیں۔',
+			'home.favoriteMeals.addFavoriteHint' => 'کسی کھانے پر ستارہ دبائیں تاکہ اسے پسندیدہ کے طور پر نشان زد کریں۔',
+			'home.favoriteMeals.seeAll' => 'تمام دیکھیں',
+			'home.favoriteMeals.add' => 'شامل کریں',
+			'home.mealSnap.title' => 'اپنے کھانے کی تصویر لیں اور ٹریک کریں',
+			'home.mealSnap.description' => 'اپنے کھانے کی تصویر لینے کے لیے اپنے کیمرے کا استعمال کریں تاکہ AI اسے تجزیہ کر سکے۔',
+			'home.mealSnap.openCamera' => 'کیمرہ کھولیں',
+			'home.connectHealth.title' => 'ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں',
+			'home.connectHealth.description' => 'اپرا غذائیت کے ڈیٹا کو ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں',
+			'home.connectHealth.install' => 'انسٹال کریں',
+			'home.connectHealth.connect' => 'ہم آہنگ کریں',
+			'history.noMeals' => 'کوئی کھانے کا ریکارڈ نہیں',
+			'history.emptyMessage' => 'اپنے آخری کھانے کی تصویر لیں اور اسے یہاں درج کریں۔',
+			'history.today' => 'آج',
+			'history.yesterday' => 'کل',
+			'meal.ohNo' => 'اوہ نہیں!',
+			'meal.delete' => 'حذف کریں',
+			'meal.editMeal' => 'کھانا ترمیم کریں',
+			'meal.addMeal' => 'کھانا شامل کریں',
+			'meal.saveMeal' => 'کھانا محفوظ کریں',
+			'meal.save' => 'محفوظ کریں',
+			'meal.mealName' => 'کھانے کا نام',
+			'meal.mealQuantity' => 'کھانے کی مقدار',
+			'meal.mealQuantityHint' => 'جیسے، 1 پیالی، 2 ٹکڑے',
+			'meal.timeOfMeal' => 'کھانے کا وقت',
+			'meal.timeOfMealHint' => 'چنیں کہ آپ نے کھانا کب لیا',
+			'meal.mealType' => 'کھانے کی قسم',
+			'meal.nutrition.calories' => 'کیلوریز',
+			'meal.nutrition.carbs' => 'کاربوہائیڈریٹس (g)',
+			'meal.nutrition.protein' => 'پروٹین (g)',
+			'meal.nutrition.fat' => 'چربی (g)',
+			'meal.nutrition.fiber' => 'ریشہ (g)',
+			'meal.deleteConfirmation.title' => 'کھانا حذف کریں',
+			'meal.deleteConfirmation.message' => 'کیا آپ واقعی اس کھانے کا اندراج حذف کرنا چاہتے ہیں؟',
+			'meal.deleteConfirmation.cancel' => 'کینسل کریں',
+			'meal.deleteConfirmation.delete' => 'حذف کریں',
+			'meal.addedToLog' => 'کھانا آپ کے لاگ میں شامل کیا گیا!',
+			'meal.couldNotAdd' => ({required Object error}) => 'کھانا شامل نہیں کیا جا سکا: ${error}',
+			'meal.removedFromFavorites' => 'پسندیدہ سے ہٹا دیا گیا!',
+			'meal.savedAsFavorite' => 'کھانا پسندیدہ کے طور پر محفوظ کر لیا گیا!',
+			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'پسندیدہ کو اپ ڈیٹ نہیں کر سکا: ${error}',
+			'meal.failedToProcess' => ({required Object error}) => 'عملدرآمد میں ناکامی: ${error}',
+			'meal.failedToProcessImage' => ({required Object error}) => 'تصویر کے عمل میں ناکامی: ${error}',
+			'meal.errorCompressingImage' => ({required Object error}) => 'تصویر کمپریس کرنے میں خرابی: ${error}',
+			'meal.failedToSave' => 'ڈیٹا محفوظ کرنے میں ناکامی. براہ کرم دوبارہ کوشش کریں.',
+			'favorites.title' => 'پسندیدہ',
+			'favorites.empty' => 'ابھی کوئی پسندیدہ کھانے نہیں ہیں۔',
+			'profile.title' => 'پروفائل',
+			'profile.noProfileData' => 'کوئی پروفائل ڈیٹا نہیں ملا',
+			'profile.yourProfile' => 'آپ کا پروفائل',
+			'profile.viewAndManage' => 'اپنی صحت کی معلومات دیکھیں اور انتظام کریں',
+			'profile.sections.profile' => 'پروفائل',
+			'profile.sections.basicInformation' => 'بنیادی معلومات',
+			'profile.sections.goalsAndActivity' => 'اہداف اور سرگرمی',
+			'profile.sections.calculatedValues' => 'حساب شدہ قیمتیں',
+			'profile.gender' => 'جنس',
+			'profile.height' => 'قد',
+			'profile.weight' => 'وزن',
+			'profile.age' => 'عمر',
+			'profile.weightGoal' => 'وزن کا ہدف',
+			'profile.activityLevel' => 'سرگرمی کی سطح',
+			'profile.healthMetrics' => 'صحت کے میٹرکس',
+			'profile.notSet' => 'مقرر نہیں',
+			'profile.years' => 'سال',
+			'profile.updatedSuccessfully' => 'پروفائل کامیابی سے اپ ڈیٹ ہو گئی!',
+			'profile.calculatedValues.bmr' => 'بی ایم آر',
+			'profile.calculatedValues.tdee' => 'ٹی ڈی ای ای',
+			'profile.calculatedValues.dailyGoal' => 'روزانہ کا ہدف',
+			'profile.calculatedValues.calPerDay' => 'کیلوری /دن',
+			'profile.calculatedValues.notAvailable' => 'نہیں دستیاب',
+			'healthScore.title' => 'صحت کا اسکور',
+			'healthScore.whyThisScore' => 'یہ اسکور کیوں؟',
+			'healthScore.note' => 'یہ اسکور شناخت شدہ اجزاء اور غذائیت کی کثافت کی بنیاد پر AI کا اندازہ ہے۔ ہمیشہ غذائیت کی مشاورت کے لیے پیشہ ور سے مشورہ کریں۔',
+			'healthScore.unhealthy' => 'غیر صحت مند',
+			'healthScore.healthy' => 'صحت مند',
+			'healthScore.neutral' => 'غیر جانبدار',
+			'editProfile.title' => 'پروفائل ترمیم کریں',
+			'editProfile.sections.personalInformation' => 'ذاتی معلومات',
+			'editProfile.sections.physicalMeasurements' => 'طبی پیمائش',
+			'editProfile.sections.goalsAndActivity' => 'اہداف اور سرگرمی',
+			'editProfile.gender' => 'جنس',
+			'editProfile.dateOfBirth' => 'تاریخ پیدائش',
+			'editProfile.height' => 'قد',
+			'editProfile.weight' => 'وزن',
+			'editProfile.weightGoal' => 'وزن کا ہدف',
+			'editProfile.activityLevel' => 'سرگرمی کی سطح',
+			'editProfile.metric' => 'میٹرک',
+			'editProfile.imperial' => 'امپیریل',
+			'editProfile.metricCm' => 'میٹرک (سینٹی میٹر)',
+			'editProfile.imperialFtIn' => 'امپیریل (فیٹ/انچ)',
+			'editProfile.metricKg' => 'میٹرک (کلو)',
+			'editProfile.imperialLbs' => 'امپیریل (پاؤنڈ)',
+			'editProfile.genders.male' => 'مرد',
+			'editProfile.genders.female' => 'عورت',
+			'editProfile.genders.other' => 'دیگر',
+			'editProfile.weightGoals.loseWeight.name' => 'وزن کم کریں',
+			'editProfile.weightGoals.loseWeight.description' => 'وزن کم کرنے کے لیے کیلوری کی کمی کریں',
+			'editProfile.weightGoals.maintainWeight.name' => 'وزن برقرار رکھیں',
+			'editProfile.weightGoals.maintainWeight.description' => 'اپنا موجودہ وزن برقرار رکھیں',
+			'editProfile.weightGoals.gainWeight.name' => 'وزن بڑھائیں',
+			'editProfile.weightGoals.gainWeight.description' => 'وزن بڑھانے کے لیے کیلوری کی اضافت کریں',
+			'editProfile.activityLevels.sedentary.name' => 'سست',
+			'editProfile.activityLevels.sedentary.description' => 'بہت کم ورزش',
+			'editProfile.activityLevels.lightlyActive.name' => 'ہلکی سرگرمی',
+			'editProfile.activityLevels.lightlyActive.description' => 'ہلکی ورزش 1-3 دن/ہفتہ',
+			'editProfile.activityLevels.moderatelyActive.name' => 'اعتدال پسند سرگرمی',
+			'editProfile.activityLevels.moderatelyActive.description' => 'اعتدال پسند ورزش 3-5 دن/ہفتہ',
+			'editProfile.activityLevels.veryActive.name' => 'بہت فعال',
+			'editProfile.activityLevels.veryActive.description' => 'کڑی ورزش 6-7 دن/ہفتہ',
+			'editProfile.activityLevels.extremelyActive.name' => 'انتہائی فعال',
+			'editProfile.activityLevels.extremelyActive.description' => 'بہت سخت ورزش، جسمانی کام',
+			'settings.title' => 'ترتیبات',
+			'settings.sections.profile' => 'پروفائل',
+			'settings.sections.localization' => 'ترجمہ',
+			'settings.sections.notifications' => 'نوٹیفیکیشن',
+			'settings.sections.supportAndLegal' => 'مدد اور قانونی',
+			'settings.sections.dangerZone' => 'خطرے کا زون',
+			'settings.sections.developer' => 'ڈیولپر',
+			'settings.editProfile.title' => 'پروفائل ترمیم کریں',
+			'settings.editProfile.subtitle' => 'اپنی ذاتی معلومات کو تازہ کریں',
+			'settings.language.title' => 'زبان',
+			'settings.language.subtitle' => 'اپنی پسندیدہ زبان منتخب کریں',
+			'settings.heightUnit.title' => 'قد کی اکائی',
+			'settings.weightUnit.title' => 'وزن کی اکائی',
+			'settings.mealReminders.title' => 'کھانے کی یاد دہانیاں',
+			'settings.mealReminders.subtitle' => 'مناسب وقت پر الرٹس کے ساتھ ٹریک پر رہیں',
+			'settings.theme.title' => 'تھیم',
+			'settings.theme.subtitle' => 'اپنی پسندیدہ تھیم منتخب کریں',
+			'settings.theme.light' => 'ہلکا',
+			'settings.theme.dark' => 'تاریک',
+			'settings.theme.system' => 'نظام',
+			'settings.sendFeedback.title' => 'آراء ارسال کریں',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => '${appLabel} کو بہتر بنانے میں ہماری مدد کریں',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} ایپ آراء',
+			'settings.sendFeedback.emailBodyPrefix' => 'براہ کرم نیچے اپنی آراء فراہم کریں:',
+			'settings.sendFeedback.appVersion' => 'ایپ کا ورژن',
+			'settings.sendFeedback.device' => 'آلہ',
+			'settings.sendFeedback.osVersion' => 'او ایس ورژن',
+			'settings.sendFeedback.uid' => 'یو آئی ڈی',
+			'settings.clearAllData.title' => 'تمام ڈیٹا صاف کریں',
+			'settings.clearAllData.subtitle' => 'اپنی تمام معلومات کو ناقابل واپسی طور پر حذف کریں',
+			'settings.clearAllData.confirmationTitle' => 'کیا آپ تمام ڈیٹا صاف کرنا چاہتے ہیں؟',
+			'settings.clearAllData.confirmationMessage' => 'یہ عمل واپس نہیں کیا جا سکتا۔ آپ کے تمام اندراج کردہ کھانے، پسندیدہ، اور پروفائل کی ترتیبات مستقل طور پر حذف ہو جائیں گی۔',
+			'settings.clearAllData.cancel' => 'کینسل کریں',
+			'settings.clearAllData.clearEverything' => 'سب کچھ صاف کریں',
+			'settings.debugOptions.title' => 'ڈیبگ کے اختیارات',
+			'settings.developerModeEnabled' => 'ڈیولپر موڈ فعال ہو گیا!',
+			'reminders.title' => 'یاد دہانیوں کے ساتھ ٹریک پر رہیں',
+			'reminders.description' => 'اپنے کھانوں کے اندراج کے لیے آپ کو نرم یاد دہانیاں موصول ہوں گی تاکہ آپ اپنے غذائیت کے اہداف کے ساتھ مستقل رہ سکیں',
+			'reminders.notificationsEnabled' => 'نوٹیفیکیشن فعال ہیں',
+			'reminders.notificationsDisabled' => 'نوٹیفیکیشن غیر فعال ہیں',
+			'reminders.enabledSubtitle' => 'آپ کو کھانے کی یاد دہانیاں موصول ہوں گی',
+			'reminders.disabledSubtitle' => 'کھانے کی یاد دہانیوں کے لیے نوٹیفیکیشن فعال کریں',
+			'reminders.mealReminders' => 'کھانے کی یاد دہانیاں',
+			'reminders.breakfast' => 'ناشتہ',
+			'reminders.lunch' => 'دوپہر کا کھانا',
+			'reminders.dinner' => 'رات کا کھانا',
+			'reminders.snack' => 'اسنک',
+			'reminders.unknown' => 'نامعلوم',
+			'reminders.change' => 'تبدیل کریں',
+			'reminders.enableNotifications' => 'نوٹیفیکیشن فعال کریں',
+			'reminders.skipForNow' => 'ابھی چھوڑ دیں',
+			'reminders.saveChanges' => 'تبدیلیاں محفوظ کریں',
+			'reminders.enabledSuccessfully' => 'نوٹیفیکیشن کامیابی سے فعال ہو گئے!',
+			'reminders.permissionDenied' => 'نوٹیفیکیشن کی اجازت مسترد کر دی گئی',
+			'reminders.errorEnabling' => ({required Object error}) => 'نوٹیفیکیشن کو فعال کرنے میں خرابی: ${error}',
+			'reminders.errorCompletingSetup' => ({required Object error}) => 'سیٹ اپ مکمل کرنے میں خرابی: ${error}',
+			'notifications.breakfast.title' => 'ناشتے کا وقت! 🍳',
+			'notifications.breakfast.body' => 'اپنے ناشتہ کا اندراج کرنا نہ بھولیں',
+			'notifications.lunch.title' => 'دوپہر کے کھانے کا وقت! 🥗',
+			'notifications.lunch.body' => 'اپنے دوپہر کے کھانے کا اندراج کرنے کا وقت',
+			'notifications.dinner.title' => 'رات کے کھانے کا وقت! 🍽️',
+			'notifications.dinner.body' => 'اپنے رات کے کھانے کا اندراج کرنا نہ بھولیں',
+			'notifications.snack.title' => 'اسنیک کا وقت! 🍎',
+			'notifications.snack.body' => 'ایک صحت مند اسنیک کا وقت',
+			'notifications.test.title' => 'تجرباتی نوٹیفیکیشن',
+			'login.title' => 'لاگ ان',
+			'login.signInWithGoogle' => 'گوگل کے ساتھ سائن ان کریں',
+			'login.signInFailed' => 'گوگل سائن ان ناکام ہوا یا منسوخ کر دیا گیا۔',
+			'disclaimer.pleaseNote' => 'براہ کرم نوٹ کریں',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} تخمینی غذائیت کی معلومات فراہم کرتا ہے۔ درستگی آپ کی ان پٹ اور خوراک کی مختلف حالتوں پر منحصر ہے۔ یہ ایک رہنما کے طور پر استعمال کریں، نہ کہ ایک حتمی ماخذ کے طور پر۔ ذاتی غذائیت کی مشاورت کے لیے پیشہ ور کی خدمات حاصل کریں۔',
+			'disclaimer.snap.portionSize.title' => 'حصے کا سائز',
+			'disclaimer.snap.portionSize.description' => 'تخمینوں کی درستگی آپ کی طرف سے حصے کے صحیح اندازے پر بہت زیادہ منحصر ہے۔',
+			'disclaimer.snap.preparationMethods.title' => 'تیاری کے طریقے',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'پکانے کے طریقے کھانے کی غذائیت کی مواد کو بڑی حد تک تبدیل کر سکتے ہیں۔ ${appLabel} کے تخمینے ہمیشہ ان مختلف حالتوں کا حساب نہیں لگاتے۔',
+			'disclaimer.snap.ingredients.title' => 'اجزاء',
+			'disclaimer.snap.ingredients.description' => 'پیچیدہ پکوان جن میں بہت سے پوشیدہ اجزاء ہوتے ہیں وہ کم درست اندازوں کی طرف لے جا سکتے ہیں۔',
+			'disclaimer.snap.databaseLimitations.title' => 'ڈیٹا بیس کی حدود',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} کا غذائی ڈیٹا بیس وسیع ہے لیکن ہر واحد غذائی چیز یا مختلف حالت کو شامل نہیں کر سکتا۔',
+			'disclaimer.weightEstimate.title' => 'وزن کے اندازے کے بارے میں',
+			'disclaimer.weightEstimate.description' => 'وزن میں تبدیلی کا اندازہ نظریاتی ہے جو کیلوری کی زیادہ اور کم کے ماڈل پر مبنی ہے۔ یہ صرف حوصلہ افزائی کی رہنمائی کے لیے ہے، آپ کے اصل وزن کی پیش گوئی کے طور پر نہیں۔',
+			'disclaimer.weightEstimate.calorieAccuracy.title' => 'کیلوری کی درستگی',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'یہ تخمینہ صرف آپ کی ٹریک کردہ کیلوری کے استعمال اور خرچ کرنے کے اعتبار سے درست ہے۔ غلط اندراج کرنے سے غلط تخمینہ ملے گا۔',
+			'disclaimer.weightEstimate.biologicalFactors.title' => 'حیاتیاتی عوامل',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'اصل وزن میں کمی/اضافہ میٹابولزم، ہارمونز، نیند، دباؤ، ہائیڈریشن اور دوسری انفرادی عوامل سے متاثر ہوتا ہے جو ${appLabel} نہیں ناپ سکتا۔',
+			'disclaimer.weightEstimate.waterWeight.title' => 'پانی کا وزن اور اتار چڑھاؤ',
+			'disclaimer.weightEstimate.waterWeight.description' => 'روزانہ کا معمولی وزن پانی کی زیادتی، ہضم، اور وقت کی وجہ سے بڑی صورت میں تبدیل ہو سکتا ہے۔ یہ تخمینہ ان روزانہ کی تبدیلیوں کا بہ لحاظ نہیں رکھتا۔',
+			'disclaimer.weightEstimate.professionalGuidance.title' => 'پیشہ ورانہ رہنمائی',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'اس تخمینے کا استعمال طبی فیصلے کرنے کے لیے نہ کریں۔ ہمیشہ ذاتی وزن کے انتظام کے مشورے کے لیے صحت کی دیکھ بھال کرنے والے پیشہ ور یا رجسٹرڈ غذائی ماہر سے مشورہ کریں۔',
+			'common.close' => 'بند کریں',
+			'common.kContinue' => 'جاری رکھیں',
+			'errors.loadingProfileData' => 'پروفائل کا ڈیٹا لوڈ کرنے میں خرابی',
+			'errors.somethingWentWrong' => 'کچھ غلط ہوگیا۔',
+			'debug.title' => 'ڈیبگ کے اختیارات',
+			'debug.sections.notifications' => 'نوٹیفیکیشن',
+			'debug.sections.healthConnect' => 'ہیلتھ کنیکٹ',
+			'debug.sections.appInfo' => 'ایپ کی معلومات',
+			'debug.showActiveNotifications' => 'فعال نوٹیفیکیشن دکھائیں',
+			'debug.scheduleTestNotification' => 'ٹیسٹ نوٹیفیکیشن کا شیڈول بنائیں (10 سیکنڈ)',
+			'debug.triggerBreakfastNotification' => 'ناشتے کی نوٹیفیکیشن متحرک کریں',
+			'debug.cancelAllNotifications' => 'تمام نوٹیفیکیشن منسوخ کریں',
+			'debug.activeNotifications' => 'فعال نوٹیفیکیشن',
+			'debug.noTitle' => 'کوئی عنوان نہیں',
+			'debug.noBody' => 'کوئی مواد نہیں',
+			'debug.fetchTodaysSteps' => 'آج کے قدم حاصل کریں',
+			'debug.fetchTodaysCalories' => 'آج کی کیلوریز حاصل کریں',
+			'debug.fetchLatestWeight' => 'آخری وزن حاصل کریں',
+			'debug.fetchLatestHeight' => 'آخری قد حاصل کریں',
+			'debug.writeTestWeight' => 'ٹیسٹ وزن لکھیں (70kg)',
+			'debug.writeTestHeight' => 'ٹیسٹ قد لکھیں (175cm)',
+			'debug.syncLast7Days' => 'آخری 7 دن ہم آہنگ کریں',
+			'debug.sync7DaysTitle' => '7 دن کی ہم آہنگی',
+			'debug.checkCurrentLocale' => 'موجودہ لوکیل چیک کریں',
+			'debug.currentLocale' => 'موجودہ لوکیل',
+			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'زبان: ${languageCode}\nملک: ${countryCode}\nیونٹ کا نظام: ${unitSystem}',
+			'debug.latestWeight' => 'آخری وزن',
+			'debug.latestHeight' => 'آخری قد',
+			'debug.todaysCalories' => 'آج کی کیلوریز',
+			'debug.totalCaloriesBurned' => ({required Object calories}) => 'کل جلائی گئی کیلوریز: ${calories}',
+			'debug.syncSuccess' => ({required Object count}) => 'پچھلے 7 دنوں کے لیے قدم، کیلوریز، اور وزن کے لیے ${count} ڈیٹا پوائنٹس کامیابی سے حاصل کر لیے گئے۔',
+			'debug.noWeightData' => 'آخری 30 دنوں میں کوئی وزن کا ڈیٹا نہیں ملا۔',
+			'debug.noHeightData' => 'آخری سال میں کوئی قد کا ڈیٹا نہیں ملا۔',
+			'debug.noCalorieData' => 'آج کے لیے کوئی کیلوری کا ڈیٹا نہیں ملا۔',
+			'debug.weightWritten' => 'کامیابی سے ٹیسٹ وزن (70kg) لکھا گیا۔',
+			'debug.weightWriteFailed' => 'ٹیسٹ وزن لکھنے میں ناکامی.',
+			'debug.heightWritten' => 'کامیابی سے ٹیسٹ قد (175cm) لکھا گیا۔',
+			'debug.heightWriteFailed' => 'ٹیسٹ قد لکھنے میں ناکامی.',
+			'debug.noNotifications' => 'کوئی فعال نوٹیفیکیشن نہیں ہیں۔',
+			'debug.testNotificationScheduled' => '10 سیکنڈ کے اندر ٹیسٹ نوٹیفیکیشن کا شیڈول بنایا گیا۔',
+			'debug.testNotificationBody' => 'یہ ایک ٹیسٹ نوٹیفیکیشن ہے جو 10 سیکنڈ کے اندر شیڈول کیا گیا ہے۔',
+			'debug.breakfastNotificationTriggered' => 'ناشتے کی نوٹیفیکیشن متحرک ہوگئی۔',
+			'debug.allNotificationsCancelled' => 'تمام نوٹیفیکیشن منسوخ کر دی گئی ہیں۔',
+			'debug.fetchingData' => 'آخری 7 دنوں کے لیے ڈیٹا حاصل کیا جا رہا ہے...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
-			'health.syncFailed' => 'Could not sync to Health Connect',
-			'health.mealSynced' => 'Meal synced with Health Connect',
+			'health.syncFailed' => 'ہیلتھ کنیکٹ میں ہم آہنگ نہیں ہو سکا',
+			'health.mealSynced' => 'کھانا ہیلتھ کنیکٹ کے ساتھ ہم آہنگ ہو گیا',
 			_ => null,
 		};
 	}

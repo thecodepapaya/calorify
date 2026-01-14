@@ -39,6 +39,7 @@ class TranslationsCs with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => 'Czech';
 	@override String get flag => '🇨🇿';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingCs onboarding = _TranslationsOnboardingCs._(_root);
 	@override late final _TranslationsTabsCs tabs = _TranslationsTabsCs._(_root);
 	@override late final _TranslationsHomeCs home = _TranslationsHomeCs._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingCs implements TranslationsOnboardingEn {
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Vítejte v Calorify';
+	@override String welcome({required Object appLabel}) => 'Vítejte v ${appLabel}';
 	@override String get subtitle => 'Váš osobní nutriční společník, který využívá umělou inteligenci';
 	@override String get getStarted => 'Začít';
 	@override late final _TranslationsOnboardingFeaturesCs features = _TranslationsOnboardingFeaturesCs._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsCs implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageCs language = _TranslationsSettingsLanguageCs._(_root);
 	@override late final _TranslationsSettingsHeightUnitCs heightUnit = _TranslationsSettingsHeightUnitCs._(_root);
 	@override late final _TranslationsSettingsWeightUnitCs weightUnit = _TranslationsSettingsWeightUnitCs._(_root);
-	@override late final _TranslationsSettingsThemeCs theme = _TranslationsSettingsThemeCs._(_root);
 	@override late final _TranslationsSettingsMealRemindersCs mealReminders = _TranslationsSettingsMealRemindersCs._(_root);
+	@override late final _TranslationsSettingsThemeCs theme = _TranslationsSettingsThemeCs._(_root);
 	@override late final _TranslationsSettingsSendFeedbackCs sendFeedback = _TranslationsSettingsSendFeedbackCs._(_root);
 	@override late final _TranslationsSettingsClearAllDataCs clearAllData = _TranslationsSettingsClearAllDataCs._(_root);
 	@override late final _TranslationsSettingsDebugOptionsCs debugOptions = _TranslationsSettingsDebugOptionsCs._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectCs implements TranslationsOnboardingHe
 	@override String get skipForNow => 'Přeskočit nyní';
 	@override String get statusConnected => 'Health Connect je připojeno.';
 	@override String get statusSuccess => 'Health Connect byl úspěšně připojen!';
-	@override String get statusPermissionDenied => 'Povolení zamítnuto. Povolte oprávnění Health Connect v nastavení telefonu pro Calorify.';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Odmítnuto. Prosím, povolte oprávnění pro Health Connect v nastavení vašeho telefonu pro ${appLabel}.';
 	@override String statusError({required Object error}) => 'Chyba při nastavování Health Connect: ${error}';
 }
 
@@ -826,20 +827,6 @@ class _TranslationsSettingsWeightUnitCs implements TranslationsSettingsWeightUni
 	@override String get title => 'Jednotka hmotnosti';
 }
 
-// Path: settings.theme
-class _TranslationsSettingsThemeCs implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeCs._(this._root);
-
-	final TranslationsCs _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
-}
-
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersCs implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersCs._(this._root);
@@ -851,6 +838,20 @@ class _TranslationsSettingsMealRemindersCs implements TranslationsSettingsMealRe
 	@override String get subtitle => 'Zůstaňte na správné cestě s včasnými upozorněními';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeCs implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Téma';
+	@override String get subtitle => 'Vyberte si své preferované téma';
+	@override String get light => 'Světlé';
+	@override String get dark => 'Tmavé';
+	@override String get system => 'Systémové';
+}
+
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackCs implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackCs._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackCs implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'Odeslat zpětnou vazbu';
-	@override String get subtitle => 'Pomozte nám zlepšit Calorify';
-	@override String get emailSubject => 'Zpětná vazba na aplikaci Calorify';
+	@override String subtitle({required Object appLabel}) => 'Pomozte nám zlepšit ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => 'Zpětná vazba k aplikaci ${appLabel}';
 	@override String get emailBodyPrefix => 'Prosím, poskytněte zpětnou vazbu níže:';
 	@override String get appVersion => 'Verze aplikace';
 	@override String get device => 'Zařízení';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapCs implements TranslationsDisclaimerSnapEn {
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Calorify poskytuje odhadované nutriční informace. Přesnost závisí na vašem vstupu a variacích potravin. Používejte jako vodítko, nikoli jako definitivní zdroj. Poraďte se s odborníkem o personalizovaném výživovém poradenství.';
+	@override String description({required Object appLabel}) => '${appLabel} poskytuje odhadované nutriční informace. Přesnost závisí na vašem vstupu a variacích potravin. Používejte jako vodítko, nikoli jako definitivní zdroj. Konzultujte s odborníkem pro personalizované dietní rady.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeCs portionSize = _TranslationsDisclaimerSnapPortionSizeCs._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsCs preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsCs._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsCs ingredients = _TranslationsDisclaimerSnapIngredientsCs._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesCs implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => 'Můžeme vám pomoci vytvořit zdravý plán, abyste dosáhli vyvážené hmotnosti s výživnými jídly.';
 	@override String get healthy => 'Skvěle! Jste v zdravém rozmezí. Pomůžeme vám udržet vaši vitalitu a energii.';
-	@override String get overweight => 'Calorify vám usnadní cestu s AI-poháněným sledováním, abyste pohodlně dosáhli svého cíle.';
+	@override String overweight({required Object appLabel}) => '${appLabel} vám usnadní cestu pomocí sledování na bázi AI, které vám pomůže dosáhnout vašich cílů s lehkostí.';
 	@override String get obese => 'Jsme tu, abychom vás podpořili s personalizovaným poradenstvím a udržitelnými strategiemi pro vaše zdraví.';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessCs implements Translati
 	@override String get title => 'Nejste sami';
 	@override String get genericMessage => 'Výzkum ukazuje, že konzistentní sledování je prvním prediktorem dlouhodobého úspěchu.';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Pro ${age}-letého ${gender}, který se snaží ${goal}, je konzistentní sledování prvním prediktorem úspěchu.';
-	@override String get closingMessage => 'Calorify to dělá 10x jednodušší než manuálně.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} to dělá 10x snazší než to dělat ručně.';
 	@override String get getStartedTitle => 'Připraveni začít?';
 	@override String get tipPhoto => 'Pořiďte fotografii svých jídel pro okamžitou analýzu';
 	@override String get tipConsistency => 'Zaznamenávejte pravidelně, abyste viděli smysluplný pokrok';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessCs implements Translati
 	@override String get button => 'Jdeme na to';
 	@override String get defaultGender => 'osoba';
 	@override String get defaultGoal => 'zdravější vy';
-	@override String get instantPhotoAnalysis => 'Okamžité analýzy fotografií';
-	@override String get automaticLogging => 'Automatické zaznamenávání výživy';
-	@override String get progressVisualizations => 'Vizualizace pokroku, které vás udrží motivované';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleCs implements Translation
 
 	// Translations
 	@override String get title => 'Skvělý začátek!';
-	@override String description({required Object goalText, required Object activityText}) => 'Udělal(a) jste první krok k ${goalText}. Protože jste ${activityText}, Calorify přizpůsobí vaše cíle vašemu životnímu stylu.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Udělal(a) jste první krok směrem k ${goalText}. Protože jste ${activityText}, ${appLabel} upraví vaše cíle tak, aby odpovídaly vašemu životnímu stylu.';
 	@override String get personalizedTargets => 'Personalizované cíle v kaloriích';
 	@override String get aiMealDetection => 'Detekce jídel pomocí AI';
 	@override String get macroBreakdowns => 'Podrobné rozdělení makroživin';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsCs implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Metody přípravy';
-	@override String get description => 'Způsoby vaření mohou výrazně změnit nutriční hodnotu potravin. Odhady od Calorify nemusí vždy zohledňovat tyto variace.';
+	@override String description({required Object appLabel}) => 'Způsoby přípravy mohou značně ovlivnit nutriční obsah potravin. Odhady ${appLabel} nemusí vždy zohlednit tyto variace.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsCs implements TranslationsDi
 
 	// Translations
 	@override String get title => 'Omezení databáze';
-	@override String get description => 'Databáze Calorify je rozsáhlá, ale nemusí zahrnovat každý jednotlivý potravinový produkt nebo variantu.';
+	@override String description({required Object appLabel}) => 'Databáze potravin ${appLabel} je rozsáhlá, ale nemusí obsahovat každou jednotlivou potravinu nebo její variantu.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsCs implements Transl
 
 	// Translations
 	@override String get title => 'Biologické faktory';
-	@override String get description => 'Skutečná ztráta/nabírání hmotnosti je ovlivněno metabolismem, hormony, spánkem, stresem, hydratací a dalšími individuálními faktory, které Calorify nemůže měřit.';
+	@override String description({required Object appLabel}) => 'Skutečná ztráta/přírůstek hmotnosti je ovlivněna metabolismem, hormony, spánkem, stresem, hydratací a jinými individuálními faktory, které ${appLabel} nemůže změřit.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsCs {
 		return switch (path) {
 			'language' => 'Czech',
 			'flag' => '🇨🇿',
-			'onboarding.welcome' => 'Vítejte v Calorify',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => 'Vítejte v ${appLabel}',
 			'onboarding.subtitle' => 'Váš osobní nutriční společník, který využívá umělou inteligenci',
 			'onboarding.getStarted' => 'Začít',
 			'onboarding.features.foodRecognition.title' => 'Chytré rozpoznávání potravin',
@@ -1360,7 +1359,7 @@ extension on TranslationsCs {
 			'onboarding.bmiScale.categories.obese' => 'Obezita',
 			'onboarding.bmiScale.messages.underweight' => 'Můžeme vám pomoci vytvořit zdravý plán, abyste dosáhli vyvážené hmotnosti s výživnými jídly.',
 			'onboarding.bmiScale.messages.healthy' => 'Skvěle! Jste v zdravém rozmezí. Pomůžeme vám udržet vaši vitalitu a energii.',
-			'onboarding.bmiScale.messages.overweight' => 'Calorify vám usnadní cestu s AI-poháněným sledováním, abyste pohodlně dosáhli svého cíle.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} vám usnadní cestu pomocí sledování na bázi AI, které vám pomůže dosáhnout vašich cílů s lehkostí.',
 			'onboarding.bmiScale.messages.obese' => 'Jsme tu, abychom vás podpořili s personalizovaným poradenstvím a udržitelnými strategiemi pro vaše zdraví.',
 			'onboarding.weightGoal.title' => 'Jaký je váš cíl?',
 			'onboarding.weightGoal.description' => 'Vyberte cíl, který nejlépe vystihuje to, co chcete dosáhnout',
@@ -1380,12 +1379,12 @@ extension on TranslationsCs {
 			'onboarding.healthConnect.skipForNow' => 'Přeskočit nyní',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect je připojeno.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect byl úspěšně připojen!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'Povolení zamítnuto. Povolte oprávnění Health Connect v nastavení telefonu pro Calorify.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Odmítnuto. Prosím, povolte oprávnění pro Health Connect v nastavení vašeho telefonu pro ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Chyba při nastavování Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Nejste sami',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Výzkum ukazuje, že konzistentní sledování je prvním prediktorem dlouhodobého úspěchu.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Pro ${age}-letého ${gender}, který se snaží ${goal}, je konzistentní sledování prvním prediktorem úspěchu.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify to dělá 10x jednodušší než manuálně.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} to dělá 10x snazší než to dělat ručně.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Připraveni začít?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Pořiďte fotografii svých jídel pro okamžitou analýzu',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Zaznamenávejte pravidelně, abyste viděli smysluplný pokrok',
@@ -1393,9 +1392,6 @@ extension on TranslationsCs {
 			'onboarding.reinforcement.trackingSuccess.button' => 'Jdeme na to',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'osoba',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'zdravější vy',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Okamžité analýzy fotografií',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Automatické zaznamenávání výživy',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Vizualizace pokroku, které vás udrží motivované',
 			'onboarding.reinforcement.healthProfile.title' => 'Váš zdravotní profil',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Na základě vašich údajů je vaše BMI ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Dokončeme váš profil pro přizpůsobení vašeho zážitku.',
@@ -1405,7 +1401,7 @@ extension on TranslationsCs {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'Jste na své cílové hmotnosti! Pomůžeme vám ji udržet.',
 			'onboarding.reinforcement.healthProfile.button' => 'Jdeme na to',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Skvělý začátek!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'Udělal(a) jste první krok k ${goalText}. Protože jste ${activityText}, Calorify přizpůsobí vaše cíle vašemu životnímu stylu.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Udělal(a) jste první krok směrem k ${goalText}. Protože jste ${activityText}, ${appLabel} upraví vaše cíle tak, aby odpovídaly vašemu životnímu stylu.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Personalizované cíle v kaloriích',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Detekce jídel pomocí AI',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Podrobné rozdělení makroživin',
@@ -1573,16 +1569,16 @@ extension on TranslationsCs {
 			'settings.language.subtitle' => 'Vyberte svůj preferovaný jazyk',
 			'settings.heightUnit.title' => 'Jednotka výšky',
 			'settings.weightUnit.title' => 'Jednotka hmotnosti',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => 'Připomínky jídel',
 			'settings.mealReminders.subtitle' => 'Zůstaňte na správné cestě s včasnými upozorněními',
+			'settings.theme.title' => 'Téma',
+			'settings.theme.subtitle' => 'Vyberte si své preferované téma',
+			'settings.theme.light' => 'Světlé',
+			'settings.theme.dark' => 'Tmavé',
+			'settings.theme.system' => 'Systémové',
 			'settings.sendFeedback.title' => 'Odeslat zpětnou vazbu',
-			'settings.sendFeedback.subtitle' => 'Pomozte nám zlepšit Calorify',
-			'settings.sendFeedback.emailSubject' => 'Zpětná vazba na aplikaci Calorify',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Pomozte nám zlepšit ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'Zpětná vazba k aplikaci ${appLabel}',
 			'settings.sendFeedback.emailBodyPrefix' => 'Prosím, poskytněte zpětnou vazbu níže:',
 			'settings.sendFeedback.appVersion' => 'Verze aplikace',
 			'settings.sendFeedback.device' => 'Zařízení',
@@ -1629,21 +1625,21 @@ extension on TranslationsCs {
 			'login.signInWithGoogle' => 'Přihlásit se pomocí Google',
 			'login.signInFailed' => 'Přihlášení přes Google se nezdařilo nebo bylo zrušeno.',
 			'disclaimer.pleaseNote' => 'Prosím vezměte na vědomí',
-			'disclaimer.snap.description' => 'Calorify poskytuje odhadované nutriční informace. Přesnost závisí na vašem vstupu a variacích potravin. Používejte jako vodítko, nikoli jako definitivní zdroj. Poraďte se s odborníkem o personalizovaném výživovém poradenství.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} poskytuje odhadované nutriční informace. Přesnost závisí na vašem vstupu a variacích potravin. Používejte jako vodítko, nikoli jako definitivní zdroj. Konzultujte s odborníkem pro personalizované dietní rady.',
 			'disclaimer.snap.portionSize.title' => 'Velikost porce',
 			'disclaimer.snap.portionSize.description' => 'Přesnost odhadů silně závisí na vašem správném vyhodnocení velikosti porce.',
 			'disclaimer.snap.preparationMethods.title' => 'Metody přípravy',
-			'disclaimer.snap.preparationMethods.description' => 'Způsoby vaření mohou výrazně změnit nutriční hodnotu potravin. Odhady od Calorify nemusí vždy zohledňovat tyto variace.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Způsoby přípravy mohou značně ovlivnit nutriční obsah potravin. Odhady ${appLabel} nemusí vždy zohlednit tyto variace.',
 			'disclaimer.snap.ingredients.title' => 'Ingredience',
 			'disclaimer.snap.ingredients.description' => 'Složitá jídla s mnoha skrytými ingrediencemi mohou vést k méně přesným odhadům.',
 			'disclaimer.snap.databaseLimitations.title' => 'Omezení databáze',
-			'disclaimer.snap.databaseLimitations.description' => 'Databáze Calorify je rozsáhlá, ale nemusí zahrnovat každý jednotlivý potravinový produkt nebo variantu.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Databáze potravin ${appLabel} je rozsáhlá, ale nemusí obsahovat každou jednotlivou potravinu nebo její variantu.',
 			'disclaimer.weightEstimate.title' => 'Odhad hmotnosti',
 			'disclaimer.weightEstimate.description' => 'Odhadovaná změna hmotnosti je teoretickým odhadem na základě jednoduchého modelu kalorického příjmu versus výdeje. Je určen pouze pro motivaci, nikoli jako předpověď vaší skutečné hmotnosti.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Přesnost kalorií',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Tento odhad je pouze tak přesný, jak přesně sledujete příjem a výdej kalorií. Nepřesné zaznamenávání povede k nepřesnému odhadu.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Biologické faktory',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'Skutečná ztráta/nabírání hmotnosti je ovlivněno metabolismem, hormony, spánkem, stresem, hydratací a dalšími individuálními faktory, které Calorify nemůže měřit.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Skutečná ztráta/přírůstek hmotnosti je ovlivněna metabolismem, hormony, spánkem, stresem, hydratací a jinými individuálními faktory, které ${appLabel} nemůže změřit.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Hmotnost vody a výkyvy',
 			'disclaimer.weightEstimate.waterWeight.description' => 'Normální denní hmotnost se může výrazně lišit kvůli zadržování vody, trávení a časování. Odhad nezohledňuje tyto každodenní změny.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Odborné poradenství',

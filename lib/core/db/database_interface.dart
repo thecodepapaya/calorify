@@ -61,8 +61,8 @@ abstract class DatabaseInterface {
   /// Get user profile
   Future<UserProfile?> getUserProfile();
 
-  /// Check if user profile exists
-  Future<bool> hasUserProfile();
+  /// Check if user profile is complete
+  Future<bool> isProfileComplete();
 
   /// Get theme mode preference
   Future<ThemeMode> getThemeMode();

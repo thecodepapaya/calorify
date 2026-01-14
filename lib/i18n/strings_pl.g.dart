@@ -39,6 +39,7 @@ class TranslationsPl with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => 'Polski';
 	@override String get flag => '🇵🇱';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingPl onboarding = _TranslationsOnboardingPl._(_root);
 	@override late final _TranslationsTabsPl tabs = _TranslationsTabsPl._(_root);
 	@override late final _TranslationsHomePl home = _TranslationsHomePl._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingPl implements TranslationsOnboardingEn {
 	final TranslationsPl _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Witamy w Calorify';
+	@override String welcome({required Object appLabel}) => 'Witamy w ${appLabel}';
 	@override String get subtitle => 'Twój osobisty towarzysz w odżywianiu wspierany sztuczną inteligencją';
 	@override String get getStarted => 'Rozpocznij';
 	@override late final _TranslationsOnboardingFeaturesPl features = _TranslationsOnboardingFeaturesPl._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsPl implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguagePl language = _TranslationsSettingsLanguagePl._(_root);
 	@override late final _TranslationsSettingsHeightUnitPl heightUnit = _TranslationsSettingsHeightUnitPl._(_root);
 	@override late final _TranslationsSettingsWeightUnitPl weightUnit = _TranslationsSettingsWeightUnitPl._(_root);
-	@override late final _TranslationsSettingsThemePl theme = _TranslationsSettingsThemePl._(_root);
 	@override late final _TranslationsSettingsMealRemindersPl mealReminders = _TranslationsSettingsMealRemindersPl._(_root);
+	@override late final _TranslationsSettingsThemePl theme = _TranslationsSettingsThemePl._(_root);
 	@override late final _TranslationsSettingsSendFeedbackPl sendFeedback = _TranslationsSettingsSendFeedbackPl._(_root);
 	@override late final _TranslationsSettingsClearAllDataPl clearAllData = _TranslationsSettingsClearAllDataPl._(_root);
 	@override late final _TranslationsSettingsDebugOptionsPl debugOptions = _TranslationsSettingsDebugOptionsPl._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectPl implements TranslationsOnboardingHe
 	@override String get skipForNow => 'Pomiń na razie';
 	@override String get statusConnected => 'Health Connect jest połączony.';
 	@override String get statusSuccess => 'Health Connect został pomyślnie połączony!';
-	@override String get statusPermissionDenied => 'Odmowa dostępu. Proszę włączyć uprawnienia Health Connect w ustawieniach telefonu dla Calorify.';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Zgoda odmówiona. Proszę włączyć uprawnienia Health Connect w ustawieniach telefonu, aby korzystać z ${appLabel}.';
 	@override String statusError({required Object error}) => 'Błąd podczas konfigurowania Health Connect: ${error}';
 }
 
@@ -826,20 +827,6 @@ class _TranslationsSettingsWeightUnitPl implements TranslationsSettingsWeightUni
 	@override String get title => 'Jednostka Wagi';
 }
 
-// Path: settings.theme
-class _TranslationsSettingsThemePl implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemePl._(this._root);
-
-	final TranslationsPl _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
-}
-
 // Path: settings.mealReminders
 class _TranslationsSettingsMealRemindersPl implements TranslationsSettingsMealRemindersEn {
 	_TranslationsSettingsMealRemindersPl._(this._root);
@@ -851,6 +838,20 @@ class _TranslationsSettingsMealRemindersPl implements TranslationsSettingsMealRe
 	@override String get subtitle => 'Pozostań na właściwej ścieżce dzięki terminowym powiadomieniom';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemePl implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemePl._(this._root);
+
+	final TranslationsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Motyw';
+	@override String get subtitle => 'Wybierz swój preferowany motyw';
+	@override String get light => 'Jasny';
+	@override String get dark => 'Ciemny';
+	@override String get system => 'Systemowy';
+}
+
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackPl implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackPl._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackPl implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'Wyślij Opinie';
-	@override String get subtitle => 'Pomóż nam poprawić Calorify';
-	@override String get emailSubject => 'Opinie na temat aplikacji Calorify';
+	@override String subtitle({required Object appLabel}) => 'Pomóż nam ulepszyć ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => 'Opinie o aplikacji ${appLabel}';
 	@override String get emailBodyPrefix => 'Proszę podać swoje uwagi poniżej:';
 	@override String get appVersion => 'Wersja aplikacji';
 	@override String get device => 'Urządzenie';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapPl implements TranslationsDisclaimerSnapEn {
 	final TranslationsPl _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Calorify dostarcza szacunkowych informacji o wartości odżywczej. Dokładność zależy od Twojego wkładu i wariacji żywności. Używaj jako przewodnika, nie jako ostatecznego źródła. Konsultuj się z profesjonalistą w sprawie spersonalizowanych porad dietetycznych.';
+	@override String description({required Object appLabel}) => '${appLabel} dostarcza szacunkowe informacje o wartościach odżywczych. Dokładność zależy od Twoich danych i wariantów żywności. Używaj jako przewodnika, a nie jako ostatecznego źródła. Skonsultuj się z profesjonalistą w celu uzyskania spersonalizowanej porady żywieniowej.';
 	@override late final _TranslationsDisclaimerSnapPortionSizePl portionSize = _TranslationsDisclaimerSnapPortionSizePl._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsPl preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsPl._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsPl ingredients = _TranslationsDisclaimerSnapIngredientsPl._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesPl implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => 'Możemy pomóc Ci zbudować zdrowy plan, aby osiągnąć zrównoważoną wagę z pożywnymi posiłkami.';
 	@override String get healthy => 'Świetna robota! Jesteś w zdrowym zakresie. Pomożemy Ci utrzymać witalność i poziom energii.';
-	@override String get overweight => 'Calorify uprości Twoją podróż dzięki śledzeniu wspieranemu przez AI, aby pomóc Ci osiągnąć cel w komfortowy sposób.';
+	@override String overweight({required Object appLabel}) => '${appLabel} uprości Twoją drogę dzięki śledzeniu zasilanemu przez AI, aby pomóc Ci osiągnąć swój cel w komfortowy sposób.';
 	@override String get obese => 'Jesteśmy tu, aby Cię wspierać w spersonalizowanych wskazówkach i zrównoważonych strategiach dla Twoich celów zdrowotnych.';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessPl implements Translati
 	@override String get title => 'Nie jesteś sam';
 	@override String get genericMessage => 'Badania pokazują, że konsekwentne śledzenie jest najlepszym predyktorem długoterminowego sukcesu.';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Dla ${age} letniego ${gender} dążącego do ${goal}, konsekwentne śledzenie jest najlepszym predyktorem sukcesu.';
-	@override String get closingMessage => 'Calorify ułatwia to 10 razy w porównaniu do robienia tego ręcznie.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} sprawia, że to 10 razy łatwiejsze niż robienie tego ręcznie.';
 	@override String get getStartedTitle => 'Gotowy, aby zacząć?';
 	@override String get tipPhoto => 'Zrób zdjęcie swoich posiłków, aby uzyskać natychmiastową analizę';
 	@override String get tipConsistency => 'Rejestruj regularnie, aby zobaczyć znaczący postęp';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessPl implements Translati
 	@override String get button => 'Idźmy';
 	@override String get defaultGender => 'indywidualna';
 	@override String get defaultGoal => 'zdrowsza Ty';
-	@override String get instantPhotoAnalysis => 'Natychmiastowa analiza zdjęcia';
-	@override String get automaticLogging => 'Automatyczne rejestrowanie wartości odżywczych';
-	@override String get progressVisualizations => 'Wizualizacje postępu, które motywują Cię';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestylePl implements Translation
 
 	// Translations
 	@override String get title => 'Świetny Początek!';
-	@override String description({required Object goalText, required Object activityText}) => 'Podjąłeś pierwszy krok w stronę ${goalText}. Ponieważ jesteś ${activityText}, Calorify dostosuje Twoje cele do Twojego stylu życia.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Miałeś już pierwszy krok w kierunku ${goalText}. Ponieważ jesteś ${activityText}, ${appLabel} dostosuje Twoje cele, aby odpowiadały Twojemu stylowi życia.';
 	@override String get personalizedTargets => 'Spersonalizowane cele kaloryczne';
 	@override String get aiMealDetection => 'Wykrywanie posiłków wspierane przez AI';
 	@override String get macroBreakdowns => 'Szczegółowe podziały makroskładników';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsPl implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Metody Przygotowania';
-	@override String get description => 'Metody gotowania mogą znacząco zmieniać wartość odżywczą jedzenia. Oszacowania Calorify mogą nie zawsze uwzględniać te zmiany.';
+	@override String description({required Object appLabel}) => 'Metody gotowania mogą znacznie zmieniać zawartość odżywczą żywności. Szacunki ${appLabel} mogą nie zawsze uwzględniać te różnice.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsPl implements TranslationsDi
 
 	// Translations
 	@override String get title => 'Ograniczenia Bazy Danych';
-	@override String get description => 'Baza danych żywności Calorify jest obszerna, ale może nie obejmować każdego pojedynczego produktu żywnościowego lub wariacji.';
+	@override String description({required Object appLabel}) => 'Baza danych żywności ${appLabel} jest obszerna, ale może nie zawierać każdego pojedynczego artykułu spożywczego ani wariantu.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsPl implements Transl
 
 	// Translations
 	@override String get title => 'Czynniki Biologiczne';
-	@override String get description => 'Rzeczywista utrata/przyrost masy ciała jest uzależniona od metabolizmu, hormonów, snu, stresu, nawadniania i innych indywidualnych czynników, których Calorify nie może zmierzyć.';
+	@override String description({required Object appLabel}) => 'Rzeczywista utrata/przyrost masy ciała jest wpływana przez metabolizm, hormony, sen, stres, nawodnienie i inne indywidualne czynniki, których ${appLabel} nie może zmierzyć.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsPl {
 		return switch (path) {
 			'language' => 'Polski',
 			'flag' => '🇵🇱',
-			'onboarding.welcome' => 'Witamy w Calorify',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => 'Witamy w ${appLabel}',
 			'onboarding.subtitle' => 'Twój osobisty towarzysz w odżywianiu wspierany sztuczną inteligencją',
 			'onboarding.getStarted' => 'Rozpocznij',
 			'onboarding.features.foodRecognition.title' => 'Inteligentne Rozpoznawanie Żywności',
@@ -1360,7 +1359,7 @@ extension on TranslationsPl {
 			'onboarding.bmiScale.categories.obese' => 'Otyłość',
 			'onboarding.bmiScale.messages.underweight' => 'Możemy pomóc Ci zbudować zdrowy plan, aby osiągnąć zrównoważoną wagę z pożywnymi posiłkami.',
 			'onboarding.bmiScale.messages.healthy' => 'Świetna robota! Jesteś w zdrowym zakresie. Pomożemy Ci utrzymać witalność i poziom energii.',
-			'onboarding.bmiScale.messages.overweight' => 'Calorify uprości Twoją podróż dzięki śledzeniu wspieranemu przez AI, aby pomóc Ci osiągnąć cel w komfortowy sposób.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} uprości Twoją drogę dzięki śledzeniu zasilanemu przez AI, aby pomóc Ci osiągnąć swój cel w komfortowy sposób.',
 			'onboarding.bmiScale.messages.obese' => 'Jesteśmy tu, aby Cię wspierać w spersonalizowanych wskazówkach i zrównoważonych strategiach dla Twoich celów zdrowotnych.',
 			'onboarding.weightGoal.title' => 'Jakie masz cele?',
 			'onboarding.weightGoal.description' => 'Wybierz cel, który najlepiej opisuje to, co chcesz osiągnąć',
@@ -1380,12 +1379,12 @@ extension on TranslationsPl {
 			'onboarding.healthConnect.skipForNow' => 'Pomiń na razie',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect jest połączony.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect został pomyślnie połączony!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'Odmowa dostępu. Proszę włączyć uprawnienia Health Connect w ustawieniach telefonu dla Calorify.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Zgoda odmówiona. Proszę włączyć uprawnienia Health Connect w ustawieniach telefonu, aby korzystać z ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Błąd podczas konfigurowania Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Nie jesteś sam',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Badania pokazują, że konsekwentne śledzenie jest najlepszym predyktorem długoterminowego sukcesu.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Dla ${age} letniego ${gender} dążącego do ${goal}, konsekwentne śledzenie jest najlepszym predyktorem sukcesu.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify ułatwia to 10 razy w porównaniu do robienia tego ręcznie.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} sprawia, że to 10 razy łatwiejsze niż robienie tego ręcznie.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Gotowy, aby zacząć?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Zrób zdjęcie swoich posiłków, aby uzyskać natychmiastową analizę',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Rejestruj regularnie, aby zobaczyć znaczący postęp',
@@ -1393,9 +1392,6 @@ extension on TranslationsPl {
 			'onboarding.reinforcement.trackingSuccess.button' => 'Idźmy',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'indywidualna',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'zdrowsza Ty',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Natychmiastowa analiza zdjęcia',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Automatyczne rejestrowanie wartości odżywczych',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Wizualizacje postępu, które motywują Cię',
 			'onboarding.reinforcement.healthProfile.title' => 'Twój Profil Zdrowia',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Na podstawie Twoich parametrów, Twoje BMI wynosi ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Sfinalizuj swój profil, aby dostosować swoje doświadczenie.',
@@ -1405,7 +1401,7 @@ extension on TranslationsPl {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'Jesteś na swojej docelowej wadze! Pomożemy Ci ją utrzymać.',
 			'onboarding.reinforcement.healthProfile.button' => 'Idźmy',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Świetny Początek!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'Podjąłeś pierwszy krok w stronę ${goalText}. Ponieważ jesteś ${activityText}, Calorify dostosuje Twoje cele do Twojego stylu życia.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Miałeś już pierwszy krok w kierunku ${goalText}. Ponieważ jesteś ${activityText}, ${appLabel} dostosuje Twoje cele, aby odpowiadały Twojemu stylowi życia.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Spersonalizowane cele kaloryczne',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Wykrywanie posiłków wspierane przez AI',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Szczegółowe podziały makroskładników',
@@ -1573,16 +1569,16 @@ extension on TranslationsPl {
 			'settings.language.subtitle' => 'Wybierz preferowany język',
 			'settings.heightUnit.title' => 'Jednostka Wzrostu',
 			'settings.weightUnit.title' => 'Jednostka Wagi',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
 			'settings.mealReminders.title' => 'Przypomnienia o posiłkach',
 			'settings.mealReminders.subtitle' => 'Pozostań na właściwej ścieżce dzięki terminowym powiadomieniom',
+			'settings.theme.title' => 'Motyw',
+			'settings.theme.subtitle' => 'Wybierz swój preferowany motyw',
+			'settings.theme.light' => 'Jasny',
+			'settings.theme.dark' => 'Ciemny',
+			'settings.theme.system' => 'Systemowy',
 			'settings.sendFeedback.title' => 'Wyślij Opinie',
-			'settings.sendFeedback.subtitle' => 'Pomóż nam poprawić Calorify',
-			'settings.sendFeedback.emailSubject' => 'Opinie na temat aplikacji Calorify',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Pomóż nam ulepszyć ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'Opinie o aplikacji ${appLabel}',
 			'settings.sendFeedback.emailBodyPrefix' => 'Proszę podać swoje uwagi poniżej:',
 			'settings.sendFeedback.appVersion' => 'Wersja aplikacji',
 			'settings.sendFeedback.device' => 'Urządzenie',
@@ -1629,21 +1625,21 @@ extension on TranslationsPl {
 			'login.signInWithGoogle' => 'Zaloguj się z Google',
 			'login.signInFailed' => 'Logowanie z Google nie powiodło się lub zostało anulowane.',
 			'disclaimer.pleaseNote' => 'Proszę zauważyć',
-			'disclaimer.snap.description' => 'Calorify dostarcza szacunkowych informacji o wartości odżywczej. Dokładność zależy od Twojego wkładu i wariacji żywności. Używaj jako przewodnika, nie jako ostatecznego źródła. Konsultuj się z profesjonalistą w sprawie spersonalizowanych porad dietetycznych.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} dostarcza szacunkowe informacje o wartościach odżywczych. Dokładność zależy od Twoich danych i wariantów żywności. Używaj jako przewodnika, a nie jako ostatecznego źródła. Skonsultuj się z profesjonalistą w celu uzyskania spersonalizowanej porady żywieniowej.',
 			'disclaimer.snap.portionSize.title' => 'Rozmiar Porcji',
 			'disclaimer.snap.portionSize.description' => 'Dokładność oszacowań w dużej mierze zależy od Twojej prawidłowej oceny rozmiaru porcji.',
 			'disclaimer.snap.preparationMethods.title' => 'Metody Przygotowania',
-			'disclaimer.snap.preparationMethods.description' => 'Metody gotowania mogą znacząco zmieniać wartość odżywczą jedzenia. Oszacowania Calorify mogą nie zawsze uwzględniać te zmiany.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Metody gotowania mogą znacznie zmieniać zawartość odżywczą żywności. Szacunki ${appLabel} mogą nie zawsze uwzględniać te różnice.',
 			'disclaimer.snap.ingredients.title' => 'Składniki',
 			'disclaimer.snap.ingredients.description' => 'Złożone dania z wieloma ukrytymi składnikami mogą prowadzić do mniej dokładnych oszacowań.',
 			'disclaimer.snap.databaseLimitations.title' => 'Ograniczenia Bazy Danych',
-			'disclaimer.snap.databaseLimitations.description' => 'Baza danych żywności Calorify jest obszerna, ale może nie obejmować każdego pojedynczego produktu żywnościowego lub wariacji.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Baza danych żywności ${appLabel} jest obszerna, ale może nie zawierać każdego pojedynczego artykułu spożywczego ani wariantu.',
 			'disclaimer.weightEstimate.title' => 'O Szacowaniu Wagi',
 			'disclaimer.weightEstimate.description' => 'Prognozowana zmiana wagi jest teoretycznym oszacowaniem opartym na prostym modelu kaloria wpuszczająca vs. kaloria wypuszczająca. Ma na celu jedynie motywacyjne wskazanie, a nie jako prognoza Twojej rzeczywistej wagi.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Dokładność Kalorii',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'To oszacowanie jest tylko tak dokładne, jak Twoje rejestrowane spożycie kalorii i ich wydatkowanie. Nieprawidłowe rejestrowanie skutkuje niedokładnym prognozowaniem.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Czynniki Biologiczne',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'Rzeczywista utrata/przyrost masy ciała jest uzależniona od metabolizmu, hormonów, snu, stresu, nawadniania i innych indywidualnych czynników, których Calorify nie może zmierzyć.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Rzeczywista utrata/przyrost masy ciała jest wpływana przez metabolizm, hormony, sen, stres, nawodnienie i inne indywidualne czynniki, których ${appLabel} nie może zmierzyć.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Waga Wody i Fluktuacje',
 			'disclaimer.weightEstimate.waterWeight.description' => 'Normalna waga codzienna może znacznie się wahać z powodu zatrzymywania wody, trawienia i czasu. To oszacowanie nie uwzględnia tych codziennych zmian.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Porady Profesjonalne',

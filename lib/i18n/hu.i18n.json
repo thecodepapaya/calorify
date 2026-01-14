@@ -1,8 +1,9 @@
 {
   "language": "Hungarian",
   "flag": "🇭🇺",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Üdvözöljük a Calorify-ban",
+    "welcome": "Üdvözöljük a(z) {appLabel} alkalmazásban",
     "subtitle": "Személyes táplálkozási társ, amelyet az AI hajt",
     "getStarted": "Kezdjük el",
     "features": {
@@ -59,7 +60,7 @@
       "messages": {
         "underweight": "Segíthetünk egy egészséges tervet kialakítani, hogy kiegyensúlyozott súlyt érj el tápanyagban gazdag ételekkel.",
         "healthy": "Nagyszerű munka! Egészséges tartományban vagy. Segítünk fenntartani az életerődet és energiaszintedet.",
-        "overweight": "A Calorify egyszerűsíteni fogja az utadat az AI-alapú nyomon követéssel, hogy kényelmesen elérd a célodat.",
+        "overweight": "A(z) {appLabel} egyszerűsíti az utazását az AI-alapú nyomon követéssel, hogy kényelmesen elérje a célját.",
         "obese": "Itt vagyunk, hogy támogassunk téged a személyre szabott útmutatással és fenntartható stratégiákkal az egészségi céljaid elérésében."
       }
     },
@@ -92,7 +93,7 @@
       "skipForNow": "Most hagyd ki",
       "statusConnected": "A Health Connect csatlakoztatva van.",
       "statusSuccess": "A Health Connect sikeresen csatlakoztatva lett!",
-      "statusPermissionDenied": "Engedély megtagadva. Kérlek, engedélyezd a Health Connect jogosultságait a telefon beállításaiban a Calorify számára.",
+      "statusPermissionDenied": "Hozzáférés megtagadva. Kérjük, engedélyezze a Health Connect engedélyeket a telefon beállításaiból a(z) {appLabel} számára.",
       "statusError": "Hiba történt a Health Connect beállításánál: {error}"
     },
     "reinforcement": {
@@ -100,17 +101,14 @@
         "title": "Nem vagy Egyedül",
         "genericMessage": "A kutatások azt mutatják, hogy a következetes nyomon követés a hosszú távú siker legfontosabb előrejelzője.",
         "personalizedMessage": "Egy {age} éves {gender} számára, aki {goal}-t szeretne elérni, a következetes nyomon követés a siker legfontosabb előrejelzője.",
-        "closingMessage": "A Calorify 10-szer könnyebbé teszi a manuális folyamatnál.",
+        "closingMessage": "A(z) {appLabel} 10-szer könnyebbé teszi a dolgot, mint ha manuálisan csinálná.",
         "getStartedTitle": "Készen állsz a kezdésre?",
         "tipPhoto": "Készíts képet az ételeidről az azonnali elemzéshez",
         "tipConsistency": "Rendszeresen jegyezd fel az étkezéseidet a lényeges fejlődés érdekében",
         "tipProgress": "Kövesd a fejlődésed naponta a motivációd fenntartásához",
         "button": "Induljunk!",
         "defaultGender": "személy",
-        "defaultGoal": "egészségesebb te",
-        "instantPhotoAnalysis": "Azonnali fénykép-elemzés",
-        "automaticLogging": "Automatikus tápanyagnaplózás",
-        "progressVisualizations": "Haladási vizualizációk, amelyek motiválnak téged"
+        "defaultGoal": "egészségesebb te"
       },
       "healthProfile": {
         "title": "Az Egészségügyi Profilod",
@@ -124,7 +122,7 @@
       },
       "goalLifestyle": {
         "title": "Kiváló Kezdés!",
-        "description": "Megted az első lépést {goalText} felé. Mivel {activityText} vagy, a Calorify igazítani fogja a céljaidat, hogy illeszkedjenek az életstílusodhoz.",
+        "description": "Megtette az első lépést a(z) {goalText} felé. Mivel Ön {activityText}, a(z) {appLabel} hozzáigazítja a céljait az életmódjához.",
         "personalizedTargets": "Személyre szabott kalória- célok",
         "aiMealDetection": "AI-alapú étkezés-felismerés",
         "macroBreakdowns": "Részletes makrotápanyagbontások",
@@ -372,21 +370,21 @@
     "weightUnit": {
       "title": "Súly Mértékegysége"
     },
-    "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
-    },
     "mealReminders": {
       "title": "Étkezés Emlékeztetők",
       "subtitle": "Tartsd az ütemet időben érkező értesítésekkel"
     },
+    "theme": {
+      "title": "Téma",
+      "subtitle": "Válaszd ki a preferált témádat",
+      "light": "Világos",
+      "dark": "Sötét",
+      "system": "Rendszer"
+    },
     "sendFeedback": {
       "title": "Visszajelzés Küldése",
-      "subtitle": "Segíts nekünk fejleszteni a Calorify-t",
-      "emailSubject": "Calorify Alkalmazás Visszajelzés",
+      "subtitle": "Segítsen nekünk fejleszteni a(z) {appLabel} alkalmazást",
+      "emailSubject": "{appLabel} Alkalmazás Visszajelzés",
       "emailBodyPrefix": "Kérlek, írd meg visszajelzésed alább:",
       "appVersion": "Alkalmazás Verzió",
       "device": "Eszköz",
@@ -457,14 +455,14 @@
   "disclaimer": {
     "pleaseNote": "Kérlek, vedd figyelembe",
     "snap": {
-      "description": "A Calorify becsült táplálkozási információt nyújt. A pontosság a megadásaidtól és az ételek változatosságától függ. Használd útmutatóként, ne pedig végleges forrásként. Konzultálj szakemberrel személyre szabott diétás tanácsadásért.",
+      "description": "A(z) {appLabel} becsült tápanyaginformációkat nyújt. A pontosság a megadott adatoktól és az ételek változatosságától függ. Használja útmutatóként, ne pedig végérvényes forrásként. Kérjük, konzultáljon szakemberrel a személyre szabott táplálkozási tanácsokért.",
       "portionSize": {
         "title": "Adag Méret",
         "description": "A becslések pontossága erősen függ a megfelelő adagméret megítélésétől."
       },
       "preparationMethods": {
         "title": "Előkészítési Módszerek",
-        "description": "A főzési módszerek jelentősen megváltoztathatják az ételek tápanyagtartalmát. A Calorify becslései nem mindig veszik figyelembe ezeket a változásokat."
+        "description": "A főzési módszerek jelentősen befolyásolhatják az ételek tápanyagtartalmát. A(z) {appLabel} becslései nem mindig veszik figyelembe ezeket a változásokat."
       },
       "ingredients": {
         "title": "Összetevők",
@@ -472,7 +470,7 @@
       },
       "databaseLimitations": {
         "title": "Adatbázis Korlátozások",
-        "description": "A Calorify ételek adatbázisa széleskörű, de nem tartalmazhat minden egyes élelmiszer tételt vagy változatot."
+        "description": "A(z) {appLabel} élelmiszer-adatbázisa széleskörű, de előfordulhat, hogy nem tartalmazza az összes élelmiszert vagy változatot."
       }
     },
     "weightEstimate": {
@@ -484,7 +482,7 @@
       },
       "biologicalFactors": {
         "title": "Biológiai Tényezők",
-        "description": "A tényleges súlycsökkenést/gyarapodást befolyásolja az anyagcsere, hormonok, alvás, stressz, hidratáltság és más egyéni tényezők, amiket a Calorify nem tud mérni."
+        "description": "A valódi súlyvesztést/gyarapodást a metabolizmus, hormonok, alvás, stressz, hidratáció és egyéb egyéni tényezők befolyásolják, amelyeket a(z) {appLabel} nem tud mérni."
       },
       "waterWeight": {
         "title": "Víz Súly & Ingadozások",

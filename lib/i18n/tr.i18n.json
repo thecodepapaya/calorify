@@ -1,8 +1,9 @@
 {
   "language": "Türkçe",
   "flag": "🇹🇷",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Calorify'e Hoş Geldiniz",
+    "welcome": "{appLabel}'ye hoş geldiniz",
     "subtitle": "AI ile güçlendirilmiş kişisel beslenme danışmanınız",
     "getStarted": "Başlayın",
     "features": {
@@ -59,7 +60,7 @@
       "messages": {
         "underweight": "Dengeli bir kiloya ulaşmak için sağlıklı besinlerle bir plan oluşturmanıza yardımcı olabiliriz.",
         "healthy": "Harika bir iş çıkardınız! Sağlıklı bir aralıktasınız. Enerjinizi ve canlılığınızı korumanıza yardımcı olacağız.",
-        "overweight": "Calorify, hedefinize rahatça ulaşmanız için AI destekli izleme ile sürecinizi basitleştirecek.",
+        "overweight": "{appLabel}, AI destekli takibiyle hedefinize ulaşmanızı kolaylaştıracak.",
         "obese": "Sağlık hedefleriniz için kişiselleştirilmiş rehberlik ve sürdürülebilir stratejilerle destek olmak için buradayız."
       }
     },
@@ -92,7 +93,7 @@
       "skipForNow": "Şu an için atla",
       "statusConnected": "Health Connect bağlı.",
       "statusSuccess": "Health Connect başarıyla bağlandı!",
-      "statusPermissionDenied": "İzin reddedildi. Lütfen Calorify için telefon ayarlarınızdan Health Connect izinlerini etkinleştirin.",
+      "statusPermissionDenied": "İzin reddedildi. Lütfen {appLabel} için telefon ayarlarınızdan Sağlık Bağlantısı izinlerini etkinleştirin.",
       "statusError": "Health Connect kurulurken hata: {error}"
     },
     "reinforcement": {
@@ -100,17 +101,14 @@
         "title": "Yalnız Değilsiniz",
         "genericMessage": "Araştırmalar, sürekli takibin uzun vadeli başarının en önemli belirleyicisi olduğunu gösteriyor.",
         "personalizedMessage": "{goal} hedefini ulaşmak isteyen {gender} bir {age} yaşındaki biri için, sürekli takip başarı için en önemli belirleyicidir.",
-        "closingMessage": "Calorify, bunu manuel yapmaktan 10 kat daha kolay hale getiriyor.",
+        "closingMessage": "{appLabel}, bunu manuel olarak yapmaktan 10 kat daha kolay hale getiriyor.",
         "getStartedTitle": "Başlamaya hazır mısın?",
         "tipPhoto": "Anında analiz için yemeklerinin fotoğrafını çek",
         "tipConsistency": "Anlamlı ilerleme görmek için düzenli kaydet",
         "tipProgress": "Motivasyonunu korumak için ilerlemeni her gün takip et",
         "button": "Hadi Gidelim",
         "defaultGender": "birey",
-        "defaultGoal": "daha sağlıklı bir siz",
-        "instantPhotoAnalysis": "Anlık fotoğraf analizi",
-        "automaticLogging": "Otomatik besin kaydı",
-        "progressVisualizations": "Sizi motive eden ilerleme görselleştirmeleri"
+        "defaultGoal": "daha sağlıklı bir siz"
       },
       "healthProfile": {
         "title": "Sağlık Profiliniz",
@@ -124,7 +122,7 @@
       },
       "goalLifestyle": {
         "title": "Mükemmel Bir Başlangıç!",
-        "description": "Hedefinize {goalText} ulaşmak için ilk adımı attınız. {activityText} olduğunuz için, Calorify hedeflerinizi yaşam tarzınıza uyacak şekilde ayarlayacaktır.",
+        "description": "{goalText} yönünde ilk adımı attınız. {activityText} olduğunuz için, {appLabel} hedeflerinizi yaşam tarzınıza uyacak şekilde ayarlayacak.",
         "personalizedTargets": "Kişiselleştirilmiş kalori hedefleri",
         "aiMealDetection": "AI destekli yemek tespiti",
         "macroBreakdowns": "Detaylı makro besin dağılımları",
@@ -372,6 +370,10 @@
     "weightUnit": {
       "title": "Kilo Birimi"
     },
+    "mealReminders": {
+      "title": "Yemek Hatırlatıcıları",
+      "subtitle": "Zamanında uyarılarla doğru yolda kalın"
+    },
     "theme": {
       "title": "Tema",
       "subtitle": "Tercih ettiğiniz temayı seçin",
@@ -379,14 +381,10 @@
       "dark": "Koyu",
       "system": "Sistem"
     },
-    "mealReminders": {
-      "title": "Yemek Hatırlatıcıları",
-      "subtitle": "Zamanında uyarılarla doğru yolda kalın"
-    },
     "sendFeedback": {
       "title": "Geri Bildirim Gönder",
-      "subtitle": "Calorify'i geliştirmemize yardımcı olun",
-      "emailSubject": "Calorify Uygulama Geri Bildirimi",
+      "subtitle": "{appLabel}'yi geliştirmemize yardımcı olun",
+      "emailSubject": "{appLabel} Uygulaması Geri Bildirimi",
       "emailBodyPrefix": "Lütfen geri bildiriminizi aşağıda belirtin:",
       "appVersion": "Uygulama Versiyonu",
       "device": "Cihaz",
@@ -457,14 +455,14 @@
   "disclaimer": {
     "pleaseNote": "Lütfen Dikkate Alın",
     "snap": {
-      "description": "Calorify tahmini beslenme bilgilerini sağlar. Doğruluk, girdiğiniz bilgilere ve gıda varyasyonlarına bağlıdır. Bir rehber olarak kullanın, kesin bir kaynak olarak değil. Kişiye özgü diyet tavsiyeleri için her zaman bir profesyonele danışın.",
+      "description": "{appLabel}, tahmini besin bilgileri sağlar. Doğruluk, girdiğiniz bilgilere ve gıda çeşitliliklerine bağlıdır. Rehber olarak kullanın, kesin bir kaynak olarak değil. Kişisel diyet tavsiyesi için bir uzmana danışın.",
       "portionSize": {
         "title": "Porsiyon Boyutu",
         "description": "Tahminlerin doğruluğu, porsiyon boyutunun doğru bir şekilde değerlendirilmesine dayanmaktadır."
       },
       "preparationMethods": {
         "title": "Hazırlama Yöntemleri",
-        "description": "Pişirme yöntemleri, gıdaların besin içeriğini önemli ölçüde değiştirebilir. Calorify'nin tahminleri, bu varyasyonları her zaman dikkate almayabilir."
+        "description": "Pişirme yöntemleri, gıdaların besin içeriğini önemli ölçüde etkileyebilir. {appLabel}'nin tahminleri bu çeşitlilikleri her zaman hesaba katmayabilir."
       },
       "ingredients": {
         "title": "Bileşenler",
@@ -472,7 +470,7 @@
       },
       "databaseLimitations": {
         "title": "Veritabanı Sınırlamaları",
-        "description": "Calorify'nin gıda veritabanı geniştir ancak her bir yiyecek veya varyasyonu içermeyebilir."
+        "description": "{appLabel}'nin gıda veritabanı geniştir ancak her bir gıda maddesini veya varyasyonunu içermeyebilir."
       }
     },
     "weightEstimate": {
@@ -484,7 +482,7 @@
       },
       "biologicalFactors": {
         "title": "Biyolojik Faktörler",
-        "description": "Gerçek kilo kaybı/kazancı metabolizma, hormonlar, uyku, stres, su alımı ve Calorify'nin ölçemediği diğer bireysel faktörlerden etkilenir."
+        "description": "Gerçek kilo kaybı/almayı etkileyen metabolizma, hormonlar, uyku, stres, hidrasyon ve diğer bireysel faktörler, {appLabel} tarafından ölçülemez."
       },
       "waterWeight": {
         "title": "Su Ağırlığı ve Dalgalanmalar",

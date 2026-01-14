@@ -39,6 +39,7 @@ class TranslationsUk with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override String get language => 'Українська';
 	@override String get flag => '🇺🇦';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingUk onboarding = _TranslationsOnboardingUk._(_root);
 	@override late final _TranslationsTabsUk tabs = _TranslationsTabsUk._(_root);
 	@override late final _TranslationsHomeUk home = _TranslationsHomeUk._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingUk implements TranslationsOnboardingEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => 'Ласкаво просимо до Calorify';
+	@override String welcome({required Object appLabel}) => 'Ласкаво просимо до ${appLabel}';
 	@override String get subtitle => 'Ваш особистий супутник у харчуванні, підкріплений ШІ';
 	@override String get getStarted => 'Розпочати';
 	@override late final _TranslationsOnboardingFeaturesUk features = _TranslationsOnboardingFeaturesUk._(_root);
@@ -245,8 +246,8 @@ class _TranslationsSettingsUk implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsLanguageUk language = _TranslationsSettingsLanguageUk._(_root);
 	@override late final _TranslationsSettingsHeightUnitUk heightUnit = _TranslationsSettingsHeightUnitUk._(_root);
 	@override late final _TranslationsSettingsWeightUnitUk weightUnit = _TranslationsSettingsWeightUnitUk._(_root);
-	@override late final _TranslationsSettingsThemeUk theme = _TranslationsSettingsThemeUk._(_root);
 	@override late final _TranslationsSettingsMealRemindersUk mealReminders = _TranslationsSettingsMealRemindersUk._(_root);
+	@override late final _TranslationsSettingsThemeUk theme = _TranslationsSettingsThemeUk._(_root);
 	@override late final _TranslationsSettingsSendFeedbackUk sendFeedback = _TranslationsSettingsSendFeedbackUk._(_root);
 	@override late final _TranslationsSettingsClearAllDataUk clearAllData = _TranslationsSettingsClearAllDataUk._(_root);
 	@override late final _TranslationsSettingsDebugOptionsUk debugOptions = _TranslationsSettingsDebugOptionsUk._(_root);
@@ -522,7 +523,7 @@ class _TranslationsOnboardingHealthConnectUk implements TranslationsOnboardingHe
 	@override String get skipForNow => 'Пропустити на даний момент';
 	@override String get statusConnected => 'Health Connect підключено.';
 	@override String get statusSuccess => 'Health Connect успішно підключено!';
-	@override String get statusPermissionDenied => 'Дозвіл відхилено. Будь ласка, увімкніть дозволи Health Connect з налаштувань вашого телефону для Calorify.';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Доступ заборонено. Будь ласка, увімкніть дозволи Health Connect у налаштуваннях вашого телефону для ${appLabel}.';
 	@override String statusError({required Object error}) => 'Помилка налаштування Health Connect: ${error}';
 }
 
@@ -826,6 +827,17 @@ class _TranslationsSettingsWeightUnitUk implements TranslationsSettingsWeightUni
 	@override String get title => 'Одиниця ваги';
 }
 
+// Path: settings.mealReminders
+class _TranslationsSettingsMealRemindersUk implements TranslationsSettingsMealRemindersEn {
+	_TranslationsSettingsMealRemindersUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Нагадування про страви';
+	@override String get subtitle => 'Залишайтеся на правильному шляху з вчасними сповіщеннями';
+}
+
 // Path: settings.theme
 class _TranslationsSettingsThemeUk implements TranslationsSettingsThemeEn {
 	_TranslationsSettingsThemeUk._(this._root);
@@ -840,17 +852,6 @@ class _TranslationsSettingsThemeUk implements TranslationsSettingsThemeEn {
 	@override String get system => 'Системна';
 }
 
-// Path: settings.mealReminders
-class _TranslationsSettingsMealRemindersUk implements TranslationsSettingsMealRemindersEn {
-	_TranslationsSettingsMealRemindersUk._(this._root);
-
-	final TranslationsUk _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Нагадування про страви';
-	@override String get subtitle => 'Залишайтеся на правильному шляху з вчасними сповіщеннями';
-}
-
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackUk implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackUk._(this._root);
@@ -859,8 +860,8 @@ class _TranslationsSettingsSendFeedbackUk implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'Надіслати відгук';
-	@override String get subtitle => 'Допоможіть нам поліпшити Calorify';
-	@override String get emailSubject => 'Відгук про додаток Calorify';
+	@override String subtitle({required Object appLabel}) => 'Допоможіть нам покращити ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => 'Відгук про додаток ${appLabel}';
 	@override String get emailBodyPrefix => 'Будь ласка, надайте ваші відгуки нижче:';
 	@override String get appVersion => 'Версія додатку';
 	@override String get device => 'Пристрій';
@@ -954,7 +955,7 @@ class _TranslationsDisclaimerSnapUk implements TranslationsDisclaimerSnapEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Calorify надає оцінену інформацію про харчування. Точність залежить від ваших даних та варіацій продуктів. Використовуйте як керівництво, а не як остаточне джерело. Консультуйтеся з фахівцем для отримання персоналізованих дієтичних порад.';
+	@override String description({required Object appLabel}) => '${appLabel} надає оцінкову інформацію про харчування. Точність залежить від вашого внеску та варіацій їжі. Використовуйте як орієнтир, а не як остаточне джерело. Консультуйтеся з фахівцем для отримання індивідуальних порад з харчування.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeUk portionSize = _TranslationsDisclaimerSnapPortionSizeUk._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsUk preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsUk._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsUk ingredients = _TranslationsDisclaimerSnapIngredientsUk._(_root);
@@ -1043,7 +1044,7 @@ class _TranslationsOnboardingBmiScaleMessagesUk implements TranslationsOnboardin
 	// Translations
 	@override String get underweight => 'Ми можемо допомогти вам скласти здоровий план для досягнення збалансованої ваги з поживними стравами.';
 	@override String get healthy => 'Чудова робота! Ви у здоровому діапазоні. Ми допоможемо вам підтримувати вашу життєвість та енергетичні рівні.';
-	@override String get overweight => 'Calorify спростить вашу подорож за допомогою стеження на основі ШІ, щоб допомогти вам досягнути вашої цілі комфортно.';
+	@override String overweight({required Object appLabel}) => '${appLabel} спростить вашу подорож за допомогою відстеження на базі ШІ, щоб допомогти вам досягти вашої мети з комфортом.';
 	@override String get obese => 'Ми тут, щоб підтримати вас з персоналізованим керівництвом та сталими стратегіями для досягнення ваших цілей у здоров\'ї.';
 }
 
@@ -1090,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessUk implements Translati
 	@override String get title => 'Ви не один!';
 	@override String get genericMessage => 'Дослідження показує, що постійне відстеження є найкращим предиктором довгострокового успіху.';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Для ${age}-річного ${gender}, який бажає ${goal}, постійне відстеження є найкращим предиктором успіху.';
-	@override String get closingMessage => 'Calorify робить це у 10 разів простіше, ніж робити все вручну.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} робить це у 10 разів легшим, ніж робити це вручну.';
 	@override String get getStartedTitle => 'Готові почати?';
 	@override String get tipPhoto => 'Зробіть фото ваших страв для миттєвого аналізу';
 	@override String get tipConsistency => 'Фіксуйте дані регулярно, щоб бачити помітний прогрес';
@@ -1098,9 +1099,6 @@ class _TranslationsOnboardingReinforcementTrackingSuccessUk implements Translati
 	@override String get button => 'Поїхали';
 	@override String get defaultGender => 'індивід';
 	@override String get defaultGoal => 'здорова версія вас';
-	@override String get instantPhotoAnalysis => 'Миттєвий аналіз фото';
-	@override String get automaticLogging => 'Автоматичне ведення обліку харчування';
-	@override String get progressVisualizations => 'Візуалізації прогресу, що підтримують вашу мотивацію';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1128,7 +1126,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleUk implements Translation
 
 	// Translations
 	@override String get title => 'Чудовий старт!';
-	@override String description({required Object goalText, required Object activityText}) => 'Ви зробили перший крок до ${goalText}. Оскільки ви ${activityText}, Calorify відкоригує ваші цілі для відповідності вашому способу життя.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Ви зробили перший крок до ${goalText}. Оскільки ви ${activityText}, ${appLabel} підлаштує ваші цілі, щоб відповідати вашому способу життя.';
 	@override String get personalizedTargets => 'Персоналізовані калорійні цілі';
 	@override String get aiMealDetection => 'Визначення їжі на основі ШІ';
 	@override String get macroBreakdowns => 'Детальні макро-розподіли';
@@ -1244,7 +1242,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsUk implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Методи приготування';
-	@override String get description => 'Методи приготування можуть суттєво змінити харчовий вміст їжі. Оцінки Calorify можуть не завжди враховувати ці варіації.';
+	@override String description({required Object appLabel}) => 'Методи приготування можуть суттєво змінити харчову цінність їжі. Оцінки ${appLabel} можуть не завжди враховувати ці варіації.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1266,7 +1264,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsUk implements TranslationsDi
 
 	// Translations
 	@override String get title => 'Обмеження бази даних';
-	@override String get description => 'База даних Calorify є обширною, але може не містити кожен окремий продукт або варіацію.';
+	@override String description({required Object appLabel}) => 'База даних продуктів ${appLabel} є обширною, але може не включати кожен окремий продукт або варіацію.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1288,7 +1286,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsUk implements Transl
 
 	// Translations
 	@override String get title => 'Біологічні чинники';
-	@override String get description => 'Фактична втрата/приріст ваги залежать від обміну речовин, гормонів, сну, стресу, гідратації та інших індивідуальних чинників, які Calorify не може виміряти.';
+	@override String description({required Object appLabel}) => 'Фактична втрата/набираня ваги залежить від обміну речовин, гормонів, сну, стресу, гідратації та інших індивідуальних факторів, які ${appLabel} не може виміряти.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1323,7 +1321,8 @@ extension on TranslationsUk {
 		return switch (path) {
 			'language' => 'Українська',
 			'flag' => '🇺🇦',
-			'onboarding.welcome' => 'Ласкаво просимо до Calorify',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => 'Ласкаво просимо до ${appLabel}',
 			'onboarding.subtitle' => 'Ваш особистий супутник у харчуванні, підкріплений ШІ',
 			'onboarding.getStarted' => 'Розпочати',
 			'onboarding.features.foodRecognition.title' => 'Розумне визнання їжі',
@@ -1360,7 +1359,7 @@ extension on TranslationsUk {
 			'onboarding.bmiScale.categories.obese' => 'Ожиріння',
 			'onboarding.bmiScale.messages.underweight' => 'Ми можемо допомогти вам скласти здоровий план для досягнення збалансованої ваги з поживними стравами.',
 			'onboarding.bmiScale.messages.healthy' => 'Чудова робота! Ви у здоровому діапазоні. Ми допоможемо вам підтримувати вашу життєвість та енергетичні рівні.',
-			'onboarding.bmiScale.messages.overweight' => 'Calorify спростить вашу подорож за допомогою стеження на основі ШІ, щоб допомогти вам досягнути вашої цілі комфортно.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} спростить вашу подорож за допомогою відстеження на базі ШІ, щоб допомогти вам досягти вашої мети з комфортом.',
 			'onboarding.bmiScale.messages.obese' => 'Ми тут, щоб підтримати вас з персоналізованим керівництвом та сталими стратегіями для досягнення ваших цілей у здоров\'ї.',
 			'onboarding.weightGoal.title' => 'Яка ваша мета?',
 			'onboarding.weightGoal.description' => 'Виберіть мету, яка найкраще описує те, що ви хочете досягти',
@@ -1380,12 +1379,12 @@ extension on TranslationsUk {
 			'onboarding.healthConnect.skipForNow' => 'Пропустити на даний момент',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect підключено.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect успішно підключено!',
-			'onboarding.healthConnect.statusPermissionDenied' => 'Дозвіл відхилено. Будь ласка, увімкніть дозволи Health Connect з налаштувань вашого телефону для Calorify.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Доступ заборонено. Будь ласка, увімкніть дозволи Health Connect у налаштуваннях вашого телефону для ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Помилка налаштування Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Ви не один!',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Дослідження показує, що постійне відстеження є найкращим предиктором довгострокового успіху.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Для ${age}-річного ${gender}, який бажає ${goal}, постійне відстеження є найкращим предиктором успіху.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify робить це у 10 разів простіше, ніж робити все вручну.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} робить це у 10 разів легшим, ніж робити це вручну.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Готові почати?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Зробіть фото ваших страв для миттєвого аналізу',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Фіксуйте дані регулярно, щоб бачити помітний прогрес',
@@ -1393,9 +1392,6 @@ extension on TranslationsUk {
 			'onboarding.reinforcement.trackingSuccess.button' => 'Поїхали',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'індивід',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'здорова версія вас',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => 'Миттєвий аналіз фото',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => 'Автоматичне ведення обліку харчування',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => 'Візуалізації прогресу, що підтримують вашу мотивацію',
 			'onboarding.reinforcement.healthProfile.title' => 'Ваш профіль здоров\'я',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Згідно з вашими показниками, ваш ІМТ становить ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Давайте завершуємо ваш профіль, щоб налаштувати ваш досвід.',
@@ -1405,7 +1401,7 @@ extension on TranslationsUk {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'Ви на вашій цільовій вазі! Ми допоможемо вам підтримувати це.',
 			'onboarding.reinforcement.healthProfile.button' => 'Поїхали',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Чудовий старт!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => 'Ви зробили перший крок до ${goalText}. Оскільки ви ${activityText}, Calorify відкоригує ваші цілі для відповідності вашому способу життя.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Ви зробили перший крок до ${goalText}. Оскільки ви ${activityText}, ${appLabel} підлаштує ваші цілі, щоб відповідати вашому способу життя.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Персоналізовані калорійні цілі',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Визначення їжі на основі ШІ',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Детальні макро-розподіли',
@@ -1573,16 +1569,16 @@ extension on TranslationsUk {
 			'settings.language.subtitle' => 'Виберіть вашу бажану мову',
 			'settings.heightUnit.title' => 'Одиниця зрісту',
 			'settings.weightUnit.title' => 'Одиниця ваги',
+			'settings.mealReminders.title' => 'Нагадування про страви',
+			'settings.mealReminders.subtitle' => 'Залишайтеся на правильному шляху з вчасними сповіщеннями',
 			'settings.theme.title' => 'Тема',
 			'settings.theme.subtitle' => 'Виберіть вашу бажану тему',
 			'settings.theme.light' => 'Світла',
 			'settings.theme.dark' => 'Темна',
 			'settings.theme.system' => 'Системна',
-			'settings.mealReminders.title' => 'Нагадування про страви',
-			'settings.mealReminders.subtitle' => 'Залишайтеся на правильному шляху з вчасними сповіщеннями',
 			'settings.sendFeedback.title' => 'Надіслати відгук',
-			'settings.sendFeedback.subtitle' => 'Допоможіть нам поліпшити Calorify',
-			'settings.sendFeedback.emailSubject' => 'Відгук про додаток Calorify',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Допоможіть нам покращити ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'Відгук про додаток ${appLabel}',
 			'settings.sendFeedback.emailBodyPrefix' => 'Будь ласка, надайте ваші відгуки нижче:',
 			'settings.sendFeedback.appVersion' => 'Версія додатку',
 			'settings.sendFeedback.device' => 'Пристрій',
@@ -1629,21 +1625,21 @@ extension on TranslationsUk {
 			'login.signInWithGoogle' => 'Увійти з Google',
 			'login.signInFailed' => 'Увійти в Google не вдалося або скасовано.',
 			'disclaimer.pleaseNote' => 'Будь ласка, зауважте',
-			'disclaimer.snap.description' => 'Calorify надає оцінену інформацію про харчування. Точність залежить від ваших даних та варіацій продуктів. Використовуйте як керівництво, а не як остаточне джерело. Консультуйтеся з фахівцем для отримання персоналізованих дієтичних порад.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} надає оцінкову інформацію про харчування. Точність залежить від вашого внеску та варіацій їжі. Використовуйте як орієнтир, а не як остаточне джерело. Консультуйтеся з фахівцем для отримання індивідуальних порад з харчування.',
 			'disclaimer.snap.portionSize.title' => 'Розмір порції',
 			'disclaimer.snap.portionSize.description' => 'Точність оцінок сильно залежить від вашої правильної оцінки розміру порції.',
 			'disclaimer.snap.preparationMethods.title' => 'Методи приготування',
-			'disclaimer.snap.preparationMethods.description' => 'Методи приготування можуть суттєво змінити харчовий вміст їжі. Оцінки Calorify можуть не завжди враховувати ці варіації.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Методи приготування можуть суттєво змінити харчову цінність їжі. Оцінки ${appLabel} можуть не завжди враховувати ці варіації.',
 			'disclaimer.snap.ingredients.title' => 'Інгредієнти',
 			'disclaimer.snap.ingredients.description' => 'Складні страви з багатьма прихованими інгредієнтами можуть призвести до менш точних оцінок.',
 			'disclaimer.snap.databaseLimitations.title' => 'Обмеження бази даних',
-			'disclaimer.snap.databaseLimitations.description' => 'База даних Calorify є обширною, але може не містити кожен окремий продукт або варіацію.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'База даних продуктів ${appLabel} є обширною, але може не включати кожен окремий продукт або варіацію.',
 			'disclaimer.weightEstimate.title' => 'Про оцінку ваги',
 			'disclaimer.weightEstimate.description' => 'Прогнозована зміна ваги є теоретичною оцінкою на основі простого моделі калорій-входу проти калорій-виходу. Вона призначена лише для мотиваційного спрямування, а не як прогноз вашої фактичної ваги.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Точність калорій',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Ця оцінка є такою точністю, як ваша облікова споживана та витрачена калорія. Неправильне ведення обліку призведе до некоректного прогнозу.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Біологічні чинники',
-			'disclaimer.weightEstimate.biologicalFactors.description' => 'Фактична втрата/приріст ваги залежать від обміну речовин, гормонів, сну, стресу, гідратації та інших індивідуальних чинників, які Calorify не може виміряти.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Фактична втрата/набираня ваги залежить від обміну речовин, гормонів, сну, стресу, гідратації та інших індивідуальних факторів, які ${appLabel} не може виміряти.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Водна вага та коливання',
 			'disclaimer.weightEstimate.waterWeight.description' => 'Нормальна добова вага може сильно коливатися через затримку води, травлення та час. Оцінка не враховує ці добові зміни.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Професійне керівництво',

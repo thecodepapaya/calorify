@@ -1,556 +1,554 @@
 {
-  "language": "English",
-  "flag": "🇺🇸",
+  "language": "తెలుగు",
+  "flag": "🇮🇳",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Welcome to Calorify",
-    "subtitle": "Your personal nutrition companion powered by AI",
-    "getStarted": "Get Started",
+    "welcome": "{appLabel} లో స్వాగతం",
+    "subtitle": "మీ వ్యక్తిగత పోషణ సహాయకుడు AI తో",
+    "getStarted": "ప్రారంభించండి",
     "features": {
       "foodRecognition": {
-        "title": "Smart Food Recognition",
-        "description": "Take a photo and let AI identify your meal"
+        "title": "స్మార్ట్ ఆహారం గుర్తింపు",
+        "description": "ఒక ఫొటో తీసి, AI మీ భోజనాన్ని గుర్తించనివ్వండి"
       },
       "aiAnalysis": {
-        "title": "AI Analysis",
-        "description": "Get instant nutrition facts from your descriptions"
+        "title": "AI విశ్లేషణ",
+        "description": "మీ వర్ణనల నుండి తక్షణ పోషక పరకంగా పొందండి"
       },
       "healthIntegration": {
-        "title": "Health Integration",
-        "description": "Connect with Health Connect for better insights"
+        "title": "ఆరోగ్య సమన్వయం",
+        "description": "మరింత సమాచారం కోసం హెల్త్ కనెక్ట్ తో కనెక్ట్ చేయండి"
       }
     },
     "gender": {
-      "title": "What is your gender?",
-      "description": "Gender helps us accurately calculate your basal metabolic rate (BMR).",
-      "next": "Next"
+      "title": "మీ లింగం ఏమిటి?",
+      "description": "లింగం మనకు మీ బేసల్ మెటబాలిక్ రేట్ (BMR)ను ఖచ్చితంగా లెక్కించటానికి సహాయపడుతుంది.",
+      "next": "తరువాత"
     },
     "height": {
-      "title": "How tall are you?",
-      "description": "Your height helps us calculate your BMI and energy needs accurately.",
-      "metric": "Metric",
-      "imperial": "Imperial",
-      "next": "Next"
+      "title": "మీ ఎత్తు ఎంత?",
+      "description": "మీ ఎత్తు మీ BMI మరియు శక్తి అవసరాలను ఖచ్చితంగా లెక్కించడానికి సహాయపడుతుంది.",
+      "metric": "మెట్రిక్",
+      "imperial": "ఇంపీరియల్",
+      "next": "తరువాత"
     },
     "weight": {
-      "currentTitle": "What is your current weight?",
-      "currentDescription": "Your current weight is essential for personalizing your daily goals.",
-      "targetTitle": "What is your target weight?",
-      "targetDescription": "Setting a goal weight helps us determine your long-term plan.",
-      "metric": "Metric",
-      "imperial": "Imperial",
-      "next": "Next"
+      "currentTitle": "మీ ప్రస్తుత బరువు ఎంత?",
+      "currentDescription": "మీ ప్రస్తుత బరువు మీ రోజువారీ లక్ష్యాలను వ్యక్తిగతీకరించడానికి అవసరం.",
+      "targetTitle": "మీ లక్ష్య బరువు ఎంత?",
+      "targetDescription": "లక్ష్య బరువును ఏర్పరచడం మా దీర్ఘకాలిక ఆలోచనను నిర్ధారించడంలో సహాయపడుతుంది.",
+      "metric": "మెట్రిక్",
+      "imperial": "ఇంపీరియల్",
+      "next": "తరువాత"
     },
     "age": {
-      "title": "When is your birthday?",
-      "description": "Your age helps us calculate your calorie needs accurately.",
-      "next": "Next"
+      "title": "మీ పుట్టినరోజు ఎప్పుడు?",
+      "description": "మీ వయస్సు మీ కేలొరీ అవసరాలను ఖచ్చితంగా లెక్కించడంలో సహాయపడుతుంది.",
+      "next": "తరువాత"
     },
     "bmiScale": {
-      "underweight": "Underweight",
-      "healthy": "Healthy",
-      "overweight": "Overweight",
-      "obese": "Obese",
+      "underweight": "తక్కువ బరువు",
+      "healthy": "ఆరోగ్యకరమైన",
+      "overweight": "అధిక బరువు",
+      "obese": "వడ్డించిన",
       "categories": {
-        "underweight": "Underweight",
-        "healthyWeight": "Healthy weight",
-        "overweight": "Overweight",
-        "obese": "Obese"
+        "underweight": "తక్కువ బరువు",
+        "healthyWeight": "ఆరోగ్యకరమైన బరువు",
+        "overweight": "అధిక బరువు",
+        "obese": "వడ్డించిన"
       },
       "messages": {
-        "underweight": "We can help you build a healthy plan to reach a balanced weight with nutrient-dense meals.",
-        "healthy": "Great job! You're in a healthy range. We'll help you maintain your vitality and energy levels.",
-        "overweight": "Calorify will simplify your journey with AI-powered tracking to help you reach your target comfortably.",
-        "obese": "We're here to support you with personalized guidance and sustainable strategies for your health goals."
+        "underweight": "సంతులిత బరువును చేరడానికి పోషక-సంపన్న భోజనాలతో ఆరోగ్యకరమైన ప్రణాళికను నిర్మించడంలో మీకు సహాయపడతాము.",
+        "healthy": "చక్కగా! మీరు ఆరోగ్యకరమైన పరిధిలో ఉన్నారు. మీ ఉత్సాహం మరియు శక్తి స్థాయిలను కొనసాగించడంలో మీకు సహాయపడతాము.",
+        "overweight": "{appLabel} మీ లక్ష్యాన్ని సౌకర్యంగా చేరడానికి AI ఆధారిత ట్రాకింగ్ తో మీ పయనాన్ని సరళంగా చేస్తుంది.",
+        "obese": "మీ ఆరోగ్య లక్ష్యాలకు వ్యక్తిగత మార్గదర్శకం మరియు స్థిరమైన వ్యూహాలతో మిమ్మల్ని మద్దతు కోసం ఇక్కడ ఉన్నాము."
       }
     },
     "weightGoal": {
-      "title": "What's your goal?",
-      "description": "Choose the goal that best describes what you want to achieve"
+      "title": "మీ లక్ష్యం ఏమంటి?",
+      "description": "మీరు సాధించాలని కోరుకునే లక్ష్యాన్ని వర్ణించండి"
     },
     "activityLevel": {
-      "title": "How active are you?",
-      "description": "This helps us calculate your daily calorie needs more accurately"
+      "title": "మీ యాక్టివ్ స్థాయి ఎంత?",
+      "description": "ఇది మీ రోజుల కేలొరీ అవసరాలు ఖచ్చితంగా లెక్కించడంలో సహాయపడుతుంది"
     },
     "healthConnect": {
-      "title": "Connect with Health Connect",
-      "description": "Sync your health data for better insights and automatic calorie tracking",
+      "title": "హెల్త్ కనెక్ట్ తో కనెక్ట్ చేయండి",
+      "description": "భిన్నమైన సమాచారం మరియు ఆటోమేటిక్ కేలొరీ ట్రాకింగ్ కోసం మీ ఆరోగ్య డేటాను సింక్ చేయండి",
       "automaticTracking": {
-        "title": "Automatic Calorie Tracking",
-        "description": "Track calories burned from your fitness apps"
+        "title": "ఆటోమేటిక్ కేలొరీ ట్రాకింగ్",
+        "description": "మీ ఫిట్‌ನೆస్ యాప్‌ల నుండి వేయించిన కేలొరీలను ట్రాక్ చేయండి"
       },
       "progressInsights": {
-        "title": "Progress Insights",
-        "description": "Get detailed insights into your health trends"
+        "title": "ప్రోగ్రెస్ సమాచారం",
+        "description": "మీ ఆరోగ్య ధోరణులపై వివరణాత్మక సమాచారం పొందండి"
       },
       "seamlessIntegration": {
-        "title": "Seamless Integration",
-        "description": "Sync data from your favorite health apps"
+        "title": "సాధారణ సమన్వయం",
+        "description": "మీ ఇష్టమైన ఆరోగ్య యాప్‌ల నుండి డేటాను సింక్ చేయండి"
       },
-      "connected": "Health Connect Connected",
-      "notConnected": "Health Connect Not Connected",
-      "setup": "Setup Health Connect",
-      "skipForNow": "Skip for now",
-      "statusConnected": "Health Connect is connected.",
-      "statusSuccess": "Health Connect has been successfully connected!",
-      "statusPermissionDenied": "Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.",
-      "statusError": "Error setting up Health Connect: {error}"
+      "connected": "హెల్త్ కనెక్ట్ కనెక్ట్ అయ్యింది",
+      "notConnected": "హెల్త్ కనెక్ట్ కనెక్ట్ కాని",
+      "setup": "హెల్త్ కనెక్ట్ సెట్టప్ చేయండి",
+      "skipForNow": "ఇప్పుడు అభ్యాసించండి",
+      "statusConnected": "హెల్త్ కనెక్ట్ కనెక్ట్ అయింది.",
+      "statusSuccess": "హెల్త్ కనెక్ట్ విజయం సుస్పష్టం అయింది!",
+      "statusPermissionDenied": "అనుమతి అంగీకరించలేదు. దయచేసి {appLabel} కోసం మీ ఫోన్ సెట్టింగ్‌లలో హెల్త్ కనెక్ట్ అనుమతులను నిరాకరించండి.",
+      "statusError": "హెల్త్ కనెక్ట్ ను సెటప్ చేయడం లో లోపం: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
-        "title": "You're Not Alone",
-        "genericMessage": "Research shows that consistent tracking is the #1 predictor of long-term success.",
-        "personalizedMessage": "For a {age} year old {gender} looking to {goal}, consistent tracking is the #1 predictor of success.",
-        "closingMessage": "Calorify makes it 10x easier than doing it manually.",
-        "getStartedTitle": "ప్రారంభించడానికి సిద్ధమైనారా?",
-        "tipPhoto": "తక్షణ విశ్లేషణ కోసం మీ భోజనాల ఫోటోను తీశారు",
-        "tipConsistency": "సామాన్యతతో నమోదు చేయండి, అర్థవంతమైన పురోగతి చూసేందుకు",
-        "tipProgress": "మీ పురోగతిని ప్రతిరోజూ ట్రాక్ చేయండి, ఉత్సాహంగా ఉండటానికి",
-        "button": "Let's Go",
-        "defaultGender": "individual",
-        "defaultGoal": "healthier you",
-        "instantPhotoAnalysis": "Instant photo analysis",
-        "automaticLogging": "Automatic nutritional logging",
-        "progressVisualizations": "Progress visualizations that keep you motivated"
+        "title": "మీరు ఒంటరిగా లేరు",
+        "genericMessage": "నిరంతరంగా ట్రాకింగ్ చేయడం అనేది దీర్ఘకాలిక విజయానికి #1 సూచిక అని పరిశోధన చూపిస్తుంది.",
+        "personalizedMessage": "ఒక {age} సంవత్సరాల {gender} గా {goal} చేయాలని అనుకుంటున్నట్లయితే, నిరంతరంగా ట్రాకింగ్ చేయడం విజయానికి #1 సూచిక.",
+        "closingMessage": "{appLabel} ఇది మాన్యువల్ గా చేయడం కన్నా 10 రెట్లు సులభం చేస్తుంది.",
+        "getStartedTitle": "ప్రారంభించడానికి సిద్ధమా?",
+        "tipPhoto": "తక్షణ విశ্লేషణ కోసం మీ భోజనాలను ఫొటో తీసుకోండి",
+        "tipConsistency": "సరైన మార్గదర్శకాలతో చూస్తున్న పరిణామాలను చూనుముట",
+        "tipProgress": "సమయానికి మీ పురోగతిని ట్రాక్ చేయండి మరియు ప్రోత్సాహాన్ని కొనసాగించండి",
+        "button": "ప్రారంభిద్దాం",
+        "defaultGender": "వ్యక్తి",
+        "defaultGoal": "ఆరోగ్యకరమైన మీరు"
       },
       "healthProfile": {
-        "title": "Your Health Profile",
-        "bmiDescription": "Based on your metrics, your BMI is {bmi}.",
-        "finalizeDescription": "Let's finalize your profile to customize your experience.",
-        "goalGain": "gain",
-        "goalLose": "lose",
-        "goalReach": "To reach your goal, you'll {direction} {diff} {unit}.",
-        "goalReached": "You're at your target weight! We'll help you maintain it.",
-        "button": "Let's Go"
+        "title": "మీ ఆరోగ్య ప్రొఫైల్",
+        "bmiDescription": "మీ నిఘా ఆధారంగా, మీ BMI {bmi}.",
+        "finalizeDescription": "మీ అనుభవాన్ని వ్యక్తిగతీకరించడానికి మీ ప్రొఫైల్ ని పూర్తి చేద్దాం.",
+        "goalGain": "ఎదురుచు",
+        "goalLose": "తక్కువ",
+        "goalReach": "మీ లక్ష్యాన్ని చేరడానికి, మీరు {direction} {diff} {unit}.",
+        "goalReached": "మీరు మీ లక్ష్య బరువులో ఉన్నారు! మేము దాన్ని కొనసాగించడంలో మీకు సహాయపడతాం.",
+        "button": "ప్రారంభిద్దాం"
       },
       "goalLifestyle": {
-        "title": "Excellent Start!",
-        "description": "You've taken the first step towards {goalText}. Since you're {activityText}, Calorify will adjust your targets to match your lifestyle.",
-        "personalizedTargets": "Personalized calorie targets",
-        "aiMealDetection": "AI-powered meal detection",
-        "macroBreakdowns": "Detailed macro-nutrient breakdowns",
-        "button": "Let's Go",
-        "defaultGoal": "your goals",
-        "defaultActivity": "active"
+        "title": "అద్భుతమైన ప్రారంభం!",
+        "description": "మీరు {goalText} వైపు ప Erste తప్పని దశను తీసుకున్నారు. మీరు {activityText} గా ఉండడం వల్ల, {appLabel} మీ లక్ష్యాలను మీ జీవనశైలికి సరిపోల్చుతుంది.",
+        "personalizedTargets": "ఆర్థిక కేలొరీ లక్ష్యాలు",
+        "aiMealDetection": "AI ఆధారిత భోజన గుర్తింపు",
+        "macroBreakdowns": "వివిరించిన మాక్రో-అవసరాలు",
+        "button": "ప్రారంభిద్దాం",
+        "defaultGoal": "మీ లక్ష్యాలు",
+        "defaultActivity": "యాక్టివ్"
       }
     }
   },
   "tabs": {
-    "dashboard": "Dashboard",
-    "history": "History"
+    "dashboard": "డాష్బోర్డు",
+    "history": "చరిత్ర"
   },
   "home": {
     "dailyGoal": {
-      "title": "Set Your Daily Goal",
-      "titleSet": "Your Daily Goal",
-      "description": "Ready to embark on your wellness journey? Set your daily calorie target below to kickstart your progress.",
-      "descriptionSet": "Your compass is set! This is your daily calorie target to guide you.",
-      "yourGoal": "Your Goal",
-      "dailyCalories": "Daily calories (kcal)",
-      "setGoal": "Set Goal",
-      "intake": "Intake",
-      "burned": "Burned",
-      "weightImpact": "Weight Impact",
-      "estLoss": "Est. loss of",
-      "estGain": "Est. gain of",
+      "title": "మీ రోజువారీ లక్ష్యాన్ని సెట్ చేయండి",
+      "titleSet": "మీ రోజువారీ లక్ష్యం",
+      "description": "మీ ఆరోగ్య ప్రయాణం ప్రారంభించడానికి సిద్ధమైనారా? మీ ప్రగతిని ప్రారంభించడానికి కింద మీ రోజువారీ కేలొరీ లక్ష్యాన్ని సెట్ చేయండి.",
+      "descriptionSet": "మీ కొలతలు సృష్టించబడ్డాయి! ఇదే మీ దిశగా మార్గదర్శకంగా ఉంటుంది.",
+      "yourGoal": "మీ లక్ష్యం",
+      "dailyCalories": "రోజువారీ కేలొరీలు (kcal)",
+      "setGoal": "లక్ష్యం నియమించు",
+      "intake": "ఆహారం",
+      "burned": "బర్న్",
+      "weightImpact": "బరువు ప్రభావం",
+      "estLoss": "అనుమానిస్థాయిలో నష్ట పరిణామం",
+      "estGain": "అనుమానిస్థాయిలో నష్ట పరిణామం",
       "kcal": "kcal"
     },
     "dailySummary": {
-      "title": "Daily Summary",
-      "calories": "Calories",
-      "carbs": "Carbs",
-      "protein": "Protein",
-      "fat": "Fat",
-      "fiber": "Fiber"
+      "title": "రోజు విడివిడిగా",
+      "calories": "కేలొరీలు",
+      "carbs": "కార్బ్స్",
+      "protein": "ప్రోటీన్",
+      "fat": "మాంసం",
+      "fiber": "ఫైబర్"
     },
     "intakeProgress": {
-      "title": "Today's Macro Split",
-      "target": "Target",
-      "current": "Current"
+      "title": "ఈ రోజు యొక్క మాక్రో విభజన",
+      "target": "లక్ష్యం",
+      "current": "ప్రస్తుత"
     },
     "intakeHistory": {
-      "title": "7-Day Macro History",
-      "noHistoryYet": "No history yet",
-      "startLogging": "Start logging meals to see your\n7-day macro trends here"
+      "title": "7-రోజుల మాక్రో చరిత్ర",
+      "noHistoryYet": "ఇప్పటివరకు చరిత్ర లేదు",
+      "startLogging": "మీ భోజనాలను లాగ్ చేయడం ప్రారంభించడం ద్వారా మీ\n7-రోజుల మాక్రో ధోరణులను ఇక్కడ చూడండి"
     },
     "mealLog": {
-      "title": "Logged Meals",
-      "emptyMessage": "Snap a picture of your last meal to log here.",
-      "noMealsToday": "No meals recorded for today",
-      "seeAllMeals": "See all meals"
+      "title": "లాగ్ చేసిన భోజనలు",
+      "emptyMessage": "మీ చివరి భోజనానికి ఒక ఫొటో తీసి ఇక్కడ నమోదు చేయండి.",
+      "noMealsToday": "ఈ రోజు భోజనం నమోదు చేయడంలేదు",
+      "seeAllMeals": "అన్ని భోజనాలను చూడండి"
     },
     "mealDescription": {
-      "title": "Quick Add with AI",
-      "description": "Describe your meal, and let AI handle the details.",
-      "hint": "e.g. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...",
-      "analyzeMeal": "Analyze meal"
+      "title": "AI తో త్వరిత చేర్చు",
+      "description": "మీ భోజనాన్ని వర్ణించండి, AI వివరాలను నిర్వహించనివ్వండి.",
+      "hint": "ఉదా: నేను ప్రతి రోజున ఒక పెద్ద తిన్న ప్రోటీన్ పానీయం మరియు ఒక నష్టభోజనాన్ని కలిగుంటాను ...",
+      "analyzeMeal": "భోజనాన్ని విశ్లేషించండి"
     },
     "favoriteMeals": {
-      "title": "Favorite Meals",
-      "description": "Quickly add one of your favorite meals.",
-      "noFavorites": "No favorite meals yet.",
-      "addFavoriteHint": "Click the star on a meal to mark it as a favorite.",
-      "seeAll": "See all",
-      "add": "Add"
+      "title": "ప్రియమైన భోజనాలు",
+      "description": "మీ ప్రియమైన భోజనాలను త్వరితంగా చేర్చండి.",
+      "noFavorites": "ఇప్పటివరకు ప్రియమైన భోజనాలు లేవు.",
+      "addFavoriteHint": "ఒక భోజనాన్ని ప్రియంగా గుర్తించడానికి నక్షత్రంపై క్లిక్ చేయండి.",
+      "seeAll": "అన్ని చూడండి",
+      "add": "చేర్చండి"
     },
     "mealSnap": {
-      "title": "Snap & Track Your Meal",
-      "description": "Use your camera to take a picture of your food for AI analysis.",
-      "openCamera": "Open Camera"
+      "title": "ఫొటో తీసి మీ భోజనాన్ని ట్రాక్ చేయండి",
+      "description": "AI విశ్లేషణ కోసం మీ ఆహారానికి మైక్రోాన్ని ఘనంగా దృష్టించండి.",
+      "openCamera": "కెమెరాను తెరవండి"
     },
     "connectHealth": {
-      "title": "Sync with Health Connect",
-      "description": "Sync your nutrition data with Health Connect",
-      "install": "Install",
-      "connect": "Connect"
+      "title": "హెల్త్ కనెక్ట్ తో సింక్ చేయండి",
+      "description": "మీ పోషకాలు డేటా హెల్త్ కనెక్ట్ తో సింక్ చేయండి",
+      "install": "సంస్థాపన చేయండి",
+      "connect": "కనెక్ట్ చేయండి"
     }
   },
   "history": {
-    "noMeals": "No meals recorded",
-    "emptyMessage": "Snap a picture of your last meal to log here.",
-    "today": "Today",
-    "yesterday": "Yesterday"
+    "noMeals": "లోగా డేటా లేదు",
+    "emptyMessage": "మీ చివరి భోజనానికి ఒక ఫొటో తీసి ఇక్కడ నమోదు చేయండి.",
+    "today": "ఈ రోజు",
+    "yesterday": "నేడు"
   },
   "meal": {
-    "ohNo": "Oh no!",
-    "delete": "Delete",
-    "editMeal": "Edit Meal",
-    "addMeal": "Add Meal",
-    "saveMeal": "Save Meal",
-    "save": "Save",
-    "mealName": "Meal Name",
-    "mealQuantity": "Meal Quantity",
-    "mealQuantityHint": "e.g., 1 bowl, 2 slices",
-    "timeOfMeal": "Time of Meal",
-    "timeOfMealHint": "Select the time you had your meal",
-    "mealType": "Meal Type",
+    "ohNo": "ఓహ్ లేదు!",
+    "delete": "తొలగించు",
+    "editMeal": "భోజనాన్ని సంపాదించు",
+    "addMeal": "భోజనాన్ని చేర్చండి",
+    "saveMeal": "భోజనాన్ని నిల్వ చేయు",
+    "save": "సేవ్",
+    "mealName": "భోజనంలోని పేరు",
+    "mealQuantity": "భోజనంలోని పరిమాణం",
+    "mealQuantityHint": "ఉదా: 1 ప్యాకెట్, 2 తుక్కలు",
+    "timeOfMeal": "భోజన సమయం",
+    "timeOfMealHint": "మీరు మీ భోజనాన్ని తీసుకున్న సమయాన్ని ఎంచుకోండి",
+    "mealType": "భోజన పురుషత్వం",
     "nutrition": {
-      "calories": "Calories",
-      "carbs": "Carbs (g)",
-      "protein": "Protein (g)",
-      "fat": "Fat (g)",
-      "fiber": "Fiber (g)"
+      "calories": "కేలొరీలు",
+      "carbs": "కార్బ్స్ (గ్రా)",
+      "protein": "ప్రోటీన్ (గ్రా)",
+      "fat": "చిట్టిన మాంసం (గ్రా)",
+      "fiber": "ఫైబర్ (గ్రా)"
     },
     "deleteConfirmation": {
-      "title": "Delete Meal",
-      "message": "Are you sure you want to delete this meal entry?",
-      "cancel": "Cancel",
-      "delete": "Delete"
+      "title": "భోజనాన్ని తొలగించండి",
+      "message": "మీరు ఈ భోజనాన్ని తొలగించాలని నిర్ధారించుకుంటున్నారా?",
+      "cancel": "రద్దు",
+      "delete": "తొలగించు"
     },
-    "addedToLog": "Meal added to your log!",
-    "couldNotAdd": "Could not add meal: {error}",
-    "removedFromFavorites": "Removed from favorites!",
-    "savedAsFavorite": "Meal saved as favorite!",
-    "couldNotUpdateFavorite": "Could not update favorite: {error}",
-    "failedToProcess": "Failed to process: {error}",
-    "failedToProcessImage": "Failed to process image: {error}",
-    "errorCompressingImage": "Error compressing image: {error}",
-    "failedToSave": "Failed to save data. Please try again."
+    "addedToLog": "భోజనం మీ లాగ్ కు చేరిష్టించబడింది!",
+    "couldNotAdd": "భోజనాన్ని చేర్చలేకపోయినా: {error}",
+    "removedFromFavorites": "ప్రియమైనదుల నుంచి తొలగించబడింది!",
+    "savedAsFavorite": "భోజనం ప్రియమైనదిగా నిల్వ చేయబడింది!",
+    "couldNotUpdateFavorite": "ప్రియమైనదిని నవీకరించలేకపోయింది: {error}",
+    "failedToProcess": "సాధనం చేయడంలో వైఫల్యం: {error}",
+    "failedToProcessImage": "చిత్రాన్ని చదవడంలో విఫలమైంది: {error}",
+    "errorCompressingImage": "చిత్రం సంకోచించడంలో వైఫల్యం: {error}",
+    "failedToSave": "డేటాను నిల్వ చేయడంలో విఫలమైంది. ప్రస్తుత మధ్యలో ప్రయత్నించండి."
   },
   "favorites": {
-    "title": "Favorites",
-    "empty": "No favorite meals yet."
+    "title": "ప్రియమైనవి",
+    "empty": "ఇప్పటివరకు ప్రియమైన భోజనాలు లేవు."
   },
   "profile": {
-    "title": "Profile",
-    "noProfileData": "No profile data found",
-    "yourProfile": "Your Profile",
-    "viewAndManage": "View and manage your health information",
+    "title": "ప్రొఫైల్",
+    "noProfileData": "ప్రొఫైల్ డేటా లేదు",
+    "yourProfile": "మీ ప్రొఫైల్",
+    "viewAndManage": "మీ ఆరోగ్య సమాచారాన్ని చూడండి మరియు నిర్వహించండి",
     "sections": {
-      "profile": "PROFILE",
-      "basicInformation": "BASIC INFORMATION",
-      "goalsAndActivity": "GOALS & ACTIVITY",
-      "calculatedValues": "CALCULATED VALUES"
+      "profile": "ప్రొఫైల్",
+      "basicInformation": "ప్రాథమిక సమాచారం",
+      "goalsAndActivity": "లక్ష్యాలు & యాక్టివిటీ",
+      "calculatedValues": "లెక్కించిన విలువలు"
     },
-    "gender": "Gender",
-    "height": "Height",
-    "weight": "Weight",
-    "age": "Age",
-    "weightGoal": "Weight Goal",
-    "activityLevel": "Activity Level",
-    "healthMetrics": "Health Metrics",
-    "notSet": "Not set",
-    "years": "years",
-    "updatedSuccessfully": "Profile updated successfully!",
+    "gender": "లింగం",
+    "height": "ఊపరితనం",
+    "weight": "బరువు",
+    "age": "వయస్సు",
+    "weightGoal": "బరువు లక్ష్యం",
+    "activityLevel": "యాక్టివిటీ స్థాయి",
+    "healthMetrics": "ఆరోగ్య మెట్రిక్‌లు",
+    "notSet": "సెట్ కాలేదు",
+    "years": "వారాలు",
+    "updatedSuccessfully": "ప్రొఫైల్ విజయవంతంగా నవీకరించబడింది!",
     "calculatedValues": {
       "bmr": "BMR",
       "tdee": "TDEE",
-      "dailyGoal": "Daily Goal",
-      "calPerDay": "cal/day",
-      "notAvailable": "N/A"
+      "dailyGoal": "రోజువారీ లక్ష్యం",
+      "calPerDay": "కేల/రోజు",
+      "notAvailable": "అందుబాటులో లేదు"
     }
   },
   "healthScore": {
-    "title": "Health Score",
-    "whyThisScore": "Why this score?",
-    "note": "This score is an AI estimate based on the identified ingredients and nutritional density. Always consult a professional for dietary advice.",
-    "unhealthy": "Unhealthy",
-    "healthy": "Healthy",
-    "neutral": "Neutral"
+    "title": "ఆరోగ్య స్కోర్",
+    "whyThisScore": "ఈ స్కోర్ ఎందుకు?",
+    "note": "మీ ఆరోగ్యాన్ని సమర్థవంతంగా అంచనా వేయడానికి జరిగిన తీయకుండా ఈ స్కోరు పేషేష్ మరియు పోషక సందర్భాల ఆధారంగా ఉండవచ్చు. ఎప్పుడూ పూర్వ సలహా కోసం ఒక నిపుణుడిని సంప్రదించండి.",
+    "unhealthy": "ఆరోగ్యకరమైనది కాదు",
+    "healthy": "ఆరోగ్యకరమైనది",
+    "neutral": "నత్వర్రేణు"
   },
   "editProfile": {
-    "title": "Edit Profile",
+    "title": "ప్రొఫైల్ క్రింది",
     "sections": {
-      "personalInformation": "PERSONAL INFORMATION",
-      "physicalMeasurements": "PHYSICAL MEASUREMENTS",
-      "goalsAndActivity": "GOALS & ACTIVITY"
+      "personalInformation": "వ్యక్తిగత సమాచారం",
+      "physicalMeasurements": "శారీరక కొలతలు",
+      "goalsAndActivity": "లక్ష్యాలు & యాక్టివిటీ"
     },
-    "gender": "Gender",
-    "dateOfBirth": "Date of Birth",
-    "height": "Height",
-    "weight": "Weight",
-    "weightGoal": "Weight Goal",
-    "activityLevel": "Activity Level",
-    "metric": "Metric",
-    "imperial": "Imperial",
-    "metricCm": "Metric (cm)",
-    "imperialFtIn": "Imperial (ft/in)",
-    "metricKg": "Metric (kg)",
-    "imperialLbs": "Imperial (lbs)",
+    "gender": "లింగం",
+    "dateOfBirth": "పుట్టిన తేదీ",
+    "height": "ఊపరితనం",
+    "weight": "బరువు",
+    "weightGoal": "బరువు లక్ష్యం",
+    "activityLevel": "యాక్టివిటీ స్థాయి",
+    "metric": "మెట్రిక్",
+    "imperial": "ఇంపీరియల్",
+    "metricCm": "మెట్రిక్ (సెం)",
+    "imperialFtIn": "ఇంపీరియల్ (అంగుళాలు)",
+    "metricKg": "మెట్రిక్ (కేజీలు)",
+    "imperialLbs": "ఇంపీరియల్ (పౌండ్స్)",
     "genders": {
-      "male": "Male",
-      "female": "Female",
-      "other": "Other"
+      "male": "పురుష",
+      "female": "స్త్రీ",
+      "other": "ఇతర"
     },
     "weightGoals": {
       "loseWeight": {
-        "name": "Lose Weight",
-        "description": "Create a calorie deficit to lose weight"
+        "name": "బరువు కోల్పోవడం",
+        "description": "బరువు తగ్గించడానికి కేలొరీ లోపాన్ని సృష్టించండి"
       },
       "maintainWeight": {
-        "name": "Maintain Weight",
-        "description": "Maintain your current weight"
+        "name": "బరువును నిలుపు",
+        "description": "మీ ప్రస్తుత బరువును నిలుపు చేయండి"
       },
       "gainWeight": {
-        "name": "Gain Weight",
-        "description": "Create a calorie surplus to gain weight"
+        "name": "బరువును పెంచడం",
+        "description": "బరువు పెంచడానికి కేలొరీ అధికతను ఆకట్టుకోండి"
       }
     },
     "activityLevels": {
       "sedentary": {
-        "name": "Sedentary",
-        "description": "Little to no exercise"
+        "name": "ఆసక్తి లేని",
+        "description": "తక్కువ వ్యాయామం"
       },
       "lightlyActive": {
-        "name": "Lightly Active",
-        "description": "Light exercise 1-3 days/week"
+        "name": "సులభంగా యాక్టీవ్",
+        "description": "ప్రతి వారం 1-3 రోజులు చాలా కొద్దిగా వ్యాయామం"
       },
       "moderatelyActive": {
-        "name": "Moderately Active",
-        "description": "Moderate exercise 3-5 days/week"
+        "name": "మోస్తారు యాక్టీవ్",
+        "description": "ప్రతి వారం 3-5 రోజులు మోస్తారు వ్యాయామం"
       },
       "veryActive": {
-        "name": "Very Active",
-        "description": "Hard exercise 6-7 days/week"
+        "name": "చాలా యాక్టీవ్",
+        "description": "ప్రతి వారం 6-7 రోజుల క్రత్యం వ్యాయామం"
       },
       "extremelyActive": {
-        "name": "Extremely Active",
-        "description": "Very hard exercise, physical job"
+        "name": "అత్యంత యాక్టివ్",
+        "description": "చాలా తీవ్రమైన వ్యాయామం, శారీరక పని"
       }
     }
   },
   "settings": {
-    "title": "Settings",
+    "title": "సెట్టింగులు",
     "sections": {
-      "profile": "PROFILE",
-      "localization": "LOCALIZATION",
-      "notifications": "NOTIFICATIONS",
-      "supportAndLegal": "SUPPORT & LEGAL",
-      "dangerZone": "DANGER ZONE",
-      "developer": "DEVELOPER"
+      "profile": "ప్రొఫైల్",
+      "localization": "స్థానికీకరణ",
+      "notifications": "అవగాహనలు",
+      "supportAndLegal": "మద్దతు & న్యాయ",
+      "dangerZone": "పోలిక మాండి",
+      "developer": "డెవలపర్"
     },
     "editProfile": {
-      "title": "Edit Profile",
-      "subtitle": "Update your personal information"
+      "title": "ప్రొఫైల్ క్రింది",
+      "subtitle": "మీ వ్యక్తిగత సమాచారాన్ని నవీకరించండి"
     },
     "language": {
-      "title": "Language",
-      "subtitle": "Choose your preferred language"
+      "title": "భాష",
+      "subtitle": "మీ ఇష్టమైన భాషను ఎంచుకోండి"
     },
     "heightUnit": {
-      "title": "Height Unit"
+      "title": "ఎత్తు యూనిట్"
     },
     "weightUnit": {
-      "title": "Weight Unit"
-    },
-    "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
+      "title": "బరువు యూనిట్"
     },
     "mealReminders": {
-      "title": "Meal Reminders",
-      "subtitle": "Stay on track with timely alerts"
+      "title": "భోజన మరుగుదలను",
+      "subtitle": "సమయానికి ముగింపు సందేశాలను తోడ్పించగలము"
+    },
+    "theme": {
+      "title": "థీమ్",
+      "subtitle": "మీ ఇష్టమైన థీమ్ ఎంచుకోండి",
+      "light": "దివి",
+      "dark": "ఇరుక",
+      "system": "సిస్టమ్"
     },
     "sendFeedback": {
-      "title": "Send Feedback",
-      "subtitle": "Help us improve Calorify",
-      "emailSubject": "Calorify App Feedback",
-      "emailBodyPrefix": "Please provide your feedback below:",
-      "appVersion": "App Version",
-      "device": "Device",
-      "osVersion": "OS Version",
+      "title": "ఫీడ్‌బ్యాక్ పంపండి",
+      "subtitle": "{appLabel}ను మెరుగుపరచడం",
+      "emailSubject": "{appLabel} యాప్ ఫీడ్‌బ్యాక్",
+      "emailBodyPrefix": "దయచేసి మీ అభిప్రాయాన్ని ఇక్కడ నమోదు చేయండి:",
+      "appVersion": "యాప్ వెర్షన్",
+      "device": "పరికరం",
+      "osVersion": "OS వెర్షన్",
       "uid": "UID"
     },
     "clearAllData": {
-      "title": "Clear All Data",
-      "subtitle": "Irreversibly delete all your information",
-      "confirmationTitle": "Clear All Data?",
-      "confirmationMessage": "This action cannot be undone. All your logged meals, favorites, and profile settings will be permanently deleted.",
-      "cancel": "Cancel",
-      "clearEverything": "Clear Everything"
+      "title": "అన్ని డేటాను క్లియర్ చేయండి",
+      "subtitle": "మీ సమాచారం కార్యరహితంగా తొలగించండి",
+      "confirmationTitle": "అన్ని డేటాను క్లియర్ చేయాలనుకుంటున్నారు?",
+      "confirmationMessage": "ఈ చర్యను తిరిగి లేదు. మీరు నమోదు చేసిన అన్ని భోజనాలు, ప్రియమైనవి, మరియు ప్రొఫైల్ సెట్టింగులు శాశ్వతంగా తొలగించబడత్ర.",
+      "cancel": "రద్దు",
+      "clearEverything": "అన్నీ క్లియర్ చేయండి"
     },
     "debugOptions": {
-      "title": "Debug Options"
+      "title": "డిబగ్ ఆప్షన్స్"
     },
-    "developerModeEnabled": "Developer mode enabled!"
+    "developerModeEnabled": "డెవలపర్ మోడ్ సాధనంలో ఉంది!"
   },
   "reminders": {
-    "title": "Stay on track with reminders",
-    "description": "Get gentle reminders to log your meals and stay consistent with your nutrition goals",
-    "notificationsEnabled": "Notifications Enabled",
-    "notificationsDisabled": "Notifications Disabled",
-    "enabledSubtitle": "You'll receive meal reminders",
-    "disabledSubtitle": "Enable notifications to get meal reminders",
-    "mealReminders": "Meal Reminders",
-    "breakfast": "Breakfast",
-    "lunch": "Lunch",
-    "dinner": "Dinner",
-    "snack": "Snack",
-    "unknown": "Unknown",
-    "change": "Change",
-    "enableNotifications": "Enable Notifications",
-    "skipForNow": "Skip for now",
-    "saveChanges": "Save Changes",
-    "enabledSuccessfully": "Notifications enabled successfully!",
-    "permissionDenied": "Notification permission denied",
-    "errorEnabling": "Error enabling notifications: {error}",
-    "errorCompletingSetup": "Error completing setup: {error}"
+    "title": "సమయానికి కప్పడం",
+    "description": "మీ భోజనాలను లాగ్ చేయడానికి మరియు మీ పోషక లక్ష్యాలతో కర్రీగా ఉండాలి",
+    "notificationsEnabled": "గమనికలు చేర్చబడ్డాయి",
+    "notificationsDisabled": "గమనికలు ప్రాధమికం",
+    "enabledSubtitle": "మీకు భోజనాన్ని గుర్తించారు",
+    "disabledSubtitle": "భోజనాన్ని గుర్తించడానికి గమనికలకు అనుమతులు ఇవ్వండి",
+    "mealReminders": "భోజన మరణాలు",
+    "breakfast": "నాస్తా",
+    "lunch": "మధ్యాహ్న భోజనం",
+    "dinner": "రాత్రి భోజనం",
+    "snack": "స్నాక్",
+    "unknown": "తెలియని",
+    "change": "మార్చు",
+    "enableNotifications": "గమనికలను ఎంచుకోండి",
+    "skipForNow": "ఇప్పుడు మానుకోండి",
+    "saveChanges": "మార్గాలను సేవ్ చేయండి",
+    "enabledSuccessfully": "గమనికలు విజయవంతంగా ప్రారంభించారు!",
+    "permissionDenied": "గమనికల అనుమతి అంగీకరించబడలేదు",
+    "errorEnabling": "గమనికలు ప్రారంభించడంలో వైఫల్యం: {error}",
+    "errorCompletingSetup": "శుభ్రమైన సెటప్ పొరపులు: {error}"
   },
   "notifications": {
     "breakfast": {
-      "title": "Breakfast Time! 🍳",
-      "body": "Don't forget to log your breakfast"
+      "title": "నాస్తా సమయం! 🍳",
+      "body": "మీ నాస్తా నమోదు చేయడం మర్చిపోద్దు"
     },
     "lunch": {
-      "title": "Lunch Time! 🥗",
-      "body": "Time to log your lunch"
+      "title": "మధ్యాహ్న భోజనం సమయం! 🥗",
+      "body": "మీ మధ్యాహ్న భోజనాన్ని నమోదు చేయడానికి సమయం"
     },
     "dinner": {
-      "title": "Dinner Time! 🍽️",
-      "body": "Don't forget to log your dinner"
+      "title": "రాత్రి భోజన సమయం! 🍽️",
+      "body": "మీ రాత్రి భోజనాన్ని నమోదు చేయడం మర్చిపోద్దు"
     },
     "snack": {
-      "title": "Snack Time! 🍎",
-      "body": "Time for a healthy snack"
+      "title": "స్నాక్ సమయం! 🍎",
+      "body": "ఆరోగ్యకరమైన స్నాక్ సాధించుటకు సమయం"
     },
     "test": {
-      "title": "Test Notification"
+      "title": "పరీక్ష గమనిక"
     }
   },
   "login": {
-    "title": "Login",
-    "signInWithGoogle": "Sign in with Google",
-    "signInFailed": "Google Sign-In failed or was cancelled."
+    "title": "లాగిన్",
+    "signInWithGoogle": "గూగుల్ తో లాగిన్ కావాలి",
+    "signInFailed": "గూగుల్ సైన్-ఇన్ విఫలమైంది లేదా రద్దు చేయబడింది."
   },
   "disclaimer": {
-    "pleaseNote": "Please Note",
+    "pleaseNote": "దయచేసి గమనించండి",
     "snap": {
-      "description": "Calorify provides estimated nutritional info. Accuracy depends on your input & food variations. Use as a guide, not a definitive source. Consult a professional for personalized dietary advice.",
+      "description": "{appLabel} అంచనా పెట్టిన పోషిణ సమాచారం అందిస్తుంది. ఖచ్చితత్వం మీ సమాచారం & ఆహార రకాల ఆధారంగా ఉంటుంది. ఈ అది జ్ఞాన మార్గదర్శకంగా ఉపయోగించండి, ఖచ్చితమైన మూలాలుగా కాదు. వ్యక్తిగత పోషణ సలహాలో పరిశోధనా నవీనత ఫలితంగా నిపుణుడితో అభిప్రాయం ఇవ్వండి.",
       "portionSize": {
-        "title": "Portion Size",
-        "description": "The accuracy of the estimates heavily relies on your correct assessment of the portion size."
+        "title": "పోర్షన్ పరిమాణం",
+        "description": "అంచనాల ఖచ్చితత్వం మీ సరైన అభ్యాసం ఆధారంగా ఉంటుంది."
       },
       "preparationMethods": {
-        "title": "Preparation Methods",
-        "description": "Cooking methods can significantly alter the nutritional content of food. Calorify's estimates may not always account for these variations."
+        "title": "సిద్ధీకరణ పద్ధతులు",
+        "description": "క్షా మోతాదులో కీలకంగా ఉంటుంది. {appLabel} రన్ను అంచనాల పరిష్కారాలు ఈ మార్పులు ఎప్పుడూ పరిశీలిస్తాయి."
       },
       "ingredients": {
-        "title": "Ingredients",
-        "description": "Complex dishes with many hidden ingredients may lead to less accurate estimations."
+        "title": "కూరగాయలు",
+        "description": "వివిధ రకాల లోపులను కలిగి ఉండే సంక్లిష్ట వంటకాలు కొంత అంచన్లను ఉన్నత అసమర్ధతం లభిస్తుంది."
       },
       "databaseLimitations": {
-        "title": "Database Limitations",
-        "description": "Calorify's food database is extensive but may not include every single food item or variation."
+        "title": "డాటాబేస్ పరిమితులు",
+        "description": "{appLabel} యొక్క ఆహారం డేటాబేస్ విస్తృతం కానవడంతో కానీ అన్ని ఆహార చిహ్నాలతో ఉండకపోవచ్చు."
       }
     },
     "weightEstimate": {
-      "title": "About Weight Estimate",
-      "description": "The projected weight change is a theoretical estimate based on the simple calorie-in vs. calorie-out model. It is intended for motivational guidance only, not as a prediction of your actual weight.",
+      "title": "బరువు అంచనా గురించి",
+      "description": "అంచనా ప్రాతిపదికలో కేలొరీ-లోపు బరువు మార్పులు అంచనా పెంచడం కోసం మాత్రమే ఉద్దేశించబడ్డాయి, మీ నిజమైన బరువును కనిపెట్టడానికి కాదు.",
       "calorieAccuracy": {
-        "title": "Calorie Accuracy",
-        "description": "This estimate is only as accurate as your tracked calorie intake and expenditure. Inaccurate logging will result in an inaccurate projection."
+        "title": "కేలొరీ ఖచ్చితత్వం",
+        "description": "ఈ అంచనా మీ ట్రాక్ కేలొరీ అందించిన ఖచ్చితంగా మంచిని మాత్రమే అవుతుంది. ఖచ్చితమైన లాగర్లు ఖచ్చితమైన అంచనాలను ఇవ్వడం."
       },
       "biologicalFactors": {
-        "title": "Biological Factors",
-        "description": "Actual weight loss/gain is influenced by metabolism, hormones, sleep, stress, hydration, and other individual factors that Calorify cannot measure."
+        "title": "జీవశాస్త్ర因素",
+        "description": "నిర్వహణ, హార్మోన్లు, నిద్ర, ఒత్తిడి, నీటి సరఫరా మరియు {appLabel} కొలిచే ఇతర వ్యక్తిగత పరిస్థితులు వంటి అవిధేయాలను ప్రభావితం చేస్తుంది."
       },
       "waterWeight": {
-        "title": "Water Weight & Fluctuations",
-        "description": "Normal daily weight can fluctuate significantly due to water retention, digestion, and timing. The estimate does not account for these daily changes."
+        "title": "నీటి బరువు & మార్పులు",
+        "description": "ప్రతి రోజున బరువు ఎక్కువగా ఉపచ్చులు మరియు వేగం వల్ల వ్యత్యాసాలు మరియు నీటి తట్టువులెవరూ ఉన్నాయి. అంచనా ఈ రోజువారీ మార్పులను జోడించాలి లేదు."
       },
       "professionalGuidance": {
-        "title": "Professional Guidance",
-        "description": "Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice."
+        "title": "పోతు ప్రాజ్ఞానం",
+        "description": "ఈ అంచనాను వైద్య నిర్ణయాల కోసం ఉపయోగించకండి. ఎప్పుడూ వ్యక్తిగత బరువు నిర్వహణ సమాచారానికి ఒక ఆరోగ్య నిపుణుడిని సంప్రదించండి."
       }
     }
   },
   "common": {
-    "close": "Close",
-    "continue": "Continue"
+    "close": "క్లోజ్",
+    "continue": "కొనసాగించండి"
   },
   "errors": {
-    "loadingProfileData": "Error loading profile data",
-    "somethingWentWrong": "Something went wrong."
+    "loadingProfileData": "ప్రొఫైల్ డేటా లోడింగ్ లోపం",
+    "somethingWentWrong": "ఏదో తప్పు జరిగింది."
   },
   "debug": {
-    "title": "Debug Options",
+    "title": "డిబగ్ ఆప్షన్స్",
     "sections": {
-      "notifications": "Notifications",
-      "healthConnect": "Health Connect",
-      "appInfo": "App Info"
+      "notifications": "గమనికలు",
+      "healthConnect": "హెల్త్ కనెక్ట్",
+      "appInfo": "యాప్ సమాచారం"
     },
-    "showActiveNotifications": "Show Active Notifications",
-    "scheduleTestNotification": "Schedule Test Notification (10s)",
-    "triggerBreakfastNotification": "Trigger Breakfast Notification",
-    "cancelAllNotifications": "Cancel All Notifications",
-    "activeNotifications": "Active Notifications",
-    "noTitle": "No Title",
-    "noBody": "No Body",
-    "fetchTodaysSteps": "Fetch Today's Steps",
-    "fetchTodaysCalories": "Fetch Today's Calories",
-    "fetchLatestWeight": "Fetch Latest Weight",
-    "fetchLatestHeight": "Fetch Latest Height",
-    "writeTestWeight": "Write Test Weight (70kg)",
-    "writeTestHeight": "Write Test Height (175cm)",
-    "syncLast7Days": "Sync Last 7 Days",
-    "sync7DaysTitle": "7-Day Sync",
-    "checkCurrentLocale": "Check Current Locale",
-    "currentLocale": "Current Locale",
-    "localeInfo": "Language: {languageCode}\nCountry: {countryCode}\nUnit System: {unitSystem}",
-    "latestWeight": "Latest Weight",
-    "latestHeight": "Latest Height",
-    "todaysCalories": "Today's Calories",
-    "totalCaloriesBurned": "Total calories burned: {calories}",
-    "syncSuccess": "Successfully fetched {count} data points for Steps, Calories, and Weight over the last 7 days.",
-    "noWeightData": "No weight data found in the last 30 days.",
-    "noHeightData": "No height data found in the last year.",
-    "noCalorieData": "No calorie data found for today.",
-    "weightWritten": "Successfully wrote test weight (70kg).",
-    "weightWriteFailed": "Failed to write test weight.",
-    "heightWritten": "Successfully wrote test height (175cm).",
-    "heightWriteFailed": "Failed to write test height.",
-    "noNotifications": "No active notifications.",
-    "testNotificationScheduled": "Test notification scheduled for 10 seconds from now.",
-    "testNotificationBody": "This is a test notification scheduled for 10 seconds from now.",
-    "breakfastNotificationTriggered": "Breakfast notification triggered.",
-    "allNotificationsCancelled": "All notifications cancelled.",
-    "fetchingData": "Fetching data for the last 7 days...",
+    "showActiveNotifications": "సకాలంలో గమనికలను చూపు",
+    "scheduleTestNotification": "పరీక్ష గమనికను షెడ్యూల్ చేయండి (10సె)",
+    "triggerBreakfastNotification": "అనాంర్త్న ఫలిపట్టు భోజనం గమనిక",
+    "cancelAllNotifications": "అన్నీ గమనికలను రద్దు చేయండి",
+    "activeNotifications": "సక్రమ గమనికలు",
+    "noTitle": "శీర్షిక లేదు",
+    "noBody": "శరీర లేదు",
+    "fetchTodaysSteps": "ఈ రోజు యొక్క దారులు పొందండి",
+    "fetchTodaysCalories": "ఈ రోజు యొక్క కేలొరీలు పొందండి",
+    "fetchLatestWeight": "తాజా బరువు పొందండి",
+    "fetchLatestHeight": "తాజా ఎత్తు పొందండి",
+    "writeTestWeight": "టెస్ట్ బరువును రాయండి (70కేజీ)",
+    "writeTestHeight": "టెస్ట్ ఎత్తును రాయండి (175సెం)",
+    "syncLast7Days": "మునుపటి 7 రోజుల సమాచారానికి సింక్",
+    "sync7DaysTitle": "7-రోజుల సింక్",
+    "checkCurrentLocale": "ప్రస్తుత స్థానాన్ని తనిఖీ చేయండి",
+    "currentLocale": "ప్రస్తుత స్థానిక సంస్థాన",
+    "localeInfo": "భాష: {languageCode}\nచిత్రం: {countryCode}\nయూనిట్ వ్యవస్థ: {unitSystem}",
+    "latestWeight": "తాజా బరువు",
+    "latestHeight": "తాజా ఎత్తు",
+    "todaysCalories": "ఈరోజు యొక్క కేలొరీలు",
+    "totalCaloriesBurned": "{calories} మొత్తం కేలొరీలు వెలికితీయబడ్డాయి.",
+    "syncSuccess": "గత 7 రోజులకు {count} డేటా పాయింట్లను విజయవంతంగా పొందించారు.",
+    "noWeightData": "గత 30 రోజులలో ఎక్క పట్టిన బరువు లభించలేదు.",
+    "noHeightData": "గత 1 సంవత్సరంలో ఎక్క పట్టిన ఎత్తు లభించలేదు.",
+    "noCalorieData": "ఈ రోజు కేలొరీని పొందలేకపోయింది.",
+    "weightWritten": "70కేజీ లో బరువును విజయవంతంగా రాశారు.",
+    "weightWriteFailed": "బరువును రాయడంలో విఫలమైంది.",
+    "heightWritten": "175సెం ఎత్తును విజయవంతంగా రాశారు.",
+    "heightWriteFailed": "ఎత్తును రాయడంలో విఫలమైంది.",
+    "noNotifications": "సక్రమ గమనికలు లేవు.",
+    "testNotificationScheduled": "10 సెకన్లలో పరీక్ష గమనిక షెడ్యూల్ చేయబడింది.",
+    "testNotificationBody": "ఇది 10 సెకన్లలో షెడ్యూల్ చేయబడిన పరీక్ష గమనిక.",
+    "breakfastNotificationTriggered": "నాస్తా ద్వారా గమనిక చూపింది.",
+    "allNotificationsCancelled": "అన్ని గమనికలు రద్దు చేయబడ్డాయి.",
+    "fetchingData": "గత 7 రోజుల సమాచారం పొందడం...",
     "id": "ID: {id}"
   },
   "health": {
-    "syncFailed": "Could not sync to Health Connect",
-    "mealSynced": "Meal synced with Health Connect"
+    "syncFailed": "హెల్త్ కనెక్ట్ కు సింక్ చేయడంలో విఫలమైంది",
+    "mealSynced": "భోజనం హెల్త్ కనెక్ట్ తో సింక్ చేయబడింది"
   }
 }

@@ -1,556 +1,554 @@
 {
-  "language": "English",
-  "flag": "🇺🇸",
+  "language": "Tagalog",
+  "flag": "🇵🇭",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Welcome to Calorify",
-    "subtitle": "Your personal nutrition companion powered by AI",
-    "getStarted": "Get Started",
+    "welcome": "Maligayang pagdating sa {appLabel}",
+    "subtitle": "Ang iyong personal na kasamahan sa nutrisyon na pinapagana ng AI",
+    "getStarted": "Magsimula",
     "features": {
       "foodRecognition": {
-        "title": "Smart Food Recognition",
-        "description": "Take a photo and let AI identify your meal"
+        "title": "Matalinong Pagkilala sa Pagkain",
+        "description": "Kumuha ng litrato at hayaang kilalanin ng AI ang iyong pagkain"
       },
       "aiAnalysis": {
-        "title": "AI Analysis",
-        "description": "Get instant nutrition facts from your descriptions"
+        "title": "Pagsusuri ng AI",
+        "description": "Kumuha ng instant na impormasyon sa nutrisyon mula sa iyong mga paglalarawan"
       },
       "healthIntegration": {
-        "title": "Health Integration",
-        "description": "Connect with Health Connect for better insights"
+        "title": "Integrasyon sa Kalusugan",
+        "description": "Ikonekta sa Health Connect para sa mas magandang pananaw"
       }
     },
     "gender": {
-      "title": "What is your gender?",
-      "description": "Gender helps us accurately calculate your basal metabolic rate (BMR).",
-      "next": "Next"
+      "title": "Ano ang iyong kasarian?",
+      "description": "Ang kasarian ay tumutulong sa atin na tumpak na kalkulahin ang iyong basal metabolic rate (BMR).",
+      "next": "Susunod"
     },
     "height": {
-      "title": "How tall are you?",
-      "description": "Your height helps us calculate your BMI and energy needs accurately.",
-      "metric": "Metric",
-      "imperial": "Imperial",
-      "next": "Next"
+      "title": "Gaano kataas ka?",
+      "description": "Ang iyong taas ay tumutulong sa atin na tumpak na kalkulahin ang iyong BMI at pangangailangan sa enerhiya.",
+      "metric": "Sistemang metrikal",
+      "imperial": "Imperyal",
+      "next": "Susunod"
     },
     "weight": {
-      "currentTitle": "What is your current weight?",
-      "currentDescription": "Your current weight is essential for personalizing your daily goals.",
-      "targetTitle": "What is your target weight?",
-      "targetDescription": "Setting a goal weight helps us determine your long-term plan.",
-      "metric": "Metric",
-      "imperial": "Imperial",
-      "next": "Next"
+      "currentTitle": "Ano ang iyong kasalukuyang timbang?",
+      "currentDescription": "Ang iyong kasalukuyang timbang ay mahalaga para sa pagpapasadya ng iyong mga pang-araw-araw na layunin.",
+      "targetTitle": "Ano ang iyong target na timbang?",
+      "targetDescription": "Ang pagtatakda ng layunin na timbang ay tumutulong sa atin na tukuyin ang iyong pangmatagalang plano.",
+      "metric": "Sistemang metrikal",
+      "imperial": "Imperyal",
+      "next": "Susunod"
     },
     "age": {
-      "title": "When is your birthday?",
-      "description": "Your age helps us calculate your calorie needs accurately.",
-      "next": "Next"
+      "title": "Kailan ang iyong kaarawan?",
+      "description": "Ang iyong edad ay tumutulong upang tumpak na kalkulahin ang iyong pangangailangan sa calorie.",
+      "next": "Susunod"
     },
     "bmiScale": {
-      "underweight": "Underweight",
-      "healthy": "Healthy",
-      "overweight": "Overweight",
-      "obese": "Obese",
+      "underweight": "Ligtas na timbang",
+      "healthy": "Malusog",
+      "overweight": "Sobra sa timbang",
+      "obese": "Obesity",
       "categories": {
-        "underweight": "Underweight",
-        "healthyWeight": "Healthy weight",
-        "overweight": "Overweight",
-        "obese": "Obese"
+        "underweight": "Ligtas na timbang",
+        "healthyWeight": "Malusog na timbang",
+        "overweight": "Sobra sa timbang",
+        "obese": "Obesity"
       },
       "messages": {
-        "underweight": "We can help you build a healthy plan to reach a balanced weight with nutrient-dense meals.",
-        "healthy": "Great job! You're in a healthy range. We'll help you maintain your vitality and energy levels.",
-        "overweight": "Calorify will simplify your journey with AI-powered tracking to help you reach your target comfortably.",
-        "obese": "We're here to support you with personalized guidance and sustainable strategies for your health goals."
+        "underweight": "Matutulungan ka naming bumuo ng isang malusog na plano upang maabot ang balanseng timbang gamit ang masustansyang pagkain.",
+        "healthy": "Magaling! Nasa malusog na saklaw ka. Tutulungan ka naming mapanatili ang iyong sigla at antas ng enerhiya.",
+        "overweight": "{appLabel} ay nagpapadali sa iyong paglalakbay gamit ang AI-powered tracking upang makatulong na maabot ang iyong target nang kumportable.",
+        "obese": "Nandito kami upang suportahan ka sa pamamagitan ng personalized na gabay at mga sustainable na estratehiya para sa iyong mga layunin sa kalusugan."
       }
     },
     "weightGoal": {
-      "title": "What's your goal?",
-      "description": "Choose the goal that best describes what you want to achieve"
+      "title": "Ano ang iyong layunin?",
+      "description": "Pumili ng layunin na pinaka-naglalarawan kung ano ang nais mong makamit"
     },
     "activityLevel": {
-      "title": "How active are you?",
-      "description": "This helps us calculate your daily calorie needs more accurately"
+      "title": "Gaano ka kaaktibo?",
+      "description": "Ito ay tumutulong sa atin na tumpak na kalkulahin ang iyong pang-araw-araw na pangangailangan sa calorie"
     },
     "healthConnect": {
-      "title": "Connect with Health Connect",
-      "description": "Sync your health data for better insights and automatic calorie tracking",
+      "title": "Ikonekta sa Health Connect",
+      "description": "I-synchronize ang iyong datos sa kalusugan para sa mas magandang pananaw at awtomatikong pagsubaybay ng calorie",
       "automaticTracking": {
-        "title": "Automatic Calorie Tracking",
-        "description": "Track calories burned from your fitness apps"
+        "title": "Awtomatik na Pagsubaybay ng Calorie",
+        "description": "Subaybayan ang calories na nasunog mula sa iyong fitness apps"
       },
       "progressInsights": {
-        "title": "Progress Insights",
-        "description": "Get detailed insights into your health trends"
+        "title": "Mga Pagsusuri sa Pag-unlad",
+        "description": "Kumuha ng detalyadong pananaw sa mga trend ng iyong kalusugan"
       },
       "seamlessIntegration": {
-        "title": "Seamless Integration",
-        "description": "Sync data from your favorite health apps"
+        "title": "Walang putol na Integrasyon",
+        "description": "I-synchronize ang datos mula sa iyong mga paboritong health apps"
       },
-      "connected": "Health Connect Connected",
-      "notConnected": "Health Connect Not Connected",
-      "setup": "Setup Health Connect",
-      "skipForNow": "Skip for now",
-      "statusConnected": "Health Connect is connected.",
-      "statusSuccess": "Health Connect has been successfully connected!",
-      "statusPermissionDenied": "Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.",
-      "statusError": "Error setting up Health Connect: {error}"
+      "connected": "Nakakonekta ang Health Connect",
+      "notConnected": "Hindi nakakonekta ang Health Connect",
+      "setup": "I-set up ang Health Connect",
+      "skipForNow": "Laktawan ito sa ngayon",
+      "statusConnected": "Nakakonekta ang Health Connect.",
+      "statusSuccess": "Matagumpay na nakakonekta ang Health Connect!",
+      "statusPermissionDenied": "Tinanggihan ang pahintulot. Pakisuyong paganahin ang mga pahintulot ng Health Connect mula sa iyong mga setting ng telepono para sa {appLabel}.",
+      "statusError": "Error sa pag-set up ng Health Connect: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
-        "title": "You're Not Alone",
-        "genericMessage": "Research shows that consistent tracking is the #1 predictor of long-term success.",
-        "personalizedMessage": "For a {age} year old {gender} looking to {goal}, consistent tracking is the #1 predictor of success.",
-        "closingMessage": "Calorify makes it 10x easier than doing it manually.",
-        "getStartedTitle": "Handa na bang magsimula?",
-        "tipPhoto": "Kumuha ng larawan ng iyong mga pagkain para sa agarang pagsusuri",
-        "tipConsistency": "Mag-log nang tuloy-tuloy upang makakita ng makabuluhang pag-unlad",
+        "title": "Hindi Ka Nag-iisa",
+        "genericMessage": "Ipinapakita ng mga pag-aaral na ang tuloy-tuloy na pagsubaybay ang #1 predictor ng pangmatagalang tagumpay.",
+        "personalizedMessage": "Para sa isang {age} taong gulang na {gender} na nagnanais na {goal}, ang tuloy-tuloy na pagsubaybay ang #1 predictor ng tagumpay.",
+        "closingMessage": "{appLabel} ay nagpapadali ng 10x kumpara sa paggawa nito nang manual.",
+        "getStartedTitle": "Handa ka na bang magsimula?",
+        "tipPhoto": "Kumuha ng litrato ng iyong mga pagkain para sa instant na pagsusuri",
+        "tipConsistency": "Mag-log nang tuloy-tuloy upang makita ang makabuluhang pag-unlad",
         "tipProgress": "Subaybayan ang iyong pag-unlad araw-araw upang manatiling motivated",
-        "button": "Let's Go",
-        "defaultGender": "individual",
-        "defaultGoal": "healthier you",
-        "instantPhotoAnalysis": "Instant photo analysis",
-        "automaticLogging": "Automatic nutritional logging",
-        "progressVisualizations": "Progress visualizations that keep you motivated"
+        "button": "Sige na",
+        "defaultGender": "indibidwal",
+        "defaultGoal": "mas malusog na ikaw"
       },
       "healthProfile": {
-        "title": "Your Health Profile",
-        "bmiDescription": "Based on your metrics, your BMI is {bmi}.",
-        "finalizeDescription": "Let's finalize your profile to customize your experience.",
-        "goalGain": "gain",
-        "goalLose": "lose",
-        "goalReach": "To reach your goal, you'll {direction} {diff} {unit}.",
-        "goalReached": "You're at your target weight! We'll help you maintain it.",
-        "button": "Let's Go"
+        "title": "Ang Iyong Profile sa Kalusugan",
+        "bmiDescription": "Batay sa iyong mga sukat, ang iyong BMI ay {bmi}.",
+        "finalizeDescription": "Taposin na natin ang iyong profile upang i-customize ang iyong karanasan.",
+        "goalGain": "magdagdag",
+        "goalLose": "mabawasan",
+        "goalReach": "Upang maabot ang iyong layunin, kailangan mong {direction} {diff} {unit}.",
+        "goalReached": "Nasa iyong target na timbang ka na! Tutulungan ka naming mapanatili ito.",
+        "button": "Sige na"
       },
       "goalLifestyle": {
-        "title": "Excellent Start!",
-        "description": "You've taken the first step towards {goalText}. Since you're {activityText}, Calorify will adjust your targets to match your lifestyle.",
-        "personalizedTargets": "Personalized calorie targets",
-        "aiMealDetection": "AI-powered meal detection",
-        "macroBreakdowns": "Detailed macro-nutrient breakdowns",
-        "button": "Let's Go",
-        "defaultGoal": "your goals",
-        "defaultActivity": "active"
+        "title": "Napakagandang Simula!",
+        "description": "Nagawa mo na ang unang hakbang patungo sa {goalText}. Dahil ikaw ay {activityText}, iaangkop ng {appLabel} ang iyong mga target upang umangkop sa iyong pamumuhay.",
+        "personalizedTargets": "Personalized na mga calorie target",
+        "aiMealDetection": "Pagkilala sa pagkain na pinapagana ng AI",
+        "macroBreakdowns": "Detalyadong breakdown ng macro-nutrients",
+        "button": "Sige na",
+        "defaultGoal": "iyong mga layunin",
+        "defaultActivity": "aktibo"
       }
     }
   },
   "tabs": {
     "dashboard": "Dashboard",
-    "history": "History"
+    "history": "Kasaysayan"
   },
   "home": {
     "dailyGoal": {
-      "title": "Set Your Daily Goal",
-      "titleSet": "Your Daily Goal",
-      "description": "Ready to embark on your wellness journey? Set your daily calorie target below to kickstart your progress.",
-      "descriptionSet": "Your compass is set! This is your daily calorie target to guide you.",
-      "yourGoal": "Your Goal",
-      "dailyCalories": "Daily calories (kcal)",
-      "setGoal": "Set Goal",
-      "intake": "Intake",
-      "burned": "Burned",
-      "weightImpact": "Weight Impact",
-      "estLoss": "Est. loss of",
-      "estGain": "Est. gain of",
+      "title": "Itakda ang Iyong Pang-araw-araw na Layunin",
+      "titleSet": "Ang Iyong Pang-araw-araw na Layunin",
+      "description": "Handa ka na bang simulan ang iyong wellness journey? Itakda ang iyong pang-araw-araw na target na calorie sa ibaba upang simulan ang iyong progreso.",
+      "descriptionSet": "Nakaset na ang iyong kompas! Ito ang iyong pang-araw-araw na target na calorie upang gabayan ka.",
+      "yourGoal": "Ang Iyong Layunin",
+      "dailyCalories": "Pang-araw-araw na calories (kcal)",
+      "setGoal": "Itakda ang Layunin",
+      "intake": "Konsumisyon",
+      "burned": "Nasunog",
+      "weightImpact": "Epekto sa Timbang",
+      "estLoss": "Tinatayang pagkawala ng",
+      "estGain": "Tinatayang pagdagdag ng",
       "kcal": "kcal"
     },
     "dailySummary": {
-      "title": "Daily Summary",
+      "title": "Pang-araw-araw na Buod",
       "calories": "Calories",
-      "carbs": "Carbs",
-      "protein": "Protein",
-      "fat": "Fat",
+      "carbs": "Carbohydrates",
+      "protein": "Protina",
+      "fat": "Taba",
       "fiber": "Fiber"
     },
     "intakeProgress": {
-      "title": "Today's Macro Split",
+      "title": "Paghahati ng Macro Ngayong Araw",
       "target": "Target",
-      "current": "Current"
+      "current": "Kasalukuyan"
     },
     "intakeHistory": {
-      "title": "7-Day Macro History",
-      "noHistoryYet": "No history yet",
-      "startLogging": "Start logging meals to see your\n7-day macro trends here"
+      "title": "7-Araw na Kasaysayan ng Macro",
+      "noHistoryYet": "Wala pang kasaysayan",
+      "startLogging": "Simulan ang pag-log ng mga pagkain upang makita ang iyong\n7-araw na trend sa macro dito"
     },
     "mealLog": {
-      "title": "Logged Meals",
-      "emptyMessage": "Snap a picture of your last meal to log here.",
-      "noMealsToday": "No meals recorded for today",
-      "seeAllMeals": "See all meals"
+      "title": "Naka-log na mga Pagkain",
+      "emptyMessage": "Kumuha ng litrato ng iyong huling pagkain upang i-log dito.",
+      "noMealsToday": "Walang nakahiwalay na pagkain para sa araw na ito",
+      "seeAllMeals": "Tingnan ang lahat ng pagkain"
     },
     "mealDescription": {
-      "title": "Quick Add with AI",
-      "description": "Describe your meal, and let AI handle the details.",
-      "hint": "e.g. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...",
-      "analyzeMeal": "Analyze meal"
+      "title": "Mabilis na Idagdag gamit ang AI",
+      "description": "Ilalarawan ang iyong pagkain, at hayaang ayusin ng AI ang mga detalye.",
+      "hint": "hal. Para sa almusal, kumain ako ng malaking mangkok ng oat na may hiwa ng saging at isang scoop ng whey ...",
+      "analyzeMeal": "Suriin ang pagkain"
     },
     "favoriteMeals": {
-      "title": "Favorite Meals",
-      "description": "Quickly add one of your favorite meals.",
-      "noFavorites": "No favorite meals yet.",
-      "addFavoriteHint": "Click the star on a meal to mark it as a favorite.",
-      "seeAll": "See all",
-      "add": "Add"
+      "title": "Paboritong Pagkain",
+      "description": "Mabilis na idagdag ang isa sa iyong mga paboritong pagkain.",
+      "noFavorites": "Walang paboritong pagkain sa ngayon.",
+      "addFavoriteHint": "I-click ang bituin sa isang pagkain upang markahan ito bilang paborito.",
+      "seeAll": "Tingnan ang lahat",
+      "add": "Idagdag"
     },
     "mealSnap": {
-      "title": "Snap & Track Your Meal",
-      "description": "Use your camera to take a picture of your food for AI analysis.",
-      "openCamera": "Open Camera"
+      "title": "Kumuha ng Litrato at Subaybayan ang Iyong Pagkain",
+      "description": "Gamitin ang iyong kamera upang kumuha ng litrato ng iyong pagkain para sa pagsusuri ng AI.",
+      "openCamera": "Buksan ang Kamera"
     },
     "connectHealth": {
-      "title": "Sync with Health Connect",
-      "description": "Sync your nutrition data with Health Connect",
-      "install": "Install",
-      "connect": "Connect"
+      "title": "I-synchronize sa Health Connect",
+      "description": "I-synchronize ang iyong nutrition data sa Health Connect",
+      "install": "I-install",
+      "connect": "Ikonekta"
     }
   },
   "history": {
-    "noMeals": "No meals recorded",
-    "emptyMessage": "Snap a picture of your last meal to log here.",
-    "today": "Today",
-    "yesterday": "Yesterday"
+    "noMeals": "Walang nakahiwalay na pagkain",
+    "emptyMessage": "Kumuha ng litrato ng iyong huling pagkain upang i-log dito.",
+    "today": "Ngayon",
+    "yesterday": "Kahapon"
   },
   "meal": {
-    "ohNo": "Oh no!",
-    "delete": "Delete",
-    "editMeal": "Edit Meal",
-    "addMeal": "Add Meal",
-    "saveMeal": "Save Meal",
-    "save": "Save",
-    "mealName": "Meal Name",
-    "mealQuantity": "Meal Quantity",
-    "mealQuantityHint": "e.g., 1 bowl, 2 slices",
-    "timeOfMeal": "Time of Meal",
-    "timeOfMealHint": "Select the time you had your meal",
-    "mealType": "Meal Type",
+    "ohNo": "Oh hindi!",
+    "delete": "Tanggalin",
+    "editMeal": "I-edit ang Pagkain",
+    "addMeal": "Magdagdag ng Pagkain",
+    "saveMeal": "I-save ang Pagkain",
+    "save": "I-save",
+    "mealName": "Pangalan ng Pagkain",
+    "mealQuantity": "Dami ng Pagkain",
+    "mealQuantityHint": "hal., 1 mangkok, 2 hiwa",
+    "timeOfMeal": "Oras ng Pagkain",
+    "timeOfMealHint": "Pumili ng oras kung kailan mo kinain ang iyong pagkain",
+    "mealType": "Uri ng Pagkain",
     "nutrition": {
       "calories": "Calories",
       "carbs": "Carbs (g)",
-      "protein": "Protein (g)",
-      "fat": "Fat (g)",
+      "protein": "Protina (g)",
+      "fat": "Taba (g)",
       "fiber": "Fiber (g)"
     },
     "deleteConfirmation": {
-      "title": "Delete Meal",
-      "message": "Are you sure you want to delete this meal entry?",
-      "cancel": "Cancel",
-      "delete": "Delete"
+      "title": "Tanggalin ang Pagkain",
+      "message": "Sigurado ka bang nais mong tanggalin ang entry na ito ng pagkain?",
+      "cancel": "Kanselahin",
+      "delete": "Tanggalin"
     },
-    "addedToLog": "Meal added to your log!",
-    "couldNotAdd": "Could not add meal: {error}",
-    "removedFromFavorites": "Removed from favorites!",
-    "savedAsFavorite": "Meal saved as favorite!",
-    "couldNotUpdateFavorite": "Could not update favorite: {error}",
-    "failedToProcess": "Failed to process: {error}",
-    "failedToProcessImage": "Failed to process image: {error}",
-    "errorCompressingImage": "Error compressing image: {error}",
-    "failedToSave": "Failed to save data. Please try again."
+    "addedToLog": "Idinagdag ang pagkain sa iyong log!",
+    "couldNotAdd": "Hindi maidaragdag ang pagkain: {error}",
+    "removedFromFavorites": "Tinanggal mula sa mga paborito!",
+    "savedAsFavorite": "Naitabi ang pagkain bilang paborito!",
+    "couldNotUpdateFavorite": "Hindi ma-update ang paborito: {error}",
+    "failedToProcess": "Nabigo sa pagproseso: {error}",
+    "failedToProcessImage": "Nabigo sa pagproseso ng larawan: {error}",
+    "errorCompressingImage": "Error sa pag-compress ng larawan: {error}",
+    "failedToSave": "Nabigo sa pag-save ng datos. Pakisubok muli."
   },
   "favorites": {
-    "title": "Favorites",
-    "empty": "No favorite meals yet."
+    "title": "Mga Paborito",
+    "empty": "Walang paboritong pagkain sa ngayon."
   },
   "profile": {
     "title": "Profile",
-    "noProfileData": "No profile data found",
-    "yourProfile": "Your Profile",
-    "viewAndManage": "View and manage your health information",
+    "noProfileData": "Walang natagpuang datos ng profile",
+    "yourProfile": "Ang Iyong Profile",
+    "viewAndManage": "Tingnan at pamahalaan ang iyong impormasyon sa kalusugan",
     "sections": {
       "profile": "PROFILE",
-      "basicInformation": "BASIC INFORMATION",
-      "goalsAndActivity": "GOALS & ACTIVITY",
-      "calculatedValues": "CALCULATED VALUES"
+      "basicInformation": "BATAYANG IMPORMASYON",
+      "goalsAndActivity": "LAYUNIN AT AKTIBIDAD",
+      "calculatedValues": "NAKALKULANG MGA HALAGA"
     },
-    "gender": "Gender",
-    "height": "Height",
-    "weight": "Weight",
-    "age": "Age",
-    "weightGoal": "Weight Goal",
-    "activityLevel": "Activity Level",
-    "healthMetrics": "Health Metrics",
-    "notSet": "Not set",
-    "years": "years",
-    "updatedSuccessfully": "Profile updated successfully!",
+    "gender": "Kasarian",
+    "height": "Taas",
+    "weight": "Timbang",
+    "age": "Edad",
+    "weightGoal": "Layunin sa Timbang",
+    "activityLevel": "Antas ng Aktibidad",
+    "healthMetrics": "Metrics ng Kalusugan",
+    "notSet": "Hindi nakatakda",
+    "years": "taon",
+    "updatedSuccessfully": "Matagumpay na na-update ang profile!",
     "calculatedValues": {
       "bmr": "BMR",
       "tdee": "TDEE",
-      "dailyGoal": "Daily Goal",
-      "calPerDay": "cal/day",
+      "dailyGoal": "Pang-araw-araw na Layunin",
+      "calPerDay": "cal/araw",
       "notAvailable": "N/A"
     }
   },
   "healthScore": {
-    "title": "Health Score",
-    "whyThisScore": "Why this score?",
-    "note": "This score is an AI estimate based on the identified ingredients and nutritional density. Always consult a professional for dietary advice.",
-    "unhealthy": "Unhealthy",
-    "healthy": "Healthy",
+    "title": "Iskor ng Kalusugan",
+    "whyThisScore": "Bakit ang iskor na ito?",
+    "note": "Ang iskor na ito ay isang pagtatantya mula sa AI batay sa nakilalang sangkap at nutritional density. Palaging kumonsulta sa isang propesyonal para sa payo sa pagkain.",
+    "unhealthy": "Hindi Malusog",
+    "healthy": "Malusog",
     "neutral": "Neutral"
   },
   "editProfile": {
-    "title": "Edit Profile",
+    "title": "I-edit ang Profile",
     "sections": {
-      "personalInformation": "PERSONAL INFORMATION",
-      "physicalMeasurements": "PHYSICAL MEASUREMENTS",
-      "goalsAndActivity": "GOALS & ACTIVITY"
+      "personalInformation": "PERSONAL NA IMPORMASYON",
+      "physicalMeasurements": "PISIKAL NA SUKAT",
+      "goalsAndActivity": "LAYUNIN AT AKTIBIDAD"
     },
-    "gender": "Gender",
-    "dateOfBirth": "Date of Birth",
-    "height": "Height",
-    "weight": "Weight",
-    "weightGoal": "Weight Goal",
-    "activityLevel": "Activity Level",
-    "metric": "Metric",
-    "imperial": "Imperial",
-    "metricCm": "Metric (cm)",
-    "imperialFtIn": "Imperial (ft/in)",
-    "metricKg": "Metric (kg)",
-    "imperialLbs": "Imperial (lbs)",
+    "gender": "Kasarian",
+    "dateOfBirth": "Petsa ng Kaarawan",
+    "height": "Taas",
+    "weight": "Timbang",
+    "weightGoal": "Layunin sa Timbang",
+    "activityLevel": "Antas ng Aktibidad",
+    "metric": "Sistemang metrikal",
+    "imperial": "Imperyal",
+    "metricCm": "Sistemang metrikal (cm)",
+    "imperialFtIn": "Imperyal (tal/kp)",
+    "metricKg": "Sistemang metrikal (kg)",
+    "imperialLbs": "Imperyal (lbs)",
     "genders": {
-      "male": "Male",
-      "female": "Female",
-      "other": "Other"
+      "male": "Lalaki",
+      "female": "Babae",
+      "other": "Iba pa"
     },
     "weightGoals": {
       "loseWeight": {
-        "name": "Lose Weight",
-        "description": "Create a calorie deficit to lose weight"
+        "name": "Bawasan ang Timbang",
+        "description": "Lumikha ng calorie deficit upang mawalan ng timbang"
       },
       "maintainWeight": {
-        "name": "Maintain Weight",
-        "description": "Maintain your current weight"
+        "name": "Panatilihin ang Timbang",
+        "description": "Panatilihin ang iyong kasalukuyang timbang"
       },
       "gainWeight": {
-        "name": "Gain Weight",
-        "description": "Create a calorie surplus to gain weight"
+        "name": "Dagdagan ang Timbang",
+        "description": "Lumikha ng calorie surplus upang dagdagan ang timbang"
       }
     },
     "activityLevels": {
       "sedentary": {
-        "name": "Sedentary",
-        "description": "Little to no exercise"
+        "name": "Hindi aktibo",
+        "description": "Kaunting ehersisyo"
       },
       "lightlyActive": {
-        "name": "Lightly Active",
-        "description": "Light exercise 1-3 days/week"
+        "name": "Bahagyang Aktibo",
+        "description": "Bahagyang ehersisyo 1-3 araw/linggo"
       },
       "moderatelyActive": {
-        "name": "Moderately Active",
-        "description": "Moderate exercise 3-5 days/week"
+        "name": "Katamtamang Aktibo",
+        "description": "Katamtamang ehersisyo 3-5 araw/linggo"
       },
       "veryActive": {
-        "name": "Very Active",
-        "description": "Hard exercise 6-7 days/week"
+        "name": "Napaka Aktibo",
+        "description": "Mabigat na ehersisyo 6-7 araw/linggo"
       },
       "extremelyActive": {
-        "name": "Extremely Active",
-        "description": "Very hard exercise, physical job"
+        "name": "Sobrang Aktibo",
+        "description": "Sobrang mabigat na ehersisyo, pisikal na trabaho"
       }
     }
   },
   "settings": {
-    "title": "Settings",
+    "title": "Mga Setting",
     "sections": {
       "profile": "PROFILE",
-      "localization": "LOCALIZATION",
-      "notifications": "NOTIFICATIONS",
-      "supportAndLegal": "SUPPORT & LEGAL",
-      "dangerZone": "DANGER ZONE",
+      "localization": "LOKALISASYON",
+      "notifications": "NOTIFIKASYON",
+      "supportAndLegal": "SUPORTA AT BATAK",
+      "dangerZone": "MAPANGANIB NA ZONA",
       "developer": "DEVELOPER"
     },
     "editProfile": {
-      "title": "Edit Profile",
-      "subtitle": "Update your personal information"
+      "title": "I-edit ang Profile",
+      "subtitle": "I-update ang iyong personal na impormasyon"
     },
     "language": {
-      "title": "Language",
-      "subtitle": "Choose your preferred language"
+      "title": "Wika",
+      "subtitle": "Pumili ng iyong gustong wika"
     },
     "heightUnit": {
-      "title": "Height Unit"
+      "title": "Yunit ng Taas"
     },
     "weightUnit": {
-      "title": "Weight Unit"
-    },
-    "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
+      "title": "Yunit ng Timbang"
     },
     "mealReminders": {
-      "title": "Meal Reminders",
-      "subtitle": "Stay on track with timely alerts"
+      "title": "Mga Paalala sa Pagkain",
+      "subtitle": "Panatilihin ang landas na may tamang mga alerto"
+    },
+    "theme": {
+      "title": "Tema",
+      "subtitle": "Pumili ng iyong piniling tema",
+      "light": "Maliwanag",
+      "dark": "Madilim",
+      "system": "Sistema"
     },
     "sendFeedback": {
-      "title": "Send Feedback",
-      "subtitle": "Help us improve Calorify",
-      "emailSubject": "Calorify App Feedback",
-      "emailBodyPrefix": "Please provide your feedback below:",
-      "appVersion": "App Version",
-      "device": "Device",
-      "osVersion": "OS Version",
+      "title": "Magbigay ng Feedback",
+      "subtitle": "Tumulong sa aming pagbutihin ang {appLabel}",
+      "emailSubject": "{appLabel} Feedback ng App",
+      "emailBodyPrefix": "Pakisuyong ibigay ang iyong feedback sa ibaba:",
+      "appVersion": "Bersyon ng App",
+      "device": "Kagamitan",
+      "osVersion": "Bersyon ng OS",
       "uid": "UID"
     },
     "clearAllData": {
-      "title": "Clear All Data",
-      "subtitle": "Irreversibly delete all your information",
-      "confirmationTitle": "Clear All Data?",
-      "confirmationMessage": "This action cannot be undone. All your logged meals, favorites, and profile settings will be permanently deleted.",
-      "cancel": "Cancel",
-      "clearEverything": "Clear Everything"
+      "title": "I-clear ang Lahat ng Datos",
+      "subtitle": "Irerepormang tanggalin ang lahat ng iyong impormasyon",
+      "confirmationTitle": "I-clear ang Lahat ng Datos?",
+      "confirmationMessage": "Ang pagkilos na ito ay hindi na maibabalik. Ang lahat ng iyong na-log na pagkain, mga paborito, at mga setting ng profile ay permanenteng matatanggal.",
+      "cancel": "Kanselahin",
+      "clearEverything": "I-clear ang Lahat"
     },
     "debugOptions": {
-      "title": "Debug Options"
+      "title": "Mga Opsyon sa Debug"
     },
-    "developerModeEnabled": "Developer mode enabled!"
+    "developerModeEnabled": "Naka-enable ang developer mode!"
   },
   "reminders": {
-    "title": "Stay on track with reminders",
-    "description": "Get gentle reminders to log your meals and stay consistent with your nutrition goals",
-    "notificationsEnabled": "Notifications Enabled",
-    "notificationsDisabled": "Notifications Disabled",
-    "enabledSubtitle": "You'll receive meal reminders",
-    "disabledSubtitle": "Enable notifications to get meal reminders",
-    "mealReminders": "Meal Reminders",
-    "breakfast": "Breakfast",
-    "lunch": "Lunch",
-    "dinner": "Dinner",
-    "snack": "Snack",
-    "unknown": "Unknown",
-    "change": "Change",
-    "enableNotifications": "Enable Notifications",
-    "skipForNow": "Skip for now",
-    "saveChanges": "Save Changes",
-    "enabledSuccessfully": "Notifications enabled successfully!",
-    "permissionDenied": "Notification permission denied",
-    "errorEnabling": "Error enabling notifications: {error}",
-    "errorCompletingSetup": "Error completing setup: {error}"
+    "title": "Panatilihin ang landas na may mga paalala",
+    "description": "Kumuha ng banayad na mga paalala upang i-log ang iyong mga pagkain at manatiling consistent sa iyong mga layunin sa nutrisyon",
+    "notificationsEnabled": "Naka-enable ang mga Notifikasyon",
+    "notificationsDisabled": "Naka-disable ang mga Notifikasyon",
+    "enabledSubtitle": "Makakatanggap ka ng mga paalala sa pagkain",
+    "disabledSubtitle": "I-enable ang mga notifikasyon upang makakuha ng mga paalala sa pagkain",
+    "mealReminders": "Mga Paalala sa Pagkain",
+    "breakfast": "Almusal",
+    "lunch": "Tanghalian",
+    "dinner": "Hapunan",
+    "snack": "Merienda",
+    "unknown": "Hindi alam",
+    "change": "Palitan",
+    "enableNotifications": "I-enable ang mga Notifikasyon",
+    "skipForNow": "Laktawan ito sa ngayon",
+    "saveChanges": "I-save ang mga Pagbabago",
+    "enabledSuccessfully": "Matagumpay na na-enable ang mga notifikasyon!",
+    "permissionDenied": "Tinanggihan ang pahintulot sa notifikasyon",
+    "errorEnabling": "Error sa pag-enable ng mga notifikasyon: {error}",
+    "errorCompletingSetup": "Error sa pagkumpleto ng setup: {error}"
   },
   "notifications": {
     "breakfast": {
-      "title": "Breakfast Time! 🍳",
-      "body": "Don't forget to log your breakfast"
+      "title": "Oras ng Almusal! 🍳",
+      "body": "Huwag kalimutang i-log ang iyong almusal"
     },
     "lunch": {
-      "title": "Lunch Time! 🥗",
-      "body": "Time to log your lunch"
+      "title": "Oras ng Tanghalian! 🥗",
+      "body": "Panahon na para i-log ang iyong tanghalian"
     },
     "dinner": {
-      "title": "Dinner Time! 🍽️",
-      "body": "Don't forget to log your dinner"
+      "title": "Oras ng Hapunan! 🍽️",
+      "body": "Huwag kalimutang i-log ang iyong hapunan"
     },
     "snack": {
-      "title": "Snack Time! 🍎",
-      "body": "Time for a healthy snack"
+      "title": "Oras ng Merienda! 🍎",
+      "body": "Panahon na para sa isang malusog na merienda"
     },
     "test": {
       "title": "Test Notification"
     }
   },
   "login": {
-    "title": "Login",
-    "signInWithGoogle": "Sign in with Google",
-    "signInFailed": "Google Sign-In failed or was cancelled."
+    "title": "Mag-login",
+    "signInWithGoogle": "Mag-sign in gamit ang Google",
+    "signInFailed": "Nabigo ang Google Sign-In o nakansela."
   },
   "disclaimer": {
-    "pleaseNote": "Please Note",
+    "pleaseNote": "Pakitandaan",
     "snap": {
-      "description": "Calorify provides estimated nutritional info. Accuracy depends on your input & food variations. Use as a guide, not a definitive source. Consult a professional for personalized dietary advice.",
+      "description": "{appLabel} ay nagbibigay ng tinatayang impormasyon sa nutrisyon. Ang katumpakan ay depende sa iyong input at mga pagkakaiba sa pagkain. Gamitin ito bilang gabay, hindi isang tiyak na mapagkukunan. Kumonsulta sa isang propesyonal para sa personalized na payo sa nutrisyon.",
       "portionSize": {
-        "title": "Portion Size",
-        "description": "The accuracy of the estimates heavily relies on your correct assessment of the portion size."
+        "title": "Sukat ng Bahagi",
+        "description": "Ang katumpakan ng mga pagtatantya ay labis na nakasalalay sa iyong tamang pagtasa ng sukat ng bahagi."
       },
       "preparationMethods": {
-        "title": "Preparation Methods",
-        "description": "Cooking methods can significantly alter the nutritional content of food. Calorify's estimates may not always account for these variations."
+        "title": "Mga Paraan ng Paghahanda",
+        "description": "Ang mga paraan ng pagluluto ay maaaring makabuluhang baguhin ang nilalaman ng nutrisyon ng pagkain. Ang mga pagtatantya ng {appLabel} ay maaaring hindi palaging isinasaalang-alang ang mga pagkakaibang ito."
       },
       "ingredients": {
-        "title": "Ingredients",
-        "description": "Complex dishes with many hidden ingredients may lead to less accurate estimations."
+        "title": "Mga Sangkap",
+        "description": "Ang mga kumplikadong ulam na may maraming nakatagong sangkap ay maaaring humantong sa mas kaunting tumpak na pagtatantya."
       },
       "databaseLimitations": {
-        "title": "Database Limitations",
-        "description": "Calorify's food database is extensive but may not include every single food item or variation."
+        "title": "Mga Limitasyon sa Database",
+        "description": "Ang database ng pagkain ng {appLabel} ay malawak ngunit maaaring hindi kasama ang bawat isa o pagkakaiba ng item ng pagkain."
       }
     },
     "weightEstimate": {
-      "title": "About Weight Estimate",
-      "description": "The projected weight change is a theoretical estimate based on the simple calorie-in vs. calorie-out model. It is intended for motivational guidance only, not as a prediction of your actual weight.",
+      "title": "Tungkol sa Tinatayang Timbang",
+      "description": "Ang nakatakdang pagbabago ng timbang ay isang teoretikal na pagtatantya batay sa simpleng calorie-in kumpara sa calorie-out na modelo. Ito ay inilaan lamang para sa motivational na gabay, hindi bilang isang prediksyon ng iyong aktwal na timbang.",
       "calorieAccuracy": {
-        "title": "Calorie Accuracy",
-        "description": "This estimate is only as accurate as your tracked calorie intake and expenditure. Inaccurate logging will result in an inaccurate projection."
+        "title": "Katumpakan ng Calorie",
+        "description": "Ang pagtatantyang ito ay kasing tumpak lamang ng iyong na-log na calorie na pagkain at paggasta. Ang hindi tamang pag-log ay magreresulta sa hindi tumpak na pagtataya."
       },
       "biologicalFactors": {
-        "title": "Biological Factors",
-        "description": "Actual weight loss/gain is influenced by metabolism, hormones, sleep, stress, hydration, and other individual factors that Calorify cannot measure."
+        "title": "Mga Biological na Salik",
+        "description": "Ang aktwal na pagbaba/pagtaas ng timbang ay naapektuhan ng metabolismo, hormones, tulog, stress, hydration, at iba pang indibidwal na salik na hindi kayang sukatin ng {appLabel}."
       },
       "waterWeight": {
-        "title": "Water Weight & Fluctuations",
-        "description": "Normal daily weight can fluctuate significantly due to water retention, digestion, and timing. The estimate does not account for these daily changes."
+        "title": "Timbang ng Tubig at Pagbago",
+        "description": "Ang normal na pang-araw-araw na timbang ay maaaring magbago ng makabuluhang dahil sa pag-ipon ng tubig, pagtunaw, at oras. Ang pagtatantya ay hindi isinasaalang-alang ang mga pang-araw-araw na pagbabagong ito."
       },
       "professionalGuidance": {
-        "title": "Professional Guidance",
-        "description": "Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice."
+        "title": "Propesyonal na Patnubay",
+        "description": "Huwag gamitin ang pagtatantyang ito upang gumawa ng mga medikal na desisyon. Palaging kumonsulta sa isang propesyonal sa kalusugan o nakarehistrong dietitian para sa personalized na payo sa pamamahala ng timbang."
       }
     }
   },
   "common": {
-    "close": "Close",
-    "continue": "Continue"
+    "close": "Isara",
+    "continue": "Magpatuloy"
   },
   "errors": {
-    "loadingProfileData": "Error loading profile data",
-    "somethingWentWrong": "Something went wrong."
+    "loadingProfileData": "Error sa pag-load ng datos ng profile",
+    "somethingWentWrong": "May nangyaring mali."
   },
   "debug": {
-    "title": "Debug Options",
+    "title": "Mga Opsyon sa Debug",
     "sections": {
-      "notifications": "Notifications",
+      "notifications": "Mga Notifikasyon",
       "healthConnect": "Health Connect",
-      "appInfo": "App Info"
+      "appInfo": "Impormasyon ng App"
     },
-    "showActiveNotifications": "Show Active Notifications",
-    "scheduleTestNotification": "Schedule Test Notification (10s)",
-    "triggerBreakfastNotification": "Trigger Breakfast Notification",
-    "cancelAllNotifications": "Cancel All Notifications",
-    "activeNotifications": "Active Notifications",
-    "noTitle": "No Title",
-    "noBody": "No Body",
-    "fetchTodaysSteps": "Fetch Today's Steps",
-    "fetchTodaysCalories": "Fetch Today's Calories",
-    "fetchLatestWeight": "Fetch Latest Weight",
-    "fetchLatestHeight": "Fetch Latest Height",
-    "writeTestWeight": "Write Test Weight (70kg)",
-    "writeTestHeight": "Write Test Height (175cm)",
-    "syncLast7Days": "Sync Last 7 Days",
-    "sync7DaysTitle": "7-Day Sync",
-    "checkCurrentLocale": "Check Current Locale",
-    "currentLocale": "Current Locale",
-    "localeInfo": "Language: {languageCode}\nCountry: {countryCode}\nUnit System: {unitSystem}",
-    "latestWeight": "Latest Weight",
-    "latestHeight": "Latest Height",
-    "todaysCalories": "Today's Calories",
-    "totalCaloriesBurned": "Total calories burned: {calories}",
-    "syncSuccess": "Successfully fetched {count} data points for Steps, Calories, and Weight over the last 7 days.",
-    "noWeightData": "No weight data found in the last 30 days.",
-    "noHeightData": "No height data found in the last year.",
-    "noCalorieData": "No calorie data found for today.",
-    "weightWritten": "Successfully wrote test weight (70kg).",
-    "weightWriteFailed": "Failed to write test weight.",
-    "heightWritten": "Successfully wrote test height (175cm).",
-    "heightWriteFailed": "Failed to write test height.",
-    "noNotifications": "No active notifications.",
-    "testNotificationScheduled": "Test notification scheduled for 10 seconds from now.",
-    "testNotificationBody": "This is a test notification scheduled for 10 seconds from now.",
-    "breakfastNotificationTriggered": "Breakfast notification triggered.",
-    "allNotificationsCancelled": "All notifications cancelled.",
-    "fetchingData": "Fetching data for the last 7 days...",
+    "showActiveNotifications": "Ipakita ang Aktibong Notifikasyon",
+    "scheduleTestNotification": "I-schedule ang Test Notification (10s)",
+    "triggerBreakfastNotification": "I-trigger ang Breakfast Notification",
+    "cancelAllNotifications": "Kanselahin ang Lahat ng Notifikasyon",
+    "activeNotifications": "Aktibong Notifikasyon",
+    "noTitle": "Walang Pamagat",
+    "noBody": "Walang Nilalaman",
+    "fetchTodaysSteps": "Kunina ang Mga Hakbang Ngayon",
+    "fetchTodaysCalories": "Kunina ang Calories Ngayon",
+    "fetchLatestWeight": "Kunina ang Pinakabagong Timbang",
+    "fetchLatestHeight": "Kunina ang Pinakabagong Taas",
+    "writeTestWeight": "Isulat ang Test Weight (70kg)",
+    "writeTestHeight": "Isulat ang Test Height (175cm)",
+    "syncLast7Days": "I-synchronize ang Huling 7 Araw",
+    "sync7DaysTitle": "7-Araw na Synchronization",
+    "checkCurrentLocale": "Suriin ang Kasalukuyang Wika",
+    "currentLocale": "Kasalukuyang Wika",
+    "localeInfo": "Wika: {languageCode}\nBansa: {countryCode}\nSistema ng Yunit: {unitSystem}",
+    "latestWeight": "Pinakabagong Timbang",
+    "latestHeight": "Pinakabagong Taas",
+    "todaysCalories": "Calories Ngayong Araw",
+    "totalCaloriesBurned": "Kabuuang calories na nasunog: {calories}",
+    "syncSuccess": "Matagumpay na nakuhang {count} data points para sa Hakbang, Calories, at Timbang sa nakaraang 7 araw.",
+    "noWeightData": "Walang nakitaang datos ng timbang sa nakaraang 30 araw.",
+    "noHeightData": "Walang nakitaang datos ng taas sa nakaraang taon.",
+    "noCalorieData": "Walang nakitaang datos ng calorie para sa araw na ito.",
+    "weightWritten": "Matagumpay na naisulat ang test na timbang (70kg).",
+    "weightWriteFailed": "Nabigong isulat ang test na timbang.",
+    "heightWritten": "Matagumpay na naisulat ang test na taas (175cm).",
+    "heightWriteFailed": "Nabigong isulat ang test na taas.",
+    "noNotifications": "Walang aktibong notifikasyon.",
+    "testNotificationScheduled": "Test notification nakaiskedyul para sa 10 segundo mula ngayon.",
+    "testNotificationBody": "Ito ay isang test notification nakaiskedyul para sa 10 segundo mula ngayon.",
+    "breakfastNotificationTriggered": "Naitrigger ang breakfast notification.",
+    "allNotificationsCancelled": "Naka-cancel ang lahat ng notifikasyon.",
+    "fetchingData": "Kunin ang datos para sa nakaraang 7 araw...",
     "id": "ID: {id}"
   },
   "health": {
-    "syncFailed": "Could not sync to Health Connect",
-    "mealSynced": "Meal synced with Health Connect"
+    "syncFailed": "Hindi ma-synchronize sa Health Connect",
+    "mealSynced": "Naka-synchronize ang pagkain sa Health Connect"
   }
 }
