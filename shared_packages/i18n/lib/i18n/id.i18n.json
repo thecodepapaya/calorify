@@ -1,0 +1,555 @@
+{
+  "language": "Indonesian",
+  "flag": "🇮🇩",
+  "appLabel": "Calorify{env}",
+  "onboarding": {
+    "welcome": "Selamat datang di {appLabel}",
+    "subtitle": "Pendamping nutrisi pribadi Anda yang didukung oleh AI",
+    "getStarted": "Mulai",
+    "features": {
+      "foodRecognition": {
+        "title": "Pengenalan Makanan Cerdas",
+        "description": "Ambil foto dan biarkan AI mengidentifikasi makanan Anda"
+      },
+      "aiAnalysis": {
+        "title": "Analisis AI",
+        "description": "Dapatkan fakta nutrisi secara instan dari deskripsi Anda"
+      },
+      "healthIntegration": {
+        "title": "Integrasi Kesehatan",
+        "description": "Hubungkan dengan Health Connect untuk wawasan yang lebih baik"
+      }
+    },
+    "gender": {
+      "title": "Apa jenis kelamin Anda?",
+      "description": "Jenis kelamin membantu kami menghitung laju metabolisme basal (BMR) Anda dengan akurat.",
+      "next": "Selanjutnya"
+    },
+    "height": {
+      "title": "Seberapa tinggi Anda?",
+      "description": "Tinggi badan Anda membantu kami menghitung BMI dan kebutuhan energi Anda dengan akurat.",
+      "metric": "Metrik",
+      "imperial": "Imperial",
+      "next": "Selanjutnya"
+    },
+    "weight": {
+      "currentTitle": "Apa berat badan Anda saat ini?",
+      "currentDescription": "Berat badan Anda saat ini sangat penting untuk mempersonalisasi tujuan harian Anda.",
+      "targetTitle": "Apa berat badan target Anda?",
+      "targetDescription": "Menetapkan berat badan target membantu kami menentukan rencana jangka panjang Anda.",
+      "metric": "Metrik",
+      "imperial": "Imperial",
+      "next": "Selanjutnya"
+    },
+    "age": {
+      "title": "Kapan ulang tahun Anda?",
+      "description": "Usia Anda membantu kami menghitung kebutuhan kalori Anda dengan akurat.",
+      "next": "Selanjutnya"
+    },
+    "bmiScale": {
+      "underweight": "Kekurangan berat badan",
+      "healthy": "Sehat",
+      "overweight": "Kelebihan berat badan",
+      "obese": "Obesitas",
+      "categories": {
+        "underweight": "Kekurangan berat badan",
+        "healthyWeight": "Berat badan sehat",
+        "overweight": "Kelebihan berat badan",
+        "obese": "Obesitas"
+      },
+      "messages": {
+        "underweight": "Kami dapat membantu Anda membangun rencana sehat untuk mencapai berat badan yang seimbang dengan makanan padat nutrisi.",
+        "healthy": "Kerja bagus! Anda berada dalam rentang sehat. Kami akan membantu Anda menjaga vitalitas dan tingkat energi Anda.",
+        "overweight": "{appLabel} akan menyederhanakan perjalanan Anda dengan pelacakan bertenaga AI untuk membantu Anda mencapai target dengan nyaman.",
+        "obese": "Kami di sini untuk mendukung Anda dengan panduan pribadi dan strategi berkelanjutan untuk tujuan kesehatan Anda."
+      }
+    },
+    "weightGoal": {
+      "title": "Apa tujuan Anda?",
+      "description": "Pilih tujuan yang paling mendeskripsikan apa yang ingin Anda capai"
+    },
+    "activityLevel": {
+      "title": "Seberapa aktif Anda?",
+      "description": "Ini membantu kami menghitung kebutuhan kalori harian Anda dengan lebih akurat"
+    },
+    "healthConnect": {
+      "title": "Hubungkan dengan Health Connect",
+      "description": "Sinkronkan data kesehatan Anda untuk wawasan yang lebih baik dan pelacakan kalori otomatis",
+      "automaticTracking": {
+        "title": "Pelacakan Kalori Otomatis",
+        "description": "Lacak kalori yang terbakar dari aplikasi kebugaran Anda"
+      },
+      "progressInsights": {
+        "title": "Wawasan Kemajuan",
+        "description": "Dapatkan wawasan mendetail tentang tren kesehatan Anda"
+      },
+      "seamlessIntegration": {
+        "title": "Integrasi Tanpa Hambatan",
+        "description": "Sinkronkan data dari aplikasi kesehatan favorit Anda"
+      },
+      "connected": "Health Connect Terhubung",
+      "notConnected": "Health Connect Belum Terhubung",
+      "setup": "Siapkan Health Connect",
+      "skipForNow": "Lewati untuk sekarang",
+      "statusConnected": "Health Connect terhubung.",
+      "statusSuccess": "Health Connect telah berhasil terhubung!",
+      "statusPermissionDenied": "Izin ditolak. Silakan aktifkan izin Health Connect dari pengaturan ponsel Anda untuk {appLabel}.",
+      "statusError": "Kesalahan saat menyiapkan Health Connect: {error}"
+    },
+    "reinforcement": {
+      "trackingSuccess": {
+        "title": "Anda Tidak Sendirian",
+        "genericMessage": "Penelitian menunjukkan bahwa pelacakan yang konsisten adalah prediktor sukses jangka panjang nomor 1.",
+        "personalizedMessage": "Untuk seorang {age} tahun {gender} yang ingin {goal}, pelacakan yang konsisten adalah prediktor sukses nomor 1.",
+        "closingMessage": "{appLabel} membuatnya 10x lebih mudah dibandingkan melakukannya secara manual.",
+        "getStartedTitle": "Siap untuk memulai?",
+        "tipPhoto": "Ambil foto makananmu untuk analisis instan",
+        "tipConsistency": "Catat secara konsisten untuk melihat kemajuan yang signifikan",
+        "tipProgress": "Lacak kemajuanmu setiap hari untuk tetap termotivasi",
+        "button": "Ayo Mulai",
+        "defaultGender": "individu",
+        "defaultGoal": "Anda yang lebih sehat"
+      },
+      "healthProfile": {
+        "title": "Profil Kesehatan Anda",
+        "bmiDescription": "Berdasarkan metrik Anda, BMI Anda adalah {bmi}.",
+        "finalizeDescription": "Mari selesaikan profil Anda untuk mempersonalisasi pengalaman Anda.",
+        "goalGain": "menambah",
+        "goalLose": "mengurangi",
+        "goalReach": "Untuk mencapai tujuan Anda, Anda perlu {direction} {diff} {unit}.",
+        "goalReached": "Anda sudah mencapai berat target Anda! Kami akan membantu Anda mempertahankannya.",
+        "button": "Ayo Mulai"
+      },
+      "goalLifestyle": {
+        "title": "Awal yang Sangat Bagus!",
+        "description": "Anda telah mengambil langkah pertama menuju {goalText}. Karena Anda {activityText}, {appLabel} akan menyesuaikan target Anda agar sesuai dengan gaya hidup Anda.",
+        "personalizedTargets": "Target kalori yang dipersonalisasi",
+        "aiMealDetection": "Deteksi makanan berbasis AI",
+        "macroBreakdowns": "Rincian makronutrien yang mendetail",
+        "button": "Ayo Mulai",
+        "defaultGoal": "tujuan Anda",
+        "defaultActivity": "aktif"
+      }
+    }
+  },
+  "tabs": {
+    "dashboard": "Dasbor",
+    "history": "Riwayat"
+  },
+  "home": {
+    "dailyGoal": {
+      "title": "Tetapkan Tujuan Harian Anda",
+      "titleSet": "Tujuan Harian Anda",
+      "description": "Siap untuk memulai perjalanan kesejahteraan Anda? Tetapkan target kalori harian Anda di bawah ini untuk memulai kemajuan Anda.",
+      "descriptionSet": "Kompas Anda sudah diatur! Ini adalah target kalori harian Anda untuk memandu Anda.",
+      "yourGoal": "Tujuan Anda",
+      "dailyCalories": "Kalori harian (kcal)",
+      "setGoal": "Tetapkan Tujuan",
+      "intake": "Asupan",
+      "burned": "Terbakar",
+      "weightImpact": "Dampak Berat",
+      "estLoss": "Perkiraan kehilangan",
+      "estGain": "Perkiraan kenaikan",
+      "kcal": "kcal"
+    },
+    "dailySummary": {
+      "title": "Ringkasan Harian",
+      "calories": "Kalori",
+      "carbs": "Karbohidrat",
+      "protein": "Protein",
+      "fat": "Lemak",
+      "fiber": "Serat"
+    },
+    "intakeProgress": {
+      "title": "Pemisahan Makro Hari Ini",
+      "target": "Target",
+      "current": "Sekarang"
+    },
+    "intakeHistory": {
+      "title": "Riwayat Makro 7-Hari",
+      "noHistoryYet": "Belum ada riwayat",
+      "startLogging": "Mulailah mencatat makanan untuk melihat tren makro 7-hari Anda di sini"
+    },
+    "mealLog": {
+      "title": "Makanan yang Dicatat",
+      "emptyMessage": "Ambil gambar makanan terakhir Anda untuk dicatat di sini.",
+      "noMealsToday": "Belum ada makanan yang dicatat untuk hari ini",
+      "seeAllMeals": "Lihat semua makanan"
+    },
+    "mealDescription": {
+      "title": "Tambah Cepat dengan AI",
+      "description": "Deskripsikan makanan Anda, dan biarkan AI menangani detailnya.",
+      "hint": "misalnya, Untuk sarapan saya memiliki semangkuk besar oatmeal dengan satu pisang iris dan satu sendok whey ...",
+      "analyzeMeal": "Analisis makanan"
+    },
+    "favoriteMeals": {
+      "title": "Makanan Favorit",
+      "description": "Tambahkan salah satu makanan favorit Anda dengan cepat.",
+      "noFavorites": "Belum ada makanan favorit.",
+      "addFavoriteHint": "Klik bintang pada makanan untuk menandainya sebagai favorit.",
+      "seeAll": "Lihat semua",
+      "add": "Tambah"
+    },
+    "mealSnap": {
+      "title": "Ambil & Lacak Makanan Anda",
+      "description": "Gunakan kamera Anda untuk mengambil gambar makanan Anda untuk analisis AI.",
+      "openCamera": "Buka Kamera"
+    },
+    "connectHealth": {
+      "title": "Sinkronkan dengan Health Connect",
+      "description": "Sinkronkan data nutrisi Anda dengan Health Connect",
+      "install": "Instal",
+      "connect": "Hubungkan"
+    }
+  },
+  "history": {
+    "noMeals": "Tidak ada makanan yang dicatat",
+    "emptyMessage": "Ambil gambar makanan terakhir Anda untuk dicatat di sini.",
+    "today": "Hari ini",
+    "yesterday": "Kemarin"
+  },
+  "meal": {
+    "ohNo": "Oh tidak!",
+    "delete": "Hapus",
+    "editMeal": "Edit Makanan",
+    "addMeal": "Tambah Makanan",
+    "saveMeal": "Simpan Makanan",
+    "save": "Simpan",
+    "mealName": "Nama Makanan",
+    "mealQuantity": "Jumlah Makanan",
+    "mealQuantityHint": "misalnya, 1 mangkuk, 2 irisan",
+    "timeOfMeal": "Waktu Makanan",
+    "timeOfMealHint": "Pilih waktu saat Anda makan",
+    "mealType": "Jenis Makanan",
+    "nutrition": {
+      "calories": "Kalori",
+      "carbs": "Karbohidrat (g)",
+      "protein": "Protein (g)",
+      "fat": "Lemak (g)",
+      "fiber": "Serat (g)"
+    },
+    "deleteConfirmation": {
+      "title": "Hapus Makanan",
+      "message": "Apakah Anda yakin ingin menghapus entri makanan ini?",
+      "cancel": "Batal",
+      "delete": "Hapus"
+    },
+    "addedToLog": "Makanan ditambahkan ke catatan Anda!",
+    "couldNotAdd": "Tidak dapat menambahkan makanan: {error}",
+    "removedFromFavorites": "Dihapus dari favorit!",
+    "savedAsFavorite": "Makanan disimpan sebagai favorit!",
+    "couldNotUpdateFavorite": "Tidak dapat memperbarui favorit: {error}",
+    "failedToProcess": "Gagal memproses: {error}",
+    "failedToProcessImage": "Gagal memproses gambar: {error}",
+    "errorCompressingImage": "Kesalahan saat mengompres gambar: {error}",
+    "failedToSave": "Gagal menyimpan data. Silakan coba lagi."
+  },
+  "favorites": {
+    "title": "Favorit",
+    "empty": "Belum ada makanan favorit."
+  },
+  "profile": {
+    "title": "Profil",
+    "noProfileData": "Data profil tidak ditemukan",
+    "yourProfile": "Profil Anda",
+    "viewAndManage": "Lihat dan kelola informasi kesehatan Anda",
+    "sections": {
+      "profile": "PROFIL",
+      "basicInformation": "INFORMASI DASAR",
+      "goalsAndActivity": "TUJUAN & AKTIVITAS",
+      "calculatedValues": "NILAI YANG DIHITUNG"
+    },
+    "gender": "Jenis Kelamin",
+    "height": "Tinggi",
+    "weight": "Berat",
+    "age": "Usia",
+    "weightGoal": "Tujuan Berat",
+    "activityLevel": "Tingkat Aktivitas",
+    "healthMetrics": "Metrik Kesehatan",
+    "notSet": "Belum diatur",
+    "years": "tahun",
+    "updatedSuccessfully": "Profil berhasil diperbarui!",
+    "calculatedValues": {
+      "bmr": "BMR",
+      "tdee": "TDEE",
+      "dailyGoal": "Tujuan Harian",
+      "calPerDay": "kal/hari",
+      "notAvailable": "N/A"
+    }
+  },
+  "healthScore": {
+    "title": "Skor Kesehatan",
+    "whyThisScore": "Mengapa skor ini?",
+    "note": "Skor ini adalah perkiraan AI berdasarkan bahan yang teridentifikasi dan kepadatan nutrisi. Selalu konsultasikan dengan profesional untuk saran diet.",
+    "unhealthy": "Tidak Sehat",
+    "healthy": "Sehat",
+    "neutral": "Netral"
+  },
+  "editProfile": {
+    "title": "Edit Profil",
+    "sections": {
+      "personalInformation": "INFORMASI PRIBADI",
+      "physicalMeasurements": "UKURAN FISIK",
+      "goalsAndActivity": "TUJUAN & AKTIVITAS"
+    },
+    "gender": "Jenis Kelamin",
+    "dateOfBirth": "Tanggal Lahir",
+    "height": "Tinggi",
+    "weight": "Berat",
+    "weightGoal": "Tujuan Berat",
+    "activityLevel": "Tingkat Aktivitas",
+    "metric": "Metrik",
+    "imperial": "Imperial",
+    "metricCm": "Metrik (cm)",
+    "imperialFtIn": "Imperial (ft/in)",
+    "metricKg": "Metrik (kg)",
+    "imperialLbs": "Imperial (lbs)",
+    "genders": {
+      "male": "Laki-laki",
+      "female": "Perempuan",
+      "other": "Lainnya"
+    },
+    "weightGoals": {
+      "loseWeight": {
+        "name": "Menurunkan Berat Badan",
+        "description": "Buat defisit kalori untuk menurunkan berat badan"
+      },
+      "maintainWeight": {
+        "name": "Mempertahankan Berat Badan",
+        "description": "Pertahankan berat badan Anda saat ini"
+      },
+      "gainWeight": {
+        "name": "Menambah Berat Badan",
+        "description": "Buat surplus kalori untuk menambah berat badan"
+      }
+    },
+    "activityLevels": {
+      "sedentary": {
+        "name": "Sedentari",
+        "description": "Sedikit atau tidak ada olahraga"
+      },
+      "lightlyActive": {
+        "name": "Sedikit Aktif",
+        "description": "Olahraga ringan 1-3 hari/minggu"
+      },
+      "moderatelyActive": {
+        "name": "Aktif Sedang",
+        "description": "Olahraga sedang 3-5 hari/minggu"
+      },
+      "veryActive": {
+        "name": "Sangat Aktif",
+        "description": "Olahraga keras 6-7 hari/minggu"
+      },
+      "extremelyActive": {
+        "name": "Ekstrem Aktif",
+        "description": "Olahraga sangat keras, pekerjaan fisik"
+      }
+    }
+  },
+  "settings": {
+    "title": "Pengaturan",
+    "sections": {
+      "profile": "PROFIL",
+      "localization": "LOKALISASI",
+      "notifications": "PEMBERITAHUAN",
+      "supportAndLegal": "DUKUNGAN & HUKUM",
+      "dangerZone": "ZONA BAHAYA",
+      "developer": "PEMBANGUN"
+    },
+    "editProfile": {
+      "title": "Edit Profil",
+      "subtitle": "Perbarui informasi pribadi Anda"
+    },
+    "language": {
+      "title": "Bahasa",
+      "subtitle": "Pilih bahasa yang Anda inginkan",
+      "searchHint": "Cari bahasa...",
+      "noResults": "Tidak ada hasil ditemukan"
+    },
+    "heightUnit": {
+      "title": "Satuan Tinggi"
+    },
+    "weightUnit": {
+      "title": "Satuan Berat"
+    },
+    "mealReminders": {
+      "title": "Pengingat Makanan",
+      "subtitle": "Tetap pada jalur dengan peringatan tepat waktu"
+    },
+    "theme": {
+      "title": "Tema",
+      "light": "Terang",
+      "dark": "Gelap",
+      "system": "Sistem"
+    },
+    "sendFeedback": {
+      "title": "Kirim Umpan Balik",
+      "subtitle": "Bantu kami memperbaiki {appLabel}",
+      "emailSubject": "Umpan Balik Aplikasi {appLabel}",
+      "emailBodyPrefix": "Silakan berikan umpan balik Anda di bawah ini:",
+      "appVersion": "Versi Aplikasi",
+      "device": "Perangkat",
+      "osVersion": "Versi OS",
+      "uid": "UID"
+    },
+    "clearAllData": {
+      "title": "Hapus Semua Data",
+      "subtitle": "Hapus semua informasi Anda secara tidak dapat dibalik",
+      "confirmationTitle": "Hapus Semua Data?",
+      "confirmationMessage": "Tindakan ini tidak dapat dibatalkan. Semua makanan yang dicatat, favorit, dan pengaturan profil Anda akan dihapus secara permanen.",
+      "cancel": "Batal",
+      "clearEverything": "Hapus Semuanya"
+    },
+    "debugOptions": {
+      "title": "Opsi Debug"
+    },
+    "developerModeEnabled": "Mode pengembang diaktifkan!"
+  },
+  "reminders": {
+    "title": "Tetap pada jalur dengan pengingat",
+    "description": "Dapatkan pengingat lembut untuk mencatat makanan Anda dan tetap konsisten dengan tujuan nutrisi Anda",
+    "notificationsEnabled": "Pemberitahuan Diaktifkan",
+    "notificationsDisabled": "Pemberitahuan Dinonaktifkan",
+    "enabledSubtitle": "Anda akan menerima pengingat makanan",
+    "disabledSubtitle": "Aktifkan pemberitahuan untuk mendapatkan pengingat makanan",
+    "mealReminders": "Pengingat Makanan",
+    "breakfast": "Sarapan",
+    "lunch": "Makan Siang",
+    "dinner": "Makan Malam",
+    "snack": "Camilan",
+    "unknown": "Tidak Diketahui",
+    "change": "Ubah",
+    "enableNotifications": "Aktifkan Pemberitahuan",
+    "skipForNow": "Lewati untuk sekarang",
+    "saveChanges": "Simpan Perubahan",
+    "enabledSuccessfully": "Pemberitahuan berhasil diaktifkan!",
+    "permissionDenied": "Izin pemberitahuan ditolak",
+    "errorEnabling": "Kesalahan saat mengaktifkan pemberitahuan: {error}",
+    "errorCompletingSetup": "Kesalahan saat menyelesaikan pengaturan: {error}"
+  },
+  "notifications": {
+    "breakfast": {
+      "title": "Waktunya Sarapan! 🍳",
+      "body": "Jangan lupa untuk mencatat sarapan Anda"
+    },
+    "lunch": {
+      "title": "Waktunya Makan Siang! 🥗",
+      "body": "Saatnya mencatat makan siang Anda"
+    },
+    "dinner": {
+      "title": "Waktunya Makan Malam! 🍽️",
+      "body": "Jangan lupa untuk mencatat makan malam Anda"
+    },
+    "snack": {
+      "title": "Waktunya Camilan! 🍎",
+      "body": "Saatnya untuk camilan sehat"
+    },
+    "test": {
+      "title": "Pemberitahuan Uji"
+    }
+  },
+  "login": {
+    "title": "Masuk",
+    "signInWithGoogle": "Masuk dengan Google",
+    "signInFailed": "Masuk Google gagal atau dibatalkan."
+  },
+  "disclaimer": {
+    "pleaseNote": "Harap Dicatat",
+    "snap": {
+      "description": "{appLabel} memberikan informasi nutrisi yang diperkirakan. Akurasi tergantung pada input Anda & variasi makanan. Gunakan sebagai panduan, bukan sebagai sumber definitif. Konsultasikan dengan profesional untuk saran diet yang dipersonalisasi.",
+      "portionSize": {
+        "title": "Ukuran Porsi",
+        "description": "Akurasi perkiraan sangat bergantung pada penilaian yang benar tentang ukuran porsi Anda."
+      },
+      "preparationMethods": {
+        "title": "Metode Persiapan",
+        "description": "Metode memasak dapat secara signifikan mengubah kandungan nutrisi makanan. Perkiraan {appLabel} mungkin tidak selalu memperhitungkan variasi ini."
+      },
+      "ingredients": {
+        "title": "Bahan-Bahan",
+        "description": "Hidangan kompleks dengan banyak bahan tersembunyi mungkin menghasilkan perkiraan yang kurang akurat."
+      },
+      "databaseLimitations": {
+        "title": "Keterbatasan Database",
+        "description": "Basis data makanan {appLabel} luas tetapi mungkin tidak mencakup setiap item makanan atau variasi."
+      }
+    },
+    "weightEstimate": {
+      "title": "Tentang Perkiraan Berat",
+      "description": "Perubahan berat yang diproyeksikan adalah perkiraan teoretis berdasarkan model kalori masuk vs. kalori keluar yang sederhana. Itu dimaksudkan untuk panduan motivasi saja, bukan sebagai prediksi berat badan Anda yang sebenarnya.",
+      "calorieAccuracy": {
+        "title": "Akurasi Kalori",
+        "description": "Perkiraan ini hanya seakurat asupan dan pengeluaran kalori Anda yang dilacak. Pencatatan yang tidak akurat akan menghasilkan proyeksi yang tidak akurat."
+      },
+      "biologicalFactors": {
+        "title": "Faktor Biologis",
+        "description": "Kehilangan/kenaikan berat badan yang sebenarnya dipengaruhi oleh metabolisme, hormon, tidur, stres, hidrasi, dan faktor individu lainnya yang tidak dapat diukur oleh {appLabel}."
+      },
+      "waterWeight": {
+        "title": "Berat Air & Fluktuasi",
+        "description": "Berat badan harian normal dapat berfluktuasi secara signifikan karena retensi air, pencernaan, dan waktu. Perkiraan tidak memperhitungkan perubahan harian ini."
+      },
+      "professionalGuidance": {
+        "title": "Panduan Profesional",
+        "description": "Jangan gunakan perkiraan ini untuk membuat keputusan medis. Selalu konsultasikan dengan profesional kesehatan atau ahli gizi terdaftar untuk saran manajemen berat badan yang dipersonalisasi."
+      }
+    }
+  },
+  "common": {
+    "close": "Tutup",
+    "continue": "Lanjutkan"
+  },
+  "errors": {
+    "loadingProfileData": "Kesalahan saat memuat data profil",
+    "somethingWentWrong": "Terjadi kesalahan."
+  },
+  "debug": {
+    "title": "Opsi Debug",
+    "sections": {
+      "notifications": "Pemberitahuan",
+      "healthConnect": "Health Connect",
+      "appInfo": "Info Aplikasi"
+    },
+    "showActiveNotifications": "Tampilkan Pemberitahuan Aktif",
+    "scheduleTestNotification": "Jadwalkan Pemberitahuan Uji (10 detik)",
+    "triggerBreakfastNotification": "Aktifkan Pemberitahuan Sarapan",
+    "cancelAllNotifications": "Batalkan Semua Pemberitahuan",
+    "activeNotifications": "Pemberitahuan Aktif",
+    "noTitle": "Tidak Ada Judul",
+    "noBody": "Tidak Ada Isi",
+    "fetchTodaysSteps": "Ambil Langkah Hari Ini",
+    "fetchTodaysCalories": "Ambil Kalori Hari Ini",
+    "fetchLatestWeight": "Ambil Berat Terakhir",
+    "fetchLatestHeight": "Ambil Tinggi Terakhir",
+    "writeTestWeight": "Tulis Berat Uji (70kg)",
+    "writeTestHeight": "Tulis Tinggi Uji (175cm)",
+    "syncLast7Days": "Sinkronkan 7 Hari Terakhir",
+    "sync7DaysTitle": "Sinkron 7 Hari",
+    "checkCurrentLocale": "Periksa Locale Saat Ini",
+    "currentLocale": "Locale Saat Ini",
+    "localeInfo": "Bahasa: {languageCode}\nNegara: {countryCode}\nSistem Unit: {unitSystem}",
+    "latestWeight": "Berat Terakhir",
+    "latestHeight": "Tinggi Terakhir",
+    "todaysCalories": "Kalori Hari Ini",
+    "totalCaloriesBurned": "Total kalori yang terbakar: {calories}",
+    "syncSuccess": "Berhasil mengambil {count} data untuk Langkah, Kalori, dan Berat dalam 7 hari terakhir.",
+    "noWeightData": "Tidak ada data berat badan ditemukan dalam 30 hari terakhir.",
+    "noHeightData": "Tidak ada data tinggi badan ditemukan dalam setahun terakhir.",
+    "noCalorieData": "Tidak ada data kalori ditemukan untuk hari ini.",
+    "weightWritten": "Berhasil menulis berat uji (70kg).",
+    "weightWriteFailed": "Gagal menulis berat uji.",
+    "heightWritten": "Berhasil menulis tinggi uji (175cm).",
+    "heightWriteFailed": "Gagal menulis tinggi uji.",
+    "noNotifications": "Tidak ada pemberitahuan aktif.",
+    "testNotificationScheduled": "Pemberitahuan uji dijadwalkan dalam 10 detik dari sekarang.",
+    "testNotificationBody": "Ini adalah pemberitahuan uji yang dijadwalkan dalam 10 detik dari sekarang.",
+    "breakfastNotificationTriggered": "Pemberitahuan sarapan diaktifkan.",
+    "allNotificationsCancelled": "Semua pemberitahuan dibatalkan.",
+    "fetchingData": "Mengambil data untuk 7 hari terakhir...",
+    "id": "ID: {id}"
+  },
+  "health": {
+    "syncFailed": "Tidak dapat menyinkronkan dengan Health Connect",
+    "mealSynced": "Makanan disinkronkan dengan Health Connect"
+  }
+}

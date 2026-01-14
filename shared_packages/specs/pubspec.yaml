@@ -1,0 +1,16 @@
+name: specs
+description: Shared design specifications (colors, styles, themes) for Calorify app and watch companion
+version: 1.2.1
+publish_to: 'none'
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0

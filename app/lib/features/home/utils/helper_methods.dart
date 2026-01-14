@@ -1,7 +1,7 @@
-import 'package:calorify/core/models/meal_model.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 
 Future<void> logMeal(BuildContext context, MealInfo mealInfo) async {

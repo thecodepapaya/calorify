@@ -1,5 +1,5 @@
-import 'package:calorify/core/utilities/string_utils.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:calorify/core/config/env_config.dart';
+import 'package:i18n/i18n.dart';
 
 class OnboardingUtils {
   static String getBMICategory(double bmi) {
@@ -18,7 +18,7 @@ class OnboardingUtils {
     }
     if (bmi < 30) {
       return t.onboarding.bmiScale.messages.overweight(
-        appLabel: t.appLabelValue,
+        appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
       );
     }
     return t.onboarding.bmiScale.messages.obese;

@@ -1,9 +1,9 @@
-import 'package:calorify/core/models/profile_models.dart';
+import 'package:calorify/core/config/env_config.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
-import 'package:calorify/core/utilities/string_utils.dart';
 import 'package:calorify/features/onboarding/steps/reinforcement_components.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -79,12 +79,7 @@ class _GoalLifestyleReinforcementState extends State<GoalLifestyleReinforcement>
                 child: ReinforcementAnimatedContent(
                   fadeAnimation: _fadeAnimation,
                   slideAnimation: _slideAnimation,
-                  child: _buildContent(
-                    context,
-                    goalText,
-                    activityText,
-                    t,
-                  ),
+                  child: _buildContent(context, goalText, activityText, t),
                 ),
               ),
               ReinforcementContinueButton(
@@ -120,7 +115,7 @@ class _GoalLifestyleReinforcementState extends State<GoalLifestyleReinforcement>
           t.onboarding.reinforcement.goalLifestyle.description(
             goalText: goalText,
             activityText: activityText,
-            appLabel: t.appLabelValue,
+            appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
           ),
           style: theme.textTheme.bodyLarge?.copyWith(
             color: colorScheme.onSurfaceVariant,

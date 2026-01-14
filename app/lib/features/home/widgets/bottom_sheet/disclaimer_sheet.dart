@@ -1,5 +1,5 @@
-import 'package:calorify/core/utilities/string_utils.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:calorify/core/config/env_config.dart';
+import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -127,7 +127,9 @@ class _BulletPoint extends StatelessWidget {
 DisclaimerData getSnapDisclaimer() {
   return DisclaimerData(
     title: t.disclaimer.pleaseNote,
-    description: t.disclaimer.snap.description(appLabel: t.appLabelValue),
+    description: t.disclaimer.snap.description(
+      appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+    ),
     bulletPoints: [
       DisclaimerEntry(
         title: t.disclaimer.snap.portionSize.title,
@@ -136,7 +138,7 @@ DisclaimerData getSnapDisclaimer() {
       DisclaimerEntry(
         title: t.disclaimer.snap.preparationMethods.title,
         description: t.disclaimer.snap.preparationMethods.description(
-          appLabel: t.appLabelValue,
+          appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
         ),
       ),
       DisclaimerEntry(
@@ -146,7 +148,7 @@ DisclaimerData getSnapDisclaimer() {
       DisclaimerEntry(
         title: t.disclaimer.snap.databaseLimitations.title,
         description: t.disclaimer.snap.databaseLimitations.description(
-          appLabel: t.appLabelValue,
+          appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
         ),
       ),
     ],
@@ -165,7 +167,7 @@ DisclaimerData getWeightEstimateDisclaimer() {
       DisclaimerEntry(
         title: t.disclaimer.weightEstimate.biologicalFactors.title,
         description: t.disclaimer.weightEstimate.biologicalFactors.description(
-          appLabel: t.appLabelValue,
+          appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
         ),
       ),
       DisclaimerEntry(

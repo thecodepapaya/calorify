@@ -1,0 +1,16 @@
+base_locale: en
+fallback_strategy: none
+input_directory: lib/i18n
+input_file_pattern: .i18n.json
+output_directory: lib/i18n
+namespaces: false
+strict: true
+lazy: false
+string_interpolation: braces
+
+gpt:
+  model: gpt-4o-mini
+  description: |
+    Calorify is a personal nutrition companion and calorie tracker app.
+    It uses AI to recognize food from photos and calculate nutritional facts.
+    The tone should be helpful, encouraging, and health-focused.

@@ -2,12 +2,11 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/models/meal_model.dart';
-import 'package:calorify/core/models/meal_type.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/utilities/string_utils.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 

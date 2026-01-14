@@ -1,13 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
-import 'package:calorify/core/models/profile_models.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/providers/theme_provider.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/locale_utils.dart';
-import 'package:calorify/core/utilities/string_utils.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/language_picker_sheet.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -150,7 +149,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
               subtitle: Text(
-                t.settings.sendFeedback.subtitle(appLabel: t.appLabelValue),
+                t.settings.sendFeedback.subtitle(
+                  appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+                ),
               ),
               onTap: _sendFeedbackEmail,
             ),
@@ -267,7 +268,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         t.settings.theme.title,
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
-      subtitle: Text(t.settings.theme.subtitle),
       trailing: SegmentedButton<ThemeMode>(
         segments: [
           ButtonSegment(
@@ -555,7 +555,7 @@ ${t.settings.sendFeedback.uid}: $uid''';
       scheme: 'mailto',
       path: 'calorify@thecodepapaya.dev',
       query:
-          'subject=${Uri.encodeComponent(t.settings.sendFeedback.emailSubject(appLabel: t.appLabelValue))}&body=${Uri.encodeComponent(body)}',
+          'subject=${Uri.encodeComponent(t.settings.sendFeedback.emailSubject(appLabel: t.appLabel(env: EnvConfig.instance.envSuffix)))}&body=${Uri.encodeComponent(body)}',
     );
 
     await launchUrl(emailLaunchUri);

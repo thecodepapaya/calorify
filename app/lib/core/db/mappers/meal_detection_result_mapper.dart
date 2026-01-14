@@ -1,5 +1,4 @@
-import 'package:calorify/core/models/meal_detection_result.dart';
-import 'package:calorify/core/models/meal_model.dart';
+import 'package:models/models.dart';
 
 extension MealDetectionResultMapper on MealInfo {
   MealDetectionResult toMealDetectionResult() {

@@ -1,6 +1,4 @@
-import 'package:calorify/core/models/health_score.dart';
-import 'package:calorify/core/models/meal_model.dart';
-import 'package:calorify/core/models/meal_type.dart';
+import 'package:models/models.dart';
 
 /// Mock data generator for MealInfo with variety and realistic nutritional values
 class MealInfoMock {
@@ -402,7 +400,8 @@ class MealInfoMock {
 
     if (healthyKeywords.any((k) => name.contains(k))) {
       score = HealthScore.healthy;
-      reason = 'Nutrient-dense ingredients with high fiber and quality protein.';
+      reason =
+          'Nutrient-dense ingredients with high fiber and quality protein.';
     } else if (unhealthyKeywords.any((k) => name.contains(k))) {
       score = HealthScore.unhealthy;
       reason = 'High in processed elements, sodium, or saturated fats.';

@@ -1,4 +1,4 @@
-import 'package:calorify/core/models/meal_type.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';

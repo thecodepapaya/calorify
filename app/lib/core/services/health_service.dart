@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:calorify/core/models/meal_model.dart';
+import 'package:models/models.dart';
 import 'package:health/health.dart';
 
 class HealthService {

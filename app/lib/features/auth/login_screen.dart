@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/services/auth_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart'; // If using Provider
 

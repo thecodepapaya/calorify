@@ -1,4 +1,4 @@
-import 'package:calorify/core/models/profile_models.dart';
+import 'package:models/models.dart';
 import 'package:flutter/material.dart';
 
 /// A reusable horizontal scale widget for selecting numeric values.

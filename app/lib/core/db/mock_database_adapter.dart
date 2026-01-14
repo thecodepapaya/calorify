@@ -4,8 +4,8 @@ import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/db/mock_data/favorite_meal_mock.dart';
 import 'package:calorify/core/db/mock_data/meal_info_mock.dart';
 import 'package:calorify/core/db/mock_data/user_settings_mock.dart';
-import 'package:calorify/core/models/meal_model.dart';
-import 'package:calorify/core/models/profile_models.dart' as profile_models;
+import 'package:models/models.dart';
+import 'package:models/models.dart' as profile_models;
 import 'package:flutter/material.dart' show ThemeMode;
 
 /// Mock database adapter that implements DatabaseInterface

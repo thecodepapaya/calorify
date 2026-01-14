@@ -1,4 +1,4 @@
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 
 class BMIScale extends StatelessWidget {

@@ -1,0 +1,20 @@
+name: i18n
+description: Shared i18n translations for Calorify app and watch companion
+version: 1.2.1
+publish_to: 'none'
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  slang: ^4.11.1
+  slang_flutter: ^4.11.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  slang_gpt: ^0.11.1
+  build_runner: ^2.4.15

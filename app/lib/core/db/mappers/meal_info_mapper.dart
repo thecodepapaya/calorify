@@ -1,5 +1,5 @@
 import 'package:calorify/core/db/app_database.dart';
-import 'package:calorify/core/models/meal_model.dart';
+import 'package:models/models.dart';
 import 'package:drift/drift.dart';
 
 extension MealInfoMapper on MealInfo {
@@ -22,6 +22,50 @@ extension MealInfoMapper on MealInfo {
           healthScoreReason != null
               ? Value(healthScoreReason!)
               : const Value.absent(),
+    );
+  }
+
+  /// Creates a MealInfo from a MealInfoTableData row
+  static MealInfo fromRow(MealInfoTableData data) {
+    return MealInfo(
+      id: data.id,
+      mealName: data.mealName,
+      mealQuantity: data.mealQuantity,
+      mealType: MealType.values.byName(data.mealType),
+      calories: data.calories,
+      protein: data.protein,
+      carbs: data.carbs,
+      fat: data.fat,
+      fiber: data.fiber,
+      timestamp: data.timestamp,
+      imageUrl: data.imageUrl,
+      healthScore:
+          data.healthScore != null && data.healthScore is String
+              ? HealthScore.values.byName(data.healthScore as String)
+              : null,
+      healthScoreReason: data.healthScoreReason,
+    );
+  }
+
+  /// Creates a MealInfo from a Drift row
+  static MealInfo fromDrift(dynamic data) {
+    return MealInfo(
+      id: data.id,
+      mealName: data.mealName,
+      mealQuantity: data.mealQuantity,
+      mealType: MealType.values.byName(data.mealType),
+      calories: data.calories,
+      protein: data.protein,
+      carbs: data.carbs,
+      fat: data.fat,
+      fiber: data.fiber,
+      timestamp: data.timestamp,
+      imageUrl: data.imageUrl,
+      healthScore:
+          data.healthScore != null && data.healthScore is String
+              ? HealthScore.values.byName(data.healthScore as String)
+              : null,
+      healthScoreReason: data.healthScoreReason,
     );
   }
 }

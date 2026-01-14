@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:calorify/core/models/profile_models.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/router/guards/onboarding_guard.dart';
 import 'package:calorify/features/auth/login_screen.dart';
 import 'package:calorify/features/favorites/favorites_screen.dart';

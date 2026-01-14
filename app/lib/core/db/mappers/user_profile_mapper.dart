@@ -1,4 +1,4 @@
-import 'package:calorify/core/models/profile_models.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/db/app_database.dart';
 import 'package:drift/drift.dart';
 

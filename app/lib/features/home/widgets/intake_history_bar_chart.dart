@@ -1,8 +1,8 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/models/meal_model.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/loading_indicator.dart';
 import 'package:calorify/shared_widgets/macro_legend.dart';
 import 'package:fl_chart/fl_chart.dart';

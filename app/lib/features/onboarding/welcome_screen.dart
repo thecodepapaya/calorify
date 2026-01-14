@@ -1,5 +1,5 @@
-import 'package:calorify/core/utilities/string_utils.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:calorify/core/config/env_config.dart';
+import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/animated_leaf.dart';
 import 'package:calorify/shared_widgets/language_picker_sheet.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +72,11 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           const AnimatedLeaf(size: 120),
                           const SizedBox(height: 32),
                           Text(
-                            t.onboarding.welcome(appLabel: t.appLabelValue),
+                            t.onboarding.welcome(
+                              appLabel: t.appLabel(
+                                env: EnvConfig.instance.envSuffix,
+                              ),
+                            ),
                             style: Theme.of(context).textTheme.headlineMedium
                                 ?.copyWith(fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,

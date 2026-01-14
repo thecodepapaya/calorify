@@ -1,8 +1,7 @@
-import 'package:calorify/core/constants/scale_constants.dart';
-import 'package:calorify/core/models/profile_models.dart';
 import 'package:calorify/core/utilities/locale_utils.dart';
 import 'package:calorify/shared_widgets/scale_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:models/models.dart';
 
 /// A reusable horizontal scale widget for selecting height values.
 /// Supports both metric (cm) and imperial (ft) units.
