@@ -106,7 +106,7 @@ class _LanguagePickerSheetState extends State<LanguagePickerSheet> {
       child: TextField(
         controller: _searchController,
         decoration: InputDecoration(
-          hintText: 'Search languages...',
+          hintText: t.settings.language.searchHint,
           prefixIcon: const Icon(LucideIcons.search),
           suffixIcon:
               _searchController.text.isNotEmpty
@@ -172,7 +172,7 @@ class _LanguagePickerSheetState extends State<LanguagePickerSheet> {
     return Padding(
       padding: const EdgeInsets.all(32),
       child: Text(
-        'No languages found',
+        t.settings.language.noResults,
         style: theme.textTheme.bodyMedium?.copyWith(
           color: colorScheme.onSurfaceVariant,
         ),

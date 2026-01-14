@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Ngôn ngữ",
-      "subtitle": "Chọn ngôn ngữ bạn ưa thích"
+      "subtitle": "Chọn ngôn ngữ bạn ưa thích",
+      "searchHint": "Tìm kiếm ngôn ngữ...",
+      "noResults": "Không tìm thấy kết quả"
     },
     "heightUnit": {
       "title": "Đơn vị chiều cao"

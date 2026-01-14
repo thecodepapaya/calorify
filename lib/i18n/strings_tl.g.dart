@@ -225,7 +225,7 @@ class _TranslationsEditProfileTl implements TranslationsEditProfileEn {
 	@override String get metric => 'Sistemang metrikal';
 	@override String get imperial => 'Imperyal';
 	@override String get metricCm => 'Sistemang metrikal (cm)';
-	@override String get imperialFtIn => 'Imperyal (tal/kp)';
+	@override String get imperialFtIn => 'Imperyal (ft/in)';
 	@override String get metricKg => 'Sistemang metrikal (kg)';
 	@override String get imperialLbs => 'Imperyal (lbs)';
 	@override late final _TranslationsEditProfileGendersTl genders = _TranslationsEditProfileGendersTl._(_root);
@@ -475,7 +475,7 @@ class _TranslationsOnboardingBmiScaleTl implements TranslationsOnboardingBmiScal
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Ligtas na timbang';
+	@override String get underweight => 'Kulang sa timbang';
 	@override String get healthy => 'Malusog';
 	@override String get overweight => 'Sobra sa timbang';
 	@override String get obese => 'Obesity';
@@ -780,7 +780,7 @@ class _TranslationsSettingsSectionsTl implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFILE';
 	@override String get localization => 'LOKALISASYON';
 	@override String get notifications => 'NOTIFIKASYON';
-	@override String get supportAndLegal => 'SUPORTA AT BATAK';
+	@override String get supportAndLegal => 'SUPORTA AT LEGAL';
 	@override String get dangerZone => 'MAPANGANIB NA ZONA';
 	@override String get developer => 'DEVELOPER';
 }
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageTl implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Wika';
 	@override String get subtitle => 'Pumili ng iyong gustong wika';
+	@override String get searchHint => 'Maghanap ng mga wika...';
+	@override String get noResults => 'Walang nahanap na resulta';
 }
 
 // Path: settings.heightUnit
@@ -1029,7 +1031,7 @@ class _TranslationsOnboardingBmiScaleCategoriesTl implements TranslationsOnboard
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Ligtas na timbang';
+	@override String get underweight => 'Kulang sa timbang';
 	@override String get healthyWeight => 'Malusog na timbang';
 	@override String get overweight => 'Sobra sa timbang';
 	@override String get obese => 'Obesity';
@@ -1349,11 +1351,11 @@ extension on TranslationsTl {
 			'onboarding.age.title' => 'Kailan ang iyong kaarawan?',
 			'onboarding.age.description' => 'Ang iyong edad ay tumutulong upang tumpak na kalkulahin ang iyong pangangailangan sa calorie.',
 			'onboarding.age.next' => 'Susunod',
-			'onboarding.bmiScale.underweight' => 'Ligtas na timbang',
+			'onboarding.bmiScale.underweight' => 'Kulang sa timbang',
 			'onboarding.bmiScale.healthy' => 'Malusog',
 			'onboarding.bmiScale.overweight' => 'Sobra sa timbang',
 			'onboarding.bmiScale.obese' => 'Obesity',
-			'onboarding.bmiScale.categories.underweight' => 'Ligtas na timbang',
+			'onboarding.bmiScale.categories.underweight' => 'Kulang sa timbang',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Malusog na timbang',
 			'onboarding.bmiScale.categories.overweight' => 'Sobra sa timbang',
 			'onboarding.bmiScale.categories.obese' => 'Obesity',
@@ -1534,7 +1536,7 @@ extension on TranslationsTl {
 			'editProfile.metric' => 'Sistemang metrikal',
 			'editProfile.imperial' => 'Imperyal',
 			'editProfile.metricCm' => 'Sistemang metrikal (cm)',
-			'editProfile.imperialFtIn' => 'Imperyal (tal/kp)',
+			'editProfile.imperialFtIn' => 'Imperyal (ft/in)',
 			'editProfile.metricKg' => 'Sistemang metrikal (kg)',
 			'editProfile.imperialLbs' => 'Imperyal (lbs)',
 			'editProfile.genders.male' => 'Lalaki',
@@ -1560,13 +1562,15 @@ extension on TranslationsTl {
 			'settings.sections.profile' => 'PROFILE',
 			'settings.sections.localization' => 'LOKALISASYON',
 			'settings.sections.notifications' => 'NOTIFIKASYON',
-			'settings.sections.supportAndLegal' => 'SUPORTA AT BATAK',
+			'settings.sections.supportAndLegal' => 'SUPORTA AT LEGAL',
 			'settings.sections.dangerZone' => 'MAPANGANIB NA ZONA',
 			'settings.sections.developer' => 'DEVELOPER',
 			'settings.editProfile.title' => 'I-edit ang Profile',
 			'settings.editProfile.subtitle' => 'I-update ang iyong personal na impormasyon',
 			'settings.language.title' => 'Wika',
 			'settings.language.subtitle' => 'Pumili ng iyong gustong wika',
+			'settings.language.searchHint' => 'Maghanap ng mga wika...',
+			'settings.language.noResults' => 'Walang nahanap na resulta',
 			'settings.heightUnit.title' => 'Yunit ng Taas',
 			'settings.weightUnit.title' => 'Yunit ng Timbang',
 			'settings.mealReminders.title' => 'Mga Paalala sa Pagkain',

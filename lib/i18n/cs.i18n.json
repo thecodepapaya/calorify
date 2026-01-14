@@ -22,7 +22,7 @@
     },
     "gender": {
       "title": "Jaké je vaše pohlaví?",
-      "description": "Pohlaví nám pomáhá přesně vypočítat vaši bazální metabolickou aktivitu (BMR).",
+      "description": "Pohlaví nám pomáhá přesně vypočítat váš bazální metabolismus (BMR).",
       "next": "Další"
     },
     "height": {
@@ -147,7 +147,7 @@
       "setGoal": "Nastavit cíl",
       "intake": "Příjem",
       "burned": "Spálené",
-      "weightImpact": "Odhad výskytu",
+      "weightImpact": "Dopad na hmotnost",
       "estLoss": "Odhadovaná ztráta",
       "estGain": "Odhadované zvýšení",
       "kcal": "kcal"
@@ -305,8 +305,8 @@
     "metricKg": "Metrické (kg)",
     "imperialLbs": "Imperiální (lbs)",
     "genders": {
-      "male": "Muži",
-      "female": "Ženy",
+      "male": "Muž",
+      "female": "Žena",
       "other": "Jiné"
     },
     "weightGoals": {
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Jazyk",
-      "subtitle": "Vyberte svůj preferovaný jazyk"
+      "subtitle": "Vyberte svůj preferovaný jazyk",
+      "searchHint": "Hledat jazyky...",
+      "noResults": "Žádné výsledky nenalezeny"
     },
     "heightUnit": {
       "title": "Jednotka výšky"

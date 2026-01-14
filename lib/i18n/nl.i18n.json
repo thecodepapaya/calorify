@@ -161,12 +161,12 @@
       "fiber": "Vezels"
     },
     "intakeProgress": {
-      "title": "Vandaag's Macro Verhoudingen",
+      "title": "Vandaagse Macro Verhoudingen",
       "target": "Doel",
       "current": "Huidig"
     },
     "intakeHistory": {
-      "title": "7-Daagse Macro Geschiedenis",
+      "title": "7-daagse macro geschiedenis",
       "noHistoryYet": "Geen geschiedenis tot nu toe",
       "startLogging": "Begin met het bijhouden van maaltijden om je\n7-daagse macrotrends hier te zien"
     },
@@ -255,7 +255,7 @@
     "viewAndManage": "Bekijk en beheer je gezondheidsinformatie",
     "sections": {
       "profile": "PROFIEL",
-      "basicInformation": "BASIC INFORMATIE",
+      "basicInformation": "BASISINFORMATIE",
       "goalsAndActivity": "DOELEN & ACTIVITEIT",
       "calculatedValues": "GECALCULEERDE WAARDEN"
     },
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Taal",
-      "subtitle": "Kies je voorkeurstaal"
+      "subtitle": "Kies je voorkeurstaal",
+      "searchHint": "Zoek talen...",
+      "noResults": "Geen resultaten gevonden"
     },
     "heightUnit": {
       "title": "Lengte-eenheid"
@@ -516,8 +518,8 @@
     "activeNotifications": "Actieve Meldingen",
     "noTitle": "Geen Titel",
     "noBody": "Geen Body",
-    "fetchTodaysSteps": "Haal Vandaag's Stappen Op",
-    "fetchTodaysCalories": "Haal Vandaag's Calorieën Op",
+    "fetchTodaysSteps": "Haal Vandaagse Stappen Op",
+    "fetchTodaysCalories": "Haal Vandaagse Calorieën Op",
     "fetchLatestWeight": "Haal Laatste Gewicht Op",
     "fetchLatestHeight": "Haal Laatste Lengte Op",
     "writeTestWeight": "Schrijf Testgewicht (70kg)",
@@ -529,7 +531,7 @@
     "localeInfo": "Taal: {languageCode}\nLand: {countryCode}\nEenheidssysteem: {unitSystem}",
     "latestWeight": "Laatste Gewicht",
     "latestHeight": "Laatste Lengte",
-    "todaysCalories": "Vandaag's Calorieën",
+    "todaysCalories": "Vandaagse Calorieën",
     "totalCaloriesBurned": "Totaal verbrande calorieën: {calories}",
     "syncSuccess": "Met succes {count} gegevenspunten opgehaald voor Stappen, Calorieën en Gewicht over de afgelopen 7 dagen.",
     "noWeightData": "Geen gewichtsgegevens gevonden in de afgelopen 30 dagen.",

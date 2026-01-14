@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageVi implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Ngôn ngữ';
 	@override String get subtitle => 'Chọn ngôn ngữ bạn ưa thích';
+	@override String get searchHint => 'Tìm kiếm ngôn ngữ...';
+	@override String get noResults => 'Không tìm thấy kết quả';
 }
 
 // Path: settings.heightUnit
@@ -1567,6 +1569,8 @@ extension on TranslationsVi {
 			'settings.editProfile.subtitle' => 'Cập nhật thông tin cá nhân của bạn',
 			'settings.language.title' => 'Ngôn ngữ',
 			'settings.language.subtitle' => 'Chọn ngôn ngữ bạn ưa thích',
+			'settings.language.searchHint' => 'Tìm kiếm ngôn ngữ...',
+			'settings.language.noResults' => 'Không tìm thấy kết quả',
 			'settings.heightUnit.title' => 'Đơn vị chiều cao',
 			'settings.weightUnit.title' => 'Đơn vị cân nặng',
 			'settings.mealReminders.title' => 'Nhắc nhở bữa ăn',

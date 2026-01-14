@@ -359,8 +359,8 @@ class _TranslationsDebugNl implements TranslationsDebugEn {
 	@override String get activeNotifications => 'Actieve Meldingen';
 	@override String get noTitle => 'Geen Titel';
 	@override String get noBody => 'Geen Body';
-	@override String get fetchTodaysSteps => 'Haal Vandaag\'s Stappen Op';
-	@override String get fetchTodaysCalories => 'Haal Vandaag\'s Calorieën Op';
+	@override String get fetchTodaysSteps => 'Haal Vandaagse Stappen Op';
+	@override String get fetchTodaysCalories => 'Haal Vandaagse Calorieën Op';
 	@override String get fetchLatestWeight => 'Haal Laatste Gewicht Op';
 	@override String get fetchLatestHeight => 'Haal Laatste Lengte Op';
 	@override String get writeTestWeight => 'Schrijf Testgewicht (70kg)';
@@ -372,7 +372,7 @@ class _TranslationsDebugNl implements TranslationsDebugEn {
 	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Taal: ${languageCode}\nLand: ${countryCode}\nEenheidssysteem: ${unitSystem}';
 	@override String get latestWeight => 'Laatste Gewicht';
 	@override String get latestHeight => 'Laatste Lengte';
-	@override String get todaysCalories => 'Vandaag\'s Calorieën';
+	@override String get todaysCalories => 'Vandaagse Calorieën';
 	@override String totalCaloriesBurned({required Object calories}) => 'Totaal verbrande calorieën: ${calories}';
 	@override String syncSuccess({required Object count}) => 'Met succes ${count} gegevenspunten opgehaald voor Stappen, Calorieën en Gewicht over de afgelopen 7 dagen.';
 	@override String get noWeightData => 'Geen gewichtsgegevens gevonden in de afgelopen 30 dagen.';
@@ -583,7 +583,7 @@ class _TranslationsHomeIntakeProgressNl implements TranslationsHomeIntakeProgres
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Vandaag\'s Macro Verhoudingen';
+	@override String get title => 'Vandaagse Macro Verhoudingen';
 	@override String get target => 'Doel';
 	@override String get current => 'Huidig';
 }
@@ -595,7 +595,7 @@ class _TranslationsHomeIntakeHistoryNl implements TranslationsHomeIntakeHistoryE
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '7-Daagse Macro Geschiedenis';
+	@override String get title => '7-daagse macro geschiedenis';
 	@override String get noHistoryYet => 'Geen geschiedenis tot nu toe';
 	@override String get startLogging => 'Begin met het bijhouden van maaltijden om je\n7-daagse macrotrends hier te zien';
 }
@@ -701,7 +701,7 @@ class _TranslationsProfileSectionsNl implements TranslationsProfileSectionsEn {
 
 	// Translations
 	@override String get profile => 'PROFIEL';
-	@override String get basicInformation => 'BASIC INFORMATIE';
+	@override String get basicInformation => 'BASISINFORMATIE';
 	@override String get goalsAndActivity => 'DOELEN & ACTIVITEIT';
 	@override String get calculatedValues => 'GECALCULEERDE WAARDEN';
 }
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageNl implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Taal';
 	@override String get subtitle => 'Kies je voorkeurstaal';
+	@override String get searchHint => 'Zoek talen...';
+	@override String get noResults => 'Geen resultaten gevonden';
 }
 
 // Path: settings.heightUnit
@@ -1429,10 +1431,10 @@ extension on TranslationsNl {
 			'home.dailySummary.protein' => 'Eiwit',
 			'home.dailySummary.fat' => 'Vetten',
 			'home.dailySummary.fiber' => 'Vezels',
-			'home.intakeProgress.title' => 'Vandaag\'s Macro Verhoudingen',
+			'home.intakeProgress.title' => 'Vandaagse Macro Verhoudingen',
 			'home.intakeProgress.target' => 'Doel',
 			'home.intakeProgress.current' => 'Huidig',
-			'home.intakeHistory.title' => '7-Daagse Macro Geschiedenis',
+			'home.intakeHistory.title' => '7-daagse macro geschiedenis',
 			'home.intakeHistory.noHistoryYet' => 'Geen geschiedenis tot nu toe',
 			'home.intakeHistory.startLogging' => 'Begin met het bijhouden van maaltijden om je\n7-daagse macrotrends hier te zien',
 			'home.mealLog.title' => 'Ingevoerde Maaltijden',
@@ -1497,7 +1499,7 @@ extension on TranslationsNl {
 			'profile.yourProfile' => 'Je Profiel',
 			'profile.viewAndManage' => 'Bekijk en beheer je gezondheidsinformatie',
 			'profile.sections.profile' => 'PROFIEL',
-			'profile.sections.basicInformation' => 'BASIC INFORMATIE',
+			'profile.sections.basicInformation' => 'BASISINFORMATIE',
 			'profile.sections.goalsAndActivity' => 'DOELEN & ACTIVITEIT',
 			'profile.sections.calculatedValues' => 'GECALCULEERDE WAARDEN',
 			'profile.gender' => 'Geslacht',
@@ -1567,6 +1569,8 @@ extension on TranslationsNl {
 			'settings.editProfile.subtitle' => 'Update je persoonlijke informatie',
 			'settings.language.title' => 'Taal',
 			'settings.language.subtitle' => 'Kies je voorkeurstaal',
+			'settings.language.searchHint' => 'Zoek talen...',
+			'settings.language.noResults' => 'Geen resultaten gevonden',
 			'settings.heightUnit.title' => 'Lengte-eenheid',
 			'settings.weightUnit.title' => 'Gewicht-eenheid',
 			'settings.mealReminders.title' => 'Maaltijdherinneringen',
@@ -1659,8 +1663,8 @@ extension on TranslationsNl {
 			'debug.activeNotifications' => 'Actieve Meldingen',
 			'debug.noTitle' => 'Geen Titel',
 			'debug.noBody' => 'Geen Body',
-			'debug.fetchTodaysSteps' => 'Haal Vandaag\'s Stappen Op',
-			'debug.fetchTodaysCalories' => 'Haal Vandaag\'s Calorieën Op',
+			'debug.fetchTodaysSteps' => 'Haal Vandaagse Stappen Op',
+			'debug.fetchTodaysCalories' => 'Haal Vandaagse Calorieën Op',
 			'debug.fetchLatestWeight' => 'Haal Laatste Gewicht Op',
 			'debug.fetchLatestHeight' => 'Haal Laatste Lengte Op',
 			'debug.writeTestWeight' => 'Schrijf Testgewicht (70kg)',
@@ -1672,7 +1676,7 @@ extension on TranslationsNl {
 			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Taal: ${languageCode}\nLand: ${countryCode}\nEenheidssysteem: ${unitSystem}',
 			'debug.latestWeight' => 'Laatste Gewicht',
 			'debug.latestHeight' => 'Laatste Lengte',
-			'debug.todaysCalories' => 'Vandaag\'s Calorieën',
+			'debug.todaysCalories' => 'Vandaagse Calorieën',
 			'debug.totalCaloriesBurned' => ({required Object calories}) => 'Totaal verbrande calorieën: ${calories}',
 			'debug.syncSuccess' => ({required Object count}) => 'Met succes ${count} gegevenspunten opgehaald voor Stappen, Calorieën en Gewicht over de afgelopen 7 dagen.',
 			'debug.noWeightData' => 'Geen gewichtsgegevens gevonden in de afgelopen 30 dagen.',

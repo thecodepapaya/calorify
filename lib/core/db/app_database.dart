@@ -121,6 +121,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
 
   @override
   Future<void> setLanguageCode(String? code) async {
+    await _getOrInitPreferences();
     await into(userPreferencesTable).insertOnConflictUpdate(
       UserPreferencesTableCompanion.insert(
         id: const Value(_userPreferencesId),

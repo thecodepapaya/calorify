@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "言語",
-      "subtitle": "お好みの言語を選択してください"
+      "subtitle": "お好みの言語を選択してください",
+      "searchHint": "言語を検索...",
+      "noResults": "結果が見つかりません"
     },
     "heightUnit": {
       "title": "身長の単位"

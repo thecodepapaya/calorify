@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageTh implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'ภาษา';
 	@override String get subtitle => 'เลือกภาษาที่ต้องการ';
+	@override String get searchHint => 'ค้นหาภาษา...';
+	@override String get noResults => 'ไม่พบผลลัพธ์';
 }
 
 // Path: settings.heightUnit
@@ -835,7 +837,7 @@ class _TranslationsSettingsMealRemindersTh implements TranslationsSettingsMealRe
 
 	// Translations
 	@override String get title => 'การแจ้งเตือนมื้ออาหาร';
-	@override String get subtitle => 'อยู่ในแถวตั้งแต่กับการแจ้งเตือนที่ง่าย';
+	@override String get subtitle => 'รักษาความสม่ำเสมอด้วยการแจ้งเตือนที่ง่าย';
 }
 
 // Path: settings.theme
@@ -845,11 +847,11 @@ class _TranslationsSettingsThemeTh implements TranslationsSettingsThemeEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Theme';
-	@override String get subtitle => 'Choose your preferred theme';
-	@override String get light => 'Light';
-	@override String get dark => 'Dark';
-	@override String get system => 'System';
+	@override String get title => 'ธีม';
+	@override String get subtitle => 'เลือกธีมที่คุณต้องการ';
+	@override String get light => 'สว่าง';
+	@override String get dark => 'มืด';
+	@override String get system => 'ระบบ';
 }
 
 // Path: settings.sendFeedback
@@ -1567,15 +1569,17 @@ extension on TranslationsTh {
 			'settings.editProfile.subtitle' => 'อัปเดตข้อมูลส่วนบุคคลของคุณ',
 			'settings.language.title' => 'ภาษา',
 			'settings.language.subtitle' => 'เลือกภาษาที่ต้องการ',
+			'settings.language.searchHint' => 'ค้นหาภาษา...',
+			'settings.language.noResults' => 'ไม่พบผลลัพธ์',
 			'settings.heightUnit.title' => 'หน่วยความสูง',
 			'settings.weightUnit.title' => 'หน่วยน้ำหนัก',
 			'settings.mealReminders.title' => 'การแจ้งเตือนมื้ออาหาร',
-			'settings.mealReminders.subtitle' => 'อยู่ในแถวตั้งแต่กับการแจ้งเตือนที่ง่าย',
-			'settings.theme.title' => 'Theme',
-			'settings.theme.subtitle' => 'Choose your preferred theme',
-			'settings.theme.light' => 'Light',
-			'settings.theme.dark' => 'Dark',
-			'settings.theme.system' => 'System',
+			'settings.mealReminders.subtitle' => 'รักษาความสม่ำเสมอด้วยการแจ้งเตือนที่ง่าย',
+			'settings.theme.title' => 'ธีม',
+			'settings.theme.subtitle' => 'เลือกธีมที่คุณต้องการ',
+			'settings.theme.light' => 'สว่าง',
+			'settings.theme.dark' => 'มืด',
+			'settings.theme.system' => 'ระบบ',
 			'settings.sendFeedback.title' => 'ส่งความคิดเห็น',
 			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'ช่วยเราปรับปรุง ${appLabel}',
 			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'ข้อเสนอแนะแอป ${appLabel}',

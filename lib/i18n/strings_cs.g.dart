@@ -422,7 +422,7 @@ class _TranslationsOnboardingGenderCs implements TranslationsOnboardingGenderEn 
 
 	// Translations
 	@override String get title => 'Jaké je vaše pohlaví?';
-	@override String get description => 'Pohlaví nám pomáhá přesně vypočítat vaši bazální metabolickou aktivitu (BMR).';
+	@override String get description => 'Pohlaví nám pomáhá přesně vypočítat váš bazální metabolismus (BMR).';
 	@override String get next => 'Další';
 }
 
@@ -555,7 +555,7 @@ class _TranslationsHomeDailyGoalCs implements TranslationsHomeDailyGoalEn {
 	@override String get setGoal => 'Nastavit cíl';
 	@override String get intake => 'Příjem';
 	@override String get burned => 'Spálené';
-	@override String get weightImpact => 'Odhad výskytu';
+	@override String get weightImpact => 'Dopad na hmotnost';
 	@override String get estLoss => 'Odhadovaná ztráta';
 	@override String get estGain => 'Odhadované zvýšení';
 	@override String get kcal => 'kcal';
@@ -739,8 +739,8 @@ class _TranslationsEditProfileGendersCs implements TranslationsEditProfileGender
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String get male => 'Muži';
-	@override String get female => 'Ženy';
+	@override String get male => 'Muž';
+	@override String get female => 'Žena';
 	@override String get other => 'Jiné';
 }
 
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageCs implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Jazyk';
 	@override String get subtitle => 'Vyberte svůj preferovaný jazyk';
+	@override String get searchHint => 'Hledat jazyky...';
+	@override String get noResults => 'Žádné výsledky nenalezeny';
 }
 
 // Path: settings.heightUnit
@@ -1332,7 +1334,7 @@ extension on TranslationsCs {
 			'onboarding.features.healthIntegration.title' => 'Integrace se zdravím',
 			'onboarding.features.healthIntegration.description' => 'Propojte se s Health Connect pro lepší přehledy',
 			'onboarding.gender.title' => 'Jaké je vaše pohlaví?',
-			'onboarding.gender.description' => 'Pohlaví nám pomáhá přesně vypočítat vaši bazální metabolickou aktivitu (BMR).',
+			'onboarding.gender.description' => 'Pohlaví nám pomáhá přesně vypočítat váš bazální metabolismus (BMR).',
 			'onboarding.gender.next' => 'Další',
 			'onboarding.height.title' => 'Jak vysoký/á jste?',
 			'onboarding.height.description' => 'Vaše výška nám pomáhá přesně vypočítat váš BMI a energetické potřeby.',
@@ -1419,7 +1421,7 @@ extension on TranslationsCs {
 			'home.dailyGoal.setGoal' => 'Nastavit cíl',
 			'home.dailyGoal.intake' => 'Příjem',
 			'home.dailyGoal.burned' => 'Spálené',
-			'home.dailyGoal.weightImpact' => 'Odhad výskytu',
+			'home.dailyGoal.weightImpact' => 'Dopad na hmotnost',
 			'home.dailyGoal.estLoss' => 'Odhadovaná ztráta',
 			'home.dailyGoal.estGain' => 'Odhadované zvýšení',
 			'home.dailyGoal.kcal' => 'kcal',
@@ -1537,8 +1539,8 @@ extension on TranslationsCs {
 			'editProfile.imperialFtIn' => 'Imperiální (ft/in)',
 			'editProfile.metricKg' => 'Metrické (kg)',
 			'editProfile.imperialLbs' => 'Imperiální (lbs)',
-			'editProfile.genders.male' => 'Muži',
-			'editProfile.genders.female' => 'Ženy',
+			'editProfile.genders.male' => 'Muž',
+			'editProfile.genders.female' => 'Žena',
 			'editProfile.genders.other' => 'Jiné',
 			'editProfile.weightGoals.loseWeight.name' => 'Zhubnout',
 			'editProfile.weightGoals.loseWeight.description' => 'Vytvořte kalorický deficit, abyste zhubli',
@@ -1567,6 +1569,8 @@ extension on TranslationsCs {
 			'settings.editProfile.subtitle' => 'Aktualizujte své osobní informace',
 			'settings.language.title' => 'Jazyk',
 			'settings.language.subtitle' => 'Vyberte svůj preferovaný jazyk',
+			'settings.language.searchHint' => 'Hledat jazyky...',
+			'settings.language.noResults' => 'Žádné výsledky nenalezeny',
 			'settings.heightUnit.title' => 'Jednotka výšky',
 			'settings.weightUnit.title' => 'Jednotka hmotnosti',
 			'settings.mealReminders.title' => 'Připomínky jídel',

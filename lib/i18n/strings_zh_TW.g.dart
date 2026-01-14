@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageZhTw implements TranslationsSettingsLanguageE
 	// Translations
 	@override String get title => '語言';
 	@override String get subtitle => '選擇您偏好的語言';
+	@override String get searchHint => '搜尋語言...';
+	@override String get noResults => '未找到結果';
 }
 
 // Path: settings.heightUnit
@@ -1110,7 +1112,7 @@ class _TranslationsOnboardingReinforcementHealthProfileZhTw implements Translati
 	// Translations
 	@override String get title => '您的健康檔案';
 	@override String bmiDescription({required Object bmi}) => '根據您的數據，您的 BMI 為 ${bmi}。';
-	@override String get finalizeDescription => '讓我們完善您的檔案以Customize您的體驗。';
+	@override String get finalizeDescription => '讓我們完善您的檔案以客製化您的體驗。';
 	@override String get goalGain => '增重';
 	@override String get goalLose => '減重';
 	@override String goalReach({required Object direction, required Object diff, required Object unit}) => '要達成您的目標，您需要 ${direction} ${diff} ${unit}。';
@@ -1394,7 +1396,7 @@ extension on TranslationsZhTw {
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => '更健康的自己',
 			'onboarding.reinforcement.healthProfile.title' => '您的健康檔案',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => '根據您的數據，您的 BMI 為 ${bmi}。',
-			'onboarding.reinforcement.healthProfile.finalizeDescription' => '讓我們完善您的檔案以Customize您的體驗。',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => '讓我們完善您的檔案以客製化您的體驗。',
 			'onboarding.reinforcement.healthProfile.goalGain' => '增重',
 			'onboarding.reinforcement.healthProfile.goalLose' => '減重',
 			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => '要達成您的目標，您需要 ${direction} ${diff} ${unit}。',
@@ -1567,6 +1569,8 @@ extension on TranslationsZhTw {
 			'settings.editProfile.subtitle' => '更新您的個人信息',
 			'settings.language.title' => '語言',
 			'settings.language.subtitle' => '選擇您偏好的語言',
+			'settings.language.searchHint' => '搜尋語言...',
+			'settings.language.noResults' => '未找到結果',
 			'settings.heightUnit.title' => '身高單位',
 			'settings.weightUnit.title' => '體重單位',
 			'settings.mealReminders.title' => '餐點提醒',

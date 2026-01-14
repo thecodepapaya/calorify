@@ -661,7 +661,7 @@ class _TranslationsHomeConnectHealthUr implements TranslationsHomeConnectHealthE
 
 	// Translations
 	@override String get title => 'ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں';
-	@override String get description => 'اپرا غذائیت کے ڈیٹا کو ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں';
+	@override String get description => 'اپنا غذائیت کے ڈیٹا کو ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں';
 	@override String get install => 'انسٹال کریں';
 	@override String get connect => 'ہم آہنگ کریں';
 }
@@ -728,7 +728,7 @@ class _TranslationsEditProfileSectionsUr implements TranslationsEditProfileSecti
 
 	// Translations
 	@override String get personalInformation => 'ذاتی معلومات';
-	@override String get physicalMeasurements => 'طبی پیمائش';
+	@override String get physicalMeasurements => 'جسمانی پیمائش';
 	@override String get goalsAndActivity => 'اہداف اور سرگرمی';
 }
 
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageUr implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'زبان';
 	@override String get subtitle => 'اپنی پسندیدہ زبان منتخب کریں';
+	@override String get searchHint => 'زبانیں تلاش کریں...';
+	@override String get noResults => 'کوئی نتائج نہیں ملے';
 }
 
 // Path: settings.heightUnit
@@ -1077,7 +1079,7 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationUr implements Trans
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'پہچان میں انضمام';
+	@override String get title => 'ہموار انضمام';
 	@override String get description => 'اپنی پسندیدہ صحت ایپس سے ڈیٹا ہم آہنگ کریں';
 }
 
@@ -1108,7 +1110,7 @@ class _TranslationsOnboardingReinforcementHealthProfileUr implements Translation
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'آپ پروفائل';
+	@override String get title => 'آپ کا پروفائل';
 	@override String bmiDescription({required Object bmi}) => 'آپ کے میٹرکس کی بنیاد پر، آپ کا BMI ${bmi} ہے۔';
 	@override String get finalizeDescription => 'آئیے آپ کے تجربے کو حسب ضرورت بنانے کے لئے آپ کا پروفائل مکمل کریں۔';
 	@override String get goalGain => 'بڑھانا';
@@ -1371,7 +1373,7 @@ extension on TranslationsUr {
 			'onboarding.healthConnect.automaticTracking.description' => 'اپنی صحت کی ایپس سے جلائی گئی کیلوریز کو ٹریک کریں',
 			'onboarding.healthConnect.progressInsights.title' => 'ترقی کی بصیرت',
 			'onboarding.healthConnect.progressInsights.description' => 'آپ کے صحت کے رجحانات کی تفصیلی بصیرت حاصل کریں',
-			'onboarding.healthConnect.seamlessIntegration.title' => 'پہچان میں انضمام',
+			'onboarding.healthConnect.seamlessIntegration.title' => 'ہموار انضمام',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'اپنی پسندیدہ صحت ایپس سے ڈیٹا ہم آہنگ کریں',
 			'onboarding.healthConnect.connected' => 'Health Connect جڑا ہوا ہے',
 			'onboarding.healthConnect.notConnected' => 'Health Connect جڑا ہوا نہیں ہے',
@@ -1392,7 +1394,7 @@ extension on TranslationsUr {
 			'onboarding.reinforcement.trackingSuccess.button' => 'چلو شروع کریں',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'انفرادی',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'صحت مند آپ',
-			'onboarding.reinforcement.healthProfile.title' => 'آپ پروفائل',
+			'onboarding.reinforcement.healthProfile.title' => 'آپ کا پروفائل',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'آپ کے میٹرکس کی بنیاد پر، آپ کا BMI ${bmi} ہے۔',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'آئیے آپ کے تجربے کو حسب ضرورت بنانے کے لئے آپ کا پروفائل مکمل کریں۔',
 			'onboarding.reinforcement.healthProfile.goalGain' => 'بڑھانا',
@@ -1453,7 +1455,7 @@ extension on TranslationsUr {
 			'home.mealSnap.description' => 'اپنے کھانے کی تصویر لینے کے لیے اپنے کیمرے کا استعمال کریں تاکہ AI اسے تجزیہ کر سکے۔',
 			'home.mealSnap.openCamera' => 'کیمرہ کھولیں',
 			'home.connectHealth.title' => 'ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں',
-			'home.connectHealth.description' => 'اپرا غذائیت کے ڈیٹا کو ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں',
+			'home.connectHealth.description' => 'اپنا غذائیت کے ڈیٹا کو ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں',
 			'home.connectHealth.install' => 'انسٹال کریں',
 			'home.connectHealth.connect' => 'ہم آہنگ کریں',
 			'history.noMeals' => 'کوئی کھانے کا ریکارڈ نہیں',
@@ -1523,7 +1525,7 @@ extension on TranslationsUr {
 			'healthScore.neutral' => 'غیر جانبدار',
 			'editProfile.title' => 'پروفائل ترمیم کریں',
 			'editProfile.sections.personalInformation' => 'ذاتی معلومات',
-			'editProfile.sections.physicalMeasurements' => 'طبی پیمائش',
+			'editProfile.sections.physicalMeasurements' => 'جسمانی پیمائش',
 			'editProfile.sections.goalsAndActivity' => 'اہداف اور سرگرمی',
 			'editProfile.gender' => 'جنس',
 			'editProfile.dateOfBirth' => 'تاریخ پیدائش',
@@ -1567,6 +1569,8 @@ extension on TranslationsUr {
 			'settings.editProfile.subtitle' => 'اپنی ذاتی معلومات کو تازہ کریں',
 			'settings.language.title' => 'زبان',
 			'settings.language.subtitle' => 'اپنی پسندیدہ زبان منتخب کریں',
+			'settings.language.searchHint' => 'زبانیں تلاش کریں...',
+			'settings.language.noResults' => 'کوئی نتائج نہیں ملے',
 			'settings.heightUnit.title' => 'قد کی اکائی',
 			'settings.weightUnit.title' => 'وزن کی اکائی',
 			'settings.mealReminders.title' => 'کھانے کی یاد دہانیاں',

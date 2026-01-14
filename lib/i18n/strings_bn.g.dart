@@ -261,13 +261,13 @@ class _TranslationsRemindersBn implements TranslationsRemindersEn {
 	final TranslationsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'স্মরণিকার্ণের সাথে পথৈঁচ রাখতে';
+	@override String get title => 'রিমাইন্ডারের সাথে পথে থাকুন';
 	@override String get description => 'আপনার খাবার লগ করতে এবং আপনার পুষ্টির লক্ষ্যগুলির সাথে ধারাবাহিক থাকায় নম্রভাবে স্মরণ করিয়ে দিন';
 	@override String get notificationsEnabled => 'বিজ্ঞপ্তি সক্রিয়';
 	@override String get notificationsDisabled => 'বিজ্ঞপ্তি নিষ্ক্রিয়';
-	@override String get enabledSubtitle => 'আপনাকে খাবারের স্মরণিকার্ণ(receive) হবে';
-	@override String get disabledSubtitle => 'খাবারের স্মরণিকার্ণ পেতে বিজ্ঞপ্তি সক্রিয় করুন';
-	@override String get mealReminders => 'খাবারের স্মরণিকার্ণ';
+	@override String get enabledSubtitle => 'আপনাকে খাবারের রিমাইন্ডার পাঠানো হবে';
+	@override String get disabledSubtitle => 'খাবারের রিমাইন্ডার পেতে বিজ্ঞপ্তি সক্রিয় করুন';
+	@override String get mealReminders => 'খাবারের রিমাইন্ডার';
 	@override String get breakfast => 'সকালের নাস্তা';
 	@override String get lunch => 'মধ্যাহ্নভোজন';
 	@override String get dinner => 'রাতের খাবার';
@@ -717,7 +717,7 @@ class _TranslationsProfileCalculatedValuesBn implements TranslationsProfileCalcu
 	@override String get tdee => 'TDEE';
 	@override String get dailyGoal => 'দৈনিক লক্ষ্য';
 	@override String get calPerDay => 'ক্যালরি/দিন';
-	@override String get notAvailable => 'অফল্য';
+	@override String get notAvailable => 'অনুপলব্ধ';
 }
 
 // Path: editProfile.sections
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageBn implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'ভাষা';
 	@override String get subtitle => 'আপনার পছন্দের ভাষা নির্বাচন করুন';
+	@override String get searchHint => 'ভাষা অনুসন্ধান করুন...';
+	@override String get noResults => 'কোন ফলাফল পাওয়া যায়নি';
 }
 
 // Path: settings.heightUnit
@@ -834,8 +836,8 @@ class _TranslationsSettingsMealRemindersBn implements TranslationsSettingsMealRe
 	final TranslationsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'খাবার স্মরণিকার্ণ';
-	@override String get subtitle => 'সঠিক সময়ে সতর্কতা দিয়ে পথৈঁচ রাখতে';
+	@override String get title => 'খাবারের রিমাইন্ডার';
+	@override String get subtitle => 'সঠিক সময়ে সতর্কতা দিয়ে পথে রাখতে';
 }
 
 // Path: settings.theme
@@ -877,9 +879,9 @@ class _TranslationsSettingsClearAllDataBn implements TranslationsSettingsClearAl
 
 	// Translations
 	@override String get title => 'সকল তথ্য মুছুন';
-	@override String get subtitle => 'আপনার সমস্ত তথ্য বিপরীতভাবে মুছুন';
+	@override String get subtitle => 'আপনার সমস্ত তথ্য স্থায়ীভাবে মুছুন';
 	@override String get confirmationTitle => 'সকল তথ্য মুছতে?';
-	@override String get confirmationMessage => 'এই পদক্ষেপটি অঙ্কিত হবে। আপনার সমস্ত লগ করা খাবার, প্রিয় এবং প্রোফাইল সেটিংস স্থায়ীভাবে মুছে যাবে।';
+	@override String get confirmationMessage => 'এই পদক্ষেপটি পূর্বাবস্থায় ফেরানো যাবে না। আপনার সমস্ত লগ করা খাবার, প্রিয় এবং প্রোফাইল সেটিংস স্থায়ীভাবে মুছে যাবে।';
 	@override String get cancel => 'বাতিল করুন';
 	@override String get clearEverything => 'সব মুছুন';
 }
@@ -970,7 +972,7 @@ class _TranslationsDisclaimerWeightEstimateBn implements TranslationsDisclaimerW
 
 	// Translations
 	@override String get title => 'ওজনের আনুমানিক সম্পর্কে';
-	@override String get description => 'প্রোজেক্টেড ওজন পরিবর্তনটি সাধারণ ক্যালোরি-তে বাস/ক্যালোরি-এলপ স্রাব মডেলের উপর ভিত্তি করে একটি তাত্ত্বিক মান। এটি শুধুমাত্র অনুপ্রেরণামূলক নির্দেশিকা হিসেবে তৈরি করা হয়েছে, আপনার আসল ওজনের পূর্বাভাস হিসেবে নয়।';
+	@override String get description => 'প্রোজেক্টেড ওজন পরিবর্তনটি সাধারণ ক্যালোরি গ্রহণ/ব্যয় মডেলের উপর ভিত্তি করে একটি তাত্ত্বিক মান। এটি শুধুমাত্র অনুপ্রেরণামূলক নির্দেশিকা হিসেবে তৈরি করা হয়েছে, আপনার আসল ওজনের পূর্বাভাস হিসেবে নয়।';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyBn calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyBn._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsBn biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsBn._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightBn waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightBn._(_root);
@@ -1275,7 +1277,7 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyBn implements Translat
 
 	// Translations
 	@override String get title => 'ক্যালোরির সঠিকতা';
-	@override String get description => 'এই অনুমানটি আপনার ট্র্যাক করা ক্যালোরির গ্রহণ ও ব্যয় অনুযায়ী শুধুমাত্র সঠিক। অমূল্য লগিং একটি অমূল্য পূর্বাভাস সৃষ্টি করবে।';
+	@override String get description => 'এই অনুমানটি আপনার ট্র্যাক করা ক্যালোরির গ্রহণ ও ব্যয় অনুযায়ী শুধুমাত্র সঠিক। অসঠিক লগিং একটি অসঠিক পূর্বাভাস সৃষ্টি করবে।';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1514,7 +1516,7 @@ extension on TranslationsBn {
 			'profile.calculatedValues.tdee' => 'TDEE',
 			'profile.calculatedValues.dailyGoal' => 'দৈনিক লক্ষ্য',
 			'profile.calculatedValues.calPerDay' => 'ক্যালরি/দিন',
-			'profile.calculatedValues.notAvailable' => 'অফল্য',
+			'profile.calculatedValues.notAvailable' => 'অনুপলব্ধ',
 			'healthScore.title' => 'স্বাস্থ্য স্কোর',
 			'healthScore.whyThisScore' => 'এজন্য এই স্কোর?',
 			'healthScore.note' => 'এই স্কোরটি চিনল শস্য ও পুষ্টি ঘনতার ভিত্তিতে একটি AI মূল্যায়ন। স্বাস্থ্য বিষয়ক পরামর্শের জন্য সর্বদা একজন পেশাদারকে পরামর্শ করুন।',
@@ -1567,10 +1569,12 @@ extension on TranslationsBn {
 			'settings.editProfile.subtitle' => 'আপনার ব্যক্তিগত তথ্য আপডেট করুন',
 			'settings.language.title' => 'ভাষা',
 			'settings.language.subtitle' => 'আপনার পছন্দের ভাষা নির্বাচন করুন',
+			'settings.language.searchHint' => 'ভাষা অনুসন্ধান করুন...',
+			'settings.language.noResults' => 'কোন ফলাফল পাওয়া যায়নি',
 			'settings.heightUnit.title' => 'উচ্চতার ইউনিট',
 			'settings.weightUnit.title' => 'ওজনের ইউনিট',
-			'settings.mealReminders.title' => 'খাবার স্মরণিকার্ণ',
-			'settings.mealReminders.subtitle' => 'সঠিক সময়ে সতর্কতা দিয়ে পথৈঁচ রাখতে',
+			'settings.mealReminders.title' => 'খাবারের রিমাইন্ডার',
+			'settings.mealReminders.subtitle' => 'সঠিক সময়ে সতর্কতা দিয়ে পথে রাখতে',
 			'settings.theme.title' => 'থিম',
 			'settings.theme.subtitle' => 'আপনার পছন্দের থিম নির্বাচন করুন',
 			'settings.theme.light' => 'লাইট',
@@ -1585,20 +1589,20 @@ extension on TranslationsBn {
 			'settings.sendFeedback.osVersion' => 'OS সংস্করণ',
 			'settings.sendFeedback.uid' => 'UID',
 			'settings.clearAllData.title' => 'সকল তথ্য মুছুন',
-			'settings.clearAllData.subtitle' => 'আপনার সমস্ত তথ্য বিপরীতভাবে মুছুন',
+			'settings.clearAllData.subtitle' => 'আপনার সমস্ত তথ্য স্থায়ীভাবে মুছুন',
 			'settings.clearAllData.confirmationTitle' => 'সকল তথ্য মুছতে?',
-			'settings.clearAllData.confirmationMessage' => 'এই পদক্ষেপটি অঙ্কিত হবে। আপনার সমস্ত লগ করা খাবার, প্রিয় এবং প্রোফাইল সেটিংস স্থায়ীভাবে মুছে যাবে।',
+			'settings.clearAllData.confirmationMessage' => 'এই পদক্ষেপটি পূর্বাবস্থায় ফেরানো যাবে না। আপনার সমস্ত লগ করা খাবার, প্রিয় এবং প্রোফাইল সেটিংস স্থায়ীভাবে মুছে যাবে।',
 			'settings.clearAllData.cancel' => 'বাতিল করুন',
 			'settings.clearAllData.clearEverything' => 'সব মুছুন',
 			'settings.debugOptions.title' => 'ডিবাগ অপশন',
 			'settings.developerModeEnabled' => 'ডেভেলপার মোড সক্রিয়!',
-			'reminders.title' => 'স্মরণিকার্ণের সাথে পথৈঁচ রাখতে',
+			'reminders.title' => 'রিমাইন্ডারের সাথে পথে থাকুন',
 			'reminders.description' => 'আপনার খাবার লগ করতে এবং আপনার পুষ্টির লক্ষ্যগুলির সাথে ধারাবাহিক থাকায় নম্রভাবে স্মরণ করিয়ে দিন',
 			'reminders.notificationsEnabled' => 'বিজ্ঞপ্তি সক্রিয়',
 			'reminders.notificationsDisabled' => 'বিজ্ঞপ্তি নিষ্ক্রিয়',
-			'reminders.enabledSubtitle' => 'আপনাকে খাবারের স্মরণিকার্ণ(receive) হবে',
-			'reminders.disabledSubtitle' => 'খাবারের স্মরণিকার্ণ পেতে বিজ্ঞপ্তি সক্রিয় করুন',
-			'reminders.mealReminders' => 'খাবারের স্মরণিকার্ণ',
+			'reminders.enabledSubtitle' => 'আপনাকে খাবারের রিমাইন্ডার পাঠানো হবে',
+			'reminders.disabledSubtitle' => 'খাবারের রিমাইন্ডার পেতে বিজ্ঞপ্তি সক্রিয় করুন',
+			'reminders.mealReminders' => 'খাবারের রিমাইন্ডার',
 			'reminders.breakfast' => 'সকালের নাস্তা',
 			'reminders.lunch' => 'মধ্যাহ্নভোজন',
 			'reminders.dinner' => 'রাতের খাবার',
@@ -1635,9 +1639,9 @@ extension on TranslationsBn {
 			'disclaimer.snap.databaseLimitations.title' => 'ডেটাবেসের সীমাবদ্ধতা',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} এর খাবারের ডাটাবেজ ব্যাপক কিন্তু এতে প্রতিটি খাদ্য আইটেম বা ভ্যারিয়েশন অন্তর্ভুক্ত নাও হতে পারে।',
 			'disclaimer.weightEstimate.title' => 'ওজনের আনুমানিক সম্পর্কে',
-			'disclaimer.weightEstimate.description' => 'প্রোজেক্টেড ওজন পরিবর্তনটি সাধারণ ক্যালোরি-তে বাস/ক্যালোরি-এলপ স্রাব মডেলের উপর ভিত্তি করে একটি তাত্ত্বিক মান। এটি শুধুমাত্র অনুপ্রেরণামূলক নির্দেশিকা হিসেবে তৈরি করা হয়েছে, আপনার আসল ওজনের পূর্বাভাস হিসেবে নয়।',
+			'disclaimer.weightEstimate.description' => 'প্রোজেক্টেড ওজন পরিবর্তনটি সাধারণ ক্যালোরি গ্রহণ/ব্যয় মডেলের উপর ভিত্তি করে একটি তাত্ত্বিক মান। এটি শুধুমাত্র অনুপ্রেরণামূলক নির্দেশিকা হিসেবে তৈরি করা হয়েছে, আপনার আসল ওজনের পূর্বাভাস হিসেবে নয়।',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'ক্যালোরির সঠিকতা',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'এই অনুমানটি আপনার ট্র্যাক করা ক্যালোরির গ্রহণ ও ব্যয় অনুযায়ী শুধুমাত্র সঠিক। অমূল্য লগিং একটি অমূল্য পূর্বাভাস সৃষ্টি করবে।',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'এই অনুমানটি আপনার ট্র্যাক করা ক্যালোরির গ্রহণ ও ব্যয় অনুযায়ী শুধুমাত্র সঠিক। অসঠিক লগিং একটি অসঠিক পূর্বাভাস সৃষ্টি করবে।',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'জীববৈচিত্র্যগত উপাদান',
 			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'বাস্তব ওজন কমানো/বাড়ানো বিপাক, হরমোন, ঘুম, চাপ, জল দেহের প্রভাব ও অন্যান্য ব্যক্তিগত ফ্যাক্টরের দ্বারা প্রভাবিত হয় যা ${appLabel} মাপতে পারে না।',
 			'disclaimer.weightEstimate.waterWeight.title' => 'জল ওজন এবং পরিবর্তন',

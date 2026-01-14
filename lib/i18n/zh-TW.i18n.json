@@ -113,7 +113,7 @@
       "healthProfile": {
         "title": "您的健康檔案",
         "bmiDescription": "根據您的數據，您的 BMI 為 {bmi}。",
-        "finalizeDescription": "讓我們完善您的檔案以Customize您的體驗。",
+        "finalizeDescription": "讓我們完善您的檔案以客製化您的體驗。",
         "goalGain": "增重",
         "goalLose": "減重",
         "goalReach": "要達成您的目標，您需要 {direction} {diff} {unit}。",
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "語言",
-      "subtitle": "選擇您偏好的語言"
+      "subtitle": "選擇您偏好的語言",
+      "searchHint": "搜尋語言...",
+      "noResults": "未找到結果"
     },
     "heightUnit": {
       "title": "身高單位"

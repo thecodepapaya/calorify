@@ -328,8 +328,8 @@ class _TranslationsCommonSv implements TranslationsCommonEn {
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get close => 'Stänga';
-	@override String get kContinue => 'Fortsätta';
+	@override String get close => 'Stäng';
+	@override String get kContinue => 'Fortsätt';
 }
 
 // Path: errors
@@ -377,10 +377,10 @@ class _TranslationsDebugSv implements TranslationsDebugEn {
 	@override String syncSuccess({required Object count}) => 'Framgångsrikt hämtat ${count} datapunkter för Steg, Kalorier och Vikt under de senaste 7 dagarna.';
 	@override String get noWeightData => 'Ingen viktdata hittades under de senaste 30 dagarna.';
 	@override String get noHeightData => 'Ingen längddata hittades under det senaste året.';
-	@override String get noCalorieData => 'Ingen kalori data hittades för idag.';
+	@override String get noCalorieData => 'Ingen kaloridata hittades för idag.';
 	@override String get weightWritten => 'Testvikt (70kg) har skrivits.';
 	@override String get weightWriteFailed => 'Misslyckades med att skriva testvikt.';
-	@override String get heightWritten => 'Test längd (175cm) har skrivits.';
+	@override String get heightWritten => 'Testlängd (175cm) har skrivits.';
 	@override String get heightWriteFailed => 'Misslyckades med att skriva testlängd.';
 	@override String get noNotifications => 'Inga aktiva notifieringar.';
 	@override String get testNotificationScheduled => 'Testnotifikation schemalagd för 10 sekunder från nu.';
@@ -449,8 +449,8 @@ class _TranslationsOnboardingWeightSv implements TranslationsOnboardingWeightEn 
 	// Translations
 	@override String get currentTitle => 'Vad väger du för närvarande?';
 	@override String get currentDescription => 'Din nuvarande vikt är viktig för att anpassa dina dagliga mål.';
-	@override String get targetTitle => 'Vad är ditt målvikten?';
-	@override String get targetDescription => 'Att sätta ett målväg hjälper oss att bestämma din långsiktiga plan.';
+	@override String get targetTitle => 'Vad är din målvikt?';
+	@override String get targetDescription => 'Att sätta en målvikt hjälper oss att bestämma din långsiktiga plan.';
 	@override String get metric => 'Metrisk';
 	@override String get imperial => 'Imperial';
 	@override String get next => 'Nästa';
@@ -502,7 +502,7 @@ class _TranslationsOnboardingActivityLevelSv implements TranslationsOnboardingAc
 
 	// Translations
 	@override String get title => 'Hur aktiv är du?';
-	@override String get description => 'Detta hjälper oss att beräkna ditt dagliga kalori behov mer exakt';
+	@override String get description => 'Detta hjälper oss att beräkna ditt dagliga kaloribehov mer exakt';
 }
 
 // Path: onboarding.healthConnect
@@ -595,7 +595,7 @@ class _TranslationsHomeIntakeHistorySv implements TranslationsHomeIntakeHistoryE
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '7-dagars makrohistrik';
+	@override String get title => '7-dagars makrohistorik';
 	@override String get noHistoryYet => 'Ingen historik ännu';
 	@override String get startLogging => 'Börja logga måltider för att se dina\n7-dagars makrotrender här';
 }
@@ -633,7 +633,7 @@ class _TranslationsHomeFavoriteMealsSv implements TranslationsHomeFavoriteMealsE
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Favoritmål';
+	@override String get title => 'Favoritmåltider';
 	@override String get description => 'Lägg snabbt till en av dina favoritmåltider.';
 	@override String get noFavorites => 'Inga favoritmåltider ännu.';
 	@override String get addFavoriteHint => 'Klicka på stjärnan på en måltid för att markera den som favorit.';
@@ -701,7 +701,7 @@ class _TranslationsProfileSectionsSv implements TranslationsProfileSectionsEn {
 
 	// Translations
 	@override String get profile => 'PROFIL';
-	@override String get basicInformation => 'BASIC INFORMATION';
+	@override String get basicInformation => 'GRUNDLÄGGANDE INFORMATION';
 	@override String get goalsAndActivity => 'MÅL & AKTIVITET';
 	@override String get calculatedValues => 'BERÄKNADE VÄRDEN';
 }
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageSv implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Språk';
 	@override String get subtitle => 'Välj ditt föredragna språk';
+	@override String get searchHint => 'Sök språk...';
+	@override String get noResults => 'Inga resultat hittades';
 }
 
 // Path: settings.heightUnit
@@ -877,7 +879,7 @@ class _TranslationsSettingsClearAllDataSv implements TranslationsSettingsClearAl
 
 	// Translations
 	@override String get title => 'Rensa all data';
-	@override String get subtitle => 'Oåterkallet ta bort all din information';
+	@override String get subtitle => 'Ta bort all din information oåterkalleligt';
 	@override String get confirmationTitle => 'Rensa all data?';
 	@override String get confirmationMessage => 'Denna åtgärd kan inte ångras. Alla dina registrerade måltider, favoriter och profilinställningar kommer att raderas permanent.';
 	@override String get cancel => 'Avbryt';
@@ -1018,7 +1020,7 @@ class _TranslationsOnboardingFeaturesHealthIntegrationSv implements Translations
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Hälsaintegration';
+	@override String get title => 'Hälsointegration';
 	@override String get description => 'Anslut med Health Connect för bättre insikter';
 }
 
@@ -1055,7 +1057,7 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingSv implements Transla
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Automatisk Kalori Spårning';
+	@override String get title => 'Automatisk kalorispårning';
 	@override String get description => 'Spåra kalorier brända från dina träningsappar';
 }
 
@@ -1078,7 +1080,7 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationSv implements Trans
 
 	// Translations
 	@override String get title => 'Sömlös integration';
-	@override String get description => 'Synkronisera data från dina favorit hälsoppar';
+	@override String get description => 'Synkronisera data från dina favorithälsoappar';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1275,7 +1277,7 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracySv implements Translat
 
 	// Translations
 	@override String get title => 'Kalorinoggrannhet';
-	@override String get description => 'Denna uppskattning är bara så noggrann som din spårade kaloriintag och utgifter. Onoggrann loggning och ju resultatet kommer att vara en felaktig projektion.';
+	@override String get description => 'Denna uppskattning är bara så noggrann som ditt spårade kaloriintag och dina utgifter. Onoggrann loggning leder till felaktiga projektioner.';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1329,7 +1331,7 @@ extension on TranslationsSv {
 			'onboarding.features.foodRecognition.description' => 'Ta en bild och låt AI identifiera din måltid',
 			'onboarding.features.aiAnalysis.title' => 'AI-analys',
 			'onboarding.features.aiAnalysis.description' => 'Få omedelbar näringsinformation från dina beskrivningar',
-			'onboarding.features.healthIntegration.title' => 'Hälsaintegration',
+			'onboarding.features.healthIntegration.title' => 'Hälsointegration',
 			'onboarding.features.healthIntegration.description' => 'Anslut med Health Connect för bättre insikter',
 			'onboarding.gender.title' => 'Vad är ditt kön?',
 			'onboarding.gender.description' => 'Kön hjälper oss att korrekt beräkna din basalmetaboliska hastighet (BMR).',
@@ -1341,8 +1343,8 @@ extension on TranslationsSv {
 			'onboarding.height.next' => 'Nästa',
 			'onboarding.weight.currentTitle' => 'Vad väger du för närvarande?',
 			'onboarding.weight.currentDescription' => 'Din nuvarande vikt är viktig för att anpassa dina dagliga mål.',
-			'onboarding.weight.targetTitle' => 'Vad är ditt målvikten?',
-			'onboarding.weight.targetDescription' => 'Att sätta ett målväg hjälper oss att bestämma din långsiktiga plan.',
+			'onboarding.weight.targetTitle' => 'Vad är din målvikt?',
+			'onboarding.weight.targetDescription' => 'Att sätta en målvikt hjälper oss att bestämma din långsiktiga plan.',
 			'onboarding.weight.metric' => 'Metrisk',
 			'onboarding.weight.imperial' => 'Imperial',
 			'onboarding.weight.next' => 'Nästa',
@@ -1364,15 +1366,15 @@ extension on TranslationsSv {
 			'onboarding.weightGoal.title' => 'Vad är ditt mål?',
 			'onboarding.weightGoal.description' => 'Välj det mål som bäst beskriver vad du vill uppnå',
 			'onboarding.activityLevel.title' => 'Hur aktiv är du?',
-			'onboarding.activityLevel.description' => 'Detta hjälper oss att beräkna ditt dagliga kalori behov mer exakt',
+			'onboarding.activityLevel.description' => 'Detta hjälper oss att beräkna ditt dagliga kaloribehov mer exakt',
 			'onboarding.healthConnect.title' => 'Anslut till Health Connect',
 			'onboarding.healthConnect.description' => 'Synkronisera din hälsodata för bättre insikter och automatisk kalori spårning',
-			'onboarding.healthConnect.automaticTracking.title' => 'Automatisk Kalori Spårning',
+			'onboarding.healthConnect.automaticTracking.title' => 'Automatisk kalorispårning',
 			'onboarding.healthConnect.automaticTracking.description' => 'Spåra kalorier brända från dina träningsappar',
 			'onboarding.healthConnect.progressInsights.title' => 'Framstegsinsikter',
 			'onboarding.healthConnect.progressInsights.description' => 'Få detaljerade insikter om dina hälsotrender',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Sömlös integration',
-			'onboarding.healthConnect.seamlessIntegration.description' => 'Synkronisera data från dina favorit hälsoppar',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'Synkronisera data från dina favorithälsoappar',
 			'onboarding.healthConnect.connected' => 'Health Connect Ansluten',
 			'onboarding.healthConnect.notConnected' => 'Health Connect Inte Ansluten',
 			'onboarding.healthConnect.setup' => 'Ställ in Health Connect',
@@ -1432,7 +1434,7 @@ extension on TranslationsSv {
 			'home.intakeProgress.title' => 'Dagens makrofördelning',
 			'home.intakeProgress.target' => 'Mål',
 			'home.intakeProgress.current' => 'Aktuell',
-			'home.intakeHistory.title' => '7-dagars makrohistrik',
+			'home.intakeHistory.title' => '7-dagars makrohistorik',
 			'home.intakeHistory.noHistoryYet' => 'Ingen historik ännu',
 			'home.intakeHistory.startLogging' => 'Börja logga måltider för att se dina\n7-dagars makrotrender här',
 			'home.mealLog.title' => 'Loggade måltider',
@@ -1443,7 +1445,7 @@ extension on TranslationsSv {
 			'home.mealDescription.description' => 'Beskriv din måltid och låt AI hantera detaljerna.',
 			'home.mealDescription.hint' => 't.ex. Till frukost hade jag en stor skål havregryn med en skivad banan och en skopa vassle ...',
 			'home.mealDescription.analyzeMeal' => 'Analysera måltid',
-			'home.favoriteMeals.title' => 'Favoritmål',
+			'home.favoriteMeals.title' => 'Favoritmåltider',
 			'home.favoriteMeals.description' => 'Lägg snabbt till en av dina favoritmåltider.',
 			'home.favoriteMeals.noFavorites' => 'Inga favoritmåltider ännu.',
 			'home.favoriteMeals.addFavoriteHint' => 'Klicka på stjärnan på en måltid för att markera den som favorit.',
@@ -1497,7 +1499,7 @@ extension on TranslationsSv {
 			'profile.yourProfile' => 'Din profil',
 			'profile.viewAndManage' => 'Visa och hantera din hälsoinformation',
 			'profile.sections.profile' => 'PROFIL',
-			'profile.sections.basicInformation' => 'BASIC INFORMATION',
+			'profile.sections.basicInformation' => 'GRUNDLÄGGANDE INFORMATION',
 			'profile.sections.goalsAndActivity' => 'MÅL & AKTIVITET',
 			'profile.sections.calculatedValues' => 'BERÄKNADE VÄRDEN',
 			'profile.gender' => 'Kön',
@@ -1567,6 +1569,8 @@ extension on TranslationsSv {
 			'settings.editProfile.subtitle' => 'Uppdatera din personliga information',
 			'settings.language.title' => 'Språk',
 			'settings.language.subtitle' => 'Välj ditt föredragna språk',
+			'settings.language.searchHint' => 'Sök språk...',
+			'settings.language.noResults' => 'Inga resultat hittades',
 			'settings.heightUnit.title' => 'Längdenhet',
 			'settings.weightUnit.title' => 'Viktenhet',
 			'settings.mealReminders.title' => 'Måltidspåminnelser',
@@ -1585,7 +1589,7 @@ extension on TranslationsSv {
 			'settings.sendFeedback.osVersion' => 'OS-version',
 			'settings.sendFeedback.uid' => 'UID',
 			'settings.clearAllData.title' => 'Rensa all data',
-			'settings.clearAllData.subtitle' => 'Oåterkallet ta bort all din information',
+			'settings.clearAllData.subtitle' => 'Ta bort all din information oåterkalleligt',
 			'settings.clearAllData.confirmationTitle' => 'Rensa all data?',
 			'settings.clearAllData.confirmationMessage' => 'Denna åtgärd kan inte ångras. Alla dina registrerade måltider, favoriter och profilinställningar kommer att raderas permanent.',
 			'settings.clearAllData.cancel' => 'Avbryt',
@@ -1637,15 +1641,15 @@ extension on TranslationsSv {
 			'disclaimer.weightEstimate.title' => 'Om viktuppskattning',
 			'disclaimer.weightEstimate.description' => 'Den projicerade viktförändringen är en teoretisk uppskattning baserad på den enkla modellen kalorier in vs. kalorier ut. Den är avsedd för motivationsvägledning endast, inte som en förutsägelse av din faktiska vikt.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalorinoggrannhet',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Denna uppskattning är bara så noggrann som din spårade kaloriintag och utgifter. Onoggrann loggning och ju resultatet kommer att vara en felaktig projektion.',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Denna uppskattning är bara så noggrann som ditt spårade kaloriintag och dina utgifter. Onoggrann loggning leder till felaktiga projektioner.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Biologiska faktorer',
 			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Verklig viktminskning/ökning påverkas av ämnesomsättning, hormoner, sömn, stress, hydrering och andra individuella faktorer som ${appLabel} inte kan mäta.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Vattenvikt & Fluktuationer',
 			'disclaimer.weightEstimate.waterWeight.description' => 'Normal dagsvikt kan fluktuera betydligt på grund av vattenretention, matsmältning och timing. Uppskattningen tar inte hänsyn till dessa dagliga förändringar.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Professionell vägledning',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Använd inte denna uppskattning för att fatta medicinska beslut. Rådgör alltid med en vårdpersonal eller registrerad dietist för personlig viktstyrning rådgivning.',
-			'common.close' => 'Stänga',
-			'common.kContinue' => 'Fortsätta',
+			'common.close' => 'Stäng',
+			'common.kContinue' => 'Fortsätt',
 			'errors.loadingProfileData' => 'Fel vid inläsning av profildata',
 			'errors.somethingWentWrong' => 'Något gick fel.',
 			'debug.title' => 'Debugalternativ',
@@ -1677,10 +1681,10 @@ extension on TranslationsSv {
 			'debug.syncSuccess' => ({required Object count}) => 'Framgångsrikt hämtat ${count} datapunkter för Steg, Kalorier och Vikt under de senaste 7 dagarna.',
 			'debug.noWeightData' => 'Ingen viktdata hittades under de senaste 30 dagarna.',
 			'debug.noHeightData' => 'Ingen längddata hittades under det senaste året.',
-			'debug.noCalorieData' => 'Ingen kalori data hittades för idag.',
+			'debug.noCalorieData' => 'Ingen kaloridata hittades för idag.',
 			'debug.weightWritten' => 'Testvikt (70kg) har skrivits.',
 			'debug.weightWriteFailed' => 'Misslyckades med att skriva testvikt.',
-			'debug.heightWritten' => 'Test längd (175cm) har skrivits.',
+			'debug.heightWritten' => 'Testlängd (175cm) har skrivits.',
 			'debug.heightWriteFailed' => 'Misslyckades med att skriva testlängd.',
 			'debug.noNotifications' => 'Inga aktiva notifieringar.',
 			'debug.testNotificationScheduled' => 'Testnotifikation schemalagd för 10 sekunder från nu.',

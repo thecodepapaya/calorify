@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageJa implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => '言語';
 	@override String get subtitle => 'お好みの言語を選択してください';
+	@override String get searchHint => '言語を検索...';
+	@override String get noResults => '結果が見つかりません';
 }
 
 // Path: settings.heightUnit
@@ -1567,6 +1569,8 @@ extension on TranslationsJa {
 			'settings.editProfile.subtitle' => '個人情報を更新',
 			'settings.language.title' => '言語',
 			'settings.language.subtitle' => 'お好みの言語を選択してください',
+			'settings.language.searchHint' => '言語を検索...',
+			'settings.language.noResults' => '結果が見つかりません',
 			'settings.heightUnit.title' => '身長の単位',
 			'settings.weightUnit.title' => '体重の単位',
 			'settings.mealReminders.title' => '食事リマインダー',

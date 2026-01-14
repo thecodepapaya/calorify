@@ -1328,6 +1328,12 @@ class TranslationsSettingsLanguageEn {
 
 	/// en: 'Choose your preferred language'
 	String get subtitle => 'Choose your preferred language';
+
+	/// en: 'Search languages...'
+	String get searchHint => 'Search languages...';
+
+	/// en: 'No results found'
+	String get noResults => 'No results found';
 }
 
 // Path: settings.heightUnit
@@ -2328,6 +2334,8 @@ extension on Translations {
 			'settings.editProfile.subtitle' => 'Update your personal information',
 			'settings.language.title' => 'Language',
 			'settings.language.subtitle' => 'Choose your preferred language',
+			'settings.language.searchHint' => 'Search languages...',
+			'settings.language.noResults' => 'No results found',
 			'settings.heightUnit.title' => 'Height Unit',
 			'settings.weightUnit.title' => 'Weight Unit',
 			'settings.mealReminders.title' => 'Meal Reminders',

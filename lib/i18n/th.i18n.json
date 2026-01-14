@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "ภาษา",
-      "subtitle": "เลือกภาษาที่ต้องการ"
+      "subtitle": "เลือกภาษาที่ต้องการ",
+      "searchHint": "ค้นหาภาษา...",
+      "noResults": "ไม่พบผลลัพธ์"
     },
     "heightUnit": {
       "title": "หน่วยความสูง"
@@ -372,14 +374,14 @@
     },
     "mealReminders": {
       "title": "การแจ้งเตือนมื้ออาหาร",
-      "subtitle": "อยู่ในแถวตั้งแต่กับการแจ้งเตือนที่ง่าย"
+      "subtitle": "รักษาความสม่ำเสมอด้วยการแจ้งเตือนที่ง่าย"
     },
     "theme": {
-      "title": "Theme",
-      "subtitle": "Choose your preferred theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
+      "title": "ธีม",
+      "subtitle": "เลือกธีมที่คุณต้องการ",
+      "light": "สว่าง",
+      "dark": "มืด",
+      "system": "ระบบ"
     },
     "sendFeedback": {
       "title": "ส่งความคิดเห็น",

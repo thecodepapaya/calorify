@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "语言",
-      "subtitle": "选择您的首选语言"
+      "subtitle": "选择您的首选语言",
+      "searchHint": "搜索语言...",
+      "noResults": "未找到结果"
     },
     "heightUnit": {
       "title": "身高单位"
@@ -377,8 +379,8 @@
     "theme": {
       "title": "主题",
       "subtitle": "选择您的首选主题",
-      "light": "明亮",
-      "dark": "黑暗",
+      "light": "浅色",
+      "dark": "深色",
       "system": "系统"
     },
     "sendFeedback": {

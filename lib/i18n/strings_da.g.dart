@@ -183,7 +183,7 @@ class _TranslationsProfileDa implements TranslationsProfileEn {
 	@override String get height => 'Højde';
 	@override String get weight => 'Vægt';
 	@override String get age => 'Alder';
-	@override String get weightGoal => 'Vægsmål';
+	@override String get weightGoal => 'Vægtmål';
 	@override String get activityLevel => 'Aktivitetsniveau';
 	@override String get healthMetrics => 'Sundhedsmetrikker';
 	@override String get notSet => 'Ikke indstillet';
@@ -220,7 +220,7 @@ class _TranslationsEditProfileDa implements TranslationsEditProfileEn {
 	@override String get dateOfBirth => 'Fødselsdato';
 	@override String get height => 'Højde';
 	@override String get weight => 'Vægt';
-	@override String get weightGoal => 'Vægsmål';
+	@override String get weightGoal => 'Vægtmål';
 	@override String get activityLevel => 'Aktivitetsniveau';
 	@override String get metric => 'Metisk';
 	@override String get imperial => 'Imperial';
@@ -363,7 +363,7 @@ class _TranslationsDebugDa implements TranslationsDebugEn {
 	@override String get fetchTodaysCalories => 'Hent Dagens Kalorier';
 	@override String get fetchLatestWeight => 'Hent Seneste Vægt';
 	@override String get fetchLatestHeight => 'Hent Seneste Højde';
-	@override String get writeTestWeight => 'Skriv Testvæg (70kg)';
+	@override String get writeTestWeight => 'Skriv Testvægt (70kg)';
 	@override String get writeTestHeight => 'Skriv Testhøjde (175cm)';
 	@override String get syncLast7Days => 'Synkroniser Sidste 7 Dage';
 	@override String get sync7DaysTitle => '7-Dages Synk';
@@ -378,8 +378,8 @@ class _TranslationsDebugDa implements TranslationsDebugEn {
 	@override String get noWeightData => 'Ingen vægtdata fundet i de sidste 30 dage.';
 	@override String get noHeightData => 'Ingen højde-data fundet i det sidste år.';
 	@override String get noCalorieData => 'Ingen kalorie data fundet for i dag.';
-	@override String get weightWritten => 'Testvæg (70kg) skrevet med succes.';
-	@override String get weightWriteFailed => 'Kunne ikke skrive testvæg.';
+	@override String get weightWritten => 'Testvægt (70kg) skrevet med succes.';
+	@override String get weightWriteFailed => 'Kunne ikke skrive testvægt.';
 	@override String get heightWritten => 'Testhøjde (175cm) skrevet med succes.';
 	@override String get heightWriteFailed => 'Kunne ikke skrive testhøjde.';
 	@override String get noNotifications => 'Ingen aktive notifikationer.';
@@ -435,7 +435,7 @@ class _TranslationsOnboardingHeightDa implements TranslationsOnboardingHeightEn 
 	// Translations
 	@override String get title => 'Hvor høj er du?';
 	@override String get description => 'Din højde hjælper os med nøjagtigt at beregne din BMI og energibehov.';
-	@override String get metric => 'Metisk';
+	@override String get metric => 'Metrisk';
 	@override String get imperial => 'Imperial';
 	@override String get next => 'Næste';
 }
@@ -451,7 +451,7 @@ class _TranslationsOnboardingWeightDa implements TranslationsOnboardingWeightEn 
 	@override String get currentDescription => 'Din nuværende vægt er essentiel for at tilpasse dine daglige mål.';
 	@override String get targetTitle => 'Hvad er din målvægt?';
 	@override String get targetDescription => 'At sætte et mål for vægten hjælper os med at bestemme din langsigtede plan.';
-	@override String get metric => 'Metisk';
+	@override String get metric => 'Metrisk';
 	@override String get imperial => 'Imperial';
 	@override String get next => 'Næste';
 }
@@ -701,7 +701,7 @@ class _TranslationsProfileSectionsDa implements TranslationsProfileSectionsEn {
 
 	// Translations
 	@override String get profile => 'PROFIL';
-	@override String get basicInformation => 'BASIC INFORMATION';
+	@override String get basicInformation => 'GRUNDLÆGGENDE OPLYSNINGER';
 	@override String get goalsAndActivity => 'MÅL & AKTIVITET';
 	@override String get calculatedValues => 'BEREGNEDE VÆRDIER';
 }
@@ -727,7 +727,7 @@ class _TranslationsEditProfileSectionsDa implements TranslationsEditProfileSecti
 	final TranslationsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get personalInformation => 'PERSONLIGE OPlysninger';
+	@override String get personalInformation => 'PERSONLIGE OPLYSNINGER';
 	@override String get physicalMeasurements => 'FYSISKE MÅLINGER';
 	@override String get goalsAndActivity => 'MÅL & AKTIVITET';
 }
@@ -781,7 +781,7 @@ class _TranslationsSettingsSectionsDa implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'LOKALISERING';
 	@override String get notifications => 'NOTIFIKATIONER';
 	@override String get supportAndLegal => 'SUPPORT & JURIDISK';
-	@override String get dangerZone => 'DANGER ZONE';
+	@override String get dangerZone => 'FAREZONE';
 	@override String get developer => 'UDVIKLER';
 }
 
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageDa implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Sprog';
 	@override String get subtitle => 'Vælg dit foretrukne sprog';
+	@override String get searchHint => 'Søg efter sprog...';
+	@override String get noResults => 'Ingen resultater fundet';
 }
 
 // Path: settings.heightUnit
@@ -1336,14 +1338,14 @@ extension on TranslationsDa {
 			'onboarding.gender.next' => 'Næste',
 			'onboarding.height.title' => 'Hvor høj er du?',
 			'onboarding.height.description' => 'Din højde hjælper os med nøjagtigt at beregne din BMI og energibehov.',
-			'onboarding.height.metric' => 'Metisk',
+			'onboarding.height.metric' => 'Metrisk',
 			'onboarding.height.imperial' => 'Imperial',
 			'onboarding.height.next' => 'Næste',
 			'onboarding.weight.currentTitle' => 'Hvad er din nuværende vægt?',
 			'onboarding.weight.currentDescription' => 'Din nuværende vægt er essentiel for at tilpasse dine daglige mål.',
 			'onboarding.weight.targetTitle' => 'Hvad er din målvægt?',
 			'onboarding.weight.targetDescription' => 'At sætte et mål for vægten hjælper os med at bestemme din langsigtede plan.',
-			'onboarding.weight.metric' => 'Metisk',
+			'onboarding.weight.metric' => 'Metrisk',
 			'onboarding.weight.imperial' => 'Imperial',
 			'onboarding.weight.next' => 'Næste',
 			'onboarding.age.title' => 'Hvornår har du fødselsdag?',
@@ -1497,14 +1499,14 @@ extension on TranslationsDa {
 			'profile.yourProfile' => 'Din Profil',
 			'profile.viewAndManage' => 'Se og administrer dine sundhedsoplysninger',
 			'profile.sections.profile' => 'PROFIL',
-			'profile.sections.basicInformation' => 'BASIC INFORMATION',
+			'profile.sections.basicInformation' => 'GRUNDLÆGGENDE OPLYSNINGER',
 			'profile.sections.goalsAndActivity' => 'MÅL & AKTIVITET',
 			'profile.sections.calculatedValues' => 'BEREGNEDE VÆRDIER',
 			'profile.gender' => 'Køn',
 			'profile.height' => 'Højde',
 			'profile.weight' => 'Vægt',
 			'profile.age' => 'Alder',
-			'profile.weightGoal' => 'Vægsmål',
+			'profile.weightGoal' => 'Vægtmål',
 			'profile.activityLevel' => 'Aktivitetsniveau',
 			'profile.healthMetrics' => 'Sundhedsmetrikker',
 			'profile.notSet' => 'Ikke indstillet',
@@ -1522,14 +1524,14 @@ extension on TranslationsDa {
 			'healthScore.healthy' => 'Sund',
 			'healthScore.neutral' => 'Neutral',
 			'editProfile.title' => 'Rediger Profil',
-			'editProfile.sections.personalInformation' => 'PERSONLIGE OPlysninger',
+			'editProfile.sections.personalInformation' => 'PERSONLIGE OPLYSNINGER',
 			'editProfile.sections.physicalMeasurements' => 'FYSISKE MÅLINGER',
 			'editProfile.sections.goalsAndActivity' => 'MÅL & AKTIVITET',
 			'editProfile.gender' => 'Køn',
 			'editProfile.dateOfBirth' => 'Fødselsdato',
 			'editProfile.height' => 'Højde',
 			'editProfile.weight' => 'Vægt',
-			'editProfile.weightGoal' => 'Vægsmål',
+			'editProfile.weightGoal' => 'Vægtmål',
 			'editProfile.activityLevel' => 'Aktivitetsniveau',
 			'editProfile.metric' => 'Metisk',
 			'editProfile.imperial' => 'Imperial',
@@ -1561,12 +1563,14 @@ extension on TranslationsDa {
 			'settings.sections.localization' => 'LOKALISERING',
 			'settings.sections.notifications' => 'NOTIFIKATIONER',
 			'settings.sections.supportAndLegal' => 'SUPPORT & JURIDISK',
-			'settings.sections.dangerZone' => 'DANGER ZONE',
+			'settings.sections.dangerZone' => 'FAREZONE',
 			'settings.sections.developer' => 'UDVIKLER',
 			'settings.editProfile.title' => 'Rediger Profil',
 			'settings.editProfile.subtitle' => 'Opdater dine personlige oplysninger',
 			'settings.language.title' => 'Sprog',
 			'settings.language.subtitle' => 'Vælg dit foretrukne sprog',
+			'settings.language.searchHint' => 'Søg efter sprog...',
+			'settings.language.noResults' => 'Ingen resultater fundet',
 			'settings.heightUnit.title' => 'Højde Enhed',
 			'settings.weightUnit.title' => 'Vægt Enhed',
 			'settings.mealReminders.title' => 'Måltidspåmindelser',
@@ -1663,7 +1667,7 @@ extension on TranslationsDa {
 			'debug.fetchTodaysCalories' => 'Hent Dagens Kalorier',
 			'debug.fetchLatestWeight' => 'Hent Seneste Vægt',
 			'debug.fetchLatestHeight' => 'Hent Seneste Højde',
-			'debug.writeTestWeight' => 'Skriv Testvæg (70kg)',
+			'debug.writeTestWeight' => 'Skriv Testvægt (70kg)',
 			'debug.writeTestHeight' => 'Skriv Testhøjde (175cm)',
 			'debug.syncLast7Days' => 'Synkroniser Sidste 7 Dage',
 			'debug.sync7DaysTitle' => '7-Dages Synk',
@@ -1678,8 +1682,8 @@ extension on TranslationsDa {
 			'debug.noWeightData' => 'Ingen vægtdata fundet i de sidste 30 dage.',
 			'debug.noHeightData' => 'Ingen højde-data fundet i det sidste år.',
 			'debug.noCalorieData' => 'Ingen kalorie data fundet for i dag.',
-			'debug.weightWritten' => 'Testvæg (70kg) skrevet med succes.',
-			'debug.weightWriteFailed' => 'Kunne ikke skrive testvæg.',
+			'debug.weightWritten' => 'Testvægt (70kg) skrevet med succes.',
+			'debug.weightWriteFailed' => 'Kunne ikke skrive testvægt.',
 			'debug.heightWritten' => 'Testhøjde (175cm) skrevet med succes.',
 			'debug.heightWriteFailed' => 'Kunne ikke skrive testhøjde.',
 			'debug.noNotifications' => 'Ingen aktive notifikationer.',

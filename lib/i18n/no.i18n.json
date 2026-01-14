@@ -43,19 +43,19 @@
     },
     "age": {
       "title": "Når har du bursdag?",
-      "description": "Alderen din hjelper oss å beregne dine kalori behov korrekt.",
+      "description": "Alderen din hjelper oss å beregne dine kaloribehov korrekt.",
       "next": "Neste"
     },
     "bmiScale": {
       "underweight": "Undervektig",
       "healthy": "Normalvektig",
       "overweight": "Overvektig",
-      "obese": "Fet",
+      "obese": "Kraftig overvektig",
       "categories": {
         "underweight": "Undervektig",
         "healthyWeight": "Normalvektig",
         "overweight": "Overvektig",
-        "obese": "Fet"
+        "obese": "Kraftig overvektig"
       },
       "messages": {
         "underweight": "Vi kan hjelpe deg med å lage en sunn plan for å nå en balansert vekt med næringsrike måltider.",
@@ -254,7 +254,7 @@
     "yourProfile": "Din Profil",
     "viewAndManage": "Se og administrer helseinformasjonen din",
     "sections": {
-      "profile": "PROFIl",
+      "profile": "PROFIL",
       "basicInformation": "GRUNNLEGGENDE INFORMASJON",
       "goalsAndActivity": "MÅL & AKTIVITET",
       "calculatedValues": "BEREGNEDE VERDIER"
@@ -278,7 +278,7 @@
     }
   },
   "healthScore": {
-    "title": "Helsescor",
+    "title": "Helsescore",
     "whyThisScore": "Hvorfor denne scoren?",
     "note": "Denne scoren er et AI-estimat basert på de identifiserte ingrediensene og næringsinnholdet. Konsulter alltid en profesjonell for kostholdsråd.",
     "unhealthy": "Usunn",
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Språk",
-      "subtitle": "Velg ditt foretrukne språk"
+      "subtitle": "Velg ditt foretrukne språk",
+      "searchHint": "Søk etter språk...",
+      "noResults": "Ingen resultater funnet"
     },
     "heightUnit": {
       "title": "Høydeenhet"

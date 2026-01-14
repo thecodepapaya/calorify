@@ -121,7 +121,7 @@ class _TranslationsHistoryTe implements TranslationsHistoryEn {
 	@override String get noMeals => 'లోగా డేటా లేదు';
 	@override String get emptyMessage => 'మీ చివరి భోజనానికి ఒక ఫొటో తీసి ఇక్కడ నమోదు చేయండి.';
 	@override String get today => 'ఈ రోజు';
-	@override String get yesterday => 'నేడు';
+	@override String get yesterday => 'నిన్న';
 }
 
 // Path: meal
@@ -187,7 +187,7 @@ class _TranslationsProfileTe implements TranslationsProfileEn {
 	@override String get activityLevel => 'యాక్టివిటీ స్థాయి';
 	@override String get healthMetrics => 'ఆరోగ్య మెట్రిక్‌లు';
 	@override String get notSet => 'సెట్ కాలేదు';
-	@override String get years => 'వారాలు';
+	@override String get years => 'సంవత్సరాలు';
 	@override String get updatedSuccessfully => 'ప్రొఫైల్ విజయవంతంగా నవీకరించబడింది!';
 	@override late final _TranslationsProfileCalculatedValuesTe calculatedValues = _TranslationsProfileCalculatedValuesTe._(_root);
 }
@@ -478,7 +478,7 @@ class _TranslationsOnboardingBmiScaleTe implements TranslationsOnboardingBmiScal
 	@override String get underweight => 'తక్కువ బరువు';
 	@override String get healthy => 'ఆరోగ్యకరమైన';
 	@override String get overweight => 'అధిక బరువు';
-	@override String get obese => 'వడ్డించిన';
+	@override String get obese => 'స్థూలకాయం';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesTe categories = _TranslationsOnboardingBmiScaleCategoriesTe._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesTe messages = _TranslationsOnboardingBmiScaleMessagesTe._(_root);
 }
@@ -557,7 +557,7 @@ class _TranslationsHomeDailyGoalTe implements TranslationsHomeDailyGoalEn {
 	@override String get burned => 'బర్న్';
 	@override String get weightImpact => 'బరువు ప్రభావం';
 	@override String get estLoss => 'అనుమానిస్థాయిలో నష్ట పరిణామం';
-	@override String get estGain => 'అనుమానిస్థాయిలో నష్ట పరిణామం';
+	@override String get estGain => 'అనుమానిస్థాయిలో లాభ పరిణామం';
 	@override String get kcal => 'kcal';
 }
 
@@ -572,7 +572,7 @@ class _TranslationsHomeDailySummaryTe implements TranslationsHomeDailySummaryEn 
 	@override String get calories => 'కేలొరీలు';
 	@override String get carbs => 'కార్బ్స్';
 	@override String get protein => 'ప్రోటీన్';
-	@override String get fat => 'మాంసం';
+	@override String get fat => 'కొవ్వు';
 	@override String get fiber => 'ఫైబర్';
 }
 
@@ -676,7 +676,7 @@ class _TranslationsMealNutritionTe implements TranslationsMealNutritionEn {
 	@override String get calories => 'కేలొరీలు';
 	@override String get carbs => 'కార్బ్స్ (గ్రా)';
 	@override String get protein => 'ప్రోటీన్ (గ్రా)';
-	@override String get fat => 'చిట్టిన మాంసం (గ్రా)';
+	@override String get fat => 'కొవ్వు (గ్రా)';
 	@override String get fiber => 'ఫైబర్ (గ్రా)';
 }
 
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageTe implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'భాష';
 	@override String get subtitle => 'మీ ఇష్టమైన భాషను ఎంచుకోండి';
+	@override String get searchHint => 'భాషలను శోధించండి...';
+	@override String get noResults => 'ఫలితాలు లవు';
 }
 
 // Path: settings.heightUnit
@@ -1008,7 +1010,7 @@ class _TranslationsOnboardingFeaturesAiAnalysisTe implements TranslationsOnboard
 
 	// Translations
 	@override String get title => 'AI విశ్లేషణ';
-	@override String get description => 'మీ వర్ణనల నుండి తక్షణ పోషక పరకంగా పొందండి';
+	@override String get description => 'మీ వర్ణనల నుండి తక్షణ పోషక విశ్లేషణను పొందండి';
 }
 
 // Path: onboarding.features.healthIntegration
@@ -1032,7 +1034,7 @@ class _TranslationsOnboardingBmiScaleCategoriesTe implements TranslationsOnboard
 	@override String get underweight => 'తక్కువ బరువు';
 	@override String get healthyWeight => 'ఆరోగ్యకరమైన బరువు';
 	@override String get overweight => 'అధిక బరువు';
-	@override String get obese => 'వడ్డించిన';
+	@override String get obese => 'స్థూలకాయం';
 }
 
 // Path: onboarding.bmiScale.messages
@@ -1056,7 +1058,7 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingTe implements Transla
 
 	// Translations
 	@override String get title => 'ఆటోమేటిక్ కేలొరీ ట్రాకింగ్';
-	@override String get description => 'మీ ఫిట్‌ನೆస్ యాప్‌ల నుండి వేయించిన కేలొరీలను ట్రాక్ చేయండి';
+	@override String get description => 'మీ ఫిట్‌నెస్ యాప్‌ల నుండి కాల్చిన కేలొరీలను ట్రాక్ చేయండి';
 }
 
 // Path: onboarding.healthConnect.progressInsights
@@ -1093,7 +1095,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessTe implements Translati
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'ఒక ${age} సంవత్సరాల ${gender} గా ${goal} చేయాలని అనుకుంటున్నట్లయితే, నిరంతరంగా ట్రాకింగ్ చేయడం విజయానికి #1 సూచిక.';
 	@override String closingMessage({required Object appLabel}) => '${appLabel} ఇది మాన్యువల్ గా చేయడం కన్నా 10 రెట్లు సులభం చేస్తుంది.';
 	@override String get getStartedTitle => 'ప్రారంభించడానికి సిద్ధమా?';
-	@override String get tipPhoto => 'తక్షణ విశ্লేషణ కోసం మీ భోజనాలను ఫొటో తీసుకోండి';
+	@override String get tipPhoto => 'తక్షణ విశ్లేషణ కోసం మీ భోజనాలను ఫొటో తీసుకోండి';
 	@override String get tipConsistency => 'సరైన మార్గదర్శకాలతో చూస్తున్న పరిణామాలను చూనుముట';
 	@override String get tipProgress => 'సమయానికి మీ పురోగతిని ట్రాక్ చేయండి మరియు ప్రోత్సాహాన్ని కొనసాగించండి';
 	@override String get button => 'ప్రారంభిద్దాం';
@@ -1126,7 +1128,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleTe implements Translation
 
 	// Translations
 	@override String get title => 'అద్భుతమైన ప్రారంభం!';
-	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'మీరు ${goalText} వైపు ప Erste తప్పని దశను తీసుకున్నారు. మీరు ${activityText} గా ఉండడం వల్ల, ${appLabel} మీ లక్ష్యాలను మీ జీవనశైలికి సరిపోల్చుతుంది.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'మీరు ${goalText} వైపు మొదటి అడుగు వేశారు. మీరు ${activityText} గా ఉంkerman, ${appLabel} మీ లక్ష్యాలను మీ జీవనశైలికి సరిపోల్చుతుంది.';
 	@override String get personalizedTargets => 'ఆర్థిక కేలొరీ లక్ష్యాలు';
 	@override String get aiMealDetection => 'AI ఆధారిత భోజన గుర్తింపు';
 	@override String get macroBreakdowns => 'వివిరించిన మాక్రో-అవసరాలు';
@@ -1285,7 +1287,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsTe implements Transl
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'జీవశాస్త్ర因素';
+	@override String get title => 'జీవశాస్త్ర కారకాలు';
 	@override String description({required Object appLabel}) => 'నిర్వహణ, హార్మోన్లు, నిద్ర, ఒత్తిడి, నీటి సరఫరా మరియు ${appLabel} కొలిచే ఇతర వ్యక్తిగత పరిస్థితులు వంటి అవిధేయాలను ప్రభావితం చేస్తుంది.';
 }
 
@@ -1328,7 +1330,7 @@ extension on TranslationsTe {
 			'onboarding.features.foodRecognition.title' => 'స్మార్ట్ ఆహారం గుర్తింపు',
 			'onboarding.features.foodRecognition.description' => 'ఒక ఫొటో తీసి, AI మీ భోజనాన్ని గుర్తించనివ్వండి',
 			'onboarding.features.aiAnalysis.title' => 'AI విశ్లేషణ',
-			'onboarding.features.aiAnalysis.description' => 'మీ వర్ణనల నుండి తక్షణ పోషక పరకంగా పొందండి',
+			'onboarding.features.aiAnalysis.description' => 'మీ వర్ణనల నుండి తక్షణ పోషక విశ్లేషణను పొందండి',
 			'onboarding.features.healthIntegration.title' => 'ఆరోగ్య సమన్వయం',
 			'onboarding.features.healthIntegration.description' => 'మరింత సమాచారం కోసం హెల్త్ కనెక్ట్ తో కనెక్ట్ చేయండి',
 			'onboarding.gender.title' => 'మీ లింగం ఏమిటి?',
@@ -1352,11 +1354,11 @@ extension on TranslationsTe {
 			'onboarding.bmiScale.underweight' => 'తక్కువ బరువు',
 			'onboarding.bmiScale.healthy' => 'ఆరోగ్యకరమైన',
 			'onboarding.bmiScale.overweight' => 'అధిక బరువు',
-			'onboarding.bmiScale.obese' => 'వడ్డించిన',
+			'onboarding.bmiScale.obese' => 'స్థూలకాయం',
 			'onboarding.bmiScale.categories.underweight' => 'తక్కువ బరువు',
 			'onboarding.bmiScale.categories.healthyWeight' => 'ఆరోగ్యకరమైన బరువు',
 			'onboarding.bmiScale.categories.overweight' => 'అధిక బరువు',
-			'onboarding.bmiScale.categories.obese' => 'వడ్డించిన',
+			'onboarding.bmiScale.categories.obese' => 'స్థూలకాయం',
 			'onboarding.bmiScale.messages.underweight' => 'సంతులిత బరువును చేరడానికి పోషక-సంపన్న భోజనాలతో ఆరోగ్యకరమైన ప్రణాళికను నిర్మించడంలో మీకు సహాయపడతాము.',
 			'onboarding.bmiScale.messages.healthy' => 'చక్కగా! మీరు ఆరోగ్యకరమైన పరిధిలో ఉన్నారు. మీ ఉత్సాహం మరియు శక్తి స్థాయిలను కొనసాగించడంలో మీకు సహాయపడతాము.',
 			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} మీ లక్ష్యాన్ని సౌకర్యంగా చేరడానికి AI ఆధారిత ట్రాకింగ్ తో మీ పయనాన్ని సరళంగా చేస్తుంది.',
@@ -1368,7 +1370,7 @@ extension on TranslationsTe {
 			'onboarding.healthConnect.title' => 'హెల్త్ కనెక్ట్ తో కనెక్ట్ చేయండి',
 			'onboarding.healthConnect.description' => 'భిన్నమైన సమాచారం మరియు ఆటోమేటిక్ కేలొరీ ట్రాకింగ్ కోసం మీ ఆరోగ్య డేటాను సింక్ చేయండి',
 			'onboarding.healthConnect.automaticTracking.title' => 'ఆటోమేటిక్ కేలొరీ ట్రాకింగ్',
-			'onboarding.healthConnect.automaticTracking.description' => 'మీ ఫిట్‌ನೆస్ యాప్‌ల నుండి వేయించిన కేలొరీలను ట్రాక్ చేయండి',
+			'onboarding.healthConnect.automaticTracking.description' => 'మీ ఫిట్‌నెస్ యాప్‌ల నుండి కాల్చిన కేలొరీలను ట్రాక్ చేయండి',
 			'onboarding.healthConnect.progressInsights.title' => 'ప్రోగ్రెస్ సమాచారం',
 			'onboarding.healthConnect.progressInsights.description' => 'మీ ఆరోగ్య ధోరణులపై వివరణాత్మక సమాచారం పొందండి',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'సాధారణ సమన్వయం',
@@ -1386,7 +1388,7 @@ extension on TranslationsTe {
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'ఒక ${age} సంవత్సరాల ${gender} గా ${goal} చేయాలని అనుకుంటున్నట్లయితే, నిరంతరంగా ట్రాకింగ్ చేయడం విజయానికి #1 సూచిక.',
 			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} ఇది మాన్యువల్ గా చేయడం కన్నా 10 రెట్లు సులభం చేస్తుంది.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'ప్రారంభించడానికి సిద్ధమా?',
-			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'తక్షణ విశ্লేషణ కోసం మీ భోజనాలను ఫొటో తీసుకోండి',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'తక్షణ విశ్లేషణ కోసం మీ భోజనాలను ఫొటో తీసుకోండి',
 			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'సరైన మార్గదర్శకాలతో చూస్తున్న పరిణామాలను చూనుముట',
 			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'సమయానికి మీ పురోగతిని ట్రాక్ చేయండి మరియు ప్రోత్సాహాన్ని కొనసాగించండి',
 			'onboarding.reinforcement.trackingSuccess.button' => 'ప్రారంభిద్దాం',
@@ -1401,7 +1403,7 @@ extension on TranslationsTe {
 			'onboarding.reinforcement.healthProfile.goalReached' => 'మీరు మీ లక్ష్య బరువులో ఉన్నారు! మేము దాన్ని కొనసాగించడంలో మీకు సహాయపడతాం.',
 			'onboarding.reinforcement.healthProfile.button' => 'ప్రారంభిద్దాం',
 			'onboarding.reinforcement.goalLifestyle.title' => 'అద్భుతమైన ప్రారంభం!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'మీరు ${goalText} వైపు ప Erste తప్పని దశను తీసుకున్నారు. మీరు ${activityText} గా ఉండడం వల్ల, ${appLabel} మీ లక్ష్యాలను మీ జీవనశైలికి సరిపోల్చుతుంది.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'మీరు ${goalText} వైపు మొదటి అడుగు వేశారు. మీరు ${activityText} గా ఉంkerman, ${appLabel} మీ లక్ష్యాలను మీ జీవనశైలికి సరిపోల్చుతుంది.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'ఆర్థిక కేలొరీ లక్ష్యాలు',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI ఆధారిత భోజన గుర్తింపు',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'వివిరించిన మాక్రో-అవసరాలు',
@@ -1421,13 +1423,13 @@ extension on TranslationsTe {
 			'home.dailyGoal.burned' => 'బర్న్',
 			'home.dailyGoal.weightImpact' => 'బరువు ప్రభావం',
 			'home.dailyGoal.estLoss' => 'అనుమానిస్థాయిలో నష్ట పరిణామం',
-			'home.dailyGoal.estGain' => 'అనుమానిస్థాయిలో నష్ట పరిణామం',
+			'home.dailyGoal.estGain' => 'అనుమానిస్థాయిలో లాభ పరిణామం',
 			'home.dailyGoal.kcal' => 'kcal',
 			'home.dailySummary.title' => 'రోజు విడివిడిగా',
 			'home.dailySummary.calories' => 'కేలొరీలు',
 			'home.dailySummary.carbs' => 'కార్బ్స్',
 			'home.dailySummary.protein' => 'ప్రోటీన్',
-			'home.dailySummary.fat' => 'మాంసం',
+			'home.dailySummary.fat' => 'కొవ్వు',
 			'home.dailySummary.fiber' => 'ఫైబర్',
 			'home.intakeProgress.title' => 'ఈ రోజు యొక్క మాక్రో విభజన',
 			'home.intakeProgress.target' => 'లక్ష్యం',
@@ -1459,7 +1461,7 @@ extension on TranslationsTe {
 			'history.noMeals' => 'లోగా డేటా లేదు',
 			'history.emptyMessage' => 'మీ చివరి భోజనానికి ఒక ఫొటో తీసి ఇక్కడ నమోదు చేయండి.',
 			'history.today' => 'ఈ రోజు',
-			'history.yesterday' => 'నేడు',
+			'history.yesterday' => 'నిన్న',
 			'meal.ohNo' => 'ఓహ్ లేదు!',
 			'meal.delete' => 'తొలగించు',
 			'meal.editMeal' => 'భోజనాన్ని సంపాదించు',
@@ -1475,7 +1477,7 @@ extension on TranslationsTe {
 			'meal.nutrition.calories' => 'కేలొరీలు',
 			'meal.nutrition.carbs' => 'కార్బ్స్ (గ్రా)',
 			'meal.nutrition.protein' => 'ప్రోటీన్ (గ్రా)',
-			'meal.nutrition.fat' => 'చిట్టిన మాంసం (గ్రా)',
+			'meal.nutrition.fat' => 'కొవ్వు (గ్రా)',
 			'meal.nutrition.fiber' => 'ఫైబర్ (గ్రా)',
 			'meal.deleteConfirmation.title' => 'భోజనాన్ని తొలగించండి',
 			'meal.deleteConfirmation.message' => 'మీరు ఈ భోజనాన్ని తొలగించాలని నిర్ధారించుకుంటున్నారా?',
@@ -1508,7 +1510,7 @@ extension on TranslationsTe {
 			'profile.activityLevel' => 'యాక్టివిటీ స్థాయి',
 			'profile.healthMetrics' => 'ఆరోగ్య మెట్రిక్‌లు',
 			'profile.notSet' => 'సెట్ కాలేదు',
-			'profile.years' => 'వారాలు',
+			'profile.years' => 'సంవత్సరాలు',
 			'profile.updatedSuccessfully' => 'ప్రొఫైల్ విజయవంతంగా నవీకరించబడింది!',
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
@@ -1567,6 +1569,8 @@ extension on TranslationsTe {
 			'settings.editProfile.subtitle' => 'మీ వ్యక్తిగత సమాచారాన్ని నవీకరించండి',
 			'settings.language.title' => 'భాష',
 			'settings.language.subtitle' => 'మీ ఇష్టమైన భాషను ఎంచుకోండి',
+			'settings.language.searchHint' => 'భాషలను శోధించండి...',
+			'settings.language.noResults' => 'ఫలితాలు లవు',
 			'settings.heightUnit.title' => 'ఎత్తు యూనిట్',
 			'settings.weightUnit.title' => 'బరువు యూనిట్',
 			'settings.mealReminders.title' => 'భోజన మరుగుదలను',
@@ -1638,7 +1642,7 @@ extension on TranslationsTe {
 			'disclaimer.weightEstimate.description' => 'అంచనా ప్రాతిపదికలో కేలొరీ-లోపు బరువు మార్పులు అంచనా పెంచడం కోసం మాత్రమే ఉద్దేశించబడ్డాయి, మీ నిజమైన బరువును కనిపెట్టడానికి కాదు.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'కేలొరీ ఖచ్చితత్వం',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'ఈ అంచనా మీ ట్రాక్ కేలొరీ అందించిన ఖచ్చితంగా మంచిని మాత్రమే అవుతుంది. ఖచ్చితమైన లాగర్లు ఖచ్చితమైన అంచనాలను ఇవ్వడం.',
-			'disclaimer.weightEstimate.biologicalFactors.title' => 'జీవశాస్త్ర因素',
+			'disclaimer.weightEstimate.biologicalFactors.title' => 'జీవశాస్త్ర కారకాలు',
 			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'నిర్వహణ, హార్మోన్లు, నిద్ర, ఒత్తిడి, నీటి సరఫరా మరియు ${appLabel} కొలిచే ఇతర వ్యక్తిగత పరిస్థితులు వంటి అవిధేయాలను ప్రభావితం చేస్తుంది.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'నీటి బరువు & మార్పులు',
 			'disclaimer.weightEstimate.waterWeight.description' => 'ప్రతి రోజున బరువు ఎక్కువగా ఉపచ్చులు మరియు వేగం వల్ల వ్యత్యాసాలు మరియు నీటి తట్టువులెవరూ ఉన్నాయి. అంచనా ఈ రోజువారీ మార్పులను జోడించాలి లేదు.',

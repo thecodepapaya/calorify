@@ -316,7 +316,7 @@ class _TranslationsDisclaimerEs implements TranslationsDisclaimerEn {
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get pleaseNote => 'Por Favor Nota';
+	@override String get pleaseNote => 'Ten en cuenta';
 	@override late final _TranslationsDisclaimerSnapEs snap = _TranslationsDisclaimerSnapEs._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateEs weightEstimate = _TranslationsDisclaimerWeightEstimateEs._(_root);
 }
@@ -688,7 +688,7 @@ class _TranslationsMealDeleteConfirmationEs implements TranslationsMealDeleteCon
 
 	// Translations
 	@override String get title => 'Eliminar Comida';
-	@override String get message => '¿Está seguro de que desea eliminar esta entrada de comida?';
+	@override String get message => '¿Estás seguro de que deseas eliminar esta entrada de comida?';
 	@override String get cancel => 'Cancelar';
 	@override String get delete => 'Eliminar';
 }
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageEs implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Idioma';
 	@override String get subtitle => 'Elige tu idioma preferido';
+	@override String get searchHint => 'Buscar idiomas...';
+	@override String get noResults => 'No se encontraron resultados';
 }
 
 // Path: settings.heightUnit
@@ -1478,7 +1480,7 @@ extension on TranslationsEs {
 			'meal.nutrition.fat' => 'Grasas (g)',
 			'meal.nutrition.fiber' => 'Fibra (g)',
 			'meal.deleteConfirmation.title' => 'Eliminar Comida',
-			'meal.deleteConfirmation.message' => '¿Está seguro de que desea eliminar esta entrada de comida?',
+			'meal.deleteConfirmation.message' => '¿Estás seguro de que deseas eliminar esta entrada de comida?',
 			'meal.deleteConfirmation.cancel' => 'Cancelar',
 			'meal.deleteConfirmation.delete' => 'Eliminar',
 			'meal.addedToLog' => '¡Comida añadida a tu registro!',
@@ -1567,6 +1569,8 @@ extension on TranslationsEs {
 			'settings.editProfile.subtitle' => 'Actualiza tu información personal',
 			'settings.language.title' => 'Idioma',
 			'settings.language.subtitle' => 'Elige tu idioma preferido',
+			'settings.language.searchHint' => 'Buscar idiomas...',
+			'settings.language.noResults' => 'No se encontraron resultados',
 			'settings.heightUnit.title' => 'Unidad de Altura',
 			'settings.weightUnit.title' => 'Unidad de Peso',
 			'settings.mealReminders.title' => 'Recordatorios de Comidas',
@@ -1624,7 +1628,7 @@ extension on TranslationsEs {
 			'login.title' => 'Iniciar Sesión',
 			'login.signInWithGoogle' => 'Iniciar sesión con Google',
 			'login.signInFailed' => 'Fallo en el inicio de sesión de Google o fue cancelado.',
-			'disclaimer.pleaseNote' => 'Por Favor Nota',
+			'disclaimer.pleaseNote' => 'Ten en cuenta',
 			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} proporciona información nutricional estimada. La precisión depende de tu entrada y las variaciones de los alimentos. Úsalo como una guía, no como una fuente definitiva. Consulta a un profesional para obtener consejos dietéticos personalizados.',
 			'disclaimer.snap.portionSize.title' => 'Tamaño de Porción',
 			'disclaimer.snap.portionSize.description' => 'La precisión de las estimaciones depende en gran medida de tu correcta evaluación del tamaño de la porción.',

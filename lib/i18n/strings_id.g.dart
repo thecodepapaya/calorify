@@ -367,8 +367,8 @@ class _TranslationsDebugId implements TranslationsDebugEn {
 	@override String get writeTestHeight => 'Tulis Tinggi Uji (175cm)';
 	@override String get syncLast7Days => 'Sinkronkan 7 Hari Terakhir';
 	@override String get sync7DaysTitle => 'Sinkron 7 Hari';
-	@override String get checkCurrentLocale => 'Periksa Lokasi Saat Ini';
-	@override String get currentLocale => 'Lokasi Saat Ini';
+	@override String get checkCurrentLocale => 'Periksa Locale Saat Ini';
+	@override String get currentLocale => 'Locale Saat Ini';
 	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Bahasa: ${languageCode}\nNegara: ${countryCode}\nSistem Unit: ${unitSystem}';
 	@override String get latestWeight => 'Berat Terakhir';
 	@override String get latestHeight => 'Tinggi Terakhir';
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageId implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Bahasa';
 	@override String get subtitle => 'Pilih bahasa yang Anda inginkan';
+	@override String get searchHint => 'Cari bahasa...';
+	@override String get noResults => 'Tidak ada hasil ditemukan';
 }
 
 // Path: settings.heightUnit
@@ -1567,6 +1569,8 @@ extension on TranslationsId {
 			'settings.editProfile.subtitle' => 'Perbarui informasi pribadi Anda',
 			'settings.language.title' => 'Bahasa',
 			'settings.language.subtitle' => 'Pilih bahasa yang Anda inginkan',
+			'settings.language.searchHint' => 'Cari bahasa...',
+			'settings.language.noResults' => 'Tidak ada hasil ditemukan',
 			'settings.heightUnit.title' => 'Satuan Tinggi',
 			'settings.weightUnit.title' => 'Satuan Berat',
 			'settings.mealReminders.title' => 'Pengingat Makanan',
@@ -1667,8 +1671,8 @@ extension on TranslationsId {
 			'debug.writeTestHeight' => 'Tulis Tinggi Uji (175cm)',
 			'debug.syncLast7Days' => 'Sinkronkan 7 Hari Terakhir',
 			'debug.sync7DaysTitle' => 'Sinkron 7 Hari',
-			'debug.checkCurrentLocale' => 'Periksa Lokasi Saat Ini',
-			'debug.currentLocale' => 'Lokasi Saat Ini',
+			'debug.checkCurrentLocale' => 'Periksa Locale Saat Ini',
+			'debug.currentLocale' => 'Locale Saat Ini',
 			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Bahasa: ${languageCode}\nNegara: ${countryCode}\nSistem Unit: ${unitSystem}',
 			'debug.latestWeight' => 'Berat Terakhir',
 			'debug.latestHeight' => 'Tinggi Terakhir',

@@ -21,7 +21,7 @@
       }
     },
     "gender": {
-      "title": "Jakie jest Twoje płeć?",
+      "title": "Jaka jest Twoja płeć?",
       "description": "Płeć pomaga nam dokładnie obliczyć Twój podstawowy wskaźnik metaboliczny (BMR).",
       "next": "Dalej"
     },
@@ -353,7 +353,7 @@
       "localization": "LOKALIZACJA",
       "notifications": "POWIADOMIENIA",
       "supportAndLegal": "WSPARCIE I PRAWO",
-      "dangerZone": "STREFa ZAGROŻENIA",
+      "dangerZone": "STREFA ZAGROŻENIA",
       "developer": "DEWELOPER"
     },
     "editProfile": {
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Język",
-      "subtitle": "Wybierz preferowany język"
+      "subtitle": "Wybierz preferowany język",
+      "searchHint": "Szukaj języków...",
+      "noResults": "Nie znaleziono wyników"
     },
     "heightUnit": {
       "title": "Jednostka Wzrostu"
@@ -518,7 +520,7 @@
     "noBody": "Brak Treści",
     "fetchTodaysSteps": "Pobierz Dziś Kroków",
     "fetchTodaysCalories": "Pobierz Dziś Kalorii",
-    "fetchLatestWeight": "Pobierz Najnowszą Wag",
+    "fetchLatestWeight": "Pobierz Najnowszą Wagę",
     "fetchLatestHeight": "Pobierz Najnowszą Wysokość",
     "writeTestWeight": "Zapisz Testową Wagę (70kg)",
     "writeTestHeight": "Zapisz Testową Wysokość (175cm)",

@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageRu implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Язык';
 	@override String get subtitle => 'Выберите предпочитаемый язык';
+	@override String get searchHint => 'Поиск языков...';
+	@override String get noResults => 'Результатов не найдено';
 }
 
 // Path: settings.heightUnit
@@ -1567,6 +1569,8 @@ extension on TranslationsRu {
 			'settings.editProfile.subtitle' => 'Обновите вашу личную информацию',
 			'settings.language.title' => 'Язык',
 			'settings.language.subtitle' => 'Выберите предпочитаемый язык',
+			'settings.language.searchHint' => 'Поиск языков...',
+			'settings.language.noResults' => 'Результатов не найдено',
 			'settings.heightUnit.title' => 'Единица измерения роста',
 			'settings.weightUnit.title' => 'Единица измерения веса',
 			'settings.mealReminders.title' => 'Напоминания о приёмах пищи',

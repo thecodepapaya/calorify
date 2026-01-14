@@ -361,7 +361,7 @@ class _TranslationsDebugPl implements TranslationsDebugEn {
 	@override String get noBody => 'Brak Treści';
 	@override String get fetchTodaysSteps => 'Pobierz Dziś Kroków';
 	@override String get fetchTodaysCalories => 'Pobierz Dziś Kalorii';
-	@override String get fetchLatestWeight => 'Pobierz Najnowszą Wag';
+	@override String get fetchLatestWeight => 'Pobierz Najnowszą Wagę';
 	@override String get fetchLatestHeight => 'Pobierz Najnowszą Wysokość';
 	@override String get writeTestWeight => 'Zapisz Testową Wagę (70kg)';
 	@override String get writeTestHeight => 'Zapisz Testową Wysokość (175cm)';
@@ -421,7 +421,7 @@ class _TranslationsOnboardingGenderPl implements TranslationsOnboardingGenderEn 
 	final TranslationsPl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Jakie jest Twoje płeć?';
+	@override String get title => 'Jaka jest Twoja płeć?';
 	@override String get description => 'Płeć pomaga nam dokładnie obliczyć Twój podstawowy wskaźnik metaboliczny (BMR).';
 	@override String get next => 'Dalej';
 }
@@ -781,7 +781,7 @@ class _TranslationsSettingsSectionsPl implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'LOKALIZACJA';
 	@override String get notifications => 'POWIADOMIENIA';
 	@override String get supportAndLegal => 'WSPARCIE I PRAWO';
-	@override String get dangerZone => 'STREFa ZAGROŻENIA';
+	@override String get dangerZone => 'STREFA ZAGROŻENIA';
 	@override String get developer => 'DEWELOPER';
 }
 
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguagePl implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Język';
 	@override String get subtitle => 'Wybierz preferowany język';
+	@override String get searchHint => 'Szukaj języków...';
+	@override String get noResults => 'Nie znaleziono wyników';
 }
 
 // Path: settings.heightUnit
@@ -1331,7 +1333,7 @@ extension on TranslationsPl {
 			'onboarding.features.aiAnalysis.description' => 'Uzyskaj natychmiastowe informacje o wartości odżywczej na podstawie Twojego opisu',
 			'onboarding.features.healthIntegration.title' => 'Integracja ze Zdrowiem',
 			'onboarding.features.healthIntegration.description' => 'Połącz się z Health Connect, aby uzyskać lepsze wnioski',
-			'onboarding.gender.title' => 'Jakie jest Twoje płeć?',
+			'onboarding.gender.title' => 'Jaka jest Twoja płeć?',
 			'onboarding.gender.description' => 'Płeć pomaga nam dokładnie obliczyć Twój podstawowy wskaźnik metaboliczny (BMR).',
 			'onboarding.gender.next' => 'Dalej',
 			'onboarding.height.title' => 'Jak wysoki jesteś?',
@@ -1561,12 +1563,14 @@ extension on TranslationsPl {
 			'settings.sections.localization' => 'LOKALIZACJA',
 			'settings.sections.notifications' => 'POWIADOMIENIA',
 			'settings.sections.supportAndLegal' => 'WSPARCIE I PRAWO',
-			'settings.sections.dangerZone' => 'STREFa ZAGROŻENIA',
+			'settings.sections.dangerZone' => 'STREFA ZAGROŻENIA',
 			'settings.sections.developer' => 'DEWELOPER',
 			'settings.editProfile.title' => 'Edytuj Profil',
 			'settings.editProfile.subtitle' => 'Zaktualizuj swoje dane osobowe',
 			'settings.language.title' => 'Język',
 			'settings.language.subtitle' => 'Wybierz preferowany język',
+			'settings.language.searchHint' => 'Szukaj języków...',
+			'settings.language.noResults' => 'Nie znaleziono wyników',
 			'settings.heightUnit.title' => 'Jednostka Wzrostu',
 			'settings.weightUnit.title' => 'Jednostka Wagi',
 			'settings.mealReminders.title' => 'Przypomnienia o posiłkach',
@@ -1661,7 +1665,7 @@ extension on TranslationsPl {
 			'debug.noBody' => 'Brak Treści',
 			'debug.fetchTodaysSteps' => 'Pobierz Dziś Kroków',
 			'debug.fetchTodaysCalories' => 'Pobierz Dziś Kalorii',
-			'debug.fetchLatestWeight' => 'Pobierz Najnowszą Wag',
+			'debug.fetchLatestWeight' => 'Pobierz Najnowszą Wagę',
 			'debug.fetchLatestHeight' => 'Pobierz Najnowszą Wysokość',
 			'debug.writeTestWeight' => 'Zapisz Testową Wagę (70kg)',
 			'debug.writeTestHeight' => 'Zapisz Testową Wysokość (175cm)',

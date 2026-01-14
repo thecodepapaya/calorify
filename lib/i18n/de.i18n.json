@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Sprache",
-      "subtitle": "Wählen Sie Ihre bevorzugte Sprache"
+      "subtitle": "Wählen Sie Ihre bevorzugte Sprache",
+      "searchHint": "Sprachen suchen...",
+      "noResults": "Keine Ergebnisse gefunden"
     },
     "heightUnit": {
       "title": "Größeneinheit"

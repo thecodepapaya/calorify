@@ -30,8 +30,9 @@ class DatabaseService {
   }
 
   /// Reinitialize with current configuration
-  static void reinitialize() {
+  static Future<void> reinitialize() async {
     _initialized = false;
+    await _database?.close();
     _database = null;
     _databaseInterface = null;
     initialize();
@@ -40,13 +41,13 @@ class DatabaseService {
   /// Switch to mock data
   static Future<void> switchToMockData() async {
     DataSourceConfig.enableMockData();
-    reinitialize();
+    await reinitialize();
   }
 
   /// Switch to real data
   static Future<void> switchToRealData() async {
     DataSourceConfig.enableRealData();
-    reinitialize();
+    await reinitialize();
   }
 
   /// Get the current database interface

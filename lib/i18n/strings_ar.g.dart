@@ -435,7 +435,7 @@ class _TranslationsOnboardingHeightAr implements TranslationsOnboardingHeightEn 
 	// Translations
 	@override String get title => 'ما هو طولك؟';
 	@override String get description => 'يساعد طولك في حساب مؤشر كتلة الجسم (BMI) واحتياجات الطاقة بدقة.';
-	@override String get metric => 'متر';
+	@override String get metric => 'متري';
 	@override String get imperial => 'إمبراطوري';
 	@override String get next => 'التالي';
 }
@@ -451,7 +451,7 @@ class _TranslationsOnboardingWeightAr implements TranslationsOnboardingWeightEn 
 	@override String get currentDescription => 'وزنك الحالي ضروري لتخصيص أهدافك اليومية.';
 	@override String get targetTitle => 'ما هو وزنك المستهدف؟';
 	@override String get targetDescription => 'تحديد وزن هدف يساعدنا في تحديد خطتك على المدى الطويل.';
-	@override String get metric => 'متر';
+	@override String get metric => 'متري';
 	@override String get imperial => 'إمبراطوري';
 	@override String get next => 'التالي';
 }
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageAr implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'اللغة';
 	@override String get subtitle => 'اختر لغتك المفضلة';
+	@override String get searchHint => 'ابحث عن اللغات...';
+	@override String get noResults => 'لا توجد نتائج';
 }
 
 // Path: settings.heightUnit
@@ -970,7 +972,7 @@ class _TranslationsDisclaimerWeightEstimateAr implements TranslationsDisclaimerW
 
 	// Translations
 	@override String get title => 'حول تقدير الوزن';
-	@override String get description => 'التغيير في الوزن المتوقع هو تقدير نظري يستند إلى نموذج السعرات الحرارية入 مقابل السعرات الحرارية الخارجة. وهو مخصص للتوجيه التحفيزي فقط، وليس كتنبوء لوزنك الفعلي.';
+	@override String get description => 'التغيير في الوزن المتوقع هو تقدير نظري يستند إلى نموذج السعرات الحرارية الداخلة مقابل السعرات الحرارية الخارجة. وهو مخصص للتوجيه التحفيزي فقط، وليس كتنبؤ لوزنك الفعلي.';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyAr calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyAr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsAr biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsAr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightAr waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightAr._(_root);
@@ -1336,14 +1338,14 @@ extension on TranslationsAr {
 			'onboarding.gender.next' => 'التالي',
 			'onboarding.height.title' => 'ما هو طولك؟',
 			'onboarding.height.description' => 'يساعد طولك في حساب مؤشر كتلة الجسم (BMI) واحتياجات الطاقة بدقة.',
-			'onboarding.height.metric' => 'متر',
+			'onboarding.height.metric' => 'متري',
 			'onboarding.height.imperial' => 'إمبراطوري',
 			'onboarding.height.next' => 'التالي',
 			'onboarding.weight.currentTitle' => 'ما هو وزنك الحالي؟',
 			'onboarding.weight.currentDescription' => 'وزنك الحالي ضروري لتخصيص أهدافك اليومية.',
 			'onboarding.weight.targetTitle' => 'ما هو وزنك المستهدف؟',
 			'onboarding.weight.targetDescription' => 'تحديد وزن هدف يساعدنا في تحديد خطتك على المدى الطويل.',
-			'onboarding.weight.metric' => 'متر',
+			'onboarding.weight.metric' => 'متري',
 			'onboarding.weight.imperial' => 'إمبراطوري',
 			'onboarding.weight.next' => 'التالي',
 			'onboarding.age.title' => 'متى عيد ميلادك؟',
@@ -1567,6 +1569,8 @@ extension on TranslationsAr {
 			'settings.editProfile.subtitle' => 'قم بتحديث معلوماتك الشخصية',
 			'settings.language.title' => 'اللغة',
 			'settings.language.subtitle' => 'اختر لغتك المفضلة',
+			'settings.language.searchHint' => 'ابحث عن اللغات...',
+			'settings.language.noResults' => 'لا توجد نتائج',
 			'settings.heightUnit.title' => 'وحدة الطول',
 			'settings.weightUnit.title' => 'وحدة الوزن',
 			'settings.mealReminders.title' => 'تذكيرات الوجبات',
@@ -1635,7 +1639,7 @@ extension on TranslationsAr {
 			'disclaimer.snap.databaseLimitations.title' => 'قيود قاعدة البيانات',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'قاعدة بيانات الطعام الخاصة بـ ${appLabel} واسعة لكنها قد لا تشمل كل عنصر غذائي أو تفاوت.',
 			'disclaimer.weightEstimate.title' => 'حول تقدير الوزن',
-			'disclaimer.weightEstimate.description' => 'التغيير في الوزن المتوقع هو تقدير نظري يستند إلى نموذج السعرات الحرارية入 مقابل السعرات الحرارية الخارجة. وهو مخصص للتوجيه التحفيزي فقط، وليس كتنبوء لوزنك الفعلي.',
+			'disclaimer.weightEstimate.description' => 'التغيير في الوزن المتوقع هو تقدير نظري يستند إلى نموذج السعرات الحرارية الداخلة مقابل السعرات الحرارية الخارجة. وهو مخصص للتوجيه التحفيزي فقط، وليس كتنبؤ لوزنك الفعلي.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'دقة السعرات الحرارية',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'هذا التقدير دقيق فقط بقدر ما هو دقيق تناول السعرات الحرارية وتلك التي أنفقت. سيؤدي التسجيل غير الدقيق إلى توقع غير دقيق.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'العوامل البيولوجية',

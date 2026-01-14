@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Idioma",
-      "subtitle": "Escolha seu idioma preferido"
+      "subtitle": "Escolha seu idioma preferido",
+      "searchHint": "Pesquisar idiomas...",
+      "noResults": "Nenhum resultado encontrado"
     },
     "heightUnit": {
       "title": "Unidade de Altura"
@@ -382,7 +384,7 @@
       "system": "Sistema"
     },
     "sendFeedback": {
-      "title": "EnviarFeedback",
+      "title": "Enviar Feedback",
       "subtitle": "Ajude-nos a melhorar o {appLabel}",
       "emailSubject": "Feedback do Aplicativo {appLabel}",
       "emailBodyPrefix": "Por favor, forneça seu feedback abaixo:",

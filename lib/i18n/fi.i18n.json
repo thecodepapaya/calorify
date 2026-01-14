@@ -43,7 +43,7 @@
     },
     "age": {
       "title": "Milloin on syntymäpäiväsi?",
-      "description": "Ikäsi auttaa meitä laskemaan päivittäiset kalori tarpeesi tarkasti.",
+      "description": "Ikäsi auttaa meitä laskemaan päivittäiset kaloritarpeesi tarkasti.",
       "next": "Seuraava"
     },
     "bmiScale": {
@@ -70,7 +70,7 @@
     },
     "activityLevel": {
       "title": "Kuinka aktiivinen olet?",
-      "description": "Tämä auttaa meitä laskemaan päivittäiset kalori tarpeesi tarkemmin"
+      "description": "Tämä auttaa meitä laskemaan päivittäiset kaloritarpeesi tarkemmin"
     },
     "healthConnect": {
       "title": "Yhdistä Health Connectiin",
@@ -99,7 +99,7 @@
     "reinforcement": {
       "trackingSuccess": {
         "title": "Et ole yksin",
-        "genericMessage": "Tutkimukset osoittavat, että johdonmukainen seuranta on ykköskäyttäjä pitkäaikaisen menestyksen ennustajana.",
+        "genericMessage": "Tutkimukset osoittavat, että johdonmukainen seuranta on tärkein pitkäaikaisen menestyksen ennustaja.",
         "personalizedMessage": " {age}-vuotiaalle {gender}, joka haluaa {goal}, johdonmukainen seuranta on ykköskäyttäjä menestyksen ennustajana.",
         "closingMessage": "{appLabel} tekee sen 10 kertaa helpommaksi kuin manuaalisesti tekeminen.",
         "getStartedTitle": "Valmiina aloittamaan?",
@@ -350,7 +350,7 @@
     "title": "Asetukset",
     "sections": {
       "profile": "PROFIILI",
-      "localization": "KIELTÄYTYMINEN",
+      "localization": "KIELIASETUS",
       "notifications": "ILMOITUKSET",
       "supportAndLegal": "TUKI & LAKITEKSTIT",
       "dangerZone": "VAARA-ALUE",
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Kieli",
-      "subtitle": "Valitse haluamasi kieli"
+      "subtitle": "Valitse haluamasi kieli",
+      "searchHint": "Etsi kieliä...",
+      "noResults": "Tuloksia ei löytynyt"
     },
     "heightUnit": {
       "title": "Pituusyksikkö"
@@ -372,7 +374,7 @@
     },
     "mealReminders": {
       "title": "Ateriavaroitukset",
-      "subtitle": "Pysy mahdollisuudesi kulkee ajoissa"
+      "subtitle": "Pysy aikataulussa aterioidesi kanssa"
     },
     "theme": {
       "title": "Teema",
@@ -531,10 +533,10 @@
     "latestHeight": "Viimeisin pituus",
     "todaysCalories": "Tämän päivän kalorit",
     "totalCaloriesBurned": "Yhteensä poltetut kalorit: {calories}",
-    "syncSuccess": "Onnistuneesti hakattu {count} tietopistettä askeleista, kaloreista ja painosta viimeisten 7 päivän aikana.",
+    "syncSuccess": "Onnistuneesti haettu {count} tietopistettä askeleista, kaloreista ja painosta viimeisten 7 päivän aikana.",
     "noWeightData": "Viimeisen 30 päivän aikana ei ole löytöjä painotiedoista.",
     "noHeightData": "Viimeisen vuoden aikana ei ole löytöjä pituustiedoista.",
-    "noCalorieData": "Tänään ei ole löytöjä kalorietiidoista.",
+    "noCalorieData": "Tänään ei ole löytöjä kalorietiedoista.",
     "weightWritten": "Testipaino (70kg) kirjoitettu onnistuneesti.",
     "weightWriteFailed": "Testipainon kirjoittaminen epäonnistui.",
     "heightWritten": "Testipituus (175 cm) kirjoitettu onnistuneesti.",

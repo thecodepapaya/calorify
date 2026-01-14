@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Bahasa",
-      "subtitle": "Pilih bahasa yang Anda inginkan"
+      "subtitle": "Pilih bahasa yang Anda inginkan",
+      "searchHint": "Cari bahasa...",
+      "noResults": "Tidak ada hasil ditemukan"
     },
     "heightUnit": {
       "title": "Satuan Tinggi"
@@ -524,8 +526,8 @@
     "writeTestHeight": "Tulis Tinggi Uji (175cm)",
     "syncLast7Days": "Sinkronkan 7 Hari Terakhir",
     "sync7DaysTitle": "Sinkron 7 Hari",
-    "checkCurrentLocale": "Periksa Lokasi Saat Ini",
-    "currentLocale": "Lokasi Saat Ini",
+    "checkCurrentLocale": "Periksa Locale Saat Ini",
+    "currentLocale": "Locale Saat Ini",
     "localeInfo": "Bahasa: {languageCode}\nNegara: {countryCode}\nSistem Unit: {unitSystem}",
     "latestWeight": "Berat Terakhir",
     "latestHeight": "Tinggi Terakhir",

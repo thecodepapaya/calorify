@@ -119,7 +119,7 @@ class _TranslationsHistoryGu implements TranslationsHistoryEn {
 
 	// Translations
 	@override String get noMeals => 'કોઈ ખોરાક નોંધાયો નથી';
-	@override String get emptyMessage => 'તમારા છેલ્લામાં એક तस्वीर અપલોડ કરો.';
+	@override String get emptyMessage => 'તમારા છેલ્લામાં એક તસવીર અપલોડ કરો.';
 	@override String get today => 'આજે';
 	@override String get yesterday => 'ગઇકાલે';
 }
@@ -447,10 +447,10 @@ class _TranslationsOnboardingWeightGu implements TranslationsOnboardingWeightEn 
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get currentTitle => 'તમારું હાલનું ફોન શું છે?';
-	@override String get currentDescription => 'તમારું હાલનું ફોન તમારી દૈનિક લક્ષ્યોને વૈજ્ઞાનિક બનાવવા માટે જરુર છે.';
-	@override String get targetTitle => 'તમારું લક્ષ્ય ફોન શું છે?';
-	@override String get targetDescription => 'લક્ષ્ય ફોન નક્કી કરવાથી અમને તમારું લાંબા ગાળાનું આયોજન નિર્ધારિત કરવામાં મદદ થાય છે.';
+	@override String get currentTitle => 'તમારું હાલનું વજન શું છે?';
+	@override String get currentDescription => 'તમારું હાલનું વજન તમારી દૈનિક લક્ષ્યોને વૈજ્ઞાનિક બનાવવા માટે જરુર છે.';
+	@override String get targetTitle => 'તમારું લક્ષ્ય વજન શું છે?';
+	@override String get targetDescription => 'લક્ષ્ય વજન નક્કી કરવાથી અમને તમારું લાંબા ગાળાનું આયોજન નિર્ધારિત કરવામાં મદદ થાય છે.';
 	@override String get metric => 'મેટ્રિક';
 	@override String get imperial => 'ઇમ્પીરિયલ';
 	@override String get next => 'આગળ';
@@ -477,8 +477,8 @@ class _TranslationsOnboardingBmiScaleGu implements TranslationsOnboardingBmiScal
 	// Translations
 	@override String get underweight => 'કમજોરી';
 	@override String get healthy => 'હેલ્ધી';
-	@override String get overweight => 'જાગૃત';
-	@override String get obese => 'મોટું';
+	@override String get overweight => 'વધારે વજન';
+	@override String get obese => 'સ્થૂળતા';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesGu categories = _TranslationsOnboardingBmiScaleCategoriesGu._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesGu messages = _TranslationsOnboardingBmiScaleMessagesGu._(_root);
 }
@@ -621,7 +621,7 @@ class _TranslationsHomeMealDescriptionGu implements TranslationsHomeMealDescript
 
 	// Translations
 	@override String get title => 'આઇએઇ સાથે ઝડપી ઉમેરો';
-	@override String get description => 'તમારા ખોરાકનું વર્ણન કરો, અને આઇએઇને વિગતмәй લેવા દેો.';
+	@override String get description => 'તમારા ખોરાકનું વર્ણન કરો, અને આઇએઇને વિગતો લેવા દો.';
 	@override String get hint => 'જેણે નાસ્તા માટે મેં એક વિશાળ બૉલ બરફ સાથે એક તળિયામાંનું બાંધવ્યું છે ...';
 	@override String get analyzeMeal => 'ખોરાકનું વિશ્લેષણ';
 }
@@ -687,8 +687,8 @@ class _TranslationsMealDeleteConfirmationGu implements TranslationsMealDeleteCon
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ખોરак દૂર કરો';
-	@override String get message => 'શું તમે વસવાટ દર શરતી ખોરાકને દૂર કરવા માગો છો?';
+	@override String get title => 'ખોરાક દૂર કરો';
+	@override String get message => 'શું તમે ખરેખર આ ખોરાકને દૂર કરવા માગો છો?';
 	@override String get cancel => 'રદ કરો';
 	@override String get delete => 'દૂર કરો';
 }
@@ -741,7 +741,7 @@ class _TranslationsEditProfileGendersGu implements TranslationsEditProfileGender
 	// Translations
 	@override String get male => 'પુરૂષ';
 	@override String get female => 'મહિલા';
-	@override String get other => 'અવશ્યક';
+	@override String get other => 'અન્ય';
 }
 
 // Path: editProfile.weightGoals
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageGu implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'ભાષા';
 	@override String get subtitle => 'તમારી પસંદી ભાષા પસંદ કરો';
+	@override String get searchHint => 'બોલીઓ શોધો...';
+	@override String get noResults => 'કોઈ પરિણામો મળ્યા નહીં';
 }
 
 // Path: settings.heightUnit
@@ -879,9 +881,9 @@ class _TranslationsSettingsClearAllDataGu implements TranslationsSettingsClearAl
 	@override String get title => 'બધી માહિતી દૂર કરો';
 	@override String get subtitle => 'તમારી તમામ માહિતી પુનઃપ્રાપ્ય રીતે ડિલીટ કરો';
 	@override String get confirmationTitle => 'બધી માહિતી દૂર કરવી?';
-	@override String get confirmationMessage => 'આ કાર્ય પાછું વળતું નથી. તમારા બધા નોંધાયેલ ખોરાક, પસંદી, અને પ્રોફાઇલ સેટિંગ્સ તે પાર perman છે.';
+	@override String get confirmationMessage => 'આ કાર્ય પાછું વળતું નથી. તમારા બધા નોંધાયેલ ખોરાક, પસંદી, અને પ્રોફાઇલ સેટિંગ્સ કાયમી રીતે ડિલીટ થશે.';
 	@override String get cancel => 'રદ કરો';
-	@override String get clearEverything => 'બધી જ-clear';
+	@override String get clearEverything => 'બધું દૂર કરો';
 }
 
 // Path: settings.debugOptions
@@ -1031,8 +1033,8 @@ class _TranslationsOnboardingBmiScaleCategoriesGu implements TranslationsOnboard
 	// Translations
 	@override String get underweight => 'કમજોરી';
 	@override String get healthyWeight => 'હેલ્ધી વજન';
-	@override String get overweight => 'જાગૃત';
-	@override String get obese => 'મોટું';
+	@override String get overweight => 'વધારે વજન';
+	@override String get obese => 'સ્થૂળતા';
 }
 
 // Path: onboarding.bmiScale.messages
@@ -1111,10 +1113,10 @@ class _TranslationsOnboardingReinforcementHealthProfileGu implements Translation
 	@override String get title => 'તમારો આરોગ્ય પ્રોફાઇલ';
 	@override String bmiDescription({required Object bmi}) => 'તમારા માપના આધાર પર, તમારું BMI ${bmi} છે.';
 	@override String get finalizeDescription => 'તમારી અનુભવને કસ્ટમાઇઝ કરવા માટે ચાલો તમારા પ્રોફાઇલને પુર્ણ કરીએ.';
-	@override String get goalGain => 'વિભિન્ન';
-	@override String get goalLose => 'કમાવવા';
+	@override String get goalGain => 'વધારવું';
+	@override String get goalLose => 'ઘટાડવું';
 	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'તમારા લક્ષ્યને પહોંચવા માટે તમને ${direction} ${diff} ${unit} લાવી આપવું.';
-	@override String get goalReached => 'તમે તમારા લક્ષ્ય વજન પર છો! અમે તેને જાળवવા માટેઅર્થ કરવાને સહાય કરીશું.';
+	@override String get goalReached => 'તમે તમારા લક્ષ્ય વજન પર છો! અમે તેને જાળવવા માટે સહાય કરીશું.';
 	@override String get button => 'ચાલો આગળ વધીએ';
 }
 
@@ -1175,7 +1177,7 @@ class _TranslationsEditProfileActivityLevelsSedentaryGu implements TranslationsE
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'અપ્રિય';
+	@override String get name => 'નિષ્ક્રિય';
 	@override String get description => 'થોડું પણ વ્યાયામ નથી';
 }
 
@@ -1339,10 +1341,10 @@ extension on TranslationsGu {
 			'onboarding.height.metric' => 'મેટ્રિક',
 			'onboarding.height.imperial' => 'ઇમ્પીરિયલ',
 			'onboarding.height.next' => 'આગળ',
-			'onboarding.weight.currentTitle' => 'તમારું હાલનું ફોન શું છે?',
-			'onboarding.weight.currentDescription' => 'તમારું હાલનું ફોન તમારી દૈનિક લક્ષ્યોને વૈજ્ઞાનિક બનાવવા માટે જરુર છે.',
-			'onboarding.weight.targetTitle' => 'તમારું લક્ષ્ય ફોન શું છે?',
-			'onboarding.weight.targetDescription' => 'લક્ષ્ય ફોન નક્કી કરવાથી અમને તમારું લાંબા ગાળાનું આયોજન નિર્ધારિત કરવામાં મદદ થાય છે.',
+			'onboarding.weight.currentTitle' => 'તમારું હાલનું વજન શું છે?',
+			'onboarding.weight.currentDescription' => 'તમારું હાલનું વજન તમારી દૈનિક લક્ષ્યોને વૈજ્ઞાનિક બનાવવા માટે જરુર છે.',
+			'onboarding.weight.targetTitle' => 'તમારું લક્ષ્ય વજન શું છે?',
+			'onboarding.weight.targetDescription' => 'લક્ષ્ય વજન નક્કી કરવાથી અમને તમારું લાંબા ગાળાનું આયોજન નિર્ધારિત કરવામાં મદદ થાય છે.',
 			'onboarding.weight.metric' => 'મેટ્રિક',
 			'onboarding.weight.imperial' => 'ઇમ્પીરિયલ',
 			'onboarding.weight.next' => 'આગળ',
@@ -1351,12 +1353,12 @@ extension on TranslationsGu {
 			'onboarding.age.next' => 'આગળ',
 			'onboarding.bmiScale.underweight' => 'કમજોરી',
 			'onboarding.bmiScale.healthy' => 'હેલ્ધી',
-			'onboarding.bmiScale.overweight' => 'જાગૃત',
-			'onboarding.bmiScale.obese' => 'મોટું',
+			'onboarding.bmiScale.overweight' => 'વધારે વજન',
+			'onboarding.bmiScale.obese' => 'સ્થૂળતા',
 			'onboarding.bmiScale.categories.underweight' => 'કમજોરી',
 			'onboarding.bmiScale.categories.healthyWeight' => 'હેલ્ધી વજન',
-			'onboarding.bmiScale.categories.overweight' => 'જાગૃત',
-			'onboarding.bmiScale.categories.obese' => 'મોટું',
+			'onboarding.bmiScale.categories.overweight' => 'વધારે વજન',
+			'onboarding.bmiScale.categories.obese' => 'સ્થૂળતા',
 			'onboarding.bmiScale.messages.underweight' => 'અમારું લક્ષ્ય તમને પોષણમય ભોજન સાથે સંતુલિત વજન પ્રાપ્ત કરવા માટે એક સ્વાસ્થ્ય યોજના બનાવવામાં મદદ કરવું છે.',
 			'onboarding.bmiScale.messages.healthy' => 'શાનદાર કાર્ય! તમે હેલ્ધી શ્રેણીમાં છો. અમે તમને તમારી ઊર્જા અને જીવનશક્તિને જાળવવામાં મદદ કરીશું.',
 			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} તમારા લક્ષ્યને આરામથી પ્રાપ્ત કરવામાં મદદ કરવા માટે આઇએઇ બળવત્તા આધારિત ટ્રેકિંગ સાથે તમારો સફર સરળ બનાવશે.',
@@ -1395,10 +1397,10 @@ extension on TranslationsGu {
 			'onboarding.reinforcement.healthProfile.title' => 'તમારો આરોગ્ય પ્રોફાઇલ',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'તમારા માપના આધાર પર, તમારું BMI ${bmi} છે.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'તમારી અનુભવને કસ્ટમાઇઝ કરવા માટે ચાલો તમારા પ્રોફાઇલને પુર્ણ કરીએ.',
-			'onboarding.reinforcement.healthProfile.goalGain' => 'વિભિન્ન',
-			'onboarding.reinforcement.healthProfile.goalLose' => 'કમાવવા',
+			'onboarding.reinforcement.healthProfile.goalGain' => 'વધારવું',
+			'onboarding.reinforcement.healthProfile.goalLose' => 'ઘટાડવું',
 			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'તમારા લક્ષ્યને પહોંચવા માટે તમને ${direction} ${diff} ${unit} લાવી આપવું.',
-			'onboarding.reinforcement.healthProfile.goalReached' => 'તમે તમારા લક્ષ્ય વજન પર છો! અમે તેને જાળवવા માટેઅર્થ કરવાને સહાય કરીશું.',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'તમે તમારા લક્ષ્ય વજન પર છો! અમે તેને જાળવવા માટે સહાય કરીશું.',
 			'onboarding.reinforcement.healthProfile.button' => 'ચાલો આગળ વધીએ',
 			'onboarding.reinforcement.goalLifestyle.title' => 'શાનદાર શરૂઆત!',
 			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'તમે ${goalText} તરફના પદમાં પ્રથમ પગલું ભર્યું છે. કારણ કે તમે ${activityText} છો, ${appLabel} તમારા લક્ષ્યોને તમારી જીવનશૈલાને મેળવણી માટે ઑટમેટ કરશે.',
@@ -1440,7 +1442,7 @@ extension on TranslationsGu {
 			'home.mealLog.noMealsToday' => 'આજે કોઈ ખોરાક નોંધાયો નથી',
 			'home.mealLog.seeAllMeals' => 'બધી ખોરાક જુઓ',
 			'home.mealDescription.title' => 'આઇએઇ સાથે ઝડપી ઉમેરો',
-			'home.mealDescription.description' => 'તમારા ખોરાકનું વર્ણન કરો, અને આઇએઇને વિગતмәй લેવા દેો.',
+			'home.mealDescription.description' => 'તમારા ખોરાકનું વર્ણન કરો, અને આઇએઇને વિગતો લેવા દો.',
 			'home.mealDescription.hint' => 'જેણે નાસ્તા માટે મેં એક વિશાળ બૉલ બરફ સાથે એક તળિયામાંનું બાંધવ્યું છે ...',
 			'home.mealDescription.analyzeMeal' => 'ખોરાકનું વિશ્લેષણ',
 			'home.favoriteMeals.title' => 'પસંદી ખોરાક',
@@ -1457,7 +1459,7 @@ extension on TranslationsGu {
 			'home.connectHealth.install' => 'ઇન્સ્ટોલ કરો',
 			'home.connectHealth.connect' => 'જોડો',
 			'history.noMeals' => 'કોઈ ખોરાક નોંધાયો નથી',
-			'history.emptyMessage' => 'તમારા છેલ્લામાં એક तस्वीर અપલોડ કરો.',
+			'history.emptyMessage' => 'તમારા છેલ્લામાં એક તસવીર અપલોડ કરો.',
 			'history.today' => 'આજે',
 			'history.yesterday' => 'ગઇકાલે',
 			'meal.ohNo' => 'અરે ના!',
@@ -1477,8 +1479,8 @@ extension on TranslationsGu {
 			'meal.nutrition.protein' => 'પ્રોટીન (ગ)',
 			'meal.nutrition.fat' => 'ચરબી (ગ)',
 			'meal.nutrition.fiber' => 'ફાઇબર (ગ)',
-			'meal.deleteConfirmation.title' => 'ખોરак દૂર કરો',
-			'meal.deleteConfirmation.message' => 'શું તમે વસવાટ દર શરતી ખોરાકને દૂર કરવા માગો છો?',
+			'meal.deleteConfirmation.title' => 'ખોરાક દૂર કરો',
+			'meal.deleteConfirmation.message' => 'શું તમે ખરેખર આ ખોરાકને દૂર કરવા માગો છો?',
 			'meal.deleteConfirmation.cancel' => 'રદ કરો',
 			'meal.deleteConfirmation.delete' => 'દૂર કરો',
 			'meal.addedToLog' => 'ખોરાક તમારા લૉગમાં ઉમેરવામાં આવ્યો છે!',
@@ -1539,14 +1541,14 @@ extension on TranslationsGu {
 			'editProfile.imperialLbs' => 'ઇમ્પીરિયલ (પાઉન્ડ)',
 			'editProfile.genders.male' => 'પુરૂષ',
 			'editProfile.genders.female' => 'મહિલા',
-			'editProfile.genders.other' => 'અવશ્યક',
+			'editProfile.genders.other' => 'અન્ય',
 			'editProfile.weightGoals.loseWeight.name' => 'વજન ઘટાડો',
 			'editProfile.weightGoals.loseWeight.description' => 'વજન મુશ્કાવ કરવા માટે એક કૅલોરી વિફલ કરો',
 			'editProfile.weightGoals.maintainWeight.name' => 'વજન જાળવો',
 			'editProfile.weightGoals.maintainWeight.description' => 'તમારું વર્તમાન વજન જાળવો',
 			'editProfile.weightGoals.gainWeight.name' => 'વજન ઉઠાવો',
 			'editProfile.weightGoals.gainWeight.description' => 'વજન વધારવા માટે એક કૅલોરી સર્વોપરી બનાવો',
-			'editProfile.activityLevels.sedentary.name' => 'અપ્રિય',
+			'editProfile.activityLevels.sedentary.name' => 'નિષ્ક્રિય',
 			'editProfile.activityLevels.sedentary.description' => 'થોડું પણ વ્યાયામ નથી',
 			'editProfile.activityLevels.lightlyActive.name' => 'હળવો કાર્યક્ષમ',
 			'editProfile.activityLevels.lightlyActive.description' => 'હળવો વ્યાયામ 1-3 દિવસ/સાતાના',
@@ -1567,6 +1569,8 @@ extension on TranslationsGu {
 			'settings.editProfile.subtitle' => 'તમારી વ્યક્તિગત માહિતી અપડેટ કરો',
 			'settings.language.title' => 'ભાષા',
 			'settings.language.subtitle' => 'તમારી પસંદી ભાષા પસંદ કરો',
+			'settings.language.searchHint' => 'બોલીઓ શોધો...',
+			'settings.language.noResults' => 'કોઈ પરિણામો મળ્યા નહીં',
 			'settings.heightUnit.title' => 'ઉંચાઈની એકમ',
 			'settings.weightUnit.title' => 'વજનની એકમ',
 			'settings.mealReminders.title' => 'ખોરાક યાદદહન',
@@ -1587,9 +1591,9 @@ extension on TranslationsGu {
 			'settings.clearAllData.title' => 'બધી માહિતી દૂર કરો',
 			'settings.clearAllData.subtitle' => 'તમારી તમામ માહિતી પુનઃપ્રાપ્ય રીતે ડિલીટ કરો',
 			'settings.clearAllData.confirmationTitle' => 'બધી માહિતી દૂર કરવી?',
-			'settings.clearAllData.confirmationMessage' => 'આ કાર્ય પાછું વળતું નથી. તમારા બધા નોંધાયેલ ખોરાક, પસંદી, અને પ્રોફાઇલ સેટિંગ્સ તે પાર perman છે.',
+			'settings.clearAllData.confirmationMessage' => 'આ કાર્ય પાછું વળતું નથી. તમારા બધા નોંધાયેલ ખોરાક, પસંદી, અને પ્રોફાઇલ સેટિંગ્સ કાયમી રીતે ડિલીટ થશે.',
 			'settings.clearAllData.cancel' => 'રદ કરો',
-			'settings.clearAllData.clearEverything' => 'બધી જ-clear',
+			'settings.clearAllData.clearEverything' => 'બધું દૂર કરો',
 			'settings.debugOptions.title' => 'ડેબેક્ડ વિકલ્પો',
 			'settings.developerModeEnabled' => 'વિકાશક મોડ સક્રિય થયો છે!',
 			'reminders.title' => 'યાદદહન સાથે ટ્રેકમાં રહી છે',

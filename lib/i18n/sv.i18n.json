@@ -16,7 +16,7 @@
         "description": "Få omedelbar näringsinformation från dina beskrivningar"
       },
       "healthIntegration": {
-        "title": "Hälsaintegration",
+        "title": "Hälsointegration",
         "description": "Anslut med Health Connect för bättre insikter"
       }
     },
@@ -35,8 +35,8 @@
     "weight": {
       "currentTitle": "Vad väger du för närvarande?",
       "currentDescription": "Din nuvarande vikt är viktig för att anpassa dina dagliga mål.",
-      "targetTitle": "Vad är ditt målvikten?",
-      "targetDescription": "Att sätta ett målväg hjälper oss att bestämma din långsiktiga plan.",
+      "targetTitle": "Vad är din målvikt?",
+      "targetDescription": "Att sätta en målvikt hjälper oss att bestämma din långsiktiga plan.",
       "metric": "Metrisk",
       "imperial": "Imperial",
       "next": "Nästa"
@@ -70,13 +70,13 @@
     },
     "activityLevel": {
       "title": "Hur aktiv är du?",
-      "description": "Detta hjälper oss att beräkna ditt dagliga kalori behov mer exakt"
+      "description": "Detta hjälper oss att beräkna ditt dagliga kaloribehov mer exakt"
     },
     "healthConnect": {
       "title": "Anslut till Health Connect",
       "description": "Synkronisera din hälsodata för bättre insikter och automatisk kalori spårning",
       "automaticTracking": {
-        "title": "Automatisk Kalori Spårning",
+        "title": "Automatisk kalorispårning",
         "description": "Spåra kalorier brända från dina träningsappar"
       },
       "progressInsights": {
@@ -85,7 +85,7 @@
       },
       "seamlessIntegration": {
         "title": "Sömlös integration",
-        "description": "Synkronisera data från dina favorit hälsoppar"
+        "description": "Synkronisera data från dina favorithälsoappar"
       },
       "connected": "Health Connect Ansluten",
       "notConnected": "Health Connect Inte Ansluten",
@@ -166,7 +166,7 @@
       "current": "Aktuell"
     },
     "intakeHistory": {
-      "title": "7-dagars makrohistrik",
+      "title": "7-dagars makrohistorik",
       "noHistoryYet": "Ingen historik ännu",
       "startLogging": "Börja logga måltider för att se dina\n7-dagars makrotrender här"
     },
@@ -183,7 +183,7 @@
       "analyzeMeal": "Analysera måltid"
     },
     "favoriteMeals": {
-      "title": "Favoritmål",
+      "title": "Favoritmåltider",
       "description": "Lägg snabbt till en av dina favoritmåltider.",
       "noFavorites": "Inga favoritmåltider ännu.",
       "addFavoriteHint": "Klicka på stjärnan på en måltid för att markera den som favorit.",
@@ -255,7 +255,7 @@
     "viewAndManage": "Visa och hantera din hälsoinformation",
     "sections": {
       "profile": "PROFIL",
-      "basicInformation": "BASIC INFORMATION",
+      "basicInformation": "GRUNDLÄGGANDE INFORMATION",
       "goalsAndActivity": "MÅL & AKTIVITET",
       "calculatedValues": "BERÄKNADE VÄRDEN"
     },
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Språk",
-      "subtitle": "Välj ditt föredragna språk"
+      "subtitle": "Välj ditt föredragna språk",
+      "searchHint": "Sök språk...",
+      "noResults": "Inga resultat hittades"
     },
     "heightUnit": {
       "title": "Längdenhet"
@@ -393,7 +395,7 @@
     },
     "clearAllData": {
       "title": "Rensa all data",
-      "subtitle": "Oåterkallet ta bort all din information",
+      "subtitle": "Ta bort all din information oåterkalleligt",
       "confirmationTitle": "Rensa all data?",
       "confirmationMessage": "Denna åtgärd kan inte ångras. Alla dina registrerade måltider, favoriter och profilinställningar kommer att raderas permanent.",
       "cancel": "Avbryt",
@@ -478,7 +480,7 @@
       "description": "Den projicerade viktförändringen är en teoretisk uppskattning baserad på den enkla modellen kalorier in vs. kalorier ut. Den är avsedd för motivationsvägledning endast, inte som en förutsägelse av din faktiska vikt.",
       "calorieAccuracy": {
         "title": "Kalorinoggrannhet",
-        "description": "Denna uppskattning är bara så noggrann som din spårade kaloriintag och utgifter. Onoggrann loggning och ju resultatet kommer att vara en felaktig projektion."
+        "description": "Denna uppskattning är bara så noggrann som ditt spårade kaloriintag och dina utgifter. Onoggrann loggning leder till felaktiga projektioner."
       },
       "biologicalFactors": {
         "title": "Biologiska faktorer",
@@ -495,8 +497,8 @@
     }
   },
   "common": {
-    "close": "Stänga",
-    "continue": "Fortsätta"
+    "close": "Stäng",
+    "continue": "Fortsätt"
   },
   "errors": {
     "loadingProfileData": "Fel vid inläsning av profildata",
@@ -534,10 +536,10 @@
     "syncSuccess": "Framgångsrikt hämtat {count} datapunkter för Steg, Kalorier och Vikt under de senaste 7 dagarna.",
     "noWeightData": "Ingen viktdata hittades under de senaste 30 dagarna.",
     "noHeightData": "Ingen längddata hittades under det senaste året.",
-    "noCalorieData": "Ingen kalori data hittades för idag.",
+    "noCalorieData": "Ingen kaloridata hittades för idag.",
     "weightWritten": "Testvikt (70kg) har skrivits.",
     "weightWriteFailed": "Misslyckades med att skriva testvikt.",
-    "heightWritten": "Test längd (175cm) har skrivits.",
+    "heightWritten": "Testlängd (175cm) har skrivits.",
     "heightWriteFailed": "Misslyckades med att skriva testlängd.",
     "noNotifications": "Inga aktiva notifieringar.",
     "testNotificationScheduled": "Testnotifikation schemalagd för 10 sekunder från nu.",

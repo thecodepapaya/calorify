@@ -186,7 +186,7 @@ class _TranslationsProfileRo implements TranslationsProfileEn {
 	@override String get weightGoal => 'Obiectiv de Greutate';
 	@override String get activityLevel => 'Nivel de Activitate';
 	@override String get healthMetrics => 'Metrici de Sănătate';
-	@override String get notSet => 'Neapărat';
+	@override String get notSet => 'Nesetat';
 	@override String get years => 'ani';
 	@override String get updatedSuccessfully => 'Profil actualizat cu succes!';
 	@override late final _TranslationsProfileCalculatedValuesRo calculatedValues = _TranslationsProfileCalculatedValuesRo._(_root);
@@ -518,7 +518,7 @@ class _TranslationsOnboardingHealthConnectRo implements TranslationsOnboardingHe
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsRo progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsRo._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationRo seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationRo._(_root);
 	@override String get connected => 'Health Connect Conectat';
-	@override String get notConnected => 'Health Connect Nepregătit';
+	@override String get notConnected => 'Health Connect Neconectat';
 	@override String get setup => 'Configurare Health Connect';
 	@override String get skipForNow => 'Sari deocamdată';
 	@override String get statusConnected => 'Health Connect este conectat.';
@@ -648,7 +648,7 @@ class _TranslationsHomeMealSnapRo implements TranslationsHomeMealSnapEn {
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Fă o Fotografii & Urmărește-ți Masa';
+	@override String get title => 'Fă o fotografie & Urmărește-ți Masa';
 	@override String get description => 'Folosește camera ta pentru a face o fotografie a alimentelor tale pentru analiza AI.';
 	@override String get openCamera => 'Deschide Camera';
 }
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageRo implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Limba';
 	@override String get subtitle => 'Alege limba preferată';
+	@override String get searchHint => 'Caută limbi...';
+	@override String get noResults => 'Nu s-au găsit rezultate';
 }
 
 // Path: settings.heightUnit
@@ -1308,7 +1310,7 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceRo implements Tra
 
 	// Translations
 	@override String get title => 'Îndrumare Profesională';
-	@override String get description => 'Nu folosi această estimare pentru a lua decizii medicale. Consultă întotdeauna un profesionist din domeniul sănătății sau un dietetician autorizat pentru sfaturi personalizate tentang gestionarea greutății.';
+	@override String get description => 'Nu folosi această estimare pentru a lua decizii medicale. Consultă întotdeauna un profesionist din domeniul sănătății sau un dietetician autorizat pentru sfaturi personalizate despre gestionarea greutății.';
 }
 
 /// The flat map containing all translations for locale <ro>.
@@ -1374,7 +1376,7 @@ extension on TranslationsRo {
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Integrare Fără Sudură',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Sincronizează datele din aplicațiile tale preferate de sănătate',
 			'onboarding.healthConnect.connected' => 'Health Connect Conectat',
-			'onboarding.healthConnect.notConnected' => 'Health Connect Nepregătit',
+			'onboarding.healthConnect.notConnected' => 'Health Connect Neconectat',
 			'onboarding.healthConnect.setup' => 'Configurare Health Connect',
 			'onboarding.healthConnect.skipForNow' => 'Sari deocamdată',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect este conectat.',
@@ -1449,7 +1451,7 @@ extension on TranslationsRo {
 			'home.favoriteMeals.addFavoriteHint' => 'Apasă pe stea pentru a marca o masă ca favorite.',
 			'home.favoriteMeals.seeAll' => 'Vezi toate',
 			'home.favoriteMeals.add' => 'Adaugă',
-			'home.mealSnap.title' => 'Fă o Fotografii & Urmărește-ți Masa',
+			'home.mealSnap.title' => 'Fă o fotografie & Urmărește-ți Masa',
 			'home.mealSnap.description' => 'Folosește camera ta pentru a face o fotografie a alimentelor tale pentru analiza AI.',
 			'home.mealSnap.openCamera' => 'Deschide Camera',
 			'home.connectHealth.title' => 'Sincronizează-te cu Health Connect',
@@ -1507,7 +1509,7 @@ extension on TranslationsRo {
 			'profile.weightGoal' => 'Obiectiv de Greutate',
 			'profile.activityLevel' => 'Nivel de Activitate',
 			'profile.healthMetrics' => 'Metrici de Sănătate',
-			'profile.notSet' => 'Neapărat',
+			'profile.notSet' => 'Nesetat',
 			'profile.years' => 'ani',
 			'profile.updatedSuccessfully' => 'Profil actualizat cu succes!',
 			'profile.calculatedValues.bmr' => 'BMR',
@@ -1567,6 +1569,8 @@ extension on TranslationsRo {
 			'settings.editProfile.subtitle' => 'Actualizează informațiile tale personale',
 			'settings.language.title' => 'Limba',
 			'settings.language.subtitle' => 'Alege limba preferată',
+			'settings.language.searchHint' => 'Caută limbi...',
+			'settings.language.noResults' => 'Nu s-au găsit rezultate',
 			'settings.heightUnit.title' => 'Unitate de Înălțime',
 			'settings.weightUnit.title' => 'Unitate de Greutate',
 			'settings.mealReminders.title' => 'Memento-uri pentru Mese',
@@ -1643,7 +1647,7 @@ extension on TranslationsRo {
 			'disclaimer.weightEstimate.waterWeight.title' => 'Greutatea și Fluctuațiile Apei',
 			'disclaimer.weightEstimate.waterWeight.description' => 'Greutatea normală zilnică poate fluctua semnificativ din cauza retenției de apă, digestiei și temporizării. Estimarea nu ia în considerare aceste schimbări zilnice.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Îndrumare Profesională',
-			'disclaimer.weightEstimate.professionalGuidance.description' => 'Nu folosi această estimare pentru a lua decizii medicale. Consultă întotdeauna un profesionist din domeniul sănătății sau un dietetician autorizat pentru sfaturi personalizate tentang gestionarea greutății.',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'Nu folosi această estimare pentru a lua decizii medicale. Consultă întotdeauna un profesionist din domeniul sănătății sau un dietetician autorizat pentru sfaturi personalizate despre gestionarea greutății.',
 			'common.close' => 'Închide',
 			'common.kContinue' => 'Continuă',
 			'errors.loadingProfileData' => 'Eroare la încărcarea datelor profilului',

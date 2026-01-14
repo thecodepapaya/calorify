@@ -90,7 +90,7 @@
       "connected": "Health Connect Disambungkan",
       "notConnected": "Health Connect Tidak Disambungkan",
       "setup": "Sediakan Health Connect",
-      "skipForNow": "Lupakan buat masa sekarang",
+      "skipForNow": "Langkau buat masa sekarang",
       "statusConnected": "Health Connect disambungkan.",
       "statusSuccess": "Health Connect telah berjaya disambungkan!",
       "statusPermissionDenied": "Kebenaran ditolak. Sila aktifkan kebenaran Health Connect dari tetapan telefon anda untuk {appLabel}.",
@@ -99,8 +99,8 @@
     "reinforcement": {
       "trackingSuccess": {
         "title": "Anda Tidak Sendirian",
-        "genericMessage": "Penyelidikan menunjukkan bahawa penjejakan yang konsisten adalah pengamal utama kejayaan jangka panjang.",
-        "personalizedMessage": "Untuk seorang {age} tahun {gender} yang ingin {goal}, penjejakan yang konsisten adalah pengamal utama kejayaan.",
+        "genericMessage": "Penyelidikan menunjukkan bahawa penjejakan yang konsisten adalah peramal utama kejayaan jangka panjang.",
+        "personalizedMessage": "Untuk seorang {age} tahun {gender} yang ingin {goal}, penjejakan yang konsisten adalah peramal utama kejayaan.",
         "closingMessage": "{appLabel} menjadikannya 10x lebih mudah daripada melakukannya secara manual.",
         "getStartedTitle": "Bersedia untuk memulakan?",
         "tipPhoto": "Ambil gambar makanan anda untuk analisis segera",
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Bahasa",
-      "subtitle": "Pilih bahasa pilihan anda"
+      "subtitle": "Pilih bahasa pilihan anda",
+      "searchHint": "Cari bahasa...",
+      "noResults": "Tiada keputusan dijumpai"
     },
     "heightUnit": {
       "title": "Unit Tinggi"
@@ -419,7 +421,7 @@
     "unknown": "Tidak Diketahui",
     "change": "Ubah",
     "enableNotifications": "Aktifkan Pemberitahuan",
-    "skipForNow": "Lupakan buat masa sekarang",
+    "skipForNow": "Langkau buat masa sekarang",
     "saveChanges": "Simpan Perubahan",
     "enabledSuccessfully": "Pemberitahuan diaktifkan dengan jayanya!",
     "permissionDenied": "Kebenaran pemberitahuan ditolak",

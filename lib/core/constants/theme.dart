@@ -29,9 +29,6 @@ class AppThemes {
       errorContainer: lightColors.errorContainer,
       onErrorContainer: lightColors.onErrorContainer,
 
-      background: lightColors.background,
-      onBackground: lightColors.onBackground,
-
       surface: lightColors.surface,
       onSurface: lightColors.onSurface,
 

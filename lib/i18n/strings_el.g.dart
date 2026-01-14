@@ -202,7 +202,7 @@ class _TranslationsHealthScoreEl implements TranslationsHealthScoreEn {
 	@override String get title => 'Βαθμολογία Υγείας';
 	@override String get whyThisScore => 'Γιατί αυτός ο βαθμός;';
 	@override String get note => 'Αυτή η βαθμολογία είναι μια εκτίμηση της AI με βάση τα αναγνωρισμένα συστατικά και την θρεπτική πυκνότητα. Πάντα να συμβουλεύεσαι έναν επαγγελματία για διατροφικές συμβουλές.';
-	@override String get unhealthy => 'Ανώμαλος';
+	@override String get unhealthy => 'Ανθυγιεινός';
 	@override String get healthy => 'Υγιής';
 	@override String get neutral => 'Ουδέτερος';
 }
@@ -449,7 +449,7 @@ class _TranslationsOnboardingWeightEl implements TranslationsOnboardingWeightEn 
 	// Translations
 	@override String get currentTitle => 'Ποιο είναι το τρέχον βάρος σου;';
 	@override String get currentDescription => 'Το τρέχον βάρος σου είναι ουσιαστικό για την εξατομίκευση των καθημερινών στόχων σου.';
-	@override String get targetTitle => 'Ποιο είναι το στόχο βάρος σου;';
+	@override String get targetTitle => 'Ποιος είναι ο στόχος βάρους σου;';
 	@override String get targetDescription => 'Η θέσπιση στόχου βάρους μας βοηθά να καθορίσουμε το μακροπρόθεσμο σχέδιο σου.';
 	@override String get metric => 'Μετρικό';
 	@override String get imperial => 'Αμερικανικό';
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageEl implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Γλώσσα';
 	@override String get subtitle => 'Επίλεξε την προτιμώμενη γλώσσα σου';
+	@override String get searchHint => 'Αναζήτηση γλωσσών...';
+	@override String get noResults => 'Δεν βρέθηκαν αποτελέσματα';
 }
 
 // Path: settings.heightUnit
@@ -1341,7 +1343,7 @@ extension on TranslationsEl {
 			'onboarding.height.next' => 'Επόμενο',
 			'onboarding.weight.currentTitle' => 'Ποιο είναι το τρέχον βάρος σου;',
 			'onboarding.weight.currentDescription' => 'Το τρέχον βάρος σου είναι ουσιαστικό για την εξατομίκευση των καθημερινών στόχων σου.',
-			'onboarding.weight.targetTitle' => 'Ποιο είναι το στόχο βάρος σου;',
+			'onboarding.weight.targetTitle' => 'Ποιος είναι ο στόχος βάρους σου;',
 			'onboarding.weight.targetDescription' => 'Η θέσπιση στόχου βάρους μας βοηθά να καθορίσουμε το μακροπρόθεσμο σχέδιο σου.',
 			'onboarding.weight.metric' => 'Μετρικό',
 			'onboarding.weight.imperial' => 'Αμερικανικό',
@@ -1518,7 +1520,7 @@ extension on TranslationsEl {
 			'healthScore.title' => 'Βαθμολογία Υγείας',
 			'healthScore.whyThisScore' => 'Γιατί αυτός ο βαθμός;',
 			'healthScore.note' => 'Αυτή η βαθμολογία είναι μια εκτίμηση της AI με βάση τα αναγνωρισμένα συστατικά και την θρεπτική πυκνότητα. Πάντα να συμβουλεύεσαι έναν επαγγελματία για διατροφικές συμβουλές.',
-			'healthScore.unhealthy' => 'Ανώμαλος',
+			'healthScore.unhealthy' => 'Ανθυγιεινός',
 			'healthScore.healthy' => 'Υγιής',
 			'healthScore.neutral' => 'Ουδέτερος',
 			'editProfile.title' => 'Επεξεργασία Προφίλ',
@@ -1567,6 +1569,8 @@ extension on TranslationsEl {
 			'settings.editProfile.subtitle' => 'Ενημέρωσε τις προσωπικές σου πληροφορίες',
 			'settings.language.title' => 'Γλώσσα',
 			'settings.language.subtitle' => 'Επίλεξε την προτιμώμενη γλώσσα σου',
+			'settings.language.searchHint' => 'Αναζήτηση γλωσσών...',
+			'settings.language.noResults' => 'Δεν βρέθηκαν αποτελέσματα',
 			'settings.heightUnit.title' => 'Μονάδα Ύψους',
 			'settings.weightUnit.title' => 'Μονάδα Βάρους',
 			'settings.mealReminders.title' => 'Υπενθυμίσεις Γευμάτων',

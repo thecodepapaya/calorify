@@ -84,7 +84,7 @@
         "description": "آپ کے صحت کے رجحانات کی تفصیلی بصیرت حاصل کریں"
       },
       "seamlessIntegration": {
-        "title": "پہچان میں انضمام",
+        "title": "ہموار انضمام",
         "description": "اپنی پسندیدہ صحت ایپس سے ڈیٹا ہم آہنگ کریں"
       },
       "connected": "Health Connect جڑا ہوا ہے",
@@ -111,7 +111,7 @@
         "defaultGoal": "صحت مند آپ"
       },
       "healthProfile": {
-        "title": "آپ پروفائل",
+        "title": "آپ کا پروفائل",
         "bmiDescription": "آپ کے میٹرکس کی بنیاد پر، آپ کا BMI {bmi} ہے۔",
         "finalizeDescription": "آئیے آپ کے تجربے کو حسب ضرورت بنانے کے لئے آپ کا پروفائل مکمل کریں۔",
         "goalGain": "بڑھانا",
@@ -197,7 +197,7 @@
     },
     "connectHealth": {
       "title": "ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں",
-      "description": "اپرا غذائیت کے ڈیٹا کو ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں",
+      "description": "اپنا غذائیت کے ڈیٹا کو ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں",
       "install": "انسٹال کریں",
       "connect": "ہم آہنگ کریں"
     }
@@ -289,7 +289,7 @@
     "title": "پروفائل ترمیم کریں",
     "sections": {
       "personalInformation": "ذاتی معلومات",
-      "physicalMeasurements": "طبی پیمائش",
+      "physicalMeasurements": "جسمانی پیمائش",
       "goalsAndActivity": "اہداف اور سرگرمی"
     },
     "gender": "جنس",
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "زبان",
-      "subtitle": "اپنی پسندیدہ زبان منتخب کریں"
+      "subtitle": "اپنی پسندیدہ زبان منتخب کریں",
+      "searchHint": "زبانیں تلاش کریں...",
+      "noResults": "کوئی نتائج نہیں ملے"
     },
     "heightUnit": {
       "title": "قد کی اکائی"

@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageZhCn implements TranslationsSettingsLanguageE
 	// Translations
 	@override String get title => '语言';
 	@override String get subtitle => '选择您的首选语言';
+	@override String get searchHint => '搜索语言...';
+	@override String get noResults => '未找到结果';
 }
 
 // Path: settings.heightUnit
@@ -847,8 +849,8 @@ class _TranslationsSettingsThemeZhCn implements TranslationsSettingsThemeEn {
 	// Translations
 	@override String get title => '主题';
 	@override String get subtitle => '选择您的首选主题';
-	@override String get light => '明亮';
-	@override String get dark => '黑暗';
+	@override String get light => '浅色';
+	@override String get dark => '深色';
 	@override String get system => '系统';
 }
 
@@ -1567,14 +1569,16 @@ extension on TranslationsZhCn {
 			'settings.editProfile.subtitle' => '更新您的个人信息',
 			'settings.language.title' => '语言',
 			'settings.language.subtitle' => '选择您的首选语言',
+			'settings.language.searchHint' => '搜索语言...',
+			'settings.language.noResults' => '未找到结果',
 			'settings.heightUnit.title' => '身高单位',
 			'settings.weightUnit.title' => '体重单位',
 			'settings.mealReminders.title' => '餐点提醒',
 			'settings.mealReminders.subtitle' => '通过及时的提醒保持正轨',
 			'settings.theme.title' => '主题',
 			'settings.theme.subtitle' => '选择您的首选主题',
-			'settings.theme.light' => '明亮',
-			'settings.theme.dark' => '黑暗',
+			'settings.theme.light' => '浅色',
+			'settings.theme.dark' => '深色',
 			'settings.theme.system' => '系统',
 			'settings.sendFeedback.title' => '发送反馈',
 			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => '帮助我们改善${appLabel}',

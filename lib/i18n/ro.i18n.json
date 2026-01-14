@@ -88,7 +88,7 @@
         "description": "Sincronizează datele din aplicațiile tale preferate de sănătate"
       },
       "connected": "Health Connect Conectat",
-      "notConnected": "Health Connect Nepregătit",
+      "notConnected": "Health Connect Neconectat",
       "setup": "Configurare Health Connect",
       "skipForNow": "Sari deocamdată",
       "statusConnected": "Health Connect este conectat.",
@@ -191,7 +191,7 @@
       "add": "Adaugă"
     },
     "mealSnap": {
-      "title": "Fă o Fotografii & Urmărește-ți Masa",
+      "title": "Fă o fotografie & Urmărește-ți Masa",
       "description": "Folosește camera ta pentru a face o fotografie a alimentelor tale pentru analiza AI.",
       "openCamera": "Deschide Camera"
     },
@@ -266,7 +266,7 @@
     "weightGoal": "Obiectiv de Greutate",
     "activityLevel": "Nivel de Activitate",
     "healthMetrics": "Metrici de Sănătate",
-    "notSet": "Neapărat",
+    "notSet": "Nesetat",
     "years": "ani",
     "updatedSuccessfully": "Profil actualizat cu succes!",
     "calculatedValues": {
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Limba",
-      "subtitle": "Alege limba preferată"
+      "subtitle": "Alege limba preferată",
+      "searchHint": "Caută limbi...",
+      "noResults": "Nu s-au găsit rezultate"
     },
     "heightUnit": {
       "title": "Unitate de Înălțime"
@@ -490,7 +492,7 @@
       },
       "professionalGuidance": {
         "title": "Îndrumare Profesională",
-        "description": "Nu folosi această estimare pentru a lua decizii medicale. Consultă întotdeauna un profesionist din domeniul sănătății sau un dietetician autorizat pentru sfaturi personalizate tentang gestionarea greutății."
+        "description": "Nu folosi această estimare pentru a lua decizii medicale. Consultă întotdeauna un profesionist din domeniul sănătății sau un dietetician autorizat pentru sfaturi personalizate despre gestionarea greutății."
       }
     }
   },

@@ -262,7 +262,7 @@ class _TranslationsRemindersUk implements TranslationsRemindersEn {
 
 	// Translations
 	@override String get title => 'Залишайтеся на правильному шляху з нагадуваннями';
-	@override String get description => 'Отримуйте м\'які нагадування, щоб вести облік своїх страв і підтримувати послідовність з вашими цілей у харчуванні';
+	@override String get description => 'Отримуйте м\'які нагадування, щоб вести облік своїх страв і підтримувати послідовність з вашими цілями у харчуванні';
 	@override String get notificationsEnabled => 'Сповіщення увімкнені';
 	@override String get notificationsDisabled => 'Сповіщення вимкнені';
 	@override String get enabledSubtitle => 'Ви отримуватимете нагадування про страви';
@@ -607,7 +607,7 @@ class _TranslationsHomeMealLogUk implements TranslationsHomeMealLogEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Зарегистровані страви';
+	@override String get title => 'Зареєстровані страви';
 	@override String get emptyMessage => 'Зробіть фото вашої останньої страви, щоб зареєструвати її тут.';
 	@override String get noMealsToday => 'Сьогодні немає зареєстрованих страв';
 	@override String get seeAllMeals => 'Дивитися всі страви';
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageUk implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Мова';
 	@override String get subtitle => 'Виберіть вашу бажану мову';
+	@override String get searchHint => 'Шукати мови...';
+	@override String get noResults => 'Нічого не знайдено';
 }
 
 // Path: settings.heightUnit
@@ -1030,7 +1032,7 @@ class _TranslationsOnboardingBmiScaleCategoriesUk implements TranslationsOnboard
 
 	// Translations
 	@override String get underweight => 'Недостатня вага';
-	@override String get healthyWeight => 'Здоровий ваговий';
+	@override String get healthyWeight => 'Здорова вага';
 	@override String get overweight => 'Надмірна вага';
 	@override String get obese => 'Ожиріння';
 }
@@ -1197,7 +1199,7 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveUk implements Transl
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'В помірковано активний';
+	@override String get name => 'Помірно активний';
 	@override String get description => 'Помірні фізичні вправи 3-5 днів/тиждень';
 }
 
@@ -1354,7 +1356,7 @@ extension on TranslationsUk {
 			'onboarding.bmiScale.overweight' => 'Надмірна вага',
 			'onboarding.bmiScale.obese' => 'Ожиріння',
 			'onboarding.bmiScale.categories.underweight' => 'Недостатня вага',
-			'onboarding.bmiScale.categories.healthyWeight' => 'Здоровий ваговий',
+			'onboarding.bmiScale.categories.healthyWeight' => 'Здорова вага',
 			'onboarding.bmiScale.categories.overweight' => 'Надмірна вага',
 			'onboarding.bmiScale.categories.obese' => 'Ожиріння',
 			'onboarding.bmiScale.messages.underweight' => 'Ми можемо допомогти вам скласти здоровий план для досягнення збалансованої ваги з поживними стравами.',
@@ -1435,7 +1437,7 @@ extension on TranslationsUk {
 			'home.intakeHistory.title' => '7-денна історія макро',
 			'home.intakeHistory.noHistoryYet' => 'Історії ще немає',
 			'home.intakeHistory.startLogging' => 'Розпочніть ведення обліку страв, щоб побачити ваші\n7-денні макро-тенденції тут',
-			'home.mealLog.title' => 'Зарегистровані страви',
+			'home.mealLog.title' => 'Зареєстровані страви',
 			'home.mealLog.emptyMessage' => 'Зробіть фото вашої останньої страви, щоб зареєструвати її тут.',
 			'home.mealLog.noMealsToday' => 'Сьогодні немає зареєстрованих страв',
 			'home.mealLog.seeAllMeals' => 'Дивитися всі страви',
@@ -1550,7 +1552,7 @@ extension on TranslationsUk {
 			'editProfile.activityLevels.sedentary.description' => 'Мало або зовсім немає фізичних вправ',
 			'editProfile.activityLevels.lightlyActive.name' => 'Помірно активний',
 			'editProfile.activityLevels.lightlyActive.description' => 'Легкі фізичні вправи 1-3 дні/тиждень',
-			'editProfile.activityLevels.moderatelyActive.name' => 'В помірковано активний',
+			'editProfile.activityLevels.moderatelyActive.name' => 'Помірно активний',
 			'editProfile.activityLevels.moderatelyActive.description' => 'Помірні фізичні вправи 3-5 днів/тиждень',
 			'editProfile.activityLevels.veryActive.name' => 'Дуже активний',
 			'editProfile.activityLevels.veryActive.description' => 'Навантажувальні фізичні вправи 6-7 днів/тиждень',
@@ -1567,6 +1569,8 @@ extension on TranslationsUk {
 			'settings.editProfile.subtitle' => 'Оновіть вашу особисту інформацію',
 			'settings.language.title' => 'Мова',
 			'settings.language.subtitle' => 'Виберіть вашу бажану мову',
+			'settings.language.searchHint' => 'Шукати мови...',
+			'settings.language.noResults' => 'Нічого не знайдено',
 			'settings.heightUnit.title' => 'Одиниця зрісту',
 			'settings.weightUnit.title' => 'Одиниця ваги',
 			'settings.mealReminders.title' => 'Нагадування про страви',
@@ -1593,7 +1597,7 @@ extension on TranslationsUk {
 			'settings.debugOptions.title' => 'Опції налагодження',
 			'settings.developerModeEnabled' => 'Режим розробника увімкнено!',
 			'reminders.title' => 'Залишайтеся на правильному шляху з нагадуваннями',
-			'reminders.description' => 'Отримуйте м\'які нагадування, щоб вести облік своїх страв і підтримувати послідовність з вашими цілей у харчуванні',
+			'reminders.description' => 'Отримуйте м\'які нагадування, щоб вести облік своїх страв і підтримувати послідовність з вашими цілями у харчуванні',
 			'reminders.notificationsEnabled' => 'Сповіщення увімкнені',
 			'reminders.notificationsDisabled' => 'Сповіщення вимкнені',
 			'reminders.enabledSubtitle' => 'Ви отримуватимете нагадування про страви',

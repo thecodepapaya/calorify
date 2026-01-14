@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Language",
-      "subtitle": "Choose your preferred language"
+      "subtitle": "Choose your preferred language",
+      "searchHint": "Search languages...",
+      "noResults": "No results found"
     },
     "heightUnit": {
       "title": "Height Unit"

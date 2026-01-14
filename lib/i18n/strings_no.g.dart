@@ -199,7 +199,7 @@ class _TranslationsHealthScoreNo implements TranslationsHealthScoreEn {
 	final TranslationsNo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Helsescor';
+	@override String get title => 'Helsescore';
 	@override String get whyThisScore => 'Hvorfor denne scoren?';
 	@override String get note => 'Denne scoren er et AI-estimat basert på de identifiserte ingrediensene og næringsinnholdet. Konsulter alltid en profesjonell for kostholdsråd.';
 	@override String get unhealthy => 'Usunn';
@@ -464,7 +464,7 @@ class _TranslationsOnboardingAgeNo implements TranslationsOnboardingAgeEn {
 
 	// Translations
 	@override String get title => 'Når har du bursdag?';
-	@override String get description => 'Alderen din hjelper oss å beregne dine kalori behov korrekt.';
+	@override String get description => 'Alderen din hjelper oss å beregne dine kaloribehov korrekt.';
 	@override String get next => 'Neste';
 }
 
@@ -478,7 +478,7 @@ class _TranslationsOnboardingBmiScaleNo implements TranslationsOnboardingBmiScal
 	@override String get underweight => 'Undervektig';
 	@override String get healthy => 'Normalvektig';
 	@override String get overweight => 'Overvektig';
-	@override String get obese => 'Fet';
+	@override String get obese => 'Kraftig overvektig';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesNo categories = _TranslationsOnboardingBmiScaleCategoriesNo._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesNo messages = _TranslationsOnboardingBmiScaleMessagesNo._(_root);
 }
@@ -700,7 +700,7 @@ class _TranslationsProfileSectionsNo implements TranslationsProfileSectionsEn {
 	final TranslationsNo _root; // ignore: unused_field
 
 	// Translations
-	@override String get profile => 'PROFIl';
+	@override String get profile => 'PROFIL';
 	@override String get basicInformation => 'GRUNNLEGGENDE INFORMASJON';
 	@override String get goalsAndActivity => 'MÅL & AKTIVITET';
 	@override String get calculatedValues => 'BEREGNEDE VERDIER';
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageNo implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Språk';
 	@override String get subtitle => 'Velg ditt foretrukne språk';
+	@override String get searchHint => 'Søk etter språk...';
+	@override String get noResults => 'Ingen resultater funnet';
 }
 
 // Path: settings.heightUnit
@@ -1032,7 +1034,7 @@ class _TranslationsOnboardingBmiScaleCategoriesNo implements TranslationsOnboard
 	@override String get underweight => 'Undervektig';
 	@override String get healthyWeight => 'Normalvektig';
 	@override String get overweight => 'Overvektig';
-	@override String get obese => 'Fet';
+	@override String get obese => 'Kraftig overvektig';
 }
 
 // Path: onboarding.bmiScale.messages
@@ -1347,16 +1349,16 @@ extension on TranslationsNo {
 			'onboarding.weight.imperial' => 'Imperial',
 			'onboarding.weight.next' => 'Neste',
 			'onboarding.age.title' => 'Når har du bursdag?',
-			'onboarding.age.description' => 'Alderen din hjelper oss å beregne dine kalori behov korrekt.',
+			'onboarding.age.description' => 'Alderen din hjelper oss å beregne dine kaloribehov korrekt.',
 			'onboarding.age.next' => 'Neste',
 			'onboarding.bmiScale.underweight' => 'Undervektig',
 			'onboarding.bmiScale.healthy' => 'Normalvektig',
 			'onboarding.bmiScale.overweight' => 'Overvektig',
-			'onboarding.bmiScale.obese' => 'Fet',
+			'onboarding.bmiScale.obese' => 'Kraftig overvektig',
 			'onboarding.bmiScale.categories.underweight' => 'Undervektig',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Normalvektig',
 			'onboarding.bmiScale.categories.overweight' => 'Overvektig',
-			'onboarding.bmiScale.categories.obese' => 'Fet',
+			'onboarding.bmiScale.categories.obese' => 'Kraftig overvektig',
 			'onboarding.bmiScale.messages.underweight' => 'Vi kan hjelpe deg med å lage en sunn plan for å nå en balansert vekt med næringsrike måltider.',
 			'onboarding.bmiScale.messages.healthy' => 'Flott jobbet! Du ligger innenfor et sunt område. Vi hjelper deg med å opprettholde din vitalitet og energinivå.',
 			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} vil forenkle reisen din med AI-drevet sporing for å hjelpe deg å nå målet ditt på en komfortabel måte.',
@@ -1496,7 +1498,7 @@ extension on TranslationsNo {
 			'profile.noProfileData' => 'Ingen profildata funnet',
 			'profile.yourProfile' => 'Din Profil',
 			'profile.viewAndManage' => 'Se og administrer helseinformasjonen din',
-			'profile.sections.profile' => 'PROFIl',
+			'profile.sections.profile' => 'PROFIL',
 			'profile.sections.basicInformation' => 'GRUNNLEGGENDE INFORMASJON',
 			'profile.sections.goalsAndActivity' => 'MÅL & AKTIVITET',
 			'profile.sections.calculatedValues' => 'BEREGNEDE VERDIER',
@@ -1515,7 +1517,7 @@ extension on TranslationsNo {
 			'profile.calculatedValues.dailyGoal' => 'Daglig Mål',
 			'profile.calculatedValues.calPerDay' => 'kal/dag',
 			'profile.calculatedValues.notAvailable' => 'Ikke tilgjengelig',
-			'healthScore.title' => 'Helsescor',
+			'healthScore.title' => 'Helsescore',
 			'healthScore.whyThisScore' => 'Hvorfor denne scoren?',
 			'healthScore.note' => 'Denne scoren er et AI-estimat basert på de identifiserte ingrediensene og næringsinnholdet. Konsulter alltid en profesjonell for kostholdsråd.',
 			'healthScore.unhealthy' => 'Usunn',
@@ -1567,6 +1569,8 @@ extension on TranslationsNo {
 			'settings.editProfile.subtitle' => 'Oppdater din personlige informasjon',
 			'settings.language.title' => 'Språk',
 			'settings.language.subtitle' => 'Velg ditt foretrukne språk',
+			'settings.language.searchHint' => 'Søk etter språk...',
+			'settings.language.noResults' => 'Ingen resultater funnet',
 			'settings.heightUnit.title' => 'Høydeenhet',
 			'settings.weightUnit.title' => 'Vektenhet',
 			'settings.mealReminders.title' => 'Måltidspåminnelser',

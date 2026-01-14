@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageKo implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => '언어';
 	@override String get subtitle => '선호하는 언어를 선택하세요';
+	@override String get searchHint => '언어 검색...';
+	@override String get noResults => '결과가 없습니다';
 }
 
 // Path: settings.heightUnit
@@ -1089,8 +1091,8 @@ class _TranslationsOnboardingReinforcementTrackingSuccessKo implements Translati
 
 	// Translations
 	@override String get title => '당신은 혼자가 아닙니다';
-	@override String get genericMessage => '연구에 따르면, 꾸준한 추적이 장기적인 성공의 #1 예측因자입니다.';
-	@override String personalizedMessage({required Object goal, required Object age, required Object gender}) => '${goal}를 원하시는 ${age}세 ${gender}님께, 꾸준한 추적이 성공의 #1 예측因자입니다.';
+	@override String get genericMessage => '연구에 따르면, 꾸준한 추적이 장기적인 성공의 #1 예측 요인입니다.';
+	@override String personalizedMessage({required Object goal, required Object age, required Object gender}) => '${goal}를 원하시는 ${age}세 ${gender}님께, 꾸준한 추적이 성공의 #1 예측 요인입니다.';
 	@override String closingMessage({required Object appLabel}) => '${appLabel}을(A를) 사용하면 수작업보다 10배 쉬워집니다.';
 	@override String get getStartedTitle => '시작할 준비가 되셨나요?';
 	@override String get tipPhoto => '즉각적인 분석을 위해 식사 사진을 촬영하세요';
@@ -1382,8 +1384,8 @@ extension on TranslationsKo {
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => '권한이 거부되었습니다. ${appLabel}을 사용하려면 휴대폰 설정에서 Health Connect 권한을 활성화해 주세요.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connect를 설정하는 중 오류 발생: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => '당신은 혼자가 아닙니다',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => '연구에 따르면, 꾸준한 추적이 장기적인 성공의 #1 예측因자입니다.',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object goal, required Object age, required Object gender}) => '${goal}를 원하시는 ${age}세 ${gender}님께, 꾸준한 추적이 성공의 #1 예측因자입니다.',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => '연구에 따르면, 꾸준한 추적이 장기적인 성공의 #1 예측 요인입니다.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object goal, required Object age, required Object gender}) => '${goal}를 원하시는 ${age}세 ${gender}님께, 꾸준한 추적이 성공의 #1 예측 요인입니다.',
 			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel}을(A를) 사용하면 수작업보다 10배 쉬워집니다.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => '시작할 준비가 되셨나요?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => '즉각적인 분석을 위해 식사 사진을 촬영하세요',
@@ -1567,6 +1569,8 @@ extension on TranslationsKo {
 			'settings.editProfile.subtitle' => '개인 정보를 업데이트하세요',
 			'settings.language.title' => '언어',
 			'settings.language.subtitle' => '선호하는 언어를 선택하세요',
+			'settings.language.searchHint' => '언어 검색...',
+			'settings.language.noResults' => '결과가 없습니다',
 			'settings.heightUnit.title' => '키 단위',
 			'settings.weightUnit.title' => '체중 단위',
 			'settings.mealReminders.title' => '식사 알림',

@@ -47,12 +47,12 @@
       "next": "Susunod"
     },
     "bmiScale": {
-      "underweight": "Ligtas na timbang",
+      "underweight": "Kulang sa timbang",
       "healthy": "Malusog",
       "overweight": "Sobra sa timbang",
       "obese": "Obesity",
       "categories": {
-        "underweight": "Ligtas na timbang",
+        "underweight": "Kulang sa timbang",
         "healthyWeight": "Malusog na timbang",
         "overweight": "Sobra sa timbang",
         "obese": "Obesity"
@@ -301,7 +301,7 @@
     "metric": "Sistemang metrikal",
     "imperial": "Imperyal",
     "metricCm": "Sistemang metrikal (cm)",
-    "imperialFtIn": "Imperyal (tal/kp)",
+    "imperialFtIn": "Imperyal (ft/in)",
     "metricKg": "Sistemang metrikal (kg)",
     "imperialLbs": "Imperyal (lbs)",
     "genders": {
@@ -352,7 +352,7 @@
       "profile": "PROFILE",
       "localization": "LOKALISASYON",
       "notifications": "NOTIFIKASYON",
-      "supportAndLegal": "SUPORTA AT BATAK",
+      "supportAndLegal": "SUPORTA AT LEGAL",
       "dangerZone": "MAPANGANIB NA ZONA",
       "developer": "DEVELOPER"
     },
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Wika",
-      "subtitle": "Pumili ng iyong gustong wika"
+      "subtitle": "Pumili ng iyong gustong wika",
+      "searchHint": "Maghanap ng mga wika...",
+      "noResults": "Walang nahanap na resulta"
     },
     "heightUnit": {
       "title": "Yunit ng Taas"

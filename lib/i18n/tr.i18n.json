@@ -28,8 +28,8 @@
     "height": {
       "title": "Boyunuz ne kadar?",
       "description": "Boyunuz, BMI ve enerji ihtiyaçlarınızı doğru bir şekilde hesaplamamıza yardımcı olur.",
-      "metric": "Metrekes",
-      "imperial": "İngilizce",
+      "metric": "Metrik",
+      "imperial": "İngiliz birimi",
       "next": "İleri"
     },
     "weight": {
@@ -112,11 +112,11 @@
       },
       "healthProfile": {
         "title": "Sağlık Profiliniz",
-        "bmiDescription": "Metreklerinize dayalı olarak, BMI'niz {bmi}.",
+        "bmiDescription": "Ölçümlerinize dayalı olarak, BMI'niz {bmi}.",
         "finalizeDescription": "Deneyiminizi kişiselleştirmek için profilinizi sonlandıralım.",
         "goalGain": "kazan",
         "goalLose": "kaybet",
-        "goalReach": "Hedefinize ulaşmak için {direction} {diff} {unit} {unit} yapmalısın.",
+        "goalReach": "Hedefinize ulaşmak için {diff} {unit} {direction} yapmalısın.",
         "goalReached": "Hedef kilonuzdasınız! Bunu korumanıza yardımcı olacağız.",
         "button": "Hadi Gidelim"
       },
@@ -350,7 +350,7 @@
     "title": "Ayarlar",
     "sections": {
       "profile": "PROFİL",
-      "localization": "ULUSLARARASI",
+      "localization": "YERELLEŞTİRME",
       "notifications": "BİLDİRİMLER",
       "supportAndLegal": "DESTEK & YASAL",
       "dangerZone": "TEHLİKE BÖLGESİ",
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Dil",
-      "subtitle": "Tercih ettiğiniz dili seçin"
+      "subtitle": "Tercih ettiğiniz dili seçin",
+      "searchHint": "Dilleri ara...",
+      "noResults": "Sonuç bulunamadı"
     },
     "heightUnit": {
       "title": "Boy Birimi"

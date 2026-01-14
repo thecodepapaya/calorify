@@ -230,7 +230,7 @@
     },
     "deleteConfirmation": {
       "title": "Eliminar Comida",
-      "message": "¿Está seguro de que desea eliminar esta entrada de comida?",
+      "message": "¿Estás seguro de que deseas eliminar esta entrada de comida?",
       "cancel": "Cancelar",
       "delete": "Eliminar"
     },
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Idioma",
-      "subtitle": "Elige tu idioma preferido"
+      "subtitle": "Elige tu idioma preferido",
+      "searchHint": "Buscar idiomas...",
+      "noResults": "No se encontraron resultados"
     },
     "heightUnit": {
       "title": "Unidad de Altura"
@@ -453,7 +455,7 @@
     "signInFailed": "Fallo en el inicio de sesión de Google o fue cancelado."
   },
   "disclaimer": {
-    "pleaseNote": "Por Favor Nota",
+    "pleaseNote": "Ten en cuenta",
     "snap": {
       "description": "{appLabel} proporciona información nutricional estimada. La precisión depende de tu entrada y las variaciones de los alimentos. Úsalo como una guía, no como una fuente definitiva. Consulta a un profesional para obtener consejos dietéticos personalizados.",
       "portionSize": {

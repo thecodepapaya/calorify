@@ -108,7 +108,7 @@
         "tipProgress": "עקוב אחר ההתקדמות שלך יומית כדי להישאר במוטיבציה",
         "button": "בוא נלך",
         "defaultGender": "אדם",
-        "defaultGoal": "ב-version בריאה יותר"
+        "defaultGoal": "בגרסה בריאה יותר"
       },
       "healthProfile": {
         "title": "פרופיל הבריאות שלך",
@@ -125,7 +125,7 @@
         "description": "עשית את הצעד הראשון לקראת {goalText}. מכיוון ש{activityText}, {appLabel} יתאים את המטרות שלך כדי להתאים לאורח החיים שלך.",
         "personalizedTargets": "יעדי קלוריות מותאמים אישית",
         "aiMealDetection": "זיהוי ארוחות המונע על ידי בינה מלאכותית",
-        "macroBreakdowns": "פירוטים מפורטים של מיקרו-נוטריינטים",
+        "macroBreakdowns": "פירוטים מפורטים של מאקרו-נוטריינטים",
         "button": "בוא נלך",
         "defaultGoal": "היעדים שלך",
         "defaultActivity": "פעיל"
@@ -341,7 +341,7 @@
         "description": "פעילות גופנית קשה 6-7 ימים בשבוע"
       },
       "extremelyActive": {
-        "name": "פעיל מאוד",
+        "name": "פעיל ביותר",
         "description": "פעילות גופנית קשה מאוד, עבודה פיזית"
       }
     }
@@ -350,7 +350,7 @@
     "title": "הגדרות",
     "sections": {
       "profile": "פרופיל",
-      "localization": "אני חוצה",
+      "localization": "התאמה מקומית",
       "notifications": "התראות",
       "supportAndLegal": "תמיכה וחוקי",
       "dangerZone": "אזור מסוכן",
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "שפה",
-      "subtitle": "בחר את השפה המועדפת עליך"
+      "subtitle": "בחר את השפה המועדפת עליך",
+      "searchHint": "חפש שפות...",
+      "noResults": "לא נמצאו תוצאות"
     },
     "heightUnit": {
       "title": "יחידת גובה"
@@ -444,7 +446,7 @@
       "body": "הגיע הזמן לנשנוש בריא"
     },
     "test": {
-      "title": "התראה נוסית"
+      "title": "התראת ניסיון"
     }
   },
   "login": {
@@ -485,7 +487,7 @@
         "description": "ירידה/עלייה במשקל בפועל מושפעת מהמטבוליזם, הורמונים, שינה, לחץ, הידרציה וגורמים אישיים אחרים ש{appLabel} לא יכול למדוד."
       },
       "waterWeight": {
-        "title": "משקל מים ו fluctuations",
+        "title": "משקל מים ותנודות",
         "description": "משקל יומי רגיל יכול להשתנות באופן משמעותי בגלל החזקת מים, עיכול וזמן. ההערכה לא לוקחת בחשבון את השינויים היומיים הללו."
       },
       "professionalGuidance": {
@@ -542,7 +544,7 @@
     "noNotifications": "אין התראות פעילות.",
     "testNotificationScheduled": "התראת ניסי מתוזמנת ל-10 שניות מהיום.",
     "testNotificationBody": "זוהי התראת ניסי מתוזמנת ל-10 שניות מהיום.",
-    "breakfastNotificationTriggered": "הופעלח התראת ארוחת בוקר.",
+    "breakfastNotificationTriggered": "הופעלה התראת ארוחת בוקר.",
     "allNotificationsCancelled": "כל ההתראות בוטלו.",
     "fetchingData": "שחזור נתונים עבור 7 הימים האחרונים...",
     "id": "מזהה: {id}"

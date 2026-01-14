@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageIt implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Lingua';
 	@override String get subtitle => 'Scegli la tua lingua preferita';
+	@override String get searchHint => 'Cerca lingue...';
+	@override String get noResults => 'Nessun risultato trovato';
 }
 
 // Path: settings.heightUnit
@@ -1055,7 +1057,7 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingIt implements Transla
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Monitoraggio Calorico Automático';
+	@override String get title => 'Monitoraggio Calorico Automatico';
 	@override String get description => 'Monitora le calorie bruciate dalle tue app di fitness';
 }
 
@@ -1286,7 +1288,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsIt implements Transl
 
 	// Translations
 	@override String get title => 'Fattori Biologici';
-	@override String description({required Object appLabel}) => 'La perdita/gain di peso reale è influenzata da metabolismo, ormoni, sonno, stress, idratazione e altri fattori individuali che ${appLabel} non può misurare.';
+	@override String description({required Object appLabel}) => 'La perdita/aumento di peso reale è influenzato da metabolismo, ormoni, sonno, stress, idratazione e altri fattori individuali che ${appLabel} non può misurare.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1367,7 +1369,7 @@ extension on TranslationsIt {
 			'onboarding.activityLevel.description' => 'Questo ci aiuta a calcolare le tue esigenze caloriche quotidiane con maggiore precisione',
 			'onboarding.healthConnect.title' => 'Collegati a Health Connect',
 			'onboarding.healthConnect.description' => 'Sincronizza i tuoi dati sulla salute per migliori approfondimenti e monitoraggio calorico automatico',
-			'onboarding.healthConnect.automaticTracking.title' => 'Monitoraggio Calorico Automático',
+			'onboarding.healthConnect.automaticTracking.title' => 'Monitoraggio Calorico Automatico',
 			'onboarding.healthConnect.automaticTracking.description' => 'Monitora le calorie bruciate dalle tue app di fitness',
 			'onboarding.healthConnect.progressInsights.title' => 'Approfondimenti sui Progressi',
 			'onboarding.healthConnect.progressInsights.description' => 'Ricevi approfondimenti dettagliati sulle tue tendenze di salute',
@@ -1567,6 +1569,8 @@ extension on TranslationsIt {
 			'settings.editProfile.subtitle' => 'Aggiorna le tue informazioni personali',
 			'settings.language.title' => 'Lingua',
 			'settings.language.subtitle' => 'Scegli la tua lingua preferita',
+			'settings.language.searchHint' => 'Cerca lingue...',
+			'settings.language.noResults' => 'Nessun risultato trovato',
 			'settings.heightUnit.title' => 'Unità di Altezza',
 			'settings.weightUnit.title' => 'Unità di Peso',
 			'settings.mealReminders.title' => 'Promemoria Pasti',
@@ -1639,7 +1643,7 @@ extension on TranslationsIt {
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Accuratezza delle Calorie',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Questa stima è tanto precisa quanto la tua assunzione e spesa calorica registrata. Registrazioni inaccurate porteranno a una proiezione imprecisa.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Fattori Biologici',
-			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'La perdita/gain di peso reale è influenzata da metabolismo, ormoni, sonno, stress, idratazione e altri fattori individuali che ${appLabel} non può misurare.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'La perdita/aumento di peso reale è influenzato da metabolismo, ormoni, sonno, stress, idratazione e altri fattori individuali che ${appLabel} non può misurare.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Peso dell\'Acqua e Fluttuazioni',
 			'disclaimer.weightEstimate.waterWeight.description' => 'Il peso normale può fluttuare significativamente durante il giorno a causa della ritenzione idrica, della digestione e del momento. La stima non tiene conto di queste variazioni giornaliere.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Guida Professionale',

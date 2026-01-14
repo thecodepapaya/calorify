@@ -28,7 +28,7 @@
     "height": {
       "title": "Hvor høj er du?",
       "description": "Din højde hjælper os med nøjagtigt at beregne din BMI og energibehov.",
-      "metric": "Metisk",
+      "metric": "Metrisk",
       "imperial": "Imperial",
       "next": "Næste"
     },
@@ -37,7 +37,7 @@
       "currentDescription": "Din nuværende vægt er essentiel for at tilpasse dine daglige mål.",
       "targetTitle": "Hvad er din målvægt?",
       "targetDescription": "At sætte et mål for vægten hjælper os med at bestemme din langsigtede plan.",
-      "metric": "Metisk",
+      "metric": "Metrisk",
       "imperial": "Imperial",
       "next": "Næste"
     },
@@ -255,7 +255,7 @@
     "viewAndManage": "Se og administrer dine sundhedsoplysninger",
     "sections": {
       "profile": "PROFIL",
-      "basicInformation": "BASIC INFORMATION",
+      "basicInformation": "GRUNDLÆGGENDE OPLYSNINGER",
       "goalsAndActivity": "MÅL & AKTIVITET",
       "calculatedValues": "BEREGNEDE VÆRDIER"
     },
@@ -263,7 +263,7 @@
     "height": "Højde",
     "weight": "Vægt",
     "age": "Alder",
-    "weightGoal": "Vægsmål",
+    "weightGoal": "Vægtmål",
     "activityLevel": "Aktivitetsniveau",
     "healthMetrics": "Sundhedsmetrikker",
     "notSet": "Ikke indstillet",
@@ -288,7 +288,7 @@
   "editProfile": {
     "title": "Rediger Profil",
     "sections": {
-      "personalInformation": "PERSONLIGE OPlysninger",
+      "personalInformation": "PERSONLIGE OPLYSNINGER",
       "physicalMeasurements": "FYSISKE MÅLINGER",
       "goalsAndActivity": "MÅL & AKTIVITET"
     },
@@ -296,7 +296,7 @@
     "dateOfBirth": "Fødselsdato",
     "height": "Højde",
     "weight": "Vægt",
-    "weightGoal": "Vægsmål",
+    "weightGoal": "Vægtmål",
     "activityLevel": "Aktivitetsniveau",
     "metric": "Metisk",
     "imperial": "Imperial",
@@ -353,7 +353,7 @@
       "localization": "LOKALISERING",
       "notifications": "NOTIFIKATIONER",
       "supportAndLegal": "SUPPORT & JURIDISK",
-      "dangerZone": "DANGER ZONE",
+      "dangerZone": "FAREZONE",
       "developer": "UDVIKLER"
     },
     "editProfile": {
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Sprog",
-      "subtitle": "Vælg dit foretrukne sprog"
+      "subtitle": "Vælg dit foretrukne sprog",
+      "searchHint": "Søg efter sprog...",
+      "noResults": "Ingen resultater fundet"
     },
     "heightUnit": {
       "title": "Højde Enhed"
@@ -520,7 +522,7 @@
     "fetchTodaysCalories": "Hent Dagens Kalorier",
     "fetchLatestWeight": "Hent Seneste Vægt",
     "fetchLatestHeight": "Hent Seneste Højde",
-    "writeTestWeight": "Skriv Testvæg (70kg)",
+    "writeTestWeight": "Skriv Testvægt (70kg)",
     "writeTestHeight": "Skriv Testhøjde (175cm)",
     "syncLast7Days": "Synkroniser Sidste 7 Dage",
     "sync7DaysTitle": "7-Dages Synk",
@@ -535,8 +537,8 @@
     "noWeightData": "Ingen vægtdata fundet i de sidste 30 dage.",
     "noHeightData": "Ingen højde-data fundet i det sidste år.",
     "noCalorieData": "Ingen kalorie data fundet for i dag.",
-    "weightWritten": "Testvæg (70kg) skrevet med succes.",
-    "weightWriteFailed": "Kunne ikke skrive testvæg.",
+    "weightWritten": "Testvægt (70kg) skrevet med succes.",
+    "weightWriteFailed": "Kunne ikke skrive testvægt.",
     "heightWritten": "Testhøjde (175cm) skrevet med succes.",
     "heightWriteFailed": "Kunne ikke skrive testhøjde.",
     "noNotifications": "Ingen aktive notifikationer.",

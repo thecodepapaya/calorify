@@ -76,7 +76,7 @@
       "title": "Collegati a Health Connect",
       "description": "Sincronizza i tuoi dati sulla salute per migliori approfondimenti e monitoraggio calorico automatico",
       "automaticTracking": {
-        "title": "Monitoraggio Calorico Automático",
+        "title": "Monitoraggio Calorico Automatico",
         "description": "Monitora le calorie bruciate dalle tue app di fitness"
       },
       "progressInsights": {
@@ -362,7 +362,9 @@
     },
     "language": {
       "title": "Lingua",
-      "subtitle": "Scegli la tua lingua preferita"
+      "subtitle": "Scegli la tua lingua preferita",
+      "searchHint": "Cerca lingue...",
+      "noResults": "Nessun risultato trovato"
     },
     "heightUnit": {
       "title": "Unità di Altezza"
@@ -482,7 +484,7 @@
       },
       "biologicalFactors": {
         "title": "Fattori Biologici",
-        "description": "La perdita/gain di peso reale è influenzata da metabolismo, ormoni, sonno, stress, idratazione e altri fattori individuali che {appLabel} non può misurare."
+        "description": "La perdita/aumento di peso reale è influenzato da metabolismo, ormoni, sonno, stress, idratazione e altri fattori individuali che {appLabel} non può misurare."
       },
       "waterWeight": {
         "title": "Peso dell'Acqua e Fluttuazioni",

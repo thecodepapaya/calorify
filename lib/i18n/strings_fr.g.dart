@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageFr implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Langue';
 	@override String get subtitle => 'Choisissez votre langue préférée';
+	@override String get searchHint => 'Rechercher des langues...';
+	@override String get noResults => 'Aucun résultat trouvé';
 }
 
 // Path: settings.heightUnit
@@ -1567,6 +1569,8 @@ extension on TranslationsFr {
 			'settings.editProfile.subtitle' => 'Mettez à jour vos informations personnelles',
 			'settings.language.title' => 'Langue',
 			'settings.language.subtitle' => 'Choisissez votre langue préférée',
+			'settings.language.searchHint' => 'Rechercher des langues...',
+			'settings.language.noResults' => 'Aucun résultat trouvé',
 			'settings.heightUnit.title' => 'Unité de Taille',
 			'settings.weightUnit.title' => 'Unité de Poids',
 			'settings.mealReminders.title' => 'Rappels de Repas',

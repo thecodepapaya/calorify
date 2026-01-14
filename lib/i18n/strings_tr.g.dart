@@ -435,8 +435,8 @@ class _TranslationsOnboardingHeightTr implements TranslationsOnboardingHeightEn 
 	// Translations
 	@override String get title => 'Boyunuz ne kadar?';
 	@override String get description => 'Boyunuz, BMI ve enerji ihtiyaçlarınızı doğru bir şekilde hesaplamamıza yardımcı olur.';
-	@override String get metric => 'Metrekes';
-	@override String get imperial => 'İngilizce';
+	@override String get metric => 'Metrik';
+	@override String get imperial => 'İngiliz birimi';
 	@override String get next => 'İleri';
 }
 
@@ -778,7 +778,7 @@ class _TranslationsSettingsSectionsTr implements TranslationsSettingsSectionsEn 
 
 	// Translations
 	@override String get profile => 'PROFİL';
-	@override String get localization => 'ULUSLARARASI';
+	@override String get localization => 'YERELLEŞTİRME';
 	@override String get notifications => 'BİLDİRİMLER';
 	@override String get supportAndLegal => 'DESTEK & YASAL';
 	@override String get dangerZone => 'TEHLİKE BÖLGESİ';
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageTr implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Dil';
 	@override String get subtitle => 'Tercih ettiğiniz dili seçin';
+	@override String get searchHint => 'Dilleri ara...';
+	@override String get noResults => 'Sonuç bulunamadı';
 }
 
 // Path: settings.heightUnit
@@ -1109,11 +1111,11 @@ class _TranslationsOnboardingReinforcementHealthProfileTr implements Translation
 
 	// Translations
 	@override String get title => 'Sağlık Profiliniz';
-	@override String bmiDescription({required Object bmi}) => 'Metreklerinize dayalı olarak, BMI\'niz ${bmi}.';
+	@override String bmiDescription({required Object bmi}) => 'Ölçümlerinize dayalı olarak, BMI\'niz ${bmi}.';
 	@override String get finalizeDescription => 'Deneyiminizi kişiselleştirmek için profilinizi sonlandıralım.';
 	@override String get goalGain => 'kazan';
 	@override String get goalLose => 'kaybet';
-	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'Hedefinize ulaşmak için ${direction} ${diff} ${unit} ${unit} yapmalısın.';
+	@override String goalReach({required Object diff, required Object unit, required Object direction}) => 'Hedefinize ulaşmak için ${diff} ${unit} ${direction} yapmalısın.';
 	@override String get goalReached => 'Hedef kilonuzdasınız! Bunu korumanıza yardımcı olacağız.';
 	@override String get button => 'Hadi Gidelim';
 }
@@ -1336,8 +1338,8 @@ extension on TranslationsTr {
 			'onboarding.gender.next' => 'İleri',
 			'onboarding.height.title' => 'Boyunuz ne kadar?',
 			'onboarding.height.description' => 'Boyunuz, BMI ve enerji ihtiyaçlarınızı doğru bir şekilde hesaplamamıza yardımcı olur.',
-			'onboarding.height.metric' => 'Metrekes',
-			'onboarding.height.imperial' => 'İngilizce',
+			'onboarding.height.metric' => 'Metrik',
+			'onboarding.height.imperial' => 'İngiliz birimi',
 			'onboarding.height.next' => 'İleri',
 			'onboarding.weight.currentTitle' => 'Mevcut kilonuz nedir?',
 			'onboarding.weight.currentDescription' => 'Mevcut kilonuz günlük hedeflerinizi kişiselleştirmek için önemlidir.',
@@ -1393,11 +1395,11 @@ extension on TranslationsTr {
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'birey',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'daha sağlıklı bir siz',
 			'onboarding.reinforcement.healthProfile.title' => 'Sağlık Profiliniz',
-			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Metreklerinize dayalı olarak, BMI\'niz ${bmi}.',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Ölçümlerinize dayalı olarak, BMI\'niz ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Deneyiminizi kişiselleştirmek için profilinizi sonlandıralım.',
 			'onboarding.reinforcement.healthProfile.goalGain' => 'kazan',
 			'onboarding.reinforcement.healthProfile.goalLose' => 'kaybet',
-			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'Hedefinize ulaşmak için ${direction} ${diff} ${unit} ${unit} yapmalısın.',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object diff, required Object unit, required Object direction}) => 'Hedefinize ulaşmak için ${diff} ${unit} ${direction} yapmalısın.',
 			'onboarding.reinforcement.healthProfile.goalReached' => 'Hedef kilonuzdasınız! Bunu korumanıza yardımcı olacağız.',
 			'onboarding.reinforcement.healthProfile.button' => 'Hadi Gidelim',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Mükemmel Bir Başlangıç!',
@@ -1558,7 +1560,7 @@ extension on TranslationsTr {
 			'editProfile.activityLevels.extremelyActive.description' => 'Çok zor bir egzersiz, fiziksel iş',
 			'settings.title' => 'Ayarlar',
 			'settings.sections.profile' => 'PROFİL',
-			'settings.sections.localization' => 'ULUSLARARASI',
+			'settings.sections.localization' => 'YERELLEŞTİRME',
 			'settings.sections.notifications' => 'BİLDİRİMLER',
 			'settings.sections.supportAndLegal' => 'DESTEK & YASAL',
 			'settings.sections.dangerZone' => 'TEHLİKE BÖLGESİ',
@@ -1567,6 +1569,8 @@ extension on TranslationsTr {
 			'settings.editProfile.subtitle' => 'Kişisel bilgilerinizi güncelleyin',
 			'settings.language.title' => 'Dil',
 			'settings.language.subtitle' => 'Tercih ettiğiniz dili seçin',
+			'settings.language.searchHint' => 'Dilleri ara...',
+			'settings.language.noResults' => 'Sonuç bulunamadı',
 			'settings.heightUnit.title' => 'Boy Birimi',
 			'settings.weightUnit.title' => 'Kilo Birimi',
 			'settings.mealReminders.title' => 'Yemek Hatırlatıcıları',

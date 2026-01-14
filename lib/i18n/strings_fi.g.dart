@@ -374,10 +374,10 @@ class _TranslationsDebugFi implements TranslationsDebugEn {
 	@override String get latestHeight => 'Viimeisin pituus';
 	@override String get todaysCalories => 'Tämän päivän kalorit';
 	@override String totalCaloriesBurned({required Object calories}) => 'Yhteensä poltetut kalorit: ${calories}';
-	@override String syncSuccess({required Object count}) => 'Onnistuneesti hakattu ${count} tietopistettä askeleista, kaloreista ja painosta viimeisten 7 päivän aikana.';
+	@override String syncSuccess({required Object count}) => 'Onnistuneesti haettu ${count} tietopistettä askeleista, kaloreista ja painosta viimeisten 7 päivän aikana.';
 	@override String get noWeightData => 'Viimeisen 30 päivän aikana ei ole löytöjä painotiedoista.';
 	@override String get noHeightData => 'Viimeisen vuoden aikana ei ole löytöjä pituustiedoista.';
-	@override String get noCalorieData => 'Tänään ei ole löytöjä kalorietiidoista.';
+	@override String get noCalorieData => 'Tänään ei ole löytöjä kalorietiedoista.';
 	@override String get weightWritten => 'Testipaino (70kg) kirjoitettu onnistuneesti.';
 	@override String get weightWriteFailed => 'Testipainon kirjoittaminen epäonnistui.';
 	@override String get heightWritten => 'Testipituus (175 cm) kirjoitettu onnistuneesti.';
@@ -464,7 +464,7 @@ class _TranslationsOnboardingAgeFi implements TranslationsOnboardingAgeEn {
 
 	// Translations
 	@override String get title => 'Milloin on syntymäpäiväsi?';
-	@override String get description => 'Ikäsi auttaa meitä laskemaan päivittäiset kalori tarpeesi tarkasti.';
+	@override String get description => 'Ikäsi auttaa meitä laskemaan päivittäiset kaloritarpeesi tarkasti.';
 	@override String get next => 'Seuraava';
 }
 
@@ -502,7 +502,7 @@ class _TranslationsOnboardingActivityLevelFi implements TranslationsOnboardingAc
 
 	// Translations
 	@override String get title => 'Kuinka aktiivinen olet?';
-	@override String get description => 'Tämä auttaa meitä laskemaan päivittäiset kalori tarpeesi tarkemmin';
+	@override String get description => 'Tämä auttaa meitä laskemaan päivittäiset kaloritarpeesi tarkemmin';
 }
 
 // Path: onboarding.healthConnect
@@ -778,7 +778,7 @@ class _TranslationsSettingsSectionsFi implements TranslationsSettingsSectionsEn 
 
 	// Translations
 	@override String get profile => 'PROFIILI';
-	@override String get localization => 'KIELTÄYTYMINEN';
+	@override String get localization => 'KIELIASETUS';
 	@override String get notifications => 'ILMOITUKSET';
 	@override String get supportAndLegal => 'TUKI & LAKITEKSTIT';
 	@override String get dangerZone => 'VAARA-ALUE';
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageFi implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Kieli';
 	@override String get subtitle => 'Valitse haluamasi kieli';
+	@override String get searchHint => 'Etsi kieliä...';
+	@override String get noResults => 'Tuloksia ei löytynyt';
 }
 
 // Path: settings.heightUnit
@@ -835,7 +837,7 @@ class _TranslationsSettingsMealRemindersFi implements TranslationsSettingsMealRe
 
 	// Translations
 	@override String get title => 'Ateriavaroitukset';
-	@override String get subtitle => 'Pysy mahdollisuudesi kulkee ajoissa';
+	@override String get subtitle => 'Pysy aikataulussa aterioidesi kanssa';
 }
 
 // Path: settings.theme
@@ -1089,7 +1091,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessFi implements Translati
 
 	// Translations
 	@override String get title => 'Et ole yksin';
-	@override String get genericMessage => 'Tutkimukset osoittavat, että johdonmukainen seuranta on ykköskäyttäjä pitkäaikaisen menestyksen ennustajana.';
+	@override String get genericMessage => 'Tutkimukset osoittavat, että johdonmukainen seuranta on tärkein pitkäaikaisen menestyksen ennustaja.';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => ' ${age}-vuotiaalle ${gender}, joka haluaa ${goal}, johdonmukainen seuranta on ykköskäyttäjä menestyksen ennustajana.';
 	@override String closingMessage({required Object appLabel}) => '${appLabel} tekee sen 10 kertaa helpommaksi kuin manuaalisesti tekeminen.';
 	@override String get getStartedTitle => 'Valmiina aloittamaan?';
@@ -1347,7 +1349,7 @@ extension on TranslationsFi {
 			'onboarding.weight.imperial' => 'Imperiaalinen',
 			'onboarding.weight.next' => 'Seuraava',
 			'onboarding.age.title' => 'Milloin on syntymäpäiväsi?',
-			'onboarding.age.description' => 'Ikäsi auttaa meitä laskemaan päivittäiset kalori tarpeesi tarkasti.',
+			'onboarding.age.description' => 'Ikäsi auttaa meitä laskemaan päivittäiset kaloritarpeesi tarkasti.',
 			'onboarding.age.next' => 'Seuraava',
 			'onboarding.bmiScale.underweight' => 'Alipainoinen',
 			'onboarding.bmiScale.healthy' => 'Terveellinen',
@@ -1364,7 +1366,7 @@ extension on TranslationsFi {
 			'onboarding.weightGoal.title' => 'Mikä on tavoitteesi?',
 			'onboarding.weightGoal.description' => 'Valitse tavoite, joka parhaiten kuvaa mitä haluat saavuttaa',
 			'onboarding.activityLevel.title' => 'Kuinka aktiivinen olet?',
-			'onboarding.activityLevel.description' => 'Tämä auttaa meitä laskemaan päivittäiset kalori tarpeesi tarkemmin',
+			'onboarding.activityLevel.description' => 'Tämä auttaa meitä laskemaan päivittäiset kaloritarpeesi tarkemmin',
 			'onboarding.healthConnect.title' => 'Yhdistä Health Connectiin',
 			'onboarding.healthConnect.description' => 'Synkronoi terveystietosi saadaksesi parempaa tietoa ja automaattista kalorien seurantaa',
 			'onboarding.healthConnect.automaticTracking.title' => 'Automaattinen Kalorien Seuranta',
@@ -1382,7 +1384,7 @@ extension on TranslationsFi {
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Käyttöoikeus evätty. Ota käyttöön Health Connect -käyttöoikeudet puhelimesi asetuksista ${appLabel} -sovellusta varten.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Virhe Health Connectin asettamiseen: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Et ole yksin',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Tutkimukset osoittavat, että johdonmukainen seuranta on ykköskäyttäjä pitkäaikaisen menestyksen ennustajana.',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Tutkimukset osoittavat, että johdonmukainen seuranta on tärkein pitkäaikaisen menestyksen ennustaja.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => ' ${age}-vuotiaalle ${gender}, joka haluaa ${goal}, johdonmukainen seuranta on ykköskäyttäjä menestyksen ennustajana.',
 			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} tekee sen 10 kertaa helpommaksi kuin manuaalisesti tekeminen.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Valmiina aloittamaan?',
@@ -1558,7 +1560,7 @@ extension on TranslationsFi {
 			'editProfile.activityLevels.extremelyActive.description' => 'Erittäin rankka liikunta, fyysinen työ',
 			'settings.title' => 'Asetukset',
 			'settings.sections.profile' => 'PROFIILI',
-			'settings.sections.localization' => 'KIELTÄYTYMINEN',
+			'settings.sections.localization' => 'KIELIASETUS',
 			'settings.sections.notifications' => 'ILMOITUKSET',
 			'settings.sections.supportAndLegal' => 'TUKI & LAKITEKSTIT',
 			'settings.sections.dangerZone' => 'VAARA-ALUE',
@@ -1567,10 +1569,12 @@ extension on TranslationsFi {
 			'settings.editProfile.subtitle' => 'Päivitä henkilökohtaisia tietojasi',
 			'settings.language.title' => 'Kieli',
 			'settings.language.subtitle' => 'Valitse haluamasi kieli',
+			'settings.language.searchHint' => 'Etsi kieliä...',
+			'settings.language.noResults' => 'Tuloksia ei löytynyt',
 			'settings.heightUnit.title' => 'Pituusyksikkö',
 			'settings.weightUnit.title' => 'Painoyksikkö',
 			'settings.mealReminders.title' => 'Ateriavaroitukset',
-			'settings.mealReminders.subtitle' => 'Pysy mahdollisuudesi kulkee ajoissa',
+			'settings.mealReminders.subtitle' => 'Pysy aikataulussa aterioidesi kanssa',
 			'settings.theme.title' => 'Teema',
 			'settings.theme.subtitle' => 'Valitse suosikkiteemasi',
 			'settings.theme.light' => 'Vaalea',
@@ -1674,10 +1678,10 @@ extension on TranslationsFi {
 			'debug.latestHeight' => 'Viimeisin pituus',
 			'debug.todaysCalories' => 'Tämän päivän kalorit',
 			'debug.totalCaloriesBurned' => ({required Object calories}) => 'Yhteensä poltetut kalorit: ${calories}',
-			'debug.syncSuccess' => ({required Object count}) => 'Onnistuneesti hakattu ${count} tietopistettä askeleista, kaloreista ja painosta viimeisten 7 päivän aikana.',
+			'debug.syncSuccess' => ({required Object count}) => 'Onnistuneesti haettu ${count} tietopistettä askeleista, kaloreista ja painosta viimeisten 7 päivän aikana.',
 			'debug.noWeightData' => 'Viimeisen 30 päivän aikana ei ole löytöjä painotiedoista.',
 			'debug.noHeightData' => 'Viimeisen vuoden aikana ei ole löytöjä pituustiedoista.',
-			'debug.noCalorieData' => 'Tänään ei ole löytöjä kalorietiidoista.',
+			'debug.noCalorieData' => 'Tänään ei ole löytöjä kalorietiedoista.',
 			'debug.weightWritten' => 'Testipaino (70kg) kirjoitettu onnistuneesti.',
 			'debug.weightWriteFailed' => 'Testipainon kirjoittaminen epäonnistui.',
 			'debug.heightWritten' => 'Testipituus (175 cm) kirjoitettu onnistuneesti.',

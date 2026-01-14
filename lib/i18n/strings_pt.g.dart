@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguagePt implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Idioma';
 	@override String get subtitle => 'Escolha seu idioma preferido';
+	@override String get searchHint => 'Pesquisar idiomas...';
+	@override String get noResults => 'Nenhum resultado encontrado';
 }
 
 // Path: settings.heightUnit
@@ -859,7 +861,7 @@ class _TranslationsSettingsSendFeedbackPt implements TranslationsSettingsSendFee
 	final TranslationsPt _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'EnviarFeedback';
+	@override String get title => 'Enviar Feedback';
 	@override String subtitle({required Object appLabel}) => 'Ajude-nos a melhorar o ${appLabel}';
 	@override String emailSubject({required Object appLabel}) => 'Feedback do Aplicativo ${appLabel}';
 	@override String get emailBodyPrefix => 'Por favor, forneça seu feedback abaixo:';
@@ -1567,6 +1569,8 @@ extension on TranslationsPt {
 			'settings.editProfile.subtitle' => 'Atualize suas informações pessoais',
 			'settings.language.title' => 'Idioma',
 			'settings.language.subtitle' => 'Escolha seu idioma preferido',
+			'settings.language.searchHint' => 'Pesquisar idiomas...',
+			'settings.language.noResults' => 'Nenhum resultado encontrado',
 			'settings.heightUnit.title' => 'Unidade de Altura',
 			'settings.weightUnit.title' => 'Unidade de Peso',
 			'settings.mealReminders.title' => 'Lembretes de Refeição',
@@ -1576,7 +1580,7 @@ extension on TranslationsPt {
 			'settings.theme.light' => 'Claro',
 			'settings.theme.dark' => 'Escuro',
 			'settings.theme.system' => 'Sistema',
-			'settings.sendFeedback.title' => 'EnviarFeedback',
+			'settings.sendFeedback.title' => 'Enviar Feedback',
 			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Ajude-nos a melhorar o ${appLabel}',
 			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'Feedback do Aplicativo ${appLabel}',
 			'settings.sendFeedback.emailBodyPrefix' => 'Por favor, forneça seu feedback abaixo:',

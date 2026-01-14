@@ -222,10 +222,10 @@ class _TranslationsEditProfileHu implements TranslationsEditProfileEn {
 	@override String get weight => 'Súly';
 	@override String get weightGoal => 'Súlycél';
 	@override String get activityLevel => 'Aktivitási szint';
-	@override String get metric => 'Metric';
+	@override String get metric => 'Metrikus';
 	@override String get imperial => 'Imperiális';
 	@override String get metricCm => 'Metrikus (cm)';
-	@override String get imperialFtIn => 'Imperiális (láb/kolosszális)';
+	@override String get imperialFtIn => 'Imperiális (láb/hüvelyk)';
 	@override String get metricKg => 'Metrikus (kg)';
 	@override String get imperialLbs => 'Imperiális (font)';
 	@override late final _TranslationsEditProfileGendersHu genders = _TranslationsEditProfileGendersHu._(_root);
@@ -779,7 +779,7 @@ class _TranslationsSettingsSectionsHu implements TranslationsSettingsSectionsEn 
 	// Translations
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'HELYI BEÁLLÍTÁSOK';
-	@override String get notifications => 'ÉRtesítések';
+	@override String get notifications => 'ÉRTESÍTÉSEK';
 	@override String get supportAndLegal => 'TÁMOGATÁS ÉS JOGI ÜGYEK';
 	@override String get dangerZone => 'VESZÉLYES ZÓNA';
 	@override String get developer => 'FEJLESZTŐ';
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageHu implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Nyelv';
 	@override String get subtitle => 'Válaszd ki preferált nyelved';
+	@override String get searchHint => 'Nyelvek keresése...';
+	@override String get noResults => 'Nincs találat';
 }
 
 // Path: settings.heightUnit
@@ -1127,7 +1129,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleHu implements Translation
 	// Translations
 	@override String get title => 'Kiváló Kezdés!';
 	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Megtette az első lépést a(z) ${goalText} felé. Mivel Ön ${activityText}, a(z) ${appLabel} hozzáigazítja a céljait az életmódjához.';
-	@override String get personalizedTargets => 'Személyre szabott kalória- célok';
+	@override String get personalizedTargets => 'Személyre szabott kalóriacélok';
 	@override String get aiMealDetection => 'AI-alapú étkezés-felismerés';
 	@override String get macroBreakdowns => 'Részletes makrotápanyagbontások';
 	@override String get button => 'Induljunk!';
@@ -1186,7 +1188,7 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveHu implements Translati
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Közepesen Aktív';
+	@override String get name => 'Enyhén Aktív';
 	@override String get description => 'Könnyű edzés 1-3 nap/hét';
 }
 
@@ -1402,7 +1404,7 @@ extension on TranslationsHu {
 			'onboarding.reinforcement.healthProfile.button' => 'Induljunk!',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Kiváló Kezdés!',
 			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Megtette az első lépést a(z) ${goalText} felé. Mivel Ön ${activityText}, a(z) ${appLabel} hozzáigazítja a céljait az életmódjához.',
-			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Személyre szabott kalória- célok',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Személyre szabott kalóriacélok',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI-alapú étkezés-felismerés',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Részletes makrotápanyagbontások',
 			'onboarding.reinforcement.goalLifestyle.button' => 'Induljunk!',
@@ -1531,10 +1533,10 @@ extension on TranslationsHu {
 			'editProfile.weight' => 'Súly',
 			'editProfile.weightGoal' => 'Súlycél',
 			'editProfile.activityLevel' => 'Aktivitási szint',
-			'editProfile.metric' => 'Metric',
+			'editProfile.metric' => 'Metrikus',
 			'editProfile.imperial' => 'Imperiális',
 			'editProfile.metricCm' => 'Metrikus (cm)',
-			'editProfile.imperialFtIn' => 'Imperiális (láb/kolosszális)',
+			'editProfile.imperialFtIn' => 'Imperiális (láb/hüvelyk)',
 			'editProfile.metricKg' => 'Metrikus (kg)',
 			'editProfile.imperialLbs' => 'Imperiális (font)',
 			'editProfile.genders.male' => 'Férfi',
@@ -1548,7 +1550,7 @@ extension on TranslationsHu {
 			'editProfile.weightGoals.gainWeight.description' => 'Kalóriatöbblet létrehozása a hízás érdekében',
 			'editProfile.activityLevels.sedentary.name' => 'Ülő',
 			'editProfile.activityLevels.sedentary.description' => 'Kicsi vagy semmilyen testedzés',
-			'editProfile.activityLevels.lightlyActive.name' => 'Közepesen Aktív',
+			'editProfile.activityLevels.lightlyActive.name' => 'Enyhén Aktív',
 			'editProfile.activityLevels.lightlyActive.description' => 'Könnyű edzés 1-3 nap/hét',
 			'editProfile.activityLevels.moderatelyActive.name' => 'Mérsékelten Aktív',
 			'editProfile.activityLevels.moderatelyActive.description' => 'Mérsékelt edzés 3-5 nap/hét',
@@ -1559,7 +1561,7 @@ extension on TranslationsHu {
 			'settings.title' => 'Beállítások',
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'HELYI BEÁLLÍTÁSOK',
-			'settings.sections.notifications' => 'ÉRtesítések',
+			'settings.sections.notifications' => 'ÉRTESÍTÉSEK',
 			'settings.sections.supportAndLegal' => 'TÁMOGATÁS ÉS JOGI ÜGYEK',
 			'settings.sections.dangerZone' => 'VESZÉLYES ZÓNA',
 			'settings.sections.developer' => 'FEJLESZTŐ',
@@ -1567,6 +1569,8 @@ extension on TranslationsHu {
 			'settings.editProfile.subtitle' => 'Frissítsd személyes adataidat',
 			'settings.language.title' => 'Nyelv',
 			'settings.language.subtitle' => 'Válaszd ki preferált nyelved',
+			'settings.language.searchHint' => 'Nyelvek keresése...',
+			'settings.language.noResults' => 'Nincs találat',
 			'settings.heightUnit.title' => 'Magasság Mértékegysége',
 			'settings.weightUnit.title' => 'Súly Mértékegysége',
 			'settings.mealReminders.title' => 'Étkezés Emlékeztetők',

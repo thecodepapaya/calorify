@@ -275,7 +275,7 @@ class _TranslationsRemindersMs implements TranslationsRemindersEn {
 	@override String get unknown => 'Tidak Diketahui';
 	@override String get change => 'Ubah';
 	@override String get enableNotifications => 'Aktifkan Pemberitahuan';
-	@override String get skipForNow => 'Lupakan buat masa sekarang';
+	@override String get skipForNow => 'Langkau buat masa sekarang';
 	@override String get saveChanges => 'Simpan Perubahan';
 	@override String get enabledSuccessfully => 'Pemberitahuan diaktifkan dengan jayanya!';
 	@override String get permissionDenied => 'Kebenaran pemberitahuan ditolak';
@@ -520,7 +520,7 @@ class _TranslationsOnboardingHealthConnectMs implements TranslationsOnboardingHe
 	@override String get connected => 'Health Connect Disambungkan';
 	@override String get notConnected => 'Health Connect Tidak Disambungkan';
 	@override String get setup => 'Sediakan Health Connect';
-	@override String get skipForNow => 'Lupakan buat masa sekarang';
+	@override String get skipForNow => 'Langkau buat masa sekarang';
 	@override String get statusConnected => 'Health Connect disambungkan.';
 	@override String get statusSuccess => 'Health Connect telah berjaya disambungkan!';
 	@override String statusPermissionDenied({required Object appLabel}) => 'Kebenaran ditolak. Sila aktifkan kebenaran Health Connect dari tetapan telefon anda untuk ${appLabel}.';
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageMs implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Bahasa';
 	@override String get subtitle => 'Pilih bahasa pilihan anda';
+	@override String get searchHint => 'Cari bahasa...';
+	@override String get noResults => 'Tiada keputusan dijumpai';
 }
 
 // Path: settings.heightUnit
@@ -1089,8 +1091,8 @@ class _TranslationsOnboardingReinforcementTrackingSuccessMs implements Translati
 
 	// Translations
 	@override String get title => 'Anda Tidak Sendirian';
-	@override String get genericMessage => 'Penyelidikan menunjukkan bahawa penjejakan yang konsisten adalah pengamal utama kejayaan jangka panjang.';
-	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Untuk seorang ${age} tahun ${gender} yang ingin ${goal}, penjejakan yang konsisten adalah pengamal utama kejayaan.';
+	@override String get genericMessage => 'Penyelidikan menunjukkan bahawa penjejakan yang konsisten adalah peramal utama kejayaan jangka panjang.';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Untuk seorang ${age} tahun ${gender} yang ingin ${goal}, penjejakan yang konsisten adalah peramal utama kejayaan.';
 	@override String closingMessage({required Object appLabel}) => '${appLabel} menjadikannya 10x lebih mudah daripada melakukannya secara manual.';
 	@override String get getStartedTitle => 'Bersedia untuk memulakan?';
 	@override String get tipPhoto => 'Ambil gambar makanan anda untuk analisis segera';
@@ -1376,14 +1378,14 @@ extension on TranslationsMs {
 			'onboarding.healthConnect.connected' => 'Health Connect Disambungkan',
 			'onboarding.healthConnect.notConnected' => 'Health Connect Tidak Disambungkan',
 			'onboarding.healthConnect.setup' => 'Sediakan Health Connect',
-			'onboarding.healthConnect.skipForNow' => 'Lupakan buat masa sekarang',
+			'onboarding.healthConnect.skipForNow' => 'Langkau buat masa sekarang',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect disambungkan.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect telah berjaya disambungkan!',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Kebenaran ditolak. Sila aktifkan kebenaran Health Connect dari tetapan telefon anda untuk ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Ralat membuat persediaan Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Anda Tidak Sendirian',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Penyelidikan menunjukkan bahawa penjejakan yang konsisten adalah pengamal utama kejayaan jangka panjang.',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Untuk seorang ${age} tahun ${gender} yang ingin ${goal}, penjejakan yang konsisten adalah pengamal utama kejayaan.',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Penyelidikan menunjukkan bahawa penjejakan yang konsisten adalah peramal utama kejayaan jangka panjang.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Untuk seorang ${age} tahun ${gender} yang ingin ${goal}, penjejakan yang konsisten adalah peramal utama kejayaan.',
 			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} menjadikannya 10x lebih mudah daripada melakukannya secara manual.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Bersedia untuk memulakan?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Ambil gambar makanan anda untuk analisis segera',
@@ -1567,6 +1569,8 @@ extension on TranslationsMs {
 			'settings.editProfile.subtitle' => 'Kemas kini maklumat peribadi anda',
 			'settings.language.title' => 'Bahasa',
 			'settings.language.subtitle' => 'Pilih bahasa pilihan anda',
+			'settings.language.searchHint' => 'Cari bahasa...',
+			'settings.language.noResults' => 'Tiada keputusan dijumpai',
 			'settings.heightUnit.title' => 'Unit Tinggi',
 			'settings.weightUnit.title' => 'Unit Berat',
 			'settings.mealReminders.title' => 'Peringatan Hidangan',
@@ -1606,7 +1610,7 @@ extension on TranslationsMs {
 			'reminders.unknown' => 'Tidak Diketahui',
 			'reminders.change' => 'Ubah',
 			'reminders.enableNotifications' => 'Aktifkan Pemberitahuan',
-			'reminders.skipForNow' => 'Lupakan buat masa sekarang',
+			'reminders.skipForNow' => 'Langkau buat masa sekarang',
 			'reminders.saveChanges' => 'Simpan Perubahan',
 			'reminders.enabledSuccessfully' => 'Pemberitahuan diaktifkan dengan jayanya!',
 			'reminders.permissionDenied' => 'Kebenaran pemberitahuan ditolak',

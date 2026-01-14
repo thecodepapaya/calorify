@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageHi implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'भाषा';
 	@override String get subtitle => 'अपनी पसंदीदा भाषा चुनें';
+	@override String get searchHint => 'भाषाएँ खोजें...';
+	@override String get noResults => 'कोई परिणाम नहीं मिला';
 }
 
 // Path: settings.heightUnit
@@ -877,7 +879,7 @@ class _TranslationsSettingsClearAllDataHi implements TranslationsSettingsClearAl
 
 	// Translations
 	@override String get title => 'सारे डेटा मिटाएं';
-	@override String get subtitle => 'आपकी सारी जानकारी को अविश्वासनीय रूप से हटा दें';
+	@override String get subtitle => 'आपकी सारी जानकारी को स्थायी रूप से हटा दें';
 	@override String get confirmationTitle => 'सारे डेटा मिटाने के लिए?';
 	@override String get confirmationMessage => 'यह क्रिया पूर्ववत नहीं की जा सकती। आपकी सभी लॉग की गई भोजन, पसंदीदा और प्रोफ़ाइल सेटिंग्स स्थायी रूप से हटा दी जाएंगी।';
 	@override String get cancel => 'रद्द करें';
@@ -1129,7 +1131,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleHi implements Translation
 	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'आपने ${goalText} की ओर पहला कदम बढ़ाया है। चूंकि आप ${activityText} हैं, ${appLabel} आपके लक्ष्यों को आपके जीवनशैली के अनुसार समायोजित करेगा।';
 	@override String get personalizedTargets => 'व्यक्तिगत कैलोरी लक्ष्य';
 	@override String get aiMealDetection => 'AI-संचालित भोजन पहचान';
-	@override String get macroBreakdowns => 'विस्तृत मैक्रो-न्यूट्रिएंट उम्दन';
+	@override String get macroBreakdowns => 'विस्तृत मैक्रो-न्यूट्रिएंट विवरण';
 	@override String get button => 'चलें';
 	@override String get defaultGoal => 'आपके लक्ष्य';
 	@override String get defaultActivity => 'सक्रिय';
@@ -1230,7 +1232,7 @@ class _TranslationsDisclaimerSnapPortionSizeHi implements TranslationsDisclaimer
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'पार्श्व आकार';
+	@override String get title => 'भाग का आकार';
 	@override String get description => 'अनुमानों की सटीकता आपके हिस्से के आकार के सही आकलन पर बहुत अधिक निर्भर करती है।';
 }
 
@@ -1275,7 +1277,7 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyHi implements Translat
 
 	// Translations
 	@override String get title => 'कैलोरी सटीकता';
-	@override String get description => 'यह अनुमान केवल आपकी ट्रैक की गई कैलोरी समर्पण और व्यय के रूप में सटीक है। गलत लॉगिंग का परिणाम गलत प्रक्षेपण में होगा।';
+	@override String get description => 'यह अनुमान केवल आपकी ट्रैक की गई कैलोरी सेवन और व्यय के रूप में सटीक है। गलत लॉगिंग का परिणाम गलत प्रक्षेपण में होगा।';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1404,7 +1406,7 @@ extension on TranslationsHi {
 			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'आपने ${goalText} की ओर पहला कदम बढ़ाया है। चूंकि आप ${activityText} हैं, ${appLabel} आपके लक्ष्यों को आपके जीवनशैली के अनुसार समायोजित करेगा।',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'व्यक्तिगत कैलोरी लक्ष्य',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI-संचालित भोजन पहचान',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'विस्तृत मैक्रो-न्यूट्रिएंट उम्दन',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'विस्तृत मैक्रो-न्यूट्रिएंट विवरण',
 			'onboarding.reinforcement.goalLifestyle.button' => 'चलें',
 			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'आपके लक्ष्य',
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'सक्रिय',
@@ -1567,6 +1569,8 @@ extension on TranslationsHi {
 			'settings.editProfile.subtitle' => 'अपनी व्यक्तिगत जानकारी अपडेट करें',
 			'settings.language.title' => 'भाषा',
 			'settings.language.subtitle' => 'अपनी पसंदीदा भाषा चुनें',
+			'settings.language.searchHint' => 'भाषाएँ खोजें...',
+			'settings.language.noResults' => 'कोई परिणाम नहीं मिला',
 			'settings.heightUnit.title' => 'ऊँचाई इकाई',
 			'settings.weightUnit.title' => 'वजन यूनिट',
 			'settings.mealReminders.title' => 'भोजन अनुस्मारक',
@@ -1585,7 +1589,7 @@ extension on TranslationsHi {
 			'settings.sendFeedback.osVersion' => 'ओएस संस्करण',
 			'settings.sendFeedback.uid' => 'UID',
 			'settings.clearAllData.title' => 'सारे डेटा मिटाएं',
-			'settings.clearAllData.subtitle' => 'आपकी सारी जानकारी को अविश्वासनीय रूप से हटा दें',
+			'settings.clearAllData.subtitle' => 'आपकी सारी जानकारी को स्थायी रूप से हटा दें',
 			'settings.clearAllData.confirmationTitle' => 'सारे डेटा मिटाने के लिए?',
 			'settings.clearAllData.confirmationMessage' => 'यह क्रिया पूर्ववत नहीं की जा सकती। आपकी सभी लॉग की गई भोजन, पसंदीदा और प्रोफ़ाइल सेटिंग्स स्थायी रूप से हटा दी जाएंगी।',
 			'settings.clearAllData.cancel' => 'रद्द करें',
@@ -1626,7 +1630,7 @@ extension on TranslationsHi {
 			'login.signInFailed' => 'Google Sign-In असफल हुआ या रद्द कर दिया गया।',
 			'disclaimer.pleaseNote' => 'कृपया ध्यान दें',
 			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} अनुमानित पोषण संबंधी जानकारी प्रदान करता है। सटीकता आपके इनपुट और खाद्य प्रकारों पर निर्भर करती है। इसे एक मार्गदर्शक के रूप में उपयोग करें, न कि एक निश्चित स्रोत के रूप में। व्यक्तिगत आहार सलाह के लिए पेशेवर से परामर्श करें।',
-			'disclaimer.snap.portionSize.title' => 'पार्श्व आकार',
+			'disclaimer.snap.portionSize.title' => 'भाग का आकार',
 			'disclaimer.snap.portionSize.description' => 'अनुमानों की सटीकता आपके हिस्से के आकार के सही आकलन पर बहुत अधिक निर्भर करती है।',
 			'disclaimer.snap.preparationMethods.title' => 'पकाने के तरीके',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'खाने के पकाने के तरीके पोषण संबंधी सामग्री को महत्वपूर्ण रूप से बदल सकते हैं। ${appLabel} के अनुमान हमेशा इन भिन्नताओं पर विचार नहीं कर सकते।',
@@ -1637,7 +1641,7 @@ extension on TranslationsHi {
 			'disclaimer.weightEstimate.title' => 'वजन अनुमान के बारे में',
 			'disclaimer.weightEstimate.description' => 'अनुमानित वजन परिवर्तन कैलोरी-इन बनाम कैलोरी-आउट के सरल मॉडल पर आधारित एक सैद्धांतिक अनुमान है। इसका उद्देश्य केवल प्रेरक मार्गदर्शन प्रदान करना है, न कि आपके वास्तविक वजन की भविष्यवाणी करना।',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'कैलोरी सटीकता',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'यह अनुमान केवल आपकी ट्रैक की गई कैलोरी समर्पण और व्यय के रूप में सटीक है। गलत लॉगिंग का परिणाम गलत प्रक्षेपण में होगा।',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'यह अनुमान केवल आपकी ट्रैक की गई कैलोरी सेवन और व्यय के रूप में सटीक है। गलत लॉगिंग का परिणाम गलत प्रक्षेपण में होगा।',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'जीवविज्ञान संबंधी कारक',
 			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'वास्तविक वजन घटाने/बढ़ाने पर चयापचय, हार्मोन, नींद, तनाव, जलयोजन और अन्य व्यक्तिगत कारकों का प्रभाव होता है, जिसे ${appLabel} माप नहीं सकता।',
 			'disclaimer.weightEstimate.waterWeight.title' => 'जल का वजन और उतार-चढ़ाव',

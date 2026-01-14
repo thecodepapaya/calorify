@@ -16,7 +16,6 @@ Future<void> main() async {
   // Initialize with device locale immediately (no DB access yet)
   LocaleSettings.useDeviceLocaleSync();
 
-  // Parallelize initialization steps
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   EnvConfig.instance.init();

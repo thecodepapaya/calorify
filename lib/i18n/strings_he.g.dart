@@ -385,7 +385,7 @@ class _TranslationsDebugHe implements TranslationsDebugEn {
 	@override String get noNotifications => 'אין התראות פעילות.';
 	@override String get testNotificationScheduled => 'התראת ניסי מתוזמנת ל-10 שניות מהיום.';
 	@override String get testNotificationBody => 'זוהי התראת ניסי מתוזמנת ל-10 שניות מהיום.';
-	@override String get breakfastNotificationTriggered => 'הופעלח התראת ארוחת בוקר.';
+	@override String get breakfastNotificationTriggered => 'הופעלה התראת ארוחת בוקר.';
 	@override String get allNotificationsCancelled => 'כל ההתראות בוטלו.';
 	@override String get fetchingData => 'שחזור נתונים עבור 7 הימים האחרונים...';
 	@override String id({required Object id}) => 'מזהה: ${id}';
@@ -778,7 +778,7 @@ class _TranslationsSettingsSectionsHe implements TranslationsSettingsSectionsEn 
 
 	// Translations
 	@override String get profile => 'פרופיל';
-	@override String get localization => 'אני חוצה';
+	@override String get localization => 'התאמה מקומית';
 	@override String get notifications => 'התראות';
 	@override String get supportAndLegal => 'תמיכה וחוקי';
 	@override String get dangerZone => 'אזור מסוכן';
@@ -805,6 +805,8 @@ class _TranslationsSettingsLanguageHe implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'שפה';
 	@override String get subtitle => 'בחר את השפה המועדפת עליך';
+	@override String get searchHint => 'חפש שפות...';
+	@override String get noResults => 'לא נמצאו תוצאות';
 }
 
 // Path: settings.heightUnit
@@ -945,7 +947,7 @@ class _TranslationsNotificationsTestHe implements TranslationsNotificationsTestE
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'התראה נוסית';
+	@override String get title => 'התראת ניסיון';
 }
 
 // Path: disclaimer.snap
@@ -1098,7 +1100,7 @@ class _TranslationsOnboardingReinforcementTrackingSuccessHe implements Translati
 	@override String get tipProgress => 'עקוב אחר ההתקדמות שלך יומית כדי להישאר במוטיבציה';
 	@override String get button => 'בוא נלך';
 	@override String get defaultGender => 'אדם';
-	@override String get defaultGoal => 'ב-version בריאה יותר';
+	@override String get defaultGoal => 'בגרסה בריאה יותר';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1129,7 +1131,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleHe implements Translation
 	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'עשית את הצעד הראשון לקראת ${goalText}. מכיוון ש${activityText}, ${appLabel} יתאים את המטרות שלך כדי להתאים לאורח החיים שלך.';
 	@override String get personalizedTargets => 'יעדי קלוריות מותאמים אישית';
 	@override String get aiMealDetection => 'זיהוי ארוחות המונע על ידי בינה מלאכותית';
-	@override String get macroBreakdowns => 'פירוטים מפורטים של מיקרו-נוטריינטים';
+	@override String get macroBreakdowns => 'פירוטים מפורטים של מאקרו-נוטריינטים';
 	@override String get button => 'בוא נלך';
 	@override String get defaultGoal => 'היעדים שלך';
 	@override String get defaultActivity => 'פעיל';
@@ -1219,7 +1221,7 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveHe implements Transla
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'פעיל מאוד';
+	@override String get name => 'פעיל ביותר';
 	@override String get description => 'פעילות גופנית קשה מאוד, עבודה פיזית';
 }
 
@@ -1296,7 +1298,7 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightHe implements Translations
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'משקל מים ו fluctuations';
+	@override String get title => 'משקל מים ותנודות';
 	@override String get description => 'משקל יומי רגיל יכול להשתנות באופן משמעותי בגלל החזקת מים, עיכול וזמן. ההערכה לא לוקחת בחשבון את השינויים היומיים הללו.';
 }
 
@@ -1391,7 +1393,7 @@ extension on TranslationsHe {
 			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'עקוב אחר ההתקדמות שלך יומית כדי להישאר במוטיבציה',
 			'onboarding.reinforcement.trackingSuccess.button' => 'בוא נלך',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'אדם',
-			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'ב-version בריאה יותר',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'בגרסה בריאה יותר',
 			'onboarding.reinforcement.healthProfile.title' => 'פרופיל הבריאות שלך',
 			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'בהתבסס על המדדים שלך, ה-BMI שלך הוא ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'בוא נשלים את הפרופיל שלך כדי להתאים אישית את החוויה שלך.',
@@ -1404,7 +1406,7 @@ extension on TranslationsHe {
 			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'עשית את הצעד הראשון לקראת ${goalText}. מכיוון ש${activityText}, ${appLabel} יתאים את המטרות שלך כדי להתאים לאורח החיים שלך.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'יעדי קלוריות מותאמים אישית',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'זיהוי ארוחות המונע על ידי בינה מלאכותית',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'פירוטים מפורטים של מיקרו-נוטריינטים',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'פירוטים מפורטים של מאקרו-נוטריינטים',
 			'onboarding.reinforcement.goalLifestyle.button' => 'בוא נלך',
 			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'היעדים שלך',
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'פעיל',
@@ -1554,11 +1556,11 @@ extension on TranslationsHe {
 			'editProfile.activityLevels.moderatelyActive.description' => 'פעילות גופנית בינונית 3-5 ימים בשבוע',
 			'editProfile.activityLevels.veryActive.name' => 'פעיל מאוד',
 			'editProfile.activityLevels.veryActive.description' => 'פעילות גופנית קשה 6-7 ימים בשבוע',
-			'editProfile.activityLevels.extremelyActive.name' => 'פעיל מאוד',
+			'editProfile.activityLevels.extremelyActive.name' => 'פעיל ביותר',
 			'editProfile.activityLevels.extremelyActive.description' => 'פעילות גופנית קשה מאוד, עבודה פיזית',
 			'settings.title' => 'הגדרות',
 			'settings.sections.profile' => 'פרופיל',
-			'settings.sections.localization' => 'אני חוצה',
+			'settings.sections.localization' => 'התאמה מקומית',
 			'settings.sections.notifications' => 'התראות',
 			'settings.sections.supportAndLegal' => 'תמיכה וחוקי',
 			'settings.sections.dangerZone' => 'אזור מסוכן',
@@ -1567,6 +1569,8 @@ extension on TranslationsHe {
 			'settings.editProfile.subtitle' => 'עדכן את המידע האישי שלך',
 			'settings.language.title' => 'שפה',
 			'settings.language.subtitle' => 'בחר את השפה המועדפת עליך',
+			'settings.language.searchHint' => 'חפש שפות...',
+			'settings.language.noResults' => 'לא נמצאו תוצאות',
 			'settings.heightUnit.title' => 'יחידת גובה',
 			'settings.weightUnit.title' => 'יחידת משקל',
 			'settings.mealReminders.title' => 'תזכורות לארוחת',
@@ -1620,7 +1624,7 @@ extension on TranslationsHe {
 			'notifications.dinner.body' => 'אל תשכח לרשום את ארוחת ערב שלך',
 			'notifications.snack.title' => 'זמן נשנוש! 🍎',
 			'notifications.snack.body' => 'הגיע הזמן לנשנוש בריא',
-			'notifications.test.title' => 'התראה נוסית',
+			'notifications.test.title' => 'התראת ניסיון',
 			'login.title' => 'התחברות',
 			'login.signInWithGoogle' => 'התחבר עם גוגל',
 			'login.signInFailed' => 'ההתחברות עם גוגל נכשלה או בוטלה.',
@@ -1640,7 +1644,7 @@ extension on TranslationsHe {
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'ההערכה הזו מדויקת רק כמו צריכת הקלוריות שעקבת אחריה וההוצאות. רישום לא מדויק יגרום להערכה לא מדויקת.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'גורמים ביולוגיים',
 			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'ירידה/עלייה במשקל בפועל מושפעת מהמטבוליזם, הורמונים, שינה, לחץ, הידרציה וגורמים אישיים אחרים ש${appLabel} לא יכול למדוד.',
-			'disclaimer.weightEstimate.waterWeight.title' => 'משקל מים ו fluctuations',
+			'disclaimer.weightEstimate.waterWeight.title' => 'משקל מים ותנודות',
 			'disclaimer.weightEstimate.waterWeight.description' => 'משקל יומי רגיל יכול להשתנות באופן משמעותי בגלל החזקת מים, עיכול וזמן. ההערכה לא לוקחת בחשבון את השינויים היומיים הללו.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'הנחיה מקצועית',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'אל תשתמש בהערכה זו כדי לקבל החלטות רפואיות. תמיד התייעץ עם איש מקצוע בריאות או דיאטנית רשומה להמלצות ניהול משקל מותאמות אישית.',
@@ -1685,7 +1689,7 @@ extension on TranslationsHe {
 			'debug.noNotifications' => 'אין התראות פעילות.',
 			'debug.testNotificationScheduled' => 'התראת ניסי מתוזמנת ל-10 שניות מהיום.',
 			'debug.testNotificationBody' => 'זוהי התראת ניסי מתוזמנת ל-10 שניות מהיום.',
-			'debug.breakfastNotificationTriggered' => 'הופעלח התראת ארוחת בוקר.',
+			'debug.breakfastNotificationTriggered' => 'הופעלה התראת ארוחת בוקר.',
 			'debug.allNotificationsCancelled' => 'כל ההתראות בוטלו.',
 			'debug.fetchingData' => 'שחזור נתונים עבור 7 הימים האחרונים...',
 			'debug.id' => ({required Object id}) => 'מזהה: ${id}',
