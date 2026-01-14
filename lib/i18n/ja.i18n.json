@@ -1,8 +1,9 @@
 {
   "language": "日本語",
   "flag": "🇯🇵",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Calorifyへようこそ",
+    "welcome": "{appLabel}へようこそ",
     "subtitle": "AIによるあなたの個人的な栄養コンパニオン",
     "getStarted": "始める",
     "features": {
@@ -59,7 +60,7 @@
       "messages": {
         "underweight": "栄養価の高い食事でバランスの取れた体重に到達するための健康的なプランを一緒に作りましょう。",
         "healthy": "素晴らしい！あなたは健康的な範囲にいます。活力とエネルギーレベルを維持するお手伝いをします。",
-        "overweight": "CalorifyがAIを活用したトラッキングで、快適に目標を達成する手助けをします。",
+        "overweight": "{appLabel}は、AIを活用したトラッキングで、快適に目標を達成する手助けをします。",
         "obese": "あなたの健康目標のために、個別の指導と持続可能な戦略でサポートします。"
       }
     },
@@ -92,18 +93,19 @@
       "skipForNow": "今はスキップ",
       "statusConnected": "Health Connectが接続されました。",
       "statusSuccess": "Health Connectが正常に接続されました！",
-      "statusPermissionDenied": "権限が拒否されました。Calorifyのために電話の設定からHealth Connectの権限を有効にしてください。",
+      "statusPermissionDenied": "権限が拒否されました。{appLabel}のために、お使いの電話の設定からHealth Connectの権限を有効にしてください。",
       "statusError": "Health Connectの設定中にエラーが発生しました: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
         "title": "あなたは一人じゃない",
-        "instantPhotoAnalysis": "即時フォト分析",
-        "automaticLogging": "自動栄養ログ",
-        "progressVisualizations": "やる気を引き出す進捗視覚化",
         "genericMessage": "研究によると、一貫したトラッキングは長期的な成功の最も大きな予測因子です。",
         "personalizedMessage": "{age}歳の{gender}が{goal}を目指すためには、一貫したトラッキングが成功の最も大きな予測因子です。",
-        "closingMessage": "Calorifyを使えば、手動で行うよりも10倍簡単です。",
+        "closingMessage": "{appLabel}は手動で行うよりも10倍簡単にします。",
+        "getStartedTitle": "始める準備はできましたか？",
+        "tipPhoto": "食事の写真を撮影して瞬時に分析します",
+        "tipConsistency": "一貫して記録して、意味のある進捗を確認しましょう",
+        "tipProgress": "やる気を保つために、毎日進捗を追跡しましょう",
         "button": "行きましょう",
         "defaultGender": "個人",
         "defaultGoal": "より健康的な自分"
@@ -120,7 +122,7 @@
       },
       "goalLifestyle": {
         "title": "素晴らしいスタート！",
-        "description": "あなたは{goalText}に向けて第一歩を踏み出しました。あなたが{activityText}であるため、Calorifyはあなたのライフスタイルに合った目標を調整します。",
+        "description": "{goalText}に向けて第一歩を踏み出しましたね。あなたが{activityText}であるため、{appLabel}は生活スタイルに合わせて目標を調整します。",
         "personalizedTargets": "パーソナライズされたカロリターゲット",
         "aiMealDetection": "AIによる食事検出",
         "macroBreakdowns": "詳細なマクロ栄養素の内訳",
@@ -360,7 +362,9 @@
     },
     "language": {
       "title": "言語",
-      "subtitle": "お好みの言語を選択してください"
+      "subtitle": "お好みの言語を選択してください",
+      "searchHint": "言語を検索...",
+      "noResults": "結果が見つかりません"
     },
     "heightUnit": {
       "title": "身長の単位"
@@ -372,10 +376,17 @@
       "title": "食事リマインダー",
       "subtitle": "タイムリーなアラートで進捗を維持"
     },
+    "theme": {
+      "title": "テーマ",
+      "subtitle": "お好みのテーマを選択してください",
+      "light": "ライト",
+      "dark": "ダーク",
+      "system": "システム"
+    },
     "sendFeedback": {
       "title": "フィードバックを送信",
-      "subtitle": "Calorifyの改善にご協力ください",
-      "emailSubject": "Calorifyアプリのフィードバック",
+      "subtitle": "{appLabel}の改善にご協力ください",
+      "emailSubject": "{appLabel}アプリフィードバック",
       "emailBodyPrefix": "以下にフィードバックをご記入ください:",
       "appVersion": "アプリのバージョン",
       "device": "デバイス",
@@ -446,14 +457,14 @@
   "disclaimer": {
     "pleaseNote": "ご注意ください",
     "snap": {
-      "description": "Calorifyは推定栄養情報を提供します。正確さはあなたの入力と食品の変動に依存します。ガイドとして使用し、確定的な情報源として使用しないでください。個別の食事アドバイスについては専門家に相談してください。",
+      "description": "{appLabel}は推定栄養情報を提供します。正確性は、入力内容や食材のバリエーションに依存します。ガイドとして使用し、確定的な情報源とは見なさないでください。個別の食事アドバイスについては専門家に相談してください。",
       "portionSize": {
         "title": "ポーションサイズ",
         "description": "推定の正確さは、ポーションサイズの正確な評価に大きく依存します。"
       },
       "preparationMethods": {
         "title": "調理方法",
-        "description": "調理方法は食材の栄養成分に大きく影響を与えることがあります。Calorifyの推定値は、これらの変動を常に考慮しているわけではありません。"
+        "description": "調理方法は食材の栄養価に大きく影響します。{appLabel}の推定値は、これらのバリエーションを常に考慮しているわけではありません。"
       },
       "ingredients": {
         "title": "材料",
@@ -461,7 +472,7 @@
       },
       "databaseLimitations": {
         "title": "データベースの制限",
-        "description": "Calorifyの食品データベースは広範ですが、すべての食品アイテムやバリエーションを含んでいるわけではありません。"
+        "description": "{appLabel}の食品データベースは広範囲ですが、すべての食品アイテムやバリエーションが含まれていない場合があります。"
       }
     },
     "weightEstimate": {
@@ -473,7 +484,7 @@
       },
       "biologicalFactors": {
         "title": "生物的要因",
-        "description": "実際の体重の減少や増加は、代謝、ホルモン、睡眠、ストレス、水分摂取、その他の個別の要因によって影響を受けますが、Calorifyでは測定できません。"
+        "description": "実際の体重減少/増加は、代謝、ホルモン、睡眠、ストレス、水分補給、その他の個々の要因によって影響され、{appLabel}では測定できません。"
       },
       "waterWeight": {
         "title": "水分による体重の変動",

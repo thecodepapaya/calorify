@@ -1,5 +1,6 @@
-import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/utilities/string_utils.dart';
 import 'package:calorify/i18n/strings.g.dart';
+import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -31,7 +32,7 @@ Future<void> showDisclaimer(BuildContext context, DisclaimerData data) {
     showDragHandle: true,
     enableDrag: true,
     isScrollControlled: true,
-    routeSettings: RouteSettings(name: 'disclaimer_sheet'),
+    routeSettings: const RouteSettings(name: 'disclaimer_sheet'),
     builder: (context) => _MealSnapDisclaimer(data),
   );
 }
@@ -47,10 +48,7 @@ class _MealSnapDisclaimer extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
 
-    return Container(
-      width: double.infinity,
-      padding: globalSheetPadding,
-      decoration: BoxDecoration(borderRadius: globalRadius),
+    return BaseBottomSheet(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -63,7 +61,7 @@ class _MealSnapDisclaimer extends StatelessWidget {
                 color: colorScheme.onSurface,
                 size: 32,
               ),
-              SizedBox(width: 6),
+              const SizedBox(width: 6),
               Expanded(
                 child: Text(
                   data.title,
@@ -74,16 +72,16 @@ class _MealSnapDisclaimer extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text(
             data.description,
             style: textTheme.bodyMedium?.copyWith(
               color: colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           ...data.bulletPoints.map((e) => _BulletPoint(e.title, e.description)),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
         ],
       ),
     );
@@ -129,7 +127,7 @@ class _BulletPoint extends StatelessWidget {
 DisclaimerData getSnapDisclaimer() {
   return DisclaimerData(
     title: t.disclaimer.pleaseNote,
-    description: t.disclaimer.snap.description,
+    description: t.disclaimer.snap.description(appLabel: t.appLabelValue),
     bulletPoints: [
       DisclaimerEntry(
         title: t.disclaimer.snap.portionSize.title,
@@ -137,7 +135,9 @@ DisclaimerData getSnapDisclaimer() {
       ),
       DisclaimerEntry(
         title: t.disclaimer.snap.preparationMethods.title,
-        description: t.disclaimer.snap.preparationMethods.description,
+        description: t.disclaimer.snap.preparationMethods.description(
+          appLabel: t.appLabelValue,
+        ),
       ),
       DisclaimerEntry(
         title: t.disclaimer.snap.ingredients.title,
@@ -145,7 +145,9 @@ DisclaimerData getSnapDisclaimer() {
       ),
       DisclaimerEntry(
         title: t.disclaimer.snap.databaseLimitations.title,
-        description: t.disclaimer.snap.databaseLimitations.description,
+        description: t.disclaimer.snap.databaseLimitations.description(
+          appLabel: t.appLabelValue,
+        ),
       ),
     ],
   );
@@ -162,7 +164,9 @@ DisclaimerData getWeightEstimateDisclaimer() {
       ),
       DisclaimerEntry(
         title: t.disclaimer.weightEstimate.biologicalFactors.title,
-        description: t.disclaimer.weightEstimate.biologicalFactors.description,
+        description: t.disclaimer.weightEstimate.biologicalFactors.description(
+          appLabel: t.appLabelValue,
+        ),
       ),
       DisclaimerEntry(
         title: t.disclaimer.weightEstimate.waterWeight.title,

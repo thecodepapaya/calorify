@@ -1,5 +1,6 @@
 import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/db/database_interface.dart';
+import 'package:calorify/core/db/database_logger.dart';
 import 'package:calorify/core/db/mock_data/data_source_config.dart';
 import 'package:calorify/core/db/mock_database_adapter.dart';
 import 'package:calorify/core/db/real_database_adapter.dart';
@@ -13,14 +14,17 @@ class DatabaseService {
   static bool _initialized = false;
 
   /// Initialize the database service
-  static Future<void> initialize() async {
+  static void initialize() {
     if (!_initialized) {
+      DatabaseInterface adapter;
       if (DataSourceConfig.isMockDataEnabled) {
-        _databaseInterface = MockDatabaseAdapter();
+        adapter = MockDatabaseAdapter();
       } else {
         _database = AppDatabase();
-        _databaseInterface = RealDatabaseAdapter(_database!);
+        adapter = RealDatabaseAdapter(_database!);
       }
+      // Wrap with logger to track all DB operations
+      _databaseInterface = DatabaseLogger(adapter);
       _initialized = true;
     }
   }
@@ -28,9 +32,10 @@ class DatabaseService {
   /// Reinitialize with current configuration
   static Future<void> reinitialize() async {
     _initialized = false;
+    await _database?.close();
     _database = null;
     _databaseInterface = null;
-    await initialize();
+    initialize();
   }
 
   /// Switch to mock data
@@ -43,19 +48,6 @@ class DatabaseService {
   static Future<void> switchToRealData() async {
     DataSourceConfig.enableRealData();
     await reinitialize();
-  }
-
-  /// Get the current database instance (for real data)
-  static AppDatabase get database {
-    if (!_initialized) {
-      throw StateError(
-        'DatabaseService not initialized. Call initialize() first.',
-      );
-    }
-    if (_database == null) {
-      throw StateError('Database not available. Using mock data mode.');
-    }
-    return _database!;
   }
 
   /// Get the current database interface

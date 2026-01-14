@@ -102,36 +102,55 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
                 const SizedBox(height: 48),
                 SizedBox(
                   height: 200,
-                  child: CupertinoDatePicker(
-                    mode: CupertinoDatePickerMode.date,
-                    initialDateTime: _dateOfBirth,
-                    maximumDate: DateTime.now(),
-                    minimumYear: 1900,
-                    maximumYear: DateTime.now().year,
-                    onDateTimeChanged: (DateTime newDate) {
-                      setState(() => _dateOfBirth = newDate);
-                    },
+                  child: CupertinoTheme(
+                    data: CupertinoThemeData(
+                      brightness: theme.brightness,
+                      primaryColor: colorScheme.primary,
+                      textTheme: CupertinoTextThemeData(
+                        textStyle: TextStyle(
+                          color: colorScheme.onSurface,
+                          fontSize: 20,
+                        ),
+                        dateTimePickerTextStyle: TextStyle(
+                          color: colorScheme.onSurface,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    child: CupertinoDatePicker(
+                      mode: CupertinoDatePickerMode.date,
+                      initialDateTime: _dateOfBirth,
+                      maximumDate: DateTime.now(),
+                      minimumYear: 1900,
+                      maximumYear: DateTime.now().year,
+                      onDateTimeChanged: (DateTime newDate) {
+                        setState(() => _dateOfBirth = newDate);
+                      },
+                    ),
                   ),
                 ),
               ],
             ),
           ),
           const Spacer(),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: _saveAndContinue,
-              style: FilledButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 0.0),
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: _saveAndContinue,
+                style: FilledButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                 ),
-              ),
-              child: Text(
-                t.onboarding.age.next,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                child: Text(
+                  t.onboarding.age.next,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

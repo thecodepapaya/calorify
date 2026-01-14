@@ -39,6 +39,7 @@ class TranslationsZhCn with BaseTranslations<AppLocale, Translations> implements
 	// Translations
 	@override String get language => '简体中文';
 	@override String get flag => '🇨🇳';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingZhCn onboarding = _TranslationsOnboardingZhCn._(_root);
 	@override late final _TranslationsTabsZhCn tabs = _TranslationsTabsZhCn._(_root);
 	@override late final _TranslationsHomeZhCn home = _TranslationsHomeZhCn._(_root);
@@ -66,7 +67,7 @@ class _TranslationsOnboardingZhCn implements TranslationsOnboardingEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get welcome => '欢迎使用 Calorify';
+	@override String welcome({required Object appLabel}) => '欢迎使用${appLabel}';
 	@override String get subtitle => '您个性化的营养伴侣，基于 AI 技术';
 	@override String get getStarted => '开始使用';
 	@override late final _TranslationsOnboardingFeaturesZhCn features = _TranslationsOnboardingFeaturesZhCn._(_root);
@@ -246,6 +247,7 @@ class _TranslationsSettingsZhCn implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitZhCn heightUnit = _TranslationsSettingsHeightUnitZhCn._(_root);
 	@override late final _TranslationsSettingsWeightUnitZhCn weightUnit = _TranslationsSettingsWeightUnitZhCn._(_root);
 	@override late final _TranslationsSettingsMealRemindersZhCn mealReminders = _TranslationsSettingsMealRemindersZhCn._(_root);
+	@override late final _TranslationsSettingsThemeZhCn theme = _TranslationsSettingsThemeZhCn._(_root);
 	@override late final _TranslationsSettingsSendFeedbackZhCn sendFeedback = _TranslationsSettingsSendFeedbackZhCn._(_root);
 	@override late final _TranslationsSettingsClearAllDataZhCn clearAllData = _TranslationsSettingsClearAllDataZhCn._(_root);
 	@override late final _TranslationsSettingsDebugOptionsZhCn debugOptions = _TranslationsSettingsDebugOptionsZhCn._(_root);
@@ -521,7 +523,7 @@ class _TranslationsOnboardingHealthConnectZhCn implements TranslationsOnboarding
 	@override String get skipForNow => '暂时跳过';
 	@override String get statusConnected => '健康连接已连接。';
 	@override String get statusSuccess => '健康连接成功连接！';
-	@override String get statusPermissionDenied => '权限被拒绝。请在你的手机设置中为Calorify启用健康连接权限。';
+	@override String statusPermissionDenied({required Object appLabel}) => '权限被拒绝。请在手机设置中启用${appLabel}的健康连接权限。';
 	@override String statusError({required Object error}) => '设置健康连接时出错: ${error}';
 }
 
@@ -803,6 +805,8 @@ class _TranslationsSettingsLanguageZhCn implements TranslationsSettingsLanguageE
 	// Translations
 	@override String get title => '语言';
 	@override String get subtitle => '选择您的首选语言';
+	@override String get searchHint => '搜索语言...';
+	@override String get noResults => '未找到结果';
 }
 
 // Path: settings.heightUnit
@@ -836,6 +840,20 @@ class _TranslationsSettingsMealRemindersZhCn implements TranslationsSettingsMeal
 	@override String get subtitle => '通过及时的提醒保持正轨';
 }
 
+// Path: settings.theme
+class _TranslationsSettingsThemeZhCn implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '主题';
+	@override String get subtitle => '选择您的首选主题';
+	@override String get light => '浅色';
+	@override String get dark => '深色';
+	@override String get system => '系统';
+}
+
 // Path: settings.sendFeedback
 class _TranslationsSettingsSendFeedbackZhCn implements TranslationsSettingsSendFeedbackEn {
 	_TranslationsSettingsSendFeedbackZhCn._(this._root);
@@ -844,8 +862,8 @@ class _TranslationsSettingsSendFeedbackZhCn implements TranslationsSettingsSendF
 
 	// Translations
 	@override String get title => '发送反馈';
-	@override String get subtitle => '帮助我们改进Calorify';
-	@override String get emailSubject => 'Calorify应用反馈';
+	@override String subtitle({required Object appLabel}) => '帮助我们改善${appLabel}';
+	@override String emailSubject({required Object appLabel}) => '${appLabel}应用反馈';
 	@override String get emailBodyPrefix => '请在下面提供您的反馈：';
 	@override String get appVersion => '应用版本';
 	@override String get device => '设备';
@@ -939,7 +957,7 @@ class _TranslationsDisclaimerSnapZhCn implements TranslationsDisclaimerSnapEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Calorify提供估计的营养信息。准确性取决于您的输入和食物变化。将其作为指南，而非最终来源。请咨询专业人士以获取个性化的饮食建议。';
+	@override String description({required Object appLabel}) => '${appLabel}提供的营养信息为估算值。准确性取决于您的输入和食物变种。请将其用作参考，而非绝对来源。如需个性化的饮食建议，请咨询专业人士。';
 	@override late final _TranslationsDisclaimerSnapPortionSizeZhCn portionSize = _TranslationsDisclaimerSnapPortionSizeZhCn._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsZhCn preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsZhCn._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsZhCn ingredients = _TranslationsDisclaimerSnapIngredientsZhCn._(_root);
@@ -1028,7 +1046,7 @@ class _TranslationsOnboardingBmiScaleMessagesZhCn implements TranslationsOnboard
 	// Translations
 	@override String get underweight => '我们可以帮助您制定健康计划，通过营养丰富的餐食来达到均衡体重。';
 	@override String get healthy => '干得好！您处于健康范围内。我们将帮助您维持活力和能量水平。';
-	@override String get overweight => 'Calorify将通过AI驱动的跟踪，简化您的旅程，帮助您舒适地达到目标。';
+	@override String overweight({required Object appLabel}) => '${appLabel}将通过人工智能支持的追踪简化您的旅程，帮助您轻松达到目标。';
 	@override String get obese => '我们在这里支持您，为您的健康目标提供个性化指导和可持续策略。';
 }
 
@@ -1073,12 +1091,13 @@ class _TranslationsOnboardingReinforcementTrackingSuccessZhCn implements Transla
 
 	// Translations
 	@override String get title => '你并不孤单';
-	@override String get instantPhotoAnalysis => '即时照片分析';
-	@override String get automaticLogging => '自动营养记录';
-	@override String get progressVisualizations => '进展可视化让您保持动力';
 	@override String get genericMessage => '研究显示，持续跟踪是长期成功的首要预测因素。';
 	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => '对于一个 ${age} 岁的 ${gender}，想要 ${goal}，持续跟踪是成功的首要预测因素。';
-	@override String get closingMessage => 'Calorify 让这一切变得比手动操作轻松10倍。';
+	@override String closingMessage({required Object appLabel}) => '${appLabel}让这一切比手动操作轻松10倍。';
+	@override String get getStartedTitle => '准备好开始了吗？';
+	@override String get tipPhoto => '拍摄您的餐点以进行即时分析';
+	@override String get tipConsistency => '保持记录以看到有意义的进展';
+	@override String get tipProgress => '每天记录您的进展，保持动力';
 	@override String get button => '开始吧';
 	@override String get defaultGender => '个体';
 	@override String get defaultGoal => '更健康的你';
@@ -1109,7 +1128,7 @@ class _TranslationsOnboardingReinforcementGoalLifestyleZhCn implements Translati
 
 	// Translations
 	@override String get title => '优秀的开始！';
-	@override String description({required Object goalText, required Object activityText}) => '你已经迈出了朝着 ${goalText} 的第一步。由于你是 ${activityText}，Calorify 将根据你的生活方式调整你的目标。';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => '您已迈出了通向${goalText}的第一步。既然您${activityText}，${appLabel}将根据您的生活方式调整目标。';
 	@override String get personalizedTargets => '个性化的卡路里目标';
 	@override String get aiMealDetection => '人工智能驱动的餐点检测';
 	@override String get macroBreakdowns => '详细的宏观营养素分析';
@@ -1225,7 +1244,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsZhCn implements TranslationsD
 
 	// Translations
 	@override String get title => '烹饪方法';
-	@override String get description => '烹饪方式会显著影响食物的营养成分。Calorify的估计可能并未总是考虑这些变化。';
+	@override String description({required Object appLabel}) => '烹饪方法可能会显著改变食物的营养成分。${appLabel}的估算可能并未始终考虑这些变化。';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1247,7 +1266,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsZhCn implements Translations
 
 	// Translations
 	@override String get title => '数据库限制';
-	@override String get description => 'Calorify的食物数据库庞大，但可能不会包含每一种食物或变体。';
+	@override String description({required Object appLabel}) => '${appLabel}的食物数据库庞大，但可能不包括每个单独的食物项目或变种。';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1269,7 +1288,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsZhCn implements Tran
 
 	// Translations
 	@override String get title => '生物因素';
-	@override String get description => '实际的体重减轻/增加受到新陈代谢、荷尔蒙、睡眠、压力、水分摄入和其他个体因素的影响，Calorify无法测量。';
+	@override String description({required Object appLabel}) => '实际的体重减轻/增加受代谢、荷尔蒙、睡眠、压力、水合作用以及${appLabel}无法测量的其他个体因素影响。';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1304,7 +1323,8 @@ extension on TranslationsZhCn {
 		return switch (path) {
 			'language' => '简体中文',
 			'flag' => '🇨🇳',
-			'onboarding.welcome' => '欢迎使用 Calorify',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => '欢迎使用${appLabel}',
 			'onboarding.subtitle' => '您个性化的营养伴侣，基于 AI 技术',
 			'onboarding.getStarted' => '开始使用',
 			'onboarding.features.foodRecognition.title' => '智能食物识别',
@@ -1341,7 +1361,7 @@ extension on TranslationsZhCn {
 			'onboarding.bmiScale.categories.obese' => '肥胖',
 			'onboarding.bmiScale.messages.underweight' => '我们可以帮助您制定健康计划，通过营养丰富的餐食来达到均衡体重。',
 			'onboarding.bmiScale.messages.healthy' => '干得好！您处于健康范围内。我们将帮助您维持活力和能量水平。',
-			'onboarding.bmiScale.messages.overweight' => 'Calorify将通过AI驱动的跟踪，简化您的旅程，帮助您舒适地达到目标。',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel}将通过人工智能支持的追踪简化您的旅程，帮助您轻松达到目标。',
 			'onboarding.bmiScale.messages.obese' => '我们在这里支持您，为您的健康目标提供个性化指导和可持续策略。',
 			'onboarding.weightGoal.title' => '您的目标是什么？',
 			'onboarding.weightGoal.description' => '选择最能描述您想要达到的目标',
@@ -1361,15 +1381,16 @@ extension on TranslationsZhCn {
 			'onboarding.healthConnect.skipForNow' => '暂时跳过',
 			'onboarding.healthConnect.statusConnected' => '健康连接已连接。',
 			'onboarding.healthConnect.statusSuccess' => '健康连接成功连接！',
-			'onboarding.healthConnect.statusPermissionDenied' => '权限被拒绝。请在你的手机设置中为Calorify启用健康连接权限。',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => '权限被拒绝。请在手机设置中启用${appLabel}的健康连接权限。',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => '设置健康连接时出错: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => '你并不孤单',
-			'onboarding.reinforcement.trackingSuccess.instantPhotoAnalysis' => '即时照片分析',
-			'onboarding.reinforcement.trackingSuccess.automaticLogging' => '自动营养记录',
-			'onboarding.reinforcement.trackingSuccess.progressVisualizations' => '进展可视化让您保持动力',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => '研究显示，持续跟踪是长期成功的首要预测因素。',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '对于一个 ${age} 岁的 ${gender}，想要 ${goal}，持续跟踪是成功的首要预测因素。',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => 'Calorify 让这一切变得比手动操作轻松10倍。',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel}让这一切比手动操作轻松10倍。',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => '准备好开始了吗？',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => '拍摄您的餐点以进行即时分析',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => '保持记录以看到有意义的进展',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => '每天记录您的进展，保持动力',
 			'onboarding.reinforcement.trackingSuccess.button' => '开始吧',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => '个体',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => '更健康的你',
@@ -1382,7 +1403,7 @@ extension on TranslationsZhCn {
 			'onboarding.reinforcement.healthProfile.goalReached' => '你已达到目标体重！我们将帮助你维持这个体重。',
 			'onboarding.reinforcement.healthProfile.button' => '开始吧',
 			'onboarding.reinforcement.goalLifestyle.title' => '优秀的开始！',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText}) => '你已经迈出了朝着 ${goalText} 的第一步。由于你是 ${activityText}，Calorify 将根据你的生活方式调整你的目标。',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => '您已迈出了通向${goalText}的第一步。既然您${activityText}，${appLabel}将根据您的生活方式调整目标。',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => '个性化的卡路里目标',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => '人工智能驱动的餐点检测',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => '详细的宏观营养素分析',
@@ -1548,13 +1569,20 @@ extension on TranslationsZhCn {
 			'settings.editProfile.subtitle' => '更新您的个人信息',
 			'settings.language.title' => '语言',
 			'settings.language.subtitle' => '选择您的首选语言',
+			'settings.language.searchHint' => '搜索语言...',
+			'settings.language.noResults' => '未找到结果',
 			'settings.heightUnit.title' => '身高单位',
 			'settings.weightUnit.title' => '体重单位',
 			'settings.mealReminders.title' => '餐点提醒',
 			'settings.mealReminders.subtitle' => '通过及时的提醒保持正轨',
+			'settings.theme.title' => '主题',
+			'settings.theme.subtitle' => '选择您的首选主题',
+			'settings.theme.light' => '浅色',
+			'settings.theme.dark' => '深色',
+			'settings.theme.system' => '系统',
 			'settings.sendFeedback.title' => '发送反馈',
-			'settings.sendFeedback.subtitle' => '帮助我们改进Calorify',
-			'settings.sendFeedback.emailSubject' => 'Calorify应用反馈',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => '帮助我们改善${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel}应用反馈',
 			'settings.sendFeedback.emailBodyPrefix' => '请在下面提供您的反馈：',
 			'settings.sendFeedback.appVersion' => '应用版本',
 			'settings.sendFeedback.device' => '设备',
@@ -1601,21 +1629,21 @@ extension on TranslationsZhCn {
 			'login.signInWithGoogle' => '通过Google登录',
 			'login.signInFailed' => 'Google登录失败或被取消。',
 			'disclaimer.pleaseNote' => '请注意',
-			'disclaimer.snap.description' => 'Calorify提供估计的营养信息。准确性取决于您的输入和食物变化。将其作为指南，而非最终来源。请咨询专业人士以获取个性化的饮食建议。',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel}提供的营养信息为估算值。准确性取决于您的输入和食物变种。请将其用作参考，而非绝对来源。如需个性化的饮食建议，请咨询专业人士。',
 			'disclaimer.snap.portionSize.title' => '食物份量',
 			'disclaimer.snap.portionSize.description' => '估计的准确性在很大程度上依赖于您对食物份量的正确评估。',
 			'disclaimer.snap.preparationMethods.title' => '烹饪方法',
-			'disclaimer.snap.preparationMethods.description' => '烹饪方式会显著影响食物的营养成分。Calorify的估计可能并未总是考虑这些变化。',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '烹饪方法可能会显著改变食物的营养成分。${appLabel}的估算可能并未始终考虑这些变化。',
 			'disclaimer.snap.ingredients.title' => '成分',
 			'disclaimer.snap.ingredients.description' => '成分复杂的菜肴可能导致估计的准确性降低。',
 			'disclaimer.snap.databaseLimitations.title' => '数据库限制',
-			'disclaimer.snap.databaseLimitations.description' => 'Calorify的食物数据库庞大，但可能不会包含每一种食物或变体。',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}的食物数据库庞大，但可能不包括每个单独的食物项目或变种。',
 			'disclaimer.weightEstimate.title' => '关于体重估计',
 			'disclaimer.weightEstimate.description' => '预计的体重变化是基于简单的卡路里摄入与消耗模型的理论估计。仅用于激励指导，而非对您实际体重的预测。',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => '卡路里准确性',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => '此估计的准确性仅依赖于您记录的卡路里摄入与消耗。不准确的记录将导致不准确的预测。',
 			'disclaimer.weightEstimate.biologicalFactors.title' => '生物因素',
-			'disclaimer.weightEstimate.biologicalFactors.description' => '实际的体重减轻/增加受到新陈代谢、荷尔蒙、睡眠、压力、水分摄入和其他个体因素的影响，Calorify无法测量。',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => '实际的体重减轻/增加受代谢、荷尔蒙、睡眠、压力、水合作用以及${appLabel}无法测量的其他个体因素影响。',
 			'disclaimer.weightEstimate.waterWeight.title' => '水分体重与波动',
 			'disclaimer.weightEstimate.waterWeight.description' => '正常的日常体重可能因水分滞留、消化和时间而有显著波动。该估计未考虑这些日常变化。',
 			'disclaimer.weightEstimate.professionalGuidance.title' => '专业指导',

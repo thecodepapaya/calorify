@@ -1,3 +1,4 @@
+import 'package:calorify/core/constants/colors/color_scheme_extensions.dart';
 import 'package:calorify/core/models/health_score.dart';
 import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +11,8 @@ extension HealthScoreExtension on HealthScore {
     final colorScheme = Theme.of(context).colorScheme;
     return switch (this) {
       HealthScore.unhealthy => colorScheme.error,
-      HealthScore.healthy => Colors.green,
-      HealthScore.neutral || HealthScore.unknown => Colors.orange,
+      HealthScore.healthy => colorScheme.success,
+      HealthScore.neutral || HealthScore.unknown => colorScheme.tertiary,
     };
   }
 

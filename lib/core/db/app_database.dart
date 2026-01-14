@@ -6,22 +6,31 @@ import 'package:calorify/core/db/mappers/meal_info_mapper.dart';
 import 'package:calorify/core/db/mappers/user_profile_mapper.dart';
 import 'package:calorify/core/db/tables/favorite_meal.dart';
 import 'package:calorify/core/db/tables/meal_info.dart';
-import 'package:calorify/core/db/tables/user_settings.dart';
+import 'package:calorify/core/db/tables/user_preferences.dart';
+import 'package:calorify/core/db/tables/user_profile.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/models/profile_models.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:flutter/material.dart' show ThemeMode;
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 part 'app_database.g.dart';
 
-@DriftDatabase(tables: [MealInfoTable, UserSettingsTable, FavoriteMealTable])
+@DriftDatabase(
+  tables: [
+    MealInfoTable,
+    UserProfileTable,
+    UserPreferencesTable,
+    FavoriteMealTable,
+  ],
+)
 class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 11;
+  int get schemaVersion => 12;
 
   @override
   MigrationStrategy get migration {
@@ -38,55 +47,132 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           await m.addColumn(favoriteMealTable, favoriteMealTable.lastUsedAt);
         }
         if (from < 6) {
-          await m.addColumn(userSettingsTable, userSettingsTable.height);
-          await m.addColumn(userSettingsTable, userSettingsTable.weight);
-          await m.addColumn(userSettingsTable, userSettingsTable.gender);
-          await m.addColumn(userSettingsTable, userSettingsTable.dateOfBirth);
-          await m.addColumn(userSettingsTable, userSettingsTable.weightGoal);
-          await m.addColumn(userSettingsTable, userSettingsTable.activityLevel);
-          await m.addColumn(userSettingsTable, userSettingsTable.createdAt);
-          await m.addColumn(userSettingsTable, userSettingsTable.updatedAt);
+          await m.addColumn(userProfileTable, userProfileTable.height);
+          await m.addColumn(userProfileTable, userProfileTable.weight);
+          await m.addColumn(userProfileTable, userProfileTable.gender);
+          await m.addColumn(userProfileTable, userProfileTable.dateOfBirth);
+          await m.addColumn(userProfileTable, userProfileTable.weightGoal);
+          await m.addColumn(userProfileTable, userProfileTable.activityLevel);
+          await m.addColumn(userProfileTable, userProfileTable.createdAt);
+          await m.addColumn(userProfileTable, userProfileTable.updatedAt);
         }
         if (from < 7) {
           await m.addColumn(mealInfoTable, mealInfoTable.healthScore);
           await m.addColumn(mealInfoTable, mealInfoTable.healthScoreReason);
         }
         if (from < 8) {
-          await m.addColumn(userSettingsTable, userSettingsTable.targetWeight);
+          await m.addColumn(userProfileTable, userProfileTable.targetWeight);
         }
         if (from < 10) {
-          await m.addColumn(userSettingsTable, userSettingsTable.heightUnit);
-          await m.addColumn(userSettingsTable, userSettingsTable.weightUnit);
+          await m.addColumn(userProfileTable, userProfileTable.heightUnit);
+          await m.addColumn(userProfileTable, userProfileTable.weightUnit);
         }
         if (from < 11) {
-          await m.addColumn(userSettingsTable, userSettingsTable.languageCode);
+          // Skipping languageCode addition to old table as it's no longer needed
+        }
+        if (from < 12) {
+          // Migration to version 12:
+          // 1. Rename user_settings_table to user_profile_table
+          await m.renameTable(userProfileTable, 'user_profile_table');
+
+          // 2. Create UserPreferencesTable
+          await m.createTable(userPreferencesTable);
+
+          // 3. Initialize with default preferences (languageCode is null by default)
+          await into(userPreferencesTable).insert(
+            UserPreferencesTableCompanion.insert(
+              id: const Value(_userPreferencesId),
+              theme: Value(ThemeMode.system.name),
+            ),
+          );
         }
       },
     );
   }
 
-  static const int _userSettingsId = 1;
+  static const int _userProfileId = 1;
+  static const int _userPreferencesId = 1;
+
+  // --- User Preferences Methods ---
+
+  Future<UserPreferencesTableData> _getOrInitPreferences() async {
+    final prefs =
+        await (select(
+          userPreferencesTable,
+        )..where((tbl) => tbl.id.equals(_userPreferencesId))).getSingleOrNull();
+
+    if (prefs == null) {
+      final newPrefs = UserPreferencesTableCompanion.insert(
+        id: const Value(_userPreferencesId),
+        theme: Value(ThemeMode.system.name),
+      );
+      await into(userPreferencesTable).insert(newPrefs);
+      return (select(userPreferencesTable)
+        ..where((tbl) => tbl.id.equals(_userPreferencesId))).getSingle();
+    }
+    return prefs;
+  }
+
+  @override
+  Future<String?> getLanguageCode() async {
+    final prefs = await _getOrInitPreferences();
+    return prefs.languageCode;
+  }
+
+  @override
+  Future<void> setLanguageCode(String? code) async {
+    await _getOrInitPreferences();
+    await into(userPreferencesTable).insertOnConflictUpdate(
+      UserPreferencesTableCompanion.insert(
+        id: const Value(_userPreferencesId),
+        languageCode: Value(code),
+        updatedAt: Value(DateTime.now()),
+      ),
+    );
+  }
+
+  @override
+  Future<ThemeMode> getThemeMode() async {
+    final prefs = await _getOrInitPreferences();
+    final themeString = prefs.theme;
+    if (themeString == null) return ThemeMode.system;
+    return ThemeMode.values.firstWhere(
+      (m) => m.name == themeString,
+      orElse: () => ThemeMode.system,
+    );
+  }
+
+  @override
+  Future<void> setThemeMode(ThemeMode mode) async {
+    await into(userPreferencesTable).insertOnConflictUpdate(
+      UserPreferencesTableCompanion.insert(
+        id: const Value(_userPreferencesId),
+        theme: Value(mode.name),
+        updatedAt: Value(DateTime.now()),
+      ),
+    );
+  }
 
   @override
   Future<int?> getDailyCalorieGoal() async {
     final setting =
-        await (select(userSettingsTable)
-          ..where((tbl) => tbl.id.equals(_userSettingsId))).getSingleOrNull();
+        await (select(userProfileTable)
+          ..where((tbl) => tbl.id.equals(_userProfileId))).getSingleOrNull();
     return setting?.dailyCalorieGoal;
   }
 
   @override
   Stream<int?> watchDailyCalorieGoal() {
-    return (select(userSettingsTable)..where(
-      (tbl) => tbl.id.equals(_userSettingsId),
+    return (select(userProfileTable)..where(
+      (tbl) => tbl.id.equals(_userProfileId),
     )).watchSingleOrNull().map((row) => row?.dailyCalorieGoal);
   }
 
   @override
   Future<void> setDailyCalorieGoal(int goal) async {
-    await into(userSettingsTable).insertOnConflictUpdate(
-      UserSettingsTableCompanion.insert(
-        id: const Value(_userSettingsId),
+    await into(userProfileTable).insertOnConflictUpdate(
+      UserProfileTableCompanion.insert(
+        id: const Value(_userProfileId),
         dailyCalorieGoal: Value(goal),
       ),
     );
@@ -211,31 +297,28 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   @override
   Future<void> saveUserProfile(UserProfile profile) async {
     // Use upsert (insert or update) - always use id = 1 for single profile
-    await into(userSettingsTable).insertOnConflictUpdate(
+    await into(userProfileTable).insertOnConflictUpdate(
       UserProfileMapper.toDrift(
         profile,
-      ).copyWith(id: const Value(_userSettingsId)),
+      ).copyWith(id: const Value(_userProfileId)),
     );
   }
 
   @override
   Future<UserProfile?> getUserProfile() async {
-    final hasProfile = await hasUserProfile();
-    if (!hasProfile) return null;
-
     final result =
-        await (select(userSettingsTable)
-          ..where((tbl) => tbl.id.equals(_userSettingsId))).getSingleOrNull();
-    if (result == null || result.height == null) return null;
+        await (select(userProfileTable)
+          ..where((tbl) => tbl.id.equals(_userProfileId))).getSingleOrNull();
+    if (result == null) return null;
 
     return UserProfileMapper.fromDrift(result);
   }
 
   @override
-  Future<bool> hasUserProfile() async {
+  Future<bool> isProfileComplete() async {
     final result =
-        await (select(userSettingsTable)
-          ..where((tbl) => tbl.id.equals(_userSettingsId))).getSingleOrNull();
+        await (select(userProfileTable)
+          ..where((tbl) => tbl.id.equals(_userProfileId))).getSingleOrNull();
     if (result == null) return false;
 
     return result.height != null &&
@@ -250,7 +333,8 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   Future<void> clearAllData() async {
     await transaction(() async {
       await delete(mealInfoTable).go();
-      await delete(userSettingsTable).go();
+      await delete(userProfileTable).go();
+      await delete(userPreferencesTable).go();
       await delete(favoriteMealTable).go();
     });
   }

@@ -778,12 +778,12 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   }
 }
 
-class $UserSettingsTableTable extends UserSettingsTable
-    with TableInfo<$UserSettingsTableTable, UserSettingsTableData> {
+class $UserProfileTableTable extends UserProfileTable
+    with TableInfo<$UserProfileTableTable, UserProfileTableData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $UserSettingsTableTable(this.attachedDatabase, [this._alias]);
+  $UserProfileTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -903,17 +903,6 @@ class $UserSettingsTableTable extends UserSettingsTable
     requiredDuringInsert: false,
     defaultValue: const Constant('metric'),
   );
-  static const VerificationMeta _languageCodeMeta = const VerificationMeta(
-    'languageCode',
-  );
-  @override
-  late final GeneratedColumn<String> languageCode = GeneratedColumn<String>(
-    'language_code',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
   );
@@ -951,7 +940,6 @@ class $UserSettingsTableTable extends UserSettingsTable
     activityLevel,
     heightUnit,
     weightUnit,
-    languageCode,
     createdAt,
     updatedAt,
   ];
@@ -959,10 +947,10 @@ class $UserSettingsTableTable extends UserSettingsTable
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'user_settings_table';
+  static const String $name = 'user_profile_table';
   @override
   VerificationContext validateIntegrity(
-    Insertable<UserSettingsTableData> instance, {
+    Insertable<UserProfileTableData> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -1042,15 +1030,6 @@ class $UserSettingsTableTable extends UserSettingsTable
         weightUnit.isAcceptableOrUnknown(data['weight_unit']!, _weightUnitMeta),
       );
     }
-    if (data.containsKey('language_code')) {
-      context.handle(
-        _languageCodeMeta,
-        languageCode.isAcceptableOrUnknown(
-          data['language_code']!,
-          _languageCodeMeta,
-        ),
-      );
-    }
     if (data.containsKey('created_at')) {
       context.handle(
         _createdAtMeta,
@@ -1069,9 +1048,9 @@ class $UserSettingsTableTable extends UserSettingsTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  UserSettingsTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  UserProfileTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return UserSettingsTableData(
+    return UserProfileTableData(
       id:
           attachedDatabase.typeMapping.read(
             DriftSqlType.int,
@@ -1119,10 +1098,6 @@ class $UserSettingsTableTable extends UserSettingsTable
             DriftSqlType.string,
             data['${effectivePrefix}weight_unit'],
           )!,
-      languageCode: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}language_code'],
-      ),
       createdAt:
           attachedDatabase.typeMapping.read(
             DriftSqlType.dateTime,
@@ -1137,13 +1112,13 @@ class $UserSettingsTableTable extends UserSettingsTable
   }
 
   @override
-  $UserSettingsTableTable createAlias(String alias) {
-    return $UserSettingsTableTable(attachedDatabase, alias);
+  $UserProfileTableTable createAlias(String alias) {
+    return $UserProfileTableTable(attachedDatabase, alias);
   }
 }
 
-class UserSettingsTableData extends DataClass
-    implements Insertable<UserSettingsTableData> {
+class UserProfileTableData extends DataClass
+    implements Insertable<UserProfileTableData> {
   final int id;
   final int? dailyCalorieGoal;
   final double? height;
@@ -1155,10 +1130,9 @@ class UserSettingsTableData extends DataClass
   final String? activityLevel;
   final String heightUnit;
   final String weightUnit;
-  final String? languageCode;
   final DateTime createdAt;
   final DateTime updatedAt;
-  const UserSettingsTableData({
+  const UserProfileTableData({
     required this.id,
     this.dailyCalorieGoal,
     this.height,
@@ -1170,7 +1144,6 @@ class UserSettingsTableData extends DataClass
     this.activityLevel,
     required this.heightUnit,
     required this.weightUnit,
-    this.languageCode,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -1204,16 +1177,13 @@ class UserSettingsTableData extends DataClass
     }
     map['height_unit'] = Variable<String>(heightUnit);
     map['weight_unit'] = Variable<String>(weightUnit);
-    if (!nullToAbsent || languageCode != null) {
-      map['language_code'] = Variable<String>(languageCode);
-    }
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
 
-  UserSettingsTableCompanion toCompanion(bool nullToAbsent) {
-    return UserSettingsTableCompanion(
+  UserProfileTableCompanion toCompanion(bool nullToAbsent) {
+    return UserProfileTableCompanion(
       id: Value(id),
       dailyCalorieGoal:
           dailyCalorieGoal == null && nullToAbsent
@@ -1243,21 +1213,17 @@ class UserSettingsTableData extends DataClass
               : Value(activityLevel),
       heightUnit: Value(heightUnit),
       weightUnit: Value(weightUnit),
-      languageCode:
-          languageCode == null && nullToAbsent
-              ? const Value.absent()
-              : Value(languageCode),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
     );
   }
 
-  factory UserSettingsTableData.fromJson(
+  factory UserProfileTableData.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return UserSettingsTableData(
+    return UserProfileTableData(
       id: serializer.fromJson<int>(json['id']),
       dailyCalorieGoal: serializer.fromJson<int?>(json['dailyCalorieGoal']),
       height: serializer.fromJson<double?>(json['height']),
@@ -1269,7 +1235,6 @@ class UserSettingsTableData extends DataClass
       activityLevel: serializer.fromJson<String?>(json['activityLevel']),
       heightUnit: serializer.fromJson<String>(json['heightUnit']),
       weightUnit: serializer.fromJson<String>(json['weightUnit']),
-      languageCode: serializer.fromJson<String?>(json['languageCode']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
@@ -1289,13 +1254,12 @@ class UserSettingsTableData extends DataClass
       'activityLevel': serializer.toJson<String?>(activityLevel),
       'heightUnit': serializer.toJson<String>(heightUnit),
       'weightUnit': serializer.toJson<String>(weightUnit),
-      'languageCode': serializer.toJson<String?>(languageCode),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
   }
 
-  UserSettingsTableData copyWith({
+  UserProfileTableData copyWith({
     int? id,
     Value<int?> dailyCalorieGoal = const Value.absent(),
     Value<double?> height = const Value.absent(),
@@ -1307,10 +1271,9 @@ class UserSettingsTableData extends DataClass
     Value<String?> activityLevel = const Value.absent(),
     String? heightUnit,
     String? weightUnit,
-    Value<String?> languageCode = const Value.absent(),
     DateTime? createdAt,
     DateTime? updatedAt,
-  }) => UserSettingsTableData(
+  }) => UserProfileTableData(
     id: id ?? this.id,
     dailyCalorieGoal:
         dailyCalorieGoal.present
@@ -1326,12 +1289,11 @@ class UserSettingsTableData extends DataClass
         activityLevel.present ? activityLevel.value : this.activityLevel,
     heightUnit: heightUnit ?? this.heightUnit,
     weightUnit: weightUnit ?? this.weightUnit,
-    languageCode: languageCode.present ? languageCode.value : this.languageCode,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
   );
-  UserSettingsTableData copyWithCompanion(UserSettingsTableCompanion data) {
-    return UserSettingsTableData(
+  UserProfileTableData copyWithCompanion(UserProfileTableCompanion data) {
+    return UserProfileTableData(
       id: data.id.present ? data.id.value : this.id,
       dailyCalorieGoal:
           data.dailyCalorieGoal.present
@@ -1356,10 +1318,6 @@ class UserSettingsTableData extends DataClass
           data.heightUnit.present ? data.heightUnit.value : this.heightUnit,
       weightUnit:
           data.weightUnit.present ? data.weightUnit.value : this.weightUnit,
-      languageCode:
-          data.languageCode.present
-              ? data.languageCode.value
-              : this.languageCode,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
@@ -1367,7 +1325,7 @@ class UserSettingsTableData extends DataClass
 
   @override
   String toString() {
-    return (StringBuffer('UserSettingsTableData(')
+    return (StringBuffer('UserProfileTableData(')
           ..write('id: $id, ')
           ..write('dailyCalorieGoal: $dailyCalorieGoal, ')
           ..write('height: $height, ')
@@ -1379,7 +1337,6 @@ class UserSettingsTableData extends DataClass
           ..write('activityLevel: $activityLevel, ')
           ..write('heightUnit: $heightUnit, ')
           ..write('weightUnit: $weightUnit, ')
-          ..write('languageCode: $languageCode, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -1399,14 +1356,13 @@ class UserSettingsTableData extends DataClass
     activityLevel,
     heightUnit,
     weightUnit,
-    languageCode,
     createdAt,
     updatedAt,
   );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is UserSettingsTableData &&
+      (other is UserProfileTableData &&
           other.id == this.id &&
           other.dailyCalorieGoal == this.dailyCalorieGoal &&
           other.height == this.height &&
@@ -1418,13 +1374,11 @@ class UserSettingsTableData extends DataClass
           other.activityLevel == this.activityLevel &&
           other.heightUnit == this.heightUnit &&
           other.weightUnit == this.weightUnit &&
-          other.languageCode == this.languageCode &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
 }
 
-class UserSettingsTableCompanion
-    extends UpdateCompanion<UserSettingsTableData> {
+class UserProfileTableCompanion extends UpdateCompanion<UserProfileTableData> {
   final Value<int> id;
   final Value<int?> dailyCalorieGoal;
   final Value<double?> height;
@@ -1436,10 +1390,9 @@ class UserSettingsTableCompanion
   final Value<String?> activityLevel;
   final Value<String> heightUnit;
   final Value<String> weightUnit;
-  final Value<String?> languageCode;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
-  const UserSettingsTableCompanion({
+  const UserProfileTableCompanion({
     this.id = const Value.absent(),
     this.dailyCalorieGoal = const Value.absent(),
     this.height = const Value.absent(),
@@ -1451,11 +1404,10 @@ class UserSettingsTableCompanion
     this.activityLevel = const Value.absent(),
     this.heightUnit = const Value.absent(),
     this.weightUnit = const Value.absent(),
-    this.languageCode = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
-  UserSettingsTableCompanion.insert({
+  UserProfileTableCompanion.insert({
     this.id = const Value.absent(),
     this.dailyCalorieGoal = const Value.absent(),
     this.height = const Value.absent(),
@@ -1467,11 +1419,10 @@ class UserSettingsTableCompanion
     this.activityLevel = const Value.absent(),
     this.heightUnit = const Value.absent(),
     this.weightUnit = const Value.absent(),
-    this.languageCode = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
-  static Insertable<UserSettingsTableData> custom({
+  static Insertable<UserProfileTableData> custom({
     Expression<int>? id,
     Expression<int>? dailyCalorieGoal,
     Expression<double>? height,
@@ -1483,7 +1434,6 @@ class UserSettingsTableCompanion
     Expression<String>? activityLevel,
     Expression<String>? heightUnit,
     Expression<String>? weightUnit,
-    Expression<String>? languageCode,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
   }) {
@@ -1499,13 +1449,12 @@ class UserSettingsTableCompanion
       if (activityLevel != null) 'activity_level': activityLevel,
       if (heightUnit != null) 'height_unit': heightUnit,
       if (weightUnit != null) 'weight_unit': weightUnit,
-      if (languageCode != null) 'language_code': languageCode,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
     });
   }
 
-  UserSettingsTableCompanion copyWith({
+  UserProfileTableCompanion copyWith({
     Value<int>? id,
     Value<int?>? dailyCalorieGoal,
     Value<double?>? height,
@@ -1517,11 +1466,10 @@ class UserSettingsTableCompanion
     Value<String?>? activityLevel,
     Value<String>? heightUnit,
     Value<String>? weightUnit,
-    Value<String?>? languageCode,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
   }) {
-    return UserSettingsTableCompanion(
+    return UserProfileTableCompanion(
       id: id ?? this.id,
       dailyCalorieGoal: dailyCalorieGoal ?? this.dailyCalorieGoal,
       height: height ?? this.height,
@@ -1533,7 +1481,6 @@ class UserSettingsTableCompanion
       activityLevel: activityLevel ?? this.activityLevel,
       heightUnit: heightUnit ?? this.heightUnit,
       weightUnit: weightUnit ?? this.weightUnit,
-      languageCode: languageCode ?? this.languageCode,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -1575,9 +1522,6 @@ class UserSettingsTableCompanion
     if (weightUnit.present) {
       map['weight_unit'] = Variable<String>(weightUnit.value);
     }
-    if (languageCode.present) {
-      map['language_code'] = Variable<String>(languageCode.value);
-    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
@@ -1589,7 +1533,7 @@ class UserSettingsTableCompanion
 
   @override
   String toString() {
-    return (StringBuffer('UserSettingsTableCompanion(')
+    return (StringBuffer('UserProfileTableCompanion(')
           ..write('id: $id, ')
           ..write('dailyCalorieGoal: $dailyCalorieGoal, ')
           ..write('height: $height, ')
@@ -1601,8 +1545,321 @@ class UserSettingsTableCompanion
           ..write('activityLevel: $activityLevel, ')
           ..write('heightUnit: $heightUnit, ')
           ..write('weightUnit: $weightUnit, ')
-          ..write('languageCode: $languageCode, ')
           ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $UserPreferencesTableTable extends UserPreferencesTable
+    with TableInfo<$UserPreferencesTableTable, UserPreferencesTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $UserPreferencesTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _languageCodeMeta = const VerificationMeta(
+    'languageCode',
+  );
+  @override
+  late final GeneratedColumn<String> languageCode = GeneratedColumn<String>(
+    'language_code',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _themeMeta = const VerificationMeta('theme');
+  @override
+  late final GeneratedColumn<String> theme = GeneratedColumn<String>(
+    'theme',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, languageCode, theme, updatedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'user_preferences_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<UserPreferencesTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('language_code')) {
+      context.handle(
+        _languageCodeMeta,
+        languageCode.isAcceptableOrUnknown(
+          data['language_code']!,
+          _languageCodeMeta,
+        ),
+      );
+    }
+    if (data.containsKey('theme')) {
+      context.handle(
+        _themeMeta,
+        theme.isAcceptableOrUnknown(data['theme']!, _themeMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  UserPreferencesTableData map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return UserPreferencesTableData(
+      id:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}id'],
+          )!,
+      languageCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}language_code'],
+      ),
+      theme: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}theme'],
+      ),
+      updatedAt:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}updated_at'],
+          )!,
+    );
+  }
+
+  @override
+  $UserPreferencesTableTable createAlias(String alias) {
+    return $UserPreferencesTableTable(attachedDatabase, alias);
+  }
+}
+
+class UserPreferencesTableData extends DataClass
+    implements Insertable<UserPreferencesTableData> {
+  final int id;
+  final String? languageCode;
+  final String? theme;
+  final DateTime updatedAt;
+  const UserPreferencesTableData({
+    required this.id,
+    this.languageCode,
+    this.theme,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    if (!nullToAbsent || languageCode != null) {
+      map['language_code'] = Variable<String>(languageCode);
+    }
+    if (!nullToAbsent || theme != null) {
+      map['theme'] = Variable<String>(theme);
+    }
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  UserPreferencesTableCompanion toCompanion(bool nullToAbsent) {
+    return UserPreferencesTableCompanion(
+      id: Value(id),
+      languageCode:
+          languageCode == null && nullToAbsent
+              ? const Value.absent()
+              : Value(languageCode),
+      theme:
+          theme == null && nullToAbsent ? const Value.absent() : Value(theme),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory UserPreferencesTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return UserPreferencesTableData(
+      id: serializer.fromJson<int>(json['id']),
+      languageCode: serializer.fromJson<String?>(json['languageCode']),
+      theme: serializer.fromJson<String?>(json['theme']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'languageCode': serializer.toJson<String?>(languageCode),
+      'theme': serializer.toJson<String?>(theme),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  UserPreferencesTableData copyWith({
+    int? id,
+    Value<String?> languageCode = const Value.absent(),
+    Value<String?> theme = const Value.absent(),
+    DateTime? updatedAt,
+  }) => UserPreferencesTableData(
+    id: id ?? this.id,
+    languageCode: languageCode.present ? languageCode.value : this.languageCode,
+    theme: theme.present ? theme.value : this.theme,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  UserPreferencesTableData copyWithCompanion(
+    UserPreferencesTableCompanion data,
+  ) {
+    return UserPreferencesTableData(
+      id: data.id.present ? data.id.value : this.id,
+      languageCode:
+          data.languageCode.present
+              ? data.languageCode.value
+              : this.languageCode,
+      theme: data.theme.present ? data.theme.value : this.theme,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UserPreferencesTableData(')
+          ..write('id: $id, ')
+          ..write('languageCode: $languageCode, ')
+          ..write('theme: $theme, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, languageCode, theme, updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is UserPreferencesTableData &&
+          other.id == this.id &&
+          other.languageCode == this.languageCode &&
+          other.theme == this.theme &&
+          other.updatedAt == this.updatedAt);
+}
+
+class UserPreferencesTableCompanion
+    extends UpdateCompanion<UserPreferencesTableData> {
+  final Value<int> id;
+  final Value<String?> languageCode;
+  final Value<String?> theme;
+  final Value<DateTime> updatedAt;
+  const UserPreferencesTableCompanion({
+    this.id = const Value.absent(),
+    this.languageCode = const Value.absent(),
+    this.theme = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  });
+  UserPreferencesTableCompanion.insert({
+    this.id = const Value.absent(),
+    this.languageCode = const Value.absent(),
+    this.theme = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  });
+  static Insertable<UserPreferencesTableData> custom({
+    Expression<int>? id,
+    Expression<String>? languageCode,
+    Expression<String>? theme,
+    Expression<DateTime>? updatedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (languageCode != null) 'language_code': languageCode,
+      if (theme != null) 'theme': theme,
+      if (updatedAt != null) 'updated_at': updatedAt,
+    });
+  }
+
+  UserPreferencesTableCompanion copyWith({
+    Value<int>? id,
+    Value<String?>? languageCode,
+    Value<String?>? theme,
+    Value<DateTime>? updatedAt,
+  }) {
+    return UserPreferencesTableCompanion(
+      id: id ?? this.id,
+      languageCode: languageCode ?? this.languageCode,
+      theme: theme ?? this.theme,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (languageCode.present) {
+      map['language_code'] = Variable<String>(languageCode.value);
+    }
+    if (theme.present) {
+      map['theme'] = Variable<String>(theme.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UserPreferencesTableCompanion(')
+          ..write('id: $id, ')
+          ..write('languageCode: $languageCode, ')
+          ..write('theme: $theme, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
@@ -2547,8 +2804,11 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $MealInfoTableTable mealInfoTable = $MealInfoTableTable(this);
-  late final $UserSettingsTableTable userSettingsTable =
-      $UserSettingsTableTable(this);
+  late final $UserProfileTableTable userProfileTable = $UserProfileTableTable(
+    this,
+  );
+  late final $UserPreferencesTableTable userPreferencesTable =
+      $UserPreferencesTableTable(this);
   late final $FavoriteMealTableTable favoriteMealTable =
       $FavoriteMealTableTable(this);
   @override
@@ -2557,7 +2817,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
     mealInfoTable,
-    userSettingsTable,
+    userProfileTable,
+    userPreferencesTable,
     favoriteMealTable,
   ];
 }
@@ -2929,8 +3190,8 @@ typedef $$MealInfoTableTableProcessedTableManager =
       MealInfoTableData,
       PrefetchHooks Function()
     >;
-typedef $$UserSettingsTableTableCreateCompanionBuilder =
-    UserSettingsTableCompanion Function({
+typedef $$UserProfileTableTableCreateCompanionBuilder =
+    UserProfileTableCompanion Function({
       Value<int> id,
       Value<int?> dailyCalorieGoal,
       Value<double?> height,
@@ -2942,12 +3203,11 @@ typedef $$UserSettingsTableTableCreateCompanionBuilder =
       Value<String?> activityLevel,
       Value<String> heightUnit,
       Value<String> weightUnit,
-      Value<String?> languageCode,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
     });
-typedef $$UserSettingsTableTableUpdateCompanionBuilder =
-    UserSettingsTableCompanion Function({
+typedef $$UserProfileTableTableUpdateCompanionBuilder =
+    UserProfileTableCompanion Function({
       Value<int> id,
       Value<int?> dailyCalorieGoal,
       Value<double?> height,
@@ -2959,14 +3219,13 @@ typedef $$UserSettingsTableTableUpdateCompanionBuilder =
       Value<String?> activityLevel,
       Value<String> heightUnit,
       Value<String> weightUnit,
-      Value<String?> languageCode,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
     });
 
-class $$UserSettingsTableTableFilterComposer
-    extends Composer<_$AppDatabase, $UserSettingsTableTable> {
-  $$UserSettingsTableTableFilterComposer({
+class $$UserProfileTableTableFilterComposer
+    extends Composer<_$AppDatabase, $UserProfileTableTable> {
+  $$UserProfileTableTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -3028,11 +3287,6 @@ class $$UserSettingsTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get languageCode => $composableBuilder(
-    column: $table.languageCode,
-    builder: (column) => ColumnFilters(column),
-  );
-
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
@@ -3044,9 +3298,9 @@ class $$UserSettingsTableTableFilterComposer
   );
 }
 
-class $$UserSettingsTableTableOrderingComposer
-    extends Composer<_$AppDatabase, $UserSettingsTableTable> {
-  $$UserSettingsTableTableOrderingComposer({
+class $$UserProfileTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $UserProfileTableTable> {
+  $$UserProfileTableTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -3108,11 +3362,6 @@ class $$UserSettingsTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get languageCode => $composableBuilder(
-    column: $table.languageCode,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
@@ -3124,9 +3373,9 @@ class $$UserSettingsTableTableOrderingComposer
   );
 }
 
-class $$UserSettingsTableTableAnnotationComposer
-    extends Composer<_$AppDatabase, $UserSettingsTableTable> {
-  $$UserSettingsTableTableAnnotationComposer({
+class $$UserProfileTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $UserProfileTableTable> {
+  $$UserProfileTableTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -3180,11 +3429,6 @@ class $$UserSettingsTableTableAnnotationComposer
     builder: (column) => column,
   );
 
-  GeneratedColumn<String> get languageCode => $composableBuilder(
-    column: $table.languageCode,
-    builder: (column) => column,
-  );
-
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
@@ -3192,47 +3436,45 @@ class $$UserSettingsTableTableAnnotationComposer
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 }
 
-class $$UserSettingsTableTableTableManager
+class $$UserProfileTableTableTableManager
     extends
         RootTableManager<
           _$AppDatabase,
-          $UserSettingsTableTable,
-          UserSettingsTableData,
-          $$UserSettingsTableTableFilterComposer,
-          $$UserSettingsTableTableOrderingComposer,
-          $$UserSettingsTableTableAnnotationComposer,
-          $$UserSettingsTableTableCreateCompanionBuilder,
-          $$UserSettingsTableTableUpdateCompanionBuilder,
+          $UserProfileTableTable,
+          UserProfileTableData,
+          $$UserProfileTableTableFilterComposer,
+          $$UserProfileTableTableOrderingComposer,
+          $$UserProfileTableTableAnnotationComposer,
+          $$UserProfileTableTableCreateCompanionBuilder,
+          $$UserProfileTableTableUpdateCompanionBuilder,
           (
-            UserSettingsTableData,
+            UserProfileTableData,
             BaseReferences<
               _$AppDatabase,
-              $UserSettingsTableTable,
-              UserSettingsTableData
+              $UserProfileTableTable,
+              UserProfileTableData
             >,
           ),
-          UserSettingsTableData,
+          UserProfileTableData,
           PrefetchHooks Function()
         > {
-  $$UserSettingsTableTableTableManager(
+  $$UserProfileTableTableTableManager(
     _$AppDatabase db,
-    $UserSettingsTableTable table,
+    $UserProfileTableTable table,
   ) : super(
         TableManagerState(
           db: db,
           table: table,
           createFilteringComposer:
-              () => $$UserSettingsTableTableFilterComposer(
-                $db: db,
-                $table: table,
-              ),
+              () =>
+                  $$UserProfileTableTableFilterComposer($db: db, $table: table),
           createOrderingComposer:
-              () => $$UserSettingsTableTableOrderingComposer(
+              () => $$UserProfileTableTableOrderingComposer(
                 $db: db,
                 $table: table,
               ),
           createComputedFieldComposer:
-              () => $$UserSettingsTableTableAnnotationComposer(
+              () => $$UserProfileTableTableAnnotationComposer(
                 $db: db,
                 $table: table,
               ),
@@ -3249,10 +3491,9 @@ class $$UserSettingsTableTableTableManager
                 Value<String?> activityLevel = const Value.absent(),
                 Value<String> heightUnit = const Value.absent(),
                 Value<String> weightUnit = const Value.absent(),
-                Value<String?> languageCode = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
-              }) => UserSettingsTableCompanion(
+              }) => UserProfileTableCompanion(
                 id: id,
                 dailyCalorieGoal: dailyCalorieGoal,
                 height: height,
@@ -3264,7 +3505,6 @@ class $$UserSettingsTableTableTableManager
                 activityLevel: activityLevel,
                 heightUnit: heightUnit,
                 weightUnit: weightUnit,
-                languageCode: languageCode,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
               ),
@@ -3281,10 +3521,9 @@ class $$UserSettingsTableTableTableManager
                 Value<String?> activityLevel = const Value.absent(),
                 Value<String> heightUnit = const Value.absent(),
                 Value<String> weightUnit = const Value.absent(),
-                Value<String?> languageCode = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
-              }) => UserSettingsTableCompanion.insert(
+              }) => UserProfileTableCompanion.insert(
                 id: id,
                 dailyCalorieGoal: dailyCalorieGoal,
                 height: height,
@@ -3296,7 +3535,6 @@ class $$UserSettingsTableTableTableManager
                 activityLevel: activityLevel,
                 heightUnit: heightUnit,
                 weightUnit: weightUnit,
-                languageCode: languageCode,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
               ),
@@ -3315,25 +3553,228 @@ class $$UserSettingsTableTableTableManager
       );
 }
 
-typedef $$UserSettingsTableTableProcessedTableManager =
+typedef $$UserProfileTableTableProcessedTableManager =
     ProcessedTableManager<
       _$AppDatabase,
-      $UserSettingsTableTable,
-      UserSettingsTableData,
-      $$UserSettingsTableTableFilterComposer,
-      $$UserSettingsTableTableOrderingComposer,
-      $$UserSettingsTableTableAnnotationComposer,
-      $$UserSettingsTableTableCreateCompanionBuilder,
-      $$UserSettingsTableTableUpdateCompanionBuilder,
+      $UserProfileTableTable,
+      UserProfileTableData,
+      $$UserProfileTableTableFilterComposer,
+      $$UserProfileTableTableOrderingComposer,
+      $$UserProfileTableTableAnnotationComposer,
+      $$UserProfileTableTableCreateCompanionBuilder,
+      $$UserProfileTableTableUpdateCompanionBuilder,
       (
-        UserSettingsTableData,
+        UserProfileTableData,
         BaseReferences<
           _$AppDatabase,
-          $UserSettingsTableTable,
-          UserSettingsTableData
+          $UserProfileTableTable,
+          UserProfileTableData
         >,
       ),
-      UserSettingsTableData,
+      UserProfileTableData,
+      PrefetchHooks Function()
+    >;
+typedef $$UserPreferencesTableTableCreateCompanionBuilder =
+    UserPreferencesTableCompanion Function({
+      Value<int> id,
+      Value<String?> languageCode,
+      Value<String?> theme,
+      Value<DateTime> updatedAt,
+    });
+typedef $$UserPreferencesTableTableUpdateCompanionBuilder =
+    UserPreferencesTableCompanion Function({
+      Value<int> id,
+      Value<String?> languageCode,
+      Value<String?> theme,
+      Value<DateTime> updatedAt,
+    });
+
+class $$UserPreferencesTableTableFilterComposer
+    extends Composer<_$AppDatabase, $UserPreferencesTableTable> {
+  $$UserPreferencesTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get languageCode => $composableBuilder(
+    column: $table.languageCode,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get theme => $composableBuilder(
+    column: $table.theme,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$UserPreferencesTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $UserPreferencesTableTable> {
+  $$UserPreferencesTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get languageCode => $composableBuilder(
+    column: $table.languageCode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get theme => $composableBuilder(
+    column: $table.theme,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$UserPreferencesTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $UserPreferencesTableTable> {
+  $$UserPreferencesTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get languageCode => $composableBuilder(
+    column: $table.languageCode,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get theme =>
+      $composableBuilder(column: $table.theme, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$UserPreferencesTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $UserPreferencesTableTable,
+          UserPreferencesTableData,
+          $$UserPreferencesTableTableFilterComposer,
+          $$UserPreferencesTableTableOrderingComposer,
+          $$UserPreferencesTableTableAnnotationComposer,
+          $$UserPreferencesTableTableCreateCompanionBuilder,
+          $$UserPreferencesTableTableUpdateCompanionBuilder,
+          (
+            UserPreferencesTableData,
+            BaseReferences<
+              _$AppDatabase,
+              $UserPreferencesTableTable,
+              UserPreferencesTableData
+            >,
+          ),
+          UserPreferencesTableData,
+          PrefetchHooks Function()
+        > {
+  $$UserPreferencesTableTableTableManager(
+    _$AppDatabase db,
+    $UserPreferencesTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer:
+              () => $$UserPreferencesTableTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer:
+              () => $$UserPreferencesTableTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer:
+              () => $$UserPreferencesTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> languageCode = const Value.absent(),
+                Value<String?> theme = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => UserPreferencesTableCompanion(
+                id: id,
+                languageCode: languageCode,
+                theme: theme,
+                updatedAt: updatedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> languageCode = const Value.absent(),
+                Value<String?> theme = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => UserPreferencesTableCompanion.insert(
+                id: id,
+                languageCode: languageCode,
+                theme: theme,
+                updatedAt: updatedAt,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$UserPreferencesTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $UserPreferencesTableTable,
+      UserPreferencesTableData,
+      $$UserPreferencesTableTableFilterComposer,
+      $$UserPreferencesTableTableOrderingComposer,
+      $$UserPreferencesTableTableAnnotationComposer,
+      $$UserPreferencesTableTableCreateCompanionBuilder,
+      $$UserPreferencesTableTableUpdateCompanionBuilder,
+      (
+        UserPreferencesTableData,
+        BaseReferences<
+          _$AppDatabase,
+          $UserPreferencesTableTable,
+          UserPreferencesTableData
+        >,
+      ),
+      UserPreferencesTableData,
       PrefetchHooks Function()
     >;
 typedef $$FavoriteMealTableTableCreateCompanionBuilder =
@@ -3781,8 +4222,10 @@ class $AppDatabaseManager {
   $AppDatabaseManager(this._db);
   $$MealInfoTableTableTableManager get mealInfoTable =>
       $$MealInfoTableTableTableManager(_db, _db.mealInfoTable);
-  $$UserSettingsTableTableTableManager get userSettingsTable =>
-      $$UserSettingsTableTableTableManager(_db, _db.userSettingsTable);
+  $$UserProfileTableTableTableManager get userProfileTable =>
+      $$UserProfileTableTableTableManager(_db, _db.userProfileTable);
+  $$UserPreferencesTableTableTableManager get userPreferencesTable =>
+      $$UserPreferencesTableTableTableManager(_db, _db.userPreferencesTable);
   $$FavoriteMealTableTableTableManager get favoriteMealTable =>
       $$FavoriteMealTableTableTableManager(_db, _db.favoriteMealTable);
 }

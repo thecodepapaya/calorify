@@ -1,6 +1,6 @@
-import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/health_score.dart';
 import 'package:calorify/i18n/strings.g.dart';
+import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:calorify/shared_widgets/health_score_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +11,7 @@ Future<void> showHealthScoreReason({
 }) {
   return showModalBottomSheet(
     context: context,
+    isScrollControlled: true,
     showDragHandle: true,
     builder:
         (context) =>
@@ -31,8 +32,7 @@ class _HealthScoreSheet extends StatelessWidget {
     final scoreColor = healthScore.color(context);
     final scoreText = healthScore.displayText;
 
-    return Container(
-      padding: globalSheetPadding,
+    return BaseBottomSheet(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

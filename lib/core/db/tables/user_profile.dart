@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-class UserSettingsTable extends Table {
+class UserProfileTable extends Table {
   IntColumn get id => integer().autoIncrement()(); // Primary key
   IntColumn get dailyCalorieGoal => integer().nullable()();
   RealColumn get height => real().nullable()();
@@ -16,7 +16,6 @@ class UserSettingsTable extends Table {
       text().withDefault(const Constant('metric'))(); // 'metric' or 'imperial'
   TextColumn get weightUnit =>
       text().withDefault(const Constant('metric'))(); // 'metric' or 'imperial'
-  TextColumn get languageCode => text().nullable()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }

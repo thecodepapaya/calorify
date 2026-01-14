@@ -1,0 +1,556 @@
+{
+  "language": "Czech",
+  "flag": "🇨🇿",
+  "appLabel": "Calorify{env}",
+  "onboarding": {
+    "welcome": "Vítejte v {appLabel}",
+    "subtitle": "Váš osobní nutriční společník, který využívá umělou inteligenci",
+    "getStarted": "Začít",
+    "features": {
+      "foodRecognition": {
+        "title": "Chytré rozpoznávání potravin",
+        "description": "Vyfoťte jídlo a nechte umělou inteligenci identifikovat váš pokrm"
+      },
+      "aiAnalysis": {
+        "title": "Analýza AI",
+        "description": "Získejte okamžité nutriční informace z vašich popisů"
+      },
+      "healthIntegration": {
+        "title": "Integrace se zdravím",
+        "description": "Propojte se s Health Connect pro lepší přehledy"
+      }
+    },
+    "gender": {
+      "title": "Jaké je vaše pohlaví?",
+      "description": "Pohlaví nám pomáhá přesně vypočítat váš bazální metabolismus (BMR).",
+      "next": "Další"
+    },
+    "height": {
+      "title": "Jak vysoký/á jste?",
+      "description": "Vaše výška nám pomáhá přesně vypočítat váš BMI a energetické potřeby.",
+      "metric": "Metrické",
+      "imperial": "Imperiální",
+      "next": "Další"
+    },
+    "weight": {
+      "currentTitle": "Jaká je vaše aktuální hmotnost?",
+      "currentDescription": "Vaše aktuální hmotnost je zásadní pro personalizaci vašich denních cílů.",
+      "targetTitle": "Jaká je vaše cílová hmotnost?",
+      "targetDescription": "Nastavení cílové hmotnosti nám pomůže určit váš dlouhodobý plán.",
+      "metric": "Metrické",
+      "imperial": "Imperiální",
+      "next": "Další"
+    },
+    "age": {
+      "title": "Kdy máte narozeniny?",
+      "description": "Váš věk nám pomáhá přesně vypočítat vaše kalorické potřeby.",
+      "next": "Další"
+    },
+    "bmiScale": {
+      "underweight": "Podváha",
+      "healthy": "Zdravá hmotnost",
+      "overweight": "Nadváha",
+      "obese": "Obezita",
+      "categories": {
+        "underweight": "Podváha",
+        "healthyWeight": "Zdravá hmotnost",
+        "overweight": "Nadváha",
+        "obese": "Obezita"
+      },
+      "messages": {
+        "underweight": "Můžeme vám pomoci vytvořit zdravý plán, abyste dosáhli vyvážené hmotnosti s výživnými jídly.",
+        "healthy": "Skvěle! Jste v zdravém rozmezí. Pomůžeme vám udržet vaši vitalitu a energii.",
+        "overweight": "{appLabel} vám usnadní cestu pomocí sledování na bázi AI, které vám pomůže dosáhnout vašich cílů s lehkostí.",
+        "obese": "Jsme tu, abychom vás podpořili s personalizovaným poradenstvím a udržitelnými strategiemi pro vaše zdraví."
+      }
+    },
+    "weightGoal": {
+      "title": "Jaký je váš cíl?",
+      "description": "Vyberte cíl, který nejlépe vystihuje to, co chcete dosáhnout"
+    },
+    "activityLevel": {
+      "title": "Jak aktivní jste?",
+      "description": "To nám pomáhá přesněji vypočítat vaše denní kalorické potřeby"
+    },
+    "healthConnect": {
+      "title": "Propojte se s Health Connect",
+      "description": "Synchronizujte svá zdravotní data pro lepší přehledy a automatické sledování kalorií",
+      "automaticTracking": {
+        "title": "Automatické sledování kalorií",
+        "description": "Sledujte spálené kalorie z vašich fitness aplikací"
+      },
+      "progressInsights": {
+        "title": "Přehled pokroku",
+        "description": "Získejte podrobné přehledy o vašich zdravotních trendech"
+      },
+      "seamlessIntegration": {
+        "title": "Bezproblémová integrace",
+        "description": "Synchronizujte data z vašich oblíbených zdravotních aplikací"
+      },
+      "connected": "Health Connect připojeno",
+      "notConnected": "Health Connect není připojeno",
+      "setup": "Nastavit Health Connect",
+      "skipForNow": "Přeskočit nyní",
+      "statusConnected": "Health Connect je připojeno.",
+      "statusSuccess": "Health Connect byl úspěšně připojen!",
+      "statusPermissionDenied": "Odmítnuto. Prosím, povolte oprávnění pro Health Connect v nastavení vašeho telefonu pro {appLabel}.",
+      "statusError": "Chyba při nastavování Health Connect: {error}"
+    },
+    "reinforcement": {
+      "trackingSuccess": {
+        "title": "Nejste sami",
+        "genericMessage": "Výzkum ukazuje, že konzistentní sledování je prvním prediktorem dlouhodobého úspěchu.",
+        "personalizedMessage": "Pro {age}-letého {gender}, který se snaží {goal}, je konzistentní sledování prvním prediktorem úspěchu.",
+        "closingMessage": "{appLabel} to dělá 10x snazší než to dělat ručně.",
+        "getStartedTitle": "Připraveni začít?",
+        "tipPhoto": "Pořiďte fotografii svých jídel pro okamžitou analýzu",
+        "tipConsistency": "Zaznamenávejte pravidelně, abyste viděli smysluplný pokrok",
+        "tipProgress": "Sledujte svůj pokrok denně, abyste zůstali motivováni",
+        "button": "Jdeme na to",
+        "defaultGender": "osoba",
+        "defaultGoal": "zdravější vy"
+      },
+      "healthProfile": {
+        "title": "Váš zdravotní profil",
+        "bmiDescription": "Na základě vašich údajů je vaše BMI {bmi}.",
+        "finalizeDescription": "Dokončeme váš profil pro přizpůsobení vašeho zážitku.",
+        "goalGain": "přibrat",
+        "goalLose": "zhubnout",
+        "goalReach": "Abychom dosáhli vašeho cíle, budete {direction} {diff} {unit}.",
+        "goalReached": "Jste na své cílové hmotnosti! Pomůžeme vám ji udržet.",
+        "button": "Jdeme na to"
+      },
+      "goalLifestyle": {
+        "title": "Skvělý začátek!",
+        "description": "Udělal(a) jste první krok směrem k {goalText}. Protože jste {activityText}, {appLabel} upraví vaše cíle tak, aby odpovídaly vašemu životnímu stylu.",
+        "personalizedTargets": "Personalizované cíle v kaloriích",
+        "aiMealDetection": "Detekce jídel pomocí AI",
+        "macroBreakdowns": "Podrobné rozdělení makroživin",
+        "button": "Jdeme na to",
+        "defaultGoal": "vašim cílům",
+        "defaultActivity": "aktivní"
+      }
+    }
+  },
+  "tabs": {
+    "dashboard": "Nástěnka",
+    "history": "Historie"
+  },
+  "home": {
+    "dailyGoal": {
+      "title": "Nastavte si svůj denní cíl",
+      "titleSet": "Váš denní cíl",
+      "description": "Připraveni na začátek vaší wellness cesty? Nastavte si svůj denní kalorický cíl níže, abyste zahájili svůj pokrok.",
+      "descriptionSet": "Vaše kompas je nastaven! Toto je váš denní kalorický cíl, který vás povede.",
+      "yourGoal": "Váš cíl",
+      "dailyCalories": "Denní kalorie (kcal)",
+      "setGoal": "Nastavit cíl",
+      "intake": "Příjem",
+      "burned": "Spálené",
+      "weightImpact": "Dopad na hmotnost",
+      "estLoss": "Odhadovaná ztráta",
+      "estGain": "Odhadované zvýšení",
+      "kcal": "kcal"
+    },
+    "dailySummary": {
+      "title": "Denní shrnutí",
+      "calories": "Kalorie",
+      "carbs": "Sacharidy",
+      "protein": "Bílkoviny",
+      "fat": "Tuky",
+      "fiber": "Vláknina"
+    },
+    "intakeProgress": {
+      "title": "Dnešní rozdělení makroživin",
+      "target": "Cíl",
+      "current": "Aktuální"
+    },
+    "intakeHistory": {
+      "title": "Historie makroživin za 7 dní",
+      "noHistoryYet": "Žádná historie zatím",
+      "startLogging": "Začněte zaznamenávat jídla, abyste zde viděli\ntrendy makroživin za 7 dní"
+    },
+    "mealLog": {
+      "title": "Zaznamenaná jídla",
+      "emptyMessage": "Vyfoťte obrázek vašeho posledního jídla, aby se zaznamenalo zde.",
+      "noMealsToday": "Žádná jídla nebyla zaznamenána pro dnešek",
+      "seeAllMeals": "Zobrazit všechna jídla"
+    },
+    "mealDescription": {
+      "title": "Rychlé přidání s AI",
+      "description": "Popište své jídlo a nechte AI se postarat o detaily.",
+      "hint": "např. Na snídani jsem měl velkou misku ovesné kaše s plátkem banánu a dávku syrovátkového proteinu...",
+      "analyzeMeal": "Analyzovat jídlo"
+    },
+    "favoriteMeals": {
+      "title": "Oblíbená jídla",
+      "description": "Rychle přidejte jedno z vašich oblíbených jídel.",
+      "noFavorites": "Žádná oblíbená jídla zatím.",
+      "addFavoriteHint": "Klikněte na hvězdičku u jídla, abyste jej označili jako oblíbené.",
+      "seeAll": "Zobrazit všechna",
+      "add": "Přidat"
+    },
+    "mealSnap": {
+      "title": "Vyfoťte a sledujte své jídlo",
+      "description": "Použijte svoji kameru, abyste vyfotili své jídlo pro analýzu AI.",
+      "openCamera": "Otevřít kameru"
+    },
+    "connectHealth": {
+      "title": "Synchronizujte s Health Connect",
+      "description": "Synchronizujte svá nutriční data s Health Connect",
+      "install": "Nainstalovat",
+      "connect": "Propojit"
+    }
+  },
+  "history": {
+    "noMeals": "Žádná jídla nebyla zaznamenána",
+    "emptyMessage": "Vyfoťte obrázek vašeho posledního jídla, aby se zaznamenalo zde.",
+    "today": "Dnes",
+    "yesterday": "Včera"
+  },
+  "meal": {
+    "ohNo": "Ach ne!",
+    "delete": "Smazat",
+    "editMeal": "Upravit jídlo",
+    "addMeal": "Přidat jídlo",
+    "saveMeal": "Uložit jídlo",
+    "save": "Uložit",
+    "mealName": "Název jídla",
+    "mealQuantity": "Množství jídla",
+    "mealQuantityHint": "např. 1 miska, 2 plátky",
+    "timeOfMeal": "Čas jídla",
+    "timeOfMealHint": "Vyberte čas, kdy jste měli své jídlo",
+    "mealType": "Typ jídla",
+    "nutrition": {
+      "calories": "Kalorie",
+      "carbs": "Sacharidy (g)",
+      "protein": "Bílkoviny (g)",
+      "fat": "Tuky (g)",
+      "fiber": "Vláknina (g)"
+    },
+    "deleteConfirmation": {
+      "title": "Smazat jídlo",
+      "message": "Opravdu chcete smazat tento záznam o jídle?",
+      "cancel": "Storno",
+      "delete": "Smazat"
+    },
+    "addedToLog": "Jídlo bylo přidáno do vašeho deníku!",
+    "couldNotAdd": "Nelze přidat jídlo: {error}",
+    "removedFromFavorites": "Odebráno z oblíbených!",
+    "savedAsFavorite": "Jídlo bylo uloženo jako oblíbené!",
+    "couldNotUpdateFavorite": "Nelze aktualizovat oblíbené: {error}",
+    "failedToProcess": "Nepodařilo se zpracovat: {error}",
+    "failedToProcessImage": "Nepodařilo se zpracovat obrázek: {error}",
+    "errorCompressingImage": "Chyba při kompresi obrázku: {error}",
+    "failedToSave": "Nepodařilo se uložit data. Zkuste to prosím znovu."
+  },
+  "favorites": {
+    "title": "Oblíbené",
+    "empty": "Žádná oblíbená jídla zatím."
+  },
+  "profile": {
+    "title": "Profil",
+    "noProfileData": "Nebyla nalezena žádná data profilu",
+    "yourProfile": "Váš profil",
+    "viewAndManage": "Zobrazte a spravujte své zdravotní informace",
+    "sections": {
+      "profile": "PROFIL",
+      "basicInformation": "ZÁKLADNÍ INFORMACE",
+      "goalsAndActivity": "CÍLE & AKTIVITA",
+      "calculatedValues": "VYPOČÍTANÉ HODNOTY"
+    },
+    "gender": "Pohlaví",
+    "height": "Výška",
+    "weight": "Hmotnost",
+    "age": "Věk",
+    "weightGoal": "Cíl hmotnosti",
+    "activityLevel": "Úroveň aktivity",
+    "healthMetrics": "Zdravotní metriky",
+    "notSet": "Nastaveno není",
+    "years": "roky",
+    "updatedSuccessfully": "Profil byl úspěšně aktualizován!",
+    "calculatedValues": {
+      "bmr": "BMR",
+      "tdee": "TDEE",
+      "dailyGoal": "Denní cíl",
+      "calPerDay": "kal/den",
+      "notAvailable": "N/A"
+    }
+  },
+  "healthScore": {
+    "title": "Zdravotní skóre",
+    "whyThisScore": "Proč toto skóre?",
+    "note": "Toto skóre je odhad AI založený na identifikovaných ingrediencích a nutriční hustotě. Vždy se poraďte s odborníkem ohledně výživového poradenství.",
+    "unhealthy": "Nezdravé",
+    "healthy": "Zdravé",
+    "neutral": "Neutrální"
+  },
+  "editProfile": {
+    "title": "Upravit profil",
+    "sections": {
+      "personalInformation": "OSOBNÍ INFORMACE",
+      "physicalMeasurements": "FYZICKÉ ROZMĚRY",
+      "goalsAndActivity": "CÍLE & AKTIVITA"
+    },
+    "gender": "Pohlaví",
+    "dateOfBirth": "Datum narození",
+    "height": "Výška",
+    "weight": "Hmotnost",
+    "weightGoal": "Cíl hmotnosti",
+    "activityLevel": "Úroveň aktivity",
+    "metric": "Metrické",
+    "imperial": "Imperiální",
+    "metricCm": "Metrické (cm)",
+    "imperialFtIn": "Imperiální (ft/in)",
+    "metricKg": "Metrické (kg)",
+    "imperialLbs": "Imperiální (lbs)",
+    "genders": {
+      "male": "Muž",
+      "female": "Žena",
+      "other": "Jiné"
+    },
+    "weightGoals": {
+      "loseWeight": {
+        "name": "Zhubnout",
+        "description": "Vytvořte kalorický deficit, abyste zhubli"
+      },
+      "maintainWeight": {
+        "name": "Udržet hmotnost",
+        "description": "Udržujte svou aktuální hmotnost"
+      },
+      "gainWeight": {
+        "name": "Přibrat na váze",
+        "description": "Vytvořte kalorický přebytek, abyste nabrali na váze"
+      }
+    },
+    "activityLevels": {
+      "sedentary": {
+        "name": "Sedavý",
+        "description": "Málo až žádné cvičení"
+      },
+      "lightlyActive": {
+        "name": "Lehce aktivní",
+        "description": "Lehká aktivita 1-3 dny/týden"
+      },
+      "moderatelyActive": {
+        "name": "Středně aktivní",
+        "description": "Střední cvičení 3-5 dní/týden"
+      },
+      "veryActive": {
+        "name": "Velmi aktivní",
+        "description": "Intenzivní cvičení 6-7 dní/týden"
+      },
+      "extremelyActive": {
+        "name": "Extrémně aktivní",
+        "description": "Velmi intenzivní cvičení, fyzicky náročná práce"
+      }
+    }
+  },
+  "settings": {
+    "title": "Nastavení",
+    "sections": {
+      "profile": "PROFIL",
+      "localization": "LOKALIZACE",
+      "notifications": "NOTIFIKACE",
+      "supportAndLegal": "POMOC & PRÁVNÍ",
+      "dangerZone": "NEBEZPEČNÁ ZÓNA",
+      "developer": "VÝVOJÁŘ"
+    },
+    "editProfile": {
+      "title": "Upravit profil",
+      "subtitle": "Aktualizujte své osobní informace"
+    },
+    "language": {
+      "title": "Jazyk",
+      "subtitle": "Vyberte svůj preferovaný jazyk",
+      "searchHint": "Hledat jazyky...",
+      "noResults": "Žádné výsledky nenalezeny"
+    },
+    "heightUnit": {
+      "title": "Jednotka výšky"
+    },
+    "weightUnit": {
+      "title": "Jednotka hmotnosti"
+    },
+    "mealReminders": {
+      "title": "Připomínky jídel",
+      "subtitle": "Zůstaňte na správné cestě s včasnými upozorněními"
+    },
+    "theme": {
+      "title": "Téma",
+      "subtitle": "Vyberte si své preferované téma",
+      "light": "Světlé",
+      "dark": "Tmavé",
+      "system": "Systémové"
+    },
+    "sendFeedback": {
+      "title": "Odeslat zpětnou vazbu",
+      "subtitle": "Pomozte nám zlepšit {appLabel}",
+      "emailSubject": "Zpětná vazba k aplikaci {appLabel}",
+      "emailBodyPrefix": "Prosím, poskytněte zpětnou vazbu níže:",
+      "appVersion": "Verze aplikace",
+      "device": "Zařízení",
+      "osVersion": "Verze OS",
+      "uid": "UID"
+    },
+    "clearAllData": {
+      "title": "Vymazat všechna data",
+      "subtitle": "Nevratně smažte všechny své informace",
+      "confirmationTitle": "Vymazat všechna data?",
+      "confirmationMessage": "Toto akce nelze vrátit. Všechna vaše zaznamenaná jídla, oblíbená jídla a nastavení profilu budou trvale smazána.",
+      "cancel": "Storno",
+      "clearEverything": "Smazat všechno"
+    },
+    "debugOptions": {
+      "title": "Možnosti ladění"
+    },
+    "developerModeEnabled": "Režim vývojáře je povolen!"
+  },
+  "reminders": {
+    "title": "Zůstaňte na správné cestě s připomínkami",
+    "description": "Získejte jemné připomínky k zaznamenávání vašich jídel a zůstaňte konzistentní s vašimi nutričními cíli",
+    "notificationsEnabled": "Upozornění povolena",
+    "notificationsDisabled": "Upozornění zakázána",
+    "enabledSubtitle": "Obdržíte připomínky k jídlům",
+    "disabledSubtitle": "Povolte oznámení, abyste dostávali připomínky k jídlům",
+    "mealReminders": "Připomínky jídel",
+    "breakfast": "Snídaně",
+    "lunch": "Oběd",
+    "dinner": "Večeře",
+    "snack": "Svačina",
+    "unknown": "Neznámé",
+    "change": "Změnit",
+    "enableNotifications": "Povolit notifikace",
+    "skipForNow": "Přeskočit prozatím",
+    "saveChanges": "Uložit změny",
+    "enabledSuccessfully": "Upozornění byla úspěšně povolena!",
+    "permissionDenied": "Povolení pro notifikace bylo zamítnuto",
+    "errorEnabling": "Chyba při povolování notifikací: {error}",
+    "errorCompletingSetup": "Chyba při dokončování nastavení: {error}"
+  },
+  "notifications": {
+    "breakfast": {
+      "title": "Čas na snídani! 🍳",
+      "body": "Nezapomeňte zaznamenat svou snídani"
+    },
+    "lunch": {
+      "title": "Čas na oběd! 🥗",
+      "body": "Čas na zaznamenání oběda"
+    },
+    "dinner": {
+      "title": "Čas na večeři! 🍽️",
+      "body": "Nezapomeňte zaznamenat svou večeři"
+    },
+    "snack": {
+      "title": "Čas na svačinu! 🍎",
+      "body": "Čas na zdravou svačinu"
+    },
+    "test": {
+      "title": "Testovací notifikace"
+    }
+  },
+  "login": {
+    "title": "Přihlášení",
+    "signInWithGoogle": "Přihlásit se pomocí Google",
+    "signInFailed": "Přihlášení přes Google se nezdařilo nebo bylo zrušeno."
+  },
+  "disclaimer": {
+    "pleaseNote": "Prosím vezměte na vědomí",
+    "snap": {
+      "description": "{appLabel} poskytuje odhadované nutriční informace. Přesnost závisí na vašem vstupu a variacích potravin. Používejte jako vodítko, nikoli jako definitivní zdroj. Konzultujte s odborníkem pro personalizované dietní rady.",
+      "portionSize": {
+        "title": "Velikost porce",
+        "description": "Přesnost odhadů silně závisí na vašem správném vyhodnocení velikosti porce."
+      },
+      "preparationMethods": {
+        "title": "Metody přípravy",
+        "description": "Způsoby přípravy mohou značně ovlivnit nutriční obsah potravin. Odhady {appLabel} nemusí vždy zohlednit tyto variace."
+      },
+      "ingredients": {
+        "title": "Ingredience",
+        "description": "Složitá jídla s mnoha skrytými ingrediencemi mohou vést k méně přesným odhadům."
+      },
+      "databaseLimitations": {
+        "title": "Omezení databáze",
+        "description": "Databáze potravin {appLabel} je rozsáhlá, ale nemusí obsahovat každou jednotlivou potravinu nebo její variantu."
+      }
+    },
+    "weightEstimate": {
+      "title": "Odhad hmotnosti",
+      "description": "Odhadovaná změna hmotnosti je teoretickým odhadem na základě jednoduchého modelu kalorického příjmu versus výdeje. Je určen pouze pro motivaci, nikoli jako předpověď vaší skutečné hmotnosti.",
+      "calorieAccuracy": {
+        "title": "Přesnost kalorií",
+        "description": "Tento odhad je pouze tak přesný, jak přesně sledujete příjem a výdej kalorií. Nepřesné zaznamenávání povede k nepřesnému odhadu."
+      },
+      "biologicalFactors": {
+        "title": "Biologické faktory",
+        "description": "Skutečná ztráta/přírůstek hmotnosti je ovlivněna metabolismem, hormony, spánkem, stresem, hydratací a jinými individuálními faktory, které {appLabel} nemůže změřit."
+      },
+      "waterWeight": {
+        "title": "Hmotnost vody a výkyvy",
+        "description": "Normální denní hmotnost se může výrazně lišit kvůli zadržování vody, trávení a časování. Odhad nezohledňuje tyto každodenní změny."
+      },
+      "professionalGuidance": {
+        "title": "Odborné poradenství",
+        "description": "Nepoužívejte tento odhad k lékařským rozhodnutím. Vždy se poraďte s odborníkem na zdraví nebo registrovaným dietologem pro personalizované rady ohledně řízení hmotnosti."
+      }
+    }
+  },
+  "common": {
+    "close": "Zavřít",
+    "continue": "Pokračovat"
+  },
+  "errors": {
+    "loadingProfileData": "Chyba při načítání dat profilu",
+    "somethingWentWrong": "Něco se pokazilo."
+  },
+  "debug": {
+    "title": "Možnosti ladění",
+    "sections": {
+      "notifications": "Notifikace",
+      "healthConnect": "Health Connect",
+      "appInfo": "Informace o aplikaci"
+    },
+    "showActiveNotifications": "Zobrazit aktivní notifikace",
+    "scheduleTestNotification": "Naplánovat testovací notifikaci (10s)",
+    "triggerBreakfastNotification": "Spustit notifikaci na snídani",
+    "cancelAllNotifications": "Zrušit všechny notifikace",
+    "activeNotifications": "Aktivní notifikace",
+    "noTitle": "Žádný název",
+    "noBody": "Žádné tělo",
+    "fetchTodaysSteps": "Načíst dnešní kroky",
+    "fetchTodaysCalories": "Načíst dnešní kalorie",
+    "fetchLatestWeight": "Načíst poslední hmotnost",
+    "fetchLatestHeight": "Načíst poslední výšku",
+    "writeTestWeight": "Zapsat testovací hmotnost (70kg)",
+    "writeTestHeight": "Zapsat testovací výšku (175cm)",
+    "syncLast7Days": "Synchronizovat posledních 7 dní",
+    "sync7DaysTitle": "Synchronizace za 7 dní",
+    "checkCurrentLocale": "Zkontrolovat aktuální lokalitu",
+    "currentLocale": "Aktuální lokalita",
+    "localeInfo": "Jazyk: {languageCode}\nZemě: {countryCode}\nJednotkový systém: {unitSystem}",
+    "latestWeight": "Nejnovější hmotnost",
+    "latestHeight": "Nejnovější výška",
+    "todaysCalories": "Dnešní kalorie",
+    "totalCaloriesBurned": "Celkové spálené kalorie: {calories}",
+    "syncSuccess": "Úspěšně načteno {count} datových bodů pro kroky, kalorie a hmotnost za posledních 7 dní.",
+    "noWeightData": "Žádná hmotnostní data nalezena za posledních 30 dní.",
+    "noHeightData": "Žádná výška data nalezena za poslední rok.",
+    "noCalorieData": "Žádná data o kaloriích nalezena pro dnešek.",
+    "weightWritten": "Úspěšně zapsána testovací hmotnost (70kg).",
+    "weightWriteFailed": "Nepodařilo se zapsat testovací hmotnost.",
+    "heightWritten": "Úspěšně zapsána testovací výška (175cm).",
+    "heightWriteFailed": "Nepodařilo se zapsat testovací výšku.",
+    "noNotifications": "Žádné aktivní notifikace.",
+    "testNotificationScheduled": "Testovací notifikace naplánována na 10 sekund.",
+    "testNotificationBody": "Toto je testovací notifikace naplánovaná na 10 sekund.",
+    "breakfastNotificationTriggered": "Notifikace na snídani byla spuštěna.",
+    "allNotificationsCancelled": "Všechny notifikace byly zrušeny.",
+    "fetchingData": "Načítám data za posledních 7 dní...",
+    "id": "ID: {id}"
+  },
+  "health": {
+    "syncFailed": "Nedaří se synchronizovat s Health Connect",
+    "mealSynced": "Jídlo synchronizováno s Health Connect"
+  }
+}

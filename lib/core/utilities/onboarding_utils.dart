@@ -1,3 +1,4 @@
+import 'package:calorify/core/utilities/string_utils.dart';
 import 'package:calorify/i18n/strings.g.dart';
 
 class OnboardingUtils {
@@ -16,7 +17,9 @@ class OnboardingUtils {
       return t.onboarding.bmiScale.messages.healthy;
     }
     if (bmi < 30) {
-      return t.onboarding.bmiScale.messages.overweight;
+      return t.onboarding.bmiScale.messages.overweight(
+        appLabel: t.appLabelValue,
+      );
     }
     return t.onboarding.bmiScale.messages.obese;
   }

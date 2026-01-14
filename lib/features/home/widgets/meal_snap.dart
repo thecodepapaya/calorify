@@ -80,7 +80,7 @@ class _MealSnapState extends State<MealSnap> {
                     ),
                   ),
                   foregroundDecoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.6),
+                    color: colorScheme.shadow.withValues(alpha: 0.6),
                     borderRadius: globalRadius,
                   ),
                   width: double.infinity,

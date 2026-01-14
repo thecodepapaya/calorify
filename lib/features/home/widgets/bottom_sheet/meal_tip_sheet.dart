@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:calorify/core/constants/colors.dart';
-import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/meal_detection_result.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/services/database_service.dart';
@@ -14,6 +13,7 @@ import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/meal_image.dart';
 import 'package:calorify/i18n/strings.g.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:calorify/shared_widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ Future<void> showMealTip({
     showDragHandle: true,
     enableDrag: true,
     isScrollControlled: true,
-    routeSettings: RouteSettings(name: 'meal_tip_sheet'),
+    routeSettings: const RouteSettings(name: 'meal_tip_sheet'),
     builder:
         (context) => _MealTip(
           mealDetectionResult: mealDetectionResult,
@@ -82,10 +82,7 @@ class _MealTipState extends State<_MealTip> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: globalSheetPadding,
-      decoration: BoxDecoration(borderRadius: globalRadius),
+    return BaseBottomSheet(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -94,7 +91,7 @@ class _MealTipState extends State<_MealTip> {
             ..._mealIdentified(context)
           else
             ..._mealUnIdentified(context),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
         ],
       ),
     );

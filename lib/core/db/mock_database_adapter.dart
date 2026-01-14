@@ -6,6 +6,7 @@ import 'package:calorify/core/db/mock_data/meal_info_mock.dart';
 import 'package:calorify/core/db/mock_data/user_settings_mock.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/models/profile_models.dart' as profile_models;
+import 'package:flutter/material.dart' show ThemeMode;
 
 /// Mock database adapter that implements DatabaseInterface
 class MockDatabaseAdapter implements DatabaseInterface {
@@ -13,6 +14,8 @@ class MockDatabaseAdapter implements DatabaseInterface {
   final List<MealInfo> _favorites = [];
   int? _dailyCalorieGoal;
   profile_models.UserProfile? _userProfile;
+  ThemeMode _themeMode = ThemeMode.system;
+  String? _languageCode;
 
   final StreamController<int?> _goalController =
       StreamController<int?>.broadcast();
@@ -162,8 +165,29 @@ class MockDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
-  Future<bool> hasUserProfile() async {
-    return _userProfile != null;
+  Future<bool> isProfileComplete() async {
+    if (_userProfile == null) return false;
+    return _userProfile!.isProfileComplete;
+  }
+
+  @override
+  Future<ThemeMode> getThemeMode() async {
+    return _themeMode;
+  }
+
+  @override
+  Future<void> setThemeMode(ThemeMode mode) async {
+    _themeMode = mode;
+  }
+
+  @override
+  Future<String?> getLanguageCode() async {
+    return _languageCode;
+  }
+
+  @override
+  Future<void> setLanguageCode(String? code) async {
+    _languageCode = code;
   }
 
   @override
@@ -172,6 +196,8 @@ class MockDatabaseAdapter implements DatabaseInterface {
     _favorites.clear();
     _userProfile = null;
     _dailyCalorieGoal = null;
+    _languageCode = null;
+    _themeMode = ThemeMode.system;
     _goalController.add(null);
   }
 }

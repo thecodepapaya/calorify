@@ -26,7 +26,6 @@ UserProfile _$UserProfileFromJson(Map<String, dynamic> json) => UserProfile(
   weightUnit:
       $enumDecodeNullable(_$UnitSystemEnumMap, json['weightUnit']) ??
       UnitSystem.metric,
-  languageCode: json['languageCode'] as String?,
 );
 
 Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
@@ -40,7 +39,6 @@ Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
       'activityLevel': _$ActivityLevelEnumMap[instance.activityLevel],
       'heightUnit': _$UnitSystemEnumMap[instance.heightUnit]!,
       'weightUnit': _$UnitSystemEnumMap[instance.weightUnit]!,
-      'languageCode': instance.languageCode,
     };
 
 const _$GenderEnumMap = {

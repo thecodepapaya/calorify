@@ -28,12 +28,12 @@ class BMIScale extends StatelessWidget {
                 height: 12,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
-                  gradient: const LinearGradient(
+                  gradient: LinearGradient(
                     colors: [
-                      Colors.blue,
-                      Colors.green,
-                      Colors.orange,
-                      Colors.red,
+                      colorScheme.primary,
+                      colorScheme.tertiary,
+                      colorScheme.tertiary,
+                      colorScheme.error,
                     ],
                   ),
                 ),
@@ -42,11 +42,11 @@ class BMIScale extends StatelessWidget {
               Row(
                 children: [
                   Expanded(flex: (18.5 - 15).toInt(), child: const SizedBox()),
-                  _buildDivider(),
+                  _buildDivider(context),
                   Expanded(flex: (25 - 18.5).toInt(), child: const SizedBox()),
-                  _buildDivider(),
+                  _buildDivider(context),
                   Expanded(flex: (30 - 25).toInt(), child: const SizedBox()),
-                  _buildDivider(),
+                  _buildDivider(context),
                   Expanded(flex: (35 - 30).toInt(), child: const SizedBox()),
                 ],
               ),
@@ -64,7 +64,7 @@ class BMIScale extends StatelessWidget {
                         borderRadius: BorderRadius.circular(2),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.2),
+                            color: colorScheme.shadow.withValues(alpha: 0.2),
                             blurRadius: 4,
                           ),
                         ],
@@ -104,11 +104,14 @@ class BMIScale extends StatelessWidget {
     );
   }
 
-  Widget _buildDivider() => Container(
-    width: 1,
-    height: 16,
-    color: Colors.white.withValues(alpha: 0.5),
-  );
+  Widget _buildDivider(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Container(
+      width: 1,
+      height: 16,
+      color: colorScheme.onSurface.withValues(alpha: 0.5),
+    );
+  }
 
   Widget _buildLabel(String text, ThemeData theme, {bool isBold = false}) {
     return Text(

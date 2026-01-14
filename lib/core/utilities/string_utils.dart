@@ -1,3 +1,5 @@
+import 'package:calorify/core/config/env_config.dart';
+import 'package:calorify/i18n/strings.g.dart';
 import 'package:characters/characters.dart';
 
 extension StringX on String {
@@ -8,4 +10,9 @@ extension StringX on String {
     final rest = graphemes.skip(1).toString();
     return first + rest;
   }
+}
+
+extension TranslationsX on Translations {
+  String get appLabelValue =>
+      appLabel(env: EnvConfig.instance.isProd ? '' : ' staging');
 }

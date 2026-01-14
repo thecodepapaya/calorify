@@ -8,6 +8,7 @@ import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/utilities/string_utils.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/i18n/strings.g.dart';
+import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 Future<void> showEditMealSheet(
@@ -21,7 +22,7 @@ Future<void> showEditMealSheet(
     isDismissible: true,
     showDragHandle: true,
     enableDrag: true,
-    routeSettings: RouteSettings(name: 'edit_meal_sheet'),
+    routeSettings: const RouteSettings(name: 'edit_meal_sheet'),
     builder:
         (context) => _EditMealScreen(mealInfo: mealInfo, imageData: imageData),
   );
@@ -91,7 +92,7 @@ class _EditMealScreenState extends State<_EditMealScreen> {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
-    return SingleChildScrollView(
+    return BaseBottomSheet(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Column(
         mainAxisSize: MainAxisSize.min,

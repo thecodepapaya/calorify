@@ -2,6 +2,7 @@ import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/models/profile_models.dart';
+import 'package:flutter/material.dart' show ThemeMode;
 
 /// Adapter that wraps AppDatabase to implement DatabaseInterface
 class RealDatabaseAdapter implements DatabaseInterface {
@@ -99,8 +100,28 @@ class RealDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
-  Future<bool> hasUserProfile() async {
-    return await _database.hasUserProfile();
+  Future<bool> isProfileComplete() async {
+    return await _database.isProfileComplete();
+  }
+
+  @override
+  Future<ThemeMode> getThemeMode() async {
+    return await _database.getThemeMode();
+  }
+
+  @override
+  Future<void> setThemeMode(ThemeMode mode) async {
+    await _database.setThemeMode(mode);
+  }
+
+  @override
+  Future<String?> getLanguageCode() async {
+    return await _database.getLanguageCode();
+  }
+
+  @override
+  Future<void> setLanguageCode(String? code) async {
+    await _database.setLanguageCode(code);
   }
 
   @override

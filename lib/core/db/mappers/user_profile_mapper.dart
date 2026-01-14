@@ -3,7 +3,7 @@ import 'package:calorify/core/db/app_database.dart';
 import 'package:drift/drift.dart';
 
 class UserProfileMapper {
-  static UserProfile fromDrift(UserSettingsTableData data) {
+  static UserProfile fromDrift(UserProfileTableData data) {
     return UserProfile(
       height: data.height,
       weight: data.weight,
@@ -20,12 +20,11 @@ class UserProfileMapper {
               : ActivityLevel.values.byName(data.activityLevel!),
       heightUnit: UnitSystem.values.byName(data.heightUnit),
       weightUnit: UnitSystem.values.byName(data.weightUnit),
-      languageCode: data.languageCode,
     );
   }
 
-  static UserSettingsTableCompanion toDrift(UserProfile profile) {
-    return UserSettingsTableCompanion(
+  static UserProfileTableCompanion toDrift(UserProfile profile) {
+    return UserProfileTableCompanion(
       height:
           profile.height == null
               ? const Value.absent()
@@ -56,10 +55,6 @@ class UserProfileMapper {
               : Value(profile.activityLevel!.name),
       heightUnit: Value(profile.heightUnit.name),
       weightUnit: Value(profile.weightUnit.name),
-      languageCode:
-          profile.languageCode == null
-              ? const Value.absent()
-              : Value(profile.languageCode!),
     );
   }
 }

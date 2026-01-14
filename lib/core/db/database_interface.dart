@@ -1,5 +1,6 @@
 import 'package:calorify/core/models/meal_model.dart';
 import 'package:calorify/core/models/profile_models.dart';
+import 'package:flutter/material.dart' show ThemeMode;
 
 enum DataSourceType { real, mock }
 
@@ -60,8 +61,20 @@ abstract class DatabaseInterface {
   /// Get user profile
   Future<UserProfile?> getUserProfile();
 
-  /// Check if user profile exists
-  Future<bool> hasUserProfile();
+  /// Check if user profile is complete
+  Future<bool> isProfileComplete();
+
+  /// Get theme mode preference
+  Future<ThemeMode> getThemeMode();
+
+  /// Set theme mode preference
+  Future<void> setThemeMode(ThemeMode mode);
+
+  /// Get language code preference
+  Future<String?> getLanguageCode();
+
+  /// Set language code preference
+  Future<void> setLanguageCode(String? code);
 
   /// Clear all data from the database
   Future<void> clearAllData();

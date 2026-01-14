@@ -98,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ]),
           const SizedBox(height: 16),
 
-          // Calculated Values Section
+          // Calculated Values Section - Always show, even if values are N/A
           _buildCardSection(t.profile.sections.calculatedValues, [
             _buildCalculatedValuesTile(),
           ]),
@@ -314,6 +314,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final dailyCalorieGoal = OnboardingService.instance
         .calculateDailyCalorieGoal(_userProfile!);
 
+    // Always display BMR, TDEE, and Daily Goal - show N/A if calculation fails
+    final bmrText =
+        bmr != null
+            ? '${bmr.toStringAsFixed(0)} ${t.profile.calculatedValues.calPerDay}'
+            : t.profile.calculatedValues.notAvailable;
+    final tdeeText =
+        tdee != null
+            ? '${tdee.toStringAsFixed(0)} ${t.profile.calculatedValues.calPerDay}'
+            : t.profile.calculatedValues.notAvailable;
+    final dailyGoalText =
+        dailyCalorieGoal != null
+            ? '${dailyCalorieGoal.toStringAsFixed(0)} ${t.profile.calculatedValues.calPerDay}'
+            : t.profile.calculatedValues.notAvailable;
+
     return ListTile(
       leading: Container(
         padding: const EdgeInsets.all(8),
@@ -333,20 +347,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 4),
+          // Always show BMR widget
           Text(
-            '${t.profile.calculatedValues.bmr}: ${bmr != null ? '${bmr.toStringAsFixed(0)} ${t.profile.calculatedValues.calPerDay}' : t.profile.calculatedValues.notAvailable}',
+            '${t.profile.calculatedValues.bmr}: $bmrText',
             style: const TextStyle(fontSize: 13),
           ),
           const SizedBox(height: 2),
           Text(
-            '${t.profile.calculatedValues.tdee}: ${tdee != null ? '${tdee.toStringAsFixed(0)} ${t.profile.calculatedValues.calPerDay}' : t.profile.calculatedValues.notAvailable}',
+            '${t.profile.calculatedValues.tdee}: $tdeeText',
             style: const TextStyle(fontSize: 13),
           ),
           const SizedBox(height: 2),
           Text(
-            '${t.profile.calculatedValues.dailyGoal}: ${dailyCalorieGoal != null ? '${dailyCalorieGoal.toStringAsFixed(0)} ${t.profile.calculatedValues.calPerDay}' : t.profile.calculatedValues.notAvailable}',
+            '${t.profile.calculatedValues.dailyGoal}: $dailyGoalText',
             style: const TextStyle(fontSize: 13),
           ),
         ],

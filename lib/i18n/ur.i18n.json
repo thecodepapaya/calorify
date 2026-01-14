@@ -1,0 +1,556 @@
+{
+  "language": "Urdu",
+  "flag": "🇵🇰",
+  "appLabel": "Calorify{env}",
+  "onboarding": {
+    "welcome": "{appLabel} میں خوش آمدید",
+    "subtitle": "آپ کا ذاتی غذائیت ساتھی جو AI کی طاقت سے ہے",
+    "getStarted": "شروع کریں",
+    "features": {
+      "foodRecognition": {
+        "title": "ذہین غذائی شناخت",
+        "description": "ایک تصویر لیں اور AI کو اپنے کھانے کی شناخت کرنے دیں"
+      },
+      "aiAnalysis": {
+        "title": "AI تجزیہ",
+        "description": "اپنی تفصیلات سے فوری غذائیت کی معلومات حاصل کریں"
+      },
+      "healthIntegration": {
+        "title": "صحت کا انضمام",
+        "description": "بہتر بصیرت کے لیے Health Connect سے جڑیں"
+      }
+    },
+    "gender": {
+      "title": "آپ کا جنس کیا ہے؟",
+      "description": "جنس ہماری مدد کرتا ہے کہ ہم آپ کی بنیادی میٹابولک ریٹ (BMR) کو درست طریقے سے شمار کریں۔",
+      "next": "اگلا"
+    },
+    "height": {
+      "title": "آپ کی اونچائی کیا ہے؟",
+      "description": "آپ کی اونچائی ہماری مدد کرتی ہے کہ ہم آپ کا BMI اور توانائی کی ضروریات کو درست طریقے سے شمار کریں۔",
+      "metric": "میٹرک",
+      "imperial": "امپیرئل",
+      "next": "اگلا"
+    },
+    "weight": {
+      "currentTitle": "آپ کا موجودہ وزن کیا ہے؟",
+      "currentDescription": "آپ کا موجودہ وزن آپ کے روزانہ کے اہداف کو شخصی بنانے کے لئے اہم ہے۔",
+      "targetTitle": "آپ کا ہدف وزن کیا ہے؟",
+      "targetDescription": "ہدف وزن طے کرنا ہماری مدد کرتا ہے کہ ہم آپ کا طویل مدتی منصوبہ طے کریں۔",
+      "metric": "میٹرک",
+      "imperial": "امپیرئل",
+      "next": "اگلا"
+    },
+    "age": {
+      "title": "آپ کی سالگرہ کب ہے؟",
+      "description": "آپ کی عمر ہماری مدد کرتی ہے کہ ہم آپ کی کیلوری کی ضروریات کو درست طریقے سے شمار کریں۔",
+      "next": "اگلا"
+    },
+    "bmiScale": {
+      "underweight": "کم وزن",
+      "healthy": "صحت مند",
+      "overweight": "زیادہ وزن",
+      "obese": "موٹا",
+      "categories": {
+        "underweight": "کم وزن",
+        "healthyWeight": "صحت مند وزن",
+        "overweight": "زیادہ وزن",
+        "obese": "موٹا"
+      },
+      "messages": {
+        "underweight": "ہم آپ کو غذائیت سے بھرپور کھانوں کے ساتھ متوازن وزن تک پہنچنے کے لئے صحت مند منصوبہ بنانے میں مدد کر سکتے ہیں۔",
+        "healthy": "بہت اچھا! آپ صحت مند رینج میں ہیں۔ ہم آپ کی توانائی اور قوت برقرار رکھنے میں مدد کریں گے۔",
+        "overweight": "{appLabel} آپ کے سفر کو آسان بنائے گا، AI کی طاقت سے ٹریکنگ کی مدد سے آپ کو آرام سے آپ کے ہدف تک پہنچنے میں مدد کرے گا۔",
+        "obese": "ہم آپ کے صحت کے اہداف کے لئے شخصی رہنمائی اور پائیدار حکمت عملیوں کے ساتھ آپ کی مدد کرنے کے لئے یہاں ہیں۔"
+      }
+    },
+    "weightGoal": {
+      "title": "آپ کا مقصد کیا ہے؟",
+      "description": "وہ مقصد منتخب کریں جو بیان کرتا ہے کہ آپ کیا حاصل کرنا چاہتے ہیں"
+    },
+    "activityLevel": {
+      "title": "آپ کتنے ایکٹو ہیں؟",
+      "description": "یہ ہماری مدد کرتا ہے کہ ہم آپ کی روزانہ کی کیلوری کی ضروریات کو مزید درست طریقے سے شمار کریں"
+    },
+    "healthConnect": {
+      "title": "Health Connect کے ساتھ جڑیں",
+      "description": "بہتر بصیرت اور خودکار کیلوری ٹریکنگ کے لیے اپنے صحت کے ڈیٹا کو ہم آہنگ کریں",
+      "automaticTracking": {
+        "title": "خودکار کیلوری ٹریکنگ",
+        "description": "اپنی صحت کی ایپس سے جلائی گئی کیلوریز کو ٹریک کریں"
+      },
+      "progressInsights": {
+        "title": "ترقی کی بصیرت",
+        "description": "آپ کے صحت کے رجحانات کی تفصیلی بصیرت حاصل کریں"
+      },
+      "seamlessIntegration": {
+        "title": "ہموار انضمام",
+        "description": "اپنی پسندیدہ صحت ایپس سے ڈیٹا ہم آہنگ کریں"
+      },
+      "connected": "Health Connect جڑا ہوا ہے",
+      "notConnected": "Health Connect جڑا ہوا نہیں ہے",
+      "setup": "Health Connect کو ترتیب دیں",
+      "skipForNow": "فی الحال چھوڑیں",
+      "statusConnected": "Health Connect جڑا ہوا ہے۔",
+      "statusSuccess": "Health Connect کامیابی سے جڑا گیا ہے!",
+      "statusPermissionDenied": "اجازت مسترد کر دی گئی ہے۔ براہ کرم اپنے فون کی سیٹنگز سے {appLabel} کے لئے Health Connect کی اجازتیں فعال کریں۔",
+      "statusError": "Health Connect ترتیب دینے میں خرابی: {error}"
+    },
+    "reinforcement": {
+      "trackingSuccess": {
+        "title": "آپ اکیلے نہیں ہیں",
+        "genericMessage": "تحقیق ظاہر کرتی ہے کہ مستقل ٹریکنگ طویل مدتی کامیابی کا #1 اشارے ہے۔",
+        "personalizedMessage": "ایک {age} سالہ {gender} کے لیے جو {goal} حاصل کرنا چاہتا ہے، مستقل ٹریکنگ کامیابی کا #1 اشارے ہے۔",
+        "closingMessage": "{appLabel} یہ کرنے کے مقابلے میں 10 گنا آسان بناتا ہے جو دستی طور پر کرنے کے لئے۔",
+        "getStartedTitle": "آغاز کرنے کے لیے تیار ہیں؟",
+        "tipPhoto": "اپنے کھانے کی تصویر لیں تاکہ فوری تجزیہ حاصل ہو",
+        "tipConsistency": "معنی خیز ترقی دیکھنے کے لئے مستقل طور پر لاگ کریں",
+        "tipProgress": "حوصلہ افزائی برقرار رکھنے کے لئے روزانہ اپنی ترقی کو ٹریک کریں",
+        "button": "چلو شروع کریں",
+        "defaultGender": "انفرادی",
+        "defaultGoal": "صحت مند آپ"
+      },
+      "healthProfile": {
+        "title": "آپ کا پروفائل",
+        "bmiDescription": "آپ کے میٹرکس کی بنیاد پر، آپ کا BMI {bmi} ہے۔",
+        "finalizeDescription": "آئیے آپ کے تجربے کو حسب ضرورت بنانے کے لئے آپ کا پروفائل مکمل کریں۔",
+        "goalGain": "بڑھانا",
+        "goalLose": "کم کرنا",
+        "goalReach": "اپنا ہدف حاصل کرنے کے لیے، آپ کو {direction} {diff} {unit} کرنا ہوگا۔",
+        "goalReached": "آپ اپنے ہدف وزن پر ہیں! ہم آپ کو اسے برقرار رکھنے میں مدد کریں گے۔",
+        "button": "چلو شروع کریں"
+      },
+      "goalLifestyle": {
+        "title": "شاندار آغاز!",
+        "description": "آپ نے {goalText} کے لئے پہلا قدم اٹھایا ہے۔ چونکہ آپ {activityText} ہیں، {appLabel} آپ کے طرز زندگی سے میل کھاتے ہوئے آپ کے اہداف کو ایڈجسٹ کرے گا۔",
+        "personalizedTargets": "حسب ضرورت کی کیلوریز کے اہداف",
+        "aiMealDetection": "AI کی طاقت سے کھانے کی شناخت",
+        "macroBreakdowns": "تفصیلی میکرو نیوٹرینٹ تقسیم",
+        "button": "چلو شروع کریں",
+        "defaultGoal": "آپ کے اہداف",
+        "defaultActivity": "ایکٹو"
+      }
+    }
+  },
+  "tabs": {
+    "dashboard": "ڈیش بورڈ",
+    "history": "تاریخ"
+  },
+  "home": {
+    "dailyGoal": {
+      "title": "اپنا روزانہ کا ہدف مقرر کریں",
+      "titleSet": "آپ کا روزانہ کا ہدف",
+      "description": "کیا آپ اپنی صحت کے سفر کا آغاز کرنے کے لیے تیار ہیں؟ نیچے اپنے روزانہ کے کیلوری کے ہدف کا تعین کریں تاکہ آپ کی ترقی کا آغاز ہو جائے۔",
+      "descriptionSet": "آپ کا کمپاس مقرر ہو گیا ہے! یہ آپ کا روزانہ کیلوری کا ہدف ہے جو آپ کی رہنمائی کرے گا۔",
+      "yourGoal": "آپ کا ہدف",
+      "dailyCalories": "روزانہ کیلوریز (kcal)",
+      "setGoal": "ہدف مقرر کریں",
+      "intake": "استعمال",
+      "burned": "جلائے گئے",
+      "weightImpact": "وزن کا اثر",
+      "estLoss": "اندازاً کمی",
+      "estGain": "اندازاً اضافہ",
+      "kcal": "kcal"
+    },
+    "dailySummary": {
+      "title": "روزانہ کا خلاصہ",
+      "calories": "کیلوریز",
+      "carbs": "کاربوہائیڈریٹس",
+      "protein": "پروٹین",
+      "fat": "چربی",
+      "fiber": "ریشہ"
+    },
+    "intakeProgress": {
+      "title": "آج کی میکرو تقسیم",
+      "target": "ہدف",
+      "current": "موجودہ"
+    },
+    "intakeHistory": {
+      "title": "7 دنوں کی میکرو تاریخ",
+      "noHistoryYet": "ابھی کوئی تاریخ نہیں",
+      "startLogging": "اپنے کھانے کے اندراج شروع کریں تاکہ آپ یہاں اپنی 7 دن کی میکرو کی ٹرینڈز دیکھ سکیں"
+    },
+    "mealLog": {
+      "title": "اندراج شدہ کھانے",
+      "emptyMessage": "اپنے آخری کھانے کی تصویر لیں اور اسے یہاں درج کریں۔",
+      "noMealsToday": "آج کے لئے کوئی کھانے کا ریکارڈ نہیں",
+      "seeAllMeals": "تمام کھانے دیکھیں"
+    },
+    "mealDescription": {
+      "title": "AI کے ذریعے فوری شامل کریں",
+      "description": "اپنے کھانے کی وضاحت کریں اور AI کو تفصیلات کا خیال رکھنے دیں.",
+      "hint": "جیسے، صبح کے ناشتے میں میں نے ایک بڑی پیالی دلیا اور ایک کٹے ہوئے کیلے کے ساتھ ایک سکوب پروٹین لی ...",
+      "analyzeMeal": "کھانے کا تجزیہ کریں"
+    },
+    "favoriteMeals": {
+      "title": "پسندیدہ کھانے",
+      "description": "اپنے پسندیدہ کھانے میں سے ایک کو جلدی شامل کریں۔",
+      "noFavorites": "ابھی کوئی پسندیدہ کھانے نہیں ہیں۔",
+      "addFavoriteHint": "کسی کھانے پر ستارہ دبائیں تاکہ اسے پسندیدہ کے طور پر نشان زد کریں۔",
+      "seeAll": "تمام دیکھیں",
+      "add": "شامل کریں"
+    },
+    "mealSnap": {
+      "title": "اپنے کھانے کی تصویر لیں اور ٹریک کریں",
+      "description": "اپنے کھانے کی تصویر لینے کے لیے اپنے کیمرے کا استعمال کریں تاکہ AI اسے تجزیہ کر سکے۔",
+      "openCamera": "کیمرہ کھولیں"
+    },
+    "connectHealth": {
+      "title": "ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں",
+      "description": "اپنا غذائیت کے ڈیٹا کو ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں",
+      "install": "انسٹال کریں",
+      "connect": "ہم آہنگ کریں"
+    }
+  },
+  "history": {
+    "noMeals": "کوئی کھانے کا ریکارڈ نہیں",
+    "emptyMessage": "اپنے آخری کھانے کی تصویر لیں اور اسے یہاں درج کریں۔",
+    "today": "آج",
+    "yesterday": "کل"
+  },
+  "meal": {
+    "ohNo": "اوہ نہیں!",
+    "delete": "حذف کریں",
+    "editMeal": "کھانا ترمیم کریں",
+    "addMeal": "کھانا شامل کریں",
+    "saveMeal": "کھانا محفوظ کریں",
+    "save": "محفوظ کریں",
+    "mealName": "کھانے کا نام",
+    "mealQuantity": "کھانے کی مقدار",
+    "mealQuantityHint": "جیسے، 1 پیالی، 2 ٹکڑے",
+    "timeOfMeal": "کھانے کا وقت",
+    "timeOfMealHint": "چنیں کہ آپ نے کھانا کب لیا",
+    "mealType": "کھانے کی قسم",
+    "nutrition": {
+      "calories": "کیلوریز",
+      "carbs": "کاربوہائیڈریٹس (g)",
+      "protein": "پروٹین (g)",
+      "fat": "چربی (g)",
+      "fiber": "ریشہ (g)"
+    },
+    "deleteConfirmation": {
+      "title": "کھانا حذف کریں",
+      "message": "کیا آپ واقعی اس کھانے کا اندراج حذف کرنا چاہتے ہیں؟",
+      "cancel": "کینسل کریں",
+      "delete": "حذف کریں"
+    },
+    "addedToLog": "کھانا آپ کے لاگ میں شامل کیا گیا!",
+    "couldNotAdd": "کھانا شامل نہیں کیا جا سکا: {error}",
+    "removedFromFavorites": "پسندیدہ سے ہٹا دیا گیا!",
+    "savedAsFavorite": "کھانا پسندیدہ کے طور پر محفوظ کر لیا گیا!",
+    "couldNotUpdateFavorite": "پسندیدہ کو اپ ڈیٹ نہیں کر سکا: {error}",
+    "failedToProcess": "عملدرآمد میں ناکامی: {error}",
+    "failedToProcessImage": "تصویر کے عمل میں ناکامی: {error}",
+    "errorCompressingImage": "تصویر کمپریس کرنے میں خرابی: {error}",
+    "failedToSave": "ڈیٹا محفوظ کرنے میں ناکامی. براہ کرم دوبارہ کوشش کریں."
+  },
+  "favorites": {
+    "title": "پسندیدہ",
+    "empty": "ابھی کوئی پسندیدہ کھانے نہیں ہیں۔"
+  },
+  "profile": {
+    "title": "پروفائل",
+    "noProfileData": "کوئی پروفائل ڈیٹا نہیں ملا",
+    "yourProfile": "آپ کا پروفائل",
+    "viewAndManage": "اپنی صحت کی معلومات دیکھیں اور انتظام کریں",
+    "sections": {
+      "profile": "پروفائل",
+      "basicInformation": "بنیادی معلومات",
+      "goalsAndActivity": "اہداف اور سرگرمی",
+      "calculatedValues": "حساب شدہ قیمتیں"
+    },
+    "gender": "جنس",
+    "height": "قد",
+    "weight": "وزن",
+    "age": "عمر",
+    "weightGoal": "وزن کا ہدف",
+    "activityLevel": "سرگرمی کی سطح",
+    "healthMetrics": "صحت کے میٹرکس",
+    "notSet": "مقرر نہیں",
+    "years": "سال",
+    "updatedSuccessfully": "پروفائل کامیابی سے اپ ڈیٹ ہو گئی!",
+    "calculatedValues": {
+      "bmr": "بی ایم آر",
+      "tdee": "ٹی ڈی ای ای",
+      "dailyGoal": "روزانہ کا ہدف",
+      "calPerDay": "کیلوری /دن",
+      "notAvailable": "نہیں دستیاب"
+    }
+  },
+  "healthScore": {
+    "title": "صحت کا اسکور",
+    "whyThisScore": "یہ اسکور کیوں؟",
+    "note": "یہ اسکور شناخت شدہ اجزاء اور غذائیت کی کثافت کی بنیاد پر AI کا اندازہ ہے۔ ہمیشہ غذائیت کی مشاورت کے لیے پیشہ ور سے مشورہ کریں۔",
+    "unhealthy": "غیر صحت مند",
+    "healthy": "صحت مند",
+    "neutral": "غیر جانبدار"
+  },
+  "editProfile": {
+    "title": "پروفائل ترمیم کریں",
+    "sections": {
+      "personalInformation": "ذاتی معلومات",
+      "physicalMeasurements": "جسمانی پیمائش",
+      "goalsAndActivity": "اہداف اور سرگرمی"
+    },
+    "gender": "جنس",
+    "dateOfBirth": "تاریخ پیدائش",
+    "height": "قد",
+    "weight": "وزن",
+    "weightGoal": "وزن کا ہدف",
+    "activityLevel": "سرگرمی کی سطح",
+    "metric": "میٹرک",
+    "imperial": "امپیریل",
+    "metricCm": "میٹرک (سینٹی میٹر)",
+    "imperialFtIn": "امپیریل (فیٹ/انچ)",
+    "metricKg": "میٹرک (کلو)",
+    "imperialLbs": "امپیریل (پاؤنڈ)",
+    "genders": {
+      "male": "مرد",
+      "female": "عورت",
+      "other": "دیگر"
+    },
+    "weightGoals": {
+      "loseWeight": {
+        "name": "وزن کم کریں",
+        "description": "وزن کم کرنے کے لیے کیلوری کی کمی کریں"
+      },
+      "maintainWeight": {
+        "name": "وزن برقرار رکھیں",
+        "description": "اپنا موجودہ وزن برقرار رکھیں"
+      },
+      "gainWeight": {
+        "name": "وزن بڑھائیں",
+        "description": "وزن بڑھانے کے لیے کیلوری کی اضافت کریں"
+      }
+    },
+    "activityLevels": {
+      "sedentary": {
+        "name": "سست",
+        "description": "بہت کم ورزش"
+      },
+      "lightlyActive": {
+        "name": "ہلکی سرگرمی",
+        "description": "ہلکی ورزش 1-3 دن/ہفتہ"
+      },
+      "moderatelyActive": {
+        "name": "اعتدال پسند سرگرمی",
+        "description": "اعتدال پسند ورزش 3-5 دن/ہفتہ"
+      },
+      "veryActive": {
+        "name": "بہت فعال",
+        "description": "کڑی ورزش 6-7 دن/ہفتہ"
+      },
+      "extremelyActive": {
+        "name": "انتہائی فعال",
+        "description": "بہت سخت ورزش، جسمانی کام"
+      }
+    }
+  },
+  "settings": {
+    "title": "ترتیبات",
+    "sections": {
+      "profile": "پروفائل",
+      "localization": "ترجمہ",
+      "notifications": "نوٹیفیکیشن",
+      "supportAndLegal": "مدد اور قانونی",
+      "dangerZone": "خطرے کا زون",
+      "developer": "ڈیولپر"
+    },
+    "editProfile": {
+      "title": "پروفائل ترمیم کریں",
+      "subtitle": "اپنی ذاتی معلومات کو تازہ کریں"
+    },
+    "language": {
+      "title": "زبان",
+      "subtitle": "اپنی پسندیدہ زبان منتخب کریں",
+      "searchHint": "زبانیں تلاش کریں...",
+      "noResults": "کوئی نتائج نہیں ملے"
+    },
+    "heightUnit": {
+      "title": "قد کی اکائی"
+    },
+    "weightUnit": {
+      "title": "وزن کی اکائی"
+    },
+    "mealReminders": {
+      "title": "کھانے کی یاد دہانیاں",
+      "subtitle": "مناسب وقت پر الرٹس کے ساتھ ٹریک پر رہیں"
+    },
+    "theme": {
+      "title": "تھیم",
+      "subtitle": "اپنی پسندیدہ تھیم منتخب کریں",
+      "light": "ہلکا",
+      "dark": "تاریک",
+      "system": "نظام"
+    },
+    "sendFeedback": {
+      "title": "آراء ارسال کریں",
+      "subtitle": "{appLabel} کو بہتر بنانے میں ہماری مدد کریں",
+      "emailSubject": "{appLabel} ایپ آراء",
+      "emailBodyPrefix": "براہ کرم نیچے اپنی آراء فراہم کریں:",
+      "appVersion": "ایپ کا ورژن",
+      "device": "آلہ",
+      "osVersion": "او ایس ورژن",
+      "uid": "یو آئی ڈی"
+    },
+    "clearAllData": {
+      "title": "تمام ڈیٹا صاف کریں",
+      "subtitle": "اپنی تمام معلومات کو ناقابل واپسی طور پر حذف کریں",
+      "confirmationTitle": "کیا آپ تمام ڈیٹا صاف کرنا چاہتے ہیں؟",
+      "confirmationMessage": "یہ عمل واپس نہیں کیا جا سکتا۔ آپ کے تمام اندراج کردہ کھانے، پسندیدہ، اور پروفائل کی ترتیبات مستقل طور پر حذف ہو جائیں گی۔",
+      "cancel": "کینسل کریں",
+      "clearEverything": "سب کچھ صاف کریں"
+    },
+    "debugOptions": {
+      "title": "ڈیبگ کے اختیارات"
+    },
+    "developerModeEnabled": "ڈیولپر موڈ فعال ہو گیا!"
+  },
+  "reminders": {
+    "title": "یاد دہانیوں کے ساتھ ٹریک پر رہیں",
+    "description": "اپنے کھانوں کے اندراج کے لیے آپ کو نرم یاد دہانیاں موصول ہوں گی تاکہ آپ اپنے غذائیت کے اہداف کے ساتھ مستقل رہ سکیں",
+    "notificationsEnabled": "نوٹیفیکیشن فعال ہیں",
+    "notificationsDisabled": "نوٹیفیکیشن غیر فعال ہیں",
+    "enabledSubtitle": "آپ کو کھانے کی یاد دہانیاں موصول ہوں گی",
+    "disabledSubtitle": "کھانے کی یاد دہانیوں کے لیے نوٹیفیکیشن فعال کریں",
+    "mealReminders": "کھانے کی یاد دہانیاں",
+    "breakfast": "ناشتہ",
+    "lunch": "دوپہر کا کھانا",
+    "dinner": "رات کا کھانا",
+    "snack": "اسنک",
+    "unknown": "نامعلوم",
+    "change": "تبدیل کریں",
+    "enableNotifications": "نوٹیفیکیشن فعال کریں",
+    "skipForNow": "ابھی چھوڑ دیں",
+    "saveChanges": "تبدیلیاں محفوظ کریں",
+    "enabledSuccessfully": "نوٹیفیکیشن کامیابی سے فعال ہو گئے!",
+    "permissionDenied": "نوٹیفیکیشن کی اجازت مسترد کر دی گئی",
+    "errorEnabling": "نوٹیفیکیشن کو فعال کرنے میں خرابی: {error}",
+    "errorCompletingSetup": "سیٹ اپ مکمل کرنے میں خرابی: {error}"
+  },
+  "notifications": {
+    "breakfast": {
+      "title": "ناشتے کا وقت! 🍳",
+      "body": "اپنے ناشتہ کا اندراج کرنا نہ بھولیں"
+    },
+    "lunch": {
+      "title": "دوپہر کے کھانے کا وقت! 🥗",
+      "body": "اپنے دوپہر کے کھانے کا اندراج کرنے کا وقت"
+    },
+    "dinner": {
+      "title": "رات کے کھانے کا وقت! 🍽️",
+      "body": "اپنے رات کے کھانے کا اندراج کرنا نہ بھولیں"
+    },
+    "snack": {
+      "title": "اسنیک کا وقت! 🍎",
+      "body": "ایک صحت مند اسنیک کا وقت"
+    },
+    "test": {
+      "title": "تجرباتی نوٹیفیکیشن"
+    }
+  },
+  "login": {
+    "title": "لاگ ان",
+    "signInWithGoogle": "گوگل کے ساتھ سائن ان کریں",
+    "signInFailed": "گوگل سائن ان ناکام ہوا یا منسوخ کر دیا گیا۔"
+  },
+  "disclaimer": {
+    "pleaseNote": "براہ کرم نوٹ کریں",
+    "snap": {
+      "description": "{appLabel} تخمینی غذائیت کی معلومات فراہم کرتا ہے۔ درستگی آپ کی ان پٹ اور خوراک کی مختلف حالتوں پر منحصر ہے۔ یہ ایک رہنما کے طور پر استعمال کریں، نہ کہ ایک حتمی ماخذ کے طور پر۔ ذاتی غذائیت کی مشاورت کے لیے پیشہ ور کی خدمات حاصل کریں۔",
+      "portionSize": {
+        "title": "حصے کا سائز",
+        "description": "تخمینوں کی درستگی آپ کی طرف سے حصے کے صحیح اندازے پر بہت زیادہ منحصر ہے۔"
+      },
+      "preparationMethods": {
+        "title": "تیاری کے طریقے",
+        "description": "پکانے کے طریقے کھانے کی غذائیت کی مواد کو بڑی حد تک تبدیل کر سکتے ہیں۔ {appLabel} کے تخمینے ہمیشہ ان مختلف حالتوں کا حساب نہیں لگاتے۔"
+      },
+      "ingredients": {
+        "title": "اجزاء",
+        "description": "پیچیدہ پکوان جن میں بہت سے پوشیدہ اجزاء ہوتے ہیں وہ کم درست اندازوں کی طرف لے جا سکتے ہیں۔"
+      },
+      "databaseLimitations": {
+        "title": "ڈیٹا بیس کی حدود",
+        "description": "{appLabel} کا غذائی ڈیٹا بیس وسیع ہے لیکن ہر واحد غذائی چیز یا مختلف حالت کو شامل نہیں کر سکتا۔"
+      }
+    },
+    "weightEstimate": {
+      "title": "وزن کے اندازے کے بارے میں",
+      "description": "وزن میں تبدیلی کا اندازہ نظریاتی ہے جو کیلوری کی زیادہ اور کم کے ماڈل پر مبنی ہے۔ یہ صرف حوصلہ افزائی کی رہنمائی کے لیے ہے، آپ کے اصل وزن کی پیش گوئی کے طور پر نہیں۔",
+      "calorieAccuracy": {
+        "title": "کیلوری کی درستگی",
+        "description": "یہ تخمینہ صرف آپ کی ٹریک کردہ کیلوری کے استعمال اور خرچ کرنے کے اعتبار سے درست ہے۔ غلط اندراج کرنے سے غلط تخمینہ ملے گا۔"
+      },
+      "biologicalFactors": {
+        "title": "حیاتیاتی عوامل",
+        "description": "اصل وزن میں کمی/اضافہ میٹابولزم، ہارمونز، نیند، دباؤ، ہائیڈریشن اور دوسری انفرادی عوامل سے متاثر ہوتا ہے جو {appLabel} نہیں ناپ سکتا۔"
+      },
+      "waterWeight": {
+        "title": "پانی کا وزن اور اتار چڑھاؤ",
+        "description": "روزانہ کا معمولی وزن پانی کی زیادتی، ہضم، اور وقت کی وجہ سے بڑی صورت میں تبدیل ہو سکتا ہے۔ یہ تخمینہ ان روزانہ کی تبدیلیوں کا بہ لحاظ نہیں رکھتا۔"
+      },
+      "professionalGuidance": {
+        "title": "پیشہ ورانہ رہنمائی",
+        "description": "اس تخمینے کا استعمال طبی فیصلے کرنے کے لیے نہ کریں۔ ہمیشہ ذاتی وزن کے انتظام کے مشورے کے لیے صحت کی دیکھ بھال کرنے والے پیشہ ور یا رجسٹرڈ غذائی ماہر سے مشورہ کریں۔"
+      }
+    }
+  },
+  "common": {
+    "close": "بند کریں",
+    "continue": "جاری رکھیں"
+  },
+  "errors": {
+    "loadingProfileData": "پروفائل کا ڈیٹا لوڈ کرنے میں خرابی",
+    "somethingWentWrong": "کچھ غلط ہوگیا۔"
+  },
+  "debug": {
+    "title": "ڈیبگ کے اختیارات",
+    "sections": {
+      "notifications": "نوٹیفیکیشن",
+      "healthConnect": "ہیلتھ کنیکٹ",
+      "appInfo": "ایپ کی معلومات"
+    },
+    "showActiveNotifications": "فعال نوٹیفیکیشن دکھائیں",
+    "scheduleTestNotification": "ٹیسٹ نوٹیفیکیشن کا شیڈول بنائیں (10 سیکنڈ)",
+    "triggerBreakfastNotification": "ناشتے کی نوٹیفیکیشن متحرک کریں",
+    "cancelAllNotifications": "تمام نوٹیفیکیشن منسوخ کریں",
+    "activeNotifications": "فعال نوٹیفیکیشن",
+    "noTitle": "کوئی عنوان نہیں",
+    "noBody": "کوئی مواد نہیں",
+    "fetchTodaysSteps": "آج کے قدم حاصل کریں",
+    "fetchTodaysCalories": "آج کی کیلوریز حاصل کریں",
+    "fetchLatestWeight": "آخری وزن حاصل کریں",
+    "fetchLatestHeight": "آخری قد حاصل کریں",
+    "writeTestWeight": "ٹیسٹ وزن لکھیں (70kg)",
+    "writeTestHeight": "ٹیسٹ قد لکھیں (175cm)",
+    "syncLast7Days": "آخری 7 دن ہم آہنگ کریں",
+    "sync7DaysTitle": "7 دن کی ہم آہنگی",
+    "checkCurrentLocale": "موجودہ لوکیل چیک کریں",
+    "currentLocale": "موجودہ لوکیل",
+    "localeInfo": "زبان: {languageCode}\nملک: {countryCode}\nیونٹ کا نظام: {unitSystem}",
+    "latestWeight": "آخری وزن",
+    "latestHeight": "آخری قد",
+    "todaysCalories": "آج کی کیلوریز",
+    "totalCaloriesBurned": "کل جلائی گئی کیلوریز: {calories}",
+    "syncSuccess": "پچھلے 7 دنوں کے لیے قدم، کیلوریز، اور وزن کے لیے {count} ڈیٹا پوائنٹس کامیابی سے حاصل کر لیے گئے۔",
+    "noWeightData": "آخری 30 دنوں میں کوئی وزن کا ڈیٹا نہیں ملا۔",
+    "noHeightData": "آخری سال میں کوئی قد کا ڈیٹا نہیں ملا۔",
+    "noCalorieData": "آج کے لیے کوئی کیلوری کا ڈیٹا نہیں ملا۔",
+    "weightWritten": "کامیابی سے ٹیسٹ وزن (70kg) لکھا گیا۔",
+    "weightWriteFailed": "ٹیسٹ وزن لکھنے میں ناکامی.",
+    "heightWritten": "کامیابی سے ٹیسٹ قد (175cm) لکھا گیا۔",
+    "heightWriteFailed": "ٹیسٹ قد لکھنے میں ناکامی.",
+    "noNotifications": "کوئی فعال نوٹیفیکیشن نہیں ہیں۔",
+    "testNotificationScheduled": "10 سیکنڈ کے اندر ٹیسٹ نوٹیفیکیشن کا شیڈول بنایا گیا۔",
+    "testNotificationBody": "یہ ایک ٹیسٹ نوٹیفیکیشن ہے جو 10 سیکنڈ کے اندر شیڈول کیا گیا ہے۔",
+    "breakfastNotificationTriggered": "ناشتے کی نوٹیفیکیشن متحرک ہوگئی۔",
+    "allNotificationsCancelled": "تمام نوٹیفیکیشن منسوخ کر دی گئی ہیں۔",
+    "fetchingData": "آخری 7 دنوں کے لیے ڈیٹا حاصل کیا جا رہا ہے...",
+    "id": "ID: {id}"
+  },
+  "health": {
+    "syncFailed": "ہیلتھ کنیکٹ میں ہم آہنگ نہیں ہو سکا",
+    "mealSynced": "کھانا ہیلتھ کنیکٹ کے ساتھ ہم آہنگ ہو گیا"
+  }
+}

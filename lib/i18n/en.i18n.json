@@ -1,8 +1,9 @@
 {
   "language": "English",
   "flag": "🇺🇸",
+  "appLabel": "Calorify{env}",
   "onboarding": {
-    "welcome": "Welcome to Calorify",
+    "welcome": "Welcome to {appLabel}",
     "subtitle": "Your personal nutrition companion powered by AI",
     "getStarted": "Get Started",
     "features": {
@@ -59,7 +60,7 @@
       "messages": {
         "underweight": "We can help you build a healthy plan to reach a balanced weight with nutrient-dense meals.",
         "healthy": "Great job! You're in a healthy range. We'll help you maintain your vitality and energy levels.",
-        "overweight": "Calorify will simplify your journey with AI-powered tracking to help you reach your target comfortably.",
+        "overweight": "{appLabel} will simplify your journey with AI-powered tracking to help you reach your target comfortably.",
         "obese": "We're here to support you with personalized guidance and sustainable strategies for your health goals."
       }
     },
@@ -92,18 +93,19 @@
       "skipForNow": "Skip for now",
       "statusConnected": "Health Connect is connected.",
       "statusSuccess": "Health Connect has been successfully connected!",
-      "statusPermissionDenied": "Permission denied. Please enable Health Connect permissions from your phone settings for Calorify.",
+      "statusPermissionDenied": "Permission denied. Please enable Health Connect permissions from your phone settings for {appLabel}.",
       "statusError": "Error setting up Health Connect: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
         "title": "You're Not Alone",
-        "instantPhotoAnalysis": "Instant photo analysis",
-        "automaticLogging": "Automatic nutritional logging",
-        "progressVisualizations": "Progress visualizations that keep you motivated",
         "genericMessage": "Research shows that consistent tracking is the #1 predictor of long-term success.",
         "personalizedMessage": "For a {age} year old {gender} looking to {goal}, consistent tracking is the #1 predictor of success.",
-        "closingMessage": "Calorify makes it 10x easier than doing it manually.",
+        "closingMessage": "{appLabel} makes it 10x easier than doing it manually.",
+        "getStartedTitle": "Ready to get started?",
+        "tipPhoto": "Take a photo of your meals for instant analysis",
+        "tipConsistency": "Log consistently to see meaningful progress",
+        "tipProgress": "Track your progress daily to stay motivated",
         "button": "Let's Go",
         "defaultGender": "individual",
         "defaultGoal": "healthier you"
@@ -120,7 +122,7 @@
       },
       "goalLifestyle": {
         "title": "Excellent Start!",
-        "description": "You've taken the first step towards {goalText}. Since you're {activityText}, Calorify will adjust your targets to match your lifestyle.",
+        "description": "You've taken the first step towards {goalText}. Since you're {activityText}, {appLabel} will adjust your targets to match your lifestyle.",
         "personalizedTargets": "Personalized calorie targets",
         "aiMealDetection": "AI-powered meal detection",
         "macroBreakdowns": "Detailed macro-nutrient breakdowns",
@@ -360,7 +362,9 @@
     },
     "language": {
       "title": "Language",
-      "subtitle": "Choose your preferred language"
+      "subtitle": "Choose your preferred language",
+      "searchHint": "Search languages...",
+      "noResults": "No results found"
     },
     "heightUnit": {
       "title": "Height Unit"
@@ -372,10 +376,17 @@
       "title": "Meal Reminders",
       "subtitle": "Stay on track with timely alerts"
     },
+    "theme": {
+      "title": "Theme",
+      "subtitle": "Choose your preferred theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
     "sendFeedback": {
       "title": "Send Feedback",
-      "subtitle": "Help us improve Calorify",
-      "emailSubject": "Calorify App Feedback",
+      "subtitle": "Help us improve {appLabel}",
+      "emailSubject": "{appLabel} App Feedback",
       "emailBodyPrefix": "Please provide your feedback below:",
       "appVersion": "App Version",
       "device": "Device",
@@ -446,14 +457,14 @@
   "disclaimer": {
     "pleaseNote": "Please Note",
     "snap": {
-      "description": "Calorify provides estimated nutritional info. Accuracy depends on your input & food variations. Use as a guide, not a definitive source. Consult a professional for personalized dietary advice.",
+      "description": "{appLabel} provides estimated nutritional info. Accuracy depends on your input & food variations. Use as a guide, not a definitive source. Consult a professional for personalized dietary advice.",
       "portionSize": {
         "title": "Portion Size",
         "description": "The accuracy of the estimates heavily relies on your correct assessment of the portion size."
       },
       "preparationMethods": {
         "title": "Preparation Methods",
-        "description": "Cooking methods can significantly alter the nutritional content of food. Calorify's estimates may not always account for these variations."
+        "description": "Cooking methods can significantly alter the nutritional content of food. {appLabel}'s estimates may not always account for these variations."
       },
       "ingredients": {
         "title": "Ingredients",
@@ -461,7 +472,7 @@
       },
       "databaseLimitations": {
         "title": "Database Limitations",
-        "description": "Calorify's food database is extensive but may not include every single food item or variation."
+        "description": "{appLabel}'s food database is extensive but may not include every single food item or variation."
       }
     },
     "weightEstimate": {
@@ -473,7 +484,7 @@
       },
       "biologicalFactors": {
         "title": "Biological Factors",
-        "description": "Actual weight loss/gain is influenced by metabolism, hormones, sleep, stress, hydration, and other individual factors that Calorify cannot measure."
+        "description": "Actual weight loss/gain is influenced by metabolism, hormones, sleep, stress, hydration, and other individual factors that {appLabel} cannot measure."
       },
       "waterWeight": {
         "title": "Water Weight & Fluctuations",

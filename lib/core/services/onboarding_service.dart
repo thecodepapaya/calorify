@@ -28,7 +28,8 @@ class OnboardingService {
 
   /// Check if onboarding has been completed
   Future<bool> isOnboardingCompleted() async {
-    return await DatabaseService.databaseInterface.hasUserProfile();
+    final profile = await DatabaseService.databaseInterface.getUserProfile();
+    return profile?.isProfileComplete ?? false;
   }
 
   /// Mark onboarding as completed (profile is saved)

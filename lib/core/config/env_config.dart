@@ -17,12 +17,13 @@ class EnvConfig {
     flavor = appFlavor == 'prod' ? Flavor.prod : Flavor.staging;
   }
 
-  String get title {
+  /// Returns the environment suffix for app label
+  String get envSuffix {
     switch (flavor) {
       case Flavor.staging:
-        return 'Calorify (Staging)';
+        return ' staging';
       case Flavor.prod:
-        return 'Calorify';
+        return '';
     }
   }
 }

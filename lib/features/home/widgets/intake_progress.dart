@@ -132,6 +132,7 @@ class _MacroPieChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final total = protein + carbs + fat + fiber;
     final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
     // Check if total is zero to prevent division by zero
     final bool isActuallyEmpty = isEmpty || total == 0;
 
@@ -175,10 +176,10 @@ class _MacroPieChart extends StatelessWidget {
                                   ? '${(carbs / total * 100).toStringAsFixed(0)}%'
                                   : '0%',
                           radius: 40,
-                          titleStyle: const TextStyle(
+                          titleStyle: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: colorScheme.onSurface,
                           ),
                         ),
                         PieChartSectionData(
@@ -189,10 +190,10 @@ class _MacroPieChart extends StatelessWidget {
                                   ? '${(protein / total * 100).toStringAsFixed(0)}%'
                                   : '0%',
                           radius: 40,
-                          titleStyle: const TextStyle(
+                          titleStyle: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: colorScheme.onSurface,
                           ),
                         ),
                         PieChartSectionData(
@@ -203,10 +204,10 @@ class _MacroPieChart extends StatelessWidget {
                                   ? '${(fat / total * 100).toStringAsFixed(0)}%'
                                   : '0%',
                           radius: 40,
-                          titleStyle: const TextStyle(
+                          titleStyle: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: colorScheme.onSurface,
                           ),
                         ),
                         PieChartSectionData(
@@ -217,10 +218,10 @@ class _MacroPieChart extends StatelessWidget {
                                   ? '${(fiber / total * 100).toStringAsFixed(0)}%'
                                   : '0%',
                           radius: 40,
-                          titleStyle: const TextStyle(
+                          titleStyle: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: colorScheme.onSurface,
                           ),
                         ),
                       ],

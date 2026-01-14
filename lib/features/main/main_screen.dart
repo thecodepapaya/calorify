@@ -49,7 +49,7 @@ class _FloatingDock extends StatelessWidget {
           borderRadius: BorderRadius.circular(36),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
+              color: colorScheme.shadow.withValues(alpha: 0.1),
               blurRadius: 20,
               offset: const Offset(0, 8),
             ),
@@ -119,7 +119,7 @@ class _DockItem extends StatelessWidget {
                 color:
                     isSelected
                         ? colorScheme.primaryContainer
-                        : Colors.transparent,
+                        : colorScheme.surface.withValues(alpha: 0),
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -176,9 +176,12 @@ class _CenterDockItem extends StatelessWidget {
               offset: const Offset(0, 4),
             ),
           ],
-          border: isSelected ? Border.all(color: Colors.white, width: 2) : null,
+          border:
+              isSelected
+                  ? Border.all(color: colorScheme.onPrimary, width: 2)
+                  : null,
         ),
-        child: const Icon(LucideIcons.plus, color: Colors.white, size: 32),
+        child: Icon(LucideIcons.plus, color: colorScheme.onPrimary, size: 32),
       ),
     );
   }

@@ -1,22 +1,28 @@
 import 'package:calorify/core/config/env_config.dart';
+import 'package:calorify/core/providers/theme_provider.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/utilities/route_logger.dart';
 import 'package:calorify/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:calorify/core/constants/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final _appRouter = AppRouter();
 
-class CalorifyApp extends StatelessWidget {
+class CalorifyApp extends ConsumerWidget {
   const CalorifyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(appThemeProvider);
+    final t = Translations.of(context);
+
     return MaterialApp.router(
-      title: EnvConfig.instance.title,
+      title: t.appLabel(env: EnvConfig.instance.envSuffix),
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
+      themeMode: themeMode,
       locale: TranslationProvider.of(context).locale.flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,

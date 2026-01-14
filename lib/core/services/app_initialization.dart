@@ -1,7 +1,5 @@
 import 'dart:developer';
 
-import 'package:calorify/core/config/env_config.dart';
-import 'package:calorify/core/db/mock_data/data_source_config.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/food_analysis.dart';
@@ -27,21 +25,18 @@ class AppInitialization {
     final span = Performance.instance.startTrace(TraceType.splashScreenLoad);
 
     try {
-      await Performance.trace(
-        TraceType.envConfigInit,
-        EnvConfig.instance.init,
-        parentSpan: span,
-      );
-
-      // Configure data source based on environment
-      // In production, use real data; in development, use mock data
-      await Performance.trace(
-        TraceType.dataSourceConfigInit,
-        () => DataSourceConfig.configureForEnvironment(
-          isProduction: EnvConfig.instance.isProd,
-        ),
-        parentSpan: span,
-      );
+      // Load saved language preference after DB is initialized
+      final db = DatabaseService.databaseInterface;
+      final languageCode = await db.getLanguageCode();
+      if (languageCode != null) {
+        // Use saved preference
+        final locale = AppLocaleUtils.parse(languageCode);
+        await LocaleSettings.setLocale(locale);
+      } else {
+        // We let it be empty for now as requested.
+        // Slang will use the default locale (en) if nothing is set.
+        await LocaleSettings.setLocale(AppLocale.en);
+      }
 
       await Performance.trace(
         TraceType.firebaseCrashlyticsInit,
@@ -65,18 +60,6 @@ class AppInitialization {
         HealthService.instance.init,
         parentSpan: span,
       );
-      await Performance.trace(
-        TraceType.databaseServiceInit,
-        DatabaseService.initialize,
-        parentSpan: span,
-      );
-
-      // Load saved language preference after DB is initialized
-      final profile = await OnboardingService.instance.getProfileData();
-      if (profile?.languageCode != null) {
-        final locale = AppLocaleUtils.parse(profile!.languageCode!);
-        await LocaleSettings.setLocale(locale);
-      }
 
       await Performance.trace(
         TraceType.analyticsServiceInit,

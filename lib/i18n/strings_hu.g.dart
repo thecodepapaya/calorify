@@ -1,0 +1,1701 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint, unused_import
+// dart format off
+
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:slang/generated.dart';
+import 'strings.g.dart';
+
+// Path: <root>
+class TranslationsHu with BaseTranslations<AppLocale, Translations> implements Translations {
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	TranslationsHu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = meta ?? TranslationMetadata(
+		    locale: AppLocale.hu,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ) {
+		$meta.setFlatMapFunction(_flatMapFunction);
+	}
+
+	/// Metadata for the translations of <hu>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
+
+	/// Access flat map
+	@override dynamic operator[](String key) => $meta.getTranslation(key);
+
+	late final TranslationsHu _root = this; // ignore: unused_field
+
+	@override 
+	TranslationsHu $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsHu(meta: meta ?? this.$meta);
+
+	// Translations
+	@override String get language => 'Hungarian';
+	@override String get flag => '🇭🇺';
+	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsOnboardingHu onboarding = _TranslationsOnboardingHu._(_root);
+	@override late final _TranslationsTabsHu tabs = _TranslationsTabsHu._(_root);
+	@override late final _TranslationsHomeHu home = _TranslationsHomeHu._(_root);
+	@override late final _TranslationsHistoryHu history = _TranslationsHistoryHu._(_root);
+	@override late final _TranslationsMealHu meal = _TranslationsMealHu._(_root);
+	@override late final _TranslationsFavoritesHu favorites = _TranslationsFavoritesHu._(_root);
+	@override late final _TranslationsProfileHu profile = _TranslationsProfileHu._(_root);
+	@override late final _TranslationsHealthScoreHu healthScore = _TranslationsHealthScoreHu._(_root);
+	@override late final _TranslationsEditProfileHu editProfile = _TranslationsEditProfileHu._(_root);
+	@override late final _TranslationsSettingsHu settings = _TranslationsSettingsHu._(_root);
+	@override late final _TranslationsRemindersHu reminders = _TranslationsRemindersHu._(_root);
+	@override late final _TranslationsNotificationsHu notifications = _TranslationsNotificationsHu._(_root);
+	@override late final _TranslationsLoginHu login = _TranslationsLoginHu._(_root);
+	@override late final _TranslationsDisclaimerHu disclaimer = _TranslationsDisclaimerHu._(_root);
+	@override late final _TranslationsCommonHu common = _TranslationsCommonHu._(_root);
+	@override late final _TranslationsErrorsHu errors = _TranslationsErrorsHu._(_root);
+	@override late final _TranslationsDebugHu debug = _TranslationsDebugHu._(_root);
+	@override late final _TranslationsHealthHu health = _TranslationsHealthHu._(_root);
+}
+
+// Path: onboarding
+class _TranslationsOnboardingHu implements TranslationsOnboardingEn {
+	_TranslationsOnboardingHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String welcome({required Object appLabel}) => 'Üdvözöljük a(z) ${appLabel} alkalmazásban';
+	@override String get subtitle => 'Személyes táplálkozási társ, amelyet az AI hajt';
+	@override String get getStarted => 'Kezdjük el';
+	@override late final _TranslationsOnboardingFeaturesHu features = _TranslationsOnboardingFeaturesHu._(_root);
+	@override late final _TranslationsOnboardingGenderHu gender = _TranslationsOnboardingGenderHu._(_root);
+	@override late final _TranslationsOnboardingHeightHu height = _TranslationsOnboardingHeightHu._(_root);
+	@override late final _TranslationsOnboardingWeightHu weight = _TranslationsOnboardingWeightHu._(_root);
+	@override late final _TranslationsOnboardingAgeHu age = _TranslationsOnboardingAgeHu._(_root);
+	@override late final _TranslationsOnboardingBmiScaleHu bmiScale = _TranslationsOnboardingBmiScaleHu._(_root);
+	@override late final _TranslationsOnboardingWeightGoalHu weightGoal = _TranslationsOnboardingWeightGoalHu._(_root);
+	@override late final _TranslationsOnboardingActivityLevelHu activityLevel = _TranslationsOnboardingActivityLevelHu._(_root);
+	@override late final _TranslationsOnboardingHealthConnectHu healthConnect = _TranslationsOnboardingHealthConnectHu._(_root);
+	@override late final _TranslationsOnboardingReinforcementHu reinforcement = _TranslationsOnboardingReinforcementHu._(_root);
+}
+
+// Path: tabs
+class _TranslationsTabsHu implements TranslationsTabsEn {
+	_TranslationsTabsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get dashboard => 'Irányítópult';
+	@override String get history => 'Történelem';
+}
+
+// Path: home
+class _TranslationsHomeHu implements TranslationsHomeEn {
+	_TranslationsHomeHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsHomeDailyGoalHu dailyGoal = _TranslationsHomeDailyGoalHu._(_root);
+	@override late final _TranslationsHomeDailySummaryHu dailySummary = _TranslationsHomeDailySummaryHu._(_root);
+	@override late final _TranslationsHomeIntakeProgressHu intakeProgress = _TranslationsHomeIntakeProgressHu._(_root);
+	@override late final _TranslationsHomeIntakeHistoryHu intakeHistory = _TranslationsHomeIntakeHistoryHu._(_root);
+	@override late final _TranslationsHomeMealLogHu mealLog = _TranslationsHomeMealLogHu._(_root);
+	@override late final _TranslationsHomeMealDescriptionHu mealDescription = _TranslationsHomeMealDescriptionHu._(_root);
+	@override late final _TranslationsHomeFavoriteMealsHu favoriteMeals = _TranslationsHomeFavoriteMealsHu._(_root);
+	@override late final _TranslationsHomeMealSnapHu mealSnap = _TranslationsHomeMealSnapHu._(_root);
+	@override late final _TranslationsHomeConnectHealthHu connectHealth = _TranslationsHomeConnectHealthHu._(_root);
+}
+
+// Path: history
+class _TranslationsHistoryHu implements TranslationsHistoryEn {
+	_TranslationsHistoryHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get noMeals => 'Nincs rögzített étkezés';
+	@override String get emptyMessage => 'Készíts egy képet az utolsó étkezésedről, hogy itt be tudd jegyezni.';
+	@override String get today => 'Ma';
+	@override String get yesterday => 'Tegnap';
+}
+
+// Path: meal
+class _TranslationsMealHu implements TranslationsMealEn {
+	_TranslationsMealHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get ohNo => 'Ó, nem!';
+	@override String get delete => 'Törlés';
+	@override String get editMeal => 'Étkezés szerkesztése';
+	@override String get addMeal => 'Étkezés hozzáadása';
+	@override String get saveMeal => 'Étkezés mentése';
+	@override String get save => 'Mentés';
+	@override String get mealName => 'Étkezés neve';
+	@override String get mealQuantity => 'Étkezés mennyiség';
+	@override String get mealQuantityHint => 'pl. 1 tál, 2 szelet';
+	@override String get timeOfMeal => 'Étkezés időpontja';
+	@override String get timeOfMealHint => 'Válaszd ki, mikor volt az étkezésed';
+	@override String get mealType => 'Étkezés típusa';
+	@override late final _TranslationsMealNutritionHu nutrition = _TranslationsMealNutritionHu._(_root);
+	@override late final _TranslationsMealDeleteConfirmationHu deleteConfirmation = _TranslationsMealDeleteConfirmationHu._(_root);
+	@override String get addedToLog => 'Étkezés hozzáadva a naplóhoz!';
+	@override String couldNotAdd({required Object error}) => 'Nem lehetett étkezést hozzáadni: ${error}';
+	@override String get removedFromFavorites => 'Eltávolítva a kedvencek közül!';
+	@override String get savedAsFavorite => 'Étkezés mentve kedvencként!';
+	@override String couldNotUpdateFavorite({required Object error}) => 'Nem lehetett frissíteni a kedvencet: ${error}';
+	@override String failedToProcess({required Object error}) => 'A feldolgozás nem sikerült: ${error}';
+	@override String failedToProcessImage({required Object error}) => 'A kép feldolgozása nem sikerült: ${error}';
+	@override String errorCompressingImage({required Object error}) => 'Hiba a kép tömörítésekor: ${error}';
+	@override String get failedToSave => 'Az adatok mentése nem sikerült. Kérlek próbáld újra.';
+}
+
+// Path: favorites
+class _TranslationsFavoritesHu implements TranslationsFavoritesEn {
+	_TranslationsFavoritesHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kedvencek';
+	@override String get empty => 'Még nincs kedvenc étkezés.';
+}
+
+// Path: profile
+class _TranslationsProfileHu implements TranslationsProfileEn {
+	_TranslationsProfileHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Profil';
+	@override String get noProfileData => 'Nincs profil adat';
+	@override String get yourProfile => 'A Te Profilod';
+	@override String get viewAndManage => 'Tekintsd meg és kezeld egészségügyi információidat';
+	@override late final _TranslationsProfileSectionsHu sections = _TranslationsProfileSectionsHu._(_root);
+	@override String get gender => 'Nem';
+	@override String get height => 'Magasság';
+	@override String get weight => 'Súly';
+	@override String get age => 'Kor';
+	@override String get weightGoal => 'Súlycél';
+	@override String get activityLevel => 'Aktivitási szint';
+	@override String get healthMetrics => 'Egészségügyi mutatók';
+	@override String get notSet => 'Nincs beállítva';
+	@override String get years => 'év';
+	@override String get updatedSuccessfully => 'Profil sikeresen frissítve!';
+	@override late final _TranslationsProfileCalculatedValuesHu calculatedValues = _TranslationsProfileCalculatedValuesHu._(_root);
+}
+
+// Path: healthScore
+class _TranslationsHealthScoreHu implements TranslationsHealthScoreEn {
+	_TranslationsHealthScoreHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Egészségi Score';
+	@override String get whyThisScore => 'Miért ez a pontszám?';
+	@override String get note => 'Ez a pontszám egy AI becslés azonosított összetevők és tápanyag sűrűség alapján. Mindig konzultálj szakemberrel diétás tanácsadásért.';
+	@override String get unhealthy => 'Egészségtelen';
+	@override String get healthy => 'Egészséges';
+	@override String get neutral => 'Semleges';
+}
+
+// Path: editProfile
+class _TranslationsEditProfileHu implements TranslationsEditProfileEn {
+	_TranslationsEditProfileHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Profil Szerkesztése';
+	@override late final _TranslationsEditProfileSectionsHu sections = _TranslationsEditProfileSectionsHu._(_root);
+	@override String get gender => 'Nem';
+	@override String get dateOfBirth => 'Születési Dátum';
+	@override String get height => 'Magasság';
+	@override String get weight => 'Súly';
+	@override String get weightGoal => 'Súlycél';
+	@override String get activityLevel => 'Aktivitási szint';
+	@override String get metric => 'Metrikus';
+	@override String get imperial => 'Imperiális';
+	@override String get metricCm => 'Metrikus (cm)';
+	@override String get imperialFtIn => 'Imperiális (láb/hüvelyk)';
+	@override String get metricKg => 'Metrikus (kg)';
+	@override String get imperialLbs => 'Imperiális (font)';
+	@override late final _TranslationsEditProfileGendersHu genders = _TranslationsEditProfileGendersHu._(_root);
+	@override late final _TranslationsEditProfileWeightGoalsHu weightGoals = _TranslationsEditProfileWeightGoalsHu._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsHu activityLevels = _TranslationsEditProfileActivityLevelsHu._(_root);
+}
+
+// Path: settings
+class _TranslationsSettingsHu implements TranslationsSettingsEn {
+	_TranslationsSettingsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Beállítások';
+	@override late final _TranslationsSettingsSectionsHu sections = _TranslationsSettingsSectionsHu._(_root);
+	@override late final _TranslationsSettingsEditProfileHu editProfile = _TranslationsSettingsEditProfileHu._(_root);
+	@override late final _TranslationsSettingsLanguageHu language = _TranslationsSettingsLanguageHu._(_root);
+	@override late final _TranslationsSettingsHeightUnitHu heightUnit = _TranslationsSettingsHeightUnitHu._(_root);
+	@override late final _TranslationsSettingsWeightUnitHu weightUnit = _TranslationsSettingsWeightUnitHu._(_root);
+	@override late final _TranslationsSettingsMealRemindersHu mealReminders = _TranslationsSettingsMealRemindersHu._(_root);
+	@override late final _TranslationsSettingsThemeHu theme = _TranslationsSettingsThemeHu._(_root);
+	@override late final _TranslationsSettingsSendFeedbackHu sendFeedback = _TranslationsSettingsSendFeedbackHu._(_root);
+	@override late final _TranslationsSettingsClearAllDataHu clearAllData = _TranslationsSettingsClearAllDataHu._(_root);
+	@override late final _TranslationsSettingsDebugOptionsHu debugOptions = _TranslationsSettingsDebugOptionsHu._(_root);
+	@override String get developerModeEnabled => 'Fejlesztő mód engedélyezve!';
+}
+
+// Path: reminders
+class _TranslationsRemindersHu implements TranslationsRemindersEn {
+	_TranslationsRemindersHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tartsd az ütemet emlékeztetőkkel';
+	@override String get description => 'Kapsz enyhe emlékeztetőket, hogy naplózd az étkezéseidet és következetes maradj táplálkozási céljaidnál';
+	@override String get notificationsEnabled => 'Értesítések Engedélyezve';
+	@override String get notificationsDisabled => 'Értesítések Letiltva';
+	@override String get enabledSubtitle => 'Érkezni fognak étkezés emlékeztetők';
+	@override String get disabledSubtitle => 'Engedélyezd az értesítéseket az étkezés emlékeztetők megszerzéséhez';
+	@override String get mealReminders => 'Étkezés Emlékeztetők';
+	@override String get breakfast => 'Reggeli';
+	@override String get lunch => 'Ebéd';
+	@override String get dinner => 'Vacsora';
+	@override String get snack => 'Uzsonna';
+	@override String get unknown => 'Ismeretlen';
+	@override String get change => 'Változtatás';
+	@override String get enableNotifications => 'Értesítések Engedélyezése';
+	@override String get skipForNow => 'Most kihagy';
+	@override String get saveChanges => 'Változások Mentése';
+	@override String get enabledSuccessfully => 'Értesítések sikeresen engedélyezve!';
+	@override String get permissionDenied => 'Értesítési engedély megtagadva';
+	@override String errorEnabling({required Object error}) => 'Hiba az értesítések engedélyezésekor: ${error}';
+	@override String errorCompletingSetup({required Object error}) => 'Hiba a beállítások befejezésében: ${error}';
+}
+
+// Path: notifications
+class _TranslationsNotificationsHu implements TranslationsNotificationsEn {
+	_TranslationsNotificationsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsNotificationsBreakfastHu breakfast = _TranslationsNotificationsBreakfastHu._(_root);
+	@override late final _TranslationsNotificationsLunchHu lunch = _TranslationsNotificationsLunchHu._(_root);
+	@override late final _TranslationsNotificationsDinnerHu dinner = _TranslationsNotificationsDinnerHu._(_root);
+	@override late final _TranslationsNotificationsSnackHu snack = _TranslationsNotificationsSnackHu._(_root);
+	@override late final _TranslationsNotificationsTestHu test = _TranslationsNotificationsTestHu._(_root);
+}
+
+// Path: login
+class _TranslationsLoginHu implements TranslationsLoginEn {
+	_TranslationsLoginHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Bejelentkezés';
+	@override String get signInWithGoogle => 'Bejelentkezés Google-lal';
+	@override String get signInFailed => 'A Google-bejelentkezés sikertelen vagy megszakadt.';
+}
+
+// Path: disclaimer
+class _TranslationsDisclaimerHu implements TranslationsDisclaimerEn {
+	_TranslationsDisclaimerHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get pleaseNote => 'Kérlek, vedd figyelembe';
+	@override late final _TranslationsDisclaimerSnapHu snap = _TranslationsDisclaimerSnapHu._(_root);
+	@override late final _TranslationsDisclaimerWeightEstimateHu weightEstimate = _TranslationsDisclaimerWeightEstimateHu._(_root);
+}
+
+// Path: common
+class _TranslationsCommonHu implements TranslationsCommonEn {
+	_TranslationsCommonHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get close => 'Bezárás';
+	@override String get kContinue => 'Tovább';
+}
+
+// Path: errors
+class _TranslationsErrorsHu implements TranslationsErrorsEn {
+	_TranslationsErrorsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Hiba a profiladatok betöltésekor';
+	@override String get somethingWentWrong => 'Valami hiba történt.';
+}
+
+// Path: debug
+class _TranslationsDebugHu implements TranslationsDebugEn {
+	_TranslationsDebugHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hibakeresési Beállítások';
+	@override late final _TranslationsDebugSectionsHu sections = _TranslationsDebugSectionsHu._(_root);
+	@override String get showActiveNotifications => 'Aktív Értesítések Megjelenítése';
+	@override String get scheduleTestNotification => 'Teszt Értesítés Ütemezése (10s)';
+	@override String get triggerBreakfastNotification => 'Reggeli Értesítés Kioldása';
+	@override String get cancelAllNotifications => 'Összes Értesítés Törlése';
+	@override String get activeNotifications => 'Aktív Értesítések';
+	@override String get noTitle => 'Nincs Cím';
+	@override String get noBody => 'Nincs Törzs';
+	@override String get fetchTodaysSteps => 'Ma Lépések Lekérése';
+	@override String get fetchTodaysCalories => 'Ma Kalóriák Lekérése';
+	@override String get fetchLatestWeight => 'Legfrissebb Súly Lekérése';
+	@override String get fetchLatestHeight => 'Legfrissebb Magasság Lekérése';
+	@override String get writeTestWeight => 'Teszt Súly Írása (70kg)';
+	@override String get writeTestHeight => 'Teszt Magasság Írása (175cm)';
+	@override String get syncLast7Days => 'Utolsó 7 Nap Szinkronizálása';
+	@override String get sync7DaysTitle => '7 Napos Szinkronizálás';
+	@override String get checkCurrentLocale => 'Jelenlegi Helyi Beállítás Ellenőrzése';
+	@override String get currentLocale => 'Jelenlegi nyelv';
+	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Nyelv: ${languageCode}\nOrszág: ${countryCode}\nMetrikus rendszer: ${unitSystem}';
+	@override String get latestWeight => 'Legfrissebb Súly';
+	@override String get latestHeight => 'Legfrissebb Magasság';
+	@override String get todaysCalories => 'Mai Kalóriák';
+	@override String totalCaloriesBurned({required Object calories}) => 'Összes elégetett kalória: ${calories}';
+	@override String syncSuccess({required Object count}) => 'Sikeresen lekérhető ${count} adatpontok a lépések, kalóriák és súly terén az elmúlt 7 napban.';
+	@override String get noWeightData => 'Az utolsó 30 napban nincs súly adat.';
+	@override String get noHeightData => 'Nincs magasság adat az utolsó évben.';
+	@override String get noCalorieData => 'Ma nincs kalória adat.';
+	@override String get weightWritten => 'Teszt súly (70kg) sikeresen íródott.';
+	@override String get weightWriteFailed => 'A teszt súly írása nem sikerült.';
+	@override String get heightWritten => 'Teszt magasság (175cm) sikeresen íródott.';
+	@override String get heightWriteFailed => 'A teszt magasság írása nem sikerült.';
+	@override String get noNotifications => 'Nincs aktív értesítés.';
+	@override String get testNotificationScheduled => 'Teszt értesítés ütemezve, 10 másodperc múlva.';
+	@override String get testNotificationBody => 'Ez egy teszt értesítés, ütemezve 10 másodperc múlva.';
+	@override String get breakfastNotificationTriggered => 'Reggeli értesítés kioldva.';
+	@override String get allNotificationsCancelled => 'Összes értesítés törölve.';
+	@override String get fetchingData => 'Adatok lekérése az elmúlt 7 napra...';
+	@override String id({required Object id}) => 'ID: ${id}';
+}
+
+// Path: health
+class _TranslationsHealthHu implements TranslationsHealthEn {
+	_TranslationsHealthHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncFailed => 'Nem sikerült szinkronizálni a Health Connect-tel';
+	@override String get mealSynced => 'Étkezés szinkronizálva a Health Connect-tel';
+}
+
+// Path: onboarding.features
+class _TranslationsOnboardingFeaturesHu implements TranslationsOnboardingFeaturesEn {
+	_TranslationsOnboardingFeaturesHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsOnboardingFeaturesFoodRecognitionHu foodRecognition = _TranslationsOnboardingFeaturesFoodRecognitionHu._(_root);
+	@override late final _TranslationsOnboardingFeaturesAiAnalysisHu aiAnalysis = _TranslationsOnboardingFeaturesAiAnalysisHu._(_root);
+	@override late final _TranslationsOnboardingFeaturesHealthIntegrationHu healthIntegration = _TranslationsOnboardingFeaturesHealthIntegrationHu._(_root);
+}
+
+// Path: onboarding.gender
+class _TranslationsOnboardingGenderHu implements TranslationsOnboardingGenderEn {
+	_TranslationsOnboardingGenderHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mi a nemed?';
+	@override String get description => 'A nem segít pontosan kiszámolni az alapanyagcserét (BMR).';
+	@override String get next => 'Tovább';
+}
+
+// Path: onboarding.height
+class _TranslationsOnboardingHeightHu implements TranslationsOnboardingHeightEn {
+	_TranslationsOnboardingHeightHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mennyi a magasságod?';
+	@override String get description => 'A magasságod segít pontosan kiszámolni a BMI-t és az energiaszükségletet.';
+	@override String get metric => 'Metrikus';
+	@override String get imperial => 'Imperiális';
+	@override String get next => 'Tovább';
+}
+
+// Path: onboarding.weight
+class _TranslationsOnboardingWeightHu implements TranslationsOnboardingWeightEn {
+	_TranslationsOnboardingWeightHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get currentTitle => 'Mi a jelenlegi súlyod?';
+	@override String get currentDescription => 'A jelenlegi súlyod elengedhetetlen a napi céljaid személyre szabásához.';
+	@override String get targetTitle => 'Mi a cél súlyod?';
+	@override String get targetDescription => 'A cél súly beállítása segít meghatározni a hosszú távú tervedet.';
+	@override String get metric => 'Metrikus';
+	@override String get imperial => 'Imperiális';
+	@override String get next => 'Tovább';
+}
+
+// Path: onboarding.age
+class _TranslationsOnboardingAgeHu implements TranslationsOnboardingAgeEn {
+	_TranslationsOnboardingAgeHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mikor van a születésnapod?';
+	@override String get description => 'A korod segít pontosan kiszámolni a kalóriaszükségletedet.';
+	@override String get next => 'Tovább';
+}
+
+// Path: onboarding.bmiScale
+class _TranslationsOnboardingBmiScaleHu implements TranslationsOnboardingBmiScaleEn {
+	_TranslationsOnboardingBmiScaleHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get underweight => 'Súlyhiányos';
+	@override String get healthy => 'Egészséges';
+	@override String get overweight => 'Túlsúlyos';
+	@override String get obese => 'Elhízott';
+	@override late final _TranslationsOnboardingBmiScaleCategoriesHu categories = _TranslationsOnboardingBmiScaleCategoriesHu._(_root);
+	@override late final _TranslationsOnboardingBmiScaleMessagesHu messages = _TranslationsOnboardingBmiScaleMessagesHu._(_root);
+}
+
+// Path: onboarding.weightGoal
+class _TranslationsOnboardingWeightGoalHu implements TranslationsOnboardingWeightGoalEn {
+	_TranslationsOnboardingWeightGoalHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mi a célod?';
+	@override String get description => 'Válaszd ki a célt, ami legjobban leírja, mit szeretnél elérni';
+}
+
+// Path: onboarding.activityLevel
+class _TranslationsOnboardingActivityLevelHu implements TranslationsOnboardingActivityLevelEn {
+	_TranslationsOnboardingActivityLevelHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mennyi a aktivitásod?';
+	@override String get description => 'Ez segít pontosabban kiszámolni a napi kalóriaszükségletedet';
+}
+
+// Path: onboarding.healthConnect
+class _TranslationsOnboardingHealthConnectHu implements TranslationsOnboardingHealthConnectEn {
+	_TranslationsOnboardingHealthConnectHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Csatlakozz a Health Connect-hez';
+	@override String get description => 'Szinkronizáld az egészségügyi adatokat jobb betekintésekért és automatikus kalóriaszámlálásért';
+	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingHu automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingHu._(_root);
+	@override late final _TranslationsOnboardingHealthConnectProgressInsightsHu progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsHu._(_root);
+	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationHu seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationHu._(_root);
+	@override String get connected => 'Health Connect csatlakoztatva';
+	@override String get notConnected => 'Health Connect nincs csatlakoztatva';
+	@override String get setup => 'Állítsd be a Health Connect-et';
+	@override String get skipForNow => 'Most hagyd ki';
+	@override String get statusConnected => 'A Health Connect csatlakoztatva van.';
+	@override String get statusSuccess => 'A Health Connect sikeresen csatlakoztatva lett!';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Hozzáférés megtagadva. Kérjük, engedélyezze a Health Connect engedélyeket a telefon beállításaiból a(z) ${appLabel} számára.';
+	@override String statusError({required Object error}) => 'Hiba történt a Health Connect beállításánál: ${error}';
+}
+
+// Path: onboarding.reinforcement
+class _TranslationsOnboardingReinforcementHu implements TranslationsOnboardingReinforcementEn {
+	_TranslationsOnboardingReinforcementHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsOnboardingReinforcementTrackingSuccessHu trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessHu._(_root);
+	@override late final _TranslationsOnboardingReinforcementHealthProfileHu healthProfile = _TranslationsOnboardingReinforcementHealthProfileHu._(_root);
+	@override late final _TranslationsOnboardingReinforcementGoalLifestyleHu goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleHu._(_root);
+}
+
+// Path: home.dailyGoal
+class _TranslationsHomeDailyGoalHu implements TranslationsHomeDailyGoalEn {
+	_TranslationsHomeDailyGoalHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Állítsd Be Napi Célodat';
+	@override String get titleSet => 'Napi Célod';
+	@override String get description => 'Készen állsz elindulni a jóléted útján? Állítsd be napi kalória célodat az alábbiakban a fejlődésed kezdetéhez.';
+	@override String get descriptionSet => 'A tájékozódásod beállítva! Ez a napi kalóriaszámod, ami irányt ad neked.';
+	@override String get yourGoal => 'Célod';
+	@override String get dailyCalories => 'Napi kalóriák (kcal)';
+	@override String get setGoal => 'Cél Beállítása';
+	@override String get intake => 'Fogyasztás';
+	@override String get burned => 'Elégetett';
+	@override String get weightImpact => 'Súly Hatás';
+	@override String get estLoss => 'Becsült fogyás: ';
+	@override String get estGain => 'Becsült gyarapodás: ';
+	@override String get kcal => 'kcal';
+}
+
+// Path: home.dailySummary
+class _TranslationsHomeDailySummaryHu implements TranslationsHomeDailySummaryEn {
+	_TranslationsHomeDailySummaryHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Napi Összegzés';
+	@override String get calories => 'Kalóriák';
+	@override String get carbs => 'Szénhidrátok';
+	@override String get protein => 'Fehérjék';
+	@override String get fat => 'Zsírok';
+	@override String get fiber => 'Rost';
+}
+
+// Path: home.intakeProgress
+class _TranslationsHomeIntakeProgressHu implements TranslationsHomeIntakeProgressEn {
+	_TranslationsHomeIntakeProgressHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mai Makrómegoszlás';
+	@override String get target => 'Cél';
+	@override String get current => 'Jelenlegi';
+}
+
+// Path: home.intakeHistory
+class _TranslationsHomeIntakeHistoryHu implements TranslationsHomeIntakeHistoryEn {
+	_TranslationsHomeIntakeHistoryHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '7 Napos Makró Történelem';
+	@override String get noHistoryYet => 'Nincs még történet';
+	@override String get startLogging => 'Kezd el étkezéseid naplózását, hogy itt lásd\na 7 napos makró trendjeidet';
+}
+
+// Path: home.mealLog
+class _TranslationsHomeMealLogHu implements TranslationsHomeMealLogEn {
+	_TranslationsHomeMealLogHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Naplózott Étkezések';
+	@override String get emptyMessage => 'Készíts egy képet az utolsó étkezésedről, hogy itt be tudd jegyezni.';
+	@override String get noMealsToday => 'Ma nincs rögzített étkezés';
+	@override String get seeAllMeals => 'Összes étkezés megtekintése';
+}
+
+// Path: home.mealDescription
+class _TranslationsHomeMealDescriptionHu implements TranslationsHomeMealDescriptionEn {
+	_TranslationsHomeMealDescriptionHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Gyors Hozzáadás AI-val';
+	@override String get description => 'Írd le az étkezésed, és hagyd, hogy az AI kezelje a részleteket.';
+	@override String get hint => 'pl. Reggelire egy nagy tál zabliszttel, egy szelet banánnal és egy adag tejsavóval ...';
+	@override String get analyzeMeal => 'Éttervezés elemzése';
+}
+
+// Path: home.favoriteMeals
+class _TranslationsHomeFavoriteMealsHu implements TranslationsHomeFavoriteMealsEn {
+	_TranslationsHomeFavoriteMealsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kedvenc Étkezések';
+	@override String get description => 'Gyorsan add hozzá az egyik kedvenc étkezésed.';
+	@override String get noFavorites => 'Még nincs kedvenc étkezés.';
+	@override String get addFavoriteHint => 'Kattints a csillagra egy étkezés mellett, hogy kedvencekké tedd.';
+	@override String get seeAll => 'Összes megtekintése';
+	@override String get add => 'Hozzáadás';
+}
+
+// Path: home.mealSnap
+class _TranslationsHomeMealSnapHu implements TranslationsHomeMealSnapEn {
+	_TranslationsHomeMealSnapHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Képzelj és Kövesd Az Étkezésed';
+	@override String get description => 'Használj kamerát, hogy fényképet készíts az ételedről az AI elemzése érdekében.';
+	@override String get openCamera => 'Kamera megnyitása';
+}
+
+// Path: home.connectHealth
+class _TranslationsHomeConnectHealthHu implements TranslationsHomeConnectHealthEn {
+	_TranslationsHomeConnectHealthHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Szinkronizálás az Health Connect-tel';
+	@override String get description => 'Szinkronizáld táplálkozási adataidat az Health Connect-tel';
+	@override String get install => 'Telepítés';
+	@override String get connect => 'Csatlakozás';
+}
+
+// Path: meal.nutrition
+class _TranslationsMealNutritionHu implements TranslationsMealNutritionEn {
+	_TranslationsMealNutritionHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get calories => 'Kalóriák';
+	@override String get carbs => 'Szénhidrátok (g)';
+	@override String get protein => 'Fehérjék (g)';
+	@override String get fat => 'Zsírok (g)';
+	@override String get fiber => 'Rost (g)';
+}
+
+// Path: meal.deleteConfirmation
+class _TranslationsMealDeleteConfirmationHu implements TranslationsMealDeleteConfirmationEn {
+	_TranslationsMealDeleteConfirmationHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Étkezés Törlése';
+	@override String get message => 'Biztosan törölni szeretnéd ezt az étkezést?';
+	@override String get cancel => 'Mégse';
+	@override String get delete => 'Törlés';
+}
+
+// Path: profile.sections
+class _TranslationsProfileSectionsHu implements TranslationsProfileSectionsEn {
+	_TranslationsProfileSectionsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get profile => 'PROFIL';
+	@override String get basicInformation => 'ALAP INFORMÁCIÓK';
+	@override String get goalsAndActivity => 'CÉLOK ÉS TEVÉKENYSÉG';
+	@override String get calculatedValues => 'SZÁMÍTOTT ÉRTÉKEK';
+}
+
+// Path: profile.calculatedValues
+class _TranslationsProfileCalculatedValuesHu implements TranslationsProfileCalculatedValuesEn {
+	_TranslationsProfileCalculatedValuesHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get bmr => 'BMR';
+	@override String get tdee => 'TDEE';
+	@override String get dailyGoal => 'Napi Cél';
+	@override String get calPerDay => 'kal/nap';
+	@override String get notAvailable => 'N/A';
+}
+
+// Path: editProfile.sections
+class _TranslationsEditProfileSectionsHu implements TranslationsEditProfileSectionsEn {
+	_TranslationsEditProfileSectionsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get personalInformation => 'SZEMÉLYES INFORMÁCIÓK';
+	@override String get physicalMeasurements => 'FIZIKAI MÉRÉSEK';
+	@override String get goalsAndActivity => 'CÉLOK ÉS TEVÉKENYSÉG';
+}
+
+// Path: editProfile.genders
+class _TranslationsEditProfileGendersHu implements TranslationsEditProfileGendersEn {
+	_TranslationsEditProfileGendersHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get male => 'Férfi';
+	@override String get female => 'Nő';
+	@override String get other => 'Egyéb';
+}
+
+// Path: editProfile.weightGoals
+class _TranslationsEditProfileWeightGoalsHu implements TranslationsEditProfileWeightGoalsEn {
+	_TranslationsEditProfileWeightGoalsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsEditProfileWeightGoalsLoseWeightHu loseWeight = _TranslationsEditProfileWeightGoalsLoseWeightHu._(_root);
+	@override late final _TranslationsEditProfileWeightGoalsMaintainWeightHu maintainWeight = _TranslationsEditProfileWeightGoalsMaintainWeightHu._(_root);
+	@override late final _TranslationsEditProfileWeightGoalsGainWeightHu gainWeight = _TranslationsEditProfileWeightGoalsGainWeightHu._(_root);
+}
+
+// Path: editProfile.activityLevels
+class _TranslationsEditProfileActivityLevelsHu implements TranslationsEditProfileActivityLevelsEn {
+	_TranslationsEditProfileActivityLevelsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsEditProfileActivityLevelsSedentaryHu sedentary = _TranslationsEditProfileActivityLevelsSedentaryHu._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsLightlyActiveHu lightlyActive = _TranslationsEditProfileActivityLevelsLightlyActiveHu._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsModeratelyActiveHu moderatelyActive = _TranslationsEditProfileActivityLevelsModeratelyActiveHu._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsVeryActiveHu veryActive = _TranslationsEditProfileActivityLevelsVeryActiveHu._(_root);
+	@override late final _TranslationsEditProfileActivityLevelsExtremelyActiveHu extremelyActive = _TranslationsEditProfileActivityLevelsExtremelyActiveHu._(_root);
+}
+
+// Path: settings.sections
+class _TranslationsSettingsSectionsHu implements TranslationsSettingsSectionsEn {
+	_TranslationsSettingsSectionsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get profile => 'PROFIL';
+	@override String get localization => 'HELYI BEÁLLÍTÁSOK';
+	@override String get notifications => 'ÉRTESÍTÉSEK';
+	@override String get supportAndLegal => 'TÁMOGATÁS ÉS JOGI ÜGYEK';
+	@override String get dangerZone => 'VESZÉLYES ZÓNA';
+	@override String get developer => 'FEJLESZTŐ';
+}
+
+// Path: settings.editProfile
+class _TranslationsSettingsEditProfileHu implements TranslationsSettingsEditProfileEn {
+	_TranslationsSettingsEditProfileHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Profil Szerkesztése';
+	@override String get subtitle => 'Frissítsd személyes adataidat';
+}
+
+// Path: settings.language
+class _TranslationsSettingsLanguageHu implements TranslationsSettingsLanguageEn {
+	_TranslationsSettingsLanguageHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Nyelv';
+	@override String get subtitle => 'Válaszd ki preferált nyelved';
+	@override String get searchHint => 'Nyelvek keresése...';
+	@override String get noResults => 'Nincs találat';
+}
+
+// Path: settings.heightUnit
+class _TranslationsSettingsHeightUnitHu implements TranslationsSettingsHeightUnitEn {
+	_TranslationsSettingsHeightUnitHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Magasság Mértékegysége';
+}
+
+// Path: settings.weightUnit
+class _TranslationsSettingsWeightUnitHu implements TranslationsSettingsWeightUnitEn {
+	_TranslationsSettingsWeightUnitHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Súly Mértékegysége';
+}
+
+// Path: settings.mealReminders
+class _TranslationsSettingsMealRemindersHu implements TranslationsSettingsMealRemindersEn {
+	_TranslationsSettingsMealRemindersHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Étkezés Emlékeztetők';
+	@override String get subtitle => 'Tartsd az ütemet időben érkező értesítésekkel';
+}
+
+// Path: settings.theme
+class _TranslationsSettingsThemeHu implements TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Téma';
+	@override String get subtitle => 'Válaszd ki a preferált témádat';
+	@override String get light => 'Világos';
+	@override String get dark => 'Sötét';
+	@override String get system => 'Rendszer';
+}
+
+// Path: settings.sendFeedback
+class _TranslationsSettingsSendFeedbackHu implements TranslationsSettingsSendFeedbackEn {
+	_TranslationsSettingsSendFeedbackHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Visszajelzés Küldése';
+	@override String subtitle({required Object appLabel}) => 'Segítsen nekünk fejleszteni a(z) ${appLabel} alkalmazást';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} Alkalmazás Visszajelzés';
+	@override String get emailBodyPrefix => 'Kérlek, írd meg visszajelzésed alább:';
+	@override String get appVersion => 'Alkalmazás Verzió';
+	@override String get device => 'Eszköz';
+	@override String get osVersion => 'OS Verzió';
+	@override String get uid => 'UID';
+}
+
+// Path: settings.clearAllData
+class _TranslationsSettingsClearAllDataHu implements TranslationsSettingsClearAllDataEn {
+	_TranslationsSettingsClearAllDataHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Összes Adat Törlése';
+	@override String get subtitle => 'Visszafordíthatatlanul töröld az összes információdat';
+	@override String get confirmationTitle => 'Összes Adat Törlése?';
+	@override String get confirmationMessage => 'Ez a művelet nem vonható vissza. Minden rögzített étkezésed, kedvenc, és profilbeállítás véglegesen törlésre kerül.';
+	@override String get cancel => 'Mégse';
+	@override String get clearEverything => 'Összes Törlése';
+}
+
+// Path: settings.debugOptions
+class _TranslationsSettingsDebugOptionsHu implements TranslationsSettingsDebugOptionsEn {
+	_TranslationsSettingsDebugOptionsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hibakeresési Beállítások';
+}
+
+// Path: notifications.breakfast
+class _TranslationsNotificationsBreakfastHu implements TranslationsNotificationsBreakfastEn {
+	_TranslationsNotificationsBreakfastHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Reggeli Idő! 🍳';
+	@override String get body => 'Ne felejtsd el bejegyezni a reggelidet';
+}
+
+// Path: notifications.lunch
+class _TranslationsNotificationsLunchHu implements TranslationsNotificationsLunchEn {
+	_TranslationsNotificationsLunchHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ebéd Idő! 🥗';
+	@override String get body => 'Ideje bejegyezni az ebéded';
+}
+
+// Path: notifications.dinner
+class _TranslationsNotificationsDinnerHu implements TranslationsNotificationsDinnerEn {
+	_TranslationsNotificationsDinnerHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Vacsora Idő! 🍽️';
+	@override String get body => 'Ne felejtsd el bejegyezni a vacsorádat';
+}
+
+// Path: notifications.snack
+class _TranslationsNotificationsSnackHu implements TranslationsNotificationsSnackEn {
+	_TranslationsNotificationsSnackHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Uzsonna Idő! 🍎';
+	@override String get body => 'Ideje egy egészséges uzsonnára';
+}
+
+// Path: notifications.test
+class _TranslationsNotificationsTestHu implements TranslationsNotificationsTestEn {
+	_TranslationsNotificationsTestHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Teszt Értesítés';
+}
+
+// Path: disclaimer.snap
+class _TranslationsDisclaimerSnapHu implements TranslationsDisclaimerSnapEn {
+	_TranslationsDisclaimerSnapHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String description({required Object appLabel}) => 'A(z) ${appLabel} becsült tápanyaginformációkat nyújt. A pontosság a megadott adatoktól és az ételek változatosságától függ. Használja útmutatóként, ne pedig végérvényes forrásként. Kérjük, konzultáljon szakemberrel a személyre szabott táplálkozási tanácsokért.';
+	@override late final _TranslationsDisclaimerSnapPortionSizeHu portionSize = _TranslationsDisclaimerSnapPortionSizeHu._(_root);
+	@override late final _TranslationsDisclaimerSnapPreparationMethodsHu preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsHu._(_root);
+	@override late final _TranslationsDisclaimerSnapIngredientsHu ingredients = _TranslationsDisclaimerSnapIngredientsHu._(_root);
+	@override late final _TranslationsDisclaimerSnapDatabaseLimitationsHu databaseLimitations = _TranslationsDisclaimerSnapDatabaseLimitationsHu._(_root);
+}
+
+// Path: disclaimer.weightEstimate
+class _TranslationsDisclaimerWeightEstimateHu implements TranslationsDisclaimerWeightEstimateEn {
+	_TranslationsDisclaimerWeightEstimateHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A Súlybecslésről';
+	@override String get description => 'A becsült súlyváltozás egy elméleti becslés, amely az egyszerű kalória-bevitel és -kiadás modell alapján készül. Csak motiváló útmutatásként szolgál, nem pedig a tényleges súlyod előrejelzéseként.';
+	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyHu calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyHu._(_root);
+	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsHu biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsHu._(_root);
+	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightHu waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightHu._(_root);
+	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceHu professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceHu._(_root);
+}
+
+// Path: debug.sections
+class _TranslationsDebugSectionsHu implements TranslationsDebugSectionsEn {
+	_TranslationsDebugSectionsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get notifications => 'Értesítések';
+	@override String get healthConnect => 'Health Connect';
+	@override String get appInfo => 'Alkalmazás Információ';
+}
+
+// Path: onboarding.features.foodRecognition
+class _TranslationsOnboardingFeaturesFoodRecognitionHu implements TranslationsOnboardingFeaturesFoodRecognitionEn {
+	_TranslationsOnboardingFeaturesFoodRecognitionHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Intelligens Étel Felismerés';
+	@override String get description => 'Készíts egy fényképet, és hagyd, hogy az AI azonosítsa az étkezésed';
+}
+
+// Path: onboarding.features.aiAnalysis
+class _TranslationsOnboardingFeaturesAiAnalysisHu implements TranslationsOnboardingFeaturesAiAnalysisEn {
+	_TranslationsOnboardingFeaturesAiAnalysisHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'AI Elemzés';
+	@override String get description => 'Azonnali táplálkozási tények a leírásaid alapján';
+}
+
+// Path: onboarding.features.healthIntegration
+class _TranslationsOnboardingFeaturesHealthIntegrationHu implements TranslationsOnboardingFeaturesHealthIntegrationEn {
+	_TranslationsOnboardingFeaturesHealthIntegrationHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Egészség Integráció';
+	@override String get description => 'Csatlakozz a Health Connect-hez a jobb betekintésekért';
+}
+
+// Path: onboarding.bmiScale.categories
+class _TranslationsOnboardingBmiScaleCategoriesHu implements TranslationsOnboardingBmiScaleCategoriesEn {
+	_TranslationsOnboardingBmiScaleCategoriesHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get underweight => 'Súlyhiányos';
+	@override String get healthyWeight => 'Egészséges testsúly';
+	@override String get overweight => 'Túlsúlyos';
+	@override String get obese => 'Elhízott';
+}
+
+// Path: onboarding.bmiScale.messages
+class _TranslationsOnboardingBmiScaleMessagesHu implements TranslationsOnboardingBmiScaleMessagesEn {
+	_TranslationsOnboardingBmiScaleMessagesHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get underweight => 'Segíthetünk egy egészséges tervet kialakítani, hogy kiegyensúlyozott súlyt érj el tápanyagban gazdag ételekkel.';
+	@override String get healthy => 'Nagyszerű munka! Egészséges tartományban vagy. Segítünk fenntartani az életerődet és energiaszintedet.';
+	@override String overweight({required Object appLabel}) => 'A(z) ${appLabel} egyszerűsíti az utazását az AI-alapú nyomon követéssel, hogy kényelmesen elérje a célját.';
+	@override String get obese => 'Itt vagyunk, hogy támogassunk téged a személyre szabott útmutatással és fenntartható stratégiákkal az egészségi céljaid elérésében.';
+}
+
+// Path: onboarding.healthConnect.automaticTracking
+class _TranslationsOnboardingHealthConnectAutomaticTrackingHu implements TranslationsOnboardingHealthConnectAutomaticTrackingEn {
+	_TranslationsOnboardingHealthConnectAutomaticTrackingHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Automatikus Kalóriaszámlálás';
+	@override String get description => 'Kövessd a fitness alkalmazásokból égetett kalóriákat';
+}
+
+// Path: onboarding.healthConnect.progressInsights
+class _TranslationsOnboardingHealthConnectProgressInsightsHu implements TranslationsOnboardingHealthConnectProgressInsightsEn {
+	_TranslationsOnboardingHealthConnectProgressInsightsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Haladási Betekintések';
+	@override String get description => 'Részletes betekintéseket kapsz az egészségi trendjeidbe';
+}
+
+// Path: onboarding.healthConnect.seamlessIntegration
+class _TranslationsOnboardingHealthConnectSeamlessIntegrationHu implements TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
+	_TranslationsOnboardingHealthConnectSeamlessIntegrationHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Zökkenőmentes Integráció';
+	@override String get description => 'Szinkronizáld az adatokat a kedvenc egészségügyi alkalmazásaidból';
+}
+
+// Path: onboarding.reinforcement.trackingSuccess
+class _TranslationsOnboardingReinforcementTrackingSuccessHu implements TranslationsOnboardingReinforcementTrackingSuccessEn {
+	_TranslationsOnboardingReinforcementTrackingSuccessHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Nem vagy Egyedül';
+	@override String get genericMessage => 'A kutatások azt mutatják, hogy a következetes nyomon követés a hosszú távú siker legfontosabb előrejelzője.';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Egy ${age} éves ${gender} számára, aki ${goal}-t szeretne elérni, a következetes nyomon követés a siker legfontosabb előrejelzője.';
+	@override String closingMessage({required Object appLabel}) => 'A(z) ${appLabel} 10-szer könnyebbé teszi a dolgot, mint ha manuálisan csinálná.';
+	@override String get getStartedTitle => 'Készen állsz a kezdésre?';
+	@override String get tipPhoto => 'Készíts képet az ételeidről az azonnali elemzéshez';
+	@override String get tipConsistency => 'Rendszeresen jegyezd fel az étkezéseidet a lényeges fejlődés érdekében';
+	@override String get tipProgress => 'Kövesd a fejlődésed naponta a motivációd fenntartásához';
+	@override String get button => 'Induljunk!';
+	@override String get defaultGender => 'személy';
+	@override String get defaultGoal => 'egészségesebb te';
+}
+
+// Path: onboarding.reinforcement.healthProfile
+class _TranslationsOnboardingReinforcementHealthProfileHu implements TranslationsOnboardingReinforcementHealthProfileEn {
+	_TranslationsOnboardingReinforcementHealthProfileHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Az Egészségügyi Profilod';
+	@override String bmiDescription({required Object bmi}) => 'A metrikáid alapján a BMI-d: ${bmi}.';
+	@override String get finalizeDescription => 'Fejezzük be a profilod, hogy testre szabhassuk az élményed.';
+	@override String get goalGain => 'növelni';
+	@override String get goalLose => 'csökkenteni';
+	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'A célod eléréséhez ${direction} ${diff} ${unit}.';
+	@override String get goalReached => 'Elérted a cél súlyodat! Segítünk fenntartani.';
+	@override String get button => 'Induljunk!';
+}
+
+// Path: onboarding.reinforcement.goalLifestyle
+class _TranslationsOnboardingReinforcementGoalLifestyleHu implements TranslationsOnboardingReinforcementGoalLifestyleEn {
+	_TranslationsOnboardingReinforcementGoalLifestyleHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kiváló Kezdés!';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Megtette az első lépést a(z) ${goalText} felé. Mivel Ön ${activityText}, a(z) ${appLabel} hozzáigazítja a céljait az életmódjához.';
+	@override String get personalizedTargets => 'Személyre szabott kalóriacélok';
+	@override String get aiMealDetection => 'AI-alapú étkezés-felismerés';
+	@override String get macroBreakdowns => 'Részletes makrotápanyagbontások';
+	@override String get button => 'Induljunk!';
+	@override String get defaultGoal => 'a céljaid';
+	@override String get defaultActivity => 'aktív';
+}
+
+// Path: editProfile.weightGoals.loseWeight
+class _TranslationsEditProfileWeightGoalsLoseWeightHu implements TranslationsEditProfileWeightGoalsLoseWeightEn {
+	_TranslationsEditProfileWeightGoalsLoseWeightHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => 'Fogyás';
+	@override String get description => 'Kalóriadeficit létrehozása a fogyás érdekében';
+}
+
+// Path: editProfile.weightGoals.maintainWeight
+class _TranslationsEditProfileWeightGoalsMaintainWeightHu implements TranslationsEditProfileWeightGoalsMaintainWeightEn {
+	_TranslationsEditProfileWeightGoalsMaintainWeightHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => 'Súly megőrzése';
+	@override String get description => 'Jelenlegi súlyod fenntartása';
+}
+
+// Path: editProfile.weightGoals.gainWeight
+class _TranslationsEditProfileWeightGoalsGainWeightHu implements TranslationsEditProfileWeightGoalsGainWeightEn {
+	_TranslationsEditProfileWeightGoalsGainWeightHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => 'Hízás';
+	@override String get description => 'Kalóriatöbblet létrehozása a hízás érdekében';
+}
+
+// Path: editProfile.activityLevels.sedentary
+class _TranslationsEditProfileActivityLevelsSedentaryHu implements TranslationsEditProfileActivityLevelsSedentaryEn {
+	_TranslationsEditProfileActivityLevelsSedentaryHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => 'Ülő';
+	@override String get description => 'Kicsi vagy semmilyen testedzés';
+}
+
+// Path: editProfile.activityLevels.lightlyActive
+class _TranslationsEditProfileActivityLevelsLightlyActiveHu implements TranslationsEditProfileActivityLevelsLightlyActiveEn {
+	_TranslationsEditProfileActivityLevelsLightlyActiveHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => 'Enyhén Aktív';
+	@override String get description => 'Könnyű edzés 1-3 nap/hét';
+}
+
+// Path: editProfile.activityLevels.moderatelyActive
+class _TranslationsEditProfileActivityLevelsModeratelyActiveHu implements TranslationsEditProfileActivityLevelsModeratelyActiveEn {
+	_TranslationsEditProfileActivityLevelsModeratelyActiveHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => 'Mérsékelten Aktív';
+	@override String get description => 'Mérsékelt edzés 3-5 nap/hét';
+}
+
+// Path: editProfile.activityLevels.veryActive
+class _TranslationsEditProfileActivityLevelsVeryActiveHu implements TranslationsEditProfileActivityLevelsVeryActiveEn {
+	_TranslationsEditProfileActivityLevelsVeryActiveHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => 'Nagyon Aktív';
+	@override String get description => 'Kemény edzés 6-7 nap/hét';
+}
+
+// Path: editProfile.activityLevels.extremelyActive
+class _TranslationsEditProfileActivityLevelsExtremelyActiveHu implements TranslationsEditProfileActivityLevelsExtremelyActiveEn {
+	_TranslationsEditProfileActivityLevelsExtremelyActiveHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get name => 'Extrém Aktív';
+	@override String get description => 'Nagyon kemény edzés, fizikai munka';
+}
+
+// Path: disclaimer.snap.portionSize
+class _TranslationsDisclaimerSnapPortionSizeHu implements TranslationsDisclaimerSnapPortionSizeEn {
+	_TranslationsDisclaimerSnapPortionSizeHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Adag Méret';
+	@override String get description => 'A becslések pontossága erősen függ a megfelelő adagméret megítélésétől.';
+}
+
+// Path: disclaimer.snap.preparationMethods
+class _TranslationsDisclaimerSnapPreparationMethodsHu implements TranslationsDisclaimerSnapPreparationMethodsEn {
+	_TranslationsDisclaimerSnapPreparationMethodsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Előkészítési Módszerek';
+	@override String description({required Object appLabel}) => 'A főzési módszerek jelentősen befolyásolhatják az ételek tápanyagtartalmát. A(z) ${appLabel} becslései nem mindig veszik figyelembe ezeket a változásokat.';
+}
+
+// Path: disclaimer.snap.ingredients
+class _TranslationsDisclaimerSnapIngredientsHu implements TranslationsDisclaimerSnapIngredientsEn {
+	_TranslationsDisclaimerSnapIngredientsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Összetevők';
+	@override String get description => 'A bonyolult ételek sok rejtett összetevője miatt a becslések kevésbé pontosak lehetnek.';
+}
+
+// Path: disclaimer.snap.databaseLimitations
+class _TranslationsDisclaimerSnapDatabaseLimitationsHu implements TranslationsDisclaimerSnapDatabaseLimitationsEn {
+	_TranslationsDisclaimerSnapDatabaseLimitationsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Adatbázis Korlátozások';
+	@override String description({required Object appLabel}) => 'A(z) ${appLabel} élelmiszer-adatbázisa széleskörű, de előfordulhat, hogy nem tartalmazza az összes élelmiszert vagy változatot.';
+}
+
+// Path: disclaimer.weightEstimate.calorieAccuracy
+class _TranslationsDisclaimerWeightEstimateCalorieAccuracyHu implements TranslationsDisclaimerWeightEstimateCalorieAccuracyEn {
+	_TranslationsDisclaimerWeightEstimateCalorieAccuracyHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kalória Pontosság';
+	@override String get description => 'Ez a becslés csak annyira pontos, amennyire a nyomon követett kalória bevitel és kiadás akkurátus. A pontatlan naplózás pontatlan előrejelzést eredményez.';
+}
+
+// Path: disclaimer.weightEstimate.biologicalFactors
+class _TranslationsDisclaimerWeightEstimateBiologicalFactorsHu implements TranslationsDisclaimerWeightEstimateBiologicalFactorsEn {
+	_TranslationsDisclaimerWeightEstimateBiologicalFactorsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Biológiai Tényezők';
+	@override String description({required Object appLabel}) => 'A valódi súlyvesztést/gyarapodást a metabolizmus, hormonok, alvás, stressz, hidratáció és egyéb egyéni tényezők befolyásolják, amelyeket a(z) ${appLabel} nem tud mérni.';
+}
+
+// Path: disclaimer.weightEstimate.waterWeight
+class _TranslationsDisclaimerWeightEstimateWaterWeightHu implements TranslationsDisclaimerWeightEstimateWaterWeightEn {
+	_TranslationsDisclaimerWeightEstimateWaterWeightHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Víz Súly & Ingadozások';
+	@override String get description => 'A normális napi súly jelentősen ingadozhat a vízvisszatartás, emésztés és időzítés miatt. A becslés nem veszi figyelembe ezeket a napi változásokat.';
+}
+
+// Path: disclaimer.weightEstimate.professionalGuidance
+class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceHu implements TranslationsDisclaimerWeightEstimateProfessionalGuidanceEn {
+	_TranslationsDisclaimerWeightEstimateProfessionalGuidanceHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Szakmai Útmutatás';
+	@override String get description => 'Ne használd ezt a becslést orvosi döntések meghozatalához. Mindig konzultálj egészségügyi szakemberrel vagy bejegyzett dietetikussal személyre szabott súlykezelési tanácsadásért.';
+}
+
+/// The flat map containing all translations for locale <hu>.
+/// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
+extension on TranslationsHu {
+	dynamic _flatMapFunction(String path) {
+		return switch (path) {
+			'language' => 'Hungarian',
+			'flag' => '🇭🇺',
+			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'onboarding.welcome' => ({required Object appLabel}) => 'Üdvözöljük a(z) ${appLabel} alkalmazásban',
+			'onboarding.subtitle' => 'Személyes táplálkozási társ, amelyet az AI hajt',
+			'onboarding.getStarted' => 'Kezdjük el',
+			'onboarding.features.foodRecognition.title' => 'Intelligens Étel Felismerés',
+			'onboarding.features.foodRecognition.description' => 'Készíts egy fényképet, és hagyd, hogy az AI azonosítsa az étkezésed',
+			'onboarding.features.aiAnalysis.title' => 'AI Elemzés',
+			'onboarding.features.aiAnalysis.description' => 'Azonnali táplálkozási tények a leírásaid alapján',
+			'onboarding.features.healthIntegration.title' => 'Egészség Integráció',
+			'onboarding.features.healthIntegration.description' => 'Csatlakozz a Health Connect-hez a jobb betekintésekért',
+			'onboarding.gender.title' => 'Mi a nemed?',
+			'onboarding.gender.description' => 'A nem segít pontosan kiszámolni az alapanyagcserét (BMR).',
+			'onboarding.gender.next' => 'Tovább',
+			'onboarding.height.title' => 'Mennyi a magasságod?',
+			'onboarding.height.description' => 'A magasságod segít pontosan kiszámolni a BMI-t és az energiaszükségletet.',
+			'onboarding.height.metric' => 'Metrikus',
+			'onboarding.height.imperial' => 'Imperiális',
+			'onboarding.height.next' => 'Tovább',
+			'onboarding.weight.currentTitle' => 'Mi a jelenlegi súlyod?',
+			'onboarding.weight.currentDescription' => 'A jelenlegi súlyod elengedhetetlen a napi céljaid személyre szabásához.',
+			'onboarding.weight.targetTitle' => 'Mi a cél súlyod?',
+			'onboarding.weight.targetDescription' => 'A cél súly beállítása segít meghatározni a hosszú távú tervedet.',
+			'onboarding.weight.metric' => 'Metrikus',
+			'onboarding.weight.imperial' => 'Imperiális',
+			'onboarding.weight.next' => 'Tovább',
+			'onboarding.age.title' => 'Mikor van a születésnapod?',
+			'onboarding.age.description' => 'A korod segít pontosan kiszámolni a kalóriaszükségletedet.',
+			'onboarding.age.next' => 'Tovább',
+			'onboarding.bmiScale.underweight' => 'Súlyhiányos',
+			'onboarding.bmiScale.healthy' => 'Egészséges',
+			'onboarding.bmiScale.overweight' => 'Túlsúlyos',
+			'onboarding.bmiScale.obese' => 'Elhízott',
+			'onboarding.bmiScale.categories.underweight' => 'Súlyhiányos',
+			'onboarding.bmiScale.categories.healthyWeight' => 'Egészséges testsúly',
+			'onboarding.bmiScale.categories.overweight' => 'Túlsúlyos',
+			'onboarding.bmiScale.categories.obese' => 'Elhízott',
+			'onboarding.bmiScale.messages.underweight' => 'Segíthetünk egy egészséges tervet kialakítani, hogy kiegyensúlyozott súlyt érj el tápanyagban gazdag ételekkel.',
+			'onboarding.bmiScale.messages.healthy' => 'Nagyszerű munka! Egészséges tartományban vagy. Segítünk fenntartani az életerődet és energiaszintedet.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => 'A(z) ${appLabel} egyszerűsíti az utazását az AI-alapú nyomon követéssel, hogy kényelmesen elérje a célját.',
+			'onboarding.bmiScale.messages.obese' => 'Itt vagyunk, hogy támogassunk téged a személyre szabott útmutatással és fenntartható stratégiákkal az egészségi céljaid elérésében.',
+			'onboarding.weightGoal.title' => 'Mi a célod?',
+			'onboarding.weightGoal.description' => 'Válaszd ki a célt, ami legjobban leírja, mit szeretnél elérni',
+			'onboarding.activityLevel.title' => 'Mennyi a aktivitásod?',
+			'onboarding.activityLevel.description' => 'Ez segít pontosabban kiszámolni a napi kalóriaszükségletedet',
+			'onboarding.healthConnect.title' => 'Csatlakozz a Health Connect-hez',
+			'onboarding.healthConnect.description' => 'Szinkronizáld az egészségügyi adatokat jobb betekintésekért és automatikus kalóriaszámlálásért',
+			'onboarding.healthConnect.automaticTracking.title' => 'Automatikus Kalóriaszámlálás',
+			'onboarding.healthConnect.automaticTracking.description' => 'Kövessd a fitness alkalmazásokból égetett kalóriákat',
+			'onboarding.healthConnect.progressInsights.title' => 'Haladási Betekintések',
+			'onboarding.healthConnect.progressInsights.description' => 'Részletes betekintéseket kapsz az egészségi trendjeidbe',
+			'onboarding.healthConnect.seamlessIntegration.title' => 'Zökkenőmentes Integráció',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'Szinkronizáld az adatokat a kedvenc egészségügyi alkalmazásaidból',
+			'onboarding.healthConnect.connected' => 'Health Connect csatlakoztatva',
+			'onboarding.healthConnect.notConnected' => 'Health Connect nincs csatlakoztatva',
+			'onboarding.healthConnect.setup' => 'Állítsd be a Health Connect-et',
+			'onboarding.healthConnect.skipForNow' => 'Most hagyd ki',
+			'onboarding.healthConnect.statusConnected' => 'A Health Connect csatlakoztatva van.',
+			'onboarding.healthConnect.statusSuccess' => 'A Health Connect sikeresen csatlakoztatva lett!',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Hozzáférés megtagadva. Kérjük, engedélyezze a Health Connect engedélyeket a telefon beállításaiból a(z) ${appLabel} számára.',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Hiba történt a Health Connect beállításánál: ${error}',
+			'onboarding.reinforcement.trackingSuccess.title' => 'Nem vagy Egyedül',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'A kutatások azt mutatják, hogy a következetes nyomon követés a hosszú távú siker legfontosabb előrejelzője.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Egy ${age} éves ${gender} számára, aki ${goal}-t szeretne elérni, a következetes nyomon követés a siker legfontosabb előrejelzője.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => 'A(z) ${appLabel} 10-szer könnyebbé teszi a dolgot, mint ha manuálisan csinálná.',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Készen állsz a kezdésre?',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Készíts képet az ételeidről az azonnali elemzéshez',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Rendszeresen jegyezd fel az étkezéseidet a lényeges fejlődés érdekében',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Kövesd a fejlődésed naponta a motivációd fenntartásához',
+			'onboarding.reinforcement.trackingSuccess.button' => 'Induljunk!',
+			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'személy',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'egészségesebb te',
+			'onboarding.reinforcement.healthProfile.title' => 'Az Egészségügyi Profilod',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'A metrikáid alapján a BMI-d: ${bmi}.',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Fejezzük be a profilod, hogy testre szabhassuk az élményed.',
+			'onboarding.reinforcement.healthProfile.goalGain' => 'növelni',
+			'onboarding.reinforcement.healthProfile.goalLose' => 'csökkenteni',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'A célod eléréséhez ${direction} ${diff} ${unit}.',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'Elérted a cél súlyodat! Segítünk fenntartani.',
+			'onboarding.reinforcement.healthProfile.button' => 'Induljunk!',
+			'onboarding.reinforcement.goalLifestyle.title' => 'Kiváló Kezdés!',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Megtette az első lépést a(z) ${goalText} felé. Mivel Ön ${activityText}, a(z) ${appLabel} hozzáigazítja a céljait az életmódjához.',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Személyre szabott kalóriacélok',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI-alapú étkezés-felismerés',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Részletes makrotápanyagbontások',
+			'onboarding.reinforcement.goalLifestyle.button' => 'Induljunk!',
+			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'a céljaid',
+			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktív',
+			'tabs.dashboard' => 'Irányítópult',
+			'tabs.history' => 'Történelem',
+			'home.dailyGoal.title' => 'Állítsd Be Napi Célodat',
+			'home.dailyGoal.titleSet' => 'Napi Célod',
+			'home.dailyGoal.description' => 'Készen állsz elindulni a jóléted útján? Állítsd be napi kalória célodat az alábbiakban a fejlődésed kezdetéhez.',
+			'home.dailyGoal.descriptionSet' => 'A tájékozódásod beállítva! Ez a napi kalóriaszámod, ami irányt ad neked.',
+			'home.dailyGoal.yourGoal' => 'Célod',
+			'home.dailyGoal.dailyCalories' => 'Napi kalóriák (kcal)',
+			'home.dailyGoal.setGoal' => 'Cél Beállítása',
+			'home.dailyGoal.intake' => 'Fogyasztás',
+			'home.dailyGoal.burned' => 'Elégetett',
+			'home.dailyGoal.weightImpact' => 'Súly Hatás',
+			'home.dailyGoal.estLoss' => 'Becsült fogyás: ',
+			'home.dailyGoal.estGain' => 'Becsült gyarapodás: ',
+			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailySummary.title' => 'Napi Összegzés',
+			'home.dailySummary.calories' => 'Kalóriák',
+			'home.dailySummary.carbs' => 'Szénhidrátok',
+			'home.dailySummary.protein' => 'Fehérjék',
+			'home.dailySummary.fat' => 'Zsírok',
+			'home.dailySummary.fiber' => 'Rost',
+			'home.intakeProgress.title' => 'Mai Makrómegoszlás',
+			'home.intakeProgress.target' => 'Cél',
+			'home.intakeProgress.current' => 'Jelenlegi',
+			'home.intakeHistory.title' => '7 Napos Makró Történelem',
+			'home.intakeHistory.noHistoryYet' => 'Nincs még történet',
+			'home.intakeHistory.startLogging' => 'Kezd el étkezéseid naplózását, hogy itt lásd\na 7 napos makró trendjeidet',
+			'home.mealLog.title' => 'Naplózott Étkezések',
+			'home.mealLog.emptyMessage' => 'Készíts egy képet az utolsó étkezésedről, hogy itt be tudd jegyezni.',
+			'home.mealLog.noMealsToday' => 'Ma nincs rögzített étkezés',
+			'home.mealLog.seeAllMeals' => 'Összes étkezés megtekintése',
+			'home.mealDescription.title' => 'Gyors Hozzáadás AI-val',
+			'home.mealDescription.description' => 'Írd le az étkezésed, és hagyd, hogy az AI kezelje a részleteket.',
+			'home.mealDescription.hint' => 'pl. Reggelire egy nagy tál zabliszttel, egy szelet banánnal és egy adag tejsavóval ...',
+			'home.mealDescription.analyzeMeal' => 'Éttervezés elemzése',
+			'home.favoriteMeals.title' => 'Kedvenc Étkezések',
+			'home.favoriteMeals.description' => 'Gyorsan add hozzá az egyik kedvenc étkezésed.',
+			'home.favoriteMeals.noFavorites' => 'Még nincs kedvenc étkezés.',
+			'home.favoriteMeals.addFavoriteHint' => 'Kattints a csillagra egy étkezés mellett, hogy kedvencekké tedd.',
+			'home.favoriteMeals.seeAll' => 'Összes megtekintése',
+			'home.favoriteMeals.add' => 'Hozzáadás',
+			'home.mealSnap.title' => 'Képzelj és Kövesd Az Étkezésed',
+			'home.mealSnap.description' => 'Használj kamerát, hogy fényképet készíts az ételedről az AI elemzése érdekében.',
+			'home.mealSnap.openCamera' => 'Kamera megnyitása',
+			'home.connectHealth.title' => 'Szinkronizálás az Health Connect-tel',
+			'home.connectHealth.description' => 'Szinkronizáld táplálkozási adataidat az Health Connect-tel',
+			'home.connectHealth.install' => 'Telepítés',
+			'home.connectHealth.connect' => 'Csatlakozás',
+			'history.noMeals' => 'Nincs rögzített étkezés',
+			'history.emptyMessage' => 'Készíts egy képet az utolsó étkezésedről, hogy itt be tudd jegyezni.',
+			'history.today' => 'Ma',
+			'history.yesterday' => 'Tegnap',
+			'meal.ohNo' => 'Ó, nem!',
+			'meal.delete' => 'Törlés',
+			'meal.editMeal' => 'Étkezés szerkesztése',
+			'meal.addMeal' => 'Étkezés hozzáadása',
+			'meal.saveMeal' => 'Étkezés mentése',
+			'meal.save' => 'Mentés',
+			'meal.mealName' => 'Étkezés neve',
+			'meal.mealQuantity' => 'Étkezés mennyiség',
+			'meal.mealQuantityHint' => 'pl. 1 tál, 2 szelet',
+			'meal.timeOfMeal' => 'Étkezés időpontja',
+			'meal.timeOfMealHint' => 'Válaszd ki, mikor volt az étkezésed',
+			'meal.mealType' => 'Étkezés típusa',
+			'meal.nutrition.calories' => 'Kalóriák',
+			'meal.nutrition.carbs' => 'Szénhidrátok (g)',
+			'meal.nutrition.protein' => 'Fehérjék (g)',
+			'meal.nutrition.fat' => 'Zsírok (g)',
+			'meal.nutrition.fiber' => 'Rost (g)',
+			'meal.deleteConfirmation.title' => 'Étkezés Törlése',
+			'meal.deleteConfirmation.message' => 'Biztosan törölni szeretnéd ezt az étkezést?',
+			'meal.deleteConfirmation.cancel' => 'Mégse',
+			'meal.deleteConfirmation.delete' => 'Törlés',
+			'meal.addedToLog' => 'Étkezés hozzáadva a naplóhoz!',
+			'meal.couldNotAdd' => ({required Object error}) => 'Nem lehetett étkezést hozzáadni: ${error}',
+			'meal.removedFromFavorites' => 'Eltávolítva a kedvencek közül!',
+			'meal.savedAsFavorite' => 'Étkezés mentve kedvencként!',
+			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Nem lehetett frissíteni a kedvencet: ${error}',
+			'meal.failedToProcess' => ({required Object error}) => 'A feldolgozás nem sikerült: ${error}',
+			'meal.failedToProcessImage' => ({required Object error}) => 'A kép feldolgozása nem sikerült: ${error}',
+			'meal.errorCompressingImage' => ({required Object error}) => 'Hiba a kép tömörítésekor: ${error}',
+			'meal.failedToSave' => 'Az adatok mentése nem sikerült. Kérlek próbáld újra.',
+			'favorites.title' => 'Kedvencek',
+			'favorites.empty' => 'Még nincs kedvenc étkezés.',
+			'profile.title' => 'Profil',
+			'profile.noProfileData' => 'Nincs profil adat',
+			'profile.yourProfile' => 'A Te Profilod',
+			'profile.viewAndManage' => 'Tekintsd meg és kezeld egészségügyi információidat',
+			'profile.sections.profile' => 'PROFIL',
+			'profile.sections.basicInformation' => 'ALAP INFORMÁCIÓK',
+			'profile.sections.goalsAndActivity' => 'CÉLOK ÉS TEVÉKENYSÉG',
+			'profile.sections.calculatedValues' => 'SZÁMÍTOTT ÉRTÉKEK',
+			'profile.gender' => 'Nem',
+			'profile.height' => 'Magasság',
+			'profile.weight' => 'Súly',
+			'profile.age' => 'Kor',
+			'profile.weightGoal' => 'Súlycél',
+			'profile.activityLevel' => 'Aktivitási szint',
+			'profile.healthMetrics' => 'Egészségügyi mutatók',
+			'profile.notSet' => 'Nincs beállítva',
+			'profile.years' => 'év',
+			'profile.updatedSuccessfully' => 'Profil sikeresen frissítve!',
+			'profile.calculatedValues.bmr' => 'BMR',
+			'profile.calculatedValues.tdee' => 'TDEE',
+			'profile.calculatedValues.dailyGoal' => 'Napi Cél',
+			'profile.calculatedValues.calPerDay' => 'kal/nap',
+			'profile.calculatedValues.notAvailable' => 'N/A',
+			'healthScore.title' => 'Egészségi Score',
+			'healthScore.whyThisScore' => 'Miért ez a pontszám?',
+			'healthScore.note' => 'Ez a pontszám egy AI becslés azonosított összetevők és tápanyag sűrűség alapján. Mindig konzultálj szakemberrel diétás tanácsadásért.',
+			'healthScore.unhealthy' => 'Egészségtelen',
+			'healthScore.healthy' => 'Egészséges',
+			'healthScore.neutral' => 'Semleges',
+			'editProfile.title' => 'Profil Szerkesztése',
+			'editProfile.sections.personalInformation' => 'SZEMÉLYES INFORMÁCIÓK',
+			'editProfile.sections.physicalMeasurements' => 'FIZIKAI MÉRÉSEK',
+			'editProfile.sections.goalsAndActivity' => 'CÉLOK ÉS TEVÉKENYSÉG',
+			'editProfile.gender' => 'Nem',
+			'editProfile.dateOfBirth' => 'Születési Dátum',
+			'editProfile.height' => 'Magasság',
+			'editProfile.weight' => 'Súly',
+			'editProfile.weightGoal' => 'Súlycél',
+			'editProfile.activityLevel' => 'Aktivitási szint',
+			'editProfile.metric' => 'Metrikus',
+			'editProfile.imperial' => 'Imperiális',
+			'editProfile.metricCm' => 'Metrikus (cm)',
+			'editProfile.imperialFtIn' => 'Imperiális (láb/hüvelyk)',
+			'editProfile.metricKg' => 'Metrikus (kg)',
+			'editProfile.imperialLbs' => 'Imperiális (font)',
+			'editProfile.genders.male' => 'Férfi',
+			'editProfile.genders.female' => 'Nő',
+			'editProfile.genders.other' => 'Egyéb',
+			'editProfile.weightGoals.loseWeight.name' => 'Fogyás',
+			'editProfile.weightGoals.loseWeight.description' => 'Kalóriadeficit létrehozása a fogyás érdekében',
+			'editProfile.weightGoals.maintainWeight.name' => 'Súly megőrzése',
+			'editProfile.weightGoals.maintainWeight.description' => 'Jelenlegi súlyod fenntartása',
+			'editProfile.weightGoals.gainWeight.name' => 'Hízás',
+			'editProfile.weightGoals.gainWeight.description' => 'Kalóriatöbblet létrehozása a hízás érdekében',
+			'editProfile.activityLevels.sedentary.name' => 'Ülő',
+			'editProfile.activityLevels.sedentary.description' => 'Kicsi vagy semmilyen testedzés',
+			'editProfile.activityLevels.lightlyActive.name' => 'Enyhén Aktív',
+			'editProfile.activityLevels.lightlyActive.description' => 'Könnyű edzés 1-3 nap/hét',
+			'editProfile.activityLevels.moderatelyActive.name' => 'Mérsékelten Aktív',
+			'editProfile.activityLevels.moderatelyActive.description' => 'Mérsékelt edzés 3-5 nap/hét',
+			'editProfile.activityLevels.veryActive.name' => 'Nagyon Aktív',
+			'editProfile.activityLevels.veryActive.description' => 'Kemény edzés 6-7 nap/hét',
+			'editProfile.activityLevels.extremelyActive.name' => 'Extrém Aktív',
+			'editProfile.activityLevels.extremelyActive.description' => 'Nagyon kemény edzés, fizikai munka',
+			'settings.title' => 'Beállítások',
+			'settings.sections.profile' => 'PROFIL',
+			'settings.sections.localization' => 'HELYI BEÁLLÍTÁSOK',
+			'settings.sections.notifications' => 'ÉRTESÍTÉSEK',
+			'settings.sections.supportAndLegal' => 'TÁMOGATÁS ÉS JOGI ÜGYEK',
+			'settings.sections.dangerZone' => 'VESZÉLYES ZÓNA',
+			'settings.sections.developer' => 'FEJLESZTŐ',
+			'settings.editProfile.title' => 'Profil Szerkesztése',
+			'settings.editProfile.subtitle' => 'Frissítsd személyes adataidat',
+			'settings.language.title' => 'Nyelv',
+			'settings.language.subtitle' => 'Válaszd ki preferált nyelved',
+			'settings.language.searchHint' => 'Nyelvek keresése...',
+			'settings.language.noResults' => 'Nincs találat',
+			'settings.heightUnit.title' => 'Magasság Mértékegysége',
+			'settings.weightUnit.title' => 'Súly Mértékegysége',
+			'settings.mealReminders.title' => 'Étkezés Emlékeztetők',
+			'settings.mealReminders.subtitle' => 'Tartsd az ütemet időben érkező értesítésekkel',
+			'settings.theme.title' => 'Téma',
+			'settings.theme.subtitle' => 'Válaszd ki a preferált témádat',
+			'settings.theme.light' => 'Világos',
+			'settings.theme.dark' => 'Sötét',
+			'settings.theme.system' => 'Rendszer',
+			'settings.sendFeedback.title' => 'Visszajelzés Küldése',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Segítsen nekünk fejleszteni a(z) ${appLabel} alkalmazást',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} Alkalmazás Visszajelzés',
+			'settings.sendFeedback.emailBodyPrefix' => 'Kérlek, írd meg visszajelzésed alább:',
+			'settings.sendFeedback.appVersion' => 'Alkalmazás Verzió',
+			'settings.sendFeedback.device' => 'Eszköz',
+			'settings.sendFeedback.osVersion' => 'OS Verzió',
+			'settings.sendFeedback.uid' => 'UID',
+			'settings.clearAllData.title' => 'Összes Adat Törlése',
+			'settings.clearAllData.subtitle' => 'Visszafordíthatatlanul töröld az összes információdat',
+			'settings.clearAllData.confirmationTitle' => 'Összes Adat Törlése?',
+			'settings.clearAllData.confirmationMessage' => 'Ez a művelet nem vonható vissza. Minden rögzített étkezésed, kedvenc, és profilbeállítás véglegesen törlésre kerül.',
+			'settings.clearAllData.cancel' => 'Mégse',
+			'settings.clearAllData.clearEverything' => 'Összes Törlése',
+			'settings.debugOptions.title' => 'Hibakeresési Beállítások',
+			'settings.developerModeEnabled' => 'Fejlesztő mód engedélyezve!',
+			'reminders.title' => 'Tartsd az ütemet emlékeztetőkkel',
+			'reminders.description' => 'Kapsz enyhe emlékeztetőket, hogy naplózd az étkezéseidet és következetes maradj táplálkozási céljaidnál',
+			'reminders.notificationsEnabled' => 'Értesítések Engedélyezve',
+			'reminders.notificationsDisabled' => 'Értesítések Letiltva',
+			'reminders.enabledSubtitle' => 'Érkezni fognak étkezés emlékeztetők',
+			'reminders.disabledSubtitle' => 'Engedélyezd az értesítéseket az étkezés emlékeztetők megszerzéséhez',
+			'reminders.mealReminders' => 'Étkezés Emlékeztetők',
+			'reminders.breakfast' => 'Reggeli',
+			'reminders.lunch' => 'Ebéd',
+			'reminders.dinner' => 'Vacsora',
+			'reminders.snack' => 'Uzsonna',
+			'reminders.unknown' => 'Ismeretlen',
+			'reminders.change' => 'Változtatás',
+			'reminders.enableNotifications' => 'Értesítések Engedélyezése',
+			'reminders.skipForNow' => 'Most kihagy',
+			'reminders.saveChanges' => 'Változások Mentése',
+			'reminders.enabledSuccessfully' => 'Értesítések sikeresen engedélyezve!',
+			'reminders.permissionDenied' => 'Értesítési engedély megtagadva',
+			'reminders.errorEnabling' => ({required Object error}) => 'Hiba az értesítések engedélyezésekor: ${error}',
+			'reminders.errorCompletingSetup' => ({required Object error}) => 'Hiba a beállítások befejezésében: ${error}',
+			'notifications.breakfast.title' => 'Reggeli Idő! 🍳',
+			'notifications.breakfast.body' => 'Ne felejtsd el bejegyezni a reggelidet',
+			'notifications.lunch.title' => 'Ebéd Idő! 🥗',
+			'notifications.lunch.body' => 'Ideje bejegyezni az ebéded',
+			'notifications.dinner.title' => 'Vacsora Idő! 🍽️',
+			'notifications.dinner.body' => 'Ne felejtsd el bejegyezni a vacsorádat',
+			'notifications.snack.title' => 'Uzsonna Idő! 🍎',
+			'notifications.snack.body' => 'Ideje egy egészséges uzsonnára',
+			'notifications.test.title' => 'Teszt Értesítés',
+			'login.title' => 'Bejelentkezés',
+			'login.signInWithGoogle' => 'Bejelentkezés Google-lal',
+			'login.signInFailed' => 'A Google-bejelentkezés sikertelen vagy megszakadt.',
+			'disclaimer.pleaseNote' => 'Kérlek, vedd figyelembe',
+			'disclaimer.snap.description' => ({required Object appLabel}) => 'A(z) ${appLabel} becsült tápanyaginformációkat nyújt. A pontosság a megadott adatoktól és az ételek változatosságától függ. Használja útmutatóként, ne pedig végérvényes forrásként. Kérjük, konzultáljon szakemberrel a személyre szabott táplálkozási tanácsokért.',
+			'disclaimer.snap.portionSize.title' => 'Adag Méret',
+			'disclaimer.snap.portionSize.description' => 'A becslések pontossága erősen függ a megfelelő adagméret megítélésétől.',
+			'disclaimer.snap.preparationMethods.title' => 'Előkészítési Módszerek',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'A főzési módszerek jelentősen befolyásolhatják az ételek tápanyagtartalmát. A(z) ${appLabel} becslései nem mindig veszik figyelembe ezeket a változásokat.',
+			'disclaimer.snap.ingredients.title' => 'Összetevők',
+			'disclaimer.snap.ingredients.description' => 'A bonyolult ételek sok rejtett összetevője miatt a becslések kevésbé pontosak lehetnek.',
+			'disclaimer.snap.databaseLimitations.title' => 'Adatbázis Korlátozások',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'A(z) ${appLabel} élelmiszer-adatbázisa széleskörű, de előfordulhat, hogy nem tartalmazza az összes élelmiszert vagy változatot.',
+			'disclaimer.weightEstimate.title' => 'A Súlybecslésről',
+			'disclaimer.weightEstimate.description' => 'A becsült súlyváltozás egy elméleti becslés, amely az egyszerű kalória-bevitel és -kiadás modell alapján készül. Csak motiváló útmutatásként szolgál, nem pedig a tényleges súlyod előrejelzéseként.',
+			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalória Pontosság',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Ez a becslés csak annyira pontos, amennyire a nyomon követett kalória bevitel és kiadás akkurátus. A pontatlan naplózás pontatlan előrejelzést eredményez.',
+			'disclaimer.weightEstimate.biologicalFactors.title' => 'Biológiai Tényezők',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'A valódi súlyvesztést/gyarapodást a metabolizmus, hormonok, alvás, stressz, hidratáció és egyéb egyéni tényezők befolyásolják, amelyeket a(z) ${appLabel} nem tud mérni.',
+			'disclaimer.weightEstimate.waterWeight.title' => 'Víz Súly & Ingadozások',
+			'disclaimer.weightEstimate.waterWeight.description' => 'A normális napi súly jelentősen ingadozhat a vízvisszatartás, emésztés és időzítés miatt. A becslés nem veszi figyelembe ezeket a napi változásokat.',
+			'disclaimer.weightEstimate.professionalGuidance.title' => 'Szakmai Útmutatás',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'Ne használd ezt a becslést orvosi döntések meghozatalához. Mindig konzultálj egészségügyi szakemberrel vagy bejegyzett dietetikussal személyre szabott súlykezelési tanácsadásért.',
+			'common.close' => 'Bezárás',
+			'common.kContinue' => 'Tovább',
+			'errors.loadingProfileData' => 'Hiba a profiladatok betöltésekor',
+			'errors.somethingWentWrong' => 'Valami hiba történt.',
+			'debug.title' => 'Hibakeresési Beállítások',
+			'debug.sections.notifications' => 'Értesítések',
+			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.appInfo' => 'Alkalmazás Információ',
+			'debug.showActiveNotifications' => 'Aktív Értesítések Megjelenítése',
+			'debug.scheduleTestNotification' => 'Teszt Értesítés Ütemezése (10s)',
+			'debug.triggerBreakfastNotification' => 'Reggeli Értesítés Kioldása',
+			'debug.cancelAllNotifications' => 'Összes Értesítés Törlése',
+			'debug.activeNotifications' => 'Aktív Értesítések',
+			'debug.noTitle' => 'Nincs Cím',
+			'debug.noBody' => 'Nincs Törzs',
+			'debug.fetchTodaysSteps' => 'Ma Lépések Lekérése',
+			'debug.fetchTodaysCalories' => 'Ma Kalóriák Lekérése',
+			'debug.fetchLatestWeight' => 'Legfrissebb Súly Lekérése',
+			'debug.fetchLatestHeight' => 'Legfrissebb Magasság Lekérése',
+			'debug.writeTestWeight' => 'Teszt Súly Írása (70kg)',
+			'debug.writeTestHeight' => 'Teszt Magasság Írása (175cm)',
+			'debug.syncLast7Days' => 'Utolsó 7 Nap Szinkronizálása',
+			'debug.sync7DaysTitle' => '7 Napos Szinkronizálás',
+			'debug.checkCurrentLocale' => 'Jelenlegi Helyi Beállítás Ellenőrzése',
+			'debug.currentLocale' => 'Jelenlegi nyelv',
+			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Nyelv: ${languageCode}\nOrszág: ${countryCode}\nMetrikus rendszer: ${unitSystem}',
+			'debug.latestWeight' => 'Legfrissebb Súly',
+			'debug.latestHeight' => 'Legfrissebb Magasság',
+			'debug.todaysCalories' => 'Mai Kalóriák',
+			'debug.totalCaloriesBurned' => ({required Object calories}) => 'Összes elégetett kalória: ${calories}',
+			'debug.syncSuccess' => ({required Object count}) => 'Sikeresen lekérhető ${count} adatpontok a lépések, kalóriák és súly terén az elmúlt 7 napban.',
+			'debug.noWeightData' => 'Az utolsó 30 napban nincs súly adat.',
+			'debug.noHeightData' => 'Nincs magasság adat az utolsó évben.',
+			'debug.noCalorieData' => 'Ma nincs kalória adat.',
+			'debug.weightWritten' => 'Teszt súly (70kg) sikeresen íródott.',
+			'debug.weightWriteFailed' => 'A teszt súly írása nem sikerült.',
+			'debug.heightWritten' => 'Teszt magasság (175cm) sikeresen íródott.',
+			'debug.heightWriteFailed' => 'A teszt magasság írása nem sikerült.',
+			'debug.noNotifications' => 'Nincs aktív értesítés.',
+			'debug.testNotificationScheduled' => 'Teszt értesítés ütemezve, 10 másodperc múlva.',
+			'debug.testNotificationBody' => 'Ez egy teszt értesítés, ütemezve 10 másodperc múlva.',
+			'debug.breakfastNotificationTriggered' => 'Reggeli értesítés kioldva.',
+			'debug.allNotificationsCancelled' => 'Összes értesítés törölve.',
+			'debug.fetchingData' => 'Adatok lekérése az elmúlt 7 napra...',
+			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'health.syncFailed' => 'Nem sikerült szinkronizálni a Health Connect-tel',
+			'health.mealSynced' => 'Étkezés szinkronizálva a Health Connect-tel',
+			_ => null,
+		};
+	}
+}
