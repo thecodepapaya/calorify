@@ -59,6 +59,19 @@
             "request": "launch",
             "type": "chrome",
             "url": "file:///${workspaceFolder}/web/index.html"
+        },
+        {
+            "name": "Watch App (Debug)",
+            "request": "launch",
+            "type": "dart",
+            "program": "watch_app/lib/main.dart"
+        },
+        {
+            "name": "Watch App (Profile)",
+            "request": "launch",
+            "flutterMode": "profile",
+            "type": "dart",
+            "program": "watch_app/lib/main.dart"
         }
     ]
 }

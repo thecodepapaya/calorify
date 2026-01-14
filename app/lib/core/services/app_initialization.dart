@@ -8,6 +8,7 @@ import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/services/performance_service.dart';
 import 'package:calorify/core/services/remote_db.dart';
+import 'package:calorify/core/services/wear_os_service.dart';
 import 'package:i18n/i18n.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -74,6 +75,11 @@ class AppInitialization {
       await Performance.trace(
         TraceType.notificationServiceInit,
         NotificationService.instance.initialize,
+        parentSpan: span,
+      );
+      await Performance.trace(
+        TraceType.watchServiceInit,
+        WearOsService.instance.initialize,
         parentSpan: span,
       );
 

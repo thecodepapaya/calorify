@@ -1,32 +1,52 @@
+import 'dart:async';
 import 'package:models/models.dart';
+import 'package:calorify_watch/core/services/wear_os_channel.dart';
 import 'package:flutter/foundation.dart';
 
-// TODO: Replace with actual Wear OS messaging implementation
-// For now, this is a placeholder that will need to be implemented
-// using Wear OS DataApi/MessageApi or a proper wear_plus package
-
-/// Service to sync data between watch and main app
+/// Service to sync data between watch and main app using Wear OS Data Layer
 class SyncService {
   SyncService._();
 
   static final SyncService instance = SyncService._();
 
   bool _isInitialized = false;
-  // TODO: Replace with actual Wear OS messaging client
-  // late WearPlus _wearPlus;
+  StreamSubscription<Map<String, dynamic>>? _messageSubscription;
 
   Future<void> initialize() async {
     if (_isInitialized) return;
 
     try {
-      // TODO: Initialize Wear OS messaging
-      // _wearPlus = WearPlus();
-      // await _wearPlus.initialize();
+      // Add a small delay to ensure platform channels are ready
+      await Future.delayed(const Duration(milliseconds: 100));
+
+      final success = await WearOsChannel.initialize();
+      if (!success) {
+        debugPrint('Wear OS channel initialization returned false');
+        // Don't throw - allow app to continue without watch connection
+        return;
+      }
       _isInitialized = true;
+
+      // Start listening for messages from phone
+      _startListening();
     } catch (e) {
       debugPrint('Failed to initialize sync service: $e');
-      rethrow;
+      // Don't rethrow - allow app to continue without watch connection
+      // The app can function without the watch connection
     }
+  }
+
+  void _startListening() {
+    _messageSubscription?.cancel();
+    _messageSubscription = WearOsChannel.listenForMessages().listen(
+      (message) {
+        debugPrint('Received message from phone: $message');
+        // Handle incoming messages if needed
+      },
+      onError: (error) {
+        debugPrint('Error listening for messages: $error');
+      },
+    );
   }
 
   /// Send meal data to main app
@@ -36,10 +56,15 @@ class SyncService {
     }
 
     try {
-      // TODO: Implement Wear OS messaging
-      // await _wearPlus.sendMessage(path: '/meal', data: meal.toJson());
-      debugPrint('TODO: Send meal to main app: ${meal.toJson()}');
-      return true;
+      final response = await WearOsChannel.sendMessage(
+        path: '/meal',
+        data: meal.toJson(),
+      );
+
+      if (response != null && response['success'] == true) {
+        return true;
+      }
+      return false;
     } catch (e) {
       debugPrint('Failed to send meal: $e');
       return false;
@@ -53,12 +78,19 @@ class SyncService {
     }
 
     try {
-      // TODO: Implement Wear OS messaging
-      // final response = await _wearPlus.sendMessage(
-      //   path: '/meals/today',
-      //   data: {},
-      // );
-      debugPrint('TODO: Request today\'s meals from main app');
+      final response = await WearOsChannel.sendMessage(
+        path: '/meals/today',
+        data: {},
+      );
+
+      if (response != null && response['success'] == true) {
+        final mealsData = response['meals'] as List<dynamic>?;
+        if (mealsData != null) {
+          return mealsData
+              .map((json) => MealInfo.fromJson(json as Map<String, dynamic>))
+              .toList();
+        }
+      }
       return [];
     } catch (e) {
       debugPrint('Failed to request today\'s meals: $e');
@@ -73,12 +105,19 @@ class SyncService {
     }
 
     try {
-      // TODO: Implement Wear OS messaging
-      // final response = await _wearPlus.sendMessage(
-      //   path: '/calorie_goal',
-      //   data: {},
-      // );
-      debugPrint('TODO: Request calorie goal from main app');
+      final response = await WearOsChannel.sendMessage(
+        path: '/calorie_goal',
+        data: {},
+      );
+
+      if (response != null && response['success'] == true) {
+        final goal = response['goal'];
+        if (goal is int) {
+          return goal;
+        } else if (goal is num) {
+          return goal.toInt();
+        }
+      }
       return null;
     } catch (e) {
       debugPrint('Failed to request calorie goal: $e');
@@ -93,12 +132,17 @@ class SyncService {
     }
 
     try {
-      // TODO: Implement Wear OS messaging
-      // final response = await _wearPlus.sendMessage(
-      //   path: '/user_profile',
-      //   data: {},
-      // );
-      debugPrint('TODO: Request user profile from main app');
+      final response = await WearOsChannel.sendMessage(
+        path: '/user_profile',
+        data: {},
+      );
+
+      if (response != null && response['success'] == true) {
+        final profile = response['profile'];
+        if (profile is Map) {
+          return Map<String, dynamic>.from(profile);
+        }
+      }
       return null;
     } catch (e) {
       debugPrint('Failed to request user profile: $e');
@@ -106,16 +150,17 @@ class SyncService {
     }
   }
 
-  /// Listen for messages from main app
-  void listenForMessages(Function(Map<String, dynamic>) onMessage) {
+  /// Check if phone is connected
+  Future<bool> isPhoneConnected() async {
     if (!_isInitialized) {
-      throw Exception('SyncService not initialized');
+      return false;
     }
+    return await WearOsChannel.isPhoneConnected();
+  }
 
-    // TODO: Implement Wear OS messaging listener
-    // _wearPlus.listen((message) {
-    //   onMessage(message);
-    // });
-    debugPrint('TODO: Listen for messages from main app');
+  void dispose() {
+    _messageSubscription?.cancel();
+    _messageSubscription = null;
+    _isInitialized = false;
   }
 }
