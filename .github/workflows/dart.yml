@@ -40,7 +40,6 @@ jobs:
         run: gem install fastlane
 
       - name: Upload to Play Store
-        working-directory: app
         run: fastlane android release
         env:
           SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
