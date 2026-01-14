@@ -1,16 +1,8 @@
-Rastreamento de calorias com inteligência artificial. Tire fotos ou descreva refeições para análise nutricional instantânea.
+Rastreamento de calorias com IA. Tire fotos ou descreva refeições para análise nutricional instantânea.
 
-O que há de novo:
+Novidades:
 • Suporte a tema escuro
-• Suporte para mais idiomas
+• Suporte a mais idiomas
 • Estabilidade e correções de bugs
 
-✨ Recursos:
-• Análise de alimentos por IA a partir de fotos ou texto
-• Acompanhamento de metas inteligentes com gráficos de progresso
-• Integração com Health Connect
-• Cálculo de BMR/TDEE
-• Suporte multilíngue
-• Histórico de refeições e favoritos
-
-🔒 Privacidade em primeiro lugar: Nenhuma conta necessária.
+🔒 Foco na privacidade: Sem necessidade de contas.

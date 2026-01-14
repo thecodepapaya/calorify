@@ -1,16 +1,8 @@
 KI-gestützte Kalorienverfolgung. Machen Sie Fotos oder beschreiben Sie Mahlzeiten für eine sofortige Nährwertanalyse.
 
-Was gibt's Neues:
-• Unterstützung für den Dunkelmodus
+Neu:
+• Unterstützung für dunkles Design
 • Unterstützung für weitere Sprachen
 • Stabilitäts- und Fehlerbehebungen
-
-✨ Funktionen:
-• KI-Lebensmittelanalyse aus Fotos oder Text
-• Intelligente Zielverfolgung mit Fortschrittsdiagrammen
-• Integration von Health Connect
-• BMR/TDEE-Berechnung
-• Mehrsprachige Unterstützung
-• Mahlzeitverlauf & Favoriten
 
 🔒 Datenschutz zuerst: Keine Konten erforderlich.
