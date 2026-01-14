@@ -5,7 +5,7 @@ import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/locale_utils.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:i18n/i18n.dart';
-import 'package:calorify/shared_widgets/loading_indicator.dart';
+import 'package:widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 

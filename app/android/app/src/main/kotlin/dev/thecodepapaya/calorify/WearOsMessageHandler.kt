@@ -30,17 +30,36 @@ class WearOsMessageHandler(
     private fun initializeWearOs() {
         coroutineScope.launch {
             try {
-                wearableDataClient = Wearable.getDataClient(context)
-                wearableMessageClient = Wearable.getMessageClient(context)
-                
-                // Register listeners
-                wearableMessageClient?.addListener(this@WearOsMessageHandler)
-                wearableDataClient?.addListener(this@WearOsMessageHandler)
-                
-                Log.d(TAG, "Wear OS message handler initialized")
+                withContext(Dispatchers.Main) {
+                    wearableDataClient = Wearable.getDataClient(context)
+                    wearableMessageClient = Wearable.getMessageClient(context)
+                    
+                    Log.d(TAG, "Getting Wearable clients...")
+                    
+                    // Register listeners - these return Tasks that should be awaited
+                    wearableMessageClient?.addListener(this@WearOsMessageHandler)?.await()
+                    wearableDataClient?.addListener(this@WearOsMessageHandler)?.await()
+                    
+                    Log.d(TAG, "Wear OS message handler initialized successfully")
+                    
+                    // Log connected nodes for debugging
+                    checkConnectedNodes()
+                }
             } catch (e: Exception) {
                 Log.e(TAG, "Failed to initialize Wear OS", e)
             }
+        }
+    }
+    
+    private suspend fun checkConnectedNodes() {
+        try {
+            val nodes = Wearable.getNodeClient(context).connectedNodes.await()
+            Log.d(TAG, "Connected nodes: ${nodes.size}")
+            nodes.forEach { node ->
+                Log.d(TAG, "Node: ${node.displayName}, id: ${node.id}, nearby: ${node.isNearby}")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error checking connected nodes", e)
         }
     }
 
@@ -60,6 +79,28 @@ class WearOsMessageHandler(
                         }
                     }
                 }
+                "isWatchConnected" -> {
+                    coroutineScope.launch {
+                        try {
+                            val connected = isWatchConnected()
+                            result.success(connected)
+                        } catch (e: Exception) {
+                            Log.e(TAG, "Error checking watch connection", e)
+                            result.success(false)
+                        }
+                    }
+                }
+                "getConnectedWatchInfo" -> {
+                    coroutineScope.launch {
+                        try {
+                            val watchInfo = getConnectedWatchInfo()
+                            result.success(watchInfo)
+                        } catch (e: Exception) {
+                            Log.e(TAG, "Error getting watch info", e)
+                            result.success(null)
+                        }
+                    }
+                }
                 else -> {
                     result.notImplemented()
                 }
@@ -68,6 +109,7 @@ class WearOsMessageHandler(
     }
 
     override fun onMessageReceived(messageEvent: MessageEvent) {
+        Log.d(TAG, "onMessageReceived: path=${messageEvent.path}, sourceNodeId=${messageEvent.sourceNodeId}")
         coroutineScope.launch {
             try {
                 if (messageEvent.path.startsWith("/calorify_watch/")) {
@@ -75,7 +117,7 @@ class WearOsMessageHandler(
                     val dataString = String(messageEvent.data, StandardCharsets.UTF_8)
                     val data = JSONObject(dataString).toMap()
                     
-                    Log.d(TAG, "Received message from watch: $path")
+                    Log.d(TAG, "Received message from watch: $path, data: $data")
                     
                     // Call Flutter method channel to handle the message
                     val response = handleWatchMessage(path, data)
@@ -84,6 +126,8 @@ class WearOsMessageHandler(
                     if (response != null) {
                         sendResponseToWatch(messageEvent.sourceNodeId, path, response)
                     }
+                } else {
+                    Log.d(TAG, "Ignoring message with path: ${messageEvent.path}")
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error handling message from watch", e)
@@ -148,11 +192,13 @@ class WearOsMessageHandler(
 
     private suspend fun sendToWatch(path: String, data: Map<String, Any>): Boolean {
         return try {
+            Log.d(TAG, "Attempting to send to watch: path=$path")
             val nodes = Wearable.getNodeClient(context)
                 .connectedNodes.await()
             
+            Log.d(TAG, "Found ${nodes.size} connected node(s)")
             if (nodes.isEmpty()) {
-                Log.w(TAG, "No connected watch nodes")
+                Log.w(TAG, "No connected watch nodes - cannot send message")
                 return false
             }
 
@@ -160,11 +206,13 @@ class WearOsMessageHandler(
             val messageData = JSONObject(data).toString().toByteArray(StandardCharsets.UTF_8)
             
             for (node in nodes) {
+                Log.d(TAG, "Sending message to node: ${node.displayName} (${node.id})")
                 wearableMessageClient?.sendMessage(
                     node.id,
                     messagePath,
                     messageData
                 )?.await()
+                Log.d(TAG, "Message sent successfully to node: ${node.id}")
             }
             
             Log.d(TAG, "Sent message to watch: $messagePath")
@@ -174,10 +222,49 @@ class WearOsMessageHandler(
             false
         }
     }
+    
+    private suspend fun isWatchConnected(): Boolean {
+        return try {
+            val nodes = Wearable.getNodeClient(context).connectedNodes.await()
+            val connected = nodes.isNotEmpty()
+            Log.d(TAG, "Watch connected: $connected (${nodes.size} node(s))")
+            connected
+        } catch (e: Exception) {
+            Log.e(TAG, "Error checking watch connection", e)
+            false
+        }
+    }
+    
+    private suspend fun getConnectedWatchInfo(): Map<String, Any>? {
+        return try {
+            val nodes = Wearable.getNodeClient(context).connectedNodes.await()
+            if (nodes.isEmpty()) {
+                return null
+            }
+            // Return info about the first connected node
+            val node = nodes.first()
+            mapOf(
+                "name" to (node.displayName ?: "Unknown Device"),
+                "id" to node.id,
+                "isNearby" to node.isNearby,
+                "count" to nodes.size
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "Error getting watch info", e)
+            null
+        }
+    }
 
     fun dispose() {
-        wearableMessageClient?.removeListener(this)
-        wearableDataClient?.removeListener(this)
+        coroutineScope.launch {
+            try {
+                wearableMessageClient?.removeListener(this@WearOsMessageHandler)?.await()
+                wearableDataClient?.removeListener(this@WearOsMessageHandler)?.await()
+                Log.d(TAG, "WearOsMessageHandler disposed")
+            } catch (e: Exception) {
+                Log.e(TAG, "Error disposing WearOsMessageHandler", e)
+            }
+        }
     }
 }
 

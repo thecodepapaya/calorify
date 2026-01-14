@@ -3,6 +3,10 @@ default_platform(:android)
 platform :android do
   desc "Generate translations using Slang GPT"
   lane :translations do
+    # Set UTF-8 encoding to handle Unicode characters in script output
+    ENV['LC_ALL'] = 'en_US.UTF-8'
+    ENV['LANG'] = 'en_US.UTF-8'
+    # Run script - encoding is set in both environment and script itself
     sh("../scripts/generate_translations.sh")
   end
 
@@ -10,12 +14,25 @@ platform :android do
   lane :release do
     translations
     
+    # Upload Main App
     upload_to_play_store(
       track: "production", # or 'internal', 'beta'
       aab: "app/build/app/outputs/bundle/prodRelease/app-prod-release.aab",
       json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
       package_name: "dev.thecodepapaya.calorify",
       metadata_path: "fastlane/metadata/android"
+    )
+
+    # Upload Watch App (companion)
+    upload_to_play_store(
+      track: "production",
+      aab: "watch_app/build/app/outputs/bundle/release/app-release.aab",
+      json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
+      package_name: "dev.thecodepapaya.calorify",
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_changelogs: true
     )
   end
 end

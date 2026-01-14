@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
+import 'package:calorify/core/services/wear_os_channel.dart';
+import 'package:calorify/core/services/wear_os_message_log.dart';
 import 'package:calorify/core/utilities/locale_utils.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +31,9 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
           const SizedBox(height: 24),
           _buildSectionTitle(context, t.debug.sections.healthConnect),
           _buildHealthConnectOptions(context),
+          const SizedBox(height: 24),
+          _buildSectionTitle(context, 'Wear OS'),
+          _buildWearOsOptions(context),
           const SizedBox(height: 24),
           _buildSectionTitle(context, t.debug.sections.appInfo),
           _buildAppInfoOptions(context),
@@ -196,6 +201,150 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     );
   }
 
+  Widget _buildWearOsOptions(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(LucideIcons.watch),
+            title: const Text('Check Watch Connection'),
+            onTap: _checkWatchConnection,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.send),
+            title: const Text('Send Test Message'),
+            subtitle: const Text('Send a simple test message to watch'),
+            onTap: _sendTestMessage,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.database),
+            title: const Text('Send Test Meal Data'),
+            subtitle: const Text('Send sample meal data to watch'),
+            onTap: _sendTestMealData,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.activity),
+            title: const Text('Send Test Calorie Goal'),
+            subtitle: const Text('Send sample calorie goal to watch'),
+            onTap: _sendTestCalorieGoal,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.inbox),
+            title: const Text('View Received Messages'),
+            subtitle: const Text('View messages received from watch'),
+            onTap: _viewReceivedMessages,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _checkWatchConnection() async {
+    try {
+      final connected = await WearOsPhoneChannel.isWatchConnected();
+      if (!mounted) return;
+
+      String message;
+      if (connected) {
+        final watchInfo = await WearOsPhoneChannel.getConnectedWatchInfo();
+        if (watchInfo != null) {
+          final deviceName = watchInfo['name'] as String? ?? 'Unknown Device';
+          final isNearby = watchInfo['isNearby'] as bool? ?? false;
+          final count = watchInfo['count'] as int? ?? 1;
+
+          message = 'Watch is connected ✓\n\n';
+          message += 'Device: $deviceName\n';
+          message += 'Nearby: ${isNearby ? "Yes" : "No"}\n';
+          if (count > 1) {
+            message += 'Connected devices: $count';
+          }
+        } else {
+          message = 'Watch is connected ✓\n\n(Device info unavailable)';
+        }
+      } else {
+        message =
+            'Watch is not connected ✗\n\nMake sure:\n• Both devices are paired\n• Watch app is running\n• Both apps are in debug/staging mode';
+      }
+
+      _showDataDialog('Watch Connection', message);
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackbar('Error checking connection: $e');
+    }
+  }
+
+  Future<void> _sendTestMessage() async {
+    try {
+      final success = await WearOsPhoneChannel.sendToWatch(
+        path: '/test',
+        data: {
+          'message': 'Hello from phone!',
+          'timestamp': DateTime.now().toIso8601String(),
+          'type': 'test',
+        },
+      );
+      if (!mounted) return;
+      _showSnackbar(
+        success
+            ? 'Test message sent successfully!'
+            : 'Failed to send test message. Check watch connection.',
+      );
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackbar('Error sending message: $e');
+    }
+  }
+
+  Future<void> _sendTestMealData() async {
+    try {
+      final testMeal = {
+        'id': 'test-${DateTime.now().millisecondsSinceEpoch}',
+        'name': 'Test Meal',
+        'calories': 500,
+        'protein': 30.0,
+        'carbs': 60.0,
+        'fat': 20.0,
+        'timestamp': DateTime.now().toIso8601String(),
+        'type': 'meal',
+      };
+
+      final success = await WearOsPhoneChannel.sendToWatch(
+        path: '/meals/today',
+        data: {
+          'meals': [testMeal],
+          'totalCalories': 500,
+        },
+      );
+      if (!mounted) return;
+      _showSnackbar(
+        success
+            ? 'Test meal data sent successfully!'
+            : 'Failed to send meal data. Check watch connection.',
+      );
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackbar('Error sending meal data: $e');
+    }
+  }
+
+  Future<void> _sendTestCalorieGoal() async {
+    try {
+      final success = await WearOsPhoneChannel.sendToWatch(
+        path: '/calorie_goal',
+        data: {'goal': 2000, 'timestamp': DateTime.now().toIso8601String()},
+      );
+      if (!mounted) return;
+      _showSnackbar(
+        success
+            ? 'Test calorie goal sent successfully!'
+            : 'Failed to send calorie goal. Check watch connection.',
+      );
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackbar('Error sending calorie goal: $e');
+    }
+  }
+
   Widget _buildAppInfoOptions(BuildContext context) {
     return Card(
       child: Column(
@@ -327,6 +476,93 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       t.debug.sync7DaysTitle,
       t.debug.syncSuccess(count: totalPoints),
     );
+  }
+
+  Future<void> _viewReceivedMessages() async {
+    if (!mounted) return;
+
+    await showDialog(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Received Messages from Watch'),
+            content: SizedBox(
+              width: double.maxFinite,
+              child:
+                  WearOsMessageLog.messages.isEmpty
+                      ? const Text(
+                        'No messages received yet.\n\nSend test data from watch to see messages here.',
+                      )
+                      : ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: WearOsMessageLog.messages.length,
+                        itemBuilder: (context, index) {
+                          final message = WearOsMessageLog.messages[index];
+                          final timestamp = message['timestamp'] as DateTime;
+                          final path = message['path'] as String;
+                          final data = message['data'] as Map<String, dynamic>;
+                          return Card(
+                            margin: const EdgeInsets.only(bottom: 8),
+                            child: ListTile(
+                              title: Text(
+                                path,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${timestamp.hour.toString().padLeft(2, '0')}:${timestamp.minute.toString().padLeft(2, '0')}:${timestamp.second.toString().padLeft(2, '0')}',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color:
+                                          Theme.of(
+                                            context,
+                                          ).colorScheme.onSurfaceVariant,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    _formatData(data),
+                                    style: const TextStyle(
+                                      fontSize: 11,
+                                      fontFamily: 'monospace',
+                                    ),
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                              isThreeLine: true,
+                            ),
+                          );
+                        },
+                      ),
+            ),
+            actions: [
+              if (WearOsMessageLog.messages.isNotEmpty)
+                TextButton(
+                  onPressed: () {
+                    WearOsMessageLog.clear();
+                    setState(() {});
+                    Navigator.of(context).pop();
+                    _showSnackbar('Messages cleared');
+                  },
+                  child: const Text('Clear'),
+                ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(t.common.close),
+              ),
+            ],
+          ),
+    );
+  }
+
+  String _formatData(Map<String, dynamic> data) {
+    return data.entries.map((e) => '${e.key}: ${e.value}').join(', ');
   }
 
   void _showDataDialog(String title, String content) {

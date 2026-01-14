@@ -1,7 +1,7 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/shared_widgets/loading_indicator.dart';
+import 'package:widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {

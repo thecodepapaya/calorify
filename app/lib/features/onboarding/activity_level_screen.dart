@@ -3,7 +3,7 @@ import 'package:models/models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:i18n/i18n.dart';
-import 'package:calorify/shared_widgets/loading_indicator.dart';
+import 'package:widgets/widgets.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:calorify/shared_widgets/profile_enum_extensions.dart';
 import 'package:calorify/shared_widgets/selection_card.dart';

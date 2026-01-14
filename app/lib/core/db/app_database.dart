@@ -105,7 +105,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         id: const Value(_userPreferencesId),
         theme: Value(ThemeMode.system.name),
       );
-      await into(userPreferencesTable).insert(newPrefs);
+      await into(userPreferencesTable).insertOnConflictUpdate(newPrefs);
       return (select(userPreferencesTable)
         ..where((tbl) => tbl.id.equals(_userPreferencesId))).getSingle();
     }

@@ -12,6 +12,7 @@
     <!-- Wear OS communication permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.permission.PROVIDE_BACKGROUND" />
+    <uses-permission android:name="com.google.android.wearable.permission.BIND_WEARABLE_LISTENER_SERVICE" />
     <!-- For reading historical data - more than 30 days ago since permission given -->
     <!-- <uses-permission android:name="android.permission.health.READ_HEALTH_DATA_HISTORY"/> -->
 

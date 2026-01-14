@@ -87,24 +87,43 @@ class WearOsChannelHandler(
 
     private suspend fun initializeWearOs() = withContext(Dispatchers.Main) {
         try {
+            Log.d(TAG, "Initializing Wear OS...")
             wearableDataClient = Wearable.getDataClient(context)
             wearableMessageClient = Wearable.getMessageClient(context)
             
-            // Register message listener
-            wearableMessageClient?.addListener(this@WearOsChannelHandler)
+            Log.d(TAG, "Registering message listener...")
+            // Register message listener - await the task
+            wearableMessageClient?.addListener(this@WearOsChannelHandler)?.await()
             
             Log.d(TAG, "Wear OS initialized successfully")
+            
+            // Log connected nodes for debugging
+            checkConnectedNodes()
         } catch (e: Exception) {
             Log.e(TAG, "Failed to initialize Wear OS", e)
             // Don't throw - allow app to continue without watch connection
         }
     }
+    
+    private suspend fun checkConnectedNodes() {
+        try {
+            val nodes = getConnectedNodes()
+            Log.d(TAG, "Connected nodes: ${nodes.size}")
+            nodes.forEach { node ->
+                Log.d(TAG, "Node: ${node.displayName}, id: ${node.id}, nearby: ${node.isNearby}")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error checking connected nodes", e)
+        }
+    }
 
     private suspend fun sendMessageToPhone(path: String, data: Map<String, Any>): Map<String, Any>? = withContext(Dispatchers.IO) {
         try {
+            Log.d(TAG, "Attempting to send message to phone: path=$path")
             val nodes = getConnectedNodes()
+            Log.d(TAG, "Found ${nodes.size} connected node(s)")
             if (nodes.isEmpty()) {
-                Log.w(TAG, "No connected nodes found")
+                Log.w(TAG, "No connected nodes found - cannot send message")
                 return@withContext mapOf("success" to false, "error" to "No connected phone")
             }
 
@@ -114,11 +133,15 @@ class WearOsChannelHandler(
             // Use MessageClient for request-response pattern
             val messagePath = "/calorify_watch$path"
             try {
+                val targetNode = nodes.first()
+                Log.d(TAG, "Sending message to node: ${targetNode.displayName} (${targetNode.id})")
                 wearableMessageClient?.sendMessage(
-                    nodes.first().id,
+                    targetNode.id,
                     messagePath,
                     payload
                 )?.await()
+                
+                Log.d(TAG, "Message sent successfully to phone: $messagePath")
                 
                 // Wait for response via DataClient
                 val response = waitForResponse(messagePath)
@@ -161,16 +184,26 @@ class WearOsChannelHandler(
     }
 
     override fun onMessageReceived(messageEvent: MessageEvent) {
+        Log.d(TAG, "onMessageReceived: path=${messageEvent.path}, sourceNodeId=${messageEvent.sourceNodeId}")
         coroutineScope.launch {
             if (messageEvent.path.startsWith("/calorify_phone/")) {
                 try {
                     val data = String(messageEvent.data, StandardCharsets.UTF_8)
                     val jsonObject = JSONObject(data)
-                    val message = jsonObjectToMap(jsonObject)
+                    val payloadMap = jsonObjectToMap(jsonObject)
+
+                    // Include the logical path so the Flutter side can display it
+                    val logicalPath = messageEvent.path.removePrefix("/calorify_phone")
+                    val message = mutableMapOf<String, Any>("path" to logicalPath)
+                    message.putAll(payloadMap)
+
+                    Log.d(TAG, "Received message from phone: path=$logicalPath, data=$payloadMap")
                     eventSink?.success(message)
                 } catch (e: Exception) {
                     Log.e(TAG, "Error parsing message", e)
                 }
+            } else {
+                Log.d(TAG, "Ignoring message with path: ${messageEvent.path}")
             }
         }
     }
@@ -217,7 +250,14 @@ class WearOsChannelHandler(
     }
 
     fun dispose() {
-        wearableMessageClient?.removeListener(this)
-        eventSink = null
+        coroutineScope.launch {
+            try {
+                wearableMessageClient?.removeListener(this@WearOsChannelHandler)?.await()
+                eventSink = null
+                Log.d(TAG, "WearOsChannelHandler disposed")
+            } catch (e: Exception) {
+                Log.e(TAG, "Error disposing WearOsChannelHandler", e)
+            }
+        }
     }
 }
