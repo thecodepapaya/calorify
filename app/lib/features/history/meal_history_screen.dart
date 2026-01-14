@@ -8,7 +8,7 @@ import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/history/widgets/icon_nutrition.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
 import 'package:i18n/i18n.dart';
-import 'package:calorify/shared_widgets/loading_indicator.dart';
+import 'package:widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/wear_os_channel.dart';
+import 'package:calorify/core/services/wear_os_message_log.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -61,6 +62,11 @@ class WearOsService {
     required Map<String, dynamic> data,
   }) async {
     try {
+      // Log message for debug purposes (only in debug mode)
+      if (kDebugMode) {
+        WearOsMessageLog.addMessage(path, data);
+      }
+
       switch (path) {
         case '/meal':
           return await _handleMealLog(data);

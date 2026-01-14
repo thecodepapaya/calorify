@@ -12,7 +12,7 @@ import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dar
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:i18n/i18n.dart';
-import 'package:calorify/shared_widgets/loading_indicator.dart';
+import 'package:widgets/widgets.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';

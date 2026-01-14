@@ -11,6 +11,22 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [DebugScreen]
+class DebugRoute extends PageRouteInfo<void> {
+  const DebugRoute({List<PageRouteInfo>? children})
+    : super(DebugRoute.name, initialChildren: children);
+
+  static const String name = 'DebugRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DebugScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [HistoryScreen]
 class HistoryRoute extends PageRouteInfo<void> {
   const HistoryRoute({List<PageRouteInfo>? children})
@@ -56,6 +72,53 @@ class LogMealRoute extends PageRouteInfo<void> {
       return const LogMealScreen();
     },
   );
+}
+
+/// generated route for
+/// [MealResultScreen]
+class MealResultRoute extends PageRouteInfo<MealResultRouteArgs> {
+  MealResultRoute({
+    Key? key,
+    required MealDetectionResult result,
+    List<PageRouteInfo>? children,
+  }) : super(
+         MealResultRoute.name,
+         args: MealResultRouteArgs(key: key, result: result),
+         initialChildren: children,
+       );
+
+  static const String name = 'MealResultRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<MealResultRouteArgs>();
+      return MealResultScreen(key: args.key, result: args.result);
+    },
+  );
+}
+
+class MealResultRouteArgs {
+  const MealResultRouteArgs({this.key, required this.result});
+
+  final Key? key;
+
+  final MealDetectionResult result;
+
+  @override
+  String toString() {
+    return 'MealResultRouteArgs{key: $key, result: $result}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! MealResultRouteArgs) return false;
+    return key == other.key && result == other.result;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ result.hashCode;
 }
 
 /// generated route for

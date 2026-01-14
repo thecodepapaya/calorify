@@ -41,4 +41,29 @@ class WearOsPhoneChannel {
       return null;
     }
   }
+
+  /// Check if watch app is connected
+  static Future<bool> isWatchConnected() async {
+    try {
+      final result = await _channel.invokeMethod<bool>('isWatchConnected');
+      return result ?? false;
+    } on PlatformException catch (e) {
+      debugPrint('Failed to check watch connection: ${e.message}');
+      return false;
+    }
+  }
+
+  /// Get information about connected watch device
+  static Future<Map<String, dynamic>?> getConnectedWatchInfo() async {
+    try {
+      final result = await _channel.invokeMethod<Map<Object?, Object?>>(
+        'getConnectedWatchInfo',
+      );
+      if (result == null) return null;
+      return Map<String, dynamic>.from(result);
+    } on PlatformException catch (e) {
+      debugPrint('Failed to get watch info: ${e.message}');
+      return null;
+    }
+  }
 }

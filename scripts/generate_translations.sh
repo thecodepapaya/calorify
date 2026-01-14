@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Set UTF-8 encoding to handle Unicode characters properly
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 # This script automates the translation process:
 # 1. Analyzes translations for errors
 # 2. Normalizes translations

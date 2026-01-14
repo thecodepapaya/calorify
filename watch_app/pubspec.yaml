@@ -29,6 +29,7 @@ dependencies:
   wear_plus: ^1.0.0
   flutter_tts: ^4.2.0
   speech_to_text: ^7.0.0
+  record: 6.1.2
   
   # UI and charts
   fl_chart: ^1.0.0

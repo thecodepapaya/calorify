@@ -8,6 +8,7 @@ import 'package:calorify_watch/widgets/macro_chart.dart';
 import 'package:calorify_watch/widgets/calorie_trend_chart.dart';
 import 'package:calorify_watch/widgets/meal_list_item.dart';
 import 'package:calorify_watch/widgets/carousel_scroll_view.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -146,30 +147,58 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                   minScale: 0.88,
                   scaleRange: 0.12,
                   children: [
-                    // Header with sync status
+                    // Header with sync status and debug button
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(
-                            LucideIcons.check,
-                            size: 12,
-                            color: colorScheme.primary.withValues(alpha: 0.7),
-                          ),
-                          const SizedBox(width: 4),
-                          Flexible(
-                            child: Text(
-                              'Synced',
-                              style: theme.textTheme.labelSmall?.copyWith(
-                                color: colorScheme.onSurfaceVariant.withValues(
-                                  alpha: 0.6,
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  LucideIcons.check,
+                                  size: 12,
+                                  color: colorScheme.primary.withValues(alpha: 0.7),
                                 ),
-                                fontSize: 8,
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                                const SizedBox(width: 4),
+                                Flexible(
+                                  child: Text(
+                                    'Synced',
+                                    style: theme.textTheme.labelSmall?.copyWith(
+                                      color: colorScheme.onSurfaceVariant.withValues(
+                                        alpha: 0.6,
+                                      ),
+                                      fontSize: 8,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
+                          if (kDebugMode)
+                            GestureDetector(
+                              onTap: () {
+                                HapticFeedback.lightImpact();
+                                context.router.push(const DebugRoute());
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(6),
+                                decoration: BoxDecoration(
+                                  color: colorScheme.tertiaryContainer.withValues(
+                                    alpha: 0.5,
+                                  ),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  LucideIcons.bug,
+                                  size: 12,
+                                  color: colorScheme.tertiary,
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                     ),

@@ -3,7 +3,7 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:i18n/i18n.dart';
-import 'package:calorify/shared_widgets/loading_indicator.dart';
+import 'package:widgets/widgets.dart';
 import 'package:calorify/shared_widgets/macro_legend.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';

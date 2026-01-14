@@ -92,25 +92,30 @@ class _MacroChartState extends State<MacroChart>
                     excludeSemantics: true,
                     child: Icon(
                       LucideIcons.chartPie,
-                      size: 18,
+                      size: 16,
                       color: colorScheme.primary,
                     ),
                   ),
                 ),
-                const SizedBox(width: 6),
-                Text(
-                  t.home.intakeProgress.title,
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 0.3,
-                    color: colorScheme.onSurface,
-                    fontSize: 12,
+                const SizedBox(width: 4),
+                Flexible(
+                  child: Text(
+                    t.home.intakeProgress.title,
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.3,
+                      color: colorScheme.onSurface,
+                      fontSize: 10,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
                   ),
                 ),
-                const SizedBox(width: 6),
+                const SizedBox(width: 4),
                 Icon(
                   LucideIcons.info,
-                  size: 12,
+                  size: 10,
                   color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
                 ),
               ],
