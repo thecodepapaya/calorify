@@ -14,7 +14,8 @@ platform :android do
       track: "production", # or 'internal', 'beta'
       aab: "build/app/outputs/bundle/prodRelease/app-prod-release.aab",
       json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
-      package_name: "dev.thecodepapaya.calorify"
+      package_name: "dev.thecodepapaya.calorify",
+      metadata_path: "fastlane/metadata/android"
     )
   end
 end

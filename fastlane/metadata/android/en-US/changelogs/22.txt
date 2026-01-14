@@ -1,0 +1,16 @@
+AI-powered calorie tracking. Snap photos or describe meals for instant nutritional analysis.
+
+What's New:
+• Dark theme support
+• Support for more languages
+• Stability and bug fixes
+
+✨ Features:
+• AI food analysis from photos or text
+• Smart goal tracking with progress charts
+• Health Connect integration
+• BMR/TDEE calculation
+• Multi-language support
+• Meal history & favorites
+
+🔒 Privacy-first: No accounts required.

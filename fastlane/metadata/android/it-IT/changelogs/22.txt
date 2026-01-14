@@ -1,0 +1,16 @@
+Tracciamento delle calorie potenziato dall'IA. Scatta foto o descrivi i pasti per un'analisi nutrizionale istantanea.
+
+Novità:
+• Supporto per tema scuro
+• Supporto per più lingue
+• Stabilità e correzioni di bug
+
+✨ Caratteristiche:
+• Analisi alimentare dell'IA da foto o testo
+• Monitoraggio degli obiettivi intelligenti con grafici di progresso
+• Integrazione con Health Connect
+• Calcolo BMR/TDEE
+• Supporto multilingue
+• Cronologia dei pasti e preferiti
+
+🔒 Privacy al primo posto: Nessun account richiesto.
