@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets
 import kotlin.coroutines.resume
 
 class WearOsMessageHandler(
+    private val context: android.content.Context,
     private val flutterEngine: FlutterEngine,
     private val coroutineScope: CoroutineScope
 ) : MessageClient.OnMessageReceivedListener, DataClient.OnDataChangedListener {
@@ -29,13 +30,12 @@ class WearOsMessageHandler(
     private fun initializeWearOs() {
         coroutineScope.launch {
             try {
-                val context = flutterEngine.applicationContext
                 wearableDataClient = Wearable.getDataClient(context)
                 wearableMessageClient = Wearable.getMessageClient(context)
                 
                 // Register listeners
                 wearableMessageClient?.addListener(this@WearOsMessageHandler)
-                wearableDataClient?.addOnDataChangedListener(this@WearOsMessageHandler)
+                wearableDataClient?.addListener(this@WearOsMessageHandler)
                 
                 Log.d(TAG, "Wear OS message handler initialized")
             } catch (e: Exception) {
@@ -148,7 +148,7 @@ class WearOsMessageHandler(
 
     private suspend fun sendToWatch(path: String, data: Map<String, Any>): Boolean {
         return try {
-            val nodes = Wearable.getNodeClient(flutterEngine.applicationContext)
+            val nodes = Wearable.getNodeClient(context)
                 .connectedNodes.await()
             
             if (nodes.isEmpty()) {
@@ -177,7 +177,7 @@ class WearOsMessageHandler(
 
     fun dispose() {
         wearableMessageClient?.removeListener(this)
-        wearableDataClient?.removeOnDataChangedListener(this)
+        wearableDataClient?.removeListener(this)
     }
 }
 
