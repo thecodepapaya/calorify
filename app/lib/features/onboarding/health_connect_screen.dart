@@ -1,8 +1,8 @@
+import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors/color_scheme_extensions.dart';
 import 'package:calorify/core/services/health_service.dart';
-import 'package:calorify/core/utilities/string_utils.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:calorify/shared_widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
@@ -265,7 +265,7 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
             success
                 ? t.onboarding.healthConnect.statusSuccess
                 : t.onboarding.healthConnect.statusPermissionDenied(
-                  appLabel: t.appLabelValue,
+                  appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
                 );
       });
 

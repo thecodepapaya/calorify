@@ -8,8 +8,7 @@ import 'package:calorify/core/db/tables/favorite_meal.dart';
 import 'package:calorify/core/db/tables/meal_info.dart';
 import 'package:calorify/core/db/tables/user_preferences.dart';
 import 'package:calorify/core/db/tables/user_profile.dart';
-import 'package:calorify/core/models/meal_model.dart';
-import 'package:calorify/core/models/profile_models.dart';
+import 'package:models/models.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart' show ThemeMode;
@@ -188,7 +187,9 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
       (tbl) =>
           tbl.timestamp.isBiggerOrEqualValue(startOfToday) &
           tbl.timestamp.isSmallerThanValue(endOfToday),
-    )).watch().map((rows) => rows.map((row) => MealInfo.fromRow(row)).toList());
+    )).watch().map(
+      (rows) => rows.map((row) => MealInfoMapper.fromRow(row)).toList(),
+    );
   }
 
   @override
@@ -204,7 +205,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
     return (select(mealInfoTable)..where(
       (tbl) => tbl.timestamp.isBiggerOrEqualValue(startOfSevenDaysAgo),
     )).watch().map(
-      (rows) => rows.map((row) => MealInfo.fromDrift(row)).toList(),
+      (rows) => rows.map((row) => MealInfoMapper.fromDrift(row)).toList(),
     );
   }
 
@@ -226,7 +227,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   @override
   Stream<List<MealInfo>> watchAllFavoriteMeals() {
     return select(favoriteMealTable).watch().map(
-      (rows) => rows.map((row) => MealInfo.fromDrift(row)).toList(),
+      (rows) => rows.map((row) => MealInfoMapper.fromDrift(row)).toList(),
     );
   }
 
@@ -246,7 +247,9 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           ])
           ..limit(4))
         .watch()
-        .map((rows) => rows.map((row) => MealInfo.fromDrift(row)).toList());
+        .map(
+          (rows) => rows.map((row) => MealInfoMapper.fromDrift(row)).toList(),
+        );
   }
 
   @override
@@ -287,7 +290,9 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           ])
           ..limit(mealsPerPage, offset: offset * mealsPerPage))
         .get()
-        .then((rows) => rows.map((row) => MealInfo.fromRow(row)).toList());
+        .then(
+          (rows) => rows.map((row) => MealInfoMapper.fromRow(row)).toList(),
+        );
   }
 
   @override

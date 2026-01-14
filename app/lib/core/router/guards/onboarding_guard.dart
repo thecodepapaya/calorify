@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:calorify/core/models/profile_models.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/database_service.dart';
 

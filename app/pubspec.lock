@@ -845,6 +845,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.2"
+  i18n:
+    dependency: "direct main"
+    description:
+      path: "../shared_packages/i18n"
+      relative: true
+    source: path
+    version: "1.2.1"
   image:
     dependency: transitive
     description:
@@ -1061,6 +1068,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  models:
+    dependency: "direct main"
+    description:
+      path: "../shared_packages/models"
+      relative: true
+    source: path
+    version: "1.2.1"
   package_config:
     dependency: transitive
     description:
@@ -1285,6 +1299,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.6.5"
+  services:
+    dependency: "direct main"
+    description:
+      path: "../shared_packages/services"
+      relative: true
+    source: path
+    version: "1.2.1"
   shelf:
     dependency: transitive
     description:
@@ -1354,6 +1375,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.1"
+  specs:
+    dependency: "direct main"
+    description:
+      path: "../shared_packages/specs"
+      relative: true
+    source: path
+    version: "1.2.1"
   sqlite3:
     dependency: transitive
     description:
@@ -1522,6 +1550,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.4"
+  utils:
+    dependency: "direct main"
+    description:
+      path: "../shared_packages/utils"
+      relative: true
+    source: path
+    version: "1.2.1"
   uuid:
     dependency: transitive
     description:

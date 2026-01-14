@@ -1,4 +1,4 @@
-import 'package:calorify/core/models/profile_models.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/utilities/locale_utils.dart';

@@ -24,7 +24,7 @@ jobs:
       - name: Decode Android signing files
         working-directory: app/android
         run: |
-          echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 --decode > signing-certificate.jks
+          echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 --decode > app/upload-keystore.jks
           echo "${{ secrets.ANDROID_KEY_PROPERTIES_B64 }}" | base64 --decode > key.properties
 
       - name: Build Android AppBundle

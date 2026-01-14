@@ -1,4 +1,4 @@
-import 'package:calorify/core/models/profile_models.dart';
+import 'package:models/models.dart';
 import 'package:flutter/material.dart';
 
 /// Utility class for locale-based unit system detection and formatting

@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/db/mappers/meal_detection_result_mapper.dart';
-import 'package:calorify/core/models/meal_model.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';

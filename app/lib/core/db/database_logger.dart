@@ -1,9 +1,8 @@
 import 'dart:developer';
 
 import 'package:calorify/core/db/database_interface.dart';
-import 'package:calorify/core/models/meal_model.dart';
-import 'package:calorify/core/models/profile_models.dart';
 import 'package:flutter/material.dart' show ThemeMode;
+import 'package:models/models.dart';
 
 /// Database logger that wraps DatabaseInterface and logs all read/write operations
 class DatabaseLogger implements DatabaseInterface {

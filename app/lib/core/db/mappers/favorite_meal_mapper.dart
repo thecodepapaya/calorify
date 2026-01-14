@@ -1,5 +1,5 @@
 import 'package:calorify/core/db/app_database.dart';
-import 'package:calorify/core/models/meal_model.dart';
+import 'package:models/models.dart';
 import 'package:drift/drift.dart';
 
 extension FavoriteMealMapper on MealInfo {

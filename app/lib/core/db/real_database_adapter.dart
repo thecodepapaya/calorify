@@ -1,13 +1,11 @@
 import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/db/database_interface.dart';
-import 'package:calorify/core/models/meal_model.dart';
-import 'package:calorify/core/models/profile_models.dart';
+import 'package:models/models.dart';
 import 'package:flutter/material.dart' show ThemeMode;
 
 /// Adapter that wraps AppDatabase to implement DatabaseInterface
 class RealDatabaseAdapter implements DatabaseInterface {
   final AppDatabase _database;
-
   RealDatabaseAdapter(this._database);
 
   @override
@@ -120,8 +118,8 @@ class RealDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
-  Future<void> setLanguageCode(String? code) async {
-    await _database.setLanguageCode(code);
+  Future<void> setLanguageCode(String? languageCode) async {
+    await _database.setLanguageCode(languageCode);
   }
 
   @override

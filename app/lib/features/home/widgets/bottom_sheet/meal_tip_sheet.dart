@@ -1,8 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:calorify/core/constants/colors.dart';
-import 'package:calorify/core/models/meal_detection_result.dart';
-import 'package:calorify/core/models/meal_model.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
 import 'package:calorify/features/history/widgets/meal_quantity.dart';
@@ -11,7 +10,7 @@ import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/meal_image.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:i18n/i18n.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';

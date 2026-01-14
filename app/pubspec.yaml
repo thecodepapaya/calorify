@@ -72,6 +72,18 @@ dependencies:
   flutter_riverpod: ^2.6.1
   riverpod_annotation: ^2.6.1
 
+  # Shared packages
+  specs:
+    path: ../shared_packages/specs
+  models:
+    path: ../shared_packages/models
+  utils:
+    path: ../shared_packages/utils
+  i18n:
+    path: ../shared_packages/i18n
+  services:
+    path: ../shared_packages/services
+
 
 dev_dependencies:
   flutter_test:

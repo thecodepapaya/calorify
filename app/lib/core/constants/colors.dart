@@ -1,3 +1,10 @@
-// Barrel export file for backward compatibility
-// This file maintains backward compatibility for existing imports
-export 'package:calorify/core/constants/colors/light_colors.dart';
+// Re-export from shared specs package for backward compatibility
+export 'package:specs/specs.dart'
+    show
+        lightColors,
+        darkColors,
+        calorieIconColor,
+        proteinIconColor,
+        carbsIconColor,
+        fatIconColor,
+        fiberIconColor;

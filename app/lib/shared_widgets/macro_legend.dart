@@ -1,5 +1,5 @@
 import 'package:calorify/core/constants/colors.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 
 /// Shared macro legend widget for displaying macro nutrient labels

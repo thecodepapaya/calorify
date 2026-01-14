@@ -8,7 +8,7 @@ import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/services/performance_service.dart';
 import 'package:calorify/core/services/remote_db.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:i18n/i18n.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';

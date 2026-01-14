@@ -2,7 +2,7 @@ import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors/color_scheme_extensions.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';

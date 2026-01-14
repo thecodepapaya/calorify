@@ -1,5 +1,4 @@
-import 'package:calorify/core/models/meal_model.dart';
-import 'package:calorify/core/models/meal_type.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/db/mock_data/meal_info_mock.dart';
 
 /// Mock data generator for FavoriteMeal with realistic favorite meal scenarios

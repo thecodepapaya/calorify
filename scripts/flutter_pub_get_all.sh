@@ -3,6 +3,7 @@
 # Source common utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/common.sh"
+source "$SCRIPT_DIR/project_utils.sh"
 
 # Store original directory
 store_original_dir
@@ -10,17 +11,14 @@ store_original_dir
 # Change to git root directory
 GIT_ROOT=$(change_to_git_root)
 
-# Find all pubspec.yaml files up to 1 subdirectory level
+# Find all pubspec.yaml files up to a configurable subdirectory depth
 print_header "Finding Flutter projects"
 
-# Search in root and one level deep from git root
 PROJECTS=()
-while IFS= read -r -d '' file; do
-    # Get relative path from git root and normalize (remove leading ./)
-    project_dir=$(dirname "$file")
-    project_dir="${project_dir#./}"  # Remove leading ./ if present
-    PROJECTS+=("$project_dir")
-done < <(find . -maxdepth 2 -name "pubspec.yaml" -type f -print0 2>/dev/null)
+while IFS= read -r project; do
+    # Skip empty lines just in case
+    [ -n "$project" ] && PROJECTS+=("$project")
+done < <(find_pubspec_projects 3)
 
 if [ ${#PROJECTS[@]} -eq 0 ]; then
     print_warning "No pubspec.yaml files found."

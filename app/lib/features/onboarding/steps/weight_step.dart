@@ -1,7 +1,7 @@
-import 'package:calorify/core/models/profile_models.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/locale_utils.dart';
-import 'package:calorify/i18n/strings.g.dart';
+import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/weight_scale_widget.dart';
 import 'package:flutter/material.dart';
 

@@ -1,0 +1,555 @@
+{
+  "language": "Tiếng Việt",
+  "flag": "🇻🇳",
+  "appLabel": "Calorify{env}",
+  "onboarding": {
+    "welcome": "Chào mừng bạn đến với {appLabel}",
+    "subtitle": "Người bạn đồng hành dinh dưỡng cá nhân của bạn được hỗ trợ bởi AI",
+    "getStarted": "Bắt đầu",
+    "features": {
+      "foodRecognition": {
+        "title": "Nhận diện thực phẩm thông minh",
+        "description": "Chụp một bức ảnh và để AI xác định bữa ăn của bạn"
+      },
+      "aiAnalysis": {
+        "title": "Phân tích AI",
+        "description": "Nhận thông tin dinh dưỡng ngay lập tức từ mô tả của bạn"
+      },
+      "healthIntegration": {
+        "title": "Tích hợp sức khỏe",
+        "description": "Kết nối với Health Connect để có được cái nhìn sâu sắc hơn"
+      }
+    },
+    "gender": {
+      "title": "Giới tính của bạn là gì?",
+      "description": "Giới tính giúp chúng tôi tính toán chính xác tỷ lệ trao đổi chất cơ bản (BMR) của bạn.",
+      "next": "Tiếp theo"
+    },
+    "height": {
+      "title": "Bạn cao bao nhiêu?",
+      "description": "Chiều cao của bạn giúp chúng tôi tính toán chỉ số BMI và nhu cầu năng lượng một cách chính xác.",
+      "metric": "Mét",
+      "imperial": "Imperial",
+      "next": "Tiếp theo"
+    },
+    "weight": {
+      "currentTitle": "Cân nặng hiện tại của bạn là bao nhiêu?",
+      "currentDescription": "Cân nặng hiện tại rất quan trọng để cá nhân hóa các mục tiêu hàng ngày của bạn.",
+      "targetTitle": "Cân nặng mục tiêu của bạn là bao nhiêu?",
+      "targetDescription": "Đặt mục tiêu cân nặng giúp chúng tôi xác định kế hoạch dài hạn của bạn.",
+      "metric": "Kilogram",
+      "imperial": "Imperial",
+      "next": "Tiếp theo"
+    },
+    "age": {
+      "title": "Ngày sinh của bạn là khi nào?",
+      "description": "Tuổi của bạn giúp chúng tôi tính toán nhu cầu calo một cách chính xác.",
+      "next": "Tiếp theo"
+    },
+    "bmiScale": {
+      "underweight": "Gầy",
+      "healthy": "Khỏe mạnh",
+      "overweight": "Thừa cân",
+      "obese": "Béo phì",
+      "categories": {
+        "underweight": "Gầy",
+        "healthyWeight": "Cân nặng khỏe mạnh",
+        "overweight": "Thừa cân",
+        "obese": "Béo phì"
+      },
+      "messages": {
+        "underweight": "Chúng tôi có thể giúp bạn xây dựng một kế hoạch lành mạnh để đạt được trọng lượng cân bằng với những bữa ăn giàu dinh dưỡng.",
+        "healthy": "Tuyệt vời! Bạn đang ở mức độ khỏe mạnh. Chúng tôi sẽ giúp bạn duy trì sức sống và mức năng lượng.",
+        "overweight": "{appLabel} sẽ đơn giản hóa hành trình của bạn với việc theo dõi bằng AI để giúp bạn đạt được mục tiêu của mình một cách thoải mái.",
+        "obese": "Chúng tôi ở đây để hỗ trợ bạn với hướng dẫn cá nhân hóa và các chiến lược bền vững cho các mục tiêu sức khỏe của bạn."
+      }
+    },
+    "weightGoal": {
+      "title": "Mục tiêu của bạn là gì?",
+      "description": "Chọn mục tiêu mà bạn muốn đạt được nhất"
+    },
+    "activityLevel": {
+      "title": "Bạn hoạt động như thế nào?",
+      "description": "Điều này giúp chúng tôi tính toán nhu cầu calo hàng ngày của bạn một cách chính xác hơn"
+    },
+    "healthConnect": {
+      "title": "Kết nối với Health Connect",
+      "description": "Đồng bộ dữ liệu sức khỏe của bạn để có cái nhìn sâu sắc hơn và theo dõi calo tự động",
+      "automaticTracking": {
+        "title": "Theo dõi calo tự động",
+        "description": "Theo dõi calo đã đốt cháy từ các ứng dụng thể dục của bạn"
+      },
+      "progressInsights": {
+        "title": "Thông tin tiến độ",
+        "description": "Nhận thông tin chi tiết về xu hướng sức khỏe của bạn"
+      },
+      "seamlessIntegration": {
+        "title": "Tích hợp liền mạch",
+        "description": "Đồng bộ dữ liệu từ các ứng dụng sức khỏe yêu thích của bạn"
+      },
+      "connected": "Đã kết nối Health Connect",
+      "notConnected": "Chưa kết nối Health Connect",
+      "setup": "Cài đặt Health Connect",
+      "skipForNow": "Bỏ qua tạm thời",
+      "statusConnected": "Health Connect đã được kết nối.",
+      "statusSuccess": "Health Connect đã được kết nối thành công!",
+      "statusPermissionDenied": "Quyền truy cập đã bị từ chối. Vui lòng bật quyền truy cập Health Connect từ cài đặt điện thoại của bạn để sử dụng {appLabel}.",
+      "statusError": "Lỗi cài đặt Health Connect: {error}"
+    },
+    "reinforcement": {
+      "trackingSuccess": {
+        "title": "Bạn không đơn độc",
+        "genericMessage": "Nghiên cứu cho thấy việc theo dõi liên tục là dự đoán số 1 cho thành công lâu dài.",
+        "personalizedMessage": "Đối với một {age} tuổi {gender} muốn {goal}, việc theo dõi liên tục là dự đoán số 1 cho thành công.",
+        "closingMessage": "{appLabel} giúp bạn dễ dàng hơn gấp 10 lần so với việc thực hiện thủ công.",
+        "getStartedTitle": "Sẵn sàng để bắt đầu chưa?",
+        "tipPhoto": "Chụp ảnh bữa ăn của bạn để phân tích ngay lập tức",
+        "tipConsistency": "Ghi chép thường xuyên để thấy được tiến bộ rõ rệt",
+        "tipProgress": "Theo dõi tiến trình hàng ngày để giữ động lực",
+        "button": "Đi nào",
+        "defaultGender": "người",
+        "defaultGoal": "khỏe mạnh hơn"
+      },
+      "healthProfile": {
+        "title": "Hồ sơ sức khỏe của bạn",
+        "bmiDescription": "Dựa trên các chỉ số của bạn, chỉ số BMI của bạn là {bmi}.",
+        "finalizeDescription": "Hãy hoàn thiện hồ sơ của bạn để tùy chỉnh trải nghiệm của bạn.",
+        "goalGain": "tăng",
+        "goalLose": "giảm",
+        "goalReach": "Để đạt được mục tiêu của bạn, bạn sẽ {direction} {diff} {unit}.",
+        "goalReached": "Bạn đã đạt được trọng lượng mong muốn! Chúng tôi sẽ giúp bạn duy trì nó.",
+        "button": "Đi nào"
+      },
+      "goalLifestyle": {
+        "title": "Khởi đầu tuyệt vời!",
+        "description": "Bạn đã bước những bước đầu tiên hướng tới {goalText}. Vì bạn đang {activityText}, {appLabel} sẽ điều chỉnh các mục tiêu của bạn để phù hợp với lối sống của bạn.",
+        "personalizedTargets": "Mục tiêu calo cá nhân hóa",
+        "aiMealDetection": "Nhận diện bữa ăn được hỗ trợ bởi AI",
+        "macroBreakdowns": "Chi tiết về phân bổ chất dinh dưỡng",
+        "button": "Đi nào",
+        "defaultGoal": "các mục tiêu của bạn",
+        "defaultActivity": "năng động"
+      }
+    }
+  },
+  "tabs": {
+    "dashboard": "Bảng điều khiển",
+    "history": "Lịch sử"
+  },
+  "home": {
+    "dailyGoal": {
+      "title": "Đặt mục tiêu hàng ngày của bạn",
+      "titleSet": "Mục tiêu hàng ngày của bạn",
+      "description": "Sẵn sàng để bắt đầu hành trình sức khỏe? Đặt mục tiêu calo hàng ngày của bạn bên dưới để khởi đầu tiến trình.",
+      "descriptionSet": "La bàn của bạn đã được đặt! Đây là mục tiêu calo hàng ngày của bạn để hướng dẫn bạn.",
+      "yourGoal": "Mục tiêu của bạn",
+      "dailyCalories": "Calo hàng ngày (kcal)",
+      "setGoal": "Đặt mục tiêu",
+      "intake": "Tiêu thụ",
+      "burned": "Đã đốt cháy",
+      "weightImpact": "Tác động đến trọng lượng",
+      "estLoss": "Dự kiến giảm",
+      "estGain": "Dự kiến tăng",
+      "kcal": "kcal"
+    },
+    "dailySummary": {
+      "title": "Tóm tắt hàng ngày",
+      "calories": "Calo",
+      "carbs": "Carbohydrate",
+      "protein": "Protein",
+      "fat": "Chất béo",
+      "fiber": "Chất xơ"
+    },
+    "intakeProgress": {
+      "title": "Phân chia Macro hôm nay",
+      "target": "Mục tiêu",
+      "current": "Hiện tại"
+    },
+    "intakeHistory": {
+      "title": "Lịch sử Macro 7 ngày",
+      "noHistoryYet": "Chưa có lịch sử nào",
+      "startLogging": "Bắt đầu ghi chú bữa ăn để xem xu hướng macro 7 ngày của bạn ở đây"
+    },
+    "mealLog": {
+      "title": "Bữa ăn đã ghi",
+      "emptyMessage": "Chụp ảnh bữa ăn cuối cùng của bạn để ghi chú ở đây.",
+      "noMealsToday": "Chưa ghi nhận bữa ăn nào cho hôm nay",
+      "seeAllMeals": "Xem tất cả bữa ăn"
+    },
+    "mealDescription": {
+      "title": "Thêm nhanh với AI",
+      "description": "Mô tả bữa ăn của bạn, và hãy để AI xử lý các chi tiết.",
+      "hint": "ví dụ: Vào bữa sáng tôi đã ăn một bát lớn yến mạch với một quả chuối thái lát và một muỗng whey ...",
+      "analyzeMeal": "Phân tích bữa ăn"
+    },
+    "favoriteMeals": {
+      "title": "Bữa ăn yêu thích",
+      "description": "Thêm nhanh một trong những bữa ăn yêu thích của bạn.",
+      "noFavorites": "Chưa có bữa ăn yêu thích nào.",
+      "addFavoriteHint": "Nhấn vào ngôi sao trên một bữa ăn để đánh dấu nó là yêu thích.",
+      "seeAll": "Xem tất cả",
+      "add": "Thêm"
+    },
+    "mealSnap": {
+      "title": "Chụp & Theo dõi Bữa ăn của bạn",
+      "description": "Sử dụng camera của bạn để chụp ảnh thực phẩm cho phân tích AI.",
+      "openCamera": "Mở Camera"
+    },
+    "connectHealth": {
+      "title": "Đồng bộ với Health Connect",
+      "description": "Đồng bộ dữ liệu dinh dưỡng của bạn với Health Connect",
+      "install": "Cài đặt",
+      "connect": "Kết nối"
+    }
+  },
+  "history": {
+    "noMeals": "Chưa ghi nhận bữa ăn nào",
+    "emptyMessage": "Chụp ảnh bữa ăn cuối cùng của bạn để ghi chú ở đây.",
+    "today": "Hôm nay",
+    "yesterday": "Hôm qua"
+  },
+  "meal": {
+    "ohNo": "Ôi không!",
+    "delete": "Xóa",
+    "editMeal": "Chỉnh sửa bữa ăn",
+    "addMeal": "Thêm bữa ăn",
+    "saveMeal": "Lưu bữa ăn",
+    "save": "Lưu",
+    "mealName": "Tên bữa ăn",
+    "mealQuantity": "Số lượng bữa ăn",
+    "mealQuantityHint": "vd: 1 bát, 2 lát",
+    "timeOfMeal": "Thời gian bữa ăn",
+    "timeOfMealHint": "Chọn thời gian bạn đã ăn bữa ăn",
+    "mealType": "Loại bữa ăn",
+    "nutrition": {
+      "calories": "Calo",
+      "carbs": "Carbohydrate (g)",
+      "protein": "Protein (g)",
+      "fat": "Chất béo (g)",
+      "fiber": "Chất xơ (g)"
+    },
+    "deleteConfirmation": {
+      "title": "Xóa bữa ăn",
+      "message": "Bạn có chắc chắn muốn xóa mục bữa ăn này không?",
+      "cancel": "Hủy",
+      "delete": "Xóa"
+    },
+    "addedToLog": "Bữa ăn đã được thêm vào nhật ký của bạn!",
+    "couldNotAdd": "Không thể thêm bữa ăn: {error}",
+    "removedFromFavorites": "Đã xóa khỏi yêu thích!",
+    "savedAsFavorite": "Bữa ăn đã được lưu làm yêu thích!",
+    "couldNotUpdateFavorite": "Không thể cập nhật yêu thích: {error}",
+    "failedToProcess": "Không thể xử lý: {error}",
+    "failedToProcessImage": "Không thể xử lý hình ảnh: {error}",
+    "errorCompressingImage": "Lỗi nén hình ảnh: {error}",
+    "failedToSave": "Không thể lưu dữ liệu. Vui lòng thử lại."
+  },
+  "favorites": {
+    "title": "Yêu thích",
+    "empty": "Chưa có bữa ăn yêu thích nào."
+  },
+  "profile": {
+    "title": "Hồ sơ",
+    "noProfileData": "Chưa tìm thấy dữ liệu hồ sơ",
+    "yourProfile": "Hồ sơ của bạn",
+    "viewAndManage": "Xem và quản lý thông tin sức khỏe của bạn",
+    "sections": {
+      "profile": "HỒ SƠ",
+      "basicInformation": "THÔNG TIN CƠ BẢN",
+      "goalsAndActivity": "MỤC TIÊU & HOẠT ĐỘNG",
+      "calculatedValues": "CÁC GIÁ TRỊ TÍNH TOÁN"
+    },
+    "gender": "Giới tính",
+    "height": "Chiều cao",
+    "weight": "Cân nặng",
+    "age": "Tuổi",
+    "weightGoal": "Mục tiêu cân nặng",
+    "activityLevel": "Mức độ hoạt động",
+    "healthMetrics": "Các chỉ số sức khỏe",
+    "notSet": "Chưa đặt",
+    "years": "năm",
+    "updatedSuccessfully": "Hồ sơ đã được cập nhật thành công!",
+    "calculatedValues": {
+      "bmr": "BMR",
+      "tdee": "TDEE",
+      "dailyGoal": "Mục tiêu hàng ngày",
+      "calPerDay": "cal/ngày",
+      "notAvailable": "Không có sẵn"
+    }
+  },
+  "healthScore": {
+    "title": "Điểm sức khỏe",
+    "whyThisScore": "Tại sao điểm này?",
+    "note": "Điểm này là ước lượng của AI dựa trên các thành phần và hàm lượng dinh dưỡng đã xác định. Luôn tham khảo ý kiến của chuyên gia cho lời khuyên về chế độ ăn uống.",
+    "unhealthy": "Không khỏe mạnh",
+    "healthy": "Khỏe mạnh",
+    "neutral": "Trung lập"
+  },
+  "editProfile": {
+    "title": "Chỉnh sửa hồ sơ",
+    "sections": {
+      "personalInformation": "THÔNG TIN CÁ NHÂN",
+      "physicalMeasurements": "THÔNG SỐ VẬT LÝ",
+      "goalsAndActivity": "MỤC TIÊU & HOẠT ĐỘNG"
+    },
+    "gender": "Giới tính",
+    "dateOfBirth": "Ngày sinh",
+    "height": "Chiều cao",
+    "weight": "Cân nặng",
+    "weightGoal": "Mục tiêu cân nặng",
+    "activityLevel": "Mức độ hoạt động",
+    "metric": "Mét",
+    "imperial": "Imperial",
+    "metricCm": "Mét (cm)",
+    "imperialFtIn": "Imperial (ft/in)",
+    "metricKg": "Kilogram (kg)",
+    "imperialLbs": "Pound (lbs)",
+    "genders": {
+      "male": "Nam",
+      "female": "Nữ",
+      "other": "Khác"
+    },
+    "weightGoals": {
+      "loseWeight": {
+        "name": "Giảm cân",
+        "description": "Tạo một sự thiếu hụt calo để giảm cân"
+      },
+      "maintainWeight": {
+        "name": "Giữ cân",
+        "description": "Duy trì cân nặng hiện tại của bạn"
+      },
+      "gainWeight": {
+        "name": "Tăng cân",
+        "description": "Tạo một lượng calo dư thừa để tăng cân"
+      }
+    },
+    "activityLevels": {
+      "sedentary": {
+        "name": "Ít hoạt động",
+        "description": "Ít hoặc không tập thể dục"
+      },
+      "lightlyActive": {
+        "name": "Hoạt động nhẹ",
+        "description": "Tập thể dục nhẹ 1-3 ngày/tuần"
+      },
+      "moderatelyActive": {
+        "name": "Hoạt động vừa phải",
+        "description": "Tập thể dục vừa phải 3-5 ngày/tuần"
+      },
+      "veryActive": {
+        "name": "Rất năng động",
+        "description": "Tập thể dục mạnh mẽ 6-7 ngày/tuần"
+      },
+      "extremelyActive": {
+        "name": "Cực kỳ năng động",
+        "description": "Tập thể dục rất nặng, công việc thể chất"
+      }
+    }
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "sections": {
+      "profile": "HỒ SƠ",
+      "localization": "ĐỊA PHƯƠNG HÓA",
+      "notifications": "THÔNG BÁO",
+      "supportAndLegal": "HỖ TRỢ & PHÁP LÝ",
+      "dangerZone": "KHU VỰC NGUY HIỂM",
+      "developer": "NHÀ PHÁT TRIỂN"
+    },
+    "editProfile": {
+      "title": "Chỉnh sửa hồ sơ",
+      "subtitle": "Cập nhật thông tin cá nhân của bạn"
+    },
+    "language": {
+      "title": "Ngôn ngữ",
+      "subtitle": "Chọn ngôn ngữ bạn ưa thích",
+      "searchHint": "Tìm kiếm ngôn ngữ...",
+      "noResults": "Không tìm thấy kết quả"
+    },
+    "heightUnit": {
+      "title": "Đơn vị chiều cao"
+    },
+    "weightUnit": {
+      "title": "Đơn vị cân nặng"
+    },
+    "mealReminders": {
+      "title": "Nhắc nhở bữa ăn",
+      "subtitle": "Giúp bạn theo dõi đúng thời gian với những thông báo kịp thời"
+    },
+    "theme": {
+      "title": "Chủ đề",
+      "light": "Sáng",
+      "dark": "Tối",
+      "system": "Hệ thống"
+    },
+    "sendFeedback": {
+      "title": "Gửi phản hồi",
+      "subtitle": "Giúp chúng tôi cải thiện {appLabel}",
+      "emailSubject": "Phản hồi về ứng dụng {appLabel}",
+      "emailBodyPrefix": "Vui lòng cung cấp phản hồi của bạn bên dưới:",
+      "appVersion": "Phiên bản ứng dụng",
+      "device": "Thiết bị",
+      "osVersion": "Phiên bản hệ điều hành",
+      "uid": "UID"
+    },
+    "clearAllData": {
+      "title": "Xóa tất cả dữ liệu",
+      "subtitle": "Xóa vĩnh viễn tất cả thông tin của bạn",
+      "confirmationTitle": "Có chắc chắn xóa tất cả dữ liệu?",
+      "confirmationMessage": "Hành động này không thể hoàn tác. Tất cả các bữa ăn bạn đã ghi, yêu thích và cài đặt hồ sơ sẽ bị xóa vĩnh viễn.",
+      "cancel": "Hủy",
+      "clearEverything": "Xóa tất cả"
+    },
+    "debugOptions": {
+      "title": "Tùy chọn gỡ lỗi"
+    },
+    "developerModeEnabled": "Chế độ nhà phát triển đã được bật!"
+  },
+  "reminders": {
+    "title": "Giữ đúng tiến trình với nhắc nhở",
+    "description": "Nhận những nhắc nhở nhẹ nhàng để ghi lại bữa ăn và duy trì tính nhất quán với các mục tiêu dinh dưỡng của bạn",
+    "notificationsEnabled": "Thông báo đã được bật",
+    "notificationsDisabled": "Thông báo đã bị tắt",
+    "enabledSubtitle": "Bạn sẽ nhận được nhắc nhở bữa ăn",
+    "disabledSubtitle": "Bật thông báo để nhận nhắc nhở bữa ăn",
+    "mealReminders": "Nhắc nhở bữa ăn",
+    "breakfast": "Bữa sáng",
+    "lunch": "Bữa trưa",
+    "dinner": "Bữa tối",
+    "snack": "Bữa ăn nhẹ",
+    "unknown": "Không xác định",
+    "change": "Thay đổi",
+    "enableNotifications": "Bật thông báo",
+    "skipForNow": "Bỏ qua tạm thời",
+    "saveChanges": "Lưu thay đổi",
+    "enabledSuccessfully": "Thông báo đã được bật thành công!",
+    "permissionDenied": "Quyền thông báo đã bị từ chối",
+    "errorEnabling": "Lỗi khi bật thông báo: {error}",
+    "errorCompletingSetup": "Lỗi khi hoàn tất cài đặt: {error}"
+  },
+  "notifications": {
+    "breakfast": {
+      "title": "Giờ ăn sáng! 🍳",
+      "body": "Đừng quên ghi lại bữa sáng của bạn"
+    },
+    "lunch": {
+      "title": "Giờ ăn trưa! 🥗",
+      "body": "Đến lúc ghi lại bữa trưa của bạn"
+    },
+    "dinner": {
+      "title": "Giờ ăn tối! 🍽️",
+      "body": "Đừng quên ghi lại bữa tối của bạn"
+    },
+    "snack": {
+      "title": "Giờ ăn nhẹ! 🍎",
+      "body": "Đến lúc cho một món ăn nhẹ lành mạnh"
+    },
+    "test": {
+      "title": "Thông báo thử nghiệm"
+    }
+  },
+  "login": {
+    "title": "Đăng nhập",
+    "signInWithGoogle": "Đăng nhập bằng Google",
+    "signInFailed": "Đăng nhập bằng Google thất bại hoặc đã bị hủy."
+  },
+  "disclaimer": {
+    "pleaseNote": "Xin lưu ý",
+    "snap": {
+      "description": "{appLabel} cung cấp thông tin dinh dưỡng ước tính. Độ chính xác phụ thuộc vào dữ liệu bạn nhập và các biến thể thực phẩm. Sử dụng như một hướng dẫn, không phải là nguồn thông tin chính xác. Hãy tham khảo ý kiến chuyên gia để được tư vấn dinh dưỡng cá nhân.",
+      "portionSize": {
+        "title": "Kích thước phần",
+        "description": "Độ chính xác của các ước tính phụ thuộc rất nhiều vào việc bạn đánh giá đúng kích thước phần."
+      },
+      "preparationMethods": {
+        "title": "Phương pháp chế biến",
+        "description": "Phương pháp chế biến có thể thay đổi đáng kể thành phần dinh dưỡng của thực phẩm. Các ước tính của {appLabel} có thể không luôn dự đoán được những biến đổi này."
+      },
+      "ingredients": {
+        "title": "Nguyên liệu",
+        "description": "Những món ăn phức tạp với nhiều nguyên liệu ẩn có thể dẫn đến ước tính kém chính xác."
+      },
+      "databaseLimitations": {
+        "title": "Giới hạn cơ sở dữ liệu",
+        "description": "Cơ sở dữ liệu thực phẩm của {appLabel} rất phong phú nhưng có thể không bao gồm mọi món ăn hay biến thể nào."
+      }
+    },
+    "weightEstimate": {
+      "title": "Về ước tính trọng lượng",
+      "description": "Sự thay đổi trọng lượng dự kiến là một ước tính lý thuyết dựa trên mô hình calo vào so với calo ra. Nó chỉ được dùng để hướng dẫn động lực, không phải dự đoán trọng lượng thực tế của bạn.",
+      "calorieAccuracy": {
+        "title": "Độ chính xác calo",
+        "description": "Ước tính này chỉ chính xác như lượng calo bạn đã theo dõi vào và ra. Ghi chú kém chính xác sẽ dẫn đến ước tính không chính xác."
+      },
+      "biologicalFactors": {
+        "title": "Các yếu tố sinh học",
+        "description": "Sự thay đổi cân nặng thực tế bị ảnh hưởng bởi chuyển hóa, hormone, giấc ngủ, căng thẳng, độ ẩm, và các yếu tố cá nhân khác mà {appLabel} không thể đo được."
+      },
+      "waterWeight": {
+        "title": "Trọng lượng nước & Biến động",
+        "description": "Trọng lượng hàng ngày bình thường có thể biến động đáng kể do giữ nước, tiêu hóa và thời gian. Ước tính không tính đến những thay đổi hàng ngày này."
+      },
+      "professionalGuidance": {
+        "title": "Hướng dẫn chuyên nghiệp",
+        "description": "Đừng sử dụng ước tính này để đưa ra quyết định y tế. Luôn tham khảo ý kiến bác sĩ hoặc chuyên gia dinh dưỡng được chứng nhận cho lời khuyên quản lý trọng lượng cá nhân hóa."
+      }
+    }
+  },
+  "common": {
+    "close": "Đóng",
+    "continue": "Tiếp tục"
+  },
+  "errors": {
+    "loadingProfileData": "Lỗi khi tải dữ liệu hồ sơ",
+    "somethingWentWrong": "Đã xảy ra lỗi."
+  },
+  "debug": {
+    "title": "Tùy chọn gỡ lỗi",
+    "sections": {
+      "notifications": "Thông báo",
+      "healthConnect": "Health Connect",
+      "appInfo": "Thông tin ứng dụng"
+    },
+    "showActiveNotifications": "Hiển thị thông báo đang hoạt động",
+    "scheduleTestNotification": "Lên lịch thông báo thử nghiệm (10 giây)",
+    "triggerBreakfastNotification": "Kích hoạt thông báo bữa sáng",
+    "cancelAllNotifications": "Hủy tất cả thông báo",
+    "activeNotifications": "Thông báo đang hoạt động",
+    "noTitle": "Không có tiêu đề",
+    "noBody": "Không có nội dung",
+    "fetchTodaysSteps": "Lấy số bước hôm nay",
+    "fetchTodaysCalories": "Lấy calo hôm nay",
+    "fetchLatestWeight": "Lấy cân nặng mới nhất",
+    "fetchLatestHeight": "Lấy chiều cao mới nhất",
+    "writeTestWeight": "Ghi trọng lượng thử nghiệm (70kg)",
+    "writeTestHeight": "Ghi chiều cao thử nghiệm (175cm)",
+    "syncLast7Days": "Đồng bộ 7 ngày vừa qua",
+    "sync7DaysTitle": "Đồng bộ 7 ngày",
+    "checkCurrentLocale": "Kiểm tra địa phương hiện tại",
+    "currentLocale": "Địa phương hiện tại",
+    "localeInfo": "Ngôn ngữ: {languageCode}\nQuốc gia: {countryCode}\nHệ thống đơn vị: {unitSystem}",
+    "latestWeight": "Cân nặng mới nhất",
+    "latestHeight": "Chiều cao mới nhất",
+    "todaysCalories": "Calo hôm nay",
+    "totalCaloriesBurned": "Tổng calo đã đốt cháy: {calories}",
+    "syncSuccess": "Đã đồng bộ thành công {count} điểm dữ liệu cho bước, calo và cân nặng trong 7 ngày qua.",
+    "noWeightData": "Không tìm thấy dữ liệu cân nặng trong 30 ngày qua.",
+    "noHeightData": "Không tìm thấy dữ liệu chiều cao trong năm qua.",
+    "noCalorieData": "Không tìm thấy dữ liệu calo cho hôm nay.",
+    "weightWritten": "Ghi trọng lượng thử nghiệm thành công (70kg).",
+    "weightWriteFailed": "Không thể ghi trọng lượng thử nghiệm.",
+    "heightWritten": "Ghi chiều cao thử nghiệm thành công (175cm).",
+    "heightWriteFailed": "Không thể ghi chiều cao thử nghiệm.",
+    "noNotifications": "Không có thông báo đang hoạt động.",
+    "testNotificationScheduled": "Thời gian thử nghiệm đã được lên lịch sau 10 giây.",
+    "testNotificationBody": "Đây là thông báo thử nghiệm được lên lịch sau 10 giây.",
+    "breakfastNotificationTriggered": "Thông báo bữa sáng đã được kích hoạt.",
+    "allNotificationsCancelled": "Tất cả thông báo đã được hủy.",
+    "fetchingData": "Đang lấy dữ liệu cho 7 ngày vừa qua...",
+    "id": "ID: {id}"
+  },
+  "health": {
+    "syncFailed": "Không thể đồng bộ với Health Connect",
+    "mealSynced": "Bữa ăn đã được đồng bộ với Health Connect"
+  }
+}
