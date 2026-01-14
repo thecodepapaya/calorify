@@ -1,7 +1,7 @@
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/features/home/widgets/home_screen_menu.dart';
 import 'package:i18n/i18n.dart';
-import 'package:calorify/shared_widgets/animated_leaf.dart';
+import 'package:widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class AppBarTitle extends StatelessWidget {

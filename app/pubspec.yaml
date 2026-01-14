@@ -83,7 +83,8 @@ dependencies:
     path: ../shared_packages/i18n
   services:
     path: ../shared_packages/services
-
+  widgets:
+    path: ../shared_packages/widgets
 
 dev_dependencies:
   flutter_test:

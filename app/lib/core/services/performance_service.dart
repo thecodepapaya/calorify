@@ -15,6 +15,7 @@ enum TraceType {
   foodImageAnalysis,
   foodDescriptionAnalysis,
   remoteDbProfileUpdate,
+  watchServiceInit,
 }
 
 class Performance {

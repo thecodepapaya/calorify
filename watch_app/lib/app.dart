@@ -4,6 +4,8 @@ import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+final _appRouter = AppRouter();
+
 class CalorifyWatchApp extends StatelessWidget {
   const CalorifyWatchApp({super.key});
 
@@ -15,7 +17,7 @@ class CalorifyWatchApp extends StatelessWidget {
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
       themeMode: ThemeMode.system,
-      routerConfig: AppRouter.router,
+      routerConfig: _appRouter.config(),
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       supportedLocales: AppLocaleUtils.supportedLocales,
       locale: LocaleSettings.currentLocale.flutterLocale,

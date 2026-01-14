@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/app_initialization.dart';
-import 'package:calorify/shared_widgets/animated_leaf.dart';
+import 'package:widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()

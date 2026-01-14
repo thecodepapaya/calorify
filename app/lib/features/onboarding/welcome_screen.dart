@@ -1,6 +1,6 @@
 import 'package:calorify/core/config/env_config.dart';
 import 'package:i18n/i18n.dart';
-import 'package:calorify/shared_widgets/animated_leaf.dart';
+import 'package:widgets/widgets.dart';
 import 'package:calorify/shared_widgets/language_picker_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';

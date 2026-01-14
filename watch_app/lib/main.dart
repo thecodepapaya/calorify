@@ -1,11 +1,10 @@
 import 'package:calorify_watch/app.dart';
 import 'package:calorify_watch/core/config/env_config.dart';
-import 'package:calorify_watch/core/services/sync_service.dart';
-import 'package:i18n/i18n.dart';
+import 'package:calorify_watch/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:calorify_watch/firebase_options.dart';
+import 'package:i18n/i18n.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +15,6 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   EnvConfig.instance.init();
-  await SyncService.instance.initialize();
 
   runApp(
     TranslationProvider(child: const ProviderScope(child: CalorifyWatchApp())),
