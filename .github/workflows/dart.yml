@@ -31,9 +31,9 @@ jobs:
         working-directory: app
         run: flutter build appbundle --release --flavor=prod
 
-      - name: Build Android AppBundle (Watch App)
-        working-directory: watch_app
-        run: flutter build appbundle --release
+      # - name: Build Android AppBundle (Watch App)
+      #   working-directory: watch_app
+      #   run: flutter build appbundle --release
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1

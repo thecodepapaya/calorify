@@ -24,15 +24,15 @@ platform :android do
     )
 
     # Upload Watch App (companion)
-    upload_to_play_store(
-      track: "production",
-      aab: "watch_app/build/app/outputs/bundle/release/app-release.aab",
-      json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
-      package_name: "dev.thecodepapaya.calorify",
-      skip_upload_metadata: true,
-      skip_upload_images: true,
-      skip_upload_screenshots: true,
-      skip_upload_changelogs: true
-    )
+    # upload_to_play_store(
+    #   track: "production",
+    #   aab: "watch_app/build/app/outputs/bundle/release/app-release.aab",
+    #   json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
+    #   package_name: "dev.thecodepapaya.calorify",
+    #   skip_upload_metadata: true,
+    #   skip_upload_images: true,
+    #   skip_upload_screenshots: true,
+    #   skip_upload_changelogs: true
+    # )
   end
 end
