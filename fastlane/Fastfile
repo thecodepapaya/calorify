@@ -1,19 +1,8 @@
 default_platform(:android)
 
 platform :android do
-  desc "Generate translations using Slang GPT"
-  lane :translations do
-    # Set UTF-8 encoding to handle Unicode characters in script output
-    ENV['LC_ALL'] = 'en_US.UTF-8'
-    ENV['LANG'] = 'en_US.UTF-8'
-    # Run script - encoding is set in both environment and script itself
-    sh("../scripts/generate_translations.sh")
-  end
-
   desc "Deploy a new version to the Google Play"
-  lane :release do
-    translations
-    
+  lane :release do    
     # Upload Main App
     upload_to_play_store(
       track: "production", # or 'internal', 'beta'
