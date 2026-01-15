@@ -1,8 +1,0 @@
-Seguimiento de calorías impulsado por IA. Toma fotos o describe comidas para un análisis nutricional instantáneo.
-
-Novedades:
-• Soporte para tema oscuro
-• Soporte para más idiomas
-• Estabilidad y corrección de errores
-
-🔒 Privacidad ante todo: No se requieren cuentas.

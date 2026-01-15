@@ -1,8 +1,0 @@
-Rastreamento de calorias com IA. Tire fotos ou descreva refeições para análise nutricional instantânea.
-
-Novidades:
-• Suporte a tema escuro
-• Suporte a mais idiomas
-• Estabilidade e correções de bugs
-
-🔒 Foco na privacidade: Sem necessidade de contas.

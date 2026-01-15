@@ -1,8 +1,0 @@
-Suivi des calories alimenté par l'IA. Prenez des photos ou décrivez vos repas pour une analyse nutritionnelle instantanée.
-
-Quoi de neuf :
-• Support du mode sombre
-• Support de plus de langues
-• Améliorations de la stabilité et corrections de bugs
-
-🔒 Priorité à la vie privée : Aucun compte requis.

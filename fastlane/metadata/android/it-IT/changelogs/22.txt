@@ -1,8 +1,0 @@
-Tracciamento calorie con intelligenza artificiale. Scatta foto o descrivi i pasti per un'analisi nutrizionale istantanea.
-
-Novità:
-• Supporto per tema scuro
-• Supporto per più lingue
-• Stabilità e correzioni di bug
-
-🔒 Privacy al primo posto: Nessun account richiesto.
