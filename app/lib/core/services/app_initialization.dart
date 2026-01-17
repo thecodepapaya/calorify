@@ -19,8 +19,16 @@ import 'package:flutter/foundation.dart';
 class AppInitialization {
   static bool _initialized = false;
 
+  @visibleForTesting
+  static bool isTesting = false;
+
   /// Initialize the app with database service
   static Future<void> initialize() async {
+    if (isTesting) {
+      _initialized = true;
+      return;
+    }
+
     if (_initialized) return;
 
     final span = Performance.instance.startTrace(TraceType.splashScreenLoad);

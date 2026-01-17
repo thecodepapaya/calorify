@@ -7,6 +7,9 @@ class AppLoader extends StatefulWidget {
   final Color? color;
   final double size;
 
+  @visibleForTesting
+  static bool disableAnimation = false;
+
   @override
   State<AppLoader> createState() => _AppLoaderState();
 }
@@ -37,6 +40,14 @@ class _AppLoaderState extends State<AppLoader> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
+    if (AppLoader.disableAnimation) {
+      _slideController = AnimationController(vsync: this);
+      _slideAnimation = AlwaysStoppedAnimation(Offset.zero);
+      _rotationController = AnimationController(vsync: this);
+      _rotationAnimation = AlwaysStoppedAnimation(0.0);
+      return;
+    }
+
     // --- Slide (Hop) Animation ---
     _slideController = AnimationController(
       vsync: this,
@@ -50,7 +61,6 @@ class _AppLoaderState extends State<AppLoader> with TickerProviderStateMixin {
         reverseCurve: Curves.easeInOut,
       ),
     );
-    _slideController.repeat(reverse: true);
 
     // --- Rotation Animation ---
     _rotationController = AnimationController(
@@ -65,6 +75,8 @@ class _AppLoaderState extends State<AppLoader> with TickerProviderStateMixin {
         reverseCurve: Curves.easeInOut,
       ),
     );
+
+    _slideController.repeat(reverse: true);
     _rotationController.repeat(reverse: true);
   }
 

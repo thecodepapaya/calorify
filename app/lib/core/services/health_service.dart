@@ -2,29 +2,69 @@ import 'dart:developer';
 
 import 'package:models/models.dart';
 import 'package:health/health.dart';
+import 'package:flutter/foundation.dart';
 
 class HealthService {
-  HealthService._();
+  HealthService._({Health? health}) : _health = health ?? Health();
 
-  static final _instance = HealthService._();
+  static HealthService _instance = HealthService._();
   static HealthService get instance => _instance;
 
-  final Health _health = Health();
+  @visibleForTesting
+  static void setMockInstance(HealthService mock) {
+    _instance = mock;
+  }
+
+  @visibleForTesting
+  factory HealthService.test({Health? health}) =>
+      HealthService._(health: health);
+
+  final Health _health;
 
   HealthConnectSdkStatus status = HealthConnectSdkStatus.sdkUnavailable;
 
   bool _isAuthorized = false;
   bool get isAuthorized => _isAuthorized;
 
-  Future<void> init() async {
-    await _health.configure();
-    status =
-        await _health.getHealthConnectSdkStatus() ??
-        HealthConnectSdkStatus.sdkUnavailable;
+  bool _isInitialized = false;
+  bool get isInitialized => _isInitialized;
 
-    _isAuthorized =
-        await _health.hasPermissions(_types, permissions: _permissions) ??
-        false;
+  Future<void> init() async {
+    try {
+      await _health.configure();
+      status =
+          await _health.getHealthConnectSdkStatus() ??
+          HealthConnectSdkStatus.sdkUnavailable;
+
+      if (status != HealthConnectSdkStatus.sdkAvailable) {
+        log(
+          'Health Connect SDK is unavailable on this device. Status: $status',
+        );
+        _isAuthorized = false;
+        _isInitialized = true; // Mark as initialized even if unavailable
+        return;
+      }
+
+      _isAuthorized =
+          await _health.hasPermissions(_types, permissions: _permissions) ??
+          false;
+      _isInitialized = true;
+    } catch (e, st) {
+      log('Error initializing HealthService:', error: e, stackTrace: st);
+      status = HealthConnectSdkStatus.sdkUnavailable;
+      _isAuthorized = false;
+      _isInitialized = true; // Mark as initialized to prevent retry loops
+    }
+  }
+
+  /// Ensures the service has been initialized before proceeding
+  /// Returns true if initialized, false otherwise
+  bool _ensureInitialized() {
+    if (!_isInitialized) {
+      log('HealthService not initialized. Call init() first.');
+      return false;
+    }
+    return true;
   }
 
   // Define the health data types you want to access
@@ -43,11 +83,19 @@ class HealthService {
     // HealthDataAccess.READ_WRITE,
   ];
 
-  Future<bool> get isHealthConnectAvailable =>
-      _health.isHealthConnectAvailable();
+  Future<bool> get isHealthConnectAvailable async {
+    if (!_ensureInitialized()) {
+      return false;
+    }
+    return await _health.isHealthConnectAvailable();
+  }
 
   // Future<void> get installHealthConnect => _health.installHealthConnect(); // Changed to method
   Future<void> installHealthConnect() async {
+    if (!_ensureInitialized()) {
+      log('Cannot install Health Connect: service not initialized');
+      return;
+    }
     try {
       await _health.installHealthConnect();
       // After attempting install, re-check status
@@ -63,6 +111,16 @@ class HealthService {
   }
 
   Future<bool> requestAuthorization() async {
+    if (!_ensureInitialized()) {
+      log('Cannot request authorization: service not initialized');
+      return false;
+    }
+    if (status != HealthConnectSdkStatus.sdkAvailable) {
+      log(
+        'Cannot request authorization: Health Connect SDK not available. Status: $status',
+      );
+      return false;
+    }
     try {
       final success = await _health.requestAuthorization(
         // Renamed 'authorized' to 'success' to avoid confusion
@@ -90,6 +148,16 @@ class HealthService {
     DateTime endTime,
     HealthDataType type,
   ) async {
+    if (!_ensureInitialized()) {
+      log('Cannot fetch health data: service not initialized');
+      return [];
+    }
+    if (status != HealthConnectSdkStatus.sdkAvailable) {
+      log(
+        'Cannot fetch health data: Health Connect SDK not available. Status: $status',
+      );
+      return [];
+    }
     final bool authorized = await requestAuthorization();
     if (!authorized) {
       log('Not authorized to fetch health data.');
@@ -112,6 +180,16 @@ class HealthService {
   }
 
   Future<bool> writeMealData(MealInfo meal) async {
+    if (!_ensureInitialized()) {
+      log('Cannot write meal data: service not initialized');
+      return false;
+    }
+    if (status != HealthConnectSdkStatus.sdkAvailable) {
+      log(
+        'Cannot write meal data: Health Connect SDK not available. Status: $status',
+      );
+      return false;
+    }
     if (!await hasPermission(
       HealthDataType.NUTRITION,
       HealthDataAccess.WRITE,
@@ -143,6 +221,16 @@ class HealthService {
   }
 
   Future<bool> writeWeight(double kg) async {
+    if (!_ensureInitialized()) {
+      log('Cannot write weight: service not initialized');
+      return false;
+    }
+    if (status != HealthConnectSdkStatus.sdkAvailable) {
+      log(
+        'Cannot write weight: Health Connect SDK not available. Status: $status',
+      );
+      return false;
+    }
     if (!await hasPermission(HealthDataType.WEIGHT, HealthDataAccess.WRITE)) {
       return false;
     }
@@ -162,6 +250,16 @@ class HealthService {
   }
 
   Future<bool> writeHeight(double cm) async {
+    if (!_ensureInitialized()) {
+      log('Cannot write height: service not initialized');
+      return false;
+    }
+    if (status != HealthConnectSdkStatus.sdkAvailable) {
+      log(
+        'Cannot write height: Health Connect SDK not available. Status: $status',
+      );
+      return false;
+    }
     if (!await hasPermission(HealthDataType.HEIGHT, HealthDataAccess.WRITE)) {
       return false;
     }
@@ -184,6 +282,10 @@ class HealthService {
   }
 
   Future<double?> getLatestWeight() async {
+    if (!_ensureInitialized()) {
+      log('Cannot get latest weight: service not initialized');
+      return null;
+    }
     final now = DateTime.now();
     final data = await fetchHealthData(
       now.subtract(const Duration(days: 30)),
@@ -195,6 +297,10 @@ class HealthService {
   }
 
   Future<double?> getLatestHeight() async {
+    if (!_ensureInitialized()) {
+      log('Cannot get latest height: service not initialized');
+      return null;
+    }
     final now = DateTime.now();
     final data = await fetchHealthData(
       now.subtract(const Duration(days: 365)),
@@ -206,6 +312,10 @@ class HealthService {
   }
 
   Future<int?> getTodaySteps() async {
+    if (!_ensureInitialized()) {
+      log('Cannot get today steps: service not initialized');
+      return null;
+    }
     final now = DateTime.now();
     final midnight = DateTime(now.year, now.month, now.day);
     final data = await fetchHealthData(midnight, now, HealthDataType.STEPS);
@@ -216,6 +326,16 @@ class HealthService {
   }
 
   Future<double?> getTotalCaloriesBurned() async {
+    if (!_ensureInitialized()) {
+      log('Cannot get total calories burned: service not initialized');
+      return null;
+    }
+    if (status != HealthConnectSdkStatus.sdkAvailable) {
+      log(
+        'Cannot get total calories burned: Health Connect SDK not available. Status: $status',
+      );
+      return null;
+    }
     if (!await hasPermission(
       HealthDataType.TOTAL_CALORIES_BURNED,
       HealthDataAccess.READ,
@@ -278,6 +398,13 @@ class HealthService {
     HealthDataType type,
     HealthDataAccess access,
   ) async {
+    if (!_ensureInitialized()) {
+      log('Cannot check permission: service not initialized');
+      return false;
+    }
+    if (status != HealthConnectSdkStatus.sdkAvailable) {
+      return false;
+    }
     return await _health.hasPermissions([type], permissions: [access]) ?? false;
   }
 

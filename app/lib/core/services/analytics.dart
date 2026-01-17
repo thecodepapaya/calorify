@@ -1,12 +1,18 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:measure_flutter/measure_flutter.dart';
+import 'package:flutter/foundation.dart';
 
 class Analytics {
   Analytics._();
 
-  static final Analytics _instance = Analytics._();
+  static Analytics _instance = Analytics._();
   static Analytics get instance => _instance;
+
+  @visibleForTesting
+  static void setMockInstance(Analytics mock) {
+    _instance = mock;
+  }
 
   Future<void> initialize() async {
     await FirebaseAnalytics.instance.logAppOpen();

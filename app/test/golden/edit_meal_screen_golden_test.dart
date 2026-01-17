@@ -1,0 +1,51 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:golden_toolkit/golden_toolkit.dart';
+import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
+import 'package:models/models.dart';
+import '../helpers/golden_test_helpers.dart';
+import '../setup/all_tests.dart';
+
+void main() {
+  setUpAll(() async {
+    setupAllTests();
+    await loadAppFonts();
+  });
+
+  group('EditMealScreen Golden Tests', () {
+    testGoldens('Initial view - Add Mode', (WidgetTester tester) async {
+      for (final device in testDevices) {
+        await tester.pumpWidgetBuilder(
+          const EditMealScreen(),
+          wrapper: goldenWrapper(),
+          surfaceSize: device.size,
+        );
+        await screenMatchesGolden(tester, 'edit_meal_add_${device.name}');
+      }
+    });
+
+    testGoldens('Initial view - Edit Mode', (WidgetTester tester) async {
+      final mockMeal = MealInfo(
+        id: 1,
+        mealName: 'Pasta',
+        mealQuantity: '1 plate',
+        mealType: MealType.dinner,
+        calories: 600,
+        protein: 15,
+        carbs: 80,
+        fat: 20,
+        fiber: 5,
+        timestamp: DateTime(2023, 10, 27, 19, 30),
+        healthScore: HealthScore.neutral,
+      );
+
+      for (final device in testDevices) {
+        await tester.pumpWidgetBuilder(
+          EditMealScreen(mealInfo: mockMeal),
+          wrapper: goldenWrapper(),
+          surfaceSize: device.size,
+        );
+        await screenMatchesGolden(tester, 'edit_meal_edit_${device.name}');
+      }
+    });
+  });
+}

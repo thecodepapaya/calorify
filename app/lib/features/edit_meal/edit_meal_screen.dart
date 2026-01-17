@@ -23,21 +23,21 @@ Future<void> showEditMealSheet(
     enableDrag: true,
     routeSettings: const RouteSettings(name: 'edit_meal_sheet'),
     builder:
-        (context) => _EditMealScreen(mealInfo: mealInfo, imageData: imageData),
+        (context) => EditMealScreen(mealInfo: mealInfo, imageData: imageData),
   );
 }
 
-class _EditMealScreen extends StatefulWidget {
+class EditMealScreen extends StatefulWidget {
   final MealInfo? mealInfo;
   final Uint8List? imageData;
 
-  const _EditMealScreen({this.mealInfo, this.imageData});
+  const EditMealScreen({super.key, this.mealInfo, this.imageData});
 
   @override
-  _EditMealScreenState createState() => _EditMealScreenState();
+  EditMealScreenState createState() => EditMealScreenState();
 }
 
-class _EditMealScreenState extends State<_EditMealScreen> {
+class EditMealScreenState extends State<EditMealScreen> {
   late TextEditingController _nameController;
   late TextEditingController _timeController;
   late TimeOfDay _selectedTime;
