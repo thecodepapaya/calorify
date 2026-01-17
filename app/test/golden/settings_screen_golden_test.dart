@@ -1,10 +1,10 @@
+import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/features/profile/settings_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:calorify/features/profile/settings_screen.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:models/models.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
 import '../helpers/golden_test_helpers.dart';
 import '../setup/all_tests.dart';
 
@@ -16,7 +16,7 @@ void main() {
   setUpAll(() async {
     setupAllTests();
     await loadAppFonts();
-    
+
     PackageInfo.setMockInitialValues(
       appName: 'Calorify',
       packageName: 'com.example.calorify',
@@ -42,7 +42,10 @@ void main() {
           wrapper: goldenWrapper(),
           surfaceSize: device.size,
         );
-        await screenMatchesGolden(tester, 'settings_screen_initial_${device.name}');
+        await screenMatchesGolden(
+          tester,
+          'settings_screen_initial_${device.name}',
+        );
       }
     });
   });

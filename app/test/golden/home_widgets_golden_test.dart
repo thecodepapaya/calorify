@@ -1,17 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:calorify/core/db/database_interface.dart';
+import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/features/home/widgets/daily_goal.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
-import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/core/db/database_interface.dart';
-import 'package:calorify/core/services/health_service.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:health/health.dart';
+import 'package:mocktail/mocktail.dart';
+
 import '../helpers/golden_test_helpers.dart';
 import '../setup/all_tests.dart';
 
 class MockDatabaseInterface extends Mock implements DatabaseInterface {}
+
 class MockHealthService extends Mock implements HealthService {}
 
 void main() {
@@ -30,12 +31,22 @@ void main() {
     DatabaseService.setMockInterface(mockDatabaseInterface);
     HealthService.setMockInstance(mockHealthService);
 
-    when(() => mockDatabaseInterface.watchDailyCalorieGoal()).thenAnswer((_) => Stream.value(2000));
-    when(() => mockDatabaseInterface.getDailyCalorieGoal()).thenAnswer((_) async => 2000);
-    when(() => mockDatabaseInterface.watchAllMealsForToday()).thenAnswer((_) => Stream.value([]));
-    when(() => mockHealthService.status).thenReturn(HealthConnectSdkStatus.sdkAvailable);
+    when(
+      () => mockDatabaseInterface.watchDailyCalorieGoal(),
+    ).thenAnswer((_) => Stream.value(2000));
+    when(
+      () => mockDatabaseInterface.getDailyCalorieGoal(),
+    ).thenAnswer((_) async => 2000);
+    when(
+      () => mockDatabaseInterface.watchAllMealsForToday(),
+    ).thenAnswer((_) => Stream.value([]));
+    when(
+      () => mockHealthService.status,
+    ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
     when(() => mockHealthService.isAuthorized).thenReturn(true);
-    when(() => mockHealthService.getTotalCaloriesBurned()).thenAnswer((_) async => 500.0);
+    when(
+      () => mockHealthService.getTotalCaloriesBurned(),
+    ).thenAnswer((_) async => 500.0);
   });
 
   group('Home Widgets Golden Tests', () {
@@ -57,7 +68,10 @@ void main() {
           wrapper: goldenWrapper(),
           surfaceSize: device.size,
         );
-        await screenMatchesGolden(tester, 'daily_summary_widget_${device.name}');
+        await screenMatchesGolden(
+          tester,
+          'daily_summary_widget_${device.name}',
+        );
       }
     });
   });
