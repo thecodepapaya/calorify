@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/database_service.dart';
@@ -6,8 +7,13 @@ import 'package:calorify/core/utilities/locale_utils.dart';
 class OnboardingService {
   OnboardingService._();
 
-  static final _instance = OnboardingService._();
+  static OnboardingService _instance = OnboardingService._();
   static OnboardingService get instance => _instance;
+
+  @visibleForTesting
+  static void setMockInstance(OnboardingService? mock) {
+    _instance = mock ?? OnboardingService._();
+  }
 
   // --- Constants for health calculations ---
 

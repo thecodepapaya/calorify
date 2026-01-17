@@ -9,14 +9,33 @@ import 'package:timezone/timezone.dart' as tz;
 
 /// Service for managing local and push notifications (Android only)
 class NotificationService {
-  NotificationService._();
+  NotificationService._({
+    FlutterLocalNotificationsPlugin? localNotifications,
+    FirebaseMessaging? firebaseMessaging,
+  })  : _localNotifications =
+            localNotifications ?? FlutterLocalNotificationsPlugin(),
+        _firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance;
 
-  static final _instance = NotificationService._();
+  static NotificationService _instance = NotificationService._();
   static NotificationService get instance => _instance;
 
-  final FlutterLocalNotificationsPlugin _localNotifications =
-      FlutterLocalNotificationsPlugin();
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  @visibleForTesting
+  static void setMockInstance(NotificationService mock) {
+    _instance = mock;
+  }
+
+  @visibleForTesting
+  factory NotificationService.test({
+    FlutterLocalNotificationsPlugin? localNotifications,
+    FirebaseMessaging? firebaseMessaging,
+  }) =>
+      NotificationService._(
+        localNotifications: localNotifications,
+        firebaseMessaging: firebaseMessaging,
+      );
+
+  final FlutterLocalNotificationsPlugin _localNotifications;
+  final FirebaseMessaging _firebaseMessaging;
 
   bool _isInitialized = false;
   String? _fcmToken;

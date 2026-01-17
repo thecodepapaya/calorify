@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:measure_flutter/measure_flutter.dart';
+import 'package:flutter/foundation.dart';
 
 enum TraceType {
   splashScreenLoad,
@@ -21,8 +22,13 @@ enum TraceType {
 class Performance {
   Performance._();
 
-  static final Performance _instance = Performance._();
+  static Performance _instance = Performance._();
   static Performance get instance => _instance;
+
+  @visibleForTesting
+  static void setMockInstance(Performance mock) {
+    _instance = mock;
+  }
 
   Span startTrace(TraceType trace, {Span? parentSpan}) {
     final span = Measure.instance.startSpan(trace.name);

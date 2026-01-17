@@ -90,6 +90,16 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  integration_test:
+    sdk: flutter
+
+  mockito: any
+  mocktail: any
+  golden_toolkit: any
+  fake_cloud_firestore: any
+  firebase_auth_mocks: any
+  google_sign_in_mocks: any
+
   slang_gpt: ^0.11.1
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

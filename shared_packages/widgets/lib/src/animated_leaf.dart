@@ -8,6 +8,9 @@ class AnimatedLeaf extends StatefulWidget {
 
   final double size;
 
+  @visibleForTesting
+  static bool disableAnimation = false;
+
   @override
   State<AnimatedLeaf> createState() => _AnimatedLeafState();
 }
@@ -24,7 +27,12 @@ class _AnimatedLeafState extends State<AnimatedLeaf>
     _controller = AnimationController(
       duration: const Duration(seconds: 4),
       vsync: this,
-    )..repeat(reverse: true);
+    );
+
+    if (!AnimatedLeaf.disableAnimation) {
+      _controller.repeat(reverse: true);
+    }
+
 
     final double maxRotationRadians = 10 * (pi / 180);
 

@@ -7,11 +7,52 @@ import 'package:firebase_ai/firebase_ai.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
-class FoodAnalysisService {
-  FoodAnalysisService._();
+abstract class GenerateContentResponseWrapper {
+  String? get text;
+}
 
-  static final _instance = FoodAnalysisService._();
+class RealGenerateContentResponseWrapper implements GenerateContentResponseWrapper {
+  final GenerateContentResponse _response;
+  RealGenerateContentResponseWrapper(this._response);
+
+  @override
+  String? get text => _response.text;
+}
+
+abstract class GenerativeModelWrapper {
+  Future<GenerateContentResponseWrapper> generateContent(List<Content> prompt);
+}
+
+class RealGenerativeModelWrapper implements GenerativeModelWrapper {
+  final GenerativeModel _model;
+  RealGenerativeModelWrapper(this._model);
+
+  @override
+  Future<GenerateContentResponseWrapper> generateContent(List<Content> prompt) async {
+    final response = await _model.generateContent(prompt);
+    return RealGenerateContentResponseWrapper(response);
+  }
+}
+
+class FoodAnalysisService {
+  FoodAnalysisService._({GenerativeModelWrapper? model}) : _model = model {
+    if (model != null) _isInitialized = true;
+  }
+
+  static FoodAnalysisService _instance = FoodAnalysisService._();
   static FoodAnalysisService get instance => _instance;
+
+  @visibleForTesting
+  static void setMockInstance(FoodAnalysisService mock) {
+    _instance = mock;
+  }
+
+  @visibleForTesting
+  factory FoodAnalysisService.test({GenerativeModelWrapper? model}) =>
+      FoodAnalysisService._(model: model);
+
+  GenerativeModelWrapper? _model;
+  bool _isInitialized = false;
 
   /// Get the system prompt with language instruction
   static String _getSystemPrompt() {
@@ -22,9 +63,6 @@ analyze the main food item(s). Be precise with nutrient estimations.
 Always respond in locale: $localeCode.
 ''';
   }
-
-  late GenerativeModel _model;
-  bool _isInitialized = false;
 
   /// Initialize the service with Firebase AI
   Future<void> initialize() async {
@@ -43,7 +81,7 @@ Always respond in locale: $localeCode.
     try {
       // Use Google AI backend for food analysis
       final googleAI = FirebaseAI.googleAI(auth: FirebaseAuth.instance);
-      _model = googleAI.generativeModel(
+      final model = googleAI.generativeModel(
         model: 'gemini-2.0-flash-lite-001',
         generationConfig: GenerationConfig(
           responseMimeType: 'application/json',
@@ -51,6 +89,7 @@ Always respond in locale: $localeCode.
         ),
         systemInstruction: Content.system(_getSystemPrompt()),
       );
+      _model = RealGenerativeModelWrapper(model);
       _isInitialized = true;
     } catch (e) {
       debugPrint('Failed to initialize Firebase AI: $e');
@@ -170,7 +209,7 @@ Always respond in locale: $localeCode.
         Content.inlineData('image/jpeg', imageBytes),
       ];
 
-      final response = await _model.generateContent(prompt);
+      final response = await _model!.generateContent(prompt);
       log(response.text.toString());
       final result = MealDetectionResult.fromJson(
         jsonDecode(response.text as String),
@@ -195,7 +234,7 @@ Always respond in locale: $localeCode.
     try {
       final prompt = [Content.text('Meal: $description.')];
 
-      final response = await _model.generateContent(prompt);
+      final response = await _model!.generateContent(prompt);
       log(response.text.toString());
       final result = MealDetectionResult.fromJson(
         jsonDecode(response.text as String),
