@@ -19,3 +19,7 @@ subprojects {
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
+
+plugins {
+    id("sh.measure.android.gradle") version "0.11.0"
+}

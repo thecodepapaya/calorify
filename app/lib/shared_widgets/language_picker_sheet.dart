@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/food_analysis.dart';
 import 'package:i18n/i18n.dart';
@@ -17,6 +18,7 @@ class LanguagePickerSheet extends StatefulWidget {
       isScrollControlled: true,
       showDragHandle: true,
       useSafeArea: true,
+      routeSettings: const RouteSettings(name: RouteNames.languagePickerSheet),
       builder: (context) => const LanguagePickerSheet(),
     );
   }

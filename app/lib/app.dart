@@ -1,12 +1,13 @@
 import 'package:calorify/core/config/env_config.dart';
+import 'package:calorify/core/constants/theme.dart';
 import 'package:calorify/core/providers/theme_provider.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/utilities/route_logger.dart';
-import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
-import 'package:calorify/core/constants/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:i18n/i18n.dart';
+import 'package:measure_flutter/measure_flutter.dart';
 
 final _appRouter = AppRouter();
 
@@ -27,7 +28,7 @@ class CalorifyApp extends ConsumerWidget {
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       routerConfig: _appRouter.config(
-        navigatorObservers: () => [RouteLogger()],
+        navigatorObservers: () => [RouteLogger(), MsrNavigatorObserver()],
       ),
     );
   }
