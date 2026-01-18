@@ -1,9 +1,7 @@
 name: Flutter Android CI/CD
 
 on:
-  push:
-    tags:
-    - 'v.*'
+  workflow_dispatch:
 
 jobs:
   build-android:
@@ -11,22 +9,41 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Validate tag format
-        run: |
-          TAG_NAME=${GITHUB_REF#refs/tags/}
-          if [[ ! $TAG_NAME =~ ^v\.[0-9]+\.[0-9]+\.[0-9]+\+[0-9]+$ ]]; then
-            echo "Error: Tag $TAG_NAME does not match pattern v.x.x.x+number"
-            exit 1
-          fi
-          echo "Tag $TAG_NAME is valid"
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.35.5" # adjust to your version
+          flutter-version: "3.38.5"
+          cache: true
+
+      - name: Cache Flutter pub dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            **/.dart_tool
+          key: ${{ runner.os }}-flutter-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-pub-
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Cache Android SDK
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.android/build-cache
+          key: ${{ runner.os }}-android-sdk
+          restore-keys: |
+            ${{ runner.os }}-android-sdk-
 
       - name: Install dependencies
         run: bash scripts/flutter_pub_get_all.sh
