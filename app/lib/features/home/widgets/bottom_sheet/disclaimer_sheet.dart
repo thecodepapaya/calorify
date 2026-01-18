@@ -1,4 +1,5 @@
 import 'package:calorify/core/config/env_config.dart';
+import 'package:calorify/core/router/route_names.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ Future<void> showDisclaimer(BuildContext context, DisclaimerData data) {
     showDragHandle: true,
     enableDrag: true,
     isScrollControlled: true,
-    routeSettings: const RouteSettings(name: 'disclaimer_sheet'),
+    routeSettings: const RouteSettings(name: RouteNames.disclaimerSheet),
     builder: (context) => _MealSnapDisclaimer(data),
   );
 }

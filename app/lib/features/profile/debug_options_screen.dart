@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:calorify/core/router/route_names.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
@@ -95,6 +96,9 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
 
     await showDialog(
       context: context,
+      routeSettings: const RouteSettings(
+        name: RouteNames.activeNotificationsDialog,
+      ),
       builder:
           (context) => AlertDialog(
             title: Text(t.debug.activeNotifications),
@@ -483,6 +487,9 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
 
     await showDialog(
       context: context,
+      routeSettings: const RouteSettings(
+        name: RouteNames.receivedMessagesDialog,
+      ),
       builder:
           (context) => AlertDialog(
             title: const Text('Received Messages from Watch'),
@@ -568,6 +575,10 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
   void _showDataDialog(String title, String content) {
     showDialog(
       context: context,
+      routeSettings: RouteSettings(
+        name: RouteNames.dataDialog,
+        arguments: {'title': title, 'content': content},
+      ),
       builder:
           (context) => AlertDialog(
             title: Text(title),

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/router/route_names.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/utilities/string_utils.dart';
@@ -21,7 +22,7 @@ Future<void> showEditMealSheet(
     isDismissible: true,
     showDragHandle: true,
     enableDrag: true,
-    routeSettings: const RouteSettings(name: 'edit_meal_sheet'),
+    routeSettings: const RouteSettings(name: RouteNames.editMealSheet),
     builder:
         (context) => EditMealScreen(mealInfo: mealInfo, imageData: imageData),
   );

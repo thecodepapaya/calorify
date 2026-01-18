@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:calorify/core/constants/colors.dart';
+import 'package:calorify/core/router/route_names.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
@@ -30,7 +31,7 @@ Future<void> showMealTip({
     showDragHandle: true,
     enableDrag: true,
     isScrollControlled: true,
-    routeSettings: const RouteSettings(name: 'meal_tip_sheet'),
+    routeSettings: const RouteSettings(name: RouteNames.mealTipSheet),
     builder:
         (context) => _MealTip(
           mealDetectionResult: mealDetectionResult,
@@ -316,6 +317,9 @@ class _MealTipState extends State<_MealTip> {
     final theme = Theme.of(context);
     return showDialog<void>(
       context: context,
+      routeSettings: const RouteSettings(
+        name: RouteNames.deleteMealConfirmationDialog,
+      ),
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           title: Text(t.meal.deleteConfirmation.title),
