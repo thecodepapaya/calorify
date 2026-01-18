@@ -65,9 +65,66 @@ Once the server is running, visit:
 ## Admin Tools
 
 ### Database Inspection
-The database uses PostgreSQL. You can inspect it using:
-- **pgAdmin**: Connect using the credentials in your `.env` file.
-- **DBeaver** or other SQL clients.
+
+#### Option 1: Adminer (Web UI) - Recommended ⭐
+**Adminer** is included in the Docker setup and provides a lightweight web-based database management interface.
+
+1. **Start Adminer** (if not already running):
+   ```bash
+   docker-compose up -d adminer
+   ```
+
+2. **Access Adminer**: Open `http://localhost:8080` (or `http://your-vm-ip:8080`)
+
+3. **Login credentials**:
+   - **Production Database**:
+     - System: `PostgreSQL`
+     - Server: `db-prod`
+     - Username: `calorify`
+     - Password: `calorify_pwd_prod`
+     - Database: `calorify_prod`
+   
+   - **Staging Database**:
+     - System: `PostgreSQL`
+     - Server: `db-staging`
+     - Username: `calorify`
+     - Password: `calorify_pwd_staging`
+     - Database: `calorify_staging`
+
+#### Option 2: Command Line (psql)
+Connect directly to the database container:
+
+**Production:**
+```bash
+docker exec -it calorify-db-prod psql -U calorify -d calorify_prod
+```
+
+**Staging:**
+```bash
+docker exec -it calorify-db-staging psql -U calorify -d calorify_staging
+```
+
+Useful psql commands:
+- `\dt` - List all tables
+- `\d table_name` - Describe a table structure
+- `SELECT * FROM users LIMIT 10;` - Query data
+- `\q` - Quit
+
+#### Option 3: Desktop Clients
+Connect from your local machine using these tools:
+
+**Connection Details:**
+- **Host**: Your VM's public IP address
+- **Port**: `5432` (ensure this port is open in your Oracle Cloud Security List)
+- **Database**: `calorify_prod` or `calorify_staging`
+- **Username**: `calorify`
+- **Password**: See `production.env` or `staging.env`
+
+**Recommended Desktop Tools:**
+- **DBeaver** (Free, cross-platform): https://dbeaver.io/
+- **TablePlus** (Mac/Windows, paid): https://tableplus.com/
+- **pgAdmin** (Free, cross-platform): https://www.pgadmin.org/
+- **Postico** (Mac only, paid): https://eggerapps.at/postico/
 
 ### Log Inspection
 API request logs are stored in the `api_logs` table. You can also view them via the command line:
@@ -78,3 +135,49 @@ python scripts/view_logs.py [limit]
 ### Cron Jobs
 Cron jobs are managed by APScheduler and their state is stored in the database.
 You can view/manage them via the `scheduler` object in the app or by querying the APScheduler tables in PostgreSQL.
+
+## Maintenance & Operations
+
+### Environment URLs
+| Feature | Production 🚀 | Staging 🧪 |
+| :--- | :--- | :--- |
+| **Public API URL** | `https://api-calorify.thecodepapaya.dev` | `https://api-staging-calorify.thecodepapaya.dev` |
+| **Interactive Docs** | `/docs` | `/docs` |
+| **Health Check** | `/health` | `/health` |
+| **Internal Port** | `8000` | `8001` |
+| **Database Name** | `calorify_prod` | `calorify_staging` |
+| **Adminer (DB UI)** | `http://localhost:8080` | `http://localhost:8080` |
+
+### Useful Commands
+
+**See live logs (Production):**
+```bash
+docker-compose logs -f backend-prod
+```
+
+**See live logs (Staging):**
+```bash
+docker-compose logs -f backend-staging
+```
+
+**Update code and rebuild:**
+```bash
+# After pulling changes from git
+docker-compose up -d --build
+```
+
+**View API request logs (from DB):**
+```bash
+docker exec -it calorify-backend-prod python scripts/view_logs.py
+```
+
+**Restart all services:**
+```bash
+docker-compose restart
+```
+
+### Flutter Integration
+When connecting the Flutter app:
+1. Update your service base URLs to the Production/Staging URLs above.
+2. Include the Firebase ID Token in the headers:
+   `Authorization: Bearer <YOUR_FIREBASE_ID_TOKEN>`

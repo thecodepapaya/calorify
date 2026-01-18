@@ -64,6 +64,17 @@ services:
       db-staging:
         condition: service_healthy
 
+  # --- DATABASE ADMIN TOOL ---
+  adminer:
+    image: adminer:latest
+    container_name: calorify-adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db-prod
+      - db-staging
+
 volumes:
   postgres_data_prod:
   postgres_data_staging:
