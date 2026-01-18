@@ -100,7 +100,7 @@ class AppInitialization {
       log('App initialization completed successfully');
       Performance.instance.stopTrace(span);
     } on Exception catch (e, st) {
-      print('Error initializing app: $e');
+      debugPrint('Error initializing app: $e');
       log('Error initializing app:', error: e, stackTrace: st);
       // Continue to home even if some services fail to initialize
       Performance.instance.traceError(span);

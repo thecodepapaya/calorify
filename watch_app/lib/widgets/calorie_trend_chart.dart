@@ -150,9 +150,8 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
                               horizontalInterval: _maxCalories / 3,
                               getDrawingHorizontalLine: (value) {
                                 return FlLine(
-                                  color: colorScheme.surfaceVariant.withValues(
-                                    alpha: 0.3,
-                                  ),
+                                  color: colorScheme.surfaceContainerHighest
+                                      .withValues(alpha: 0.3),
                                   strokeWidth: 1,
                                 );
                               },
@@ -268,7 +267,7 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        'Peak: ${_peakHour}:00',
+                        'Peak: $_peakHour:00',
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: colorScheme.onSurfaceVariant,
                           fontSize: 8,

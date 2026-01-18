@@ -82,7 +82,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         minimum: circularWatchPadding,
         child:
@@ -160,16 +160,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                                 Icon(
                                   LucideIcons.check,
                                   size: 12,
-                                  color: colorScheme.primary.withValues(alpha: 0.7),
+                                  color: colorScheme.primary.withValues(
+                                    alpha: 0.7,
+                                  ),
                                 ),
                                 const SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
                                     'Synced',
                                     style: theme.textTheme.labelSmall?.copyWith(
-                                      color: colorScheme.onSurfaceVariant.withValues(
-                                        alpha: 0.6,
-                                      ),
+                                      color: colorScheme.onSurfaceVariant
+                                          .withValues(alpha: 0.6),
                                       fontSize: 8,
                                     ),
                                     overflow: TextOverflow.ellipsis,
@@ -187,9 +188,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                               child: Container(
                                 padding: const EdgeInsets.all(6),
                                 decoration: BoxDecoration(
-                                  color: colorScheme.tertiaryContainer.withValues(
-                                    alpha: 0.5,
-                                  ),
+                                  color: colorScheme.tertiaryContainer
+                                      .withValues(alpha: 0.5),
                                   shape: BoxShape.circle,
                                 ),
                                 child: Icon(

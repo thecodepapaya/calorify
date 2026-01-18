@@ -95,7 +95,7 @@ void stubRouteData(MockRouteData mock) {
     when(() => dynamicMock.routeCollection).thenReturn(collection);
   } catch (_) {}
 
-  when(() => mock.pathParams).thenReturn(const Parameters({}));
+  when(() => mock.params).thenReturn(const Parameters({}));
   when(() => mock.queryParams).thenReturn(const Parameters({}));
   when(() => mock.fragment).thenReturn('');
   when(() => mock.pendingChildren).thenReturn([]);

@@ -166,14 +166,17 @@ class _LogMealScreenState extends State<LogMealScreen>
             }
           });
         },
-        listenFor: const Duration(seconds: 8),
-        pauseFor: const Duration(
-          seconds: 8,
-        ), // Don't auto-stop on pause, wait for user
-        partialResults: true,
+        listenFor: const Duration(seconds: 5),
+        // Don't auto-stop on pause, wait for user
+        pauseFor: const Duration(seconds: 2),
+        listenOptions: stt.SpeechListenOptions(
+          listenMode: stt.ListenMode.dictation,
+          cancelOnError: false,
+          autoPunctuation: true,
+          enableHapticFeedback: true,
+          partialResults: true,
+        ),
         localeId: 'en_US',
-        cancelOnError: false,
-        listenMode: stt.ListenMode.dictation,
       );
       debugPrint(
         'Speech recognition listen() completed. Returned: $listenResult',
@@ -332,7 +335,7 @@ class _LogMealScreenState extends State<LogMealScreen>
     final isListeningWithLayout = _isListening;
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         child:
             isListeningWithLayout

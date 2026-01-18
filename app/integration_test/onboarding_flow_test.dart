@@ -14,7 +14,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 
 class MockDatabaseInterface extends Mock implements DatabaseInterface {}
+
 class MockHealthService extends Mock implements HealthService {}
+
 class MockAnalytics extends Mock implements Analytics {}
 
 class FakeUserProfile extends Fake implements UserProfile {}
@@ -40,23 +42,31 @@ void main() {
     HealthService.setMockInstance(mockHealthService);
     Analytics.setMockInstance(mockAnalytics);
 
-    when(() => mockAnalytics.logEvent(any())).thenAnswer((_) async {});
-    when(() => mockDatabaseInterface.getUserProfile()).thenAnswer((_) async => null);
-    when(() => mockDatabaseInterface.saveUserProfile(any())).thenAnswer((_) async {});
-    when(() => mockHealthService.status).thenReturn(HealthConnectSdkStatus.sdkAvailable);
+    when(() => mockAnalytics.logEvent(any())).thenAnswer((_) {});
+    when(
+      () => mockDatabaseInterface.getUserProfile(),
+    ).thenAnswer((_) async => null);
+    when(
+      () => mockDatabaseInterface.saveUserProfile(any()),
+    ).thenAnswer((_) async {});
+    when(
+      () => mockHealthService.status,
+    ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
     when(() => mockHealthService.isAuthorized).thenReturn(false);
-    when(() => mockDatabaseInterface.getThemeMode()).thenAnswer((_) async => ThemeMode.system);
-    when(() => mockDatabaseInterface.getLanguageCode()).thenAnswer((_) async => 'en');
+    when(
+      () => mockDatabaseInterface.getThemeMode(),
+    ).thenAnswer((_) async => ThemeMode.system);
+    when(
+      () => mockDatabaseInterface.getLanguageCode(),
+    ).thenAnswer((_) async => 'en');
   });
 
-  testWidgets('Full onboarding flow integration test', (WidgetTester tester) async {
+  testWidgets('Full onboarding flow integration test', (
+    WidgetTester tester,
+  ) async {
     // Start app
     await tester.pumpWidget(
-      TranslationProvider(
-        child: const ProviderScope(
-          child: CalorifyApp(),
-        ),
-      ),
+      TranslationProvider(child: const ProviderScope(child: CalorifyApp())),
     );
     await tester.pumpAndSettle();
 

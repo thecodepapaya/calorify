@@ -79,11 +79,14 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
     final isOverGoal = widget.totalCalories > widget.goal;
     final progress = _progressAnimation.value;
     final percentage = ((widget.totalCalories / widget.goal) * 100).round();
-    final remaining = (widget.goal - widget.totalCalories).clamp(0, widget.goal);
+    final remaining = (widget.goal - widget.totalCalories).clamp(
+      0,
+      widget.goal,
+    );
 
     return Semantics(
       label:
-          'Calorie summary. ${widget.totalCalories} calories consumed out of ${widget.goal} goal. ${percentage}% complete.',
+          'Calorie summary. ${widget.totalCalories} calories consumed out of ${widget.goal} goal. $percentage% complete.',
       value: '${widget.totalCalories} / ${widget.goal} calories',
       child: FadeTransition(
         opacity: _fadeAnimation,
@@ -151,9 +154,8 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
                           fontWeight: FontWeight.w900,
                           fontSize: 28,
                           height: 1.0,
-                          color: isOverGoal
-                              ? colorScheme.error
-                              : calorieIconColor,
+                          color:
+                              isOverGoal ? colorScheme.error : calorieIconColor,
                           letterSpacing: -0.5,
                         ),
                         textAlign: TextAlign.center,
@@ -215,8 +217,8 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
               alignment: Alignment.center,
               children: [
                 Semantics(
-                  label: 'Progress: ${percentage}%',
-                  value: '${percentage}%',
+                  label: 'Progress: $percentage%',
+                  value: '$percentage%',
                   child: SizedBox(
                     width: 70,
                     height: 70,
@@ -226,7 +228,7 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
                         return CircularProgressIndicator(
                           value: progress > 1.0 ? 1.0 : progress,
                           strokeWidth: 7,
-                          backgroundColor: colorScheme.surfaceVariant,
+                          backgroundColor: colorScheme.surfaceContainerHighest,
                           valueColor: AlwaysStoppedAnimation<Color>(
                             isOverGoal ? colorScheme.error : calorieIconColor,
                           ),
@@ -242,24 +244,28 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
                       animation: _progressAnimation,
                       builder: (context, child) {
                         return Text(
-                          '${percentage}%',
+                          '$percentage%',
                           style: theme.textTheme.labelMedium?.copyWith(
                             fontWeight: FontWeight.w700,
                             fontSize: 11,
-                            color: isOverGoal
-                                ? colorScheme.error
-                                : calorieIconColor,
+                            color:
+                                isOverGoal
+                                    ? colorScheme.error
+                                    : calorieIconColor,
                           ),
                         );
                       },
                     ),
                     const SizedBox(height: 2),
                     Icon(
-                      isOverGoal ? Icons.warning_amber_rounded : LucideIcons.check,
+                      isOverGoal
+                          ? Icons.warning_amber_rounded
+                          : LucideIcons.check,
                       size: 12,
-                      color: isOverGoal
-                          ? colorScheme.error
-                          : colorScheme.primary.withValues(alpha: 0.7),
+                      color:
+                          isOverGoal
+                              ? colorScheme.error
+                              : colorScheme.primary.withValues(alpha: 0.7),
                     ),
                   ],
                 ),

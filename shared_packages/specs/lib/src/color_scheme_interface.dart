@@ -31,7 +31,7 @@ abstract class ColorSchemeInterface {
   Color get onBackground;
   Color get surface;
   Color get onSurface;
-  Color get surfaceVariant;
+  Color get surfaceContainerHighest;
   Color get onSurfaceVariant;
 
   // Outline & Utility Colors

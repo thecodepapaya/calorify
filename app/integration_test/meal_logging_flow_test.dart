@@ -59,7 +59,7 @@ void main() {
     HealthService.setMockInstance(mockHealthService);
     Analytics.setMockInstance(mockAnalytics);
 
-    when(() => mockAnalytics.logEvent(any())).thenAnswer((_) async {});
+    when(() => mockAnalytics.logEvent(any())).thenAnswer((_) {});
     when(() => mockDatabaseInterface.getUserProfile()).thenAnswer(
       (_) async => const UserProfile(
         height: 180,

@@ -71,7 +71,7 @@ class LightColors implements ColorSchemeInterface {
   Color get onSurface => const Color(0xFF2D3036);
 
   @override
-  Color get surfaceVariant => const Color(0xFFE0E2EC);
+  Color get surfaceContainerHighest => const Color(0xFFE0E2EC);
 
   @override
   Color get onSurfaceVariant => const Color(0xFF44474F);

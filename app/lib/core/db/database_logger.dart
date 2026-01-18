@@ -15,7 +15,7 @@ class DatabaseLogger implements DatabaseInterface {
 
   // User Preferences Operations
   @override
-  Future<String?> getLanguageCode() async {
+  Future<String?> getLanguageCode() {
     return _logRead(
       'user_preferences',
       'getLanguageCode',
@@ -31,7 +31,7 @@ class DatabaseLogger implements DatabaseInterface {
   }
 
   @override
-  Future<ThemeMode> getThemeMode() async {
+  Future<ThemeMode> getThemeMode() {
     return _logRead(
       'user_preferences',
       'getThemeMode',

@@ -20,7 +20,9 @@ import '../helpers/golden_test_helpers.dart';
 import '../setup/all_tests.dart';
 
 class MockDatabaseInterface extends Mock implements DatabaseInterface {}
+
 class MockHealthService extends Mock implements HealthService {}
+
 class MockAnalytics extends Mock implements Analytics {}
 
 void main() {
@@ -43,9 +45,13 @@ void main() {
     HealthService.setMockInstance(mockHealthService);
     Analytics.setMockInstance(mockAnalytics);
 
-    when(() => mockAnalytics.logEvent(any())).thenAnswer((_) async {});
-    when(() => mockDatabaseInterface.getUserProfile()).thenAnswer((_) async => null);
-    when(() => mockHealthService.status).thenReturn(HealthConnectSdkStatus.sdkAvailable);
+    when(() => mockAnalytics.logEvent(any())).thenAnswer((_) {});
+    when(
+      () => mockDatabaseInterface.getUserProfile(),
+    ).thenAnswer((_) async => null);
+    when(
+      () => mockHealthService.status,
+    ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
     when(() => mockHealthService.isAuthorized).thenReturn(false);
   });
 
@@ -68,7 +74,10 @@ void main() {
           wrapper: goldenWrapper(),
           surfaceSize: device.size,
         );
-        await screenMatchesGolden(tester, 'onboarding_weight_goal_${device.name}');
+        await screenMatchesGolden(
+          tester,
+          'onboarding_weight_goal_${device.name}',
+        );
       }
     });
 
@@ -79,7 +88,10 @@ void main() {
           wrapper: goldenWrapper(),
           surfaceSize: device.size,
         );
-        await screenMatchesGolden(tester, 'onboarding_activity_level_${device.name}');
+        await screenMatchesGolden(
+          tester,
+          'onboarding_activity_level_${device.name}',
+        );
       }
     });
 
@@ -134,7 +146,10 @@ void main() {
           wrapper: goldenWrapper(),
           surfaceSize: device.size,
         );
-        await screenMatchesGolden(tester, 'onboarding_health_connect_${device.name}');
+        await screenMatchesGolden(
+          tester,
+          'onboarding_health_connect_${device.name}',
+        );
       }
     });
 
@@ -145,7 +160,10 @@ void main() {
           wrapper: goldenWrapper(),
           surfaceSize: device.size,
         );
-        await screenMatchesGolden(tester, 'onboarding_reminders_${device.name}');
+        await screenMatchesGolden(
+          tester,
+          'onboarding_reminders_${device.name}',
+        );
       }
     });
   });
