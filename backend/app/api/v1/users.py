@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Body
 from sqlalchemy.orm import Session
-from typing import Optional
+from typing import List, Optional
 from app.api import deps
 from app.schemas.user import UserProfile, UserProfileUpdate
 from app.models.user import User, FcmToken
