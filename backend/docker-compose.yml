@@ -27,7 +27,7 @@ services:
     env_file:
       - production.env
     volumes:
-      - ./firebase-prod.json:/app/firebase-service-account.json:ro
+      - ./firebase-adminsdk.json:/app/firebase-service-account.json:ro
     depends_on:
       db-prod:
         condition: service_healthy
@@ -59,7 +59,7 @@ services:
       - staging.env
     volumes:
       - ./app:/app/app # Live reload for staging dev
-      - ./firebase-staging.json:/app/firebase-service-account.json:ro
+      - ./firebase-adminsdk.json:/app/firebase-service-account.json:ro
     depends_on:
       db-staging:
         condition: service_healthy

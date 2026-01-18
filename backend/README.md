@@ -20,9 +20,8 @@ Add two **A Records** in your domain provider dashboard pointing to your VM IP:
 *   `api-staging` (Staging)
 
 ### 2. Environment Variables
-You need to create your Firebase service account JSON files in the `backend/` folder:
-*   `firebase-prod.json`
-*   `firebase-staging.json`
+You need to place your Firebase service account JSON file in the `backend/` folder:
+*   `firebase-adminsdk.json` (Used for both Production and Staging)
 
 Check and edit `production.env` and `staging.env` to set your `SECRET_KEY` and other credentials.
 
