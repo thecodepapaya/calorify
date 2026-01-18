@@ -71,7 +71,7 @@ class DarkColors implements ColorSchemeInterface {
   Color get onSurface => const Color(0xFFE3E2E6);
 
   @override
-  Color get surfaceVariant => const Color(0xFF3A3B40);
+  Color get surfaceContainerHighest => const Color(0xFF3A3B40);
 
   @override
   Color get onSurfaceVariant => const Color(0xFFC4C6CF);

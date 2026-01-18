@@ -2,8 +2,8 @@ name: Flutter Android CI/CD
 
 on:
   push:
-    branches:
-    - main
+    tags:
+    - 'v.*'
 
 jobs:
   build-android:
@@ -11,6 +11,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate tag format
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          if [[ ! $TAG_NAME =~ ^v\.[0-9]+\.[0-9]+\.[0-9]+\+[0-9]+$ ]]; then
+            echo "Error: Tag $TAG_NAME does not match pattern v.x.x.x+number"
+            exit 1
+          fi
+          echo "Tag $TAG_NAME is valid"
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2

@@ -16,7 +16,7 @@ void main() {
   });
 
   group('Error Scenarios', () {
-    test('FoodAnalysisService handles API errors gracefully', () async {
+    test('FoodAnalysisService handles API errors gracefully', () {
       final mockModel = MockGenerativeModelWrapper();
       final foodAnalysisService = FoodAnalysisService.test(model: mockModel);
 

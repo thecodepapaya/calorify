@@ -70,7 +70,7 @@ class _HistoryScreenState extends State<HistoryScreen>
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         minimum: circularWatchPadding,
         child:
@@ -181,9 +181,8 @@ class _HistoryScreenState extends State<HistoryScreen>
                                 width: 40,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                  color: colorScheme.surfaceVariant.withValues(
-                                    alpha: 0.5,
-                                  ),
+                                  color: colorScheme.surfaceContainerHighest
+                                      .withValues(alpha: 0.5),
                                   shape: BoxShape.circle,
                                 ),
                                 child: Icon(
@@ -248,9 +247,8 @@ class _HistoryScreenState extends State<HistoryScreen>
                                 width: 40,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                  color: colorScheme.surfaceVariant.withValues(
-                                    alpha: 0.5,
-                                  ),
+                                  color: colorScheme.surfaceContainerHighest
+                                      .withValues(alpha: 0.5),
                                   shape: BoxShape.circle,
                                 ),
                                 child: RotationTransition(

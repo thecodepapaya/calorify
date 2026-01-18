@@ -173,7 +173,7 @@ class _DebugScreenState extends State<DebugScreen> {
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         minimum: circularWatchPadding,
         child: CustomScrollView(
@@ -231,9 +231,10 @@ class _DebugScreenState extends State<DebugScreen> {
                 margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 decoration: BoxDecoration(
-                  color: _isPhoneConnected
-                      ? colorScheme.primaryContainer
-                      : colorScheme.errorContainer,
+                  color:
+                      _isPhoneConnected
+                          ? colorScheme.primaryContainer
+                          : colorScheme.errorContainer,
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Row(
@@ -242,9 +243,10 @@ class _DebugScreenState extends State<DebugScreen> {
                     Icon(
                       _isPhoneConnected ? LucideIcons.check : LucideIcons.x,
                       size: 12,
-                      color: _isPhoneConnected
-                          ? colorScheme.onPrimaryContainer
-                          : colorScheme.onErrorContainer,
+                      color:
+                          _isPhoneConnected
+                              ? colorScheme.onPrimaryContainer
+                              : colorScheme.onErrorContainer,
                     ),
                     const SizedBox(width: 6),
                     Flexible(
@@ -252,12 +254,13 @@ class _DebugScreenState extends State<DebugScreen> {
                         _isCheckingConnection
                             ? 'Checking...'
                             : _isPhoneConnected
-                                ? 'Phone Connected'
-                                : 'Phone Not Connected',
+                            ? 'Phone Connected'
+                            : 'Phone Not Connected',
                         style: theme.textTheme.labelSmall?.copyWith(
-                          color: _isPhoneConnected
-                              ? colorScheme.onPrimaryContainer
-                              : colorScheme.onErrorContainer,
+                          color:
+                              _isPhoneConnected
+                                  ? colorScheme.onPrimaryContainer
+                                  : colorScheme.onErrorContainer,
                           fontWeight: FontWeight.w600,
                           fontSize: 8,
                         ),
@@ -309,50 +312,47 @@ class _DebugScreenState extends State<DebugScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                          Icon(
-                            LucideIcons.inbox,
-                            size: 24,
-                            color: colorScheme.onSurfaceVariant.withValues(
-                              alpha: 0.5,
-                            ),
+                      Icon(
+                        LucideIcons.inbox,
+                        size: 24,
+                        color: colorScheme.onSurfaceVariant.withValues(
+                          alpha: 0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'No messages received',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: colorScheme.onSurfaceVariant.withValues(
+                            alpha: 0.7,
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'No messages received',
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              color: colorScheme.onSurfaceVariant.withValues(
-                                alpha: 0.7,
-                              ),
-                              fontSize: 8,
-                            ),
+                          fontSize: 8,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Send test data from phone',
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          color: colorScheme.onSurfaceVariant.withValues(
+                            alpha: 0.5,
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'Send test data from phone',
-                            style: theme.textTheme.labelSmall?.copyWith(
-                              color: colorScheme.onSurfaceVariant.withValues(
-                                alpha: 0.5,
-                              ),
-                              fontSize: 7,
-                            ),
-                          ),
+                          fontSize: 7,
+                        ),
+                      ),
                     ],
                   ),
                 ),
               )
             else
               SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final message = _messages[index];
-                    return _MessageCard(
-                      message: message,
-                      colorScheme: colorScheme,
-                      theme: theme,
-                    );
-                  },
-                  childCount: _messages.length,
-                ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final message = _messages[index];
+                  return _MessageCard(
+                    message: message,
+                    colorScheme: colorScheme,
+                    theme: theme,
+                  );
+                }, childCount: _messages.length),
               ),
           ],
         ),
@@ -366,11 +366,7 @@ class MessageLog {
   final Map<String, dynamic> data;
   final String path;
 
-  MessageLog({
-    required this.timestamp,
-    required this.data,
-    required this.path,
-  });
+  MessageLog({required this.timestamp, required this.data, required this.path});
 }
 
 class _MessageCard extends StatelessWidget {
@@ -391,9 +387,10 @@ class _MessageCard extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-      color: isError
-          ? colorScheme.errorContainer.withValues(alpha: 0.3)
-          : colorScheme.surfaceContainerHighest,
+      color:
+          isError
+              ? colorScheme.errorContainer.withValues(alpha: 0.3)
+              : colorScheme.surfaceContainerHighest,
       child: Padding(
         padding: const EdgeInsets.all(6),
         child: Column(
@@ -406,9 +403,7 @@ class _MessageCard extends StatelessWidget {
                 Icon(
                   isError ? LucideIcons.x : LucideIcons.messageSquare,
                   size: 9,
-                  color: isError
-                      ? colorScheme.error
-                      : colorScheme.primary,
+                  color: isError ? colorScheme.error : colorScheme.primary,
                 ),
                 const SizedBox(width: 3),
                 Expanded(
@@ -417,9 +412,7 @@ class _MessageCard extends StatelessWidget {
                     style: theme.textTheme.labelSmall?.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 7,
-                      color: isError
-                          ? colorScheme.error
-                          : colorScheme.primary,
+                      color: isError ? colorScheme.error : colorScheme.primary,
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -431,7 +424,9 @@ class _MessageCard extends StatelessWidget {
                     timeFormat.format(message.timestamp),
                     style: theme.textTheme.labelSmall?.copyWith(
                       fontSize: 6,
-                      color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+                      color: colorScheme.onSurfaceVariant.withValues(
+                        alpha: 0.6,
+                      ),
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -497,6 +492,7 @@ class _MessageCard extends StatelessWidget {
         }
       });
     }
+
     writeMap(data, 0);
     return buffer.toString();
   }
@@ -534,11 +530,7 @@ class _SendButton extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon,
-              size: 12,
-              color: colorScheme.primary,
-            ),
+            Icon(icon, size: 12, color: colorScheme.primary),
             const SizedBox(height: 2),
             Text(
               label,

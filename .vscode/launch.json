@@ -72,6 +72,6 @@
             "flutterMode": "profile",
             "type": "dart",
             "program": "watch_app/lib/main.dart"
-        }
+        },
     ]
 }

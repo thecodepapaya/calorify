@@ -32,7 +32,7 @@ class AppThemes {
       surface: lightColors.surface,
       onSurface: lightColors.onSurface,
 
-      surfaceContainerHighest: lightColors.surfaceVariant,
+      surfaceContainerHighest: lightColors.surfaceContainerHighest,
       onSurfaceVariant: lightColors.onSurfaceVariant,
 
       outline: lightColors.outline,
@@ -76,13 +76,10 @@ class AppThemes {
       errorContainer: darkColors.errorContainer,
       onErrorContainer: darkColors.onErrorContainer,
 
-      background: darkColors.background,
-      onBackground: darkColors.onBackground,
-
       surface: darkColors.surface,
       onSurface: darkColors.onSurface,
 
-      surfaceContainerHighest: darkColors.surfaceVariant,
+      surfaceContainerHighest: darkColors.surfaceContainerHighest,
       onSurfaceVariant: darkColors.onSurfaceVariant,
 
       outline: darkColors.outline,

@@ -52,7 +52,7 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
         _target = calories;
       });
     } catch (e) {
-      print('Error saving daily goal: $e');
+      debugPrint('Error saving daily goal: $e');
     } finally {
       setState(() {
         _isEditing = false;
@@ -71,7 +71,7 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
         _isEditing = true;
       }
     } catch (e) {
-      print('Error loading daily goal: $e');
+      debugPrint('Error loading daily goal: $e');
       _isEditing = true;
     } finally {
       if (mounted) {

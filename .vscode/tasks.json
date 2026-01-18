@@ -1,0 +1,28 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "infrastructure_start_docker",
+            "type": "shell",
+            "command": "docker-compose up -d",
+            "options": {
+                "cwd": "${workspaceFolder}/backend"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        },
+        {
+            "label": "infrastructure_stop_docker",
+            "type": "shell",
+            "command": "docker-compose down",
+            "options": {
+                "cwd": "${workspaceFolder}/backend"
+            }
+        }
+    ]
+}
