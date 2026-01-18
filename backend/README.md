@@ -66,30 +66,56 @@ Once the server is running, visit:
 
 ### Database Inspection
 
-#### Option 1: Adminer (Web UI) - Recommended ⭐
-**Adminer** is included in the Docker setup and provides a lightweight web-based database management interface.
+#### Option 1: pgAdmin 4 (Web UI) - Recommended ⭐
+**pgAdmin 4** is the industry-standard PostgreSQL administration tool with a modern, feature-rich web interface.
 
-1. **Start Adminer** (if not already running):
+1. **Start pgAdmin** (if not already running):
    ```bash
-   docker-compose up -d adminer
+   docker-compose up -d pgadmin
    ```
 
-2. **Access Adminer**: Open `http://localhost:8080` (or `http://your-vm-ip:8080`)
+2. **Access pgAdmin**: 
+   - Open `http://localhost:8080` (or `http://your-vm-ip:8080`)
+   - **Initial Login** (first time only):
+     - Email: `admin@calorify.local`
+     - Password: `admin`
+     - ⚠️ **Change this password after first login!**
 
-3. **Login credentials**:
-   - **Production Database**:
-     - System: `PostgreSQL`
-     - Server: `db-prod`
+3. **Add Database Servers**:
+   After logging in, you'll need to register both databases:
+   
+   **For Production Database:**
+   - Right-click "Servers" → "Register" → "Server"
+   - **General Tab**:
+     - Name: `Calorify Production`
+   - **Connection Tab**:
+     - Host name/address: `db-prod`
+     - Port: `5432`
+     - Maintenance database: `calorify_prod`
      - Username: `calorify`
      - Password: `calorify_pwd_prod`
-     - Database: `calorify_prod`
+     - ☑ Save password
+   - Click "Save"
    
-   - **Staging Database**:
-     - System: `PostgreSQL`
-     - Server: `db-staging`
+   **For Staging Database:**
+   - Right-click "Servers" → "Register" → "Server"
+   - **General Tab**:
+     - Name: `Calorify Staging`
+   - **Connection Tab**:
+     - Host name/address: `db-staging`
+     - Port: `5432`
+     - Maintenance database: `calorify_staging`
      - Username: `calorify`
      - Password: `calorify_pwd_staging`
-     - Database: `calorify_staging`
+     - ☑ Save password
+   - Click "Save"
+
+4. **Using pgAdmin**:
+   - Browse tables, views, and data with a modern tree-view interface
+   - Run SQL queries with syntax highlighting
+   - Visual query builder
+   - Export/import data in multiple formats
+   - View and edit table data in a spreadsheet-like interface
 
 #### Option 2: Command Line (psql)
 Connect directly to the database container:
@@ -146,7 +172,7 @@ You can view/manage them via the `scheduler` object in the app or by querying th
 | **Health Check** | `/health` | `/health` |
 | **Internal Port** | `8000` | `8001` |
 | **Database Name** | `calorify_prod` | `calorify_staging` |
-| **Adminer (DB UI)** | `http://localhost:8080` | `http://localhost:8080` |
+| **pgAdmin (DB UI)** | `http://localhost:8080` | `http://localhost:8080` |
 
 ### Useful Commands
 
