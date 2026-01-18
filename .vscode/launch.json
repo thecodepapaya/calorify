@@ -73,5 +73,63 @@
             "type": "dart",
             "program": "watch_app/lib/main.dart"
         },
+        {
+            "name": "Backend: Dev",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "app.main:app",
+                "--reload",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8000"
+            ],
+            "cwd": "${workspaceFolder}/backend",
+            "env": {
+                "ENVIRONMENT": "development"
+            },
+            "python": "${workspaceFolder}/backend/venv/bin/python",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Backend: Staging",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "app.main:app",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8000"
+            ],
+            "cwd": "${workspaceFolder}/backend",
+            "env": {
+                "ENVIRONMENT": "staging"
+            },
+            "python": "${workspaceFolder}/backend/venv/bin/python",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Backend: Prod",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "app.main:app",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8000"
+            ],
+            "cwd": "${workspaceFolder}/backend",
+            "env": {
+                "ENVIRONMENT": "production"
+            },
+            "python": "${workspaceFolder}/backend/venv/bin/python",
+            "console": "integratedTerminal"
+        }
     ]
 }
