@@ -10,62 +10,53 @@ A high-performance FastAPI backend for the Calorify app.
 - Cron Job System
 - Request Logging
 
-## Setup
+## Multi-Environment Setup (Strategy 2)
 
-### Option 1: Docker Compose (Recommended - Strategy 2)
-This is the easiest way to run the entire stack (API + Database).
+This setup runs two separate instances of the backend and database on the same VM using Docker Compose.
 
-1. Ensure you have **Docker** and **Docker Compose** installed.
-2. Setup environment variables:
-   ```bash
-   cp env.example .env
-   # Edit .env with your local settings (e.g., Firebase credentials)
-   ```
-3. Start the services:
-   ```bash
-   docker-compose up -d
-   ```
-   The API will be available at `http://localhost:8000`.
+### 1. DNS Configuration
+Add two **A Records** in your domain provider dashboard pointing to your VM IP:
+*   `api` (Production)
+*   `api-staging` (Staging)
 
-### Option 2: Local Development (Manual)
-Use this if you want to run the FastAPI app directly on your machine.
+### 2. Environment Variables
+You need to create your Firebase service account JSON files in the `backend/` folder:
+*   `firebase-prod.json`
+*   `firebase-staging.json`
 
-1. Create a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+Check and edit `production.env` and `staging.env` to set your `SECRET_KEY` and other credentials.
 
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+### 3. Start the Services
+Run the following command to start both Production and Staging environments:
+```bash
+docker-compose up -d
+```
 
-3. Setup environment variables:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your local settings
-   ```
+*   **Production API**: Internal port 8000 (VM Port 8000)
+*   **Staging API**: Internal port 8000 (VM Port 8001)
 
-4. Run the server:
-   ```bash
-   uvicorn app.main:app --reload
-   ```
-   *Note: This requires a PostgreSQL database running locally.*
+### 4. Reverse Proxy (Nginx)
+Configure Nginx on your VM to route traffic from your subdomains to the correct ports:
 
-## Deployment (Oracle VM)
+```nginx
+# /etc/nginx/sites-available/calorify
 
-To deploy using Strategy 2 (Docker Compose) on your Oracle VM:
+server {
+    server_name api.yourdomain.com;
+    location / {
+        proxy_pass http://localhost:8000;
+        include proxy_params;
+    }
+}
 
-1. SSH into your VM.
-2. Install Docker:
-   ```bash
-   curl -fsSL https://get.docker.com -o get-docker.sh
-   sudo sh get-docker.sh
-   ```
-3. Clone your repository and navigate to the `backend` folder.
-4. Create your `.env` file from the example.
-5. Run `docker-compose up -d`.
+server {
+    server_name api-staging.yourdomain.com;
+    location / {
+        proxy_pass http://localhost:8001;
+        include proxy_params;
+    }
+}
+```
 
 ## API Documentation
 Once the server is running, visit:

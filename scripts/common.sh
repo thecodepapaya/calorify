@@ -97,7 +97,7 @@ print_compact_error() {
 }
 
 print_separator() {
-    local char="${1:-━}"
+    local char="${1:--}"
     local length="${2:-40}"
     local separator=$(printf "%${length}s" | tr ' ' "$char")
     echo -e "${BOLD}${CYAN}${separator}${NC}"

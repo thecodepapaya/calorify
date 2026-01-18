@@ -15,15 +15,11 @@ class Settings(BaseSettings):
     FIREBASE_SERVICE_ACCOUNT_PATH: Optional[str] = None
     
     # Environment
-    ENVIRONMENT: str = os.getenv("ENVIRONMENT", "development")
+    ENVIRONMENT: str = "development"
 
     class Config:
-        env_file = ".env"
-        # Support loading from different files if needed
-        if os.getenv("ENVIRONMENT") == "staging":
-            env_file = "staging.env"
-        elif os.getenv("ENVIRONMENT") == "production":
-            env_file = "production.env"
         case_sensitive = True
+        # Pydantic Settings will automatically detect environment variables.
+        # When running in Docker, these are injected via the 'env_file' or 'environment' sections.
 
 settings = Settings()
