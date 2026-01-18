@@ -10,6 +10,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2.0"
+          bundler-cache: true
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -63,16 +69,11 @@ jobs:
       #   working-directory: watch_app
       #   run: flutter build appbundle --release
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.2.0"
-
-      - name: Install Fastlane
-        run: gem install fastlane
+      - name: Install Ruby dependencies
+        run: bundle install
 
       - name: Upload to Play Store
-        run: fastlane android release
+        run: bundle exec fastlane android release
         env:
           SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
       
