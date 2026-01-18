@@ -3,6 +3,7 @@ import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/db/mock_data/data_source_config.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/firebase_options.dart';
+import 'package:flutter/foundation.dart';
 import 'package:i18n/i18n.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,14 @@ Future<void> main() async {
     config: const MeasureConfig(
       traceSamplingRate: 1,
       samplingRateForErrorFreeSessions: 1,
+      trackHttpHeaders: true,
+      trackHttpBody: true,
+      journeySamplingRate: 1,
+      hotLaunchSamplingRate: 1,
+      coldLaunchSamplingRate: 1,
+      warmLaunchSamplingRate: 1,
+      trackScreenshotOnCrash: true,
+      maxDiskUsageInMb: 30,
     ),
     clientInfo: ClientInfo(
       apiKey:

@@ -1,3 +1,4 @@
+import 'package:calorify/core/router/route_names.dart';
 import 'package:models/models.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
@@ -13,6 +14,7 @@ Future<void> showHealthScoreReason({
     context: context,
     isScrollControlled: true,
     showDragHandle: true,
+    routeSettings: const RouteSettings(name: RouteNames.healthScoreSheet),
     builder:
         (context) =>
             _HealthScoreSheet(healthScore: healthScore, reason: reason),
