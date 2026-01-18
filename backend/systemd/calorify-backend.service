@@ -1,0 +1,15 @@
+[Unit]
+Description=Calorify Backend Server
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+WorkingDirectory=/home/ubuntu/calorify/backend
+# Start using docker-compose
+ExecStart=/usr/local/bin/docker-compose up
+# Stop using docker-compose
+ExecStop=/usr/local/bin/docker-compose down
+
+[Install]
+WantedBy=multi-user.target

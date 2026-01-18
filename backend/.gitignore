@@ -1,0 +1,18 @@
+# Binary
+main
+bin/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+
+# Dependencies
+vendor/
+
+# OS files
+.DS_Store
