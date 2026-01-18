@@ -58,7 +58,7 @@ class SyncService {
     try {
       final response = await WearOsChannel.sendMessage(
         path: '/meal',
-        data: meal.toJson(),
+        data: mealInfoToLegacyJson(meal),
       );
 
       if (response != null && response['success'] == true) {
@@ -87,7 +87,7 @@ class SyncService {
         final mealsData = response['meals'] as List<dynamic>?;
         if (mealsData != null) {
           return mealsData
-              .map((json) => MealInfo.fromJson(json as Map<String, dynamic>))
+              .map((json) => mealInfoFromLegacyJson(json as Map<String, dynamic>))
               .toList();
         }
       }

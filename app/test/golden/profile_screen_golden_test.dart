@@ -23,13 +23,12 @@ void main() {
     DatabaseService.setMockInterface(mockDatabaseInterface);
 
     when(() => mockDatabaseInterface.getUserProfile()).thenAnswer(
-      (_) async => const UserProfile(
+      (_) async => UserProfile(
         height: 175,
         weight: 70,
-        gender: Gender.male,
-        dateOfBirth: null,
-        activityLevel: ActivityLevel.moderatelyActive,
-        weightGoal: WeightGoal.maintainWeight,
+        gender: Gender.MALE,
+        activityLevel: ActivityLevel.MODERATELY_ACTIVE,
+        weightGoal: WeightGoal.MAINTAIN_WEIGHT,
       ),
     );
   });

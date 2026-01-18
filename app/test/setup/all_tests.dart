@@ -97,6 +97,6 @@ void _registerFallbacks() {
   registerFallbackValue(SpanStatus.ok);
   registerFallbackValue(AnalyticsEvent.homeView);
   registerFallbackValue(AnalyticsEvent.onboardingStart);
-  registerFallbackValue(MealType.snack);
-  registerFallbackValue(HealthScore.healthy);
+  registerFallbackValue(MealType.SNACK);
+  registerFallbackValue(HealthScore.HEALTHY);
 }

@@ -4,6 +4,7 @@ import 'package:calorify/core/db/database_logger.dart';
 import 'package:calorify/core/db/mock_data/data_source_config.dart';
 import 'package:calorify/core/db/mock_database_adapter.dart';
 import 'package:calorify/core/db/real_database_adapter.dart';
+import 'package:calorify/core/db/syncing_database_adapter.dart';
 import 'package:flutter/foundation.dart';
 
 /// Database service that can switch between mock and real data using interface-based architecture
@@ -28,7 +29,7 @@ class DatabaseService {
         adapter = MockDatabaseAdapter();
       } else {
         _database = AppDatabase();
-        adapter = RealDatabaseAdapter(_database!);
+        adapter = SyncingDatabaseAdapter(RealDatabaseAdapter(_database!));
       }
       // Wrap with logger to track all DB operations
       _databaseInterface = DatabaseLogger(adapter);
@@ -72,6 +73,9 @@ class DatabaseService {
 
   /// Check if using real data
   static bool get isUsingRealData => DataSourceConfig.isRealDataEnabled;
+
+  /// Access the raw Drift database (only available in real mode).
+  static AppDatabase? get rawDatabase => _database;
 
   /// Get current data source type
   static String get currentDataSourceType {

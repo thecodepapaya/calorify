@@ -77,9 +77,9 @@ class _MacroHistoryChart extends StatelessWidget {
 
     for (final meal in meals) {
       final mealDate = DateTime(
-        meal.timestamp.year,
-        meal.timestamp.month,
-        meal.timestamp.day,
+        (meal.timestampDateTime ?? DateTime.now()).year,
+        (meal.timestampDateTime ?? DateTime.now()).month,
+        (meal.timestampDateTime ?? DateTime.now()).day,
       );
       if (processedData.containsKey(mealDate)) {
         processedData[mealDate]!['protein'] =

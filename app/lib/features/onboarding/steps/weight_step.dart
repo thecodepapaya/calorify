@@ -20,7 +20,7 @@ class WeightStepScreen extends StatefulWidget {
 
 class _WeightStepScreenState extends State<WeightStepScreen> {
   double _weight = 70;
-  UnitSystem _unitSystem = UnitSystem.metric;
+  UnitSystem _unitSystem = UnitSystem.METRIC;
   final TextEditingController _textController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
@@ -45,9 +45,11 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
     final profile = await OnboardingService.instance.getProfileData();
     if (profile != null) {
       setState(() {
-        _unitSystem = profile.weightUnit;
+        _unitSystem = profile.weightUnit.normalized;
         final weight =
-            widget.isTargetWeight ? profile.targetWeight : profile.weight;
+            widget.isTargetWeight
+                ? (profile.hasTargetWeight() ? profile.targetWeight : null)
+                : (profile.hasWeight() ? profile.weight : null);
 
         if (weight != null) {
           _weight = weight;
@@ -184,7 +186,7 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
                   () {
                     if (_unitSystem.isMetric) return;
                     setState(() {
-                      final newUnit = UnitSystem.metric;
+                      final newUnit = UnitSystem.METRIC;
                       _weight = LocaleUtils.convertWeightToMetric(
                         _weight,
                       ).clamp(newUnit.weightMin, newUnit.weightMax);
@@ -200,7 +202,7 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
                   () {
                     if (_unitSystem.isImperial) return;
                     setState(() {
-                      final newUnit = UnitSystem.imperial;
+                      final newUnit = UnitSystem.IMPERIAL;
                       _weight = LocaleUtils.convertWeightToImperial(
                         _weight,
                       ).clamp(newUnit.weightMin, newUnit.weightMax);
@@ -269,12 +271,14 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
 
   Future<void> _saveAndContinue() async {
     final profile =
-        await OnboardingService.instance.getProfileData() ??
-        const UserProfile();
-    final updatedProfile =
-        widget.isTargetWeight
-            ? profile.copyWith(targetWeight: _weight, weightUnit: _unitSystem)
-            : profile.copyWith(weight: _weight, weightUnit: _unitSystem);
+        await OnboardingService.instance.getProfileData() ?? UserProfile();
+    final updatedProfile = profile.deepCopy();
+    if (widget.isTargetWeight) {
+      updatedProfile.targetWeight = _weight;
+    } else {
+      updatedProfile.weight = _weight;
+    }
+    updatedProfile.weightUnit = _unitSystem;
     await OnboardingService.instance.saveProfileData(updatedProfile);
     widget.onContinue();
   }

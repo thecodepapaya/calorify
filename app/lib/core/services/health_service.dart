@@ -1,7 +1,8 @@
 import 'dart:developer';
 
 import 'package:models/models.dart';
-import 'package:health/health.dart';
+import 'package:health/health.dart' hide MealType;
+import 'package:health/health.dart' as health show MealType;
 import 'package:flutter/foundation.dart';
 
 class HealthService {
@@ -202,7 +203,7 @@ class HealthService {
     try {
       final healthData = await _health.writeMeal(
         name: meal.mealName,
-        mealType: meal.mealType.asHealthConnectType,
+        mealType: _mealTypeToHealthMealType(meal.mealType),
         caloriesConsumed: meal.calories.toDouble(),
         protein: meal.protein.toDouble(),
         carbohydrates: meal.carbs.toDouble(),
@@ -247,6 +248,22 @@ class HealthService {
       log('Error writing weight: $e');
       return false;
     }
+  }
+
+  health.MealType _mealTypeToHealthMealType(MealType mealType) {
+    switch (mealType) {
+      case MealType.BREAKFAST:
+        return health.MealType.BREAKFAST;
+      case MealType.LUNCH:
+        return health.MealType.LUNCH;
+      case MealType.DINNER:
+        return health.MealType.DINNER;
+      case MealType.SNACK:
+        return health.MealType.SNACK;
+      case MealType.UNKNOWN:
+        return health.MealType.UNKNOWN;
+    }
+    return health.MealType.UNKNOWN; // Fallback
   }
 
   Future<bool> writeHeight(double cm) async {

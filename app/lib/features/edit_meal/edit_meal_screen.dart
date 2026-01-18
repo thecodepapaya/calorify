@@ -57,12 +57,14 @@ class EditMealScreenState extends State<EditMealScreen> {
     super.initState();
     if (isEditing) {
       _nameController = TextEditingController(text: widget.mealInfo!.mealName);
-      _selectedTime = TimeOfDay.fromDateTime(widget.mealInfo!.timestamp);
+      _selectedTime = TimeOfDay.fromDateTime(
+        widget.mealInfo!.timestampDateTime ?? DateTime.now(),
+      );
       _calories = widget.mealInfo!.calories;
-      _carbs = widget.mealInfo!.carbs;
-      _protein = widget.mealInfo!.protein;
-      _fat = widget.mealInfo!.fat;
-      _fiber = widget.mealInfo!.fiber;
+      _carbs = widget.mealInfo!.carbs.round();
+      _protein = widget.mealInfo!.protein.round();
+      _fat = widget.mealInfo!.fat.round();
+      _fiber = widget.mealInfo!.fiber.round();
       _mealType = widget.mealInfo!.mealType;
       _mealQuantityController = TextEditingController(
         text: widget.mealInfo!.mealQuantity,
@@ -75,7 +77,7 @@ class EditMealScreenState extends State<EditMealScreen> {
       _protein = 0;
       _fat = 0;
       _fiber = 0;
-      _mealType = MealType.unknown;
+      _mealType = MealType.UNKNOWN;
       _mealQuantityController = TextEditingController();
     }
     _timeController = TextEditingController();
@@ -164,11 +166,11 @@ class EditMealScreenState extends State<EditMealScreen> {
               border: OutlineInputBorder(borderRadius: globalRadius),
             ),
             items:
-                MealType.values
+                mealTypeValues
                     .map(
                       (type) => DropdownMenuItem(
                         value: type,
-                        child: Text(type.name.capitalized),
+                        child: Text(type.legacyName.capitalized),
                       ),
                     )
                     .toList(),
@@ -222,7 +224,7 @@ class EditMealScreenState extends State<EditMealScreen> {
     );
 
     final mealInfo = MealInfo(
-      id: isEditing ? widget.mealInfo?.id : null,
+      localId: int64FromInt(isEditing ? widget.mealInfo?.localIdValue : null),
       mealName: _nameController.text,
       calories: _calories,
       carbs: _carbs,
@@ -231,7 +233,7 @@ class EditMealScreenState extends State<EditMealScreen> {
       fiber: _fiber,
       mealType: _mealType,
       mealQuantity: _mealQuantityController.text,
-      timestamp: newTimestamp,
+      timestamp: dateTimeToTimestamp(newTimestamp),
     );
 
     try {

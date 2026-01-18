@@ -16,6 +16,8 @@ abstract class DatabaseInterface {
   Future<void> upsertMeal(MealInfo mealInfo);
   /// Delete a meal
   Future<void> deleteMeal(int mealId);
+  /// Get a meal by id (local database id)
+  Future<MealInfo?> getMealById(int mealId);
   /// Check if a meal is favorite
   Future<bool> isFavoriteMeal(int mealId);
   /// Add a meal to favorites

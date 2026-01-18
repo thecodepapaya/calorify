@@ -94,7 +94,9 @@ class MealLogCard extends StatelessWidget {
                 children: [
                   MealQuantityIndicator(quantity: mealInfo.mealQuantity),
                   if (showTimestamp)
-                    MealTimestamp(timestamp: mealInfo.timestamp),
+                    MealTimestamp(
+                      timestamp: mealInfo.timestampDateTime ?? DateTime.now(),
+                    ),
                 ],
               ),
               SizedBox(height: 12),

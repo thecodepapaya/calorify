@@ -18,8 +18,8 @@ class LocaleUtils {
     final countryCode = locale.countryCode?.toUpperCase();
 
     return imperialCountries.contains(countryCode)
-        ? UnitSystem.imperial
-        : UnitSystem.metric;
+        ? UnitSystem.IMPERIAL
+        : UnitSystem.METRIC;
   }
 
   /// Get the current locale
@@ -34,17 +34,17 @@ class LocaleUtils {
 
   /// Get unit system name using locale-specific formatting
   static String getUnitSystemName(UnitSystem unitSystem) {
-    return unitSystem == UnitSystem.metric ? 'Metric' : 'Imperial';
+    return unitSystem == UnitSystem.METRIC ? 'Metric' : 'Imperial';
   }
 
   /// Get height unit using locale-specific formatting
   static String getHeightUnit(UnitSystem unitSystem) {
-    return unitSystem == UnitSystem.metric ? 'cm' : 'in';
+    return unitSystem == UnitSystem.METRIC ? 'cm' : 'in';
   }
 
   /// Get weight unit using locale-specific formatting
   static String getWeightUnit(UnitSystem unitSystem) {
-    return unitSystem == UnitSystem.metric ? 'kg' : 'lbs';
+    return unitSystem == UnitSystem.METRIC ? 'kg' : 'lbs';
   }
 
   /// Convert height from imperial to metric (inches to cm)
@@ -70,7 +70,7 @@ class LocaleUtils {
   /// Get weight change unit for daily weight changes
   /// Returns 'g' for metric, 'oz' for imperial (since daily changes are small)
   static String getWeightChangeUnit(UnitSystem unitSystem) {
-    return unitSystem == UnitSystem.metric ? 'g' : 'oz';
+    return unitSystem == UnitSystem.METRIC ? 'g' : 'oz';
   }
 
   /// Convert weight change from grams to ounces (for imperial display)

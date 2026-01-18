@@ -22,9 +22,14 @@ void main() {
   });
 
   group('MealHistoryScreen Widget', () {
-    testWidgets('renders empty view when no meals', (WidgetTester tester) async {
-      when(() => mockDatabaseInterface.paginatedMealsHistory(offset: any(named: 'offset')))
-          .thenAnswer((_) async => []);
+    testWidgets('renders empty view when no meals', (
+      WidgetTester tester,
+    ) async {
+      when(
+        () => mockDatabaseInterface.paginatedMealsHistory(
+          offset: any(named: 'offset'),
+        ),
+      ).thenAnswer((_) async => []);
 
       await tester.pumpWidget(wrapWithProviders(const MealHistoryScreen()));
       await tester.pumpAndSettle();
@@ -35,23 +40,26 @@ void main() {
     testWidgets('renders meals list', (WidgetTester tester) async {
       final mockMeals = [
         MealInfo(
-          id: 1,
+          localId: int64FromInt(1),
           mealName: 'Apple',
           mealQuantity: '1',
-          mealType: MealType.snack,
+          mealType: MealType.SNACK,
           calories: 95,
           protein: 0,
           carbs: 25,
           fat: 0,
           fiber: 4,
-          timestamp: DateTime.now(),
-          healthScore: HealthScore.healthy,
+          timestamp: dateTimeToTimestamp(DateTime.now()),
+          healthScore: HealthScore.HEALTHY,
           healthScoreReason: 'Good',
         ),
       ];
 
-      when(() => mockDatabaseInterface.paginatedMealsHistory(offset: any(named: 'offset')))
-          .thenAnswer((_) async => mockMeals);
+      when(
+        () => mockDatabaseInterface.paginatedMealsHistory(
+          offset: any(named: 'offset'),
+        ),
+      ).thenAnswer((_) async => mockMeals);
 
       await tester.pumpWidget(wrapWithProviders(const MealHistoryScreen()));
       await tester.pumpAndSettle();

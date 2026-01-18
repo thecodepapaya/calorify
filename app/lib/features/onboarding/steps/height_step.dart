@@ -15,7 +15,7 @@ class HeightStepScreen extends StatefulWidget {
 
 class _HeightStepScreenState extends State<HeightStepScreen> {
   double _height = 170;
-  UnitSystem _unitSystem = UnitSystem.metric;
+  UnitSystem _unitSystem = UnitSystem.METRIC;
   final TextEditingController _textController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   bool _unitSystemInitialized = false;
@@ -51,10 +51,10 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
     final profile = await OnboardingService.instance.getProfileData();
     if (profile != null) {
       setState(() {
-        _unitSystem = profile.heightUnit;
+        _unitSystem = profile.heightUnit.normalized;
         _unitSystemInitialized = true;
-        if (profile.height != null) {
-          _height = profile.height!;
+        if (profile.hasHeight()) {
+          _height = profile.height;
           _updateTextField();
         }
       });
@@ -172,7 +172,7 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
                   if (_unitSystem.isMetric) return;
                   setState(() {
                     _height = LocaleUtils.convertHeightToMetric(_height);
-                    _unitSystem = UnitSystem.metric;
+                    _unitSystem = UnitSystem.METRIC;
                     _updateTextField();
                   });
                 },
@@ -185,7 +185,7 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
                   if (_unitSystem.isImperial) return;
                   setState(() {
                     _height = LocaleUtils.convertHeightToImperial(_height);
-                    _unitSystem = UnitSystem.imperial;
+                    _unitSystem = UnitSystem.IMPERIAL;
                     _updateTextField();
                   });
                 },
@@ -250,11 +250,11 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
 
   Future<void> _saveAndContinue() async {
     final profile =
-        await OnboardingService.instance.getProfileData() ??
-        const UserProfile();
-    await OnboardingService.instance.saveProfileData(
-      profile.copyWith(height: _height, heightUnit: _unitSystem),
-    );
+        await OnboardingService.instance.getProfileData() ?? UserProfile();
+    final updatedProfile = profile.deepCopy();
+    updatedProfile.height = _height;
+    updatedProfile.heightUnit = _unitSystem;
+    await OnboardingService.instance.saveProfileData(updatedProfile);
     widget.onContinue();
   }
 }

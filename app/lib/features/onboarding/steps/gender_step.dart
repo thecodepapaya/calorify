@@ -25,7 +25,9 @@ class _GenderStepScreenState extends State<GenderStepScreen> {
   Future<void> _loadData() async {
     final profile = await OnboardingService.instance.getProfileData();
     if (profile != null && mounted) {
-      setState(() => _selectedGender = profile.gender);
+      setState(() {
+        _selectedGender = profile.hasGender() ? profile.gender : null;
+      });
     }
   }
 
@@ -54,7 +56,7 @@ class _GenderStepScreenState extends State<GenderStepScreen> {
             ),
           ),
           const SizedBox(height: 48),
-          ...Gender.values.map(
+          ...genderValues.map(
             (gender) => Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: _buildGenderCard(gender),
@@ -148,23 +150,25 @@ class _GenderStepScreenState extends State<GenderStepScreen> {
 
   IconData _getGenderIcon(Gender gender) {
     switch (gender) {
-      case Gender.male:
+      case Gender.MALE:
         return LucideIcons.mars;
-      case Gender.female:
+      case Gender.FEMALE:
         return LucideIcons.venus;
-      case Gender.other:
+      case Gender.OTHER:
         return LucideIcons.transgender;
     }
+    return LucideIcons.transgender; // Fallback
   }
 
   Future<void> _saveAndContinue() async {
     try {
       final profile =
-          await OnboardingService.instance.getProfileData() ??
-          const UserProfile();
-      await OnboardingService.instance.saveProfileData(
-        profile.copyWith(gender: _selectedGender),
-      );
+          await OnboardingService.instance.getProfileData() ?? UserProfile();
+      final updatedProfile = profile.deepCopy();
+      if (_selectedGender != null) {
+        updatedProfile.gender = _selectedGender!;
+      }
+      await OnboardingService.instance.saveProfileData(updatedProfile);
       widget.onContinue();
     } catch (e) {
       if (mounted) {

@@ -77,7 +77,7 @@ Once the server is running, visit:
 2. **Access pgAdmin**: 
    - Open `http://localhost:8080` (or `http://your-vm-ip:8080`)
    - **Initial Login** (first time only):
-     - Email: `admin@calorify.local`
+     - Email: `calorify@thecodepapaya.dev`
      - Password: `admin`
      - ⚠️ **Change this password after first login!**
 

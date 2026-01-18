@@ -41,13 +41,12 @@ void main() {
 
     when(() => mockAnalytics.logEvent(any())).thenAnswer((_) {});
     when(() => mockDatabaseInterface.getUserProfile()).thenAnswer(
-      (_) async => const UserProfile(
+      (_) async => UserProfile(
         height: 180,
         weight: 80,
-        gender: Gender.male,
-        dateOfBirth: null,
-        activityLevel: ActivityLevel.moderatelyActive,
-        weightGoal: WeightGoal.maintainWeight,
+        gender: Gender.MALE,
+        activityLevel: ActivityLevel.MODERATELY_ACTIVE,
+        weightGoal: WeightGoal.MAINTAIN_WEIGHT,
       ),
     );
     when(

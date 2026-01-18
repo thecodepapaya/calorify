@@ -67,8 +67,8 @@ class OnboardingService {
     final height = _getNormalizedHeight(data);
     final weight = _getNormalizedWeight(data);
 
-    if (data.dateOfBirth == null ||
-        data.gender == null ||
+    if (!data.hasDateOfBirth() ||
+        !data.hasGender() ||
         weight == null ||
         height == null) {
       return null;
@@ -81,7 +81,7 @@ class OnboardingService {
         (_bmrHeightMult * height) -
         (_bmrAgeMult * age);
 
-    if (data.gender == Gender.male) {
+    if (data.gender == Gender.MALE) {
       return baseBmr + _bmrMaleOffset;
     } else {
       return baseBmr + _bmrFemaleOffset;
@@ -90,26 +90,27 @@ class OnboardingService {
 
   /// Calculate TDEE (Total Daily Energy Expenditure)
   double? calculateTDEE(UserProfile data) {
-    if (data.activityLevel == null) return null;
+    if (!data.hasActivityLevel()) return null;
     final bmr = calculateBMR(data);
     if (bmr == null) return null;
-    return bmr * data.activityLevel!.multiplier;
+    return bmr * data.activityLevel.multiplier;
   }
 
   /// Calculate daily calorie goal based on weight goal
   double? calculateDailyCalorieGoal(UserProfile data) {
-    if (data.weightGoal == null) return null;
+    if (!data.hasWeightGoal()) return null;
     final tdee = calculateTDEE(data);
     if (tdee == null) return null;
 
-    switch (data.weightGoal!) {
-      case WeightGoal.loseWeight:
+    switch (data.weightGoal) {
+      case WeightGoal.LOSE_WEIGHT:
         return tdee - _weightLossDeficit;
-      case WeightGoal.maintainWeight:
+      case WeightGoal.MAINTAIN_WEIGHT:
         return tdee;
-      case WeightGoal.gainWeight:
+      case WeightGoal.GAIN_WEIGHT:
         return tdee + _weightGainSurplus;
     }
+    return tdee; // Fallback to maintain weight
   }
 
   /// Calculate ideal weight based on height using the formula:
@@ -140,17 +141,17 @@ class OnboardingService {
   }
 
   double? _getNormalizedHeight(UserProfile data) {
-    if (data.height == null) return null;
+    if (!data.hasHeight()) return null;
     return data.heightUnit.isMetric
         ? data.height
-        : LocaleUtils.convertHeightToMetric(data.height!);
+        : LocaleUtils.convertHeightToMetric(data.height);
   }
 
   double? _getNormalizedWeight(UserProfile data) {
-    if (data.weight == null) return null;
+    if (!data.hasWeight()) return null;
     return data.weightUnit.isMetric
         ? data.weight
-        : LocaleUtils.convertWeightToMetric(data.weight!);
+        : LocaleUtils.convertWeightToMetric(data.weight);
   }
 
   /// Setup Health Connect integration

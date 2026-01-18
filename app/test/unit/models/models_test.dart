@@ -10,31 +10,33 @@ void main() {
   group('MealInfo Model', () {
     final now = DateTime.now();
     final meal = MealInfo(
-      id: 1,
+      localId: int64FromInt(1),
       mealName: 'Apple',
       mealQuantity: '1',
-      mealType: MealType.snack,
+      mealType: MealType.SNACK,
       calories: 95,
       protein: 0,
       carbs: 25,
       fat: 0,
       fiber: 4,
-      timestamp: now,
-      healthScore: HealthScore.healthy,
+      timestamp: dateTimeToTimestamp(now),
+      healthScore: HealthScore.HEALTHY,
     );
 
     test('toJson and fromJson are symmetric', () {
-      final json = meal.toJson();
-      final fromJson = MealInfo.fromJson(json);
+      final json = mealInfoToLegacyJson(meal);
+      final fromJson = mealInfoFromLegacyJson(json);
 
       expect(fromJson.mealName, meal.mealName);
       expect(fromJson.calories, meal.calories);
-      expect(fromJson.timestamp.day, meal.timestamp.day);
+      expect(fromJson.timestampDateTime?.day, meal.timestampDateTime?.day);
       expect(fromJson.healthScore, meal.healthScore);
     });
 
     test('copyWith works correctly', () {
-      final updatedMeal = meal.copyWith(mealName: 'Banana', calories: 105);
+      final updatedMeal = meal.deepCopy();
+      updatedMeal.mealName = 'Banana';
+      updatedMeal.calories = 105;
 
       expect(updatedMeal.mealName, 'Banana');
       expect(updatedMeal.calories, 105);
@@ -47,23 +49,23 @@ void main() {
       final profile = UserProfile(
         height: 180,
         weight: 80,
-        gender: Gender.male,
-        dateOfBirth: DateTime(1990, 1, 1),
-        activityLevel: ActivityLevel.moderatelyActive,
-        weightGoal: WeightGoal.maintainWeight,
+        gender: Gender.MALE,
+        dateOfBirth: dateTimeToTimestamp(DateTime(1990, 1, 1)),
+        activityLevel: ActivityLevel.MODERATELY_ACTIVE,
+        weightGoal: WeightGoal.MAINTAIN_WEIGHT,
       );
 
       expect(profile.isProfileComplete, isTrue);
     });
 
     test('isProfileComplete returns false for partial profile', () {
-      const profile = UserProfile(height: 180);
+      final profile = UserProfile(height: 180);
       expect(profile.isProfileComplete, isFalse);
     });
 
     test('age calculation is correct', () {
       final birthday = DateTime(DateTime.now().year - 25, 1, 1);
-      final profile = UserProfile(dateOfBirth: birthday);
+      final profile = UserProfile(dateOfBirth: dateTimeToTimestamp(birthday));
       expect(profile.age, 25);
     });
   });

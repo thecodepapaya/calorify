@@ -366,7 +366,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
   void _checkCurrentLocale() {
     final locale = LocaleUtils.getCurrentLocale(context);
     final unitSystem = LocaleUtils.getDefaultUnitSystem(context);
-    final isMetric = unitSystem == UnitSystem.metric;
+    final isMetric = unitSystem == UnitSystem.METRIC;
     final countryCode = locale.countryCode ?? 'N/A';
     final languageCode = locale.languageCode;
 
@@ -392,7 +392,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     } else {
       _showDataDialog(
         t.debug.latestWeight,
-        'Weight: ${weight.toStringAsFixed(UnitSystem.metric.weightPrecision)} kg',
+        'Weight: ${weight.toStringAsFixed(UnitSystem.METRIC.weightPrecision)} kg',
       );
     }
   }
@@ -405,7 +405,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       // Height is usually in meters from Health Connect
       _showDataDialog(
         t.debug.latestHeight,
-        'Height: ${(height * 100).toStringAsFixed(UnitSystem.metric.heightPrecision)} cm',
+        'Height: ${(height * 100).toStringAsFixed(UnitSystem.METRIC.heightPrecision)} cm',
       );
     }
   }

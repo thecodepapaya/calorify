@@ -4,6 +4,10 @@ from datetime import datetime
 
 class MealBase(BaseModel):
     name: str
+    client_id: Optional[str] = None
+    meal_quantity: Optional[str] = None
+    meal_type: Optional[str] = None
+    image_url: Optional[str] = None
     calories: int = 0
     protein: float = 0.0
     carbs: float = 0.0
@@ -18,6 +22,10 @@ class MealCreate(MealBase):
 
 class MealUpdate(BaseModel):
     name: Optional[str] = None
+    client_id: Optional[str] = None
+    meal_quantity: Optional[str] = None
+    meal_type: Optional[str] = None
+    image_url: Optional[str] = None
     calories: Optional[int] = None
     protein: Optional[float] = None
     carbs: Optional[float] = None

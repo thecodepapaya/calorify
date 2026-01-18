@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 
 class MealInfoTable extends Table {
   IntColumn get id => integer().autoIncrement()();
+  TextColumn get clientId => text().nullable()();
   TextColumn get mealName => text()();
   TextColumn get mealQuantity => text()();
   TextColumn get mealType => text()();

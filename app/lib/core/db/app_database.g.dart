@@ -22,6 +22,17 @@ class $MealInfoTableTable extends MealInfoTable
       'PRIMARY KEY AUTOINCREMENT',
     ),
   );
+  static const VerificationMeta _clientIdMeta = const VerificationMeta(
+    'clientId',
+  );
+  @override
+  late final GeneratedColumn<String> clientId = GeneratedColumn<String>(
+    'client_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _mealNameMeta = const VerificationMeta(
     'mealName',
   );
@@ -152,6 +163,7 @@ class $MealInfoTableTable extends MealInfoTable
   @override
   List<GeneratedColumn> get $columns => [
     id,
+    clientId,
     mealName,
     mealQuantity,
     mealType,
@@ -179,6 +191,12 @@ class $MealInfoTableTable extends MealInfoTable
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('client_id')) {
+      context.handle(
+        _clientIdMeta,
+        clientId.isAcceptableOrUnknown(data['client_id']!, _clientIdMeta),
+      );
     }
     if (data.containsKey('meal_name')) {
       context.handle(
@@ -293,6 +311,10 @@ class $MealInfoTableTable extends MealInfoTable
             DriftSqlType.int,
             data['${effectivePrefix}id'],
           )!,
+      clientId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}client_id'],
+      ),
       mealName:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -362,6 +384,7 @@ class $MealInfoTableTable extends MealInfoTable
 class MealInfoTableData extends DataClass
     implements Insertable<MealInfoTableData> {
   final int id;
+  final String? clientId;
   final String mealName;
   final String mealQuantity;
   final String mealType;
@@ -376,6 +399,7 @@ class MealInfoTableData extends DataClass
   final String? healthScoreReason;
   const MealInfoTableData({
     required this.id,
+    this.clientId,
     required this.mealName,
     required this.mealQuantity,
     required this.mealType,
@@ -393,6 +417,9 @@ class MealInfoTableData extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    if (!nullToAbsent || clientId != null) {
+      map['client_id'] = Variable<String>(clientId);
+    }
     map['meal_name'] = Variable<String>(mealName);
     map['meal_quantity'] = Variable<String>(mealQuantity);
     map['meal_type'] = Variable<String>(mealType);
@@ -417,6 +444,10 @@ class MealInfoTableData extends DataClass
   MealInfoTableCompanion toCompanion(bool nullToAbsent) {
     return MealInfoTableCompanion(
       id: Value(id),
+      clientId:
+          clientId == null && nullToAbsent
+              ? const Value.absent()
+              : Value(clientId),
       mealName: Value(mealName),
       mealQuantity: Value(mealQuantity),
       mealType: Value(mealType),
@@ -448,6 +479,7 @@ class MealInfoTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return MealInfoTableData(
       id: serializer.fromJson<int>(json['id']),
+      clientId: serializer.fromJson<String?>(json['clientId']),
       mealName: serializer.fromJson<String>(json['mealName']),
       mealQuantity: serializer.fromJson<String>(json['mealQuantity']),
       mealType: serializer.fromJson<String>(json['mealType']),
@@ -469,6 +501,7 @@ class MealInfoTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'clientId': serializer.toJson<String?>(clientId),
       'mealName': serializer.toJson<String>(mealName),
       'mealQuantity': serializer.toJson<String>(mealQuantity),
       'mealType': serializer.toJson<String>(mealType),
@@ -486,6 +519,7 @@ class MealInfoTableData extends DataClass
 
   MealInfoTableData copyWith({
     int? id,
+    Value<String?> clientId = const Value.absent(),
     String? mealName,
     String? mealQuantity,
     String? mealType,
@@ -500,6 +534,7 @@ class MealInfoTableData extends DataClass
     Value<String?> healthScoreReason = const Value.absent(),
   }) => MealInfoTableData(
     id: id ?? this.id,
+    clientId: clientId.present ? clientId.value : this.clientId,
     mealName: mealName ?? this.mealName,
     mealQuantity: mealQuantity ?? this.mealQuantity,
     mealType: mealType ?? this.mealType,
@@ -519,6 +554,7 @@ class MealInfoTableData extends DataClass
   MealInfoTableData copyWithCompanion(MealInfoTableCompanion data) {
     return MealInfoTableData(
       id: data.id.present ? data.id.value : this.id,
+      clientId: data.clientId.present ? data.clientId.value : this.clientId,
       mealName: data.mealName.present ? data.mealName.value : this.mealName,
       mealQuantity:
           data.mealQuantity.present
@@ -545,6 +581,7 @@ class MealInfoTableData extends DataClass
   String toString() {
     return (StringBuffer('MealInfoTableData(')
           ..write('id: $id, ')
+          ..write('clientId: $clientId, ')
           ..write('mealName: $mealName, ')
           ..write('mealQuantity: $mealQuantity, ')
           ..write('mealType: $mealType, ')
@@ -564,6 +601,7 @@ class MealInfoTableData extends DataClass
   @override
   int get hashCode => Object.hash(
     id,
+    clientId,
     mealName,
     mealQuantity,
     mealType,
@@ -582,6 +620,7 @@ class MealInfoTableData extends DataClass
       identical(this, other) ||
       (other is MealInfoTableData &&
           other.id == this.id &&
+          other.clientId == this.clientId &&
           other.mealName == this.mealName &&
           other.mealQuantity == this.mealQuantity &&
           other.mealType == this.mealType &&
@@ -598,6 +637,7 @@ class MealInfoTableData extends DataClass
 
 class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   final Value<int> id;
+  final Value<String?> clientId;
   final Value<String> mealName;
   final Value<String> mealQuantity;
   final Value<String> mealType;
@@ -612,6 +652,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   final Value<String?> healthScoreReason;
   const MealInfoTableCompanion({
     this.id = const Value.absent(),
+    this.clientId = const Value.absent(),
     this.mealName = const Value.absent(),
     this.mealQuantity = const Value.absent(),
     this.mealType = const Value.absent(),
@@ -627,6 +668,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   });
   MealInfoTableCompanion.insert({
     this.id = const Value.absent(),
+    this.clientId = const Value.absent(),
     required String mealName,
     required String mealQuantity,
     required String mealType,
@@ -650,6 +692,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
        timestamp = Value(timestamp);
   static Insertable<MealInfoTableData> custom({
     Expression<int>? id,
+    Expression<String>? clientId,
     Expression<String>? mealName,
     Expression<String>? mealQuantity,
     Expression<String>? mealType,
@@ -665,6 +708,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (clientId != null) 'client_id': clientId,
       if (mealName != null) 'meal_name': mealName,
       if (mealQuantity != null) 'meal_quantity': mealQuantity,
       if (mealType != null) 'meal_type': mealType,
@@ -682,6 +726,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
 
   MealInfoTableCompanion copyWith({
     Value<int>? id,
+    Value<String?>? clientId,
     Value<String>? mealName,
     Value<String>? mealQuantity,
     Value<String>? mealType,
@@ -697,6 +742,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   }) {
     return MealInfoTableCompanion(
       id: id ?? this.id,
+      clientId: clientId ?? this.clientId,
       mealName: mealName ?? this.mealName,
       mealQuantity: mealQuantity ?? this.mealQuantity,
       mealType: mealType ?? this.mealType,
@@ -717,6 +763,9 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
+    }
+    if (clientId.present) {
+      map['client_id'] = Variable<String>(clientId.value);
     }
     if (mealName.present) {
       map['meal_name'] = Variable<String>(mealName.value);
@@ -761,6 +810,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   String toString() {
     return (StringBuffer('MealInfoTableCompanion(')
           ..write('id: $id, ')
+          ..write('clientId: $clientId, ')
           ..write('mealName: $mealName, ')
           ..write('mealQuantity: $mealQuantity, ')
           ..write('mealType: $mealType, ')
@@ -1885,6 +1935,17 @@ class $FavoriteMealTableTable extends FavoriteMealTable
       'PRIMARY KEY AUTOINCREMENT',
     ),
   );
+  static const VerificationMeta _clientIdMeta = const VerificationMeta(
+    'clientId',
+  );
+  @override
+  late final GeneratedColumn<String> clientId = GeneratedColumn<String>(
+    'client_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _mealNameMeta = const VerificationMeta(
     'mealName',
   );
@@ -2050,6 +2111,7 @@ class $FavoriteMealTableTable extends FavoriteMealTable
   @override
   List<GeneratedColumn> get $columns => [
     id,
+    clientId,
     mealName,
     mealQuantity,
     mealType,
@@ -2080,6 +2142,12 @@ class $FavoriteMealTableTable extends FavoriteMealTable
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('client_id')) {
+      context.handle(
+        _clientIdMeta,
+        clientId.isAcceptableOrUnknown(data['client_id']!, _clientIdMeta),
+      );
     }
     if (data.containsKey('meal_name')) {
       context.handle(
@@ -2218,6 +2286,10 @@ class $FavoriteMealTableTable extends FavoriteMealTable
             DriftSqlType.int,
             data['${effectivePrefix}id'],
           )!,
+      clientId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}client_id'],
+      ),
       mealName:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -2300,6 +2372,7 @@ class $FavoriteMealTableTable extends FavoriteMealTable
 class FavoriteMealTableData extends DataClass
     implements Insertable<FavoriteMealTableData> {
   final int id;
+  final String? clientId;
   final String mealName;
   final String mealQuantity;
   final String mealType;
@@ -2317,6 +2390,7 @@ class FavoriteMealTableData extends DataClass
   final DateTime? lastUsedAt;
   const FavoriteMealTableData({
     required this.id,
+    this.clientId,
     required this.mealName,
     required this.mealQuantity,
     required this.mealType,
@@ -2337,6 +2411,9 @@ class FavoriteMealTableData extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    if (!nullToAbsent || clientId != null) {
+      map['client_id'] = Variable<String>(clientId);
+    }
     map['meal_name'] = Variable<String>(mealName);
     map['meal_quantity'] = Variable<String>(mealQuantity);
     map['meal_type'] = Variable<String>(mealType);
@@ -2368,6 +2445,10 @@ class FavoriteMealTableData extends DataClass
   FavoriteMealTableCompanion toCompanion(bool nullToAbsent) {
     return FavoriteMealTableCompanion(
       id: Value(id),
+      clientId:
+          clientId == null && nullToAbsent
+              ? const Value.absent()
+              : Value(clientId),
       mealName: Value(mealName),
       mealQuantity: Value(mealQuantity),
       mealType: Value(mealType),
@@ -2408,6 +2489,7 @@ class FavoriteMealTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return FavoriteMealTableData(
       id: serializer.fromJson<int>(json['id']),
+      clientId: serializer.fromJson<String?>(json['clientId']),
       mealName: serializer.fromJson<String>(json['mealName']),
       mealQuantity: serializer.fromJson<String>(json['mealQuantity']),
       mealType: serializer.fromJson<String>(json['mealType']),
@@ -2432,6 +2514,7 @@ class FavoriteMealTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'clientId': serializer.toJson<String?>(clientId),
       'mealName': serializer.toJson<String>(mealName),
       'mealQuantity': serializer.toJson<String>(mealQuantity),
       'mealType': serializer.toJson<String>(mealType),
@@ -2452,6 +2535,7 @@ class FavoriteMealTableData extends DataClass
 
   FavoriteMealTableData copyWith({
     int? id,
+    Value<String?> clientId = const Value.absent(),
     String? mealName,
     String? mealQuantity,
     String? mealType,
@@ -2469,6 +2553,7 @@ class FavoriteMealTableData extends DataClass
     Value<DateTime?> lastUsedAt = const Value.absent(),
   }) => FavoriteMealTableData(
     id: id ?? this.id,
+    clientId: clientId.present ? clientId.value : this.clientId,
     mealName: mealName ?? this.mealName,
     mealQuantity: mealQuantity ?? this.mealQuantity,
     mealType: mealType ?? this.mealType,
@@ -2491,6 +2576,7 @@ class FavoriteMealTableData extends DataClass
   FavoriteMealTableData copyWithCompanion(FavoriteMealTableCompanion data) {
     return FavoriteMealTableData(
       id: data.id.present ? data.id.value : this.id,
+      clientId: data.clientId.present ? data.clientId.value : this.clientId,
       mealName: data.mealName.present ? data.mealName.value : this.mealName,
       mealQuantity:
           data.mealQuantity.present
@@ -2524,6 +2610,7 @@ class FavoriteMealTableData extends DataClass
   String toString() {
     return (StringBuffer('FavoriteMealTableData(')
           ..write('id: $id, ')
+          ..write('clientId: $clientId, ')
           ..write('mealName: $mealName, ')
           ..write('mealQuantity: $mealQuantity, ')
           ..write('mealType: $mealType, ')
@@ -2546,6 +2633,7 @@ class FavoriteMealTableData extends DataClass
   @override
   int get hashCode => Object.hash(
     id,
+    clientId,
     mealName,
     mealQuantity,
     mealType,
@@ -2567,6 +2655,7 @@ class FavoriteMealTableData extends DataClass
       identical(this, other) ||
       (other is FavoriteMealTableData &&
           other.id == this.id &&
+          other.clientId == this.clientId &&
           other.mealName == this.mealName &&
           other.mealQuantity == this.mealQuantity &&
           other.mealType == this.mealType &&
@@ -2587,6 +2676,7 @@ class FavoriteMealTableData extends DataClass
 class FavoriteMealTableCompanion
     extends UpdateCompanion<FavoriteMealTableData> {
   final Value<int> id;
+  final Value<String?> clientId;
   final Value<String> mealName;
   final Value<String> mealQuantity;
   final Value<String> mealType;
@@ -2604,6 +2694,7 @@ class FavoriteMealTableCompanion
   final Value<DateTime?> lastUsedAt;
   const FavoriteMealTableCompanion({
     this.id = const Value.absent(),
+    this.clientId = const Value.absent(),
     this.mealName = const Value.absent(),
     this.mealQuantity = const Value.absent(),
     this.mealType = const Value.absent(),
@@ -2622,6 +2713,7 @@ class FavoriteMealTableCompanion
   });
   FavoriteMealTableCompanion.insert({
     this.id = const Value.absent(),
+    this.clientId = const Value.absent(),
     required String mealName,
     required String mealQuantity,
     required String mealType,
@@ -2648,6 +2740,7 @@ class FavoriteMealTableCompanion
        timestamp = Value(timestamp);
   static Insertable<FavoriteMealTableData> custom({
     Expression<int>? id,
+    Expression<String>? clientId,
     Expression<String>? mealName,
     Expression<String>? mealQuantity,
     Expression<String>? mealType,
@@ -2666,6 +2759,7 @@ class FavoriteMealTableCompanion
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (clientId != null) 'client_id': clientId,
       if (mealName != null) 'meal_name': mealName,
       if (mealQuantity != null) 'meal_quantity': mealQuantity,
       if (mealType != null) 'meal_type': mealType,
@@ -2686,6 +2780,7 @@ class FavoriteMealTableCompanion
 
   FavoriteMealTableCompanion copyWith({
     Value<int>? id,
+    Value<String?>? clientId,
     Value<String>? mealName,
     Value<String>? mealQuantity,
     Value<String>? mealType,
@@ -2704,6 +2799,7 @@ class FavoriteMealTableCompanion
   }) {
     return FavoriteMealTableCompanion(
       id: id ?? this.id,
+      clientId: clientId ?? this.clientId,
       mealName: mealName ?? this.mealName,
       mealQuantity: mealQuantity ?? this.mealQuantity,
       mealType: mealType ?? this.mealType,
@@ -2727,6 +2823,9 @@ class FavoriteMealTableCompanion
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
+    }
+    if (clientId.present) {
+      map['client_id'] = Variable<String>(clientId.value);
     }
     if (mealName.present) {
       map['meal_name'] = Variable<String>(mealName.value);
@@ -2780,6 +2879,7 @@ class FavoriteMealTableCompanion
   String toString() {
     return (StringBuffer('FavoriteMealTableCompanion(')
           ..write('id: $id, ')
+          ..write('clientId: $clientId, ')
           ..write('mealName: $mealName, ')
           ..write('mealQuantity: $mealQuantity, ')
           ..write('mealType: $mealType, ')
@@ -2800,6 +2900,587 @@ class FavoriteMealTableCompanion
   }
 }
 
+class $SyncQueueTableTable extends SyncQueueTable
+    with TableInfo<$SyncQueueTableTable, SyncQueueTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SyncQueueTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _opTypeMeta = const VerificationMeta('opType');
+  @override
+  late final GeneratedColumn<int> opType = GeneratedColumn<int>(
+    'op_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _idempotencyKeyMeta = const VerificationMeta(
+    'idempotencyKey',
+  );
+  @override
+  late final GeneratedColumn<String> idempotencyKey = GeneratedColumn<String>(
+    'idempotency_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _payloadMeta = const VerificationMeta(
+    'payload',
+  );
+  @override
+  late final GeneratedColumn<Uint8List> payload = GeneratedColumn<Uint8List>(
+    'payload',
+    aliasedName,
+    false,
+    type: DriftSqlType.blob,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _attemptCountMeta = const VerificationMeta(
+    'attemptCount',
+  );
+  @override
+  late final GeneratedColumn<int> attemptCount = GeneratedColumn<int>(
+    'attempt_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _lastAttemptAtMeta = const VerificationMeta(
+    'lastAttemptAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> lastAttemptAt =
+      GeneratedColumn<DateTime>(
+        'last_attempt_at',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _nextRetryAtMeta = const VerificationMeta(
+    'nextRetryAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> nextRetryAt = GeneratedColumn<DateTime>(
+    'next_retry_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _lastErrorMeta = const VerificationMeta(
+    'lastError',
+  );
+  @override
+  late final GeneratedColumn<String> lastError = GeneratedColumn<String>(
+    'last_error',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    opType,
+    idempotencyKey,
+    payload,
+    attemptCount,
+    createdAt,
+    lastAttemptAt,
+    nextRetryAt,
+    lastError,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'sync_queue_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SyncQueueTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('op_type')) {
+      context.handle(
+        _opTypeMeta,
+        opType.isAcceptableOrUnknown(data['op_type']!, _opTypeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_opTypeMeta);
+    }
+    if (data.containsKey('idempotency_key')) {
+      context.handle(
+        _idempotencyKeyMeta,
+        idempotencyKey.isAcceptableOrUnknown(
+          data['idempotency_key']!,
+          _idempotencyKeyMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_idempotencyKeyMeta);
+    }
+    if (data.containsKey('payload')) {
+      context.handle(
+        _payloadMeta,
+        payload.isAcceptableOrUnknown(data['payload']!, _payloadMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_payloadMeta);
+    }
+    if (data.containsKey('attempt_count')) {
+      context.handle(
+        _attemptCountMeta,
+        attemptCount.isAcceptableOrUnknown(
+          data['attempt_count']!,
+          _attemptCountMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    if (data.containsKey('last_attempt_at')) {
+      context.handle(
+        _lastAttemptAtMeta,
+        lastAttemptAt.isAcceptableOrUnknown(
+          data['last_attempt_at']!,
+          _lastAttemptAtMeta,
+        ),
+      );
+    }
+    if (data.containsKey('next_retry_at')) {
+      context.handle(
+        _nextRetryAtMeta,
+        nextRetryAt.isAcceptableOrUnknown(
+          data['next_retry_at']!,
+          _nextRetryAtMeta,
+        ),
+      );
+    }
+    if (data.containsKey('last_error')) {
+      context.handle(
+        _lastErrorMeta,
+        lastError.isAcceptableOrUnknown(data['last_error']!, _lastErrorMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SyncQueueTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SyncQueueTableData(
+      id:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}id'],
+          )!,
+      opType:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}op_type'],
+          )!,
+      idempotencyKey:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}idempotency_key'],
+          )!,
+      payload:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.blob,
+            data['${effectivePrefix}payload'],
+          )!,
+      attemptCount:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}attempt_count'],
+          )!,
+      createdAt:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}created_at'],
+          )!,
+      lastAttemptAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}last_attempt_at'],
+      ),
+      nextRetryAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}next_retry_at'],
+      ),
+      lastError: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}last_error'],
+      ),
+    );
+  }
+
+  @override
+  $SyncQueueTableTable createAlias(String alias) {
+    return $SyncQueueTableTable(attachedDatabase, alias);
+  }
+}
+
+class SyncQueueTableData extends DataClass
+    implements Insertable<SyncQueueTableData> {
+  final int id;
+  final int opType;
+  final String idempotencyKey;
+  final Uint8List payload;
+  final int attemptCount;
+  final DateTime createdAt;
+  final DateTime? lastAttemptAt;
+  final DateTime? nextRetryAt;
+  final String? lastError;
+  const SyncQueueTableData({
+    required this.id,
+    required this.opType,
+    required this.idempotencyKey,
+    required this.payload,
+    required this.attemptCount,
+    required this.createdAt,
+    this.lastAttemptAt,
+    this.nextRetryAt,
+    this.lastError,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['op_type'] = Variable<int>(opType);
+    map['idempotency_key'] = Variable<String>(idempotencyKey);
+    map['payload'] = Variable<Uint8List>(payload);
+    map['attempt_count'] = Variable<int>(attemptCount);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    if (!nullToAbsent || lastAttemptAt != null) {
+      map['last_attempt_at'] = Variable<DateTime>(lastAttemptAt);
+    }
+    if (!nullToAbsent || nextRetryAt != null) {
+      map['next_retry_at'] = Variable<DateTime>(nextRetryAt);
+    }
+    if (!nullToAbsent || lastError != null) {
+      map['last_error'] = Variable<String>(lastError);
+    }
+    return map;
+  }
+
+  SyncQueueTableCompanion toCompanion(bool nullToAbsent) {
+    return SyncQueueTableCompanion(
+      id: Value(id),
+      opType: Value(opType),
+      idempotencyKey: Value(idempotencyKey),
+      payload: Value(payload),
+      attemptCount: Value(attemptCount),
+      createdAt: Value(createdAt),
+      lastAttemptAt:
+          lastAttemptAt == null && nullToAbsent
+              ? const Value.absent()
+              : Value(lastAttemptAt),
+      nextRetryAt:
+          nextRetryAt == null && nullToAbsent
+              ? const Value.absent()
+              : Value(nextRetryAt),
+      lastError:
+          lastError == null && nullToAbsent
+              ? const Value.absent()
+              : Value(lastError),
+    );
+  }
+
+  factory SyncQueueTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SyncQueueTableData(
+      id: serializer.fromJson<int>(json['id']),
+      opType: serializer.fromJson<int>(json['opType']),
+      idempotencyKey: serializer.fromJson<String>(json['idempotencyKey']),
+      payload: serializer.fromJson<Uint8List>(json['payload']),
+      attemptCount: serializer.fromJson<int>(json['attemptCount']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      lastAttemptAt: serializer.fromJson<DateTime?>(json['lastAttemptAt']),
+      nextRetryAt: serializer.fromJson<DateTime?>(json['nextRetryAt']),
+      lastError: serializer.fromJson<String?>(json['lastError']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'opType': serializer.toJson<int>(opType),
+      'idempotencyKey': serializer.toJson<String>(idempotencyKey),
+      'payload': serializer.toJson<Uint8List>(payload),
+      'attemptCount': serializer.toJson<int>(attemptCount),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'lastAttemptAt': serializer.toJson<DateTime?>(lastAttemptAt),
+      'nextRetryAt': serializer.toJson<DateTime?>(nextRetryAt),
+      'lastError': serializer.toJson<String?>(lastError),
+    };
+  }
+
+  SyncQueueTableData copyWith({
+    int? id,
+    int? opType,
+    String? idempotencyKey,
+    Uint8List? payload,
+    int? attemptCount,
+    DateTime? createdAt,
+    Value<DateTime?> lastAttemptAt = const Value.absent(),
+    Value<DateTime?> nextRetryAt = const Value.absent(),
+    Value<String?> lastError = const Value.absent(),
+  }) => SyncQueueTableData(
+    id: id ?? this.id,
+    opType: opType ?? this.opType,
+    idempotencyKey: idempotencyKey ?? this.idempotencyKey,
+    payload: payload ?? this.payload,
+    attemptCount: attemptCount ?? this.attemptCount,
+    createdAt: createdAt ?? this.createdAt,
+    lastAttemptAt:
+        lastAttemptAt.present ? lastAttemptAt.value : this.lastAttemptAt,
+    nextRetryAt: nextRetryAt.present ? nextRetryAt.value : this.nextRetryAt,
+    lastError: lastError.present ? lastError.value : this.lastError,
+  );
+  SyncQueueTableData copyWithCompanion(SyncQueueTableCompanion data) {
+    return SyncQueueTableData(
+      id: data.id.present ? data.id.value : this.id,
+      opType: data.opType.present ? data.opType.value : this.opType,
+      idempotencyKey:
+          data.idempotencyKey.present
+              ? data.idempotencyKey.value
+              : this.idempotencyKey,
+      payload: data.payload.present ? data.payload.value : this.payload,
+      attemptCount:
+          data.attemptCount.present
+              ? data.attemptCount.value
+              : this.attemptCount,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      lastAttemptAt:
+          data.lastAttemptAt.present
+              ? data.lastAttemptAt.value
+              : this.lastAttemptAt,
+      nextRetryAt:
+          data.nextRetryAt.present ? data.nextRetryAt.value : this.nextRetryAt,
+      lastError: data.lastError.present ? data.lastError.value : this.lastError,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SyncQueueTableData(')
+          ..write('id: $id, ')
+          ..write('opType: $opType, ')
+          ..write('idempotencyKey: $idempotencyKey, ')
+          ..write('payload: $payload, ')
+          ..write('attemptCount: $attemptCount, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('lastAttemptAt: $lastAttemptAt, ')
+          ..write('nextRetryAt: $nextRetryAt, ')
+          ..write('lastError: $lastError')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    opType,
+    idempotencyKey,
+    $driftBlobEquality.hash(payload),
+    attemptCount,
+    createdAt,
+    lastAttemptAt,
+    nextRetryAt,
+    lastError,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SyncQueueTableData &&
+          other.id == this.id &&
+          other.opType == this.opType &&
+          other.idempotencyKey == this.idempotencyKey &&
+          $driftBlobEquality.equals(other.payload, this.payload) &&
+          other.attemptCount == this.attemptCount &&
+          other.createdAt == this.createdAt &&
+          other.lastAttemptAt == this.lastAttemptAt &&
+          other.nextRetryAt == this.nextRetryAt &&
+          other.lastError == this.lastError);
+}
+
+class SyncQueueTableCompanion extends UpdateCompanion<SyncQueueTableData> {
+  final Value<int> id;
+  final Value<int> opType;
+  final Value<String> idempotencyKey;
+  final Value<Uint8List> payload;
+  final Value<int> attemptCount;
+  final Value<DateTime> createdAt;
+  final Value<DateTime?> lastAttemptAt;
+  final Value<DateTime?> nextRetryAt;
+  final Value<String?> lastError;
+  const SyncQueueTableCompanion({
+    this.id = const Value.absent(),
+    this.opType = const Value.absent(),
+    this.idempotencyKey = const Value.absent(),
+    this.payload = const Value.absent(),
+    this.attemptCount = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.lastAttemptAt = const Value.absent(),
+    this.nextRetryAt = const Value.absent(),
+    this.lastError = const Value.absent(),
+  });
+  SyncQueueTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int opType,
+    required String idempotencyKey,
+    required Uint8List payload,
+    this.attemptCount = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.lastAttemptAt = const Value.absent(),
+    this.nextRetryAt = const Value.absent(),
+    this.lastError = const Value.absent(),
+  }) : opType = Value(opType),
+       idempotencyKey = Value(idempotencyKey),
+       payload = Value(payload);
+  static Insertable<SyncQueueTableData> custom({
+    Expression<int>? id,
+    Expression<int>? opType,
+    Expression<String>? idempotencyKey,
+    Expression<Uint8List>? payload,
+    Expression<int>? attemptCount,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? lastAttemptAt,
+    Expression<DateTime>? nextRetryAt,
+    Expression<String>? lastError,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (opType != null) 'op_type': opType,
+      if (idempotencyKey != null) 'idempotency_key': idempotencyKey,
+      if (payload != null) 'payload': payload,
+      if (attemptCount != null) 'attempt_count': attemptCount,
+      if (createdAt != null) 'created_at': createdAt,
+      if (lastAttemptAt != null) 'last_attempt_at': lastAttemptAt,
+      if (nextRetryAt != null) 'next_retry_at': nextRetryAt,
+      if (lastError != null) 'last_error': lastError,
+    });
+  }
+
+  SyncQueueTableCompanion copyWith({
+    Value<int>? id,
+    Value<int>? opType,
+    Value<String>? idempotencyKey,
+    Value<Uint8List>? payload,
+    Value<int>? attemptCount,
+    Value<DateTime>? createdAt,
+    Value<DateTime?>? lastAttemptAt,
+    Value<DateTime?>? nextRetryAt,
+    Value<String?>? lastError,
+  }) {
+    return SyncQueueTableCompanion(
+      id: id ?? this.id,
+      opType: opType ?? this.opType,
+      idempotencyKey: idempotencyKey ?? this.idempotencyKey,
+      payload: payload ?? this.payload,
+      attemptCount: attemptCount ?? this.attemptCount,
+      createdAt: createdAt ?? this.createdAt,
+      lastAttemptAt: lastAttemptAt ?? this.lastAttemptAt,
+      nextRetryAt: nextRetryAt ?? this.nextRetryAt,
+      lastError: lastError ?? this.lastError,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (opType.present) {
+      map['op_type'] = Variable<int>(opType.value);
+    }
+    if (idempotencyKey.present) {
+      map['idempotency_key'] = Variable<String>(idempotencyKey.value);
+    }
+    if (payload.present) {
+      map['payload'] = Variable<Uint8List>(payload.value);
+    }
+    if (attemptCount.present) {
+      map['attempt_count'] = Variable<int>(attemptCount.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (lastAttemptAt.present) {
+      map['last_attempt_at'] = Variable<DateTime>(lastAttemptAt.value);
+    }
+    if (nextRetryAt.present) {
+      map['next_retry_at'] = Variable<DateTime>(nextRetryAt.value);
+    }
+    if (lastError.present) {
+      map['last_error'] = Variable<String>(lastError.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SyncQueueTableCompanion(')
+          ..write('id: $id, ')
+          ..write('opType: $opType, ')
+          ..write('idempotencyKey: $idempotencyKey, ')
+          ..write('payload: $payload, ')
+          ..write('attemptCount: $attemptCount, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('lastAttemptAt: $lastAttemptAt, ')
+          ..write('nextRetryAt: $nextRetryAt, ')
+          ..write('lastError: $lastError')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -2811,6 +3492,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $UserPreferencesTableTable(this);
   late final $FavoriteMealTableTable favoriteMealTable =
       $FavoriteMealTableTable(this);
+  late final $SyncQueueTableTable syncQueueTable = $SyncQueueTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -2820,12 +3502,14 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     userProfileTable,
     userPreferencesTable,
     favoriteMealTable,
+    syncQueueTable,
   ];
 }
 
 typedef $$MealInfoTableTableCreateCompanionBuilder =
     MealInfoTableCompanion Function({
       Value<int> id,
+      Value<String?> clientId,
       required String mealName,
       required String mealQuantity,
       required String mealType,
@@ -2842,6 +3526,7 @@ typedef $$MealInfoTableTableCreateCompanionBuilder =
 typedef $$MealInfoTableTableUpdateCompanionBuilder =
     MealInfoTableCompanion Function({
       Value<int> id,
+      Value<String?> clientId,
       Value<String> mealName,
       Value<String> mealQuantity,
       Value<String> mealType,
@@ -2867,6 +3552,11 @@ class $$MealInfoTableTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get clientId => $composableBuilder(
+    column: $table.clientId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2945,6 +3635,11 @@ class $$MealInfoTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get clientId => $composableBuilder(
+    column: $table.clientId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get mealName => $composableBuilder(
     column: $table.mealName,
     builder: (column) => ColumnOrderings(column),
@@ -3017,6 +3712,9 @@ class $$MealInfoTableTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get clientId =>
+      $composableBuilder(column: $table.clientId, builder: (column) => column);
 
   GeneratedColumn<String> get mealName =>
       $composableBuilder(column: $table.mealName, builder: (column) => column);
@@ -3101,6 +3799,7 @@ class $$MealInfoTableTableTableManager
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
+                Value<String?> clientId = const Value.absent(),
                 Value<String> mealName = const Value.absent(),
                 Value<String> mealQuantity = const Value.absent(),
                 Value<String> mealType = const Value.absent(),
@@ -3115,6 +3814,7 @@ class $$MealInfoTableTableTableManager
                 Value<String?> healthScoreReason = const Value.absent(),
               }) => MealInfoTableCompanion(
                 id: id,
+                clientId: clientId,
                 mealName: mealName,
                 mealQuantity: mealQuantity,
                 mealType: mealType,
@@ -3131,6 +3831,7 @@ class $$MealInfoTableTableTableManager
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
+                Value<String?> clientId = const Value.absent(),
                 required String mealName,
                 required String mealQuantity,
                 required String mealType,
@@ -3145,6 +3846,7 @@ class $$MealInfoTableTableTableManager
                 Value<String?> healthScoreReason = const Value.absent(),
               }) => MealInfoTableCompanion.insert(
                 id: id,
+                clientId: clientId,
                 mealName: mealName,
                 mealQuantity: mealQuantity,
                 mealType: mealType,
@@ -3780,6 +4482,7 @@ typedef $$UserPreferencesTableTableProcessedTableManager =
 typedef $$FavoriteMealTableTableCreateCompanionBuilder =
     FavoriteMealTableCompanion Function({
       Value<int> id,
+      Value<String?> clientId,
       required String mealName,
       required String mealQuantity,
       required String mealType,
@@ -3799,6 +4502,7 @@ typedef $$FavoriteMealTableTableCreateCompanionBuilder =
 typedef $$FavoriteMealTableTableUpdateCompanionBuilder =
     FavoriteMealTableCompanion Function({
       Value<int> id,
+      Value<String?> clientId,
       Value<String> mealName,
       Value<String> mealQuantity,
       Value<String> mealType,
@@ -3827,6 +4531,11 @@ class $$FavoriteMealTableTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get clientId => $composableBuilder(
+    column: $table.clientId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -3920,6 +4629,11 @@ class $$FavoriteMealTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get clientId => $composableBuilder(
+    column: $table.clientId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get mealName => $composableBuilder(
     column: $table.mealName,
     builder: (column) => ColumnOrderings(column),
@@ -4007,6 +4721,9 @@ class $$FavoriteMealTableTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get clientId =>
+      $composableBuilder(column: $table.clientId, builder: (column) => column);
 
   GeneratedColumn<String> get mealName =>
       $composableBuilder(column: $table.mealName, builder: (column) => column);
@@ -4111,6 +4828,7 @@ class $$FavoriteMealTableTableTableManager
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
+                Value<String?> clientId = const Value.absent(),
                 Value<String> mealName = const Value.absent(),
                 Value<String> mealQuantity = const Value.absent(),
                 Value<String> mealType = const Value.absent(),
@@ -4128,6 +4846,7 @@ class $$FavoriteMealTableTableTableManager
                 Value<DateTime?> lastUsedAt = const Value.absent(),
               }) => FavoriteMealTableCompanion(
                 id: id,
+                clientId: clientId,
                 mealName: mealName,
                 mealQuantity: mealQuantity,
                 mealType: mealType,
@@ -4147,6 +4866,7 @@ class $$FavoriteMealTableTableTableManager
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
+                Value<String?> clientId = const Value.absent(),
                 required String mealName,
                 required String mealQuantity,
                 required String mealType,
@@ -4164,6 +4884,7 @@ class $$FavoriteMealTableTableTableManager
                 Value<DateTime?> lastUsedAt = const Value.absent(),
               }) => FavoriteMealTableCompanion.insert(
                 id: id,
+                clientId: clientId,
                 mealName: mealName,
                 mealQuantity: mealQuantity,
                 mealType: mealType,
@@ -4216,6 +4937,301 @@ typedef $$FavoriteMealTableTableProcessedTableManager =
       FavoriteMealTableData,
       PrefetchHooks Function()
     >;
+typedef $$SyncQueueTableTableCreateCompanionBuilder =
+    SyncQueueTableCompanion Function({
+      Value<int> id,
+      required int opType,
+      required String idempotencyKey,
+      required Uint8List payload,
+      Value<int> attemptCount,
+      Value<DateTime> createdAt,
+      Value<DateTime?> lastAttemptAt,
+      Value<DateTime?> nextRetryAt,
+      Value<String?> lastError,
+    });
+typedef $$SyncQueueTableTableUpdateCompanionBuilder =
+    SyncQueueTableCompanion Function({
+      Value<int> id,
+      Value<int> opType,
+      Value<String> idempotencyKey,
+      Value<Uint8List> payload,
+      Value<int> attemptCount,
+      Value<DateTime> createdAt,
+      Value<DateTime?> lastAttemptAt,
+      Value<DateTime?> nextRetryAt,
+      Value<String?> lastError,
+    });
+
+class $$SyncQueueTableTableFilterComposer
+    extends Composer<_$AppDatabase, $SyncQueueTableTable> {
+  $$SyncQueueTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get opType => $composableBuilder(
+    column: $table.opType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<Uint8List> get payload => $composableBuilder(
+    column: $table.payload,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get attemptCount => $composableBuilder(
+    column: $table.attemptCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get lastAttemptAt => $composableBuilder(
+    column: $table.lastAttemptAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get nextRetryAt => $composableBuilder(
+    column: $table.nextRetryAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get lastError => $composableBuilder(
+    column: $table.lastError,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$SyncQueueTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $SyncQueueTableTable> {
+  $$SyncQueueTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get opType => $composableBuilder(
+    column: $table.opType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<Uint8List> get payload => $composableBuilder(
+    column: $table.payload,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get attemptCount => $composableBuilder(
+    column: $table.attemptCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get lastAttemptAt => $composableBuilder(
+    column: $table.lastAttemptAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get nextRetryAt => $composableBuilder(
+    column: $table.nextRetryAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get lastError => $composableBuilder(
+    column: $table.lastError,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$SyncQueueTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SyncQueueTableTable> {
+  $$SyncQueueTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get opType =>
+      $composableBuilder(column: $table.opType, builder: (column) => column);
+
+  GeneratedColumn<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<Uint8List> get payload =>
+      $composableBuilder(column: $table.payload, builder: (column) => column);
+
+  GeneratedColumn<int> get attemptCount => $composableBuilder(
+    column: $table.attemptCount,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastAttemptAt => $composableBuilder(
+    column: $table.lastAttemptAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get nextRetryAt => $composableBuilder(
+    column: $table.nextRetryAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get lastError =>
+      $composableBuilder(column: $table.lastError, builder: (column) => column);
+}
+
+class $$SyncQueueTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SyncQueueTableTable,
+          SyncQueueTableData,
+          $$SyncQueueTableTableFilterComposer,
+          $$SyncQueueTableTableOrderingComposer,
+          $$SyncQueueTableTableAnnotationComposer,
+          $$SyncQueueTableTableCreateCompanionBuilder,
+          $$SyncQueueTableTableUpdateCompanionBuilder,
+          (
+            SyncQueueTableData,
+            BaseReferences<
+              _$AppDatabase,
+              $SyncQueueTableTable,
+              SyncQueueTableData
+            >,
+          ),
+          SyncQueueTableData,
+          PrefetchHooks Function()
+        > {
+  $$SyncQueueTableTableTableManager(
+    _$AppDatabase db,
+    $SyncQueueTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer:
+              () => $$SyncQueueTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer:
+              () =>
+                  $$SyncQueueTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer:
+              () => $$SyncQueueTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> opType = const Value.absent(),
+                Value<String> idempotencyKey = const Value.absent(),
+                Value<Uint8List> payload = const Value.absent(),
+                Value<int> attemptCount = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime?> lastAttemptAt = const Value.absent(),
+                Value<DateTime?> nextRetryAt = const Value.absent(),
+                Value<String?> lastError = const Value.absent(),
+              }) => SyncQueueTableCompanion(
+                id: id,
+                opType: opType,
+                idempotencyKey: idempotencyKey,
+                payload: payload,
+                attemptCount: attemptCount,
+                createdAt: createdAt,
+                lastAttemptAt: lastAttemptAt,
+                nextRetryAt: nextRetryAt,
+                lastError: lastError,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int opType,
+                required String idempotencyKey,
+                required Uint8List payload,
+                Value<int> attemptCount = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime?> lastAttemptAt = const Value.absent(),
+                Value<DateTime?> nextRetryAt = const Value.absent(),
+                Value<String?> lastError = const Value.absent(),
+              }) => SyncQueueTableCompanion.insert(
+                id: id,
+                opType: opType,
+                idempotencyKey: idempotencyKey,
+                payload: payload,
+                attemptCount: attemptCount,
+                createdAt: createdAt,
+                lastAttemptAt: lastAttemptAt,
+                nextRetryAt: nextRetryAt,
+                lastError: lastError,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$SyncQueueTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SyncQueueTableTable,
+      SyncQueueTableData,
+      $$SyncQueueTableTableFilterComposer,
+      $$SyncQueueTableTableOrderingComposer,
+      $$SyncQueueTableTableAnnotationComposer,
+      $$SyncQueueTableTableCreateCompanionBuilder,
+      $$SyncQueueTableTableUpdateCompanionBuilder,
+      (
+        SyncQueueTableData,
+        BaseReferences<_$AppDatabase, $SyncQueueTableTable, SyncQueueTableData>,
+      ),
+      SyncQueueTableData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -4228,4 +5244,6 @@ class $AppDatabaseManager {
       $$UserPreferencesTableTableTableManager(_db, _db.userPreferencesTable);
   $$FavoriteMealTableTableTableManager get favoriteMealTable =>
       $$FavoriteMealTableTableTableManager(_db, _db.favoriteMealTable);
+  $$SyncQueueTableTableTableManager get syncQueueTable =>
+      $$SyncQueueTableTableTableManager(_db, _db.syncQueueTable);
 }

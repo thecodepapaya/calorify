@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.config import settings
-from app.api.v1 import food_analysis, users, meals
+from app.api.v1 import food_analysis, users, meals, sync
 from app.middleware.logging import RequestLoggingMiddleware
 from app.cron.scheduler import start_scheduler, stop_scheduler, scheduler
 from app.cron.jobs.example_job import send_daily_reminders
@@ -56,3 +56,4 @@ async def health_check():
 app.include_router(food_analysis.router, prefix=f"{settings.API_V1_STR}/food", tags=["food"])
 app.include_router(users.router, prefix=f"{settings.API_V1_STR}/users", tags=["users"])
 app.include_router(meals.router, prefix=f"{settings.API_V1_STR}/meals", tags=["meals"])
+app.include_router(sync.router, prefix=f"{settings.API_V1_STR}/sync", tags=["sync"])

@@ -88,7 +88,7 @@ class WearOsService {
 
   Future<Map<String, dynamic>> _handleMealLog(Map<String, dynamic> data) async {
     try {
-      final meal = MealInfo.fromJson(data);
+      final meal = mealInfoFromLegacyJson(data);
       await DatabaseService.databaseInterface.logMeal(meal);
       return {'success': true};
     } catch (e) {
@@ -106,7 +106,7 @@ class WearOsService {
 
       return {
         'success': true,
-        'meals': meals.map((meal) => meal.toJson()).toList(),
+        'meals': meals.map(mealInfoToLegacyJson).toList(),
       };
     } catch (e) {
       debugPrint('Error getting today\'s meals: $e');
@@ -132,7 +132,7 @@ class WearOsService {
     try {
       final profile = await DatabaseService.databaseInterface.getUserProfile();
       if (profile != null) {
-        return {'success': true, 'profile': profile.toJson()};
+        return {'success': true, 'profile': userProfileToLegacyJson(profile)};
       }
       return {'success': false, 'error': 'Profile not found'};
     } catch (e) {

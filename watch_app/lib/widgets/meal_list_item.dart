@@ -1,10 +1,11 @@
-import 'package:models/models.dart';
-import 'package:utils/utils.dart';
-import 'package:specs/specs.dart';
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'dart:math' as math;
+import 'package:models/models.dart';
+import 'package:specs/specs.dart';
 
 class MealListItem extends StatefulWidget {
   final MealInfo meal;
@@ -66,13 +67,18 @@ class _MealListItemState extends State<MealListItem>
     super.dispose();
   }
 
+  String _formatTimestamp(DateTime? dateTime) {
+    if (dateTime == null) return '--:--';
+    return DateFormat('HH:mm').format(dateTime);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final mealName = widget.meal.mealName;
     final calories = widget.meal.calories;
-    final timestamp = widget.meal.timestamp.formatted;
+    final timestamp = _formatTimestamp(widget.meal.timestampDateTime);
     final protein = widget.meal.protein;
     final carbs = widget.meal.carbs;
     final fat = widget.meal.fat;
@@ -120,7 +126,9 @@ class _MealListItemState extends State<MealListItem>
                           child: Container(
                             padding: const EdgeInsets.all(6),
                             decoration: BoxDecoration(
-                              color: colorScheme.primaryContainer.withValues(alpha: 0.3),
+                              color: colorScheme.primaryContainer.withValues(
+                                alpha: 0.3,
+                              ),
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Icon(
@@ -158,7 +166,8 @@ class _MealListItemState extends State<MealListItem>
                                 Icon(
                                   LucideIcons.clock,
                                   size: 10,
-                                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+                                  color: colorScheme.onSurfaceVariant
+                                      .withValues(alpha: 0.6),
                                 ),
                                 const SizedBox(width: 2),
                                 Text(
@@ -269,11 +278,7 @@ class _MacroBadge extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          icon,
-          size: 9,
-          color: color.withValues(alpha: 0.8),
-        ),
+        Icon(icon, size: 9, color: color.withValues(alpha: 0.8)),
         const SizedBox(width: 2),
         Text(
           '$value',

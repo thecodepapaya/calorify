@@ -26,4 +26,13 @@ class EnvConfig {
         return '';
     }
   }
+
+  String get apiBaseUrl {
+    switch (flavor) {
+      case Flavor.staging:
+        return 'https://staging-api-calorify.thecodepapaya.dev';
+      case Flavor.prod:
+        return 'https://api-calorify.thecodepapaya.dev';
+    }
+  }
 }

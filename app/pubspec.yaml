@@ -53,6 +53,10 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.33
   path_provider: ^2.1.5
   path: ^1.9.1
+  dio: ^5.7.0
+  pretty_dio_logger: ^1.4.0
+  measure_dio: ^0.3.0
+  uuid: ^4.5.1
   intl: ^0.20.2
   json_annotation: ^4.9.0
   auto_route: ^11.1.0

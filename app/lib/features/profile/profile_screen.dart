@@ -166,7 +166,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildPersonalDetailsTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final gender = _userProfile!.gender?.displayName ?? t.profile.notSet;
+    final gender =
+        _userProfile!.hasGender()
+            ? _userProfile!.gender.displayName
+            : t.profile.notSet;
 
     return ListTile(
       leading: Container(
@@ -188,8 +191,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildHeightTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final height = _userProfile!.height;
-    final heightUnit = _userProfile!.heightUnit;
+    final height = _userProfile!.hasHeight() ? _userProfile!.height : null;
+    final heightUnit = _userProfile!.heightUnit.normalized;
 
     String heightText = t.profile.notSet;
     if (height != null) {
@@ -216,8 +219,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildWeightTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final weight = _userProfile!.weight;
-    final weightUnit = _userProfile!.weightUnit;
+    final weight = _userProfile!.hasWeight() ? _userProfile!.weight : null;
+    final weightUnit = _userProfile!.weightUnit.normalized;
 
     String weightText = t.profile.notSet;
     if (weight != null) {
@@ -265,7 +268,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildWeightGoalTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final weightGoal = _userProfile!.weightGoal;
+    final weightGoal =
+        _userProfile!.hasWeightGoal() ? _userProfile!.weightGoal : null;
 
     return ListTile(
       leading: Container(
@@ -287,7 +291,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildActivityLevelTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final activityLevel = _userProfile!.activityLevel;
+    final activityLevel =
+        _userProfile!.hasActivityLevel() ? _userProfile!.activityLevel : null;
 
     return ListTile(
       leading: Container(

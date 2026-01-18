@@ -15,11 +15,12 @@ class MealTypeIndicator extends StatelessWidget {
     final TextTheme textTheme = theme.textTheme;
 
     final icon = switch (mealType) {
-      MealType.breakfast => LucideIcons.eggFried,
-      MealType.lunch => LucideIcons.sandwich,
-      MealType.dinner => LucideIcons.soup,
-      MealType.snack => LucideIcons.cookie,
-      MealType.unknown => LucideIcons.utensils,
+      MealType.BREAKFAST => LucideIcons.eggFried,
+      MealType.LUNCH => LucideIcons.sandwich,
+      MealType.DINNER => LucideIcons.soup,
+      MealType.SNACK => LucideIcons.cookie,
+      MealType.UNKNOWN => LucideIcons.utensils,
+      _ => LucideIcons.utensils,
     };
 
     return Row(

@@ -49,22 +49,20 @@ class FavoriteMealMock {
       carbs: sourceMeal.carbs,
       fat: sourceMeal.fat,
       fiber: sourceMeal.fiber,
-      timestamp: DateTime.now(), // Current time when favorited
-      imageUrl: sourceMeal.imageUrl,
-      healthScore: sourceMeal.healthScore,
-      healthScoreReason: sourceMeal.healthScoreReason,
+      timestamp: dateTimeToTimestamp(DateTime.now()),
+      imageUrl: sourceMeal.hasImageUrl() ? sourceMeal.imageUrl : null,
+      healthScore: sourceMeal.hasHealthScore() ? sourceMeal.healthScore : null,
+      healthScoreReason:
+          sourceMeal.hasHealthScoreReason()
+              ? sourceMeal.healthScoreReason
+              : null,
     );
   }
 
   /// Generates a collection of popular favorite meals
   static List<MealInfo> generatePopularFavorites({int count = 10}) {
     final favorites = <MealInfo>[];
-    final mealTypes = [
-      MealType.breakfast,
-      MealType.lunch,
-      MealType.dinner,
-      MealType.snack,
-    ];
+    final mealTypes = mealTypeValues;
 
     for (int i = 0; i < count; i++) {
       final type = mealTypes[i % mealTypes.length];
@@ -117,22 +115,22 @@ class FavoriteMealMock {
 
     // Breakfast favorites
     favorites.addAll(
-      generateFavoritesForType(MealType.breakfast, count: breakfastCount),
+      generateFavoritesForType(MealType.BREAKFAST, count: breakfastCount),
     );
 
     // Lunch favorites
     favorites.addAll(
-      generateFavoritesForType(MealType.lunch, count: lunchCount),
+      generateFavoritesForType(MealType.LUNCH, count: lunchCount),
     );
 
     // Dinner favorites
     favorites.addAll(
-      generateFavoritesForType(MealType.dinner, count: dinnerCount),
+      generateFavoritesForType(MealType.DINNER, count: dinnerCount),
     );
 
     // Snack favorites
     favorites.addAll(
-      generateFavoritesForType(MealType.snack, count: snackCount),
+      generateFavoritesForType(MealType.SNACK, count: snackCount),
     );
 
     return favorites;
@@ -150,7 +148,7 @@ class FavoriteMealMock {
     // Note: lastUsedAt parameter is available for future use in database operations
 
     for (int i = 0; i < totalCount; i++) {
-      final type = MealType.values[i % MealType.values.length];
+      final type = mealTypeValues[i % mealTypeValues.length];
       final mealName = _getPopularMealName(type);
 
       final baseMeal = MealInfoMock.generateSingle(
@@ -174,7 +172,7 @@ class FavoriteMealMock {
     int count = 20,
     List<MealType>? mealTypes,
   }) {
-    final types = mealTypes ?? MealType.values;
+    final types = mealTypes ?? mealTypeValues;
     final favorites = <MealInfo>[];
 
     for (int i = 0; i < count; i++) {
@@ -200,11 +198,17 @@ class FavoriteMealMock {
 
   static List<String> _getPopularNamesForType(MealType type) {
     return switch (type) {
-      MealType.breakfast => _popularBreakfastFavorites,
-      MealType.lunch => _popularLunchFavorites,
-      MealType.dinner => _popularDinnerFavorites,
-      MealType.snack => _popularSnackFavorites,
-      MealType.unknown => [
+      MealType.BREAKFAST => _popularBreakfastFavorites,
+      MealType.LUNCH => _popularLunchFavorites,
+      MealType.DINNER => _popularDinnerFavorites,
+      MealType.SNACK => _popularSnackFavorites,
+      MealType.UNKNOWN => [
+        ..._popularBreakfastFavorites,
+        ..._popularLunchFavorites,
+        ..._popularDinnerFavorites,
+        ..._popularSnackFavorites,
+      ],
+      _ => [
         ..._popularBreakfastFavorites,
         ..._popularLunchFavorites,
         ..._popularDinnerFavorites,

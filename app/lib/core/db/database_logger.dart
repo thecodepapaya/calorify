@@ -50,9 +50,9 @@ class DatabaseLogger implements DatabaseInterface {
   @override
   Future<void> saveUserProfile(UserProfile profile) async {
     await _logWrite('user_profile', 'saveUserProfile', {
-      'hasHeight': profile.height != null,
-      'hasWeight': profile.weight != null,
-      'hasGender': profile.gender != null,
+      'hasHeight': profile.hasHeight(),
+      'hasWeight': profile.hasWeight(),
+      'hasGender': profile.hasGender(),
     }, () => _delegate.saveUserProfile(profile));
   }
 
@@ -104,7 +104,7 @@ class DatabaseLogger implements DatabaseInterface {
   @override
   Future<void> logMeal(MealInfo mealInfo) async {
     await _logWrite('meal_info', 'logMeal', {
-      'id': mealInfo.id,
+      'id': mealInfo.localIdValue,
       'name': mealInfo.mealName,
       'calories': mealInfo.calories,
     }, () => _delegate.logMeal(mealInfo));
@@ -113,7 +113,7 @@ class DatabaseLogger implements DatabaseInterface {
   @override
   Future<void> upsertMeal(MealInfo mealInfo) async {
     await _logWrite('meal_info', 'upsertMeal', {
-      'id': mealInfo.id,
+      'id': mealInfo.localIdValue,
       'name': mealInfo.mealName,
       'calories': mealInfo.calories,
     }, () => _delegate.upsertMeal(mealInfo));
@@ -124,6 +124,15 @@ class DatabaseLogger implements DatabaseInterface {
     await _logWrite('meal_info', 'deleteMeal', {
       'mealId': mealId,
     }, () => _delegate.deleteMeal(mealId));
+  }
+
+  @override
+  Future<MealInfo?> getMealById(int mealId) async {
+    return _logRead(
+      'meal_info',
+      'getMealById',
+      () => _delegate.getMealById(mealId),
+    );
   }
 
   @override
@@ -159,9 +168,9 @@ class DatabaseLogger implements DatabaseInterface {
   @override
   Future<void> addToFavorites(MealInfo mealInfo) async {
     await _logWrite('favorite_meal', 'addToFavorites', {
-      'id': mealInfo.id,
+      'id': mealInfo.localIdValue,
       'name': mealInfo.mealName,
-      'sourceMealId': mealInfo.id,
+      'sourceMealId': mealInfo.localIdValue,
     }, () => _delegate.addToFavorites(mealInfo));
   }
 

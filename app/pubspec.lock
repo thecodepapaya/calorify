@@ -353,6 +353,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.3"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      sha256: d90ee57923d1828ac14e492ca49440f65477f4bb1263575900be731a3dac66a9
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.9.0"
+  dio_web_adapter:
+    dependency: transitive
+    description:
+      name: dio_web_adapter
+      sha256: "7586e476d70caecaf1686d21eee7247ea43ef5c345eab9e0cc3583ff13378d78"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   drift:
     dependency: "direct main"
     description:
@@ -1139,6 +1155,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.11.1"
+  measure_dio:
+    dependency: "direct main"
+    description:
+      name: measure_dio
+      sha256: "8a0d6d2ad90f10caa5fda32d8c98ab3eea5e01a08e5b5782415a9e89dede21d7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   measure_flutter:
     dependency: "direct main"
     description:
@@ -1402,6 +1426,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.3"
+  pretty_dio_logger:
+    dependency: "direct main"
+    description:
+      name: pretty_dio_logger
+      sha256: "36f2101299786d567869493e2f5731de61ce130faa14679473b26905a92b6407"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
   process:
     dependency: transitive
     description:
@@ -1410,6 +1442,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.5"
+  protobuf:
+    dependency: transitive
+    description:
+      name: protobuf
+      sha256: de9c9eb2c33f8e933a42932fe1dc504800ca45ebc3d673e6ed7f39754ee4053e
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.0"
   pub_semver:
     dependency: transitive
     description:
@@ -1805,7 +1845,7 @@ packages:
     source: path
     version: "1.2.1"
   uuid:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: uuid
       sha256: a11b666489b1954e01d992f3d601b1804a33937b5a8fe677bd26b8a9f96f96e8

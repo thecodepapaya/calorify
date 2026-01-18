@@ -254,7 +254,9 @@ class _ShowGoal extends StatelessWidget {
             builder: (context, profileSnapshot) {
               // Default to metric if profile not available
               final weightUnit =
-                  profileSnapshot.data?.weightUnit ?? UnitSystem.metric;
+                  profileSnapshot.data != null
+                      ? profileSnapshot.data!.weightUnit.normalized
+                      : UnitSystem.METRIC;
               final formattedWeightChange = LocaleUtils.formatWeightChange(
                 weightChangeGrams,
                 weightUnit,
