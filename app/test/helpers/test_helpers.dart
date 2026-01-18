@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 class MockStackRouter extends Mock implements StackRouter {}
 

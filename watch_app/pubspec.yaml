@@ -33,13 +33,13 @@ dependencies:
   
   # UI and charts
   fl_chart: ^1.0.0
-  google_fonts: ^6.2.1
+  google_fonts: ^7.0.2
   lucide_icons_flutter: ^3.1.1
-  auto_route: ^10.1.2
+  auto_route: ^11.1.0
   
   # State management
-  flutter_riverpod: ^2.6.1
-  riverpod_annotation: ^2.6.1
+  flutter_riverpod: ^3.1.0
+  riverpod_annotation: ^4.0.0
   
   # Firebase (for food analysis)
   firebase_core: ^4.1.1
@@ -51,7 +51,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
   build_runner: ^2.4.15
-  riverpod_generator: ^2.6.3
+  riverpod_generator: ^4.0.0+1
   auto_route_generator: ^10.1.0
 
 flutter:
