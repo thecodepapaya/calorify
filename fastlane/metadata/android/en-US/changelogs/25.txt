@@ -1,0 +1,10 @@
+AI-powered calorie tracking. Snap photos or describe meals for instant nutritional analysis.
+
+What's New:
+• About Us section in settings
+• Dark theme support
+• Support for more languages
+• Health Connect in settings
+• Stability and bug fixes
+
+🔒 Privacy-first: No accounts required.
