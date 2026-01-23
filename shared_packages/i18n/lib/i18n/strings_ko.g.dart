@@ -184,6 +184,7 @@ class _TranslationsProfileKo implements TranslationsProfileEn {
 	@override String get weight => '체중';
 	@override String get age => '나이';
 	@override String get weightGoal => '체중 목표';
+	@override String get targetWeight => '목표 체중';
 	@override String get activityLevel => '활동 수준';
 	@override String get healthMetrics => '건강 지표';
 	@override String get notSet => '설정되지 않음';
@@ -252,6 +253,8 @@ class _TranslationsSettingsKo implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataKo clearAllData = _TranslationsSettingsClearAllDataKo._(_root);
 	@override late final _TranslationsSettingsDebugOptionsKo debugOptions = _TranslationsSettingsDebugOptionsKo._(_root);
 	@override String get developerModeEnabled => '개발자 모드가 활성화되었습니다!';
+	@override late final _TranslationsSettingsHealthConnectKo healthConnect = _TranslationsSettingsHealthConnectKo._(_root);
+	@override late final _TranslationsSettingsAboutKo about = _TranslationsSettingsAboutKo._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerKo implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => '참고하세요';
 	@override late final _TranslationsDisclaimerSnapKo snap = _TranslationsDisclaimerSnapKo._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateKo weightEstimate = _TranslationsDisclaimerWeightEstimateKo._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsKo healthMetrics = _TranslationsDisclaimerHealthMetricsKo._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsKo implements TranslationsSettingsSectionsEn 
 	@override String get profile => '프로필';
 	@override String get localization => '지역화';
 	@override String get notifications => '알림';
+	@override String get healthConnect => '건강 연결';
 	@override String get supportAndLegal => '지원 및 법률';
+	@override String get about => '소개';
 	@override String get dangerZone => '위험 지역';
 	@override String get developer => '개발자';
 }
@@ -895,6 +901,37 @@ class _TranslationsSettingsDebugOptionsKo implements TranslationsSettingsDebugOp
 	@override String get title => '디버그 옵션';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectKo implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '건강 연결';
+	@override String get subtitle => '권한 보기 및 관리';
+	@override late final _TranslationsSettingsHealthConnectUnavailableKo unavailable = _TranslationsSettingsHealthConnectUnavailableKo._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsKo permissions = _TranslationsSettingsHealthConnectPermissionsKo._(_root);
+	@override String get managePermissions => '권한 관리';
+	@override String get openSettings => '헬스 커넥트 설정 열기';
+	@override String get requestPermissions => '권한 요청하기';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutKo implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '소개';
+	@override String get tagline => '빠르고 무료이며 개인 정보 보호를 우선시하는 칼로리 인식';
+	@override late final _TranslationsSettingsAboutOurStoryKo ourStory = _TranslationsSettingsAboutOurStoryKo._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyKo privacy = _TranslationsSettingsAboutPrivacyKo._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperKo developer = _TranslationsSettingsAboutDeveloperKo._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackKo feedback = _TranslationsSettingsAboutFeedbackKo._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastKo implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastKo._(this._root);
@@ -976,6 +1013,19 @@ class _TranslationsDisclaimerWeightEstimateKo implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsKo biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsKo._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightKo waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightKo._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceKo professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceKo._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsKo implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '이 측정치는 귀하의 신체 에너지 필요성을 이해하고 영양 목표를 안내하는 데 도움이 됩니다.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrKo bmr = _TranslationsDisclaimerHealthMetricsBmrKo._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeKo tdee = _TranslationsDisclaimerHealthMetricsTdeeKo._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalKo dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalKo._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1274,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveKo implements Transla
 	@override String get description => '매우 힘든 운동, 육체 노동.';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableKo implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '건강 연결 사용 불가능';
+	@override String get description => '이 장치에서는 건강 연결을 사용할 수 없습니다. Android 14 이상이 필요합니다.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsKo implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '권한';
+	@override String get description => '건강 연결 통합을 제공하기 위해 요청되는 권한은 다음과 같습니다:';
+	@override String get granted => '허용됨';
+	@override String get notGranted => '허용되지 않음';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedKo caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedKo._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadKo nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadKo._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteKo nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteKo._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryKo implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '우리의 이야기';
+	@override String content({required Object appLabel}) => '${appLabel}는 단순한 불만에서 탄생했습니다: 대부분의 칼로리 추적 앱은 지나치게 복잡하거나, 지속적인 수동 입력을 요구하거나, 높은 구독 비용을 부과하거나, 개인 정보를 침해합니다.\n\n인디 개발자로서, 저는 더 간단하고 공정한 것을 만들고 싶었습니다 — 노력을 줄이고, 빠르고 무료로 사용할 수 있으며, 귀하의 건강 데이터를 존중하는 AI를 사용하는 앱입니다.\n\n${appLabel}는 제가 존재하였으면 하는 앱입니다: 계정 없이, 추적 없이, 광고 없이 — 단순한 실제 통찰과 귀하의 건강 목표만을 제공합니다.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyKo implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '귀하의 개인 정보가 중요합니다';
+	@override String get description => '개인 정보는 후순위가 아니라 — 디자인 원칙입니다. 실제로 이 의미는 다음과 같습니다:';
+	@override String get noAccounts => '계정 없음\n앱을 즉시 사용하세요. 가입, 신원 확인 필요 없음.';
+	@override String noTracking({required Object appLabel}) => '행동 추적 없음\n${appLabel}는 귀하의 활동을 모니터링하거나, 사용 프로필을 만들거나, 앱이나 웹사이트에서 귀하를 추적하지 않습니다.';
+	@override String noAds({required Object appLabel}) => '광고 없음, 디자인으로도\n${appLabel}는 광고 없이, 데이터 기반 수익 모델 없이 작동하도록 설계되었습니다.';
+	@override String get noDataSelling => '데이터 판매 없음\n귀하의 건강 데이터는 절대 판매되거나 제3자와 공유되지 않습니다.';
+	@override String get localStorage => '로컬 우선 저장소\n귀하의 데이터는 귀하의 장치에만 저장됩니다.';
+	@override String get privacyPolicy => '개인정보 처리방침';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperKo implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '인디 개발자가 만든 앱';
+	@override String description({required Object appLabel}) => '${appLabel}는 개인의 편안함과 개인 정보 보호를 존중하는 건강 소프트웨어를 만드는 데 집중하는 단 한 명의 인디 개발자가 운영하고 있습니다.\n\n피드백은 직접 읽으며 앱의 방향성을 형성하는 데 도움을 줍니다.';
+	@override String get website => '웹사이트';
+	@override String get email => '이메일';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackKo implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => '${appLabel}를 좋아하시나요?';
+	@override String description({required Object appLabel}) => '귀하의 피드백은 ${appLabel}를 모두에게 더 좋게 만드는데 도움이 됩니다.';
+	@override String get rateApp => '플레이 스토어에서 평가하기';
+	@override String get sendFeedback => '피드백 보내기';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeKo implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeKo._(this._root);
@@ -1310,6 +1441,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceKo implements Tra
 	// Translations
 	@override String get title => '전문가의 조언';
 	@override String get description => '이 추정치를 의료 결정에 사용하지 마세요. 항상 의료 전문가나 등록된 영양사와 상담하여 개인화된 체중 관리 조언을 받으세요.';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrKo implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'BMR';
+	@override String get description => '기초 대사율(BMR)은 호흡 및 순환과 같은 기본 기능을 유지하기 위해 신체가 휴식 중에 소모하는 칼로리의 수입니다. BMR은 귀하의 나이, 성별, 키 및 체중에 따라 달라집니다. BMR이 높을수록 신체가 자연적으로 더 많은 칼로리를 태우며, 이는 일반적으로 근육량이 많거나 나이가 어리거나 남성인 경우에 해당합니다. 반면 BMR이 낮은 경우는 일반적으로 근육량이 적거나 나이가 많거나 여성인 경우를 나타냅니다.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeKo implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TDEE';
+	@override String get description => '총 일일 에너지 소비(TDEE)는 BMR에 신체 활동 및 일상적인 움직임에서 소모된 칼로리를 더한 하루 동안 소모하는 총 칼로리입니다. TDEE는 귀하의 BMR과 활동 수준에 따라 달라집니다. TDEE가 높을수록 일반적으로 더 많은 칼로리를 소모하며 이는 더 활동적이거나 BMR이 높은 경우가 많습니다. TDEE가 낮은 경우는 일상적인 활동이 적거나 BMR이 낮다는 것을 나타냅니다.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalKo implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '일일 목표';
+	@override String get description => '일일 목표는 귀하의 TDEE와 체중 목표에 기반한 추천 일일 칼로리 섭취량입니다. 체중 감소를 위해서는 TDEE보다 적은 칼로리를 섭취합니다. 체중 유지를 위해서는 TDEE와 일치시킵니다. 체중 증가를 위해서는 TDEE보다 더 많은 칼로리를 섭취합니다. 이는 건강한 속도로 원하는 체중 변화를 달성하는 데 도움이 됩니다.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedKo implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '소모된 총 칼로리 읽기';
+	@override String get description => '앱이 건강 연결에서 소모된 총 칼로리를 읽을 수 있도록 허용합니다.';
+	@override String get usage => '이 권한은 앱에서 사용자의 일일 칼로리 소모량을 표시하는 데 사용되며, 하루 동안의 총 에너지 소비를 이해하는 데 도움이 됩니다.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadKo implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '영양 데이터 읽기';
+	@override String get description => '앱이 건강 연결에서 영양 데이터를 읽을 수 있도록 허용합니다.';
+	@override String get usage => '이 권한을 통해 앱은 건강 연결에 연결된 다른 앱에서 기록된 영양 정보를 읽을 수 있으며, 영양에 대한 포괄적인 정보를 제공합니다.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteKo implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '영양 데이터 쓰기';
+	@override String get description => '앱이 건강 연결에 영양 데이터를 쓸 수 있도록 허용합니다.';
+	@override String get usage => '이 권한을 통해 앱은 사용자가 기록한 식사를 건강 연결에 동기화하여, 사용자가 사용하는 다른 건강 및 피트니스 앱에서 영양 데이터를 사용할 수 있도록 합니다.';
 }
 
 /// The flat map containing all translations for locale <ko>.
@@ -1506,6 +1706,7 @@ extension on TranslationsKo {
 			'profile.weight' => '체중',
 			'profile.age' => '나이',
 			'profile.weightGoal' => '체중 목표',
+			'profile.targetWeight' => '목표 체중',
 			'profile.activityLevel' => '활동 수준',
 			'profile.healthMetrics' => '건강 지표',
 			'profile.notSet' => '설정되지 않음',
@@ -1561,7 +1762,9 @@ extension on TranslationsKo {
 			'settings.sections.profile' => '프로필',
 			'settings.sections.localization' => '지역화',
 			'settings.sections.notifications' => '알림',
+			'settings.sections.healthConnect' => '건강 연결',
 			'settings.sections.supportAndLegal' => '지원 및 법률',
+			'settings.sections.about' => '소개',
 			'settings.sections.dangerZone' => '위험 지역',
 			'settings.sections.developer' => '개발자',
 			'settings.editProfile.title' => '프로필 수정',
@@ -1594,6 +1797,46 @@ extension on TranslationsKo {
 			'settings.clearAllData.clearEverything' => '모두 지우기',
 			'settings.debugOptions.title' => '디버그 옵션',
 			'settings.developerModeEnabled' => '개발자 모드가 활성화되었습니다!',
+			'settings.healthConnect.title' => '건강 연결',
+			'settings.healthConnect.subtitle' => '권한 보기 및 관리',
+			'settings.healthConnect.unavailable.title' => '건강 연결 사용 불가능',
+			'settings.healthConnect.unavailable.description' => '이 장치에서는 건강 연결을 사용할 수 없습니다. Android 14 이상이 필요합니다.',
+			'settings.healthConnect.permissions.title' => '권한',
+			'settings.healthConnect.permissions.description' => '건강 연결 통합을 제공하기 위해 요청되는 권한은 다음과 같습니다:',
+			'settings.healthConnect.permissions.granted' => '허용됨',
+			'settings.healthConnect.permissions.notGranted' => '허용되지 않음',
+			'settings.healthConnect.permissions.caloriesBurned.title' => '소모된 총 칼로리 읽기',
+			'settings.healthConnect.permissions.caloriesBurned.description' => '앱이 건강 연결에서 소모된 총 칼로리를 읽을 수 있도록 허용합니다.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => '이 권한은 앱에서 사용자의 일일 칼로리 소모량을 표시하는 데 사용되며, 하루 동안의 총 에너지 소비를 이해하는 데 도움이 됩니다.',
+			'settings.healthConnect.permissions.nutritionRead.title' => '영양 데이터 읽기',
+			'settings.healthConnect.permissions.nutritionRead.description' => '앱이 건강 연결에서 영양 데이터를 읽을 수 있도록 허용합니다.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => '이 권한을 통해 앱은 건강 연결에 연결된 다른 앱에서 기록된 영양 정보를 읽을 수 있으며, 영양에 대한 포괄적인 정보를 제공합니다.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => '영양 데이터 쓰기',
+			'settings.healthConnect.permissions.nutritionWrite.description' => '앱이 건강 연결에 영양 데이터를 쓸 수 있도록 허용합니다.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => '이 권한을 통해 앱은 사용자가 기록한 식사를 건강 연결에 동기화하여, 사용자가 사용하는 다른 건강 및 피트니스 앱에서 영양 데이터를 사용할 수 있도록 합니다.',
+			'settings.healthConnect.managePermissions' => '권한 관리',
+			'settings.healthConnect.openSettings' => '헬스 커넥트 설정 열기',
+			'settings.healthConnect.requestPermissions' => '권한 요청하기',
+			'settings.about.title' => '소개',
+			'settings.about.tagline' => '빠르고 무료이며 개인 정보 보호를 우선시하는 칼로리 인식',
+			'settings.about.ourStory.title' => '우리의 이야기',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel}는 단순한 불만에서 탄생했습니다: 대부분의 칼로리 추적 앱은 지나치게 복잡하거나, 지속적인 수동 입력을 요구하거나, 높은 구독 비용을 부과하거나, 개인 정보를 침해합니다.\n\n인디 개발자로서, 저는 더 간단하고 공정한 것을 만들고 싶었습니다 — 노력을 줄이고, 빠르고 무료로 사용할 수 있으며, 귀하의 건강 데이터를 존중하는 AI를 사용하는 앱입니다.\n\n${appLabel}는 제가 존재하였으면 하는 앱입니다: 계정 없이, 추적 없이, 광고 없이 — 단순한 실제 통찰과 귀하의 건강 목표만을 제공합니다.',
+			'settings.about.privacy.title' => '귀하의 개인 정보가 중요합니다',
+			'settings.about.privacy.description' => '개인 정보는 후순위가 아니라 — 디자인 원칙입니다. 실제로 이 의미는 다음과 같습니다:',
+			'settings.about.privacy.noAccounts' => '계정 없음\n앱을 즉시 사용하세요. 가입, 신원 확인 필요 없음.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => '행동 추적 없음\n${appLabel}는 귀하의 활동을 모니터링하거나, 사용 프로필을 만들거나, 앱이나 웹사이트에서 귀하를 추적하지 않습니다.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => '광고 없음, 디자인으로도\n${appLabel}는 광고 없이, 데이터 기반 수익 모델 없이 작동하도록 설계되었습니다.',
+			'settings.about.privacy.noDataSelling' => '데이터 판매 없음\n귀하의 건강 데이터는 절대 판매되거나 제3자와 공유되지 않습니다.',
+			'settings.about.privacy.localStorage' => '로컬 우선 저장소\n귀하의 데이터는 귀하의 장치에만 저장됩니다.',
+			'settings.about.privacy.privacyPolicy' => '개인정보 처리방침',
+			'settings.about.developer.title' => '인디 개발자가 만든 앱',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel}는 개인의 편안함과 개인 정보 보호를 존중하는 건강 소프트웨어를 만드는 데 집중하는 단 한 명의 인디 개발자가 운영하고 있습니다.\n\n피드백은 직접 읽으며 앱의 방향성을 형성하는 데 도움을 줍니다.',
+			'settings.about.developer.website' => '웹사이트',
+			'settings.about.developer.email' => '이메일',
+			'settings.about.feedback.title' => ({required Object appLabel}) => '${appLabel}를 좋아하시나요?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => '귀하의 피드백은 ${appLabel}를 모두에게 더 좋게 만드는데 도움이 됩니다.',
+			'settings.about.feedback.rateApp' => '플레이 스토어에서 평가하기',
+			'settings.about.feedback.sendFeedback' => '피드백 보내기',
 			'reminders.title' => '알림으로 계획을 계속 유지하세요',
 			'reminders.description' => '식사를 기록하고 영양 목표를 지속할 수 있도록 부드러운 리마인더를 받으세요',
 			'reminders.notificationsEnabled' => '알림이 활성화되었습니다',
@@ -1646,6 +1889,13 @@ extension on TranslationsKo {
 			'disclaimer.weightEstimate.waterWeight.description' => '일일 체중은 수분 저류, 소화 및 타이밍으로 인해 상당히 변동할 수 있습니다. 이 추정치는 이러한 일일 변화를 고려하지 않습니다.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => '전문가의 조언',
 			'disclaimer.weightEstimate.professionalGuidance.description' => '이 추정치를 의료 결정에 사용하지 마세요. 항상 의료 전문가나 등록된 영양사와 상담하여 개인화된 체중 관리 조언을 받으세요.',
+			'disclaimer.healthMetrics.description' => '이 측정치는 귀하의 신체 에너지 필요성을 이해하고 영양 목표를 안내하는 데 도움이 됩니다.',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => '기초 대사율(BMR)은 호흡 및 순환과 같은 기본 기능을 유지하기 위해 신체가 휴식 중에 소모하는 칼로리의 수입니다. BMR은 귀하의 나이, 성별, 키 및 체중에 따라 달라집니다. BMR이 높을수록 신체가 자연적으로 더 많은 칼로리를 태우며, 이는 일반적으로 근육량이 많거나 나이가 어리거나 남성인 경우에 해당합니다. 반면 BMR이 낮은 경우는 일반적으로 근육량이 적거나 나이가 많거나 여성인 경우를 나타냅니다.',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => '총 일일 에너지 소비(TDEE)는 BMR에 신체 활동 및 일상적인 움직임에서 소모된 칼로리를 더한 하루 동안 소모하는 총 칼로리입니다. TDEE는 귀하의 BMR과 활동 수준에 따라 달라집니다. TDEE가 높을수록 일반적으로 더 많은 칼로리를 소모하며 이는 더 활동적이거나 BMR이 높은 경우가 많습니다. TDEE가 낮은 경우는 일상적인 활동이 적거나 BMR이 낮다는 것을 나타냅니다.',
+			'disclaimer.healthMetrics.dailyGoal.title' => '일일 목표',
+			'disclaimer.healthMetrics.dailyGoal.description' => '일일 목표는 귀하의 TDEE와 체중 목표에 기반한 추천 일일 칼로리 섭취량입니다. 체중 감소를 위해서는 TDEE보다 적은 칼로리를 섭취합니다. 체중 유지를 위해서는 TDEE와 일치시킵니다. 체중 증가를 위해서는 TDEE보다 더 많은 칼로리를 섭취합니다. 이는 건강한 속도로 원하는 체중 변화를 달성하는 데 도움이 됩니다.',
 			'common.close' => '닫기',
 			'common.kContinue' => '계속하기',
 			'errors.loadingProfileData' => '프로필 데이터 로드 중 오류 발생',

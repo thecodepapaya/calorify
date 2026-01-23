@@ -184,6 +184,7 @@ class _TranslationsProfileGu implements TranslationsProfileEn {
 	@override String get weight => 'વજન';
 	@override String get age => 'ઉમર';
 	@override String get weightGoal => 'વજન લક્ષ્ય';
+	@override String get targetWeight => 'લક્ષ્ય વજન';
 	@override String get activityLevel => 'પ્રવૃત્તિનું સ્તર';
 	@override String get healthMetrics => 'આરોગ્ય મેટ્રિક્સ';
 	@override String get notSet => 'સેટ નથી';
@@ -252,6 +253,8 @@ class _TranslationsSettingsGu implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataGu clearAllData = _TranslationsSettingsClearAllDataGu._(_root);
 	@override late final _TranslationsSettingsDebugOptionsGu debugOptions = _TranslationsSettingsDebugOptionsGu._(_root);
 	@override String get developerModeEnabled => 'વિકાશક મોડ સક્રિય થયો છે!';
+	@override late final _TranslationsSettingsHealthConnectGu healthConnect = _TranslationsSettingsHealthConnectGu._(_root);
+	@override late final _TranslationsSettingsAboutGu about = _TranslationsSettingsAboutGu._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerGu implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'કૃપા નોંધો';
 	@override late final _TranslationsDisclaimerSnapGu snap = _TranslationsDisclaimerSnapGu._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateGu weightEstimate = _TranslationsDisclaimerWeightEstimateGu._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsGu healthMetrics = _TranslationsDisclaimerHealthMetricsGu._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsGu implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'પ્રોફાઇલ';
 	@override String get localization => 'સ્થાનિકકરણ';
 	@override String get notifications => 'કળશણ બાજુ';
+	@override String get healthConnect => 'હેલ્થ કનેક્ટ';
 	@override String get supportAndLegal => 'મદદ અને કનેક્ટ';
+	@override String get about => 'અમારા વિશે';
 	@override String get dangerZone => 'ખતરો અને ઝોન';
 	@override String get developer => 'વિકાશક';
 }
@@ -895,6 +901,37 @@ class _TranslationsSettingsDebugOptionsGu implements TranslationsSettingsDebugOp
 	@override String get title => 'ડેબેક્ડ વિકલ્પો';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectGu implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'હેલ્થ કનેક્ટ';
+	@override String get subtitle => 'પરવાનગીઓ જુઓ અને સંચાલિત કરો';
+	@override late final _TranslationsSettingsHealthConnectUnavailableGu unavailable = _TranslationsSettingsHealthConnectUnavailableGu._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsGu permissions = _TranslationsSettingsHealthConnectPermissionsGu._(_root);
+	@override String get managePermissions => 'પરવાનગીઓ સંચાલિત કરો';
+	@override String get openSettings => 'હેલ્ઠ કનેક્ટ સેટિંગ્સ ખોલો';
+	@override String get requestPermissions => 'પરવાનગીઓ માગો';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutGu implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'અમારા વિશે';
+	@override String get tagline => 'ઝલદી, ન 무료, અને રક્ષણ આપનાર કેલોરી અવગણના';
+	@override late final _TranslationsSettingsAboutOurStoryGu ourStory = _TranslationsSettingsAboutOurStoryGu._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyGu privacy = _TranslationsSettingsAboutPrivacyGu._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperGu developer = _TranslationsSettingsAboutDeveloperGu._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackGu feedback = _TranslationsSettingsAboutFeedbackGu._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastGu implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastGu._(this._root);
@@ -976,6 +1013,19 @@ class _TranslationsDisclaimerWeightEstimateGu implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsGu biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsGu._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightGu waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightGu._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceGu professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceGu._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsGu implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'આ માપ દર્શાવે છે કે તમારા શરીરને ઊર્જાની કેટલી જરૂર છે અને તમારા પોષણ લક્ષ્યોને માર્ગદર્શન આપવું.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrGu bmr = _TranslationsDisclaimerHealthMetricsBmrGu._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeGu tdee = _TranslationsDisclaimerHealthMetricsTdeeGu._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalGu dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalGu._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1274,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveGu implements Transla
 	@override String get description => 'ખૂબ ખૂબ જ મજબુત વ્યાયામ';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableGu implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'હેલ્થ કનેક્ટ ઉપલબ્ધ નથી';
+	@override String get description => 'આ ઉપકરણ પર હેલ્થ કનેક્ટ ઉપલબ્ધ નથી. આને Android 14 અથવા વધુ આવશ્યક છે.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsGu implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'પરવાનગીઓ';
+	@override String get description => 'હેલ્થ કનેક્ટ ઇન્ટિગ્રેશન આપવા માટે નીચેની પરવાનગીઓની વિનંતી કરવામાં આવે છે:';
+	@override String get granted => 'મંજૂર';
+	@override String get notGranted => 'મંજૂર નથી';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedGu caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedGu._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadGu nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadGu._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteGu nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteGu._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryGu implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'અમારી વાર્તા';
+	@override String content({required Object appLabel}) => '${appLabel} એક સરળ દુઃખથી જન્મ્યું: વધુતર કેલોરી ટ્રેકિંગ એપ્લિકેશનો કે તો વધુ જટિલ છે, યથાત્મક ચલણ માંગે છે, ઊંચા સબ્સ્ક્રિપ્શન ફી લે છે, અથવા ગોપનીયતા પર કંપ્રોમાઇઝ કરે છે.\n\nએક ઇન્ડી ડેવલપર તરીકે, મેં એવું કંઈક બનાવવાનું ઇચ્છ્યું જે સરળ અને નિષ્ઠાવાન હોય — એ એપ્લિકેશન જે AI નો ઉપયોગ કરે છે, જે પ્રયાસ ઓછું કરે છે, ઝડપી અને મફત રહે છે, અને તમારા આરોગ્યના ડેટાને સંતોષપૂર્વક તેના સાથે વ્યવહાર કરે છે.\n\n${appLabel} એ એ એપ છે જે મારે હોવું જોઈએ હતું: કોઇ એકાઉન્ટ નહીં, કોઇ ટ્રેકિંગ નહીં, કોઇ એડ્સ નહીં — ફક્ત સ્પષ્ટ, વ્યવહારીક અંદરજન અને તમારા આરોગ્યના લક્ષ્ય.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyGu implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'તમારું ગોપનિયતા મહત્વ ધરાવે છે';
+	@override String get description => 'ગોપનિયતા એક પછાત વિચાર નથી — તે એક ડિઝાઇન સિદ્ધાંત છે. આ પ્રેક્ટિસમાં શું અર્થ છે તે અહીં છે:';
+	@override String get noAccounts => 'જરૂર નથી એકાઉન્ટ્સ\nસામાન્ય જ્ઞાાન કરો. કોઈ સાઇન-અપ નહીં, કોઈ ઓળખ નહીં.';
+	@override String noTracking({required Object appLabel}) => 'કોઈ વર્તન ટ્રેકિંગ નહીં\n${appLabel} તમારી પ્રવૃત્તિની દેખરેખ નથી રાખતી, ઉપયોગ પ્રોફાઇલ બનાવતી નથી, અથવા જ્યારે પ્રવૃત્તિઓ અથવા વેબસાઇટ્સમાં તમારી ટ્રેકિંગ કરતી નથી.';
+	@override String noAds({required Object appLabel}) => 'ડિઝાઇન દ્વારા એડ-ફ્રે\n${appLabel} એ ખાલી એડ્સ અથવા આંકડાઓ આધારિત મોનિટાઇઝેશન વિના કાર્ય કરવા માટે રચાયેલ છે.';
+	@override String get noDataSelling => 'કોઈ ડેટા વેચવું નહીં\nતમારા આરોગ્યના ડેટાને કદી વેચવામાં નથી અથવા તૃતીય પક્ષોને શેર કરવામાં આવતું નથી.';
+	@override String get localStorage => 'સ્થાનિક-પ્રથમ સંગ્રહ\nતમારો ડેટા તમારા ઉપકરણ પર રહે છે.';
+	@override String get privacyPolicy => 'ગોપનતા નીતિ';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperGu implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'એક ઇન્ડી ડેવલપર દ્વારા બનાવેલ';
+	@override String description({required Object appLabel}) => '${appLabel} એ એક જ ઇન્ડી ડેવલપર દ્વારા બનાવવામાં આવેલ છે જે શાંતિदાયી, ગોપનીયતા માન્ય આરોગ્ય સોફ્ટવેર બનાવવામાં ધ્યાન કેન્દ્રિત કરે છે.\n\nપ્રતિસાદ વ્યક્તિગત રીતે વાંચવામાં આવે છે અને એપ્લિકેશનની દિશામાં મદદ કરે છે.';
+	@override String get website => 'વેબસાઇટ';
+	@override String get email => 'ઇમેલ';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackGu implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => '${appLabel} ને આનંદ આવી રહ્યો છે?';
+	@override String description({required Object appLabel}) => 'તમારો પ્રતિસાદ ${appLabel} ને તમામ માટે સુધારવામાં મદદ કરે છે.';
+	@override String get rateApp => 'પ્લે સ્ટોર પર રેટ કરો';
+	@override String get sendFeedback => 'પ્રતિસાદ મોકલો';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeGu implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeGu._(this._root);
@@ -1310,6 +1441,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceGu implements Tra
 	// Translations
 	@override String get title => 'વ્યાવસાયિક માર્ગભ્રમણ';
 	@override String get description => 'આ અંદાજનો ઉપયોગ મેડિકલ નિર્ણયો લેવા માટે ન કરવો. હંમેશા વ્યાવસાયિક આરોગ્ય કર્મચારી અથવા નોંધાયેલ પોષણવિજીયકને સંપર્ક કરી તમારા વ્યક્તિગત વજન સંચાલન વિકલ્પ માટે.';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrGu implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'બીએમઆર';
+	@override String get description => 'બેસલ મેટાબોલિક રેટ (બીએમઆર) તે કૅલોરીઓની સંખ્યા છે જે તમારો શરીર બેધારી સ્થિતીમાં જીવંત કાર્ય જાળવવા માટે બર્ન કરે છે, જેમ કે શ્વાસ અને સંચરણ. બીએમઆર તમારા ઉંમર, લિંગ, ઊંચાઈ અને વજન પર આધારિત છે. વધુ બીએમઆરનો અર્થ એ છે કે તમારો શરીર સામાન્ય રીતે વધુ કૅલોરીઓ બર્ન કરે છે, જે ઘણીવાર વધુ માંસપેશીઓ, યુવાન ઉંમર, અથવા પુરુષ જોવા મળે છે. ઓછો બીએમઆર સામાન્ય રીતે ઓછા માંસપેશીઓ, વૃદ્ધ ઉંમર, અથવા મહિલા દર્શાવે છે.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeGu implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ટીડઈઈ';
+	@override String get description => 'કુલ દૈનિક ઊર્જા વ્યય (ટીડઈઈ) તે કુલ કૅલોફરીઓ છે જે તમે દરરોજ બર્ન કરો છો, જેમાં તમારો બીએમઆર અને શારીરિક પ્રવૃત્તિ અને દૈનિક ચાલી બંનેની કૅલોરીઓ شامل છે. ટીડઈઈ તમારા બીએમઆર અને પ્રવૃત્તિના સ્તર પર આધારિત છે. વધુ ટીડઈઈનો અર્થ એ છે કે તમે કુલમાં વધુ કૅલોરીઓ બર્ન કરો છો, જે સામાન્ય રીતે વધુ એકસરસિઝ અથવા વધુ બીએમઆર ગણવામાં આવે છે. ઓછો ટીડઈઈ વધુ દૈનિક પ્રવૃત્તિઓ અથવા ઓછા બીએમઆરનો સંકેત આપે છે.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalGu implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'દૈનિક લક્ષ્ય';
+	@override String get description => 'દૈનિક લક્ષ્ય એ તમારું ભલામણ કરેલ દૈનિક કૅલોરી વપરાશ છે જે તમારા ટીડઈઈ અને વજન લક્ષ્ય આધારિત છે. વજન ઘટાડવા માટે, તમે તમારા ટીડઈઈ કરતાં ઓછા કૅલોરીઓ લેતા રહે છો. વજન જાળવવા માટે, તમે તમારા ટીડઈઈને મેળવો છો. વજન વધારવા માટે, તમે તમારા ટીડઈઈ કરતાં વધુ કૅલોરીઓ લેતા રહે છો. આ તમને આરોગ્યપ્રદ ટેમ્પમાં તમારા ઈચ્છિત વજન બદલાવ પ્રાપ્ત કરવામાં મદદ કરે છે.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedGu implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'કુલ બર્ન થયેલ કૅલોરી વાંચો';
+	@override String get description => 'આ એપને હેલ્થ કનેક્ટમાંથી તમારી કુલ બર્ન થયેલ કૅલોરીને વાંચવાની મંજૂરી આપે છે.';
+	@override String get usage => 'આ પરવાનગી એપમાં તમારી દૈનિક કૅલોરી બર્નને દર્શાવવા માટે વાપરાય છે, જે દિવસ દરમિયાન તમારી કુલ ઊર્જા ખર્ચની સમજણવામાં મદદ કરે છે.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadGu implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'પોષણ ડેટા વાંચો';
+	@override String get description => 'આ એપને હેલ્થ કનેક્ટથી પોષણ ડેટા વાંચવાની મંજૂરી આપે છે.';
+	@override String get usage => 'આ પરવાનગી એપને હેલ્થ કનેક્ટ સાથે જોડાયેલી અન્ય એપ્સ દ્વારા લોગ કરેલ પોષણ માહિતી વાંચવા દે છે, જે તમારા પોષણ નું વ્યાપક દીઠ છે.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteGu implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'પોષણ ડેટા લખો';
+	@override String get description => 'આ એપને હેલ્થ કનેક્ટમાં પોષણ ડેટા લખવાની મંજૂરી આપે છે.';
+	@override String get usage => 'આ પરવાનગી એપને તમારી લોગ કરેલી ભોજનને હેલ્થ કનેક્ટમાં સમાયોજિત કરવાની મંજૂરી આપે છે, જે ваши પોષણ ડેટાને તમે વાપરતા અન્ય આરોગ્ય અને ફિટનેસ એપ્સ માટે ઉપલબ્ધ બનાવે છે.';
 }
 
 /// The flat map containing all translations for locale <gu>.
@@ -1506,6 +1706,7 @@ extension on TranslationsGu {
 			'profile.weight' => 'વજન',
 			'profile.age' => 'ઉમર',
 			'profile.weightGoal' => 'વજન લક્ષ્ય',
+			'profile.targetWeight' => 'લક્ષ્ય વજન',
 			'profile.activityLevel' => 'પ્રવૃત્તિનું સ્તર',
 			'profile.healthMetrics' => 'આરોગ્ય મેટ્રિક્સ',
 			'profile.notSet' => 'સેટ નથી',
@@ -1561,7 +1762,9 @@ extension on TranslationsGu {
 			'settings.sections.profile' => 'પ્રોફાઇલ',
 			'settings.sections.localization' => 'સ્થાનિકકરણ',
 			'settings.sections.notifications' => 'કળશણ બાજુ',
+			'settings.sections.healthConnect' => 'હેલ્થ કનેક્ટ',
 			'settings.sections.supportAndLegal' => 'મદદ અને કનેક્ટ',
+			'settings.sections.about' => 'અમારા વિશે',
 			'settings.sections.dangerZone' => 'ખતરો અને ઝોન',
 			'settings.sections.developer' => 'વિકાશક',
 			'settings.editProfile.title' => 'પ્રોફાઇલ સંપાદિત કરો',
@@ -1594,6 +1797,46 @@ extension on TranslationsGu {
 			'settings.clearAllData.clearEverything' => 'બધું દૂર કરો',
 			'settings.debugOptions.title' => 'ડેબેક્ડ વિકલ્પો',
 			'settings.developerModeEnabled' => 'વિકાશક મોડ સક્રિય થયો છે!',
+			'settings.healthConnect.title' => 'હેલ્થ કનેક્ટ',
+			'settings.healthConnect.subtitle' => 'પરવાનગીઓ જુઓ અને સંચાલિત કરો',
+			'settings.healthConnect.unavailable.title' => 'હેલ્થ કનેક્ટ ઉપલબ્ધ નથી',
+			'settings.healthConnect.unavailable.description' => 'આ ઉપકરણ પર હેલ્થ કનેક્ટ ઉપલબ્ધ નથી. આને Android 14 અથવા વધુ આવશ્યક છે.',
+			'settings.healthConnect.permissions.title' => 'પરવાનગીઓ',
+			'settings.healthConnect.permissions.description' => 'હેલ્થ કનેક્ટ ઇન્ટિગ્રેશન આપવા માટે નીચેની પરવાનગીઓની વિનંતી કરવામાં આવે છે:',
+			'settings.healthConnect.permissions.granted' => 'મંજૂર',
+			'settings.healthConnect.permissions.notGranted' => 'મંજૂર નથી',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'કુલ બર્ન થયેલ કૅલોરી વાંચો',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'આ એપને હેલ્થ કનેક્ટમાંથી તમારી કુલ બર્ન થયેલ કૅલોરીને વાંચવાની મંજૂરી આપે છે.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'આ પરવાનગી એપમાં તમારી દૈનિક કૅલોરી બર્નને દર્શાવવા માટે વાપરાય છે, જે દિવસ દરમિયાન તમારી કુલ ઊર્જા ખર્ચની સમજણવામાં મદદ કરે છે.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'પોષણ ડેટા વાંચો',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'આ એપને હેલ્થ કનેક્ટથી પોષણ ડેટા વાંચવાની મંજૂરી આપે છે.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'આ પરવાનગી એપને હેલ્થ કનેક્ટ સાથે જોડાયેલી અન્ય એપ્સ દ્વારા લોગ કરેલ પોષણ માહિતી વાંચવા દે છે, જે તમારા પોષણ નું વ્યાપક દીઠ છે.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'પોષણ ડેટા લખો',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'આ એપને હેલ્થ કનેક્ટમાં પોષણ ડેટા લખવાની મંજૂરી આપે છે.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'આ પરવાનગી એપને તમારી લોગ કરેલી ભોજનને હેલ્થ કનેક્ટમાં સમાયોજિત કરવાની મંજૂરી આપે છે, જે ваши પોષણ ડેટાને તમે વાપરતા અન્ય આરોગ્ય અને ફિટનેસ એપ્સ માટે ઉપલબ્ધ બનાવે છે.',
+			'settings.healthConnect.managePermissions' => 'પરવાનગીઓ સંચાલિત કરો',
+			'settings.healthConnect.openSettings' => 'હેલ્ઠ કનેક્ટ સેટિંગ્સ ખોલો',
+			'settings.healthConnect.requestPermissions' => 'પરવાનગીઓ માગો',
+			'settings.about.title' => 'અમારા વિશે',
+			'settings.about.tagline' => 'ઝલદી, ન 무료, અને રક્ષણ આપનાર કેલોરી અવગણના',
+			'settings.about.ourStory.title' => 'અમારી વાર્તા',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} એક સરળ દુઃખથી જન્મ્યું: વધુતર કેલોરી ટ્રેકિંગ એપ્લિકેશનો કે તો વધુ જટિલ છે, યથાત્મક ચલણ માંગે છે, ઊંચા સબ્સ્ક્રિપ્શન ફી લે છે, અથવા ગોપનીયતા પર કંપ્રોમાઇઝ કરે છે.\n\nએક ઇન્ડી ડેવલપર તરીકે, મેં એવું કંઈક બનાવવાનું ઇચ્છ્યું જે સરળ અને નિષ્ઠાવાન હોય — એ એપ્લિકેશન જે AI નો ઉપયોગ કરે છે, જે પ્રયાસ ઓછું કરે છે, ઝડપી અને મફત રહે છે, અને તમારા આરોગ્યના ડેટાને સંતોષપૂર્વક તેના સાથે વ્યવહાર કરે છે.\n\n${appLabel} એ એ એપ છે જે મારે હોવું જોઈએ હતું: કોઇ એકાઉન્ટ નહીં, કોઇ ટ્રેકિંગ નહીં, કોઇ એડ્સ નહીં — ફક્ત સ્પષ્ટ, વ્યવહારીક અંદરજન અને તમારા આરોગ્યના લક્ષ્ય.',
+			'settings.about.privacy.title' => 'તમારું ગોપનિયતા મહત્વ ધરાવે છે',
+			'settings.about.privacy.description' => 'ગોપનિયતા એક પછાત વિચાર નથી — તે એક ડિઝાઇન સિદ્ધાંત છે. આ પ્રેક્ટિસમાં શું અર્થ છે તે અહીં છે:',
+			'settings.about.privacy.noAccounts' => 'જરૂર નથી એકાઉન્ટ્સ\nસામાન્ય જ્ઞાાન કરો. કોઈ સાઇન-અપ નહીં, કોઈ ઓળખ નહીં.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'કોઈ વર્તન ટ્રેકિંગ નહીં\n${appLabel} તમારી પ્રવૃત્તિની દેખરેખ નથી રાખતી, ઉપયોગ પ્રોફાઇલ બનાવતી નથી, અથવા જ્યારે પ્રવૃત્તિઓ અથવા વેબસાઇટ્સમાં તમારી ટ્રેકિંગ કરતી નથી.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ડિઝાઇન દ્વારા એડ-ફ્રે\n${appLabel} એ ખાલી એડ્સ અથવા આંકડાઓ આધારિત મોનિટાઇઝેશન વિના કાર્ય કરવા માટે રચાયેલ છે.',
+			'settings.about.privacy.noDataSelling' => 'કોઈ ડેટા વેચવું નહીં\nતમારા આરોગ્યના ડેટાને કદી વેચવામાં નથી અથવા તૃતીય પક્ષોને શેર કરવામાં આવતું નથી.',
+			'settings.about.privacy.localStorage' => 'સ્થાનિક-પ્રથમ સંગ્રહ\nતમારો ડેટા તમારા ઉપકરણ પર રહે છે.',
+			'settings.about.privacy.privacyPolicy' => 'ગોપનતા નીતિ',
+			'settings.about.developer.title' => 'એક ઇન્ડી ડેવલપર દ્વારા બનાવેલ',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} એ એક જ ઇન્ડી ડેવલપર દ્વારા બનાવવામાં આવેલ છે જે શાંતિदાયી, ગોપનીયતા માન્ય આરોગ્ય સોફ્ટવેર બનાવવામાં ધ્યાન કેન્દ્રિત કરે છે.\n\nપ્રતિસાદ વ્યક્તિગત રીતે વાંચવામાં આવે છે અને એપ્લિકેશનની દિશામાં મદદ કરે છે.',
+			'settings.about.developer.website' => 'વેબસાઇટ',
+			'settings.about.developer.email' => 'ઇમેલ',
+			'settings.about.feedback.title' => ({required Object appLabel}) => '${appLabel} ને આનંદ આવી રહ્યો છે?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'તમારો પ્રતિસાદ ${appLabel} ને તમામ માટે સુધારવામાં મદદ કરે છે.',
+			'settings.about.feedback.rateApp' => 'પ્લે સ્ટોર પર રેટ કરો',
+			'settings.about.feedback.sendFeedback' => 'પ્રતિસાદ મોકલો',
 			'reminders.title' => 'યાદદહન સાથે ટ્રેકમાં રહી છે',
 			'reminders.description' => 'ખોરાકને નોંધવા અને આપના પોષણના લક્ષ્યોમાં કન્સિસ્ટન્ટ રહેવા માટે પરીવાર્તા યાદી મેળવો',
 			'reminders.notificationsEnabled' => 'જગ્યા લાંબા અમલમાં',
@@ -1646,6 +1889,13 @@ extension on TranslationsGu {
 			'disclaimer.weightEstimate.waterWeight.description' => 'દૈનિક વજન તણાવ પ્રભાવમાં નોંધપાત્ર ફેરફારો થઈ શકે છે જન્મ આપવાના સમયે. આ અંદાજ દૈનિક બદલાવને ધ્યાનમાં ન લે છે.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'વ્યાવસાયિક માર્ગભ્રમણ',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'આ અંદાજનો ઉપયોગ મેડિકલ નિર્ણયો લેવા માટે ન કરવો. હંમેશા વ્યાવસાયિક આરોગ્ય કર્મચારી અથવા નોંધાયેલ પોષણવિજીયકને સંપર્ક કરી તમારા વ્યક્તિગત વજન સંચાલન વિકલ્પ માટે.',
+			'disclaimer.healthMetrics.description' => 'આ માપ દર્શાવે છે કે તમારા શરીરને ઊર્જાની કેટલી જરૂર છે અને તમારા પોષણ લક્ષ્યોને માર્ગદર્શન આપવું.',
+			'disclaimer.healthMetrics.bmr.title' => 'બીએમઆર',
+			'disclaimer.healthMetrics.bmr.description' => 'બેસલ મેટાબોલિક રેટ (બીએમઆર) તે કૅલોરીઓની સંખ્યા છે જે તમારો શરીર બેધારી સ્થિતીમાં જીવંત કાર્ય જાળવવા માટે બર્ન કરે છે, જેમ કે શ્વાસ અને સંચરણ. બીએમઆર તમારા ઉંમર, લિંગ, ઊંચાઈ અને વજન પર આધારિત છે. વધુ બીએમઆરનો અર્થ એ છે કે તમારો શરીર સામાન્ય રીતે વધુ કૅલોરીઓ બર્ન કરે છે, જે ઘણીવાર વધુ માંસપેશીઓ, યુવાન ઉંમર, અથવા પુરુષ જોવા મળે છે. ઓછો બીએમઆર સામાન્ય રીતે ઓછા માંસપેશીઓ, વૃદ્ધ ઉંમર, અથવા મહિલા દર્શાવે છે.',
+			'disclaimer.healthMetrics.tdee.title' => 'ટીડઈઈ',
+			'disclaimer.healthMetrics.tdee.description' => 'કુલ દૈનિક ઊર્જા વ્યય (ટીડઈઈ) તે કુલ કૅલોફરીઓ છે જે તમે દરરોજ બર્ન કરો છો, જેમાં તમારો બીએમઆર અને શારીરિક પ્રવૃત્તિ અને દૈનિક ચાલી બંનેની કૅલોરીઓ شامل છે. ટીડઈઈ તમારા બીએમઆર અને પ્રવૃત્તિના સ્તર પર આધારિત છે. વધુ ટીડઈઈનો અર્થ એ છે કે તમે કુલમાં વધુ કૅલોરીઓ બર્ન કરો છો, જે સામાન્ય રીતે વધુ એકસરસિઝ અથવા વધુ બીએમઆર ગણવામાં આવે છે. ઓછો ટીડઈઈ વધુ દૈનિક પ્રવૃત્તિઓ અથવા ઓછા બીએમઆરનો સંકેત આપે છે.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'દૈનિક લક્ષ્ય',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'દૈનિક લક્ષ્ય એ તમારું ભલામણ કરેલ દૈનિક કૅલોરી વપરાશ છે જે તમારા ટીડઈઈ અને વજન લક્ષ્ય આધારિત છે. વજન ઘટાડવા માટે, તમે તમારા ટીડઈઈ કરતાં ઓછા કૅલોરીઓ લેતા રહે છો. વજન જાળવવા માટે, તમે તમારા ટીડઈઈને મેળવો છો. વજન વધારવા માટે, તમે તમારા ટીડઈઈ કરતાં વધુ કૅલોરીઓ લેતા રહે છો. આ તમને આરોગ્યપ્રદ ટેમ્પમાં તમારા ઈચ્છિત વજન બદલાવ પ્રાપ્ત કરવામાં મદદ કરે છે.',
 			'common.close' => 'બંદ કરો',
 			'common.kContinue' => 'આગળ વધો',
 			'errors.loadingProfileData' => 'પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ',

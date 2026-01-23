@@ -8,9 +8,11 @@ import 'package:calorify/features/home/home_screen.dart';
 import 'package:calorify/features/log/log_screen.dart';
 import 'package:calorify/features/main/main_screen.dart';
 import 'package:calorify/features/onboarding/onboarding_screen.dart';
+import 'package:calorify/features/profile/about_screen.dart';
 import 'package:calorify/features/profile/debug_options_screen.dart';
 import 'package:calorify/features/profile/edit_profile_screen.dart';
 import 'package:calorify/features/profile/edit_reminder_screen.dart';
+import 'package:calorify/features/profile/health_connect_permissions_screen.dart';
 import 'package:calorify/features/profile/profile_screen.dart';
 import 'package:calorify/features/profile/settings_screen.dart';
 import 'package:calorify/features/splash/splash_screen.dart';
@@ -47,6 +49,8 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: EditProfileRoute.page, guards: [OnboardingGuard()]),
     AutoRoute(page: EditReminderRoute.page, guards: [OnboardingGuard()]),
     AutoRoute(page: SettingsRoute.page, guards: [OnboardingGuard()]),
+    AutoRoute(page: HealthConnectPermissionsRoute.page, guards: [OnboardingGuard()]),
+    AutoRoute(page: AboutRoute.page, guards: [OnboardingGuard()]),
     AutoRoute(page: DebugOptionsRoute.page, guards: [OnboardingGuard()]),
   ];
 }

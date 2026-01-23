@@ -1,6 +1,6 @@
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
-import 'package:calorify/core/constants/colors/color_scheme_extensions.dart';
+import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';

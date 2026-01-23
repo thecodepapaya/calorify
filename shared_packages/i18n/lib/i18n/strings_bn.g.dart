@@ -37,7 +37,7 @@ class TranslationsBn with BaseTranslations<AppLocale, Translations> implements T
 	TranslationsBn $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsBn(meta: meta ?? this.$meta);
 
 	// Translations
-	@override String get language => 'Bengali';
+	@override String get language => 'বাংলা';
 	@override String get flag => '🇧🇩';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingBn onboarding = _TranslationsOnboardingBn._(_root);
@@ -184,6 +184,7 @@ class _TranslationsProfileBn implements TranslationsProfileEn {
 	@override String get weight => 'ওজন';
 	@override String get age => 'বয়স';
 	@override String get weightGoal => 'ওজন লক্ষ্য';
+	@override String get targetWeight => 'লক্ষ্য ওজন';
 	@override String get activityLevel => 'ক্রিয়াকলাপের স্তর';
 	@override String get healthMetrics => 'স্বাস্থ্য সূচক';
 	@override String get notSet => 'নির্ধারিত নয়';
@@ -252,6 +253,8 @@ class _TranslationsSettingsBn implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataBn clearAllData = _TranslationsSettingsClearAllDataBn._(_root);
 	@override late final _TranslationsSettingsDebugOptionsBn debugOptions = _TranslationsSettingsDebugOptionsBn._(_root);
 	@override String get developerModeEnabled => 'ডেভেলপার মোড সক্রিয়!';
+	@override late final _TranslationsSettingsHealthConnectBn healthConnect = _TranslationsSettingsHealthConnectBn._(_root);
+	@override late final _TranslationsSettingsAboutBn about = _TranslationsSettingsAboutBn._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerBn implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'দয়া করে মনে রাখবেন';
 	@override late final _TranslationsDisclaimerSnapBn snap = _TranslationsDisclaimerSnapBn._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBn weightEstimate = _TranslationsDisclaimerWeightEstimateBn._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsBn healthMetrics = _TranslationsDisclaimerHealthMetricsBn._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsBn implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'প্রোফাইল';
 	@override String get localization => 'স্থানীয়করণ';
 	@override String get notifications => 'বিজ্ঞপ্তি';
+	@override String get healthConnect => 'স্বাস্থ্য সংযোগ';
 	@override String get supportAndLegal => 'সমর্থন ও আইন';
+	@override String get about => 'আমাদের সম্পর্কে';
 	@override String get dangerZone => 'বিপদ অঞ্চল';
 	@override String get developer => 'ডেভেলপার';
 }
@@ -895,6 +901,37 @@ class _TranslationsSettingsDebugOptionsBn implements TranslationsSettingsDebugOp
 	@override String get title => 'ডিবাগ অপশন';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectBn implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'স্বাস্থ্য সংযোগ';
+	@override String get subtitle => 'অনুমতিগুলি দেখুন এবং পরিচালনা করুন';
+	@override late final _TranslationsSettingsHealthConnectUnavailableBn unavailable = _TranslationsSettingsHealthConnectUnavailableBn._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsBn permissions = _TranslationsSettingsHealthConnectPermissionsBn._(_root);
+	@override String get managePermissions => 'অনুমতিগুলি পরিচালনা করুন';
+	@override String get openSettings => 'হেলথ সংযোগ সেটিংস খুলুন';
+	@override String get requestPermissions => 'অনুমতি প্রার্থনা করুন';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutBn implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'আমাদের সম্পর্কে';
+	@override String get tagline => 'দ্রুত, নিখুঁত এবং গোপনীয়তা-প্রথম ক্যালোরি জানা';
+	@override late final _TranslationsSettingsAboutOurStoryBn ourStory = _TranslationsSettingsAboutOurStoryBn._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyBn privacy = _TranslationsSettingsAboutPrivacyBn._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperBn developer = _TranslationsSettingsAboutDeveloperBn._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackBn feedback = _TranslationsSettingsAboutFeedbackBn._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastBn implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastBn._(this._root);
@@ -976,6 +1013,19 @@ class _TranslationsDisclaimerWeightEstimateBn implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsBn biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsBn._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightBn waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightBn._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceBn professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceBn._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsBn implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'এই মেট্রিক্সগুলো আপনাকে আপনার শরীরের শক্তির প্রয়োজন বুঝতে সাহায্য করে এবং আপনার পুষ্টির লক্ষ্য নির্দেশনা দেয়।';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrBn bmr = _TranslationsDisclaimerHealthMetricsBmrBn._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeBn tdee = _TranslationsDisclaimerHealthMetricsTdeeBn._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalBn dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalBn._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1274,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveBn implements Transla
 	@override String get description => 'খুব কঠিন ব্যায়াম, শারীরিক কাজ';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableBn implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'স্বাস্থ্য সংযোগ অপ্রাপ্য';
+	@override String get description => 'এই ডিভাইসে স্বাস্থ্য সংযোগ উপলব্ধ নেই। এটি Android 14 বা তার পরের সংস্করণে প্রয়োজন।';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsBn implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'অনুমতিগুলি';
+	@override String get description => 'স্বাস্থ্য সংযোগ সংহতির জন্য নিম্নলিখিত অনুমতিগুলি অনুরোধ করা হচ্ছে:';
+	@override String get granted => 'অনুমোদিত';
+	@override String get notGranted => 'অনুমোদিত নয়';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedBn caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedBn._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadBn nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadBn._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteBn nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteBn._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryBn implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'আমাদের গল্প';
+	@override String content({required Object appLabel}) => '${appLabel} একটি সাধারণ হতাশা থেকে জন্মেছে: বেশিরভাগ ক্যালোরি ট্র্যাকিং অ্যাপ অত্যধিক জটিল, স постоян্তা ম্যানুয়াল ইনপুট দাবি করে, উচ্চ সাবস্ক্রিপশন ফি দাবি করে, বা গোপনীয়তায় আপস করে।\n\nএকজন স্বতন্ত্র ডেভেলপার হিসাবে, আমি কিছু সহজ এবং ন্যায়সঙ্গত তৈরি করতে চেয়েছিলাম - একটি অ্যাপ যা AI ব্যবহার করে পরিশ্রম হ্রাস করতে, ব্যবহার করতে দ্রুত এবং বিনামূল্যে থাকতে, এবং আপনার স্বাস্থ্য তথ্যের প্রতি শ্রদ্ধাশীল থাকা।\n\n${appLabel} হল সেই অ্যাপ যা আমি চাইতাম যে বিদ্যমান থাকে: কোনো অ্যাকাউন্ট নেই, কোনো ট্র্যাকিং নেই, কোনো বিজ্ঞাপন নেই - কেবল পরিষ্কার, ব্যবহারিক অন্তর্দৃষ্টি এবং আপনার স্বাস্থ্য লক্ষ্য।';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyBn implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'আপনার গোপনীয়তা গুরুত্বপূর্ণ';
+	@override String get description => 'গোপনীয়তা একটি পরবর্তী চিন্তা নয় - এটি একটি ডিজাইন নীতি। এটার বাস্তবে মানে কী:';
+	@override String get noAccounts => 'এলাকা তৈরির প্রয়োজন নেই\nঅ্যাপটি সাথে সাথে ব্যবহার করুন। কোন সাইন আপ, কোন পরিচিতি নেই।';
+	@override String noTracking({required Object appLabel}) => 'কোন ব্যবহারগত ট্র্যাকিং নেই\n${appLabel} আপনার কার্যকলাপ পর্যালোচনা করে না, ব্যবহারের প্রোফাইল তৈরি করে না, বা আপনাকে অ্যাপ বা ওয়েবসাইটের মধ্যে ট্র্যাক করে না।';
+	@override String noAds({required Object appLabel}) => 'ডিজাইন অনুযায়ী বিজ্ঞাপন মুক্ত\n${appLabel} বিজ্ঞাপন বা ডেটা-চালিত মুনাফা ছাড়া কাজ করার জন্য তৈরি।';
+	@override String get noDataSelling => 'কোন ডেটা বিক্রি নেই\nআপনার স্বাস্থ্য তথ্য কখনো বিক্রি হয় না বা তৃতীয় পক্ষের সঙ্গে শেয়ার করা হয় না।';
+	@override String get localStorage => 'স্থানীয়-প্রথম সংগ্রহস্থল\nআপনার তথ্য আপনার ডিভাইসে থাকে।';
+	@override String get privacyPolicy => 'গোপনীয়তা নীতি';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperBn implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'একজন স্বতন্ত্র ডেভেলপার দ্বারা তৈরি';
+	@override String description({required Object appLabel}) => '${appLabel} একটি একক স্বতন্ত্র ডেভেলপার দ্বারা নির্মিত এবং রক্ষণাবেক্ষণ করা হয়, যিনি শান্ত, গোপনীয়তা-সম্মানজনক স্বাস্থ্য সফটওয়্যার তৈরি করতে কেন্দ্রীভূত।\n\nপর্যালোচনাগুলি ব্যক্তিগতভাবে পড়া হয় এবং অ্যাপটির দিকনির্দেশনা নির্ধারণ করতে সহায়তা করে।';
+	@override String get website => 'ওয়েবসাইট';
+	@override String get email => 'ইমেল';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackBn implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => '${appLabel} পছন্দ করছেন?';
+	@override String description({required Object appLabel}) => 'আপনার প্রতিক্রিয়া ${appLabel} কে সবার জন্য আরও ভাল করে তোলে।';
+	@override String get rateApp => 'প্লে স্টোরে রেট দিন';
+	@override String get sendFeedback => 'প্রতিক্রিয়া পাঠান';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeBn implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeBn._(this._root);
@@ -1312,6 +1443,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceBn implements Tra
 	@override String get description => 'এই অনুমানটি চিকিৎসার সিদ্ধান্ত নেওয়ার জন্য ব্যবহার করবেন না। ব্যক্তিগত ওজন ব্যবস্থাপনাযোগ্য পরামর্শের জন্য সর্বদা স্বাস্থ্যসেবা পেশাদার অথবা নিবন্ধিত ডায়েটিশিয়ানের সাথে পরামর্শ করুন।';
 }
 
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrBn implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'বিএমআর';
+	@override String get description => 'বেসাল মেটাবলিক রেট (বিএমআর) হল সেই সংখ্যক ক্যালোরি যা আপনার শরীর বিশ্রামে পোড়ায় মৌলিক কার্যক্রম যেমন শ্বাসপ্রশ্বাস এবং রক্তসঞ্চালন রক্ষার জন্য। বিএমআর আপনার বয়স, লিঙ্গ, উচ্চতা এবং ওজনের উপর নির্ভর করে। একটি উচ্চ বিএমআর মানে হল আপনার শরীর স্বাভাবিকভাবেই বিশ্রামে আরও ক্যালোরি পোড়ায়, প্রধানত আরও পেশী ভরের কারণে, কম বয়সের জন্য, বা পুরুষ হওয়ার কারণে। একটি নিম্ন বিএমআর সাধারণত কম পেশী ভর, বেশি বয়স, বা নারী হওয়ার ইঙ্গিত দেয়।';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeBn implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'টিডিইই';
+	@override String get description => 'মোট দৈনিক শক্তি ব্যয় (টিডিইই) হল আপনার দৈনিক পোড়ানো মোট ক্যালোরি, এতে আপনার বিএমআর এবং শারীরিক কার্যকলাপ ও দৈনন্দিন চলাফেরা থেকে প্রাপ্ত ক্যালোরি অন্তর্ভুক্ত। টিডিইই আপনার বিএমআর এবং কার্যকলাপের স্তরের উপর নির্ভর করে। একটি উচ্চ টিডিইই মানে হল আপনি মোটর ক্ষেত্রে বেশি ক্যালোরি পোড়াচ্ছেন, সাধারণত বেশি সক্রিয় হওয়া বা উচ্চ বিএমআর থাকার কারণে। একটি নিম্ন টিডিইই কম দৈনন্দিন কার্যক্রম বা কম বিএমআর নির্দেশ করে।';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalBn implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'দৈনিক লক্ষ্য';
+	@override String get description => 'দৈনিক লক্ষ্য হল আপনার টিডিইই এবং ওজন লক্ষ্য অনুযায়ী আপনার সুপারিশকৃত দৈনিক ক্যালোরি গ্রহণ। ওজন কমানোর জন্য, আপনাকে আপনার টিডিইই-এর চেয়ে কম ক্যালোরি গ্রহণ করতে হবে। ওজন বজায় রাখার জন্য, আপনাকে আপনার টিডিইই-কে মানানসই করতে হবে। ওজন বাড়ানোর জন্য, আপনাকে আপনার টিডিইই-এর চেয়ে বেশি ক্যালোরি গ্রহণ করতে হবে। এটি আপনাকে স্বাস্থ্যকর গতি অনুসরণ করে আপনার কাঙ্খিত ওজন পরিবর্তন অর্জনে সাহায্য করে।';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedBn implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'মোট পোড়ানো ক্যালোরি পড়ুন';
+	@override String get description => 'অ্যাপটিকে স্বাস্থ্য সংযোগ থেকে আপনার মোট পোড়ানো ক্যালোরি পড়ার অনুমতি দেয়।';
+	@override String get usage => 'এই অনুমতি অ্যাপে আপনার দৈনিক ক্যালোরি পোড়ানোর পরিমাণ প্রদর্শন করতে ব্যবহৃত হয়, যা আপনাকে দিনের মধ্যে আপনার মোট শক্তি খরচ বুঝতে সাহায্য করে।';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadBn implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'পুষ্টির ডেটা পড়ুন';
+	@override String get description => 'অ্যাপটিকে স্বাস্থ্য সংযোগ থেকে পুষ্টির ডেটা পড়ার অনুমতি দেয়।';
+	@override String get usage => 'এই অনুমতি অ্যাপটিকে অন্যান্য অ্যাপসের দ্বারা লগ করা পুষ্টির তথ্য পড়তে দেয়, যা আপনার পুষ্টির একটি সমন্বিত দৃশ্য তৈরি করে।';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteBn implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'পুষ্টির ডেটা লেখার অনুমতি';
+	@override String get description => 'অ্যাপটিকে স্বাস্থ্য সংযোগে পুষ্টির ডেটা লেখার অনুমতি দেয়।';
+	@override String get usage => 'এই অনুমতি অ্যাপটিকে আপনার লগ করা খাবারগুলি স্বাস্থ্য সংযোগে সিঙ্ক করার সুযোগ দেয়, যার ফলে আপনার পুষ্টির ডেটা অন্যান্য স্বাস্থ্য ও ফিটনেস অ্যাপসে উপলব্ধ হয়।';
+}
+
 /// The flat map containing all translations for locale <bn>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -1320,7 +1520,7 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceBn implements Tra
 extension on TranslationsBn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'language' => 'Bengali',
+			'language' => 'বাংলা',
 			'flag' => '🇧🇩',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} এ স্বাগতম',
@@ -1506,6 +1706,7 @@ extension on TranslationsBn {
 			'profile.weight' => 'ওজন',
 			'profile.age' => 'বয়স',
 			'profile.weightGoal' => 'ওজন লক্ষ্য',
+			'profile.targetWeight' => 'লক্ষ্য ওজন',
 			'profile.activityLevel' => 'ক্রিয়াকলাপের স্তর',
 			'profile.healthMetrics' => 'স্বাস্থ্য সূচক',
 			'profile.notSet' => 'নির্ধারিত নয়',
@@ -1561,7 +1762,9 @@ extension on TranslationsBn {
 			'settings.sections.profile' => 'প্রোফাইল',
 			'settings.sections.localization' => 'স্থানীয়করণ',
 			'settings.sections.notifications' => 'বিজ্ঞপ্তি',
+			'settings.sections.healthConnect' => 'স্বাস্থ্য সংযোগ',
 			'settings.sections.supportAndLegal' => 'সমর্থন ও আইন',
+			'settings.sections.about' => 'আমাদের সম্পর্কে',
 			'settings.sections.dangerZone' => 'বিপদ অঞ্চল',
 			'settings.sections.developer' => 'ডেভেলপার',
 			'settings.editProfile.title' => 'প্রোফাইল সম্পাদনা করুন',
@@ -1594,6 +1797,46 @@ extension on TranslationsBn {
 			'settings.clearAllData.clearEverything' => 'সব মুছুন',
 			'settings.debugOptions.title' => 'ডিবাগ অপশন',
 			'settings.developerModeEnabled' => 'ডেভেলপার মোড সক্রিয়!',
+			'settings.healthConnect.title' => 'স্বাস্থ্য সংযোগ',
+			'settings.healthConnect.subtitle' => 'অনুমতিগুলি দেখুন এবং পরিচালনা করুন',
+			'settings.healthConnect.unavailable.title' => 'স্বাস্থ্য সংযোগ অপ্রাপ্য',
+			'settings.healthConnect.unavailable.description' => 'এই ডিভাইসে স্বাস্থ্য সংযোগ উপলব্ধ নেই। এটি Android 14 বা তার পরের সংস্করণে প্রয়োজন।',
+			'settings.healthConnect.permissions.title' => 'অনুমতিগুলি',
+			'settings.healthConnect.permissions.description' => 'স্বাস্থ্য সংযোগ সংহতির জন্য নিম্নলিখিত অনুমতিগুলি অনুরোধ করা হচ্ছে:',
+			'settings.healthConnect.permissions.granted' => 'অনুমোদিত',
+			'settings.healthConnect.permissions.notGranted' => 'অনুমোদিত নয়',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'মোট পোড়ানো ক্যালোরি পড়ুন',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'অ্যাপটিকে স্বাস্থ্য সংযোগ থেকে আপনার মোট পোড়ানো ক্যালোরি পড়ার অনুমতি দেয়।',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'এই অনুমতি অ্যাপে আপনার দৈনিক ক্যালোরি পোড়ানোর পরিমাণ প্রদর্শন করতে ব্যবহৃত হয়, যা আপনাকে দিনের মধ্যে আপনার মোট শক্তি খরচ বুঝতে সাহায্য করে।',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'পুষ্টির ডেটা পড়ুন',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'অ্যাপটিকে স্বাস্থ্য সংযোগ থেকে পুষ্টির ডেটা পড়ার অনুমতি দেয়।',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'এই অনুমতি অ্যাপটিকে অন্যান্য অ্যাপসের দ্বারা লগ করা পুষ্টির তথ্য পড়তে দেয়, যা আপনার পুষ্টির একটি সমন্বিত দৃশ্য তৈরি করে।',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'পুষ্টির ডেটা লেখার অনুমতি',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'অ্যাপটিকে স্বাস্থ্য সংযোগে পুষ্টির ডেটা লেখার অনুমতি দেয়।',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'এই অনুমতি অ্যাপটিকে আপনার লগ করা খাবারগুলি স্বাস্থ্য সংযোগে সিঙ্ক করার সুযোগ দেয়, যার ফলে আপনার পুষ্টির ডেটা অন্যান্য স্বাস্থ্য ও ফিটনেস অ্যাপসে উপলব্ধ হয়।',
+			'settings.healthConnect.managePermissions' => 'অনুমতিগুলি পরিচালনা করুন',
+			'settings.healthConnect.openSettings' => 'হেলথ সংযোগ সেটিংস খুলুন',
+			'settings.healthConnect.requestPermissions' => 'অনুমতি প্রার্থনা করুন',
+			'settings.about.title' => 'আমাদের সম্পর্কে',
+			'settings.about.tagline' => 'দ্রুত, নিখুঁত এবং গোপনীয়তা-প্রথম ক্যালোরি জানা',
+			'settings.about.ourStory.title' => 'আমাদের গল্প',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} একটি সাধারণ হতাশা থেকে জন্মেছে: বেশিরভাগ ক্যালোরি ট্র্যাকিং অ্যাপ অত্যধিক জটিল, স постоян্তা ম্যানুয়াল ইনপুট দাবি করে, উচ্চ সাবস্ক্রিপশন ফি দাবি করে, বা গোপনীয়তায় আপস করে।\n\nএকজন স্বতন্ত্র ডেভেলপার হিসাবে, আমি কিছু সহজ এবং ন্যায়সঙ্গত তৈরি করতে চেয়েছিলাম - একটি অ্যাপ যা AI ব্যবহার করে পরিশ্রম হ্রাস করতে, ব্যবহার করতে দ্রুত এবং বিনামূল্যে থাকতে, এবং আপনার স্বাস্থ্য তথ্যের প্রতি শ্রদ্ধাশীল থাকা।\n\n${appLabel} হল সেই অ্যাপ যা আমি চাইতাম যে বিদ্যমান থাকে: কোনো অ্যাকাউন্ট নেই, কোনো ট্র্যাকিং নেই, কোনো বিজ্ঞাপন নেই - কেবল পরিষ্কার, ব্যবহারিক অন্তর্দৃষ্টি এবং আপনার স্বাস্থ্য লক্ষ্য।',
+			'settings.about.privacy.title' => 'আপনার গোপনীয়তা গুরুত্বপূর্ণ',
+			'settings.about.privacy.description' => 'গোপনীয়তা একটি পরবর্তী চিন্তা নয় - এটি একটি ডিজাইন নীতি। এটার বাস্তবে মানে কী:',
+			'settings.about.privacy.noAccounts' => 'এলাকা তৈরির প্রয়োজন নেই\nঅ্যাপটি সাথে সাথে ব্যবহার করুন। কোন সাইন আপ, কোন পরিচিতি নেই।',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'কোন ব্যবহারগত ট্র্যাকিং নেই\n${appLabel} আপনার কার্যকলাপ পর্যালোচনা করে না, ব্যবহারের প্রোফাইল তৈরি করে না, বা আপনাকে অ্যাপ বা ওয়েবসাইটের মধ্যে ট্র্যাক করে না।',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ডিজাইন অনুযায়ী বিজ্ঞাপন মুক্ত\n${appLabel} বিজ্ঞাপন বা ডেটা-চালিত মুনাফা ছাড়া কাজ করার জন্য তৈরি।',
+			'settings.about.privacy.noDataSelling' => 'কোন ডেটা বিক্রি নেই\nআপনার স্বাস্থ্য তথ্য কখনো বিক্রি হয় না বা তৃতীয় পক্ষের সঙ্গে শেয়ার করা হয় না।',
+			'settings.about.privacy.localStorage' => 'স্থানীয়-প্রথম সংগ্রহস্থল\nআপনার তথ্য আপনার ডিভাইসে থাকে।',
+			'settings.about.privacy.privacyPolicy' => 'গোপনীয়তা নীতি',
+			'settings.about.developer.title' => 'একজন স্বতন্ত্র ডেভেলপার দ্বারা তৈরি',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} একটি একক স্বতন্ত্র ডেভেলপার দ্বারা নির্মিত এবং রক্ষণাবেক্ষণ করা হয়, যিনি শান্ত, গোপনীয়তা-সম্মানজনক স্বাস্থ্য সফটওয়্যার তৈরি করতে কেন্দ্রীভূত।\n\nপর্যালোচনাগুলি ব্যক্তিগতভাবে পড়া হয় এবং অ্যাপটির দিকনির্দেশনা নির্ধারণ করতে সহায়তা করে।',
+			'settings.about.developer.website' => 'ওয়েবসাইট',
+			'settings.about.developer.email' => 'ইমেল',
+			'settings.about.feedback.title' => ({required Object appLabel}) => '${appLabel} পছন্দ করছেন?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'আপনার প্রতিক্রিয়া ${appLabel} কে সবার জন্য আরও ভাল করে তোলে।',
+			'settings.about.feedback.rateApp' => 'প্লে স্টোরে রেট দিন',
+			'settings.about.feedback.sendFeedback' => 'প্রতিক্রিয়া পাঠান',
 			'reminders.title' => 'রিমাইন্ডারের সাথে পথে থাকুন',
 			'reminders.description' => 'আপনার খাবার লগ করতে এবং আপনার পুষ্টির লক্ষ্যগুলির সাথে ধারাবাহিক থাকায় নম্রভাবে স্মরণ করিয়ে দিন',
 			'reminders.notificationsEnabled' => 'বিজ্ঞপ্তি সক্রিয়',
@@ -1646,6 +1889,13 @@ extension on TranslationsBn {
 			'disclaimer.weightEstimate.waterWeight.description' => 'সাধারণ দৈনিক ওজন ব্যাপকভাবে জল ধারণ, পাচন এবং সময়ের কারনে পরিবর্তিত হতে পারে। অনুমানগুলি এই দৈনিক পরিবর্তনগুলির হিসাব করে না।',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'পেশাদার নির্দেশিকা',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'এই অনুমানটি চিকিৎসার সিদ্ধান্ত নেওয়ার জন্য ব্যবহার করবেন না। ব্যক্তিগত ওজন ব্যবস্থাপনাযোগ্য পরামর্শের জন্য সর্বদা স্বাস্থ্যসেবা পেশাদার অথবা নিবন্ধিত ডায়েটিশিয়ানের সাথে পরামর্শ করুন।',
+			'disclaimer.healthMetrics.description' => 'এই মেট্রিক্সগুলো আপনাকে আপনার শরীরের শক্তির প্রয়োজন বুঝতে সাহায্য করে এবং আপনার পুষ্টির লক্ষ্য নির্দেশনা দেয়।',
+			'disclaimer.healthMetrics.bmr.title' => 'বিএমআর',
+			'disclaimer.healthMetrics.bmr.description' => 'বেসাল মেটাবলিক রেট (বিএমআর) হল সেই সংখ্যক ক্যালোরি যা আপনার শরীর বিশ্রামে পোড়ায় মৌলিক কার্যক্রম যেমন শ্বাসপ্রশ্বাস এবং রক্তসঞ্চালন রক্ষার জন্য। বিএমআর আপনার বয়স, লিঙ্গ, উচ্চতা এবং ওজনের উপর নির্ভর করে। একটি উচ্চ বিএমআর মানে হল আপনার শরীর স্বাভাবিকভাবেই বিশ্রামে আরও ক্যালোরি পোড়ায়, প্রধানত আরও পেশী ভরের কারণে, কম বয়সের জন্য, বা পুরুষ হওয়ার কারণে। একটি নিম্ন বিএমআর সাধারণত কম পেশী ভর, বেশি বয়স, বা নারী হওয়ার ইঙ্গিত দেয়।',
+			'disclaimer.healthMetrics.tdee.title' => 'টিডিইই',
+			'disclaimer.healthMetrics.tdee.description' => 'মোট দৈনিক শক্তি ব্যয় (টিডিইই) হল আপনার দৈনিক পোড়ানো মোট ক্যালোরি, এতে আপনার বিএমআর এবং শারীরিক কার্যকলাপ ও দৈনন্দিন চলাফেরা থেকে প্রাপ্ত ক্যালোরি অন্তর্ভুক্ত। টিডিইই আপনার বিএমআর এবং কার্যকলাপের স্তরের উপর নির্ভর করে। একটি উচ্চ টিডিইই মানে হল আপনি মোটর ক্ষেত্রে বেশি ক্যালোরি পোড়াচ্ছেন, সাধারণত বেশি সক্রিয় হওয়া বা উচ্চ বিএমআর থাকার কারণে। একটি নিম্ন টিডিইই কম দৈনন্দিন কার্যক্রম বা কম বিএমআর নির্দেশ করে।',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'দৈনিক লক্ষ্য',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'দৈনিক লক্ষ্য হল আপনার টিডিইই এবং ওজন লক্ষ্য অনুযায়ী আপনার সুপারিশকৃত দৈনিক ক্যালোরি গ্রহণ। ওজন কমানোর জন্য, আপনাকে আপনার টিডিইই-এর চেয়ে কম ক্যালোরি গ্রহণ করতে হবে। ওজন বজায় রাখার জন্য, আপনাকে আপনার টিডিইই-কে মানানসই করতে হবে। ওজন বাড়ানোর জন্য, আপনাকে আপনার টিডিইই-এর চেয়ে বেশি ক্যালোরি গ্রহণ করতে হবে। এটি আপনাকে স্বাস্থ্যকর গতি অনুসরণ করে আপনার কাঙ্খিত ওজন পরিবর্তন অর্জনে সাহায্য করে।',
 			'common.close' => 'বন্ধ করুন',
 			'common.kContinue' => 'অগ্রসর হোন',
 			'errors.loadingProfileData' => 'প্রোফাইল তথ্য লোড করতে ত্রুটি',

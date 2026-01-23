@@ -184,6 +184,7 @@ class _TranslationsProfileJa implements TranslationsProfileEn {
 	@override String get weight => '体重';
 	@override String get age => '年齢';
 	@override String get weightGoal => '体重目標';
+	@override String get targetWeight => '目標体重';
 	@override String get activityLevel => '活動レベル';
 	@override String get healthMetrics => '健康指標';
 	@override String get notSet => '未設定';
@@ -252,6 +253,8 @@ class _TranslationsSettingsJa implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataJa clearAllData = _TranslationsSettingsClearAllDataJa._(_root);
 	@override late final _TranslationsSettingsDebugOptionsJa debugOptions = _TranslationsSettingsDebugOptionsJa._(_root);
 	@override String get developerModeEnabled => '開発者モードが有効になりました！';
+	@override late final _TranslationsSettingsHealthConnectJa healthConnect = _TranslationsSettingsHealthConnectJa._(_root);
+	@override late final _TranslationsSettingsAboutJa about = _TranslationsSettingsAboutJa._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerJa implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'ご注意ください';
 	@override late final _TranslationsDisclaimerSnapJa snap = _TranslationsDisclaimerSnapJa._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateJa weightEstimate = _TranslationsDisclaimerWeightEstimateJa._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsJa healthMetrics = _TranslationsDisclaimerHealthMetricsJa._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsJa implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'プロフィール';
 	@override String get localization => 'ローカライズ';
 	@override String get notifications => '通知';
+	@override String get healthConnect => 'ヘルスコネクト';
 	@override String get supportAndLegal => 'サポートと法律';
+	@override String get about => 'について';
 	@override String get dangerZone => '危険ゾーン';
 	@override String get developer => '開発者';
 }
@@ -895,6 +901,37 @@ class _TranslationsSettingsDebugOptionsJa implements TranslationsSettingsDebugOp
 	@override String get title => 'デバッグオプション';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectJa implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ヘルスコネクト';
+	@override String get subtitle => '権限を表示および管理';
+	@override late final _TranslationsSettingsHealthConnectUnavailableJa unavailable = _TranslationsSettingsHealthConnectUnavailableJa._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsJa permissions = _TranslationsSettingsHealthConnectPermissionsJa._(_root);
+	@override String get managePermissions => '権限を管理';
+	@override String get openSettings => 'ヘルスコネクト設定を開く';
+	@override String get requestPermissions => '権限をリクエストする';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutJa implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '私たちについて';
+	@override String get tagline => '迅速で無料、プライバシー重視のカロリー認識';
+	@override late final _TranslationsSettingsAboutOurStoryJa ourStory = _TranslationsSettingsAboutOurStoryJa._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyJa privacy = _TranslationsSettingsAboutPrivacyJa._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperJa developer = _TranslationsSettingsAboutDeveloperJa._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackJa feedback = _TranslationsSettingsAboutFeedbackJa._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastJa implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastJa._(this._root);
@@ -976,6 +1013,19 @@ class _TranslationsDisclaimerWeightEstimateJa implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsJa biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsJa._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightJa waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightJa._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceJa professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceJa._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsJa implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'これらの指標は、あなたの体のエネルギーの必要性を理解し、栄養の目標を導くのに役立ちます。';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrJa bmr = _TranslationsDisclaimerHealthMetricsBmrJa._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeJa tdee = _TranslationsDisclaimerHealthMetricsTdeeJa._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalJa dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalJa._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1274,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveJa implements Transla
 	@override String get description => '非常にハードな運動や肉体労働';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableJa implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ヘルスコネクトは利用できません';
+	@override String get description => 'このデバイスではヘルスコネクトは利用できません。Android 14以降が必要です。';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsJa implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '権限';
+	@override String get description => 'ヘルスコネクト統合を提供するために要求される権限は以下の通りです。';
+	@override String get granted => '付与済み';
+	@override String get notGranted => '未付与';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedJa caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedJa._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadJa nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadJa._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteJa nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteJa._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryJa implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '私たちのストーリー';
+	@override String content({required Object appLabel}) => '${appLabel}はシンプルなフラストレーションから生まれました：ほとんどのカロリー追跡アプリは、過度に複雑で、常に手動入力を要求され、高額なサブスクリプション料金を請求し、またはプライバシーを妥協します。\n\nインディー開発者として、私はよりシンプルで公正なものを作りたいと思いました — 努力を減らすためにAIを使用し、すぐに使えて速く、あなたの健康データを尊重するアプリです。\n\n${appLabel}は私が存在してほしかったアプリです：アカウント不要、トラッキングなし、広告なし — 明確で実用的な洞察とあなたの健康目標だけが提供されます。';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyJa implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'あなたのプライバシーは重要です';
+	@override String get description => 'プライバシーは後から考慮されるものではありません — デザイン原則です。これは実際に何を意味するのでしょうか：';
+	@override String get noAccounts => 'アカウント不要\nすぐにアプリを使用できます。サインアップなし、個人情報なし。';
+	@override String noTracking({required Object appLabel}) => '行動追跡なし\n${appLabel}はあなたの活動を監視せず、利用プロファイルを構築せず、アプリやウェブサイトを通じてあなたを追跡しません。';
+	@override String noAds({required Object appLabel}) => '設計から広告なし\n${appLabel}は広告やデータ主導のマネタイズなしで機能するように構築されています。';
+	@override String get noDataSelling => 'データ販売なし\nあなたの健康データは第三者に販売または共有されることはありません。';
+	@override String get localStorage => 'ローカル優先のストレージ\nあなたのデータはデバイスに保存されます。';
+	@override String get privacyPolicy => 'プライバシーポリシー';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperJa implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'インディー開発者によって構築されました';
+	@override String description({required Object appLabel}) => '${appLabel}は、落ち着いたプライバシーを尊重する健康ソフトウェアを作成することに焦点を当てた単独のインディー開発者によって構築され、維持されています。\n\nフィードバックは個人的に読み、アプリの方向性を形作るのに役立ちます。';
+	@override String get website => 'ウェブサイト';
+	@override String get email => 'メール';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackJa implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => '${appLabel}を楽しんでいますか？';
+	@override String description({required Object appLabel}) => 'あなたのフィードバックは、${appLabel}をより良いものにするのに役立ちます。';
+	@override String get rateApp => 'Playストアで評価する';
+	@override String get sendFeedback => 'フィードバックを送信';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeJa implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeJa._(this._root);
@@ -1310,6 +1441,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceJa implements Tra
 	// Translations
 	@override String get title => '専門家のガイダンス';
 	@override String get description => 'この推定を医療の決定に使用しないでください。個別の体重管理アドバイスについては、常に医療専門家または登録栄養士に相談してください。';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrJa implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '基礎代謝量 (BMR)';
+	@override String get description => '基礎代謝量 (BMR) は、呼吸や循環などの基本的な機能を維持するために、静止状態であなたの体が消費するカロリーの量です。BMRは年齢、性別、身長、体重によって異なります。BMRが高いと、通常は筋肉量が多い、若い、または男性であるために、静止時に自然に多くのカロリーを消費します。BMRが低い場合は、通常、筋肉量が少ない、高齢、または女性であることを示しています。';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeJa implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '1日の総エネルギー消費量 (TDEE)';
+	@override String get description => '1日の総エネルギー消費量 (TDEE) は、BMRと身体活動や日常の動きからのカロリーを含めた、1日に消費する総カロリー量です。TDEEはあなたのBMRと活動レベルによって異なります。TDEEが高いと、一般的にはよりアクティブであるか、またはBMRが高いために、全体的に多くのカロリーを消費します。TDEEが低い場合は、日常の活動が少ないか、BMRが低いことを示唆しています。';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalJa implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '1日の目標';
+	@override String get description => '1日の目標は、あなたのTDEEと体重目標に基づく推奨される1日のカロリー摂取量です。減量のためには、TDEEよりも少ないカロリーを摂取します。体重維持のためには、TDEEに合わせます。増量のためには、TDEEよりも多くのカロリーを摂取します。これにより、健康的なペースで望ましい体重の変化を達成することができます。';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedJa implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '総消費カロリーの読み取り';
+	@override String get description => 'アプリがヘルスコネクトからあなたの総消費カロリーを読み取ることを許可します。';
+	@override String get usage => 'この権限はアプリ内でのあなたの1日のカロリー消費を表示するために使用され、1日の総エネルギー消費を理解するのに役立ちます。';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadJa implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '栄養データの読み取り';
+	@override String get description => 'アプリがヘルスコネクトから栄養データを読み取ることを許可します。';
+	@override String get usage => 'この権限により、ヘルスコネクトに接続された他のアプリによって記録された栄養情報を読み取ることができ、包括的な栄養の見通しが得られます。';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteJa implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '栄養データの書き込み';
+	@override String get description => 'アプリがヘルスコネクトに栄養データを書き込むことを許可します。';
+	@override String get usage => 'この権限により、アプリがあなたの記録した食事をヘルスコネクトに同期させ、使用中の他の健康・フィットネスアプリで栄養データを利用できるようにします。';
 }
 
 /// The flat map containing all translations for locale <ja>.
@@ -1506,6 +1706,7 @@ extension on TranslationsJa {
 			'profile.weight' => '体重',
 			'profile.age' => '年齢',
 			'profile.weightGoal' => '体重目標',
+			'profile.targetWeight' => '目標体重',
 			'profile.activityLevel' => '活動レベル',
 			'profile.healthMetrics' => '健康指標',
 			'profile.notSet' => '未設定',
@@ -1561,7 +1762,9 @@ extension on TranslationsJa {
 			'settings.sections.profile' => 'プロフィール',
 			'settings.sections.localization' => 'ローカライズ',
 			'settings.sections.notifications' => '通知',
+			'settings.sections.healthConnect' => 'ヘルスコネクト',
 			'settings.sections.supportAndLegal' => 'サポートと法律',
+			'settings.sections.about' => 'について',
 			'settings.sections.dangerZone' => '危険ゾーン',
 			'settings.sections.developer' => '開発者',
 			'settings.editProfile.title' => 'プロフィールを編集',
@@ -1594,6 +1797,46 @@ extension on TranslationsJa {
 			'settings.clearAllData.clearEverything' => 'すべてをクリア',
 			'settings.debugOptions.title' => 'デバッグオプション',
 			'settings.developerModeEnabled' => '開発者モードが有効になりました！',
+			'settings.healthConnect.title' => 'ヘルスコネクト',
+			'settings.healthConnect.subtitle' => '権限を表示および管理',
+			'settings.healthConnect.unavailable.title' => 'ヘルスコネクトは利用できません',
+			'settings.healthConnect.unavailable.description' => 'このデバイスではヘルスコネクトは利用できません。Android 14以降が必要です。',
+			'settings.healthConnect.permissions.title' => '権限',
+			'settings.healthConnect.permissions.description' => 'ヘルスコネクト統合を提供するために要求される権限は以下の通りです。',
+			'settings.healthConnect.permissions.granted' => '付与済み',
+			'settings.healthConnect.permissions.notGranted' => '未付与',
+			'settings.healthConnect.permissions.caloriesBurned.title' => '総消費カロリーの読み取り',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'アプリがヘルスコネクトからあなたの総消費カロリーを読み取ることを許可します。',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'この権限はアプリ内でのあなたの1日のカロリー消費を表示するために使用され、1日の総エネルギー消費を理解するのに役立ちます。',
+			'settings.healthConnect.permissions.nutritionRead.title' => '栄養データの読み取り',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'アプリがヘルスコネクトから栄養データを読み取ることを許可します。',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'この権限により、ヘルスコネクトに接続された他のアプリによって記録された栄養情報を読み取ることができ、包括的な栄養の見通しが得られます。',
+			'settings.healthConnect.permissions.nutritionWrite.title' => '栄養データの書き込み',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'アプリがヘルスコネクトに栄養データを書き込むことを許可します。',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'この権限により、アプリがあなたの記録した食事をヘルスコネクトに同期させ、使用中の他の健康・フィットネスアプリで栄養データを利用できるようにします。',
+			'settings.healthConnect.managePermissions' => '権限を管理',
+			'settings.healthConnect.openSettings' => 'ヘルスコネクト設定を開く',
+			'settings.healthConnect.requestPermissions' => '権限をリクエストする',
+			'settings.about.title' => '私たちについて',
+			'settings.about.tagline' => '迅速で無料、プライバシー重視のカロリー認識',
+			'settings.about.ourStory.title' => '私たちのストーリー',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel}はシンプルなフラストレーションから生まれました：ほとんどのカロリー追跡アプリは、過度に複雑で、常に手動入力を要求され、高額なサブスクリプション料金を請求し、またはプライバシーを妥協します。\n\nインディー開発者として、私はよりシンプルで公正なものを作りたいと思いました — 努力を減らすためにAIを使用し、すぐに使えて速く、あなたの健康データを尊重するアプリです。\n\n${appLabel}は私が存在してほしかったアプリです：アカウント不要、トラッキングなし、広告なし — 明確で実用的な洞察とあなたの健康目標だけが提供されます。',
+			'settings.about.privacy.title' => 'あなたのプライバシーは重要です',
+			'settings.about.privacy.description' => 'プライバシーは後から考慮されるものではありません — デザイン原則です。これは実際に何を意味するのでしょうか：',
+			'settings.about.privacy.noAccounts' => 'アカウント不要\nすぐにアプリを使用できます。サインアップなし、個人情報なし。',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => '行動追跡なし\n${appLabel}はあなたの活動を監視せず、利用プロファイルを構築せず、アプリやウェブサイトを通じてあなたを追跡しません。',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => '設計から広告なし\n${appLabel}は広告やデータ主導のマネタイズなしで機能するように構築されています。',
+			'settings.about.privacy.noDataSelling' => 'データ販売なし\nあなたの健康データは第三者に販売または共有されることはありません。',
+			'settings.about.privacy.localStorage' => 'ローカル優先のストレージ\nあなたのデータはデバイスに保存されます。',
+			'settings.about.privacy.privacyPolicy' => 'プライバシーポリシー',
+			'settings.about.developer.title' => 'インディー開発者によって構築されました',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel}は、落ち着いたプライバシーを尊重する健康ソフトウェアを作成することに焦点を当てた単独のインディー開発者によって構築され、維持されています。\n\nフィードバックは個人的に読み、アプリの方向性を形作るのに役立ちます。',
+			'settings.about.developer.website' => 'ウェブサイト',
+			'settings.about.developer.email' => 'メール',
+			'settings.about.feedback.title' => ({required Object appLabel}) => '${appLabel}を楽しんでいますか？',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'あなたのフィードバックは、${appLabel}をより良いものにするのに役立ちます。',
+			'settings.about.feedback.rateApp' => 'Playストアで評価する',
+			'settings.about.feedback.sendFeedback' => 'フィードバックを送信',
 			'reminders.title' => 'リマインダーで進捗を維持',
 			'reminders.description' => '食事を記録し、栄養目標を一貫して守るための穏やかなリマインダーを受け取ります',
 			'reminders.notificationsEnabled' => '通知が有効',
@@ -1646,6 +1889,13 @@ extension on TranslationsJa {
 			'disclaimer.weightEstimate.waterWeight.description' => '通常の体重は、水分貯留、消化、タイミングによる影響で大きく変動することがあります。推定値はこれらの毎日の変動を考慮していません。',
 			'disclaimer.weightEstimate.professionalGuidance.title' => '専門家のガイダンス',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'この推定を医療の決定に使用しないでください。個別の体重管理アドバイスについては、常に医療専門家または登録栄養士に相談してください。',
+			'disclaimer.healthMetrics.description' => 'これらの指標は、あなたの体のエネルギーの必要性を理解し、栄養の目標を導くのに役立ちます。',
+			'disclaimer.healthMetrics.bmr.title' => '基礎代謝量 (BMR)',
+			'disclaimer.healthMetrics.bmr.description' => '基礎代謝量 (BMR) は、呼吸や循環などの基本的な機能を維持するために、静止状態であなたの体が消費するカロリーの量です。BMRは年齢、性別、身長、体重によって異なります。BMRが高いと、通常は筋肉量が多い、若い、または男性であるために、静止時に自然に多くのカロリーを消費します。BMRが低い場合は、通常、筋肉量が少ない、高齢、または女性であることを示しています。',
+			'disclaimer.healthMetrics.tdee.title' => '1日の総エネルギー消費量 (TDEE)',
+			'disclaimer.healthMetrics.tdee.description' => '1日の総エネルギー消費量 (TDEE) は、BMRと身体活動や日常の動きからのカロリーを含めた、1日に消費する総カロリー量です。TDEEはあなたのBMRと活動レベルによって異なります。TDEEが高いと、一般的にはよりアクティブであるか、またはBMRが高いために、全体的に多くのカロリーを消費します。TDEEが低い場合は、日常の活動が少ないか、BMRが低いことを示唆しています。',
+			'disclaimer.healthMetrics.dailyGoal.title' => '1日の目標',
+			'disclaimer.healthMetrics.dailyGoal.description' => '1日の目標は、あなたのTDEEと体重目標に基づく推奨される1日のカロリー摂取量です。減量のためには、TDEEよりも少ないカロリーを摂取します。体重維持のためには、TDEEに合わせます。増量のためには、TDEEよりも多くのカロリーを摂取します。これにより、健康的なペースで望ましい体重の変化を達成することができます。',
 			'common.close' => '閉じる',
 			'common.kContinue' => '続ける',
 			'errors.loadingProfileData' => 'プロフィールデータの読み込みエラー',

@@ -184,6 +184,7 @@ class _TranslationsProfileTl implements TranslationsProfileEn {
 	@override String get weight => 'Timbang';
 	@override String get age => 'Edad';
 	@override String get weightGoal => 'Layunin sa Timbang';
+	@override String get targetWeight => 'Target na Timbang';
 	@override String get activityLevel => 'Antas ng Aktibidad';
 	@override String get healthMetrics => 'Metrics ng Kalusugan';
 	@override String get notSet => 'Hindi nakatakda';
@@ -252,6 +253,8 @@ class _TranslationsSettingsTl implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataTl clearAllData = _TranslationsSettingsClearAllDataTl._(_root);
 	@override late final _TranslationsSettingsDebugOptionsTl debugOptions = _TranslationsSettingsDebugOptionsTl._(_root);
 	@override String get developerModeEnabled => 'Naka-enable ang developer mode!';
+	@override late final _TranslationsSettingsHealthConnectTl healthConnect = _TranslationsSettingsHealthConnectTl._(_root);
+	@override late final _TranslationsSettingsAboutTl about = _TranslationsSettingsAboutTl._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerTl implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'Pakitandaan';
 	@override late final _TranslationsDisclaimerSnapTl snap = _TranslationsDisclaimerSnapTl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateTl weightEstimate = _TranslationsDisclaimerWeightEstimateTl._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTl healthMetrics = _TranslationsDisclaimerHealthMetricsTl._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsTl implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFILE';
 	@override String get localization => 'LOKALISASYON';
 	@override String get notifications => 'NOTIFIKASYON';
+	@override String get healthConnect => 'KONEKSYON SA KALUSUGAN';
 	@override String get supportAndLegal => 'SUPORTA AT LEGAL';
+	@override String get about => 'TUNGKOL';
 	@override String get dangerZone => 'MAPANGANIB NA ZONA';
 	@override String get developer => 'DEVELOPER';
 }
@@ -895,6 +901,37 @@ class _TranslationsSettingsDebugOptionsTl implements TranslationsSettingsDebugOp
 	@override String get title => 'Mga Opsyon sa Debug';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectTl implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Koneksyon sa Kalusugan';
+	@override String get subtitle => 'Tingnan at pamahalaan ang mga pahintulot';
+	@override late final _TranslationsSettingsHealthConnectUnavailableTl unavailable = _TranslationsSettingsHealthConnectUnavailableTl._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsTl permissions = _TranslationsSettingsHealthConnectPermissionsTl._(_root);
+	@override String get managePermissions => 'Pamahalaan ang mga Pahintulot';
+	@override String get openSettings => 'Buksan ang Mga Setting ng Health Connect';
+	@override String get requestPermissions => 'Humiling ng Mga Pahintulot';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutTl implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tungkol';
+	@override String get tagline => 'Mabilis, libre, at priyoridad ang privacy sa kamalayan sa calorie';
+	@override late final _TranslationsSettingsAboutOurStoryTl ourStory = _TranslationsSettingsAboutOurStoryTl._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyTl privacy = _TranslationsSettingsAboutPrivacyTl._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperTl developer = _TranslationsSettingsAboutDeveloperTl._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackTl feedback = _TranslationsSettingsAboutFeedbackTl._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastTl implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastTl._(this._root);
@@ -976,6 +1013,19 @@ class _TranslationsDisclaimerWeightEstimateTl implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsTl biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsTl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightTl waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightTl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTl professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTl._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsTl implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Ang mga sukat na ito ay tumutulong sa iyo na maunawaan ang mga pangangailangan ng enerhiya ng iyong katawan at itinuturo ang iyong mga layunin sa nutrisyon.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrTl bmr = _TranslationsDisclaimerHealthMetricsBmrTl._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeTl tdee = _TranslationsDisclaimerHealthMetricsTdeeTl._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalTl dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalTl._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1274,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveTl implements Transla
 	@override String get description => 'Sobrang mabigat na ehersisyo, pisikal na trabaho';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableTl implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hindi Magagamit ang Koneksyon sa Kalusugan';
+	@override String get description => 'Ang Koneksyon sa Kalusugan ay hindi magagamit sa aparatong ito. Nangangailangan ito ng Android 14 o mas mataas.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsTl implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mga Pahintulot';
+	@override String get description => 'Ang mga sumusunod na pahintulot ay hiniling upang maibigay ang integrasyon ng Koneksyon sa Kalusugan:';
+	@override String get granted => 'Ipinagkaloob';
+	@override String get notGranted => 'Hindi Ipinagkaloob';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTl caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTl._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadTl nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadTl._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteTl nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteTl._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryTl implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ang Aming Kwento';
+	@override String content({required Object appLabel}) => '${appLabel} ay isinilang mula sa isang simpleng pagkabigo: karamihan sa mga app na nagtatala ng calorie ay sobrang kumplikado, humihingi ng patuloy na manu-manong input, mataas ang bayad sa subscription, o nagkakasala sa privacy.\n\nBilang isang solo developer, nais kong bumuo ng isang bagay na mas simple at patas — isang app na gumagamit ng AI upang mabawasan ang pagsisikap, mananatiling mabilis at libre ang paggamit, at ginagalang ang iyong mga datos sa kalusugan.\n\n${appLabel} ang app na sana ay nag-exist: walang mga account, walang pagsubaybay, walang mga anunsyo — malinaw, praktikal na mga pananaw lamang at ang iyong mga layunin sa kalusugan.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyTl implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mahalaga ang Iyong Privacy';
+	@override String get description => 'Ang privacy ay hindi isang second thought — ito ay isang prinsipyo sa disenyo. Narito kung ano ang ibig sabihin nito sa praktis:';
+	@override String get noAccounts => 'Walang kinakailangang account\nGamitin agad ang app. Walang pag-sign up, walang pagkakakilanlan.';
+	@override String noTracking({required Object appLabel}) => 'Walang pagsubaybay sa gawi\n${appLabel} ay hindi nagmamanman ng iyong aktibidad, hindi bumubuo ng usage profiles, o nagsusubaybay sa iyo sa mga app o website.';
+	@override String noAds({required Object appLabel}) => 'Walang ads sa disenyo\n${appLabel} ay nakabuo upang gumana nang walang ads o data-driven monetization.';
+	@override String get noDataSelling => 'Walang pagbebenta ng datos\nHindi kailanman ibinebenta o ibinabahagi ang iyong datos sa kalusugan sa mga third parties.';
+	@override String get localStorage => 'Local-first storage\nAng iyong datos ay nananatili sa iyong device.';
+	@override String get privacyPolicy => 'Patakaran sa Privacy';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperTl implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Nilikha ng Isang Solo Developer';
+	@override String description({required Object appLabel}) => '${appLabel} ay binuo at pinapanatili ng isang tanging solo developer na nakatutok sa paglikha ng kalmado at p respecting na software para sa kalusugan.\n\nAng feedback ay personal na binabasa at tumutulong sa paghubog ng direksyon ng app.';
+	@override String get website => 'Website';
+	@override String get email => 'Email';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackTl implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => 'Nasiyahan ka ba sa ${appLabel}?';
+	@override String description({required Object appLabel}) => 'Ang iyong feedback ay tumutulong sa pagpapabuti ng ${appLabel} para sa lahat.';
+	@override String get rateApp => 'I-rate sa Play Store';
+	@override String get sendFeedback => 'Magpadala ng Feedback';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeTl implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeTl._(this._root);
@@ -1310,6 +1441,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTl implements Tra
 	// Translations
 	@override String get title => 'Propesyonal na Patnubay';
 	@override String get description => 'Huwag gamitin ang pagtatantyang ito upang gumawa ng mga medikal na desisyon. Palaging kumonsulta sa isang propesyonal sa kalusugan o nakarehistrong dietitian para sa personalized na payo sa pamamahala ng timbang.';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrTl implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'BMR';
+	@override String get description => 'Ang Basal Metabolic Rate (BMR) ay ang bilang ng mga calorie na sinusunog ng iyong katawan kapag nagpapahinga upang mapanatili ang mga pangunahing function tulad ng paghinga at sirkulasyon. Ang BMR ay nakadepende sa iyong edad, kasarian, taas, at timbang. Ang mas mataas na BMR ay nangangahulugang ang iyong katawan ay natural na nagsusunog ng mas maraming calorie habang nagpapahinga, na kadalasang dulot ng mas maraming mass ng kalamnan, mas batang edad, o pagiging lalaki. Ang mas mababang BMR ay karaniwang nagpapahiwatig ng mas kaunting mass ng kalamnan, mas matandang edad, o pagiging babae.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeTl implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TDEE';
+	@override String get description => 'Ang Total Daily Energy Expenditure (TDEE) ay ang kabuuang calorie na sinusunog mo sa isang araw, kabilang ang iyong BMR at mga calorie mula sa pisikal na aktibidad at pang-araw-araw na paggalaw. Ang TDEE ay nakadepende sa iyong BMR at antas ng aktibidad. Ang mas mataas na TDEE ay nangangahulugang mas maraming calorie ang iyong sinusunod sa kabuuan, karaniwang mula sa pagiging mas aktibo o pagkakaroon ng mas mataas na BMR. Ang mas mababang TDEE ay nagpapahiwatig ng mas kaunting aktibidad sa araw-araw o mas mababang BMR.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalTl implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Arawang Layunin';
+	@override String get description => 'Ang Arawang Layunin ay ang inirekomendang pang-araw-araw na calorie na kinakailangan batay sa iyong TDEE at layunin sa timbang. Para sa pagbaba ng timbang, kumakain ka ng mas kaunting calorie kaysa sa iyong TDEE. Para sa pagpapanatili ng timbang, katumbas mo ang iyong TDEE. Para sa pagtaas ng timbang, kumakain ka ng mas maraming calorie kaysa sa iyong TDEE. Tinutulungan ka nitong makamit ang iyong nais na pagbabago ng timbang sa isang malusog na takbo.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTl implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Basahin ang Kabuuang Nalaglag na Kaloriya';
+	@override String get description => 'Pinapayagan ang app na basahin ang iyong kabuuang nalaglag na kaloriya mula sa Koneksyon sa Kalusugan.';
+	@override String get usage => 'Ginagamit ang pahintulot na ito upang ipakita ang iyong araw-araw na nalaglag na kaloriya sa app, na tumutulong sa iyo na maunawaan ang iyong kabuuang pagkonsumo ng enerhiya sa buong araw.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadTl implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Basahin ang Data ng Nutrisyon';
+	@override String get description => 'Pinapayagan ang app na basahin ang data ng nutrisyon mula sa Koneksyon sa Kalusugan.';
+	@override String get usage => 'Pinapayagan ng pahintulot na ito ang app na basahin ang impormasyon ng nutrisyon na maaaring naitala ng ibang mga app na nakakonekta sa Koneksyon sa Kalusugan, nagbibigay ng komprehensibong pananaw sa iyong nutrisyon.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteTl implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Sumulat ng Data ng Nutrisyon';
+	@override String get description => 'Pinapayagan ang app na sumulat ng data ng nutrisyon sa Koneksyon sa Kalusugan.';
+	@override String get usage => 'Pinapayagan ng pahintulot na ito ang app na i-sync ang iyong mga naitalang pagkain sa Koneksyon sa Kalusugan, na ginagawang magagamit ang iyong data ng nutrisyon sa iba pang mga app sa kalusugan at fitness na ginagamit mo.';
 }
 
 /// The flat map containing all translations for locale <tl>.
@@ -1506,6 +1706,7 @@ extension on TranslationsTl {
 			'profile.weight' => 'Timbang',
 			'profile.age' => 'Edad',
 			'profile.weightGoal' => 'Layunin sa Timbang',
+			'profile.targetWeight' => 'Target na Timbang',
 			'profile.activityLevel' => 'Antas ng Aktibidad',
 			'profile.healthMetrics' => 'Metrics ng Kalusugan',
 			'profile.notSet' => 'Hindi nakatakda',
@@ -1561,7 +1762,9 @@ extension on TranslationsTl {
 			'settings.sections.profile' => 'PROFILE',
 			'settings.sections.localization' => 'LOKALISASYON',
 			'settings.sections.notifications' => 'NOTIFIKASYON',
+			'settings.sections.healthConnect' => 'KONEKSYON SA KALUSUGAN',
 			'settings.sections.supportAndLegal' => 'SUPORTA AT LEGAL',
+			'settings.sections.about' => 'TUNGKOL',
 			'settings.sections.dangerZone' => 'MAPANGANIB NA ZONA',
 			'settings.sections.developer' => 'DEVELOPER',
 			'settings.editProfile.title' => 'I-edit ang Profile',
@@ -1594,6 +1797,46 @@ extension on TranslationsTl {
 			'settings.clearAllData.clearEverything' => 'I-clear ang Lahat',
 			'settings.debugOptions.title' => 'Mga Opsyon sa Debug',
 			'settings.developerModeEnabled' => 'Naka-enable ang developer mode!',
+			'settings.healthConnect.title' => 'Koneksyon sa Kalusugan',
+			'settings.healthConnect.subtitle' => 'Tingnan at pamahalaan ang mga pahintulot',
+			'settings.healthConnect.unavailable.title' => 'Hindi Magagamit ang Koneksyon sa Kalusugan',
+			'settings.healthConnect.unavailable.description' => 'Ang Koneksyon sa Kalusugan ay hindi magagamit sa aparatong ito. Nangangailangan ito ng Android 14 o mas mataas.',
+			'settings.healthConnect.permissions.title' => 'Mga Pahintulot',
+			'settings.healthConnect.permissions.description' => 'Ang mga sumusunod na pahintulot ay hiniling upang maibigay ang integrasyon ng Koneksyon sa Kalusugan:',
+			'settings.healthConnect.permissions.granted' => 'Ipinagkaloob',
+			'settings.healthConnect.permissions.notGranted' => 'Hindi Ipinagkaloob',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Basahin ang Kabuuang Nalaglag na Kaloriya',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Pinapayagan ang app na basahin ang iyong kabuuang nalaglag na kaloriya mula sa Koneksyon sa Kalusugan.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Ginagamit ang pahintulot na ito upang ipakita ang iyong araw-araw na nalaglag na kaloriya sa app, na tumutulong sa iyo na maunawaan ang iyong kabuuang pagkonsumo ng enerhiya sa buong araw.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Basahin ang Data ng Nutrisyon',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Pinapayagan ang app na basahin ang data ng nutrisyon mula sa Koneksyon sa Kalusugan.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Pinapayagan ng pahintulot na ito ang app na basahin ang impormasyon ng nutrisyon na maaaring naitala ng ibang mga app na nakakonekta sa Koneksyon sa Kalusugan, nagbibigay ng komprehensibong pananaw sa iyong nutrisyon.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Sumulat ng Data ng Nutrisyon',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Pinapayagan ang app na sumulat ng data ng nutrisyon sa Koneksyon sa Kalusugan.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Pinapayagan ng pahintulot na ito ang app na i-sync ang iyong mga naitalang pagkain sa Koneksyon sa Kalusugan, na ginagawang magagamit ang iyong data ng nutrisyon sa iba pang mga app sa kalusugan at fitness na ginagamit mo.',
+			'settings.healthConnect.managePermissions' => 'Pamahalaan ang mga Pahintulot',
+			'settings.healthConnect.openSettings' => 'Buksan ang Mga Setting ng Health Connect',
+			'settings.healthConnect.requestPermissions' => 'Humiling ng Mga Pahintulot',
+			'settings.about.title' => 'Tungkol',
+			'settings.about.tagline' => 'Mabilis, libre, at priyoridad ang privacy sa kamalayan sa calorie',
+			'settings.about.ourStory.title' => 'Ang Aming Kwento',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} ay isinilang mula sa isang simpleng pagkabigo: karamihan sa mga app na nagtatala ng calorie ay sobrang kumplikado, humihingi ng patuloy na manu-manong input, mataas ang bayad sa subscription, o nagkakasala sa privacy.\n\nBilang isang solo developer, nais kong bumuo ng isang bagay na mas simple at patas — isang app na gumagamit ng AI upang mabawasan ang pagsisikap, mananatiling mabilis at libre ang paggamit, at ginagalang ang iyong mga datos sa kalusugan.\n\n${appLabel} ang app na sana ay nag-exist: walang mga account, walang pagsubaybay, walang mga anunsyo — malinaw, praktikal na mga pananaw lamang at ang iyong mga layunin sa kalusugan.',
+			'settings.about.privacy.title' => 'Mahalaga ang Iyong Privacy',
+			'settings.about.privacy.description' => 'Ang privacy ay hindi isang second thought — ito ay isang prinsipyo sa disenyo. Narito kung ano ang ibig sabihin nito sa praktis:',
+			'settings.about.privacy.noAccounts' => 'Walang kinakailangang account\nGamitin agad ang app. Walang pag-sign up, walang pagkakakilanlan.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Walang pagsubaybay sa gawi\n${appLabel} ay hindi nagmamanman ng iyong aktibidad, hindi bumubuo ng usage profiles, o nagsusubaybay sa iyo sa mga app o website.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Walang ads sa disenyo\n${appLabel} ay nakabuo upang gumana nang walang ads o data-driven monetization.',
+			'settings.about.privacy.noDataSelling' => 'Walang pagbebenta ng datos\nHindi kailanman ibinebenta o ibinabahagi ang iyong datos sa kalusugan sa mga third parties.',
+			'settings.about.privacy.localStorage' => 'Local-first storage\nAng iyong datos ay nananatili sa iyong device.',
+			'settings.about.privacy.privacyPolicy' => 'Patakaran sa Privacy',
+			'settings.about.developer.title' => 'Nilikha ng Isang Solo Developer',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} ay binuo at pinapanatili ng isang tanging solo developer na nakatutok sa paglikha ng kalmado at p respecting na software para sa kalusugan.\n\nAng feedback ay personal na binabasa at tumutulong sa paghubog ng direksyon ng app.',
+			'settings.about.developer.website' => 'Website',
+			'settings.about.developer.email' => 'Email',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Nasiyahan ka ba sa ${appLabel}?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Ang iyong feedback ay tumutulong sa pagpapabuti ng ${appLabel} para sa lahat.',
+			'settings.about.feedback.rateApp' => 'I-rate sa Play Store',
+			'settings.about.feedback.sendFeedback' => 'Magpadala ng Feedback',
 			'reminders.title' => 'Panatilihin ang landas na may mga paalala',
 			'reminders.description' => 'Kumuha ng banayad na mga paalala upang i-log ang iyong mga pagkain at manatiling consistent sa iyong mga layunin sa nutrisyon',
 			'reminders.notificationsEnabled' => 'Naka-enable ang mga Notifikasyon',
@@ -1646,6 +1889,13 @@ extension on TranslationsTl {
 			'disclaimer.weightEstimate.waterWeight.description' => 'Ang normal na pang-araw-araw na timbang ay maaaring magbago ng makabuluhang dahil sa pag-ipon ng tubig, pagtunaw, at oras. Ang pagtatantya ay hindi isinasaalang-alang ang mga pang-araw-araw na pagbabagong ito.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Propesyonal na Patnubay',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Huwag gamitin ang pagtatantyang ito upang gumawa ng mga medikal na desisyon. Palaging kumonsulta sa isang propesyonal sa kalusugan o nakarehistrong dietitian para sa personalized na payo sa pamamahala ng timbang.',
+			'disclaimer.healthMetrics.description' => 'Ang mga sukat na ito ay tumutulong sa iyo na maunawaan ang mga pangangailangan ng enerhiya ng iyong katawan at itinuturo ang iyong mga layunin sa nutrisyon.',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => 'Ang Basal Metabolic Rate (BMR) ay ang bilang ng mga calorie na sinusunog ng iyong katawan kapag nagpapahinga upang mapanatili ang mga pangunahing function tulad ng paghinga at sirkulasyon. Ang BMR ay nakadepende sa iyong edad, kasarian, taas, at timbang. Ang mas mataas na BMR ay nangangahulugang ang iyong katawan ay natural na nagsusunog ng mas maraming calorie habang nagpapahinga, na kadalasang dulot ng mas maraming mass ng kalamnan, mas batang edad, o pagiging lalaki. Ang mas mababang BMR ay karaniwang nagpapahiwatig ng mas kaunting mass ng kalamnan, mas matandang edad, o pagiging babae.',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => 'Ang Total Daily Energy Expenditure (TDEE) ay ang kabuuang calorie na sinusunog mo sa isang araw, kabilang ang iyong BMR at mga calorie mula sa pisikal na aktibidad at pang-araw-araw na paggalaw. Ang TDEE ay nakadepende sa iyong BMR at antas ng aktibidad. Ang mas mataas na TDEE ay nangangahulugang mas maraming calorie ang iyong sinusunod sa kabuuan, karaniwang mula sa pagiging mas aktibo o pagkakaroon ng mas mataas na BMR. Ang mas mababang TDEE ay nagpapahiwatig ng mas kaunting aktibidad sa araw-araw o mas mababang BMR.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Arawang Layunin',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Ang Arawang Layunin ay ang inirekomendang pang-araw-araw na calorie na kinakailangan batay sa iyong TDEE at layunin sa timbang. Para sa pagbaba ng timbang, kumakain ka ng mas kaunting calorie kaysa sa iyong TDEE. Para sa pagpapanatili ng timbang, katumbas mo ang iyong TDEE. Para sa pagtaas ng timbang, kumakain ka ng mas maraming calorie kaysa sa iyong TDEE. Tinutulungan ka nitong makamit ang iyong nais na pagbabago ng timbang sa isang malusog na takbo.',
 			'common.close' => 'Isara',
 			'common.kContinue' => 'Magpatuloy',
 			'errors.loadingProfileData' => 'Error sa pag-load ng datos ng profile',

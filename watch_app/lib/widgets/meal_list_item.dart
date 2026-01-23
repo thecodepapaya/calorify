@@ -100,142 +100,33 @@ class _MealListItemState extends State<MealListItem>
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Meal icon
-                      TweenAnimationBuilder<double>(
-                        tween: Tween(begin: 0.0, end: 1.0),
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.elasticOut,
-                        builder: (context, value, child) {
-                          return Transform.scale(
-                            scale: value,
-                            child: Transform.rotate(
-                              angle: (1 - value) * math.pi * 0.25,
-                              child: child,
-                            ),
-                          );
-                        },
-                        child: Semantics(
-                          label: 'Meal icon',
-                          excludeSemantics: true,
-                          child: Container(
-                            padding: const EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                              color: colorScheme.primaryContainer.withValues(alpha: 0.3),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Icon(
-                              LucideIcons.utensilsCrossed,
-                              size: 14,
-                              color: colorScheme.primary,
-                            ),
-                          ),
-                        ),
-                      ),
+                      _MealIcon(colorScheme: colorScheme),
                       const SizedBox(width: 10),
-                      // Meal details
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            // Meal name
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    mealName,
-                                    style: theme.textTheme.bodySmall?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      letterSpacing: 0.1,
-                                      color: colorScheme.onSurface,
-                                      fontSize: 11,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                                Icon(
-                                  LucideIcons.clock,
-                                  size: 10,
-                                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
-                                ),
-                                const SizedBox(width: 2),
-                                Text(
-                                  timestamp,
-                                  style: theme.textTheme.labelSmall?.copyWith(
-                                    color: colorScheme.onSurfaceVariant,
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ],
+                            _MealNameRow(
+                              mealName: mealName,
+                              timestamp: timestamp,
+                              theme: theme,
+                              colorScheme: colorScheme,
                             ),
                             const SizedBox(height: 6),
-                            // Macros row
-                            Row(
-                              children: [
-                                _MacroBadge(
-                                  icon: LucideIcons.dumbbell,
-                                  value: protein,
-                                  color: proteinIconColor,
-                                  label: 'P',
-                                ),
-                                const SizedBox(width: 6),
-                                _MacroBadge(
-                                  icon: LucideIcons.wheat,
-                                  value: carbs,
-                                  color: carbsIconColor,
-                                  label: 'C',
-                                ),
-                                const SizedBox(width: 6),
-                                _MacroBadge(
-                                  icon: LucideIcons.droplet,
-                                  value: fat,
-                                  color: fatIconColor,
-                                  label: 'F',
-                                ),
-                              ],
+                            _MacrosRow(
+                              protein: protein,
+                              carbs: carbs,
+                              fat: fat,
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(width: 8),
-                      // Calories badge
-                      Semantics(
-                        label: '$calories calories',
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              LucideIcons.flame,
-                              size: 14,
-                              color: calorieIconColor,
-                            ),
-                            const SizedBox(height: 2),
-                            TweenAnimationBuilder<int>(
-                              tween: IntTween(begin: 0, end: calories),
-                              duration: const Duration(milliseconds: 800),
-                              curve: Curves.easeOutCubic,
-                              builder: (context, animatedValue, child) {
-                                return Text(
-                                  '$animatedValue',
-                                  style: theme.textTheme.bodySmall?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: calorieIconColor,
-                                    fontSize: 11,
-                                  ),
-                                );
-                              },
-                            ),
-                            Text(
-                              'kcal',
-                              style: theme.textTheme.labelSmall?.copyWith(
-                                color: calorieIconColor.withValues(alpha: 0.7),
-                                fontSize: 7,
-                              ),
-                            ),
-                          ],
-                        ),
+                      _CaloriesBadge(
+                        calories: calories,
+                        theme: theme,
+                        colorScheme: colorScheme,
                       ),
                     ],
                   ),
@@ -244,6 +135,187 @@ class _MealListItemState extends State<MealListItem>
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _MealIcon extends StatelessWidget {
+  final ColorScheme colorScheme;
+
+  const _MealIcon({required this.colorScheme});
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0.0, end: 1.0),
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.elasticOut,
+      builder: (context, value, child) {
+        return Transform.scale(
+          scale: value,
+          child: Transform.rotate(
+            angle: (1 - value) * math.pi * 0.25,
+            child: child,
+          ),
+        );
+      },
+      child: Semantics(
+        label: 'Meal icon',
+        excludeSemantics: true,
+        child: Container(
+          padding: const EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: colorScheme.primaryContainer.withValues(alpha: 0.3),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Icon(
+            LucideIcons.utensilsCrossed,
+            size: 14,
+            color: colorScheme.primary,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MealNameRow extends StatelessWidget {
+  final String mealName;
+  final String timestamp;
+  final ThemeData theme;
+  final ColorScheme colorScheme;
+
+  const _MealNameRow({
+    required this.mealName,
+    required this.timestamp,
+    required this.theme,
+    required this.colorScheme,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            mealName,
+            style: theme.textTheme.bodySmall?.copyWith(
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.1,
+              color: colorScheme.onSurface,
+              fontSize: 11,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        const SizedBox(width: 4),
+        Icon(
+          LucideIcons.clock,
+          size: 10,
+          color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+        ),
+        const SizedBox(width: 2),
+        Text(
+          timestamp,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: colorScheme.onSurfaceVariant,
+            fontSize: 8,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _MacrosRow extends StatelessWidget {
+  final int protein;
+  final int carbs;
+  final int fat;
+
+  const _MacrosRow({
+    required this.protein,
+    required this.carbs,
+    required this.fat,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        _MacroBadge(
+          icon: LucideIcons.dumbbell,
+          value: protein,
+          color: proteinIconColor,
+          label: 'P',
+        ),
+        const SizedBox(width: 6),
+        _MacroBadge(
+          icon: LucideIcons.wheat,
+          value: carbs,
+          color: carbsIconColor,
+          label: 'C',
+        ),
+        const SizedBox(width: 6),
+        _MacroBadge(
+          icon: LucideIcons.droplet,
+          value: fat,
+          color: fatIconColor,
+          label: 'F',
+        ),
+      ],
+    );
+  }
+}
+
+class _CaloriesBadge extends StatelessWidget {
+  final int calories;
+  final ThemeData theme;
+  final ColorScheme colorScheme;
+
+  const _CaloriesBadge({
+    required this.calories,
+    required this.theme,
+    required this.colorScheme,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      label: '$calories calories',
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            LucideIcons.flame,
+            size: 14,
+            color: colorScheme.calorieIconColor,
+          ),
+          const SizedBox(height: 2),
+          TweenAnimationBuilder<int>(
+            tween: IntTween(begin: 0, end: calories),
+            duration: const Duration(milliseconds: 800),
+            curve: Curves.easeOutCubic,
+            builder: (context, animatedValue, child) {
+              return Text(
+                '$animatedValue',
+                style: theme.textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: colorScheme.calorieIconColor,
+                  fontSize: 11,
+                ),
+              );
+            },
+          ),
+          Text(
+            'kcal',
+            style: theme.textTheme.labelSmall?.copyWith(
+              color: colorScheme.calorieIconColor.withValues(alpha: 0.7),
+              fontSize: 7,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -269,11 +341,7 @@ class _MacroBadge extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          icon,
-          size: 9,
-          color: color.withValues(alpha: 0.8),
-        ),
+        Icon(icon, size: 9, color: color.withValues(alpha: 0.8)),
         const SizedBox(width: 2),
         Text(
           '$value',

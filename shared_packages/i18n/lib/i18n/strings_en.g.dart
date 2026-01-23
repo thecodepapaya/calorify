@@ -280,6 +280,9 @@ class TranslationsProfileEn {
 	/// en: 'Weight Goal'
 	String get weightGoal => 'Weight Goal';
 
+	/// en: 'Target Weight'
+	String get targetWeight => 'Target Weight';
+
 	/// en: 'Activity Level'
 	String get activityLevel => 'Activity Level';
 
@@ -403,6 +406,9 @@ class TranslationsSettingsEn {
 
 	/// en: 'Developer mode enabled!'
 	String get developerModeEnabled => 'Developer mode enabled!';
+
+	late final TranslationsSettingsHealthConnectEn healthConnect = TranslationsSettingsHealthConnectEn._(_root);
+	late final TranslationsSettingsAboutEn about = TranslationsSettingsAboutEn._(_root);
 }
 
 // Path: reminders
@@ -519,6 +525,7 @@ class TranslationsDisclaimerEn {
 
 	late final TranslationsDisclaimerSnapEn snap = TranslationsDisclaimerSnapEn._(_root);
 	late final TranslationsDisclaimerWeightEstimateEn weightEstimate = TranslationsDisclaimerWeightEstimateEn._(_root);
+	late final TranslationsDisclaimerHealthMetricsEn healthMetrics = TranslationsDisclaimerHealthMetricsEn._(_root);
 }
 
 // Path: common
@@ -1290,8 +1297,14 @@ class TranslationsSettingsSectionsEn {
 	/// en: 'NOTIFICATIONS'
 	String get notifications => 'NOTIFICATIONS';
 
+	/// en: 'HEALTH CONNECT'
+	String get healthConnect => 'HEALTH CONNECT';
+
 	/// en: 'SUPPORT & LEGAL'
 	String get supportAndLegal => 'SUPPORT & LEGAL';
+
+	/// en: 'ABOUT'
+	String get about => 'ABOUT';
 
 	/// en: 'DANGER ZONE'
 	String get dangerZone => 'DANGER ZONE';
@@ -1468,6 +1481,53 @@ class TranslationsSettingsDebugOptionsEn {
 	String get title => 'Debug Options';
 }
 
+// Path: settings.healthConnect
+class TranslationsSettingsHealthConnectEn {
+	TranslationsSettingsHealthConnectEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Health Connect'
+	String get title => 'Health Connect';
+
+	/// en: 'View and manage permissions'
+	String get subtitle => 'View and manage permissions';
+
+	late final TranslationsSettingsHealthConnectUnavailableEn unavailable = TranslationsSettingsHealthConnectUnavailableEn._(_root);
+	late final TranslationsSettingsHealthConnectPermissionsEn permissions = TranslationsSettingsHealthConnectPermissionsEn._(_root);
+
+	/// en: 'Manage Permissions'
+	String get managePermissions => 'Manage Permissions';
+
+	/// en: 'Open Health Connect Settings'
+	String get openSettings => 'Open Health Connect Settings';
+
+	/// en: 'Request Permissions'
+	String get requestPermissions => 'Request Permissions';
+}
+
+// Path: settings.about
+class TranslationsSettingsAboutEn {
+	TranslationsSettingsAboutEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'About'
+	String get title => 'About';
+
+	/// en: 'Fast, free, and privacy-first calorie awareness'
+	String get tagline => 'Fast, free, and privacy-first calorie awareness';
+
+	late final TranslationsSettingsAboutOurStoryEn ourStory = TranslationsSettingsAboutOurStoryEn._(_root);
+	late final TranslationsSettingsAboutPrivacyEn privacy = TranslationsSettingsAboutPrivacyEn._(_root);
+	late final TranslationsSettingsAboutDeveloperEn developer = TranslationsSettingsAboutDeveloperEn._(_root);
+	late final TranslationsSettingsAboutFeedbackEn feedback = TranslationsSettingsAboutFeedbackEn._(_root);
+}
+
 // Path: notifications.breakfast
 class TranslationsNotificationsBreakfastEn {
 	TranslationsNotificationsBreakfastEn._(this._root);
@@ -1575,6 +1635,22 @@ class TranslationsDisclaimerWeightEstimateEn {
 	late final TranslationsDisclaimerWeightEstimateBiologicalFactorsEn biologicalFactors = TranslationsDisclaimerWeightEstimateBiologicalFactorsEn._(_root);
 	late final TranslationsDisclaimerWeightEstimateWaterWeightEn waterWeight = TranslationsDisclaimerWeightEstimateWaterWeightEn._(_root);
 	late final TranslationsDisclaimerWeightEstimateProfessionalGuidanceEn professionalGuidance = TranslationsDisclaimerWeightEstimateProfessionalGuidanceEn._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class TranslationsDisclaimerHealthMetricsEn {
+	TranslationsDisclaimerHealthMetricsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'These metrics help you understand your body's energy needs and guide your nutrition goals.'
+	String get description => 'These metrics help you understand your body\'s energy needs and guide your nutrition goals.';
+
+	late final TranslationsDisclaimerHealthMetricsBmrEn bmr = TranslationsDisclaimerHealthMetricsBmrEn._(_root);
+	late final TranslationsDisclaimerHealthMetricsTdeeEn tdee = TranslationsDisclaimerHealthMetricsTdeeEn._(_root);
+	late final TranslationsDisclaimerHealthMetricsDailyGoalEn dailyGoal = TranslationsDisclaimerHealthMetricsDailyGoalEn._(_root);
 }
 
 // Path: debug.sections
@@ -1955,6 +2031,136 @@ class TranslationsEditProfileActivityLevelsExtremelyActiveEn {
 	String get description => 'Very hard exercise, physical job';
 }
 
+// Path: settings.healthConnect.unavailable
+class TranslationsSettingsHealthConnectUnavailableEn {
+	TranslationsSettingsHealthConnectUnavailableEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Health Connect Unavailable'
+	String get title => 'Health Connect Unavailable';
+
+	/// en: 'Health Connect is not available on this device. It requires Android 14 or later.'
+	String get description => 'Health Connect is not available on this device. It requires Android 14 or later.';
+}
+
+// Path: settings.healthConnect.permissions
+class TranslationsSettingsHealthConnectPermissionsEn {
+	TranslationsSettingsHealthConnectPermissionsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Permissions'
+	String get title => 'Permissions';
+
+	/// en: 'The following permissions are requested to provide Health Connect integration:'
+	String get description => 'The following permissions are requested to provide Health Connect integration:';
+
+	/// en: 'Granted'
+	String get granted => 'Granted';
+
+	/// en: 'Not Granted'
+	String get notGranted => 'Not Granted';
+
+	late final TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn caloriesBurned = TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn._(_root);
+	late final TranslationsSettingsHealthConnectPermissionsNutritionReadEn nutritionRead = TranslationsSettingsHealthConnectPermissionsNutritionReadEn._(_root);
+	late final TranslationsSettingsHealthConnectPermissionsNutritionWriteEn nutritionWrite = TranslationsSettingsHealthConnectPermissionsNutritionWriteEn._(_root);
+}
+
+// Path: settings.about.ourStory
+class TranslationsSettingsAboutOurStoryEn {
+	TranslationsSettingsAboutOurStoryEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Our Story'
+	String get title => 'Our Story';
+
+	/// en: '{appLabel} was born from a simple frustration: most calorie tracking apps are either overly complicated, demand constant manual input, charge high subscription fees, or compromise on privacy. As a solo developer, I wanted to build something simpler and fairer — an app that uses AI to reduce effort, stays fast and free to use, and treats your health data with respect. {appLabel} is the app I wish existed: no accounts, no tracking, no ads — just clear, practical insights and your health goals.'
+	String content({required Object appLabel}) => '${appLabel} was born from a simple frustration: most calorie tracking apps are either overly complicated, demand constant manual input, charge high subscription fees, or compromise on privacy.\n\nAs a solo developer, I wanted to build something simpler and fairer — an app that uses AI to reduce effort, stays fast and free to use, and treats your health data with respect.\n\n${appLabel} is the app I wish existed: no accounts, no tracking, no ads — just clear, practical insights and your health goals.';
+}
+
+// Path: settings.about.privacy
+class TranslationsSettingsAboutPrivacyEn {
+	TranslationsSettingsAboutPrivacyEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Your Privacy Matters'
+	String get title => 'Your Privacy Matters';
+
+	/// en: 'Privacy isn't an afterthought — it's a design principle. Here's what that means in practice:'
+	String get description => 'Privacy isn\'t an afterthought — it\'s a design principle. Here\'s what that means in practice:';
+
+	/// en: 'No accounts required Use the app immediately. No sign-ups, no identities.'
+	String get noAccounts => 'No accounts required\nUse the app immediately. No sign-ups, no identities.';
+
+	/// en: 'No behavioral tracking {appLabel} does not monitor your activity, build usage profiles, or track you across apps or websites.'
+	String noTracking({required Object appLabel}) => 'No behavioral tracking\n${appLabel} does not monitor your activity, build usage profiles, or track you across apps or websites.';
+
+	/// en: 'Ad-free by design {appLabel} is built to work without ads or data-driven monetization.'
+	String noAds({required Object appLabel}) => 'Ad-free by design\n${appLabel} is built to work without ads or data-driven monetization.';
+
+	/// en: 'No data selling Your health data is never sold or shared with third parties.'
+	String get noDataSelling => 'No data selling\nYour health data is never sold or shared with third parties.';
+
+	/// en: 'Local-first storage Your data stays on your device.'
+	String get localStorage => 'Local-first storage\nYour data stays on your device.';
+
+	/// en: 'Privacy Policy'
+	String get privacyPolicy => 'Privacy Policy';
+}
+
+// Path: settings.about.developer
+class TranslationsSettingsAboutDeveloperEn {
+	TranslationsSettingsAboutDeveloperEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Built by a Solo Developer'
+	String get title => 'Built by a Solo Developer';
+
+	/// en: '{appLabel} is built and maintained by a single solo developer focused on creating calm, privacy-respecting health software. Feedback is read personally and helps shape the direction of the app.'
+	String description({required Object appLabel}) => '${appLabel} is built and maintained by a single solo developer focused on creating calm, privacy-respecting health software.\n\nFeedback is read personally and helps shape the direction of the app.';
+
+	/// en: 'Website'
+	String get website => 'Website';
+
+	/// en: 'Email'
+	String get email => 'Email';
+}
+
+// Path: settings.about.feedback
+class TranslationsSettingsAboutFeedbackEn {
+	TranslationsSettingsAboutFeedbackEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Enjoying {appLabel}?'
+	String title({required Object appLabel}) => 'Enjoying ${appLabel}?';
+
+	/// en: 'Your feedback helps make {appLabel} better for everyone.'
+	String description({required Object appLabel}) => 'Your feedback helps make ${appLabel} better for everyone.';
+
+	/// en: 'Rate on Play Store'
+	String get rateApp => 'Rate on Play Store';
+
+	/// en: 'Send Feedback'
+	String get sendFeedback => 'Send Feedback';
+}
+
 // Path: disclaimer.snap.portionSize
 class TranslationsDisclaimerSnapPortionSizeEn {
 	TranslationsDisclaimerSnapPortionSizeEn._(this._root);
@@ -2073,6 +2279,105 @@ class TranslationsDisclaimerWeightEstimateProfessionalGuidanceEn {
 
 	/// en: 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.'
 	String get description => 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class TranslationsDisclaimerHealthMetricsBmrEn {
+	TranslationsDisclaimerHealthMetricsBmrEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'BMR'
+	String get title => 'BMR';
+
+	/// en: 'Basal Metabolic Rate (BMR) is the number of calories your body burns at rest to maintain basic functions like breathing and circulation. BMR depends on your age, gender, height, and weight. A higher BMR means your body naturally burns more calories at rest, often due to more muscle mass, younger age, or being male. A lower BMR typically indicates less muscle mass, older age, or being female.'
+	String get description => 'Basal Metabolic Rate (BMR) is the number of calories your body burns at rest to maintain basic functions like breathing and circulation. BMR depends on your age, gender, height, and weight. A higher BMR means your body naturally burns more calories at rest, often due to more muscle mass, younger age, or being male. A lower BMR typically indicates less muscle mass, older age, or being female.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class TranslationsDisclaimerHealthMetricsTdeeEn {
+	TranslationsDisclaimerHealthMetricsTdeeEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'TDEE'
+	String get title => 'TDEE';
+
+	/// en: 'Total Daily Energy Expenditure (TDEE) is the total calories you burn per day, including your BMR plus calories from physical activity and daily movement. TDEE depends on your BMR and activity level. A higher TDEE means you burn more calories overall, usually from being more active or having a higher BMR. A lower TDEE suggests less daily activity or a lower BMR.'
+	String get description => 'Total Daily Energy Expenditure (TDEE) is the total calories you burn per day, including your BMR plus calories from physical activity and daily movement. TDEE depends on your BMR and activity level. A higher TDEE means you burn more calories overall, usually from being more active or having a higher BMR. A lower TDEE suggests less daily activity or a lower BMR.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	TranslationsDisclaimerHealthMetricsDailyGoalEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Daily Goal'
+	String get title => 'Daily Goal';
+
+	/// en: 'Daily Goal is your recommended daily calorie intake based on your TDEE and weight goal. For weight loss, you consume fewer calories than your TDEE. For weight maintenance, you match your TDEE. For weight gain, you consume more calories than your TDEE. This helps you achieve your desired weight change at a healthy pace.'
+	String get description => 'Daily Goal is your recommended daily calorie intake based on your TDEE and weight goal. For weight loss, you consume fewer calories than your TDEE. For weight maintenance, you match your TDEE. For weight gain, you consume more calories than your TDEE. This helps you achieve your desired weight change at a healthy pace.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Read Total Calories Burned'
+	String get title => 'Read Total Calories Burned';
+
+	/// en: 'Allows the app to read your total calories burned from Health Connect.'
+	String get description => 'Allows the app to read your total calories burned from Health Connect.';
+
+	/// en: 'This permission is used to display your daily calorie burn in the app, helping you understand your total energy expenditure throughout the day.'
+	String get usage => 'This permission is used to display your daily calorie burn in the app, helping you understand your total energy expenditure throughout the day.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	TranslationsSettingsHealthConnectPermissionsNutritionReadEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Read Nutrition Data'
+	String get title => 'Read Nutrition Data';
+
+	/// en: 'Allows the app to read nutrition data from Health Connect.'
+	String get description => 'Allows the app to read nutrition data from Health Connect.';
+
+	/// en: 'This permission allows the app to read nutrition information that may have been logged by other apps connected to Health Connect, providing a comprehensive view of your nutrition.'
+	String get usage => 'This permission allows the app to read nutrition information that may have been logged by other apps connected to Health Connect, providing a comprehensive view of your nutrition.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	TranslationsSettingsHealthConnectPermissionsNutritionWriteEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Write Nutrition Data'
+	String get title => 'Write Nutrition Data';
+
+	/// en: 'Allows the app to write nutrition data to Health Connect.'
+	String get description => 'Allows the app to write nutrition data to Health Connect.';
+
+	/// en: 'This permission allows the app to sync your logged meals to Health Connect, making your nutrition data available to other health and fitness apps you use.'
+	String get usage => 'This permission allows the app to sync your logged meals to Health Connect, making your nutrition data available to other health and fitness apps you use.';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -2269,6 +2574,7 @@ extension on Translations {
 			'profile.weight' => 'Weight',
 			'profile.age' => 'Age',
 			'profile.weightGoal' => 'Weight Goal',
+			'profile.targetWeight' => 'Target Weight',
 			'profile.activityLevel' => 'Activity Level',
 			'profile.healthMetrics' => 'Health Metrics',
 			'profile.notSet' => 'Not set',
@@ -2324,7 +2630,9 @@ extension on Translations {
 			'settings.sections.profile' => 'PROFILE',
 			'settings.sections.localization' => 'LOCALIZATION',
 			'settings.sections.notifications' => 'NOTIFICATIONS',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'SUPPORT & LEGAL',
+			'settings.sections.about' => 'ABOUT',
 			'settings.sections.dangerZone' => 'DANGER ZONE',
 			'settings.sections.developer' => 'DEVELOPER',
 			'settings.editProfile.title' => 'Edit Profile',
@@ -2357,6 +2665,46 @@ extension on Translations {
 			'settings.clearAllData.clearEverything' => 'Clear Everything',
 			'settings.debugOptions.title' => 'Debug Options',
 			'settings.developerModeEnabled' => 'Developer mode enabled!',
+			'settings.healthConnect.title' => 'Health Connect',
+			'settings.healthConnect.subtitle' => 'View and manage permissions',
+			'settings.healthConnect.unavailable.title' => 'Health Connect Unavailable',
+			'settings.healthConnect.unavailable.description' => 'Health Connect is not available on this device. It requires Android 14 or later.',
+			'settings.healthConnect.permissions.title' => 'Permissions',
+			'settings.healthConnect.permissions.description' => 'The following permissions are requested to provide Health Connect integration:',
+			'settings.healthConnect.permissions.granted' => 'Granted',
+			'settings.healthConnect.permissions.notGranted' => 'Not Granted',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Read Total Calories Burned',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Allows the app to read your total calories burned from Health Connect.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'This permission is used to display your daily calorie burn in the app, helping you understand your total energy expenditure throughout the day.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Read Nutrition Data',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Allows the app to read nutrition data from Health Connect.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'This permission allows the app to read nutrition information that may have been logged by other apps connected to Health Connect, providing a comprehensive view of your nutrition.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Write Nutrition Data',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Allows the app to write nutrition data to Health Connect.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'This permission allows the app to sync your logged meals to Health Connect, making your nutrition data available to other health and fitness apps you use.',
+			'settings.healthConnect.managePermissions' => 'Manage Permissions',
+			'settings.healthConnect.openSettings' => 'Open Health Connect Settings',
+			'settings.healthConnect.requestPermissions' => 'Request Permissions',
+			'settings.about.title' => 'About',
+			'settings.about.tagline' => 'Fast, free, and privacy-first calorie awareness',
+			'settings.about.ourStory.title' => 'Our Story',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} was born from a simple frustration: most calorie tracking apps are either overly complicated, demand constant manual input, charge high subscription fees, or compromise on privacy.\n\nAs a solo developer, I wanted to build something simpler and fairer — an app that uses AI to reduce effort, stays fast and free to use, and treats your health data with respect.\n\n${appLabel} is the app I wish existed: no accounts, no tracking, no ads — just clear, practical insights and your health goals.',
+			'settings.about.privacy.title' => 'Your Privacy Matters',
+			'settings.about.privacy.description' => 'Privacy isn\'t an afterthought — it\'s a design principle. Here\'s what that means in practice:',
+			'settings.about.privacy.noAccounts' => 'No accounts required\nUse the app immediately. No sign-ups, no identities.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'No behavioral tracking\n${appLabel} does not monitor your activity, build usage profiles, or track you across apps or websites.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Ad-free by design\n${appLabel} is built to work without ads or data-driven monetization.',
+			'settings.about.privacy.noDataSelling' => 'No data selling\nYour health data is never sold or shared with third parties.',
+			'settings.about.privacy.localStorage' => 'Local-first storage\nYour data stays on your device.',
+			'settings.about.privacy.privacyPolicy' => 'Privacy Policy',
+			'settings.about.developer.title' => 'Built by a Solo Developer',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} is built and maintained by a single solo developer focused on creating calm, privacy-respecting health software.\n\nFeedback is read personally and helps shape the direction of the app.',
+			'settings.about.developer.website' => 'Website',
+			'settings.about.developer.email' => 'Email',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Enjoying ${appLabel}?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Your feedback helps make ${appLabel} better for everyone.',
+			'settings.about.feedback.rateApp' => 'Rate on Play Store',
+			'settings.about.feedback.sendFeedback' => 'Send Feedback',
 			'reminders.title' => 'Stay on track with reminders',
 			'reminders.description' => 'Get gentle reminders to log your meals and stay consistent with your nutrition goals',
 			'reminders.notificationsEnabled' => 'Notifications Enabled',
@@ -2409,6 +2757,13 @@ extension on Translations {
 			'disclaimer.weightEstimate.waterWeight.description' => 'Normal daily weight can fluctuate significantly due to water retention, digestion, and timing. The estimate does not account for these daily changes.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Professional Guidance',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.',
+			'disclaimer.healthMetrics.description' => 'These metrics help you understand your body\'s energy needs and guide your nutrition goals.',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => 'Basal Metabolic Rate (BMR) is the number of calories your body burns at rest to maintain basic functions like breathing and circulation. BMR depends on your age, gender, height, and weight. A higher BMR means your body naturally burns more calories at rest, often due to more muscle mass, younger age, or being male. A lower BMR typically indicates less muscle mass, older age, or being female.',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => 'Total Daily Energy Expenditure (TDEE) is the total calories you burn per day, including your BMR plus calories from physical activity and daily movement. TDEE depends on your BMR and activity level. A higher TDEE means you burn more calories overall, usually from being more active or having a higher BMR. A lower TDEE suggests less daily activity or a lower BMR.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Daily Goal',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Daily Goal is your recommended daily calorie intake based on your TDEE and weight goal. For weight loss, you consume fewer calories than your TDEE. For weight maintenance, you match your TDEE. For weight gain, you consume more calories than your TDEE. This helps you achieve your desired weight change at a healthy pace.',
 			'common.close' => 'Close',
 			'common.kContinue' => 'Continue',
 			'errors.loadingProfileData' => 'Error loading profile data',

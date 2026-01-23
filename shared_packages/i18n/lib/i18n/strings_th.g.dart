@@ -184,6 +184,7 @@ class _TranslationsProfileTh implements TranslationsProfileEn {
 	@override String get weight => 'น้ำหนัก';
 	@override String get age => 'อายุ';
 	@override String get weightGoal => 'เป้าหมายการน้ำหนัก';
+	@override String get targetWeight => 'น้ำหนักเป้าหมาย';
 	@override String get activityLevel => 'ระดับกิจกรรม';
 	@override String get healthMetrics => 'สุขภาพเมตริก';
 	@override String get notSet => 'ยังไม่ได้ตั้ง';
@@ -252,6 +253,8 @@ class _TranslationsSettingsTh implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataTh clearAllData = _TranslationsSettingsClearAllDataTh._(_root);
 	@override late final _TranslationsSettingsDebugOptionsTh debugOptions = _TranslationsSettingsDebugOptionsTh._(_root);
 	@override String get developerModeEnabled => 'โหมดนักพัฒนาเปิดใช้งานแล้ว!';
+	@override late final _TranslationsSettingsHealthConnectTh healthConnect = _TranslationsSettingsHealthConnectTh._(_root);
+	@override late final _TranslationsSettingsAboutTh about = _TranslationsSettingsAboutTh._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerTh implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'โปรดทราบ';
 	@override late final _TranslationsDisclaimerSnapTh snap = _TranslationsDisclaimerSnapTh._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateTh weightEstimate = _TranslationsDisclaimerWeightEstimateTh._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTh healthMetrics = _TranslationsDisclaimerHealthMetricsTh._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsTh implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'โปรไฟล์';
 	@override String get localization => 'การแปล';
 	@override String get notifications => 'การแจ้งเตือน';
+	@override String get healthConnect => 'เชื่อมต่อสุขภาพ';
 	@override String get supportAndLegal => 'การสนับสนุน & กฎหมาย';
+	@override String get about => 'เกี่ยวกับ';
 	@override String get dangerZone => 'โซนอันตราย';
 	@override String get developer => 'นักพัฒนา';
 }
@@ -895,6 +901,37 @@ class _TranslationsSettingsDebugOptionsTh implements TranslationsSettingsDebugOp
 	@override String get title => 'ตัวเลือกการดีบัก';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectTh implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'เชื่อมต่อสุขภาพ';
+	@override String get subtitle => 'ดูและจัดการการอนุญาต';
+	@override late final _TranslationsSettingsHealthConnectUnavailableTh unavailable = _TranslationsSettingsHealthConnectUnavailableTh._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsTh permissions = _TranslationsSettingsHealthConnectPermissionsTh._(_root);
+	@override String get managePermissions => 'จัดการการอนุญาต';
+	@override String get openSettings => 'เปิดการตั้งค่า Health Connect';
+	@override String get requestPermissions => 'ขออนุญาต';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutTh implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'เกี่ยวกับ';
+	@override String get tagline => 'การตระหนักเรื่องแคลอรีที่รวดเร็ว ฟรี และให้ความสำคัญกับความเป็นส่วนตัว';
+	@override late final _TranslationsSettingsAboutOurStoryTh ourStory = _TranslationsSettingsAboutOurStoryTh._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyTh privacy = _TranslationsSettingsAboutPrivacyTh._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperTh developer = _TranslationsSettingsAboutDeveloperTh._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackTh feedback = _TranslationsSettingsAboutFeedbackTh._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastTh implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastTh._(this._root);
@@ -976,6 +1013,19 @@ class _TranslationsDisclaimerWeightEstimateTh implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsTh biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsTh._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightTh waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightTh._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTh professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTh._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsTh implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'เมตริกเหล่านี้ช่วยให้คุณเข้าใจความต้องการพลังงานของร่างกายและชี้แนะแนวทางด้านโภชนาการของคุณ';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrTh bmr = _TranslationsDisclaimerHealthMetricsBmrTh._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeTh tdee = _TranslationsDisclaimerHealthMetricsTdeeTh._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalTh dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalTh._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1274,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveTh implements Transla
 	@override String get description => 'ออกกำลังกายหนักมาก, งานทางกายภาพ';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableTh implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'เชื่อมต่อสุขภาพไม่พร้อมใช้งาน';
+	@override String get description => 'เชื่อมต่อสุขภาพไม่สามารถใช้งานได้ในอุปกรณ์นี้ ต้องการ Android 14 หรือใหม่กว่า.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsTh implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'การอนุญาต';
+	@override String get description => 'การอนุญาตต่อไปนี้ถูกขอเพื่อให้การเชื่อมต่อสุขภาพทำงานได้:';
+	@override String get granted => 'ได้รับการอนุญาตแล้ว';
+	@override String get notGranted => 'ไม่ได้รับการอนุญาต';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTh caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTh._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadTh nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadTh._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteTh nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteTh._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryTh implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'เรื่องราวของเรา';
+	@override String content({required Object appLabel}) => '${appLabel} ก่อตั้งขึ้นจากความไม่พอใจอย่างง่ายๆ: แอปติดตามแคลอรีส่วนใหญ่จะซับซ้อนเกินไป ต้องการการป้อนข้อมูลด้วยตนเองอย่างต่อเนื่อง เรียกเก็บค่าบริการสมาชิกสูง หรือประนีประนอมกับความเป็นส่วนตัว。\n\nในฐานะนักพัฒนาอินดี้ ฉันต้องการสร้างบางสิ่งที่เรียบง่ายและยุติธรรม — แอปที่ใช้ AI เพื่อลดความพยายาม ใช้งานได้รวดเร็วและฟรี และเคารพข้อมูลสุขภาพของคุณ。\n\n${appLabel} คือแอปที่ฉันหวังว่าจะมีอยู่: ไม่มีบัญชี ไม่มีการติดตาม ไม่มีโฆษณา — แค่ข้อมูลที่ชัดเจนและประโยชน์ใช้สอย และเป้าหมายด้านสุขภาพของคุณ';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyTh implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ความเป็นส่วนตัวของคุณมีความสำคัญ';
+	@override String get description => 'ความเป็นส่วนตัวไม่ใช่เรื่องหลัง — แต่มันคือหลักการออกแบบ นี่คือสิ่งที่หมายถึงในทางปฏิบัติ:';
+	@override String get noAccounts => 'ไม่ต้องการบัญชี\nใช้งานแอปได้ทันที ไม่มีการสมัคร ไม่มีตัวตน';
+	@override String noTracking({required Object appLabel}) => 'ไม่มีการติดตามพฤติกรรม\n${appLabel} จะไม่ติดตามกิจกรรมของคุณ ไม่สร้างโปรไฟล์การใช้งาน หรือติดตามคุณข้ามแอปหรือเว็บไซต์';
+	@override String noAds({required Object appLabel}) => 'ไม่มีโฆษณาโดยหลักการ\n${appLabel} ถูกพัฒนาขึ้นมาเพื่อทำงานโดยไม่มีโฆษณาหรือการสร้างรายได้จากข้อมูล';
+	@override String get noDataSelling => 'ไม่มีการขายข้อมูล\nข้อมูลสุขภาพของคุณจะไม่มีการขายหรือแชร์กับบุคคลที่สาม';
+	@override String get localStorage => 'การจัดเก็บข้อมูลแบบท้องถิ่น\nข้อมูลของคุณจะอยู่ในอุปกรณ์ของคุณ';
+	@override String get privacyPolicy => 'นโยบายความเป็นส่วนตัว';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperTh implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'สร้างโดยนักพัฒนาอินดี้';
+	@override String description({required Object appLabel}) => '${appLabel} ถูกสร้างและดูแลโดยนักพัฒนาอินดี้คนเดียวที่มุ่งเน้นการสร้างซอฟต์แวร์สุขภาพที่สงบและเคารพความเป็นส่วนตัว。\n\nข้อเสนอแนะแต่ละข้อความจะอ่านเป็นการส่วนตัวและช่วยกำหนดทิศทางของแอป';
+	@override String get website => 'เว็บไซต์';
+	@override String get email => 'อีเมล';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackTh implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => 'ชอบ ${appLabel} ใช่ไหม?';
+	@override String description({required Object appLabel}) => 'ข้อเสนอแนะแต่ละข้อความช่วยทำให้ ${appLabel} ดีขึ้นสำหรับทุกคน';
+	@override String get rateApp => 'ให้คะแนนใน Play Store';
+	@override String get sendFeedback => 'ส่งข้อเสนอแนะ';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeTh implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeTh._(this._root);
@@ -1310,6 +1441,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTh implements Tra
 	// Translations
 	@override String get title => 'คำแนะนำจากมืออาชีพ';
 	@override String get description => 'อย่าใช้การประมาณนี้ในการตัดสินใจทางการแพทย์ เสมอปรึกษาผู้เชี่ยวชาญด้านสุขภาพหรือผู้ให้คำแนะนำทางโภชนาการที่มีใบรับรองเพื่อขอคำแนะนำการจัดการน้ำหนักส่วนบุคคล';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrTh implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'BMR';
+	@override String get description => 'อัตราการเผาผลาญพื้นฐาน (BMR) คือจำนวนแคลอรี่ที่ร่างกายของคุณเผาผลาญเมื่อพักผ่อนเพื่อรักษาฟังก์ชันพื้นฐาน เช่น การหายใจและการไหลเวียน อัตรา BMR ขึ้นอยู่กับอายุ เพศ ส่วนสูง และน้ำหนักของคุณ อัตรา BMR ที่สูงกว่าจะหมายถึงร่างกายของคุณเผาผลาญแคลอรี่มากขึ้นเมื่อพักผ่อนซึ่งมักจะเป็นผลจากมวลกล้ามเนื้อที่มากขึ้น อายุที่น้อยลง หรือเป็นเพศชาย ในขณะที่ BMR ที่ต่ำกว่ามักระบุว่ามีมวลกล้ามเนื้อน้อยกว่า อายุที่มากขึ้น หรือเป็นเพศหญิง';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeTh implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TDEE';
+	@override String get description => 'การใช้พลังงานทั้งหมดในแต่ละวัน (TDEE) คือจำนวนแคลอรี่ที่คุณเผาผลาญในแต่ละวัน รวมถึง BMR ของคุณบวกกับแคลอรี่จากกิจกรรมทางกายและการเคลื่อนไหวในชีวิตประจำวัน TDEE ขึ้นอยู่กับ BMR และระดับกิจกรรมของคุณ TDEE ที่สูงหมายถึงการเผาผลาญแคลอรี่มากขึ้นโดยรวม ซึ่งมักเกิดจากการที่คุณมีความเคลื่อนไหวมากขึ้นหรือมี BMR ที่สูงกว่า ในขณะที่ TDEE ที่ต่ำกว่าจะบ่งบอกถึงความเคลื่อนไหวในแต่ละวันน้อยลงหรือมี BMR ที่ต่ำกว่า';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalTh implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'เป้าหมายรายวัน';
+	@override String get description => 'เป้าหมายรายวันคือปริมาณแคลอรี่ที่แนะนำสำหรับการบริโภคในแต่ละวันซึ่งขึ้นอยู่กับ TDEE และเป้าหมายด้านน้ำหนักของคุณ สำหรับการลดน้ำหนัก คุณควรบริโภคแคลอรี่ให้น้อยกว่า TDEE ของคุณ สำหรับการรักษาน้ำหนัก คุณควรบริโภคแคลอรี่เท่ากับ TDEE ของคุณ และสำหรับการเพิ่มน้ำหนัก คุณควรบริโภคแคลอรี่มากกว่า TDEE การดำเนินชีวิตอย่างนี้จะช่วยให้คุณบรรลุการเปลี่ยนแปลงน้ำหนักที่ต้องการอย่างมีสุขภาพดี';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTh implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'อ่านแคลอรี่ที่เผาผลาญทั้งหมด';
+	@override String get description => 'อนุญาตให้แอปอ่านแคลอรี่ที่เผาผลาญทั้งหมดจากเชื่อมต่อสุขภาพ.';
+	@override String get usage => 'การอนุญาตนี้ใช้เพื่อแสดงแคลอรี่ที่เผาผลาญในแต่ละวันในแอป ซึ่งช่วยให้คุณเข้าใจการใช้พลังงานรวมของคุณตลอดทั้งวัน.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadTh implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'อ่านข้อมูลโภชนาการ';
+	@override String get description => 'อนุญาตให้แอปอ่านข้อมูลโภชนาการจากเชื่อมต่อสุขภาพ.';
+	@override String get usage => 'การอนุญาตนี้ช่วยให้แอปอ่านข้อมูลโภชนาการที่อาจถูกบันทึกโดยแอปอื่น ๆ ที่เชื่อมต่อกับเชื่อมต่อสุขภาพ ซึ่งให้มุมมองที่ครอบคลุมเกี่ยวกับโภชนาการของคุณ.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteTh implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'เขียนข้อมูลโภชนาการ';
+	@override String get description => 'อนุญาตให้แอปเขียนข้อมูลโภชนาการไปยังเชื่อมต่อสุขภาพ.';
+	@override String get usage => 'การอนุญาตนี้ช่วยให้แอปซิงค์มื้ออาหารที่คุณบันทึกไปยังเชื่อมต่อสุขภาพ ทำให้ข้อมูลโภชนาการของคุณสามารถใช้ได้กับแอปสุขภาพและฟิตเนสอื่น ๆ ที่คุณใช้.';
 }
 
 /// The flat map containing all translations for locale <th>.
@@ -1506,6 +1706,7 @@ extension on TranslationsTh {
 			'profile.weight' => 'น้ำหนัก',
 			'profile.age' => 'อายุ',
 			'profile.weightGoal' => 'เป้าหมายการน้ำหนัก',
+			'profile.targetWeight' => 'น้ำหนักเป้าหมาย',
 			'profile.activityLevel' => 'ระดับกิจกรรม',
 			'profile.healthMetrics' => 'สุขภาพเมตริก',
 			'profile.notSet' => 'ยังไม่ได้ตั้ง',
@@ -1561,7 +1762,9 @@ extension on TranslationsTh {
 			'settings.sections.profile' => 'โปรไฟล์',
 			'settings.sections.localization' => 'การแปล',
 			'settings.sections.notifications' => 'การแจ้งเตือน',
+			'settings.sections.healthConnect' => 'เชื่อมต่อสุขภาพ',
 			'settings.sections.supportAndLegal' => 'การสนับสนุน & กฎหมาย',
+			'settings.sections.about' => 'เกี่ยวกับ',
 			'settings.sections.dangerZone' => 'โซนอันตราย',
 			'settings.sections.developer' => 'นักพัฒนา',
 			'settings.editProfile.title' => 'แก้ไขโปรไฟล์',
@@ -1594,6 +1797,46 @@ extension on TranslationsTh {
 			'settings.clearAllData.clearEverything' => 'ลบทุกอย่าง',
 			'settings.debugOptions.title' => 'ตัวเลือกการดีบัก',
 			'settings.developerModeEnabled' => 'โหมดนักพัฒนาเปิดใช้งานแล้ว!',
+			'settings.healthConnect.title' => 'เชื่อมต่อสุขภาพ',
+			'settings.healthConnect.subtitle' => 'ดูและจัดการการอนุญาต',
+			'settings.healthConnect.unavailable.title' => 'เชื่อมต่อสุขภาพไม่พร้อมใช้งาน',
+			'settings.healthConnect.unavailable.description' => 'เชื่อมต่อสุขภาพไม่สามารถใช้งานได้ในอุปกรณ์นี้ ต้องการ Android 14 หรือใหม่กว่า.',
+			'settings.healthConnect.permissions.title' => 'การอนุญาต',
+			'settings.healthConnect.permissions.description' => 'การอนุญาตต่อไปนี้ถูกขอเพื่อให้การเชื่อมต่อสุขภาพทำงานได้:',
+			'settings.healthConnect.permissions.granted' => 'ได้รับการอนุญาตแล้ว',
+			'settings.healthConnect.permissions.notGranted' => 'ไม่ได้รับการอนุญาต',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'อ่านแคลอรี่ที่เผาผลาญทั้งหมด',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'อนุญาตให้แอปอ่านแคลอรี่ที่เผาผลาญทั้งหมดจากเชื่อมต่อสุขภาพ.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'การอนุญาตนี้ใช้เพื่อแสดงแคลอรี่ที่เผาผลาญในแต่ละวันในแอป ซึ่งช่วยให้คุณเข้าใจการใช้พลังงานรวมของคุณตลอดทั้งวัน.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'อ่านข้อมูลโภชนาการ',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'อนุญาตให้แอปอ่านข้อมูลโภชนาการจากเชื่อมต่อสุขภาพ.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'การอนุญาตนี้ช่วยให้แอปอ่านข้อมูลโภชนาการที่อาจถูกบันทึกโดยแอปอื่น ๆ ที่เชื่อมต่อกับเชื่อมต่อสุขภาพ ซึ่งให้มุมมองที่ครอบคลุมเกี่ยวกับโภชนาการของคุณ.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'เขียนข้อมูลโภชนาการ',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'อนุญาตให้แอปเขียนข้อมูลโภชนาการไปยังเชื่อมต่อสุขภาพ.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'การอนุญาตนี้ช่วยให้แอปซิงค์มื้ออาหารที่คุณบันทึกไปยังเชื่อมต่อสุขภาพ ทำให้ข้อมูลโภชนาการของคุณสามารถใช้ได้กับแอปสุขภาพและฟิตเนสอื่น ๆ ที่คุณใช้.',
+			'settings.healthConnect.managePermissions' => 'จัดการการอนุญาต',
+			'settings.healthConnect.openSettings' => 'เปิดการตั้งค่า Health Connect',
+			'settings.healthConnect.requestPermissions' => 'ขออนุญาต',
+			'settings.about.title' => 'เกี่ยวกับ',
+			'settings.about.tagline' => 'การตระหนักเรื่องแคลอรีที่รวดเร็ว ฟรี และให้ความสำคัญกับความเป็นส่วนตัว',
+			'settings.about.ourStory.title' => 'เรื่องราวของเรา',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} ก่อตั้งขึ้นจากความไม่พอใจอย่างง่ายๆ: แอปติดตามแคลอรีส่วนใหญ่จะซับซ้อนเกินไป ต้องการการป้อนข้อมูลด้วยตนเองอย่างต่อเนื่อง เรียกเก็บค่าบริการสมาชิกสูง หรือประนีประนอมกับความเป็นส่วนตัว。\n\nในฐานะนักพัฒนาอินดี้ ฉันต้องการสร้างบางสิ่งที่เรียบง่ายและยุติธรรม — แอปที่ใช้ AI เพื่อลดความพยายาม ใช้งานได้รวดเร็วและฟรี และเคารพข้อมูลสุขภาพของคุณ。\n\n${appLabel} คือแอปที่ฉันหวังว่าจะมีอยู่: ไม่มีบัญชี ไม่มีการติดตาม ไม่มีโฆษณา — แค่ข้อมูลที่ชัดเจนและประโยชน์ใช้สอย และเป้าหมายด้านสุขภาพของคุณ',
+			'settings.about.privacy.title' => 'ความเป็นส่วนตัวของคุณมีความสำคัญ',
+			'settings.about.privacy.description' => 'ความเป็นส่วนตัวไม่ใช่เรื่องหลัง — แต่มันคือหลักการออกแบบ นี่คือสิ่งที่หมายถึงในทางปฏิบัติ:',
+			'settings.about.privacy.noAccounts' => 'ไม่ต้องการบัญชี\nใช้งานแอปได้ทันที ไม่มีการสมัคร ไม่มีตัวตน',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'ไม่มีการติดตามพฤติกรรม\n${appLabel} จะไม่ติดตามกิจกรรมของคุณ ไม่สร้างโปรไฟล์การใช้งาน หรือติดตามคุณข้ามแอปหรือเว็บไซต์',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ไม่มีโฆษณาโดยหลักการ\n${appLabel} ถูกพัฒนาขึ้นมาเพื่อทำงานโดยไม่มีโฆษณาหรือการสร้างรายได้จากข้อมูล',
+			'settings.about.privacy.noDataSelling' => 'ไม่มีการขายข้อมูล\nข้อมูลสุขภาพของคุณจะไม่มีการขายหรือแชร์กับบุคคลที่สาม',
+			'settings.about.privacy.localStorage' => 'การจัดเก็บข้อมูลแบบท้องถิ่น\nข้อมูลของคุณจะอยู่ในอุปกรณ์ของคุณ',
+			'settings.about.privacy.privacyPolicy' => 'นโยบายความเป็นส่วนตัว',
+			'settings.about.developer.title' => 'สร้างโดยนักพัฒนาอินดี้',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} ถูกสร้างและดูแลโดยนักพัฒนาอินดี้คนเดียวที่มุ่งเน้นการสร้างซอฟต์แวร์สุขภาพที่สงบและเคารพความเป็นส่วนตัว。\n\nข้อเสนอแนะแต่ละข้อความจะอ่านเป็นการส่วนตัวและช่วยกำหนดทิศทางของแอป',
+			'settings.about.developer.website' => 'เว็บไซต์',
+			'settings.about.developer.email' => 'อีเมล',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'ชอบ ${appLabel} ใช่ไหม?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'ข้อเสนอแนะแต่ละข้อความช่วยทำให้ ${appLabel} ดีขึ้นสำหรับทุกคน',
+			'settings.about.feedback.rateApp' => 'ให้คะแนนใน Play Store',
+			'settings.about.feedback.sendFeedback' => 'ส่งข้อเสนอแนะ',
 			'reminders.title' => 'อยู่ในเส้นทางด้วยการแจ้งเตือน',
 			'reminders.description' => 'รับการแจ้งเตือนที่อบอุ่นเพื่อบันทึกมื้ออาหารของคุณและรักษาความสม่ำเสมอกับเป้าหมายด้านโภชนาการ',
 			'reminders.notificationsEnabled' => 'การแจ้งเตือนเปิดใช้งาน',
@@ -1646,6 +1889,13 @@ extension on TranslationsTh {
 			'disclaimer.weightEstimate.waterWeight.description' => 'น้ำหนักรายวันสามารถผันผวนอย่างมากเนื่องจากการกักเก็บน้ำ, การย่อยอาหาร และการเวลา โดยการประมาณการไม่คำนึงถึงการเปลี่ยนแปลงเหล่านี้',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'คำแนะนำจากมืออาชีพ',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'อย่าใช้การประมาณนี้ในการตัดสินใจทางการแพทย์ เสมอปรึกษาผู้เชี่ยวชาญด้านสุขภาพหรือผู้ให้คำแนะนำทางโภชนาการที่มีใบรับรองเพื่อขอคำแนะนำการจัดการน้ำหนักส่วนบุคคล',
+			'disclaimer.healthMetrics.description' => 'เมตริกเหล่านี้ช่วยให้คุณเข้าใจความต้องการพลังงานของร่างกายและชี้แนะแนวทางด้านโภชนาการของคุณ',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => 'อัตราการเผาผลาญพื้นฐาน (BMR) คือจำนวนแคลอรี่ที่ร่างกายของคุณเผาผลาญเมื่อพักผ่อนเพื่อรักษาฟังก์ชันพื้นฐาน เช่น การหายใจและการไหลเวียน อัตรา BMR ขึ้นอยู่กับอายุ เพศ ส่วนสูง และน้ำหนักของคุณ อัตรา BMR ที่สูงกว่าจะหมายถึงร่างกายของคุณเผาผลาญแคลอรี่มากขึ้นเมื่อพักผ่อนซึ่งมักจะเป็นผลจากมวลกล้ามเนื้อที่มากขึ้น อายุที่น้อยลง หรือเป็นเพศชาย ในขณะที่ BMR ที่ต่ำกว่ามักระบุว่ามีมวลกล้ามเนื้อน้อยกว่า อายุที่มากขึ้น หรือเป็นเพศหญิง',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => 'การใช้พลังงานทั้งหมดในแต่ละวัน (TDEE) คือจำนวนแคลอรี่ที่คุณเผาผลาญในแต่ละวัน รวมถึง BMR ของคุณบวกกับแคลอรี่จากกิจกรรมทางกายและการเคลื่อนไหวในชีวิตประจำวัน TDEE ขึ้นอยู่กับ BMR และระดับกิจกรรมของคุณ TDEE ที่สูงหมายถึงการเผาผลาญแคลอรี่มากขึ้นโดยรวม ซึ่งมักเกิดจากการที่คุณมีความเคลื่อนไหวมากขึ้นหรือมี BMR ที่สูงกว่า ในขณะที่ TDEE ที่ต่ำกว่าจะบ่งบอกถึงความเคลื่อนไหวในแต่ละวันน้อยลงหรือมี BMR ที่ต่ำกว่า',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'เป้าหมายรายวัน',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'เป้าหมายรายวันคือปริมาณแคลอรี่ที่แนะนำสำหรับการบริโภคในแต่ละวันซึ่งขึ้นอยู่กับ TDEE และเป้าหมายด้านน้ำหนักของคุณ สำหรับการลดน้ำหนัก คุณควรบริโภคแคลอรี่ให้น้อยกว่า TDEE ของคุณ สำหรับการรักษาน้ำหนัก คุณควรบริโภคแคลอรี่เท่ากับ TDEE ของคุณ และสำหรับการเพิ่มน้ำหนัก คุณควรบริโภคแคลอรี่มากกว่า TDEE การดำเนินชีวิตอย่างนี้จะช่วยให้คุณบรรลุการเปลี่ยนแปลงน้ำหนักที่ต้องการอย่างมีสุขภาพดี',
 			'common.close' => 'ปิด',
 			'common.kContinue' => 'ดำเนินการต่อ',
 			'errors.loadingProfileData' => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์',

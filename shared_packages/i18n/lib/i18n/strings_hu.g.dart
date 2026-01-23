@@ -37,7 +37,7 @@ class TranslationsHu with BaseTranslations<AppLocale, Translations> implements T
 	TranslationsHu $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsHu(meta: meta ?? this.$meta);
 
 	// Translations
-	@override String get language => 'Hungarian';
+	@override String get language => 'Magyar';
 	@override String get flag => '🇭🇺';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingHu onboarding = _TranslationsOnboardingHu._(_root);
@@ -184,6 +184,7 @@ class _TranslationsProfileHu implements TranslationsProfileEn {
 	@override String get weight => 'Súly';
 	@override String get age => 'Kor';
 	@override String get weightGoal => 'Súlycél';
+	@override String get targetWeight => 'Cél Súly';
 	@override String get activityLevel => 'Aktivitási szint';
 	@override String get healthMetrics => 'Egészségügyi mutatók';
 	@override String get notSet => 'Nincs beállítva';
@@ -252,6 +253,8 @@ class _TranslationsSettingsHu implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataHu clearAllData = _TranslationsSettingsClearAllDataHu._(_root);
 	@override late final _TranslationsSettingsDebugOptionsHu debugOptions = _TranslationsSettingsDebugOptionsHu._(_root);
 	@override String get developerModeEnabled => 'Fejlesztő mód engedélyezve!';
+	@override late final _TranslationsSettingsHealthConnectHu healthConnect = _TranslationsSettingsHealthConnectHu._(_root);
+	@override late final _TranslationsSettingsAboutHu about = _TranslationsSettingsAboutHu._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerHu implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'Kérlek, vedd figyelembe';
 	@override late final _TranslationsDisclaimerSnapHu snap = _TranslationsDisclaimerSnapHu._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateHu weightEstimate = _TranslationsDisclaimerWeightEstimateHu._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsHu healthMetrics = _TranslationsDisclaimerHealthMetricsHu._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsHu implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'HELYI BEÁLLÍTÁSOK';
 	@override String get notifications => 'ÉRTESÍTÉSEK';
+	@override String get healthConnect => 'EGÉSZSÉG KAPCSOLAT';
 	@override String get supportAndLegal => 'TÁMOGATÁS ÉS JOGI ÜGYEK';
+	@override String get about => 'TÁJÉKOZTATÁS';
 	@override String get dangerZone => 'VESZÉLYES ZÓNA';
 	@override String get developer => 'FEJLESZTŐ';
 }
@@ -895,6 +901,37 @@ class _TranslationsSettingsDebugOptionsHu implements TranslationsSettingsDebugOp
 	@override String get title => 'Hibakeresési Beállítások';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectHu implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Egészség Kapcsolat';
+	@override String get subtitle => 'Engedélyek megtekintése és kezelése';
+	@override late final _TranslationsSettingsHealthConnectUnavailableHu unavailable = _TranslationsSettingsHealthConnectUnavailableHu._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsHu permissions = _TranslationsSettingsHealthConnectPermissionsHu._(_root);
+	@override String get managePermissions => 'Engedélyek Kezelése';
+	@override String get openSettings => 'Nyisd meg az Egészségkapcsolat beállításait';
+	@override String get requestPermissions => 'Engedélyek kérése';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutHu implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Rólunk';
+	@override String get tagline => 'Gyors, ingyenes és adatvédelmi szempontból elsődleges kalóriaszámláló';
+	@override late final _TranslationsSettingsAboutOurStoryHu ourStory = _TranslationsSettingsAboutOurStoryHu._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyHu privacy = _TranslationsSettingsAboutPrivacyHu._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperHu developer = _TranslationsSettingsAboutDeveloperHu._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackHu feedback = _TranslationsSettingsAboutFeedbackHu._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastHu implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastHu._(this._root);
@@ -976,6 +1013,19 @@ class _TranslationsDisclaimerWeightEstimateHu implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsHu biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsHu._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightHu waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightHu._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceHu professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceHu._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsHu implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Ezek a mutatók segítenek megérteni a tested energiaigényét, és irányt mutatnak a táplálkozási céljaidhoz.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrHu bmr = _TranslationsDisclaimerHealthMetricsBmrHu._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeHu tdee = _TranslationsDisclaimerHealthMetricsTdeeHu._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalHu dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalHu._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1274,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveHu implements Transla
 	@override String get description => 'Nagyon kemény edzés, fizikai munka';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableHu implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Egészség Kapcsolat Nem Elérhető';
+	@override String get description => 'Az Egészség Kapcsolat nem elérhető ezen az eszközön. Android 14 vagy újabb verzió szükséges.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsHu implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Engedélyek';
+	@override String get description => 'Az alábbi engedélyeket kérjük az Egészség Kapcsolat integráció biztosításához:';
+	@override String get granted => 'Engedélyezve';
+	@override String get notGranted => 'Nem Engedélyezve';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHu caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHu._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadHu nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadHu._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteHu nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteHu._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryHu implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Történetünk';
+	@override String content({required Object appLabel}) => '${appLabel} egy egyszerű frusztrációból született: a legtöbb kalóriaszámláló alkalmazás vagy túlságosan bonyolult, folyamatos manuális bevitelre kényszerít, magas előfizetési díjakat kér, vagy megtévesztően kezeli az adatvédelmet.\n\nFüggetlen fejlesztőként olyan dolgot akartam létrehozni, ami egyszerűbb és tisztességesebb – egy alkalmazást, amely mesterséges intelligenciát használ a munka csökkentésére, gyors marad, ingyenesen használható, és tisztelettel kezeli az egészségügyi adataidat.\n\n${appLabel} az alkalmazás, amit szerettem volna, ha létezne: nincs fiók, nincs követés, nincs hirdetés – csak világos, gyakorlati betekintések és az egészségügyi céljaid.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyHu implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Az Ön Adatvédelme Fontos';
+	@override String get description => 'Az adatvédelem nem utolsó pillanatos gondolat – ez egy tervezési elv. Ez a gyakorlatban azt jelenti:';
+	@override String get noAccounts => 'Nincs szükség fiókra\nAz alkalmazást azonnal használhatja. Nincs regisztráció, nincs személyazonosság.';
+	@override String noTracking({required Object appLabel}) => 'Nincs viselkedési követés\n${appLabel} nem figyeli az Ön tevékenységét, nem épít felhasználói profilokat, és nem követi nyomon különböző alkalmazásokban vagy weboldalakon.';
+	@override String noAds({required Object appLabel}) => 'Hirdetésmentes tervezés\n${appLabel} úgy van megalkotva, hogy működjön hirdetések vagy adatvezérelt monetizáció nélkül.';
+	@override String get noDataSelling => 'Nincs adatértékesítés\nAz egészségügyi adataid soha nem kerülnek eladásra vagy megosztásra harmadik felekkel.';
+	@override String get localStorage => 'Helyi tárolás előtérbe helyezve\nAz adataid a készülékeden maradnak.';
+	@override String get privacyPolicy => 'Adatvédelmi irányelvek';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperHu implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Függő Solo Fejlesztő Által Készítve';
+	@override String description({required Object appLabel}) => '${appLabel} egyetlen solo fejlesztő által készült és karbantartott, aki a nyugodt, adatvédelmet tiszteletben tartó egészségügyi szoftverek fejlesztésére összpontosít.\n\nA visszajelzéseket személyesen olvassuk és segítenek alakítani az alkalmazás irányát.';
+	@override String get website => 'Weboldal';
+	@override String get email => 'Email';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackHu implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => 'Tetszik a(z) ${appLabel}?';
+	@override String description({required Object appLabel}) => 'A visszajelzésed segít abban, hogy a(z) ${appLabel} jobb legyen mindenki számára.';
+	@override String get rateApp => 'Értékelje a Play Áruházban';
+	@override String get sendFeedback => 'Visszajelzés küldése';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeHu implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeHu._(this._root);
@@ -1312,6 +1443,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceHu implements Tra
 	@override String get description => 'Ne használd ezt a becslést orvosi döntések meghozatalához. Mindig konzultálj egészségügyi szakemberrel vagy bejegyzett dietetikussal személyre szabott súlykezelési tanácsadásért.';
 }
 
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrHu implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'BMR';
+	@override String get description => 'A Bazális Anyagcsere Sebessége (BMR) az a kalóriamennyiség, amelyet a tested nyugalmi állapotban éget el az alapvető funkciók fenntartásához, mint a légzés és a vérkeringés. A BMR a korodtól, nemedtől, magasságodtól és súlyodtól függ. A magasabb BMR azt jelenti, hogy a tested természetesen több kalóriát éget el nyugalomban, jellemzően a nagyobb izomtömeg, a fiatalabb kor vagy a férfi nem következményeként. Az alacsonyabb BMR általában kevesebb izomtömegre, idősebb korra vagy női nemre utal.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeHu implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TDEE';
+	@override String get description => 'A Teljes Napi Energiafelhasználás (TDEE) az a kalóriamennyiség, amelyet egy nap alatt elégetsz, beleértve a BMR-t és a fizikai aktivitásból valamint a napi mozgásból származó kalóriákat. A TDEE a BMR-dtől és az aktivitási szintedtől függ. A magasabb TDEE azt jelenti, hogy összességében több kalóriát égetsz el, általában a nagyobb aktivitásból vagy a magasabb BMR-ből adódóan. Az alacsonyabb TDEE kevesebb napi aktivitást vagy alacsonyabb BMR-t jelez.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalHu implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Napi Cél';
+	@override String get description => 'A Napi Cél a javasolt napi kalóriabeviteled, amely a TDEE-d és a súlycélod alapján van megállapítva. Súlycsökkentés esetén kevesebb kalóriát fogyasztasz, mint a TDEE-d. A súly fenntartásához a TDEE-dnek megfelelő mennyiséget fogyasztasz. Súlygyarapodás érdekében pedig többet eszel, mint a TDEE-d. Ez segít elérni a kívánt súlyváltozást egészséges ütemben.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHu implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Összes Kcal Égetése Olvasása';
+	@override String get description => 'Lehetővé teszi az alkalmazás számára, hogy elolvassa a Health Connect-en a teljes elégetett kalóriát.';
+	@override String get usage => 'Ez az engedély szükséges a napi kalóriaégetés megjelenítéséhez az alkalmazásban, segítve a napi energiapazarlás megértését.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadHu implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tápanyagadatok Olvasása';
+	@override String get description => 'Lehetővé teszi az alkalmazás számára, hogy elolvassa a tápanyagadatokat az Egészség Kapcsolattól.';
+	@override String get usage => 'Ez az engedély lehetővé teszi az alkalmazás számára, hogy hozzáférjen azokra a tápanyaginformációkra, amelyeket más alkalmazások rögzítettek, amelyek kapcsolódnak az Egészség Kapcsolathoz, átfogó képet adva a táplálkozásodról.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteHu implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tápanyagadatok Írása';
+	@override String get description => 'Lehetővé teszi az alkalmazás számára, hogy tápanyagadatokat írjon az Egészség Kapcsolatra.';
+	@override String get usage => 'Ez az engedély lehetővé teszi az alkalmazás számára, hogy szinkronizálja a rögzített ételeidet az Egészség Kapcsolatra, így a táplálkozási adataid más egészségügyi és fitness alkalmazások számára is elérhetővé válnak.';
+}
+
 /// The flat map containing all translations for locale <hu>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -1320,7 +1520,7 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceHu implements Tra
 extension on TranslationsHu {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'language' => 'Hungarian',
+			'language' => 'Magyar',
 			'flag' => '🇭🇺',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Üdvözöljük a(z) ${appLabel} alkalmazásban',
@@ -1506,6 +1706,7 @@ extension on TranslationsHu {
 			'profile.weight' => 'Súly',
 			'profile.age' => 'Kor',
 			'profile.weightGoal' => 'Súlycél',
+			'profile.targetWeight' => 'Cél Súly',
 			'profile.activityLevel' => 'Aktivitási szint',
 			'profile.healthMetrics' => 'Egészségügyi mutatók',
 			'profile.notSet' => 'Nincs beállítva',
@@ -1561,7 +1762,9 @@ extension on TranslationsHu {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'HELYI BEÁLLÍTÁSOK',
 			'settings.sections.notifications' => 'ÉRTESÍTÉSEK',
+			'settings.sections.healthConnect' => 'EGÉSZSÉG KAPCSOLAT',
 			'settings.sections.supportAndLegal' => 'TÁMOGATÁS ÉS JOGI ÜGYEK',
+			'settings.sections.about' => 'TÁJÉKOZTATÁS',
 			'settings.sections.dangerZone' => 'VESZÉLYES ZÓNA',
 			'settings.sections.developer' => 'FEJLESZTŐ',
 			'settings.editProfile.title' => 'Profil Szerkesztése',
@@ -1594,6 +1797,46 @@ extension on TranslationsHu {
 			'settings.clearAllData.clearEverything' => 'Összes Törlése',
 			'settings.debugOptions.title' => 'Hibakeresési Beállítások',
 			'settings.developerModeEnabled' => 'Fejlesztő mód engedélyezve!',
+			'settings.healthConnect.title' => 'Egészség Kapcsolat',
+			'settings.healthConnect.subtitle' => 'Engedélyek megtekintése és kezelése',
+			'settings.healthConnect.unavailable.title' => 'Egészség Kapcsolat Nem Elérhető',
+			'settings.healthConnect.unavailable.description' => 'Az Egészség Kapcsolat nem elérhető ezen az eszközön. Android 14 vagy újabb verzió szükséges.',
+			'settings.healthConnect.permissions.title' => 'Engedélyek',
+			'settings.healthConnect.permissions.description' => 'Az alábbi engedélyeket kérjük az Egészség Kapcsolat integráció biztosításához:',
+			'settings.healthConnect.permissions.granted' => 'Engedélyezve',
+			'settings.healthConnect.permissions.notGranted' => 'Nem Engedélyezve',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Összes Kcal Égetése Olvasása',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Lehetővé teszi az alkalmazás számára, hogy elolvassa a Health Connect-en a teljes elégetett kalóriát.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Ez az engedély szükséges a napi kalóriaégetés megjelenítéséhez az alkalmazásban, segítve a napi energiapazarlás megértését.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Tápanyagadatok Olvasása',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Lehetővé teszi az alkalmazás számára, hogy elolvassa a tápanyagadatokat az Egészség Kapcsolattól.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Ez az engedély lehetővé teszi az alkalmazás számára, hogy hozzáférjen azokra a tápanyaginformációkra, amelyeket más alkalmazások rögzítettek, amelyek kapcsolódnak az Egészség Kapcsolathoz, átfogó képet adva a táplálkozásodról.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Tápanyagadatok Írása',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Lehetővé teszi az alkalmazás számára, hogy tápanyagadatokat írjon az Egészség Kapcsolatra.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Ez az engedély lehetővé teszi az alkalmazás számára, hogy szinkronizálja a rögzített ételeidet az Egészség Kapcsolatra, így a táplálkozási adataid más egészségügyi és fitness alkalmazások számára is elérhetővé válnak.',
+			'settings.healthConnect.managePermissions' => 'Engedélyek Kezelése',
+			'settings.healthConnect.openSettings' => 'Nyisd meg az Egészségkapcsolat beállításait',
+			'settings.healthConnect.requestPermissions' => 'Engedélyek kérése',
+			'settings.about.title' => 'Rólunk',
+			'settings.about.tagline' => 'Gyors, ingyenes és adatvédelmi szempontból elsődleges kalóriaszámláló',
+			'settings.about.ourStory.title' => 'Történetünk',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} egy egyszerű frusztrációból született: a legtöbb kalóriaszámláló alkalmazás vagy túlságosan bonyolult, folyamatos manuális bevitelre kényszerít, magas előfizetési díjakat kér, vagy megtévesztően kezeli az adatvédelmet.\n\nFüggetlen fejlesztőként olyan dolgot akartam létrehozni, ami egyszerűbb és tisztességesebb – egy alkalmazást, amely mesterséges intelligenciát használ a munka csökkentésére, gyors marad, ingyenesen használható, és tisztelettel kezeli az egészségügyi adataidat.\n\n${appLabel} az alkalmazás, amit szerettem volna, ha létezne: nincs fiók, nincs követés, nincs hirdetés – csak világos, gyakorlati betekintések és az egészségügyi céljaid.',
+			'settings.about.privacy.title' => 'Az Ön Adatvédelme Fontos',
+			'settings.about.privacy.description' => 'Az adatvédelem nem utolsó pillanatos gondolat – ez egy tervezési elv. Ez a gyakorlatban azt jelenti:',
+			'settings.about.privacy.noAccounts' => 'Nincs szükség fiókra\nAz alkalmazást azonnal használhatja. Nincs regisztráció, nincs személyazonosság.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Nincs viselkedési követés\n${appLabel} nem figyeli az Ön tevékenységét, nem épít felhasználói profilokat, és nem követi nyomon különböző alkalmazásokban vagy weboldalakon.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Hirdetésmentes tervezés\n${appLabel} úgy van megalkotva, hogy működjön hirdetések vagy adatvezérelt monetizáció nélkül.',
+			'settings.about.privacy.noDataSelling' => 'Nincs adatértékesítés\nAz egészségügyi adataid soha nem kerülnek eladásra vagy megosztásra harmadik felekkel.',
+			'settings.about.privacy.localStorage' => 'Helyi tárolás előtérbe helyezve\nAz adataid a készülékeden maradnak.',
+			'settings.about.privacy.privacyPolicy' => 'Adatvédelmi irányelvek',
+			'settings.about.developer.title' => 'Függő Solo Fejlesztő Által Készítve',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} egyetlen solo fejlesztő által készült és karbantartott, aki a nyugodt, adatvédelmet tiszteletben tartó egészségügyi szoftverek fejlesztésére összpontosít.\n\nA visszajelzéseket személyesen olvassuk és segítenek alakítani az alkalmazás irányát.',
+			'settings.about.developer.website' => 'Weboldal',
+			'settings.about.developer.email' => 'Email',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Tetszik a(z) ${appLabel}?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'A visszajelzésed segít abban, hogy a(z) ${appLabel} jobb legyen mindenki számára.',
+			'settings.about.feedback.rateApp' => 'Értékelje a Play Áruházban',
+			'settings.about.feedback.sendFeedback' => 'Visszajelzés küldése',
 			'reminders.title' => 'Tartsd az ütemet emlékeztetőkkel',
 			'reminders.description' => 'Kapsz enyhe emlékeztetőket, hogy naplózd az étkezéseidet és következetes maradj táplálkozási céljaidnál',
 			'reminders.notificationsEnabled' => 'Értesítések Engedélyezve',
@@ -1646,6 +1889,13 @@ extension on TranslationsHu {
 			'disclaimer.weightEstimate.waterWeight.description' => 'A normális napi súly jelentősen ingadozhat a vízvisszatartás, emésztés és időzítés miatt. A becslés nem veszi figyelembe ezeket a napi változásokat.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Szakmai Útmutatás',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Ne használd ezt a becslést orvosi döntések meghozatalához. Mindig konzultálj egészségügyi szakemberrel vagy bejegyzett dietetikussal személyre szabott súlykezelési tanácsadásért.',
+			'disclaimer.healthMetrics.description' => 'Ezek a mutatók segítenek megérteni a tested energiaigényét, és irányt mutatnak a táplálkozási céljaidhoz.',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => 'A Bazális Anyagcsere Sebessége (BMR) az a kalóriamennyiség, amelyet a tested nyugalmi állapotban éget el az alapvető funkciók fenntartásához, mint a légzés és a vérkeringés. A BMR a korodtól, nemedtől, magasságodtól és súlyodtól függ. A magasabb BMR azt jelenti, hogy a tested természetesen több kalóriát éget el nyugalomban, jellemzően a nagyobb izomtömeg, a fiatalabb kor vagy a férfi nem következményeként. Az alacsonyabb BMR általában kevesebb izomtömegre, idősebb korra vagy női nemre utal.',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => 'A Teljes Napi Energiafelhasználás (TDEE) az a kalóriamennyiség, amelyet egy nap alatt elégetsz, beleértve a BMR-t és a fizikai aktivitásból valamint a napi mozgásból származó kalóriákat. A TDEE a BMR-dtől és az aktivitási szintedtől függ. A magasabb TDEE azt jelenti, hogy összességében több kalóriát égetsz el, általában a nagyobb aktivitásból vagy a magasabb BMR-ből adódóan. Az alacsonyabb TDEE kevesebb napi aktivitást vagy alacsonyabb BMR-t jelez.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Napi Cél',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'A Napi Cél a javasolt napi kalóriabeviteled, amely a TDEE-d és a súlycélod alapján van megállapítva. Súlycsökkentés esetén kevesebb kalóriát fogyasztasz, mint a TDEE-d. A súly fenntartásához a TDEE-dnek megfelelő mennyiséget fogyasztasz. Súlygyarapodás érdekében pedig többet eszel, mint a TDEE-d. Ez segít elérni a kívánt súlyváltozást egészséges ütemben.',
 			'common.close' => 'Bezárás',
 			'common.kContinue' => 'Tovább',
 			'errors.loadingProfileData' => 'Hiba a profiladatok betöltésekor',

@@ -117,7 +117,7 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
                     child: Icon(
                       LucideIcons.flame,
                       size: 18,
-                      color: calorieIconColor,
+                      color: colorScheme.calorieIconColor,
                     ),
                   ),
                 ),
@@ -155,7 +155,9 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
                           fontSize: 28,
                           height: 1.0,
                           color:
-                              isOverGoal ? colorScheme.error : calorieIconColor,
+                              isOverGoal
+                                  ? colorScheme.error
+                                  : colorScheme.calorieIconColor,
                           letterSpacing: -0.5,
                         ),
                         textAlign: TextAlign.center,
@@ -230,7 +232,9 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
                           strokeWidth: 7,
                           backgroundColor: colorScheme.surfaceContainerHighest,
                           valueColor: AlwaysStoppedAnimation<Color>(
-                            isOverGoal ? colorScheme.error : calorieIconColor,
+                            isOverGoal
+                                ? colorScheme.error
+                                : colorScheme.calorieIconColor,
                           ),
                         );
                       },
@@ -251,7 +255,7 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
                             color:
                                 isOverGoal
                                     ? colorScheme.error
-                                    : calorieIconColor,
+                                    : colorScheme.calorieIconColor,
                           ),
                         );
                       },

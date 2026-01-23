@@ -184,6 +184,7 @@ class _TranslationsProfileTe implements TranslationsProfileEn {
 	@override String get weight => 'బరువు';
 	@override String get age => 'వయస్సు';
 	@override String get weightGoal => 'బరువు లక్ష్యం';
+	@override String get targetWeight => 'అంశం బరువు';
 	@override String get activityLevel => 'యాక్టివిటీ స్థాయి';
 	@override String get healthMetrics => 'ఆరోగ్య మెట్రిక్‌లు';
 	@override String get notSet => 'సెట్ కాలేదు';
@@ -252,6 +253,8 @@ class _TranslationsSettingsTe implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataTe clearAllData = _TranslationsSettingsClearAllDataTe._(_root);
 	@override late final _TranslationsSettingsDebugOptionsTe debugOptions = _TranslationsSettingsDebugOptionsTe._(_root);
 	@override String get developerModeEnabled => 'డెవలపర్ మోడ్ సాధనంలో ఉంది!';
+	@override late final _TranslationsSettingsHealthConnectTe healthConnect = _TranslationsSettingsHealthConnectTe._(_root);
+	@override late final _TranslationsSettingsAboutTe about = _TranslationsSettingsAboutTe._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerTe implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'దయచేసి గమనించండి';
 	@override late final _TranslationsDisclaimerSnapTe snap = _TranslationsDisclaimerSnapTe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateTe weightEstimate = _TranslationsDisclaimerWeightEstimateTe._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTe healthMetrics = _TranslationsDisclaimerHealthMetricsTe._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsTe implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'ప్రొఫైల్';
 	@override String get localization => 'స్థానికీకరణ';
 	@override String get notifications => 'అవగాహనలు';
+	@override String get healthConnect => 'అభ్యాస అనుసంధానం';
 	@override String get supportAndLegal => 'మద్దతు & న్యాయ';
+	@override String get about => 'గురించి';
 	@override String get dangerZone => 'పోలిక మాండి';
 	@override String get developer => 'డెవలపర్';
 }
@@ -895,6 +901,37 @@ class _TranslationsSettingsDebugOptionsTe implements TranslationsSettingsDebugOp
 	@override String get title => 'డిబగ్ ఆప్షన్స్';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectTe implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'అభ్యాస అనుసంధానం';
+	@override String get subtitle => 'అనుమతులను చూడండి మరియు నిర్వహించండి';
+	@override late final _TranslationsSettingsHealthConnectUnavailableTe unavailable = _TranslationsSettingsHealthConnectUnavailableTe._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsTe permissions = _TranslationsSettingsHealthConnectPermissionsTe._(_root);
+	@override String get managePermissions => 'అనుమతులను నిర్వహించండి';
+	@override String get openSettings => 'ఆరోగ్య కనెక్ట్ సెట్టింగ్స్‌ను తెరువు';
+	@override String get requestPermissions => 'ఆమోదాల కోసం అభ్యర్థన చేయండి';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutTe implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'గురించి';
+	@override String get tagline => 'త్వరిత, ఉచిత మరియు గోప్యతా ప్రాధాన్యత కల్గిన కేలరీ అవగాహన';
+	@override late final _TranslationsSettingsAboutOurStoryTe ourStory = _TranslationsSettingsAboutOurStoryTe._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyTe privacy = _TranslationsSettingsAboutPrivacyTe._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperTe developer = _TranslationsSettingsAboutDeveloperTe._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackTe feedback = _TranslationsSettingsAboutFeedbackTe._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastTe implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastTe._(this._root);
@@ -976,6 +1013,19 @@ class _TranslationsDisclaimerWeightEstimateTe implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsTe biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsTe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightTe waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightTe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTe professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTe._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsTe implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'ఈ మృతులు మీ శరీరం యొక్క శక్తి అవసరాలను తెలుసుకోవడంలో మరియు మీ పోషణ లక్ష్యాలను మార్గనిర్ధేశం చేయడంలో సహాయపడతాయి.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrTe bmr = _TranslationsDisclaimerHealthMetricsBmrTe._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeTe tdee = _TranslationsDisclaimerHealthMetricsTdeeTe._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalTe dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalTe._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1274,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveTe implements Transla
 	@override String get description => 'చాలా తీవ్రమైన వ్యాయామం, శారీరక పని';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableTe implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'అభ్యాస అనుసంధానం అందుబాటులో లేదు';
+	@override String get description => 'ఈ పరికరంపై అభ్యాస అనుసంధానం అందుబాటులో లేదు. ఇది Android 14 లేదా నూతన సంస్కరణని అవసరం చేసింది.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsTe implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'అనుమతులు';
+	@override String get description => 'అభ్యాస అనుసంధానం సమ్మేళనాన్ని అందించేందుకు కోరిన అనుమతులు:';
+	@override String get granted => 'అనుమతించారు';
+	@override String get notGranted => 'అనుమతించుకోలేదు';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTe caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTe._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadTe nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadTe._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteTe nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteTe._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryTe implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'మా గాథ';
+	@override String content({required Object appLabel}) => '${appLabel} ఒక సాధారణ నిరాశ నుండి పుట్టింది: చాలా కేలరీ ట్రాకింగ్ యాప్స్ లేదా పూర్తిగా కష్టమైనవి, నిరంతర మానవ ఇన్‌పుట్‌ను కోరేవి, అధిక సభ్యత్వ ఫీజులను వసూలు చేసే విధంగా ఉంటాయి లేదా గోప్యతను తీవ్రంగా పరిగణించవు.\n\nఒక ఇండీ డెవలపర్ గా, నేను మరింత సులభమైన మరియు సమానమైన దాంట్లో నిర్మించాలనుకున్నాను - AIను ఉపయోగించి కృషిని తగ్గించేది, ఉపయోగించడానికి వేగంగా మరియు ఉచితంగా ఉండి, మీ ఆరోగ్య డేటా పెద్దగా గౌరవించాలి.\n\n${appLabel} నాకు ఉండాలనుకుంటున్న యాప్: ఎలాంటి ఖాతాలు లేదు, ఎవ్వరికీ అనుసరిస్తే లేదు, వ్యాప్తి లేదు - కేవలం స్పష్టమైన, ప్రాయోగిక అవగాహన మరియు మీ ఆరోగ్య లక్ష్యాలు.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyTe implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'మీ గోప్యత ముఖ్యమైనది';
+	@override String get description => 'గోప్యత అనేది తీరులోకి తీసుకువచ్చే అంశం కాదు - ఇది ఒక డిజైన్ ప్రిన్సిపల్. ప్రాక్టీస్‌లో అర్థం ఏమిటో ఇక్కడ ఉంది:';
+	@override String get noAccounts => 'ఏ ఖాతాలు అవసరం లేదు\nయాప్‌ను వెంటనే ఉపయోగించండి. ఎలాంటి సైన్-అప్‌లు, ఎలాంటి ఐడెంటిటీలు లేవు.';
+	@override String noTracking({required Object appLabel}) => 'ఏ ప్రవర్తన అనుసరించడం లేదు\n${appLabel} మీ కార్యకలాపాలను మానిటర్ చేయదు, ఉపయోగం ప్రొఫైల్స్‌ను నిర్మించదు, లేదా మీను యాప్‌లు లేదా వెబ్‌సైట్లపై అనుసరించదు.';
+	@override String noAds({required Object appLabel}) => 'డిజైన్ ప్రకారంగా ప్రకటనలు ఉండవు\n${appLabel} ప్రకటనలు లేదా డేటా ఆధారిత ఆదాయ మోడల్ లేకుండా పనిచేయడానికి నిర్మించబడింది.';
+	@override String get noDataSelling => 'డేటా అమ్మకం లేదు\nమీ ఆరోగ్య డేటా ఎప్పుడూ అమ్మబడదు లేదా మూడవ పక్షాలతో పంచుకోబడదు.';
+	@override String get localStorage => 'స్థానిక ప్రథమ నిల్వ\nమీ డేటా మీ పరికరంలోనే ఉంటుంది.';
+	@override String get privacyPolicy => 'గోప్యతా విధానం';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperTe implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ఒక ఇండీ డెవలపర్ చేత నిర్మించబడింది';
+	@override String description({required Object appLabel}) => '${appLabel} నిశ్చితంగా, గోప్యతా గౌరవించే ఆరోగ్య సాఫ్ట్‌వేర్ సృష్టించడంపై దృష్టి పెట్టిన ఒక వ్యక్తిగత ఇండీ డెవలపర్ ద్వారా రూపొందించబడింది.\n\nచురుకైన అభిప్రాయాలను వ్యక్తిగతంగా చదువుతారు మరియు ఆ యాప్ యొక్క దిశను ఆకృతీకరించడంలో సహాయపడతాయి.';
+	@override String get website => 'వెబ్‌సైట్';
+	@override String get email => 'ఇమెయిల్';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackTe implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => '${appLabel} మీరు ఆంజనమే?';
+	@override String description({required Object appLabel}) => 'మీ అభిప్రాయాలు ${appLabel} ను అందరికీ మెరుగుపరిచేందుకు సహాయపడుతుంది.';
+	@override String get rateApp => 'ప్రత్యేక దుకాణంలో రేట్ చేయండి';
+	@override String get sendFeedback => 'అభిప్రాయం పంపండి';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeTe implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeTe._(this._root);
@@ -1310,6 +1441,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTe implements Tra
 	// Translations
 	@override String get title => 'పోతు ప్రాజ్ఞానం';
 	@override String get description => 'ఈ అంచనాను వైద్య నిర్ణయాల కోసం ఉపయోగించకండి. ఎప్పుడూ వ్యక్తిగత బరువు నిర్వహణ సమాచారానికి ఒక ఆరోగ్య నిపుణుడిని సంప్రదించండి.';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrTe implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'BMR';
+	@override String get description => 'అధిక పునరుత్పత్తి రేటు (BMR) అంటే మీ శరీరం విశ్రాంతిలో ఉన్నప్పుడు శ్వాస మరియు చరిత్ర వంటి మౌలిక కార్యకలాపాలను నిర్వహించడానికి ఎంత ఉక్కు కరిగిస్తుందో. BMR మీ వయసు, లింగం, ఎత్తు మరియు బరువుపైన ఆధారపడి ఉంటుంది. అధిక BMR అంటే మీ శరీరం విశ్రాంతిలోనే ఎక్కువ కేలరీలను కరిగించేది, సాధారణంగా ఎక్కువ కండర మాస్, యువ వయస్సు లేదా పురుషత్వం కారణంగా. తక్కువ BMR సాధారణంగా తక్కువ కండర మాస్, వృద్ధ వయస్సు లేదా మహిళా లైంగికతను సూచిస్తుంది.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeTe implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TDEE';
+	@override String get description => 'మొత్తం రోజు శక్తి ఖర్చు (TDEE) అంటే మీరు ప్రతి రోజూ కరిగించే మొత్తం కేలరీలు, అందులో మీ BMR మరియు శారీరక కార్యకలాపాల నుండి కేలరీస్ కలవు. TDEE మీ BMR మరియు కార్యకలాప స్థాయి పై ఆధారపడి ఉంటుంది. అధిక TDEE అంటే మీరు మొత్తం కేలરીలను ఎక్కువగా కరిగిస్తారు, సాధారణంగా ఎక్కువ కార్యకలాపం చేయడం లేదా అధిక BMR వల్ల. తక్కువ TDEE అంటే తక్కువ రోజు కార్యకలాపం లేదా తక్కువ BMR.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalTe implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'రోజు లక్ష్యం';
+	@override String get description => 'రోజు లక్ష్యం అంటే మీ TDEE మరియు బరువు లక్ష్యం ఆధారంగా మీకు సిఫారసు చేసిన ప్రతిరోజు కేలరీ తీసుకొనే పరిమాణం. బరువు తగ్గేందుకు, మీరు మీ TDEE కన్నా తక్కువ కేలరీలను తీసుకుంటారు. బరువు నిర్వహణకు, మీరు మీ TDEE సరిపోల్చుతారు. బరువు పెరగడం కోసం, మీరు మీ TDEE కన్నా ఎక్కువ కేలరీలు తీసుకుంటారు. ఇది మీ ఆశించిన బరువు మార్పును ఆరోగ్యకరమైన రీతిలో సాధించడంలో సహాయ పడుతుంది.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTe implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'మొత్తం కాలరీస్ బర్న్డ్ చదవండి';
+	@override String get description => 'ఈ అనుమతి ఆరోగ్య అనుసంధానంలో నుండి మీ మొత్తం కాలరీలు బర్న్ చేయడం చదవడాన్ని అనుమతిస్తుంది.';
+	@override String get usage => 'ఈ అనుమతి అప్లికేషన్ లో మీ రోజువారీ కాలరీ బర్న్ చూపించడానికి ఉపయోగిస్తారు, ఇది మీరు మీ రోజంతా మొత్తంగా మీ శక్తి వరకు అర్థం చేసుకోవడంలో సహాయపడుతుంది.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadTe implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'పోషకాహార సమాచారం చదవండి';
+	@override String get description => 'ఈ అనుమతి ఆరోగ్య అనుసంధానంలో నుండి పోషకాహార సమాచారాన్ని చదవడాన్ని అనుమతిస్తుంది.';
+	@override String get usage => 'ఈ అనుమతి ఆరోగ్య అనుసంధానానికి అనుసంధానించిన ఇతర అప్లికేషన్ల ద్వారా లాగ్ చేయబడిన పోషక సమాచారం చదవడానికి అనుమతిస్తుంది, అది మీ పోషకాహారాన్ని సమగ్రంగా చూడడంలో సహాయపడుతుంది.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteTe implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'పోషకాహార సమాచారం వ్రాయండి';
+	@override String get description => 'ఈ అనుమతి ఆరోగ్య అనుసంధానానికి పోషకాహార సమాచారాన్ని వ్రాయడాన్ని అనుమతిస్తుంది.';
+	@override String get usage => 'ఈ అనుమతి మీరు లాగ్ చేసిన భోజనం యొక్క సమాచారాన్ని ఆరోగ్య అనుసంధానానికి సమసమయం చేయడం అనుమతిస్తుంది, దీని ద్వారా మీరు ఉపయోగించే ఇతర ఆరోగ్య మరియు ఫిట్నెస్ అప్లికేషన్లకు మీ పోషకాహార సమాచారాన్ని అందుబాటులో ఉంచుతుంది.';
 }
 
 /// The flat map containing all translations for locale <te>.
@@ -1506,6 +1706,7 @@ extension on TranslationsTe {
 			'profile.weight' => 'బరువు',
 			'profile.age' => 'వయస్సు',
 			'profile.weightGoal' => 'బరువు లక్ష్యం',
+			'profile.targetWeight' => 'అంశం బరువు',
 			'profile.activityLevel' => 'యాక్టివిటీ స్థాయి',
 			'profile.healthMetrics' => 'ఆరోగ్య మెట్రిక్‌లు',
 			'profile.notSet' => 'సెట్ కాలేదు',
@@ -1561,7 +1762,9 @@ extension on TranslationsTe {
 			'settings.sections.profile' => 'ప్రొఫైల్',
 			'settings.sections.localization' => 'స్థానికీకరణ',
 			'settings.sections.notifications' => 'అవగాహనలు',
+			'settings.sections.healthConnect' => 'అభ్యాస అనుసంధానం',
 			'settings.sections.supportAndLegal' => 'మద్దతు & న్యాయ',
+			'settings.sections.about' => 'గురించి',
 			'settings.sections.dangerZone' => 'పోలిక మాండి',
 			'settings.sections.developer' => 'డెవలపర్',
 			'settings.editProfile.title' => 'ప్రొఫైల్ క్రింది',
@@ -1594,6 +1797,46 @@ extension on TranslationsTe {
 			'settings.clearAllData.clearEverything' => 'అన్నీ క్లియర్ చేయండి',
 			'settings.debugOptions.title' => 'డిబగ్ ఆప్షన్స్',
 			'settings.developerModeEnabled' => 'డెవలపర్ మోడ్ సాధనంలో ఉంది!',
+			'settings.healthConnect.title' => 'అభ్యాస అనుసంధానం',
+			'settings.healthConnect.subtitle' => 'అనుమతులను చూడండి మరియు నిర్వహించండి',
+			'settings.healthConnect.unavailable.title' => 'అభ్యాస అనుసంధానం అందుబాటులో లేదు',
+			'settings.healthConnect.unavailable.description' => 'ఈ పరికరంపై అభ్యాస అనుసంధానం అందుబాటులో లేదు. ఇది Android 14 లేదా నూతన సంస్కరణని అవసరం చేసింది.',
+			'settings.healthConnect.permissions.title' => 'అనుమతులు',
+			'settings.healthConnect.permissions.description' => 'అభ్యాస అనుసంధానం సమ్మేళనాన్ని అందించేందుకు కోరిన అనుమతులు:',
+			'settings.healthConnect.permissions.granted' => 'అనుమతించారు',
+			'settings.healthConnect.permissions.notGranted' => 'అనుమతించుకోలేదు',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'మొత్తం కాలరీస్ బర్న్డ్ చదవండి',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'ఈ అనుమతి ఆరోగ్య అనుసంధానంలో నుండి మీ మొత్తం కాలరీలు బర్న్ చేయడం చదవడాన్ని అనుమతిస్తుంది.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'ఈ అనుమతి అప్లికేషన్ లో మీ రోజువారీ కాలరీ బర్న్ చూపించడానికి ఉపయోగిస్తారు, ఇది మీరు మీ రోజంతా మొత్తంగా మీ శక్తి వరకు అర్థం చేసుకోవడంలో సహాయపడుతుంది.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'పోషకాహార సమాచారం చదవండి',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'ఈ అనుమతి ఆరోగ్య అనుసంధానంలో నుండి పోషకాహార సమాచారాన్ని చదవడాన్ని అనుమతిస్తుంది.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'ఈ అనుమతి ఆరోగ్య అనుసంధానానికి అనుసంధానించిన ఇతర అప్లికేషన్ల ద్వారా లాగ్ చేయబడిన పోషక సమాచారం చదవడానికి అనుమతిస్తుంది, అది మీ పోషకాహారాన్ని సమగ్రంగా చూడడంలో సహాయపడుతుంది.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'పోషకాహార సమాచారం వ్రాయండి',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'ఈ అనుమతి ఆరోగ్య అనుసంధానానికి పోషకాహార సమాచారాన్ని వ్రాయడాన్ని అనుమతిస్తుంది.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'ఈ అనుమతి మీరు లాగ్ చేసిన భోజనం యొక్క సమాచారాన్ని ఆరోగ్య అనుసంధానానికి సమసమయం చేయడం అనుమతిస్తుంది, దీని ద్వారా మీరు ఉపయోగించే ఇతర ఆరోగ్య మరియు ఫిట్నెస్ అప్లికేషన్లకు మీ పోషకాహార సమాచారాన్ని అందుబాటులో ఉంచుతుంది.',
+			'settings.healthConnect.managePermissions' => 'అనుమతులను నిర్వహించండి',
+			'settings.healthConnect.openSettings' => 'ఆరోగ్య కనెక్ట్ సెట్టింగ్స్‌ను తెరువు',
+			'settings.healthConnect.requestPermissions' => 'ఆమోదాల కోసం అభ్యర్థన చేయండి',
+			'settings.about.title' => 'గురించి',
+			'settings.about.tagline' => 'త్వరిత, ఉచిత మరియు గోప్యతా ప్రాధాన్యత కల్గిన కేలరీ అవగాహన',
+			'settings.about.ourStory.title' => 'మా గాథ',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} ఒక సాధారణ నిరాశ నుండి పుట్టింది: చాలా కేలరీ ట్రాకింగ్ యాప్స్ లేదా పూర్తిగా కష్టమైనవి, నిరంతర మానవ ఇన్‌పుట్‌ను కోరేవి, అధిక సభ్యత్వ ఫీజులను వసూలు చేసే విధంగా ఉంటాయి లేదా గోప్యతను తీవ్రంగా పరిగణించవు.\n\nఒక ఇండీ డెవలపర్ గా, నేను మరింత సులభమైన మరియు సమానమైన దాంట్లో నిర్మించాలనుకున్నాను - AIను ఉపయోగించి కృషిని తగ్గించేది, ఉపయోగించడానికి వేగంగా మరియు ఉచితంగా ఉండి, మీ ఆరోగ్య డేటా పెద్దగా గౌరవించాలి.\n\n${appLabel} నాకు ఉండాలనుకుంటున్న యాప్: ఎలాంటి ఖాతాలు లేదు, ఎవ్వరికీ అనుసరిస్తే లేదు, వ్యాప్తి లేదు - కేవలం స్పష్టమైన, ప్రాయోగిక అవగాహన మరియు మీ ఆరోగ్య లక్ష్యాలు.',
+			'settings.about.privacy.title' => 'మీ గోప్యత ముఖ్యమైనది',
+			'settings.about.privacy.description' => 'గోప్యత అనేది తీరులోకి తీసుకువచ్చే అంశం కాదు - ఇది ఒక డిజైన్ ప్రిన్సిపల్. ప్రాక్టీస్‌లో అర్థం ఏమిటో ఇక్కడ ఉంది:',
+			'settings.about.privacy.noAccounts' => 'ఏ ఖాతాలు అవసరం లేదు\nయాప్‌ను వెంటనే ఉపయోగించండి. ఎలాంటి సైన్-అప్‌లు, ఎలాంటి ఐడెంటిటీలు లేవు.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'ఏ ప్రవర్తన అనుసరించడం లేదు\n${appLabel} మీ కార్యకలాపాలను మానిటర్ చేయదు, ఉపయోగం ప్రొఫైల్స్‌ను నిర్మించదు, లేదా మీను యాప్‌లు లేదా వెబ్‌సైట్లపై అనుసరించదు.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'డిజైన్ ప్రకారంగా ప్రకటనలు ఉండవు\n${appLabel} ప్రకటనలు లేదా డేటా ఆధారిత ఆదాయ మోడల్ లేకుండా పనిచేయడానికి నిర్మించబడింది.',
+			'settings.about.privacy.noDataSelling' => 'డేటా అమ్మకం లేదు\nమీ ఆరోగ్య డేటా ఎప్పుడూ అమ్మబడదు లేదా మూడవ పక్షాలతో పంచుకోబడదు.',
+			'settings.about.privacy.localStorage' => 'స్థానిక ప్రథమ నిల్వ\nమీ డేటా మీ పరికరంలోనే ఉంటుంది.',
+			'settings.about.privacy.privacyPolicy' => 'గోప్యతా విధానం',
+			'settings.about.developer.title' => 'ఒక ఇండీ డెవలపర్ చేత నిర్మించబడింది',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} నిశ్చితంగా, గోప్యతా గౌరవించే ఆరోగ్య సాఫ్ట్‌వేర్ సృష్టించడంపై దృష్టి పెట్టిన ఒక వ్యక్తిగత ఇండీ డెవలపర్ ద్వారా రూపొందించబడింది.\n\nచురుకైన అభిప్రాయాలను వ్యక్తిగతంగా చదువుతారు మరియు ఆ యాప్ యొక్క దిశను ఆకృతీకరించడంలో సహాయపడతాయి.',
+			'settings.about.developer.website' => 'వెబ్‌సైట్',
+			'settings.about.developer.email' => 'ఇమెయిల్',
+			'settings.about.feedback.title' => ({required Object appLabel}) => '${appLabel} మీరు ఆంజనమే?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'మీ అభిప్రాయాలు ${appLabel} ను అందరికీ మెరుగుపరిచేందుకు సహాయపడుతుంది.',
+			'settings.about.feedback.rateApp' => 'ప్రత్యేక దుకాణంలో రేట్ చేయండి',
+			'settings.about.feedback.sendFeedback' => 'అభిప్రాయం పంపండి',
 			'reminders.title' => 'సమయానికి కప్పడం',
 			'reminders.description' => 'మీ భోజనాలను లాగ్ చేయడానికి మరియు మీ పోషక లక్ష్యాలతో కర్రీగా ఉండాలి',
 			'reminders.notificationsEnabled' => 'గమనికలు చేర్చబడ్డాయి',
@@ -1646,6 +1889,13 @@ extension on TranslationsTe {
 			'disclaimer.weightEstimate.waterWeight.description' => 'ప్రతి రోజున బరువు ఎక్కువగా ఉపచ్చులు మరియు వేగం వల్ల వ్యత్యాసాలు మరియు నీటి తట్టువులెవరూ ఉన్నాయి. అంచనా ఈ రోజువారీ మార్పులను జోడించాలి లేదు.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'పోతు ప్రాజ్ఞానం',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'ఈ అంచనాను వైద్య నిర్ణయాల కోసం ఉపయోగించకండి. ఎప్పుడూ వ్యక్తిగత బరువు నిర్వహణ సమాచారానికి ఒక ఆరోగ్య నిపుణుడిని సంప్రదించండి.',
+			'disclaimer.healthMetrics.description' => 'ఈ మృతులు మీ శరీరం యొక్క శక్తి అవసరాలను తెలుసుకోవడంలో మరియు మీ పోషణ లక్ష్యాలను మార్గనిర్ధేశం చేయడంలో సహాయపడతాయి.',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => 'అధిక పునరుత్పత్తి రేటు (BMR) అంటే మీ శరీరం విశ్రాంతిలో ఉన్నప్పుడు శ్వాస మరియు చరిత్ర వంటి మౌలిక కార్యకలాపాలను నిర్వహించడానికి ఎంత ఉక్కు కరిగిస్తుందో. BMR మీ వయసు, లింగం, ఎత్తు మరియు బరువుపైన ఆధారపడి ఉంటుంది. అధిక BMR అంటే మీ శరీరం విశ్రాంతిలోనే ఎక్కువ కేలరీలను కరిగించేది, సాధారణంగా ఎక్కువ కండర మాస్, యువ వయస్సు లేదా పురుషత్వం కారణంగా. తక్కువ BMR సాధారణంగా తక్కువ కండర మాస్, వృద్ధ వయస్సు లేదా మహిళా లైంగికతను సూచిస్తుంది.',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => 'మొత్తం రోజు శక్తి ఖర్చు (TDEE) అంటే మీరు ప్రతి రోజూ కరిగించే మొత్తం కేలరీలు, అందులో మీ BMR మరియు శారీరక కార్యకలాపాల నుండి కేలరీస్ కలవు. TDEE మీ BMR మరియు కార్యకలాప స్థాయి పై ఆధారపడి ఉంటుంది. అధిక TDEE అంటే మీరు మొత్తం కేలરીలను ఎక్కువగా కరిగిస్తారు, సాధారణంగా ఎక్కువ కార్యకలాపం చేయడం లేదా అధిక BMR వల్ల. తక్కువ TDEE అంటే తక్కువ రోజు కార్యకలాపం లేదా తక్కువ BMR.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'రోజు లక్ష్యం',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'రోజు లక్ష్యం అంటే మీ TDEE మరియు బరువు లక్ష్యం ఆధారంగా మీకు సిఫారసు చేసిన ప్రతిరోజు కేలరీ తీసుకొనే పరిమాణం. బరువు తగ్గేందుకు, మీరు మీ TDEE కన్నా తక్కువ కేలరీలను తీసుకుంటారు. బరువు నిర్వహణకు, మీరు మీ TDEE సరిపోల్చుతారు. బరువు పెరగడం కోసం, మీరు మీ TDEE కన్నా ఎక్కువ కేలరీలు తీసుకుంటారు. ఇది మీ ఆశించిన బరువు మార్పును ఆరోగ్యకరమైన రీతిలో సాధించడంలో సహాయ పడుతుంది.',
 			'common.close' => 'క్లోజ్',
 			'common.kContinue' => 'కొనసాగించండి',
 			'errors.loadingProfileData' => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం',

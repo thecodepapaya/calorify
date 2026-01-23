@@ -9,14 +9,13 @@ import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/locale_utils.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/language_picker_sheet.dart';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:calorify/shared_widgets/grass.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:services/services.dart';
 
 @RoutePage()
 class SettingsScreen extends ConsumerStatefulWidget {
@@ -131,6 +130,33 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
           ]),
           const SizedBox(height: 16),
+          _buildCardSection(t.settings.sections.healthConnect, [
+            ListTile(
+              leading: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  LucideIcons.activity,
+                  color: colorScheme.primary,
+                  size: 20,
+                ),
+              ),
+              title: Text(
+                t.settings.healthConnect.title,
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+              subtitle: Text(t.settings.healthConnect.subtitle),
+              trailing: const Icon(LucideIcons.chevronRight, size: 18),
+              onTap:
+                  () => context.router.push(
+                    const HealthConnectPermissionsRoute(),
+                  ),
+            ),
+          ]),
+          const SizedBox(height: 16),
           _buildCardSection(t.settings.sections.supportAndLegal, [
             ListTile(
               leading: Container(
@@ -155,6 +181,30 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 ),
               ),
               onTap: _sendFeedbackEmail,
+            ),
+          ]),
+          const SizedBox(height: 16),
+          _buildCardSection(t.settings.sections.about, [
+            ListTile(
+              leading: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  LucideIcons.info,
+                  color: colorScheme.primary,
+                  size: 20,
+                ),
+              ),
+              title: Text(
+                t.settings.about.title,
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+              subtitle: Text(t.settings.about.ourStory.title),
+              trailing: const Icon(LucideIcons.chevronRight, size: 18),
+              onTap: () => context.router.push(const AboutRoute()),
             ),
           ]),
           const SizedBox(height: 16),
@@ -213,6 +263,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const SizedBox(height: 48),
           _buildAppInfo(),
           const SizedBox(height: 24),
+          const Grass(height: 100),
         ],
       ),
     );
@@ -273,15 +324,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         segments: [
           ButtonSegment(
             value: ThemeMode.light,
-            label: Text(t.settings.theme.light),
+            icon: const Icon(LucideIcons.sun, size: 18),
+            tooltip: t.settings.theme.light,
           ),
           ButtonSegment(
             value: ThemeMode.dark,
-            label: Text(t.settings.theme.dark),
+            icon: const Icon(LucideIcons.moon, size: 18),
+            tooltip: t.settings.theme.dark,
           ),
           ButtonSegment(
             value: ThemeMode.system,
-            label: Text(t.settings.theme.system),
+            icon: const Icon(LucideIcons.smartphone, size: 18),
+            tooltip: t.settings.theme.system,
           ),
         ],
         selected: {currentThemeMode},
@@ -533,36 +587,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   void _sendFeedbackEmail() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    final version = packageInfo.version;
-    final buildNumber = packageInfo.buildNumber;
-
-    final deviceInfo = DeviceInfoPlugin();
-    final androidInfo = await deviceInfo.androidInfo;
-    final deviceModel = androidInfo.model;
-    final deviceVersion = androidInfo.version.release;
-
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-
-    final body = '''
-${t.settings.sendFeedback.emailBodyPrefix}
---------------------
-
-
---------------------
-${t.settings.sendFeedback.appVersion}: $version+$buildNumber
-${t.settings.sendFeedback.device}: $deviceModel
-${t.settings.sendFeedback.osVersion}: $deviceVersion
-${t.settings.sendFeedback.uid}: $uid''';
-
-    final Uri emailLaunchUri = Uri(
-      scheme: 'mailto',
-      path: 'calorify@thecodepapaya.dev',
-      query:
-          'subject=${Uri.encodeComponent(t.settings.sendFeedback.emailSubject(appLabel: t.appLabel(env: EnvConfig.instance.envSuffix)))}&body=${Uri.encodeComponent(body)}',
+    await sendFeedbackEmail(
+      appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+      emailAddress: 'calorify@thecodepapaya.dev',
     );
-
-    await launchUrl(emailLaunchUri);
   }
 
   Widget _buildAppInfo() {

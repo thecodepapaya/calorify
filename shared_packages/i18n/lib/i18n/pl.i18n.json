@@ -264,6 +264,7 @@
     "weight": "Waga",
     "age": "Wiek",
     "weightGoal": "Cel Wagowy",
+    "targetWeight": "Docelowa Waga",
     "activityLevel": "Poziom Aktywności",
     "healthMetrics": "Wskaźniki Zdrowia",
     "notSet": "Nie ustawione",
@@ -352,7 +353,9 @@
       "profile": "PROFIL",
       "localization": "LOKALIZACJA",
       "notifications": "POWIADOMIENIA",
+      "healthConnect": "ŁĄCZENIE Z ZDROWIEM",
       "supportAndLegal": "WSPARCIE I PRAWO",
+      "about": "O APLIKACJI",
       "dangerZone": "STREFA ZAGROŻENIA",
       "developer": "DEWELOPER"
     },
@@ -403,7 +406,69 @@
     "debugOptions": {
       "title": "Opcje Debugowania"
     },
-    "developerModeEnabled": "Tryb dewelopera włączony!"
+    "developerModeEnabled": "Tryb dewelopera włączony!",
+    "healthConnect": {
+      "title": "Łączenie z Zdrowiem",
+      "subtitle": "Wyświetl i zarządzaj uprawnieniami",
+      "unavailable": {
+        "title": "Łączenie z Zdrowiem Niedostępne",
+        "description": "Łączenie z Zdrowiem nie jest dostępne na tym urządzeniu. Wymaga systemu Android 14 lub nowszego."
+      },
+      "permissions": {
+        "title": "Uprawnienia",
+        "description": "Następujące uprawnienia są wymagane, aby umożliwić integrację z Łącznością Zdrowotną:",
+        "granted": "Przyznane",
+        "notGranted": "Nieprzyznane",
+        "caloriesBurned": {
+          "title": "Odczyt Całkowitych Spalonych Kalorii",
+          "description": "Pozwala aplikacji na odczytanie całkowitych spalonych kalorii z Łączności Zdrowotnej.",
+          "usage": "To uprawnienie jest używane do wyświetlania dziennego spalania kalorii w aplikacji, pomagając Ci zrozumieć całkowite zużycie energii w ciągu dnia."
+        },
+        "nutritionRead": {
+          "title": "Odczyt Danych Żywieniowych",
+          "description": "Pozwala aplikacji na odczytanie danych żywieniowych z Łączności Zdrowotnej.",
+          "usage": "To uprawnienie umożliwia aplikacji odczyt danych żywieniowych, które mogły być zapisane przez inne aplikacje podłączone do Łączności Zdrowotnej, zapewniając kompleksowy przegląd Twojej diety."
+        },
+        "nutritionWrite": {
+          "title": "Zapis Danych Żywieniowych",
+          "description": "Pozwala aplikacji na zapis danych żywieniowych w Łączności Zdrowotnej.",
+          "usage": "To uprawnienie umożliwia aplikacji synchronizację zapisanych posiłków z Łącznością Zdrowotną, co sprawia, że Twoje dane żywieniowe są dostępne dla innych aplikacji zdrowotnych i fitness, których używasz."
+        }
+      },
+      "managePermissions": "Zarządzaj Uprawnieniami",
+      "openSettings": "Otwórz ustawienia Health Connect",
+      "requestPermissions": "Poproś o zezwolenia"
+    },
+    "about": {
+      "title": "O nas",
+      "tagline": "Szybka, darmowa i z poszanowaniem prywatności świadomość kalorii",
+      "ourStory": {
+        "title": "Nasza Historia",
+        "content": "{appLabel} powstał z prostej frustracji: większość aplikacji do śledzenia kalorii jest albo zbyt skomplikowana, wymaga ciągłego ręcznego wprowadzania danych, pobiera wysokie opłaty subskrypcyjne, albo narusza prywatność.\n\nJako niezależny deweloper chciałem stworzyć coś prostszego i sprawiedliwszego — aplikację, która wykorzystuje AI, aby zredukować wysiłek, pozostaje szybka i darmowa w użyciu oraz szanuje Twoje dane zdrowotne.\n\n{appLabel} to aplikacja, której pragnęłem: bez kont, bez śledzenia, bez reklam — tylko jasne, praktyczne spostrzeżenia i Twoje cele zdrowotne."
+      },
+      "privacy": {
+        "title": "Twoja Prywatność Ma Znaczenie",
+        "description": "Prywatność nie jest kwestią drugorzędną — to zasada projektowania. Oto co to oznacza w praktyce:",
+        "noAccounts": "Brak wymaganych kont\nUżyj aplikacji od razu. Bez rejestracji, bez tożsamości.",
+        "noTracking": "Brak śledzenia aktywności\n{appLabel} nie monitoruje Twojej aktywności, nie buduje profili użycia ani nie śledzi Cię w aplikacjach lub witrynach.",
+        "noAds": "Bez reklam z zasady\n{appLabel} jest zbudowany tak, aby działał bez reklam lub monetyzacji opartej na danych.",
+        "noDataSelling": "Brak sprzedaży danych\nTwoje dane zdrowotne nigdy nie są sprzedawane ani udostępniane osobom trzecim.",
+        "localStorage": "Przechowywanie lokalne\nTwoje dane pozostają na Twoim urządzeniu.",
+        "privacyPolicy": "Polityka prywatności"
+      },
+      "developer": {
+        "title": "Stworzony przez Niezależnego Dewelopera",
+        "description": "{appLabel} jest tworzony i utrzymywany przez jednego niezależnego dewelopera, który koncentruje się na tworzeniu spokojnego, szanującego prywatność oprogramowania zdrowotnego.\n\nOpinie są czytane osobiście i pomagają kształtować kierunek aplikacji.",
+        "website": "Strona internetowa",
+        "email": "E-mail"
+      },
+      "feedback": {
+        "title": "Podoba Ci się {appLabel}?",
+        "description": "Twoja opinia pomaga uczynić {appLabel} lepszym dla wszystkich.",
+        "rateApp": "Oceń w Sklepie Play",
+        "sendFeedback": "Wyślij opinię"
+      }
+    }
   },
   "reminders": {
     "title": "Pozostań na właściwej ścieżce dzięki przypomnieniom",
@@ -492,6 +557,21 @@
       "professionalGuidance": {
         "title": "Porady Profesjonalne",
         "description": "Nie używaj tego oszacowania do podejmowania decyzji medycznych. Zawsze skonsultuj się z profesjonalistą lub zarejestrowanym dietetykiem w celu uzyskania spersonalizowanych porad w zakresie zarządzania wagą."
+      }
+    },
+    "healthMetrics": {
+      "description": "Te wskaźniki pomagają zrozumieć zapotrzebowanie energetyczne twojego ciała i wyznaczyć cele żywieniowe.",
+      "bmr": {
+        "title": "BMR",
+        "description": "Podstawowa Przemiana Materii (BMR) to liczba kalorii, które twoje ciało spala w spoczynku, aby utrzymać podstawowe funkcje, takie jak oddychanie i krążenie. BMR zależy od twojego wieku, płci, wzrostu i wagi. Wyższe BMR oznacza, że twoje ciało naturalnie spala więcej kalorii w spoczynku, często z powodu większej masy mięśniowej, młodszego wieku lub płci męskiej. Niższe BMR zazwyczaj oznacza mniejszą masę mięśniową, starszy wiek lub płeć żeńską."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Całkowite Dzienne Wydatkowanie Energii (TDEE) to całkowita liczba kalorii, które spalasz dziennie, w tym twoje BMR oraz kalorie pochodzące z aktywności fizycznej i codziennego ruchu. TDEE zależy od twojego BMR i poziomu aktywności. Wyższe TDEE oznacza, że spalasz więcej kalorii ogólnie, zazwyczaj z powodu większej aktywności lub wyższego BMR. Niższe TDEE sugeruje mniejszą aktywność dzienną lub niższe BMR."
+      },
+      "dailyGoal": {
+        "title": "Cel Dzienny",
+        "description": "Cel Dzienny to twoje zalecane dzienne spożycie kalorii na podstawie twojego TDEE i celu wagowego. Aby schudnąć, spożywasz mniej kalorii niż twoje TDEE. Aby utrzymać wagę, dostosowujesz swoje spożycie do TDEE. Aby przytyć, spożywasz więcej kalorii niż twoje TDEE. To pomaga osiągnąć pożądane zmiany w wadze w zdrowym tempie."
       }
     }
   },

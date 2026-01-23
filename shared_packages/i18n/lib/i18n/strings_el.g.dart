@@ -184,6 +184,7 @@ class _TranslationsProfileEl implements TranslationsProfileEn {
 	@override String get weight => 'Βάρος';
 	@override String get age => 'Ηλικία';
 	@override String get weightGoal => 'Στόχος Βάρους';
+	@override String get targetWeight => 'Στοχος Βάρους';
 	@override String get activityLevel => 'Επίπεδο Δραστηριότητας';
 	@override String get healthMetrics => 'Μετρήσεις Υγείας';
 	@override String get notSet => 'Μη καθορισμένος';
@@ -252,6 +253,8 @@ class _TranslationsSettingsEl implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataEl clearAllData = _TranslationsSettingsClearAllDataEl._(_root);
 	@override late final _TranslationsSettingsDebugOptionsEl debugOptions = _TranslationsSettingsDebugOptionsEl._(_root);
 	@override String get developerModeEnabled => 'Η λειτουργία προγραμματιστή έχει ενεργοποιηθεί!';
+	@override late final _TranslationsSettingsHealthConnectEl healthConnect = _TranslationsSettingsHealthConnectEl._(_root);
+	@override late final _TranslationsSettingsAboutEl about = _TranslationsSettingsAboutEl._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerEl implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'Παρακαλώ Σημείωσε';
 	@override late final _TranslationsDisclaimerSnapEl snap = _TranslationsDisclaimerSnapEl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateEl weightEstimate = _TranslationsDisclaimerWeightEstimateEl._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsEl healthMetrics = _TranslationsDisclaimerHealthMetricsEl._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsEl implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'ΠΡΟΦΙΛ';
 	@override String get localization => 'ΤΟΠΟΘΕΣΙΑ';
 	@override String get notifications => 'ΕΙΔΟΠΟΙΗΣΕΙΣ';
+	@override String get healthConnect => 'ΣΥΝΔΕΣΗ ΥΓΕΙΑΣ';
 	@override String get supportAndLegal => 'ΥΠΟΣΤΗΡΙΞΗ & ΝΟΜΙΚΑ';
+	@override String get about => 'ΣΧΕΤΙΚΑ';
 	@override String get dangerZone => 'ΕΠΙΚΙΝΔΥΝΗ ΖΩΝΗ';
 	@override String get developer => 'ΑΝΑΠΤΥΞΗ';
 }
@@ -895,6 +901,37 @@ class _TranslationsSettingsDebugOptionsEl implements TranslationsSettingsDebugOp
 	@override String get title => 'Επιλογές Αποσφαλμάτωσης';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectEl implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Σύνδεση Υγείας';
+	@override String get subtitle => 'Δείτε και διαχειριστείτε τις άδειες';
+	@override late final _TranslationsSettingsHealthConnectUnavailableEl unavailable = _TranslationsSettingsHealthConnectUnavailableEl._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsEl permissions = _TranslationsSettingsHealthConnectPermissionsEl._(_root);
+	@override String get managePermissions => 'Διαχείριση Αδειών';
+	@override String get openSettings => 'Άνοιγμα Ρυθμίσεων Health Connect';
+	@override String get requestPermissions => 'Αίτημα Αδειών';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutEl implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Σχετικά';
+	@override String get tagline => 'Γρήγορη, δωρεάν και με σεβασμό στην ιδιωτικότητα επίγνωση θερμίδων';
+	@override late final _TranslationsSettingsAboutOurStoryEl ourStory = _TranslationsSettingsAboutOurStoryEl._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyEl privacy = _TranslationsSettingsAboutPrivacyEl._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperEl developer = _TranslationsSettingsAboutDeveloperEl._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackEl feedback = _TranslationsSettingsAboutFeedbackEl._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastEl implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastEl._(this._root);
@@ -976,6 +1013,19 @@ class _TranslationsDisclaimerWeightEstimateEl implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsEl biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsEl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightEl waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightEl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceEl professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceEl._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsEl implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Αυτές οι μετρήσεις σας βοηθούν να κατανοήσετε τις ανάγκες ενέργειας του σώματός σας και καθοδηγούν τους διατροφικούς σας στόχους.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrEl bmr = _TranslationsDisclaimerHealthMetricsBmrEl._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeEl tdee = _TranslationsDisclaimerHealthMetricsTdeeEl._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalEl dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalEl._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1274,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveEl implements Transla
 	@override String get description => 'Πολύ σκληρή άσκηση, φυσική εργασία';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableEl implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Η Σύνδεση Υγείας Αυτό δεν είναι Διαθέσιμη';
+	@override String get description => 'Η Σύνδεση Υγείας δεν είναι διαθέσιμη σε αυτή τη συσκευή. Απαιτεί Android 14 ή νεότερη έκδοση.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsEl implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Άδειες';
+	@override String get description => 'Οι παρακάτω άδειες ζητούνται για να παρέχουν ενσωμάτωση με την Σύνδεση Υγείας:';
+	@override String get granted => 'Χορηγήθηκε';
+	@override String get notGranted => 'Δεν Χορηγήθηκε';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEl caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEl._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadEl nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadEl._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteEl nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteEl._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryEl implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Η Ιστορία μας';
+	@override String content({required Object appLabel}) => '${appLabel} γεννήθηκε από μια απλή απογοήτευση: οι περισσότερες εφαρμογές καταμέτρησης θερμίδων είναι είτε υπερβολικά περίπλοκες, απαιτούν συνεχής χειροκίνητη εισαγωγή, χρεώνουν υψηλές συνδρομές ή παραβιάζουν την ιδιωτικότητα.\n\nΩς ανεξάρτητος προγραμματιστής, ήθελα να δημιουργήσω κάτι πιο απλό και δίκαιο — μια εφαρμογή που χρησιμοποιεί AI για να μειώσει την προσπάθεια, παραμένει γρήγορη και δωρεάν στη χρήση και σέβεται τα δεδομένα υγείας σας.\n\n${appLabel} είναι η εφαρμογή που εύχομαι να υπήρχε: χωρίς λογαριασμούς, χωρίς παρακολούθηση, χωρίς διαφημίσεις — μόνο σαφείς, πρακτικές πληροφορίες και τους στόχους υγείας σας.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyEl implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Η Ιδιωτικότητά σας είναι Σημαντική';
+	@override String get description => 'Η ιδιωτικότητα δεν είναι μια μεταγενέστερη σκέψη — είναι αρχή σχεδίασης. Ορίστε τι σημαίνει αυτό στην πράξη:';
+	@override String get noAccounts => 'Δεν απαιτούνται λογαριασμοί\nΧρησιμοποιήστε την εφαρμογή αμέσως. Χωρίς εγγραφές, χωρίς ταυτότητες.';
+	@override String noTracking({required Object appLabel}) => 'Καμία παρακολούθηση συμπεριφοράς\n${appLabel} δεν παρακολουθεί τη δραστηριότητά σας, δεν δημιουργεί προφίλ χρήσης και δεν σας παρακολουθεί σε άλλες εφαρμογές ή ιστοσελίδες.';
+	@override String noAds({required Object appLabel}) => 'Χωρίς διαφημίσεις εξ ορισμού\nΗ ${appLabel} έχει σχεδιαστεί να λειτουργεί χωρίς διαφημίσεις ή κερδοφόρες πρακτικές με δεδομένα.';
+	@override String get noDataSelling => 'Καμία πώληση δεδομένων\nΤα δεδομένα υγείας σας δεν πωλούνται ή κοινοποιούνται σε τρίτους.';
+	@override String get localStorage => 'Αποθήκευση τοπικά πρώτα\nΤα δεδομένα σας παραμένουν στη συσκευή σας.';
+	@override String get privacyPolicy => 'Πολιτική Απορρήτου';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperEl implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Κατασκευασμένο από έναν Ανεξάρτητο Προγραμματιστή';
+	@override String description({required Object appLabel}) => '${appLabel} είναι κατασκευασμένο και συντηρημένο από έναν μόνο ανεξάρτητο προγραμματιστή που επικεντρώνεται στη δημιουργία ήρεμου, σεβαστού software υγείας.\n\nΗ ανατροφοδότηση διαβάζεται προσωπικά και βοηθά στη διαμόρφωση της κατεύθυνσης της εφαρμογής.';
+	@override String get website => 'Ιστοσελίδα';
+	@override String get email => 'Email';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackEl implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => 'Απολαμβάνετε το ${appLabel} ;';
+	@override String description({required Object appLabel}) => 'Η ανατροφοδότησή σας βοηθά να γίνει το ${appLabel} καλύτερο για όλους.';
+	@override String get rateApp => 'Βαθμολογήστε στο Play Store';
+	@override String get sendFeedback => 'Στείλτε Ανατροφοδότηση';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeEl implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeEl._(this._root);
@@ -1310,6 +1441,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceEl implements Tra
 	// Translations
 	@override String get title => 'Επαγγελματική Καθοδήγηση';
 	@override String get description => 'Μην χρησιμοποιείς αυτή την εκτίμηση για ιατρικές αποφάσεις. Πάντα να συμβουλεύεσαι ένα επαγγελματία υγείας ή εγγεγραμμένο διαιτολόγο για προσωπικές συμβουλές διαχείρισης βάρους.';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrEl implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'BMR';
+	@override String get description => 'Ο Βασικός Μεταβολικός Ρυθμός (BMR) είναι ο αριθμός θερμίδων που καίει το σώμα σας σε κατάσταση ηρεμίας για να διατηρήσει βασικές λειτουργίες όπως η αναπνοή και η κυκλοφορία. Ο BMR εξαρτάται από την ηλικία, το φύλο, το ύψος και το βάρος σας. Ένας υψηλότερος BMR σημαίνει ότι το σώμα σας καίει φυσικά περισσότερες θερμίδες σε κατάσταση ηρεμίας, συχνά λόγω μεγαλύτερης μυϊκής μάζας, νεαρότερης ηλικίας ή λόγω της ανδρικής φύσης. Ένας χαμηλότερος BMR συνήθως υποδηλώνει λιγότερη μυϊκή μάζα, μεγαλύτερη ηλικία ή γυναικείο φύλο.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeEl implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TDEE';
+	@override String get description => 'Η Συνολική Ημερήσια Ενεργειακή Δαπάνη (TDEE) είναι οι συνολικές θερμίδες που καίτε ανά ημέρα, συμπεριλαμβανομένου του BMR σας και τις θερμίδες που προέρχονται από τη σωματική δραστηριότητα και την καθημερινή κίνηση. Το TDEE εξαρτάται από τον BMR σας και το επίπεδο δραστηριότητάς σας. Ένας υψηλότερος TDEE σημαίνει ότι καίτε περισσότερες θερμίδες συνολικά, συνήθως από την περισσότερη δραστηριότητα ή έναν υψηλότερο BMR. Ένας χαμηλότερος TDEE υποδεικνύει λιγότερη καθημερινή δραστηριότητα ή χαμηλότερο BMR.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalEl implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ημερήσιος Στόχος';
+	@override String get description => 'Ο Ημερήσιος Στόχος είναι η συνιστώμενη ημερήσια θερμιδική σας πρόσληψη με βάση το TDEE σας και τον στόχο βάρους σας. Για απώλεια βάρους, καταναλώνετε λιγότερες θερμίδες από το TDEE σας. Για συντήρηση βάρους, ισοφαρίζετε το TDEE σας. Για αύξηση βάρους, καταναλώνετε περισσότερες θερμίδες από το TDEE σας. Αυτό σας βοηθά να επιτύχετε την επιθυμητή αλλαγή βάρους σας με υγιή ρυθμό.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEl implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Διαβάστε Σύνολο Καύσεων Θερμίδων';
+	@override String get description => 'Επιτρέπει στην εφαρμογή να διαβάσει το συνολικό σας ποσό θερμίδων που κάψατε από τη Σύνδεση Υγείας.';
+	@override String get usage => 'Αυτή η άδεια χρησιμοποιείται για να εμφανίζει την καθημερινή σας καύση θερμίδων στην εφαρμογή, βοηθώντας σας να κατανοήσετε τη συνολική σας ενέργεια κατά τη διάρκεια της ημέρας.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadEl implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Διαβάστε Δεδομένα Διατροφής';
+	@override String get description => 'Επιτρέπει στην εφαρμογή να διαβάσει δεδομένα διατροφής από τη Σύνδεση Υγείας.';
+	@override String get usage => 'Αυτή η άδεια επιτρέπει στην εφαρμογή να διαβάσει πληροφορίες διατροφής που μπορεί να έχουν καταχωρηθεί από άλλες εφαρμογές συνδεδεμένες με τη Σύνδεση Υγείας, παρέχοντας μια συνολική εικόνα της διατροφής σας.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteEl implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Γράψτε Δεδομένα Διατροφής';
+	@override String get description => 'Επιτρέπει στην εφαρμογή να γράψει δεδομένα διατροφής στη Σύνδεση Υγείας.';
+	@override String get usage => 'Αυτή η άδεια επιτρέπει στην εφαρμογή να συγχρονίσει τα καταχωρημένα γεύματά σας στη Σύνδεση Υγειας, καθιστώντας τα δεδομένα διατροφής διαθέσιμα σε άλλες εφαρμογές υγείας και φυσικής κατάστασης που χρησιμοποιείτε.';
 }
 
 /// The flat map containing all translations for locale <el>.
@@ -1506,6 +1706,7 @@ extension on TranslationsEl {
 			'profile.weight' => 'Βάρος',
 			'profile.age' => 'Ηλικία',
 			'profile.weightGoal' => 'Στόχος Βάρους',
+			'profile.targetWeight' => 'Στοχος Βάρους',
 			'profile.activityLevel' => 'Επίπεδο Δραστηριότητας',
 			'profile.healthMetrics' => 'Μετρήσεις Υγείας',
 			'profile.notSet' => 'Μη καθορισμένος',
@@ -1561,7 +1762,9 @@ extension on TranslationsEl {
 			'settings.sections.profile' => 'ΠΡΟΦΙΛ',
 			'settings.sections.localization' => 'ΤΟΠΟΘΕΣΙΑ',
 			'settings.sections.notifications' => 'ΕΙΔΟΠΟΙΗΣΕΙΣ',
+			'settings.sections.healthConnect' => 'ΣΥΝΔΕΣΗ ΥΓΕΙΑΣ',
 			'settings.sections.supportAndLegal' => 'ΥΠΟΣΤΗΡΙΞΗ & ΝΟΜΙΚΑ',
+			'settings.sections.about' => 'ΣΧΕΤΙΚΑ',
 			'settings.sections.dangerZone' => 'ΕΠΙΚΙΝΔΥΝΗ ΖΩΝΗ',
 			'settings.sections.developer' => 'ΑΝΑΠΤΥΞΗ',
 			'settings.editProfile.title' => 'Επεξεργασία Προφίλ',
@@ -1594,6 +1797,46 @@ extension on TranslationsEl {
 			'settings.clearAllData.clearEverything' => 'Διαγράφει τα Πάντα',
 			'settings.debugOptions.title' => 'Επιλογές Αποσφαλμάτωσης',
 			'settings.developerModeEnabled' => 'Η λειτουργία προγραμματιστή έχει ενεργοποιηθεί!',
+			'settings.healthConnect.title' => 'Σύνδεση Υγείας',
+			'settings.healthConnect.subtitle' => 'Δείτε και διαχειριστείτε τις άδειες',
+			'settings.healthConnect.unavailable.title' => 'Η Σύνδεση Υγείας Αυτό δεν είναι Διαθέσιμη',
+			'settings.healthConnect.unavailable.description' => 'Η Σύνδεση Υγείας δεν είναι διαθέσιμη σε αυτή τη συσκευή. Απαιτεί Android 14 ή νεότερη έκδοση.',
+			'settings.healthConnect.permissions.title' => 'Άδειες',
+			'settings.healthConnect.permissions.description' => 'Οι παρακάτω άδειες ζητούνται για να παρέχουν ενσωμάτωση με την Σύνδεση Υγείας:',
+			'settings.healthConnect.permissions.granted' => 'Χορηγήθηκε',
+			'settings.healthConnect.permissions.notGranted' => 'Δεν Χορηγήθηκε',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Διαβάστε Σύνολο Καύσεων Θερμίδων',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Επιτρέπει στην εφαρμογή να διαβάσει το συνολικό σας ποσό θερμίδων που κάψατε από τη Σύνδεση Υγείας.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Αυτή η άδεια χρησιμοποιείται για να εμφανίζει την καθημερινή σας καύση θερμίδων στην εφαρμογή, βοηθώντας σας να κατανοήσετε τη συνολική σας ενέργεια κατά τη διάρκεια της ημέρας.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Διαβάστε Δεδομένα Διατροφής',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Επιτρέπει στην εφαρμογή να διαβάσει δεδομένα διατροφής από τη Σύνδεση Υγείας.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Αυτή η άδεια επιτρέπει στην εφαρμογή να διαβάσει πληροφορίες διατροφής που μπορεί να έχουν καταχωρηθεί από άλλες εφαρμογές συνδεδεμένες με τη Σύνδεση Υγείας, παρέχοντας μια συνολική εικόνα της διατροφής σας.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Γράψτε Δεδομένα Διατροφής',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Επιτρέπει στην εφαρμογή να γράψει δεδομένα διατροφής στη Σύνδεση Υγείας.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Αυτή η άδεια επιτρέπει στην εφαρμογή να συγχρονίσει τα καταχωρημένα γεύματά σας στη Σύνδεση Υγειας, καθιστώντας τα δεδομένα διατροφής διαθέσιμα σε άλλες εφαρμογές υγείας και φυσικής κατάστασης που χρησιμοποιείτε.',
+			'settings.healthConnect.managePermissions' => 'Διαχείριση Αδειών',
+			'settings.healthConnect.openSettings' => 'Άνοιγμα Ρυθμίσεων Health Connect',
+			'settings.healthConnect.requestPermissions' => 'Αίτημα Αδειών',
+			'settings.about.title' => 'Σχετικά',
+			'settings.about.tagline' => 'Γρήγορη, δωρεάν και με σεβασμό στην ιδιωτικότητα επίγνωση θερμίδων',
+			'settings.about.ourStory.title' => 'Η Ιστορία μας',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} γεννήθηκε από μια απλή απογοήτευση: οι περισσότερες εφαρμογές καταμέτρησης θερμίδων είναι είτε υπερβολικά περίπλοκες, απαιτούν συνεχής χειροκίνητη εισαγωγή, χρεώνουν υψηλές συνδρομές ή παραβιάζουν την ιδιωτικότητα.\n\nΩς ανεξάρτητος προγραμματιστής, ήθελα να δημιουργήσω κάτι πιο απλό και δίκαιο — μια εφαρμογή που χρησιμοποιεί AI για να μειώσει την προσπάθεια, παραμένει γρήγορη και δωρεάν στη χρήση και σέβεται τα δεδομένα υγείας σας.\n\n${appLabel} είναι η εφαρμογή που εύχομαι να υπήρχε: χωρίς λογαριασμούς, χωρίς παρακολούθηση, χωρίς διαφημίσεις — μόνο σαφείς, πρακτικές πληροφορίες και τους στόχους υγείας σας.',
+			'settings.about.privacy.title' => 'Η Ιδιωτικότητά σας είναι Σημαντική',
+			'settings.about.privacy.description' => 'Η ιδιωτικότητα δεν είναι μια μεταγενέστερη σκέψη — είναι αρχή σχεδίασης. Ορίστε τι σημαίνει αυτό στην πράξη:',
+			'settings.about.privacy.noAccounts' => 'Δεν απαιτούνται λογαριασμοί\nΧρησιμοποιήστε την εφαρμογή αμέσως. Χωρίς εγγραφές, χωρίς ταυτότητες.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Καμία παρακολούθηση συμπεριφοράς\n${appLabel} δεν παρακολουθεί τη δραστηριότητά σας, δεν δημιουργεί προφίλ χρήσης και δεν σας παρακολουθεί σε άλλες εφαρμογές ή ιστοσελίδες.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Χωρίς διαφημίσεις εξ ορισμού\nΗ ${appLabel} έχει σχεδιαστεί να λειτουργεί χωρίς διαφημίσεις ή κερδοφόρες πρακτικές με δεδομένα.',
+			'settings.about.privacy.noDataSelling' => 'Καμία πώληση δεδομένων\nΤα δεδομένα υγείας σας δεν πωλούνται ή κοινοποιούνται σε τρίτους.',
+			'settings.about.privacy.localStorage' => 'Αποθήκευση τοπικά πρώτα\nΤα δεδομένα σας παραμένουν στη συσκευή σας.',
+			'settings.about.privacy.privacyPolicy' => 'Πολιτική Απορρήτου',
+			'settings.about.developer.title' => 'Κατασκευασμένο από έναν Ανεξάρτητο Προγραμματιστή',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} είναι κατασκευασμένο και συντηρημένο από έναν μόνο ανεξάρτητο προγραμματιστή που επικεντρώνεται στη δημιουργία ήρεμου, σεβαστού software υγείας.\n\nΗ ανατροφοδότηση διαβάζεται προσωπικά και βοηθά στη διαμόρφωση της κατεύθυνσης της εφαρμογής.',
+			'settings.about.developer.website' => 'Ιστοσελίδα',
+			'settings.about.developer.email' => 'Email',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Απολαμβάνετε το ${appLabel} ;',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Η ανατροφοδότησή σας βοηθά να γίνει το ${appLabel} καλύτερο για όλους.',
+			'settings.about.feedback.rateApp' => 'Βαθμολογήστε στο Play Store',
+			'settings.about.feedback.sendFeedback' => 'Στείλτε Ανατροφοδότηση',
 			'reminders.title' => 'Μείνε συνεπής με τις υπενθυμίσεις',
 			'reminders.description' => 'Λάβετε ήπιες υπενθυμίσεις για να καταγράψεις τα γεύματα σου και να παραμείνεις συνεπής στους στόχους διατροφής σου',
 			'reminders.notificationsEnabled' => 'Ειδοποιήσεις Ενεργοποιημένες',
@@ -1646,6 +1889,13 @@ extension on TranslationsEl {
 			'disclaimer.weightEstimate.waterWeight.description' => 'Το φυσιολογικό καθημερινό βάρος μπορεί να διακυμανθεί σημαντικά λόγω κατακράτησης νερού, πέψης και χρονοδιαγράμματος. Η εκτίμηση δεν λαμβάνει υπόψη αυτές τις ημερήσιες αλλαγές.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Επαγγελματική Καθοδήγηση',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Μην χρησιμοποιείς αυτή την εκτίμηση για ιατρικές αποφάσεις. Πάντα να συμβουλεύεσαι ένα επαγγελματία υγείας ή εγγεγραμμένο διαιτολόγο για προσωπικές συμβουλές διαχείρισης βάρους.',
+			'disclaimer.healthMetrics.description' => 'Αυτές οι μετρήσεις σας βοηθούν να κατανοήσετε τις ανάγκες ενέργειας του σώματός σας και καθοδηγούν τους διατροφικούς σας στόχους.',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => 'Ο Βασικός Μεταβολικός Ρυθμός (BMR) είναι ο αριθμός θερμίδων που καίει το σώμα σας σε κατάσταση ηρεμίας για να διατηρήσει βασικές λειτουργίες όπως η αναπνοή και η κυκλοφορία. Ο BMR εξαρτάται από την ηλικία, το φύλο, το ύψος και το βάρος σας. Ένας υψηλότερος BMR σημαίνει ότι το σώμα σας καίει φυσικά περισσότερες θερμίδες σε κατάσταση ηρεμίας, συχνά λόγω μεγαλύτερης μυϊκής μάζας, νεαρότερης ηλικίας ή λόγω της ανδρικής φύσης. Ένας χαμηλότερος BMR συνήθως υποδηλώνει λιγότερη μυϊκή μάζα, μεγαλύτερη ηλικία ή γυναικείο φύλο.',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => 'Η Συνολική Ημερήσια Ενεργειακή Δαπάνη (TDEE) είναι οι συνολικές θερμίδες που καίτε ανά ημέρα, συμπεριλαμβανομένου του BMR σας και τις θερμίδες που προέρχονται από τη σωματική δραστηριότητα και την καθημερινή κίνηση. Το TDEE εξαρτάται από τον BMR σας και το επίπεδο δραστηριότητάς σας. Ένας υψηλότερος TDEE σημαίνει ότι καίτε περισσότερες θερμίδες συνολικά, συνήθως από την περισσότερη δραστηριότητα ή έναν υψηλότερο BMR. Ένας χαμηλότερος TDEE υποδεικνύει λιγότερη καθημερινή δραστηριότητα ή χαμηλότερο BMR.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Ημερήσιος Στόχος',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Ο Ημερήσιος Στόχος είναι η συνιστώμενη ημερήσια θερμιδική σας πρόσληψη με βάση το TDEE σας και τον στόχο βάρους σας. Για απώλεια βάρους, καταναλώνετε λιγότερες θερμίδες από το TDEE σας. Για συντήρηση βάρους, ισοφαρίζετε το TDEE σας. Για αύξηση βάρους, καταναλώνετε περισσότερες θερμίδες από το TDEE σας. Αυτό σας βοηθά να επιτύχετε την επιθυμητή αλλαγή βάρους σας με υγιή ρυθμό.',
 			'common.close' => 'Κλείσιμο',
 			'common.kContinue' => 'Συνέχεια',
 			'errors.loadingProfileData' => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ',

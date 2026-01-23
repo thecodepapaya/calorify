@@ -264,6 +264,7 @@
     "weight": "Greutate",
     "age": "Vârstă",
     "weightGoal": "Obiectiv de Greutate",
+    "targetWeight": "Greutatea Țintă",
     "activityLevel": "Nivel de Activitate",
     "healthMetrics": "Metrici de Sănătate",
     "notSet": "Nesetat",
@@ -352,7 +353,9 @@
       "profile": "PROFIL",
       "localization": "LOCALIZARE",
       "notifications": "NOTIFICĂRI",
+      "healthConnect": "CONEXIUNE LA SĂNĂTATE",
       "supportAndLegal": "SUPORT & LEGAL",
+      "about": "DESPRE",
       "dangerZone": "ZONA DE RISC",
       "developer": "DEZVOLTATOR"
     },
@@ -403,7 +406,69 @@
     "debugOptions": {
       "title": "Opțiuni de Debug"
     },
-    "developerModeEnabled": "Mod dezvoltator activat!"
+    "developerModeEnabled": "Mod dezvoltator activat!",
+    "healthConnect": {
+      "title": "Conexiune la Sănătate",
+      "subtitle": "Vizualizați și gestionați permisiunile",
+      "unavailable": {
+        "title": "Conexiune la Sănătate Indisponibilă",
+        "description": "Conexiunea la sănătate nu este disponibilă pe acest dispozitiv. Este necesar Android 14 sau o versiune mai recentă."
+      },
+      "permissions": {
+        "title": "Permisiuni",
+        "description": "Următoarele permisiuni sunt solicitate pentru a oferi integrarea Conexiune la Sănătate:",
+        "granted": "Acordat",
+        "notGranted": "Neacordat",
+        "caloriesBurned": {
+          "title": "Citește Totalul Caloriilor Arse",
+          "description": "Permite aplicației să citească totalul caloriilor tale ars din Conexiunea la Sănătate.",
+          "usage": "Această permisiune este utilizată pentru a arăta arderea calorică zilnică în aplicație, ajutându-te să înțelegi totalul cheltuielilor tale energetice pe parcursul zilei."
+        },
+        "nutritionRead": {
+          "title": "Citește Datele Nutriției",
+          "description": "Permite aplicației să citească datele nutriționale din Conexiunea la Sănătate.",
+          "usage": "Această permisiune permite aplicației să citească informațiile nutriționale care ar fi putut fi înregistrate de alte aplicații conectate la Conexiunea la Sănătate, oferind o imagine cuprinzătoare a nutriției tale."
+        },
+        "nutritionWrite": {
+          "title": "Scrie Datele Nutriției",
+          "description": "Permite aplicației să scrie datele nutriționale către Conexiunea la Sănătate.",
+          "usage": "Această permisiune permite aplicației să sincronizeze mesele tale înregistrate cu Conexiunea la Sănătate, făcând datele tale nutriționale disponibile pentru alte aplicații de sănătate și fitness pe care le utilizezi."
+        }
+      },
+      "managePermissions": "Gestionați Permisiunile",
+      "openSettings": "Deschide setările Health Connect",
+      "requestPermissions": "Solicită permisiuni"
+    },
+    "about": {
+      "title": "Despre",
+      "tagline": "Conștientizare rapidă, gratuită și în respect pentru confidențialitate a caloriilor",
+      "ourStory": {
+        "title": "Povestea Noastră",
+        "content": "{appLabel} s-a născut dintr-o simplă frustrare: cele mai multe aplicații de urmărire a caloriilor sunt fie prea complicate, necesită input constant manual, percep taxe mari de abonament sau compromit confidențialitatea.\n\nCa dezvoltator solo, am vrut să construiesc ceva mai simplu și mai echitabil — o aplicație care folosește AI pentru a reduce efortul, rămâne rapidă și free de utilizat și tratează datele tale de sănătate cu respect.\n\n{appLabel} este aplicația pe care îmi doream să o existe: fără conturi, fără urmărire, fără reclame — doar informații clare, practice și obiectivele tale de sănătate."
+      },
+      "privacy": {
+        "title": "Confidențialitatea Ta Contează",
+        "description": "Confidențialitatea nu este o idee secundară — este un principiu de design. Iată ce înseamnă acest lucru în practică:",
+        "noAccounts": "Fără conturi necesare\nFolosește aplicația imediat. Fără înscrieri, fără identități.",
+        "noTracking": "Fără urmărire comportamentală\n{appLabel} nu îți monitorizează activitatea, nu construiește profiluri de utilizare și nu te urmărește prin aplicații sau site-uri web.",
+        "noAds": "Fără reclame prin design\n{appLabel} este construită pentru a funcționa fără reclame sau monetizare bazată pe date.",
+        "noDataSelling": "Fără vânzarea datelor\nDatele tale de sănătate nu sunt niciodată vândute sau împărtășite cu terți.",
+        "localStorage": "Stocare locală\nDatele tale rămân pe dispozitivul tău.",
+        "privacyPolicy": "Politica de confidențialitate"
+      },
+      "developer": {
+        "title": "Construite de un Dezvoltator Solo",
+        "description": "{appLabel} este construită și întreținută de un singur dezvoltator solo, concentrat pe crearea de software de sănătate care respectă confidențialitatea.\n\nFeedback-ul este citit personal și ajută la conturarea direcției aplicației.",
+        "website": "Website",
+        "email": "Email"
+      },
+      "feedback": {
+        "title": "Îți place {appLabel}?",
+        "description": "Feedback-ul tău ajută la îmbunătățirea {appLabel} pentru toți.",
+        "rateApp": "Evaluează pe Play Store",
+        "sendFeedback": "Trimite Feedback"
+      }
+    }
   },
   "reminders": {
     "title": "Rămâi pe drumul cel bun cu memento-uri",
@@ -492,6 +557,21 @@
       "professionalGuidance": {
         "title": "Îndrumare Profesională",
         "description": "Nu folosi această estimare pentru a lua decizii medicale. Consultă întotdeauna un profesionist din domeniul sănătății sau un dietetician autorizat pentru sfaturi personalizate despre gestionarea greutății."
+      }
+    },
+    "healthMetrics": {
+      "description": "Aceste metrice te ajută să înțelegi nevoile energetice ale corpului tău și să-ți ghideze obiectivele nutriționale.",
+      "bmr": {
+        "title": "BMR",
+        "description": "Rata Metabolică Bazală (BMR) este numărul de calorii pe care corpul tău le arde în repaus pentru a menține funcții de bază precum respirația și circulația. BMR depinde de vârsta, sexul, înălțimea și greutatea ta. Un BMR mai mare înseamnă că organismul tău arde mai multe calorii în repaus, adesea din cauza unei mase musculare mai mari, a vârstei mai tinere sau a fiind de sex masculin. Un BMR mai mic indică, de obicei, o masă musculară mai mică, o vârstă mai înaintată sau a fi de sex feminin."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Cheltuiala Totală Zilnică de Energie (TDEE) este numărul total de calorii pe care le arzi pe zi, incluzând BMR-ul tău plus caloriile din activitatea fizică și mișcarea zilnică. TDEE depinde de BMR-ul tău și de nivelul de activitate. Un TDEE mai mare înseamnă că arzi mai multe calorii în general, de obicei, datorită unei activități mai intense sau a unui BMR mai mare. Un TDEE mai mic sugerează o activitate zilnică mai redusă sau un BMR mai mic."
+      },
+      "dailyGoal": {
+        "title": "Obiectiv Zilnic",
+        "description": "Obiectivul Zilnic este aportul tău caloric zilnic recomandat, bazat pe TDEE-ul tău și pe obiectivul tău de greutate. Pentru pierderea în greutate, consumi mai puține calorii decât TDEE-ul tău. Pentru menținerea greutății, îți egalizezi TDEE-ul. Pentru creșterea în greutate, consumi mai multe calorii decât TDEE-ul tău. Acest lucru te ajută să îți atingi schimbarea dorită în greutate într-un ritm sănătos."
       }
     }
   },

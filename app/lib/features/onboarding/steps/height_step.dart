@@ -16,25 +16,12 @@ class HeightStepScreen extends StatefulWidget {
 class _HeightStepScreenState extends State<HeightStepScreen> {
   double _height = 170;
   UnitSystem _unitSystem = UnitSystem.metric;
-  final TextEditingController _textController = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
   bool _unitSystemInitialized = false;
 
   @override
   void initState() {
     super.initState();
     _loadData();
-    _textController.addListener(_onTextChanged);
-  }
-
-  void _onTextChanged() {
-    if (!_focusNode.hasFocus) return;
-    final val = double.tryParse(_textController.text);
-    if (val != null) {
-      setState(() {
-        _height = val.clamp(_unitSystem.heightMin, _unitSystem.heightMax);
-      });
-    }
   }
 
   @override
@@ -55,20 +42,13 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
         _unitSystemInitialized = true;
         if (profile.height != null) {
           _height = profile.height!;
-          _updateTextField();
         }
       });
     }
   }
 
-  void _updateTextField() {
-    _textController.text = LocaleUtils.formatHeightValue(_height, _unitSystem);
-  }
-
   @override
   void dispose() {
-    _textController.dispose();
-    _focusNode.dispose();
     super.dispose();
   }
 
@@ -100,52 +80,27 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
           Center(
             child: Column(
               children: [
-                GestureDetector(
-                  onTap: () => _focusNode.requestFocus(),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      // Hidden text field
-                      Opacity(
-                        opacity: 0,
-                        child: SizedBox(
-                          width: 1,
-                          height: 1,
-                          child: TextField(
-                            controller: _textController,
-                            focusNode: _focusNode,
-                            keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true,
-                            ),
-                            autofocus: false,
-                            onSubmitted: (_) => _focusNode.unfocus(),
-                          ),
-                        ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: [
+                    Text(
+                      LocaleUtils.formatHeightValue(_height, _unitSystem),
+                      style: theme.textTheme.displayLarge?.copyWith(
+                        fontWeight: FontWeight.w900,
+                        color: colorScheme.primary,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        textBaseline: TextBaseline.alphabetic,
-                        children: [
-                          Text(
-                            LocaleUtils.formatHeightValue(_height, _unitSystem),
-                            style: theme.textTheme.displayLarge?.copyWith(
-                              fontWeight: FontWeight.w900,
-                              color: colorScheme.primary,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            _unitSystem.isMetric ? 'cm' : 'ft',
-                            style: theme.textTheme.titleLarge?.copyWith(
-                              color: colorScheme.onSurfaceVariant,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      _unitSystem.isMetric ? 'cm' : 'ft',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 48),
                 HeightScaleWidget(
@@ -154,7 +109,6 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
                   onValueChanged: (newHeight) {
                     setState(() {
                       _height = newHeight;
-                      _updateTextField();
                     });
                   },
                 ),
@@ -173,7 +127,6 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
                   setState(() {
                     _height = LocaleUtils.convertHeightToMetric(_height);
                     _unitSystem = UnitSystem.metric;
-                    _updateTextField();
                   });
                 },
               ),
@@ -186,7 +139,6 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
                   setState(() {
                     _height = LocaleUtils.convertHeightToImperial(_height);
                     _unitSystem = UnitSystem.imperial;
-                    _updateTextField();
                   });
                 },
               ),

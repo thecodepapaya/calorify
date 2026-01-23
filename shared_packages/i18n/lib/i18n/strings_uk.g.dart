@@ -184,6 +184,7 @@ class _TranslationsProfileUk implements TranslationsProfileEn {
 	@override String get weight => 'Вага';
 	@override String get age => 'Вік';
 	@override String get weightGoal => 'Цільова вага';
+	@override String get targetWeight => 'Цільова вага';
 	@override String get activityLevel => 'Рівень активності';
 	@override String get healthMetrics => 'Показники здоров\'я';
 	@override String get notSet => 'Не встановлено';
@@ -252,6 +253,8 @@ class _TranslationsSettingsUk implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataUk clearAllData = _TranslationsSettingsClearAllDataUk._(_root);
 	@override late final _TranslationsSettingsDebugOptionsUk debugOptions = _TranslationsSettingsDebugOptionsUk._(_root);
 	@override String get developerModeEnabled => 'Режим розробника увімкнено!';
+	@override late final _TranslationsSettingsHealthConnectUk healthConnect = _TranslationsSettingsHealthConnectUk._(_root);
+	@override late final _TranslationsSettingsAboutUk about = _TranslationsSettingsAboutUk._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerUk implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'Будь ласка, зауважте';
 	@override late final _TranslationsDisclaimerSnapUk snap = _TranslationsDisclaimerSnapUk._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateUk weightEstimate = _TranslationsDisclaimerWeightEstimateUk._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsUk healthMetrics = _TranslationsDisclaimerHealthMetricsUk._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsUk implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'ПРОФІЛЬ';
 	@override String get localization => 'ЛОКАЛІЗАЦІЯ';
 	@override String get notifications => 'СПОВІЩЕННЯ';
+	@override String get healthConnect => 'ЗВ\'ЯЗОК ЗДОРОВ\'Я';
 	@override String get supportAndLegal => 'ПІДТРИМКА ТА ЮРИДИЧНІ ПИТАННЯ';
+	@override String get about => 'ПРО ДОДАТК';
 	@override String get dangerZone => 'ЗОНИ РИЗИКУ';
 	@override String get developer => 'РОЗРОБНИК';
 }
@@ -895,6 +901,37 @@ class _TranslationsSettingsDebugOptionsUk implements TranslationsSettingsDebugOp
 	@override String get title => 'Опції налагодження';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectUk implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Зв\'язок зі здоров\'ям';
+	@override String get subtitle => 'Перегляньте та керуйте дозволами';
+	@override late final _TranslationsSettingsHealthConnectUnavailableUk unavailable = _TranslationsSettingsHealthConnectUnavailableUk._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsUk permissions = _TranslationsSettingsHealthConnectPermissionsUk._(_root);
+	@override String get managePermissions => 'Керувати дозволами';
+	@override String get openSettings => 'Відкрити налаштування Health Connect';
+	@override String get requestPermissions => 'Запросити дозволи';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutUk implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Про нас';
+	@override String get tagline => 'Швидка, безкоштовна та орієнтована на конфіденційність обізнаність про калорії';
+	@override late final _TranslationsSettingsAboutOurStoryUk ourStory = _TranslationsSettingsAboutOurStoryUk._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyUk privacy = _TranslationsSettingsAboutPrivacyUk._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperUk developer = _TranslationsSettingsAboutDeveloperUk._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackUk feedback = _TranslationsSettingsAboutFeedbackUk._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastUk implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastUk._(this._root);
@@ -976,6 +1013,19 @@ class _TranslationsDisclaimerWeightEstimateUk implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsUk biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsUk._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightUk waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightUk._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceUk professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceUk._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsUk implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Ці показники допоможуть вам зрозуміти енергетичні потреби вашого тіла та нададуть орієнтири для ваших цілей у харчуванні.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrUk bmr = _TranslationsDisclaimerHealthMetricsBmrUk._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeUk tdee = _TranslationsDisclaimerHealthMetricsTdeeUk._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalUk dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalUk._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1274,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveUk implements Transla
 	@override String get description => 'Дуже інтенсивні фізичні вправи, фізична робота';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableUk implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Зв\'язок зі здоров\'ям недоступний';
+	@override String get description => 'Зв\'язок зі здоров\'ям недоступний на цьому пристрої. Він вимагає Android 14 або новішої версії.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsUk implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Дозволи';
+	@override String get description => 'Для інтеграції з Зв\'язком зі здоров\'ям запитуються такі дозволи:';
+	@override String get granted => 'Надано';
+	@override String get notGranted => 'Не надано';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUk caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUk._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadUk nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadUk._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteUk nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteUk._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryUk implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Наша історія';
+	@override String content({required Object appLabel}) => '${appLabel} з\'явився з простого розчарування: більшість додатків для відстеження калорій або занадто складні, вимагають постійного ручного вводу, мають високі підписні плати або порушують конфіденційність.\n\nЯк незалежний розробник, я хотів створити щось простіше і справедливіше — додаток, який використовує штучний інтелект, щоб зменшити зусилля, залишається швидким і безкоштовним у використанні та поважає ваші дані про здоров\'я.\n\n${appLabel} — це додаток, який я хотів би, щоб існував: без облікових записів, без відстеження, без реклами — лише чіткі, практичні звіти та ваші цілі щодо здоров\'я.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyUk implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ваша конфіденційність важлива';
+	@override String get description => 'Конфіденційність не є подумкою на останок — це принцип проєктування. Ось що це означає на практиці:';
+	@override String get noAccounts => 'Облікові записи не потрібні\nВикористовуйте додаток відразу. Жодних реєстрацій, жодних ідентифікацій.';
+	@override String noTracking({required Object appLabel}) => 'Без поведінкового відстеження\n${appLabel} не стежить за вашою активністю, не створює профілі використання і не відстежує вас через додатки або вебсайти.';
+	@override String noAds({required Object appLabel}) => 'Без реклами за замовчуванням\n${appLabel} розроблений для роботи без реклами або монетизації на основі даних.';
+	@override String get noDataSelling => 'Без продажу даних\nВаші дані про здоров\'я ніколи не продаються та не передаються третім особам.';
+	@override String get localStorage => 'Місцеве зберігання\nВаші дані залишаються на вашому пристрої.';
+	@override String get privacyPolicy => 'Політика конфіденційності';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperUk implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Розроблений незалежним розробником';
+	@override String description({required Object appLabel}) => '${appLabel} розроблений та підтримується одним незалежним розробником, який зосереджений на створенні спокійного програмного забезпечення для здоров\'я, що поважає конфіденційність.\n\nВідгуки читаються особисто і допомагають формувати напрямок розвитку додатка.';
+	@override String get website => 'Веб-сайт';
+	@override String get email => 'Електронна пошта';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackUk implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => 'Вам подобається ${appLabel}?';
+	@override String description({required Object appLabel}) => 'Ваш відгук допомагає покращити ${appLabel} для всіх.';
+	@override String get rateApp => 'Оцініть у Play Store';
+	@override String get sendFeedback => 'Надіслати відгук';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeUk implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeUk._(this._root);
@@ -1310,6 +1441,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceUk implements Tra
 	// Translations
 	@override String get title => 'Професійне керівництво';
 	@override String get description => 'Не використовуйте цю оцінку для прийняття медичних рішень. Завжди консультуйтеся з медичним працівником або зареєстрованим дієтологом для отримання персоналізованих порад з управління вагою.';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrUk implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Основний обмін речовин (BMR)';
+	@override String get description => 'Основний обмін речовин (BMR) — це кількість калорій, які ваше тіло споживає в стані спокою для підтримки базових функцій, таких як дихання і циркуляція. BMR залежить від вашого віку, статі, зросту та ваги. Вищий BMR означає, що ваше тіло природно спалює більше калорій у спокої, зазвичай через більшу м\'язову масу, молодший вік або чоловічу стать. Нижчий BMR зазвичай свідчить про меншу м\'язову масу, старший вік або жіночу стать.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeUk implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Тотальне добове енергоспоживання (TDEE)';
+	@override String get description => 'Тотальне добове енергоспоживання (TDEE) — це загальна кількість калорій, яку ви спалюєте щодня, включаючи ваш BMR, а також калорії від фізичної активності та щоденних рухів. TDEE залежить від вашого BMR та рівня активності. Вищий TDEE означає, що ви спалюєте більше калорій загалом, зазвичай через більшу активність або вищий BMR. Нижчий TDEE свідчить про меншу щоденну активність або нижчий BMR.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalUk implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Щоденна мета';
+	@override String get description => 'Щоденна мета — це ваша рекомендована добова калорійність, основана на вашому TDEE і цілі щодо ваги. Для схуднення вам потрібно споживати менше калорій, ніж ваш TDEE. Для підтримання ваги — відповідати вашому TDEE. Для набору ваги — споживати більше калорій, ніж ваш TDEE. Це допоможе вам досягти бажаних змін у вазі здоровими темпами.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUk implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Читати загальні витрачені калорії';
+	@override String get description => 'Дозволяє додатку читати загальні витрачені калорії з Зв\'язку зі здоров\'ям.';
+	@override String get usage => 'Цей дозвіл використовується для відображення вашого щоденного витрачання калорій у додатку, що допомагає вам зрозуміти ваше загальне енергетичне споживання протягом дня.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadUk implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Читати дані про харчування';
+	@override String get description => 'Дозволяє додатку читати дані про харчування з Зв\'язку зі здоров\'ям.';
+	@override String get usage => 'Цей дозвіл дозволяє додатку читати інформацію про харчування, яка могла бути зафіксована іншими додатками, підключеними до Зв\'язку зі здоров\'ям, надаючи всебічний огляд вашого харчування.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteUk implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Записувати дані про харчування';
+	@override String get description => 'Дозволяє додатку записувати дані про харчування в Зв\'язок зі здоров\'ям.';
+	@override String get usage => 'Цей дозвіл дозволяє додатку синхронізувати ваші зафіксовані прийоми їжі з Зв\'язком зі здоров\'ям, роблячи ваші дані про харчування доступними для інших додатків зі здоров\'я та фітнесу, які ви використовуєте.';
 }
 
 /// The flat map containing all translations for locale <uk>.
@@ -1506,6 +1706,7 @@ extension on TranslationsUk {
 			'profile.weight' => 'Вага',
 			'profile.age' => 'Вік',
 			'profile.weightGoal' => 'Цільова вага',
+			'profile.targetWeight' => 'Цільова вага',
 			'profile.activityLevel' => 'Рівень активності',
 			'profile.healthMetrics' => 'Показники здоров\'я',
 			'profile.notSet' => 'Не встановлено',
@@ -1561,7 +1762,9 @@ extension on TranslationsUk {
 			'settings.sections.profile' => 'ПРОФІЛЬ',
 			'settings.sections.localization' => 'ЛОКАЛІЗАЦІЯ',
 			'settings.sections.notifications' => 'СПОВІЩЕННЯ',
+			'settings.sections.healthConnect' => 'ЗВ\'ЯЗОК ЗДОРОВ\'Я',
 			'settings.sections.supportAndLegal' => 'ПІДТРИМКА ТА ЮРИДИЧНІ ПИТАННЯ',
+			'settings.sections.about' => 'ПРО ДОДАТК',
 			'settings.sections.dangerZone' => 'ЗОНИ РИЗИКУ',
 			'settings.sections.developer' => 'РОЗРОБНИК',
 			'settings.editProfile.title' => 'Редагувати профіль',
@@ -1594,6 +1797,46 @@ extension on TranslationsUk {
 			'settings.clearAllData.clearEverything' => 'Очистити все',
 			'settings.debugOptions.title' => 'Опції налагодження',
 			'settings.developerModeEnabled' => 'Режим розробника увімкнено!',
+			'settings.healthConnect.title' => 'Зв\'язок зі здоров\'ям',
+			'settings.healthConnect.subtitle' => 'Перегляньте та керуйте дозволами',
+			'settings.healthConnect.unavailable.title' => 'Зв\'язок зі здоров\'ям недоступний',
+			'settings.healthConnect.unavailable.description' => 'Зв\'язок зі здоров\'ям недоступний на цьому пристрої. Він вимагає Android 14 або новішої версії.',
+			'settings.healthConnect.permissions.title' => 'Дозволи',
+			'settings.healthConnect.permissions.description' => 'Для інтеграції з Зв\'язком зі здоров\'ям запитуються такі дозволи:',
+			'settings.healthConnect.permissions.granted' => 'Надано',
+			'settings.healthConnect.permissions.notGranted' => 'Не надано',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Читати загальні витрачені калорії',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Дозволяє додатку читати загальні витрачені калорії з Зв\'язку зі здоров\'ям.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Цей дозвіл використовується для відображення вашого щоденного витрачання калорій у додатку, що допомагає вам зрозуміти ваше загальне енергетичне споживання протягом дня.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Читати дані про харчування',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Дозволяє додатку читати дані про харчування з Зв\'язку зі здоров\'ям.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Цей дозвіл дозволяє додатку читати інформацію про харчування, яка могла бути зафіксована іншими додатками, підключеними до Зв\'язку зі здоров\'ям, надаючи всебічний огляд вашого харчування.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Записувати дані про харчування',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Дозволяє додатку записувати дані про харчування в Зв\'язок зі здоров\'ям.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Цей дозвіл дозволяє додатку синхронізувати ваші зафіксовані прийоми їжі з Зв\'язком зі здоров\'ям, роблячи ваші дані про харчування доступними для інших додатків зі здоров\'я та фітнесу, які ви використовуєте.',
+			'settings.healthConnect.managePermissions' => 'Керувати дозволами',
+			'settings.healthConnect.openSettings' => 'Відкрити налаштування Health Connect',
+			'settings.healthConnect.requestPermissions' => 'Запросити дозволи',
+			'settings.about.title' => 'Про нас',
+			'settings.about.tagline' => 'Швидка, безкоштовна та орієнтована на конфіденційність обізнаність про калорії',
+			'settings.about.ourStory.title' => 'Наша історія',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} з\'явився з простого розчарування: більшість додатків для відстеження калорій або занадто складні, вимагають постійного ручного вводу, мають високі підписні плати або порушують конфіденційність.\n\nЯк незалежний розробник, я хотів створити щось простіше і справедливіше — додаток, який використовує штучний інтелект, щоб зменшити зусилля, залишається швидким і безкоштовним у використанні та поважає ваші дані про здоров\'я.\n\n${appLabel} — це додаток, який я хотів би, щоб існував: без облікових записів, без відстеження, без реклами — лише чіткі, практичні звіти та ваші цілі щодо здоров\'я.',
+			'settings.about.privacy.title' => 'Ваша конфіденційність важлива',
+			'settings.about.privacy.description' => 'Конфіденційність не є подумкою на останок — це принцип проєктування. Ось що це означає на практиці:',
+			'settings.about.privacy.noAccounts' => 'Облікові записи не потрібні\nВикористовуйте додаток відразу. Жодних реєстрацій, жодних ідентифікацій.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Без поведінкового відстеження\n${appLabel} не стежить за вашою активністю, не створює профілі використання і не відстежує вас через додатки або вебсайти.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Без реклами за замовчуванням\n${appLabel} розроблений для роботи без реклами або монетизації на основі даних.',
+			'settings.about.privacy.noDataSelling' => 'Без продажу даних\nВаші дані про здоров\'я ніколи не продаються та не передаються третім особам.',
+			'settings.about.privacy.localStorage' => 'Місцеве зберігання\nВаші дані залишаються на вашому пристрої.',
+			'settings.about.privacy.privacyPolicy' => 'Політика конфіденційності',
+			'settings.about.developer.title' => 'Розроблений незалежним розробником',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} розроблений та підтримується одним незалежним розробником, який зосереджений на створенні спокійного програмного забезпечення для здоров\'я, що поважає конфіденційність.\n\nВідгуки читаються особисто і допомагають формувати напрямок розвитку додатка.',
+			'settings.about.developer.website' => 'Веб-сайт',
+			'settings.about.developer.email' => 'Електронна пошта',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Вам подобається ${appLabel}?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Ваш відгук допомагає покращити ${appLabel} для всіх.',
+			'settings.about.feedback.rateApp' => 'Оцініть у Play Store',
+			'settings.about.feedback.sendFeedback' => 'Надіслати відгук',
 			'reminders.title' => 'Залишайтеся на правильному шляху з нагадуваннями',
 			'reminders.description' => 'Отримуйте м\'які нагадування, щоб вести облік своїх страв і підтримувати послідовність з вашими цілями у харчуванні',
 			'reminders.notificationsEnabled' => 'Сповіщення увімкнені',
@@ -1646,6 +1889,13 @@ extension on TranslationsUk {
 			'disclaimer.weightEstimate.waterWeight.description' => 'Нормальна добова вага може сильно коливатися через затримку води, травлення та час. Оцінка не враховує ці добові зміни.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Професійне керівництво',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Не використовуйте цю оцінку для прийняття медичних рішень. Завжди консультуйтеся з медичним працівником або зареєстрованим дієтологом для отримання персоналізованих порад з управління вагою.',
+			'disclaimer.healthMetrics.description' => 'Ці показники допоможуть вам зрозуміти енергетичні потреби вашого тіла та нададуть орієнтири для ваших цілей у харчуванні.',
+			'disclaimer.healthMetrics.bmr.title' => 'Основний обмін речовин (BMR)',
+			'disclaimer.healthMetrics.bmr.description' => 'Основний обмін речовин (BMR) — це кількість калорій, які ваше тіло споживає в стані спокою для підтримки базових функцій, таких як дихання і циркуляція. BMR залежить від вашого віку, статі, зросту та ваги. Вищий BMR означає, що ваше тіло природно спалює більше калорій у спокої, зазвичай через більшу м\'язову масу, молодший вік або чоловічу стать. Нижчий BMR зазвичай свідчить про меншу м\'язову масу, старший вік або жіночу стать.',
+			'disclaimer.healthMetrics.tdee.title' => 'Тотальне добове енергоспоживання (TDEE)',
+			'disclaimer.healthMetrics.tdee.description' => 'Тотальне добове енергоспоживання (TDEE) — це загальна кількість калорій, яку ви спалюєте щодня, включаючи ваш BMR, а також калорії від фізичної активності та щоденних рухів. TDEE залежить від вашого BMR та рівня активності. Вищий TDEE означає, що ви спалюєте більше калорій загалом, зазвичай через більшу активність або вищий BMR. Нижчий TDEE свідчить про меншу щоденну активність або нижчий BMR.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Щоденна мета',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Щоденна мета — це ваша рекомендована добова калорійність, основана на вашому TDEE і цілі щодо ваги. Для схуднення вам потрібно споживати менше калорій, ніж ваш TDEE. Для підтримання ваги — відповідати вашому TDEE. Для набору ваги — споживати більше калорій, ніж ваш TDEE. Це допоможе вам досягти бажаних змін у вазі здоровими темпами.',
 			'common.close' => 'Закрити',
 			'common.kContinue' => 'Продовжити',
 			'errors.loadingProfileData' => 'Помилка завантаження даних профілю',

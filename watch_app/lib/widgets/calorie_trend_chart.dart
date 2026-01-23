@@ -1,6 +1,6 @@
-import 'package:specs/specs.dart';
 import 'package:models/models.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:specs/specs.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'dart:math' as math;
@@ -112,7 +112,7 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
                 Icon(
                   LucideIcons.trendingUp,
                   size: 18,
-                  color: colorScheme.primary,
+                  color: colorScheme.calorieIconColor,
                 ),
                 const SizedBox(width: 6),
                 Text(
@@ -214,7 +214,7 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
                               LineChartBarData(
                                 spots: _spots,
                                 isCurved: true,
-                                color: calorieIconColor,
+                                color: colorScheme.calorieIconColor,
                                 barWidth: 3,
                                 dotData: FlDotData(
                                   show: true,
@@ -226,7 +226,7 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
                                   ) {
                                     return FlDotCirclePainter(
                                       radius: 3,
-                                      color: calorieIconColor,
+                                      color: colorScheme.calorieIconColor,
                                       strokeWidth: 2,
                                       strokeColor: colorScheme.surface,
                                     );
@@ -234,9 +234,8 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
                                 ),
                                 belowBarData: BarAreaData(
                                   show: true,
-                                  color: calorieIconColor.withValues(
-                                    alpha: 0.15,
-                                  ),
+                                  color: colorScheme.calorieIconColor
+                                      .withValues(alpha: 0.15),
                                 ),
                               ),
                             ],
@@ -263,7 +262,9 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
                       Icon(
                         LucideIcons.zap,
                         size: 10,
-                        color: calorieIconColor.withValues(alpha: 0.7),
+                        color: colorScheme.calorieIconColor.withValues(
+                          alpha: 0.7,
+                        ),
                       ),
                       const SizedBox(width: 4),
                       Text(
@@ -277,7 +278,9 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
                       Icon(
                         LucideIcons.activity,
                         size: 10,
-                        color: colorScheme.primary.withValues(alpha: 0.7),
+                        color: colorScheme.calorieIconColor.withValues(
+                          alpha: 0.7,
+                        ),
                       ),
                       const SizedBox(width: 4),
                       Text(
