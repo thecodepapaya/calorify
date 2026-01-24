@@ -913,8 +913,11 @@ class _TranslationsSettingsHealthConnectHi implements TranslationsSettingsHealth
 	@override late final _TranslationsSettingsHealthConnectUnavailableHi unavailable = _TranslationsSettingsHealthConnectUnavailableHi._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsHi permissions = _TranslationsSettingsHealthConnectPermissionsHi._(_root);
 	@override String get managePermissions => 'अनुमतियाँ प्रबंधित करें';
-	@override String get openSettings => 'हेल्थ कनेक्ट सेटिंग्स खोलें';
+	@override String get openSettings => 'स्वास्थ्य कनेक्ट सेटिंग्स खोलें';
 	@override String get requestPermissions => 'अनुमतियाँ मांगें';
+	@override String get permissionRequestCancelledOrFailed => 'अनुमति अनुरोध रद्द हो गया या विफल रहा। कृपया फिर से प्रयास करें या स्वास्थ्य कनेक्ट सेटिंग्स में मैन्युअली अनुमतियाँ दें।';
+	@override String get permissionRequestFailed => 'अनुमतियाँ मांगने में असमर्थ। कृपया फिर से प्रयास करें या स्वास्थ्य कनेक्ट सेटिंग्स में मैन्युअली अनुमतियाँ दें।';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableHi implements TranslationsSet
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'स्वास्थ्य कनेक्ट उपलब्ध नहीं है';
-	@override String get description => 'स्वास्थ्य कनेक्ट इस डिवाइस पर उपलब्ध नहीं है। इसके लिए Android 14 या उसके बाद का संस्करण चाहिए।';
+	@override String get title => 'Health Connect उपलब्ध नहीं है';
+	@override String get description => 'Health Connect इस डिवाइस पर उपलब्ध नहीं है। कृपया Play Store से Health Connect इंस्टॉल करें (Android 9+) या Android 14+ पर अपडेट करें।';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1799,8 +1802,8 @@ extension on TranslationsHi {
 			'settings.developerModeEnabled' => 'डेवलपर मोड सक्षम किया गया है!',
 			'settings.healthConnect.title' => 'स्वास्थ्य कनेक्ट',
 			'settings.healthConnect.subtitle' => 'अनुमतियों को देखें और प्रबंधित करें',
-			'settings.healthConnect.unavailable.title' => 'स्वास्थ्य कनेक्ट उपलब्ध नहीं है',
-			'settings.healthConnect.unavailable.description' => 'स्वास्थ्य कनेक्ट इस डिवाइस पर उपलब्ध नहीं है। इसके लिए Android 14 या उसके बाद का संस्करण चाहिए।',
+			'settings.healthConnect.unavailable.title' => 'Health Connect उपलब्ध नहीं है',
+			'settings.healthConnect.unavailable.description' => 'Health Connect इस डिवाइस पर उपलब्ध नहीं है। कृपया Play Store से Health Connect इंस्टॉल करें (Android 9+) या Android 14+ पर अपडेट करें।',
 			'settings.healthConnect.permissions.title' => 'अनुमतियाँ',
 			'settings.healthConnect.permissions.description' => 'स्वास्थ्य कनेक्ट एकीकरण प्रदान करने के लिए निम्नलिखित अनुमतियों की आवश्यकता है:',
 			'settings.healthConnect.permissions.granted' => 'अनुमत',
@@ -1815,8 +1818,11 @@ extension on TranslationsHi {
 			'settings.healthConnect.permissions.nutritionWrite.description' => 'ऐप को स्वास्थ्य कनेक्ट में पोषण डेटा लिखने की अनुमति देता है।',
 			'settings.healthConnect.permissions.nutritionWrite.usage' => 'यह अनुमति ऐप को आपके लॉग किए गए भोजन को स्वास्थ्य कनेक्ट के साथ समन्वयित करने की अनुमति देती है, जिससे आपका पोषण डेटा आप द्वारा उपयोग किए जाने वाले अन्य स्वास्थ्य और फिटनेस ऐप्स के लिए उपलब्ध होता है।',
 			'settings.healthConnect.managePermissions' => 'अनुमतियाँ प्रबंधित करें',
-			'settings.healthConnect.openSettings' => 'हेल्थ कनेक्ट सेटिंग्स खोलें',
+			'settings.healthConnect.openSettings' => 'स्वास्थ्य कनेक्ट सेटिंग्स खोलें',
 			'settings.healthConnect.requestPermissions' => 'अनुमतियाँ मांगें',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'अनुमति अनुरोध रद्द हो गया या विफल रहा। कृपया फिर से प्रयास करें या स्वास्थ्य कनेक्ट सेटिंग्स में मैन्युअली अनुमतियाँ दें।',
+			'settings.healthConnect.permissionRequestFailed' => 'अनुमतियाँ मांगने में असमर्थ। कृपया फिर से प्रयास करें या स्वास्थ्य कनेक्ट सेटिंग्स में मैन्युअली अनुमतियाँ दें।',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'हमारे बारे में',
 			'settings.about.tagline' => 'तेज़, मुफ्त, और गोपनीयता-प्रथम कैलोरी जागरूकता',
 			'settings.about.ourStory.title' => 'हमारी कहानी',

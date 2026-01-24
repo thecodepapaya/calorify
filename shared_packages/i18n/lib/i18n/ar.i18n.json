@@ -411,8 +411,8 @@
       "title": "الاتصال الصحي",
       "subtitle": "عرض وإدارة الأذونات",
       "unavailable": {
-        "title": "الاتصال الصحي غير متاح",
-        "description": "الاتصال الصحي غير متاح على هذا الجهاز. يتطلب Android 14 أو أحدث."
+        "title": "Health Connect غير متاح",
+        "description": "Health Connect غير متاح على هذا الجهاز. يُرجى تثبيت Health Connect من متجر Play ‏(Android 9+) أو التحديث إلى Android 14+."
       },
       "permissions": {
         "title": "الأذونات",
@@ -437,7 +437,10 @@
       },
       "managePermissions": "إدارة الأذونات",
       "openSettings": "فتح إعدادات الاتصال الصحي",
-      "requestPermissions": "طلب الأذونات"
+      "requestPermissions": "طلب الأذونات",
+      "permissionRequestCancelledOrFailed": "تم إلغاء طلب الأذونات أو فشل. يرجى المحاولة مرة أخرى أو منح الأذونات يدويًا في إعدادات Health Connect.",
+      "permissionRequestFailed": "تعذر طلب الأذونات. يرجى المحاولة مرة أخرى أو منح الأذونات يدويًا في إعدادات Health Connect.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "حول",

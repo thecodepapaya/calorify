@@ -784,7 +784,7 @@ class _TranslationsSettingsSectionsEs implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PERFIL';
 	@override String get localization => 'LOCALIZACIÓN';
 	@override String get notifications => 'NOTIFICACIONES';
-	@override String get healthConnect => 'CONECTAR CON LA SALUD';
+	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'SOPORTE Y LEGAL';
 	@override String get about => 'ACERCA DE';
 	@override String get dangerZone => 'ZONA DE PELIGRO';
@@ -908,13 +908,16 @@ class _TranslationsSettingsHealthConnectEs implements TranslationsSettingsHealth
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Conectar con la Salud';
+	@override String get title => 'Health Connect';
 	@override String get subtitle => 'Ver y gestionar permisos';
 	@override late final _TranslationsSettingsHealthConnectUnavailableEs unavailable = _TranslationsSettingsHealthConnectUnavailableEs._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsEs permissions = _TranslationsSettingsHealthConnectPermissionsEs._(_root);
 	@override String get managePermissions => 'Gestionar Permisos';
 	@override String get openSettings => 'Abrir la configuración de Health Connect';
 	@override String get requestPermissions => 'Solicitar permisos';
+	@override String get permissionRequestCancelledOrFailed => 'La solicitud de permisos se canceló o falló. Inténtalo de nuevo o concede los permisos manualmente en la configuración de Health Connect.';
+	@override String get permissionRequestFailed => 'No se pudieron solicitar los permisos. Inténtalo de nuevo o concede los permisos manualmente en la configuración de Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableEs implements TranslationsSet
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Conectar con la Salud No Disponible';
-	@override String get description => 'Conectar con la Salud no está disponible en este dispositivo. Requiere Android 14 o posterior.';
+	@override String get title => 'Health Connect No Disponible';
+	@override String get description => 'Health Connect no está disponible en este dispositivo. Instala Health Connect desde Play Store (Android 9+) o actualiza a Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1293,7 +1296,7 @@ class _TranslationsSettingsHealthConnectPermissionsEs implements TranslationsSet
 
 	// Translations
 	@override String get title => 'Permisos';
-	@override String get description => 'Se solicitan los siguientes permisos para proporcionar integración con Conectar con la Salud:';
+	@override String get description => 'Se solicitan los siguientes permisos para proporcionar integración con Health Connect:';
 	@override String get granted => 'Concedido';
 	@override String get notGranted => 'No Concedido';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEs caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEs._(_root);
@@ -1462,7 +1465,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeEs implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'Gasto Energético Diario Total';
-	@override String get description => 'El Gasto Energético Diario Total (GEDT) es la cantidad total de calorías que quemas por día, incluyendo tu TMB más las calorías de la actividad física y el movimiento diario. El GEDT depende de tu TMB y nivel de actividad. Un GEDT más alto significa que quemas más calorías en general, normalmente por estar más activo o tener una TMB más alta. Un GEDT más bajo sugiere menos actividad diaria o una TMB más baja.';
+	@override String get description => 'El Gasto Energético Diario Total (TDEE) es la cantidad total de calorías que quemas por día, incluyendo tu TMB más las calorías de la actividad física y el movimiento diario. El TDEE depende de tu TMB y nivel de actividad. Un TDEE más alto significa que quemas más calorías en general, normalmente por estar más activo o tener una TMB más alta. Un TDEE más bajo sugiere menos actividad diaria o una TMB más baja.';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1473,7 +1476,7 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalEs implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Objetivo Diario';
-	@override String get description => 'El Objetivo Diario es tu ingesta calórica diaria recomendada basada en tu GEDT y objetivo de peso. Para perder peso, consumes menos calorías que tu GEDT. Para mantener el peso, igualas tu GEDT. Para ganar peso, consumes más calorías que tu GEDT. Esto te ayuda a lograr tu cambio de peso deseado a un ritmo saludable.';
+	@override String get description => 'El Objetivo Diario es tu ingesta calórica diaria recomendada basada en tu TDEE y objetivo de peso. Para perder peso, consumes menos calorías que tu TDEE. Para mantener el peso, igualas tu TDEE. Para ganar peso, consumes más calorías que tu TDEE. Esto te ayuda a lograr tu cambio de peso deseado a un ritmo saludable.';
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
@@ -1484,7 +1487,7 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEs implements T
 
 	// Translations
 	@override String get title => 'Leer Calorías Totales Quemadas';
-	@override String get description => 'Permite que la app lea tus calorías totales quemadas desde Conectar con la Salud.';
+	@override String get description => 'Permite que la app lea tus calorías totales quemadas desde Health Connect.';
 	@override String get usage => 'Este permiso se utiliza para mostrar tu quema diaria de calorías en la app, ayudándote a comprender tu gasto energético total a lo largo del día.';
 }
 
@@ -1496,8 +1499,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadEs implements Tr
 
 	// Translations
 	@override String get title => 'Leer Datos de Nutrición';
-	@override String get description => 'Permite que la app lea datos de nutrición desde Conectar con la Salud.';
-	@override String get usage => 'Este permiso permite a la app leer información nutricional que puede haber sido registrada por otras apps conectadas a Conectar con la Salud, proporcionando una vista completa de tu nutrición.';
+	@override String get description => 'Permite que la app lea datos de nutrición desde Health Connect.';
+	@override String get usage => 'Este permiso permite a la app leer información nutricional que puede haber sido registrada por otras apps conectadas a Health Connect, proporcionando una vista completa de tu nutrición.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1508,8 +1511,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteEs implements T
 
 	// Translations
 	@override String get title => 'Escribir Datos de Nutrición';
-	@override String get description => 'Permite que la app escriba datos de nutrición en Conectar con la Salud.';
-	@override String get usage => 'Este permiso permite a la app sincronizar tus comidas registradas con Conectar con la Salud, haciendo que tus datos de nutrición estén disponibles para otras apps de salud y fitness que utilices.';
+	@override String get description => 'Permite que la app escriba datos de nutrición en Health Connect.';
+	@override String get usage => 'Este permiso permite a la app sincronizar tus comidas registradas con Health Connect, haciendo que tus datos de nutrición estén disponibles para otras apps de salud y fitness que utilices.';
 }
 
 /// The flat map containing all translations for locale <es>.
@@ -1762,7 +1765,7 @@ extension on TranslationsEs {
 			'settings.sections.profile' => 'PERFIL',
 			'settings.sections.localization' => 'LOCALIZACIÓN',
 			'settings.sections.notifications' => 'NOTIFICACIONES',
-			'settings.sections.healthConnect' => 'CONECTAR CON LA SALUD',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'SOPORTE Y LEGAL',
 			'settings.sections.about' => 'ACERCA DE',
 			'settings.sections.dangerZone' => 'ZONA DE PELIGRO',
@@ -1797,26 +1800,29 @@ extension on TranslationsEs {
 			'settings.clearAllData.clearEverything' => 'Borrar Todo',
 			'settings.debugOptions.title' => 'Opciones de Depuración',
 			'settings.developerModeEnabled' => '¡Modo de desarrollador habilitado!',
-			'settings.healthConnect.title' => 'Conectar con la Salud',
+			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Ver y gestionar permisos',
-			'settings.healthConnect.unavailable.title' => 'Conectar con la Salud No Disponible',
-			'settings.healthConnect.unavailable.description' => 'Conectar con la Salud no está disponible en este dispositivo. Requiere Android 14 o posterior.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect No Disponible',
+			'settings.healthConnect.unavailable.description' => 'Health Connect no está disponible en este dispositivo. Instala Health Connect desde Play Store (Android 9+) o actualiza a Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Permisos',
-			'settings.healthConnect.permissions.description' => 'Se solicitan los siguientes permisos para proporcionar integración con Conectar con la Salud:',
+			'settings.healthConnect.permissions.description' => 'Se solicitan los siguientes permisos para proporcionar integración con Health Connect:',
 			'settings.healthConnect.permissions.granted' => 'Concedido',
 			'settings.healthConnect.permissions.notGranted' => 'No Concedido',
 			'settings.healthConnect.permissions.caloriesBurned.title' => 'Leer Calorías Totales Quemadas',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'Permite que la app lea tus calorías totales quemadas desde Conectar con la Salud.',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Permite que la app lea tus calorías totales quemadas desde Health Connect.',
 			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Este permiso se utiliza para mostrar tu quema diaria de calorías en la app, ayudándote a comprender tu gasto energético total a lo largo del día.',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'Leer Datos de Nutrición',
-			'settings.healthConnect.permissions.nutritionRead.description' => 'Permite que la app lea datos de nutrición desde Conectar con la Salud.',
-			'settings.healthConnect.permissions.nutritionRead.usage' => 'Este permiso permite a la app leer información nutricional que puede haber sido registrada por otras apps conectadas a Conectar con la Salud, proporcionando una vista completa de tu nutrición.',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Permite que la app lea datos de nutrición desde Health Connect.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Este permiso permite a la app leer información nutricional que puede haber sido registrada por otras apps conectadas a Health Connect, proporcionando una vista completa de tu nutrición.',
 			'settings.healthConnect.permissions.nutritionWrite.title' => 'Escribir Datos de Nutrición',
-			'settings.healthConnect.permissions.nutritionWrite.description' => 'Permite que la app escriba datos de nutrición en Conectar con la Salud.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Este permiso permite a la app sincronizar tus comidas registradas con Conectar con la Salud, haciendo que tus datos de nutrición estén disponibles para otras apps de salud y fitness que utilices.',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Permite que la app escriba datos de nutrición en Health Connect.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Este permiso permite a la app sincronizar tus comidas registradas con Health Connect, haciendo que tus datos de nutrición estén disponibles para otras apps de salud y fitness que utilices.',
 			'settings.healthConnect.managePermissions' => 'Gestionar Permisos',
 			'settings.healthConnect.openSettings' => 'Abrir la configuración de Health Connect',
 			'settings.healthConnect.requestPermissions' => 'Solicitar permisos',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'La solicitud de permisos se canceló o falló. Inténtalo de nuevo o concede los permisos manualmente en la configuración de Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'No se pudieron solicitar los permisos. Inténtalo de nuevo o concede los permisos manualmente en la configuración de Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Acerca de',
 			'settings.about.tagline' => 'Conciencia de calorías rápida, gratuita y priorizando la privacidad',
 			'settings.about.ourStory.title' => 'Nuestra Historia',
@@ -1893,9 +1899,9 @@ extension on TranslationsEs {
 			'disclaimer.healthMetrics.bmr.title' => 'TMB',
 			'disclaimer.healthMetrics.bmr.description' => 'La Tasa Metabólica Basal (TMB) es la cantidad de calorías que tu cuerpo quema en reposo para mantener funciones básicas como la respiración y la circulación. La TMB depende de tu edad, género, altura y peso. Una TMB más alta significa que tu cuerpo quema naturalmente más calorías en reposo, a menudo debido a una mayor masa muscular, una edad más joven o ser masculino. Una TMB más baja típicamente indica menos masa muscular, una edad mayor o ser femenina.',
 			'disclaimer.healthMetrics.tdee.title' => 'Gasto Energético Diario Total',
-			'disclaimer.healthMetrics.tdee.description' => 'El Gasto Energético Diario Total (GEDT) es la cantidad total de calorías que quemas por día, incluyendo tu TMB más las calorías de la actividad física y el movimiento diario. El GEDT depende de tu TMB y nivel de actividad. Un GEDT más alto significa que quemas más calorías en general, normalmente por estar más activo o tener una TMB más alta. Un GEDT más bajo sugiere menos actividad diaria o una TMB más baja.',
+			'disclaimer.healthMetrics.tdee.description' => 'El Gasto Energético Diario Total (TDEE) es la cantidad total de calorías que quemas por día, incluyendo tu TMB más las calorías de la actividad física y el movimiento diario. El TDEE depende de tu TMB y nivel de actividad. Un TDEE más alto significa que quemas más calorías en general, normalmente por estar más activo o tener una TMB más alta. Un TDEE más bajo sugiere menos actividad diaria o una TMB más baja.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Objetivo Diario',
-			'disclaimer.healthMetrics.dailyGoal.description' => 'El Objetivo Diario es tu ingesta calórica diaria recomendada basada en tu GEDT y objetivo de peso. Para perder peso, consumes menos calorías que tu GEDT. Para mantener el peso, igualas tu GEDT. Para ganar peso, consumes más calorías que tu GEDT. Esto te ayuda a lograr tu cambio de peso deseado a un ritmo saludable.',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'El Objetivo Diario es tu ingesta calórica diaria recomendada basada en tu TDEE y objetivo de peso. Para perder peso, consumes menos calorías que tu TDEE. Para mantener el peso, igualas tu TDEE. Para ganar peso, consumes más calorías que tu TDEE. Esto te ayuda a lograr tu cambio de peso deseado a un ritmo saludable.',
 			'common.close' => 'Cerrar',
 			'common.kContinue' => 'Continuar',
 			'errors.loadingProfileData' => 'Error al cargar datos del perfil',

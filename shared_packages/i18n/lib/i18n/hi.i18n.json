@@ -411,8 +411,8 @@
       "title": "स्वास्थ्य कनेक्ट",
       "subtitle": "अनुमतियों को देखें और प्रबंधित करें",
       "unavailable": {
-        "title": "स्वास्थ्य कनेक्ट उपलब्ध नहीं है",
-        "description": "स्वास्थ्य कनेक्ट इस डिवाइस पर उपलब्ध नहीं है। इसके लिए Android 14 या उसके बाद का संस्करण चाहिए।"
+        "title": "Health Connect उपलब्ध नहीं है",
+        "description": "Health Connect इस डिवाइस पर उपलब्ध नहीं है। कृपया Play Store से Health Connect इंस्टॉल करें (Android 9+) या Android 14+ पर अपडेट करें।"
       },
       "permissions": {
         "title": "अनुमतियाँ",
@@ -436,8 +436,11 @@
         }
       },
       "managePermissions": "अनुमतियाँ प्रबंधित करें",
-      "openSettings": "हेल्थ कनेक्ट सेटिंग्स खोलें",
-      "requestPermissions": "अनुमतियाँ मांगें"
+      "openSettings": "स्वास्थ्य कनेक्ट सेटिंग्स खोलें",
+      "requestPermissions": "अनुमतियाँ मांगें",
+      "permissionRequestCancelledOrFailed": "अनुमति अनुरोध रद्द हो गया या विफल रहा। कृपया फिर से प्रयास करें या स्वास्थ्य कनेक्ट सेटिंग्स में मैन्युअली अनुमतियाँ दें।",
+      "permissionRequestFailed": "अनुमतियाँ मांगने में असमर्थ। कृपया फिर से प्रयास करें या स्वास्थ्य कनेक्ट सेटिंग्स में मैन्युअली अनुमतियाँ दें।",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "हमारे बारे में",

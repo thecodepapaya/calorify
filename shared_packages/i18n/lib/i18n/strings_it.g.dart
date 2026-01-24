@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectIt implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Gestisci Autorizzazioni';
 	@override String get openSettings => 'Apri le impostazioni di Health Connect';
 	@override String get requestPermissions => 'Richiedi autorizzazioni';
+	@override String get permissionRequestCancelledOrFailed => 'La richiesta di autorizzazioni è stata annullata o non è riuscita. Riprova oppure concedi le autorizzazioni manualmente nelle impostazioni di Health Connect.';
+	@override String get permissionRequestFailed => 'Impossibile richiedere le autorizzazioni. Riprova oppure concedi le autorizzazioni manualmente nelle impostazioni di Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableIt implements TranslationsSet
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Collegamento Salute Non Disponibile';
-	@override String get description => 'Il Collegamento Salute non è disponibile su questo dispositivo. Richiede Android 14 o versioni successive.';
+	@override String get title => 'Health Connect non disponibile';
+	@override String get description => 'Health Connect non è disponibile su questo dispositivo. Installa Health Connect dal Play Store (Android 9+) oppure aggiorna ad Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1799,8 +1802,8 @@ extension on TranslationsIt {
 			'settings.developerModeEnabled' => 'Modalità sviluppatore abilitata!',
 			'settings.healthConnect.title' => 'Collegamento Salute',
 			'settings.healthConnect.subtitle' => 'Visualizza e gestisci le autorizzazioni',
-			'settings.healthConnect.unavailable.title' => 'Collegamento Salute Non Disponibile',
-			'settings.healthConnect.unavailable.description' => 'Il Collegamento Salute non è disponibile su questo dispositivo. Richiede Android 14 o versioni successive.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect non disponibile',
+			'settings.healthConnect.unavailable.description' => 'Health Connect non è disponibile su questo dispositivo. Installa Health Connect dal Play Store (Android 9+) oppure aggiorna ad Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Autorizzazioni',
 			'settings.healthConnect.permissions.description' => 'Le seguenti autorizzazioni sono richieste per fornire integrazione del Collegamento Salute:',
 			'settings.healthConnect.permissions.granted' => 'Concesso',
@@ -1817,6 +1820,9 @@ extension on TranslationsIt {
 			'settings.healthConnect.managePermissions' => 'Gestisci Autorizzazioni',
 			'settings.healthConnect.openSettings' => 'Apri le impostazioni di Health Connect',
 			'settings.healthConnect.requestPermissions' => 'Richiedi autorizzazioni',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'La richiesta di autorizzazioni è stata annullata o non è riuscita. Riprova oppure concedi le autorizzazioni manualmente nelle impostazioni di Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Impossibile richiedere le autorizzazioni. Riprova oppure concedi le autorizzazioni manualmente nelle impostazioni di Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Chi Siamo',
 			'settings.about.tagline' => 'Consapevolezza calorica veloce, gratuita e rispettosa della privacy',
 			'settings.about.ourStory.title' => 'La Nostra Storia',

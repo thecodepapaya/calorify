@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectJa implements TranslationsSettingsHealth
 	@override String get managePermissions => '権限を管理';
 	@override String get openSettings => 'ヘルスコネクト設定を開く';
 	@override String get requestPermissions => '権限をリクエストする';
+	@override String get permissionRequestCancelledOrFailed => '権限のリクエストがキャンセルされたか失敗しました。もう一度試すか、Health Connect の設定で手動で権限を付与してください。';
+	@override String get permissionRequestFailed => '権限をリクエストできませんでした。もう一度試すか、Health Connect の設定で手動で権限を付与してください。';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableJa implements TranslationsSet
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ヘルスコネクトは利用できません';
-	@override String get description => 'このデバイスではヘルスコネクトは利用できません。Android 14以降が必要です。';
+	@override String get title => 'Health Connect を利用できません';
+	@override String get description => 'このデバイスでは Health Connect を利用できません。Play ストア（Android 9+）から Health Connect をインストールするか、Android 14+ に更新してください。';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1799,8 +1802,8 @@ extension on TranslationsJa {
 			'settings.developerModeEnabled' => '開発者モードが有効になりました！',
 			'settings.healthConnect.title' => 'ヘルスコネクト',
 			'settings.healthConnect.subtitle' => '権限を表示および管理',
-			'settings.healthConnect.unavailable.title' => 'ヘルスコネクトは利用できません',
-			'settings.healthConnect.unavailable.description' => 'このデバイスではヘルスコネクトは利用できません。Android 14以降が必要です。',
+			'settings.healthConnect.unavailable.title' => 'Health Connect を利用できません',
+			'settings.healthConnect.unavailable.description' => 'このデバイスでは Health Connect を利用できません。Play ストア（Android 9+）から Health Connect をインストールするか、Android 14+ に更新してください。',
 			'settings.healthConnect.permissions.title' => '権限',
 			'settings.healthConnect.permissions.description' => 'ヘルスコネクト統合を提供するために要求される権限は以下の通りです。',
 			'settings.healthConnect.permissions.granted' => '付与済み',
@@ -1817,6 +1820,9 @@ extension on TranslationsJa {
 			'settings.healthConnect.managePermissions' => '権限を管理',
 			'settings.healthConnect.openSettings' => 'ヘルスコネクト設定を開く',
 			'settings.healthConnect.requestPermissions' => '権限をリクエストする',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => '権限のリクエストがキャンセルされたか失敗しました。もう一度試すか、Health Connect の設定で手動で権限を付与してください。',
+			'settings.healthConnect.permissionRequestFailed' => '権限をリクエストできませんでした。もう一度試すか、Health Connect の設定で手動で権限を付与してください。',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => '私たちについて',
 			'settings.about.tagline' => '迅速で無料、プライバシー重視のカロリー認識',
 			'settings.about.ourStory.title' => '私たちのストーリー',

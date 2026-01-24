@@ -411,8 +411,8 @@
       "title": "Łączenie z Zdrowiem",
       "subtitle": "Wyświetl i zarządzaj uprawnieniami",
       "unavailable": {
-        "title": "Łączenie z Zdrowiem Niedostępne",
-        "description": "Łączenie z Zdrowiem nie jest dostępne na tym urządzeniu. Wymaga systemu Android 14 lub nowszego."
+        "title": "Health Connect niedostępne",
+        "description": "Health Connect nie jest dostępne na tym urządzeniu. Zainstaluj Health Connect ze Sklepu Play (Android 9+) lub zaktualizuj do Androida 14+."
       },
       "permissions": {
         "title": "Uprawnienia",
@@ -437,7 +437,10 @@
       },
       "managePermissions": "Zarządzaj Uprawnieniami",
       "openSettings": "Otwórz ustawienia Health Connect",
-      "requestPermissions": "Poproś o zezwolenia"
+      "requestPermissions": "Poproś o zezwolenia",
+      "permissionRequestCancelledOrFailed": "Żądanie uprawnień zostało anulowane lub nie powiodło się. Spróbuj ponownie lub przyznaj uprawnienia ręcznie w ustawieniach Health Connect.",
+      "permissionRequestFailed": "Nie udało się poprosić o uprawnienia. Spróbuj ponownie lub przyznaj uprawnienia ręcznie w ustawieniach Health Connect.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "O nas",

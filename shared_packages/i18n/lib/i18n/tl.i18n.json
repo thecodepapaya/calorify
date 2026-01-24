@@ -353,7 +353,7 @@
       "profile": "PROFILE",
       "localization": "LOKALISASYON",
       "notifications": "NOTIFIKASYON",
-      "healthConnect": "KONEKSYON SA KALUSUGAN",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "SUPORTA AT LEGAL",
       "about": "TUNGKOL",
       "dangerZone": "MAPANGANIB NA ZONA",
@@ -420,9 +420,9 @@
         "granted": "Ipinagkaloob",
         "notGranted": "Hindi Ipinagkaloob",
         "caloriesBurned": {
-          "title": "Basahin ang Kabuuang Nalaglag na Kaloriya",
-          "description": "Pinapayagan ang app na basahin ang iyong kabuuang nalaglag na kaloriya mula sa Koneksyon sa Kalusugan.",
-          "usage": "Ginagamit ang pahintulot na ito upang ipakita ang iyong araw-araw na nalaglag na kaloriya sa app, na tumutulong sa iyo na maunawaan ang iyong kabuuang pagkonsumo ng enerhiya sa buong araw."
+          "title": "Basahin ang Kabuuang Nasunog na Calories",
+          "description": "Pinapayagan ang app na basahin ang iyong kabuuang nasunog na calories mula sa Health Connect.",
+          "usage": "Ginagamit ang pahintulot na ito upang ipakita ang iyong araw-araw na nasunog na calories sa app, na tumutulong sa iyo na maunawaan ang iyong kabuuang pagkonsumo ng enerhiya sa buong araw."
         },
         "nutritionRead": {
           "title": "Basahin ang Data ng Nutrisyon",
@@ -437,7 +437,10 @@
       },
       "managePermissions": "Pamahalaan ang mga Pahintulot",
       "openSettings": "Buksan ang Mga Setting ng Health Connect",
-      "requestPermissions": "Humiling ng Mga Pahintulot"
+      "requestPermissions": "Humiling ng Mga Pahintulot",
+      "permissionRequestCancelledOrFailed": "Ang hinihinging pahintulot ay nakansela o nabigo. Pakisubukang muli o bigyan ng pahintulot nang manu-mano sa mga setting ng Health Connect.",
+      "permissionRequestFailed": "Hindi makapaghiling ng mga pahintulot. Pakisubukang muli o bigyan ng pahintulot nang manu-mano sa mga setting ng Health Connect.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "Tungkol",
@@ -458,7 +461,7 @@
       },
       "developer": {
         "title": "Nilikha ng Isang Solo Developer",
-        "description": "{appLabel} ay binuo at pinapanatili ng isang tanging solo developer na nakatutok sa paglikha ng kalmado at p respecting na software para sa kalusugan.\n\nAng feedback ay personal na binabasa at tumutulong sa paghubog ng direksyon ng app.",
+        "description": "{appLabel} ay binuo at pinapanatili ng isang tanging solo developer na nakatutok sa paglikha ng kalmado at privacy-respecting na software para sa kalusugan.\n\nAng feedback ay personal na binabasa at tumutulong sa paghubog ng direksyon ng app.",
         "website": "Website",
         "email": "Email"
       },
@@ -567,7 +570,7 @@
       },
       "tdee": {
         "title": "TDEE",
-        "description": "Ang Total Daily Energy Expenditure (TDEE) ay ang kabuuang calorie na sinusunog mo sa isang araw, kabilang ang iyong BMR at mga calorie mula sa pisikal na aktibidad at pang-araw-araw na paggalaw. Ang TDEE ay nakadepende sa iyong BMR at antas ng aktibidad. Ang mas mataas na TDEE ay nangangahulugang mas maraming calorie ang iyong sinusunod sa kabuuan, karaniwang mula sa pagiging mas aktibo o pagkakaroon ng mas mataas na BMR. Ang mas mababang TDEE ay nagpapahiwatig ng mas kaunting aktibidad sa araw-araw o mas mababang BMR."
+        "description": "Ang Total Daily Energy Expenditure (TDEE) ay ang kabuuang calorie na sinusunog mo sa isang araw, kabilang ang iyong BMR at mga calorie mula sa pisikal na aktibidad at pang-araw-araw na paggalaw. Ang TDEE ay nakadepende sa iyong BMR at antas ng aktibidad. Ang mas mataas na TDEE ay nangangahulugang mas maraming calorie ang iyong sinusunog sa kabuuan, karaniwang mula sa pagiging mas aktibo o pagkakaroon ng mas mataas na BMR. Ang mas mababang TDEE ay nagpapahiwatig ng mas kaunting aktibidad sa araw-araw o mas mababang BMR."
       },
       "dailyGoal": {
         "title": "Arawang Layunin",

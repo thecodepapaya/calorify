@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectHu implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Engedélyek Kezelése';
 	@override String get openSettings => 'Nyisd meg az Egészségkapcsolat beállításait';
 	@override String get requestPermissions => 'Engedélyek kérése';
+	@override String get permissionRequestCancelledOrFailed => 'Az engedélykérés megszakadt vagy sikertelen volt. Próbáld újra, vagy add meg az engedélyeket manuálisan a Health Connect beállításaiban.';
+	@override String get permissionRequestFailed => 'Nem sikerült engedélyeket kérni. Próbáld újra, vagy add meg az engedélyeket manuálisan a Health Connect beállításaiban.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableHu implements TranslationsSet
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Egészség Kapcsolat Nem Elérhető';
-	@override String get description => 'Az Egészség Kapcsolat nem elérhető ezen az eszközön. Android 14 vagy újabb verzió szükséges.';
+	@override String get title => 'Health Connect nem elérhető';
+	@override String get description => 'A Health Connect nem érhető el ezen az eszközön. Kérjük, telepítse a Health Connectet a Play Áruházból (Android 9+), vagy frissítsen Android 14+-ra.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1336,7 +1339,7 @@ class _TranslationsSettingsAboutDeveloperHu implements TranslationsSettingsAbout
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Függő Solo Fejlesztő Által Készítve';
+	@override String get title => 'Független Solo Fejlesztő Által Készítve';
 	@override String description({required Object appLabel}) => '${appLabel} egyetlen solo fejlesztő által készült és karbantartott, aki a nyugodt, adatvédelmet tiszteletben tartó egészségügyi szoftverek fejlesztésére összpontosít.\n\nA visszajelzéseket személyesen olvassuk és segítenek alakítani az alkalmazás irányát.';
 	@override String get website => 'Weboldal';
 	@override String get email => 'Email';
@@ -1799,8 +1802,8 @@ extension on TranslationsHu {
 			'settings.developerModeEnabled' => 'Fejlesztő mód engedélyezve!',
 			'settings.healthConnect.title' => 'Egészség Kapcsolat',
 			'settings.healthConnect.subtitle' => 'Engedélyek megtekintése és kezelése',
-			'settings.healthConnect.unavailable.title' => 'Egészség Kapcsolat Nem Elérhető',
-			'settings.healthConnect.unavailable.description' => 'Az Egészség Kapcsolat nem elérhető ezen az eszközön. Android 14 vagy újabb verzió szükséges.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect nem elérhető',
+			'settings.healthConnect.unavailable.description' => 'A Health Connect nem érhető el ezen az eszközön. Kérjük, telepítse a Health Connectet a Play Áruházból (Android 9+), vagy frissítsen Android 14+-ra.',
 			'settings.healthConnect.permissions.title' => 'Engedélyek',
 			'settings.healthConnect.permissions.description' => 'Az alábbi engedélyeket kérjük az Egészség Kapcsolat integráció biztosításához:',
 			'settings.healthConnect.permissions.granted' => 'Engedélyezve',
@@ -1817,6 +1820,9 @@ extension on TranslationsHu {
 			'settings.healthConnect.managePermissions' => 'Engedélyek Kezelése',
 			'settings.healthConnect.openSettings' => 'Nyisd meg az Egészségkapcsolat beállításait',
 			'settings.healthConnect.requestPermissions' => 'Engedélyek kérése',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Az engedélykérés megszakadt vagy sikertelen volt. Próbáld újra, vagy add meg az engedélyeket manuálisan a Health Connect beállításaiban.',
+			'settings.healthConnect.permissionRequestFailed' => 'Nem sikerült engedélyeket kérni. Próbáld újra, vagy add meg az engedélyeket manuálisan a Health Connect beállításaiban.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Rólunk',
 			'settings.about.tagline' => 'Gyors, ingyenes és adatvédelmi szempontból elsődleges kalóriaszámláló',
 			'settings.about.ourStory.title' => 'Történetünk',
@@ -1829,7 +1835,7 @@ extension on TranslationsHu {
 			'settings.about.privacy.noDataSelling' => 'Nincs adatértékesítés\nAz egészségügyi adataid soha nem kerülnek eladásra vagy megosztásra harmadik felekkel.',
 			'settings.about.privacy.localStorage' => 'Helyi tárolás előtérbe helyezve\nAz adataid a készülékeden maradnak.',
 			'settings.about.privacy.privacyPolicy' => 'Adatvédelmi irányelvek',
-			'settings.about.developer.title' => 'Függő Solo Fejlesztő Által Készítve',
+			'settings.about.developer.title' => 'Független Solo Fejlesztő Által Készítve',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} egyetlen solo fejlesztő által készült és karbantartott, aki a nyugodt, adatvédelmet tiszteletben tartó egészségügyi szoftverek fejlesztésére összpontosít.\n\nA visszajelzéseket személyesen olvassuk és segítenek alakítani az alkalmazás irányát.',
 			'settings.about.developer.website' => 'Weboldal',
 			'settings.about.developer.email' => 'Email',

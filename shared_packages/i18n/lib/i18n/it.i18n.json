@@ -411,8 +411,8 @@
       "title": "Collegamento Salute",
       "subtitle": "Visualizza e gestisci le autorizzazioni",
       "unavailable": {
-        "title": "Collegamento Salute Non Disponibile",
-        "description": "Il Collegamento Salute non è disponibile su questo dispositivo. Richiede Android 14 o versioni successive."
+        "title": "Health Connect non disponibile",
+        "description": "Health Connect non è disponibile su questo dispositivo. Installa Health Connect dal Play Store (Android 9+) oppure aggiorna ad Android 14+."
       },
       "permissions": {
         "title": "Autorizzazioni",
@@ -437,7 +437,10 @@
       },
       "managePermissions": "Gestisci Autorizzazioni",
       "openSettings": "Apri le impostazioni di Health Connect",
-      "requestPermissions": "Richiedi autorizzazioni"
+      "requestPermissions": "Richiedi autorizzazioni",
+      "permissionRequestCancelledOrFailed": "La richiesta di autorizzazioni è stata annullata o non è riuscita. Riprova oppure concedi le autorizzazioni manualmente nelle impostazioni di Health Connect.",
+      "permissionRequestFailed": "Impossibile richiedere le autorizzazioni. Riprova oppure concedi le autorizzazioni manualmente nelle impostazioni di Health Connect.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "Chi Siamo",

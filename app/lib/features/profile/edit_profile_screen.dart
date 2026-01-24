@@ -26,6 +26,10 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
+  late final Future<int?> _savedGoalFuture;
+  bool _didApplySavedGoal = false;
+
+  // Initialize with safe defaults
   late double _height;
   late double _weight;
   late DateTime _dateOfBirth;
@@ -85,31 +89,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _initializeData().then((_) {
-      if (mounted) setState(() {});
-    });
-  }
 
-  Future<void> _initializeData() async {
-    _selectedGender = widget.userProfile.gender ?? Gender.male;
-    _selectedWeightGoal =
-        widget.userProfile.weightGoal ?? WeightGoal.maintainWeight;
-    _selectedActivityLevel =
-        widget.userProfile.activityLevel ?? ActivityLevel.sedentary;
+    // Initialize with widget-provided values synchronously
     _heightUnit = widget.userProfile.heightUnit;
     _weightUnit = widget.userProfile.weightUnit;
 
-    // Initialize daily calorie goal from database
-    final savedGoal =
-        await DatabaseService.databaseInterface.getDailyCalorieGoal();
-    _dailyCalorieGoal = savedGoal ?? 0;
-
-    // Initialize calorie goal controller
-    _calorieGoalController = TextEditingController(
-      text: _dailyCalorieGoal > 0 ? _dailyCalorieGoal.toString() : '',
-    );
-
-    // Initialize height with clamping to ensure it's within bounds
+    // Initialize height with default based on unit system
     final defaultHeight =
         _heightUnit.isMetric ? _defaultHeightMetric : _defaultHeightImperial;
     _height = (widget.userProfile.height ?? defaultHeight).clamp(
@@ -117,7 +102,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       _heightUnit.heightMax,
     );
 
-    // Initialize weight with clamping to ensure it's within bounds
+    // Initialize weight with default based on unit system
     final defaultWeight =
         _weightUnit.isMetric ? _defaultWeightMetric : _defaultWeightImperial;
     _weight = (widget.userProfile.weight ?? defaultWeight).clamp(
@@ -125,13 +110,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       _weightUnit.weightMax,
     );
 
+    // Initialize other fields with safe defaults
+    _selectedGender = widget.userProfile.gender ?? Gender.male;
+    _selectedWeightGoal =
+        widget.userProfile.weightGoal ?? WeightGoal.maintainWeight;
+    _selectedActivityLevel =
+        widget.userProfile.activityLevel ?? ActivityLevel.sedentary;
+    _dailyCalorieGoal = 0;
+    _calorieGoalController = TextEditingController(text: '');
     _dateOfBirth =
         widget.userProfile.dateOfBirth ??
         DateTime.now().subtract(
           const Duration(days: _daysInYear * _defaultAgeYears),
         );
 
-    // Store original values for change detection
+    // Initialize original values
     _originalHeight = _height;
     _originalWeight = _weight;
     _originalDateOfBirth = _dateOfBirth;
@@ -141,6 +134,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _originalHeightUnit = _heightUnit;
     _originalWeightUnit = _weightUnit;
     _originalDailyCalorieGoal = _dailyCalorieGoal;
+
+    // Load saved calorie goal asynchronously
+    _savedGoalFuture = DatabaseService.databaseInterface.getDailyCalorieGoal();
   }
 
   bool _hasChanges() {
@@ -651,53 +647,73 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: _cardContentHorizontalPadding,
-        vertical: _cardContentVerticalPadding,
-      ),
-      leading: Container(
-        padding: const EdgeInsets.all(_iconContainerPadding),
-        decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withValues(
-            alpha: _iconContainerOpacity,
+    return FutureBuilder<int?>(
+      future: _savedGoalFuture,
+      builder: (context, snapshot) {
+        if (snapshot.hasData && !_didApplySavedGoal) {
+          final savedGoal = snapshot.data ?? 0;
+          _didApplySavedGoal = true;
+          _dailyCalorieGoal = savedGoal;
+          _originalDailyCalorieGoal = savedGoal;
+          _calorieGoalController.text =
+              savedGoal > 0 ? savedGoal.toString() : '';
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (!mounted) return;
+            setState(() {});
+          });
+        }
+
+        return ListTile(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: _cardContentHorizontalPadding,
+            vertical: _cardContentVerticalPadding,
           ),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          LucideIcons.flame,
-          color: colorScheme.primary,
-          size: _iconSize,
-        ),
-      ),
-      title: Text(
-        t.home.dailyGoal.dailyCalories,
-        style: TextStyle(fontWeight: FontWeight.w600),
-      ),
-      subtitle: Padding(
-        padding: const EdgeInsets.only(top: _subtitleTopPadding),
-        child: TextFormField(
-          controller: _calorieGoalController,
-          keyboardType: TextInputType.number,
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          decoration: InputDecoration(
-            hintText: '0',
-            suffixText: t.home.dailyGoal.kcal,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 8,
+          leading: Container(
+            padding: const EdgeInsets.all(_iconContainerPadding),
+            decoration: BoxDecoration(
+              color: colorScheme.primaryContainer.withValues(
+                alpha: _iconContainerOpacity,
+              ),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              LucideIcons.flame,
+              color: colorScheme.primary,
+              size: _iconSize,
             ),
           ),
-          onChanged: (value) {
-            final goal = int.tryParse(value) ?? 0;
-            setState(() {
-              _dailyCalorieGoal = goal;
-            });
-          },
-        ),
-      ),
-      isThreeLine: true,
+          title: Text(
+            t.home.dailyGoal.dailyCalories,
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: _subtitleTopPadding),
+            child: TextFormField(
+              controller: _calorieGoalController,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              decoration: InputDecoration(
+                hintText: '0',
+                suffixText: t.home.dailyGoal.kcal,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+              ),
+              onChanged: (value) {
+                final goal = int.tryParse(value) ?? 0;
+                setState(() {
+                  _dailyCalorieGoal = goal;
+                });
+              },
+            ),
+          ),
+          isThreeLine: true,
+        );
+      },
     );
   }
 

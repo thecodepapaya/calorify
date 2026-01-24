@@ -786,7 +786,7 @@ class _TranslationsSettingsSectionsUk implements TranslationsSettingsSectionsEn 
 	@override String get notifications => 'СПОВІЩЕННЯ';
 	@override String get healthConnect => 'ЗВ\'ЯЗОК ЗДОРОВ\'Я';
 	@override String get supportAndLegal => 'ПІДТРИМКА ТА ЮРИДИЧНІ ПИТАННЯ';
-	@override String get about => 'ПРО ДОДАТК';
+	@override String get about => 'ПРО ДОДАТОК';
 	@override String get dangerZone => 'ЗОНИ РИЗИКУ';
 	@override String get developer => 'РОЗРОБНИК';
 }
@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectUk implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Керувати дозволами';
 	@override String get openSettings => 'Відкрити налаштування Health Connect';
 	@override String get requestPermissions => 'Запросити дозволи';
+	@override String get permissionRequestCancelledOrFailed => 'Запит дозволу було скасовано або він не вдався. Будь ласка, спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.';
+	@override String get permissionRequestFailed => 'Не вдалося надіслати запит на дозволи. Будь ласка, спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1764,7 +1767,7 @@ extension on TranslationsUk {
 			'settings.sections.notifications' => 'СПОВІЩЕННЯ',
 			'settings.sections.healthConnect' => 'ЗВ\'ЯЗОК ЗДОРОВ\'Я',
 			'settings.sections.supportAndLegal' => 'ПІДТРИМКА ТА ЮРИДИЧНІ ПИТАННЯ',
-			'settings.sections.about' => 'ПРО ДОДАТК',
+			'settings.sections.about' => 'ПРО ДОДАТОК',
 			'settings.sections.dangerZone' => 'ЗОНИ РИЗИКУ',
 			'settings.sections.developer' => 'РОЗРОБНИК',
 			'settings.editProfile.title' => 'Редагувати профіль',
@@ -1817,6 +1820,9 @@ extension on TranslationsUk {
 			'settings.healthConnect.managePermissions' => 'Керувати дозволами',
 			'settings.healthConnect.openSettings' => 'Відкрити налаштування Health Connect',
 			'settings.healthConnect.requestPermissions' => 'Запросити дозволи',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Запит дозволу було скасовано або він не вдався. Будь ласка, спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Не вдалося надіслати запит на дозволи. Будь ласка, спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Про нас',
 			'settings.about.tagline' => 'Швидка, безкоштовна та орієнтована на конфіденційність обізнаність про калорії',
 			'settings.about.ourStory.title' => 'Наша історія',

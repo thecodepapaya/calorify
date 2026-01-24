@@ -437,7 +437,10 @@
       },
       "managePermissions": "管理權限",
       "openSettings": "打開健康連接設定",
-      "requestPermissions": "請求權限"
+      "requestPermissions": "請求權限",
+      "permissionRequestCancelledOrFailed": "權限請求已被取消或失敗。請再試一次或在 Health Connect 設定中手動授權權限。",
+      "permissionRequestFailed": "無法請求權限。請再試一次或在 Health Connect 設定中手動授權權限。",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "關於",

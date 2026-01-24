@@ -411,8 +411,8 @@
       "title": "Koneksi Kesehatan",
       "subtitle": "Lihat dan kelola izin",
       "unavailable": {
-        "title": "Koneksi Kesehatan Tidak Tersedia",
-        "description": "Koneksi Kesehatan tidak tersedia di perangkat ini. Memerlukan Android 14 atau lebih baru."
+        "title": "Health Connect Tidak Tersedia",
+        "description": "Health Connect tidak tersedia di perangkat ini. Silakan instal Health Connect dari Play Store (Android 9+) atau perbarui ke Android 14+."
       },
       "permissions": {
         "title": "Izin",
@@ -437,7 +437,10 @@
       },
       "managePermissions": "Kelola Izin",
       "openSettings": "Buka Pengaturan Kesehatan Terhubung",
-      "requestPermissions": "Minta Izin"
+      "requestPermissions": "Minta Izin",
+      "permissionRequestCancelledOrFailed": "Permintaan izin dibatalkan atau gagal. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.",
+      "permissionRequestFailed": "Tidak dapat meminta izin. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "Tentang",

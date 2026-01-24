@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectCs implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Spravovat oprávnění';
 	@override String get openSettings => 'Otevřít nastavení Health Connect';
 	@override String get requestPermissions => 'Žádat o oprávnění';
+	@override String get permissionRequestCancelledOrFailed => 'Žádost o oprávnění byla zrušena nebo selhala. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.';
+	@override String get permissionRequestFailed => 'Nepodařilo se vyžádat oprávnění. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableCs implements TranslationsSet
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Zdravotní spojení není k dispozici';
-	@override String get description => 'Zdravotní spojení není na tomto zařízení k dispozici. Vyžaduje Android 14 nebo novější.';
+	@override String get title => 'Health Connect není k dispozici';
+	@override String get description => 'Health Connect není na tomto zařízení k dispozici. Nainstalujte si prosím Health Connect z Obchodu Play (Android 9+) nebo aktualizujte na Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1799,8 +1802,8 @@ extension on TranslationsCs {
 			'settings.developerModeEnabled' => 'Režim vývojáře je povolen!',
 			'settings.healthConnect.title' => 'Zdravotní spojení',
 			'settings.healthConnect.subtitle' => 'Zobrazit a spravovat oprávnění',
-			'settings.healthConnect.unavailable.title' => 'Zdravotní spojení není k dispozici',
-			'settings.healthConnect.unavailable.description' => 'Zdravotní spojení není na tomto zařízení k dispozici. Vyžaduje Android 14 nebo novější.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect není k dispozici',
+			'settings.healthConnect.unavailable.description' => 'Health Connect není na tomto zařízení k dispozici. Nainstalujte si prosím Health Connect z Obchodu Play (Android 9+) nebo aktualizujte na Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Oprávnění',
 			'settings.healthConnect.permissions.description' => 'Následující oprávnění jsou požadována k zajištění integrace zdravotního spojení:',
 			'settings.healthConnect.permissions.granted' => 'Schváleno',
@@ -1817,6 +1820,9 @@ extension on TranslationsCs {
 			'settings.healthConnect.managePermissions' => 'Spravovat oprávnění',
 			'settings.healthConnect.openSettings' => 'Otevřít nastavení Health Connect',
 			'settings.healthConnect.requestPermissions' => 'Žádat o oprávnění',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Žádost o oprávnění byla zrušena nebo selhala. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Nepodařilo se vyžádat oprávnění. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'O nás',
 			'settings.about.tagline' => 'Rychlá, zdarma a s důrazem na soukromí v oblasti kalorické povědomí',
 			'settings.about.ourStory.title' => 'Náš příběh',

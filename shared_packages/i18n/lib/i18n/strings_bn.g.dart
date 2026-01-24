@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectBn implements TranslationsSettingsHealth
 	@override String get managePermissions => 'অনুমতিগুলি পরিচালনা করুন';
 	@override String get openSettings => 'হেলথ সংযোগ সেটিংস খুলুন';
 	@override String get requestPermissions => 'অনুমতি প্রার্থনা করুন';
+	@override String get permissionRequestCancelledOrFailed => 'অনুমতি অনুরোধটি বাতিল করা হয়েছে বা ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন অথবা Health Connect সেটিংসে ম্যানুয়ালি অনুমতি দিন।';
+	@override String get permissionRequestFailed => 'অনুমতি অনুরোধ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন অথবা Health Connect সেটিংসে ম্যানুয়ালি অনুমতি দিন।';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1282,7 +1285,7 @@ class _TranslationsSettingsHealthConnectUnavailableBn implements TranslationsSet
 
 	// Translations
 	@override String get title => 'স্বাস্থ্য সংযোগ অপ্রাপ্য';
-	@override String get description => 'এই ডিভাইসে স্বাস্থ্য সংযোগ উপলব্ধ নেই। এটি Android 14 বা তার পরের সংস্করণে প্রয়োজন।';
+	@override String get description => 'এই ডিভাইসে স্বাস্থ্য সংযোগ উপলব্ধ নেই। অনুগ্রহ করে Play Store থেকে স্বাস্থ্য সংযোগ ইনস্টল করুন (Android 9+) অথবা Android 14+ এ আপডেট করুন।';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1309,7 +1312,7 @@ class _TranslationsSettingsAboutOurStoryBn implements TranslationsSettingsAboutO
 
 	// Translations
 	@override String get title => 'আমাদের গল্প';
-	@override String content({required Object appLabel}) => '${appLabel} একটি সাধারণ হতাশা থেকে জন্মেছে: বেশিরভাগ ক্যালোরি ট্র্যাকিং অ্যাপ অত্যধিক জটিল, স постоян্তা ম্যানুয়াল ইনপুট দাবি করে, উচ্চ সাবস্ক্রিপশন ফি দাবি করে, বা গোপনীয়তায় আপস করে।\n\nএকজন স্বতন্ত্র ডেভেলপার হিসাবে, আমি কিছু সহজ এবং ন্যায়সঙ্গত তৈরি করতে চেয়েছিলাম - একটি অ্যাপ যা AI ব্যবহার করে পরিশ্রম হ্রাস করতে, ব্যবহার করতে দ্রুত এবং বিনামূল্যে থাকতে, এবং আপনার স্বাস্থ্য তথ্যের প্রতি শ্রদ্ধাশীল থাকা।\n\n${appLabel} হল সেই অ্যাপ যা আমি চাইতাম যে বিদ্যমান থাকে: কোনো অ্যাকাউন্ট নেই, কোনো ট্র্যাকিং নেই, কোনো বিজ্ঞাপন নেই - কেবল পরিষ্কার, ব্যবহারিক অন্তর্দৃষ্টি এবং আপনার স্বাস্থ্য লক্ষ্য।';
+	@override String content({required Object appLabel}) => '${appLabel} একটি সাধারণ হতাশা থেকে জন্মেছে: বেশিরভাগ ক্যালোরি ট্র্যাকিং অ্যাপ অত্যধিক জটিল, ক্রমাগত ম্যানুয়াল ইনপুট দাবি করে, উচ্চ সাবস্ক্রিপশন ফি দাবি করে, বা গোপনীয়তায় আপস করে।\n\nএকজন স্বতন্ত্র ডেভেলপার হিসাবে, আমি কিছু সহজ এবং ন্যায়সঙ্গত তৈরি করতে চেয়েছিলাম - একটি অ্যাপ যা AI ব্যবহার করে পরিশ্রম হ্রাস করতে, ব্যবহার করতে দ্রুত এবং বিনামূল্যে থাকতে, এবং আপনার স্বাস্থ্য তথ্যের প্রতি শ্রদ্ধাশীল থাকা।\n\n${appLabel} হল সেই অ্যাপ যা আমি চাইতাম যে বিদ্যমান থাকে: কোনো অ্যাকাউন্ট নেই, কোনো ট্র্যাকিং নেই, কোনো বিজ্ঞাপন নেই - কেবল পরিষ্কার, ব্যবহারিক অন্তর্দৃষ্টি এবং আপনার স্বাস্থ্য লক্ষ্য।';
 }
 
 // Path: settings.about.privacy
@@ -1321,7 +1324,7 @@ class _TranslationsSettingsAboutPrivacyBn implements TranslationsSettingsAboutPr
 	// Translations
 	@override String get title => 'আপনার গোপনীয়তা গুরুত্বপূর্ণ';
 	@override String get description => 'গোপনীয়তা একটি পরবর্তী চিন্তা নয় - এটি একটি ডিজাইন নীতি। এটার বাস্তবে মানে কী:';
-	@override String get noAccounts => 'এলাকা তৈরির প্রয়োজন নেই\nঅ্যাপটি সাথে সাথে ব্যবহার করুন। কোন সাইন আপ, কোন পরিচিতি নেই।';
+	@override String get noAccounts => 'অ্যাকাউন্ট তৈরির প্রয়োজন নেই\nঅ্যাপটি সাথে সাথে ব্যবহার করুন। কোন সাইন আপ, কোন পরিচিতি নেই।';
 	@override String noTracking({required Object appLabel}) => 'কোন ব্যবহারগত ট্র্যাকিং নেই\n${appLabel} আপনার কার্যকলাপ পর্যালোচনা করে না, ব্যবহারের প্রোফাইল তৈরি করে না, বা আপনাকে অ্যাপ বা ওয়েবসাইটের মধ্যে ট্র্যাক করে না।';
 	@override String noAds({required Object appLabel}) => 'ডিজাইন অনুযায়ী বিজ্ঞাপন মুক্ত\n${appLabel} বিজ্ঞাপন বা ডেটা-চালিত মুনাফা ছাড়া কাজ করার জন্য তৈরি।';
 	@override String get noDataSelling => 'কোন ডেটা বিক্রি নেই\nআপনার স্বাস্থ্য তথ্য কখনো বিক্রি হয় না বা তৃতীয় পক্ষের সঙ্গে শেয়ার করা হয় না।';
@@ -1800,7 +1803,7 @@ extension on TranslationsBn {
 			'settings.healthConnect.title' => 'স্বাস্থ্য সংযোগ',
 			'settings.healthConnect.subtitle' => 'অনুমতিগুলি দেখুন এবং পরিচালনা করুন',
 			'settings.healthConnect.unavailable.title' => 'স্বাস্থ্য সংযোগ অপ্রাপ্য',
-			'settings.healthConnect.unavailable.description' => 'এই ডিভাইসে স্বাস্থ্য সংযোগ উপলব্ধ নেই। এটি Android 14 বা তার পরের সংস্করণে প্রয়োজন।',
+			'settings.healthConnect.unavailable.description' => 'এই ডিভাইসে স্বাস্থ্য সংযোগ উপলব্ধ নেই। অনুগ্রহ করে Play Store থেকে স্বাস্থ্য সংযোগ ইনস্টল করুন (Android 9+) অথবা Android 14+ এ আপডেট করুন।',
 			'settings.healthConnect.permissions.title' => 'অনুমতিগুলি',
 			'settings.healthConnect.permissions.description' => 'স্বাস্থ্য সংযোগ সংহতির জন্য নিম্নলিখিত অনুমতিগুলি অনুরোধ করা হচ্ছে:',
 			'settings.healthConnect.permissions.granted' => 'অনুমোদিত',
@@ -1817,13 +1820,16 @@ extension on TranslationsBn {
 			'settings.healthConnect.managePermissions' => 'অনুমতিগুলি পরিচালনা করুন',
 			'settings.healthConnect.openSettings' => 'হেলথ সংযোগ সেটিংস খুলুন',
 			'settings.healthConnect.requestPermissions' => 'অনুমতি প্রার্থনা করুন',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'অনুমতি অনুরোধটি বাতিল করা হয়েছে বা ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন অথবা Health Connect সেটিংসে ম্যানুয়ালি অনুমতি দিন।',
+			'settings.healthConnect.permissionRequestFailed' => 'অনুমতি অনুরোধ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন অথবা Health Connect সেটিংসে ম্যানুয়ালি অনুমতি দিন।',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'আমাদের সম্পর্কে',
 			'settings.about.tagline' => 'দ্রুত, নিখুঁত এবং গোপনীয়তা-প্রথম ক্যালোরি জানা',
 			'settings.about.ourStory.title' => 'আমাদের গল্প',
-			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} একটি সাধারণ হতাশা থেকে জন্মেছে: বেশিরভাগ ক্যালোরি ট্র্যাকিং অ্যাপ অত্যধিক জটিল, স постоян্তা ম্যানুয়াল ইনপুট দাবি করে, উচ্চ সাবস্ক্রিপশন ফি দাবি করে, বা গোপনীয়তায় আপস করে।\n\nএকজন স্বতন্ত্র ডেভেলপার হিসাবে, আমি কিছু সহজ এবং ন্যায়সঙ্গত তৈরি করতে চেয়েছিলাম - একটি অ্যাপ যা AI ব্যবহার করে পরিশ্রম হ্রাস করতে, ব্যবহার করতে দ্রুত এবং বিনামূল্যে থাকতে, এবং আপনার স্বাস্থ্য তথ্যের প্রতি শ্রদ্ধাশীল থাকা।\n\n${appLabel} হল সেই অ্যাপ যা আমি চাইতাম যে বিদ্যমান থাকে: কোনো অ্যাকাউন্ট নেই, কোনো ট্র্যাকিং নেই, কোনো বিজ্ঞাপন নেই - কেবল পরিষ্কার, ব্যবহারিক অন্তর্দৃষ্টি এবং আপনার স্বাস্থ্য লক্ষ্য।',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} একটি সাধারণ হতাশা থেকে জন্মেছে: বেশিরভাগ ক্যালোরি ট্র্যাকিং অ্যাপ অত্যধিক জটিল, ক্রমাগত ম্যানুয়াল ইনপুট দাবি করে, উচ্চ সাবস্ক্রিপশন ফি দাবি করে, বা গোপনীয়তায় আপস করে।\n\nএকজন স্বতন্ত্র ডেভেলপার হিসাবে, আমি কিছু সহজ এবং ন্যায়সঙ্গত তৈরি করতে চেয়েছিলাম - একটি অ্যাপ যা AI ব্যবহার করে পরিশ্রম হ্রাস করতে, ব্যবহার করতে দ্রুত এবং বিনামূল্যে থাকতে, এবং আপনার স্বাস্থ্য তথ্যের প্রতি শ্রদ্ধাশীল থাকা।\n\n${appLabel} হল সেই অ্যাপ যা আমি চাইতাম যে বিদ্যমান থাকে: কোনো অ্যাকাউন্ট নেই, কোনো ট্র্যাকিং নেই, কোনো বিজ্ঞাপন নেই - কেবল পরিষ্কার, ব্যবহারিক অন্তর্দৃষ্টি এবং আপনার স্বাস্থ্য লক্ষ্য।',
 			'settings.about.privacy.title' => 'আপনার গোপনীয়তা গুরুত্বপূর্ণ',
 			'settings.about.privacy.description' => 'গোপনীয়তা একটি পরবর্তী চিন্তা নয় - এটি একটি ডিজাইন নীতি। এটার বাস্তবে মানে কী:',
-			'settings.about.privacy.noAccounts' => 'এলাকা তৈরির প্রয়োজন নেই\nঅ্যাপটি সাথে সাথে ব্যবহার করুন। কোন সাইন আপ, কোন পরিচিতি নেই।',
+			'settings.about.privacy.noAccounts' => 'অ্যাকাউন্ট তৈরির প্রয়োজন নেই\nঅ্যাপটি সাথে সাথে ব্যবহার করুন। কোন সাইন আপ, কোন পরিচিতি নেই।',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'কোন ব্যবহারগত ট্র্যাকিং নেই\n${appLabel} আপনার কার্যকলাপ পর্যালোচনা করে না, ব্যবহারের প্রোফাইল তৈরি করে না, বা আপনাকে অ্যাপ বা ওয়েবসাইটের মধ্যে ট্র্যাক করে না।',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ডিজাইন অনুযায়ী বিজ্ঞাপন মুক্ত\n${appLabel} বিজ্ঞাপন বা ডেটা-চালিত মুনাফা ছাড়া কাজ করার জন্য তৈরি।',
 			'settings.about.privacy.noDataSelling' => 'কোন ডেটা বিক্রি নেই\nআপনার স্বাস্থ্য তথ্য কখনো বিক্রি হয় না বা তৃতীয় পক্ষের সঙ্গে শেয়ার করা হয় না।',

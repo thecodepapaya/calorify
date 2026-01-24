@@ -60,9 +60,10 @@ ${t.settings.sendFeedback.uid}: $uid''';
       query: 'subject=$subject&body=$encodedBody',
     );
 
-    await launchUrl(emailLaunchUri);
-    return true;
+    final launched = await launchUrl(emailLaunchUri);
+    return launched;
   } catch (e) {
+    // Consider logging: debugPrint('Failed to launch feedback email: $e');
     return false;
   }
 }

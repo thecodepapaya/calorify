@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectHe implements TranslationsSettingsHealth
 	@override String get managePermissions => 'ניהול הרשאות';
 	@override String get openSettings => 'פתח את הגדרות בריאות קונקט';
 	@override String get requestPermissions => 'בקש הרשאות';
+	@override String get permissionRequestCancelledOrFailed => 'בקשת ההרשאות בוטלה או נכשלה. נסו שוב או העניקו הרשאות ידנית בהגדרות Health Connect.';
+	@override String get permissionRequestFailed => 'לא ניתן לבקש הרשאות. נסו שוב או העניקו הרשאות ידנית בהגדרות Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableHe implements TranslationsSet
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'חיבור בריאות לא זמין';
-	@override String get description => 'חיבור בריאות אינו זמין במכשיר זה. יש צורך בגרסה 14 של אנדרואיד או מאוחר יותר.';
+	@override String get title => 'Health Connect לא זמין';
+	@override String get description => 'Health Connect אינו זמין במכשיר זה. נא להתקין את Health Connect מחנות Play ‏(Android 9+) או לעדכן ל-Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1799,8 +1802,8 @@ extension on TranslationsHe {
 			'settings.developerModeEnabled' => 'מצב מפתח הופעל!',
 			'settings.healthConnect.title' => 'חיבור בריאות',
 			'settings.healthConnect.subtitle' => 'הצג וניהול הרשאות',
-			'settings.healthConnect.unavailable.title' => 'חיבור בריאות לא זמין',
-			'settings.healthConnect.unavailable.description' => 'חיבור בריאות אינו זמין במכשיר זה. יש צורך בגרסה 14 של אנדרואיד או מאוחר יותר.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect לא זמין',
+			'settings.healthConnect.unavailable.description' => 'Health Connect אינו זמין במכשיר זה. נא להתקין את Health Connect מחנות Play ‏(Android 9+) או לעדכן ל-Android 14+.',
 			'settings.healthConnect.permissions.title' => 'הרשאות',
 			'settings.healthConnect.permissions.description' => 'ההרשאות הבאות נדרשות כדי לספק אינטגרציה עם חיבור בריאות:',
 			'settings.healthConnect.permissions.granted' => 'ניתן',
@@ -1817,6 +1820,9 @@ extension on TranslationsHe {
 			'settings.healthConnect.managePermissions' => 'ניהול הרשאות',
 			'settings.healthConnect.openSettings' => 'פתח את הגדרות בריאות קונקט',
 			'settings.healthConnect.requestPermissions' => 'בקש הרשאות',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'בקשת ההרשאות בוטלה או נכשלה. נסו שוב או העניקו הרשאות ידנית בהגדרות Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'לא ניתן לבקש הרשאות. נסו שוב או העניקו הרשאות ידנית בהגדרות Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'אודות',
 			'settings.about.tagline' => 'מודעות קלוריות מהירה, חינמית ופוקחת עיניים על פרטיות',
 			'settings.about.ourStory.title' => 'הסיפור שלנו',

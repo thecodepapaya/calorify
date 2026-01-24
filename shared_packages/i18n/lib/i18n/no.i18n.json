@@ -411,8 +411,8 @@
       "title": "Helsekontakt",
       "subtitle": "Vis og administrer tillatelser",
       "unavailable": {
-        "title": "Helsekontakt utilgjengelig",
-        "description": "Helsekontakt er ikke tilgjengelig på denne enheten. Det krever Android 14 eller nyere."
+        "title": "Health Connect utilgjengelig",
+        "description": "Health Connect er ikke tilgjengelig på denne enheten. Installer Health Connect fra Play Store (Android 9+) eller oppdater til Android 14+."
       },
       "permissions": {
         "title": "Tillatelser",
@@ -437,7 +437,10 @@
       },
       "managePermissions": "Administrer tillatelser",
       "openSettings": "Åpne helsetilkoblingsinnstillinger",
-      "requestPermissions": "Be om tillatelser"
+      "requestPermissions": "Be om tillatelser",
+      "permissionRequestCancelledOrFailed": "Forespørselen om tillatelser ble avbrutt eller mislyktes. Prøv igjen eller gi tillatelser manuelt i Health Connect-innstillingene.",
+      "permissionRequestFailed": "Kunne ikke be om tillatelser. Prøv igjen eller gi tillatelser manuelt i Health Connect-innstillingene.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "Om",

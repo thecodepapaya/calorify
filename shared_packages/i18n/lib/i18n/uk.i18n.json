@@ -355,7 +355,7 @@
       "notifications": "СПОВІЩЕННЯ",
       "healthConnect": "ЗВ'ЯЗОК ЗДОРОВ'Я",
       "supportAndLegal": "ПІДТРИМКА ТА ЮРИДИЧНІ ПИТАННЯ",
-      "about": "ПРО ДОДАТК",
+      "about": "ПРО ДОДАТОК",
       "dangerZone": "ЗОНИ РИЗИКУ",
       "developer": "РОЗРОБНИК"
     },
@@ -437,7 +437,10 @@
       },
       "managePermissions": "Керувати дозволами",
       "openSettings": "Відкрити налаштування Health Connect",
-      "requestPermissions": "Запросити дозволи"
+      "requestPermissions": "Запросити дозволи",
+      "permissionRequestCancelledOrFailed": "Запит дозволу було скасовано або він не вдався. Будь ласка, спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.",
+      "permissionRequestFailed": "Не вдалося надіслати запит на дозволи. Будь ласка, спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "Про нас",

@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectMs implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Urus Kebenaran';
 	@override String get openSettings => 'Buka Tetapan Health Connect';
 	@override String get requestPermissions => 'Minta Kebenaran';
+	@override String get permissionRequestCancelledOrFailed => 'Permintaan kebenaran dibatalkan atau gagal. Sila cuba lagi atau berikan kebenaran secara manual dalam tetapan Health Connect.';
+	@override String get permissionRequestFailed => 'Tidak dapat meminta kebenaran. Sila cuba lagi atau berikan kebenaran secara manual dalam tetapan Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableMs implements TranslationsSet
 	final TranslationsMs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Sambungan Kesihatan Tidak Tersedia';
-	@override String get description => 'Sambungan Kesihatan tidak tersedia pada peranti ini. Ia memerlukan Android 14 atau lebih baru.';
+	@override String get title => 'Health Connect Tidak Tersedia';
+	@override String get description => 'Health Connect tidak tersedia pada peranti ini. Sila pasang Health Connect dari Play Store (Android 9+) atau kemas kini ke Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1799,8 +1802,8 @@ extension on TranslationsMs {
 			'settings.developerModeEnabled' => 'Mod pengembang diaktifkan!',
 			'settings.healthConnect.title' => 'Sambungan Kesihatan',
 			'settings.healthConnect.subtitle' => 'Lihat dan urus kebenaran',
-			'settings.healthConnect.unavailable.title' => 'Sambungan Kesihatan Tidak Tersedia',
-			'settings.healthConnect.unavailable.description' => 'Sambungan Kesihatan tidak tersedia pada peranti ini. Ia memerlukan Android 14 atau lebih baru.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect Tidak Tersedia',
+			'settings.healthConnect.unavailable.description' => 'Health Connect tidak tersedia pada peranti ini. Sila pasang Health Connect dari Play Store (Android 9+) atau kemas kini ke Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Kebenaran',
 			'settings.healthConnect.permissions.description' => 'Kebenaran berikut diminta untuk menyediakan integrasi Sambungan Kesihatan:',
 			'settings.healthConnect.permissions.granted' => 'Diberikan',
@@ -1817,6 +1820,9 @@ extension on TranslationsMs {
 			'settings.healthConnect.managePermissions' => 'Urus Kebenaran',
 			'settings.healthConnect.openSettings' => 'Buka Tetapan Health Connect',
 			'settings.healthConnect.requestPermissions' => 'Minta Kebenaran',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Permintaan kebenaran dibatalkan atau gagal. Sila cuba lagi atau berikan kebenaran secara manual dalam tetapan Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Tidak dapat meminta kebenaran. Sila cuba lagi atau berikan kebenaran secara manual dalam tetapan Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Tentang',
 			'settings.about.tagline' => 'Kesedaran kalori yang cepat, percuma, dan mengutamakan privasi',
 			'settings.about.ourStory.title' => 'Kisah Kami',

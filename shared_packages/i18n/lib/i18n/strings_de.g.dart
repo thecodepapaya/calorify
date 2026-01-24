@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectDe implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Berechtigungen verwalten';
 	@override String get openSettings => 'Öffne die Health Connect-Einstellungen';
 	@override String get requestPermissions => 'Berechtigungen anfordern';
+	@override String get permissionRequestCancelledOrFailed => 'Die Berechtigungsanfrage wurde abgebrochen oder ist fehlgeschlagen. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect-Einstellungen.';
+	@override String get permissionRequestFailed => 'Berechtigungen konnten nicht angefordert werden. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect-Einstellungen.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -925,7 +928,7 @@ class _TranslationsSettingsAboutDe implements TranslationsSettingsAboutEn {
 
 	// Translations
 	@override String get title => 'Über';
-	@override String get tagline => 'Schnelle, kostenlose und datenschutzorientierte Kalorienbewusstsein';
+	@override String get tagline => 'Schnelle, kostenlose und datenschutzorientierte Kalorienzählung';
 	@override late final _TranslationsSettingsAboutOurStoryDe ourStory = _TranslationsSettingsAboutOurStoryDe._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyDe privacy = _TranslationsSettingsAboutPrivacyDe._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperDe developer = _TranslationsSettingsAboutDeveloperDe._(_root);
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableDe implements TranslationsSet
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Gesundheitsverbindung nicht verfügbar';
-	@override String get description => 'Die Gesundheitsverbindung ist auf diesem Gerät nicht verfügbar. Sie erfordert Android 14 oder höher.';
+	@override String get title => 'Health Connect nicht verfügbar';
+	@override String get description => 'Health Connect ist auf diesem Gerät nicht verfügbar. Bitte installiere Health Connect aus dem Play Store (Android 9+) oder aktualisiere auf Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1337,7 +1340,7 @@ class _TranslationsSettingsAboutDeveloperDe implements TranslationsSettingsAbout
 
 	// Translations
 	@override String get title => 'Entwickelt von einem Solo-Entwickler';
-	@override String description({required Object appLabel}) => '${appLabel} wird von einem einzelnen solo-Entwickler entwickelt und gewartet, der sich darauf konzentriert, ruhige, datenschutzfreundliche Gesundheitssoftware zu erstellen.\n\nFeedback wird persönlich gelesen und hilft, die Richtung der App zu gestalten.';
+	@override String description({required Object appLabel}) => '${appLabel} wird von einem einzelnen Entwickler entwickelt und gewartet, der sich darauf konzentriert, ruhige, datenschutzfreundliche Gesundheitssoftware zu erstellen.\n\nFeedback wird persönlich gelesen und hilft, die Richtung der App zu gestalten.';
 	@override String get website => 'Website';
 	@override String get email => 'E-Mail';
 }
@@ -1799,8 +1802,8 @@ extension on TranslationsDe {
 			'settings.developerModeEnabled' => 'Entwicklermodus aktiviert!',
 			'settings.healthConnect.title' => 'Gesundheitsverbindung',
 			'settings.healthConnect.subtitle' => 'Berechtigungen anzeigen und verwalten',
-			'settings.healthConnect.unavailable.title' => 'Gesundheitsverbindung nicht verfügbar',
-			'settings.healthConnect.unavailable.description' => 'Die Gesundheitsverbindung ist auf diesem Gerät nicht verfügbar. Sie erfordert Android 14 oder höher.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect nicht verfügbar',
+			'settings.healthConnect.unavailable.description' => 'Health Connect ist auf diesem Gerät nicht verfügbar. Bitte installiere Health Connect aus dem Play Store (Android 9+) oder aktualisiere auf Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Berechtigungen',
 			'settings.healthConnect.permissions.description' => 'Die folgenden Berechtigungen werden angefordert, um die Integration der Gesundheitsverbindung bereitzustellen:',
 			'settings.healthConnect.permissions.granted' => 'Erteilt',
@@ -1817,8 +1820,11 @@ extension on TranslationsDe {
 			'settings.healthConnect.managePermissions' => 'Berechtigungen verwalten',
 			'settings.healthConnect.openSettings' => 'Öffne die Health Connect-Einstellungen',
 			'settings.healthConnect.requestPermissions' => 'Berechtigungen anfordern',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Die Berechtigungsanfrage wurde abgebrochen oder ist fehlgeschlagen. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect-Einstellungen.',
+			'settings.healthConnect.permissionRequestFailed' => 'Berechtigungen konnten nicht angefordert werden. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect-Einstellungen.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Über',
-			'settings.about.tagline' => 'Schnelle, kostenlose und datenschutzorientierte Kalorienbewusstsein',
+			'settings.about.tagline' => 'Schnelle, kostenlose und datenschutzorientierte Kalorienzählung',
 			'settings.about.ourStory.title' => 'Unsere Geschichte',
 			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} entstand aus einer einfachen Frustration: Die meisten Kalorienzähler-Apps sind entweder übermäßig kompliziert, verlangen ständige manuelle Eingaben, erheben hohe Abonnementsgebühren oder gehen mit der Privatsphäre um.\n\nAls solo-Entwickler wollte ich etwas Einfacheres und Faireres schaffen — eine App, die KI nutzt, um den Aufwand zu reduzieren, schnell und kostenlos ist und Ihre Gesundheitsdaten respektiert.\n\n${appLabel} ist die App, die ich mir gewünscht hätte: keine Konten, kein Tracking, keine Werbung — nur klare, praktische Einblicke und Ihre Gesundheitsziele.',
 			'settings.about.privacy.title' => 'Ihre Privatsphäre zählt',
@@ -1830,7 +1836,7 @@ extension on TranslationsDe {
 			'settings.about.privacy.localStorage' => 'Lokale Speicherung zuerst\nIhre Daten bleiben auf Ihrem Gerät.',
 			'settings.about.privacy.privacyPolicy' => 'Datenschutzbestimmungen',
 			'settings.about.developer.title' => 'Entwickelt von einem Solo-Entwickler',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} wird von einem einzelnen solo-Entwickler entwickelt und gewartet, der sich darauf konzentriert, ruhige, datenschutzfreundliche Gesundheitssoftware zu erstellen.\n\nFeedback wird persönlich gelesen und hilft, die Richtung der App zu gestalten.',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} wird von einem einzelnen Entwickler entwickelt und gewartet, der sich darauf konzentriert, ruhige, datenschutzfreundliche Gesundheitssoftware zu erstellen.\n\nFeedback wird persönlich gelesen und hilft, die Richtung der App zu gestalten.',
 			'settings.about.developer.website' => 'Website',
 			'settings.about.developer.email' => 'E-Mail',
 			'settings.about.feedback.title' => ({required Object appLabel}) => 'Gefällt Ihnen ${appLabel}?',

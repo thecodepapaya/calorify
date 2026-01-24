@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectTh implements TranslationsSettingsHealth
 	@override String get managePermissions => 'จัดการการอนุญาต';
 	@override String get openSettings => 'เปิดการตั้งค่า Health Connect';
 	@override String get requestPermissions => 'ขออนุญาต';
+	@override String get permissionRequestCancelledOrFailed => 'คำขออนุญาตถูกยกเลิกหรือไม่สำเร็จ โปรดลองอีกครั้งหรืออนุญาตการเข้าถึงด้วยตนเองในการตั้งค่า Health Connect';
+	@override String get permissionRequestFailed => 'ไม่สามารถขออนุญาตได้ โปรดลองอีกครั้งหรืออนุญาตการเข้าถึงด้วยตนเองในการตั้งค่า Health Connect';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1309,7 +1312,7 @@ class _TranslationsSettingsAboutOurStoryTh implements TranslationsSettingsAboutO
 
 	// Translations
 	@override String get title => 'เรื่องราวของเรา';
-	@override String content({required Object appLabel}) => '${appLabel} ก่อตั้งขึ้นจากความไม่พอใจอย่างง่ายๆ: แอปติดตามแคลอรีส่วนใหญ่จะซับซ้อนเกินไป ต้องการการป้อนข้อมูลด้วยตนเองอย่างต่อเนื่อง เรียกเก็บค่าบริการสมาชิกสูง หรือประนีประนอมกับความเป็นส่วนตัว。\n\nในฐานะนักพัฒนาอินดี้ ฉันต้องการสร้างบางสิ่งที่เรียบง่ายและยุติธรรม — แอปที่ใช้ AI เพื่อลดความพยายาม ใช้งานได้รวดเร็วและฟรี และเคารพข้อมูลสุขภาพของคุณ。\n\n${appLabel} คือแอปที่ฉันหวังว่าจะมีอยู่: ไม่มีบัญชี ไม่มีการติดตาม ไม่มีโฆษณา — แค่ข้อมูลที่ชัดเจนและประโยชน์ใช้สอย และเป้าหมายด้านสุขภาพของคุณ';
+	@override String content({required Object appLabel}) => '${appLabel} ก่อตั้งขึ้นจากความไม่พอใจอย่างง่ายๆ: แอปติดตามแคลอรีส่วนใหญ่จะซับซ้อนเกินไป ต้องการการป้อนข้อมูลด้วยตนเองอย่างต่อเนื่อง เรียกเก็บค่าบริการสมาชิกสูง หรือประนีประนอมกับความเป็นส่วนตัว\n\nในฐานะนักพัฒนาอินดี้ ฉันต้องการสร้างบางสิ่งที่เรียบง่ายและยุติธรรม — แอปที่ใช้ AI เพื่อลดความพยายาม ใช้งานได้รวดเร็วและฟรี และเคารพข้อมูลสุขภาพของคุณ\n\n${appLabel} คือแอปที่ฉันหวังว่าจะมีอยู่: ไม่มีบัญชี ไม่มีการติดตาม ไม่มีโฆษณา — แค่ข้อมูลที่ชัดเจนและประโยชน์ใช้สอย และเป้าหมายด้านสุขภาพของคุณ';
 }
 
 // Path: settings.about.privacy
@@ -1337,7 +1340,7 @@ class _TranslationsSettingsAboutDeveloperTh implements TranslationsSettingsAbout
 
 	// Translations
 	@override String get title => 'สร้างโดยนักพัฒนาอินดี้';
-	@override String description({required Object appLabel}) => '${appLabel} ถูกสร้างและดูแลโดยนักพัฒนาอินดี้คนเดียวที่มุ่งเน้นการสร้างซอฟต์แวร์สุขภาพที่สงบและเคารพความเป็นส่วนตัว。\n\nข้อเสนอแนะแต่ละข้อความจะอ่านเป็นการส่วนตัวและช่วยกำหนดทิศทางของแอป';
+	@override String description({required Object appLabel}) => '${appLabel} ถูกสร้างและดูแลโดยนักพัฒนาอินดี้คนเดียวที่มุ่งเน้นการสร้างซอฟต์แวร์สุขภาพที่สงบและเคารพความเป็นส่วนตัว\n\nข้อเสนอแนะแต่ละข้อความจะอ่านเป็นการส่วนตัวและช่วยกำหนดทิศทางของแอป';
 	@override String get website => 'เว็บไซต์';
 	@override String get email => 'อีเมล';
 }
@@ -1817,10 +1820,13 @@ extension on TranslationsTh {
 			'settings.healthConnect.managePermissions' => 'จัดการการอนุญาต',
 			'settings.healthConnect.openSettings' => 'เปิดการตั้งค่า Health Connect',
 			'settings.healthConnect.requestPermissions' => 'ขออนุญาต',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'คำขออนุญาตถูกยกเลิกหรือไม่สำเร็จ โปรดลองอีกครั้งหรืออนุญาตการเข้าถึงด้วยตนเองในการตั้งค่า Health Connect',
+			'settings.healthConnect.permissionRequestFailed' => 'ไม่สามารถขออนุญาตได้ โปรดลองอีกครั้งหรืออนุญาตการเข้าถึงด้วยตนเองในการตั้งค่า Health Connect',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'เกี่ยวกับ',
 			'settings.about.tagline' => 'การตระหนักเรื่องแคลอรีที่รวดเร็ว ฟรี และให้ความสำคัญกับความเป็นส่วนตัว',
 			'settings.about.ourStory.title' => 'เรื่องราวของเรา',
-			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} ก่อตั้งขึ้นจากความไม่พอใจอย่างง่ายๆ: แอปติดตามแคลอรีส่วนใหญ่จะซับซ้อนเกินไป ต้องการการป้อนข้อมูลด้วยตนเองอย่างต่อเนื่อง เรียกเก็บค่าบริการสมาชิกสูง หรือประนีประนอมกับความเป็นส่วนตัว。\n\nในฐานะนักพัฒนาอินดี้ ฉันต้องการสร้างบางสิ่งที่เรียบง่ายและยุติธรรม — แอปที่ใช้ AI เพื่อลดความพยายาม ใช้งานได้รวดเร็วและฟรี และเคารพข้อมูลสุขภาพของคุณ。\n\n${appLabel} คือแอปที่ฉันหวังว่าจะมีอยู่: ไม่มีบัญชี ไม่มีการติดตาม ไม่มีโฆษณา — แค่ข้อมูลที่ชัดเจนและประโยชน์ใช้สอย และเป้าหมายด้านสุขภาพของคุณ',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} ก่อตั้งขึ้นจากความไม่พอใจอย่างง่ายๆ: แอปติดตามแคลอรีส่วนใหญ่จะซับซ้อนเกินไป ต้องการการป้อนข้อมูลด้วยตนเองอย่างต่อเนื่อง เรียกเก็บค่าบริการสมาชิกสูง หรือประนีประนอมกับความเป็นส่วนตัว\n\nในฐานะนักพัฒนาอินดี้ ฉันต้องการสร้างบางสิ่งที่เรียบง่ายและยุติธรรม — แอปที่ใช้ AI เพื่อลดความพยายาม ใช้งานได้รวดเร็วและฟรี และเคารพข้อมูลสุขภาพของคุณ\n\n${appLabel} คือแอปที่ฉันหวังว่าจะมีอยู่: ไม่มีบัญชี ไม่มีการติดตาม ไม่มีโฆษณา — แค่ข้อมูลที่ชัดเจนและประโยชน์ใช้สอย และเป้าหมายด้านสุขภาพของคุณ',
 			'settings.about.privacy.title' => 'ความเป็นส่วนตัวของคุณมีความสำคัญ',
 			'settings.about.privacy.description' => 'ความเป็นส่วนตัวไม่ใช่เรื่องหลัง — แต่มันคือหลักการออกแบบ นี่คือสิ่งที่หมายถึงในทางปฏิบัติ:',
 			'settings.about.privacy.noAccounts' => 'ไม่ต้องการบัญชี\nใช้งานแอปได้ทันที ไม่มีการสมัคร ไม่มีตัวตน',
@@ -1830,7 +1836,7 @@ extension on TranslationsTh {
 			'settings.about.privacy.localStorage' => 'การจัดเก็บข้อมูลแบบท้องถิ่น\nข้อมูลของคุณจะอยู่ในอุปกรณ์ของคุณ',
 			'settings.about.privacy.privacyPolicy' => 'นโยบายความเป็นส่วนตัว',
 			'settings.about.developer.title' => 'สร้างโดยนักพัฒนาอินดี้',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} ถูกสร้างและดูแลโดยนักพัฒนาอินดี้คนเดียวที่มุ่งเน้นการสร้างซอฟต์แวร์สุขภาพที่สงบและเคารพความเป็นส่วนตัว。\n\nข้อเสนอแนะแต่ละข้อความจะอ่านเป็นการส่วนตัวและช่วยกำหนดทิศทางของแอป',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} ถูกสร้างและดูแลโดยนักพัฒนาอินดี้คนเดียวที่มุ่งเน้นการสร้างซอฟต์แวร์สุขภาพที่สงบและเคารพความเป็นส่วนตัว\n\nข้อเสนอแนะแต่ละข้อความจะอ่านเป็นการส่วนตัวและช่วยกำหนดทิศทางของแอป',
 			'settings.about.developer.website' => 'เว็บไซต์',
 			'settings.about.developer.email' => 'อีเมล',
 			'settings.about.feedback.title' => ({required Object appLabel}) => 'ชอบ ${appLabel} ใช่ไหม?',

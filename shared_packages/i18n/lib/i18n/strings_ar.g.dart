@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectAr implements TranslationsSettingsHealth
 	@override String get managePermissions => 'إدارة الأذونات';
 	@override String get openSettings => 'فتح إعدادات الاتصال الصحي';
 	@override String get requestPermissions => 'طلب الأذونات';
+	@override String get permissionRequestCancelledOrFailed => 'تم إلغاء طلب الأذونات أو فشل. يرجى المحاولة مرة أخرى أو منح الأذونات يدويًا في إعدادات Health Connect.';
+	@override String get permissionRequestFailed => 'تعذر طلب الأذونات. يرجى المحاولة مرة أخرى أو منح الأذونات يدويًا في إعدادات Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableAr implements TranslationsSet
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'الاتصال الصحي غير متاح';
-	@override String get description => 'الاتصال الصحي غير متاح على هذا الجهاز. يتطلب Android 14 أو أحدث.';
+	@override String get title => 'Health Connect غير متاح';
+	@override String get description => 'Health Connect غير متاح على هذا الجهاز. يُرجى تثبيت Health Connect من متجر Play ‏(Android 9+) أو التحديث إلى Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1799,8 +1802,8 @@ extension on TranslationsAr {
 			'settings.developerModeEnabled' => 'تم تفعيل وضع المطور!',
 			'settings.healthConnect.title' => 'الاتصال الصحي',
 			'settings.healthConnect.subtitle' => 'عرض وإدارة الأذونات',
-			'settings.healthConnect.unavailable.title' => 'الاتصال الصحي غير متاح',
-			'settings.healthConnect.unavailable.description' => 'الاتصال الصحي غير متاح على هذا الجهاز. يتطلب Android 14 أو أحدث.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect غير متاح',
+			'settings.healthConnect.unavailable.description' => 'Health Connect غير متاح على هذا الجهاز. يُرجى تثبيت Health Connect من متجر Play ‏(Android 9+) أو التحديث إلى Android 14+.',
 			'settings.healthConnect.permissions.title' => 'الأذونات',
 			'settings.healthConnect.permissions.description' => 'الأذونات التالية مطلوبة لتوفير تكامل الاتصال الصحي:',
 			'settings.healthConnect.permissions.granted' => 'ممنوحة',
@@ -1817,6 +1820,9 @@ extension on TranslationsAr {
 			'settings.healthConnect.managePermissions' => 'إدارة الأذونات',
 			'settings.healthConnect.openSettings' => 'فتح إعدادات الاتصال الصحي',
 			'settings.healthConnect.requestPermissions' => 'طلب الأذونات',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'تم إلغاء طلب الأذونات أو فشل. يرجى المحاولة مرة أخرى أو منح الأذونات يدويًا في إعدادات Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'تعذر طلب الأذونات. يرجى المحاولة مرة أخرى أو منح الأذونات يدويًا في إعدادات Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'حول',
 			'settings.about.tagline' => 'وعي بالسعرات الحرارية بشكل سريع ومجاني واهتمام بالخصوصية',
 			'settings.about.ourStory.title' => 'قصتنا',

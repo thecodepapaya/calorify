@@ -61,8 +61,10 @@ Future<bool> _openPlayStoreListing(String packageName) async {
     );
 
     if (await canLaunchUrl(playStoreUrl)) {
-      await launchUrl(playStoreUrl, mode: LaunchMode.externalApplication);
-      return true;
+      return await launchUrl(
+        playStoreUrl,
+        mode: LaunchMode.externalApplication,
+      );
     }
     return false;
   } catch (e) {

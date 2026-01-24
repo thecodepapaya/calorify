@@ -53,7 +53,7 @@ class _GrassState extends State<Grass> {
             Positioned(
               left: -16, // Overflow 16px on left
               right: -16, // Overflow 16px on right
-              bottom: -20, // Overflow 12px on bottom
+              bottom: -20, // Overflow 20px on bottom
               child: ColorFiltered(
                 colorFilter: ColorFilter.mode(
                   colorScheme.primary,
@@ -62,7 +62,7 @@ class _GrassState extends State<Grass> {
                 child: SvgPicture.asset(
                   'assets/images/grass.svg',
                   width: double.infinity,
-                  height: widget.height + 12, // Add bottom overflow to height
+                  height: widget.height + 20, // Add bottom overflow to height
                   fit: BoxFit.cover,
                 ),
               ),

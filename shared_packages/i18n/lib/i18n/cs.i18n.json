@@ -411,8 +411,8 @@
       "title": "Zdravotní spojení",
       "subtitle": "Zobrazit a spravovat oprávnění",
       "unavailable": {
-        "title": "Zdravotní spojení není k dispozici",
-        "description": "Zdravotní spojení není na tomto zařízení k dispozici. Vyžaduje Android 14 nebo novější."
+        "title": "Health Connect není k dispozici",
+        "description": "Health Connect není na tomto zařízení k dispozici. Nainstalujte si prosím Health Connect z Obchodu Play (Android 9+) nebo aktualizujte na Android 14+."
       },
       "permissions": {
         "title": "Oprávnění",
@@ -437,7 +437,10 @@
       },
       "managePermissions": "Spravovat oprávnění",
       "openSettings": "Otevřít nastavení Health Connect",
-      "requestPermissions": "Žádat o oprávnění"
+      "requestPermissions": "Žádat o oprávnění",
+      "permissionRequestCancelledOrFailed": "Žádost o oprávnění byla zrušena nebo selhala. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.",
+      "permissionRequestFailed": "Nepodařilo se vyžádat oprávnění. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "O nás",

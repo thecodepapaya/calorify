@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectGu implements TranslationsSettingsHealth
 	@override String get managePermissions => 'પરવાનગીઓ સંચાલિત કરો';
 	@override String get openSettings => 'હેલ્ઠ કનેક્ટ સેટિંગ્સ ખોલો';
 	@override String get requestPermissions => 'પરવાનગીઓ માગો';
+	@override String get permissionRequestCancelledOrFailed => 'પરવાનગીઓ માટેની વિનંતી રદ થઈ ગઈ અથવા નિષ્ફળ ગઈ. કૃપા કરીને ફરી પ્રયાસ કરો અથવા Health Connect સેટિંગ્સમાં પરવાનગીઓ હાથેથી આપો.';
+	@override String get permissionRequestFailed => 'પરવાનગીઓ માટે વિનંતી કરી શકાઈ નથી. કૃપા કરીને ફરી પ્રયાસ કરો અથવા Health Connect સેટિંગ્સમાં પરવાનગીઓ હાથેથી આપો.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -925,7 +928,7 @@ class _TranslationsSettingsAboutGu implements TranslationsSettingsAboutEn {
 
 	// Translations
 	@override String get title => 'અમારા વિશે';
-	@override String get tagline => 'ઝલદી, ન 무료, અને રક્ષણ આપનાર કેલોરી અવગણના';
+	@override String get tagline => 'ઝડપી, મફત, અને ગોપનીયતા-રક્ષિત કેલોરી ટ્રેકિંગ';
 	@override late final _TranslationsSettingsAboutOurStoryGu ourStory = _TranslationsSettingsAboutOurStoryGu._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyGu privacy = _TranslationsSettingsAboutPrivacyGu._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperGu developer = _TranslationsSettingsAboutDeveloperGu._(_root);
@@ -1036,7 +1039,7 @@ class _TranslationsDebugSectionsGu implements TranslationsDebugSectionsEn {
 
 	// Translations
 	@override String get notifications => 'યાદદહન';
-	@override String get healthConnect => 'હેલ્થ કનેક્ટ';
+	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get appInfo => 'એપ માહિતી';
 }
 
@@ -1282,7 +1285,7 @@ class _TranslationsSettingsHealthConnectUnavailableGu implements TranslationsSet
 
 	// Translations
 	@override String get title => 'હેલ્થ કનેક્ટ ઉપલબ્ધ નથી';
-	@override String get description => 'આ ઉપકરણ પર હેલ્થ કનેક્ટ ઉપલબ્ધ નથી. આને Android 14 અથવા વધુ આવશ્યક છે.';
+	@override String get description => 'આ ઉપકરણ પર હેલ્થ કનેક્ટ ઉપલબ્ધ નથી. કૃપા કરીને Play Store પરથી હેલ્થ કનેક્ટ ઇન્સ્ટોલ કરો (Android 9+) અથવા Android 14+ પર અપડેટ કરો.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1337,7 +1340,7 @@ class _TranslationsSettingsAboutDeveloperGu implements TranslationsSettingsAbout
 
 	// Translations
 	@override String get title => 'એક ઇન્ડી ડેવલપર દ્વારા બનાવેલ';
-	@override String description({required Object appLabel}) => '${appLabel} એ એક જ ઇન્ડી ડેવલપર દ્વારા બનાવવામાં આવેલ છે જે શાંતિदાયી, ગોપનીયતા માન્ય આરોગ્ય સોફ્ટવેર બનાવવામાં ધ્યાન કેન્દ્રિત કરે છે.\n\nપ્રતિસાદ વ્યક્તિગત રીતે વાંચવામાં આવે છે અને એપ્લિકેશનની દિશામાં મદદ કરે છે.';
+	@override String description({required Object appLabel}) => '${appLabel} એ એક જ ઇન્ડી ડેવલપર દ્વારા બનાવવામાં આવેલ છે જે શાંતિદાયક, ગોપનીયતા માન્ય આરોગ્ય સોફ્ટવેર બનાવવામાં ધ્યાન કેન્દ્રિત કરે છે.\n\nપ્રતિસાદ વ્યક્તિગત રીતે વાંચવામાં આવે છે અને એપ્લિકેશનની દિશામાં મદદ કરે છે.';
 	@override String get website => 'વેબસાઇટ';
 	@override String get email => 'ઇમેલ';
 }
@@ -1462,7 +1465,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeGu implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'ટીડઈઈ';
-	@override String get description => 'કુલ દૈનિક ઊર્જા વ્યય (ટીડઈઈ) તે કુલ કૅલોફરીઓ છે જે તમે દરરોજ બર્ન કરો છો, જેમાં તમારો બીએમઆર અને શારીરિક પ્રવૃત્તિ અને દૈનિક ચાલી બંનેની કૅલોરીઓ شامل છે. ટીડઈઈ તમારા બીએમઆર અને પ્રવૃત્તિના સ્તર પર આધારિત છે. વધુ ટીડઈઈનો અર્થ એ છે કે તમે કુલમાં વધુ કૅલોરીઓ બર્ન કરો છો, જે સામાન્ય રીતે વધુ એકસરસિઝ અથવા વધુ બીએમઆર ગણવામાં આવે છે. ઓછો ટીડઈઈ વધુ દૈનિક પ્રવૃત્તિઓ અથવા ઓછા બીએમઆરનો સંકેત આપે છે.';
+	@override String get description => 'કુલ દૈનિક ઊર્જા વ્યય (ટીડઈઈ) તે કુલ કૅલોરીઓ છે જે તમે દરરોજ બર્ન કરો છો, જેમાં તમારો બીએમઆર અને શારીરિક પ્રવૃત્તિ અને દૈનિક ચાલ બંનેની કૅલોરીઓ સામેલ છે. ટીડઈઈ તમારા બીએમઆર અને પ્રવૃત્તિના સ્તર પર આધારિત છે. વધુ ટીડઈઈનો અર્થ એ છે કે તમે કુલમાં વધુ કૅલોરીઓ બર્ન કરો છો, જે સામાન્ય રીતે વધુ એકસરસિઝ અથવા વધુ બીએમઆર ગણવામાં આવે છે. ઓછો ટીડઈઈ વધુ દૈનિક પ્રવૃત્તિઓ અથવા ઓછા બીએમઆરનો સંકેત આપે છે.';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1509,7 +1512,7 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteGu implements T
 	// Translations
 	@override String get title => 'પોષણ ડેટા લખો';
 	@override String get description => 'આ એપને હેલ્થ કનેક્ટમાં પોષણ ડેટા લખવાની મંજૂરી આપે છે.';
-	@override String get usage => 'આ પરવાનગી એપને તમારી લોગ કરેલી ભોજનને હેલ્થ કનેક્ટમાં સમાયોજિત કરવાની મંજૂરી આપે છે, જે ваши પોષણ ડેટાને તમે વાપરતા અન્ય આરોગ્ય અને ફિટનેસ એપ્સ માટે ઉપલબ્ધ બનાવે છે.';
+	@override String get usage => 'આ પરવાનગી એપને તમારી લોગ કરેલી ભોજનને હેલ્થ કનેક્ટમાં સમાયોજિત કરવાની મંજૂરી આપે છે, જે તમારા પોષણ ડેટાને તમે વાપરતા અન્ય આરોગ્ય અને ફિટનેસ એપ્સ માટે ઉપલબ્ધ બનાવે છે.';
 }
 
 /// The flat map containing all translations for locale <gu>.
@@ -1800,7 +1803,7 @@ extension on TranslationsGu {
 			'settings.healthConnect.title' => 'હેલ્થ કનેક્ટ',
 			'settings.healthConnect.subtitle' => 'પરવાનગીઓ જુઓ અને સંચાલિત કરો',
 			'settings.healthConnect.unavailable.title' => 'હેલ્થ કનેક્ટ ઉપલબ્ધ નથી',
-			'settings.healthConnect.unavailable.description' => 'આ ઉપકરણ પર હેલ્થ કનેક્ટ ઉપલબ્ધ નથી. આને Android 14 અથવા વધુ આવશ્યક છે.',
+			'settings.healthConnect.unavailable.description' => 'આ ઉપકરણ પર હેલ્થ કનેક્ટ ઉપલબ્ધ નથી. કૃપા કરીને Play Store પરથી હેલ્થ કનેક્ટ ઇન્સ્ટોલ કરો (Android 9+) અથવા Android 14+ પર અપડેટ કરો.',
 			'settings.healthConnect.permissions.title' => 'પરવાનગીઓ',
 			'settings.healthConnect.permissions.description' => 'હેલ્થ કનેક્ટ ઇન્ટિગ્રેશન આપવા માટે નીચેની પરવાનગીઓની વિનંતી કરવામાં આવે છે:',
 			'settings.healthConnect.permissions.granted' => 'મંજૂર',
@@ -1813,12 +1816,15 @@ extension on TranslationsGu {
 			'settings.healthConnect.permissions.nutritionRead.usage' => 'આ પરવાનગી એપને હેલ્થ કનેક્ટ સાથે જોડાયેલી અન્ય એપ્સ દ્વારા લોગ કરેલ પોષણ માહિતી વાંચવા દે છે, જે તમારા પોષણ નું વ્યાપક દીઠ છે.',
 			'settings.healthConnect.permissions.nutritionWrite.title' => 'પોષણ ડેટા લખો',
 			'settings.healthConnect.permissions.nutritionWrite.description' => 'આ એપને હેલ્થ કનેક્ટમાં પોષણ ડેટા લખવાની મંજૂરી આપે છે.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'આ પરવાનગી એપને તમારી લોગ કરેલી ભોજનને હેલ્થ કનેક્ટમાં સમાયોજિત કરવાની મંજૂરી આપે છે, જે ваши પોષણ ડેટાને તમે વાપરતા અન્ય આરોગ્ય અને ફિટનેસ એપ્સ માટે ઉપલબ્ધ બનાવે છે.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'આ પરવાનગી એપને તમારી લોગ કરેલી ભોજનને હેલ્થ કનેક્ટમાં સમાયોજિત કરવાની મંજૂરી આપે છે, જે તમારા પોષણ ડેટાને તમે વાપરતા અન્ય આરોગ્ય અને ફિટનેસ એપ્સ માટે ઉપલબ્ધ બનાવે છે.',
 			'settings.healthConnect.managePermissions' => 'પરવાનગીઓ સંચાલિત કરો',
 			'settings.healthConnect.openSettings' => 'હેલ્ઠ કનેક્ટ સેટિંગ્સ ખોલો',
 			'settings.healthConnect.requestPermissions' => 'પરવાનગીઓ માગો',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'પરવાનગીઓ માટેની વિનંતી રદ થઈ ગઈ અથવા નિષ્ફળ ગઈ. કૃપા કરીને ફરી પ્રયાસ કરો અથવા Health Connect સેટિંગ્સમાં પરવાનગીઓ હાથેથી આપો.',
+			'settings.healthConnect.permissionRequestFailed' => 'પરવાનગીઓ માટે વિનંતી કરી શકાઈ નથી. કૃપા કરીને ફરી પ્રયાસ કરો અથવા Health Connect સેટિંગ્સમાં પરવાનગીઓ હાથેથી આપો.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'અમારા વિશે',
-			'settings.about.tagline' => 'ઝલદી, ન 무료, અને રક્ષણ આપનાર કેલોરી અવગણના',
+			'settings.about.tagline' => 'ઝડપી, મફત, અને ગોપનીયતા-રક્ષિત કેલોરી ટ્રેકિંગ',
 			'settings.about.ourStory.title' => 'અમારી વાર્તા',
 			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} એક સરળ દુઃખથી જન્મ્યું: વધુતર કેલોરી ટ્રેકિંગ એપ્લિકેશનો કે તો વધુ જટિલ છે, યથાત્મક ચલણ માંગે છે, ઊંચા સબ્સ્ક્રિપ્શન ફી લે છે, અથવા ગોપનીયતા પર કંપ્રોમાઇઝ કરે છે.\n\nએક ઇન્ડી ડેવલપર તરીકે, મેં એવું કંઈક બનાવવાનું ઇચ્છ્યું જે સરળ અને નિષ્ઠાવાન હોય — એ એપ્લિકેશન જે AI નો ઉપયોગ કરે છે, જે પ્રયાસ ઓછું કરે છે, ઝડપી અને મફત રહે છે, અને તમારા આરોગ્યના ડેટાને સંતોષપૂર્વક તેના સાથે વ્યવહાર કરે છે.\n\n${appLabel} એ એ એપ છે જે મારે હોવું જોઈએ હતું: કોઇ એકાઉન્ટ નહીં, કોઇ ટ્રેકિંગ નહીં, કોઇ એડ્સ નહીં — ફક્ત સ્પષ્ટ, વ્યવહારીક અંદરજન અને તમારા આરોગ્યના લક્ષ્ય.',
 			'settings.about.privacy.title' => 'તમારું ગોપનિયતા મહત્વ ધરાવે છે',
@@ -1830,7 +1836,7 @@ extension on TranslationsGu {
 			'settings.about.privacy.localStorage' => 'સ્થાનિક-પ્રથમ સંગ્રહ\nતમારો ડેટા તમારા ઉપકરણ પર રહે છે.',
 			'settings.about.privacy.privacyPolicy' => 'ગોપનતા નીતિ',
 			'settings.about.developer.title' => 'એક ઇન્ડી ડેવલપર દ્વારા બનાવેલ',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} એ એક જ ઇન્ડી ડેવલપર દ્વારા બનાવવામાં આવેલ છે જે શાંતિदાયી, ગોપનીયતા માન્ય આરોગ્ય સોફ્ટવેર બનાવવામાં ધ્યાન કેન્દ્રિત કરે છે.\n\nપ્રતિસાદ વ્યક્તિગત રીતે વાંચવામાં આવે છે અને એપ્લિકેશનની દિશામાં મદદ કરે છે.',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} એ એક જ ઇન્ડી ડેવલપર દ્વારા બનાવવામાં આવેલ છે જે શાંતિદાયક, ગોપનીયતા માન્ય આરોગ્ય સોફ્ટવેર બનાવવામાં ધ્યાન કેન્દ્રિત કરે છે.\n\nપ્રતિસાદ વ્યક્તિગત રીતે વાંચવામાં આવે છે અને એપ્લિકેશનની દિશામાં મદદ કરે છે.',
 			'settings.about.developer.website' => 'વેબસાઇટ',
 			'settings.about.developer.email' => 'ઇમેલ',
 			'settings.about.feedback.title' => ({required Object appLabel}) => '${appLabel} ને આનંદ આવી રહ્યો છે?',
@@ -1893,7 +1899,7 @@ extension on TranslationsGu {
 			'disclaimer.healthMetrics.bmr.title' => 'બીએમઆર',
 			'disclaimer.healthMetrics.bmr.description' => 'બેસલ મેટાબોલિક રેટ (બીએમઆર) તે કૅલોરીઓની સંખ્યા છે જે તમારો શરીર બેધારી સ્થિતીમાં જીવંત કાર્ય જાળવવા માટે બર્ન કરે છે, જેમ કે શ્વાસ અને સંચરણ. બીએમઆર તમારા ઉંમર, લિંગ, ઊંચાઈ અને વજન પર આધારિત છે. વધુ બીએમઆરનો અર્થ એ છે કે તમારો શરીર સામાન્ય રીતે વધુ કૅલોરીઓ બર્ન કરે છે, જે ઘણીવાર વધુ માંસપેશીઓ, યુવાન ઉંમર, અથવા પુરુષ જોવા મળે છે. ઓછો બીએમઆર સામાન્ય રીતે ઓછા માંસપેશીઓ, વૃદ્ધ ઉંમર, અથવા મહિલા દર્શાવે છે.',
 			'disclaimer.healthMetrics.tdee.title' => 'ટીડઈઈ',
-			'disclaimer.healthMetrics.tdee.description' => 'કુલ દૈનિક ઊર્જા વ્યય (ટીડઈઈ) તે કુલ કૅલોફરીઓ છે જે તમે દરરોજ બર્ન કરો છો, જેમાં તમારો બીએમઆર અને શારીરિક પ્રવૃત્તિ અને દૈનિક ચાલી બંનેની કૅલોરીઓ شامل છે. ટીડઈઈ તમારા બીએમઆર અને પ્રવૃત્તિના સ્તર પર આધારિત છે. વધુ ટીડઈઈનો અર્થ એ છે કે તમે કુલમાં વધુ કૅલોરીઓ બર્ન કરો છો, જે સામાન્ય રીતે વધુ એકસરસિઝ અથવા વધુ બીએમઆર ગણવામાં આવે છે. ઓછો ટીડઈઈ વધુ દૈનિક પ્રવૃત્તિઓ અથવા ઓછા બીએમઆરનો સંકેત આપે છે.',
+			'disclaimer.healthMetrics.tdee.description' => 'કુલ દૈનિક ઊર્જા વ્યય (ટીડઈઈ) તે કુલ કૅલોરીઓ છે જે તમે દરરોજ બર્ન કરો છો, જેમાં તમારો બીએમઆર અને શારીરિક પ્રવૃત્તિ અને દૈનિક ચાલ બંનેની કૅલોરીઓ સામેલ છે. ટીડઈઈ તમારા બીએમઆર અને પ્રવૃત્તિના સ્તર પર આધારિત છે. વધુ ટીડઈઈનો અર્થ એ છે કે તમે કુલમાં વધુ કૅલોરીઓ બર્ન કરો છો, જે સામાન્ય રીતે વધુ એકસરસિઝ અથવા વધુ બીએમઆર ગણવામાં આવે છે. ઓછો ટીડઈઈ વધુ દૈનિક પ્રવૃત્તિઓ અથવા ઓછા બીએમઆરનો સંકેત આપે છે.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'દૈનિક લક્ષ્ય',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'દૈનિક લક્ષ્ય એ તમારું ભલામણ કરેલ દૈનિક કૅલોરી વપરાશ છે જે તમારા ટીડઈઈ અને વજન લક્ષ્ય આધારિત છે. વજન ઘટાડવા માટે, તમે તમારા ટીડઈઈ કરતાં ઓછા કૅલોરીઓ લેતા રહે છો. વજન જાળવવા માટે, તમે તમારા ટીડઈઈને મેળવો છો. વજન વધારવા માટે, તમે તમારા ટીડઈઈ કરતાં વધુ કૅલોરીઓ લેતા રહે છો. આ તમને આરોગ્યપ્રદ ટેમ્પમાં તમારા ઈચ્છિત વજન બદલાવ પ્રાપ્ત કરવામાં મદદ કરે છે.',
 			'common.close' => 'બંદ કરો',
@@ -1902,7 +1908,7 @@ extension on TranslationsGu {
 			'errors.somethingWentWrong' => 'કોઈ મુશ્કેલી પડી.',
 			'debug.title' => 'ડેબેક્ડ વિકલ્પો',
 			'debug.sections.notifications' => 'યાદદહન',
-			'debug.sections.healthConnect' => 'હેલ્થ કનેક્ટ',
+			'debug.sections.healthConnect' => 'HEALTH CONNECT',
 			'debug.sections.appInfo' => 'એપ માહિતી',
 			'debug.showActiveNotifications' => 'સક્રિય યાદદહનો દેખાડો',
 			'debug.scheduleTestNotification' => 'ટેસ્ટ યાદદહન સ્કેડ્યૂલ કરો (10સે)',

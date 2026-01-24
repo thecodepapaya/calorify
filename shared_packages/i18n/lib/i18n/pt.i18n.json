@@ -411,8 +411,8 @@
       "title": "Conexão de Saúde",
       "subtitle": "Visualize e gerencie permissões",
       "unavailable": {
-        "title": "Conexão de Saúde Indisponível",
-        "description": "A Conexão de Saúde não está disponível neste dispositivo. Ela requer Android 14 ou posterior."
+        "title": "Health Connect Indisponível",
+        "description": "O Health Connect não está disponível neste dispositivo. Instale o Health Connect pela Play Store (Android 9+) ou atualize para o Android 14+."
       },
       "permissions": {
         "title": "Permissões",
@@ -437,7 +437,10 @@
       },
       "managePermissions": "Gerenciar Permissões",
       "openSettings": "Abrir Configurações do Health Connect",
-      "requestPermissions": "Solicitar Permissões"
+      "requestPermissions": "Solicitar Permissões",
+      "permissionRequestCancelledOrFailed": "A solicitação de permissões foi cancelada ou falhou. Tente novamente ou conceda as permissões manualmente nas configurações do Health Connect.",
+      "permissionRequestFailed": "Não foi possível solicitar permissões. Tente novamente ou conceda as permissões manualmente nas configurações do Health Connect.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "Sobre",
@@ -562,8 +565,8 @@
     "healthMetrics": {
       "description": "Essas métricas ajudam você a entender as necessidades energéticas do seu corpo e orientam suas metas nutricionais.",
       "bmr": {
-        "title": "GEB",
-        "description": "A Taxa Metabólica Basal (GEB) é o número de calorias que seu corpo queima em repouso para manter funções básicas como respiração e circulação. A GEB depende da sua idade, gênero, altura e peso. Uma GEB mais alta significa que seu corpo queima naturalmente mais calorias em repouso, geralmente devido a mais massa muscular, idade mais jovem ou ser masculino. Uma GEB mais baixa normalmente indica menos massa muscular, idade mais avançada ou ser feminino."
+        "title": "TMB",
+        "description": "A Taxa Metabólica Basal (TMB) é o número de calorias que seu corpo queima em repouso para manter funções básicas como respiração e circulação. A TMB depende da sua idade, gênero, altura e peso. Uma TMB mais alta significa que seu corpo queima naturalmente mais calorias em repouso, geralmente devido a mais massa muscular, idade mais jovem ou ser masculino. Uma TMB mais baixa normalmente indica menos massa muscular, idade mais avançada ou ser feminino."
       },
       "tdee": {
         "title": "TDEE",

@@ -784,7 +784,7 @@ class _TranslationsSettingsSectionsSv implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'LOKALISERING';
 	@override String get notifications => 'NOTIFIERINGAR';
-	@override String get healthConnect => 'HÄLSOKOPPLING';
+	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'SUPPORT & JURIDIK';
 	@override String get about => 'OM';
 	@override String get dangerZone => 'FARLIG ZON';
@@ -913,8 +913,11 @@ class _TranslationsSettingsHealthConnectSv implements TranslationsSettingsHealth
 	@override late final _TranslationsSettingsHealthConnectUnavailableSv unavailable = _TranslationsSettingsHealthConnectUnavailableSv._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsSv permissions = _TranslationsSettingsHealthConnectPermissionsSv._(_root);
 	@override String get managePermissions => 'Hantera Behörigheter';
-	@override String get openSettings => 'Öppna inställningar för Health Connect';
+	@override String get openSettings => 'Öppna inställningar för Hälsokoppling';
 	@override String get requestPermissions => 'Begär behörigheter';
+	@override String get permissionRequestCancelledOrFailed => 'Behörighetsbegäran avbröts eller misslyckades. Vänligen försök igen eller ge behörigheter manuellt i inställningarna för Health Connect.';
+	@override String get permissionRequestFailed => 'Det gick inte att begära behörigheter. Vänligen försök igen eller ge behörigheter manuellt i inställningarna för Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1336,7 +1339,7 @@ class _TranslationsSettingsAboutDeveloperSv implements TranslationsSettingsAbout
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Byggd av en Ockupationsutvecklare';
+	@override String get title => 'Byggd av en Oberoende Utvecklare';
 	@override String description({required Object appLabel}) => '${appLabel} är byggd och underhållen av en enda oberoende utvecklare som fokuserar på att skapa lugn, integritetsrespekterande hälsoprogramvara.\n\nFeedback läses personligen och hjälper till att forma riktningen för appen.';
 	@override String get website => 'Hemsida';
 	@override String get email => 'E-post';
@@ -1762,7 +1765,7 @@ extension on TranslationsSv {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'LOKALISERING',
 			'settings.sections.notifications' => 'NOTIFIERINGAR',
-			'settings.sections.healthConnect' => 'HÄLSOKOPPLING',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'SUPPORT & JURIDIK',
 			'settings.sections.about' => 'OM',
 			'settings.sections.dangerZone' => 'FARLIG ZON',
@@ -1815,8 +1818,11 @@ extension on TranslationsSv {
 			'settings.healthConnect.permissions.nutritionWrite.description' => 'Tillåter appen att skriva näringsdata till Hälsokoppling.',
 			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Denna behörighet gör att appen kan synkronisera dina loggade måltider till Hälsokoppling, vilket gör din näringsdata tillgänglig för andra hälso- och fitnessappar du använder.',
 			'settings.healthConnect.managePermissions' => 'Hantera Behörigheter',
-			'settings.healthConnect.openSettings' => 'Öppna inställningar för Health Connect',
+			'settings.healthConnect.openSettings' => 'Öppna inställningar för Hälsokoppling',
 			'settings.healthConnect.requestPermissions' => 'Begär behörigheter',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Behörighetsbegäran avbröts eller misslyckades. Vänligen försök igen eller ge behörigheter manuellt i inställningarna för Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Det gick inte att begära behörigheter. Vänligen försök igen eller ge behörigheter manuellt i inställningarna för Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Om',
 			'settings.about.tagline' => 'Snabb, gratis och integritetsfokuserad kalorimedvetenhet',
 			'settings.about.ourStory.title' => 'Vår Historia',
@@ -1829,7 +1835,7 @@ extension on TranslationsSv {
 			'settings.about.privacy.noDataSelling' => 'Ingen försäljning av data\nDin hälsodata säljs aldrig eller delas med tredje part.',
 			'settings.about.privacy.localStorage' => 'Lokal lagring först\nDin data stannar på din enhet.',
 			'settings.about.privacy.privacyPolicy' => 'Integritetspolicy',
-			'settings.about.developer.title' => 'Byggd av en Ockupationsutvecklare',
+			'settings.about.developer.title' => 'Byggd av en Oberoende Utvecklare',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} är byggd och underhållen av en enda oberoende utvecklare som fokuserar på att skapa lugn, integritetsrespekterande hälsoprogramvara.\n\nFeedback läses personligen och hjälper till att forma riktningen för appen.',
 			'settings.about.developer.website' => 'Hemsida',
 			'settings.about.developer.email' => 'E-post',

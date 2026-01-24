@@ -411,8 +411,8 @@
       "title": "Gesundheitsverbindung",
       "subtitle": "Berechtigungen anzeigen und verwalten",
       "unavailable": {
-        "title": "Gesundheitsverbindung nicht verfügbar",
-        "description": "Die Gesundheitsverbindung ist auf diesem Gerät nicht verfügbar. Sie erfordert Android 14 oder höher."
+        "title": "Health Connect nicht verfügbar",
+        "description": "Health Connect ist auf diesem Gerät nicht verfügbar. Bitte installiere Health Connect aus dem Play Store (Android 9+) oder aktualisiere auf Android 14+."
       },
       "permissions": {
         "title": "Berechtigungen",
@@ -437,11 +437,14 @@
       },
       "managePermissions": "Berechtigungen verwalten",
       "openSettings": "Öffne die Health Connect-Einstellungen",
-      "requestPermissions": "Berechtigungen anfordern"
+      "requestPermissions": "Berechtigungen anfordern",
+      "permissionRequestCancelledOrFailed": "Die Berechtigungsanfrage wurde abgebrochen oder ist fehlgeschlagen. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect-Einstellungen.",
+      "permissionRequestFailed": "Berechtigungen konnten nicht angefordert werden. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect-Einstellungen.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "Über",
-      "tagline": "Schnelle, kostenlose und datenschutzorientierte Kalorienbewusstsein",
+      "tagline": "Schnelle, kostenlose und datenschutzorientierte Kalorienzählung",
       "ourStory": {
         "title": "Unsere Geschichte",
         "content": "{appLabel} entstand aus einer einfachen Frustration: Die meisten Kalorienzähler-Apps sind entweder übermäßig kompliziert, verlangen ständige manuelle Eingaben, erheben hohe Abonnementsgebühren oder gehen mit der Privatsphäre um.\n\nAls solo-Entwickler wollte ich etwas Einfacheres und Faireres schaffen — eine App, die KI nutzt, um den Aufwand zu reduzieren, schnell und kostenlos ist und Ihre Gesundheitsdaten respektiert.\n\n{appLabel} ist die App, die ich mir gewünscht hätte: keine Konten, kein Tracking, keine Werbung — nur klare, praktische Einblicke und Ihre Gesundheitsziele."
@@ -458,7 +461,7 @@
       },
       "developer": {
         "title": "Entwickelt von einem Solo-Entwickler",
-        "description": "{appLabel} wird von einem einzelnen solo-Entwickler entwickelt und gewartet, der sich darauf konzentriert, ruhige, datenschutzfreundliche Gesundheitssoftware zu erstellen.\n\nFeedback wird persönlich gelesen und hilft, die Richtung der App zu gestalten.",
+        "description": "{appLabel} wird von einem einzelnen Entwickler entwickelt und gewartet, der sich darauf konzentriert, ruhige, datenschutzfreundliche Gesundheitssoftware zu erstellen.\n\nFeedback wird persönlich gelesen und hilft, die Richtung der App zu gestalten.",
         "website": "Website",
         "email": "E-Mail"
       },

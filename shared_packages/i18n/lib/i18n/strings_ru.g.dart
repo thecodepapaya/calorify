@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectRu implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Управление разрешениями';
 	@override String get openSettings => 'Открыть настройки Health Connect';
 	@override String get requestPermissions => 'Запросить разрешения';
+	@override String get permissionRequestCancelledOrFailed => 'Запрос разрешения был отменен или не удался. Пожалуйста, попробуйте еще раз или вручную предоставьте разрешения в настройках Health Connect.';
+	@override String get permissionRequestFailed => 'Не удалось запросить разрешения. Пожалуйста, попробуйте еще раз или вручную предоставьте разрешения в настройках Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableRu implements TranslationsSet
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Соединение Здоровья недоступно';
-	@override String get description => 'Соединение Здоровья недоступно на этом устройстве. Требуется Android 14 или новее.';
+	@override String get title => 'Health Connect недоступен';
+	@override String get description => 'Health Connect недоступен на этом устройстве. Установите Health Connect из Play Store (Android 9+) или обновитесь до Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1799,8 +1802,8 @@ extension on TranslationsRu {
 			'settings.developerModeEnabled' => 'Режим разработчика включён!',
 			'settings.healthConnect.title' => 'Соединение Здоровья',
 			'settings.healthConnect.subtitle' => 'Просмотр и управление разрешениями',
-			'settings.healthConnect.unavailable.title' => 'Соединение Здоровья недоступно',
-			'settings.healthConnect.unavailable.description' => 'Соединение Здоровья недоступно на этом устройстве. Требуется Android 14 или новее.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect недоступен',
+			'settings.healthConnect.unavailable.description' => 'Health Connect недоступен на этом устройстве. Установите Health Connect из Play Store (Android 9+) или обновитесь до Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Разрешения',
 			'settings.healthConnect.permissions.description' => 'Для интеграции с Соединением Здоровья запрашиваются следующие разрешения:',
 			'settings.healthConnect.permissions.granted' => 'Предоставлено',
@@ -1817,6 +1820,9 @@ extension on TranslationsRu {
 			'settings.healthConnect.managePermissions' => 'Управление разрешениями',
 			'settings.healthConnect.openSettings' => 'Открыть настройки Health Connect',
 			'settings.healthConnect.requestPermissions' => 'Запросить разрешения',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Запрос разрешения был отменен или не удался. Пожалуйста, попробуйте еще раз или вручную предоставьте разрешения в настройках Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Не удалось запросить разрешения. Пожалуйста, попробуйте еще раз или вручную предоставьте разрешения в настройках Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'О приложении',
 			'settings.about.tagline' => 'Быстро, бесплатно и с заботой о вашей конфиденциальности',
 			'settings.about.ourStory.title' => 'Наша история',

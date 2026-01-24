@@ -353,7 +353,7 @@
       "profile": "PROFIL",
       "localization": "LOKALISERING",
       "notifications": "NOTIFIERINGAR",
-      "healthConnect": "HÄLSOKOPPLING",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "SUPPORT & JURIDIK",
       "about": "OM",
       "dangerZone": "FARLIG ZON",
@@ -436,8 +436,11 @@
         }
       },
       "managePermissions": "Hantera Behörigheter",
-      "openSettings": "Öppna inställningar för Health Connect",
-      "requestPermissions": "Begär behörigheter"
+      "openSettings": "Öppna inställningar för Hälsokoppling",
+      "requestPermissions": "Begär behörigheter",
+      "permissionRequestCancelledOrFailed": "Behörighetsbegäran avbröts eller misslyckades. Vänligen försök igen eller ge behörigheter manuellt i inställningarna för Health Connect.",
+      "permissionRequestFailed": "Det gick inte att begära behörigheter. Vänligen försök igen eller ge behörigheter manuellt i inställningarna för Health Connect.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "Om",
@@ -457,7 +460,7 @@
         "privacyPolicy": "Integritetspolicy"
       },
       "developer": {
-        "title": "Byggd av en Ockupationsutvecklare",
+        "title": "Byggd av en Oberoende Utvecklare",
         "description": "{appLabel} är byggd och underhållen av en enda oberoende utvecklare som fokuserar på att skapa lugn, integritetsrespekterande hälsoprogramvara.\n\nFeedback läses personligen och hjälper till att forma riktningen för appen.",
         "website": "Hemsida",
         "email": "E-post"

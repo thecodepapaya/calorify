@@ -411,8 +411,8 @@
       "title": "ヘルスコネクト",
       "subtitle": "権限を表示および管理",
       "unavailable": {
-        "title": "ヘルスコネクトは利用できません",
-        "description": "このデバイスではヘルスコネクトは利用できません。Android 14以降が必要です。"
+        "title": "Health Connect を利用できません",
+        "description": "このデバイスでは Health Connect を利用できません。Play ストア（Android 9+）から Health Connect をインストールするか、Android 14+ に更新してください。"
       },
       "permissions": {
         "title": "権限",
@@ -437,7 +437,10 @@
       },
       "managePermissions": "権限を管理",
       "openSettings": "ヘルスコネクト設定を開く",
-      "requestPermissions": "権限をリクエストする"
+      "requestPermissions": "権限をリクエストする",
+      "permissionRequestCancelledOrFailed": "権限のリクエストがキャンセルされたか失敗しました。もう一度試すか、Health Connect の設定で手動で権限を付与してください。",
+      "permissionRequestFailed": "権限をリクエストできませんでした。もう一度試すか、Health Connect の設定で手動で権限を付与してください。",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "私たちについて",

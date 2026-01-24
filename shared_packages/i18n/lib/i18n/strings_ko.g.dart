@@ -784,7 +784,7 @@ class _TranslationsSettingsSectionsKo implements TranslationsSettingsSectionsEn 
 	@override String get profile => '프로필';
 	@override String get localization => '지역화';
 	@override String get notifications => '알림';
-	@override String get healthConnect => '건강 연결';
+	@override String get healthConnect => 'Health Connect';
 	@override String get supportAndLegal => '지원 및 법률';
 	@override String get about => '소개';
 	@override String get dangerZone => '위험 지역';
@@ -908,13 +908,16 @@ class _TranslationsSettingsHealthConnectKo implements TranslationsSettingsHealth
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '건강 연결';
+	@override String get title => '헬스 커넥트';
 	@override String get subtitle => '권한 보기 및 관리';
 	@override late final _TranslationsSettingsHealthConnectUnavailableKo unavailable = _TranslationsSettingsHealthConnectUnavailableKo._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsKo permissions = _TranslationsSettingsHealthConnectPermissionsKo._(_root);
 	@override String get managePermissions => '권한 관리';
 	@override String get openSettings => '헬스 커넥트 설정 열기';
 	@override String get requestPermissions => '권한 요청하기';
+	@override String get permissionRequestCancelledOrFailed => '권한 요청이 취소되었거나 실패했습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 부여하세요.';
+	@override String get permissionRequestFailed => '권한을 요청할 수 없습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 부여하세요.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableKo implements TranslationsSet
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '건강 연결 사용 불가능';
-	@override String get description => '이 장치에서는 건강 연결을 사용할 수 없습니다. Android 14 이상이 필요합니다.';
+	@override String get title => 'Health Connect 사용 불가능';
+	@override String get description => '이 장치에서는 Health Connect를 사용할 수 없습니다. Play 스토어(Android 9+)에서 Health Connect를 설치하거나 Android 14+로 업데이트해 주세요.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1293,7 +1296,7 @@ class _TranslationsSettingsHealthConnectPermissionsKo implements TranslationsSet
 
 	// Translations
 	@override String get title => '권한';
-	@override String get description => '건강 연결 통합을 제공하기 위해 요청되는 권한은 다음과 같습니다:';
+	@override String get description => '헬스 커넥트 통합을 제공하기 위해 요청되는 권한은 다음과 같습니다:';
 	@override String get granted => '허용됨';
 	@override String get notGranted => '허용되지 않음';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedKo caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedKo._(_root);
@@ -1484,7 +1487,7 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedKo implements T
 
 	// Translations
 	@override String get title => '소모된 총 칼로리 읽기';
-	@override String get description => '앱이 건강 연결에서 소모된 총 칼로리를 읽을 수 있도록 허용합니다.';
+	@override String get description => '앱이 헬스 커넥트에서 소모된 총 칼로리를 읽을 수 있도록 허용합니다.';
 	@override String get usage => '이 권한은 앱에서 사용자의 일일 칼로리 소모량을 표시하는 데 사용되며, 하루 동안의 총 에너지 소비를 이해하는 데 도움이 됩니다.';
 }
 
@@ -1496,8 +1499,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadKo implements Tr
 
 	// Translations
 	@override String get title => '영양 데이터 읽기';
-	@override String get description => '앱이 건강 연결에서 영양 데이터를 읽을 수 있도록 허용합니다.';
-	@override String get usage => '이 권한을 통해 앱은 건강 연결에 연결된 다른 앱에서 기록된 영양 정보를 읽을 수 있으며, 영양에 대한 포괄적인 정보를 제공합니다.';
+	@override String get description => '앱이 헬스 커넥트에서 영양 데이터를 읽을 수 있도록 허용합니다.';
+	@override String get usage => '이 권한을 통해 앱은 헬스 커넥트에 연결된 다른 앱에서 기록된 영양 정보를 읽을 수 있으며, 영양에 대한 포괄적인 정보를 제공합니다.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1508,8 +1511,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteKo implements T
 
 	// Translations
 	@override String get title => '영양 데이터 쓰기';
-	@override String get description => '앱이 건강 연결에 영양 데이터를 쓸 수 있도록 허용합니다.';
-	@override String get usage => '이 권한을 통해 앱은 사용자가 기록한 식사를 건강 연결에 동기화하여, 사용자가 사용하는 다른 건강 및 피트니스 앱에서 영양 데이터를 사용할 수 있도록 합니다.';
+	@override String get description => '앱이 헬스 커넥트에 영양 데이터를 쓸 수 있도록 허용합니다.';
+	@override String get usage => '이 권한을 통해 앱은 사용자가 기록한 식사를 헬스 커넥트에 동기화하여, 사용자가 사용하는 다른 건강 및 피트니스 앱에서 영양 데이터를 사용할 수 있도록 합니다.';
 }
 
 /// The flat map containing all translations for locale <ko>.
@@ -1762,7 +1765,7 @@ extension on TranslationsKo {
 			'settings.sections.profile' => '프로필',
 			'settings.sections.localization' => '지역화',
 			'settings.sections.notifications' => '알림',
-			'settings.sections.healthConnect' => '건강 연결',
+			'settings.sections.healthConnect' => 'Health Connect',
 			'settings.sections.supportAndLegal' => '지원 및 법률',
 			'settings.sections.about' => '소개',
 			'settings.sections.dangerZone' => '위험 지역',
@@ -1797,26 +1800,29 @@ extension on TranslationsKo {
 			'settings.clearAllData.clearEverything' => '모두 지우기',
 			'settings.debugOptions.title' => '디버그 옵션',
 			'settings.developerModeEnabled' => '개발자 모드가 활성화되었습니다!',
-			'settings.healthConnect.title' => '건강 연결',
+			'settings.healthConnect.title' => '헬스 커넥트',
 			'settings.healthConnect.subtitle' => '권한 보기 및 관리',
-			'settings.healthConnect.unavailable.title' => '건강 연결 사용 불가능',
-			'settings.healthConnect.unavailable.description' => '이 장치에서는 건강 연결을 사용할 수 없습니다. Android 14 이상이 필요합니다.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect 사용 불가능',
+			'settings.healthConnect.unavailable.description' => '이 장치에서는 Health Connect를 사용할 수 없습니다. Play 스토어(Android 9+)에서 Health Connect를 설치하거나 Android 14+로 업데이트해 주세요.',
 			'settings.healthConnect.permissions.title' => '권한',
-			'settings.healthConnect.permissions.description' => '건강 연결 통합을 제공하기 위해 요청되는 권한은 다음과 같습니다:',
+			'settings.healthConnect.permissions.description' => '헬스 커넥트 통합을 제공하기 위해 요청되는 권한은 다음과 같습니다:',
 			'settings.healthConnect.permissions.granted' => '허용됨',
 			'settings.healthConnect.permissions.notGranted' => '허용되지 않음',
 			'settings.healthConnect.permissions.caloriesBurned.title' => '소모된 총 칼로리 읽기',
-			'settings.healthConnect.permissions.caloriesBurned.description' => '앱이 건강 연결에서 소모된 총 칼로리를 읽을 수 있도록 허용합니다.',
+			'settings.healthConnect.permissions.caloriesBurned.description' => '앱이 헬스 커넥트에서 소모된 총 칼로리를 읽을 수 있도록 허용합니다.',
 			'settings.healthConnect.permissions.caloriesBurned.usage' => '이 권한은 앱에서 사용자의 일일 칼로리 소모량을 표시하는 데 사용되며, 하루 동안의 총 에너지 소비를 이해하는 데 도움이 됩니다.',
 			'settings.healthConnect.permissions.nutritionRead.title' => '영양 데이터 읽기',
-			'settings.healthConnect.permissions.nutritionRead.description' => '앱이 건강 연결에서 영양 데이터를 읽을 수 있도록 허용합니다.',
-			'settings.healthConnect.permissions.nutritionRead.usage' => '이 권한을 통해 앱은 건강 연결에 연결된 다른 앱에서 기록된 영양 정보를 읽을 수 있으며, 영양에 대한 포괄적인 정보를 제공합니다.',
+			'settings.healthConnect.permissions.nutritionRead.description' => '앱이 헬스 커넥트에서 영양 데이터를 읽을 수 있도록 허용합니다.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => '이 권한을 통해 앱은 헬스 커넥트에 연결된 다른 앱에서 기록된 영양 정보를 읽을 수 있으며, 영양에 대한 포괄적인 정보를 제공합니다.',
 			'settings.healthConnect.permissions.nutritionWrite.title' => '영양 데이터 쓰기',
-			'settings.healthConnect.permissions.nutritionWrite.description' => '앱이 건강 연결에 영양 데이터를 쓸 수 있도록 허용합니다.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => '이 권한을 통해 앱은 사용자가 기록한 식사를 건강 연결에 동기화하여, 사용자가 사용하는 다른 건강 및 피트니스 앱에서 영양 데이터를 사용할 수 있도록 합니다.',
+			'settings.healthConnect.permissions.nutritionWrite.description' => '앱이 헬스 커넥트에 영양 데이터를 쓸 수 있도록 허용합니다.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => '이 권한을 통해 앱은 사용자가 기록한 식사를 헬스 커넥트에 동기화하여, 사용자가 사용하는 다른 건강 및 피트니스 앱에서 영양 데이터를 사용할 수 있도록 합니다.',
 			'settings.healthConnect.managePermissions' => '권한 관리',
 			'settings.healthConnect.openSettings' => '헬스 커넥트 설정 열기',
 			'settings.healthConnect.requestPermissions' => '권한 요청하기',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => '권한 요청이 취소되었거나 실패했습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 부여하세요.',
+			'settings.healthConnect.permissionRequestFailed' => '권한을 요청할 수 없습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 부여하세요.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => '소개',
 			'settings.about.tagline' => '빠르고 무료이며 개인 정보 보호를 우선시하는 칼로리 인식',
 			'settings.about.ourStory.title' => '우리의 이야기',

@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectRo implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Gestionați Permisiunile';
 	@override String get openSettings => 'Deschide setările Health Connect';
 	@override String get requestPermissions => 'Solicită permisiuni';
+	@override String get permissionRequestCancelledOrFailed => 'Cererea de permisiuni a fost anulată sau a eșuat. Încercați din nou sau acordați permisiunile manual în setările Health Connect.';
+	@override String get permissionRequestFailed => 'Nu se pot solicita permisiuni. Încercați din nou sau acordați permisiunile manual în setările Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableRo implements TranslationsSet
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Conexiune la Sănătate Indisponibilă';
-	@override String get description => 'Conexiunea la sănătate nu este disponibilă pe acest dispozitiv. Este necesar Android 14 sau o versiune mai recentă.';
+	@override String get title => 'Health Connect indisponibil';
+	@override String get description => 'Health Connect nu este disponibil pe acest dispozitiv. Instalează Health Connect din Play Store (Android 9+) sau actualizează la Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1336,7 +1339,7 @@ class _TranslationsSettingsAboutDeveloperRo implements TranslationsSettingsAbout
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Construite de un Dezvoltator Solo';
+	@override String get title => 'Construită de un Dezvoltator Solo';
 	@override String description({required Object appLabel}) => '${appLabel} este construită și întreținută de un singur dezvoltator solo, concentrat pe crearea de software de sănătate care respectă confidențialitatea.\n\nFeedback-ul este citit personal și ajută la conturarea direcției aplicației.';
 	@override String get website => 'Website';
 	@override String get email => 'Email';
@@ -1451,7 +1454,7 @@ class _TranslationsDisclaimerHealthMetricsBmrRo implements TranslationsDisclaime
 
 	// Translations
 	@override String get title => 'BMR';
-	@override String get description => 'Rata Metabolică Bazală (BMR) este numărul de calorii pe care corpul tău le arde în repaus pentru a menține funcții de bază precum respirația și circulația. BMR depinde de vârsta, sexul, înălțimea și greutatea ta. Un BMR mai mare înseamnă că organismul tău arde mai multe calorii în repaus, adesea din cauza unei mase musculare mai mari, a vârstei mai tinere sau a fiind de sex masculin. Un BMR mai mic indică, de obicei, o masă musculară mai mică, o vârstă mai înaintată sau a fi de sex feminin.';
+	@override String get description => 'Rata Metabolică Bazală (BMR) este numărul de calorii pe care corpul tău le arde în repaus pentru a menține funcții de bază precum respirația și circulația. BMR depinde de vârsta, sexul, înălțimea și greutatea ta. Un BMR mai mare înseamnă că organismul tău arde mai multe calorii în repaus, adesea din cauza unei mase musculare mai mari, a vârstei mai tinere sau a sexului masculin. Un BMR mai mic indică, de obicei, o masă musculară mai mică, o vârstă mai înaintată sau sexul feminin.';
 }
 
 // Path: disclaimer.healthMetrics.tdee
@@ -1484,7 +1487,7 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedRo implements T
 
 	// Translations
 	@override String get title => 'Citește Totalul Caloriilor Arse';
-	@override String get description => 'Permite aplicației să citească totalul caloriilor tale ars din Conexiunea la Sănătate.';
+	@override String get description => 'Permite aplicației să citească totalul caloriilor tale arse din Conexiunea la Sănătate.';
 	@override String get usage => 'Această permisiune este utilizată pentru a arăta arderea calorică zilnică în aplicație, ajutându-te să înțelegi totalul cheltuielilor tale energetice pe parcursul zilei.';
 }
 
@@ -1799,14 +1802,14 @@ extension on TranslationsRo {
 			'settings.developerModeEnabled' => 'Mod dezvoltator activat!',
 			'settings.healthConnect.title' => 'Conexiune la Sănătate',
 			'settings.healthConnect.subtitle' => 'Vizualizați și gestionați permisiunile',
-			'settings.healthConnect.unavailable.title' => 'Conexiune la Sănătate Indisponibilă',
-			'settings.healthConnect.unavailable.description' => 'Conexiunea la sănătate nu este disponibilă pe acest dispozitiv. Este necesar Android 14 sau o versiune mai recentă.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect indisponibil',
+			'settings.healthConnect.unavailable.description' => 'Health Connect nu este disponibil pe acest dispozitiv. Instalează Health Connect din Play Store (Android 9+) sau actualizează la Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Permisiuni',
 			'settings.healthConnect.permissions.description' => 'Următoarele permisiuni sunt solicitate pentru a oferi integrarea Conexiune la Sănătate:',
 			'settings.healthConnect.permissions.granted' => 'Acordat',
 			'settings.healthConnect.permissions.notGranted' => 'Neacordat',
 			'settings.healthConnect.permissions.caloriesBurned.title' => 'Citește Totalul Caloriilor Arse',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'Permite aplicației să citească totalul caloriilor tale ars din Conexiunea la Sănătate.',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Permite aplicației să citească totalul caloriilor tale arse din Conexiunea la Sănătate.',
 			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Această permisiune este utilizată pentru a arăta arderea calorică zilnică în aplicație, ajutându-te să înțelegi totalul cheltuielilor tale energetice pe parcursul zilei.',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'Citește Datele Nutriției',
 			'settings.healthConnect.permissions.nutritionRead.description' => 'Permite aplicației să citească datele nutriționale din Conexiunea la Sănătate.',
@@ -1817,6 +1820,9 @@ extension on TranslationsRo {
 			'settings.healthConnect.managePermissions' => 'Gestionați Permisiunile',
 			'settings.healthConnect.openSettings' => 'Deschide setările Health Connect',
 			'settings.healthConnect.requestPermissions' => 'Solicită permisiuni',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Cererea de permisiuni a fost anulată sau a eșuat. Încercați din nou sau acordați permisiunile manual în setările Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Nu se pot solicita permisiuni. Încercați din nou sau acordați permisiunile manual în setările Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Despre',
 			'settings.about.tagline' => 'Conștientizare rapidă, gratuită și în respect pentru confidențialitate a caloriilor',
 			'settings.about.ourStory.title' => 'Povestea Noastră',
@@ -1829,7 +1835,7 @@ extension on TranslationsRo {
 			'settings.about.privacy.noDataSelling' => 'Fără vânzarea datelor\nDatele tale de sănătate nu sunt niciodată vândute sau împărtășite cu terți.',
 			'settings.about.privacy.localStorage' => 'Stocare locală\nDatele tale rămân pe dispozitivul tău.',
 			'settings.about.privacy.privacyPolicy' => 'Politica de confidențialitate',
-			'settings.about.developer.title' => 'Construite de un Dezvoltator Solo',
+			'settings.about.developer.title' => 'Construită de un Dezvoltator Solo',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} este construită și întreținută de un singur dezvoltator solo, concentrat pe crearea de software de sănătate care respectă confidențialitatea.\n\nFeedback-ul este citit personal și ajută la conturarea direcției aplicației.',
 			'settings.about.developer.website' => 'Website',
 			'settings.about.developer.email' => 'Email',
@@ -1891,7 +1897,7 @@ extension on TranslationsRo {
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Nu folosi această estimare pentru a lua decizii medicale. Consultă întotdeauna un profesionist din domeniul sănătății sau un dietetician autorizat pentru sfaturi personalizate despre gestionarea greutății.',
 			'disclaimer.healthMetrics.description' => 'Aceste metrice te ajută să înțelegi nevoile energetice ale corpului tău și să-ți ghideze obiectivele nutriționale.',
 			'disclaimer.healthMetrics.bmr.title' => 'BMR',
-			'disclaimer.healthMetrics.bmr.description' => 'Rata Metabolică Bazală (BMR) este numărul de calorii pe care corpul tău le arde în repaus pentru a menține funcții de bază precum respirația și circulația. BMR depinde de vârsta, sexul, înălțimea și greutatea ta. Un BMR mai mare înseamnă că organismul tău arde mai multe calorii în repaus, adesea din cauza unei mase musculare mai mari, a vârstei mai tinere sau a fiind de sex masculin. Un BMR mai mic indică, de obicei, o masă musculară mai mică, o vârstă mai înaintată sau a fi de sex feminin.',
+			'disclaimer.healthMetrics.bmr.description' => 'Rata Metabolică Bazală (BMR) este numărul de calorii pe care corpul tău le arde în repaus pentru a menține funcții de bază precum respirația și circulația. BMR depinde de vârsta, sexul, înălțimea și greutatea ta. Un BMR mai mare înseamnă că organismul tău arde mai multe calorii în repaus, adesea din cauza unei mase musculare mai mari, a vârstei mai tinere sau a sexului masculin. Un BMR mai mic indică, de obicei, o masă musculară mai mică, o vârstă mai înaintată sau sexul feminin.',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
 			'disclaimer.healthMetrics.tdee.description' => 'Cheltuiala Totală Zilnică de Energie (TDEE) este numărul total de calorii pe care le arzi pe zi, incluzând BMR-ul tău plus caloriile din activitatea fizică și mișcarea zilnică. TDEE depinde de BMR-ul tău și de nivelul de activitate. Un TDEE mai mare înseamnă că arzi mai multe calorii în general, de obicei, datorită unei activități mai intense sau a unui BMR mai mare. Un TDEE mai mic sugerează o activitate zilnică mai redusă sau un BMR mai mic.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Obiectiv Zilnic',

@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectUr implements TranslationsSettingsHealth
 	@override String get managePermissions => 'اجازتیں منظم کریں';
 	@override String get openSettings => 'ہیلتھ کنیکٹ کی سیٹنگز کھولیں';
 	@override String get requestPermissions => 'اجازتیں طلب کریں';
+	@override String get permissionRequestCancelledOrFailed => 'اجازت کی درخواست منسوخ یا ناکام ہوگئی۔ براہ کرم دوبارہ کوشش کریں یا صحت کنیکٹ کی ترتیبات میں دستی طور پر اجازت دیں۔';
+	@override String get permissionRequestFailed => 'اجازت کی درخواست کرنے میں ناکامی۔ براہ کرم دوبارہ کوشش کریں یا صحت کنیکٹ کی ترتیبات میں دستی طور پر اجازت دیں۔';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1485,7 +1488,7 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUr implements T
 	// Translations
 	@override String get title => 'مجموعی جلائی گئی کیلوریز پڑھیں';
 	@override String get description => 'ایپ کو صحت کے ساتھ جڑے ہوئے آپ کی مجموعی جلائی گئی کیلوریز پڑھنے کی اجازت دیتا ہے۔';
-	@override String get usage => 'یہ اجازت ایپ کو آپ کی روزانہ کیلوری جلانے کو ظاہر کرنے کے لیے استعمال ہوتی ہے، جس سے آپ کو دن بھر میں اپنی توانائی کے خرچ کو سمجھنے میں مدد ملتی ہے।';
+	@override String get usage => 'یہ اجازت ایپ کو آپ کی روزانہ کیلوری جلانے کو ظاہر کرنے کے لیے استعمال ہوتی ہے، جس سے آپ کو دن بھر میں اپنی توانائی کے خرچ کو سمجھنے میں مدد ملتی ہے۔';
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
@@ -1807,7 +1810,7 @@ extension on TranslationsUr {
 			'settings.healthConnect.permissions.notGranted' => 'اجازت نہیں دی گئی',
 			'settings.healthConnect.permissions.caloriesBurned.title' => 'مجموعی جلائی گئی کیلوریز پڑھیں',
 			'settings.healthConnect.permissions.caloriesBurned.description' => 'ایپ کو صحت کے ساتھ جڑے ہوئے آپ کی مجموعی جلائی گئی کیلوریز پڑھنے کی اجازت دیتا ہے۔',
-			'settings.healthConnect.permissions.caloriesBurned.usage' => 'یہ اجازت ایپ کو آپ کی روزانہ کیلوری جلانے کو ظاہر کرنے کے لیے استعمال ہوتی ہے، جس سے آپ کو دن بھر میں اپنی توانائی کے خرچ کو سمجھنے میں مدد ملتی ہے।',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'یہ اجازت ایپ کو آپ کی روزانہ کیلوری جلانے کو ظاہر کرنے کے لیے استعمال ہوتی ہے، جس سے آپ کو دن بھر میں اپنی توانائی کے خرچ کو سمجھنے میں مدد ملتی ہے۔',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'غذائی معلومات پڑھیں',
 			'settings.healthConnect.permissions.nutritionRead.description' => 'ایپ کو صحت کے ساتھ جڑنے سے غذائی معلومات پڑھنے کی اجازت دیتا ہے۔',
 			'settings.healthConnect.permissions.nutritionRead.usage' => 'یہ اجازت ایپ کو ایسی غذائی معلومات پڑھنے کی اجازت دیتی ہے جو ممکنہ طور پر دیگر ایپس نے صحت کے ساتھ جڑنے پر لاگ کی ہوئی ہوں، جس سے آپ کی غذائیت کا مکمل منظر نامہ مہیا ہوتا ہے۔',
@@ -1817,6 +1820,9 @@ extension on TranslationsUr {
 			'settings.healthConnect.managePermissions' => 'اجازتیں منظم کریں',
 			'settings.healthConnect.openSettings' => 'ہیلتھ کنیکٹ کی سیٹنگز کھولیں',
 			'settings.healthConnect.requestPermissions' => 'اجازتیں طلب کریں',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'اجازت کی درخواست منسوخ یا ناکام ہوگئی۔ براہ کرم دوبارہ کوشش کریں یا صحت کنیکٹ کی ترتیبات میں دستی طور پر اجازت دیں۔',
+			'settings.healthConnect.permissionRequestFailed' => 'اجازت کی درخواست کرنے میں ناکامی۔ براہ کرم دوبارہ کوشش کریں یا صحت کنیکٹ کی ترتیبات میں دستی طور پر اجازت دیں۔',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'بارے میں',
 			'settings.about.tagline' => 'تیز، مفت، اور رازداری کو اولیت دینے والا کیلوری کا شعور',
 			'settings.about.ourStory.title' => 'ہماری کہانی',

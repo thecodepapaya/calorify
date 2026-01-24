@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectZhCn implements TranslationsSettingsHeal
 	@override String get managePermissions => '管理权限';
 	@override String get openSettings => '打开健康连接设置';
 	@override String get requestPermissions => '请求权限';
+	@override String get permissionRequestCancelledOrFailed => '权限请求已被取消或失败。请再试一次或在健康连接设置中手动授予权限。';
+	@override String get permissionRequestFailed => '无法请求权限。请再试一次或在健康连接设置中手动授予权限。';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1817,6 +1820,9 @@ extension on TranslationsZhCn {
 			'settings.healthConnect.managePermissions' => '管理权限',
 			'settings.healthConnect.openSettings' => '打开健康连接设置',
 			'settings.healthConnect.requestPermissions' => '请求权限',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => '权限请求已被取消或失败。请再试一次或在健康连接设置中手动授予权限。',
+			'settings.healthConnect.permissionRequestFailed' => '无法请求权限。请再试一次或在健康连接设置中手动授予权限。',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => '关于',
 			'settings.about.tagline' => '快速、免费，并注重隐私的卡路里意识',
 			'settings.about.ourStory.title' => '我们的故事',

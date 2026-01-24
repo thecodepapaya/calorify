@@ -784,7 +784,7 @@ class _TranslationsSettingsSectionsFr implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'LOCALISATION';
 	@override String get notifications => 'NOTIFICATIONS';
-	@override String get healthConnect => 'CONNECTER LA SANTÉ';
+	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'ASSISTANCE & JURIDIQUE';
 	@override String get about => 'À PROPOS';
 	@override String get dangerZone => 'ZONE DANGEREUSE';
@@ -908,13 +908,16 @@ class _TranslationsSettingsHealthConnectFr implements TranslationsSettingsHealth
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Connecter la santé';
+	@override String get title => 'Health Connect';
 	@override String get subtitle => 'Voir et gérer les autorisations';
 	@override late final _TranslationsSettingsHealthConnectUnavailableFr unavailable = _TranslationsSettingsHealthConnectUnavailableFr._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsFr permissions = _TranslationsSettingsHealthConnectPermissionsFr._(_root);
 	@override String get managePermissions => 'Gérer les autorisations';
 	@override String get openSettings => 'Ouvrir les paramètres de Health Connect';
 	@override String get requestPermissions => 'Demander des autorisations';
+	@override String get permissionRequestCancelledOrFailed => 'La demande d’autorisations a été annulée ou a échoué. Veuillez réessayer ou accorder les autorisations manuellement dans les paramètres de Health Connect.';
+	@override String get permissionRequestFailed => 'Impossible de demander les autorisations. Veuillez réessayer ou accorder les autorisations manuellement dans les paramètres de Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableFr implements TranslationsSet
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Connecter la santé indisponible';
-	@override String get description => 'La Connecter la santé n\'est pas disponible sur cet appareil. Elle nécessite Android 14 ou une version ultérieure.';
+	@override String get title => 'Health Connect indisponible';
+	@override String get description => 'Health Connect n\'est pas disponible sur cet appareil. Veuillez installer Health Connect depuis le Play Store (Android 9+) ou mettre à jour vers Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1293,7 +1296,7 @@ class _TranslationsSettingsHealthConnectPermissionsFr implements TranslationsSet
 
 	// Translations
 	@override String get title => 'Autorisations';
-	@override String get description => 'Les autorisations suivantes sont requises pour fournir l\'intégration de Connecter la santé :';
+	@override String get description => 'Les autorisations suivantes sont requises pour fournir l\'intégration de Health Connect :';
 	@override String get granted => 'Accordé';
 	@override String get notGranted => 'Non accordé';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFr caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFr._(_root);
@@ -1484,7 +1487,7 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFr implements T
 
 	// Translations
 	@override String get title => 'Lire le total des calories brûlées';
-	@override String get description => 'Permet à l\'application de lire votre total de calories brûlées depuis Connecter la santé.';
+	@override String get description => 'Permet à l\'application de lire votre total de calories brûlées depuis Health Connect.';
 	@override String get usage => 'Cette autorisation est utilisée pour afficher votre dépense calorique quotidienne dans l\'application, vous aidant à comprendre votre dépense énergétique totale tout au long de la journée.';
 }
 
@@ -1496,8 +1499,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadFr implements Tr
 
 	// Translations
 	@override String get title => 'Lire les données nutritionnelles';
-	@override String get description => 'Permet à l\'application de lire les données nutritionnelles depuis Connecter la santé.';
-	@override String get usage => 'Cette autorisation permet à l\'application de lire les informations nutritionnelles qui ont pu être enregistrées par d\'autres applications connectées à Connecter la santé, fournissant une vue complète de votre nutrition.';
+	@override String get description => 'Permet à l\'application de lire les données nutritionnelles depuis Health Connect.';
+	@override String get usage => 'Cette autorisation permet à l\'application de lire les informations nutritionnelles qui ont pu être enregistrées par d\'autres applications connectées à Health Connect, fournissant une vue complète de votre nutrition.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1508,8 +1511,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteFr implements T
 
 	// Translations
 	@override String get title => 'Écrire des données nutritionnelles';
-	@override String get description => 'Permet à l\'application d\'écrire des données nutritionnelles dans Connecter la santé.';
-	@override String get usage => 'Cette autorisation permet à l\'application de synchroniser vos repas enregistrés avec Connecter la santé, rendant vos données nutritionnelles disponibles pour d\'autres applications de santé et de fitness que vous utilisez.';
+	@override String get description => 'Permet à l\'application d\'écrire des données nutritionnelles dans Health Connect.';
+	@override String get usage => 'Cette autorisation permet à l\'application de synchroniser vos repas enregistrés avec Health Connect, rendant vos données nutritionnelles disponibles pour d\'autres applications de santé et de fitness que vous utilisez.';
 }
 
 /// The flat map containing all translations for locale <fr>.
@@ -1762,7 +1765,7 @@ extension on TranslationsFr {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'LOCALISATION',
 			'settings.sections.notifications' => 'NOTIFICATIONS',
-			'settings.sections.healthConnect' => 'CONNECTER LA SANTÉ',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'ASSISTANCE & JURIDIQUE',
 			'settings.sections.about' => 'À PROPOS',
 			'settings.sections.dangerZone' => 'ZONE DANGEREUSE',
@@ -1797,26 +1800,29 @@ extension on TranslationsFr {
 			'settings.clearAllData.clearEverything' => 'Tout Effacer',
 			'settings.debugOptions.title' => 'Options de Débogage',
 			'settings.developerModeEnabled' => 'Mode développeur activé !',
-			'settings.healthConnect.title' => 'Connecter la santé',
+			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Voir et gérer les autorisations',
-			'settings.healthConnect.unavailable.title' => 'Connecter la santé indisponible',
-			'settings.healthConnect.unavailable.description' => 'La Connecter la santé n\'est pas disponible sur cet appareil. Elle nécessite Android 14 ou une version ultérieure.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect indisponible',
+			'settings.healthConnect.unavailable.description' => 'Health Connect n\'est pas disponible sur cet appareil. Veuillez installer Health Connect depuis le Play Store (Android 9+) ou mettre à jour vers Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Autorisations',
-			'settings.healthConnect.permissions.description' => 'Les autorisations suivantes sont requises pour fournir l\'intégration de Connecter la santé :',
+			'settings.healthConnect.permissions.description' => 'Les autorisations suivantes sont requises pour fournir l\'intégration de Health Connect :',
 			'settings.healthConnect.permissions.granted' => 'Accordé',
 			'settings.healthConnect.permissions.notGranted' => 'Non accordé',
 			'settings.healthConnect.permissions.caloriesBurned.title' => 'Lire le total des calories brûlées',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'Permet à l\'application de lire votre total de calories brûlées depuis Connecter la santé.',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Permet à l\'application de lire votre total de calories brûlées depuis Health Connect.',
 			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Cette autorisation est utilisée pour afficher votre dépense calorique quotidienne dans l\'application, vous aidant à comprendre votre dépense énergétique totale tout au long de la journée.',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'Lire les données nutritionnelles',
-			'settings.healthConnect.permissions.nutritionRead.description' => 'Permet à l\'application de lire les données nutritionnelles depuis Connecter la santé.',
-			'settings.healthConnect.permissions.nutritionRead.usage' => 'Cette autorisation permet à l\'application de lire les informations nutritionnelles qui ont pu être enregistrées par d\'autres applications connectées à Connecter la santé, fournissant une vue complète de votre nutrition.',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Permet à l\'application de lire les données nutritionnelles depuis Health Connect.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Cette autorisation permet à l\'application de lire les informations nutritionnelles qui ont pu être enregistrées par d\'autres applications connectées à Health Connect, fournissant une vue complète de votre nutrition.',
 			'settings.healthConnect.permissions.nutritionWrite.title' => 'Écrire des données nutritionnelles',
-			'settings.healthConnect.permissions.nutritionWrite.description' => 'Permet à l\'application d\'écrire des données nutritionnelles dans Connecter la santé.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Cette autorisation permet à l\'application de synchroniser vos repas enregistrés avec Connecter la santé, rendant vos données nutritionnelles disponibles pour d\'autres applications de santé et de fitness que vous utilisez.',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Permet à l\'application d\'écrire des données nutritionnelles dans Health Connect.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Cette autorisation permet à l\'application de synchroniser vos repas enregistrés avec Health Connect, rendant vos données nutritionnelles disponibles pour d\'autres applications de santé et de fitness que vous utilisez.',
 			'settings.healthConnect.managePermissions' => 'Gérer les autorisations',
 			'settings.healthConnect.openSettings' => 'Ouvrir les paramètres de Health Connect',
 			'settings.healthConnect.requestPermissions' => 'Demander des autorisations',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'La demande d’autorisations a été annulée ou a échoué. Veuillez réessayer ou accorder les autorisations manuellement dans les paramètres de Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Impossible de demander les autorisations. Veuillez réessayer ou accorder les autorisations manuellement dans les paramètres de Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'À Propos',
 			'settings.about.tagline' => 'Prise de conscience des calories rapide, gratuite et respectueuse de la vie privée',
 			'settings.about.ourStory.title' => 'Notre Histoire',

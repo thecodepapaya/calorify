@@ -1506,6 +1506,15 @@ class TranslationsSettingsHealthConnectEn {
 
 	/// en: 'Request Permissions'
 	String get requestPermissions => 'Request Permissions';
+
+	/// en: 'Permission request was cancelled or failed. Please try again or grant permissions manually in Health Connect settings.'
+	String get permissionRequestCancelledOrFailed => 'Permission request was cancelled or failed. Please try again or grant permissions manually in Health Connect settings.';
+
+	/// en: 'Unable to request permissions. Please try again or grant permissions manually in Health Connect settings.'
+	String get permissionRequestFailed => 'Unable to request permissions. Please try again or grant permissions manually in Health Connect settings.';
+
+	/// en: 'Requesting...'
+	String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -2042,8 +2051,8 @@ class TranslationsSettingsHealthConnectUnavailableEn {
 	/// en: 'Health Connect Unavailable'
 	String get title => 'Health Connect Unavailable';
 
-	/// en: 'Health Connect is not available on this device. It requires Android 14 or later.'
-	String get description => 'Health Connect is not available on this device. It requires Android 14 or later.';
+	/// en: 'Health Connect is not available on this device. Please install Health Connect from the Play Store (Android 9+) or update to Android 14+.'
+	String get description => 'Health Connect is not available on this device. Please install Health Connect from the Play Store (Android 9+) or update to Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -2668,7 +2677,7 @@ extension on Translations {
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'View and manage permissions',
 			'settings.healthConnect.unavailable.title' => 'Health Connect Unavailable',
-			'settings.healthConnect.unavailable.description' => 'Health Connect is not available on this device. It requires Android 14 or later.',
+			'settings.healthConnect.unavailable.description' => 'Health Connect is not available on this device. Please install Health Connect from the Play Store (Android 9+) or update to Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Permissions',
 			'settings.healthConnect.permissions.description' => 'The following permissions are requested to provide Health Connect integration:',
 			'settings.healthConnect.permissions.granted' => 'Granted',
@@ -2685,6 +2694,9 @@ extension on Translations {
 			'settings.healthConnect.managePermissions' => 'Manage Permissions',
 			'settings.healthConnect.openSettings' => 'Open Health Connect Settings',
 			'settings.healthConnect.requestPermissions' => 'Request Permissions',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Permission request was cancelled or failed. Please try again or grant permissions manually in Health Connect settings.',
+			'settings.healthConnect.permissionRequestFailed' => 'Unable to request permissions. Please try again or grant permissions manually in Health Connect settings.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'About',
 			'settings.about.tagline' => 'Fast, free, and privacy-first calorie awareness',
 			'settings.about.ourStory.title' => 'Our Story',

@@ -411,8 +411,8 @@
       "title": "Conexiune la Sănătate",
       "subtitle": "Vizualizați și gestionați permisiunile",
       "unavailable": {
-        "title": "Conexiune la Sănătate Indisponibilă",
-        "description": "Conexiunea la sănătate nu este disponibilă pe acest dispozitiv. Este necesar Android 14 sau o versiune mai recentă."
+        "title": "Health Connect indisponibil",
+        "description": "Health Connect nu este disponibil pe acest dispozitiv. Instalează Health Connect din Play Store (Android 9+) sau actualizează la Android 14+."
       },
       "permissions": {
         "title": "Permisiuni",
@@ -421,7 +421,7 @@
         "notGranted": "Neacordat",
         "caloriesBurned": {
           "title": "Citește Totalul Caloriilor Arse",
-          "description": "Permite aplicației să citească totalul caloriilor tale ars din Conexiunea la Sănătate.",
+          "description": "Permite aplicației să citească totalul caloriilor tale arse din Conexiunea la Sănătate.",
           "usage": "Această permisiune este utilizată pentru a arăta arderea calorică zilnică în aplicație, ajutându-te să înțelegi totalul cheltuielilor tale energetice pe parcursul zilei."
         },
         "nutritionRead": {
@@ -437,7 +437,10 @@
       },
       "managePermissions": "Gestionați Permisiunile",
       "openSettings": "Deschide setările Health Connect",
-      "requestPermissions": "Solicită permisiuni"
+      "requestPermissions": "Solicită permisiuni",
+      "permissionRequestCancelledOrFailed": "Cererea de permisiuni a fost anulată sau a eșuat. Încercați din nou sau acordați permisiunile manual în setările Health Connect.",
+      "permissionRequestFailed": "Nu se pot solicita permisiuni. Încercați din nou sau acordați permisiunile manual în setările Health Connect.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "Despre",
@@ -457,7 +460,7 @@
         "privacyPolicy": "Politica de confidențialitate"
       },
       "developer": {
-        "title": "Construite de un Dezvoltator Solo",
+        "title": "Construită de un Dezvoltator Solo",
         "description": "{appLabel} este construită și întreținută de un singur dezvoltator solo, concentrat pe crearea de software de sănătate care respectă confidențialitatea.\n\nFeedback-ul este citit personal și ajută la conturarea direcției aplicației.",
         "website": "Website",
         "email": "Email"
@@ -563,7 +566,7 @@
       "description": "Aceste metrice te ajută să înțelegi nevoile energetice ale corpului tău și să-ți ghideze obiectivele nutriționale.",
       "bmr": {
         "title": "BMR",
-        "description": "Rata Metabolică Bazală (BMR) este numărul de calorii pe care corpul tău le arde în repaus pentru a menține funcții de bază precum respirația și circulația. BMR depinde de vârsta, sexul, înălțimea și greutatea ta. Un BMR mai mare înseamnă că organismul tău arde mai multe calorii în repaus, adesea din cauza unei mase musculare mai mari, a vârstei mai tinere sau a fiind de sex masculin. Un BMR mai mic indică, de obicei, o masă musculară mai mică, o vârstă mai înaintată sau a fi de sex feminin."
+        "description": "Rata Metabolică Bazală (BMR) este numărul de calorii pe care corpul tău le arde în repaus pentru a menține funcții de bază precum respirația și circulația. BMR depinde de vârsta, sexul, înălțimea și greutatea ta. Un BMR mai mare înseamnă că organismul tău arde mai multe calorii în repaus, adesea din cauza unei mase musculare mai mari, a vârstei mai tinere sau a sexului masculin. Un BMR mai mic indică, de obicei, o masă musculară mai mică, o vârstă mai înaintată sau sexul feminin."
       },
       "tdee": {
         "title": "TDEE",

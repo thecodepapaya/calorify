@@ -417,7 +417,7 @@
         "subtitle": "View and manage permissions",
         "unavailable": {
           "title": "Health Connect Unavailable",
-          "description": "Health Connect is not available on this device. It requires Android 14 or later."
+          "description": "Health Connect is not available on this device. Please install Health Connect from the Play Store (Android 9+) or update to Android 14+."
         },
         "permissions": {
           "title": "Permissions",
@@ -442,7 +442,10 @@
         },
         "managePermissions": "Manage Permissions",
         "openSettings": "Open Health Connect Settings",
-        "requestPermissions": "Request Permissions"
+        "requestPermissions": "Request Permissions",
+        "permissionRequestCancelledOrFailed": "Permission request was cancelled or failed. Please try again or grant permissions manually in Health Connect settings.",
+        "permissionRequestFailed": "Unable to request permissions. Please try again or grant permissions manually in Health Connect settings.",
+        "requestingPermissions": "Requesting..."
       },
       "about": {
         "title": "About",

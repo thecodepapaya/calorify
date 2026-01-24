@@ -184,7 +184,7 @@ class _TranslationsProfileTe implements TranslationsProfileEn {
 	@override String get weight => 'బరువు';
 	@override String get age => 'వయస్సు';
 	@override String get weightGoal => 'బరువు లక్ష్యం';
-	@override String get targetWeight => 'అంశం బరువు';
+	@override String get targetWeight => 'లక్ష్య బరువు';
 	@override String get activityLevel => 'యాక్టివిటీ స్థాయి';
 	@override String get healthMetrics => 'ఆరోగ్య మెట్రిక్‌లు';
 	@override String get notSet => 'సెట్ కాలేదు';
@@ -784,7 +784,7 @@ class _TranslationsSettingsSectionsTe implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'ప్రొఫైల్';
 	@override String get localization => 'స్థానికీకరణ';
 	@override String get notifications => 'అవగాహనలు';
-	@override String get healthConnect => 'అభ్యాస అనుసంధానం';
+	@override String get healthConnect => 'హెల్త్ కనెక్ట్';
 	@override String get supportAndLegal => 'మద్దతు & న్యాయ';
 	@override String get about => 'గురించి';
 	@override String get dangerZone => 'పోలిక మాండి';
@@ -908,13 +908,16 @@ class _TranslationsSettingsHealthConnectTe implements TranslationsSettingsHealth
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'అభ్యాస అనుసంధానం';
+	@override String get title => 'హెల్త్ కనెక్ట్';
 	@override String get subtitle => 'అనుమతులను చూడండి మరియు నిర్వహించండి';
 	@override late final _TranslationsSettingsHealthConnectUnavailableTe unavailable = _TranslationsSettingsHealthConnectUnavailableTe._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsTe permissions = _TranslationsSettingsHealthConnectPermissionsTe._(_root);
 	@override String get managePermissions => 'అనుమతులను నిర్వహించండి';
 	@override String get openSettings => 'ఆరోగ్య కనెక్ట్ సెట్టింగ్స్‌ను తెరువు';
 	@override String get requestPermissions => 'ఆమోదాల కోసం అభ్యర్థన చేయండి';
+	@override String get permissionRequestCancelledOrFailed => 'అనుమతి అభ్యర్థన రద్దు చేయబడింది లేదా విఫలమైంది. దయచేసి మళ్ళీ ప్రయత్నించండి లేదా ఆరోగ్య కనెక్ట్ సెట్టింగ్స్‌లో యాధృచ్ఛిక అనుమతులు ఇవ్వండి.';
+	@override String get permissionRequestFailed => 'అనుమతుల కోసం అభ్యర్థన ఇవ్వడం విఫలమైంది. దయచేసి మళ్ళీ ప్రయత్నించండి లేదా ఆరోగ్య కనెక్ట్ సెట్టింగ్స్‌లో యాధృచ్ఛిక అనుమతులు ఇవ్వండి.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableTe implements TranslationsSet
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'అభ్యాస అనుసంధానం అందుబాటులో లేదు';
-	@override String get description => 'ఈ పరికరంపై అభ్యాస అనుసంధానం అందుబాటులో లేదు. ఇది Android 14 లేదా నూతన సంస్కరణని అవసరం చేసింది.';
+	@override String get title => 'హెల్త్ కనెక్ట్ అందుబాటులో లేదు';
+	@override String get description => 'ఈ పరికరంపై హెల్త్ కనెక్ట్ అందుబాటులో లేదు. ఇది Android 14 లేదా నూతన సంస్కరణని అవసరం చేసింది.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1293,7 +1296,7 @@ class _TranslationsSettingsHealthConnectPermissionsTe implements TranslationsSet
 
 	// Translations
 	@override String get title => 'అనుమతులు';
-	@override String get description => 'అభ్యాస అనుసంధానం సమ్మేళనాన్ని అందించేందుకు కోరిన అనుమతులు:';
+	@override String get description => 'హెల్త్ కనెక్ట్ సమ్మేళనాన్ని అందించేందుకు కోరిన అనుమతులు:';
 	@override String get granted => 'అనుమతించారు';
 	@override String get notGranted => 'అనుమతించుకోలేదు';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTe caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTe._(_root);
@@ -1349,7 +1352,7 @@ class _TranslationsSettingsAboutFeedbackTe implements TranslationsSettingsAboutF
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String title({required Object appLabel}) => '${appLabel} మీరు ఆంజనమే?';
+	@override String title({required Object appLabel}) => '${appLabel} మీకు నచ్చిందా?';
 	@override String description({required Object appLabel}) => 'మీ అభిప్రాయాలు ${appLabel} ను అందరికీ మెరుగుపరిచేందుకు సహాయపడుతుంది.';
 	@override String get rateApp => 'ప్రత్యేక దుకాణంలో రేట్ చేయండి';
 	@override String get sendFeedback => 'అభిప్రాయం పంపండి';
@@ -1706,7 +1709,7 @@ extension on TranslationsTe {
 			'profile.weight' => 'బరువు',
 			'profile.age' => 'వయస్సు',
 			'profile.weightGoal' => 'బరువు లక్ష్యం',
-			'profile.targetWeight' => 'అంశం బరువు',
+			'profile.targetWeight' => 'లక్ష్య బరువు',
 			'profile.activityLevel' => 'యాక్టివిటీ స్థాయి',
 			'profile.healthMetrics' => 'ఆరోగ్య మెట్రిక్‌లు',
 			'profile.notSet' => 'సెట్ కాలేదు',
@@ -1762,7 +1765,7 @@ extension on TranslationsTe {
 			'settings.sections.profile' => 'ప్రొఫైల్',
 			'settings.sections.localization' => 'స్థానికీకరణ',
 			'settings.sections.notifications' => 'అవగాహనలు',
-			'settings.sections.healthConnect' => 'అభ్యాస అనుసంధానం',
+			'settings.sections.healthConnect' => 'హెల్త్ కనెక్ట్',
 			'settings.sections.supportAndLegal' => 'మద్దతు & న్యాయ',
 			'settings.sections.about' => 'గురించి',
 			'settings.sections.dangerZone' => 'పోలిక మాండి',
@@ -1797,12 +1800,12 @@ extension on TranslationsTe {
 			'settings.clearAllData.clearEverything' => 'అన్నీ క్లియర్ చేయండి',
 			'settings.debugOptions.title' => 'డిబగ్ ఆప్షన్స్',
 			'settings.developerModeEnabled' => 'డెవలపర్ మోడ్ సాధనంలో ఉంది!',
-			'settings.healthConnect.title' => 'అభ్యాస అనుసంధానం',
+			'settings.healthConnect.title' => 'హెల్త్ కనెక్ట్',
 			'settings.healthConnect.subtitle' => 'అనుమతులను చూడండి మరియు నిర్వహించండి',
-			'settings.healthConnect.unavailable.title' => 'అభ్యాస అనుసంధానం అందుబాటులో లేదు',
-			'settings.healthConnect.unavailable.description' => 'ఈ పరికరంపై అభ్యాస అనుసంధానం అందుబాటులో లేదు. ఇది Android 14 లేదా నూతన సంస్కరణని అవసరం చేసింది.',
+			'settings.healthConnect.unavailable.title' => 'హెల్త్ కనెక్ట్ అందుబాటులో లేదు',
+			'settings.healthConnect.unavailable.description' => 'ఈ పరికరంపై హెల్త్ కనెక్ట్ అందుబాటులో లేదు. ఇది Android 14 లేదా నూతన సంస్కరణని అవసరం చేసింది.',
 			'settings.healthConnect.permissions.title' => 'అనుమతులు',
-			'settings.healthConnect.permissions.description' => 'అభ్యాస అనుసంధానం సమ్మేళనాన్ని అందించేందుకు కోరిన అనుమతులు:',
+			'settings.healthConnect.permissions.description' => 'హెల్త్ కనెక్ట్ సమ్మేళనాన్ని అందించేందుకు కోరిన అనుమతులు:',
 			'settings.healthConnect.permissions.granted' => 'అనుమతించారు',
 			'settings.healthConnect.permissions.notGranted' => 'అనుమతించుకోలేదు',
 			'settings.healthConnect.permissions.caloriesBurned.title' => 'మొత్తం కాలరీస్ బర్న్డ్ చదవండి',
@@ -1817,6 +1820,9 @@ extension on TranslationsTe {
 			'settings.healthConnect.managePermissions' => 'అనుమతులను నిర్వహించండి',
 			'settings.healthConnect.openSettings' => 'ఆరోగ్య కనెక్ట్ సెట్టింగ్స్‌ను తెరువు',
 			'settings.healthConnect.requestPermissions' => 'ఆమోదాల కోసం అభ్యర్థన చేయండి',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'అనుమతి అభ్యర్థన రద్దు చేయబడింది లేదా విఫలమైంది. దయచేసి మళ్ళీ ప్రయత్నించండి లేదా ఆరోగ్య కనెక్ట్ సెట్టింగ్స్‌లో యాధృచ్ఛిక అనుమతులు ఇవ్వండి.',
+			'settings.healthConnect.permissionRequestFailed' => 'అనుమతుల కోసం అభ్యర్థన ఇవ్వడం విఫలమైంది. దయచేసి మళ్ళీ ప్రయత్నించండి లేదా ఆరోగ్య కనెక్ట్ సెట్టింగ్స్‌లో యాధృచ్ఛిక అనుమతులు ఇవ్వండి.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'గురించి',
 			'settings.about.tagline' => 'త్వరిత, ఉచిత మరియు గోప్యతా ప్రాధాన్యత కల్గిన కేలరీ అవగాహన',
 			'settings.about.ourStory.title' => 'మా గాథ',
@@ -1833,7 +1839,7 @@ extension on TranslationsTe {
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} నిశ్చితంగా, గోప్యతా గౌరవించే ఆరోగ్య సాఫ్ట్‌వేర్ సృష్టించడంపై దృష్టి పెట్టిన ఒక వ్యక్తిగత ఇండీ డెవలపర్ ద్వారా రూపొందించబడింది.\n\nచురుకైన అభిప్రాయాలను వ్యక్తిగతంగా చదువుతారు మరియు ఆ యాప్ యొక్క దిశను ఆకృతీకరించడంలో సహాయపడతాయి.',
 			'settings.about.developer.website' => 'వెబ్‌సైట్',
 			'settings.about.developer.email' => 'ఇమెయిల్',
-			'settings.about.feedback.title' => ({required Object appLabel}) => '${appLabel} మీరు ఆంజనమే?',
+			'settings.about.feedback.title' => ({required Object appLabel}) => '${appLabel} మీకు నచ్చిందా?',
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'మీ అభిప్రాయాలు ${appLabel} ను అందరికీ మెరుగుపరిచేందుకు సహాయపడుతుంది.',
 			'settings.about.feedback.rateApp' => 'ప్రత్యేక దుకాణంలో రేట్ చేయండి',
 			'settings.about.feedback.sendFeedback' => 'అభిప్రాయం పంపండి',

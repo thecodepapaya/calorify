@@ -784,7 +784,7 @@ class _TranslationsSettingsSectionsFi implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFIILI';
 	@override String get localization => 'KIELIASETUS';
 	@override String get notifications => 'ILMOITUKSET';
-	@override String get healthConnect => 'TERVEYSYHTEYDENTÖ';
+	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'TUKI & LAKITEKSTIT';
 	@override String get about => 'TIETOJA';
 	@override String get dangerZone => 'VAARA-ALUE';
@@ -908,13 +908,16 @@ class _TranslationsSettingsHealthConnectFi implements TranslationsSettingsHealth
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Terveydeen yhdistäminen';
+	@override String get title => 'Terveyteen yhdistäminen';
 	@override String get subtitle => 'Näytä ja hallinnoi käyttöoikeuksia';
 	@override late final _TranslationsSettingsHealthConnectUnavailableFi unavailable = _TranslationsSettingsHealthConnectUnavailableFi._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsFi permissions = _TranslationsSettingsHealthConnectPermissionsFi._(_root);
 	@override String get managePermissions => 'Hallitse käyttöoikeuksia';
 	@override String get openSettings => 'Avaa Health Connect -asetukset';
 	@override String get requestPermissions => 'Pyydä lupia';
+	@override String get permissionRequestCancelledOrFailed => 'Lupapyyntö peruutettiin tai epäonnistui. Yritä uudelleen tai myönnä luvat manuaalisesti Health Connectin asetuksista.';
+	@override String get permissionRequestFailed => 'Lupia ei voitu pyytää. Yritä uudelleen tai myönnä luvat manuaalisesti Health Connectin asetuksista.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -925,7 +928,7 @@ class _TranslationsSettingsAboutFi implements TranslationsSettingsAboutEn {
 
 	// Translations
 	@override String get title => 'Tietoa';
-	@override String get tagline => 'Nopea, ilmainen ja yksityisyys edellä -kalorietuus';
+	@override String get tagline => 'Nopea, ilmainen ja yksityisyyteen keskittyvä kalorilaskuri';
 	@override late final _TranslationsSettingsAboutOurStoryFi ourStory = _TranslationsSettingsAboutOurStoryFi._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyFi privacy = _TranslationsSettingsAboutPrivacyFi._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperFi developer = _TranslationsSettingsAboutDeveloperFi._(_root);
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableFi implements TranslationsSet
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Terveydeen yhdistäminen ei saatavilla';
-	@override String get description => 'Terveydeen yhdistäminen ei ole saatavilla tällä laitteella. Se vaatii Android 14 tai uudempaa.';
+	@override String get title => 'Health Connect ei ole saatavilla';
+	@override String get description => 'Health Connect ei ole saatavilla tällä laitteella. Asenna Health Connect Play Kaupasta (Android 9+) tai päivitä Android 14+:ään.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1483,8 +1486,8 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFi implements T
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Lue kokonaissyttyneet kalorit';
-	@override String get description => 'Sallii sovelluksen lukea kokonaissyttyneet kalorit Terveydeen yhdistämisestä.';
+	@override String get title => 'Lue kokonaispoltetut kalorit';
+	@override String get description => 'Sallii sovelluksen lukea kokonaispoltetut kalorit Terveyteen yhdistämisestä.';
 	@override String get usage => 'Tätä käyttöoikeutta käytetään päivittäisen kalorien kulutuksen näyttämiseen sovelluksessa, auttaen sinua ymmärtämään kokonaisenergiankulutuksesi päivän aikana.';
 }
 
@@ -1762,7 +1765,7 @@ extension on TranslationsFi {
 			'settings.sections.profile' => 'PROFIILI',
 			'settings.sections.localization' => 'KIELIASETUS',
 			'settings.sections.notifications' => 'ILMOITUKSET',
-			'settings.sections.healthConnect' => 'TERVEYSYHTEYDENTÖ',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'TUKI & LAKITEKSTIT',
 			'settings.sections.about' => 'TIETOJA',
 			'settings.sections.dangerZone' => 'VAARA-ALUE',
@@ -1797,16 +1800,16 @@ extension on TranslationsFi {
 			'settings.clearAllData.clearEverything' => 'Tyhjennä kaikki',
 			'settings.debugOptions.title' => 'Virheenkorjausvaihtoehdot',
 			'settings.developerModeEnabled' => 'Kehittäjätila käytössä!',
-			'settings.healthConnect.title' => 'Terveydeen yhdistäminen',
+			'settings.healthConnect.title' => 'Terveyteen yhdistäminen',
 			'settings.healthConnect.subtitle' => 'Näytä ja hallinnoi käyttöoikeuksia',
-			'settings.healthConnect.unavailable.title' => 'Terveydeen yhdistäminen ei saatavilla',
-			'settings.healthConnect.unavailable.description' => 'Terveydeen yhdistäminen ei ole saatavilla tällä laitteella. Se vaatii Android 14 tai uudempaa.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect ei ole saatavilla',
+			'settings.healthConnect.unavailable.description' => 'Health Connect ei ole saatavilla tällä laitteella. Asenna Health Connect Play Kaupasta (Android 9+) tai päivitä Android 14+:ään.',
 			'settings.healthConnect.permissions.title' => 'Käyttöoikeudet',
 			'settings.healthConnect.permissions.description' => 'Seuraavia käyttöoikeuksia pyydetään Terveydeen yhdistämisen tarjoamiseksi:',
 			'settings.healthConnect.permissions.granted' => 'Myönnetty',
 			'settings.healthConnect.permissions.notGranted' => 'Ei myönnetty',
-			'settings.healthConnect.permissions.caloriesBurned.title' => 'Lue kokonaissyttyneet kalorit',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'Sallii sovelluksen lukea kokonaissyttyneet kalorit Terveydeen yhdistämisestä.',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Lue kokonaispoltetut kalorit',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Sallii sovelluksen lukea kokonaispoltetut kalorit Terveyteen yhdistämisestä.',
 			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Tätä käyttöoikeutta käytetään päivittäisen kalorien kulutuksen näyttämiseen sovelluksessa, auttaen sinua ymmärtämään kokonaisenergiankulutuksesi päivän aikana.',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'Lue ravintotiedot',
 			'settings.healthConnect.permissions.nutritionRead.description' => 'Sallii sovelluksen lukea ravintotietoja Terveydeen yhdistämisestä.',
@@ -1817,8 +1820,11 @@ extension on TranslationsFi {
 			'settings.healthConnect.managePermissions' => 'Hallitse käyttöoikeuksia',
 			'settings.healthConnect.openSettings' => 'Avaa Health Connect -asetukset',
 			'settings.healthConnect.requestPermissions' => 'Pyydä lupia',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Lupapyyntö peruutettiin tai epäonnistui. Yritä uudelleen tai myönnä luvat manuaalisesti Health Connectin asetuksista.',
+			'settings.healthConnect.permissionRequestFailed' => 'Lupia ei voitu pyytää. Yritä uudelleen tai myönnä luvat manuaalisesti Health Connectin asetuksista.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Tietoa',
-			'settings.about.tagline' => 'Nopea, ilmainen ja yksityisyys edellä -kalorietuus',
+			'settings.about.tagline' => 'Nopea, ilmainen ja yksityisyyteen keskittyvä kalorilaskuri',
 			'settings.about.ourStory.title' => 'Tarinaamme',
 			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} sai alkunsa yksinkertaisesta turhautumisesta: suurin osa kaloriseuranta-sovelluksista on joko liian monimutkaisia, vaativat jatkuvaa manuaalista syöttämistä, perivät korkeat tilausmaksut tai uhraavat yksityisyyden.\n\nItsenäisen kehittäjänä halusin rakentaa jotain yksinkertaisempaa ja oikeudenmukaisempaa — sovelluksen, joka käyttää tekoälyä vähentämään vaivannäköä, pysyy nopeana ja ilmaisena käyttää, ja käsittelee terveystietojasi kunnioituksella.\n\n${appLabel} on sovellus, jonka toivoin olevan olemassa: ei tilejä, ei seurantaa, ei mainoksia — vain selkeitä, käytännöllisiä oivalluksia ja tavoitteitasi terveydelle.',
 			'settings.about.privacy.title' => 'Yksityisyytesi on tärkeää',

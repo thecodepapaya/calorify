@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectPl implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Zarządzaj Uprawnieniami';
 	@override String get openSettings => 'Otwórz ustawienia Health Connect';
 	@override String get requestPermissions => 'Poproś o zezwolenia';
+	@override String get permissionRequestCancelledOrFailed => 'Żądanie uprawnień zostało anulowane lub nie powiodło się. Spróbuj ponownie lub przyznaj uprawnienia ręcznie w ustawieniach Health Connect.';
+	@override String get permissionRequestFailed => 'Nie udało się poprosić o uprawnienia. Spróbuj ponownie lub przyznaj uprawnienia ręcznie w ustawieniach Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailablePl implements TranslationsSet
 	final TranslationsPl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Łączenie z Zdrowiem Niedostępne';
-	@override String get description => 'Łączenie z Zdrowiem nie jest dostępne na tym urządzeniu. Wymaga systemu Android 14 lub nowszego.';
+	@override String get title => 'Health Connect niedostępne';
+	@override String get description => 'Health Connect nie jest dostępne na tym urządzeniu. Zainstaluj Health Connect ze Sklepu Play (Android 9+) lub zaktualizuj do Androida 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1799,8 +1802,8 @@ extension on TranslationsPl {
 			'settings.developerModeEnabled' => 'Tryb dewelopera włączony!',
 			'settings.healthConnect.title' => 'Łączenie z Zdrowiem',
 			'settings.healthConnect.subtitle' => 'Wyświetl i zarządzaj uprawnieniami',
-			'settings.healthConnect.unavailable.title' => 'Łączenie z Zdrowiem Niedostępne',
-			'settings.healthConnect.unavailable.description' => 'Łączenie z Zdrowiem nie jest dostępne na tym urządzeniu. Wymaga systemu Android 14 lub nowszego.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect niedostępne',
+			'settings.healthConnect.unavailable.description' => 'Health Connect nie jest dostępne na tym urządzeniu. Zainstaluj Health Connect ze Sklepu Play (Android 9+) lub zaktualizuj do Androida 14+.',
 			'settings.healthConnect.permissions.title' => 'Uprawnienia',
 			'settings.healthConnect.permissions.description' => 'Następujące uprawnienia są wymagane, aby umożliwić integrację z Łącznością Zdrowotną:',
 			'settings.healthConnect.permissions.granted' => 'Przyznane',
@@ -1817,6 +1820,9 @@ extension on TranslationsPl {
 			'settings.healthConnect.managePermissions' => 'Zarządzaj Uprawnieniami',
 			'settings.healthConnect.openSettings' => 'Otwórz ustawienia Health Connect',
 			'settings.healthConnect.requestPermissions' => 'Poproś o zezwolenia',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Żądanie uprawnień zostało anulowane lub nie powiodło się. Spróbuj ponownie lub przyznaj uprawnienia ręcznie w ustawieniach Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Nie udało się poprosić o uprawnienia. Spróbuj ponownie lub przyznaj uprawnienia ręcznie w ustawieniach Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'O nas',
 			'settings.about.tagline' => 'Szybka, darmowa i z poszanowaniem prywatności świadomość kalorii',
 			'settings.about.ourStory.title' => 'Nasza Historia',

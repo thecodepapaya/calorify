@@ -353,7 +353,7 @@
       "profile": "PROFIEL",
       "localization": "LOCALISATIE",
       "notifications": "MELDINGEN",
-      "healthConnect": "GEZONDHEID CONNECT",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "ONDERSTEUNING & JURIDISCH",
       "about": "OVER",
       "dangerZone": "GEVAARZONE",
@@ -408,40 +408,43 @@
     },
     "developerModeEnabled": "Ontwikkelaarsmode ingeschakeld!",
     "healthConnect": {
-      "title": "Gezondheid Connect",
+      "title": "Health Connect",
       "subtitle": "Bekijk en beheer machtigingen",
       "unavailable": {
-        "title": "Gezondheid Connect Niet Beschikbaar",
-        "description": "Gezondheid Connect is niet beschikbaar op dit apparaat. Het vereist Android 14 of later."
+        "title": "Health Connect Niet Beschikbaar",
+        "description": "Health Connect is niet beschikbaar op dit apparaat. Installeer Health Connect via de Play Store (Android 9+) of update naar Android 14+."
       },
       "permissions": {
         "title": "Machtigingen",
-        "description": "De volgende machtigingen worden aangevraagd om de integratie met Gezondheid Connect te bieden:",
+        "description": "De volgende machtigingen worden aangevraagd om de integratie met Health Connect te bieden:",
         "granted": "Toegestaan",
         "notGranted": "Niet Toegestaan",
         "caloriesBurned": {
           "title": "Totaal Verbrande Calorieën Lezen",
-          "description": "Staat de app toe om je totale verbrande calorieën van Gezondheid Connect te lezen.",
+          "description": "Staat de app toe om je totale verbrande calorieën van Health Connect te lezen.",
           "usage": "Deze machtiging wordt gebruikt om je dagelijkse calorieverbranding in de app weer te geven, zodat je je totale energieverbruik gedurende de dag beter kunt begrijpen."
         },
         "nutritionRead": {
           "title": "Voedingsgegevens Lezen",
-          "description": "Staat de app toe om voedingsgegevens van Gezondheid Connect te lezen.",
-          "usage": "Deze machtiging stelt de app in staat om voedingsinformatie te lezen die mogelijk is vastgelegd door andere apps die zijn verbonden met Gezondheid Connect, wat een volledig overzicht van je voeding biedt."
+          "description": "Staat de app toe om voedingsgegevens van Health Connect te lezen.",
+          "usage": "Deze machtiging stelt de app in staat om voedingsinformatie te lezen die mogelijk is vastgelegd door andere apps die zijn verbonden met Health Connect, wat een volledig overzicht van je voeding biedt."
         },
         "nutritionWrite": {
           "title": "Voedingsgegevens Schrijven",
-          "description": "Staat de app toe om voedingsgegevens naar Gezondheid Connect te schrijven.",
-          "usage": "Deze machtiging stelt de app in staat om je geregistreerde maaltijden naar Gezondheid Connect te synchroniseren, waardoor je voedingsgegevens beschikbaar komen voor andere gezondheids- en fitnessapps die je gebruikt."
+          "description": "Staat de app toe om voedingsgegevens naar Health Connect te schrijven.",
+          "usage": "Deze machtiging stelt de app in staat om je geregistreerde maaltijden naar Health Connect te synchroniseren, waardoor je voedingsgegevens beschikbaar komen voor andere gezondheids- en fitnessapps die je gebruikt."
         }
       },
       "managePermissions": "Beheer Machtigingen",
-      "openSettings": "Open Gezondheidsverbinding Instellingen",
-      "requestPermissions": "Vraag Vergunningen Aan"
+      "openSettings": "Open Health Connect Instellingen",
+      "requestPermissions": "Vraag Vergunningen Aan",
+      "permissionRequestCancelledOrFailed": "De machtigingsaanvraag is geannuleerd of mislukt. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.",
+      "permissionRequestFailed": "Kan geen machtigingen aanvragen. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "Over",
-      "tagline": "Snelle, gratis en privacy-vriendelijke caloriebewustheid",
+      "tagline": "Snelle, gratis en privacyvriendelijke caloriebewustheid",
       "ourStory": {
         "title": "Ons Verhaal",
         "content": "{appLabel} is ontstaan uit een eenvoudige frustratie: de meeste calorie-tracking apps zijn ofwel te gecompliceerd, vereisen constante handmatige invoer, vragen hoge abonnementsprijzen of komen de privacy in gevaar.\n\nAls solo ontwikkelaar wilde ik iets eenvoudigers en eerlijkers bouwen — een app die AI gebruikt om de inspanning te verminderen, snel en gratis te gebruiken blijft en je gezondheidsgegevens met respect behandelt.\n\n{appLabel} is de app die ik wenste dat bestond: geen accounts, geen tracking, geen advertenties — gewoon duidelijke, praktische inzichten en je gezondheidsdoelen."
@@ -567,7 +570,7 @@
       },
       "tdee": {
         "title": "TDEE",
-        "description": "De Totale Dagelijkse Energieverbruik (TDEE) is het totale aantal calorieën dat je per dag verbrandt, inclusief je BMR plus calorieën van fysieke activiteit en dagelijkse beweging. TDEE is afhankelijk van je BMR en activiteitsniveau. Een hogere TDEE betekent dat je over het algemeen meer calorieën verbrandt, meestal door meer actief te zijn of een hogere BMR te hebben. Een lagere TDEE suggereert minder dagelijkse activiteit of een lagere BMR."
+        "description": "Het Totale Dagelijkse Energieverbruik (TDEE) is het totale aantal calorieën dat je per dag verbrandt, inclusief je BMR plus calorieën van fysieke activiteit en dagelijkse beweging. TDEE is afhankelijk van je BMR en activiteitsniveau. Een hogere TDEE betekent dat je over het algemeen meer calorieën verbrandt, meestal door meer actief te zijn of een hogere BMR te hebben. Een lagere TDEE suggereert minder dagelijkse activiteit of een lagere BMR."
       },
       "dailyGoal": {
         "title": "Dagdoel",

@@ -784,7 +784,7 @@ class _TranslationsSettingsSectionsDa implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'LOKALISERING';
 	@override String get notifications => 'NOTIFIKATIONER';
-	@override String get healthConnect => 'SUNDHEDSFORBINDING';
+	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'SUPPORT & JURIDISK';
 	@override String get about => 'OM';
 	@override String get dangerZone => 'FAREZONE';
@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectDa implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Administrer Tilladelser';
 	@override String get openSettings => 'Åbn sundhedsforbindelsesindstillinger';
 	@override String get requestPermissions => 'Anmod om tilladelser';
+	@override String get permissionRequestCancelledOrFailed => 'Anmodningen om tilladelser blev annulleret eller mislykkedes. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillinger.';
+	@override String get permissionRequestFailed => 'Kunne ikke anmode om tilladelser. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillinger.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableDa implements TranslationsSet
 	final TranslationsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Sundhedsforbindelse Utilgængelig';
-	@override String get description => 'Sundhedsforbindelse er ikke tilgængelig på denne enhed. Den kræver Android 14 eller nyere.';
+	@override String get title => 'Health Connect utilgængelig';
+	@override String get description => 'Health Connect er ikke tilgængelig på denne enhed. Installer venligst Health Connect fra Play Store (Android 9+) eller opdater til Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1323,8 +1326,8 @@ class _TranslationsSettingsAboutPrivacyDa implements TranslationsSettingsAboutPr
 	@override String get description => 'Privatliv er ikke en eftertanke — det er et designprincip. Her er hvad det betyder i praksis:';
 	@override String get noAccounts => 'Ingen konti kræves\nBrug appen med det samme. Ingen tilmeldinger, ingen identiteter.';
 	@override String noTracking({required Object appLabel}) => 'Ingen adfærdssporing\n${appLabel} overvåger ikke din aktivitet, opbygger brugsprofiler eller sporer dig på tværs af apps eller hjemmesider.';
-	@override String noAds({required Object appLabel}) => 'Annoncefri af design\n${appLabel} er bygget til at fungere uden annoncer eller datadrevet monetisering.';
-	@override String get noDataSelling => 'Ingen datasalgs\nDine sundhedsdata sælges aldrig eller deles med tredjeparter.';
+	@override String noAds({required Object appLabel}) => 'Annoncefri fra grunden\n${appLabel} er bygget til at fungere uden annoncer eller datadrevet monetisering.';
+	@override String get noDataSelling => 'Intet datasalg\nDine sundhedsdata sælges aldrig eller deles med tredjeparter.';
 	@override String get localStorage => 'Lokalt først lagring\nDine data forbliver på din enhed.';
 	@override String get privacyPolicy => 'Privatlivspolitik';
 }
@@ -1762,7 +1765,7 @@ extension on TranslationsDa {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'LOKALISERING',
 			'settings.sections.notifications' => 'NOTIFIKATIONER',
-			'settings.sections.healthConnect' => 'SUNDHEDSFORBINDING',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'SUPPORT & JURIDISK',
 			'settings.sections.about' => 'OM',
 			'settings.sections.dangerZone' => 'FAREZONE',
@@ -1799,8 +1802,8 @@ extension on TranslationsDa {
 			'settings.developerModeEnabled' => 'Udviklertilstand aktiveret!',
 			'settings.healthConnect.title' => 'Sundhedsforbindelse',
 			'settings.healthConnect.subtitle' => 'Se og administrer tilladelser',
-			'settings.healthConnect.unavailable.title' => 'Sundhedsforbindelse Utilgængelig',
-			'settings.healthConnect.unavailable.description' => 'Sundhedsforbindelse er ikke tilgængelig på denne enhed. Den kræver Android 14 eller nyere.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect utilgængelig',
+			'settings.healthConnect.unavailable.description' => 'Health Connect er ikke tilgængelig på denne enhed. Installer venligst Health Connect fra Play Store (Android 9+) eller opdater til Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Tilladelser',
 			'settings.healthConnect.permissions.description' => 'Følgende tilladelser anmodes om for at give integration med Sundhedsforbindelse:',
 			'settings.healthConnect.permissions.granted' => 'Givet',
@@ -1817,6 +1820,9 @@ extension on TranslationsDa {
 			'settings.healthConnect.managePermissions' => 'Administrer Tilladelser',
 			'settings.healthConnect.openSettings' => 'Åbn sundhedsforbindelsesindstillinger',
 			'settings.healthConnect.requestPermissions' => 'Anmod om tilladelser',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Anmodningen om tilladelser blev annulleret eller mislykkedes. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillinger.',
+			'settings.healthConnect.permissionRequestFailed' => 'Kunne ikke anmode om tilladelser. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillinger.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Om',
 			'settings.about.tagline' => 'Hurtig, gratis og privatlivsorienteret kaloriebevidsthed',
 			'settings.about.ourStory.title' => 'Vores Historie',
@@ -1825,8 +1831,8 @@ extension on TranslationsDa {
 			'settings.about.privacy.description' => 'Privatliv er ikke en eftertanke — det er et designprincip. Her er hvad det betyder i praksis:',
 			'settings.about.privacy.noAccounts' => 'Ingen konti kræves\nBrug appen med det samme. Ingen tilmeldinger, ingen identiteter.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Ingen adfærdssporing\n${appLabel} overvåger ikke din aktivitet, opbygger brugsprofiler eller sporer dig på tværs af apps eller hjemmesider.',
-			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Annoncefri af design\n${appLabel} er bygget til at fungere uden annoncer eller datadrevet monetisering.',
-			'settings.about.privacy.noDataSelling' => 'Ingen datasalgs\nDine sundhedsdata sælges aldrig eller deles med tredjeparter.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Annoncefri fra grunden\n${appLabel} er bygget til at fungere uden annoncer eller datadrevet monetisering.',
+			'settings.about.privacy.noDataSelling' => 'Intet datasalg\nDine sundhedsdata sælges aldrig eller deles med tredjeparter.',
 			'settings.about.privacy.localStorage' => 'Lokalt først lagring\nDine data forbliver på din enhed.',
 			'settings.about.privacy.privacyPolicy' => 'Privatlivspolitik',
 			'settings.about.developer.title' => 'Bygget af en Uafhængig Udvikler',

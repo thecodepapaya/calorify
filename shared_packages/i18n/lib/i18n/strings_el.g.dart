@@ -184,7 +184,7 @@ class _TranslationsProfileEl implements TranslationsProfileEn {
 	@override String get weight => 'Βάρος';
 	@override String get age => 'Ηλικία';
 	@override String get weightGoal => 'Στόχος Βάρους';
-	@override String get targetWeight => 'Στοχος Βάρους';
+	@override String get targetWeight => 'Στόχος Βάρους';
 	@override String get activityLevel => 'Επίπεδο Δραστηριότητας';
 	@override String get healthMetrics => 'Μετρήσεις Υγείας';
 	@override String get notSet => 'Μη καθορισμένος';
@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectEl implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Διαχείριση Αδειών';
 	@override String get openSettings => 'Άνοιγμα Ρυθμίσεων Health Connect';
 	@override String get requestPermissions => 'Αίτημα Αδειών';
+	@override String get permissionRequestCancelledOrFailed => 'Το αίτημα αδειών ακυρώθηκε ή απέτυχε. Δοκιμάστε ξανά ή δώστε τις άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.';
+	@override String get permissionRequestFailed => 'Δεν ήταν δυνατή η αίτηση αδειών. Δοκιμάστε ξανά ή δώστε τις άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableEl implements TranslationsSet
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Η Σύνδεση Υγείας Αυτό δεν είναι Διαθέσιμη';
-	@override String get description => 'Η Σύνδεση Υγείας δεν είναι διαθέσιμη σε αυτή τη συσκευή. Απαιτεί Android 14 ή νεότερη έκδοση.';
+	@override String get title => 'Το Health Connect δεν είναι διαθέσιμο';
+	@override String get description => 'Το Health Connect δεν είναι διαθέσιμο σε αυτή τη συσκευή. Εγκαταστήστε το Health Connect από το Play Store (Android 9+) ή ενημερώστε σε Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1509,7 +1512,7 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteEl implements T
 	// Translations
 	@override String get title => 'Γράψτε Δεδομένα Διατροφής';
 	@override String get description => 'Επιτρέπει στην εφαρμογή να γράψει δεδομένα διατροφής στη Σύνδεση Υγείας.';
-	@override String get usage => 'Αυτή η άδεια επιτρέπει στην εφαρμογή να συγχρονίσει τα καταχωρημένα γεύματά σας στη Σύνδεση Υγειας, καθιστώντας τα δεδομένα διατροφής διαθέσιμα σε άλλες εφαρμογές υγείας και φυσικής κατάστασης που χρησιμοποιείτε.';
+	@override String get usage => 'Αυτή η άδεια επιτρέπει στην εφαρμογή να συγχρονίσει τα καταχωρημένα γεύματά σας στη Σύνδεση Υγείας, καθιστώντας τα δεδομένα διατροφής διαθέσιμα σε άλλες εφαρμογές υγείας και φυσικής κατάστασης που χρησιμοποιείτε.';
 }
 
 /// The flat map containing all translations for locale <el>.
@@ -1706,7 +1709,7 @@ extension on TranslationsEl {
 			'profile.weight' => 'Βάρος',
 			'profile.age' => 'Ηλικία',
 			'profile.weightGoal' => 'Στόχος Βάρους',
-			'profile.targetWeight' => 'Στοχος Βάρους',
+			'profile.targetWeight' => 'Στόχος Βάρους',
 			'profile.activityLevel' => 'Επίπεδο Δραστηριότητας',
 			'profile.healthMetrics' => 'Μετρήσεις Υγείας',
 			'profile.notSet' => 'Μη καθορισμένος',
@@ -1799,8 +1802,8 @@ extension on TranslationsEl {
 			'settings.developerModeEnabled' => 'Η λειτουργία προγραμματιστή έχει ενεργοποιηθεί!',
 			'settings.healthConnect.title' => 'Σύνδεση Υγείας',
 			'settings.healthConnect.subtitle' => 'Δείτε και διαχειριστείτε τις άδειες',
-			'settings.healthConnect.unavailable.title' => 'Η Σύνδεση Υγείας Αυτό δεν είναι Διαθέσιμη',
-			'settings.healthConnect.unavailable.description' => 'Η Σύνδεση Υγείας δεν είναι διαθέσιμη σε αυτή τη συσκευή. Απαιτεί Android 14 ή νεότερη έκδοση.',
+			'settings.healthConnect.unavailable.title' => 'Το Health Connect δεν είναι διαθέσιμο',
+			'settings.healthConnect.unavailable.description' => 'Το Health Connect δεν είναι διαθέσιμο σε αυτή τη συσκευή. Εγκαταστήστε το Health Connect από το Play Store (Android 9+) ή ενημερώστε σε Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Άδειες',
 			'settings.healthConnect.permissions.description' => 'Οι παρακάτω άδειες ζητούνται για να παρέχουν ενσωμάτωση με την Σύνδεση Υγείας:',
 			'settings.healthConnect.permissions.granted' => 'Χορηγήθηκε',
@@ -1813,10 +1816,13 @@ extension on TranslationsEl {
 			'settings.healthConnect.permissions.nutritionRead.usage' => 'Αυτή η άδεια επιτρέπει στην εφαρμογή να διαβάσει πληροφορίες διατροφής που μπορεί να έχουν καταχωρηθεί από άλλες εφαρμογές συνδεδεμένες με τη Σύνδεση Υγείας, παρέχοντας μια συνολική εικόνα της διατροφής σας.',
 			'settings.healthConnect.permissions.nutritionWrite.title' => 'Γράψτε Δεδομένα Διατροφής',
 			'settings.healthConnect.permissions.nutritionWrite.description' => 'Επιτρέπει στην εφαρμογή να γράψει δεδομένα διατροφής στη Σύνδεση Υγείας.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Αυτή η άδεια επιτρέπει στην εφαρμογή να συγχρονίσει τα καταχωρημένα γεύματά σας στη Σύνδεση Υγειας, καθιστώντας τα δεδομένα διατροφής διαθέσιμα σε άλλες εφαρμογές υγείας και φυσικής κατάστασης που χρησιμοποιείτε.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Αυτή η άδεια επιτρέπει στην εφαρμογή να συγχρονίσει τα καταχωρημένα γεύματά σας στη Σύνδεση Υγείας, καθιστώντας τα δεδομένα διατροφής διαθέσιμα σε άλλες εφαρμογές υγείας και φυσικής κατάστασης που χρησιμοποιείτε.',
 			'settings.healthConnect.managePermissions' => 'Διαχείριση Αδειών',
 			'settings.healthConnect.openSettings' => 'Άνοιγμα Ρυθμίσεων Health Connect',
 			'settings.healthConnect.requestPermissions' => 'Αίτημα Αδειών',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Το αίτημα αδειών ακυρώθηκε ή απέτυχε. Δοκιμάστε ξανά ή δώστε τις άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Δεν ήταν δυνατή η αίτηση αδειών. Δοκιμάστε ξανά ή δώστε τις άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Σχετικά',
 			'settings.about.tagline' => 'Γρήγορη, δωρεάν και με σεβασμό στην ιδιωτικότητα επίγνωση θερμίδων',
 			'settings.about.ourStory.title' => 'Η Ιστορία μας',

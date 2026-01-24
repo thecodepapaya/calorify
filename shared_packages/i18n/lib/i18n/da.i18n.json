@@ -353,7 +353,7 @@
       "profile": "PROFIL",
       "localization": "LOKALISERING",
       "notifications": "NOTIFIKATIONER",
-      "healthConnect": "SUNDHEDSFORBINDING",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "SUPPORT & JURIDISK",
       "about": "OM",
       "dangerZone": "FAREZONE",
@@ -411,8 +411,8 @@
       "title": "Sundhedsforbindelse",
       "subtitle": "Se og administrer tilladelser",
       "unavailable": {
-        "title": "Sundhedsforbindelse Utilgængelig",
-        "description": "Sundhedsforbindelse er ikke tilgængelig på denne enhed. Den kræver Android 14 eller nyere."
+        "title": "Health Connect utilgængelig",
+        "description": "Health Connect er ikke tilgængelig på denne enhed. Installer venligst Health Connect fra Play Store (Android 9+) eller opdater til Android 14+."
       },
       "permissions": {
         "title": "Tilladelser",
@@ -437,7 +437,10 @@
       },
       "managePermissions": "Administrer Tilladelser",
       "openSettings": "Åbn sundhedsforbindelsesindstillinger",
-      "requestPermissions": "Anmod om tilladelser"
+      "requestPermissions": "Anmod om tilladelser",
+      "permissionRequestCancelledOrFailed": "Anmodningen om tilladelser blev annulleret eller mislykkedes. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillinger.",
+      "permissionRequestFailed": "Kunne ikke anmode om tilladelser. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillinger.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "Om",
@@ -451,8 +454,8 @@
         "description": "Privatliv er ikke en eftertanke — det er et designprincip. Her er hvad det betyder i praksis:",
         "noAccounts": "Ingen konti kræves\nBrug appen med det samme. Ingen tilmeldinger, ingen identiteter.",
         "noTracking": "Ingen adfærdssporing\n{appLabel} overvåger ikke din aktivitet, opbygger brugsprofiler eller sporer dig på tværs af apps eller hjemmesider.",
-        "noAds": "Annoncefri af design\n{appLabel} er bygget til at fungere uden annoncer eller datadrevet monetisering.",
-        "noDataSelling": "Ingen datasalgs\nDine sundhedsdata sælges aldrig eller deles med tredjeparter.",
+        "noAds": "Annoncefri fra grunden\n{appLabel} er bygget til at fungere uden annoncer eller datadrevet monetisering.",
+        "noDataSelling": "Intet datasalg\nDine sundhedsdata sælges aldrig eller deles med tredjeparter.",
         "localStorage": "Lokalt først lagring\nDine data forbliver på din enhed.",
         "privacyPolicy": "Privatlivspolitik"
       },

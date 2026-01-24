@@ -784,7 +784,7 @@ class _TranslationsSettingsSectionsNl implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFIEL';
 	@override String get localization => 'LOCALISATIE';
 	@override String get notifications => 'MELDINGEN';
-	@override String get healthConnect => 'GEZONDHEID CONNECT';
+	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'ONDERSTEUNING & JURIDISCH';
 	@override String get about => 'OVER';
 	@override String get dangerZone => 'GEVAARZONE';
@@ -908,13 +908,16 @@ class _TranslationsSettingsHealthConnectNl implements TranslationsSettingsHealth
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Gezondheid Connect';
+	@override String get title => 'Health Connect';
 	@override String get subtitle => 'Bekijk en beheer machtigingen';
 	@override late final _TranslationsSettingsHealthConnectUnavailableNl unavailable = _TranslationsSettingsHealthConnectUnavailableNl._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNl permissions = _TranslationsSettingsHealthConnectPermissionsNl._(_root);
 	@override String get managePermissions => 'Beheer Machtigingen';
-	@override String get openSettings => 'Open Gezondheidsverbinding Instellingen';
+	@override String get openSettings => 'Open Health Connect Instellingen';
 	@override String get requestPermissions => 'Vraag Vergunningen Aan';
+	@override String get permissionRequestCancelledOrFailed => 'De machtigingsaanvraag is geannuleerd of mislukt. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.';
+	@override String get permissionRequestFailed => 'Kan geen machtigingen aanvragen. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -925,7 +928,7 @@ class _TranslationsSettingsAboutNl implements TranslationsSettingsAboutEn {
 
 	// Translations
 	@override String get title => 'Over';
-	@override String get tagline => 'Snelle, gratis en privacy-vriendelijke caloriebewustheid';
+	@override String get tagline => 'Snelle, gratis en privacyvriendelijke caloriebewustheid';
 	@override late final _TranslationsSettingsAboutOurStoryNl ourStory = _TranslationsSettingsAboutOurStoryNl._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyNl privacy = _TranslationsSettingsAboutPrivacyNl._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperNl developer = _TranslationsSettingsAboutDeveloperNl._(_root);
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableNl implements TranslationsSet
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Gezondheid Connect Niet Beschikbaar';
-	@override String get description => 'Gezondheid Connect is niet beschikbaar op dit apparaat. Het vereist Android 14 of later.';
+	@override String get title => 'Health Connect Niet Beschikbaar';
+	@override String get description => 'Health Connect is niet beschikbaar op dit apparaat. Installeer Health Connect via de Play Store (Android 9+) of update naar Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1293,7 +1296,7 @@ class _TranslationsSettingsHealthConnectPermissionsNl implements TranslationsSet
 
 	// Translations
 	@override String get title => 'Machtigingen';
-	@override String get description => 'De volgende machtigingen worden aangevraagd om de integratie met Gezondheid Connect te bieden:';
+	@override String get description => 'De volgende machtigingen worden aangevraagd om de integratie met Health Connect te bieden:';
 	@override String get granted => 'Toegestaan';
 	@override String get notGranted => 'Niet Toegestaan';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedNl caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedNl._(_root);
@@ -1462,7 +1465,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeNl implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'TDEE';
-	@override String get description => 'De Totale Dagelijkse Energieverbruik (TDEE) is het totale aantal calorieën dat je per dag verbrandt, inclusief je BMR plus calorieën van fysieke activiteit en dagelijkse beweging. TDEE is afhankelijk van je BMR en activiteitsniveau. Een hogere TDEE betekent dat je over het algemeen meer calorieën verbrandt, meestal door meer actief te zijn of een hogere BMR te hebben. Een lagere TDEE suggereert minder dagelijkse activiteit of een lagere BMR.';
+	@override String get description => 'Het Totale Dagelijkse Energieverbruik (TDEE) is het totale aantal calorieën dat je per dag verbrandt, inclusief je BMR plus calorieën van fysieke activiteit en dagelijkse beweging. TDEE is afhankelijk van je BMR en activiteitsniveau. Een hogere TDEE betekent dat je over het algemeen meer calorieën verbrandt, meestal door meer actief te zijn of een hogere BMR te hebben. Een lagere TDEE suggereert minder dagelijkse activiteit of een lagere BMR.';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1484,7 +1487,7 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedNl implements T
 
 	// Translations
 	@override String get title => 'Totaal Verbrande Calorieën Lezen';
-	@override String get description => 'Staat de app toe om je totale verbrande calorieën van Gezondheid Connect te lezen.';
+	@override String get description => 'Staat de app toe om je totale verbrande calorieën van Health Connect te lezen.';
 	@override String get usage => 'Deze machtiging wordt gebruikt om je dagelijkse calorieverbranding in de app weer te geven, zodat je je totale energieverbruik gedurende de dag beter kunt begrijpen.';
 }
 
@@ -1496,8 +1499,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadNl implements Tr
 
 	// Translations
 	@override String get title => 'Voedingsgegevens Lezen';
-	@override String get description => 'Staat de app toe om voedingsgegevens van Gezondheid Connect te lezen.';
-	@override String get usage => 'Deze machtiging stelt de app in staat om voedingsinformatie te lezen die mogelijk is vastgelegd door andere apps die zijn verbonden met Gezondheid Connect, wat een volledig overzicht van je voeding biedt.';
+	@override String get description => 'Staat de app toe om voedingsgegevens van Health Connect te lezen.';
+	@override String get usage => 'Deze machtiging stelt de app in staat om voedingsinformatie te lezen die mogelijk is vastgelegd door andere apps die zijn verbonden met Health Connect, wat een volledig overzicht van je voeding biedt.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1508,8 +1511,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteNl implements T
 
 	// Translations
 	@override String get title => 'Voedingsgegevens Schrijven';
-	@override String get description => 'Staat de app toe om voedingsgegevens naar Gezondheid Connect te schrijven.';
-	@override String get usage => 'Deze machtiging stelt de app in staat om je geregistreerde maaltijden naar Gezondheid Connect te synchroniseren, waardoor je voedingsgegevens beschikbaar komen voor andere gezondheids- en fitnessapps die je gebruikt.';
+	@override String get description => 'Staat de app toe om voedingsgegevens naar Health Connect te schrijven.';
+	@override String get usage => 'Deze machtiging stelt de app in staat om je geregistreerde maaltijden naar Health Connect te synchroniseren, waardoor je voedingsgegevens beschikbaar komen voor andere gezondheids- en fitnessapps die je gebruikt.';
 }
 
 /// The flat map containing all translations for locale <nl>.
@@ -1762,7 +1765,7 @@ extension on TranslationsNl {
 			'settings.sections.profile' => 'PROFIEL',
 			'settings.sections.localization' => 'LOCALISATIE',
 			'settings.sections.notifications' => 'MELDINGEN',
-			'settings.sections.healthConnect' => 'GEZONDHEID CONNECT',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'ONDERSTEUNING & JURIDISCH',
 			'settings.sections.about' => 'OVER',
 			'settings.sections.dangerZone' => 'GEVAARZONE',
@@ -1797,28 +1800,31 @@ extension on TranslationsNl {
 			'settings.clearAllData.clearEverything' => 'Verwijder Alles',
 			'settings.debugOptions.title' => 'Debug Opties',
 			'settings.developerModeEnabled' => 'Ontwikkelaarsmode ingeschakeld!',
-			'settings.healthConnect.title' => 'Gezondheid Connect',
+			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Bekijk en beheer machtigingen',
-			'settings.healthConnect.unavailable.title' => 'Gezondheid Connect Niet Beschikbaar',
-			'settings.healthConnect.unavailable.description' => 'Gezondheid Connect is niet beschikbaar op dit apparaat. Het vereist Android 14 of later.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect Niet Beschikbaar',
+			'settings.healthConnect.unavailable.description' => 'Health Connect is niet beschikbaar op dit apparaat. Installeer Health Connect via de Play Store (Android 9+) of update naar Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Machtigingen',
-			'settings.healthConnect.permissions.description' => 'De volgende machtigingen worden aangevraagd om de integratie met Gezondheid Connect te bieden:',
+			'settings.healthConnect.permissions.description' => 'De volgende machtigingen worden aangevraagd om de integratie met Health Connect te bieden:',
 			'settings.healthConnect.permissions.granted' => 'Toegestaan',
 			'settings.healthConnect.permissions.notGranted' => 'Niet Toegestaan',
 			'settings.healthConnect.permissions.caloriesBurned.title' => 'Totaal Verbrande Calorieën Lezen',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'Staat de app toe om je totale verbrande calorieën van Gezondheid Connect te lezen.',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Staat de app toe om je totale verbrande calorieën van Health Connect te lezen.',
 			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Deze machtiging wordt gebruikt om je dagelijkse calorieverbranding in de app weer te geven, zodat je je totale energieverbruik gedurende de dag beter kunt begrijpen.',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'Voedingsgegevens Lezen',
-			'settings.healthConnect.permissions.nutritionRead.description' => 'Staat de app toe om voedingsgegevens van Gezondheid Connect te lezen.',
-			'settings.healthConnect.permissions.nutritionRead.usage' => 'Deze machtiging stelt de app in staat om voedingsinformatie te lezen die mogelijk is vastgelegd door andere apps die zijn verbonden met Gezondheid Connect, wat een volledig overzicht van je voeding biedt.',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Staat de app toe om voedingsgegevens van Health Connect te lezen.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Deze machtiging stelt de app in staat om voedingsinformatie te lezen die mogelijk is vastgelegd door andere apps die zijn verbonden met Health Connect, wat een volledig overzicht van je voeding biedt.',
 			'settings.healthConnect.permissions.nutritionWrite.title' => 'Voedingsgegevens Schrijven',
-			'settings.healthConnect.permissions.nutritionWrite.description' => 'Staat de app toe om voedingsgegevens naar Gezondheid Connect te schrijven.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Deze machtiging stelt de app in staat om je geregistreerde maaltijden naar Gezondheid Connect te synchroniseren, waardoor je voedingsgegevens beschikbaar komen voor andere gezondheids- en fitnessapps die je gebruikt.',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Staat de app toe om voedingsgegevens naar Health Connect te schrijven.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Deze machtiging stelt de app in staat om je geregistreerde maaltijden naar Health Connect te synchroniseren, waardoor je voedingsgegevens beschikbaar komen voor andere gezondheids- en fitnessapps die je gebruikt.',
 			'settings.healthConnect.managePermissions' => 'Beheer Machtigingen',
-			'settings.healthConnect.openSettings' => 'Open Gezondheidsverbinding Instellingen',
+			'settings.healthConnect.openSettings' => 'Open Health Connect Instellingen',
 			'settings.healthConnect.requestPermissions' => 'Vraag Vergunningen Aan',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'De machtigingsaanvraag is geannuleerd of mislukt. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.',
+			'settings.healthConnect.permissionRequestFailed' => 'Kan geen machtigingen aanvragen. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Over',
-			'settings.about.tagline' => 'Snelle, gratis en privacy-vriendelijke caloriebewustheid',
+			'settings.about.tagline' => 'Snelle, gratis en privacyvriendelijke caloriebewustheid',
 			'settings.about.ourStory.title' => 'Ons Verhaal',
 			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} is ontstaan uit een eenvoudige frustratie: de meeste calorie-tracking apps zijn ofwel te gecompliceerd, vereisen constante handmatige invoer, vragen hoge abonnementsprijzen of komen de privacy in gevaar.\n\nAls solo ontwikkelaar wilde ik iets eenvoudigers en eerlijkers bouwen — een app die AI gebruikt om de inspanning te verminderen, snel en gratis te gebruiken blijft en je gezondheidsgegevens met respect behandelt.\n\n${appLabel} is de app die ik wenste dat bestond: geen accounts, geen tracking, geen advertenties — gewoon duidelijke, praktische inzichten en je gezondheidsdoelen.',
 			'settings.about.privacy.title' => 'Jouw Privacy Telt',
@@ -1893,7 +1899,7 @@ extension on TranslationsNl {
 			'disclaimer.healthMetrics.bmr.title' => 'BMR',
 			'disclaimer.healthMetrics.bmr.description' => 'De Basale Metabolische Snelheid (BMR) is het aantal calorieën dat je lichaam in rust verbrandt om basisfuncties zoals ademhaling en circulatie te onderhouden. BMR is afhankelijk van je leeftijd, geslacht, lengte en gewicht. Een hogere BMR betekent dat je lichaam van nature meer calorieën verbrandt in rust, vaak door meer spiermassa, een jongere leeftijd of mannelijk geslacht. Een lagere BMR geeft doorgaans een lagere spiermassa, een oudere leeftijd of vrouwelijk geslacht aan.',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
-			'disclaimer.healthMetrics.tdee.description' => 'De Totale Dagelijkse Energieverbruik (TDEE) is het totale aantal calorieën dat je per dag verbrandt, inclusief je BMR plus calorieën van fysieke activiteit en dagelijkse beweging. TDEE is afhankelijk van je BMR en activiteitsniveau. Een hogere TDEE betekent dat je over het algemeen meer calorieën verbrandt, meestal door meer actief te zijn of een hogere BMR te hebben. Een lagere TDEE suggereert minder dagelijkse activiteit of een lagere BMR.',
+			'disclaimer.healthMetrics.tdee.description' => 'Het Totale Dagelijkse Energieverbruik (TDEE) is het totale aantal calorieën dat je per dag verbrandt, inclusief je BMR plus calorieën van fysieke activiteit en dagelijkse beweging. TDEE is afhankelijk van je BMR en activiteitsniveau. Een hogere TDEE betekent dat je over het algemeen meer calorieën verbrandt, meestal door meer actief te zijn of een hogere BMR te hebben. Een lagere TDEE suggereert minder dagelijkse activiteit of een lagere BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Dagdoel',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Het Dagdoel is je aanbevolen dagelijkse calorie-inname op basis van je TDEE en gewichtsdoel. Voor gewichtsverlies consumeer je minder calorieën dan je TDEE. Voor gewichtsbehoud stem je je inname af op je TDEE. Voor gewichtstoename consumeer je meer calorieën dan je TDEE. Dit helpt je om je gewenste gewichtsverandering op een gezonde manier te bereiken.',
 			'common.close' => 'Sluiten',

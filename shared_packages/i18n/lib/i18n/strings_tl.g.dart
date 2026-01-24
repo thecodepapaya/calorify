@@ -784,7 +784,7 @@ class _TranslationsSettingsSectionsTl implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFILE';
 	@override String get localization => 'LOKALISASYON';
 	@override String get notifications => 'NOTIFIKASYON';
-	@override String get healthConnect => 'KONEKSYON SA KALUSUGAN';
+	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'SUPORTA AT LEGAL';
 	@override String get about => 'TUNGKOL';
 	@override String get dangerZone => 'MAPANGANIB NA ZONA';
@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectTl implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Pamahalaan ang mga Pahintulot';
 	@override String get openSettings => 'Buksan ang Mga Setting ng Health Connect';
 	@override String get requestPermissions => 'Humiling ng Mga Pahintulot';
+	@override String get permissionRequestCancelledOrFailed => 'Ang hinihinging pahintulot ay nakansela o nabigo. Pakisubukang muli o bigyan ng pahintulot nang manu-mano sa mga setting ng Health Connect.';
+	@override String get permissionRequestFailed => 'Hindi makapaghiling ng mga pahintulot. Pakisubukang muli o bigyan ng pahintulot nang manu-mano sa mga setting ng Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1337,7 +1340,7 @@ class _TranslationsSettingsAboutDeveloperTl implements TranslationsSettingsAbout
 
 	// Translations
 	@override String get title => 'Nilikha ng Isang Solo Developer';
-	@override String description({required Object appLabel}) => '${appLabel} ay binuo at pinapanatili ng isang tanging solo developer na nakatutok sa paglikha ng kalmado at p respecting na software para sa kalusugan.\n\nAng feedback ay personal na binabasa at tumutulong sa paghubog ng direksyon ng app.';
+	@override String description({required Object appLabel}) => '${appLabel} ay binuo at pinapanatili ng isang tanging solo developer na nakatutok sa paglikha ng kalmado at privacy-respecting na software para sa kalusugan.\n\nAng feedback ay personal na binabasa at tumutulong sa paghubog ng direksyon ng app.';
 	@override String get website => 'Website';
 	@override String get email => 'Email';
 }
@@ -1462,7 +1465,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeTl implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'TDEE';
-	@override String get description => 'Ang Total Daily Energy Expenditure (TDEE) ay ang kabuuang calorie na sinusunog mo sa isang araw, kabilang ang iyong BMR at mga calorie mula sa pisikal na aktibidad at pang-araw-araw na paggalaw. Ang TDEE ay nakadepende sa iyong BMR at antas ng aktibidad. Ang mas mataas na TDEE ay nangangahulugang mas maraming calorie ang iyong sinusunod sa kabuuan, karaniwang mula sa pagiging mas aktibo o pagkakaroon ng mas mataas na BMR. Ang mas mababang TDEE ay nagpapahiwatig ng mas kaunting aktibidad sa araw-araw o mas mababang BMR.';
+	@override String get description => 'Ang Total Daily Energy Expenditure (TDEE) ay ang kabuuang calorie na sinusunog mo sa isang araw, kabilang ang iyong BMR at mga calorie mula sa pisikal na aktibidad at pang-araw-araw na paggalaw. Ang TDEE ay nakadepende sa iyong BMR at antas ng aktibidad. Ang mas mataas na TDEE ay nangangahulugang mas maraming calorie ang iyong sinusunog sa kabuuan, karaniwang mula sa pagiging mas aktibo o pagkakaroon ng mas mataas na BMR. Ang mas mababang TDEE ay nagpapahiwatig ng mas kaunting aktibidad sa araw-araw o mas mababang BMR.';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1483,9 +1486,9 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTl implements T
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Basahin ang Kabuuang Nalaglag na Kaloriya';
-	@override String get description => 'Pinapayagan ang app na basahin ang iyong kabuuang nalaglag na kaloriya mula sa Koneksyon sa Kalusugan.';
-	@override String get usage => 'Ginagamit ang pahintulot na ito upang ipakita ang iyong araw-araw na nalaglag na kaloriya sa app, na tumutulong sa iyo na maunawaan ang iyong kabuuang pagkonsumo ng enerhiya sa buong araw.';
+	@override String get title => 'Basahin ang Kabuuang Nasunog na Calories';
+	@override String get description => 'Pinapayagan ang app na basahin ang iyong kabuuang nasunog na calories mula sa Health Connect.';
+	@override String get usage => 'Ginagamit ang pahintulot na ito upang ipakita ang iyong araw-araw na nasunog na calories sa app, na tumutulong sa iyo na maunawaan ang iyong kabuuang pagkonsumo ng enerhiya sa buong araw.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
@@ -1762,7 +1765,7 @@ extension on TranslationsTl {
 			'settings.sections.profile' => 'PROFILE',
 			'settings.sections.localization' => 'LOKALISASYON',
 			'settings.sections.notifications' => 'NOTIFIKASYON',
-			'settings.sections.healthConnect' => 'KONEKSYON SA KALUSUGAN',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'SUPORTA AT LEGAL',
 			'settings.sections.about' => 'TUNGKOL',
 			'settings.sections.dangerZone' => 'MAPANGANIB NA ZONA',
@@ -1805,9 +1808,9 @@ extension on TranslationsTl {
 			'settings.healthConnect.permissions.description' => 'Ang mga sumusunod na pahintulot ay hiniling upang maibigay ang integrasyon ng Koneksyon sa Kalusugan:',
 			'settings.healthConnect.permissions.granted' => 'Ipinagkaloob',
 			'settings.healthConnect.permissions.notGranted' => 'Hindi Ipinagkaloob',
-			'settings.healthConnect.permissions.caloriesBurned.title' => 'Basahin ang Kabuuang Nalaglag na Kaloriya',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'Pinapayagan ang app na basahin ang iyong kabuuang nalaglag na kaloriya mula sa Koneksyon sa Kalusugan.',
-			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Ginagamit ang pahintulot na ito upang ipakita ang iyong araw-araw na nalaglag na kaloriya sa app, na tumutulong sa iyo na maunawaan ang iyong kabuuang pagkonsumo ng enerhiya sa buong araw.',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Basahin ang Kabuuang Nasunog na Calories',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Pinapayagan ang app na basahin ang iyong kabuuang nasunog na calories mula sa Health Connect.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Ginagamit ang pahintulot na ito upang ipakita ang iyong araw-araw na nasunog na calories sa app, na tumutulong sa iyo na maunawaan ang iyong kabuuang pagkonsumo ng enerhiya sa buong araw.',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'Basahin ang Data ng Nutrisyon',
 			'settings.healthConnect.permissions.nutritionRead.description' => 'Pinapayagan ang app na basahin ang data ng nutrisyon mula sa Koneksyon sa Kalusugan.',
 			'settings.healthConnect.permissions.nutritionRead.usage' => 'Pinapayagan ng pahintulot na ito ang app na basahin ang impormasyon ng nutrisyon na maaaring naitala ng ibang mga app na nakakonekta sa Koneksyon sa Kalusugan, nagbibigay ng komprehensibong pananaw sa iyong nutrisyon.',
@@ -1817,6 +1820,9 @@ extension on TranslationsTl {
 			'settings.healthConnect.managePermissions' => 'Pamahalaan ang mga Pahintulot',
 			'settings.healthConnect.openSettings' => 'Buksan ang Mga Setting ng Health Connect',
 			'settings.healthConnect.requestPermissions' => 'Humiling ng Mga Pahintulot',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Ang hinihinging pahintulot ay nakansela o nabigo. Pakisubukang muli o bigyan ng pahintulot nang manu-mano sa mga setting ng Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Hindi makapaghiling ng mga pahintulot. Pakisubukang muli o bigyan ng pahintulot nang manu-mano sa mga setting ng Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Tungkol',
 			'settings.about.tagline' => 'Mabilis, libre, at priyoridad ang privacy sa kamalayan sa calorie',
 			'settings.about.ourStory.title' => 'Ang Aming Kwento',
@@ -1830,7 +1836,7 @@ extension on TranslationsTl {
 			'settings.about.privacy.localStorage' => 'Local-first storage\nAng iyong datos ay nananatili sa iyong device.',
 			'settings.about.privacy.privacyPolicy' => 'Patakaran sa Privacy',
 			'settings.about.developer.title' => 'Nilikha ng Isang Solo Developer',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} ay binuo at pinapanatili ng isang tanging solo developer na nakatutok sa paglikha ng kalmado at p respecting na software para sa kalusugan.\n\nAng feedback ay personal na binabasa at tumutulong sa paghubog ng direksyon ng app.',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} ay binuo at pinapanatili ng isang tanging solo developer na nakatutok sa paglikha ng kalmado at privacy-respecting na software para sa kalusugan.\n\nAng feedback ay personal na binabasa at tumutulong sa paghubog ng direksyon ng app.',
 			'settings.about.developer.website' => 'Website',
 			'settings.about.developer.email' => 'Email',
 			'settings.about.feedback.title' => ({required Object appLabel}) => 'Nasiyahan ka ba sa ${appLabel}?',
@@ -1893,7 +1899,7 @@ extension on TranslationsTl {
 			'disclaimer.healthMetrics.bmr.title' => 'BMR',
 			'disclaimer.healthMetrics.bmr.description' => 'Ang Basal Metabolic Rate (BMR) ay ang bilang ng mga calorie na sinusunog ng iyong katawan kapag nagpapahinga upang mapanatili ang mga pangunahing function tulad ng paghinga at sirkulasyon. Ang BMR ay nakadepende sa iyong edad, kasarian, taas, at timbang. Ang mas mataas na BMR ay nangangahulugang ang iyong katawan ay natural na nagsusunog ng mas maraming calorie habang nagpapahinga, na kadalasang dulot ng mas maraming mass ng kalamnan, mas batang edad, o pagiging lalaki. Ang mas mababang BMR ay karaniwang nagpapahiwatig ng mas kaunting mass ng kalamnan, mas matandang edad, o pagiging babae.',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
-			'disclaimer.healthMetrics.tdee.description' => 'Ang Total Daily Energy Expenditure (TDEE) ay ang kabuuang calorie na sinusunog mo sa isang araw, kabilang ang iyong BMR at mga calorie mula sa pisikal na aktibidad at pang-araw-araw na paggalaw. Ang TDEE ay nakadepende sa iyong BMR at antas ng aktibidad. Ang mas mataas na TDEE ay nangangahulugang mas maraming calorie ang iyong sinusunod sa kabuuan, karaniwang mula sa pagiging mas aktibo o pagkakaroon ng mas mataas na BMR. Ang mas mababang TDEE ay nagpapahiwatig ng mas kaunting aktibidad sa araw-araw o mas mababang BMR.',
+			'disclaimer.healthMetrics.tdee.description' => 'Ang Total Daily Energy Expenditure (TDEE) ay ang kabuuang calorie na sinusunog mo sa isang araw, kabilang ang iyong BMR at mga calorie mula sa pisikal na aktibidad at pang-araw-araw na paggalaw. Ang TDEE ay nakadepende sa iyong BMR at antas ng aktibidad. Ang mas mataas na TDEE ay nangangahulugang mas maraming calorie ang iyong sinusunog sa kabuuan, karaniwang mula sa pagiging mas aktibo o pagkakaroon ng mas mataas na BMR. Ang mas mababang TDEE ay nagpapahiwatig ng mas kaunting aktibidad sa araw-araw o mas mababang BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Arawang Layunin',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Ang Arawang Layunin ay ang inirekomendang pang-araw-araw na calorie na kinakailangan batay sa iyong TDEE at layunin sa timbang. Para sa pagbaba ng timbang, kumakain ka ng mas kaunting calorie kaysa sa iyong TDEE. Para sa pagpapanatili ng timbang, katumbas mo ang iyong TDEE. Para sa pagtaas ng timbang, kumakain ka ng mas maraming calorie kaysa sa iyong TDEE. Tinutulungan ka nitong makamit ang iyong nais na pagbabago ng timbang sa isang malusog na takbo.',
 			'common.close' => 'Isara',

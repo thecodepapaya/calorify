@@ -437,7 +437,10 @@
       },
       "managePermissions": "Quản lý Quyền",
       "openSettings": "Mở Cài Đặt Kết Nối Sức Khỏe",
-      "requestPermissions": "Yêu Cầu Quyền Truy Cập"
+      "requestPermissions": "Yêu Cầu Quyền Truy Cập",
+      "permissionRequestCancelledOrFailed": "Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.",
+      "permissionRequestFailed": "Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "Giới Thiệu",

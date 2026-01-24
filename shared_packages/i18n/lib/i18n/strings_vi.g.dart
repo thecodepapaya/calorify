@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectVi implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Quản lý Quyền';
 	@override String get openSettings => 'Mở Cài Đặt Kết Nối Sức Khỏe';
 	@override String get requestPermissions => 'Yêu Cầu Quyền Truy Cập';
+	@override String get permissionRequestCancelledOrFailed => 'Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.';
+	@override String get permissionRequestFailed => 'Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1817,6 +1820,9 @@ extension on TranslationsVi {
 			'settings.healthConnect.managePermissions' => 'Quản lý Quyền',
 			'settings.healthConnect.openSettings' => 'Mở Cài Đặt Kết Nối Sức Khỏe',
 			'settings.healthConnect.requestPermissions' => 'Yêu Cầu Quyền Truy Cập',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Giới Thiệu',
 			'settings.about.tagline' => 'Nhận thức về calo nhanh chóng, miễn phí và bảo mật',
 			'settings.about.ourStory.title' => 'Câu Chuyện Của Chúng Tôi',

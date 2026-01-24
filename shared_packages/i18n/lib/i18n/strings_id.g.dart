@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectId implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Kelola Izin';
 	@override String get openSettings => 'Buka Pengaturan Kesehatan Terhubung';
 	@override String get requestPermissions => 'Minta Izin';
+	@override String get permissionRequestCancelledOrFailed => 'Permintaan izin dibatalkan atau gagal. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.';
+	@override String get permissionRequestFailed => 'Tidak dapat meminta izin. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableId implements TranslationsSet
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Koneksi Kesehatan Tidak Tersedia';
-	@override String get description => 'Koneksi Kesehatan tidak tersedia di perangkat ini. Memerlukan Android 14 atau lebih baru.';
+	@override String get title => 'Health Connect Tidak Tersedia';
+	@override String get description => 'Health Connect tidak tersedia di perangkat ini. Silakan instal Health Connect dari Play Store (Android 9+) atau perbarui ke Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1799,8 +1802,8 @@ extension on TranslationsId {
 			'settings.developerModeEnabled' => 'Mode pengembang diaktifkan!',
 			'settings.healthConnect.title' => 'Koneksi Kesehatan',
 			'settings.healthConnect.subtitle' => 'Lihat dan kelola izin',
-			'settings.healthConnect.unavailable.title' => 'Koneksi Kesehatan Tidak Tersedia',
-			'settings.healthConnect.unavailable.description' => 'Koneksi Kesehatan tidak tersedia di perangkat ini. Memerlukan Android 14 atau lebih baru.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect Tidak Tersedia',
+			'settings.healthConnect.unavailable.description' => 'Health Connect tidak tersedia di perangkat ini. Silakan instal Health Connect dari Play Store (Android 9+) atau perbarui ke Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Izin',
 			'settings.healthConnect.permissions.description' => 'Izin berikut diminta untuk menyediakan integrasi Koneksi Kesehatan:',
 			'settings.healthConnect.permissions.granted' => 'Diberikan',
@@ -1817,6 +1820,9 @@ extension on TranslationsId {
 			'settings.healthConnect.managePermissions' => 'Kelola Izin',
 			'settings.healthConnect.openSettings' => 'Buka Pengaturan Kesehatan Terhubung',
 			'settings.healthConnect.requestPermissions' => 'Minta Izin',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Permintaan izin dibatalkan atau gagal. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Tidak dapat meminta izin. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Tentang',
 			'settings.about.tagline' => 'Kesadaran kalori yang cepat, gratis, dan mengutamakan privasi',
 			'settings.about.ourStory.title' => 'Kisah Kami',

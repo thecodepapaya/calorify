@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectNo implements TranslationsSettingsHealth
 	@override String get managePermissions => 'Administrer tillatelser';
 	@override String get openSettings => 'Åpne helsetilkoblingsinnstillinger';
 	@override String get requestPermissions => 'Be om tillatelser';
+	@override String get permissionRequestCancelledOrFailed => 'Forespørselen om tillatelser ble avbrutt eller mislyktes. Prøv igjen eller gi tillatelser manuelt i Health Connect-innstillingene.';
+	@override String get permissionRequestFailed => 'Kunne ikke be om tillatelser. Prøv igjen eller gi tillatelser manuelt i Health Connect-innstillingene.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1281,8 +1284,8 @@ class _TranslationsSettingsHealthConnectUnavailableNo implements TranslationsSet
 	final TranslationsNo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Helsekontakt utilgjengelig';
-	@override String get description => 'Helsekontakt er ikke tilgjengelig på denne enheten. Det krever Android 14 eller nyere.';
+	@override String get title => 'Health Connect utilgjengelig';
+	@override String get description => 'Health Connect er ikke tilgjengelig på denne enheten. Installer Health Connect fra Play Store (Android 9+) eller oppdater til Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1799,8 +1802,8 @@ extension on TranslationsNo {
 			'settings.developerModeEnabled' => 'Utviklermodus aktivert!',
 			'settings.healthConnect.title' => 'Helsekontakt',
 			'settings.healthConnect.subtitle' => 'Vis og administrer tillatelser',
-			'settings.healthConnect.unavailable.title' => 'Helsekontakt utilgjengelig',
-			'settings.healthConnect.unavailable.description' => 'Helsekontakt er ikke tilgjengelig på denne enheten. Det krever Android 14 eller nyere.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect utilgjengelig',
+			'settings.healthConnect.unavailable.description' => 'Health Connect er ikke tilgjengelig på denne enheten. Installer Health Connect fra Play Store (Android 9+) eller oppdater til Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Tillatelser',
 			'settings.healthConnect.permissions.description' => 'Følgende tillatelser er forespurt for å gi integrering med Helsekontakt:',
 			'settings.healthConnect.permissions.granted' => 'Innvilget',
@@ -1817,6 +1820,9 @@ extension on TranslationsNo {
 			'settings.healthConnect.managePermissions' => 'Administrer tillatelser',
 			'settings.healthConnect.openSettings' => 'Åpne helsetilkoblingsinnstillinger',
 			'settings.healthConnect.requestPermissions' => 'Be om tillatelser',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Forespørselen om tillatelser ble avbrutt eller mislyktes. Prøv igjen eller gi tillatelser manuelt i Health Connect-innstillingene.',
+			'settings.healthConnect.permissionRequestFailed' => 'Kunne ikke be om tillatelser. Prøv igjen eller gi tillatelser manuelt i Health Connect-innstillingene.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Om',
 			'settings.about.tagline' => 'Rask, gratis og med fokus på personvern for kalorioversikt',
 			'settings.about.ourStory.title' => 'Vår historie',

@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectTr implements TranslationsSettingsHealth
 	@override String get managePermissions => 'İzinleri Yönet';
 	@override String get openSettings => 'Sağlık Bağlantısı Ayarlarını Aç';
 	@override String get requestPermissions => 'İzinleri Talep Et';
+	@override String get permissionRequestCancelledOrFailed => 'İzin talebi iptal edildi veya başarısız oldu. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.';
+	@override String get permissionRequestFailed => 'İzinleri talep edemiyorum. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1817,6 +1820,9 @@ extension on TranslationsTr {
 			'settings.healthConnect.managePermissions' => 'İzinleri Yönet',
 			'settings.healthConnect.openSettings' => 'Sağlık Bağlantısı Ayarlarını Aç',
 			'settings.healthConnect.requestPermissions' => 'İzinleri Talep Et',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'İzin talebi iptal edildi veya başarısız oldu. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.',
+			'settings.healthConnect.permissionRequestFailed' => 'İzinleri talep edemiyorum. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'Hakkında',
 			'settings.about.tagline' => 'Hızlı, ücretsiz ve gizlilik odaklı kalori farkındalığı',
 			'settings.about.ourStory.title' => 'Hikayemiz',

@@ -411,8 +411,8 @@
       "title": "Egészség Kapcsolat",
       "subtitle": "Engedélyek megtekintése és kezelése",
       "unavailable": {
-        "title": "Egészség Kapcsolat Nem Elérhető",
-        "description": "Az Egészség Kapcsolat nem elérhető ezen az eszközön. Android 14 vagy újabb verzió szükséges."
+        "title": "Health Connect nem elérhető",
+        "description": "A Health Connect nem érhető el ezen az eszközön. Kérjük, telepítse a Health Connectet a Play Áruházból (Android 9+), vagy frissítsen Android 14+-ra."
       },
       "permissions": {
         "title": "Engedélyek",
@@ -437,7 +437,10 @@
       },
       "managePermissions": "Engedélyek Kezelése",
       "openSettings": "Nyisd meg az Egészségkapcsolat beállításait",
-      "requestPermissions": "Engedélyek kérése"
+      "requestPermissions": "Engedélyek kérése",
+      "permissionRequestCancelledOrFailed": "Az engedélykérés megszakadt vagy sikertelen volt. Próbáld újra, vagy add meg az engedélyeket manuálisan a Health Connect beállításaiban.",
+      "permissionRequestFailed": "Nem sikerült engedélyeket kérni. Próbáld újra, vagy add meg az engedélyeket manuálisan a Health Connect beállításaiban.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "Rólunk",
@@ -457,7 +460,7 @@
         "privacyPolicy": "Adatvédelmi irányelvek"
       },
       "developer": {
-        "title": "Függő Solo Fejlesztő Által Készítve",
+        "title": "Független Solo Fejlesztő Által Készítve",
         "description": "{appLabel} egyetlen solo fejlesztő által készült és karbantartott, aki a nyugodt, adatvédelmet tiszteletben tartó egészségügyi szoftverek fejlesztésére összpontosít.\n\nA visszajelzéseket személyesen olvassuk és segítenek alakítani az alkalmazás irányát.",
         "website": "Weboldal",
         "email": "Email"

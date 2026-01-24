@@ -52,21 +52,21 @@ class _CatPeekEasterEggState extends State<CatPeekEasterEgg>
           begin: widget.grassHeight + 50, // Start below grass
           end: -40, // Float up to smaller height above grass
         ),
-        weight: 0.3, // Float up (0-0.4)
+        weight: 0.3, // Float up (0–30%)
       ),
       TweenSequenceItem(
         tween: Tween<double>(
           begin: -40,
           end: -50, // Stay at top
         ),
-        weight: 0.5, // Stay visible (0.4-0.7)
+        weight: 0.5, // Stay visible (30–80%)
       ),
       TweenSequenceItem(
         tween: Tween<double>(
-          begin: -40,
+          begin: -50, // Match previous item's end for smooth transition
           end: widget.grassHeight + 50, // Sink back down
         ),
-        weight: 0.2, // Sink down (0.7-1.0)
+        weight: 0.2, // Sink down (80–100%)
       ),
     ]).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 

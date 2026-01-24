@@ -115,7 +115,7 @@ class _HealthConnectPermissionsScreenState
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                'Permission request was cancelled or failed. Please try again or grant permissions manually in Health Connect settings.',
+                t.settings.healthConnect.permissionRequestCancelledOrFailed,
               ),
               duration: const Duration(seconds: 4),
             ),
@@ -127,9 +127,7 @@ class _HealthConnectPermissionsScreenState
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(
-              'Unable to request permissions. Please try again or grant permissions manually in Health Connect settings.',
-            ),
+            content: Text(t.settings.healthConnect.permissionRequestFailed),
             duration: const Duration(seconds: 4),
           ),
         );
@@ -460,7 +458,7 @@ class _HealthConnectPermissionsScreenState
                 : const Icon(LucideIcons.settings),
         label: Text(
           _isRequestingPermissions
-              ? 'Requesting...'
+              ? t.settings.healthConnect.requestingPermissions
               : t.settings.healthConnect.requestPermissions,
         ),
         style: OutlinedButton.styleFrom(

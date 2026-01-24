@@ -411,8 +411,8 @@
       "title": "Соединение Здоровья",
       "subtitle": "Просмотр и управление разрешениями",
       "unavailable": {
-        "title": "Соединение Здоровья недоступно",
-        "description": "Соединение Здоровья недоступно на этом устройстве. Требуется Android 14 или новее."
+        "title": "Health Connect недоступен",
+        "description": "Health Connect недоступен на этом устройстве. Установите Health Connect из Play Store (Android 9+) или обновитесь до Android 14+."
       },
       "permissions": {
         "title": "Разрешения",
@@ -437,7 +437,10 @@
       },
       "managePermissions": "Управление разрешениями",
       "openSettings": "Открыть настройки Health Connect",
-      "requestPermissions": "Запросить разрешения"
+      "requestPermissions": "Запросить разрешения",
+      "permissionRequestCancelledOrFailed": "Запрос разрешения был отменен или не удался. Пожалуйста, попробуйте еще раз или вручную предоставьте разрешения в настройках Health Connect.",
+      "permissionRequestFailed": "Не удалось запросить разрешения. Пожалуйста, попробуйте еще раз или вручную предоставьте разрешения в настройках Health Connect.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "О приложении",

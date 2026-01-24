@@ -353,7 +353,7 @@
       "profile": "PERFIL",
       "localization": "LOCALIZACIÓN",
       "notifications": "NOTIFICACIONES",
-      "healthConnect": "CONECTAR CON LA SALUD",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "SOPORTE Y LEGAL",
       "about": "ACERCA DE",
       "dangerZone": "ZONA DE PELIGRO",
@@ -408,36 +408,39 @@
     },
     "developerModeEnabled": "¡Modo de desarrollador habilitado!",
     "healthConnect": {
-      "title": "Conectar con la Salud",
+      "title": "Health Connect",
       "subtitle": "Ver y gestionar permisos",
       "unavailable": {
-        "title": "Conectar con la Salud No Disponible",
-        "description": "Conectar con la Salud no está disponible en este dispositivo. Requiere Android 14 o posterior."
+        "title": "Health Connect No Disponible",
+        "description": "Health Connect no está disponible en este dispositivo. Instala Health Connect desde Play Store (Android 9+) o actualiza a Android 14+."
       },
       "permissions": {
         "title": "Permisos",
-        "description": "Se solicitan los siguientes permisos para proporcionar integración con Conectar con la Salud:",
+        "description": "Se solicitan los siguientes permisos para proporcionar integración con Health Connect:",
         "granted": "Concedido",
         "notGranted": "No Concedido",
         "caloriesBurned": {
           "title": "Leer Calorías Totales Quemadas",
-          "description": "Permite que la app lea tus calorías totales quemadas desde Conectar con la Salud.",
+          "description": "Permite que la app lea tus calorías totales quemadas desde Health Connect.",
           "usage": "Este permiso se utiliza para mostrar tu quema diaria de calorías en la app, ayudándote a comprender tu gasto energético total a lo largo del día."
         },
         "nutritionRead": {
           "title": "Leer Datos de Nutrición",
-          "description": "Permite que la app lea datos de nutrición desde Conectar con la Salud.",
-          "usage": "Este permiso permite a la app leer información nutricional que puede haber sido registrada por otras apps conectadas a Conectar con la Salud, proporcionando una vista completa de tu nutrición."
+          "description": "Permite que la app lea datos de nutrición desde Health Connect.",
+          "usage": "Este permiso permite a la app leer información nutricional que puede haber sido registrada por otras apps conectadas a Health Connect, proporcionando una vista completa de tu nutrición."
         },
         "nutritionWrite": {
           "title": "Escribir Datos de Nutrición",
-          "description": "Permite que la app escriba datos de nutrición en Conectar con la Salud.",
-          "usage": "Este permiso permite a la app sincronizar tus comidas registradas con Conectar con la Salud, haciendo que tus datos de nutrición estén disponibles para otras apps de salud y fitness que utilices."
+          "description": "Permite que la app escriba datos de nutrición en Health Connect.",
+          "usage": "Este permiso permite a la app sincronizar tus comidas registradas con Health Connect, haciendo que tus datos de nutrición estén disponibles para otras apps de salud y fitness que utilices."
         }
       },
       "managePermissions": "Gestionar Permisos",
       "openSettings": "Abrir la configuración de Health Connect",
-      "requestPermissions": "Solicitar permisos"
+      "requestPermissions": "Solicitar permisos",
+      "permissionRequestCancelledOrFailed": "La solicitud de permisos se canceló o falló. Inténtalo de nuevo o concede los permisos manualmente en la configuración de Health Connect.",
+      "permissionRequestFailed": "No se pudieron solicitar los permisos. Inténtalo de nuevo o concede los permisos manualmente en la configuración de Health Connect.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "Acerca de",
@@ -567,11 +570,11 @@
       },
       "tdee": {
         "title": "Gasto Energético Diario Total",
-        "description": "El Gasto Energético Diario Total (GEDT) es la cantidad total de calorías que quemas por día, incluyendo tu TMB más las calorías de la actividad física y el movimiento diario. El GEDT depende de tu TMB y nivel de actividad. Un GEDT más alto significa que quemas más calorías en general, normalmente por estar más activo o tener una TMB más alta. Un GEDT más bajo sugiere menos actividad diaria o una TMB más baja."
+        "description": "El Gasto Energético Diario Total (TDEE) es la cantidad total de calorías que quemas por día, incluyendo tu TMB más las calorías de la actividad física y el movimiento diario. El TDEE depende de tu TMB y nivel de actividad. Un TDEE más alto significa que quemas más calorías en general, normalmente por estar más activo o tener una TMB más alta. Un TDEE más bajo sugiere menos actividad diaria o una TMB más baja."
       },
       "dailyGoal": {
         "title": "Objetivo Diario",
-        "description": "El Objetivo Diario es tu ingesta calórica diaria recomendada basada en tu GEDT y objetivo de peso. Para perder peso, consumes menos calorías que tu GEDT. Para mantener el peso, igualas tu GEDT. Para ganar peso, consumes más calorías que tu GEDT. Esto te ayuda a lograr tu cambio de peso deseado a un ritmo saludable."
+        "description": "El Objetivo Diario es tu ingesta calórica diaria recomendada basada en tu TDEE y objetivo de peso. Para perder peso, consumes menos calorías que tu TDEE. Para mantener el peso, igualas tu TDEE. Para ganar peso, consumes más calorías que tu TDEE. Esto te ayuda a lograr tu cambio de peso deseado a un ritmo saludable."
       }
     }
   },

@@ -411,8 +411,8 @@
       "title": "חיבור בריאות",
       "subtitle": "הצג וניהול הרשאות",
       "unavailable": {
-        "title": "חיבור בריאות לא זמין",
-        "description": "חיבור בריאות אינו זמין במכשיר זה. יש צורך בגרסה 14 של אנדרואיד או מאוחר יותר."
+        "title": "Health Connect לא זמין",
+        "description": "Health Connect אינו זמין במכשיר זה. נא להתקין את Health Connect מחנות Play ‏(Android 9+) או לעדכן ל-Android 14+."
       },
       "permissions": {
         "title": "הרשאות",
@@ -437,7 +437,10 @@
       },
       "managePermissions": "ניהול הרשאות",
       "openSettings": "פתח את הגדרות בריאות קונקט",
-      "requestPermissions": "בקש הרשאות"
+      "requestPermissions": "בקש הרשאות",
+      "permissionRequestCancelledOrFailed": "בקשת ההרשאות בוטלה או נכשלה. נסו שוב או העניקו הרשאות ידנית בהגדרות Health Connect.",
+      "permissionRequestFailed": "לא ניתן לבקש הרשאות. נסו שוב או העניקו הרשאות ידנית בהגדרות Health Connect.",
+      "requestingPermissions": "Requesting..."
     },
     "about": {
       "title": "אודות",

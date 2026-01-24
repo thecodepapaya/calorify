@@ -915,6 +915,9 @@ class _TranslationsSettingsHealthConnectZhTw implements TranslationsSettingsHeal
 	@override String get managePermissions => '管理權限';
 	@override String get openSettings => '打開健康連接設定';
 	@override String get requestPermissions => '請求權限';
+	@override String get permissionRequestCancelledOrFailed => '權限請求已被取消或失敗。請再試一次或在 Health Connect 設定中手動授權權限。';
+	@override String get permissionRequestFailed => '無法請求權限。請再試一次或在 Health Connect 設定中手動授權權限。';
+	@override String get requestingPermissions => 'Requesting...';
 }
 
 // Path: settings.about
@@ -1817,6 +1820,9 @@ extension on TranslationsZhTw {
 			'settings.healthConnect.managePermissions' => '管理權限',
 			'settings.healthConnect.openSettings' => '打開健康連接設定',
 			'settings.healthConnect.requestPermissions' => '請求權限',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => '權限請求已被取消或失敗。請再試一次或在 Health Connect 設定中手動授權權限。',
+			'settings.healthConnect.permissionRequestFailed' => '無法請求權限。請再試一次或在 Health Connect 設定中手動授權權限。',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => '關於',
 			'settings.about.tagline' => '快速、免費且以隱私為先的卡路里認知',
 			'settings.about.ourStory.title' => '我們的故事',
