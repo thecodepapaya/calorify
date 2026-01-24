@@ -11,10 +11,12 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy package files
-COPY package.json package-lock.json ./
+COPY package.json ./
 
 # Install all dependencies (including dev dependencies for build)
-RUN npm ci
+# npm install works with or without package-lock.json
+# If package-lock.json exists in the repo, it will be used for reproducible builds
+RUN npm install
 
 # Copy project files
 COPY . .

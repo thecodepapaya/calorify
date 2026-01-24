@@ -89,7 +89,20 @@ docker image prune -a
 
 **Note**: The databases (`calorify-db-prod` and `calorify-db-staging`) will continue running and don't need to be stopped. They use the same names and will work with the new Node.js backend.
 
-#### Step 3: Pull Latest Code and Start Node.js Backend
+#### Step 3: Generate package-lock.json (if missing)
+
+```bash
+# Navigate to backend directory
+cd /path/to/calorify/backend
+
+# Generate package-lock.json if it doesn't exist
+# This ensures reproducible builds
+npm install
+```
+
+**Note**: If `package-lock.json` already exists in your repository, you can skip this step.
+
+#### Step 4: Pull Latest Code and Start Node.js Backend
 
 ```bash
 # Pull latest code (if using git)
@@ -106,7 +119,7 @@ docker-compose --profile production up -d --build
 docker-compose --profile staging --profile production up -d --build
 ```
 
-#### Step 4: Verify Migration
+#### Step 5: Verify Migration
 
 ```bash
 # Check containers are running
