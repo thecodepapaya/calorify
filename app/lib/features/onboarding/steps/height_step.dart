@@ -1,6 +1,6 @@
 import 'package:models/models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:utils/utils.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/height_scale_widget.dart';
 import 'package:flutter/material.dart';

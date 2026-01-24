@@ -6,7 +6,7 @@ import 'package:models/models.dart';
 import 'package:calorify/core/providers/theme_provider.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:utils/utils.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/language_picker_sheet.dart';
 import 'package:calorify/shared_widgets/grass.dart';
@@ -455,7 +455,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
           final updatedProfile = _userProfile?.deepCopy();
           if (updatedProfile != null && newHeight != null) {
-            updatedProfile.height = newHeight!;
+            updatedProfile.height = newHeight;
             updatedProfile.heightUnit = newUnit;
           }
 
@@ -541,9 +541,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
           final updatedProfile = _userProfile?.deepCopy();
           if (updatedProfile != null && newWeight != null) {
-            updatedProfile.weight = newWeight!;
+            updatedProfile.weight = newWeight;
             if (newTargetWeight != null) {
-              updatedProfile.targetWeight = newTargetWeight!;
+              updatedProfile.targetWeight = newTargetWeight;
             }
             updatedProfile.weightUnit = newUnit;
           }

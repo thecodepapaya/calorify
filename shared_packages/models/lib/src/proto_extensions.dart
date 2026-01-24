@@ -210,6 +210,12 @@ extension UnitSystemExtension on UnitSystem {
       isMetric
           ? ScaleConstants.weightMetricMax
           : ScaleConstants.weightImperialMax;
+
+  /// Returns the weight unit display string ('kg' for metric, 'lbs' for imperial)
+  String get weightUnitDisplay => isMetric ? 'kg' : 'lbs';
+
+  /// Returns the height unit display string ('cm' for metric, 'in' for imperial)
+  String get heightUnitDisplay => isMetric ? 'cm' : 'in';
 }
 
 $fixnum.Int64? int64FromInt(int? value) {

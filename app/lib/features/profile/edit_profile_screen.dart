@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:utils/utils.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:i18n/i18n.dart';
@@ -108,18 +108,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     // Initialize height with default based on unit system
     final defaultHeight =
         _heightUnit.isMetric ? _defaultHeightMetric : _defaultHeightImperial;
-    _height = (widget.userProfile.height ?? defaultHeight).clamp(
-      _heightUnit.heightMin,
-      _heightUnit.heightMax,
-    );
+    _height = (widget.userProfile.hasHeight()
+            ? widget.userProfile.height
+            : defaultHeight)
+        .clamp(_heightUnit.heightMin, _heightUnit.heightMax);
 
     // Initialize weight with default based on unit system
     final defaultWeight =
         _weightUnit.isMetric ? _defaultWeightMetric : _defaultWeightImperial;
-    _weight = (widget.userProfile.weight ?? defaultWeight).clamp(
-      _weightUnit.weightMin,
-      _weightUnit.weightMax,
-    );
+    _weight = (widget.userProfile.hasWeight()
+            ? widget.userProfile.weight
+            : defaultWeight)
+        .clamp(_weightUnit.weightMin, _weightUnit.weightMax);
 
     // Initialize other fields with safe defaults
     _dailyCalorieGoal = 0;
@@ -418,7 +418,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget _buildHeightTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final heightUnitString = LocaleUtils.getHeightUnit(_heightUnit);
+    final heightUnitString = _heightUnit.heightUnitDisplay;
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(
@@ -495,7 +495,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget _buildWeightTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final weightUnitString = LocaleUtils.getWeightUnit(_weightUnit);
+    final weightUnitString = _weightUnit.weightUnitDisplay;
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(
@@ -732,9 +732,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       updatedData.height = _height;
       updatedData.weight = _weight;
       updatedData.gender = _selectedGender;
-      if (_dateOfBirth != null) {
-        updatedData.dateOfBirth = dateTimeToTimestamp(_dateOfBirth);
-      }
+      updatedData.dateOfBirth = dateTimeToTimestamp(_dateOfBirth);
       updatedData.weightGoal = _selectedWeightGoal;
       updatedData.activityLevel = _selectedActivityLevel;
       updatedData.heightUnit = _heightUnit;

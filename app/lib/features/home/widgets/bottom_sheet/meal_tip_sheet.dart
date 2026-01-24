@@ -133,7 +133,7 @@ class _MealTipState extends State<_MealTip> {
 
     final canShowMealImage =
         widget.imageData != null ||
-        (mealInfo.imageUrl != null && mealInfo.imageUrl!.isNotEmpty);
+        (mealInfo.hasImageUrl() && mealInfo.imageUrl.isNotEmpty);
 
     return [
       Row(

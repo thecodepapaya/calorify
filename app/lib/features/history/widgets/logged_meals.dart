@@ -74,15 +74,15 @@ class MealLogCard extends StatelessWidget {
                     ),
                     child: MealTypeIndicator(mealType: mealInfo.mealType),
                   ),
-                  if (mealInfo.healthScore != null) ...[
+                  if (mealInfo.hasHealthScore()) ...[
                     const SizedBox(width: 8),
                     HealthScoreIndicator(
-                      healthScore: mealInfo.healthScore!,
+                      healthScore: mealInfo.healthScore,
                       onTap: () {
                         showHealthScoreReason(
                           context: context,
-                          healthScore: mealInfo.healthScore!,
-                          reason: mealInfo.healthScoreReason ?? '',
+                          healthScore: mealInfo.healthScore,
+                          reason: mealInfo.healthScoreReason,
                         );
                       },
                     ),

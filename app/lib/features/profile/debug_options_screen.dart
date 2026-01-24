@@ -5,7 +5,7 @@ import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/wear_os_channel.dart';
 import 'package:calorify/core/services/wear_os_message_log.dart';
-import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:utils/utils.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';

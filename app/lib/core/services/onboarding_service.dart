@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:utils/utils.dart';
 
 class OnboardingService {
   OnboardingService._();

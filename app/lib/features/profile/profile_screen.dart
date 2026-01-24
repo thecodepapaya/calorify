@@ -3,7 +3,7 @@ import 'package:models/models.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:utils/utils.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
@@ -230,9 +230,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     String weightText = t.profile.notSet;
     if (weight != null) {
-      final unit = weightUnit.isMetric ? 'kg' : 'lbs';
       weightText =
-          '${weight.toStringAsFixed(weightUnit.weightPrecision)} $unit';
+          '${weight.toStringAsFixed(weightUnit.weightPrecision)} ${weightUnit.weightUnitDisplay}';
     }
 
     return ListTile(
@@ -337,11 +336,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final weightUnit = _userProfile!.weightUnit;
 
     String targetWeightText = t.profile.notSet;
-    if (targetWeight != null) {
-      final unit = weightUnit.isMetric ? 'kg' : 'lbs';
-      targetWeightText =
-          '${targetWeight.toStringAsFixed(weightUnit.weightPrecision)} $unit';
-    }
+    targetWeightText =
+        '${targetWeight.toStringAsFixed(weightUnit.weightPrecision)} ${weightUnit.weightUnitDisplay}';
 
     return ListTile(
       leading: Container(

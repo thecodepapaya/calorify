@@ -11,7 +11,7 @@ import '../setup/all_tests.dart';
 class MockOnboardingService extends Mock implements OnboardingService {}
 
 void main() {
-  late MockOnboardingService mockOnboardingService;
+  // late MockOnboardingService mockOnboardingService;
 
   setUpAll(() async {
     setupAllTests();
@@ -27,7 +27,7 @@ void main() {
   });
 
   setUp(() {
-    mockOnboardingService = MockOnboardingService();
+    // mockOnboardingService = MockOnboardingService();
     // Assuming OnboardingService.instance is how it's accessed
     // We need a way to mock the singleton or the method it calls.
     // Looking at settings_screen.dart: final profile = await OnboardingService.instance.getProfileData();

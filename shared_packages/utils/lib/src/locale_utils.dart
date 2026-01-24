@@ -37,16 +37,6 @@ class LocaleUtils {
     return unitSystem == UnitSystem.METRIC ? 'Metric' : 'Imperial';
   }
 
-  /// Get height unit using locale-specific formatting
-  static String getHeightUnit(UnitSystem unitSystem) {
-    return unitSystem == UnitSystem.METRIC ? 'cm' : 'in';
-  }
-
-  /// Get weight unit using locale-specific formatting
-  static String getWeightUnit(UnitSystem unitSystem) {
-    return unitSystem == UnitSystem.METRIC ? 'kg' : 'lbs';
-  }
-
   /// Convert height from imperial to metric (inches to cm)
   static double convertHeightToMetric(double heightInInches) {
     return heightInInches * 2.54;
@@ -70,7 +60,7 @@ class LocaleUtils {
   /// Get weight change unit for daily weight changes
   /// Returns 'g' for metric, 'oz' for imperial (since daily changes are small)
   static String getWeightChangeUnit(UnitSystem unitSystem) {
-    return unitSystem == UnitSystem.METRIC ? 'g' : 'oz';
+    return unitSystem.isMetric ? 'g' : 'oz';
   }
 
   /// Convert weight change from grams to ounces (for imperial display)

@@ -86,12 +86,12 @@ class _HealthProfileReinforcementState extends State<HealthProfileReinforcement>
                       .finalizeDescription;
 
           if (profile?.targetWeight != null && profile?.weight != null) {
-            final diff = (profile!.targetWeight! - profile.weight!).abs();
+            final diff = (profile!.targetWeight - profile.weight).abs();
             final direction =
-                profile.targetWeight! > profile.weight!
+                profile.targetWeight > profile.weight
                     ? t.onboarding.reinforcement.healthProfile.goalGain
                     : t.onboarding.reinforcement.healthProfile.goalLose;
-            final unit = profile.weightUnit.isMetric ? 'kg' : 'lbs';
+            final unit = profile.weightUnit.weightUnitDisplay;
             if (diff > 0) {
               description +=
                   ' ${t.onboarding.reinforcement.healthProfile.goalReach(direction: direction, diff: diff.toStringAsFixed(1), unit: unit)}';

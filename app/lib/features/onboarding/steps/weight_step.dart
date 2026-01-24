@@ -1,6 +1,6 @@
 import 'package:models/models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:utils/utils.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/weight_scale_widget.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +106,7 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      _unitSystem.isMetric ? 'kg' : 'lbs',
+                      _unitSystem.weightUnitDisplay,
                       style: theme.textTheme.titleLarge?.copyWith(
                         color: colorScheme.onSurfaceVariant,
                         fontWeight: FontWeight.bold,
