@@ -7,15 +7,18 @@ extension FavoriteMealMapper on MealInfo {
     return FavoriteMealTableCompanion(
       mealName: Value(mealName),
       mealQuantity: Value(mealQuantity),
-      mealType: Value(mealType.name),
+      mealType: Value(mealType.legacyName),
       calories: Value(calories),
       protein: Value(protein),
       carbs: Value(carbs),
       fat: Value(fat),
       fiber: Value(fiber),
-      timestamp: Value(timestamp),
-      imageUrl: Value(imageUrl),
-      sourceMealId: Value(id),
+      timestamp: Value(hasTimestamp() ? timestampToLocalDateTime(timestamp) ?? DateTime.now() : DateTime.now()),
+      imageUrl: hasImageUrl() ? Value(imageUrl) : const Value.absent(),
+      sourceMealId:
+          localIdValue != null
+              ? Value(localIdValue!)
+              : const Value.absent(),
       createdAt: Value(DateTime.now()),
     );
   }

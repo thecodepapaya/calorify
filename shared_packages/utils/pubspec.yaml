@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   intl: ^0.20.2
   characters: ^1.4.0
+  models:
+    path: ../models
 
 dev_dependencies:
   flutter_test:

@@ -1,27 +1,36 @@
-FROM python:3.12-slim
+FROM node:20-slim
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV NODE_ENV=production
 
 WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpq-dev \
+    protobuf-compiler \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+# Copy package files
+COPY package.json ./
+
+# Install all dependencies (including dev dependencies for build)
+RUN npm ci
 
 # Copy project files
 COPY . .
 
+# Build TypeScript
+RUN npm run build
+
+# Remove dev dependencies after build
+RUN npm prune --production
+
 # Expose port
 EXPOSE 8000
 
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:8000/', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+
 # Command to run the application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["node", "dist/index.js"]

@@ -10,27 +10,30 @@ extension HealthScoreExtension on HealthScore {
   Color color(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return switch (this) {
-      HealthScore.unhealthy => colorScheme.error,
-      HealthScore.healthy => colorScheme.success,
-      HealthScore.neutral || HealthScore.unknown => colorScheme.tertiary,
+      HealthScore.UNHEALTHY => colorScheme.error,
+      HealthScore.HEALTHY => colorScheme.success,
+      HealthScore.NEUTRAL => colorScheme.tertiary,
+      _ => colorScheme.tertiary, // Fallback
     };
   }
 
   /// Returns the icon associated with this health score
   IconData get icon {
     return switch (this) {
-      HealthScore.unhealthy => LucideIcons.frown,
-      HealthScore.healthy => LucideIcons.smile,
-      HealthScore.neutral || HealthScore.unknown => LucideIcons.meh,
+      HealthScore.UNHEALTHY => LucideIcons.frown,
+      HealthScore.HEALTHY => LucideIcons.smile,
+      HealthScore.NEUTRAL => LucideIcons.meh,
+      _ => LucideIcons.meh, // Fallback
     };
   }
 
   /// Returns the localized text for this health score
   String get displayText {
     return switch (this) {
-      HealthScore.unhealthy => t.healthScore.unhealthy,
-      HealthScore.healthy => t.healthScore.healthy,
-      HealthScore.neutral || HealthScore.unknown => t.healthScore.neutral,
+      HealthScore.UNHEALTHY => t.healthScore.unhealthy,
+      HealthScore.HEALTHY => t.healthScore.healthy,
+      HealthScore.NEUTRAL => t.healthScore.neutral,
+      _ => t.healthScore.neutral, // Fallback
     };
   }
 }

@@ -25,17 +25,17 @@ void main() {
 
     testGoldens('Initial view - Edit Mode', (WidgetTester tester) async {
       final mockMeal = MealInfo(
-        id: 1,
+        localId: int64FromInt(1),
         mealName: 'Pasta',
         mealQuantity: '1 plate',
-        mealType: MealType.dinner,
+        mealType: MealType.DINNER,
         calories: 600,
         protein: 15,
         carbs: 80,
         fat: 20,
         fiber: 5,
-        timestamp: DateTime(2023, 10, 27, 19, 30),
-        healthScore: HealthScore.neutral,
+        timestamp: dateTimeToTimestamp(DateTime(2023, 10, 27, 19, 30)),
+        healthScore: HealthScore.NEUTRAL,
       );
 
       for (final device in testDevices) {

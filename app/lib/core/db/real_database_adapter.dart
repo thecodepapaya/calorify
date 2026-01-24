@@ -39,6 +39,11 @@ class RealDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
+  Future<MealInfo?> getMealById(int mealId) async {
+    return await _database.getMealById(mealId);
+  }
+
+  @override
   Future<bool> isFavoriteMeal(int mealId) async {
     return await _database.isFavoriteMeal(mealId);
   }

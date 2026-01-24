@@ -1,10 +1,11 @@
-import 'package:models/models.dart';
-import 'package:utils/utils.dart';
-import 'package:specs/specs.dart';
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'dart:math' as math;
+import 'package:models/models.dart';
+import 'package:specs/specs.dart';
 
 class MealListItem extends StatefulWidget {
   final MealInfo meal;
@@ -66,13 +67,18 @@ class _MealListItemState extends State<MealListItem>
     super.dispose();
   }
 
+  String _formatTimestamp(DateTime? dateTime) {
+    if (dateTime == null) return '--:--';
+    return DateFormat('HH:mm').format(dateTime);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final mealName = widget.meal.mealName;
     final calories = widget.meal.calories;
-    final timestamp = widget.meal.timestamp.formatted;
+    final timestamp = _formatTimestamp(widget.meal.timestampDateTime);
     final protein = widget.meal.protein;
     final carbs = widget.meal.carbs;
     final fat = widget.meal.fat;

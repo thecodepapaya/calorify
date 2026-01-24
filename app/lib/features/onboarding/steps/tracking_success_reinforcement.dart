@@ -69,11 +69,13 @@ class _TrackingSuccessReinforcementState
           final t = Translations.of(context);
           final age = profile?.age;
           final gender =
-              profile?.gender?.displayName.toLowerCase() ??
-              t.onboarding.reinforcement.trackingSuccess.defaultGender;
+              profile != null && profile.hasGender()
+                  ? profile.gender.displayName.toLowerCase()
+                  : t.onboarding.reinforcement.trackingSuccess.defaultGender;
           final goal =
-              profile?.weightGoal?.displayName.toLowerCase() ??
-              t.onboarding.reinforcement.trackingSuccess.defaultGoal;
+              profile != null && profile.hasWeightGoal()
+                  ? profile.weightGoal.displayName.toLowerCase()
+                  : t.onboarding.reinforcement.trackingSuccess.defaultGoal;
 
           String personalizedMsg =
               t.onboarding.reinforcement.trackingSuccess.genericMessage;

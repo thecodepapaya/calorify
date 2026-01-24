@@ -11,7 +11,8 @@ abstract class GenerateContentResponseWrapper {
   String? get text;
 }
 
-class RealGenerateContentResponseWrapper implements GenerateContentResponseWrapper {
+class RealGenerateContentResponseWrapper
+    implements GenerateContentResponseWrapper {
   final GenerateContentResponse _response;
   RealGenerateContentResponseWrapper(this._response);
 
@@ -28,7 +29,9 @@ class RealGenerativeModelWrapper implements GenerativeModelWrapper {
   RealGenerativeModelWrapper(this._model);
 
   @override
-  Future<GenerateContentResponseWrapper> generateContent(List<Content> prompt) async {
+  Future<GenerateContentResponseWrapper> generateContent(
+    List<Content> prompt,
+  ) async {
     final response = await _model.generateContent(prompt);
     return RealGenerateContentResponseWrapper(response);
   }
@@ -211,7 +214,7 @@ Always respond in locale: $localeCode.
 
       final response = await _model!.generateContent(prompt);
       log(response.text.toString());
-      final result = MealDetectionResult.fromJson(
+      final result = mealDetectionResultFromLegacyJson(
         jsonDecode(response.text as String),
       );
       return _dateSanitizedResult(result);
@@ -236,7 +239,7 @@ Always respond in locale: $localeCode.
 
       final response = await _model!.generateContent(prompt);
       log(response.text.toString());
-      final result = MealDetectionResult.fromJson(
+      final result = mealDetectionResultFromLegacyJson(
         jsonDecode(response.text as String),
       );
       return _dateSanitizedResult(result);
@@ -248,7 +251,8 @@ Always respond in locale: $localeCode.
 }
 
 MealDetectionResult _dateSanitizedResult(MealDetectionResult result) {
-  final mealInfo = result.mealInfo.copyWith(timestamp: DateTime.now());
+  final mealInfo = result.mealInfo.deepCopy();
+  mealInfo.timestamp = dateTimeToTimestamp(DateTime.now());
   return MealDetectionResult(
     mealIdentified: result.mealIdentified,
     calorieConfidence: result.calorieConfidence,

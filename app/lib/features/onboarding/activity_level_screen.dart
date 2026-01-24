@@ -32,8 +32,9 @@ class _ActivityLevelScreenState extends State<ActivityLevelScreen> {
   Future<void> _loadProfileData() async {
     final data = await OnboardingService.instance.getProfileData();
     setState(() {
-      _userProfile = data ?? const UserProfile();
-      _selectedLevel = data?.activityLevel;
+      _userProfile = data ?? UserProfile();
+      _selectedLevel =
+          data != null && data.hasActivityLevel() ? data.activityLevel : null;
       _isLoading = false;
     });
   }
@@ -70,7 +71,7 @@ class _ActivityLevelScreenState extends State<ActivityLevelScreen> {
             child: ListView(
               padding: EdgeInsets.zero,
               children:
-                  ActivityLevel.values.map((level) {
+                  activityLevelValues.map((level) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 16.0),
                       child: _buildActivityCard(context, level),
@@ -116,7 +117,10 @@ class _ActivityLevelScreenState extends State<ActivityLevelScreen> {
 
   void _continue(UserProfile profile) async {
     if (_selectedLevel != null) {
-      final updatedProfile = profile.copyWith(activityLevel: _selectedLevel);
+      final updatedProfile = profile.deepCopy();
+      if (_selectedLevel != null) {
+        updatedProfile.activityLevel = _selectedLevel!;
+      }
       await OnboardingService.instance.saveProfileData(updatedProfile);
       widget.onContinue();
     }

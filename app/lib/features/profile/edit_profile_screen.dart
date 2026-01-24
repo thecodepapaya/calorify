@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:utils/utils.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:i18n/i18n.dart';
@@ -90,36 +90,42 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     super.initState();
 
-    // Initialize with widget-provided values synchronously
-    _heightUnit = widget.userProfile.heightUnit;
-    _weightUnit = widget.userProfile.weightUnit;
+    _selectedGender =
+        widget.userProfile.hasGender()
+            ? widget.userProfile.gender
+            : Gender.MALE;
+    _selectedWeightGoal =
+        widget.userProfile.hasWeightGoal()
+            ? widget.userProfile.weightGoal
+            : WeightGoal.MAINTAIN_WEIGHT;
+    _selectedActivityLevel =
+        widget.userProfile.hasActivityLevel()
+            ? widget.userProfile.activityLevel
+            : ActivityLevel.SEDENTARY;
+    _heightUnit = widget.userProfile.heightUnit.normalized;
+    _weightUnit = widget.userProfile.weightUnit.normalized;
 
     // Initialize height with default based on unit system
     final defaultHeight =
         _heightUnit.isMetric ? _defaultHeightMetric : _defaultHeightImperial;
-    _height = (widget.userProfile.height ?? defaultHeight).clamp(
-      _heightUnit.heightMin,
-      _heightUnit.heightMax,
-    );
+    _height = (widget.userProfile.hasHeight()
+            ? widget.userProfile.height
+            : defaultHeight)
+        .clamp(_heightUnit.heightMin, _heightUnit.heightMax);
 
     // Initialize weight with default based on unit system
     final defaultWeight =
         _weightUnit.isMetric ? _defaultWeightMetric : _defaultWeightImperial;
-    _weight = (widget.userProfile.weight ?? defaultWeight).clamp(
-      _weightUnit.weightMin,
-      _weightUnit.weightMax,
-    );
+    _weight = (widget.userProfile.hasWeight()
+            ? widget.userProfile.weight
+            : defaultWeight)
+        .clamp(_weightUnit.weightMin, _weightUnit.weightMax);
 
     // Initialize other fields with safe defaults
-    _selectedGender = widget.userProfile.gender ?? Gender.male;
-    _selectedWeightGoal =
-        widget.userProfile.weightGoal ?? WeightGoal.maintainWeight;
-    _selectedActivityLevel =
-        widget.userProfile.activityLevel ?? ActivityLevel.sedentary;
     _dailyCalorieGoal = 0;
     _calorieGoalController = TextEditingController(text: '');
     _dateOfBirth =
-        widget.userProfile.dateOfBirth ??
+        widget.userProfile.dateOfBirthDateTime ??
         DateTime.now().subtract(
           const Duration(days: _daysInYear * _defaultAgeYears),
         );
@@ -223,7 +229,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     ),
                     const SizedBox(height: _itemSpacing),
-                    ...WeightGoal.values.map((goal) {
+                    ...weightGoalValues.map((goal) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: _itemSpacing),
                         child: _buildGoalCard(context, goal),
@@ -248,7 +254,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     ),
                     const SizedBox(height: _itemSpacing),
-                    ...ActivityLevel.values.map((level) {
+                    ...activityLevelValues.map((level) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: _itemSpacing),
                         child: _buildActivityCard(context, level),
@@ -334,7 +340,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         padding: const EdgeInsets.only(top: _subtitleTopPadding),
         child: SegmentedButton<Gender>(
           segments:
-              Gender.values.map((gender) {
+              genderValues.map((gender) {
                 return ButtonSegment<Gender>(
                   value: gender,
                   label: Row(
@@ -366,13 +372,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   IconData _getGenderIcon(Gender gender) {
     switch (gender) {
-      case Gender.male:
+      case Gender.MALE:
         return LucideIcons.mars;
-      case Gender.female:
+      case Gender.FEMALE:
         return LucideIcons.venus;
-      case Gender.other:
+      case Gender.OTHER:
         return LucideIcons.transgender;
     }
+    return LucideIcons.transgender; // Fallback
   }
 
   Widget _buildDateOfBirthTile() {
@@ -411,7 +418,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget _buildHeightTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final heightUnitString = LocaleUtils.getHeightUnit(_heightUnit);
+    final heightUnitString = _heightUnit.heightUnitDisplay;
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(
@@ -488,7 +495,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget _buildWeightTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final weightUnitString = LocaleUtils.getWeightUnit(_weightUnit);
+    final weightUnitString = _weightUnit.weightUnitDisplay;
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(
@@ -585,11 +592,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return SegmentedButton<UnitSystem>(
       segments: [
         ButtonSegment(
-          value: UnitSystem.metric,
+          value: UnitSystem.METRIC,
           label: Text(t.editProfile.metric),
         ),
         ButtonSegment(
-          value: UnitSystem.imperial,
+          value: UnitSystem.IMPERIAL,
           label: Text(t.editProfile.imperial),
         ),
       ],
@@ -721,16 +728,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (!_hasChanges()) return;
 
     if (_formKey.currentState!.validate()) {
-      final updatedData = widget.userProfile.copyWith(
-        height: _height,
-        weight: _weight,
-        gender: _selectedGender,
-        dateOfBirth: _dateOfBirth,
-        weightGoal: _selectedWeightGoal,
-        activityLevel: _selectedActivityLevel,
-        heightUnit: _heightUnit,
-        weightUnit: _weightUnit,
-      );
+      final updatedData = widget.userProfile.deepCopy();
+      updatedData.height = _height;
+      updatedData.weight = _weight;
+      updatedData.gender = _selectedGender;
+      updatedData.dateOfBirth = dateTimeToTimestamp(_dateOfBirth);
+      updatedData.weightGoal = _selectedWeightGoal;
+      updatedData.activityLevel = _selectedActivityLevel;
+      updatedData.heightUnit = _heightUnit;
+      updatedData.weightUnit = _weightUnit;
 
       // Save the updated profile data (upsert)
       await OnboardingService.instance.saveProfileData(updatedData);

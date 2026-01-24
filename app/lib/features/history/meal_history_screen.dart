@@ -169,9 +169,9 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
 
     for (final meal in allMeals) {
       final mealDate = DateTime(
-        meal.timestamp.year,
-        meal.timestamp.month,
-        meal.timestamp.day,
+        (meal.timestampDateTime ?? DateTime.now()).year,
+        (meal.timestampDateTime ?? DateTime.now()).month,
+        (meal.timestampDateTime ?? DateTime.now()).day,
       );
 
       if (currentDay == null) {

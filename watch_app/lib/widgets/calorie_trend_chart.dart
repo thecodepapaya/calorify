@@ -22,9 +22,12 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
   Map<String, int> get _hourlyCalories {
     final Map<String, int> hourly = {};
     for (final meal in widget.meals) {
-      final hour = meal.timestamp.hour;
-      final key = hour.toString().padLeft(2, '0');
-      hourly[key] = (hourly[key] ?? 0) + meal.calories;
+      final dateTime = meal.timestampDateTime;
+      if (dateTime != null) {
+        final hour = dateTime.hour;
+        final key = hour.toString().padLeft(2, '0');
+        hourly[key] = (hourly[key] ?? 0) + meal.calories;
+      }
     }
     return hourly;
   }

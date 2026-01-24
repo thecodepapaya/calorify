@@ -8,6 +8,7 @@ import 'package:calorify/core/db/tables/favorite_meal.dart';
 import 'package:calorify/core/db/tables/meal_info.dart';
 import 'package:calorify/core/db/tables/user_preferences.dart';
 import 'package:calorify/core/db/tables/user_profile.dart';
+import 'package:calorify/core/db/tables/sync_queue.dart';
 import 'package:models/models.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
@@ -23,13 +24,14 @@ part 'app_database.g.dart';
     UserProfileTable,
     UserPreferencesTable,
     FavoriteMealTable,
+    SyncQueueTable,
   ],
 )
 class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 12;
+  int get schemaVersion => 14;
 
   @override
   MigrationStrategy get migration {
@@ -79,6 +81,13 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
               theme: Value(ThemeMode.system.name),
             ),
           );
+        }
+        if (from < 13) {
+          await m.addColumn(mealInfoTable, mealInfoTable.clientId);
+          await m.addColumn(favoriteMealTable, favoriteMealTable.clientId);
+        }
+        if (from < 14) {
+          await m.createTable(syncQueueTable);
         }
       },
     );
@@ -220,6 +229,15 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
+  Future<MealInfo?> getMealById(int mealId) async {
+    final row =
+        await (select(mealInfoTable)
+          ..where((tbl) => tbl.id.equals(mealId))).getSingleOrNull();
+    if (row == null) return null;
+    return MealInfoMapper.fromRow(row);
+  }
+
+  @override
   Stream<List<MealInfo>> watchAllFavoriteMeals() {
     return select(favoriteMealTable).watch().map(
       (rows) => rows.map((row) => MealInfoMapper.fromDrift(row)).toList(),
@@ -336,6 +354,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
       await delete(userProfileTable).go();
       await delete(userPreferencesTable).go();
       await delete(favoriteMealTable).go();
+      await delete(syncQueueTable).go();
     });
   }
 }

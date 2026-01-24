@@ -32,18 +32,18 @@ void main() {
 
   setUpAll(() {
     registerFallbackValue(AnalyticsEvent.homeView);
-    registerFallbackValue(MealType.snack);
+    registerFallbackValue(MealType.SNACK);
     registerFallbackValue(
       MealInfo(
         mealName: '',
         mealQuantity: '',
-        mealType: MealType.unknown,
+        mealType: MealType.UNKNOWN,
         calories: 0,
         protein: 0,
         carbs: 0,
         fat: 0,
         fiber: 0,
-        timestamp: DateTime(2023),
+        timestamp: dateTimeToTimestamp(DateTime(2023)),
       ),
     );
   });
@@ -61,13 +61,12 @@ void main() {
 
     when(() => mockAnalytics.logEvent(any())).thenAnswer((_) {});
     when(() => mockDatabaseInterface.getUserProfile()).thenAnswer(
-      (_) async => const UserProfile(
+      (_) async => UserProfile(
         height: 180,
         weight: 80,
-        gender: Gender.male,
-        dateOfBirth: null, // Just for mock
-        activityLevel: ActivityLevel.moderatelyActive,
-        weightGoal: WeightGoal.maintainWeight,
+        gender: Gender.MALE,
+        activityLevel: ActivityLevel.MODERATELY_ACTIVE,
+        weightGoal: WeightGoal.MAINTAIN_WEIGHT,
       ),
     );
     when(
@@ -128,14 +127,14 @@ void main() {
       mealInfo: MealInfo(
         mealName: 'Chicken Salad',
         mealQuantity: '1 bowl',
-        mealType: MealType.lunch,
+        mealType: MealType.LUNCH,
         calories: 350,
         protein: 30,
         carbs: 10,
         fat: 15,
         fiber: 5,
-        timestamp: DateTime.now(),
-        healthScore: HealthScore.healthy,
+        timestamp: dateTimeToTimestamp(DateTime.now()),
+        healthScore: HealthScore.HEALTHY,
       ),
     );
 

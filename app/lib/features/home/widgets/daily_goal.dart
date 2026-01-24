@@ -4,7 +4,7 @@ import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:utils/utils.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getWeightEstimateDisclaimer;
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
@@ -286,7 +286,9 @@ class _ShowGoal extends StatelessWidget {
             builder: (context, profileSnapshot) {
               // Default to metric if profile not available
               final weightUnit =
-                  profileSnapshot.data?.weightUnit ?? UnitSystem.metric;
+                  profileSnapshot.data != null
+                      ? profileSnapshot.data!.weightUnit.normalized
+                      : UnitSystem.METRIC;
               final formattedWeightChange = LocaleUtils.formatWeightChange(
                 weightChangeGrams,
                 weightUnit,

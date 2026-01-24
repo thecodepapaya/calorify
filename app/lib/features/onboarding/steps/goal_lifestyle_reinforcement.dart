@@ -67,10 +67,10 @@ class _GoalLifestyleReinforcementState extends State<GoalLifestyleReinforcement>
           final profile = snapshot.data;
           final t = Translations.of(context);
           final goalText =
-              profile?.weightGoal?.displayName.toLowerCase() ??
+              profile?.weightGoal.displayName.toLowerCase() ??
               t.onboarding.reinforcement.goalLifestyle.defaultGoal;
           final activityText =
-              profile?.activityLevel?.displayName.toLowerCase() ??
+              profile?.activityLevel.displayName.toLowerCase() ??
               t.onboarding.reinforcement.goalLifestyle.defaultActivity;
 
           return Column(

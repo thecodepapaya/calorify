@@ -68,7 +68,7 @@ class _MealTipState extends State<_MealTip> {
   }
 
   Future<void> _checkIfFavorite() async {
-    final mealId = widget.mealDetectionResult.mealInfo.id;
+    final mealId = widget.mealDetectionResult.mealInfo.localIdValue;
     if (mealId == null) return;
     final isFavorite = await DatabaseService.databaseInterface.isFavoriteMeal(
       mealId,
@@ -133,7 +133,7 @@ class _MealTipState extends State<_MealTip> {
 
     final canShowMealImage =
         widget.imageData != null ||
-        (mealInfo.imageUrl != null && mealInfo.imageUrl!.isNotEmpty);
+        (mealInfo.hasImageUrl() && mealInfo.imageUrl.isNotEmpty);
 
     return [
       Row(
@@ -156,7 +156,9 @@ class _MealTipState extends State<_MealTip> {
                     SizedBox(width: 8),
                     MealQuantityIndicator(quantity: mealInfo.mealQuantity),
                     SizedBox(width: 8),
-                    MealTimestamp(timestamp: mealInfo.timestamp),
+                    MealTimestamp(
+                      timestamp: mealInfo.timestampDateTime ?? DateTime.now(),
+                    ),
                   ],
                 ),
               ],
@@ -165,7 +167,7 @@ class _MealTipState extends State<_MealTip> {
           SizedBox(width: 12),
           Row(
             children: [
-              if (widget.mealDetectionResult.mealInfo.id != null)
+              if (widget.mealDetectionResult.mealInfo.localIdValue != null)
                 IconButton(
                   onPressed: _toggleFavorite,
                   padding: EdgeInsets.zero,
@@ -271,13 +273,16 @@ class _MealTipState extends State<_MealTip> {
       ),
       if (widget.allowEdit && widget.mealDetectionResult.mealIdentified) ...[
         SizedBox(height: 20),
-        if (mealInfo.id != null)
+        if (mealInfo.localIdValue != null)
           Row(
             children: [
               Expanded(
                 child: SecondaryButton(
                   onPressed: () async {
-                    await _showDeleteConfirmation(context, mealInfo.id!);
+                    await _showDeleteConfirmation(
+                      context,
+                      mealInfo.localIdValue!,
+                    );
                   },
                   text: t.meal.delete,
                   icon: LucideIcons.trash2,
@@ -363,7 +368,7 @@ class _MealTipState extends State<_MealTip> {
     try {
       if (_isFavorite) {
         await DatabaseService.databaseInterface.removeFavoriteMeal(
-          mealInfo.id!,
+          mealInfo.localIdValue!,
         );
         if (!mounted) return;
         ScaffoldMessenger.of(

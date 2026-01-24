@@ -6,7 +6,7 @@ import 'package:models/models.dart';
 import 'package:calorify/core/providers/theme_provider.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:calorify/core/utilities/locale_utils.dart';
+import 'package:utils/utils.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/language_picker_sheet.dart';
 import 'package:calorify/shared_widgets/grass.dart';
@@ -396,7 +396,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget _buildHeightUnitTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final unitSystem = _userProfile?.heightUnit ?? UnitSystem.metric;
+    final unitSystem =
+        _userProfile != null
+            ? _userProfile!.heightUnit.normalized
+            : UnitSystem.METRIC;
 
     return ListTile(
       leading: Container(
@@ -412,18 +415,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Text(
-        unitSystem == UnitSystem.metric
+        unitSystem == UnitSystem.METRIC
             ? t.editProfile.metricCm
             : t.editProfile.imperialFtIn,
       ),
       trailing: SegmentedButton<UnitSystem>(
         segments: [
           ButtonSegment(
-            value: UnitSystem.metric,
+            value: UnitSystem.METRIC,
             label: Text(t.editProfile.metric),
           ),
           ButtonSegment(
-            value: UnitSystem.imperial,
+            value: UnitSystem.IMPERIAL,
             label: Text(t.editProfile.imperial),
           ),
         ],
@@ -450,10 +453,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     : LocaleUtils.convertHeightToImperial(currentHeight);
           }
 
-          final updatedProfile = _userProfile?.copyWith(
-            height: newHeight,
-            heightUnit: newUnit,
-          );
+          final updatedProfile = _userProfile?.deepCopy();
+          if (updatedProfile != null && newHeight != null) {
+            updatedProfile.height = newHeight;
+            updatedProfile.heightUnit = newUnit;
+          }
 
           if (updatedProfile != null) {
             await OnboardingService.instance.saveProfileData(updatedProfile);
@@ -469,7 +473,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget _buildWeightUnitTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final unitSystem = _userProfile?.weightUnit ?? UnitSystem.metric;
+    final unitSystem =
+        _userProfile != null
+            ? _userProfile!.weightUnit.normalized
+            : UnitSystem.METRIC;
 
     return ListTile(
       leading: Container(
@@ -485,18 +492,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Text(
-        unitSystem == UnitSystem.metric
+        unitSystem == UnitSystem.METRIC
             ? t.editProfile.metricKg
             : t.editProfile.imperialLbs,
       ),
       trailing: SegmentedButton<UnitSystem>(
         segments: [
           ButtonSegment(
-            value: UnitSystem.metric,
+            value: UnitSystem.METRIC,
             label: Text(t.editProfile.metric),
           ),
           ButtonSegment(
-            value: UnitSystem.imperial,
+            value: UnitSystem.IMPERIAL,
             label: Text(t.editProfile.imperial),
           ),
         ],
@@ -532,11 +539,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     : LocaleUtils.convertWeightToImperial(currentTargetWeight);
           }
 
-          final updatedProfile = _userProfile?.copyWith(
-            weight: newWeight,
-            targetWeight: newTargetWeight,
-            weightUnit: newUnit,
-          );
+          final updatedProfile = _userProfile?.deepCopy();
+          if (updatedProfile != null && newWeight != null) {
+            updatedProfile.weight = newWeight;
+            if (newTargetWeight != null) {
+              updatedProfile.targetWeight = newTargetWeight;
+            }
+            updatedProfile.weightUnit = newUnit;
+          }
 
           if (updatedProfile != null) {
             await OnboardingService.instance.saveProfileData(updatedProfile);

@@ -16,7 +16,9 @@ void main() {
 
   setUpAll(() {
     setupAllTests();
-    OnboardingService.setMockInstance(null); // Reset to real instance for testing
+    OnboardingService.setMockInstance(
+      null,
+    ); // Reset to real instance for testing
     registerFallbackValue(FakeUserProfile());
   });
 
@@ -32,10 +34,10 @@ void main() {
     final testProfile = UserProfile(
       height: 180,
       weight: 80,
-      gender: Gender.male,
-      dateOfBirth: DateTime(1990, 1, 1),
-      activityLevel: ActivityLevel.moderatelyActive,
-      weightGoal: WeightGoal.loseWeight,
+      gender: Gender.MALE,
+      dateOfBirth: dateTimeToTimestamp(DateTime(1990, 1, 1)),
+      activityLevel: ActivityLevel.MODERATELY_ACTIVE,
+      weightGoal: WeightGoal.LOSE_WEIGHT,
     );
 
     test('calculateBMR returns correct value for male', () {
@@ -47,7 +49,8 @@ void main() {
     });
 
     test('calculateBMR returns correct value for female', () {
-      final femaleProfile = testProfile.copyWith(gender: Gender.female);
+      final femaleProfile = testProfile.deepCopy();
+      femaleProfile.gender = Gender.FEMALE;
       final bmr = onboardingService.calculateBMR(femaleProfile);
       // BMR = 800 + 1125 - 180 - 161 = 1584
       expect(bmr, closeTo(1584.0, 1.0));
@@ -79,43 +82,52 @@ void main() {
   });
 
   group('OnboardingService Profile Operations', () {
-    test('isOnboardingCompleted returns true when profile is complete', () async {
-      final completeProfile = UserProfile(
-        height: 180,
-        weight: 80,
-        gender: Gender.male,
-        dateOfBirth: DateTime(1990, 1, 1),
-        activityLevel: ActivityLevel.moderatelyActive,
-        weightGoal: WeightGoal.loseWeight,
-      );
-      
-      when(() => mockDatabaseInterface.getUserProfile())
-          .thenAnswer((_) async => completeProfile);
-      DatabaseService.setMockInterface(mockDatabaseInterface);
+    test(
+      'isOnboardingCompleted returns true when profile is complete',
+      () async {
+        final completeProfile = UserProfile(
+          height: 180,
+          weight: 80,
+          gender: Gender.MALE,
+          dateOfBirth: dateTimeToTimestamp(DateTime(1990, 1, 1)),
+          activityLevel: ActivityLevel.MODERATELY_ACTIVE,
+          weightGoal: WeightGoal.LOSE_WEIGHT,
+        );
 
-      final result = await onboardingService.isOnboardingCompleted();
-      expect(result, isTrue);
-    });
+        when(
+          () => mockDatabaseInterface.getUserProfile(),
+        ).thenAnswer((_) async => completeProfile);
+        DatabaseService.setMockInterface(mockDatabaseInterface);
 
-    test('isOnboardingCompleted returns false when profile is incomplete', () async {
-      final incompleteProfile = UserProfile(height: 180);
-      
-      when(() => mockDatabaseInterface.getUserProfile())
-          .thenAnswer((_) async => incompleteProfile);
-      DatabaseService.setMockInterface(mockDatabaseInterface);
+        final result = await onboardingService.isOnboardingCompleted();
+        expect(result, isTrue);
+      },
+    );
 
-      final result = await onboardingService.isOnboardingCompleted();
-      expect(result, isFalse);
-    });
+    test(
+      'isOnboardingCompleted returns false when profile is incomplete',
+      () async {
+        final incompleteProfile = UserProfile(height: 180);
+
+        when(
+          () => mockDatabaseInterface.getUserProfile(),
+        ).thenAnswer((_) async => incompleteProfile);
+        DatabaseService.setMockInterface(mockDatabaseInterface);
+
+        final result = await onboardingService.isOnboardingCompleted();
+        expect(result, isFalse);
+      },
+    );
 
     test('saveProfileData calls databaseInterface.saveUserProfile', () async {
       final profile = UserProfile(height: 180);
-      when(() => mockDatabaseInterface.saveUserProfile(any()))
-          .thenAnswer((_) async {});
+      when(
+        () => mockDatabaseInterface.saveUserProfile(any()),
+      ).thenAnswer((_) async {});
       DatabaseService.setMockInterface(mockDatabaseInterface);
 
       await onboardingService.saveProfileData(profile);
-      
+
       verify(() => mockDatabaseInterface.saveUserProfile(profile)).called(1);
     });
   });

@@ -109,7 +109,7 @@ class MealInfoMock {
         carbs: nutrition['carbs']!,
         fat: nutrition['fat']!,
         fiber: nutrition['fiber']!,
-        timestamp: time,
+        timestamp: dateTimeToTimestamp(time),
         imageUrl: imgUrl,
         healthScore: healthData['score'] as HealthScore,
         healthScoreReason: healthData['reason'] as String,
@@ -147,7 +147,7 @@ class MealInfoMock {
       carbs: nutrition['carbs']!,
       fat: nutrition['fat']!,
       fiber: nutrition['fiber']!,
-      timestamp: time,
+      timestamp: dateTimeToTimestamp(time),
       imageUrl: imgUrl,
       healthScore: healthData['score'] as HealthScore,
       healthScoreReason: healthData['reason'] as String,
@@ -166,7 +166,7 @@ class MealInfoMock {
       // Breakfast
       meals.add(
         generateSingle(
-          mealType: MealType.breakfast,
+          mealType: MealType.BREAKFAST,
           timestamp: DateTime(
             targetDate.year,
             targetDate.month,
@@ -180,7 +180,7 @@ class MealInfoMock {
       // Lunch
       meals.add(
         generateSingle(
-          mealType: MealType.lunch,
+          mealType: MealType.LUNCH,
           timestamp: DateTime(
             targetDate.year,
             targetDate.month,
@@ -194,7 +194,7 @@ class MealInfoMock {
       // Dinner
       meals.add(
         generateSingle(
-          mealType: MealType.dinner,
+          mealType: MealType.DINNER,
           timestamp: DateTime(
             targetDate.year,
             targetDate.month,
@@ -210,7 +210,7 @@ class MealInfoMock {
       for (int i = 0; i < snackCount; i++) {
         meals.add(
           generateSingle(
-            mealType: MealType.snack,
+            mealType: MealType.SNACK,
             timestamp: DateTime(
               targetDate.year,
               targetDate.month,
@@ -258,7 +258,7 @@ class MealInfoMock {
     int count = 20,
     List<MealType>? mealTypes,
   }) {
-    final types = mealTypes ?? MealType.values;
+    final types = mealTypes ?? mealTypeValues;
     final meals = <MealInfo>[];
 
     for (int i = 0; i < count; i++) {
@@ -270,17 +270,23 @@ class MealInfoMock {
   }
 
   static MealType _getRandomMealType() {
-    final types = MealType.values;
+    final types = mealTypeValues;
     return types[DateTime.now().millisecondsSinceEpoch % types.length];
   }
 
   static String _getRandomMealName(MealType type) {
     final items = switch (type) {
-      MealType.breakfast => _breakfastItems,
-      MealType.lunch => _lunchItems,
-      MealType.dinner => _dinnerItems,
-      MealType.snack => _snackItems,
-      MealType.unknown => [
+      MealType.BREAKFAST => _breakfastItems,
+      MealType.LUNCH => _lunchItems,
+      MealType.DINNER => _dinnerItems,
+      MealType.SNACK => _snackItems,
+      MealType.UNKNOWN => [
+        ..._breakfastItems,
+        ..._lunchItems,
+        ..._dinnerItems,
+        ..._snackItems,
+      ],
+      _ => [
         ..._breakfastItems,
         ..._lunchItems,
         ..._dinnerItems,
@@ -319,35 +325,42 @@ class MealInfoMock {
   static Map<String, int> _generateNutritionForType(MealType type) {
     // Base nutritional values that vary by meal type
     final baseNutrition = switch (type) {
-      MealType.breakfast => {
+      MealType.BREAKFAST => {
         'calories': 350,
         'protein': 15,
         'carbs': 45,
         'fat': 12,
         'fiber': 6,
       },
-      MealType.lunch => {
+      MealType.LUNCH => {
         'calories': 550,
         'protein': 25,
         'carbs': 60,
         'fat': 18,
         'fiber': 8,
       },
-      MealType.dinner => {
+      MealType.DINNER => {
         'calories': 650,
         'protein': 35,
         'carbs': 50,
         'fat': 25,
         'fiber': 10,
       },
-      MealType.snack => {
+      MealType.SNACK => {
         'calories': 150,
         'protein': 8,
         'carbs': 20,
         'fat': 5,
         'fiber': 3,
       },
-      MealType.unknown => {
+      MealType.UNKNOWN => {
+        'calories': 400,
+        'protein': 20,
+        'carbs': 45,
+        'fat': 15,
+        'fiber': 6,
+      },
+      _ => {
         'calories': 400,
         'protein': 20,
         'carbs': 45,
@@ -395,15 +408,15 @@ class MealInfoMock {
       'Dark Chocolate',
     ];
 
-    HealthScore score = HealthScore.neutral; // Default: Neutral
+    HealthScore score = HealthScore.NEUTRAL; // Default: Neutral
     String reason = 'Balanced meal with moderate nutritional value.';
 
     if (healthyKeywords.any((k) => name.contains(k))) {
-      score = HealthScore.healthy;
+      score = HealthScore.HEALTHY;
       reason =
           'Nutrient-dense ingredients with high fiber and quality protein.';
     } else if (unhealthyKeywords.any((k) => name.contains(k))) {
-      score = HealthScore.unhealthy;
+      score = HealthScore.UNHEALTHY;
       reason = 'High in processed elements, sodium, or saturated fats.';
     }
 

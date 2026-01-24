@@ -6,6 +6,7 @@ services:
     image: postgres:15
     container_name: calorify-db-prod
     restart: always
+    profiles: ["production"]
     volumes:
       - postgres_data_prod:/var/lib/postgresql/data
     environment:
@@ -22,10 +23,13 @@ services:
     build: .
     container_name: calorify-backend-prod
     restart: always
+    profiles: ["production"]
     ports:
       - "8000:8000"
     env_file:
       - production.env
+    environment:
+      - NODE_ENV=production
     volumes:
       - ./firebase-adminsdk.json:/app/firebase-service-account.json:ro
     depends_on:
@@ -37,6 +41,7 @@ services:
     image: postgres:15
     container_name: calorify-db-staging
     restart: always
+    profiles: ["staging"]
     volumes:
       - postgres_data_staging:/var/lib/postgresql/data
     environment:
@@ -53,33 +58,41 @@ services:
     build: .
     container_name: calorify-backend-staging
     restart: always
+    profiles: ["staging"]
     ports:
       - "8001:8000"
     env_file:
       - staging.env
+    environment:
+      - NODE_ENV=staging
     volumes:
-      - ./app:/app/app # Live reload for staging dev
+      - ./src:/app/src # Live reload for staging dev
       - ./firebase-adminsdk.json:/app/firebase-service-account.json:ro
+    command: npm run dev
     depends_on:
       db-staging:
         condition: service_healthy
 
-  # --- DATABASE ADMIN TOOL ---
+  # --- DATABASE ADMIN TOOL (Shared) ---
+  # pgAdmin runs with any profile or standalone for database management
+  # Note: depends_on is removed since it requires profiles to be active
+  # pgAdmin will connect to databases when they are running
   pgadmin:
     image: dpage/pgadmin4:latest
     container_name: calorify-pgadmin
     restart: always
+    # No profile = available with any profile or can be started standalone
     ports:
       - "8080:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@calorify.local
+      PGADMIN_DEFAULT_EMAIL: calorify@thecodepapaya.dev
       PGADMIN_DEFAULT_PASSWORD: admin
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_SERVER_MODE: 'True'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: 'False'
+      PGADMIN_CONFIG_WTF_CSRF_CHECK_ENABLED: 'False'
     volumes:
       - pgadmin_data:/var/lib/pgadmin
-    depends_on:
-      - db-prod
-      - db-staging
 
 volumes:
   postgres_data_prod:

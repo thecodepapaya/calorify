@@ -7,7 +7,7 @@ environment:
   sdk: ^3.7.2
 
 dependencies:
-  json_annotation: ^4.9.0
+  protobuf: ^5.1.0
   health: ^13.2.0
 
 dev_dependencies:
@@ -15,4 +15,4 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
   build_runner: ^2.4.15
-  json_serializable: ^6.9.5
+  protoc_plugin: ^24.0.0

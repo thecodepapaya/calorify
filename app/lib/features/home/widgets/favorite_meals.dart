@@ -194,13 +194,16 @@ class _MealTile extends StatelessWidget {
               analyticsEvent: AnalyticsEvent.addMealFromFavorites,
               onPressed: () async {
                 try {
-                  final newMeal = meal.copyWith(
-                    timestamp: DateTime.now(),
-                    forceIdNull: true,
-                  );
+                  final newMeal = meal.deepCopy();
+                  newMeal.clearLocalId();
+                  newMeal.clearClientId();
+                  newMeal.timestamp = dateTimeToTimestamp(DateTime.now());
                   await logMeal(context, newMeal);
-                  await DatabaseService.databaseInterface
-                      .updateFavoriteLastUsedAt(meal.id!);
+                  final mealId = meal.localIdValue;
+                  if (mealId != null) {
+                    await DatabaseService.databaseInterface
+                        .updateFavoriteLastUsedAt(mealId);
+                  }
                   if (context.mounted) {
                     ScaffoldMessenger.of(
                       context,

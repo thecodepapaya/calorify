@@ -27,22 +27,23 @@ void main() {
     testGoldens('With favorites', (WidgetTester tester) async {
       final mockMeals = [
         MealInfo(
-          id: 1,
+          localId: int64FromInt(1),
           mealName: 'Favorite Apple',
           mealQuantity: '1',
-          mealType: MealType.snack,
+          mealType: MealType.SNACK,
           calories: 95,
           protein: 0,
           carbs: 25,
           fat: 0,
           fiber: 4,
-          timestamp: DateTime.now(),
-          healthScore: HealthScore.healthy,
+          timestamp: dateTimeToTimestamp(DateTime.now()),
+          healthScore: HealthScore.HEALTHY,
         ),
       ];
 
-      when(() => mockDatabaseInterface.watchAllFavoriteMeals())
-          .thenAnswer((_) => Stream.value(mockMeals));
+      when(
+        () => mockDatabaseInterface.watchAllFavoriteMeals(),
+      ).thenAnswer((_) => Stream.value(mockMeals));
 
       for (final device in testDevices) {
         await tester.pumpWidgetBuilder(
@@ -50,13 +51,17 @@ void main() {
           wrapper: goldenWrapper(),
           surfaceSize: device.size,
         );
-        await screenMatchesGolden(tester, 'favorites_screen_with_items_${device.name}');
+        await screenMatchesGolden(
+          tester,
+          'favorites_screen_with_items_${device.name}',
+        );
       }
     });
 
     testGoldens('Empty state', (WidgetTester tester) async {
-      when(() => mockDatabaseInterface.watchAllFavoriteMeals())
-          .thenAnswer((_) => Stream.value([]));
+      when(
+        () => mockDatabaseInterface.watchAllFavoriteMeals(),
+      ).thenAnswer((_) => Stream.value([]));
 
       for (final device in testDevices) {
         await tester.pumpWidgetBuilder(
@@ -64,7 +69,10 @@ void main() {
           wrapper: goldenWrapper(),
           surfaceSize: device.size,
         );
-        await screenMatchesGolden(tester, 'favorites_screen_empty_${device.name}');
+        await screenMatchesGolden(
+          tester,
+          'favorites_screen_empty_${device.name}',
+        );
       }
     });
   });

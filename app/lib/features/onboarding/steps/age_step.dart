@@ -28,8 +28,10 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
 
   Future<void> _loadData() async {
     final profile = await OnboardingService.instance.getProfileData();
-    if (profile != null && profile.dateOfBirth != null && mounted) {
-      setState(() => _dateOfBirth = profile.dateOfBirth!);
+    if (profile != null && profile.hasDateOfBirth() && mounted) {
+      setState(() {
+        _dateOfBirth = profile.dateOfBirthDateTime ?? _dateOfBirth;
+      });
     }
   }
 
@@ -184,11 +186,10 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
 
   Future<void> _saveAndContinue() async {
     final profile =
-        await OnboardingService.instance.getProfileData() ??
-        const UserProfile();
-    await OnboardingService.instance.saveProfileData(
-      profile.copyWith(dateOfBirth: _dateOfBirth),
-    );
+        await OnboardingService.instance.getProfileData() ?? UserProfile();
+    final updatedProfile = profile.deepCopy();
+    updatedProfile.dateOfBirth = dateTimeToTimestamp(_dateOfBirth);
+    await OnboardingService.instance.saveProfileData(updatedProfile);
     widget.onContinue();
   }
 }

@@ -8,53 +8,59 @@ class UserProfileMapper {
       height: data.height,
       weight: data.weight,
       targetWeight: data.targetWeight,
-      gender: data.gender == null ? null : Gender.values.byName(data.gender!),
-      dateOfBirth: data.dateOfBirth,
+      gender:
+          data.gender == null
+              ? null
+              : genderFromLegacyName(data.gender),
+      dateOfBirth:
+          data.dateOfBirth == null
+              ? null
+              : iso8601StringToTimestamp(data.dateOfBirth!.toIso8601String()),
       weightGoal:
           data.weightGoal == null
               ? null
-              : WeightGoal.values.byName(data.weightGoal!),
+              : weightGoalFromLegacyName(data.weightGoal),
       activityLevel:
           data.activityLevel == null
               ? null
-              : ActivityLevel.values.byName(data.activityLevel!),
-      heightUnit: UnitSystem.values.byName(data.heightUnit),
-      weightUnit: UnitSystem.values.byName(data.weightUnit),
+              : activityLevelFromLegacyName(data.activityLevel),
+      heightUnit: unitSystemFromLegacyName(data.heightUnit),
+      weightUnit: unitSystemFromLegacyName(data.weightUnit),
     );
   }
 
   static UserProfileTableCompanion toDrift(UserProfile profile) {
     return UserProfileTableCompanion(
       height:
-          profile.height == null
-              ? const Value.absent()
-              : Value(profile.height!),
+          profile.hasHeight()
+              ? Value(profile.height)
+              : const Value.absent(),
       weight:
-          profile.weight == null
-              ? const Value.absent()
-              : Value(profile.weight!),
+          profile.hasWeight()
+              ? Value(profile.weight)
+              : const Value.absent(),
       targetWeight:
-          profile.targetWeight == null
-              ? const Value.absent()
-              : Value(profile.targetWeight!),
+          profile.hasTargetWeight()
+              ? Value(profile.targetWeight)
+              : const Value.absent(),
       gender:
-          profile.gender == null
-              ? const Value.absent()
-              : Value(profile.gender!.name),
+          profile.hasGender()
+              ? Value(profile.gender.legacyName)
+              : const Value.absent(),
       dateOfBirth:
-          profile.dateOfBirth == null
-              ? const Value.absent()
-              : Value(profile.dateOfBirth!),
+          profile.hasDateOfBirth()
+              ? Value(timestampToLocalDateTime(profile.dateOfBirth) ?? DateTime.now())
+              : const Value.absent(),
       weightGoal:
-          profile.weightGoal == null
-              ? const Value.absent()
-              : Value(profile.weightGoal!.name),
+          profile.hasWeightGoal()
+              ? Value(profile.weightGoal.legacyName)
+              : const Value.absent(),
       activityLevel:
-          profile.activityLevel == null
-              ? const Value.absent()
-              : Value(profile.activityLevel!.name),
-      heightUnit: Value(profile.heightUnit.name),
-      weightUnit: Value(profile.weightUnit.name),
+          profile.hasActivityLevel()
+              ? Value(profile.activityLevel.legacyName)
+              : const Value.absent(),
+      heightUnit: Value(profile.heightUnit.legacyName),
+      weightUnit: Value(profile.weightUnit.legacyName),
     );
   }
 }

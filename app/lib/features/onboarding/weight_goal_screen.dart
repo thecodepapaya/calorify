@@ -32,8 +32,9 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
   Future<void> _loadProfileData() async {
     final data = await OnboardingService.instance.getProfileData();
     setState(() {
-      _userProfile = data ?? const UserProfile();
-      _selectedGoal = data?.weightGoal;
+      _userProfile = data ?? UserProfile();
+      _selectedGoal =
+          data != null && data.hasWeightGoal() ? data.weightGoal : null;
       _isLoading = false;
     });
   }
@@ -70,7 +71,7 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
             child: ListView(
               padding: EdgeInsets.zero,
               children:
-                  WeightGoal.values.map((goal) {
+                  weightGoalValues.map((goal) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 16.0),
                       child: _buildGoalCard(context, goal),
@@ -114,7 +115,10 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
 
   void _continue(UserProfile profile) {
     if (_selectedGoal != null) {
-      final updatedProfile = profile.copyWith(weightGoal: _selectedGoal);
+      final updatedProfile = profile.deepCopy();
+      if (_selectedGoal != null) {
+        updatedProfile.weightGoal = _selectedGoal!;
+      }
       OnboardingService.instance.saveProfileData(updatedProfile);
       widget.onContinue();
     }

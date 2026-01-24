@@ -3,9 +3,8 @@ import 'dart:async';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/db/mock_data/favorite_meal_mock.dart';
 import 'package:calorify/core/db/mock_data/meal_info_mock.dart';
-import 'package:calorify/core/db/mock_data/user_settings_mock.dart';
+import 'package:calorify/core/db/mock_data/user_settings_mock.dart' hide UserProfile;
 import 'package:models/models.dart';
-import 'package:models/models.dart' as profile_models;
 import 'package:flutter/material.dart' show ThemeMode;
 
 /// Mock database adapter that implements DatabaseInterface
@@ -13,7 +12,7 @@ class MockDatabaseAdapter implements DatabaseInterface {
   final List<MealInfo> _meals = [];
   final List<MealInfo> _favorites = [];
   int? _dailyCalorieGoal;
-  profile_models.UserProfile? _userProfile;
+  UserProfile? _userProfile;
   ThemeMode _themeMode = ThemeMode.system;
   String? _languageCode;
 
@@ -63,11 +62,14 @@ class MockDatabaseAdapter implements DatabaseInterface {
   @override
   Future<void> upsertMeal(MealInfo mealInfo) async {
     // In mock mode, we add or update the meal
-    final existingIndex = _meals.indexWhere(
-      (meal) =>
-          meal.mealName == mealInfo.mealName &&
-          meal.timestamp.day == mealInfo.timestamp.day,
-    );
+    final existingIndex = _meals.indexWhere((meal) {
+      final mealDate = meal.timestampDateTime ?? DateTime.now();
+      final targetDate = mealInfo.timestampDateTime ?? DateTime.now();
+      return meal.mealName == mealInfo.mealName &&
+          mealDate.year == targetDate.year &&
+          mealDate.month == targetDate.month &&
+          mealDate.day == targetDate.day;
+    });
 
     if (existingIndex != -1) {
       _meals[existingIndex] = mealInfo;
@@ -78,7 +80,16 @@ class MockDatabaseAdapter implements DatabaseInterface {
 
   @override
   Future<void> deleteMeal(int mealId) async {
-    _meals.removeWhere((meal) => meal.id == mealId);
+    _meals.removeWhere((meal) => meal.localIdValue == mealId);
+  }
+
+  @override
+  Future<MealInfo?> getMealById(int mealId) async {
+    try {
+      return _meals.firstWhere((meal) => meal.localIdValue == mealId);
+    } catch (_) {
+      return null;
+    }
   }
 
   @override
@@ -114,9 +125,10 @@ class MockDatabaseAdapter implements DatabaseInterface {
   Stream<List<MealInfo>> watchAllMealsForToday() async* {
     yield _meals.where((meal) {
       final now = DateTime.now();
-      return meal.timestamp.year == now.year &&
-          meal.timestamp.month == now.month &&
-          meal.timestamp.day == now.day;
+      final mealDate = meal.timestampDateTime ?? DateTime.now();
+      return mealDate.year == now.year &&
+          mealDate.month == now.month &&
+          mealDate.day == now.day;
     }).toList();
   }
 
@@ -125,8 +137,8 @@ class MockDatabaseAdapter implements DatabaseInterface {
     yield _meals.where((meal) {
       final now = DateTime.now();
       final sevenDaysAgo = now.subtract(const Duration(days: 7));
-      return meal.timestamp.isAfter(sevenDaysAgo) &&
-          meal.timestamp.isBefore(now);
+      final mealDate = meal.timestampDateTime ?? DateTime.now();
+      return mealDate.isAfter(sevenDaysAgo) && mealDate.isBefore(now);
     }).toList();
   }
 
@@ -155,12 +167,12 @@ class MockDatabaseAdapter implements DatabaseInterface {
 
   // User Profile Methods
   @override
-  Future<void> saveUserProfile(profile_models.UserProfile profile) async {
+  Future<void> saveUserProfile(UserProfile profile) async {
     _userProfile = profile;
   }
 
   @override
-  Future<profile_models.UserProfile?> getUserProfile() async {
+  Future<UserProfile?> getUserProfile() async {
     return _userProfile;
   }
 

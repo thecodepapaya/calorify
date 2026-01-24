@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package calorify.v1;
+
+enum MealType {
+  UNKNOWN = 0;
+  BREAKFAST = 1;
+  LUNCH = 2;
+  DINNER = 3;
+  SNACK = 4;
+}
+
+enum HealthScore {
+  HEALTHY = 0;
+  NEUTRAL = 1;
+  UNHEALTHY = 2;
+}
+
+enum Gender {
+  MALE = 0;
+  FEMALE = 1;
+  OTHER = 2;
+}
+
+enum WeightGoal {
+  LOSE_WEIGHT = 0;
+  MAINTAIN_WEIGHT = 1;
+  GAIN_WEIGHT = 2;
+}
+
+enum ActivityLevel {
+  SEDENTARY = 0;
+  LIGHTLY_ACTIVE = 1;
+  MODERATELY_ACTIVE = 2;
+  VERY_ACTIVE = 3;
+  EXTREMELY_ACTIVE = 4;
+}
+
+enum UnitSystem {
+  METRIC = 0;
+  IMPERIAL = 1;
+}
+
+message MealInfo {
+  optional string client_id = 1;
+  optional int64 local_id = 2;
+  string meal_name = 3;
+  string meal_quantity = 4;
+  MealType meal_type = 5;
+  int32 calories = 6;
+  int32 protein = 7;
+  int32 carbs = 8;
+  int32 fat = 9;
+  int32 fiber = 10;
+  int64 timestamp = 11; // Unix timestamp in milliseconds since epoch (UTC)
+  optional string image_url = 12;
+  optional HealthScore health_score = 13;
+  optional string health_score_reason = 14;
+}
+
+message MealDetectionResult {
+  bool meal_identified = 1;
+  int32 calorie_confidence = 2;
+  string tip = 3;
+  MealInfo meal_info = 4;
+}
+
+message UserProfile {
+  optional double height = 1;
+  optional double weight = 2;
+  optional double target_weight = 3;
+  optional Gender gender = 4;
+  optional int64 date_of_birth = 5; // Unix timestamp in milliseconds since epoch (UTC)
+  optional WeightGoal weight_goal = 6;
+  optional ActivityLevel activity_level = 7;
+  optional UnitSystem height_unit = 8;
+  optional UnitSystem weight_unit = 9;
+  optional int32 daily_calorie_goal = 10;
+}
+
+message FcmToken {
+  string token = 1;
+  optional string device_type = 2;
+}
