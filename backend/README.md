@@ -473,8 +473,206 @@ docker-compose --profile staging build --no-cache backend-staging
 
 - Production uses port `8000`
 - Staging uses port `8001`
-- pgAdmin uses port `8080`
 - Ensure these ports are available or modify in `docker-compose.yml`
+
+### 502 Bad Gateway Error
+
+A 502 error means Nginx can't connect to your backend. Follow these steps to debug:
+
+#### Step 1: Check if Containers are Running
+
+```bash
+# Check all containers
+docker ps
+
+# Check specific backend container
+docker ps | grep calorify-backend-prod
+docker ps | grep calorify-backend-staging
+
+# Check container status with docker-compose
+docker-compose --profile production ps
+docker-compose --profile staging ps
+```
+
+**If containers are not running**, start them:
+```bash
+docker-compose --profile production up -d
+docker-compose --profile staging up -d
+```
+
+#### Step 2: Check Container Logs
+
+```bash
+# View production backend logs
+docker-compose --profile production logs backend-prod
+
+# View staging backend logs
+docker-compose --profile staging logs backend-staging
+
+# Follow logs in real-time
+docker-compose --profile production logs -f backend-prod
+```
+
+**Look for:**
+- Application startup errors
+- Port binding errors
+- Database connection errors
+- Missing environment variables
+- Firebase authentication errors
+
+#### Step 3: Test Direct Connection to Backend
+
+```bash
+# Test production backend directly (bypassing Nginx)
+curl http://localhost:8000/
+
+# Test staging backend directly
+curl http://localhost:8001/
+
+# Test with verbose output
+curl -v http://localhost:8000/
+```
+
+**If this works**, the backend is running but Nginx configuration is wrong.
+**If this fails**, the backend has an issue.
+
+#### Step 4: Check if Backend is Listening on Correct Port
+
+```bash
+# Check what's listening on port 8000
+sudo netstat -tlnp | grep 8000
+# Or
+sudo ss -tlnp | grep 8000
+
+# Check from inside the container
+docker exec calorify-backend-prod netstat -tlnp | grep 8000
+```
+
+#### Step 5: Verify Nginx Configuration
+
+```bash
+# Check Nginx configuration syntax
+sudo nginx -t
+
+# Check Nginx error logs
+sudo tail -f /var/log/nginx/error.log
+
+# View Nginx configuration
+sudo cat /etc/nginx/sites-available/calorify
+# Or
+sudo cat /etc/nginx/sites-enabled/calorify
+```
+
+**Verify Nginx proxy_pass matches Docker port:**
+- Production: `proxy_pass http://localhost:8000;`
+- Staging: `proxy_pass http://localhost:8001;`
+
+**Reload Nginx after changes:**
+```bash
+sudo systemctl reload nginx
+# Or
+sudo nginx -s reload
+```
+
+#### Step 6: Check Environment Variables
+
+```bash
+# Check environment variables in container
+docker exec calorify-backend-prod env | grep -E "(PORT|DATABASE|FIREBASE)"
+
+# Verify environment file exists
+ls -la production.env staging.env
+
+# Check if Firebase service account file exists
+ls -la firebase-adminsdk.json
+```
+
+#### Step 7: Test Health Endpoint Inside Container
+
+```bash
+# Test from inside the container
+docker exec calorify-backend-prod curl http://localhost:8000/
+
+# Check if the process is running
+docker exec calorify-backend-prod ps aux | grep node
+```
+
+#### Step 8: Restart Services
+
+```bash
+# Restart production backend
+docker-compose --profile production restart backend-prod
+
+# Restart staging backend
+docker-compose --profile staging restart backend-staging
+
+# Restart Nginx
+sudo systemctl restart nginx
+```
+
+#### Step 9: Rebuild if Needed
+
+```bash
+# Rebuild and restart production
+docker-compose --profile production up -d --build backend-prod
+
+# Rebuild and restart staging
+docker-compose --profile staging up -d --build backend-staging
+```
+
+#### Common Issues and Solutions
+
+**Issue**: Container exits immediately
+```bash
+# Check exit code
+docker inspect calorify-backend-prod | grep -A 10 State
+
+# Check logs for startup errors
+docker-compose --profile production logs backend-prod
+```
+
+**Issue**: Port already in use
+```bash
+# Find what's using the port
+sudo lsof -i :8000
+sudo lsof -i :8001
+
+# Kill the process or change port in docker-compose.yml
+```
+
+**Issue**: Database connection fails
+```bash
+# Check database is running
+docker ps | grep db-prod
+
+# Test database connection
+docker exec calorify-db-prod pg_isready -U calorify -d calorify_prod
+
+# Check DATABASE_URL in environment
+docker exec calorify-backend-prod env | grep DATABASE_URL
+```
+
+**Issue**: Missing Firebase credentials
+```bash
+# Verify file exists and is mounted
+docker exec calorify-backend-prod ls -la /app/firebase-service-account.json
+
+# Check FIREBASE_SERVICE_ACCOUNT_PATH
+docker exec calorify-backend-prod env | grep FIREBASE
+```
+
+#### Quick Debugging Checklist
+
+- [ ] Containers are running (`docker ps`)
+- [ ] No errors in container logs (`docker-compose logs`)
+- [ ] Backend responds on localhost (`curl http://localhost:8000/`)
+- [ ] Nginx configuration is correct (`sudo nginx -t`)
+- [ ] Nginx proxy_pass points to correct port
+- [ ] Nginx is running (`sudo systemctl status nginx`)
+- [ ] No port conflicts (`sudo lsof -i :8000`)
+- [ ] Environment variables are set correctly
+- [ ] Database is running and accessible
+- [ ] Firebase credentials file exists and is mounted
 
 ## Security Notes
 

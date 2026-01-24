@@ -21,9 +21,10 @@ COPY . .
 # Build TypeScript
 RUN npm run build
 
-# Set production environment and remove dev dependencies after build
+# Note: We don't prune dev dependencies here because staging needs them for `npm run dev`
+# For production, you can prune manually or use a multi-stage build if image size is critical
+# To prune for production: RUN npm prune --production
 ENV NODE_ENV=production
-RUN npm prune --production
 
 # Expose port
 EXPOSE 8000
