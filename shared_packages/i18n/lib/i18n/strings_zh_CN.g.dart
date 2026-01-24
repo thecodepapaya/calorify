@@ -138,6 +138,7 @@ class _TranslationsMealZhCn implements TranslationsMealEn {
 	@override String get saveMeal => '保存餐点';
 	@override String get save => '保存';
 	@override String get mealName => '餐点名称';
+	@override String get mealNameHint => '例如：炒蛋配吐司';
 	@override String get mealQuantity => '餐数量';
 	@override String get mealQuantityHint => '例如：1碗，2片';
 	@override String get timeOfMeal => '餐点时间';
@@ -147,6 +148,9 @@ class _TranslationsMealZhCn implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationZhCn deleteConfirmation = _TranslationsMealDeleteConfirmationZhCn._(_root);
 	@override String get addedToLog => '餐点已添加到您的记录中！';
 	@override String couldNotAdd({required Object error}) => '无法添加餐点：${error}';
+	@override String get savedSuccessfully => '餐食已成功添加！';
+	@override String get updatedSuccessfully => '餐食已成功更新！';
+	@override String errorSaving({required Object error}) => '保存餐食时出错：${error}';
 	@override String get removedFromFavorites => '已从收藏中移除！';
 	@override String get savedAsFavorite => '餐点已保存为收藏！';
 	@override String couldNotUpdateFavorite({required Object error}) => '无法更新收藏：${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsZhCn implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => '开发者模式已启用！';
 	@override late final _TranslationsSettingsHealthConnectZhCn healthConnect = _TranslationsSettingsHealthConnectZhCn._(_root);
 	@override late final _TranslationsSettingsAboutZhCn about = _TranslationsSettingsAboutZhCn._(_root);
+	@override late final _TranslationsSettingsAppInfoZhCn appInfo = _TranslationsSettingsAppInfoZhCn._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapZhCn implements TranslationsHomeMealSnapEn {
 	@override String get title => '拍照并记录您的餐点';
 	@override String get description => '使用您的相机拍一张食物的照片进行AI分析。';
 	@override String get openCamera => '打开相机';
+	@override String get gallery => '图库';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutZhCn implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyZhCn privacy = _TranslationsSettingsAboutPrivacyZhCn._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperZhCn developer = _TranslationsSettingsAboutDeveloperZhCn._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackZhCn feedback = _TranslationsSettingsAboutFeedbackZhCn._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoZhCn implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => '构建号 ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsZhCn {
 			'home.mealSnap.title' => '拍照并记录您的餐点',
 			'home.mealSnap.description' => '使用您的相机拍一张食物的照片进行AI分析。',
 			'home.mealSnap.openCamera' => '打开相机',
+			'home.mealSnap.gallery' => '图库',
 			'home.connectHealth.title' => '与健康应用同步',
 			'home.connectHealth.description' => '将您的营养数据与健康应用同步',
 			'home.connectHealth.install' => '安装',
@@ -1671,6 +1689,7 @@ extension on TranslationsZhCn {
 			'meal.saveMeal' => '保存餐点',
 			'meal.save' => '保存',
 			'meal.mealName' => '餐点名称',
+			'meal.mealNameHint' => '例如：炒蛋配吐司',
 			'meal.mealQuantity' => '餐数量',
 			'meal.mealQuantityHint' => '例如：1碗，2片',
 			'meal.timeOfMeal' => '餐点时间',
@@ -1687,6 +1706,9 @@ extension on TranslationsZhCn {
 			'meal.deleteConfirmation.delete' => '删除',
 			'meal.addedToLog' => '餐点已添加到您的记录中！',
 			'meal.couldNotAdd' => ({required Object error}) => '无法添加餐点：${error}',
+			'meal.savedSuccessfully' => '餐食已成功添加！',
+			'meal.updatedSuccessfully' => '餐食已成功更新！',
+			'meal.errorSaving' => ({required Object error}) => '保存餐食时出错：${error}',
 			'meal.removedFromFavorites' => '已从收藏中移除！',
 			'meal.savedAsFavorite' => '餐点已保存为收藏！',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => '无法更新收藏：${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsZhCn {
 			'settings.about.feedback.description' => ({required Object appLabel}) => '您的反馈有助于使${appLabel}对每个人变得更好。',
 			'settings.about.feedback.rateApp' => '在应用商店评分',
 			'settings.about.feedback.sendFeedback' => '发送反馈',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => '构建号 ${buildNumber}',
 			'reminders.title' => '通过提醒保持正轨',
 			'reminders.description' => '获取温馨提醒记录您的餐点，确保您与营养目标保持一致',
 			'reminders.notificationsEnabled' => '通知已启用',

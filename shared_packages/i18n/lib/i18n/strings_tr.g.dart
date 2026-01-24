@@ -138,6 +138,7 @@ class _TranslationsMealTr implements TranslationsMealEn {
 	@override String get saveMeal => 'Yemeği Kaydet';
 	@override String get save => 'Kaydet';
 	@override String get mealName => 'Yemek Adı';
+	@override String get mealNameHint => 'örn. Çırpılmış yumurta ve tost';
 	@override String get mealQuantity => 'Yemek Miktarı';
 	@override String get mealQuantityHint => 'Örneğin, 1 kase, 2 dilim';
 	@override String get timeOfMeal => 'Yemeğin Zamanı';
@@ -147,6 +148,9 @@ class _TranslationsMealTr implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationTr deleteConfirmation = _TranslationsMealDeleteConfirmationTr._(_root);
 	@override String get addedToLog => 'Yemek kaydınıza eklendi!';
 	@override String couldNotAdd({required Object error}) => 'Yemek eklenemedi: ${error}';
+	@override String get savedSuccessfully => 'Öğün başarıyla eklendi!';
+	@override String get updatedSuccessfully => 'Öğün başarıyla güncellendi!';
+	@override String errorSaving({required Object error}) => 'Öğün kaydedilirken hata oluştu: ${error}';
 	@override String get removedFromFavorites => 'Favorilerden çıkarıldı!';
 	@override String get savedAsFavorite => 'Yemek favori olarak kaydedildi!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Favori güncellenemedi: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsTr implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Geliştirici modu etkinleştirildi!';
 	@override late final _TranslationsSettingsHealthConnectTr healthConnect = _TranslationsSettingsHealthConnectTr._(_root);
 	@override late final _TranslationsSettingsAboutTr about = _TranslationsSettingsAboutTr._(_root);
+	@override late final _TranslationsSettingsAppInfoTr appInfo = _TranslationsSettingsAppInfoTr._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapTr implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Yemeğinizi Yakala ve Takip Et';
 	@override String get description => 'AI analizi için yiyeceklerinizin fotoğrafını çekmek üzere kameranızı kullanın.';
 	@override String get openCamera => 'Kamerayı Aç';
+	@override String get gallery => 'Galeri';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutTr implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyTr privacy = _TranslationsSettingsAboutPrivacyTr._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperTr developer = _TranslationsSettingsAboutDeveloperTr._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackTr feedback = _TranslationsSettingsAboutFeedbackTr._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoTr implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Yapı ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsTr {
 			'home.mealSnap.title' => 'Yemeğinizi Yakala ve Takip Et',
 			'home.mealSnap.description' => 'AI analizi için yiyeceklerinizin fotoğrafını çekmek üzere kameranızı kullanın.',
 			'home.mealSnap.openCamera' => 'Kamerayı Aç',
+			'home.mealSnap.gallery' => 'Galeri',
 			'home.connectHealth.title' => 'Health Connect ile Senkronize Ol',
 			'home.connectHealth.description' => 'Beslenme verilerinizi Health Connect ile senkronize edin',
 			'home.connectHealth.install' => 'Kur',
@@ -1671,6 +1689,7 @@ extension on TranslationsTr {
 			'meal.saveMeal' => 'Yemeği Kaydet',
 			'meal.save' => 'Kaydet',
 			'meal.mealName' => 'Yemek Adı',
+			'meal.mealNameHint' => 'örn. Çırpılmış yumurta ve tost',
 			'meal.mealQuantity' => 'Yemek Miktarı',
 			'meal.mealQuantityHint' => 'Örneğin, 1 kase, 2 dilim',
 			'meal.timeOfMeal' => 'Yemeğin Zamanı',
@@ -1687,6 +1706,9 @@ extension on TranslationsTr {
 			'meal.deleteConfirmation.delete' => 'Sil',
 			'meal.addedToLog' => 'Yemek kaydınıza eklendi!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Yemek eklenemedi: ${error}',
+			'meal.savedSuccessfully' => 'Öğün başarıyla eklendi!',
+			'meal.updatedSuccessfully' => 'Öğün başarıyla güncellendi!',
+			'meal.errorSaving' => ({required Object error}) => 'Öğün kaydedilirken hata oluştu: ${error}',
 			'meal.removedFromFavorites' => 'Favorilerden çıkarıldı!',
 			'meal.savedAsFavorite' => 'Yemek favori olarak kaydedildi!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Favori güncellenemedi: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsTr {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Geri bildiriminiz, ${appLabel}\'ı herkes için daha iyi hale getirmeye yardımcı oluyor.',
 			'settings.about.feedback.rateApp' => 'Play Store\'da Derecelendir',
 			'settings.about.feedback.sendFeedback' => 'Geri Bildirim Gönder',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Yapı ${buildNumber}',
 			'reminders.title' => 'Hatırlatıcılarla doğru yolda kalın',
 			'reminders.description' => 'Yemeklerinizi kaydetmek ve beslenme hedeflerinize sadık kalmak için nazik hatırlatmalar alın',
 			'reminders.notificationsEnabled' => 'Bildirimler Etkinleştirildi',

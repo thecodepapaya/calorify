@@ -138,6 +138,7 @@ class _TranslationsMealUk implements TranslationsMealEn {
 	@override String get saveMeal => 'Зберегти страву';
 	@override String get save => 'Зберегти';
 	@override String get mealName => 'Назва страви';
+	@override String get mealNameHint => 'Наприклад, яєчня з тостом';
 	@override String get mealQuantity => 'Кількість страви';
 	@override String get mealQuantityHint => 'наприклад, 1 чаша, 2 скибки';
 	@override String get timeOfMeal => 'Час страви';
@@ -147,6 +148,9 @@ class _TranslationsMealUk implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationUk deleteConfirmation = _TranslationsMealDeleteConfirmationUk._(_root);
 	@override String get addedToLog => 'Страву додано до вашого журналу!';
 	@override String couldNotAdd({required Object error}) => 'Не вдалося додати страву: ${error}';
+	@override String get savedSuccessfully => 'Страву успішно додано!';
+	@override String get updatedSuccessfully => 'Страву успішно оновлено!';
+	@override String errorSaving({required Object error}) => 'Не вдалося зберегти страву: ${error}';
 	@override String get removedFromFavorites => 'Вилучено з улюблених!';
 	@override String get savedAsFavorite => 'Страву збережено як улюблену!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Не вдалося оновити улюблену: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsUk implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Режим розробника увімкнено!';
 	@override late final _TranslationsSettingsHealthConnectUk healthConnect = _TranslationsSettingsHealthConnectUk._(_root);
 	@override late final _TranslationsSettingsAboutUk about = _TranslationsSettingsAboutUk._(_root);
+	@override late final _TranslationsSettingsAppInfoUk appInfo = _TranslationsSettingsAppInfoUk._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapUk implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Зробіть фото та відстежте вашу страву';
 	@override String get description => 'Використовуйте вашу камеру, щоб зробити фото вашої їжі для аналізу ШІ.';
 	@override String get openCamera => 'Відкрити камеру';
+	@override String get gallery => 'Галерея';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutUk implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyUk privacy = _TranslationsSettingsAboutPrivacyUk._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperUk developer = _TranslationsSettingsAboutDeveloperUk._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackUk feedback = _TranslationsSettingsAboutFeedbackUk._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoUk implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Збірка ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsUk {
 			'home.mealSnap.title' => 'Зробіть фото та відстежте вашу страву',
 			'home.mealSnap.description' => 'Використовуйте вашу камеру, щоб зробити фото вашої їжі для аналізу ШІ.',
 			'home.mealSnap.openCamera' => 'Відкрити камеру',
+			'home.mealSnap.gallery' => 'Галерея',
 			'home.connectHealth.title' => 'Синхронізуйте з Health Connect',
 			'home.connectHealth.description' => 'Синхронізуйте свої дані про харчування з Health Connect',
 			'home.connectHealth.install' => 'Встановити',
@@ -1671,6 +1689,7 @@ extension on TranslationsUk {
 			'meal.saveMeal' => 'Зберегти страву',
 			'meal.save' => 'Зберегти',
 			'meal.mealName' => 'Назва страви',
+			'meal.mealNameHint' => 'Наприклад, яєчня з тостом',
 			'meal.mealQuantity' => 'Кількість страви',
 			'meal.mealQuantityHint' => 'наприклад, 1 чаша, 2 скибки',
 			'meal.timeOfMeal' => 'Час страви',
@@ -1687,6 +1706,9 @@ extension on TranslationsUk {
 			'meal.deleteConfirmation.delete' => 'Видалити',
 			'meal.addedToLog' => 'Страву додано до вашого журналу!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Не вдалося додати страву: ${error}',
+			'meal.savedSuccessfully' => 'Страву успішно додано!',
+			'meal.updatedSuccessfully' => 'Страву успішно оновлено!',
+			'meal.errorSaving' => ({required Object error}) => 'Не вдалося зберегти страву: ${error}',
 			'meal.removedFromFavorites' => 'Вилучено з улюблених!',
 			'meal.savedAsFavorite' => 'Страву збережено як улюблену!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Не вдалося оновити улюблену: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsUk {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Ваш відгук допомагає покращити ${appLabel} для всіх.',
 			'settings.about.feedback.rateApp' => 'Оцініть у Play Store',
 			'settings.about.feedback.sendFeedback' => 'Надіслати відгук',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Збірка ${buildNumber}',
 			'reminders.title' => 'Залишайтеся на правильному шляху з нагадуваннями',
 			'reminders.description' => 'Отримуйте м\'які нагадування, щоб вести облік своїх страв і підтримувати послідовність з вашими цілями у харчуванні',
 			'reminders.notificationsEnabled' => 'Сповіщення увімкнені',

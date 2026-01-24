@@ -138,6 +138,7 @@ class _TranslationsMealPl implements TranslationsMealEn {
 	@override String get saveMeal => 'Zapisz Posiłek';
 	@override String get save => 'Zapisz';
 	@override String get mealName => 'Nazwa Posiłku';
+	@override String get mealNameHint => 'np. Jajecznica z tostem';
 	@override String get mealQuantity => 'Ilość Posiłku';
 	@override String get mealQuantityHint => 'np. 1 miska, 2 plastry';
 	@override String get timeOfMeal => 'Czas Posiłku';
@@ -147,6 +148,9 @@ class _TranslationsMealPl implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationPl deleteConfirmation = _TranslationsMealDeleteConfirmationPl._(_root);
 	@override String get addedToLog => 'Posiłek dodany do logu!';
 	@override String couldNotAdd({required Object error}) => 'Nie można dodać posiłku: ${error}';
+	@override String get savedSuccessfully => 'Posiłek został pomyślnie dodany!';
+	@override String get updatedSuccessfully => 'Posiłek został pomyślnie zaktualizowany!';
+	@override String errorSaving({required Object error}) => 'Wystąpił błąd podczas zapisywania posiłku: ${error}';
 	@override String get removedFromFavorites => 'Usunięto z ulubionych!';
 	@override String get savedAsFavorite => 'Posiłek zapisany jako ulubiony!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Nie można zaktualizować ulubionego: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsPl implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Tryb dewelopera włączony!';
 	@override late final _TranslationsSettingsHealthConnectPl healthConnect = _TranslationsSettingsHealthConnectPl._(_root);
 	@override late final _TranslationsSettingsAboutPl about = _TranslationsSettingsAboutPl._(_root);
+	@override late final _TranslationsSettingsAppInfoPl appInfo = _TranslationsSettingsAppInfoPl._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapPl implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Zrób Zdjęcie i Śledź Swój Posiłek';
 	@override String get description => 'Użyj aparatu, aby zrobić zdjęcie swojego jedzenia do analizy AI.';
 	@override String get openCamera => 'Otwórz aparat';
+	@override String get gallery => 'Galeria';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutPl implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyPl privacy = _TranslationsSettingsAboutPrivacyPl._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperPl developer = _TranslationsSettingsAboutDeveloperPl._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackPl feedback = _TranslationsSettingsAboutFeedbackPl._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoPl implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoPl._(this._root);
+
+	final TranslationsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify wersja ${version}';
+	@override String build({required Object buildNumber}) => 'Kompilacja ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsPl {
 			'home.mealSnap.title' => 'Zrób Zdjęcie i Śledź Swój Posiłek',
 			'home.mealSnap.description' => 'Użyj aparatu, aby zrobić zdjęcie swojego jedzenia do analizy AI.',
 			'home.mealSnap.openCamera' => 'Otwórz aparat',
+			'home.mealSnap.gallery' => 'Galeria',
 			'home.connectHealth.title' => 'Synchronizuj z Health Connect',
 			'home.connectHealth.description' => 'Synchronizuj swoje dane dotyczące odżywiania z Health Connect',
 			'home.connectHealth.install' => 'Zainstaluj',
@@ -1671,6 +1689,7 @@ extension on TranslationsPl {
 			'meal.saveMeal' => 'Zapisz Posiłek',
 			'meal.save' => 'Zapisz',
 			'meal.mealName' => 'Nazwa Posiłku',
+			'meal.mealNameHint' => 'np. Jajecznica z tostem',
 			'meal.mealQuantity' => 'Ilość Posiłku',
 			'meal.mealQuantityHint' => 'np. 1 miska, 2 plastry',
 			'meal.timeOfMeal' => 'Czas Posiłku',
@@ -1687,6 +1706,9 @@ extension on TranslationsPl {
 			'meal.deleteConfirmation.delete' => 'Usuń',
 			'meal.addedToLog' => 'Posiłek dodany do logu!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Nie można dodać posiłku: ${error}',
+			'meal.savedSuccessfully' => 'Posiłek został pomyślnie dodany!',
+			'meal.updatedSuccessfully' => 'Posiłek został pomyślnie zaktualizowany!',
+			'meal.errorSaving' => ({required Object error}) => 'Wystąpił błąd podczas zapisywania posiłku: ${error}',
 			'meal.removedFromFavorites' => 'Usunięto z ulubionych!',
 			'meal.savedAsFavorite' => 'Posiłek zapisany jako ulubiony!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Nie można zaktualizować ulubionego: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsPl {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Twoja opinia pomaga uczynić ${appLabel} lepszym dla wszystkich.',
 			'settings.about.feedback.rateApp' => 'Oceń w Sklepie Play',
 			'settings.about.feedback.sendFeedback' => 'Wyślij opinię',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify wersja ${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Kompilacja ${buildNumber}',
 			'reminders.title' => 'Pozostań na właściwej ścieżce dzięki przypomnieniom',
 			'reminders.description' => 'Otrzymuj delikatne przypomnienia o rejestrowaniu posiłków i utrzymaniu konsekwencji w celach dotyczących odżywiania',
 			'reminders.notificationsEnabled' => 'Powiadomienia Włączone',

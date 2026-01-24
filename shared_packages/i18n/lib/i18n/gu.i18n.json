@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "સ્નેપ અને તમારા ખોરાકને ટ્રેક કરો",
       "description": "આઇએઇ વિશ્લેષણ માટે તમારા ખોરાકની ફોટો લેવા માટે તમારા કેમેરાનો ઉપયોગ કરો.",
-      "openCamera": "કેમેરા ખોલો"
+      "openCamera": "કેમેરા ખોલો",
+      "gallery": "ગેલેરી"
     },
     "connectHealth": {
       "title": "હેલ્થ કનેક્ટ સાથે સિનક કરો",
@@ -216,6 +217,7 @@
     "saveMeal": "ખોરાક સેવ કરો",
     "save": "સેવ",
     "mealName": "ખોરાક નામ",
+    "mealNameHint": "ઉદાહરણ: સ્ક્રેંબલ્ડ ઈંડા અને ટોસ્ટ",
     "mealQuantity": "ખોરાકનું પ્રમાણ",
     "mealQuantityHint": "જેમ કે, 1 બાઉલ, 2 સ્લાઇસ",
     "timeOfMeal": "ખોરાકનો સમય",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "ખોરાક તમારા લૉગમાં ઉમેરવામાં આવ્યો છે!",
     "couldNotAdd": "ખોરાક ઉમેરવામાં અસફળ: {error}",
+    "savedSuccessfully": "ભોજન સફળતાપૂર્વક ઉમેરવામાં આવ્યું!",
+    "updatedSuccessfully": "ભોજન સફળતાપૂર્વક અપડેટ થયું!",
+    "errorSaving": "ભોજન સાચવવામાં ભૂલ: {error}",
     "removedFromFavorites": "પસંદીમાંથી દૂર કરવામાં આવ્યું!",
     "savedAsFavorite": "ખોરાકને પસંદી તરીકે સેવ કર્યું!",
     "couldNotUpdateFavorite": "પસંદીમાં સુધારો કરવામાં અસફળ: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "પ્લે સ્ટોર પર રેટ કરો",
         "sendFeedback": "પ્રતિસાદ મોકલો"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "બિલ્ડ {buildNumber}"
     }
   },
   "reminders": {

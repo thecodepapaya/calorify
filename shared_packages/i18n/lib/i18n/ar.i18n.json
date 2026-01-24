@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "التقط وتابع وجبتك",
       "description": "استخدم الكاميرا لالتقاط صورة لطعامك لتحليل الذكاء الاصطناعي.",
-      "openCamera": "فتح الكاميرا"
+      "openCamera": "فتح الكاميرا",
+      "gallery": "المعرض"
     },
     "connectHealth": {
       "title": "مزامنة مع Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "احفظ الوجبة",
     "save": "احفظ",
     "mealName": "اسم الوجبة",
+    "mealNameHint": "مثلاً: بيض مخفوق مع خبز محمص",
     "mealQuantity": "كمية الوجبة",
     "mealQuantityHint": "مثل: 1 وعاء، 2 شريحة",
     "timeOfMeal": "وقت الوجبة",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "تمت إضافة الوجبة إلى سجلك!",
     "couldNotAdd": "تعذر إضافة الوجبة: {error}",
+    "savedSuccessfully": "تمت إضافة الوجبة بنجاح!",
+    "updatedSuccessfully": "تم تحديث الوجبة بنجاح!",
+    "errorSaving": "خطأ عند حفظ الوجبة: {error}",
     "removedFromFavorites": "تمت إزالتها من المفضلات!",
     "savedAsFavorite": "تمت حفظ الوجبة كمفضلة!",
     "couldNotUpdateFavorite": "تعذر تحديث المفضلة: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "قيم على متجر بلاي",
         "sendFeedback": "أرسل تعليقات"
       }
+    },
+    "appInfo": {
+      "version": "Calorify الإصدار {version}",
+      "build": "بناء {buildNumber}"
     }
   },
   "reminders": {

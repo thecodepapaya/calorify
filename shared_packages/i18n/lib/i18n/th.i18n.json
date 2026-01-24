@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "ถ่ายภาพ & ติดตามมื้ออาหารของคุณ",
       "description": "ใช้กล้องของคุณเพื่อถ่ายภาพอาหารของคุณสำหรับการวิเคราะห์ด้วย AI",
-      "openCamera": "เปิดกล้อง"
+      "openCamera": "เปิดกล้อง",
+      "gallery": "คลังภาพ"
     },
     "connectHealth": {
       "title": "ซิงค์กับ Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "บันทึกมื้ออาหาร",
     "save": "บันทึก",
     "mealName": "ชื่อมื้ออาหาร",
+    "mealNameHint": "เช่น ไข่คนกับขนมปังปิ้ง",
     "mealQuantity": "จำนวนมื้ออาหาร",
     "mealQuantityHint": "เช่น 1 ชาม, 2 ชั้น",
     "timeOfMeal": "เวลาของมื้ออาหาร",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "บันทึกมื้ออาหารลงในบันทึกของคุณ!",
     "couldNotAdd": "ไม่สามารถเพิ่มมื้ออาหารได้: {error}",
+    "savedSuccessfully": "เพิ่มมื้ออาหารเรียบร้อยแล้ว!",
+    "updatedSuccessfully": "อัปเดตมื้ออาหารเรียบร้อยแล้ว!",
+    "errorSaving": "เกิดข้อผิดพลาดในการบันทึกมื้ออาหาร: {error}",
     "removedFromFavorites": "ลบออกจากมื้อโปรด!",
     "savedAsFavorite": "มื้ออาหารบันทึกเป็นโปรด!",
     "couldNotUpdateFavorite": "ไม่สามารถอัปเดตโปรดได้: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "ให้คะแนนใน Play Store",
         "sendFeedback": "ส่งข้อเสนอแนะ"
       }
+    },
+    "appInfo": {
+      "version": "Calorify เวอร์ชัน {version}",
+      "build": "บิลด์ {buildNumber}"
     }
   },
   "reminders": {

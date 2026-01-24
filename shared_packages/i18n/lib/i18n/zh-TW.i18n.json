@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "拍攝與追蹤您的餐點",
       "description": "使用您的相機拍攝食物的照片以進行 AI 分析。",
-      "openCamera": "打開相機"
+      "openCamera": "打開相機",
+      "gallery": "相簿"
     },
     "connectHealth": {
       "title": "與 Health Connect 同步",
@@ -216,6 +217,7 @@
     "saveMeal": "保存餐點",
     "save": "保存",
     "mealName": "餐點名稱",
+    "mealNameHint": "例如：炒蛋配吐司",
     "mealQuantity": "餐點數量",
     "mealQuantityHint": "例如：1 碗、2 片",
     "timeOfMeal": "用餐時間",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "餐點已添加到您的記錄中！",
     "couldNotAdd": "無法添加餐點：{error}",
+    "savedSuccessfully": "餐點已成功新增！",
+    "updatedSuccessfully": "餐點已成功更新！",
+    "errorSaving": "儲存餐點時發生錯誤：{error}",
     "removedFromFavorites": "已從最愛中移除！",
     "savedAsFavorite": "餐點已保存為最愛！",
     "couldNotUpdateFavorite": "無法更新最愛：{error}",
@@ -471,6 +476,10 @@
         "rateApp": "在 Play 商店評分",
         "sendFeedback": "發送反饋"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "建置 {buildNumber}"
     }
   },
   "reminders": {

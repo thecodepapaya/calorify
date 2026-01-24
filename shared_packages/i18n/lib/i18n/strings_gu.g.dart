@@ -138,6 +138,7 @@ class _TranslationsMealGu implements TranslationsMealEn {
 	@override String get saveMeal => 'ખોરાક સેવ કરો';
 	@override String get save => 'સેવ';
 	@override String get mealName => 'ખોરાક નામ';
+	@override String get mealNameHint => 'ઉદાહરણ: સ્ક્રેંબલ્ડ ઈંડા અને ટોસ્ટ';
 	@override String get mealQuantity => 'ખોરાકનું પ્રમાણ';
 	@override String get mealQuantityHint => 'જેમ કે, 1 બાઉલ, 2 સ્લાઇસ';
 	@override String get timeOfMeal => 'ખોરાકનો સમય';
@@ -147,6 +148,9 @@ class _TranslationsMealGu implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationGu deleteConfirmation = _TranslationsMealDeleteConfirmationGu._(_root);
 	@override String get addedToLog => 'ખોરાક તમારા લૉગમાં ઉમેરવામાં આવ્યો છે!';
 	@override String couldNotAdd({required Object error}) => 'ખોરાક ઉમેરવામાં અસફળ: ${error}';
+	@override String get savedSuccessfully => 'ભોજન સફળતાપૂર્વક ઉમેરવામાં આવ્યું!';
+	@override String get updatedSuccessfully => 'ભોજન સફળતાપૂર્વક અપડેટ થયું!';
+	@override String errorSaving({required Object error}) => 'ભોજન સાચવવામાં ભૂલ: ${error}';
 	@override String get removedFromFavorites => 'પસંદીમાંથી દૂર કરવામાં આવ્યું!';
 	@override String get savedAsFavorite => 'ખોરાકને પસંદી તરીકે સેવ કર્યું!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'પસંદીમાં સુધારો કરવામાં અસફળ: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsGu implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'વિકાશક મોડ સક્રિય થયો છે!';
 	@override late final _TranslationsSettingsHealthConnectGu healthConnect = _TranslationsSettingsHealthConnectGu._(_root);
 	@override late final _TranslationsSettingsAboutGu about = _TranslationsSettingsAboutGu._(_root);
+	@override late final _TranslationsSettingsAppInfoGu appInfo = _TranslationsSettingsAppInfoGu._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapGu implements TranslationsHomeMealSnapEn {
 	@override String get title => 'સ્નેપ અને તમારા ખોરાકને ટ્રેક કરો';
 	@override String get description => 'આઇએઇ વિશ્લેષણ માટે તમારા ખોરાકની ફોટો લેવા માટે તમારા કેમેરાનો ઉપયોગ કરો.';
 	@override String get openCamera => 'કેમેરા ખોલો';
+	@override String get gallery => 'ગેલેરી';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutGu implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyGu privacy = _TranslationsSettingsAboutPrivacyGu._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperGu developer = _TranslationsSettingsAboutDeveloperGu._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackGu feedback = _TranslationsSettingsAboutFeedbackGu._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoGu implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'બિલ્ડ ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsGu {
 			'home.mealSnap.title' => 'સ્નેપ અને તમારા ખોરાકને ટ્રેક કરો',
 			'home.mealSnap.description' => 'આઇએઇ વિશ્લેષણ માટે તમારા ખોરાકની ફોટો લેવા માટે તમારા કેમેરાનો ઉપયોગ કરો.',
 			'home.mealSnap.openCamera' => 'કેમેરા ખોલો',
+			'home.mealSnap.gallery' => 'ગેલેરી',
 			'home.connectHealth.title' => 'હેલ્થ કનેક્ટ સાથે સિનક કરો',
 			'home.connectHealth.description' => 'તમારી પોષણ માહિતી હેલ્થ કનેક્ટ સાથે સમન્વયિત કરો',
 			'home.connectHealth.install' => 'ઇન્સ્ટોલ કરો',
@@ -1671,6 +1689,7 @@ extension on TranslationsGu {
 			'meal.saveMeal' => 'ખોરાક સેવ કરો',
 			'meal.save' => 'સેવ',
 			'meal.mealName' => 'ખોરાક નામ',
+			'meal.mealNameHint' => 'ઉદાહરણ: સ્ક્રેંબલ્ડ ઈંડા અને ટોસ્ટ',
 			'meal.mealQuantity' => 'ખોરાકનું પ્રમાણ',
 			'meal.mealQuantityHint' => 'જેમ કે, 1 બાઉલ, 2 સ્લાઇસ',
 			'meal.timeOfMeal' => 'ખોરાકનો સમય',
@@ -1687,6 +1706,9 @@ extension on TranslationsGu {
 			'meal.deleteConfirmation.delete' => 'દૂર કરો',
 			'meal.addedToLog' => 'ખોરાક તમારા લૉગમાં ઉમેરવામાં આવ્યો છે!',
 			'meal.couldNotAdd' => ({required Object error}) => 'ખોરાક ઉમેરવામાં અસફળ: ${error}',
+			'meal.savedSuccessfully' => 'ભોજન સફળતાપૂર્વક ઉમેરવામાં આવ્યું!',
+			'meal.updatedSuccessfully' => 'ભોજન સફળતાપૂર્વક અપડેટ થયું!',
+			'meal.errorSaving' => ({required Object error}) => 'ભોજન સાચવવામાં ભૂલ: ${error}',
 			'meal.removedFromFavorites' => 'પસંદીમાંથી દૂર કરવામાં આવ્યું!',
 			'meal.savedAsFavorite' => 'ખોરાકને પસંદી તરીકે સેવ કર્યું!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'પસંદીમાં સુધારો કરવામાં અસફળ: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsGu {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'તમારો પ્રતિસાદ ${appLabel} ને તમામ માટે સુધારવામાં મદદ કરે છે.',
 			'settings.about.feedback.rateApp' => 'પ્લે સ્ટોર પર રેટ કરો',
 			'settings.about.feedback.sendFeedback' => 'પ્રતિસાદ મોકલો',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'બિલ્ડ ${buildNumber}',
 			'reminders.title' => 'યાદદહન સાથે ટ્રેકમાં રહી છે',
 			'reminders.description' => 'ખોરાકને નોંધવા અને આપના પોષણના લક્ષ્યોમાં કન્સિસ્ટન્ટ રહેવા માટે પરીવાર્તા યાદી મેળવો',
 			'reminders.notificationsEnabled' => 'જગ્યા લાંબા અમલમાં',

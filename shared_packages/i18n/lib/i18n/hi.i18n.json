@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "फोटो लें और अपने भोजन को ट्रैक करें",
       "description": "AI विश्लेषण के लिए अपने भोजन की एक तस्वीर लेने के लिए अपने कैमरे का उपयोग करें।",
-      "openCamera": "कैमरा खोलें"
+      "openCamera": "कैमरा खोलें",
+      "gallery": "गैलरी"
     },
     "connectHealth": {
       "title": "Health Connect से सिंक करें",
@@ -216,6 +217,7 @@
     "saveMeal": "भोजन सहेजें",
     "save": "सहेजें",
     "mealName": "भोजन का नाम",
+    "mealNameHint": "उदा., अंडे की भुर्ज़ा और टोस्ट",
     "mealQuantity": "भोजन की मात्रा",
     "mealQuantityHint": "जैसे, 1 बाउल, 2 स्लाइस",
     "timeOfMeal": "भोजन का समय",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "भोजन को आपके लॉग में जोड़ा गया!",
     "couldNotAdd": "भोजन जोड़ने में असफल: {error}",
+    "savedSuccessfully": "भोजन सफलतापूर्वक जोड़ा गया!",
+    "updatedSuccessfully": "भोजन सफलतापूर्वक अपडेट किया गया!",
+    "errorSaving": "भोजन सहेजने में त्रुटि: {error}",
     "removedFromFavorites": "पसंदीदा से हटा दिया गया!",
     "savedAsFavorite": "भोजन को पसंदीदा के रूप में सहेजा गया!",
     "couldNotUpdateFavorite": "पसंदीदा को अपडेट करने में असफल: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "प्ले स्टोर पर रेट करें",
         "sendFeedback": "प्रतिक्रिया भेजें"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "बिल्ड {buildNumber}"
     }
   },
   "reminders": {

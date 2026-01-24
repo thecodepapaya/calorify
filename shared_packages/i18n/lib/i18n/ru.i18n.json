@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Сфотографируйте и отслеживайте ваш приём пищи",
       "description": "Используйте камеру, чтобы сделать снимок вашей еды для анализа AI.",
-      "openCamera": "Открыть камеру"
+      "openCamera": "Открыть камеру",
+      "gallery": "Галерея"
     },
     "connectHealth": {
       "title": "Синхронизация с Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Сохранить приём пищи",
     "save": "Сохранить",
     "mealName": "Название приёма пищи",
+    "mealNameHint": "Например, яичница-болтунья с тостом",
     "mealQuantity": "Количество приёма пищи",
     "mealQuantityHint": "например, 1 тарелка, 2 куска",
     "timeOfMeal": "Время приёма пищи",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Приём пищи добавлен в ваш журнал!",
     "couldNotAdd": "Не удалось добавить приём пищи: {error}",
+    "savedSuccessfully": "Приём пищи успешно добавлен!",
+    "updatedSuccessfully": "Приём пищи успешно обновлён!",
+    "errorSaving": "Ошибка при сохранении приёма пищи: {error}",
     "removedFromFavorites": "Удалено из избранного!",
     "savedAsFavorite": "Приём пищи сохранён как любимое!",
     "couldNotUpdateFavorite": "Не удалось обновить любимое: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Оцените в Play Store",
         "sendFeedback": "Отправить отзыв"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Сборка {buildNumber}"
     }
   },
   "reminders": {

@@ -138,6 +138,7 @@ class _TranslationsMealUr implements TranslationsMealEn {
 	@override String get saveMeal => 'کھانا محفوظ کریں';
 	@override String get save => 'محفوظ کریں';
 	@override String get mealName => 'کھانے کا نام';
+	@override String get mealNameHint => 'مثلاً: ہلکے پھینٹے ہوئے انڈے کے ساتھ ٹوسٹ';
 	@override String get mealQuantity => 'کھانے کی مقدار';
 	@override String get mealQuantityHint => 'جیسے، 1 پیالی، 2 ٹکڑے';
 	@override String get timeOfMeal => 'کھانے کا وقت';
@@ -147,6 +148,9 @@ class _TranslationsMealUr implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationUr deleteConfirmation = _TranslationsMealDeleteConfirmationUr._(_root);
 	@override String get addedToLog => 'کھانا آپ کے لاگ میں شامل کیا گیا!';
 	@override String couldNotAdd({required Object error}) => 'کھانا شامل نہیں کیا جا سکا: ${error}';
+	@override String get savedSuccessfully => 'خوراک کامیابی سے شامل ہو گئی!';
+	@override String get updatedSuccessfully => 'خوراک کامیابی سے اپ ڈیٹ ہو گئی!';
+	@override String errorSaving({required Object error}) => 'خوراک محفوظ کرنے میں خرابی: ${error}';
 	@override String get removedFromFavorites => 'پسندیدہ سے ہٹا دیا گیا!';
 	@override String get savedAsFavorite => 'کھانا پسندیدہ کے طور پر محفوظ کر لیا گیا!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'پسندیدہ کو اپ ڈیٹ نہیں کر سکا: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsUr implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'ڈیولپر موڈ فعال ہو گیا!';
 	@override late final _TranslationsSettingsHealthConnectUr healthConnect = _TranslationsSettingsHealthConnectUr._(_root);
 	@override late final _TranslationsSettingsAboutUr about = _TranslationsSettingsAboutUr._(_root);
+	@override late final _TranslationsSettingsAppInfoUr appInfo = _TranslationsSettingsAppInfoUr._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapUr implements TranslationsHomeMealSnapEn {
 	@override String get title => 'اپنے کھانے کی تصویر لیں اور ٹریک کریں';
 	@override String get description => 'اپنے کھانے کی تصویر لینے کے لیے اپنے کیمرے کا استعمال کریں تاکہ AI اسے تجزیہ کر سکے۔';
 	@override String get openCamera => 'کیمرہ کھولیں';
+	@override String get gallery => 'گیلری';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutUr implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyUr privacy = _TranslationsSettingsAboutPrivacyUr._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperUr developer = _TranslationsSettingsAboutDeveloperUr._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackUr feedback = _TranslationsSettingsAboutFeedbackUr._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoUr implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify ورژن ${version}';
+	@override String build({required Object buildNumber}) => 'بلڈ ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsUr {
 			'home.mealSnap.title' => 'اپنے کھانے کی تصویر لیں اور ٹریک کریں',
 			'home.mealSnap.description' => 'اپنے کھانے کی تصویر لینے کے لیے اپنے کیمرے کا استعمال کریں تاکہ AI اسے تجزیہ کر سکے۔',
 			'home.mealSnap.openCamera' => 'کیمرہ کھولیں',
+			'home.mealSnap.gallery' => 'گیلری',
 			'home.connectHealth.title' => 'ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں',
 			'home.connectHealth.description' => 'اپنا غذائیت کے ڈیٹا کو ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں',
 			'home.connectHealth.install' => 'انسٹال کریں',
@@ -1671,6 +1689,7 @@ extension on TranslationsUr {
 			'meal.saveMeal' => 'کھانا محفوظ کریں',
 			'meal.save' => 'محفوظ کریں',
 			'meal.mealName' => 'کھانے کا نام',
+			'meal.mealNameHint' => 'مثلاً: ہلکے پھینٹے ہوئے انڈے کے ساتھ ٹوسٹ',
 			'meal.mealQuantity' => 'کھانے کی مقدار',
 			'meal.mealQuantityHint' => 'جیسے، 1 پیالی، 2 ٹکڑے',
 			'meal.timeOfMeal' => 'کھانے کا وقت',
@@ -1687,6 +1706,9 @@ extension on TranslationsUr {
 			'meal.deleteConfirmation.delete' => 'حذف کریں',
 			'meal.addedToLog' => 'کھانا آپ کے لاگ میں شامل کیا گیا!',
 			'meal.couldNotAdd' => ({required Object error}) => 'کھانا شامل نہیں کیا جا سکا: ${error}',
+			'meal.savedSuccessfully' => 'خوراک کامیابی سے شامل ہو گئی!',
+			'meal.updatedSuccessfully' => 'خوراک کامیابی سے اپ ڈیٹ ہو گئی!',
+			'meal.errorSaving' => ({required Object error}) => 'خوراک محفوظ کرنے میں خرابی: ${error}',
 			'meal.removedFromFavorites' => 'پسندیدہ سے ہٹا دیا گیا!',
 			'meal.savedAsFavorite' => 'کھانا پسندیدہ کے طور پر محفوظ کر لیا گیا!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'پسندیدہ کو اپ ڈیٹ نہیں کر سکا: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsUr {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'آپ کا فیڈبیک ${appLabel} کو سب کے لیے بہتر بنانے میں مدد دیتا ہے۔',
 			'settings.about.feedback.rateApp' => 'پلے اسٹور پر درجہ بندی کریں',
 			'settings.about.feedback.sendFeedback' => 'فیڈبیک بھیجیں',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify ورژن ${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'بلڈ ${buildNumber}',
 			'reminders.title' => 'یاد دہانیوں کے ساتھ ٹریک پر رہیں',
 			'reminders.description' => 'اپنے کھانوں کے اندراج کے لیے آپ کو نرم یاد دہانیاں موصول ہوں گی تاکہ آپ اپنے غذائیت کے اہداف کے ساتھ مستقل رہ سکیں',
 			'reminders.notificationsEnabled' => 'نوٹیفیکیشن فعال ہیں',

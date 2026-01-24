@@ -138,6 +138,7 @@ class _TranslationsMealVi implements TranslationsMealEn {
 	@override String get saveMeal => 'Lưu bữa ăn';
 	@override String get save => 'Lưu';
 	@override String get mealName => 'Tên bữa ăn';
+	@override String get mealNameHint => 'ví dụ: Trứng bác với bánh mì nướng';
 	@override String get mealQuantity => 'Số lượng bữa ăn';
 	@override String get mealQuantityHint => 'vd: 1 bát, 2 lát';
 	@override String get timeOfMeal => 'Thời gian bữa ăn';
@@ -147,6 +148,9 @@ class _TranslationsMealVi implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationVi deleteConfirmation = _TranslationsMealDeleteConfirmationVi._(_root);
 	@override String get addedToLog => 'Bữa ăn đã được thêm vào nhật ký của bạn!';
 	@override String couldNotAdd({required Object error}) => 'Không thể thêm bữa ăn: ${error}';
+	@override String get savedSuccessfully => 'Bữa ăn đã được thêm thành công!';
+	@override String get updatedSuccessfully => 'Bữa ăn đã được cập nhật thành công!';
+	@override String errorSaving({required Object error}) => 'Lỗi khi lưu bữa ăn: ${error}';
 	@override String get removedFromFavorites => 'Đã xóa khỏi yêu thích!';
 	@override String get savedAsFavorite => 'Bữa ăn đã được lưu làm yêu thích!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Không thể cập nhật yêu thích: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsVi implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Chế độ nhà phát triển đã được bật!';
 	@override late final _TranslationsSettingsHealthConnectVi healthConnect = _TranslationsSettingsHealthConnectVi._(_root);
 	@override late final _TranslationsSettingsAboutVi about = _TranslationsSettingsAboutVi._(_root);
+	@override late final _TranslationsSettingsAppInfoVi appInfo = _TranslationsSettingsAppInfoVi._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapVi implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Chụp & Theo dõi Bữa ăn của bạn';
 	@override String get description => 'Sử dụng camera của bạn để chụp ảnh thực phẩm cho phân tích AI.';
 	@override String get openCamera => 'Mở Camera';
+	@override String get gallery => 'Thư viện';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutVi implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyVi privacy = _TranslationsSettingsAboutPrivacyVi._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperVi developer = _TranslationsSettingsAboutDeveloperVi._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackVi feedback = _TranslationsSettingsAboutFeedbackVi._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoVi implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Bản dựng ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsVi {
 			'home.mealSnap.title' => 'Chụp & Theo dõi Bữa ăn của bạn',
 			'home.mealSnap.description' => 'Sử dụng camera của bạn để chụp ảnh thực phẩm cho phân tích AI.',
 			'home.mealSnap.openCamera' => 'Mở Camera',
+			'home.mealSnap.gallery' => 'Thư viện',
 			'home.connectHealth.title' => 'Đồng bộ với Health Connect',
 			'home.connectHealth.description' => 'Đồng bộ dữ liệu dinh dưỡng của bạn với Health Connect',
 			'home.connectHealth.install' => 'Cài đặt',
@@ -1671,6 +1689,7 @@ extension on TranslationsVi {
 			'meal.saveMeal' => 'Lưu bữa ăn',
 			'meal.save' => 'Lưu',
 			'meal.mealName' => 'Tên bữa ăn',
+			'meal.mealNameHint' => 'ví dụ: Trứng bác với bánh mì nướng',
 			'meal.mealQuantity' => 'Số lượng bữa ăn',
 			'meal.mealQuantityHint' => 'vd: 1 bát, 2 lát',
 			'meal.timeOfMeal' => 'Thời gian bữa ăn',
@@ -1687,6 +1706,9 @@ extension on TranslationsVi {
 			'meal.deleteConfirmation.delete' => 'Xóa',
 			'meal.addedToLog' => 'Bữa ăn đã được thêm vào nhật ký của bạn!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Không thể thêm bữa ăn: ${error}',
+			'meal.savedSuccessfully' => 'Bữa ăn đã được thêm thành công!',
+			'meal.updatedSuccessfully' => 'Bữa ăn đã được cập nhật thành công!',
+			'meal.errorSaving' => ({required Object error}) => 'Lỗi khi lưu bữa ăn: ${error}',
 			'meal.removedFromFavorites' => 'Đã xóa khỏi yêu thích!',
 			'meal.savedAsFavorite' => 'Bữa ăn đã được lưu làm yêu thích!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Không thể cập nhật yêu thích: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsVi {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Phản hồi của bạn giúp cải thiện ${appLabel} cho mọi người.',
 			'settings.about.feedback.rateApp' => 'Đánh giá trên Play Store',
 			'settings.about.feedback.sendFeedback' => 'Gửi Phản hồi',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Bản dựng ${buildNumber}',
 			'reminders.title' => 'Giữ đúng tiến trình với nhắc nhở',
 			'reminders.description' => 'Nhận những nhắc nhở nhẹ nhàng để ghi lại bữa ăn và duy trì tính nhất quán với các mục tiêu dinh dưỡng của bạn',
 			'reminders.notificationsEnabled' => 'Thông báo đã được bật',

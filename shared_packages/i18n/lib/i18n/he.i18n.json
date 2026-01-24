@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "צלם ועקוב אחרי הארוחה שלך",
       "description": "השתמש במצלמה שלך כדי לצלם תמונה של האוכל שלך לניתוח בינה מלאכותית.",
-      "openCamera": "פתח מצלמה"
+      "openCamera": "פתח מצלמה",
+      "gallery": "גלריה"
     },
     "connectHealth": {
       "title": "סנכרן עם Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "שמור ארוחה",
     "save": "שמור",
     "mealName": "שם הארוחה",
+    "mealNameHint": "למשל: ביצים מקושקשות עם טוסט",
     "mealQuantity": "כמות הארוחה",
     "mealQuantityHint": "למשל, 1 קערה, 2 פרוסות",
     "timeOfMeal": "שעת הארוחה",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "הארוחה נוספה לרשומתך!",
     "couldNotAdd": "לא ניתן להוסיף ארוחה: {error}",
+    "savedSuccessfully": "הארוחה נוספה בהצלחה!",
+    "updatedSuccessfully": "הארוחה עודכנה בהצלחה!",
+    "errorSaving": "שגיאה בשמירת הארוחה: {error}",
     "removedFromFavorites": "הוסר מהאהובים!",
     "savedAsFavorite": "הארוחה נשמרה כאהובה!",
     "couldNotUpdateFavorite": "לא ניתן לעדכן אהוב: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "דרגו בחנות Play",
         "sendFeedback": "שלחו פידבק"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "בניית גרסה {buildNumber}"
     }
   },
   "reminders": {

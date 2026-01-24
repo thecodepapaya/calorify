@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Snap & Verfolge deine Mahlzeit",
       "description": "Nutze deine Kamera, um ein Bild von deinem Essen für die KI-Analyse zu machen.",
-      "openCamera": "Kamera öffnen"
+      "openCamera": "Kamera öffnen",
+      "gallery": "Galerie"
     },
     "connectHealth": {
       "title": "Mit Health Connect synchronisieren",
@@ -216,6 +217,7 @@
     "saveMeal": "Mahlzeit speichern",
     "save": "Speichern",
     "mealName": "Mahlzeitenname",
+    "mealNameHint": "z. B. Rührei mit Toast",
     "mealQuantity": "Mahlmenge",
     "mealQuantityHint": "z. B. 1 Schüssel, 2 Scheiben",
     "timeOfMeal": "Uhrzeit der Mahlzeit",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Mahlzeit zu deinem Protokoll hinzugefügt!",
     "couldNotAdd": "Mahlzeit konnte nicht hinzugefügt werden: {error}",
+    "savedSuccessfully": "Mahlzeit erfolgreich hinzugefügt!",
+    "updatedSuccessfully": "Mahlzeit erfolgreich aktualisiert!",
+    "errorSaving": "Fehler beim Speichern der Mahlzeit: {error}",
     "removedFromFavorites": "Von den Favoriten entfernt!",
     "savedAsFavorite": "Mahlzeit als Favorit gespeichert!",
     "couldNotUpdateFavorite": "Favorit konnte nicht aktualisiert werden: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Bewerten im Play Store",
         "sendFeedback": "Feedback senden"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Build {buildNumber}"
     }
   },
   "reminders": {

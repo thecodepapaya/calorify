@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Ambil & Jejaki Hidangan Anda",
       "description": "Gunakan kamera anda untuk mengambil gambar makanan anda untuk analisis AI.",
-      "openCamera": "Buka Kamera"
+      "openCamera": "Buka Kamera",
+      "gallery": "Galeri"
     },
     "connectHealth": {
       "title": "Sinkronkan dengan Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Simpan Hidangan",
     "save": "Simpan",
     "mealName": "Nama Hidangan",
+    "mealNameHint": "Contoh: Telur hancur dengan roti bakar",
     "mealQuantity": "Kuantiti Hidangan",
     "mealQuantityHint": "cth., 1 mangkuk, 2 keping",
     "timeOfMeal": "Masa Hidangan",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Hidangan ditambah ke log anda!",
     "couldNotAdd": "Tidak dapat menambah hidangan: {error}",
+    "savedSuccessfully": "Makanan berjaya ditambahkan!",
+    "updatedSuccessfully": "Makanan berjaya dikemas kini!",
+    "errorSaving": "Ralat semasa menyimpan makanan: {error}",
     "removedFromFavorites": "Dihapus dari kegemaran!",
     "savedAsFavorite": "Hidangan disimpan sebagai kegemaran!",
     "couldNotUpdateFavorite": "Tidak dapat mengemas kini kegemaran: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Nilai di Play Store",
         "sendFeedback": "Hantar Maklum Balas"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Binaan {buildNumber}"
     }
   },
   "reminders": {

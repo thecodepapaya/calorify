@@ -138,6 +138,7 @@ class _TranslationsMealBn implements TranslationsMealEn {
 	@override String get saveMeal => 'খাবার সংরক্ষণ করুন';
 	@override String get save => 'সংরক্ষণ করুন';
 	@override String get mealName => 'খাবারের নাম';
+	@override String get mealNameHint => 'উদাহরণ: ফেটানো ডিম ও টোস্ট';
 	@override String get mealQuantity => 'খাবারের পরিমাণ';
 	@override String get mealQuantityHint => 'যেমন, ১ বাটি, ২ স্লাইস';
 	@override String get timeOfMeal => 'খাবারের সময়';
@@ -147,6 +148,9 @@ class _TranslationsMealBn implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationBn deleteConfirmation = _TranslationsMealDeleteConfirmationBn._(_root);
 	@override String get addedToLog => 'খাবার আপনার লগে যোগ করা হয়েছে!';
 	@override String couldNotAdd({required Object error}) => 'খাবার যোগ করা যায়নি: ${error}';
+	@override String get savedSuccessfully => 'খাবারটি সফলভাবে যোগ করা হয়েছে!';
+	@override String get updatedSuccessfully => 'খাবারটি সফলভাবে আপডেট করা হয়েছে!';
+	@override String errorSaving({required Object error}) => 'খাবার সংরক্ষণে ত্রুটি: ${error}';
 	@override String get removedFromFavorites => 'প্রিয় থেকে সরানো হয়েছে!';
 	@override String get savedAsFavorite => 'খাবার প্রিয় হিসেবে সংরক্ষিত হয়েছে!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'প্রিয় আপডেট করা যায়নি: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsBn implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'ডেভেলপার মোড সক্রিয়!';
 	@override late final _TranslationsSettingsHealthConnectBn healthConnect = _TranslationsSettingsHealthConnectBn._(_root);
 	@override late final _TranslationsSettingsAboutBn about = _TranslationsSettingsAboutBn._(_root);
+	@override late final _TranslationsSettingsAppInfoBn appInfo = _TranslationsSettingsAppInfoBn._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapBn implements TranslationsHomeMealSnapEn {
 	@override String get title => 'নিজস্ব খাবার স্ন্যাপ & ট্র্যাক করুন';
 	@override String get description => 'AI বিশ্লেষণের জন্য আপনার খাবারের একটি ছবি তোলার জন্য আপনার ক্যামেরা ব্যবহার করুন।';
 	@override String get openCamera => 'ক্যামেরা খুলুন';
+	@override String get gallery => 'গ্যালারি';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutBn implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyBn privacy = _TranslationsSettingsAboutPrivacyBn._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperBn developer = _TranslationsSettingsAboutDeveloperBn._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackBn feedback = _TranslationsSettingsAboutFeedbackBn._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoBn implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'বিল্ড ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsBn {
 			'home.mealSnap.title' => 'নিজস্ব খাবার স্ন্যাপ & ট্র্যাক করুন',
 			'home.mealSnap.description' => 'AI বিশ্লেষণের জন্য আপনার খাবারের একটি ছবি তোলার জন্য আপনার ক্যামেরা ব্যবহার করুন।',
 			'home.mealSnap.openCamera' => 'ক্যামেরা খুলুন',
+			'home.mealSnap.gallery' => 'গ্যালারি',
 			'home.connectHealth.title' => 'স্বাস্থ্য সংযোগের সাথে সিঙ্ক করুন',
 			'home.connectHealth.description' => 'আপনার পুষ্টির ডেটা স্বাস্থ্য সংযোগের সাথে সিঙ্ক করুন',
 			'home.connectHealth.install' => 'স্থাপন করুন',
@@ -1671,6 +1689,7 @@ extension on TranslationsBn {
 			'meal.saveMeal' => 'খাবার সংরক্ষণ করুন',
 			'meal.save' => 'সংরক্ষণ করুন',
 			'meal.mealName' => 'খাবারের নাম',
+			'meal.mealNameHint' => 'উদাহরণ: ফেটানো ডিম ও টোস্ট',
 			'meal.mealQuantity' => 'খাবারের পরিমাণ',
 			'meal.mealQuantityHint' => 'যেমন, ১ বাটি, ২ স্লাইস',
 			'meal.timeOfMeal' => 'খাবারের সময়',
@@ -1687,6 +1706,9 @@ extension on TranslationsBn {
 			'meal.deleteConfirmation.delete' => 'মুছুন',
 			'meal.addedToLog' => 'খাবার আপনার লগে যোগ করা হয়েছে!',
 			'meal.couldNotAdd' => ({required Object error}) => 'খাবার যোগ করা যায়নি: ${error}',
+			'meal.savedSuccessfully' => 'খাবারটি সফলভাবে যোগ করা হয়েছে!',
+			'meal.updatedSuccessfully' => 'খাবারটি সফলভাবে আপডেট করা হয়েছে!',
+			'meal.errorSaving' => ({required Object error}) => 'খাবার সংরক্ষণে ত্রুটি: ${error}',
 			'meal.removedFromFavorites' => 'প্রিয় থেকে সরানো হয়েছে!',
 			'meal.savedAsFavorite' => 'খাবার প্রিয় হিসেবে সংরক্ষিত হয়েছে!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'প্রিয় আপডেট করা যায়নি: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsBn {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'আপনার প্রতিক্রিয়া ${appLabel} কে সবার জন্য আরও ভাল করে তোলে।',
 			'settings.about.feedback.rateApp' => 'প্লে স্টোরে রেট দিন',
 			'settings.about.feedback.sendFeedback' => 'প্রতিক্রিয়া পাঠান',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'বিল্ড ${buildNumber}',
 			'reminders.title' => 'রিমাইন্ডারের সাথে পথে থাকুন',
 			'reminders.description' => 'আপনার খাবার লগ করতে এবং আপনার পুষ্টির লক্ষ্যগুলির সাথে ধারাবাহিক থাকায় নম্রভাবে স্মরণ করিয়ে দিন',
 			'reminders.notificationsEnabled' => 'বিজ্ঞপ্তি সক্রিয়',

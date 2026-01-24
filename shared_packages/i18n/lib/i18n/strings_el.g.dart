@@ -138,6 +138,7 @@ class _TranslationsMealEl implements TranslationsMealEn {
 	@override String get saveMeal => 'Αποθήκευση Γεύματος';
 	@override String get save => 'Αποθήκευση';
 	@override String get mealName => 'Όνομα Γεύματος';
+	@override String get mealNameHint => 'π.χ., Αυγά ανακατεμένα με τοστ';
 	@override String get mealQuantity => 'Ποσότητα Γεύματος';
 	@override String get mealQuantityHint => 'π.χ. 1 μπολ, 2 φέτες';
 	@override String get timeOfMeal => 'Ώρα Γεύματος';
@@ -147,6 +148,9 @@ class _TranslationsMealEl implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationEl deleteConfirmation = _TranslationsMealDeleteConfirmationEl._(_root);
 	@override String get addedToLog => 'Το γεύμα προστέθηκε στο ημερολόγιό σου!';
 	@override String couldNotAdd({required Object error}) => 'Δεν μπόρεσα να προσθέσω γεύμα: ${error}';
+	@override String get savedSuccessfully => 'Το γεύμα προστέθηκε με επιτυχία!';
+	@override String get updatedSuccessfully => 'Το γεύμα ενημερώθηκε με επιτυχία!';
+	@override String errorSaving({required Object error}) => 'Σφάλμα κατά την αποθήκευση του γεύματος: ${error}';
 	@override String get removedFromFavorites => 'Αφαιρέθηκε από τα αγαπημένα!';
 	@override String get savedAsFavorite => 'Το γεύμα αποθηκεύτηκε ως αγαπημένο!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Δεν μπόρεσα να ενημερώσω το αγαπημένο: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsEl implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Η λειτουργία προγραμματιστή έχει ενεργοποιηθεί!';
 	@override late final _TranslationsSettingsHealthConnectEl healthConnect = _TranslationsSettingsHealthConnectEl._(_root);
 	@override late final _TranslationsSettingsAboutEl about = _TranslationsSettingsAboutEl._(_root);
+	@override late final _TranslationsSettingsAppInfoEl appInfo = _TranslationsSettingsAppInfoEl._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapEl implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Τράβηξε & Καταγράψε το Γεύμα Σου';
 	@override String get description => 'Χρησιμοποίησε την κάμερά σου για να τραβήξεις μια φωτογραφία του φαγητού σου για ανάλυση με AI.';
 	@override String get openCamera => 'Άνοιγμα Κάμερας';
+	@override String get gallery => 'Συλλογή';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutEl implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyEl privacy = _TranslationsSettingsAboutPrivacyEl._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperEl developer = _TranslationsSettingsAboutDeveloperEl._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackEl feedback = _TranslationsSettingsAboutFeedbackEl._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoEl implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsEl {
 			'home.mealSnap.title' => 'Τράβηξε & Καταγράψε το Γεύμα Σου',
 			'home.mealSnap.description' => 'Χρησιμοποίησε την κάμερά σου για να τραβήξεις μια φωτογραφία του φαγητού σου για ανάλυση με AI.',
 			'home.mealSnap.openCamera' => 'Άνοιγμα Κάμερας',
+			'home.mealSnap.gallery' => 'Συλλογή',
 			'home.connectHealth.title' => 'Συγχρονίστε με Health Connect',
 			'home.connectHealth.description' => 'Συγχρόνισε τα δεδομένα διατροφής σου με το Health Connect',
 			'home.connectHealth.install' => 'Εγκατάσταση',
@@ -1671,6 +1689,7 @@ extension on TranslationsEl {
 			'meal.saveMeal' => 'Αποθήκευση Γεύματος',
 			'meal.save' => 'Αποθήκευση',
 			'meal.mealName' => 'Όνομα Γεύματος',
+			'meal.mealNameHint' => 'π.χ., Αυγά ανακατεμένα με τοστ',
 			'meal.mealQuantity' => 'Ποσότητα Γεύματος',
 			'meal.mealQuantityHint' => 'π.χ. 1 μπολ, 2 φέτες',
 			'meal.timeOfMeal' => 'Ώρα Γεύματος',
@@ -1687,6 +1706,9 @@ extension on TranslationsEl {
 			'meal.deleteConfirmation.delete' => 'Διαγραφή',
 			'meal.addedToLog' => 'Το γεύμα προστέθηκε στο ημερολόγιό σου!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Δεν μπόρεσα να προσθέσω γεύμα: ${error}',
+			'meal.savedSuccessfully' => 'Το γεύμα προστέθηκε με επιτυχία!',
+			'meal.updatedSuccessfully' => 'Το γεύμα ενημερώθηκε με επιτυχία!',
+			'meal.errorSaving' => ({required Object error}) => 'Σφάλμα κατά την αποθήκευση του γεύματος: ${error}',
 			'meal.removedFromFavorites' => 'Αφαιρέθηκε από τα αγαπημένα!',
 			'meal.savedAsFavorite' => 'Το γεύμα αποθηκεύτηκε ως αγαπημένο!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Δεν μπόρεσα να ενημερώσω το αγαπημένο: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsEl {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Η ανατροφοδότησή σας βοηθά να γίνει το ${appLabel} καλύτερο για όλους.',
 			'settings.about.feedback.rateApp' => 'Βαθμολογήστε στο Play Store',
 			'settings.about.feedback.sendFeedback' => 'Στείλτε Ανατροφοδότηση',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
 			'reminders.title' => 'Μείνε συνεπής με τις υπενθυμίσεις',
 			'reminders.description' => 'Λάβετε ήπιες υπενθυμίσεις για να καταγράψεις τα γεύματα σου και να παραμείνεις συνεπής στους στόχους διατροφής σου',
 			'reminders.notificationsEnabled' => 'Ειδοποιήσεις Ενεργοποιημένες',

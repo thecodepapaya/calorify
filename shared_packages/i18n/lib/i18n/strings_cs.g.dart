@@ -138,6 +138,7 @@ class _TranslationsMealCs implements TranslationsMealEn {
 	@override String get saveMeal => 'Uložit jídlo';
 	@override String get save => 'Uložit';
 	@override String get mealName => 'Název jídla';
+	@override String get mealNameHint => 'např. míchaná vajíčka s toustem';
 	@override String get mealQuantity => 'Množství jídla';
 	@override String get mealQuantityHint => 'např. 1 miska, 2 plátky';
 	@override String get timeOfMeal => 'Čas jídla';
@@ -147,6 +148,9 @@ class _TranslationsMealCs implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationCs deleteConfirmation = _TranslationsMealDeleteConfirmationCs._(_root);
 	@override String get addedToLog => 'Jídlo bylo přidáno do vašeho deníku!';
 	@override String couldNotAdd({required Object error}) => 'Nelze přidat jídlo: ${error}';
+	@override String get savedSuccessfully => 'Jídlo bylo úspěšně přidáno!';
+	@override String get updatedSuccessfully => 'Jídlo bylo úspěšně aktualizováno!';
+	@override String errorSaving({required Object error}) => 'Chyba při ukládání jídla: ${error}';
 	@override String get removedFromFavorites => 'Odebráno z oblíbených!';
 	@override String get savedAsFavorite => 'Jídlo bylo uloženo jako oblíbené!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Nelze aktualizovat oblíbené: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsCs implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Režim vývojáře je povolen!';
 	@override late final _TranslationsSettingsHealthConnectCs healthConnect = _TranslationsSettingsHealthConnectCs._(_root);
 	@override late final _TranslationsSettingsAboutCs about = _TranslationsSettingsAboutCs._(_root);
+	@override late final _TranslationsSettingsAppInfoCs appInfo = _TranslationsSettingsAppInfoCs._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapCs implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Vyfoťte a sledujte své jídlo';
 	@override String get description => 'Použijte svoji kameru, abyste vyfotili své jídlo pro analýzu AI.';
 	@override String get openCamera => 'Otevřít kameru';
+	@override String get gallery => 'Galerie';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutCs implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyCs privacy = _TranslationsSettingsAboutPrivacyCs._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperCs developer = _TranslationsSettingsAboutDeveloperCs._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackCs feedback = _TranslationsSettingsAboutFeedbackCs._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoCs implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Sestavení ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsCs {
 			'home.mealSnap.title' => 'Vyfoťte a sledujte své jídlo',
 			'home.mealSnap.description' => 'Použijte svoji kameru, abyste vyfotili své jídlo pro analýzu AI.',
 			'home.mealSnap.openCamera' => 'Otevřít kameru',
+			'home.mealSnap.gallery' => 'Galerie',
 			'home.connectHealth.title' => 'Synchronizujte s Health Connect',
 			'home.connectHealth.description' => 'Synchronizujte svá nutriční data s Health Connect',
 			'home.connectHealth.install' => 'Nainstalovat',
@@ -1671,6 +1689,7 @@ extension on TranslationsCs {
 			'meal.saveMeal' => 'Uložit jídlo',
 			'meal.save' => 'Uložit',
 			'meal.mealName' => 'Název jídla',
+			'meal.mealNameHint' => 'např. míchaná vajíčka s toustem',
 			'meal.mealQuantity' => 'Množství jídla',
 			'meal.mealQuantityHint' => 'např. 1 miska, 2 plátky',
 			'meal.timeOfMeal' => 'Čas jídla',
@@ -1687,6 +1706,9 @@ extension on TranslationsCs {
 			'meal.deleteConfirmation.delete' => 'Smazat',
 			'meal.addedToLog' => 'Jídlo bylo přidáno do vašeho deníku!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Nelze přidat jídlo: ${error}',
+			'meal.savedSuccessfully' => 'Jídlo bylo úspěšně přidáno!',
+			'meal.updatedSuccessfully' => 'Jídlo bylo úspěšně aktualizováno!',
+			'meal.errorSaving' => ({required Object error}) => 'Chyba při ukládání jídla: ${error}',
 			'meal.removedFromFavorites' => 'Odebráno z oblíbených!',
 			'meal.savedAsFavorite' => 'Jídlo bylo uloženo jako oblíbené!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Nelze aktualizovat oblíbené: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsCs {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Vaše zpětná vazba pomáhá zlepšovat ${appLabel} pro všechny.',
 			'settings.about.feedback.rateApp' => 'Ohodnoťte na Play Store',
 			'settings.about.feedback.sendFeedback' => 'Odeslat zpětnou vazbu',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Sestavení ${buildNumber}',
 			'reminders.title' => 'Zůstaňte na správné cestě s připomínkami',
 			'reminders.description' => 'Získejte jemné připomínky k zaznamenávání vašich jídel a zůstaňte konzistentní s vašimi nutričními cíli',
 			'reminders.notificationsEnabled' => 'Upozornění povolena',

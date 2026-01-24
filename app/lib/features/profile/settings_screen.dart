@@ -619,14 +619,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             child: Column(
               children: [
                 Text(
-                  'Calorify v${info.version}',
+                  t.settings.appInfo.version(version: info.version),
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                     fontSize: 12,
                   ),
                 ),
                 Text(
-                  'Build ${info.buildNumber}',
+                  t.settings.appInfo.build(buildNumber: info.buildNumber),
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                     fontSize: 12,

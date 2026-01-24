@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Chụp & Theo dõi Bữa ăn của bạn",
       "description": "Sử dụng camera của bạn để chụp ảnh thực phẩm cho phân tích AI.",
-      "openCamera": "Mở Camera"
+      "openCamera": "Mở Camera",
+      "gallery": "Thư viện"
     },
     "connectHealth": {
       "title": "Đồng bộ với Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Lưu bữa ăn",
     "save": "Lưu",
     "mealName": "Tên bữa ăn",
+    "mealNameHint": "ví dụ: Trứng bác với bánh mì nướng",
     "mealQuantity": "Số lượng bữa ăn",
     "mealQuantityHint": "vd: 1 bát, 2 lát",
     "timeOfMeal": "Thời gian bữa ăn",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Bữa ăn đã được thêm vào nhật ký của bạn!",
     "couldNotAdd": "Không thể thêm bữa ăn: {error}",
+    "savedSuccessfully": "Bữa ăn đã được thêm thành công!",
+    "updatedSuccessfully": "Bữa ăn đã được cập nhật thành công!",
+    "errorSaving": "Lỗi khi lưu bữa ăn: {error}",
     "removedFromFavorites": "Đã xóa khỏi yêu thích!",
     "savedAsFavorite": "Bữa ăn đã được lưu làm yêu thích!",
     "couldNotUpdateFavorite": "Không thể cập nhật yêu thích: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Đánh giá trên Play Store",
         "sendFeedback": "Gửi Phản hồi"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Bản dựng {buildNumber}"
     }
   },
   "reminders": {

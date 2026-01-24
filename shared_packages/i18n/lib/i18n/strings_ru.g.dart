@@ -138,6 +138,7 @@ class _TranslationsMealRu implements TranslationsMealEn {
 	@override String get saveMeal => 'Сохранить приём пищи';
 	@override String get save => 'Сохранить';
 	@override String get mealName => 'Название приёма пищи';
+	@override String get mealNameHint => 'Например, яичница-болтунья с тостом';
 	@override String get mealQuantity => 'Количество приёма пищи';
 	@override String get mealQuantityHint => 'например, 1 тарелка, 2 куска';
 	@override String get timeOfMeal => 'Время приёма пищи';
@@ -147,6 +148,9 @@ class _TranslationsMealRu implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationRu deleteConfirmation = _TranslationsMealDeleteConfirmationRu._(_root);
 	@override String get addedToLog => 'Приём пищи добавлен в ваш журнал!';
 	@override String couldNotAdd({required Object error}) => 'Не удалось добавить приём пищи: ${error}';
+	@override String get savedSuccessfully => 'Приём пищи успешно добавлен!';
+	@override String get updatedSuccessfully => 'Приём пищи успешно обновлён!';
+	@override String errorSaving({required Object error}) => 'Ошибка при сохранении приёма пищи: ${error}';
 	@override String get removedFromFavorites => 'Удалено из избранного!';
 	@override String get savedAsFavorite => 'Приём пищи сохранён как любимое!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Не удалось обновить любимое: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsRu implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Режим разработчика включён!';
 	@override late final _TranslationsSettingsHealthConnectRu healthConnect = _TranslationsSettingsHealthConnectRu._(_root);
 	@override late final _TranslationsSettingsAboutRu about = _TranslationsSettingsAboutRu._(_root);
+	@override late final _TranslationsSettingsAppInfoRu appInfo = _TranslationsSettingsAppInfoRu._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapRu implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Сфотографируйте и отслеживайте ваш приём пищи';
 	@override String get description => 'Используйте камеру, чтобы сделать снимок вашей еды для анализа AI.';
 	@override String get openCamera => 'Открыть камеру';
+	@override String get gallery => 'Галерея';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutRu implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyRu privacy = _TranslationsSettingsAboutPrivacyRu._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperRu developer = _TranslationsSettingsAboutDeveloperRu._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackRu feedback = _TranslationsSettingsAboutFeedbackRu._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoRu implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Сборка ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsRu {
 			'home.mealSnap.title' => 'Сфотографируйте и отслеживайте ваш приём пищи',
 			'home.mealSnap.description' => 'Используйте камеру, чтобы сделать снимок вашей еды для анализа AI.',
 			'home.mealSnap.openCamera' => 'Открыть камеру',
+			'home.mealSnap.gallery' => 'Галерея',
 			'home.connectHealth.title' => 'Синхронизация с Health Connect',
 			'home.connectHealth.description' => 'Синхронизируйте ваши данные о питании с Health Connect',
 			'home.connectHealth.install' => 'Установить',
@@ -1671,6 +1689,7 @@ extension on TranslationsRu {
 			'meal.saveMeal' => 'Сохранить приём пищи',
 			'meal.save' => 'Сохранить',
 			'meal.mealName' => 'Название приёма пищи',
+			'meal.mealNameHint' => 'Например, яичница-болтунья с тостом',
 			'meal.mealQuantity' => 'Количество приёма пищи',
 			'meal.mealQuantityHint' => 'например, 1 тарелка, 2 куска',
 			'meal.timeOfMeal' => 'Время приёма пищи',
@@ -1687,6 +1706,9 @@ extension on TranslationsRu {
 			'meal.deleteConfirmation.delete' => 'Удалить',
 			'meal.addedToLog' => 'Приём пищи добавлен в ваш журнал!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Не удалось добавить приём пищи: ${error}',
+			'meal.savedSuccessfully' => 'Приём пищи успешно добавлен!',
+			'meal.updatedSuccessfully' => 'Приём пищи успешно обновлён!',
+			'meal.errorSaving' => ({required Object error}) => 'Ошибка при сохранении приёма пищи: ${error}',
 			'meal.removedFromFavorites' => 'Удалено из избранного!',
 			'meal.savedAsFavorite' => 'Приём пищи сохранён как любимое!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Не удалось обновить любимое: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsRu {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Ваши отзывы помогают сделать ${appLabel} лучше для всех.',
 			'settings.about.feedback.rateApp' => 'Оцените в Play Store',
 			'settings.about.feedback.sendFeedback' => 'Отправить отзыв',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Сборка ${buildNumber}',
 			'reminders.title' => 'Оставайтесь на правильном пути с напоминаниями',
 			'reminders.description' => 'Получайте лёгкие напоминания, чтобы записывать ваши приёмы пищи и оставаться последовательными с вашими целями питания',
 			'reminders.notificationsEnabled' => 'Уведомления включены',

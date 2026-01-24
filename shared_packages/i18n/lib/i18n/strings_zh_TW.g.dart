@@ -138,6 +138,7 @@ class _TranslationsMealZhTw implements TranslationsMealEn {
 	@override String get saveMeal => '保存餐點';
 	@override String get save => '保存';
 	@override String get mealName => '餐點名稱';
+	@override String get mealNameHint => '例如：炒蛋配吐司';
 	@override String get mealQuantity => '餐點數量';
 	@override String get mealQuantityHint => '例如：1 碗、2 片';
 	@override String get timeOfMeal => '用餐時間';
@@ -147,6 +148,9 @@ class _TranslationsMealZhTw implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationZhTw deleteConfirmation = _TranslationsMealDeleteConfirmationZhTw._(_root);
 	@override String get addedToLog => '餐點已添加到您的記錄中！';
 	@override String couldNotAdd({required Object error}) => '無法添加餐點：${error}';
+	@override String get savedSuccessfully => '餐點已成功新增！';
+	@override String get updatedSuccessfully => '餐點已成功更新！';
+	@override String errorSaving({required Object error}) => '儲存餐點時發生錯誤：${error}';
 	@override String get removedFromFavorites => '已從最愛中移除！';
 	@override String get savedAsFavorite => '餐點已保存為最愛！';
 	@override String couldNotUpdateFavorite({required Object error}) => '無法更新最愛：${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsZhTw implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => '開發者模式已啟用！';
 	@override late final _TranslationsSettingsHealthConnectZhTw healthConnect = _TranslationsSettingsHealthConnectZhTw._(_root);
 	@override late final _TranslationsSettingsAboutZhTw about = _TranslationsSettingsAboutZhTw._(_root);
+	@override late final _TranslationsSettingsAppInfoZhTw appInfo = _TranslationsSettingsAppInfoZhTw._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapZhTw implements TranslationsHomeMealSnapEn {
 	@override String get title => '拍攝與追蹤您的餐點';
 	@override String get description => '使用您的相機拍攝食物的照片以進行 AI 分析。';
 	@override String get openCamera => '打開相機';
+	@override String get gallery => '相簿';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutZhTw implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyZhTw privacy = _TranslationsSettingsAboutPrivacyZhTw._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperZhTw developer = _TranslationsSettingsAboutDeveloperZhTw._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackZhTw feedback = _TranslationsSettingsAboutFeedbackZhTw._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoZhTw implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => '建置 ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsZhTw {
 			'home.mealSnap.title' => '拍攝與追蹤您的餐點',
 			'home.mealSnap.description' => '使用您的相機拍攝食物的照片以進行 AI 分析。',
 			'home.mealSnap.openCamera' => '打開相機',
+			'home.mealSnap.gallery' => '相簿',
 			'home.connectHealth.title' => '與 Health Connect 同步',
 			'home.connectHealth.description' => '將您的營養數據與 Health Connect 同步',
 			'home.connectHealth.install' => '安裝',
@@ -1671,6 +1689,7 @@ extension on TranslationsZhTw {
 			'meal.saveMeal' => '保存餐點',
 			'meal.save' => '保存',
 			'meal.mealName' => '餐點名稱',
+			'meal.mealNameHint' => '例如：炒蛋配吐司',
 			'meal.mealQuantity' => '餐點數量',
 			'meal.mealQuantityHint' => '例如：1 碗、2 片',
 			'meal.timeOfMeal' => '用餐時間',
@@ -1687,6 +1706,9 @@ extension on TranslationsZhTw {
 			'meal.deleteConfirmation.delete' => '刪除',
 			'meal.addedToLog' => '餐點已添加到您的記錄中！',
 			'meal.couldNotAdd' => ({required Object error}) => '無法添加餐點：${error}',
+			'meal.savedSuccessfully' => '餐點已成功新增！',
+			'meal.updatedSuccessfully' => '餐點已成功更新！',
+			'meal.errorSaving' => ({required Object error}) => '儲存餐點時發生錯誤：${error}',
 			'meal.removedFromFavorites' => '已從最愛中移除！',
 			'meal.savedAsFavorite' => '餐點已保存為最愛！',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => '無法更新最愛：${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsZhTw {
 			'settings.about.feedback.description' => ({required Object appLabel}) => '您的反饋有助於使 ${appLabel} 對每個人都變得更好。',
 			'settings.about.feedback.rateApp' => '在 Play 商店評分',
 			'settings.about.feedback.sendFeedback' => '發送反饋',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => '建置 ${buildNumber}',
 			'reminders.title' => '透過提醒保持正軌',
 			'reminders.description' => '獲得溫和的提醒以記錄您的餐點，並保持一致的營養目標',
 			'reminders.notificationsEnabled' => '通知已啟用',

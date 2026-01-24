@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "اپنے کھانے کی تصویر لیں اور ٹریک کریں",
       "description": "اپنے کھانے کی تصویر لینے کے لیے اپنے کیمرے کا استعمال کریں تاکہ AI اسے تجزیہ کر سکے۔",
-      "openCamera": "کیمرہ کھولیں"
+      "openCamera": "کیمرہ کھولیں",
+      "gallery": "گیلری"
     },
     "connectHealth": {
       "title": "ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں",
@@ -216,6 +217,7 @@
     "saveMeal": "کھانا محفوظ کریں",
     "save": "محفوظ کریں",
     "mealName": "کھانے کا نام",
+    "mealNameHint": "مثلاً: ہلکے پھینٹے ہوئے انڈے کے ساتھ ٹوسٹ",
     "mealQuantity": "کھانے کی مقدار",
     "mealQuantityHint": "جیسے، 1 پیالی، 2 ٹکڑے",
     "timeOfMeal": "کھانے کا وقت",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "کھانا آپ کے لاگ میں شامل کیا گیا!",
     "couldNotAdd": "کھانا شامل نہیں کیا جا سکا: {error}",
+    "savedSuccessfully": "خوراک کامیابی سے شامل ہو گئی!",
+    "updatedSuccessfully": "خوراک کامیابی سے اپ ڈیٹ ہو گئی!",
+    "errorSaving": "خوراک محفوظ کرنے میں خرابی: {error}",
     "removedFromFavorites": "پسندیدہ سے ہٹا دیا گیا!",
     "savedAsFavorite": "کھانا پسندیدہ کے طور پر محفوظ کر لیا گیا!",
     "couldNotUpdateFavorite": "پسندیدہ کو اپ ڈیٹ نہیں کر سکا: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "پلے اسٹور پر درجہ بندی کریں",
         "sendFeedback": "فیڈبیک بھیجیں"
       }
+    },
+    "appInfo": {
+      "version": "Calorify ورژن {version}",
+      "build": "بلڈ {buildNumber}"
     }
   },
   "reminders": {

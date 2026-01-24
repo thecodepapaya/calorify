@@ -138,6 +138,7 @@ class _TranslationsMealMs implements TranslationsMealEn {
 	@override String get saveMeal => 'Simpan Hidangan';
 	@override String get save => 'Simpan';
 	@override String get mealName => 'Nama Hidangan';
+	@override String get mealNameHint => 'Contoh: Telur hancur dengan roti bakar';
 	@override String get mealQuantity => 'Kuantiti Hidangan';
 	@override String get mealQuantityHint => 'cth., 1 mangkuk, 2 keping';
 	@override String get timeOfMeal => 'Masa Hidangan';
@@ -147,6 +148,9 @@ class _TranslationsMealMs implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationMs deleteConfirmation = _TranslationsMealDeleteConfirmationMs._(_root);
 	@override String get addedToLog => 'Hidangan ditambah ke log anda!';
 	@override String couldNotAdd({required Object error}) => 'Tidak dapat menambah hidangan: ${error}';
+	@override String get savedSuccessfully => 'Makanan berjaya ditambahkan!';
+	@override String get updatedSuccessfully => 'Makanan berjaya dikemas kini!';
+	@override String errorSaving({required Object error}) => 'Ralat semasa menyimpan makanan: ${error}';
 	@override String get removedFromFavorites => 'Dihapus dari kegemaran!';
 	@override String get savedAsFavorite => 'Hidangan disimpan sebagai kegemaran!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Tidak dapat mengemas kini kegemaran: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsMs implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Mod pengembang diaktifkan!';
 	@override late final _TranslationsSettingsHealthConnectMs healthConnect = _TranslationsSettingsHealthConnectMs._(_root);
 	@override late final _TranslationsSettingsAboutMs about = _TranslationsSettingsAboutMs._(_root);
+	@override late final _TranslationsSettingsAppInfoMs appInfo = _TranslationsSettingsAppInfoMs._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapMs implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Ambil & Jejaki Hidangan Anda';
 	@override String get description => 'Gunakan kamera anda untuk mengambil gambar makanan anda untuk analisis AI.';
 	@override String get openCamera => 'Buka Kamera';
+	@override String get gallery => 'Galeri';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutMs implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyMs privacy = _TranslationsSettingsAboutPrivacyMs._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperMs developer = _TranslationsSettingsAboutDeveloperMs._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackMs feedback = _TranslationsSettingsAboutFeedbackMs._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoMs implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Binaan ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsMs {
 			'home.mealSnap.title' => 'Ambil & Jejaki Hidangan Anda',
 			'home.mealSnap.description' => 'Gunakan kamera anda untuk mengambil gambar makanan anda untuk analisis AI.',
 			'home.mealSnap.openCamera' => 'Buka Kamera',
+			'home.mealSnap.gallery' => 'Galeri',
 			'home.connectHealth.title' => 'Sinkronkan dengan Health Connect',
 			'home.connectHealth.description' => 'Sinkronkan data nutrisi anda dengan Health Connect',
 			'home.connectHealth.install' => 'Pasang',
@@ -1671,6 +1689,7 @@ extension on TranslationsMs {
 			'meal.saveMeal' => 'Simpan Hidangan',
 			'meal.save' => 'Simpan',
 			'meal.mealName' => 'Nama Hidangan',
+			'meal.mealNameHint' => 'Contoh: Telur hancur dengan roti bakar',
 			'meal.mealQuantity' => 'Kuantiti Hidangan',
 			'meal.mealQuantityHint' => 'cth., 1 mangkuk, 2 keping',
 			'meal.timeOfMeal' => 'Masa Hidangan',
@@ -1687,6 +1706,9 @@ extension on TranslationsMs {
 			'meal.deleteConfirmation.delete' => 'Padam',
 			'meal.addedToLog' => 'Hidangan ditambah ke log anda!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Tidak dapat menambah hidangan: ${error}',
+			'meal.savedSuccessfully' => 'Makanan berjaya ditambahkan!',
+			'meal.updatedSuccessfully' => 'Makanan berjaya dikemas kini!',
+			'meal.errorSaving' => ({required Object error}) => 'Ralat semasa menyimpan makanan: ${error}',
 			'meal.removedFromFavorites' => 'Dihapus dari kegemaran!',
 			'meal.savedAsFavorite' => 'Hidangan disimpan sebagai kegemaran!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Tidak dapat mengemas kini kegemaran: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsMs {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Maklum balas anda membantu menjadikan ${appLabel} lebih baik untuk semua.',
 			'settings.about.feedback.rateApp' => 'Nilai di Play Store',
 			'settings.about.feedback.sendFeedback' => 'Hantar Maklum Balas',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Binaan ${buildNumber}',
 			'reminders.title' => 'Tetap pada landasan dengan peringatan',
 			'reminders.description' => 'Dapatkan peringatan lembut untuk mencatat hidangan anda dan tetap konsisten dengan matlamat pemakanan anda',
 			'reminders.notificationsEnabled' => 'Pemberitahuan Diaktifkan',

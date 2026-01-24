@@ -138,6 +138,7 @@ class _TranslationsMealTl implements TranslationsMealEn {
 	@override String get saveMeal => 'I-save ang Pagkain';
 	@override String get save => 'I-save';
 	@override String get mealName => 'Pangalan ng Pagkain';
+	@override String get mealNameHint => 'Hal., Hinalong itlog na may tinapay';
 	@override String get mealQuantity => 'Dami ng Pagkain';
 	@override String get mealQuantityHint => 'hal., 1 mangkok, 2 hiwa';
 	@override String get timeOfMeal => 'Oras ng Pagkain';
@@ -147,6 +148,9 @@ class _TranslationsMealTl implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationTl deleteConfirmation = _TranslationsMealDeleteConfirmationTl._(_root);
 	@override String get addedToLog => 'Idinagdag ang pagkain sa iyong log!';
 	@override String couldNotAdd({required Object error}) => 'Hindi maidaragdag ang pagkain: ${error}';
+	@override String get savedSuccessfully => 'Matagumpay na naidagdag ang pagkain!';
+	@override String get updatedSuccessfully => 'Matagumpay na na-update ang pagkain!';
+	@override String errorSaving({required Object error}) => 'Nabigong i-save ang pagkain: ${error}';
 	@override String get removedFromFavorites => 'Tinanggal mula sa mga paborito!';
 	@override String get savedAsFavorite => 'Naitabi ang pagkain bilang paborito!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Hindi ma-update ang paborito: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsTl implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Naka-enable ang developer mode!';
 	@override late final _TranslationsSettingsHealthConnectTl healthConnect = _TranslationsSettingsHealthConnectTl._(_root);
 	@override late final _TranslationsSettingsAboutTl about = _TranslationsSettingsAboutTl._(_root);
+	@override late final _TranslationsSettingsAppInfoTl appInfo = _TranslationsSettingsAppInfoTl._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapTl implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Kumuha ng Litrato at Subaybayan ang Iyong Pagkain';
 	@override String get description => 'Gamitin ang iyong kamera upang kumuha ng litrato ng iyong pagkain para sa pagsusuri ng AI.';
 	@override String get openCamera => 'Buksan ang Kamera';
+	@override String get gallery => 'Galeriya';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutTl implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyTl privacy = _TranslationsSettingsAboutPrivacyTl._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperTl developer = _TranslationsSettingsAboutDeveloperTl._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackTl feedback = _TranslationsSettingsAboutFeedbackTl._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoTl implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsTl {
 			'home.mealSnap.title' => 'Kumuha ng Litrato at Subaybayan ang Iyong Pagkain',
 			'home.mealSnap.description' => 'Gamitin ang iyong kamera upang kumuha ng litrato ng iyong pagkain para sa pagsusuri ng AI.',
 			'home.mealSnap.openCamera' => 'Buksan ang Kamera',
+			'home.mealSnap.gallery' => 'Galeriya',
 			'home.connectHealth.title' => 'I-synchronize sa Health Connect',
 			'home.connectHealth.description' => 'I-synchronize ang iyong nutrition data sa Health Connect',
 			'home.connectHealth.install' => 'I-install',
@@ -1671,6 +1689,7 @@ extension on TranslationsTl {
 			'meal.saveMeal' => 'I-save ang Pagkain',
 			'meal.save' => 'I-save',
 			'meal.mealName' => 'Pangalan ng Pagkain',
+			'meal.mealNameHint' => 'Hal., Hinalong itlog na may tinapay',
 			'meal.mealQuantity' => 'Dami ng Pagkain',
 			'meal.mealQuantityHint' => 'hal., 1 mangkok, 2 hiwa',
 			'meal.timeOfMeal' => 'Oras ng Pagkain',
@@ -1687,6 +1706,9 @@ extension on TranslationsTl {
 			'meal.deleteConfirmation.delete' => 'Tanggalin',
 			'meal.addedToLog' => 'Idinagdag ang pagkain sa iyong log!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Hindi maidaragdag ang pagkain: ${error}',
+			'meal.savedSuccessfully' => 'Matagumpay na naidagdag ang pagkain!',
+			'meal.updatedSuccessfully' => 'Matagumpay na na-update ang pagkain!',
+			'meal.errorSaving' => ({required Object error}) => 'Nabigong i-save ang pagkain: ${error}',
 			'meal.removedFromFavorites' => 'Tinanggal mula sa mga paborito!',
 			'meal.savedAsFavorite' => 'Naitabi ang pagkain bilang paborito!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Hindi ma-update ang paborito: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsTl {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Ang iyong feedback ay tumutulong sa pagpapabuti ng ${appLabel} para sa lahat.',
 			'settings.about.feedback.rateApp' => 'I-rate sa Play Store',
 			'settings.about.feedback.sendFeedback' => 'Magpadala ng Feedback',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
 			'reminders.title' => 'Panatilihin ang landas na may mga paalala',
 			'reminders.description' => 'Kumuha ng banayad na mga paalala upang i-log ang iyong mga pagkain at manatiling consistent sa iyong mga layunin sa nutrisyon',
 			'reminders.notificationsEnabled' => 'Naka-enable ang mga Notifikasyon',

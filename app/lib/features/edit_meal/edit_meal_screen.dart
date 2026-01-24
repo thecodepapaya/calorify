@@ -124,7 +124,7 @@ class EditMealScreenState extends State<EditMealScreen> {
             controller: _nameController,
             decoration: InputDecoration(
               labelText: t.meal.mealName,
-              hintText: 'e.g., Scrambled Eggs with toast',
+              hintText: t.meal.mealNameHint,
               hintStyle: textTheme.bodyLarge?.copyWith(
                 color: colorScheme.onSurface.withValues(alpha: 0.6),
               ),
@@ -239,14 +239,16 @@ class EditMealScreenState extends State<EditMealScreen> {
 
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        snack('Meal ${isEditing ? 'updated' : 'added'} successfully!'),
+        snack(
+          isEditing ? t.meal.updatedSuccessfully : t.meal.savedSuccessfully,
+        ),
       );
       Navigator.of(context).pop();
     } on Exception catch (e, st) {
       log('Error saving meal:', error: e, stackTrace: st);
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(snack('Error saving meal: $e'));
+      ).showSnackBar(snack(t.meal.errorSaving(error: e)));
     }
   }
 

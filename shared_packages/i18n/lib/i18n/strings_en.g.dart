@@ -182,6 +182,9 @@ class TranslationsMealEn {
 	/// en: 'Meal Name'
 	String get mealName => 'Meal Name';
 
+	/// en: 'e.g., Scrambled Eggs with toast'
+	String get mealNameHint => 'e.g., Scrambled Eggs with toast';
+
 	/// en: 'Meal Quantity'
 	String get mealQuantity => 'Meal Quantity';
 
@@ -205,6 +208,15 @@ class TranslationsMealEn {
 
 	/// en: 'Could not add meal: {error}'
 	String couldNotAdd({required Object error}) => 'Could not add meal: ${error}';
+
+	/// en: 'Meal added successfully!'
+	String get savedSuccessfully => 'Meal added successfully!';
+
+	/// en: 'Meal updated successfully!'
+	String get updatedSuccessfully => 'Meal updated successfully!';
+
+	/// en: 'Error saving meal: {error}'
+	String errorSaving({required Object error}) => 'Error saving meal: ${error}';
 
 	/// en: 'Removed from favorites!'
 	String get removedFromFavorites => 'Removed from favorites!';
@@ -409,6 +421,7 @@ class TranslationsSettingsEn {
 
 	late final TranslationsSettingsHealthConnectEn healthConnect = TranslationsSettingsHealthConnectEn._(_root);
 	late final TranslationsSettingsAboutEn about = TranslationsSettingsAboutEn._(_root);
+	late final TranslationsSettingsAppInfoEn appInfo = TranslationsSettingsAppInfoEn._(_root);
 }
 
 // Path: reminders
@@ -1105,6 +1118,9 @@ class TranslationsHomeMealSnapEn {
 
 	/// en: 'Open Camera'
 	String get openCamera => 'Open Camera';
+
+	/// en: 'Gallery'
+	String get gallery => 'Gallery';
 }
 
 // Path: home.connectHealth
@@ -1535,6 +1551,21 @@ class TranslationsSettingsAboutEn {
 	late final TranslationsSettingsAboutPrivacyEn privacy = TranslationsSettingsAboutPrivacyEn._(_root);
 	late final TranslationsSettingsAboutDeveloperEn developer = TranslationsSettingsAboutDeveloperEn._(_root);
 	late final TranslationsSettingsAboutFeedbackEn feedback = TranslationsSettingsAboutFeedbackEn._(_root);
+}
+
+// Path: settings.appInfo
+class TranslationsSettingsAppInfoEn {
+	TranslationsSettingsAppInfoEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Calorify v{version}'
+	String version({required Object version}) => 'Calorify v${version}';
+
+	/// en: 'Build {buildNumber}'
+	String build({required Object buildNumber}) => 'Build ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -2530,6 +2561,7 @@ extension on Translations {
 			'home.mealSnap.title' => 'Snap & Track Your Meal',
 			'home.mealSnap.description' => 'Use your camera to take a picture of your food for AI analysis.',
 			'home.mealSnap.openCamera' => 'Open Camera',
+			'home.mealSnap.gallery' => 'Gallery',
 			'home.connectHealth.title' => 'Sync with Health Connect',
 			'home.connectHealth.description' => 'Sync your nutrition data with Health Connect',
 			'home.connectHealth.install' => 'Install',
@@ -2545,6 +2577,7 @@ extension on Translations {
 			'meal.saveMeal' => 'Save Meal',
 			'meal.save' => 'Save',
 			'meal.mealName' => 'Meal Name',
+			'meal.mealNameHint' => 'e.g., Scrambled Eggs with toast',
 			'meal.mealQuantity' => 'Meal Quantity',
 			'meal.mealQuantityHint' => 'e.g., 1 bowl, 2 slices',
 			'meal.timeOfMeal' => 'Time of Meal',
@@ -2561,6 +2594,9 @@ extension on Translations {
 			'meal.deleteConfirmation.delete' => 'Delete',
 			'meal.addedToLog' => 'Meal added to your log!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Could not add meal: ${error}',
+			'meal.savedSuccessfully' => 'Meal added successfully!',
+			'meal.updatedSuccessfully' => 'Meal updated successfully!',
+			'meal.errorSaving' => ({required Object error}) => 'Error saving meal: ${error}',
 			'meal.removedFromFavorites' => 'Removed from favorites!',
 			'meal.savedAsFavorite' => 'Meal saved as favorite!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Could not update favorite: ${error}',
@@ -2717,6 +2753,8 @@ extension on Translations {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Your feedback helps make ${appLabel} better for everyone.',
 			'settings.about.feedback.rateApp' => 'Rate on Play Store',
 			'settings.about.feedback.sendFeedback' => 'Send Feedback',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
 			'reminders.title' => 'Stay on track with reminders',
 			'reminders.description' => 'Get gentle reminders to log your meals and stay consistent with your nutrition goals',
 			'reminders.notificationsEnabled' => 'Notifications Enabled',

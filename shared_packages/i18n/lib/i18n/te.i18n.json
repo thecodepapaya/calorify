@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "ఫొటో తీసి మీ భోజనాన్ని ట్రాక్ చేయండి",
       "description": "AI విశ్లేషణ కోసం మీ ఆహారానికి మైక్రోాన్ని ఘనంగా దృష్టించండి.",
-      "openCamera": "కెమెరాను తెరవండి"
+      "openCamera": "కెమెరాను తెరవండి",
+      "gallery": "గ్యాలరీ"
     },
     "connectHealth": {
       "title": "హెల్త్ కనెక్ట్ తో సింక్ చేయండి",
@@ -216,6 +217,7 @@
     "saveMeal": "భోజనాన్ని నిల్వ చేయు",
     "save": "సేవ్",
     "mealName": "భోజనంలోని పేరు",
+    "mealNameHint": "ఉదాహరణ: టోస్ట్‌తో స్క్రాంబుల్ గుడ్లు",
     "mealQuantity": "భోజనంలోని పరిమాణం",
     "mealQuantityHint": "ఉదా: 1 ప్యాకెట్, 2 తుక్కలు",
     "timeOfMeal": "భోజన సమయం",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "భోజనం మీ లాగ్ కు చేరిష్టించబడింది!",
     "couldNotAdd": "భోజనాన్ని చేర్చలేకపోయినా: {error}",
+    "savedSuccessfully": "భోజనం విజయవంతంగా జోడించబడింది!",
+    "updatedSuccessfully": "భోజనం విజయవంతంగా నవీకరించబడింది!",
+    "errorSaving": "భోజనం సేవ్ చేయడంలో లోపం: {error}",
     "removedFromFavorites": "ప్రియమైనదుల నుంచి తొలగించబడింది!",
     "savedAsFavorite": "భోజనం ప్రియమైనదిగా నిల్వ చేయబడింది!",
     "couldNotUpdateFavorite": "ప్రియమైనదిని నవీకరించలేకపోయింది: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "ప్రత్యేక దుకాణంలో రేట్ చేయండి",
         "sendFeedback": "అభిప్రాయం పంపండి"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "బిల్డ్ {buildNumber}"
     }
   },
   "reminders": {

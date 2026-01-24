@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Neem een Foto & Volg Je Maaltijd",
       "description": "Gebruik je camera om een foto van je voedsel te maken voor AI-analyse.",
-      "openCamera": "Open Camera"
+      "openCamera": "Open Camera",
+      "gallery": "Galerij"
     },
     "connectHealth": {
       "title": "Sync met Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Sla Maaltijd Op",
     "save": "Opslaan",
     "mealName": "Maaltijd Naam",
+    "mealNameHint": "Bijv. roerei met toast",
     "mealQuantity": "Maaltijd Hoeveelheid",
     "mealQuantityHint": "bijv., 1 kom, 2 plakken",
     "timeOfMeal": "Tijd van Maaltijd",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Maaltijd toegevoegd aan je logboek!",
     "couldNotAdd": "Kon maaltijd niet toevoegen: {error}",
+    "savedSuccessfully": "Maaltijd succesvol toegevoegd!",
+    "updatedSuccessfully": "Maaltijd succesvol bijgewerkt!",
+    "errorSaving": "Fout bij het opslaan van de maaltijd: {error}",
     "removedFromFavorites": "Verwijderd uit favorieten!",
     "savedAsFavorite": "Maaltijd opgeslagen als favoriet!",
     "couldNotUpdateFavorite": "Kon favoriet niet bijwerken: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Beoordeel op Play Store",
         "sendFeedback": "Stuur Feedback"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Build {buildNumber}"
     }
   },
   "reminders": {

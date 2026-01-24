@@ -138,6 +138,7 @@ class _TranslationsMealJa implements TranslationsMealEn {
 	@override String get saveMeal => '食事を保存';
 	@override String get save => '保存';
 	@override String get mealName => '食事の名前';
+	@override String get mealNameHint => '例：スクランブルエッグとトースト';
 	@override String get mealQuantity => '食事の分量';
 	@override String get mealQuantityHint => '例：1杯、2枚';
 	@override String get timeOfMeal => '食事の時間';
@@ -147,6 +148,9 @@ class _TranslationsMealJa implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationJa deleteConfirmation = _TranslationsMealDeleteConfirmationJa._(_root);
 	@override String get addedToLog => '食事がログに追加されました！';
 	@override String couldNotAdd({required Object error}) => '食事を追加できませんでした: ${error}';
+	@override String get savedSuccessfully => '食事を追加しました！';
+	@override String get updatedSuccessfully => '食事を更新しました！';
+	@override String errorSaving({required Object error}) => '食事の保存中にエラーが発生しました：${error}';
 	@override String get removedFromFavorites => 'お気に入りから削除されました！';
 	@override String get savedAsFavorite => '食事がお気に入りとして保存されました！';
 	@override String couldNotUpdateFavorite({required Object error}) => 'お気に入りの更新に失敗しました: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsJa implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => '開発者モードが有効になりました！';
 	@override late final _TranslationsSettingsHealthConnectJa healthConnect = _TranslationsSettingsHealthConnectJa._(_root);
 	@override late final _TranslationsSettingsAboutJa about = _TranslationsSettingsAboutJa._(_root);
+	@override late final _TranslationsSettingsAppInfoJa appInfo = _TranslationsSettingsAppInfoJa._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapJa implements TranslationsHomeMealSnapEn {
 	@override String get title => '食事を撮影して追跡';
 	@override String get description => 'カメラを使って食べ物の写真を撮ってAI分析を行います。';
 	@override String get openCamera => 'カメラを開く';
+	@override String get gallery => 'ギャラリー';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutJa implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyJa privacy = _TranslationsSettingsAboutPrivacyJa._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperJa developer = _TranslationsSettingsAboutDeveloperJa._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackJa feedback = _TranslationsSettingsAboutFeedbackJa._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoJa implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'ビルド ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsJa {
 			'home.mealSnap.title' => '食事を撮影して追跡',
 			'home.mealSnap.description' => 'カメラを使って食べ物の写真を撮ってAI分析を行います。',
 			'home.mealSnap.openCamera' => 'カメラを開く',
+			'home.mealSnap.gallery' => 'ギャラリー',
 			'home.connectHealth.title' => 'Health Connectと同期',
 			'home.connectHealth.description' => 'あなたの栄養データをHealth Connectと同期します',
 			'home.connectHealth.install' => 'インストール',
@@ -1671,6 +1689,7 @@ extension on TranslationsJa {
 			'meal.saveMeal' => '食事を保存',
 			'meal.save' => '保存',
 			'meal.mealName' => '食事の名前',
+			'meal.mealNameHint' => '例：スクランブルエッグとトースト',
 			'meal.mealQuantity' => '食事の分量',
 			'meal.mealQuantityHint' => '例：1杯、2枚',
 			'meal.timeOfMeal' => '食事の時間',
@@ -1687,6 +1706,9 @@ extension on TranslationsJa {
 			'meal.deleteConfirmation.delete' => '削除',
 			'meal.addedToLog' => '食事がログに追加されました！',
 			'meal.couldNotAdd' => ({required Object error}) => '食事を追加できませんでした: ${error}',
+			'meal.savedSuccessfully' => '食事を追加しました！',
+			'meal.updatedSuccessfully' => '食事を更新しました！',
+			'meal.errorSaving' => ({required Object error}) => '食事の保存中にエラーが発生しました：${error}',
 			'meal.removedFromFavorites' => 'お気に入りから削除されました！',
 			'meal.savedAsFavorite' => '食事がお気に入りとして保存されました！',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'お気に入りの更新に失敗しました: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsJa {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'あなたのフィードバックは、${appLabel}をより良いものにするのに役立ちます。',
 			'settings.about.feedback.rateApp' => 'Playストアで評価する',
 			'settings.about.feedback.sendFeedback' => 'フィードバックを送信',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'ビルド ${buildNumber}',
 			'reminders.title' => 'リマインダーで進捗を維持',
 			'reminders.description' => '食事を記録し、栄養目標を一貫して守るための穏やかなリマインダーを受け取ります',
 			'reminders.notificationsEnabled' => '通知が有効',

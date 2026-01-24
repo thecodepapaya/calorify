@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "নিজস্ব খাবার স্ন্যাপ & ট্র্যাক করুন",
       "description": "AI বিশ্লেষণের জন্য আপনার খাবারের একটি ছবি তোলার জন্য আপনার ক্যামেরা ব্যবহার করুন।",
-      "openCamera": "ক্যামেরা খুলুন"
+      "openCamera": "ক্যামেরা খুলুন",
+      "gallery": "গ্যালারি"
     },
     "connectHealth": {
       "title": "স্বাস্থ্য সংযোগের সাথে সিঙ্ক করুন",
@@ -216,6 +217,7 @@
     "saveMeal": "খাবার সংরক্ষণ করুন",
     "save": "সংরক্ষণ করুন",
     "mealName": "খাবারের নাম",
+    "mealNameHint": "উদাহরণ: ফেটানো ডিম ও টোস্ট",
     "mealQuantity": "খাবারের পরিমাণ",
     "mealQuantityHint": "যেমন, ১ বাটি, ২ স্লাইস",
     "timeOfMeal": "খাবারের সময়",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "খাবার আপনার লগে যোগ করা হয়েছে!",
     "couldNotAdd": "খাবার যোগ করা যায়নি: {error}",
+    "savedSuccessfully": "খাবারটি সফলভাবে যোগ করা হয়েছে!",
+    "updatedSuccessfully": "খাবারটি সফলভাবে আপডেট করা হয়েছে!",
+    "errorSaving": "খাবার সংরক্ষণে ত্রুটি: {error}",
     "removedFromFavorites": "প্রিয় থেকে সরানো হয়েছে!",
     "savedAsFavorite": "খাবার প্রিয় হিসেবে সংরক্ষিত হয়েছে!",
     "couldNotUpdateFavorite": "প্রিয় আপডেট করা যায়নি: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "প্লে স্টোরে রেট দিন",
         "sendFeedback": "প্রতিক্রিয়া পাঠান"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "বিল্ড {buildNumber}"
     }
   },
   "reminders": {

@@ -138,6 +138,7 @@ class _TranslationsMealKo implements TranslationsMealEn {
 	@override String get saveMeal => '식사 저장';
 	@override String get save => '저장';
 	@override String get mealName => '식사 이름';
+	@override String get mealNameHint => '예: 토스트를 곁들인 스크램블 에그';
 	@override String get mealQuantity => '식사 양';
 	@override String get mealQuantityHint => '예: 1 그릇, 2 조각';
 	@override String get timeOfMeal => '식사 시간';
@@ -147,6 +148,9 @@ class _TranslationsMealKo implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationKo deleteConfirmation = _TranslationsMealDeleteConfirmationKo._(_root);
 	@override String get addedToLog => '식사가 기록되었습니다!';
 	@override String couldNotAdd({required Object error}) => '식사를 추가할 수 없습니다: ${error}';
+	@override String get savedSuccessfully => '식사가 성공적으로 추가되었습니다!';
+	@override String get updatedSuccessfully => '식사가 성공적으로 업데이트되었습니다!';
+	@override String errorSaving({required Object error}) => '식사 저장 중 오류가 발생했습니다: ${error}';
 	@override String get removedFromFavorites => '즐겨찾기에서 제거되었습니다!';
 	@override String get savedAsFavorite => '식사가 즐겨찾기로 저장되었습니다!';
 	@override String couldNotUpdateFavorite({required Object error}) => '즐겨찾기를 업데이트할 수 없습니다: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsKo implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => '개발자 모드가 활성화되었습니다!';
 	@override late final _TranslationsSettingsHealthConnectKo healthConnect = _TranslationsSettingsHealthConnectKo._(_root);
 	@override late final _TranslationsSettingsAboutKo about = _TranslationsSettingsAboutKo._(_root);
+	@override late final _TranslationsSettingsAppInfoKo appInfo = _TranslationsSettingsAppInfoKo._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapKo implements TranslationsHomeMealSnapEn {
 	@override String get title => '식사 찍고 추적하기';
 	@override String get description => 'AI 분석을 위해 음식 사진을 찍으세요.';
 	@override String get openCamera => '카메라 열기';
+	@override String get gallery => '갤러리';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutKo implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyKo privacy = _TranslationsSettingsAboutPrivacyKo._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperKo developer = _TranslationsSettingsAboutDeveloperKo._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackKo feedback = _TranslationsSettingsAboutFeedbackKo._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoKo implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => '빌드 ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsKo {
 			'home.mealSnap.title' => '식사 찍고 추적하기',
 			'home.mealSnap.description' => 'AI 분석을 위해 음식 사진을 찍으세요.',
 			'home.mealSnap.openCamera' => '카메라 열기',
+			'home.mealSnap.gallery' => '갤러리',
 			'home.connectHealth.title' => 'Health Connect와 동기화',
 			'home.connectHealth.description' => 'Nutrition 데이터를 Health Connect와 동기화하세요',
 			'home.connectHealth.install' => '설치하기',
@@ -1671,6 +1689,7 @@ extension on TranslationsKo {
 			'meal.saveMeal' => '식사 저장',
 			'meal.save' => '저장',
 			'meal.mealName' => '식사 이름',
+			'meal.mealNameHint' => '예: 토스트를 곁들인 스크램블 에그',
 			'meal.mealQuantity' => '식사 양',
 			'meal.mealQuantityHint' => '예: 1 그릇, 2 조각',
 			'meal.timeOfMeal' => '식사 시간',
@@ -1687,6 +1706,9 @@ extension on TranslationsKo {
 			'meal.deleteConfirmation.delete' => '삭제',
 			'meal.addedToLog' => '식사가 기록되었습니다!',
 			'meal.couldNotAdd' => ({required Object error}) => '식사를 추가할 수 없습니다: ${error}',
+			'meal.savedSuccessfully' => '식사가 성공적으로 추가되었습니다!',
+			'meal.updatedSuccessfully' => '식사가 성공적으로 업데이트되었습니다!',
+			'meal.errorSaving' => ({required Object error}) => '식사 저장 중 오류가 발생했습니다: ${error}',
 			'meal.removedFromFavorites' => '즐겨찾기에서 제거되었습니다!',
 			'meal.savedAsFavorite' => '식사가 즐겨찾기로 저장되었습니다!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => '즐겨찾기를 업데이트할 수 없습니다: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsKo {
 			'settings.about.feedback.description' => ({required Object appLabel}) => '귀하의 피드백은 ${appLabel}를 모두에게 더 좋게 만드는데 도움이 됩니다.',
 			'settings.about.feedback.rateApp' => '플레이 스토어에서 평가하기',
 			'settings.about.feedback.sendFeedback' => '피드백 보내기',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => '빌드 ${buildNumber}',
 			'reminders.title' => '알림으로 계획을 계속 유지하세요',
 			'reminders.description' => '식사를 기록하고 영양 목표를 지속할 수 있도록 부드러운 리마인더를 받으세요',
 			'reminders.notificationsEnabled' => '알림이 활성화되었습니다',

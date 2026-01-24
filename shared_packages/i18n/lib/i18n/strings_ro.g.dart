@@ -138,6 +138,7 @@ class _TranslationsMealRo implements TranslationsMealEn {
 	@override String get saveMeal => 'Salvează Masa';
 	@override String get save => 'Salvează';
 	@override String get mealName => 'Numele Mesei';
+	@override String get mealNameHint => 'de exemplu: Ouă bătute cu pâine prăjită';
 	@override String get mealQuantity => 'Cantitatea Mesei';
 	@override String get mealQuantityHint => 'de ex., 1 bol, 2 felii';
 	@override String get timeOfMeal => 'Ora Mesei';
@@ -147,6 +148,9 @@ class _TranslationsMealRo implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationRo deleteConfirmation = _TranslationsMealDeleteConfirmationRo._(_root);
 	@override String get addedToLog => 'Masa a fost adăugată în jurnalul tău!';
 	@override String couldNotAdd({required Object error}) => 'Nu s-a putut adăuga masa: ${error}';
+	@override String get savedSuccessfully => 'Masă adăugată cu succes!';
+	@override String get updatedSuccessfully => 'Masă actualizată cu succes!';
+	@override String errorSaving({required Object error}) => 'Eroare la salvarea mesei: ${error}';
 	@override String get removedFromFavorites => 'Eliminată din favorite!';
 	@override String get savedAsFavorite => 'Masa a fost salvată ca favorit!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Nu s-a putut actualiza favoritul: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsRo implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Mod dezvoltator activat!';
 	@override late final _TranslationsSettingsHealthConnectRo healthConnect = _TranslationsSettingsHealthConnectRo._(_root);
 	@override late final _TranslationsSettingsAboutRo about = _TranslationsSettingsAboutRo._(_root);
+	@override late final _TranslationsSettingsAppInfoRo appInfo = _TranslationsSettingsAppInfoRo._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapRo implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Fă o fotografie & Urmărește-ți Masa';
 	@override String get description => 'Folosește camera ta pentru a face o fotografie a alimentelor tale pentru analiza AI.';
 	@override String get openCamera => 'Deschide Camera';
+	@override String get gallery => 'Galerie';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutRo implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyRo privacy = _TranslationsSettingsAboutPrivacyRo._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperRo developer = _TranslationsSettingsAboutDeveloperRo._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackRo feedback = _TranslationsSettingsAboutFeedbackRo._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoRo implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Compilație ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsRo {
 			'home.mealSnap.title' => 'Fă o fotografie & Urmărește-ți Masa',
 			'home.mealSnap.description' => 'Folosește camera ta pentru a face o fotografie a alimentelor tale pentru analiza AI.',
 			'home.mealSnap.openCamera' => 'Deschide Camera',
+			'home.mealSnap.gallery' => 'Galerie',
 			'home.connectHealth.title' => 'Sincronizează-te cu Health Connect',
 			'home.connectHealth.description' => 'Sincronizează-ți datele nutriționale cu Health Connect',
 			'home.connectHealth.install' => 'Instalează',
@@ -1671,6 +1689,7 @@ extension on TranslationsRo {
 			'meal.saveMeal' => 'Salvează Masa',
 			'meal.save' => 'Salvează',
 			'meal.mealName' => 'Numele Mesei',
+			'meal.mealNameHint' => 'de exemplu: Ouă bătute cu pâine prăjită',
 			'meal.mealQuantity' => 'Cantitatea Mesei',
 			'meal.mealQuantityHint' => 'de ex., 1 bol, 2 felii',
 			'meal.timeOfMeal' => 'Ora Mesei',
@@ -1687,6 +1706,9 @@ extension on TranslationsRo {
 			'meal.deleteConfirmation.delete' => 'Șterge',
 			'meal.addedToLog' => 'Masa a fost adăugată în jurnalul tău!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Nu s-a putut adăuga masa: ${error}',
+			'meal.savedSuccessfully' => 'Masă adăugată cu succes!',
+			'meal.updatedSuccessfully' => 'Masă actualizată cu succes!',
+			'meal.errorSaving' => ({required Object error}) => 'Eroare la salvarea mesei: ${error}',
 			'meal.removedFromFavorites' => 'Eliminată din favorite!',
 			'meal.savedAsFavorite' => 'Masa a fost salvată ca favorit!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Nu s-a putut actualiza favoritul: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsRo {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Feedback-ul tău ajută la îmbunătățirea ${appLabel} pentru toți.',
 			'settings.about.feedback.rateApp' => 'Evaluează pe Play Store',
 			'settings.about.feedback.sendFeedback' => 'Trimite Feedback',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Compilație ${buildNumber}',
 			'reminders.title' => 'Rămâi pe drumul cel bun cu memento-uri',
 			'reminders.description' => 'Primește memento-uri blânde pentru a-ți înregistra mesele și a rămâne constant cu obiectivele tale nutriționale',
 			'reminders.notificationsEnabled' => 'Notificările sunt activate',

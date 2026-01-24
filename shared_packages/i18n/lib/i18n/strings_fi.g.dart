@@ -138,6 +138,7 @@ class _TranslationsMealFi implements TranslationsMealEn {
 	@override String get saveMeal => 'Tallenna Ateria';
 	@override String get save => 'Tallenna';
 	@override String get mealName => 'Aterian Nimi';
+	@override String get mealNameHint => 'esim. munakokkeli ja paahtoleipä';
 	@override String get mealQuantity => 'Aterian Määrä';
 	@override String get mealQuantityHint => 'esim. 1 kulho, 2 viipaletta';
 	@override String get timeOfMeal => 'Aterian Aika';
@@ -147,6 +148,9 @@ class _TranslationsMealFi implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationFi deleteConfirmation = _TranslationsMealDeleteConfirmationFi._(_root);
 	@override String get addedToLog => 'Ateria lisätty lokiisi!';
 	@override String couldNotAdd({required Object error}) => 'Ateriaa ei voitu lisätä: ${error}';
+	@override String get savedSuccessfully => 'Ateria lisätty onnistuneesti!';
+	@override String get updatedSuccessfully => 'Ateria päivitetty onnistuneesti!';
+	@override String errorSaving({required Object error}) => 'Virhe tallennettaessa ateriaa: ${error}';
 	@override String get removedFromFavorites => 'Poistettu suosikeista!';
 	@override String get savedAsFavorite => 'Ateria tallennettu suosikiksi!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Suosikkia ei voitu päivittää: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsFi implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Kehittäjätila käytössä!';
 	@override late final _TranslationsSettingsHealthConnectFi healthConnect = _TranslationsSettingsHealthConnectFi._(_root);
 	@override late final _TranslationsSettingsAboutFi about = _TranslationsSettingsAboutFi._(_root);
+	@override late final _TranslationsSettingsAppInfoFi appInfo = _TranslationsSettingsAppInfoFi._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapFi implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Ota kuva & Seuraa Ateriaasi';
 	@override String get description => 'Käytä kameraasi ottaaksesi kuva ruoastasi tekoälyanalyysiä varten.';
 	@override String get openCamera => 'Avaa Kamera';
+	@override String get gallery => 'Galleria';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutFi implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyFi privacy = _TranslationsSettingsAboutPrivacyFi._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperFi developer = _TranslationsSettingsAboutDeveloperFi._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackFi feedback = _TranslationsSettingsAboutFeedbackFi._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoFi implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoFi._(this._root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Koontiversio ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsFi {
 			'home.mealSnap.title' => 'Ota kuva & Seuraa Ateriaasi',
 			'home.mealSnap.description' => 'Käytä kameraasi ottaaksesi kuva ruoastasi tekoälyanalyysiä varten.',
 			'home.mealSnap.openCamera' => 'Avaa Kamera',
+			'home.mealSnap.gallery' => 'Galleria',
 			'home.connectHealth.title' => 'Synkronoi Health Connectiin',
 			'home.connectHealth.description' => 'Synkronoi ravitsemustietosi Health Connectin kanssa',
 			'home.connectHealth.install' => 'Asenna',
@@ -1671,6 +1689,7 @@ extension on TranslationsFi {
 			'meal.saveMeal' => 'Tallenna Ateria',
 			'meal.save' => 'Tallenna',
 			'meal.mealName' => 'Aterian Nimi',
+			'meal.mealNameHint' => 'esim. munakokkeli ja paahtoleipä',
 			'meal.mealQuantity' => 'Aterian Määrä',
 			'meal.mealQuantityHint' => 'esim. 1 kulho, 2 viipaletta',
 			'meal.timeOfMeal' => 'Aterian Aika',
@@ -1687,6 +1706,9 @@ extension on TranslationsFi {
 			'meal.deleteConfirmation.delete' => 'Poista',
 			'meal.addedToLog' => 'Ateria lisätty lokiisi!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Ateriaa ei voitu lisätä: ${error}',
+			'meal.savedSuccessfully' => 'Ateria lisätty onnistuneesti!',
+			'meal.updatedSuccessfully' => 'Ateria päivitetty onnistuneesti!',
+			'meal.errorSaving' => ({required Object error}) => 'Virhe tallennettaessa ateriaa: ${error}',
 			'meal.removedFromFavorites' => 'Poistettu suosikeista!',
 			'meal.savedAsFavorite' => 'Ateria tallennettu suosikiksi!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Suosikkia ei voitu päivittää: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsFi {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Palaute auttaa tekemään ${appLabel} paremman kaikille.',
 			'settings.about.feedback.rateApp' => 'Arvostele Play Kaupassa',
 			'settings.about.feedback.sendFeedback' => 'Lähetä palautetta',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Koontiversio ${buildNumber}',
 			'reminders.title' => 'Pysy askelissa muistutuksilla',
 			'reminders.description' => 'Saat lempeitä muistutuksia aterioiden kirjaamiseksi ja pysyäksesi johdonmukaisena ravitsemustavoitteissasi',
 			'reminders.notificationsEnabled' => 'Ilmoitukset käytössä',

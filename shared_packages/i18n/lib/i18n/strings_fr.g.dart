@@ -138,6 +138,7 @@ class _TranslationsMealFr implements TranslationsMealEn {
 	@override String get saveMeal => 'Enregistrer le Repas';
 	@override String get save => 'Enregistrer';
 	@override String get mealName => 'Nom du repas';
+	@override String get mealNameHint => 'p. ex. : œufs brouillés avec pain grillé';
 	@override String get mealQuantity => 'Quantité de repas';
 	@override String get mealQuantityHint => 'par exemple, 1 bol, 2 tranches';
 	@override String get timeOfMeal => 'Heure du repas';
@@ -147,6 +148,9 @@ class _TranslationsMealFr implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationFr deleteConfirmation = _TranslationsMealDeleteConfirmationFr._(_root);
 	@override String get addedToLog => 'Repas ajouté à votre journal !';
 	@override String couldNotAdd({required Object error}) => 'Impossible d\'ajouter le repas : ${error}';
+	@override String get savedSuccessfully => 'Repas ajouté avec succès !';
+	@override String get updatedSuccessfully => 'Repas mis à jour avec succès !';
+	@override String errorSaving({required Object error}) => 'Erreur lors de l\'enregistrement du repas : ${error}';
 	@override String get removedFromFavorites => 'Retiré des favoris !';
 	@override String get savedAsFavorite => 'Repas enregistré comme favori !';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Impossible de mettre à jour le favori : ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsFr implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Mode développeur activé !';
 	@override late final _TranslationsSettingsHealthConnectFr healthConnect = _TranslationsSettingsHealthConnectFr._(_root);
 	@override late final _TranslationsSettingsAboutFr about = _TranslationsSettingsAboutFr._(_root);
+	@override late final _TranslationsSettingsAppInfoFr appInfo = _TranslationsSettingsAppInfoFr._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapFr implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Prenez en Photo & Suivez Votre Repas';
 	@override String get description => 'Utilisez votre appareil photo pour prendre une photo de votre nourriture pour analyse par l\'IA.';
 	@override String get openCamera => 'Ouvrir l\'Appareil Photo';
+	@override String get gallery => 'Galerie';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutFr implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyFr privacy = _TranslationsSettingsAboutPrivacyFr._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperFr developer = _TranslationsSettingsAboutDeveloperFr._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackFr feedback = _TranslationsSettingsAboutFeedbackFr._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoFr implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsFr {
 			'home.mealSnap.title' => 'Prenez en Photo & Suivez Votre Repas',
 			'home.mealSnap.description' => 'Utilisez votre appareil photo pour prendre une photo de votre nourriture pour analyse par l\'IA.',
 			'home.mealSnap.openCamera' => 'Ouvrir l\'Appareil Photo',
+			'home.mealSnap.gallery' => 'Galerie',
 			'home.connectHealth.title' => 'Synchroniser avec Health Connect',
 			'home.connectHealth.description' => 'Synchronisez vos données nutritionnelles avec Health Connect',
 			'home.connectHealth.install' => 'Installer',
@@ -1671,6 +1689,7 @@ extension on TranslationsFr {
 			'meal.saveMeal' => 'Enregistrer le Repas',
 			'meal.save' => 'Enregistrer',
 			'meal.mealName' => 'Nom du repas',
+			'meal.mealNameHint' => 'p. ex. : œufs brouillés avec pain grillé',
 			'meal.mealQuantity' => 'Quantité de repas',
 			'meal.mealQuantityHint' => 'par exemple, 1 bol, 2 tranches',
 			'meal.timeOfMeal' => 'Heure du repas',
@@ -1687,6 +1706,9 @@ extension on TranslationsFr {
 			'meal.deleteConfirmation.delete' => 'Supprimer',
 			'meal.addedToLog' => 'Repas ajouté à votre journal !',
 			'meal.couldNotAdd' => ({required Object error}) => 'Impossible d\'ajouter le repas : ${error}',
+			'meal.savedSuccessfully' => 'Repas ajouté avec succès !',
+			'meal.updatedSuccessfully' => 'Repas mis à jour avec succès !',
+			'meal.errorSaving' => ({required Object error}) => 'Erreur lors de l\'enregistrement du repas : ${error}',
 			'meal.removedFromFavorites' => 'Retiré des favoris !',
 			'meal.savedAsFavorite' => 'Repas enregistré comme favori !',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Impossible de mettre à jour le favori : ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsFr {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Vos retours aident à améliorer ${appLabel} pour tout le monde.',
 			'settings.about.feedback.rateApp' => 'Évaluer sur le Play Store',
 			'settings.about.feedback.sendFeedback' => 'Envoyer des retours d\'information',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
 			'reminders.title' => 'Restez sur la bonne voie avec des rappels',
 			'reminders.description' => 'Recevez des rappels doux pour enregistrer vos repas et rester constant avec vos objectifs nutritionnels',
 			'reminders.notificationsEnabled' => 'Notifications Activées',

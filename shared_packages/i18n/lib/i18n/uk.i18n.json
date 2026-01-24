@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Зробіть фото та відстежте вашу страву",
       "description": "Використовуйте вашу камеру, щоб зробити фото вашої їжі для аналізу ШІ.",
-      "openCamera": "Відкрити камеру"
+      "openCamera": "Відкрити камеру",
+      "gallery": "Галерея"
     },
     "connectHealth": {
       "title": "Синхронізуйте з Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Зберегти страву",
     "save": "Зберегти",
     "mealName": "Назва страви",
+    "mealNameHint": "Наприклад, яєчня з тостом",
     "mealQuantity": "Кількість страви",
     "mealQuantityHint": "наприклад, 1 чаша, 2 скибки",
     "timeOfMeal": "Час страви",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Страву додано до вашого журналу!",
     "couldNotAdd": "Не вдалося додати страву: {error}",
+    "savedSuccessfully": "Страву успішно додано!",
+    "updatedSuccessfully": "Страву успішно оновлено!",
+    "errorSaving": "Не вдалося зберегти страву: {error}",
     "removedFromFavorites": "Вилучено з улюблених!",
     "savedAsFavorite": "Страву збережено як улюблену!",
     "couldNotUpdateFavorite": "Не вдалося оновити улюблену: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Оцініть у Play Store",
         "sendFeedback": "Надіслати відгук"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Збірка {buildNumber}"
     }
   },
   "reminders": {

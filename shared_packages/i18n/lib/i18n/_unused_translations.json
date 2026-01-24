@@ -198,7 +198,8 @@
       "mealSnap": {
         "title": "Snap & Track Your Meal",
         "description": "Use your camera to take a picture of your food for AI analysis.",
-        "openCamera": "Open Camera"
+        "openCamera": "Open Camera",
+        "gallery": "Gallery"
       },
       "connectHealth": {
         "title": "Sync with Health Connect",
@@ -221,6 +222,7 @@
       "saveMeal": "Save Meal",
       "save": "Save",
       "mealName": "Meal Name",
+      "mealNameHint": "e.g., Scrambled Eggs with toast",
       "mealQuantity": "Meal Quantity",
       "mealQuantityHint": "e.g., 1 bowl, 2 slices",
       "timeOfMeal": "Time of Meal",
@@ -241,6 +243,9 @@
       },
       "addedToLog": "Meal added to your log!",
       "couldNotAdd": "Could not add meal: {error}",
+      "savedSuccessfully": "Meal added successfully!",
+      "updatedSuccessfully": "Meal updated successfully!",
+      "errorSaving": "Error saving meal: {error}",
       "removedFromFavorites": "Removed from favorites!",
       "savedAsFavorite": "Meal saved as favorite!",
       "couldNotUpdateFavorite": "Could not update favorite: {error}",
@@ -476,6 +481,10 @@
           "rateApp": "Rate on Play Store",
           "sendFeedback": "Send Feedback"
         }
+      },
+      "appInfo": {
+        "version": "Calorify v{version}",
+        "build": "Build {buildNumber}"
       }
     },
     "reminders": {

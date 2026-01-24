@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "食事を撮影して追跡",
       "description": "カメラを使って食べ物の写真を撮ってAI分析を行います。",
-      "openCamera": "カメラを開く"
+      "openCamera": "カメラを開く",
+      "gallery": "ギャラリー"
     },
     "connectHealth": {
       "title": "Health Connectと同期",
@@ -216,6 +217,7 @@
     "saveMeal": "食事を保存",
     "save": "保存",
     "mealName": "食事の名前",
+    "mealNameHint": "例：スクランブルエッグとトースト",
     "mealQuantity": "食事の分量",
     "mealQuantityHint": "例：1杯、2枚",
     "timeOfMeal": "食事の時間",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "食事がログに追加されました！",
     "couldNotAdd": "食事を追加できませんでした: {error}",
+    "savedSuccessfully": "食事を追加しました！",
+    "updatedSuccessfully": "食事を更新しました！",
+    "errorSaving": "食事の保存中にエラーが発生しました：{error}",
     "removedFromFavorites": "お気に入りから削除されました！",
     "savedAsFavorite": "食事がお気に入りとして保存されました！",
     "couldNotUpdateFavorite": "お気に入りの更新に失敗しました: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Playストアで評価する",
         "sendFeedback": "フィードバックを送信"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "ビルド {buildNumber}"
     }
   },
   "reminders": {

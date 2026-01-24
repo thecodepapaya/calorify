@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Prenez en Photo & Suivez Votre Repas",
       "description": "Utilisez votre appareil photo pour prendre une photo de votre nourriture pour analyse par l'IA.",
-      "openCamera": "Ouvrir l'Appareil Photo"
+      "openCamera": "Ouvrir l'Appareil Photo",
+      "gallery": "Galerie"
     },
     "connectHealth": {
       "title": "Synchroniser avec Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Enregistrer le Repas",
     "save": "Enregistrer",
     "mealName": "Nom du repas",
+    "mealNameHint": "p. ex. : œufs brouillés avec pain grillé",
     "mealQuantity": "Quantité de repas",
     "mealQuantityHint": "par exemple, 1 bol, 2 tranches",
     "timeOfMeal": "Heure du repas",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Repas ajouté à votre journal !",
     "couldNotAdd": "Impossible d'ajouter le repas : {error}",
+    "savedSuccessfully": "Repas ajouté avec succès !",
+    "updatedSuccessfully": "Repas mis à jour avec succès !",
+    "errorSaving": "Erreur lors de l'enregistrement du repas : {error}",
     "removedFromFavorites": "Retiré des favoris !",
     "savedAsFavorite": "Repas enregistré comme favori !",
     "couldNotUpdateFavorite": "Impossible de mettre à jour le favori : {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Évaluer sur le Play Store",
         "sendFeedback": "Envoyer des retours d'information"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Build {buildNumber}"
     }
   },
   "reminders": {

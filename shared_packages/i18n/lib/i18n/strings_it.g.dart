@@ -138,6 +138,7 @@ class _TranslationsMealIt implements TranslationsMealEn {
 	@override String get saveMeal => 'Salva Pasto';
 	@override String get save => 'Salva';
 	@override String get mealName => 'Nome del Pasto';
+	@override String get mealNameHint => 'Es.: Uova strapazzate con pane tostato';
 	@override String get mealQuantity => 'Quantità del Pasto';
 	@override String get mealQuantityHint => 'es. 1 ciotola, 2 fette';
 	@override String get timeOfMeal => 'Orario del Pasto';
@@ -147,6 +148,9 @@ class _TranslationsMealIt implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationIt deleteConfirmation = _TranslationsMealDeleteConfirmationIt._(_root);
 	@override String get addedToLog => 'Pasto aggiunto al tuo registro!';
 	@override String couldNotAdd({required Object error}) => 'Impossibile aggiungere il pasto: ${error}';
+	@override String get savedSuccessfully => 'Pasto aggiunto con successo!';
+	@override String get updatedSuccessfully => 'Pasto aggiornato con successo!';
+	@override String errorSaving({required Object error}) => 'Errore durante il salvataggio del pasto: ${error}';
 	@override String get removedFromFavorites => 'Rimosso dai preferiti!';
 	@override String get savedAsFavorite => 'Pasto salvato come preferito!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Impossibile aggiornare il preferito: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsIt implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Modalità sviluppatore abilitata!';
 	@override late final _TranslationsSettingsHealthConnectIt healthConnect = _TranslationsSettingsHealthConnectIt._(_root);
 	@override late final _TranslationsSettingsAboutIt about = _TranslationsSettingsAboutIt._(_root);
+	@override late final _TranslationsSettingsAppInfoIt appInfo = _TranslationsSettingsAppInfoIt._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapIt implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Scatta e Monitora il Tuo Pasto';
 	@override String get description => 'Usa la tua fotocamera per scattare una foto del tuo cibo per l\'analisi dell\'IA.';
 	@override String get openCamera => 'Apri la Fotocamera';
+	@override String get gallery => 'Galleria';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutIt implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyIt privacy = _TranslationsSettingsAboutPrivacyIt._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperIt developer = _TranslationsSettingsAboutDeveloperIt._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackIt feedback = _TranslationsSettingsAboutFeedbackIt._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoIt implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoIt._(this._root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsIt {
 			'home.mealSnap.title' => 'Scatta e Monitora il Tuo Pasto',
 			'home.mealSnap.description' => 'Usa la tua fotocamera per scattare una foto del tuo cibo per l\'analisi dell\'IA.',
 			'home.mealSnap.openCamera' => 'Apri la Fotocamera',
+			'home.mealSnap.gallery' => 'Galleria',
 			'home.connectHealth.title' => 'Sincronizza con Health Connect',
 			'home.connectHealth.description' => 'Sincronizza i tuoi dati nutrizionali con Health Connect',
 			'home.connectHealth.install' => 'Installa',
@@ -1671,6 +1689,7 @@ extension on TranslationsIt {
 			'meal.saveMeal' => 'Salva Pasto',
 			'meal.save' => 'Salva',
 			'meal.mealName' => 'Nome del Pasto',
+			'meal.mealNameHint' => 'Es.: Uova strapazzate con pane tostato',
 			'meal.mealQuantity' => 'Quantità del Pasto',
 			'meal.mealQuantityHint' => 'es. 1 ciotola, 2 fette',
 			'meal.timeOfMeal' => 'Orario del Pasto',
@@ -1687,6 +1706,9 @@ extension on TranslationsIt {
 			'meal.deleteConfirmation.delete' => 'Elimina',
 			'meal.addedToLog' => 'Pasto aggiunto al tuo registro!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Impossibile aggiungere il pasto: ${error}',
+			'meal.savedSuccessfully' => 'Pasto aggiunto con successo!',
+			'meal.updatedSuccessfully' => 'Pasto aggiornato con successo!',
+			'meal.errorSaving' => ({required Object error}) => 'Errore durante il salvataggio del pasto: ${error}',
 			'meal.removedFromFavorites' => 'Rimosso dai preferiti!',
 			'meal.savedAsFavorite' => 'Pasto salvato come preferito!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Impossibile aggiornare il preferito: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsIt {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Il tuo feedback aiuta a migliorare ${appLabel} per tutti.',
 			'settings.about.feedback.rateApp' => 'Valuta su Play Store',
 			'settings.about.feedback.sendFeedback' => 'Invia Feedback',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
 			'reminders.title' => 'Rimani in carreggiata con i promemoria',
 			'reminders.description' => 'Ricevi promemoria gentili per registrare i tuoi pasti e mantenere coerenza con i tuoi obiettivi nutrizionali',
 			'reminders.notificationsEnabled' => 'Notifiche Abilitate',

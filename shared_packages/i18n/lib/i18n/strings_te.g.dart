@@ -138,6 +138,7 @@ class _TranslationsMealTe implements TranslationsMealEn {
 	@override String get saveMeal => 'భోజనాన్ని నిల్వ చేయు';
 	@override String get save => 'సేవ్';
 	@override String get mealName => 'భోజనంలోని పేరు';
+	@override String get mealNameHint => 'ఉదాహరణ: టోస్ట్‌తో స్క్రాంబుల్ గుడ్లు';
 	@override String get mealQuantity => 'భోజనంలోని పరిమాణం';
 	@override String get mealQuantityHint => 'ఉదా: 1 ప్యాకెట్, 2 తుక్కలు';
 	@override String get timeOfMeal => 'భోజన సమయం';
@@ -147,6 +148,9 @@ class _TranslationsMealTe implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationTe deleteConfirmation = _TranslationsMealDeleteConfirmationTe._(_root);
 	@override String get addedToLog => 'భోజనం మీ లాగ్ కు చేరిష్టించబడింది!';
 	@override String couldNotAdd({required Object error}) => 'భోజనాన్ని చేర్చలేకపోయినా: ${error}';
+	@override String get savedSuccessfully => 'భోజనం విజయవంతంగా జోడించబడింది!';
+	@override String get updatedSuccessfully => 'భోజనం విజయవంతంగా నవీకరించబడింది!';
+	@override String errorSaving({required Object error}) => 'భోజనం సేవ్ చేయడంలో లోపం: ${error}';
 	@override String get removedFromFavorites => 'ప్రియమైనదుల నుంచి తొలగించబడింది!';
 	@override String get savedAsFavorite => 'భోజనం ప్రియమైనదిగా నిల్వ చేయబడింది!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'ప్రియమైనదిని నవీకరించలేకపోయింది: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsTe implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'డెవలపర్ మోడ్ సాధనంలో ఉంది!';
 	@override late final _TranslationsSettingsHealthConnectTe healthConnect = _TranslationsSettingsHealthConnectTe._(_root);
 	@override late final _TranslationsSettingsAboutTe about = _TranslationsSettingsAboutTe._(_root);
+	@override late final _TranslationsSettingsAppInfoTe appInfo = _TranslationsSettingsAppInfoTe._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapTe implements TranslationsHomeMealSnapEn {
 	@override String get title => 'ఫొటో తీసి మీ భోజనాన్ని ట్రాక్ చేయండి';
 	@override String get description => 'AI విశ్లేషణ కోసం మీ ఆహారానికి మైక్రోాన్ని ఘనంగా దృష్టించండి.';
 	@override String get openCamera => 'కెమెరాను తెరవండి';
+	@override String get gallery => 'గ్యాలరీ';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutTe implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyTe privacy = _TranslationsSettingsAboutPrivacyTe._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperTe developer = _TranslationsSettingsAboutDeveloperTe._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackTe feedback = _TranslationsSettingsAboutFeedbackTe._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoTe implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'బిల్డ్ ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsTe {
 			'home.mealSnap.title' => 'ఫొటో తీసి మీ భోజనాన్ని ట్రాక్ చేయండి',
 			'home.mealSnap.description' => 'AI విశ్లేషణ కోసం మీ ఆహారానికి మైక్రోాన్ని ఘనంగా దృష్టించండి.',
 			'home.mealSnap.openCamera' => 'కెమెరాను తెరవండి',
+			'home.mealSnap.gallery' => 'గ్యాలరీ',
 			'home.connectHealth.title' => 'హెల్త్ కనెక్ట్ తో సింక్ చేయండి',
 			'home.connectHealth.description' => 'మీ పోషకాలు డేటా హెల్త్ కనెక్ట్ తో సింక్ చేయండి',
 			'home.connectHealth.install' => 'సంస్థాపన చేయండి',
@@ -1671,6 +1689,7 @@ extension on TranslationsTe {
 			'meal.saveMeal' => 'భోజనాన్ని నిల్వ చేయు',
 			'meal.save' => 'సేవ్',
 			'meal.mealName' => 'భోజనంలోని పేరు',
+			'meal.mealNameHint' => 'ఉదాహరణ: టోస్ట్‌తో స్క్రాంబుల్ గుడ్లు',
 			'meal.mealQuantity' => 'భోజనంలోని పరిమాణం',
 			'meal.mealQuantityHint' => 'ఉదా: 1 ప్యాకెట్, 2 తుక్కలు',
 			'meal.timeOfMeal' => 'భోజన సమయం',
@@ -1687,6 +1706,9 @@ extension on TranslationsTe {
 			'meal.deleteConfirmation.delete' => 'తొలగించు',
 			'meal.addedToLog' => 'భోజనం మీ లాగ్ కు చేరిష్టించబడింది!',
 			'meal.couldNotAdd' => ({required Object error}) => 'భోజనాన్ని చేర్చలేకపోయినా: ${error}',
+			'meal.savedSuccessfully' => 'భోజనం విజయవంతంగా జోడించబడింది!',
+			'meal.updatedSuccessfully' => 'భోజనం విజయవంతంగా నవీకరించబడింది!',
+			'meal.errorSaving' => ({required Object error}) => 'భోజనం సేవ్ చేయడంలో లోపం: ${error}',
 			'meal.removedFromFavorites' => 'ప్రియమైనదుల నుంచి తొలగించబడింది!',
 			'meal.savedAsFavorite' => 'భోజనం ప్రియమైనదిగా నిల్వ చేయబడింది!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'ప్రియమైనదిని నవీకరించలేకపోయింది: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsTe {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'మీ అభిప్రాయాలు ${appLabel} ను అందరికీ మెరుగుపరిచేందుకు సహాయపడుతుంది.',
 			'settings.about.feedback.rateApp' => 'ప్రత్యేక దుకాణంలో రేట్ చేయండి',
 			'settings.about.feedback.sendFeedback' => 'అభిప్రాయం పంపండి',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'బిల్డ్ ${buildNumber}',
 			'reminders.title' => 'సమయానికి కప్పడం',
 			'reminders.description' => 'మీ భోజనాలను లాగ్ చేయడానికి మరియు మీ పోషక లక్ష్యాలతో కర్రీగా ఉండాలి',
 			'reminders.notificationsEnabled' => 'గమనికలు చేర్చబడ్డాయి',

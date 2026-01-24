@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Kumuha ng Litrato at Subaybayan ang Iyong Pagkain",
       "description": "Gamitin ang iyong kamera upang kumuha ng litrato ng iyong pagkain para sa pagsusuri ng AI.",
-      "openCamera": "Buksan ang Kamera"
+      "openCamera": "Buksan ang Kamera",
+      "gallery": "Galeriya"
     },
     "connectHealth": {
       "title": "I-synchronize sa Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "I-save ang Pagkain",
     "save": "I-save",
     "mealName": "Pangalan ng Pagkain",
+    "mealNameHint": "Hal., Hinalong itlog na may tinapay",
     "mealQuantity": "Dami ng Pagkain",
     "mealQuantityHint": "hal., 1 mangkok, 2 hiwa",
     "timeOfMeal": "Oras ng Pagkain",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Idinagdag ang pagkain sa iyong log!",
     "couldNotAdd": "Hindi maidaragdag ang pagkain: {error}",
+    "savedSuccessfully": "Matagumpay na naidagdag ang pagkain!",
+    "updatedSuccessfully": "Matagumpay na na-update ang pagkain!",
+    "errorSaving": "Nabigong i-save ang pagkain: {error}",
     "removedFromFavorites": "Tinanggal mula sa mga paborito!",
     "savedAsFavorite": "Naitabi ang pagkain bilang paborito!",
     "couldNotUpdateFavorite": "Hindi ma-update ang paborito: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "I-rate sa Play Store",
         "sendFeedback": "Magpadala ng Feedback"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Build {buildNumber}"
     }
   },
   "reminders": {

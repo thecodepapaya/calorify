@@ -138,6 +138,7 @@ class _TranslationsMealNo implements TranslationsMealEn {
 	@override String get saveMeal => 'Lagre Måltid';
 	@override String get save => 'Lagre';
 	@override String get mealName => 'Måltidsnavn';
+	@override String get mealNameHint => 'f.eks. Eggerøre med toast';
 	@override String get mealQuantity => 'Måltidsmengde';
 	@override String get mealQuantityHint => 'f.eks. 1 bolle, 2 skiver';
 	@override String get timeOfMeal => 'Tidspunkt for Måltid';
@@ -147,6 +148,9 @@ class _TranslationsMealNo implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationNo deleteConfirmation = _TranslationsMealDeleteConfirmationNo._(_root);
 	@override String get addedToLog => 'Måltid lagt til loggen din!';
 	@override String couldNotAdd({required Object error}) => 'Kunne ikke legge til måltid: ${error}';
+	@override String get savedSuccessfully => 'Måltid lagt til!';
+	@override String get updatedSuccessfully => 'Måltid oppdatert!';
+	@override String errorSaving({required Object error}) => 'Feil ved lagring av måltid: ${error}';
 	@override String get removedFromFavorites => 'Fjernet fra favoritter!';
 	@override String get savedAsFavorite => 'Måltid lagret som favoritt!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Kunne ikke oppdatere favoritt: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsNo implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Utviklermodus aktivert!';
 	@override late final _TranslationsSettingsHealthConnectNo healthConnect = _TranslationsSettingsHealthConnectNo._(_root);
 	@override late final _TranslationsSettingsAboutNo about = _TranslationsSettingsAboutNo._(_root);
+	@override late final _TranslationsSettingsAppInfoNo appInfo = _TranslationsSettingsAppInfoNo._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapNo implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Ta Bilde & Spor Måltidet Ditt';
 	@override String get description => 'Bruk kameraet ditt til å ta et bilde av maten for AI-analyse.';
 	@override String get openCamera => 'Åpne Kamera';
+	@override String get gallery => 'Galleri';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutNo implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyNo privacy = _TranslationsSettingsAboutPrivacyNo._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperNo developer = _TranslationsSettingsAboutDeveloperNo._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackNo feedback = _TranslationsSettingsAboutFeedbackNo._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoNo implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoNo._(this._root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Bygg ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsNo {
 			'home.mealSnap.title' => 'Ta Bilde & Spor Måltidet Ditt',
 			'home.mealSnap.description' => 'Bruk kameraet ditt til å ta et bilde av maten for AI-analyse.',
 			'home.mealSnap.openCamera' => 'Åpne Kamera',
+			'home.mealSnap.gallery' => 'Galleri',
 			'home.connectHealth.title' => 'Synkroniser med Health Connect',
 			'home.connectHealth.description' => 'Synkroniser kostholdsdataene dine med Health Connect',
 			'home.connectHealth.install' => 'Installer',
@@ -1671,6 +1689,7 @@ extension on TranslationsNo {
 			'meal.saveMeal' => 'Lagre Måltid',
 			'meal.save' => 'Lagre',
 			'meal.mealName' => 'Måltidsnavn',
+			'meal.mealNameHint' => 'f.eks. Eggerøre med toast',
 			'meal.mealQuantity' => 'Måltidsmengde',
 			'meal.mealQuantityHint' => 'f.eks. 1 bolle, 2 skiver',
 			'meal.timeOfMeal' => 'Tidspunkt for Måltid',
@@ -1687,6 +1706,9 @@ extension on TranslationsNo {
 			'meal.deleteConfirmation.delete' => 'Slett',
 			'meal.addedToLog' => 'Måltid lagt til loggen din!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Kunne ikke legge til måltid: ${error}',
+			'meal.savedSuccessfully' => 'Måltid lagt til!',
+			'meal.updatedSuccessfully' => 'Måltid oppdatert!',
+			'meal.errorSaving' => ({required Object error}) => 'Feil ved lagring av måltid: ${error}',
 			'meal.removedFromFavorites' => 'Fjernet fra favoritter!',
 			'meal.savedAsFavorite' => 'Måltid lagret som favoritt!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Kunne ikke oppdatere favoritt: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsNo {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Tilbakemeldingene dine bidrar til å gjøre ${appLabel} bedre for alle.',
 			'settings.about.feedback.rateApp' => 'Vurder på Play Store',
 			'settings.about.feedback.sendFeedback' => 'Send tilbakemelding',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Bygg ${buildNumber}',
 			'reminders.title' => 'Hold deg på sporet med påminnelser',
 			'reminders.description' => 'Få milde påminnelser om å loggføre måltidene dine og holde deg konsekvent med dine kostholdsmål',
 			'reminders.notificationsEnabled' => 'Varsler Aktivert',

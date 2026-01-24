@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Zrób Zdjęcie i Śledź Swój Posiłek",
       "description": "Użyj aparatu, aby zrobić zdjęcie swojego jedzenia do analizy AI.",
-      "openCamera": "Otwórz aparat"
+      "openCamera": "Otwórz aparat",
+      "gallery": "Galeria"
     },
     "connectHealth": {
       "title": "Synchronizuj z Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Zapisz Posiłek",
     "save": "Zapisz",
     "mealName": "Nazwa Posiłku",
+    "mealNameHint": "np. Jajecznica z tostem",
     "mealQuantity": "Ilość Posiłku",
     "mealQuantityHint": "np. 1 miska, 2 plastry",
     "timeOfMeal": "Czas Posiłku",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Posiłek dodany do logu!",
     "couldNotAdd": "Nie można dodać posiłku: {error}",
+    "savedSuccessfully": "Posiłek został pomyślnie dodany!",
+    "updatedSuccessfully": "Posiłek został pomyślnie zaktualizowany!",
+    "errorSaving": "Wystąpił błąd podczas zapisywania posiłku: {error}",
     "removedFromFavorites": "Usunięto z ulubionych!",
     "savedAsFavorite": "Posiłek zapisany jako ulubiony!",
     "couldNotUpdateFavorite": "Nie można zaktualizować ulubionego: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Oceń w Sklepie Play",
         "sendFeedback": "Wyślij opinię"
       }
+    },
+    "appInfo": {
+      "version": "Calorify wersja {version}",
+      "build": "Kompilacja {buildNumber}"
     }
   },
   "reminders": {

@@ -194,7 +194,7 @@ class _MealSnapState extends State<MealSnap> {
             colorScheme: colorScheme,
             textTheme: textTheme,
             icon: LucideIcons.imagePlus,
-            label: 'Gallery',
+            label: t.home.mealSnap.gallery,
             analyticsEvent: AnalyticsEvent.mealSnapFromGallery,
             onPressed: () async {
               final image = await ImagePickerService().pickImageFromGallery();

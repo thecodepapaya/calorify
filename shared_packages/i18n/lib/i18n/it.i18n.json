@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Scatta e Monitora il Tuo Pasto",
       "description": "Usa la tua fotocamera per scattare una foto del tuo cibo per l'analisi dell'IA.",
-      "openCamera": "Apri la Fotocamera"
+      "openCamera": "Apri la Fotocamera",
+      "gallery": "Galleria"
     },
     "connectHealth": {
       "title": "Sincronizza con Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Salva Pasto",
     "save": "Salva",
     "mealName": "Nome del Pasto",
+    "mealNameHint": "Es.: Uova strapazzate con pane tostato",
     "mealQuantity": "Quantità del Pasto",
     "mealQuantityHint": "es. 1 ciotola, 2 fette",
     "timeOfMeal": "Orario del Pasto",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Pasto aggiunto al tuo registro!",
     "couldNotAdd": "Impossibile aggiungere il pasto: {error}",
+    "savedSuccessfully": "Pasto aggiunto con successo!",
+    "updatedSuccessfully": "Pasto aggiornato con successo!",
+    "errorSaving": "Errore durante il salvataggio del pasto: {error}",
     "removedFromFavorites": "Rimosso dai preferiti!",
     "savedAsFavorite": "Pasto salvato come preferito!",
     "couldNotUpdateFavorite": "Impossibile aggiornare il preferito: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Valuta su Play Store",
         "sendFeedback": "Invia Feedback"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Build {buildNumber}"
     }
   },
   "reminders": {

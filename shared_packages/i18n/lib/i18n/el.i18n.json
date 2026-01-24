@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Τράβηξε & Καταγράψε το Γεύμα Σου",
       "description": "Χρησιμοποίησε την κάμερά σου για να τραβήξεις μια φωτογραφία του φαγητού σου για ανάλυση με AI.",
-      "openCamera": "Άνοιγμα Κάμερας"
+      "openCamera": "Άνοιγμα Κάμερας",
+      "gallery": "Συλλογή"
     },
     "connectHealth": {
       "title": "Συγχρονίστε με Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Αποθήκευση Γεύματος",
     "save": "Αποθήκευση",
     "mealName": "Όνομα Γεύματος",
+    "mealNameHint": "π.χ., Αυγά ανακατεμένα με τοστ",
     "mealQuantity": "Ποσότητα Γεύματος",
     "mealQuantityHint": "π.χ. 1 μπολ, 2 φέτες",
     "timeOfMeal": "Ώρα Γεύματος",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Το γεύμα προστέθηκε στο ημερολόγιό σου!",
     "couldNotAdd": "Δεν μπόρεσα να προσθέσω γεύμα: {error}",
+    "savedSuccessfully": "Το γεύμα προστέθηκε με επιτυχία!",
+    "updatedSuccessfully": "Το γεύμα ενημερώθηκε με επιτυχία!",
+    "errorSaving": "Σφάλμα κατά την αποθήκευση του γεύματος: {error}",
     "removedFromFavorites": "Αφαιρέθηκε από τα αγαπημένα!",
     "savedAsFavorite": "Το γεύμα αποθηκεύτηκε ως αγαπημένο!",
     "couldNotUpdateFavorite": "Δεν μπόρεσα να ενημερώσω το αγαπημένο: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Βαθμολογήστε στο Play Store",
         "sendFeedback": "Στείλτε Ανατροφοδότηση"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Build {buildNumber}"
     }
   },
   "reminders": {

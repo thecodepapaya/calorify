@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Vyfoťte a sledujte své jídlo",
       "description": "Použijte svoji kameru, abyste vyfotili své jídlo pro analýzu AI.",
-      "openCamera": "Otevřít kameru"
+      "openCamera": "Otevřít kameru",
+      "gallery": "Galerie"
     },
     "connectHealth": {
       "title": "Synchronizujte s Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Uložit jídlo",
     "save": "Uložit",
     "mealName": "Název jídla",
+    "mealNameHint": "např. míchaná vajíčka s toustem",
     "mealQuantity": "Množství jídla",
     "mealQuantityHint": "např. 1 miska, 2 plátky",
     "timeOfMeal": "Čas jídla",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Jídlo bylo přidáno do vašeho deníku!",
     "couldNotAdd": "Nelze přidat jídlo: {error}",
+    "savedSuccessfully": "Jídlo bylo úspěšně přidáno!",
+    "updatedSuccessfully": "Jídlo bylo úspěšně aktualizováno!",
+    "errorSaving": "Chyba při ukládání jídla: {error}",
     "removedFromFavorites": "Odebráno z oblíbených!",
     "savedAsFavorite": "Jídlo bylo uloženo jako oblíbené!",
     "couldNotUpdateFavorite": "Nelze aktualizovat oblíbené: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Ohodnoťte na Play Store",
         "sendFeedback": "Odeslat zpětnou vazbu"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Sestavení {buildNumber}"
     }
   },
   "reminders": {

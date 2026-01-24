@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Captura y Rastrea Tu Comida",
       "description": "Usa tu cámara para tomar una foto de tu comida para análisis de IA.",
-      "openCamera": "Abrir Cámara"
+      "openCamera": "Abrir Cámara",
+      "gallery": "Galería"
     },
     "connectHealth": {
       "title": "Sincronizar con Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Guardar Comida",
     "save": "Guardar",
     "mealName": "Nombre de la Comida",
+    "mealNameHint": "p. ej., Huevos revueltos con tostadas",
     "mealQuantity": "Cantidad de la Comida",
     "mealQuantityHint": "ej., 1 tazón, 2 rebanadas",
     "timeOfMeal": "Hora de la Comida",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "¡Comida añadida a tu registro!",
     "couldNotAdd": "No se pudo añadir la comida: {error}",
+    "savedSuccessfully": "¡Comida registrada con éxito!",
+    "updatedSuccessfully": "¡Comida actualizada con éxito!",
+    "errorSaving": "Error al guardar la comida: {error}",
     "removedFromFavorites": "¡Eliminada de favoritos!",
     "savedAsFavorite": "¡Comida guardada como favorita!",
     "couldNotUpdateFavorite": "No se pudo actualizar favorito: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Calificar en Play Store",
         "sendFeedback": "Enviar Comentarios"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Compilación {buildNumber}"
     }
   },
   "reminders": {

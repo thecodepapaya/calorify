@@ -138,6 +138,7 @@ class _TranslationsMealHu implements TranslationsMealEn {
 	@override String get saveMeal => 'Étkezés mentése';
 	@override String get save => 'Mentés';
 	@override String get mealName => 'Étkezés neve';
+	@override String get mealNameHint => 'pl. Rántotta pirítóssal';
 	@override String get mealQuantity => 'Étkezés mennyiség';
 	@override String get mealQuantityHint => 'pl. 1 tál, 2 szelet';
 	@override String get timeOfMeal => 'Étkezés időpontja';
@@ -147,6 +148,9 @@ class _TranslationsMealHu implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationHu deleteConfirmation = _TranslationsMealDeleteConfirmationHu._(_root);
 	@override String get addedToLog => 'Étkezés hozzáadva a naplóhoz!';
 	@override String couldNotAdd({required Object error}) => 'Nem lehetett étkezést hozzáadni: ${error}';
+	@override String get savedSuccessfully => 'Étkezés sikeresen hozzáadva!';
+	@override String get updatedSuccessfully => 'Étkezés sikeresen frissítve!';
+	@override String errorSaving({required Object error}) => 'Hiba az étkezés mentésekor: ${error}';
 	@override String get removedFromFavorites => 'Eltávolítva a kedvencek közül!';
 	@override String get savedAsFavorite => 'Étkezés mentve kedvencként!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Nem lehetett frissíteni a kedvencet: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsHu implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Fejlesztő mód engedélyezve!';
 	@override late final _TranslationsSettingsHealthConnectHu healthConnect = _TranslationsSettingsHealthConnectHu._(_root);
 	@override late final _TranslationsSettingsAboutHu about = _TranslationsSettingsAboutHu._(_root);
+	@override late final _TranslationsSettingsAppInfoHu appInfo = _TranslationsSettingsAppInfoHu._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapHu implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Képzelj és Kövesd Az Étkezésed';
 	@override String get description => 'Használj kamerát, hogy fényképet készíts az ételedről az AI elemzése érdekében.';
 	@override String get openCamera => 'Kamera megnyitása';
+	@override String get gallery => 'Galéria';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutHu implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyHu privacy = _TranslationsSettingsAboutPrivacyHu._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperHu developer = _TranslationsSettingsAboutDeveloperHu._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackHu feedback = _TranslationsSettingsAboutFeedbackHu._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoHu implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsHu {
 			'home.mealSnap.title' => 'Képzelj és Kövesd Az Étkezésed',
 			'home.mealSnap.description' => 'Használj kamerát, hogy fényképet készíts az ételedről az AI elemzése érdekében.',
 			'home.mealSnap.openCamera' => 'Kamera megnyitása',
+			'home.mealSnap.gallery' => 'Galéria',
 			'home.connectHealth.title' => 'Szinkronizálás az Health Connect-tel',
 			'home.connectHealth.description' => 'Szinkronizáld táplálkozási adataidat az Health Connect-tel',
 			'home.connectHealth.install' => 'Telepítés',
@@ -1671,6 +1689,7 @@ extension on TranslationsHu {
 			'meal.saveMeal' => 'Étkezés mentése',
 			'meal.save' => 'Mentés',
 			'meal.mealName' => 'Étkezés neve',
+			'meal.mealNameHint' => 'pl. Rántotta pirítóssal',
 			'meal.mealQuantity' => 'Étkezés mennyiség',
 			'meal.mealQuantityHint' => 'pl. 1 tál, 2 szelet',
 			'meal.timeOfMeal' => 'Étkezés időpontja',
@@ -1687,6 +1706,9 @@ extension on TranslationsHu {
 			'meal.deleteConfirmation.delete' => 'Törlés',
 			'meal.addedToLog' => 'Étkezés hozzáadva a naplóhoz!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Nem lehetett étkezést hozzáadni: ${error}',
+			'meal.savedSuccessfully' => 'Étkezés sikeresen hozzáadva!',
+			'meal.updatedSuccessfully' => 'Étkezés sikeresen frissítve!',
+			'meal.errorSaving' => ({required Object error}) => 'Hiba az étkezés mentésekor: ${error}',
 			'meal.removedFromFavorites' => 'Eltávolítva a kedvencek közül!',
 			'meal.savedAsFavorite' => 'Étkezés mentve kedvencként!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Nem lehetett frissíteni a kedvencet: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsHu {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'A visszajelzésed segít abban, hogy a(z) ${appLabel} jobb legyen mindenki számára.',
 			'settings.about.feedback.rateApp' => 'Értékelje a Play Áruházban',
 			'settings.about.feedback.sendFeedback' => 'Visszajelzés küldése',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
 			'reminders.title' => 'Tartsd az ütemet emlékeztetőkkel',
 			'reminders.description' => 'Kapsz enyhe emlékeztetőket, hogy naplózd az étkezéseidet és következetes maradj táplálkozási céljaidnál',
 			'reminders.notificationsEnabled' => 'Értesítések Engedélyezve',

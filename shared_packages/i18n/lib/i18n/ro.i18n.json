@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Fă o fotografie & Urmărește-ți Masa",
       "description": "Folosește camera ta pentru a face o fotografie a alimentelor tale pentru analiza AI.",
-      "openCamera": "Deschide Camera"
+      "openCamera": "Deschide Camera",
+      "gallery": "Galerie"
     },
     "connectHealth": {
       "title": "Sincronizează-te cu Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Salvează Masa",
     "save": "Salvează",
     "mealName": "Numele Mesei",
+    "mealNameHint": "de exemplu: Ouă bătute cu pâine prăjită",
     "mealQuantity": "Cantitatea Mesei",
     "mealQuantityHint": "de ex., 1 bol, 2 felii",
     "timeOfMeal": "Ora Mesei",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Masa a fost adăugată în jurnalul tău!",
     "couldNotAdd": "Nu s-a putut adăuga masa: {error}",
+    "savedSuccessfully": "Masă adăugată cu succes!",
+    "updatedSuccessfully": "Masă actualizată cu succes!",
+    "errorSaving": "Eroare la salvarea mesei: {error}",
     "removedFromFavorites": "Eliminată din favorite!",
     "savedAsFavorite": "Masa a fost salvată ca favorit!",
     "couldNotUpdateFavorite": "Nu s-a putut actualiza favoritul: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Evaluează pe Play Store",
         "sendFeedback": "Trimite Feedback"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Compilație {buildNumber}"
     }
   },
   "reminders": {

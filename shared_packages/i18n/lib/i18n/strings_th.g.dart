@@ -138,6 +138,7 @@ class _TranslationsMealTh implements TranslationsMealEn {
 	@override String get saveMeal => 'บันทึกมื้ออาหาร';
 	@override String get save => 'บันทึก';
 	@override String get mealName => 'ชื่อมื้ออาหาร';
+	@override String get mealNameHint => 'เช่น ไข่คนกับขนมปังปิ้ง';
 	@override String get mealQuantity => 'จำนวนมื้ออาหาร';
 	@override String get mealQuantityHint => 'เช่น 1 ชาม, 2 ชั้น';
 	@override String get timeOfMeal => 'เวลาของมื้ออาหาร';
@@ -147,6 +148,9 @@ class _TranslationsMealTh implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationTh deleteConfirmation = _TranslationsMealDeleteConfirmationTh._(_root);
 	@override String get addedToLog => 'บันทึกมื้ออาหารลงในบันทึกของคุณ!';
 	@override String couldNotAdd({required Object error}) => 'ไม่สามารถเพิ่มมื้ออาหารได้: ${error}';
+	@override String get savedSuccessfully => 'เพิ่มมื้ออาหารเรียบร้อยแล้ว!';
+	@override String get updatedSuccessfully => 'อัปเดตมื้ออาหารเรียบร้อยแล้ว!';
+	@override String errorSaving({required Object error}) => 'เกิดข้อผิดพลาดในการบันทึกมื้ออาหาร: ${error}';
 	@override String get removedFromFavorites => 'ลบออกจากมื้อโปรด!';
 	@override String get savedAsFavorite => 'มื้ออาหารบันทึกเป็นโปรด!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'ไม่สามารถอัปเดตโปรดได้: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsTh implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'โหมดนักพัฒนาเปิดใช้งานแล้ว!';
 	@override late final _TranslationsSettingsHealthConnectTh healthConnect = _TranslationsSettingsHealthConnectTh._(_root);
 	@override late final _TranslationsSettingsAboutTh about = _TranslationsSettingsAboutTh._(_root);
+	@override late final _TranslationsSettingsAppInfoTh appInfo = _TranslationsSettingsAppInfoTh._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapTh implements TranslationsHomeMealSnapEn {
 	@override String get title => 'ถ่ายภาพ & ติดตามมื้ออาหารของคุณ';
 	@override String get description => 'ใช้กล้องของคุณเพื่อถ่ายภาพอาหารของคุณสำหรับการวิเคราะห์ด้วย AI';
 	@override String get openCamera => 'เปิดกล้อง';
+	@override String get gallery => 'คลังภาพ';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutTh implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyTh privacy = _TranslationsSettingsAboutPrivacyTh._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperTh developer = _TranslationsSettingsAboutDeveloperTh._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackTh feedback = _TranslationsSettingsAboutFeedbackTh._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoTh implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify เวอร์ชัน ${version}';
+	@override String build({required Object buildNumber}) => 'บิลด์ ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsTh {
 			'home.mealSnap.title' => 'ถ่ายภาพ & ติดตามมื้ออาหารของคุณ',
 			'home.mealSnap.description' => 'ใช้กล้องของคุณเพื่อถ่ายภาพอาหารของคุณสำหรับการวิเคราะห์ด้วย AI',
 			'home.mealSnap.openCamera' => 'เปิดกล้อง',
+			'home.mealSnap.gallery' => 'คลังภาพ',
 			'home.connectHealth.title' => 'ซิงค์กับ Health Connect',
 			'home.connectHealth.description' => 'ซิงค์ข้อมูลโภชนาการของคุณกับ Health Connect',
 			'home.connectHealth.install' => 'ติดตั้ง',
@@ -1671,6 +1689,7 @@ extension on TranslationsTh {
 			'meal.saveMeal' => 'บันทึกมื้ออาหาร',
 			'meal.save' => 'บันทึก',
 			'meal.mealName' => 'ชื่อมื้ออาหาร',
+			'meal.mealNameHint' => 'เช่น ไข่คนกับขนมปังปิ้ง',
 			'meal.mealQuantity' => 'จำนวนมื้ออาหาร',
 			'meal.mealQuantityHint' => 'เช่น 1 ชาม, 2 ชั้น',
 			'meal.timeOfMeal' => 'เวลาของมื้ออาหาร',
@@ -1687,6 +1706,9 @@ extension on TranslationsTh {
 			'meal.deleteConfirmation.delete' => 'ลบ',
 			'meal.addedToLog' => 'บันทึกมื้ออาหารลงในบันทึกของคุณ!',
 			'meal.couldNotAdd' => ({required Object error}) => 'ไม่สามารถเพิ่มมื้ออาหารได้: ${error}',
+			'meal.savedSuccessfully' => 'เพิ่มมื้ออาหารเรียบร้อยแล้ว!',
+			'meal.updatedSuccessfully' => 'อัปเดตมื้ออาหารเรียบร้อยแล้ว!',
+			'meal.errorSaving' => ({required Object error}) => 'เกิดข้อผิดพลาดในการบันทึกมื้ออาหาร: ${error}',
 			'meal.removedFromFavorites' => 'ลบออกจากมื้อโปรด!',
 			'meal.savedAsFavorite' => 'มื้ออาหารบันทึกเป็นโปรด!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'ไม่สามารถอัปเดตโปรดได้: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsTh {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'ข้อเสนอแนะแต่ละข้อความช่วยทำให้ ${appLabel} ดีขึ้นสำหรับทุกคน',
 			'settings.about.feedback.rateApp' => 'ให้คะแนนใน Play Store',
 			'settings.about.feedback.sendFeedback' => 'ส่งข้อเสนอแนะ',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify เวอร์ชัน ${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'บิลด์ ${buildNumber}',
 			'reminders.title' => 'อยู่ในเส้นทางด้วยการแจ้งเตือน',
 			'reminders.description' => 'รับการแจ้งเตือนที่อบอุ่นเพื่อบันทึกมื้ออาหารของคุณและรักษาความสม่ำเสมอกับเป้าหมายด้านโภชนาการ',
 			'reminders.notificationsEnabled' => 'การแจ้งเตือนเปิดใช้งาน',

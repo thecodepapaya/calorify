@@ -138,6 +138,7 @@ class _TranslationsMealHe implements TranslationsMealEn {
 	@override String get saveMeal => 'שמור ארוחה';
 	@override String get save => 'שמור';
 	@override String get mealName => 'שם הארוחה';
+	@override String get mealNameHint => 'למשל: ביצים מקושקשות עם טוסט';
 	@override String get mealQuantity => 'כמות הארוחה';
 	@override String get mealQuantityHint => 'למשל, 1 קערה, 2 פרוסות';
 	@override String get timeOfMeal => 'שעת הארוחה';
@@ -147,6 +148,9 @@ class _TranslationsMealHe implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationHe deleteConfirmation = _TranslationsMealDeleteConfirmationHe._(_root);
 	@override String get addedToLog => 'הארוחה נוספה לרשומתך!';
 	@override String couldNotAdd({required Object error}) => 'לא ניתן להוסיף ארוחה: ${error}';
+	@override String get savedSuccessfully => 'הארוחה נוספה בהצלחה!';
+	@override String get updatedSuccessfully => 'הארוחה עודכנה בהצלחה!';
+	@override String errorSaving({required Object error}) => 'שגיאה בשמירת הארוחה: ${error}';
 	@override String get removedFromFavorites => 'הוסר מהאהובים!';
 	@override String get savedAsFavorite => 'הארוחה נשמרה כאהובה!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'לא ניתן לעדכן אהוב: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsHe implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'מצב מפתח הופעל!';
 	@override late final _TranslationsSettingsHealthConnectHe healthConnect = _TranslationsSettingsHealthConnectHe._(_root);
 	@override late final _TranslationsSettingsAboutHe about = _TranslationsSettingsAboutHe._(_root);
+	@override late final _TranslationsSettingsAppInfoHe appInfo = _TranslationsSettingsAppInfoHe._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapHe implements TranslationsHomeMealSnapEn {
 	@override String get title => 'צלם ועקוב אחרי הארוחה שלך';
 	@override String get description => 'השתמש במצלמה שלך כדי לצלם תמונה של האוכל שלך לניתוח בינה מלאכותית.';
 	@override String get openCamera => 'פתח מצלמה';
+	@override String get gallery => 'גלריה';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutHe implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyHe privacy = _TranslationsSettingsAboutPrivacyHe._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperHe developer = _TranslationsSettingsAboutDeveloperHe._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackHe feedback = _TranslationsSettingsAboutFeedbackHe._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoHe implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'בניית גרסה ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsHe {
 			'home.mealSnap.title' => 'צלם ועקוב אחרי הארוחה שלך',
 			'home.mealSnap.description' => 'השתמש במצלמה שלך כדי לצלם תמונה של האוכל שלך לניתוח בינה מלאכותית.',
 			'home.mealSnap.openCamera' => 'פתח מצלמה',
+			'home.mealSnap.gallery' => 'גלריה',
 			'home.connectHealth.title' => 'סנכרן עם Health Connect',
 			'home.connectHealth.description' => 'סנכרן את נתוני התזונה שלך עם Health Connect',
 			'home.connectHealth.install' => 'התקן',
@@ -1671,6 +1689,7 @@ extension on TranslationsHe {
 			'meal.saveMeal' => 'שמור ארוחה',
 			'meal.save' => 'שמור',
 			'meal.mealName' => 'שם הארוחה',
+			'meal.mealNameHint' => 'למשל: ביצים מקושקשות עם טוסט',
 			'meal.mealQuantity' => 'כמות הארוחה',
 			'meal.mealQuantityHint' => 'למשל, 1 קערה, 2 פרוסות',
 			'meal.timeOfMeal' => 'שעת הארוחה',
@@ -1687,6 +1706,9 @@ extension on TranslationsHe {
 			'meal.deleteConfirmation.delete' => 'מחק',
 			'meal.addedToLog' => 'הארוחה נוספה לרשומתך!',
 			'meal.couldNotAdd' => ({required Object error}) => 'לא ניתן להוסיף ארוחה: ${error}',
+			'meal.savedSuccessfully' => 'הארוחה נוספה בהצלחה!',
+			'meal.updatedSuccessfully' => 'הארוחה עודכנה בהצלחה!',
+			'meal.errorSaving' => ({required Object error}) => 'שגיאה בשמירת הארוחה: ${error}',
 			'meal.removedFromFavorites' => 'הוסר מהאהובים!',
 			'meal.savedAsFavorite' => 'הארוחה נשמרה כאהובה!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'לא ניתן לעדכן אהוב: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsHe {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'הפידבק שלכם עוזר לשפר את ${appLabel} לכולם.',
 			'settings.about.feedback.rateApp' => 'דרגו בחנות Play',
 			'settings.about.feedback.sendFeedback' => 'שלחו פידבק',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'בניית גרסה ${buildNumber}',
 			'reminders.title' => 'שמור על הקצב עם תזכורות',
 			'reminders.description' => 'קבל תזכורות עדינות לרשום את הארוחות שלך ולשמור על עקביות עם מטרות התזונה שלך',
 			'reminders.notificationsEnabled' => 'התראות הופעלו',

@@ -138,6 +138,7 @@ class _TranslationsMealAr implements TranslationsMealEn {
 	@override String get saveMeal => 'احفظ الوجبة';
 	@override String get save => 'احفظ';
 	@override String get mealName => 'اسم الوجبة';
+	@override String get mealNameHint => 'مثلاً: بيض مخفوق مع خبز محمص';
 	@override String get mealQuantity => 'كمية الوجبة';
 	@override String get mealQuantityHint => 'مثل: 1 وعاء، 2 شريحة';
 	@override String get timeOfMeal => 'وقت الوجبة';
@@ -147,6 +148,9 @@ class _TranslationsMealAr implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationAr deleteConfirmation = _TranslationsMealDeleteConfirmationAr._(_root);
 	@override String get addedToLog => 'تمت إضافة الوجبة إلى سجلك!';
 	@override String couldNotAdd({required Object error}) => 'تعذر إضافة الوجبة: ${error}';
+	@override String get savedSuccessfully => 'تمت إضافة الوجبة بنجاح!';
+	@override String get updatedSuccessfully => 'تم تحديث الوجبة بنجاح!';
+	@override String errorSaving({required Object error}) => 'خطأ عند حفظ الوجبة: ${error}';
 	@override String get removedFromFavorites => 'تمت إزالتها من المفضلات!';
 	@override String get savedAsFavorite => 'تمت حفظ الوجبة كمفضلة!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'تعذر تحديث المفضلة: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsAr implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'تم تفعيل وضع المطور!';
 	@override late final _TranslationsSettingsHealthConnectAr healthConnect = _TranslationsSettingsHealthConnectAr._(_root);
 	@override late final _TranslationsSettingsAboutAr about = _TranslationsSettingsAboutAr._(_root);
+	@override late final _TranslationsSettingsAppInfoAr appInfo = _TranslationsSettingsAppInfoAr._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapAr implements TranslationsHomeMealSnapEn {
 	@override String get title => 'التقط وتابع وجبتك';
 	@override String get description => 'استخدم الكاميرا لالتقاط صورة لطعامك لتحليل الذكاء الاصطناعي.';
 	@override String get openCamera => 'فتح الكاميرا';
+	@override String get gallery => 'المعرض';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutAr implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyAr privacy = _TranslationsSettingsAboutPrivacyAr._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperAr developer = _TranslationsSettingsAboutDeveloperAr._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackAr feedback = _TranslationsSettingsAboutFeedbackAr._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoAr implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify الإصدار ${version}';
+	@override String build({required Object buildNumber}) => 'بناء ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsAr {
 			'home.mealSnap.title' => 'التقط وتابع وجبتك',
 			'home.mealSnap.description' => 'استخدم الكاميرا لالتقاط صورة لطعامك لتحليل الذكاء الاصطناعي.',
 			'home.mealSnap.openCamera' => 'فتح الكاميرا',
+			'home.mealSnap.gallery' => 'المعرض',
 			'home.connectHealth.title' => 'مزامنة مع Health Connect',
 			'home.connectHealth.description' => 'قم بمزامنة بيانات التغذية الخاصة بك مع Health Connect',
 			'home.connectHealth.install' => 'تثبيت',
@@ -1671,6 +1689,7 @@ extension on TranslationsAr {
 			'meal.saveMeal' => 'احفظ الوجبة',
 			'meal.save' => 'احفظ',
 			'meal.mealName' => 'اسم الوجبة',
+			'meal.mealNameHint' => 'مثلاً: بيض مخفوق مع خبز محمص',
 			'meal.mealQuantity' => 'كمية الوجبة',
 			'meal.mealQuantityHint' => 'مثل: 1 وعاء، 2 شريحة',
 			'meal.timeOfMeal' => 'وقت الوجبة',
@@ -1687,6 +1706,9 @@ extension on TranslationsAr {
 			'meal.deleteConfirmation.delete' => 'احذف',
 			'meal.addedToLog' => 'تمت إضافة الوجبة إلى سجلك!',
 			'meal.couldNotAdd' => ({required Object error}) => 'تعذر إضافة الوجبة: ${error}',
+			'meal.savedSuccessfully' => 'تمت إضافة الوجبة بنجاح!',
+			'meal.updatedSuccessfully' => 'تم تحديث الوجبة بنجاح!',
+			'meal.errorSaving' => ({required Object error}) => 'خطأ عند حفظ الوجبة: ${error}',
 			'meal.removedFromFavorites' => 'تمت إزالتها من المفضلات!',
 			'meal.savedAsFavorite' => 'تمت حفظ الوجبة كمفضلة!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'تعذر تحديث المفضلة: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsAr {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'تعليقاتك تساعد في جعل ${appLabel} أفضل للجميع.',
 			'settings.about.feedback.rateApp' => 'قيم على متجر بلاي',
 			'settings.about.feedback.sendFeedback' => 'أرسل تعليقات',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify الإصدار ${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'بناء ${buildNumber}',
 			'reminders.title' => 'ابق على المسار الصحيح مع التذكيرات',
 			'reminders.description' => 'احصل على تذكيرات لطيفة لتسجيل وجباتك والبقاء متسقًا مع أهداف تغذيتك',
 			'reminders.notificationsEnabled' => 'التنبيهات مفعلة',

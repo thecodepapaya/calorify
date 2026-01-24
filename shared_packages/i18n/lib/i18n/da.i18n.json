@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Tag & Spor Dit Måltid",
       "description": "Brug dit kamera til at tage et billede af din mad til AI-analyse.",
-      "openCamera": "Åbn Kamera"
+      "openCamera": "Åbn Kamera",
+      "gallery": "Galleri"
     },
     "connectHealth": {
       "title": "Synkroniser med Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Gem Måltid",
     "save": "Gem",
     "mealName": "Måltid Navn",
+    "mealNameHint": "f.eks. Røræg med toast",
     "mealQuantity": "Måltid Mængde",
     "mealQuantityHint": "f.eks. 1 skål, 2 skiver",
     "timeOfMeal": "Tidspunkt for Måltid",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Måltid tilføjet til din log!",
     "couldNotAdd": "Kunne ikke tilføje måltid: {error}",
+    "savedSuccessfully": "Måltid tilføjet!",
+    "updatedSuccessfully": "Måltid opdateret!",
+    "errorSaving": "Kunne ikke gemme måltidet: {error}",
     "removedFromFavorites": "Fjernet fra favoritter!",
     "savedAsFavorite": "Måltid gemt som favorit!",
     "couldNotUpdateFavorite": "Kunne ikke opdatere favorit: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Bedøm på Play Store",
         "sendFeedback": "Send Feedback"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Build {buildNumber}"
     }
   },
   "reminders": {

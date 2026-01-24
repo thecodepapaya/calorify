@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Ota kuva & Seuraa Ateriaasi",
       "description": "Käytä kameraasi ottaaksesi kuva ruoastasi tekoälyanalyysiä varten.",
-      "openCamera": "Avaa Kamera"
+      "openCamera": "Avaa Kamera",
+      "gallery": "Galleria"
     },
     "connectHealth": {
       "title": "Synkronoi Health Connectiin",
@@ -216,6 +217,7 @@
     "saveMeal": "Tallenna Ateria",
     "save": "Tallenna",
     "mealName": "Aterian Nimi",
+    "mealNameHint": "esim. munakokkeli ja paahtoleipä",
     "mealQuantity": "Aterian Määrä",
     "mealQuantityHint": "esim. 1 kulho, 2 viipaletta",
     "timeOfMeal": "Aterian Aika",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Ateria lisätty lokiisi!",
     "couldNotAdd": "Ateriaa ei voitu lisätä: {error}",
+    "savedSuccessfully": "Ateria lisätty onnistuneesti!",
+    "updatedSuccessfully": "Ateria päivitetty onnistuneesti!",
+    "errorSaving": "Virhe tallennettaessa ateriaa: {error}",
     "removedFromFavorites": "Poistettu suosikeista!",
     "savedAsFavorite": "Ateria tallennettu suosikiksi!",
     "couldNotUpdateFavorite": "Suosikkia ei voitu päivittää: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Arvostele Play Kaupassa",
         "sendFeedback": "Lähetä palautetta"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Koontiversio {buildNumber}"
     }
   },
   "reminders": {

@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Yemeğinizi Yakala ve Takip Et",
       "description": "AI analizi için yiyeceklerinizin fotoğrafını çekmek üzere kameranızı kullanın.",
-      "openCamera": "Kamerayı Aç"
+      "openCamera": "Kamerayı Aç",
+      "gallery": "Galeri"
     },
     "connectHealth": {
       "title": "Health Connect ile Senkronize Ol",
@@ -216,6 +217,7 @@
     "saveMeal": "Yemeği Kaydet",
     "save": "Kaydet",
     "mealName": "Yemek Adı",
+    "mealNameHint": "örn. Çırpılmış yumurta ve tost",
     "mealQuantity": "Yemek Miktarı",
     "mealQuantityHint": "Örneğin, 1 kase, 2 dilim",
     "timeOfMeal": "Yemeğin Zamanı",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Yemek kaydınıza eklendi!",
     "couldNotAdd": "Yemek eklenemedi: {error}",
+    "savedSuccessfully": "Öğün başarıyla eklendi!",
+    "updatedSuccessfully": "Öğün başarıyla güncellendi!",
+    "errorSaving": "Öğün kaydedilirken hata oluştu: {error}",
     "removedFromFavorites": "Favorilerden çıkarıldı!",
     "savedAsFavorite": "Yemek favori olarak kaydedildi!",
     "couldNotUpdateFavorite": "Favori güncellenemedi: {error}",
@@ -471,6 +476,10 @@
         "rateApp": "Play Store'da Derecelendir",
         "sendFeedback": "Geri Bildirim Gönder"
       }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Yapı {buildNumber}"
     }
   },
   "reminders": {

@@ -138,6 +138,7 @@ class _TranslationsMealNl implements TranslationsMealEn {
 	@override String get saveMeal => 'Sla Maaltijd Op';
 	@override String get save => 'Opslaan';
 	@override String get mealName => 'Maaltijd Naam';
+	@override String get mealNameHint => 'Bijv. roerei met toast';
 	@override String get mealQuantity => 'Maaltijd Hoeveelheid';
 	@override String get mealQuantityHint => 'bijv., 1 kom, 2 plakken';
 	@override String get timeOfMeal => 'Tijd van Maaltijd';
@@ -147,6 +148,9 @@ class _TranslationsMealNl implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationNl deleteConfirmation = _TranslationsMealDeleteConfirmationNl._(_root);
 	@override String get addedToLog => 'Maaltijd toegevoegd aan je logboek!';
 	@override String couldNotAdd({required Object error}) => 'Kon maaltijd niet toevoegen: ${error}';
+	@override String get savedSuccessfully => 'Maaltijd succesvol toegevoegd!';
+	@override String get updatedSuccessfully => 'Maaltijd succesvol bijgewerkt!';
+	@override String errorSaving({required Object error}) => 'Fout bij het opslaan van de maaltijd: ${error}';
 	@override String get removedFromFavorites => 'Verwijderd uit favorieten!';
 	@override String get savedAsFavorite => 'Maaltijd opgeslagen als favoriet!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Kon favoriet niet bijwerken: ${error}';
@@ -255,6 +259,7 @@ class _TranslationsSettingsNl implements TranslationsSettingsEn {
 	@override String get developerModeEnabled => 'Ontwikkelaarsmode ingeschakeld!';
 	@override late final _TranslationsSettingsHealthConnectNl healthConnect = _TranslationsSettingsHealthConnectNl._(_root);
 	@override late final _TranslationsSettingsAboutNl about = _TranslationsSettingsAboutNl._(_root);
+	@override late final _TranslationsSettingsAppInfoNl appInfo = _TranslationsSettingsAppInfoNl._(_root);
 }
 
 // Path: reminders
@@ -655,6 +660,7 @@ class _TranslationsHomeMealSnapNl implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Neem een Foto & Volg Je Maaltijd';
 	@override String get description => 'Gebruik je camera om een foto van je voedsel te maken voor AI-analyse.';
 	@override String get openCamera => 'Open Camera';
+	@override String get gallery => 'Galerij';
 }
 
 // Path: home.connectHealth
@@ -933,6 +939,17 @@ class _TranslationsSettingsAboutNl implements TranslationsSettingsAboutEn {
 	@override late final _TranslationsSettingsAboutPrivacyNl privacy = _TranslationsSettingsAboutPrivacyNl._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperNl developer = _TranslationsSettingsAboutDeveloperNl._(_root);
 	@override late final _TranslationsSettingsAboutFeedbackNl feedback = _TranslationsSettingsAboutFeedbackNl._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoNl implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1656,6 +1673,7 @@ extension on TranslationsNl {
 			'home.mealSnap.title' => 'Neem een Foto & Volg Je Maaltijd',
 			'home.mealSnap.description' => 'Gebruik je camera om een foto van je voedsel te maken voor AI-analyse.',
 			'home.mealSnap.openCamera' => 'Open Camera',
+			'home.mealSnap.gallery' => 'Galerij',
 			'home.connectHealth.title' => 'Sync met Health Connect',
 			'home.connectHealth.description' => 'Synchroniseer je voedingsgegevens met Health Connect',
 			'home.connectHealth.install' => 'Installeer',
@@ -1671,6 +1689,7 @@ extension on TranslationsNl {
 			'meal.saveMeal' => 'Sla Maaltijd Op',
 			'meal.save' => 'Opslaan',
 			'meal.mealName' => 'Maaltijd Naam',
+			'meal.mealNameHint' => 'Bijv. roerei met toast',
 			'meal.mealQuantity' => 'Maaltijd Hoeveelheid',
 			'meal.mealQuantityHint' => 'bijv., 1 kom, 2 plakken',
 			'meal.timeOfMeal' => 'Tijd van Maaltijd',
@@ -1687,6 +1706,9 @@ extension on TranslationsNl {
 			'meal.deleteConfirmation.delete' => 'Verwijderen',
 			'meal.addedToLog' => 'Maaltijd toegevoegd aan je logboek!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Kon maaltijd niet toevoegen: ${error}',
+			'meal.savedSuccessfully' => 'Maaltijd succesvol toegevoegd!',
+			'meal.updatedSuccessfully' => 'Maaltijd succesvol bijgewerkt!',
+			'meal.errorSaving' => ({required Object error}) => 'Fout bij het opslaan van de maaltijd: ${error}',
 			'meal.removedFromFavorites' => 'Verwijderd uit favorieten!',
 			'meal.savedAsFavorite' => 'Maaltijd opgeslagen als favoriet!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Kon favoriet niet bijwerken: ${error}',
@@ -1843,6 +1865,8 @@ extension on TranslationsNl {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Jouw feedback helpt ${appLabel} beter te maken voor iedereen.',
 			'settings.about.feedback.rateApp' => 'Beoordeel op Play Store',
 			'settings.about.feedback.sendFeedback' => 'Stuur Feedback',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
 			'reminders.title' => 'Blijf op koers met herinneringen',
 			'reminders.description' => 'Krijg vriendelijke herinneringen om je maaltijden bij te houden en consistent te blijven met je voedingsdoelen',
 			'reminders.notificationsEnabled' => 'Meldingen Ingeschakeld',
