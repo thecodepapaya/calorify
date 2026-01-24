@@ -73,28 +73,6 @@ services:
       db-staging:
         condition: service_healthy
 
-  # --- DATABASE ADMIN TOOL (Shared) ---
-  # pgAdmin runs with any profile or standalone for database management
-  # Note: depends_on is removed since it requires profiles to be active
-  # pgAdmin will connect to databases when they are running
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    container_name: calorify-pgadmin
-    restart: always
-    # No profile = available with any profile or can be started standalone
-    ports:
-      - "8080:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: calorify@thecodepapaya.dev
-      PGADMIN_DEFAULT_PASSWORD: admin
-      PGADMIN_CONFIG_SERVER_MODE: 'True'
-      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
-      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: 'False'
-      PGADMIN_CONFIG_WTF_CSRF_CHECK_ENABLED: 'False'
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
-
 volumes:
   postgres_data_prod:
   postgres_data_staging:
-  pgadmin_data:
