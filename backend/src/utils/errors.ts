@@ -16,7 +16,7 @@ export function createErrorResponse(detail: string): ApiError {
  */
 export function errorHandler(
   error: FastifyError,
-  request: FastifyRequest,
+  _request: FastifyRequest,
   reply: FastifyReply
 ): void {
   const statusCode = error.statusCode ?? 500;
