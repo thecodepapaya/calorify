@@ -1,8 +1,5 @@
 FROM node:20-slim
 
-# Set environment variables
-ENV NODE_ENV=production
-
 WORKDIR /app
 
 # Install system dependencies
@@ -14,9 +11,9 @@ RUN apt-get update && apt-get install -y \
 COPY package.json ./
 
 # Install all dependencies (including dev dependencies for build)
+# Use --include=dev to ensure devDependencies are installed even if NODE_ENV is set
 # npm install works with or without package-lock.json
-# If package-lock.json exists in the repo, it will be used for reproducible builds
-RUN npm install
+RUN npm install --include=dev
 
 # Copy project files
 COPY . .
@@ -24,7 +21,8 @@ COPY . .
 # Build TypeScript
 RUN npm run build
 
-# Remove dev dependencies after build
+# Set production environment and remove dev dependencies after build
+ENV NODE_ENV=production
 RUN npm prune --production
 
 # Expose port
