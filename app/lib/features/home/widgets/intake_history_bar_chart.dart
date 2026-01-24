@@ -161,7 +161,7 @@ class _MacroHistoryChart extends StatelessWidget {
                               ),
                               labelResolver:
                                   (line) =>
-                                      '${dailyGoal.toInt()}${t.home.dailyGoal.kcal}',
+                                      'Goal: ${dailyGoal.toInt()}${t.home.dailyGoal.kcal}',
                             ),
                           ),
                         ],

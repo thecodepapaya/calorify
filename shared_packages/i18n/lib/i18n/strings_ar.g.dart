@@ -37,7 +37,7 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 	TranslationsAr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsAr(meta: meta ?? this.$meta);
 
 	// Translations
-	@override String get language => 'Arabic';
+	@override String get language => 'العربية';
 	@override String get flag => '🇸🇩';
 	@override String appLabel({required Object env}) => 'كالوري في ${env}';
 	@override late final _TranslationsOnboardingAr onboarding = _TranslationsOnboardingAr._(_root);
@@ -184,6 +184,7 @@ class _TranslationsProfileAr implements TranslationsProfileEn {
 	@override String get weight => 'الوزن';
 	@override String get age => 'العمر';
 	@override String get weightGoal => 'هدف الوزن';
+	@override String get targetWeight => 'هدف الوزن';
 	@override String get activityLevel => 'مستوى النشاط';
 	@override String get healthMetrics => 'مقاييس الصحة';
 	@override String get notSet => 'لم يتم تعيينه';
@@ -252,6 +253,8 @@ class _TranslationsSettingsAr implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataAr clearAllData = _TranslationsSettingsClearAllDataAr._(_root);
 	@override late final _TranslationsSettingsDebugOptionsAr debugOptions = _TranslationsSettingsDebugOptionsAr._(_root);
 	@override String get developerModeEnabled => 'تم تفعيل وضع المطور!';
+	@override late final _TranslationsSettingsHealthConnectAr healthConnect = _TranslationsSettingsHealthConnectAr._(_root);
+	@override late final _TranslationsSettingsAboutAr about = _TranslationsSettingsAboutAr._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerAr implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'يرجى ملاحظة';
 	@override late final _TranslationsDisclaimerSnapAr snap = _TranslationsDisclaimerSnapAr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateAr weightEstimate = _TranslationsDisclaimerWeightEstimateAr._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsAr healthMetrics = _TranslationsDisclaimerHealthMetricsAr._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsAr implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'الملف الشخصي';
 	@override String get localization => 'الترجمة';
 	@override String get notifications => 'الإشعارات';
+	@override String get healthConnect => 'الاتصال الصحي';
 	@override String get supportAndLegal => 'الدعم والقانوني';
+	@override String get about => 'معلومات';
 	@override String get dangerZone => 'منطقة الخطر';
 	@override String get developer => 'المطور';
 }
@@ -895,6 +901,40 @@ class _TranslationsSettingsDebugOptionsAr implements TranslationsSettingsDebugOp
 	@override String get title => 'خيارات التصحيح';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectAr implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'الاتصال الصحي';
+	@override String get subtitle => 'عرض وإدارة الأذونات';
+	@override late final _TranslationsSettingsHealthConnectUnavailableAr unavailable = _TranslationsSettingsHealthConnectUnavailableAr._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsAr permissions = _TranslationsSettingsHealthConnectPermissionsAr._(_root);
+	@override String get managePermissions => 'إدارة الأذونات';
+	@override String get openSettings => 'فتح إعدادات الاتصال الصحي';
+	@override String get requestPermissions => 'طلب الأذونات';
+	@override String get permissionRequestCancelledOrFailed => 'تم إلغاء طلب الأذونات أو فشل. يرجى المحاولة مرة أخرى أو منح الأذونات يدويًا في إعدادات Health Connect.';
+	@override String get permissionRequestFailed => 'تعذر طلب الأذونات. يرجى المحاولة مرة أخرى أو منح الأذونات يدويًا في إعدادات Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutAr implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'حول';
+	@override String get tagline => 'وعي بالسعرات الحرارية بشكل سريع ومجاني واهتمام بالخصوصية';
+	@override late final _TranslationsSettingsAboutOurStoryAr ourStory = _TranslationsSettingsAboutOurStoryAr._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyAr privacy = _TranslationsSettingsAboutPrivacyAr._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperAr developer = _TranslationsSettingsAboutDeveloperAr._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackAr feedback = _TranslationsSettingsAboutFeedbackAr._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastAr implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastAr._(this._root);
@@ -976,6 +1016,19 @@ class _TranslationsDisclaimerWeightEstimateAr implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsAr biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsAr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightAr waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightAr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceAr professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceAr._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsAr implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'تساعدك هذه المقاييس على فهم احتياجات جسمك من الطاقة وتوجيه أهدافك الغذائية.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrAr bmr = _TranslationsDisclaimerHealthMetricsBmrAr._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeAr tdee = _TranslationsDisclaimerHealthMetricsTdeeAr._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalAr dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalAr._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1277,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveAr implements Transla
 	@override String get description => 'تمارين شديدة، وظيفة بدنية';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableAr implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect غير متاح';
+	@override String get description => 'Health Connect غير متاح على هذا الجهاز. يُرجى تثبيت Health Connect من متجر Play ‏(Android 9+) أو التحديث إلى Android 14+.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsAr implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'الأذونات';
+	@override String get description => 'الأذونات التالية مطلوبة لتوفير تكامل الاتصال الصحي:';
+	@override String get granted => 'ممنوحة';
+	@override String get notGranted => 'غير ممنوحة';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedAr caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedAr._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadAr nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadAr._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteAr nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteAr._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryAr implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'قصتنا';
+	@override String content({required Object appLabel}) => '${appLabel} وُلِدت من إحباط بسيط: معظم تطبيقات تتبع السعرات الحرارية إما معقدة للغاية، أو تطلب إدخال يدوي مستمر، أو تفرض رسوم اشتراك مرتفعة، أو تتنازل عن الخصوصية.\n\nكمطور مستقل، أردت أن أبني شيئًا أبسط وأكثر عدلاً - تطبيق يستخدم الذكاء الاصطناعي لتقليل الجهد، يبقى سريعًا ومجانيًا للاستخدام، ويعامل بيانات صحتك باحترام.\n\n${appLabel} هو التطبيق الذي كنت أتمنى وجوده: لا حسابات، لا تتبع، لا إعلانات - فقط رؤى واضحة وعملية وأهداف صحتك.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyAr implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'خصوصيتك مهمة';
+	@override String get description => 'الخصوصية ليست فكرة جانبية - إنها مبدأ تصميم. إليك ما يعنيه ذلك في الممارسة:';
+	@override String get noAccounts => 'لا حاجة لحسابات\nاستخدم التطبيق على الفور. لا تسجيل، لا هويات.';
+	@override String noTracking({required Object appLabel}) => 'لا تتبع سلوكي\n${appLabel} لا تراقب نشاطك، ولا تبني ملفات تعريف استخدام، ولا تتبعك عبر التطبيقات أو المواقع.';
+	@override String noAds({required Object appLabel}) => 'خالية من الإعلانات بتصميمها\n${appLabel} تم بناؤها لتعمل بدون إعلانات أو تحقيق إيرادات مبنية على البيانات.';
+	@override String get noDataSelling => 'لا بيع بيانات\nبيانات صحتك لا تُباع أو تُشارك مع أطراف ثالثة.';
+	@override String get localStorage => 'تخزين محلي أولاً\nبياناتك تبقى على جهازك.';
+	@override String get privacyPolicy => 'سياسة الخصوصية';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperAr implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'بناءً بواسطة مطور مستقل';
+	@override String description({required Object appLabel}) => '${appLabel} تم بناؤها وصيانتها بواسطة مطور مستقل واحد يركز على إنشاء برامج صحية تحترم الخصوصية.\n\nالتعليقات تُقرأ شخصياً وتساعد في تشكيل اتجاه التطبيق.';
+	@override String get website => 'موقع الويب';
+	@override String get email => 'البريد الإلكتروني';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackAr implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => 'استمتع بـ ${appLabel}؟';
+	@override String description({required Object appLabel}) => 'تعليقاتك تساعد في جعل ${appLabel} أفضل للجميع.';
+	@override String get rateApp => 'قيم على متجر بلاي';
+	@override String get sendFeedback => 'أرسل تعليقات';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeAr implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeAr._(this._root);
@@ -1312,6 +1446,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceAr implements Tra
 	@override String get description => 'لا تستخدم هذا التقدير لاتخاذ قرارات طبية. استشر دائمًا محترف رعاية صحية أو أخصائي تغذية مسجّل للحصول على نصائح إدارة الوزن مخصصة.';
 }
 
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrAr implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'معدل الأيض الأساسي';
+	@override String get description => 'معدل الأيض الأساسي (BMR) هو عدد السعرات الحرارية التي يحرقها جسمك في حالة الراحة للحفاظ على الوظائف الأساسية مثل التنفس والدورة الدموية. يعتمد معدل الأيض الأساسي على عمرك وجنسك وطولك ووزنك. معدل الأيض الأساسي الأعلى يعني أن جسمك يحرق بشكل طبيعي المزيد من السعرات الحرارية في حالة الراحة، وغالبًا ما يكون ذلك بسبب زيادة الكتلة العضلية أو العمر الأصغر أو كونك ذكراً. عادةً ما يشير معدل الأيض الأساسي المنخفض إلى انخفاض الكتلة العضلية أو العمر الأكبر أو كونك أنثى.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeAr implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'مجموع الإنفاق اليومي من الطاقة';
+	@override String get description => 'مجموع الإنفاق اليومي من الطاقة (TDEE) هو إجمالي السعرات الحرارية التي تحرقها يوميًا، بما في ذلك معدل الأيض الأساسي الخاص بك بالإضافة إلى السعرات الحرارية من النشاط البدني والحركة اليومية. يعتمد مجموع الإنفاق اليومي من الطاقة على معدل الأيض الأساسي الخاص بك ومستوى نشاطك. يعني مجموع الإنفاق اليومي من الطاقة الأعلى أنك تحرق المزيد من السعرات الحرارية بشكل عام، عادةً بسبب كونك أكثر نشاطًا أو لامتلاكك معدل أيض أساسي أعلى. يشير مجموع الإنفاق اليومي من الطاقة المنخفض إلى نشاط يومي أقل أو معدل أيض أساسي أقل.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalAr implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'الهدف اليومي';
+	@override String get description => 'الهدف اليومي هو كمية السعرات الحرارية الموصى بها لك يوميًا بناءً على مجموع الإنفاق اليومي من الطاقة (TDEE) وهدف الوزن الخاص بك. لفقدان الوزن، تستهلك سعرات حرارية أقل من مجموع الإنفاق اليومي من الطاقة الخاص بك. للحفاظ على الوزن، تتطابق مع مجموع الإنفاق اليومي من الطاقة. لزيادة الوزن، تستهلك سعرات حرارية أكثر من مجموع الإنفاق اليومي من الطاقة الخاص بك. يساعدك ذلك في تحقيق التغيير المطلوب في وزنك بشكل صحي.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedAr implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'قراءة إجمالي السعرات المحروقة';
+	@override String get description => 'يسمح للتطبيق بقراءة إجمالي السعرات المحروقة من الاتصال الصحي.';
+	@override String get usage => 'يستخدم هذا الإذن لعرض حرق السعرات اليومية في التطبيق، مما يساعدك على فهم إجمالي إنفاقك للطاقة طوال اليوم.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadAr implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'قراءة بيانات التغذية';
+	@override String get description => 'يسمح للتطبيق بقراءة بيانات التغذية من الاتصال الصحي.';
+	@override String get usage => 'يسمح هذا الإذن للتطبيق بقراءة معلومات التغذية التي قد تم تسجيلها بواسطة تطبيقات أخرى متصلة بالاتصال الصحي، مما يوفر لك رؤية شاملة لتغذيتك.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteAr implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'كتابة بيانات التغذية';
+	@override String get description => 'يسمح للتطبيق بكتابة بيانات التغذية إلى الاتصال الصحي.';
+	@override String get usage => 'يسمح هذا الإذن للتطبيق بمزامنة وجباتك المسجلة مع الاتصال الصحي، مما يجعل بيانات التغذية الخاصة بك متاحة للتطبيقات الصحية واللياقة البدنية الأخرى التي تستخدمها.';
+}
+
 /// The flat map containing all translations for locale <ar>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -1320,7 +1523,7 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceAr implements Tra
 extension on TranslationsAr {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'language' => 'Arabic',
+			'language' => 'العربية',
 			'flag' => '🇸🇩',
 			'appLabel' => ({required Object env}) => 'كالوري في ${env}',
 			'onboarding.welcome' => ({required Object appLabel}) => 'مرحبًا بكم في ${appLabel}',
@@ -1506,6 +1709,7 @@ extension on TranslationsAr {
 			'profile.weight' => 'الوزن',
 			'profile.age' => 'العمر',
 			'profile.weightGoal' => 'هدف الوزن',
+			'profile.targetWeight' => 'هدف الوزن',
 			'profile.activityLevel' => 'مستوى النشاط',
 			'profile.healthMetrics' => 'مقاييس الصحة',
 			'profile.notSet' => 'لم يتم تعيينه',
@@ -1561,7 +1765,9 @@ extension on TranslationsAr {
 			'settings.sections.profile' => 'الملف الشخصي',
 			'settings.sections.localization' => 'الترجمة',
 			'settings.sections.notifications' => 'الإشعارات',
+			'settings.sections.healthConnect' => 'الاتصال الصحي',
 			'settings.sections.supportAndLegal' => 'الدعم والقانوني',
+			'settings.sections.about' => 'معلومات',
 			'settings.sections.dangerZone' => 'منطقة الخطر',
 			'settings.sections.developer' => 'المطور',
 			'settings.editProfile.title' => 'تعديل الملف الشخصي',
@@ -1594,6 +1800,49 @@ extension on TranslationsAr {
 			'settings.clearAllData.clearEverything' => 'مسح كل شيء',
 			'settings.debugOptions.title' => 'خيارات التصحيح',
 			'settings.developerModeEnabled' => 'تم تفعيل وضع المطور!',
+			'settings.healthConnect.title' => 'الاتصال الصحي',
+			'settings.healthConnect.subtitle' => 'عرض وإدارة الأذونات',
+			'settings.healthConnect.unavailable.title' => 'Health Connect غير متاح',
+			'settings.healthConnect.unavailable.description' => 'Health Connect غير متاح على هذا الجهاز. يُرجى تثبيت Health Connect من متجر Play ‏(Android 9+) أو التحديث إلى Android 14+.',
+			'settings.healthConnect.permissions.title' => 'الأذونات',
+			'settings.healthConnect.permissions.description' => 'الأذونات التالية مطلوبة لتوفير تكامل الاتصال الصحي:',
+			'settings.healthConnect.permissions.granted' => 'ممنوحة',
+			'settings.healthConnect.permissions.notGranted' => 'غير ممنوحة',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'قراءة إجمالي السعرات المحروقة',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'يسمح للتطبيق بقراءة إجمالي السعرات المحروقة من الاتصال الصحي.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'يستخدم هذا الإذن لعرض حرق السعرات اليومية في التطبيق، مما يساعدك على فهم إجمالي إنفاقك للطاقة طوال اليوم.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'قراءة بيانات التغذية',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'يسمح للتطبيق بقراءة بيانات التغذية من الاتصال الصحي.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'يسمح هذا الإذن للتطبيق بقراءة معلومات التغذية التي قد تم تسجيلها بواسطة تطبيقات أخرى متصلة بالاتصال الصحي، مما يوفر لك رؤية شاملة لتغذيتك.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'كتابة بيانات التغذية',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'يسمح للتطبيق بكتابة بيانات التغذية إلى الاتصال الصحي.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'يسمح هذا الإذن للتطبيق بمزامنة وجباتك المسجلة مع الاتصال الصحي، مما يجعل بيانات التغذية الخاصة بك متاحة للتطبيقات الصحية واللياقة البدنية الأخرى التي تستخدمها.',
+			'settings.healthConnect.managePermissions' => 'إدارة الأذونات',
+			'settings.healthConnect.openSettings' => 'فتح إعدادات الاتصال الصحي',
+			'settings.healthConnect.requestPermissions' => 'طلب الأذونات',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'تم إلغاء طلب الأذونات أو فشل. يرجى المحاولة مرة أخرى أو منح الأذونات يدويًا في إعدادات Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'تعذر طلب الأذونات. يرجى المحاولة مرة أخرى أو منح الأذونات يدويًا في إعدادات Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
+			'settings.about.title' => 'حول',
+			'settings.about.tagline' => 'وعي بالسعرات الحرارية بشكل سريع ومجاني واهتمام بالخصوصية',
+			'settings.about.ourStory.title' => 'قصتنا',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} وُلِدت من إحباط بسيط: معظم تطبيقات تتبع السعرات الحرارية إما معقدة للغاية، أو تطلب إدخال يدوي مستمر، أو تفرض رسوم اشتراك مرتفعة، أو تتنازل عن الخصوصية.\n\nكمطور مستقل، أردت أن أبني شيئًا أبسط وأكثر عدلاً - تطبيق يستخدم الذكاء الاصطناعي لتقليل الجهد، يبقى سريعًا ومجانيًا للاستخدام، ويعامل بيانات صحتك باحترام.\n\n${appLabel} هو التطبيق الذي كنت أتمنى وجوده: لا حسابات، لا تتبع، لا إعلانات - فقط رؤى واضحة وعملية وأهداف صحتك.',
+			'settings.about.privacy.title' => 'خصوصيتك مهمة',
+			'settings.about.privacy.description' => 'الخصوصية ليست فكرة جانبية - إنها مبدأ تصميم. إليك ما يعنيه ذلك في الممارسة:',
+			'settings.about.privacy.noAccounts' => 'لا حاجة لحسابات\nاستخدم التطبيق على الفور. لا تسجيل، لا هويات.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'لا تتبع سلوكي\n${appLabel} لا تراقب نشاطك، ولا تبني ملفات تعريف استخدام، ولا تتبعك عبر التطبيقات أو المواقع.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'خالية من الإعلانات بتصميمها\n${appLabel} تم بناؤها لتعمل بدون إعلانات أو تحقيق إيرادات مبنية على البيانات.',
+			'settings.about.privacy.noDataSelling' => 'لا بيع بيانات\nبيانات صحتك لا تُباع أو تُشارك مع أطراف ثالثة.',
+			'settings.about.privacy.localStorage' => 'تخزين محلي أولاً\nبياناتك تبقى على جهازك.',
+			'settings.about.privacy.privacyPolicy' => 'سياسة الخصوصية',
+			'settings.about.developer.title' => 'بناءً بواسطة مطور مستقل',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} تم بناؤها وصيانتها بواسطة مطور مستقل واحد يركز على إنشاء برامج صحية تحترم الخصوصية.\n\nالتعليقات تُقرأ شخصياً وتساعد في تشكيل اتجاه التطبيق.',
+			'settings.about.developer.website' => 'موقع الويب',
+			'settings.about.developer.email' => 'البريد الإلكتروني',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'استمتع بـ ${appLabel}؟',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'تعليقاتك تساعد في جعل ${appLabel} أفضل للجميع.',
+			'settings.about.feedback.rateApp' => 'قيم على متجر بلاي',
+			'settings.about.feedback.sendFeedback' => 'أرسل تعليقات',
 			'reminders.title' => 'ابق على المسار الصحيح مع التذكيرات',
 			'reminders.description' => 'احصل على تذكيرات لطيفة لتسجيل وجباتك والبقاء متسقًا مع أهداف تغذيتك',
 			'reminders.notificationsEnabled' => 'التنبيهات مفعلة',
@@ -1646,6 +1895,13 @@ extension on TranslationsAr {
 			'disclaimer.weightEstimate.waterWeight.description' => 'يمكن أن يتقلب الوزن الطبيعي اليوم بشكل ملحوظ بسبب احتباس الماء، والهضم، والتوقيت. لا يأخذ التقدير في اعتباره هذه التغيرات اليومية.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'التوجيه المهني',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'لا تستخدم هذا التقدير لاتخاذ قرارات طبية. استشر دائمًا محترف رعاية صحية أو أخصائي تغذية مسجّل للحصول على نصائح إدارة الوزن مخصصة.',
+			'disclaimer.healthMetrics.description' => 'تساعدك هذه المقاييس على فهم احتياجات جسمك من الطاقة وتوجيه أهدافك الغذائية.',
+			'disclaimer.healthMetrics.bmr.title' => 'معدل الأيض الأساسي',
+			'disclaimer.healthMetrics.bmr.description' => 'معدل الأيض الأساسي (BMR) هو عدد السعرات الحرارية التي يحرقها جسمك في حالة الراحة للحفاظ على الوظائف الأساسية مثل التنفس والدورة الدموية. يعتمد معدل الأيض الأساسي على عمرك وجنسك وطولك ووزنك. معدل الأيض الأساسي الأعلى يعني أن جسمك يحرق بشكل طبيعي المزيد من السعرات الحرارية في حالة الراحة، وغالبًا ما يكون ذلك بسبب زيادة الكتلة العضلية أو العمر الأصغر أو كونك ذكراً. عادةً ما يشير معدل الأيض الأساسي المنخفض إلى انخفاض الكتلة العضلية أو العمر الأكبر أو كونك أنثى.',
+			'disclaimer.healthMetrics.tdee.title' => 'مجموع الإنفاق اليومي من الطاقة',
+			'disclaimer.healthMetrics.tdee.description' => 'مجموع الإنفاق اليومي من الطاقة (TDEE) هو إجمالي السعرات الحرارية التي تحرقها يوميًا، بما في ذلك معدل الأيض الأساسي الخاص بك بالإضافة إلى السعرات الحرارية من النشاط البدني والحركة اليومية. يعتمد مجموع الإنفاق اليومي من الطاقة على معدل الأيض الأساسي الخاص بك ومستوى نشاطك. يعني مجموع الإنفاق اليومي من الطاقة الأعلى أنك تحرق المزيد من السعرات الحرارية بشكل عام، عادةً بسبب كونك أكثر نشاطًا أو لامتلاكك معدل أيض أساسي أعلى. يشير مجموع الإنفاق اليومي من الطاقة المنخفض إلى نشاط يومي أقل أو معدل أيض أساسي أقل.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'الهدف اليومي',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'الهدف اليومي هو كمية السعرات الحرارية الموصى بها لك يوميًا بناءً على مجموع الإنفاق اليومي من الطاقة (TDEE) وهدف الوزن الخاص بك. لفقدان الوزن، تستهلك سعرات حرارية أقل من مجموع الإنفاق اليومي من الطاقة الخاص بك. للحفاظ على الوزن، تتطابق مع مجموع الإنفاق اليومي من الطاقة. لزيادة الوزن، تستهلك سعرات حرارية أكثر من مجموع الإنفاق اليومي من الطاقة الخاص بك. يساعدك ذلك في تحقيق التغيير المطلوب في وزنك بشكل صحي.',
 			'common.close' => 'إغلاق',
 			'common.kContinue' => 'استمر',
 			'errors.loadingProfileData' => 'خطأ في تحميل بيانات الملف الشخصي',

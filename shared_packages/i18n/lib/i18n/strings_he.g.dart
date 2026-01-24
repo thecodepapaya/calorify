@@ -37,7 +37,7 @@ class TranslationsHe with BaseTranslations<AppLocale, Translations> implements T
 	TranslationsHe $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsHe(meta: meta ?? this.$meta);
 
 	// Translations
-	@override String get language => 'Hebrew';
+	@override String get language => 'עברית';
 	@override String get flag => '🇮🇱';
 	@override String appLabel({required Object env}) => 'קלוריפיי${env}';
 	@override late final _TranslationsOnboardingHe onboarding = _TranslationsOnboardingHe._(_root);
@@ -184,6 +184,7 @@ class _TranslationsProfileHe implements TranslationsProfileEn {
 	@override String get weight => 'משקל';
 	@override String get age => 'גיל';
 	@override String get weightGoal => 'מטרת משקל';
+	@override String get targetWeight => 'משקל יעד';
 	@override String get activityLevel => 'רמת פעילות';
 	@override String get healthMetrics => 'מדדי בריאות';
 	@override String get notSet => 'לא מוגדר';
@@ -252,6 +253,8 @@ class _TranslationsSettingsHe implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataHe clearAllData = _TranslationsSettingsClearAllDataHe._(_root);
 	@override late final _TranslationsSettingsDebugOptionsHe debugOptions = _TranslationsSettingsDebugOptionsHe._(_root);
 	@override String get developerModeEnabled => 'מצב מפתח הופעל!';
+	@override late final _TranslationsSettingsHealthConnectHe healthConnect = _TranslationsSettingsHealthConnectHe._(_root);
+	@override late final _TranslationsSettingsAboutHe about = _TranslationsSettingsAboutHe._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerHe implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'אנא שים לב';
 	@override late final _TranslationsDisclaimerSnapHe snap = _TranslationsDisclaimerSnapHe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateHe weightEstimate = _TranslationsDisclaimerWeightEstimateHe._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsHe healthMetrics = _TranslationsDisclaimerHealthMetricsHe._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsHe implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'פרופיל';
 	@override String get localization => 'התאמה מקומית';
 	@override String get notifications => 'התראות';
+	@override String get healthConnect => 'חיבור בריאות';
 	@override String get supportAndLegal => 'תמיכה וחוקי';
+	@override String get about => 'אודות';
 	@override String get dangerZone => 'אזור מסוכן';
 	@override String get developer => 'מפתחים';
 }
@@ -895,6 +901,40 @@ class _TranslationsSettingsDebugOptionsHe implements TranslationsSettingsDebugOp
 	@override String get title => 'אפשרויות דיבוג';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectHe implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'חיבור בריאות';
+	@override String get subtitle => 'הצג וניהול הרשאות';
+	@override late final _TranslationsSettingsHealthConnectUnavailableHe unavailable = _TranslationsSettingsHealthConnectUnavailableHe._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsHe permissions = _TranslationsSettingsHealthConnectPermissionsHe._(_root);
+	@override String get managePermissions => 'ניהול הרשאות';
+	@override String get openSettings => 'פתח את הגדרות בריאות קונקט';
+	@override String get requestPermissions => 'בקש הרשאות';
+	@override String get permissionRequestCancelledOrFailed => 'בקשת ההרשאות בוטלה או נכשלה. נסו שוב או העניקו הרשאות ידנית בהגדרות Health Connect.';
+	@override String get permissionRequestFailed => 'לא ניתן לבקש הרשאות. נסו שוב או העניקו הרשאות ידנית בהגדרות Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutHe implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'אודות';
+	@override String get tagline => 'מודעות קלוריות מהירה, חינמית ופוקחת עיניים על פרטיות';
+	@override late final _TranslationsSettingsAboutOurStoryHe ourStory = _TranslationsSettingsAboutOurStoryHe._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyHe privacy = _TranslationsSettingsAboutPrivacyHe._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperHe developer = _TranslationsSettingsAboutDeveloperHe._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackHe feedback = _TranslationsSettingsAboutFeedbackHe._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastHe implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastHe._(this._root);
@@ -976,6 +1016,19 @@ class _TranslationsDisclaimerWeightEstimateHe implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsHe biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsHe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightHe waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightHe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceHe professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceHe._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsHe implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'מטריקות אלו עוזרות לך להבין את צורכי האנרגיה של הגוף שלך ומנחות את מטרות התזונה שלך.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrHe bmr = _TranslationsDisclaimerHealthMetricsBmrHe._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeHe tdee = _TranslationsDisclaimerHealthMetricsTdeeHe._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalHe dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalHe._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1277,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveHe implements Transla
 	@override String get description => 'פעילות גופנית קשה מאוד, עבודה פיזית';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableHe implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect לא זמין';
+	@override String get description => 'Health Connect אינו זמין במכשיר זה. נא להתקין את Health Connect מחנות Play ‏(Android 9+) או לעדכן ל-Android 14+.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsHe implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'הרשאות';
+	@override String get description => 'ההרשאות הבאות נדרשות כדי לספק אינטגרציה עם חיבור בריאות:';
+	@override String get granted => 'ניתן';
+	@override String get notGranted => 'לא ניתן';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHe caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHe._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadHe nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadHe._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteHe nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteHe._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryHe implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'הסיפור שלנו';
+	@override String content({required Object appLabel}) => '${appLabel} נוצר מתוך תסכול פשוט: רוב אפליקציות המעקב אחרי קלוריות הן מסובכות מדי, דורשות קלט ידני מתמשך, גובות תשלומים גבוהים עבור מנוי, או פוגעות בפרטיות.\n\nכמפתח עצמאי, רציתי לבנות משהו פשוט יותר והוגן יותר — אפליקציה שמשתמשת בבינה מלאכותית כדי להפחית מאמץ, נותרת מהירה וחינמית לשימוש, ומתייחסת לנתוני הבריאות שלך בכבוד.\n\n${appLabel} היא האפליקציה שאני מאחל שהיא הייתה קיימת: ללא חשבונות, ללא מעקב, ללא פרסומות — רק תובנות בריאותיות ברורות ומעשיות ומטרות הבריאות שלך.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyHe implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'הפרטיות שלך חשובה';
+	@override String get description => 'הפרטיות אינה מחשבה מאוחרת — זהו עיקרון עיצובי. הנה מה שזה אומר הלכה למעשה:';
+	@override String get noAccounts => 'אין צורך בחשבונות\nשימוש מיידי באפליקציה. אין רישום, אין זהויות.';
+	@override String noTracking({required Object appLabel}) => 'אין מעקב התנהגותי\n${appLabel} אינה עוקבת אחרי הפעילות שלך, אינה בונה פרופילי שימוש, ואינה עוקבת אחריך באפליקציות או באתרי אינטרנט.';
+	@override String noAds({required Object appLabel}) => 'ללא פרסומות בעיצוב\n${appLabel} נבנתה לפעול ללא פרסומות או מונטיזציה מבוססת נתונים.';
+	@override String get noDataSelling => 'אין מכירת נתונים\nנתוני הבריאות שלך לא נמכרים ולא משותפים עם צדדים שלישיים.';
+	@override String get localStorage => 'אחסון מקומי קודם\nהנתונים שלך נשמרים במכשיר שלך.';
+	@override String get privacyPolicy => 'מדיניות פרטיות';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperHe implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'נבנה על ידי מפתח עצמאי';
+	@override String description({required Object appLabel}) => '${appLabel} נבנית ונתמכת על ידי מפתח עצמאי שמתרכז ביצירת תוכנה לפיתוח בריאות בכבוד לפרטיות.\n\nפידבק נקרא באופן אישי ועוזר לעצב את כיוון האפליקציה.';
+	@override String get website => 'אתר האינטרנט';
+	@override String get email => 'דוא"ל';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackHe implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => 'נהנים מ-${appLabel}?';
+	@override String description({required Object appLabel}) => 'הפידבק שלכם עוזר לשפר את ${appLabel} לכולם.';
+	@override String get rateApp => 'דרגו בחנות Play';
+	@override String get sendFeedback => 'שלחו פידבק';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeHe implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeHe._(this._root);
@@ -1312,6 +1446,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceHe implements Tra
 	@override String get description => 'אל תשתמש בהערכה זו כדי לקבל החלטות רפואיות. תמיד התייעץ עם איש מקצוע בריאות או דיאטנית רשומה להמלצות ניהול משקל מותאמות אישית.';
 }
 
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrHe implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'BMR';
+	@override String get description => 'קצב חילוף החומרים הבסיסי (BMR) הוא מספר הקלוריות שהגוף שלך שורף במנוחה כדי לשמור על פונקציות בסיסיות כמו נשימה וזרימת דם. ה-BMR תלוי בגיל, במגדר, בגובה ובמשקל שלך. BMR גבוה יותר פירושו שהגוף שלך שורף באופן טבעי יותר קלוריות במנוחה, לעיתים קרובות בגלל מסת שריר גבוהה יותר, גיל צעיר יותר או היותך גבר. BMR נמוך יותר בדרך כלל מצביע על פחות מסת שריר, גיל מבוגר יותר או היותך אישה.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeHe implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TDEE';
+	@override String get description => 'ההוצאה הקולורית היומית הכוללת (TDEE) היא סך הקלוריות שאתה שורף ביום, כולל את ה-BMR שלך פלוס קלוריות מפעילות גופנית ותנועה יומית. ה-TDEE תלוי ב-BMR שלך וברמת הפעילות שלך. TDEE גבוה יותר פירושו שאתה שורף יותר קלוריות בסך הכל, בדרך כלל כתוצאה מפעילות רבה יותר או BMR גבוה יותר. TDEE נמוך יותר מצביע על פחות פעילות יומיומית או BMR נמוך יותר.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalHe implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'מטרה יומית';
+	@override String get description => 'המטרה היומית היא צריכת הקלוריות היומית המומלצת שלך בהתבסס על ה-TDEE שלך ומטרת המשקל שלך. לצורך ירידת משקל, אתה צורך פחות קלוריות מה-TDEE שלך. לשמירה על משקל, אתה תואם את ה-TDEE שלך. לצורך עליית משקל, אתה צורך יותר קלוריות מה-TDEE שלך. זה עוזר לך להגיע לשינוי המשקל הרצוי שלך בקצב בריא.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHe implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'קריאת קלוריות שנשרפות בסך הכל';
+	@override String get description => 'מאפשר לאפליקציה לקרוא את סך הקלוריות שנשרפו שלך מחיבור בריאות.';
+	@override String get usage => 'הרשאה זו משמשת כדי להציג את שריפת הקלוריות היומית שלך באפליקציה, ועוזרת לך להבין את סך הוצאת האנרגיה שלך במהלך היום.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadHe implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'קריאת נתוני תזונה';
+	@override String get description => 'מאפשר לאפליקציה לקרוא נתוני תזונה מחיבור בריאות.';
+	@override String get usage => 'הרשאה זו מאפשרת לאפליקציה לקרוא מידע תזונתי שעשוי להיות מעודכן על ידי אפליקציות אחרות מחוברות לחיבור בריאות, ומספקת תמונה מקיפה של התזונה שלך.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteHe implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'כתיבת נתוני תזונה';
+	@override String get description => 'מאפשר לאפליקציה לכתוב נתוני תזונה לחיבור בריאות.';
+	@override String get usage => 'הרשאה זו מאפשרת לאפליקציה לסנכרן את הארוחות שלך לחיבור בריאות, מה שהופך את נתוני התזונה שלך לזמינים לאפליקציות בריאות וכושר אחרות שבהן אתה משתמש.';
+}
+
 /// The flat map containing all translations for locale <he>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -1320,7 +1523,7 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceHe implements Tra
 extension on TranslationsHe {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'language' => 'Hebrew',
+			'language' => 'עברית',
 			'flag' => '🇮🇱',
 			'appLabel' => ({required Object env}) => 'קלוריפיי${env}',
 			'onboarding.welcome' => ({required Object appLabel}) => 'ברוך הבא ל${appLabel}',
@@ -1506,6 +1709,7 @@ extension on TranslationsHe {
 			'profile.weight' => 'משקל',
 			'profile.age' => 'גיל',
 			'profile.weightGoal' => 'מטרת משקל',
+			'profile.targetWeight' => 'משקל יעד',
 			'profile.activityLevel' => 'רמת פעילות',
 			'profile.healthMetrics' => 'מדדי בריאות',
 			'profile.notSet' => 'לא מוגדר',
@@ -1561,7 +1765,9 @@ extension on TranslationsHe {
 			'settings.sections.profile' => 'פרופיל',
 			'settings.sections.localization' => 'התאמה מקומית',
 			'settings.sections.notifications' => 'התראות',
+			'settings.sections.healthConnect' => 'חיבור בריאות',
 			'settings.sections.supportAndLegal' => 'תמיכה וחוקי',
+			'settings.sections.about' => 'אודות',
 			'settings.sections.dangerZone' => 'אזור מסוכן',
 			'settings.sections.developer' => 'מפתחים',
 			'settings.editProfile.title' => 'ערוך פרופיל',
@@ -1594,6 +1800,49 @@ extension on TranslationsHe {
 			'settings.clearAllData.clearEverything' => 'מחק את הכל',
 			'settings.debugOptions.title' => 'אפשרויות דיבוג',
 			'settings.developerModeEnabled' => 'מצב מפתח הופעל!',
+			'settings.healthConnect.title' => 'חיבור בריאות',
+			'settings.healthConnect.subtitle' => 'הצג וניהול הרשאות',
+			'settings.healthConnect.unavailable.title' => 'Health Connect לא זמין',
+			'settings.healthConnect.unavailable.description' => 'Health Connect אינו זמין במכשיר זה. נא להתקין את Health Connect מחנות Play ‏(Android 9+) או לעדכן ל-Android 14+.',
+			'settings.healthConnect.permissions.title' => 'הרשאות',
+			'settings.healthConnect.permissions.description' => 'ההרשאות הבאות נדרשות כדי לספק אינטגרציה עם חיבור בריאות:',
+			'settings.healthConnect.permissions.granted' => 'ניתן',
+			'settings.healthConnect.permissions.notGranted' => 'לא ניתן',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'קריאת קלוריות שנשרפות בסך הכל',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'מאפשר לאפליקציה לקרוא את סך הקלוריות שנשרפו שלך מחיבור בריאות.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'הרשאה זו משמשת כדי להציג את שריפת הקלוריות היומית שלך באפליקציה, ועוזרת לך להבין את סך הוצאת האנרגיה שלך במהלך היום.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'קריאת נתוני תזונה',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'מאפשר לאפליקציה לקרוא נתוני תזונה מחיבור בריאות.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'הרשאה זו מאפשרת לאפליקציה לקרוא מידע תזונתי שעשוי להיות מעודכן על ידי אפליקציות אחרות מחוברות לחיבור בריאות, ומספקת תמונה מקיפה של התזונה שלך.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'כתיבת נתוני תזונה',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'מאפשר לאפליקציה לכתוב נתוני תזונה לחיבור בריאות.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'הרשאה זו מאפשרת לאפליקציה לסנכרן את הארוחות שלך לחיבור בריאות, מה שהופך את נתוני התזונה שלך לזמינים לאפליקציות בריאות וכושר אחרות שבהן אתה משתמש.',
+			'settings.healthConnect.managePermissions' => 'ניהול הרשאות',
+			'settings.healthConnect.openSettings' => 'פתח את הגדרות בריאות קונקט',
+			'settings.healthConnect.requestPermissions' => 'בקש הרשאות',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'בקשת ההרשאות בוטלה או נכשלה. נסו שוב או העניקו הרשאות ידנית בהגדרות Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'לא ניתן לבקש הרשאות. נסו שוב או העניקו הרשאות ידנית בהגדרות Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
+			'settings.about.title' => 'אודות',
+			'settings.about.tagline' => 'מודעות קלוריות מהירה, חינמית ופוקחת עיניים על פרטיות',
+			'settings.about.ourStory.title' => 'הסיפור שלנו',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} נוצר מתוך תסכול פשוט: רוב אפליקציות המעקב אחרי קלוריות הן מסובכות מדי, דורשות קלט ידני מתמשך, גובות תשלומים גבוהים עבור מנוי, או פוגעות בפרטיות.\n\nכמפתח עצמאי, רציתי לבנות משהו פשוט יותר והוגן יותר — אפליקציה שמשתמשת בבינה מלאכותית כדי להפחית מאמץ, נותרת מהירה וחינמית לשימוש, ומתייחסת לנתוני הבריאות שלך בכבוד.\n\n${appLabel} היא האפליקציה שאני מאחל שהיא הייתה קיימת: ללא חשבונות, ללא מעקב, ללא פרסומות — רק תובנות בריאותיות ברורות ומעשיות ומטרות הבריאות שלך.',
+			'settings.about.privacy.title' => 'הפרטיות שלך חשובה',
+			'settings.about.privacy.description' => 'הפרטיות אינה מחשבה מאוחרת — זהו עיקרון עיצובי. הנה מה שזה אומר הלכה למעשה:',
+			'settings.about.privacy.noAccounts' => 'אין צורך בחשבונות\nשימוש מיידי באפליקציה. אין רישום, אין זהויות.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'אין מעקב התנהגותי\n${appLabel} אינה עוקבת אחרי הפעילות שלך, אינה בונה פרופילי שימוש, ואינה עוקבת אחריך באפליקציות או באתרי אינטרנט.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ללא פרסומות בעיצוב\n${appLabel} נבנתה לפעול ללא פרסומות או מונטיזציה מבוססת נתונים.',
+			'settings.about.privacy.noDataSelling' => 'אין מכירת נתונים\nנתוני הבריאות שלך לא נמכרים ולא משותפים עם צדדים שלישיים.',
+			'settings.about.privacy.localStorage' => 'אחסון מקומי קודם\nהנתונים שלך נשמרים במכשיר שלך.',
+			'settings.about.privacy.privacyPolicy' => 'מדיניות פרטיות',
+			'settings.about.developer.title' => 'נבנה על ידי מפתח עצמאי',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} נבנית ונתמכת על ידי מפתח עצמאי שמתרכז ביצירת תוכנה לפיתוח בריאות בכבוד לפרטיות.\n\nפידבק נקרא באופן אישי ועוזר לעצב את כיוון האפליקציה.',
+			'settings.about.developer.website' => 'אתר האינטרנט',
+			'settings.about.developer.email' => 'דוא"ל',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'נהנים מ-${appLabel}?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'הפידבק שלכם עוזר לשפר את ${appLabel} לכולם.',
+			'settings.about.feedback.rateApp' => 'דרגו בחנות Play',
+			'settings.about.feedback.sendFeedback' => 'שלחו פידבק',
 			'reminders.title' => 'שמור על הקצב עם תזכורות',
 			'reminders.description' => 'קבל תזכורות עדינות לרשום את הארוחות שלך ולשמור על עקביות עם מטרות התזונה שלך',
 			'reminders.notificationsEnabled' => 'התראות הופעלו',
@@ -1646,6 +1895,13 @@ extension on TranslationsHe {
 			'disclaimer.weightEstimate.waterWeight.description' => 'משקל יומי רגיל יכול להשתנות באופן משמעותי בגלל החזקת מים, עיכול וזמן. ההערכה לא לוקחת בחשבון את השינויים היומיים הללו.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'הנחיה מקצועית',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'אל תשתמש בהערכה זו כדי לקבל החלטות רפואיות. תמיד התייעץ עם איש מקצוע בריאות או דיאטנית רשומה להמלצות ניהול משקל מותאמות אישית.',
+			'disclaimer.healthMetrics.description' => 'מטריקות אלו עוזרות לך להבין את צורכי האנרגיה של הגוף שלך ומנחות את מטרות התזונה שלך.',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => 'קצב חילוף החומרים הבסיסי (BMR) הוא מספר הקלוריות שהגוף שלך שורף במנוחה כדי לשמור על פונקציות בסיסיות כמו נשימה וזרימת דם. ה-BMR תלוי בגיל, במגדר, בגובה ובמשקל שלך. BMR גבוה יותר פירושו שהגוף שלך שורף באופן טבעי יותר קלוריות במנוחה, לעיתים קרובות בגלל מסת שריר גבוהה יותר, גיל צעיר יותר או היותך גבר. BMR נמוך יותר בדרך כלל מצביע על פחות מסת שריר, גיל מבוגר יותר או היותך אישה.',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => 'ההוצאה הקולורית היומית הכוללת (TDEE) היא סך הקלוריות שאתה שורף ביום, כולל את ה-BMR שלך פלוס קלוריות מפעילות גופנית ותנועה יומית. ה-TDEE תלוי ב-BMR שלך וברמת הפעילות שלך. TDEE גבוה יותר פירושו שאתה שורף יותר קלוריות בסך הכל, בדרך כלל כתוצאה מפעילות רבה יותר או BMR גבוה יותר. TDEE נמוך יותר מצביע על פחות פעילות יומיומית או BMR נמוך יותר.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'מטרה יומית',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'המטרה היומית היא צריכת הקלוריות היומית המומלצת שלך בהתבסס על ה-TDEE שלך ומטרת המשקל שלך. לצורך ירידת משקל, אתה צורך פחות קלוריות מה-TDEE שלך. לשמירה על משקל, אתה תואם את ה-TDEE שלך. לצורך עליית משקל, אתה צורך יותר קלוריות מה-TDEE שלך. זה עוזר לך להגיע לשינוי המשקל הרצוי שלך בקצב בריא.',
 			'common.close' => 'סגור',
 			'common.kContinue' => 'להמשיך',
 			'errors.loadingProfileData' => 'שגיאה בהטענת נתוני פרופיל',

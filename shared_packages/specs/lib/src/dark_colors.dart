@@ -103,20 +103,18 @@ class DarkColors implements ColorSchemeInterface {
   Color get surfaceTint => const Color(0xFF79B3F2);
 
   // --- Icon Colors for Macro Nutrients ---
+  // Much brighter, more saturated colors for better contrast on dark backgrounds
   @override
-  Color get calorieIconColor => const Color(0xFF3F8AE0);
+  Color get proteinIconColor => const Color(0xFFFFA726); // Bright orange (Material Amber 400)
 
   @override
-  Color get proteinIconColor => const Color(0xFFFC9B36);
+  Color get carbsIconColor => const Color(0xFF26C6DA); // Bright cyan (Material Cyan 400)
 
   @override
-  Color get carbsIconColor => const Color(0xFF4CB3B3);
+  Color get fatIconColor => const Color(0xFF42A5F5); // Bright blue (Material Blue 400)
 
   @override
-  Color get fatIconColor => const Color(0xFF85B3E0);
-
-  @override
-  Color get fiberIconColor => const Color(0xFFE0B341);
+  Color get fiberIconColor => const Color(0xFFFFEB3B); // Bright yellow (Material Yellow 400)
 
   // --- Success Colors (Green) ---
   @override

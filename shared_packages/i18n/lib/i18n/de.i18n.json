@@ -264,6 +264,7 @@
     "weight": "Gewicht",
     "age": "Alter",
     "weightGoal": "Gewichtsziele",
+    "targetWeight": "Zielgewicht",
     "activityLevel": "Aktivitätslevel",
     "healthMetrics": "Gesundheitsmetriken",
     "notSet": "Nicht festgelegt",
@@ -352,7 +353,9 @@
       "profile": "PROFIL",
       "localization": "LOKALISIERUNG",
       "notifications": "BENACHRICHTIGUNGEN",
+      "healthConnect": "GESUNDHEITSVERBINDUNG",
       "supportAndLegal": "UNTERSTÜTZUNG & RECHTLICHES",
+      "about": "ÜBER",
       "dangerZone": "GEFAHRENZONE",
       "developer": "ENTWICKLER"
     },
@@ -403,7 +406,72 @@
     "debugOptions": {
       "title": "Debug-Optionen"
     },
-    "developerModeEnabled": "Entwicklermodus aktiviert!"
+    "developerModeEnabled": "Entwicklermodus aktiviert!",
+    "healthConnect": {
+      "title": "Gesundheitsverbindung",
+      "subtitle": "Berechtigungen anzeigen und verwalten",
+      "unavailable": {
+        "title": "Health Connect nicht verfügbar",
+        "description": "Health Connect ist auf diesem Gerät nicht verfügbar. Bitte installiere Health Connect aus dem Play Store (Android 9+) oder aktualisiere auf Android 14+."
+      },
+      "permissions": {
+        "title": "Berechtigungen",
+        "description": "Die folgenden Berechtigungen werden angefordert, um die Integration der Gesundheitsverbindung bereitzustellen:",
+        "granted": "Erteilt",
+        "notGranted": "Nicht Erteilt",
+        "caloriesBurned": {
+          "title": "Gesamt verbrannte Kalorien lesen",
+          "description": "Erlaubt der App, Ihre insgesamt verbrannten Kalorien aus der Gesundheitsverbindung zu lesen.",
+          "usage": "Diese Berechtigung wird verwendet, um Ihren täglichen Kalorienverbrauch in der App anzuzeigen, damit Sie Ihren gesamten Energieverbrauch im Laufe des Tages verstehen können."
+        },
+        "nutritionRead": {
+          "title": "Ernährungsdaten lesen",
+          "description": "Erlaubt der App, Ernährungsdaten aus der Gesundheitsverbindung zu lesen.",
+          "usage": "Diese Berechtigung ermöglicht es der App, Ernährungsinformationen zu lesen, die möglicherweise von anderen Apps, die mit der Gesundheitsverbindung verbunden sind, protokolliert wurden, wodurch Sie einen umfassenden Überblick über Ihre Ernährung erhalten."
+        },
+        "nutritionWrite": {
+          "title": "Ernährungsdaten schreiben",
+          "description": "Erlaubt der App, Ernährungsdaten in die Gesundheitsverbindung zu schreiben.",
+          "usage": "Diese Berechtigung ermöglicht es der App, Ihre protokollierten Mahlzeiten mit der Gesundheitsverbindung zu synchronisieren und Ihre Ernährungsdaten anderen Gesundheits- und Fitnessanwendungen, die Sie verwenden, zur Verfügung zu stellen."
+        }
+      },
+      "managePermissions": "Berechtigungen verwalten",
+      "openSettings": "Öffne die Health Connect-Einstellungen",
+      "requestPermissions": "Berechtigungen anfordern",
+      "permissionRequestCancelledOrFailed": "Die Berechtigungsanfrage wurde abgebrochen oder ist fehlgeschlagen. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect-Einstellungen.",
+      "permissionRequestFailed": "Berechtigungen konnten nicht angefordert werden. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect-Einstellungen.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "Über",
+      "tagline": "Schnelle, kostenlose und datenschutzorientierte Kalorienzählung",
+      "ourStory": {
+        "title": "Unsere Geschichte",
+        "content": "{appLabel} entstand aus einer einfachen Frustration: Die meisten Kalorienzähler-Apps sind entweder übermäßig kompliziert, verlangen ständige manuelle Eingaben, erheben hohe Abonnementsgebühren oder gehen mit der Privatsphäre um.\n\nAls solo-Entwickler wollte ich etwas Einfacheres und Faireres schaffen — eine App, die KI nutzt, um den Aufwand zu reduzieren, schnell und kostenlos ist und Ihre Gesundheitsdaten respektiert.\n\n{appLabel} ist die App, die ich mir gewünscht hätte: keine Konten, kein Tracking, keine Werbung — nur klare, praktische Einblicke und Ihre Gesundheitsziele."
+      },
+      "privacy": {
+        "title": "Ihre Privatsphäre zählt",
+        "description": "Privatsphäre ist kein nachträglicher Gedanke — es ist ein Designprinzip. Das bedeutet in der Praxis:",
+        "noAccounts": "Keine Konten erforderlich\nNutzen Sie die App sofort. Keine Anmeldungen, keine Identitäten.",
+        "noTracking": "Keine Verhaltensverfolgung\n{appLabel} überwacht nicht Ihre Aktivität, erstellt keine Nutzungsprofile oder verfolgt Sie über Apps oder Websites.",
+        "noAds": "Werbefrei von Anfang an\n{appLabel} wurde entwickelt, um ohne Werbung oder datengestützte Monetarisierung zu funktionieren.",
+        "noDataSelling": "Keine Datenverkäufe\nIhre Gesundheitsdaten werden nie verkauft oder mit Dritten geteilt.",
+        "localStorage": "Lokale Speicherung zuerst\nIhre Daten bleiben auf Ihrem Gerät.",
+        "privacyPolicy": "Datenschutzbestimmungen"
+      },
+      "developer": {
+        "title": "Entwickelt von einem Solo-Entwickler",
+        "description": "{appLabel} wird von einem einzelnen Entwickler entwickelt und gewartet, der sich darauf konzentriert, ruhige, datenschutzfreundliche Gesundheitssoftware zu erstellen.\n\nFeedback wird persönlich gelesen und hilft, die Richtung der App zu gestalten.",
+        "website": "Website",
+        "email": "E-Mail"
+      },
+      "feedback": {
+        "title": "Gefällt Ihnen {appLabel}?",
+        "description": "Ihr Feedback hilft, {appLabel} für alle besser zu machen.",
+        "rateApp": "Bewerten im Play Store",
+        "sendFeedback": "Feedback senden"
+      }
+    }
   },
   "reminders": {
     "title": "Bleibe mit Erinnerungen auf Kurs",
@@ -492,6 +560,21 @@
       "professionalGuidance": {
         "title": "Fachliche Anleitung",
         "description": "Verwende diese Schätzung nicht, um medizinische Entscheidungen zu treffen. Konsultiere immer einen Gesundheitsexperten oder registrierten Ernährungsberater für individuelle Empfehlungen zur Gewichtsverwaltung."
+      }
+    },
+    "healthMetrics": {
+      "description": "Diese Kennzahlen helfen Ihnen, den Energiebedarf Ihres Körpers zu verstehen und Ihre Ernährungsziele zu steuern.",
+      "bmr": {
+        "title": "BMR",
+        "description": "Die Basale Stoffwechselrate (BMR) ist die Anzahl der Kalorien, die Ihr Körper in Ruhe verbrennt, um grundlegende Funktionen wie Atmung und Kreislauf aufrechtzuerhalten. Der BMR hängt von Ihrem Alter, Geschlecht, Ihrer Größe und Ihrem Gewicht ab. Ein höherer BMR bedeutet, dass Ihr Körper in Ruhe mehr Kalorien verbrennt, oft aufgrund von mehr Muskelmasse, jüngerem Alter oder männlichem Geschlecht. Ein niedrigerer BMR weist normalerweise auf weniger Muskelmasse, höheres Alter oder weibliches Geschlecht hin."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Der Gesamtenergieverbrauch pro Tag (TDEE) ist die Gesamtzahl der Kalorien, die Sie pro Tag verbrennen, einschließlich Ihres BMR plus Kalorien aus körperlicher Aktivität und täglicher Bewegung. Der TDEE hängt von Ihrem BMR und Ihrem Aktivitätslevel ab. Ein höherer TDEE bedeutet, dass Sie insgesamt mehr Kalorien verbrennen, normalerweise weil Sie aktiver sind oder einen höheren BMR haben. Ein niedrigerer TDEE deutet auf weniger tägliche Aktivität oder einen niedrigeren BMR hin."
+      },
+      "dailyGoal": {
+        "title": "Tagesziel",
+        "description": "Das Tagesziel ist Ihre empfohlene tägliche Kalorienaufnahme basierend auf Ihrem TDEE und Ihrem Gewichtsziel. Für Gewichtsverlust konsumieren Sie weniger Kalorien als Ihr TDEE. Für die Gewichtserhaltung stimmen Sie Ihren TDEE ab. Für Gewichtszunahme konsumieren Sie mehr Kalorien als Ihr TDEE. Dies hilft Ihnen, Ihre gewünschte Gewichtsveränderung in einem gesunden Tempo zu erreichen."
       }
     }
   },

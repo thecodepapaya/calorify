@@ -264,6 +264,7 @@
     "weight": "Weight",
     "age": "Age",
     "weightGoal": "Weight Goal",
+    "targetWeight": "Target Weight",
     "activityLevel": "Activity Level",
     "healthMetrics": "Health Metrics",
     "notSet": "Not set",
@@ -352,7 +353,9 @@
       "profile": "PROFILE",
       "localization": "LOCALIZATION",
       "notifications": "NOTIFICATIONS",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "SUPPORT & LEGAL",
+      "about": "ABOUT",
       "dangerZone": "DANGER ZONE",
       "developer": "DEVELOPER"
     },
@@ -403,7 +406,72 @@
     "debugOptions": {
       "title": "Debug Options"
     },
-    "developerModeEnabled": "Developer mode enabled!"
+    "developerModeEnabled": "Developer mode enabled!",
+    "healthConnect": {
+      "title": "Health Connect",
+      "subtitle": "View and manage permissions",
+      "unavailable": {
+        "title": "Health Connect Unavailable",
+        "description": "Health Connect is not available on this device. Please install Health Connect from the Play Store (Android 9+) or update to Android 14+."
+      },
+      "permissions": {
+        "title": "Permissions",
+        "description": "The following permissions are requested to provide Health Connect integration:",
+        "granted": "Granted",
+        "notGranted": "Not Granted",
+        "caloriesBurned": {
+          "title": "Read Total Calories Burned",
+          "description": "Allows the app to read your total calories burned from Health Connect.",
+          "usage": "This permission is used to display your daily calorie burn in the app, helping you understand your total energy expenditure throughout the day."
+        },
+        "nutritionRead": {
+          "title": "Read Nutrition Data",
+          "description": "Allows the app to read nutrition data from Health Connect.",
+          "usage": "This permission allows the app to read nutrition information that may have been logged by other apps connected to Health Connect, providing a comprehensive view of your nutrition."
+        },
+        "nutritionWrite": {
+          "title": "Write Nutrition Data",
+          "description": "Allows the app to write nutrition data to Health Connect.",
+          "usage": "This permission allows the app to sync your logged meals to Health Connect, making your nutrition data available to other health and fitness apps you use."
+        }
+      },
+      "managePermissions": "Manage Permissions",
+      "openSettings": "Open Health Connect Settings",
+      "requestPermissions": "Request Permissions",
+      "permissionRequestCancelledOrFailed": "Permission request was cancelled or failed. Please try again or grant permissions manually in Health Connect settings.",
+      "permissionRequestFailed": "Unable to request permissions. Please try again or grant permissions manually in Health Connect settings.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "About",
+      "tagline": "Fast, free, and privacy-first calorie awareness",
+      "ourStory": {
+        "title": "Our Story",
+        "content": "{appLabel} was born from a simple frustration: most calorie tracking apps are either overly complicated, demand constant manual input, charge high subscription fees, or compromise on privacy.\n\nAs a solo developer, I wanted to build something simpler and fairer — an app that uses AI to reduce effort, stays fast and free to use, and treats your health data with respect.\n\n{appLabel} is the app I wish existed: no accounts, no tracking, no ads — just clear, practical insights and your health goals."
+      },
+      "privacy": {
+        "title": "Your Privacy Matters",
+        "description": "Privacy isn't an afterthought — it's a design principle. Here's what that means in practice:",
+        "noAccounts": "No accounts required\nUse the app immediately. No sign-ups, no identities.",
+        "noTracking": "No behavioral tracking\n{appLabel} does not monitor your activity, build usage profiles, or track you across apps or websites.",
+        "noAds": "Ad-free by design\n{appLabel} is built to work without ads or data-driven monetization.",
+        "noDataSelling": "No data selling\nYour health data is never sold or shared with third parties.",
+        "localStorage": "Local-first storage\nYour data stays on your device.",
+        "privacyPolicy": "Privacy Policy"
+      },
+      "developer": {
+        "title": "Built by a Solo Developer",
+        "description": "{appLabel} is built and maintained by a single solo developer focused on creating calm, privacy-respecting health software.\n\nFeedback is read personally and helps shape the direction of the app.",
+        "website": "Website",
+        "email": "Email"
+      },
+      "feedback": {
+        "title": "Enjoying {appLabel}?",
+        "description": "Your feedback helps make {appLabel} better for everyone.",
+        "rateApp": "Rate on Play Store",
+        "sendFeedback": "Send Feedback"
+      }
+    }
   },
   "reminders": {
     "title": "Stay on track with reminders",
@@ -492,6 +560,21 @@
       "professionalGuidance": {
         "title": "Professional Guidance",
         "description": "Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice."
+      }
+    },
+    "healthMetrics": {
+      "description": "These metrics help you understand your body's energy needs and guide your nutrition goals.",
+      "bmr": {
+        "title": "BMR",
+        "description": "Basal Metabolic Rate (BMR) is the number of calories your body burns at rest to maintain basic functions like breathing and circulation. BMR depends on your age, gender, height, and weight. A higher BMR means your body naturally burns more calories at rest, often due to more muscle mass, younger age, or being male. A lower BMR typically indicates less muscle mass, older age, or being female."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Total Daily Energy Expenditure (TDEE) is the total calories you burn per day, including your BMR plus calories from physical activity and daily movement. TDEE depends on your BMR and activity level. A higher TDEE means you burn more calories overall, usually from being more active or having a higher BMR. A lower TDEE suggests less daily activity or a lower BMR."
+      },
+      "dailyGoal": {
+        "title": "Daily Goal",
+        "description": "Daily Goal is your recommended daily calorie intake based on your TDEE and weight goal. For weight loss, you consume fewer calories than your TDEE. For weight maintenance, you match your TDEE. For weight gain, you consume more calories than your TDEE. This helps you achieve your desired weight change at a healthy pace."
       }
     }
   },

@@ -264,6 +264,7 @@
     "weight": "Paino",
     "age": "Ikä",
     "weightGoal": "Painontavoite",
+    "targetWeight": "Tavoitepaino",
     "activityLevel": "Aktiivisuustaso",
     "healthMetrics": "Terveysmittarit",
     "notSet": "Ei asetettu",
@@ -352,7 +353,9 @@
       "profile": "PROFIILI",
       "localization": "KIELIASETUS",
       "notifications": "ILMOITUKSET",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "TUKI & LAKITEKSTIT",
+      "about": "TIETOJA",
       "dangerZone": "VAARA-ALUE",
       "developer": "KEHITTÄJÄ"
     },
@@ -403,7 +406,72 @@
     "debugOptions": {
       "title": "Virheenkorjausvaihtoehdot"
     },
-    "developerModeEnabled": "Kehittäjätila käytössä!"
+    "developerModeEnabled": "Kehittäjätila käytössä!",
+    "healthConnect": {
+      "title": "Terveyteen yhdistäminen",
+      "subtitle": "Näytä ja hallinnoi käyttöoikeuksia",
+      "unavailable": {
+        "title": "Health Connect ei ole saatavilla",
+        "description": "Health Connect ei ole saatavilla tällä laitteella. Asenna Health Connect Play Kaupasta (Android 9+) tai päivitä Android 14+:ään."
+      },
+      "permissions": {
+        "title": "Käyttöoikeudet",
+        "description": "Seuraavia käyttöoikeuksia pyydetään Terveydeen yhdistämisen tarjoamiseksi:",
+        "granted": "Myönnetty",
+        "notGranted": "Ei myönnetty",
+        "caloriesBurned": {
+          "title": "Lue kokonaispoltetut kalorit",
+          "description": "Sallii sovelluksen lukea kokonaispoltetut kalorit Terveyteen yhdistämisestä.",
+          "usage": "Tätä käyttöoikeutta käytetään päivittäisen kalorien kulutuksen näyttämiseen sovelluksessa, auttaen sinua ymmärtämään kokonaisenergiankulutuksesi päivän aikana."
+        },
+        "nutritionRead": {
+          "title": "Lue ravintotiedot",
+          "description": "Sallii sovelluksen lukea ravintotietoja Terveydeen yhdistämisestä.",
+          "usage": "Tämä käyttöoikeus sallii sovelluksen lukea ravintotietoja, joita muut Terveydeen yhdistämiseen liitetyt sovellukset ovat saattaneet kirjata, tarjoten kattavan näkymän ravitsemukseesi."
+        },
+        "nutritionWrite": {
+          "title": "Kirjoita ravintotiedot",
+          "description": "Sallii sovelluksen kirjoittaa ravintotietoja Terveydeen yhdistämiseen.",
+          "usage": "Tämä käyttöoikeus sallii sovelluksen synkronoida kirjatut ateriasi Terveydeen yhdistämiseen, tehden ravintotietosi saataville muille käyttämillesi terveys- ja liikuntasovelluksille."
+        }
+      },
+      "managePermissions": "Hallitse käyttöoikeuksia",
+      "openSettings": "Avaa Health Connect -asetukset",
+      "requestPermissions": "Pyydä lupia",
+      "permissionRequestCancelledOrFailed": "Lupapyyntö peruutettiin tai epäonnistui. Yritä uudelleen tai myönnä luvat manuaalisesti Health Connectin asetuksista.",
+      "permissionRequestFailed": "Lupia ei voitu pyytää. Yritä uudelleen tai myönnä luvat manuaalisesti Health Connectin asetuksista.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "Tietoa",
+      "tagline": "Nopea, ilmainen ja yksityisyyteen keskittyvä kalorilaskuri",
+      "ourStory": {
+        "title": "Tarinaamme",
+        "content": "{appLabel} sai alkunsa yksinkertaisesta turhautumisesta: suurin osa kaloriseuranta-sovelluksista on joko liian monimutkaisia, vaativat jatkuvaa manuaalista syöttämistä, perivät korkeat tilausmaksut tai uhraavat yksityisyyden.\n\nItsenäisen kehittäjänä halusin rakentaa jotain yksinkertaisempaa ja oikeudenmukaisempaa — sovelluksen, joka käyttää tekoälyä vähentämään vaivannäköä, pysyy nopeana ja ilmaisena käyttää, ja käsittelee terveystietojasi kunnioituksella.\n\n{appLabel} on sovellus, jonka toivoin olevan olemassa: ei tilejä, ei seurantaa, ei mainoksia — vain selkeitä, käytännöllisiä oivalluksia ja tavoitteitasi terveydelle."
+      },
+      "privacy": {
+        "title": "Yksityisyytesi on tärkeää",
+        "description": "Yksityisyys ei ole jälkiajatus — se on suunnitteluperiaate. Tässä on, mitä se käytännössä tarkoittaa:",
+        "noAccounts": "Ei tilejä vaadita\nKäytä sovellusta heti. Ei rekisteröitymisiä, ei identiteettejä.",
+        "noTracking": "Ei käyttäytymisseurantaa\n{appLabel} ei valvo toimintaasi, rakenna käyttöprofiileja tai seuraa sinua sovellusten tai verkkosivustojen välillä.",
+        "noAds": "Ilman mainoksia suunniteltu\n{appLabel} on rakennettu toimimaan ilman mainoksia tai datavetosta rahoitusta.",
+        "noDataSelling": "Ei tietojen myyntiä\nTerveystietojasi ei koskaan myydä tai jaeta kolmansille osapuolille.",
+        "localStorage": "Paikallinen tallennus edellä\nTietosi pysyvät laitteellasi.",
+        "privacyPolicy": "Tietosuojakäytäntö"
+      },
+      "developer": {
+        "title": "Rakentanut itsenäinen kehittäjä",
+        "description": "{appLabel} on rakentanut ja ylläpitänyt yksi itsenäinen kehittäjä, joka keskittyy rauhallisten, yksityisyyttä kunnioittavien terveysohjelmistojen luomiseen.\n\nPalautteesi luetaan henkilökohtaisesti ja auttaa muokkaamaan sovelluksen suuntaa.",
+        "website": "Verkkosivusto",
+        "email": "Sähköposti"
+      },
+      "feedback": {
+        "title": "Pitkäaikainen {appLabel}?",
+        "description": "Palaute auttaa tekemään {appLabel} paremman kaikille.",
+        "rateApp": "Arvostele Play Kaupassa",
+        "sendFeedback": "Lähetä palautetta"
+      }
+    }
   },
   "reminders": {
     "title": "Pysy askelissa muistutuksilla",
@@ -492,6 +560,21 @@
       "professionalGuidance": {
         "title": "Ammattiohjaus",
         "description": "Älä käytä tätä arviota lääketieteellisiin päätöksiin. Konsultoi aina terveydenhuoltoalan ammattilaista tai rekisteröityä ravitsemusterapeuttia henkilökohtaisille painon hallinta neuvoille."
+      }
+    },
+    "healthMetrics": {
+      "description": "Nämä mittarit auttavat sinua ymmärtämään kehosi energian tarpeet ja ohjaavat ravitsemustavoitteitasi.",
+      "bmr": {
+        "title": "BMR",
+        "description": "Perusaineenvaihdunta (BMR) on kalorimäärä, jonka kehosi polttaa levossa ylläpitääkseen perustavanlaatuisia toimintoja, kuten hengitystä ja verenkiertoa. BMR riippuu ikäsi, sukupuolesi, pituutesi ja painostasi. Korkeampi BMR tarkoittaa, että kehosi polttaa luonnostaan enemmän kaloreita levossa, yleensä johtuen suuremmasta lihasmassasta, nuoremmasta iästä tai miehisyydestä. Alempi BMR viittaa tyypillisesti pienempään lihasmassaan, vanhempaan ikään tai naisellisuuteen."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Kokonaispäivittäinen energian kulutus (TDEE) on kokonaiskalorimäärä, jonka poltat päivässä, mukaan lukien BMR ja kalorit fyysisestä aktiivisuudesta ja päivittäisestä liikkumisesta. TDEE riippuu BMR:stäsi ja aktiivisuustasostasi. Korkeampi TDEE tarkoittaa, että poltat enemmän kaloreita yhteensä, yleensä koska olet aktiivisempi tai sinulla on korkeampi BMR. Alempi TDEE viittaa vähäisempään päivittäiseen aktiivisuuteen tai matalampaan BMR:ään."
+      },
+      "dailyGoal": {
+        "title": "Päivittäinen Tavoite",
+        "description": "Päivittäinen Tavoite on suositeltu päivittäinen kalorinsaantisi, joka perustuu TDEE:hesi ja painotavoitteeseesi. Painon pudotuksessa kulutat vähemmän kaloreita kuin TDEE:si. Painon ylläpidossa vastaat TDEE:si. Painon lisäämisessä kulutat enemmän kaloreita kuin TDEE:si. Tämä auttaa sinua saavuttamaan haluamasi painomuutoksen terveellisellä tahdilla."
       }
     }
   },

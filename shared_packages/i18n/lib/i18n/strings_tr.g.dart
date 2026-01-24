@@ -184,6 +184,7 @@ class _TranslationsProfileTr implements TranslationsProfileEn {
 	@override String get weight => 'Kilo';
 	@override String get age => 'Yaş';
 	@override String get weightGoal => 'Kilo Hedefi';
+	@override String get targetWeight => 'Hedef Ağırlık';
 	@override String get activityLevel => 'Aktivite Seviyesi';
 	@override String get healthMetrics => 'Sağlık Metrikleri';
 	@override String get notSet => 'Ayarlanmadı';
@@ -252,6 +253,8 @@ class _TranslationsSettingsTr implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataTr clearAllData = _TranslationsSettingsClearAllDataTr._(_root);
 	@override late final _TranslationsSettingsDebugOptionsTr debugOptions = _TranslationsSettingsDebugOptionsTr._(_root);
 	@override String get developerModeEnabled => 'Geliştirici modu etkinleştirildi!';
+	@override late final _TranslationsSettingsHealthConnectTr healthConnect = _TranslationsSettingsHealthConnectTr._(_root);
+	@override late final _TranslationsSettingsAboutTr about = _TranslationsSettingsAboutTr._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerTr implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'Lütfen Dikkate Alın';
 	@override late final _TranslationsDisclaimerSnapTr snap = _TranslationsDisclaimerSnapTr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateTr weightEstimate = _TranslationsDisclaimerWeightEstimateTr._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTr healthMetrics = _TranslationsDisclaimerHealthMetricsTr._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsTr implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFİL';
 	@override String get localization => 'YERELLEŞTİRME';
 	@override String get notifications => 'BİLDİRİMLER';
+	@override String get healthConnect => 'SAĞLIK BAĞLANTISI';
 	@override String get supportAndLegal => 'DESTEK & YASAL';
+	@override String get about => 'HAKKINDA';
 	@override String get dangerZone => 'TEHLİKE BÖLGESİ';
 	@override String get developer => 'GELİŞTİRİCİ';
 }
@@ -895,6 +901,40 @@ class _TranslationsSettingsDebugOptionsTr implements TranslationsSettingsDebugOp
 	@override String get title => 'Hata Ayıklama Seçenekleri';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectTr implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Sağlık Bağlantısı';
+	@override String get subtitle => 'İzinleri görüntüleyin ve yönetin';
+	@override late final _TranslationsSettingsHealthConnectUnavailableTr unavailable = _TranslationsSettingsHealthConnectUnavailableTr._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsTr permissions = _TranslationsSettingsHealthConnectPermissionsTr._(_root);
+	@override String get managePermissions => 'İzinleri Yönet';
+	@override String get openSettings => 'Sağlık Bağlantısı Ayarlarını Aç';
+	@override String get requestPermissions => 'İzinleri Talep Et';
+	@override String get permissionRequestCancelledOrFailed => 'İzin talebi iptal edildi veya başarısız oldu. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.';
+	@override String get permissionRequestFailed => 'İzinleri talep edemiyorum. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.';
+	@override String get requestingPermissions => 'Requesting...';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutTr implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hakkında';
+	@override String get tagline => 'Hızlı, ücretsiz ve gizlilik odaklı kalori farkındalığı';
+	@override late final _TranslationsSettingsAboutOurStoryTr ourStory = _TranslationsSettingsAboutOurStoryTr._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyTr privacy = _TranslationsSettingsAboutPrivacyTr._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperTr developer = _TranslationsSettingsAboutDeveloperTr._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackTr feedback = _TranslationsSettingsAboutFeedbackTr._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastTr implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastTr._(this._root);
@@ -976,6 +1016,19 @@ class _TranslationsDisclaimerWeightEstimateTr implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsTr biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsTr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightTr waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightTr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTr professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTr._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsTr implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Bu metrikler, vücudunuzun enerji ihtiyaçlarını anlamanıza ve beslenme hedeflerinizi yönlendirmenize yardımcı olur.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrTr bmr = _TranslationsDisclaimerHealthMetricsBmrTr._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeTr tdee = _TranslationsDisclaimerHealthMetricsTdeeTr._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalTr dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalTr._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1277,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveTr implements Transla
 	@override String get description => 'Çok zor bir egzersiz, fiziksel iş';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableTr implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Sağlık Bağlantısı Kullanılamıyor';
+	@override String get description => 'Sağlık Bağlantısı bu cihazda kullanılamıyor. Android 14 veya sonrası gerekmektedir.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsTr implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'İzinler';
+	@override String get description => 'Sağlık Bağlantısı entegrasyonunu sağlamak için aşağıdaki izinler istenmektedir:';
+	@override String get granted => 'Verildi';
+	@override String get notGranted => 'Verilmedi';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTr caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTr._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadTr nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadTr._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteTr nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteTr._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryTr implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hikayemiz';
+	@override String content({required Object appLabel}) => '${appLabel}, basit bir hayal kırıklığından doğdu: çoğu kalori takip uygulaması ya aşırı karmaşık, sürekli manuel giriş gerektiriyor, yüksek abonelik ücretleri talep ediyor ya da gizliliği ihlal ediyor.\n\nBir bağımsız geliştirici olarak, daha basit ve adil bir şey inşa etmek istedim - çabayı azaltan, hızlı ve ücretsiz kalmayı sağlayan ve sağlık verilerinize saygı gösteren bir uygulama.\n\n${appLabel}, var olmasını istediğim uygulama: hesap yok, izleme yok, reklam yok - sadece net, pratik bilgiler ve sağlık hedefleriniz.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyTr implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Gizliliğiniz Önemli';
+	@override String get description => 'Gizlilik, sonradan düşünülmüş bir konu değil - bir tasarım ilkesidir. Pratikte bunun ne anlama geldiği:';
+	@override String get noAccounts => 'Hesap gerekmez\nUygulamayı hemen kullanın. Kayıt yok, kimlik yok.';
+	@override String noTracking({required Object appLabel}) => 'Davranışsal izleme yok\n${appLabel}, etkinliğinizi izlemiyor, kullanım profilleri oluşturmuyor ya da sizi diğer uygulamalarda veya web sitelerinde takip etmiyor.';
+	@override String noAds({required Object appLabel}) => 'Reklamsız tasarım\n${appLabel}, reklam veya veri odaklı para kazanma olmadan çalışacak şekilde tasarlanmıştır.';
+	@override String get noDataSelling => 'Veri satışı yok\nSağlık verileriniz asla satılmıyor veya üçüncü taraflarla paylaşılmıyor.';
+	@override String get localStorage => 'Yerel depolama\nVerileriniz cihazınızda kalır.';
+	@override String get privacyPolicy => 'Gizlilik Politikası';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperTr implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Bir Bağımsız Geliştirici Tarafından İnovasyon';
+	@override String description({required Object appLabel}) => '${appLabel}, sakin ve gizliliğe saygılı sağlık yazılımları oluşturma hedefiyle tek bir bağımsız geliştirici tarafından inşa ve bakım yapılmaktadır.\n\nGeri bildirimler kişisel olarak okunmakta ve uygulamanın yönünü şekillendirmeye yardımcı olmaktadır.';
+	@override String get website => 'Web Sitesi';
+	@override String get email => 'E-posta';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackTr implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => '${appLabel}\'dan memnun musunuz?';
+	@override String description({required Object appLabel}) => 'Geri bildiriminiz, ${appLabel}\'ı herkes için daha iyi hale getirmeye yardımcı oluyor.';
+	@override String get rateApp => 'Play Store\'da Derecelendir';
+	@override String get sendFeedback => 'Geri Bildirim Gönder';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeTr implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeTr._(this._root);
@@ -1310,6 +1444,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTr implements Tra
 	// Translations
 	@override String get title => 'Profesyonel Rehberlik';
 	@override String get description => 'Bu tahmini tıbbi kararlar almak için kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyeleri için her zaman bir sağlık uzmanı veya kayıtlı diyetisyen ile danışın.';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrTr implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'BMR';
+	@override String get description => 'Bazal Metabolizma Hızı (BMR), vücudunuzun temel işlevleri sürdürebilmek için dinlenme halinde yaktığı kalori sayısıdır; bu işlevler arasında nefes alma ve dolaşım yer alır. BMR, yaşınıza, cinsiyetinize, boyunuza ve kilonuza bağlıdır. Daha yüksek bir BMR, vücudunuzun genellikle dinlenme halinde daha fazla kalori yaktığı anlamına gelir; bu genellikle daha fazla kas kütlesi, daha genç bir yaş veya erkek olma durumuna bağlıdır. Daha düşük bir BMR genellikle daha az kas kütlesi, daha ileri yaş veya kadın olmanın göstergesidir.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeTr implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TDEE';
+	@override String get description => 'Toplam Günlük Enerji Harcaması (TDEE), gün boyunca yaktığınız toplam kalori miktarını ifade eder; bu, BMR’iniz ve fiziksel aktivite ile günlük hareketten kaynaklanan kalorileri içerir. TDEE, BMR’iniz ve aktivite seviyenizle bağlantılıdır. Daha yüksek bir TDEE, genellikle daha aktif olmaktan veya daha yüksek bir BMR\'e sahip olmaktan dolayı, toplamda daha fazla kalori yaktığınız anlamına gelir. Daha düşük bir TDEE, günlük aktivitenizin daha az olduğunu veya daha düşük bir BMR\'e sahip olduğunuzu gösterir.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalTr implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Günlük Hedef';
+	@override String get description => 'Günlük Hedef, TDEE\'nize ve ağırlık hedefinize dayalı olarak önerilen günlük kalori alımınızdır. Kilo kaybı için, TDEE\'nizden daha az kalori alırsınız. Kilo koruma için, TDEE\'nizle eşleşirsiniz. Kilo almak için, TDEE\'nizden daha fazla kalori alırsınız. Bu, istediğiniz ağırlık değişimini sağlıklı bir hızda gerçekleştirmenize yardımcı olur.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTr implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Toplam Yakılan Kalorileri Oku';
+	@override String get description => 'Uygulamaya, Sağlık Bağlantısından toplam yakılan kalorilerinizi okuma izni verir.';
+	@override String get usage => 'Bu izin, uygulamada günlük kalori yakımınızı görüntülemek için kullanılır ve gün boyunca toplam enerji harcamanızı anlamanıza yardımcı olur.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadTr implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Besin Verilerini Oku';
+	@override String get description => 'Uygulamaya, Sağlık Bağlantısından besin verilerini okuma izni verir.';
+	@override String get usage => 'Bu izin, diğer uygulamalar tarafından Sağlık Bağlantısına kaydedilen besin bilgilerini okumanızı sağlar ve beslenmenize dair kapsamlı bir görünüm sunar.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteTr implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Besin Verilerini Yaz';
+	@override String get description => 'Uygulamaya, Sağlık Bağlantısına besin verilerini yazma izni verir.';
+	@override String get usage => 'Bu izin, kaydedilen öğünlerinizi Sağlık Bağlantısına senkronize etmenizi sağlar ve besin verilerinizi kullandığınız diğer sağlık ve fitness uygulamalarında erişilebilir hale getirir.';
 }
 
 /// The flat map containing all translations for locale <tr>.
@@ -1506,6 +1709,7 @@ extension on TranslationsTr {
 			'profile.weight' => 'Kilo',
 			'profile.age' => 'Yaş',
 			'profile.weightGoal' => 'Kilo Hedefi',
+			'profile.targetWeight' => 'Hedef Ağırlık',
 			'profile.activityLevel' => 'Aktivite Seviyesi',
 			'profile.healthMetrics' => 'Sağlık Metrikleri',
 			'profile.notSet' => 'Ayarlanmadı',
@@ -1561,7 +1765,9 @@ extension on TranslationsTr {
 			'settings.sections.profile' => 'PROFİL',
 			'settings.sections.localization' => 'YERELLEŞTİRME',
 			'settings.sections.notifications' => 'BİLDİRİMLER',
+			'settings.sections.healthConnect' => 'SAĞLIK BAĞLANTISI',
 			'settings.sections.supportAndLegal' => 'DESTEK & YASAL',
+			'settings.sections.about' => 'HAKKINDA',
 			'settings.sections.dangerZone' => 'TEHLİKE BÖLGESİ',
 			'settings.sections.developer' => 'GELİŞTİRİCİ',
 			'settings.editProfile.title' => 'Profili Düzenle',
@@ -1594,6 +1800,49 @@ extension on TranslationsTr {
 			'settings.clearAllData.clearEverything' => 'Her Şeyi Temizle',
 			'settings.debugOptions.title' => 'Hata Ayıklama Seçenekleri',
 			'settings.developerModeEnabled' => 'Geliştirici modu etkinleştirildi!',
+			'settings.healthConnect.title' => 'Sağlık Bağlantısı',
+			'settings.healthConnect.subtitle' => 'İzinleri görüntüleyin ve yönetin',
+			'settings.healthConnect.unavailable.title' => 'Sağlık Bağlantısı Kullanılamıyor',
+			'settings.healthConnect.unavailable.description' => 'Sağlık Bağlantısı bu cihazda kullanılamıyor. Android 14 veya sonrası gerekmektedir.',
+			'settings.healthConnect.permissions.title' => 'İzinler',
+			'settings.healthConnect.permissions.description' => 'Sağlık Bağlantısı entegrasyonunu sağlamak için aşağıdaki izinler istenmektedir:',
+			'settings.healthConnect.permissions.granted' => 'Verildi',
+			'settings.healthConnect.permissions.notGranted' => 'Verilmedi',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Toplam Yakılan Kalorileri Oku',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Uygulamaya, Sağlık Bağlantısından toplam yakılan kalorilerinizi okuma izni verir.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Bu izin, uygulamada günlük kalori yakımınızı görüntülemek için kullanılır ve gün boyunca toplam enerji harcamanızı anlamanıza yardımcı olur.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Besin Verilerini Oku',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Uygulamaya, Sağlık Bağlantısından besin verilerini okuma izni verir.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Bu izin, diğer uygulamalar tarafından Sağlık Bağlantısına kaydedilen besin bilgilerini okumanızı sağlar ve beslenmenize dair kapsamlı bir görünüm sunar.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Besin Verilerini Yaz',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Uygulamaya, Sağlık Bağlantısına besin verilerini yazma izni verir.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Bu izin, kaydedilen öğünlerinizi Sağlık Bağlantısına senkronize etmenizi sağlar ve besin verilerinizi kullandığınız diğer sağlık ve fitness uygulamalarında erişilebilir hale getirir.',
+			'settings.healthConnect.managePermissions' => 'İzinleri Yönet',
+			'settings.healthConnect.openSettings' => 'Sağlık Bağlantısı Ayarlarını Aç',
+			'settings.healthConnect.requestPermissions' => 'İzinleri Talep Et',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'İzin talebi iptal edildi veya başarısız oldu. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.',
+			'settings.healthConnect.permissionRequestFailed' => 'İzinleri talep edemiyorum. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
+			'settings.about.title' => 'Hakkında',
+			'settings.about.tagline' => 'Hızlı, ücretsiz ve gizlilik odaklı kalori farkındalığı',
+			'settings.about.ourStory.title' => 'Hikayemiz',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel}, basit bir hayal kırıklığından doğdu: çoğu kalori takip uygulaması ya aşırı karmaşık, sürekli manuel giriş gerektiriyor, yüksek abonelik ücretleri talep ediyor ya da gizliliği ihlal ediyor.\n\nBir bağımsız geliştirici olarak, daha basit ve adil bir şey inşa etmek istedim - çabayı azaltan, hızlı ve ücretsiz kalmayı sağlayan ve sağlık verilerinize saygı gösteren bir uygulama.\n\n${appLabel}, var olmasını istediğim uygulama: hesap yok, izleme yok, reklam yok - sadece net, pratik bilgiler ve sağlık hedefleriniz.',
+			'settings.about.privacy.title' => 'Gizliliğiniz Önemli',
+			'settings.about.privacy.description' => 'Gizlilik, sonradan düşünülmüş bir konu değil - bir tasarım ilkesidir. Pratikte bunun ne anlama geldiği:',
+			'settings.about.privacy.noAccounts' => 'Hesap gerekmez\nUygulamayı hemen kullanın. Kayıt yok, kimlik yok.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Davranışsal izleme yok\n${appLabel}, etkinliğinizi izlemiyor, kullanım profilleri oluşturmuyor ya da sizi diğer uygulamalarda veya web sitelerinde takip etmiyor.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Reklamsız tasarım\n${appLabel}, reklam veya veri odaklı para kazanma olmadan çalışacak şekilde tasarlanmıştır.',
+			'settings.about.privacy.noDataSelling' => 'Veri satışı yok\nSağlık verileriniz asla satılmıyor veya üçüncü taraflarla paylaşılmıyor.',
+			'settings.about.privacy.localStorage' => 'Yerel depolama\nVerileriniz cihazınızda kalır.',
+			'settings.about.privacy.privacyPolicy' => 'Gizlilik Politikası',
+			'settings.about.developer.title' => 'Bir Bağımsız Geliştirici Tarafından İnovasyon',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel}, sakin ve gizliliğe saygılı sağlık yazılımları oluşturma hedefiyle tek bir bağımsız geliştirici tarafından inşa ve bakım yapılmaktadır.\n\nGeri bildirimler kişisel olarak okunmakta ve uygulamanın yönünü şekillendirmeye yardımcı olmaktadır.',
+			'settings.about.developer.website' => 'Web Sitesi',
+			'settings.about.developer.email' => 'E-posta',
+			'settings.about.feedback.title' => ({required Object appLabel}) => '${appLabel}\'dan memnun musunuz?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Geri bildiriminiz, ${appLabel}\'ı herkes için daha iyi hale getirmeye yardımcı oluyor.',
+			'settings.about.feedback.rateApp' => 'Play Store\'da Derecelendir',
+			'settings.about.feedback.sendFeedback' => 'Geri Bildirim Gönder',
 			'reminders.title' => 'Hatırlatıcılarla doğru yolda kalın',
 			'reminders.description' => 'Yemeklerinizi kaydetmek ve beslenme hedeflerinize sadık kalmak için nazik hatırlatmalar alın',
 			'reminders.notificationsEnabled' => 'Bildirimler Etkinleştirildi',
@@ -1646,6 +1895,13 @@ extension on TranslationsTr {
 			'disclaimer.weightEstimate.waterWeight.description' => 'Normal günlük ağırlık, su tutma, sindirim ve zamanlama nedeniyle önemli ölçüde dalgalanabilir. Tahmin, bu günlük değişiklikleri dikkate almaz.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Profesyonel Rehberlik',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Bu tahmini tıbbi kararlar almak için kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyeleri için her zaman bir sağlık uzmanı veya kayıtlı diyetisyen ile danışın.',
+			'disclaimer.healthMetrics.description' => 'Bu metrikler, vücudunuzun enerji ihtiyaçlarını anlamanıza ve beslenme hedeflerinizi yönlendirmenize yardımcı olur.',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => 'Bazal Metabolizma Hızı (BMR), vücudunuzun temel işlevleri sürdürebilmek için dinlenme halinde yaktığı kalori sayısıdır; bu işlevler arasında nefes alma ve dolaşım yer alır. BMR, yaşınıza, cinsiyetinize, boyunuza ve kilonuza bağlıdır. Daha yüksek bir BMR, vücudunuzun genellikle dinlenme halinde daha fazla kalori yaktığı anlamına gelir; bu genellikle daha fazla kas kütlesi, daha genç bir yaş veya erkek olma durumuna bağlıdır. Daha düşük bir BMR genellikle daha az kas kütlesi, daha ileri yaş veya kadın olmanın göstergesidir.',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => 'Toplam Günlük Enerji Harcaması (TDEE), gün boyunca yaktığınız toplam kalori miktarını ifade eder; bu, BMR’iniz ve fiziksel aktivite ile günlük hareketten kaynaklanan kalorileri içerir. TDEE, BMR’iniz ve aktivite seviyenizle bağlantılıdır. Daha yüksek bir TDEE, genellikle daha aktif olmaktan veya daha yüksek bir BMR\'e sahip olmaktan dolayı, toplamda daha fazla kalori yaktığınız anlamına gelir. Daha düşük bir TDEE, günlük aktivitenizin daha az olduğunu veya daha düşük bir BMR\'e sahip olduğunuzu gösterir.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Günlük Hedef',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Günlük Hedef, TDEE\'nize ve ağırlık hedefinize dayalı olarak önerilen günlük kalori alımınızdır. Kilo kaybı için, TDEE\'nizden daha az kalori alırsınız. Kilo koruma için, TDEE\'nizle eşleşirsiniz. Kilo almak için, TDEE\'nizden daha fazla kalori alırsınız. Bu, istediğiniz ağırlık değişimini sağlıklı bir hızda gerçekleştirmenize yardımcı olur.',
 			'common.close' => 'Kapat',
 			'common.kContinue' => 'Devam Et',
 			'errors.loadingProfileData' => 'Profil verileri yüklenirken hata',

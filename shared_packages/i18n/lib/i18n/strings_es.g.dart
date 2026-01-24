@@ -184,6 +184,7 @@ class _TranslationsProfileEs implements TranslationsProfileEn {
 	@override String get weight => 'Peso';
 	@override String get age => 'Edad';
 	@override String get weightGoal => 'Objetivo de Peso';
+	@override String get targetWeight => 'Peso Objetivo';
 	@override String get activityLevel => 'Nivel de Actividad';
 	@override String get healthMetrics => 'Métricas de Salud';
 	@override String get notSet => 'No establecido';
@@ -252,6 +253,8 @@ class _TranslationsSettingsEs implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataEs clearAllData = _TranslationsSettingsClearAllDataEs._(_root);
 	@override late final _TranslationsSettingsDebugOptionsEs debugOptions = _TranslationsSettingsDebugOptionsEs._(_root);
 	@override String get developerModeEnabled => '¡Modo de desarrollador habilitado!';
+	@override late final _TranslationsSettingsHealthConnectEs healthConnect = _TranslationsSettingsHealthConnectEs._(_root);
+	@override late final _TranslationsSettingsAboutEs about = _TranslationsSettingsAboutEs._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerEs implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'Ten en cuenta';
 	@override late final _TranslationsDisclaimerSnapEs snap = _TranslationsDisclaimerSnapEs._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateEs weightEstimate = _TranslationsDisclaimerWeightEstimateEs._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsEs healthMetrics = _TranslationsDisclaimerHealthMetricsEs._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsEs implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PERFIL';
 	@override String get localization => 'LOCALIZACIÓN';
 	@override String get notifications => 'NOTIFICACIONES';
+	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'SOPORTE Y LEGAL';
+	@override String get about => 'ACERCA DE';
 	@override String get dangerZone => 'ZONA DE PELIGRO';
 	@override String get developer => 'DESARROLLADOR';
 }
@@ -895,6 +901,40 @@ class _TranslationsSettingsDebugOptionsEs implements TranslationsSettingsDebugOp
 	@override String get title => 'Opciones de Depuración';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectEs implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect';
+	@override String get subtitle => 'Ver y gestionar permisos';
+	@override late final _TranslationsSettingsHealthConnectUnavailableEs unavailable = _TranslationsSettingsHealthConnectUnavailableEs._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsEs permissions = _TranslationsSettingsHealthConnectPermissionsEs._(_root);
+	@override String get managePermissions => 'Gestionar Permisos';
+	@override String get openSettings => 'Abrir la configuración de Health Connect';
+	@override String get requestPermissions => 'Solicitar permisos';
+	@override String get permissionRequestCancelledOrFailed => 'La solicitud de permisos se canceló o falló. Inténtalo de nuevo o concede los permisos manualmente en la configuración de Health Connect.';
+	@override String get permissionRequestFailed => 'No se pudieron solicitar los permisos. Inténtalo de nuevo o concede los permisos manualmente en la configuración de Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutEs implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Acerca de';
+	@override String get tagline => 'Conciencia de calorías rápida, gratuita y priorizando la privacidad';
+	@override late final _TranslationsSettingsAboutOurStoryEs ourStory = _TranslationsSettingsAboutOurStoryEs._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyEs privacy = _TranslationsSettingsAboutPrivacyEs._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperEs developer = _TranslationsSettingsAboutDeveloperEs._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackEs feedback = _TranslationsSettingsAboutFeedbackEs._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastEs implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastEs._(this._root);
@@ -976,6 +1016,19 @@ class _TranslationsDisclaimerWeightEstimateEs implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsEs biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsEs._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightEs waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightEs._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceEs professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceEs._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsEs implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Estas métricas te ayudan a comprender las necesidades energéticas de tu cuerpo y guiar tus objetivos nutricionales.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrEs bmr = _TranslationsDisclaimerHealthMetricsBmrEs._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeEs tdee = _TranslationsDisclaimerHealthMetricsTdeeEs._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalEs dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalEs._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1277,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveEs implements Transla
 	@override String get description => 'Ejercicio muy intenso, trabajo físico';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableEs implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect No Disponible';
+	@override String get description => 'Health Connect no está disponible en este dispositivo. Instala Health Connect desde Play Store (Android 9+) o actualiza a Android 14+.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsEs implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Permisos';
+	@override String get description => 'Se solicitan los siguientes permisos para proporcionar integración con Health Connect:';
+	@override String get granted => 'Concedido';
+	@override String get notGranted => 'No Concedido';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEs caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEs._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadEs nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadEs._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteEs nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteEs._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryEs implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Nuestra Historia';
+	@override String content({required Object appLabel}) => '${appLabel} nació de una frustración simple: la mayoría de las aplicaciones para el seguimiento de calorías son excesivamente complicadas, requieren un constante ingreso manual, cobran altas tarifas de suscripción o comprometen la privacidad.\n\nComo desarrollador independiente, quería crear algo más simple y justo: una aplicación que utiliza IA para reducir el esfuerzo, que se mantenga rápida y gratuita, y que trate tus datos de salud con respeto.\n\n${appLabel} es la aplicación que desearía que existiera: sin cuentas, sin seguimiento, sin anuncios, solo ideas claras y prácticas y tus objetivos de salud.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyEs implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tu Privacidad Importa';
+	@override String get description => 'La privacidad no es un pensamiento posterior, es un principio de diseño. Esto es lo que significa en la práctica:';
+	@override String get noAccounts => 'Sin cuentas requeridas\nUsa la aplicación de inmediato. Sin registros, sin identidades.';
+	@override String noTracking({required Object appLabel}) => 'Sin seguimiento de comportamiento\n${appLabel} no monitorea tu actividad, no crea perfiles de uso, ni te sigue a través de aplicaciones o sitios web.';
+	@override String noAds({required Object appLabel}) => 'Sin anuncios por diseño\n${appLabel} está construida para funcionar sin anuncios ni monetización basada en datos.';
+	@override String get noDataSelling => 'Sin venta de datos\nTus datos de salud nunca se venden ni se comparten con terceros.';
+	@override String get localStorage => 'Almacenamiento local primero\nTus datos permanecen en tu dispositivo.';
+	@override String get privacyPolicy => 'Política de privacidad';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperEs implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Construido por un Desarrollador Independiente';
+	@override String description({required Object appLabel}) => '${appLabel} es construido y mantenido por un solo desarrollador independiente enfocado en crear software de salud que respete la privacidad y genere calma.\n\nLos comentarios se leen personalmente y ayudan a dar forma a la dirección de la aplicación.';
+	@override String get website => 'Sitio web';
+	@override String get email => 'Correo electrónico';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackEs implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => '¿Disfrutando de ${appLabel}?';
+	@override String description({required Object appLabel}) => 'Tus comentarios ayudan a hacer de ${appLabel} algo mejor para todos.';
+	@override String get rateApp => 'Calificar en Play Store';
+	@override String get sendFeedback => 'Enviar Comentarios';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeEs implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeEs._(this._root);
@@ -1310,6 +1444,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceEs implements Tra
 	// Translations
 	@override String get title => 'Orientación Profesional';
 	@override String get description => 'No utilices esta estimación para tomar decisiones médicas. Siempre consulta a un profesional de la salud o dietista registrado para asesoría personalizada sobre gestión de peso.';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrEs implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TMB';
+	@override String get description => 'La Tasa Metabólica Basal (TMB) es la cantidad de calorías que tu cuerpo quema en reposo para mantener funciones básicas como la respiración y la circulación. La TMB depende de tu edad, género, altura y peso. Una TMB más alta significa que tu cuerpo quema naturalmente más calorías en reposo, a menudo debido a una mayor masa muscular, una edad más joven o ser masculino. Una TMB más baja típicamente indica menos masa muscular, una edad mayor o ser femenina.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeEs implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Gasto Energético Diario Total';
+	@override String get description => 'El Gasto Energético Diario Total (TDEE) es la cantidad total de calorías que quemas por día, incluyendo tu TMB más las calorías de la actividad física y el movimiento diario. El TDEE depende de tu TMB y nivel de actividad. Un TDEE más alto significa que quemas más calorías en general, normalmente por estar más activo o tener una TMB más alta. Un TDEE más bajo sugiere menos actividad diaria o una TMB más baja.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalEs implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Objetivo Diario';
+	@override String get description => 'El Objetivo Diario es tu ingesta calórica diaria recomendada basada en tu TDEE y objetivo de peso. Para perder peso, consumes menos calorías que tu TDEE. Para mantener el peso, igualas tu TDEE. Para ganar peso, consumes más calorías que tu TDEE. Esto te ayuda a lograr tu cambio de peso deseado a un ritmo saludable.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEs implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Leer Calorías Totales Quemadas';
+	@override String get description => 'Permite que la app lea tus calorías totales quemadas desde Health Connect.';
+	@override String get usage => 'Este permiso se utiliza para mostrar tu quema diaria de calorías en la app, ayudándote a comprender tu gasto energético total a lo largo del día.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadEs implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Leer Datos de Nutrición';
+	@override String get description => 'Permite que la app lea datos de nutrición desde Health Connect.';
+	@override String get usage => 'Este permiso permite a la app leer información nutricional que puede haber sido registrada por otras apps conectadas a Health Connect, proporcionando una vista completa de tu nutrición.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteEs implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Escribir Datos de Nutrición';
+	@override String get description => 'Permite que la app escriba datos de nutrición en Health Connect.';
+	@override String get usage => 'Este permiso permite a la app sincronizar tus comidas registradas con Health Connect, haciendo que tus datos de nutrición estén disponibles para otras apps de salud y fitness que utilices.';
 }
 
 /// The flat map containing all translations for locale <es>.
@@ -1506,6 +1709,7 @@ extension on TranslationsEs {
 			'profile.weight' => 'Peso',
 			'profile.age' => 'Edad',
 			'profile.weightGoal' => 'Objetivo de Peso',
+			'profile.targetWeight' => 'Peso Objetivo',
 			'profile.activityLevel' => 'Nivel de Actividad',
 			'profile.healthMetrics' => 'Métricas de Salud',
 			'profile.notSet' => 'No establecido',
@@ -1561,7 +1765,9 @@ extension on TranslationsEs {
 			'settings.sections.profile' => 'PERFIL',
 			'settings.sections.localization' => 'LOCALIZACIÓN',
 			'settings.sections.notifications' => 'NOTIFICACIONES',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'SOPORTE Y LEGAL',
+			'settings.sections.about' => 'ACERCA DE',
 			'settings.sections.dangerZone' => 'ZONA DE PELIGRO',
 			'settings.sections.developer' => 'DESARROLLADOR',
 			'settings.editProfile.title' => 'Editar Perfil',
@@ -1594,6 +1800,49 @@ extension on TranslationsEs {
 			'settings.clearAllData.clearEverything' => 'Borrar Todo',
 			'settings.debugOptions.title' => 'Opciones de Depuración',
 			'settings.developerModeEnabled' => '¡Modo de desarrollador habilitado!',
+			'settings.healthConnect.title' => 'Health Connect',
+			'settings.healthConnect.subtitle' => 'Ver y gestionar permisos',
+			'settings.healthConnect.unavailable.title' => 'Health Connect No Disponible',
+			'settings.healthConnect.unavailable.description' => 'Health Connect no está disponible en este dispositivo. Instala Health Connect desde Play Store (Android 9+) o actualiza a Android 14+.',
+			'settings.healthConnect.permissions.title' => 'Permisos',
+			'settings.healthConnect.permissions.description' => 'Se solicitan los siguientes permisos para proporcionar integración con Health Connect:',
+			'settings.healthConnect.permissions.granted' => 'Concedido',
+			'settings.healthConnect.permissions.notGranted' => 'No Concedido',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Leer Calorías Totales Quemadas',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Permite que la app lea tus calorías totales quemadas desde Health Connect.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Este permiso se utiliza para mostrar tu quema diaria de calorías en la app, ayudándote a comprender tu gasto energético total a lo largo del día.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Leer Datos de Nutrición',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Permite que la app lea datos de nutrición desde Health Connect.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Este permiso permite a la app leer información nutricional que puede haber sido registrada por otras apps conectadas a Health Connect, proporcionando una vista completa de tu nutrición.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Escribir Datos de Nutrición',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Permite que la app escriba datos de nutrición en Health Connect.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Este permiso permite a la app sincronizar tus comidas registradas con Health Connect, haciendo que tus datos de nutrición estén disponibles para otras apps de salud y fitness que utilices.',
+			'settings.healthConnect.managePermissions' => 'Gestionar Permisos',
+			'settings.healthConnect.openSettings' => 'Abrir la configuración de Health Connect',
+			'settings.healthConnect.requestPermissions' => 'Solicitar permisos',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'La solicitud de permisos se canceló o falló. Inténtalo de nuevo o concede los permisos manualmente en la configuración de Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'No se pudieron solicitar los permisos. Inténtalo de nuevo o concede los permisos manualmente en la configuración de Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
+			'settings.about.title' => 'Acerca de',
+			'settings.about.tagline' => 'Conciencia de calorías rápida, gratuita y priorizando la privacidad',
+			'settings.about.ourStory.title' => 'Nuestra Historia',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} nació de una frustración simple: la mayoría de las aplicaciones para el seguimiento de calorías son excesivamente complicadas, requieren un constante ingreso manual, cobran altas tarifas de suscripción o comprometen la privacidad.\n\nComo desarrollador independiente, quería crear algo más simple y justo: una aplicación que utiliza IA para reducir el esfuerzo, que se mantenga rápida y gratuita, y que trate tus datos de salud con respeto.\n\n${appLabel} es la aplicación que desearía que existiera: sin cuentas, sin seguimiento, sin anuncios, solo ideas claras y prácticas y tus objetivos de salud.',
+			'settings.about.privacy.title' => 'Tu Privacidad Importa',
+			'settings.about.privacy.description' => 'La privacidad no es un pensamiento posterior, es un principio de diseño. Esto es lo que significa en la práctica:',
+			'settings.about.privacy.noAccounts' => 'Sin cuentas requeridas\nUsa la aplicación de inmediato. Sin registros, sin identidades.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Sin seguimiento de comportamiento\n${appLabel} no monitorea tu actividad, no crea perfiles de uso, ni te sigue a través de aplicaciones o sitios web.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Sin anuncios por diseño\n${appLabel} está construida para funcionar sin anuncios ni monetización basada en datos.',
+			'settings.about.privacy.noDataSelling' => 'Sin venta de datos\nTus datos de salud nunca se venden ni se comparten con terceros.',
+			'settings.about.privacy.localStorage' => 'Almacenamiento local primero\nTus datos permanecen en tu dispositivo.',
+			'settings.about.privacy.privacyPolicy' => 'Política de privacidad',
+			'settings.about.developer.title' => 'Construido por un Desarrollador Independiente',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} es construido y mantenido por un solo desarrollador independiente enfocado en crear software de salud que respete la privacidad y genere calma.\n\nLos comentarios se leen personalmente y ayudan a dar forma a la dirección de la aplicación.',
+			'settings.about.developer.website' => 'Sitio web',
+			'settings.about.developer.email' => 'Correo electrónico',
+			'settings.about.feedback.title' => ({required Object appLabel}) => '¿Disfrutando de ${appLabel}?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Tus comentarios ayudan a hacer de ${appLabel} algo mejor para todos.',
+			'settings.about.feedback.rateApp' => 'Calificar en Play Store',
+			'settings.about.feedback.sendFeedback' => 'Enviar Comentarios',
 			'reminders.title' => 'Mantente en el camino con los recordatorios',
 			'reminders.description' => 'Recibe recordatorios suaves para registrar tus comidas y mantenerte constante con tus objetivos nutricionales',
 			'reminders.notificationsEnabled' => 'Notificaciones Habilitadas',
@@ -1646,6 +1895,13 @@ extension on TranslationsEs {
 			'disclaimer.weightEstimate.waterWeight.description' => 'El peso diario normal puede fluctuar significativamente debido a la retención de agua, digestión y timing. La estimación no toma en cuenta estos cambios diarios.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Orientación Profesional',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'No utilices esta estimación para tomar decisiones médicas. Siempre consulta a un profesional de la salud o dietista registrado para asesoría personalizada sobre gestión de peso.',
+			'disclaimer.healthMetrics.description' => 'Estas métricas te ayudan a comprender las necesidades energéticas de tu cuerpo y guiar tus objetivos nutricionales.',
+			'disclaimer.healthMetrics.bmr.title' => 'TMB',
+			'disclaimer.healthMetrics.bmr.description' => 'La Tasa Metabólica Basal (TMB) es la cantidad de calorías que tu cuerpo quema en reposo para mantener funciones básicas como la respiración y la circulación. La TMB depende de tu edad, género, altura y peso. Una TMB más alta significa que tu cuerpo quema naturalmente más calorías en reposo, a menudo debido a una mayor masa muscular, una edad más joven o ser masculino. Una TMB más baja típicamente indica menos masa muscular, una edad mayor o ser femenina.',
+			'disclaimer.healthMetrics.tdee.title' => 'Gasto Energético Diario Total',
+			'disclaimer.healthMetrics.tdee.description' => 'El Gasto Energético Diario Total (TDEE) es la cantidad total de calorías que quemas por día, incluyendo tu TMB más las calorías de la actividad física y el movimiento diario. El TDEE depende de tu TMB y nivel de actividad. Un TDEE más alto significa que quemas más calorías en general, normalmente por estar más activo o tener una TMB más alta. Un TDEE más bajo sugiere menos actividad diaria o una TMB más baja.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Objetivo Diario',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'El Objetivo Diario es tu ingesta calórica diaria recomendada basada en tu TDEE y objetivo de peso. Para perder peso, consumes menos calorías que tu TDEE. Para mantener el peso, igualas tu TDEE. Para ganar peso, consumes más calorías que tu TDEE. Esto te ayuda a lograr tu cambio de peso deseado a un ritmo saludable.',
 			'common.close' => 'Cerrar',
 			'common.kContinue' => 'Continuar',
 			'errors.loadingProfileData' => 'Error al cargar datos del perfil',

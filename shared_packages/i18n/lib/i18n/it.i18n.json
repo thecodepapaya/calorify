@@ -264,6 +264,7 @@
     "weight": "Peso",
     "age": "Età",
     "weightGoal": "Obiettivo di Peso",
+    "targetWeight": "Peso Obiettivo",
     "activityLevel": "Livello di Attività",
     "healthMetrics": "Metriche di Salute",
     "notSet": "Non impostato",
@@ -352,7 +353,9 @@
       "profile": "PROFILO",
       "localization": "LOCALIZZAZIONE",
       "notifications": "NOTIFICHE",
+      "healthConnect": "COLLEGAMENTO SALUTE",
       "supportAndLegal": "SUPPORTO E LEGALE",
+      "about": "CHI SIAMO",
       "dangerZone": "ZONA PERICOLOSA",
       "developer": "SVILUPPATORE"
     },
@@ -403,7 +406,72 @@
     "debugOptions": {
       "title": "Opzioni di Debug"
     },
-    "developerModeEnabled": "Modalità sviluppatore abilitata!"
+    "developerModeEnabled": "Modalità sviluppatore abilitata!",
+    "healthConnect": {
+      "title": "Collegamento Salute",
+      "subtitle": "Visualizza e gestisci le autorizzazioni",
+      "unavailable": {
+        "title": "Health Connect non disponibile",
+        "description": "Health Connect non è disponibile su questo dispositivo. Installa Health Connect dal Play Store (Android 9+) oppure aggiorna ad Android 14+."
+      },
+      "permissions": {
+        "title": "Autorizzazioni",
+        "description": "Le seguenti autorizzazioni sono richieste per fornire integrazione del Collegamento Salute:",
+        "granted": "Concesso",
+        "notGranted": "Non Concesso",
+        "caloriesBurned": {
+          "title": "Leggi Calorie Totali Bruciate",
+          "description": "Consente all'app di leggere le tue calorie totali bruciate dal Collegamento Salute.",
+          "usage": "Questa autorizzazione è utilizzata per visualizzare il tuo consumo calorico giornaliero nell'app, aiutandoti a capire il tuo dispendio energetico totale durante la giornata."
+        },
+        "nutritionRead": {
+          "title": "Leggi Dati Nutrizionali",
+          "description": "Consente all'app di leggere i dati nutrizionali dal Collegamento Salute.",
+          "usage": "Questa autorizzazione permette all'app di leggere le informazioni nutrizionali che potrebbero essere state registrate da altre app collegate al Collegamento Salute, fornendo una visione completa della tua nutrizione."
+        },
+        "nutritionWrite": {
+          "title": "Scrivi Dati Nutrizionali",
+          "description": "Consente all'app di scrivere dati nutrizionali nel Collegamento Salute.",
+          "usage": "Questa autorizzazione consente all'app di sincronizzare i tuoi pasti registrati nel Collegamento Salute, rendendo i tuoi dati nutrizionali disponibili per altre app di salute e fitness che utilizzi."
+        }
+      },
+      "managePermissions": "Gestisci Autorizzazioni",
+      "openSettings": "Apri le impostazioni di Health Connect",
+      "requestPermissions": "Richiedi autorizzazioni",
+      "permissionRequestCancelledOrFailed": "La richiesta di autorizzazioni è stata annullata o non è riuscita. Riprova oppure concedi le autorizzazioni manualmente nelle impostazioni di Health Connect.",
+      "permissionRequestFailed": "Impossibile richiedere le autorizzazioni. Riprova oppure concedi le autorizzazioni manualmente nelle impostazioni di Health Connect.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "Chi Siamo",
+      "tagline": "Consapevolezza calorica veloce, gratuita e rispettosa della privacy",
+      "ourStory": {
+        "title": "La Nostra Storia",
+        "content": "{appLabel} è nato da una semplice frustrazione: la maggior parte delle app per il monitoraggio delle calorie sono troppo complicate, richiedono un costante input manuale, offrono abbonamenti costosi o compromettono la privacy.\n\nCome sviluppatore indipendente, volevo costruire qualcosa di più semplice e giusto: un'app che utilizza l'intelligenza artificiale per ridurre gli sforzi, rimane veloce e gratuita da usare, e tratta i tuoi dati sulla salute con rispetto.\n\n{appLabel} è l'app che desideravo esistesse: niente account, niente monitoraggio, niente pubblicità — solo informazioni chiare e pratiche e i tuoi obiettivi di salute."
+      },
+      "privacy": {
+        "title": "La Tua Privacy è Importante",
+        "description": "La privacy non è un pensiero secondario — è un principio di design. Ecco cosa significa in pratica:",
+        "noAccounts": "Nessun account richiesto\nUsa l'app immediatamente. Niente registrazioni, nessuna identità.",
+        "noTracking": "Nessun monitoraggio comportamentale\n{appLabel} non monitora la tua attività, non crea profili d'uso e non ti traccia attraverso app o siti web.",
+        "noAds": "Senza pubblicità per design\n{appLabel} è costruita per funzionare senza pubblicità o monetizzazione basata sui dati.",
+        "noDataSelling": "Nessuna vendita dei dati\nI tuoi dati sulla salute non sono mai venduti o condivisi con terze parti.",
+        "localStorage": "Archiviazione locale prima di tutto\nI tuoi dati rimangono sul tuo dispositivo.",
+        "privacyPolicy": "Informativa sulla privacy"
+      },
+      "developer": {
+        "title": "Realizzato da uno Sviluppatore Indipendente",
+        "description": "{appLabel} è sviluppata e mantenuta da un singolo sviluppatore indipendente concentrato nella creazione di software per la salute che rispetti la privacy.\n\nIl feedback viene letto personalmente e aiuta a plasmare la direzione dell'app.",
+        "website": "Sito Web",
+        "email": "Email"
+      },
+      "feedback": {
+        "title": "Ti Piace {appLabel}?",
+        "description": "Il tuo feedback aiuta a migliorare {appLabel} per tutti.",
+        "rateApp": "Valuta su Play Store",
+        "sendFeedback": "Invia Feedback"
+      }
+    }
   },
   "reminders": {
     "title": "Rimani in carreggiata con i promemoria",
@@ -492,6 +560,21 @@
       "professionalGuidance": {
         "title": "Guida Professionale",
         "description": "Non usare questa stima per prendere decisioni mediche. Consultare sempre un professionista sanitario o un dietista registrato per consigli personalizzati sulla gestione del peso."
+      }
+    },
+    "healthMetrics": {
+      "description": "Questi parametri ti aiutano a comprendere le esigenze energetiche del tuo corpo e a orientare i tuoi obiettivi nutrizionali.",
+      "bmr": {
+        "title": "BMR",
+        "description": "Il Tasso Metabolico Basale (BMR) è il numero di calorie che il tuo corpo brucia a riposo per mantenere funzioni basilari come la respirazione e la circolazione. Il BMR dipende dalla tua età, sesso, altezza e peso. Un BMR più alto significa che il tuo corpo brucia naturalmente più calorie a riposo, spesso a causa di una maggiore massa muscolare, una giovane età o di essere di sesso maschile. Un BMR più basso indica generalmente una massa muscolare minore, un'età più avanzata o di essere di sesso femminile."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Il Consumo Totale di Energia Giornaliero (TDEE) è il totale delle calorie che bruci ogni giorno, incluso il tuo BMR più le calorie derivanti dall'attività fisica e dal movimento quotidiano. Il TDEE dipende dal tuo BMR e dal livello di attività. Un TDEE più alto significa che bruci più calorie complessivamente, di solito a causa di una maggiore attività o di un BMR più elevato. Un TDEE più basso suggerisce meno attività quotidiana o un BMR inferiore."
+      },
+      "dailyGoal": {
+        "title": "Obiettivo Giornaliero",
+        "description": "L'Obiettivo Giornaliero è il tuo apporto calorico giornaliero raccomandato basato sul tuo TDEE e sull'obiettivo di peso. Per la perdita di peso, consumi meno calorie rispetto al tuo TDEE. Per il mantenimento del peso, eguagli il tuo TDEE. Per l'aumento di peso, consumi più calorie rispetto al tuo TDEE. Questo ti aiuta a raggiungere il cambiamento di peso desiderato a un ritmo sano."
       }
     }
   },

@@ -14,10 +14,28 @@ import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:i18n/i18n.dart';
 import 'package:widgets/widgets.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/core/services/analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+
+// Top-level function for isolate (must be outside class)
+Future<Uint8List?> _compressImageInIsolate(List<dynamic> args) async {
+  final Uint8List original = args[0] as Uint8List;
+  final int quality = args[1] as int;
+
+  try {
+    final compressed = await FlutterImageCompress.compressWithList(
+      original,
+      quality: quality,
+      format: CompressFormat.jpeg,
+    );
+    return compressed;
+  } catch (e) {
+    return null;
+  }
+}
 
 class MealSnap extends StatefulWidget {
   const MealSnap({super.key});
@@ -40,54 +58,18 @@ class _MealSnapState extends State<MealSnap> {
       children: [
         Container(
           margin: globalMargin,
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: globalRadius,
-            border: Border.all(color: colorScheme.outline),
-          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Icon(LucideIcons.camera, color: colorScheme.primary),
-                  SizedBox(width: 8),
-                  Text(
-                    t.home.mealSnap.title,
-                    maxLines: 2,
-                    style: textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: colorScheme.onSurface,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              Text(
-                t.home.mealSnap.description,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSecondary.withValues(alpha: 0.7),
-                ),
-              ),
-              SizedBox(height: 10),
+              // Large, prominent camera button area
               if (_isLoading && _file != null)
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: globalRadius,
-                    image: DecorationImage(
-                      image: MemoryImage(_file!.readAsBytesSync()),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  foregroundDecoration: BoxDecoration(
-                    color: colorScheme.shadow.withValues(alpha: 0.6),
-                    borderRadius: globalRadius,
-                  ),
-                  width: double.infinity,
-                  height: 200,
-                  child: AppLoader(color: colorScheme.surface),
-                ),
-              if (!_isLoading) ...[SizedBox(height: 10), _buttons],
+                _buildImagePreview(context, colorScheme)
+              else
+                _buildCameraButton(context, colorScheme, textTheme),
+              SizedBox(height: 12),
+              // Secondary action buttons
+              if (!_isLoading)
+                _buildSecondaryActions(context, colorScheme, textTheme),
             ],
           ),
         ),
@@ -100,54 +82,182 @@ class _MealSnapState extends State<MealSnap> {
     );
   }
 
-  Widget get _buttons {
-    return Column(
-      children: [
-        Row(
+  Widget _buildCameraButton(
+    BuildContext context,
+    ColorScheme colorScheme,
+    TextTheme textTheme,
+  ) {
+    return InkWell(
+      onTap: () async {
+        final image = await ImagePickerService().pickImageFromCamera();
+        if (image == null) return;
+        await _onSelectImage(image);
+      },
+      borderRadius: globalRadius,
+      child: Container(
+        width: double.infinity,
+        height: 200,
+        decoration: BoxDecoration(
+          borderRadius: globalRadius,
+          border: Border.all(
+            color: colorScheme.primary.withValues(alpha: 0.3),
+            width: 2,
+          ),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              colorScheme.primary.withValues(alpha: 0.1),
+              colorScheme.primary.withValues(alpha: 0.05),
+            ],
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              flex: 3,
-              child: PrimaryButton(
-                analyticsEvent: AnalyticsEvent.mealSnapFromCamera,
-                onPressed: () async {
-                  final image =
-                      await ImagePickerService().pickImageFromCamera();
-                  if (image == null) return;
-                  await _onSelectImage(image);
-                },
-                text: t.home.mealSnap.openCamera,
-                leadingIcon: LucideIcons.camera,
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: colorScheme.primary,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                LucideIcons.camera,
+                size: 28,
+                color: colorScheme.onPrimary,
               ),
             ),
-            SizedBox(width: 12),
-            Expanded(
-              flex: 1,
-              child: PrimaryButton(
-                analyticsEvent: AnalyticsEvent.mealSnapFromGallery,
-                onPressed: () async {
-                  final image =
-                      await ImagePickerService().pickImageFromGallery();
-                  if (image == null) return;
-                  await _onSelectImage(image);
-                },
-                text: '',
-                leadingIcon: LucideIcons.imagePlus,
+            SizedBox(height: 12),
+            Text(
+              t.home.mealSnap.title,
+              style: textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: colorScheme.onSurface,
+              ),
+            ),
+            SizedBox(height: 6),
+            Text(
+              t.home.mealSnap.description,
+              textAlign: TextAlign.center,
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSecondary.withValues(alpha: 0.7),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildImagePreview(BuildContext context, ColorScheme colorScheme) {
+    return Container(
+      width: double.infinity,
+      height: 200,
+      decoration: BoxDecoration(
+        borderRadius: globalRadius,
+        image: DecorationImage(image: FileImage(_file!), fit: BoxFit.cover),
+      ),
+      foregroundDecoration: BoxDecoration(
+        color: colorScheme.shadow.withValues(alpha: 0.5),
+        borderRadius: globalRadius,
+      ),
+      child: Center(child: AppLoader(color: colorScheme.surface)),
+    );
+  }
+
+  Widget _buildSecondaryActions(
+    BuildContext context,
+    ColorScheme colorScheme,
+    TextTheme textTheme,
+  ) {
+    return Row(
+      children: [
+        Expanded(
+          child: _buildActionButton(
+            context: context,
+            colorScheme: colorScheme,
+            textTheme: textTheme,
+            icon: LucideIcons.camera,
+            label: t.home.mealSnap.openCamera,
+            analyticsEvent: AnalyticsEvent.mealSnapFromCamera,
+            onPressed: () async {
+              final image = await ImagePickerService().pickImageFromCamera();
+              if (image == null) return;
+              await _onSelectImage(image);
+            },
+          ),
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: _buildActionButton(
+            context: context,
+            colorScheme: colorScheme,
+            textTheme: textTheme,
+            icon: LucideIcons.imagePlus,
+            label: 'Gallery',
+            analyticsEvent: AnalyticsEvent.mealSnapFromGallery,
+            onPressed: () async {
+              final image = await ImagePickerService().pickImageFromGallery();
+              if (image == null) return;
+              await _onSelectImage(image);
+            },
+          ),
         ),
       ],
     );
   }
 
-  Future<void> _onSelectImage(File image) async {
-    final compressedImageByte = await _compressImage(image);
-    if (compressedImageByte == null) return;
+  Widget _buildActionButton({
+    required BuildContext context,
+    required ColorScheme colorScheme,
+    required TextTheme textTheme,
+    required IconData icon,
+    required String label,
+    required AnalyticsEvent analyticsEvent,
+    required VoidCallback onPressed,
+  }) {
+    return OutlinedButton(
+      onPressed: () {
+        Analytics.instance.logEvent(analyticsEvent);
+        onPressed();
+      },
+      style: OutlinedButton.styleFrom(
+        padding: EdgeInsets.symmetric(vertical: 16),
+        side: BorderSide(color: colorScheme.outline),
+        shape: RoundedRectangleBorder(borderRadius: globalRadius),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 20, color: colorScheme.primary),
+          SizedBox(width: 8),
+          Flexible(
+            child: Text(
+              label,
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurface,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
+  Future<void> _onSelectImage(File image) async {
+    // Show loading state immediately for better UX
     setState(() {
       _file = image;
       _isLoading = true;
     });
+
+    // Compress in isolate (non-blocking)
+    final compressedImageByte = await _compressImage(image);
+    if (compressedImageByte == null) {
+      _reset();
+      return;
+    }
 
     late final MealDetectionResult mealDetectionResult;
     try {
@@ -174,11 +284,17 @@ class _MealSnapState extends State<MealSnap> {
   Future<Uint8List?> _compressImage(File image) async {
     final original = await image.readAsBytes();
     try {
-      final compressed = await FlutterImageCompress.compressWithList(
-        original,
-        quality: 60,
-        format: CompressFormat.jpeg,
+      // Use compute to run compression in isolate (non-blocking UI)
+      Uint8List? compressed = await compute(
+        _compressImageInIsolate,
+        [original, 60], // Pass quality as parameter
       );
+
+      if (!mounted) return null;
+      if (compressed == null) {
+        log('Compression failed, using original image');
+        compressed = original;
+      }
 
       final percentage =
           (original.length - compressed.length) / original.length * 100;

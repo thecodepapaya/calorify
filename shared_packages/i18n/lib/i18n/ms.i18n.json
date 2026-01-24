@@ -264,6 +264,7 @@
     "weight": "Berat",
     "age": "Umur",
     "weightGoal": "Sasaran Berat",
+    "targetWeight": "Berat Sasaran",
     "activityLevel": "Tahap Aktiviti",
     "healthMetrics": "Metrik Kesihatan",
     "notSet": "Tidak ditetapkan",
@@ -352,7 +353,9 @@
       "profile": "PROFIL",
       "localization": "PENGANTARABANGSA",
       "notifications": "NOTIFIKASI",
+      "healthConnect": "SAMBUNGAN KESIHATAN",
       "supportAndLegal": "SOKONGAN & PERUNDANGAN",
+      "about": "TENTANG",
       "dangerZone": "ZON BAHAYA",
       "developer": "PENGEMBANG"
     },
@@ -403,7 +406,72 @@
     "debugOptions": {
       "title": "Pilihan Debug"
     },
-    "developerModeEnabled": "Mod pengembang diaktifkan!"
+    "developerModeEnabled": "Mod pengembang diaktifkan!",
+    "healthConnect": {
+      "title": "Sambungan Kesihatan",
+      "subtitle": "Lihat dan urus kebenaran",
+      "unavailable": {
+        "title": "Health Connect Tidak Tersedia",
+        "description": "Health Connect tidak tersedia pada peranti ini. Sila pasang Health Connect dari Play Store (Android 9+) atau kemas kini ke Android 14+."
+      },
+      "permissions": {
+        "title": "Kebenaran",
+        "description": "Kebenaran berikut diminta untuk menyediakan integrasi Sambungan Kesihatan:",
+        "granted": "Diberikan",
+        "notGranted": "Tidak Diberikan",
+        "caloriesBurned": {
+          "title": "Baca Jumlah Kalori Dibakar",
+          "description": "Membenarkan aplikasi untuk membaca jumlah kalori yang telah anda bakar dari Sambungan Kesihatan.",
+          "usage": "Kebenaran ini digunakan untuk memaparkan kalori bakar harian anda dalam aplikasi, membantu anda memahami jumlah pengeluaran tenaga anda sepanjang hari."
+        },
+        "nutritionRead": {
+          "title": "Baca Data Pemakanan",
+          "description": "Membenarkan aplikasi untuk membaca data pemakanan dari Sambungan Kesihatan.",
+          "usage": "Kebenaran ini membenarkan aplikasi untuk membaca maklumat pemakanan yang mungkin telah direkod oleh aplikasi lain yang disambungkan ke Sambungan Kesihatan, memberikan pandangan menyeluruh tentang pemakanan anda."
+        },
+        "nutritionWrite": {
+          "title": "Tulis Data Pemakanan",
+          "description": "Membenarkan aplikasi untuk menulis data pemakanan ke Sambungan Kesihatan.",
+          "usage": "Kebenaran ini membenarkan aplikasi untuk menyelaraskan makanan yang anda catat ke Sambungan Kesihatan, menjadikan data pemakanan anda tersedia kepada aplikasi kesihatan dan kecergasan lain yang anda gunakan."
+        }
+      },
+      "managePermissions": "Urus Kebenaran",
+      "openSettings": "Buka Tetapan Health Connect",
+      "requestPermissions": "Minta Kebenaran",
+      "permissionRequestCancelledOrFailed": "Permintaan kebenaran dibatalkan atau gagal. Sila cuba lagi atau berikan kebenaran secara manual dalam tetapan Health Connect.",
+      "permissionRequestFailed": "Tidak dapat meminta kebenaran. Sila cuba lagi atau berikan kebenaran secara manual dalam tetapan Health Connect.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "Tentang",
+      "tagline": "Kesedaran kalori yang cepat, percuma, dan mengutamakan privasi",
+      "ourStory": {
+        "title": "Kisah Kami",
+        "content": "{appLabel} lahir dari satu frustrasi yang sederhana: kebanyakan aplikasi penjejakan kalori sama ada terlalu rumit, memerlukan input manual yang berterusan, mengenakan yuran langganan yang tinggi, atau mengorbankan privasi.\n\nSebagai seorang pemaju solo, saya ingin membina sesuatu yang lebih sederhana dan adil — sebuah aplikasi yang menggunakan AI untuk mengurangkan usaha, kekal pantas dan percuma untuk digunakan, dan menghormati data kesihatan anda.\n\n{appLabel} adalah aplikasi yang saya harap wujud: tiada akaun, tiada penjejakan, tiada iklan — hanya panduan yang jelas dan praktikal serta matlamat kesihatan anda."
+      },
+      "privacy": {
+        "title": "Privasi Anda Penting",
+        "description": "Privasi bukanlah sesuatu yang diambil ringan — ia adalah prinsip reka bentuk. Berikut adalah maksudnya dalam amalan:",
+        "noAccounts": "Tiada akaun diperlukan\nGunakan aplikasi dengan segera. Tiada pendaftaran, tiada identiti.",
+        "noTracking": "Tiada penjejakan tingkah laku\n{appLabel} tidak memantau aktiviti anda, membina profil penggunaan, atau menjejak anda di antara aplikasi atau laman web.",
+        "noAds": "Tanpa iklan secara reka bentuk\n{appLabel} dibina untuk berfungsi tanpa iklan atau monetisasi berasaskan data.",
+        "noDataSelling": "Tiada penjualan data\nData kesihatan anda tidak pernah dijual atau dikongsi dengan pihak ketiga.",
+        "localStorage": "Penyimpanan pertama tempatan\nData anda kekal di peranti anda.",
+        "privacyPolicy": "Dasar Privasi"
+      },
+      "developer": {
+        "title": "Dibina oleh Pemaju Solo",
+        "description": "{appLabel} dibina dan diselenggara oleh seorang pemaju solo tunggal yang fokus kepada mencipta perisian kesihatan yang tenang dan menghormati privasi.\n\nMaklum balas dibaca secara peribadi dan membantu membentuk arah aplikasi ini.",
+        "website": "Laman Web",
+        "email": "Emel"
+      },
+      "feedback": {
+        "title": "Adakah Anda Menyukai {appLabel}?",
+        "description": "Maklum balas anda membantu menjadikan {appLabel} lebih baik untuk semua.",
+        "rateApp": "Nilai di Play Store",
+        "sendFeedback": "Hantar Maklum Balas"
+      }
+    }
   },
   "reminders": {
     "title": "Tetap pada landasan dengan peringatan",
@@ -492,6 +560,21 @@
       "professionalGuidance": {
         "title": "Bimbingan Profesional",
         "description": "Jangan gunakan anggaran ini untuk membuat keputusan perubatan. Sentiasa berunding dengan profesional kesihatan atau pakar diet berdaftar untuk nasihat pengurusan berat secara peribadi."
+      }
+    },
+    "healthMetrics": {
+      "description": "Metrik ini membantu anda memahami keperluan tenaga badan anda dan membimbing matlamat pemakanan anda.",
+      "bmr": {
+        "title": "BMR",
+        "description": "Kadar Metabolik Basal (BMR) ialah jumlah kalori yang dibakar oleh badan anda pada waktu rehat untuk mengekalkan fungsi asas seperti pernafasan dan peredaran. BMR bergantung kepada umur, jantina, tinggi, dan berat anda. BMR yang lebih tinggi bermaksud badan anda secara semula jadi membakar lebih banyak kalori pada waktu rehat, sering disebabkan oleh lebih banyak jisim otot, umur yang lebih muda, atau jantina lelaki. BMR yang lebih rendah biasanya menunjukkan jisim otot yang lebih sedikit, umur yang lebih tua, atau jantina perempuan."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Perbelanjaan Tenaga Harian Keseluruhan (TDEE) ialah jumlah kalori yang anda bakar setiap hari, termasuk BMR anda ditambah kalori dari aktiviti fizikal dan pergerakan harian. TDEE bergantung kepada BMR dan tahap aktiviti anda. TDEE yang lebih tinggi bermakna anda membakar lebih banyak kalori secara keseluruhan, biasanya dari menjadi lebih aktif atau mempunyai BMR yang lebih tinggi. TDEE yang lebih rendah menunjukkan aktiviti harian yang kurang atau BMR yang lebih rendah."
+      },
+      "dailyGoal": {
+        "title": "Matlamat Harian",
+        "description": "Matlamat Harian ialah pengambilan kalori harian yang disyorkan berdasarkan TDEE dan matlamat berat anda. Untuk penurunan berat badan, anda mengambil kalori kurang daripada TDEE anda. Untuk penyelenggaraan berat, anda sepadankan dengan TDEE anda. Untuk pertambahan berat, anda mengambil lebih banyak kalori daripada TDEE anda. Ini membantu anda mencapai perubahan berat yang diingini dengan cara yang sihat."
       }
     }
   },

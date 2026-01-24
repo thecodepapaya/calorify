@@ -15,11 +15,13 @@ class LogScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 20),
-            DescribeMeal(),
-            SizedBox(height: 20),
+            // Photo capture is now the primary, most prominent option
+            MealSnap(),
+            SizedBox(height: 24),
+            // Secondary options below
             FavoriteMeals(),
             SizedBox(height: 20),
-            MealSnap(),
+            DescribeMeal(),
             SizedBox(height: 120),
           ],
         ),

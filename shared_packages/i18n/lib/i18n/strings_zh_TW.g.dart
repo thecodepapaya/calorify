@@ -184,6 +184,7 @@ class _TranslationsProfileZhTw implements TranslationsProfileEn {
 	@override String get weight => '體重';
 	@override String get age => '年齡';
 	@override String get weightGoal => '體重目標';
+	@override String get targetWeight => '目標體重';
 	@override String get activityLevel => '活動水平';
 	@override String get healthMetrics => '健康指標';
 	@override String get notSet => '未設定';
@@ -252,6 +253,8 @@ class _TranslationsSettingsZhTw implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataZhTw clearAllData = _TranslationsSettingsClearAllDataZhTw._(_root);
 	@override late final _TranslationsSettingsDebugOptionsZhTw debugOptions = _TranslationsSettingsDebugOptionsZhTw._(_root);
 	@override String get developerModeEnabled => '開發者模式已啟用！';
+	@override late final _TranslationsSettingsHealthConnectZhTw healthConnect = _TranslationsSettingsHealthConnectZhTw._(_root);
+	@override late final _TranslationsSettingsAboutZhTw about = _TranslationsSettingsAboutZhTw._(_root);
 }
 
 // Path: reminders
@@ -319,6 +322,7 @@ class _TranslationsDisclaimerZhTw implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => '請注意';
 	@override late final _TranslationsDisclaimerSnapZhTw snap = _TranslationsDisclaimerSnapZhTw._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateZhTw weightEstimate = _TranslationsDisclaimerWeightEstimateZhTw._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsZhTw healthMetrics = _TranslationsDisclaimerHealthMetricsZhTw._(_root);
 }
 
 // Path: common
@@ -780,7 +784,9 @@ class _TranslationsSettingsSectionsZhTw implements TranslationsSettingsSectionsE
 	@override String get profile => '個人檔案';
 	@override String get localization => '本地化';
 	@override String get notifications => '通知';
+	@override String get healthConnect => '健康連接';
 	@override String get supportAndLegal => '支持與法律';
+	@override String get about => '關於';
 	@override String get dangerZone => '危險區域';
 	@override String get developer => '開發者';
 }
@@ -895,6 +901,40 @@ class _TranslationsSettingsDebugOptionsZhTw implements TranslationsSettingsDebug
 	@override String get title => '調試選項';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectZhTw implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '健康連接';
+	@override String get subtitle => '查看和管理權限';
+	@override late final _TranslationsSettingsHealthConnectUnavailableZhTw unavailable = _TranslationsSettingsHealthConnectUnavailableZhTw._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsZhTw permissions = _TranslationsSettingsHealthConnectPermissionsZhTw._(_root);
+	@override String get managePermissions => '管理權限';
+	@override String get openSettings => '打開健康連接設定';
+	@override String get requestPermissions => '請求權限';
+	@override String get permissionRequestCancelledOrFailed => '權限請求已被取消或失敗。請再試一次或在 Health Connect 設定中手動授權權限。';
+	@override String get permissionRequestFailed => '無法請求權限。請再試一次或在 Health Connect 設定中手動授權權限。';
+	@override String get requestingPermissions => 'Requesting...';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutZhTw implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '關於';
+	@override String get tagline => '快速、免費且以隱私為先的卡路里認知';
+	@override late final _TranslationsSettingsAboutOurStoryZhTw ourStory = _TranslationsSettingsAboutOurStoryZhTw._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyZhTw privacy = _TranslationsSettingsAboutPrivacyZhTw._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperZhTw developer = _TranslationsSettingsAboutDeveloperZhTw._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackZhTw feedback = _TranslationsSettingsAboutFeedbackZhTw._(_root);
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastZhTw implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastZhTw._(this._root);
@@ -976,6 +1016,19 @@ class _TranslationsDisclaimerWeightEstimateZhTw implements TranslationsDisclaime
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsZhTw biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsZhTw._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightZhTw waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightZhTw._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceZhTw professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceZhTw._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsZhTw implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '這些指標有助於您了解身體的能量需求並引導您的營養目標。';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrZhTw bmr = _TranslationsDisclaimerHealthMetricsBmrZhTw._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeZhTw tdee = _TranslationsDisclaimerHealthMetricsTdeeZhTw._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalZhTw dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalZhTw._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1277,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveZhTw implements Trans
 	@override String get description => '非常艱苦的運動或體力工作';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableZhTw implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '健康連接不可用';
+	@override String get description => '此設備不支援健康連接。它需要 Android 14 或更高版本。';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsZhTw implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '權限';
+	@override String get description => '以下權限是為了提供健康連接整合而請求的：';
+	@override String get granted => '已授予';
+	@override String get notGranted => '未授予';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedZhTw caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedZhTw._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadZhTw nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadZhTw._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteZhTw nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteZhTw._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryZhTw implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '我們的故事';
+	@override String content({required Object appLabel}) => '${appLabel} 源於一個簡單的挫折：大多數卡路里追踪應用程式要麼過於複雜，要麼需要不斷的手動輸入，要麼收取高額的訂閱費用，或是在隱私上妥協。\n\n作為一名獨立開發者，我想要創建一款更簡單、更公平的應用程式——一款利用 AI 來減少努力、保持快速且免費使用，並尊重您的健康數據的應用程式。\n\n${appLabel} 是我希望能存在的應用程式：不需要帳戶、無追蹤、無廣告——只有清晰、實用的見解和您的健康目標。';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyZhTw implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '您的隱私很重要';
+	@override String get description => '隱私不是事後之論 — 它是一個設計原則。這在實踐中意味著：';
+	@override String get noAccounts => '不需要帳戶\n立即使用應用程式。無需註冊，無身份驗證。';
+	@override String noTracking({required Object appLabel}) => '無行為追蹤\n${appLabel} 不會監控您的活動、建立使用檔案或在應用程式或網站之間追蹤您。';
+	@override String noAds({required Object appLabel}) => '無廣告設計\n${appLabel} 的設計不依賴於廣告或數據驅動的變現方式。';
+	@override String get noDataSelling => '不販賣數據\n您的健康數據絕不會出售或分享給第三方。';
+	@override String get localStorage => '本地優先的存儲\n您的數據保持在您的設備上。';
+	@override String get privacyPolicy => '隱私政策';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperZhTw implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '由獨立開發者構建';
+	@override String description({required Object appLabel}) => '${appLabel} 由一位獨立開發者構建和維護，專注於創造平靜、尊重隱私的健康軟體。\n\n您的反饋將被親自閱讀並幫助塑造應用程式的方向。';
+	@override String get website => '網站';
+	@override String get email => '電子郵件';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackZhTw implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => '喜歡 ${appLabel} 嗎？';
+	@override String description({required Object appLabel}) => '您的反饋有助於使 ${appLabel} 對每個人都變得更好。';
+	@override String get rateApp => '在 Play 商店評分';
+	@override String get sendFeedback => '發送反饋';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeZhTw implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeZhTw._(this._root);
@@ -1310,6 +1444,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceZhTw implements T
 	// Translations
 	@override String get title => '專業指導';
 	@override String get description => '不要用此估算來做醫療決定。始終諮詢醫療專業人士或註冊營養師以獲取個性化的體重管理建議。';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrZhTw implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '基礎代謝率 (BMR)';
+	@override String get description => '基礎代謝率 (BMR) 是您身體在靜息狀態下為了維持基本功能（如呼吸和循環）而燃燒的卡路里數量。BMR 取決於您的年齡、性別、身高和體重。較高的 BMR 意味著您的身體在靜息狀態下自然燃燒更多的卡路里，通常是因為肌肉量較多、年齡較輕或為男性。而較低的 BMR 通常表示肌肉量較少、年齡較大或為女性。';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeZhTw implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '每日總能量消耗 (TDEE)';
+	@override String get description => '每日總能量消耗 (TDEE) 是您每天燃燒的總卡路里，包括 BMR 加上身體活動和日常運動消耗的卡路里。TDEE 取決於您的 BMR 和活動水平。較高的 TDEE 意味著您整體燃燒更多卡路里，通常是因為活動量更大或 BMR 較高；而較低的 TDEE 則暗示日常活動較少或 BMR 較低。';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalZhTw implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '每日目標';
+	@override String get description => '每日目標是根據您的 TDEE 和體重目標推薦的每日卡路里攝入量。若要減肥，您需要攝入的卡路里少於您的 TDEE；若要維持體重，則需與 TDEE 持平；若要增重，您需攝入的卡路里超過您的 TDEE。這有助於您以健康的速度達成所期望的體重變化。';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedZhTw implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '讀取總燃燒卡路里';
+	@override String get description => '允許應用從健康連接讀取您的總燃燒卡路里。';
+	@override String get usage => '此權限用於在應用中顯示您的每日卡路里燃燒，幫助您了解全天的總能量消耗。';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadZhTw implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '讀取營養數據';
+	@override String get description => '允許應用從健康連接讀取營養數據。';
+	@override String get usage => '此權限允許應用讀取可能已由其他連接到健康連接的應用記錄的營養信息，提供您全面的營養視圖。';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteZhTw implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '寫入營養數據';
+	@override String get description => '允許應用將營養數據寫入健康連接。';
+	@override String get usage => '此權限允許應用將您記錄的膳食同步到健康連接，使您的營養數據能夠對您使用的其他健康和健身應用可用。';
 }
 
 /// The flat map containing all translations for locale <zh-TW>.
@@ -1506,6 +1709,7 @@ extension on TranslationsZhTw {
 			'profile.weight' => '體重',
 			'profile.age' => '年齡',
 			'profile.weightGoal' => '體重目標',
+			'profile.targetWeight' => '目標體重',
 			'profile.activityLevel' => '活動水平',
 			'profile.healthMetrics' => '健康指標',
 			'profile.notSet' => '未設定',
@@ -1561,7 +1765,9 @@ extension on TranslationsZhTw {
 			'settings.sections.profile' => '個人檔案',
 			'settings.sections.localization' => '本地化',
 			'settings.sections.notifications' => '通知',
+			'settings.sections.healthConnect' => '健康連接',
 			'settings.sections.supportAndLegal' => '支持與法律',
+			'settings.sections.about' => '關於',
 			'settings.sections.dangerZone' => '危險區域',
 			'settings.sections.developer' => '開發者',
 			'settings.editProfile.title' => '編輯個人檔案',
@@ -1594,6 +1800,49 @@ extension on TranslationsZhTw {
 			'settings.clearAllData.clearEverything' => '清除所有',
 			'settings.debugOptions.title' => '調試選項',
 			'settings.developerModeEnabled' => '開發者模式已啟用！',
+			'settings.healthConnect.title' => '健康連接',
+			'settings.healthConnect.subtitle' => '查看和管理權限',
+			'settings.healthConnect.unavailable.title' => '健康連接不可用',
+			'settings.healthConnect.unavailable.description' => '此設備不支援健康連接。它需要 Android 14 或更高版本。',
+			'settings.healthConnect.permissions.title' => '權限',
+			'settings.healthConnect.permissions.description' => '以下權限是為了提供健康連接整合而請求的：',
+			'settings.healthConnect.permissions.granted' => '已授予',
+			'settings.healthConnect.permissions.notGranted' => '未授予',
+			'settings.healthConnect.permissions.caloriesBurned.title' => '讀取總燃燒卡路里',
+			'settings.healthConnect.permissions.caloriesBurned.description' => '允許應用從健康連接讀取您的總燃燒卡路里。',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => '此權限用於在應用中顯示您的每日卡路里燃燒，幫助您了解全天的總能量消耗。',
+			'settings.healthConnect.permissions.nutritionRead.title' => '讀取營養數據',
+			'settings.healthConnect.permissions.nutritionRead.description' => '允許應用從健康連接讀取營養數據。',
+			'settings.healthConnect.permissions.nutritionRead.usage' => '此權限允許應用讀取可能已由其他連接到健康連接的應用記錄的營養信息，提供您全面的營養視圖。',
+			'settings.healthConnect.permissions.nutritionWrite.title' => '寫入營養數據',
+			'settings.healthConnect.permissions.nutritionWrite.description' => '允許應用將營養數據寫入健康連接。',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => '此權限允許應用將您記錄的膳食同步到健康連接，使您的營養數據能夠對您使用的其他健康和健身應用可用。',
+			'settings.healthConnect.managePermissions' => '管理權限',
+			'settings.healthConnect.openSettings' => '打開健康連接設定',
+			'settings.healthConnect.requestPermissions' => '請求權限',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => '權限請求已被取消或失敗。請再試一次或在 Health Connect 設定中手動授權權限。',
+			'settings.healthConnect.permissionRequestFailed' => '無法請求權限。請再試一次或在 Health Connect 設定中手動授權權限。',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
+			'settings.about.title' => '關於',
+			'settings.about.tagline' => '快速、免費且以隱私為先的卡路里認知',
+			'settings.about.ourStory.title' => '我們的故事',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} 源於一個簡單的挫折：大多數卡路里追踪應用程式要麼過於複雜，要麼需要不斷的手動輸入，要麼收取高額的訂閱費用，或是在隱私上妥協。\n\n作為一名獨立開發者，我想要創建一款更簡單、更公平的應用程式——一款利用 AI 來減少努力、保持快速且免費使用，並尊重您的健康數據的應用程式。\n\n${appLabel} 是我希望能存在的應用程式：不需要帳戶、無追蹤、無廣告——只有清晰、實用的見解和您的健康目標。',
+			'settings.about.privacy.title' => '您的隱私很重要',
+			'settings.about.privacy.description' => '隱私不是事後之論 — 它是一個設計原則。這在實踐中意味著：',
+			'settings.about.privacy.noAccounts' => '不需要帳戶\n立即使用應用程式。無需註冊，無身份驗證。',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => '無行為追蹤\n${appLabel} 不會監控您的活動、建立使用檔案或在應用程式或網站之間追蹤您。',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => '無廣告設計\n${appLabel} 的設計不依賴於廣告或數據驅動的變現方式。',
+			'settings.about.privacy.noDataSelling' => '不販賣數據\n您的健康數據絕不會出售或分享給第三方。',
+			'settings.about.privacy.localStorage' => '本地優先的存儲\n您的數據保持在您的設備上。',
+			'settings.about.privacy.privacyPolicy' => '隱私政策',
+			'settings.about.developer.title' => '由獨立開發者構建',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} 由一位獨立開發者構建和維護，專注於創造平靜、尊重隱私的健康軟體。\n\n您的反饋將被親自閱讀並幫助塑造應用程式的方向。',
+			'settings.about.developer.website' => '網站',
+			'settings.about.developer.email' => '電子郵件',
+			'settings.about.feedback.title' => ({required Object appLabel}) => '喜歡 ${appLabel} 嗎？',
+			'settings.about.feedback.description' => ({required Object appLabel}) => '您的反饋有助於使 ${appLabel} 對每個人都變得更好。',
+			'settings.about.feedback.rateApp' => '在 Play 商店評分',
+			'settings.about.feedback.sendFeedback' => '發送反饋',
 			'reminders.title' => '透過提醒保持正軌',
 			'reminders.description' => '獲得溫和的提醒以記錄您的餐點，並保持一致的營養目標',
 			'reminders.notificationsEnabled' => '通知已啟用',
@@ -1646,6 +1895,13 @@ extension on TranslationsZhTw {
 			'disclaimer.weightEstimate.waterWeight.description' => '正常的每日體重可能因水分儲存、消化和計時而顯著波動。此估算不考慮這些每日變化。',
 			'disclaimer.weightEstimate.professionalGuidance.title' => '專業指導',
 			'disclaimer.weightEstimate.professionalGuidance.description' => '不要用此估算來做醫療決定。始終諮詢醫療專業人士或註冊營養師以獲取個性化的體重管理建議。',
+			'disclaimer.healthMetrics.description' => '這些指標有助於您了解身體的能量需求並引導您的營養目標。',
+			'disclaimer.healthMetrics.bmr.title' => '基礎代謝率 (BMR)',
+			'disclaimer.healthMetrics.bmr.description' => '基礎代謝率 (BMR) 是您身體在靜息狀態下為了維持基本功能（如呼吸和循環）而燃燒的卡路里數量。BMR 取決於您的年齡、性別、身高和體重。較高的 BMR 意味著您的身體在靜息狀態下自然燃燒更多的卡路里，通常是因為肌肉量較多、年齡較輕或為男性。而較低的 BMR 通常表示肌肉量較少、年齡較大或為女性。',
+			'disclaimer.healthMetrics.tdee.title' => '每日總能量消耗 (TDEE)',
+			'disclaimer.healthMetrics.tdee.description' => '每日總能量消耗 (TDEE) 是您每天燃燒的總卡路里，包括 BMR 加上身體活動和日常運動消耗的卡路里。TDEE 取決於您的 BMR 和活動水平。較高的 TDEE 意味著您整體燃燒更多卡路里，通常是因為活動量更大或 BMR 較高；而較低的 TDEE 則暗示日常活動較少或 BMR 較低。',
+			'disclaimer.healthMetrics.dailyGoal.title' => '每日目標',
+			'disclaimer.healthMetrics.dailyGoal.description' => '每日目標是根據您的 TDEE 和體重目標推薦的每日卡路里攝入量。若要減肥，您需要攝入的卡路里少於您的 TDEE；若要維持體重，則需與 TDEE 持平；若要增重，您需攝入的卡路里超過您的 TDEE。這有助於您以健康的速度達成所期望的體重變化。',
 			'common.close' => '關閉',
 			'common.kContinue' => '繼續',
 			'errors.loadingProfileData' => '載入個人資料數據出錯',

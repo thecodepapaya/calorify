@@ -264,6 +264,7 @@
     "weight": "Gewicht",
     "age": "Leeftijd",
     "weightGoal": "Gewichtsdoel",
+    "targetWeight": "Doelgewicht",
     "activityLevel": "Activiteitsniveau",
     "healthMetrics": "Gezondheidsmetrics",
     "notSet": "Niet ingesteld",
@@ -352,7 +353,9 @@
       "profile": "PROFIEL",
       "localization": "LOCALISATIE",
       "notifications": "MELDINGEN",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "ONDERSTEUNING & JURIDISCH",
+      "about": "OVER",
       "dangerZone": "GEVAARZONE",
       "developer": "ONTWIKKELAAR"
     },
@@ -403,7 +406,72 @@
     "debugOptions": {
       "title": "Debug Opties"
     },
-    "developerModeEnabled": "Ontwikkelaarsmode ingeschakeld!"
+    "developerModeEnabled": "Ontwikkelaarsmode ingeschakeld!",
+    "healthConnect": {
+      "title": "Health Connect",
+      "subtitle": "Bekijk en beheer machtigingen",
+      "unavailable": {
+        "title": "Health Connect Niet Beschikbaar",
+        "description": "Health Connect is niet beschikbaar op dit apparaat. Installeer Health Connect via de Play Store (Android 9+) of update naar Android 14+."
+      },
+      "permissions": {
+        "title": "Machtigingen",
+        "description": "De volgende machtigingen worden aangevraagd om de integratie met Health Connect te bieden:",
+        "granted": "Toegestaan",
+        "notGranted": "Niet Toegestaan",
+        "caloriesBurned": {
+          "title": "Totaal Verbrande Calorieën Lezen",
+          "description": "Staat de app toe om je totale verbrande calorieën van Health Connect te lezen.",
+          "usage": "Deze machtiging wordt gebruikt om je dagelijkse calorieverbranding in de app weer te geven, zodat je je totale energieverbruik gedurende de dag beter kunt begrijpen."
+        },
+        "nutritionRead": {
+          "title": "Voedingsgegevens Lezen",
+          "description": "Staat de app toe om voedingsgegevens van Health Connect te lezen.",
+          "usage": "Deze machtiging stelt de app in staat om voedingsinformatie te lezen die mogelijk is vastgelegd door andere apps die zijn verbonden met Health Connect, wat een volledig overzicht van je voeding biedt."
+        },
+        "nutritionWrite": {
+          "title": "Voedingsgegevens Schrijven",
+          "description": "Staat de app toe om voedingsgegevens naar Health Connect te schrijven.",
+          "usage": "Deze machtiging stelt de app in staat om je geregistreerde maaltijden naar Health Connect te synchroniseren, waardoor je voedingsgegevens beschikbaar komen voor andere gezondheids- en fitnessapps die je gebruikt."
+        }
+      },
+      "managePermissions": "Beheer Machtigingen",
+      "openSettings": "Open Health Connect Instellingen",
+      "requestPermissions": "Vraag Vergunningen Aan",
+      "permissionRequestCancelledOrFailed": "De machtigingsaanvraag is geannuleerd of mislukt. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.",
+      "permissionRequestFailed": "Kan geen machtigingen aanvragen. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "Over",
+      "tagline": "Snelle, gratis en privacyvriendelijke caloriebewustheid",
+      "ourStory": {
+        "title": "Ons Verhaal",
+        "content": "{appLabel} is ontstaan uit een eenvoudige frustratie: de meeste calorie-tracking apps zijn ofwel te gecompliceerd, vereisen constante handmatige invoer, vragen hoge abonnementsprijzen of komen de privacy in gevaar.\n\nAls solo ontwikkelaar wilde ik iets eenvoudigers en eerlijkers bouwen — een app die AI gebruikt om de inspanning te verminderen, snel en gratis te gebruiken blijft en je gezondheidsgegevens met respect behandelt.\n\n{appLabel} is de app die ik wenste dat bestond: geen accounts, geen tracking, geen advertenties — gewoon duidelijke, praktische inzichten en je gezondheidsdoelen."
+      },
+      "privacy": {
+        "title": "Jouw Privacy Telt",
+        "description": "Privacy is geen bijkomstigheid — het is een ontwerpprincipe. Dit is wat dat in de praktijk betekent:",
+        "noAccounts": "Geen accounts nodig\nGebruik de app onmiddellijk. Geen aanmeldingen, geen identiteiten.",
+        "noTracking": "Geen gedragsmonitoring\n{appLabel} monitort je activiteit niet, bouwt geen gebruiksprofielen op of volgt je niet over apps of websites.",
+        "noAds": "Advertentievrij bij ontwerp\n{appLabel} is gebouwd om zonder advertenties of datagestuurde monetarisatie te functioneren.",
+        "noDataSelling": "Geen gegevensverkoop\nJe gezondheidsgegevens worden nooit verkocht of gedeeld met derden.",
+        "localStorage": "Lokale opslag\nJe gegevens blijven op je apparaat.",
+        "privacyPolicy": "Privacybeleid"
+      },
+      "developer": {
+        "title": "Gebouwd door een Solo Ontwikkelaar",
+        "description": "{appLabel} is gebouwd en onderhouden door een enkele solo ontwikkelaar die zich richt op het creëren van rustige, privacy-respecterende gezondheidssoftware.\n\nFeedback wordt persoonlijk gelezen en helpt de richting van de app te bepalen.",
+        "website": "Website",
+        "email": "E-mail"
+      },
+      "feedback": {
+        "title": "Geniet je van {appLabel}?",
+        "description": "Jouw feedback helpt {appLabel} beter te maken voor iedereen.",
+        "rateApp": "Beoordeel op Play Store",
+        "sendFeedback": "Stuur Feedback"
+      }
+    }
   },
   "reminders": {
     "title": "Blijf op koers met herinneringen",
@@ -492,6 +560,21 @@
       "professionalGuidance": {
         "title": "Professionele Begeleiding",
         "description": "Gebruik deze schatting niet om medische beslissingen te nemen. Raadpleeg altijd een zorgprofessional of geregistreerde diëtist voor gepersonaliseerd advies voor gewichtsmanagement."
+      }
+    },
+    "healthMetrics": {
+      "description": "Deze metrics helpen je om de energiebehoeften van je lichaam te begrijpen en begeleiden je bij je voedingsdoelen.",
+      "bmr": {
+        "title": "BMR",
+        "description": "De Basale Metabolische Snelheid (BMR) is het aantal calorieën dat je lichaam in rust verbrandt om basisfuncties zoals ademhaling en circulatie te onderhouden. BMR is afhankelijk van je leeftijd, geslacht, lengte en gewicht. Een hogere BMR betekent dat je lichaam van nature meer calorieën verbrandt in rust, vaak door meer spiermassa, een jongere leeftijd of mannelijk geslacht. Een lagere BMR geeft doorgaans een lagere spiermassa, een oudere leeftijd of vrouwelijk geslacht aan."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Het Totale Dagelijkse Energieverbruik (TDEE) is het totale aantal calorieën dat je per dag verbrandt, inclusief je BMR plus calorieën van fysieke activiteit en dagelijkse beweging. TDEE is afhankelijk van je BMR en activiteitsniveau. Een hogere TDEE betekent dat je over het algemeen meer calorieën verbrandt, meestal door meer actief te zijn of een hogere BMR te hebben. Een lagere TDEE suggereert minder dagelijkse activiteit of een lagere BMR."
+      },
+      "dailyGoal": {
+        "title": "Dagdoel",
+        "description": "Het Dagdoel is je aanbevolen dagelijkse calorie-inname op basis van je TDEE en gewichtsdoel. Voor gewichtsverlies consumeer je minder calorieën dan je TDEE. Voor gewichtsbehoud stem je je inname af op je TDEE. Voor gewichtstoename consumeer je meer calorieën dan je TDEE. Dit helpt je om je gewenste gewichtsverandering op een gezonde manier te bereiken."
       }
     }
   },

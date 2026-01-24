@@ -264,6 +264,7 @@
     "weight": "Hmotnost",
     "age": "Věk",
     "weightGoal": "Cíl hmotnosti",
+    "targetWeight": "Cílová hmotnost",
     "activityLevel": "Úroveň aktivity",
     "healthMetrics": "Zdravotní metriky",
     "notSet": "Nastaveno není",
@@ -352,7 +353,9 @@
       "profile": "PROFIL",
       "localization": "LOKALIZACE",
       "notifications": "NOTIFIKACE",
+      "healthConnect": "ZDRAVOTNÍ SPOJENÍ",
       "supportAndLegal": "POMOC & PRÁVNÍ",
+      "about": "O APLIKACI",
       "dangerZone": "NEBEZPEČNÁ ZÓNA",
       "developer": "VÝVOJÁŘ"
     },
@@ -403,7 +406,72 @@
     "debugOptions": {
       "title": "Možnosti ladění"
     },
-    "developerModeEnabled": "Režim vývojáře je povolen!"
+    "developerModeEnabled": "Režim vývojáře je povolen!",
+    "healthConnect": {
+      "title": "Zdravotní spojení",
+      "subtitle": "Zobrazit a spravovat oprávnění",
+      "unavailable": {
+        "title": "Health Connect není k dispozici",
+        "description": "Health Connect není na tomto zařízení k dispozici. Nainstalujte si prosím Health Connect z Obchodu Play (Android 9+) nebo aktualizujte na Android 14+."
+      },
+      "permissions": {
+        "title": "Oprávnění",
+        "description": "Následující oprávnění jsou požadována k zajištění integrace zdravotního spojení:",
+        "granted": "Schváleno",
+        "notGranted": "Neschváleno",
+        "caloriesBurned": {
+          "title": "Číst celkové spálené kalorie",
+          "description": "Umožňuje aplikaci číst vaše celkové spálené kalorie ze zdravotního spojení.",
+          "usage": "Toto oprávnění se používá k zobrazení vašeho denního spáleného množství kalorií v aplikaci, což vám pomůže pochopit váš celkový energetický výdej během dne."
+        },
+        "nutritionRead": {
+          "title": "Číst údaje o výživě",
+          "description": "Umožňuje aplikaci číst údaje o výživě ze zdravotního spojení.",
+          "usage": "Toto oprávnění umožňuje aplikaci číst informace o výživě, které mohly být zapsány jinými aplikacemi připojenými ke zdravotnímu spojení, a poskytuje komplexní přehled o vaší výživě."
+        },
+        "nutritionWrite": {
+          "title": "Zapsat údaje o výživě",
+          "description": "Umožňuje aplikaci zapsat údaje o výživě do zdravotního spojení.",
+          "usage": "Toto oprávnění umožňuje aplikaci synchronizovat vaše zapsané jídla do zdravotního spojení, což činí vaše údaje o výživě dostupné pro další aplikace týkající se zdraví a fitness, které používáte."
+        }
+      },
+      "managePermissions": "Spravovat oprávnění",
+      "openSettings": "Otevřít nastavení Health Connect",
+      "requestPermissions": "Žádat o oprávnění",
+      "permissionRequestCancelledOrFailed": "Žádost o oprávnění byla zrušena nebo selhala. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.",
+      "permissionRequestFailed": "Nepodařilo se vyžádat oprávnění. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "O nás",
+      "tagline": "Rychlá, zdarma a s důrazem na soukromí v oblasti kalorické povědomí",
+      "ourStory": {
+        "title": "Náš příběh",
+        "content": "{appLabel} vzniklo z jednoduché frustrace: většina aplikací pro sledování kalorií je buď příliš složitá, vyžaduje neustálý ruční vstup, účtuje vysoké poplatky za předplatné nebo kompromituje soukromí.\n\nJako nezávislý vývojář jsem chtěl vytvořit něco jednoduššího a spravedlivějšího - aplikaci, která využívá AI k minimalizaci úsilí, zůstává rychlá a zdarma k použití a zachází s vašimi zdravotními údaji s respektem.\n\n{appLabel} je aplikace, kterou jsem si přál mít: žádné účty, žádné sledování, žádné reklamy - jen jasné, praktické poznatky a vaše zdravotní cíle."
+      },
+      "privacy": {
+        "title": "Vaše soukromí je důležité",
+        "description": "Soukromí není dodatečný prvek - je to princip návrhu. Co to znamená v praxi:",
+        "noAccounts": "Žádné účty nejsou potřeba\nPoužívejte aplikaci okamžitě. Žádné registrace, žádné identity.",
+        "noTracking": "Žádné sledování chování\n{appLabel} nesleduje vaši aktivitu, nevytváří profily používání ani vás nesleduje napříč aplikacemi či webovými stránkami.",
+        "noAds": "Bez reklam díky návrhu\n{appLabel} je navržena tak, aby fungovala bez reklam nebo monetizace založené na datech.",
+        "noDataSelling": "Žádné prodávání dat\nVaše zdravotní údaje nejsou nikdy prodávány ani sdíleny s třetími stranami.",
+        "localStorage": "Úložiště na místě\nVaše data zůstávají na vašem zařízení.",
+        "privacyPolicy": "Zásady ochrany osobních údajů"
+      },
+      "developer": {
+        "title": "Vytvořeno nezávislým vývojářem",
+        "description": "{appLabel} je vyvinutá a udržovaná jedním nezávislým vývojářem, který se soustředí na tvorbu klidného, soukromí respektujícího zdravotního softwaru.\n\nZpětná vazba je čtena osobně a pomáhá utvářet směr aplikace.",
+        "website": "Webové stránky",
+        "email": "E-mail"
+      },
+      "feedback": {
+        "title": "Líbí se vám {appLabel}?",
+        "description": "Vaše zpětná vazba pomáhá zlepšovat {appLabel} pro všechny.",
+        "rateApp": "Ohodnoťte na Play Store",
+        "sendFeedback": "Odeslat zpětnou vazbu"
+      }
+    }
   },
   "reminders": {
     "title": "Zůstaňte na správné cestě s připomínkami",
@@ -492,6 +560,21 @@
       "professionalGuidance": {
         "title": "Odborné poradenství",
         "description": "Nepoužívejte tento odhad k lékařským rozhodnutím. Vždy se poraďte s odborníkem na zdraví nebo registrovaným dietologem pro personalizované rady ohledně řízení hmotnosti."
+      }
+    },
+    "healthMetrics": {
+      "description": "Tyto metriky vám pomáhají chápat energetické potřeby vašeho těla a usměrňují vaše nutriční cíle.",
+      "bmr": {
+        "title": "BMR",
+        "description": "Bazální metabolická rychlost (BMR) je počet kalorií, které vaše tělo spálí v klidu, aby udrželo základní funkce jako je dýchání a oběh. BMR závisí na vašem věku, pohlaví, výšce a hmotnosti. Vyšší BMR znamená, že vaše tělo přirozeně spaluje více kalorií v klidu, často díky větší svalové hmotě, mladšímu věku nebo mužskému pohlaví. Nižší BMR obvykle naznačuje méně svalové hmoty, vyšší věk nebo ženské pohlaví."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Celkový denní výdej energie (TDEE) je celkový počet kalorií, které spálíte za den, včetně vašeho BMR plus kalorií z fyzické aktivity a denního pohybu. TDEE závisí na vašem BMR a úrovni aktivity. Vyšší TDEE znamená, že spálíte více kalorií celkově, obvykle díky větší aktivitě nebo vyššímu BMR. Nižší TDEE naznačuje méně denní aktivity nebo nižší BMR."
+      },
+      "dailyGoal": {
+        "title": "Denní cíl",
+        "description": "Denní cíl je vaše doporučená denní příjem kalorií na základě vašeho TDEE a cílové hmotnosti. Při hubnutí konzumujete méně kalorií než vaše TDEE. Pro udržení hmotnosti odpovídáte svému TDEE. Při přibírání na váze konzumujete více kalorií než vaše TDEE. To vám pomůže dosáhnout požadované změny hmotnosti zdravým tempem."
       }
     }
   },

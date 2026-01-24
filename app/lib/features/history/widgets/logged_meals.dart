@@ -104,7 +104,7 @@ class MealLogCard extends StatelessWidget {
                     icon: LucideIcons.flame,
                     value: mealInfo.calories.toDouble(),
                     unit: '',
-                    iconColor: calorieIconColor,
+                    iconColor: colorScheme.calorieIconColor,
                   ),
                   NutrientIconWithValue(
                     icon: LucideIcons.wheat,

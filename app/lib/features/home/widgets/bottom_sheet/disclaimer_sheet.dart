@@ -183,3 +183,24 @@ DisclaimerData getWeightEstimateDisclaimer() {
     ],
   );
 }
+
+DisclaimerData getHealthMetricsDisclaimer() {
+  return DisclaimerData(
+    title: t.profile.healthMetrics,
+    description: t.disclaimer.healthMetrics.description,
+    bulletPoints: [
+      DisclaimerEntry(
+        title: t.disclaimer.healthMetrics.bmr.title,
+        description: t.disclaimer.healthMetrics.bmr.description,
+      ),
+      DisclaimerEntry(
+        title: t.disclaimer.healthMetrics.tdee.title,
+        description: t.disclaimer.healthMetrics.tdee.description,
+      ),
+      DisclaimerEntry(
+        title: t.disclaimer.healthMetrics.dailyGoal.title,
+        description: t.disclaimer.healthMetrics.dailyGoal.description,
+      ),
+    ],
+  );
+}

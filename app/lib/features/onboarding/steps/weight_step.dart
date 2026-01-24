@@ -21,24 +21,11 @@ class WeightStepScreen extends StatefulWidget {
 class _WeightStepScreenState extends State<WeightStepScreen> {
   double _weight = 70;
   UnitSystem _unitSystem = UnitSystem.metric;
-  final TextEditingController _textController = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     _loadData();
-    _textController.addListener(_onTextChanged);
-  }
-
-  void _onTextChanged() {
-    if (!_focusNode.hasFocus) return;
-    final val = double.tryParse(_textController.text);
-    if (val != null) {
-      setState(() {
-        _weight = val.clamp(_unitSystem.weightMin, _unitSystem.weightMax);
-      });
-    }
   }
 
   Future<void> _loadData() async {
@@ -62,20 +49,12 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
             _weight = _unitSystem.isMetric ? 70.0 : 154.0;
           }
         }
-
-        _updateTextField();
       });
     }
   }
 
-  void _updateTextField() {
-    _textController.text = _weight.toStringAsFixed(_unitSystem.weightPrecision);
-  }
-
   @override
   void dispose() {
-    _textController.dispose();
-    _focusNode.dispose();
     super.dispose();
   }
 
@@ -111,53 +90,27 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
           Center(
             child: Column(
               children: [
-                GestureDetector(
-                  onTap: () => _focusNode.requestFocus(),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      // Hidden text field
-                      Opacity(
-                        opacity: 0,
-                        child: SizedBox(
-                          width: 1,
-                          height: 1,
-                          child: TextField(
-                            controller: _textController,
-                            focusNode: _focusNode,
-                            keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true,
-                            ),
-                            onSubmitted: (_) => _focusNode.unfocus(),
-                          ),
-                        ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: [
+                    Text(
+                      _weight.toStringAsFixed(_unitSystem.weightPrecision),
+                      style: theme.textTheme.displayLarge?.copyWith(
+                        fontWeight: FontWeight.w900,
+                        color: colorScheme.primary,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        textBaseline: TextBaseline.alphabetic,
-                        children: [
-                          Text(
-                            _weight.toStringAsFixed(
-                              _unitSystem.weightPrecision,
-                            ),
-                            style: theme.textTheme.displayLarge?.copyWith(
-                              fontWeight: FontWeight.w900,
-                              color: colorScheme.primary,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            _unitSystem.isMetric ? 'kg' : 'lbs',
-                            style: theme.textTheme.titleLarge?.copyWith(
-                              color: colorScheme.onSurfaceVariant,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      _unitSystem.isMetric ? 'kg' : 'lbs',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 48),
                 WeightScaleWidget(
@@ -166,7 +119,6 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
                   onValueChanged: (newWeight) {
                     setState(() {
                       _weight = newWeight;
-                      _updateTextField();
                     });
                   },
                 ),
@@ -189,7 +141,6 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
                         _weight,
                       ).clamp(newUnit.weightMin, newUnit.weightMax);
                       _unitSystem = newUnit;
-                      _updateTextField();
                     });
                   },
                 ),
@@ -205,7 +156,6 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
                         _weight,
                       ).clamp(newUnit.weightMin, newUnit.weightMax);
                       _unitSystem = newUnit;
-                      _updateTextField();
                     });
                   },
                 ),

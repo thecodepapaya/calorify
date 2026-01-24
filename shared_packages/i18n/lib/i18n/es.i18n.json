@@ -264,6 +264,7 @@
     "weight": "Peso",
     "age": "Edad",
     "weightGoal": "Objetivo de Peso",
+    "targetWeight": "Peso Objetivo",
     "activityLevel": "Nivel de Actividad",
     "healthMetrics": "Métricas de Salud",
     "notSet": "No establecido",
@@ -352,7 +353,9 @@
       "profile": "PERFIL",
       "localization": "LOCALIZACIÓN",
       "notifications": "NOTIFICACIONES",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "SOPORTE Y LEGAL",
+      "about": "ACERCA DE",
       "dangerZone": "ZONA DE PELIGRO",
       "developer": "DESARROLLADOR"
     },
@@ -403,7 +406,72 @@
     "debugOptions": {
       "title": "Opciones de Depuración"
     },
-    "developerModeEnabled": "¡Modo de desarrollador habilitado!"
+    "developerModeEnabled": "¡Modo de desarrollador habilitado!",
+    "healthConnect": {
+      "title": "Health Connect",
+      "subtitle": "Ver y gestionar permisos",
+      "unavailable": {
+        "title": "Health Connect No Disponible",
+        "description": "Health Connect no está disponible en este dispositivo. Instala Health Connect desde Play Store (Android 9+) o actualiza a Android 14+."
+      },
+      "permissions": {
+        "title": "Permisos",
+        "description": "Se solicitan los siguientes permisos para proporcionar integración con Health Connect:",
+        "granted": "Concedido",
+        "notGranted": "No Concedido",
+        "caloriesBurned": {
+          "title": "Leer Calorías Totales Quemadas",
+          "description": "Permite que la app lea tus calorías totales quemadas desde Health Connect.",
+          "usage": "Este permiso se utiliza para mostrar tu quema diaria de calorías en la app, ayudándote a comprender tu gasto energético total a lo largo del día."
+        },
+        "nutritionRead": {
+          "title": "Leer Datos de Nutrición",
+          "description": "Permite que la app lea datos de nutrición desde Health Connect.",
+          "usage": "Este permiso permite a la app leer información nutricional que puede haber sido registrada por otras apps conectadas a Health Connect, proporcionando una vista completa de tu nutrición."
+        },
+        "nutritionWrite": {
+          "title": "Escribir Datos de Nutrición",
+          "description": "Permite que la app escriba datos de nutrición en Health Connect.",
+          "usage": "Este permiso permite a la app sincronizar tus comidas registradas con Health Connect, haciendo que tus datos de nutrición estén disponibles para otras apps de salud y fitness que utilices."
+        }
+      },
+      "managePermissions": "Gestionar Permisos",
+      "openSettings": "Abrir la configuración de Health Connect",
+      "requestPermissions": "Solicitar permisos",
+      "permissionRequestCancelledOrFailed": "La solicitud de permisos se canceló o falló. Inténtalo de nuevo o concede los permisos manualmente en la configuración de Health Connect.",
+      "permissionRequestFailed": "No se pudieron solicitar los permisos. Inténtalo de nuevo o concede los permisos manualmente en la configuración de Health Connect.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "Acerca de",
+      "tagline": "Conciencia de calorías rápida, gratuita y priorizando la privacidad",
+      "ourStory": {
+        "title": "Nuestra Historia",
+        "content": "{appLabel} nació de una frustración simple: la mayoría de las aplicaciones para el seguimiento de calorías son excesivamente complicadas, requieren un constante ingreso manual, cobran altas tarifas de suscripción o comprometen la privacidad.\n\nComo desarrollador independiente, quería crear algo más simple y justo: una aplicación que utiliza IA para reducir el esfuerzo, que se mantenga rápida y gratuita, y que trate tus datos de salud con respeto.\n\n{appLabel} es la aplicación que desearía que existiera: sin cuentas, sin seguimiento, sin anuncios, solo ideas claras y prácticas y tus objetivos de salud."
+      },
+      "privacy": {
+        "title": "Tu Privacidad Importa",
+        "description": "La privacidad no es un pensamiento posterior, es un principio de diseño. Esto es lo que significa en la práctica:",
+        "noAccounts": "Sin cuentas requeridas\nUsa la aplicación de inmediato. Sin registros, sin identidades.",
+        "noTracking": "Sin seguimiento de comportamiento\n{appLabel} no monitorea tu actividad, no crea perfiles de uso, ni te sigue a través de aplicaciones o sitios web.",
+        "noAds": "Sin anuncios por diseño\n{appLabel} está construida para funcionar sin anuncios ni monetización basada en datos.",
+        "noDataSelling": "Sin venta de datos\nTus datos de salud nunca se venden ni se comparten con terceros.",
+        "localStorage": "Almacenamiento local primero\nTus datos permanecen en tu dispositivo.",
+        "privacyPolicy": "Política de privacidad"
+      },
+      "developer": {
+        "title": "Construido por un Desarrollador Independiente",
+        "description": "{appLabel} es construido y mantenido por un solo desarrollador independiente enfocado en crear software de salud que respete la privacidad y genere calma.\n\nLos comentarios se leen personalmente y ayudan a dar forma a la dirección de la aplicación.",
+        "website": "Sitio web",
+        "email": "Correo electrónico"
+      },
+      "feedback": {
+        "title": "¿Disfrutando de {appLabel}?",
+        "description": "Tus comentarios ayudan a hacer de {appLabel} algo mejor para todos.",
+        "rateApp": "Calificar en Play Store",
+        "sendFeedback": "Enviar Comentarios"
+      }
+    }
   },
   "reminders": {
     "title": "Mantente en el camino con los recordatorios",
@@ -492,6 +560,21 @@
       "professionalGuidance": {
         "title": "Orientación Profesional",
         "description": "No utilices esta estimación para tomar decisiones médicas. Siempre consulta a un profesional de la salud o dietista registrado para asesoría personalizada sobre gestión de peso."
+      }
+    },
+    "healthMetrics": {
+      "description": "Estas métricas te ayudan a comprender las necesidades energéticas de tu cuerpo y guiar tus objetivos nutricionales.",
+      "bmr": {
+        "title": "TMB",
+        "description": "La Tasa Metabólica Basal (TMB) es la cantidad de calorías que tu cuerpo quema en reposo para mantener funciones básicas como la respiración y la circulación. La TMB depende de tu edad, género, altura y peso. Una TMB más alta significa que tu cuerpo quema naturalmente más calorías en reposo, a menudo debido a una mayor masa muscular, una edad más joven o ser masculino. Una TMB más baja típicamente indica menos masa muscular, una edad mayor o ser femenina."
+      },
+      "tdee": {
+        "title": "Gasto Energético Diario Total",
+        "description": "El Gasto Energético Diario Total (TDEE) es la cantidad total de calorías que quemas por día, incluyendo tu TMB más las calorías de la actividad física y el movimiento diario. El TDEE depende de tu TMB y nivel de actividad. Un TDEE más alto significa que quemas más calorías en general, normalmente por estar más activo o tener una TMB más alta. Un TDEE más bajo sugiere menos actividad diaria o una TMB más baja."
+      },
+      "dailyGoal": {
+        "title": "Objetivo Diario",
+        "description": "El Objetivo Diario es tu ingesta calórica diaria recomendada basada en tu TDEE y objetivo de peso. Para perder peso, consumes menos calorías que tu TDEE. Para mantener el peso, igualas tu TDEE. Para ganar peso, consumes más calorías que tu TDEE. Esto te ayuda a lograr tu cambio de peso deseado a un ritmo saludable."
       }
     }
   },

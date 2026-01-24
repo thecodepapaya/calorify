@@ -11,6 +11,22 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [AboutScreen]
+class AboutRoute extends PageRouteInfo<void> {
+  const AboutRoute({List<PageRouteInfo>? children})
+    : super(AboutRoute.name, initialChildren: children);
+
+  static const String name = 'AboutRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AboutScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [DebugOptionsScreen]
 class DebugOptionsRoute extends PageRouteInfo<void> {
   const DebugOptionsRoute({List<PageRouteInfo>? children})
@@ -101,6 +117,22 @@ class FavoritesRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FavoritesScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [HealthConnectPermissionsScreen]
+class HealthConnectPermissionsRoute extends PageRouteInfo<void> {
+  const HealthConnectPermissionsRoute({List<PageRouteInfo>? children})
+    : super(HealthConnectPermissionsRoute.name, initialChildren: children);
+
+  static const String name = 'HealthConnectPermissionsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HealthConnectPermissionsScreen();
     },
   );
 }
