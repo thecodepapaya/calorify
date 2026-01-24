@@ -60,6 +60,84 @@ A high-performance Node.js/Fastify backend for the Calorify app.
 
 This project uses **Docker Compose profiles** to manage separate staging and production environments on the same server.
 
+### Migrating from Python to Node.js Backend
+
+If you have an existing Python/FastAPI backend running, follow these steps on your VM to migrate to the Node.js backend:
+
+#### Step 1: Stop Old Python Backend Containers
+
+```bash
+# Navigate to backend directory
+cd /path/to/calorify/backend
+
+# Stop the old Python backend containers
+docker stop calorify-backend-prod calorify-backend-staging
+```
+
+#### Step 2: Remove Old Containers and Images
+
+```bash
+# Remove old containers
+docker rm calorify-backend-prod calorify-backend-staging
+
+# Remove old Python backend images (optional, saves disk space)
+docker rmi backend-backend-prod backend-backend-staging
+
+# Or remove all unused images
+docker image prune -a
+```
+
+**Note**: The databases (`calorify-db-prod` and `calorify-db-staging`) will continue running and don't need to be stopped. They use the same names and will work with the new Node.js backend.
+
+#### Step 3: Pull Latest Code and Start Node.js Backend
+
+```bash
+# Pull latest code (if using git)
+git pull
+
+# Start the new Node.js backend with profiles
+# For staging:
+docker-compose --profile staging up -d --build
+
+# For production:
+docker-compose --profile production up -d --build
+
+# Or start both:
+docker-compose --profile staging --profile production up -d --build
+```
+
+#### Step 4: Verify Migration
+
+```bash
+# Check containers are running
+docker-compose --profile production ps
+docker-compose --profile staging ps
+
+# Check logs to ensure Node.js backend started correctly
+docker-compose --profile production logs backend-prod
+docker-compose --profile staging logs backend-staging
+
+# Test health endpoint
+curl http://localhost:8000/  # Production
+curl http://localhost:8001/  # Staging
+```
+
+#### Troubleshooting Migration
+
+If you encounter issues:
+
+```bash
+# Check if old containers are still running
+docker ps -a | grep calorify
+
+# Force remove if needed
+docker rm -f calorify-backend-prod calorify-backend-staging
+
+# Rebuild from scratch
+docker-compose --profile production build --no-cache backend-prod
+docker-compose --profile production up -d backend-prod
+```
+
 ### Environment Profiles
 
 - **`staging`**: Development/testing environment
