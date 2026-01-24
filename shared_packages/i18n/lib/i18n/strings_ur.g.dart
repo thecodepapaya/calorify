@@ -37,7 +37,7 @@ class TranslationsUr with BaseTranslations<AppLocale, Translations> implements T
 	TranslationsUr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsUr(meta: meta ?? this.$meta);
 
 	// Translations
-	@override String get language => 'Urdu';
+	@override String get language => 'اردو';
 	@override String get flag => '🇵🇰';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingUr onboarding = _TranslationsOnboardingUr._(_root);
@@ -138,6 +138,7 @@ class _TranslationsMealUr implements TranslationsMealEn {
 	@override String get saveMeal => 'کھانا محفوظ کریں';
 	@override String get save => 'محفوظ کریں';
 	@override String get mealName => 'کھانے کا نام';
+	@override String get mealNameHint => 'مثلاً: ہلکے پھینٹے ہوئے انڈے کے ساتھ ٹوسٹ';
 	@override String get mealQuantity => 'کھانے کی مقدار';
 	@override String get mealQuantityHint => 'جیسے، 1 پیالی، 2 ٹکڑے';
 	@override String get timeOfMeal => 'کھانے کا وقت';
@@ -147,6 +148,9 @@ class _TranslationsMealUr implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationUr deleteConfirmation = _TranslationsMealDeleteConfirmationUr._(_root);
 	@override String get addedToLog => 'کھانا آپ کے لاگ میں شامل کیا گیا!';
 	@override String couldNotAdd({required Object error}) => 'کھانا شامل نہیں کیا جا سکا: ${error}';
+	@override String get savedSuccessfully => 'خوراک کامیابی سے شامل ہو گئی!';
+	@override String get updatedSuccessfully => 'خوراک کامیابی سے اپ ڈیٹ ہو گئی!';
+	@override String errorSaving({required Object error}) => 'خوراک محفوظ کرنے میں خرابی: ${error}';
 	@override String get removedFromFavorites => 'پسندیدہ سے ہٹا دیا گیا!';
 	@override String get savedAsFavorite => 'کھانا پسندیدہ کے طور پر محفوظ کر لیا گیا!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'پسندیدہ کو اپ ڈیٹ نہیں کر سکا: ${error}';
@@ -184,6 +188,7 @@ class _TranslationsProfileUr implements TranslationsProfileEn {
 	@override String get weight => 'وزن';
 	@override String get age => 'عمر';
 	@override String get weightGoal => 'وزن کا ہدف';
+	@override String get targetWeight => 'ہدف وزن';
 	@override String get activityLevel => 'سرگرمی کی سطح';
 	@override String get healthMetrics => 'صحت کے میٹرکس';
 	@override String get notSet => 'مقرر نہیں';
@@ -252,6 +257,9 @@ class _TranslationsSettingsUr implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataUr clearAllData = _TranslationsSettingsClearAllDataUr._(_root);
 	@override late final _TranslationsSettingsDebugOptionsUr debugOptions = _TranslationsSettingsDebugOptionsUr._(_root);
 	@override String get developerModeEnabled => 'ڈیولپر موڈ فعال ہو گیا!';
+	@override late final _TranslationsSettingsHealthConnectUr healthConnect = _TranslationsSettingsHealthConnectUr._(_root);
+	@override late final _TranslationsSettingsAboutUr about = _TranslationsSettingsAboutUr._(_root);
+	@override late final _TranslationsSettingsAppInfoUr appInfo = _TranslationsSettingsAppInfoUr._(_root);
 }
 
 // Path: reminders
@@ -319,6 +327,7 @@ class _TranslationsDisclaimerUr implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'براہ کرم نوٹ کریں';
 	@override late final _TranslationsDisclaimerSnapUr snap = _TranslationsDisclaimerSnapUr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateUr weightEstimate = _TranslationsDisclaimerWeightEstimateUr._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsUr healthMetrics = _TranslationsDisclaimerHealthMetricsUr._(_root);
 }
 
 // Path: common
@@ -651,6 +660,7 @@ class _TranslationsHomeMealSnapUr implements TranslationsHomeMealSnapEn {
 	@override String get title => 'اپنے کھانے کی تصویر لیں اور ٹریک کریں';
 	@override String get description => 'اپنے کھانے کی تصویر لینے کے لیے اپنے کیمرے کا استعمال کریں تاکہ AI اسے تجزیہ کر سکے۔';
 	@override String get openCamera => 'کیمرہ کھولیں';
+	@override String get gallery => 'گیلری';
 }
 
 // Path: home.connectHealth
@@ -780,7 +790,9 @@ class _TranslationsSettingsSectionsUr implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'پروفائل';
 	@override String get localization => 'ترجمہ';
 	@override String get notifications => 'نوٹیفیکیشن';
+	@override String get healthConnect => 'صحت کے ساتھ جڑیں';
 	@override String get supportAndLegal => 'مدد اور قانونی';
+	@override String get about => 'بارے میں';
 	@override String get dangerZone => 'خطرے کا زون';
 	@override String get developer => 'ڈیولپر';
 }
@@ -895,6 +907,51 @@ class _TranslationsSettingsDebugOptionsUr implements TranslationsSettingsDebugOp
 	@override String get title => 'ڈیبگ کے اختیارات';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectUr implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'صحت کے ساتھ جڑیں';
+	@override String get subtitle => 'اجازتیں دیکھیں اور منظم کریں';
+	@override late final _TranslationsSettingsHealthConnectUnavailableUr unavailable = _TranslationsSettingsHealthConnectUnavailableUr._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsUr permissions = _TranslationsSettingsHealthConnectPermissionsUr._(_root);
+	@override String get managePermissions => 'اجازتیں منظم کریں';
+	@override String get openSettings => 'ہیلتھ کنیکٹ کی سیٹنگز کھولیں';
+	@override String get requestPermissions => 'اجازتیں طلب کریں';
+	@override String get permissionRequestCancelledOrFailed => 'اجازت کی درخواست منسوخ یا ناکام ہوگئی۔ براہ کرم دوبارہ کوشش کریں یا صحت کنیکٹ کی ترتیبات میں دستی طور پر اجازت دیں۔';
+	@override String get permissionRequestFailed => 'اجازت کی درخواست کرنے میں ناکامی۔ براہ کرم دوبارہ کوشش کریں یا صحت کنیکٹ کی ترتیبات میں دستی طور پر اجازت دیں۔';
+	@override String get requestingPermissions => 'Requesting...';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutUr implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'بارے میں';
+	@override String get tagline => 'تیز، مفت، اور رازداری کو اولیت دینے والا کیلوری کا شعور';
+	@override late final _TranslationsSettingsAboutOurStoryUr ourStory = _TranslationsSettingsAboutOurStoryUr._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyUr privacy = _TranslationsSettingsAboutPrivacyUr._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperUr developer = _TranslationsSettingsAboutDeveloperUr._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackUr feedback = _TranslationsSettingsAboutFeedbackUr._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoUr implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify ورژن ${version}';
+	@override String build({required Object buildNumber}) => 'بلڈ ${buildNumber}';
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastUr implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastUr._(this._root);
@@ -976,6 +1033,19 @@ class _TranslationsDisclaimerWeightEstimateUr implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsUr biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsUr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightUr waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightUr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceUr professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceUr._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsUr implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'یہ میٹرکس آپ کو آپ کے جسم کی توانائی کی ضروریات کو سمجھنے میں مدد دیتے ہیں اور آپ کے غذائیت کے اہداف کی رہنمائی کرتے ہیں۔';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrUr bmr = _TranslationsDisclaimerHealthMetricsBmrUr._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeUr tdee = _TranslationsDisclaimerHealthMetricsTdeeUr._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalUr dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalUr._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1294,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveUr implements Transla
 	@override String get description => 'بہت سخت ورزش، جسمانی کام';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableUr implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'صحت کے ساتھ جڑنا دستیاب نہیں';
+	@override String get description => 'صحت کے ساتھ جڑنا اس ڈیوائس پر دستیاب نہیں ہے۔ اس کے لیے اینڈرائیڈ 14 یا اس کے بعد کا ورژن درکار ہے۔';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsUr implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'اجازات';
+	@override String get description => 'صحت کے ساتھ جڑنے کی ان اجازات کی درخواست کی گئی ہے:';
+	@override String get granted => 'اجازت دی گئی';
+	@override String get notGranted => 'اجازت نہیں دی گئی';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUr caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUr._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadUr nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadUr._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteUr nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteUr._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryUr implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ہماری کہانی';
+	@override String content({required Object appLabel}) => '${appLabel} ایک سادہ مایوسی سے پیدا ہوا: زیادہ تر کیلوری ٹریکنگ ایپس یا تو بہت پیچیدہ ہوتی ہیں، مستقل دستی ان پٹ کی ضرورت ہوتی ہے، یا زیادہ سبسکرپشن فیس لیتی ہیں، یا رازداری کا سمجھوتہ کرتی ہیں۔\n\nایک آزاد ڈویلپر کے طور پر، میں کچھ سادہ اور منصفانہ بنانا چاہتا تھا — ایک ایپ جو AI کا استعمال کرتی ہے تاکہ محنت کو کم کیا جا سکے، تیز اور مفت رہتی ہے، اور آپ کے صحت کے ڈیٹا کا احترام کرتی ہے۔\n\n${appLabel} وہ ایپ ہے جو میں چاہتا تھا کہ ہو: نہ اکاؤنٹ، نہ ٹریکنگ، نہ اشتہارات — صرف واضح، عملی بصیرت اور آپ کے صحت کے مقاصد۔';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyUr implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'آپ کی رازداری اہم ہے';
+	@override String get description => 'رازداری کوئی بعد کی سوچ نہیں ہے — یہ ایک ڈیزائن کا اصول ہے۔ اس کا عملی مطلب یہ ہے:';
+	@override String get noAccounts => 'کوئی اکاؤنٹ ضروری نہیں\nایپ کا فوری استعمال کریں۔ کوئی رجسٹریشن، کوئی شناختیں نہیں۔';
+	@override String noTracking({required Object appLabel}) => 'کوئی رویے کی ٹریکنگ نہیں\n${appLabel} آپ کی سرگرمی کی نگرانی نہیں کرتا، استعمال کے پروفائلز نہیں بناتا، یا ایپس یا ویب سائٹس پر آپ کا پیچھا نہیں کرتا۔';
+	@override String noAds({required Object appLabel}) => 'ڈیزائن کے لحاظ سے اشتہار سے پاک\n${appLabel} اشتہارات یا ڈیٹا پر مبنی منافع کے بغیر کام کرنے کے لیے بنایا گیا ہے۔';
+	@override String get noDataSelling => 'کوئی ڈیٹا فروخت نہیں\nآپ کا صحت کا ڈیٹا کبھی بھی تیسری پارٹیوں کو بیچا یا شیئر نہیں کیا جاتا۔';
+	@override String get localStorage => 'لوکل-پہلا اسٹوریج\nآپ کا ڈیٹا آپ کے ڈیوائس پر رہتا ہے۔';
+	@override String get privacyPolicy => 'ذاتی معلومات کی پالیسی';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperUr implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ایک آزاد ڈویلپر نے بنایا';
+	@override String description({required Object appLabel}) => '${appLabel} ایک واحد آزاد ڈویلپر کے ذریعہ بنایا اور دیکھ بھال کیا جاتا ہے جو پرسکون، رازداری کا احترام کرنے والے صحت کے سافٹ ویئر تخلیق کرنے پر مرکوز ہے۔\n\nجواب ذاتی طور پر پڑھا جاتا ہے اور ایپ کی سمت کو تشکیل دینے میں مدد کرتا ہے۔';
+	@override String get website => 'ویب سائٹ';
+	@override String get email => 'ای میل';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackUr implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => '${appLabel} پسند آیا؟';
+	@override String description({required Object appLabel}) => 'آپ کا فیڈبیک ${appLabel} کو سب کے لیے بہتر بنانے میں مدد دیتا ہے۔';
+	@override String get rateApp => 'پلے اسٹور پر درجہ بندی کریں';
+	@override String get sendFeedback => 'فیڈبیک بھیجیں';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeUr implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeUr._(this._root);
@@ -1312,6 +1463,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceUr implements Tra
 	@override String get description => 'اس تخمینے کا استعمال طبی فیصلے کرنے کے لیے نہ کریں۔ ہمیشہ ذاتی وزن کے انتظام کے مشورے کے لیے صحت کی دیکھ بھال کرنے والے پیشہ ور یا رجسٹرڈ غذائی ماہر سے مشورہ کریں۔';
 }
 
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrUr implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'بی ایم آر';
+	@override String get description => 'بنیادی میٹابولک ریٹ (بی ایم آر) وہ کیلوریز کی تعداد ہے جو آپ کا جسم آرام کی حالت میں بنیادی افعال جیسے سانس لینے اور خون کی گردش کو برقرار رکھنے کے لیے جلاتا ہے۔ بی ایم آر آپ کی عمر، جنس، قد، اور وزن پر منحصر ہوتا ہے۔ زیادہ بی ایم آر کا مطلب ہے کہ آپ کا جسم قدرتی طور پر آرام کے دوران زیادہ کیلوریز جلاتا ہے، جس کی وجہ عموماً زیادہ پٹھوں کی مقدار، کم عمر، یا مرد ہونا ہوتا ہے۔ کم بی ایم آر عام طور پر کم پٹھوں کی مقدار، زیادہ عمر، یا عورت ہونے کی علامت ہے۔';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeUr implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ٹی ڈی ای ای';
+	@override String get description => 'مکمل روزانہ کی توانائی کی خرچ (ٹی ڈی ای ای) کل کیلوریز ہیں جو آپ ایک دن میں جلاتے ہیں، بشمول آپ کا بی ایم آر اور جسمانی سرگرمی اور روزمرہ کی حرکت سے جلی ہوئی کیلوریز۔ ٹی ڈی ای ای آپ کے بی ایم آر اور سرگرمی کی سطح پر منحصر ہے۔ زیادہ ٹی ڈی ای ای کا مطلب ہے کہ آپ عام طور پر زیادہ کیلوریز جلاتے ہیں، عموماً زیادہ فعال ہونے یا زیادہ بی ایم آر کی وجہ سے۔ کم ٹی ڈی ای ای کم روزانہ کی سرگرمی یا کم بی ایم آر کی طرف اشارہ کرتا ہے۔';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalUr implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'روزانہ کا ہدف';
+	@override String get description => 'روزانہ کا ہدف آپ کی ٹی ڈی ای ای اور وزن کے مقصد کی بنیاد پر تجویز کردہ روزانہ کی کیلوری کی مقدار ہے۔ وزن کم کرنے کے لیے، آپ اپنی ٹی ڈی ای ای سے کم کیلوریز کھاتے ہیں۔ وزن کو برقرار رکھنے کے لیے، آپ اپنی ٹی ڈی ای ای کے برابر کھاتے ہیں۔ وزن بڑھانے کے لیے، آپ اپنی ٹی ڈی ای ای سے زیادہ کیلوریز کھاتے ہیں۔ یہ آپ کو صحت مند رفتار پر مطلوبہ وزن میں تبدیلی حاصل کرنے میں مدد کرتا ہے۔';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUr implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'مجموعی جلائی گئی کیلوریز پڑھیں';
+	@override String get description => 'ایپ کو صحت کے ساتھ جڑے ہوئے آپ کی مجموعی جلائی گئی کیلوریز پڑھنے کی اجازت دیتا ہے۔';
+	@override String get usage => 'یہ اجازت ایپ کو آپ کی روزانہ کیلوری جلانے کو ظاہر کرنے کے لیے استعمال ہوتی ہے، جس سے آپ کو دن بھر میں اپنی توانائی کے خرچ کو سمجھنے میں مدد ملتی ہے۔';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadUr implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'غذائی معلومات پڑھیں';
+	@override String get description => 'ایپ کو صحت کے ساتھ جڑنے سے غذائی معلومات پڑھنے کی اجازت دیتا ہے۔';
+	@override String get usage => 'یہ اجازت ایپ کو ایسی غذائی معلومات پڑھنے کی اجازت دیتی ہے جو ممکنہ طور پر دیگر ایپس نے صحت کے ساتھ جڑنے پر لاگ کی ہوئی ہوں، جس سے آپ کی غذائیت کا مکمل منظر نامہ مہیا ہوتا ہے۔';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteUr implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'غذائی معلومات لکھیں';
+	@override String get description => 'ایپ کو صحت کے ساتھ جڑنے پر غذائی معلومات لکھنے کی اجازت دیتا ہے۔';
+	@override String get usage => 'یہ اجازت ایپ کو آپ کے لاگ شدہ کھانوں کو صحت کے ساتھ جڑنے پر ہم آہنگ کرنے کی اجازت دیتی ہے، جس سے آپ کی غذائی معلومات دیگر صحت اور فٹنس ایپس کے لیے دستیاب ہوتی ہیں جو آپ استعمال کرتے ہیں۔';
+}
+
 /// The flat map containing all translations for locale <ur>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -1320,7 +1540,7 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceUr implements Tra
 extension on TranslationsUr {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'language' => 'Urdu',
+			'language' => 'اردو',
 			'flag' => '🇵🇰',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} میں خوش آمدید',
@@ -1453,6 +1673,7 @@ extension on TranslationsUr {
 			'home.mealSnap.title' => 'اپنے کھانے کی تصویر لیں اور ٹریک کریں',
 			'home.mealSnap.description' => 'اپنے کھانے کی تصویر لینے کے لیے اپنے کیمرے کا استعمال کریں تاکہ AI اسے تجزیہ کر سکے۔',
 			'home.mealSnap.openCamera' => 'کیمرہ کھولیں',
+			'home.mealSnap.gallery' => 'گیلری',
 			'home.connectHealth.title' => 'ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں',
 			'home.connectHealth.description' => 'اپنا غذائیت کے ڈیٹا کو ہیلتھ کنیکٹ کے ساتھ ہم آہنگ کریں',
 			'home.connectHealth.install' => 'انسٹال کریں',
@@ -1468,6 +1689,7 @@ extension on TranslationsUr {
 			'meal.saveMeal' => 'کھانا محفوظ کریں',
 			'meal.save' => 'محفوظ کریں',
 			'meal.mealName' => 'کھانے کا نام',
+			'meal.mealNameHint' => 'مثلاً: ہلکے پھینٹے ہوئے انڈے کے ساتھ ٹوسٹ',
 			'meal.mealQuantity' => 'کھانے کی مقدار',
 			'meal.mealQuantityHint' => 'جیسے، 1 پیالی، 2 ٹکڑے',
 			'meal.timeOfMeal' => 'کھانے کا وقت',
@@ -1484,6 +1706,9 @@ extension on TranslationsUr {
 			'meal.deleteConfirmation.delete' => 'حذف کریں',
 			'meal.addedToLog' => 'کھانا آپ کے لاگ میں شامل کیا گیا!',
 			'meal.couldNotAdd' => ({required Object error}) => 'کھانا شامل نہیں کیا جا سکا: ${error}',
+			'meal.savedSuccessfully' => 'خوراک کامیابی سے شامل ہو گئی!',
+			'meal.updatedSuccessfully' => 'خوراک کامیابی سے اپ ڈیٹ ہو گئی!',
+			'meal.errorSaving' => ({required Object error}) => 'خوراک محفوظ کرنے میں خرابی: ${error}',
 			'meal.removedFromFavorites' => 'پسندیدہ سے ہٹا دیا گیا!',
 			'meal.savedAsFavorite' => 'کھانا پسندیدہ کے طور پر محفوظ کر لیا گیا!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'پسندیدہ کو اپ ڈیٹ نہیں کر سکا: ${error}',
@@ -1506,6 +1731,7 @@ extension on TranslationsUr {
 			'profile.weight' => 'وزن',
 			'profile.age' => 'عمر',
 			'profile.weightGoal' => 'وزن کا ہدف',
+			'profile.targetWeight' => 'ہدف وزن',
 			'profile.activityLevel' => 'سرگرمی کی سطح',
 			'profile.healthMetrics' => 'صحت کے میٹرکس',
 			'profile.notSet' => 'مقرر نہیں',
@@ -1561,7 +1787,9 @@ extension on TranslationsUr {
 			'settings.sections.profile' => 'پروفائل',
 			'settings.sections.localization' => 'ترجمہ',
 			'settings.sections.notifications' => 'نوٹیفیکیشن',
+			'settings.sections.healthConnect' => 'صحت کے ساتھ جڑیں',
 			'settings.sections.supportAndLegal' => 'مدد اور قانونی',
+			'settings.sections.about' => 'بارے میں',
 			'settings.sections.dangerZone' => 'خطرے کا زون',
 			'settings.sections.developer' => 'ڈیولپر',
 			'settings.editProfile.title' => 'پروفائل ترمیم کریں',
@@ -1594,6 +1822,51 @@ extension on TranslationsUr {
 			'settings.clearAllData.clearEverything' => 'سب کچھ صاف کریں',
 			'settings.debugOptions.title' => 'ڈیبگ کے اختیارات',
 			'settings.developerModeEnabled' => 'ڈیولپر موڈ فعال ہو گیا!',
+			'settings.healthConnect.title' => 'صحت کے ساتھ جڑیں',
+			'settings.healthConnect.subtitle' => 'اجازتیں دیکھیں اور منظم کریں',
+			'settings.healthConnect.unavailable.title' => 'صحت کے ساتھ جڑنا دستیاب نہیں',
+			'settings.healthConnect.unavailable.description' => 'صحت کے ساتھ جڑنا اس ڈیوائس پر دستیاب نہیں ہے۔ اس کے لیے اینڈرائیڈ 14 یا اس کے بعد کا ورژن درکار ہے۔',
+			'settings.healthConnect.permissions.title' => 'اجازات',
+			'settings.healthConnect.permissions.description' => 'صحت کے ساتھ جڑنے کی ان اجازات کی درخواست کی گئی ہے:',
+			'settings.healthConnect.permissions.granted' => 'اجازت دی گئی',
+			'settings.healthConnect.permissions.notGranted' => 'اجازت نہیں دی گئی',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'مجموعی جلائی گئی کیلوریز پڑھیں',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'ایپ کو صحت کے ساتھ جڑے ہوئے آپ کی مجموعی جلائی گئی کیلوریز پڑھنے کی اجازت دیتا ہے۔',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'یہ اجازت ایپ کو آپ کی روزانہ کیلوری جلانے کو ظاہر کرنے کے لیے استعمال ہوتی ہے، جس سے آپ کو دن بھر میں اپنی توانائی کے خرچ کو سمجھنے میں مدد ملتی ہے۔',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'غذائی معلومات پڑھیں',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'ایپ کو صحت کے ساتھ جڑنے سے غذائی معلومات پڑھنے کی اجازت دیتا ہے۔',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'یہ اجازت ایپ کو ایسی غذائی معلومات پڑھنے کی اجازت دیتی ہے جو ممکنہ طور پر دیگر ایپس نے صحت کے ساتھ جڑنے پر لاگ کی ہوئی ہوں، جس سے آپ کی غذائیت کا مکمل منظر نامہ مہیا ہوتا ہے۔',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'غذائی معلومات لکھیں',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'ایپ کو صحت کے ساتھ جڑنے پر غذائی معلومات لکھنے کی اجازت دیتا ہے۔',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'یہ اجازت ایپ کو آپ کے لاگ شدہ کھانوں کو صحت کے ساتھ جڑنے پر ہم آہنگ کرنے کی اجازت دیتی ہے، جس سے آپ کی غذائی معلومات دیگر صحت اور فٹنس ایپس کے لیے دستیاب ہوتی ہیں جو آپ استعمال کرتے ہیں۔',
+			'settings.healthConnect.managePermissions' => 'اجازتیں منظم کریں',
+			'settings.healthConnect.openSettings' => 'ہیلتھ کنیکٹ کی سیٹنگز کھولیں',
+			'settings.healthConnect.requestPermissions' => 'اجازتیں طلب کریں',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'اجازت کی درخواست منسوخ یا ناکام ہوگئی۔ براہ کرم دوبارہ کوشش کریں یا صحت کنیکٹ کی ترتیبات میں دستی طور پر اجازت دیں۔',
+			'settings.healthConnect.permissionRequestFailed' => 'اجازت کی درخواست کرنے میں ناکامی۔ براہ کرم دوبارہ کوشش کریں یا صحت کنیکٹ کی ترتیبات میں دستی طور پر اجازت دیں۔',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
+			'settings.about.title' => 'بارے میں',
+			'settings.about.tagline' => 'تیز، مفت، اور رازداری کو اولیت دینے والا کیلوری کا شعور',
+			'settings.about.ourStory.title' => 'ہماری کہانی',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} ایک سادہ مایوسی سے پیدا ہوا: زیادہ تر کیلوری ٹریکنگ ایپس یا تو بہت پیچیدہ ہوتی ہیں، مستقل دستی ان پٹ کی ضرورت ہوتی ہے، یا زیادہ سبسکرپشن فیس لیتی ہیں، یا رازداری کا سمجھوتہ کرتی ہیں۔\n\nایک آزاد ڈویلپر کے طور پر، میں کچھ سادہ اور منصفانہ بنانا چاہتا تھا — ایک ایپ جو AI کا استعمال کرتی ہے تاکہ محنت کو کم کیا جا سکے، تیز اور مفت رہتی ہے، اور آپ کے صحت کے ڈیٹا کا احترام کرتی ہے۔\n\n${appLabel} وہ ایپ ہے جو میں چاہتا تھا کہ ہو: نہ اکاؤنٹ، نہ ٹریکنگ، نہ اشتہارات — صرف واضح، عملی بصیرت اور آپ کے صحت کے مقاصد۔',
+			'settings.about.privacy.title' => 'آپ کی رازداری اہم ہے',
+			'settings.about.privacy.description' => 'رازداری کوئی بعد کی سوچ نہیں ہے — یہ ایک ڈیزائن کا اصول ہے۔ اس کا عملی مطلب یہ ہے:',
+			'settings.about.privacy.noAccounts' => 'کوئی اکاؤنٹ ضروری نہیں\nایپ کا فوری استعمال کریں۔ کوئی رجسٹریشن، کوئی شناختیں نہیں۔',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'کوئی رویے کی ٹریکنگ نہیں\n${appLabel} آپ کی سرگرمی کی نگرانی نہیں کرتا، استعمال کے پروفائلز نہیں بناتا، یا ایپس یا ویب سائٹس پر آپ کا پیچھا نہیں کرتا۔',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ڈیزائن کے لحاظ سے اشتہار سے پاک\n${appLabel} اشتہارات یا ڈیٹا پر مبنی منافع کے بغیر کام کرنے کے لیے بنایا گیا ہے۔',
+			'settings.about.privacy.noDataSelling' => 'کوئی ڈیٹا فروخت نہیں\nآپ کا صحت کا ڈیٹا کبھی بھی تیسری پارٹیوں کو بیچا یا شیئر نہیں کیا جاتا۔',
+			'settings.about.privacy.localStorage' => 'لوکل-پہلا اسٹوریج\nآپ کا ڈیٹا آپ کے ڈیوائس پر رہتا ہے۔',
+			'settings.about.privacy.privacyPolicy' => 'ذاتی معلومات کی پالیسی',
+			'settings.about.developer.title' => 'ایک آزاد ڈویلپر نے بنایا',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} ایک واحد آزاد ڈویلپر کے ذریعہ بنایا اور دیکھ بھال کیا جاتا ہے جو پرسکون، رازداری کا احترام کرنے والے صحت کے سافٹ ویئر تخلیق کرنے پر مرکوز ہے۔\n\nجواب ذاتی طور پر پڑھا جاتا ہے اور ایپ کی سمت کو تشکیل دینے میں مدد کرتا ہے۔',
+			'settings.about.developer.website' => 'ویب سائٹ',
+			'settings.about.developer.email' => 'ای میل',
+			'settings.about.feedback.title' => ({required Object appLabel}) => '${appLabel} پسند آیا؟',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'آپ کا فیڈبیک ${appLabel} کو سب کے لیے بہتر بنانے میں مدد دیتا ہے۔',
+			'settings.about.feedback.rateApp' => 'پلے اسٹور پر درجہ بندی کریں',
+			'settings.about.feedback.sendFeedback' => 'فیڈبیک بھیجیں',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify ورژن ${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'بلڈ ${buildNumber}',
 			'reminders.title' => 'یاد دہانیوں کے ساتھ ٹریک پر رہیں',
 			'reminders.description' => 'اپنے کھانوں کے اندراج کے لیے آپ کو نرم یاد دہانیاں موصول ہوں گی تاکہ آپ اپنے غذائیت کے اہداف کے ساتھ مستقل رہ سکیں',
 			'reminders.notificationsEnabled' => 'نوٹیفیکیشن فعال ہیں',
@@ -1646,6 +1919,13 @@ extension on TranslationsUr {
 			'disclaimer.weightEstimate.waterWeight.description' => 'روزانہ کا معمولی وزن پانی کی زیادتی، ہضم، اور وقت کی وجہ سے بڑی صورت میں تبدیل ہو سکتا ہے۔ یہ تخمینہ ان روزانہ کی تبدیلیوں کا بہ لحاظ نہیں رکھتا۔',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'پیشہ ورانہ رہنمائی',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'اس تخمینے کا استعمال طبی فیصلے کرنے کے لیے نہ کریں۔ ہمیشہ ذاتی وزن کے انتظام کے مشورے کے لیے صحت کی دیکھ بھال کرنے والے پیشہ ور یا رجسٹرڈ غذائی ماہر سے مشورہ کریں۔',
+			'disclaimer.healthMetrics.description' => 'یہ میٹرکس آپ کو آپ کے جسم کی توانائی کی ضروریات کو سمجھنے میں مدد دیتے ہیں اور آپ کے غذائیت کے اہداف کی رہنمائی کرتے ہیں۔',
+			'disclaimer.healthMetrics.bmr.title' => 'بی ایم آر',
+			'disclaimer.healthMetrics.bmr.description' => 'بنیادی میٹابولک ریٹ (بی ایم آر) وہ کیلوریز کی تعداد ہے جو آپ کا جسم آرام کی حالت میں بنیادی افعال جیسے سانس لینے اور خون کی گردش کو برقرار رکھنے کے لیے جلاتا ہے۔ بی ایم آر آپ کی عمر، جنس، قد، اور وزن پر منحصر ہوتا ہے۔ زیادہ بی ایم آر کا مطلب ہے کہ آپ کا جسم قدرتی طور پر آرام کے دوران زیادہ کیلوریز جلاتا ہے، جس کی وجہ عموماً زیادہ پٹھوں کی مقدار، کم عمر، یا مرد ہونا ہوتا ہے۔ کم بی ایم آر عام طور پر کم پٹھوں کی مقدار، زیادہ عمر، یا عورت ہونے کی علامت ہے۔',
+			'disclaimer.healthMetrics.tdee.title' => 'ٹی ڈی ای ای',
+			'disclaimer.healthMetrics.tdee.description' => 'مکمل روزانہ کی توانائی کی خرچ (ٹی ڈی ای ای) کل کیلوریز ہیں جو آپ ایک دن میں جلاتے ہیں، بشمول آپ کا بی ایم آر اور جسمانی سرگرمی اور روزمرہ کی حرکت سے جلی ہوئی کیلوریز۔ ٹی ڈی ای ای آپ کے بی ایم آر اور سرگرمی کی سطح پر منحصر ہے۔ زیادہ ٹی ڈی ای ای کا مطلب ہے کہ آپ عام طور پر زیادہ کیلوریز جلاتے ہیں، عموماً زیادہ فعال ہونے یا زیادہ بی ایم آر کی وجہ سے۔ کم ٹی ڈی ای ای کم روزانہ کی سرگرمی یا کم بی ایم آر کی طرف اشارہ کرتا ہے۔',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'روزانہ کا ہدف',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'روزانہ کا ہدف آپ کی ٹی ڈی ای ای اور وزن کے مقصد کی بنیاد پر تجویز کردہ روزانہ کی کیلوری کی مقدار ہے۔ وزن کم کرنے کے لیے، آپ اپنی ٹی ڈی ای ای سے کم کیلوریز کھاتے ہیں۔ وزن کو برقرار رکھنے کے لیے، آپ اپنی ٹی ڈی ای ای کے برابر کھاتے ہیں۔ وزن بڑھانے کے لیے، آپ اپنی ٹی ڈی ای ای سے زیادہ کیلوریز کھاتے ہیں۔ یہ آپ کو صحت مند رفتار پر مطلوبہ وزن میں تبدیلی حاصل کرنے میں مدد کرتا ہے۔',
 			'common.close' => 'بند کریں',
 			'common.kContinue' => 'جاری رکھیں',
 			'errors.loadingProfileData' => 'پروفائل کا ڈیٹا لوڈ کرنے میں خرابی',

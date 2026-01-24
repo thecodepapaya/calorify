@@ -138,6 +138,7 @@ class _TranslationsMealSv implements TranslationsMealEn {
 	@override String get saveMeal => 'Spara måltid';
 	@override String get save => 'Spara';
 	@override String get mealName => 'Måltidens namn';
+	@override String get mealNameHint => 't.ex., Äggröra med rostat bröd';
 	@override String get mealQuantity => 'Måltidens mängd';
 	@override String get mealQuantityHint => 't.ex. 1 skål, 2 skivor';
 	@override String get timeOfMeal => 'Måltidens tid';
@@ -147,6 +148,9 @@ class _TranslationsMealSv implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationSv deleteConfirmation = _TranslationsMealDeleteConfirmationSv._(_root);
 	@override String get addedToLog => 'Måltid tillagd till din logg!';
 	@override String couldNotAdd({required Object error}) => 'Kunde inte lägga till måltid: ${error}';
+	@override String get savedSuccessfully => 'Måltid tillagd!';
+	@override String get updatedSuccessfully => 'Måltid uppdaterad!';
+	@override String errorSaving({required Object error}) => 'Fel vid sparning av måltid: ${error}';
 	@override String get removedFromFavorites => 'Borttagen från favoriter!';
 	@override String get savedAsFavorite => 'Måltid sparad som favorit!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Kunde inte uppdatera favorit: ${error}';
@@ -184,6 +188,7 @@ class _TranslationsProfileSv implements TranslationsProfileEn {
 	@override String get weight => 'Vikt';
 	@override String get age => 'Ålder';
 	@override String get weightGoal => 'Viktmål';
+	@override String get targetWeight => 'Målvikt';
 	@override String get activityLevel => 'Aktivitetsnivå';
 	@override String get healthMetrics => 'Hälsomått';
 	@override String get notSet => 'Inte inställd';
@@ -252,6 +257,9 @@ class _TranslationsSettingsSv implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataSv clearAllData = _TranslationsSettingsClearAllDataSv._(_root);
 	@override late final _TranslationsSettingsDebugOptionsSv debugOptions = _TranslationsSettingsDebugOptionsSv._(_root);
 	@override String get developerModeEnabled => 'Utvecklarläge aktiverat!';
+	@override late final _TranslationsSettingsHealthConnectSv healthConnect = _TranslationsSettingsHealthConnectSv._(_root);
+	@override late final _TranslationsSettingsAboutSv about = _TranslationsSettingsAboutSv._(_root);
+	@override late final _TranslationsSettingsAppInfoSv appInfo = _TranslationsSettingsAppInfoSv._(_root);
 }
 
 // Path: reminders
@@ -319,6 +327,7 @@ class _TranslationsDisclaimerSv implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'Vänligen notera';
 	@override late final _TranslationsDisclaimerSnapSv snap = _TranslationsDisclaimerSnapSv._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateSv weightEstimate = _TranslationsDisclaimerWeightEstimateSv._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsSv healthMetrics = _TranslationsDisclaimerHealthMetricsSv._(_root);
 }
 
 // Path: common
@@ -651,6 +660,7 @@ class _TranslationsHomeMealSnapSv implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Snap & Spåra din måltid';
 	@override String get description => 'Använd din kamera för att ta en bild av din mat för AI-analys.';
 	@override String get openCamera => 'Öppna kamera';
+	@override String get gallery => 'Galleri';
 }
 
 // Path: home.connectHealth
@@ -780,7 +790,9 @@ class _TranslationsSettingsSectionsSv implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'LOKALISERING';
 	@override String get notifications => 'NOTIFIERINGAR';
+	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'SUPPORT & JURIDIK';
+	@override String get about => 'OM';
 	@override String get dangerZone => 'FARLIG ZON';
 	@override String get developer => 'UTVECKLARE';
 }
@@ -895,6 +907,51 @@ class _TranslationsSettingsDebugOptionsSv implements TranslationsSettingsDebugOp
 	@override String get title => 'Debugalternativ';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectSv implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hälsokoppling';
+	@override String get subtitle => 'Visa och hantera behörigheter';
+	@override late final _TranslationsSettingsHealthConnectUnavailableSv unavailable = _TranslationsSettingsHealthConnectUnavailableSv._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsSv permissions = _TranslationsSettingsHealthConnectPermissionsSv._(_root);
+	@override String get managePermissions => 'Hantera Behörigheter';
+	@override String get openSettings => 'Öppna inställningar för Hälsokoppling';
+	@override String get requestPermissions => 'Begär behörigheter';
+	@override String get permissionRequestCancelledOrFailed => 'Behörighetsbegäran avbröts eller misslyckades. Vänligen försök igen eller ge behörigheter manuellt i inställningarna för Health Connect.';
+	@override String get permissionRequestFailed => 'Det gick inte att begära behörigheter. Vänligen försök igen eller ge behörigheter manuellt i inställningarna för Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutSv implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Om';
+	@override String get tagline => 'Snabb, gratis och integritetsfokuserad kalorimedvetenhet';
+	@override late final _TranslationsSettingsAboutOurStorySv ourStory = _TranslationsSettingsAboutOurStorySv._(_root);
+	@override late final _TranslationsSettingsAboutPrivacySv privacy = _TranslationsSettingsAboutPrivacySv._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperSv developer = _TranslationsSettingsAboutDeveloperSv._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackSv feedback = _TranslationsSettingsAboutFeedbackSv._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoSv implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Bygg ${buildNumber}';
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastSv implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastSv._(this._root);
@@ -976,6 +1033,19 @@ class _TranslationsDisclaimerWeightEstimateSv implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsSv biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsSv._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightSv waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightSv._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceSv professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceSv._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsSv implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Dessa mått hjälper dig att förstå kroppens energibehov och vägleda dina näringsmål.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrSv bmr = _TranslationsDisclaimerHealthMetricsBmrSv._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeSv tdee = _TranslationsDisclaimerHealthMetricsTdeeSv._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalSv dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalSv._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1294,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveSv implements Transla
 	@override String get description => 'Mycket hård träning, fysiskt arbete';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableSv implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hälsokoppling Otillgänglig';
+	@override String get description => 'Hälsokoppling är inte tillgänglig på denna enhet. Det krävs Android 14 eller senare.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsSv implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Behörigheter';
+	@override String get description => 'Följande behörigheter begärs för att tillhandahålla integrering med Hälsokoppling:';
+	@override String get granted => 'Beviljad';
+	@override String get notGranted => 'Ej Beviljad';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedSv caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedSv._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadSv nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadSv._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteSv nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteSv._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStorySv implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStorySv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Vår Historia';
+	@override String content({required Object appLabel}) => '${appLabel} föddes ur en enkel frustration: de flesta kaloritracking-appar är antingen överdrivet komplicerade, kräver konstant manuell inmatning, tar ut höga abonnemangsavgifter eller kompromissar med integriteten.\n\nSom en oberoende utvecklare ville jag bygga något enklare och rättvisare — en app som använder AI för att minska ansträngningen, förblir snabb och gratis att använda, och hanterar din hälsodata med respekt.\n\n${appLabel} är appen jag önskar fanns: inga konton, ingen spårning, inga annonser — bara tydliga, praktiska insikter och dina hälsomål.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacySv implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacySv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Din Integritet Är Viktig';
+	@override String get description => 'Integritet är inte en eftertanke — det är en designprincip. Här är vad det innebär i praktiken:';
+	@override String get noAccounts => 'Inga konton krävs\nAnvänd appen direkt. Inga registreringar, inga identiteter.';
+	@override String noTracking({required Object appLabel}) => 'Ingen beteendesporing\n${appLabel} övervakar inte din aktivitet, bygger användarprofiler, eller spårar dig över appar eller webbplatser.';
+	@override String noAds({required Object appLabel}) => 'Annonsfri av design\n${appLabel} är byggd för att fungera utan annonser eller datadriven monetisering.';
+	@override String get noDataSelling => 'Ingen försäljning av data\nDin hälsodata säljs aldrig eller delas med tredje part.';
+	@override String get localStorage => 'Lokal lagring först\nDin data stannar på din enhet.';
+	@override String get privacyPolicy => 'Integritetspolicy';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperSv implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Byggd av en Oberoende Utvecklare';
+	@override String description({required Object appLabel}) => '${appLabel} är byggd och underhållen av en enda oberoende utvecklare som fokuserar på att skapa lugn, integritetsrespekterande hälsoprogramvara.\n\nFeedback läses personligen och hjälper till att forma riktningen för appen.';
+	@override String get website => 'Hemsida';
+	@override String get email => 'E-post';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackSv implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => 'Gillar du ${appLabel}?';
+	@override String description({required Object appLabel}) => 'Din feedback hjälper till att göra ${appLabel} bättre för alla.';
+	@override String get rateApp => 'Betygsätt på Play Store';
+	@override String get sendFeedback => 'Skicka Feedback';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeSv implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeSv._(this._root);
@@ -1310,6 +1461,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceSv implements Tra
 	// Translations
 	@override String get title => 'Professionell vägledning';
 	@override String get description => 'Använd inte denna uppskattning för att fatta medicinska beslut. Rådgör alltid med en vårdpersonal eller registrerad dietist för personlig viktstyrning rådgivning.';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrSv implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'BMR';
+	@override String get description => 'Basal Metabolisk Hastighet (BMR) är antalet kalorier din kropp förbränner i vila för att upprätthålla grundläggande funktioner som andning och cirkulation. BMR beror på din ålder, kön, längd och vikt. En högre BMR betyder att din kropp naturligt förbränner fler kalorier i vila, ofta på grund av mer muskelmassa, yngre ålder eller manligt kön. En lägre BMR indikerar vanligtvis mindre muskelmassa, äldre ålder, eller kvinnligt kön.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeSv implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TDEE';
+	@override String get description => 'Totalt Dagligt Energibehov (TDEE) är de totala kalorier du förbränner per dag, inklusive din BMR plus kalorier från fysisk aktivitet och daglig rörelse. TDEE beror på din BMR och aktivitetsnivå. En högre TDEE innebär att du förbränner fler kalorier totalt, vanligtvis på grund av att du är mer aktiv eller har en högre BMR. En lägre TDEE tyder på mindre daglig aktivitet eller en lägre BMR.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalSv implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Dagligt Mål';
+	@override String get description => 'Dagligt Mål är ditt rekommenderade dagliga kaloriintag baserat på din TDEE och viktmål. För viktnedgång konsumerar du färre kalorier än din TDEE. För vikthållning matchar du din TDEE. För viktökning konsumerar du fler kalorier än din TDEE. Detta hjälper dig att uppnå din önskade viktförändring i en hälsosam takt.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedSv implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Läsa Totala Brända Kalorier';
+	@override String get description => 'Tillåter appen att läsa dina totala brända kalorier från Hälsokoppling.';
+	@override String get usage => 'Denna behörighet används för att visa din dagliga kaloriförbränning i appen, vilket hjälper dig att förstå din totala energiförbrukning under dagen.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadSv implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Läsa Näringsdata';
+	@override String get description => 'Tillåter appen att läsa näringsdata från Hälsokoppling.';
+	@override String get usage => 'Denna behörighet gör att appen kan läsa näringsinformation som kan ha loggats av andra appar kopplade till Hälsokoppling, vilket ger en heltäckande bild av din nutrition.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteSv implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Skriva Näringsdata';
+	@override String get description => 'Tillåter appen att skriva näringsdata till Hälsokoppling.';
+	@override String get usage => 'Denna behörighet gör att appen kan synkronisera dina loggade måltider till Hälsokoppling, vilket gör din näringsdata tillgänglig för andra hälso- och fitnessappar du använder.';
 }
 
 /// The flat map containing all translations for locale <sv>.
@@ -1453,6 +1673,7 @@ extension on TranslationsSv {
 			'home.mealSnap.title' => 'Snap & Spåra din måltid',
 			'home.mealSnap.description' => 'Använd din kamera för att ta en bild av din mat för AI-analys.',
 			'home.mealSnap.openCamera' => 'Öppna kamera',
+			'home.mealSnap.gallery' => 'Galleri',
 			'home.connectHealth.title' => 'Synkronisera med Health Connect',
 			'home.connectHealth.description' => 'Synkronisera din näringsdata med Health Connect',
 			'home.connectHealth.install' => 'Installera',
@@ -1468,6 +1689,7 @@ extension on TranslationsSv {
 			'meal.saveMeal' => 'Spara måltid',
 			'meal.save' => 'Spara',
 			'meal.mealName' => 'Måltidens namn',
+			'meal.mealNameHint' => 't.ex., Äggröra med rostat bröd',
 			'meal.mealQuantity' => 'Måltidens mängd',
 			'meal.mealQuantityHint' => 't.ex. 1 skål, 2 skivor',
 			'meal.timeOfMeal' => 'Måltidens tid',
@@ -1484,6 +1706,9 @@ extension on TranslationsSv {
 			'meal.deleteConfirmation.delete' => 'Radera',
 			'meal.addedToLog' => 'Måltid tillagd till din logg!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Kunde inte lägga till måltid: ${error}',
+			'meal.savedSuccessfully' => 'Måltid tillagd!',
+			'meal.updatedSuccessfully' => 'Måltid uppdaterad!',
+			'meal.errorSaving' => ({required Object error}) => 'Fel vid sparning av måltid: ${error}',
 			'meal.removedFromFavorites' => 'Borttagen från favoriter!',
 			'meal.savedAsFavorite' => 'Måltid sparad som favorit!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Kunde inte uppdatera favorit: ${error}',
@@ -1506,6 +1731,7 @@ extension on TranslationsSv {
 			'profile.weight' => 'Vikt',
 			'profile.age' => 'Ålder',
 			'profile.weightGoal' => 'Viktmål',
+			'profile.targetWeight' => 'Målvikt',
 			'profile.activityLevel' => 'Aktivitetsnivå',
 			'profile.healthMetrics' => 'Hälsomått',
 			'profile.notSet' => 'Inte inställd',
@@ -1561,7 +1787,9 @@ extension on TranslationsSv {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'LOKALISERING',
 			'settings.sections.notifications' => 'NOTIFIERINGAR',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'SUPPORT & JURIDIK',
+			'settings.sections.about' => 'OM',
 			'settings.sections.dangerZone' => 'FARLIG ZON',
 			'settings.sections.developer' => 'UTVECKLARE',
 			'settings.editProfile.title' => 'Redigera profil',
@@ -1594,6 +1822,51 @@ extension on TranslationsSv {
 			'settings.clearAllData.clearEverything' => 'Rensa allt',
 			'settings.debugOptions.title' => 'Debugalternativ',
 			'settings.developerModeEnabled' => 'Utvecklarläge aktiverat!',
+			'settings.healthConnect.title' => 'Hälsokoppling',
+			'settings.healthConnect.subtitle' => 'Visa och hantera behörigheter',
+			'settings.healthConnect.unavailable.title' => 'Hälsokoppling Otillgänglig',
+			'settings.healthConnect.unavailable.description' => 'Hälsokoppling är inte tillgänglig på denna enhet. Det krävs Android 14 eller senare.',
+			'settings.healthConnect.permissions.title' => 'Behörigheter',
+			'settings.healthConnect.permissions.description' => 'Följande behörigheter begärs för att tillhandahålla integrering med Hälsokoppling:',
+			'settings.healthConnect.permissions.granted' => 'Beviljad',
+			'settings.healthConnect.permissions.notGranted' => 'Ej Beviljad',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Läsa Totala Brända Kalorier',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Tillåter appen att läsa dina totala brända kalorier från Hälsokoppling.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Denna behörighet används för att visa din dagliga kaloriförbränning i appen, vilket hjälper dig att förstå din totala energiförbrukning under dagen.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Läsa Näringsdata',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Tillåter appen att läsa näringsdata från Hälsokoppling.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Denna behörighet gör att appen kan läsa näringsinformation som kan ha loggats av andra appar kopplade till Hälsokoppling, vilket ger en heltäckande bild av din nutrition.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Skriva Näringsdata',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Tillåter appen att skriva näringsdata till Hälsokoppling.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Denna behörighet gör att appen kan synkronisera dina loggade måltider till Hälsokoppling, vilket gör din näringsdata tillgänglig för andra hälso- och fitnessappar du använder.',
+			'settings.healthConnect.managePermissions' => 'Hantera Behörigheter',
+			'settings.healthConnect.openSettings' => 'Öppna inställningar för Hälsokoppling',
+			'settings.healthConnect.requestPermissions' => 'Begär behörigheter',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Behörighetsbegäran avbröts eller misslyckades. Vänligen försök igen eller ge behörigheter manuellt i inställningarna för Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Det gick inte att begära behörigheter. Vänligen försök igen eller ge behörigheter manuellt i inställningarna för Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
+			'settings.about.title' => 'Om',
+			'settings.about.tagline' => 'Snabb, gratis och integritetsfokuserad kalorimedvetenhet',
+			'settings.about.ourStory.title' => 'Vår Historia',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} föddes ur en enkel frustration: de flesta kaloritracking-appar är antingen överdrivet komplicerade, kräver konstant manuell inmatning, tar ut höga abonnemangsavgifter eller kompromissar med integriteten.\n\nSom en oberoende utvecklare ville jag bygga något enklare och rättvisare — en app som använder AI för att minska ansträngningen, förblir snabb och gratis att använda, och hanterar din hälsodata med respekt.\n\n${appLabel} är appen jag önskar fanns: inga konton, ingen spårning, inga annonser — bara tydliga, praktiska insikter och dina hälsomål.',
+			'settings.about.privacy.title' => 'Din Integritet Är Viktig',
+			'settings.about.privacy.description' => 'Integritet är inte en eftertanke — det är en designprincip. Här är vad det innebär i praktiken:',
+			'settings.about.privacy.noAccounts' => 'Inga konton krävs\nAnvänd appen direkt. Inga registreringar, inga identiteter.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Ingen beteendesporing\n${appLabel} övervakar inte din aktivitet, bygger användarprofiler, eller spårar dig över appar eller webbplatser.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Annonsfri av design\n${appLabel} är byggd för att fungera utan annonser eller datadriven monetisering.',
+			'settings.about.privacy.noDataSelling' => 'Ingen försäljning av data\nDin hälsodata säljs aldrig eller delas med tredje part.',
+			'settings.about.privacy.localStorage' => 'Lokal lagring först\nDin data stannar på din enhet.',
+			'settings.about.privacy.privacyPolicy' => 'Integritetspolicy',
+			'settings.about.developer.title' => 'Byggd av en Oberoende Utvecklare',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} är byggd och underhållen av en enda oberoende utvecklare som fokuserar på att skapa lugn, integritetsrespekterande hälsoprogramvara.\n\nFeedback läses personligen och hjälper till att forma riktningen för appen.',
+			'settings.about.developer.website' => 'Hemsida',
+			'settings.about.developer.email' => 'E-post',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Gillar du ${appLabel}?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Din feedback hjälper till att göra ${appLabel} bättre för alla.',
+			'settings.about.feedback.rateApp' => 'Betygsätt på Play Store',
+			'settings.about.feedback.sendFeedback' => 'Skicka Feedback',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Bygg ${buildNumber}',
 			'reminders.title' => 'Håll dig på rätt spår med påminnelser',
 			'reminders.description' => 'Få milda påminnelser för att logga dina måltider och hålla dig konsekvent med dina näringsmål',
 			'reminders.notificationsEnabled' => 'Notiser aktiverade',
@@ -1646,6 +1919,13 @@ extension on TranslationsSv {
 			'disclaimer.weightEstimate.waterWeight.description' => 'Normal dagsvikt kan fluktuera betydligt på grund av vattenretention, matsmältning och timing. Uppskattningen tar inte hänsyn till dessa dagliga förändringar.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Professionell vägledning',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Använd inte denna uppskattning för att fatta medicinska beslut. Rådgör alltid med en vårdpersonal eller registrerad dietist för personlig viktstyrning rådgivning.',
+			'disclaimer.healthMetrics.description' => 'Dessa mått hjälper dig att förstå kroppens energibehov och vägleda dina näringsmål.',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => 'Basal Metabolisk Hastighet (BMR) är antalet kalorier din kropp förbränner i vila för att upprätthålla grundläggande funktioner som andning och cirkulation. BMR beror på din ålder, kön, längd och vikt. En högre BMR betyder att din kropp naturligt förbränner fler kalorier i vila, ofta på grund av mer muskelmassa, yngre ålder eller manligt kön. En lägre BMR indikerar vanligtvis mindre muskelmassa, äldre ålder, eller kvinnligt kön.',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => 'Totalt Dagligt Energibehov (TDEE) är de totala kalorier du förbränner per dag, inklusive din BMR plus kalorier från fysisk aktivitet och daglig rörelse. TDEE beror på din BMR och aktivitetsnivå. En högre TDEE innebär att du förbränner fler kalorier totalt, vanligtvis på grund av att du är mer aktiv eller har en högre BMR. En lägre TDEE tyder på mindre daglig aktivitet eller en lägre BMR.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Dagligt Mål',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Dagligt Mål är ditt rekommenderade dagliga kaloriintag baserat på din TDEE och viktmål. För viktnedgång konsumerar du färre kalorier än din TDEE. För vikthållning matchar du din TDEE. För viktökning konsumerar du fler kalorier än din TDEE. Detta hjälper dig att uppnå din önskade viktförändring i en hälsosam takt.',
 			'common.close' => 'Stäng',
 			'common.kContinue' => 'Fortsätt',
 			'errors.loadingProfileData' => 'Fel vid inläsning av profildata',

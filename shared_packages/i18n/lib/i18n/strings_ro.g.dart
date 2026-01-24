@@ -138,6 +138,7 @@ class _TranslationsMealRo implements TranslationsMealEn {
 	@override String get saveMeal => 'Salvează Masa';
 	@override String get save => 'Salvează';
 	@override String get mealName => 'Numele Mesei';
+	@override String get mealNameHint => 'de exemplu: Ouă bătute cu pâine prăjită';
 	@override String get mealQuantity => 'Cantitatea Mesei';
 	@override String get mealQuantityHint => 'de ex., 1 bol, 2 felii';
 	@override String get timeOfMeal => 'Ora Mesei';
@@ -147,6 +148,9 @@ class _TranslationsMealRo implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationRo deleteConfirmation = _TranslationsMealDeleteConfirmationRo._(_root);
 	@override String get addedToLog => 'Masa a fost adăugată în jurnalul tău!';
 	@override String couldNotAdd({required Object error}) => 'Nu s-a putut adăuga masa: ${error}';
+	@override String get savedSuccessfully => 'Masă adăugată cu succes!';
+	@override String get updatedSuccessfully => 'Masă actualizată cu succes!';
+	@override String errorSaving({required Object error}) => 'Eroare la salvarea mesei: ${error}';
 	@override String get removedFromFavorites => 'Eliminată din favorite!';
 	@override String get savedAsFavorite => 'Masa a fost salvată ca favorit!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Nu s-a putut actualiza favoritul: ${error}';
@@ -184,6 +188,7 @@ class _TranslationsProfileRo implements TranslationsProfileEn {
 	@override String get weight => 'Greutate';
 	@override String get age => 'Vârstă';
 	@override String get weightGoal => 'Obiectiv de Greutate';
+	@override String get targetWeight => 'Greutatea Țintă';
 	@override String get activityLevel => 'Nivel de Activitate';
 	@override String get healthMetrics => 'Metrici de Sănătate';
 	@override String get notSet => 'Nesetat';
@@ -252,6 +257,9 @@ class _TranslationsSettingsRo implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataRo clearAllData = _TranslationsSettingsClearAllDataRo._(_root);
 	@override late final _TranslationsSettingsDebugOptionsRo debugOptions = _TranslationsSettingsDebugOptionsRo._(_root);
 	@override String get developerModeEnabled => 'Mod dezvoltator activat!';
+	@override late final _TranslationsSettingsHealthConnectRo healthConnect = _TranslationsSettingsHealthConnectRo._(_root);
+	@override late final _TranslationsSettingsAboutRo about = _TranslationsSettingsAboutRo._(_root);
+	@override late final _TranslationsSettingsAppInfoRo appInfo = _TranslationsSettingsAppInfoRo._(_root);
 }
 
 // Path: reminders
@@ -319,6 +327,7 @@ class _TranslationsDisclaimerRo implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'Te rugăm să reții';
 	@override late final _TranslationsDisclaimerSnapRo snap = _TranslationsDisclaimerSnapRo._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateRo weightEstimate = _TranslationsDisclaimerWeightEstimateRo._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsRo healthMetrics = _TranslationsDisclaimerHealthMetricsRo._(_root);
 }
 
 // Path: common
@@ -651,6 +660,7 @@ class _TranslationsHomeMealSnapRo implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Fă o fotografie & Urmărește-ți Masa';
 	@override String get description => 'Folosește camera ta pentru a face o fotografie a alimentelor tale pentru analiza AI.';
 	@override String get openCamera => 'Deschide Camera';
+	@override String get gallery => 'Galerie';
 }
 
 // Path: home.connectHealth
@@ -780,7 +790,9 @@ class _TranslationsSettingsSectionsRo implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'LOCALIZARE';
 	@override String get notifications => 'NOTIFICĂRI';
+	@override String get healthConnect => 'CONEXIUNE LA SĂNĂTATE';
 	@override String get supportAndLegal => 'SUPORT & LEGAL';
+	@override String get about => 'DESPRE';
 	@override String get dangerZone => 'ZONA DE RISC';
 	@override String get developer => 'DEZVOLTATOR';
 }
@@ -895,6 +907,51 @@ class _TranslationsSettingsDebugOptionsRo implements TranslationsSettingsDebugOp
 	@override String get title => 'Opțiuni de Debug';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectRo implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Conexiune la Sănătate';
+	@override String get subtitle => 'Vizualizați și gestionați permisiunile';
+	@override late final _TranslationsSettingsHealthConnectUnavailableRo unavailable = _TranslationsSettingsHealthConnectUnavailableRo._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsRo permissions = _TranslationsSettingsHealthConnectPermissionsRo._(_root);
+	@override String get managePermissions => 'Gestionați Permisiunile';
+	@override String get openSettings => 'Deschide setările Health Connect';
+	@override String get requestPermissions => 'Solicită permisiuni';
+	@override String get permissionRequestCancelledOrFailed => 'Cererea de permisiuni a fost anulată sau a eșuat. Încercați din nou sau acordați permisiunile manual în setările Health Connect.';
+	@override String get permissionRequestFailed => 'Nu se pot solicita permisiuni. Încercați din nou sau acordați permisiunile manual în setările Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutRo implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Despre';
+	@override String get tagline => 'Conștientizare rapidă, gratuită și în respect pentru confidențialitate a caloriilor';
+	@override late final _TranslationsSettingsAboutOurStoryRo ourStory = _TranslationsSettingsAboutOurStoryRo._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyRo privacy = _TranslationsSettingsAboutPrivacyRo._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperRo developer = _TranslationsSettingsAboutDeveloperRo._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackRo feedback = _TranslationsSettingsAboutFeedbackRo._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoRo implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Compilație ${buildNumber}';
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastRo implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastRo._(this._root);
@@ -976,6 +1033,19 @@ class _TranslationsDisclaimerWeightEstimateRo implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsRo biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsRo._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightRo waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightRo._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceRo professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceRo._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsRo implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Aceste metrice te ajută să înțelegi nevoile energetice ale corpului tău și să-ți ghideze obiectivele nutriționale.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrRo bmr = _TranslationsDisclaimerHealthMetricsBmrRo._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeRo tdee = _TranslationsDisclaimerHealthMetricsTdeeRo._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalRo dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalRo._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1294,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveRo implements Transla
 	@override String get description => 'Exerciții foarte intense, muncă fizică';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableRo implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect indisponibil';
+	@override String get description => 'Health Connect nu este disponibil pe acest dispozitiv. Instalează Health Connect din Play Store (Android 9+) sau actualizează la Android 14+.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsRo implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Permisiuni';
+	@override String get description => 'Următoarele permisiuni sunt solicitate pentru a oferi integrarea Conexiune la Sănătate:';
+	@override String get granted => 'Acordat';
+	@override String get notGranted => 'Neacordat';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedRo caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedRo._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadRo nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadRo._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteRo nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteRo._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryRo implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Povestea Noastră';
+	@override String content({required Object appLabel}) => '${appLabel} s-a născut dintr-o simplă frustrare: cele mai multe aplicații de urmărire a caloriilor sunt fie prea complicate, necesită input constant manual, percep taxe mari de abonament sau compromit confidențialitatea.\n\nCa dezvoltator solo, am vrut să construiesc ceva mai simplu și mai echitabil — o aplicație care folosește AI pentru a reduce efortul, rămâne rapidă și free de utilizat și tratează datele tale de sănătate cu respect.\n\n${appLabel} este aplicația pe care îmi doream să o existe: fără conturi, fără urmărire, fără reclame — doar informații clare, practice și obiectivele tale de sănătate.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyRo implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Confidențialitatea Ta Contează';
+	@override String get description => 'Confidențialitatea nu este o idee secundară — este un principiu de design. Iată ce înseamnă acest lucru în practică:';
+	@override String get noAccounts => 'Fără conturi necesare\nFolosește aplicația imediat. Fără înscrieri, fără identități.';
+	@override String noTracking({required Object appLabel}) => 'Fără urmărire comportamentală\n${appLabel} nu îți monitorizează activitatea, nu construiește profiluri de utilizare și nu te urmărește prin aplicații sau site-uri web.';
+	@override String noAds({required Object appLabel}) => 'Fără reclame prin design\n${appLabel} este construită pentru a funcționa fără reclame sau monetizare bazată pe date.';
+	@override String get noDataSelling => 'Fără vânzarea datelor\nDatele tale de sănătate nu sunt niciodată vândute sau împărtășite cu terți.';
+	@override String get localStorage => 'Stocare locală\nDatele tale rămân pe dispozitivul tău.';
+	@override String get privacyPolicy => 'Politica de confidențialitate';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperRo implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Construită de un Dezvoltator Solo';
+	@override String description({required Object appLabel}) => '${appLabel} este construită și întreținută de un singur dezvoltator solo, concentrat pe crearea de software de sănătate care respectă confidențialitatea.\n\nFeedback-ul este citit personal și ajută la conturarea direcției aplicației.';
+	@override String get website => 'Website';
+	@override String get email => 'Email';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackRo implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => 'Îți place ${appLabel}?';
+	@override String description({required Object appLabel}) => 'Feedback-ul tău ajută la îmbunătățirea ${appLabel} pentru toți.';
+	@override String get rateApp => 'Evaluează pe Play Store';
+	@override String get sendFeedback => 'Trimite Feedback';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeRo implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeRo._(this._root);
@@ -1310,6 +1461,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceRo implements Tra
 	// Translations
 	@override String get title => 'Îndrumare Profesională';
 	@override String get description => 'Nu folosi această estimare pentru a lua decizii medicale. Consultă întotdeauna un profesionist din domeniul sănătății sau un dietetician autorizat pentru sfaturi personalizate despre gestionarea greutății.';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrRo implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'BMR';
+	@override String get description => 'Rata Metabolică Bazală (BMR) este numărul de calorii pe care corpul tău le arde în repaus pentru a menține funcții de bază precum respirația și circulația. BMR depinde de vârsta, sexul, înălțimea și greutatea ta. Un BMR mai mare înseamnă că organismul tău arde mai multe calorii în repaus, adesea din cauza unei mase musculare mai mari, a vârstei mai tinere sau a sexului masculin. Un BMR mai mic indică, de obicei, o masă musculară mai mică, o vârstă mai înaintată sau sexul feminin.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeRo implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TDEE';
+	@override String get description => 'Cheltuiala Totală Zilnică de Energie (TDEE) este numărul total de calorii pe care le arzi pe zi, incluzând BMR-ul tău plus caloriile din activitatea fizică și mișcarea zilnică. TDEE depinde de BMR-ul tău și de nivelul de activitate. Un TDEE mai mare înseamnă că arzi mai multe calorii în general, de obicei, datorită unei activități mai intense sau a unui BMR mai mare. Un TDEE mai mic sugerează o activitate zilnică mai redusă sau un BMR mai mic.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalRo implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Obiectiv Zilnic';
+	@override String get description => 'Obiectivul Zilnic este aportul tău caloric zilnic recomandat, bazat pe TDEE-ul tău și pe obiectivul tău de greutate. Pentru pierderea în greutate, consumi mai puține calorii decât TDEE-ul tău. Pentru menținerea greutății, îți egalizezi TDEE-ul. Pentru creșterea în greutate, consumi mai multe calorii decât TDEE-ul tău. Acest lucru te ajută să îți atingi schimbarea dorită în greutate într-un ritm sănătos.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedRo implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Citește Totalul Caloriilor Arse';
+	@override String get description => 'Permite aplicației să citească totalul caloriilor tale arse din Conexiunea la Sănătate.';
+	@override String get usage => 'Această permisiune este utilizată pentru a arăta arderea calorică zilnică în aplicație, ajutându-te să înțelegi totalul cheltuielilor tale energetice pe parcursul zilei.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadRo implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Citește Datele Nutriției';
+	@override String get description => 'Permite aplicației să citească datele nutriționale din Conexiunea la Sănătate.';
+	@override String get usage => 'Această permisiune permite aplicației să citească informațiile nutriționale care ar fi putut fi înregistrate de alte aplicații conectate la Conexiunea la Sănătate, oferind o imagine cuprinzătoare a nutriției tale.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteRo implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Scrie Datele Nutriției';
+	@override String get description => 'Permite aplicației să scrie datele nutriționale către Conexiunea la Sănătate.';
+	@override String get usage => 'Această permisiune permite aplicației să sincronizeze mesele tale înregistrate cu Conexiunea la Sănătate, făcând datele tale nutriționale disponibile pentru alte aplicații de sănătate și fitness pe care le utilizezi.';
 }
 
 /// The flat map containing all translations for locale <ro>.
@@ -1453,6 +1673,7 @@ extension on TranslationsRo {
 			'home.mealSnap.title' => 'Fă o fotografie & Urmărește-ți Masa',
 			'home.mealSnap.description' => 'Folosește camera ta pentru a face o fotografie a alimentelor tale pentru analiza AI.',
 			'home.mealSnap.openCamera' => 'Deschide Camera',
+			'home.mealSnap.gallery' => 'Galerie',
 			'home.connectHealth.title' => 'Sincronizează-te cu Health Connect',
 			'home.connectHealth.description' => 'Sincronizează-ți datele nutriționale cu Health Connect',
 			'home.connectHealth.install' => 'Instalează',
@@ -1468,6 +1689,7 @@ extension on TranslationsRo {
 			'meal.saveMeal' => 'Salvează Masa',
 			'meal.save' => 'Salvează',
 			'meal.mealName' => 'Numele Mesei',
+			'meal.mealNameHint' => 'de exemplu: Ouă bătute cu pâine prăjită',
 			'meal.mealQuantity' => 'Cantitatea Mesei',
 			'meal.mealQuantityHint' => 'de ex., 1 bol, 2 felii',
 			'meal.timeOfMeal' => 'Ora Mesei',
@@ -1484,6 +1706,9 @@ extension on TranslationsRo {
 			'meal.deleteConfirmation.delete' => 'Șterge',
 			'meal.addedToLog' => 'Masa a fost adăugată în jurnalul tău!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Nu s-a putut adăuga masa: ${error}',
+			'meal.savedSuccessfully' => 'Masă adăugată cu succes!',
+			'meal.updatedSuccessfully' => 'Masă actualizată cu succes!',
+			'meal.errorSaving' => ({required Object error}) => 'Eroare la salvarea mesei: ${error}',
 			'meal.removedFromFavorites' => 'Eliminată din favorite!',
 			'meal.savedAsFavorite' => 'Masa a fost salvată ca favorit!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Nu s-a putut actualiza favoritul: ${error}',
@@ -1506,6 +1731,7 @@ extension on TranslationsRo {
 			'profile.weight' => 'Greutate',
 			'profile.age' => 'Vârstă',
 			'profile.weightGoal' => 'Obiectiv de Greutate',
+			'profile.targetWeight' => 'Greutatea Țintă',
 			'profile.activityLevel' => 'Nivel de Activitate',
 			'profile.healthMetrics' => 'Metrici de Sănătate',
 			'profile.notSet' => 'Nesetat',
@@ -1561,7 +1787,9 @@ extension on TranslationsRo {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'LOCALIZARE',
 			'settings.sections.notifications' => 'NOTIFICĂRI',
+			'settings.sections.healthConnect' => 'CONEXIUNE LA SĂNĂTATE',
 			'settings.sections.supportAndLegal' => 'SUPORT & LEGAL',
+			'settings.sections.about' => 'DESPRE',
 			'settings.sections.dangerZone' => 'ZONA DE RISC',
 			'settings.sections.developer' => 'DEZVOLTATOR',
 			'settings.editProfile.title' => 'Editează Profil',
@@ -1594,6 +1822,51 @@ extension on TranslationsRo {
 			'settings.clearAllData.clearEverything' => 'Șterge Tot',
 			'settings.debugOptions.title' => 'Opțiuni de Debug',
 			'settings.developerModeEnabled' => 'Mod dezvoltator activat!',
+			'settings.healthConnect.title' => 'Conexiune la Sănătate',
+			'settings.healthConnect.subtitle' => 'Vizualizați și gestionați permisiunile',
+			'settings.healthConnect.unavailable.title' => 'Health Connect indisponibil',
+			'settings.healthConnect.unavailable.description' => 'Health Connect nu este disponibil pe acest dispozitiv. Instalează Health Connect din Play Store (Android 9+) sau actualizează la Android 14+.',
+			'settings.healthConnect.permissions.title' => 'Permisiuni',
+			'settings.healthConnect.permissions.description' => 'Următoarele permisiuni sunt solicitate pentru a oferi integrarea Conexiune la Sănătate:',
+			'settings.healthConnect.permissions.granted' => 'Acordat',
+			'settings.healthConnect.permissions.notGranted' => 'Neacordat',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Citește Totalul Caloriilor Arse',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Permite aplicației să citească totalul caloriilor tale arse din Conexiunea la Sănătate.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Această permisiune este utilizată pentru a arăta arderea calorică zilnică în aplicație, ajutându-te să înțelegi totalul cheltuielilor tale energetice pe parcursul zilei.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Citește Datele Nutriției',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Permite aplicației să citească datele nutriționale din Conexiunea la Sănătate.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Această permisiune permite aplicației să citească informațiile nutriționale care ar fi putut fi înregistrate de alte aplicații conectate la Conexiunea la Sănătate, oferind o imagine cuprinzătoare a nutriției tale.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Scrie Datele Nutriției',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Permite aplicației să scrie datele nutriționale către Conexiunea la Sănătate.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Această permisiune permite aplicației să sincronizeze mesele tale înregistrate cu Conexiunea la Sănătate, făcând datele tale nutriționale disponibile pentru alte aplicații de sănătate și fitness pe care le utilizezi.',
+			'settings.healthConnect.managePermissions' => 'Gestionați Permisiunile',
+			'settings.healthConnect.openSettings' => 'Deschide setările Health Connect',
+			'settings.healthConnect.requestPermissions' => 'Solicită permisiuni',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Cererea de permisiuni a fost anulată sau a eșuat. Încercați din nou sau acordați permisiunile manual în setările Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Nu se pot solicita permisiuni. Încercați din nou sau acordați permisiunile manual în setările Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
+			'settings.about.title' => 'Despre',
+			'settings.about.tagline' => 'Conștientizare rapidă, gratuită și în respect pentru confidențialitate a caloriilor',
+			'settings.about.ourStory.title' => 'Povestea Noastră',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} s-a născut dintr-o simplă frustrare: cele mai multe aplicații de urmărire a caloriilor sunt fie prea complicate, necesită input constant manual, percep taxe mari de abonament sau compromit confidențialitatea.\n\nCa dezvoltator solo, am vrut să construiesc ceva mai simplu și mai echitabil — o aplicație care folosește AI pentru a reduce efortul, rămâne rapidă și free de utilizat și tratează datele tale de sănătate cu respect.\n\n${appLabel} este aplicația pe care îmi doream să o existe: fără conturi, fără urmărire, fără reclame — doar informații clare, practice și obiectivele tale de sănătate.',
+			'settings.about.privacy.title' => 'Confidențialitatea Ta Contează',
+			'settings.about.privacy.description' => 'Confidențialitatea nu este o idee secundară — este un principiu de design. Iată ce înseamnă acest lucru în practică:',
+			'settings.about.privacy.noAccounts' => 'Fără conturi necesare\nFolosește aplicația imediat. Fără înscrieri, fără identități.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Fără urmărire comportamentală\n${appLabel} nu îți monitorizează activitatea, nu construiește profiluri de utilizare și nu te urmărește prin aplicații sau site-uri web.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Fără reclame prin design\n${appLabel} este construită pentru a funcționa fără reclame sau monetizare bazată pe date.',
+			'settings.about.privacy.noDataSelling' => 'Fără vânzarea datelor\nDatele tale de sănătate nu sunt niciodată vândute sau împărtășite cu terți.',
+			'settings.about.privacy.localStorage' => 'Stocare locală\nDatele tale rămân pe dispozitivul tău.',
+			'settings.about.privacy.privacyPolicy' => 'Politica de confidențialitate',
+			'settings.about.developer.title' => 'Construită de un Dezvoltator Solo',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} este construită și întreținută de un singur dezvoltator solo, concentrat pe crearea de software de sănătate care respectă confidențialitatea.\n\nFeedback-ul este citit personal și ajută la conturarea direcției aplicației.',
+			'settings.about.developer.website' => 'Website',
+			'settings.about.developer.email' => 'Email',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Îți place ${appLabel}?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Feedback-ul tău ajută la îmbunătățirea ${appLabel} pentru toți.',
+			'settings.about.feedback.rateApp' => 'Evaluează pe Play Store',
+			'settings.about.feedback.sendFeedback' => 'Trimite Feedback',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Compilație ${buildNumber}',
 			'reminders.title' => 'Rămâi pe drumul cel bun cu memento-uri',
 			'reminders.description' => 'Primește memento-uri blânde pentru a-ți înregistra mesele și a rămâne constant cu obiectivele tale nutriționale',
 			'reminders.notificationsEnabled' => 'Notificările sunt activate',
@@ -1646,6 +1919,13 @@ extension on TranslationsRo {
 			'disclaimer.weightEstimate.waterWeight.description' => 'Greutatea normală zilnică poate fluctua semnificativ din cauza retenției de apă, digestiei și temporizării. Estimarea nu ia în considerare aceste schimbări zilnice.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Îndrumare Profesională',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Nu folosi această estimare pentru a lua decizii medicale. Consultă întotdeauna un profesionist din domeniul sănătății sau un dietetician autorizat pentru sfaturi personalizate despre gestionarea greutății.',
+			'disclaimer.healthMetrics.description' => 'Aceste metrice te ajută să înțelegi nevoile energetice ale corpului tău și să-ți ghideze obiectivele nutriționale.',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => 'Rata Metabolică Bazală (BMR) este numărul de calorii pe care corpul tău le arde în repaus pentru a menține funcții de bază precum respirația și circulația. BMR depinde de vârsta, sexul, înălțimea și greutatea ta. Un BMR mai mare înseamnă că organismul tău arde mai multe calorii în repaus, adesea din cauza unei mase musculare mai mari, a vârstei mai tinere sau a sexului masculin. Un BMR mai mic indică, de obicei, o masă musculară mai mică, o vârstă mai înaintată sau sexul feminin.',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => 'Cheltuiala Totală Zilnică de Energie (TDEE) este numărul total de calorii pe care le arzi pe zi, incluzând BMR-ul tău plus caloriile din activitatea fizică și mișcarea zilnică. TDEE depinde de BMR-ul tău și de nivelul de activitate. Un TDEE mai mare înseamnă că arzi mai multe calorii în general, de obicei, datorită unei activități mai intense sau a unui BMR mai mare. Un TDEE mai mic sugerează o activitate zilnică mai redusă sau un BMR mai mic.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Obiectiv Zilnic',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Obiectivul Zilnic este aportul tău caloric zilnic recomandat, bazat pe TDEE-ul tău și pe obiectivul tău de greutate. Pentru pierderea în greutate, consumi mai puține calorii decât TDEE-ul tău. Pentru menținerea greutății, îți egalizezi TDEE-ul. Pentru creșterea în greutate, consumi mai multe calorii decât TDEE-ul tău. Acest lucru te ajută să îți atingi schimbarea dorită în greutate într-un ritm sănătos.',
 			'common.close' => 'Închide',
 			'common.kContinue' => 'Continuă',
 			'errors.loadingProfileData' => 'Eroare la încărcarea datelor profilului',

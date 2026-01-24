@@ -1,4 +1,4 @@
-import 'package:calorify/core/constants/colors/color_scheme_extensions.dart';
+import 'package:calorify/core/constants/colors.dart';
 import 'package:models/models.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';

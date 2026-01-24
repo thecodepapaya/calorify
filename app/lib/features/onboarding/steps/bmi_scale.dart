@@ -80,7 +80,6 @@ class BMIScale extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildLabel('15', theme),
             _buildLabel(
               t.onboarding.bmiScale.underweight,
               theme,
@@ -97,7 +96,6 @@ class BMIScale extends StatelessWidget {
               isBold: bmi >= 25 && bmi < 30,
             ),
             _buildLabel(t.onboarding.bmiScale.obese, theme, isBold: bmi >= 30),
-            _buildLabel('35', theme),
           ],
         ),
       ],

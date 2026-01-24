@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Ta Bilde & Spor Måltidet Ditt",
       "description": "Bruk kameraet ditt til å ta et bilde av maten for AI-analyse.",
-      "openCamera": "Åpne Kamera"
+      "openCamera": "Åpne Kamera",
+      "gallery": "Galleri"
     },
     "connectHealth": {
       "title": "Synkroniser med Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Lagre Måltid",
     "save": "Lagre",
     "mealName": "Måltidsnavn",
+    "mealNameHint": "f.eks. Eggerøre med toast",
     "mealQuantity": "Måltidsmengde",
     "mealQuantityHint": "f.eks. 1 bolle, 2 skiver",
     "timeOfMeal": "Tidspunkt for Måltid",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Måltid lagt til loggen din!",
     "couldNotAdd": "Kunne ikke legge til måltid: {error}",
+    "savedSuccessfully": "Måltid lagt til!",
+    "updatedSuccessfully": "Måltid oppdatert!",
+    "errorSaving": "Feil ved lagring av måltid: {error}",
     "removedFromFavorites": "Fjernet fra favoritter!",
     "savedAsFavorite": "Måltid lagret som favoritt!",
     "couldNotUpdateFavorite": "Kunne ikke oppdatere favoritt: {error}",
@@ -264,6 +269,7 @@
     "weight": "Vekt",
     "age": "Alder",
     "weightGoal": "Vektmål",
+    "targetWeight": "Målvekt",
     "activityLevel": "Aktivitetsnivå",
     "healthMetrics": "Helseparametere",
     "notSet": "Ikke angitt",
@@ -352,7 +358,9 @@
       "profile": "PROFIL",
       "localization": "LOKALISERING",
       "notifications": "NOTIFIKASJONER",
+      "healthConnect": "HELSEKONTAKT",
       "supportAndLegal": "HJELP & JURIDISK",
+      "about": "OM",
       "dangerZone": "FARLIG SONE",
       "developer": "UTVIKLER"
     },
@@ -403,7 +411,76 @@
     "debugOptions": {
       "title": "Feilsøkingsalternativer"
     },
-    "developerModeEnabled": "Utviklermodus aktivert!"
+    "developerModeEnabled": "Utviklermodus aktivert!",
+    "healthConnect": {
+      "title": "Helsekontakt",
+      "subtitle": "Vis og administrer tillatelser",
+      "unavailable": {
+        "title": "Health Connect utilgjengelig",
+        "description": "Health Connect er ikke tilgjengelig på denne enheten. Installer Health Connect fra Play Store (Android 9+) eller oppdater til Android 14+."
+      },
+      "permissions": {
+        "title": "Tillatelser",
+        "description": "Følgende tillatelser er forespurt for å gi integrering med Helsekontakt:",
+        "granted": "Innvilget",
+        "notGranted": "Ikke innvilget",
+        "caloriesBurned": {
+          "title": "Les totale kalorier brent",
+          "description": "Tillater appen å lese dine totale kalorier brent fra Helsekontakt.",
+          "usage": "Denne tillatelsen brukes til å vise ditt daglige kalori-forbruk i appen, og hjelper deg å forstå ditt totale energiforbruk gjennom dagen."
+        },
+        "nutritionRead": {
+          "title": "Les ernæringsdata",
+          "description": "Tillater appen å lese ernæringsdata fra Helsekontakt.",
+          "usage": "Denne tillatelsen lar appen lese ernæringsinformasjon som kan ha blitt logget av andre apper som er koblet til Helsekontakt, og gir en omfattende oversikt over din ernæring."
+        },
+        "nutritionWrite": {
+          "title": "Skriv ernæringsdata",
+          "description": "Tillater appen å skrive ernæringsdata til Helsekontakt.",
+          "usage": "Denne tillatelsen lar appen synkronisere dine loggede måltider til Helsekontakt, og gjør ernæringsdataene dine tilgjengelige for andre helse- og treningsapper du bruker."
+        }
+      },
+      "managePermissions": "Administrer tillatelser",
+      "openSettings": "Åpne helsetilkoblingsinnstillinger",
+      "requestPermissions": "Be om tillatelser",
+      "permissionRequestCancelledOrFailed": "Forespørselen om tillatelser ble avbrutt eller mislyktes. Prøv igjen eller gi tillatelser manuelt i Health Connect-innstillingene.",
+      "permissionRequestFailed": "Kunne ikke be om tillatelser. Prøv igjen eller gi tillatelser manuelt i Health Connect-innstillingene.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "Om",
+      "tagline": "Rask, gratis og med fokus på personvern for kalorioversikt",
+      "ourStory": {
+        "title": "Vår historie",
+        "content": "{appLabel} ble født fra en enkel frustrasjon: de fleste kalorikontrollapper er enten altfor kompliserte, krever konstant manuell input, tar høye abonnementsgebyrer eller kompromitterer personvernet.\n\nSom en indieutvikler ønsket jeg å skape noe enklere og mer rettferdig — en app som bruker AI til å redusere innsatsen, forblir rask og gratis å bruke, og behandler helsedataene dine med respekt.\n\n{appLabel} er appen jeg skulle ønske eksisterte: ingen kontoer, ingen sporing, ingen annonser — bare klare, praktiske innsikter og dine helse-mål."
+      },
+      "privacy": {
+        "title": "Personvernet ditt er viktig",
+        "description": "Personvern er ikke en ettertanke — det er et designprinsipp. Her er hva det betyr i praksis:",
+        "noAccounts": "Ingen kontoer kreves\nBruk appen umiddelbart. Ingen registreringer, ingen identiteter.",
+        "noTracking": "Ingen atferdssporing\n{appLabel} overvåker ikke aktiviteten din, lager bruksprofiler, eller sporer deg på tvers av apper eller nettsteder.",
+        "noAds": "Ingen annonser ved design\n{appLabel} er bygget for å fungere uten annonser eller datadrevet monetisering.",
+        "noDataSelling": "Ingen datasalgs\nDine helsedata blir aldri solgt eller delt med tredjeparter.",
+        "localStorage": "Lokal lagring først\nDine data forblir på enheten din.",
+        "privacyPolicy": "Personvernerklæring"
+      },
+      "developer": {
+        "title": "Bygget av en indieutvikler",
+        "description": "{appLabel} er bygget og vedlikeholdt av en enkelt indieutvikler som fokuserer på å lage rolig, personvern-respektiv helsesoftware.\n\nTilbakemeldinger leses personlig og hjelper med å forme retningen til appen.",
+        "website": "Nettsted",
+        "email": "E-post"
+      },
+      "feedback": {
+        "title": "Liker du {appLabel}?",
+        "description": "Tilbakemeldingene dine bidrar til å gjøre {appLabel} bedre for alle.",
+        "rateApp": "Vurder på Play Store",
+        "sendFeedback": "Send tilbakemelding"
+      }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Bygg {buildNumber}"
+    }
   },
   "reminders": {
     "title": "Hold deg på sporet med påminnelser",
@@ -492,6 +569,21 @@
       "professionalGuidance": {
         "title": "Profesjonell Veiledning",
         "description": "Ikke bruk dette estimatet til å ta medisinske beslutninger. Konsulter alltid en helsepersonell eller registrert dietetiker for personlig råd om vektkontroll."
+      }
+    },
+    "healthMetrics": {
+      "description": "Disse målingene hjelper deg med å forstå kroppens energibehov og veilede ernæringsmålene dine.",
+      "bmr": {
+        "title": "BMR",
+        "description": "Basal Metabolsk Rate (BMR) er antall kalorier kroppen din forbrenner i hvile for å opprettholde grunnleggende funksjoner som pusting og sirkulasjon. BMR avhenger av alder, kjønn, høyde og vekt. En høyere BMR betyr at kroppen din naturlig forbrenner flere kalorier i hvile, ofte på grunn av mer muskelmasse, yngre alder eller at du er mann. En lavere BMR indikerer vanligvis mindre muskelmasse, eldre alder eller at du er kvinne."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Total Daglig Energiforbruk (TDEE) er totalt antall kalorier du forbrenner per dag, inkludert BMR pluss kalorier fra fysisk aktivitet og daglig bevegelse. TDEE avhenger av din BMR og aktivitetsnivå. En høyere TDEE betyr at du forbrenner flere kalorier totalt, vanligvis fordi du er mer aktiv eller har en høyere BMR. En lavere TDEE antyder mindre daglig aktivitet eller en lavere BMR."
+      },
+      "dailyGoal": {
+        "title": "Daglig Mål",
+        "description": "Daglig Mål er ditt anbefalte daglige kaloriinntak basert på TDEE og vektmål. For vekttap konsumerer du færre kalorier enn TDEE. For vektvedlikehold matcher du TDEE. For vektøkning konsumerer du flere kalorier enn TDEE. Dette hjelper deg med å oppnå ønsket vektendring i en sunn hastighet."
       }
     }
   },

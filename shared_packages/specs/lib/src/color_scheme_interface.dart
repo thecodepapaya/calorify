@@ -47,7 +47,6 @@ abstract class ColorSchemeInterface {
   Color get surfaceTint;
 
   // Icon Colors for Macro Nutrients
-  Color get calorieIconColor;
   Color get proteinIconColor;
   Color get carbsIconColor;
   Color get fatIconColor;

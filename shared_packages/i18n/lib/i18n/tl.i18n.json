@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Kumuha ng Litrato at Subaybayan ang Iyong Pagkain",
       "description": "Gamitin ang iyong kamera upang kumuha ng litrato ng iyong pagkain para sa pagsusuri ng AI.",
-      "openCamera": "Buksan ang Kamera"
+      "openCamera": "Buksan ang Kamera",
+      "gallery": "Galeriya"
     },
     "connectHealth": {
       "title": "I-synchronize sa Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "I-save ang Pagkain",
     "save": "I-save",
     "mealName": "Pangalan ng Pagkain",
+    "mealNameHint": "Hal., Hinalong itlog na may tinapay",
     "mealQuantity": "Dami ng Pagkain",
     "mealQuantityHint": "hal., 1 mangkok, 2 hiwa",
     "timeOfMeal": "Oras ng Pagkain",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Idinagdag ang pagkain sa iyong log!",
     "couldNotAdd": "Hindi maidaragdag ang pagkain: {error}",
+    "savedSuccessfully": "Matagumpay na naidagdag ang pagkain!",
+    "updatedSuccessfully": "Matagumpay na na-update ang pagkain!",
+    "errorSaving": "Nabigong i-save ang pagkain: {error}",
     "removedFromFavorites": "Tinanggal mula sa mga paborito!",
     "savedAsFavorite": "Naitabi ang pagkain bilang paborito!",
     "couldNotUpdateFavorite": "Hindi ma-update ang paborito: {error}",
@@ -264,6 +269,7 @@
     "weight": "Timbang",
     "age": "Edad",
     "weightGoal": "Layunin sa Timbang",
+    "targetWeight": "Target na Timbang",
     "activityLevel": "Antas ng Aktibidad",
     "healthMetrics": "Metrics ng Kalusugan",
     "notSet": "Hindi nakatakda",
@@ -352,7 +358,9 @@
       "profile": "PROFILE",
       "localization": "LOKALISASYON",
       "notifications": "NOTIFIKASYON",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "SUPORTA AT LEGAL",
+      "about": "TUNGKOL",
       "dangerZone": "MAPANGANIB NA ZONA",
       "developer": "DEVELOPER"
     },
@@ -403,7 +411,76 @@
     "debugOptions": {
       "title": "Mga Opsyon sa Debug"
     },
-    "developerModeEnabled": "Naka-enable ang developer mode!"
+    "developerModeEnabled": "Naka-enable ang developer mode!",
+    "healthConnect": {
+      "title": "Koneksyon sa Kalusugan",
+      "subtitle": "Tingnan at pamahalaan ang mga pahintulot",
+      "unavailable": {
+        "title": "Hindi Magagamit ang Koneksyon sa Kalusugan",
+        "description": "Ang Koneksyon sa Kalusugan ay hindi magagamit sa aparatong ito. Nangangailangan ito ng Android 14 o mas mataas."
+      },
+      "permissions": {
+        "title": "Mga Pahintulot",
+        "description": "Ang mga sumusunod na pahintulot ay hiniling upang maibigay ang integrasyon ng Koneksyon sa Kalusugan:",
+        "granted": "Ipinagkaloob",
+        "notGranted": "Hindi Ipinagkaloob",
+        "caloriesBurned": {
+          "title": "Basahin ang Kabuuang Nasunog na Calories",
+          "description": "Pinapayagan ang app na basahin ang iyong kabuuang nasunog na calories mula sa Health Connect.",
+          "usage": "Ginagamit ang pahintulot na ito upang ipakita ang iyong araw-araw na nasunog na calories sa app, na tumutulong sa iyo na maunawaan ang iyong kabuuang pagkonsumo ng enerhiya sa buong araw."
+        },
+        "nutritionRead": {
+          "title": "Basahin ang Data ng Nutrisyon",
+          "description": "Pinapayagan ang app na basahin ang data ng nutrisyon mula sa Koneksyon sa Kalusugan.",
+          "usage": "Pinapayagan ng pahintulot na ito ang app na basahin ang impormasyon ng nutrisyon na maaaring naitala ng ibang mga app na nakakonekta sa Koneksyon sa Kalusugan, nagbibigay ng komprehensibong pananaw sa iyong nutrisyon."
+        },
+        "nutritionWrite": {
+          "title": "Sumulat ng Data ng Nutrisyon",
+          "description": "Pinapayagan ang app na sumulat ng data ng nutrisyon sa Koneksyon sa Kalusugan.",
+          "usage": "Pinapayagan ng pahintulot na ito ang app na i-sync ang iyong mga naitalang pagkain sa Koneksyon sa Kalusugan, na ginagawang magagamit ang iyong data ng nutrisyon sa iba pang mga app sa kalusugan at fitness na ginagamit mo."
+        }
+      },
+      "managePermissions": "Pamahalaan ang mga Pahintulot",
+      "openSettings": "Buksan ang Mga Setting ng Health Connect",
+      "requestPermissions": "Humiling ng Mga Pahintulot",
+      "permissionRequestCancelledOrFailed": "Ang hinihinging pahintulot ay nakansela o nabigo. Pakisubukang muli o bigyan ng pahintulot nang manu-mano sa mga setting ng Health Connect.",
+      "permissionRequestFailed": "Hindi makapaghiling ng mga pahintulot. Pakisubukang muli o bigyan ng pahintulot nang manu-mano sa mga setting ng Health Connect.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "Tungkol",
+      "tagline": "Mabilis, libre, at priyoridad ang privacy sa kamalayan sa calorie",
+      "ourStory": {
+        "title": "Ang Aming Kwento",
+        "content": "{appLabel} ay isinilang mula sa isang simpleng pagkabigo: karamihan sa mga app na nagtatala ng calorie ay sobrang kumplikado, humihingi ng patuloy na manu-manong input, mataas ang bayad sa subscription, o nagkakasala sa privacy.\n\nBilang isang solo developer, nais kong bumuo ng isang bagay na mas simple at patas — isang app na gumagamit ng AI upang mabawasan ang pagsisikap, mananatiling mabilis at libre ang paggamit, at ginagalang ang iyong mga datos sa kalusugan.\n\n{appLabel} ang app na sana ay nag-exist: walang mga account, walang pagsubaybay, walang mga anunsyo — malinaw, praktikal na mga pananaw lamang at ang iyong mga layunin sa kalusugan."
+      },
+      "privacy": {
+        "title": "Mahalaga ang Iyong Privacy",
+        "description": "Ang privacy ay hindi isang second thought — ito ay isang prinsipyo sa disenyo. Narito kung ano ang ibig sabihin nito sa praktis:",
+        "noAccounts": "Walang kinakailangang account\nGamitin agad ang app. Walang pag-sign up, walang pagkakakilanlan.",
+        "noTracking": "Walang pagsubaybay sa gawi\n{appLabel} ay hindi nagmamanman ng iyong aktibidad, hindi bumubuo ng usage profiles, o nagsusubaybay sa iyo sa mga app o website.",
+        "noAds": "Walang ads sa disenyo\n{appLabel} ay nakabuo upang gumana nang walang ads o data-driven monetization.",
+        "noDataSelling": "Walang pagbebenta ng datos\nHindi kailanman ibinebenta o ibinabahagi ang iyong datos sa kalusugan sa mga third parties.",
+        "localStorage": "Local-first storage\nAng iyong datos ay nananatili sa iyong device.",
+        "privacyPolicy": "Patakaran sa Privacy"
+      },
+      "developer": {
+        "title": "Nilikha ng Isang Solo Developer",
+        "description": "{appLabel} ay binuo at pinapanatili ng isang tanging solo developer na nakatutok sa paglikha ng kalmado at privacy-respecting na software para sa kalusugan.\n\nAng feedback ay personal na binabasa at tumutulong sa paghubog ng direksyon ng app.",
+        "website": "Website",
+        "email": "Email"
+      },
+      "feedback": {
+        "title": "Nasiyahan ka ba sa {appLabel}?",
+        "description": "Ang iyong feedback ay tumutulong sa pagpapabuti ng {appLabel} para sa lahat.",
+        "rateApp": "I-rate sa Play Store",
+        "sendFeedback": "Magpadala ng Feedback"
+      }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Build {buildNumber}"
+    }
   },
   "reminders": {
     "title": "Panatilihin ang landas na may mga paalala",
@@ -492,6 +569,21 @@
       "professionalGuidance": {
         "title": "Propesyonal na Patnubay",
         "description": "Huwag gamitin ang pagtatantyang ito upang gumawa ng mga medikal na desisyon. Palaging kumonsulta sa isang propesyonal sa kalusugan o nakarehistrong dietitian para sa personalized na payo sa pamamahala ng timbang."
+      }
+    },
+    "healthMetrics": {
+      "description": "Ang mga sukat na ito ay tumutulong sa iyo na maunawaan ang mga pangangailangan ng enerhiya ng iyong katawan at itinuturo ang iyong mga layunin sa nutrisyon.",
+      "bmr": {
+        "title": "BMR",
+        "description": "Ang Basal Metabolic Rate (BMR) ay ang bilang ng mga calorie na sinusunog ng iyong katawan kapag nagpapahinga upang mapanatili ang mga pangunahing function tulad ng paghinga at sirkulasyon. Ang BMR ay nakadepende sa iyong edad, kasarian, taas, at timbang. Ang mas mataas na BMR ay nangangahulugang ang iyong katawan ay natural na nagsusunog ng mas maraming calorie habang nagpapahinga, na kadalasang dulot ng mas maraming mass ng kalamnan, mas batang edad, o pagiging lalaki. Ang mas mababang BMR ay karaniwang nagpapahiwatig ng mas kaunting mass ng kalamnan, mas matandang edad, o pagiging babae."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Ang Total Daily Energy Expenditure (TDEE) ay ang kabuuang calorie na sinusunog mo sa isang araw, kabilang ang iyong BMR at mga calorie mula sa pisikal na aktibidad at pang-araw-araw na paggalaw. Ang TDEE ay nakadepende sa iyong BMR at antas ng aktibidad. Ang mas mataas na TDEE ay nangangahulugang mas maraming calorie ang iyong sinusunog sa kabuuan, karaniwang mula sa pagiging mas aktibo o pagkakaroon ng mas mataas na BMR. Ang mas mababang TDEE ay nagpapahiwatig ng mas kaunting aktibidad sa araw-araw o mas mababang BMR."
+      },
+      "dailyGoal": {
+        "title": "Arawang Layunin",
+        "description": "Ang Arawang Layunin ay ang inirekomendang pang-araw-araw na calorie na kinakailangan batay sa iyong TDEE at layunin sa timbang. Para sa pagbaba ng timbang, kumakain ka ng mas kaunting calorie kaysa sa iyong TDEE. Para sa pagpapanatili ng timbang, katumbas mo ang iyong TDEE. Para sa pagtaas ng timbang, kumakain ka ng mas maraming calorie kaysa sa iyong TDEE. Tinutulungan ka nitong makamit ang iyong nais na pagbabago ng timbang sa isang malusog na takbo."
       }
     }
   },

@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Yemeğinizi Yakala ve Takip Et",
       "description": "AI analizi için yiyeceklerinizin fotoğrafını çekmek üzere kameranızı kullanın.",
-      "openCamera": "Kamerayı Aç"
+      "openCamera": "Kamerayı Aç",
+      "gallery": "Galeri"
     },
     "connectHealth": {
       "title": "Health Connect ile Senkronize Ol",
@@ -216,6 +217,7 @@
     "saveMeal": "Yemeği Kaydet",
     "save": "Kaydet",
     "mealName": "Yemek Adı",
+    "mealNameHint": "örn. Çırpılmış yumurta ve tost",
     "mealQuantity": "Yemek Miktarı",
     "mealQuantityHint": "Örneğin, 1 kase, 2 dilim",
     "timeOfMeal": "Yemeğin Zamanı",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Yemek kaydınıza eklendi!",
     "couldNotAdd": "Yemek eklenemedi: {error}",
+    "savedSuccessfully": "Öğün başarıyla eklendi!",
+    "updatedSuccessfully": "Öğün başarıyla güncellendi!",
+    "errorSaving": "Öğün kaydedilirken hata oluştu: {error}",
     "removedFromFavorites": "Favorilerden çıkarıldı!",
     "savedAsFavorite": "Yemek favori olarak kaydedildi!",
     "couldNotUpdateFavorite": "Favori güncellenemedi: {error}",
@@ -264,6 +269,7 @@
     "weight": "Kilo",
     "age": "Yaş",
     "weightGoal": "Kilo Hedefi",
+    "targetWeight": "Hedef Ağırlık",
     "activityLevel": "Aktivite Seviyesi",
     "healthMetrics": "Sağlık Metrikleri",
     "notSet": "Ayarlanmadı",
@@ -352,7 +358,9 @@
       "profile": "PROFİL",
       "localization": "YERELLEŞTİRME",
       "notifications": "BİLDİRİMLER",
+      "healthConnect": "SAĞLIK BAĞLANTISI",
       "supportAndLegal": "DESTEK & YASAL",
+      "about": "HAKKINDA",
       "dangerZone": "TEHLİKE BÖLGESİ",
       "developer": "GELİŞTİRİCİ"
     },
@@ -403,7 +411,76 @@
     "debugOptions": {
       "title": "Hata Ayıklama Seçenekleri"
     },
-    "developerModeEnabled": "Geliştirici modu etkinleştirildi!"
+    "developerModeEnabled": "Geliştirici modu etkinleştirildi!",
+    "healthConnect": {
+      "title": "Sağlık Bağlantısı",
+      "subtitle": "İzinleri görüntüleyin ve yönetin",
+      "unavailable": {
+        "title": "Sağlık Bağlantısı Kullanılamıyor",
+        "description": "Sağlık Bağlantısı bu cihazda kullanılamıyor. Android 14 veya sonrası gerekmektedir."
+      },
+      "permissions": {
+        "title": "İzinler",
+        "description": "Sağlık Bağlantısı entegrasyonunu sağlamak için aşağıdaki izinler istenmektedir:",
+        "granted": "Verildi",
+        "notGranted": "Verilmedi",
+        "caloriesBurned": {
+          "title": "Toplam Yakılan Kalorileri Oku",
+          "description": "Uygulamaya, Sağlık Bağlantısından toplam yakılan kalorilerinizi okuma izni verir.",
+          "usage": "Bu izin, uygulamada günlük kalori yakımınızı görüntülemek için kullanılır ve gün boyunca toplam enerji harcamanızı anlamanıza yardımcı olur."
+        },
+        "nutritionRead": {
+          "title": "Besin Verilerini Oku",
+          "description": "Uygulamaya, Sağlık Bağlantısından besin verilerini okuma izni verir.",
+          "usage": "Bu izin, diğer uygulamalar tarafından Sağlık Bağlantısına kaydedilen besin bilgilerini okumanızı sağlar ve beslenmenize dair kapsamlı bir görünüm sunar."
+        },
+        "nutritionWrite": {
+          "title": "Besin Verilerini Yaz",
+          "description": "Uygulamaya, Sağlık Bağlantısına besin verilerini yazma izni verir.",
+          "usage": "Bu izin, kaydedilen öğünlerinizi Sağlık Bağlantısına senkronize etmenizi sağlar ve besin verilerinizi kullandığınız diğer sağlık ve fitness uygulamalarında erişilebilir hale getirir."
+        }
+      },
+      "managePermissions": "İzinleri Yönet",
+      "openSettings": "Sağlık Bağlantısı Ayarlarını Aç",
+      "requestPermissions": "İzinleri Talep Et",
+      "permissionRequestCancelledOrFailed": "İzin talebi iptal edildi veya başarısız oldu. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.",
+      "permissionRequestFailed": "İzinleri talep edemiyorum. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "Hakkında",
+      "tagline": "Hızlı, ücretsiz ve gizlilik odaklı kalori farkındalığı",
+      "ourStory": {
+        "title": "Hikayemiz",
+        "content": "{appLabel}, basit bir hayal kırıklığından doğdu: çoğu kalori takip uygulaması ya aşırı karmaşık, sürekli manuel giriş gerektiriyor, yüksek abonelik ücretleri talep ediyor ya da gizliliği ihlal ediyor.\n\nBir bağımsız geliştirici olarak, daha basit ve adil bir şey inşa etmek istedim - çabayı azaltan, hızlı ve ücretsiz kalmayı sağlayan ve sağlık verilerinize saygı gösteren bir uygulama.\n\n{appLabel}, var olmasını istediğim uygulama: hesap yok, izleme yok, reklam yok - sadece net, pratik bilgiler ve sağlık hedefleriniz."
+      },
+      "privacy": {
+        "title": "Gizliliğiniz Önemli",
+        "description": "Gizlilik, sonradan düşünülmüş bir konu değil - bir tasarım ilkesidir. Pratikte bunun ne anlama geldiği:",
+        "noAccounts": "Hesap gerekmez\nUygulamayı hemen kullanın. Kayıt yok, kimlik yok.",
+        "noTracking": "Davranışsal izleme yok\n{appLabel}, etkinliğinizi izlemiyor, kullanım profilleri oluşturmuyor ya da sizi diğer uygulamalarda veya web sitelerinde takip etmiyor.",
+        "noAds": "Reklamsız tasarım\n{appLabel}, reklam veya veri odaklı para kazanma olmadan çalışacak şekilde tasarlanmıştır.",
+        "noDataSelling": "Veri satışı yok\nSağlık verileriniz asla satılmıyor veya üçüncü taraflarla paylaşılmıyor.",
+        "localStorage": "Yerel depolama\nVerileriniz cihazınızda kalır.",
+        "privacyPolicy": "Gizlilik Politikası"
+      },
+      "developer": {
+        "title": "Bir Bağımsız Geliştirici Tarafından İnovasyon",
+        "description": "{appLabel}, sakin ve gizliliğe saygılı sağlık yazılımları oluşturma hedefiyle tek bir bağımsız geliştirici tarafından inşa ve bakım yapılmaktadır.\n\nGeri bildirimler kişisel olarak okunmakta ve uygulamanın yönünü şekillendirmeye yardımcı olmaktadır.",
+        "website": "Web Sitesi",
+        "email": "E-posta"
+      },
+      "feedback": {
+        "title": "{appLabel}'dan memnun musunuz?",
+        "description": "Geri bildiriminiz, {appLabel}'ı herkes için daha iyi hale getirmeye yardımcı oluyor.",
+        "rateApp": "Play Store'da Derecelendir",
+        "sendFeedback": "Geri Bildirim Gönder"
+      }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Yapı {buildNumber}"
+    }
   },
   "reminders": {
     "title": "Hatırlatıcılarla doğru yolda kalın",
@@ -492,6 +569,21 @@
       "professionalGuidance": {
         "title": "Profesyonel Rehberlik",
         "description": "Bu tahmini tıbbi kararlar almak için kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyeleri için her zaman bir sağlık uzmanı veya kayıtlı diyetisyen ile danışın."
+      }
+    },
+    "healthMetrics": {
+      "description": "Bu metrikler, vücudunuzun enerji ihtiyaçlarını anlamanıza ve beslenme hedeflerinizi yönlendirmenize yardımcı olur.",
+      "bmr": {
+        "title": "BMR",
+        "description": "Bazal Metabolizma Hızı (BMR), vücudunuzun temel işlevleri sürdürebilmek için dinlenme halinde yaktığı kalori sayısıdır; bu işlevler arasında nefes alma ve dolaşım yer alır. BMR, yaşınıza, cinsiyetinize, boyunuza ve kilonuza bağlıdır. Daha yüksek bir BMR, vücudunuzun genellikle dinlenme halinde daha fazla kalori yaktığı anlamına gelir; bu genellikle daha fazla kas kütlesi, daha genç bir yaş veya erkek olma durumuna bağlıdır. Daha düşük bir BMR genellikle daha az kas kütlesi, daha ileri yaş veya kadın olmanın göstergesidir."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Toplam Günlük Enerji Harcaması (TDEE), gün boyunca yaktığınız toplam kalori miktarını ifade eder; bu, BMR’iniz ve fiziksel aktivite ile günlük hareketten kaynaklanan kalorileri içerir. TDEE, BMR’iniz ve aktivite seviyenizle bağlantılıdır. Daha yüksek bir TDEE, genellikle daha aktif olmaktan veya daha yüksek bir BMR'e sahip olmaktan dolayı, toplamda daha fazla kalori yaktığınız anlamına gelir. Daha düşük bir TDEE, günlük aktivitenizin daha az olduğunu veya daha düşük bir BMR'e sahip olduğunuzu gösterir."
+      },
+      "dailyGoal": {
+        "title": "Günlük Hedef",
+        "description": "Günlük Hedef, TDEE'nize ve ağırlık hedefinize dayalı olarak önerilen günlük kalori alımınızdır. Kilo kaybı için, TDEE'nizden daha az kalori alırsınız. Kilo koruma için, TDEE'nizle eşleşirsiniz. Kilo almak için, TDEE'nizden daha fazla kalori alırsınız. Bu, istediğiniz ağırlık değişimini sağlıklı bir hızda gerçekleştirmenize yardımcı olur."
       }
     }
   },

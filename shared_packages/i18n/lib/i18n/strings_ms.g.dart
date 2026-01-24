@@ -37,7 +37,7 @@ class TranslationsMs with BaseTranslations<AppLocale, Translations> implements T
 	TranslationsMs $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsMs(meta: meta ?? this.$meta);
 
 	// Translations
-	@override String get language => 'Malay';
+	@override String get language => 'Bahasa Melayu';
 	@override String get flag => '🇲🇾';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingMs onboarding = _TranslationsOnboardingMs._(_root);
@@ -138,6 +138,7 @@ class _TranslationsMealMs implements TranslationsMealEn {
 	@override String get saveMeal => 'Simpan Hidangan';
 	@override String get save => 'Simpan';
 	@override String get mealName => 'Nama Hidangan';
+	@override String get mealNameHint => 'Contoh: Telur hancur dengan roti bakar';
 	@override String get mealQuantity => 'Kuantiti Hidangan';
 	@override String get mealQuantityHint => 'cth., 1 mangkuk, 2 keping';
 	@override String get timeOfMeal => 'Masa Hidangan';
@@ -147,6 +148,9 @@ class _TranslationsMealMs implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationMs deleteConfirmation = _TranslationsMealDeleteConfirmationMs._(_root);
 	@override String get addedToLog => 'Hidangan ditambah ke log anda!';
 	@override String couldNotAdd({required Object error}) => 'Tidak dapat menambah hidangan: ${error}';
+	@override String get savedSuccessfully => 'Makanan berjaya ditambahkan!';
+	@override String get updatedSuccessfully => 'Makanan berjaya dikemas kini!';
+	@override String errorSaving({required Object error}) => 'Ralat semasa menyimpan makanan: ${error}';
 	@override String get removedFromFavorites => 'Dihapus dari kegemaran!';
 	@override String get savedAsFavorite => 'Hidangan disimpan sebagai kegemaran!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Tidak dapat mengemas kini kegemaran: ${error}';
@@ -184,6 +188,7 @@ class _TranslationsProfileMs implements TranslationsProfileEn {
 	@override String get weight => 'Berat';
 	@override String get age => 'Umur';
 	@override String get weightGoal => 'Sasaran Berat';
+	@override String get targetWeight => 'Berat Sasaran';
 	@override String get activityLevel => 'Tahap Aktiviti';
 	@override String get healthMetrics => 'Metrik Kesihatan';
 	@override String get notSet => 'Tidak ditetapkan';
@@ -252,6 +257,9 @@ class _TranslationsSettingsMs implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataMs clearAllData = _TranslationsSettingsClearAllDataMs._(_root);
 	@override late final _TranslationsSettingsDebugOptionsMs debugOptions = _TranslationsSettingsDebugOptionsMs._(_root);
 	@override String get developerModeEnabled => 'Mod pengembang diaktifkan!';
+	@override late final _TranslationsSettingsHealthConnectMs healthConnect = _TranslationsSettingsHealthConnectMs._(_root);
+	@override late final _TranslationsSettingsAboutMs about = _TranslationsSettingsAboutMs._(_root);
+	@override late final _TranslationsSettingsAppInfoMs appInfo = _TranslationsSettingsAppInfoMs._(_root);
 }
 
 // Path: reminders
@@ -319,6 +327,7 @@ class _TranslationsDisclaimerMs implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'Sila Ambil Perhatian';
 	@override late final _TranslationsDisclaimerSnapMs snap = _TranslationsDisclaimerSnapMs._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateMs weightEstimate = _TranslationsDisclaimerWeightEstimateMs._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsMs healthMetrics = _TranslationsDisclaimerHealthMetricsMs._(_root);
 }
 
 // Path: common
@@ -651,6 +660,7 @@ class _TranslationsHomeMealSnapMs implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Ambil & Jejaki Hidangan Anda';
 	@override String get description => 'Gunakan kamera anda untuk mengambil gambar makanan anda untuk analisis AI.';
 	@override String get openCamera => 'Buka Kamera';
+	@override String get gallery => 'Galeri';
 }
 
 // Path: home.connectHealth
@@ -780,7 +790,9 @@ class _TranslationsSettingsSectionsMs implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'PENGANTARABANGSA';
 	@override String get notifications => 'NOTIFIKASI';
+	@override String get healthConnect => 'SAMBUNGAN KESIHATAN';
 	@override String get supportAndLegal => 'SOKONGAN & PERUNDANGAN';
+	@override String get about => 'TENTANG';
 	@override String get dangerZone => 'ZON BAHAYA';
 	@override String get developer => 'PENGEMBANG';
 }
@@ -895,6 +907,51 @@ class _TranslationsSettingsDebugOptionsMs implements TranslationsSettingsDebugOp
 	@override String get title => 'Pilihan Debug';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectMs implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Sambungan Kesihatan';
+	@override String get subtitle => 'Lihat dan urus kebenaran';
+	@override late final _TranslationsSettingsHealthConnectUnavailableMs unavailable = _TranslationsSettingsHealthConnectUnavailableMs._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsMs permissions = _TranslationsSettingsHealthConnectPermissionsMs._(_root);
+	@override String get managePermissions => 'Urus Kebenaran';
+	@override String get openSettings => 'Buka Tetapan Health Connect';
+	@override String get requestPermissions => 'Minta Kebenaran';
+	@override String get permissionRequestCancelledOrFailed => 'Permintaan kebenaran dibatalkan atau gagal. Sila cuba lagi atau berikan kebenaran secara manual dalam tetapan Health Connect.';
+	@override String get permissionRequestFailed => 'Tidak dapat meminta kebenaran. Sila cuba lagi atau berikan kebenaran secara manual dalam tetapan Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutMs implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tentang';
+	@override String get tagline => 'Kesedaran kalori yang cepat, percuma, dan mengutamakan privasi';
+	@override late final _TranslationsSettingsAboutOurStoryMs ourStory = _TranslationsSettingsAboutOurStoryMs._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyMs privacy = _TranslationsSettingsAboutPrivacyMs._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperMs developer = _TranslationsSettingsAboutDeveloperMs._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackMs feedback = _TranslationsSettingsAboutFeedbackMs._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoMs implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Binaan ${buildNumber}';
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastMs implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastMs._(this._root);
@@ -976,6 +1033,19 @@ class _TranslationsDisclaimerWeightEstimateMs implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsMs biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsMs._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightMs waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightMs._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceMs professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceMs._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsMs implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Metrik ini membantu anda memahami keperluan tenaga badan anda dan membimbing matlamat pemakanan anda.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrMs bmr = _TranslationsDisclaimerHealthMetricsBmrMs._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeMs tdee = _TranslationsDisclaimerHealthMetricsTdeeMs._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalMs dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalMs._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1294,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveMs implements Transla
 	@override String get description => 'Senaman sangat berat, pekerjaan fizikal';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableMs implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect Tidak Tersedia';
+	@override String get description => 'Health Connect tidak tersedia pada peranti ini. Sila pasang Health Connect dari Play Store (Android 9+) atau kemas kini ke Android 14+.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsMs implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kebenaran';
+	@override String get description => 'Kebenaran berikut diminta untuk menyediakan integrasi Sambungan Kesihatan:';
+	@override String get granted => 'Diberikan';
+	@override String get notGranted => 'Tidak Diberikan';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedMs caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedMs._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadMs nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadMs._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteMs nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteMs._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryMs implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kisah Kami';
+	@override String content({required Object appLabel}) => '${appLabel} lahir dari satu frustrasi yang sederhana: kebanyakan aplikasi penjejakan kalori sama ada terlalu rumit, memerlukan input manual yang berterusan, mengenakan yuran langganan yang tinggi, atau mengorbankan privasi.\n\nSebagai seorang pemaju solo, saya ingin membina sesuatu yang lebih sederhana dan adil — sebuah aplikasi yang menggunakan AI untuk mengurangkan usaha, kekal pantas dan percuma untuk digunakan, dan menghormati data kesihatan anda.\n\n${appLabel} adalah aplikasi yang saya harap wujud: tiada akaun, tiada penjejakan, tiada iklan — hanya panduan yang jelas dan praktikal serta matlamat kesihatan anda.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyMs implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Privasi Anda Penting';
+	@override String get description => 'Privasi bukanlah sesuatu yang diambil ringan — ia adalah prinsip reka bentuk. Berikut adalah maksudnya dalam amalan:';
+	@override String get noAccounts => 'Tiada akaun diperlukan\nGunakan aplikasi dengan segera. Tiada pendaftaran, tiada identiti.';
+	@override String noTracking({required Object appLabel}) => 'Tiada penjejakan tingkah laku\n${appLabel} tidak memantau aktiviti anda, membina profil penggunaan, atau menjejak anda di antara aplikasi atau laman web.';
+	@override String noAds({required Object appLabel}) => 'Tanpa iklan secara reka bentuk\n${appLabel} dibina untuk berfungsi tanpa iklan atau monetisasi berasaskan data.';
+	@override String get noDataSelling => 'Tiada penjualan data\nData kesihatan anda tidak pernah dijual atau dikongsi dengan pihak ketiga.';
+	@override String get localStorage => 'Penyimpanan pertama tempatan\nData anda kekal di peranti anda.';
+	@override String get privacyPolicy => 'Dasar Privasi';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperMs implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Dibina oleh Pemaju Solo';
+	@override String description({required Object appLabel}) => '${appLabel} dibina dan diselenggara oleh seorang pemaju solo tunggal yang fokus kepada mencipta perisian kesihatan yang tenang dan menghormati privasi.\n\nMaklum balas dibaca secara peribadi dan membantu membentuk arah aplikasi ini.';
+	@override String get website => 'Laman Web';
+	@override String get email => 'Emel';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackMs implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => 'Adakah Anda Menyukai ${appLabel}?';
+	@override String description({required Object appLabel}) => 'Maklum balas anda membantu menjadikan ${appLabel} lebih baik untuk semua.';
+	@override String get rateApp => 'Nilai di Play Store';
+	@override String get sendFeedback => 'Hantar Maklum Balas';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeMs implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeMs._(this._root);
@@ -1312,6 +1463,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceMs implements Tra
 	@override String get description => 'Jangan gunakan anggaran ini untuk membuat keputusan perubatan. Sentiasa berunding dengan profesional kesihatan atau pakar diet berdaftar untuk nasihat pengurusan berat secara peribadi.';
 }
 
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrMs implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'BMR';
+	@override String get description => 'Kadar Metabolik Basal (BMR) ialah jumlah kalori yang dibakar oleh badan anda pada waktu rehat untuk mengekalkan fungsi asas seperti pernafasan dan peredaran. BMR bergantung kepada umur, jantina, tinggi, dan berat anda. BMR yang lebih tinggi bermaksud badan anda secara semula jadi membakar lebih banyak kalori pada waktu rehat, sering disebabkan oleh lebih banyak jisim otot, umur yang lebih muda, atau jantina lelaki. BMR yang lebih rendah biasanya menunjukkan jisim otot yang lebih sedikit, umur yang lebih tua, atau jantina perempuan.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeMs implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TDEE';
+	@override String get description => 'Perbelanjaan Tenaga Harian Keseluruhan (TDEE) ialah jumlah kalori yang anda bakar setiap hari, termasuk BMR anda ditambah kalori dari aktiviti fizikal dan pergerakan harian. TDEE bergantung kepada BMR dan tahap aktiviti anda. TDEE yang lebih tinggi bermakna anda membakar lebih banyak kalori secara keseluruhan, biasanya dari menjadi lebih aktif atau mempunyai BMR yang lebih tinggi. TDEE yang lebih rendah menunjukkan aktiviti harian yang kurang atau BMR yang lebih rendah.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalMs implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Matlamat Harian';
+	@override String get description => 'Matlamat Harian ialah pengambilan kalori harian yang disyorkan berdasarkan TDEE dan matlamat berat anda. Untuk penurunan berat badan, anda mengambil kalori kurang daripada TDEE anda. Untuk penyelenggaraan berat, anda sepadankan dengan TDEE anda. Untuk pertambahan berat, anda mengambil lebih banyak kalori daripada TDEE anda. Ini membantu anda mencapai perubahan berat yang diingini dengan cara yang sihat.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedMs implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Baca Jumlah Kalori Dibakar';
+	@override String get description => 'Membenarkan aplikasi untuk membaca jumlah kalori yang telah anda bakar dari Sambungan Kesihatan.';
+	@override String get usage => 'Kebenaran ini digunakan untuk memaparkan kalori bakar harian anda dalam aplikasi, membantu anda memahami jumlah pengeluaran tenaga anda sepanjang hari.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadMs implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Baca Data Pemakanan';
+	@override String get description => 'Membenarkan aplikasi untuk membaca data pemakanan dari Sambungan Kesihatan.';
+	@override String get usage => 'Kebenaran ini membenarkan aplikasi untuk membaca maklumat pemakanan yang mungkin telah direkod oleh aplikasi lain yang disambungkan ke Sambungan Kesihatan, memberikan pandangan menyeluruh tentang pemakanan anda.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteMs implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tulis Data Pemakanan';
+	@override String get description => 'Membenarkan aplikasi untuk menulis data pemakanan ke Sambungan Kesihatan.';
+	@override String get usage => 'Kebenaran ini membenarkan aplikasi untuk menyelaraskan makanan yang anda catat ke Sambungan Kesihatan, menjadikan data pemakanan anda tersedia kepada aplikasi kesihatan dan kecergasan lain yang anda gunakan.';
+}
+
 /// The flat map containing all translations for locale <ms>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -1320,7 +1540,7 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceMs implements Tra
 extension on TranslationsMs {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'language' => 'Malay',
+			'language' => 'Bahasa Melayu',
 			'flag' => '🇲🇾',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Selamat datang ke ${appLabel}',
@@ -1453,6 +1673,7 @@ extension on TranslationsMs {
 			'home.mealSnap.title' => 'Ambil & Jejaki Hidangan Anda',
 			'home.mealSnap.description' => 'Gunakan kamera anda untuk mengambil gambar makanan anda untuk analisis AI.',
 			'home.mealSnap.openCamera' => 'Buka Kamera',
+			'home.mealSnap.gallery' => 'Galeri',
 			'home.connectHealth.title' => 'Sinkronkan dengan Health Connect',
 			'home.connectHealth.description' => 'Sinkronkan data nutrisi anda dengan Health Connect',
 			'home.connectHealth.install' => 'Pasang',
@@ -1468,6 +1689,7 @@ extension on TranslationsMs {
 			'meal.saveMeal' => 'Simpan Hidangan',
 			'meal.save' => 'Simpan',
 			'meal.mealName' => 'Nama Hidangan',
+			'meal.mealNameHint' => 'Contoh: Telur hancur dengan roti bakar',
 			'meal.mealQuantity' => 'Kuantiti Hidangan',
 			'meal.mealQuantityHint' => 'cth., 1 mangkuk, 2 keping',
 			'meal.timeOfMeal' => 'Masa Hidangan',
@@ -1484,6 +1706,9 @@ extension on TranslationsMs {
 			'meal.deleteConfirmation.delete' => 'Padam',
 			'meal.addedToLog' => 'Hidangan ditambah ke log anda!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Tidak dapat menambah hidangan: ${error}',
+			'meal.savedSuccessfully' => 'Makanan berjaya ditambahkan!',
+			'meal.updatedSuccessfully' => 'Makanan berjaya dikemas kini!',
+			'meal.errorSaving' => ({required Object error}) => 'Ralat semasa menyimpan makanan: ${error}',
 			'meal.removedFromFavorites' => 'Dihapus dari kegemaran!',
 			'meal.savedAsFavorite' => 'Hidangan disimpan sebagai kegemaran!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Tidak dapat mengemas kini kegemaran: ${error}',
@@ -1506,6 +1731,7 @@ extension on TranslationsMs {
 			'profile.weight' => 'Berat',
 			'profile.age' => 'Umur',
 			'profile.weightGoal' => 'Sasaran Berat',
+			'profile.targetWeight' => 'Berat Sasaran',
 			'profile.activityLevel' => 'Tahap Aktiviti',
 			'profile.healthMetrics' => 'Metrik Kesihatan',
 			'profile.notSet' => 'Tidak ditetapkan',
@@ -1561,7 +1787,9 @@ extension on TranslationsMs {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'PENGANTARABANGSA',
 			'settings.sections.notifications' => 'NOTIFIKASI',
+			'settings.sections.healthConnect' => 'SAMBUNGAN KESIHATAN',
 			'settings.sections.supportAndLegal' => 'SOKONGAN & PERUNDANGAN',
+			'settings.sections.about' => 'TENTANG',
 			'settings.sections.dangerZone' => 'ZON BAHAYA',
 			'settings.sections.developer' => 'PENGEMBANG',
 			'settings.editProfile.title' => 'Edit Profil',
@@ -1594,6 +1822,51 @@ extension on TranslationsMs {
 			'settings.clearAllData.clearEverything' => 'Kosongkan Segalanya',
 			'settings.debugOptions.title' => 'Pilihan Debug',
 			'settings.developerModeEnabled' => 'Mod pengembang diaktifkan!',
+			'settings.healthConnect.title' => 'Sambungan Kesihatan',
+			'settings.healthConnect.subtitle' => 'Lihat dan urus kebenaran',
+			'settings.healthConnect.unavailable.title' => 'Health Connect Tidak Tersedia',
+			'settings.healthConnect.unavailable.description' => 'Health Connect tidak tersedia pada peranti ini. Sila pasang Health Connect dari Play Store (Android 9+) atau kemas kini ke Android 14+.',
+			'settings.healthConnect.permissions.title' => 'Kebenaran',
+			'settings.healthConnect.permissions.description' => 'Kebenaran berikut diminta untuk menyediakan integrasi Sambungan Kesihatan:',
+			'settings.healthConnect.permissions.granted' => 'Diberikan',
+			'settings.healthConnect.permissions.notGranted' => 'Tidak Diberikan',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Baca Jumlah Kalori Dibakar',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Membenarkan aplikasi untuk membaca jumlah kalori yang telah anda bakar dari Sambungan Kesihatan.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Kebenaran ini digunakan untuk memaparkan kalori bakar harian anda dalam aplikasi, membantu anda memahami jumlah pengeluaran tenaga anda sepanjang hari.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Baca Data Pemakanan',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Membenarkan aplikasi untuk membaca data pemakanan dari Sambungan Kesihatan.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Kebenaran ini membenarkan aplikasi untuk membaca maklumat pemakanan yang mungkin telah direkod oleh aplikasi lain yang disambungkan ke Sambungan Kesihatan, memberikan pandangan menyeluruh tentang pemakanan anda.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Tulis Data Pemakanan',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Membenarkan aplikasi untuk menulis data pemakanan ke Sambungan Kesihatan.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Kebenaran ini membenarkan aplikasi untuk menyelaraskan makanan yang anda catat ke Sambungan Kesihatan, menjadikan data pemakanan anda tersedia kepada aplikasi kesihatan dan kecergasan lain yang anda gunakan.',
+			'settings.healthConnect.managePermissions' => 'Urus Kebenaran',
+			'settings.healthConnect.openSettings' => 'Buka Tetapan Health Connect',
+			'settings.healthConnect.requestPermissions' => 'Minta Kebenaran',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Permintaan kebenaran dibatalkan atau gagal. Sila cuba lagi atau berikan kebenaran secara manual dalam tetapan Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Tidak dapat meminta kebenaran. Sila cuba lagi atau berikan kebenaran secara manual dalam tetapan Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
+			'settings.about.title' => 'Tentang',
+			'settings.about.tagline' => 'Kesedaran kalori yang cepat, percuma, dan mengutamakan privasi',
+			'settings.about.ourStory.title' => 'Kisah Kami',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} lahir dari satu frustrasi yang sederhana: kebanyakan aplikasi penjejakan kalori sama ada terlalu rumit, memerlukan input manual yang berterusan, mengenakan yuran langganan yang tinggi, atau mengorbankan privasi.\n\nSebagai seorang pemaju solo, saya ingin membina sesuatu yang lebih sederhana dan adil — sebuah aplikasi yang menggunakan AI untuk mengurangkan usaha, kekal pantas dan percuma untuk digunakan, dan menghormati data kesihatan anda.\n\n${appLabel} adalah aplikasi yang saya harap wujud: tiada akaun, tiada penjejakan, tiada iklan — hanya panduan yang jelas dan praktikal serta matlamat kesihatan anda.',
+			'settings.about.privacy.title' => 'Privasi Anda Penting',
+			'settings.about.privacy.description' => 'Privasi bukanlah sesuatu yang diambil ringan — ia adalah prinsip reka bentuk. Berikut adalah maksudnya dalam amalan:',
+			'settings.about.privacy.noAccounts' => 'Tiada akaun diperlukan\nGunakan aplikasi dengan segera. Tiada pendaftaran, tiada identiti.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Tiada penjejakan tingkah laku\n${appLabel} tidak memantau aktiviti anda, membina profil penggunaan, atau menjejak anda di antara aplikasi atau laman web.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Tanpa iklan secara reka bentuk\n${appLabel} dibina untuk berfungsi tanpa iklan atau monetisasi berasaskan data.',
+			'settings.about.privacy.noDataSelling' => 'Tiada penjualan data\nData kesihatan anda tidak pernah dijual atau dikongsi dengan pihak ketiga.',
+			'settings.about.privacy.localStorage' => 'Penyimpanan pertama tempatan\nData anda kekal di peranti anda.',
+			'settings.about.privacy.privacyPolicy' => 'Dasar Privasi',
+			'settings.about.developer.title' => 'Dibina oleh Pemaju Solo',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} dibina dan diselenggara oleh seorang pemaju solo tunggal yang fokus kepada mencipta perisian kesihatan yang tenang dan menghormati privasi.\n\nMaklum balas dibaca secara peribadi dan membantu membentuk arah aplikasi ini.',
+			'settings.about.developer.website' => 'Laman Web',
+			'settings.about.developer.email' => 'Emel',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Adakah Anda Menyukai ${appLabel}?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Maklum balas anda membantu menjadikan ${appLabel} lebih baik untuk semua.',
+			'settings.about.feedback.rateApp' => 'Nilai di Play Store',
+			'settings.about.feedback.sendFeedback' => 'Hantar Maklum Balas',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Binaan ${buildNumber}',
 			'reminders.title' => 'Tetap pada landasan dengan peringatan',
 			'reminders.description' => 'Dapatkan peringatan lembut untuk mencatat hidangan anda dan tetap konsisten dengan matlamat pemakanan anda',
 			'reminders.notificationsEnabled' => 'Pemberitahuan Diaktifkan',
@@ -1646,6 +1919,13 @@ extension on TranslationsMs {
 			'disclaimer.weightEstimate.waterWeight.description' => 'Berat harian normal boleh berfluktuasi dengan ketara disebabkan oleh penahanan air, pencernaan, dan masa. Anggaran ini tidak mengambil kira perubahan harian ini.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Bimbingan Profesional',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Jangan gunakan anggaran ini untuk membuat keputusan perubatan. Sentiasa berunding dengan profesional kesihatan atau pakar diet berdaftar untuk nasihat pengurusan berat secara peribadi.',
+			'disclaimer.healthMetrics.description' => 'Metrik ini membantu anda memahami keperluan tenaga badan anda dan membimbing matlamat pemakanan anda.',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => 'Kadar Metabolik Basal (BMR) ialah jumlah kalori yang dibakar oleh badan anda pada waktu rehat untuk mengekalkan fungsi asas seperti pernafasan dan peredaran. BMR bergantung kepada umur, jantina, tinggi, dan berat anda. BMR yang lebih tinggi bermaksud badan anda secara semula jadi membakar lebih banyak kalori pada waktu rehat, sering disebabkan oleh lebih banyak jisim otot, umur yang lebih muda, atau jantina lelaki. BMR yang lebih rendah biasanya menunjukkan jisim otot yang lebih sedikit, umur yang lebih tua, atau jantina perempuan.',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => 'Perbelanjaan Tenaga Harian Keseluruhan (TDEE) ialah jumlah kalori yang anda bakar setiap hari, termasuk BMR anda ditambah kalori dari aktiviti fizikal dan pergerakan harian. TDEE bergantung kepada BMR dan tahap aktiviti anda. TDEE yang lebih tinggi bermakna anda membakar lebih banyak kalori secara keseluruhan, biasanya dari menjadi lebih aktif atau mempunyai BMR yang lebih tinggi. TDEE yang lebih rendah menunjukkan aktiviti harian yang kurang atau BMR yang lebih rendah.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Matlamat Harian',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Matlamat Harian ialah pengambilan kalori harian yang disyorkan berdasarkan TDEE dan matlamat berat anda. Untuk penurunan berat badan, anda mengambil kalori kurang daripada TDEE anda. Untuk penyelenggaraan berat, anda sepadankan dengan TDEE anda. Untuk pertambahan berat, anda mengambil lebih banyak kalori daripada TDEE anda. Ini membantu anda mencapai perubahan berat yang diingini dengan cara yang sihat.',
 			'common.close' => 'Tutup',
 			'common.kContinue' => 'Teruskan',
 			'errors.loadingProfileData' => 'Ralat memuatkan data profil',

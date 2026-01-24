@@ -138,6 +138,7 @@ class _TranslationsMealVi implements TranslationsMealEn {
 	@override String get saveMeal => 'Lưu bữa ăn';
 	@override String get save => 'Lưu';
 	@override String get mealName => 'Tên bữa ăn';
+	@override String get mealNameHint => 'ví dụ: Trứng bác với bánh mì nướng';
 	@override String get mealQuantity => 'Số lượng bữa ăn';
 	@override String get mealQuantityHint => 'vd: 1 bát, 2 lát';
 	@override String get timeOfMeal => 'Thời gian bữa ăn';
@@ -147,6 +148,9 @@ class _TranslationsMealVi implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationVi deleteConfirmation = _TranslationsMealDeleteConfirmationVi._(_root);
 	@override String get addedToLog => 'Bữa ăn đã được thêm vào nhật ký của bạn!';
 	@override String couldNotAdd({required Object error}) => 'Không thể thêm bữa ăn: ${error}';
+	@override String get savedSuccessfully => 'Bữa ăn đã được thêm thành công!';
+	@override String get updatedSuccessfully => 'Bữa ăn đã được cập nhật thành công!';
+	@override String errorSaving({required Object error}) => 'Lỗi khi lưu bữa ăn: ${error}';
 	@override String get removedFromFavorites => 'Đã xóa khỏi yêu thích!';
 	@override String get savedAsFavorite => 'Bữa ăn đã được lưu làm yêu thích!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Không thể cập nhật yêu thích: ${error}';
@@ -184,6 +188,7 @@ class _TranslationsProfileVi implements TranslationsProfileEn {
 	@override String get weight => 'Cân nặng';
 	@override String get age => 'Tuổi';
 	@override String get weightGoal => 'Mục tiêu cân nặng';
+	@override String get targetWeight => 'Cân nặng mục tiêu';
 	@override String get activityLevel => 'Mức độ hoạt động';
 	@override String get healthMetrics => 'Các chỉ số sức khỏe';
 	@override String get notSet => 'Chưa đặt';
@@ -252,6 +257,9 @@ class _TranslationsSettingsVi implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataVi clearAllData = _TranslationsSettingsClearAllDataVi._(_root);
 	@override late final _TranslationsSettingsDebugOptionsVi debugOptions = _TranslationsSettingsDebugOptionsVi._(_root);
 	@override String get developerModeEnabled => 'Chế độ nhà phát triển đã được bật!';
+	@override late final _TranslationsSettingsHealthConnectVi healthConnect = _TranslationsSettingsHealthConnectVi._(_root);
+	@override late final _TranslationsSettingsAboutVi about = _TranslationsSettingsAboutVi._(_root);
+	@override late final _TranslationsSettingsAppInfoVi appInfo = _TranslationsSettingsAppInfoVi._(_root);
 }
 
 // Path: reminders
@@ -319,6 +327,7 @@ class _TranslationsDisclaimerVi implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'Xin lưu ý';
 	@override late final _TranslationsDisclaimerSnapVi snap = _TranslationsDisclaimerSnapVi._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateVi weightEstimate = _TranslationsDisclaimerWeightEstimateVi._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsVi healthMetrics = _TranslationsDisclaimerHealthMetricsVi._(_root);
 }
 
 // Path: common
@@ -651,6 +660,7 @@ class _TranslationsHomeMealSnapVi implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Chụp & Theo dõi Bữa ăn của bạn';
 	@override String get description => 'Sử dụng camera của bạn để chụp ảnh thực phẩm cho phân tích AI.';
 	@override String get openCamera => 'Mở Camera';
+	@override String get gallery => 'Thư viện';
 }
 
 // Path: home.connectHealth
@@ -780,7 +790,9 @@ class _TranslationsSettingsSectionsVi implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'HỒ SƠ';
 	@override String get localization => 'ĐỊA PHƯƠNG HÓA';
 	@override String get notifications => 'THÔNG BÁO';
+	@override String get healthConnect => 'KẾT NỐI SỨC KHỎE';
 	@override String get supportAndLegal => 'HỖ TRỢ & PHÁP LÝ';
+	@override String get about => 'GIỚI THIỆU';
 	@override String get dangerZone => 'KHU VỰC NGUY HIỂM';
 	@override String get developer => 'NHÀ PHÁT TRIỂN';
 }
@@ -895,6 +907,51 @@ class _TranslationsSettingsDebugOptionsVi implements TranslationsSettingsDebugOp
 	@override String get title => 'Tùy chọn gỡ lỗi';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectVi implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kết nối sức khỏe';
+	@override String get subtitle => 'Xem và quản lý quyền';
+	@override late final _TranslationsSettingsHealthConnectUnavailableVi unavailable = _TranslationsSettingsHealthConnectUnavailableVi._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsVi permissions = _TranslationsSettingsHealthConnectPermissionsVi._(_root);
+	@override String get managePermissions => 'Quản lý Quyền';
+	@override String get openSettings => 'Mở Cài Đặt Kết Nối Sức Khỏe';
+	@override String get requestPermissions => 'Yêu Cầu Quyền Truy Cập';
+	@override String get permissionRequestCancelledOrFailed => 'Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.';
+	@override String get permissionRequestFailed => 'Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutVi implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Giới Thiệu';
+	@override String get tagline => 'Nhận thức về calo nhanh chóng, miễn phí và bảo mật';
+	@override late final _TranslationsSettingsAboutOurStoryVi ourStory = _TranslationsSettingsAboutOurStoryVi._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyVi privacy = _TranslationsSettingsAboutPrivacyVi._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperVi developer = _TranslationsSettingsAboutDeveloperVi._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackVi feedback = _TranslationsSettingsAboutFeedbackVi._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoVi implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Bản dựng ${buildNumber}';
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastVi implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastVi._(this._root);
@@ -976,6 +1033,19 @@ class _TranslationsDisclaimerWeightEstimateVi implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsVi biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsVi._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightVi waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightVi._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceVi professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceVi._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsVi implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Các chỉ số này giúp bạn hiểu nhu cầu năng lượng của cơ thể và hướng dẫn các mục tiêu dinh dưỡng của bạn.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrVi bmr = _TranslationsDisclaimerHealthMetricsBmrVi._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeVi tdee = _TranslationsDisclaimerHealthMetricsTdeeVi._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalVi dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalVi._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1294,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveVi implements Transla
 	@override String get description => 'Tập thể dục rất nặng, công việc thể chất';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableVi implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kết nối sức khỏe không khả dụng';
+	@override String get description => 'Kết nối sức khỏe không khả dụng trên thiết bị này. Nó yêu cầu Android 14 hoặc mới hơn.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsVi implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Quyền';
+	@override String get description => 'Các quyền sau đây được yêu cầu để cung cấp tích hợp Kết nối sức khỏe:';
+	@override String get granted => 'Đã cấp';
+	@override String get notGranted => 'Chưa cấp';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedVi caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedVi._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadVi nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadVi._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteVi nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteVi._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryVi implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Câu Chuyện Của Chúng Tôi';
+	@override String content({required Object appLabel}) => '${appLabel} ra đời từ một nỗi bức xúc đơn giản: hầu hết các ứng dụng theo dõi calo đều quá phức tạp, yêu cầu nhập liệu thủ công liên tục, tính phí cao cho việc đăng ký, hoặc xâm phạm quyền riêng tư.\n\nLà một nhà phát triển độc lập, tôi muốn xây dựng một thứ gì đó đơn giản và công bằng hơn — một ứng dụng sử dụng AI để giảm bớt nỗ lực, giữ cho việc sử dụng nhanh chóng và miễn phí, và tôn trọng dữ liệu sức khỏe của bạn.\n\n${appLabel} là ứng dụng mà tôi ước ao có: không tài khoản, không theo dõi, không quảng cáo — chỉ những hiểu biết rõ ràng, thiết thực và mục tiêu sức khỏe của bạn.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyVi implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Quyền Riêng Tư Của Bạn Quan Trọng';
+	@override String get description => 'Quyền riêng tư không phải là một ý tưởng phụ — đó là một nguyên tắc thiết kế. Điều này có ý nghĩa gì trong thực tế:';
+	@override String get noAccounts => 'Không yêu cầu tài khoản\nSử dụng ứng dụng ngay lập tức. Không cần đăng ký, không cần danh tính.';
+	@override String noTracking({required Object appLabel}) => 'Không theo dõi hành vi\n${appLabel} không giám sát hoạt động của bạn, không xây dựng hồ sơ sử dụng, hoặc theo dõi bạn qua các ứng dụng hoặc trang web.';
+	@override String noAds({required Object appLabel}) => 'Thiết kế không có quảng cáo\n${appLabel} được xây dựng để hoạt động mà không có quảng cáo hoặc kiếm tiền dựa trên dữ liệu.';
+	@override String get noDataSelling => 'Không bán dữ liệu\nDữ liệu sức khỏe của bạn không bao giờ bị bán hoặc chia sẻ cho bên thứ ba.';
+	@override String get localStorage => 'Lưu trữ ưu tiên cục bộ\nDữ liệu của bạn sẽ ở lại trên thiết bị của bạn.';
+	@override String get privacyPolicy => 'Chính sách bảo mật';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperVi implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Được Xây Dựng Bởi Một Nhà Phát Triển Độc Lập';
+	@override String description({required Object appLabel}) => '${appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập duy nhất tập trung vào việc tạo ra phần mềm sức khỏe tôn trọng quyền riêng tư.\n\nPhản hồi được đọc cá nhân và giúp định hình hướng đi của ứng dụng.';
+	@override String get website => 'Trang web';
+	@override String get email => 'Email';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackVi implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => 'Bạn có thích ${appLabel} không?';
+	@override String description({required Object appLabel}) => 'Phản hồi của bạn giúp cải thiện ${appLabel} cho mọi người.';
+	@override String get rateApp => 'Đánh giá trên Play Store';
+	@override String get sendFeedback => 'Gửi Phản hồi';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeVi implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeVi._(this._root);
@@ -1310,6 +1461,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceVi implements Tra
 	// Translations
 	@override String get title => 'Hướng dẫn chuyên nghiệp';
 	@override String get description => 'Đừng sử dụng ước tính này để đưa ra quyết định y tế. Luôn tham khảo ý kiến bác sĩ hoặc chuyên gia dinh dưỡng được chứng nhận cho lời khuyên quản lý trọng lượng cá nhân hóa.';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrVi implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tỷ lệ chuyển hóa cơ bản (BMR)';
+	@override String get description => 'Tỷ lệ chuyển hóa cơ bản (BMR) là số calo mà cơ thể bạn đốt cháy khi nghỉ ngơi để duy trì các chức năng cơ bản như hô hấp và tuần hoàn. BMR phụ thuộc vào độ tuổi, giới tính, chiều cao và cân nặng của bạn. Một BMR cao có nghĩa là cơ thể bạn tự nhiên đốt cháy nhiều calo hơn khi nghỉ ngơi, thường do lượng cơ bắp nhiều hơn, độ tuổi trẻ hơn hoặc là nam giới. Một BMR thấp hơn thường chỉ ra ít khối lượng cơ bắp hơn, độ tuổi lớn hơn, hoặc là nữ giới.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeVi implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TDEE';
+	@override String get description => 'Chi tiêu năng lượng hàng ngày tổng cộng (TDEE) là tổng số calo mà bạn đốt cháy mỗi ngày, bao gồm BMR của bạn cộng với calo từ hoạt động thể chất và di chuyển hàng ngày. TDEE phụ thuộc vào BMR và mức độ hoạt động của bạn. Một TDEE cao có nghĩa là bạn đốt cháy nhiều calo hơn tổng thể, thường là do hoạt động nhiều hơn hoặc có BMR cao hơn. Một TDEE thấp hơn cho thấy hoạt động hàng ngày ít hơn hoặc BMR thấp hơn.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalVi implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mục tiêu hàng ngày';
+	@override String get description => 'Mục tiêu hàng ngày là lượng calo mà bạn được khuyên nên tiêu thụ hàng ngày dựa trên TDEE và mục tiêu cân nặng của bạn. Để giảm cân, bạn tiêu thụ ít calo hơn TDEE của mình. Để duy trì cân nặng, bạn cần khớp với TDEE của mình. Để tăng cân, bạn tiêu thụ nhiều calo hơn TDEE của mình. Điều này giúp bạn đạt được thay đổi cân nặng mong muốn một cách lành mạnh.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedVi implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Đọc tổng số calo đã đốt';
+	@override String get description => 'Cho phép ứng dụng đọc tổng số calo bạn đã đốt từ Kết nối sức khỏe.';
+	@override String get usage => 'Quyền này được sử dụng để hiển thị lượng calo bạn đốt hàng ngày trong ứng dụng, giúp bạn hiểu rõ hơn về tổng lượng năng lượng tiêu thụ trong suốt cả ngày.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadVi implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Đọc dữ liệu dinh dưỡng';
+	@override String get description => 'Cho phép ứng dụng đọc dữ liệu dinh dưỡng từ Kết nối sức khỏe.';
+	@override String get usage => 'Quyền này cho phép ứng dụng đọc thông tin dinh dưỡng có thể đã được ghi lại bởi các ứng dụng khác kết nối với Kết nối sức khỏe, cung cấp cái nhìn toàn diện về dinh dưỡng của bạn.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteVi implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ghi dữ liệu dinh dưỡng';
+	@override String get description => 'Cho phép ứng dụng ghi dữ liệu dinh dưỡng vào Kết nối sức khỏe.';
+	@override String get usage => 'Quyền này cho phép ứng dụng đồng bộ hóa các bữa ăn bạn đã ghi với Kết nối sức khỏe, làm cho dữ liệu dinh dưỡng của bạn có sẵn cho các ứng dụng sức khỏe và thể dục khác mà bạn sử dụng.';
 }
 
 /// The flat map containing all translations for locale <vi>.
@@ -1453,6 +1673,7 @@ extension on TranslationsVi {
 			'home.mealSnap.title' => 'Chụp & Theo dõi Bữa ăn của bạn',
 			'home.mealSnap.description' => 'Sử dụng camera của bạn để chụp ảnh thực phẩm cho phân tích AI.',
 			'home.mealSnap.openCamera' => 'Mở Camera',
+			'home.mealSnap.gallery' => 'Thư viện',
 			'home.connectHealth.title' => 'Đồng bộ với Health Connect',
 			'home.connectHealth.description' => 'Đồng bộ dữ liệu dinh dưỡng của bạn với Health Connect',
 			'home.connectHealth.install' => 'Cài đặt',
@@ -1468,6 +1689,7 @@ extension on TranslationsVi {
 			'meal.saveMeal' => 'Lưu bữa ăn',
 			'meal.save' => 'Lưu',
 			'meal.mealName' => 'Tên bữa ăn',
+			'meal.mealNameHint' => 'ví dụ: Trứng bác với bánh mì nướng',
 			'meal.mealQuantity' => 'Số lượng bữa ăn',
 			'meal.mealQuantityHint' => 'vd: 1 bát, 2 lát',
 			'meal.timeOfMeal' => 'Thời gian bữa ăn',
@@ -1484,6 +1706,9 @@ extension on TranslationsVi {
 			'meal.deleteConfirmation.delete' => 'Xóa',
 			'meal.addedToLog' => 'Bữa ăn đã được thêm vào nhật ký của bạn!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Không thể thêm bữa ăn: ${error}',
+			'meal.savedSuccessfully' => 'Bữa ăn đã được thêm thành công!',
+			'meal.updatedSuccessfully' => 'Bữa ăn đã được cập nhật thành công!',
+			'meal.errorSaving' => ({required Object error}) => 'Lỗi khi lưu bữa ăn: ${error}',
 			'meal.removedFromFavorites' => 'Đã xóa khỏi yêu thích!',
 			'meal.savedAsFavorite' => 'Bữa ăn đã được lưu làm yêu thích!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Không thể cập nhật yêu thích: ${error}',
@@ -1506,6 +1731,7 @@ extension on TranslationsVi {
 			'profile.weight' => 'Cân nặng',
 			'profile.age' => 'Tuổi',
 			'profile.weightGoal' => 'Mục tiêu cân nặng',
+			'profile.targetWeight' => 'Cân nặng mục tiêu',
 			'profile.activityLevel' => 'Mức độ hoạt động',
 			'profile.healthMetrics' => 'Các chỉ số sức khỏe',
 			'profile.notSet' => 'Chưa đặt',
@@ -1561,7 +1787,9 @@ extension on TranslationsVi {
 			'settings.sections.profile' => 'HỒ SƠ',
 			'settings.sections.localization' => 'ĐỊA PHƯƠNG HÓA',
 			'settings.sections.notifications' => 'THÔNG BÁO',
+			'settings.sections.healthConnect' => 'KẾT NỐI SỨC KHỎE',
 			'settings.sections.supportAndLegal' => 'HỖ TRỢ & PHÁP LÝ',
+			'settings.sections.about' => 'GIỚI THIỆU',
 			'settings.sections.dangerZone' => 'KHU VỰC NGUY HIỂM',
 			'settings.sections.developer' => 'NHÀ PHÁT TRIỂN',
 			'settings.editProfile.title' => 'Chỉnh sửa hồ sơ',
@@ -1594,6 +1822,51 @@ extension on TranslationsVi {
 			'settings.clearAllData.clearEverything' => 'Xóa tất cả',
 			'settings.debugOptions.title' => 'Tùy chọn gỡ lỗi',
 			'settings.developerModeEnabled' => 'Chế độ nhà phát triển đã được bật!',
+			'settings.healthConnect.title' => 'Kết nối sức khỏe',
+			'settings.healthConnect.subtitle' => 'Xem và quản lý quyền',
+			'settings.healthConnect.unavailable.title' => 'Kết nối sức khỏe không khả dụng',
+			'settings.healthConnect.unavailable.description' => 'Kết nối sức khỏe không khả dụng trên thiết bị này. Nó yêu cầu Android 14 hoặc mới hơn.',
+			'settings.healthConnect.permissions.title' => 'Quyền',
+			'settings.healthConnect.permissions.description' => 'Các quyền sau đây được yêu cầu để cung cấp tích hợp Kết nối sức khỏe:',
+			'settings.healthConnect.permissions.granted' => 'Đã cấp',
+			'settings.healthConnect.permissions.notGranted' => 'Chưa cấp',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Đọc tổng số calo đã đốt',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Cho phép ứng dụng đọc tổng số calo bạn đã đốt từ Kết nối sức khỏe.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Quyền này được sử dụng để hiển thị lượng calo bạn đốt hàng ngày trong ứng dụng, giúp bạn hiểu rõ hơn về tổng lượng năng lượng tiêu thụ trong suốt cả ngày.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Đọc dữ liệu dinh dưỡng',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Cho phép ứng dụng đọc dữ liệu dinh dưỡng từ Kết nối sức khỏe.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Quyền này cho phép ứng dụng đọc thông tin dinh dưỡng có thể đã được ghi lại bởi các ứng dụng khác kết nối với Kết nối sức khỏe, cung cấp cái nhìn toàn diện về dinh dưỡng của bạn.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Ghi dữ liệu dinh dưỡng',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Cho phép ứng dụng ghi dữ liệu dinh dưỡng vào Kết nối sức khỏe.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Quyền này cho phép ứng dụng đồng bộ hóa các bữa ăn bạn đã ghi với Kết nối sức khỏe, làm cho dữ liệu dinh dưỡng của bạn có sẵn cho các ứng dụng sức khỏe và thể dục khác mà bạn sử dụng.',
+			'settings.healthConnect.managePermissions' => 'Quản lý Quyền',
+			'settings.healthConnect.openSettings' => 'Mở Cài Đặt Kết Nối Sức Khỏe',
+			'settings.healthConnect.requestPermissions' => 'Yêu Cầu Quyền Truy Cập',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
+			'settings.about.title' => 'Giới Thiệu',
+			'settings.about.tagline' => 'Nhận thức về calo nhanh chóng, miễn phí và bảo mật',
+			'settings.about.ourStory.title' => 'Câu Chuyện Của Chúng Tôi',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} ra đời từ một nỗi bức xúc đơn giản: hầu hết các ứng dụng theo dõi calo đều quá phức tạp, yêu cầu nhập liệu thủ công liên tục, tính phí cao cho việc đăng ký, hoặc xâm phạm quyền riêng tư.\n\nLà một nhà phát triển độc lập, tôi muốn xây dựng một thứ gì đó đơn giản và công bằng hơn — một ứng dụng sử dụng AI để giảm bớt nỗ lực, giữ cho việc sử dụng nhanh chóng và miễn phí, và tôn trọng dữ liệu sức khỏe của bạn.\n\n${appLabel} là ứng dụng mà tôi ước ao có: không tài khoản, không theo dõi, không quảng cáo — chỉ những hiểu biết rõ ràng, thiết thực và mục tiêu sức khỏe của bạn.',
+			'settings.about.privacy.title' => 'Quyền Riêng Tư Của Bạn Quan Trọng',
+			'settings.about.privacy.description' => 'Quyền riêng tư không phải là một ý tưởng phụ — đó là một nguyên tắc thiết kế. Điều này có ý nghĩa gì trong thực tế:',
+			'settings.about.privacy.noAccounts' => 'Không yêu cầu tài khoản\nSử dụng ứng dụng ngay lập tức. Không cần đăng ký, không cần danh tính.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Không theo dõi hành vi\n${appLabel} không giám sát hoạt động của bạn, không xây dựng hồ sơ sử dụng, hoặc theo dõi bạn qua các ứng dụng hoặc trang web.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Thiết kế không có quảng cáo\n${appLabel} được xây dựng để hoạt động mà không có quảng cáo hoặc kiếm tiền dựa trên dữ liệu.',
+			'settings.about.privacy.noDataSelling' => 'Không bán dữ liệu\nDữ liệu sức khỏe của bạn không bao giờ bị bán hoặc chia sẻ cho bên thứ ba.',
+			'settings.about.privacy.localStorage' => 'Lưu trữ ưu tiên cục bộ\nDữ liệu của bạn sẽ ở lại trên thiết bị của bạn.',
+			'settings.about.privacy.privacyPolicy' => 'Chính sách bảo mật',
+			'settings.about.developer.title' => 'Được Xây Dựng Bởi Một Nhà Phát Triển Độc Lập',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập duy nhất tập trung vào việc tạo ra phần mềm sức khỏe tôn trọng quyền riêng tư.\n\nPhản hồi được đọc cá nhân và giúp định hình hướng đi của ứng dụng.',
+			'settings.about.developer.website' => 'Trang web',
+			'settings.about.developer.email' => 'Email',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Bạn có thích ${appLabel} không?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Phản hồi của bạn giúp cải thiện ${appLabel} cho mọi người.',
+			'settings.about.feedback.rateApp' => 'Đánh giá trên Play Store',
+			'settings.about.feedback.sendFeedback' => 'Gửi Phản hồi',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Bản dựng ${buildNumber}',
 			'reminders.title' => 'Giữ đúng tiến trình với nhắc nhở',
 			'reminders.description' => 'Nhận những nhắc nhở nhẹ nhàng để ghi lại bữa ăn và duy trì tính nhất quán với các mục tiêu dinh dưỡng của bạn',
 			'reminders.notificationsEnabled' => 'Thông báo đã được bật',
@@ -1646,6 +1919,13 @@ extension on TranslationsVi {
 			'disclaimer.weightEstimate.waterWeight.description' => 'Trọng lượng hàng ngày bình thường có thể biến động đáng kể do giữ nước, tiêu hóa và thời gian. Ước tính không tính đến những thay đổi hàng ngày này.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Hướng dẫn chuyên nghiệp',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Đừng sử dụng ước tính này để đưa ra quyết định y tế. Luôn tham khảo ý kiến bác sĩ hoặc chuyên gia dinh dưỡng được chứng nhận cho lời khuyên quản lý trọng lượng cá nhân hóa.',
+			'disclaimer.healthMetrics.description' => 'Các chỉ số này giúp bạn hiểu nhu cầu năng lượng của cơ thể và hướng dẫn các mục tiêu dinh dưỡng của bạn.',
+			'disclaimer.healthMetrics.bmr.title' => 'Tỷ lệ chuyển hóa cơ bản (BMR)',
+			'disclaimer.healthMetrics.bmr.description' => 'Tỷ lệ chuyển hóa cơ bản (BMR) là số calo mà cơ thể bạn đốt cháy khi nghỉ ngơi để duy trì các chức năng cơ bản như hô hấp và tuần hoàn. BMR phụ thuộc vào độ tuổi, giới tính, chiều cao và cân nặng của bạn. Một BMR cao có nghĩa là cơ thể bạn tự nhiên đốt cháy nhiều calo hơn khi nghỉ ngơi, thường do lượng cơ bắp nhiều hơn, độ tuổi trẻ hơn hoặc là nam giới. Một BMR thấp hơn thường chỉ ra ít khối lượng cơ bắp hơn, độ tuổi lớn hơn, hoặc là nữ giới.',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => 'Chi tiêu năng lượng hàng ngày tổng cộng (TDEE) là tổng số calo mà bạn đốt cháy mỗi ngày, bao gồm BMR của bạn cộng với calo từ hoạt động thể chất và di chuyển hàng ngày. TDEE phụ thuộc vào BMR và mức độ hoạt động của bạn. Một TDEE cao có nghĩa là bạn đốt cháy nhiều calo hơn tổng thể, thường là do hoạt động nhiều hơn hoặc có BMR cao hơn. Một TDEE thấp hơn cho thấy hoạt động hàng ngày ít hơn hoặc BMR thấp hơn.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Mục tiêu hàng ngày',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Mục tiêu hàng ngày là lượng calo mà bạn được khuyên nên tiêu thụ hàng ngày dựa trên TDEE và mục tiêu cân nặng của bạn. Để giảm cân, bạn tiêu thụ ít calo hơn TDEE của mình. Để duy trì cân nặng, bạn cần khớp với TDEE của mình. Để tăng cân, bạn tiêu thụ nhiều calo hơn TDEE của mình. Điều này giúp bạn đạt được thay đổi cân nặng mong muốn một cách lành mạnh.',
 			'common.close' => 'Đóng',
 			'common.kContinue' => 'Tiếp tục',
 			'errors.loadingProfileData' => 'Lỗi khi tải dữ liệu hồ sơ',

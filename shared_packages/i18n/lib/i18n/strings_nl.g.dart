@@ -138,6 +138,7 @@ class _TranslationsMealNl implements TranslationsMealEn {
 	@override String get saveMeal => 'Sla Maaltijd Op';
 	@override String get save => 'Opslaan';
 	@override String get mealName => 'Maaltijd Naam';
+	@override String get mealNameHint => 'Bijv. roerei met toast';
 	@override String get mealQuantity => 'Maaltijd Hoeveelheid';
 	@override String get mealQuantityHint => 'bijv., 1 kom, 2 plakken';
 	@override String get timeOfMeal => 'Tijd van Maaltijd';
@@ -147,6 +148,9 @@ class _TranslationsMealNl implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationNl deleteConfirmation = _TranslationsMealDeleteConfirmationNl._(_root);
 	@override String get addedToLog => 'Maaltijd toegevoegd aan je logboek!';
 	@override String couldNotAdd({required Object error}) => 'Kon maaltijd niet toevoegen: ${error}';
+	@override String get savedSuccessfully => 'Maaltijd succesvol toegevoegd!';
+	@override String get updatedSuccessfully => 'Maaltijd succesvol bijgewerkt!';
+	@override String errorSaving({required Object error}) => 'Fout bij het opslaan van de maaltijd: ${error}';
 	@override String get removedFromFavorites => 'Verwijderd uit favorieten!';
 	@override String get savedAsFavorite => 'Maaltijd opgeslagen als favoriet!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Kon favoriet niet bijwerken: ${error}';
@@ -184,6 +188,7 @@ class _TranslationsProfileNl implements TranslationsProfileEn {
 	@override String get weight => 'Gewicht';
 	@override String get age => 'Leeftijd';
 	@override String get weightGoal => 'Gewichtsdoel';
+	@override String get targetWeight => 'Doelgewicht';
 	@override String get activityLevel => 'Activiteitsniveau';
 	@override String get healthMetrics => 'Gezondheidsmetrics';
 	@override String get notSet => 'Niet ingesteld';
@@ -252,6 +257,9 @@ class _TranslationsSettingsNl implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataNl clearAllData = _TranslationsSettingsClearAllDataNl._(_root);
 	@override late final _TranslationsSettingsDebugOptionsNl debugOptions = _TranslationsSettingsDebugOptionsNl._(_root);
 	@override String get developerModeEnabled => 'Ontwikkelaarsmode ingeschakeld!';
+	@override late final _TranslationsSettingsHealthConnectNl healthConnect = _TranslationsSettingsHealthConnectNl._(_root);
+	@override late final _TranslationsSettingsAboutNl about = _TranslationsSettingsAboutNl._(_root);
+	@override late final _TranslationsSettingsAppInfoNl appInfo = _TranslationsSettingsAppInfoNl._(_root);
 }
 
 // Path: reminders
@@ -319,6 +327,7 @@ class _TranslationsDisclaimerNl implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'Gelieve Op Te Merken';
 	@override late final _TranslationsDisclaimerSnapNl snap = _TranslationsDisclaimerSnapNl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateNl weightEstimate = _TranslationsDisclaimerWeightEstimateNl._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsNl healthMetrics = _TranslationsDisclaimerHealthMetricsNl._(_root);
 }
 
 // Path: common
@@ -651,6 +660,7 @@ class _TranslationsHomeMealSnapNl implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Neem een Foto & Volg Je Maaltijd';
 	@override String get description => 'Gebruik je camera om een foto van je voedsel te maken voor AI-analyse.';
 	@override String get openCamera => 'Open Camera';
+	@override String get gallery => 'Galerij';
 }
 
 // Path: home.connectHealth
@@ -780,7 +790,9 @@ class _TranslationsSettingsSectionsNl implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFIEL';
 	@override String get localization => 'LOCALISATIE';
 	@override String get notifications => 'MELDINGEN';
+	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'ONDERSTEUNING & JURIDISCH';
+	@override String get about => 'OVER';
 	@override String get dangerZone => 'GEVAARZONE';
 	@override String get developer => 'ONTWIKKELAAR';
 }
@@ -895,6 +907,51 @@ class _TranslationsSettingsDebugOptionsNl implements TranslationsSettingsDebugOp
 	@override String get title => 'Debug Opties';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectNl implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect';
+	@override String get subtitle => 'Bekijk en beheer machtigingen';
+	@override late final _TranslationsSettingsHealthConnectUnavailableNl unavailable = _TranslationsSettingsHealthConnectUnavailableNl._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNl permissions = _TranslationsSettingsHealthConnectPermissionsNl._(_root);
+	@override String get managePermissions => 'Beheer Machtigingen';
+	@override String get openSettings => 'Open Health Connect Instellingen';
+	@override String get requestPermissions => 'Vraag Vergunningen Aan';
+	@override String get permissionRequestCancelledOrFailed => 'De machtigingsaanvraag is geannuleerd of mislukt. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.';
+	@override String get permissionRequestFailed => 'Kan geen machtigingen aanvragen. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.';
+	@override String get requestingPermissions => 'Requesting...';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutNl implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Over';
+	@override String get tagline => 'Snelle, gratis en privacyvriendelijke caloriebewustheid';
+	@override late final _TranslationsSettingsAboutOurStoryNl ourStory = _TranslationsSettingsAboutOurStoryNl._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyNl privacy = _TranslationsSettingsAboutPrivacyNl._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperNl developer = _TranslationsSettingsAboutDeveloperNl._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackNl feedback = _TranslationsSettingsAboutFeedbackNl._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoNl implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastNl implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastNl._(this._root);
@@ -976,6 +1033,19 @@ class _TranslationsDisclaimerWeightEstimateNl implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsNl biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsNl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightNl waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightNl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceNl professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceNl._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsNl implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Deze metrics helpen je om de energiebehoeften van je lichaam te begrijpen en begeleiden je bij je voedingsdoelen.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrNl bmr = _TranslationsDisclaimerHealthMetricsBmrNl._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeNl tdee = _TranslationsDisclaimerHealthMetricsTdeeNl._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalNl dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalNl._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1294,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveNl implements Transla
 	@override String get description => 'Zeer zware oefeningen, fysiek werk';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableNl implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect Niet Beschikbaar';
+	@override String get description => 'Health Connect is niet beschikbaar op dit apparaat. Installeer Health Connect via de Play Store (Android 9+) of update naar Android 14+.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsNl implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Machtigingen';
+	@override String get description => 'De volgende machtigingen worden aangevraagd om de integratie met Health Connect te bieden:';
+	@override String get granted => 'Toegestaan';
+	@override String get notGranted => 'Niet Toegestaan';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedNl caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedNl._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadNl nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadNl._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteNl nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteNl._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryNl implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ons Verhaal';
+	@override String content({required Object appLabel}) => '${appLabel} is ontstaan uit een eenvoudige frustratie: de meeste calorie-tracking apps zijn ofwel te gecompliceerd, vereisen constante handmatige invoer, vragen hoge abonnementsprijzen of komen de privacy in gevaar.\n\nAls solo ontwikkelaar wilde ik iets eenvoudigers en eerlijkers bouwen — een app die AI gebruikt om de inspanning te verminderen, snel en gratis te gebruiken blijft en je gezondheidsgegevens met respect behandelt.\n\n${appLabel} is de app die ik wenste dat bestond: geen accounts, geen tracking, geen advertenties — gewoon duidelijke, praktische inzichten en je gezondheidsdoelen.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyNl implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Jouw Privacy Telt';
+	@override String get description => 'Privacy is geen bijkomstigheid — het is een ontwerpprincipe. Dit is wat dat in de praktijk betekent:';
+	@override String get noAccounts => 'Geen accounts nodig\nGebruik de app onmiddellijk. Geen aanmeldingen, geen identiteiten.';
+	@override String noTracking({required Object appLabel}) => 'Geen gedragsmonitoring\n${appLabel} monitort je activiteit niet, bouwt geen gebruiksprofielen op of volgt je niet over apps of websites.';
+	@override String noAds({required Object appLabel}) => 'Advertentievrij bij ontwerp\n${appLabel} is gebouwd om zonder advertenties of datagestuurde monetarisatie te functioneren.';
+	@override String get noDataSelling => 'Geen gegevensverkoop\nJe gezondheidsgegevens worden nooit verkocht of gedeeld met derden.';
+	@override String get localStorage => 'Lokale opslag\nJe gegevens blijven op je apparaat.';
+	@override String get privacyPolicy => 'Privacybeleid';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperNl implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Gebouwd door een Solo Ontwikkelaar';
+	@override String description({required Object appLabel}) => '${appLabel} is gebouwd en onderhouden door een enkele solo ontwikkelaar die zich richt op het creëren van rustige, privacy-respecterende gezondheidssoftware.\n\nFeedback wordt persoonlijk gelezen en helpt de richting van de app te bepalen.';
+	@override String get website => 'Website';
+	@override String get email => 'E-mail';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackNl implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => 'Geniet je van ${appLabel}?';
+	@override String description({required Object appLabel}) => 'Jouw feedback helpt ${appLabel} beter te maken voor iedereen.';
+	@override String get rateApp => 'Beoordeel op Play Store';
+	@override String get sendFeedback => 'Stuur Feedback';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeNl implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeNl._(this._root);
@@ -1310,6 +1461,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceNl implements Tra
 	// Translations
 	@override String get title => 'Professionele Begeleiding';
 	@override String get description => 'Gebruik deze schatting niet om medische beslissingen te nemen. Raadpleeg altijd een zorgprofessional of geregistreerde diëtist voor gepersonaliseerd advies voor gewichtsmanagement.';
+}
+
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrNl implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'BMR';
+	@override String get description => 'De Basale Metabolische Snelheid (BMR) is het aantal calorieën dat je lichaam in rust verbrandt om basisfuncties zoals ademhaling en circulatie te onderhouden. BMR is afhankelijk van je leeftijd, geslacht, lengte en gewicht. Een hogere BMR betekent dat je lichaam van nature meer calorieën verbrandt in rust, vaak door meer spiermassa, een jongere leeftijd of mannelijk geslacht. Een lagere BMR geeft doorgaans een lagere spiermassa, een oudere leeftijd of vrouwelijk geslacht aan.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeNl implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TDEE';
+	@override String get description => 'Het Totale Dagelijkse Energieverbruik (TDEE) is het totale aantal calorieën dat je per dag verbrandt, inclusief je BMR plus calorieën van fysieke activiteit en dagelijkse beweging. TDEE is afhankelijk van je BMR en activiteitsniveau. Een hogere TDEE betekent dat je over het algemeen meer calorieën verbrandt, meestal door meer actief te zijn of een hogere BMR te hebben. Een lagere TDEE suggereert minder dagelijkse activiteit of een lagere BMR.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalNl implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Dagdoel';
+	@override String get description => 'Het Dagdoel is je aanbevolen dagelijkse calorie-inname op basis van je TDEE en gewichtsdoel. Voor gewichtsverlies consumeer je minder calorieën dan je TDEE. Voor gewichtsbehoud stem je je inname af op je TDEE. Voor gewichtstoename consumeer je meer calorieën dan je TDEE. Dit helpt je om je gewenste gewichtsverandering op een gezonde manier te bereiken.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedNl implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Totaal Verbrande Calorieën Lezen';
+	@override String get description => 'Staat de app toe om je totale verbrande calorieën van Health Connect te lezen.';
+	@override String get usage => 'Deze machtiging wordt gebruikt om je dagelijkse calorieverbranding in de app weer te geven, zodat je je totale energieverbruik gedurende de dag beter kunt begrijpen.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadNl implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Voedingsgegevens Lezen';
+	@override String get description => 'Staat de app toe om voedingsgegevens van Health Connect te lezen.';
+	@override String get usage => 'Deze machtiging stelt de app in staat om voedingsinformatie te lezen die mogelijk is vastgelegd door andere apps die zijn verbonden met Health Connect, wat een volledig overzicht van je voeding biedt.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteNl implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Voedingsgegevens Schrijven';
+	@override String get description => 'Staat de app toe om voedingsgegevens naar Health Connect te schrijven.';
+	@override String get usage => 'Deze machtiging stelt de app in staat om je geregistreerde maaltijden naar Health Connect te synchroniseren, waardoor je voedingsgegevens beschikbaar komen voor andere gezondheids- en fitnessapps die je gebruikt.';
 }
 
 /// The flat map containing all translations for locale <nl>.
@@ -1453,6 +1673,7 @@ extension on TranslationsNl {
 			'home.mealSnap.title' => 'Neem een Foto & Volg Je Maaltijd',
 			'home.mealSnap.description' => 'Gebruik je camera om een foto van je voedsel te maken voor AI-analyse.',
 			'home.mealSnap.openCamera' => 'Open Camera',
+			'home.mealSnap.gallery' => 'Galerij',
 			'home.connectHealth.title' => 'Sync met Health Connect',
 			'home.connectHealth.description' => 'Synchroniseer je voedingsgegevens met Health Connect',
 			'home.connectHealth.install' => 'Installeer',
@@ -1468,6 +1689,7 @@ extension on TranslationsNl {
 			'meal.saveMeal' => 'Sla Maaltijd Op',
 			'meal.save' => 'Opslaan',
 			'meal.mealName' => 'Maaltijd Naam',
+			'meal.mealNameHint' => 'Bijv. roerei met toast',
 			'meal.mealQuantity' => 'Maaltijd Hoeveelheid',
 			'meal.mealQuantityHint' => 'bijv., 1 kom, 2 plakken',
 			'meal.timeOfMeal' => 'Tijd van Maaltijd',
@@ -1484,6 +1706,9 @@ extension on TranslationsNl {
 			'meal.deleteConfirmation.delete' => 'Verwijderen',
 			'meal.addedToLog' => 'Maaltijd toegevoegd aan je logboek!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Kon maaltijd niet toevoegen: ${error}',
+			'meal.savedSuccessfully' => 'Maaltijd succesvol toegevoegd!',
+			'meal.updatedSuccessfully' => 'Maaltijd succesvol bijgewerkt!',
+			'meal.errorSaving' => ({required Object error}) => 'Fout bij het opslaan van de maaltijd: ${error}',
 			'meal.removedFromFavorites' => 'Verwijderd uit favorieten!',
 			'meal.savedAsFavorite' => 'Maaltijd opgeslagen als favoriet!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Kon favoriet niet bijwerken: ${error}',
@@ -1506,6 +1731,7 @@ extension on TranslationsNl {
 			'profile.weight' => 'Gewicht',
 			'profile.age' => 'Leeftijd',
 			'profile.weightGoal' => 'Gewichtsdoel',
+			'profile.targetWeight' => 'Doelgewicht',
 			'profile.activityLevel' => 'Activiteitsniveau',
 			'profile.healthMetrics' => 'Gezondheidsmetrics',
 			'profile.notSet' => 'Niet ingesteld',
@@ -1561,7 +1787,9 @@ extension on TranslationsNl {
 			'settings.sections.profile' => 'PROFIEL',
 			'settings.sections.localization' => 'LOCALISATIE',
 			'settings.sections.notifications' => 'MELDINGEN',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'ONDERSTEUNING & JURIDISCH',
+			'settings.sections.about' => 'OVER',
 			'settings.sections.dangerZone' => 'GEVAARZONE',
 			'settings.sections.developer' => 'ONTWIKKELAAR',
 			'settings.editProfile.title' => 'Bewerk Profiel',
@@ -1594,6 +1822,51 @@ extension on TranslationsNl {
 			'settings.clearAllData.clearEverything' => 'Verwijder Alles',
 			'settings.debugOptions.title' => 'Debug Opties',
 			'settings.developerModeEnabled' => 'Ontwikkelaarsmode ingeschakeld!',
+			'settings.healthConnect.title' => 'Health Connect',
+			'settings.healthConnect.subtitle' => 'Bekijk en beheer machtigingen',
+			'settings.healthConnect.unavailable.title' => 'Health Connect Niet Beschikbaar',
+			'settings.healthConnect.unavailable.description' => 'Health Connect is niet beschikbaar op dit apparaat. Installeer Health Connect via de Play Store (Android 9+) of update naar Android 14+.',
+			'settings.healthConnect.permissions.title' => 'Machtigingen',
+			'settings.healthConnect.permissions.description' => 'De volgende machtigingen worden aangevraagd om de integratie met Health Connect te bieden:',
+			'settings.healthConnect.permissions.granted' => 'Toegestaan',
+			'settings.healthConnect.permissions.notGranted' => 'Niet Toegestaan',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Totaal Verbrande Calorieën Lezen',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Staat de app toe om je totale verbrande calorieën van Health Connect te lezen.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Deze machtiging wordt gebruikt om je dagelijkse calorieverbranding in de app weer te geven, zodat je je totale energieverbruik gedurende de dag beter kunt begrijpen.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Voedingsgegevens Lezen',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Staat de app toe om voedingsgegevens van Health Connect te lezen.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Deze machtiging stelt de app in staat om voedingsinformatie te lezen die mogelijk is vastgelegd door andere apps die zijn verbonden met Health Connect, wat een volledig overzicht van je voeding biedt.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Voedingsgegevens Schrijven',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Staat de app toe om voedingsgegevens naar Health Connect te schrijven.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Deze machtiging stelt de app in staat om je geregistreerde maaltijden naar Health Connect te synchroniseren, waardoor je voedingsgegevens beschikbaar komen voor andere gezondheids- en fitnessapps die je gebruikt.',
+			'settings.healthConnect.managePermissions' => 'Beheer Machtigingen',
+			'settings.healthConnect.openSettings' => 'Open Health Connect Instellingen',
+			'settings.healthConnect.requestPermissions' => 'Vraag Vergunningen Aan',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'De machtigingsaanvraag is geannuleerd of mislukt. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.',
+			'settings.healthConnect.permissionRequestFailed' => 'Kan geen machtigingen aanvragen. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
+			'settings.about.title' => 'Over',
+			'settings.about.tagline' => 'Snelle, gratis en privacyvriendelijke caloriebewustheid',
+			'settings.about.ourStory.title' => 'Ons Verhaal',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} is ontstaan uit een eenvoudige frustratie: de meeste calorie-tracking apps zijn ofwel te gecompliceerd, vereisen constante handmatige invoer, vragen hoge abonnementsprijzen of komen de privacy in gevaar.\n\nAls solo ontwikkelaar wilde ik iets eenvoudigers en eerlijkers bouwen — een app die AI gebruikt om de inspanning te verminderen, snel en gratis te gebruiken blijft en je gezondheidsgegevens met respect behandelt.\n\n${appLabel} is de app die ik wenste dat bestond: geen accounts, geen tracking, geen advertenties — gewoon duidelijke, praktische inzichten en je gezondheidsdoelen.',
+			'settings.about.privacy.title' => 'Jouw Privacy Telt',
+			'settings.about.privacy.description' => 'Privacy is geen bijkomstigheid — het is een ontwerpprincipe. Dit is wat dat in de praktijk betekent:',
+			'settings.about.privacy.noAccounts' => 'Geen accounts nodig\nGebruik de app onmiddellijk. Geen aanmeldingen, geen identiteiten.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Geen gedragsmonitoring\n${appLabel} monitort je activiteit niet, bouwt geen gebruiksprofielen op of volgt je niet over apps of websites.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Advertentievrij bij ontwerp\n${appLabel} is gebouwd om zonder advertenties of datagestuurde monetarisatie te functioneren.',
+			'settings.about.privacy.noDataSelling' => 'Geen gegevensverkoop\nJe gezondheidsgegevens worden nooit verkocht of gedeeld met derden.',
+			'settings.about.privacy.localStorage' => 'Lokale opslag\nJe gegevens blijven op je apparaat.',
+			'settings.about.privacy.privacyPolicy' => 'Privacybeleid',
+			'settings.about.developer.title' => 'Gebouwd door een Solo Ontwikkelaar',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} is gebouwd en onderhouden door een enkele solo ontwikkelaar die zich richt op het creëren van rustige, privacy-respecterende gezondheidssoftware.\n\nFeedback wordt persoonlijk gelezen en helpt de richting van de app te bepalen.',
+			'settings.about.developer.website' => 'Website',
+			'settings.about.developer.email' => 'E-mail',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Geniet je van ${appLabel}?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Jouw feedback helpt ${appLabel} beter te maken voor iedereen.',
+			'settings.about.feedback.rateApp' => 'Beoordeel op Play Store',
+			'settings.about.feedback.sendFeedback' => 'Stuur Feedback',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
 			'reminders.title' => 'Blijf op koers met herinneringen',
 			'reminders.description' => 'Krijg vriendelijke herinneringen om je maaltijden bij te houden en consistent te blijven met je voedingsdoelen',
 			'reminders.notificationsEnabled' => 'Meldingen Ingeschakeld',
@@ -1646,6 +1919,13 @@ extension on TranslationsNl {
 			'disclaimer.weightEstimate.waterWeight.description' => 'Het normale dagelijkse gewicht kan aanzienlijk fluctueren door waterretentie, spijsvertering en timing. De schatting houdt geen rekening met deze dagelijkse veranderingen.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Professionele Begeleiding',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Gebruik deze schatting niet om medische beslissingen te nemen. Raadpleeg altijd een zorgprofessional of geregistreerde diëtist voor gepersonaliseerd advies voor gewichtsmanagement.',
+			'disclaimer.healthMetrics.description' => 'Deze metrics helpen je om de energiebehoeften van je lichaam te begrijpen en begeleiden je bij je voedingsdoelen.',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => 'De Basale Metabolische Snelheid (BMR) is het aantal calorieën dat je lichaam in rust verbrandt om basisfuncties zoals ademhaling en circulatie te onderhouden. BMR is afhankelijk van je leeftijd, geslacht, lengte en gewicht. Een hogere BMR betekent dat je lichaam van nature meer calorieën verbrandt in rust, vaak door meer spiermassa, een jongere leeftijd of mannelijk geslacht. Een lagere BMR geeft doorgaans een lagere spiermassa, een oudere leeftijd of vrouwelijk geslacht aan.',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => 'Het Totale Dagelijkse Energieverbruik (TDEE) is het totale aantal calorieën dat je per dag verbrandt, inclusief je BMR plus calorieën van fysieke activiteit en dagelijkse beweging. TDEE is afhankelijk van je BMR en activiteitsniveau. Een hogere TDEE betekent dat je over het algemeen meer calorieën verbrandt, meestal door meer actief te zijn of een hogere BMR te hebben. Een lagere TDEE suggereert minder dagelijkse activiteit of een lagere BMR.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Dagdoel',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Het Dagdoel is je aanbevolen dagelijkse calorie-inname op basis van je TDEE en gewichtsdoel. Voor gewichtsverlies consumeer je minder calorieën dan je TDEE. Voor gewichtsbehoud stem je je inname af op je TDEE. Voor gewichtstoename consumeer je meer calorieën dan je TDEE. Dit helpt je om je gewenste gewichtsverandering op een gezonde manier te bereiken.',
 			'common.close' => 'Sluiten',
 			'common.kContinue' => 'Doorgaan',
 			'errors.loadingProfileData' => 'Fout bij het laden van profielgegevens',

@@ -104,9 +104,6 @@ class LightColors implements ColorSchemeInterface {
 
   // --- Icon Colors for Macro Nutrients ---
   @override
-  Color get calorieIconColor => const Color(0xFF3F8AE0);
-
-  @override
   Color get proteinIconColor => const Color(0xFFFC9B36);
 
   @override
@@ -136,7 +133,6 @@ class LightColors implements ColorSchemeInterface {
 const LightColors lightColors = LightColors();
 
 /// Icon colors for macro nutrients (backward compatibility - uses light theme)
-final Color calorieIconColor = lightColors.calorieIconColor;
 final Color proteinIconColor = lightColors.proteinIconColor;
 final Color carbsIconColor = lightColors.carbsIconColor;
 final Color fatIconColor = lightColors.fatIconColor;

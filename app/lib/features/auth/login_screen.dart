@@ -24,7 +24,6 @@ class LoginScreen extends StatelessWidget {
       appBar: AppBar(title: Text(t.login.title)),
       body: Column(
         children: [
-          Row(children: [Text('Kal')]),
           Center(
             child: ElevatedButton.icon(
               icon: const Icon(Icons.login), // Or a Google logo

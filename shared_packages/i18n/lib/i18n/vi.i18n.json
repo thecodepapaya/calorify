@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Chụp & Theo dõi Bữa ăn của bạn",
       "description": "Sử dụng camera của bạn để chụp ảnh thực phẩm cho phân tích AI.",
-      "openCamera": "Mở Camera"
+      "openCamera": "Mở Camera",
+      "gallery": "Thư viện"
     },
     "connectHealth": {
       "title": "Đồng bộ với Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Lưu bữa ăn",
     "save": "Lưu",
     "mealName": "Tên bữa ăn",
+    "mealNameHint": "ví dụ: Trứng bác với bánh mì nướng",
     "mealQuantity": "Số lượng bữa ăn",
     "mealQuantityHint": "vd: 1 bát, 2 lát",
     "timeOfMeal": "Thời gian bữa ăn",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Bữa ăn đã được thêm vào nhật ký của bạn!",
     "couldNotAdd": "Không thể thêm bữa ăn: {error}",
+    "savedSuccessfully": "Bữa ăn đã được thêm thành công!",
+    "updatedSuccessfully": "Bữa ăn đã được cập nhật thành công!",
+    "errorSaving": "Lỗi khi lưu bữa ăn: {error}",
     "removedFromFavorites": "Đã xóa khỏi yêu thích!",
     "savedAsFavorite": "Bữa ăn đã được lưu làm yêu thích!",
     "couldNotUpdateFavorite": "Không thể cập nhật yêu thích: {error}",
@@ -264,6 +269,7 @@
     "weight": "Cân nặng",
     "age": "Tuổi",
     "weightGoal": "Mục tiêu cân nặng",
+    "targetWeight": "Cân nặng mục tiêu",
     "activityLevel": "Mức độ hoạt động",
     "healthMetrics": "Các chỉ số sức khỏe",
     "notSet": "Chưa đặt",
@@ -352,7 +358,9 @@
       "profile": "HỒ SƠ",
       "localization": "ĐỊA PHƯƠNG HÓA",
       "notifications": "THÔNG BÁO",
+      "healthConnect": "KẾT NỐI SỨC KHỎE",
       "supportAndLegal": "HỖ TRỢ & PHÁP LÝ",
+      "about": "GIỚI THIỆU",
       "dangerZone": "KHU VỰC NGUY HIỂM",
       "developer": "NHÀ PHÁT TRIỂN"
     },
@@ -403,7 +411,76 @@
     "debugOptions": {
       "title": "Tùy chọn gỡ lỗi"
     },
-    "developerModeEnabled": "Chế độ nhà phát triển đã được bật!"
+    "developerModeEnabled": "Chế độ nhà phát triển đã được bật!",
+    "healthConnect": {
+      "title": "Kết nối sức khỏe",
+      "subtitle": "Xem và quản lý quyền",
+      "unavailable": {
+        "title": "Kết nối sức khỏe không khả dụng",
+        "description": "Kết nối sức khỏe không khả dụng trên thiết bị này. Nó yêu cầu Android 14 hoặc mới hơn."
+      },
+      "permissions": {
+        "title": "Quyền",
+        "description": "Các quyền sau đây được yêu cầu để cung cấp tích hợp Kết nối sức khỏe:",
+        "granted": "Đã cấp",
+        "notGranted": "Chưa cấp",
+        "caloriesBurned": {
+          "title": "Đọc tổng số calo đã đốt",
+          "description": "Cho phép ứng dụng đọc tổng số calo bạn đã đốt từ Kết nối sức khỏe.",
+          "usage": "Quyền này được sử dụng để hiển thị lượng calo bạn đốt hàng ngày trong ứng dụng, giúp bạn hiểu rõ hơn về tổng lượng năng lượng tiêu thụ trong suốt cả ngày."
+        },
+        "nutritionRead": {
+          "title": "Đọc dữ liệu dinh dưỡng",
+          "description": "Cho phép ứng dụng đọc dữ liệu dinh dưỡng từ Kết nối sức khỏe.",
+          "usage": "Quyền này cho phép ứng dụng đọc thông tin dinh dưỡng có thể đã được ghi lại bởi các ứng dụng khác kết nối với Kết nối sức khỏe, cung cấp cái nhìn toàn diện về dinh dưỡng của bạn."
+        },
+        "nutritionWrite": {
+          "title": "Ghi dữ liệu dinh dưỡng",
+          "description": "Cho phép ứng dụng ghi dữ liệu dinh dưỡng vào Kết nối sức khỏe.",
+          "usage": "Quyền này cho phép ứng dụng đồng bộ hóa các bữa ăn bạn đã ghi với Kết nối sức khỏe, làm cho dữ liệu dinh dưỡng của bạn có sẵn cho các ứng dụng sức khỏe và thể dục khác mà bạn sử dụng."
+        }
+      },
+      "managePermissions": "Quản lý Quyền",
+      "openSettings": "Mở Cài Đặt Kết Nối Sức Khỏe",
+      "requestPermissions": "Yêu Cầu Quyền Truy Cập",
+      "permissionRequestCancelledOrFailed": "Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.",
+      "permissionRequestFailed": "Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "Giới Thiệu",
+      "tagline": "Nhận thức về calo nhanh chóng, miễn phí và bảo mật",
+      "ourStory": {
+        "title": "Câu Chuyện Của Chúng Tôi",
+        "content": "{appLabel} ra đời từ một nỗi bức xúc đơn giản: hầu hết các ứng dụng theo dõi calo đều quá phức tạp, yêu cầu nhập liệu thủ công liên tục, tính phí cao cho việc đăng ký, hoặc xâm phạm quyền riêng tư.\n\nLà một nhà phát triển độc lập, tôi muốn xây dựng một thứ gì đó đơn giản và công bằng hơn — một ứng dụng sử dụng AI để giảm bớt nỗ lực, giữ cho việc sử dụng nhanh chóng và miễn phí, và tôn trọng dữ liệu sức khỏe của bạn.\n\n{appLabel} là ứng dụng mà tôi ước ao có: không tài khoản, không theo dõi, không quảng cáo — chỉ những hiểu biết rõ ràng, thiết thực và mục tiêu sức khỏe của bạn."
+      },
+      "privacy": {
+        "title": "Quyền Riêng Tư Của Bạn Quan Trọng",
+        "description": "Quyền riêng tư không phải là một ý tưởng phụ — đó là một nguyên tắc thiết kế. Điều này có ý nghĩa gì trong thực tế:",
+        "noAccounts": "Không yêu cầu tài khoản\nSử dụng ứng dụng ngay lập tức. Không cần đăng ký, không cần danh tính.",
+        "noTracking": "Không theo dõi hành vi\n{appLabel} không giám sát hoạt động của bạn, không xây dựng hồ sơ sử dụng, hoặc theo dõi bạn qua các ứng dụng hoặc trang web.",
+        "noAds": "Thiết kế không có quảng cáo\n{appLabel} được xây dựng để hoạt động mà không có quảng cáo hoặc kiếm tiền dựa trên dữ liệu.",
+        "noDataSelling": "Không bán dữ liệu\nDữ liệu sức khỏe của bạn không bao giờ bị bán hoặc chia sẻ cho bên thứ ba.",
+        "localStorage": "Lưu trữ ưu tiên cục bộ\nDữ liệu của bạn sẽ ở lại trên thiết bị của bạn.",
+        "privacyPolicy": "Chính sách bảo mật"
+      },
+      "developer": {
+        "title": "Được Xây Dựng Bởi Một Nhà Phát Triển Độc Lập",
+        "description": "{appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập duy nhất tập trung vào việc tạo ra phần mềm sức khỏe tôn trọng quyền riêng tư.\n\nPhản hồi được đọc cá nhân và giúp định hình hướng đi của ứng dụng.",
+        "website": "Trang web",
+        "email": "Email"
+      },
+      "feedback": {
+        "title": "Bạn có thích {appLabel} không?",
+        "description": "Phản hồi của bạn giúp cải thiện {appLabel} cho mọi người.",
+        "rateApp": "Đánh giá trên Play Store",
+        "sendFeedback": "Gửi Phản hồi"
+      }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Bản dựng {buildNumber}"
+    }
   },
   "reminders": {
     "title": "Giữ đúng tiến trình với nhắc nhở",
@@ -492,6 +569,21 @@
       "professionalGuidance": {
         "title": "Hướng dẫn chuyên nghiệp",
         "description": "Đừng sử dụng ước tính này để đưa ra quyết định y tế. Luôn tham khảo ý kiến bác sĩ hoặc chuyên gia dinh dưỡng được chứng nhận cho lời khuyên quản lý trọng lượng cá nhân hóa."
+      }
+    },
+    "healthMetrics": {
+      "description": "Các chỉ số này giúp bạn hiểu nhu cầu năng lượng của cơ thể và hướng dẫn các mục tiêu dinh dưỡng của bạn.",
+      "bmr": {
+        "title": "Tỷ lệ chuyển hóa cơ bản (BMR)",
+        "description": "Tỷ lệ chuyển hóa cơ bản (BMR) là số calo mà cơ thể bạn đốt cháy khi nghỉ ngơi để duy trì các chức năng cơ bản như hô hấp và tuần hoàn. BMR phụ thuộc vào độ tuổi, giới tính, chiều cao và cân nặng của bạn. Một BMR cao có nghĩa là cơ thể bạn tự nhiên đốt cháy nhiều calo hơn khi nghỉ ngơi, thường do lượng cơ bắp nhiều hơn, độ tuổi trẻ hơn hoặc là nam giới. Một BMR thấp hơn thường chỉ ra ít khối lượng cơ bắp hơn, độ tuổi lớn hơn, hoặc là nữ giới."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Chi tiêu năng lượng hàng ngày tổng cộng (TDEE) là tổng số calo mà bạn đốt cháy mỗi ngày, bao gồm BMR của bạn cộng với calo từ hoạt động thể chất và di chuyển hàng ngày. TDEE phụ thuộc vào BMR và mức độ hoạt động của bạn. Một TDEE cao có nghĩa là bạn đốt cháy nhiều calo hơn tổng thể, thường là do hoạt động nhiều hơn hoặc có BMR cao hơn. Một TDEE thấp hơn cho thấy hoạt động hàng ngày ít hơn hoặc BMR thấp hơn."
+      },
+      "dailyGoal": {
+        "title": "Mục tiêu hàng ngày",
+        "description": "Mục tiêu hàng ngày là lượng calo mà bạn được khuyên nên tiêu thụ hàng ngày dựa trên TDEE và mục tiêu cân nặng của bạn. Để giảm cân, bạn tiêu thụ ít calo hơn TDEE của mình. Để duy trì cân nặng, bạn cần khớp với TDEE của mình. Để tăng cân, bạn tiêu thụ nhiều calo hơn TDEE của mình. Điều này giúp bạn đạt được thay đổi cân nặng mong muốn một cách lành mạnh."
       }
     }
   },

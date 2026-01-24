@@ -16,8 +16,12 @@ class DisclaimerButton extends StatelessWidget {
       icon: Icon(
         LucideIcons.info,
         color: colorScheme.onSurface.withValues(alpha: 0.5),
+        size: 20,
       ),
       onPressed: () => showDisclaimer(context, data),
+      padding: EdgeInsets.zero,
+      constraints: const BoxConstraints(),
+      iconSize: 20,
     );
   }
 }

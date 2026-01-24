@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "식사 찍고 추적하기",
       "description": "AI 분석을 위해 음식 사진을 찍으세요.",
-      "openCamera": "카메라 열기"
+      "openCamera": "카메라 열기",
+      "gallery": "갤러리"
     },
     "connectHealth": {
       "title": "Health Connect와 동기화",
@@ -216,6 +217,7 @@
     "saveMeal": "식사 저장",
     "save": "저장",
     "mealName": "식사 이름",
+    "mealNameHint": "예: 토스트를 곁들인 스크램블 에그",
     "mealQuantity": "식사 양",
     "mealQuantityHint": "예: 1 그릇, 2 조각",
     "timeOfMeal": "식사 시간",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "식사가 기록되었습니다!",
     "couldNotAdd": "식사를 추가할 수 없습니다: {error}",
+    "savedSuccessfully": "식사가 성공적으로 추가되었습니다!",
+    "updatedSuccessfully": "식사가 성공적으로 업데이트되었습니다!",
+    "errorSaving": "식사 저장 중 오류가 발생했습니다: {error}",
     "removedFromFavorites": "즐겨찾기에서 제거되었습니다!",
     "savedAsFavorite": "식사가 즐겨찾기로 저장되었습니다!",
     "couldNotUpdateFavorite": "즐겨찾기를 업데이트할 수 없습니다: {error}",
@@ -264,6 +269,7 @@
     "weight": "체중",
     "age": "나이",
     "weightGoal": "체중 목표",
+    "targetWeight": "목표 체중",
     "activityLevel": "활동 수준",
     "healthMetrics": "건강 지표",
     "notSet": "설정되지 않음",
@@ -352,7 +358,9 @@
       "profile": "프로필",
       "localization": "지역화",
       "notifications": "알림",
+      "healthConnect": "Health Connect",
       "supportAndLegal": "지원 및 법률",
+      "about": "소개",
       "dangerZone": "위험 지역",
       "developer": "개발자"
     },
@@ -403,7 +411,76 @@
     "debugOptions": {
       "title": "디버그 옵션"
     },
-    "developerModeEnabled": "개발자 모드가 활성화되었습니다!"
+    "developerModeEnabled": "개발자 모드가 활성화되었습니다!",
+    "healthConnect": {
+      "title": "헬스 커넥트",
+      "subtitle": "권한 보기 및 관리",
+      "unavailable": {
+        "title": "Health Connect 사용 불가능",
+        "description": "이 장치에서는 Health Connect를 사용할 수 없습니다. Play 스토어(Android 9+)에서 Health Connect를 설치하거나 Android 14+로 업데이트해 주세요."
+      },
+      "permissions": {
+        "title": "권한",
+        "description": "헬스 커넥트 통합을 제공하기 위해 요청되는 권한은 다음과 같습니다:",
+        "granted": "허용됨",
+        "notGranted": "허용되지 않음",
+        "caloriesBurned": {
+          "title": "소모된 총 칼로리 읽기",
+          "description": "앱이 헬스 커넥트에서 소모된 총 칼로리를 읽을 수 있도록 허용합니다.",
+          "usage": "이 권한은 앱에서 사용자의 일일 칼로리 소모량을 표시하는 데 사용되며, 하루 동안의 총 에너지 소비를 이해하는 데 도움이 됩니다."
+        },
+        "nutritionRead": {
+          "title": "영양 데이터 읽기",
+          "description": "앱이 헬스 커넥트에서 영양 데이터를 읽을 수 있도록 허용합니다.",
+          "usage": "이 권한을 통해 앱은 헬스 커넥트에 연결된 다른 앱에서 기록된 영양 정보를 읽을 수 있으며, 영양에 대한 포괄적인 정보를 제공합니다."
+        },
+        "nutritionWrite": {
+          "title": "영양 데이터 쓰기",
+          "description": "앱이 헬스 커넥트에 영양 데이터를 쓸 수 있도록 허용합니다.",
+          "usage": "이 권한을 통해 앱은 사용자가 기록한 식사를 헬스 커넥트에 동기화하여, 사용자가 사용하는 다른 건강 및 피트니스 앱에서 영양 데이터를 사용할 수 있도록 합니다."
+        }
+      },
+      "managePermissions": "권한 관리",
+      "openSettings": "헬스 커넥트 설정 열기",
+      "requestPermissions": "권한 요청하기",
+      "permissionRequestCancelledOrFailed": "권한 요청이 취소되었거나 실패했습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 부여하세요.",
+      "permissionRequestFailed": "권한을 요청할 수 없습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 부여하세요.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "소개",
+      "tagline": "빠르고 무료이며 개인 정보 보호를 우선시하는 칼로리 인식",
+      "ourStory": {
+        "title": "우리의 이야기",
+        "content": "{appLabel}는 단순한 불만에서 탄생했습니다: 대부분의 칼로리 추적 앱은 지나치게 복잡하거나, 지속적인 수동 입력을 요구하거나, 높은 구독 비용을 부과하거나, 개인 정보를 침해합니다.\n\n인디 개발자로서, 저는 더 간단하고 공정한 것을 만들고 싶었습니다 — 노력을 줄이고, 빠르고 무료로 사용할 수 있으며, 귀하의 건강 데이터를 존중하는 AI를 사용하는 앱입니다.\n\n{appLabel}는 제가 존재하였으면 하는 앱입니다: 계정 없이, 추적 없이, 광고 없이 — 단순한 실제 통찰과 귀하의 건강 목표만을 제공합니다."
+      },
+      "privacy": {
+        "title": "귀하의 개인 정보가 중요합니다",
+        "description": "개인 정보는 후순위가 아니라 — 디자인 원칙입니다. 실제로 이 의미는 다음과 같습니다:",
+        "noAccounts": "계정 없음\n앱을 즉시 사용하세요. 가입, 신원 확인 필요 없음.",
+        "noTracking": "행동 추적 없음\n{appLabel}는 귀하의 활동을 모니터링하거나, 사용 프로필을 만들거나, 앱이나 웹사이트에서 귀하를 추적하지 않습니다.",
+        "noAds": "광고 없음, 디자인으로도\n{appLabel}는 광고 없이, 데이터 기반 수익 모델 없이 작동하도록 설계되었습니다.",
+        "noDataSelling": "데이터 판매 없음\n귀하의 건강 데이터는 절대 판매되거나 제3자와 공유되지 않습니다.",
+        "localStorage": "로컬 우선 저장소\n귀하의 데이터는 귀하의 장치에만 저장됩니다.",
+        "privacyPolicy": "개인정보 처리방침"
+      },
+      "developer": {
+        "title": "인디 개발자가 만든 앱",
+        "description": "{appLabel}는 개인의 편안함과 개인 정보 보호를 존중하는 건강 소프트웨어를 만드는 데 집중하는 단 한 명의 인디 개발자가 운영하고 있습니다.\n\n피드백은 직접 읽으며 앱의 방향성을 형성하는 데 도움을 줍니다.",
+        "website": "웹사이트",
+        "email": "이메일"
+      },
+      "feedback": {
+        "title": "{appLabel}를 좋아하시나요?",
+        "description": "귀하의 피드백은 {appLabel}를 모두에게 더 좋게 만드는데 도움이 됩니다.",
+        "rateApp": "플레이 스토어에서 평가하기",
+        "sendFeedback": "피드백 보내기"
+      }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "빌드 {buildNumber}"
+    }
   },
   "reminders": {
     "title": "알림으로 계획을 계속 유지하세요",
@@ -492,6 +569,21 @@
       "professionalGuidance": {
         "title": "전문가의 조언",
         "description": "이 추정치를 의료 결정에 사용하지 마세요. 항상 의료 전문가나 등록된 영양사와 상담하여 개인화된 체중 관리 조언을 받으세요."
+      }
+    },
+    "healthMetrics": {
+      "description": "이 측정치는 귀하의 신체 에너지 필요성을 이해하고 영양 목표를 안내하는 데 도움이 됩니다.",
+      "bmr": {
+        "title": "BMR",
+        "description": "기초 대사율(BMR)은 호흡 및 순환과 같은 기본 기능을 유지하기 위해 신체가 휴식 중에 소모하는 칼로리의 수입니다. BMR은 귀하의 나이, 성별, 키 및 체중에 따라 달라집니다. BMR이 높을수록 신체가 자연적으로 더 많은 칼로리를 태우며, 이는 일반적으로 근육량이 많거나 나이가 어리거나 남성인 경우에 해당합니다. 반면 BMR이 낮은 경우는 일반적으로 근육량이 적거나 나이가 많거나 여성인 경우를 나타냅니다."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "총 일일 에너지 소비(TDEE)는 BMR에 신체 활동 및 일상적인 움직임에서 소모된 칼로리를 더한 하루 동안 소모하는 총 칼로리입니다. TDEE는 귀하의 BMR과 활동 수준에 따라 달라집니다. TDEE가 높을수록 일반적으로 더 많은 칼로리를 소모하며 이는 더 활동적이거나 BMR이 높은 경우가 많습니다. TDEE가 낮은 경우는 일상적인 활동이 적거나 BMR이 낮다는 것을 나타냅니다."
+      },
+      "dailyGoal": {
+        "title": "일일 목표",
+        "description": "일일 목표는 귀하의 TDEE와 체중 목표에 기반한 추천 일일 칼로리 섭취량입니다. 체중 감소를 위해서는 TDEE보다 적은 칼로리를 섭취합니다. 체중 유지를 위해서는 TDEE와 일치시킵니다. 체중 증가를 위해서는 TDEE보다 더 많은 칼로리를 섭취합니다. 이는 건강한 속도로 원하는 체중 변화를 달성하는 데 도움이 됩니다."
       }
     }
   },

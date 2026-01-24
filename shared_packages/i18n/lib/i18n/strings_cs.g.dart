@@ -37,7 +37,7 @@ class TranslationsCs with BaseTranslations<AppLocale, Translations> implements T
 	TranslationsCs $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsCs(meta: meta ?? this.$meta);
 
 	// Translations
-	@override String get language => 'Czech';
+	@override String get language => 'Čeština';
 	@override String get flag => '🇨🇿';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsOnboardingCs onboarding = _TranslationsOnboardingCs._(_root);
@@ -138,6 +138,7 @@ class _TranslationsMealCs implements TranslationsMealEn {
 	@override String get saveMeal => 'Uložit jídlo';
 	@override String get save => 'Uložit';
 	@override String get mealName => 'Název jídla';
+	@override String get mealNameHint => 'např. míchaná vajíčka s toustem';
 	@override String get mealQuantity => 'Množství jídla';
 	@override String get mealQuantityHint => 'např. 1 miska, 2 plátky';
 	@override String get timeOfMeal => 'Čas jídla';
@@ -147,6 +148,9 @@ class _TranslationsMealCs implements TranslationsMealEn {
 	@override late final _TranslationsMealDeleteConfirmationCs deleteConfirmation = _TranslationsMealDeleteConfirmationCs._(_root);
 	@override String get addedToLog => 'Jídlo bylo přidáno do vašeho deníku!';
 	@override String couldNotAdd({required Object error}) => 'Nelze přidat jídlo: ${error}';
+	@override String get savedSuccessfully => 'Jídlo bylo úspěšně přidáno!';
+	@override String get updatedSuccessfully => 'Jídlo bylo úspěšně aktualizováno!';
+	@override String errorSaving({required Object error}) => 'Chyba při ukládání jídla: ${error}';
 	@override String get removedFromFavorites => 'Odebráno z oblíbených!';
 	@override String get savedAsFavorite => 'Jídlo bylo uloženo jako oblíbené!';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Nelze aktualizovat oblíbené: ${error}';
@@ -184,6 +188,7 @@ class _TranslationsProfileCs implements TranslationsProfileEn {
 	@override String get weight => 'Hmotnost';
 	@override String get age => 'Věk';
 	@override String get weightGoal => 'Cíl hmotnosti';
+	@override String get targetWeight => 'Cílová hmotnost';
 	@override String get activityLevel => 'Úroveň aktivity';
 	@override String get healthMetrics => 'Zdravotní metriky';
 	@override String get notSet => 'Nastaveno není';
@@ -252,6 +257,9 @@ class _TranslationsSettingsCs implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsClearAllDataCs clearAllData = _TranslationsSettingsClearAllDataCs._(_root);
 	@override late final _TranslationsSettingsDebugOptionsCs debugOptions = _TranslationsSettingsDebugOptionsCs._(_root);
 	@override String get developerModeEnabled => 'Režim vývojáře je povolen!';
+	@override late final _TranslationsSettingsHealthConnectCs healthConnect = _TranslationsSettingsHealthConnectCs._(_root);
+	@override late final _TranslationsSettingsAboutCs about = _TranslationsSettingsAboutCs._(_root);
+	@override late final _TranslationsSettingsAppInfoCs appInfo = _TranslationsSettingsAppInfoCs._(_root);
 }
 
 // Path: reminders
@@ -319,6 +327,7 @@ class _TranslationsDisclaimerCs implements TranslationsDisclaimerEn {
 	@override String get pleaseNote => 'Prosím vezměte na vědomí';
 	@override late final _TranslationsDisclaimerSnapCs snap = _TranslationsDisclaimerSnapCs._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateCs weightEstimate = _TranslationsDisclaimerWeightEstimateCs._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsCs healthMetrics = _TranslationsDisclaimerHealthMetricsCs._(_root);
 }
 
 // Path: common
@@ -651,6 +660,7 @@ class _TranslationsHomeMealSnapCs implements TranslationsHomeMealSnapEn {
 	@override String get title => 'Vyfoťte a sledujte své jídlo';
 	@override String get description => 'Použijte svoji kameru, abyste vyfotili své jídlo pro analýzu AI.';
 	@override String get openCamera => 'Otevřít kameru';
+	@override String get gallery => 'Galerie';
 }
 
 // Path: home.connectHealth
@@ -780,7 +790,9 @@ class _TranslationsSettingsSectionsCs implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'LOKALIZACE';
 	@override String get notifications => 'NOTIFIKACE';
+	@override String get healthConnect => 'ZDRAVOTNÍ SPOJENÍ';
 	@override String get supportAndLegal => 'POMOC & PRÁVNÍ';
+	@override String get about => 'O APLIKACI';
 	@override String get dangerZone => 'NEBEZPEČNÁ ZÓNA';
 	@override String get developer => 'VÝVOJÁŘ';
 }
@@ -895,6 +907,51 @@ class _TranslationsSettingsDebugOptionsCs implements TranslationsSettingsDebugOp
 	@override String get title => 'Možnosti ladění';
 }
 
+// Path: settings.healthConnect
+class _TranslationsSettingsHealthConnectCs implements TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Zdravotní spojení';
+	@override String get subtitle => 'Zobrazit a spravovat oprávnění';
+	@override late final _TranslationsSettingsHealthConnectUnavailableCs unavailable = _TranslationsSettingsHealthConnectUnavailableCs._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsCs permissions = _TranslationsSettingsHealthConnectPermissionsCs._(_root);
+	@override String get managePermissions => 'Spravovat oprávnění';
+	@override String get openSettings => 'Otevřít nastavení Health Connect';
+	@override String get requestPermissions => 'Žádat o oprávnění';
+	@override String get permissionRequestCancelledOrFailed => 'Žádost o oprávnění byla zrušena nebo selhala. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.';
+	@override String get permissionRequestFailed => 'Nepodařilo se vyžádat oprávnění. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.';
+	@override String get requestingPermissions => 'Requesting...';
+}
+
+// Path: settings.about
+class _TranslationsSettingsAboutCs implements TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'O nás';
+	@override String get tagline => 'Rychlá, zdarma a s důrazem na soukromí v oblasti kalorické povědomí';
+	@override late final _TranslationsSettingsAboutOurStoryCs ourStory = _TranslationsSettingsAboutOurStoryCs._(_root);
+	@override late final _TranslationsSettingsAboutPrivacyCs privacy = _TranslationsSettingsAboutPrivacyCs._(_root);
+	@override late final _TranslationsSettingsAboutDeveloperCs developer = _TranslationsSettingsAboutDeveloperCs._(_root);
+	@override late final _TranslationsSettingsAboutFeedbackCs feedback = _TranslationsSettingsAboutFeedbackCs._(_root);
+}
+
+// Path: settings.appInfo
+class _TranslationsSettingsAppInfoCs implements TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String build({required Object buildNumber}) => 'Sestavení ${buildNumber}';
+}
+
 // Path: notifications.breakfast
 class _TranslationsNotificationsBreakfastCs implements TranslationsNotificationsBreakfastEn {
 	_TranslationsNotificationsBreakfastCs._(this._root);
@@ -976,6 +1033,19 @@ class _TranslationsDisclaimerWeightEstimateCs implements TranslationsDisclaimerW
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsCs biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsCs._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightCs waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightCs._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceCs professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceCs._(_root);
+}
+
+// Path: disclaimer.healthMetrics
+class _TranslationsDisclaimerHealthMetricsCs implements TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Tyto metriky vám pomáhají chápat energetické potřeby vašeho těla a usměrňují vaše nutriční cíle.';
+	@override late final _TranslationsDisclaimerHealthMetricsBmrCs bmr = _TranslationsDisclaimerHealthMetricsBmrCs._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsTdeeCs tdee = _TranslationsDisclaimerHealthMetricsTdeeCs._(_root);
+	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalCs dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalCs._(_root);
 }
 
 // Path: debug.sections
@@ -1224,6 +1294,87 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveCs implements Transla
 	@override String get description => 'Velmi intenzivní cvičení, fyzicky náročná práce';
 }
 
+// Path: settings.healthConnect.unavailable
+class _TranslationsSettingsHealthConnectUnavailableCs implements TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect není k dispozici';
+	@override String get description => 'Health Connect není na tomto zařízení k dispozici. Nainstalujte si prosím Health Connect z Obchodu Play (Android 9+) nebo aktualizujte na Android 14+.';
+}
+
+// Path: settings.healthConnect.permissions
+class _TranslationsSettingsHealthConnectPermissionsCs implements TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Oprávnění';
+	@override String get description => 'Následující oprávnění jsou požadována k zajištění integrace zdravotního spojení:';
+	@override String get granted => 'Schváleno';
+	@override String get notGranted => 'Neschváleno';
+	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedCs caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedCs._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadCs nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadCs._(_root);
+	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteCs nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteCs._(_root);
+}
+
+// Path: settings.about.ourStory
+class _TranslationsSettingsAboutOurStoryCs implements TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Náš příběh';
+	@override String content({required Object appLabel}) => '${appLabel} vzniklo z jednoduché frustrace: většina aplikací pro sledování kalorií je buď příliš složitá, vyžaduje neustálý ruční vstup, účtuje vysoké poplatky za předplatné nebo kompromituje soukromí.\n\nJako nezávislý vývojář jsem chtěl vytvořit něco jednoduššího a spravedlivějšího - aplikaci, která využívá AI k minimalizaci úsilí, zůstává rychlá a zdarma k použití a zachází s vašimi zdravotními údaji s respektem.\n\n${appLabel} je aplikace, kterou jsem si přál mít: žádné účty, žádné sledování, žádné reklamy - jen jasné, praktické poznatky a vaše zdravotní cíle.';
+}
+
+// Path: settings.about.privacy
+class _TranslationsSettingsAboutPrivacyCs implements TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Vaše soukromí je důležité';
+	@override String get description => 'Soukromí není dodatečný prvek - je to princip návrhu. Co to znamená v praxi:';
+	@override String get noAccounts => 'Žádné účty nejsou potřeba\nPoužívejte aplikaci okamžitě. Žádné registrace, žádné identity.';
+	@override String noTracking({required Object appLabel}) => 'Žádné sledování chování\n${appLabel} nesleduje vaši aktivitu, nevytváří profily používání ani vás nesleduje napříč aplikacemi či webovými stránkami.';
+	@override String noAds({required Object appLabel}) => 'Bez reklam díky návrhu\n${appLabel} je navržena tak, aby fungovala bez reklam nebo monetizace založené na datech.';
+	@override String get noDataSelling => 'Žádné prodávání dat\nVaše zdravotní údaje nejsou nikdy prodávány ani sdíleny s třetími stranami.';
+	@override String get localStorage => 'Úložiště na místě\nVaše data zůstávají na vašem zařízení.';
+	@override String get privacyPolicy => 'Zásady ochrany osobních údajů';
+}
+
+// Path: settings.about.developer
+class _TranslationsSettingsAboutDeveloperCs implements TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Vytvořeno nezávislým vývojářem';
+	@override String description({required Object appLabel}) => '${appLabel} je vyvinutá a udržovaná jedním nezávislým vývojářem, který se soustředí na tvorbu klidného, soukromí respektujícího zdravotního softwaru.\n\nZpětná vazba je čtena osobně a pomáhá utvářet směr aplikace.';
+	@override String get website => 'Webové stránky';
+	@override String get email => 'E-mail';
+}
+
+// Path: settings.about.feedback
+class _TranslationsSettingsAboutFeedbackCs implements TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object appLabel}) => 'Líbí se vám ${appLabel}?';
+	@override String description({required Object appLabel}) => 'Vaše zpětná vazba pomáhá zlepšovat ${appLabel} pro všechny.';
+	@override String get rateApp => 'Ohodnoťte na Play Store';
+	@override String get sendFeedback => 'Odeslat zpětnou vazbu';
+}
+
 // Path: disclaimer.snap.portionSize
 class _TranslationsDisclaimerSnapPortionSizeCs implements TranslationsDisclaimerSnapPortionSizeEn {
 	_TranslationsDisclaimerSnapPortionSizeCs._(this._root);
@@ -1312,6 +1463,75 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceCs implements Tra
 	@override String get description => 'Nepoužívejte tento odhad k lékařským rozhodnutím. Vždy se poraďte s odborníkem na zdraví nebo registrovaným dietologem pro personalizované rady ohledně řízení hmotnosti.';
 }
 
+// Path: disclaimer.healthMetrics.bmr
+class _TranslationsDisclaimerHealthMetricsBmrCs implements TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'BMR';
+	@override String get description => 'Bazální metabolická rychlost (BMR) je počet kalorií, které vaše tělo spálí v klidu, aby udrželo základní funkce jako je dýchání a oběh. BMR závisí na vašem věku, pohlaví, výšce a hmotnosti. Vyšší BMR znamená, že vaše tělo přirozeně spaluje více kalorií v klidu, často díky větší svalové hmotě, mladšímu věku nebo mužskému pohlaví. Nižší BMR obvykle naznačuje méně svalové hmoty, vyšší věk nebo ženské pohlaví.';
+}
+
+// Path: disclaimer.healthMetrics.tdee
+class _TranslationsDisclaimerHealthMetricsTdeeCs implements TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'TDEE';
+	@override String get description => 'Celkový denní výdej energie (TDEE) je celkový počet kalorií, které spálíte za den, včetně vašeho BMR plus kalorií z fyzické aktivity a denního pohybu. TDEE závisí na vašem BMR a úrovni aktivity. Vyšší TDEE znamená, že spálíte více kalorií celkově, obvykle díky větší aktivitě nebo vyššímu BMR. Nižší TDEE naznačuje méně denní aktivity nebo nižší BMR.';
+}
+
+// Path: disclaimer.healthMetrics.dailyGoal
+class _TranslationsDisclaimerHealthMetricsDailyGoalCs implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Denní cíl';
+	@override String get description => 'Denní cíl je vaše doporučená denní příjem kalorií na základě vašeho TDEE a cílové hmotnosti. Při hubnutí konzumujete méně kalorií než vaše TDEE. Pro udržení hmotnosti odpovídáte svému TDEE. Při přibírání na váze konzumujete více kalorií než vaše TDEE. To vám pomůže dosáhnout požadované změny hmotnosti zdravým tempem.';
+}
+
+// Path: settings.healthConnect.permissions.caloriesBurned
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedCs implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Číst celkové spálené kalorie';
+	@override String get description => 'Umožňuje aplikaci číst vaše celkové spálené kalorie ze zdravotního spojení.';
+	@override String get usage => 'Toto oprávnění se používá k zobrazení vašeho denního spáleného množství kalorií v aplikaci, což vám pomůže pochopit váš celkový energetický výdej během dne.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionRead
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadCs implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Číst údaje o výživě';
+	@override String get description => 'Umožňuje aplikaci číst údaje o výživě ze zdravotního spojení.';
+	@override String get usage => 'Toto oprávnění umožňuje aplikaci číst informace o výživě, které mohly být zapsány jinými aplikacemi připojenými ke zdravotnímu spojení, a poskytuje komplexní přehled o vaší výživě.';
+}
+
+// Path: settings.healthConnect.permissions.nutritionWrite
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteCs implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Zapsat údaje o výživě';
+	@override String get description => 'Umožňuje aplikaci zapsat údaje o výživě do zdravotního spojení.';
+	@override String get usage => 'Toto oprávnění umožňuje aplikaci synchronizovat vaše zapsané jídla do zdravotního spojení, což činí vaše údaje o výživě dostupné pro další aplikace týkající se zdraví a fitness, které používáte.';
+}
+
 /// The flat map containing all translations for locale <cs>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -1320,7 +1540,7 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceCs implements Tra
 extension on TranslationsCs {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'language' => 'Czech',
+			'language' => 'Čeština',
 			'flag' => '🇨🇿',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Vítejte v ${appLabel}',
@@ -1453,6 +1673,7 @@ extension on TranslationsCs {
 			'home.mealSnap.title' => 'Vyfoťte a sledujte své jídlo',
 			'home.mealSnap.description' => 'Použijte svoji kameru, abyste vyfotili své jídlo pro analýzu AI.',
 			'home.mealSnap.openCamera' => 'Otevřít kameru',
+			'home.mealSnap.gallery' => 'Galerie',
 			'home.connectHealth.title' => 'Synchronizujte s Health Connect',
 			'home.connectHealth.description' => 'Synchronizujte svá nutriční data s Health Connect',
 			'home.connectHealth.install' => 'Nainstalovat',
@@ -1468,6 +1689,7 @@ extension on TranslationsCs {
 			'meal.saveMeal' => 'Uložit jídlo',
 			'meal.save' => 'Uložit',
 			'meal.mealName' => 'Název jídla',
+			'meal.mealNameHint' => 'např. míchaná vajíčka s toustem',
 			'meal.mealQuantity' => 'Množství jídla',
 			'meal.mealQuantityHint' => 'např. 1 miska, 2 plátky',
 			'meal.timeOfMeal' => 'Čas jídla',
@@ -1484,6 +1706,9 @@ extension on TranslationsCs {
 			'meal.deleteConfirmation.delete' => 'Smazat',
 			'meal.addedToLog' => 'Jídlo bylo přidáno do vašeho deníku!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Nelze přidat jídlo: ${error}',
+			'meal.savedSuccessfully' => 'Jídlo bylo úspěšně přidáno!',
+			'meal.updatedSuccessfully' => 'Jídlo bylo úspěšně aktualizováno!',
+			'meal.errorSaving' => ({required Object error}) => 'Chyba při ukládání jídla: ${error}',
 			'meal.removedFromFavorites' => 'Odebráno z oblíbených!',
 			'meal.savedAsFavorite' => 'Jídlo bylo uloženo jako oblíbené!',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Nelze aktualizovat oblíbené: ${error}',
@@ -1506,6 +1731,7 @@ extension on TranslationsCs {
 			'profile.weight' => 'Hmotnost',
 			'profile.age' => 'Věk',
 			'profile.weightGoal' => 'Cíl hmotnosti',
+			'profile.targetWeight' => 'Cílová hmotnost',
 			'profile.activityLevel' => 'Úroveň aktivity',
 			'profile.healthMetrics' => 'Zdravotní metriky',
 			'profile.notSet' => 'Nastaveno není',
@@ -1561,7 +1787,9 @@ extension on TranslationsCs {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'LOKALIZACE',
 			'settings.sections.notifications' => 'NOTIFIKACE',
+			'settings.sections.healthConnect' => 'ZDRAVOTNÍ SPOJENÍ',
 			'settings.sections.supportAndLegal' => 'POMOC & PRÁVNÍ',
+			'settings.sections.about' => 'O APLIKACI',
 			'settings.sections.dangerZone' => 'NEBEZPEČNÁ ZÓNA',
 			'settings.sections.developer' => 'VÝVOJÁŘ',
 			'settings.editProfile.title' => 'Upravit profil',
@@ -1594,6 +1822,51 @@ extension on TranslationsCs {
 			'settings.clearAllData.clearEverything' => 'Smazat všechno',
 			'settings.debugOptions.title' => 'Možnosti ladění',
 			'settings.developerModeEnabled' => 'Režim vývojáře je povolen!',
+			'settings.healthConnect.title' => 'Zdravotní spojení',
+			'settings.healthConnect.subtitle' => 'Zobrazit a spravovat oprávnění',
+			'settings.healthConnect.unavailable.title' => 'Health Connect není k dispozici',
+			'settings.healthConnect.unavailable.description' => 'Health Connect není na tomto zařízení k dispozici. Nainstalujte si prosím Health Connect z Obchodu Play (Android 9+) nebo aktualizujte na Android 14+.',
+			'settings.healthConnect.permissions.title' => 'Oprávnění',
+			'settings.healthConnect.permissions.description' => 'Následující oprávnění jsou požadována k zajištění integrace zdravotního spojení:',
+			'settings.healthConnect.permissions.granted' => 'Schváleno',
+			'settings.healthConnect.permissions.notGranted' => 'Neschváleno',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Číst celkové spálené kalorie',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Umožňuje aplikaci číst vaše celkové spálené kalorie ze zdravotního spojení.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Toto oprávnění se používá k zobrazení vašeho denního spáleného množství kalorií v aplikaci, což vám pomůže pochopit váš celkový energetický výdej během dne.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Číst údaje o výživě',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Umožňuje aplikaci číst údaje o výživě ze zdravotního spojení.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Toto oprávnění umožňuje aplikaci číst informace o výživě, které mohly být zapsány jinými aplikacemi připojenými ke zdravotnímu spojení, a poskytuje komplexní přehled o vaší výživě.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Zapsat údaje o výživě',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Umožňuje aplikaci zapsat údaje o výživě do zdravotního spojení.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Toto oprávnění umožňuje aplikaci synchronizovat vaše zapsané jídla do zdravotního spojení, což činí vaše údaje o výživě dostupné pro další aplikace týkající se zdraví a fitness, které používáte.',
+			'settings.healthConnect.managePermissions' => 'Spravovat oprávnění',
+			'settings.healthConnect.openSettings' => 'Otevřít nastavení Health Connect',
+			'settings.healthConnect.requestPermissions' => 'Žádat o oprávnění',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Žádost o oprávnění byla zrušena nebo selhala. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Nepodařilo se vyžádat oprávnění. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Requesting...',
+			'settings.about.title' => 'O nás',
+			'settings.about.tagline' => 'Rychlá, zdarma a s důrazem na soukromí v oblasti kalorické povědomí',
+			'settings.about.ourStory.title' => 'Náš příběh',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} vzniklo z jednoduché frustrace: většina aplikací pro sledování kalorií je buď příliš složitá, vyžaduje neustálý ruční vstup, účtuje vysoké poplatky za předplatné nebo kompromituje soukromí.\n\nJako nezávislý vývojář jsem chtěl vytvořit něco jednoduššího a spravedlivějšího - aplikaci, která využívá AI k minimalizaci úsilí, zůstává rychlá a zdarma k použití a zachází s vašimi zdravotními údaji s respektem.\n\n${appLabel} je aplikace, kterou jsem si přál mít: žádné účty, žádné sledování, žádné reklamy - jen jasné, praktické poznatky a vaše zdravotní cíle.',
+			'settings.about.privacy.title' => 'Vaše soukromí je důležité',
+			'settings.about.privacy.description' => 'Soukromí není dodatečný prvek - je to princip návrhu. Co to znamená v praxi:',
+			'settings.about.privacy.noAccounts' => 'Žádné účty nejsou potřeba\nPoužívejte aplikaci okamžitě. Žádné registrace, žádné identity.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Žádné sledování chování\n${appLabel} nesleduje vaši aktivitu, nevytváří profily používání ani vás nesleduje napříč aplikacemi či webovými stránkami.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Bez reklam díky návrhu\n${appLabel} je navržena tak, aby fungovala bez reklam nebo monetizace založené na datech.',
+			'settings.about.privacy.noDataSelling' => 'Žádné prodávání dat\nVaše zdravotní údaje nejsou nikdy prodávány ani sdíleny s třetími stranami.',
+			'settings.about.privacy.localStorage' => 'Úložiště na místě\nVaše data zůstávají na vašem zařízení.',
+			'settings.about.privacy.privacyPolicy' => 'Zásady ochrany osobních údajů',
+			'settings.about.developer.title' => 'Vytvořeno nezávislým vývojářem',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} je vyvinutá a udržovaná jedním nezávislým vývojářem, který se soustředí na tvorbu klidného, soukromí respektujícího zdravotního softwaru.\n\nZpětná vazba je čtena osobně a pomáhá utvářet směr aplikace.',
+			'settings.about.developer.website' => 'Webové stránky',
+			'settings.about.developer.email' => 'E-mail',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Líbí se vám ${appLabel}?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Vaše zpětná vazba pomáhá zlepšovat ${appLabel} pro všechny.',
+			'settings.about.feedback.rateApp' => 'Ohodnoťte na Play Store',
+			'settings.about.feedback.sendFeedback' => 'Odeslat zpětnou vazbu',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Sestavení ${buildNumber}',
 			'reminders.title' => 'Zůstaňte na správné cestě s připomínkami',
 			'reminders.description' => 'Získejte jemné připomínky k zaznamenávání vašich jídel a zůstaňte konzistentní s vašimi nutričními cíli',
 			'reminders.notificationsEnabled' => 'Upozornění povolena',
@@ -1646,6 +1919,13 @@ extension on TranslationsCs {
 			'disclaimer.weightEstimate.waterWeight.description' => 'Normální denní hmotnost se může výrazně lišit kvůli zadržování vody, trávení a časování. Odhad nezohledňuje tyto každodenní změny.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Odborné poradenství',
 			'disclaimer.weightEstimate.professionalGuidance.description' => 'Nepoužívejte tento odhad k lékařským rozhodnutím. Vždy se poraďte s odborníkem na zdraví nebo registrovaným dietologem pro personalizované rady ohledně řízení hmotnosti.',
+			'disclaimer.healthMetrics.description' => 'Tyto metriky vám pomáhají chápat energetické potřeby vašeho těla a usměrňují vaše nutriční cíle.',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => 'Bazální metabolická rychlost (BMR) je počet kalorií, které vaše tělo spálí v klidu, aby udrželo základní funkce jako je dýchání a oběh. BMR závisí na vašem věku, pohlaví, výšce a hmotnosti. Vyšší BMR znamená, že vaše tělo přirozeně spaluje více kalorií v klidu, často díky větší svalové hmotě, mladšímu věku nebo mužskému pohlaví. Nižší BMR obvykle naznačuje méně svalové hmoty, vyšší věk nebo ženské pohlaví.',
+			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
+			'disclaimer.healthMetrics.tdee.description' => 'Celkový denní výdej energie (TDEE) je celkový počet kalorií, které spálíte za den, včetně vašeho BMR plus kalorií z fyzické aktivity a denního pohybu. TDEE závisí na vašem BMR a úrovni aktivity. Vyšší TDEE znamená, že spálíte více kalorií celkově, obvykle díky větší aktivitě nebo vyššímu BMR. Nižší TDEE naznačuje méně denní aktivity nebo nižší BMR.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Denní cíl',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Denní cíl je vaše doporučená denní příjem kalorií na základě vašeho TDEE a cílové hmotnosti. Při hubnutí konzumujete méně kalorií než vaše TDEE. Pro udržení hmotnosti odpovídáte svému TDEE. Při přibírání na váze konzumujete více kalorií než vaše TDEE. To vám pomůže dosáhnout požadované změny hmotnosti zdravým tempem.',
 			'common.close' => 'Zavřít',
 			'common.kContinue' => 'Pokračovat',
 			'errors.loadingProfileData' => 'Chyba při načítání dat profilu',

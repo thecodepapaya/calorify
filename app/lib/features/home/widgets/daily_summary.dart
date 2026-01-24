@@ -1,11 +1,11 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
-import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:models/models.dart';
 
 class DailySummaryCard extends StatelessWidget {
   const DailySummaryCard({super.key});
@@ -42,54 +42,53 @@ class DailySummaryCard extends StatelessWidget {
                 return ErrorView(error: snapshot.error!);
               }
               final meals = snapshot.data ?? [];
-              double calories = 0, protein = 0, carbs = 0, fat = 0, fiber = 0;
+              double protein = 0, carbs = 0, fat = 0, fiber = 0;
 
               for (final meal in meals) {
-                calories += meal.calories;
                 protein += meal.protein;
                 carbs += meal.carbs;
                 fat += meal.fat;
                 fiber += meal.fiber;
               }
-              return Wrap(
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 spacing: 8,
-                runSpacing: 8,
-                alignment: WrapAlignment.start,
                 children: [
-                  NutrientTile(
-                    icon: LucideIcons.flame,
-                    label: t.home.dailySummary.calories,
-                    value: calories,
-                    unit: 'kcal',
-                    iconColor: calorieIconColor,
+                  Expanded(
+                    child: NutrientTile(
+                      icon: LucideIcons.wheat,
+                      label: t.home.dailySummary.carbs,
+                      value: carbs,
+                      unit: 'g',
+                      iconColor: carbsIconColor,
+                    ),
                   ),
-                  NutrientTile(
-                    icon: LucideIcons.wheat,
-                    label: t.home.dailySummary.carbs,
-                    value: carbs,
-                    unit: 'g',
-                    iconColor: carbsIconColor,
+                  Expanded(
+                    child: NutrientTile(
+                      icon: LucideIcons.drumstick,
+                      label: t.home.dailySummary.protein,
+                      value: protein,
+                      unit: 'g',
+                      iconColor: proteinIconColor,
+                    ),
                   ),
-                  NutrientTile(
-                    icon: LucideIcons.drumstick,
-                    label: t.home.dailySummary.protein,
-                    value: protein,
-                    unit: 'g',
-                    iconColor: proteinIconColor,
+                  Expanded(
+                    child: NutrientTile(
+                      icon: LucideIcons.egg,
+                      label: t.home.dailySummary.fat,
+                      value: fat,
+                      unit: 'g',
+                      iconColor: fatIconColor,
+                    ),
                   ),
-                  NutrientTile(
-                    icon: LucideIcons.egg,
-                    label: t.home.dailySummary.fat,
-                    value: fat,
-                    unit: 'g',
-                    iconColor: fatIconColor,
-                  ),
-                  NutrientTile(
-                    icon: LucideIcons.leaf,
-                    label: t.home.dailySummary.fiber,
-                    value: fiber,
-                    unit: 'g',
-                    iconColor: fiberIconColor,
+                  Expanded(
+                    child: NutrientTile(
+                      icon: LucideIcons.leaf,
+                      label: t.home.dailySummary.fiber,
+                      value: fiber,
+                      unit: 'g',
+                      iconColor: fiberIconColor,
+                    ),
                   ),
                 ],
               );
@@ -107,7 +106,7 @@ class NutrientTile extends StatelessWidget {
   final double value;
   final String unit;
   final Color iconColor;
-  final double width;
+  final double? width;
 
   const NutrientTile({
     super.key,
@@ -116,7 +115,7 @@ class NutrientTile extends StatelessWidget {
     required this.value,
     required this.unit,
     required this.iconColor,
-    this.width = 90,
+    this.width,
   });
 
   @override
@@ -125,7 +124,7 @@ class NutrientTile extends StatelessWidget {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return Container(
-      constraints: BoxConstraints(minWidth: width),
+      constraints: width == null ? null : BoxConstraints(minWidth: width!),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: iconColor.withValues(alpha: 0.1),

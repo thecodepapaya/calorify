@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Tag & Spor Dit Måltid",
       "description": "Brug dit kamera til at tage et billede af din mad til AI-analyse.",
-      "openCamera": "Åbn Kamera"
+      "openCamera": "Åbn Kamera",
+      "gallery": "Galleri"
     },
     "connectHealth": {
       "title": "Synkroniser med Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Gem Måltid",
     "save": "Gem",
     "mealName": "Måltid Navn",
+    "mealNameHint": "f.eks. Røræg med toast",
     "mealQuantity": "Måltid Mængde",
     "mealQuantityHint": "f.eks. 1 skål, 2 skiver",
     "timeOfMeal": "Tidspunkt for Måltid",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Måltid tilføjet til din log!",
     "couldNotAdd": "Kunne ikke tilføje måltid: {error}",
+    "savedSuccessfully": "Måltid tilføjet!",
+    "updatedSuccessfully": "Måltid opdateret!",
+    "errorSaving": "Kunne ikke gemme måltidet: {error}",
     "removedFromFavorites": "Fjernet fra favoritter!",
     "savedAsFavorite": "Måltid gemt som favorit!",
     "couldNotUpdateFavorite": "Kunne ikke opdatere favorit: {error}",
@@ -264,6 +269,7 @@
     "weight": "Vægt",
     "age": "Alder",
     "weightGoal": "Vægtmål",
+    "targetWeight": "Målvægt",
     "activityLevel": "Aktivitetsniveau",
     "healthMetrics": "Sundhedsmetrikker",
     "notSet": "Ikke indstillet",
@@ -352,7 +358,9 @@
       "profile": "PROFIL",
       "localization": "LOKALISERING",
       "notifications": "NOTIFIKATIONER",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "SUPPORT & JURIDISK",
+      "about": "OM",
       "dangerZone": "FAREZONE",
       "developer": "UDVIKLER"
     },
@@ -403,7 +411,76 @@
     "debugOptions": {
       "title": "Debug Indstillinger"
     },
-    "developerModeEnabled": "Udviklertilstand aktiveret!"
+    "developerModeEnabled": "Udviklertilstand aktiveret!",
+    "healthConnect": {
+      "title": "Sundhedsforbindelse",
+      "subtitle": "Se og administrer tilladelser",
+      "unavailable": {
+        "title": "Health Connect utilgængelig",
+        "description": "Health Connect er ikke tilgængelig på denne enhed. Installer venligst Health Connect fra Play Store (Android 9+) eller opdater til Android 14+."
+      },
+      "permissions": {
+        "title": "Tilladelser",
+        "description": "Følgende tilladelser anmodes om for at give integration med Sundhedsforbindelse:",
+        "granted": "Givet",
+        "notGranted": "Ikke Givet",
+        "caloriesBurned": {
+          "title": "Læs Totale Forbrændte Kalorier",
+          "description": "Giver appen mulighed for at læse dine totale forbrændte kalorier fra Sundhedsforbindelse.",
+          "usage": "Denne tilladelse bruges til at vise dit daglige kalorieforbrug i appen, så du bedre kan forstå dit samlede energiforbrug i løbet af dagen."
+        },
+        "nutritionRead": {
+          "title": "Læs Ernæringsdata",
+          "description": "Giver appen mulighed for at læse ernæringsdata fra Sundhedsforbindelse.",
+          "usage": "Denne tilladelse gør det muligt for appen at læse ernæringsoplysninger, der kan være blevet logget af andre apps, der er tilsluttet Sundhedsforbindelse, og giver dig et samlet overblik over din ernæring."
+        },
+        "nutritionWrite": {
+          "title": "Skriv Ernæringsdata",
+          "description": "Giver appen mulighed for at skrive ernæringsdata til Sundhedsforbindelse.",
+          "usage": "Denne tilladelse gør det muligt for appen at synkronisere dine loggede måltider til Sundhedsforbindelse, så dine ernæringsdata bliver tilgængelige for andre sundheds- og fitnessapps, du bruger."
+        }
+      },
+      "managePermissions": "Administrer Tilladelser",
+      "openSettings": "Åbn sundhedsforbindelsesindstillinger",
+      "requestPermissions": "Anmod om tilladelser",
+      "permissionRequestCancelledOrFailed": "Anmodningen om tilladelser blev annulleret eller mislykkedes. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillinger.",
+      "permissionRequestFailed": "Kunne ikke anmode om tilladelser. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillinger.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "Om",
+      "tagline": "Hurtig, gratis og privatlivsorienteret kaloriebevidsthed",
+      "ourStory": {
+        "title": "Vores Historie",
+        "content": "{appLabel} opstod fra en simpel frustration: de fleste kaloritæknings-apps er enten alt for komplicerede, kræver konstant manuel indtastning, tager høje abonnementafgifter, eller indskrænker på privatlivets fred.\n\nSom en uafhængig udvikler ønskede jeg at bygge noget enklere og mere retfærdigt — en app, der bruger AI til at reducere indsatsen, forbliver hurtig og gratis at bruge, og behandler dine sundhedsdata med respekt.\n\n{appLabel} er den app, jeg ville ønske fandtes: ingen konti, ingen sporing, ingen annoncer — blot klare, praktiske indsigter og dine sundhedsmål."
+      },
+      "privacy": {
+        "title": "Dit Privatliv Tæller",
+        "description": "Privatliv er ikke en eftertanke — det er et designprincip. Her er hvad det betyder i praksis:",
+        "noAccounts": "Ingen konti kræves\nBrug appen med det samme. Ingen tilmeldinger, ingen identiteter.",
+        "noTracking": "Ingen adfærdssporing\n{appLabel} overvåger ikke din aktivitet, opbygger brugsprofiler eller sporer dig på tværs af apps eller hjemmesider.",
+        "noAds": "Annoncefri fra grunden\n{appLabel} er bygget til at fungere uden annoncer eller datadrevet monetisering.",
+        "noDataSelling": "Intet datasalg\nDine sundhedsdata sælges aldrig eller deles med tredjeparter.",
+        "localStorage": "Lokalt først lagring\nDine data forbliver på din enhed.",
+        "privacyPolicy": "Privatlivspolitik"
+      },
+      "developer": {
+        "title": "Bygget af en Uafhængig Udvikler",
+        "description": "{appLabel} er bygget og vedligeholdt af en enkelt uafhængig udvikler, der fokuserer på at skabe rolig, privatlivsrespekterende sundhedssoftware.\n\nFeedback læses personligt og hjælper med at forme retningen for appen.",
+        "website": "Hjemmeside",
+        "email": "Email"
+      },
+      "feedback": {
+        "title": "Nyder du {appLabel}?",
+        "description": "Din feedback hjælper med at forbedre {appLabel} for alle.",
+        "rateApp": "Bedøm på Play Store",
+        "sendFeedback": "Send Feedback"
+      }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Build {buildNumber}"
+    }
   },
   "reminders": {
     "title": "Hold dig på sporet med påmindelser",
@@ -492,6 +569,21 @@
       "professionalGuidance": {
         "title": "Professionel Vejledning",
         "description": "Brug ikke dette estimat til at træffe medicinske beslutninger. Konsulter altid en sundhedsfaglig professionel eller registreret diætist for personlig vægtstyring."
+      }
+    },
+    "healthMetrics": {
+      "description": "Disse målinger hjælper dig med at forstå din krops energibehov og vejlede dine ernæringsmål.",
+      "bmr": {
+        "title": "BMR",
+        "description": "Basal Metabolisk Rate (BMR) er det antal kalorier, din krop forbrænder i hvile for at opretholde grundlæggende funktioner som vejrtrækning og cirkulation. BMR afhænger af din alder, køn, højde og vægt. En højere BMR betyder, at din krop naturligt forbrænder flere kalorier i hvile, ofte på grund af mere muskelmasse, yngre alder eller mandligt køn. En lavere BMR indikerer typisk mindre muskelmasse, ældre alder eller kvindeligt køn."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Total Daglig Energiforbrug (TDEE) er det samlede antal kalorier, du forbrænder pr. dag, inklusive din BMR plus kalorier fra fysisk aktivitet og daglig bevægelse. TDEE afhænger af din BMR og aktivitetsniveau. En højere TDEE betyder, at du forbrænder flere kalorier samlet, ofte fordi du er mere aktiv eller har en højere BMR. En lavere TDEE antyder mindre daglig aktivitet eller en lavere BMR."
+      },
+      "dailyGoal": {
+        "title": "Dagligt Mål",
+        "description": "Dagligt Mål er dit anbefalede daglige kalorieindtag baseret på din TDEE og vægtmål. For vægttab indtager du færre kalorier end din TDEE. For vægtvedligeholdelse matcher du din TDEE. For vægtøgning indtager du flere kalorier end din TDEE. Dette hjælper dig med at opnå din ønskede vægtændring i et sundt tempo."
       }
     }
   },

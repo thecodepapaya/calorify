@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Képzelj és Kövesd Az Étkezésed",
       "description": "Használj kamerát, hogy fényképet készíts az ételedről az AI elemzése érdekében.",
-      "openCamera": "Kamera megnyitása"
+      "openCamera": "Kamera megnyitása",
+      "gallery": "Galéria"
     },
     "connectHealth": {
       "title": "Szinkronizálás az Health Connect-tel",
@@ -216,6 +217,7 @@
     "saveMeal": "Étkezés mentése",
     "save": "Mentés",
     "mealName": "Étkezés neve",
+    "mealNameHint": "pl. Rántotta pirítóssal",
     "mealQuantity": "Étkezés mennyiség",
     "mealQuantityHint": "pl. 1 tál, 2 szelet",
     "timeOfMeal": "Étkezés időpontja",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Étkezés hozzáadva a naplóhoz!",
     "couldNotAdd": "Nem lehetett étkezést hozzáadni: {error}",
+    "savedSuccessfully": "Étkezés sikeresen hozzáadva!",
+    "updatedSuccessfully": "Étkezés sikeresen frissítve!",
+    "errorSaving": "Hiba az étkezés mentésekor: {error}",
     "removedFromFavorites": "Eltávolítva a kedvencek közül!",
     "savedAsFavorite": "Étkezés mentve kedvencként!",
     "couldNotUpdateFavorite": "Nem lehetett frissíteni a kedvencet: {error}",
@@ -264,6 +269,7 @@
     "weight": "Súly",
     "age": "Kor",
     "weightGoal": "Súlycél",
+    "targetWeight": "Cél Súly",
     "activityLevel": "Aktivitási szint",
     "healthMetrics": "Egészségügyi mutatók",
     "notSet": "Nincs beállítva",
@@ -352,7 +358,9 @@
       "profile": "PROFIL",
       "localization": "HELYI BEÁLLÍTÁSOK",
       "notifications": "ÉRTESÍTÉSEK",
+      "healthConnect": "EGÉSZSÉG KAPCSOLAT",
       "supportAndLegal": "TÁMOGATÁS ÉS JOGI ÜGYEK",
+      "about": "TÁJÉKOZTATÁS",
       "dangerZone": "VESZÉLYES ZÓNA",
       "developer": "FEJLESZTŐ"
     },
@@ -403,7 +411,76 @@
     "debugOptions": {
       "title": "Hibakeresési Beállítások"
     },
-    "developerModeEnabled": "Fejlesztő mód engedélyezve!"
+    "developerModeEnabled": "Fejlesztő mód engedélyezve!",
+    "healthConnect": {
+      "title": "Egészség Kapcsolat",
+      "subtitle": "Engedélyek megtekintése és kezelése",
+      "unavailable": {
+        "title": "Health Connect nem elérhető",
+        "description": "A Health Connect nem érhető el ezen az eszközön. Kérjük, telepítse a Health Connectet a Play Áruházból (Android 9+), vagy frissítsen Android 14+-ra."
+      },
+      "permissions": {
+        "title": "Engedélyek",
+        "description": "Az alábbi engedélyeket kérjük az Egészség Kapcsolat integráció biztosításához:",
+        "granted": "Engedélyezve",
+        "notGranted": "Nem Engedélyezve",
+        "caloriesBurned": {
+          "title": "Összes Kcal Égetése Olvasása",
+          "description": "Lehetővé teszi az alkalmazás számára, hogy elolvassa a Health Connect-en a teljes elégetett kalóriát.",
+          "usage": "Ez az engedély szükséges a napi kalóriaégetés megjelenítéséhez az alkalmazásban, segítve a napi energiapazarlás megértését."
+        },
+        "nutritionRead": {
+          "title": "Tápanyagadatok Olvasása",
+          "description": "Lehetővé teszi az alkalmazás számára, hogy elolvassa a tápanyagadatokat az Egészség Kapcsolattól.",
+          "usage": "Ez az engedély lehetővé teszi az alkalmazás számára, hogy hozzáférjen azokra a tápanyaginformációkra, amelyeket más alkalmazások rögzítettek, amelyek kapcsolódnak az Egészség Kapcsolathoz, átfogó képet adva a táplálkozásodról."
+        },
+        "nutritionWrite": {
+          "title": "Tápanyagadatok Írása",
+          "description": "Lehetővé teszi az alkalmazás számára, hogy tápanyagadatokat írjon az Egészség Kapcsolatra.",
+          "usage": "Ez az engedély lehetővé teszi az alkalmazás számára, hogy szinkronizálja a rögzített ételeidet az Egészség Kapcsolatra, így a táplálkozási adataid más egészségügyi és fitness alkalmazások számára is elérhetővé válnak."
+        }
+      },
+      "managePermissions": "Engedélyek Kezelése",
+      "openSettings": "Nyisd meg az Egészségkapcsolat beállításait",
+      "requestPermissions": "Engedélyek kérése",
+      "permissionRequestCancelledOrFailed": "Az engedélykérés megszakadt vagy sikertelen volt. Próbáld újra, vagy add meg az engedélyeket manuálisan a Health Connect beállításaiban.",
+      "permissionRequestFailed": "Nem sikerült engedélyeket kérni. Próbáld újra, vagy add meg az engedélyeket manuálisan a Health Connect beállításaiban.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "Rólunk",
+      "tagline": "Gyors, ingyenes és adatvédelmi szempontból elsődleges kalóriaszámláló",
+      "ourStory": {
+        "title": "Történetünk",
+        "content": "{appLabel} egy egyszerű frusztrációból született: a legtöbb kalóriaszámláló alkalmazás vagy túlságosan bonyolult, folyamatos manuális bevitelre kényszerít, magas előfizetési díjakat kér, vagy megtévesztően kezeli az adatvédelmet.\n\nFüggetlen fejlesztőként olyan dolgot akartam létrehozni, ami egyszerűbb és tisztességesebb – egy alkalmazást, amely mesterséges intelligenciát használ a munka csökkentésére, gyors marad, ingyenesen használható, és tisztelettel kezeli az egészségügyi adataidat.\n\n{appLabel} az alkalmazás, amit szerettem volna, ha létezne: nincs fiók, nincs követés, nincs hirdetés – csak világos, gyakorlati betekintések és az egészségügyi céljaid."
+      },
+      "privacy": {
+        "title": "Az Ön Adatvédelme Fontos",
+        "description": "Az adatvédelem nem utolsó pillanatos gondolat – ez egy tervezési elv. Ez a gyakorlatban azt jelenti:",
+        "noAccounts": "Nincs szükség fiókra\nAz alkalmazást azonnal használhatja. Nincs regisztráció, nincs személyazonosság.",
+        "noTracking": "Nincs viselkedési követés\n{appLabel} nem figyeli az Ön tevékenységét, nem épít felhasználói profilokat, és nem követi nyomon különböző alkalmazásokban vagy weboldalakon.",
+        "noAds": "Hirdetésmentes tervezés\n{appLabel} úgy van megalkotva, hogy működjön hirdetések vagy adatvezérelt monetizáció nélkül.",
+        "noDataSelling": "Nincs adatértékesítés\nAz egészségügyi adataid soha nem kerülnek eladásra vagy megosztásra harmadik felekkel.",
+        "localStorage": "Helyi tárolás előtérbe helyezve\nAz adataid a készülékeden maradnak.",
+        "privacyPolicy": "Adatvédelmi irányelvek"
+      },
+      "developer": {
+        "title": "Független Solo Fejlesztő Által Készítve",
+        "description": "{appLabel} egyetlen solo fejlesztő által készült és karbantartott, aki a nyugodt, adatvédelmet tiszteletben tartó egészségügyi szoftverek fejlesztésére összpontosít.\n\nA visszajelzéseket személyesen olvassuk és segítenek alakítani az alkalmazás irányát.",
+        "website": "Weboldal",
+        "email": "Email"
+      },
+      "feedback": {
+        "title": "Tetszik a(z) {appLabel}?",
+        "description": "A visszajelzésed segít abban, hogy a(z) {appLabel} jobb legyen mindenki számára.",
+        "rateApp": "Értékelje a Play Áruházban",
+        "sendFeedback": "Visszajelzés küldése"
+      }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Build {buildNumber}"
+    }
   },
   "reminders": {
     "title": "Tartsd az ütemet emlékeztetőkkel",
@@ -492,6 +569,21 @@
       "professionalGuidance": {
         "title": "Szakmai Útmutatás",
         "description": "Ne használd ezt a becslést orvosi döntések meghozatalához. Mindig konzultálj egészségügyi szakemberrel vagy bejegyzett dietetikussal személyre szabott súlykezelési tanácsadásért."
+      }
+    },
+    "healthMetrics": {
+      "description": "Ezek a mutatók segítenek megérteni a tested energiaigényét, és irányt mutatnak a táplálkozási céljaidhoz.",
+      "bmr": {
+        "title": "BMR",
+        "description": "A Bazális Anyagcsere Sebessége (BMR) az a kalóriamennyiség, amelyet a tested nyugalmi állapotban éget el az alapvető funkciók fenntartásához, mint a légzés és a vérkeringés. A BMR a korodtól, nemedtől, magasságodtól és súlyodtól függ. A magasabb BMR azt jelenti, hogy a tested természetesen több kalóriát éget el nyugalomban, jellemzően a nagyobb izomtömeg, a fiatalabb kor vagy a férfi nem következményeként. Az alacsonyabb BMR általában kevesebb izomtömegre, idősebb korra vagy női nemre utal."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "A Teljes Napi Energiafelhasználás (TDEE) az a kalóriamennyiség, amelyet egy nap alatt elégetsz, beleértve a BMR-t és a fizikai aktivitásból valamint a napi mozgásból származó kalóriákat. A TDEE a BMR-dtől és az aktivitási szintedtől függ. A magasabb TDEE azt jelenti, hogy összességében több kalóriát égetsz el, általában a nagyobb aktivitásból vagy a magasabb BMR-ből adódóan. Az alacsonyabb TDEE kevesebb napi aktivitást vagy alacsonyabb BMR-t jelez."
+      },
+      "dailyGoal": {
+        "title": "Napi Cél",
+        "description": "A Napi Cél a javasolt napi kalóriabeviteled, amely a TDEE-d és a súlycélod alapján van megállapítva. Súlycsökkentés esetén kevesebb kalóriát fogyasztasz, mint a TDEE-d. A súly fenntartásához a TDEE-dnek megfelelő mennyiséget fogyasztasz. Súlygyarapodás érdekében pedig többet eszel, mint a TDEE-d. Ez segít elérni a kívánt súlyváltozást egészséges ütemben."
       }
     }
   },

@@ -1,5 +1,4 @@
 import 'package:calorify/core/constants/colors.dart';
-import 'package:calorify/core/constants/colors/color_scheme_extensions.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
@@ -190,61 +189,94 @@ class _ShowGoal extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Goal and Consumption combined in one line
         Row(
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.alphabetic,
           children: [
+            Icon(
+              LucideIcons.flame,
+              color: colorScheme.calorieIconColor,
+              size: 18,
+            ),
+            SizedBox(width: 8),
             Text(
               t.home.dailyGoal.yourGoal,
               style: textTheme.bodyLarge?.copyWith(
-                color: colorScheme.onSecondary.withValues(alpha: 0.7),
+                color: colorScheme.onSurfaceVariant,
+                fontWeight: FontWeight.w500,
               ),
             ),
+            SizedBox(width: 16),
             Spacer(),
-            RichText(
-              text: TextSpan(
-                children: [
-                  WidgetSpan(
-                    child: Icon(LucideIcons.flame, color: calorieIconColor),
-                  ),
-                  WidgetSpan(child: SizedBox(width: 4)),
-                  TextSpan(
-                    text: caloriesGoal.toString(),
-                    style: textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  TextSpan(
-                    text: ' ${t.home.dailyGoal.kcal}',
-                    style: textTheme.bodyLarge?.copyWith(
-                      color: colorScheme.onSecondary.withValues(alpha: 0.7),
-                    ),
-                  ),
-                ],
+            Text(
+              caloriesConsumed.toStringAsFixed(0),
+              style: textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: colorScheme.calorieIconColor,
+                height: 1.0,
               ),
             ),
-            IconButton(
-              onPressed: onEdit,
-              icon: Icon(LucideIcons.squarePen, size: 16),
+            SizedBox(width: 6),
+            Text(
+              t.home.dailyGoal.kcal,
+              style: textTheme.bodyLarge?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
             ),
+            if (caloriesGoal > 0) ...[
+              SizedBox(width: 6),
+              Text(
+                '/',
+                style: textTheme.bodyLarge?.copyWith(
+                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+                ),
+              ),
+              SizedBox(width: 6),
+              Text(
+                caloriesGoal.toString(),
+                style: textTheme.bodyLarge?.copyWith(
+                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
           ],
         ),
+        // Burned Calories (if tracked)
         if (caloriesBurned > 0) ...[
-          SizedBox(height: 12),
-          Divider(),
-          SizedBox(height: 12),
+          SizedBox(height: 20),
+          Divider(height: 1),
+          SizedBox(height: 20),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
             children: [
-              _CalorieMetric(
-                icon: LucideIcons.flame,
-                color: colorScheme.tertiary,
-                label: t.home.dailyGoal.intake,
-                value: caloriesConsumed,
+              Icon(LucideIcons.bike, color: colorScheme.error, size: 20),
+              SizedBox(width: 12),
+              Text(
+                t.home.dailyGoal.burned,
+                style: textTheme.bodyLarge?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-              _CalorieMetric(
-                icon: LucideIcons.bike,
-                color: colorScheme.error,
-                label: t.home.dailyGoal.burned,
-                value: caloriesBurned,
+              SizedBox(width: 16),
+              Spacer(),
+              Text(
+                caloriesBurned.toString(),
+                style: textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: colorScheme.error,
+                  height: 1.0,
+                ),
+              ),
+              SizedBox(width: 6),
+              Text(
+                t.home.dailyGoal.kcal,
+                style: textTheme.bodyLarge?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
               ),
             ],
           ),
@@ -313,52 +345,6 @@ class _ShowGoal extends StatelessWidget {
             },
           ),
         ],
-      ],
-    );
-  }
-}
-
-class _CalorieMetric extends StatelessWidget {
-  const _CalorieMetric({
-    required this.icon,
-    required this.label,
-    required this.value,
-    required this.color,
-  });
-
-  final IconData icon;
-  final Color color;
-  final String label;
-  final int value;
-
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
-
-    return Column(
-      children: [
-        Row(
-          children: [
-            Icon(icon, size: 24, color: color),
-            SizedBox(width: 8),
-            Text(
-              label,
-              style: textTheme.bodyLarge?.copyWith(
-                color: colorScheme.onSecondary.withValues(alpha: 0.7),
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 6),
-        Text(
-          '$value',
-          style: textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: colorScheme.onSurface,
-          ),
-        ),
       ],
     );
   }

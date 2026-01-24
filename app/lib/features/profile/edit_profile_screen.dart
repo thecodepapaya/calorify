@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/utilities/locale_utils.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
@@ -9,6 +10,7 @@ import 'package:calorify/shared_widgets/profile_enum_extensions.dart';
 import 'package:calorify/shared_widgets/selection_card.dart';
 import 'package:calorify/shared_widgets/value_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -24,6 +26,10 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
+  late final Future<int?> _savedGoalFuture;
+  bool _didApplySavedGoal = false;
+
+  // Initialize with safe defaults
   late double _height;
   late double _weight;
   late DateTime _dateOfBirth;
@@ -33,6 +39,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late ActivityLevel _selectedActivityLevel;
   late UnitSystem _heightUnit;
   late UnitSystem _weightUnit;
+  late int _dailyCalorieGoal;
+  late TextEditingController _calorieGoalController;
 
   // Store original values to detect changes
   late double _originalHeight;
@@ -43,6 +51,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late ActivityLevel _originalActivityLevel;
   late UnitSystem _originalHeightUnit;
   late UnitSystem _originalWeightUnit;
+  late int _originalDailyCalorieGoal;
 
   // Default values (not in ScaleConstants as they're UI-specific)
   static const double _defaultHeightMetric = 170.0;
@@ -80,10 +89,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _initializeData();
-  }
 
-  void _initializeData() {
     _selectedGender =
         widget.userProfile.hasGender()
             ? widget.userProfile.gender
@@ -99,7 +105,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _heightUnit = widget.userProfile.heightUnit.normalized;
     _weightUnit = widget.userProfile.weightUnit.normalized;
 
-    // Initialize height with clamping to ensure it's within bounds
+    // Initialize height with default based on unit system
     final defaultHeight =
         _heightUnit.isMetric ? _defaultHeightMetric : _defaultHeightImperial;
     _height = (widget.userProfile.height ?? defaultHeight).clamp(
@@ -107,7 +113,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       _heightUnit.heightMax,
     );
 
-    // Initialize weight with clamping to ensure it's within bounds
+    // Initialize weight with default based on unit system
     final defaultWeight =
         _weightUnit.isMetric ? _defaultWeightMetric : _defaultWeightImperial;
     _weight = (widget.userProfile.weight ?? defaultWeight).clamp(
@@ -115,13 +121,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       _weightUnit.weightMax,
     );
 
+    // Initialize other fields with safe defaults
+    _dailyCalorieGoal = 0;
+    _calorieGoalController = TextEditingController(text: '');
     _dateOfBirth =
         widget.userProfile.dateOfBirthDateTime ??
         DateTime.now().subtract(
           const Duration(days: _daysInYear * _defaultAgeYears),
         );
 
-    // Store original values for change detection
+    // Initialize original values
     _originalHeight = _height;
     _originalWeight = _weight;
     _originalDateOfBirth = _dateOfBirth;
@@ -130,6 +139,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _originalActivityLevel = _selectedActivityLevel;
     _originalHeightUnit = _heightUnit;
     _originalWeightUnit = _weightUnit;
+    _originalDailyCalorieGoal = _dailyCalorieGoal;
+
+    // Load saved calorie goal asynchronously
+    _savedGoalFuture = DatabaseService.databaseInterface.getDailyCalorieGoal();
   }
 
   bool _hasChanges() {
@@ -140,11 +153,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         _selectedWeightGoal != _originalWeightGoal ||
         _selectedActivityLevel != _originalActivityLevel ||
         _heightUnit != _originalHeightUnit ||
-        _weightUnit != _originalWeightUnit;
+        _weightUnit != _originalWeightUnit ||
+        _dailyCalorieGoal != _originalDailyCalorieGoal;
   }
 
   @override
   void dispose() {
+    _calorieGoalController.dispose();
     super.dispose();
   }
 
@@ -197,6 +212,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
             // Goals & Activity Section
             _buildCardSection(t.editProfile.sections.goalsAndActivity, [
+              _buildDailyCalorieGoalTile(),
+              const Divider(height: _dividerHeight),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: _cardContentHorizontalPadding,
@@ -633,6 +650,80 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
+  Widget _buildDailyCalorieGoalTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return FutureBuilder<int?>(
+      future: _savedGoalFuture,
+      builder: (context, snapshot) {
+        if (snapshot.hasData && !_didApplySavedGoal) {
+          final savedGoal = snapshot.data ?? 0;
+          _didApplySavedGoal = true;
+          _dailyCalorieGoal = savedGoal;
+          _originalDailyCalorieGoal = savedGoal;
+          _calorieGoalController.text =
+              savedGoal > 0 ? savedGoal.toString() : '';
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (!mounted) return;
+            setState(() {});
+          });
+        }
+
+        return ListTile(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: _cardContentHorizontalPadding,
+            vertical: _cardContentVerticalPadding,
+          ),
+          leading: Container(
+            padding: const EdgeInsets.all(_iconContainerPadding),
+            decoration: BoxDecoration(
+              color: colorScheme.primaryContainer.withValues(
+                alpha: _iconContainerOpacity,
+              ),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              LucideIcons.flame,
+              color: colorScheme.primary,
+              size: _iconSize,
+            ),
+          ),
+          title: Text(
+            t.home.dailyGoal.dailyCalories,
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: _subtitleTopPadding),
+            child: TextFormField(
+              controller: _calorieGoalController,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              decoration: InputDecoration(
+                hintText: '0',
+                suffixText: t.home.dailyGoal.kcal,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+              ),
+              onChanged: (value) {
+                final goal = int.tryParse(value) ?? 0;
+                setState(() {
+                  _dailyCalorieGoal = goal;
+                });
+              },
+            ),
+          ),
+          isThreeLine: true,
+        );
+      },
+    );
+  }
+
   Future<void> _saveProfile() async {
     if (!_hasChanges()) return;
 
@@ -652,6 +743,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       // Save the updated profile data (upsert)
       await OnboardingService.instance.saveProfileData(updatedData);
 
+      // Save daily calorie goal if changed
+      if (_dailyCalorieGoal != _originalDailyCalorieGoal) {
+        if (_dailyCalorieGoal > 0) {
+          await DatabaseService.databaseInterface.setDailyCalorieGoal(
+            _dailyCalorieGoal,
+          );
+        }
+      }
+
       if (!mounted) return;
 
       // Update original values to reflect saved state
@@ -664,6 +764,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         _originalActivityLevel = _selectedActivityLevel;
         _originalHeightUnit = _heightUnit;
         _originalWeightUnit = _weightUnit;
+        _originalDailyCalorieGoal = _dailyCalorieGoal;
       });
 
       // Show success message

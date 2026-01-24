@@ -1,2 +1,3 @@
 // Re-export from shared specs package for backward compatibility
-export 'package:specs/specs.dart' show ColorSchemeSuccess;
+export 'package:specs/specs.dart'
+    show ColorSchemeSuccess, ColorSchemeMacroNutrients;

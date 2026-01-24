@@ -266,7 +266,7 @@ class _DateDivider extends StatelessWidget {
             icon: LucideIcons.flame,
             value: totalCalories.toDouble(),
             unit: '',
-            iconColor: calorieIconColor,
+            iconColor: theme.colorScheme.calorieIconColor,
           ),
         ],
       ),

@@ -2,8 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/utilities/locale_utils.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
+import 'package:calorify/features/home/widgets/disclaimer_button.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
+    show getHealthMetricsDisclaimer;
 import 'package:i18n/i18n.dart';
 import 'package:widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +97,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
           // Goals & Activity Section
           _buildCardSection(t.profile.sections.goalsAndActivity, [
+            _buildDailyGoalTile(),
             _buildWeightGoalTile(),
+            _buildTargetWeightTile(),
             _buildActivityLevelTile(),
           ]),
           const SizedBox(height: 16),
@@ -265,6 +271,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  Widget _buildDailyGoalTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return FutureBuilder<int?>(
+      future: DatabaseService.databaseInterface.getDailyCalorieGoal(),
+      builder: (context, snapshot) {
+        final goal = snapshot.data ?? 0;
+        final goalText =
+            goal > 0
+                ? '$goal ${t.profile.calculatedValues.calPerDay}'
+                : t.profile.notSet;
+
+        return ListTile(
+          leading: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              LucideIcons.flame,
+              color: colorScheme.primary,
+              size: 20,
+            ),
+          ),
+          title: Text(
+            t.profile.calculatedValues.dailyGoal,
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          subtitle: Text(goalText),
+        );
+      },
+    );
+  }
+
   Widget _buildWeightGoalTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -285,6 +327,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       subtitle: Text(weightGoal?.displayName ?? t.profile.notSet),
+    );
+  }
+
+  Widget _buildTargetWeightTile() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final targetWeight = _userProfile!.targetWeight;
+    final weightUnit = _userProfile!.weightUnit;
+
+    String targetWeightText = t.profile.notSet;
+    if (targetWeight != null) {
+      final unit = weightUnit.isMetric ? 'kg' : 'lbs';
+      targetWeightText =
+          '${targetWeight.toStringAsFixed(weightUnit.weightPrecision)} $unit';
+    }
+
+    return ListTile(
+      leading: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(LucideIcons.scale, color: colorScheme.primary, size: 20),
+      ),
+      title: Text(
+        t.profile.targetWeight,
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+      subtitle: Text(targetWeightText),
     );
   }
 
@@ -333,46 +405,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ? '${dailyCalorieGoal.toStringAsFixed(0)} ${t.profile.calculatedValues.calPerDay}'
             : t.profile.calculatedValues.notAvailable;
 
-    return ListTile(
-      leading: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: colorScheme.tertiaryContainer.withValues(alpha: 0.4),
-          shape: BoxShape.circle,
+    return Stack(
+      children: [
+        ListTile(
+          leading: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: colorScheme.tertiaryContainer.withValues(alpha: 0.4),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              LucideIcons.calculator,
+              color: colorScheme.tertiary,
+              size: 20,
+            ),
+          ),
+          title: Text(
+            t.profile.healthMetrics,
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 4),
+              // Always show BMR widget
+              Text(
+                '${t.profile.calculatedValues.bmr}: $bmrText',
+                style: const TextStyle(fontSize: 13),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                '${t.profile.calculatedValues.tdee}: $tdeeText',
+                style: const TextStyle(fontSize: 13),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                '${t.profile.calculatedValues.dailyGoal}: $dailyGoalText',
+                style: const TextStyle(fontSize: 13),
+              ),
+            ],
+          ),
+          isThreeLine: true,
         ),
-        child: Icon(
-          LucideIcons.calculator,
-          color: colorScheme.tertiary,
-          size: 20,
+        Positioned(
+          top: 0,
+          right: 0,
+          child: DisclaimerButton(data: getHealthMetricsDisclaimer()),
         ),
-      ),
-      title: Text(
-        t.profile.healthMetrics,
-        style: TextStyle(fontWeight: FontWeight.w600),
-      ),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(height: 4),
-          // Always show BMR widget
-          Text(
-            '${t.profile.calculatedValues.bmr}: $bmrText',
-            style: const TextStyle(fontSize: 13),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            '${t.profile.calculatedValues.tdee}: $tdeeText',
-            style: const TextStyle(fontSize: 13),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            '${t.profile.calculatedValues.dailyGoal}: $dailyGoalText',
-            style: const TextStyle(fontSize: 13),
-          ),
-        ],
-      ),
-      isThreeLine: true,
+      ],
     );
   }
 

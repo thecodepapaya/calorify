@@ -200,7 +200,11 @@ class _MealTipState extends State<_MealTip> {
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(LucideIcons.flame, color: calorieIconColor, size: 32),
+          Icon(
+            LucideIcons.flame,
+            color: colorScheme.calorieIconColor,
+            size: 32,
+          ),
           SizedBox(width: 4),
           RichText(
             text: TextSpan(
@@ -208,7 +212,7 @@ class _MealTipState extends State<_MealTip> {
                 TextSpan(
                   text: mealInfo.calories.toStringAsFixed(0),
                   style: textTheme.headlineLarge?.copyWith(
-                    color: calorieIconColor,
+                    color: colorScheme.calorieIconColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -226,39 +230,44 @@ class _MealTipState extends State<_MealTip> {
       ),
       SizedBox(height: 16),
       Row(
+        spacing: 8,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          NutrientTile(
-            icon: LucideIcons.wheat,
-            label: t.home.dailySummary.carbs,
-            value: mealInfo.carbs.toDouble(),
-            unit: 'g',
-            iconColor: carbsIconColor,
-            width: 85,
+          Expanded(
+            child: NutrientTile(
+              icon: LucideIcons.wheat,
+              label: t.home.dailySummary.carbs,
+              value: mealInfo.carbs.toDouble(),
+              unit: 'g',
+              iconColor: carbsIconColor,
+            ),
           ),
-          NutrientTile(
-            icon: LucideIcons.drumstick,
-            label: t.home.dailySummary.protein,
-            value: mealInfo.protein.toDouble(),
-            unit: 'g',
-            iconColor: proteinIconColor,
-            width: 85,
+          Expanded(
+            child: NutrientTile(
+              icon: LucideIcons.drumstick,
+              label: t.home.dailySummary.protein,
+              value: mealInfo.protein.toDouble(),
+              unit: 'g',
+              iconColor: proteinIconColor,
+            ),
           ),
-          NutrientTile(
-            icon: LucideIcons.egg,
-            label: t.home.dailySummary.fat,
-            value: mealInfo.fat.toDouble(),
-            unit: 'g',
-            iconColor: fatIconColor,
-            width: 85,
+          Expanded(
+            child: NutrientTile(
+              icon: LucideIcons.egg,
+              label: t.home.dailySummary.fat,
+              value: mealInfo.fat.toDouble(),
+              unit: 'g',
+              iconColor: fatIconColor,
+            ),
           ),
-          NutrientTile(
-            icon: LucideIcons.leaf,
-            label: t.home.dailySummary.fiber,
-            value: mealInfo.fiber.toDouble(),
-            unit: 'g',
-            iconColor: fiberIconColor,
-            width: 85,
+          Expanded(
+            child: NutrientTile(
+              icon: LucideIcons.leaf,
+              label: t.home.dailySummary.fiber,
+              value: mealInfo.fiber.toDouble(),
+              unit: 'g',
+              iconColor: fiberIconColor,
+            ),
           ),
         ],
       ),

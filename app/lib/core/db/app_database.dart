@@ -72,11 +72,6 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           // Skipping languageCode addition to old table as it's no longer needed
         }
         if (from < 12) {
-          // Migration to version 12:
-          // 1. Rename user_settings_table to user_profile_table
-          await m.renameTable(userProfileTable, 'user_profile_table');
-
-          // 2. Create UserPreferencesTable
           await m.createTable(userPreferencesTable);
 
           // 3. Initialize with default preferences (languageCode is null by default)

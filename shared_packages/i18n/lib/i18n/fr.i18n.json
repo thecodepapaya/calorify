@@ -193,7 +193,8 @@
     "mealSnap": {
       "title": "Prenez en Photo & Suivez Votre Repas",
       "description": "Utilisez votre appareil photo pour prendre une photo de votre nourriture pour analyse par l'IA.",
-      "openCamera": "Ouvrir l'Appareil Photo"
+      "openCamera": "Ouvrir l'Appareil Photo",
+      "gallery": "Galerie"
     },
     "connectHealth": {
       "title": "Synchroniser avec Health Connect",
@@ -216,6 +217,7 @@
     "saveMeal": "Enregistrer le Repas",
     "save": "Enregistrer",
     "mealName": "Nom du repas",
+    "mealNameHint": "p. ex. : œufs brouillés avec pain grillé",
     "mealQuantity": "Quantité de repas",
     "mealQuantityHint": "par exemple, 1 bol, 2 tranches",
     "timeOfMeal": "Heure du repas",
@@ -236,6 +238,9 @@
     },
     "addedToLog": "Repas ajouté à votre journal !",
     "couldNotAdd": "Impossible d'ajouter le repas : {error}",
+    "savedSuccessfully": "Repas ajouté avec succès !",
+    "updatedSuccessfully": "Repas mis à jour avec succès !",
+    "errorSaving": "Erreur lors de l'enregistrement du repas : {error}",
     "removedFromFavorites": "Retiré des favoris !",
     "savedAsFavorite": "Repas enregistré comme favori !",
     "couldNotUpdateFavorite": "Impossible de mettre à jour le favori : {error}",
@@ -264,6 +269,7 @@
     "weight": "Poids",
     "age": "Âge",
     "weightGoal": "Objectif de Poids",
+    "targetWeight": "Poids Cible",
     "activityLevel": "Niveau d'Activité",
     "healthMetrics": "Métriques de Santé",
     "notSet": "Non défini",
@@ -352,7 +358,9 @@
       "profile": "PROFIL",
       "localization": "LOCALISATION",
       "notifications": "NOTIFICATIONS",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "ASSISTANCE & JURIDIQUE",
+      "about": "À PROPOS",
       "dangerZone": "ZONE DANGEREUSE",
       "developer": "DÉVELOPPEUR"
     },
@@ -403,7 +411,76 @@
     "debugOptions": {
       "title": "Options de Débogage"
     },
-    "developerModeEnabled": "Mode développeur activé !"
+    "developerModeEnabled": "Mode développeur activé !",
+    "healthConnect": {
+      "title": "Health Connect",
+      "subtitle": "Voir et gérer les autorisations",
+      "unavailable": {
+        "title": "Health Connect indisponible",
+        "description": "Health Connect n'est pas disponible sur cet appareil. Veuillez installer Health Connect depuis le Play Store (Android 9+) ou mettre à jour vers Android 14+."
+      },
+      "permissions": {
+        "title": "Autorisations",
+        "description": "Les autorisations suivantes sont requises pour fournir l'intégration de Health Connect :",
+        "granted": "Accordé",
+        "notGranted": "Non accordé",
+        "caloriesBurned": {
+          "title": "Lire le total des calories brûlées",
+          "description": "Permet à l'application de lire votre total de calories brûlées depuis Health Connect.",
+          "usage": "Cette autorisation est utilisée pour afficher votre dépense calorique quotidienne dans l'application, vous aidant à comprendre votre dépense énergétique totale tout au long de la journée."
+        },
+        "nutritionRead": {
+          "title": "Lire les données nutritionnelles",
+          "description": "Permet à l'application de lire les données nutritionnelles depuis Health Connect.",
+          "usage": "Cette autorisation permet à l'application de lire les informations nutritionnelles qui ont pu être enregistrées par d'autres applications connectées à Health Connect, fournissant une vue complète de votre nutrition."
+        },
+        "nutritionWrite": {
+          "title": "Écrire des données nutritionnelles",
+          "description": "Permet à l'application d'écrire des données nutritionnelles dans Health Connect.",
+          "usage": "Cette autorisation permet à l'application de synchroniser vos repas enregistrés avec Health Connect, rendant vos données nutritionnelles disponibles pour d'autres applications de santé et de fitness que vous utilisez."
+        }
+      },
+      "managePermissions": "Gérer les autorisations",
+      "openSettings": "Ouvrir les paramètres de Health Connect",
+      "requestPermissions": "Demander des autorisations",
+      "permissionRequestCancelledOrFailed": "La demande d’autorisations a été annulée ou a échoué. Veuillez réessayer ou accorder les autorisations manuellement dans les paramètres de Health Connect.",
+      "permissionRequestFailed": "Impossible de demander les autorisations. Veuillez réessayer ou accorder les autorisations manuellement dans les paramètres de Health Connect.",
+      "requestingPermissions": "Requesting..."
+    },
+    "about": {
+      "title": "À Propos",
+      "tagline": "Prise de conscience des calories rapide, gratuite et respectueuse de la vie privée",
+      "ourStory": {
+        "title": "Notre Histoire",
+        "content": "{appLabel} est né d'une frustration simple : la plupart des applications de suivi des calories sont soit trop compliquées, nécessitent une saisie manuelle constante, facturent des frais d'abonnement élevés, ou compromettent la vie privée.\n\nEn tant que développeur indépendant, je voulais créer quelque chose de plus simple et d'équitable : une application qui utilise l'IA pour réduire l'effort, reste rapide et gratuite à utiliser, et traite vos données de santé avec respect.\n\n{appLabel} est l'application que je souhaite qu'il existe : pas de comptes, pas de suivi, pas de publicités — juste des informations claires et pratiques et vos objectifs de santé."
+      },
+      "privacy": {
+        "title": "Votre Vie Privée Est Importante",
+        "description": "La vie privée n'est pas une réflexion après coup — c'est un principe de conception. Voici ce que cela signifie en pratique :",
+        "noAccounts": "Aucun compte requis\nUtilisez l'application immédiatement. Pas d'inscriptions, pas d'identités.",
+        "noTracking": "Pas de suivi comportemental\n{appLabel} ne surveille pas votre activité, ne construit pas de profils d'utilisation, et ne vous suit pas à travers les applications ou les sites web.",
+        "noAds": "Sans publicité par conception\n{appLabel} est conçu pour fonctionner sans publicités ni monétisation basée sur les données.",
+        "noDataSelling": "Pas de vente de données\nVos données de santé ne sont jamais vendues ni partagées avec des tiers.",
+        "localStorage": "Stockage prioritaire local\nVos données restent sur votre appareil.",
+        "privacyPolicy": "Politique de confidentialité"
+      },
+      "developer": {
+        "title": "Créé par un Développeur Indépendant",
+        "description": "{appLabel} est construit et maintenu par un seul développeur indépendant qui se concentre sur la création de logiciels de santé respectueux de la vie privée et apaisants.\n\nLes retours sont lus personnellement et aident à orienter le développement de l'application.",
+        "website": "Site Web",
+        "email": "Email"
+      },
+      "feedback": {
+        "title": "Vous Aimez {appLabel}?",
+        "description": "Vos retours aident à améliorer {appLabel} pour tout le monde.",
+        "rateApp": "Évaluer sur le Play Store",
+        "sendFeedback": "Envoyer des retours d'information"
+      }
+    },
+    "appInfo": {
+      "version": "Calorify v{version}",
+      "build": "Build {buildNumber}"
+    }
   },
   "reminders": {
     "title": "Restez sur la bonne voie avec des rappels",
@@ -492,6 +569,21 @@
       "professionalGuidance": {
         "title": "Conseils Professionnels",
         "description": "Ne pas utiliser cette estimation pour prendre des décisions médicales. Consultez toujours un professionnel de la santé ou un diététicien agréé pour des conseils personnalisés sur la gestion du poids."
+      }
+    },
+    "healthMetrics": {
+      "description": "Ces indicateurs vous aident à comprendre les besoins énergétiques de votre corps et à guider vos objectifs nutritionnels.",
+      "bmr": {
+        "title": "TMB",
+        "description": "Le Taux Métabolique Basal (TMB) est le nombre de calories que votre corps brûle au repos pour maintenir les fonctions essentielles telles que la respiration et la circulation. Le TMB dépend de votre âge, sexe, taille et poids. Un TMB plus élevé signifie que votre corps brûle naturellement plus de calories au repos, souvent en raison d'une masse musculaire plus importante, d'un âge plus jeune ou d'être masculin. Un TMB plus faible indique généralement une masse musculaire moins importante, un âge plus avancé ou d'être féminin."
+      },
+      "tdee": {
+        "title": "Dépense Énergétique Totale",
+        "description": "La Dépense Énergétique Totale (DET) est le total des calories que vous brûlez par jour, y compris votre TMB plus les calories provenant de l'activité physique et des mouvements quotidiens. La DET dépend de votre TMB et de votre niveau d'activité. Une DET plus élevée signifie que vous brûlez plus de calories au total, généralement en étant plus actif ou en ayant un TMB plus élevé. Une DET plus faible suggère moins d'activité quotidienne ou un TMB plus bas."
+      },
+      "dailyGoal": {
+        "title": "Objectif Quotidien",
+        "description": "L'Objectif Quotidien est votre apport calorique quotidien recommandé basé sur votre DET et votre objectif de poids. Pour perdre du poids, vous consommez moins de calories que votre DET. Pour maintenir votre poids, vous égalisez votre DET. Pour prendre du poids, vous consommez plus de calories que votre DET. Cela vous aide à atteindre votre changement de poids souhaité à un rythme sain."
       }
     }
   },
