@@ -1,0 +1,62 @@
+import { FastifyRequest, FastifyReply } from 'fastify';
+import { verifyFirebaseToken, getUserIdFromToken } from '../services/firebase.js';
+
+/**
+ * Extract Bearer token from Authorization header
+ */
+function extractToken(request: FastifyRequest): string | null {
+  const authHeader = request.headers.authorization;
+  if (!authHeader) {
+    return null;
+  }
+
+  const parts = authHeader.split(' ');
+  if (parts.length !== 2 || parts[0] !== 'Bearer') {
+    return null;
+  }
+
+  return parts[1] ?? null;
+}
+
+/**
+ * Authentication middleware for Fastify
+ * Verifies Firebase ID token and adds user ID to request
+ */
+export async function authenticateUser(
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> {
+  const token = extractToken(request);
+
+  if (!token) {
+    reply.status(401).send({
+      detail: 'Invalid or expired authentication token',
+    });
+    return;
+  }
+
+  try {
+    const decodedToken = await verifyFirebaseToken(token);
+    const userId = getUserIdFromToken(decodedToken);
+
+    // Attach user ID to request for use in route handlers
+    (request as FastifyRequest & { userId: string }).userId = userId;
+  } catch (error) {
+    reply.status(401).send({
+      detail: error instanceof Error ? error.message : 'Invalid or expired authentication token',
+    });
+    return;
+  }
+}
+
+/**
+ * Get current user ID from authenticated request
+ * Use this in route handlers after authentication middleware
+ */
+export function getCurrentUserId(request: FastifyRequest): string {
+  const userId = (request as FastifyRequest & { userId: string }).userId;
+  if (!userId) {
+    throw new Error('User ID not found in request. Ensure authentication middleware is applied.');
+  }
+  return userId;
+}

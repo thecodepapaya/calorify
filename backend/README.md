@@ -1,55 +1,225 @@
 # Calorify Backend Server
 
-A high-performance FastAPI backend for the Calorify app.
+A high-performance Node.js/Fastify backend for the Calorify app.
 
 ## Features
-- AI Food Analysis (Image & Text)
-- User Profile & Meal Tracking
+
+- AI Food Analysis (Image & Text) using Google Gemini
 - Firebase Authentication
-- Push Notifications
-- Cron Job System
-- Request Logging
+- TypeScript with strict type checking
+- Protobuf-based data contracts
+- Multi-environment support (Staging & Production)
 
-## Multi-Environment Setup (Strategy 2)
+## Technology Stack
 
-This setup runs two separate instances of the backend and database on the same VM using Docker Compose.
+- **Framework**: Fastify 4.x
+- **Runtime**: Node.js 20+ (LTS)
+- **Language**: TypeScript (strict mode)
+- **AI**: Google Gemini 1.5 Flash
+- **Auth**: Firebase Admin SDK
+- **Data Models**: Protobuf (generated TypeScript types)
+- **Database**: PostgreSQL 15
 
-### 1. DNS Configuration
-Add two **A Records** in your domain provider dashboard pointing to your VM IP:
-*   `api` (Production)
-*   `api-staging` (Staging)
+## Quick Start
 
-### 2. Environment Variables
-You need to place your Firebase service account JSON file in the `backend/` folder:
-*   `firebase-adminsdk.json` (Used for both Production and Staging)
+### Prerequisites
 
-Check and edit `production.env` and `staging.env` to set your `SECRET_KEY` and other credentials.
+- Node.js 20+ (LTS)
+- Docker & Docker Compose
+- protoc (Protocol Buffers compiler)
+- Firebase service account JSON file
 
-### 3. Start the Services
-Run the following command to start both Production and Staging environments:
+### Initial Setup
+
+1. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Generate Protobuf Types**:
+   ```bash
+   cd ../scripts
+   ./generate_protos.sh
+   ```
+
+3. **Configure Environment Variables**:
+   - Place `firebase-adminsdk.json` in the `backend/` folder
+   - Copy `env.example` to `.env` for local development
+   - Update `production.env` and `staging.env` with your credentials
+
+4. **Required Environment Variables**:
+   - `SECRET_KEY`: Application secret key (must be secure in production)
+   - `FIREBASE_SERVICE_ACCOUNT_PATH`: Path to Firebase service account JSON
+   - `GOOGLE_API_KEY`: Google Gemini API key
+   - `DATABASE_URL`: PostgreSQL connection string (auto-configured in Docker)
+   - `ENVIRONMENT`: `development`, `staging`, or `production`
+   - `PORT`: Server port (default: 8000)
+   - `DEBUG`: Debug mode (must be `false` in production)
+
+## Docker Deployment
+
+This project uses **Docker Compose profiles** to manage separate staging and production environments on the same server.
+
+### Environment Profiles
+
+- **`staging`**: Development/testing environment
+- **`production`**: Production environment
+- **No profile**: Shared services (e.g., pgAdmin)
+
+### Deployment Commands
+
+#### Deploy Staging (Backend + Database)
+
+Deploying with the `staging` profile starts both the staging database and backend together. The backend automatically waits for the database to be healthy before starting.
+
 ```bash
-docker-compose up -d
+# Start staging environment (database + backend)
+docker-compose --profile staging up -d
+
+# Rebuild and deploy staging (after code changes)
+docker-compose --profile staging up -d --build
+
+# Explicitly specify both services (optional)
+docker-compose --profile staging up -d db-staging backend-staging
+
+# Deploy staging backend only (database must already be running)
+docker-compose --profile staging up -d --build --no-deps backend-staging
 ```
 
-*   **Production API**: Internal port 8000 (VM Port 8000)
-*   **Staging API**: Internal port 8000 (VM Port 8001)
+**Note**: The `--no-deps` flag skips dependencies, so use it only when you want to update the backend without touching the database.
 
-### 4. Reverse Proxy (Nginx)
-Configure Nginx on your VM to route traffic from your subdomains to the correct ports:
+#### Deploy Production (Backend + Database)
+
+Deploying with the `production` profile starts both the production database and backend together. The backend automatically waits for the database to be healthy before starting.
+
+```bash
+# Start production environment (database + backend)
+docker-compose --profile production up -d
+
+# Rebuild and deploy production (after code changes)
+docker-compose --profile production up -d --build
+
+# Explicitly specify both services (optional)
+docker-compose --profile production up -d db-prod backend-prod
+
+# Deploy production backend only (zero-downtime update, database must already be running)
+docker-compose --profile production up -d --build --no-deps backend-prod
+```
+
+**Note**: The `--no-deps` flag skips dependencies, so use it only when you want to update the backend without touching the database.
+
+#### Deploy Both Environments
+
+```bash
+# Start both staging and production
+docker-compose --profile staging --profile production up -d
+
+# Rebuild and deploy both
+docker-compose --profile staging --profile production up -d --build
+```
+
+#### Stop Services
+
+```bash
+# Stop staging only
+docker-compose --profile staging down
+
+# Stop production only
+docker-compose --profile production down
+
+# Stop both environments
+docker-compose --profile staging --profile production down
+
+# Stop everything including shared services
+docker-compose down
+```
+
+### Zero-Downtime Deployment Strategy
+
+For production deployments without service interruption:
+
+```bash
+# 1. Pull latest code
+git pull
+
+# 2. Rebuild and restart only the backend service
+docker-compose --profile production up -d --build --no-deps backend-prod
+
+# 3. Monitor health check
+docker-compose --profile production logs -f backend-prod
+```
+
+The `--no-deps` flag ensures only the specified service is updated, leaving the database and other dependencies untouched.
+
+### Environment Configuration
+
+| Feature | Production 🚀 | Staging 🧪 |
+| :--- | :--- | :--- |
+| **Public API URL** | `https://api-calorify.thecodepapaya.dev` | `https://api-staging-calorify.thecodepapaya.dev` |
+| **Internal Port** | `8000` | `8001` |
+| **Database Name** | `calorify_prod` | `calorify_staging` |
+| **Container Name** | `calorify-backend-prod` | `calorify-backend-staging` |
+| **Database Container** | `calorify-db-prod` | `calorify-db-staging` |
+| **Environment File** | `production.env` | `staging.env` |
+| **Command** | Production build | `npm run dev` (live reload) |
+
+### Monitoring & Logs
+
+```bash
+# View staging logs (both database and backend)
+docker-compose --profile staging logs -f
+
+# View staging backend logs only
+docker-compose --profile staging logs -f backend-staging
+
+# View staging database logs only
+docker-compose --profile staging logs -f db-staging
+
+# View production logs (both database and backend)
+docker-compose --profile production logs -f
+
+# View production backend logs only
+docker-compose --profile production logs -f backend-prod
+
+# View production database logs only
+docker-compose --profile production logs -f db-prod
+
+# Check container status for staging
+docker-compose --profile staging ps
+
+# Check container status for production
+docker-compose --profile production ps
+
+# Check health status of backend
+docker inspect --format='{{.State.Health.Status}}' calorify-backend-prod
+docker inspect --format='{{.State.Health.Status}}' calorify-backend-staging
+
+# Verify both staging services are running
+docker-compose --profile staging ps | grep -E "(db-staging|backend-staging)"
+
+# Verify both production services are running
+docker-compose --profile production ps | grep -E "(db-prod|backend-prod)"
+```
+
+### DNS & Reverse Proxy Setup
+
+Configure Nginx to route traffic:
 
 ```nginx
 # /etc/nginx/sites-available/calorify
 
+# Production API
 server {
-    server_name api.yourdomain.com;
+    server_name api-calorify.thecodepapaya.dev;
     location / {
         proxy_pass http://localhost:8000;
         include proxy_params;
     }
 }
 
+# Staging API
 server {
-    server_name api-staging.yourdomain.com;
+    server_name api-staging-calorify.thecodepapaya.dev;
     location / {
         proxy_pass http://localhost:8001;
         include proxy_params;
@@ -57,153 +227,168 @@ server {
 }
 ```
 
-## API Documentation
-Once the server is running, visit:
-- Swagger UI: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
+## Local Development
 
-## Admin Tools
+### Run Without Docker
 
-### Database Inspection
-
-#### Option 1: pgAdmin 4 (Web UI) - Recommended ⭐
-**pgAdmin 4** is the industry-standard PostgreSQL administration tool with a modern, feature-rich web interface.
-
-1. **Start pgAdmin** (if not already running):
+1. **Set Environment Variables**:
    ```bash
-   docker-compose up -d pgadmin
+   cp env.example .env
+   # Edit .env with your local settings
    ```
 
-2. **Access pgAdmin**: 
-   - Open `http://localhost:8080` (or `http://your-vm-ip:8080`)
-   - **Initial Login** (first time only):
-     - Email: `calorify@thecodepapaya.dev`
-     - Password: `admin`
-     - ⚠️ **Change this password after first login!**
+2. **Start Development Server**:
+   ```bash
+   npm run dev
+   ```
 
-3. **Add Database Servers**:
-   After logging in, you'll need to register both databases:
-   
-   **For Production Database:**
-   - Right-click "Servers" → "Register" → "Server"
-   - **General Tab**:
-     - Name: `Calorify Production`
-   - **Connection Tab**:
-     - Host name/address: `db-prod`
-     - Port: `5432`
-     - Maintenance database: `calorify_prod`
-     - Username: `calorify`
-     - Password: `calorify_pwd_prod`
-     - ☑ Save password
-   - Click "Save"
-   
-   **For Staging Database:**
-   - Right-click "Servers" → "Register" → "Server"
-   - **General Tab**:
-     - Name: `Calorify Staging`
-   - **Connection Tab**:
-     - Host name/address: `db-staging`
-     - Port: `5432`
-     - Maintenance database: `calorify_staging`
-     - Username: `calorify`
-     - Password: `calorify_pwd_staging`
-     - ☑ Save password
-   - Click "Save"
+3. **Access**:
+   - API: `http://localhost:8000`
+   - Health Check: `http://localhost:8000/`
 
-4. **Using pgAdmin**:
-   - Browse tables, views, and data with a modern tree-view interface
-   - Run SQL queries with syntax highlighting
-   - Visual query builder
-   - Export/import data in multiple formats
-   - View and edit table data in a spreadsheet-like interface
+### Run With Docker (Staging Profile)
 
-#### Option 2: Command Line (psql)
-Connect directly to the database container:
+For development with Docker using the staging profile:
 
-**Production:**
 ```bash
-docker exec -it calorify-db-prod psql -U calorify -d calorify_prod
+docker-compose --profile staging up
 ```
 
-**Staging:**
+The staging container mounts `./src` for live code reload.
+
+## Database Management
+
+### pgAdmin 4 (Web UI)
+
+pgAdmin is available as a shared service (no profile required):
+
 ```bash
+# Start pgAdmin
+docker-compose up -d pgadmin
+
+# Access at http://localhost:8080
+# Default credentials:
+# Email: calorify@thecodepapaya.dev
+# Password: admin
+# ⚠️ Change password after first login!
+```
+
+**Connecting to Databases in pgAdmin:**
+
+1. Right-click "Servers" → "Register" → "Server"
+
+2. **Production Database:**
+   - Name: `Calorify Production`
+   - Host: `db-prod`
+   - Port: `5432`
+   - Database: `calorify_prod`
+   - Username: `calorify`
+   - Password: `calorify_pwd_prod`
+
+3. **Staging Database:**
+   - Name: `Calorify Staging`
+   - Host: `db-staging`
+   - Port: `5432`
+   - Database: `calorify_staging`
+   - Username: `calorify`
+   - Password: `calorify_pwd_staging`
+
+### Command Line (psql)
+
+```bash
+# Connect to production database
+docker exec -it calorify-db-prod psql -U calorify -d calorify_prod
+
+# Connect to staging database
 docker exec -it calorify-db-staging psql -U calorify -d calorify_staging
 ```
 
-Useful psql commands:
-- `\dt` - List all tables
-- `\d table_name` - Describe a table structure
-- `SELECT * FROM users LIMIT 10;` - Query data
-- `\q` - Quit
+## API Integration
 
-#### Option 3: Desktop Clients
-Connect from your local machine using these tools:
+### Flutter App Configuration
 
-**Connection Details:**
-- **Host**: Your VM's public IP address
-- **Port**: `5432` (ensure this port is open in your Oracle Cloud Security List)
-- **Database**: `calorify_prod` or `calorify_staging`
-- **Username**: `calorify`
-- **Password**: See `production.env` or `staging.env`
+1. **Set Base URLs**:
+   - Production: `https://api-calorify.thecodepapaya.dev`
+   - Staging: `https://api-staging-calorify.thecodepapaya.dev`
 
-**Recommended Desktop Tools:**
-- **DBeaver** (Free, cross-platform): https://dbeaver.io/
-- **TablePlus** (Mac/Windows, paid): https://tableplus.com/
-- **pgAdmin** (Free, cross-platform): https://www.pgadmin.org/
-- **Postico** (Mac only, paid): https://eggerapps.at/postico/
+2. **Request Headers**:
+   ```
+   Authorization: Bearer <FIREBASE_ID_TOKEN>
+   Content-Type: application/json
+   Accept: application/json
+   ```
 
-### Log Inspection
-API request logs are stored in the `api_logs` table. You can also view them via the command line:
+### Health Check
+
 ```bash
-python scripts/view_logs.py [limit]
+# Production
+curl https://api-calorify.thecodepapaya.dev/
+
+# Staging
+curl https://api-staging-calorify.thecodepapaya.dev/
 ```
 
-### Cron Jobs
-Cron jobs are managed by APScheduler and their state is stored in the database.
-You can view/manage them via the `scheduler` object in the app or by querying the APScheduler tables in PostgreSQL.
+## Protobuf Generation
 
-## Maintenance & Operations
+TypeScript types are generated from `.proto` files:
 
-### Environment URLs
-| Feature | Production 🚀 | Staging 🧪 |
-| :--- | :--- | :--- |
-| **Public API URL** | `https://api-calorify.thecodepapaya.dev` | `https://api-staging-calorify.thecodepapaya.dev` |
-| **Interactive Docs** | `/docs` | `/docs` |
-| **Health Check** | `/health` | `/health` |
-| **Internal Port** | `8000` | `8001` |
-| **Database Name** | `calorify_prod` | `calorify_staging` |
-| **pgAdmin (DB UI)** | `http://localhost:8080` | `http://localhost:8080` |
-
-### Useful Commands
-
-**See live logs (Production):**
 ```bash
-docker-compose logs -f backend-prod
+cd ../scripts
+./generate_protos.sh
 ```
 
-**See live logs (Staging):**
+This generates `backend/src/protos/calorify/models.ts` from `protos/calorify/models.proto`.
+
+## Building for Production
+
 ```bash
-docker-compose logs -f backend-staging
+# Build TypeScript
+npm run build
+
+# Run production server locally
+npm start
 ```
 
-**Update code and rebuild:**
+## Available Scripts
+
+- `npm run dev`: Start development server with hot reload
+- `npm run build`: Build TypeScript to JavaScript
+- `npm start`: Run production server
+- `npm run lint`: Run ESLint
+- `npm run type-check`: Type check without building
+
+## Troubleshooting
+
+### Container Won't Start
+
 ```bash
-# After pulling changes from git
-docker-compose up -d --build
+# Check logs
+docker-compose --profile staging logs backend-staging
+
+# Check container status
+docker-compose --profile staging ps
+
+# Rebuild from scratch
+docker-compose --profile staging build --no-cache backend-staging
 ```
 
-**View API request logs (from DB):**
-```bash
-docker exec -it calorify-backend-prod python scripts/view_logs.py
-```
+### Database Connection Issues
 
-**Restart all services:**
-```bash
-docker-compose restart
-```
+- Verify environment variables in `production.env` or `staging.env`
+- Check database container is running: `docker ps | grep db`
+- Verify database health: `docker inspect calorify-db-prod | grep Health`
 
-### Flutter Integration
-When connecting the Flutter app:
-1. Update your service base URLs to the Production/Staging URLs above.
-2. Include the Firebase ID Token in the headers:
-   `Authorization: Bearer <YOUR_FIREBASE_ID_TOKEN>`
+### Port Conflicts
+
+- Production uses port `8000`
+- Staging uses port `8001`
+- pgAdmin uses port `8080`
+- Ensure these ports are available or modify in `docker-compose.yml`
+
+## Security Notes
+
+- ⚠️ **Never commit** `firebase-adminsdk.json` or `.env` files
+- ⚠️ **Change default passwords** in production
+- ⚠️ **Set `DEBUG=false`** in production
+- ⚠️ **Use strong `SECRET_KEY`** values
+- ⚠️ **Keep Docker images updated** for security patches

@@ -75,61 +75,73 @@
         },
         {
             "name": "Backend: Dev",
-            "type": "debugpy",
+            "type": "node",
             "request": "launch",
-            "module": "uvicorn",
-            "args": [
-                "app.main:app",
-                "--reload",
-                "--host",
-                "0.0.0.0",
-                "--port",
-                "8000"
+            "runtimeExecutable": "${workspaceFolder}/backend/node_modules/.bin/tsx",
+            "runtimeArgs": [
+                "watch",
+                "src/index.ts"
             ],
             "cwd": "${workspaceFolder}/backend",
             "env": {
                 "ENVIRONMENT": "development"
             },
-            "python": "${workspaceFolder}/backend/venv/bin/python",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/backend/**",
+                "!**/node_modules/**"
+            ],
+            "sourceMaps": true,
+            "outputCapture": "std"
         },
         {
             "name": "Backend: Staging",
-            "type": "debugpy",
+            "type": "node",
             "request": "launch",
-            "module": "uvicorn",
-            "args": [
-                "app.main:app",
-                "--host",
-                "0.0.0.0",
-                "--port",
-                "8000"
+            "runtimeExecutable": "${workspaceFolder}/backend/node_modules/.bin/tsx",
+            "runtimeArgs": [
+                "src/index.ts"
             ],
             "cwd": "${workspaceFolder}/backend",
             "env": {
                 "ENVIRONMENT": "staging"
             },
-            "python": "${workspaceFolder}/backend/venv/bin/python",
-            "console": "integratedTerminal"
+            "envFile": "${workspaceFolder}/backend/staging.env",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/backend/**",
+                "!**/node_modules/**"
+            ],
+            "sourceMaps": true,
+            "outputCapture": "std"
         },
         {
             "name": "Backend: Prod",
-            "type": "debugpy",
+            "type": "node",
             "request": "launch",
-            "module": "uvicorn",
-            "args": [
-                "app.main:app",
-                "--host",
-                "0.0.0.0",
-                "--port",
-                "8000"
-            ],
+            "runtimeExecutable": "node",
+            "program": "${workspaceFolder}/backend/dist/index.js",
             "cwd": "${workspaceFolder}/backend",
             "env": {
                 "ENVIRONMENT": "production"
             },
-            "python": "${workspaceFolder}/backend/venv/bin/python",
-            "console": "integratedTerminal"
+            "envFile": "${workspaceFolder}/backend/production.env",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "sourceMaps": true,
+            "outputCapture": "std",
+            "preLaunchTask": "build-backend"
         }
     ]
 }

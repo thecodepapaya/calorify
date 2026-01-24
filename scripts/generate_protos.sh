@@ -24,10 +24,10 @@ ROOT_DIR=$(change_to_git_root)
 PROTO_DIR="${ROOT_DIR}/protos"
 DART_OUT="${ROOT_DIR}/shared_packages/models/lib/src/proto"
 PY_OUT="${ROOT_DIR}/backend/app/protos"
+TS_OUT="${ROOT_DIR}/backend/src/protos"
 
 PROTO_FILES=(
   "${PROTO_DIR}/calorify/models.proto"
-  "${PROTO_DIR}/calorify/sync.proto"
 )
 
 # ============================================================================
@@ -102,12 +102,47 @@ check_protoc_gen_dart() {
   print_success "protoc-gen-dart found"
 }
 
+check_protoc_gen_ts() {
+  print_step "2.5" "Checking ts-proto"
+  
+  # Check if ts-proto is installed in backend/node_modules
+  local ts_proto_path="${ROOT_DIR}/backend/node_modules/.bin/protoc-gen-ts_proto"
+  
+  if [ ! -f "${ts_proto_path}" ]; then
+    print_warning "ts-proto not found, attempting to install..."
+    if command -v npm >/dev/null 2>&1; then
+      print_info "Installing ts-proto via npm"
+      cd "${ROOT_DIR}/backend" || exit 1
+      if npm install ts-proto --save-dev >/dev/null 2>&1; then
+        print_success "ts-proto installed"
+      else
+        print_error "Failed to install ts-proto"
+        exit 1
+      fi
+      cd "${ROOT_DIR}" || exit 1
+    else
+      print_error "npm is required to install ts-proto"
+      print_info "Run: cd backend && npm install ts-proto --save-dev"
+      exit 1
+    fi
+  fi
+  
+  if [ ! -f "${ts_proto_path}" ]; then
+    print_error "ts-proto is required for TypeScript code generation."
+    print_info "Run: cd backend && npm install ts-proto --save-dev"
+    exit 1
+  fi
+  
+  print_success "ts-proto found"
+}
+
 prepare_output_directories() {
   print_step "3" "Preparing output directories"
-  mkdir -p "${DART_OUT}" "${PY_OUT}"
+  mkdir -p "${DART_OUT}" "${PY_OUT}" "${TS_OUT}"
   print_success "Output directories ready"
   print_item "Dart: ${DART_OUT}"
   print_item "Python: ${PY_OUT}"
+  print_item "TypeScript: ${TS_OUT}"
 }
 
 build_include_flags() {
@@ -202,6 +237,32 @@ create_python_init() {
   print_success "Python package initialized"
 }
 
+generate_typescript_code() {
+  print_step "8" "Generating TypeScript code"
+  build_include_flags
+  
+  local ts_proto_path="${ROOT_DIR}/backend/node_modules/.bin/protoc-gen-ts_proto"
+  
+  if [ ! -f "${ts_proto_path}" ]; then
+    print_error "ts-proto plugin not found at ${ts_proto_path}"
+    exit 1
+  fi
+  
+  # ts-proto options for strict TypeScript
+  local ts_proto_opts="esModuleInterop=true,outputEncodeMethods=false,outputJsonMethods=false,outputClientImpl=false,outputServices=false,useOptionals=messages,stringEnums=true,enumsAsLiterals=true"
+  
+  if protoc "${INCLUDE_FLAGS[@]}" \
+    --plugin="protoc-gen-ts_proto=${ts_proto_path}" \
+    --ts_proto_out="${TS_OUT}" \
+    --ts_proto_opt="${ts_proto_opts}" \
+    "${PROTO_FILES[@]}" 2>&1; then
+    print_success "TypeScript code generated"
+  else
+    print_error "Failed to generate TypeScript code"
+    exit 1
+  fi
+}
+
 # ============================================================================
 # Main Execution
 # ============================================================================
@@ -211,17 +272,20 @@ main() {
   
   check_protoc
   check_protoc_gen_dart
+  check_protoc_gen_ts
   prepare_output_directories
   verify_proto_files
   generate_dart_code
   generate_python_code
   create_python_init
+  generate_typescript_code
   
   print_separator
   print_summary_all_success "Protobuf generation complete!"
   print_info "Generated files:"
   print_item "Dart: ${DART_OUT}"
   print_item "Python: ${PY_OUT}"
+  print_item "TypeScript: ${TS_OUT}"
 }
 
 main "$@"
