@@ -26,49 +26,105 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
     {
       preHandler: [authenticateUser],
       schema: {
+        description: 'Create or update user profile. If a profile already exists for the authenticated user, it will be updated. Otherwise, a new profile will be created.',
+        tags: ['User'],
+        security: [{ bearerAuth: [] }],
         body: {
           type: 'object',
+          description: 'User profile data. All fields are optional.',
           properties: {
-            height: { type: 'number' },
-            weight: { type: 'number' },
-            targetWeight: { type: 'number' },
-            gender: { type: 'string' },
-            dateOfBirth: { type: 'number' },
-            weightGoal: { type: 'string' },
-            activityLevel: { type: 'string' },
-            heightUnit: { type: 'string' },
-            weightUnit: { type: 'string' },
-            dailyCalorieGoal: { type: 'number' },
+            height: {
+              type: 'number',
+              description: 'User height',
+              example: 175.5,
+            },
+            weight: {
+              type: 'number',
+              description: 'Current weight',
+              example: 70.5,
+            },
+            targetWeight: {
+              type: 'number',
+              description: 'Target weight goal',
+              example: 65.0,
+            },
+            gender: {
+              type: 'string',
+              description: 'Gender',
+              enum: ['MALE', 'FEMALE', 'OTHER'],
+              example: 'MALE',
+            },
+            dateOfBirth: {
+              type: 'number',
+              description: 'Date of birth as Unix timestamp in milliseconds',
+              example: 631152000000,
+            },
+            weightGoal: {
+              type: 'string',
+              description: 'Weight goal',
+              enum: ['LOSE_WEIGHT', 'MAINTAIN_WEIGHT', 'GAIN_WEIGHT'],
+              example: 'LOSE_WEIGHT',
+            },
+            activityLevel: {
+              type: 'string',
+              description: 'Activity level',
+              enum: ['SEDENTARY', 'LIGHTLY_ACTIVE', 'MODERATELY_ACTIVE', 'VERY_ACTIVE', 'EXTREMELY_ACTIVE'],
+              example: 'MODERATELY_ACTIVE',
+            },
+            heightUnit: {
+              type: 'string',
+              description: 'Unit system for height',
+              enum: ['METRIC', 'IMPERIAL'],
+              example: 'METRIC',
+            },
+            weightUnit: {
+              type: 'string',
+              description: 'Unit system for weight',
+              enum: ['METRIC', 'IMPERIAL'],
+              example: 'METRIC',
+            },
+            dailyCalorieGoal: {
+              type: 'number',
+              description: 'Daily calorie goal',
+              example: 2000,
+            },
           },
         },
         response: {
           200: {
+            description: 'Profile saved successfully',
             type: 'object',
             properties: {
-              success: { type: 'boolean' },
-              message: { type: 'string' },
+              success: { type: 'boolean', example: true },
+              message: {
+                type: 'string',
+                example: 'User profile created successfully',
+              },
             },
           },
           400: {
+            description: 'Bad request - invalid data',
             type: 'object',
             properties: {
               detail: { type: 'string' },
             },
           },
           401: {
+            description: 'Unauthorized - invalid or missing authentication token',
             type: 'object',
             properties: {
               detail: { type: 'string' },
             },
           },
           500: {
+            description: 'Internal server error',
             type: 'object',
             properties: {
               detail: { type: 'string' },
             },
           },
         },
-      },
+      } as any,
     },
     async (request: FastifyRequest<{ Body: UserProfileBody }>, reply: FastifyReply) => {
       try {
