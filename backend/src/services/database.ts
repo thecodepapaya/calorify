@@ -1,4 +1,4 @@
-import { Pool, PoolClient } from 'pg';
+import { Pool, PoolClient, QueryResultRow } from 'pg';
 import config from '../config.js';
 
 let pool: Pool | null = null;
@@ -23,7 +23,7 @@ export function initializeDatabase(): void {
   });
 
   // Handle pool errors
-  pool.on('error', (err) => {
+  pool.on('error', (err: Error) => {
     console.error('Unexpected error on idle client', err);
   });
 }
@@ -41,14 +41,18 @@ export async function getClient(): Promise<PoolClient> {
 /**
  * Execute a query and return results
  */
-export async function query<T = unknown>(
+export async function query<T extends QueryResultRow = QueryResultRow>(
   text: string,
   params?: unknown[]
 ): Promise<{ rows: T[]; rowCount: number }> {
   if (!pool) {
     throw new Error('Database pool not initialized. Call initializeDatabase() first.');
   }
-  return pool.query<T>(text, params);
+  const result = await pool.query<T>(text, params);
+  return {
+    rows: result.rows,
+    rowCount: result.rowCount ?? 0,
+  };
 }
 
 /**
