@@ -4,6 +4,8 @@ import multipart from '@fastify/multipart';
 import { registerRoutes } from './routes/index.js';
 import { errorHandler } from './utils/errors.js';
 import config from './config.js';
+import { initializeDatabase } from './services/database.js';
+import { initializeFirebase } from './services/firebase.js';
 
 async function buildApp() {
   const fastify = Fastify({
@@ -30,6 +32,17 @@ async function buildApp() {
 
 async function start() {
   try {
+    // Initialize Firebase
+    initializeFirebase();
+
+    // Initialize database connection
+    if (config.DATABASE_URL) {
+      initializeDatabase();
+      console.log('✅ Database connection initialized');
+    } else {
+      console.warn('⚠️  DATABASE_URL not set, database features will be unavailable');
+    }
+
     const app = await buildApp();
 
     await app.listen({

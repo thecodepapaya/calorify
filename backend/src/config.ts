@@ -14,6 +14,7 @@ interface Config {
     readonly FIREBASE_SERVICE_ACCOUNT_PATH: string | null;
     readonly ENVIRONMENT: 'development' | 'staging' | 'production';
     readonly PORT: number;
+    readonly OPENAI_API_KEY: string | null;
 }
 
 function getEnvVar(name: string, defaultValue?: string): string {
@@ -85,6 +86,7 @@ const config: Config = {
     ),
     ENVIRONMENT: validateEnvironment(getEnvVar('ENVIRONMENT', 'development')),
     PORT: getEnvVarNumber('PORT', 8000),
+    OPENAI_API_KEY: getEnvVarOptional('OPENAI_API_KEY'),
 } as const;
 
 // Validate critical settings in production
