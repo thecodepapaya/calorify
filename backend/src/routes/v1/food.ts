@@ -133,7 +133,8 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
             description: {
               type: 'string',
               description: 'Text description of the food/meal',
-              example: 'Grilled chicken breast with brown rice and steamed broccoli',
+              // Example (for docs only):
+              // 'Grilled chicken breast with brown rice and steamed broccoli'
             },
           },
         },
@@ -236,7 +237,8 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
               type: 'string',
               format: 'uri',
               description: 'URL of the image stored in Google Cloud Storage',
-              example: 'https://storage.googleapis.com/bucket-name/path/to/image.jpg',
+              // Example (for docs only):
+              // 'https://storage.googleapis.com/bucket-name/path/to/image.jpg'
             },
           },
         },
