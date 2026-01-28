@@ -12,11 +12,11 @@ export async function healthRoutes(fastify: FastifyInstance): Promise<void> {
           properties: {
             message: {
               type: 'string',
-              example: 'Welcome to Calorify Backend API',
+              // Example (for docs only): 'Welcome to Calorify Backend API',
             },
             version: {
               type: 'string',
-              example: '1.0.0',
+              // Example (for docs only): '1.0.0',
             },
           },
         },
