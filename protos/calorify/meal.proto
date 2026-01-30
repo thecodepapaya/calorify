@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package calorify;
+
+enum MealType {
+  UNKNOWN = 0;
+  BREAKFAST = 1;
+  LUNCH = 2;
+  DINNER = 3;
+  SNACK = 4;
+}
+
+enum HealthScore {
+  HEALTHY = 0;
+  NEUTRAL = 1;
+  UNHEALTHY = 2;
+}
+
+enum CalorieConfidence {
+  CALORIE_CONFIDENCE_UNSPECIFIED = 0;
+  VERY_LOW = 1;
+  LOW = 2;
+  MEDIUM = 3;
+  HIGH = 4;
+  VERY_HIGH = 5;
+}
+
+message MealMacro {
+  int32 calories = 1;
+  int32 carbs = 2;
+  int32 protein = 3;
+  int32 fat = 4;
+  int32 fiber = 5;
+}
+
+message MealHealth {
+  HealthScore health_score = 1;
+  optional string health_score_reason = 2;
+}
+
+message Meal {
+  reserved 1, 2; // Old client_id and local_id fields
+  string name = 3;
+  string quantity = 4;
+  MealType type = 5;
+  reserved 6 to 10; // Old macro fields: calories, protein, carbs, fat, fiber
+  reserved 11; // Old timestamp field
+  optional string image_url = 12;
+  reserved 13, 14; // Old health_score and health_score_reason fields
+  MealMacro macros = 15;
+  optional MealHealth health = 16;
+}
+
+message MealDetectionResult {
+  bool meal_identified = 1;
+  CalorieConfidence calorie_confidence = 2;
+  string tip = 3;
+  optional Meal meal = 4;
+}
+
