@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
-import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
-import 'package:widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
+import 'package:models/models.dart';
+import 'package:widgets/widgets.dart';
 
 @RoutePage()
 class FavoritesScreen extends StatelessWidget {
@@ -18,7 +18,7 @@ class FavoritesScreen extends StatelessWidget {
       appBar: AppBar(title: Text(t.favorites.title)),
       body: Padding(
         padding: globalMargin,
-        child: StreamBuilder<List<MealInfo>>(
+        child: StreamBuilder<List<FavoriteMeal>>(
           stream: DatabaseService.databaseInterface.watchAllFavoriteMeals(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -34,8 +34,8 @@ class FavoritesScreen extends StatelessWidget {
             return ListView.builder(
               itemCount: meals.length,
               itemBuilder: (context, index) {
-                final meal = meals[index];
-                return MealLogCard(mealInfo: meal, allowEdit: false);
+                final favoriteMeal = meals[index];
+                return MealLogCard(loggedMeal: favoriteMeal.loggedMeal);
               },
             );
           },

@@ -1,12 +1,12 @@
 import 'package:models/models.dart';
 
-extension MealDetectionResultMapper on MealInfo {
+extension MealDetectionResultMapper on Meal {
   MealDetectionResult toMealDetectionResult() {
     return MealDetectionResult(
       mealIdentified: true,
-      mealInfo: this,
+      meal: this,
       tip: '',
-      calorieConfidence: 1,
+      calorieConfidence: CalorieConfidence.UNSPECIFIED,
     );
   }
 }

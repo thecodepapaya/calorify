@@ -1,76 +1,120 @@
 import 'package:calorify/core/db/app_database.dart';
 import 'package:models/models.dart';
 import 'package:drift/drift.dart';
+import 'package:utils/utils.dart';
 
-extension MealInfoMapper on MealInfo {
-  MealInfoTableCompanion toCompanion() {
+extension MealToCompanion on Meal {
+  /// Converts a Meal to MealInfoTableCompanion for database operations
+  MealInfoTableCompanion toCompanion({
+    int? clientId,
+    DateTime? timestamp,
+    String? imageUrl,
+  }) {
     return MealInfoTableCompanion(
-      id: hasLocalId() ? Value(localId.toInt()) : const Value.absent(),
-      clientId: hasClientId() ? Value(clientId) : const Value.absent(),
-      mealName: Value(mealName),
-      mealQuantity: Value(mealQuantity),
-      mealType: Value(mealType.legacyName),
-      calories: Value(calories),
-      protein: Value(protein),
-      carbs: Value(carbs),
-      fat: Value(fat),
-      fiber: Value(fiber),
-      timestamp: Value(hasTimestamp() ? timestampToLocalDateTime(timestamp) ?? DateTime.now() : DateTime.now()),
-      imageUrl: hasImageUrl() ? Value(imageUrl) : const Value.absent(),
+      id: clientId != null ? Value(clientId) : const Value.absent(),
+      mealName: Value(name),
+      mealQuantity: Value(quantity),
+      mealType: Value(type.legacyName),
+      calories: Value(macros.calories),
+      protein: Value(macros.protein),
+      carbs: Value(macros.carbs),
+      fat: Value(macros.fat),
+      fiber: Value(macros.fiber),
+      timestamp: Value(timestamp ?? DateTime.now()),
+      imageUrl: imageUrl != null ? Value(imageUrl) : const Value.absent(),
       healthScore:
-          hasHealthScore()
-              ? Value(healthScore.legacyName)
+          hasHealth()
+              ? Value(health.healthScore.legacyName)
               : const Value.absent(),
       healthScoreReason:
-          hasHealthScoreReason()
-              ? Value(healthScoreReason)
+          hasHealth() && health.hasHealthScoreReason()
+              ? Value(health.healthScoreReason)
+              : const Value.absent(),
+    );
+  }
+}
+
+extension MealInfoMapper on LoggedMeal {
+  MealInfoTableCompanion toCompanion() {
+    return MealInfoTableCompanion(
+      id: Value(clientId),
+      mealName: Value(meal.name),
+      mealQuantity: Value(meal.quantity),
+      mealType: Value(meal.type.legacyName),
+      calories: Value(meal.macros.calories),
+      protein: Value(meal.macros.protein),
+      carbs: Value(meal.macros.carbs),
+      fat: Value(meal.macros.fat),
+      fiber: Value(meal.macros.fiber),
+
+      timestamp: Value(
+        hasCreatedAt()
+            ? iso8601StringToDateTime(createdAt) ?? DateTime.now()
+            : DateTime.now(),
+      ),
+      imageUrl:
+          hasMetadata() && metadata.hasImageUrl()
+              ? Value(metadata.imageUrl)
+              : const Value.absent(),
+      healthScore:
+          meal.hasHealth()
+              ? Value(meal.health.healthScore.legacyName)
+              : const Value.absent(),
+      healthScoreReason:
+          meal.hasHealth() && meal.health.hasHealthScoreReason()
+              ? Value(meal.health.healthScoreReason)
               : const Value.absent(),
     );
   }
 
-  /// Creates a MealInfo from a MealInfoTableData row
-  static MealInfo fromRow(MealInfoTableData data) {
-    return MealInfo(
-      localId: int64FromInt(data.id),
-      clientId: data.clientId,
-      mealName: data.mealName,
-      mealQuantity: data.mealQuantity,
-      mealType: mealTypeFromLegacyName(data.mealType),
-      calories: data.calories,
-      protein: data.protein,
-      carbs: data.carbs,
-      fat: data.fat,
-      fiber: data.fiber,
-      timestamp: iso8601StringToTimestamp(data.timestamp.toIso8601String()),
-      imageUrl: data.imageUrl,
-      healthScore:
-          data.healthScore != null
-              ? healthScoreFromLegacyName(data.healthScore as String)
-              : null,
-      healthScoreReason: data.healthScoreReason,
+  /// Creates a Meal from a MealInfoTableData row
+  static LoggedMeal fromRow(MealInfoTableData data) {
+    return LoggedMeal(
+      clientId: data.id,
+      meal: Meal(
+        name: data.mealName,
+        quantity: data.mealQuantity,
+        type: mealTypeFromLegacyName(data.mealType),
+        health: MealHealth(
+          healthScore: healthScoreFromLegacyName(data.healthScore as String),
+          healthScoreReason: data.healthScoreReason,
+        ),
+        macros: MealMacro(
+          calories: data.calories,
+          protein: data.protein,
+          carbs: data.carbs,
+          fat: data.fat,
+          fiber: data.fiber,
+        ),
+      ),
+      createdAt: dateTimeToIso8601String(data.timestamp),
+      metadata: MealMetadata(imageUrl: data.imageUrl),
     );
   }
 
-  /// Creates a MealInfo from a Drift row
-  static MealInfo fromDrift(dynamic data) {
-    return MealInfo(
-      localId: int64FromInt(data.id),
-      clientId: data.clientId,
-      mealName: data.mealName,
-      mealQuantity: data.mealQuantity,
-      mealType: mealTypeFromLegacyName(data.mealType),
-      calories: data.calories,
-      protein: data.protein,
-      carbs: data.carbs,
-      fat: data.fat,
-      fiber: data.fiber,
-      timestamp: iso8601StringToTimestamp(data.timestamp.toIso8601String()),
-      imageUrl: data.imageUrl,
-      healthScore:
-          data.healthScore != null
-              ? healthScoreFromLegacyName(data.healthScore as String)
-              : null,
-      healthScoreReason: data.healthScoreReason,
+  /// Creates a LoggedMeal from a Drift row
+  static LoggedMeal fromDrift(dynamic data) {
+    return LoggedMeal(
+      clientId: data.id,
+      meal: Meal(
+        name: data.mealName,
+        quantity: data.mealQuantity,
+        type: mealTypeFromLegacyName(data.mealType),
+        health: MealHealth(
+          healthScore: healthScoreFromLegacyName(data.healthScore as String),
+          healthScoreReason: data.healthScoreReason,
+        ),
+        macros: MealMacro(
+          calories: data.calories,
+          protein: data.protein,
+          carbs: data.carbs,
+          fat: data.fat,
+          fiber: data.fiber,
+        ),
+      ),
+      createdAt: dateTimeToIso8601String(data.timestamp),
+      metadata:
+          data.imageUrl != null ? MealMetadata(imageUrl: data.imageUrl) : null,
     );
   }
 }

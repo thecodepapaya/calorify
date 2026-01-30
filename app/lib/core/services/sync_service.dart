@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/network/dio_client.dart';
@@ -8,6 +7,7 @@ import 'package:calorify/core/services/database_service.dart';
 import 'package:dio/dio.dart';
 import 'package:drift/drift.dart';
 import 'package:models/models.dart';
+import 'package:utils/utils.dart';
 import 'package:uuid/uuid.dart';
 
 class SyncService {
@@ -34,7 +34,7 @@ class SyncService {
     unawaited(syncPending());
   }
 
-  Future<void> enqueueMealUpsert(MealInfo meal) async {
+  Future<void> enqueueMealUpsert(Meal meal) async {
     final db = DatabaseService.rawDatabase;
     if (db == null) return;
     final op = SyncQueueTableCompanion.insert(
@@ -45,10 +45,7 @@ class SyncService {
     await db.into(db.syncQueueTable).insert(op);
   }
 
-  Future<void> enqueueMealDelete({
-    String? clientId,
-    int? localId,
-  }) async {
+  Future<void> enqueueMealDelete({String? clientId, int? localId}) async {
     final db = DatabaseService.rawDatabase;
     if (db == null) return;
     if (clientId == null && localId == null) return;
@@ -107,10 +104,8 @@ class SyncService {
 
       if (pending.isEmpty) return;
 
-      final ops = pending
-          .map((row) => _buildSyncOp(row))
-          .whereType<SyncOp>()
-          .toList();
+      final ops =
+          pending.map((row) => _buildSyncOp(row)).whereType<SyncOp>().toList();
       if (ops.isEmpty) return;
 
       final batch = SyncBatch()..ops.addAll(ops);
@@ -140,17 +135,13 @@ class SyncService {
         }
         if (result.success) {
           await (db.delete(db.syncQueueTable)
-                ..where((tbl) => tbl.id.equals(row.id)))
-              .go();
+            ..where((tbl) => tbl.id.equals(row.id))).go();
         } else {
           await _markFailed(row, result.error);
         }
       }
     } catch (e) {
-      await _markBatchFailed(
-        await _loadPendingRows(),
-        e.toString(),
-      );
+      await _markBatchFailed(await _loadPendingRows(), e.toString());
     } finally {
       _syncInProgress = false;
     }
@@ -158,18 +149,17 @@ class SyncService {
 
   SyncOp? _buildSyncOp(SyncQueueTableData row) {
     final opType =
-        SyncOpType.valueOf(row.opType) ??
-        SyncOpType.SYNC_OP_TYPE_UNSPECIFIED;
+        SyncOpType.valueOf(row.opType) ?? SyncOpType.SYNC_OP_TYPE_UNSPECIFIED;
 
     final op = SyncOp(
       idempotencyKey: row.idempotencyKey,
       opType: opType,
-      createdAt: dateTimeToTimestamp(row.createdAt),
+      createdAt: dateTimeToIso8601String(row.createdAt),
     );
 
     switch (opType) {
       case SyncOpType.SYNC_OP_TYPE_UPSERT_MEAL:
-        op.meal = MealInfo.fromBuffer(row.payload);
+        op.meal = LoggedMeal.fromBuffer(row.payload);
         return op;
       case SyncOpType.SYNC_OP_TYPE_DELETE_MEAL:
         op.deleteMeal = DeleteMeal.fromBuffer(row.payload);
@@ -205,8 +195,7 @@ class SyncService {
     final delaySeconds = min(300, pow(2, attempt).toInt());
     final nextRetryAt = now.add(Duration(seconds: delaySeconds));
     await (db.update(db.syncQueueTable)
-          ..where((tbl) => tbl.id.equals(row.id)))
-        .write(
+      ..where((tbl) => tbl.id.equals(row.id))).write(
       SyncQueueTableCompanion(
         attemptCount: Value(attempt),
         lastAttemptAt: Value(now),

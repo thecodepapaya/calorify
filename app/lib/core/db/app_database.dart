@@ -182,7 +182,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
-  Stream<List<MealInfo>> watchAllMealsForToday() {
+  Stream<List<LoggedMeal>> watchAllMealsForToday() {
     final now = DateTime.now();
     final startOfToday = DateTime(now.year, now.month, now.day);
     final endOfToday = startOfToday.add(const Duration(days: 1));
@@ -197,7 +197,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
-  Stream<List<MealInfo>> watchAllMealsForLast7Days() {
+  Stream<List<LoggedMeal>> watchAllMealsForLast7Days() {
     final now = DateTime.now();
     final sevenDaysAgo = now.subtract(const Duration(days: 6));
     final startOfSevenDaysAgo = DateTime(
@@ -214,12 +214,14 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
-  Future<void> logMeal(MealInfo mealInfo) async {
-    await into(mealInfoTable).insert(mealInfo.toCompanion());
+  Future<void> logMeal(Meal mealInfo) async {
+    await into(
+      mealInfoTable,
+    ).insert(mealInfo.toCompanion(timestamp: DateTime.now()));
   }
 
   @override
-  Future<void> upsertMeal(MealInfo mealInfo) {
+  Future<void> upsertMeal(LoggedMeal mealInfo) {
     return into(mealInfoTable).insertOnConflictUpdate(mealInfo.toCompanion());
   }
 
@@ -229,7 +231,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
-  Future<MealInfo?> getMealById(int mealId) async {
+  Future<LoggedMeal?> getMealById(int mealId) async {
     final row =
         await (select(mealInfoTable)
           ..where((tbl) => tbl.id.equals(mealId))).getSingleOrNull();
@@ -238,14 +240,14 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
-  Stream<List<MealInfo>> watchAllFavoriteMeals() {
+  Stream<List<FavoriteMeal>> watchAllFavoriteMeals() {
     return select(favoriteMealTable).watch().map(
-      (rows) => rows.map((row) => MealInfoMapper.fromDrift(row)).toList(),
+      (rows) => rows.map((row) => FavoriteMealMapper.fromDrift(row)).toList(),
     );
   }
 
   @override
-  Stream<List<MealInfo>> watchLastUsedFavoriteMeals() {
+  Stream<List<FavoriteMeal>> watchLastUsedFavoriteMeals() {
     return (select(favoriteMealTable)
           ..orderBy([
             (tbl) => OrderingTerm(
@@ -261,7 +263,8 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           ..limit(4))
         .watch()
         .map(
-          (rows) => rows.map((row) => MealInfoMapper.fromDrift(row)).toList(),
+          (rows) =>
+              rows.map((row) => FavoriteMealMapper.fromDrift(row)).toList(),
         );
   }
 
@@ -274,7 +277,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
-  Future<void> addToFavorites(MealInfo mealInfo) {
+  Future<void> addToFavorites(LoggedMeal mealInfo) {
     return into(favoriteMealTable).insert(mealInfo.toFavoriteCompanion());
   }
 
@@ -292,7 +295,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
-  Future<List<MealInfo>> paginatedMealsHistory({
+  Future<List<LoggedMeal>> paginatedMealsHistory({
     required int offset,
     int mealsPerPage = 30,
   }) {

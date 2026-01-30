@@ -121,7 +121,6 @@ class _DescribeMealState extends State<DescribeMeal> {
     await showMealTip(
       context: context,
       mealDetectionResult: mealDetectionResult,
-      allowEdit: true,
     );
   }
 

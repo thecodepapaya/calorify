@@ -1,5 +1,6 @@
 import 'package:models/models.dart';
 import 'package:calorify/core/db/mock_data/meal_info_mock.dart';
+import 'package:utils/utils.dart';
 
 /// Mock data generator for FavoriteMeal with realistic favorite meal scenarios
 class FavoriteMealMock {
@@ -35,131 +36,164 @@ class FavoriteMealMock {
     'Hummus with Veggies',
   ];
 
-  /// Generates a single favorite meal based on a source meal
-  static MealInfo generateFavoriteFromSource(
-    MealInfo sourceMeal, {
-    int? sourceMealId,
+  /// Generates a single favorite meal based on a source LoggedMeal
+  static FavoriteMeal generateFavoriteFromSource(
+    LoggedMeal loggedMeal, {
+    int? clientId,
+    DateTime? favoriteAt,
+    DateTime? lastUsedAt,
   }) {
-    return MealInfo(
-      mealName: sourceMeal.mealName,
-      mealQuantity: sourceMeal.mealQuantity,
-      mealType: sourceMeal.mealType,
-      calories: sourceMeal.calories,
-      protein: sourceMeal.protein,
-      carbs: sourceMeal.carbs,
-      fat: sourceMeal.fat,
-      fiber: sourceMeal.fiber,
-      timestamp: dateTimeToTimestamp(DateTime.now()),
-      imageUrl: sourceMeal.hasImageUrl() ? sourceMeal.imageUrl : null,
-      healthScore: sourceMeal.hasHealthScore() ? sourceMeal.healthScore : null,
-      healthScoreReason:
-          sourceMeal.hasHealthScoreReason()
-              ? sourceMeal.healthScoreReason
-              : null,
+    final now = DateTime.now();
+    return FavoriteMeal(
+      clientId: clientId ?? 0,
+      loggedMeal: loggedMeal,
+      favoriteAt: dateTimeToIso8601String(favoriteAt ?? now),
+      lastUsedAt: dateTimeToIso8601String(lastUsedAt ?? now),
     );
   }
 
   /// Generates a collection of popular favorite meals
-  static List<MealInfo> generatePopularFavorites({int count = 10}) {
-    final favorites = <MealInfo>[];
+  static List<FavoriteMeal> generatePopularFavorites({
+    int count = 10,
+    int startClientId = 1,
+  }) {
+    final favorites = <FavoriteMeal>[];
     final mealTypes = mealTypeValues;
+    int clientId = startClientId;
 
     for (int i = 0; i < count; i++) {
       final type = mealTypes[i % mealTypes.length];
       final mealName = _getPopularMealName(type);
 
-      // Create a base meal and then generate favorite from it
-      final baseMeal = MealInfoMock.generateSingle(
+      // Create a base logged meal and then generate favorite from it
+      final loggedMeal = MealInfoMock.generateSingle(
         mealType: type,
         mealName: mealName,
         timestamp: DateTime.now().subtract(Duration(days: i)),
+        clientId: i + 1,
       );
 
-      favorites.add(generateFavoriteFromSource(baseMeal, sourceMealId: i + 1));
+      favorites.add(
+        generateFavoriteFromSource(
+          loggedMeal,
+          clientId: clientId++,
+          favoriteAt: DateTime.now().subtract(Duration(days: i)),
+        ),
+      );
     }
 
     return favorites;
   }
 
   /// Generates favorites for a specific meal type
-  static List<MealInfo> generateFavoritesForType(
+  static List<FavoriteMeal> generateFavoritesForType(
     MealType type, {
     int count = 5,
+    int startClientId = 1,
   }) {
-    final favorites = <MealInfo>[];
+    final favorites = <FavoriteMeal>[];
     final popularNames = _getPopularNamesForType(type);
+    int clientId = startClientId;
 
     for (int i = 0; i < count && i < popularNames.length; i++) {
       final mealName = popularNames[i];
 
-      final baseMeal = MealInfoMock.generateSingle(
+      final loggedMeal = MealInfoMock.generateSingle(
         mealType: type,
         mealName: mealName,
         timestamp: DateTime.now().subtract(Duration(days: i)),
+        clientId: i + 1,
       );
 
-      favorites.add(generateFavoriteFromSource(baseMeal, sourceMealId: i + 1));
+      favorites.add(
+        generateFavoriteFromSource(
+          loggedMeal,
+          clientId: clientId++,
+          favoriteAt: DateTime.now().subtract(Duration(days: i)),
+        ),
+      );
     }
 
     return favorites;
   }
 
   /// Generates a realistic set of user favorites with different usage patterns
-  static List<MealInfo> generateUserFavorites({
+  static List<FavoriteMeal> generateUserFavorites({
     int breakfastCount = 3,
     int lunchCount = 4,
     int dinnerCount = 3,
     int snackCount = 2,
+    int startClientId = 1,
   }) {
-    final favorites = <MealInfo>[];
+    final favorites = <FavoriteMeal>[];
+    int clientId = startClientId;
 
     // Breakfast favorites
-    favorites.addAll(
-      generateFavoritesForType(MealType.BREAKFAST, count: breakfastCount),
+    final breakfastFavorites = generateFavoritesForType(
+      MealType.BREAKFAST,
+      count: breakfastCount,
+      startClientId: clientId,
     );
+    favorites.addAll(breakfastFavorites);
+    clientId += breakfastFavorites.length;
 
     // Lunch favorites
-    favorites.addAll(
-      generateFavoritesForType(MealType.LUNCH, count: lunchCount),
+    final lunchFavorites = generateFavoritesForType(
+      MealType.LUNCH,
+      count: lunchCount,
+      startClientId: clientId,
     );
+    favorites.addAll(lunchFavorites);
+    clientId += lunchFavorites.length;
 
     // Dinner favorites
-    favorites.addAll(
-      generateFavoritesForType(MealType.DINNER, count: dinnerCount),
+    final dinnerFavorites = generateFavoritesForType(
+      MealType.DINNER,
+      count: dinnerCount,
+      startClientId: clientId,
     );
+    favorites.addAll(dinnerFavorites);
+    clientId += dinnerFavorites.length;
 
     // Snack favorites
-    favorites.addAll(
-      generateFavoritesForType(MealType.SNACK, count: snackCount),
+    final snackFavorites = generateFavoritesForType(
+      MealType.SNACK,
+      count: snackCount,
+      startClientId: clientId,
     );
+    favorites.addAll(snackFavorites);
 
     return favorites;
   }
 
   /// Generates favorites with realistic usage timestamps
-  static List<MealInfo> generateFavoritesWithUsage({
+  static List<FavoriteMeal> generateFavoritesWithUsage({
     int totalCount = 15,
     DateTime? createdAt,
     DateTime? lastUsedAt,
+    int startClientId = 1,
   }) {
-    final favorites = <MealInfo>[];
+    final favorites = <FavoriteMeal>[];
     final created =
         createdAt ?? DateTime.now().subtract(const Duration(days: 30));
-    // Note: lastUsedAt parameter is available for future use in database operations
+    int clientId = startClientId;
 
     for (int i = 0; i < totalCount; i++) {
       final type = mealTypeValues[i % mealTypeValues.length];
       final mealName = _getPopularMealName(type);
 
-      final baseMeal = MealInfoMock.generateSingle(
+      final loggedMeal = MealInfoMock.generateSingle(
         mealType: type,
         mealName: mealName,
         timestamp: created,
+        clientId: i + 1,
       );
 
       final favorite = generateFavoriteFromSource(
-        baseMeal,
-        sourceMealId: i + 1,
+        loggedMeal,
+        clientId: clientId++,
+        favoriteAt: created,
+        lastUsedAt: lastUsedAt ?? created,
       );
       favorites.add(favorite);
     }
@@ -168,24 +202,33 @@ class FavoriteMealMock {
   }
 
   /// Generates a variety of favorites for comprehensive testing
-  static List<MealInfo> generateVariety({
+  static List<FavoriteMeal> generateVariety({
     int count = 20,
     List<MealType>? mealTypes,
+    int startClientId = 1,
   }) {
     final types = mealTypes ?? mealTypeValues;
-    final favorites = <MealInfo>[];
+    final favorites = <FavoriteMeal>[];
+    int clientId = startClientId;
 
     for (int i = 0; i < count; i++) {
       final type = types[i % types.length];
       final mealName = _getPopularMealName(type);
 
-      final baseMeal = MealInfoMock.generateSingle(
+      final loggedMeal = MealInfoMock.generateSingle(
         mealType: type,
         mealName: mealName,
         timestamp: DateTime.now().subtract(Duration(days: i)),
+        clientId: i + 1,
       );
 
-      favorites.add(generateFavoriteFromSource(baseMeal, sourceMealId: i + 1));
+      favorites.add(
+        generateFavoriteFromSource(
+          loggedMeal,
+          clientId: clientId++,
+          favoriteAt: DateTime.now().subtract(Duration(days: i)),
+        ),
+      );
     }
 
     return favorites;

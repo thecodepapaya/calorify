@@ -22,13 +22,29 @@ store_original_dir
 ROOT_DIR=$(change_to_git_root)
 
 PROTO_DIR="${ROOT_DIR}/protos"
-DART_OUT="${ROOT_DIR}/shared_packages/models/lib/src/proto"
-PY_OUT="${ROOT_DIR}/backend/app/protos"
-TS_OUT="${ROOT_DIR}/backend/src/protos"
+DART_OUT="${ROOT_DIR}/shared_packages/models/lib/src"
+TS_OUT="${ROOT_DIR}/backend/src"
 
-PROTO_FILES=(
-  "${PROTO_DIR}/calorify/models.proto"
-)
+# Automatically discover all proto files
+discover_proto_files() {
+  print_step "3" "Discovering proto files"
+  local proto_files_array=()
+  
+  # Find all .proto files in the PROTO_DIR
+  while IFS= read -r -d '' file; do
+    proto_files_array+=("${file}")
+    print_item "$(basename "${file}")"
+  done < <(find "${PROTO_DIR}" -name "*.proto" -type f -print0 | sort -z)
+  
+  if [ ${#proto_files_array[@]} -eq 0 ]; then
+    print_error "No proto files found in ${PROTO_DIR}"
+    exit 1
+  fi
+  
+  # Use global variable to return array (bash limitation workaround)
+  PROTO_FILES=("${proto_files_array[@]}")
+  print_success "Found ${#PROTO_FILES[@]} proto file(s)"
+}
 
 # ============================================================================
 # Functions
@@ -137,11 +153,10 @@ check_protoc_gen_ts() {
 }
 
 prepare_output_directories() {
-  print_step "3" "Preparing output directories"
-  mkdir -p "${DART_OUT}" "${PY_OUT}" "${TS_OUT}"
+  print_step "4" "Preparing output directories"
+  mkdir -p "${DART_OUT}" "${TS_OUT}"
   print_success "Output directories ready"
   print_item "Dart: ${DART_OUT}"
-  print_item "Python: ${PY_OUT}"
   print_item "TypeScript: ${TS_OUT}"
 }
 
@@ -165,17 +180,15 @@ build_include_flags() {
 }
 
 verify_proto_files() {
-  print_step "4" "Verifying proto files"
+  print_step "5" "Verifying proto files"
   local missing_files=()
-  
+
   for proto_file in "${PROTO_FILES[@]}"; do
     if [ ! -f "${proto_file}" ]; then
       missing_files+=("${proto_file}")
-    else
-      print_item "$(basename "${proto_file}")"
     fi
   done
-  
+
   if [ ${#missing_files[@]} -gt 0 ]; then
     print_error "Missing proto files:"
     for file in "${missing_files[@]}"; do
@@ -183,16 +196,12 @@ verify_proto_files() {
     done
     exit 1
   fi
-  print_success "All proto files found"
+  print_success "All proto files verified"
 }
 
 generate_dart_code() {
-  print_step "5" "Generating Dart code"
+  print_step "6" "Generating Dart code"
   build_include_flags
-  
-  if [ ${#INCLUDE_FLAGS[@]} -gt 0 ]; then
-    print_info "Using ${#INCLUDE_FLAGS[@]} include path(s)"
-  fi
   
   # Run protoc and filter out dependency resolution messages that appear in stdout
   # when the snapshot is being regenerated
@@ -220,26 +229,8 @@ generate_dart_code() {
   fi
 }
 
-generate_python_code() {
-  print_step "6" "Generating Python code"
-  build_include_flags
-  
-  if protoc "${INCLUDE_FLAGS[@]}" --python_out="${PY_OUT}" "${PROTO_FILES[@]}" 2>&1; then
-    print_success "Python code generated"
-  else
-    print_error "Failed to generate Python code"
-    exit 1
-  fi
-}
-
-create_python_init() {
-  print_step "7" "Creating Python __init__.py"
-  touch "${PY_OUT}/__init__.py"
-  print_success "Python package initialized"
-}
-
 generate_typescript_code() {
-  print_step "8" "Generating TypeScript code"
+  print_step "7" "Generating TypeScript code"
   build_include_flags
   
   local ts_proto_path="${ROOT_DIR}/backend/node_modules/.bin/protoc-gen-ts_proto"
@@ -274,18 +265,16 @@ main() {
   check_protoc
   check_protoc_gen_dart
   check_protoc_gen_ts
+  discover_proto_files
   prepare_output_directories
   verify_proto_files
   generate_dart_code
-  generate_python_code
-  create_python_init
   generate_typescript_code
   
   print_separator
   print_summary_all_success "Protobuf generation complete!"
   print_info "Generated files:"
   print_item "Dart: ${DART_OUT}"
-  print_item "Python: ${PY_OUT}"
   print_item "TypeScript: ${TS_OUT}"
 }
 

@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
+import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/router/route_names.dart';
-import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
 import 'package:calorify/features/history/widgets/meal_quantity.dart';
@@ -11,19 +11,19 @@ import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/meal_image.dart';
-import 'package:i18n/i18n.dart';
-import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:calorify/shared_widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:models/models.dart';
 
 Future<void> showMealTip({
   required BuildContext context,
-  Uint8List? imageData,
-  required MealDetectionResult mealDetectionResult,
-  required bool allowEdit,
+  MealDetectionResult? mealDetectionResult,
+  LoggedMeal? loggedMeal,
+  Uint8List? imageBytes,
 }) {
   return showModalBottomSheet(
     context: context,
@@ -35,69 +35,49 @@ Future<void> showMealTip({
     builder:
         (context) => _MealTip(
           mealDetectionResult: mealDetectionResult,
-          imageData: imageData,
-          allowEdit: allowEdit,
+          loggedMeal: loggedMeal,
+          imageBytes: imageBytes,
         ),
   );
 }
 
-class _MealTip extends StatefulWidget {
-  const _MealTip({
-    required this.mealDetectionResult,
-    required this.imageData,
-    this.allowEdit = false,
-  });
+class _MealTip extends StatelessWidget {
+  _MealTip({this.mealDetectionResult, this.loggedMeal, this.imageBytes})
+    : assert(mealDetectionResult != null || loggedMeal != null),
+      meal = mealDetectionResult?.meal ?? loggedMeal?.meal ?? Meal(),
+      metadata =
+          mealDetectionResult?.metadata ??
+          loggedMeal?.metadata ??
+          MealMetadata();
 
-  final MealDetectionResult mealDetectionResult;
-  final Uint8List? imageData;
-  final bool allowEdit;
-
-  @override
-  State<_MealTip> createState() => _MealTipState();
-}
-
-class _MealTipState extends State<_MealTip> {
-  bool _isFavorite = false;
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.mealDetectionResult.mealIdentified) {
-      _checkIfFavorite();
-    }
-  }
-
-  Future<void> _checkIfFavorite() async {
-    final mealId = widget.mealDetectionResult.mealInfo.localIdValue;
-    if (mealId == null) return;
-    final isFavorite = await DatabaseService.databaseInterface.isFavoriteMeal(
-      mealId,
-    );
-    if (mounted) {
-      setState(() {
-        _isFavorite = isFavorite;
-      });
-    }
-  }
+  final Meal meal;
+  final MealMetadata metadata;
+  final MealDetectionResult? mealDetectionResult;
+  final LoggedMeal? loggedMeal;
+  final Uint8List? imageBytes;
 
   @override
   Widget build(BuildContext context) {
+    final isMealUnidentified =
+        (mealDetectionResult == null && loggedMeal == null) ||
+        mealDetectionResult?.mealIdentified == false;
+
     return BaseBottomSheet(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (widget.mealDetectionResult.mealIdentified)
-            ..._mealIdentified(context)
+          if (isMealUnidentified)
+            ..._mealUnidentified(context)
           else
-            ..._mealUnIdentified(context),
+            ..._mealIdentified(context),
           const SizedBox(height: 30),
         ],
       ),
     );
   }
 
-  List<Widget> _mealUnIdentified(BuildContext context) {
+  List<Widget> _mealUnidentified(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
@@ -116,12 +96,17 @@ class _MealTipState extends State<_MealTip> {
         ],
       ),
       SizedBox(height: 16),
-      Text(
-        widget.mealDetectionResult.tip,
-        style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
-      ),
-      SizedBox(height: 12),
-      MealImage(imageBytes: widget.imageData),
+      if (mealDetectionResult?.tip.isNotEmpty ?? false) ...[
+        Text(
+          mealDetectionResult!.tip,
+          style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
+        ),
+        SizedBox(height: 12),
+      ],
+      if (imageBytes != null || metadata.imageUrl.isNotEmpty) ...[
+        MealImage(imageBytes: imageBytes, imageUrl: metadata.imageUrl),
+        const SizedBox(height: 12),
+      ],
     ];
   }
 
@@ -129,11 +114,11 @@ class _MealTipState extends State<_MealTip> {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
-    final MealInfo mealInfo = widget.mealDetectionResult.mealInfo;
 
-    final canShowMealImage =
-        widget.imageData != null ||
-        (mealInfo.hasImageUrl() && mealInfo.imageUrl.isNotEmpty);
+    final canShowMealImage = metadata.imageUrl.isNotEmpty;
+    final canShowMealTip = mealDetectionResult?.tip.isNotEmpty ?? false;
+
+    final timestamp = loggedMeal?.dateTime ?? DateTime.now();
 
     return [
       Row(
@@ -145,54 +130,35 @@ class _MealTipState extends State<_MealTip> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  mealInfo.mealName,
+                  meal.name,
                   style: textTheme.titleMedium?.copyWith(
                     color: colorScheme.onSurface,
                   ),
                 ),
                 Wrap(
                   children: [
-                    MealTypeIndicator(mealType: mealInfo.mealType),
+                    MealTypeIndicator(type: meal.type),
                     SizedBox(width: 8),
-                    MealQuantityIndicator(quantity: mealInfo.mealQuantity),
+                    MealQuantityIndicator(quantity: meal.quantity),
                     SizedBox(width: 8),
-                    MealTimestamp(
-                      timestamp: mealInfo.timestampDateTime ?? DateTime.now(),
-                    ),
+                    MealTimestamp(timestamp: timestamp),
                   ],
                 ),
               ],
             ),
           ),
           SizedBox(width: 12),
-          Row(
-            children: [
-              if (widget.mealDetectionResult.mealInfo.localIdValue != null)
-                IconButton(
-                  onPressed: _toggleFavorite,
-                  padding: EdgeInsets.zero,
-                  visualDensity: VisualDensity.compact,
-                  icon: Icon(
-                    LucideIcons.star,
-                    size: 24,
-                    color:
-                        _isFavorite
-                            ? colorScheme.tertiary
-                            : colorScheme.onSurface.withValues(alpha: 0.5),
-                  ),
-                ),
-            ],
-          ),
+          if (loggedMeal != null) _FavoriteMealStar(loggedMeal: loggedMeal!),
         ],
       ),
       if (canShowMealImage) ...[
         SizedBox(height: 16),
-        MealImage(imageBytes: widget.imageData, imageUrl: mealInfo.imageUrl),
+        MealImage(imageUrl: metadata.imageUrl),
       ],
-      if (widget.mealDetectionResult.tip.isNotEmpty) ...[
+      if (canShowMealTip) ...[
         SizedBox(height: 16),
         Text(
-          widget.mealDetectionResult.tip,
+          mealDetectionResult?.tip ?? '',
           style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
         ),
       ],
@@ -210,7 +176,7 @@ class _MealTipState extends State<_MealTip> {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: mealInfo.calories.toStringAsFixed(0),
+                  text: meal.macros.calories.toStringAsFixed(0),
                   style: textTheme.headlineLarge?.copyWith(
                     color: colorScheme.calorieIconColor,
                     fontWeight: FontWeight.bold,
@@ -237,7 +203,7 @@ class _MealTipState extends State<_MealTip> {
             child: NutrientTile(
               icon: LucideIcons.wheat,
               label: t.home.dailySummary.carbs,
-              value: mealInfo.carbs.toDouble(),
+              value: meal.macros.carbs.toDouble(),
               unit: 'g',
               iconColor: carbsIconColor,
             ),
@@ -246,7 +212,7 @@ class _MealTipState extends State<_MealTip> {
             child: NutrientTile(
               icon: LucideIcons.drumstick,
               label: t.home.dailySummary.protein,
-              value: mealInfo.protein.toDouble(),
+              value: meal.macros.protein.toDouble(),
               unit: 'g',
               iconColor: proteinIconColor,
             ),
@@ -255,7 +221,7 @@ class _MealTipState extends State<_MealTip> {
             child: NutrientTile(
               icon: LucideIcons.egg,
               label: t.home.dailySummary.fat,
-              value: mealInfo.fat.toDouble(),
+              value: meal.macros.fat.toDouble(),
               unit: 'g',
               iconColor: fatIconColor,
             ),
@@ -264,64 +230,59 @@ class _MealTipState extends State<_MealTip> {
             child: NutrientTile(
               icon: LucideIcons.leaf,
               label: t.home.dailySummary.fiber,
-              value: mealInfo.fiber.toDouble(),
+              value: meal.macros.fiber.toDouble(),
               unit: 'g',
               iconColor: fiberIconColor,
             ),
           ),
         ],
       ),
-      if (widget.allowEdit && widget.mealDetectionResult.mealIdentified) ...[
-        SizedBox(height: 20),
-        if (mealInfo.localIdValue != null)
-          Row(
-            children: [
-              Expanded(
-                child: SecondaryButton(
-                  onPressed: () async {
-                    await _showDeleteConfirmation(
-                      context,
-                      mealInfo.localIdValue!,
-                    );
-                  },
-                  text: t.meal.delete,
-                  icon: LucideIcons.trash2,
-                  analyticsEvent: AnalyticsEvent.mealDelete,
-                ),
-              ),
-              const SizedBox(width: 12),
-              if (widget.allowEdit)
-                Expanded(
-                  child: PrimaryButton(
-                    onPressed: () {
-                      final navigator = Navigator.of(context);
-                      final parentContext = navigator.context;
-                      navigator.pop();
-                      showEditMealSheet(
-                        parentContext,
-                        mealInfo: mealInfo,
-                        imageData: widget.imageData,
-                      );
-                    },
-                    text: t.meal.editMeal,
-                    leadingIcon: LucideIcons.pencil,
-                    analyticsEvent: AnalyticsEvent.mealSave,
-                  ),
-                ),
-            ],
-          )
-        else
-          PrimaryButton(
+      SizedBox(height: 20),
+      mealDetectionResult != null
+          ? PrimaryButton(
             analyticsEvent: AnalyticsEvent.mealSave,
             onPressed: () async {
-              await logMeal(context, widget.mealDetectionResult.mealInfo);
+              await logMeal(context, mealDetectionResult!.meal);
               if (!context.mounted) return;
               Navigator.of(context).pop();
             },
             text: t.meal.saveMeal,
             leadingIcon: LucideIcons.save,
+          )
+          : Row(
+            children: [
+              if (loggedMeal != null)
+                Expanded(
+                  child: SecondaryButton(
+                    onPressed: () {
+                      _showDeleteConfirmation(context, loggedMeal!.clientId);
+                    },
+                    text: t.meal.delete,
+                    icon: LucideIcons.trash2,
+                    analyticsEvent: AnalyticsEvent.mealDelete,
+                  ),
+                ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: PrimaryButton(
+                  onPressed: () {
+                    final navigator = Navigator.of(context);
+                    final parentContext = navigator.context;
+                    navigator.pop();
+                    showEditMealSheet(
+                      parentContext,
+                      meal: meal,
+                      loggedMeal: loggedMeal,
+                    );
+                  },
+                  text: t.meal.editMeal,
+                  leadingIcon: LucideIcons.pencil,
+                  analyticsEvent: AnalyticsEvent.mealSave,
+                ),
+              ),
+            ],
           ),
-      ],
+
       SizedBox(height: 20),
     ];
   }
@@ -362,20 +323,76 @@ class _MealTipState extends State<_MealTip> {
       },
     );
   }
+}
+
+class _FavoriteMealStar extends StatefulWidget {
+  _FavoriteMealStar({required this.loggedMeal})
+    : super(key: ValueKey<int>(loggedMeal.clientId));
+
+  final LoggedMeal loggedMeal;
+
+  @override
+  State<_FavoriteMealStar> createState() => _FavoriteMealStarState();
+}
+
+class _FavoriteMealStarState extends State<_FavoriteMealStar> {
+  bool _isFavorite = false;
+
+  @override
+  initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _checkIfFavorite();
+    });
+  }
+
+  Future<void> _checkIfFavorite() async {
+    final mealId = widget.loggedMeal.clientId;
+    final isFavorite = await DatabaseService.databaseInterface.isFavoriteMeal(
+      mealId,
+    );
+
+    if (!mounted) return;
+
+    setState(() {
+      _isFavorite = isFavorite;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+
+    return IconButton(
+      onPressed: _toggleFavorite,
+      padding: EdgeInsets.zero,
+      visualDensity: VisualDensity.compact,
+      icon: Icon(
+        LucideIcons.star,
+        size: 24,
+        color:
+            _isFavorite
+                ? colorScheme.tertiary
+                : colorScheme.onSurface.withValues(alpha: 0.5),
+      ),
+    );
+  }
 
   Future<void> _toggleFavorite() async {
-    final mealInfo = widget.mealDetectionResult.mealInfo;
     try {
       if (_isFavorite) {
         await DatabaseService.databaseInterface.removeFavoriteMeal(
-          mealInfo.localIdValue!,
+          widget.loggedMeal.clientId,
         );
         if (!mounted) return;
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(snack(t.meal.removedFromFavorites));
       } else {
-        await DatabaseService.databaseInterface.addToFavorites(mealInfo);
+        await DatabaseService.databaseInterface.addToFavorites(
+          widget.loggedMeal,
+        );
         if (!mounted) return;
         ScaffoldMessenger.of(
           context,

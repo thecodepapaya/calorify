@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:models/models.dart';
+import 'package:utils/utils.dart';
 import 'package:calorify_watch/core/services/wear_os_channel.dart';
 import 'package:flutter/foundation.dart';
 
@@ -50,15 +51,20 @@ class SyncService {
   }
 
   /// Send meal data to main app
-  Future<bool> sendMeal(MealInfo meal) async {
+  Future<bool> sendMeal(Meal meal) async {
     if (!_isInitialized) {
       throw Exception('SyncService not initialized');
     }
 
     try {
+      // Convert Meal to LoggedMeal for the legacy JSON format
+      final loggedMeal = LoggedMeal(
+        meal: meal,
+        createdAt: dateTimeToIso8601String(DateTime.now()),
+      );
       final response = await WearOsChannel.sendMessage(
         path: '/meal',
-        data: mealInfoToLegacyJson(meal),
+        data: mealInfoToLegacyJson(loggedMeal),
       );
 
       if (response != null && response['success'] == true) {
@@ -72,7 +78,7 @@ class SyncService {
   }
 
   /// Request today's meals from main app
-  Future<List<MealInfo>> requestTodaysMeals() async {
+  Future<List<LoggedMeal>> requestTodaysMeals() async {
     if (!_isInitialized) {
       throw Exception('SyncService not initialized');
     }
@@ -87,7 +93,9 @@ class SyncService {
         final mealsData = response['meals'] as List<dynamic>?;
         if (mealsData != null) {
           return mealsData
-              .map((json) => mealInfoFromLegacyJson(json as Map<String, dynamic>))
+              .map(
+                (json) => mealInfoFromLegacyJson(json as Map<String, dynamic>),
+              )
               .toList();
         }
       }

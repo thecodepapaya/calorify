@@ -3,14 +3,18 @@ import 'dart:async';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/db/mock_data/favorite_meal_mock.dart';
 import 'package:calorify/core/db/mock_data/meal_info_mock.dart';
-import 'package:calorify/core/db/mock_data/user_settings_mock.dart' hide UserProfile;
+import 'package:calorify/core/db/mock_data/user_settings_mock.dart'
+    hide UserProfile;
 import 'package:models/models.dart';
 import 'package:flutter/material.dart' show ThemeMode;
+import 'package:utils/utils.dart';
 
 /// Mock database adapter that implements DatabaseInterface
 class MockDatabaseAdapter implements DatabaseInterface {
-  final List<MealInfo> _meals = [];
-  final List<MealInfo> _favorites = [];
+  final List<LoggedMeal> _meals = [];
+  final List<FavoriteMeal> _favorites = [];
+  int _nextMealId = 1;
+  int _nextFavoriteId = 1;
   int? _dailyCalorieGoal;
   UserProfile? _userProfile;
   ThemeMode _themeMode = ThemeMode.system;
@@ -25,10 +29,23 @@ class MockDatabaseAdapter implements DatabaseInterface {
 
   void _initializeMockData() {
     // Generate mock data for the last 7 days using MealInfoMock
-    _meals.addAll(MealInfoMock.generateWeek());
+    final meals = MealInfoMock.generateWeek(startClientId: _nextMealId);
+    _meals.addAll(meals);
+    if (meals.isNotEmpty) {
+      _nextMealId =
+          meals.map((m) => m.clientId).reduce((a, b) => a > b ? a : b) + 1;
+    }
 
     // Generate favorite meals using FavoriteMealMock
-    _favorites.addAll(FavoriteMealMock.generateUserFavorites());
+    final favoriteMeals = FavoriteMealMock.generateUserFavorites(
+      startClientId: _nextFavoriteId,
+    );
+    _favorites.addAll(favoriteMeals);
+    if (favoriteMeals.isNotEmpty) {
+      _nextFavoriteId =
+          favoriteMeals.map((f) => f.clientId).reduce((a, b) => a > b ? a : b) +
+          1;
+    }
 
     // Set a default calorie goal using UserSettingsMock
     final userSettings = UserSettingsMock.generateRealistic();
@@ -54,39 +71,53 @@ class MockDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
-  Future<void> logMeal(MealInfo mealInfo) async {
-    // Add meal to the mock database
-    _meals.add(mealInfo);
+  Future<void> logMeal(Meal mealInfo) async {
+    // Convert Meal to LoggedMeal and add to the mock database
+    final loggedMeal = LoggedMeal(
+      clientId: _nextMealId++,
+      meal: mealInfo,
+      createdAt: dateTimeToIso8601String(DateTime.now()),
+      metadata: null,
+    );
+    _meals.add(loggedMeal);
   }
 
   @override
-  Future<void> upsertMeal(MealInfo mealInfo) async {
-    // In mock mode, we add or update the meal
-    final existingIndex = _meals.indexWhere((meal) {
-      final mealDate = meal.timestampDateTime ?? DateTime.now();
-      final targetDate = mealInfo.timestampDateTime ?? DateTime.now();
-      return meal.mealName == mealInfo.mealName &&
-          mealDate.year == targetDate.year &&
-          mealDate.month == targetDate.month &&
-          mealDate.day == targetDate.day;
-    });
+  Future<void> upsertMeal(LoggedMeal mealInfo) async {
+    // In mock mode, we add or update the meal by clientId
+    final existingIndex = _meals.indexWhere(
+      (meal) => meal.hasClientId() && meal.clientId == mealInfo.clientId,
+    );
 
     if (existingIndex != -1) {
       _meals[existingIndex] = mealInfo;
     } else {
-      _meals.add(mealInfo);
+      // If no clientId, assign one
+      if (!mealInfo.hasClientId()) {
+        final updatedMeal = mealInfo.deepCopy();
+        updatedMeal.clientId = _nextMealId++;
+        _meals.add(updatedMeal);
+      } else {
+        _meals.add(mealInfo);
+      }
+      if (mealInfo.hasClientId() && mealInfo.clientId >= _nextMealId) {
+        _nextMealId = mealInfo.clientId + 1;
+      }
     }
   }
 
   @override
   Future<void> deleteMeal(int mealId) async {
-    _meals.removeWhere((meal) => meal.localIdValue == mealId);
+    _meals.removeWhere((meal) => meal.hasClientId() && meal.clientId == mealId);
   }
 
   @override
-  Future<MealInfo?> getMealById(int mealId) async {
+  Future<LoggedMeal?> getMealById(int mealId) async {
     try {
-      return _meals.firstWhere((meal) => meal.localIdValue == mealId);
+      final loggedMeal = _meals.firstWhere(
+        (meal) => meal.hasClientId() && meal.clientId == mealId,
+      );
+      return loggedMeal;
     } catch (_) {
       return null;
     }
@@ -94,25 +125,47 @@ class MockDatabaseAdapter implements DatabaseInterface {
 
   @override
   Future<bool> isFavoriteMeal(int mealId) async {
-    // In mock mode, we check if the meal exists in favorites
-    // For simplicity, we'll check by meal name
-    return _favorites.any((favorite) => favorite.mealName.contains('meal'));
+    // Check if the meal exists in favorites by clientId
+    return _favorites.any(
+      (favorite) =>
+          favorite.hasLoggedMeal() &&
+          favorite.loggedMeal.hasClientId() &&
+          favorite.loggedMeal.clientId == mealId,
+    );
   }
 
   @override
-  Future<void> addToFavorites(MealInfo mealInfo) async {
+  Future<void> addToFavorites(LoggedMeal mealInfo) async {
     // Add meal to favorites if not already there
-    if (!_favorites.any((favorite) => favorite.mealName == mealInfo.mealName)) {
-      _favorites.add(mealInfo);
+    final alreadyFavorite = _favorites.any(
+      (favorite) =>
+          favorite.hasLoggedMeal() &&
+          favorite.loggedMeal.hasClientId() &&
+          favorite.loggedMeal.clientId == mealInfo.clientId,
+    );
+
+    if (!alreadyFavorite) {
+      final now = DateTime.now();
+      _favorites.add(
+        FavoriteMeal(
+          clientId: _nextFavoriteId++,
+          loggedMeal: mealInfo,
+          favoriteAt: dateTimeToIso8601String(now),
+          lastUsedAt: dateTimeToIso8601String(now),
+        ),
+      );
     }
   }
 
   @override
   Future<void> removeFavoriteMeal(int mealId) async {
-    // Remove favorite by index (simplified for mock)
-    if (mealId < _favorites.length) {
-      _favorites.removeAt(mealId);
-    }
+    // Remove favorite by mealId (clientId)
+    _favorites.removeWhere(
+      (favorite) =>
+          favorite.hasLoggedMeal() &&
+          favorite.loggedMeal.hasClientId() &&
+          favorite.loggedMeal.clientId == mealId,
+    );
   }
 
   @override
@@ -122,10 +175,10 @@ class MockDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
-  Stream<List<MealInfo>> watchAllMealsForToday() async* {
+  Stream<List<LoggedMeal>> watchAllMealsForToday() async* {
     yield _meals.where((meal) {
       final now = DateTime.now();
-      final mealDate = meal.timestampDateTime ?? DateTime.now();
+      final mealDate = meal.dateTime;
       return mealDate.year == now.year &&
           mealDate.month == now.month &&
           mealDate.day == now.day;
@@ -133,33 +186,28 @@ class MockDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
-  Stream<List<MealInfo>> watchAllMealsForLast7Days() async* {
+  Stream<List<LoggedMeal>> watchAllMealsForLast7Days() async* {
     yield _meals.where((meal) {
       final now = DateTime.now();
       final sevenDaysAgo = now.subtract(const Duration(days: 7));
-      final mealDate = meal.timestampDateTime ?? DateTime.now();
+      final mealDate = meal.dateTime;
       return mealDate.isAfter(sevenDaysAgo) && mealDate.isBefore(now);
     }).toList();
   }
 
   @override
-  Stream<List<MealInfo>> watchAllFavoriteMeals() async* {
+  Stream<List<FavoriteMeal>> watchAllFavoriteMeals() async* {
     yield _favorites;
   }
 
   @override
-  Stream<List<MealInfo>> watchLastUsedFavoriteMeals() async* {
+  Stream<List<FavoriteMeal>> watchLastUsedFavoriteMeals() async* {
     yield _favorites;
   }
 
   @override
-  Future<List<MealInfo>> paginatedMealsHistory({
-    required int offset,
-    mealsPerPage = 30,
-  }) {
-    return Future.value(
-      _meals.reversed.skip(offset).take(mealsPerPage).toList(),
-    );
+  Future<List<LoggedMeal>> paginatedMealsHistory({required int offset}) {
+    return Future.value(_meals.reversed.skip(offset).take(30).toList());
   }
 
   @override

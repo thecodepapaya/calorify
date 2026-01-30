@@ -39,7 +39,7 @@ class MealLog extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          StreamBuilder<List<MealInfo>>(
+          StreamBuilder<List<LoggedMeal>>(
             stream: DatabaseService.databaseInterface.watchAllMealsForToday(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
@@ -137,13 +137,12 @@ class _EmptyLog extends StatelessWidget {
 class _MealsList extends StatelessWidget {
   const _MealsList(this.meals);
 
-  final List<MealInfo> meals;
+  final List<LoggedMeal> meals;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children:
-          meals.map((e) => MealLogCard(mealInfo: e, allowEdit: true)).toList(),
+      children: meals.map((e) => MealLogCard(loggedMeal: e)).toList(),
     );
   }
 }

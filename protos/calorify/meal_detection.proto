@@ -2,7 +2,31 @@ syntax = "proto3";
 
 package calorify;
 
-import "protos/calorify/meal.proto";
+import "protos/meal/meal.proto";
+
+message Clarification {
+  message Option {
+    string option = 1; // The option text (e.g., "curd", "labaan")
+    meal.MealMacro macro_diff = 2; // Expected macros diff if this option is selected
+  }
+  
+  string question = 1; // The question to ask the user (e.g., "What does the white bowl contain?")
+  repeated Option options = 2; // List of options with their expected macros
+}
+
+message MealMetadata {
+  optional string image_url = 1;
+  optional string meal_description = 2;
+  repeated Clarification selected_clarifications = 3;
+}
+
+message MealDetectionResult {
+  bool meal_identified = 1;
+  meal.CalorieConfidence calorie_confidence = 2;
+  string tip = 3;
+  optional meal.Meal meal = 4;
+  optional MealMetadata metadata = 5;
+}
 
 message ImageMealDetectionRequest {
   string image_url = 1; // URL to image
@@ -14,19 +38,7 @@ message TextMealDetectionRequest {
 }
 
 message MealDetectionResponse {
-  message Clarification {
-    message Option {
-      string option = 1; // The option text (e.g., "curd", "labaan")
-      MealMacro macro_diff = 2; // Expected macros diff if this option is selected
-    }
-    
-    string question = 1; // The question to ask the user (e.g., "What does the white bowl contain?")
-    repeated Option options = 2; // List of options with their expected macros
-  }
-
-  bool meal_identified = 1;
-  CalorieConfidence calorie_confidence = 2;
-  string tip = 3;
-  optional Meal meal = 4;
-  repeated Clarification clarifications = 5; // Questions to improve confidence when confidence is not HIGH/VERY_HIGH
+  MealDetectionResult result = 1;
+  repeated Clarification clarifications = 2; // Questions to improve confidence when confidence is not HIGH/VERY_HIGH
 }
+

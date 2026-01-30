@@ -1,4 +1,4 @@
-library specs;
+library;
 
 export 'src/color_scheme_interface.dart';
 export 'src/light_colors.dart';

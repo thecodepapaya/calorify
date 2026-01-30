@@ -1,9 +1,10 @@
-import 'package:models/models.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:i18n/i18n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
 import 'package:intl/intl.dart';
+import 'package:models/models.dart';
+import 'package:utils/utils.dart';
 
 class AgeStepScreen extends StatefulWidget {
   final VoidCallback onContinue;
@@ -30,7 +31,8 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
     final profile = await OnboardingService.instance.getProfileData();
     if (profile != null && profile.hasDateOfBirth() && mounted) {
       setState(() {
-        _dateOfBirth = profile.dateOfBirthDateTime ?? _dateOfBirth;
+        _dateOfBirth =
+            iso8601StringToDateTime(profile.dateOfBirth) ?? _dateOfBirth;
       });
     }
   }
@@ -188,7 +190,7 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
     final profile =
         await OnboardingService.instance.getProfileData() ?? UserProfile();
     final updatedProfile = profile.deepCopy();
-    updatedProfile.dateOfBirth = dateTimeToTimestamp(_dateOfBirth);
+    updatedProfile.dateOfBirth = dateTimeToIso8601String(_dateOfBirth);
     await OnboardingService.instance.saveProfileData(updatedProfile);
     widget.onContinue();
   }

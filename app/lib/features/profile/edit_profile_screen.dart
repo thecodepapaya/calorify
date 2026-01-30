@@ -125,7 +125,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _dailyCalorieGoal = 0;
     _calorieGoalController = TextEditingController(text: '');
     _dateOfBirth =
-        widget.userProfile.dateOfBirthDateTime ??
+        iso8601StringToDateTime(widget.userProfile.dateOfBirth) ??
         DateTime.now().subtract(
           const Duration(days: _daysInYear * _defaultAgeYears),
         );
@@ -732,7 +732,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       updatedData.height = _height;
       updatedData.weight = _weight;
       updatedData.gender = _selectedGender;
-      updatedData.dateOfBirth = dateTimeToTimestamp(_dateOfBirth);
+      updatedData.dateOfBirth = dateTimeToIso8601String(_dateOfBirth);
       updatedData.weightGoal = _selectedWeightGoal;
       updatedData.activityLevel = _selectedActivityLevel;
       updatedData.heightUnit = _heightUnit;

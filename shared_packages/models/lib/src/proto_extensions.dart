@@ -1,9 +1,13 @@
 import 'dart:math';
 
 import 'package:fixnum/fixnum.dart' as $fixnum;
-import 'package:models/src/proto/calorify/models.pb.dart';
+import 'package:models/models.dart';
+import 'package:models/src/protos/meal/meal.pb.dart';
+import 'package:models/src/protos/meal/meal.pbenum.dart';
+import 'package:models/src/protos/user/user.pb.dart';
+import 'package:models/src/protos/user/user.pbenum.dart';
 import 'package:models/src/scale_constants.dart';
-import 'package:models/src/timestamp_utils.dart';
+import 'package:utils/utils.dart';
 
 extension MealTypeLegacy on MealType {
   String get legacyName {
@@ -223,15 +227,8 @@ $fixnum.Int64? int64FromInt(int? value) {
   return $fixnum.Int64(value);
 }
 
-extension MealInfoCopyWith on MealInfo {
-  int? get localIdValue => hasLocalId() ? localId.toInt() : null;
-  String? get clientIdValue => hasClientId() ? clientId : null;
-  DateTime? get timestampDateTime =>
-      hasTimestamp() ? timestampToLocalDateTime(timestamp) : null;
-
-  MealInfo copyWith({
-    String? clientId,
-    int? localId,
+extension MealCopyWith on Meal {
+  Meal copyWith({
     String? mealName,
     String? mealQuantity,
     MealType? mealType,
@@ -240,52 +237,34 @@ extension MealInfoCopyWith on MealInfo {
     int? carbs,
     int? fat,
     int? fiber,
-    DateTime? timestamp,
-    String? imageUrl,
     HealthScore? healthScore,
     String? healthScoreReason,
     bool forceIdNull = false,
   }) {
     final copy = deepCopy();
-    if (forceIdNull) {
-      copy.clearLocalId();
-      copy.clearClientId();
-    } else {
-      if (clientId != null) copy.clientId = clientId;
-      if (localId != null) copy.localId = $fixnum.Int64(localId);
-    }
-    if (mealName != null) copy.mealName = mealName;
-    if (mealQuantity != null) copy.mealQuantity = mealQuantity;
-    if (mealType != null) copy.mealType = mealType;
-    if (calories != null) copy.calories = calories;
-    if (protein != null) copy.protein = protein;
-    if (carbs != null) copy.carbs = carbs;
-    if (fat != null) copy.fat = fat;
-    if (fiber != null) copy.fiber = fiber;
-    if (timestamp != null) {
-      copy.timestamp = dateTimeToTimestamp(timestamp);
-    }
-    if (imageUrl != null) {
-      copy.imageUrl = imageUrl;
-    } else if (forceIdNull && !hasImageUrl()) {
-      copy.clearImageUrl();
-    }
-    if (healthScore != null) {
-      copy.healthScore = healthScore;
-    } else if (forceIdNull && !hasHealthScore()) {
-      copy.clearHealthScore();
-    }
-    if (healthScoreReason != null) {
-      copy.healthScoreReason = healthScoreReason;
-    } else if (forceIdNull && !hasHealthScoreReason()) {
-      copy.clearHealthScoreReason();
+    if (mealName != null) copy.name = mealName;
+    if (mealQuantity != null) copy.quantity = mealQuantity;
+    if (mealType != null) copy.type = mealType;
+    if (calories != null) copy.macros.calories = calories;
+    if (protein != null) copy.macros.protein = protein;
+    if (carbs != null) copy.macros.carbs = carbs;
+    if (fat != null) copy.macros.fat = fat;
+    if (fiber != null) copy.macros.fiber = fiber;
+    if (healthScore != null || healthScoreReason != null) {
+      if (!copy.hasHealth()) {
+        copy.health = MealHealth();
+      }
+      if (healthScore != null) copy.health.healthScore = healthScore;
+      if (healthScoreReason != null) {
+        copy.health.healthScoreReason = healthScoreReason;
+      }
+    } else if (forceIdNull && copy.hasHealth()) {
+      copy.clearHealth();
     }
     return copy;
   }
 
-  MealInfo copyWithFields({
-    String? clientId,
-    int? localId,
+  Meal copyWithFields({
     String? mealName,
     String? mealQuantity,
     MealType? mealType,
@@ -294,42 +273,40 @@ extension MealInfoCopyWith on MealInfo {
     int? carbs,
     int? fat,
     int? fiber,
-    DateTime? timestamp,
-    String? imageUrl,
     HealthScore? healthScore,
     String? healthScoreReason,
-    bool clearImageUrl = false,
-    bool clearHealthScore = false,
+    bool clearHealth = false,
     bool clearHealthScoreReason = false,
   }) {
     final copy = deepCopy();
-    if (clientId != null) copy.clientId = clientId;
-    if (localId != null) copy.localId = $fixnum.Int64(localId);
-    if (mealName != null) copy.mealName = mealName;
-    if (mealQuantity != null) copy.mealQuantity = mealQuantity;
-    if (mealType != null) copy.mealType = mealType;
-    if (calories != null) copy.calories = calories;
-    if (protein != null) copy.protein = protein;
-    if (carbs != null) copy.carbs = carbs;
-    if (fat != null) copy.fat = fat;
-    if (fiber != null) copy.fiber = fiber;
-    if (timestamp != null) {
-      copy.timestamp = dateTimeToTimestamp(timestamp);
+    if (mealName != null) copy.name = mealName;
+    if (mealQuantity != null) copy.quantity = mealQuantity;
+    if (mealType != null) copy.type = mealType;
+    if (calories != null) copy.macros.calories = calories;
+    if (protein != null) copy.macros.protein = protein;
+    if (carbs != null) copy.macros.carbs = carbs;
+    if (fat != null) copy.macros.fat = fat;
+    if (fiber != null) copy.macros.fiber = fiber;
+    if (clearHealth) copy.clearHealth();
+    if (healthScore != null || healthScoreReason != null) {
+      if (!copy.hasHealth()) {
+        copy.health = MealHealth();
+      }
+      if (healthScore != null) copy.health.healthScore = healthScore;
+      if (clearHealthScoreReason) {
+        if (copy.health.hasHealthScoreReason()) {
+          copy.health.clearHealthScoreReason();
+        }
+      }
+      if (healthScoreReason != null) {
+        copy.health.healthScoreReason = healthScoreReason;
+      }
     }
-    if (clearImageUrl) copy.clearImageUrl();
-    if (imageUrl != null) copy.imageUrl = imageUrl;
-    if (clearHealthScore) copy.clearHealthScore();
-    if (healthScore != null) copy.healthScore = healthScore;
-    if (clearHealthScoreReason) copy.clearHealthScoreReason();
-    if (healthScoreReason != null) copy.healthScoreReason = healthScoreReason;
     return copy;
   }
 }
 
 extension UserProfileCopyWith on UserProfile {
-  DateTime? get dateOfBirthDateTime =>
-      hasDateOfBirth() ? timestampToLocalDateTime(dateOfBirth) : null;
-
   UserProfile copyWith({
     double? height,
     double? weight,
@@ -348,7 +325,7 @@ extension UserProfileCopyWith on UserProfile {
     if (targetWeight != null) copy.targetWeight = targetWeight;
     if (gender != null) copy.gender = gender;
     if (dateOfBirth != null) {
-      copy.dateOfBirth = dateTimeToTimestamp(dateOfBirth);
+      copy.dateOfBirth = dateTimeToIso8601String(dateOfBirth);
     }
     if (weightGoal != null) copy.weightGoal = weightGoal;
     if (activityLevel != null) copy.activityLevel = activityLevel;
@@ -381,7 +358,7 @@ extension UserProfileCopyWith on UserProfile {
     if (gender != null) copy.gender = gender;
     if (clearGender) copy.clearGender();
     if (dateOfBirth != null) {
-      copy.dateOfBirth = dateTimeToTimestamp(dateOfBirth);
+      copy.dateOfBirth = dateTimeToIso8601String(dateOfBirth);
     }
     if (clearDateOfBirth) copy.clearDateOfBirth();
     if (weightGoal != null) copy.weightGoal = weightGoal;
@@ -415,7 +392,7 @@ extension ActivityLevelMultiplier on ActivityLevel {
 
 extension UserProfileExtensions on UserProfile {
   int? get age {
-    final dob = dateOfBirthDateTime;
+    final dob = iso8601StringToDateTime(dateOfBirth);
     if (dob == null) return null;
     final now = DateTime.now();
     var years = now.year - dob.year;
@@ -464,3 +441,173 @@ const List<MealType> mealTypeValues = [
   MealType.SNACK,
   MealType.UNKNOWN,
 ];
+
+extension LoggedMealCopyWith on LoggedMeal {
+  DateTime get dateTime =>
+      hasCreatedAt()
+          ? iso8601StringToDateTime(createdAt) ?? DateTime.now()
+          : DateTime.now();
+
+  LoggedMeal copyWith({
+    int? clientId,
+    Meal? meal,
+    DateTime? createdAt,
+    MealMetadata? metadata,
+    String? imageUrl,
+    bool forceIdNull = false,
+    // Meal field shortcuts
+    String? mealName,
+    String? mealQuantity,
+    MealType? mealType,
+    int? calories,
+    int? protein,
+    int? carbs,
+    int? fat,
+    int? fiber,
+    HealthScore? healthScore,
+    String? healthScoreReason,
+  }) {
+    final copy = deepCopy();
+
+    if (forceIdNull) {
+      copy.clearClientId();
+    } else {
+      if (clientId != null) copy.clientId = clientId;
+    }
+
+    // Update meal - either replace entirely or update fields
+    if (meal != null) {
+      copy.meal = meal;
+    } else if (mealName != null ||
+        mealQuantity != null ||
+        mealType != null ||
+        calories != null ||
+        protein != null ||
+        carbs != null ||
+        fat != null ||
+        fiber != null ||
+        healthScore != null ||
+        healthScoreReason != null) {
+      // Use Meal's copyWith extension to update individual fields
+      final mealCopy = copy.meal;
+      copy.meal =
+          (mealCopy as dynamic).copyWith(
+                mealName: mealName,
+                mealQuantity: mealQuantity,
+                mealType: mealType,
+                calories: calories,
+                protein: protein,
+                carbs: carbs,
+                fat: fat,
+                fiber: fiber,
+                healthScore: healthScore,
+                healthScoreReason: healthScoreReason,
+              )
+              as Meal;
+    }
+
+    if (createdAt != null) {
+      copy.createdAt = dateTimeToIso8601String(createdAt);
+    }
+
+    // Update metadata - either replace entirely or update imageUrl
+    if (metadata != null) {
+      copy.metadata = metadata;
+    } else if (imageUrl != null) {
+      if (copy.hasMetadata()) {
+        final metadataCopy = copy.metadata.deepCopy();
+        metadataCopy.imageUrl = imageUrl;
+        copy.metadata = metadataCopy;
+      } else {
+        copy.metadata = MealMetadata(imageUrl: imageUrl);
+      }
+    } else if (forceIdNull && copy.hasMetadata()) {
+      copy.clearMetadata();
+    }
+
+    return copy;
+  }
+
+  LoggedMeal copyWithFields({
+    int? clientId,
+    Meal? meal,
+    DateTime? createdAt,
+    MealMetadata? metadata,
+    String? imageUrl,
+    bool clearClientId = false,
+    bool clearMeal = false,
+    bool clearCreatedAt = false,
+    bool clearMetadata = false,
+    // Meal field shortcuts
+    String? mealName,
+    String? mealQuantity,
+    MealType? mealType,
+    int? calories,
+    int? protein,
+    int? carbs,
+    int? fat,
+    int? fiber,
+    HealthScore? healthScore,
+    String? healthScoreReason,
+    bool clearHealthScore = false,
+    bool clearHealthScoreReason = false,
+  }) {
+    final copy = deepCopy();
+
+    if (clearClientId) copy.clearClientId();
+    if (clientId != null) copy.clientId = clientId;
+
+    if (clearMeal) copy.clearMeal();
+    if (meal != null) {
+      copy.meal = meal;
+    } else if (mealName != null ||
+        mealQuantity != null ||
+        mealType != null ||
+        calories != null ||
+        protein != null ||
+        carbs != null ||
+        fat != null ||
+        fiber != null ||
+        healthScore != null ||
+        healthScoreReason != null ||
+        clearHealthScore ||
+        clearHealthScoreReason) {
+      // Use Meal's copyWithFields extension to update individual fields
+      final mealCopy = copy.meal;
+      copy.meal = mealCopy.copyWithFields(
+        mealName: mealName,
+        mealQuantity: mealQuantity,
+        mealType: mealType,
+        calories: calories,
+        protein: protein,
+        carbs: carbs,
+        fat: fat,
+        fiber: fiber,
+        healthScore: healthScore,
+        healthScoreReason: healthScoreReason,
+        clearHealth: clearHealthScore,
+        clearHealthScoreReason: clearHealthScoreReason,
+      );
+    }
+
+    if (clearCreatedAt) copy.clearCreatedAt();
+    if (createdAt != null) {
+      copy.createdAt = dateTimeToIso8601String(createdAt);
+    }
+
+    if (clearMetadata) copy.clearMetadata();
+    if (metadata != null) {
+      copy.metadata = metadata;
+    } else if (imageUrl != null) {
+      if (copy.hasMetadata()) {
+        final metadataCopy = copy.metadata.deepCopy();
+        metadataCopy.imageUrl = imageUrl;
+        copy.metadata = metadataCopy;
+      } else {
+        copy.metadata = MealMetadata(imageUrl: imageUrl);
+      }
+    }
+
+    return copy;
+  }
+}

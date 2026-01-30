@@ -7,7 +7,7 @@ import 'package:i18n/i18n.dart';
 import 'package:widgets/widgets.dart';
 
 class MacroChart extends StatefulWidget {
-  final List<MealInfo> meals;
+  final List<LoggedMeal> meals;
 
   const MacroChart({super.key, required this.meals});
 
@@ -20,10 +20,18 @@ class _MacroChartState extends State<MacroChart>
   late AnimationController _controller;
   late Animation<double> _animation;
 
-  int get _totalProtein =>
-      widget.meals.fold(0, (sum, meal) => sum + meal.protein);
-  int get _totalCarbs => widget.meals.fold(0, (sum, meal) => sum + meal.carbs);
-  int get _totalFat => widget.meals.fold(0, (sum, meal) => sum + meal.fat);
+  int get _totalProtein => widget.meals.fold(
+    0,
+    (sum, loggedMeal) => sum + loggedMeal.meal.macros.protein,
+  );
+  int get _totalCarbs => widget.meals.fold(
+    0,
+    (sum, loggedMeal) => sum + loggedMeal.meal.macros.carbs,
+  );
+  int get _totalFat => widget.meals.fold(
+    0,
+    (sum, loggedMeal) => sum + loggedMeal.meal.macros.fat,
+  );
   int get _total => _totalProtein + _totalCarbs + _totalFat;
 
   @override

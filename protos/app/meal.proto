@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package app;
+
+import "protos/meal/meal.proto";
+import "protos/calorify/meal_detection.proto";
+
+message LoggedMeal {
+    int32 client_id = 1;
+    meal.Meal meal = 2;
+    string created_at = 3;
+    optional calorify.MealMetadata metadata = 4;
+}
+
+message FavoriteMeal {
+    int32 client_id = 1;
+    LoggedMeal logged_meal = 2;
+    string favorite_at = 3;
+    string last_used_at = 4;
+}

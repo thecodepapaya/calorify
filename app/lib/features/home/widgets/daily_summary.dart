@@ -35,20 +35,20 @@ class DailySummaryCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          StreamBuilder<List<MealInfo>>(
+          StreamBuilder<List<LoggedMeal>>(
             stream: DatabaseService.databaseInterface.watchAllMealsForToday(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return ErrorView(error: snapshot.error!);
               }
-              final meals = snapshot.data ?? [];
+              final loggedMeals = snapshot.data ?? [];
               double protein = 0, carbs = 0, fat = 0, fiber = 0;
 
-              for (final meal in meals) {
-                protein += meal.protein;
-                carbs += meal.carbs;
-                fat += meal.fat;
-                fiber += meal.fiber;
+              for (final loggedMeal in loggedMeals) {
+                protein += loggedMeal.meal.macros.protein;
+                carbs += loggedMeal.meal.macros.carbs;
+                fat += loggedMeal.meal.macros.fat;
+                fiber += loggedMeal.meal.macros.fiber;
               }
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

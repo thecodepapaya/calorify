@@ -1,6 +1,7 @@
 import 'package:models/models.dart';
 import 'package:calorify/core/db/app_database.dart';
 import 'package:drift/drift.dart';
+import 'package:utils/utils.dart';
 
 class UserProfileMapper {
   static UserProfile fromDrift(UserProfileTableData data) {
@@ -8,14 +9,8 @@ class UserProfileMapper {
       height: data.height,
       weight: data.weight,
       targetWeight: data.targetWeight,
-      gender:
-          data.gender == null
-              ? null
-              : genderFromLegacyName(data.gender),
-      dateOfBirth:
-          data.dateOfBirth == null
-              ? null
-              : iso8601StringToTimestamp(data.dateOfBirth!.toIso8601String()),
+      gender: data.gender == null ? null : genderFromLegacyName(data.gender),
+      dateOfBirth: data.dateOfBirth?.toIso8601String(),
       weightGoal:
           data.weightGoal == null
               ? null
@@ -32,13 +27,9 @@ class UserProfileMapper {
   static UserProfileTableCompanion toDrift(UserProfile profile) {
     return UserProfileTableCompanion(
       height:
-          profile.hasHeight()
-              ? Value(profile.height)
-              : const Value.absent(),
+          profile.hasHeight() ? Value(profile.height) : const Value.absent(),
       weight:
-          profile.hasWeight()
-              ? Value(profile.weight)
-              : const Value.absent(),
+          profile.hasWeight() ? Value(profile.weight) : const Value.absent(),
       targetWeight:
           profile.hasTargetWeight()
               ? Value(profile.targetWeight)
@@ -49,7 +40,9 @@ class UserProfileMapper {
               : const Value.absent(),
       dateOfBirth:
           profile.hasDateOfBirth()
-              ? Value(timestampToLocalDateTime(profile.dateOfBirth) ?? DateTime.now())
+              ? Value(
+                iso8601StringToDateTime(profile.dateOfBirth) ?? DateTime.now(),
+              )
               : const Value.absent(),
       weightGoal:
           profile.hasWeightGoal()

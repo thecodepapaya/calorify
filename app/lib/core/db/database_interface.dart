@@ -2,57 +2,82 @@ import 'package:models/models.dart';
 import 'package:flutter/material.dart' show ThemeMode;
 
 enum DataSourceType { real, mock }
+
 /// Interface for database operations that can be implemented by both real and mock databases
 abstract class DatabaseInterface {
   /// Get daily calorie goal
   Future<int?> getDailyCalorieGoal();
+
   /// Watch daily calorie goal
   Stream<int?> watchDailyCalorieGoal();
+
   /// Set daily calorie goal
   Future<void> setDailyCalorieGoal(int goal);
+
   /// Log a meal
-  Future<void> logMeal(MealInfo mealInfo);
+  Future<void> logMeal(Meal mealInfo);
+
   /// Upsert a meal
-  Future<void> upsertMeal(MealInfo mealInfo);
+  Future<void> upsertMeal(LoggedMeal mealInfo);
+
   /// Delete a meal
   Future<void> deleteMeal(int mealId);
+
   /// Get a meal by id (local database id)
-  Future<MealInfo?> getMealById(int mealId);
+  Future<LoggedMeal?> getMealById(int mealId);
+
   /// Check if a meal is favorite
   Future<bool> isFavoriteMeal(int mealId);
+
   /// Add a meal to favorites
-  Future<void> addToFavorites(MealInfo mealInfo);
+  Future<void> addToFavorites(LoggedMeal mealInfo);
+
   /// Remove a meal from favorites
   Future<void> removeFavoriteMeal(int mealId);
+
   /// Update last used time for a favorite meal
   Future<void> updateFavoriteLastUsedAt(int mealId);
+
   /// Watch all meals for today (stream) - only works with real database
-  Stream<List<MealInfo>> watchAllMealsForToday();
+  Stream<List<LoggedMeal>> watchAllMealsForToday();
+
   /// Watch all meals for last 7 days (stream) - only works with real database
-  Stream<List<MealInfo>> watchAllMealsForLast7Days();
+  Stream<List<LoggedMeal>> watchAllMealsForLast7Days();
+
   /// Watch all favorite meals (stream) - only works with real database
-  Stream<List<MealInfo>> watchAllFavoriteMeals();
+  Stream<List<FavoriteMeal>> watchAllFavoriteMeals();
+
   /// Watch last used favorite meals (stream) - only works with real database
-  Stream<List<MealInfo>> watchLastUsedFavoriteMeals();
+  Stream<List<FavoriteMeal>> watchLastUsedFavoriteMeals();
+
   /// Get paginated meal history
-  Future<List<MealInfo>> paginatedMealsHistory({required int offset});
+  Future<List<LoggedMeal>> paginatedMealsHistory({required int offset});
+
   /// Get the data source type
   DataSourceType get dataSourceType;
+
   /// User Profile Operations
   /// Save or update user profile (upsert)
   Future<void> saveUserProfile(UserProfile profile);
+
   /// Get user profile
   Future<UserProfile?> getUserProfile();
+
   /// Check if user profile is complete
   Future<bool> isProfileComplete();
+
   /// Get theme mode preference
   Future<ThemeMode> getThemeMode();
+
   /// Set theme mode preference
   Future<void> setThemeMode(ThemeMode mode);
+
   /// Get language code preference
   Future<String?> getLanguageCode();
+
   /// Set language code preference
   Future<void> setLanguageCode(String? code);
+
   /// Clear all data from the database
   Future<void> clearAllData();
 }

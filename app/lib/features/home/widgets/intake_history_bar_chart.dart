@@ -53,7 +53,9 @@ class IntakeHistoryBarChart extends StatelessWidget {
 class _MacroHistoryChart extends StatelessWidget {
   const _MacroHistoryChart();
 
-  Map<DateTime, Map<String, double>> _processMealsData(List<MealInfo> meals) {
+  Map<DateTime, Map<String, double>> _processMealsData(
+    Iterable<LoggedMeal> loggedMeals,
+  ) {
     final now = DateTime.now();
     final sevenDaysAgo = now.subtract(const Duration(days: 6));
     final startOfSevenDaysAgo = DateTime(
@@ -75,23 +77,29 @@ class _MacroHistoryChart extends StatelessWidget {
       };
     }
 
-    for (final meal in meals) {
+    for (final loggedMeal in loggedMeals) {
+      final mealDateTime = loggedMeal.dateTime;
       final mealDate = DateTime(
-        (meal.timestampDateTime ?? DateTime.now()).year,
-        (meal.timestampDateTime ?? DateTime.now()).month,
-        (meal.timestampDateTime ?? DateTime.now()).day,
+        mealDateTime.year,
+        mealDateTime.month,
+        mealDateTime.day,
       );
       if (processedData.containsKey(mealDate)) {
         processedData[mealDate]!['protein'] =
-            (processedData[mealDate]!['protein'] ?? 0.0) + meal.protein;
+            (processedData[mealDate]!['protein'] ?? 0.0) +
+            loggedMeal.meal.macros.protein;
         processedData[mealDate]!['carbs'] =
-            (processedData[mealDate]!['carbs'] ?? 0.0) + meal.carbs;
+            (processedData[mealDate]!['carbs'] ?? 0.0) +
+            loggedMeal.meal.macros.carbs;
         processedData[mealDate]!['fat'] =
-            (processedData[mealDate]!['fat'] ?? 0.0) + meal.fat;
+            (processedData[mealDate]!['fat'] ?? 0.0) +
+            loggedMeal.meal.macros.fat;
         processedData[mealDate]!['fiber'] =
-            (processedData[mealDate]!['fiber'] ?? 0.0) + meal.fiber;
+            (processedData[mealDate]!['fiber'] ?? 0.0) +
+            loggedMeal.meal.macros.fiber;
         processedData[mealDate]!['calories'] =
-            (processedData[mealDate]!['calories'] ?? 0.0) + meal.calories;
+            (processedData[mealDate]!['calories'] ?? 0.0) +
+            loggedMeal.meal.macros.calories;
       }
     }
     return processedData;
@@ -112,7 +120,7 @@ class _MacroHistoryChart extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
 
-    return StreamBuilder<List<MealInfo>>(
+    return StreamBuilder<List<LoggedMeal>>(
       stream: DatabaseService.databaseInterface.watchAllMealsForLast7Days(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {

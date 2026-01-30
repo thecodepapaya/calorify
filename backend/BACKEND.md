@@ -407,7 +407,7 @@ All data models are defined in Protobuf and generated for Python. This ensures t
 
 #### MealDetectionResult
 ```typescript
-import type { MealDetectionResult, MealInfo } from '../protos/calorify/models.js';
+import type { MealDetectionResult, Meal } from '../protos/calorify/models.js';
 import { MealType } from '../protos/calorify/models.js';
 
 const result: MealDetectionResult = {
@@ -423,12 +423,12 @@ const result: MealDetectionResult = {
 };
 ```
 
-#### MealInfo
+#### Meal
 ```typescript
-import type { MealInfo } from '../protos/calorify/models.js';
+import type { Meal } from '../protos/calorify/models.js';
 import { MealType } from '../protos/calorify/models.js';
 
-const mealInfo: MealInfo = {
+const mealInfo: Meal = {
   mealName: "Grilled Chicken",
   calories: 350,
   mealType: MealType.LUNCH,

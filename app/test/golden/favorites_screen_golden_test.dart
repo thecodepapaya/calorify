@@ -5,6 +5,7 @@ import 'package:calorify/features/favorites/favorites_screen.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:models/models.dart';
+import 'package:utils/utils.dart';
 import '../helpers/golden_test_helpers.dart';
 import '../setup/all_tests.dart';
 
@@ -25,25 +26,36 @@ void main() {
 
   group('FavoritesScreen Golden Tests', () {
     testGoldens('With favorites', (WidgetTester tester) async {
-      final mockMeals = [
-        MealInfo(
-          localId: int64FromInt(1),
-          mealName: 'Favorite Apple',
-          mealQuantity: '1',
-          mealType: MealType.SNACK,
-          calories: 95,
-          protein: 0,
-          carbs: 25,
-          fat: 0,
-          fiber: 4,
-          timestamp: dateTimeToTimestamp(DateTime.now()),
-          healthScore: HealthScore.HEALTHY,
+      final mockFavorites = [
+        FavoriteMeal(
+          clientId: 1,
+          loggedMeal: LoggedMeal(
+            clientId: 1,
+            meal: Meal(
+              name: 'Favorite Apple',
+              quantity: '1',
+              type: MealType.SNACK,
+              macros: MealMacro(
+                calories: 95,
+                protein: 0,
+                carbs: 25,
+                fat: 0,
+                fiber: 4,
+              ),
+              health: MealHealth(
+                healthScore: HealthScore.HEALTHY,
+              ),
+            ),
+            createdAt: dateTimeToIso8601String(DateTime.now()),
+          ),
+          favoriteAt: dateTimeToIso8601String(DateTime.now()),
+          lastUsedAt: dateTimeToIso8601String(DateTime.now()),
         ),
       ];
 
       when(
         () => mockDatabaseInterface.watchAllFavoriteMeals(),
-      ).thenAnswer((_) => Stream.value(mockMeals));
+      ).thenAnswer((_) => Stream.value(mockFavorites));
 
       for (final device in testDevices) {
         await tester.pumpWidgetBuilder(

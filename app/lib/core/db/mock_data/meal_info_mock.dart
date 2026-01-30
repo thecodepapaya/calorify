@@ -1,6 +1,7 @@
 import 'package:models/models.dart';
+import 'package:utils/utils.dart';
 
-/// Mock data generator for MealInfo with variety and realistic nutritional values
+/// Mock data generator for LoggedMeal with variety and realistic nutritional values
 class MealInfoMock {
   static final List<String> _breakfastItems = [
     'Oatmeal with Berries',
@@ -85,82 +86,106 @@ class MealInfoMock {
     'https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=400',
   ];
 
-  /// Generates a single mock MealInfo with realistic nutritional values
-  static List<MealInfo> generateListByType(MealType mealType) {
+  /// Generates a single mock LoggedMeal with realistic nutritional values
+  static List<LoggedMeal> generateListByType(
+    MealType mealType, {
+    int startClientId = 1,
+  }) {
     // Generate realistic nutritional values based on meal type
 
-    final meals = <MealInfo>[];
+    final meals = <LoggedMeal>[];
+    int clientId = startClientId;
     for (int i = 0; i < 10; i++) {
       final type = mealType;
       final name = _getRandomMealName(type);
       final qty = _getRandomQuantity();
-      final time = _getRandomTimestamp();
       final imgUrl = _getRandomImageUrl();
 
       final nutrition = _generateNutritionForType(type);
       final healthData = _generateHealthScoreForMeal(name);
 
-      final meal = MealInfo(
-        mealName: name,
-        mealQuantity: qty,
-        mealType: type,
-        calories: nutrition['calories']!,
-        protein: nutrition['protein']!,
-        carbs: nutrition['carbs']!,
-        fat: nutrition['fat']!,
-        fiber: nutrition['fiber']!,
-        timestamp: dateTimeToTimestamp(time),
-        imageUrl: imgUrl,
-        healthScore: healthData['score'] as HealthScore,
-        healthScoreReason: healthData['reason'] as String,
+      final meal = Meal(
+        name: name,
+        quantity: qty,
+        type: type,
+        macros: MealMacro(
+          calories: nutrition['calories']!,
+          protein: nutrition['protein']!,
+          carbs: nutrition['carbs']!,
+          fat: nutrition['fat']!,
+          fiber: nutrition['fiber']!,
+        ),
+        health: MealHealth(
+          healthScore: healthData['score'] as HealthScore,
+          healthScoreReason: healthData['reason'] as String,
+        ),
       );
-      meals.add(meal);
+
+      final loggedMeal = LoggedMeal(
+        clientId: clientId++,
+        meal: meal,
+        createdAt: dateTimeToIso8601String(DateTime.now()),
+        metadata: imgUrl.isNotEmpty ? MealMetadata(imageUrl: imgUrl) : null,
+      );
+      meals.add(loggedMeal);
     }
 
     return meals;
   }
 
-  /// Generates a single mock MealInfo with realistic nutritional values
-  static MealInfo generateSingle({
+  /// Generates a single mock LoggedMeal with realistic nutritional values
+  static LoggedMeal generateSingle({
     MealType? mealType,
     DateTime? timestamp,
     String? mealName,
     String? quantity,
     String? imageUrl,
+    int? clientId,
   }) {
     final type = mealType ?? _getRandomMealType();
     final name = mealName ?? _getRandomMealName(type);
     final qty = quantity ?? _getRandomQuantity();
-    final time = timestamp ?? _getRandomTimestamp();
     final imgUrl = imageUrl ?? _getRandomImageUrl();
+    final mealTimestamp = timestamp ?? DateTime.now();
 
     // Generate realistic nutritional values based on meal type
     final nutrition = _generateNutritionForType(type);
     final healthData = _generateHealthScoreForMeal(name);
 
-    return MealInfo(
-      mealName: name,
-      mealQuantity: qty,
-      mealType: type,
-      calories: nutrition['calories']!,
-      protein: nutrition['protein']!,
-      carbs: nutrition['carbs']!,
-      fat: nutrition['fat']!,
-      fiber: nutrition['fiber']!,
-      timestamp: dateTimeToTimestamp(time),
-      imageUrl: imgUrl,
-      healthScore: healthData['score'] as HealthScore,
-      healthScoreReason: healthData['reason'] as String,
+    final meal = Meal(
+      name: name,
+      quantity: qty,
+      type: type,
+      macros: MealMacro(
+        calories: nutrition['calories']!,
+        protein: nutrition['protein']!,
+        carbs: nutrition['carbs']!,
+        fat: nutrition['fat']!,
+        fiber: nutrition['fiber']!,
+      ),
+      health: MealHealth(
+        healthScore: healthData['score'] as HealthScore,
+        healthScoreReason: healthData['reason'] as String,
+      ),
+    );
+
+    return LoggedMeal(
+      clientId: clientId ?? 0,
+      meal: meal,
+      createdAt: dateTimeToIso8601String(mealTimestamp),
+      metadata: imgUrl.isNotEmpty ? MealMetadata(imageUrl: imgUrl) : null,
     );
   }
 
-  /// Generates multiple mock MealInfo entries for a day
-  static List<MealInfo> generateDay({
+  /// Generates multiple mock LoggedMeal entries for a day
+  static List<LoggedMeal> generateDay({
     DateTime? date,
     bool includeAllMealTypes = true,
+    int startClientId = 1,
   }) {
     final targetDate = date ?? DateTime.now();
-    final meals = <MealInfo>[];
+    final meals = <LoggedMeal>[];
+    int clientId = startClientId;
 
     if (includeAllMealTypes) {
       // Breakfast
@@ -174,6 +199,7 @@ class MealInfoMock {
             8,
             0,
           ),
+          clientId: clientId++,
         ),
       );
 
@@ -188,6 +214,7 @@ class MealInfoMock {
             13,
             0,
           ),
+          clientId: clientId++,
         ),
       );
 
@@ -202,6 +229,7 @@ class MealInfoMock {
             19,
             0,
           ),
+          clientId: clientId++,
         ),
       );
 
@@ -218,6 +246,7 @@ class MealInfoMock {
               10 + (i * 3),
               30,
             ),
+            clientId: clientId++,
           ),
         );
       }
@@ -227,43 +256,57 @@ class MealInfoMock {
   }
 
   /// Generates mock data for a week
-  static List<MealInfo> generateWeek({DateTime? startDate}) {
+  static List<LoggedMeal> generateWeek({
+    DateTime? startDate,
+    int startClientId = 1,
+  }) {
     final start = startDate ?? DateTime.now().subtract(const Duration(days: 6));
-    final meals = <MealInfo>[];
+    final meals = <LoggedMeal>[];
+    int clientId = startClientId;
 
     for (int i = 0; i < 7; i++) {
       final date = start.add(Duration(days: i));
-      meals.addAll(generateDay(date: date));
+      final dayMeals = generateDay(date: date, startClientId: clientId);
+      meals.addAll(dayMeals);
+      clientId += dayMeals.length;
     }
 
     return meals;
   }
 
   /// Generates mock data for a month
-  static List<MealInfo> generateMonth({DateTime? startDate}) {
+  static List<LoggedMeal> generateMonth({
+    DateTime? startDate,
+    int startClientId = 1,
+  }) {
     final start =
         startDate ?? DateTime.now().subtract(const Duration(days: 29));
-    final meals = <MealInfo>[];
+    final meals = <LoggedMeal>[];
+    int clientId = startClientId;
 
     for (int i = 0; i < 30; i++) {
       final date = start.add(Duration(days: i));
-      meals.addAll(generateDay(date: date));
+      final dayMeals = generateDay(date: date, startClientId: clientId);
+      meals.addAll(dayMeals);
+      clientId += dayMeals.length;
     }
 
     return meals;
   }
 
   /// Generates a variety of meals for testing different scenarios
-  static List<MealInfo> generateVariety({
+  static List<LoggedMeal> generateVariety({
     int count = 20,
     List<MealType>? mealTypes,
+    int startClientId = 1,
   }) {
     final types = mealTypes ?? mealTypeValues;
-    final meals = <MealInfo>[];
+    final meals = <LoggedMeal>[];
+    int clientId = startClientId;
 
     for (int i = 0; i < count; i++) {
       final type = types[i % types.length];
-      meals.add(generateSingle(mealType: type));
+      meals.add(generateSingle(mealType: type, clientId: clientId++));
     }
 
     return meals;
@@ -299,22 +342,6 @@ class MealInfoMock {
   static String _getRandomQuantity() {
     return _quantities[DateTime.now().millisecondsSinceEpoch %
         _quantities.length];
-  }
-
-  static DateTime _getRandomTimestamp() {
-    final now = DateTime.now();
-    final randomDays = DateTime.now().millisecondsSinceEpoch % 30;
-    final randomHours = DateTime.now().millisecondsSinceEpoch % 24;
-    final randomMinutes = DateTime.now().millisecondsSinceEpoch % 60;
-
-    return now
-        .subtract(Duration(days: randomDays))
-        .copyWith(
-          hour: randomHours,
-          minute: randomMinutes,
-          second: 0,
-          millisecond: 0,
-        );
   }
 
   static String _getRandomImageUrl() {
@@ -360,13 +387,7 @@ class MealInfoMock {
         'fat': 15,
         'fiber': 6,
       },
-      _ => {
-        'calories': 400,
-        'protein': 20,
-        'carbs': 45,
-        'fat': 15,
-        'fiber': 6,
-      },
+      _ => {'calories': 400, 'protein': 20, 'carbs': 45, 'fat': 15, 'fiber': 6},
     };
 
     // Add some randomness to make data more realistic

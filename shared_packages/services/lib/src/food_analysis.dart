@@ -37,6 +37,7 @@ class RealGenerativeModelWrapper implements GenerativeModelWrapper {
   }
 }
 
+@Deprecated('Use API instead')
 class FoodAnalysisService {
   FoodAnalysisService._({GenerativeModelWrapper? model}) : _model = model {
     if (model != null) _isInitialized = true;
@@ -251,12 +252,11 @@ Always respond in locale: $localeCode.
 }
 
 MealDetectionResult _dateSanitizedResult(MealDetectionResult result) {
-  final mealInfo = result.mealInfo.deepCopy();
-  mealInfo.timestamp = dateTimeToTimestamp(DateTime.now());
+  final meal = result.meal.deepCopy();
   return MealDetectionResult(
     mealIdentified: result.mealIdentified,
     calorieConfidence: result.calorieConfidence,
     tip: result.tip,
-    mealInfo: mealInfo,
+    meal: meal,
   );
 }

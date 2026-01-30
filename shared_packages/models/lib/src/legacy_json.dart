@@ -1,9 +1,7 @@
-import 'package:fixnum/fixnum.dart' as $fixnum;
-import 'package:models/src/proto/calorify/models.pb.dart';
-import 'package:models/src/proto_extensions.dart';
-import 'package:models/src/timestamp_utils.dart';
+import 'package:models/models.dart';
+import 'package:utils/utils.dart';
 
-MealInfo mealInfoFromLegacyJson(Map<String, dynamic> json) {
+LoggedMeal mealInfoFromLegacyJson(Map<String, dynamic> json) {
   final normalized = Map<String, dynamic>.from(json);
 
   if (normalized['health_score'] is Map<String, dynamic>) {
@@ -23,52 +21,56 @@ MealInfo mealInfoFromLegacyJson(Map<String, dynamic> json) {
     timestamp = DateTime.fromMillisecondsSinceEpoch(timestampValue);
   }
 
-  final localId = normalized['id'] ?? normalized['local_id'];
   final calories = normalized['calories'];
 
-  return MealInfo(
-    clientId: normalized['client_id'] as String?,
-    localId: localId is int ? $fixnum.Int64(localId) : null,
-    mealName: normalized['meal_name'] as String? ?? '',
-    mealQuantity: normalized['meal_quantity'] as String? ?? '',
-    mealType: mealTypeFromLegacyName(normalized['meal_type'] as String?),
-    calories: calories is int ? calories : (calories as num?)?.round() ?? 0,
-    protein: (normalized['protein'] as num?)?.round() ?? 0,
-    carbs: (normalized['carbs'] as num?)?.round() ?? 0,
-    fat: (normalized['fat'] as num?)?.round() ?? 0,
-    fiber: (normalized['fiber'] as num?)?.round() ?? 0,
-    timestamp: timestamp != null
-        ? dateTimeToTimestamp(timestamp)
-        : dateTimeToTimestamp(DateTime.now()),
-    imageUrl: normalized['image_url'] as String?,
-    healthScore: healthScoreFromLegacyName(
-      normalized['health_score'] as String?,
+  return LoggedMeal(
+    clientId: normalized['client_id'] as int? ?? 0,
+    meal: Meal(
+      name: normalized['meal_name'] as String? ?? '',
+      quantity: normalized['meal_quantity'] as String? ?? '',
+      type: mealTypeFromLegacyName(normalized['meal_type'] as String?),
+      macros: MealMacro(
+        calories: calories is int ? calories : (calories as num?)?.round() ?? 0,
+        protein: (normalized['protein'] as num?)?.round() ?? 0,
+        carbs: (normalized['carbs'] as num?)?.round() ?? 0,
+        fat: (normalized['fat'] as num?)?.round() ?? 0,
+        fiber: (normalized['fiber'] as num?)?.round() ?? 0,
+      ),
+      health: MealHealth(
+        healthScore: healthScoreFromLegacyName(
+          normalized['health_score'] as String?,
+        ),
+        healthScoreReason: normalized['health_score_reason'] as String?,
+      ),
     ),
-    healthScoreReason: normalized['health_score_reason'] as String?,
+    createdAt: timestamp != null ? dateTimeToIso8601String(timestamp) : null,
+    metadata:
+        normalized['image_url'] != null
+            ? MealMetadata(imageUrl: normalized['image_url'] as String)
+            : null,
   );
 }
 
-Map<String, dynamic> mealInfoToLegacyJson(MealInfo meal) {
+Map<String, dynamic> mealInfoToLegacyJson(LoggedMeal loggedMeal) {
   final json = <String, dynamic>{
-    'meal_name': meal.mealName,
-    'meal_quantity': meal.mealQuantity,
-    'meal_type': meal.mealType.legacyName,
-    'calories': meal.calories,
-    'protein': meal.protein,
-    'carbs': meal.carbs,
-    'fat': meal.fat,
-    'fiber': meal.fiber,
-    'timestamp': timestampToIso8601String(meal.timestamp) ?? '',
+    'meal_name': loggedMeal.meal.name,
+    'meal_quantity': loggedMeal.meal.quantity,
+    'meal_type': loggedMeal.meal.type.legacyName,
+    'calories': loggedMeal.meal.macros.calories,
+    'protein': loggedMeal.meal.macros.protein,
+    'carbs': loggedMeal.meal.macros.carbs,
+    'fat': loggedMeal.meal.macros.fat,
+    'fiber': loggedMeal.meal.macros.fiber,
   };
 
-  if (meal.hasLocalId()) json['id'] = meal.localId.toInt();
-  if (meal.hasClientId()) json['client_id'] = meal.clientId;
-  if (meal.hasImageUrl()) json['image_url'] = meal.imageUrl;
-  if (meal.hasHealthScore()) {
-    json['health_score'] = meal.healthScore.legacyName;
+  if (loggedMeal.hasMetadata() && loggedMeal.metadata.hasImageUrl()) {
+    json['image_url'] = loggedMeal.metadata.imageUrl;
   }
-  if (meal.hasHealthScoreReason()) {
-    json['health_score_reason'] = meal.healthScoreReason;
+  if (loggedMeal.meal.hasHealth()) {
+    json['health_score'] = loggedMeal.meal.health.healthScore.legacyName;
+  }
+  if (loggedMeal.meal.health.hasHealthScoreReason()) {
+    json['health_score_reason'] = loggedMeal.meal.health.healthScoreReason;
   }
   return json;
 }
@@ -78,11 +80,14 @@ MealDetectionResult mealDetectionResultFromLegacyJson(
 ) {
   return MealDetectionResult(
     mealIdentified: json['meal_identified'] as bool? ?? false,
-    calorieConfidence: json['calorie_confidence'] as int? ?? 0,
+    calorieConfidence:
+        json['calorie_confidence'] as CalorieConfidence? ??
+        CalorieConfidence.UNSPECIFIED,
     tip: json['tip'] as String? ?? '',
-    mealInfo: mealInfoFromLegacyJson(
-      json['meal_info'] as Map<String, dynamic>? ?? const {},
-    ),
+    meal:
+        mealInfoFromLegacyJson(
+          json['meal_info'] as Map<String, dynamic>? ?? const {},
+        ).meal,
   );
 }
 
@@ -93,7 +98,7 @@ Map<String, dynamic> mealDetectionResultToLegacyJson(
     'meal_identified': result.mealIdentified,
     'calorie_confidence': result.calorieConfidence,
     'tip': result.tip,
-    'meal_info': mealInfoToLegacyJson(result.mealInfo),
+    'meal_info': mealInfoToLegacyJson(LoggedMeal(meal: result.meal)),
   };
 }
 
@@ -113,11 +118,11 @@ UserProfile userProfileFromLegacyJson(Map<String, dynamic> json) {
     weight: (json['weight'] as num?)?.toDouble(),
     targetWeight: (json['targetWeight'] as num?)?.toDouble(),
     gender: genderFromLegacyName(json['gender'] as String?),
-    dateOfBirth:
-        dob != null ? dateTimeToTimestamp(dob) : null,
+    dateOfBirth: dob != null ? dateTimeToIso8601String(dob) : null,
     weightGoal: weightGoalFromLegacyName(json['weightGoal'] as String?),
-    activityLevel:
-        activityLevelFromLegacyName(json['activityLevel'] as String?),
+    activityLevel: activityLevelFromLegacyName(
+      json['activityLevel'] as String?,
+    ),
     heightUnit: unitSystemFromLegacyName(json['heightUnit'] as String?),
     weightUnit: unitSystemFromLegacyName(json['weightUnit'] as String?),
     dailyCalorieGoal: json['dailyCalorieGoal'] as int?,
@@ -131,7 +136,7 @@ Map<String, dynamic> userProfileToLegacyJson(UserProfile profile) {
   if (profile.hasTargetWeight()) json['targetWeight'] = profile.targetWeight;
   if (profile.hasGender()) json['gender'] = profile.gender.legacyName;
   if (profile.hasDateOfBirth()) {
-    json['dateOfBirth'] = timestampToIso8601String(profile.dateOfBirth) ?? '';
+    json['dateOfBirth'] = profile.dateOfBirth;
   }
   if (profile.hasWeightGoal()) {
     json['weightGoal'] = profile.weightGoal.legacyName;

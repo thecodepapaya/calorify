@@ -26,7 +26,7 @@ This is the companion smartwatch app for Calorify. It shares the same package na
 The watch app and main app share code through these packages in `shared_packages/`:
 
 - **specs**: Design specifications (colors, styles, themes)
-- **models**: Data models (MealInfo, UserProfile, etc.)
+- **models**: Data models (Meal, UserProfile, etc.)
 - **utils**: Utility functions
 - **i18n**: Internationalization strings
 - **services**: Shared services (FoodAnalysisService)
@@ -120,7 +120,7 @@ Example handler in main app:
 wearPlus.listen((message) {
   if (message['path'] == '/meal') {
     // Log meal from watch
-    final meal = MealInfo.fromJson(message['data']);
+    final meal = Meal.fromJson(message['data']);
     await DatabaseService.databaseInterface.logMeal(meal);
   }
 });

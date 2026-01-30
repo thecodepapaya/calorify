@@ -6,7 +6,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'dart:math' as math;
 
 class CalorieTrendChart extends StatefulWidget {
-  final List<MealInfo> meals;
+  final List<LoggedMeal> meals;
 
   const CalorieTrendChart({super.key, required this.meals});
 
@@ -21,13 +21,11 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
 
   Map<String, int> get _hourlyCalories {
     final Map<String, int> hourly = {};
-    for (final meal in widget.meals) {
-      final dateTime = meal.timestampDateTime;
-      if (dateTime != null) {
-        final hour = dateTime.hour;
-        final key = hour.toString().padLeft(2, '0');
-        hourly[key] = (hourly[key] ?? 0) + meal.calories;
-      }
+    for (final loggedMeal in widget.meals) {
+      final dateTime = loggedMeal.dateTime;
+      final hour = dateTime.hour;
+      final key = hour.toString().padLeft(2, '0');
+      hourly[key] = (hourly[key] ?? 0) + loggedMeal.meal.macros.calories;
     }
     return hourly;
   }

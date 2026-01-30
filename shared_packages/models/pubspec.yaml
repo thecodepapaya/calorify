@@ -9,6 +9,9 @@ environment:
 dependencies:
   protobuf: ^5.1.0
   health: ^13.2.0
+  utils:
+    path: ../utils
+  fixnum: ^1.1.1
 
 dev_dependencies:
   flutter_test:

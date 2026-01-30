@@ -34,16 +34,15 @@ void main() {
     registerFallbackValue(AnalyticsEvent.homeView);
     registerFallbackValue(MealType.SNACK);
     registerFallbackValue(
-      MealInfo(
-        mealName: '',
-        mealQuantity: '',
-        mealType: MealType.UNKNOWN,
-        calories: 0,
-        protein: 0,
-        carbs: 0,
-        fat: 0,
-        fiber: 0,
-        timestamp: dateTimeToTimestamp(DateTime(2023)),
+      Meal(
+        name: '',
+        quantity: '',
+        type: MealType.UNKNOWN,
+        macros: MealMacro(calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0),
+        health: MealHealth(
+          healthScore: HealthScore.UNHEALTHY,
+          healthScoreReason: '',
+        ),
       ),
     );
   });
@@ -122,19 +121,23 @@ void main() {
 
     final mockResult = MealDetectionResult(
       mealIdentified: true,
-      calorieConfidence: 9,
+      calorieConfidence: CalorieConfidence.MEDIUM,
       tip: 'Chicken salad is healthy!',
-      mealInfo: MealInfo(
-        mealName: 'Chicken Salad',
-        mealQuantity: '1 bowl',
-        mealType: MealType.LUNCH,
-        calories: 350,
-        protein: 30,
-        carbs: 10,
-        fat: 15,
-        fiber: 5,
-        timestamp: dateTimeToTimestamp(DateTime.now()),
-        healthScore: HealthScore.HEALTHY,
+      meal: Meal(
+        name: 'Chicken Salad',
+        quantity: '1 bowl',
+        type: MealType.LUNCH,
+        macros: MealMacro(
+          calories: 350,
+          protein: 30,
+          carbs: 10,
+          fat: 15,
+          fiber: 5,
+        ),
+        health: MealHealth(
+          healthScore: HealthScore.HEALTHY,
+          healthScoreReason: 'Chicken salad is healthy!',
+        ),
       ),
     );
 

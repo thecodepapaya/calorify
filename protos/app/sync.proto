@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package app;
+
+import "protos/user/user.proto";
+import "protos/calorify/common.proto";
+import "protos/app/meal.proto";
+
+enum SyncOpType {
+  SYNC_OP_TYPE_UNSPECIFIED = 0;
+  SYNC_OP_TYPE_UPSERT_MEAL = 1;
+  SYNC_OP_TYPE_DELETE_MEAL = 2;
+  SYNC_OP_TYPE_UPSERT_PROFILE = 3;
+  SYNC_OP_TYPE_FCM_TOKEN = 4;
+}
+
+message DeleteMeal {
+  string client_id = 1;
+  int64 local_id = 2;
+}
+
+message SyncOp {
+  string  idempotency_key = 1;
+  SyncOpType op_type = 2;
+  string created_at = 3;
+
+  oneof payload {
+    app.LoggedMeal meal = 4;
+    DeleteMeal  delete_meal = 5;
+    user.UserProfile profile = 6;
+    calorify.FcmToken fcm_token = 7;
+  }
+}
+
+message SyncBatch {
+  repeated SyncOp ops = 1;
+}
+
+message SyncResult {
+  string idempotency_key = 1;
+  bool success= 2;
+  string error  = 3;
+  string remote_id = 4;
+}
+
+message SyncAck {
+  repeated SyncResult results = 1;
+}

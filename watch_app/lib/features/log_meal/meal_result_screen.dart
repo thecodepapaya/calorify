@@ -21,7 +21,7 @@ class MealResultScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                result.mealInfo.mealName,
+                result.meal.name,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -33,7 +33,7 @@ class MealResultScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                result.mealInfo.mealQuantity,
+                result.meal.quantity,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color: colorScheme.onSurfaceVariant,
@@ -44,7 +44,7 @@ class MealResultScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                '${result.mealInfo.calories} kcal',
+                '${result.meal.macros.calories} kcal',
                 style: theme.textTheme.headlineSmall?.copyWith(
                   fontSize: 24,
                   fontWeight: FontWeight.w600,

@@ -42,7 +42,7 @@ class IntakeProgress extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 24),
-          StreamBuilder<List<MealInfo>>(
+          StreamBuilder<List<LoggedMeal>>(
             stream: DatabaseService.databaseInterface.watchAllMealsForToday(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -82,17 +82,28 @@ class IntakeProgress extends StatelessWidget {
                           title: t.home.intakeProgress.current,
                           protein:
                               meals
-                                  .fold(0, (sum, m) => sum + m.protein)
+                                  .fold(
+                                    0,
+                                    (sum, m) => sum + m.meal.macros.protein,
+                                  )
                                   .toDouble(),
                           carbs:
                               meals
-                                  .fold(0, (sum, m) => sum + m.carbs)
+                                  .fold(
+                                    0,
+                                    (sum, m) => sum + m.meal.macros.carbs,
+                                  )
                                   .toDouble(),
                           fat:
-                              meals.fold(0, (sum, m) => sum + m.fat).toDouble(),
+                              meals
+                                  .fold(0, (sum, m) => sum + m.meal.macros.fat)
+                                  .toDouble(),
                           fiber:
                               meals
-                                  .fold(0, (sum, m) => sum + m.fiber)
+                                  .fold(
+                                    0,
+                                    (sum, m) => sum + m.meal.macros.fiber,
+                                  )
                                   .toDouble(),
                           isEmpty: meals.isEmpty,
                         ),

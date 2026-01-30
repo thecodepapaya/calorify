@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class MealTypeIndicator extends StatelessWidget {
-  const MealTypeIndicator({super.key, required this.mealType});
+  const MealTypeIndicator({super.key, required this.type});
 
-  final MealType mealType;
+  final MealType type;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class MealTypeIndicator extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
 
-    final icon = switch (mealType) {
+    final icon = switch (type) {
       MealType.BREAKFAST => LucideIcons.eggFried,
       MealType.LUNCH => LucideIcons.sandwich,
       MealType.DINNER => LucideIcons.soup,
@@ -33,7 +33,7 @@ class MealTypeIndicator extends StatelessWidget {
         ),
         SizedBox(width: 4),
         Text(
-          mealType.displayName,
+          type.displayName,
           style: textTheme.labelSmall?.copyWith(
             color: colorScheme.onSecondary.withValues(alpha: 0.7),
           ),

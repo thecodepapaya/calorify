@@ -14,7 +14,7 @@ Shared design specifications (combines colors and styles).
 
 ### models
 Shared data models.
-- MealInfo, MealType, HealthScore
+- Meal, MealType, HealthScore
 - UserProfile, Gender, WeightGoal, ActivityLevel
 - MealDetectionResult
 - ScaleConstants
