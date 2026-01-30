@@ -148,6 +148,7 @@ prepare_output_directories() {
 build_include_flags() {
   local include_flags=()
   local include_dirs=(
+    "${ROOT_DIR}"
     "${PROTO_DIR}"
     "/usr/local/include"
     "/opt/homebrew/include"
