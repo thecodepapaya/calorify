@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/history/widgets/icon_nutrition.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
-import 'package:i18n/i18n.dart';
-import 'package:widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:models/models.dart';
+import 'package:widgets/widgets.dart';
 
 @RoutePage()
 class MealHistoryScreen extends StatefulWidget {
@@ -22,7 +22,7 @@ class MealHistoryScreen extends StatefulWidget {
 }
 
 class _MealHistoryScreenState extends State<MealHistoryScreen> {
-  List<MealInfo> meals = [];
+  List<LoggedMeal> meals = [];
   int currentPage = 0;
   bool isLoading = false;
   bool allMealsLoaded = false;
@@ -106,10 +106,9 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
                       totalCalories: dayData.totalCalories,
                     ),
                     ...dayData.mealsInDay.map(
-                      (meal) => MealLogCard(
-                        mealInfo: meal,
+                      (loggedMeal) => MealLogCard(
+                        loggedMeal: loggedMeal,
                         showTimestamp: false,
-                        allowEdit: true,
                       ),
                     ),
                     if (index == groupedMeals.length - 1)
@@ -159,20 +158,18 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
     );
   }
 
-  List<_DayMeals> _groupMealsByDay(List<MealInfo> allMeals) {
+  List<_DayMeals> _groupMealsByDay(List<LoggedMeal> allMeals) {
     if (allMeals.isEmpty) return [];
 
     List<_DayMeals> groupedDayMeals = [];
     DateTime? currentDay;
-    List<MealInfo> mealsForCurrentDay = [];
+    List<LoggedMeal> mealsForCurrentDay = [];
     int caloriesForCurrentDay = 0;
 
-    for (final meal in allMeals) {
-      final mealDate = DateTime(
-        (meal.timestampDateTime ?? DateTime.now()).year,
-        (meal.timestampDateTime ?? DateTime.now()).month,
-        (meal.timestampDateTime ?? DateTime.now()).day,
-      );
+    for (final loggedMeal in allMeals) {
+      final dateTime = loggedMeal.dateTime;
+
+      final mealDate = DateTime(dateTime.year, dateTime.month, dateTime.day);
 
       if (currentDay == null) {
         currentDay = mealDate;
@@ -189,8 +186,8 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
         currentDay = mealDate;
       }
 
-      mealsForCurrentDay.add(meal);
-      caloriesForCurrentDay += meal.calories;
+      mealsForCurrentDay.add(loggedMeal);
+      caloriesForCurrentDay += loggedMeal.meal.macros.calories;
     }
 
     if (currentDay != null && mealsForCurrentDay.isNotEmpty) {
@@ -209,7 +206,7 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
 
 class _DayMeals {
   final DateTime date;
-  final List<MealInfo> mealsInDay;
+  final List<LoggedMeal> mealsInDay;
   final int totalCalories;
 
   _DayMeals({

@@ -1,7 +1,5 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/db/mappers/meal_detection_result_mapper.dart';
-import 'package:models/models.dart';
 import 'package:calorify/features/history/widgets/icon_nutrition.dart';
 import 'package:calorify/features/history/widgets/meal_quantity.dart';
 import 'package:calorify/features/history/widgets/meal_timestamp.dart';
@@ -11,18 +9,17 @@ import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart'
 import 'package:calorify/shared_widgets/health_score_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:models/models.dart';
 
 class MealLogCard extends StatelessWidget {
   const MealLogCard({
     super.key,
-    required this.mealInfo,
+    required this.loggedMeal,
     this.showTimestamp = true,
-    required this.allowEdit,
   });
 
-  final MealInfo mealInfo;
+  final LoggedMeal loggedMeal;
   final bool showTimestamp;
-  final bool allowEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +32,7 @@ class MealLogCard extends StatelessWidget {
       child: InkWell(
         borderRadius: globalRadius,
         onTap: () {
-          showMealTip(
-            context: context,
-            mealDetectionResult: mealInfo.toMealDetectionResult(),
-            allowEdit: allowEdit,
-          );
+          showMealTip(context: context, loggedMeal: loggedMeal);
         },
         child: Container(
           padding: EdgeInsets.all(12),
@@ -55,7 +48,7 @@ class MealLogCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      mealInfo.mealName,
+                      loggedMeal.meal.name,
                       style: textTheme.titleMedium,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -72,17 +65,17 @@ class MealLogCard extends StatelessWidget {
                         color: colorScheme.onSecondary.withValues(alpha: 0.7),
                       ),
                     ),
-                    child: MealTypeIndicator(mealType: mealInfo.mealType),
+                    child: MealTypeIndicator(type: loggedMeal.meal.type),
                   ),
-                  if (mealInfo.hasHealthScore()) ...[
+                  if (loggedMeal.meal.hasHealth()) ...[
                     const SizedBox(width: 8),
                     HealthScoreIndicator(
-                      healthScore: mealInfo.healthScore,
+                      healthScore: loggedMeal.meal.health.healthScore,
                       onTap: () {
                         showHealthScoreReason(
                           context: context,
-                          healthScore: mealInfo.healthScore,
-                          reason: mealInfo.healthScoreReason,
+                          healthScore: loggedMeal.meal.health.healthScore,
+                          reason: loggedMeal.meal.health.healthScoreReason,
                         );
                       },
                     ),
@@ -92,11 +85,9 @@ class MealLogCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  MealQuantityIndicator(quantity: mealInfo.mealQuantity),
+                  MealQuantityIndicator(quantity: loggedMeal.meal.quantity),
                   if (showTimestamp)
-                    MealTimestamp(
-                      timestamp: mealInfo.timestampDateTime ?? DateTime.now(),
-                    ),
+                    MealTimestamp(timestamp: loggedMeal.dateTime),
                 ],
               ),
               SizedBox(height: 12),
@@ -104,31 +95,31 @@ class MealLogCard extends StatelessWidget {
                 children: [
                   NutrientIconWithValue(
                     icon: LucideIcons.flame,
-                    value: mealInfo.calories.toDouble(),
+                    value: loggedMeal.meal.macros.calories.toDouble(),
                     unit: '',
                     iconColor: colorScheme.calorieIconColor,
                   ),
                   NutrientIconWithValue(
                     icon: LucideIcons.wheat,
-                    value: mealInfo.carbs.toDouble(),
+                    value: loggedMeal.meal.macros.carbs.toDouble(),
                     unit: 'g',
                     iconColor: carbsIconColor,
                   ),
                   NutrientIconWithValue(
                     icon: LucideIcons.drumstick,
-                    value: mealInfo.protein.toDouble(),
+                    value: loggedMeal.meal.macros.protein.toDouble(),
                     unit: 'g',
                     iconColor: proteinIconColor,
                   ),
                   NutrientIconWithValue(
                     icon: LucideIcons.egg,
-                    value: mealInfo.fat.toDouble(),
+                    value: loggedMeal.meal.macros.fat.toDouble(),
                     unit: 'g',
                     iconColor: fatIconColor,
                   ),
                   NutrientIconWithValue(
                     icon: LucideIcons.leaf,
-                    value: mealInfo.fiber.toDouble(),
+                    value: loggedMeal.meal.macros.fiber.toDouble(),
                     unit: 'g',
                     iconColor: fiberIconColor,
                   ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/router/app_router.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
@@ -24,7 +26,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen>
     with TickerProviderStateMixin {
-  List<MealInfo> _todaysMeals = [];
+  List<LoggedMeal> _todaysMeals = [];
   int? _calorieGoal;
   int _totalCalories = 0;
   bool _isLoading = true;
@@ -62,17 +64,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       setState(() {
         _todaysMeals = meals;
         _calorieGoal = goal;
-        _totalCalories = meals.fold(0, (sum, meal) => sum + meal.calories);
+        _totalCalories = meals.fold(
+          0,
+          (sum, meal) => sum + meal.meal.macros.calories,
+        );
         _isLoading = false;
         _errorMessage = null;
       });
-      HapticFeedback.lightImpact();
+      unawaited(HapticFeedback.lightImpact());
     } catch (e) {
       setState(() {
         _isLoading = false;
         _errorMessage = 'Failed to load data. Please try again.';
       });
-      HapticFeedback.mediumImpact();
+      unawaited(HapticFeedback.mediumImpact());
     }
   }
 

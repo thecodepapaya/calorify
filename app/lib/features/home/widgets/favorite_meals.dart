@@ -1,17 +1,16 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/db/mappers/meal_detection_result_mapper.dart';
-import 'package:models/models.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
-import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
-import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:models/models.dart';
 
 class FavoriteMeals extends StatefulWidget {
   const FavoriteMeals({super.key});
@@ -58,7 +57,7 @@ class _FavoriteMealsState extends State<FavoriteMeals> {
             ),
           ),
           SizedBox(height: 20),
-          StreamBuilder<List<MealInfo>>(
+          StreamBuilder<List<FavoriteMeal>>(
             stream:
                 DatabaseService.databaseInterface.watchLastUsedFavoriteMeals(),
             builder: (context, snapshot) {
@@ -80,7 +79,7 @@ class _FavoriteMealsState extends State<FavoriteMeals> {
                         (context, index) => const SizedBox(height: 10),
                     itemBuilder: (context, index) {
                       final meal = favoriteMeals[index];
-                      return _MealTile(meal: meal);
+                      return _MealTile(favoriteMeal: meal);
                     },
                   ),
                   if (favoriteMeals.length > 3) ...[
@@ -149,9 +148,9 @@ class _NoFavorites extends StatelessWidget {
 }
 
 class _MealTile extends StatelessWidget {
-  const _MealTile({required this.meal});
+  const _MealTile({required this.favoriteMeal});
 
-  final MealInfo meal;
+  final FavoriteMeal favoriteMeal;
 
   @override
   Widget build(BuildContext context) {
@@ -159,12 +158,13 @@ class _MealTile extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
 
+    final meal = favoriteMeal.loggedMeal.meal;
+
     return InkWell(
       onTap:
           () => showMealTip(
             context: context,
-            mealDetectionResult: meal.toMealDetectionResult(),
-            allowEdit: false,
+            loggedMeal: favoriteMeal.loggedMeal,
           ),
 
       borderRadius: globalRadius,
@@ -180,9 +180,9 @@ class _MealTile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(meal.mealName, style: textTheme.titleMedium),
+                Text(meal.name, style: textTheme.titleMedium),
                 Text(
-                  '${meal.calories} kcal',
+                  '${meal.macros.calories} kcal',
                   style: textTheme.bodyMedium?.copyWith(
                     color: colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
@@ -194,16 +194,12 @@ class _MealTile extends StatelessWidget {
               analyticsEvent: AnalyticsEvent.addMealFromFavorites,
               onPressed: () async {
                 try {
-                  final newMeal = meal.deepCopy();
-                  newMeal.clearLocalId();
+                  final newMeal = favoriteMeal.loggedMeal.deepCopy();
                   newMeal.clearClientId();
-                  newMeal.timestamp = dateTimeToTimestamp(DateTime.now());
-                  await logMeal(context, newMeal);
-                  final mealId = meal.localIdValue;
-                  if (mealId != null) {
-                    await DatabaseService.databaseInterface
-                        .updateFavoriteLastUsedAt(mealId);
-                  }
+                  await logMeal(context, meal);
+                  final favMealId = favoriteMeal.loggedMeal.clientId;
+                  await DatabaseService.databaseInterface
+                      .updateFavoriteLastUsedAt(favMealId);
                   if (context.mounted) {
                     ScaffoldMessenger.of(
                       context,

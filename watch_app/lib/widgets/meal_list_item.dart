@@ -8,7 +8,7 @@ import 'package:models/models.dart';
 import 'package:specs/specs.dart';
 
 class MealListItem extends StatefulWidget {
-  final MealInfo meal;
+  final LoggedMeal meal;
   final int index;
 
   const MealListItem({super.key, required this.meal, this.index = 0});
@@ -76,12 +76,12 @@ class _MealListItemState extends State<MealListItem>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final mealName = widget.meal.mealName;
-    final calories = widget.meal.calories;
-    final timestamp = _formatTimestamp(widget.meal.timestampDateTime);
-    final protein = widget.meal.protein;
-    final carbs = widget.meal.carbs;
-    final fat = widget.meal.fat;
+    final mealName = widget.meal.meal.name;
+    final calories = widget.meal.meal.macros.calories;
+    final timestamp = _formatTimestamp(widget.meal.dateTime);
+    final protein = widget.meal.meal.macros.protein;
+    final carbs = widget.meal.meal.macros.carbs;
+    final fat = widget.meal.meal.macros.fat;
 
     return Semantics(
       label: '$mealName, $calories calories, logged at $timestamp',
@@ -114,7 +114,7 @@ class _MealListItemState extends State<MealListItem>
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             _MealNameRow(
-                              mealName: mealName,
+                              name: mealName,
                               timestamp: timestamp,
                               theme: theme,
                               colorScheme: colorScheme,
@@ -187,13 +187,13 @@ class _MealIcon extends StatelessWidget {
 }
 
 class _MealNameRow extends StatelessWidget {
-  final String mealName;
+  final String name;
   final String timestamp;
   final ThemeData theme;
   final ColorScheme colorScheme;
 
   const _MealNameRow({
-    required this.mealName,
+    required this.name,
     required this.timestamp,
     required this.theme,
     required this.colorScheme,
@@ -205,7 +205,7 @@ class _MealNameRow extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            mealName,
+            name,
             style: theme.textTheme.bodySmall?.copyWith(
               fontWeight: FontWeight.w600,
               letterSpacing: 0.1,

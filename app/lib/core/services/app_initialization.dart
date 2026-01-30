@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:calorify/core/services/analytics.dart';
@@ -86,7 +87,7 @@ class AppInitialization {
         NotificationService.instance.initialize,
         parentSpan: span,
       );
-      SyncService.instance.initialize();
+      unawaited(SyncService.instance.initialize());
       await Performance.trace(
         TraceType.watchServiceInit,
         WearOsService.instance.initialize,

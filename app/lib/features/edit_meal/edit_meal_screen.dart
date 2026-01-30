@@ -3,18 +3,20 @@ import 'dart:typed_data';
 
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/router/route_names.dart';
-import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/core/utilities/string_utils.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
-import 'package:i18n/i18n.dart';
+import 'package:calorify/features/home/widgets/meal_image.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
+import 'package:models/models.dart';
+import 'package:utils/utils.dart';
 
 Future<void> showEditMealSheet(
   BuildContext context, {
-  MealInfo? mealInfo,
-  Uint8List? imageData,
+  Meal? meal,
+  LoggedMeal? loggedMeal,
+  Uint8List? imageBytes,
 }) {
   return showModalBottomSheet(
     context: context,
@@ -24,15 +26,25 @@ Future<void> showEditMealSheet(
     enableDrag: true,
     routeSettings: const RouteSettings(name: RouteNames.editMealSheet),
     builder:
-        (context) => EditMealScreen(mealInfo: mealInfo, imageData: imageData),
+        (context) => EditMealScreen(
+          meal: meal,
+          loggedMeal: loggedMeal,
+          imageBytes: imageBytes,
+        ),
   );
 }
 
 class EditMealScreen extends StatefulWidget {
-  final MealInfo? mealInfo;
-  final Uint8List? imageData;
+  final Meal? meal;
+  final LoggedMeal? loggedMeal;
+  final Uint8List? imageBytes;
 
-  const EditMealScreen({super.key, this.mealInfo, this.imageData});
+  const EditMealScreen({
+    super.key,
+    this.meal,
+    this.loggedMeal,
+    this.imageBytes,
+  });
 
   @override
   EditMealScreenState createState() => EditMealScreenState();
@@ -49,27 +61,42 @@ class EditMealScreenState extends State<EditMealScreen> {
   late int _fiber;
   late MealType _mealType;
   late TextEditingController _mealQuantityController;
+  int? _clientId;
 
-  bool get isEditing => widget.mealInfo != null;
+  bool get isEditing => widget.meal != null || widget.loggedMeal != null;
 
   @override
   void initState() {
     super.initState();
-    if (isEditing) {
-      _nameController = TextEditingController(text: widget.mealInfo!.mealName);
-      _selectedTime = TimeOfDay.fromDateTime(
-        widget.mealInfo!.timestampDateTime ?? DateTime.now(),
-      );
-      _calories = widget.mealInfo!.calories;
-      _carbs = widget.mealInfo!.carbs.round();
-      _protein = widget.mealInfo!.protein.round();
-      _fat = widget.mealInfo!.fat.round();
-      _fiber = widget.mealInfo!.fiber.round();
-      _mealType = widget.mealInfo!.mealType;
+    if (widget.loggedMeal != null) {
+      // Editing a logged meal
+      final loggedMeal = widget.loggedMeal!;
+      _nameController = TextEditingController(text: loggedMeal.meal.name);
+      _selectedTime = TimeOfDay.fromDateTime(loggedMeal.dateTime);
+      _calories = loggedMeal.meal.macros.calories;
+      _carbs = loggedMeal.meal.macros.carbs.round();
+      _protein = loggedMeal.meal.macros.protein.round();
+      _fat = loggedMeal.meal.macros.fat.round();
+      _fiber = loggedMeal.meal.macros.fiber.round();
+      _mealType = loggedMeal.meal.type;
       _mealQuantityController = TextEditingController(
-        text: widget.mealInfo!.mealQuantity,
+        text: loggedMeal.meal.quantity,
       );
+      _clientId = loggedMeal.hasClientId() ? loggedMeal.clientId : null;
+    } else if (widget.meal != null) {
+      // Editing a meal (legacy support)
+      final meal = widget.meal!;
+      _nameController = TextEditingController(text: meal.name);
+      _selectedTime = TimeOfDay.now();
+      _calories = meal.macros.calories;
+      _carbs = meal.macros.carbs.round();
+      _protein = meal.macros.protein.round();
+      _fat = meal.macros.fat.round();
+      _fiber = meal.macros.fiber.round();
+      _mealType = meal.type;
+      _mealQuantityController = TextEditingController(text: meal.quantity);
     } else {
+      // Creating a new meal
       _nameController = TextEditingController();
       _selectedTime = TimeOfDay.now();
       _calories = 0;
@@ -118,8 +145,8 @@ class EditMealScreenState extends State<EditMealScreen> {
             ],
           ),
           const SizedBox(height: 20),
-          if (widget.imageData != null) ...[
-            Image.memory(widget.imageData!),
+          if (_hasImage()) ...[
+            MealImage(imageBytes: widget.imageBytes, imageUrl: _getImageUrl()),
             const SizedBox(height: 20),
           ],
           TextField(
@@ -213,6 +240,16 @@ class EditMealScreenState extends State<EditMealScreen> {
     );
   }
 
+  bool _hasImage() {
+    return (widget.imageBytes != null && widget.imageBytes!.isNotEmpty) ||
+        _getImageUrl() != null;
+  }
+
+  String? _getImageUrl() {
+    final url = widget.loggedMeal?.metadata.imageUrl;
+    return url?.isNotEmpty ?? false ? url : null;
+  }
+
   Future<void> _saveMeal() async {
     final now = DateTime.now();
     final newTimestamp = DateTime(
@@ -223,17 +260,25 @@ class EditMealScreenState extends State<EditMealScreen> {
       _selectedTime.minute,
     );
 
-    final mealInfo = MealInfo(
-      localId: int64FromInt(isEditing ? widget.mealInfo?.localIdValue : null),
-      mealName: _nameController.text,
-      calories: _calories,
-      carbs: _carbs,
-      protein: _protein,
-      fat: _fat,
-      fiber: _fiber,
-      mealType: _mealType,
-      mealQuantity: _mealQuantityController.text,
-      timestamp: dateTimeToTimestamp(newTimestamp),
+    final mealInfo = LoggedMeal(
+      clientId: _clientId ?? 0,
+      meal: Meal(
+        name: _nameController.text,
+        quantity: _mealQuantityController.text,
+        type: _mealType,
+        macros: MealMacro(
+          calories: _calories,
+          carbs: _carbs,
+          protein: _protein,
+          fat: _fat,
+          fiber: _fiber,
+        ),
+      ),
+      createdAt: dateTimeToIso8601String(newTimestamp),
+      metadata:
+          _getImageUrl() != null
+              ? MealMetadata(imageUrl: _getImageUrl()!)
+              : null,
     );
 
     try {

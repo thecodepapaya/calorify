@@ -18,7 +18,7 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen>
     with SingleTickerProviderStateMixin {
-  List<MealInfo> _meals = [];
+  List<LoggedMeal> _meals = [];
   bool _isLoading = true;
   late AnimationController _refreshController;
   String? _errorMessage;

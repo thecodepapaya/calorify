@@ -4,6 +4,7 @@ import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:models/models.dart';
+import 'package:utils/utils.dart';
 import '../../setup/all_tests.dart';
 
 class MockDatabaseInterface extends Mock implements DatabaseInterface {}
@@ -35,7 +36,7 @@ void main() {
       height: 180,
       weight: 80,
       gender: Gender.MALE,
-      dateOfBirth: dateTimeToTimestamp(DateTime(1990, 1, 1)),
+      dateOfBirth: dateTimeToIso8601String(DateTime(1990, 1, 1)),
       activityLevel: ActivityLevel.MODERATELY_ACTIVE,
       weightGoal: WeightGoal.LOSE_WEIGHT,
     );
@@ -89,7 +90,7 @@ void main() {
           height: 180,
           weight: 80,
           gender: Gender.MALE,
-          dateOfBirth: dateTimeToTimestamp(DateTime(1990, 1, 1)),
+          dateOfBirth: dateTimeToIso8601String(DateTime(1990, 1, 1)),
           activityLevel: ActivityLevel.MODERATELY_ACTIVE,
           weightGoal: WeightGoal.LOSE_WEIGHT,
         );

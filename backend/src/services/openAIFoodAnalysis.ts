@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 import type {
   MealDetectionResult,
-  MealInfo,
+  Meal,
   MealType,
   HealthScore,
 } from '../protos/calorify/models.js';
@@ -110,7 +110,7 @@ class OpenAIFoodAnalysisService {
    * Returns a proper protobuf-typed object
    */
   private buildProtoResult(resultDict: OpenAIResponse): MealDetectionResult {
-    const mealInfo: MealInfo = {
+    const mealInfo: Meal = {
       mealName: resultDict.meal_info.meal_name,
       mealQuantity: resultDict.meal_info.meal_quantity ?? '',
       mealType: this.parseMealType(resultDict.meal_info.meal_type),

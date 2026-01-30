@@ -1,4 +1,4 @@
-library services;
+library;
 
 export 'src/food_analysis.dart';
 export 'src/feedback_email.dart';

@@ -6,8 +6,11 @@ import 'package:firebase_ai/firebase_ai.dart';
 import 'package:calorify/core/services/food_analysis.dart';
 import '../../setup/all_tests.dart';
 
-class MockGenerativeModelWrapper extends Mock implements GenerativeModelWrapper {}
-class MockGenerateContentResponseWrapper extends Mock implements GenerateContentResponseWrapper {}
+class MockGenerativeModelWrapper extends Mock
+    implements GenerativeModelWrapper {}
+
+class MockGenerateContentResponseWrapper extends Mock
+    implements GenerateContentResponseWrapper {}
 
 void main() {
   late FoodAnalysisService foodAnalysisService;
@@ -22,7 +25,7 @@ void main() {
   setUp(() {
     mockModel = MockGenerativeModelWrapper();
     mockResponse = MockGenerateContentResponseWrapper();
-    
+
     foodAnalysisService = FoodAnalysisService.test(model: mockModel);
     FoodAnalysisService.setMockInstance(foodAnalysisService);
   });
@@ -42,33 +45,38 @@ void main() {
         'fat': 0.3,
         'fiber': 4.4,
         'timestamp': '2023-10-27T10:30:00.000Z',
-        'health_score': {
-          'score': 'healthy',
-          'reason': 'High in fiber'
-        }
-      }
+        'health_score': {'score': 'healthy', 'reason': 'High in fiber'},
+      },
     };
 
     test('analyzeFoodDescription returns correct result', () async {
-      when(() => mockModel.generateContent(any())).thenAnswer((_) async => mockResponse);
+      when(
+        () => mockModel.generateContent(any()),
+      ).thenAnswer((_) async => mockResponse);
       when(() => mockResponse.text).thenReturn(jsonEncode(mockMealJson));
 
-      final result = await foodAnalysisService.analyzeFoodDescription(description: 'an apple');
+      final result = await foodAnalysisService.analyzeFoodDescription(
+        description: 'an apple',
+      );
 
       expect(result.mealIdentified, true);
-      expect(result.mealInfo.mealName, 'Apple');
-      expect(result.mealInfo.calories, 95);
+      expect(result.meal.name, 'Apple');
+      expect(result.meal.macros.calories, 95);
       verify(() => mockModel.generateContent(any())).called(1);
     });
 
     test('analyzeFoodImage returns correct result', () async {
-      when(() => mockModel.generateContent(any())).thenAnswer((_) async => mockResponse);
+      when(
+        () => mockModel.generateContent(any()),
+      ).thenAnswer((_) async => mockResponse);
       when(() => mockResponse.text).thenReturn(jsonEncode(mockMealJson));
 
-      final result = await foodAnalysisService.analyzeFoodImage(imageBytes: Uint8List(0));
+      final result = await foodAnalysisService.analyzeFoodImage(
+        imageBytes: Uint8List(0),
+      );
 
       expect(result.mealIdentified, true);
-      expect(result.mealInfo.mealName, 'Apple');
+      expect(result.meal.name, 'Apple');
       verify(() => mockModel.generateContent(any())).called(1);
     });
   });

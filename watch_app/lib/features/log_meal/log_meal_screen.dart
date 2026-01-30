@@ -73,7 +73,7 @@ class _LogMealScreenState extends State<LogMealScreen>
       setState(() {
         _errorMessage = 'Speech recognition is not available on this device.';
       });
-      HapticFeedback.heavyImpact();
+      unawaited(HapticFeedback.heavyImpact());
     }
   }
 
@@ -90,11 +90,11 @@ class _LogMealScreenState extends State<LogMealScreen>
       setState(() {
         _errorMessage = 'Speech recognition is not available on this device.';
       });
-      HapticFeedback.heavyImpact();
+      unawaited(HapticFeedback.heavyImpact());
       return;
     }
 
-    HapticFeedback.mediumImpact();
+    unawaited(HapticFeedback.mediumImpact());
     setState(() {
       _isListening = true;
       _transcribedText = '';
@@ -215,7 +215,7 @@ class _LogMealScreenState extends State<LogMealScreen>
         _isListening = false;
         _errorMessage = 'Failed to start recording: $e';
       });
-      HapticFeedback.heavyImpact();
+      unawaited(HapticFeedback.heavyImpact());
     }
   }
 
@@ -289,7 +289,7 @@ class _LogMealScreenState extends State<LogMealScreen>
         _isProcessing = false;
         _errorMessage = 'Please dictate a meal description.';
       });
-      HapticFeedback.mediumImpact();
+      unawaited(HapticFeedback.mediumImpact());
       return;
     }
 
@@ -300,31 +300,31 @@ class _LogMealScreenState extends State<LogMealScreen>
 
       if (result.mealIdentified) {
         // Send to phone in background
-        SyncService.instance.sendMeal(result.mealInfo);
+        SyncService.instance.sendMeal(result.meal);
 
         setState(() {
           _isProcessing = false;
           _errorMessage = null;
         });
-        HapticFeedback.heavyImpact();
+        unawaited(HapticFeedback.heavyImpact());
 
         // Navigate to result screen
         if (mounted) {
-          context.router.push(MealResultRoute(result: result));
+          await context.router.push(MealResultRoute(result: result));
         }
       } else {
         setState(() {
           _isProcessing = false;
           _errorMessage = 'AI could not identify the meal.';
         });
-        HapticFeedback.mediumImpact();
+        unawaited(HapticFeedback.mediumImpact());
       }
     } catch (e) {
       setState(() {
         _isProcessing = false;
         _errorMessage = 'An error occurred: $e';
       });
-      HapticFeedback.heavyImpact();
+      unawaited(HapticFeedback.heavyImpact());
     }
   }
 

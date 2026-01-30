@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
 
+import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:models/models.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/core/services/picker_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
@@ -11,14 +11,13 @@ import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dar
     show getSnapDisclaimer;
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
-import 'package:i18n/i18n.dart';
-import 'package:widgets/widgets.dart';
-import 'package:calorify/core/constants/analytics_events.dart';
-import 'package:calorify/core/services/analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:models/models.dart';
+import 'package:widgets/widgets.dart';
 
 // Top-level function for isolate (must be outside class)
 Future<Uint8List?> _compressImageInIsolate(List<dynamic> args) async {
@@ -275,9 +274,8 @@ class _MealSnapState extends State<MealSnap> {
     if (!mounted) return;
     await showMealTip(
       context: context,
-      imageData: compressedImageByte,
+      imageBytes: compressedImageByte,
       mealDetectionResult: mealDetectionResult,
-      allowEdit: true,
     );
   }
 

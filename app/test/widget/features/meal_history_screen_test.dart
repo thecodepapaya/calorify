@@ -4,6 +4,7 @@ import 'package:calorify/features/history/meal_history_screen.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:models/models.dart';
+import 'package:utils/utils.dart';
 import '../../helpers/test_helpers.dart';
 import '../../setup/all_tests.dart';
 
@@ -39,19 +40,25 @@ void main() {
 
     testWidgets('renders meals list', (WidgetTester tester) async {
       final mockMeals = [
-        MealInfo(
-          localId: int64FromInt(1),
-          mealName: 'Apple',
-          mealQuantity: '1',
-          mealType: MealType.SNACK,
-          calories: 95,
-          protein: 0,
-          carbs: 25,
-          fat: 0,
-          fiber: 4,
-          timestamp: dateTimeToTimestamp(DateTime.now()),
-          healthScore: HealthScore.HEALTHY,
-          healthScoreReason: 'Good',
+        LoggedMeal(
+          clientId: 1,
+          meal: Meal(
+            name: 'Apple',
+            quantity: '1',
+            type: MealType.SNACK,
+            macros: MealMacro(
+              calories: 95,
+              protein: 0,
+              carbs: 25,
+              fat: 0,
+              fiber: 4,
+            ),
+            health: MealHealth(
+              healthScore: HealthScore.HEALTHY,
+              healthScoreReason: 'Good',
+            ),
+          ),
+          createdAt: dateTimeToIso8601String(DateTime.now()),
         ),
       ];
 

@@ -89,7 +89,7 @@ class WearOsService {
   Future<Map<String, dynamic>> _handleMealLog(Map<String, dynamic> data) async {
     try {
       final meal = mealInfoFromLegacyJson(data);
-      await DatabaseService.databaseInterface.logMeal(meal);
+      await DatabaseService.databaseInterface.logMeal(meal.meal);
       return {'success': true};
     } catch (e) {
       debugPrint('Error logging meal from watch: $e');

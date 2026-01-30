@@ -365,9 +365,9 @@ All data models are defined in Protobuf (`.proto` files) and generated for both 
 
 ### Key Messages
 
-#### MealInfo
+#### Meal
 ```protobuf
-message MealInfo {
+message Meal {
   optional string client_id = 1;
   optional int64 local_id = 2;
   string meal_name = 3;
@@ -391,7 +391,7 @@ message MealDetectionResult {
   bool meal_identified = 1;
   int32 calorie_confidence = 2;
   string tip = 3;
-  MealInfo meal_info = 4;
+  Meal meal_info = 4;
 }
 ```
 

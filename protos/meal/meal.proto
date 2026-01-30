@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package meal;
+
+enum MealType {
+  UNKNOWN = 0;
+  BREAKFAST = 1;
+  LUNCH = 2;
+  DINNER = 3;
+  SNACK = 4;
+}
+
+enum HealthScore {
+  HEALTHY = 0;
+  NEUTRAL = 1;
+  UNHEALTHY = 2;
+}
+
+enum CalorieConfidence {
+  UNSPECIFIED = 0;
+  LOW = 1;
+  MEDIUM = 2;
+  HIGH = 3;
+}
+
+message MealMacro {
+  int32 calories = 1;
+  int32 carbs = 2;
+  int32 protein = 3;
+  int32 fat = 4;
+  int32 fiber = 5;
+}
+
+message MealHealth {
+  HealthScore health_score = 1;
+  optional string health_score_reason = 2;
+}
+
+message Meal {
+  string name = 1;
+  string quantity = 2;
+  MealType type = 3;
+  MealMacro macros = 5;
+  optional MealHealth health = 6;
+}
+
+

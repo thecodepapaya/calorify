@@ -127,17 +127,17 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
                 ),
               ),
               const SizedBox(height: 20),
-              StreamBuilder<List<MealInfo>>(
+              StreamBuilder<List<LoggedMeal>>(
                 stream:
                     DatabaseService.databaseInterface.watchAllMealsForToday(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return ErrorView(error: snapshot.error!);
                   }
-                  final meals = snapshot.data ?? [];
-                  final caloriesConsumed = meals.fold(
+                  final loggedMeals = snapshot.data ?? [];
+                  final caloriesConsumed = loggedMeals.fold(
                     0,
-                    (sum, meal) => sum + meal.calories,
+                    (sum, loggedMeal) => sum + loggedMeal.meal.macros.calories,
                   );
                   return _isEditing
                       ? _GoalInput(onSetGoal: _updateAndSaveGoal)

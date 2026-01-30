@@ -102,20 +102,19 @@ class DatabaseLogger implements DatabaseInterface {
 
   // Meal Operations
   @override
-  Future<void> logMeal(MealInfo mealInfo) async {
+  Future<void> logMeal(Meal mealInfo) async {
     await _logWrite('meal_info', 'logMeal', {
-      'id': mealInfo.localIdValue,
-      'name': mealInfo.mealName,
-      'calories': mealInfo.calories,
+      'name': mealInfo.name,
+      'calories': mealInfo.macros.calories,
     }, () => _delegate.logMeal(mealInfo));
   }
 
   @override
-  Future<void> upsertMeal(MealInfo mealInfo) async {
+  Future<void> upsertMeal(LoggedMeal mealInfo) async {
     await _logWrite('meal_info', 'upsertMeal', {
-      'id': mealInfo.localIdValue,
-      'name': mealInfo.mealName,
-      'calories': mealInfo.calories,
+      'id': mealInfo.clientId,
+      'name': mealInfo.meal.name,
+      'calories': mealInfo.meal.macros.calories,
     }, () => _delegate.upsertMeal(mealInfo));
   }
 
@@ -127,7 +126,7 @@ class DatabaseLogger implements DatabaseInterface {
   }
 
   @override
-  Future<MealInfo?> getMealById(int mealId) async {
+  Future<LoggedMeal?> getMealById(int mealId) {
     return _logRead(
       'meal_info',
       'getMealById',
@@ -136,7 +135,7 @@ class DatabaseLogger implements DatabaseInterface {
   }
 
   @override
-  Future<List<MealInfo>> paginatedMealsHistory({required int offset}) async {
+  Future<List<LoggedMeal>> paginatedMealsHistory({required int offset}) async {
     final contextStr = 'offset=$offset';
     log('[DB READ] meal_info | paginatedMealsHistory | $contextStr');
     final result = await _delegate.paginatedMealsHistory(offset: offset);
@@ -147,13 +146,13 @@ class DatabaseLogger implements DatabaseInterface {
   }
 
   @override
-  Stream<List<MealInfo>> watchAllMealsForToday() {
+  Stream<List<LoggedMeal>> watchAllMealsForToday() {
     log('[DB READ] meal_info | watchAllMealsForToday | Stream');
     return _delegate.watchAllMealsForToday();
   }
 
   @override
-  Stream<List<MealInfo>> watchAllMealsForLast7Days() {
+  Stream<List<LoggedMeal>> watchAllMealsForLast7Days() {
     log('[DB READ] meal_info | watchAllMealsForLast7Days | Stream');
     return _delegate.watchAllMealsForLast7Days();
   }
@@ -166,11 +165,11 @@ class DatabaseLogger implements DatabaseInterface {
   }
 
   @override
-  Future<void> addToFavorites(MealInfo mealInfo) async {
+  Future<void> addToFavorites(LoggedMeal mealInfo) async {
     await _logWrite('favorite_meal', 'addToFavorites', {
-      'id': mealInfo.localIdValue,
-      'name': mealInfo.mealName,
-      'sourceMealId': mealInfo.localIdValue,
+      'id': mealInfo.clientId,
+      'name': mealInfo.meal.name,
+      'sourceMealId': mealInfo.clientId,
     }, () => _delegate.addToFavorites(mealInfo));
   }
 
@@ -195,13 +194,13 @@ class DatabaseLogger implements DatabaseInterface {
   }
 
   @override
-  Stream<List<MealInfo>> watchAllFavoriteMeals() {
+  Stream<List<FavoriteMeal>> watchAllFavoriteMeals() {
     log('[DB READ] favorite_meal | watchAllFavoriteMeals | Stream');
     return _delegate.watchAllFavoriteMeals();
   }
 
   @override
-  Stream<List<MealInfo>> watchLastUsedFavoriteMeals() {
+  Stream<List<FavoriteMeal>> watchLastUsedFavoriteMeals() {
     log('[DB READ] favorite_meal | watchLastUsedFavoriteMeals | Stream');
     return _delegate.watchLastUsedFavoriteMeals();
   }

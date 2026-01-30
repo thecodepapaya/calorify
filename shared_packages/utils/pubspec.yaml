@@ -13,6 +13,7 @@ dependencies:
   characters: ^1.4.0
   models:
     path: ../models
+  fixnum: ^1.1.1
 
 dev_dependencies:
   flutter_test:

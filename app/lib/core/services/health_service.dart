@@ -180,7 +180,7 @@ class HealthService {
     }
   }
 
-  Future<bool> writeMealData(MealInfo meal) async {
+  Future<bool> writeMealData(Meal meal) async {
     if (!_ensureInitialized()) {
       log('Cannot write meal data: service not initialized');
       return false;
@@ -202,13 +202,13 @@ class HealthService {
 
     try {
       final healthData = await _health.writeMeal(
-        name: meal.mealName,
-        mealType: _mealTypeToHealthMealType(meal.mealType),
-        caloriesConsumed: meal.calories.toDouble(),
-        protein: meal.protein.toDouble(),
-        carbohydrates: meal.carbs.toDouble(),
-        fatTotal: meal.fat.toDouble(),
-        fiber: meal.fiber.toDouble(),
+        name: meal.name,
+        mealType: _mealTypeToHealthMealType(meal.type),
+        caloriesConsumed: meal.macros.calories.toDouble(),
+        protein: meal.macros.protein.toDouble(),
+        carbohydrates: meal.macros.carbs.toDouble(),
+        fatTotal: meal.macros.fat.toDouble(),
+        fiber: meal.macros.fiber.toDouble(),
         startTime: now.subtract(Duration(minutes: 10)),
         endTime: DateTime.now(),
         recordingMethod: RecordingMethod.active,

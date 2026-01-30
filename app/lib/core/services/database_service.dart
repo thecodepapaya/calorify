@@ -4,7 +4,6 @@ import 'package:calorify/core/db/database_logger.dart';
 import 'package:calorify/core/db/mock_data/data_source_config.dart';
 import 'package:calorify/core/db/mock_database_adapter.dart';
 import 'package:calorify/core/db/real_database_adapter.dart';
-import 'package:calorify/core/db/syncing_database_adapter.dart';
 import 'package:flutter/foundation.dart';
 
 /// Database service that can switch between mock and real data using interface-based architecture
@@ -29,7 +28,8 @@ class DatabaseService {
         adapter = MockDatabaseAdapter();
       } else {
         _database = AppDatabase();
-        adapter = SyncingDatabaseAdapter(RealDatabaseAdapter(_database!));
+        // adapter = SyncingDatabaseAdapter(RealDatabaseAdapter(_database!));
+        adapter = RealDatabaseAdapter(_database!);
       }
       // Wrap with logger to track all DB operations
       _databaseInterface = DatabaseLogger(adapter);

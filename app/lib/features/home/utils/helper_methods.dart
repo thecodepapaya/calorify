@@ -4,7 +4,7 @@ import 'package:calorify/core/services/health_service.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 
-Future<void> logMeal(BuildContext context, MealInfo mealInfo) async {
+Future<void> logMeal(BuildContext context, Meal mealInfo) async {
   await DatabaseService.databaseInterface.logMeal(mealInfo);
   if (!context.mounted) return;
   await _writeDataToHealthConnect(context, mealInfo);
@@ -12,7 +12,7 @@ Future<void> logMeal(BuildContext context, MealInfo mealInfo) async {
 
 Future<bool> _writeDataToHealthConnect(
   BuildContext context,
-  MealInfo mealInfo,
+  Meal mealInfo,
 ) async {
   if (!HealthService.instance.isAuthorized) return false;
 

@@ -24,12 +24,12 @@ class RealDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
-  Future<void> logMeal(MealInfo mealInfo) async {
+  Future<void> logMeal(Meal mealInfo) async {
     await _database.logMeal(mealInfo);
   }
 
   @override
-  Future<void> upsertMeal(MealInfo mealInfo) async {
+  Future<void> upsertMeal(LoggedMeal mealInfo) async {
     await _database.upsertMeal(mealInfo);
   }
 
@@ -39,7 +39,7 @@ class RealDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
-  Future<MealInfo?> getMealById(int mealId) async {
+  Future<LoggedMeal?> getMealById(int mealId) async {
     return await _database.getMealById(mealId);
   }
 
@@ -49,7 +49,7 @@ class RealDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
-  Future<void> addToFavorites(MealInfo mealInfo) async {
+  Future<void> addToFavorites(LoggedMeal mealInfo) async {
     await _database.addToFavorites(mealInfo);
   }
 
@@ -64,27 +64,27 @@ class RealDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
-  Stream<List<MealInfo>> watchAllMealsForToday() {
+  Stream<List<LoggedMeal>> watchAllMealsForToday() {
     return _database.watchAllMealsForToday();
   }
 
   @override
-  Stream<List<MealInfo>> watchAllMealsForLast7Days() {
+  Stream<List<LoggedMeal>> watchAllMealsForLast7Days() {
     return _database.watchAllMealsForLast7Days();
   }
 
   @override
-  Stream<List<MealInfo>> watchAllFavoriteMeals() {
+  Stream<List<FavoriteMeal>> watchAllFavoriteMeals() {
     return _database.watchAllFavoriteMeals();
   }
 
   @override
-  Stream<List<MealInfo>> watchLastUsedFavoriteMeals() {
+  Stream<List<FavoriteMeal>> watchLastUsedFavoriteMeals() {
     return _database.watchLastUsedFavoriteMeals();
   }
 
   @override
-  Future<List<MealInfo>> paginatedMealsHistory({required int offset}) {
+  Future<List<LoggedMeal>> paginatedMealsHistory({required int offset}) {
     return _database.paginatedMealsHistory(offset: offset);
   }
 
