@@ -20,7 +20,7 @@
 
 ## Overview
 
-The Calorify Backend is a minimal, high-performance Node.js/Fastify server that provides AI-powered food analysis capabilities. It uses Google Gemini AI to analyze food images and text descriptions, returning detailed nutritional information.
+The Calorify Backend is a minimal, high-performance Node.js/Fastify server that provides AI-powered food analysis capabilities. It uses OpenAI GPT-4o-mini (default) to analyze food images and text descriptions, returning detailed nutritional information. A legacy Gemini 2.5 Flash Lite service is also available.
 
 ### Key Characteristics
 - **Minimal Design**: Focused solely on food analysis
@@ -34,7 +34,7 @@ The Calorify Backend is a minimal, high-performance Node.js/Fastify server that 
 - **Framework**: Fastify 4.x
 - **Runtime**: Node.js 20+ (LTS)
 - **Language**: TypeScript (strict mode)
-- **AI**: Google Generative AI (Gemini 1.5 Flash)
+- **AI**: OpenAI GPT-4o-mini (default), Google Generative AI (Gemini 2.5 Flash Lite - legacy)
 - **Auth**: Firebase Admin SDK
 - **Data Models**: Protobuf (TypeScript types generated via ts-proto)
 - **Containerization**: Docker & Docker Compose
@@ -63,8 +63,8 @@ The Calorify Backend is a minimal, high-performance Node.js/Fastify server that 
          │                    │
          │                    │
     ┌────▼────┐        ┌──────▼──────┐
-    │ Firebase │        │  Gemini AI │
-    │   Auth   │        │  (Google)  │
+    │ Firebase │        │  OpenAI AI │
+    │   Auth   │        │  (Default) │
     └──────────┘        └────────────┘
 ```
 
@@ -73,8 +73,8 @@ The Calorify Backend is a minimal, high-performance Node.js/Fastify server that 
 1. **Client Request**: Mobile app sends request with Firebase ID token
 2. **Authentication**: `auth.ts` middleware verifies token
 3. **Route Handler**: `food.ts` receives request
-4. **Service Layer**: `foodAnalysis.ts` service processes request
-5. **AI Analysis**: Calls Google Gemini API
+4. **Service Layer**: `openAIFoodAnalysis.ts` service processes request (default)
+5. **AI Analysis**: Calls OpenAI API (default) or Gemini API (legacy)
 6. **Proto Response**: Returns `MealDetectionResult` protobuf-typed object
 7. **JSON Conversion**: Converts protobuf types to JSON using `protoToJson.ts`
 8. **JSON Response**: Returns JSON to client
@@ -260,30 +260,47 @@ Fastify can be configured with Swagger/OpenAPI documentation using `@fastify/swa
 
 ### FoodAnalysisService
 
-**Location**: `src/services/foodAnalysis.ts`
+**Location**: `src/services/openAIFoodAnalysis.ts`
 
-**Purpose**: Handles AI-powered food analysis using Google Gemini
+**Purpose**: Handles AI-powered food analysis using OpenAI (default service)
 
 **Key Methods**:
 
-#### `analyzeImage(imageBuffer: Buffer, mimeType: string): Promise<MealDetectionResult>`
-- Processes image using Gemini 1.5 Flash model
+#### `analyzeImageFromBuffer(imageBuffer: Buffer, mimeType: string): Promise<MealDetectionResult>`
+- Processes image using OpenAI GPT-4o-mini Vision API
 - Extracts JSON response from AI
 - Converts to Protobuf-typed `MealDetectionResult`
 - Handles image conversion to base64
 
-#### `analyzeDescription(description: string): Promise<MealDetectionResult>`
-- Processes text description using Gemini 1.5 Flash model
+#### `analyzeTextDescriptionLegacy(description: string): Promise<MealDetectionResult>`
+- Processes text description using OpenAI GPT-4o-mini
 - Extracts JSON response from AI
 - Converts to Protobuf-typed `MealDetectionResult`
+
+#### `analyzeImageFromUrl(imageUrl: string): Promise<MealDetectionResponse>`
+- Processes image from URL using OpenAI GPT-4o-mini Vision API
+- Returns `MealDetectionResponse` with clarifications
+
+#### `analyzeTextDescription(description: string): Promise<MealDetectionResponse>`
+- Processes text description using OpenAI GPT-4o-mini
+- Returns `MealDetectionResponse` with clarifications
 
 **Internal Helpers**:
 - `parseMealType()`: Converts string to protobuf enum
 - `parseHealthScore()`: Converts string to protobuf enum
-- `buildProtoResult()`: Converts JSON dict to protobuf-typed object
-- `extractJson()`: Extracts JSON from Gemini response (handles markdown code blocks)
+- `mapCalorieConfidence()`: Maps confidence string to enum
+- `buildProtoResponse()`: Converts JSON dict to protobuf-typed object with clarifications
+- `extractJson()`: Extracts JSON from OpenAI response (handles markdown code blocks)
 
-**AI Prompt**: System prompt instructs Gemini to return structured JSON with nutritional information.
+**AI Prompt**: System prompt instructs OpenAI to return structured JSON with nutritional information and clarifications.
+
+### FoodAnalysisService (Legacy - Gemini)
+
+**Location**: `src/services/foodAnalysis.ts`
+
+**Purpose**: Legacy service using Google Gemini 2.5 Flash Lite (not used by default endpoints)
+
+**Note**: This service is kept for backward compatibility but is not used by default endpoints. All endpoints now use OpenAI by default.
 
 ---
 
@@ -343,7 +360,8 @@ Fastify can be configured with Swagger/OpenAPI documentation using `@fastify/swa
 | `FIREBASE_SERVICE_ACCOUNT_PATH` | string \| null | `null` | Path to Firebase service account JSON |
 | `ENVIRONMENT` | string | `"development"` | Environment name (development/staging/production) |
 | `PORT` | number | `8000` | Server port |
-| `GOOGLE_API_KEY` | string | - | Google Gemini API key (required) |
+| `GOOGLE_API_KEY` | string | - | Google Gemini API key (optional, for legacy service) |
+| `OPENAI_API_KEY` | string | - | OpenAI API key (required, default for all AI work) |
 
 **Loading Order**:
 1. Environment variables (highest priority)
@@ -362,6 +380,7 @@ PORT=8000
 FIREBASE_SERVICE_ACCOUNT_PATH=/app/firebase-service-account.json
 ENVIRONMENT=production
 GOOGLE_API_KEY=<your-google-api-key>
+OPENAI_API_KEY=<your-openai-api-key>
 ```
 
 **Staging** (`staging.env`):
@@ -621,7 +640,8 @@ docker-compose up -d --build
    - Copy `env.example` to `.env`
    - Update values as needed
    - Set `FIREBASE_SERVICE_ACCOUNT_PATH` to local path
-   - Set `GOOGLE_API_KEY` for Gemini AI
+   - Set `OPENAI_API_KEY` for OpenAI (required, default)
+- Set `GOOGLE_API_KEY` for Gemini AI (optional, legacy service)
 
 4. **Place Firebase Credentials**:
    - Download Firebase service account JSON
@@ -820,10 +840,11 @@ describe('Health Check', () => {
 **Error**: `Failed to analyze image`
 
 **Solution**:
-- Verify Google Cloud API key/credentials
-- Check Gemini API quota/limits
+- Verify OpenAI API key is set correctly
+- Check OpenAI API quota/limits
 - Verify image format is supported
-- Check network connectivity to Google APIs
+- Check network connectivity to OpenAI APIs
+- For legacy Gemini service: Verify Google Cloud API key/credentials
 
 #### Docker Container Won't Start
 **Error**: Container exits immediately
@@ -895,7 +916,8 @@ docker exec calorify-backend-prod env
 - `@fastify/multipart@^8.0.0`: File upload support
 
 **AI & ML**:
-- `@google/generative-ai@^0.21.0`: Google Gemini AI client
+- `openai@^4.28.0`: OpenAI API client (default)
+- `@google/generative-ai@^0.21.0`: Google Gemini AI client (legacy)
 
 **Authentication**:
 - `firebase-admin@^12.6.0`: Firebase Admin SDK

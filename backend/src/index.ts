@@ -14,10 +14,12 @@ async function buildApp() {
     logger: config.DEBUG,
   });
 
-  // Register CORS
+  // Register CORS - must be registered before other plugins
   await fastify.register(cors, {
-    origin: '*', // In production, specify origins
+    origin: true, // Allow all origins (use true instead of '*' for credentials)
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept-Language'],
   });
 
   // Register multipart for file uploads
@@ -34,8 +36,8 @@ async function buildApp() {
       },
       servers: [
         {
-          url: `http://localhost:${config.PORT}`,
-          description: 'Development server',
+          url: '/',
+          description: 'Current server (relative URL)',
         },
       ],
       components: {
@@ -62,9 +64,18 @@ async function buildApp() {
     uiConfig: {
       docExpansion: 'list',
       deepLinking: true,
+      persistAuthorization: true,
     },
     staticCSP: true,
     transformStaticCSP: (header: string) => header,
+    uiHooks: {
+      onRequest: async (_request, reply) => {
+        // Ensure CORS headers are set for Swagger UI
+        reply.header('Access-Control-Allow-Origin', '*');
+        reply.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        reply.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      },
+    },
   });
 
   // Register routes
@@ -96,9 +107,13 @@ async function start() {
       host: '0.0.0.0',
     });
 
+    const externalUrl = config.EXTERNAL_PORT !== config.PORT
+      ? `http://localhost:${config.EXTERNAL_PORT} (external) / http://0.0.0.0:${config.PORT} (internal)`
+      : `http://localhost:${config.PORT}`;
+
     console.log(`🚀 Server running on http://0.0.0.0:${config.PORT}`);
-    console.log(`📍 Health check: http://0.0.0.0:${config.PORT}/`);
-    console.log(`📚 API Documentation: http://0.0.0.0:${config.PORT}/docs`);
+    console.log(`📍 Health check: ${externalUrl}`);
+    console.log(`📚 API Documentation: ${externalUrl}/docs`);
   } catch (error) {
     console.error('Failed to start server:', error);
     process.exit(1);

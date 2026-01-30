@@ -14,6 +14,7 @@ interface Config {
     readonly FIREBASE_SERVICE_ACCOUNT_PATH: string | null;
     readonly ENVIRONMENT: 'development' | 'staging' | 'production';
     readonly PORT: number;
+    readonly EXTERNAL_PORT: number; // Port exposed to host (for Docker port mapping)
     readonly OPENAI_API_KEY: string | null;
 }
 
@@ -75,6 +76,7 @@ function validateFirebaseServiceAccount(path: string | null): string | null {
     }
 }
 
+const port = getEnvVarNumber('PORT', 8000);
 const config: Config = {
     APP_NAME: getEnvVar('APP_NAME', 'CalorifyBackend'),
     DEBUG: getEnvVarBoolean('DEBUG', true),
@@ -85,7 +87,8 @@ const config: Config = {
         getEnvVarOptional('FIREBASE_SERVICE_ACCOUNT_PATH')
     ),
     ENVIRONMENT: validateEnvironment(getEnvVar('ENVIRONMENT', 'development')),
-    PORT: getEnvVarNumber('PORT', 8000),
+    PORT: port,
+    EXTERNAL_PORT: getEnvVarNumber('EXTERNAL_PORT', port), // Defaults to PORT if not set
     OPENAI_API_KEY: getEnvVarOptional('OPENAI_API_KEY'),
 } as const;
 

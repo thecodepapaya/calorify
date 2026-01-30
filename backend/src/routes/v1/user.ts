@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import { createErrorResponse } from '../../utils/errors.js';
 import { query } from '../../services/database.js';
 
@@ -24,7 +23,7 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
   fastify.post<{ Body: UserProfileBody }>(
     '/profile',
     {
-      preHandler: [authenticateUser],
+      // preHandler: [authenticateUser], // Temporarily disabled
       schema: {
         description: 'Create or update user profile. If a profile already exists for the authenticated user, it will be updated. Otherwise, a new profile will be created.',
         tags: ['User'],
@@ -128,8 +127,11 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
     },
     async (request: FastifyRequest<{ Body: UserProfileBody }>, reply: FastifyReply) => {
       try {
-        // User is already authenticated by middleware
-        const userId = getCurrentUserId(request);
+        // Authentication temporarily disabled
+        // const userId = getCurrentUserId(request);
+        // For now, use a placeholder user ID or generate one
+        // In production, this should be the authenticated user's ID
+        const userId = 'temp-user-id-staging'; // TODO: Remove when re-enabling authentication
 
         const {
           height,

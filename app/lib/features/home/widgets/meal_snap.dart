@@ -25,10 +25,14 @@ Future<Uint8List?> _compressImageInIsolate(List<dynamic> args) async {
   final int quality = args[1] as int;
 
   try {
+    // Use WebP format for better compression (25-35% smaller than JPEG)
+    // This reduces token count significantly when sending images to OpenAI
     final compressed = await FlutterImageCompress.compressWithList(
       original,
       quality: quality,
-      format: CompressFormat.jpeg,
+      format: CompressFormat.webp,
+      minWidth: 512,
+      minHeight: 512,
     );
     return compressed;
   } catch (e) {

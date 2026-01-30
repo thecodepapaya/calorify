@@ -1,24 +1,33 @@
-# Calorify Backend Server
+# Calorify Backend
 
-A high-performance Node.js/Fastify backend for the Calorify app.
+> **Recent Updates**: See [CHANGELOG.md](./CHANGELOG.md) for detailed changes including schema synchronization system, new API endpoints, and authentication changes.
+
+A high-performance Node.js/Fastify backend API server for AI-powered food analysis.
+
+## Quick Links
+
+- [CHANGELOG.md](./CHANGELOG.md) - Recent changes and updates
+- [SCHEMA_SYNC.md](./SCHEMA_SYNC.md) - Schema synchronization guide
 
 ## Features
 
-- AI Food Analysis (Image & Text) using Google Gemini
-- Firebase Authentication
+- AI Food Analysis (Image & Text) using OpenAI GPT-4o-mini (default) & Google Gemini 2.5 Flash Lite
+- Firebase Authentication (currently disabled for testing)
 - TypeScript with strict type checking
-- Protobuf-based data contracts
+- Protobuf-based data contracts with auto-synced API schemas
 - Multi-environment support (Staging & Production)
+- Zero-downtime deployment support
 
 ## Technology Stack
 
 - **Framework**: Fastify 4.x
 - **Runtime**: Node.js 20+ (LTS)
 - **Language**: TypeScript (strict mode)
-- **AI**: Google Gemini 1.5 Flash
+- **AI**: OpenAI GPT-4o-mini (default for all endpoints), Google Gemini 2.5 Flash Lite (legacy service)
 - **Auth**: Firebase Admin SDK
 - **Data Models**: Protobuf (generated TypeScript types)
 - **Database**: PostgreSQL 15
+- **Containerization**: Docker & Docker Compose
 
 ## Quick Start
 
@@ -29,7 +38,7 @@ A high-performance Node.js/Fastify backend for the Calorify app.
 - protoc (Protocol Buffers compiler)
 - Firebase service account JSON file
 
-### Initial Setup
+### Setup
 
 1. **Install Dependencies**:
    ```bash
@@ -38,646 +47,198 @@ A high-performance Node.js/Fastify backend for the Calorify app.
 
 2. **Generate Protobuf Types**:
    ```bash
-   cd ../scripts
-   ./generate_protos.sh
+   cd ../scripts && ./generate_protos.sh
    ```
 
-3. **Configure Environment Variables**:
-   - Place `firebase-adminsdk.json` in the `backend/` folder
+3. **Configure Environment**:
    - Copy `env.example` to `.env` for local development
-   - Update `production.env` and `staging.env` with your credentials
+   - Update `production.env` and `staging.env` with credentials
+   - Place `firebase-adminsdk.json` in `backend/` folder
 
-4. **Required Environment Variables**:
-   - `SECRET_KEY`: Application secret key (must be secure in production)
-   - `FIREBASE_SERVICE_ACCOUNT_PATH`: Path to Firebase service account JSON
-   - `GOOGLE_API_KEY`: Google Gemini API key
-   - `DATABASE_URL`: PostgreSQL connection string (auto-configured in Docker)
-   - `ENVIRONMENT`: `development`, `staging`, or `production`
-   - `PORT`: Server port (default: 8000)
-   - `DEBUG`: Debug mode (must be `false` in production)
-
-## Docker Deployment
-
-This project uses **Docker Compose profiles** to manage separate staging and production environments on the same server.
-
-### Migrating from Python to Node.js Backend
-
-If you have an existing Python/FastAPI backend running, follow these steps on your VM to migrate to the Node.js backend:
-
-#### Step 1: Stop Old Python Backend Containers
-
-```bash
-# Navigate to backend directory
-cd /path/to/calorify/backend
-
-# Stop the old Python backend containers
-docker stop calorify-backend-prod calorify-backend-staging
-```
-
-#### Step 2: Remove Old Containers and Images
-
-```bash
-# Remove old containers
-docker rm calorify-backend-prod calorify-backend-staging
-
-# Remove old Python backend images (optional, saves disk space)
-docker rmi backend-backend-prod backend-backend-staging
-
-# Or remove all unused images
-docker image prune -a
-```
-
-**Note**: The databases (`calorify-db-prod` and `calorify-db-staging`) will continue running and don't need to be stopped. They use the same names and will work with the new Node.js backend.
-
-#### Step 3: Generate package-lock.json (if missing)
-
-```bash
-# Navigate to backend directory
-cd /path/to/calorify/backend
-
-# Generate package-lock.json if it doesn't exist
-# This ensures reproducible builds
-npm install
-```
-
-**Note**: If `package-lock.json` already exists in your repository, you can skip this step.
-
-#### Step 4: Pull Latest Code and Start Node.js Backend
-
-```bash
-# Pull latest code (if using git)
-git pull
-
-# Start the new Node.js backend with profiles
-# For staging:
-docker-compose --profile staging up -d --build
-
-# For production:
-docker-compose --profile production up -d --build
-
-# Or start both:
-docker-compose --profile staging --profile production up -d --build
-```
-
-#### Step 5: Verify Migration
-
-```bash
-# Check containers are running
-docker-compose --profile production ps
-docker-compose --profile staging ps
-
-# Check logs to ensure Node.js backend started correctly
-docker-compose --profile production logs backend-prod
-docker-compose --profile staging logs backend-staging
-
-# Test health endpoint
-curl http://localhost:8000/  # Production
-curl http://localhost:8001/  # Staging
-```
-
-#### Troubleshooting Migration
-
-If you encounter issues:
-
-```bash
-# Check if old containers are still running
-docker ps -a | grep calorify
-
-# Force remove if needed
-docker rm -f calorify-backend-prod calorify-backend-staging
-
-# Rebuild from scratch
-docker-compose --profile production build --no-cache backend-prod
-docker-compose --profile production up -d backend-prod
-```
-
-### Environment Profiles
-
-- **`staging`**: Development/testing environment
-- **`production`**: Production environment
-- **No profile**: Shared services (e.g., pgAdmin)
-
-### Deployment Commands
-
-#### Deploy Staging (Backend + Database)
-
-Deploying with the `staging` profile starts both the staging database and backend together. The backend automatically waits for the database to be healthy before starting.
-
-```bash
-# Start staging environment (database + backend)
-docker-compose --profile staging up -d
-
-# Rebuild and deploy staging (after code changes)
-docker-compose --profile staging up -d --build
-
-# Explicitly specify both services (optional)
-docker-compose --profile staging up -d db-staging backend-staging
-
-# Deploy staging backend only (database must already be running)
-docker-compose --profile staging up -d --build --no-deps backend-staging
-```
-
-**Note**: The `--no-deps` flag skips dependencies, so use it only when you want to update the backend without touching the database.
-
-#### Deploy Production (Backend + Database)
-
-Deploying with the `production` profile starts both the production database and backend together. The backend automatically waits for the database to be healthy before starting.
-
-```bash
-# Start production environment (database + backend)
-docker-compose --profile production up -d
-
-# Rebuild and deploy production (after code changes)
-docker-compose --profile production up -d --build
-
-# Explicitly specify both services (optional)
-docker-compose --profile production up -d db-prod backend-prod
-
-# Deploy production backend only (zero-downtime update, database must already be running)
-docker-compose --profile production up -d --build --no-deps backend-prod
-```
-
-**Note**: The `--no-deps` flag skips dependencies, so use it only when you want to update the backend without touching the database.
-
-#### Deploy Both Environments
-
-```bash
-# Start both staging and production
-docker-compose --profile staging --profile production up -d
-
-# Rebuild and deploy both
-docker-compose --profile staging --profile production up -d --build
-```
-
-#### Stop Services
-
-```bash
-# Stop staging only
-docker-compose --profile staging down
-
-# Stop production only
-docker-compose --profile production down
-
-# Stop both environments
-docker-compose --profile staging --profile production down
-
-# Stop everything including shared services
-docker-compose down
-```
-
-### Zero-Downtime Deployment Strategy
-
-For production deployments without service interruption:
-
-```bash
-# 1. Pull latest code
-git pull
-
-# 2. Rebuild and restart only the backend service
-docker-compose --profile production up -d --build --no-deps backend-prod
-
-# 3. Monitor health check
-docker-compose --profile production logs -f backend-prod
-```
-
-The `--no-deps` flag ensures only the specified service is updated, leaving the database and other dependencies untouched.
-
-### Environment Configuration
-
-| Feature | Production 🚀 | Staging 🧪 |
-| :--- | :--- | :--- |
-| **Public API URL** | `https://api-calorify.thecodepapaya.dev` | `https://api-staging-calorify.thecodepapaya.dev` |
-| **Internal Port** | `8000` | `8001` |
-| **Database Name** | `calorify_prod` | `calorify_staging` |
-| **Container Name** | `calorify-backend-prod` | `calorify-backend-staging` |
-| **Database Container** | `calorify-db-prod` | `calorify-db-staging` |
-| **Environment File** | `production.env` | `staging.env` |
-| **Command** | Production build | `npm run dev` (live reload) |
-
-### Monitoring & Logs
-
-```bash
-# View staging logs (both database and backend)
-docker-compose --profile staging logs -f
-
-# View staging backend logs only
-docker-compose --profile staging logs -f backend-staging
-
-# View staging database logs only
-docker-compose --profile staging logs -f db-staging
-
-# View production logs (both database and backend)
-docker-compose --profile production logs -f
-
-# View production backend logs only
-docker-compose --profile production logs -f backend-prod
-
-# View production database logs only
-docker-compose --profile production logs -f db-prod
-
-# Check container status for staging
-docker-compose --profile staging ps
-
-# Check container status for production
-docker-compose --profile production ps
-
-# Check health status of backend
-docker inspect --format='{{.State.Health.Status}}' calorify-backend-prod
-docker inspect --format='{{.State.Health.Status}}' calorify-backend-staging
-
-# Verify both staging services are running
-docker-compose --profile staging ps | grep -E "(db-staging|backend-staging)"
-
-# Verify both production services are running
-docker-compose --profile production ps | grep -E "(db-prod|backend-prod)"
-```
-
-### DNS & Reverse Proxy Setup
-
-Configure Nginx to route traffic:
-
-```nginx
-# /etc/nginx/sites-available/calorify
-
-# Production API
-server {
-    server_name api-calorify.thecodepapaya.dev;
-    location / {
-        proxy_pass http://localhost:8000;
-        include proxy_params;
-    }
-}
-
-# Staging API
-server {
-    server_name api-staging-calorify.thecodepapaya.dev;
-    location / {
-        proxy_pass http://localhost:8001;
-        include proxy_params;
-    }
-}
-```
-
-## Local Development
-
-### Run Without Docker
-
-1. **Set Environment Variables**:
-   ```bash
-   cp env.example .env
-   # Edit .env with your local settings
-   ```
-
-2. **Start Development Server**:
+4. **Start Development Server**:
    ```bash
    npm run dev
    ```
 
-3. **Access**:
-   - API: `http://localhost:8000`
-   - Health Check: `http://localhost:8000/`
-
-### Run With Docker (Staging Profile)
-
-For development with Docker using the staging profile:
-
-```bash
-docker-compose --profile staging up
-```
-
-The staging container mounts `./src` for live code reload.
-
-## Database Management
-
-### pgAdmin 4 (Web UI)
-
-pgAdmin is available as a shared service (no profile required):
-
-```bash
-# Start pgAdmin
-docker-compose up -d pgadmin
-
-# Access at http://localhost:8080
-# Default credentials:
-# Email: calorify@thecodepapaya.dev
-# Password: admin
-# ⚠️ Change password after first login!
-```
-
-**Connecting to Databases in pgAdmin:**
-
-1. Right-click "Servers" → "Register" → "Server"
-
-2. **Production Database:**
-   - Name: `Calorify Production`
-   - Host: `db-prod`
-   - Port: `5432`
-   - Database: `calorify_prod`
-   - Username: `calorify`
-   - Password: `calorify_pwd_prod`
-
-3. **Staging Database:**
-   - Name: `Calorify Staging`
-   - Host: `db-staging`
-   - Port: `5432`
-   - Database: `calorify_staging`
-   - Username: `calorify`
-   - Password: `calorify_pwd_staging`
-
-### Command Line (psql)
-
-```bash
-# Connect to production database
-docker exec -it calorify-db-prod psql -U calorify -d calorify_prod
-
-# Connect to staging database
-docker exec -it calorify-db-staging psql -U calorify -d calorify_staging
-```
-
-## API Integration
-
-### Flutter App Configuration
-
-1. **Set Base URLs**:
-   - Production: `https://api-calorify.thecodepapaya.dev`
-   - Staging: `https://api-staging-calorify.thecodepapaya.dev`
-
-2. **Request Headers**:
-   ```
-   Authorization: Bearer <FIREBASE_ID_TOKEN>
-   Content-Type: application/json
-   Accept: application/json
-   ```
-
-### Health Check
-
-```bash
-# Production
-curl https://api-calorify.thecodepapaya.dev/
-
-# Staging
-curl https://api-staging-calorify.thecodepapaya.dev/
-```
-
-## Protobuf Generation
-
-TypeScript types are generated from `.proto` files:
-
-```bash
-cd ../scripts
-./generate_protos.sh
-```
-
-This generates `backend/src/protos/calorify/models.ts` from `protos/calorify/models.proto`.
-
-## Building for Production
-
-```bash
-# Build TypeScript
-npm run build
-
-# Run production server locally
-npm start
-```
-
 ## Available Scripts
 
-- `npm run dev`: Start development server with hot reload
-- `npm run build`: Build TypeScript to JavaScript
-- `npm start`: Run production server
-- `npm run lint`: Run ESLint
-- `npm run type-check`: Type check without building
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build TypeScript to JavaScript
+- `npm start` - Run production server
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Type check without building
+- `npm run validate-schemas` - Validate OpenAPI schemas match proto definitions
+
+## API Endpoints
+
+### Health Check
+- **GET** `/` - Welcome message and health check
+
+### Food Analysis (New - OpenAI)
+- **POST** `/api/v1/food/detect-image` - Detect meal from image URL
+  - Request: `{ "imageUrl": "https://...", "mimeType": "image/jpeg" }`
+  - Response: `MealDetectionResponse` with `result` and `clarifications`
+  
+- **POST** `/api/v1/food/detect-text` - Detect meal from text description
+  - Request: `{ "textDescription": "grilled chicken with rice" }`
+  - Response: `MealDetectionResponse` with `result` and `clarifications`
+
+### Food Analysis (Legacy - OpenAI)
+- **POST** `/api/v1/food/analyze-image` - Analyze food image (multipart form) - Uses OpenAI
+- **POST** `/api/v1/food/analyze-description` - Analyze food description text - Uses OpenAI
+
+**Note**: Authentication is currently disabled on all endpoints.
+
+## Schema Synchronization
+
+API response schemas are automatically generated from proto definitions to keep documentation in sync.
+
+**Key Files**:
+- `src/utils/schema-generator.ts` - Centralized schema generator functions
+- `src/utils/validate-schemas.ts` - Schema validation script
+
+**Validate Schemas**:
+```bash
+npm run validate-schemas
+```
+
+**When Proto Definitions Change**:
+1. Regenerate types: `cd ../scripts && ./generate_protos.sh`
+2. Update schema generator functions in `src/utils/schema-generator.ts`
+3. Run validation: `npm run validate-schemas`
+4. Routes automatically use updated schemas
+
+See [SCHEMA_SYNC.md](./SCHEMA_SYNC.md) for detailed instructions.
+
+## Docker Deployment
+
+### Environment Profiles
+
+- **`staging`**: Development/testing environment (port 8001)
+- **`production`**: Production environment (port 8000)
+
+### Deploy Commands
+
+```bash
+# Staging
+docker-compose --profile staging up -d --build
+
+# Production
+docker-compose --profile production up -d --build
+
+# Both
+docker-compose --profile staging --profile production up -d --build
+
+# Zero-downtime update (backend only)
+docker-compose --profile production up -d --build --no-deps backend-prod
+```
+
+### Monitoring
+
+```bash
+# View logs
+docker-compose --profile production logs -f backend-prod
+
+# Check status
+docker-compose --profile production ps
+
+# Health check
+curl http://localhost:8000/  # Production
+curl http://localhost:8001/  # Staging
+```
+
+## Configuration
+
+### Required Environment Variables
+
+- `SECRET_KEY` - Application secret key
+- `FIREBASE_SERVICE_ACCOUNT_PATH` - Path to Firebase service account JSON
+- `GOOGLE_API_KEY` - Google Gemini API key (for legacy Gemini service, optional)
+- `OPENAI_API_KEY` - OpenAI API key (required, default for all AI work)
+- `DATABASE_URL` - PostgreSQL connection string
+- `ENVIRONMENT` - `development`, `staging`, or `production`
+- `PORT` - Server port (default: 8000)
+- `DEBUG` - Debug mode (must be `false` in production)
+
+### Environment Files
+
+- `production.env` - Production settings
+- `staging.env` - Staging settings
+- `.env` - Local development (not committed)
+
+## Project Structure
+
+```
+backend/
+├── src/
+│   ├── config.ts              # Configuration
+│   ├── index.ts               # Application entry point
+│   ├── middleware/            # Middleware (auth, etc.)
+│   ├── protos/                # Generated proto files
+│   ├── routes/                # API routes
+│   │   └── v1/
+│   │       ├── food.ts        # Food analysis endpoints
+│   │       └── user.ts        # User profile endpoints
+│   ├── services/              # Business logic services
+│   │   ├── foodAnalysis.ts   # Gemini 2.5 Flash Lite service (legacy)
+│   │   ├── openAIFoodAnalysis.ts  # OpenAI service (default)
+│   │   └── firebase.ts        # Firebase auth
+│   └── utils/                 # Utilities
+│       ├── schema-generator.ts    # OpenAPI schema generator
+│       └── validate-schemas.ts   # Schema validation
+├── docker-compose.yml         # Docker setup
+├── Dockerfile                # Container definition
+├── package.json             # Node.js dependencies
+└── tsconfig.json            # TypeScript configuration
+```
 
 ## Troubleshooting
 
 ### Container Won't Start
-
 ```bash
-# Check logs
 docker-compose --profile staging logs backend-staging
-
-# Check container status
 docker-compose --profile staging ps
-
-# Rebuild from scratch
-docker-compose --profile staging build --no-cache backend-staging
 ```
 
 ### Database Connection Issues
-
 - Verify environment variables in `production.env` or `staging.env`
-- Check database container is running: `docker ps | grep db`
-- Verify database health: `docker inspect calorify-db-prod | grep Health`
+- Check database container: `docker ps | grep db`
+- Test connection: `docker exec calorify-db-prod pg_isready -U calorify`
 
 ### Port Conflicts
+- Production: port `8000`
+- Staging: port `8001`
+- Check: `sudo lsof -i :8000`
 
-- Production uses port `8000`
-- Staging uses port `8001`
-- Ensure these ports are available or modify in `docker-compose.yml`
+### 502 Bad Gateway
+1. Check containers are running: `docker ps`
+2. Check logs: `docker-compose --profile production logs backend-prod`
+3. Test direct connection: `curl http://localhost:8000/`
+4. Verify Nginx config: `sudo nginx -t`
+5. Restart services: `docker-compose --profile production restart backend-prod`
 
-### 502 Bad Gateway Error
+## Development Workflow
 
-A 502 error means Nginx can't connect to your backend. Follow these steps to debug:
-
-#### Step 1: Check if Containers are Running
-
+### Code Generation
 ```bash
-# Check all containers
-docker ps
-
-# Check specific backend container
-docker ps | grep calorify-backend-prod
-docker ps | grep calorify-backend-staging
-
-# Check container status with docker-compose
-docker-compose --profile production ps
-docker-compose --profile staging ps
+cd ../scripts && ./generate_protos.sh
 ```
 
-**If containers are not running**, start them:
+### Running Locally
 ```bash
-docker-compose --profile production up -d
-docker-compose --profile staging up -d
+npm run dev  # Development with hot reload
+npm run build && npm start  # Production build
 ```
 
-#### Step 2: Check Container Logs
-
+### Schema Validation
 ```bash
-# View production backend logs
-docker-compose --profile production logs backend-prod
-
-# View staging backend logs
-docker-compose --profile staging logs backend-staging
-
-# Follow logs in real-time
-docker-compose --profile production logs -f backend-prod
+npm run validate-schemas  # Validate schemas match protos
 ```
-
-**Look for:**
-- Application startup errors
-- Port binding errors
-- Database connection errors
-- Missing environment variables
-- Firebase authentication errors
-
-#### Step 3: Test Direct Connection to Backend
-
-```bash
-# Test production backend directly (bypassing Nginx)
-curl http://localhost:8000/
-
-# Test staging backend directly
-curl http://localhost:8001/
-
-# Test with verbose output
-curl -v http://localhost:8000/
-```
-
-**If this works**, the backend is running but Nginx configuration is wrong.
-**If this fails**, the backend has an issue.
-
-#### Step 4: Check if Backend is Listening on Correct Port
-
-```bash
-# Check what's listening on port 8000
-sudo netstat -tlnp | grep 8000
-# Or
-sudo ss -tlnp | grep 8000
-
-# Check from inside the container
-docker exec calorify-backend-prod netstat -tlnp | grep 8000
-```
-
-#### Step 5: Verify Nginx Configuration
-
-```bash
-# Check Nginx configuration syntax
-sudo nginx -t
-
-# Check Nginx error logs
-sudo tail -f /var/log/nginx/error.log
-
-# View Nginx configuration
-sudo cat /etc/nginx/sites-available/calorify
-# Or
-sudo cat /etc/nginx/sites-enabled/calorify
-```
-
-**Verify Nginx proxy_pass matches Docker port:**
-- Production: `proxy_pass http://localhost:8000;`
-- Staging: `proxy_pass http://localhost:8001;`
-
-**Reload Nginx after changes:**
-```bash
-sudo systemctl reload nginx
-# Or
-sudo nginx -s reload
-```
-
-#### Step 6: Check Environment Variables
-
-```bash
-# Check environment variables in container
-docker exec calorify-backend-prod env | grep -E "(PORT|DATABASE|FIREBASE)"
-
-# Verify environment file exists
-ls -la production.env staging.env
-
-# Check if Firebase service account file exists
-ls -la firebase-adminsdk.json
-```
-
-#### Step 7: Test Health Endpoint Inside Container
-
-```bash
-# Test from inside the container
-docker exec calorify-backend-prod curl http://localhost:8000/
-
-# Check if the process is running
-docker exec calorify-backend-prod ps aux | grep node
-```
-
-#### Step 8: Restart Services
-
-```bash
-# Restart production backend
-docker-compose --profile production restart backend-prod
-
-# Restart staging backend
-docker-compose --profile staging restart backend-staging
-
-# Restart Nginx
-sudo systemctl restart nginx
-```
-
-#### Step 9: Rebuild if Needed
-
-```bash
-# Rebuild and restart production
-docker-compose --profile production up -d --build backend-prod
-
-# Rebuild and restart staging
-docker-compose --profile staging up -d --build backend-staging
-```
-
-#### Common Issues and Solutions
-
-**Issue**: Container exits immediately
-```bash
-# Check exit code
-docker inspect calorify-backend-prod | grep -A 10 State
-
-# Check logs for startup errors
-docker-compose --profile production logs backend-prod
-```
-
-**Issue**: Port already in use
-```bash
-# Find what's using the port
-sudo lsof -i :8000
-sudo lsof -i :8001
-
-# Kill the process or change port in docker-compose.yml
-```
-
-**Issue**: Database connection fails
-```bash
-# Check database is running
-docker ps | grep db-prod
-
-# Test database connection
-docker exec calorify-db-prod pg_isready -U calorify -d calorify_prod
-
-# Check DATABASE_URL in environment
-docker exec calorify-backend-prod env | grep DATABASE_URL
-```
-
-**Issue**: Missing Firebase credentials
-```bash
-# Verify file exists and is mounted
-docker exec calorify-backend-prod ls -la /app/firebase-service-account.json
-
-# Check FIREBASE_SERVICE_ACCOUNT_PATH
-docker exec calorify-backend-prod env | grep FIREBASE
-```
-
-#### Quick Debugging Checklist
-
-- [ ] Containers are running (`docker ps`)
-- [ ] No errors in container logs (`docker-compose logs`)
-- [ ] Backend responds on localhost (`curl http://localhost:8000/`)
-- [ ] Nginx configuration is correct (`sudo nginx -t`)
-- [ ] Nginx proxy_pass points to correct port
-- [ ] Nginx is running (`sudo systemctl status nginx`)
-- [ ] No port conflicts (`sudo lsof -i :8000`)
-- [ ] Environment variables are set correctly
-- [ ] Database is running and accessible
-- [ ] Firebase credentials file exists and is mounted
 
 ## Security Notes
 
-- ⚠️ **Never commit** `firebase-adminsdk.json` or `.env` files
-- ⚠️ **Change default passwords** in production
-- ⚠️ **Set `DEBUG=false`** in production
-- ⚠️ **Use strong `SECRET_KEY`** values
-- ⚠️ **Keep Docker images updated** for security patches
+- ⚠️ Never commit `firebase-adminsdk.json` or `.env` files
+- ⚠️ Change default passwords in production
+- ⚠️ Set `DEBUG=false` in production
+- ⚠️ Use strong `SECRET_KEY` values
+- ⚠️ Use HTTPS in production (handled by Nginx)

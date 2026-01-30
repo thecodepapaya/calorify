@@ -17,73 +17,18 @@ import {
 } from '../protos/meal/meal.js';
 import config from '../config.js';
 
-const SYSTEM_PROMPT = `You are an expert food analysis AI. Given an image or description of food,
-analyze the main food item(s). Be precise with nutrient estimations.
-Respond ONLY with a JSON object matching this exact structure:
+/**
+ * Get system prompt with locale instruction (optimized for token efficiency)
+ * @param locale - Language code (e.g., 'en', 'es', 'fr')
+ * @returns System prompt string
+ */
+function getSystemPrompt(locale: string = 'en'): string {
+  return `Food analysis AI. Analyze images/descriptions. Respond in ${locale} JSON only.
 
-{
-  "result": {
-    "meal_identified": boolean,
-    "calorie_confidence": "UNSPECIFIED" | "LOW" | "MEDIUM" | "HIGH",
-    "tip": string,
-    "meal": {
-      "name": string,
-      "quantity": string,
-      "type": "UNKNOWN" | "BREAKFAST" | "LUNCH" | "DINNER" | "SNACK",
-      "macros": {
-        "calories": integer,
-        "carbs": integer,
-        "protein": integer,
-        "fat": integer,
-        "fiber": integer
-      },
-      "health": {
-        "health_score": "HEALTHY" | "NEUTRAL" | "UNHEALTHY",
-        "health_score_reason": string (optional)
-      }
-    }
-  },
-  "clarifications": array of clarification objects
+JSON: {"result": {"meal_identified": bool, "calorie_confidence": "LOW"|"MEDIUM"|"HIGH"|"UNSPECIFIED", "tip": str, "meal": {"name": str, "quantity": str, "type": "BREAKFAST"|"LUNCH"|"DINNER"|"SNACK"|"UNKNOWN", "macros": {"calories": int, "carbs": int, "protein": int, "fat": int, "fiber": int}, "health": {"health_score": "HEALTHY"|"NEUTRAL"|"UNHEALTHY", "health_score_reason": str?}}}, "clarifications": [{"question": str, "options": [{"option": str, "macro_diff": {"calories": int, "carbs": int, "protein": int, "fat": int, "fiber": int}}]}]}
+
+Rules: confidence LOW(0-40%)/MEDIUM(41-70%)/HIGH(71-100%). clarifications only if LOW/MEDIUM. meal required if meal_identified=true. All numbers integers.`;
 }
-
-IMPORTANT RULES:
-1. calorie_confidence must be one of: "UNSPECIFIED", "LOW", "MEDIUM", "HIGH"
-   - Use "LOW" when confidence is 0-40%
-   - Use "MEDIUM" when confidence is 41-70%
-   - Use "HIGH" when confidence is 71-100%
-   - Use "UNSPECIFIED" only if you cannot determine confidence
-
-2. Only include clarifications when calorie_confidence is "LOW" or "MEDIUM".
-   When calorie_confidence is "HIGH" or "UNSPECIFIED", return an empty clarifications array [].
-
-3. The "meal" field inside "result" is optional. 
-   - If meal_identified is true, you MUST include the "meal" object with all required fields (name, quantity, type, macros).
-   - If meal_identified is false, omit the "meal" field entirely.
-   - When "meal" is included, "macros" is REQUIRED and must contain all five fields (calories, carbs, protein, fat, fiber).
-   - The "health" field inside "meal" is optional but recommended.
-
-4. Each clarification object must have this exact format:
-{
-  "question": string (e.g., "What does the white bowl contain?"),
-  "options": [
-    {
-      "option": string (e.g., "curd", "labaan"),
-      "macro_diff": {
-        "calories": integer (expected calories difference if this option is selected),
-        "carbs": integer (expected carbs difference in grams),
-        "protein": integer (expected protein difference in grams),
-        "fat": integer (expected fat difference in grams),
-        "fiber": integer (expected fiber difference in grams)
-      }
-    }
-  ]
-}
-
-5. Generate clarifications only when you need more information to improve calorie estimation accuracy.
-   Examples: unclear ingredients, ambiguous portions, multiple possible interpretations, uncertain quantities.
-
-6. All numeric values (calories, macros) must be integers, not decimals.`;
-
 
 interface OpenAIClarificationOption {
   option: string;
@@ -181,29 +126,42 @@ class OpenAIFoodAnalysisService {
 
   /**
    * Map OpenAI clarification to proto Clarification
+   * Validates JSON structure strictly
    */
   private mapClarification(clarification: OpenAIClarification): Clarification {
-    // Validate clarification structure
+    // Strict JSON validation - ensure clarification is a valid object
+    if (!clarification || typeof clarification !== 'object') {
+      throw new Error('Clarification must be an object');
+    }
     if (!clarification.question || typeof clarification.question !== 'string') {
       throw new Error('Clarification missing or invalid "question" field');
     }
     if (!Array.isArray(clarification.options)) {
       throw new Error('Clarification missing or invalid "options" array');
     }
+    if (clarification.options.length === 0) {
+      throw new Error('Clarification must have at least one option');
+    }
 
     return {
       question: clarification.question,
       options: clarification.options
-        .filter((opt) => opt && typeof opt.option === 'string')
+        .filter((opt) => {
+          // Strict validation of option structure
+          if (!opt || typeof opt !== 'object') return false;
+          if (!opt.option || typeof opt.option !== 'string') return false;
+          return true;
+        })
         .map((opt) => ({
           option: opt.option,
-          macroDiff: opt.macro_diff
+          macroDiff: opt.macro_diff && typeof opt.macro_diff === 'object'
             ? {
-              calories: Math.round(opt.macro_diff.calories),
-              carbs: Math.round(opt.macro_diff.carbs),
-              protein: Math.round(opt.macro_diff.protein),
-              fat: Math.round(opt.macro_diff.fat),
-              fiber: Math.round(opt.macro_diff.fiber),
+              // Ensure all macro values are valid numbers
+              calories: Math.round(Number(opt.macro_diff.calories) || 0),
+              carbs: Math.round(Number(opt.macro_diff.carbs) || 0),
+              protein: Math.round(Number(opt.macro_diff.protein) || 0),
+              fat: Math.round(Number(opt.macro_diff.fat) || 0),
+              fiber: Math.round(Number(opt.macro_diff.fiber) || 0),
             }
             : undefined,
         })),
@@ -213,6 +171,7 @@ class OpenAIFoodAnalysisService {
   /**
    * Extract JSON from OpenAI response text
    * Handles markdown code blocks if present
+   * Ensures strict JSON format
    */
   private extractJson(text: string): string {
     let cleaned = text.trim();
@@ -222,6 +181,37 @@ class OpenAIFoodAnalysisService {
       cleaned = cleaned.split('```json')[1]?.split('```')[0] ?? cleaned;
     } else if (cleaned.includes('```')) {
       cleaned = cleaned.split('```')[1]?.split('```')[0] ?? cleaned;
+    }
+
+    cleaned = cleaned.trim();
+
+    // Ensure JSON starts and ends with braces/brackets
+    if (!cleaned.startsWith('{') && !cleaned.startsWith('[')) {
+      // Try to find first JSON object
+      const firstBrace = cleaned.indexOf('{');
+      if (firstBrace !== -1) {
+        cleaned = cleaned.substring(firstBrace);
+      }
+    }
+
+    // Ensure proper JSON closing
+    if (cleaned.startsWith('{')) {
+      // Find matching closing brace
+      let braceCount = 0;
+      let lastBrace = -1;
+      for (let i = 0; i < cleaned.length; i++) {
+        if (cleaned[i] === '{') braceCount++;
+        if (cleaned[i] === '}') {
+          braceCount--;
+          if (braceCount === 0) {
+            lastBrace = i;
+            break;
+          }
+        }
+      }
+      if (lastBrace !== -1) {
+        cleaned = cleaned.substring(0, lastBrace + 1);
+      }
     }
 
     return cleaned.trim();
@@ -307,15 +297,17 @@ class OpenAIFoodAnalysisService {
     };
 
     // Map clarifications if present - validate it's an array
+    // Ensure clarifications is always an array (even if missing from response)
     const clarifications: Clarification[] = Array.isArray(resultDict.clarifications)
       ? resultDict.clarifications
         .filter((c) => c && typeof c.question === 'string' && Array.isArray(c.options))
         .map((c) => this.mapClarification(c))
       : [];
 
+    // Ensure response always includes clarifications array
     const response: MealDetectionResponse = {
       result,
-      clarifications,
+      clarifications: clarifications || [], // Always ensure array is present
     };
 
     return response;
@@ -324,8 +316,10 @@ class OpenAIFoodAnalysisService {
   /**
    * Analyze food image from URL using OpenAI Vision API
    * Returns a protobuf-typed MealDetectionResponse with clarifications
+   * @param imageUrl - URL of the image to analyze
+   * @param locale - Language code for the response (default: 'en')
    */
-  async analyzeImageFromUrl(imageUrl: string): Promise<MealDetectionResponse> {
+  async analyzeImageFromUrl(imageUrl: string, locale: string = 'en'): Promise<MealDetectionResponse> {
     try {
       // Validate URL format
       try {
@@ -334,14 +328,12 @@ class OpenAIFoodAnalysisService {
         throw new Error('Invalid image URL format');
       }
 
-      const prompt = `${SYSTEM_PROMPT}\n\nEstimate calories in this meal picture and respond in JSON.`;
-
       const response = await this.client.chat.completions.create({
         model: 'gpt-4o-mini',
         messages: [
           {
             role: 'system',
-            content: prompt,
+            content: getSystemPrompt(locale),
           },
           {
             role: 'user',
@@ -356,7 +348,7 @@ class OpenAIFoodAnalysisService {
           },
         ],
         response_format: { type: 'json_object' },
-        max_tokens: 2000, // Increased for clarifications
+        max_tokens: 800,
       });
 
       const content = response.choices[0]?.message?.content;
@@ -367,7 +359,16 @@ class OpenAIFoodAnalysisService {
       const jsonText = this.extractJson(content);
       let resultDict: OpenAIResponse;
       try {
-        resultDict = JSON.parse(jsonText);
+        // Strict JSON parsing - ensure valid JSON
+        resultDict = JSON.parse(jsonText) as OpenAIResponse;
+
+        // Validate JSON structure
+        if (!resultDict || typeof resultDict !== 'object') {
+          throw new Error('Invalid JSON structure: root must be an object');
+        }
+        if (!resultDict.result || typeof resultDict.result !== 'object') {
+          throw new Error('Invalid JSON structure: missing or invalid "result" field');
+        }
       } catch (parseError) {
         throw new Error(
           `Failed to parse OpenAI response as JSON: ${parseError instanceof Error ? parseError.message : 'Unknown error'}`
@@ -383,27 +384,42 @@ class OpenAIFoodAnalysisService {
   }
 
   /**
-   * Analyze food description using OpenAI
+   * Analyze food image from buffer using OpenAI Vision API
    * Returns a protobuf-typed MealDetectionResponse with clarifications
+   * @param imageBuffer - Image buffer to analyze
+   * @param mimeType - MIME type of the image (default: 'image/jpeg')
+   * @param locale - Language code for the response (default: 'en')
    */
-  async analyzeTextDescription(description: string): Promise<MealDetectionResponse> {
+  async analyzeImageFromBuffer(imageBuffer: Buffer, mimeType: string = 'image/jpeg', locale: string = 'en'): Promise<MealDetectionResponse> {
     try {
-      const prompt = `${SYSTEM_PROMPT}\n\nMeal description: ${description}\n\nEstimate calories and respond in JSON.`;
+      // Convert buffer to base64
+      const base64Image = imageBuffer.toString('base64');
+
+      // Validate/sanitize MIME type
+      const validMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+      const finalMimeType = validMimeTypes.includes(mimeType) ? mimeType : 'image/jpeg';
 
       const response = await this.client.chat.completions.create({
         model: 'gpt-4o-mini',
         messages: [
           {
             role: 'system',
-            content: prompt,
+            content: getSystemPrompt(locale),
           },
           {
             role: 'user',
-            content: `Analyze this meal description: ${description}`,
+            content: [
+              {
+                type: 'image_url',
+                image_url: {
+                  url: `data:${finalMimeType};base64,${base64Image}`,
+                },
+              },
+            ],
           },
         ],
         response_format: { type: 'json_object' },
-        max_tokens: 2000, // Increased for clarifications
+        max_tokens: 800,
       });
 
       const content = response.choices[0]?.message?.content;
@@ -414,7 +430,73 @@ class OpenAIFoodAnalysisService {
       const jsonText = this.extractJson(content);
       let resultDict: OpenAIResponse;
       try {
-        resultDict = JSON.parse(jsonText);
+        // Strict JSON parsing - ensure valid JSON
+        resultDict = JSON.parse(jsonText) as OpenAIResponse;
+
+        // Validate JSON structure
+        if (!resultDict || typeof resultDict !== 'object') {
+          throw new Error('Invalid JSON structure: root must be an object');
+        }
+        if (!resultDict.result || typeof resultDict.result !== 'object') {
+          throw new Error('Invalid JSON structure: missing or invalid "result" field');
+        }
+      } catch (parseError) {
+        throw new Error(
+          `Failed to parse OpenAI response as JSON: ${parseError instanceof Error ? parseError.message : 'Unknown error'}`
+        );
+      }
+
+      // Return full response with clarifications
+      return this.buildProtoResponse(resultDict);
+    } catch (error) {
+      throw new Error(
+        `Failed to analyze image: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
+    }
+  }
+
+  /**
+   * Analyze food description using OpenAI
+   * Returns a protobuf-typed MealDetectionResponse with clarifications
+   * @param description - Text description of the food
+   * @param locale - Language code for the response (default: 'en')
+   */
+  async analyzeTextDescription(description: string, locale: string = 'en'): Promise<MealDetectionResponse> {
+    try {
+      const response = await this.client.chat.completions.create({
+        model: 'gpt-4o-mini',
+        messages: [
+          {
+            role: 'system',
+            content: getSystemPrompt(locale),
+          },
+          {
+            role: 'user',
+            content: description,
+          },
+        ],
+        response_format: { type: 'json_object' },
+        max_tokens: 800,
+      });
+
+      const content = response.choices[0]?.message?.content;
+      if (!content) {
+        throw new Error('No response content from OpenAI');
+      }
+
+      const jsonText = this.extractJson(content);
+      let resultDict: OpenAIResponse;
+      try {
+        // Strict JSON parsing - ensure valid JSON
+        resultDict = JSON.parse(jsonText) as OpenAIResponse;
+
+        // Validate JSON structure
+        if (!resultDict || typeof resultDict !== 'object') {
+          throw new Error('Invalid JSON structure: root must be an object');
+        }
+        if (!resultDict.result || typeof resultDict.result !== 'object') {
+          throw new Error('Invalid JSON structure: missing or invalid "result" field');
+        }
       } catch (parseError) {
         throw new Error(
           `Failed to parse OpenAI response as JSON: ${parseError instanceof Error ? parseError.message : 'Unknown error'}`

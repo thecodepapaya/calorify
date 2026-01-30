@@ -32,7 +32,7 @@
 - **AI-Powered Analysis**: Automatic nutritional breakdown from images or text
 - **Offline-First**: Local database with cloud synchronization
 - **Cross-Platform**: Android and iOS support
-- **Modern Stack**: Flutter, FastAPI, Protobuf, Firebase
+- **Modern Stack**: Flutter, Node.js/Fastify, TypeScript, Protobuf, Firebase
 
 ---
 
@@ -52,10 +52,10 @@
                           │ HTTP/Protobuf
                           │
 ┌─────────────────────────────────────────────────────────────┐
-│                   FastAPI Backend Server                     │
+│              Node.js/Fastify Backend Server                  │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
 │  │   API Routes │  │   Services   │  │   Firebase   │      │
-│  │   (FastAPI)  │  │   (Business) │  │   Auth       │      │
+│  │   (Fastify)  │  │   (Business) │  │   Auth       │      │
 │  └──────────────┘  └──────────────┘  └──────────────┘      │
 │                          │                                   │
 │                          │ API Calls                         │
@@ -69,11 +69,11 @@
 ### Data Flow
 
 1. **User Input**: User takes photo or enters text description
-2. **Local Processing**: Image compression, validation
-3. **API Request**: Send to FastAPI backend with Firebase auth token
+2. **Local Processing**: Image compression, validation (in Flutter app)
+3. **API Request**: Send to Fastify backend with Firebase auth token
 4. **AI Analysis**: Backend calls Google Gemini for nutritional analysis
 5. **Proto Response**: Results returned as Protobuf objects
-6. **Local Storage**: Save to local SQLite database (Drift)
+6. **Local Storage**: Save to local SQLite database (Drift) in Flutter app
 7. **Cloud Sync**: Optional sync to Firebase Firestore
 
 ### Design Patterns
@@ -99,14 +99,14 @@
 - **Charts**: FL Chart
 - **Icons**: Lucide Icons
 
-### Backend (Python)
-- **Framework**: FastAPI 0.109.0
-- **Language**: Python 3.12
-- **Server**: Uvicorn
+### Backend (Node.js)
+- **Framework**: Fastify 4.x
+- **Runtime**: Node.js 20+ (LTS)
+- **Language**: TypeScript (strict mode)
 - **AI**: Google Generative AI (Gemini 1.5 Flash)
 - **Authentication**: Firebase Admin SDK
-- **Data Models**: Protobuf
-- **Containerization**: Docker
+- **Data Models**: Protobuf (generated TypeScript types)
+- **Containerization**: Docker & Docker Compose
 
 ### Infrastructure
 - **Database**: PostgreSQL 15 (via Docker)
@@ -117,7 +117,7 @@
 
 ### Shared/Common
 - **Data Models**: Protobuf (`.proto` files)
-- **Code Generation**: `protoc` for Dart and Python
+- **Code Generation**: `protoc` for Dart and TypeScript
 - **Internationalization**: ARB files with Slang
 
 ---
@@ -150,26 +150,28 @@ calorify/
 │   ├── assets/                 # Images, fonts
 │   └── test/                   # Tests
 │
-├── backend/                     # FastAPI backend
-│   ├── app/
-│   │   ├── api/                # API routes
-│   │   │   └── v1/
-│   │   │       └── food_analysis.py
-│   │   ├── services/           # Business logic
-│   │   │   ├── food_analysis.py
-│   │   │   ├── firebase_auth.py
-│   │   │   └── push_notifications.py
-│   │   ├── protos/             # Generated proto files
+├── backend/                     # Node.js/Fastify backend
+│   ├── src/
+│   │   ├── config.ts            # Configuration
+│   │   ├── index.ts             # Application entry point
+│   │   ├── middleware/          # Middleware (auth, etc.)
+│   │   ├── protos/              # Generated proto files
 │   │   │   └── calorify/
-│   │   │       └── models_pb2.py
-│   │   ├── utils/              # Utilities
-│   │   │   └── proto_utils.py
-│   │   ├── config.py           # Configuration
-│   │   └── main.py             # FastAPI app
-│   ├── migrations/             # Database migrations
-│   ├── docker-compose.yml      # Docker setup
-│   ├── Dockerfile              # Container definition
-│   └── requirements.txt        # Python dependencies
+│   │   │       └── models.ts
+│   │   ├── routes/              # API routes
+│   │   │   └── v1/
+│   │   │       └── food.ts
+│   │   ├── services/            # Business logic services
+│   │   │   ├── foodAnalysis.ts
+│   │   │   └── firebaseAuth.ts
+│   │   └── utils/               # Utilities
+│   ├── migrations/              # Database migrations
+│   ├── docker-compose.yml       # Docker setup
+│   ├── Dockerfile               # Container definition
+│   ├── package.json             # Node.js dependencies
+│   ├── tsconfig.json            # TypeScript configuration
+│   ├── production.env           # Production environment
+│   └── staging.env              # Staging environment
 │
 ├── protos/                     # Protobuf definitions
 │   └── calorify/
@@ -194,11 +196,13 @@ calorify/
 ## Backend
 
 ### Overview
-The backend is a minimal FastAPI server focused solely on AI-powered food analysis. It uses Protobuf for data models and Firebase for authentication.
+The backend is a minimal Node.js/Fastify server focused solely on AI-powered food analysis. It uses Protobuf for data models and Firebase for authentication.
 
-### Current State (After Cleanup)
-- **Removed**: Sync endpoints, cron jobs, database models, logging middleware
-- **Kept**: Food analysis endpoints, Firebase authentication, proto-based models
+### Current State
+- **Focus**: Food analysis endpoints, Firebase authentication, proto-based models
+- **Database**: PostgreSQL 15 (for future features, currently minimal usage)
+- **AI Service**: Google Gemini 1.5 Flash for food analysis
+- **Deployment**: Docker Compose with separate staging and production profiles
 
 ### API Endpoints
 
@@ -234,36 +238,42 @@ The backend is a minimal FastAPI server focused solely on AI-powered food analys
 
 ### Configuration
 
-**Settings** (`app/config.py`):
-- `APP_NAME`: Application name
-- `DEBUG`: Debug mode flag
-- `API_V1_STR`: API version prefix (`/api/v1`)
-- `DATABASE_URL`: PostgreSQL connection string
-- `FIREBASE_SERVICE_ACCOUNT_PATH`: Path to Firebase service account JSON
+**Settings** (`src/config.ts`):
+- Configuration loaded from environment variables
+- Supports `.env` files for local development
+- Environment-specific files: `production.env`, `staging.env`
+- Key settings: `SECRET_KEY`, `FIREBASE_SERVICE_ACCOUNT_PATH`, `GOOGLE_API_KEY`, `DATABASE_URL`, `PORT`, `ENVIRONMENT`, `DEBUG`
 
 ### Dependencies
 
-Key Python packages:
-- `fastapi==0.109.0` - Web framework
-- `uvicorn[standard]==0.27.0` - ASGI server
-- `google-generativeai==0.8.6` - Gemini AI client
-- `firebase-admin==7.1.0` - Firebase Admin SDK
-- `protobuf==5.29.5` - Protobuf support
-- `pydantic==2.12.5` - Data validation (used by FastAPI)
-- `Pillow==12.1.0` - Image processing
+Key Node.js packages:
+- `fastify` - Web framework
+- `@fastify/multipart` - File upload support
+- `@google/generative-ai` - Gemini AI client
+- `firebase-admin` - Firebase Admin SDK
+- `protobufjs` - Protobuf support for TypeScript
+- `pg` - PostgreSQL client
+- `typescript` - TypeScript compiler
 
 ### Docker Setup
 
 **Production & Staging**:
+- Docker Compose profiles for environment isolation
 - Separate containers for production and staging
 - PostgreSQL databases for each environment
 - pgAdmin for database management
 - Volume mounts for persistent data
+- Zero-downtime deployment support
 
 **Ports**:
 - Production: `8000`
 - Staging: `8001`
 - pgAdmin: `8080`
+
+**Deployment**:
+- Use `--profile staging` or `--profile production` flags
+- Backend automatically waits for database health checks
+- Supports `--no-deps` flag for backend-only updates
 
 ---
 
@@ -361,7 +371,7 @@ All data models are defined in Protobuf (`.proto` files) and generated for both 
 ### Location
 - **Definitions**: `protos/calorify/models.proto`
 - **Generated Dart**: `shared_packages/models/lib/src/proto/`
-- **Generated Python**: `backend/app/protos/calorify/models_pb2.py`
+- **Generated TypeScript**: `backend/src/protos/calorify/models.ts`
 
 ### Key Messages
 
@@ -446,9 +456,11 @@ Generates code for:
 - Android SDK / Xcode (for iOS)
 
 **Backend Development**:
-- Python 3.12+
+- Node.js 20+ (LTS)
+- TypeScript
 - Docker & Docker Compose
 - PostgreSQL (via Docker)
+- protoc (Protocol Buffers compiler)
 
 **Services**:
 - Firebase project
@@ -488,30 +500,35 @@ Generates code for:
    cd backend
    ```
 
-2. **Create virtual environment** (optional):
+2. **Install dependencies**:
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   npm install
    ```
 
-3. **Install dependencies**:
+3. **Generate Protobuf Types**:
    ```bash
-   pip install -r requirements.txt
+   cd ../scripts
+   ./generate_protos.sh
+   cd ../backend
    ```
 
 4. **Configure environment**:
-   - Copy `env.example` to `production.env` and `staging.env`
-   - Set `FIREBASE_SERVICE_ACCOUNT_PATH`
-   - Place Firebase service account JSON in `backend/` as `firebase-adminsdk.json`
+   - Place `firebase-adminsdk.json` in the `backend/` folder
+   - Copy `env.example` to `.env` for local development
+   - Update `production.env` and `staging.env` with your credentials
 
-5. **Run with Docker**:
+5. **Run with Docker** (recommended):
    ```bash
-   docker-compose up -d
+   # For staging
+   docker-compose --profile staging up -d
+   
+   # For production
+   docker-compose --profile production up -d
    ```
 
 6. **Run locally** (development):
    ```bash
-   uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+   npm run dev
    ```
 
 ### Generate Protobuf Code
@@ -522,7 +539,7 @@ Generates code for:
 
 This generates:
 - Dart code in `shared_packages/models/lib/src/proto/`
-- Python code in `backend/app/protos/calorify/`
+- TypeScript code in `backend/src/protos/calorify/models.ts`
 
 ---
 
@@ -610,11 +627,10 @@ Authorization: Bearer <FIREBASE_ID_TOKEN>
 
 **Error Responses**: Same as `/analyze-image`
 
-### Interactive Documentation
+### API URLs
 
-FastAPI provides automatic API documentation:
-- **Swagger UI**: `http://localhost:8000/docs`
-- **ReDoc**: `http://localhost:8000/redoc`
+**Production**: `https://api-calorify.thecodepapaya.dev`
+**Staging**: `https://api-staging-calorify.thecodepapaya.dev`
 
 ---
 
@@ -650,7 +666,7 @@ flutter test
 **Backend**:
 ```bash
 cd backend
-pytest
+npm test
 ```
 
 ### Development Servers
@@ -664,7 +680,7 @@ flutter run
 **Backend** (auto-reload):
 ```bash
 cd backend
-uvicorn app.main:app --reload
+npm run dev
 ```
 
 ### Docker Development
@@ -672,10 +688,10 @@ uvicorn app.main:app --reload
 **Staging** (with live reload):
 ```bash
 cd backend
-docker-compose up backend-staging
+docker-compose --profile staging up
 ```
 
-The staging container mounts the `app/` directory for live code updates.
+The staging container mounts `./src` for live code updates.
 
 ---
 
@@ -684,25 +700,35 @@ The staging container mounts the `app/` directory for live code updates.
 ### Backend Deployment
 
 **Production**:
-1. Build Docker image:
+1. Pull latest code:
    ```bash
-   docker-compose build backend-prod
+   git pull
    ```
 
-2. Deploy:
+2. Deploy with zero-downtime (backend only):
    ```bash
-   docker-compose up -d backend-prod
+   docker-compose --profile production up -d --build --no-deps backend-prod
    ```
 
-3. Verify:
+3. Or deploy with database:
    ```bash
-   docker-compose logs -f backend-prod
+   docker-compose --profile production up -d --build
    ```
+
+4. Verify:
+   ```bash
+   docker-compose --profile production logs -f backend-prod
+   ```
+
+**Staging**:
+```bash
+docker-compose --profile staging up -d --build
+```
 
 **Nginx Configuration**:
 Configure reverse proxy to route:
-- `api.yourdomain.com` → `localhost:8000` (production)
-- `api-staging.yourdomain.com` → `localhost:8001` (staging)
+- `api-calorify.thecodepapaya.dev` → `localhost:8000` (production)
+- `api-staging-calorify.thecodepapaya.dev` → `localhost:8001` (staging)
 
 ### Flutter App Deployment
 
@@ -730,10 +756,13 @@ fastlane ios beta
 ### Environment Variables
 
 **Backend** (`production.env`, `staging.env`):
-- `SECRET_KEY`: Application secret
-- `DATABASE_URL`: PostgreSQL connection string
-- `FIREBASE_SERVICE_ACCOUNT_PATH`: Path to Firebase credentials
-- `DEBUG`: Debug mode (false for production)
+- `SECRET_KEY`: Application secret key (must be secure in production)
+- `FIREBASE_SERVICE_ACCOUNT_PATH`: Path to Firebase service account JSON
+- `GOOGLE_API_KEY`: Google Gemini API key
+- `DATABASE_URL`: PostgreSQL connection string (auto-configured in Docker)
+- `ENVIRONMENT`: `development`, `staging`, or `production`
+- `PORT`: Server port (default: 8000)
+- `DEBUG`: Debug mode (must be `false` in production)
 
 **Flutter**:
 - Firebase configuration in `google-services.json`
@@ -745,15 +774,17 @@ fastlane ios beta
 
 ### Backend Configuration
 
-**Settings** (`app/config.py`):
+**Settings** (`src/config.ts`):
 - Loaded from environment variables
-- Supports `.env` files
+- Supports `.env` files for local development
 - Defaults provided for development
+- TypeScript-based configuration with type safety
 
 **Environment Files**:
 - `production.env`: Production settings
 - `staging.env`: Staging settings
-- `env.example`: Template
+- `env.example`: Template for local development
+- `.env`: Local development (not committed)
 
 ### Flutter Configuration
 
@@ -796,12 +827,12 @@ flutter test
 
 ### Backend Tests
 
-**Location**: `backend/tests/`
+**Location**: `backend/` (test files alongside source)
 
 **Run**:
 ```bash
 cd backend
-pytest
+npm test
 ```
 
 ### Integration Tests
@@ -887,9 +918,11 @@ flutter test integration_test/
 ### Common Issues
 
 **Backend**:
-- **Port already in use**: Change port in `docker-compose.yml`
-- **Firebase auth fails**: Check service account JSON path
-- **AI analysis fails**: Verify Google Cloud API key/credentials
+- **Port already in use**: Change port in `docker-compose.yml` or environment variables
+- **Firebase auth fails**: Check service account JSON path and `FIREBASE_SERVICE_ACCOUNT_PATH` env var
+- **AI analysis fails**: Verify `GOOGLE_API_KEY` environment variable
+- **Container won't start**: Check logs with `docker-compose --profile production logs backend-prod`
+- **Database connection fails**: Verify `DATABASE_URL` in environment files and database container health
 
 **Flutter**:
 - **Build errors**: Run `flutter clean && flutter pub get`
@@ -926,3 +959,20 @@ flutter test integration_test/
 
 **Last Updated**: 2024
 **Version**: 1.2.4+25
+
+---
+
+## Migration Notes
+
+### Backend Migration: Python/FastAPI → Node.js/Fastify
+
+The backend has been migrated from Python/FastAPI to Node.js/Fastify for improved performance and better TypeScript integration. Key changes:
+
+- **Language**: Python 3.12 → Node.js 20+ (LTS) with TypeScript
+- **Framework**: FastAPI → Fastify 4.x
+- **Code Generation**: Python protobuf → TypeScript protobuf
+- **Package Management**: `requirements.txt` → `package.json`
+- **Development**: `uvicorn` → `npm run dev`
+- **Testing**: `pytest` → `npm test`
+
+All API endpoints remain the same, ensuring backward compatibility with the Flutter app.

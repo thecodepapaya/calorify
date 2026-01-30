@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:calorify/core/network/network_client.dart';
+import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/router/route_names.dart';
+import 'package:dio/dio.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
@@ -35,6 +40,9 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
           const SizedBox(height: 24),
           _buildSectionTitle(context, 'Wear OS'),
           _buildWearOsOptions(context),
+          const SizedBox(height: 24),
+          _buildSectionTitle(context, 'Food API Tests'),
+          _buildFoodApiOptions(context),
           const SizedBox(height: 24),
           _buildSectionTitle(context, t.debug.sections.appInfo),
           _buildAppInfoOptions(context),
@@ -346,6 +354,150 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     } catch (e) {
       if (!mounted) return;
       _showSnackbar('Error sending calorie goal: $e');
+    }
+  }
+
+  Widget _buildFoodApiOptions(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(LucideIcons.image),
+            title: const Text('Test Analyze Image'),
+            subtitle: const Text('Upload hardcoded test image'),
+            onTap: _testAnalyzeImage,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.link),
+            title: const Text('Test Detect Image'),
+            subtitle: const Text('Detect meal from image URL'),
+            onTap: _testDetectImage,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.type),
+            title: const Text('Test Detect Text'),
+            subtitle: const Text('Detect meal from text description'),
+            onTap: _testDetectText,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _testAnalyzeImage() async {
+    try {
+      _showSnackbar('Testing analyzeImage API...');
+
+      final testImageUrl =
+          'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
+      final tempDir = Directory.systemTemp;
+      final testImageFile = File('${tempDir.path}/test_food_image.jpg');
+
+      final response = await NetworkClient.instance.client.get<List<int>>(
+        testImageUrl,
+        options: Options(responseType: ResponseType.bytes),
+      );
+      await testImageFile.writeAsBytes(response.data!);
+
+      final repository = FoodRepository();
+      final apiResponse = await repository.analyzeImage(
+        imageFile: testImageFile,
+      );
+
+      await testImageFile.delete();
+
+      if (!mounted) return;
+
+      final result = apiResponse.result;
+      final mealInfo = result.hasMeal() ? result.meal : null;
+
+      final resultText = '''
+Meal Identified: ${result.mealIdentified}
+Confidence: ${result.calorieConfidence.name}
+Tip: ${result.tip.isNotEmpty ? result.tip : 'N/A'}
+${mealInfo != null ? '''
+Meal Name: ${mealInfo.name}
+Calories: ${mealInfo.macros.calories}
+Protein: ${mealInfo.macros.protein}g
+Carbs: ${mealInfo.macros.carbs}g
+Fat: ${mealInfo.macros.fat}g
+''' : 'No meal info'}
+''';
+
+      _showDataDialog('Analyze Image Result', resultText);
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackbar('Error: $e');
+    }
+  }
+
+  Future<void> _testDetectImage() async {
+    try {
+      _showSnackbar('Testing detectImage API...');
+
+      const testImageUrl =
+          'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
+
+      final repository = FoodRepository();
+      final response = await repository.detectImage(imageUrl: testImageUrl);
+
+      if (!mounted) return;
+
+      final result = response.result;
+      final mealInfo = result.hasMeal() ? result.meal : null;
+
+      final resultText = '''
+Meal Identified: ${result.mealIdentified}
+Confidence: ${result.calorieConfidence.name}
+Tip: ${result.tip.isNotEmpty ? result.tip : 'N/A'}
+${mealInfo != null ? '''
+Meal Name: ${mealInfo.name}
+Calories: ${mealInfo.macros.calories}
+Protein: ${mealInfo.macros.protein}g
+Carbs: ${mealInfo.macros.carbs}g
+Fat: ${mealInfo.macros.fat}g
+''' : 'No meal info'}
+''';
+
+      _showDataDialog('Detect Image Result', resultText);
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackbar('Error: $e');
+    }
+  }
+
+  Future<void> _testDetectText() async {
+    try {
+      _showSnackbar('Testing detectText API...');
+
+      const testText =
+          'I had a large grilled chicken breast with roasted vegetables and quinoa for lunch';
+
+      final repository = FoodRepository();
+      final response = await repository.detectText(textDescription: testText);
+
+      if (!mounted) return;
+
+      final result = response.result;
+      final mealInfo = result.hasMeal() ? result.meal : null;
+
+      final resultText = '''
+Meal Identified: ${result.mealIdentified}
+Confidence: ${result.calorieConfidence.name}
+Tip: ${result.tip.isNotEmpty ? result.tip : 'N/A'}
+${mealInfo != null ? '''
+Meal Name: ${mealInfo.name}
+Calories: ${mealInfo.macros.calories}
+Protein: ${mealInfo.macros.protein}g
+Carbs: ${mealInfo.macros.carbs}g
+Fat: ${mealInfo.macros.fat}g
+''' : 'No meal info'}
+''';
+
+      _showDataDialog('Detect Text Result', resultText);
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackbar('Error: $e');
     }
   }
 

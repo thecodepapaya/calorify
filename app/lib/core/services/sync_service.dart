@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:calorify/core/db/app_database.dart';
-import 'package:calorify/core/network/dio_client.dart';
+import 'package:calorify/core/network/network_client.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:dio/dio.dart';
 import 'package:drift/drift.dart';
@@ -113,7 +113,7 @@ class SyncService {
 
       final batch = SyncBatch()..ops.addAll(ops);
 
-      final response = await DioClient.instance.client.post(
+      final response = await NetworkClient.instance.client.post(
         '/api/v1/sync',
         data: batch.writeToBuffer(),
         options: Options(responseType: ResponseType.bytes),
