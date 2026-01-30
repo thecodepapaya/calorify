@@ -16,6 +16,7 @@ interface Config {
     readonly PORT: number;
     readonly EXTERNAL_PORT: number; // Port exposed to host (for Docker port mapping)
     readonly OPENAI_API_KEY: string | null;
+    readonly ORACLE_BUCKET_DOWNLOAD_URL: string;
 }
 
 function getEnvVar(name: string, defaultValue?: string): string {
@@ -90,6 +91,14 @@ const config: Config = {
     PORT: port,
     EXTERNAL_PORT: getEnvVarNumber('EXTERNAL_PORT', port), // Defaults to PORT if not set
     OPENAI_API_KEY: getEnvVarOptional('OPENAI_API_KEY'),
+    // Oracle Object Storage pre-authenticated link for downloading
+    // calorify-download-auth-bucket-link
+    // Backup download link for when the above expires:
+    // https://bmm3s6m8sdi5.objectstorage.ap-mumbai-1.oci.customer-oci.com/p/oOGxU2_EYPNWy2udsdJ9tzpbqdbRHQ5DmnpdoSEHfI1N6Q448dlg2tVUc_cxbELS/n/bmm3s6m8sdi5/b/calorify-images/o/
+    ORACLE_BUCKET_DOWNLOAD_URL: getEnvVar(
+        'ORACLE_BUCKET_DOWNLOAD_URL',
+        'https://objectstorage.ap-mumbai-1.oraclecloud.com/p/oOGxU2_EYPNWy2udsdJ9tzpbqdbRHQ5DmnpdoSEHfI1N6Q448dlg2tVUc_cxbELS/n/bmm3s6m8sdi5/b/calorify-images/o/'
+    ),
 } as const;
 
 // Validate critical settings in production

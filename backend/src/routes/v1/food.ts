@@ -2,6 +2,7 @@ import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { openAIFoodAnalysisService } from '../../services/openAIFoodAnalysis.js';
 import { createErrorResponse } from '../../utils/errors.js';
 import { getLocaleFromRequest } from '../../utils/locale.js';
+import config from '../../config.js';
 import type {
   ImageMealDetectionRequest,
   TextMealDetectionRequest,
@@ -110,19 +111,23 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
           return;
         }
 
-        // Validate URL format
+        // Check if imageUrl is a full URL or just a filename
+        // If it's just a filename, reconstruct the full download URL
+        let finalImageUrl: string;
         try {
+          // Try to parse as URL - if it succeeds, it's a full URL
           new URL(imageUrl);
+          finalImageUrl = imageUrl;
         } catch {
-          reply.status(400).send(createErrorResponse('Invalid imageUrl format'));
-          return;
+          // If URL parsing fails, assume it's a filename and reconstruct the download URL
+          finalImageUrl = `${config.ORACLE_BUCKET_DOWNLOAD_URL}${imageUrl}`;
         }
 
         // Extract locale from Accept-Language header
         const locale = getLocaleFromRequest(request);
 
         // Analyze image from URL using OpenAI
-        const response = await openAIFoodAnalysisService.analyzeImageFromUrl(imageUrl, locale);
+        const response = await openAIFoodAnalysisService.analyzeImageFromUrl(finalImageUrl, locale);
 
         // Return protobuf object directly (Fastify handles JSON serialization)
         reply.send(response);

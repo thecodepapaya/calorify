@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/network/network_client.dart';
 import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/router/route_names.dart';
+import 'package:calorify/core/services/picker_service.dart';
 import 'package:dio/dio.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/health_service.dart';
@@ -374,6 +375,14 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
             onTap: _testDetectImage,
           ),
           ListTile(
+            leading: const Icon(LucideIcons.upload),
+            title: const Text('Detect Image from Gallery'),
+            subtitle: const Text(
+              'Select image, upload to bucket & estimate calories',
+            ),
+            onTap: _testDetectImageFromGallery,
+          ),
+          ListTile(
             leading: const Icon(LucideIcons.type),
             title: const Text('Test Detect Text'),
             subtitle: const Text('Detect meal from text description'),
@@ -438,12 +447,28 @@ Fat: ${mealInfo.macros.fat}g
       const testImageUrl =
           'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
 
+      // Download image to temporary file
+      final dio = Dio();
+      final response = await dio.get<List<int>>(
+        testImageUrl,
+        options: Options(responseType: ResponseType.bytes),
+      );
+
+      final tempDir = Directory.systemTemp;
+      final tempFile = File(
+        '${tempDir.path}/test_image_${DateTime.now().millisecondsSinceEpoch}.jpg',
+      );
+      await tempFile.writeAsBytes(response.data!);
+
       final repository = FoodRepository();
-      final response = await repository.detectImage(imageUrl: testImageUrl);
+      final detectResponse = await repository.detectImage(imageFile: tempFile);
+
+      // Clean up temporary file
+      await tempFile.delete();
 
       if (!mounted) return;
 
-      final result = response.result;
+      final result = detectResponse.result;
       final mealInfo = result.hasMeal() ? result.meal : null;
 
       final resultText = '''
@@ -460,6 +485,57 @@ Fat: ${mealInfo.macros.fat}g
 ''';
 
       _showDataDialog('Detect Image Result', resultText);
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackbar('Error: $e');
+    }
+  }
+
+  Future<void> _testDetectImageFromGallery() async {
+    try {
+      _showSnackbar('Selecting image from gallery...');
+
+      final pickerService = ImagePickerService();
+      File? imageFile;
+      try {
+        imageFile = await pickerService.pickImageFromGallery();
+      } on ArgumentError catch (e) {
+        if (!mounted) return;
+        _showSnackbar(e.message);
+        return;
+      }
+
+      if (imageFile == null) {
+        if (!mounted) return;
+        _showSnackbar('No image selected');
+        return;
+      }
+
+      if (!mounted) return;
+      _showSnackbar('Uploading image to bucket and detecting meal...');
+
+      final repository = FoodRepository();
+      final detectResponse = await repository.detectImage(imageFile: imageFile);
+
+      if (!mounted) return;
+
+      final result = detectResponse.result;
+      final mealInfo = result.hasMeal() ? result.meal : null;
+
+      final resultText = '''
+Meal Identified: ${result.mealIdentified}
+Confidence: ${result.calorieConfidence.name}
+Tip: ${result.tip.isNotEmpty ? result.tip : 'N/A'}
+${mealInfo != null ? '''
+Meal Name: ${mealInfo.name}
+Calories: ${mealInfo.macros.calories}
+Protein: ${mealInfo.macros.protein}g
+Carbs: ${mealInfo.macros.carbs}g
+Fat: ${mealInfo.macros.fat}g
+''' : 'No meal info'}
+''';
+
+      _showDataDialog('Detect Image from Gallery Result', resultText);
     } catch (e) {
       if (!mounted) return;
       _showSnackbar('Error: $e');

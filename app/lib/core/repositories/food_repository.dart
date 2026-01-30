@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:calorify/core/network/network_client.dart';
 import 'package:dio/dio.dart';
 import 'package:models/models.dart';
+import 'package:uuid/uuid.dart';
+import 'package:utils/utils.dart';
 
 class FoodRepository {
   Future<MealDetectionResponse> analyzeImage({required File imageFile}) async {
@@ -23,8 +25,35 @@ class FoodRepository {
     return MealDetectionResponse()..mergeFromProto3Json(response.data!);
   }
 
-  Future<MealDetectionResponse> detectImage({required String imageUrl}) {
-    final request = ImageMealDetectionRequest(imageUrl: imageUrl);
+  Future<MealDetectionResponse> detectImage({required File imageFile}) async {
+    // Validate file extension
+    final fileExtension = imageFile.path.split('.').last.toLowerCase();
+    if (!ImageConfig.isAllowedImageExtension(fileExtension)) {
+      throw ArgumentError(
+        'Image format not supported. Allowed formats: ${ImageConfig.allowedImageExtensions.join(", ")}',
+      );
+    }
+
+    // Generate unique filename
+    const uuid = Uuid();
+    final fileName = '${uuid.v4()}.$fileExtension';
+
+    // Get MIME type from config
+    final contentType = ImageConfig.getMimeType(fileExtension);
+
+    // Upload image to Oracle bucket
+    final fileBytes = await imageFile.readAsBytes();
+    final uploadUrl = '${ImageConfig.oracleBucketUploadUrl}$fileName';
+
+    // Upload to Oracle Object Storage using PUT request
+    await NetworkClient.instance.client.put(
+      uploadUrl,
+      data: fileBytes,
+      options: Options(headers: {'Content-Type': contentType}),
+    );
+
+    // Send only the filename - server will reconstruct download URL
+    final request = ImageMealDetectionRequest(imageUrl: fileName);
     return NetworkClient.instance
         .apiCall<ImageMealDetectionRequest, MealDetectionResponse>(
           '/api/v1/food/detect-image',

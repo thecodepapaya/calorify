@@ -27,8 +27,8 @@ class NetworkClient {
       receiveTimeout: const Duration(seconds: 30),
       sendTimeout: const Duration(seconds: 10),
       headers: {
-        'Content-Type': 'application/x-protobuf',
-        'Accept': 'application/x-protobuf',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
     );
 
