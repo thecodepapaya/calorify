@@ -1,44 +1,22 @@
-import 'dart:developer';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/services/analytics.dart';
-import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/core/services/picker_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getSnapDisclaimer;
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
+import 'package:services/services.dart';
 import 'package:widgets/widgets.dart';
-
-// Top-level function for isolate (must be outside class)
-Future<Uint8List?> _compressImageInIsolate(List<dynamic> args) async {
-  final Uint8List original = args[0] as Uint8List;
-  final int quality = args[1] as int;
-
-  try {
-    // Use WebP format for better compression (25-35% smaller than JPEG)
-    // This reduces token count significantly when sending images to OpenAI
-    final compressed = await FlutterImageCompress.compressWithList(
-      original,
-      quality: quality,
-      format: CompressFormat.webp,
-      minWidth: 512,
-      minHeight: 512,
-    );
-    return compressed;
-  } catch (e) {
-    return null;
-  }
-}
 
 class MealSnap extends StatefulWidget {
   const MealSnap({super.key});
@@ -255,74 +233,72 @@ class _MealSnapState extends State<MealSnap> {
       _isLoading = true;
     });
 
-    // Compress in isolate (non-blocking)
-    final compressedImageByte = await _compressImage(image);
-    if (compressedImageByte == null) {
-      _reset();
-      return;
-    }
-
-    late final MealDetectionResult mealDetectionResult;
+    // Compress image using shared service
+    Uint8List compressedImageByte;
     try {
-      mealDetectionResult = await _processImage(compressedImageByte);
+      if (!mounted) return;
+      compressedImageByte = await ImageCompressionService.instance
+          .compressImage(image, quality: 60);
+      if (!mounted) return;
     } on Exception catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(snack(t.meal.failedToProcessImage(error: e)));
-      return;
-    } finally {
+      ).showSnackBar(snack(t.meal.errorCompressingImage(error: e)));
       _reset();
+      return;
     }
 
-    if (!mounted) return;
-    await showMealTip(
-      context: context,
-      imageBytes: compressedImageByte,
-      mealDetectionResult: mealDetectionResult,
+    // Save compressed image to temporary file for API call
+    final tempDir = Directory.systemTemp;
+    final compressedFile = File(
+      '${tempDir.path}/meal_snap_${DateTime.now().millisecondsSinceEpoch}.webp',
     );
-  }
-
-  Future<Uint8List?> _compressImage(File image) async {
-    final original = await image.readAsBytes();
     try {
-      // Use compute to run compression in isolate (non-blocking UI)
-      Uint8List? compressed = await compute(
-        _compressImageInIsolate,
-        [original, 60], // Pass quality as parameter
-      );
+      await compressedFile.writeAsBytes(compressedImageByte);
 
-      if (!mounted) return null;
-      if (compressed == null) {
-        log('Compression failed, using original image');
-        compressed = original;
+      late final MealDetectionResult mealDetectionResult;
+      try {
+        final repository = FoodRepository();
+        final response = await repository.detectImage(
+          imageFile: compressedFile,
+        );
+        mealDetectionResult = response.result;
+      } on Exception catch (e) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(snack(t.meal.failedToProcessImage(error: e)));
+        return;
+      } finally {
+        // Clean up temp file
+        try {
+          await compressedFile.delete();
+        } catch (e) {
+          // Ignore cleanup errors
+        }
+        _reset();
       }
 
-      final percentage =
-          (original.length - compressed.length) / original.length * 100;
-      final originalSize = (original.length / (1024 * 1024)).toStringAsFixed(2);
-      final compSize = (compressed.length / (1024 * 1024)).toStringAsFixed(2);
-
-      log(
-        'Compression: ${percentage.floor()}% [${originalSize}MB -> ${compSize}MB]',
+      if (!mounted) return;
+      await showMealTip(
+        context: context,
+        imageBytes: compressedImageByte,
+        mealDetectionResult: mealDetectionResult,
       );
-
-      return compressed;
-    } on Exception catch (e) {
-      if (!mounted) return null;
+    } catch (e) {
+      // Clean up temp file on error
+      try {
+        await compressedFile.delete();
+      } catch (deleteError) {
+        // Ignore cleanup errors
+      }
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(snack(t.meal.errorCompressingImage(error: e)));
-      return null;
+      ).showSnackBar(snack(t.meal.failedToProcessImage(error: e)));
+      _reset();
     }
-  }
-
-  Future<MealDetectionResult> _processImage(Uint8List imageBytes) async {
-    final meal = await FoodAnalysisService.instance.analyzeFoodImage(
-      imageBytes: imageBytes,
-    );
-
-    return meal;
   }
 
   void _reset() {

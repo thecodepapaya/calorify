@@ -11,6 +11,7 @@ import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/wear_os_channel.dart';
 import 'package:calorify/core/services/wear_os_message_log.dart';
+import 'package:services/services.dart';
 import 'package:utils/utils.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
@@ -512,10 +513,33 @@ Fat: ${mealInfo.macros.fat}g
       }
 
       if (!mounted) return;
+      _showSnackbar('Compressing image...');
+
+      // Compress the image before uploading
+      final compressedBytes = await ImageCompressionService.instance
+          .compressImage(imageFile, quality: 60);
+
+      // Save compressed image to temporary file
+      final tempDir = Directory.systemTemp;
+      final compressedFile = File(
+        '${tempDir.path}/compressed_${DateTime.now().millisecondsSinceEpoch}.webp',
+      );
+      await compressedFile.writeAsBytes(compressedBytes);
+
+      if (!mounted) return;
       _showSnackbar('Uploading image to bucket and detecting meal...');
 
       final repository = FoodRepository();
-      final detectResponse = await repository.detectImage(imageFile: imageFile);
+      final detectResponse = await repository.detectImage(
+        imageFile: compressedFile,
+      );
+
+      // Clean up temporary file
+      try {
+        await compressedFile.delete();
+      } catch (e) {
+        // Ignore cleanup errors
+      }
 
       if (!mounted) return;
 

@@ -1,6 +1,6 @@
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:models/models.dart';
-import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getSnapDisclaimer;
@@ -105,8 +105,11 @@ class _DescribeMealState extends State<DescribeMeal> {
 
     late final MealDetectionResult mealDetectionResult;
     try {
-      mealDetectionResult = await FoodAnalysisService.instance
-          .analyzeFoodDescription(description: _textController.text);
+      final repository = FoodRepository();
+      final response = await repository.detectText(
+        textDescription: _textController.text,
+      );
+      mealDetectionResult = response.result;
     } on Exception catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(

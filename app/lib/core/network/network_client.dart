@@ -63,7 +63,7 @@ class NetworkClient {
       dio.interceptors.add(
         PrettyDioLogger(
           requestHeader: false,
-          requestBody: true,
+          requestBody: false,
           responseBody: true,
           responseHeader: false,
           compact: true,

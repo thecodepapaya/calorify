@@ -240,9 +240,10 @@ class OpenAIFoodAnalysisService {
       throw new Error('Response missing or invalid "tip" field');
     }
 
-    // Map meal if present
+    // Map meal if present and meal_identified is true
+    // Only validate meal when meal_identified is true (per system prompt: "meal required if meal_identified=true")
     let mealInfo: Meal | undefined;
-    if (resultData.meal) {
+    if (resultData.meal_identified && resultData.meal) {
       // Validate required meal fields
       if (!resultData.meal.name || typeof resultData.meal.name !== 'string') {
         throw new Error('Meal missing or invalid "name" field');
@@ -288,6 +289,7 @@ class OpenAIFoodAnalysisService {
           : undefined,
       };
     }
+    // If meal_identified is false, mealInfo remains undefined (which is valid per proto definition)
 
     const result: MealDetectionResult = {
       mealIdentified: resultData.meal_identified,
