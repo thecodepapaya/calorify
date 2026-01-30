@@ -52,8 +52,8 @@ class FoodRepository {
       options: Options(headers: {'Content-Type': contentType}),
     );
 
-    // Send only the filename - server will reconstruct download URL
-    final request = ImageMealDetectionRequest(imageUrl: fileName);
+    // Send the full authenticated upload URL
+    final request = ImageMealDetectionRequest(imageUrl: uploadUrl);
     return NetworkClient.instance
         .apiCall<ImageMealDetectionRequest, MealDetectionResponse>(
           '/api/v1/food/detect-image',

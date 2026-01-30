@@ -111,16 +111,21 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
           return;
         }
 
-        // Check if imageUrl is a full URL or just a filename
-        // If it's just a filename, reconstruct the full download URL
+        // Validate URL format and convert upload URL to download URL
         let finalImageUrl: string;
         try {
-          // Try to parse as URL - if it succeeds, it's a full URL
-          new URL(imageUrl);
-          finalImageUrl = imageUrl;
+          const url = new URL(imageUrl);
+          // Extract filename from upload URL and convert to download URL
+          // Upload URL format: .../calorify-images/o/{filename}
+          // Download URL format: .../calorify-images/o/{filename}
+          const pathParts = url.pathname.split('/');
+          const filename = pathParts[pathParts.length - 1];
+
+          // Always convert to download URL
+          finalImageUrl = `${config.ORACLE_BUCKET_DOWNLOAD_URL}${filename}`;
         } catch {
-          // If URL parsing fails, assume it's a filename and reconstruct the download URL
-          finalImageUrl = `${config.ORACLE_BUCKET_DOWNLOAD_URL}${imageUrl}`;
+          reply.status(400).send(createErrorResponse('Invalid imageUrl format'));
+          return;
         }
 
         // Extract locale from Accept-Language header
