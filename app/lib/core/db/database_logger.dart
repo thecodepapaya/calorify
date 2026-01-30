@@ -169,7 +169,6 @@ class DatabaseLogger implements DatabaseInterface {
     await _logWrite('favorite_meal', 'addToFavorites', {
       'id': mealInfo.clientId,
       'name': mealInfo.meal.name,
-      'sourceMealId': mealInfo.clientId,
     }, () => _delegate.addToFavorites(mealInfo));
   }
 

@@ -22,17 +22,6 @@ class $MealInfoTableTable extends MealInfoTable
       'PRIMARY KEY AUTOINCREMENT',
     ),
   );
-  static const VerificationMeta _clientIdMeta = const VerificationMeta(
-    'clientId',
-  );
-  @override
-  late final GeneratedColumn<String> clientId = GeneratedColumn<String>(
-    'client_id',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
   static const VerificationMeta _mealNameMeta = const VerificationMeta(
     'mealName',
   );
@@ -163,7 +152,6 @@ class $MealInfoTableTable extends MealInfoTable
   @override
   List<GeneratedColumn> get $columns => [
     id,
-    clientId,
     mealName,
     mealQuantity,
     mealType,
@@ -191,12 +179,6 @@ class $MealInfoTableTable extends MealInfoTable
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('client_id')) {
-      context.handle(
-        _clientIdMeta,
-        clientId.isAcceptableOrUnknown(data['client_id']!, _clientIdMeta),
-      );
     }
     if (data.containsKey('meal_name')) {
       context.handle(
@@ -311,10 +293,6 @@ class $MealInfoTableTable extends MealInfoTable
             DriftSqlType.int,
             data['${effectivePrefix}id'],
           )!,
-      clientId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}client_id'],
-      ),
       mealName:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -384,7 +362,6 @@ class $MealInfoTableTable extends MealInfoTable
 class MealInfoTableData extends DataClass
     implements Insertable<MealInfoTableData> {
   final int id;
-  final String? clientId;
   final String mealName;
   final String mealQuantity;
   final String mealType;
@@ -399,7 +376,6 @@ class MealInfoTableData extends DataClass
   final String? healthScoreReason;
   const MealInfoTableData({
     required this.id,
-    this.clientId,
     required this.mealName,
     required this.mealQuantity,
     required this.mealType,
@@ -417,9 +393,6 @@ class MealInfoTableData extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    if (!nullToAbsent || clientId != null) {
-      map['client_id'] = Variable<String>(clientId);
-    }
     map['meal_name'] = Variable<String>(mealName);
     map['meal_quantity'] = Variable<String>(mealQuantity);
     map['meal_type'] = Variable<String>(mealType);
@@ -444,10 +417,6 @@ class MealInfoTableData extends DataClass
   MealInfoTableCompanion toCompanion(bool nullToAbsent) {
     return MealInfoTableCompanion(
       id: Value(id),
-      clientId:
-          clientId == null && nullToAbsent
-              ? const Value.absent()
-              : Value(clientId),
       mealName: Value(mealName),
       mealQuantity: Value(mealQuantity),
       mealType: Value(mealType),
@@ -479,7 +448,6 @@ class MealInfoTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return MealInfoTableData(
       id: serializer.fromJson<int>(json['id']),
-      clientId: serializer.fromJson<String?>(json['clientId']),
       mealName: serializer.fromJson<String>(json['mealName']),
       mealQuantity: serializer.fromJson<String>(json['mealQuantity']),
       mealType: serializer.fromJson<String>(json['mealType']),
@@ -501,7 +469,6 @@ class MealInfoTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'clientId': serializer.toJson<String?>(clientId),
       'mealName': serializer.toJson<String>(mealName),
       'mealQuantity': serializer.toJson<String>(mealQuantity),
       'mealType': serializer.toJson<String>(mealType),
@@ -519,7 +486,6 @@ class MealInfoTableData extends DataClass
 
   MealInfoTableData copyWith({
     int? id,
-    Value<String?> clientId = const Value.absent(),
     String? mealName,
     String? mealQuantity,
     String? mealType,
@@ -534,7 +500,6 @@ class MealInfoTableData extends DataClass
     Value<String?> healthScoreReason = const Value.absent(),
   }) => MealInfoTableData(
     id: id ?? this.id,
-    clientId: clientId.present ? clientId.value : this.clientId,
     mealName: mealName ?? this.mealName,
     mealQuantity: mealQuantity ?? this.mealQuantity,
     mealType: mealType ?? this.mealType,
@@ -554,7 +519,6 @@ class MealInfoTableData extends DataClass
   MealInfoTableData copyWithCompanion(MealInfoTableCompanion data) {
     return MealInfoTableData(
       id: data.id.present ? data.id.value : this.id,
-      clientId: data.clientId.present ? data.clientId.value : this.clientId,
       mealName: data.mealName.present ? data.mealName.value : this.mealName,
       mealQuantity:
           data.mealQuantity.present
@@ -581,7 +545,6 @@ class MealInfoTableData extends DataClass
   String toString() {
     return (StringBuffer('MealInfoTableData(')
           ..write('id: $id, ')
-          ..write('clientId: $clientId, ')
           ..write('mealName: $mealName, ')
           ..write('mealQuantity: $mealQuantity, ')
           ..write('mealType: $mealType, ')
@@ -601,7 +564,6 @@ class MealInfoTableData extends DataClass
   @override
   int get hashCode => Object.hash(
     id,
-    clientId,
     mealName,
     mealQuantity,
     mealType,
@@ -620,7 +582,6 @@ class MealInfoTableData extends DataClass
       identical(this, other) ||
       (other is MealInfoTableData &&
           other.id == this.id &&
-          other.clientId == this.clientId &&
           other.mealName == this.mealName &&
           other.mealQuantity == this.mealQuantity &&
           other.mealType == this.mealType &&
@@ -637,7 +598,6 @@ class MealInfoTableData extends DataClass
 
 class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   final Value<int> id;
-  final Value<String?> clientId;
   final Value<String> mealName;
   final Value<String> mealQuantity;
   final Value<String> mealType;
@@ -652,7 +612,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   final Value<String?> healthScoreReason;
   const MealInfoTableCompanion({
     this.id = const Value.absent(),
-    this.clientId = const Value.absent(),
     this.mealName = const Value.absent(),
     this.mealQuantity = const Value.absent(),
     this.mealType = const Value.absent(),
@@ -668,7 +627,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   });
   MealInfoTableCompanion.insert({
     this.id = const Value.absent(),
-    this.clientId = const Value.absent(),
     required String mealName,
     required String mealQuantity,
     required String mealType,
@@ -692,7 +650,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
        timestamp = Value(timestamp);
   static Insertable<MealInfoTableData> custom({
     Expression<int>? id,
-    Expression<String>? clientId,
     Expression<String>? mealName,
     Expression<String>? mealQuantity,
     Expression<String>? mealType,
@@ -708,7 +665,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (clientId != null) 'client_id': clientId,
       if (mealName != null) 'meal_name': mealName,
       if (mealQuantity != null) 'meal_quantity': mealQuantity,
       if (mealType != null) 'meal_type': mealType,
@@ -726,7 +682,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
 
   MealInfoTableCompanion copyWith({
     Value<int>? id,
-    Value<String?>? clientId,
     Value<String>? mealName,
     Value<String>? mealQuantity,
     Value<String>? mealType,
@@ -742,7 +697,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   }) {
     return MealInfoTableCompanion(
       id: id ?? this.id,
-      clientId: clientId ?? this.clientId,
       mealName: mealName ?? this.mealName,
       mealQuantity: mealQuantity ?? this.mealQuantity,
       mealType: mealType ?? this.mealType,
@@ -763,9 +717,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
-    }
-    if (clientId.present) {
-      map['client_id'] = Variable<String>(clientId.value);
     }
     if (mealName.present) {
       map['meal_name'] = Variable<String>(mealName.value);
@@ -810,7 +761,6 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   String toString() {
     return (StringBuffer('MealInfoTableCompanion(')
           ..write('id: $id, ')
-          ..write('clientId: $clientId, ')
           ..write('mealName: $mealName, ')
           ..write('mealQuantity: $mealQuantity, ')
           ..write('mealType: $mealType, ')
@@ -1935,17 +1885,6 @@ class $FavoriteMealTableTable extends FavoriteMealTable
       'PRIMARY KEY AUTOINCREMENT',
     ),
   );
-  static const VerificationMeta _clientIdMeta = const VerificationMeta(
-    'clientId',
-  );
-  @override
-  late final GeneratedColumn<String> clientId = GeneratedColumn<String>(
-    'client_id',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
   static const VerificationMeta _mealNameMeta = const VerificationMeta(
     'mealName',
   );
@@ -2073,18 +2012,6 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         type: DriftSqlType.string,
         requiredDuringInsert: false,
       );
-  static const VerificationMeta _sourceMealIdMeta = const VerificationMeta(
-    'sourceMealId',
-  );
-  @override
-  late final GeneratedColumn<int> sourceMealId = GeneratedColumn<int>(
-    'source_meal_id',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'),
-  );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
   );
@@ -2111,7 +2038,6 @@ class $FavoriteMealTableTable extends FavoriteMealTable
   @override
   List<GeneratedColumn> get $columns => [
     id,
-    clientId,
     mealName,
     mealQuantity,
     mealType,
@@ -2124,7 +2050,6 @@ class $FavoriteMealTableTable extends FavoriteMealTable
     imageUrl,
     healthScore,
     healthScoreReason,
-    sourceMealId,
     createdAt,
     lastUsedAt,
   ];
@@ -2142,12 +2067,6 @@ class $FavoriteMealTableTable extends FavoriteMealTable
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('client_id')) {
-      context.handle(
-        _clientIdMeta,
-        clientId.isAcceptableOrUnknown(data['client_id']!, _clientIdMeta),
-      );
     }
     if (data.containsKey('meal_name')) {
       context.handle(
@@ -2248,15 +2167,6 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         ),
       );
     }
-    if (data.containsKey('source_meal_id')) {
-      context.handle(
-        _sourceMealIdMeta,
-        sourceMealId.isAcceptableOrUnknown(
-          data['source_meal_id']!,
-          _sourceMealIdMeta,
-        ),
-      );
-    }
     if (data.containsKey('created_at')) {
       context.handle(
         _createdAtMeta,
@@ -2286,10 +2196,6 @@ class $FavoriteMealTableTable extends FavoriteMealTable
             DriftSqlType.int,
             data['${effectivePrefix}id'],
           )!,
-      clientId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}client_id'],
-      ),
       mealName:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -2347,10 +2253,6 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         DriftSqlType.string,
         data['${effectivePrefix}health_score_reason'],
       ),
-      sourceMealId: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}source_meal_id'],
-      ),
       createdAt:
           attachedDatabase.typeMapping.read(
             DriftSqlType.dateTime,
@@ -2372,7 +2274,6 @@ class $FavoriteMealTableTable extends FavoriteMealTable
 class FavoriteMealTableData extends DataClass
     implements Insertable<FavoriteMealTableData> {
   final int id;
-  final String? clientId;
   final String mealName;
   final String mealQuantity;
   final String mealType;
@@ -2385,12 +2286,10 @@ class FavoriteMealTableData extends DataClass
   final String? imageUrl;
   final String? healthScore;
   final String? healthScoreReason;
-  final int? sourceMealId;
   final DateTime createdAt;
   final DateTime? lastUsedAt;
   const FavoriteMealTableData({
     required this.id,
-    this.clientId,
     required this.mealName,
     required this.mealQuantity,
     required this.mealType,
@@ -2403,7 +2302,6 @@ class FavoriteMealTableData extends DataClass
     this.imageUrl,
     this.healthScore,
     this.healthScoreReason,
-    this.sourceMealId,
     required this.createdAt,
     this.lastUsedAt,
   });
@@ -2411,9 +2309,6 @@ class FavoriteMealTableData extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    if (!nullToAbsent || clientId != null) {
-      map['client_id'] = Variable<String>(clientId);
-    }
     map['meal_name'] = Variable<String>(mealName);
     map['meal_quantity'] = Variable<String>(mealQuantity);
     map['meal_type'] = Variable<String>(mealType);
@@ -2432,9 +2327,6 @@ class FavoriteMealTableData extends DataClass
     if (!nullToAbsent || healthScoreReason != null) {
       map['health_score_reason'] = Variable<String>(healthScoreReason);
     }
-    if (!nullToAbsent || sourceMealId != null) {
-      map['source_meal_id'] = Variable<int>(sourceMealId);
-    }
     map['created_at'] = Variable<DateTime>(createdAt);
     if (!nullToAbsent || lastUsedAt != null) {
       map['last_used_at'] = Variable<DateTime>(lastUsedAt);
@@ -2445,10 +2337,6 @@ class FavoriteMealTableData extends DataClass
   FavoriteMealTableCompanion toCompanion(bool nullToAbsent) {
     return FavoriteMealTableCompanion(
       id: Value(id),
-      clientId:
-          clientId == null && nullToAbsent
-              ? const Value.absent()
-              : Value(clientId),
       mealName: Value(mealName),
       mealQuantity: Value(mealQuantity),
       mealType: Value(mealType),
@@ -2470,10 +2358,6 @@ class FavoriteMealTableData extends DataClass
           healthScoreReason == null && nullToAbsent
               ? const Value.absent()
               : Value(healthScoreReason),
-      sourceMealId:
-          sourceMealId == null && nullToAbsent
-              ? const Value.absent()
-              : Value(sourceMealId),
       createdAt: Value(createdAt),
       lastUsedAt:
           lastUsedAt == null && nullToAbsent
@@ -2489,7 +2373,6 @@ class FavoriteMealTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return FavoriteMealTableData(
       id: serializer.fromJson<int>(json['id']),
-      clientId: serializer.fromJson<String?>(json['clientId']),
       mealName: serializer.fromJson<String>(json['mealName']),
       mealQuantity: serializer.fromJson<String>(json['mealQuantity']),
       mealType: serializer.fromJson<String>(json['mealType']),
@@ -2504,7 +2387,6 @@ class FavoriteMealTableData extends DataClass
       healthScoreReason: serializer.fromJson<String?>(
         json['healthScoreReason'],
       ),
-      sourceMealId: serializer.fromJson<int?>(json['sourceMealId']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       lastUsedAt: serializer.fromJson<DateTime?>(json['lastUsedAt']),
     );
@@ -2514,7 +2396,6 @@ class FavoriteMealTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'clientId': serializer.toJson<String?>(clientId),
       'mealName': serializer.toJson<String>(mealName),
       'mealQuantity': serializer.toJson<String>(mealQuantity),
       'mealType': serializer.toJson<String>(mealType),
@@ -2527,7 +2408,6 @@ class FavoriteMealTableData extends DataClass
       'imageUrl': serializer.toJson<String?>(imageUrl),
       'healthScore': serializer.toJson<String?>(healthScore),
       'healthScoreReason': serializer.toJson<String?>(healthScoreReason),
-      'sourceMealId': serializer.toJson<int?>(sourceMealId),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'lastUsedAt': serializer.toJson<DateTime?>(lastUsedAt),
     };
@@ -2535,7 +2415,6 @@ class FavoriteMealTableData extends DataClass
 
   FavoriteMealTableData copyWith({
     int? id,
-    Value<String?> clientId = const Value.absent(),
     String? mealName,
     String? mealQuantity,
     String? mealType,
@@ -2548,12 +2427,10 @@ class FavoriteMealTableData extends DataClass
     Value<String?> imageUrl = const Value.absent(),
     Value<String?> healthScore = const Value.absent(),
     Value<String?> healthScoreReason = const Value.absent(),
-    Value<int?> sourceMealId = const Value.absent(),
     DateTime? createdAt,
     Value<DateTime?> lastUsedAt = const Value.absent(),
   }) => FavoriteMealTableData(
     id: id ?? this.id,
-    clientId: clientId.present ? clientId.value : this.clientId,
     mealName: mealName ?? this.mealName,
     mealQuantity: mealQuantity ?? this.mealQuantity,
     mealType: mealType ?? this.mealType,
@@ -2569,14 +2446,12 @@ class FavoriteMealTableData extends DataClass
         healthScoreReason.present
             ? healthScoreReason.value
             : this.healthScoreReason,
-    sourceMealId: sourceMealId.present ? sourceMealId.value : this.sourceMealId,
     createdAt: createdAt ?? this.createdAt,
     lastUsedAt: lastUsedAt.present ? lastUsedAt.value : this.lastUsedAt,
   );
   FavoriteMealTableData copyWithCompanion(FavoriteMealTableCompanion data) {
     return FavoriteMealTableData(
       id: data.id.present ? data.id.value : this.id,
-      clientId: data.clientId.present ? data.clientId.value : this.clientId,
       mealName: data.mealName.present ? data.mealName.value : this.mealName,
       mealQuantity:
           data.mealQuantity.present
@@ -2596,10 +2471,6 @@ class FavoriteMealTableData extends DataClass
           data.healthScoreReason.present
               ? data.healthScoreReason.value
               : this.healthScoreReason,
-      sourceMealId:
-          data.sourceMealId.present
-              ? data.sourceMealId.value
-              : this.sourceMealId,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       lastUsedAt:
           data.lastUsedAt.present ? data.lastUsedAt.value : this.lastUsedAt,
@@ -2610,7 +2481,6 @@ class FavoriteMealTableData extends DataClass
   String toString() {
     return (StringBuffer('FavoriteMealTableData(')
           ..write('id: $id, ')
-          ..write('clientId: $clientId, ')
           ..write('mealName: $mealName, ')
           ..write('mealQuantity: $mealQuantity, ')
           ..write('mealType: $mealType, ')
@@ -2623,7 +2493,6 @@ class FavoriteMealTableData extends DataClass
           ..write('imageUrl: $imageUrl, ')
           ..write('healthScore: $healthScore, ')
           ..write('healthScoreReason: $healthScoreReason, ')
-          ..write('sourceMealId: $sourceMealId, ')
           ..write('createdAt: $createdAt, ')
           ..write('lastUsedAt: $lastUsedAt')
           ..write(')'))
@@ -2633,7 +2502,6 @@ class FavoriteMealTableData extends DataClass
   @override
   int get hashCode => Object.hash(
     id,
-    clientId,
     mealName,
     mealQuantity,
     mealType,
@@ -2646,7 +2514,6 @@ class FavoriteMealTableData extends DataClass
     imageUrl,
     healthScore,
     healthScoreReason,
-    sourceMealId,
     createdAt,
     lastUsedAt,
   );
@@ -2655,7 +2522,6 @@ class FavoriteMealTableData extends DataClass
       identical(this, other) ||
       (other is FavoriteMealTableData &&
           other.id == this.id &&
-          other.clientId == this.clientId &&
           other.mealName == this.mealName &&
           other.mealQuantity == this.mealQuantity &&
           other.mealType == this.mealType &&
@@ -2668,7 +2534,6 @@ class FavoriteMealTableData extends DataClass
           other.imageUrl == this.imageUrl &&
           other.healthScore == this.healthScore &&
           other.healthScoreReason == this.healthScoreReason &&
-          other.sourceMealId == this.sourceMealId &&
           other.createdAt == this.createdAt &&
           other.lastUsedAt == this.lastUsedAt);
 }
@@ -2676,7 +2541,6 @@ class FavoriteMealTableData extends DataClass
 class FavoriteMealTableCompanion
     extends UpdateCompanion<FavoriteMealTableData> {
   final Value<int> id;
-  final Value<String?> clientId;
   final Value<String> mealName;
   final Value<String> mealQuantity;
   final Value<String> mealType;
@@ -2689,12 +2553,10 @@ class FavoriteMealTableCompanion
   final Value<String?> imageUrl;
   final Value<String?> healthScore;
   final Value<String?> healthScoreReason;
-  final Value<int?> sourceMealId;
   final Value<DateTime> createdAt;
   final Value<DateTime?> lastUsedAt;
   const FavoriteMealTableCompanion({
     this.id = const Value.absent(),
-    this.clientId = const Value.absent(),
     this.mealName = const Value.absent(),
     this.mealQuantity = const Value.absent(),
     this.mealType = const Value.absent(),
@@ -2707,13 +2569,11 @@ class FavoriteMealTableCompanion
     this.imageUrl = const Value.absent(),
     this.healthScore = const Value.absent(),
     this.healthScoreReason = const Value.absent(),
-    this.sourceMealId = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.lastUsedAt = const Value.absent(),
   });
   FavoriteMealTableCompanion.insert({
     this.id = const Value.absent(),
-    this.clientId = const Value.absent(),
     required String mealName,
     required String mealQuantity,
     required String mealType,
@@ -2726,7 +2586,6 @@ class FavoriteMealTableCompanion
     this.imageUrl = const Value.absent(),
     this.healthScore = const Value.absent(),
     this.healthScoreReason = const Value.absent(),
-    this.sourceMealId = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.lastUsedAt = const Value.absent(),
   }) : mealName = Value(mealName),
@@ -2740,7 +2599,6 @@ class FavoriteMealTableCompanion
        timestamp = Value(timestamp);
   static Insertable<FavoriteMealTableData> custom({
     Expression<int>? id,
-    Expression<String>? clientId,
     Expression<String>? mealName,
     Expression<String>? mealQuantity,
     Expression<String>? mealType,
@@ -2753,13 +2611,11 @@ class FavoriteMealTableCompanion
     Expression<String>? imageUrl,
     Expression<String>? healthScore,
     Expression<String>? healthScoreReason,
-    Expression<int>? sourceMealId,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? lastUsedAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (clientId != null) 'client_id': clientId,
       if (mealName != null) 'meal_name': mealName,
       if (mealQuantity != null) 'meal_quantity': mealQuantity,
       if (mealType != null) 'meal_type': mealType,
@@ -2772,7 +2628,6 @@ class FavoriteMealTableCompanion
       if (imageUrl != null) 'image_url': imageUrl,
       if (healthScore != null) 'health_score': healthScore,
       if (healthScoreReason != null) 'health_score_reason': healthScoreReason,
-      if (sourceMealId != null) 'source_meal_id': sourceMealId,
       if (createdAt != null) 'created_at': createdAt,
       if (lastUsedAt != null) 'last_used_at': lastUsedAt,
     });
@@ -2780,7 +2635,6 @@ class FavoriteMealTableCompanion
 
   FavoriteMealTableCompanion copyWith({
     Value<int>? id,
-    Value<String?>? clientId,
     Value<String>? mealName,
     Value<String>? mealQuantity,
     Value<String>? mealType,
@@ -2793,13 +2647,11 @@ class FavoriteMealTableCompanion
     Value<String?>? imageUrl,
     Value<String?>? healthScore,
     Value<String?>? healthScoreReason,
-    Value<int?>? sourceMealId,
     Value<DateTime>? createdAt,
     Value<DateTime?>? lastUsedAt,
   }) {
     return FavoriteMealTableCompanion(
       id: id ?? this.id,
-      clientId: clientId ?? this.clientId,
       mealName: mealName ?? this.mealName,
       mealQuantity: mealQuantity ?? this.mealQuantity,
       mealType: mealType ?? this.mealType,
@@ -2812,7 +2664,6 @@ class FavoriteMealTableCompanion
       imageUrl: imageUrl ?? this.imageUrl,
       healthScore: healthScore ?? this.healthScore,
       healthScoreReason: healthScoreReason ?? this.healthScoreReason,
-      sourceMealId: sourceMealId ?? this.sourceMealId,
       createdAt: createdAt ?? this.createdAt,
       lastUsedAt: lastUsedAt ?? this.lastUsedAt,
     );
@@ -2823,9 +2674,6 @@ class FavoriteMealTableCompanion
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
-    }
-    if (clientId.present) {
-      map['client_id'] = Variable<String>(clientId.value);
     }
     if (mealName.present) {
       map['meal_name'] = Variable<String>(mealName.value);
@@ -2863,9 +2711,6 @@ class FavoriteMealTableCompanion
     if (healthScoreReason.present) {
       map['health_score_reason'] = Variable<String>(healthScoreReason.value);
     }
-    if (sourceMealId.present) {
-      map['source_meal_id'] = Variable<int>(sourceMealId.value);
-    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
@@ -2879,7 +2724,6 @@ class FavoriteMealTableCompanion
   String toString() {
     return (StringBuffer('FavoriteMealTableCompanion(')
           ..write('id: $id, ')
-          ..write('clientId: $clientId, ')
           ..write('mealName: $mealName, ')
           ..write('mealQuantity: $mealQuantity, ')
           ..write('mealType: $mealType, ')
@@ -2892,7 +2736,6 @@ class FavoriteMealTableCompanion
           ..write('imageUrl: $imageUrl, ')
           ..write('healthScore: $healthScore, ')
           ..write('healthScoreReason: $healthScoreReason, ')
-          ..write('sourceMealId: $sourceMealId, ')
           ..write('createdAt: $createdAt, ')
           ..write('lastUsedAt: $lastUsedAt')
           ..write(')'))
@@ -3509,7 +3352,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
 typedef $$MealInfoTableTableCreateCompanionBuilder =
     MealInfoTableCompanion Function({
       Value<int> id,
-      Value<String?> clientId,
       required String mealName,
       required String mealQuantity,
       required String mealType,
@@ -3526,7 +3368,6 @@ typedef $$MealInfoTableTableCreateCompanionBuilder =
 typedef $$MealInfoTableTableUpdateCompanionBuilder =
     MealInfoTableCompanion Function({
       Value<int> id,
-      Value<String?> clientId,
       Value<String> mealName,
       Value<String> mealQuantity,
       Value<String> mealType,
@@ -3552,11 +3393,6 @@ class $$MealInfoTableTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get clientId => $composableBuilder(
-    column: $table.clientId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -3635,11 +3471,6 @@ class $$MealInfoTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get clientId => $composableBuilder(
-    column: $table.clientId,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<String> get mealName => $composableBuilder(
     column: $table.mealName,
     builder: (column) => ColumnOrderings(column),
@@ -3712,9 +3543,6 @@ class $$MealInfoTableTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get clientId =>
-      $composableBuilder(column: $table.clientId, builder: (column) => column);
 
   GeneratedColumn<String> get mealName =>
       $composableBuilder(column: $table.mealName, builder: (column) => column);
@@ -3799,7 +3627,6 @@ class $$MealInfoTableTableTableManager
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                Value<String?> clientId = const Value.absent(),
                 Value<String> mealName = const Value.absent(),
                 Value<String> mealQuantity = const Value.absent(),
                 Value<String> mealType = const Value.absent(),
@@ -3814,7 +3641,6 @@ class $$MealInfoTableTableTableManager
                 Value<String?> healthScoreReason = const Value.absent(),
               }) => MealInfoTableCompanion(
                 id: id,
-                clientId: clientId,
                 mealName: mealName,
                 mealQuantity: mealQuantity,
                 mealType: mealType,
@@ -3831,7 +3657,6 @@ class $$MealInfoTableTableTableManager
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                Value<String?> clientId = const Value.absent(),
                 required String mealName,
                 required String mealQuantity,
                 required String mealType,
@@ -3846,7 +3671,6 @@ class $$MealInfoTableTableTableManager
                 Value<String?> healthScoreReason = const Value.absent(),
               }) => MealInfoTableCompanion.insert(
                 id: id,
-                clientId: clientId,
                 mealName: mealName,
                 mealQuantity: mealQuantity,
                 mealType: mealType,
@@ -4482,7 +4306,6 @@ typedef $$UserPreferencesTableTableProcessedTableManager =
 typedef $$FavoriteMealTableTableCreateCompanionBuilder =
     FavoriteMealTableCompanion Function({
       Value<int> id,
-      Value<String?> clientId,
       required String mealName,
       required String mealQuantity,
       required String mealType,
@@ -4495,14 +4318,12 @@ typedef $$FavoriteMealTableTableCreateCompanionBuilder =
       Value<String?> imageUrl,
       Value<String?> healthScore,
       Value<String?> healthScoreReason,
-      Value<int?> sourceMealId,
       Value<DateTime> createdAt,
       Value<DateTime?> lastUsedAt,
     });
 typedef $$FavoriteMealTableTableUpdateCompanionBuilder =
     FavoriteMealTableCompanion Function({
       Value<int> id,
-      Value<String?> clientId,
       Value<String> mealName,
       Value<String> mealQuantity,
       Value<String> mealType,
@@ -4515,7 +4336,6 @@ typedef $$FavoriteMealTableTableUpdateCompanionBuilder =
       Value<String?> imageUrl,
       Value<String?> healthScore,
       Value<String?> healthScoreReason,
-      Value<int?> sourceMealId,
       Value<DateTime> createdAt,
       Value<DateTime?> lastUsedAt,
     });
@@ -4531,11 +4351,6 @@ class $$FavoriteMealTableTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get clientId => $composableBuilder(
-    column: $table.clientId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -4599,11 +4414,6 @@ class $$FavoriteMealTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<int> get sourceMealId => $composableBuilder(
-    column: $table.sourceMealId,
-    builder: (column) => ColumnFilters(column),
-  );
-
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
@@ -4626,11 +4436,6 @@ class $$FavoriteMealTableTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get clientId => $composableBuilder(
-    column: $table.clientId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -4694,11 +4499,6 @@ class $$FavoriteMealTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<int> get sourceMealId => $composableBuilder(
-    column: $table.sourceMealId,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
@@ -4721,9 +4521,6 @@ class $$FavoriteMealTableTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get clientId =>
-      $composableBuilder(column: $table.clientId, builder: (column) => column);
 
   GeneratedColumn<String> get mealName =>
       $composableBuilder(column: $table.mealName, builder: (column) => column);
@@ -4764,11 +4561,6 @@ class $$FavoriteMealTableTableAnnotationComposer
 
   GeneratedColumn<String> get healthScoreReason => $composableBuilder(
     column: $table.healthScoreReason,
-    builder: (column) => column,
-  );
-
-  GeneratedColumn<int> get sourceMealId => $composableBuilder(
-    column: $table.sourceMealId,
     builder: (column) => column,
   );
 
@@ -4828,7 +4620,6 @@ class $$FavoriteMealTableTableTableManager
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                Value<String?> clientId = const Value.absent(),
                 Value<String> mealName = const Value.absent(),
                 Value<String> mealQuantity = const Value.absent(),
                 Value<String> mealType = const Value.absent(),
@@ -4841,12 +4632,10 @@ class $$FavoriteMealTableTableTableManager
                 Value<String?> imageUrl = const Value.absent(),
                 Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
-                Value<int?> sourceMealId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime?> lastUsedAt = const Value.absent(),
               }) => FavoriteMealTableCompanion(
                 id: id,
-                clientId: clientId,
                 mealName: mealName,
                 mealQuantity: mealQuantity,
                 mealType: mealType,
@@ -4859,14 +4648,12 @@ class $$FavoriteMealTableTableTableManager
                 imageUrl: imageUrl,
                 healthScore: healthScore,
                 healthScoreReason: healthScoreReason,
-                sourceMealId: sourceMealId,
                 createdAt: createdAt,
                 lastUsedAt: lastUsedAt,
               ),
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                Value<String?> clientId = const Value.absent(),
                 required String mealName,
                 required String mealQuantity,
                 required String mealType,
@@ -4879,12 +4666,10 @@ class $$FavoriteMealTableTableTableManager
                 Value<String?> imageUrl = const Value.absent(),
                 Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
-                Value<int?> sourceMealId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime?> lastUsedAt = const Value.absent(),
               }) => FavoriteMealTableCompanion.insert(
                 id: id,
-                clientId: clientId,
                 mealName: mealName,
                 mealQuantity: mealQuantity,
                 mealType: mealType,
@@ -4897,7 +4682,6 @@ class $$FavoriteMealTableTableTableManager
                 imageUrl: imageUrl,
                 healthScore: healthScore,
                 healthScoreReason: healthScoreReason,
-                sourceMealId: sourceMealId,
                 createdAt: createdAt,
                 lastUsedAt: lastUsedAt,
               ),
