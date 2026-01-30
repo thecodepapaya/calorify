@@ -37,7 +37,7 @@ extension MealToCompanion on Meal {
 extension MealInfoMapper on LoggedMeal {
   MealInfoTableCompanion toCompanion() {
     return MealInfoTableCompanion(
-      id: Value(clientId),
+      id: hasClientId() ? Value(clientId) : const Value.absent(),
       mealName: Value(meal.name),
       mealQuantity: Value(meal.quantity),
       mealType: Value(meal.type.legacyName),

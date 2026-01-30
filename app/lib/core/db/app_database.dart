@@ -8,6 +8,8 @@ import 'package:calorify/core/db/tables/favorite_meal.dart';
 import 'package:calorify/core/db/tables/meal_info.dart';
 import 'package:calorify/core/db/tables/user_preferences.dart';
 import 'package:calorify/core/db/tables/user_profile.dart';
+import 'dart:async';
+
 import 'package:calorify/core/db/tables/sync_queue.dart';
 import 'package:models/models.dart';
 import 'package:drift/drift.dart';
@@ -31,7 +33,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 14;
+  int get schemaVersion => 15;
 
   @override
   MigrationStrategy get migration {
@@ -82,12 +84,16 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
             ),
           );
         }
-        if (from < 13) {
-          await m.addColumn(mealInfoTable, mealInfoTable.clientId);
-          await m.addColumn(favoriteMealTable, favoriteMealTable.clientId);
-        }
+        // Migration 13 removed - clientId column no longer exists
         if (from < 14) {
           await m.createTable(syncQueueTable);
+        }
+        if (from < 15) {
+          // Migration 15: Remove clientId and sourceMealId columns
+          // SQLite doesn't support DROP COLUMN directly, so these columns will remain
+          // in the database but won't be used by the app. They can be safely ignored.
+          // The app now uses only the auto-increment 'id' column for both meal_info
+          // and favorite_meal tables.
         }
       },
     );
@@ -272,7 +278,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   Future<bool> isFavoriteMeal(int mealId) async {
     final meal =
         await (select(favoriteMealTable)
-          ..where((tbl) => tbl.sourceMealId.equals(mealId))).getSingleOrNull();
+          ..where((tbl) => tbl.id.equals(mealId))).getSingleOrNull();
     return meal != null;
   }
 
@@ -291,7 +297,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   @override
   Future<void> removeFavoriteMeal(int mealId) {
     return (delete(favoriteMealTable)
-      ..where((tbl) => tbl.sourceMealId.equals(mealId))).go();
+      ..where((tbl) => tbl.id.equals(mealId))).go();
   }
 
   @override
@@ -304,7 +310,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
             (t) =>
                 OrderingTerm(expression: t.timestamp, mode: OrderingMode.desc),
           ])
-          ..limit(mealsPerPage, offset: offset * mealsPerPage))
+          ..limit(mealsPerPage, offset: offset))
         .get()
         .then(
           (rows) => rows.map((row) => MealInfoMapper.fromRow(row)).toList(),

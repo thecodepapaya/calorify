@@ -260,8 +260,14 @@ class EditMealScreenState extends State<EditMealScreen> {
       _selectedTime.minute,
     );
 
+    // Generate a new clientId if this is a new meal
+    // Use timestamp-based approach for simplicity
+    final finalClientId =
+        _clientId ??
+        (DateTime.now().millisecondsSinceEpoch % 2147483647).toInt();
+
     final mealInfo = LoggedMeal(
-      clientId: _clientId ?? 0,
+      clientId: finalClientId,
       meal: Meal(
         name: _nameController.text,
         quantity: _mealQuantityController.text,

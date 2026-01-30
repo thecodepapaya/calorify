@@ -23,7 +23,6 @@ extension FavoriteMealMapper on LoggedMeal {
           meal.hasHealth() && meal.health.hasHealthScoreReason()
               ? Value(meal.health.healthScoreReason)
               : const Value.absent(),
-      sourceMealId: Value(clientId),
       imageUrl:
           hasMetadata() && metadata.hasImageUrl()
               ? Value(metadata.imageUrl)

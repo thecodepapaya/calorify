@@ -1,11 +1,20 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import type {
   MealDetectionResult,
+} from '../protos/calorify/meal_detection.js';
+import type {
   Meal,
   MealType,
   HealthScore,
-} from '../protos/calorify/models.js';
-import { MealType as MealTypeEnum, HealthScore as HealthScoreEnum } from '../protos/calorify/models.js';
+  CalorieConfidence,
+} from '../protos/meal/meal.js';
+import {
+  CalorieConfidence as CalorieConfidenceEnum,
+} from '../protos/meal/meal.js';
+import {
+  MealType as MealTypeEnum,
+  HealthScore as HealthScoreEnum,
+} from '../protos/meal/meal.js';
 
 const SYSTEM_PROMPT = `You are an expert food analysis AI. Given an image or a description of food,
 analyze the main food item(s). Be precise with nutrient estimations.
@@ -115,25 +124,59 @@ class FoodAnalysisService {
    * Returns a proper protobuf-typed object
    */
   private buildProtoResult(resultDict: GeminiResponse): MealDetectionResult {
+    // Validate required fields
+    if (typeof resultDict.meal_identified !== 'boolean') {
+      throw new Error('Response missing or invalid "meal_identified" field');
+    }
+    if (typeof resultDict.calorie_confidence !== 'number') {
+      throw new Error('Response missing or invalid "calorie_confidence" field');
+    }
+    if (typeof resultDict.tip !== 'string') {
+      throw new Error('Response missing or invalid "tip" field');
+    }
+    if (!resultDict.meal_info) {
+      throw new Error('Response missing "meal_info" field');
+    }
+
     const mealInfo: Meal = {
-      mealName: resultDict.meal_info.meal_name,
-      mealQuantity: resultDict.meal_info.meal_quantity ?? '',
-      mealType: this.parseMealType(resultDict.meal_info.meal_type),
-      calories: resultDict.meal_info.calories,
-      protein: resultDict.meal_info.protein,
-      carbs: resultDict.meal_info.carbs,
-      fat: resultDict.meal_info.fat,
-      fiber: resultDict.meal_info.fiber,
-      timestamp: Date.now(), // Unix timestamp in milliseconds
-      healthScore: this.parseHealthScore(resultDict.meal_info.health_score),
-      healthScoreReason: resultDict.meal_info.health_score_reason,
+      name: resultDict.meal_info.meal_name || '',
+      quantity: resultDict.meal_info.meal_quantity ?? '',
+      type: this.parseMealType(resultDict.meal_info.meal_type),
+      macros: {
+        calories: Math.round(resultDict.meal_info.calories),
+        protein: Math.round(resultDict.meal_info.protein),
+        carbs: Math.round(resultDict.meal_info.carbs),
+        fat: Math.round(resultDict.meal_info.fat),
+        fiber: Math.round(resultDict.meal_info.fiber),
+      },
+      health: resultDict.meal_info.health_score_reason
+        ? {
+          healthScore: this.parseHealthScore(resultDict.meal_info.health_score),
+          healthScoreReason: resultDict.meal_info.health_score_reason,
+        }
+        : {
+          healthScore: this.parseHealthScore(resultDict.meal_info.health_score),
+        },
     };
+
+    // Map calorie confidence number (0-100) to CalorieConfidence enum
+    let calorieConfidence: CalorieConfidence;
+    const conf = resultDict.calorie_confidence;
+    if (conf >= 71) {
+      calorieConfidence = CalorieConfidenceEnum.HIGH;
+    } else if (conf >= 41) {
+      calorieConfidence = CalorieConfidenceEnum.MEDIUM;
+    } else if (conf >= 1) {
+      calorieConfidence = CalorieConfidenceEnum.LOW;
+    } else {
+      calorieConfidence = CalorieConfidenceEnum.UNSPECIFIED;
+    }
 
     const result: MealDetectionResult = {
       mealIdentified: resultDict.meal_identified,
-      calorieConfidence: resultDict.calorie_confidence,
+      calorieConfidence,
       tip: resultDict.tip,
-      mealInfo,
+      meal: mealInfo,
     };
 
     return result;
@@ -166,7 +209,14 @@ class FoodAnalysisService {
 
       const responseText = result.response.text();
       const jsonText = this.extractJson(responseText);
-      const resultDict: GeminiResponse = JSON.parse(jsonText);
+      let resultDict: GeminiResponse;
+      try {
+        resultDict = JSON.parse(jsonText);
+      } catch (parseError) {
+        throw new Error(
+          `Failed to parse Gemini response as JSON: ${parseError instanceof Error ? parseError.message : 'Unknown error'}`
+        );
+      }
 
       return this.buildProtoResult(resultDict);
     } catch (error) {
@@ -187,7 +237,14 @@ class FoodAnalysisService {
       const result = await this.model.generateContent([prompt]);
       const responseText = result.response.text();
       const jsonText = this.extractJson(responseText);
-      const resultDict: GeminiResponse = JSON.parse(jsonText);
+      let resultDict: GeminiResponse;
+      try {
+        resultDict = JSON.parse(jsonText);
+      } catch (parseError) {
+        throw new Error(
+          `Failed to parse Gemini response as JSON: ${parseError instanceof Error ? parseError.message : 'Unknown error'}`
+        );
+      }
 
       return this.buildProtoResult(resultDict);
     } catch (error) {

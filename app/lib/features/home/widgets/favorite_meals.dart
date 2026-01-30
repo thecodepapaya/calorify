@@ -194,10 +194,8 @@ class _MealTile extends StatelessWidget {
               analyticsEvent: AnalyticsEvent.addMealFromFavorites,
               onPressed: () async {
                 try {
-                  final newMeal = favoriteMeal.loggedMeal.deepCopy();
-                  newMeal.clearClientId();
                   await logMeal(context, meal);
-                  final favMealId = favoriteMeal.loggedMeal.clientId;
+                  final favMealId = favoriteMeal.clientId;
                   await DatabaseService.databaseInterface
                       .updateFavoriteLastUsedAt(favMealId);
                   if (context.mounted) {

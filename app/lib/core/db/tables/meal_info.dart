@@ -2,7 +2,6 @@ import 'package:drift/drift.dart';
 
 class MealInfoTable extends Table {
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get clientId => text().nullable()();
   TextColumn get mealName => text()();
   TextColumn get mealQuantity => text()();
   TextColumn get mealType => text()();
@@ -13,6 +12,7 @@ class MealInfoTable extends Table {
   IntColumn get fiber => integer()();
   DateTimeColumn get timestamp => dateTime()();
   TextColumn get imageUrl => text().nullable()();
-  TextColumn get healthScore => text().nullable()(); // 'healthy', 'neutral', 'unhealthy', 'unknown'
+  TextColumn get healthScore =>
+      text().nullable()(); // 'healthy', 'neutral', 'unhealthy', 'unknown'
   TextColumn get healthScoreReason => text().nullable()();
 }
