@@ -247,7 +247,12 @@
     "failedToProcess": "Nieudana próba przetworzenia: {error}",
     "failedToProcessImage": "Nieudana próba przetworzenia obrazu: {error}",
     "errorCompressingImage": "Błąd kompresji obrazu: {error}",
-    "failedToSave": "Nie udało się zapisać danych. Proszę spróbuj ponownie."
+    "failedToSave": "Nie udało się zapisać danych. Proszę spróbuj ponownie.",
+    "skip": "Pomiń",
+    "variation": {
+      "question": "Pytanie {current} z {total}",
+      "noVariationsAvailable": "Brak dostępnych wariantów"
+    }
   },
   "favorites": {
     "title": "Ulubione",

@@ -158,6 +158,8 @@ class _TranslationsMealSv implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Misslyckades med att bearbeta bilden: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Fel vid komprimering av bild: ${error}';
 	@override String get failedToSave => 'Misslyckades med att spara data. Vänligen försök igen.';
+	@override String get skip => 'Hoppa över';
+	@override late final _TranslationsMealVariationSv variation = _TranslationsMealVariationSv._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationSv implements TranslationsMealDeleteCon
 	@override String get message => 'Är du säker på att du vill radera detta måltidsinlägg?';
 	@override String get cancel => 'Avbryt';
 	@override String get delete => 'Radera';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationSv implements TranslationsMealVariationEn {
+	_TranslationsMealVariationSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Fråga ${current} av ${total}';
+	@override String get noVariationsAvailable => 'Inga varianter tillgängliga';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsSv {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Misslyckades med att bearbeta bilden: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fel vid komprimering av bild: ${error}',
 			'meal.failedToSave' => 'Misslyckades med att spara data. Vänligen försök igen.',
+			'meal.skip' => 'Hoppa över',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Fråga ${current} av ${total}',
+			'meal.variation.noVariationsAvailable' => 'Inga varianter tillgängliga',
 			'favorites.title' => 'Favoriter',
 			'favorites.empty' => 'Inga favoritmåltider ännu.',
 			'profile.title' => 'Profil',

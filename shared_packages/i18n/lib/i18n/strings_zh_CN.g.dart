@@ -158,6 +158,8 @@ class _TranslationsMealZhCn implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => '处理图像失败：${error}';
 	@override String errorCompressingImage({required Object error}) => '压缩图像时出错：${error}';
 	@override String get failedToSave => '数据保存失败。请再试一次。';
+	@override String get skip => '跳过';
+	@override late final _TranslationsMealVariationZhCn variation = _TranslationsMealVariationZhCn._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationZhCn implements TranslationsMealDeleteC
 	@override String get message => '您确定要删除这个餐点记录吗？';
 	@override String get cancel => '取消';
 	@override String get delete => '删除';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationZhCn implements TranslationsMealVariationEn {
+	_TranslationsMealVariationZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => '第 ${current} 个问题，共 ${total} 个';
+	@override String get noVariationsAvailable => '暂无可用变体';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsZhCn {
 			'meal.failedToProcessImage' => ({required Object error}) => '处理图像失败：${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => '压缩图像时出错：${error}',
 			'meal.failedToSave' => '数据保存失败。请再试一次。',
+			'meal.skip' => '跳过',
+			'meal.variation.question' => ({required Object current, required Object total}) => '第 ${current} 个问题，共 ${total} 个',
+			'meal.variation.noVariationsAvailable' => '暂无可用变体',
 			'favorites.title' => '收藏夹',
 			'favorites.empty' => '尚未添加收藏餐点。',
 			'profile.title' => '个人资料',

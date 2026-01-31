@@ -158,6 +158,8 @@ class _TranslationsMealAr implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'فشل في معالجة الصورة: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'خطأ في ضغط الصورة: ${error}';
 	@override String get failedToSave => 'فشل في حفظ البيانات. يرجى المحاولة مرة أخرى.';
+	@override String get skip => 'تخطي';
+	@override late final _TranslationsMealVariationAr variation = _TranslationsMealVariationAr._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationAr implements TranslationsMealDeleteCon
 	@override String get message => 'هل أنت متأكد أنك تريد حذف إدخال هذه الوجبة؟';
 	@override String get cancel => 'إلغاء';
 	@override String get delete => 'احذف';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationAr implements TranslationsMealVariationEn {
+	_TranslationsMealVariationAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'السؤال ${current} من ${total}';
+	@override String get noVariationsAvailable => 'لا توجد تنويعات متاحة';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsAr {
 			'meal.failedToProcessImage' => ({required Object error}) => 'فشل في معالجة الصورة: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'خطأ في ضغط الصورة: ${error}',
 			'meal.failedToSave' => 'فشل في حفظ البيانات. يرجى المحاولة مرة أخرى.',
+			'meal.skip' => 'تخطي',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'السؤال ${current} من ${total}',
+			'meal.variation.noVariationsAvailable' => 'لا توجد تنويعات متاحة',
 			'favorites.title' => 'المفضلات',
 			'favorites.empty' => 'لا توجد وجبات مفضلة بعد.',
 			'profile.title' => 'الملف الشخصي',

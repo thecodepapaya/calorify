@@ -247,7 +247,12 @@
     "failedToProcess": "Не вдалося обробити: {error}",
     "failedToProcessImage": "Не вдалося обробити зображення: {error}",
     "errorCompressingImage": "Помилка стиснення зображення: {error}",
-    "failedToSave": "Не вдалося зберегти дані. Будь ласка, спробуйте ще раз."
+    "failedToSave": "Не вдалося зберегти дані. Будь ласка, спробуйте ще раз.",
+    "skip": "Пропустити",
+    "variation": {
+      "question": "Питання {current} з {total}",
+      "noVariationsAvailable": "Немає доступних варіантів"
+    }
   },
   "favorites": {
     "title": "Улюблені",

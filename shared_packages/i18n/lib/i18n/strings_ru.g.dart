@@ -158,6 +158,8 @@ class _TranslationsMealRu implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Не удалось обработать изображение: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Ошибка сжатия изображения: ${error}';
 	@override String get failedToSave => 'Не удалось сохранить данные. Пожалуйста, попробуйте еще раз.';
+	@override String get skip => 'Пропустить';
+	@override late final _TranslationsMealVariationRu variation = _TranslationsMealVariationRu._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationRu implements TranslationsMealDeleteCon
 	@override String get message => 'Вы уверены, что хотите удалить эту запись о приёме пищи?';
 	@override String get cancel => 'Отмена';
 	@override String get delete => 'Удалить';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationRu implements TranslationsMealVariationEn {
+	_TranslationsMealVariationRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Вопрос ${current} из ${total}';
+	@override String get noVariationsAvailable => 'Нет доступных вариантов';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsRu {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Не удалось обработать изображение: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Ошибка сжатия изображения: ${error}',
 			'meal.failedToSave' => 'Не удалось сохранить данные. Пожалуйста, попробуйте еще раз.',
+			'meal.skip' => 'Пропустить',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Вопрос ${current} из ${total}',
+			'meal.variation.noVariationsAvailable' => 'Нет доступных вариантов',
 			'favorites.title' => 'Избранное',
 			'favorites.empty' => 'Нет любимых блюд.',
 			'profile.title' => 'Профиль',

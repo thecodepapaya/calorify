@@ -158,6 +158,8 @@ class _TranslationsMealCs implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Nepodařilo se zpracovat obrázek: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Chyba při kompresi obrázku: ${error}';
 	@override String get failedToSave => 'Nepodařilo se uložit data. Zkuste to prosím znovu.';
+	@override String get skip => 'Přeskočit';
+	@override late final _TranslationsMealVariationCs variation = _TranslationsMealVariationCs._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationCs implements TranslationsMealDeleteCon
 	@override String get message => 'Opravdu chcete smazat tento záznam o jídle?';
 	@override String get cancel => 'Storno';
 	@override String get delete => 'Smazat';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationCs implements TranslationsMealVariationEn {
+	_TranslationsMealVariationCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Otázka ${current} z ${total}';
+	@override String get noVariationsAvailable => 'Nejsou dostupné žádné varianty';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsCs {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Nepodařilo se zpracovat obrázek: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Chyba při kompresi obrázku: ${error}',
 			'meal.failedToSave' => 'Nepodařilo se uložit data. Zkuste to prosím znovu.',
+			'meal.skip' => 'Přeskočit',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Otázka ${current} z ${total}',
+			'meal.variation.noVariationsAvailable' => 'Nejsou dostupné žádné varianty',
 			'favorites.title' => 'Oblíbené',
 			'favorites.empty' => 'Žádná oblíbená jídla zatím.',
 			'profile.title' => 'Profil',

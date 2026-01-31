@@ -158,6 +158,8 @@ class _TranslationsMealNo implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Feil under prosessering av bilde: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Feil under komprimering av bilde: ${error}';
 	@override String get failedToSave => 'Kunne ikke lagre data. Vennligst prøv igjen.';
+	@override String get skip => 'Hopp over';
+	@override late final _TranslationsMealVariationNo variation = _TranslationsMealVariationNo._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationNo implements TranslationsMealDeleteCon
 	@override String get message => 'Er du sikker på at du vil slette denne måltidsoppføringen?';
 	@override String get cancel => 'Avbryt';
 	@override String get delete => 'Slett';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationNo implements TranslationsMealVariationEn {
+	_TranslationsMealVariationNo._(this._root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Spørsmål ${current} av ${total}';
+	@override String get noVariationsAvailable => 'Ingen varianter tilgjengelig';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsNo {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Feil under prosessering av bilde: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Feil under komprimering av bilde: ${error}',
 			'meal.failedToSave' => 'Kunne ikke lagre data. Vennligst prøv igjen.',
+			'meal.skip' => 'Hopp over',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Spørsmål ${current} av ${total}',
+			'meal.variation.noVariationsAvailable' => 'Ingen varianter tilgjengelig',
 			'favorites.title' => 'Favoritter',
 			'favorites.empty' => 'Ingen favorittmåltider enda.',
 			'profile.title' => 'Profil',

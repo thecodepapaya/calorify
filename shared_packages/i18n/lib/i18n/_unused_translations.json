@@ -252,7 +252,12 @@
       "failedToProcess": "Failed to process: {error}",
       "failedToProcessImage": "Failed to process image: {error}",
       "errorCompressingImage": "Error compressing image: {error}",
-      "failedToSave": "Failed to save data. Please try again."
+      "failedToSave": "Failed to save data. Please try again.",
+      "skip": "Skip",
+      "variation": {
+        "question": "Question {current} of {total}",
+        "noVariationsAvailable": "No variations available"
+      }
     },
     "favorites": {
       "title": "Favorites",

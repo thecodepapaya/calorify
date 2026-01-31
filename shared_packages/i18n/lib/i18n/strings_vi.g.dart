@@ -158,6 +158,8 @@ class _TranslationsMealVi implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Không thể xử lý hình ảnh: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Lỗi nén hình ảnh: ${error}';
 	@override String get failedToSave => 'Không thể lưu dữ liệu. Vui lòng thử lại.';
+	@override String get skip => 'Bỏ qua';
+	@override late final _TranslationsMealVariationVi variation = _TranslationsMealVariationVi._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationVi implements TranslationsMealDeleteCon
 	@override String get message => 'Bạn có chắc chắn muốn xóa mục bữa ăn này không?';
 	@override String get cancel => 'Hủy';
 	@override String get delete => 'Xóa';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationVi implements TranslationsMealVariationEn {
+	_TranslationsMealVariationVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Câu hỏi ${current} trên ${total}';
+	@override String get noVariationsAvailable => 'Không có biến thể nào';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsVi {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Không thể xử lý hình ảnh: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Lỗi nén hình ảnh: ${error}',
 			'meal.failedToSave' => 'Không thể lưu dữ liệu. Vui lòng thử lại.',
+			'meal.skip' => 'Bỏ qua',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Câu hỏi ${current} trên ${total}',
+			'meal.variation.noVariationsAvailable' => 'Không có biến thể nào',
 			'favorites.title' => 'Yêu thích',
 			'favorites.empty' => 'Chưa có bữa ăn yêu thích nào.',
 			'profile.title' => 'Hồ sơ',

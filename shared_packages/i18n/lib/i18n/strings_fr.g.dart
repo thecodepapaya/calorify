@@ -158,6 +158,8 @@ class _TranslationsMealFr implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Échec du traitement de l\'image : ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Erreur de compression de l\'image : ${error}';
 	@override String get failedToSave => 'Échec de l\'enregistrement des données. Veuillez réessayer.';
+	@override String get skip => 'Passer';
+	@override late final _TranslationsMealVariationFr variation = _TranslationsMealVariationFr._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationFr implements TranslationsMealDeleteCon
 	@override String get message => 'Êtes-vous sûr de vouloir supprimer cette entrée de repas ?';
 	@override String get cancel => 'Annuler';
 	@override String get delete => 'Supprimer';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationFr implements TranslationsMealVariationEn {
+	_TranslationsMealVariationFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Question ${current} sur ${total}';
+	@override String get noVariationsAvailable => 'Aucune variation disponible';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsFr {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Échec du traitement de l\'image : ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Erreur de compression de l\'image : ${error}',
 			'meal.failedToSave' => 'Échec de l\'enregistrement des données. Veuillez réessayer.',
+			'meal.skip' => 'Passer',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Question ${current} sur ${total}',
+			'meal.variation.noVariationsAvailable' => 'Aucune variation disponible',
 			'favorites.title' => 'Favoris',
 			'favorites.empty' => 'Aucun repas préféré pour le moment.',
 			'profile.title' => 'Profil',

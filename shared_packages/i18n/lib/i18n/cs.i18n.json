@@ -247,7 +247,12 @@
     "failedToProcess": "Nepodařilo se zpracovat: {error}",
     "failedToProcessImage": "Nepodařilo se zpracovat obrázek: {error}",
     "errorCompressingImage": "Chyba při kompresi obrázku: {error}",
-    "failedToSave": "Nepodařilo se uložit data. Zkuste to prosím znovu."
+    "failedToSave": "Nepodařilo se uložit data. Zkuste to prosím znovu.",
+    "skip": "Přeskočit",
+    "variation": {
+      "question": "Otázka {current} z {total}",
+      "noVariationsAvailable": "Nejsou dostupné žádné varianty"
+    }
   },
   "favorites": {
     "title": "Oblíbené",

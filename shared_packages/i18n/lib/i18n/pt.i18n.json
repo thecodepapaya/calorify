@@ -247,7 +247,12 @@
     "failedToProcess": "Falha ao processar: {error}",
     "failedToProcessImage": "Falha ao processar a imagem: {error}",
     "errorCompressingImage": "Erro ao comprimir a imagem: {error}",
-    "failedToSave": "Falha ao salvar os dados. Por favor, tente novamente."
+    "failedToSave": "Falha ao salvar os dados. Por favor, tente novamente.",
+    "skip": "Pular",
+    "variation": {
+      "question": "Pergunta {current} de {total}",
+      "noVariationsAvailable": "Não há variações disponíveis"
+    }
   },
   "favorites": {
     "title": "Favoritos",

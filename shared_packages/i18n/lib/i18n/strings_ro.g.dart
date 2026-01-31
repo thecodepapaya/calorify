@@ -158,6 +158,8 @@ class _TranslationsMealRo implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Nu s-a putut procesa imaginea: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Eroare la comprimarea imaginii: ${error}';
 	@override String get failedToSave => 'Nu s-a putut salva datele. Te rugăm să încerci din nou.';
+	@override String get skip => 'Sări peste';
+	@override late final _TranslationsMealVariationRo variation = _TranslationsMealVariationRo._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationRo implements TranslationsMealDeleteCon
 	@override String get message => 'Ești sigur că vrei să ștergi această înregistrare de masă?';
 	@override String get cancel => 'Anulează';
 	@override String get delete => 'Șterge';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationRo implements TranslationsMealVariationEn {
+	_TranslationsMealVariationRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Întrebarea ${current} din ${total}';
+	@override String get noVariationsAvailable => 'Nu există variații disponibile';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsRo {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Nu s-a putut procesa imaginea: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Eroare la comprimarea imaginii: ${error}',
 			'meal.failedToSave' => 'Nu s-a putut salva datele. Te rugăm să încerci din nou.',
+			'meal.skip' => 'Sări peste',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Întrebarea ${current} din ${total}',
+			'meal.variation.noVariationsAvailable' => 'Nu există variații disponibile',
 			'favorites.title' => 'Favorite',
 			'favorites.empty' => 'Nu sunt mese favorite încă.',
 			'profile.title' => 'Profil',

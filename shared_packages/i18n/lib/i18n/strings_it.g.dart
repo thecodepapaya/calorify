@@ -158,6 +158,8 @@ class _TranslationsMealIt implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Impossibile elaborare l\'immagine: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Errore nella compressione dell\'immagine: ${error}';
 	@override String get failedToSave => 'Impossibile salvare i dati. Per favore, riprova.';
+	@override String get skip => 'Salta';
+	@override late final _TranslationsMealVariationIt variation = _TranslationsMealVariationIt._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationIt implements TranslationsMealDeleteCon
 	@override String get message => 'Sei sicuro di voler eliminare questa voce di pasto?';
 	@override String get cancel => 'Annulla';
 	@override String get delete => 'Elimina';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationIt implements TranslationsMealVariationEn {
+	_TranslationsMealVariationIt._(this._root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Domanda ${current} di ${total}';
+	@override String get noVariationsAvailable => 'Nessuna variante disponibile';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsIt {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Impossibile elaborare l\'immagine: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Errore nella compressione dell\'immagine: ${error}',
 			'meal.failedToSave' => 'Impossibile salvare i dati. Per favore, riprova.',
+			'meal.skip' => 'Salta',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Domanda ${current} di ${total}',
+			'meal.variation.noVariationsAvailable' => 'Nessuna variante disponibile',
 			'favorites.title' => 'Preferiti',
 			'favorites.empty' => 'Nessun pasto preferito per ora.',
 			'profile.title' => 'Profilo',

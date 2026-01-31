@@ -247,7 +247,12 @@
     "failedToProcess": "Kon niet verwerken: {error}",
     "failedToProcessImage": "Kon afbeelding niet verwerken: {error}",
     "errorCompressingImage": "Fout bij het comprimeren van afbeelding: {error}",
-    "failedToSave": "Kon gegevens niet opslaan. Probeer het opnieuw."
+    "failedToSave": "Kon gegevens niet opslaan. Probeer het opnieuw.",
+    "skip": "Overslaan",
+    "variation": {
+      "question": "Vraag {current} van {total}",
+      "noVariationsAvailable": "Geen variaties beschikbaar"
+    }
   },
   "favorites": {
     "title": "Favorieten",

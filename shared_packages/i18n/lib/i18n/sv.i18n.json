@@ -247,7 +247,12 @@
     "failedToProcess": "Misslyckades med att bearbeta: {error}",
     "failedToProcessImage": "Misslyckades med att bearbeta bilden: {error}",
     "errorCompressingImage": "Fel vid komprimering av bild: {error}",
-    "failedToSave": "Misslyckades med att spara data. Vänligen försök igen."
+    "failedToSave": "Misslyckades med att spara data. Vänligen försök igen.",
+    "skip": "Hoppa över",
+    "variation": {
+      "question": "Fråga {current} av {total}",
+      "noVariationsAvailable": "Inga varianter tillgängliga"
+    }
   },
   "favorites": {
     "title": "Favoriter",

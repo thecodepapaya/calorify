@@ -158,6 +158,8 @@ class _TranslationsMealDe implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Bildverarbeitung fehlgeschlagen: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Fehler beim Komprimieren des Bildes: ${error}';
 	@override String get failedToSave => 'Daten konnten nicht gespeichert werden. Bitte versuchen Sie es erneut.';
+	@override String get skip => 'Überspringen';
+	@override late final _TranslationsMealVariationDe variation = _TranslationsMealVariationDe._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationDe implements TranslationsMealDeleteCon
 	@override String get message => 'Bist du sicher, dass du diesen Mahlzeiteintrag löschen möchtest?';
 	@override String get cancel => 'Abbrechen';
 	@override String get delete => 'Löschen';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationDe implements TranslationsMealVariationEn {
+	_TranslationsMealVariationDe._(this._root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Frage ${current} von ${total}';
+	@override String get noVariationsAvailable => 'Keine Varianten verfügbar';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsDe {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Bildverarbeitung fehlgeschlagen: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fehler beim Komprimieren des Bildes: ${error}',
 			'meal.failedToSave' => 'Daten konnten nicht gespeichert werden. Bitte versuchen Sie es erneut.',
+			'meal.skip' => 'Überspringen',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Frage ${current} von ${total}',
+			'meal.variation.noVariationsAvailable' => 'Keine Varianten verfügbar',
 			'favorites.title' => 'Favoriten',
 			'favorites.empty' => 'Noch keine Lieblingsmahlzeiten.',
 			'profile.title' => 'Profil',

@@ -158,6 +158,8 @@ class _TranslationsMealJa implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => '画像の処理に失敗しました: ${error}';
 	@override String errorCompressingImage({required Object error}) => '画像の圧縮エラー: ${error}';
 	@override String get failedToSave => 'データの保存に失敗しました。再試行してください。';
+	@override String get skip => 'スキップ';
+	@override late final _TranslationsMealVariationJa variation = _TranslationsMealVariationJa._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationJa implements TranslationsMealDeleteCon
 	@override String get message => '本当にこの食事のエントリーを削除してもよろしいですか？';
 	@override String get cancel => 'キャンセル';
 	@override String get delete => '削除';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationJa implements TranslationsMealVariationEn {
+	_TranslationsMealVariationJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object total, required Object current}) => '全${total}問中 ${current}問目';
+	@override String get noVariationsAvailable => '利用可能なバリエーションはありません';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsJa {
 			'meal.failedToProcessImage' => ({required Object error}) => '画像の処理に失敗しました: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => '画像の圧縮エラー: ${error}',
 			'meal.failedToSave' => 'データの保存に失敗しました。再試行してください。',
+			'meal.skip' => 'スキップ',
+			'meal.variation.question' => ({required Object total, required Object current}) => '全${total}問中 ${current}問目',
+			'meal.variation.noVariationsAvailable' => '利用可能なバリエーションはありません',
 			'favorites.title' => 'お気に入り',
 			'favorites.empty' => 'まだお気に入りの食事はありません。',
 			'profile.title' => 'プロフィール',

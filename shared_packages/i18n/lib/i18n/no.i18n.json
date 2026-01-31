@@ -247,7 +247,12 @@
     "failedToProcess": "Feil under prosessering: {error}",
     "failedToProcessImage": "Feil under prosessering av bilde: {error}",
     "errorCompressingImage": "Feil under komprimering av bilde: {error}",
-    "failedToSave": "Kunne ikke lagre data. Vennligst prøv igjen."
+    "failedToSave": "Kunne ikke lagre data. Vennligst prøv igjen.",
+    "skip": "Hopp over",
+    "variation": {
+      "question": "Spørsmål {current} av {total}",
+      "noVariationsAvailable": "Ingen varianter tilgjengelig"
+    }
   },
   "favorites": {
     "title": "Favoritter",

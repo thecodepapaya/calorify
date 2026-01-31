@@ -158,6 +158,8 @@ class _TranslationsMealHe implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'נכשל בעיבוד התמונה: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'שגיאה בצמצום התמונה: ${error}';
 	@override String get failedToSave => 'נכשל בשמירת הנתונים. אנא נסה שוב.';
+	@override String get skip => 'דלג';
+	@override late final _TranslationsMealVariationHe variation = _TranslationsMealVariationHe._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationHe implements TranslationsMealDeleteCon
 	@override String get message => 'האם אתה בטוח שברצונך למחוק רשומה זו של הארוחה?';
 	@override String get cancel => 'ביטול';
 	@override String get delete => 'מחק';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationHe implements TranslationsMealVariationEn {
+	_TranslationsMealVariationHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'שאלה ${current} מתוך ${total}';
+	@override String get noVariationsAvailable => 'אין וריאציות זמינות';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsHe {
 			'meal.failedToProcessImage' => ({required Object error}) => 'נכשל בעיבוד התמונה: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'שגיאה בצמצום התמונה: ${error}',
 			'meal.failedToSave' => 'נכשל בשמירת הנתונים. אנא נסה שוב.',
+			'meal.skip' => 'דלג',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'שאלה ${current} מתוך ${total}',
+			'meal.variation.noVariationsAvailable' => 'אין וריאציות זמינות',
 			'favorites.title' => 'אהובים',
 			'favorites.empty' => 'אין ארוחות אהובות עדיין.',
 			'profile.title' => 'פרופיל',

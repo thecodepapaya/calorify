@@ -247,7 +247,12 @@
     "failedToProcess": "Không thể xử lý: {error}",
     "failedToProcessImage": "Không thể xử lý hình ảnh: {error}",
     "errorCompressingImage": "Lỗi nén hình ảnh: {error}",
-    "failedToSave": "Không thể lưu dữ liệu. Vui lòng thử lại."
+    "failedToSave": "Không thể lưu dữ liệu. Vui lòng thử lại.",
+    "skip": "Bỏ qua",
+    "variation": {
+      "question": "Câu hỏi {current} trên {total}",
+      "noVariationsAvailable": "Không có biến thể nào"
+    }
   },
   "favorites": {
     "title": "Yêu thích",

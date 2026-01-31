@@ -247,7 +247,12 @@
     "failedToProcess": "处理失败：{error}",
     "failedToProcessImage": "处理图像失败：{error}",
     "errorCompressingImage": "压缩图像时出错：{error}",
-    "failedToSave": "数据保存失败。请再试一次。"
+    "failedToSave": "数据保存失败。请再试一次。",
+    "skip": "跳过",
+    "variation": {
+      "question": "第 {current} 个问题，共 {total} 个",
+      "noVariationsAvailable": "暂无可用变体"
+    }
   },
   "favorites": {
     "title": "收藏夹",

@@ -158,6 +158,8 @@ class _TranslationsMealGu implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'છબાને પ્રક્રિયા કરવામાં અસફળ: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'તશે છબી સંકોચીત કરવામાં ભૂલ: ${error}';
 	@override String get failedToSave => 'ડેટા સેવ કરવામાં અસફળ. કૃપા કરીને ફરી પ્રયાસ કરો.';
+	@override String get skip => 'છોડી દો';
+	@override late final _TranslationsMealVariationGu variation = _TranslationsMealVariationGu._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationGu implements TranslationsMealDeleteCon
 	@override String get message => 'શું તમે ખરેખર આ ખોરાકને દૂર કરવા માગો છો?';
 	@override String get cancel => 'રદ કરો';
 	@override String get delete => 'દૂર કરો';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationGu implements TranslationsMealVariationEn {
+	_TranslationsMealVariationGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object total, required Object current}) => '${total} માંથી પ્રશ્ન ${current}';
+	@override String get noVariationsAvailable => 'કોઈ વિવિધતાઓ ઉપલબ્ધ નથી';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsGu {
 			'meal.failedToProcessImage' => ({required Object error}) => 'છબાને પ્રક્રિયા કરવામાં અસફળ: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'તશે છબી સંકોચીત કરવામાં ભૂલ: ${error}',
 			'meal.failedToSave' => 'ડેટા સેવ કરવામાં અસફળ. કૃપા કરીને ફરી પ્રયાસ કરો.',
+			'meal.skip' => 'છોડી દો',
+			'meal.variation.question' => ({required Object total, required Object current}) => '${total} માંથી પ્રશ્ન ${current}',
+			'meal.variation.noVariationsAvailable' => 'કોઈ વિવિધતાઓ ઉપલબ્ધ નથી',
 			'favorites.title' => 'પસંદગીઓ',
 			'favorites.empty' => 'હજી સુધી કોઈ પસંદી ખોરાક નથી.',
 			'profile.title' => 'પ્રોફાઇલ',

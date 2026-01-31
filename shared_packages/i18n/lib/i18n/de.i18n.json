@@ -247,7 +247,12 @@
     "failedToProcess": "Verarbeitung fehlgeschlagen: {error}",
     "failedToProcessImage": "Bildverarbeitung fehlgeschlagen: {error}",
     "errorCompressingImage": "Fehler beim Komprimieren des Bildes: {error}",
-    "failedToSave": "Daten konnten nicht gespeichert werden. Bitte versuchen Sie es erneut."
+    "failedToSave": "Daten konnten nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+    "skip": "Überspringen",
+    "variation": {
+      "question": "Frage {current} von {total}",
+      "noVariationsAvailable": "Keine Varianten verfügbar"
+    }
   },
   "favorites": {
     "title": "Favoriten",

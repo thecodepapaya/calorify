@@ -158,6 +158,8 @@ class _TranslationsMealId implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Gagal memproses gambar: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Kesalahan saat mengompres gambar: ${error}';
 	@override String get failedToSave => 'Gagal menyimpan data. Silakan coba lagi.';
+	@override String get skip => 'Lewati';
+	@override late final _TranslationsMealVariationId variation = _TranslationsMealVariationId._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationId implements TranslationsMealDeleteCon
 	@override String get message => 'Apakah Anda yakin ingin menghapus entri makanan ini?';
 	@override String get cancel => 'Batal';
 	@override String get delete => 'Hapus';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationId implements TranslationsMealVariationEn {
+	_TranslationsMealVariationId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Pertanyaan ${current} dari ${total}';
+	@override String get noVariationsAvailable => 'Tidak ada variasi yang tersedia';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsId {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Gagal memproses gambar: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Kesalahan saat mengompres gambar: ${error}',
 			'meal.failedToSave' => 'Gagal menyimpan data. Silakan coba lagi.',
+			'meal.skip' => 'Lewati',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Pertanyaan ${current} dari ${total}',
+			'meal.variation.noVariationsAvailable' => 'Tidak ada variasi yang tersedia',
 			'favorites.title' => 'Favorit',
 			'favorites.empty' => 'Belum ada makanan favorit.',
 			'profile.title' => 'Profil',

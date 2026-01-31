@@ -247,7 +247,12 @@
     "failedToProcess": "సాధనం చేయడంలో వైఫల్యం: {error}",
     "failedToProcessImage": "చిత్రాన్ని చదవడంలో విఫలమైంది: {error}",
     "errorCompressingImage": "చిత్రం సంకోచించడంలో వైఫల్యం: {error}",
-    "failedToSave": "డేటాను నిల్వ చేయడంలో విఫలమైంది. ప్రస్తుత మధ్యలో ప్రయత్నించండి."
+    "failedToSave": "డేటాను నిల్వ చేయడంలో విఫలమైంది. ప్రస్తుత మధ్యలో ప్రయత్నించండి.",
+    "skip": "దాటవేయండి",
+    "variation": {
+      "question": "{total}లో {current}వ ప్రశ్న",
+      "noVariationsAvailable": "వైవిధ్యాలు అందుబాటులో లేవు"
+    }
   },
   "favorites": {
     "title": "ప్రియమైనవి",

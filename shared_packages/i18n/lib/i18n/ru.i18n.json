@@ -247,7 +247,12 @@
     "failedToProcess": "Не удалось обработать: {error}",
     "failedToProcessImage": "Не удалось обработать изображение: {error}",
     "errorCompressingImage": "Ошибка сжатия изображения: {error}",
-    "failedToSave": "Не удалось сохранить данные. Пожалуйста, попробуйте еще раз."
+    "failedToSave": "Не удалось сохранить данные. Пожалуйста, попробуйте еще раз.",
+    "skip": "Пропустить",
+    "variation": {
+      "question": "Вопрос {current} из {total}",
+      "noVariationsAvailable": "Нет доступных вариантов"
+    }
   },
   "favorites": {
     "title": "Избранное",

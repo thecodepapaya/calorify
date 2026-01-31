@@ -158,6 +158,8 @@ class _TranslationsMealBn implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'ছবি প্রক্রিয়া করতে ব্যর্থ: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'ছবি সংকোচন করতে ত্রুটি: ${error}';
 	@override String get failedToSave => 'ডেটা সংরক্ষণ করতে ব্যর্থ। আবার চেষ্টা করুন।';
+	@override String get skip => 'এড়িয়ে যান';
+	@override late final _TranslationsMealVariationBn variation = _TranslationsMealVariationBn._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationBn implements TranslationsMealDeleteCon
 	@override String get message => 'আপনি কি নিশ্চিত যে আপনি এই খাবারের এন্ট্রি মুছতে চান?';
 	@override String get cancel => 'বাতিল করুন';
 	@override String get delete => 'মুছুন';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationBn implements TranslationsMealVariationEn {
+	_TranslationsMealVariationBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'প্রশ্ন ${current}/${total}';
+	@override String get noVariationsAvailable => 'কোনও বিকল্প উপলব্ধ নেই';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsBn {
 			'meal.failedToProcessImage' => ({required Object error}) => 'ছবি প্রক্রিয়া করতে ব্যর্থ: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'ছবি সংকোচন করতে ত্রুটি: ${error}',
 			'meal.failedToSave' => 'ডেটা সংরক্ষণ করতে ব্যর্থ। আবার চেষ্টা করুন।',
+			'meal.skip' => 'এড়িয়ে যান',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'প্রশ্ন ${current}/${total}',
+			'meal.variation.noVariationsAvailable' => 'কোনও বিকল্প উপলব্ধ নেই',
 			'favorites.title' => 'প্রিয় খাবার',
 			'favorites.empty' => 'এখনো কোন প্রিয় খাবার নেই।',
 			'profile.title' => 'প্রোফাইল',

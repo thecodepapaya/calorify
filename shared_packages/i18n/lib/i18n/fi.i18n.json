@@ -247,7 +247,12 @@
     "failedToProcess": "Käsittely epäonnistui: {error}",
     "failedToProcessImage": "Kuvan käsittely epäonnistui: {error}",
     "errorCompressingImage": "Virhe kuvan pakkaamisessa: {error}",
-    "failedToSave": "Tiedon tallentaminen epäonnistui. Yritä uudelleen."
+    "failedToSave": "Tiedon tallentaminen epäonnistui. Yritä uudelleen.",
+    "skip": "Ohita",
+    "variation": {
+      "question": "Kysymys {current}/{total}",
+      "noVariationsAvailable": "Muunnelmia ei ole saatavilla"
+    }
   },
   "favorites": {
     "title": "Suosikit",

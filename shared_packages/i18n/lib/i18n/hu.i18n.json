@@ -247,7 +247,12 @@
     "failedToProcess": "A feldolgozás nem sikerült: {error}",
     "failedToProcessImage": "A kép feldolgozása nem sikerült: {error}",
     "errorCompressingImage": "Hiba a kép tömörítésekor: {error}",
-    "failedToSave": "Az adatok mentése nem sikerült. Kérlek próbáld újra."
+    "failedToSave": "Az adatok mentése nem sikerült. Kérlek próbáld újra.",
+    "skip": "Kihagyás",
+    "variation": {
+      "question": "Kérdés {current} a {total}-ből",
+      "noVariationsAvailable": "Nincsenek elérhető variációk"
+    }
   },
   "favorites": {
     "title": "Kedvencek",

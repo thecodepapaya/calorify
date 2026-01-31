@@ -158,6 +158,8 @@ class _TranslationsMealTh implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'ไม่สามารถประมวลผลภาพ: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'เกิดข้อผิดพลาดในการบีบอัดภาพ: ${error}';
 	@override String get failedToSave => 'ไม่สามารถบันทึกข้อมูลได้ กรุณาลองอีกครั้ง.';
+	@override String get skip => 'ข้าม';
+	@override late final _TranslationsMealVariationTh variation = _TranslationsMealVariationTh._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationTh implements TranslationsMealDeleteCon
 	@override String get message => 'คุณแน่ใจหรือว่าต้องการลบบันทึกมื้อนี้?';
 	@override String get cancel => 'ยกเลิก';
 	@override String get delete => 'ลบ';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationTh implements TranslationsMealVariationEn {
+	_TranslationsMealVariationTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'คำถามที่ ${current} จาก ${total}';
+	@override String get noVariationsAvailable => 'ไม่มีตัวเลือกเพิ่มเติม';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsTh {
 			'meal.failedToProcessImage' => ({required Object error}) => 'ไม่สามารถประมวลผลภาพ: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'เกิดข้อผิดพลาดในการบีบอัดภาพ: ${error}',
 			'meal.failedToSave' => 'ไม่สามารถบันทึกข้อมูลได้ กรุณาลองอีกครั้ง.',
+			'meal.skip' => 'ข้าม',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'คำถามที่ ${current} จาก ${total}',
+			'meal.variation.noVariationsAvailable' => 'ไม่มีตัวเลือกเพิ่มเติม',
 			'favorites.title' => 'มื้อโปรด',
 			'favorites.empty' => 'ยังไม่มีมื้ออาหารโปรด.',
 			'profile.title' => 'โปรไฟล์',

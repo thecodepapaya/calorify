@@ -247,7 +247,12 @@
     "failedToProcess": "Αποτυχία επεξεργασίας: {error}",
     "failedToProcessImage": "Αποτυχία επεξεργασίας εικόνας: {error}",
     "errorCompressingImage": "Λάθος συμπίεσης εικόνας: {error}",
-    "failedToSave": "Αποτυχία αποθήκευσης δεδομένων. Παρακαλώ δοκίμασε ξανά."
+    "failedToSave": "Αποτυχία αποθήκευσης δεδομένων. Παρακαλώ δοκίμασε ξανά.",
+    "skip": "Παράλειψη",
+    "variation": {
+      "question": "Ερώτηση {current} από {total}",
+      "noVariationsAvailable": "Δεν υπάρχουν διαθέσιμες παραλλαγές"
+    }
   },
   "favorites": {
     "title": "Αγαπημένα",

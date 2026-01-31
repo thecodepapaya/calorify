@@ -158,6 +158,8 @@ class _TranslationsMealTl implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Nabigo sa pagproseso ng larawan: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Error sa pag-compress ng larawan: ${error}';
 	@override String get failedToSave => 'Nabigo sa pag-save ng datos. Pakisubok muli.';
+	@override String get skip => 'Laktawan';
+	@override late final _TranslationsMealVariationTl variation = _TranslationsMealVariationTl._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationTl implements TranslationsMealDeleteCon
 	@override String get message => 'Sigurado ka bang nais mong tanggalin ang entry na ito ng pagkain?';
 	@override String get cancel => 'Kanselahin';
 	@override String get delete => 'Tanggalin';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationTl implements TranslationsMealVariationEn {
+	_TranslationsMealVariationTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Tanong ${current} sa ${total}';
+	@override String get noVariationsAvailable => 'Walang ibang pagpipilian';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsTl {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Nabigo sa pagproseso ng larawan: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Error sa pag-compress ng larawan: ${error}',
 			'meal.failedToSave' => 'Nabigo sa pag-save ng datos. Pakisubok muli.',
+			'meal.skip' => 'Laktawan',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Tanong ${current} sa ${total}',
+			'meal.variation.noVariationsAvailable' => 'Walang ibang pagpipilian',
 			'favorites.title' => 'Mga Paborito',
 			'favorites.empty' => 'Walang paboritong pagkain sa ngayon.',
 			'profile.title' => 'Profile',

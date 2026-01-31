@@ -247,7 +247,12 @@
     "failedToProcess": "İşlem gerçekleştirilemedi: {error}",
     "failedToProcessImage": "Görüntü işlenemedi: {error}",
     "errorCompressingImage": "Görüntü sıkıştırırken hata: {error}",
-    "failedToSave": "Veri kaydedilemedi. Lütfen tekrar deneyin."
+    "failedToSave": "Veri kaydedilemedi. Lütfen tekrar deneyin.",
+    "skip": "Atla",
+    "variation": {
+      "question": "Soru {current} / {total}",
+      "noVariationsAvailable": "Hiç varyasyon bulunamadı"
+    }
   },
   "favorites": {
     "title": "Favoriler",

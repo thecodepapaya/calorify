@@ -158,6 +158,8 @@ class _TranslationsMealKo implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => '이미지 처리 실패: ${error}';
 	@override String errorCompressingImage({required Object error}) => '이미지 압축 오류: ${error}';
 	@override String get failedToSave => '데이터 저장 실패. 다시 시도해 주세요.';
+	@override String get skip => '건너뛰기';
+	@override late final _TranslationsMealVariationKo variation = _TranslationsMealVariationKo._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationKo implements TranslationsMealDeleteCon
 	@override String get message => '이 식사 항목을 삭제하시겠습니까?';
 	@override String get cancel => '취소';
 	@override String get delete => '삭제';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationKo implements TranslationsMealVariationEn {
+	_TranslationsMealVariationKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => '질문 ${current} / ${total}';
+	@override String get noVariationsAvailable => '사용 가능한 변형이 없습니다';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsKo {
 			'meal.failedToProcessImage' => ({required Object error}) => '이미지 처리 실패: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => '이미지 압축 오류: ${error}',
 			'meal.failedToSave' => '데이터 저장 실패. 다시 시도해 주세요.',
+			'meal.skip' => '건너뛰기',
+			'meal.variation.question' => ({required Object current, required Object total}) => '질문 ${current} / ${total}',
+			'meal.variation.noVariationsAvailable' => '사용 가능한 변형이 없습니다',
 			'favorites.title' => '즐겨찾기',
 			'favorites.empty' => '즐겨찾는 식사가 없습니다.',
 			'profile.title' => '프로필',

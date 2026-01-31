@@ -247,7 +247,12 @@
     "failedToProcess": "فشل في المعالجة: {error}",
     "failedToProcessImage": "فشل في معالجة الصورة: {error}",
     "errorCompressingImage": "خطأ في ضغط الصورة: {error}",
-    "failedToSave": "فشل في حفظ البيانات. يرجى المحاولة مرة أخرى."
+    "failedToSave": "فشل في حفظ البيانات. يرجى المحاولة مرة أخرى.",
+    "skip": "تخطي",
+    "variation": {
+      "question": "السؤال {current} من {total}",
+      "noVariationsAvailable": "لا توجد تنويعات متاحة"
+    }
   },
   "favorites": {
     "title": "المفضلات",

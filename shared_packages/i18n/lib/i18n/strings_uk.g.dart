@@ -158,6 +158,8 @@ class _TranslationsMealUk implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Не вдалося обробити зображення: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Помилка стиснення зображення: ${error}';
 	@override String get failedToSave => 'Не вдалося зберегти дані. Будь ласка, спробуйте ще раз.';
+	@override String get skip => 'Пропустити';
+	@override late final _TranslationsMealVariationUk variation = _TranslationsMealVariationUk._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationUk implements TranslationsMealDeleteCon
 	@override String get message => 'Ви впевнені, що хочете видалити цей запис про страву?';
 	@override String get cancel => 'Скасувати';
 	@override String get delete => 'Видалити';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationUk implements TranslationsMealVariationEn {
+	_TranslationsMealVariationUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Питання ${current} з ${total}';
+	@override String get noVariationsAvailable => 'Немає доступних варіантів';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsUk {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Не вдалося обробити зображення: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Помилка стиснення зображення: ${error}',
 			'meal.failedToSave' => 'Не вдалося зберегти дані. Будь ласка, спробуйте ще раз.',
+			'meal.skip' => 'Пропустити',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Питання ${current} з ${total}',
+			'meal.variation.noVariationsAvailable' => 'Немає доступних варіантів',
 			'favorites.title' => 'Улюблені',
 			'favorites.empty' => 'Ще немає улюблених страв.',
 			'profile.title' => 'Профіль',

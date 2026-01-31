@@ -247,7 +247,12 @@
     "failedToProcess": "處理失敗：{error}",
     "failedToProcessImage": "處理圖像失敗：{error}",
     "errorCompressingImage": "壓縮圖像時出錯：{error}",
-    "failedToSave": "保存數據失敗。請再試一次。"
+    "failedToSave": "保存數據失敗。請再試一次。",
+    "skip": "跳過",
+    "variation": {
+      "question": "第 {current} 題，共 {total} 題",
+      "noVariationsAvailable": "目前沒有可用的變體"
+    }
   },
   "favorites": {
     "title": "最愛",

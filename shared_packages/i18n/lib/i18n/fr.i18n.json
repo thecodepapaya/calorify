@@ -247,7 +247,12 @@
     "failedToProcess": "Échec du traitement : {error}",
     "failedToProcessImage": "Échec du traitement de l'image : {error}",
     "errorCompressingImage": "Erreur de compression de l'image : {error}",
-    "failedToSave": "Échec de l'enregistrement des données. Veuillez réessayer."
+    "failedToSave": "Échec de l'enregistrement des données. Veuillez réessayer.",
+    "skip": "Passer",
+    "variation": {
+      "question": "Question {current} sur {total}",
+      "noVariationsAvailable": "Aucune variation disponible"
+    }
   },
   "favorites": {
     "title": "Favoris",

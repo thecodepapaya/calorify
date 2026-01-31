@@ -247,7 +247,12 @@
     "failedToProcess": "Gagal untuk memproses: {error}",
     "failedToProcessImage": "Gagal untuk memproses gambar: {error}",
     "errorCompressingImage": "Ralat memampatkan gambar: {error}",
-    "failedToSave": "Gagal menyimpan data. Sila cuba lagi."
+    "failedToSave": "Gagal menyimpan data. Sila cuba lagi.",
+    "skip": "Langkau",
+    "variation": {
+      "question": "Soalan {current} daripada {total}",
+      "noVariationsAvailable": "Tiada variasi tersedia"
+    }
   },
   "favorites": {
     "title": "Kegemaran",

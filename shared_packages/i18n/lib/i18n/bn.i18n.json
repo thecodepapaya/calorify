@@ -247,7 +247,12 @@
     "failedToProcess": "প্রক্রিয়া করতে ব্যর্থ: {error}",
     "failedToProcessImage": "ছবি প্রক্রিয়া করতে ব্যর্থ: {error}",
     "errorCompressingImage": "ছবি সংকোচন করতে ত্রুটি: {error}",
-    "failedToSave": "ডেটা সংরক্ষণ করতে ব্যর্থ। আবার চেষ্টা করুন।"
+    "failedToSave": "ডেটা সংরক্ষণ করতে ব্যর্থ। আবার চেষ্টা করুন।",
+    "skip": "এড়িয়ে যান",
+    "variation": {
+      "question": "প্রশ্ন {current}/{total}",
+      "noVariationsAvailable": "কোনও বিকল্প উপলব্ধ নেই"
+    }
   },
   "favorites": {
     "title": "প্রিয় খাবার",

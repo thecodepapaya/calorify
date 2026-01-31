@@ -247,7 +247,12 @@
     "failedToProcess": "प्रक्रिया में विफल: {error}",
     "failedToProcessImage": "चित्र को संसाधित करने में विफल: {error}",
     "errorCompressingImage": "छवि संकुचन में त्रुटि: {error}",
-    "failedToSave": "डाटा सहेजने में विफल। कृपया फिर से प्रयास करें।"
+    "failedToSave": "डाटा सहेजने में विफल। कृपया फिर से प्रयास करें।",
+    "skip": "छोड़ें",
+    "variation": {
+      "question": "प्रश्न {current} में से {total}",
+      "noVariationsAvailable": "कोई विकल्प उपलब्ध नहीं है"
+    }
   },
   "favorites": {
     "title": "पसंदीदा",

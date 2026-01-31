@@ -158,6 +158,8 @@ class _TranslationsMealHu implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'A kép feldolgozása nem sikerült: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Hiba a kép tömörítésekor: ${error}';
 	@override String get failedToSave => 'Az adatok mentése nem sikerült. Kérlek próbáld újra.';
+	@override String get skip => 'Kihagyás';
+	@override late final _TranslationsMealVariationHu variation = _TranslationsMealVariationHu._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationHu implements TranslationsMealDeleteCon
 	@override String get message => 'Biztosan törölni szeretnéd ezt az étkezést?';
 	@override String get cancel => 'Mégse';
 	@override String get delete => 'Törlés';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationHu implements TranslationsMealVariationEn {
+	_TranslationsMealVariationHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Kérdés ${current} a ${total}-ből';
+	@override String get noVariationsAvailable => 'Nincsenek elérhető variációk';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsHu {
 			'meal.failedToProcessImage' => ({required Object error}) => 'A kép feldolgozása nem sikerült: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Hiba a kép tömörítésekor: ${error}',
 			'meal.failedToSave' => 'Az adatok mentése nem sikerült. Kérlek próbáld újra.',
+			'meal.skip' => 'Kihagyás',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Kérdés ${current} a ${total}-ből',
+			'meal.variation.noVariationsAvailable' => 'Nincsenek elérhető variációk',
 			'favorites.title' => 'Kedvencek',
 			'favorites.empty' => 'Még nincs kedvenc étkezés.',
 			'profile.title' => 'Profil',

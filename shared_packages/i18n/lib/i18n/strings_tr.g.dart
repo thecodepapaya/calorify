@@ -158,6 +158,8 @@ class _TranslationsMealTr implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Görüntü işlenemedi: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Görüntü sıkıştırırken hata: ${error}';
 	@override String get failedToSave => 'Veri kaydedilemedi. Lütfen tekrar deneyin.';
+	@override String get skip => 'Atla';
+	@override late final _TranslationsMealVariationTr variation = _TranslationsMealVariationTr._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationTr implements TranslationsMealDeleteCon
 	@override String get message => 'Bu yemek kaydını silmek istediğinize emin misiniz?';
 	@override String get cancel => 'İptal';
 	@override String get delete => 'Sil';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationTr implements TranslationsMealVariationEn {
+	_TranslationsMealVariationTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Soru ${current} / ${total}';
+	@override String get noVariationsAvailable => 'Hiç varyasyon bulunamadı';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsTr {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Görüntü işlenemedi: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Görüntü sıkıştırırken hata: ${error}',
 			'meal.failedToSave' => 'Veri kaydedilemedi. Lütfen tekrar deneyin.',
+			'meal.skip' => 'Atla',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Soru ${current} / ${total}',
+			'meal.variation.noVariationsAvailable' => 'Hiç varyasyon bulunamadı',
 			'favorites.title' => 'Favoriler',
 			'favorites.empty' => 'Henüz favori yemek yok.',
 			'profile.title' => 'Profil',

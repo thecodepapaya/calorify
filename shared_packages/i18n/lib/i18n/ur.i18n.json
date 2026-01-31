@@ -247,7 +247,12 @@
     "failedToProcess": "عملدرآمد میں ناکامی: {error}",
     "failedToProcessImage": "تصویر کے عمل میں ناکامی: {error}",
     "errorCompressingImage": "تصویر کمپریس کرنے میں خرابی: {error}",
-    "failedToSave": "ڈیٹا محفوظ کرنے میں ناکامی. براہ کرم دوبارہ کوشش کریں."
+    "failedToSave": "ڈیٹا محفوظ کرنے میں ناکامی. براہ کرم دوبارہ کوشش کریں.",
+    "skip": "چھوڑ دیں",
+    "variation": {
+      "question": "سوال {current} (کل {total})",
+      "noVariationsAvailable": "کوئی مختلف اختیارات دستیاب نہیں"
+    }
   },
   "favorites": {
     "title": "پسندیدہ",

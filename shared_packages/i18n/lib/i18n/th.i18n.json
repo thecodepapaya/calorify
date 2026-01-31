@@ -247,7 +247,12 @@
     "failedToProcess": "ไม่สามารถประมวลผล: {error}",
     "failedToProcessImage": "ไม่สามารถประมวลผลภาพ: {error}",
     "errorCompressingImage": "เกิดข้อผิดพลาดในการบีบอัดภาพ: {error}",
-    "failedToSave": "ไม่สามารถบันทึกข้อมูลได้ กรุณาลองอีกครั้ง."
+    "failedToSave": "ไม่สามารถบันทึกข้อมูลได้ กรุณาลองอีกครั้ง.",
+    "skip": "ข้าม",
+    "variation": {
+      "question": "คำถามที่ {current} จาก {total}",
+      "noVariationsAvailable": "ไม่มีตัวเลือกเพิ่มเติม"
+    }
   },
   "favorites": {
     "title": "มื้อโปรด",

@@ -158,6 +158,8 @@ class _TranslationsMealFi implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Kuvan käsittely epäonnistui: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Virhe kuvan pakkaamisessa: ${error}';
 	@override String get failedToSave => 'Tiedon tallentaminen epäonnistui. Yritä uudelleen.';
+	@override String get skip => 'Ohita';
+	@override late final _TranslationsMealVariationFi variation = _TranslationsMealVariationFi._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationFi implements TranslationsMealDeleteCon
 	@override String get message => 'Oletko varma, että haluat poistaa tämän aterian merkinnän?';
 	@override String get cancel => 'Peruuta';
 	@override String get delete => 'Poista';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationFi implements TranslationsMealVariationEn {
+	_TranslationsMealVariationFi._(this._root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Kysymys ${current}/${total}';
+	@override String get noVariationsAvailable => 'Muunnelmia ei ole saatavilla';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsFi {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Kuvan käsittely epäonnistui: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Virhe kuvan pakkaamisessa: ${error}',
 			'meal.failedToSave' => 'Tiedon tallentaminen epäonnistui. Yritä uudelleen.',
+			'meal.skip' => 'Ohita',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Kysymys ${current}/${total}',
+			'meal.variation.noVariationsAvailable' => 'Muunnelmia ei ole saatavilla',
 			'favorites.title' => 'Suosikit',
 			'favorites.empty' => 'Ei suosikkiaterioita vielä.',
 			'profile.title' => 'Profiili',

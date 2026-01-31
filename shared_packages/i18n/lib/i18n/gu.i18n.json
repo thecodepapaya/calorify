@@ -247,7 +247,12 @@
     "failedToProcess": "પ્રક્રિયા કરવામાં અસફળ: {error}",
     "failedToProcessImage": "છબાને પ્રક્રિયા કરવામાં અસફળ: {error}",
     "errorCompressingImage": "તશે છબી સંકોચીત કરવામાં ભૂલ: {error}",
-    "failedToSave": "ડેટા સેવ કરવામાં અસફળ. કૃપા કરીને ફરી પ્રયાસ કરો."
+    "failedToSave": "ડેટા સેવ કરવામાં અસફળ. કૃપા કરીને ફરી પ્રયાસ કરો.",
+    "skip": "છોડી દો",
+    "variation": {
+      "question": "{total} માંથી પ્રશ્ન {current}",
+      "noVariationsAvailable": "કોઈ વિવિધતાઓ ઉપલબ્ધ નથી"
+    }
   },
   "favorites": {
     "title": "પસંદગીઓ",

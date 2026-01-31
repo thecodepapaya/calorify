@@ -158,6 +158,8 @@ class _TranslationsMealZhTw implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => '處理圖像失敗：${error}';
 	@override String errorCompressingImage({required Object error}) => '壓縮圖像時出錯：${error}';
 	@override String get failedToSave => '保存數據失敗。請再試一次。';
+	@override String get skip => '跳過';
+	@override late final _TranslationsMealVariationZhTw variation = _TranslationsMealVariationZhTw._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationZhTw implements TranslationsMealDeleteC
 	@override String get message => '您確定要刪除這餐記錄嗎？';
 	@override String get cancel => '取消';
 	@override String get delete => '刪除';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationZhTw implements TranslationsMealVariationEn {
+	_TranslationsMealVariationZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => '第 ${current} 題，共 ${total} 題';
+	@override String get noVariationsAvailable => '目前沒有可用的變體';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsZhTw {
 			'meal.failedToProcessImage' => ({required Object error}) => '處理圖像失敗：${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => '壓縮圖像時出錯：${error}',
 			'meal.failedToSave' => '保存數據失敗。請再試一次。',
+			'meal.skip' => '跳過',
+			'meal.variation.question' => ({required Object current, required Object total}) => '第 ${current} 題，共 ${total} 題',
+			'meal.variation.noVariationsAvailable' => '目前沒有可用的變體',
 			'favorites.title' => '最愛',
 			'favorites.empty' => '尚未有最愛餐點。',
 			'profile.title' => '個人檔案',

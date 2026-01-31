@@ -158,6 +158,8 @@ class _TranslationsMealNl implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Kon afbeelding niet verwerken: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Fout bij het comprimeren van afbeelding: ${error}';
 	@override String get failedToSave => 'Kon gegevens niet opslaan. Probeer het opnieuw.';
+	@override String get skip => 'Overslaan';
+	@override late final _TranslationsMealVariationNl variation = _TranslationsMealVariationNl._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationNl implements TranslationsMealDeleteCon
 	@override String get message => 'Weet je zeker dat je deze maaltijdinvoer wilt verwijderen?';
 	@override String get cancel => 'Annuleren';
 	@override String get delete => 'Verwijderen';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationNl implements TranslationsMealVariationEn {
+	_TranslationsMealVariationNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Vraag ${current} van ${total}';
+	@override String get noVariationsAvailable => 'Geen variaties beschikbaar';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsNl {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Kon afbeelding niet verwerken: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fout bij het comprimeren van afbeelding: ${error}',
 			'meal.failedToSave' => 'Kon gegevens niet opslaan. Probeer het opnieuw.',
+			'meal.skip' => 'Overslaan',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Vraag ${current} van ${total}',
+			'meal.variation.noVariationsAvailable' => 'Geen variaties beschikbaar',
 			'favorites.title' => 'Favorieten',
 			'favorites.empty' => 'Nog geen favoriete maaltijden.',
 			'profile.title' => 'Profiel',

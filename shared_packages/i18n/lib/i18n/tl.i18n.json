@@ -247,7 +247,12 @@
     "failedToProcess": "Nabigo sa pagproseso: {error}",
     "failedToProcessImage": "Nabigo sa pagproseso ng larawan: {error}",
     "errorCompressingImage": "Error sa pag-compress ng larawan: {error}",
-    "failedToSave": "Nabigo sa pag-save ng datos. Pakisubok muli."
+    "failedToSave": "Nabigo sa pag-save ng datos. Pakisubok muli.",
+    "skip": "Laktawan",
+    "variation": {
+      "question": "Tanong {current} sa {total}",
+      "noVariationsAvailable": "Walang ibang pagpipilian"
+    }
   },
   "favorites": {
     "title": "Mga Paborito",

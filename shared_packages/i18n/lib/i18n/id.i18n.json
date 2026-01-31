@@ -247,7 +247,12 @@
     "failedToProcess": "Gagal memproses: {error}",
     "failedToProcessImage": "Gagal memproses gambar: {error}",
     "errorCompressingImage": "Kesalahan saat mengompres gambar: {error}",
-    "failedToSave": "Gagal menyimpan data. Silakan coba lagi."
+    "failedToSave": "Gagal menyimpan data. Silakan coba lagi.",
+    "skip": "Lewati",
+    "variation": {
+      "question": "Pertanyaan {current} dari {total}",
+      "noVariationsAvailable": "Tidak ada variasi yang tersedia"
+    }
   },
   "favorites": {
     "title": "Favorit",

@@ -247,7 +247,12 @@
     "failedToProcess": "נכשל בעיבוד: {error}",
     "failedToProcessImage": "נכשל בעיבוד התמונה: {error}",
     "errorCompressingImage": "שגיאה בצמצום התמונה: {error}",
-    "failedToSave": "נכשל בשמירת הנתונים. אנא נסה שוב."
+    "failedToSave": "נכשל בשמירת הנתונים. אנא נסה שוב.",
+    "skip": "דלג",
+    "variation": {
+      "question": "שאלה {current} מתוך {total}",
+      "noVariationsAvailable": "אין וריאציות זמינות"
+    }
   },
   "favorites": {
     "title": "אהובים",

@@ -158,6 +158,8 @@ class _TranslationsMealTe implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'చిత్రాన్ని చదవడంలో విఫలమైంది: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'చిత్రం సంకోచించడంలో వైఫల్యం: ${error}';
 	@override String get failedToSave => 'డేటాను నిల్వ చేయడంలో విఫలమైంది. ప్రస్తుత మధ్యలో ప్రయత్నించండి.';
+	@override String get skip => 'దాటవేయండి';
+	@override late final _TranslationsMealVariationTe variation = _TranslationsMealVariationTe._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationTe implements TranslationsMealDeleteCon
 	@override String get message => 'మీరు ఈ భోజనాన్ని తొలగించాలని నిర్ధారించుకుంటున్నారా?';
 	@override String get cancel => 'రద్దు';
 	@override String get delete => 'తొలగించు';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationTe implements TranslationsMealVariationEn {
+	_TranslationsMealVariationTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object total, required Object current}) => '${total}లో ${current}వ ప్రశ్న';
+	@override String get noVariationsAvailable => 'వైవిధ్యాలు అందుబాటులో లేవు';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsTe {
 			'meal.failedToProcessImage' => ({required Object error}) => 'చిత్రాన్ని చదవడంలో విఫలమైంది: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'చిత్రం సంకోచించడంలో వైఫల్యం: ${error}',
 			'meal.failedToSave' => 'డేటాను నిల్వ చేయడంలో విఫలమైంది. ప్రస్తుత మధ్యలో ప్రయత్నించండి.',
+			'meal.skip' => 'దాటవేయండి',
+			'meal.variation.question' => ({required Object total, required Object current}) => '${total}లో ${current}వ ప్రశ్న',
+			'meal.variation.noVariationsAvailable' => 'వైవిధ్యాలు అందుబాటులో లేవు',
 			'favorites.title' => 'ప్రియమైనవి',
 			'favorites.empty' => 'ఇప్పటివరకు ప్రియమైన భోజనాలు లేవు.',
 			'profile.title' => 'ప్రొఫైల్',

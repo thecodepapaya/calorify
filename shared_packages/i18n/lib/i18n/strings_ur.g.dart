@@ -158,6 +158,8 @@ class _TranslationsMealUr implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'تصویر کے عمل میں ناکامی: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'تصویر کمپریس کرنے میں خرابی: ${error}';
 	@override String get failedToSave => 'ڈیٹا محفوظ کرنے میں ناکامی. براہ کرم دوبارہ کوشش کریں.';
+	@override String get skip => 'چھوڑ دیں';
+	@override late final _TranslationsMealVariationUr variation = _TranslationsMealVariationUr._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationUr implements TranslationsMealDeleteCon
 	@override String get message => 'کیا آپ واقعی اس کھانے کا اندراج حذف کرنا چاہتے ہیں؟';
 	@override String get cancel => 'کینسل کریں';
 	@override String get delete => 'حذف کریں';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationUr implements TranslationsMealVariationEn {
+	_TranslationsMealVariationUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'سوال ${current} (کل ${total})';
+	@override String get noVariationsAvailable => 'کوئی مختلف اختیارات دستیاب نہیں';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsUr {
 			'meal.failedToProcessImage' => ({required Object error}) => 'تصویر کے عمل میں ناکامی: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'تصویر کمپریس کرنے میں خرابی: ${error}',
 			'meal.failedToSave' => 'ڈیٹا محفوظ کرنے میں ناکامی. براہ کرم دوبارہ کوشش کریں.',
+			'meal.skip' => 'چھوڑ دیں',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'سوال ${current} (کل ${total})',
+			'meal.variation.noVariationsAvailable' => 'کوئی مختلف اختیارات دستیاب نہیں',
 			'favorites.title' => 'پسندیدہ',
 			'favorites.empty' => 'ابھی کوئی پسندیدہ کھانے نہیں ہیں۔',
 			'profile.title' => 'پروفائل',

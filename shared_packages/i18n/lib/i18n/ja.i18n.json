@@ -247,7 +247,12 @@
     "failedToProcess": "処理に失敗しました: {error}",
     "failedToProcessImage": "画像の処理に失敗しました: {error}",
     "errorCompressingImage": "画像の圧縮エラー: {error}",
-    "failedToSave": "データの保存に失敗しました。再試行してください。"
+    "failedToSave": "データの保存に失敗しました。再試行してください。",
+    "skip": "スキップ",
+    "variation": {
+      "question": "全{total}問中 {current}問目",
+      "noVariationsAvailable": "利用可能なバリエーションはありません"
+    }
   },
   "favorites": {
     "title": "お気に入り",

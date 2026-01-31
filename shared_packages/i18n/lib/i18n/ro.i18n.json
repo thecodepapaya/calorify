@@ -247,7 +247,12 @@
     "failedToProcess": "Nu s-a putut procesa: {error}",
     "failedToProcessImage": "Nu s-a putut procesa imaginea: {error}",
     "errorCompressingImage": "Eroare la comprimarea imaginii: {error}",
-    "failedToSave": "Nu s-a putut salva datele. Te rugăm să încerci din nou."
+    "failedToSave": "Nu s-a putut salva datele. Te rugăm să încerci din nou.",
+    "skip": "Sări peste",
+    "variation": {
+      "question": "Întrebarea {current} din {total}",
+      "noVariationsAvailable": "Nu există variații disponibile"
+    }
   },
   "favorites": {
     "title": "Favorite",

@@ -158,6 +158,8 @@ class _TranslationsMealHi implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'चित्र को संसाधित करने में विफल: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'छवि संकुचन में त्रुटि: ${error}';
 	@override String get failedToSave => 'डाटा सहेजने में विफल। कृपया फिर से प्रयास करें।';
+	@override String get skip => 'छोड़ें';
+	@override late final _TranslationsMealVariationHi variation = _TranslationsMealVariationHi._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationHi implements TranslationsMealDeleteCon
 	@override String get message => 'क्या आप वास्तव में इस भोजन प्रविष्टि को हटाना चाहते हैं?';
 	@override String get cancel => 'रद्द करें';
 	@override String get delete => 'हटाएं';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationHi implements TranslationsMealVariationEn {
+	_TranslationsMealVariationHi._(this._root);
+
+	final TranslationsHi _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'प्रश्न ${current} में से ${total}';
+	@override String get noVariationsAvailable => 'कोई विकल्प उपलब्ध नहीं है';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsHi {
 			'meal.failedToProcessImage' => ({required Object error}) => 'चित्र को संसाधित करने में विफल: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'छवि संकुचन में त्रुटि: ${error}',
 			'meal.failedToSave' => 'डाटा सहेजने में विफल। कृपया फिर से प्रयास करें।',
+			'meal.skip' => 'छोड़ें',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'प्रश्न ${current} में से ${total}',
+			'meal.variation.noVariationsAvailable' => 'कोई विकल्प उपलब्ध नहीं है',
 			'favorites.title' => 'पसंदीदा',
 			'favorites.empty' => 'अभी तक कोई पसंदीदा भोजन नहीं।',
 			'profile.title' => 'प्रोफ़ाइल',

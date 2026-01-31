@@ -247,7 +247,12 @@
     "failedToProcess": "처리 실패: {error}",
     "failedToProcessImage": "이미지 처리 실패: {error}",
     "errorCompressingImage": "이미지 압축 오류: {error}",
-    "failedToSave": "데이터 저장 실패. 다시 시도해 주세요."
+    "failedToSave": "데이터 저장 실패. 다시 시도해 주세요.",
+    "skip": "건너뛰기",
+    "variation": {
+      "question": "질문 {current} / {total}",
+      "noVariationsAvailable": "사용 가능한 변형이 없습니다"
+    }
   },
   "favorites": {
     "title": "즐겨찾기",

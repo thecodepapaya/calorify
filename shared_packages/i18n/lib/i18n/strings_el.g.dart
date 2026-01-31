@@ -158,6 +158,8 @@ class _TranslationsMealEl implements TranslationsMealEn {
 	@override String failedToProcessImage({required Object error}) => 'Αποτυχία επεξεργασίας εικόνας: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Λάθος συμπίεσης εικόνας: ${error}';
 	@override String get failedToSave => 'Αποτυχία αποθήκευσης δεδομένων. Παρακαλώ δοκίμασε ξανά.';
+	@override String get skip => 'Παράλειψη';
+	@override late final _TranslationsMealVariationEl variation = _TranslationsMealVariationEl._(_root);
 }
 
 // Path: favorites
@@ -701,6 +703,17 @@ class _TranslationsMealDeleteConfirmationEl implements TranslationsMealDeleteCon
 	@override String get message => 'Είσαι σίγουρος/η ότι θέλεις να διαγράψεις αυτήν την καταχώρηση γεύματος;';
 	@override String get cancel => 'Ακύρωση';
 	@override String get delete => 'Διαγραφή';
+}
+
+// Path: meal.variation
+class _TranslationsMealVariationEl implements TranslationsMealVariationEn {
+	_TranslationsMealVariationEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String question({required Object current, required Object total}) => 'Ερώτηση ${current} από ${total}';
+	@override String get noVariationsAvailable => 'Δεν υπάρχουν διαθέσιμες παραλλαγές';
 }
 
 // Path: profile.sections
@@ -1716,6 +1729,9 @@ extension on TranslationsEl {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Αποτυχία επεξεργασίας εικόνας: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Λάθος συμπίεσης εικόνας: ${error}',
 			'meal.failedToSave' => 'Αποτυχία αποθήκευσης δεδομένων. Παρακαλώ δοκίμασε ξανά.',
+			'meal.skip' => 'Παράλειψη',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Ερώτηση ${current} από ${total}',
+			'meal.variation.noVariationsAvailable' => 'Δεν υπάρχουν διαθέσιμες παραλλαγές',
 			'favorites.title' => 'Αγαπημένα',
 			'favorites.empty' => 'Δεν υπάρχουν αγαπημένα γεύματα ακόμη.',
 			'profile.title' => 'Προφίλ',
