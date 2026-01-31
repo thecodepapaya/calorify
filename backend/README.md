@@ -120,18 +120,32 @@ See [SCHEMA_SYNC.md](./SCHEMA_SYNC.md) for detailed instructions.
 ### Deploy Commands
 
 ```bash
+# Start logging infrastructure (shared, start once)
+docker-compose up -d loki grafana promtail
+
 # Staging
 docker-compose --profile staging up -d --build
 
 # Production
 docker-compose --profile production up -d --build
 
-# Both
+# Both environments
 docker-compose --profile staging --profile production up -d --build
 
 # Zero-downtime update (backend only)
 docker-compose --profile production up -d --build --no-deps backend-prod
+
+# Stop staging (logging infrastructure stays up if production is running)
+docker-compose --profile staging down
+
+# Stop production (logging infrastructure stays up if staging is running)
+docker-compose --profile production down
+
+# Stop everything including logging
+docker-compose down
 ```
+
+**Note**: Logging infrastructure (loki, grafana, promtail) has no profiles and is shared between environments. It will automatically start when you start a profile (due to dependencies), but bringing down a profile won't stop it. This ensures logging continues even if one environment is stopped.
 
 ### Monitoring
 

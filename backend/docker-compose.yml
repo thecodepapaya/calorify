@@ -1,5 +1,7 @@
 services:
   # --- LOGGING INFRASTRUCTURE (shared across environments) ---
+  # Note: Logging services have no profiles - they're always available
+  # Start them separately: docker-compose up -d loki grafana promtail
   loki:
     image: grafana/loki:2.9.2
     container_name: calorify-loki
@@ -20,7 +22,7 @@ services:
       - calorify-network
 
   promtail:
-    image: grafana/promtail:2.9.2
+    image: grafana/promtail:latest
     container_name: calorify-promtail
     restart: always
     volumes:
@@ -39,7 +41,7 @@ services:
     container_name: calorify-grafana
     restart: always
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=false
       - GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER:-admin}
