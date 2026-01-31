@@ -6,6 +6,7 @@ class RouteNames {
   // Bottom sheets
   static const String disclaimerSheet = '/disclaimer_sheet';
   static const String mealTipSheet = '/meal_tip_sheet';
+  static const String mealVariationSheet = '/meal_variation_sheet';
   static const String healthScoreSheet = '/health_score_sheet';
   static const String languagePickerSheet = '/language_picker_sheet';
   static const String editMealSheet = '/edit_meal_sheet';

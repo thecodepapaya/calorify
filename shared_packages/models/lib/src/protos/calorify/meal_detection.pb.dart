@@ -18,8 +18,8 @@ import '../meal/meal.pb.dart' as $0;
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
-class Clarification_Option extends $pb.GeneratedMessage {
-  factory Clarification_Option({
+class Variation_Option extends $pb.GeneratedMessage {
+  factory Variation_Option({
     $core.String? option,
     $0.MealMacro? macroDiff,
   }) {
@@ -29,17 +29,17 @@ class Clarification_Option extends $pb.GeneratedMessage {
     return result;
   }
 
-  Clarification_Option._();
+  Variation_Option._();
 
-  factory Clarification_Option.fromBuffer($core.List<$core.int> data,
+  factory Variation_Option.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory Clarification_Option.fromJson($core.String json,
+  factory Variation_Option.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'Clarification.Option',
+      _omitMessageNames ? '' : 'Variation.Option',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'option')
@@ -48,23 +48,23 @@ class Clarification_Option extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Clarification_Option clone() => deepCopy();
+  Variation_Option clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Clarification_Option copyWith(void Function(Clarification_Option) updates) =>
-      super.copyWith((message) => updates(message as Clarification_Option))
-          as Clarification_Option;
+  Variation_Option copyWith(void Function(Variation_Option) updates) =>
+      super.copyWith((message) => updates(message as Variation_Option))
+          as Variation_Option;
 
   @$core.override
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static Clarification_Option create() => Clarification_Option._();
+  static Variation_Option create() => Variation_Option._();
   @$core.override
-  Clarification_Option createEmptyInstance() => create();
+  Variation_Option createEmptyInstance() => create();
   @$core.pragma('dart2js:noInline')
-  static Clarification_Option getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<Clarification_Option>(create);
-  static Clarification_Option? _defaultInstance;
+  static Variation_Option getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<Variation_Option>(create);
+  static Variation_Option? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get option => $_getSZ(0);
@@ -87,10 +87,10 @@ class Clarification_Option extends $pb.GeneratedMessage {
   $0.MealMacro ensureMacroDiff() => $_ensure(1);
 }
 
-class Clarification extends $pb.GeneratedMessage {
-  factory Clarification({
+class Variation extends $pb.GeneratedMessage {
+  factory Variation({
     $core.String? question,
-    $core.Iterable<Clarification_Option>? options,
+    $core.Iterable<Variation_Option>? options,
   }) {
     final result = create();
     if (question != null) result.question = question;
@@ -98,42 +98,41 @@ class Clarification extends $pb.GeneratedMessage {
     return result;
   }
 
-  Clarification._();
+  Variation._();
 
-  factory Clarification.fromBuffer($core.List<$core.int> data,
+  factory Variation.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory Clarification.fromJson($core.String json,
+  factory Variation.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'Clarification',
+      _omitMessageNames ? '' : 'Variation',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'question')
-    ..pPM<Clarification_Option>(2, _omitFieldNames ? '' : 'options',
-        subBuilder: Clarification_Option.create)
+    ..pPM<Variation_Option>(2, _omitFieldNames ? '' : 'options',
+        subBuilder: Variation_Option.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Clarification clone() => deepCopy();
+  Variation clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Clarification copyWith(void Function(Clarification) updates) =>
-      super.copyWith((message) => updates(message as Clarification))
-          as Clarification;
+  Variation copyWith(void Function(Variation) updates) =>
+      super.copyWith((message) => updates(message as Variation)) as Variation;
 
   @$core.override
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static Clarification create() => Clarification._();
+  static Variation create() => Variation._();
   @$core.override
-  Clarification createEmptyInstance() => create();
+  Variation createEmptyInstance() => create();
   @$core.pragma('dart2js:noInline')
-  static Clarification getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<Clarification>(create);
-  static Clarification? _defaultInstance;
+  static Variation getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Variation>(create);
+  static Variation? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get question => $_getSZ(0);
@@ -145,20 +144,20 @@ class Clarification extends $pb.GeneratedMessage {
   void clearQuestion() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $pb.PbList<Clarification_Option> get options => $_getList(1);
+  $pb.PbList<Variation_Option> get options => $_getList(1);
 }
 
 class MealMetadata extends $pb.GeneratedMessage {
   factory MealMetadata({
     $core.String? imageUrl,
     $core.String? mealDescription,
-    $core.Iterable<Clarification>? selectedClarifications,
+    $core.Iterable<Variation>? selectedVariations,
   }) {
     final result = create();
     if (imageUrl != null) result.imageUrl = imageUrl;
     if (mealDescription != null) result.mealDescription = mealDescription;
-    if (selectedClarifications != null)
-      result.selectedClarifications.addAll(selectedClarifications);
+    if (selectedVariations != null)
+      result.selectedVariations.addAll(selectedVariations);
     return result;
   }
 
@@ -177,8 +176,8 @@ class MealMetadata extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'imageUrl')
     ..aOS(2, _omitFieldNames ? '' : 'mealDescription')
-    ..pPM<Clarification>(3, _omitFieldNames ? '' : 'selectedClarifications',
-        subBuilder: Clarification.create)
+    ..pPM<Variation>(3, _omitFieldNames ? '' : 'selectedVariations',
+        subBuilder: Variation.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -219,7 +218,7 @@ class MealMetadata extends $pb.GeneratedMessage {
   void clearMealDescription() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $pb.PbList<Clarification> get selectedClarifications => $_getList(2);
+  $pb.PbList<Variation> get selectedVariations => $_getList(2);
 }
 
 class MealDetectionResult extends $pb.GeneratedMessage {
@@ -455,11 +454,11 @@ class TextMealDetectionRequest extends $pb.GeneratedMessage {
 class MealDetectionResponse extends $pb.GeneratedMessage {
   factory MealDetectionResponse({
     MealDetectionResult? result,
-    $core.Iterable<Clarification>? clarifications,
+    $core.Iterable<Variation>? variations,
   }) {
     final result$ = create();
     if (result != null) result$.result = result;
-    if (clarifications != null) result$.clarifications.addAll(clarifications);
+    if (variations != null) result$.variations.addAll(variations);
     return result$;
   }
 
@@ -478,8 +477,8 @@ class MealDetectionResponse extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..aOM<MealDetectionResult>(1, _omitFieldNames ? '' : 'result',
         subBuilder: MealDetectionResult.create)
-    ..pPM<Clarification>(2, _omitFieldNames ? '' : 'clarifications',
-        subBuilder: Clarification.create)
+    ..pPM<Variation>(2, _omitFieldNames ? '' : 'variations',
+        subBuilder: Variation.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -514,7 +513,7 @@ class MealDetectionResponse extends $pb.GeneratedMessage {
   MealDetectionResult ensureResult() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $pb.PbList<Clarification> get clarifications => $_getList(1);
+  $pb.PbList<Variation> get variations => $_getList(1);
 }
 
 const $core.bool _omitFieldNames =

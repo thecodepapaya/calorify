@@ -1,6 +1,7 @@
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
@@ -259,6 +260,17 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
     try {
       final success = await HealthService.instance.requestAuthorization();
 
+      // Track permission result
+      if (success) {
+        Analytics.instance.logEvent(
+          AnalyticsEvent.healthConnectPermissionGranted,
+        );
+      } else {
+        Analytics.instance.logEvent(
+          AnalyticsEvent.healthConnectPermissionDenied,
+        );
+      }
+
       setState(() {
         _healthConnectEnabled = success;
         _statusMessage =
@@ -273,6 +285,7 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
         _navigateToReminderNotifications();
       }
     } catch (e) {
+      Analytics.instance.logEvent(AnalyticsEvent.healthConnectPermissionDenied);
       setState(() {
         _healthConnectEnabled = false;
         _statusMessage = t.onboarding.healthConnect.statusError(

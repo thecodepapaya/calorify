@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/router/route_names.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
 import 'package:calorify/features/history/widgets/meal_quantity.dart';
@@ -385,6 +386,7 @@ class _FavoriteMealStarState extends State<_FavoriteMealStar> {
         await DatabaseService.databaseInterface.removeFavoriteMeal(
           widget.loggedMeal.clientId,
         );
+        Analytics.instance.logEvent(AnalyticsEvent.favoriteRemove);
         if (!mounted) return;
         ScaffoldMessenger.of(
           context,
@@ -393,6 +395,7 @@ class _FavoriteMealStarState extends State<_FavoriteMealStar> {
         await DatabaseService.databaseInterface.addToFavorites(
           widget.loggedMeal,
         );
+        Analytics.instance.logEvent(AnalyticsEvent.favoriteAdd);
         if (!mounted) return;
         ScaffoldMessenger.of(
           context,

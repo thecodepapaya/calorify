@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:health/health.dart';
 import 'package:i18n/i18n.dart';
@@ -108,6 +110,17 @@ class _HealthConnectPermissionsScreenState
 
       // Always refresh permissions after request, regardless of success
       await _checkPermissions();
+
+      // Track permission result
+      if (success && _areAllPermissionsGranted()) {
+        Analytics.instance.logEvent(
+          AnalyticsEvent.healthConnectPermissionGranted,
+        );
+      } else {
+        Analytics.instance.logEvent(
+          AnalyticsEvent.healthConnectPermissionDenied,
+        );
+      }
 
       if (mounted) {
         if (!success) {

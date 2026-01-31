@@ -2,12 +2,21 @@ import 'dart:math';
 
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:models/models.dart';
-import 'package:models/src/protos/meal/meal.pb.dart';
-import 'package:models/src/protos/meal/meal.pbenum.dart';
-import 'package:models/src/protos/user/user.pb.dart';
-import 'package:models/src/protos/user/user.pbenum.dart';
-import 'package:models/src/scale_constants.dart';
 import 'package:utils/utils.dart';
+
+extension MealMacroExtension on MealMacro {
+  /// Adds two MealMacro objects together, summing all macro fields.
+  /// Handles null/zero values by using hasX() checks or defaulting to 0.
+  MealMacro operator +(MealMacro other) {
+    return MealMacro(
+      calories: calories + other.calories,
+      carbs: carbs + other.carbs,
+      protein: protein + other.protein,
+      fat: fat + other.fat,
+      fiber: fiber + other.fiber,
+    );
+  }
+}
 
 extension MealTypeLegacy on MealType {
   String get legacyName {

@@ -1,13 +1,15 @@
+import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/repositories/food_repository.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:models/models.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getSnapDisclaimer;
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_variation_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:i18n/i18n.dart';
-import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -103,14 +105,20 @@ class _DescribeMealState extends State<DescribeMeal> {
       _isLoading = true;
     });
 
-    late final MealDetectionResult mealDetectionResult;
+    late final MealDetectionResponse response;
     try {
       final repository = FoodRepository();
-      final response = await repository.detectText(
+      response = await repository.detectText(
         textDescription: _textController.text,
       );
-      mealDetectionResult = response.result;
+      // Track successful meal detection
+      if (response.result.mealIdentified) {
+        Analytics.instance.logEvent(AnalyticsEvent.mealDetectionSuccess);
+      } else {
+        Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);
+      }
     } on Exception catch (e) {
+      Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
@@ -121,10 +129,14 @@ class _DescribeMealState extends State<DescribeMeal> {
     }
 
     if (!mounted) return;
-    await showMealTip(
-      context: context,
-      mealDetectionResult: mealDetectionResult,
-    );
+
+    // Check if variations are needed
+    if (response.variations.isNotEmpty) {
+      await showMealVariation(context: context, response: response);
+    } else {
+      // No variations, show meal tip sheet directly
+      await showMealTip(context: context, mealDetectionResult: response.result);
+    }
   }
 
   void _reset() {

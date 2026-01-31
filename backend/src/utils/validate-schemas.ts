@@ -10,7 +10,7 @@ import {
   getTextMealDetectionRequestSchema,
   getMealSchema,
   getMealMacroSchema,
-  getClarificationSchema,
+  getVariationSchema,
 } from './schema-generator.js';
 
 /**
@@ -59,7 +59,7 @@ function main() {
   // Validate all schemas
   allValid = validateSchema(getMealMacroSchema(), 'MealMacro') && allValid;
   allValid = validateSchema(getMealSchema(), 'Meal') && allValid;
-  allValid = validateSchema(getClarificationSchema(), 'Clarification') && allValid;
+  allValid = validateSchema(getVariationSchema(), 'Variation') && allValid;
   allValid = validateSchema(getMealDetectionResponseSchema(), 'MealDetectionResponse') && allValid;
   allValid = validateSchema(getImageMealDetectionRequestSchema(), 'ImageMealDetectionRequest') && allValid;
   allValid = validateSchema(getTextMealDetectionRequestSchema(), 'TextMealDetectionRequest') && allValid;

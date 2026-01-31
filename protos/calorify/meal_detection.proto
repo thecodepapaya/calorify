@@ -4,7 +4,7 @@ package calorify;
 
 import "protos/meal/meal.proto";
 
-message Clarification {
+message Variation {
   message Option {
     string option = 1; // The option text (e.g., "curd", "labaan")
     meal.MealMacro macro_diff = 2; // Expected macros diff if this option is selected
@@ -17,7 +17,7 @@ message Clarification {
 message MealMetadata {
   optional string image_url = 1;
   optional string meal_description = 2;
-  repeated Clarification selected_clarifications = 3;
+  repeated Variation selected_variations = 3;
 }
 
 message MealDetectionResult {
@@ -39,6 +39,6 @@ message TextMealDetectionRequest {
 
 message MealDetectionResponse {
   MealDetectionResult result = 1;
-  repeated Clarification clarifications = 2; // Questions to improve confidence when confidence is not HIGH/VERY_HIGH
+  repeated Variation variations = 2; // Questions to improve confidence when confidence is not HIGH/VERY_HIGH
 }
 
