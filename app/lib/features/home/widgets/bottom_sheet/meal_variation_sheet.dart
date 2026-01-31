@@ -7,6 +7,7 @@ import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 
@@ -23,22 +24,21 @@ Future<void> showMealVariation({
     isScrollControlled: true,
     routeSettings: const RouteSettings(name: RouteNames.mealVariationSheet),
     builder:
-        (context) =>
-            _MealClarification(response: response, imageBytes: imageBytes),
+        (context) => _MealVariation(response: response, imageBytes: imageBytes),
   );
 }
 
-class _MealClarification extends StatefulWidget {
-  const _MealClarification({required this.response, this.imageBytes});
+class _MealVariation extends StatefulWidget {
+  const _MealVariation({required this.response, this.imageBytes});
 
   final MealDetectionResponse response;
   final Uint8List? imageBytes;
 
   @override
-  State<_MealClarification> createState() => _MealClarificationState();
+  State<_MealVariation> createState() => _MealVariationState();
 }
 
-class _MealClarificationState extends State<_MealClarification>
+class _MealVariationState extends State<_MealVariation>
     with TickerProviderStateMixin {
   int _currentQuestionIndex = 0;
   final Map<int, int> _selectedOptions = {}; // questionIndex -> optionIndex
@@ -175,23 +175,34 @@ class _MealClarificationState extends State<_MealClarification>
     final updatedResult = widget.response.result.deepCopy();
     updatedResult.meal = updatedMeal;
 
-    // Close clarification sheet and show meal tip sheet
+    // Capture a safe context before popping (use root navigator's overlay context)
+    final rootNavigator = Navigator.of(context, rootNavigator: true);
+    final safeContext = rootNavigator.overlay?.context ?? context;
+
+    // Close variation sheet and show meal tip sheet
     Navigator.of(context).pop();
-    showMealTip(
-      context: context,
-      mealDetectionResult: updatedResult,
-      imageBytes: widget.imageBytes,
-    );
+
+    // Schedule the next sheet after the pop completes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      showMealTip(
+        context: safeContext,
+        mealDetectionResult: updatedResult,
+        imageBytes: widget.imageBytes,
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     if (_variations.isEmpty) {
       // Should not happen, but handle gracefully
-      return BaseBottomSheet(child: Text('No clarifications available'));
+      return BaseBottomSheet(
+        child: Text(t.meal.variation.noVariationsAvailable),
+      );
     }
 
-    final currentClarification = _variations[_currentQuestionIndex];
+    final currentVariation = _variations[_currentQuestionIndex];
 
     return BaseBottomSheet(
       child: FadeTransition(
@@ -204,9 +215,9 @@ class _MealClarificationState extends State<_MealClarification>
             children: [
               _buildProgressIndicator(context),
               const SizedBox(height: 24),
-              _buildQuestion(context, currentClarification.question),
+              _buildQuestion(context, currentVariation.question),
               const SizedBox(height: 20),
-              _buildOptions(context, currentClarification),
+              _buildOptions(context, currentVariation),
               const SizedBox(height: 16),
             ],
           ),
@@ -234,7 +245,10 @@ class _MealClarificationState extends State<_MealClarification>
           ),
         if (canGoBack) const SizedBox(width: 8),
         Text(
-          'Question ${_currentQuestionIndex + 1} of ${_variations.length}',
+          t.meal.variation.question(
+            current: _currentQuestionIndex + 1,
+            total: _variations.length,
+          ),
           style: textTheme.bodySmall?.copyWith(
             color: colorScheme.onSurface.withValues(alpha: 0.6),
           ),
@@ -246,7 +260,7 @@ class _MealClarificationState extends State<_MealClarification>
             _onSkip();
           },
           icon: Icon(LucideIcons.skipForward, size: 16),
-          label: const Text('Skip'),
+          label: Text(t.meal.skip),
           style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             minimumSize: const Size(0, 32),
@@ -282,15 +296,15 @@ class _MealClarificationState extends State<_MealClarification>
     );
   }
 
-  Widget _buildOptions(BuildContext context, Variation clarification) {
+  Widget _buildOptions(BuildContext context, Variation variation) {
     return Wrap(
       spacing: 10,
       runSpacing: 10,
       alignment: WrapAlignment.start,
       children: List.generate(
-        clarification.options.length,
+        variation.options.length,
         (index) => _OptionTile(
-          option: clarification.options[index].option,
+          option: variation.options[index].option,
           isSelected: _selectedOptions[_currentQuestionIndex] == index,
           onTap: () => _onOptionSelected(index),
         ),

@@ -63,7 +63,7 @@ Respond ONLY with JSON matching this structure:
       }
     }
   },
-  "variations": array of clarification objects
+  "variations": array of variation objects
 }
 
 RULES:

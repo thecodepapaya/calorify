@@ -27,7 +27,7 @@ function getSystemPrompt(locale: string = 'en'): string {
 
 JSON: {"result": {"meal_identified": bool, "calorie_confidence": "LOW"|"MEDIUM"|"HIGH"|"UNSPECIFIED", "tip": str, "meal": {"name": str, "quantity": str, "type": "BREAKFAST"|"LUNCH"|"DINNER"|"SNACK"|"UNKNOWN", "macros": {"calories": int, "carbs": int, "protein": int, "fat": int, "fiber": int}, "health": {"health_score": "HEALTHY"|"NEUTRAL"|"UNHEALTHY", "health_score_reason": str?}}}, "variations": [{"question": str, "options": [{"option": str, "macro_diff": {"calories": int, "carbs": int, "protein": int, "fat": int, "fiber": int}}]}]}
 
-Rules: confidence LOW(0-40%)/MEDIUM(41-70%)/HIGH(71-100%). add variations if calorie_confidence LOW/MEDIUM. meal required if meal_identified=true. All numbers integers. All text fields must be in $locale language.`;
+Rules: confidence LOW(0-40%)/MEDIUM(41-70%)/HIGH(71-100%). add variations if calorie_confidence LOW/MEDIUM. meal required if meal_identified=true. All numbers integers. All text fields must be in ${locale} language.`;
 }
 
 interface OpenAIVariationOption {
