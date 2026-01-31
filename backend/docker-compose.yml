@@ -40,6 +40,8 @@ services:
     restart: always
     ports:
       - "3000:3000"
+    env_file:
+      - production.env
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=false
       - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
