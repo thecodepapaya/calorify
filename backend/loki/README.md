@@ -26,6 +26,8 @@ This directory contains the configuration for self-hosted logging with Grafana a
 
 4. **Access Grafana dashboard:**
    - Open http://localhost:3000
+   - Login with default credentials (username: `admin`, password: `admin`)
+   - You may be prompted to change the password on first login
    - The dashboard should be automatically loaded
    - Look for "Calorify API Logs Dashboard" in the dashboards list
 

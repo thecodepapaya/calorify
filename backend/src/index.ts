@@ -48,11 +48,11 @@ async function buildApp() {
     genReqId: (req) => {
       const reqId = req.headers['x-request-id'];
       const corrId = req.headers['x-correlation-id'];
-      
+
       // Handle case where headers might be string or string[]
       const reqIdStr = Array.isArray(reqId) ? reqId[0] : reqId;
       const corrIdStr = Array.isArray(corrId) ? corrId[0] : corrId;
-      
+
       return reqIdStr || corrIdStr || `req-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     },
   });
@@ -61,7 +61,7 @@ async function buildApp() {
   fastify.addHook('onRequest', async (request) => {
     const startTime = Date.now();
     (request as any).startTime = startTime;
-    
+
     request.log.info({
       type: 'request',
       method: request.method,
@@ -78,11 +78,12 @@ async function buildApp() {
   });
 
   fastify.addHook('onResponse', async (request, reply) => {
-    const responseTime = Date.now() - ((request as any).startTime || Date.now());
+    const startTime = (request as any).startTime;
+    const responseTime = startTime ? Date.now() - startTime : -1;
     const statusCode = reply.statusCode;
-    
+
     const logLevel = statusCode >= 500 ? 'error' : statusCode >= 400 ? 'warn' : 'info';
-    
+
     request.log[logLevel]({
       type: 'response',
       method: request.method,

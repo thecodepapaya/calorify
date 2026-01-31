@@ -238,6 +238,11 @@ class TranslationsMealEn {
 
 	/// en: 'Failed to save data. Please try again.'
 	String get failedToSave => 'Failed to save data. Please try again.';
+
+	/// en: 'Skip'
+	String get skip => 'Skip';
+
+	late final TranslationsMealVariationEn variation = TranslationsMealVariationEn._(_root);
 }
 
 // Path: favorites
@@ -1187,6 +1192,21 @@ class TranslationsMealDeleteConfirmationEn {
 
 	/// en: 'Delete'
 	String get delete => 'Delete';
+}
+
+// Path: meal.variation
+class TranslationsMealVariationEn {
+	TranslationsMealVariationEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Question {current} of {total}'
+	String question({required Object current, required Object total}) => 'Question ${current} of ${total}';
+
+	/// en: 'No variations available'
+	String get noVariationsAvailable => 'No variations available';
 }
 
 // Path: profile.sections
@@ -2604,6 +2624,9 @@ extension on Translations {
 			'meal.failedToProcessImage' => ({required Object error}) => 'Failed to process image: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Error compressing image: ${error}',
 			'meal.failedToSave' => 'Failed to save data. Please try again.',
+			'meal.skip' => 'Skip',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Question ${current} of ${total}',
+			'meal.variation.noVariationsAvailable' => 'No variations available',
 			'favorites.title' => 'Favorites',
 			'favorites.empty' => 'No favorite meals yet.',
 			'profile.title' => 'Profile',
