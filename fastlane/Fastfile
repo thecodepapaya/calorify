@@ -13,11 +13,18 @@ platform :android do
     )
 
     # Promote from Internal Testing to Production
-    promote_track(
+    # Using supply action to promote the release
+    supply(
       track: "internal",
-      to_track: "production",
+      promote_to: "production",
       json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
-      package_name: "dev.thecodepapaya.calorify"
+      package_name: "dev.thecodepapaya.calorify",
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_changelogs: true
     )
 
     # Upload Watch App (companion)

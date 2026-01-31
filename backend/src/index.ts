@@ -15,21 +15,25 @@ async function buildApp() {
     level: config.DEBUG ? 'debug' : 'info',
   };
 
-  // Use Loki transport if LOKI_URL is set (production/staging)
+  // For production/staging: Output JSON logs to stdout
+  // Promtail will capture these and send them to Loki
+  // This is more reliable than pino-loki transport which can fail silently
   if (config.LOKI_URL && config.ENVIRONMENT !== 'development') {
-    loggerConfig.transport = {
-      target: 'pino-loki',
-      options: {
-        batching: true,
-        interval: 5, // Send logs every 5 seconds
-        host: config.LOKI_URL,
-        basicAuth: null, // No auth needed for local Loki
-        labels: {
-          app: 'calorify-backend',
-          environment: config.ENVIRONMENT,
-        },
-      },
+    // Output JSON logs to stdout - Promtail will capture and send to Loki
+    // This ensures logs are always visible in docker logs AND sent to Loki
+    loggerConfig.serializers = {
+      req: (req: any) => ({
+        method: req.method,
+        url: req.url,
+        path: req.url?.split('?')[0],
+        query: req.query,
+      }),
+      res: (res: any) => ({
+        statusCode: res.statusCode,
+      }),
     };
+    // JSON output for Promtail to parse
+    loggerConfig.transport = undefined; // Don't use pino-loki transport
   } else {
     // Pretty print for development
     loggerConfig.transport = {
@@ -179,6 +183,15 @@ async function start() {
       console.warn('⚠️  DATABASE_URL not set, database features will be unavailable');
     }
 
+    // Log Loki configuration
+    if (config.LOKI_URL && config.ENVIRONMENT !== 'development') {
+      const lokiUrl = new URL(config.LOKI_URL);
+      console.log(`📊 Loki logging enabled: ${lokiUrl.hostname}:${lokiUrl.port || '3100'}`);
+      console.log(`📊 Logs Dashboard: http://localhost:3000`);
+    } else {
+      console.log('📝 Using local logging (development mode)');
+    }
+
     const app = await buildApp();
 
     await app.listen({
@@ -193,9 +206,14 @@ async function start() {
     console.log(`🚀 Server running on http://0.0.0.0:${config.PORT}`);
     console.log(`📍 Health check: ${externalUrl}`);
     console.log(`📚 API Documentation: ${externalUrl}/docs`);
-    if (config.LOKI_URL) {
-      console.log(`📊 Logs Dashboard: http://localhost:3000`);
-    }
+
+    // Log a test message to verify logging is working
+    app.log.info({
+      type: 'startup',
+      message: 'Server started successfully',
+      environment: config.ENVIRONMENT,
+      lokiEnabled: !!(config.LOKI_URL && config.ENVIRONMENT !== 'development'),
+    }, 'Server startup complete');
   } catch (error) {
     console.error('Failed to start server:', error);
     process.exit(1);
