@@ -662,9 +662,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           _didApplySavedGoal = true;
           _dailyCalorieGoal = savedGoal;
           _originalDailyCalorieGoal = savedGoal;
-          _calorieGoalController.text =
-              savedGoal > 0 ? savedGoal.toString() : '';
           WidgetsBinding.instance.addPostFrameCallback((_) {
+            _calorieGoalController.text =
+                savedGoal > 0 ? savedGoal.toString() : '';
             if (!mounted) return;
             setState(() {});
           });

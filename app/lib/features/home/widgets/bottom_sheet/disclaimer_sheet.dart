@@ -82,7 +82,7 @@ class _MealSnapDisclaimer extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           ...data.bulletPoints.map((e) => _BulletPoint(e.title, e.description)),
-          const SizedBox(height: 30),
+          const SizedBox(height: 8),
         ],
       ),
     );

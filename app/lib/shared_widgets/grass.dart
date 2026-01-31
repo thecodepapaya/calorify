@@ -1,3 +1,5 @@
+import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/shared_widgets/cat_peek_easter_egg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,6 +18,7 @@ class _GrassState extends State<Grass> {
   bool _showCat = false;
 
   void _handleTap() {
+    Analytics.instance.logEvent(AnalyticsEvent.easterEggDiscovered);
     if (!_showCat) {
       debugPrint('🌱 Grass tapped! Showing cute cat easter egg...');
       setState(() {
@@ -53,16 +56,16 @@ class _GrassState extends State<Grass> {
             Positioned(
               left: -16, // Overflow 16px on left
               right: -16, // Overflow 16px on right
-              bottom: -20, // Overflow 20px on bottom
+              bottom: -8, // Overflow 8px on bottom
               child: ColorFiltered(
                 colorFilter: ColorFilter.mode(
                   colorScheme.primary,
                   BlendMode.srcIn,
                 ),
                 child: SvgPicture.asset(
-                  'assets/images/grass.svg',
+                  'assets/vectors/grass.svg',
                   width: double.infinity,
-                  height: widget.height + 20, // Add bottom overflow to height
+                  height: widget.height + 8, // Add bottom overflow to height
                   fit: BoxFit.cover,
                 ),
               ),

@@ -32,4 +32,7 @@ enum AnalyticsEvent {
   profileView,
   profileEdit,
   profileSignOut,
+
+  // Misc
+  easterEggDiscovered,
 }

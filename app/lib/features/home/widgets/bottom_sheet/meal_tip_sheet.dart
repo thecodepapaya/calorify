@@ -71,7 +71,7 @@ class _MealTip extends StatelessWidget {
             ..._mealUnidentified(context)
           else
             ..._mealIdentified(context),
-          const SizedBox(height: 30),
+          const SizedBox(height: 8),
         ],
       ),
     );
@@ -134,6 +134,8 @@ class _MealTip extends StatelessWidget {
                   style: textTheme.titleMedium?.copyWith(
                     color: colorScheme.onSurface,
                   ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 Wrap(
                   children: [
@@ -282,8 +284,6 @@ class _MealTip extends StatelessWidget {
               ),
             ],
           ),
-
-      SizedBox(height: 20),
     ];
   }
 

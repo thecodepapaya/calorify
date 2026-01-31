@@ -44,7 +44,7 @@ class HealthScoreIndicator extends StatelessWidget {
   const HealthScoreIndicator({
     super.key,
     required this.healthScore,
-    this.size = 16,
+    this.size = 18,
     this.showBackground = true,
     this.onTap,
   });
@@ -63,7 +63,7 @@ class HealthScoreIndicator extends StatelessWidget {
 
     if (showBackground) {
       indicator = Container(
-        padding: const EdgeInsets.all(4),
+        padding: const EdgeInsets.all(2),
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.1),
           shape: BoxShape.circle,

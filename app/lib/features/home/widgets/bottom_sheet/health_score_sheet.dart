@@ -74,7 +74,7 @@ class _HealthScoreSheet extends StatelessWidget {
               color: colorScheme.onSurface.withValues(alpha: 0.6),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 8),
         ],
       ),
     );
