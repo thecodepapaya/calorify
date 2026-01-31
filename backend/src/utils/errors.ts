@@ -14,11 +14,11 @@ export function createErrorResponse(detail: string): ApiError {
 /**
  * Error handler for Fastify
  */
-export function errorHandler(
+export async function errorHandler(
   error: FastifyError,
   _request: FastifyRequest,
   reply: FastifyReply
-): void {
+): Promise<void> {
   const statusCode = error.statusCode ?? 500;
   const message = error.message ?? 'Internal Server Error';
 
