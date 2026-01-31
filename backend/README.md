@@ -77,11 +77,11 @@ A high-performance Node.js/Fastify backend API server for AI-powered food analys
 ### Food Analysis (New - OpenAI)
 - **POST** `/api/v1/food/detect-image` - Detect meal from image URL
   - Request: `{ "imageUrl": "https://...", "mimeType": "image/jpeg" }`
-  - Response: `MealDetectionResponse` with `result` and `clarifications`
+  - Response: `MealDetectionResponse` with `result` and `variations`
   
 - **POST** `/api/v1/food/detect-text` - Detect meal from text description
   - Request: `{ "textDescription": "grilled chicken with rice" }`
-  - Response: `MealDetectionResponse` with `result` and `clarifications`
+  - Response: `MealDetectionResponse` with `result` and `variations`
 
 ### Food Analysis (Legacy - OpenAI)
 - **POST** `/api/v1/food/analyze-image` - Analyze food image (multipart form) - Uses OpenAI

@@ -9,6 +9,7 @@ import 'package:calorify/core/services/picker_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getSnapDisclaimer;
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_variation_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:flutter/material.dart';
@@ -257,14 +258,18 @@ class _MealSnapState extends State<MealSnap> {
     try {
       await compressedFile.writeAsBytes(compressedImageByte);
 
-      late final MealDetectionResult mealDetectionResult;
+      late final MealDetectionResponse response;
       try {
         final repository = FoodRepository();
-        final response = await repository.detectImage(
-          imageFile: compressedFile,
-        );
-        mealDetectionResult = response.result;
+        response = await repository.detectImage(imageFile: compressedFile);
+        // Track successful meal detection
+        if (response.result.mealIdentified) {
+          Analytics.instance.logEvent(AnalyticsEvent.mealDetectionSuccess);
+        } else {
+          Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);
+        }
       } on Exception catch (e) {
+        Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);
         if (!mounted) return;
         ScaffoldMessenger.of(
           context,
@@ -281,11 +286,22 @@ class _MealSnapState extends State<MealSnap> {
       }
 
       if (!mounted) return;
-      await showMealTip(
-        context: context,
-        imageBytes: compressedImageByte,
-        mealDetectionResult: mealDetectionResult,
-      );
+
+      // Check if variations are needed
+      if (response.variations.isNotEmpty) {
+        await showMealVariation(
+          context: context,
+          response: response,
+          imageBytes: compressedImageByte,
+        );
+      } else {
+        // No variations, show meal tip sheet directly
+        await showMealTip(
+          context: context,
+          imageBytes: compressedImageByte,
+          mealDetectionResult: response.result,
+        );
+      }
     } catch (e) {
       // Clean up temp file on error
       try {

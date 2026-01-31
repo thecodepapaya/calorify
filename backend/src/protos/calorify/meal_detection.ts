@@ -9,14 +9,14 @@ import type { CalorieConfidence, Meal, MealMacro } from "../meal/meal";
 
 export const protobufPackage = "calorify";
 
-export interface Clarification {
+export interface Variation {
   /** The question to ask the user (e.g., "What does the white bowl contain?") */
   question: string;
   /** List of options with their expected macros */
-  options: Clarification_Option[];
+  options: Variation_Option[];
 }
 
-export interface Clarification_Option {
+export interface Variation_Option {
   /** The option text (e.g., "curd", "labaan") */
   option: string;
   /** Expected macros diff if this option is selected */
@@ -26,7 +26,7 @@ export interface Clarification_Option {
 export interface MealMetadata {
   imageUrl?: string | undefined;
   mealDescription?: string | undefined;
-  selectedClarifications: Clarification[];
+  selectedVariations: Variation[];
 }
 
 export interface MealDetectionResult {
@@ -54,5 +54,5 @@ export interface MealDetectionResponse {
     | MealDetectionResult
     | undefined;
   /** Questions to improve confidence when confidence is not HIGH/VERY_HIGH */
-  clarifications: Clarification[];
+  variations: Variation[];
 }

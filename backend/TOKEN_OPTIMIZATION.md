@@ -63,15 +63,15 @@ Respond ONLY with JSON matching this structure:
       }
     }
   },
-  "clarifications": array of clarification objects
+  "variations": array of clarification objects
 }
 
 RULES:
 1. calorie_confidence: "LOW" (0-40%), "MEDIUM" (41-70%), "HIGH" (71-100%), "UNSPECIFIED" (cannot determine)
-2. clarifications: Include only when confidence is "LOW" or "MEDIUM"; return [] for "HIGH" or "UNSPECIFIED"
+2. variations: Include only when confidence is "LOW" or "MEDIUM"; return [] for "HIGH" or "UNSPECIFIED"
 3. meal field: Required if meal_identified=true (include all fields: name, quantity, type, macros with all 5 values). Omit if meal_identified=false. health is optional.
-4. clarifications format: { "question": string, "options": [{"option": string, "macro_diff": {calories, carbs, protein, fat, fiber (all integers)}}] }
-5. Generate clarifications only when needed for accuracy (unclear ingredients, ambiguous portions, uncertain quantities)
+4. variations format: { "question": string, "options": [{"option": string, "macro_diff": {calories, carbs, protein, fat, fiber (all integers)}}] }
+5. Generate variations only when needed for accuracy (unclear ingredients, ambiguous portions, uncertain quantities)
 6. All numeric values must be integers, not decimals.`;
 }
 ```
@@ -81,9 +81,9 @@ RULES:
 function getSystemPrompt(locale: string = 'en'): string {
   return `Food analysis AI. Analyze images/descriptions. Respond in ${locale} JSON only.
 
-JSON: {"result": {"meal_identified": bool, "calorie_confidence": "LOW"|"MEDIUM"|"HIGH"|"UNSPECIFIED", "tip": str, "meal": {"name": str, "quantity": str, "type": "BREAKFAST"|"LUNCH"|"DINNER"|"SNACK"|"UNKNOWN", "macros": {"calories": int, "carbs": int, "protein": int, "fat": int, "fiber": int}, "health": {"health_score": "HEALTHY"|"NEUTRAL"|"UNHEALTHY", "health_score_reason": str?}}}, "clarifications": [{"question": str, "options": [{"option": str, "macro_diff": {"calories": int, "carbs": int, "protein": int, "fat": int, "fiber": int}}]}]}
+JSON: {"result": {"meal_identified": bool, "calorie_confidence": "LOW"|"MEDIUM"|"HIGH"|"UNSPECIFIED", "tip": str, "meal": {"name": str, "quantity": str, "type": "BREAKFAST"|"LUNCH"|"DINNER"|"SNACK"|"UNKNOWN", "macros": {"calories": int, "carbs": int, "protein": int, "fat": int, "fiber": int}, "health": {"health_score": "HEALTHY"|"NEUTRAL"|"UNHEALTHY", "health_score_reason": str?}}}, "variations": [{"question": str, "options": [{"option": str, "macro_diff": {"calories": int, "carbs": int, "protein": int, "fat": int, "fiber": int}}]}]}
 
-Rules: confidence LOW(0-40%)/MEDIUM(41-70%)/HIGH(71-100%). clarifications only if LOW/MEDIUM. meal required if meal_identified=true. All numbers integers.`;
+Rules: confidence LOW(0-40%)/MEDIUM(41-70%)/HIGH(71-100%). variations only if LOW/MEDIUM. meal required if meal_identified=true. All numbers integers.`;
 }
 ```
 
@@ -154,10 +154,10 @@ max_tokens: 800  // Sufficient for most responses, prevents over-generation
 
 **Note**: This doesn't reduce input tokens but prevents unnecessary output generation.
 
-### 5. Use Fewer Clarifications
+### 5. Use Fewer Variations
 
-- Limit clarifications to max 2-3 per response
-- Only include essential clarification questions
+- Limit variations to max 2-3 per response
+- Only include essential variation questions
 
 ### 6. Cache System Prompts
 
@@ -170,7 +170,7 @@ max_tokens: 800  // Sufficient for most responses, prevents over-generation
 2. **High Impact, Easy**: Remove redundant text (#2) ✅ **IMPLEMENTED**
 3. **High Impact, Easy**: Use WebP format on client (#3) ✅ **IMPLEMENTED**
 4. **Medium Impact, Easy**: Reduce max_tokens (#4) ✅ **IMPLEMENTED**
-5. **Low Impact, Easy**: Limit clarifications (#5)
+5. **Low Impact, Easy**: Limit variations (#5)
 6. **Low Impact, Easy**: Cache system prompts (#6)
 
 ## Complete Optimized Method Example
@@ -219,4 +219,4 @@ The implemented optimizations provide significant token savings:
 - Image compression: 25-35% additional reduction with WebP format
 - max_tokens: Prevents over-generation (no input savings, but reduces unnecessary output)
 
-All high-impact, easy optimizations have been implemented. The remaining optimizations (limiting clarifications, caching prompts) provide minor additional savings and can be implemented as needed.
+All high-impact, easy optimizations have been implemented. The remaining optimizations (limiting variations, caching prompts) provide minor additional savings and can be implemented as needed.

@@ -62,7 +62,7 @@ class NetworkClient {
     if (kDebugMode || EnvConfig.instance.isStaging) {
       dio.interceptors.add(
         PrettyDioLogger(
-          requestHeader: false,
+          requestHeader: true,
           requestBody: false,
           responseBody: true,
           responseHeader: false,

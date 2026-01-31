@@ -19,8 +19,8 @@ See [SCHEMA_SYNC.md](./SCHEMA_SYNC.md) for details.
 ### POST `/api/v1/food/detect-image`
 - Detect meal from image URL (OpenAI)
 - Request: `{ "imageUrl": "https://...", "mimeType": "image/jpeg" }`
-- Response: `MealDetectionResponse` with `result` and `clarifications`
-- Single LLM call, clarifications when confidence is LOW/MEDIUM
+- Response: `MealDetectionResponse` with `result` and `variations`
+- Single LLM call, variations when confidence is LOW/MEDIUM
 
 ### POST `/api/v1/food/detect-text`
 - Detect meal from text description (OpenAI)
@@ -39,7 +39,7 @@ See [SCHEMA_SYNC.md](./SCHEMA_SYNC.md) for details.
 - `calorie_confidence` is enum string ("LOW", "MEDIUM", "HIGH", "UNSPECIFIED")
 - New: `analyzeTextDescription()` method
 - Updated: `analyzeImageFromUrl()` returns `MealDetectionResponse`
-- Enhanced validation: Required fields, integer rounding, clarification structure
+- Enhanced validation: Required fields, integer rounding, variation structure
 
 ### Food Analysis Service
 - Fixed imports to use correct proto file paths
@@ -99,7 +99,7 @@ See [SCHEMA_SYNC.md](./SCHEMA_SYNC.md) for details.
 
 **New Endpoints**: `/api/v1/food/detect-image`, `/api/v1/food/detect-text`
 
-**Response Format**: `MealDetectionResponse` with `result` and `clarifications`. `calorieConfidence` is enum string.
+**Response Format**: `MealDetectionResponse` with `result` and `variations`. `calorieConfidence` is enum string.
 
 **Authentication**: Currently disabled (no auth headers needed)
 
@@ -134,4 +134,4 @@ None - new endpoints are additive. Legacy endpoints unchanged.
 - Sync service disabled but code remains
 - Schema generator ensures documentation stays accurate
 - New endpoints use OpenAI (not Gemini)
-- Single LLM call per request (includes clarifications when needed)
+- Single LLM call per request (includes variations when needed)

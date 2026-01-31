@@ -27,11 +27,18 @@ enum AnalyticsEvent {
   mealSave,
   mealDelete,
   mealEdit,
+  mealVariationNext,
+  mealVariationSkip,
+  mealDetectionSuccess,
+  mealDetectionFailure,
 
-  // Profile
-  profileView,
-  profileEdit,
-  profileSignOut,
+  // Favorites
+  favoriteAdd,
+  favoriteRemove,
+
+  // Health Connect
+  healthConnectPermissionGranted,
+  healthConnectPermissionDenied,
 
   // Misc
   easterEggDiscovered,

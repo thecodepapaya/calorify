@@ -15,7 +15,7 @@ Centralized schema generator (`src/utils/schema-generator.ts`) generates OpenAPI
 - `getMealDetectionResponseSchema()` - Main response
 - `getMealDetectionResultSchema()` - Result object
 - `getMealSchema()` - Meal object
-- `getClarificationSchema()` - Clarifications
+- `getVariationSchema()` - Variations (Variation message type)
 - `getImageMealDetectionRequestSchema()` - Image request
 - `getTextMealDetectionRequestSchema()` - Text request
 - `getStandardErrorResponses()` - Error responses

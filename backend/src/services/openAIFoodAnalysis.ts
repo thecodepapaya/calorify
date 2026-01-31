@@ -2,7 +2,7 @@ import OpenAI from 'openai';
 import type {
   MealDetectionResult,
   MealDetectionResponse,
-  Clarification,
+  Variation,
 } from '../protos/calorify/meal_detection.js';
 import type {
   Meal,
@@ -23,14 +23,14 @@ import config from '../config.js';
  * @returns System prompt string
  */
 function getSystemPrompt(locale: string = 'en'): string {
-  return `Food analysis AI. Analyze images/descriptions. Respond in ${locale} JSON only.
+  return `Food analysis AI. Analyze images/descriptions. All text responses must be in ${locale} language. Respond in JSON only.
 
-JSON: {"result": {"meal_identified": bool, "calorie_confidence": "LOW"|"MEDIUM"|"HIGH"|"UNSPECIFIED", "tip": str, "meal": {"name": str, "quantity": str, "type": "BREAKFAST"|"LUNCH"|"DINNER"|"SNACK"|"UNKNOWN", "macros": {"calories": int, "carbs": int, "protein": int, "fat": int, "fiber": int}, "health": {"health_score": "HEALTHY"|"NEUTRAL"|"UNHEALTHY", "health_score_reason": str?}}}, "clarifications": [{"question": str, "options": [{"option": str, "macro_diff": {"calories": int, "carbs": int, "protein": int, "fat": int, "fiber": int}}]}]}
+JSON: {"result": {"meal_identified": bool, "calorie_confidence": "LOW"|"MEDIUM"|"HIGH"|"UNSPECIFIED", "tip": str, "meal": {"name": str, "quantity": str, "type": "BREAKFAST"|"LUNCH"|"DINNER"|"SNACK"|"UNKNOWN", "macros": {"calories": int, "carbs": int, "protein": int, "fat": int, "fiber": int}, "health": {"health_score": "HEALTHY"|"NEUTRAL"|"UNHEALTHY", "health_score_reason": str?}}}, "variations": [{"question": str, "options": [{"option": str, "macro_diff": {"calories": int, "carbs": int, "protein": int, "fat": int, "fiber": int}}]}]}
 
-Rules: confidence LOW(0-40%)/MEDIUM(41-70%)/HIGH(71-100%). clarifications if calorie_confidence not HIGH. meal required if meal_identified=true. All numbers integers.`;
+Rules: confidence LOW(0-40%)/MEDIUM(41-70%)/HIGH(71-100%). add variations if calorie_confidence LOW/MEDIUM. meal required if meal_identified=true. All numbers integers. All text fields must be in $locale language.`;
 }
 
-interface OpenAIClarificationOption {
+interface OpenAIVariationOption {
   option: string;
   macro_diff?: {
     calories: number;
@@ -41,9 +41,9 @@ interface OpenAIClarificationOption {
   };
 }
 
-interface OpenAIClarification {
+interface OpenAIVariation {
   question: string;
-  options: OpenAIClarificationOption[];
+  options: OpenAIVariationOption[];
 }
 
 interface OpenAIResponse {
@@ -68,7 +68,7 @@ interface OpenAIResponse {
       };
     };
   };
-  clarifications?: OpenAIClarification[];
+  variations?: OpenAIVariation[];
 }
 
 class OpenAIFoodAnalysisService {
@@ -125,27 +125,106 @@ class OpenAIFoodAnalysisService {
   }
 
   /**
-   * Map OpenAI clarification to proto Clarification
+   * Get mock variations for testing in staging environment
+   * Returns a set of sample variations to test the meal logging flow
+   */
+  private getMockVariations(): Variation[] {
+    return [
+      {
+        question: 'What does the white bowl contain?',
+        options: [
+          {
+            option: 'Curd (Yogurt)',
+            macroDiff: {
+              calories: 50,
+              carbs: 5,
+              protein: 3,
+              fat: 2,
+              fiber: 0,
+            },
+          },
+          {
+            option: 'Labaan (Buttermilk)',
+            macroDiff: {
+              calories: 30,
+              carbs: 3,
+              protein: 2,
+              fat: 1,
+              fiber: 0,
+            },
+          },
+          {
+            option: 'Raita (Yogurt with vegetables)',
+            macroDiff: {
+              calories: 60,
+              carbs: 6,
+              protein: 4,
+              fat: 2,
+              fiber: 1,
+            },
+          },
+        ],
+      },
+      {
+        question: 'What type of rice is this?',
+        options: [
+          {
+            option: 'White Rice',
+            macroDiff: {
+              calories: 200,
+              carbs: 45,
+              protein: 4,
+              fat: 0,
+              fiber: 1,
+            },
+          },
+          {
+            option: 'Brown Rice',
+            macroDiff: {
+              calories: 220,
+              carbs: 46,
+              protein: 5,
+              fat: 2,
+              fiber: 4,
+            },
+          },
+          {
+            option: 'Basmati Rice',
+            macroDiff: {
+              calories: 205,
+              carbs: 44,
+              protein: 4,
+              fat: 0,
+              fiber: 1,
+            },
+          },
+        ],
+      },
+    ];
+  }
+
+  /**
+   * Map OpenAI variation to proto Variation
    * Validates JSON structure strictly
    */
-  private mapClarification(clarification: OpenAIClarification): Clarification {
-    // Strict JSON validation - ensure clarification is a valid object
-    if (!clarification || typeof clarification !== 'object') {
-      throw new Error('Clarification must be an object');
+  private mapVariation(variation: OpenAIVariation): Variation {
+    // Strict JSON validation - ensure variation is a valid object
+    if (!variation || typeof variation !== 'object') {
+      throw new Error('Variation must be an object');
     }
-    if (!clarification.question || typeof clarification.question !== 'string') {
-      throw new Error('Clarification missing or invalid "question" field');
+    if (!variation.question || typeof variation.question !== 'string') {
+      throw new Error('Variation missing or invalid "question" field');
     }
-    if (!Array.isArray(clarification.options)) {
-      throw new Error('Clarification missing or invalid "options" array');
+    if (!Array.isArray(variation.options)) {
+      throw new Error('Variation missing or invalid "options" array');
     }
-    if (clarification.options.length === 0) {
-      throw new Error('Clarification must have at least one option');
+    if (variation.options.length === 0) {
+      throw new Error('Variation must have at least one option');
     }
 
     return {
-      question: clarification.question,
-      options: clarification.options
+      question: variation.question,
+      options: variation.options
         .filter((opt) => {
           // Strict validation of option structure
           if (!opt || typeof opt !== 'object') return false;
@@ -219,7 +298,7 @@ class OpenAIFoodAnalysisService {
 
   /**
    * Build protobuf MealDetectionResponse from OpenAI JSON response
-   * Returns a proper protobuf-typed object with result and clarifications
+   * Returns a proper protobuf-typed object with result and variations
    */
   private buildProtoResponse(resultDict: OpenAIResponse): MealDetectionResponse {
     // Validate required fields
@@ -298,18 +377,23 @@ class OpenAIFoodAnalysisService {
       meal: mealInfo,
     };
 
-    // Map clarifications if present - validate it's an array
-    // Ensure clarifications is always an array (even if missing from response)
-    const clarifications: Clarification[] = Array.isArray(resultDict.clarifications)
-      ? resultDict.clarifications
+    // Map variations if present - validate it's an array
+    // Ensure variations is always an array (even if missing from response)
+    let variations: Variation[] = Array.isArray(resultDict.variations)
+      ? resultDict.variations
         .filter((c) => c && typeof c.question === 'string' && Array.isArray(c.options))
-        .map((c) => this.mapClarification(c))
+        .map((c) => this.mapVariation(c))
       : [];
 
-    // Ensure response always includes clarifications array
+    // Mock variations in staging environment for testing
+    if (config.ENVIRONMENT === 'staging' && variations.length === 0 && result.mealIdentified && result.meal) {
+      variations = this.getMockVariations();
+    }
+
+    // Ensure response always includes variations array
     const response: MealDetectionResponse = {
       result,
-      clarifications: clarifications || [], // Always ensure array is present
+      variations: variations || [], // Always ensure array is present
     };
 
     return response;
@@ -317,7 +401,7 @@ class OpenAIFoodAnalysisService {
 
   /**
    * Analyze food image from URL using OpenAI Vision API
-   * Returns a protobuf-typed MealDetectionResponse with clarifications
+   * Returns a protobuf-typed MealDetectionResponse with variations
    * @param imageUrl - URL of the image to analyze
    * @param locale - Language code for the response (default: 'en')
    */
@@ -328,6 +412,11 @@ class OpenAIFoodAnalysisService {
         new URL(imageUrl);
       } catch {
         throw new Error('Invalid image URL format');
+      }
+
+      // Log locale for debugging
+      if (config.DEBUG || config.ENVIRONMENT === 'staging') {
+        console.log('[OpenAI] analyzeImageFromUrl - locale:', locale, 'language:', locale);
       }
 
       const response = await this.client.chat.completions.create({
@@ -387,7 +476,7 @@ class OpenAIFoodAnalysisService {
 
   /**
    * Analyze food image from buffer using OpenAI Vision API
-   * Returns a protobuf-typed MealDetectionResponse with clarifications
+   * Returns a protobuf-typed MealDetectionResponse with variations
    * @param imageBuffer - Image buffer to analyze
    * @param mimeType - MIME type of the image (default: 'image/jpeg')
    * @param locale - Language code for the response (default: 'en')
@@ -400,6 +489,11 @@ class OpenAIFoodAnalysisService {
       // Validate/sanitize MIME type
       const validMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
       const finalMimeType = validMimeTypes.includes(mimeType) ? mimeType : 'image/jpeg';
+
+      // Log locale for debugging
+      if (config.DEBUG || config.ENVIRONMENT === 'staging') {
+        console.log('[OpenAI] analyzeImageFromBuffer - locale:', locale, 'language:', locale);
+      }
 
       const response = await this.client.chat.completions.create({
         model: 'gpt-4o-mini',
@@ -448,7 +542,7 @@ class OpenAIFoodAnalysisService {
         );
       }
 
-      // Return full response with clarifications
+      // Return full response with variations
       return this.buildProtoResponse(resultDict);
     } catch (error) {
       throw new Error(
@@ -459,12 +553,17 @@ class OpenAIFoodAnalysisService {
 
   /**
    * Analyze food description using OpenAI
-   * Returns a protobuf-typed MealDetectionResponse with clarifications
+   * Returns a protobuf-typed MealDetectionResponse with variations
    * @param description - Text description of the food
    * @param locale - Language code for the response (default: 'en')
    */
   async analyzeTextDescription(description: string, locale: string = 'en'): Promise<MealDetectionResponse> {
     try {
+      // Log locale for debugging
+      if (config.DEBUG || config.ENVIRONMENT === 'staging') {
+        console.log('[OpenAI] analyzeTextDescription - locale:', locale, 'language:', locale);
+      }
+
       const response = await this.client.chat.completions.create({
         model: 'gpt-4o-mini',
         messages: [

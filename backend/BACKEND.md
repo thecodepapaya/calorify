@@ -279,20 +279,20 @@ Fastify can be configured with Swagger/OpenAPI documentation using `@fastify/swa
 
 #### `analyzeImageFromUrl(imageUrl: string): Promise<MealDetectionResponse>`
 - Processes image from URL using OpenAI GPT-4o-mini Vision API
-- Returns `MealDetectionResponse` with clarifications
+- Returns `MealDetectionResponse` with variations
 
 #### `analyzeTextDescription(description: string): Promise<MealDetectionResponse>`
 - Processes text description using OpenAI GPT-4o-mini
-- Returns `MealDetectionResponse` with clarifications
+- Returns `MealDetectionResponse` with variations
 
 **Internal Helpers**:
 - `parseMealType()`: Converts string to protobuf enum
 - `parseHealthScore()`: Converts string to protobuf enum
 - `mapCalorieConfidence()`: Maps confidence string to enum
-- `buildProtoResponse()`: Converts JSON dict to protobuf-typed object with clarifications
+- `buildProtoResponse()`: Converts JSON dict to protobuf-typed object with variations
 - `extractJson()`: Extracts JSON from OpenAI response (handles markdown code blocks)
 
-**AI Prompt**: System prompt instructs OpenAI to return structured JSON with nutritional information and clarifications.
+**AI Prompt**: System prompt instructs OpenAI to return structured JSON with nutritional information and variations.
 
 ### FoodAnalysisService (Legacy - Gemini)
 

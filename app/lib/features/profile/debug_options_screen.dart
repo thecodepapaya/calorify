@@ -4,7 +4,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/network/network_client.dart';
 import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/router/route_names.dart';
+import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/picker_service.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_variation_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:dio/dio.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/health_service.dart';
@@ -389,6 +392,14 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
             subtitle: const Text('Detect meal from text description'),
             onTap: _testDetectText,
           ),
+          ListTile(
+            leading: const Icon(LucideIcons.info),
+            title: const Text('Test Meal Logging with Variations'),
+            subtitle: const Text(
+              'Test the full meal logging flow with variations',
+            ),
+            onTap: _testMealLoggingWithVariations,
+          ),
         ],
       ),
     );
@@ -592,9 +603,51 @@ Protein: ${mealInfo.macros.protein}g
 Carbs: ${mealInfo.macros.carbs}g
 Fat: ${mealInfo.macros.fat}g
 ''' : 'No meal info'}
+Variations: ${response.variations.length}
 ''';
 
       _showDataDialog('Detect Text Result', resultText);
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackbar('Error: $e');
+    }
+  }
+
+  Future<void> _testMealLoggingWithVariations() async {
+    try {
+      _showSnackbar('Testing meal logging flow with variations...');
+
+      // Navigate to Log screen first
+      if (!mounted) return;
+      context.router.push(const LogRoute());
+
+      // Wait a bit for navigation to complete
+      await Future.delayed(const Duration(milliseconds: 500));
+
+      if (!mounted) return;
+
+      // Trigger meal detection with a test description that should return variations
+      const testText = 'I had a bowl with rice, curry, and a white side dish';
+
+      final repository = FoodRepository();
+      final response = await repository.detectText(textDescription: testText);
+
+      if (!mounted) return;
+
+      // Check if variations are present and show the variation sheet
+      if (response.variations.isNotEmpty) {
+        await showMealVariation(context: context, response: response);
+      } else {
+        // No variations, show meal tip sheet directly
+        if (response.result.hasMeal()) {
+          await showMealTip(
+            context: context,
+            mealDetectionResult: response.result,
+          );
+        } else {
+          _showSnackbar('No meal identified in response');
+        }
+      }
     } catch (e) {
       if (!mounted) return;
       _showSnackbar('Error: $e');

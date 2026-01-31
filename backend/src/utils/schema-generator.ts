@@ -78,9 +78,9 @@ export function getMealSchema() {
 }
 
 /**
- * Generate OpenAPI schema for Clarification Option
+ * Generate OpenAPI schema for Variation Option
  */
-export function getClarificationOptionSchema() {
+export function getVariationOptionSchema() {
   return {
     type: 'object',
     required: ['option'],
@@ -95,9 +95,9 @@ export function getClarificationOptionSchema() {
 }
 
 /**
- * Generate OpenAPI schema for Clarification
+ * Generate OpenAPI schema for Variation
  */
-export function getClarificationSchema() {
+export function getVariationSchema() {
   return {
     type: 'object',
     required: ['question', 'options'],
@@ -108,7 +108,7 @@ export function getClarificationSchema() {
       },
       options: {
         type: 'array',
-        items: getClarificationOptionSchema(),
+        items: getVariationOptionSchema(),
         description: 'List of options with their expected macro differences',
       },
     },
@@ -145,10 +145,10 @@ export function getMealDetectionResultSchema() {
         properties: {
           imageUrl: { type: 'string', description: 'URL of the image used for detection' },
           mealDescription: { type: 'string', description: 'Text description used for detection' },
-          selectedClarifications: {
+          selectedVariations: {
             type: 'array',
-            items: getClarificationSchema(),
-            description: 'Clarifications that were selected',
+            items: getVariationSchema(),
+            description: 'Variations that were selected',
           },
         },
       },
@@ -162,15 +162,15 @@ export function getMealDetectionResultSchema() {
 export function getMealDetectionResponseSchema() {
   return {
     type: 'object',
-    required: ['result', 'clarifications'],
+    required: ['result', 'variations'],
     properties: {
       result: {
         ...getMealDetectionResultSchema(),
         description: 'Meal detection result',
       },
-      clarifications: {
+      variations: {
         type: 'array',
-        items: getClarificationSchema(),
+        items: getVariationSchema(),
         description: 'Questions to improve confidence when confidence is LOW or MEDIUM',
       },
     },

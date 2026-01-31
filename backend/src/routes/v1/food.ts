@@ -26,13 +26,13 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
     {
       // preHandler: [authenticateUser], // Temporarily disabled
       schema: {
-        description: 'Analyze a food image using OpenAI. Upload an image file to get detailed nutritional information including calories, macros, health score, and clarifications.',
+        description: 'Analyze a food image using OpenAI. Upload an image file to get detailed nutritional information including calories, macros, health score, and variations.',
         tags: ['Food'],
         consumes: ['multipart/form-data'],
         security: [{ bearerAuth: [] }],
         response: {
           200: {
-            description: 'Successful analysis with clarifications',
+            description: 'Successful analysis with variations',
             ...getMealDetectionResponseSchema(),
           },
           ...getStandardErrorResponses(),
@@ -88,7 +88,7 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
     {
       // preHandler: [authenticateUser], // Temporarily disabled
       schema: {
-        description: 'Detect meal from image URL using OpenAI. Returns MealDetectionResponse with clarifications if confidence is LOW/MEDIUM.',
+        description: 'Detect meal from image URL using OpenAI. Returns MealDetectionResponse with variations if confidence is LOW/MEDIUM.',
         tags: ['Food'],
         body: getImageMealDetectionRequestSchema(),
         response: {
@@ -155,7 +155,7 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
     {
       // preHandler: [authenticateUser], // Temporarily disabled
       schema: {
-        description: 'Detect meal from text description using OpenAI. Returns MealDetectionResponse with clarifications if confidence is LOW/MEDIUM.',
+        description: 'Detect meal from text description using OpenAI. Returns MealDetectionResponse with variations if confidence is LOW/MEDIUM.',
         tags: ['Food'],
         body: getTextMealDetectionRequestSchema(),
         response: {

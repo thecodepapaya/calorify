@@ -15,9 +15,9 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
-@$core.Deprecated('Use clarificationDescriptor instead')
-const Clarification$json = {
-  '1': 'Clarification',
+@$core.Deprecated('Use variationDescriptor instead')
+const Variation$json = {
+  '1': 'Variation',
   '2': [
     {'1': 'question', '3': 1, '4': 1, '5': 9, '10': 'question'},
     {
@@ -25,15 +25,15 @@ const Clarification$json = {
       '3': 2,
       '4': 3,
       '5': 11,
-      '6': '.calorify.Clarification.Option',
+      '6': '.calorify.Variation.Option',
       '10': 'options'
     },
   ],
-  '3': [Clarification_Option$json],
+  '3': [Variation_Option$json],
 };
 
-@$core.Deprecated('Use clarificationDescriptor instead')
-const Clarification_Option$json = {
+@$core.Deprecated('Use variationDescriptor instead')
+const Variation_Option$json = {
   '1': 'Option',
   '2': [
     {'1': 'option', '3': 1, '4': 1, '5': 9, '10': 'option'},
@@ -48,12 +48,12 @@ const Clarification_Option$json = {
   ],
 };
 
-/// Descriptor for `Clarification`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List clarificationDescriptor = $convert.base64Decode(
-    'Cg1DbGFyaWZpY2F0aW9uEhoKCHF1ZXN0aW9uGAEgASgJUghxdWVzdGlvbhI4CgdvcHRpb25zGA'
-    'IgAygLMh4uY2Fsb3JpZnkuQ2xhcmlmaWNhdGlvbi5PcHRpb25SB29wdGlvbnMaUAoGT3B0aW9u'
-    'EhYKBm9wdGlvbhgBIAEoCVIGb3B0aW9uEi4KCm1hY3JvX2RpZmYYAiABKAsyDy5tZWFsLk1lYW'
-    'xNYWNyb1IJbWFjcm9EaWZm');
+/// Descriptor for `Variation`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List variationDescriptor = $convert.base64Decode(
+    'CglWYXJpYXRpb24SGgoIcXVlc3Rpb24YASABKAlSCHF1ZXN0aW9uEjQKB29wdGlvbnMYAiADKA'
+    'syGi5jYWxvcmlmeS5WYXJpYXRpb24uT3B0aW9uUgdvcHRpb25zGlAKBk9wdGlvbhIWCgZvcHRp'
+    'b24YASABKAlSBm9wdGlvbhIuCgptYWNyb19kaWZmGAIgASgLMg8ubWVhbC5NZWFsTWFjcm9SCW'
+    '1hY3JvRGlmZg==');
 
 @$core.Deprecated('Use mealMetadataDescriptor instead')
 const MealMetadata$json = {
@@ -78,12 +78,12 @@ const MealMetadata$json = {
       '17': true
     },
     {
-      '1': 'selected_clarifications',
+      '1': 'selected_variations',
       '3': 3,
       '4': 3,
       '5': 11,
-      '6': '.calorify.Clarification',
-      '10': 'selectedClarifications'
+      '6': '.calorify.Variation',
+      '10': 'selectedVariations'
     },
   ],
   '8': [
@@ -95,9 +95,9 @@ const MealMetadata$json = {
 /// Descriptor for `MealMetadata`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List mealMetadataDescriptor = $convert.base64Decode(
     'CgxNZWFsTWV0YWRhdGESIAoJaW1hZ2VfdXJsGAEgASgJSABSCGltYWdlVXJsiAEBEi4KEG1lYW'
-    'xfZGVzY3JpcHRpb24YAiABKAlIAVIPbWVhbERlc2NyaXB0aW9uiAEBElAKF3NlbGVjdGVkX2Ns'
-    'YXJpZmljYXRpb25zGAMgAygLMhcuY2Fsb3JpZnkuQ2xhcmlmaWNhdGlvblIWc2VsZWN0ZWRDbG'
-    'FyaWZpY2F0aW9uc0IMCgpfaW1hZ2VfdXJsQhMKEV9tZWFsX2Rlc2NyaXB0aW9u');
+    'xfZGVzY3JpcHRpb24YAiABKAlIAVIPbWVhbERlc2NyaXB0aW9uiAEBEkQKE3NlbGVjdGVkX3Zh'
+    'cmlhdGlvbnMYAyADKAsyEy5jYWxvcmlmeS5WYXJpYXRpb25SEnNlbGVjdGVkVmFyaWF0aW9uc0'
+    'IMCgpfaW1hZ2VfdXJsQhMKEV9tZWFsX2Rlc2NyaXB0aW9u');
 
 @$core.Deprecated('Use mealDetectionResultDescriptor instead')
 const MealDetectionResult$json = {
@@ -201,12 +201,12 @@ const MealDetectionResponse$json = {
       '10': 'result'
     },
     {
-      '1': 'clarifications',
+      '1': 'variations',
       '3': 2,
       '4': 3,
       '5': 11,
-      '6': '.calorify.Clarification',
-      '10': 'clarifications'
+      '6': '.calorify.Variation',
+      '10': 'variations'
     },
   ],
 };
@@ -214,5 +214,5 @@ const MealDetectionResponse$json = {
 /// Descriptor for `MealDetectionResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List mealDetectionResponseDescriptor = $convert.base64Decode(
     'ChVNZWFsRGV0ZWN0aW9uUmVzcG9uc2USNQoGcmVzdWx0GAEgASgLMh0uY2Fsb3JpZnkuTWVhbE'
-    'RldGVjdGlvblJlc3VsdFIGcmVzdWx0Ej8KDmNsYXJpZmljYXRpb25zGAIgAygLMhcuY2Fsb3Jp'
-    'ZnkuQ2xhcmlmaWNhdGlvblIOY2xhcmlmaWNhdGlvbnM=');
+    'RldGVjdGlvblJlc3VsdFIGcmVzdWx0EjMKCnZhcmlhdGlvbnMYAiADKAsyEy5jYWxvcmlmeS5W'
+    'YXJpYXRpb25SCnZhcmlhdGlvbnM=');

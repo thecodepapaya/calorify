@@ -1,4 +1,5 @@
 import { FastifyRequest } from 'fastify';
+import config from '../config.js';
 
 /**
  * Extract locale from Accept-Language header
@@ -18,9 +19,16 @@ export function getLocaleFromRequest(
     request: FastifyRequest,
     defaultLocale: string = 'en'
 ): string {
-    const acceptLanguage = request.headers['accept-language'];
+    // Fastify normalizes headers to lowercase, but check both to be safe
+    const acceptLanguage = request.headers['accept-language'] ||
+        request.headers['Accept-Language'] ||
+        (request.headers as any)['accept-language'];
 
     if (!acceptLanguage || typeof acceptLanguage !== 'string') {
+        // Log for debugging (only in development/staging)
+        if (config.DEBUG || config.ENVIRONMENT === 'staging') {
+            console.log('[Locale] No Accept-Language header found, using default:', defaultLocale);
+        }
         return defaultLocale;
     }
 
