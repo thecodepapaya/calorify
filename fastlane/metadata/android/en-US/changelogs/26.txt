@@ -1,0 +1,10 @@
+AI-powered calorie tracking. Snap photos or describe meals for instant nutritional analysis.
+
+What's New:
+• Meal variation suggestions for better accuracy
+• Improved meal analysis API integration
+• Enhanced image upload and download functionality
+• UI design improvements and polish
+• Bug fixes and stability improvements
+
+🔒 Privacy-first: No accounts required.
