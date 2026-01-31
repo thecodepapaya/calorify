@@ -3,10 +3,9 @@ import 'dart:typed_data';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/router/route_names.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
-import 'package:calorify/shared_widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
@@ -56,11 +55,11 @@ class _MealClarificationState extends State<_MealClarification>
     super.initState();
     _fadeController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 200),
     );
     _slideController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 200),
     );
 
     _fadeAnimation = CurvedAnimation(
@@ -90,6 +89,34 @@ class _MealClarificationState extends State<_MealClarification>
     setState(() {
       _selectedOptions[_currentQuestionIndex] = optionIndex;
     });
+
+    final isLastQuestion = _currentQuestionIndex == _variations.length - 1;
+
+    // Automatically move to next question or complete after a short delay
+    Future.delayed(const Duration(milliseconds: 300), () {
+      if (mounted) {
+        Analytics.instance.logEvent(AnalyticsEvent.mealVariationNext);
+        if (isLastQuestion) {
+          _onComplete();
+        } else {
+          _onNext();
+        }
+      }
+    });
+  }
+
+  void _onBack() {
+    if (_currentQuestionIndex > 0) {
+      _fadeController.reverse().then((_) {
+        _slideController.reverse().then((_) {
+          setState(() {
+            _currentQuestionIndex--;
+          });
+          _fadeController.forward();
+          _slideController.forward();
+        });
+      });
+    }
   }
 
   void _onNext() {
@@ -165,8 +192,6 @@ class _MealClarificationState extends State<_MealClarification>
     }
 
     final currentClarification = _variations[_currentQuestionIndex];
-    final isLastQuestion = _currentQuestionIndex == _variations.length - 1;
-    final hasSelection = _selectedOptions.containsKey(_currentQuestionIndex);
 
     return BaseBottomSheet(
       child: FadeTransition(
@@ -182,8 +207,7 @@ class _MealClarificationState extends State<_MealClarification>
               _buildQuestion(context, currentClarification.question),
               const SizedBox(height: 20),
               _buildOptions(context, currentClarification),
-              const SizedBox(height: 24),
-              _buildActions(context, isLastQuestion, hasSelection),
+              const SizedBox(height: 16),
             ],
           ),
         ),
@@ -195,9 +219,20 @@ class _MealClarificationState extends State<_MealClarification>
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
+    final canGoBack = _currentQuestionIndex > 0;
 
     return Row(
       children: [
+        if (canGoBack)
+          IconButton(
+            onPressed: _onBack,
+            icon: Icon(LucideIcons.arrowLeft, size: 20),
+            color: colorScheme.onSurface,
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
+            visualDensity: VisualDensity.compact,
+          ),
+        if (canGoBack) const SizedBox(width: 8),
         Text(
           'Question ${_currentQuestionIndex + 1} of ${_variations.length}',
           style: textTheme.bodySmall?.copyWith(
@@ -205,22 +240,17 @@ class _MealClarificationState extends State<_MealClarification>
           ),
         ),
         const Spacer(),
-        // Progress dots
-        Row(
-          children: List.generate(
-            _variations.length,
-            (index) => Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4),
-              width: 8,
-              height: 8,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color:
-                    index <= _currentQuestionIndex
-                        ? colorScheme.primary
-                        : colorScheme.outline.withValues(alpha: 0.3),
-              ),
-            ),
+        TextButton.icon(
+          onPressed: () {
+            Analytics.instance.logEvent(AnalyticsEvent.mealVariationSkip);
+            _onSkip();
+          },
+          icon: Icon(LucideIcons.skipForward, size: 16),
+          label: const Text('Skip'),
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            minimumSize: const Size(0, 32),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
         ),
       ],
@@ -235,7 +265,7 @@ class _MealClarificationState extends State<_MealClarification>
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(LucideIcons.info, color: colorScheme.primary, size: 24),
+        Icon(LucideIcons.info, color: colorScheme.primary, size: 22),
         const SizedBox(width: 12),
         Expanded(
           child: Text(
@@ -243,6 +273,8 @@ class _MealClarificationState extends State<_MealClarification>
             style: textTheme.titleMedium?.copyWith(
               color: colorScheme.onSurface,
               fontWeight: FontWeight.w600,
+              height: 1.3,
+              letterSpacing: -0.2,
             ),
           ),
         ),
@@ -251,45 +283,18 @@ class _MealClarificationState extends State<_MealClarification>
   }
 
   Widget _buildOptions(BuildContext context, Variation clarification) {
-    return Column(
+    return Wrap(
+      spacing: 10,
+      runSpacing: 10,
+      alignment: WrapAlignment.start,
       children: List.generate(
         clarification.options.length,
-        (index) => Padding(
-          padding: EdgeInsets.only(
-            bottom: index < clarification.options.length - 1 ? 12 : 0,
-          ),
-          child: _OptionTile(
-            option: clarification.options[index].option,
-            isSelected: _selectedOptions[_currentQuestionIndex] == index,
-            onTap: () => _onOptionSelected(index),
-          ),
+        (index) => _OptionTile(
+          option: clarification.options[index].option,
+          isSelected: _selectedOptions[_currentQuestionIndex] == index,
+          onTap: () => _onOptionSelected(index),
         ),
       ),
-    );
-  }
-
-  Widget _buildActions(
-    BuildContext context,
-    bool isLastQuestion,
-    bool hasSelection,
-  ) {
-    return Column(
-      children: [
-        PrimaryButton(
-          analyticsEvent: AnalyticsEvent.mealVariationNext,
-          onPressed: hasSelection ? _onNext : null,
-          text: isLastQuestion ? 'Complete' : 'Next',
-          leadingIcon:
-              isLastQuestion ? LucideIcons.check : LucideIcons.arrowRight,
-        ),
-        const SizedBox(height: 12),
-        SecondaryButton(
-          analyticsEvent: AnalyticsEvent.mealVariationSkip,
-          onPressed: _onSkip,
-          text: 'Skip',
-          icon: LucideIcons.skipForward,
-        ),
-      ],
     );
   }
 }
@@ -359,7 +364,7 @@ class _OptionTileState extends State<_OptionTile>
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
         decoration: BoxDecoration(
           color:
               widget.isSelected
@@ -373,32 +378,30 @@ class _OptionTileState extends State<_OptionTile>
           ),
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Expanded(
-              child: Text(
-                widget.option,
-                style: textTheme.bodyLarge?.copyWith(
-                  color:
-                      widget.isSelected
-                          ? colorScheme.onPrimaryContainer
-                          : colorScheme.onSurface,
-                  fontWeight:
-                      widget.isSelected ? FontWeight.w600 : FontWeight.normal,
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            ScaleTransition(
-              scale: _scaleAnimation,
-              child: Icon(
-                LucideIcons.check,
+            Text(
+              widget.option,
+              style: textTheme.bodyMedium?.copyWith(
                 color:
                     widget.isSelected
-                        ? colorScheme.primary
-                        : Colors.transparent,
-                size: 24,
+                        ? colorScheme.onPrimaryContainer
+                        : colorScheme.onSurface,
+                fontWeight:
+                    widget.isSelected ? FontWeight.w600 : FontWeight.normal,
               ),
             ),
+            if (widget.isSelected) ...[
+              const SizedBox(width: 6),
+              ScaleTransition(
+                scale: _scaleAnimation,
+                child: Icon(
+                  LucideIcons.check,
+                  color: colorScheme.primary,
+                  size: 20,
+                ),
+              ),
+            ],
           ],
         ),
       ),

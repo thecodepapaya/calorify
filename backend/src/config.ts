@@ -17,6 +17,7 @@ interface Config {
     readonly EXTERNAL_PORT: number; // Port exposed to host (for Docker port mapping)
     readonly OPENAI_API_KEY: string | null;
     readonly ORACLE_BUCKET_DOWNLOAD_URL: string;
+    readonly LOKI_URL: string | null;
 }
 
 function getEnvVar(name: string, defaultValue?: string): string {
@@ -99,6 +100,7 @@ const config: Config = {
         'ORACLE_BUCKET_DOWNLOAD_URL',
         'https://objectstorage.ap-mumbai-1.oraclecloud.com/p/oOGxU2_EYPNWy2udsdJ9tzpbqdbRHQ5DmnpdoSEHfI1N6Q448dlg2tVUc_cxbELS/n/bmm3s6m8sdi5/b/calorify-images/o/'
     ),
+    LOKI_URL: getEnvVarOptional('LOKI_URL'),
 } as const;
 
 // Validate critical settings in production
