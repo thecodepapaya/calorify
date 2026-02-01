@@ -3,7 +3,7 @@ default_platform(:android)
 platform :android do
   desc "Deploy a new version to the Google Play"
   lane :release do    
-    # Upload Main App to Internal Testing
+    # Upload Main App to Production
     upload_to_play_store(
       track: "production",
       aab: "app/build/app/outputs/bundle/prodRelease/app-prod-release.aab",
