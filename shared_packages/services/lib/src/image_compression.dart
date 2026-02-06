@@ -90,14 +90,14 @@ class ImageCompressionService {
   /// Compress image bytes directly
   ///
   /// [imageBytes] - The image bytes to compress
-  /// [quality] - Compression quality (0-100), default is 60
+  /// [quality] - Compression quality (0-100), default is 85
   ///
   /// Returns compressed image bytes, or original if compression fails
   /// Note: Compression runs on main isolate as flutter_image_compress
   /// doesn't support isolates on all platforms
   Future<Uint8List> compressImageBytes(
     Uint8List imageBytes, {
-    int quality = 60,
+    int quality = 85,
   }) async {
     // Write bytes to temporary file for compression
     final tempFile = File(
