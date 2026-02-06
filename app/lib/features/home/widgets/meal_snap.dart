@@ -239,7 +239,7 @@ class _MealSnapState extends State<MealSnap> {
     try {
       if (!mounted) return;
       compressedImageByte = await ImageCompressionService.instance
-          .compressImage(image, quality: 60);
+          .compressImage(image);
       if (!mounted) return;
     } on Exception catch (e) {
       if (!mounted) return;

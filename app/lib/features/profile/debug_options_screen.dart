@@ -528,7 +528,7 @@ Fat: ${mealInfo.macros.fat}g
 
       // Compress the image before uploading
       final compressedBytes = await ImageCompressionService.instance
-          .compressImage(imageFile, quality: 60);
+          .compressImage(imageFile);
 
       // Save compressed image to temporary file
       final tempDir = Directory.systemTemp;
