@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingGu implements TranslationsFeedbackRatingEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'શું તમને ${appLabel} ગમતું છે? આપનો અનુભવ અમારાં માટે મહત્વનો છે.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'શું તમે ${appLabel} નો આનંદ લઈ રહ્યાં છો?';
 	@override String get yes => 'હા, મને ગમતું છે';
 	@override String get no => 'ખરેખર નહીં';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} એક વ્યક્તિ દ્વારા બનાવવામાં આવ્યું છે. પ્લે સ્ટોર પર небольшો રેટિંગ અન્ય લોકોને તેને શોધવામાં અને વિકાસ ચાલુ રાખવામાં મદદ કરે છે — ખરેખર ઘણી મદદ થાય છે. શું તમે એક ક્ષણ કાઢી રેટિંગ આપી શકો?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} એક વ્યક્તિ દ્વારા બનાવાયું છે. તમારું પ્રતિસાદ આગળ શું આવશે તે નિર્ધારિત કરે છે — અને અમે દરેક સંદેશો વાંચીએ છીએ. શું તમે ઇમેઇલ દ્વારા તમારા વિચારો શેર કરશો?';
+	@override String soloDevMessage({required Object appLabel}) => 'ઝડપી રેટિંગ બીજા લોકોને ${appLabel} શોધવામાં મદદ કરે છે અને વિકાસ ચાલુ રાખવામાં સહાય કરે છે. શું તમે એક ક્ષણ કાઢીને રેટિંગ આપી શકો?';
+	@override String get shareFeedbackViaEmail => 'તમારો પ્રતિસાદ આગળ શું આવે છે તે નિર્ધારિત કરે છે — અમે દરેક સંદેશ ધ્યાનથી વાંચીએ છીએ. શું તમે તમારા વિચારો ઇમેલ દ્વારા શેર કરવા ઇચ્છશો?';
+	@override String get rateCta => 'પ્લે સ્ટોર પર રેટ કરો';
+	@override String get maybeLater => 'પછી કદાચ';
+	@override String get sendFeedback => 'પ્રતિસાદ મોકલો';
+	@override String get noThanks => 'નહીં, આભાર';
+	@override String get aboutUsDescription => 'એક નાની ટીમ દ્વારા જતનપૂર્વક બનાવવામાં આવ્યું. અમે ગોપનીયતા, સરળતા અને તમને વધુ સ્વસ્થ ખોરાકની આદતો વિકસાવવા મદદ કરવા પર ધ્યાન કેન્દ્રિત કરીએ છીએ.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel} પાછળ કોણ છે તે જાણવા ઇચ્છો છો? જુઓ ';
 	@override String get aboutUsLinkLabel => 'અમારા વિશે';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsGu {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'દૈનિક લક્ષ્ય એ તમારું ભલામણ કરેલ દૈનિક કૅલોરી વપરાશ છે જે તમારા ટીડઈઈ અને વજન લક્ષ્ય આધારિત છે. વજન ઘટાડવા માટે, તમે તમારા ટીડઈઈ કરતાં ઓછા કૅલોરીઓ લેતા રહે છો. વજન જાળવવા માટે, તમે તમારા ટીડઈઈને મેળવો છો. વજન વધારવા માટે, તમે તમારા ટીડઈઈ કરતાં વધુ કૅલોરીઓ લેતા રહે છો. આ તમને આરોગ્યપ્રદ ટેમ્પમાં તમારા ઈચ્છિત વજન બદલાવ પ્રાપ્ત કરવામાં મદદ કરે છે.',
 			'common.close' => 'બંદ કરો',
 			'common.kContinue' => 'આગળ વધો',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'શું તમને ${appLabel} ગમતું છે? આપનો અનુભવ અમારાં માટે મહત્વનો છે.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'શું તમે ${appLabel} નો આનંદ લઈ રહ્યાં છો?',
 			'feedbackRating.yes' => 'હા, મને ગમતું છે',
 			'feedbackRating.no' => 'ખરેખર નહીં',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} એક વ્યક્તિ દ્વારા બનાવવામાં આવ્યું છે. પ્લે સ્ટોર પર небольшો રેટિંગ અન્ય લોકોને તેને શોધવામાં અને વિકાસ ચાલુ રાખવામાં મદદ કરે છે — ખરેખર ઘણી મદદ થાય છે. શું તમે એક ક્ષણ કાઢી રેટિંગ આપી શકો?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} એક વ્યક્તિ દ્વારા બનાવાયું છે. તમારું પ્રતિસાદ આગળ શું આવશે તે નિર્ધારિત કરે છે — અને અમે દરેક સંદેશો વાંચીએ છીએ. શું તમે ઇમેઇલ દ્વારા તમારા વિચારો શેર કરશો?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'ઝડપી રેટિંગ બીજા લોકોને ${appLabel} શોધવામાં મદદ કરે છે અને વિકાસ ચાલુ રાખવામાં સહાય કરે છે. શું તમે એક ક્ષણ કાઢીને રેટિંગ આપી શકો?',
+			'feedbackRating.shareFeedbackViaEmail' => 'તમારો પ્રતિસાદ આગળ શું આવે છે તે નિર્ધારિત કરે છે — અમે દરેક સંદેશ ધ્યાનથી વાંચીએ છીએ. શું તમે તમારા વિચારો ઇમેલ દ્વારા શેર કરવા ઇચ્છશો?',
+			'feedbackRating.rateCta' => 'પ્લે સ્ટોર પર રેટ કરો',
+			'feedbackRating.maybeLater' => 'પછી કદાચ',
+			'feedbackRating.sendFeedback' => 'પ્રતિસાદ મોકલો',
+			'feedbackRating.noThanks' => 'નહીં, આભાર',
+			'feedbackRating.aboutUsDescription' => 'એક નાની ટીમ દ્વારા જતનપૂર્વક બનાવવામાં આવ્યું. અમે ગોપનીયતા, સરળતા અને તમને વધુ સ્વસ્થ ખોરાકની આદતો વિકસાવવા મદદ કરવા પર ધ્યાન કેન્દ્રિત કરીએ છીએ.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel} પાછળ કોણ છે તે જાણવા ઇચ્છો છો? જુઓ ',
 			'feedbackRating.aboutUsLinkLabel' => 'અમારા વિશે',
 			'errors.loadingProfileData' => 'પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ',

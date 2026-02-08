@@ -606,11 +606,16 @@
       "continue": "Continue"
     },
     "feedbackRating": {
-      "enjoyingQuestion": "Enjoying {appLabel}? Your experience matters to us.",
+      "enjoyingQuestion": "Enjoying {appLabel}?",
       "yes": "Yes, I'm enjoying it",
       "no": "Not really",
-      "soloDevMessage": "{appLabel} is built by one person. A quick Play Store rating helps others find it and keeps development going — it really helps. Would you take a moment to leave one?",
-      "shareFeedbackViaEmail": "{appLabel} is built by one person. Your feedback really shapes what comes next — and we read every message. Would you like to share your thoughts via email?",
+      "soloDevMessage": "A quick rating helps others find {appLabel} and keeps development going. Would you take a moment to leave one?",
+      "shareFeedbackViaEmail": "Your feedback shapes what comes next — we read every message. Would you like to share your thoughts via email?",
+      "rateCta": "Rate on Play Store",
+      "maybeLater": "Maybe later",
+      "sendFeedback": "Send feedback",
+      "noThanks": "No thanks",
+      "aboutUsDescription": "Made with care by a small team. We're focused on privacy, simplicity, and helping you build better eating habits.",
       "aboutUsMentionBeforeLink": "Curious who's behind {appLabel}? See ",
       "aboutUsLinkLabel": "About us"
     },

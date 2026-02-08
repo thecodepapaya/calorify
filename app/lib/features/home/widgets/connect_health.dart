@@ -8,7 +8,18 @@ import 'package:health/health.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class HealthConnectPromptCard extends StatelessWidget {
-  const HealthConnectPromptCard({super.key});
+  const HealthConnectPromptCard({super.key, this.onSetupComplete});
+
+  final VoidCallback? onSetupComplete;
+
+  Future<void> _onConnectPressed(bool isInstallRequired) async {
+    if (isInstallRequired) {
+      await HealthService.instance.installHealthConnect();
+    } else {
+      await HealthService.instance.requestAuthorization();
+    }
+    onSetupComplete?.call();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +65,7 @@ class HealthConnectPromptCard extends StatelessWidget {
           SizedBox(width: 8),
           PrimaryButton(
             analyticsEvent: AnalyticsEvent.connectHealth,
-            onPressed: () {
-              isInstallRequired
-                  ? HealthService.instance.installHealthConnect()
-                  : HealthService.instance.requestAuthorization();
-            },
+            onPressed: () => _onConnectPressed(isInstallRequired),
             text: isInstallRequired ? t.home.connectHealth.install : t.home.connectHealth.connect,
             minimumSize: Size(40, 40),
           ),

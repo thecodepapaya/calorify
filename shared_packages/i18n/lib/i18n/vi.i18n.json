@@ -601,11 +601,16 @@
     "continue": "Tiếp tục"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Bạn đang hài lòng với {appLabel}? Trải nghiệm của bạn rất quan trọng đối với chúng tôi.",
+    "enjoyingQuestion": "Bạn có thích {appLabel} không?",
     "yes": "Có, tôi thích nó",
     "no": "Không lắm",
-    "soloDevMessage": "{appLabel} được xây dựng bởi một người. Một đánh giá nhanh trên Play Store giúp người khác tìm thấy ứng dụng và duy trì phát triển — thực sự rất hữu ích. Bạn có thể dành chút thời gian để để lại đánh giá không?",
-    "shareFeedbackViaEmail": "{appLabel} được xây dựng bởi một người. Phản hồi của bạn thực sự định hướng những gì sẽ tới — và chúng tôi đọc mọi tin nhắn. Bạn có muốn chia sẻ suy nghĩ qua email không?",
+    "soloDevMessage": "Một đánh giá nhanh sẽ giúp người khác tìm thấy {appLabel} và giúp quá trình phát triển tiếp tục. Bạn có thể dành chút thời gian để để lại một đánh giá không?",
+    "shareFeedbackViaEmail": "Phản hồi của bạn góp phần định hình những cải tiến tiếp theo — chúng tôi đọc từng phản hồi. Bạn có muốn chia sẻ suy nghĩ qua email không?",
+    "rateCta": "Đánh giá trên Cửa hàng Play",
+    "maybeLater": "Để sau",
+    "sendFeedback": "Gửi phản hồi",
+    "noThanks": "Không, cảm ơn",
+    "aboutUsDescription": "Được tạo nên với sự chăm chút bởi một nhóm nhỏ. Chúng tôi tập trung vào quyền riêng tư, tính đơn giản và hỗ trợ bạn xây dựng thói quen ăn uống lành mạnh hơn.",
     "aboutUsMentionBeforeLink": "Bạn tò mò ai đứng sau {appLabel}? Xem ",
     "aboutUsLinkLabel": "Về chúng tôi"
   },

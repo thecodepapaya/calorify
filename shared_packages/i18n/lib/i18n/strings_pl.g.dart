@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingPl implements TranslationsFeedbackRatingEn {
 	final TranslationsPl _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Podoba Ci się ${appLabel}? Twoje zdanie jest dla nas ważne.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Czy podoba Ci się ${appLabel}?';
 	@override String get yes => 'Tak, podoba mi się';
 	@override String get no => 'Nie bardzo';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} został stworzony przez jedną osobę. Krótka ocena w Sklepie Play pomaga innym znaleźć aplikację i wspiera dalszy rozwój — naprawdę pomaga. Czy poświęcisz chwilę, by wystawić ocenę?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} został stworzony przez jedną osobę. Twoja opinia naprawdę kształtuje kolejne kroki — czytamy każdą wiadomość. Czy chcesz podzielić się uwagami przez e-mail?';
+	@override String soloDevMessage({required Object appLabel}) => 'Krótka ocena pomaga innym znaleźć ${appLabel} i wspiera dalszy rozwój. Czy poświęcisz chwilę, by wystawić ocenę?';
+	@override String get shareFeedbackViaEmail => 'Twoja opinia ma wpływ na to, co będzie dalej — czytamy każdą wiadomość. Czy chcesz podzielić się swoimi uwagami e-mailem?';
+	@override String get rateCta => 'Oceń w Sklepie Play';
+	@override String get maybeLater => 'Może później';
+	@override String get sendFeedback => 'Wyślij opinię';
+	@override String get noThanks => 'Nie, dziękuję';
+	@override String get aboutUsDescription => 'Stworzone z troską przez niewielki zespół. Skupiamy się na prywatności, prostocie i pomagamy ci budować zdrowsze nawyki żywieniowe.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Zastanawiasz się, kto stoi za ${appLabel}? Zobacz ';
 	@override String get aboutUsLinkLabel => 'O nas';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsPl {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Cel Dzienny to twoje zalecane dzienne spożycie kalorii na podstawie twojego TDEE i celu wagowego. Aby schudnąć, spożywasz mniej kalorii niż twoje TDEE. Aby utrzymać wagę, dostosowujesz swoje spożycie do TDEE. Aby przytyć, spożywasz więcej kalorii niż twoje TDEE. To pomaga osiągnąć pożądane zmiany w wadze w zdrowym tempie.',
 			'common.close' => 'Zamknij',
 			'common.kContinue' => 'Kontynuuj',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Podoba Ci się ${appLabel}? Twoje zdanie jest dla nas ważne.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Czy podoba Ci się ${appLabel}?',
 			'feedbackRating.yes' => 'Tak, podoba mi się',
 			'feedbackRating.no' => 'Nie bardzo',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} został stworzony przez jedną osobę. Krótka ocena w Sklepie Play pomaga innym znaleźć aplikację i wspiera dalszy rozwój — naprawdę pomaga. Czy poświęcisz chwilę, by wystawić ocenę?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} został stworzony przez jedną osobę. Twoja opinia naprawdę kształtuje kolejne kroki — czytamy każdą wiadomość. Czy chcesz podzielić się uwagami przez e-mail?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Krótka ocena pomaga innym znaleźć ${appLabel} i wspiera dalszy rozwój. Czy poświęcisz chwilę, by wystawić ocenę?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Twoja opinia ma wpływ na to, co będzie dalej — czytamy każdą wiadomość. Czy chcesz podzielić się swoimi uwagami e-mailem?',
+			'feedbackRating.rateCta' => 'Oceń w Sklepie Play',
+			'feedbackRating.maybeLater' => 'Może później',
+			'feedbackRating.sendFeedback' => 'Wyślij opinię',
+			'feedbackRating.noThanks' => 'Nie, dziękuję',
+			'feedbackRating.aboutUsDescription' => 'Stworzone z troską przez niewielki zespół. Skupiamy się na prywatności, prostocie i pomagamy ci budować zdrowsze nawyki żywieniowe.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Zastanawiasz się, kto stoi za ${appLabel}? Zobacz ',
 			'feedbackRating.aboutUsLinkLabel' => 'O nas',
 			'errors.loadingProfileData' => 'Błąd ładowania danych profilu',

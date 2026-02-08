@@ -1,1 +1,1 @@
-enum MainTab { home, log, mealHistory }
+enum MainTab { home, logMeal, mealHistory }

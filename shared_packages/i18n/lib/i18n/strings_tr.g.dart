@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingTr implements TranslationsFeedbackRatingEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => '${appLabel}\'ı beğeniyor musunuz? Deneyiminiz bizim için önemli.';
+	@override String enjoyingQuestion({required Object appLabel}) => '${appLabel} hoşunuza gidiyor mu?';
 	@override String get yes => 'Evet, beğeniyorum';
 	@override String get no => 'Pek değil';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} tek bir kişi tarafından geliştirildi. Kısa bir Play Store değerlendirmesi, başkalarının uygulamayı bulmasına yardımcı olur ve geliştirmeye devam etmemizi sağlar — gerçekten çok yardımcı olur. Bir dakikanızı ayırıp bir değerlendirme bırakır mıydınız?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} tek bir kişi tarafından geliştirildi. Geri bildiriminiz bir sonraki adımları şekillendiriyor — her mesajı okuyoruz. Düşüncelerinizi e-posta ile paylaşmak ister misiniz?';
+	@override String soloDevMessage({required Object appLabel}) => 'Kısa bir değerlendirme, diğer kullanıcıların ${appLabel}\'ı keşfetmesine yardımcı olur ve geliştirmeye devam etmemizi sağlar. Birkaç dakikanızı ayırıp değerlendirme bırakır mısınız?';
+	@override String get shareFeedbackViaEmail => 'Geri bildiriminiz geleceği şekillendirir — her mesajı dikkatle okuyoruz. Düşüncelerinizi e-posta ile paylaşmak ister misiniz?';
+	@override String get rateCta => 'Play Store\'da puan ver';
+	@override String get maybeLater => 'Belki sonra';
+	@override String get sendFeedback => 'Geri bildirim gönder';
+	@override String get noThanks => 'Hayır, teşekkürler';
+	@override String get aboutUsDescription => 'Küçük bir ekip tarafından özenle hazırlandı. Gizliliğe, sadeliğe ve daha sağlıklı beslenme alışkanlıkları edinmenize yardımcı olmaya odaklanıyoruz.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel}\'ın arkasında kim olduğunu merak ediyor musunuz? ';
 	@override String get aboutUsLinkLabel => 'Hakkımızda';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsTr {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Günlük Hedef, TDEE\'nize ve ağırlık hedefinize dayalı olarak önerilen günlük kalori alımınızdır. Kilo kaybı için, TDEE\'nizden daha az kalori alırsınız. Kilo koruma için, TDEE\'nizle eşleşirsiniz. Kilo almak için, TDEE\'nizden daha fazla kalori alırsınız. Bu, istediğiniz ağırlık değişimini sağlıklı bir hızda gerçekleştirmenize yardımcı olur.',
 			'common.close' => 'Kapat',
 			'common.kContinue' => 'Devam Et',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel}\'ı beğeniyor musunuz? Deneyiminiz bizim için önemli.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} hoşunuza gidiyor mu?',
 			'feedbackRating.yes' => 'Evet, beğeniyorum',
 			'feedbackRating.no' => 'Pek değil',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} tek bir kişi tarafından geliştirildi. Kısa bir Play Store değerlendirmesi, başkalarının uygulamayı bulmasına yardımcı olur ve geliştirmeye devam etmemizi sağlar — gerçekten çok yardımcı olur. Bir dakikanızı ayırıp bir değerlendirme bırakır mıydınız?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} tek bir kişi tarafından geliştirildi. Geri bildiriminiz bir sonraki adımları şekillendiriyor — her mesajı okuyoruz. Düşüncelerinizi e-posta ile paylaşmak ister misiniz?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Kısa bir değerlendirme, diğer kullanıcıların ${appLabel}\'ı keşfetmesine yardımcı olur ve geliştirmeye devam etmemizi sağlar. Birkaç dakikanızı ayırıp değerlendirme bırakır mısınız?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Geri bildiriminiz geleceği şekillendirir — her mesajı dikkatle okuyoruz. Düşüncelerinizi e-posta ile paylaşmak ister misiniz?',
+			'feedbackRating.rateCta' => 'Play Store\'da puan ver',
+			'feedbackRating.maybeLater' => 'Belki sonra',
+			'feedbackRating.sendFeedback' => 'Geri bildirim gönder',
+			'feedbackRating.noThanks' => 'Hayır, teşekkürler',
+			'feedbackRating.aboutUsDescription' => 'Küçük bir ekip tarafından özenle hazırlandı. Gizliliğe, sadeliğe ve daha sağlıklı beslenme alışkanlıkları edinmenize yardımcı olmaya odaklanıyoruz.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel}\'ın arkasında kim olduğunu merak ediyor musunuz? ',
 			'feedbackRating.aboutUsLinkLabel' => 'Hakkımızda',
 			'errors.loadingProfileData' => 'Profil verileri yüklenirken hata',

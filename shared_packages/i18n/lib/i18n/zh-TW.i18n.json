@@ -601,11 +601,16 @@
     "continue": "繼續"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "喜歡使用 {appLabel} 嗎？我們很重視您的使用體驗。",
+    "enjoyingQuestion": "你喜歡使用{appLabel}嗎？",
     "yes": "是的，我很喜歡",
     "no": "不是很滿意",
-    "soloDevMessage": "{appLabel} 由一人開發。快速在 Play 商店留下評分能幫助更多人發現它，也能持續支持開發 — 真的很有幫助。您願意花一點時間留下評分嗎？",
-    "shareFeedbackViaEmail": "{appLabel} 由一人開發。您的回饋會決定下一步的方向 — 我們會閱讀每一封訊息。您想透過電子郵件分享想法嗎？",
+    "soloDevMessage": "快速評分能幫助其他人找到 {appLabel}，也讓我們得以持續開發。願意花一點時間留下評分嗎？",
+    "shareFeedbackViaEmail": "你的回饋會形塑下一步方向 — 我們會閱讀每一則訊息。你想透過電子郵件分享你的想法嗎？",
+    "rateCta": "在 Google Play 評分",
+    "maybeLater": "稍後再說",
+    "sendFeedback": "提供回饋",
+    "noThanks": "不用，謝謝",
+    "aboutUsDescription": "由一個小團隊用心打造。我們重視隱私、追求簡單，並致力於幫助你建立更健康的飲食習慣。",
     "aboutUsMentionBeforeLink": "想知道是誰在打造 {appLabel} 嗎？請參閱 ",
     "aboutUsLinkLabel": "關於我們"
   },

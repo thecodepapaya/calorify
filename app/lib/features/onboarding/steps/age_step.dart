@@ -1,3 +1,5 @@
+import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -192,6 +194,7 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
     final updatedProfile = profile.deepCopy();
     updatedProfile.dateOfBirth = dateTimeToIso8601String(_dateOfBirth);
     await OnboardingService.instance.saveProfileData(updatedProfile);
+    Analytics.instance.logEvent(AnalyticsEvent.onboardingSetAge);
     widget.onContinue();
   }
 }

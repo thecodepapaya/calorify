@@ -601,11 +601,16 @@
     "continue": "Jatka"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Pidätkö {appLabel}-sovelluksesta? Kokemuksesi on meille tärkeä.",
+    "enjoyingQuestion": "Nautitko {appLabel}:stä?",
     "yes": "Kyllä — pidän siitä",
     "no": "Ei oikeastaan",
-    "soloDevMessage": "{appLabel} on yhden henkilön kehittämä. Pikainen arvostelu Play Kaupassa auttaa muita löytämään sovelluksen ja pitää kehityksen käynnissä — se todella auttaa. Voisitko hetken jättää arvostelun?",
-    "shareFeedbackViaEmail": "{appLabel} on yhden henkilön tekemä. Palautteesi vaikuttaa todella siihen, mitä seuraavaksi tehdään — ja luemme jokaisen viestin. Haluaisitko jakaa ajatuksesi sähköpostitse?",
+    "soloDevMessage": "Nopea arvio auttaa muita löytämään {appLabel} ja pitää kehityksen käynnissä. Haluaisitko käyttää hetken ja jättää arvion?",
+    "shareFeedbackViaEmail": "Palautteesi vaikuttaa siihen, mitä teemme seuraavaksi — luemme jokaisen viestin. Haluaisitko jakaa ajatuksesi sähköpostitse?",
+    "rateCta": "Arvostele Play-kaupassa",
+    "maybeLater": "Ehkä myöhemmin",
+    "sendFeedback": "Lähetä palautetta",
+    "noThanks": "Ei kiitos",
+    "aboutUsDescription": "Pienen tiimin huolella tehty. Keskitymme yksityisyyteen, yksinkertaisuuteen ja siihen, että autamme sinua kehittämään parempia ruokailutottumuksia.",
     "aboutUsMentionBeforeLink": "Haluatko tietää, kuka on {appLabel}:n takana? Katso ",
     "aboutUsLinkLabel": "Tietoa meistä"
   },

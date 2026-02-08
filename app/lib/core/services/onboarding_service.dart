@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:models/models.dart';
-import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/core/services/health_service.dart';
 import 'package:utils/utils.dart';
 
 class OnboardingService {
@@ -42,6 +44,7 @@ class OnboardingService {
   Future<void> completeOnboarding() async {
     // Onboarding is considered complete when profile exists
     // No additional action needed as profile save indicates completion
+    Analytics.instance.logEvent(AnalyticsEvent.onboardingComplete);
   }
 
   /// Save or update profile data (upsert)

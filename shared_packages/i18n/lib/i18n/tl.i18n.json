@@ -601,11 +601,16 @@
     "continue": "Magpatuloy"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Nasasiyahan ka ba sa {appLabel}? Mahalaga sa amin ang iyong karanasan.",
+    "enjoyingQuestion": "Nasisiyahan ka ba sa {appLabel}?",
     "yes": "Oo, nasisiyahan ako",
     "no": "Hindi talaga",
-    "soloDevMessage": "Ang {appLabel} ay ginawa ng isang tao lamang. Ang isang mabilis na rating sa Play Store ay nakakatulong para makita ito ng iba at nagpapatuloy ang pag-unlad — malaking tulong talaga ito. Maaari ka bang maglaan ng sandali para mag-iwan ng rating?",
-    "shareFeedbackViaEmail": "Ang {appLabel} ay ginawa ng isang tao lamang. Malaki ang naiaambag ng iyong feedback sa mga susunod na hakbang — binabasa namin ang bawat mensahe. Gusto mo bang ibahagi ang iyong saloobin sa pamamagitan ng email?",
+    "soloDevMessage": "Ang isang mabilis na rating ay makakatulong sa iba na mahanap ang {appLabel} at suportahan ang patuloy na pag-unlad nito. Maaari ka bang maglaan ng sandali upang mag-iwan ng isa?",
+    "shareFeedbackViaEmail": "Hinuhubog ng iyong feedback kung ano ang susunod — binabasa namin ang bawat mensahe. Nais mo bang ibahagi ang iyong mga saloobin sa pamamagitan ng email?",
+    "rateCta": "Mag-rate sa Play Store",
+    "maybeLater": "Mamaya na lang",
+    "sendFeedback": "Magpadala ng puna",
+    "noThanks": "Hindi, salamat",
+    "aboutUsDescription": "Ginawa nang may malasakit ng isang maliit na koponan. Nakatuon kami sa pagkapribado, sa pagiging simple, at sa pagtulong sa iyo na bumuo ng mas malusog na gawi sa pagkain.",
     "aboutUsMentionBeforeLink": "Nais mong malaman kung sino ang nasa likod ng {appLabel}? Tingnan ",
     "aboutUsLinkLabel": "Tungkol sa amin"
   },

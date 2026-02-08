@@ -1,4 +1,6 @@
 import 'package:models/models.dart';
+import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:i18n/i18n.dart';
@@ -169,6 +171,7 @@ class _GenderStepScreenState extends State<GenderStepScreen> {
         updatedProfile.gender = _selectedGender!;
       }
       await OnboardingService.instance.saveProfileData(updatedProfile);
+      Analytics.instance.logEvent(AnalyticsEvent.onboardingSetGender);
       widget.onContinue();
     } catch (e) {
       if (mounted) {

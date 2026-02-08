@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingRo implements TranslationsFeedbackRatingEn {
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Îți place ${appLabel}? Experiența ta contează pentru noi.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Îți place ${appLabel}?';
 	@override String get yes => 'Da, îmi place';
 	@override String get no => 'Nu chiar';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} este creată de o singură persoană. O evaluare rapidă în Play Store îi ajută pe alții să o găsească și susține dezvoltarea — chiar contează. Ai un moment să lași o evaluare?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} este creată de o singură persoană. Feedbackul tău modelează ceea ce urmează — citim fiecare mesaj. Ai dori să împărtășești gândurile tale prin e-mail?';
+	@override String soloDevMessage({required Object appLabel}) => 'O scurtă evaluare îi ajută pe alții să găsească ${appLabel} și susține dezvoltarea. Ai putea să acorzi un moment pentru a lăsa o evaluare?';
+	@override String get shareFeedbackViaEmail => 'Părerea ta ne ajută să conturăm ce urmează — citim fiecare mesaj. Ai vrea să ne trimiți gândurile prin e-mail?';
+	@override String get rateCta => 'Evaluează în Google Play';
+	@override String get maybeLater => 'Poate mai târziu';
+	@override String get sendFeedback => 'Trimite feedback';
+	@override String get noThanks => 'Nu, mulțumesc';
+	@override String get aboutUsDescription => 'Creat cu grijă de o echipă mică. Ne concentrăm pe confidențialitate, simplitate și pe a te ajuta să dezvolți obiceiuri alimentare mai sănătoase.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Curios cine se află în spatele ${appLabel}? Vezi ';
 	@override String get aboutUsLinkLabel => 'Despre noi';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsRo {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Obiectivul Zilnic este aportul tău caloric zilnic recomandat, bazat pe TDEE-ul tău și pe obiectivul tău de greutate. Pentru pierderea în greutate, consumi mai puține calorii decât TDEE-ul tău. Pentru menținerea greutății, îți egalizezi TDEE-ul. Pentru creșterea în greutate, consumi mai multe calorii decât TDEE-ul tău. Acest lucru te ajută să îți atingi schimbarea dorită în greutate într-un ritm sănătos.',
 			'common.close' => 'Închide',
 			'common.kContinue' => 'Continuă',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Îți place ${appLabel}? Experiența ta contează pentru noi.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Îți place ${appLabel}?',
 			'feedbackRating.yes' => 'Da, îmi place',
 			'feedbackRating.no' => 'Nu chiar',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} este creată de o singură persoană. O evaluare rapidă în Play Store îi ajută pe alții să o găsească și susține dezvoltarea — chiar contează. Ai un moment să lași o evaluare?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} este creată de o singură persoană. Feedbackul tău modelează ceea ce urmează — citim fiecare mesaj. Ai dori să împărtășești gândurile tale prin e-mail?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'O scurtă evaluare îi ajută pe alții să găsească ${appLabel} și susține dezvoltarea. Ai putea să acorzi un moment pentru a lăsa o evaluare?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Părerea ta ne ajută să conturăm ce urmează — citim fiecare mesaj. Ai vrea să ne trimiți gândurile prin e-mail?',
+			'feedbackRating.rateCta' => 'Evaluează în Google Play',
+			'feedbackRating.maybeLater' => 'Poate mai târziu',
+			'feedbackRating.sendFeedback' => 'Trimite feedback',
+			'feedbackRating.noThanks' => 'Nu, mulțumesc',
+			'feedbackRating.aboutUsDescription' => 'Creat cu grijă de o echipă mică. Ne concentrăm pe confidențialitate, simplitate și pe a te ajuta să dezvolți obiceiuri alimentare mai sănătoase.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Curios cine se află în spatele ${appLabel}? Vezi ',
 			'feedbackRating.aboutUsLinkLabel' => 'Despre noi',
 			'errors.loadingProfileData' => 'Eroare la încărcarea datelor profilului',

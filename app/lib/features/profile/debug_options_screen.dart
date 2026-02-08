@@ -16,7 +16,7 @@ import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart'
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_variation_sheet.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:health/health.dart';
+import 'package:health/health.dart' hide MealType;
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
@@ -33,37 +33,95 @@ class DebugOptionsScreen extends StatefulWidget {
 }
 
 class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
+  String _searchQuery = '';
+
+  bool _matchesQuery(String a, [String? b, String? c]) {
+    if (_searchQuery.trim().isEmpty) return true;
+    final q = _searchQuery.trim().toLowerCase();
+    return a.toLowerCase().contains(q) ||
+        (b != null && b.toLowerCase().contains(q)) ||
+        (c != null && c.toLowerCase().contains(q));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final notificationOptions = _buildNotificationOptions(context);
+    final healthConnectOptions = _buildHealthConnectOptions(context);
+    final wearOsOptions = _buildWearOsOptions(context);
+    final foodApiOptions = _buildFoodApiOptions(context);
+    final feedbackOptions = _buildFeedbackOptions(context);
+    final dataResetOptions = _buildDataResetOptions(context);
+    final appInfoOptions = _buildAppInfoOptions(context);
+    final shorebirdOptions = _buildShorebirdOptions(context);
+
     return Scaffold(
       appBar: AppBar(title: Text(t.debug.title)),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          _buildSectionTitle(context, t.debug.sections.notifications),
-          _buildNotificationOptions(context),
-          const SizedBox(height: 24),
-          _buildSectionTitle(context, t.debug.sections.healthConnect),
-          _buildHealthConnectOptions(context),
-          const SizedBox(height: 24),
-          _buildSectionTitle(context, 'Wear OS'),
-          _buildWearOsOptions(context),
-          const SizedBox(height: 24),
-          _buildSectionTitle(context, 'Food API Tests'),
-          _buildFoodApiOptions(context),
-          const SizedBox(height: 24),
-          _buildSectionTitle(context, t.debug.sections.feedback),
-          _buildFeedbackOptions(context),
-          const SizedBox(height: 24),
-          _buildSectionTitle(context, t.debug.sections.dataReset),
-          _buildDataResetOptions(context),
-          const SizedBox(height: 24),
-          _buildSectionTitle(context, t.debug.sections.appInfo),
-          _buildAppInfoOptions(context),
-          const SizedBox(height: 24),
-          _buildSectionTitle(context, 'Shorebird'),
-          _buildShorebirdOptions(context),
-        ],
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        behavior: HitTestBehavior.translucent,
+        child: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search options...',
+                  prefixIcon: const Icon(LucideIcons.search, size: 20),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  isDense: true,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
+                ),
+                onChanged: (value) => setState(() => _searchQuery = value),
+              ),
+            ),
+            if (notificationOptions != null) ...[
+              _buildSectionTitle(context, t.debug.sections.notifications),
+              notificationOptions,
+              const SizedBox(height: 24),
+            ],
+            if (healthConnectOptions != null) ...[
+              _buildSectionTitle(context, t.debug.sections.healthConnect),
+              healthConnectOptions,
+              const SizedBox(height: 24),
+            ],
+            if (wearOsOptions != null) ...[
+              _buildSectionTitle(context, 'Wear OS'),
+              wearOsOptions,
+              const SizedBox(height: 24),
+            ],
+            if (foodApiOptions != null) ...[
+              _buildSectionTitle(context, 'Food API Tests'),
+              foodApiOptions,
+              const SizedBox(height: 24),
+            ],
+            if (feedbackOptions != null) ...[
+              _buildSectionTitle(context, t.debug.sections.feedback),
+              feedbackOptions,
+              const SizedBox(height: 24),
+            ],
+            if (dataResetOptions != null) ...[
+              _buildSectionTitle(context, t.debug.sections.dataReset),
+              dataResetOptions,
+              const SizedBox(height: 24),
+            ],
+            if (appInfoOptions != null) ...[
+              _buildSectionTitle(context, t.debug.sections.appInfo),
+              appInfoOptions,
+              const SizedBox(height: 24),
+            ],
+            if (shorebirdOptions != null) ...[
+              _buildSectionTitle(context, 'Shorebird'),
+              shorebirdOptions,
+              const SizedBox(height: 24),
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -80,33 +138,42 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     );
   }
 
-  Widget _buildNotificationOptions(BuildContext context) {
-    return Card(
-      child: Column(
-        children: [
-          ListTile(
-            leading: const Icon(LucideIcons.list),
-            title: Text(t.debug.showActiveNotifications),
-            onTap: _showActiveNotifications,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.bellPlus),
-            title: Text(t.debug.scheduleTestNotification),
-            onTap: _scheduleTestNotification,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.bellRing),
-            title: Text(t.debug.triggerBreakfastNotification),
-            onTap: _triggerBreakfastNotification,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.bellOff),
-            title: Text(t.debug.cancelAllNotifications),
-            onTap: _cancelAllNotifications,
-          ),
-        ],
+  Widget? _buildNotificationOptions(BuildContext context) {
+    final section = t.debug.sections.notifications;
+    final items = <Widget>[
+      ListTile(
+        leading: const Icon(LucideIcons.list),
+        title: Text(t.debug.showActiveNotifications),
+        onTap: _showActiveNotifications,
       ),
-    );
+      ListTile(
+        leading: const Icon(LucideIcons.bellPlus),
+        title: Text(t.debug.scheduleTestNotification),
+        onTap: _scheduleTestNotification,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.bellRing),
+        title: Text(t.debug.triggerBreakfastNotification),
+        onTap: _triggerBreakfastNotification,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.bellOff),
+        title: Text(t.debug.cancelAllNotifications),
+        onTap: _cancelAllNotifications,
+      ),
+    ];
+    final titles = [
+      t.debug.showActiveNotifications,
+      t.debug.scheduleTestNotification,
+      t.debug.triggerBreakfastNotification,
+      t.debug.cancelAllNotifications,
+    ];
+    final filtered = <Widget>[];
+    for (var i = 0; i < items.length; i++) {
+      if (_matchesQuery(section, titles[i])) filtered.add(items[i]);
+    }
+    if (filtered.isEmpty) return null;
+    return Card(child: Column(children: filtered));
   }
 
   Future<void> _showActiveNotifications() async {
@@ -186,86 +253,109 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     );
   }
 
-  Widget _buildHealthConnectOptions(BuildContext context) {
-    return Card(
-      child: Column(
-        children: [
-          ListTile(
-            leading: const Icon(LucideIcons.activity),
-            title: Text(t.debug.fetchTodaysSteps),
-            onTap: _fetchTodaysSteps,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.flame),
-            title: Text(t.debug.fetchTodaysCalories),
-            onTap: _fetchTodaysCalories,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.scale),
-            title: Text(t.debug.fetchLatestWeight),
-            onTap: _fetchLatestWeight,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.ruler),
-            title: Text(t.debug.fetchLatestHeight),
-            onTap: _fetchLatestHeight,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.plus),
-            title: Text(t.debug.writeTestWeight),
-            onTap: _writeTestWeight,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.plus),
-            title: Text(t.debug.writeTestHeight),
-            onTap: _writeTestHeight,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.refreshCw),
-            title: Text(t.debug.syncLast7Days),
-            onTap: _syncLast7Days,
-          ),
-        ],
+  Widget? _buildHealthConnectOptions(BuildContext context) {
+    final section = t.debug.sections.healthConnect;
+    final titles = [
+      t.debug.fetchTodaysSteps,
+      t.debug.fetchTodaysCalories,
+      t.debug.fetchLatestWeight,
+      t.debug.fetchLatestHeight,
+      t.debug.writeTestWeight,
+      t.debug.writeTestHeight,
+      t.debug.syncLast7Days,
+    ];
+    final items = <Widget>[
+      ListTile(
+        leading: const Icon(LucideIcons.activity),
+        title: Text(t.debug.fetchTodaysSteps),
+        onTap: _fetchTodaysSteps,
       ),
-    );
+      ListTile(
+        leading: const Icon(LucideIcons.flame),
+        title: Text(t.debug.fetchTodaysCalories),
+        onTap: _fetchTodaysCalories,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.scale),
+        title: Text(t.debug.fetchLatestWeight),
+        onTap: _fetchLatestWeight,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.ruler),
+        title: Text(t.debug.fetchLatestHeight),
+        onTap: _fetchLatestHeight,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.plus),
+        title: Text(t.debug.writeTestWeight),
+        onTap: _writeTestWeight,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.plus),
+        title: Text(t.debug.writeTestHeight),
+        onTap: _writeTestHeight,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.refreshCw),
+        title: Text(t.debug.syncLast7Days),
+        onTap: _syncLast7Days,
+      ),
+    ];
+    final filtered = <Widget>[];
+    for (var i = 0; i < items.length; i++) {
+      if (_matchesQuery(section, titles[i])) filtered.add(items[i]);
+    }
+    if (filtered.isEmpty) return null;
+    return Card(child: Column(children: filtered));
   }
 
-  Widget _buildWearOsOptions(BuildContext context) {
-    return Card(
-      child: Column(
-        children: [
-          ListTile(
-            leading: const Icon(LucideIcons.watch),
-            title: const Text('Check Watch Connection'),
-            onTap: _checkWatchConnection,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.send),
-            title: const Text('Send Test Message'),
-            subtitle: const Text('Send a simple test message to watch'),
-            onTap: _sendTestMessage,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.database),
-            title: const Text('Send Test Meal Data'),
-            subtitle: const Text('Send sample meal data to watch'),
-            onTap: _sendTestMealData,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.activity),
-            title: const Text('Send Test Calorie Goal'),
-            subtitle: const Text('Send sample calorie goal to watch'),
-            onTap: _sendTestCalorieGoal,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.inbox),
-            title: const Text('View Received Messages'),
-            subtitle: const Text('View messages received from watch'),
-            onTap: _viewReceivedMessages,
-          ),
-        ],
+  Widget? _buildWearOsOptions(BuildContext context) {
+    const section = 'Wear OS';
+    const titleSubtitle = [
+      ('Check Watch Connection', null),
+      ('Send Test Message', 'Send a simple test message to watch'),
+      ('Send Test Meal Data', 'Send sample meal data to watch'),
+      ('Send Test Calorie Goal', 'Send sample calorie goal to watch'),
+      ('View Received Messages', 'View messages received from watch'),
+    ];
+    final items = <Widget>[
+      ListTile(
+        leading: const Icon(LucideIcons.watch),
+        title: const Text('Check Watch Connection'),
+        onTap: _checkWatchConnection,
       ),
-    );
+      ListTile(
+        leading: const Icon(LucideIcons.send),
+        title: const Text('Send Test Message'),
+        subtitle: const Text('Send a simple test message to watch'),
+        onTap: _sendTestMessage,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.database),
+        title: const Text('Send Test Meal Data'),
+        subtitle: const Text('Send sample meal data to watch'),
+        onTap: _sendTestMealData,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.activity),
+        title: const Text('Send Test Calorie Goal'),
+        subtitle: const Text('Send sample calorie goal to watch'),
+        onTap: _sendTestCalorieGoal,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.inbox),
+        title: const Text('View Received Messages'),
+        subtitle: const Text('View messages received from watch'),
+        onTap: _viewReceivedMessages,
+      ),
+    ];
+    final filtered = <Widget>[];
+    for (var i = 0; i < items.length; i++) {
+      final (t, s) = titleSubtitle[i];
+      if (_matchesQuery(section, t, s)) filtered.add(items[i]);
+    }
+    if (filtered.isEmpty) return null;
+    return Card(child: Column(children: filtered));
   }
 
   Future<void> _checkWatchConnection() async {
@@ -374,47 +464,163 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     }
   }
 
-  Widget _buildFoodApiOptions(BuildContext context) {
-    return Card(
-      child: Column(
-        children: [
-          ListTile(
-            leading: const Icon(LucideIcons.image),
-            title: const Text('Test Analyze Image'),
-            subtitle: const Text('Upload hardcoded test image'),
-            onTap: _testAnalyzeImage,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.link),
-            title: const Text('Test Detect Image'),
-            subtitle: const Text('Detect meal from image URL'),
-            onTap: _testDetectImage,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.upload),
-            title: const Text('Detect Image from Gallery'),
-            subtitle: const Text(
-              'Select image, upload to bucket & estimate calories',
+  Widget? _buildFoodApiOptions(BuildContext context) {
+    const section = 'Food API Tests';
+    const titleSubtitle = [
+      ('Test Analyze Image', 'Upload hardcoded test image'),
+      ('Test Detect Image', 'Detect meal from image URL'),
+      (
+        'Detect Image from Gallery',
+        'Select image, upload to bucket & estimate calories',
+      ),
+      ('Test Detect Text', 'Detect meal from text description'),
+      (
+        'Test Meal Logging with Variations',
+        'Test the full meal logging flow with variations',
+      ),
+      (
+        'Mock meal with variations',
+        'Preview variation + tip sheet UI without logging',
+      ),
+    ];
+    final items = <Widget>[
+      ListTile(
+        leading: const Icon(LucideIcons.image),
+        title: const Text('Test Analyze Image'),
+        subtitle: const Text('Upload hardcoded test image'),
+        onTap: _testAnalyzeImage,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.link),
+        title: const Text('Test Detect Image'),
+        subtitle: const Text('Detect meal from image URL'),
+        onTap: _testDetectImage,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.upload),
+        title: const Text('Detect Image from Gallery'),
+        subtitle: const Text(
+          'Select image, upload to bucket & estimate calories',
+        ),
+        onTap: _testDetectImageFromGallery,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.type),
+        title: const Text('Test Detect Text'),
+        subtitle: const Text('Detect meal from text description'),
+        onTap: _testDetectText,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.info),
+        title: const Text('Test Meal Logging with Variations'),
+        subtitle: const Text('Test the full meal logging flow with variations'),
+        onTap: _testMealLoggingWithVariations,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.beaker),
+        title: const Text('Mock meal with variations'),
+        subtitle: const Text(
+          'Preview variation + tip sheet UI without logging',
+        ),
+        onTap: _mockMealWithVariations,
+      ),
+    ];
+    final filtered = <Widget>[];
+    for (var i = 0; i < items.length; i++) {
+      final (t, s) = titleSubtitle[i];
+      if (_matchesQuery(section, t, s)) filtered.add(items[i]);
+    }
+    if (filtered.isEmpty) return null;
+    return Card(child: Column(children: filtered));
+  }
+
+  /// Shows the meal variation sheet with mocked API response for UI preview.
+  /// Does not call the API and does not log the meal.
+  Future<void> _mockMealWithVariations() async {
+    final mockResponse = _createMockMealDetectionResponse();
+    if (!mounted) return;
+    await showMealVariation(
+      context: context,
+      response: mockResponse,
+      isDebugPreview: true,
+    );
+  }
+
+  MealDetectionResponse _createMockMealDetectionResponse() {
+    final baseMeal = Meal(
+      name: 'Grilled chicken with rice and vegetables',
+      quantity: '1 serving',
+      type: MealType.LUNCH,
+      macros: MealMacro(
+        calories: 450,
+        carbs: 45,
+        protein: 35,
+        fat: 14,
+        fiber: 4,
+      ),
+    );
+    final result = MealDetectionResult(
+      mealIdentified: true,
+      calorieConfidence: CalorieConfidence.MEDIUM,
+      tip: 'This is a mock tip for UI preview. The meal is not logged.',
+      meal: baseMeal,
+      metadata: MealMetadata(mealDescription: 'Mock meal for debug'),
+    );
+    final variations = [
+      Variation(
+        question: 'How was the portion size?',
+        options: [
+          Variation_Option(
+            option: 'Small',
+            macroDiff: MealMacro(
+              calories: -80,
+              carbs: -15,
+              protein: -8,
+              fat: -3,
+              fiber: -1,
             ),
-            onTap: _testDetectImageFromGallery,
           ),
-          ListTile(
-            leading: const Icon(LucideIcons.type),
-            title: const Text('Test Detect Text'),
-            subtitle: const Text('Detect meal from text description'),
-            onTap: _testDetectText,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.info),
-            title: const Text('Test Meal Logging with Variations'),
-            subtitle: const Text(
-              'Test the full meal logging flow with variations',
+          Variation_Option(option: 'Medium'),
+          Variation_Option(
+            option: 'Large',
+            macroDiff: MealMacro(
+              calories: 100,
+              carbs: 12,
+              protein: 10,
+              fat: 4,
+              fiber: 2,
             ),
-            onTap: _testMealLoggingWithVariations,
           ),
         ],
       ),
-    );
+      Variation(
+        question: 'Any extra sides?',
+        options: [
+          Variation_Option(option: 'None'),
+          Variation_Option(
+            option: 'Side salad',
+            macroDiff: MealMacro(
+              calories: 50,
+              carbs: 6,
+              protein: 2,
+              fat: 3,
+              fiber: 2,
+            ),
+          ),
+          Variation_Option(
+            option: 'Bread roll',
+            macroDiff: MealMacro(
+              calories: 120,
+              carbs: 22,
+              protein: 4,
+              fat: 2,
+              fiber: 1,
+            ),
+          ),
+        ],
+      ),
+    ];
+    return MealDetectionResponse(result: result, variations: variations);
   }
 
   Future<void> _testAnalyzeImage() async {
@@ -666,7 +872,10 @@ Variations: ${response.variations.length}
     }
   }
 
-  Widget _buildFeedbackOptions(BuildContext context) {
+  Widget? _buildFeedbackOptions(BuildContext context) {
+    final section = t.debug.sections.feedback;
+    final title = t.debug.showFeedbackRatingSheet;
+    if (!_matchesQuery(section, title)) return null;
     return Card(
       child: Column(
         children: [
@@ -680,23 +889,27 @@ Variations: ${response.variations.length}
     );
   }
 
-  Widget _buildDataResetOptions(BuildContext context) {
-    return Card(
-      child: Column(
-        children: [
-          ListTile(
-            leading: const Icon(LucideIcons.settings),
-            title: Text(t.debug.clearUserPreferences),
-            onTap: () => _showClearPreferencesConfirmation(context),
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.user),
-            title: Text(t.debug.clearUserProfile),
-            onTap: () => _showClearProfileConfirmation(context),
-          ),
-        ],
+  Widget? _buildDataResetOptions(BuildContext context) {
+    final section = t.debug.sections.dataReset;
+    final titles = [t.debug.clearUserPreferences, t.debug.clearUserProfile];
+    final items = <Widget>[
+      ListTile(
+        leading: const Icon(LucideIcons.settings),
+        title: Text(t.debug.clearUserPreferences),
+        onTap: () => _showClearPreferencesConfirmation(context),
       ),
-    );
+      ListTile(
+        leading: const Icon(LucideIcons.user),
+        title: Text(t.debug.clearUserProfile),
+        onTap: () => _showClearProfileConfirmation(context),
+      ),
+    ];
+    final filtered = <Widget>[];
+    for (var i = 0; i < items.length; i++) {
+      if (_matchesQuery(section, titles[i])) filtered.add(items[i]);
+    }
+    if (filtered.isEmpty) return null;
+    return Card(child: Column(children: filtered));
   }
 
   void _showClearPreferencesConfirmation(BuildContext context) {
@@ -760,7 +973,10 @@ Variations: ${response.variations.length}
     );
   }
 
-  Widget _buildAppInfoOptions(BuildContext context) {
+  Widget? _buildAppInfoOptions(BuildContext context) {
+    final section = t.debug.sections.appInfo;
+    final title = t.debug.checkCurrentLocale;
+    if (!_matchesQuery(section, title)) return null;
     return Card(
       child: Column(
         children: [
@@ -774,33 +990,36 @@ Variations: ${response.variations.length}
     );
   }
 
-  Widget _buildShorebirdOptions(BuildContext context) {
-    return Card(
-      child: Column(
-        children: [
-          ListTile(
-            leading: const Icon(LucideIcons.download),
-            title: const Text('Check for update'),
-            onTap: _shorebirdCheckForUpdate,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.hash),
-            title: const Text('Show patch number'),
-            onTap: _shorebirdShowPatchNumber,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.circleAlert),
-            title: const Text('Show update available'),
-            onTap: _shorebirdShowUpdateAvailable,
-          ),
-          ListTile(
-            leading: const Icon(LucideIcons.info),
-            title: const Text('Show errors'),
-            onTap: _shorebirdShowErrors,
-          ),
-        ],
+  Widget? _buildShorebirdOptions(BuildContext context) {
+    const section = 'Shorebird';
+    const titles = [
+      'Check for update',
+      'Show patch number',
+      'Show update available',
+    ];
+    final items = <Widget>[
+      ListTile(
+        leading: const Icon(LucideIcons.download),
+        title: const Text('Check for update'),
+        onTap: _shorebirdCheckForUpdate,
       ),
-    );
+      ListTile(
+        leading: const Icon(LucideIcons.hash),
+        title: const Text('Show patch number'),
+        onTap: _shorebirdShowPatchNumber,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.circleAlert),
+        title: const Text('Show update available'),
+        onTap: _shorebirdShowUpdateAvailable,
+      ),
+    ];
+    final filtered = <Widget>[];
+    for (var i = 0; i < items.length; i++) {
+      if (_matchesQuery(section, titles[i])) filtered.add(items[i]);
+    }
+    if (filtered.isEmpty) return null;
+    return Card(child: Column(children: filtered));
   }
 
   Future<void> _shorebirdCheckForUpdate() async {
@@ -839,13 +1058,6 @@ Variations: ${response.variations.length}
 
   Future<void> _shorebirdShowUpdateAvailable() async {
     await _shorebirdCheckForUpdate();
-  }
-
-  void _shorebirdShowErrors() {
-    _showDataDialog(
-      'Show errors',
-      'Updates are managed by Shorebird; errors are not exposed to the app.',
-    );
   }
 
   void _checkCurrentLocale() {

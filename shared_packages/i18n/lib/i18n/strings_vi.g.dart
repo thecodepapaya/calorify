@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingVi implements TranslationsFeedbackRatingEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Bạn đang hài lòng với ${appLabel}? Trải nghiệm của bạn rất quan trọng đối với chúng tôi.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Bạn có thích ${appLabel} không?';
 	@override String get yes => 'Có, tôi thích nó';
 	@override String get no => 'Không lắm';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} được xây dựng bởi một người. Một đánh giá nhanh trên Play Store giúp người khác tìm thấy ứng dụng và duy trì phát triển — thực sự rất hữu ích. Bạn có thể dành chút thời gian để để lại đánh giá không?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} được xây dựng bởi một người. Phản hồi của bạn thực sự định hướng những gì sẽ tới — và chúng tôi đọc mọi tin nhắn. Bạn có muốn chia sẻ suy nghĩ qua email không?';
+	@override String soloDevMessage({required Object appLabel}) => 'Một đánh giá nhanh sẽ giúp người khác tìm thấy ${appLabel} và giúp quá trình phát triển tiếp tục. Bạn có thể dành chút thời gian để để lại một đánh giá không?';
+	@override String get shareFeedbackViaEmail => 'Phản hồi của bạn góp phần định hình những cải tiến tiếp theo — chúng tôi đọc từng phản hồi. Bạn có muốn chia sẻ suy nghĩ qua email không?';
+	@override String get rateCta => 'Đánh giá trên Cửa hàng Play';
+	@override String get maybeLater => 'Để sau';
+	@override String get sendFeedback => 'Gửi phản hồi';
+	@override String get noThanks => 'Không, cảm ơn';
+	@override String get aboutUsDescription => 'Được tạo nên với sự chăm chút bởi một nhóm nhỏ. Chúng tôi tập trung vào quyền riêng tư, tính đơn giản và hỗ trợ bạn xây dựng thói quen ăn uống lành mạnh hơn.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Bạn tò mò ai đứng sau ${appLabel}? Xem ';
 	@override String get aboutUsLinkLabel => 'Về chúng tôi';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsVi {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Mục tiêu hàng ngày là lượng calo mà bạn được khuyên nên tiêu thụ hàng ngày dựa trên TDEE và mục tiêu cân nặng của bạn. Để giảm cân, bạn tiêu thụ ít calo hơn TDEE của mình. Để duy trì cân nặng, bạn cần khớp với TDEE của mình. Để tăng cân, bạn tiêu thụ nhiều calo hơn TDEE của mình. Điều này giúp bạn đạt được thay đổi cân nặng mong muốn một cách lành mạnh.',
 			'common.close' => 'Đóng',
 			'common.kContinue' => 'Tiếp tục',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Bạn đang hài lòng với ${appLabel}? Trải nghiệm của bạn rất quan trọng đối với chúng tôi.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Bạn có thích ${appLabel} không?',
 			'feedbackRating.yes' => 'Có, tôi thích nó',
 			'feedbackRating.no' => 'Không lắm',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} được xây dựng bởi một người. Một đánh giá nhanh trên Play Store giúp người khác tìm thấy ứng dụng và duy trì phát triển — thực sự rất hữu ích. Bạn có thể dành chút thời gian để để lại đánh giá không?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} được xây dựng bởi một người. Phản hồi của bạn thực sự định hướng những gì sẽ tới — và chúng tôi đọc mọi tin nhắn. Bạn có muốn chia sẻ suy nghĩ qua email không?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Một đánh giá nhanh sẽ giúp người khác tìm thấy ${appLabel} và giúp quá trình phát triển tiếp tục. Bạn có thể dành chút thời gian để để lại một đánh giá không?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Phản hồi của bạn góp phần định hình những cải tiến tiếp theo — chúng tôi đọc từng phản hồi. Bạn có muốn chia sẻ suy nghĩ qua email không?',
+			'feedbackRating.rateCta' => 'Đánh giá trên Cửa hàng Play',
+			'feedbackRating.maybeLater' => 'Để sau',
+			'feedbackRating.sendFeedback' => 'Gửi phản hồi',
+			'feedbackRating.noThanks' => 'Không, cảm ơn',
+			'feedbackRating.aboutUsDescription' => 'Được tạo nên với sự chăm chút bởi một nhóm nhỏ. Chúng tôi tập trung vào quyền riêng tư, tính đơn giản và hỗ trợ bạn xây dựng thói quen ăn uống lành mạnh hơn.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Bạn tò mò ai đứng sau ${appLabel}? Xem ',
 			'feedbackRating.aboutUsLinkLabel' => 'Về chúng tôi',
 			'errors.loadingProfileData' => 'Lỗi khi tải dữ liệu hồ sơ',

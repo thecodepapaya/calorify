@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingMs implements TranslationsFeedbackRatingEn {
 	final TranslationsMs _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Menikmati ${appLabel}? Pengalaman anda penting bagi kami.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Anda menikmati ${appLabel}?';
 	@override String get yes => 'Ya, saya menikmatinya';
 	@override String get no => 'Tidak begitu';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} dibangunkan oleh seorang individu. Penilaian ringkas di Play Store membantu orang lain menemukannya dan menyokong pembangunan — ia sangat membantu. Bolehkah anda meluangkan sedikit masa untuk memberikannya penilaian?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} dibangunkan oleh seorang individu. Maklum balas anda benar-benar membentuk apa yang akan datang — dan kami membaca setiap mesej. Mahu berkongsi pandangan anda melalui e-mel?';
+	@override String soloDevMessage({required Object appLabel}) => 'Penilaian ringkas membantu orang lain menemui ${appLabel} dan menyokong pembangunan aplikasi. Boleh luangkan sedikit masa untuk memberi penilaian?';
+	@override String get shareFeedbackViaEmail => 'Maklum balas anda membentuk apa yang akan datang — kami membaca setiap mesej. Adakah anda ingin berkongsi pendapat melalui e-mel?';
+	@override String get rateCta => 'Beri penilaian di Play Store';
+	@override String get maybeLater => 'Mungkin nanti';
+	@override String get sendFeedback => 'Hantar maklum balas';
+	@override String get noThanks => 'Tidak, terima kasih';
+	@override String get aboutUsDescription => 'Dibuat dengan penuh perhatian oleh sebuah pasukan kecil. Kami memberi tumpuan kepada privasi, kesederhanaan, dan membantu anda membina tabiat pemakanan yang lebih baik.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Ingin tahu siapa di sebalik ${appLabel}? Lihat ';
 	@override String get aboutUsLinkLabel => 'Tentang kami';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsMs {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Matlamat Harian ialah pengambilan kalori harian yang disyorkan berdasarkan TDEE dan matlamat berat anda. Untuk penurunan berat badan, anda mengambil kalori kurang daripada TDEE anda. Untuk penyelenggaraan berat, anda sepadankan dengan TDEE anda. Untuk pertambahan berat, anda mengambil lebih banyak kalori daripada TDEE anda. Ini membantu anda mencapai perubahan berat yang diingini dengan cara yang sihat.',
 			'common.close' => 'Tutup',
 			'common.kContinue' => 'Teruskan',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Menikmati ${appLabel}? Pengalaman anda penting bagi kami.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Anda menikmati ${appLabel}?',
 			'feedbackRating.yes' => 'Ya, saya menikmatinya',
 			'feedbackRating.no' => 'Tidak begitu',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} dibangunkan oleh seorang individu. Penilaian ringkas di Play Store membantu orang lain menemukannya dan menyokong pembangunan — ia sangat membantu. Bolehkah anda meluangkan sedikit masa untuk memberikannya penilaian?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} dibangunkan oleh seorang individu. Maklum balas anda benar-benar membentuk apa yang akan datang — dan kami membaca setiap mesej. Mahu berkongsi pandangan anda melalui e-mel?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Penilaian ringkas membantu orang lain menemui ${appLabel} dan menyokong pembangunan aplikasi. Boleh luangkan sedikit masa untuk memberi penilaian?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Maklum balas anda membentuk apa yang akan datang — kami membaca setiap mesej. Adakah anda ingin berkongsi pendapat melalui e-mel?',
+			'feedbackRating.rateCta' => 'Beri penilaian di Play Store',
+			'feedbackRating.maybeLater' => 'Mungkin nanti',
+			'feedbackRating.sendFeedback' => 'Hantar maklum balas',
+			'feedbackRating.noThanks' => 'Tidak, terima kasih',
+			'feedbackRating.aboutUsDescription' => 'Dibuat dengan penuh perhatian oleh sebuah pasukan kecil. Kami memberi tumpuan kepada privasi, kesederhanaan, dan membantu anda membina tabiat pemakanan yang lebih baik.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Ingin tahu siapa di sebalik ${appLabel}? Lihat ',
 			'feedbackRating.aboutUsLinkLabel' => 'Tentang kami',
 			'errors.loadingProfileData' => 'Ralat memuatkan data profil',

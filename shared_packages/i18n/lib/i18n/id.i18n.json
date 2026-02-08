@@ -601,11 +601,16 @@
     "continue": "Lanjutkan"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Menikmati {appLabel}? Pengalaman Anda penting bagi kami.",
+    "enjoyingQuestion": "Menikmati {appLabel}?",
     "yes": "Ya, saya menikmatinya",
     "no": "Tidak begitu",
-    "soloDevMessage": "{appLabel} dibuat oleh satu orang. Memberikan rating singkat di Play Store membantu orang lain menemukannya dan menjaga pengembangan tetap berjalan — ini sangat membantu. Maukah Anda meluangkan waktu untuk memberikan satu?",
-    "shareFeedbackViaEmail": "{appLabel} dibuat oleh satu orang. Masukan Anda sangat menentukan apa yang akan datang berikutnya — dan kami membaca setiap pesan. Apakah Anda ingin membagikan pendapat lewat email?",
+    "soloDevMessage": "Penilaian singkat membantu orang lain menemukan {appLabel} dan mendukung kelanjutan pengembangannya. Maukah Anda meluangkan waktu untuk memberi penilaian?",
+    "shareFeedbackViaEmail": "Masukan Anda membentuk apa yang akan datang — kami membaca setiap pesan. Apakah Anda ingin membagikan pemikiran Anda melalui email?",
+    "rateCta": "Beri penilaian di Play Store",
+    "maybeLater": "Nanti saja",
+    "sendFeedback": "Kirim umpan balik",
+    "noThanks": "Tidak, terima kasih",
+    "aboutUsDescription": "Dibuat dengan penuh perhatian oleh tim kecil. Kami berfokus pada privasi, kesederhanaan, dan membantu Anda membangun kebiasaan makan yang lebih sehat.",
     "aboutUsMentionBeforeLink": "Penasaran siapa di balik {appLabel}? Lihat ",
     "aboutUsLinkLabel": "Tentang kami"
   },

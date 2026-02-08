@@ -582,8 +582,8 @@ class TranslationsFeedbackRatingEn {
 
 	// Translations
 
-	/// en: 'Enjoying {appLabel}? Your experience matters to us.'
-	String enjoyingQuestion({required Object appLabel}) => 'Enjoying ${appLabel}? Your experience matters to us.';
+	/// en: 'Enjoying {appLabel}?'
+	String enjoyingQuestion({required Object appLabel}) => 'Enjoying ${appLabel}?';
 
 	/// en: 'Yes, I'm enjoying it'
 	String get yes => 'Yes, I\'m enjoying it';
@@ -591,11 +591,26 @@ class TranslationsFeedbackRatingEn {
 	/// en: 'Not really'
 	String get no => 'Not really';
 
-	/// en: '{appLabel} is built by one person. A quick Play Store rating helps others find it and keeps development going — it really helps. Would you take a moment to leave one?'
-	String soloDevMessage({required Object appLabel}) => '${appLabel} is built by one person. A quick Play Store rating helps others find it and keeps development going — it really helps. Would you take a moment to leave one?';
+	/// en: 'A quick rating helps others find {appLabel} and keeps development going. Would you take a moment to leave one?'
+	String soloDevMessage({required Object appLabel}) => 'A quick rating helps others find ${appLabel} and keeps development going. Would you take a moment to leave one?';
 
-	/// en: '{appLabel} is built by one person. Your feedback really shapes what comes next — and we read every message. Would you like to share your thoughts via email?'
-	String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} is built by one person. Your feedback really shapes what comes next — and we read every message. Would you like to share your thoughts via email?';
+	/// en: 'Your feedback shapes what comes next — we read every message. Would you like to share your thoughts via email?'
+	String get shareFeedbackViaEmail => 'Your feedback shapes what comes next — we read every message. Would you like to share your thoughts via email?';
+
+	/// en: 'Rate on Play Store'
+	String get rateCta => 'Rate on Play Store';
+
+	/// en: 'Maybe later'
+	String get maybeLater => 'Maybe later';
+
+	/// en: 'Send feedback'
+	String get sendFeedback => 'Send feedback';
+
+	/// en: 'No thanks'
+	String get noThanks => 'No thanks';
+
+	/// en: 'Made with care by a small team. We're focused on privacy, simplicity, and helping you build better eating habits.'
+	String get aboutUsDescription => 'Made with care by a small team. We\'re focused on privacy, simplicity, and helping you build better eating habits.';
 
 	/// en: 'Curious who's behind {appLabel}? See '
 	String aboutUsMentionBeforeLink({required Object appLabel}) => 'Curious who\'s behind ${appLabel}? See ';
@@ -2919,11 +2934,16 @@ extension on Translations {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Daily Goal is your recommended daily calorie intake based on your TDEE and weight goal. For weight loss, you consume fewer calories than your TDEE. For weight maintenance, you match your TDEE. For weight gain, you consume more calories than your TDEE. This helps you achieve your desired weight change at a healthy pace.',
 			'common.close' => 'Close',
 			'common.kContinue' => 'Continue',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Enjoying ${appLabel}? Your experience matters to us.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Enjoying ${appLabel}?',
 			'feedbackRating.yes' => 'Yes, I\'m enjoying it',
 			'feedbackRating.no' => 'Not really',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} is built by one person. A quick Play Store rating helps others find it and keeps development going — it really helps. Would you take a moment to leave one?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} is built by one person. Your feedback really shapes what comes next — and we read every message. Would you like to share your thoughts via email?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'A quick rating helps others find ${appLabel} and keeps development going. Would you take a moment to leave one?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Your feedback shapes what comes next — we read every message. Would you like to share your thoughts via email?',
+			'feedbackRating.rateCta' => 'Rate on Play Store',
+			'feedbackRating.maybeLater' => 'Maybe later',
+			'feedbackRating.sendFeedback' => 'Send feedback',
+			'feedbackRating.noThanks' => 'No thanks',
+			'feedbackRating.aboutUsDescription' => 'Made with care by a small team. We\'re focused on privacy, simplicity, and helping you build better eating habits.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Curious who\'s behind ${appLabel}? See ',
 			'feedbackRating.aboutUsLinkLabel' => 'About us',
 			'errors.loadingProfileData' => 'Error loading profile data',

@@ -601,11 +601,16 @@
     "continue": "Pokračovat"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Líbí se vám {appLabel}? Vaše zkušenost je pro nás důležitá.",
+    "enjoyingQuestion": "Líbí se vám {appLabel}?",
     "yes": "Ano, líbí se mi.",
     "no": "Ne, moc ne.",
-    "soloDevMessage": "{appLabel} vytváří jedna osoba. Krátké hodnocení v Obchodě Play pomůže ostatním aplikaci najít a podpoří další vývoj — opravdu to pomáhá. Věnujete chvilku a ohodnotíte ji?",
-    "shareFeedbackViaEmail": "{appLabel} vytváří jedna osoba. Vaše zpětná vazba skutečně ovlivňuje, co přijde dál — a každý vzkaz čteme. Chtěli byste své názory sdílet e-mailem?",
+    "soloDevMessage": "Krátké hodnocení pomůže ostatním najít {appLabel} a podpoří další vývoj. Věnujete chvilku a zanecháte hodnocení?",
+    "shareFeedbackViaEmail": "Vaše zpětná vazba ovlivní, co přijde dál — čteme každou zprávu. Chcete nám své připomínky poslat e-mailem?",
+    "rateCta": "Ohodnoťte v Obchodu Play",
+    "maybeLater": "Možná později",
+    "sendFeedback": "Odeslat zpětnou vazbu",
+    "noThanks": "Ne, děkuji",
+    "aboutUsDescription": "Vytvořeno s péčí malým týmem. Dbáme na soukromí, jednoduchost a pomáháme vám vytvářet lepší stravovací návyky.",
     "aboutUsMentionBeforeLink": "Zajímá vás, kdo stojí za {appLabel}? Podívejte se ",
     "aboutUsLinkLabel": "O nás"
   },

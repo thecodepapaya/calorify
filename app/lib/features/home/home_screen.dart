@@ -10,8 +10,17 @@ import 'package:flutter/material.dart';
 import 'package:health/health.dart';
 
 @RoutePage()
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  void _onHealthConnectSetupComplete() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +34,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             if (!isHealthConnectUnsupported && !isHealthConnectAuthorized) ...[
               const SizedBox(height: 10),
-              const HealthConnectPromptCard(),
+              HealthConnectPromptCard(onSetupComplete: _onHealthConnectSetupComplete),
               const SizedBox(height: 10),
             ],
             const SizedBox(height: 10),

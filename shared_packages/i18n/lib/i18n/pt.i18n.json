@@ -601,11 +601,16 @@
     "continue": "Continuar"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Está gostando do {appLabel}? Sua experiência importa para nós.",
+    "enjoyingQuestion": "Você está gostando do {appLabel}?",
     "yes": "Sim, estou gostando.",
     "no": "Na verdade, não.",
-    "soloDevMessage": "{appLabel} foi criado por uma pessoa. Uma avaliação rápida na Play Store ajuda outras pessoas a encontrar o app e mantém o desenvolvimento em andamento — realmente faz diferença. Você poderia deixar uma avaliação?",
-    "shareFeedbackViaEmail": "{appLabel} foi criado por uma pessoa. Seu feedback realmente molda o que vem a seguir — e nós lemos cada mensagem. Gostaria de compartilhar suas opiniões por e-mail?",
+    "soloDevMessage": "Uma avaliação rápida ajuda outras pessoas a encontrar {appLabel} e mantém o desenvolvimento em andamento. Você poderia dedicar um momento para deixar uma avaliação?",
+    "shareFeedbackViaEmail": "Seu feedback orienta os próximos passos — lemos todas as mensagens. Gostaria de compartilhar suas impressões por e-mail?",
+    "rateCta": "Avaliar na Play Store",
+    "maybeLater": "Talvez mais tarde",
+    "sendFeedback": "Enviar feedback",
+    "noThanks": "Não, obrigado",
+    "aboutUsDescription": "Feito com carinho por uma pequena equipe. Priorizamos a privacidade, a simplicidade e ajudar você a desenvolver hábitos alimentares mais saudáveis.",
     "aboutUsMentionBeforeLink": "Curioso para saber quem está por trás do {appLabel}? Veja ",
     "aboutUsLinkLabel": "Sobre nós"
   },

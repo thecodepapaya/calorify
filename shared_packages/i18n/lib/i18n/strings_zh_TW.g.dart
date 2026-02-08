@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingZhTw implements TranslationsFeedbackRatingEn {
 	final TranslationsZhTw _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => '喜歡使用 ${appLabel} 嗎？我們很重視您的使用體驗。';
+	@override String enjoyingQuestion({required Object appLabel}) => '你喜歡使用${appLabel}嗎？';
 	@override String get yes => '是的，我很喜歡';
 	@override String get no => '不是很滿意';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} 由一人開發。快速在 Play 商店留下評分能幫助更多人發現它，也能持續支持開發 — 真的很有幫助。您願意花一點時間留下評分嗎？';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} 由一人開發。您的回饋會決定下一步的方向 — 我們會閱讀每一封訊息。您想透過電子郵件分享想法嗎？';
+	@override String soloDevMessage({required Object appLabel}) => '快速評分能幫助其他人找到 ${appLabel}，也讓我們得以持續開發。願意花一點時間留下評分嗎？';
+	@override String get shareFeedbackViaEmail => '你的回饋會形塑下一步方向 — 我們會閱讀每一則訊息。你想透過電子郵件分享你的想法嗎？';
+	@override String get rateCta => '在 Google Play 評分';
+	@override String get maybeLater => '稍後再說';
+	@override String get sendFeedback => '提供回饋';
+	@override String get noThanks => '不用，謝謝';
+	@override String get aboutUsDescription => '由一個小團隊用心打造。我們重視隱私、追求簡單，並致力於幫助你建立更健康的飲食習慣。';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '想知道是誰在打造 ${appLabel} 嗎？請參閱 ';
 	@override String get aboutUsLinkLabel => '關於我們';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsZhTw {
 			'disclaimer.healthMetrics.dailyGoal.description' => '每日目標是根據您的 TDEE 和體重目標推薦的每日卡路里攝入量。若要減肥，您需要攝入的卡路里少於您的 TDEE；若要維持體重，則需與 TDEE 持平；若要增重，您需攝入的卡路里超過您的 TDEE。這有助於您以健康的速度達成所期望的體重變化。',
 			'common.close' => '關閉',
 			'common.kContinue' => '繼續',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '喜歡使用 ${appLabel} 嗎？我們很重視您的使用體驗。',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '你喜歡使用${appLabel}嗎？',
 			'feedbackRating.yes' => '是的，我很喜歡',
 			'feedbackRating.no' => '不是很滿意',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} 由一人開發。快速在 Play 商店留下評分能幫助更多人發現它，也能持續支持開發 — 真的很有幫助。您願意花一點時間留下評分嗎？',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} 由一人開發。您的回饋會決定下一步的方向 — 我們會閱讀每一封訊息。您想透過電子郵件分享想法嗎？',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '快速評分能幫助其他人找到 ${appLabel}，也讓我們得以持續開發。願意花一點時間留下評分嗎？',
+			'feedbackRating.shareFeedbackViaEmail' => '你的回饋會形塑下一步方向 — 我們會閱讀每一則訊息。你想透過電子郵件分享你的想法嗎？',
+			'feedbackRating.rateCta' => '在 Google Play 評分',
+			'feedbackRating.maybeLater' => '稍後再說',
+			'feedbackRating.sendFeedback' => '提供回饋',
+			'feedbackRating.noThanks' => '不用，謝謝',
+			'feedbackRating.aboutUsDescription' => '由一個小團隊用心打造。我們重視隱私、追求簡單，並致力於幫助你建立更健康的飲食習慣。',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '想知道是誰在打造 ${appLabel} 嗎？請參閱 ',
 			'feedbackRating.aboutUsLinkLabel' => '關於我們',
 			'errors.loadingProfileData' => '載入個人資料數據出錯',

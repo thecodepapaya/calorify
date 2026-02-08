@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingAr implements TranslationsFeedbackRatingEn {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'هل تستمتع باستخدام ${appLabel}؟ تجربتك تهمنا.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'هل تستمتع بـ${appLabel}؟';
 	@override String get yes => 'نعم، أستمتع باستخدامه';
 	@override String get no => 'ليس حقًا';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} تم تطويره من قبل شخص واحد. تقييم سريع على متجر Play يساعد الآخرين في العثور عليه ويدعم استمرار التطوير — إنه مفيد حقًا. هل تود أن تترك تقييمًا؟';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} مبني من قبل شخص واحد. ملاحظاتك تشكل ما سيأتي — ونحن نقرأ كل رسالة. هل تود مشاركة أفكارك عبر البريد الإلكتروني؟';
+	@override String soloDevMessage({required Object appLabel}) => 'تقييم سريع يساعد الآخرين على العثور على ${appLabel} ويُديم تطويره. هل تود أن تترك تقييماً سريعاً؟';
+	@override String get shareFeedbackViaEmail => 'ملاحظاتك تُشكل ما سيأتي — نقرأ كل رسالة. هل ترغب بمشاركة آرائك عبر البريد الإلكتروني؟';
+	@override String get rateCta => 'قيّم على متجر Play';
+	@override String get maybeLater => 'ربما لاحقًا';
+	@override String get sendFeedback => 'أرسل ملاحظات';
+	@override String get noThanks => 'لا، شكرًا';
+	@override String get aboutUsDescription => 'تم تطويرها بعناية من قبل فريق صغير. نركّز على الخصوصية والبساطة، ونساعدك على بناء عادات غذائية أفضل.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'هل تريد معرفة من يقف وراء ${appLabel}؟ انظر ';
 	@override String get aboutUsLinkLabel => 'من نحن';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsAr {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'الهدف اليومي هو كمية السعرات الحرارية الموصى بها لك يوميًا بناءً على مجموع الإنفاق اليومي من الطاقة (TDEE) وهدف الوزن الخاص بك. لفقدان الوزن، تستهلك سعرات حرارية أقل من مجموع الإنفاق اليومي من الطاقة الخاص بك. للحفاظ على الوزن، تتطابق مع مجموع الإنفاق اليومي من الطاقة. لزيادة الوزن، تستهلك سعرات حرارية أكثر من مجموع الإنفاق اليومي من الطاقة الخاص بك. يساعدك ذلك في تحقيق التغيير المطلوب في وزنك بشكل صحي.',
 			'common.close' => 'إغلاق',
 			'common.kContinue' => 'استمر',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'هل تستمتع باستخدام ${appLabel}؟ تجربتك تهمنا.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'هل تستمتع بـ${appLabel}؟',
 			'feedbackRating.yes' => 'نعم، أستمتع باستخدامه',
 			'feedbackRating.no' => 'ليس حقًا',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} تم تطويره من قبل شخص واحد. تقييم سريع على متجر Play يساعد الآخرين في العثور عليه ويدعم استمرار التطوير — إنه مفيد حقًا. هل تود أن تترك تقييمًا؟',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} مبني من قبل شخص واحد. ملاحظاتك تشكل ما سيأتي — ونحن نقرأ كل رسالة. هل تود مشاركة أفكارك عبر البريد الإلكتروني؟',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'تقييم سريع يساعد الآخرين على العثور على ${appLabel} ويُديم تطويره. هل تود أن تترك تقييماً سريعاً؟',
+			'feedbackRating.shareFeedbackViaEmail' => 'ملاحظاتك تُشكل ما سيأتي — نقرأ كل رسالة. هل ترغب بمشاركة آرائك عبر البريد الإلكتروني؟',
+			'feedbackRating.rateCta' => 'قيّم على متجر Play',
+			'feedbackRating.maybeLater' => 'ربما لاحقًا',
+			'feedbackRating.sendFeedback' => 'أرسل ملاحظات',
+			'feedbackRating.noThanks' => 'لا، شكرًا',
+			'feedbackRating.aboutUsDescription' => 'تم تطويرها بعناية من قبل فريق صغير. نركّز على الخصوصية والبساطة، ونساعدك على بناء عادات غذائية أفضل.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'هل تريد معرفة من يقف وراء ${appLabel}؟ انظر ',
 			'feedbackRating.aboutUsLinkLabel' => 'من نحن',
 			'errors.loadingProfileData' => 'خطأ في تحميل بيانات الملف الشخصي',

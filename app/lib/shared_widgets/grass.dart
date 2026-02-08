@@ -66,7 +66,7 @@ class _GrassState extends State<Grass> {
                   'assets/vectors/grass.svg',
                   width: double.infinity,
                   height: widget.height + 8, // Add bottom overflow to height
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
             ),

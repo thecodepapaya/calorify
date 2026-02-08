@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingUk implements TranslationsFeedbackRatingEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Вам подобається ${appLabel}? Ваша думка дуже важлива для нас.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Чи подобається вам ${appLabel}?';
 	@override String get yes => 'Так, мені подобається';
 	@override String get no => 'Не дуже';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} створено однією людиною. Коротка оцінка в Play Store допоможе іншим знайти додаток і підтримає подальший розвиток — це справді важливо. Ви могли б залишити оцінку?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} створено однією людиною. Ваш відгук справді формує те, що буде далі — і ми читаємо кожне повідомлення. Хотіли б поділитися думками електронною поштою?';
+	@override String soloDevMessage({required Object appLabel}) => 'Коротка оцінка допомагає іншим знайти ${appLabel} і підтримує подальший розвиток. Чи не могли б ви приділити хвилину, щоб поставити її?';
+	@override String get shareFeedbackViaEmail => 'Ваші відгуки формують те, що буде далі — ми читаємо кожне повідомлення. Чи хотіли б ви поділитися своїми думками електронною поштою?';
+	@override String get rateCta => 'Оцінити в Google Play';
+	@override String get maybeLater => 'Можливо пізніше';
+	@override String get sendFeedback => 'Надіслати відгук';
+	@override String get noThanks => 'Ні, дякую';
+	@override String get aboutUsDescription => 'Створено з турботою невеликою командою. Ми дбаємо про вашу конфіденційність, цінуємо простоту та підтримуємо вас у формуванні кращих харчових звичок.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Цікавитесь, хто стоїть за ${appLabel}? Дізнайтеся більше ';
 	@override String get aboutUsLinkLabel => 'Про нас';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsUk {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Щоденна мета — це ваша рекомендована добова калорійність, основана на вашому TDEE і цілі щодо ваги. Для схуднення вам потрібно споживати менше калорій, ніж ваш TDEE. Для підтримання ваги — відповідати вашому TDEE. Для набору ваги — споживати більше калорій, ніж ваш TDEE. Це допоможе вам досягти бажаних змін у вазі здоровими темпами.',
 			'common.close' => 'Закрити',
 			'common.kContinue' => 'Продовжити',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Вам подобається ${appLabel}? Ваша думка дуже важлива для нас.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Чи подобається вам ${appLabel}?',
 			'feedbackRating.yes' => 'Так, мені подобається',
 			'feedbackRating.no' => 'Не дуже',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} створено однією людиною. Коротка оцінка в Play Store допоможе іншим знайти додаток і підтримає подальший розвиток — це справді важливо. Ви могли б залишити оцінку?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} створено однією людиною. Ваш відгук справді формує те, що буде далі — і ми читаємо кожне повідомлення. Хотіли б поділитися думками електронною поштою?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Коротка оцінка допомагає іншим знайти ${appLabel} і підтримує подальший розвиток. Чи не могли б ви приділити хвилину, щоб поставити її?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Ваші відгуки формують те, що буде далі — ми читаємо кожне повідомлення. Чи хотіли б ви поділитися своїми думками електронною поштою?',
+			'feedbackRating.rateCta' => 'Оцінити в Google Play',
+			'feedbackRating.maybeLater' => 'Можливо пізніше',
+			'feedbackRating.sendFeedback' => 'Надіслати відгук',
+			'feedbackRating.noThanks' => 'Ні, дякую',
+			'feedbackRating.aboutUsDescription' => 'Створено з турботою невеликою командою. Ми дбаємо про вашу конфіденційність, цінуємо простоту та підтримуємо вас у формуванні кращих харчових звичок.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Цікавитесь, хто стоїть за ${appLabel}? Дізнайтеся більше ',
 			'feedbackRating.aboutUsLinkLabel' => 'Про нас',
 			'errors.loadingProfileData' => 'Помилка завантаження даних профілю',

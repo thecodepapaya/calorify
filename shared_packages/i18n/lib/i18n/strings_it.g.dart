@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingIt implements TranslationsFeedbackRatingEn {
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Ti sta piacendo ${appLabel}? La tua esperienza è importante per noi.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Ti sta piacendo ${appLabel}?';
 	@override String get yes => 'Sì, mi piace';
 	@override String get no => 'No, non proprio';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} è stato sviluppato da una sola persona. Una rapida valutazione sul Play Store aiuta gli altri a trovarlo e sostiene lo sviluppo — fa davvero la differenza. Ti va di dedicare un momento per lasciare una valutazione?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} è stato sviluppato da una sola persona. Il tuo feedback influenza davvero ciò che verrà — leggiamo ogni messaggio. Vuoi condividere i tuoi pensieri via email?';
+	@override String soloDevMessage({required Object appLabel}) => 'Una breve valutazione aiuta gli altri a scoprire ${appLabel} e sostiene lo sviluppo. Ti va di dedicare un momento per lasciarne una?';
+	@override String get shareFeedbackViaEmail => 'Il tuo feedback definisce i prossimi passi — leggiamo ogni messaggio. Vuoi condividere le tue impressioni via email?';
+	@override String get rateCta => 'Valuta su Play Store';
+	@override String get maybeLater => 'Forse più tardi';
+	@override String get sendFeedback => 'Invia feedback';
+	@override String get noThanks => 'No, grazie';
+	@override String get aboutUsDescription => 'Realizzato con cura da un piccolo team. Siamo attenti alla privacy, alla semplicità e ad aiutarti a costruire abitudini alimentari più sane.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Vuoi sapere chi c\'è dietro ${appLabel}? ';
 	@override String get aboutUsLinkLabel => 'Chi siamo';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsIt {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'L\'Obiettivo Giornaliero è il tuo apporto calorico giornaliero raccomandato basato sul tuo TDEE e sull\'obiettivo di peso. Per la perdita di peso, consumi meno calorie rispetto al tuo TDEE. Per il mantenimento del peso, eguagli il tuo TDEE. Per l\'aumento di peso, consumi più calorie rispetto al tuo TDEE. Questo ti aiuta a raggiungere il cambiamento di peso desiderato a un ritmo sano.',
 			'common.close' => 'Chiudi',
 			'common.kContinue' => 'Continua',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Ti sta piacendo ${appLabel}? La tua esperienza è importante per noi.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Ti sta piacendo ${appLabel}?',
 			'feedbackRating.yes' => 'Sì, mi piace',
 			'feedbackRating.no' => 'No, non proprio',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} è stato sviluppato da una sola persona. Una rapida valutazione sul Play Store aiuta gli altri a trovarlo e sostiene lo sviluppo — fa davvero la differenza. Ti va di dedicare un momento per lasciare una valutazione?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} è stato sviluppato da una sola persona. Il tuo feedback influenza davvero ciò che verrà — leggiamo ogni messaggio. Vuoi condividere i tuoi pensieri via email?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Una breve valutazione aiuta gli altri a scoprire ${appLabel} e sostiene lo sviluppo. Ti va di dedicare un momento per lasciarne una?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Il tuo feedback definisce i prossimi passi — leggiamo ogni messaggio. Vuoi condividere le tue impressioni via email?',
+			'feedbackRating.rateCta' => 'Valuta su Play Store',
+			'feedbackRating.maybeLater' => 'Forse più tardi',
+			'feedbackRating.sendFeedback' => 'Invia feedback',
+			'feedbackRating.noThanks' => 'No, grazie',
+			'feedbackRating.aboutUsDescription' => 'Realizzato con cura da un piccolo team. Siamo attenti alla privacy, alla semplicità e ad aiutarti a costruire abitudini alimentari più sane.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Vuoi sapere chi c\'è dietro ${appLabel}? ',
 			'feedbackRating.aboutUsLinkLabel' => 'Chi siamo',
 			'errors.loadingProfileData' => 'Errore nel caricamento dei dati del profilo',

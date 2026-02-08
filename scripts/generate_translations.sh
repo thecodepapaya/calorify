@@ -316,19 +316,126 @@ normalize_translations() {
 # Cleanup Functions
 # ============================================================================
 
-clean_unused_translations() {
-    print_step "3" "Removing unused translations"
-    
-    # DISABLED: slang clean is too aggressive and empties files
-    # Instead, we'll rely on slang analyze to report unused keys without removing them
-    print_info "Skipping clean step to prevent data loss (slang clean can be too aggressive)"
-    print_info "Use 'dart run slang analyze' to identify unused translations manually"
-    print_success "Clean step skipped (safety measure)"
+sync_locale_keys_to_base() {
+    # Remove from every locale JSON any key that is not in en.i18n.json, so that
+    # when a key is removed from en, it is also removed from other locales and
+    # from the generated Dart code.
+    print_step "3" "Syncing locale keys to base (en)"
+    local en_file="$I18N_DIR/en.i18n.json"
+    if [ ! -f "$en_file" ]; then
+        print_warning "Base file $en_file not found, skipping sync"
+        echo ""
+        return
+    fi
+    collect_locales
+    local all_locales=("${COLLECTED_LOCALES[@]}")
+    local total=${#all_locales[@]}
+    if [ $total -eq 0 ]; then
+        print_info "No locale files to sync"
+        print_success "Sync completed"
+        echo ""
+        return
+    fi
+    local synced=0
+    if command -v jq &>/dev/null; then
+        local en_paths
+        en_paths=$(jq -c '[paths(scalars)]' "$en_file" 2>/dev/null) || true
+        if [ -z "$en_paths" ]; then
+            print_warning "Could not read paths from $en_file (invalid JSON?), skipping sync"
+            echo ""
+            return
+        fi
+        for locale in "${all_locales[@]}"; do
+            local locale_file="$I18N_DIR/${locale}.i18n.json"
+            [ ! -f "$locale_file" ] && continue
+            local tmp_file="${locale_file}.sync_tmp"
+            if jq --argjson en_paths "$en_paths" '. as $locale | reduce ($en_paths[]) as $p ({}; ($locale | getpath($p)) as $v | if $v != null then . | setpath($p; $v) else . end)' "$locale_file" 2>/dev/null > "$tmp_file"; then
+                if ! cmp -s "$locale_file" "$tmp_file" 2>/dev/null; then
+                    mv "$tmp_file" "$locale_file"
+                    ((synced++))
+                    printf "  ${GREEN}✓${NC} %-10s (removed keys not in en)${NC}\n" "$locale"
+                else
+                    rm -f "$tmp_file"
+                fi
+            else
+                rm -f "$tmp_file"
+                print_warning "Failed to sync $locale (invalid JSON?)"
+            fi
+        done
+    elif command -v python3 &>/dev/null; then
+        print_info "Using Python to sync locale keys to en"
+        # Fallback: Python is commonly available on macOS/Linux
+        local py_script="
+import json, sys
+en_path, locale_path, out_path = sys.argv[1], sys.argv[2], sys.argv[3]
+with open(en_path) as f:
+    en = json.load(f)
+with open(locale_path) as f:
+    locale = json.load(f)
+def leaf_paths(obj, prefix=()):
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            p = prefix + (k,)
+            if isinstance(v, dict):
+                yield from leaf_paths(v, p)
+            elif isinstance(v, str):
+                yield p
+def getpath(d, path):
+    for k in path:
+        d = d.get(k) if isinstance(d, dict) else None
+        if d is None:
+            return None
+    return d
+def setpath(d, path, value):
+    for k in path[:-1]:
+        if k not in d:
+            d[k] = {}
+        d = d[k]
+    d[path[-1]] = value
+en_paths = list(leaf_paths(en))
+result = {}
+for p in en_paths:
+    v = getpath(locale, p)
+    if v is not None:
+        setpath(result, p, v)
+with open(out_path, 'w') as f:
+    json.dump(result, f, ensure_ascii=False, indent=2)
+"
+        for locale in "${all_locales[@]}"; do
+            local locale_file="$I18N_DIR/${locale}.i18n.json"
+            [ ! -f "$locale_file" ] && continue
+            local tmp_file="${locale_file}.sync_tmp"
+            if python3 -c "$py_script" "$en_file" "$locale_file" "$tmp_file" 2>/dev/null; then
+                if ! cmp -s "$locale_file" "$tmp_file" 2>/dev/null; then
+                    mv "$tmp_file" "$locale_file"
+                    ((synced++))
+                    printf "  ${GREEN}✓${NC} %-10s (removed keys not in en)${NC}\n" "$locale"
+                else
+                    rm -f "$tmp_file"
+                fi
+            else
+                rm -f "$tmp_file"
+                print_warning "Failed to sync $locale"
+            fi
+        done
+    else
+        print_warning "Neither jq nor python3 found; skipping sync. Install jq or ensure python3 is available."
+    fi
     echo ""
-    
-    # Original clean code commented out for safety:
-    # local clean_output=$(dart run slang clean 2>&1)
-    # This command has been known to empty translation files unexpectedly
+    if [ $synced -gt 0 ]; then
+        print_info "Synced $synced locale(s) to base keys (removed keys not in en)"
+    else
+        print_info "All locale files already in sync with en"
+    fi
+    print_success "Sync completed"
+    echo ""
+}
+
+clean_unused_translations() {
+    # Step 3: sync locale keys to base (en) so keys removed from en are removed
+    # from all locale files and from generated Dart. slang clean is not used
+    # because it can be too aggressive.
+    sync_locale_keys_to_base
 }
 
 clean_generated_files() {
@@ -415,19 +522,24 @@ translate_locale_worker() {
     local locale=$1
     local log_file="$PARALLEL_LOG_DIR/translate_${locale}.log"
     
-    local gpt_output
     local gpt_exit
     
+    # Run slang_gpt with output redirected to file to avoid pipe buffer deadlock.
+    # When there are many translations, slang_gpt prints a lot; capturing via
+    # $(...) uses a fixed-size pipe that can fill and block both the child and
+    # the shell, causing the script to appear stuck.
     if [ "$FULL_TRANSLATION" = true ]; then
-        gpt_output=$(dart run slang_gpt --full --target=$locale --api-key=$API_KEY 2>&1)
+        dart run slang_gpt --full --target=$locale --api-key=$API_KEY > "$log_file" 2>&1
         gpt_exit=$?
     else
-        gpt_output=$(dart run slang_gpt --target=$locale --api-key=$API_KEY 2>&1)
+        dart run slang_gpt --target=$locale --api-key=$API_KEY > "$log_file" 2>&1
         gpt_exit=$?
     fi
     
-    echo "$gpt_output" >> "$log_file"
-    echo "$gpt_output" >> "$LOG_FILE"
+    # Append this run to the main log, then read for parsing
+    cat "$log_file" >> "$LOG_FILE"
+    local gpt_output
+    gpt_output=$(cat "$log_file")
     
     # Extract translation stats (compatible with older bash versions)
     local requests=$(echo "$gpt_output" | sed -n 's/.*Total requests: \([0-9]*\).*/\1/p' | head -1)
@@ -548,6 +660,13 @@ generate_translations() {
             pids+=($!)
             ((locale_index++))
         done
+        
+        # Once all result files are in, all jobs have finished (they write before exiting).
+        # Reap all pids (kill -0 still succeeds for zombies, so we must wait to exit the loop).
+        if [ ${#processed_locales[@]} -eq $total_trans ]; then
+            for pid in "${pids[@]}"; do wait "$pid" 2>/dev/null || true; done
+            break
+        fi
         
         # Small sleep to avoid busy waiting
         sleep 0.1

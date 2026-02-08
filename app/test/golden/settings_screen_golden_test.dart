@@ -27,7 +27,7 @@ void main() {
     );
     // Avoid calling Shorebird in tests (unavailable in test environment).
     getAppVersionInfoTestOverride = Future.value(const AppVersionInfo(
-      versionDisplay: '1.0.0',
+      version: '1.0.0',
       buildNumber: '1',
       patchNumber: null,
     ));

@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingJa implements TranslationsFeedbackRatingEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => '${appLabel} を気に入っていますか？ご利用の感想は私たちにとって大切です。';
+	@override String enjoyingQuestion({required Object appLabel}) => '${appLabel}をお楽しみいただけていますか？';
 	@override String get yes => 'はい、気に入っています';
 	@override String get no => 'あまり良くありません';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} はひとりで開発されています。Play ストアでの簡単な評価は他の人が見つけやすくなり、開発の継続にもつながります — 本当に助かります。評価をしていただけますか？';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} はひとりで開発されています。皆さんのフィードバックが今後の改善に直結します — すべてのメッセージを拝見しています。メールでご意見を共有しますか？';
+	@override String soloDevMessage({required Object appLabel}) => '簡単な評価は他の方が${appLabel}を見つけやすくなり、開発の継続を支えます。少しお時間をいただいて評価を残していただけますか？';
+	@override String get shareFeedbackViaEmail => 'ご意見は今後の改善に直結します — いただいたメッセージはすべて拝見しています。メールでご感想を共有されますか？';
+	@override String get rateCta => 'Google Playで評価する';
+	@override String get maybeLater => 'また今度';
+	@override String get sendFeedback => 'フィードバックを送る';
+	@override String get noThanks => 'いいえ、結構です';
+	@override String get aboutUsDescription => '小さなチームが心を込めて作りました。プライバシーとシンプルさを重視し、あなたがより良い食習慣を身につけられるようサポートします。';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel} の開発者について知りたいですか？こちらをご覧ください ';
 	@override String get aboutUsLinkLabel => '私たちについて';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsJa {
 			'disclaimer.healthMetrics.dailyGoal.description' => '1日の目標は、あなたのTDEEと体重目標に基づく推奨される1日のカロリー摂取量です。減量のためには、TDEEよりも少ないカロリーを摂取します。体重維持のためには、TDEEに合わせます。増量のためには、TDEEよりも多くのカロリーを摂取します。これにより、健康的なペースで望ましい体重の変化を達成することができます。',
 			'common.close' => '閉じる',
 			'common.kContinue' => '続ける',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} を気に入っていますか？ご利用の感想は私たちにとって大切です。',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel}をお楽しみいただけていますか？',
 			'feedbackRating.yes' => 'はい、気に入っています',
 			'feedbackRating.no' => 'あまり良くありません',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} はひとりで開発されています。Play ストアでの簡単な評価は他の人が見つけやすくなり、開発の継続にもつながります — 本当に助かります。評価をしていただけますか？',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} はひとりで開発されています。皆さんのフィードバックが今後の改善に直結します — すべてのメッセージを拝見しています。メールでご意見を共有しますか？',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '簡単な評価は他の方が${appLabel}を見つけやすくなり、開発の継続を支えます。少しお時間をいただいて評価を残していただけますか？',
+			'feedbackRating.shareFeedbackViaEmail' => 'ご意見は今後の改善に直結します — いただいたメッセージはすべて拝見しています。メールでご感想を共有されますか？',
+			'feedbackRating.rateCta' => 'Google Playで評価する',
+			'feedbackRating.maybeLater' => 'また今度',
+			'feedbackRating.sendFeedback' => 'フィードバックを送る',
+			'feedbackRating.noThanks' => 'いいえ、結構です',
+			'feedbackRating.aboutUsDescription' => '小さなチームが心を込めて作りました。プライバシーとシンプルさを重視し、あなたがより良い食習慣を身につけられるようサポートします。',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel} の開発者について知りたいですか？こちらをご覧ください ',
 			'feedbackRating.aboutUsLinkLabel' => '私たちについて',
 			'errors.loadingProfileData' => 'プロフィールデータの読み込みエラー',

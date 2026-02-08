@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingKo implements TranslationsFeedbackRatingEn {
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => '${appLabel}을(를) 즐기고 계신가요? 사용 경험이 저희에게는 중요합니다.';
+	@override String enjoyingQuestion({required Object appLabel}) => '${appLabel}을(를) 즐기고 계신가요?';
 	@override String get yes => '네, 즐기고 있어요';
 	@override String get no => '아직 그렇지 않아요';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel}은(는) 한 사람이 만든 앱입니다. 간단한 플레이 스토어 평가가 다른 사람들이 앱을 찾는 데 도움이 되고 개발을 계속하는 데 큰 힘이 됩니다. 잠시 시간을 내어 평가해 주시겠어요?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel}은(는) 한 사람이 만든 앱입니다. 여러분의 피드백이 앞으로 어떤 기능이 추가될지에 큰 영향을 줍니다 — 저희는 모든 메시지를 꼼꼼히 읽습니다. 이메일로 의견을 공유하시겠어요?';
+	@override String soloDevMessage({required Object appLabel}) => '간단한 평가 한 번이 다른 사람들이 ${appLabel}을(를) 찾는 데 도움이 되고 개발을 이어가는 데 큰 힘이 됩니다. 잠깐 시간을 내어 평가해 주시겠어요?';
+	@override String get shareFeedbackViaEmail => '여러분의 피드백이 앞으로의 방향을 만듭니다 — 보내주신 모든 메시지를 읽고 있습니다. 이메일로 의견을 공유하시겠어요?';
+	@override String get rateCta => 'Play 스토어에 평점 남기기';
+	@override String get maybeLater => '나중에';
+	@override String get sendFeedback => '피드백 보내기';
+	@override String get noThanks => '아니요, 괜찮아요';
+	@override String get aboutUsDescription => '작은 팀이 정성을 다해 만들었습니다. 우리는 개인정보 보호와 단순성을 중시하며, 여러분이 더 건강한 식습관을 만들어 가도록 돕는 데 집중합니다.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel}의 제작자가 궁금하신가요? ';
 	@override String get aboutUsLinkLabel => '개발자 소개';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsKo {
 			'disclaimer.healthMetrics.dailyGoal.description' => '일일 목표는 귀하의 TDEE와 체중 목표에 기반한 추천 일일 칼로리 섭취량입니다. 체중 감소를 위해서는 TDEE보다 적은 칼로리를 섭취합니다. 체중 유지를 위해서는 TDEE와 일치시킵니다. 체중 증가를 위해서는 TDEE보다 더 많은 칼로리를 섭취합니다. 이는 건강한 속도로 원하는 체중 변화를 달성하는 데 도움이 됩니다.',
 			'common.close' => '닫기',
 			'common.kContinue' => '계속하기',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel}을(를) 즐기고 계신가요? 사용 경험이 저희에게는 중요합니다.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel}을(를) 즐기고 계신가요?',
 			'feedbackRating.yes' => '네, 즐기고 있어요',
 			'feedbackRating.no' => '아직 그렇지 않아요',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel}은(는) 한 사람이 만든 앱입니다. 간단한 플레이 스토어 평가가 다른 사람들이 앱을 찾는 데 도움이 되고 개발을 계속하는 데 큰 힘이 됩니다. 잠시 시간을 내어 평가해 주시겠어요?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel}은(는) 한 사람이 만든 앱입니다. 여러분의 피드백이 앞으로 어떤 기능이 추가될지에 큰 영향을 줍니다 — 저희는 모든 메시지를 꼼꼼히 읽습니다. 이메일로 의견을 공유하시겠어요?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '간단한 평가 한 번이 다른 사람들이 ${appLabel}을(를) 찾는 데 도움이 되고 개발을 이어가는 데 큰 힘이 됩니다. 잠깐 시간을 내어 평가해 주시겠어요?',
+			'feedbackRating.shareFeedbackViaEmail' => '여러분의 피드백이 앞으로의 방향을 만듭니다 — 보내주신 모든 메시지를 읽고 있습니다. 이메일로 의견을 공유하시겠어요?',
+			'feedbackRating.rateCta' => 'Play 스토어에 평점 남기기',
+			'feedbackRating.maybeLater' => '나중에',
+			'feedbackRating.sendFeedback' => '피드백 보내기',
+			'feedbackRating.noThanks' => '아니요, 괜찮아요',
+			'feedbackRating.aboutUsDescription' => '작은 팀이 정성을 다해 만들었습니다. 우리는 개인정보 보호와 단순성을 중시하며, 여러분이 더 건강한 식습관을 만들어 가도록 돕는 데 집중합니다.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel}의 제작자가 궁금하신가요? ',
 			'feedbackRating.aboutUsLinkLabel' => '개발자 소개',
 			'errors.loadingProfileData' => '프로필 데이터 로드 중 오류 발생',

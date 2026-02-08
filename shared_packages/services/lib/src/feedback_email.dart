@@ -16,7 +16,7 @@ String? encodeQueryParameters(Map<String, String> params) {
 /// Creates and launches a feedback email with device and app information
 ///
 /// The email includes:
-/// - [version] App version string (e.g. "1.2.6" or "1.2.6#3" with patch number)
+/// - [version] App version string (e.g. "1.2.6+30" or "1.2.6#3+30" with patch and build)
 /// - Device model and OS version
 /// - User UID (if available)
 ///

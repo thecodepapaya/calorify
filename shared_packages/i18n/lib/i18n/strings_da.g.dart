@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingDa implements TranslationsFeedbackRatingEn {
 	final TranslationsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Nyder du ${appLabel}? Din oplevelse betyder meget for os.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Nyder du ${appLabel}?';
 	@override String get yes => 'Ja, jeg nyder den';
 	@override String get no => 'Ikke rigtigt';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} er udviklet af én person. En hurtig vurdering i Play Butik hjælper andre med at finde appen og holder udviklingen i gang — det betyder virkelig meget. Vil du give en vurdering?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} er udviklet af én person. Din feedback former virkelig, hvad der kommer fremover — og vi læser hver eneste besked. Vil du dele dine tanker via e-mail?';
+	@override String soloDevMessage({required Object appLabel}) => 'En hurtig vurdering hjælper andre med at finde ${appLabel} og holder udviklingen i gang. Vil du tage et øjeblik til at give en vurdering?';
+	@override String get shareFeedbackViaEmail => 'Din feedback former, hvad der kommer fremover — vi læser hver besked. Vil du gerne dele dine tanker via e-mail?';
+	@override String get rateCta => 'Bedøm i Play Butik';
+	@override String get maybeLater => 'Måske senere';
+	@override String get sendFeedback => 'Send os feedback';
+	@override String get noThanks => 'Nej tak';
+	@override String get aboutUsDescription => 'Skabt med omhu af et lille team. Vi er fokuserede på dit privatliv, enkelhed og på at hjælpe dig med at opbygge sundere spisevaner.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nysgerrig efter, hvem der står bag ${appLabel}? Se ';
 	@override String get aboutUsLinkLabel => 'Om os';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsDa {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Dagligt Mål er dit anbefalede daglige kalorieindtag baseret på din TDEE og vægtmål. For vægttab indtager du færre kalorier end din TDEE. For vægtvedligeholdelse matcher du din TDEE. For vægtøgning indtager du flere kalorier end din TDEE. Dette hjælper dig med at opnå din ønskede vægtændring i et sundt tempo.',
 			'common.close' => 'Luk',
 			'common.kContinue' => 'Fortsæt',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nyder du ${appLabel}? Din oplevelse betyder meget for os.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nyder du ${appLabel}?',
 			'feedbackRating.yes' => 'Ja, jeg nyder den',
 			'feedbackRating.no' => 'Ikke rigtigt',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} er udviklet af én person. En hurtig vurdering i Play Butik hjælper andre med at finde appen og holder udviklingen i gang — det betyder virkelig meget. Vil du give en vurdering?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} er udviklet af én person. Din feedback former virkelig, hvad der kommer fremover — og vi læser hver eneste besked. Vil du dele dine tanker via e-mail?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'En hurtig vurdering hjælper andre med at finde ${appLabel} og holder udviklingen i gang. Vil du tage et øjeblik til at give en vurdering?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Din feedback former, hvad der kommer fremover — vi læser hver besked. Vil du gerne dele dine tanker via e-mail?',
+			'feedbackRating.rateCta' => 'Bedøm i Play Butik',
+			'feedbackRating.maybeLater' => 'Måske senere',
+			'feedbackRating.sendFeedback' => 'Send os feedback',
+			'feedbackRating.noThanks' => 'Nej tak',
+			'feedbackRating.aboutUsDescription' => 'Skabt med omhu af et lille team. Vi er fokuserede på dit privatliv, enkelhed og på at hjælpe dig med at opbygge sundere spisevaner.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nysgerrig efter, hvem der står bag ${appLabel}? Se ',
 			'feedbackRating.aboutUsLinkLabel' => 'Om os',
 			'errors.loadingProfileData' => 'Fejl ved indlæsning af profildata',

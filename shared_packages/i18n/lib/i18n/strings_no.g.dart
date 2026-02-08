@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingNo implements TranslationsFeedbackRatingEn {
 	final TranslationsNo _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Liker du ${appLabel}? Din opplevelse betyr mye for oss.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Liker du ${appLabel}?';
 	@override String get yes => 'Ja, jeg liker den';
 	@override String get no => 'Ikke helt';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} er laget av én person. En rask vurdering i Play Store gjør det lettere for andre å finne appen og holder utviklingen i gang — det hjelper virkelig. Vil du ta et øyeblikk til å legge igjen en vurdering?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} er laget av én person. Tilbakemeldingene dine former hva som kommer videre — jeg leser hver melding. Vil du dele tankene dine via e-post?';
+	@override String soloDevMessage({required Object appLabel}) => 'En rask vurdering hjelper andre å finne ${appLabel} og støtter videre utvikling. Har du et øyeblikk til å gi en vurdering?';
+	@override String get shareFeedbackViaEmail => 'Tilbakemeldingen din former det som kommer videre — vi leser hver melding. Vil du dele dine tanker via e-post?';
+	@override String get rateCta => 'Vurder i Google Play';
+	@override String get maybeLater => 'Kanskje senere';
+	@override String get sendFeedback => 'Send tilbakemelding';
+	@override String get noThanks => 'Nei takk';
+	@override String get aboutUsDescription => 'Laget med omtanke av et lite team. Vi fokuserer på personvern, enkelhet og å hjelpe deg med å bygge sunnere spisevaner.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nysgjerrig på hvem som står bak ${appLabel}? Se ';
 	@override String get aboutUsLinkLabel => 'Om oss';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsNo {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Daglig Mål er ditt anbefalte daglige kaloriinntak basert på TDEE og vektmål. For vekttap konsumerer du færre kalorier enn TDEE. For vektvedlikehold matcher du TDEE. For vektøkning konsumerer du flere kalorier enn TDEE. Dette hjelper deg med å oppnå ønsket vektendring i en sunn hastighet.',
 			'common.close' => 'Lukk',
 			'common.kContinue' => 'Fortsett',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Liker du ${appLabel}? Din opplevelse betyr mye for oss.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Liker du ${appLabel}?',
 			'feedbackRating.yes' => 'Ja, jeg liker den',
 			'feedbackRating.no' => 'Ikke helt',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} er laget av én person. En rask vurdering i Play Store gjør det lettere for andre å finne appen og holder utviklingen i gang — det hjelper virkelig. Vil du ta et øyeblikk til å legge igjen en vurdering?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} er laget av én person. Tilbakemeldingene dine former hva som kommer videre — jeg leser hver melding. Vil du dele tankene dine via e-post?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'En rask vurdering hjelper andre å finne ${appLabel} og støtter videre utvikling. Har du et øyeblikk til å gi en vurdering?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Tilbakemeldingen din former det som kommer videre — vi leser hver melding. Vil du dele dine tanker via e-post?',
+			'feedbackRating.rateCta' => 'Vurder i Google Play',
+			'feedbackRating.maybeLater' => 'Kanskje senere',
+			'feedbackRating.sendFeedback' => 'Send tilbakemelding',
+			'feedbackRating.noThanks' => 'Nei takk',
+			'feedbackRating.aboutUsDescription' => 'Laget med omtanke av et lite team. Vi fokuserer på personvern, enkelhet og å hjelpe deg med å bygge sunnere spisevaner.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nysgjerrig på hvem som står bak ${appLabel}? Se ',
 			'feedbackRating.aboutUsLinkLabel' => 'Om oss',
 			'errors.loadingProfileData' => 'Feil ved lasting av profildata',

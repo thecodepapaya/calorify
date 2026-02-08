@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingTe implements TranslationsFeedbackRatingEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'మీకు ${appLabel} నచ్చుతున్నదా? మీ అనుభవం మాకు ముఖ్యమే.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'మీకు ${appLabel} ఉపయోగించడం నచ్చుతున్నదా?';
 	@override String get yes => 'అవును, నాకు నచ్చుతోంది';
 	@override String get no => 'అంతగా కాదు';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} ఒకే ఒక వ్యక్తి చేత అభివృద్ధి చేయబడింది. చిన్న Play Store రేటింగ్ ఇతరులకు యాప్ కనుగొనడంలో మరియు అభివృద్ధిని కొనసాగించడంలో ఎంతగానో సహాయపడుతుంది — ఇది నిజంగా సహాయపడుతుంది. ఒక్క నిమిషం తీసుకొని రేటింగ్ ఇవ్వగలరా?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} ఒకే ఒక వ్యక్తి చేత అభివృద్ధి చేయబడింది. మీ ఫీడ్‌బ్యాక్ భవిష్యత్తులో ఏమి వచ్చేను తీర్చిదిద్దుతుంది — మేము ప్రతి సందేశాన్ని చదువుతాం. ఇమెయిల్ ద్వారా మీ అభిప్రాయాన్ని పంచుకోవాలనుకుంటున్నారా?';
+	@override String soloDevMessage({required Object appLabel}) => 'ఒక చిన్న రేటింగ్ ఇతరులకు ${appLabel} కనుగొనడంలో సహాయపడుతుంది మరియు అభివృద్ధిని కొనసాగించడానికి ప్రోత్సాహం ఇస్తుంది. మీరు ఒక నిమిషం తీసుకుని ఒక రేటింగ్ ఇవ్వగలరా?';
+	@override String get shareFeedbackViaEmail => 'మీ ఫీడ్బ్యాక్ మెరుగుదలల్ని నిర్దేశిస్తుంది — మేము ప్రతి సందేశాన్ని చదివి దృష్టిలోకి తీసుకుంటాము. మీరు మీ ఆలోచనలు ఇమెయిల్ ద్వారా పంచుకోవాలనుకుంటున్నారా?';
+	@override String get rateCta => 'మాకు Play Storeలో రేటింగ్ ఇవ్వండి';
+	@override String get maybeLater => 'తరువాత';
+	@override String get sendFeedback => 'అభిప్రాయం పంపండి';
+	@override String get noThanks => 'కాదు, ధన్యవాదాలు';
+	@override String get aboutUsDescription => 'చిన్న బృందం శ్రద్ధగా రూపొందించిన యాప్. మేము గోప్యత, సరళత మరియు మీరు మెరుగైన ఆహార అలవాట్లు ఏర్పరచుకోవడంలో సహాయపడటంపై దృష్టి పెట్టాము.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel} వెనుక ఎవరు ఉన్నారో తెలుసుకోవాలా? చూడండి ';
 	@override String get aboutUsLinkLabel => 'మా గురించి';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsTe {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'రోజు లక్ష్యం అంటే మీ TDEE మరియు బరువు లక్ష్యం ఆధారంగా మీకు సిఫారసు చేసిన ప్రతిరోజు కేలరీ తీసుకొనే పరిమాణం. బరువు తగ్గేందుకు, మీరు మీ TDEE కన్నా తక్కువ కేలరీలను తీసుకుంటారు. బరువు నిర్వహణకు, మీరు మీ TDEE సరిపోల్చుతారు. బరువు పెరగడం కోసం, మీరు మీ TDEE కన్నా ఎక్కువ కేలరీలు తీసుకుంటారు. ఇది మీ ఆశించిన బరువు మార్పును ఆరోగ్యకరమైన రీతిలో సాధించడంలో సహాయ పడుతుంది.',
 			'common.close' => 'క్లోజ్',
 			'common.kContinue' => 'కొనసాగించండి',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'మీకు ${appLabel} నచ్చుతున్నదా? మీ అనుభవం మాకు ముఖ్యమే.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'మీకు ${appLabel} ఉపయోగించడం నచ్చుతున్నదా?',
 			'feedbackRating.yes' => 'అవును, నాకు నచ్చుతోంది',
 			'feedbackRating.no' => 'అంతగా కాదు',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} ఒకే ఒక వ్యక్తి చేత అభివృద్ధి చేయబడింది. చిన్న Play Store రేటింగ్ ఇతరులకు యాప్ కనుగొనడంలో మరియు అభివృద్ధిని కొనసాగించడంలో ఎంతగానో సహాయపడుతుంది — ఇది నిజంగా సహాయపడుతుంది. ఒక్క నిమిషం తీసుకొని రేటింగ్ ఇవ్వగలరా?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} ఒకే ఒక వ్యక్తి చేత అభివృద్ధి చేయబడింది. మీ ఫీడ్‌బ్యాక్ భవిష్యత్తులో ఏమి వచ్చేను తీర్చిదిద్దుతుంది — మేము ప్రతి సందేశాన్ని చదువుతాం. ఇమెయిల్ ద్వారా మీ అభిప్రాయాన్ని పంచుకోవాలనుకుంటున్నారా?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'ఒక చిన్న రేటింగ్ ఇతరులకు ${appLabel} కనుగొనడంలో సహాయపడుతుంది మరియు అభివృద్ధిని కొనసాగించడానికి ప్రోత్సాహం ఇస్తుంది. మీరు ఒక నిమిషం తీసుకుని ఒక రేటింగ్ ఇవ్వగలరా?',
+			'feedbackRating.shareFeedbackViaEmail' => 'మీ ఫీడ్బ్యాక్ మెరుగుదలల్ని నిర్దేశిస్తుంది — మేము ప్రతి సందేశాన్ని చదివి దృష్టిలోకి తీసుకుంటాము. మీరు మీ ఆలోచనలు ఇమెయిల్ ద్వారా పంచుకోవాలనుకుంటున్నారా?',
+			'feedbackRating.rateCta' => 'మాకు Play Storeలో రేటింగ్ ఇవ్వండి',
+			'feedbackRating.maybeLater' => 'తరువాత',
+			'feedbackRating.sendFeedback' => 'అభిప్రాయం పంపండి',
+			'feedbackRating.noThanks' => 'కాదు, ధన్యవాదాలు',
+			'feedbackRating.aboutUsDescription' => 'చిన్న బృందం శ్రద్ధగా రూపొందించిన యాప్. మేము గోప్యత, సరళత మరియు మీరు మెరుగైన ఆహార అలవాట్లు ఏర్పరచుకోవడంలో సహాయపడటంపై దృష్టి పెట్టాము.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel} వెనుక ఎవరు ఉన్నారో తెలుసుకోవాలా? చూడండి ',
 			'feedbackRating.aboutUsLinkLabel' => 'మా గురించి',
 			'errors.loadingProfileData' => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం',

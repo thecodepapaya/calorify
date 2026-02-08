@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingCs implements TranslationsFeedbackRatingEn {
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Líbí se vám ${appLabel}? Vaše zkušenost je pro nás důležitá.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Líbí se vám ${appLabel}?';
 	@override String get yes => 'Ano, líbí se mi.';
 	@override String get no => 'Ne, moc ne.';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} vytváří jedna osoba. Krátké hodnocení v Obchodě Play pomůže ostatním aplikaci najít a podpoří další vývoj — opravdu to pomáhá. Věnujete chvilku a ohodnotíte ji?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} vytváří jedna osoba. Vaše zpětná vazba skutečně ovlivňuje, co přijde dál — a každý vzkaz čteme. Chtěli byste své názory sdílet e-mailem?';
+	@override String soloDevMessage({required Object appLabel}) => 'Krátké hodnocení pomůže ostatním najít ${appLabel} a podpoří další vývoj. Věnujete chvilku a zanecháte hodnocení?';
+	@override String get shareFeedbackViaEmail => 'Vaše zpětná vazba ovlivní, co přijde dál — čteme každou zprávu. Chcete nám své připomínky poslat e-mailem?';
+	@override String get rateCta => 'Ohodnoťte v Obchodu Play';
+	@override String get maybeLater => 'Možná později';
+	@override String get sendFeedback => 'Odeslat zpětnou vazbu';
+	@override String get noThanks => 'Ne, děkuji';
+	@override String get aboutUsDescription => 'Vytvořeno s péčí malým týmem. Dbáme na soukromí, jednoduchost a pomáháme vám vytvářet lepší stravovací návyky.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Zajímá vás, kdo stojí za ${appLabel}? Podívejte se ';
 	@override String get aboutUsLinkLabel => 'O nás';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsCs {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Denní cíl je vaše doporučená denní příjem kalorií na základě vašeho TDEE a cílové hmotnosti. Při hubnutí konzumujete méně kalorií než vaše TDEE. Pro udržení hmotnosti odpovídáte svému TDEE. Při přibírání na váze konzumujete více kalorií než vaše TDEE. To vám pomůže dosáhnout požadované změny hmotnosti zdravým tempem.',
 			'common.close' => 'Zavřít',
 			'common.kContinue' => 'Pokračovat',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Líbí se vám ${appLabel}? Vaše zkušenost je pro nás důležitá.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Líbí se vám ${appLabel}?',
 			'feedbackRating.yes' => 'Ano, líbí se mi.',
 			'feedbackRating.no' => 'Ne, moc ne.',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} vytváří jedna osoba. Krátké hodnocení v Obchodě Play pomůže ostatním aplikaci najít a podpoří další vývoj — opravdu to pomáhá. Věnujete chvilku a ohodnotíte ji?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} vytváří jedna osoba. Vaše zpětná vazba skutečně ovlivňuje, co přijde dál — a každý vzkaz čteme. Chtěli byste své názory sdílet e-mailem?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Krátké hodnocení pomůže ostatním najít ${appLabel} a podpoří další vývoj. Věnujete chvilku a zanecháte hodnocení?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Vaše zpětná vazba ovlivní, co přijde dál — čteme každou zprávu. Chcete nám své připomínky poslat e-mailem?',
+			'feedbackRating.rateCta' => 'Ohodnoťte v Obchodu Play',
+			'feedbackRating.maybeLater' => 'Možná později',
+			'feedbackRating.sendFeedback' => 'Odeslat zpětnou vazbu',
+			'feedbackRating.noThanks' => 'Ne, děkuji',
+			'feedbackRating.aboutUsDescription' => 'Vytvořeno s péčí malým týmem. Dbáme na soukromí, jednoduchost a pomáháme vám vytvářet lepší stravovací návyky.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Zajímá vás, kdo stojí za ${appLabel}? Podívejte se ',
 			'feedbackRating.aboutUsLinkLabel' => 'O nás',
 			'errors.loadingProfileData' => 'Chyba při načítání dat profilu',

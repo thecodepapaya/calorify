@@ -601,11 +601,16 @@
     "continue": "続ける"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "{appLabel} を気に入っていますか？ご利用の感想は私たちにとって大切です。",
+    "enjoyingQuestion": "{appLabel}をお楽しみいただけていますか？",
     "yes": "はい、気に入っています",
     "no": "あまり良くありません",
-    "soloDevMessage": "{appLabel} はひとりで開発されています。Play ストアでの簡単な評価は他の人が見つけやすくなり、開発の継続にもつながります — 本当に助かります。評価をしていただけますか？",
-    "shareFeedbackViaEmail": "{appLabel} はひとりで開発されています。皆さんのフィードバックが今後の改善に直結します — すべてのメッセージを拝見しています。メールでご意見を共有しますか？",
+    "soloDevMessage": "簡単な評価は他の方が{appLabel}を見つけやすくなり、開発の継続を支えます。少しお時間をいただいて評価を残していただけますか？",
+    "shareFeedbackViaEmail": "ご意見は今後の改善に直結します — いただいたメッセージはすべて拝見しています。メールでご感想を共有されますか？",
+    "rateCta": "Google Playで評価する",
+    "maybeLater": "また今度",
+    "sendFeedback": "フィードバックを送る",
+    "noThanks": "いいえ、結構です",
+    "aboutUsDescription": "小さなチームが心を込めて作りました。プライバシーとシンプルさを重視し、あなたがより良い食習慣を身につけられるようサポートします。",
     "aboutUsMentionBeforeLink": "{appLabel} の開発者について知りたいですか？こちらをご覧ください ",
     "aboutUsLinkLabel": "私たちについて"
   },

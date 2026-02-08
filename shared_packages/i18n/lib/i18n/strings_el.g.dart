@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingEl implements TranslationsFeedbackRatingEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Απολαμβάνεις το ${appLabel}? Η εμπειρία σου έχει σημασία για εμάς.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Απολαμβάνεις το ${appLabel};';
 	@override String get yes => 'Ναι, το απολαμβάνω';
 	@override String get no => 'Όχι και τόσο';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} έχει δημιουργηθεί από ένα άτομο. Μία γρήγορη αξιολόγηση στο Play Store βοηθά άλλους να το βρουν και στηρίζει την ανάπτυξη — πραγματικά βοηθάει. Θα αφιερώσεις ένα λεπτό για να αφήσεις μία αξιολόγηση?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} έχει δημιουργηθεί από ένα άτομο. Τα σχόλιά σου διαμορφώνουν πραγματικά το τι θα ακολουθήσει — και διαβάζουμε κάθε μήνυμα. Θα ήθελες να μοιραστείς τις σκέψεις σου μέσω email?';
+	@override String soloDevMessage({required Object appLabel}) => 'Μια σύντομη αξιολόγηση βοηθάει άλλους να βρουν το ${appLabel} και στηρίζει την ανάπτυξή του. Θα αφιερώσετε ένα λεπτό για να αφήσετε μια αξιολόγηση;';
+	@override String get shareFeedbackViaEmail => 'Τα σχόλιά σας διαμορφώνουν ό,τι έρχεται — διαβάζουμε κάθε μήνυμα. Θα θέλατε να μοιραστείτε τις σκέψεις σας μέσω email;';
+	@override String get rateCta => 'Αξιολογήστε στο Play Store';
+	@override String get maybeLater => 'Ίσως αργότερα';
+	@override String get sendFeedback => 'Στείλτε μας τα σχόλιά σας';
+	@override String get noThanks => 'Όχι, ευχαριστώ';
+	@override String get aboutUsDescription => 'Δημιουργήθηκε με φροντίδα από μια μικρή ομάδα. Δίνουμε προτεραιότητα στην ιδιωτικότητα, την απλότητα και στο να σας βοηθάμε να αποκτήσετε καλύτερες διατροφικές συνήθειες.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Σε ενδιαφέρει ποιος βρίσκεται πίσω από το ${appLabel}? Δες ';
 	@override String get aboutUsLinkLabel => 'Σχετικά με εμάς';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsEl {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Ο Ημερήσιος Στόχος είναι η συνιστώμενη ημερήσια θερμιδική σας πρόσληψη με βάση το TDEE σας και τον στόχο βάρους σας. Για απώλεια βάρους, καταναλώνετε λιγότερες θερμίδες από το TDEE σας. Για συντήρηση βάρους, ισοφαρίζετε το TDEE σας. Για αύξηση βάρους, καταναλώνετε περισσότερες θερμίδες από το TDEE σας. Αυτό σας βοηθά να επιτύχετε την επιθυμητή αλλαγή βάρους σας με υγιή ρυθμό.',
 			'common.close' => 'Κλείσιμο',
 			'common.kContinue' => 'Συνέχεια',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Απολαμβάνεις το ${appLabel}? Η εμπειρία σου έχει σημασία για εμάς.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Απολαμβάνεις το ${appLabel};',
 			'feedbackRating.yes' => 'Ναι, το απολαμβάνω',
 			'feedbackRating.no' => 'Όχι και τόσο',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} έχει δημιουργηθεί από ένα άτομο. Μία γρήγορη αξιολόγηση στο Play Store βοηθά άλλους να το βρουν και στηρίζει την ανάπτυξη — πραγματικά βοηθάει. Θα αφιερώσεις ένα λεπτό για να αφήσεις μία αξιολόγηση?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} έχει δημιουργηθεί από ένα άτομο. Τα σχόλιά σου διαμορφώνουν πραγματικά το τι θα ακολουθήσει — και διαβάζουμε κάθε μήνυμα. Θα ήθελες να μοιραστείς τις σκέψεις σου μέσω email?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Μια σύντομη αξιολόγηση βοηθάει άλλους να βρουν το ${appLabel} και στηρίζει την ανάπτυξή του. Θα αφιερώσετε ένα λεπτό για να αφήσετε μια αξιολόγηση;',
+			'feedbackRating.shareFeedbackViaEmail' => 'Τα σχόλιά σας διαμορφώνουν ό,τι έρχεται — διαβάζουμε κάθε μήνυμα. Θα θέλατε να μοιραστείτε τις σκέψεις σας μέσω email;',
+			'feedbackRating.rateCta' => 'Αξιολογήστε στο Play Store',
+			'feedbackRating.maybeLater' => 'Ίσως αργότερα',
+			'feedbackRating.sendFeedback' => 'Στείλτε μας τα σχόλιά σας',
+			'feedbackRating.noThanks' => 'Όχι, ευχαριστώ',
+			'feedbackRating.aboutUsDescription' => 'Δημιουργήθηκε με φροντίδα από μια μικρή ομάδα. Δίνουμε προτεραιότητα στην ιδιωτικότητα, την απλότητα και στο να σας βοηθάμε να αποκτήσετε καλύτερες διατροφικές συνήθειες.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Σε ενδιαφέρει ποιος βρίσκεται πίσω από το ${appLabel}? Δες ',
 			'feedbackRating.aboutUsLinkLabel' => 'Σχετικά με εμάς',
 			'errors.loadingProfileData' => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ',

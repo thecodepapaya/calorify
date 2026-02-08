@@ -601,11 +601,16 @@
     "continue": "계속하기"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "{appLabel}을(를) 즐기고 계신가요? 사용 경험이 저희에게는 중요합니다.",
+    "enjoyingQuestion": "{appLabel}을(를) 즐기고 계신가요?",
     "yes": "네, 즐기고 있어요",
     "no": "아직 그렇지 않아요",
-    "soloDevMessage": "{appLabel}은(는) 한 사람이 만든 앱입니다. 간단한 플레이 스토어 평가가 다른 사람들이 앱을 찾는 데 도움이 되고 개발을 계속하는 데 큰 힘이 됩니다. 잠시 시간을 내어 평가해 주시겠어요?",
-    "shareFeedbackViaEmail": "{appLabel}은(는) 한 사람이 만든 앱입니다. 여러분의 피드백이 앞으로 어떤 기능이 추가될지에 큰 영향을 줍니다 — 저희는 모든 메시지를 꼼꼼히 읽습니다. 이메일로 의견을 공유하시겠어요?",
+    "soloDevMessage": "간단한 평가 한 번이 다른 사람들이 {appLabel}을(를) 찾는 데 도움이 되고 개발을 이어가는 데 큰 힘이 됩니다. 잠깐 시간을 내어 평가해 주시겠어요?",
+    "shareFeedbackViaEmail": "여러분의 피드백이 앞으로의 방향을 만듭니다 — 보내주신 모든 메시지를 읽고 있습니다. 이메일로 의견을 공유하시겠어요?",
+    "rateCta": "Play 스토어에 평점 남기기",
+    "maybeLater": "나중에",
+    "sendFeedback": "피드백 보내기",
+    "noThanks": "아니요, 괜찮아요",
+    "aboutUsDescription": "작은 팀이 정성을 다해 만들었습니다. 우리는 개인정보 보호와 단순성을 중시하며, 여러분이 더 건강한 식습관을 만들어 가도록 돕는 데 집중합니다.",
     "aboutUsMentionBeforeLink": "{appLabel}의 제작자가 궁금하신가요? ",
     "aboutUsLinkLabel": "개발자 소개"
   },

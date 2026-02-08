@@ -601,11 +601,16 @@
     "continue": "Fortsæt"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Nyder du {appLabel}? Din oplevelse betyder meget for os.",
+    "enjoyingQuestion": "Nyder du {appLabel}?",
     "yes": "Ja, jeg nyder den",
     "no": "Ikke rigtigt",
-    "soloDevMessage": "{appLabel} er udviklet af én person. En hurtig vurdering i Play Butik hjælper andre med at finde appen og holder udviklingen i gang — det betyder virkelig meget. Vil du give en vurdering?",
-    "shareFeedbackViaEmail": "{appLabel} er udviklet af én person. Din feedback former virkelig, hvad der kommer fremover — og vi læser hver eneste besked. Vil du dele dine tanker via e-mail?",
+    "soloDevMessage": "En hurtig vurdering hjælper andre med at finde {appLabel} og holder udviklingen i gang. Vil du tage et øjeblik til at give en vurdering?",
+    "shareFeedbackViaEmail": "Din feedback former, hvad der kommer fremover — vi læser hver besked. Vil du gerne dele dine tanker via e-mail?",
+    "rateCta": "Bedøm i Play Butik",
+    "maybeLater": "Måske senere",
+    "sendFeedback": "Send os feedback",
+    "noThanks": "Nej tak",
+    "aboutUsDescription": "Skabt med omhu af et lille team. Vi er fokuserede på dit privatliv, enkelhed og på at hjælpe dig med at opbygge sundere spisevaner.",
     "aboutUsMentionBeforeLink": "Nysgerrig efter, hvem der står bag {appLabel}? Se ",
     "aboutUsLinkLabel": "Om os"
   },

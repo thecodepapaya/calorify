@@ -1,4 +1,6 @@
 import 'package:models/models.dart';
+import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:utils/utils.dart';
 import 'package:i18n/i18n.dart';
@@ -205,6 +207,7 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
     updatedProfile.height = _height;
     updatedProfile.heightUnit = _unitSystem;
     await OnboardingService.instance.saveProfileData(updatedProfile);
+    Analytics.instance.logEvent(AnalyticsEvent.onboardingSetHeight);
     widget.onContinue();
   }
 }

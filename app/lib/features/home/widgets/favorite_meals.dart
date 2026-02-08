@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/router/app_router.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
@@ -92,6 +93,9 @@ class _FavoriteMealsState extends State<FavoriteMeals> {
                           visualDensity: VisualDensity.compact,
                         ),
                         onPressed: () {
+                          Analytics.instance.logEvent(
+                            AnalyticsEvent.viewFavorites,
+                          );
                           context.router.push(const FavoritesRoute());
                         },
                         child: Text(t.home.favoriteMeals.seeAll),

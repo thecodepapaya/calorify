@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingNl implements TranslationsFeedbackRatingEn {
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Bevalt ${appLabel} je? Jouw ervaring is belangrijk voor ons.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Geniet je van ${appLabel}?';
 	@override String get yes => 'Ja, het bevalt me';
 	@override String get no => 'Niet echt';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} is door één persoon gemaakt. Een korte beoordeling in de Play Store helpt anderen het te vinden en houdt de ontwikkeling gaande — het helpt echt. Zou je even de tijd willen nemen om er een achter te laten?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} is door één persoon gemaakt. Jouw feedback bepaalt wat er daarna komt — en we lezen elk bericht. Wil je je feedback per e-mail delen?';
+	@override String soloDevMessage({required Object appLabel}) => 'Een korte beoordeling helpt anderen ${appLabel} te vinden en houdt de ontwikkeling gaande. Wil je even de tijd nemen om er een achter te laten?';
+	@override String get shareFeedbackViaEmail => 'Je feedback bepaalt wat er hierna komt — we lezen elk bericht. Wil je je gedachten via e-mail met ons delen?';
+	@override String get rateCta => 'Beoordeel ons in de Play Store';
+	@override String get maybeLater => 'Misschien later';
+	@override String get sendFeedback => 'Stuur feedback';
+	@override String get noThanks => 'Nee, bedankt';
+	@override String get aboutUsDescription => 'Met zorg gemaakt door een klein team. We staan voor privacy en eenvoud, en helpen je gezondere eetgewoonten op te bouwen.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nieuwsgierig wie er achter ${appLabel} zit? Zie ';
 	@override String get aboutUsLinkLabel => 'Over ons';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsNl {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Het Dagdoel is je aanbevolen dagelijkse calorie-inname op basis van je TDEE en gewichtsdoel. Voor gewichtsverlies consumeer je minder calorieën dan je TDEE. Voor gewichtsbehoud stem je je inname af op je TDEE. Voor gewichtstoename consumeer je meer calorieën dan je TDEE. Dit helpt je om je gewenste gewichtsverandering op een gezonde manier te bereiken.',
 			'common.close' => 'Sluiten',
 			'common.kContinue' => 'Doorgaan',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Bevalt ${appLabel} je? Jouw ervaring is belangrijk voor ons.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Geniet je van ${appLabel}?',
 			'feedbackRating.yes' => 'Ja, het bevalt me',
 			'feedbackRating.no' => 'Niet echt',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} is door één persoon gemaakt. Een korte beoordeling in de Play Store helpt anderen het te vinden en houdt de ontwikkeling gaande — het helpt echt. Zou je even de tijd willen nemen om er een achter te laten?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} is door één persoon gemaakt. Jouw feedback bepaalt wat er daarna komt — en we lezen elk bericht. Wil je je feedback per e-mail delen?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Een korte beoordeling helpt anderen ${appLabel} te vinden en houdt de ontwikkeling gaande. Wil je even de tijd nemen om er een achter te laten?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Je feedback bepaalt wat er hierna komt — we lezen elk bericht. Wil je je gedachten via e-mail met ons delen?',
+			'feedbackRating.rateCta' => 'Beoordeel ons in de Play Store',
+			'feedbackRating.maybeLater' => 'Misschien later',
+			'feedbackRating.sendFeedback' => 'Stuur feedback',
+			'feedbackRating.noThanks' => 'Nee, bedankt',
+			'feedbackRating.aboutUsDescription' => 'Met zorg gemaakt door een klein team. We staan voor privacy en eenvoud, en helpen je gezondere eetgewoonten op te bouwen.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nieuwsgierig wie er achter ${appLabel} zit? Zie ',
 			'feedbackRating.aboutUsLinkLabel' => 'Over ons',
 			'errors.loadingProfileData' => 'Fout bij het laden van profielgegevens',

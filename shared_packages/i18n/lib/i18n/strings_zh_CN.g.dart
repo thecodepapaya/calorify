@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingZhCn implements TranslationsFeedbackRatingEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => '喜欢使用 ${appLabel} 吗？您的体验对我们很重要。';
+	@override String enjoyingQuestion({required Object appLabel}) => '喜欢使用 ${appLabel} 吗？';
 	@override String get yes => '是的，我很喜欢';
 	@override String get no => '不是很';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} 由一人独立开发。在 Play 商店快速评分能帮助更多人发现应用并支持持续开发——这真的很重要。您愿意花一点时间留下评分吗？';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} 由一人独立开发。您的反馈会直接影响后续更新——我们会阅读每一条留言。您愿意通过电子邮件分享您的想法吗？';
+	@override String soloDevMessage({required Object appLabel}) => '简短的评分能帮助他人发现 ${appLabel}，并支持我们持续开发。您愿意花一点时间留下评分吗？';
+	@override String get shareFeedbackViaEmail => '您的反馈会影响未来改进——我们会阅读每一条留言。您愿意通过电子邮件分享您的想法吗？';
+	@override String get rateCta => '在 Google Play 商店评分';
+	@override String get maybeLater => '稍后再说';
+	@override String get sendFeedback => '发送反馈';
+	@override String get noThanks => '不用，谢谢';
+	@override String get aboutUsDescription => '由一个小团队用心打造。我们专注于隐私保护、简洁设计，并致力于帮助你养成更健康的饮食习惯。';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '想知道是谁在开发 ${appLabel}？请查看 ';
 	@override String get aboutUsLinkLabel => '关于我们';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsZhCn {
 			'disclaimer.healthMetrics.dailyGoal.description' => '每日目标是基于您的TDEE和体重目标推荐的每日卡路里摄入量。为了减重，您的卡路里摄入量应低于TDEE；为了维持体重，您的卡路里摄入量应与TDEE持平；为了增重，您的卡路里摄入量应高于TDEE。这有助于您以健康的节奏实现预期的体重变化。',
 			'common.close' => '关闭',
 			'common.kContinue' => '继续',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '喜欢使用 ${appLabel} 吗？您的体验对我们很重要。',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '喜欢使用 ${appLabel} 吗？',
 			'feedbackRating.yes' => '是的，我很喜欢',
 			'feedbackRating.no' => '不是很',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} 由一人独立开发。在 Play 商店快速评分能帮助更多人发现应用并支持持续开发——这真的很重要。您愿意花一点时间留下评分吗？',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} 由一人独立开发。您的反馈会直接影响后续更新——我们会阅读每一条留言。您愿意通过电子邮件分享您的想法吗？',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '简短的评分能帮助他人发现 ${appLabel}，并支持我们持续开发。您愿意花一点时间留下评分吗？',
+			'feedbackRating.shareFeedbackViaEmail' => '您的反馈会影响未来改进——我们会阅读每一条留言。您愿意通过电子邮件分享您的想法吗？',
+			'feedbackRating.rateCta' => '在 Google Play 商店评分',
+			'feedbackRating.maybeLater' => '稍后再说',
+			'feedbackRating.sendFeedback' => '发送反馈',
+			'feedbackRating.noThanks' => '不用，谢谢',
+			'feedbackRating.aboutUsDescription' => '由一个小团队用心打造。我们专注于隐私保护、简洁设计，并致力于帮助你养成更健康的饮食习惯。',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '想知道是谁在开发 ${appLabel}？请查看 ',
 			'feedbackRating.aboutUsLinkLabel' => '关于我们',
 			'errors.loadingProfileData' => '加载个人资料数据时出错',

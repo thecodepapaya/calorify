@@ -314,7 +314,7 @@ class AboutScreen extends StatelessWidget {
                 await sendFeedbackEmail(
                   appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
                   emailAddress: 'calorify@thecodepapaya.dev',
-                  version: versionInfo.versionDisplay,
+                  version: versionInfo.uiVersionWithBuild,
                 );
               },
         ),
@@ -402,7 +402,7 @@ class AboutScreen extends StatelessWidget {
             await sendFeedbackEmail(
               appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
               emailAddress: 'calorify@thecodepapaya.dev',
-              version: versionInfo.versionDisplay,
+              version: versionInfo.uiVersionWithBuild,
             );
           },
         ),

@@ -601,11 +601,16 @@
     "continue": "Fortfahren"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Gefällt dir {appLabel}? Deine Erfahrung ist uns wichtig.",
+    "enjoyingQuestion": "Gefällt dir {appLabel}?",
     "yes": "Ja, gefällt mir",
     "no": "Nicht wirklich",
-    "soloDevMessage": "{appLabel} wird von einer einzigen Person entwickelt. Eine kurze Play‑Store-Bewertung hilft anderen, die App zu finden, und hält die Entwicklung am Laufen — es hilft wirklich. Würdest du kurz eine Bewertung hinterlassen?",
-    "shareFeedbackViaEmail": "{appLabel} wird von einer einzelnen Person entwickelt. Dein Feedback prägt wirklich, was als Nächstes kommt — und ich lese jede Nachricht. Möchtest du deine Gedanken per E‑Mail teilen?",
+    "soloDevMessage": "Eine kurze Bewertung hilft anderen, {appLabel} zu finden und hält die Weiterentwicklung am Laufen. Würdest du kurz eine Bewertung abgeben?",
+    "shareFeedbackViaEmail": "Dein Feedback prägt, was als Nächstes kommt — wir lesen jede Nachricht. Möchtest du deine Gedanken per E‑Mail mit uns teilen?",
+    "rateCta": "Im Play Store bewerten",
+    "maybeLater": "Vielleicht später",
+    "sendFeedback": "Feedback senden",
+    "noThanks": "Nein, danke",
+    "aboutUsDescription": "Mit Sorgfalt von einem kleinen Team entwickelt. Wir legen Wert auf Datenschutz, Einfachheit und darauf, dir zu helfen, gesündere Essgewohnheiten aufzubauen.",
     "aboutUsMentionBeforeLink": "Neugierig, wer hinter {appLabel} steckt? Sieh dir ",
     "aboutUsLinkLabel": "Über uns"
   },

@@ -25,6 +25,7 @@ Future<void> showMealTip({
   MealDetectionResult? mealDetectionResult,
   LoggedMeal? loggedMeal,
   Uint8List? imageBytes,
+  bool previewOnly = false,
 }) {
   final parentContext = context;
   return showModalBottomSheet(
@@ -40,6 +41,7 @@ Future<void> showMealTip({
           mealDetectionResult: mealDetectionResult,
           loggedMeal: loggedMeal,
           imageBytes: imageBytes,
+          previewOnly: previewOnly,
         ),
   );
 }
@@ -50,6 +52,7 @@ class _MealTip extends StatelessWidget {
     this.mealDetectionResult,
     this.loggedMeal,
     this.imageBytes,
+    this.previewOnly = false,
   }) : assert(mealDetectionResult != null || loggedMeal != null),
        meal = mealDetectionResult?.meal ?? loggedMeal?.meal ?? Meal(),
        metadata =
@@ -64,6 +67,7 @@ class _MealTip extends StatelessWidget {
   final MealDetectionResult? mealDetectionResult;
   final LoggedMeal? loggedMeal;
   final Uint8List? imageBytes;
+  final bool previewOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -250,20 +254,32 @@ class _MealTip extends StatelessWidget {
       ),
       SizedBox(height: 20),
       mealDetectionResult != null
-          ? PrimaryButton(
-            analyticsEvent: AnalyticsEvent.mealSave,
-            onPressed: () async {
-              await logMeal(
-                context,
-                mealDetectionResult!.meal,
-                parentContext: parentContext,
-              );
-              if (!context.mounted) return;
-              Navigator.of(context).pop();
-            },
-            text: t.meal.saveMeal,
-            leadingIcon: LucideIcons.save,
-          )
+          ? (previewOnly
+              ? SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: Icon(LucideIcons.x, size: 20),
+                    label: Text(t.common.close),
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                    ),
+                  ),
+                )
+              : PrimaryButton(
+                  analyticsEvent: AnalyticsEvent.mealSave,
+                  onPressed: () async {
+                    await logMeal(
+                      context,
+                      mealDetectionResult!.meal,
+                      parentContext: parentContext,
+                    );
+                    if (!context.mounted) return;
+                    Navigator.of(context).pop();
+                  },
+                  text: t.meal.saveMeal,
+                  leadingIcon: LucideIcons.save,
+                ))
           : Row(
             children: [
               if (loggedMeal != null)
@@ -292,7 +308,7 @@ class _MealTip extends StatelessWidget {
                   },
                   text: t.meal.editMeal,
                   leadingIcon: LucideIcons.pencil,
-                  analyticsEvent: AnalyticsEvent.mealSave,
+                  analyticsEvent: AnalyticsEvent.mealEdit,
                 ),
               ),
             ],

@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingBn implements TranslationsFeedbackRatingEn {
 	final TranslationsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'আপনি কি ${appLabel} উপভোগ করছেন? আপনার অভিজ্ঞতা আমাদের জন্য গুরুত্বপূর্ণ।';
+	@override String enjoyingQuestion({required Object appLabel}) => 'আপনি কি ${appLabel} উপভোগ করছেন?';
 	@override String get yes => 'হ্যাঁ, আমি উপভোগ করছি';
 	@override String get no => 'তেমন না';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} একজন ব্যক্তির দ্বারা তৈরি। একটি দ্রুত Play Store রেটিং অন্যদের এটি খুঁজে পেতে সাহায্য করে এবং উন্নয়ন চালিয়ে রাখতে সহায়ক — এটি সত্যিই সাহায্য করে। আপনি কি একটা ক্ষণ নিয়ে একটি রেটিং দেবেন?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} একজন ব্যক্তির তৈরি। আপনার প্রতিক্রিয়া ভবিষ্যৎ নির্ধারণে গুরুত্ব রাখে — এবং আমরা প্রতিটি বার্তা পড়ি। আপনি কি ইমেইলের মাধ্যমে আপনার মতামত শেয়ার করতে চান?';
+	@override String soloDevMessage({required Object appLabel}) => 'একটি দ্রুত রেটিং অন্যদের ${appLabel} খুঁজে পেতে সাহায্য করে এবং আমাদের উন্নয়ন চালিয়ে রাখতে সহায়ক। আপনি কি একটু সময় নিয়ে একটি রেটিং দেবেন?';
+	@override String get shareFeedbackViaEmail => 'আপনার প্রতিক্রিয়া পরবর্তী আপডেটগুলোকে গঠন করে — আমরা প্রতিটি বার্তা মনোযোগ দিয়ে পড়ি। আপনি কি ইমেইলের মাধ্যমে আপনার মতামত শেয়ার করতে চান?';
+	@override String get rateCta => 'প্লে স্টোরে রেট করুন';
+	@override String get maybeLater => 'পরে হতে পারে';
+	@override String get sendFeedback => 'মতামত পাঠান';
+	@override String get noThanks => 'না, ধন্যবাদ';
+	@override String get aboutUsDescription => 'একটি ছোট দল যত্নসহ তৈরি করেছে। আমরা গোপনীয়তা, সরলতা এবং আপনাকে আরও স্বাস্থ্যকর খাদ্যাভ্যাস গড়তে সাহায্য করার ওপর গুরুত্ব দিই।';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'জানতে চান ${appLabel}-এর পেছনে কে আছেন? দেখুন ';
 	@override String get aboutUsLinkLabel => 'আমাদের সম্পর্কে';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsBn {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'দৈনিক লক্ষ্য হল আপনার টিডিইই এবং ওজন লক্ষ্য অনুযায়ী আপনার সুপারিশকৃত দৈনিক ক্যালোরি গ্রহণ। ওজন কমানোর জন্য, আপনাকে আপনার টিডিইই-এর চেয়ে কম ক্যালোরি গ্রহণ করতে হবে। ওজন বজায় রাখার জন্য, আপনাকে আপনার টিডিইই-কে মানানসই করতে হবে। ওজন বাড়ানোর জন্য, আপনাকে আপনার টিডিইই-এর চেয়ে বেশি ক্যালোরি গ্রহণ করতে হবে। এটি আপনাকে স্বাস্থ্যকর গতি অনুসরণ করে আপনার কাঙ্খিত ওজন পরিবর্তন অর্জনে সাহায্য করে।',
 			'common.close' => 'বন্ধ করুন',
 			'common.kContinue' => 'অগ্রসর হোন',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'আপনি কি ${appLabel} উপভোগ করছেন? আপনার অভিজ্ঞতা আমাদের জন্য গুরুত্বপূর্ণ।',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'আপনি কি ${appLabel} উপভোগ করছেন?',
 			'feedbackRating.yes' => 'হ্যাঁ, আমি উপভোগ করছি',
 			'feedbackRating.no' => 'তেমন না',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} একজন ব্যক্তির দ্বারা তৈরি। একটি দ্রুত Play Store রেটিং অন্যদের এটি খুঁজে পেতে সাহায্য করে এবং উন্নয়ন চালিয়ে রাখতে সহায়ক — এটি সত্যিই সাহায্য করে। আপনি কি একটা ক্ষণ নিয়ে একটি রেটিং দেবেন?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} একজন ব্যক্তির তৈরি। আপনার প্রতিক্রিয়া ভবিষ্যৎ নির্ধারণে গুরুত্ব রাখে — এবং আমরা প্রতিটি বার্তা পড়ি। আপনি কি ইমেইলের মাধ্যমে আপনার মতামত শেয়ার করতে চান?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'একটি দ্রুত রেটিং অন্যদের ${appLabel} খুঁজে পেতে সাহায্য করে এবং আমাদের উন্নয়ন চালিয়ে রাখতে সহায়ক। আপনি কি একটু সময় নিয়ে একটি রেটিং দেবেন?',
+			'feedbackRating.shareFeedbackViaEmail' => 'আপনার প্রতিক্রিয়া পরবর্তী আপডেটগুলোকে গঠন করে — আমরা প্রতিটি বার্তা মনোযোগ দিয়ে পড়ি। আপনি কি ইমেইলের মাধ্যমে আপনার মতামত শেয়ার করতে চান?',
+			'feedbackRating.rateCta' => 'প্লে স্টোরে রেট করুন',
+			'feedbackRating.maybeLater' => 'পরে হতে পারে',
+			'feedbackRating.sendFeedback' => 'মতামত পাঠান',
+			'feedbackRating.noThanks' => 'না, ধন্যবাদ',
+			'feedbackRating.aboutUsDescription' => 'একটি ছোট দল যত্নসহ তৈরি করেছে। আমরা গোপনীয়তা, সরলতা এবং আপনাকে আরও স্বাস্থ্যকর খাদ্যাভ্যাস গড়তে সাহায্য করার ওপর গুরুত্ব দিই।',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'জানতে চান ${appLabel}-এর পেছনে কে আছেন? দেখুন ',
 			'feedbackRating.aboutUsLinkLabel' => 'আমাদের সম্পর্কে',
 			'errors.loadingProfileData' => 'প্রোফাইল তথ্য লোড করতে ত্রুটি',

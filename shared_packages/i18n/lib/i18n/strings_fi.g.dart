@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingFi implements TranslationsFeedbackRatingEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Pidätkö ${appLabel}-sovelluksesta? Kokemuksesi on meille tärkeä.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Nautitko ${appLabel}:stä?';
 	@override String get yes => 'Kyllä — pidän siitä';
 	@override String get no => 'Ei oikeastaan';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} on yhden henkilön kehittämä. Pikainen arvostelu Play Kaupassa auttaa muita löytämään sovelluksen ja pitää kehityksen käynnissä — se todella auttaa. Voisitko hetken jättää arvostelun?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} on yhden henkilön tekemä. Palautteesi vaikuttaa todella siihen, mitä seuraavaksi tehdään — ja luemme jokaisen viestin. Haluaisitko jakaa ajatuksesi sähköpostitse?';
+	@override String soloDevMessage({required Object appLabel}) => 'Nopea arvio auttaa muita löytämään ${appLabel} ja pitää kehityksen käynnissä. Haluaisitko käyttää hetken ja jättää arvion?';
+	@override String get shareFeedbackViaEmail => 'Palautteesi vaikuttaa siihen, mitä teemme seuraavaksi — luemme jokaisen viestin. Haluaisitko jakaa ajatuksesi sähköpostitse?';
+	@override String get rateCta => 'Arvostele Play-kaupassa';
+	@override String get maybeLater => 'Ehkä myöhemmin';
+	@override String get sendFeedback => 'Lähetä palautetta';
+	@override String get noThanks => 'Ei kiitos';
+	@override String get aboutUsDescription => 'Pienen tiimin huolella tehty. Keskitymme yksityisyyteen, yksinkertaisuuteen ja siihen, että autamme sinua kehittämään parempia ruokailutottumuksia.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Haluatko tietää, kuka on ${appLabel}:n takana? Katso ';
 	@override String get aboutUsLinkLabel => 'Tietoa meistä';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsFi {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Päivittäinen Tavoite on suositeltu päivittäinen kalorinsaantisi, joka perustuu TDEE:hesi ja painotavoitteeseesi. Painon pudotuksessa kulutat vähemmän kaloreita kuin TDEE:si. Painon ylläpidossa vastaat TDEE:si. Painon lisäämisessä kulutat enemmän kaloreita kuin TDEE:si. Tämä auttaa sinua saavuttamaan haluamasi painomuutoksen terveellisellä tahdilla.',
 			'common.close' => 'Sulje',
 			'common.kContinue' => 'Jatka',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Pidätkö ${appLabel}-sovelluksesta? Kokemuksesi on meille tärkeä.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nautitko ${appLabel}:stä?',
 			'feedbackRating.yes' => 'Kyllä — pidän siitä',
 			'feedbackRating.no' => 'Ei oikeastaan',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} on yhden henkilön kehittämä. Pikainen arvostelu Play Kaupassa auttaa muita löytämään sovelluksen ja pitää kehityksen käynnissä — se todella auttaa. Voisitko hetken jättää arvostelun?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} on yhden henkilön tekemä. Palautteesi vaikuttaa todella siihen, mitä seuraavaksi tehdään — ja luemme jokaisen viestin. Haluaisitko jakaa ajatuksesi sähköpostitse?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Nopea arvio auttaa muita löytämään ${appLabel} ja pitää kehityksen käynnissä. Haluaisitko käyttää hetken ja jättää arvion?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Palautteesi vaikuttaa siihen, mitä teemme seuraavaksi — luemme jokaisen viestin. Haluaisitko jakaa ajatuksesi sähköpostitse?',
+			'feedbackRating.rateCta' => 'Arvostele Play-kaupassa',
+			'feedbackRating.maybeLater' => 'Ehkä myöhemmin',
+			'feedbackRating.sendFeedback' => 'Lähetä palautetta',
+			'feedbackRating.noThanks' => 'Ei kiitos',
+			'feedbackRating.aboutUsDescription' => 'Pienen tiimin huolella tehty. Keskitymme yksityisyyteen, yksinkertaisuuteen ja siihen, että autamme sinua kehittämään parempia ruokailutottumuksia.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Haluatko tietää, kuka on ${appLabel}:n takana? Katso ',
 			'feedbackRating.aboutUsLinkLabel' => 'Tietoa meistä',
 			'errors.loadingProfileData' => 'Virhe profiilitietojen lataamisessa',

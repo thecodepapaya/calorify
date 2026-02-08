@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingHu implements TranslationsFeedbackRatingEn {
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Tetszik a ${appLabel}? Fontos számunkra az élményed.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Tetszik a ${appLabel}?';
 	@override String get yes => 'Igen, tetszik!';
 	@override String get no => 'Nem igazán';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} egyetlen fejlesztő által készült. Egy rövid Play Áruház-beli értékelés segít másoknak megtalálni az alkalmazást és támogatja a fejlesztést — igazán sokat számít. Megtennéd, hogy hagysz egy értékelést?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} egyetlen fejlesztő által készült. A visszajelzéseid nagyban alakítják a további fejlesztéseket — és minden üzenetet elolvasunk. Szeretnéd e-mailben megosztani a gondolataidat?';
+	@override String soloDevMessage({required Object appLabel}) => 'Egy gyors értékelés segít másoknak megtalálni a(z) ${appLabel} alkalmazást, és támogatja a fejlesztés folytatását. Szánnál rá egy pillanatot, hogy írj egyet?';
+	@override String get shareFeedbackViaEmail => 'A visszajelzésed alakítja, mi következik — minden üzenetet elolvasunk. Szeretnéd e-mailben megosztani a gondolataidat?';
+	@override String get rateCta => 'Értékeld a Play Áruházban';
+	@override String get maybeLater => 'Majd később';
+	@override String get sendFeedback => 'Visszajelzés küldése';
+	@override String get noThanks => 'Nem, köszönöm';
+	@override String get aboutUsDescription => 'Egy kis csapat gondos munkájával készült. Különös figyelmet fordítunk a magánszférára, az egyszerűségre és arra, hogy segítsünk jobb étkezési szokásokat kialakítanod.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Kíváncsi vagy, ki áll a ${appLabel} mögött? Nézd meg ';
 	@override String get aboutUsLinkLabel => 'Rólunk';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsHu {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'A Napi Cél a javasolt napi kalóriabeviteled, amely a TDEE-d és a súlycélod alapján van megállapítva. Súlycsökkentés esetén kevesebb kalóriát fogyasztasz, mint a TDEE-d. A súly fenntartásához a TDEE-dnek megfelelő mennyiséget fogyasztasz. Súlygyarapodás érdekében pedig többet eszel, mint a TDEE-d. Ez segít elérni a kívánt súlyváltozást egészséges ütemben.',
 			'common.close' => 'Bezárás',
 			'common.kContinue' => 'Tovább',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Tetszik a ${appLabel}? Fontos számunkra az élményed.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Tetszik a ${appLabel}?',
 			'feedbackRating.yes' => 'Igen, tetszik!',
 			'feedbackRating.no' => 'Nem igazán',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} egyetlen fejlesztő által készült. Egy rövid Play Áruház-beli értékelés segít másoknak megtalálni az alkalmazást és támogatja a fejlesztést — igazán sokat számít. Megtennéd, hogy hagysz egy értékelést?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} egyetlen fejlesztő által készült. A visszajelzéseid nagyban alakítják a további fejlesztéseket — és minden üzenetet elolvasunk. Szeretnéd e-mailben megosztani a gondolataidat?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Egy gyors értékelés segít másoknak megtalálni a(z) ${appLabel} alkalmazást, és támogatja a fejlesztés folytatását. Szánnál rá egy pillanatot, hogy írj egyet?',
+			'feedbackRating.shareFeedbackViaEmail' => 'A visszajelzésed alakítja, mi következik — minden üzenetet elolvasunk. Szeretnéd e-mailben megosztani a gondolataidat?',
+			'feedbackRating.rateCta' => 'Értékeld a Play Áruházban',
+			'feedbackRating.maybeLater' => 'Majd később',
+			'feedbackRating.sendFeedback' => 'Visszajelzés küldése',
+			'feedbackRating.noThanks' => 'Nem, köszönöm',
+			'feedbackRating.aboutUsDescription' => 'Egy kis csapat gondos munkájával készült. Különös figyelmet fordítunk a magánszférára, az egyszerűségre és arra, hogy segítsünk jobb étkezési szokásokat kialakítanod.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Kíváncsi vagy, ki áll a ${appLabel} mögött? Nézd meg ',
 			'feedbackRating.aboutUsLinkLabel' => 'Rólunk',
 			'errors.loadingProfileData' => 'Hiba a profiladatok betöltésekor',

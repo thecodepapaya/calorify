@@ -263,7 +263,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const SizedBox(height: 48),
           _buildAppInfo(),
           const SizedBox(height: 24),
-          const Grass(height: 100),
+          const Grass(height: 120),
         ],
       ),
     );
@@ -421,8 +421,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ),
       trailing: SegmentedButton<UnitSystem>(
         segments: [
-          ButtonSegment(value: UnitSystem.METRIC, label: Text(t.editProfile.unitCm)),
-          ButtonSegment(value: UnitSystem.IMPERIAL, label: Text(t.editProfile.unitFt)),
+          ButtonSegment(
+            value: UnitSystem.METRIC,
+            label: Text(t.editProfile.unitCm),
+          ),
+          ButtonSegment(
+            value: UnitSystem.IMPERIAL,
+            label: Text(t.editProfile.unitFt),
+          ),
         ],
         selected: {unitSystem},
         showSelectedIcon: false,
@@ -492,8 +498,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ),
       trailing: SegmentedButton<UnitSystem>(
         segments: [
-          ButtonSegment(value: UnitSystem.METRIC, label: Text(t.editProfile.unitKg)),
-          ButtonSegment(value: UnitSystem.IMPERIAL, label: Text(t.editProfile.unitLbs)),
+          ButtonSegment(
+            value: UnitSystem.METRIC,
+            label: Text(t.editProfile.unitKg),
+          ),
+          ButtonSegment(
+            value: UnitSystem.IMPERIAL,
+            label: Text(t.editProfile.unitLbs),
+          ),
         ],
         selected: {unitSystem},
         showSelectedIcon: false,
@@ -589,7 +601,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     await sendFeedbackEmail(
       appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
       emailAddress: 'calorify@thecodepapaya.dev',
-      version: versionInfo.versionDisplay,
+      version: versionInfo.uiVersionWithBuild,
     );
   }
 
@@ -619,7 +631,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             child: Column(
               children: [
                 Text(
-                  t.settings.appInfo.version(version: info.versionDisplay),
+                  t.settings.appInfo.version(version: info.uiVersion),
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                     fontSize: 12,

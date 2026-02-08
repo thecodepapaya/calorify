@@ -601,11 +601,16 @@
     "continue": "继续"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "喜欢使用 {appLabel} 吗？您的体验对我们很重要。",
+    "enjoyingQuestion": "喜欢使用 {appLabel} 吗？",
     "yes": "是的，我很喜欢",
     "no": "不是很",
-    "soloDevMessage": "{appLabel} 由一人独立开发。在 Play 商店快速评分能帮助更多人发现应用并支持持续开发——这真的很重要。您愿意花一点时间留下评分吗？",
-    "shareFeedbackViaEmail": "{appLabel} 由一人独立开发。您的反馈会直接影响后续更新——我们会阅读每一条留言。您愿意通过电子邮件分享您的想法吗？",
+    "soloDevMessage": "简短的评分能帮助他人发现 {appLabel}，并支持我们持续开发。您愿意花一点时间留下评分吗？",
+    "shareFeedbackViaEmail": "您的反馈会影响未来改进——我们会阅读每一条留言。您愿意通过电子邮件分享您的想法吗？",
+    "rateCta": "在 Google Play 商店评分",
+    "maybeLater": "稍后再说",
+    "sendFeedback": "发送反馈",
+    "noThanks": "不用，谢谢",
+    "aboutUsDescription": "由一个小团队用心打造。我们专注于隐私保护、简洁设计，并致力于帮助你养成更健康的饮食习惯。",
     "aboutUsMentionBeforeLink": "想知道是谁在开发 {appLabel}？请查看 ",
     "aboutUsLinkLabel": "关于我们"
   },

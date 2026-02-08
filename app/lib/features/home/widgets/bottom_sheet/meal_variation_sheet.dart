@@ -15,24 +15,34 @@ Future<void> showMealVariation({
   required BuildContext context,
   required MealDetectionResponse response,
   Uint8List? imageBytes,
+  bool isDebugPreview = false,
 }) {
   return showModalBottomSheet(
     context: context,
-    isDismissible: true,
+    isDismissible: false,
     showDragHandle: true,
     enableDrag: true,
     isScrollControlled: true,
     routeSettings: const RouteSettings(name: RouteNames.mealVariationSheet),
     builder:
-        (context) => _MealVariation(response: response, imageBytes: imageBytes),
+        (context) => _MealVariation(
+          response: response,
+          imageBytes: imageBytes,
+          isDebugPreview: isDebugPreview,
+        ),
   );
 }
 
 class _MealVariation extends StatefulWidget {
-  const _MealVariation({required this.response, this.imageBytes});
+  const _MealVariation({
+    required this.response,
+    this.imageBytes,
+    this.isDebugPreview = false,
+  });
 
   final MealDetectionResponse response;
   final Uint8List? imageBytes;
+  final bool isDebugPreview;
 
   @override
   State<_MealVariation> createState() => _MealVariationState();
@@ -42,11 +52,10 @@ class _MealVariationState extends State<_MealVariation>
     with TickerProviderStateMixin {
   int _currentQuestionIndex = 0;
   final Map<int, int> _selectedOptions = {}; // questionIndex -> optionIndex
+  bool _completedSuccessfully = false;
 
   late AnimationController _fadeController;
-  late AnimationController _slideController;
   late Animation<double> _fadeAnimation;
-  late Animation<Offset> _slideAnimation;
 
   List<Variation> get _variations => widget.response.variations;
 
@@ -57,31 +66,22 @@ class _MealVariationState extends State<_MealVariation>
       vsync: this,
       duration: const Duration(milliseconds: 200),
     );
-    _slideController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 200),
-    );
 
     _fadeAnimation = CurvedAnimation(
       parent: _fadeController,
       curve: Curves.easeInOut,
     );
 
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0.1, 0),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(parent: _slideController, curve: Curves.easeInOut),
-    );
-
     _fadeController.forward();
-    _slideController.forward();
+    Analytics.instance.logEvent(AnalyticsEvent.mealVariationSheetShown);
   }
 
   @override
   void dispose() {
+    if (!_completedSuccessfully) {
+      Analytics.instance.logEvent(AnalyticsEvent.mealVariationDismissed);
+    }
     _fadeController.dispose();
-    _slideController.dispose();
     super.dispose();
   }
 
@@ -107,14 +107,13 @@ class _MealVariationState extends State<_MealVariation>
 
   void _onBack() {
     if (_currentQuestionIndex > 0) {
+      Analytics.instance.logEvent(AnalyticsEvent.mealVariationBack);
       _fadeController.reverse().then((_) {
-        _slideController.reverse().then((_) {
-          setState(() {
-            _currentQuestionIndex--;
-          });
-          _fadeController.forward();
-          _slideController.forward();
+        if (!mounted) return;
+        setState(() {
+          _currentQuestionIndex--;
         });
+        _fadeController.forward();
       });
     }
   }
@@ -122,13 +121,11 @@ class _MealVariationState extends State<_MealVariation>
   void _onNext() {
     if (_currentQuestionIndex < _variations.length - 1) {
       _fadeController.reverse().then((_) {
-        _slideController.reverse().then((_) {
-          setState(() {
-            _currentQuestionIndex++;
-          });
-          _fadeController.forward();
-          _slideController.forward();
+        if (!mounted) return;
+        setState(() {
+          _currentQuestionIndex++;
         });
+        _fadeController.forward();
       });
     } else {
       _onComplete();
@@ -144,6 +141,8 @@ class _MealVariationState extends State<_MealVariation>
   }
 
   void _onComplete() {
+    _completedSuccessfully = true;
+    Analytics.instance.logEvent(AnalyticsEvent.mealVariationComplete);
     // Calculate final macros
     final baseMeal = widget.response.result.meal;
     if (!baseMeal.hasMacros()) {
@@ -189,6 +188,7 @@ class _MealVariationState extends State<_MealVariation>
         context: safeContext,
         mealDetectionResult: updatedResult,
         imageBytes: widget.imageBytes,
+        previewOnly: widget.isDebugPreview,
       );
     });
   }
@@ -207,20 +207,17 @@ class _MealVariationState extends State<_MealVariation>
     return BaseBottomSheet(
       child: FadeTransition(
         opacity: _fadeAnimation,
-        child: SlideTransition(
-          position: _slideAnimation,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _buildProgressIndicator(context),
-              const SizedBox(height: 24),
-              _buildQuestion(context, currentVariation.question),
-              const SizedBox(height: 20),
-              _buildOptions(context, currentVariation),
-              const SizedBox(height: 16),
-            ],
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildProgressIndicator(context),
+            const SizedBox(height: 24),
+            _buildQuestion(context, currentVariation.question),
+            const SizedBox(height: 20),
+            _buildOptions(context, currentVariation),
+            const SizedBox(height: 16),
+          ],
         ),
       ),
     );

@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingHe implements TranslationsFeedbackRatingEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'נהנים מ${appLabel}? החוויה שלכם חשובה לנו.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'נהנים מהשימוש ב${appLabel}?';
 	@override String get yes => 'כן, אני נהנה/נהנית';
 	@override String get no => 'לא ממש';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} נבנה על ידי אדם אחד. דירוג מהיר בחנות Play עוזר לאחרים למצוא אותו ושומר על המשך הפיתוח — זה באמת עוזר. האם תוכל להקדיש רגע ולהשאיר דירוג?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} נבנה על ידי אדם אחד. המשוב שלך מעצב את מה שיבא — ואנחנו קוראים כל הודעה. האם ברצונך לשתף את מחשבותיך בדוא\"ל?';
+	@override String soloDevMessage({required Object appLabel}) => 'דירוג קצר עוזר לאחרים למצוא את ${appLabel} ומאפשר לנו להמשיך בפיתוח. האם ברצונך להקדיש רגע ולהשאיר דירוג?';
+	@override String get shareFeedbackViaEmail => 'המשוב שלך מעצב את הצעדים הבאים — אנחנו קוראים כל הודעה. האם ברצונך לשתף את מחשבותיך בדוא"ל?';
+	@override String get rateCta => 'דרגו אותנו ב-Google Play';
+	@override String get maybeLater => 'אולי אחר כך';
+	@override String get sendFeedback => 'שלח משוב';
+	@override String get noThanks => 'לא תודה';
+	@override String get aboutUsDescription => 'נוצר בקפידה על ידי צוות קטן. אנו שמים דגש על פרטיות, על פשטות, ועל סיוע לך בפיתוח הרגלי אכילה בריאים יותר.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'סקרנים מי עומד מאחורי ${appLabel}? ראה ';
 	@override String get aboutUsLinkLabel => 'עלינו';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsHe {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'המטרה היומית היא צריכת הקלוריות היומית המומלצת שלך בהתבסס על ה-TDEE שלך ומטרת המשקל שלך. לצורך ירידת משקל, אתה צורך פחות קלוריות מה-TDEE שלך. לשמירה על משקל, אתה תואם את ה-TDEE שלך. לצורך עליית משקל, אתה צורך יותר קלוריות מה-TDEE שלך. זה עוזר לך להגיע לשינוי המשקל הרצוי שלך בקצב בריא.',
 			'common.close' => 'סגור',
 			'common.kContinue' => 'להמשיך',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'נהנים מ${appLabel}? החוויה שלכם חשובה לנו.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'נהנים מהשימוש ב${appLabel}?',
 			'feedbackRating.yes' => 'כן, אני נהנה/נהנית',
 			'feedbackRating.no' => 'לא ממש',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} נבנה על ידי אדם אחד. דירוג מהיר בחנות Play עוזר לאחרים למצוא אותו ושומר על המשך הפיתוח — זה באמת עוזר. האם תוכל להקדיש רגע ולהשאיר דירוג?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} נבנה על ידי אדם אחד. המשוב שלך מעצב את מה שיבא — ואנחנו קוראים כל הודעה. האם ברצונך לשתף את מחשבותיך בדוא\"ל?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'דירוג קצר עוזר לאחרים למצוא את ${appLabel} ומאפשר לנו להמשיך בפיתוח. האם ברצונך להקדיש רגע ולהשאיר דירוג?',
+			'feedbackRating.shareFeedbackViaEmail' => 'המשוב שלך מעצב את הצעדים הבאים — אנחנו קוראים כל הודעה. האם ברצונך לשתף את מחשבותיך בדוא"ל?',
+			'feedbackRating.rateCta' => 'דרגו אותנו ב-Google Play',
+			'feedbackRating.maybeLater' => 'אולי אחר כך',
+			'feedbackRating.sendFeedback' => 'שלח משוב',
+			'feedbackRating.noThanks' => 'לא תודה',
+			'feedbackRating.aboutUsDescription' => 'נוצר בקפידה על ידי צוות קטן. אנו שמים דגש על פרטיות, על פשטות, ועל סיוע לך בפיתוח הרגלי אכילה בריאים יותר.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'סקרנים מי עומד מאחורי ${appLabel}? ראה ',
 			'feedbackRating.aboutUsLinkLabel' => 'עלינו',
 			'errors.loadingProfileData' => 'שגיאה בהטענת נתוני פרופיל',

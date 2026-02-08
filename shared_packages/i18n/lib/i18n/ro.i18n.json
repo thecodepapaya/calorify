@@ -601,11 +601,16 @@
     "continue": "Continuă"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Îți place {appLabel}? Experiența ta contează pentru noi.",
+    "enjoyingQuestion": "Îți place {appLabel}?",
     "yes": "Da, îmi place",
     "no": "Nu chiar",
-    "soloDevMessage": "{appLabel} este creată de o singură persoană. O evaluare rapidă în Play Store îi ajută pe alții să o găsească și susține dezvoltarea — chiar contează. Ai un moment să lași o evaluare?",
-    "shareFeedbackViaEmail": "{appLabel} este creată de o singură persoană. Feedbackul tău modelează ceea ce urmează — citim fiecare mesaj. Ai dori să împărtășești gândurile tale prin e-mail?",
+    "soloDevMessage": "O scurtă evaluare îi ajută pe alții să găsească {appLabel} și susține dezvoltarea. Ai putea să acorzi un moment pentru a lăsa o evaluare?",
+    "shareFeedbackViaEmail": "Părerea ta ne ajută să conturăm ce urmează — citim fiecare mesaj. Ai vrea să ne trimiți gândurile prin e-mail?",
+    "rateCta": "Evaluează în Google Play",
+    "maybeLater": "Poate mai târziu",
+    "sendFeedback": "Trimite feedback",
+    "noThanks": "Nu, mulțumesc",
+    "aboutUsDescription": "Creat cu grijă de o echipă mică. Ne concentrăm pe confidențialitate, simplitate și pe a te ajuta să dezvolți obiceiuri alimentare mai sănătoase.",
     "aboutUsMentionBeforeLink": "Curios cine se află în spatele {appLabel}? Vezi ",
     "aboutUsLinkLabel": "Despre noi"
   },

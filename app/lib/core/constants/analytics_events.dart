@@ -1,9 +1,16 @@
 enum AnalyticsEvent {
   // Onboarding
   onboardingStart,
-  onboardingSetBasicInfo,
-  onboardingSetActivityLevel,
   onboardingSetWeightGoal,
+  onboardingSetActivityLevel,
+  onboardingGoalLifestyleComplete,
+  onboardingSetGender,
+  onboardingSetHeight,
+  onboardingSetWeight,
+  onboardingHealthProfileComplete,
+  onboardingSetTargetWeight,
+  onboardingSetAge,
+  onboardingTrackingSuccessComplete,
   onboardingSetupHealthConnect,
   onboardingSkipHealthConnect,
   onboardingContinueHealthConnect,
@@ -14,12 +21,14 @@ enum AnalyticsEvent {
 
   // Home
   homeView,
+  viewDashboard,
+  viewLog,
+  viewHistory,
+  viewFavorites,
   setDailyGoal,
   connectHealth,
   addMealFromFavorites,
   addMealFromDescription,
-  viewHistory,
-  viewFavorites,
 
   // Meal
   mealSnapFromCamera,
@@ -29,6 +38,10 @@ enum AnalyticsEvent {
   mealEdit,
   mealVariationNext,
   mealVariationSkip,
+  mealVariationSheetShown,
+  mealVariationBack,
+  mealVariationComplete,
+  mealVariationDismissed,
   mealDetectionSuccess,
   mealDetectionFailure,
 
@@ -51,4 +64,5 @@ enum AnalyticsEvent {
   feedbackSheetRateNo,
   feedbackSheetEmailYes,
   feedbackSheetEmailNo,
+  feedbackSheetDismissed,
 }

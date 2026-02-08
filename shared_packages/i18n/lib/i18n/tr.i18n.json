@@ -601,11 +601,16 @@
     "continue": "Devam Et"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "{appLabel}'ı beğeniyor musunuz? Deneyiminiz bizim için önemli.",
+    "enjoyingQuestion": "{appLabel} hoşunuza gidiyor mu?",
     "yes": "Evet, beğeniyorum",
     "no": "Pek değil",
-    "soloDevMessage": "{appLabel} tek bir kişi tarafından geliştirildi. Kısa bir Play Store değerlendirmesi, başkalarının uygulamayı bulmasına yardımcı olur ve geliştirmeye devam etmemizi sağlar — gerçekten çok yardımcı olur. Bir dakikanızı ayırıp bir değerlendirme bırakır mıydınız?",
-    "shareFeedbackViaEmail": "{appLabel} tek bir kişi tarafından geliştirildi. Geri bildiriminiz bir sonraki adımları şekillendiriyor — her mesajı okuyoruz. Düşüncelerinizi e-posta ile paylaşmak ister misiniz?",
+    "soloDevMessage": "Kısa bir değerlendirme, diğer kullanıcıların {appLabel}'ı keşfetmesine yardımcı olur ve geliştirmeye devam etmemizi sağlar. Birkaç dakikanızı ayırıp değerlendirme bırakır mısınız?",
+    "shareFeedbackViaEmail": "Geri bildiriminiz geleceği şekillendirir — her mesajı dikkatle okuyoruz. Düşüncelerinizi e-posta ile paylaşmak ister misiniz?",
+    "rateCta": "Play Store'da puan ver",
+    "maybeLater": "Belki sonra",
+    "sendFeedback": "Geri bildirim gönder",
+    "noThanks": "Hayır, teşekkürler",
+    "aboutUsDescription": "Küçük bir ekip tarafından özenle hazırlandı. Gizliliğe, sadeliğe ve daha sağlıklı beslenme alışkanlıkları edinmenize yardımcı olmaya odaklanıyoruz.",
     "aboutUsMentionBeforeLink": "{appLabel}'ın arkasında kim olduğunu merak ediyor musunuz? ",
     "aboutUsLinkLabel": "Hakkımızda"
   },

@@ -601,11 +601,16 @@
     "continue": "Tovább"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Tetszik a {appLabel}? Fontos számunkra az élményed.",
+    "enjoyingQuestion": "Tetszik a {appLabel}?",
     "yes": "Igen, tetszik!",
     "no": "Nem igazán",
-    "soloDevMessage": "{appLabel} egyetlen fejlesztő által készült. Egy rövid Play Áruház-beli értékelés segít másoknak megtalálni az alkalmazást és támogatja a fejlesztést — igazán sokat számít. Megtennéd, hogy hagysz egy értékelést?",
-    "shareFeedbackViaEmail": "{appLabel} egyetlen fejlesztő által készült. A visszajelzéseid nagyban alakítják a további fejlesztéseket — és minden üzenetet elolvasunk. Szeretnéd e-mailben megosztani a gondolataidat?",
+    "soloDevMessage": "Egy gyors értékelés segít másoknak megtalálni a(z) {appLabel} alkalmazást, és támogatja a fejlesztés folytatását. Szánnál rá egy pillanatot, hogy írj egyet?",
+    "shareFeedbackViaEmail": "A visszajelzésed alakítja, mi következik — minden üzenetet elolvasunk. Szeretnéd e-mailben megosztani a gondolataidat?",
+    "rateCta": "Értékeld a Play Áruházban",
+    "maybeLater": "Majd később",
+    "sendFeedback": "Visszajelzés küldése",
+    "noThanks": "Nem, köszönöm",
+    "aboutUsDescription": "Egy kis csapat gondos munkájával készült. Különös figyelmet fordítunk a magánszférára, az egyszerűségre és arra, hogy segítsünk jobb étkezési szokásokat kialakítanod.",
     "aboutUsMentionBeforeLink": "Kíváncsi vagy, ki áll a {appLabel} mögött? Nézd meg ",
     "aboutUsLinkLabel": "Rólunk"
   },

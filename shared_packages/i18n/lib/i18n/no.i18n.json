@@ -601,11 +601,16 @@
     "continue": "Fortsett"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Liker du {appLabel}? Din opplevelse betyr mye for oss.",
+    "enjoyingQuestion": "Liker du {appLabel}?",
     "yes": "Ja, jeg liker den",
     "no": "Ikke helt",
-    "soloDevMessage": "{appLabel} er laget av én person. En rask vurdering i Play Store gjør det lettere for andre å finne appen og holder utviklingen i gang — det hjelper virkelig. Vil du ta et øyeblikk til å legge igjen en vurdering?",
-    "shareFeedbackViaEmail": "{appLabel} er laget av én person. Tilbakemeldingene dine former hva som kommer videre — jeg leser hver melding. Vil du dele tankene dine via e-post?",
+    "soloDevMessage": "En rask vurdering hjelper andre å finne {appLabel} og støtter videre utvikling. Har du et øyeblikk til å gi en vurdering?",
+    "shareFeedbackViaEmail": "Tilbakemeldingen din former det som kommer videre — vi leser hver melding. Vil du dele dine tanker via e-post?",
+    "rateCta": "Vurder i Google Play",
+    "maybeLater": "Kanskje senere",
+    "sendFeedback": "Send tilbakemelding",
+    "noThanks": "Nei takk",
+    "aboutUsDescription": "Laget med omtanke av et lite team. Vi fokuserer på personvern, enkelhet og å hjelpe deg med å bygge sunnere spisevaner.",
     "aboutUsMentionBeforeLink": "Nysgjerrig på hvem som står bak {appLabel}? Se ",
     "aboutUsLinkLabel": "Om oss"
   },

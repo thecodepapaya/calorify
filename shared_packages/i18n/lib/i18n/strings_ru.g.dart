@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingRu implements TranslationsFeedbackRatingEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Вам нравится ${appLabel}? Ваше мнение важно для нас.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Вам нравится ${appLabel}?';
 	@override String get yes => 'Да, мне нравится';
 	@override String get no => 'Не очень';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} создан одним человеком. Быстрая оценка в Play Маркете помогает другим найти приложение и поддерживает разработку — это действительно помогает. Не могли бы вы уделить минуту, чтобы поставить оценку?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} создан одним человеком. Ваши отзывы действительно формируют то, что будет дальше — и мы читаем каждое сообщение. Хотите поделиться мнением по электронной почте?';
+	@override String soloDevMessage({required Object appLabel}) => 'Короткая оценка помогает другим найти ${appLabel} и поддерживает дальнейшую разработку. Не могли бы вы уделить минуту, чтобы поставить её?';
+	@override String get shareFeedbackViaEmail => 'Ваш отзыв формирует дальнейшее развитие приложения — мы читаем каждое сообщение. Хотите поделиться своими мыслями по электронной почте?';
+	@override String get rateCta => 'Оцените в Google Play';
+	@override String get maybeLater => 'Возможно, позже';
+	@override String get sendFeedback => 'Отправить отзыв';
+	@override String get noThanks => 'Нет, спасибо';
+	@override String get aboutUsDescription => 'Создано с заботой небольшой командой. Мы уделяем особое внимание конфиденциальности, простоте и помогаем вам выработать более здоровые пищевые привычки.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Интересно, кто стоит за ${appLabel}? Посмотрите ';
 	@override String get aboutUsLinkLabel => 'О нас';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsRu {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Ежедневная цель — это ваша рекомендуемая суточная калорийность, основанная на вашем TDEE и цели по весу. Для похудения вы потребляете меньше калорий, чем ваш TDEE. Для поддержания веса вы сопоставляете свои калории с TDEE. Для набора веса вы потребляете больше калорий, чем ваш TDEE. Это помогает вам достичь желаемого изменения веса с безопасной скоростью.',
 			'common.close' => 'Закрыть',
 			'common.kContinue' => 'Продолжить',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Вам нравится ${appLabel}? Ваше мнение важно для нас.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Вам нравится ${appLabel}?',
 			'feedbackRating.yes' => 'Да, мне нравится',
 			'feedbackRating.no' => 'Не очень',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} создан одним человеком. Быстрая оценка в Play Маркете помогает другим найти приложение и поддерживает разработку — это действительно помогает. Не могли бы вы уделить минуту, чтобы поставить оценку?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} создан одним человеком. Ваши отзывы действительно формируют то, что будет дальше — и мы читаем каждое сообщение. Хотите поделиться мнением по электронной почте?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Короткая оценка помогает другим найти ${appLabel} и поддерживает дальнейшую разработку. Не могли бы вы уделить минуту, чтобы поставить её?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Ваш отзыв формирует дальнейшее развитие приложения — мы читаем каждое сообщение. Хотите поделиться своими мыслями по электронной почте?',
+			'feedbackRating.rateCta' => 'Оцените в Google Play',
+			'feedbackRating.maybeLater' => 'Возможно, позже',
+			'feedbackRating.sendFeedback' => 'Отправить отзыв',
+			'feedbackRating.noThanks' => 'Нет, спасибо',
+			'feedbackRating.aboutUsDescription' => 'Создано с заботой небольшой командой. Мы уделяем особое внимание конфиденциальности, простоте и помогаем вам выработать более здоровые пищевые привычки.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Интересно, кто стоит за ${appLabel}? Посмотрите ',
 			'feedbackRating.aboutUsLinkLabel' => 'О нас',
 			'errors.loadingProfileData' => 'Ошибка загрузки данных профиля',

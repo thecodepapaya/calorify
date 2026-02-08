@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
@@ -6,10 +8,10 @@ import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
-import 'package:calorify/shared_widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:widgets/widgets.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:services/services.dart';
@@ -41,23 +43,51 @@ class _FeedbackRatingSheet extends StatefulWidget {
   State<_FeedbackRatingSheet> createState() => _FeedbackRatingSheetState();
 }
 
-class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet> {
+class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
+    with TickerProviderStateMixin {
   _FeedbackSheetStep _step = _FeedbackSheetStep.enjoyingQuestion;
+  bool _isLoading = false;
+  bool _closedByTerminalAction = false;
+
+  late AnimationController _fadeController;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
+    _fadeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    _fadeAnimation = CurvedAnimation(
+      parent: _fadeController,
+      curve: Curves.easeInOut,
+    );
+    _fadeController.forward();
     Analytics.instance.logEvent(AnalyticsEvent.feedbackSheetShown);
+  }
+
+  @override
+  void dispose() {
+    _fadeController.dispose();
     if (widget.persistShown) {
-      DatabaseService.databaseInterface.setFeedbackSheetShown();
+      unawaited(DatabaseService.databaseInterface.setFeedbackSheetShown());
     }
+    if (!_closedByTerminalAction) {
+      Analytics.instance.logEvent(AnalyticsEvent.feedbackSheetDismissed);
+    }
+    super.dispose();
   }
 
   Future<void> _onRateYes() async {
+    if (_isLoading) return;
+    Analytics.instance.logEvent(AnalyticsEvent.feedbackSheetRateYes);
+    setState(() => _isLoading = true);
     final success = await requestPlayStoreReview(
       packageName: 'dev.thecodepapaya.calorify',
     );
     if (!mounted) return;
+    setState(() => _isLoading = false);
     if (!success) {
       final uri = Uri.parse(
         'https://play.google.com/store/apps/details?id=dev.thecodepapaya.calorify',
@@ -67,17 +97,31 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet> {
       }
     }
     if (!mounted) return;
+    _closedByTerminalAction = true;
     Navigator.of(context).pop();
   }
 
   Future<void> _onEmailYes() async {
+    if (_isLoading) return;
+    Analytics.instance.logEvent(AnalyticsEvent.feedbackSheetEmailYes);
+    setState(() => _isLoading = true);
     final versionInfo = await getAppVersionInfo();
     await sendFeedbackEmail(
       appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
       emailAddress: 'calorify@thecodepapaya.dev',
-      version: versionInfo.versionDisplay,
+      version: versionInfo.uiVersionWithBuild,
     );
     if (!mounted) return;
+    setState(() => _isLoading = false);
+    _closedByTerminalAction = true;
+    Navigator.of(context).pop();
+  }
+
+  void _showThankYouAndPop() {
+    _closedByTerminalAction = true;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Thanks — we'll ask again another time.")),
+    );
     Navigator.of(context).pop();
   }
 
@@ -88,117 +132,250 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet> {
     final textTheme = theme.textTheme;
 
     return BaseBottomSheet(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (_step == _FeedbackSheetStep.enjoyingQuestion) ...[
-            Row(
-              children: [
-                Icon(LucideIcons.star, color: colorScheme.onSurface, size: 32),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    t.feedbackRating.enjoyingQuestion(
-                      appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
-                    ),
-                    style: textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: colorScheme.onSurface,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            PrimaryButton(
-              onPressed: () {
-                Analytics.instance.logEvent(
-                  AnalyticsEvent.feedbackSheetEnjoyingYes,
-                );
-                setState(() => _step = _FeedbackSheetStep.ratePrompt);
-              },
-              text: t.feedbackRating.yes,
-              analyticsEvent: AnalyticsEvent.feedbackSheetEnjoyingYes,
-            ),
-            const SizedBox(height: 12),
-            SecondaryButton(
-              onPressed: () {
-                Analytics.instance.logEvent(
-                  AnalyticsEvent.feedbackSheetEnjoyingNo,
-                );
-                setState(() => _step = _FeedbackSheetStep.emailPrompt);
-              },
-              text: t.feedbackRating.no,
-              analyticsEvent: AnalyticsEvent.feedbackSheetEnjoyingNo,
-            ),
-          ] else if (_step == _FeedbackSheetStep.ratePrompt) ...[
-            Text(
-              t.feedbackRating.soloDevMessage(
-                appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
-              ),
-              style: textTheme.bodyLarge?.copyWith(
-                color: colorScheme.onSurface.withValues(alpha: 0.8),
-              ),
-            ),
-            const SizedBox(height: 20),
-            PrimaryButton(
-              onPressed: _onRateYes,
-              text: t.feedbackRating.yes,
-              analyticsEvent: AnalyticsEvent.feedbackSheetRateYes,
-            ),
-            const SizedBox(height: 12),
-            SecondaryButton(
-              onPressed: () {
-                Analytics.instance.logEvent(AnalyticsEvent.feedbackSheetRateNo);
-                Navigator.of(context).pop();
-              },
-              text: t.feedbackRating.no,
-              analyticsEvent: AnalyticsEvent.feedbackSheetRateNo,
-            ),
-          ] else ...[
-            Text(
-              t.feedbackRating.shareFeedbackViaEmail(
-                appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
-              ),
-              style: textTheme.bodyLarge?.copyWith(
-                color: colorScheme.onSurface.withValues(alpha: 0.8),
-              ),
-            ),
-            const SizedBox(height: 20),
-            PrimaryButton(
-              onPressed: _onEmailYes,
-              text: t.feedbackRating.yes,
-              analyticsEvent: AnalyticsEvent.feedbackSheetEmailYes,
-            ),
-            const SizedBox(height: 12),
-            SecondaryButton(
-              onPressed: () {
-                Analytics.instance.logEvent(
-                  AnalyticsEvent.feedbackSheetEmailNo,
-                );
-                Navigator.of(context).pop();
-              },
-              text: t.feedbackRating.no,
-              analyticsEvent: AnalyticsEvent.feedbackSheetEmailNo,
-            ),
+      child: FadeTransition(
+        opacity: _fadeAnimation,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _step == _FeedbackSheetStep.enjoyingQuestion
+                ? _buildEnjoyingStep(context, textTheme, colorScheme)
+                : _step == _FeedbackSheetStep.ratePrompt
+                ? _buildRateStep(context, textTheme, colorScheme)
+                : _step == _FeedbackSheetStep.emailPrompt
+                ? _buildEmailStep(context, textTheme, colorScheme)
+                : _buildEnjoyingStep(context, textTheme, colorScheme),
+            const SizedBox(height: 8),
           ],
-          const SizedBox(height: 24),
-          _buildAboutUsMention(context, textTheme, colorScheme),
-          const SizedBox(height: 8),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _buildAboutUsMention(
+  Widget _buildEnjoyingStep(
+    BuildContext context,
+    TextTheme textTheme,
+    ColorScheme colorScheme,
+  ) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(LucideIcons.star, color: colorScheme.onSurface, size: 28),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                t.feedbackRating.enjoyingQuestion(
+                  appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+                ),
+                style: textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: colorScheme.onSurface,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Text(
+          t.feedbackRating.aboutUsDescription,
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurface.withValues(alpha: 0.7),
+          ),
+        ),
+        const SizedBox(height: 10),
+        _buildAboutUsSection(context, textTheme, colorScheme),
+        const SizedBox(height: 16),
+        _buildCompactButtonRow(
+          context: context,
+          colorScheme: colorScheme,
+          primaryLabel: t.feedbackRating.yes,
+          secondaryLabel: t.feedbackRating.no,
+          onPrimary: () {
+            Analytics.instance.logEvent(
+              AnalyticsEvent.feedbackSheetEnjoyingYes,
+            );
+            _fadeController.reverse().then((_) {
+              if (!mounted) return;
+              setState(() => _step = _FeedbackSheetStep.ratePrompt);
+              _fadeController.forward();
+            });
+          },
+          onSecondary: () {
+            Analytics.instance.logEvent(AnalyticsEvent.feedbackSheetEnjoyingNo);
+            _showThankYouAndPop();
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRateStep(
+    BuildContext context,
+    TextTheme textTheme,
+    ColorScheme colorScheme,
+  ) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          t.feedbackRating.soloDevMessage(
+            appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+          ),
+          style: textTheme.bodyMedium?.copyWith(
+            color: colorScheme.onSurface.withValues(alpha: 0.85),
+          ),
+        ),
+        const SizedBox(height: 16),
+        _buildCompactButtonRow(
+          context: context,
+          colorScheme: colorScheme,
+          primaryLabel: t.feedbackRating.rateCta,
+          secondaryLabel: t.feedbackRating.maybeLater,
+          onPrimary: _onRateYes,
+          onSecondary: () {
+            Analytics.instance.logEvent(AnalyticsEvent.feedbackSheetRateNo);
+            _showThankYouAndPop();
+          },
+          isLoading: _isLoading,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildEmailStep(
+    BuildContext context,
+    TextTheme textTheme,
+    ColorScheme colorScheme,
+  ) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          t.feedbackRating.shareFeedbackViaEmail,
+          style: textTheme.bodyMedium?.copyWith(
+            color: colorScheme.onSurface.withValues(alpha: 0.85),
+          ),
+        ),
+        const SizedBox(height: 16),
+        _buildCompactButtonRow(
+          context: context,
+          colorScheme: colorScheme,
+          primaryLabel: t.feedbackRating.sendFeedback,
+          secondaryLabel: t.feedbackRating.noThanks,
+          onPrimary: _onEmailYes,
+          onSecondary: () {
+            Analytics.instance.logEvent(AnalyticsEvent.feedbackSheetEmailNo);
+            _showThankYouAndPop();
+          },
+          isLoading: _isLoading,
+        ),
+      ],
+    );
+  }
+
+  static const double _kButtonHeight = 44;
+
+  Widget _buildCompactButtonRow({
+    required BuildContext context,
+    required ColorScheme colorScheme,
+    required String primaryLabel,
+    required String secondaryLabel,
+    required VoidCallback onPrimary,
+    required VoidCallback onSecondary,
+    bool isLoading = false,
+  }) {
+    final theme = Theme.of(context);
+    return Row(
+      children: [
+        Expanded(
+          child: SizedBox(
+            height: _kButtonHeight,
+            child: ElevatedButton(
+              onPressed: isLoading ? null : onPrimary,
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(borderRadius: globalRadius),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                backgroundColor: colorScheme.primary,
+                foregroundColor: colorScheme.onPrimary,
+              ),
+              child:
+                  isLoading
+                      ? AppLoader(color: colorScheme.onPrimary)
+                      : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              primaryLabel,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: theme.textTheme.labelLarge?.copyWith(
+                                color: colorScheme.onPrimary,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: SizedBox(
+            height: _kButtonHeight,
+            child: OutlinedButton(
+              onPressed: isLoading ? null : onSecondary,
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(borderRadius: globalRadius),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                side: BorderSide(
+                  color: colorScheme.outline.withValues(alpha: 0.6),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: Text(
+                      secondaryLabel,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: colorScheme.onSurface,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAboutUsSection(
     BuildContext context,
     TextTheme textTheme,
     ColorScheme colorScheme,
   ) {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 4,
+      runSpacing: 4,
       children: [
+        Icon(
+          LucideIcons.heart,
+          size: 14,
+          color: colorScheme.primary.withValues(alpha: 0.75),
+        ),
         Text(
           t.feedbackRating.aboutUsMentionBeforeLink(
             appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
@@ -223,12 +400,6 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet> {
                 decoration: TextDecoration.underline,
               ),
             ),
-          ),
-        ),
-        Text(
-          '.',
-          style: textTheme.bodySmall?.copyWith(
-            color: colorScheme.onSurface.withValues(alpha: 0.7),
           ),
         ),
       ],

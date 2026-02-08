@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingTh implements TranslationsFeedbackRatingEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'กำลังเพลิดเพลินกับ ${appLabel} ไหม? ประสบการณ์ของคุณสำคัญสำหรับเรา';
+	@override String enjoyingQuestion({required Object appLabel}) => 'คุณกำลังเพลิดเพลินกับ ${appLabel} อยู่หรือเปล่า?';
 	@override String get yes => 'ใช่ ฉันชอบมัน';
 	@override String get no => 'ไม่ค่อย';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} พัฒนาโดยคนคนเดียว การให้คะแนนสั้นๆ บน Play Store ช่วยให้คนอื่นค้นพบแอปและทำให้การพัฒนาต่อไปได้ — มันช่วยได้มาก คุณจะสละเวลาสักนิดเพื่อให้คะแนนไหม?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} พัฒนาโดยคนคนเดียว ความเห็นของคุณมีส่วนกำหนดทิศทางในอนาคต — เราอ่านทุกข้อความ คุณต้องการส่งความคิดเห็นทางอีเมลไหม?';
+	@override String soloDevMessage({required Object appLabel}) => 'การให้คะแนนแบบรวดเร็วจะช่วยให้ผู้อื่นค้นหา ${appLabel} ได้ง่ายขึ้นและช่วยให้การพัฒนาต่อไปเป็นไปได้ — คุณสละเวลาสักครู่เพื่อให้คะแนนได้ไหม?';
+	@override String get shareFeedbackViaEmail => 'ความคิดเห็นของคุณจะเป็นตัวกำหนดสิ่งที่จะตามมา — เราอ่านทุกข้อความ คุณต้องการแชร์ความเห็นผ่านอีเมลไหม?';
+	@override String get rateCta => 'ให้คะแนนใน Play Store';
+	@override String get maybeLater => 'ไว้ทำทีหลัง';
+	@override String get sendFeedback => 'ส่งคำติชม';
+	@override String get noThanks => 'ไม่เป็นไร ขอบคุณ';
+	@override String get aboutUsDescription => 'สร้างด้วยความใส่ใจโดยทีมงานขนาดเล็ก เรามุ่งเน้นเรื่องความเป็นส่วนตัว ความเรียบง่าย และช่วยให้คุณสร้างนิสัยการรับประทานอาหารที่ดีขึ้น';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'อยากรู้ว่าผู้ที่อยู่เบื้องหลัง ${appLabel} คือใคร? ดู ';
 	@override String get aboutUsLinkLabel => 'เกี่ยวกับเรา';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsTh {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'เป้าหมายรายวันคือปริมาณแคลอรี่ที่แนะนำสำหรับการบริโภคในแต่ละวันซึ่งขึ้นอยู่กับ TDEE และเป้าหมายด้านน้ำหนักของคุณ สำหรับการลดน้ำหนัก คุณควรบริโภคแคลอรี่ให้น้อยกว่า TDEE ของคุณ สำหรับการรักษาน้ำหนัก คุณควรบริโภคแคลอรี่เท่ากับ TDEE ของคุณ และสำหรับการเพิ่มน้ำหนัก คุณควรบริโภคแคลอรี่มากกว่า TDEE การดำเนินชีวิตอย่างนี้จะช่วยให้คุณบรรลุการเปลี่ยนแปลงน้ำหนักที่ต้องการอย่างมีสุขภาพดี',
 			'common.close' => 'ปิด',
 			'common.kContinue' => 'ดำเนินการต่อ',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'กำลังเพลิดเพลินกับ ${appLabel} ไหม? ประสบการณ์ของคุณสำคัญสำหรับเรา',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'คุณกำลังเพลิดเพลินกับ ${appLabel} อยู่หรือเปล่า?',
 			'feedbackRating.yes' => 'ใช่ ฉันชอบมัน',
 			'feedbackRating.no' => 'ไม่ค่อย',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} พัฒนาโดยคนคนเดียว การให้คะแนนสั้นๆ บน Play Store ช่วยให้คนอื่นค้นพบแอปและทำให้การพัฒนาต่อไปได้ — มันช่วยได้มาก คุณจะสละเวลาสักนิดเพื่อให้คะแนนไหม?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} พัฒนาโดยคนคนเดียว ความเห็นของคุณมีส่วนกำหนดทิศทางในอนาคต — เราอ่านทุกข้อความ คุณต้องการส่งความคิดเห็นทางอีเมลไหม?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'การให้คะแนนแบบรวดเร็วจะช่วยให้ผู้อื่นค้นหา ${appLabel} ได้ง่ายขึ้นและช่วยให้การพัฒนาต่อไปเป็นไปได้ — คุณสละเวลาสักครู่เพื่อให้คะแนนได้ไหม?',
+			'feedbackRating.shareFeedbackViaEmail' => 'ความคิดเห็นของคุณจะเป็นตัวกำหนดสิ่งที่จะตามมา — เราอ่านทุกข้อความ คุณต้องการแชร์ความเห็นผ่านอีเมลไหม?',
+			'feedbackRating.rateCta' => 'ให้คะแนนใน Play Store',
+			'feedbackRating.maybeLater' => 'ไว้ทำทีหลัง',
+			'feedbackRating.sendFeedback' => 'ส่งคำติชม',
+			'feedbackRating.noThanks' => 'ไม่เป็นไร ขอบคุณ',
+			'feedbackRating.aboutUsDescription' => 'สร้างด้วยความใส่ใจโดยทีมงานขนาดเล็ก เรามุ่งเน้นเรื่องความเป็นส่วนตัว ความเรียบง่าย และช่วยให้คุณสร้างนิสัยการรับประทานอาหารที่ดีขึ้น',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'อยากรู้ว่าผู้ที่อยู่เบื้องหลัง ${appLabel} คือใคร? ดู ',
 			'feedbackRating.aboutUsLinkLabel' => 'เกี่ยวกับเรา',
 			'errors.loadingProfileData' => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์',

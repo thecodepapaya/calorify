@@ -1,4 +1,6 @@
 import 'package:models/models.dart';
+import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:utils/utils.dart';
 import 'package:i18n/i18n.dart';
@@ -230,6 +232,11 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
     }
     updatedProfile.weightUnit = _unitSystem;
     await OnboardingService.instance.saveProfileData(updatedProfile);
+    Analytics.instance.logEvent(
+      widget.isTargetWeight
+          ? AnalyticsEvent.onboardingSetTargetWeight
+          : AnalyticsEvent.onboardingSetWeight,
+    );
     widget.onContinue();
   }
 }

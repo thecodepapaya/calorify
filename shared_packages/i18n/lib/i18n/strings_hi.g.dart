@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingHi implements TranslationsFeedbackRatingEn {
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'क्या आप ${appLabel} का आनंद ले रहे हैं? आपका अनुभव हमारे लिए महत्वपूर्ण है।';
+	@override String enjoyingQuestion({required Object appLabel}) => 'क्या आपको ${appLabel} पसंद आ रहा है?';
 	@override String get yes => 'हाँ, मुझे यह पसंद आ रहा है';
 	@override String get no => 'ज़्यादा नहीं';
-	@override String soloDevMessage({required Object appLabel}) => '${appLabel} एक व्यक्ति द्वारा विकसित किया गया है। एक छोटी सी Play Store रेटिंग दूसरों को इसे खोजने में मदद करती है और विकास जारी रखने में सहायक होती है — यह वास्तव में मदद करता है। क्या आप एक मिनट लेकर रेटिंग छोड़ सकते हैं?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} एक व्यक्ति द्वारा बनाया गया है। आपकी प्रतिक्रिया वाकई यह तय करती है कि आगे क्या आएगा — और हम हर संदेश पढ़ते हैं। क्या आप ईमेल के जरिए अपनी राय साझा करना चाहेंगे?';
+	@override String soloDevMessage({required Object appLabel}) => 'एक त्वरित रेटिंग दूसरों को ${appLabel} खोजने में मदद करती है और विकास को आगे बढ़ाने में सहायक होती है। क्या आप कृपया एक पल निकालकर रेटिंग छोड़ेंगे?';
+	@override String get shareFeedbackViaEmail => 'आपकी प्रतिक्रिया आने वाले बदलावों को आकार देती है — हम हर संदेश पढ़ते हैं। क्या आप अपने विचार ईमेल के जरिए साझा करना चाहेंगे?';
+	@override String get rateCta => 'Play Store पर रेटिंग दें';
+	@override String get maybeLater => 'शायद बाद में';
+	@override String get sendFeedback => 'प्रतिक्रिया भेजें';
+	@override String get noThanks => 'नहीं, धन्यवाद';
+	@override String get aboutUsDescription => 'छोटी टीम द्वारा ध्यानपूर्वक तैयार किया गया। हम आपकी गोपनीयता, सरलता, और आपको बेहतर खाने की आदतें विकसित करने में मदद करने के लिए समर्पित हैं।';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'जानना चाहेंगे कि ${appLabel} के पीछे कौन है? देखें ';
 	@override String get aboutUsLinkLabel => 'हमारे बारे में';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsHi {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'दैनिक लक्ष्य आपके टीडीईई और वजन लक्ष्य के आधार पर आपकी अनुशंसित दैनिक कैलोरी की मात्रा है। वजन घटाने के लिए, आप अपने टीडीईई से कम कैलोरी का सेवन करते हैं। वजन बनाए रखने के लिए, आप अपने टीडीईई के बराबर खाते हैं। वजन बढ़ाने के लिए, आप अपने टीडीईई से अधिक कैलोरी का सेवन करते हैं। यह आपको एक स्वस्थ गति से आपके इच्छित वजन परिवर्तन को प्राप्त करने में मदद करता है।',
 			'common.close' => 'बंद करें',
 			'common.kContinue' => 'जारी रखें',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'क्या आप ${appLabel} का आनंद ले रहे हैं? आपका अनुभव हमारे लिए महत्वपूर्ण है।',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'क्या आपको ${appLabel} पसंद आ रहा है?',
 			'feedbackRating.yes' => 'हाँ, मुझे यह पसंद आ रहा है',
 			'feedbackRating.no' => 'ज़्यादा नहीं',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} एक व्यक्ति द्वारा विकसित किया गया है। एक छोटी सी Play Store रेटिंग दूसरों को इसे खोजने में मदद करती है और विकास जारी रखने में सहायक होती है — यह वास्तव में मदद करता है। क्या आप एक मिनट लेकर रेटिंग छोड़ सकते हैं?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} एक व्यक्ति द्वारा बनाया गया है। आपकी प्रतिक्रिया वाकई यह तय करती है कि आगे क्या आएगा — और हम हर संदेश पढ़ते हैं। क्या आप ईमेल के जरिए अपनी राय साझा करना चाहेंगे?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'एक त्वरित रेटिंग दूसरों को ${appLabel} खोजने में मदद करती है और विकास को आगे बढ़ाने में सहायक होती है। क्या आप कृपया एक पल निकालकर रेटिंग छोड़ेंगे?',
+			'feedbackRating.shareFeedbackViaEmail' => 'आपकी प्रतिक्रिया आने वाले बदलावों को आकार देती है — हम हर संदेश पढ़ते हैं। क्या आप अपने विचार ईमेल के जरिए साझा करना चाहेंगे?',
+			'feedbackRating.rateCta' => 'Play Store पर रेटिंग दें',
+			'feedbackRating.maybeLater' => 'शायद बाद में',
+			'feedbackRating.sendFeedback' => 'प्रतिक्रिया भेजें',
+			'feedbackRating.noThanks' => 'नहीं, धन्यवाद',
+			'feedbackRating.aboutUsDescription' => 'छोटी टीम द्वारा ध्यानपूर्वक तैयार किया गया। हम आपकी गोपनीयता, सरलता, और आपको बेहतर खाने की आदतें विकसित करने में मदद करने के लिए समर्पित हैं।',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'जानना चाहेंगे कि ${appLabel} के पीछे कौन है? देखें ',
 			'feedbackRating.aboutUsLinkLabel' => 'हमारे बारे में',
 			'errors.loadingProfileData' => 'प्रोफ़ाइल डेटा लोड करने में त्रुटि',

@@ -601,11 +601,16 @@
     "continue": "Doorgaan"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Bevalt {appLabel} je? Jouw ervaring is belangrijk voor ons.",
+    "enjoyingQuestion": "Geniet je van {appLabel}?",
     "yes": "Ja, het bevalt me",
     "no": "Niet echt",
-    "soloDevMessage": "{appLabel} is door één persoon gemaakt. Een korte beoordeling in de Play Store helpt anderen het te vinden en houdt de ontwikkeling gaande — het helpt echt. Zou je even de tijd willen nemen om er een achter te laten?",
-    "shareFeedbackViaEmail": "{appLabel} is door één persoon gemaakt. Jouw feedback bepaalt wat er daarna komt — en we lezen elk bericht. Wil je je feedback per e-mail delen?",
+    "soloDevMessage": "Een korte beoordeling helpt anderen {appLabel} te vinden en houdt de ontwikkeling gaande. Wil je even de tijd nemen om er een achter te laten?",
+    "shareFeedbackViaEmail": "Je feedback bepaalt wat er hierna komt — we lezen elk bericht. Wil je je gedachten via e-mail met ons delen?",
+    "rateCta": "Beoordeel ons in de Play Store",
+    "maybeLater": "Misschien later",
+    "sendFeedback": "Stuur feedback",
+    "noThanks": "Nee, bedankt",
+    "aboutUsDescription": "Met zorg gemaakt door een klein team. We staan voor privacy en eenvoud, en helpen je gezondere eetgewoonten op te bouwen.",
     "aboutUsMentionBeforeLink": "Nieuwsgierig wie er achter {appLabel} zit? Zie ",
     "aboutUsLinkLabel": "Over ons"
   },

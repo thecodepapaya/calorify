@@ -355,11 +355,16 @@ class _TranslationsFeedbackRatingTl implements TranslationsFeedbackRatingEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Nasasiyahan ka ba sa ${appLabel}? Mahalaga sa amin ang iyong karanasan.';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Nasisiyahan ka ba sa ${appLabel}?';
 	@override String get yes => 'Oo, nasisiyahan ako';
 	@override String get no => 'Hindi talaga';
-	@override String soloDevMessage({required Object appLabel}) => 'Ang ${appLabel} ay ginawa ng isang tao lamang. Ang isang mabilis na rating sa Play Store ay nakakatulong para makita ito ng iba at nagpapatuloy ang pag-unlad — malaking tulong talaga ito. Maaari ka bang maglaan ng sandali para mag-iwan ng rating?';
-	@override String shareFeedbackViaEmail({required Object appLabel}) => 'Ang ${appLabel} ay ginawa ng isang tao lamang. Malaki ang naiaambag ng iyong feedback sa mga susunod na hakbang — binabasa namin ang bawat mensahe. Gusto mo bang ibahagi ang iyong saloobin sa pamamagitan ng email?';
+	@override String soloDevMessage({required Object appLabel}) => 'Ang isang mabilis na rating ay makakatulong sa iba na mahanap ang ${appLabel} at suportahan ang patuloy na pag-unlad nito. Maaari ka bang maglaan ng sandali upang mag-iwan ng isa?';
+	@override String get shareFeedbackViaEmail => 'Hinuhubog ng iyong feedback kung ano ang susunod — binabasa namin ang bawat mensahe. Nais mo bang ibahagi ang iyong mga saloobin sa pamamagitan ng email?';
+	@override String get rateCta => 'Mag-rate sa Play Store';
+	@override String get maybeLater => 'Mamaya na lang';
+	@override String get sendFeedback => 'Magpadala ng puna';
+	@override String get noThanks => 'Hindi, salamat';
+	@override String get aboutUsDescription => 'Ginawa nang may malasakit ng isang maliit na koponan. Nakatuon kami sa pagkapribado, sa pagiging simple, at sa pagtulong sa iyo na bumuo ng mas malusog na gawi sa pagkain.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nais mong malaman kung sino ang nasa likod ng ${appLabel}? Tingnan ';
 	@override String get aboutUsLinkLabel => 'Tungkol sa amin';
 }
@@ -1980,11 +1985,16 @@ extension on TranslationsTl {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Ang Arawang Layunin ay ang inirekomendang pang-araw-araw na calorie na kinakailangan batay sa iyong TDEE at layunin sa timbang. Para sa pagbaba ng timbang, kumakain ka ng mas kaunting calorie kaysa sa iyong TDEE. Para sa pagpapanatili ng timbang, katumbas mo ang iyong TDEE. Para sa pagtaas ng timbang, kumakain ka ng mas maraming calorie kaysa sa iyong TDEE. Tinutulungan ka nitong makamit ang iyong nais na pagbabago ng timbang sa isang malusog na takbo.',
 			'common.close' => 'Isara',
 			'common.kContinue' => 'Magpatuloy',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nasasiyahan ka ba sa ${appLabel}? Mahalaga sa amin ang iyong karanasan.',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nasisiyahan ka ba sa ${appLabel}?',
 			'feedbackRating.yes' => 'Oo, nasisiyahan ako',
 			'feedbackRating.no' => 'Hindi talaga',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Ang ${appLabel} ay ginawa ng isang tao lamang. Ang isang mabilis na rating sa Play Store ay nakakatulong para makita ito ng iba at nagpapatuloy ang pag-unlad — malaking tulong talaga ito. Maaari ka bang maglaan ng sandali para mag-iwan ng rating?',
-			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => 'Ang ${appLabel} ay ginawa ng isang tao lamang. Malaki ang naiaambag ng iyong feedback sa mga susunod na hakbang — binabasa namin ang bawat mensahe. Gusto mo bang ibahagi ang iyong saloobin sa pamamagitan ng email?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Ang isang mabilis na rating ay makakatulong sa iba na mahanap ang ${appLabel} at suportahan ang patuloy na pag-unlad nito. Maaari ka bang maglaan ng sandali upang mag-iwan ng isa?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Hinuhubog ng iyong feedback kung ano ang susunod — binabasa namin ang bawat mensahe. Nais mo bang ibahagi ang iyong mga saloobin sa pamamagitan ng email?',
+			'feedbackRating.rateCta' => 'Mag-rate sa Play Store',
+			'feedbackRating.maybeLater' => 'Mamaya na lang',
+			'feedbackRating.sendFeedback' => 'Magpadala ng puna',
+			'feedbackRating.noThanks' => 'Hindi, salamat',
+			'feedbackRating.aboutUsDescription' => 'Ginawa nang may malasakit ng isang maliit na koponan. Nakatuon kami sa pagkapribado, sa pagiging simple, at sa pagtulong sa iyo na bumuo ng mas malusog na gawi sa pagkain.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nais mong malaman kung sino ang nasa likod ng ${appLabel}? Tingnan ',
 			'feedbackRating.aboutUsLinkLabel' => 'Tungkol sa amin',
 			'errors.loadingProfileData' => 'Error sa pag-load ng datos ng profile',
