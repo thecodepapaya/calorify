@@ -16,11 +16,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Shorebird
-        uses: shorebirdtech/setup-shorebird@v1
-        with:
-          cache: true
-
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -37,22 +32,28 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Cache Android SDK
+      - name: Prepare Android SDK build-cache for caching
+        run: |
+          sudo mkdir -p /usr/local/lib/android/sdk/build-cache
+          sudo chmod -R 777 /usr/local/lib/android/sdk/build-cache
+
+      - name: Cache Android SDK build-cache
         uses: actions/cache@v4
         with:
-          path: |
-            ~/.android/build-cache
-          key: ${{ runner.os }}-android-sdk
+          path: /usr/local/lib/android/sdk/build-cache
+          key: ${{ runner.os }}-android-sdk-build-cache
           restore-keys: |
-            ${{ runner.os }}-android-sdk-
-
-      - name: Install dependencies
-        run: bash scripts/flutter_pub_get_all.sh
+            ${{ runner.os }}-android-sdk-build-cache-
 
       - name: Decode Android signing files
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 --decode > app/android/app/upload-keystore.jks
           echo "${{ secrets.ANDROID_KEY_PROPERTIES_B64 }}" | base64 --decode > app/android/key.properties
+
+      - name: Setup Shorebird
+        uses: shorebirdtech/setup-shorebird@v1
+        with:
+          cache: true
 
       - name: Shorebird Patch (Android, prod)
         uses: shorebirdtech/shorebird-patch@v1

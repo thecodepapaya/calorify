@@ -28,6 +28,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Prepare Android SDK build-cache for caching
+        run: |
+          sudo mkdir -p /usr/local/lib/android/sdk/build-cache
+          sudo chmod -R 777 /usr/local/lib/android/sdk/build-cache
+
       - name: Cache Android SDK build-cache
         uses: actions/cache@v4
         with:
