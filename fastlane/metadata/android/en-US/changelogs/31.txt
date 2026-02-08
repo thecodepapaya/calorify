@@ -1,0 +1,8 @@
+What's New:
+• Share your thoughts — new in-app feedback so we can hear you!
+• Smoother meal variation picker with polished animations
+• Better food photos — improved image quality for more accurate AI analysis
+• Faster updates behind the scenes so you get fixes sooner
+• Profile & localization tweaks
+
+Thanks for using Calorify! 🥗
