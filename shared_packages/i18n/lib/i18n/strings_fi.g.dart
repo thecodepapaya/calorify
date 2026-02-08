@@ -232,6 +232,10 @@ class _TranslationsEditProfileFi implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'Aktiivisuustaso';
 	@override String get metric => 'Metrinen';
 	@override String get imperial => 'Imperiaalinen';
+	@override String get unitCm => 'cm';
+	@override String get unitFt => 'ft';
+	@override String get unitKg => 'kg';
+	@override String get unitLbs => 'lbs';
 	@override String get metricCm => 'Metrinen (cm)';
 	@override String get imperialFtIn => 'Imperiaalinen (ft/in)';
 	@override String get metricKg => 'Metrinen (kg)';
@@ -1804,6 +1808,10 @@ extension on TranslationsFi {
 			'editProfile.activityLevel' => 'Aktiivisuustaso',
 			'editProfile.metric' => 'Metrinen',
 			'editProfile.imperial' => 'Imperiaalinen',
+			'editProfile.unitCm' => 'cm',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => 'kg',
+			'editProfile.unitLbs' => 'lbs',
 			'editProfile.metricCm' => 'Metrinen (cm)',
 			'editProfile.imperialFtIn' => 'Imperiaalinen (ft/in)',
 			'editProfile.metricKg' => 'Metrinen (kg)',

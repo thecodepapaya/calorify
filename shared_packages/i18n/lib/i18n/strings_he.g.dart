@@ -232,6 +232,10 @@ class _TranslationsEditProfileHe implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'רמת פעילות';
 	@override String get metric => 'מטרי';
 	@override String get imperial => 'אימפריאלי';
+	@override String get unitCm => 'ס"מ';
+	@override String get unitFt => 'רגל';
+	@override String get unitKg => 'ק"ג';
+	@override String get unitLbs => 'ליב\'';
 	@override String get metricCm => 'מטרי (ס"מ)';
 	@override String get imperialFtIn => 'אימפריאלי (רגל/אינצ\'ס)';
 	@override String get metricKg => 'מטרי (ק"ג)';
@@ -1804,6 +1808,10 @@ extension on TranslationsHe {
 			'editProfile.activityLevel' => 'רמת פעילות',
 			'editProfile.metric' => 'מטרי',
 			'editProfile.imperial' => 'אימפריאלי',
+			'editProfile.unitCm' => 'ס"מ',
+			'editProfile.unitFt' => 'רגל',
+			'editProfile.unitKg' => 'ק"ג',
+			'editProfile.unitLbs' => 'ליב\'',
 			'editProfile.metricCm' => 'מטרי (ס"מ)',
 			'editProfile.imperialFtIn' => 'אימפריאלי (רגל/אינצ\'ס)',
 			'editProfile.metricKg' => 'מטרי (ק"ג)',

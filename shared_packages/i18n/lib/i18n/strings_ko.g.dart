@@ -232,6 +232,10 @@ class _TranslationsEditProfileKo implements TranslationsEditProfileEn {
 	@override String get activityLevel => '활동 수준';
 	@override String get metric => '미터법';
 	@override String get imperial => '영국식';
+	@override String get unitCm => '㎝';
+	@override String get unitFt => 'ft';
+	@override String get unitKg => '㎏';
+	@override String get unitLbs => 'lb';
 	@override String get metricCm => '미터법 (cm)';
 	@override String get imperialFtIn => '영국식 (ft/in)';
 	@override String get metricKg => '미터법 (kg)';
@@ -1804,6 +1808,10 @@ extension on TranslationsKo {
 			'editProfile.activityLevel' => '활동 수준',
 			'editProfile.metric' => '미터법',
 			'editProfile.imperial' => '영국식',
+			'editProfile.unitCm' => '㎝',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => '㎏',
+			'editProfile.unitLbs' => 'lb',
 			'editProfile.metricCm' => '미터법 (cm)',
 			'editProfile.imperialFtIn' => '영국식 (ft/in)',
 			'editProfile.metricKg' => '미터법 (kg)',

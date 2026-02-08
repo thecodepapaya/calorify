@@ -232,6 +232,10 @@ class _TranslationsEditProfileHu implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'Aktivitási szint';
 	@override String get metric => 'Metrikus';
 	@override String get imperial => 'Imperiális';
+	@override String get unitCm => 'cm';
+	@override String get unitFt => 'ft';
+	@override String get unitKg => 'kg';
+	@override String get unitLbs => 'lbs';
 	@override String get metricCm => 'Metrikus (cm)';
 	@override String get imperialFtIn => 'Imperiális (láb/hüvelyk)';
 	@override String get metricKg => 'Metrikus (kg)';
@@ -1804,6 +1808,10 @@ extension on TranslationsHu {
 			'editProfile.activityLevel' => 'Aktivitási szint',
 			'editProfile.metric' => 'Metrikus',
 			'editProfile.imperial' => 'Imperiális',
+			'editProfile.unitCm' => 'cm',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => 'kg',
+			'editProfile.unitLbs' => 'lbs',
 			'editProfile.metricCm' => 'Metrikus (cm)',
 			'editProfile.imperialFtIn' => 'Imperiális (láb/hüvelyk)',
 			'editProfile.metricKg' => 'Metrikus (kg)',

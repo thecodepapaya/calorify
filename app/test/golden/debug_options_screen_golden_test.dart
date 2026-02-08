@@ -12,14 +12,22 @@ void main() {
 
   group('DebugOptionsScreen Golden Tests', () {
     testGoldens('Initial view', (WidgetTester tester) async {
-      final builder =
-          DeviceBuilder()..addScenario(
-            name: 'Debug Options',
-            widget: const DebugOptionsScreen(),
-          );
+      for (final locale in goldenTestLocales) {
+        final builder =
+            DeviceBuilder()..addScenario(
+              name: 'Debug Options',
+              widget: const DebugOptionsScreen(),
+            );
 
-      await tester.pumpDeviceBuilder(builder, wrapper: goldenWrapper());
-      await screenMatchesGolden(tester, 'debug_options_screen');
+        await tester.pumpDeviceBuilder(
+          builder,
+          wrapper: goldenWrapper(locale: locale),
+        );
+        await screenMatchesGolden(
+          tester,
+          'debug_options_screen_${locale.name}',
+        );
+      }
     });
   });
 }

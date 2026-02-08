@@ -421,14 +421,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ),
       trailing: SegmentedButton<UnitSystem>(
         segments: [
-          ButtonSegment(
-            value: UnitSystem.METRIC,
-            label: Text(t.editProfile.metric),
-          ),
-          ButtonSegment(
-            value: UnitSystem.IMPERIAL,
-            label: Text(t.editProfile.imperial),
-          ),
+          ButtonSegment(value: UnitSystem.METRIC, label: Text(t.editProfile.unitCm)),
+          ButtonSegment(value: UnitSystem.IMPERIAL, label: Text(t.editProfile.unitFt)),
         ],
         selected: {unitSystem},
         showSelectedIcon: false,
@@ -436,7 +430,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           visualDensity: VisualDensity.compact,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           padding: WidgetStatePropertyAll(
-            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            EdgeInsets.symmetric(horizontal: 6, vertical: 4),
           ),
         ),
         onSelectionChanged: (Set<UnitSystem> selection) async {
@@ -498,14 +492,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ),
       trailing: SegmentedButton<UnitSystem>(
         segments: [
-          ButtonSegment(
-            value: UnitSystem.METRIC,
-            label: Text(t.editProfile.metric),
-          ),
-          ButtonSegment(
-            value: UnitSystem.IMPERIAL,
-            label: Text(t.editProfile.imperial),
-          ),
+          ButtonSegment(value: UnitSystem.METRIC, label: Text(t.editProfile.unitKg)),
+          ButtonSegment(value: UnitSystem.IMPERIAL, label: Text(t.editProfile.unitLbs)),
         ],
         selected: {unitSystem},
         showSelectedIcon: false,
@@ -513,7 +501,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           visualDensity: VisualDensity.compact,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           padding: WidgetStatePropertyAll(
-            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            EdgeInsets.symmetric(horizontal: 6, vertical: 4),
           ),
         ),
         onSelectionChanged: (Set<UnitSystem> selection) async {

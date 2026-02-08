@@ -232,6 +232,10 @@ class _TranslationsEditProfileTl implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'Antas ng Aktibidad';
 	@override String get metric => 'Sistemang metrikal';
 	@override String get imperial => 'Imperyal';
+	@override String get unitCm => 'cm';
+	@override String get unitFt => 'ft';
+	@override String get unitKg => 'kg';
+	@override String get unitLbs => 'lbs';
 	@override String get metricCm => 'Sistemang metrikal (cm)';
 	@override String get imperialFtIn => 'Imperyal (ft/in)';
 	@override String get metricKg => 'Sistemang metrikal (kg)';
@@ -1804,6 +1808,10 @@ extension on TranslationsTl {
 			'editProfile.activityLevel' => 'Antas ng Aktibidad',
 			'editProfile.metric' => 'Sistemang metrikal',
 			'editProfile.imperial' => 'Imperyal',
+			'editProfile.unitCm' => 'cm',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => 'kg',
+			'editProfile.unitLbs' => 'lbs',
 			'editProfile.metricCm' => 'Sistemang metrikal (cm)',
 			'editProfile.imperialFtIn' => 'Imperyal (ft/in)',
 			'editProfile.metricKg' => 'Sistemang metrikal (kg)',

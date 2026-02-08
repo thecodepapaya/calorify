@@ -383,6 +383,18 @@ class TranslationsEditProfileEn {
 	/// en: 'Imperial'
 	String get imperial => 'Imperial';
 
+	/// en: 'cm'
+	String get unitCm => 'cm';
+
+	/// en: 'ft'
+	String get unitFt => 'ft';
+
+	/// en: 'kg'
+	String get unitKg => 'kg';
+
+	/// en: 'lbs'
+	String get unitLbs => 'lbs';
+
 	/// en: 'Metric (cm)'
 	String get metricCm => 'Metric (cm)';
 
@@ -2735,6 +2747,10 @@ extension on Translations {
 			'editProfile.activityLevel' => 'Activity Level',
 			'editProfile.metric' => 'Metric',
 			'editProfile.imperial' => 'Imperial',
+			'editProfile.unitCm' => 'cm',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => 'kg',
+			'editProfile.unitLbs' => 'lbs',
 			'editProfile.metricCm' => 'Metric (cm)',
 			'editProfile.imperialFtIn' => 'Imperial (ft/in)',
 			'editProfile.metricKg' => 'Metric (kg)',

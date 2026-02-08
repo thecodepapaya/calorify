@@ -232,6 +232,10 @@ class _TranslationsEditProfileTr implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'Aktivite Seviyesi';
 	@override String get metric => 'Metrekes';
 	@override String get imperial => 'İngilizce';
+	@override String get unitCm => 'cm';
+	@override String get unitFt => 'ft';
+	@override String get unitKg => 'kg';
+	@override String get unitLbs => 'lbs';
 	@override String get metricCm => 'Metrekes (cm)';
 	@override String get imperialFtIn => 'İngilizce (ft/in)';
 	@override String get metricKg => 'Metrekes (kg)';
@@ -1804,6 +1808,10 @@ extension on TranslationsTr {
 			'editProfile.activityLevel' => 'Aktivite Seviyesi',
 			'editProfile.metric' => 'Metrekes',
 			'editProfile.imperial' => 'İngilizce',
+			'editProfile.unitCm' => 'cm',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => 'kg',
+			'editProfile.unitLbs' => 'lbs',
 			'editProfile.metricCm' => 'Metrekes (cm)',
 			'editProfile.imperialFtIn' => 'İngilizce (ft/in)',
 			'editProfile.metricKg' => 'Metrekes (kg)',

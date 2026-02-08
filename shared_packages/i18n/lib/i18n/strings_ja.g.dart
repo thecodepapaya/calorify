@@ -232,6 +232,10 @@ class _TranslationsEditProfileJa implements TranslationsEditProfileEn {
 	@override String get activityLevel => '活動レベル';
 	@override String get metric => 'メートル法';
 	@override String get imperial => 'インペリアル';
+	@override String get unitCm => '㎝';
+	@override String get unitFt => 'ft';
+	@override String get unitKg => '㎏';
+	@override String get unitLbs => 'lb';
 	@override String get metricCm => 'メートル法 (cm)';
 	@override String get imperialFtIn => 'インペリアル (ft/in)';
 	@override String get metricKg => 'メートル法 (kg)';
@@ -1804,6 +1808,10 @@ extension on TranslationsJa {
 			'editProfile.activityLevel' => '活動レベル',
 			'editProfile.metric' => 'メートル法',
 			'editProfile.imperial' => 'インペリアル',
+			'editProfile.unitCm' => '㎝',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => '㎏',
+			'editProfile.unitLbs' => 'lb',
 			'editProfile.metricCm' => 'メートル法 (cm)',
 			'editProfile.imperialFtIn' => 'インペリアル (ft/in)',
 			'editProfile.metricKg' => 'メートル法 (kg)',

@@ -232,6 +232,10 @@ class _TranslationsEditProfileEl implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'Επίπεδο Δραστηριότητας';
 	@override String get metric => 'Μετρικό';
 	@override String get imperial => 'Αμερικανικό';
+	@override String get unitCm => 'εκ.';
+	@override String get unitFt => 'πόδ.';
+	@override String get unitKg => 'kg';
+	@override String get unitLbs => 'λβ.';
 	@override String get metricCm => 'Μετρικό (cm)';
 	@override String get imperialFtIn => 'Αμερικανικό (ft/in)';
 	@override String get metricKg => 'Μετρικό (kg)';
@@ -1804,6 +1808,10 @@ extension on TranslationsEl {
 			'editProfile.activityLevel' => 'Επίπεδο Δραστηριότητας',
 			'editProfile.metric' => 'Μετρικό',
 			'editProfile.imperial' => 'Αμερικανικό',
+			'editProfile.unitCm' => 'εκ.',
+			'editProfile.unitFt' => 'πόδ.',
+			'editProfile.unitKg' => 'kg',
+			'editProfile.unitLbs' => 'λβ.',
 			'editProfile.metricCm' => 'Μετρικό (cm)',
 			'editProfile.imperialFtIn' => 'Αμερικανικό (ft/in)',
 			'editProfile.metricKg' => 'Μετρικό (kg)',

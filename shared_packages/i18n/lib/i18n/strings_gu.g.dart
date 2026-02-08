@@ -232,6 +232,10 @@ class _TranslationsEditProfileGu implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'પ્રવૃત્તિનું સ્તર';
 	@override String get metric => 'મેટ્રિક';
 	@override String get imperial => 'ઇમ્પીરિયલ';
+	@override String get unitCm => 'સે.મી.';
+	@override String get unitFt => 'ફૂટ';
+	@override String get unitKg => 'કિ.ગ્રા.';
+	@override String get unitLbs => 'પાઉન્ડ';
 	@override String get metricCm => 'મેટ્રિક (સોમી)';
 	@override String get imperialFtIn => 'ઇમ્પીરિયલ (ફુટ/ઇંચ)';
 	@override String get metricKg => 'મેટ્રિક (કિ.ગ્રા.)';
@@ -1804,6 +1808,10 @@ extension on TranslationsGu {
 			'editProfile.activityLevel' => 'પ્રવૃત્તિનું સ્તર',
 			'editProfile.metric' => 'મેટ્રિક',
 			'editProfile.imperial' => 'ઇમ્પીરિયલ',
+			'editProfile.unitCm' => 'સે.મી.',
+			'editProfile.unitFt' => 'ફૂટ',
+			'editProfile.unitKg' => 'કિ.ગ્રા.',
+			'editProfile.unitLbs' => 'પાઉન્ડ',
 			'editProfile.metricCm' => 'મેટ્રિક (સોમી)',
 			'editProfile.imperialFtIn' => 'ઇમ્પીરિયલ (ફુટ/ઇંચ)',
 			'editProfile.metricKg' => 'મેટ્રિક (કિ.ગ્રા.)',

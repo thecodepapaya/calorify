@@ -41,13 +41,18 @@ void main() {
       final mockRouter = MockTabsRouter();
       when(() => mockRouter.activeIndex).thenReturn(0);
 
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          const MainScreen(),
-          wrapper: goldenWrapper(router: mockRouter),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'main_screen_dashboard_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            const MainScreen(),
+            wrapper: goldenWrapper(router: mockRouter, locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'main_screen_dashboard_${locale.name}_${device.name}',
+          );
+        }
       }
     });
   });

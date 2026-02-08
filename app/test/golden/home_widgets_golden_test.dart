@@ -51,27 +51,34 @@ void main() {
 
   group('Home Widgets Golden Tests', () {
     testGoldens('DailyGoal widget', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          const SetDailyGoal(),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'daily_goal_widget_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            const SetDailyGoal(),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'daily_goal_widget_${locale.name}_${device.name}',
+          );
+        }
       }
     });
 
     testGoldens('DailySummary widget', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          const DailySummaryCard(),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(
-          tester,
-          'daily_summary_widget_${device.name}',
-        );
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            const DailySummaryCard(),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'daily_summary_widget_${locale.name}_${device.name}',
+          );
+        }
       }
     });
   });

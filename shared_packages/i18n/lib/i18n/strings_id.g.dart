@@ -232,6 +232,10 @@ class _TranslationsEditProfileId implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'Tingkat Aktivitas';
 	@override String get metric => 'Metrik';
 	@override String get imperial => 'Imperial';
+	@override String get unitCm => 'cm';
+	@override String get unitFt => 'ft';
+	@override String get unitKg => 'kg';
+	@override String get unitLbs => 'lbs';
 	@override String get metricCm => 'Metrik (cm)';
 	@override String get imperialFtIn => 'Imperial (ft/in)';
 	@override String get metricKg => 'Metrik (kg)';
@@ -1804,6 +1808,10 @@ extension on TranslationsId {
 			'editProfile.activityLevel' => 'Tingkat Aktivitas',
 			'editProfile.metric' => 'Metrik',
 			'editProfile.imperial' => 'Imperial',
+			'editProfile.unitCm' => 'cm',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => 'kg',
+			'editProfile.unitLbs' => 'lbs',
 			'editProfile.metricCm' => 'Metrik (cm)',
 			'editProfile.imperialFtIn' => 'Imperial (ft/in)',
 			'editProfile.metricKg' => 'Metrik (kg)',

@@ -34,13 +34,18 @@ void main() {
         ],
       );
 
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          widget,
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'primary_button_states_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            widget,
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'primary_button_states_${locale.name}_${device.name}',
+          );
+        }
       }
     });
 
@@ -68,13 +73,18 @@ void main() {
         ],
       );
 
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          widget,
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'selection_card_states_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            widget,
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'selection_card_states_${locale.name}_${device.name}',
+          );
+        }
       }
     });
   });

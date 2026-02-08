@@ -232,6 +232,10 @@ class _TranslationsEditProfileVi implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'Mức độ hoạt động';
 	@override String get metric => 'Mét';
 	@override String get imperial => 'Imperial';
+	@override String get unitCm => 'cm';
+	@override String get unitFt => 'ft';
+	@override String get unitKg => 'kg';
+	@override String get unitLbs => 'lbs';
 	@override String get metricCm => 'Mét (cm)';
 	@override String get imperialFtIn => 'Imperial (ft/in)';
 	@override String get metricKg => 'Kilogram (kg)';
@@ -1804,6 +1808,10 @@ extension on TranslationsVi {
 			'editProfile.activityLevel' => 'Mức độ hoạt động',
 			'editProfile.metric' => 'Mét',
 			'editProfile.imperial' => 'Imperial',
+			'editProfile.unitCm' => 'cm',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => 'kg',
+			'editProfile.unitLbs' => 'lbs',
 			'editProfile.metricCm' => 'Mét (cm)',
 			'editProfile.imperialFtIn' => 'Imperial (ft/in)',
 			'editProfile.metricKg' => 'Kilogram (kg)',

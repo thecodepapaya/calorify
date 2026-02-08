@@ -232,6 +232,10 @@ class _TranslationsEditProfileRu implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'Уровень активности';
 	@override String get metric => 'Метрика';
 	@override String get imperial => 'Имперская';
+	@override String get unitCm => 'см';
+	@override String get unitFt => 'фут';
+	@override String get unitKg => 'кг';
+	@override String get unitLbs => 'фунт';
 	@override String get metricCm => 'Метрика (см)';
 	@override String get imperialFtIn => 'Имперская (футы/дюймы)';
 	@override String get metricKg => 'Метрика (кг)';
@@ -1804,6 +1808,10 @@ extension on TranslationsRu {
 			'editProfile.activityLevel' => 'Уровень активности',
 			'editProfile.metric' => 'Метрика',
 			'editProfile.imperial' => 'Имперская',
+			'editProfile.unitCm' => 'см',
+			'editProfile.unitFt' => 'фут',
+			'editProfile.unitKg' => 'кг',
+			'editProfile.unitLbs' => 'фунт',
 			'editProfile.metricCm' => 'Метрика (см)',
 			'editProfile.imperialFtIn' => 'Имперская (футы/дюймы)',
 			'editProfile.metricKg' => 'Метрика (кг)',

@@ -39,26 +39,36 @@ void main() {
 
   group('HomeScreen Golden Tests', () {
     testGoldens('Empty state', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          const HomeScreen(),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'home_screen_empty_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            const HomeScreen(),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'home_screen_empty_${locale.name}_${device.name}',
+          );
+        }
       }
     });
 
     testGoldens('With goal set', (WidgetTester tester) async {
       when(() => mockDatabaseInterface.watchDailyCalorieGoal()).thenAnswer((_) => Stream.value(2500));
-      
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          const HomeScreen(),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'home_screen_with_goal_${device.name}');
+
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            const HomeScreen(),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'home_screen_with_goal_${locale.name}_${device.name}',
+          );
+        }
       }
     });
   });

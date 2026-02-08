@@ -232,6 +232,10 @@ class _TranslationsEditProfileIt implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'Livello di Attività';
 	@override String get metric => 'Metriche';
 	@override String get imperial => 'Imperiale';
+	@override String get unitCm => 'cm';
+	@override String get unitFt => 'ft';
+	@override String get unitKg => 'kg';
+	@override String get unitLbs => 'lbs';
 	@override String get metricCm => 'Metriche (cm)';
 	@override String get imperialFtIn => 'Imperiale (ft/in)';
 	@override String get metricKg => 'Metriche (kg)';
@@ -1804,6 +1808,10 @@ extension on TranslationsIt {
 			'editProfile.activityLevel' => 'Livello di Attività',
 			'editProfile.metric' => 'Metriche',
 			'editProfile.imperial' => 'Imperiale',
+			'editProfile.unitCm' => 'cm',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => 'kg',
+			'editProfile.unitLbs' => 'lbs',
 			'editProfile.metricCm' => 'Metriche (cm)',
 			'editProfile.imperialFtIn' => 'Imperiale (ft/in)',
 			'editProfile.metricKg' => 'Metriche (kg)',
