@@ -499,6 +499,11 @@ class _TranslationsDebugDa implements TranslationsDebugEn {
 	@override String get compressingImage => 'Komprimerer billede...';
 	@override String get uploadingImageAndDetecting => 'Uploader billede til bucket og genkender måltid...';
 	@override String get testingMealLoggingFlow => 'Tester måltidsregistreringsflowet med variationer...';
+	@override String get testUpdateProfile => 'Test opdater profil';
+	@override String get testUpdateProfileSubtitle => 'Send en prøveprofil (POST) til backend';
+	@override String get testingProfileApi => 'Tester profil-API...';
+	@override String get profileUpdateSuccess => 'Profil-API\'en svarede med succes';
+	@override String profileUpdateFailed({required Object error}) => 'Profil-API-fejl: ${error}';
 	@override String get noMealIdentifiedInResponse => 'Intet måltid identificeret i svaret';
 	@override String get mealIdentified => 'Måltid identificeret';
 	@override String get confidence => 'Sandsynlighed';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsDa implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Food API-test';
+	@override String get profileApiTests => 'Profil-API-tests';
 	@override String get feedback => 'Feedback';
 	@override String get dataReset => 'Nulstil data';
 	@override String get appInfo => 'App Info';
@@ -2112,6 +2118,7 @@ extension on TranslationsDa {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Food API-test',
+			'debug.sections.profileApiTests' => 'Profil-API-tests',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Nulstil data',
 			'debug.sections.appInfo' => 'App Info',
@@ -2205,9 +2212,9 @@ extension on TranslationsDa {
 			'debug.testMealLoggingWithVariations' => 'Test: måltidsregistrering med variationer',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Test hele flowet for måltidsregistrering med variationer',
 			'debug.mockMealWithVariations' => 'Mock-måltid med variationer',
-			'debug.mockMealWithVariationsSubtitle' => 'Forhåndsvis variation og tip-ark uden at logge måltidet',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Forhåndsvis variation og tip-ark uden at logge måltidet',
 			'debug.mockMealName' => 'Grillet kylling med ris og grøntsager',
 			'debug.mockTip' => 'Dette er et mock-tip til UI-forhåndsvisning. Måltidet bliver ikke logget.',
 			'debug.mockMealDescription' => 'Mock-måltid til fejlsøgning',
@@ -2227,6 +2234,11 @@ extension on TranslationsDa {
 			'debug.compressingImage' => 'Komprimerer billede...',
 			'debug.uploadingImageAndDetecting' => 'Uploader billede til bucket og genkender måltid...',
 			'debug.testingMealLoggingFlow' => 'Tester måltidsregistreringsflowet med variationer...',
+			'debug.testUpdateProfile' => 'Test opdater profil',
+			'debug.testUpdateProfileSubtitle' => 'Send en prøveprofil (POST) til backend',
+			'debug.testingProfileApi' => 'Tester profil-API...',
+			'debug.profileUpdateSuccess' => 'Profil-API\'en svarede med succes',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Profil-API-fejl: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Intet måltid identificeret i svaret',
 			'debug.mealIdentified' => 'Måltid identificeret',
 			'debug.confidence' => 'Sandsynlighed',

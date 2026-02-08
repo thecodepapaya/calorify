@@ -291,17 +291,14 @@ class EditMealScreenState extends State<EditMealScreen> {
       await DatabaseService.databaseInterface.upsertMeal(mealInfo);
 
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        snack(
-          isEditing ? t.meal.updatedSuccessfully : t.meal.savedSuccessfully,
-        ),
+      showFlushbar(
+        isEditing ? t.meal.updatedSuccessfully : t.meal.savedSuccessfully,
+        context: context,
       );
       Navigator.of(context).pop();
     } on Exception catch (e, st) {
       log('Error saving meal:', error: e, stackTrace: st);
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(snack(t.meal.errorSaving(error: e)));
+      showFlushbar(t.meal.errorSaving(error: e), context: context);
     }
   }
 

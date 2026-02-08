@@ -499,6 +499,11 @@ class _TranslationsDebugNl implements TranslationsDebugEn {
 	@override String get compressingImage => 'Afbeelding wordt gecomprimeerd...';
 	@override String get uploadingImageAndDetecting => 'Afbeelding uploaden naar bucket en maaltijd detecteren...';
 	@override String get testingMealLoggingFlow => 'Bezig met testen van maaltijdregistratieflow met variaties...';
+	@override String get testUpdateProfile => 'Profiel bijwerken testen';
+	@override String get testUpdateProfileSubtitle => 'Stuur voorbeeldprofiel via POST naar de backend';
+	@override String get testingProfileApi => 'Profiel-API wordt getest...';
+	@override String get profileUpdateSuccess => 'Profiel-API reageerde succesvol';
+	@override String profileUpdateFailed({required Object error}) => 'Fout bij profiel-API: ${error}';
 	@override String get noMealIdentifiedInResponse => 'Geen maaltijd gevonden in reactie';
 	@override String get mealIdentified => 'Maaltijd gevonden';
 	@override String get confidence => 'Betrouwbaarheid';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsNl implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Food API-tests';
+	@override String get profileApiTests => 'Profiel-API-tests';
 	@override String get feedback => 'Feedback';
 	@override String get dataReset => 'Gegevens resetten';
 	@override String get appInfo => 'App Informatie';
@@ -2112,6 +2118,7 @@ extension on TranslationsNl {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Food API-tests',
+			'debug.sections.profileApiTests' => 'Profiel-API-tests',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Gegevens resetten',
 			'debug.sections.appInfo' => 'App Informatie',
@@ -2205,9 +2212,9 @@ extension on TranslationsNl {
 			'debug.testMealLoggingWithVariations' => 'Test maaltijdregistratie met variaties',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Test de volledige maaltijdregistratie-flow met variaties',
 			'debug.mockMealWithVariations' => 'Mockmaaltijd met variaties',
-			'debug.mockMealWithVariationsSubtitle' => 'Bekijk variatie en tipblad-UI zonder te registreren',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Bekijk variatie en tipblad-UI zonder te registreren',
 			'debug.mockMealName' => 'Gegrilde kip met rijst en groenten',
 			'debug.mockTip' => 'Dit is een voorbeeldtip voor UI-voorvertoning. De maaltijd wordt niet geregistreerd.',
 			'debug.mockMealDescription' => 'Voorbeeldmaaltijd voor debugging',
@@ -2227,6 +2234,11 @@ extension on TranslationsNl {
 			'debug.compressingImage' => 'Afbeelding wordt gecomprimeerd...',
 			'debug.uploadingImageAndDetecting' => 'Afbeelding uploaden naar bucket en maaltijd detecteren...',
 			'debug.testingMealLoggingFlow' => 'Bezig met testen van maaltijdregistratieflow met variaties...',
+			'debug.testUpdateProfile' => 'Profiel bijwerken testen',
+			'debug.testUpdateProfileSubtitle' => 'Stuur voorbeeldprofiel via POST naar de backend',
+			'debug.testingProfileApi' => 'Profiel-API wordt getest...',
+			'debug.profileUpdateSuccess' => 'Profiel-API reageerde succesvol',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Fout bij profiel-API: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Geen maaltijd gevonden in reactie',
 			'debug.mealIdentified' => 'Maaltijd gevonden',
 			'debug.confidence' => 'Betrouwbaarheid',

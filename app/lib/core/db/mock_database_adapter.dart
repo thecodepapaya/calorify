@@ -19,7 +19,7 @@ class MockDatabaseAdapter implements DatabaseInterface {
   UserProfile? _userProfile;
   ThemeMode _themeMode = ThemeMode.system;
   String? _languageCode;
-  bool _feedbackSheetShown = false;
+  DateTime? _feedbackSheetShownAt;
 
   final StreamController<int?> _goalController =
       StreamController<int?>.broadcast();
@@ -253,12 +253,12 @@ class MockDatabaseAdapter implements DatabaseInterface {
 
   @override
   Future<bool> hasSeenFeedbackSheet() async {
-    return _feedbackSheetShown;
+    return _feedbackSheetShownAt != null;
   }
 
   @override
   Future<void> setFeedbackSheetShown() async {
-    _feedbackSheetShown = true;
+    _feedbackSheetShownAt = DateTime.now();
   }
 
   @override
@@ -272,7 +272,7 @@ class MockDatabaseAdapter implements DatabaseInterface {
 
   @override
   Future<void> clearUserPreferences() async {
-    _feedbackSheetShown = false;
+    _feedbackSheetShownAt = null;
     _themeMode = ThemeMode.system;
     _languageCode = null;
   }
@@ -292,7 +292,7 @@ class MockDatabaseAdapter implements DatabaseInterface {
     _dailyCalorieGoal = null;
     _languageCode = null;
     _themeMode = ThemeMode.system;
-    _feedbackSheetShown = false;
+    _feedbackSheetShownAt = null;
     _goalController.add(null);
   }
 }

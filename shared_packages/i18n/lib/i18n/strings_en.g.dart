@@ -977,6 +977,21 @@ class TranslationsDebugEn {
 	/// en: 'Testing meal logging flow with variations...'
 	String get testingMealLoggingFlow => 'Testing meal logging flow with variations...';
 
+	/// en: 'Test update profile'
+	String get testUpdateProfile => 'Test update profile';
+
+	/// en: 'POST sample profile to backend'
+	String get testUpdateProfileSubtitle => 'POST sample profile to backend';
+
+	/// en: 'Testing profile API...'
+	String get testingProfileApi => 'Testing profile API...';
+
+	/// en: 'Profile API responded successfully'
+	String get profileUpdateSuccess => 'Profile API responded successfully';
+
+	/// en: 'Profile API error: {error}'
+	String profileUpdateFailed({required Object error}) => 'Profile API error: ${error}';
+
 	/// en: 'No meal identified in response'
 	String get noMealIdentifiedInResponse => 'No meal identified in response';
 
@@ -2120,6 +2135,9 @@ class TranslationsDebugSectionsEn {
 
 	/// en: 'Food API Tests'
 	String get foodApiTests => 'Food API Tests';
+
+	/// en: 'Profile API Tests'
+	String get profileApiTests => 'Profile API Tests';
 
 	/// en: 'Feedback'
 	String get feedback => 'Feedback';
@@ -3269,6 +3287,7 @@ extension on Translations {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Food API Tests',
+			'debug.sections.profileApiTests' => 'Profile API Tests',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Data reset',
 			'debug.sections.appInfo' => 'App Info',
@@ -3362,9 +3381,9 @@ extension on Translations {
 			'debug.testMealLoggingWithVariations' => 'Test Meal Logging with Variations',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Test the full meal logging flow with variations',
 			'debug.mockMealWithVariations' => 'Mock meal with variations',
-			'debug.mockMealWithVariationsSubtitle' => 'Preview variation + tip sheet UI without logging',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Preview variation + tip sheet UI without logging',
 			'debug.mockMealName' => 'Grilled chicken with rice and vegetables',
 			'debug.mockTip' => 'This is a mock tip for UI preview. The meal is not logged.',
 			'debug.mockMealDescription' => 'Mock meal for debug',
@@ -3384,6 +3403,11 @@ extension on Translations {
 			'debug.compressingImage' => 'Compressing image...',
 			'debug.uploadingImageAndDetecting' => 'Uploading image to bucket and detecting meal...',
 			'debug.testingMealLoggingFlow' => 'Testing meal logging flow with variations...',
+			'debug.testUpdateProfile' => 'Test update profile',
+			'debug.testUpdateProfileSubtitle' => 'POST sample profile to backend',
+			'debug.testingProfileApi' => 'Testing profile API...',
+			'debug.profileUpdateSuccess' => 'Profile API responded successfully',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Profile API error: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'No meal identified in response',
 			'debug.mealIdentified' => 'Meal Identified',
 			'debug.confidence' => 'Confidence',

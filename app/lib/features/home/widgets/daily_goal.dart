@@ -17,7 +17,11 @@ import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class SetDailyGoal extends StatefulWidget {
-  const SetDailyGoal({super.key});
+  const SetDailyGoal({super.key, this.healthConnectRefreshTrigger = 0});
+
+  /// When this value changes (e.g. after user connects Health Connect),
+  /// calories burned is refetched so the daily goal content updates.
+  final int healthConnectRefreshTrigger;
 
   @override
   State<SetDailyGoal> createState() => _SetDailyGoalState();
@@ -33,6 +37,14 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
     super.initState();
     _loadGoalFromDb();
     _fetchCaloriesBurned();
+  }
+
+  @override
+  void didUpdateWidget(SetDailyGoal oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.healthConnectRefreshTrigger != oldWidget.healthConnectRefreshTrigger) {
+      _fetchCaloriesBurned();
+    }
   }
 
   Future<void> _fetchCaloriesBurned() async {

@@ -499,6 +499,11 @@ class _TranslationsDebugJa implements TranslationsDebugEn {
 	@override String get compressingImage => '画像を圧縮しています...';
 	@override String get uploadingImageAndDetecting => '画像をバケットにアップロードして食事を検出しています...';
 	@override String get testingMealLoggingFlow => 'バリエーションを含む食事ログフローをテストしています...';
+	@override String get testUpdateProfile => 'プロフィール更新をテスト';
+	@override String get testUpdateProfileSubtitle => 'サンプルプロフィールをバックエンドにPOSTする';
+	@override String get testingProfileApi => 'プロフィールAPIをテスト中...';
+	@override String get profileUpdateSuccess => 'プロフィールAPIが正常に応答しました';
+	@override String profileUpdateFailed({required Object error}) => 'プロフィールAPIエラー: ${error}';
 	@override String get noMealIdentifiedInResponse => 'レスポンスで食事が特定されませんでした';
 	@override String get mealIdentified => '食事が特定されました';
 	@override String get confidence => '信頼度';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsJa implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => '食事APIテスト';
+	@override String get profileApiTests => 'プロフィールAPIのテスト';
 	@override String get feedback => 'フィードバック';
 	@override String get dataReset => 'データのリセット';
 	@override String get appInfo => 'アプリ情報';
@@ -2112,6 +2118,7 @@ extension on TranslationsJa {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => '食事APIテスト',
+			'debug.sections.profileApiTests' => 'プロフィールAPIのテスト',
 			'debug.sections.feedback' => 'フィードバック',
 			'debug.sections.dataReset' => 'データのリセット',
 			'debug.sections.appInfo' => 'アプリ情報',
@@ -2205,9 +2212,9 @@ extension on TranslationsJa {
 			'debug.testMealLoggingWithVariations' => 'バリエーション付き食事ログテスト',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'バリエーションを含む食事ログのフローをテストする',
 			'debug.mockMealWithVariations' => 'バリエーション付きのモック食事',
-			'debug.mockMealWithVariationsSubtitle' => '記録せずにバリエーションとチップシートのUIをプレビュー',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => '記録せずにバリエーションとチップシートのUIをプレビュー',
 			'debug.mockMealName' => 'グリルチキン（ご飯と野菜）',
 			'debug.mockTip' => 'これはUIプレビュー用のモックのヒントです。食事は記録されません。',
 			'debug.mockMealDescription' => 'デバッグ用のモック食事',
@@ -2227,6 +2234,11 @@ extension on TranslationsJa {
 			'debug.compressingImage' => '画像を圧縮しています...',
 			'debug.uploadingImageAndDetecting' => '画像をバケットにアップロードして食事を検出しています...',
 			'debug.testingMealLoggingFlow' => 'バリエーションを含む食事ログフローをテストしています...',
+			'debug.testUpdateProfile' => 'プロフィール更新をテスト',
+			'debug.testUpdateProfileSubtitle' => 'サンプルプロフィールをバックエンドにPOSTする',
+			'debug.testingProfileApi' => 'プロフィールAPIをテスト中...',
+			'debug.profileUpdateSuccess' => 'プロフィールAPIが正常に応答しました',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'プロフィールAPIエラー: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'レスポンスで食事が特定されませんでした',
 			'debug.mealIdentified' => '食事が特定されました',
 			'debug.confidence' => '信頼度',

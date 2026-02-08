@@ -499,6 +499,11 @@ class _TranslationsDebugDe implements TranslationsDebugEn {
 	@override String get compressingImage => 'Bild wird komprimiert...';
 	@override String get uploadingImageAndDetecting => 'Bild in Bucket hochladen und Mahlzeit erkennen...';
 	@override String get testingMealLoggingFlow => 'Teste Ablauf zur Protokollierung von Mahlzeiten mit Varianten...';
+	@override String get testUpdateProfile => 'Profilaktualisierung testen';
+	@override String get testUpdateProfileSubtitle => 'Beispielprofil per POST an das Backend senden';
+	@override String get testingProfileApi => 'Profil-API wird getestet...';
+	@override String get profileUpdateSuccess => 'Profil-API hat erfolgreich geantwortet';
+	@override String profileUpdateFailed({required Object error}) => 'Fehler der Profil-API: ${error}';
 	@override String get noMealIdentifiedInResponse => 'Keine Mahlzeit in der Antwort identifiziert';
 	@override String get mealIdentified => 'Mahlzeit erkannt';
 	@override String get confidence => 'Wahrscheinlichkeit';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsDe implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Food API Tests';
+	@override String get profileApiTests => 'Profil-API-Tests';
 	@override String get feedback => 'Feedback';
 	@override String get dataReset => 'Daten zurücksetzen';
 	@override String get appInfo => 'App-Informationen';
@@ -2112,6 +2118,7 @@ extension on TranslationsDe {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Food API Tests',
+			'debug.sections.profileApiTests' => 'Profil-API-Tests',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Daten zurücksetzen',
 			'debug.sections.appInfo' => 'App-Informationen',
@@ -2205,9 +2212,9 @@ extension on TranslationsDe {
 			'debug.testMealLoggingWithVariations' => 'Mahlzeitenprotokollierung mit Varianten testen',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Teste den vollständigen Ablauf der Mahlzeitenprotokollierung mit Varianten',
 			'debug.mockMealWithVariations' => 'Mustermahlzeit mit Varianten',
-			'debug.mockMealWithVariationsSubtitle' => 'Vorschau der Varianten- und Tippanzeige ohne Protokollierung',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Vorschau der Varianten- und Tippanzeige ohne Protokollierung',
 			'debug.mockMealName' => 'Gegrilltes Hähnchen mit Reis und Gemüse',
 			'debug.mockTip' => 'Dies ist ein Mustertipp zur UI-Vorschau. Die Mahlzeit wird nicht protokolliert.',
 			'debug.mockMealDescription' => 'Mustermahlzeit für Debugging',
@@ -2227,6 +2234,11 @@ extension on TranslationsDe {
 			'debug.compressingImage' => 'Bild wird komprimiert...',
 			'debug.uploadingImageAndDetecting' => 'Bild in Bucket hochladen und Mahlzeit erkennen...',
 			'debug.testingMealLoggingFlow' => 'Teste Ablauf zur Protokollierung von Mahlzeiten mit Varianten...',
+			'debug.testUpdateProfile' => 'Profilaktualisierung testen',
+			'debug.testUpdateProfileSubtitle' => 'Beispielprofil per POST an das Backend senden',
+			'debug.testingProfileApi' => 'Profil-API wird getestet...',
+			'debug.profileUpdateSuccess' => 'Profil-API hat erfolgreich geantwortet',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Fehler der Profil-API: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Keine Mahlzeit in der Antwort identifiziert',
 			'debug.mealIdentified' => 'Mahlzeit erkannt',
 			'debug.confidence' => 'Wahrscheinlichkeit',

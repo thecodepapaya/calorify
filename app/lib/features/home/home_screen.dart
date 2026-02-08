@@ -4,7 +4,7 @@ import 'package:calorify/features/home/widgets/connect_health.dart';
 import 'package:calorify/features/home/widgets/daily_goal.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/intake_history_bar_chart.dart';
-import 'package:calorify/features/home/widgets/intake_progress.dart';
+import 'package:calorify/features/home/widgets/macro_split.dart';
 import 'package:calorify/features/home/widgets/meal_log.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
@@ -18,8 +18,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _healthConnectRefreshTrigger = 0;
+
   void _onHealthConnectSetupComplete() {
-    setState(() {});
+    setState(() {
+      _healthConnectRefreshTrigger++;
+    });
   }
 
   @override
@@ -34,15 +38,19 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             if (!isHealthConnectUnsupported && !isHealthConnectAuthorized) ...[
               const SizedBox(height: 10),
-              HealthConnectPromptCard(onSetupComplete: _onHealthConnectSetupComplete),
+              HealthConnectPromptCard(
+                onSetupComplete: _onHealthConnectSetupComplete,
+              ),
               const SizedBox(height: 10),
             ],
             const SizedBox(height: 10),
-            const SetDailyGoal(),
+            SetDailyGoal(
+              healthConnectRefreshTrigger: _healthConnectRefreshTrigger,
+            ),
             const SizedBox(height: 20),
             const DailySummaryCard(),
             const SizedBox(height: 20),
-            const IntakeProgress(),
+            const MacroSplit(),
             const SizedBox(height: 20),
             const IntakeHistoryBarChart(),
             const SizedBox(height: 20),

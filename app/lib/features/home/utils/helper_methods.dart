@@ -6,6 +6,9 @@ import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_shee
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
 import 'package:models/models.dart';
+import 'package:services/services.dart';
+
+export 'package:services/services.dart' show showFlushbar;
 
 Future<void> logMeal(
   BuildContext context,
@@ -58,14 +61,12 @@ Future<bool> _writeDataToHealthConnect(
     if (!isSuccess) throw Exception(t.health.syncFailed);
 
     if (!context.mounted) return false;
-    ScaffoldMessenger.of(context).showSnackBar(snack(t.health.mealSynced));
+    showFlushbar(t.health.mealSynced, context: context);
 
     return isSuccess;
   } on Exception catch (e) {
     if (!context.mounted) return false;
-    ScaffoldMessenger.of(context).showSnackBar(snack('$e'));
+    showFlushbar('$e', context: context);
     return false;
   }
 }
-
-SnackBar snack(String message) => SnackBar(content: Text(message));

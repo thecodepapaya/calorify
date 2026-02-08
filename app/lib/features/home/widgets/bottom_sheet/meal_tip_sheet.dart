@@ -416,18 +416,14 @@ class _FavoriteMealStarState extends State<_FavoriteMealStar> {
         );
         Analytics.instance.logEvent(AnalyticsEvent.favoriteRemove);
         if (!mounted) return;
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(snack(t.meal.removedFromFavorites));
+        showFlushbar(t.meal.removedFromFavorites, context: context);
       } else {
         await DatabaseService.databaseInterface.addToFavorites(
           widget.loggedMeal,
         );
         Analytics.instance.logEvent(AnalyticsEvent.favoriteAdd);
         if (!mounted) return;
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(snack(t.meal.savedAsFavorite));
+        showFlushbar(t.meal.savedAsFavorite, context: context);
       }
 
       setState(() {
@@ -435,9 +431,7 @@ class _FavoriteMealStarState extends State<_FavoriteMealStar> {
       });
     } on Exception catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(snack(t.meal.couldNotUpdateFavorite(error: e)));
+        showFlushbar(t.meal.couldNotUpdateFavorite(error: e), context: context);
       }
     }
   }

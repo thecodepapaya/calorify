@@ -499,6 +499,11 @@ class _TranslationsDebugRo implements TranslationsDebugEn {
 	@override String get compressingImage => 'Se comprimă imaginea...';
 	@override String get uploadingImageAndDetecting => 'Se încarcă imaginea în bucket și se detectează masa...';
 	@override String get testingMealLoggingFlow => 'Se testează fluxul de înregistrare a mesei cu variante...';
+	@override String get testUpdateProfile => 'Testează actualizarea profilului';
+	@override String get testUpdateProfileSubtitle => 'Trimite un profil de exemplu prin POST către backend';
+	@override String get testingProfileApi => 'Se testează API-ul profilului...';
+	@override String get profileUpdateSuccess => 'API-ul profilului a răspuns cu succes';
+	@override String profileUpdateFailed({required Object error}) => 'Eroare API-ului profilului: ${error}';
 	@override String get noMealIdentifiedInResponse => 'Nicio masă identificată în răspuns';
 	@override String get mealIdentified => 'Masă identificată';
 	@override String get confidence => 'Încredere';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsRo implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Teste Food API';
+	@override String get profileApiTests => 'Teste API pentru profil';
 	@override String get feedback => 'Feedback';
 	@override String get dataReset => 'Resetare date';
 	@override String get appInfo => 'Informații despre Aplicație';
@@ -2112,6 +2118,7 @@ extension on TranslationsRo {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Teste Food API',
+			'debug.sections.profileApiTests' => 'Teste API pentru profil',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Resetare date',
 			'debug.sections.appInfo' => 'Informații despre Aplicație',
@@ -2205,9 +2212,9 @@ extension on TranslationsRo {
 			'debug.testMealLoggingWithVariations' => 'Testează înregistrarea mesei cu variante',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Testează întregul flux de înregistrare a mesei cu variante',
 			'debug.mockMealWithVariations' => 'Masă simulată cu variante',
-			'debug.mockMealWithVariationsSubtitle' => 'Previzualizează varianta și foaia de sfaturi fără a înregistra masa',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Previzualizează varianta și foaia de sfaturi fără a înregistra masa',
 			'debug.mockMealName' => 'Pui la grătar cu orez și legume',
 			'debug.mockTip' => 'Acesta este un sfat simulant pentru previzualizarea UI. Masa nu este înregistrată.',
 			'debug.mockMealDescription' => 'Masă simulată pentru depanare',
@@ -2227,6 +2234,11 @@ extension on TranslationsRo {
 			'debug.compressingImage' => 'Se comprimă imaginea...',
 			'debug.uploadingImageAndDetecting' => 'Se încarcă imaginea în bucket și se detectează masa...',
 			'debug.testingMealLoggingFlow' => 'Se testează fluxul de înregistrare a mesei cu variante...',
+			'debug.testUpdateProfile' => 'Testează actualizarea profilului',
+			'debug.testUpdateProfileSubtitle' => 'Trimite un profil de exemplu prin POST către backend',
+			'debug.testingProfileApi' => 'Se testează API-ul profilului...',
+			'debug.profileUpdateSuccess' => 'API-ul profilului a răspuns cu succes',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Eroare API-ului profilului: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Nicio masă identificată în răspuns',
 			'debug.mealIdentified' => 'Masă identificată',
 			'debug.confidence' => 'Încredere',

@@ -499,6 +499,11 @@ class _TranslationsDebugFi implements TranslationsDebugEn {
 	@override String get compressingImage => 'Kuvapakkaus...';
 	@override String get uploadingImageAndDetecting => 'Lähetetään kuva säilöön ja tunnistetaan ateria...';
 	@override String get testingMealLoggingFlow => 'Testataan aterian kirjausprosessia variaatioilla...';
+	@override String get testUpdateProfile => 'Testaa profiilin päivitys';
+	@override String get testUpdateProfileSubtitle => 'Lähetä esimerkkiprofiili POST-pyynnöllä palvelimelle';
+	@override String get testingProfileApi => 'Testataan profiili-APIa...';
+	@override String get profileUpdateSuccess => 'Profiili-API vastasi onnistuneesti';
+	@override String profileUpdateFailed({required Object error}) => 'Profiili-API-virhe: ${error}';
 	@override String get noMealIdentifiedInResponse => 'Vastauksesta ei tunnistettu ateriaa';
 	@override String get mealIdentified => 'Ateria tunnistettu';
 	@override String get confidence => 'Luottamustaso';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsFi implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Ruoan API -testit';
+	@override String get profileApiTests => 'Profiili-API-testit';
 	@override String get feedback => 'Palaute';
 	@override String get dataReset => 'Tietojen nollaus';
 	@override String get appInfo => 'Sovellustiedot';
@@ -2112,6 +2118,7 @@ extension on TranslationsFi {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Ruoan API -testit',
+			'debug.sections.profileApiTests' => 'Profiili-API-testit',
 			'debug.sections.feedback' => 'Palaute',
 			'debug.sections.dataReset' => 'Tietojen nollaus',
 			'debug.sections.appInfo' => 'Sovellustiedot',
@@ -2205,9 +2212,9 @@ extension on TranslationsFi {
 			'debug.testMealLoggingWithVariations' => 'Testaa aterian kirjaus variaatioilla',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Testaa koko aterian kirjausprosessi variaatioineen',
 			'debug.mockMealWithVariations' => 'Mallipäivä (variaatioilla)',
-			'debug.mockMealWithVariationsSubtitle' => 'Esikatsele variaatio- ja vinkkinäkymää ilman kirjaamista',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Esikatsele variaatio- ja vinkkinäkymää ilman kirjaamista',
 			'debug.mockMealName' => 'Grillattua kanaa riisin ja vihannesten kanssa',
 			'debug.mockTip' => 'Tämä on esimerkkivinkki käyttöliittymän esikatseluun. Ateriaa ei ole kirjattu.',
 			'debug.mockMealDescription' => 'Mallinäytteinen ateria debuggausta varten',
@@ -2227,6 +2234,11 @@ extension on TranslationsFi {
 			'debug.compressingImage' => 'Kuvapakkaus...',
 			'debug.uploadingImageAndDetecting' => 'Lähetetään kuva säilöön ja tunnistetaan ateria...',
 			'debug.testingMealLoggingFlow' => 'Testataan aterian kirjausprosessia variaatioilla...',
+			'debug.testUpdateProfile' => 'Testaa profiilin päivitys',
+			'debug.testUpdateProfileSubtitle' => 'Lähetä esimerkkiprofiili POST-pyynnöllä palvelimelle',
+			'debug.testingProfileApi' => 'Testataan profiili-APIa...',
+			'debug.profileUpdateSuccess' => 'Profiili-API vastasi onnistuneesti',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Profiili-API-virhe: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Vastauksesta ei tunnistettu ateriaa',
 			'debug.mealIdentified' => 'Ateria tunnistettu',
 			'debug.confidence' => 'Luottamustaso',

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:calorify/core/repositories/profile_repository.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/food_analysis.dart';
@@ -11,11 +12,11 @@ import 'package:calorify/core/services/performance_service.dart';
 import 'package:calorify/core/services/remote_db.dart';
 // import 'package:calorify/core/services/sync_service.dart'; // Temporarily disabled
 import 'package:calorify/core/services/wear_os_service.dart';
-import 'package:i18n/i18n.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
+import 'package:i18n/i18n.dart';
 
 /// App initialization service that sets up the database service
 class AppInitialization {
@@ -164,7 +165,7 @@ class AppInitialization {
 
       final userProfile = await OnboardingService.instance.getProfileData();
       if (userProfile != null) {
-        await remoteDb.updateUserProfile(userProfile);
+        await ProfileRepository().updateUserProfile(userProfile);
       }
     } catch (e) {
       log('Failed to update remote DB: $e');

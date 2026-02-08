@@ -499,6 +499,11 @@ class _TranslationsDebugTe implements TranslationsDebugEn {
 	@override String get compressingImage => 'ఇమేజ్‌ను కంప్రెస్ చేస్తున్నాం...';
 	@override String get uploadingImageAndDetecting => 'ఇమేజ్‌ను బకెట్‌లోకి అప్లోడ్ చేసి భోజనాన్ని గుర్తిస్తున్నాం...';
 	@override String get testingMealLoggingFlow => 'వేరియేషన్లతో భోజన లాగింగ్ ఫ్లోను పరీక్షిస్తున్నాం...';
+	@override String get testUpdateProfile => 'ప్రొఫైల్ అప్‌డేట్‌ను పరీక్షించండి';
+	@override String get testUpdateProfileSubtitle => 'నమూనా ప్రొఫైల్‌ను బ్యాకెండ్‌కు POST చేయండి';
+	@override String get testingProfileApi => 'ప్రొఫైల్ APIని పరీక్షిస్తున్నాం...';
+	@override String get profileUpdateSuccess => 'ప్రొఫైల్ API విజయవంతంగా స్పందించింది';
+	@override String profileUpdateFailed({required Object error}) => 'ప్రొఫైల్ API లోపం: ${error}';
 	@override String get noMealIdentifiedInResponse => 'రిస్పాన్స్‌లో ఏ భోజనమూ గుర్తించబడలేదు';
 	@override String get mealIdentified => 'భోజనం గుర్తించబడింది';
 	@override String get confidence => 'నమ్మకం';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsTe implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'హెల్త్ కనెక్ట్';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'ఫుడ్ API పరీక్షలు';
+	@override String get profileApiTests => 'ప్రొఫైల్ API పరీక్షలు';
 	@override String get feedback => 'ఫీడ్‌బ్యాక్';
 	@override String get dataReset => 'డేటా రీసెట్';
 	@override String get appInfo => 'యాప్ సమాచారం';
@@ -2112,6 +2118,7 @@ extension on TranslationsTe {
 			'debug.sections.healthConnect' => 'హెల్త్ కనెక్ట్',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'ఫుడ్ API పరీక్షలు',
+			'debug.sections.profileApiTests' => 'ప్రొఫైల్ API పరీక్షలు',
 			'debug.sections.feedback' => 'ఫీడ్‌బ్యాక్',
 			'debug.sections.dataReset' => 'డేటా రీసెట్',
 			'debug.sections.appInfo' => 'యాప్ సమాచారం',
@@ -2205,9 +2212,9 @@ extension on TranslationsTe {
 			'debug.testMealLoggingWithVariations' => 'వేరియేషన్స్‌తో భోజనం లాగ్ చేయడం పరీక్షించండి',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'వేరియేషన్లతో పూర్తి భోజన లాగింగ్ ఫ్లోను పరీక్షించండి',
 			'debug.mockMealWithVariations' => 'వేరియేషన్లతో మాక్ భోజనం',
-			'debug.mockMealWithVariationsSubtitle' => 'లాగ్ చేయకుండా వేరియేషన్ మరియు టిప్ షీట్ UIని ప్రివ్యూ చేయండి',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'లాగ్ చేయకుండా వేరియేషన్ మరియు టిప్ షీట్ UIని ప్రివ్యూ చేయండి',
 			'debug.mockMealName' => 'రైస్ మరియు కూరగాయలతో గ్రిల్ చేసిన చికెన్',
 			'debug.mockTip' => 'ఇది UI ప్రివ్యూకోసం మాక్ టిప్ మాత్రమే. భోజనం లాగ్ చేయబడలేదు.',
 			'debug.mockMealDescription' => 'డీబగ్ కోసం మాక్ భోజనం',
@@ -2227,6 +2234,11 @@ extension on TranslationsTe {
 			'debug.compressingImage' => 'ఇమేజ్‌ను కంప్రెస్ చేస్తున్నాం...',
 			'debug.uploadingImageAndDetecting' => 'ఇమేజ్‌ను బకెట్‌లోకి అప్లోడ్ చేసి భోజనాన్ని గుర్తిస్తున్నాం...',
 			'debug.testingMealLoggingFlow' => 'వేరియేషన్లతో భోజన లాగింగ్ ఫ్లోను పరీక్షిస్తున్నాం...',
+			'debug.testUpdateProfile' => 'ప్రొఫైల్ అప్‌డేట్‌ను పరీక్షించండి',
+			'debug.testUpdateProfileSubtitle' => 'నమూనా ప్రొఫైల్‌ను బ్యాకెండ్‌కు POST చేయండి',
+			'debug.testingProfileApi' => 'ప్రొఫైల్ APIని పరీక్షిస్తున్నాం...',
+			'debug.profileUpdateSuccess' => 'ప్రొఫైల్ API విజయవంతంగా స్పందించింది',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'ప్రొఫైల్ API లోపం: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'రిస్పాన్స్‌లో ఏ భోజనమూ గుర్తించబడలేదు',
 			'debug.mealIdentified' => 'భోజనం గుర్తించబడింది',
 			'debug.confidence' => 'నమ్మకం',

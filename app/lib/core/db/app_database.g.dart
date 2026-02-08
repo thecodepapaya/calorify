@@ -1591,20 +1591,17 @@ class $UserPreferencesTableTable extends UserPreferencesTable
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _feedbackSheetShownMeta =
-      const VerificationMeta('feedbackSheetShown');
+  static const VerificationMeta _feedbackSheetShownAtMeta =
+      const VerificationMeta('feedbackSheetShownAt');
   @override
-  late final GeneratedColumn<bool> feedbackSheetShown = GeneratedColumn<bool>(
-    'feedback_sheet_shown',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("feedback_sheet_shown" IN (0, 1))',
-    ),
-    defaultValue: const Constant(false),
-  );
+  late final GeneratedColumn<DateTime> feedbackSheetShownAt =
+      GeneratedColumn<DateTime>(
+        'feedback_sheet_shown_at',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
   );
@@ -1622,7 +1619,7 @@ class $UserPreferencesTableTable extends UserPreferencesTable
     id,
     languageCode,
     theme,
-    feedbackSheetShown,
+    feedbackSheetShownAt,
     updatedAt,
   ];
   @override
@@ -1655,12 +1652,12 @@ class $UserPreferencesTableTable extends UserPreferencesTable
         theme.isAcceptableOrUnknown(data['theme']!, _themeMeta),
       );
     }
-    if (data.containsKey('feedback_sheet_shown')) {
+    if (data.containsKey('feedback_sheet_shown_at')) {
       context.handle(
-        _feedbackSheetShownMeta,
-        feedbackSheetShown.isAcceptableOrUnknown(
-          data['feedback_sheet_shown']!,
-          _feedbackSheetShownMeta,
+        _feedbackSheetShownAtMeta,
+        feedbackSheetShownAt.isAcceptableOrUnknown(
+          data['feedback_sheet_shown_at']!,
+          _feedbackSheetShownAtMeta,
         ),
       );
     }
@@ -1695,11 +1692,10 @@ class $UserPreferencesTableTable extends UserPreferencesTable
         DriftSqlType.string,
         data['${effectivePrefix}theme'],
       ),
-      feedbackSheetShown:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}feedback_sheet_shown'],
-          )!,
+      feedbackSheetShownAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}feedback_sheet_shown_at'],
+      ),
       updatedAt:
           attachedDatabase.typeMapping.read(
             DriftSqlType.dateTime,
@@ -1719,13 +1715,13 @@ class UserPreferencesTableData extends DataClass
   final int id;
   final String? languageCode;
   final String? theme;
-  final bool feedbackSheetShown;
+  final DateTime? feedbackSheetShownAt;
   final DateTime updatedAt;
   const UserPreferencesTableData({
     required this.id,
     this.languageCode,
     this.theme,
-    required this.feedbackSheetShown,
+    this.feedbackSheetShownAt,
     required this.updatedAt,
   });
   @override
@@ -1738,7 +1734,9 @@ class UserPreferencesTableData extends DataClass
     if (!nullToAbsent || theme != null) {
       map['theme'] = Variable<String>(theme);
     }
-    map['feedback_sheet_shown'] = Variable<bool>(feedbackSheetShown);
+    if (!nullToAbsent || feedbackSheetShownAt != null) {
+      map['feedback_sheet_shown_at'] = Variable<DateTime>(feedbackSheetShownAt);
+    }
     map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
@@ -1752,7 +1750,10 @@ class UserPreferencesTableData extends DataClass
               : Value(languageCode),
       theme:
           theme == null && nullToAbsent ? const Value.absent() : Value(theme),
-      feedbackSheetShown: Value(feedbackSheetShown),
+      feedbackSheetShownAt:
+          feedbackSheetShownAt == null && nullToAbsent
+              ? const Value.absent()
+              : Value(feedbackSheetShownAt),
       updatedAt: Value(updatedAt),
     );
   }
@@ -1766,7 +1767,9 @@ class UserPreferencesTableData extends DataClass
       id: serializer.fromJson<int>(json['id']),
       languageCode: serializer.fromJson<String?>(json['languageCode']),
       theme: serializer.fromJson<String?>(json['theme']),
-      feedbackSheetShown: serializer.fromJson<bool>(json['feedbackSheetShown']),
+      feedbackSheetShownAt: serializer.fromJson<DateTime?>(
+        json['feedbackSheetShownAt'],
+      ),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
   }
@@ -1777,7 +1780,9 @@ class UserPreferencesTableData extends DataClass
       'id': serializer.toJson<int>(id),
       'languageCode': serializer.toJson<String?>(languageCode),
       'theme': serializer.toJson<String?>(theme),
-      'feedbackSheetShown': serializer.toJson<bool>(feedbackSheetShown),
+      'feedbackSheetShownAt': serializer.toJson<DateTime?>(
+        feedbackSheetShownAt,
+      ),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
   }
@@ -1786,13 +1791,16 @@ class UserPreferencesTableData extends DataClass
     int? id,
     Value<String?> languageCode = const Value.absent(),
     Value<String?> theme = const Value.absent(),
-    bool? feedbackSheetShown,
+    Value<DateTime?> feedbackSheetShownAt = const Value.absent(),
     DateTime? updatedAt,
   }) => UserPreferencesTableData(
     id: id ?? this.id,
     languageCode: languageCode.present ? languageCode.value : this.languageCode,
     theme: theme.present ? theme.value : this.theme,
-    feedbackSheetShown: feedbackSheetShown ?? this.feedbackSheetShown,
+    feedbackSheetShownAt:
+        feedbackSheetShownAt.present
+            ? feedbackSheetShownAt.value
+            : this.feedbackSheetShownAt,
     updatedAt: updatedAt ?? this.updatedAt,
   );
   UserPreferencesTableData copyWithCompanion(
@@ -1805,10 +1813,10 @@ class UserPreferencesTableData extends DataClass
               ? data.languageCode.value
               : this.languageCode,
       theme: data.theme.present ? data.theme.value : this.theme,
-      feedbackSheetShown:
-          data.feedbackSheetShown.present
-              ? data.feedbackSheetShown.value
-              : this.feedbackSheetShown,
+      feedbackSheetShownAt:
+          data.feedbackSheetShownAt.present
+              ? data.feedbackSheetShownAt.value
+              : this.feedbackSheetShownAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
   }
@@ -1819,7 +1827,7 @@ class UserPreferencesTableData extends DataClass
           ..write('id: $id, ')
           ..write('languageCode: $languageCode, ')
           ..write('theme: $theme, ')
-          ..write('feedbackSheetShown: $feedbackSheetShown, ')
+          ..write('feedbackSheetShownAt: $feedbackSheetShownAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
@@ -1827,7 +1835,7 @@ class UserPreferencesTableData extends DataClass
 
   @override
   int get hashCode =>
-      Object.hash(id, languageCode, theme, feedbackSheetShown, updatedAt);
+      Object.hash(id, languageCode, theme, feedbackSheetShownAt, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1835,7 +1843,7 @@ class UserPreferencesTableData extends DataClass
           other.id == this.id &&
           other.languageCode == this.languageCode &&
           other.theme == this.theme &&
-          other.feedbackSheetShown == this.feedbackSheetShown &&
+          other.feedbackSheetShownAt == this.feedbackSheetShownAt &&
           other.updatedAt == this.updatedAt);
 }
 
@@ -1844,35 +1852,35 @@ class UserPreferencesTableCompanion
   final Value<int> id;
   final Value<String?> languageCode;
   final Value<String?> theme;
-  final Value<bool> feedbackSheetShown;
+  final Value<DateTime?> feedbackSheetShownAt;
   final Value<DateTime> updatedAt;
   const UserPreferencesTableCompanion({
     this.id = const Value.absent(),
     this.languageCode = const Value.absent(),
     this.theme = const Value.absent(),
-    this.feedbackSheetShown = const Value.absent(),
+    this.feedbackSheetShownAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
   UserPreferencesTableCompanion.insert({
     this.id = const Value.absent(),
     this.languageCode = const Value.absent(),
     this.theme = const Value.absent(),
-    this.feedbackSheetShown = const Value.absent(),
+    this.feedbackSheetShownAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
   static Insertable<UserPreferencesTableData> custom({
     Expression<int>? id,
     Expression<String>? languageCode,
     Expression<String>? theme,
-    Expression<bool>? feedbackSheetShown,
+    Expression<DateTime>? feedbackSheetShownAt,
     Expression<DateTime>? updatedAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (languageCode != null) 'language_code': languageCode,
       if (theme != null) 'theme': theme,
-      if (feedbackSheetShown != null)
-        'feedback_sheet_shown': feedbackSheetShown,
+      if (feedbackSheetShownAt != null)
+        'feedback_sheet_shown_at': feedbackSheetShownAt,
       if (updatedAt != null) 'updated_at': updatedAt,
     });
   }
@@ -1881,14 +1889,14 @@ class UserPreferencesTableCompanion
     Value<int>? id,
     Value<String?>? languageCode,
     Value<String?>? theme,
-    Value<bool>? feedbackSheetShown,
+    Value<DateTime?>? feedbackSheetShownAt,
     Value<DateTime>? updatedAt,
   }) {
     return UserPreferencesTableCompanion(
       id: id ?? this.id,
       languageCode: languageCode ?? this.languageCode,
       theme: theme ?? this.theme,
-      feedbackSheetShown: feedbackSheetShown ?? this.feedbackSheetShown,
+      feedbackSheetShownAt: feedbackSheetShownAt ?? this.feedbackSheetShownAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
   }
@@ -1905,8 +1913,10 @@ class UserPreferencesTableCompanion
     if (theme.present) {
       map['theme'] = Variable<String>(theme.value);
     }
-    if (feedbackSheetShown.present) {
-      map['feedback_sheet_shown'] = Variable<bool>(feedbackSheetShown.value);
+    if (feedbackSheetShownAt.present) {
+      map['feedback_sheet_shown_at'] = Variable<DateTime>(
+        feedbackSheetShownAt.value,
+      );
     }
     if (updatedAt.present) {
       map['updated_at'] = Variable<DateTime>(updatedAt.value);
@@ -1920,7 +1930,7 @@ class UserPreferencesTableCompanion
           ..write('id: $id, ')
           ..write('languageCode: $languageCode, ')
           ..write('theme: $theme, ')
-          ..write('feedbackSheetShown: $feedbackSheetShown, ')
+          ..write('feedbackSheetShownAt: $feedbackSheetShownAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
@@ -4166,7 +4176,7 @@ typedef $$UserPreferencesTableTableCreateCompanionBuilder =
       Value<int> id,
       Value<String?> languageCode,
       Value<String?> theme,
-      Value<bool> feedbackSheetShown,
+      Value<DateTime?> feedbackSheetShownAt,
       Value<DateTime> updatedAt,
     });
 typedef $$UserPreferencesTableTableUpdateCompanionBuilder =
@@ -4174,7 +4184,7 @@ typedef $$UserPreferencesTableTableUpdateCompanionBuilder =
       Value<int> id,
       Value<String?> languageCode,
       Value<String?> theme,
-      Value<bool> feedbackSheetShown,
+      Value<DateTime?> feedbackSheetShownAt,
       Value<DateTime> updatedAt,
     });
 
@@ -4202,8 +4212,8 @@ class $$UserPreferencesTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<bool> get feedbackSheetShown => $composableBuilder(
-    column: $table.feedbackSheetShown,
+  ColumnFilters<DateTime> get feedbackSheetShownAt => $composableBuilder(
+    column: $table.feedbackSheetShownAt,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -4237,8 +4247,8 @@ class $$UserPreferencesTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<bool> get feedbackSheetShown => $composableBuilder(
-    column: $table.feedbackSheetShown,
+  ColumnOrderings<DateTime> get feedbackSheetShownAt => $composableBuilder(
+    column: $table.feedbackSheetShownAt,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -4268,8 +4278,8 @@ class $$UserPreferencesTableTableAnnotationComposer
   GeneratedColumn<String> get theme =>
       $composableBuilder(column: $table.theme, builder: (column) => column);
 
-  GeneratedColumn<bool> get feedbackSheetShown => $composableBuilder(
-    column: $table.feedbackSheetShown,
+  GeneratedColumn<DateTime> get feedbackSheetShownAt => $composableBuilder(
+    column: $table.feedbackSheetShownAt,
     builder: (column) => column,
   );
 
@@ -4326,13 +4336,13 @@ class $$UserPreferencesTableTableTableManager
                 Value<int> id = const Value.absent(),
                 Value<String?> languageCode = const Value.absent(),
                 Value<String?> theme = const Value.absent(),
-                Value<bool> feedbackSheetShown = const Value.absent(),
+                Value<DateTime?> feedbackSheetShownAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => UserPreferencesTableCompanion(
                 id: id,
                 languageCode: languageCode,
                 theme: theme,
-                feedbackSheetShown: feedbackSheetShown,
+                feedbackSheetShownAt: feedbackSheetShownAt,
                 updatedAt: updatedAt,
               ),
           createCompanionCallback:
@@ -4340,13 +4350,13 @@ class $$UserPreferencesTableTableTableManager
                 Value<int> id = const Value.absent(),
                 Value<String?> languageCode = const Value.absent(),
                 Value<String?> theme = const Value.absent(),
-                Value<bool> feedbackSheetShown = const Value.absent(),
+                Value<DateTime?> feedbackSheetShownAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => UserPreferencesTableCompanion.insert(
                 id: id,
                 languageCode: languageCode,
                 theme: theme,
-                feedbackSheetShown: feedbackSheetShown,
+                feedbackSheetShownAt: feedbackSheetShownAt,
                 updatedAt: updatedAt,
               ),
           withReferenceMapper:

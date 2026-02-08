@@ -1,22 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/app_constants.dart';
-import 'package:calorify/core/router/app_router.dart';
-import 'package:calorify/core/utilities/app_version.dart';
-import 'package:calorify/core/router/route_names.dart';
-import 'package:models/models.dart';
 import 'package:calorify/core/providers/theme_provider.dart';
+import 'package:calorify/core/router/app_router.dart';
+import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:utils/utils.dart';
-import 'package:i18n/i18n.dart';
-import 'package:calorify/shared_widgets/language_picker_sheet.dart';
+import 'package:calorify/core/utilities/app_version.dart';
 import 'package:calorify/shared_widgets/grass.dart';
+import 'package:calorify/shared_widgets/language_picker_sheet.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:models/models.dart';
 import 'package:services/services.dart';
+import 'package:utils/utils.dart';
 
 @RoutePage()
 class SettingsScreen extends ConsumerStatefulWidget {
@@ -619,11 +619,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               _debugTapCount++;
               if (_debugTapCount >= 7 && !_showDebugOptions) {
                 _showDebugOptions = true;
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(t.settings.developerModeEnabled),
-                    duration: Duration(seconds: 2),
-                  ),
+                showFlushbar(
+                  t.settings.developerModeEnabled,
+                  duration: const Duration(seconds: 2),
+                  context: context,
                 );
               }
             });

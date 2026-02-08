@@ -499,6 +499,11 @@ class _TranslationsDebugEl implements TranslationsDebugEn {
 	@override String get compressingImage => 'Συμπίεση εικόνας...';
 	@override String get uploadingImageAndDetecting => 'Ανέβασμα εικόνας στο bucket και ανίχνευση γεύματος...';
 	@override String get testingMealLoggingFlow => 'Δοκιμή ροής καταγραφής γεύματος με παραλλαγές...';
+	@override String get testUpdateProfile => 'Δοκιμή ενημέρωσης προφίλ';
+	@override String get testUpdateProfileSubtitle => 'Αποστολή δείγματος προφίλ στο backend μέσω POST';
+	@override String get testingProfileApi => 'Έλεγχος API προφίλ...';
+	@override String get profileUpdateSuccess => 'Το API προφίλ απάντησε με επιτυχία';
+	@override String profileUpdateFailed({required Object error}) => 'Σφάλμα στο API προφίλ: ${error}';
 	@override String get noMealIdentifiedInResponse => 'Δεν εντοπίστηκε γεύμα στην απάντηση';
 	@override String get mealIdentified => 'Εντοπίστηκε γεύμα';
 	@override String get confidence => 'Βαθμός εμπιστοσύνης';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsEl implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Δοκιμές Food API';
+	@override String get profileApiTests => 'Δοκιμές API προφίλ';
 	@override String get feedback => 'Ανατροφοδότηση';
 	@override String get dataReset => 'Επαναφορά δεδομένων';
 	@override String get appInfo => 'Πληροφορίες Εφαρμογής';
@@ -2112,6 +2118,7 @@ extension on TranslationsEl {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Δοκιμές Food API',
+			'debug.sections.profileApiTests' => 'Δοκιμές API προφίλ',
 			'debug.sections.feedback' => 'Ανατροφοδότηση',
 			'debug.sections.dataReset' => 'Επαναφορά δεδομένων',
 			'debug.sections.appInfo' => 'Πληροφορίες Εφαρμογής',
@@ -2205,9 +2212,9 @@ extension on TranslationsEl {
 			'debug.testMealLoggingWithVariations' => 'Δοκιμή καταγραφής γεύματος με παραλλαγές',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Δοκιμάστε ολόκληρη τη ροή καταγραφής γεύματος με παραλλαγές',
 			'debug.mockMealWithVariations' => 'Προσομοιωμένο γεύμα με παραλλαγές',
-			'debug.mockMealWithVariationsSubtitle' => 'Προεπισκόπηση παραλλαγής και του φύλλου συμβουλών χωρίς καταχώρηση',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Προεπισκόπηση παραλλαγής και του φύλλου συμβουλών χωρίς καταχώρηση',
 			'debug.mockMealName' => 'Κοτόπουλο στη σχάρα με ρύζι και λαχανικά',
 			'debug.mockTip' => 'Αυτή είναι μια προσομοιωμένη συμβουλή για προεπισκόπηση του UI. Το γεύμα δεν καταγράφεται.',
 			'debug.mockMealDescription' => 'Προσομοιωμένο γεύμα για αποσφαλμάτωση',
@@ -2227,6 +2234,11 @@ extension on TranslationsEl {
 			'debug.compressingImage' => 'Συμπίεση εικόνας...',
 			'debug.uploadingImageAndDetecting' => 'Ανέβασμα εικόνας στο bucket και ανίχνευση γεύματος...',
 			'debug.testingMealLoggingFlow' => 'Δοκιμή ροής καταγραφής γεύματος με παραλλαγές...',
+			'debug.testUpdateProfile' => 'Δοκιμή ενημέρωσης προφίλ',
+			'debug.testUpdateProfileSubtitle' => 'Αποστολή δείγματος προφίλ στο backend μέσω POST',
+			'debug.testingProfileApi' => 'Έλεγχος API προφίλ...',
+			'debug.profileUpdateSuccess' => 'Το API προφίλ απάντησε με επιτυχία',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Σφάλμα στο API προφίλ: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Δεν εντοπίστηκε γεύμα στην απάντηση',
 			'debug.mealIdentified' => 'Εντοπίστηκε γεύμα',
 			'debug.confidence' => 'Βαθμός εμπιστοσύνης',

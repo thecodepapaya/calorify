@@ -5,7 +5,6 @@ class UserPreferencesTable extends Table {
   TextColumn get languageCode => text().nullable()();
   TextColumn get theme =>
       text().nullable()(); // 'light', 'dark', 'system' (matches ThemeMode.name)
-  BoolColumn get feedbackSheetShown =>
-      boolean().withDefault(const Constant(false))();
+  DateTimeColumn get feedbackSheetShownAt => dateTime().nullable()();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }

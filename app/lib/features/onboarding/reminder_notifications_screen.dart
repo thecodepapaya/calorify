@@ -1,5 +1,6 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:i18n/i18n.dart';
@@ -332,19 +333,13 @@ class _ReminderNotificationsScreenState
       if (granted) {
         setState(() => _notificationsEnabled = true);
         if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(t.reminders.enabledSuccessfully)),
-        );
+        showFlushbar(t.reminders.enabledSuccessfully, context: context);
       } else {
         if (!mounted) return;
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(t.reminders.permissionDenied)));
+        showFlushbar(t.reminders.permissionDenied, context: context);
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(t.reminders.errorEnabling(error: e))),
-      );
+      showFlushbar(t.reminders.errorEnabling(error: e), context: context);
     } finally {
       setState(() => _isLoading = false);
     }
@@ -374,9 +369,7 @@ class _ReminderNotificationsScreenState
       if (mounted) widget.onContinue();
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(t.reminders.errorCompletingSetup(error: e))),
-        );
+        showFlushbar(t.reminders.errorCompletingSetup(error: e), context: context);
       }
     } finally {
       setState(() => _isLoading = false);

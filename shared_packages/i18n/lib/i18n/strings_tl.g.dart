@@ -499,6 +499,11 @@ class _TranslationsDebugTl implements TranslationsDebugEn {
 	@override String get compressingImage => 'Kinokompres ang larawan...';
 	@override String get uploadingImageAndDetecting => 'Ini-upload ang larawan sa bucket at tinutukoy ang pagkain...';
 	@override String get testingMealLoggingFlow => 'Sinusubukan ang daloy ng pag-log ng pagkain na may mga pagkakaiba...';
+	@override String get testUpdateProfile => 'Subukan ang pag-update ng profile';
+	@override String get testUpdateProfileSubtitle => 'Mag-POST ng halimbawang profile sa backend';
+	@override String get testingProfileApi => 'Sinusubukan ang Profile API...';
+	@override String get profileUpdateSuccess => 'Matagumpay na tumugon ang Profile API';
+	@override String profileUpdateFailed({required Object error}) => 'Nagkaroon ng error ang Profile API: ${error}';
 	@override String get noMealIdentifiedInResponse => 'Walang natukoy na pagkain sa tugon';
 	@override String get mealIdentified => 'Natukoy ang Pagkain';
 	@override String get confidence => 'Kumpiyansa';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsTl implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Mga Pagsubok ng Food API';
+	@override String get profileApiTests => 'Mga Pagsubok ng Profile API';
 	@override String get feedback => 'Puna';
 	@override String get dataReset => 'I-reset ang data';
 	@override String get appInfo => 'Impormasyon ng App';
@@ -2112,6 +2118,7 @@ extension on TranslationsTl {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Mga Pagsubok ng Food API',
+			'debug.sections.profileApiTests' => 'Mga Pagsubok ng Profile API',
 			'debug.sections.feedback' => 'Puna',
 			'debug.sections.dataReset' => 'I-reset ang data',
 			'debug.sections.appInfo' => 'Impormasyon ng App',
@@ -2205,9 +2212,9 @@ extension on TranslationsTl {
 			'debug.testMealLoggingWithVariations' => 'Pagsubok sa Pag-log ng Pagkain na may Mga Pagkakaiba',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Subukan ang buong daloy ng pag-log ng pagkain kasama ang mga pagkakaiba',
 			'debug.mockMealWithVariations' => 'Halimbawang pagkain na may mga pagkakaiba',
-			'debug.mockMealWithVariationsSubtitle' => 'I-preview ang variation + tip sheet UI nang hindi nagla-log',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'I-preview ang variation + tip sheet UI nang hindi nagla-log',
 			'debug.mockMealName' => 'Inihaw na manok na may kanin at gulay',
 			'debug.mockTip' => 'Ito ay halimbawang tip para sa preview ng UI. Hindi naka-log ang pagkain.',
 			'debug.mockMealDescription' => 'Halimbawang pagkain para sa pag-debug',
@@ -2227,6 +2234,11 @@ extension on TranslationsTl {
 			'debug.compressingImage' => 'Kinokompres ang larawan...',
 			'debug.uploadingImageAndDetecting' => 'Ini-upload ang larawan sa bucket at tinutukoy ang pagkain...',
 			'debug.testingMealLoggingFlow' => 'Sinusubukan ang daloy ng pag-log ng pagkain na may mga pagkakaiba...',
+			'debug.testUpdateProfile' => 'Subukan ang pag-update ng profile',
+			'debug.testUpdateProfileSubtitle' => 'Mag-POST ng halimbawang profile sa backend',
+			'debug.testingProfileApi' => 'Sinusubukan ang Profile API...',
+			'debug.profileUpdateSuccess' => 'Matagumpay na tumugon ang Profile API',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Nagkaroon ng error ang Profile API: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Walang natukoy na pagkain sa tugon',
 			'debug.mealIdentified' => 'Natukoy ang Pagkain',
 			'debug.confidence' => 'Kumpiyansa',

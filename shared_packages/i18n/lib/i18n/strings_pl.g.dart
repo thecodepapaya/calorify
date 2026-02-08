@@ -499,6 +499,11 @@ class _TranslationsDebugPl implements TranslationsDebugEn {
 	@override String get compressingImage => 'Kompresowanie obrazu...';
 	@override String get uploadingImageAndDetecting => 'Przesyłanie obrazu do bucketu i rozpoznawanie posiłku...';
 	@override String get testingMealLoggingFlow => 'Testowanie przebiegu logowania posiłku z wariantami...';
+	@override String get testUpdateProfile => 'Test aktualizacji profilu';
+	@override String get testUpdateProfileSubtitle => 'Wyślij przykładowy profil do backendu (POST)';
+	@override String get testingProfileApi => 'Testowanie API profilu...';
+	@override String get profileUpdateSuccess => 'API profilu odpowiedziało pomyślnie';
+	@override String profileUpdateFailed({required Object error}) => 'Błąd API profilu: ${error}';
 	@override String get noMealIdentifiedInResponse => 'W odpowiedzi nie zidentyfikowano posiłku';
 	@override String get mealIdentified => 'Zidentyfikowano posiłek';
 	@override String get confidence => 'Pewność';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsPl implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Testy API żywności';
+	@override String get profileApiTests => 'Testy API profilu';
 	@override String get feedback => 'Opinie';
 	@override String get dataReset => 'Reset danych';
 	@override String get appInfo => 'Informacje o Aplikacji';
@@ -2112,6 +2118,7 @@ extension on TranslationsPl {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Testy API żywności',
+			'debug.sections.profileApiTests' => 'Testy API profilu',
 			'debug.sections.feedback' => 'Opinie',
 			'debug.sections.dataReset' => 'Reset danych',
 			'debug.sections.appInfo' => 'Informacje o Aplikacji',
@@ -2205,9 +2212,9 @@ extension on TranslationsPl {
 			'debug.testMealLoggingWithVariations' => 'Testuj logowanie posiłku z wariantami',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Przetestuj pełny przebieg logowania posiłku z wariantami',
 			'debug.mockMealWithVariations' => 'Przykładowy posiłek z wariantami',
-			'debug.mockMealWithVariationsSubtitle' => 'Podgląd wariantu i sekcji wskazówek bez logowania',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Podgląd wariantu i sekcji wskazówek bez logowania',
 			'debug.mockMealName' => 'Grillowany kurczak z ryżem i warzywami',
 			'debug.mockTip' => 'To przykładowa wskazówka do podglądu interfejsu. Posiłek nie został zalogowany.',
 			'debug.mockMealDescription' => 'Przykładowy posiłek do debugowania',
@@ -2227,6 +2234,11 @@ extension on TranslationsPl {
 			'debug.compressingImage' => 'Kompresowanie obrazu...',
 			'debug.uploadingImageAndDetecting' => 'Przesyłanie obrazu do bucketu i rozpoznawanie posiłku...',
 			'debug.testingMealLoggingFlow' => 'Testowanie przebiegu logowania posiłku z wariantami...',
+			'debug.testUpdateProfile' => 'Test aktualizacji profilu',
+			'debug.testUpdateProfileSubtitle' => 'Wyślij przykładowy profil do backendu (POST)',
+			'debug.testingProfileApi' => 'Testowanie API profilu...',
+			'debug.profileUpdateSuccess' => 'API profilu odpowiedziało pomyślnie',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Błąd API profilu: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'W odpowiedzi nie zidentyfikowano posiłku',
 			'debug.mealIdentified' => 'Zidentyfikowano posiłek',
 			'debug.confidence' => 'Pewność',

@@ -499,6 +499,11 @@ class _TranslationsDebugAr implements TranslationsDebugEn {
 	@override String get compressingImage => 'جارٍ ضغط الصورة...';
 	@override String get uploadingImageAndDetecting => 'جارٍ رفع الصورة إلى التخزين واكتشاف الوجبة...';
 	@override String get testingMealLoggingFlow => 'جارٍ اختبار تدفق تسجيل الوجبات مع التنويعات...';
+	@override String get testUpdateProfile => 'اختبار تحديث الملف الشخصي';
+	@override String get testUpdateProfileSubtitle => 'إرسال ملف شخصي نموذجي إلى الخادم عبر POST';
+	@override String get testingProfileApi => 'جارٍ اختبار واجهة برمجة التطبيقات الخاصة بالملف الشخصي...';
+	@override String get profileUpdateSuccess => 'استجابت واجهة برمجة التطبيقات للملف الشخصي بنجاح';
+	@override String profileUpdateFailed({required Object error}) => 'خطأ في واجهة برمجة التطبيقات للملف الشخصي: ${error}';
 	@override String get noMealIdentifiedInResponse => 'لم يتم تحديد أي وجبة في الاستجابة';
 	@override String get mealIdentified => 'تم تحديد الوجبة';
 	@override String get confidence => 'درجة الثقة';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsAr implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'اختبارات Food API';
+	@override String get profileApiTests => 'اختبارات واجهة برمجة تطبيقات الملف الشخصي';
 	@override String get feedback => 'التعليقات';
 	@override String get dataReset => 'إعادة تعيين البيانات';
 	@override String get appInfo => 'معلومات التطبيق';
@@ -2112,6 +2118,7 @@ extension on TranslationsAr {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'اختبارات Food API',
+			'debug.sections.profileApiTests' => 'اختبارات واجهة برمجة تطبيقات الملف الشخصي',
 			'debug.sections.feedback' => 'التعليقات',
 			'debug.sections.dataReset' => 'إعادة تعيين البيانات',
 			'debug.sections.appInfo' => 'معلومات التطبيق',
@@ -2205,9 +2212,9 @@ extension on TranslationsAr {
 			'debug.testMealLoggingWithVariations' => 'اختبار تسجيل الوجبة مع تنويعات',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'اختبار كامل لتدفق تسجيل الوجبة مع التنويعات',
 			'debug.mockMealWithVariations' => 'وجبة نموذجية مع تنويعات',
-			'debug.mockMealWithVariationsSubtitle' => 'معاينة التنويعات ونصائح الواجهة دون التسجيل',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'معاينة التنويعات ونصائح الواجهة دون التسجيل',
 			'debug.mockMealName' => 'دجاج مشوي مع أرز وخضروات',
 			'debug.mockTip' => 'هذه نصيحة تجريبية لمعاينة واجهة المستخدم. الوجبة غير مسجلة.',
 			'debug.mockMealDescription' => 'وجبة نموذجية للتصحيح',
@@ -2227,6 +2234,11 @@ extension on TranslationsAr {
 			'debug.compressingImage' => 'جارٍ ضغط الصورة...',
 			'debug.uploadingImageAndDetecting' => 'جارٍ رفع الصورة إلى التخزين واكتشاف الوجبة...',
 			'debug.testingMealLoggingFlow' => 'جارٍ اختبار تدفق تسجيل الوجبات مع التنويعات...',
+			'debug.testUpdateProfile' => 'اختبار تحديث الملف الشخصي',
+			'debug.testUpdateProfileSubtitle' => 'إرسال ملف شخصي نموذجي إلى الخادم عبر POST',
+			'debug.testingProfileApi' => 'جارٍ اختبار واجهة برمجة التطبيقات الخاصة بالملف الشخصي...',
+			'debug.profileUpdateSuccess' => 'استجابت واجهة برمجة التطبيقات للملف الشخصي بنجاح',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'خطأ في واجهة برمجة التطبيقات للملف الشخصي: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'لم يتم تحديد أي وجبة في الاستجابة',
 			'debug.mealIdentified' => 'تم تحديد الوجبة',
 			'debug.confidence' => 'درجة الثقة',

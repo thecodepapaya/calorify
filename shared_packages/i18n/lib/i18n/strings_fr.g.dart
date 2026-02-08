@@ -499,6 +499,11 @@ class _TranslationsDebugFr implements TranslationsDebugEn {
 	@override String get compressingImage => 'Compression de l\'image...';
 	@override String get uploadingImageAndDetecting => 'Téléversement de l\'image vers le bucket et détection du repas...';
 	@override String get testingMealLoggingFlow => 'Test du flux d\'enregistrement du repas avec variations...';
+	@override String get testUpdateProfile => 'Tester la mise à jour du profil';
+	@override String get testUpdateProfileSubtitle => 'Envoyer (POST) un profil d\'exemple au backend';
+	@override String get testingProfileApi => 'Test de l\'API de profil en cours...';
+	@override String get profileUpdateSuccess => 'L\'API de profil a répondu avec succès';
+	@override String profileUpdateFailed({required Object error}) => 'Erreur de l\'API de profil : ${error}';
 	@override String get noMealIdentifiedInResponse => 'Aucun repas identifié dans la réponse';
 	@override String get mealIdentified => 'Repas identifié';
 	@override String get confidence => 'Confiance';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsFr implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Tests de l\'API Food';
+	@override String get profileApiTests => 'Tests de l\'API de profil';
 	@override String get feedback => 'Commentaires';
 	@override String get dataReset => 'Réinitialisation des données';
 	@override String get appInfo => 'Informations sur l\'application';
@@ -2112,6 +2118,7 @@ extension on TranslationsFr {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Tests de l\'API Food',
+			'debug.sections.profileApiTests' => 'Tests de l\'API de profil',
 			'debug.sections.feedback' => 'Commentaires',
 			'debug.sections.dataReset' => 'Réinitialisation des données',
 			'debug.sections.appInfo' => 'Informations sur l\'application',
@@ -2205,9 +2212,9 @@ extension on TranslationsFr {
 			'debug.testMealLoggingWithVariations' => 'Tester l\'enregistrement de repas avec variations',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Tester le flux complet d\'enregistrement de repas avec variations',
 			'debug.mockMealWithVariations' => 'Repas simulé avec variations',
-			'debug.mockMealWithVariationsSubtitle' => 'Aperçu de l\'interface des variations + fiche conseils sans enregistrer',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Aperçu de l\'interface des variations + fiche conseils sans enregistrer',
 			'debug.mockMealName' => 'Poulet grillé avec riz et légumes',
 			'debug.mockTip' => 'Ceci est un conseil fictif pour l\'aperçu de l\'interface. Le repas n\'est pas enregistré.',
 			'debug.mockMealDescription' => 'Repas simulé pour le débogage',
@@ -2227,6 +2234,11 @@ extension on TranslationsFr {
 			'debug.compressingImage' => 'Compression de l\'image...',
 			'debug.uploadingImageAndDetecting' => 'Téléversement de l\'image vers le bucket et détection du repas...',
 			'debug.testingMealLoggingFlow' => 'Test du flux d\'enregistrement du repas avec variations...',
+			'debug.testUpdateProfile' => 'Tester la mise à jour du profil',
+			'debug.testUpdateProfileSubtitle' => 'Envoyer (POST) un profil d\'exemple au backend',
+			'debug.testingProfileApi' => 'Test de l\'API de profil en cours...',
+			'debug.profileUpdateSuccess' => 'L\'API de profil a répondu avec succès',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Erreur de l\'API de profil : ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Aucun repas identifié dans la réponse',
 			'debug.mealIdentified' => 'Repas identifié',
 			'debug.confidence' => 'Confiance',

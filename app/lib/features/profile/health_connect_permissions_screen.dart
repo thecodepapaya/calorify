@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/health_service.dart';
@@ -125,24 +126,20 @@ class _HealthConnectPermissionsScreenState
       if (mounted) {
         if (!success) {
           // If request failed, show helpful message
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                t.settings.healthConnect.permissionRequestCancelledOrFailed,
-              ),
-              duration: const Duration(seconds: 4),
-            ),
+          showFlushbar(
+            t.settings.healthConnect.permissionRequestCancelledOrFailed,
+            duration: const Duration(seconds: 4),
+            context: context,
           );
         }
       }
     } catch (e) {
       // Handle any errors gracefully
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(t.settings.healthConnect.permissionRequestFailed),
-            duration: const Duration(seconds: 4),
-          ),
+        showFlushbar(
+          t.settings.healthConnect.permissionRequestFailed,
+          duration: const Duration(seconds: 4),
+          context: context,
         );
       }
       // Still refresh permissions in case something changed

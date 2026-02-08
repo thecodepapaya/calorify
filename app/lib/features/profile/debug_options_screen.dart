@@ -49,6 +49,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     final healthConnectOptions = _buildHealthConnectOptions(context);
     final wearOsOptions = _buildWearOsOptions(context);
     final foodApiOptions = _buildFoodApiOptions(context);
+    final profileApiOptions = _buildProfileApiOptions(context);
     final feedbackOptions = _buildFeedbackOptions(context);
     final dataResetOptions = _buildDataResetOptions(context);
     final appInfoOptions = _buildAppInfoOptions(context);
@@ -98,6 +99,11 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
             if (foodApiOptions != null) ...[
               _buildSectionTitle(context, t.debug.sections.foodApiTests),
               foodApiOptions,
+              const SizedBox(height: 24),
+            ],
+            if (profileApiOptions != null) ...[
+              _buildSectionTitle(context, t.debug.sections.profileApiTests),
+              profileApiOptions,
               const SizedBox(height: 24),
             ],
             if (feedbackOptions != null) ...[
@@ -248,9 +254,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
 
   void _showSnackbar(String message) {
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), duration: const Duration(seconds: 2)),
-    );
+    showFlushbar(message, duration: const Duration(seconds: 2), context: context);
   }
 
   Widget? _buildHealthConnectOptions(BuildContext context) {
@@ -518,6 +522,58 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     }
     if (filtered.isEmpty) return null;
     return Card(child: Column(children: filtered));
+  }
+
+  Widget? _buildProfileApiOptions(BuildContext context) {
+    final section = t.debug.sections.profileApiTests;
+    final titleSubtitle = [
+      (t.debug.testUpdateProfile, t.debug.testUpdateProfileSubtitle),
+    ];
+    final items = <Widget>[
+      ListTile(
+        leading: const Icon(LucideIcons.userCog),
+        title: Text(t.debug.testUpdateProfile),
+        subtitle: Text(t.debug.testUpdateProfileSubtitle),
+        onTap: _testUpdateProfile,
+      ),
+    ];
+    final filtered = <Widget>[];
+    for (var i = 0; i < items.length; i++) {
+      final (t, s) = titleSubtitle[i];
+      if (_matchesQuery(section, t, s)) filtered.add(items[i]);
+    }
+    if (filtered.isEmpty) return null;
+    return Card(child: Column(children: filtered));
+  }
+
+  Future<void> _testUpdateProfile() async {
+    try {
+      _showSnackbar(t.debug.testingProfileApi);
+
+      // Call profile API directly so we can show success/error (repository swallows exceptions)
+      final response = await NetworkClient.instance.client.post<Map<String, dynamic>>(
+        '/api/v1/user/profile',
+        data: <String, dynamic>{
+          'height': 175,
+          'weight': 70,
+          'targetWeight': 68,
+          'gender': 'MALE',
+          'dailyCalorieGoal': 2000,
+          'heightUnit': 'METRIC',
+          'weightUnit': 'METRIC',
+        },
+      );
+
+      if (!mounted) return;
+      final message = response.data?['message'] ?? response.data?.toString() ?? '';
+      _showDataDialog(
+        t.debug.profileUpdateSuccess,
+        message.isNotEmpty ? message : t.debug.profileUpdateSuccess,
+      );
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackbar(t.debug.profileUpdateFailed(error: e.toString()));
+    }
   }
 
   /// Shows the meal variation sheet with mocked API response for UI preview.

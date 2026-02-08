@@ -499,6 +499,11 @@ class _TranslationsDebugZhCn implements TranslationsDebugEn {
 	@override String get compressingImage => '正在压缩图片...';
 	@override String get uploadingImageAndDetecting => '正在上传图片到存储并识别餐品...';
 	@override String get testingMealLoggingFlow => '正在测试带变体的餐品记录流程...';
+	@override String get testUpdateProfile => '测试更新个人资料';
+	@override String get testUpdateProfileSubtitle => '将示例个人资料通过 POST 发送到后端';
+	@override String get testingProfileApi => '正在测试个人资料 API...';
+	@override String get profileUpdateSuccess => '个人资料 API 响应成功';
+	@override String profileUpdateFailed({required Object error}) => '个人资料 API 错误：${error}';
 	@override String get noMealIdentifiedInResponse => '响应中未识别到餐品';
 	@override String get mealIdentified => '识别到餐品';
 	@override String get confidence => '置信度';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsZhCn implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => '健康连接';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Food API 测试';
+	@override String get profileApiTests => '个人资料 API 测试';
 	@override String get feedback => '反馈';
 	@override String get dataReset => '数据重置';
 	@override String get appInfo => '应用信息';
@@ -2112,6 +2118,7 @@ extension on TranslationsZhCn {
 			'debug.sections.healthConnect' => '健康连接',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Food API 测试',
+			'debug.sections.profileApiTests' => '个人资料 API 测试',
 			'debug.sections.feedback' => '反馈',
 			'debug.sections.dataReset' => '数据重置',
 			'debug.sections.appInfo' => '应用信息',
@@ -2205,9 +2212,9 @@ extension on TranslationsZhCn {
 			'debug.testMealLoggingWithVariations' => '测试带变体的餐品记录',
 			'debug.testMealLoggingWithVariationsSubtitle' => '测试包含变体的完整餐品记录流程',
 			'debug.mockMealWithVariations' => '模拟带变体的餐品',
-			'debug.mockMealWithVariationsSubtitle' => '预览变体和提示页 UI（不记录）',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => '预览变体和提示页 UI（不记录）',
 			'debug.mockMealName' => '烤鸡配米饭和蔬菜',
 			'debug.mockTip' => '这是用于界面预览的模拟提示。该餐不会被记录。',
 			'debug.mockMealDescription' => '调试用模拟餐',
@@ -2227,6 +2234,11 @@ extension on TranslationsZhCn {
 			'debug.compressingImage' => '正在压缩图片...',
 			'debug.uploadingImageAndDetecting' => '正在上传图片到存储并识别餐品...',
 			'debug.testingMealLoggingFlow' => '正在测试带变体的餐品记录流程...',
+			'debug.testUpdateProfile' => '测试更新个人资料',
+			'debug.testUpdateProfileSubtitle' => '将示例个人资料通过 POST 发送到后端',
+			'debug.testingProfileApi' => '正在测试个人资料 API...',
+			'debug.profileUpdateSuccess' => '个人资料 API 响应成功',
+			'debug.profileUpdateFailed' => ({required Object error}) => '个人资料 API 错误：${error}',
 			'debug.noMealIdentifiedInResponse' => '响应中未识别到餐品',
 			'debug.mealIdentified' => '识别到餐品',
 			'debug.confidence' => '置信度',

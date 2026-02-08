@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:calorify/core/network/network_client.dart';
+import 'package:calorify/core/services/auth_service.dart';
 import 'package:dio/dio.dart';
 import 'package:models/models.dart';
 import 'package:uuid/uuid.dart';
@@ -34,16 +35,27 @@ class FoodRepository {
       );
     }
 
-    // Generate unique filename
+    // Folder = Firebase UID or "anonymous" when unauthenticated (upload never denied)
+    final folder =
+        AuthService.instance.currentUser?.uid ?? 'anonymous';
+
+    // Filename = <iso_timestamp>_<uuid>.<ext>
     const uuid = Uuid();
-    final fileName = '${uuid.v4()}.$fileExtension';
+    final isoTimestamp =
+        DateTime.now().toUtc().toIso8601String();
+    final fileName = '${isoTimestamp}_${uuid.v4()}.$fileExtension';
+
+    // Object key: folder/filename (URL-encode segments for colons etc. in ISO timestamp)
+    final objectKey =
+        '${Uri.encodeComponent(folder)}/${Uri.encodeComponent(fileName)}';
+    final uploadUrl =
+        '${ImageConfig.oracleBucketUploadUrl}$objectKey';
 
     // Get MIME type from config
     final contentType = ImageConfig.getMimeType(fileExtension);
 
     // Upload image to Oracle bucket
     final fileBytes = await imageFile.readAsBytes();
-    final uploadUrl = '${ImageConfig.oracleBucketUploadUrl}$fileName';
 
     // Upload to Oracle Object Storage using PUT request
     await NetworkClient.instance.client.put(

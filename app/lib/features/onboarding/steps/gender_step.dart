@@ -1,5 +1,6 @@
 import 'package:models/models.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
@@ -175,9 +176,7 @@ class _GenderStepScreenState extends State<GenderStepScreen> {
       widget.onContinue();
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(t.meal.failedToSave)));
+        showFlushbar(t.meal.failedToSave, context: context);
       }
     }
   }

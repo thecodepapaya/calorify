@@ -499,6 +499,11 @@ class _TranslationsDebugGu implements TranslationsDebugEn {
 	@override String get compressingImage => 'ઈમેજ સંકુચિત કરી રહ્યા છે...';
 	@override String get uploadingImageAndDetecting => 'ઈમેજ બકેટ પર અપલોડ કરી ભોજન ઓળખી રહ્યું છે...';
 	@override String get testingMealLoggingFlow => 'વૈવિધ્ય સાથે ભોજન લોગિંગ પ્રવાહનું પરીક્ષણ...';
+	@override String get testUpdateProfile => 'પ્રોફાઇલ અપડેટનું પરીક્ષણ';
+	@override String get testUpdateProfileSubtitle => 'બેકએન્ડ પર નમૂના પ્રોફાઇલ POST કરો';
+	@override String get testingProfileApi => 'પ્રોફાઇલ API પરીક્ષણ કરી રહ્યું છે...';
+	@override String get profileUpdateSuccess => 'પ્રોફાઇલ API સફળતાપૂર્વક જવાબ આપ્યો છે';
+	@override String profileUpdateFailed({required Object error}) => 'પ્રોફાઇલ API માં ભૂલ: ${error}';
 	@override String get noMealIdentifiedInResponse => 'પ્રતિસાદમાં કોઈ ભોજન ઓળખાતું નથી';
 	@override String get mealIdentified => 'ભોજન ઓળખાયું';
 	@override String get confidence => 'નિશ્ચિતતા';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsGu implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Food API ટેસ્ટ';
+	@override String get profileApiTests => 'પ્રોફાઇલ API પરીક્ષણો';
 	@override String get feedback => 'પ્રતિસાદ';
 	@override String get dataReset => 'ડેટા રીસેટ';
 	@override String get appInfo => 'એપ માહિતી';
@@ -2112,6 +2118,7 @@ extension on TranslationsGu {
 			'debug.sections.healthConnect' => 'HEALTH CONNECT',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Food API ટેસ્ટ',
+			'debug.sections.profileApiTests' => 'પ્રોફાઇલ API પરીક્ષણો',
 			'debug.sections.feedback' => 'પ્રતિસાદ',
 			'debug.sections.dataReset' => 'ડેટા રીસેટ',
 			'debug.sections.appInfo' => 'એપ માહિતી',
@@ -2205,9 +2212,9 @@ extension on TranslationsGu {
 			'debug.testMealLoggingWithVariations' => 'વૈવિધ્ય સાથેની ભોજન લોગિંગ ટેસ્ટ',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'વૈવિધ્ય સાથે સંપૂર્ણ ભોજન લોગિંગ પ્રવાહનું પરીક્ષણ કરો',
 			'debug.mockMealWithVariations' => 'મોક ભોજન (વૈવિધ્ય સાથે)',
-			'debug.mockMealWithVariationsSubtitle' => 'લોગ કર્યા વિના વૈવિધ્ય અને ટિપ શીટ UI પૂર્વાવલોકન',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'લોગ કર્યા વિના વૈવિધ્ય અને ટિપ શીટ UI પૂર્વાવલોકન',
 			'debug.mockMealName' => 'ગ્રિલ્ડ ચિકન સાથે ચોખા અને શાકભાજી',
 			'debug.mockTip' => 'આ UI પૂર્વદર્શન માટે નકલી સૂચન છે. ભોજન લોગ થયું નથી.',
 			'debug.mockMealDescription' => 'ડિબગ માટે નકલી ભોજન',
@@ -2227,6 +2234,11 @@ extension on TranslationsGu {
 			'debug.compressingImage' => 'ઈમેજ સંકુચિત કરી રહ્યા છે...',
 			'debug.uploadingImageAndDetecting' => 'ઈમેજ બકેટ પર અપલોડ કરી ભોજન ઓળખી રહ્યું છે...',
 			'debug.testingMealLoggingFlow' => 'વૈવિધ્ય સાથે ભોજન લોગિંગ પ્રવાહનું પરીક્ષણ...',
+			'debug.testUpdateProfile' => 'પ્રોફાઇલ અપડેટનું પરીક્ષણ',
+			'debug.testUpdateProfileSubtitle' => 'બેકએન્ડ પર નમૂના પ્રોફાઇલ POST કરો',
+			'debug.testingProfileApi' => 'પ્રોફાઇલ API પરીક્ષણ કરી રહ્યું છે...',
+			'debug.profileUpdateSuccess' => 'પ્રોફાઇલ API સફળતાપૂર્વક જવાબ આપ્યો છે',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'પ્રોફાઇલ API માં ભૂલ: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'પ્રતિસાદમાં કોઈ ભોજન ઓળખાતું નથી',
 			'debug.mealIdentified' => 'ભોજન ઓળખાયું',
 			'debug.confidence' => 'નિશ્ચિતતા',

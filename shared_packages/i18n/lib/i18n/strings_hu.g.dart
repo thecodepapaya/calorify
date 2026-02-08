@@ -499,6 +499,11 @@ class _TranslationsDebugHu implements TranslationsDebugEn {
 	@override String get compressingImage => 'Kép tömörítése...';
 	@override String get uploadingImageAndDetecting => 'Kép feltöltése a tárhelyre és az étel felismerése...';
 	@override String get testingMealLoggingFlow => 'Ételfelviteli folyamat tesztelése variációkkal...';
+	@override String get testUpdateProfile => 'Profilfrissítés tesztelése';
+	@override String get testUpdateProfileSubtitle => 'Mintaprofil POSTolása a backendre';
+	@override String get testingProfileApi => 'Profil API tesztelése...';
+	@override String get profileUpdateSuccess => 'A profil API sikeresen válaszolt';
+	@override String profileUpdateFailed({required Object error}) => 'Profil API hiba: ${error}';
 	@override String get noMealIdentifiedInResponse => 'A válaszban nem azonosítható étel';
 	@override String get mealIdentified => 'Étel felismerve';
 	@override String get confidence => 'Valószínűség';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsHu implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Étel API tesztek';
+	@override String get profileApiTests => 'Profil API tesztek';
 	@override String get feedback => 'Visszajelzés';
 	@override String get dataReset => 'Adatok visszaállítása';
 	@override String get appInfo => 'Alkalmazás Információ';
@@ -2112,6 +2118,7 @@ extension on TranslationsHu {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Étel API tesztek',
+			'debug.sections.profileApiTests' => 'Profil API tesztek',
 			'debug.sections.feedback' => 'Visszajelzés',
 			'debug.sections.dataReset' => 'Adatok visszaállítása',
 			'debug.sections.appInfo' => 'Alkalmazás Információ',
@@ -2205,9 +2212,9 @@ extension on TranslationsHu {
 			'debug.testMealLoggingWithVariations' => 'Ételfelvitel tesztelése variációkkal',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Teszteld a teljes ételfelviteli folyamatot variációkkal',
 			'debug.mockMealWithVariations' => 'Mintaétel variációkkal',
-			'debug.mockMealWithVariationsSubtitle' => 'Variációk és tipp lap UI előnézete naplózás nélkül',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Variációk és tipp lap UI előnézete naplózás nélkül',
 			'debug.mockMealName' => 'Grillezett csirke rizzsel és zöldségekkel',
 			'debug.mockTip' => 'Ez egy minta tipp a felhasználói felület előnézetéhez. Az étel nincs rögzítve.',
 			'debug.mockMealDescription' => 'Minta étel hibakereséshez',
@@ -2227,6 +2234,11 @@ extension on TranslationsHu {
 			'debug.compressingImage' => 'Kép tömörítése...',
 			'debug.uploadingImageAndDetecting' => 'Kép feltöltése a tárhelyre és az étel felismerése...',
 			'debug.testingMealLoggingFlow' => 'Ételfelviteli folyamat tesztelése variációkkal...',
+			'debug.testUpdateProfile' => 'Profilfrissítés tesztelése',
+			'debug.testUpdateProfileSubtitle' => 'Mintaprofil POSTolása a backendre',
+			'debug.testingProfileApi' => 'Profil API tesztelése...',
+			'debug.profileUpdateSuccess' => 'A profil API sikeresen válaszolt',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Profil API hiba: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'A válaszban nem azonosítható étel',
 			'debug.mealIdentified' => 'Étel felismerve',
 			'debug.confidence' => 'Valószínűség',

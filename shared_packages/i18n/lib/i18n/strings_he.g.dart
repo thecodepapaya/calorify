@@ -499,6 +499,11 @@ class _TranslationsDebugHe implements TranslationsDebugEn {
 	@override String get compressingImage => 'מכווץ את התמונה...';
 	@override String get uploadingImageAndDetecting => 'מעלה תמונה לאחסון ומזהה את הארוחה...';
 	@override String get testingMealLoggingFlow => 'בודק את זרימת רישום הארוחה עם וריאציות...';
+	@override String get testUpdateProfile => 'בדיקת עדכון פרופיל';
+	@override String get testUpdateProfileSubtitle => 'שלח פרופיל דוגמה לשרת באמצעות POST';
+	@override String get testingProfileApi => 'בודק את ה-API של הפרופיל...';
+	@override String get profileUpdateSuccess => 'ה-API של הפרופיל הגיב בהצלחה';
+	@override String profileUpdateFailed({required Object error}) => 'שגיאה ב-API של הפרופיל: ${error}';
 	@override String get noMealIdentifiedInResponse => 'לא זוהתה ארוחה בתשובה';
 	@override String get mealIdentified => 'זוהתה ארוחה';
 	@override String get confidence => 'רמת ביטחון';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsHe implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'בדיקות Food API';
+	@override String get profileApiTests => 'בדיקות API של הפרופיל';
 	@override String get feedback => 'משוב';
 	@override String get dataReset => 'איפוס נתונים';
 	@override String get appInfo => 'מידע על האפליקציה';
@@ -2112,6 +2118,7 @@ extension on TranslationsHe {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'בדיקות Food API',
+			'debug.sections.profileApiTests' => 'בדיקות API של הפרופיל',
 			'debug.sections.feedback' => 'משוב',
 			'debug.sections.dataReset' => 'איפוס נתונים',
 			'debug.sections.appInfo' => 'מידע על האפליקציה',
@@ -2205,9 +2212,9 @@ extension on TranslationsHe {
 			'debug.testMealLoggingWithVariations' => 'בדיקת רישום ארוחה עם וריאציות',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'בדוק את זרימת רישום הארוחה המלאה עם וריאציות',
 			'debug.mockMealWithVariations' => 'ארוחה מדומה עם וריאציות',
-			'debug.mockMealWithVariationsSubtitle' => 'תצוגה מקדימה של וריאציות + דף טיפים ללא רישום',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'תצוגה מקדימה של וריאציות + דף טיפים ללא רישום',
 			'debug.mockMealName' => 'עוף בגריל עם אורז וירקות',
 			'debug.mockTip' => 'זהו טיפ מדומה לתצוגת ממשק. הארוחה לא נרשמה.',
 			'debug.mockMealDescription' => 'ארוחת דיבאג מדומה',
@@ -2227,6 +2234,11 @@ extension on TranslationsHe {
 			'debug.compressingImage' => 'מכווץ את התמונה...',
 			'debug.uploadingImageAndDetecting' => 'מעלה תמונה לאחסון ומזהה את הארוחה...',
 			'debug.testingMealLoggingFlow' => 'בודק את זרימת רישום הארוחה עם וריאציות...',
+			'debug.testUpdateProfile' => 'בדיקת עדכון פרופיל',
+			'debug.testUpdateProfileSubtitle' => 'שלח פרופיל דוגמה לשרת באמצעות POST',
+			'debug.testingProfileApi' => 'בודק את ה-API של הפרופיל...',
+			'debug.profileUpdateSuccess' => 'ה-API של הפרופיל הגיב בהצלחה',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'שגיאה ב-API של הפרופיל: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'לא זוהתה ארוחה בתשובה',
 			'debug.mealIdentified' => 'זוהתה ארוחה',
 			'debug.confidence' => 'רמת ביטחון',

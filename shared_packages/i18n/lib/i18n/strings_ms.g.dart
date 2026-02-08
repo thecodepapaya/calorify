@@ -499,6 +499,11 @@ class _TranslationsDebugMs implements TranslationsDebugEn {
 	@override String get compressingImage => 'Memampatkan imej...';
 	@override String get uploadingImageAndDetecting => 'Memuat naik imej ke bucket storan dan mengesan hidangan...';
 	@override String get testingMealLoggingFlow => 'Sedang menguji aliran pencatatan makanan dengan variasi...';
+	@override String get testUpdateProfile => 'Uji kemas kini profil';
+	@override String get testUpdateProfileSubtitle => 'Hantar profil contoh ke pelayan (POST)';
+	@override String get testingProfileApi => 'Menguji API profil...';
+	@override String get profileUpdateSuccess => 'API profil memberi respons dengan jayanya';
+	@override String profileUpdateFailed({required Object error}) => 'Ralat API profil: ${error}';
 	@override String get noMealIdentifiedInResponse => 'Tiada hidangan dikenal pasti dalam respons';
 	@override String get mealIdentified => 'Hidangan Dikenal Pasti';
 	@override String get confidence => 'Keyakinan';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsMs implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Ujian API Makanan';
+	@override String get profileApiTests => 'Ujian API Profil';
 	@override String get feedback => 'Maklum balas';
 	@override String get dataReset => 'Tetapan semula data';
 	@override String get appInfo => 'Maklumat Aplikasi';
@@ -2112,6 +2118,7 @@ extension on TranslationsMs {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Ujian API Makanan',
+			'debug.sections.profileApiTests' => 'Ujian API Profil',
 			'debug.sections.feedback' => 'Maklum balas',
 			'debug.sections.dataReset' => 'Tetapan semula data',
 			'debug.sections.appInfo' => 'Maklumat Aplikasi',
@@ -2205,9 +2212,9 @@ extension on TranslationsMs {
 			'debug.testMealLoggingWithVariations' => 'Uji Pencatatan Makanan dengan Variasi',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Uji keseluruhan aliran pencatatan makanan dengan variasi',
 			'debug.mockMealWithVariations' => 'Makanan tiruan dengan variasi',
-			'debug.mockMealWithVariationsSubtitle' => 'Pratonton variasi + helaian petua tanpa mencatat',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Pratonton variasi + helaian petua tanpa mencatat',
 			'debug.mockMealName' => 'Ayam panggang dengan nasi dan sayur-sayuran',
 			'debug.mockTip' => 'Ini adalah petua tiruan untuk pratonton UI. Makanan ini tidak dicatat.',
 			'debug.mockMealDescription' => 'Makanan tiruan untuk debug',
@@ -2227,6 +2234,11 @@ extension on TranslationsMs {
 			'debug.compressingImage' => 'Memampatkan imej...',
 			'debug.uploadingImageAndDetecting' => 'Memuat naik imej ke bucket storan dan mengesan hidangan...',
 			'debug.testingMealLoggingFlow' => 'Sedang menguji aliran pencatatan makanan dengan variasi...',
+			'debug.testUpdateProfile' => 'Uji kemas kini profil',
+			'debug.testUpdateProfileSubtitle' => 'Hantar profil contoh ke pelayan (POST)',
+			'debug.testingProfileApi' => 'Menguji API profil...',
+			'debug.profileUpdateSuccess' => 'API profil memberi respons dengan jayanya',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Ralat API profil: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Tiada hidangan dikenal pasti dalam respons',
 			'debug.mealIdentified' => 'Hidangan Dikenal Pasti',
 			'debug.confidence' => 'Keyakinan',

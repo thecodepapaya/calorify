@@ -499,6 +499,11 @@ class _TranslationsDebugBn implements TranslationsDebugEn {
 	@override String get compressingImage => 'ছবি কম্প্রেস করা হচ্ছে...';
 	@override String get uploadingImageAndDetecting => 'ছবি বাকেটে আপলোড করা হচ্ছে এবং মিল সনাক্ত করা হচ্ছে...';
 	@override String get testingMealLoggingFlow => 'ভ্যারিয়েশনের সঙ্গে মিল লগিং ফ্লো পরীক্ষা করা হচ্ছে...';
+	@override String get testUpdateProfile => 'প্রোফাইল আপডেট পরীক্ষা';
+	@override String get testUpdateProfileSubtitle => 'নমুনা প্রোফাইলটি ব্যাকএন্ডে POST করুন';
+	@override String get testingProfileApi => 'প্রোফাইল API পরীক্ষা করা হচ্ছে...';
+	@override String get profileUpdateSuccess => 'প্রোফাইল API সফলভাবে প্রতিক্রিয়া দিয়েছে';
+	@override String profileUpdateFailed({required Object error}) => 'প্রোফাইল API ত্রুটি: ${error}';
 	@override String get noMealIdentifiedInResponse => 'রেসপন্সে কোনো মিল সনাক্ত হয়নি';
 	@override String get mealIdentified => 'মিল সনাক্ত হয়েছে';
 	@override String get confidence => 'নির্ভরযোগ্যতা';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsBn implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'স্বাস্থ্য সংযোগ';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'খাদ্য API পরীক্ষা';
+	@override String get profileApiTests => 'প্রোফাইল API পরীক্ষা';
 	@override String get feedback => 'প্রতিক্রিয়া';
 	@override String get dataReset => 'ডেটা রিসেট';
 	@override String get appInfo => 'অ্যাপ তথ্য';
@@ -2112,6 +2118,7 @@ extension on TranslationsBn {
 			'debug.sections.healthConnect' => 'স্বাস্থ্য সংযোগ',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'খাদ্য API পরীক্ষা',
+			'debug.sections.profileApiTests' => 'প্রোফাইল API পরীক্ষা',
 			'debug.sections.feedback' => 'প্রতিক্রিয়া',
 			'debug.sections.dataReset' => 'ডেটা রিসেট',
 			'debug.sections.appInfo' => 'অ্যাপ তথ্য',
@@ -2205,9 +2212,9 @@ extension on TranslationsBn {
 			'debug.testMealLoggingWithVariations' => 'ভ্যারিয়েশনের সঙ্গে মিল লগিং টেস্ট',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'ভ্যারিয়েশনসহ পূর্ণ মিল লগিং ফ্লো পরীক্ষা করুন',
 			'debug.mockMealWithVariations' => 'ভ্যারিয়েশনসহ মক মিল',
-			'debug.mockMealWithVariationsSubtitle' => 'লগিং ছাড়াই ভ্যারিয়েশন ও টিপ শিট UI প্রিভিউ করুন',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'লগিং ছাড়াই ভ্যারিয়েশন ও টিপ শিট UI প্রিভিউ করুন',
 			'debug.mockMealName' => 'রাইস ও সবজির সঙ্গে গ্রিলড চিকেন',
 			'debug.mockTip' => 'এটি UI প্রিভিউর জন্য একটি মক টিপ। মিলটি লগ করা হয়নি।',
 			'debug.mockMealDescription' => 'ডিবাগের জন্য মক মিল',
@@ -2227,6 +2234,11 @@ extension on TranslationsBn {
 			'debug.compressingImage' => 'ছবি কম্প্রেস করা হচ্ছে...',
 			'debug.uploadingImageAndDetecting' => 'ছবি বাকেটে আপলোড করা হচ্ছে এবং মিল সনাক্ত করা হচ্ছে...',
 			'debug.testingMealLoggingFlow' => 'ভ্যারিয়েশনের সঙ্গে মিল লগিং ফ্লো পরীক্ষা করা হচ্ছে...',
+			'debug.testUpdateProfile' => 'প্রোফাইল আপডেট পরীক্ষা',
+			'debug.testUpdateProfileSubtitle' => 'নমুনা প্রোফাইলটি ব্যাকএন্ডে POST করুন',
+			'debug.testingProfileApi' => 'প্রোফাইল API পরীক্ষা করা হচ্ছে...',
+			'debug.profileUpdateSuccess' => 'প্রোফাইল API সফলভাবে প্রতিক্রিয়া দিয়েছে',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'প্রোফাইল API ত্রুটি: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'রেসপন্সে কোনো মিল সনাক্ত হয়নি',
 			'debug.mealIdentified' => 'মিল সনাক্ত হয়েছে',
 			'debug.confidence' => 'নির্ভরযোগ্যতা',

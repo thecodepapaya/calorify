@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flashy_flushbar: ^1.4.1
   models:
     path: ../models
   i18n:

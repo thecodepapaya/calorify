@@ -499,6 +499,11 @@ class _TranslationsDebugId implements TranslationsDebugEn {
 	@override String get compressingImage => 'Mengompres gambar...';
 	@override String get uploadingImageAndDetecting => 'Mengunggah gambar ke bucket dan mendeteksi makanan...';
 	@override String get testingMealLoggingFlow => 'Menguji alur pencatatan makanan dengan variasi...';
+	@override String get testUpdateProfile => 'Tes pembaruan profil';
+	@override String get testUpdateProfileSubtitle => 'Kirim contoh profil ke backend (POST)';
+	@override String get testingProfileApi => 'Menguji API profil...';
+	@override String get profileUpdateSuccess => 'API profil merespons dengan sukses';
+	@override String profileUpdateFailed({required Object error}) => 'Kesalahan API profil: ${error}';
 	@override String get noMealIdentifiedInResponse => 'Tidak ada makanan teridentifikasi dalam respons';
 	@override String get mealIdentified => 'Makanan teridentifikasi';
 	@override String get confidence => 'Tingkat kepercayaan';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsId implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Tes API Makanan';
+	@override String get profileApiTests => 'Tes API Profil';
 	@override String get feedback => 'Umpan balik';
 	@override String get dataReset => 'Atur ulang data';
 	@override String get appInfo => 'Info Aplikasi';
@@ -2112,6 +2118,7 @@ extension on TranslationsId {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Tes API Makanan',
+			'debug.sections.profileApiTests' => 'Tes API Profil',
 			'debug.sections.feedback' => 'Umpan balik',
 			'debug.sections.dataReset' => 'Atur ulang data',
 			'debug.sections.appInfo' => 'Info Aplikasi',
@@ -2205,9 +2212,9 @@ extension on TranslationsId {
 			'debug.testMealLoggingWithVariations' => 'Uji Pencatatan Makanan dengan Variasi',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Uji alur pencatatan makanan lengkap dengan variasi',
 			'debug.mockMealWithVariations' => 'Contoh makanan dengan variasi',
-			'debug.mockMealWithVariationsSubtitle' => 'Pratinjau variasi + lembar tips UI tanpa mencatat',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Pratinjau variasi + lembar tips UI tanpa mencatat',
 			'debug.mockMealName' => 'Ayam panggang dengan nasi dan sayuran',
 			'debug.mockTip' => 'Ini adalah tip contoh untuk pratinjau UI. Makanan tidak dicatat.',
 			'debug.mockMealDescription' => 'Makanan contoh untuk debug',
@@ -2227,6 +2234,11 @@ extension on TranslationsId {
 			'debug.compressingImage' => 'Mengompres gambar...',
 			'debug.uploadingImageAndDetecting' => 'Mengunggah gambar ke bucket dan mendeteksi makanan...',
 			'debug.testingMealLoggingFlow' => 'Menguji alur pencatatan makanan dengan variasi...',
+			'debug.testUpdateProfile' => 'Tes pembaruan profil',
+			'debug.testUpdateProfileSubtitle' => 'Kirim contoh profil ke backend (POST)',
+			'debug.testingProfileApi' => 'Menguji API profil...',
+			'debug.profileUpdateSuccess' => 'API profil merespons dengan sukses',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Kesalahan API profil: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Tidak ada makanan teridentifikasi dalam respons',
 			'debug.mealIdentified' => 'Makanan teridentifikasi',
 			'debug.confidence' => 'Tingkat kepercayaan',

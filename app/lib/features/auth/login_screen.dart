@@ -35,11 +35,9 @@ class LoginScreen extends StatelessWidget {
                   // Navigation to HomeScreen is handled by StreamBuilder in app.dart
                 } else {
                   log('Sign in failed or cancelled.');
-                  // Show a snackbar or message
+                  // Show a flushbar
                   if (!context.mounted) return;
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(snack(t.login.signInFailed));
+                  showFlushbar(t.login.signInFailed, context: context);
                 }
               },
               style: ElevatedButton.styleFrom(

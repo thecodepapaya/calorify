@@ -499,6 +499,11 @@ class _TranslationsDebugRu implements TranslationsDebugEn {
 	@override String get compressingImage => 'Сжатие изображения...';
 	@override String get uploadingImageAndDetecting => 'Загрузка изображения в хранилище и определение блюда...';
 	@override String get testingMealLoggingFlow => 'Тестирование процесса записи приема пищи с вариациями...';
+	@override String get testUpdateProfile => 'Тест обновления профиля';
+	@override String get testUpdateProfileSubtitle => 'Отправить тестовый профиль на сервер (POST)';
+	@override String get testingProfileApi => 'Тестирование API профиля...';
+	@override String get profileUpdateSuccess => 'API профиля ответил успешно';
+	@override String profileUpdateFailed({required Object error}) => 'Ошибка API профиля: ${error}';
 	@override String get noMealIdentifiedInResponse => 'В ответе не найдено блюдо';
 	@override String get mealIdentified => 'Блюдо определено';
 	@override String get confidence => 'Уверенность';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsRu implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Тесты Food API';
+	@override String get profileApiTests => 'Тесты API профиля';
 	@override String get feedback => 'Обратная связь';
 	@override String get dataReset => 'Сброс данных';
 	@override String get appInfo => 'Информация о приложении';
@@ -2112,6 +2118,7 @@ extension on TranslationsRu {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Тесты Food API',
+			'debug.sections.profileApiTests' => 'Тесты API профиля',
 			'debug.sections.feedback' => 'Обратная связь',
 			'debug.sections.dataReset' => 'Сброс данных',
 			'debug.sections.appInfo' => 'Информация о приложении',
@@ -2205,9 +2212,9 @@ extension on TranslationsRu {
 			'debug.testMealLoggingWithVariations' => 'Тест регистрации приема пищи с вариациями',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Протестировать полный процесс записи приема пищи с вариациями',
 			'debug.mockMealWithVariations' => 'Макет блюда с вариациями',
-			'debug.mockMealWithVariationsSubtitle' => 'Предпросмотр вариаций и подсказок без записи',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Предпросмотр вариаций и подсказок без записи',
 			'debug.mockMealName' => 'Жареная курица с рисом и овощами',
 			'debug.mockTip' => 'Это тестовая подсказка для предварительного просмотра интерфейса. Прием пищи не сохраняется.',
 			'debug.mockMealDescription' => 'Тестовое блюдо для отладки',
@@ -2227,6 +2234,11 @@ extension on TranslationsRu {
 			'debug.compressingImage' => 'Сжатие изображения...',
 			'debug.uploadingImageAndDetecting' => 'Загрузка изображения в хранилище и определение блюда...',
 			'debug.testingMealLoggingFlow' => 'Тестирование процесса записи приема пищи с вариациями...',
+			'debug.testUpdateProfile' => 'Тест обновления профиля',
+			'debug.testUpdateProfileSubtitle' => 'Отправить тестовый профиль на сервер (POST)',
+			'debug.testingProfileApi' => 'Тестирование API профиля...',
+			'debug.profileUpdateSuccess' => 'API профиля ответил успешно',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Ошибка API профиля: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'В ответе не найдено блюдо',
 			'debug.mealIdentified' => 'Блюдо определено',
 			'debug.confidence' => 'Уверенность',

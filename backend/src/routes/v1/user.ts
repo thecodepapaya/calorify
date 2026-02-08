@@ -1,6 +1,7 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { createErrorResponse } from '../../utils/errors.js';
 import { query } from '../../services/database.js';
+import { authenticateUser } from '../../middleware/auth.js';
 
 interface UserProfileBody {
   height?: number;
@@ -23,7 +24,7 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
   fastify.post<{ Body: UserProfileBody }>(
     '/profile',
     {
-      // preHandler: [authenticateUser], // Temporarily disabled
+      preHandler: [authenticateUser],
       schema: {
         description: 'Create or update user profile. If a profile already exists for the authenticated user, it will be updated. Otherwise, a new profile will be created.',
         tags: ['User'],

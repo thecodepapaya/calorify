@@ -499,6 +499,11 @@ class _TranslationsDebugUr implements TranslationsDebugEn {
 	@override String get compressingImage => 'تصویر کمپریس کی جا رہی ہے...';
 	@override String get uploadingImageAndDetecting => 'تصویر بکٹ میں اپلوڈ کی جا رہی ہے اور کھانا شناخت کیا جا رہا ہے...';
 	@override String get testingMealLoggingFlow => 'تغیرات کے ساتھ میل لاگنگ فلو کی جانچ ہو رہی ہے...';
+	@override String get testUpdateProfile => 'پروفائل اپڈیٹ کرنے کا ٹیسٹ';
+	@override String get testUpdateProfileSubtitle => 'نمونہ پروفائل کو بیک اینڈ پر POST کریں';
+	@override String get testingProfileApi => 'پروفائل API کی جانچ کی جا رہی ہے...';
+	@override String get profileUpdateSuccess => 'پروفائل API نے کامیابی سے جواب دیا';
+	@override String profileUpdateFailed({required Object error}) => 'پروفائل API کی خرابی: ${error}';
 	@override String get noMealIdentifiedInResponse => 'ردعمل میں کوئی کھانا شناخت نہیں ہوا';
 	@override String get mealIdentified => 'کھانا شناخت ہو گیا';
 	@override String get confidence => 'اعتماد';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsUr implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'ہیلتھ کنیکٹ';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Food API ٹیسٹ';
+	@override String get profileApiTests => 'پروفائل API ٹیسٹس';
 	@override String get feedback => 'رائے';
 	@override String get dataReset => 'ڈیٹا ری سیٹ';
 	@override String get appInfo => 'ایپ کی معلومات';
@@ -2112,6 +2118,7 @@ extension on TranslationsUr {
 			'debug.sections.healthConnect' => 'ہیلتھ کنیکٹ',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Food API ٹیسٹ',
+			'debug.sections.profileApiTests' => 'پروفائل API ٹیسٹس',
 			'debug.sections.feedback' => 'رائے',
 			'debug.sections.dataReset' => 'ڈیٹا ری سیٹ',
 			'debug.sections.appInfo' => 'ایپ کی معلومات',
@@ -2205,9 +2212,9 @@ extension on TranslationsUr {
 			'debug.testMealLoggingWithVariations' => 'تغیرات کے ساتھ میل لاگنگ ٹیسٹ',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'تغیرات کے ساتھ مکمل میل لاگنگ فلو کا ٹیسٹ کریں',
 			'debug.mockMealWithVariations' => 'تغیرات کے ساتھ نمونہ کھانا',
-			'debug.mockMealWithVariationsSubtitle' => 'لاگ کیے بغیر ویریئیشن اور ٹِپ شیٹ UI کا پریویو کریں',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'لاگ کیے بغیر ویریئیشن اور ٹِپ شیٹ UI کا پریویو کریں',
 			'debug.mockMealName' => 'گرِلڈ چکن کے ساتھ چاول اور سبزیاں',
 			'debug.mockTip' => 'یہ UI پریویو کے لیے ایک نمونہ مشورہ ہے۔ یہ کھانا لاگ نہیں کیا گیا۔',
 			'debug.mockMealDescription' => 'ڈیبگ کے لیے نمونہ کھانا',
@@ -2227,6 +2234,11 @@ extension on TranslationsUr {
 			'debug.compressingImage' => 'تصویر کمپریس کی جا رہی ہے...',
 			'debug.uploadingImageAndDetecting' => 'تصویر بکٹ میں اپلوڈ کی جا رہی ہے اور کھانا شناخت کیا جا رہا ہے...',
 			'debug.testingMealLoggingFlow' => 'تغیرات کے ساتھ میل لاگنگ فلو کی جانچ ہو رہی ہے...',
+			'debug.testUpdateProfile' => 'پروفائل اپڈیٹ کرنے کا ٹیسٹ',
+			'debug.testUpdateProfileSubtitle' => 'نمونہ پروفائل کو بیک اینڈ پر POST کریں',
+			'debug.testingProfileApi' => 'پروفائل API کی جانچ کی جا رہی ہے...',
+			'debug.profileUpdateSuccess' => 'پروفائل API نے کامیابی سے جواب دیا',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'پروفائل API کی خرابی: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'ردعمل میں کوئی کھانا شناخت نہیں ہوا',
 			'debug.mealIdentified' => 'کھانا شناخت ہو گیا',
 			'debug.confidence' => 'اعتماد',

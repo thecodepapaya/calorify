@@ -499,6 +499,11 @@ class _TranslationsDebugKo implements TranslationsDebugEn {
 	@override String get compressingImage => '이미지 압축 중...';
 	@override String get uploadingImageAndDetecting => '이미지를 버킷에 업로드하고 식사를 감지하는 중...';
 	@override String get testingMealLoggingFlow => '변형이 있는 식사 기록 흐름 테스트 중...';
+	@override String get testUpdateProfile => '프로필 업데이트 테스트';
+	@override String get testUpdateProfileSubtitle => '샘플 프로필을 백엔드로 POST합니다';
+	@override String get testingProfileApi => '프로필 API를 테스트하는 중...';
+	@override String get profileUpdateSuccess => '프로필 API가 정상적으로 응답했습니다';
+	@override String profileUpdateFailed({required Object error}) => '프로필 API 오류: ${error}';
 	@override String get noMealIdentifiedInResponse => '응답에서 식사를 식별하지 못했습니다';
 	@override String get mealIdentified => '식사 식별됨';
 	@override String get confidence => '신뢰도';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsKo implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Food API 테스트';
+	@override String get profileApiTests => '프로필 API 테스트';
 	@override String get feedback => '피드백';
 	@override String get dataReset => '데이터 초기화';
 	@override String get appInfo => '앱 정보';
@@ -2112,6 +2118,7 @@ extension on TranslationsKo {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Food API 테스트',
+			'debug.sections.profileApiTests' => '프로필 API 테스트',
 			'debug.sections.feedback' => '피드백',
 			'debug.sections.dataReset' => '데이터 초기화',
 			'debug.sections.appInfo' => '앱 정보',
@@ -2205,9 +2212,9 @@ extension on TranslationsKo {
 			'debug.testMealLoggingWithVariations' => '변형이 있는 식사 기록 테스트',
 			'debug.testMealLoggingWithVariationsSubtitle' => '변형을 포함한 전체 식사 기록 흐름을 테스트합니다.',
 			'debug.mockMealWithVariations' => '변형이 있는 모의 식사',
-			'debug.mockMealWithVariationsSubtitle' => '기록 없이 변형 및 팁 시트 UI를 미리봅니다.',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => '기록 없이 변형 및 팁 시트 UI를 미리봅니다.',
 			'debug.mockMealName' => '구운 닭고기와 밥, 야채',
 			'debug.mockTip' => 'UI 미리보기를 위한 모의 팁입니다. 식사는 기록되지 않습니다.',
 			'debug.mockMealDescription' => '디버그용 모의 식사',
@@ -2227,6 +2234,11 @@ extension on TranslationsKo {
 			'debug.compressingImage' => '이미지 압축 중...',
 			'debug.uploadingImageAndDetecting' => '이미지를 버킷에 업로드하고 식사를 감지하는 중...',
 			'debug.testingMealLoggingFlow' => '변형이 있는 식사 기록 흐름 테스트 중...',
+			'debug.testUpdateProfile' => '프로필 업데이트 테스트',
+			'debug.testUpdateProfileSubtitle' => '샘플 프로필을 백엔드로 POST합니다',
+			'debug.testingProfileApi' => '프로필 API를 테스트하는 중...',
+			'debug.profileUpdateSuccess' => '프로필 API가 정상적으로 응답했습니다',
+			'debug.profileUpdateFailed' => ({required Object error}) => '프로필 API 오류: ${error}',
 			'debug.noMealIdentifiedInResponse' => '응답에서 식사를 식별하지 못했습니다',
 			'debug.mealIdentified' => '식사 식별됨',
 			'debug.confidence' => '신뢰도',

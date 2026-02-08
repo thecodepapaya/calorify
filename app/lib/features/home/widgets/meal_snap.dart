@@ -6,11 +6,10 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/picker_service.dart';
-import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getSnapDisclaimer;
-import 'package:calorify/features/home/widgets/bottom_sheet/meal_variation_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_variation_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
@@ -243,9 +242,7 @@ class _MealSnapState extends State<MealSnap> {
       if (!mounted) return;
     } on Exception catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(snack(t.meal.errorCompressingImage(error: e)));
+      showFlushbar(t.meal.errorCompressingImage(error: e), context: context);
       _reset();
       return;
     }
@@ -271,9 +268,7 @@ class _MealSnapState extends State<MealSnap> {
       } on Exception catch (e) {
         Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);
         if (!mounted) return;
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(snack(t.meal.failedToProcessImage(error: e)));
+        showFlushbar(t.meal.failedToProcessImage(error: e), context: context);
         return;
       } finally {
         // Clean up temp file
@@ -310,9 +305,7 @@ class _MealSnapState extends State<MealSnap> {
         // Ignore cleanup errors
       }
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(snack(t.meal.failedToProcessImage(error: e)));
+      showFlushbar(t.meal.failedToProcessImage(error: e), context: context);
       _reset();
     }
   }

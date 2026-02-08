@@ -4,7 +4,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:i18n/i18n.dart';
-import 'package:widgets/widgets.dart';
 
 class MacroChart extends StatefulWidget {
   final List<LoggedMeal> meals;
@@ -283,10 +282,10 @@ class _MacroChartState extends State<MacroChart>
   ) {
     final animatedValue = value * animationValue;
 
-    // Get the stroked text style for better readability
-    final strokedTextStyle = BorderText.getStrokedTextStyle(
-      context,
-      baseStyle: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold),
+    const sectorTextStyle = TextStyle(
+      fontSize: 9,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
     );
 
     return PieChartSectionData(
@@ -294,7 +293,7 @@ class _MacroChartState extends State<MacroChart>
       color: color,
       title: animatedValue > 3 ? '${displayValue}g' : '',
       radius: 40 * animationValue,
-      titleStyle: strokedTextStyle,
+      titleStyle: sectorTextStyle,
     );
   }
 }

@@ -55,18 +55,20 @@ class MealLogCard extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 12),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 4,
-                    ).copyWith(top: 2),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: colorScheme.onSecondary.withValues(alpha: 0.7),
+                  if (loggedMeal.meal.type != MealType.UNKNOWN) ...[
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 4,
+                      ).copyWith(top: 2),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: colorScheme.onSecondary.withValues(alpha: 0.7),
+                        ),
                       ),
+                      child: MealTypeIndicator(type: loggedMeal.meal.type),
                     ),
-                    child: MealTypeIndicator(type: loggedMeal.meal.type),
-                  ),
+                  ],
                   if (loggedMeal.meal.hasHealth()) ...[
                     const SizedBox(width: 8),
                     HealthScoreIndicator(

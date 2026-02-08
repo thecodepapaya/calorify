@@ -3,6 +3,7 @@ import { openAIFoodAnalysisService } from '../../services/openAIFoodAnalysis.js'
 import { createErrorResponse } from '../../utils/errors.js';
 import { getLocaleFromRequest } from '../../utils/locale.js';
 import config from '../../config.js';
+import { authenticateUser } from '../../middleware/auth.js';
 import type {
   ImageMealDetectionRequest,
   TextMealDetectionRequest,
@@ -24,7 +25,7 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
   fastify.post(
     '/analyze-image',
     {
-      // preHandler: [authenticateUser], // Temporarily disabled
+      preHandler: [authenticateUser],
       schema: {
         description: 'Analyze a food image using OpenAI. Upload an image file to get detailed nutritional information including calories, macros, health score, and variations.',
         tags: ['Food'],
@@ -41,9 +42,6 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
     },
     async (request: FastifyRequest, reply: FastifyReply) => {
       try {
-        // Authentication temporarily disabled
-        // getCurrentUserId(request); // Verify authentication
-
         // Get uploaded file
         const data = await request.file();
         if (!data) {
@@ -86,7 +84,7 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
   fastify.post<{ Body: ImageMealDetectionRequest }>(
     '/detect-image',
     {
-      // preHandler: [authenticateUser], // Temporarily disabled
+      preHandler: [authenticateUser],
       schema: {
         description: 'Detect meal from image URL using OpenAI. Returns MealDetectionResponse with variations if confidence is LOW/MEDIUM.',
         tags: ['Food'],
@@ -102,8 +100,6 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
     },
     async (request: FastifyRequest<{ Body: ImageMealDetectionRequest }>, reply: FastifyReply) => {
       try {
-        // Authentication temporarily disabled
-
         const { imageUrl } = request.body;
 
         if (!imageUrl || typeof imageUrl !== 'string' || imageUrl.trim() === '') {
@@ -112,17 +108,21 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
         }
 
         // Validate URL format and convert upload URL to download URL
+        // Object key = path after bucket "o/" (supports folderized keys: uid/iso_uuid.ext)
         let finalImageUrl: string;
         try {
           const url = new URL(imageUrl);
-          // Extract filename from upload URL and convert to download URL
-          // Upload URL format: .../calorify-images/o/{filename}
-          // Download URL format: .../calorify-images/o/{filename}
           const pathParts = url.pathname.split('/');
-          const filename = pathParts[pathParts.length - 1];
+          const oIndex = pathParts.indexOf('o');
+          const objectKey =
+            oIndex >= 0
+              ? pathParts
+                  .slice(oIndex + 1)
+                  .map((seg) => encodeURIComponent(seg))
+                  .join('/')
+              : encodeURIComponent(pathParts[pathParts.length - 1]);
 
-          // Always convert to download URL
-          finalImageUrl = `${config.ORACLE_BUCKET_DOWNLOAD_URL}${filename}`;
+          finalImageUrl = `${config.ORACLE_BUCKET_DOWNLOAD_URL}${objectKey}`;
         } catch {
           reply.status(400).send(createErrorResponse('Invalid imageUrl format'));
           return;
@@ -153,7 +153,7 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
   fastify.post<{ Body: TextMealDetectionRequest }>(
     '/detect-text',
     {
-      // preHandler: [authenticateUser], // Temporarily disabled
+      preHandler: [authenticateUser],
       schema: {
         description: 'Detect meal from text description using OpenAI. Returns MealDetectionResponse with variations if confidence is LOW/MEDIUM.',
         tags: ['Food'],
@@ -169,8 +169,6 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
     },
     async (request: FastifyRequest<{ Body: TextMealDetectionRequest }>, reply: FastifyReply) => {
       try {
-        // Authentication temporarily disabled
-
         const { textDescription } = request.body;
 
         if (!textDescription || typeof textDescription !== 'string' || textDescription.trim() === '') {

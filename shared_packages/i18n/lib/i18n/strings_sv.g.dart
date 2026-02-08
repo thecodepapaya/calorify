@@ -499,6 +499,11 @@ class _TranslationsDebugSv implements TranslationsDebugEn {
 	@override String get compressingImage => 'Komprimerar bild...';
 	@override String get uploadingImageAndDetecting => 'Laddar upp bild till bucket och identifierar måltid...';
 	@override String get testingMealLoggingFlow => 'Testar flöde för måltidsloggning med variationer...';
+	@override String get testUpdateProfile => 'Testa profiluppdatering';
+	@override String get testUpdateProfileSubtitle => 'Skicka exempelprofil till backend med POST';
+	@override String get testingProfileApi => 'Testar profil-API...';
+	@override String get profileUpdateSuccess => 'Profil-API:t svarade framgångsrikt';
+	@override String profileUpdateFailed({required Object error}) => 'Fel i profil-API: ${error}';
 	@override String get noMealIdentifiedInResponse => 'Ingen måltid identifierad i svaret';
 	@override String get mealIdentified => 'Måltid identifierad';
 	@override String get confidence => 'Sannolikhet';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsSv implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Food API-tester';
+	@override String get profileApiTests => 'Profil-API-tester';
 	@override String get feedback => 'Återkoppling';
 	@override String get dataReset => 'Återställ data';
 	@override String get appInfo => 'Appinfo';
@@ -2112,6 +2118,7 @@ extension on TranslationsSv {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Food API-tester',
+			'debug.sections.profileApiTests' => 'Profil-API-tester',
 			'debug.sections.feedback' => 'Återkoppling',
 			'debug.sections.dataReset' => 'Återställ data',
 			'debug.sections.appInfo' => 'Appinfo',
@@ -2205,9 +2212,9 @@ extension on TranslationsSv {
 			'debug.testMealLoggingWithVariations' => 'Testa måltidsloggning med variationer',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Testa hela flödet för måltidsloggning med variationer',
 			'debug.mockMealWithVariations' => 'Fiktiv måltid med variationer',
-			'debug.mockMealWithVariationsSubtitle' => 'Förhandsgranska variations- och tipsvyn utan att logga',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Förhandsgranska variations- och tipsvyn utan att logga',
 			'debug.mockMealName' => 'Grillad kyckling med ris och grönsaker',
 			'debug.mockTip' => 'Detta är ett exempelråd för förhandsvisning av gränssnittet. Måltiden loggas inte.',
 			'debug.mockMealDescription' => 'Fiktiv måltid för felsökning',
@@ -2227,6 +2234,11 @@ extension on TranslationsSv {
 			'debug.compressingImage' => 'Komprimerar bild...',
 			'debug.uploadingImageAndDetecting' => 'Laddar upp bild till bucket och identifierar måltid...',
 			'debug.testingMealLoggingFlow' => 'Testar flöde för måltidsloggning med variationer...',
+			'debug.testUpdateProfile' => 'Testa profiluppdatering',
+			'debug.testUpdateProfileSubtitle' => 'Skicka exempelprofil till backend med POST',
+			'debug.testingProfileApi' => 'Testar profil-API...',
+			'debug.profileUpdateSuccess' => 'Profil-API:t svarade framgångsrikt',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Fel i profil-API: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Ingen måltid identifierad i svaret',
 			'debug.mealIdentified' => 'Måltid identifierad',
 			'debug.confidence' => 'Sannolikhet',

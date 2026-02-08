@@ -499,6 +499,11 @@ class _TranslationsDebugTr implements TranslationsDebugEn {
 	@override String get compressingImage => 'Görsel sıkıştırılıyor...';
 	@override String get uploadingImageAndDetecting => 'Görsel bucket\'a yükleniyor ve yemek tespit ediliyor...';
 	@override String get testingMealLoggingFlow => 'Varyasyonlarla yemek kaydı akışı test ediliyor...';
+	@override String get testUpdateProfile => 'Profil güncellemesini test et';
+	@override String get testUpdateProfileSubtitle => 'Örnek profili sunucuya POST ile gönder';
+	@override String get testingProfileApi => 'Profil API\'si test ediliyor...';
+	@override String get profileUpdateSuccess => 'Profil API\'si başarıyla yanıt verdi';
+	@override String profileUpdateFailed({required Object error}) => 'Profil API hatası: ${error}';
 	@override String get noMealIdentifiedInResponse => 'Yanıtta yemek tespit edilemedi';
 	@override String get mealIdentified => 'Yemek tespit edildi';
 	@override String get confidence => 'Güven';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsTr implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Yemek API Testleri';
+	@override String get profileApiTests => 'Profil API Testleri';
 	@override String get feedback => 'Geri bildirim';
 	@override String get dataReset => 'Veri sıfırlama';
 	@override String get appInfo => 'Uygulama Bilgisi';
@@ -2112,6 +2118,7 @@ extension on TranslationsTr {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Yemek API Testleri',
+			'debug.sections.profileApiTests' => 'Profil API Testleri',
 			'debug.sections.feedback' => 'Geri bildirim',
 			'debug.sections.dataReset' => 'Veri sıfırlama',
 			'debug.sections.appInfo' => 'Uygulama Bilgisi',
@@ -2205,9 +2212,9 @@ extension on TranslationsTr {
 			'debug.testMealLoggingWithVariations' => 'Varyasyonlarla Yemek Kaydı Testi',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Varyasyonlarla tam yemek kaydetme akışını test et',
 			'debug.mockMealWithVariations' => 'Varyasyonlu sahte öğün',
-			'debug.mockMealWithVariationsSubtitle' => 'Kayıt etmeden varyasyon ve ipucu sayfası arayüzünü önizle',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Kayıt etmeden varyasyon ve ipucu sayfası arayüzünü önizle',
 			'debug.mockMealName' => 'Izgara tavuk, pilav ve sebzeler',
 			'debug.mockTip' => 'Bu, UI önizlemesi için sahte bir ipucu. Öğün kaydedilmedi.',
 			'debug.mockMealDescription' => 'Hata ayıklama için sahte öğün',
@@ -2227,6 +2234,11 @@ extension on TranslationsTr {
 			'debug.compressingImage' => 'Görsel sıkıştırılıyor...',
 			'debug.uploadingImageAndDetecting' => 'Görsel bucket\'a yükleniyor ve yemek tespit ediliyor...',
 			'debug.testingMealLoggingFlow' => 'Varyasyonlarla yemek kaydı akışı test ediliyor...',
+			'debug.testUpdateProfile' => 'Profil güncellemesini test et',
+			'debug.testUpdateProfileSubtitle' => 'Örnek profili sunucuya POST ile gönder',
+			'debug.testingProfileApi' => 'Profil API\'si test ediliyor...',
+			'debug.profileUpdateSuccess' => 'Profil API\'si başarıyla yanıt verdi',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Profil API hatası: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Yanıtta yemek tespit edilemedi',
 			'debug.mealIdentified' => 'Yemek tespit edildi',
 			'debug.confidence' => 'Güven',

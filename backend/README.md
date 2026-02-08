@@ -51,9 +51,9 @@ A high-performance Node.js/Fastify backend API server for AI-powered food analys
    ```
 
 3. **Configure Environment**:
-   - Copy `env.example` to `.env` for local development
+   - Local dev uses `staging.env` by default; add a `.env` only if you need overrides (e.g. `DATABASE_URL`, `FIREBASE_SERVICE_ACCOUNT_PATH`)
    - Update `production.env` and `staging.env` with credentials
-   - Place `firebase-adminsdk.json` in `backend/` folder
+   - Place your Firebase service account JSON in `backend/` (e.g. `firebase-adminsdk.json`). For local dev, set `FIREBASE_SERVICE_ACCOUNT_PATH=./firebase-adminsdk.json` in `.env`
 
 4. **Start Development Server**:
    ```bash
@@ -176,9 +176,9 @@ curl http://localhost:8001/  # Staging
 
 ### Environment Files
 
-- `production.env` - Production settings
-- `staging.env` - Staging settings
-- `.env` - Local development (not committed)
+- `production.env` - Production settings (Docker)
+- `staging.env` - Staging settings; also used as the base for local dev (`npm run dev`)
+- `.env` - Optional local overrides (not committed), e.g. `FIREBASE_SERVICE_ACCOUNT_PATH`, `DATABASE_URL`
 
 ## Project Structure
 

@@ -499,6 +499,11 @@ class _TranslationsDebugVi implements TranslationsDebugEn {
 	@override String get compressingImage => 'Đang nén ảnh...';
 	@override String get uploadingImageAndDetecting => 'Đang tải ảnh lên bucket và phát hiện bữa ăn...';
 	@override String get testingMealLoggingFlow => 'Đang kiểm tra quy trình ghi nhận bữa ăn có biến thể...';
+	@override String get testUpdateProfile => 'Kiểm tra cập nhật hồ sơ';
+	@override String get testUpdateProfileSubtitle => 'Gửi hồ sơ mẫu (POST) tới backend';
+	@override String get testingProfileApi => 'Đang kiểm tra API hồ sơ...';
+	@override String get profileUpdateSuccess => 'API hồ sơ phản hồi thành công';
+	@override String profileUpdateFailed({required Object error}) => 'Lỗi API hồ sơ: ${error}';
 	@override String get noMealIdentifiedInResponse => 'Không xác định được bữa ăn trong phản hồi';
 	@override String get mealIdentified => 'Đã xác định bữa ăn';
 	@override String get confidence => 'Độ tin cậy';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsVi implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Kiểm tra API Thực phẩm';
+	@override String get profileApiTests => 'Kiểm tra API hồ sơ';
 	@override String get feedback => 'Phản hồi';
 	@override String get dataReset => 'Đặt lại dữ liệu';
 	@override String get appInfo => 'Thông tin ứng dụng';
@@ -2112,6 +2118,7 @@ extension on TranslationsVi {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Kiểm tra API Thực phẩm',
+			'debug.sections.profileApiTests' => 'Kiểm tra API hồ sơ',
 			'debug.sections.feedback' => 'Phản hồi',
 			'debug.sections.dataReset' => 'Đặt lại dữ liệu',
 			'debug.sections.appInfo' => 'Thông tin ứng dụng',
@@ -2205,9 +2212,9 @@ extension on TranslationsVi {
 			'debug.testMealLoggingWithVariations' => 'Thử ghi nhận bữa ăn với biến thể',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Thử toàn bộ quy trình ghi nhận bữa ăn có biến thể',
 			'debug.mockMealWithVariations' => 'Bữa ăn mẫu có biến thể',
-			'debug.mockMealWithVariationsSubtitle' => 'Xem trước giao diện biến thể + mẹo mà không ghi nhận',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Xem trước giao diện biến thể + mẹo mà không ghi nhận',
 			'debug.mockMealName' => 'Gà nướng với cơm và rau',
 			'debug.mockTip' => 'Đây là mẹo giả để xem giao diện. Bữa ăn không được ghi nhận.',
 			'debug.mockMealDescription' => 'Bữa ăn mẫu để gỡ lỗi',
@@ -2227,6 +2234,11 @@ extension on TranslationsVi {
 			'debug.compressingImage' => 'Đang nén ảnh...',
 			'debug.uploadingImageAndDetecting' => 'Đang tải ảnh lên bucket và phát hiện bữa ăn...',
 			'debug.testingMealLoggingFlow' => 'Đang kiểm tra quy trình ghi nhận bữa ăn có biến thể...',
+			'debug.testUpdateProfile' => 'Kiểm tra cập nhật hồ sơ',
+			'debug.testUpdateProfileSubtitle' => 'Gửi hồ sơ mẫu (POST) tới backend',
+			'debug.testingProfileApi' => 'Đang kiểm tra API hồ sơ...',
+			'debug.profileUpdateSuccess' => 'API hồ sơ phản hồi thành công',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Lỗi API hồ sơ: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Không xác định được bữa ăn trong phản hồi',
 			'debug.mealIdentified' => 'Đã xác định bữa ăn',
 			'debug.confidence' => 'Độ tin cậy',

@@ -399,10 +399,10 @@ GOOGLE_API_KEY=<your-google-api-key>
 
 ### Firebase Configuration
 
-**Service Account JSON**:
-- Place `firebase-adminsdk.json` in `backend/` directory
-- Mounted in Docker as `/app/firebase-service-account.json`
-- Set `FIREBASE_SERVICE_ACCOUNT_PATH` in environment file
+**Where to put the service account file**:
+- **Location**: Put the JSON file in the **backend directory** (e.g. `backend/firebase-adminsdk.json`). The file is gitignored; do not commit it.
+- **Local dev**: `npm run dev` loads `staging.env`; override the path in `.env`, e.g. `FIREBASE_SERVICE_ACCOUNT_PATH=./firebase-adminsdk.json`.
+- **Docker**: The file is mounted in `docker-compose.yml` as `/app/firebase-service-account.json`; `staging.env` / `production.env` set the path.
 
 **Required Firebase Services**:
 - Authentication (for token verification)
@@ -637,16 +637,11 @@ docker-compose up -d --build
    ```
 
 3. **Set Environment Variables**:
-   - Copy `env.example` to `.env`
-   - Update values as needed
-   - Set `FIREBASE_SERVICE_ACCOUNT_PATH` to local path
-   - Set `OPENAI_API_KEY` for OpenAI (required, default)
-- Set `GOOGLE_API_KEY` for Gemini AI (optional, legacy service)
+   - Local dev loads `staging.env` automatically. Add `.env` only for overrides (e.g. `DATABASE_URL` if not using Docker DB, `FIREBASE_SERVICE_ACCOUNT_PATH` for local path).
+   - Set `FIREBASE_SERVICE_ACCOUNT_PATH=./firebase-adminsdk.json` in `.env` for local dev if using the default filename in `backend/`.
 
 4. **Place Firebase Credentials**:
-   - Download Firebase service account JSON
-   - Place in `backend/` directory
-   - Update path in `.env`
+   - Download Firebase service account JSON and place it in `backend/` (e.g. `firebase-adminsdk.json`). It is gitignored.
 
 5. **Run Development Server**:
    ```bash

@@ -499,6 +499,11 @@ class _TranslationsDebugPt implements TranslationsDebugEn {
 	@override String get compressingImage => 'Comprimindo imagem...';
 	@override String get uploadingImageAndDetecting => 'Enviando imagem para o bucket e detectando refeição...';
 	@override String get testingMealLoggingFlow => 'Testando fluxo de registro de refeição com variações...';
+	@override String get testUpdateProfile => 'Testar atualização do perfil';
+	@override String get testUpdateProfileSubtitle => 'Enviar perfil de exemplo via POST para o backend';
+	@override String get testingProfileApi => 'Testando a API de perfil...';
+	@override String get profileUpdateSuccess => 'A API de perfil respondeu com sucesso';
+	@override String profileUpdateFailed({required Object error}) => 'Erro na API de perfil: ${error}';
 	@override String get noMealIdentifiedInResponse => 'Nenhuma refeição identificada na resposta';
 	@override String get mealIdentified => 'Refeição identificada';
 	@override String get confidence => 'Confiança';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsPt implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Testes da API de Alimentos';
+	@override String get profileApiTests => 'Testes da API de Perfil';
 	@override String get feedback => 'Feedback';
 	@override String get dataReset => 'Redefinir dados';
 	@override String get appInfo => 'Informações do Aplicativo';
@@ -2112,6 +2118,7 @@ extension on TranslationsPt {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Testes da API de Alimentos',
+			'debug.sections.profileApiTests' => 'Testes da API de Perfil',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Redefinir dados',
 			'debug.sections.appInfo' => 'Informações do Aplicativo',
@@ -2205,9 +2212,9 @@ extension on TranslationsPt {
 			'debug.testMealLoggingWithVariations' => 'Testar registro de refeição com variações',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Testar o fluxo completo de registro de refeição com variações',
 			'debug.mockMealWithVariations' => 'Refeição simulada com variações',
-			'debug.mockMealWithVariationsSubtitle' => 'Visualizar variações + painel de dicas sem registrar',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Visualizar variações + painel de dicas sem registrar',
 			'debug.mockMealName' => 'Frango grelhado com arroz e legumes',
 			'debug.mockTip' => 'Esta é uma dica de exemplo para visualização da interface. A refeição não será registrada.',
 			'debug.mockMealDescription' => 'Refeição simulada para depuração',
@@ -2227,6 +2234,11 @@ extension on TranslationsPt {
 			'debug.compressingImage' => 'Comprimindo imagem...',
 			'debug.uploadingImageAndDetecting' => 'Enviando imagem para o bucket e detectando refeição...',
 			'debug.testingMealLoggingFlow' => 'Testando fluxo de registro de refeição com variações...',
+			'debug.testUpdateProfile' => 'Testar atualização do perfil',
+			'debug.testUpdateProfileSubtitle' => 'Enviar perfil de exemplo via POST para o backend',
+			'debug.testingProfileApi' => 'Testando a API de perfil...',
+			'debug.profileUpdateSuccess' => 'A API de perfil respondeu com sucesso',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Erro na API de perfil: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Nenhuma refeição identificada na resposta',
 			'debug.mealIdentified' => 'Refeição identificada',
 			'debug.confidence' => 'Confiança',

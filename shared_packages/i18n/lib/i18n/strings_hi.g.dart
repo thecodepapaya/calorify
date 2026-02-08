@@ -499,6 +499,11 @@ class _TranslationsDebugHi implements TranslationsDebugEn {
 	@override String get compressingImage => 'इमेज संपीड़ित कर रहे हैं...';
 	@override String get uploadingImageAndDetecting => 'इमेज को बकेट में अपलोड कर रहे हैं और भोजन पहचान रहे हैं...';
 	@override String get testingMealLoggingFlow => 'वैरिएशन्स के साथ भोजन लॉगिंग फ्लो का परीक्षण कर रहे हैं...';
+	@override String get testUpdateProfile => 'प्रोफ़ाइल अपडेट का परीक्षण';
+	@override String get testUpdateProfileSubtitle => 'नमूना प्रोफ़ाइल को बैकएंड पर भेजें (POST)';
+	@override String get testingProfileApi => 'प्रोफ़ाइल API का परीक्षण हो रहा है...';
+	@override String get profileUpdateSuccess => 'प्रोफ़ाइल API ने सफलतापूर्वक प्रतिक्रिया दी';
+	@override String profileUpdateFailed({required Object error}) => 'प्रोफ़ाइल API त्रुटि: ${error}';
 	@override String get noMealIdentifiedInResponse => 'प्रतिक्रिया में कोई भोजन नहीं पहचाना गया';
 	@override String get mealIdentified => 'भोजन पहचाना गया';
 	@override String get confidence => 'विश्वास स्तर';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsHi implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Food API परीक्षण';
+	@override String get profileApiTests => 'प्रोफ़ाइल API परीक्षण';
 	@override String get feedback => 'प्रतिक्रिया';
 	@override String get dataReset => 'डेटा रीसेट';
 	@override String get appInfo => 'ऐप जानकारी';
@@ -2112,6 +2118,7 @@ extension on TranslationsHi {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Food API परीक्षण',
+			'debug.sections.profileApiTests' => 'प्रोफ़ाइल API परीक्षण',
 			'debug.sections.feedback' => 'प्रतिक्रिया',
 			'debug.sections.dataReset' => 'डेटा रीसेट',
 			'debug.sections.appInfo' => 'ऐप जानकारी',
@@ -2205,9 +2212,9 @@ extension on TranslationsHi {
 			'debug.testMealLoggingWithVariations' => 'वैरिएशन्स के साथ टेस्ट भोजन लॉगिंग',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'वैरिएशन्स के साथ पूरा भोजन लॉगिंग फ्लो टेस्ट करें',
 			'debug.mockMealWithVariations' => 'वैरिएशन्स के साथ नकली भोजन',
-			'debug.mockMealWithVariationsSubtitle' => 'लॉग किए बिना वैरिएशन + टिप शीट UI का पूर्वावलोकन करें',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'लॉग किए बिना वैरिएशन + टिप शीट UI का पूर्वावलोकन करें',
 			'debug.mockMealName' => 'ग्रिल्ड चिकन, चावल और सब्जियों के साथ',
 			'debug.mockTip' => 'यह UI पूर्वावलोकन के लिए एक नकली टिप है। यह भोजन लॉग नहीं किया गया है।',
 			'debug.mockMealDescription' => 'डिबग के लिए नकली भोजन',
@@ -2227,6 +2234,11 @@ extension on TranslationsHi {
 			'debug.compressingImage' => 'इमेज संपीड़ित कर रहे हैं...',
 			'debug.uploadingImageAndDetecting' => 'इमेज को बकेट में अपलोड कर रहे हैं और भोजन पहचान रहे हैं...',
 			'debug.testingMealLoggingFlow' => 'वैरिएशन्स के साथ भोजन लॉगिंग फ्लो का परीक्षण कर रहे हैं...',
+			'debug.testUpdateProfile' => 'प्रोफ़ाइल अपडेट का परीक्षण',
+			'debug.testUpdateProfileSubtitle' => 'नमूना प्रोफ़ाइल को बैकएंड पर भेजें (POST)',
+			'debug.testingProfileApi' => 'प्रोफ़ाइल API का परीक्षण हो रहा है...',
+			'debug.profileUpdateSuccess' => 'प्रोफ़ाइल API ने सफलतापूर्वक प्रतिक्रिया दी',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'प्रोफ़ाइल API त्रुटि: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'प्रतिक्रिया में कोई भोजन नहीं पहचाना गया',
 			'debug.mealIdentified' => 'भोजन पहचाना गया',
 			'debug.confidence' => 'विश्वास स्तर',

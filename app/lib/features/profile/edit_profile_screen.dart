@@ -766,9 +766,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       });
 
       // Show success message
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(snack(t.profile.updatedSuccessfully));
+      showFlushbar(t.profile.updatedSuccessfully, context: context);
 
       // Navigate back
       await context.router.maybePop();

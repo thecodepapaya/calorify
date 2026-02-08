@@ -120,9 +120,7 @@ class _DescribeMealState extends State<DescribeMeal> {
     } on Exception catch (e) {
       Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(snack(t.meal.failedToProcess(error: e)));
+      showFlushbar(t.meal.failedToProcess(error: e), context: context);
       return;
     } finally {
       _reset();

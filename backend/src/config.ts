@@ -1,8 +1,13 @@
 import dotenv from 'dotenv';
+import { existsSync } from 'fs';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
-// Load environment variables
+// Load environment variables: use staging.env for local dev (no separate dev env file),
+// then .env if present for overrides (e.g. DATABASE_URL, FIREBASE_SERVICE_ACCOUNT_PATH).
+if (existsSync('staging.env')) {
+    dotenv.config({ path: 'staging.env' });
+}
 dotenv.config();
 
 interface Config {
@@ -16,6 +21,7 @@ interface Config {
     readonly PORT: number;
     readonly EXTERNAL_PORT: number; // Port exposed to host (for Docker port mapping)
     readonly OPENAI_API_KEY: string | null;
+    readonly GEMINI_API_KEY: string | null;
     readonly ORACLE_BUCKET_DOWNLOAD_URL: string;
     readonly LOKI_URL: string | null;
     /** Log full request/response bodies in JSON logs (Grafana/Loki). Default true for staging, false for production. */
@@ -67,13 +73,25 @@ function validateEnvironment(env: string): 'development' | 'staging' | 'producti
     throw new Error(`Invalid ENVIRONMENT value: ${env}. Must be one of: development, staging, production`);
 }
 
+const DOCKER_FIREBASE_PATH = '/app/firebase-service-account.json';
+const LOCAL_FIREBASE_FALLBACK = 'firebase-adminsdk.json';
+
 function validateFirebaseServiceAccount(path: string | null): string | null {
     if (path === null) {
         return null;
     }
 
+    let resolvedPath = resolve(path);
+    // When running locally, staging.env points to Docker path /app/... which doesn't exist.
+    // Fall back to firebase-adminsdk.json in cwd (backend/) so local dev works without .env.
+    if (resolvedPath === resolve(DOCKER_FIREBASE_PATH) && !existsSync(resolvedPath)) {
+        const fallback = resolve(LOCAL_FIREBASE_FALLBACK);
+        if (existsSync(fallback)) {
+            resolvedPath = fallback;
+        }
+    }
+
     try {
-        const resolvedPath = resolve(path);
         const content = readFileSync(resolvedPath, 'utf-8');
         JSON.parse(content); // Validate it's valid JSON
         return resolvedPath;
@@ -96,6 +114,7 @@ const config: Config = {
     PORT: port,
     EXTERNAL_PORT: getEnvVarNumber('EXTERNAL_PORT', port), // Defaults to PORT if not set
     OPENAI_API_KEY: getEnvVarOptional('OPENAI_API_KEY'),
+    GEMINI_API_KEY: getEnvVarOptional('GEMINI_API_KEY'),
     // Oracle Object Storage pre-authenticated link for downloading
     // calorify-download-auth-bucket-link
     // Backup download link for when the above expires:

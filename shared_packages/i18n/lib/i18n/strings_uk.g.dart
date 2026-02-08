@@ -499,6 +499,11 @@ class _TranslationsDebugUk implements TranslationsDebugEn {
 	@override String get compressingImage => 'Стиснення зображення...';
 	@override String get uploadingImageAndDetecting => 'Завантаження зображення до сховища та виявлення страви...';
 	@override String get testingMealLoggingFlow => 'Тестування процесу запису їжі з варіаціями...';
+	@override String get testUpdateProfile => 'Перевірка оновлення профілю';
+	@override String get testUpdateProfileSubtitle => 'Надіслати зразок профілю на сервер (POST)';
+	@override String get testingProfileApi => 'Тестування API профілю...';
+	@override String get profileUpdateSuccess => 'API профілю відповів успішно';
+	@override String profileUpdateFailed({required Object error}) => 'Помилка API профілю: ${error}';
 	@override String get noMealIdentifiedInResponse => 'Страву не виявлено у відповіді';
 	@override String get mealIdentified => 'Страву виявлено';
 	@override String get confidence => 'Впевненість';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsUk implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Тести Food API';
+	@override String get profileApiTests => 'Тести API профілю';
 	@override String get feedback => 'Зворотній зв\'язок';
 	@override String get dataReset => 'Скидання даних';
 	@override String get appInfo => 'Інформація про додаток';
@@ -2112,6 +2118,7 @@ extension on TranslationsUk {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Тести Food API',
+			'debug.sections.profileApiTests' => 'Тести API профілю',
 			'debug.sections.feedback' => 'Зворотній зв\'язок',
 			'debug.sections.dataReset' => 'Скидання даних',
 			'debug.sections.appInfo' => 'Інформація про додаток',
@@ -2205,9 +2212,9 @@ extension on TranslationsUk {
 			'debug.testMealLoggingWithVariations' => 'Тест: запис їжі з варіаціями',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Перевірте повний процес запису їжі з варіаціями',
 			'debug.mockMealWithVariations' => 'Зразкова страва з варіаціями',
-			'debug.mockMealWithVariationsSubtitle' => 'Попередній перегляд варіацій та інтерфейсу порад без запису',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Попередній перегляд варіацій та інтерфейсу порад без запису',
 			'debug.mockMealName' => 'Курка-гриль з рисом та овочами',
 			'debug.mockTip' => 'Це тестова порада для попереднього перегляду інтерфейсу. Страва не заноситься в журнал.',
 			'debug.mockMealDescription' => 'Тестова страва для налагодження',
@@ -2227,6 +2234,11 @@ extension on TranslationsUk {
 			'debug.compressingImage' => 'Стиснення зображення...',
 			'debug.uploadingImageAndDetecting' => 'Завантаження зображення до сховища та виявлення страви...',
 			'debug.testingMealLoggingFlow' => 'Тестування процесу запису їжі з варіаціями...',
+			'debug.testUpdateProfile' => 'Перевірка оновлення профілю',
+			'debug.testUpdateProfileSubtitle' => 'Надіслати зразок профілю на сервер (POST)',
+			'debug.testingProfileApi' => 'Тестування API профілю...',
+			'debug.profileUpdateSuccess' => 'API профілю відповів успішно',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Помилка API профілю: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'Страву не виявлено у відповіді',
 			'debug.mealIdentified' => 'Страву виявлено',
 			'debug.confidence' => 'Впевненість',

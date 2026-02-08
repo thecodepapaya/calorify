@@ -499,6 +499,11 @@ class _TranslationsDebugCs implements TranslationsDebugEn {
 	@override String get compressingImage => 'Komprimování obrázku...';
 	@override String get uploadingImageAndDetecting => 'Nahrávání obrázku do úložiště a detekce jídla...';
 	@override String get testingMealLoggingFlow => 'Testuje se tok záznamu jídla s variantami...';
+	@override String get testUpdateProfile => 'Otestovat aktualizaci profilu';
+	@override String get testUpdateProfileSubtitle => 'Odeslat vzorový profil na backend pomocí POST';
+	@override String get testingProfileApi => 'Testuji API profilu...';
+	@override String get profileUpdateSuccess => 'API profilu odpovědělo úspěšně';
+	@override String profileUpdateFailed({required Object error}) => 'Chyba API profilu: ${error}';
 	@override String get noMealIdentifiedInResponse => 'V odpovědi nebylo identifikováno žádné jídlo';
 	@override String get mealIdentified => 'Jídlo identifikováno';
 	@override String get confidence => 'Pravděpodobnost';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsCs implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'Testy Food API';
+	@override String get profileApiTests => 'Testy API profilu';
 	@override String get feedback => 'Zpětná vazba';
 	@override String get dataReset => 'Reset dat';
 	@override String get appInfo => 'Informace o aplikaci';
@@ -2112,6 +2118,7 @@ extension on TranslationsCs {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'Testy Food API',
+			'debug.sections.profileApiTests' => 'Testy API profilu',
 			'debug.sections.feedback' => 'Zpětná vazba',
 			'debug.sections.dataReset' => 'Reset dat',
 			'debug.sections.appInfo' => 'Informace o aplikaci',
@@ -2205,9 +2212,9 @@ extension on TranslationsCs {
 			'debug.testMealLoggingWithVariations' => 'Testování záznamu jídla s variantami',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Otestovat kompletní tok záznamu jídla s variantami',
 			'debug.mockMealWithVariations' => 'Ukázkové jídlo s variantami',
-			'debug.mockMealWithVariationsSubtitle' => 'Náhled rozhraní varianty a tipů bez uložení záznamu',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'Náhled rozhraní varianty a tipů bez uložení záznamu',
 			'debug.mockMealName' => 'Grilované kuře s rýží a zeleninou',
 			'debug.mockTip' => 'Toto je ukázková rada pro náhled rozhraní. Jídlo není uloženo.',
 			'debug.mockMealDescription' => 'Ukázkové jídlo pro ladění',
@@ -2227,6 +2234,11 @@ extension on TranslationsCs {
 			'debug.compressingImage' => 'Komprimování obrázku...',
 			'debug.uploadingImageAndDetecting' => 'Nahrávání obrázku do úložiště a detekce jídla...',
 			'debug.testingMealLoggingFlow' => 'Testuje se tok záznamu jídla s variantami...',
+			'debug.testUpdateProfile' => 'Otestovat aktualizaci profilu',
+			'debug.testUpdateProfileSubtitle' => 'Odeslat vzorový profil na backend pomocí POST',
+			'debug.testingProfileApi' => 'Testuji API profilu...',
+			'debug.profileUpdateSuccess' => 'API profilu odpovědělo úspěšně',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'Chyba API profilu: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'V odpovědi nebylo identifikováno žádné jídlo',
 			'debug.mealIdentified' => 'Jídlo identifikováno',
 			'debug.confidence' => 'Pravděpodobnost',

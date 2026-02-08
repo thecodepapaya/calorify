@@ -1,4 +1,4 @@
-import OpenAI from 'openai';
+import { GoogleGenerativeAI, type Part } from '@google/generative-ai';
 import type {
   MealDetectionResult,
   MealDetectionResponse,
@@ -18,7 +18,7 @@ import {
 import config from '../config.js';
 import { getFoodAnalysisSystemPrompt } from './foodAnalysisSystemPrompt.js';
 
-interface OpenAIVariationOption {
+interface GeminiVariationOption {
   option: string;
   macro_diff?: {
     calories: number;
@@ -29,12 +29,12 @@ interface OpenAIVariationOption {
   };
 }
 
-interface OpenAIVariation {
+interface GeminiVariation {
   question: string;
-  options: OpenAIVariationOption[];
+  options: GeminiVariationOption[];
 }
 
-interface OpenAIResponse {
+interface GeminiResponse {
   result: {
     meal_identified: boolean;
     calorie_confidence: 'UNSPECIFIED' | 'LOW' | 'MEDIUM' | 'HIGH';
@@ -56,18 +56,18 @@ interface OpenAIResponse {
       };
     };
   };
-  variations?: OpenAIVariation[];
+  variations?: GeminiVariation[];
 }
 
-class OpenAIFoodAnalysisService {
-  private client: OpenAI;
+class GeminiFoodAnalysisService {
+  private genAI: GoogleGenerativeAI;
 
   constructor() {
-    const apiKey = config.OPENAI_API_KEY;
+    const apiKey = config.GEMINI_API_KEY;
     if (!apiKey) {
-      throw new Error('OPENAI_API_KEY environment variable is not set');
+      throw new Error('GEMINI_API_KEY environment variable is not set');
     }
-    this.client = new OpenAI({ apiKey });
+    this.genAI = new GoogleGenerativeAI(apiKey);
   }
 
   /**
@@ -114,7 +114,6 @@ class OpenAIFoodAnalysisService {
 
   /**
    * Get mock variations for testing in staging environment
-   * Returns a set of sample variations to test the meal logging flow
    */
   private getMockVariations(): Variation[] {
     return [
@@ -192,11 +191,9 @@ class OpenAIFoodAnalysisService {
   }
 
   /**
-   * Map OpenAI variation to proto Variation
-   * Validates JSON structure strictly
+   * Map Gemini variation to proto Variation
    */
-  private mapVariation(variation: OpenAIVariation): Variation {
-    // Strict JSON validation - ensure variation is a valid object
+  private mapVariation(variation: GeminiVariation): Variation {
     if (!variation || typeof variation !== 'object') {
       throw new Error('Variation must be an object');
     }
@@ -214,7 +211,6 @@ class OpenAIFoodAnalysisService {
       question: variation.question,
       options: variation.options
         .filter((opt) => {
-          // Strict validation of option structure
           if (!opt || typeof opt !== 'object') return false;
           if (!opt.option || typeof opt.option !== 'string') return false;
           return true;
@@ -223,27 +219,23 @@ class OpenAIFoodAnalysisService {
           option: opt.option,
           macroDiff: opt.macro_diff && typeof opt.macro_diff === 'object'
             ? {
-              // Ensure all macro values are valid numbers
-              calories: Math.round(Number(opt.macro_diff.calories) || 0),
-              carbs: Math.round(Number(opt.macro_diff.carbs) || 0),
-              protein: Math.round(Number(opt.macro_diff.protein) || 0),
-              fat: Math.round(Number(opt.macro_diff.fat) || 0),
-              fiber: Math.round(Number(opt.macro_diff.fiber) || 0),
-            }
+                calories: Math.round(Number(opt.macro_diff.calories) || 0),
+                carbs: Math.round(Number(opt.macro_diff.carbs) || 0),
+                protein: Math.round(Number(opt.macro_diff.protein) || 0),
+                fat: Math.round(Number(opt.macro_diff.fat) || 0),
+                fiber: Math.round(Number(opt.macro_diff.fiber) || 0),
+              }
             : undefined,
         })),
     };
   }
 
   /**
-   * Extract JSON from OpenAI response text
-   * Handles markdown code blocks if present
-   * Ensures strict JSON format
+   * Extract JSON from Gemini response text
    */
   private extractJson(text: string): string {
     let cleaned = text.trim();
 
-    // Remove markdown code blocks
     if (cleaned.includes('```json')) {
       cleaned = cleaned.split('```json')[1]?.split('```')[0] ?? cleaned;
     } else if (cleaned.includes('```')) {
@@ -252,18 +244,14 @@ class OpenAIFoodAnalysisService {
 
     cleaned = cleaned.trim();
 
-    // Ensure JSON starts and ends with braces/brackets
     if (!cleaned.startsWith('{') && !cleaned.startsWith('[')) {
-      // Try to find first JSON object
       const firstBrace = cleaned.indexOf('{');
       if (firstBrace !== -1) {
         cleaned = cleaned.substring(firstBrace);
       }
     }
 
-    // Ensure proper JSON closing
     if (cleaned.startsWith('{')) {
-      // Find matching closing brace
       let braceCount = 0;
       let lastBrace = -1;
       for (let i = 0; i < cleaned.length; i++) {
@@ -285,18 +273,15 @@ class OpenAIFoodAnalysisService {
   }
 
   /**
-   * Build protobuf MealDetectionResponse from OpenAI JSON response
-   * Returns a proper protobuf-typed object with result and variations
+   * Build protobuf MealDetectionResponse from Gemini JSON response
    */
-  private buildProtoResponse(resultDict: OpenAIResponse): MealDetectionResponse {
-    // Validate required fields
+  private buildProtoResponse(resultDict: GeminiResponse): MealDetectionResponse {
     if (!resultDict.result) {
       throw new Error('Response missing required "result" field');
     }
 
     const resultData = resultDict.result;
 
-    // Validate required result fields
     if (typeof resultData.meal_identified !== 'boolean') {
       throw new Error('Response missing or invalid "meal_identified" field');
     }
@@ -307,11 +292,8 @@ class OpenAIFoodAnalysisService {
       throw new Error('Response missing or invalid "tip" field');
     }
 
-    // Map meal if present and meal_identified is true
-    // Only validate meal when meal_identified is true (per system prompt: "meal required if meal_identified=true")
     let mealInfo: Meal | undefined;
     if (resultData.meal_identified && resultData.meal) {
-      // Validate required meal fields
       if (!resultData.meal.name || typeof resultData.meal.name !== 'string') {
         throw new Error('Meal missing or invalid "name" field');
       }
@@ -325,7 +307,6 @@ class OpenAIFoodAnalysisService {
         throw new Error('Meal missing required "macros" field');
       }
 
-      // Validate macros fields
       const macros = resultData.meal.macros;
       if (
         typeof macros.calories !== 'number' ||
@@ -350,13 +331,12 @@ class OpenAIFoodAnalysisService {
         },
         health: resultData.meal.health
           ? {
-            healthScore: this.parseHealthScore(resultData.meal.health.health_score),
-            healthScoreReason: resultData.meal.health.health_score_reason,
-          }
+              healthScore: this.parseHealthScore(resultData.meal.health.health_score),
+              healthScoreReason: resultData.meal.health.health_score_reason,
+            }
           : undefined,
       };
     }
-    // If meal_identified is false, mealInfo remains undefined (which is valid per proto definition)
 
     const result: MealDetectionResult = {
       mealIdentified: resultData.meal_identified,
@@ -365,96 +345,87 @@ class OpenAIFoodAnalysisService {
       meal: mealInfo,
     };
 
-    // Map variations if present - validate it's an array
-    // Ensure variations is always an array (even if missing from response)
     let variations: Variation[] = Array.isArray(resultDict.variations)
       ? resultDict.variations
-        .filter((c) => c && typeof c.question === 'string' && Array.isArray(c.options))
-        .map((c) => this.mapVariation(c))
+          .filter((c) => c && typeof c.question === 'string' && Array.isArray(c.options))
+          .map((c) => this.mapVariation(c))
       : [];
 
-    // Mock variations in staging environment for testing
     if (config.ENVIRONMENT === 'staging' && variations.length === 0 && result.mealIdentified && result.meal) {
       variations = this.getMockVariations();
     }
 
-    // Ensure response always includes variations array
-    const response: MealDetectionResponse = {
+    return {
       result,
-      variations: variations || [], // Always ensure array is present
+      variations: variations || [],
     };
-
-    return response;
   }
 
   /**
-   * Analyze food image from URL using OpenAI Vision API
-   * Returns a protobuf-typed MealDetectionResponse with variations
-   * @param imageUrl - URL of the image to analyze
-   * @param locale - Language code for the response (default: 'en')
+   * Call Gemini and parse response into MealDetectionResponse
+   */
+  private async generateAndParse(userParts: Part[], locale: string): Promise<MealDetectionResponse> {
+    const model = this.genAI.getGenerativeModel({
+      model: 'gemini-1.5-flash',
+      systemInstruction: getFoodAnalysisSystemPrompt(locale),
+      generationConfig: {
+        maxOutputTokens: 800,
+        temperature: 0.2,
+      },
+    });
+
+    const result = await model.generateContent(userParts);
+    const response = result.response;
+    const content = response.text();
+    if (!content) {
+      throw new Error('No response content from Gemini');
+    }
+
+    const jsonText = this.extractJson(content);
+    let resultDict: GeminiResponse;
+    try {
+      resultDict = JSON.parse(jsonText) as GeminiResponse;
+      if (!resultDict || typeof resultDict !== 'object') {
+        throw new Error('Invalid JSON structure: root must be an object');
+      }
+      if (!resultDict.result || typeof resultDict.result !== 'object') {
+        throw new Error('Invalid JSON structure: missing or invalid "result" field');
+      }
+    } catch (parseError) {
+      throw new Error(
+        `Failed to parse Gemini response as JSON: ${parseError instanceof Error ? parseError.message : 'Unknown error'}`
+      );
+    }
+
+    return this.buildProtoResponse(resultDict);
+  }
+
+  /**
+   * Analyze food image from URL using Gemini
+   * Fetches the image and analyzes via buffer path.
    */
   async analyzeImageFromUrl(imageUrl: string, locale: string = 'en'): Promise<MealDetectionResponse> {
     try {
-      // Validate URL format
       try {
         new URL(imageUrl);
       } catch {
         throw new Error('Invalid image URL format');
       }
 
-      // Log locale for debugging
       if (config.DEBUG || config.ENVIRONMENT === 'staging') {
-        console.log('[OpenAI] analyzeImageFromUrl - locale:', locale, 'language:', locale);
+        console.log('[Gemini] analyzeImageFromUrl - locale:', locale);
       }
 
-      const response = await this.client.chat.completions.create({
-        model: 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'system',
-            content: getFoodAnalysisSystemPrompt(locale),
-          },
-          {
-            role: 'user',
-            content: [
-              {
-                type: 'image_url',
-                image_url: {
-                  url: imageUrl,
-                },
-              },
-            ],
-          },
-        ],
-        response_format: { type: 'json_object' },
-        max_tokens: 800,
-      });
-
-      const content = response.choices[0]?.message?.content;
-      if (!content) {
-        throw new Error('No response content from OpenAI');
+      const res = await fetch(imageUrl);
+      if (!res.ok) {
+        throw new Error(`Failed to fetch image: ${res.status}`);
       }
+      const arrayBuffer = await res.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const contentType = res.headers.get('content-type') ?? 'image/jpeg';
+      const mimeType = contentType.split(';')[0]?.trim() || 'image/jpeg';
 
-      const jsonText = this.extractJson(content);
-      let resultDict: OpenAIResponse;
-      try {
-        // Strict JSON parsing - ensure valid JSON
-        resultDict = JSON.parse(jsonText) as OpenAIResponse;
-
-        // Validate JSON structure
-        if (!resultDict || typeof resultDict !== 'object') {
-          throw new Error('Invalid JSON structure: root must be an object');
-        }
-        if (!resultDict.result || typeof resultDict.result !== 'object') {
-          throw new Error('Invalid JSON structure: missing or invalid "result" field');
-        }
-      } catch (parseError) {
-        throw new Error(
-          `Failed to parse OpenAI response as JSON: ${parseError instanceof Error ? parseError.message : 'Unknown error'}`
-        );
-      }
-
-      return this.buildProtoResponse(resultDict);
+      return this.analyzeImageFromBuffer(buffer, mimeType, locale);
     } catch (error) {
       throw new Error(
         `Failed to analyze image: ${error instanceof Error ? error.message : 'Unknown error'}`
@@ -463,75 +434,33 @@ class OpenAIFoodAnalysisService {
   }
 
   /**
-   * Analyze food image from buffer using OpenAI Vision API
-   * Returns a protobuf-typed MealDetectionResponse with variations
-   * @param imageBuffer - Image buffer to analyze
-   * @param mimeType - MIME type of the image (default: 'image/jpeg')
-   * @param locale - Language code for the response (default: 'en')
+   * Analyze food image from buffer using Gemini Vision
    */
-  async analyzeImageFromBuffer(imageBuffer: Buffer, mimeType: string = 'image/jpeg', locale: string = 'en'): Promise<MealDetectionResponse> {
+  async analyzeImageFromBuffer(
+    imageBuffer: Buffer,
+    mimeType: string = 'image/jpeg',
+    locale: string = 'en'
+  ): Promise<MealDetectionResponse> {
     try {
-      // Convert buffer to base64
-      const base64Image = imageBuffer.toString('base64');
-
-      // Validate/sanitize MIME type
       const validMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
       const finalMimeType = validMimeTypes.includes(mimeType) ? mimeType : 'image/jpeg';
+      const base64Image = imageBuffer.toString('base64');
 
-      // Log locale for debugging
       if (config.DEBUG || config.ENVIRONMENT === 'staging') {
-        console.log('[OpenAI] analyzeImageFromBuffer - locale:', locale, 'language:', locale);
+        console.log('[Gemini] analyzeImageFromBuffer - locale:', locale);
       }
 
-      const response = await this.client.chat.completions.create({
-        model: 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'system',
-            content: getFoodAnalysisSystemPrompt(locale),
+      const parts: Part[] = [
+        { text: 'Analyze this food image and respond with the required JSON only.' },
+        {
+          inlineData: {
+            mimeType: finalMimeType,
+            data: base64Image,
           },
-          {
-            role: 'user',
-            content: [
-              {
-                type: 'image_url',
-                image_url: {
-                  url: `data:${finalMimeType};base64,${base64Image}`,
-                },
-              },
-            ],
-          },
-        ],
-        response_format: { type: 'json_object' },
-        max_tokens: 800,
-      });
+        },
+      ];
 
-      const content = response.choices[0]?.message?.content;
-      if (!content) {
-        throw new Error('No response content from OpenAI');
-      }
-
-      const jsonText = this.extractJson(content);
-      let resultDict: OpenAIResponse;
-      try {
-        // Strict JSON parsing - ensure valid JSON
-        resultDict = JSON.parse(jsonText) as OpenAIResponse;
-
-        // Validate JSON structure
-        if (!resultDict || typeof resultDict !== 'object') {
-          throw new Error('Invalid JSON structure: root must be an object');
-        }
-        if (!resultDict.result || typeof resultDict.result !== 'object') {
-          throw new Error('Invalid JSON structure: missing or invalid "result" field');
-        }
-      } catch (parseError) {
-        throw new Error(
-          `Failed to parse OpenAI response as JSON: ${parseError instanceof Error ? parseError.message : 'Unknown error'}`
-        );
-      }
-
-      // Return full response with variations
-      return this.buildProtoResponse(resultDict);
+      return this.generateAndParse(parts, locale);
     } catch (error) {
       throw new Error(
         `Failed to analyze image: ${error instanceof Error ? error.message : 'Unknown error'}`
@@ -540,59 +469,16 @@ class OpenAIFoodAnalysisService {
   }
 
   /**
-   * Analyze food description using OpenAI
-   * Returns a protobuf-typed MealDetectionResponse with variations
-   * @param description - Text description of the food
-   * @param locale - Language code for the response (default: 'en')
+   * Analyze food description using Gemini
    */
   async analyzeTextDescription(description: string, locale: string = 'en'): Promise<MealDetectionResponse> {
     try {
-      // Log locale for debugging
       if (config.DEBUG || config.ENVIRONMENT === 'staging') {
-        console.log('[OpenAI] analyzeTextDescription - locale:', locale, 'language:', locale);
+        console.log('[Gemini] analyzeTextDescription - locale:', locale);
       }
 
-      const response = await this.client.chat.completions.create({
-        model: 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'system',
-            content: getFoodAnalysisSystemPrompt(locale),
-          },
-          {
-            role: 'user',
-            content: description,
-          },
-        ],
-        response_format: { type: 'json_object' },
-        max_tokens: 800,
-      });
-
-      const content = response.choices[0]?.message?.content;
-      if (!content) {
-        throw new Error('No response content from OpenAI');
-      }
-
-      const jsonText = this.extractJson(content);
-      let resultDict: OpenAIResponse;
-      try {
-        // Strict JSON parsing - ensure valid JSON
-        resultDict = JSON.parse(jsonText) as OpenAIResponse;
-
-        // Validate JSON structure
-        if (!resultDict || typeof resultDict !== 'object') {
-          throw new Error('Invalid JSON structure: root must be an object');
-        }
-        if (!resultDict.result || typeof resultDict.result !== 'object') {
-          throw new Error('Invalid JSON structure: missing or invalid "result" field');
-        }
-      } catch (parseError) {
-        throw new Error(
-          `Failed to parse OpenAI response as JSON: ${parseError instanceof Error ? parseError.message : 'Unknown error'}`
-        );
-      }
-
-      return this.buildProtoResponse(resultDict);
+      const parts: Part[] = [{ text: description }];
+      return this.generateAndParse(parts, locale);
     } catch (error) {
       throw new Error(
         `Failed to analyze description: ${error instanceof Error ? error.message : 'Unknown error'}`
@@ -601,4 +487,4 @@ class OpenAIFoodAnalysisService {
   }
 }
 
-export const openAIFoodAnalysisService = new OpenAIFoodAnalysisService();
+export const geminiFoodAnalysisService = new GeminiFoodAnalysisService();

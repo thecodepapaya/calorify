@@ -4,19 +4,19 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/app_constants.dart';
-import 'package:calorify/core/utilities/app_version.dart';
+import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/utilities/app_version.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:widgets/widgets.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:services/services.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:widgets/widgets.dart';
 
 enum _FeedbackSheetStep { enjoyingQuestion, ratePrompt, emailPrompt }
 
@@ -118,9 +118,7 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
 
   void _showThankYouAndPop() {
     _closedByTerminalAction = true;
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Thanks — we'll ask again another time.")),
-    );
+    showFlushbar("Thanks! We'll ask again another time.", context: context);
     Navigator.of(context).pop();
   }
 
@@ -294,6 +292,38 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
         Expanded(
           child: SizedBox(
             height: _kButtonHeight,
+            child: OutlinedButton(
+              onPressed: isLoading ? null : onSecondary,
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(borderRadius: globalRadius),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                side: BorderSide(
+                  color: colorScheme.outline.withValues(alpha: 0.6),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: Text(
+                      secondaryLabel,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: colorScheme.onSurface,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: SizedBox(
+            height: _kButtonHeight,
             child: ElevatedButton(
               onPressed: isLoading ? null : onPrimary,
               style: ElevatedButton.styleFrom(
@@ -321,38 +351,6 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
                           ),
                         ],
                       ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: SizedBox(
-            height: _kButtonHeight,
-            child: OutlinedButton(
-              onPressed: isLoading ? null : onSecondary,
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(borderRadius: globalRadius),
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                side: BorderSide(
-                  color: colorScheme.outline.withValues(alpha: 0.6),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Flexible(
-                    child: Text(
-                      secondaryLabel,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: theme.textTheme.labelLarge?.copyWith(
-                        color: colorScheme.onSurface,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ),
           ),
         ),

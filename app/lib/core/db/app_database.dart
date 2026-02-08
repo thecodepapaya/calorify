@@ -98,7 +98,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         if (from < 16) {
           await m.addColumn(
             userPreferencesTable,
-            userPreferencesTable.feedbackSheetShown,
+            userPreferencesTable.feedbackSheetShownAt,
           );
         }
       },
@@ -171,7 +171,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   @override
   Future<bool> hasSeenFeedbackSheet() async {
     final prefs = await _getOrInitPreferences();
-    return prefs.feedbackSheetShown;
+    return prefs.feedbackSheetShownAt != null;
   }
 
   @override
@@ -179,7 +179,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
     await into(userPreferencesTable).insertOnConflictUpdate(
       UserPreferencesTableCompanion.insert(
         id: const Value(_userPreferencesId),
-        feedbackSheetShown: const Value(true),
+        feedbackSheetShownAt: Value(DateTime.now()),
         updatedAt: Value(DateTime.now()),
       ),
     );

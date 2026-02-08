@@ -499,6 +499,11 @@ class _TranslationsDebugTh implements TranslationsDebugEn {
 	@override String get compressingImage => 'กำลังบีบอัดรูปภาพ...';
 	@override String get uploadingImageAndDetecting => 'กำลังอัปโหลดรูปไปยังบัคเก็ตและตรวจจับมื้ออาหาร...';
 	@override String get testingMealLoggingFlow => 'กำลังทดสอบกระบวนการบันทึกมื้ออาหารพร้อมตัวเลือก...';
+	@override String get testUpdateProfile => 'ทดสอบการอัปเดตโปรไฟล์';
+	@override String get testUpdateProfileSubtitle => 'ส่งโปรไฟล์ตัวอย่างไปยังแบ็กเอนด์ด้วย POST';
+	@override String get testingProfileApi => 'กำลังทดสอบ API โปรไฟล์...';
+	@override String get profileUpdateSuccess => 'API โปรไฟล์ตอบกลับเรียบร้อย';
+	@override String profileUpdateFailed({required Object error}) => 'เกิดข้อผิดพลาดจาก API โปรไฟล์: ${error}';
 	@override String get noMealIdentifiedInResponse => 'ไม่พบมื้ออาหารในคำตอบ';
 	@override String get mealIdentified => 'พบมื้ออาหาร';
 	@override String get confidence => 'ความมั่นใจ';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsTh implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => 'การทดสอบ Food API';
+	@override String get profileApiTests => 'การทดสอบ API โปรไฟล์';
 	@override String get feedback => 'ข้อเสนอแนะ';
 	@override String get dataReset => 'รีเซ็ตข้อมูล';
 	@override String get appInfo => 'ข้อมูลแอป';
@@ -2112,6 +2118,7 @@ extension on TranslationsTh {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => 'การทดสอบ Food API',
+			'debug.sections.profileApiTests' => 'การทดสอบ API โปรไฟล์',
 			'debug.sections.feedback' => 'ข้อเสนอแนะ',
 			'debug.sections.dataReset' => 'รีเซ็ตข้อมูล',
 			'debug.sections.appInfo' => 'ข้อมูลแอป',
@@ -2205,9 +2212,9 @@ extension on TranslationsTh {
 			'debug.testMealLoggingWithVariations' => 'ทดสอบการบันทึกมื้ออาหารพร้อมตัวเลือกต่าง ๆ',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'ทดสอบกระบวนการบันทึกมื้ออาหารแบบเต็มพร้อมตัวเลือกต่าง ๆ',
 			'debug.mockMealWithVariations' => 'มื้อจำลองพร้อมตัวเลือกต่าง ๆ',
-			'debug.mockMealWithVariationsSubtitle' => 'ดูตัวอย่าง UI ของตัวเลือกและคำแนะนำโดยไม่ต้องบันทึก',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => 'ดูตัวอย่าง UI ของตัวเลือกและคำแนะนำโดยไม่ต้องบันทึก',
 			'debug.mockMealName' => 'ไก่ย่างกับข้าวและผัก',
 			'debug.mockTip' => 'นี่เป็นคำแนะนำจำลองสำหรับตัวอย่าง UI มื้ออาหารยังไม่ได้บันทึก',
 			'debug.mockMealDescription' => 'มื้ออาหารจำลองสำหรับการดีบัก',
@@ -2227,6 +2234,11 @@ extension on TranslationsTh {
 			'debug.compressingImage' => 'กำลังบีบอัดรูปภาพ...',
 			'debug.uploadingImageAndDetecting' => 'กำลังอัปโหลดรูปไปยังบัคเก็ตและตรวจจับมื้ออาหาร...',
 			'debug.testingMealLoggingFlow' => 'กำลังทดสอบกระบวนการบันทึกมื้ออาหารพร้อมตัวเลือก...',
+			'debug.testUpdateProfile' => 'ทดสอบการอัปเดตโปรไฟล์',
+			'debug.testUpdateProfileSubtitle' => 'ส่งโปรไฟล์ตัวอย่างไปยังแบ็กเอนด์ด้วย POST',
+			'debug.testingProfileApi' => 'กำลังทดสอบ API โปรไฟล์...',
+			'debug.profileUpdateSuccess' => 'API โปรไฟล์ตอบกลับเรียบร้อย',
+			'debug.profileUpdateFailed' => ({required Object error}) => 'เกิดข้อผิดพลาดจาก API โปรไฟล์: ${error}',
 			'debug.noMealIdentifiedInResponse' => 'ไม่พบมื้ออาหารในคำตอบ',
 			'debug.mealIdentified' => 'พบมื้ออาหาร',
 			'debug.confidence' => 'ความมั่นใจ',

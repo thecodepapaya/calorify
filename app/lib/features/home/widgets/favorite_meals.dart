@@ -210,15 +210,11 @@ class _MealTile extends StatelessWidget {
                   await DatabaseService.databaseInterface
                       .updateFavoriteLastUsedAt(favMealId);
                   if (context.mounted) {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(snack(t.meal.addedToLog));
+                    showFlushbar(t.meal.addedToLog, context: context);
                   }
                 } on Exception catch (e) {
                   if (context.mounted) {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(snack(t.meal.couldNotAdd(error: e)));
+                    showFlushbar(t.meal.couldNotAdd(error: e), context: context);
                   }
                 }
               },

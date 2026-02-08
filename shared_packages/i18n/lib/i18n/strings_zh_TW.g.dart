@@ -499,6 +499,11 @@ class _TranslationsDebugZhTw implements TranslationsDebugEn {
 	@override String get compressingImage => '正在壓縮圖片...';
 	@override String get uploadingImageAndDetecting => '正在上傳圖片到儲存桶並偵測餐點...';
 	@override String get testingMealLoggingFlow => '正在測試含變體的餐點記錄流程...';
+	@override String get testUpdateProfile => '測試更新個人資料';
+	@override String get testUpdateProfileSubtitle => '使用 POST 將範例個人資料傳送到後端';
+	@override String get testingProfileApi => '正在測試個人資料 API…';
+	@override String get profileUpdateSuccess => '個人資料 API 回應成功';
+	@override String profileUpdateFailed({required Object error}) => '個人資料 API 錯誤：${error}';
 	@override String get noMealIdentifiedInResponse => '回應中未辨識出餐點';
 	@override String get mealIdentified => '已辨識餐點';
 	@override String get confidence => '置信度';
@@ -1208,6 +1213,7 @@ class _TranslationsDebugSectionsZhTw implements TranslationsDebugSectionsEn {
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
 	@override String get foodApiTests => '食物 API 測試';
+	@override String get profileApiTests => '個人資料 API 測試';
 	@override String get feedback => '回饋';
 	@override String get dataReset => '重設資料';
 	@override String get appInfo => '應用信息';
@@ -2112,6 +2118,7 @@ extension on TranslationsZhTw {
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
 			'debug.sections.foodApiTests' => '食物 API 測試',
+			'debug.sections.profileApiTests' => '個人資料 API 測試',
 			'debug.sections.feedback' => '回饋',
 			'debug.sections.dataReset' => '重設資料',
 			'debug.sections.appInfo' => '應用信息',
@@ -2205,9 +2212,9 @@ extension on TranslationsZhTw {
 			'debug.testMealLoggingWithVariations' => '測試含變體的餐點記錄流程',
 			'debug.testMealLoggingWithVariationsSubtitle' => '測試含變體的完整餐點記錄流程',
 			'debug.mockMealWithVariations' => '含變體的模擬餐點',
-			'debug.mockMealWithVariationsSubtitle' => '預覽變體與提示面板的 UI（不會記錄）',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariationsSubtitle' => '預覽變體與提示面板的 UI（不會記錄）',
 			'debug.mockMealName' => '烤雞配米飯與蔬菜',
 			'debug.mockTip' => '此為 UI 預覽用的模擬提示，餐點不會被記錄。',
 			'debug.mockMealDescription' => '除錯用模擬餐點',
@@ -2227,6 +2234,11 @@ extension on TranslationsZhTw {
 			'debug.compressingImage' => '正在壓縮圖片...',
 			'debug.uploadingImageAndDetecting' => '正在上傳圖片到儲存桶並偵測餐點...',
 			'debug.testingMealLoggingFlow' => '正在測試含變體的餐點記錄流程...',
+			'debug.testUpdateProfile' => '測試更新個人資料',
+			'debug.testUpdateProfileSubtitle' => '使用 POST 將範例個人資料傳送到後端',
+			'debug.testingProfileApi' => '正在測試個人資料 API…',
+			'debug.profileUpdateSuccess' => '個人資料 API 回應成功',
+			'debug.profileUpdateFailed' => ({required Object error}) => '個人資料 API 錯誤：${error}',
 			'debug.noMealIdentifiedInResponse' => '回應中未辨識出餐點',
 			'debug.mealIdentified' => '已辨識餐點',
 			'debug.confidence' => '置信度',
