@@ -3,7 +3,8 @@ import { openAIFoodAnalysisService } from '../../services/openAIFoodAnalysis.js'
 import { createErrorResponse } from '../../utils/errors.js';
 import { getLocaleFromRequest } from '../../utils/locale.js';
 import config from '../../config.js';
-import { authenticateUser } from '../../middleware/auth.js';
+// TEMPORARY: auth disabled on food APIs
+// import { authenticateUser } from '../../middleware/auth.js';
 import type {
   ImageMealDetectionRequest,
   TextMealDetectionRequest,
@@ -25,7 +26,8 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
   fastify.post(
     '/analyze-image',
     {
-      preHandler: [authenticateUser],
+      // TEMPORARY: auth disabled
+      // preHandler: [authenticateUser],
       schema: {
         description: 'Analyze a food image using OpenAI. Upload an image file to get detailed nutritional information including calories, macros, health score, and variations.',
         tags: ['Food'],
@@ -84,7 +86,8 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
   fastify.post<{ Body: ImageMealDetectionRequest }>(
     '/detect-image',
     {
-      preHandler: [authenticateUser],
+      // TEMPORARY: auth disabled
+      // preHandler: [authenticateUser],
       schema: {
         description: 'Detect meal from image URL using OpenAI. Returns MealDetectionResponse with variations if confidence is LOW/MEDIUM.',
         tags: ['Food'],
@@ -156,7 +159,8 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
   fastify.post<{ Body: TextMealDetectionRequest }>(
     '/detect-text',
     {
-      preHandler: [authenticateUser],
+      // TEMPORARY: auth disabled
+      // preHandler: [authenticateUser],
       schema: {
         description: 'Detect meal from text description using OpenAI. Returns MealDetectionResponse with variations if confidence is LOW/MEDIUM.',
         tags: ['Food'],
