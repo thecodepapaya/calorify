@@ -9,7 +9,9 @@
         "build": "tsc",
         "start": "node dist/index.js",
         "lint": "eslint src --ext .ts",
-        "type-check": "tsc --noEmit"
+        "type-check": "tsc --noEmit",
+        "docker:up:staging": "docker compose --profile staging up -d --build",
+        "docker:up:prod": "docker compose --profile production up -d --build"
     },
     "keywords": [
         "calorify",

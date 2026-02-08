@@ -5,6 +5,7 @@ import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import { registerRoutes } from './routes/index.js';
 import { errorHandler } from './utils/errors.js';
+import { redactHeaders, bodyForLog } from './utils/requestLog.js';
 import config from './config.js';
 import { initializeDatabase } from './services/database.js';
 import { initializeFirebase } from './services/firebase.js';
@@ -61,39 +62,84 @@ async function buildApp() {
     },
   });
 
-  // Add hooks for request/response logging
+  // Capture response body for logging (onSend runs when reply.send() is called)
+  fastify.addHook('onSend', async (request, _reply, payload) => {
+    (request as any).responsePayload = payload;
+    return payload;
+  });
+
+  // Request logging: full request object (headers redacted)
   fastify.addHook('onRequest', async (request) => {
     const startTime = Date.now();
     (request as any).startTime = startTime;
 
+    const headersRecord: Record<string, string> = {};
+    for (const [k, v] of Object.entries(request.headers)) {
+      if (v !== undefined) headersRecord[k] = Array.isArray(v) ? v.join(', ') : String(v);
+    }
+
     request.log.info({
       type: 'request',
+      req: {
+        method: request.method,
+        url: request.url,
+        path: request.url.split('?')[0],
+        query: request.query,
+        headers: redactHeaders(headersRecord),
+        remoteAddress: request.ip,
+      },
       method: request.method,
       url: request.url,
-      query: request.query,
       path: request.url.split('?')[0],
-      headers: {
-        'user-agent': request.headers['user-agent'],
-        'content-type': request.headers['content-type'],
-        'content-length': request.headers['content-length'],
-      },
+      query: request.query,
+      headers: redactHeaders(headersRecord),
       remoteAddress: request.ip,
     }, `→ ${request.method} ${request.url}`);
   });
 
+  // Response logging: full request + response objects (GCP-style for Grafana)
   fastify.addHook('onResponse', async (request, reply) => {
     const startTime = (request as any).startTime;
     const responseTime = startTime ? Date.now() - startTime : -1;
     const statusCode = reply.statusCode;
-
     const logLevel = statusCode >= 500 ? 'error' : statusCode >= 400 ? 'warn' : 'info';
+
+    const headersRecord: Record<string, string> = {};
+    for (const [k, v] of Object.entries(request.headers)) {
+      if (v !== undefined) headersRecord[k] = Array.isArray(v) ? v.join(', ') : String(v);
+    }
+
+    const maxBody = config.MAX_BODY_LOG_BYTES;
+    const logBody = config.LOG_REQUEST_RESPONSE_BODIES;
+
+    const reqBody = logBody ? bodyForLog((request as any).body, maxBody) : null;
+    const resPayload = (request as any).responsePayload;
+    const resBody = logBody && resPayload !== undefined
+      ? bodyForLog(resPayload, maxBody)
+      : null;
 
     request.log[logLevel]({
       type: 'response',
+      req: {
+        method: request.method,
+        url: request.url,
+        path: request.url.split('?')[0],
+        query: request.query,
+        headers: redactHeaders(headersRecord),
+        body: reqBody,
+        remoteAddress: request.ip,
+      },
+      res: {
+        statusCode,
+        responseTimeMs: responseTime,
+        body: resBody,
+      },
       method: request.method,
       url: request.url,
       statusCode,
       responseTime,
+      requestBody: reqBody,
+      responseBody: resBody,
     }, `← ${request.method} ${request.url} ${statusCode} (${responseTime}ms)`);
   });
 

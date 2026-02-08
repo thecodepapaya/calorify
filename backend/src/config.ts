@@ -18,6 +18,10 @@ interface Config {
     readonly OPENAI_API_KEY: string | null;
     readonly ORACLE_BUCKET_DOWNLOAD_URL: string;
     readonly LOKI_URL: string | null;
+    /** Log full request/response bodies in JSON logs (Grafana/Loki). Default true for staging, false for production. */
+    readonly LOG_REQUEST_RESPONSE_BODIES: boolean;
+    /** Max size in bytes for request/response body in logs. Larger bodies are truncated. */
+    readonly MAX_BODY_LOG_BYTES: number;
 }
 
 function getEnvVar(name: string, defaultValue?: string): string {
@@ -101,6 +105,11 @@ const config: Config = {
         'https://objectstorage.ap-mumbai-1.oraclecloud.com/p/oOGxU2_EYPNWy2udsdJ9tzpbqdbRHQ5DmnpdoSEHfI1N6Q448dlg2tVUc_cxbELS/n/bmm3s6m8sdi5/b/calorify-images/o/'
     ),
     LOKI_URL: getEnvVarOptional('LOKI_URL'),
+    LOG_REQUEST_RESPONSE_BODIES: getEnvVarBoolean(
+        'LOG_REQUEST_RESPONSE_BODIES',
+        true
+    ),
+    MAX_BODY_LOG_BYTES: getEnvVarNumber('MAX_BODY_LOG_BYTES', 8192),
 } as const;
 
 // Validate critical settings in production
