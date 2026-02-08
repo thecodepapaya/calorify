@@ -55,6 +55,7 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginJa login = _TranslationsLoginJa._(_root);
 	@override late final _TranslationsDisclaimerJa disclaimer = _TranslationsDisclaimerJa._(_root);
 	@override late final _TranslationsCommonJa common = _TranslationsCommonJa._(_root);
+	@override late final _TranslationsFeedbackRatingJa feedbackRating = _TranslationsFeedbackRatingJa._(_root);
 	@override late final _TranslationsErrorsJa errors = _TranslationsErrorsJa._(_root);
 	@override late final _TranslationsDebugJa debug = _TranslationsDebugJa._(_root);
 	@override late final _TranslationsHealthJa health = _TranslationsHealthJa._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonJa implements TranslationsCommonEn {
 	@override String get kContinue => '続ける';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingJa implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => '${appLabel} を気に入っていますか？ご利用の感想は私たちにとって大切です。';
+	@override String get yes => 'はい、気に入っています';
+	@override String get no => 'あまり良くありません';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} はひとりで開発されています。Play ストアでの簡単な評価は他の人が見つけやすくなり、開発の継続にもつながります — 本当に助かります。評価をしていただけますか？';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} はひとりで開発されています。皆さんのフィードバックが今後の改善に直結します — すべてのメッセージを拝見しています。メールでご意見を共有しますか？';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel} の開発者について知りたいですか？こちらをご覧ください ';
+	@override String get aboutUsLinkLabel => '私たちについて';
+}
+
 // Path: errors
 class _TranslationsErrorsJa implements TranslationsErrorsEn {
 	_TranslationsErrorsJa._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugJa implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'すべての通知がキャンセルされました。';
 	@override String get fetchingData => '過去7日間のデータを取得しています...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'フィードバック／評価シートを表示';
+	@override String get clearUserPreferences => 'ユーザー設定をクリア';
+	@override String get clearUserPreferencesConfirmationTitle => 'ユーザー設定をクリアしますか？';
+	@override String get clearUserPreferencesConfirmationMessage => 'テーマ、言語、フィードバック設定がリセットされます。食事データやプロフィールには影響しません。';
+	@override String get clearUserProfile => 'ユーザープロフィールをクリア';
+	@override String get clearUserProfileConfirmationTitle => 'ユーザープロフィールをクリアしますか？';
+	@override String get clearUserProfileConfirmationMessage => '日々の目標、身長、体重などのプロフィールデータが削除されます。食事データや設定には影響しません。';
+	@override String get clear => 'クリア';
+	@override String get cancel => 'キャンセル';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsJa implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => '通知';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'フィードバック';
+	@override String get dataReset => 'データのリセット';
 	@override String get appInfo => 'アプリ情報';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsJa {
 			'disclaimer.healthMetrics.dailyGoal.description' => '1日の目標は、あなたのTDEEと体重目標に基づく推奨される1日のカロリー摂取量です。減量のためには、TDEEよりも少ないカロリーを摂取します。体重維持のためには、TDEEに合わせます。増量のためには、TDEEよりも多くのカロリーを摂取します。これにより、健康的なペースで望ましい体重の変化を達成することができます。',
 			'common.close' => '閉じる',
 			'common.kContinue' => '続ける',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} を気に入っていますか？ご利用の感想は私たちにとって大切です。',
+			'feedbackRating.yes' => 'はい、気に入っています',
+			'feedbackRating.no' => 'あまり良くありません',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} はひとりで開発されています。Play ストアでの簡単な評価は他の人が見つけやすくなり、開発の継続にもつながります — 本当に助かります。評価をしていただけますか？',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} はひとりで開発されています。皆さんのフィードバックが今後の改善に直結します — すべてのメッセージを拝見しています。メールでご意見を共有しますか？',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel} の開発者について知りたいですか？こちらをご覧ください ',
+			'feedbackRating.aboutUsLinkLabel' => '私たちについて',
 			'errors.loadingProfileData' => 'プロフィールデータの読み込みエラー',
 			'errors.somethingWentWrong' => '何かがうまくいきませんでした。',
 			'debug.title' => 'デバッグオプション',
 			'debug.sections.notifications' => '通知',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'フィードバック',
+			'debug.sections.dataReset' => 'データのリセット',
 			'debug.sections.appInfo' => 'アプリ情報',
 			'debug.showActiveNotifications' => 'アクティブな通知を表示',
 			'debug.scheduleTestNotification' => 'テスト通知をスケジュール (10秒)',
@@ -1987,6 +2024,15 @@ extension on TranslationsJa {
 			'debug.allNotificationsCancelled' => 'すべての通知がキャンセルされました。',
 			'debug.fetchingData' => '過去7日間のデータを取得しています...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'フィードバック／評価シートを表示',
+			'debug.clearUserPreferences' => 'ユーザー設定をクリア',
+			'debug.clearUserPreferencesConfirmationTitle' => 'ユーザー設定をクリアしますか？',
+			'debug.clearUserPreferencesConfirmationMessage' => 'テーマ、言語、フィードバック設定がリセットされます。食事データやプロフィールには影響しません。',
+			'debug.clearUserProfile' => 'ユーザープロフィールをクリア',
+			'debug.clearUserProfileConfirmationTitle' => 'ユーザープロフィールをクリアしますか？',
+			'debug.clearUserProfileConfirmationMessage' => '日々の目標、身長、体重などのプロフィールデータが削除されます。食事データや設定には影響しません。',
+			'debug.clear' => 'クリア',
+			'debug.cancel' => 'キャンセル',
 			'health.syncFailed' => 'Health Connectへの同期に失敗しました。',
 			'health.mealSynced' => '食事がHealth Connectと同期されました。',
 			_ => null,

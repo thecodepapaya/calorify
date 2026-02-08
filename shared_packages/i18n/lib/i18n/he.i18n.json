@@ -596,6 +596,15 @@
     "close": "סגור",
     "continue": "להמשיך"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "נהנים מ{appLabel}? החוויה שלכם חשובה לנו.",
+    "yes": "כן, אני נהנה/נהנית",
+    "no": "לא ממש",
+    "soloDevMessage": "{appLabel} נבנה על ידי אדם אחד. דירוג מהיר בחנות Play עוזר לאחרים למצוא אותו ושומר על המשך הפיתוח — זה באמת עוזר. האם תוכל להקדיש רגע ולהשאיר דירוג?",
+    "shareFeedbackViaEmail": "{appLabel} נבנה על ידי אדם אחד. המשוב שלך מעצב את מה שיבא — ואנחנו קוראים כל הודעה. האם ברצונך לשתף את מחשבותיך בדוא\\\"ל?",
+    "aboutUsMentionBeforeLink": "סקרנים מי עומד מאחורי {appLabel}? ראה ",
+    "aboutUsLinkLabel": "עלינו"
+  },
   "errors": {
     "loadingProfileData": "שגיאה בהטענת נתוני פרופיל",
     "somethingWentWrong": "משהו השתבש."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "התראות",
       "healthConnect": "Health Connect",
+      "feedback": "משוב",
+      "dataReset": "איפוס נתונים",
       "appInfo": "מידע על האפליקציה"
     },
     "showActiveNotifications": "הצג התראות פעילות",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "הופעלה התראת ארוחת בוקר.",
     "allNotificationsCancelled": "כל ההתראות בוטלו.",
     "fetchingData": "שחזור נתונים עבור 7 הימים האחרונים...",
-    "id": "מזהה: {id}"
+    "id": "מזהה: {id}",
+    "showFeedbackRatingSheet": "הצג טופס משוב/דירוג",
+    "clearUserPreferences": "נקה העדפות משתמש",
+    "clearUserPreferencesConfirmationTitle": "למחוק את העדפות המשתמש?",
+    "clearUserPreferencesConfirmationMessage": "הנושא, השפה והעדפות המשוב יאופסו. הארוחות והפרופיל לא יושפעו.",
+    "clearUserProfile": "נקה פרופיל משתמש",
+    "clearUserProfileConfirmationTitle": "למחוק את פרופיל המשתמש?",
+    "clearUserProfileConfirmationMessage": "נתוני הפרופיל שלך (מטרת יום, גובה, משקל וכו') יימחקו. הארוחות וההעדפות לא יושפעו.",
+    "clear": "נקה",
+    "cancel": "ביטול"
   },
   "health": {
     "syncFailed": "לא ניתן לסנכרן עם Health Connect",

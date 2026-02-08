@@ -6,6 +6,8 @@ import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/picker_service.dart';
+import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_variation_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:dio/dio.dart';
@@ -48,6 +50,12 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
           const SizedBox(height: 24),
           _buildSectionTitle(context, 'Food API Tests'),
           _buildFoodApiOptions(context),
+          const SizedBox(height: 24),
+          _buildSectionTitle(context, t.debug.sections.feedback),
+          _buildFeedbackOptions(context),
+          const SizedBox(height: 24),
+          _buildSectionTitle(context, t.debug.sections.dataReset),
+          _buildDataResetOptions(context),
           const SizedBox(height: 24),
           _buildSectionTitle(context, t.debug.sections.appInfo),
           _buildAppInfoOptions(context),
@@ -652,6 +660,97 @@ Variations: ${response.variations.length}
       if (!mounted) return;
       _showSnackbar('Error: $e');
     }
+  }
+
+  Widget _buildFeedbackOptions(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(LucideIcons.star),
+            title: Text(t.debug.showFeedbackRatingSheet),
+            onTap: () => showFeedbackRatingSheet(context, persistShown: false),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDataResetOptions(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(LucideIcons.settings),
+            title: Text(t.debug.clearUserPreferences),
+            onTap: () => _showClearPreferencesConfirmation(context),
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.user),
+            title: Text(t.debug.clearUserProfile),
+            onTap: () => _showClearProfileConfirmation(context),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showClearPreferencesConfirmation(BuildContext context) {
+    showDialog(
+      context: context,
+      routeSettings: const RouteSettings(
+        name: RouteNames.clearDataConfirmationDialog,
+      ),
+      builder: (dialogContext) => AlertDialog(
+        title: Text(t.debug.clearUserPreferencesConfirmationTitle),
+        content: Text(t.debug.clearUserPreferencesConfirmationMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(t.debug.cancel),
+          ),
+          TextButton(
+            onPressed: () async {
+              await DatabaseService.databaseInterface.clearUserPreferences();
+              if (!dialogContext.mounted) return;
+              Navigator.pop(dialogContext);
+              if (!context.mounted) return;
+              _showSnackbar('User preferences cleared');
+            },
+            child: Text(t.debug.clear),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showClearProfileConfirmation(BuildContext context) {
+    showDialog(
+      context: context,
+      routeSettings: const RouteSettings(
+        name: RouteNames.clearDataConfirmationDialog,
+      ),
+      builder: (dialogContext) => AlertDialog(
+        title: Text(t.debug.clearUserProfileConfirmationTitle),
+        content: Text(t.debug.clearUserProfileConfirmationMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(t.debug.cancel),
+          ),
+          TextButton(
+            onPressed: () async {
+              await DatabaseService.databaseInterface.clearUserProfile();
+              if (!dialogContext.mounted) return;
+              Navigator.pop(dialogContext);
+              if (!context.mounted) return;
+              _showSnackbar('User profile cleared');
+            },
+            child: Text(t.debug.clear),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildAppInfoOptions(BuildContext context) {

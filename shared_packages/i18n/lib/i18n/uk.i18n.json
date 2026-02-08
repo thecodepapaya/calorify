@@ -596,6 +596,15 @@
     "close": "Закрити",
     "continue": "Продовжити"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Вам подобається {appLabel}? Ваша думка дуже важлива для нас.",
+    "yes": "Так, мені подобається",
+    "no": "Не дуже",
+    "soloDevMessage": "{appLabel} створено однією людиною. Коротка оцінка в Play Store допоможе іншим знайти додаток і підтримає подальший розвиток — це справді важливо. Ви могли б залишити оцінку?",
+    "shareFeedbackViaEmail": "{appLabel} створено однією людиною. Ваш відгук справді формує те, що буде далі — і ми читаємо кожне повідомлення. Хотіли б поділитися думками електронною поштою?",
+    "aboutUsMentionBeforeLink": "Цікавитесь, хто стоїть за {appLabel}? Дізнайтеся більше ",
+    "aboutUsLinkLabel": "Про нас"
+  },
   "errors": {
     "loadingProfileData": "Помилка завантаження даних профілю",
     "somethingWentWrong": "Щось пішло не так."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Сповіщення",
       "healthConnect": "Health Connect",
+      "feedback": "Зворотній зв'язок",
+      "dataReset": "Скидання даних",
       "appInfo": "Інформація про додаток"
     },
     "showActiveNotifications": "Показати активні сповіщення",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Сповіщення про сніданок запущено.",
     "allNotificationsCancelled": "Всі сповіщення скасовано.",
     "fetchingData": "Отримання даних за останні 7 днів...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Показати форму відгуку/оцінки",
+    "clearUserPreferences": "Скинути налаштування користувача",
+    "clearUserPreferencesConfirmationTitle": "Скинути налаштування користувача?",
+    "clearUserPreferencesConfirmationMessage": "Тему, мову та налаштування зворотного зв'язку буде скинуто. Дані про прийоми їжі та профіль не постраждають.",
+    "clearUserProfile": "Скинути профіль користувача",
+    "clearUserProfileConfirmationTitle": "Скинути профіль користувача?",
+    "clearUserProfileConfirmationMessage": "Дані вашого профілю (щоденна мета, зріст, вага тощо) будуть видалені. Дані про прийоми їжі та налаштування не постраждають.",
+    "clear": "Очистити",
+    "cancel": "Скасувати"
   },
   "health": {
     "syncFailed": "Не вдалося синхронізувати з Health Connect",

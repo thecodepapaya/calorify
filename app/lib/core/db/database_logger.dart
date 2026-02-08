@@ -46,6 +46,25 @@ class DatabaseLogger implements DatabaseInterface {
     }, () => _delegate.setThemeMode(mode));
   }
 
+  @override
+  Future<bool> hasSeenFeedbackSheet() {
+    return _logRead(
+      'user_preferences',
+      'hasSeenFeedbackSheet',
+      () => _delegate.hasSeenFeedbackSheet(),
+    );
+  }
+
+  @override
+  Future<void> setFeedbackSheetShown() async {
+    await _logWrite(
+      'user_preferences',
+      'setFeedbackSheetShown',
+      {},
+      () => _delegate.setFeedbackSheetShown(),
+    );
+  }
+
   // User Profile Operations
   @override
   Future<void> saveUserProfile(UserProfile profile) async {
@@ -146,6 +165,19 @@ class DatabaseLogger implements DatabaseInterface {
   }
 
   @override
+  Future<List<LoggedMeal>> getLatestMealsForFeedbackEligibility({
+    int limit = 5,
+  }) async {
+    log('[DB READ] meal_info | getLatestMealsForFeedbackEligibility | limit=$limit');
+    final result =
+        await _delegate.getLatestMealsForFeedbackEligibility(limit: limit);
+    log(
+      '[DB READ] meal_info | getLatestMealsForFeedbackEligibility | Result: ${result.length} meals',
+    );
+    return result;
+  }
+
+  @override
   Stream<List<LoggedMeal>> watchAllMealsForToday() {
     log('[DB READ] meal_info | watchAllMealsForToday | Stream');
     return _delegate.watchAllMealsForToday();
@@ -202,6 +234,26 @@ class DatabaseLogger implements DatabaseInterface {
   Stream<List<FavoriteMeal>> watchLastUsedFavoriteMeals() {
     log('[DB READ] favorite_meal | watchLastUsedFavoriteMeals | Stream');
     return _delegate.watchLastUsedFavoriteMeals();
+  }
+
+  @override
+  Future<void> clearUserPreferences() async {
+    await _logWrite(
+      'user_preferences',
+      'clearUserPreferences',
+      {},
+      () => _delegate.clearUserPreferences(),
+    );
+  }
+
+  @override
+  Future<void> clearUserProfile() async {
+    await _logWrite(
+      'user_profile',
+      'clearUserProfile',
+      {},
+      () => _delegate.clearUserProfile(),
+    );
   }
 
   // Clear All Data

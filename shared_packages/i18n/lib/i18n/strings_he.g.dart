@@ -55,6 +55,7 @@ class TranslationsHe with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginHe login = _TranslationsLoginHe._(_root);
 	@override late final _TranslationsDisclaimerHe disclaimer = _TranslationsDisclaimerHe._(_root);
 	@override late final _TranslationsCommonHe common = _TranslationsCommonHe._(_root);
+	@override late final _TranslationsFeedbackRatingHe feedbackRating = _TranslationsFeedbackRatingHe._(_root);
 	@override late final _TranslationsErrorsHe errors = _TranslationsErrorsHe._(_root);
 	@override late final _TranslationsDebugHe debug = _TranslationsDebugHe._(_root);
 	@override late final _TranslationsHealthHe health = _TranslationsHealthHe._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonHe implements TranslationsCommonEn {
 	@override String get kContinue => 'להמשיך';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingHe implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'נהנים מ${appLabel}? החוויה שלכם חשובה לנו.';
+	@override String get yes => 'כן, אני נהנה/נהנית';
+	@override String get no => 'לא ממש';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} נבנה על ידי אדם אחד. דירוג מהיר בחנות Play עוזר לאחרים למצוא אותו ושומר על המשך הפיתוח — זה באמת עוזר. האם תוכל להקדיש רגע ולהשאיר דירוג?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} נבנה על ידי אדם אחד. המשוב שלך מעצב את מה שיבא — ואנחנו קוראים כל הודעה. האם ברצונך לשתף את מחשבותיך בדוא\"ל?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'סקרנים מי עומד מאחורי ${appLabel}? ראה ';
+	@override String get aboutUsLinkLabel => 'עלינו';
+}
+
 // Path: errors
 class _TranslationsErrorsHe implements TranslationsErrorsEn {
 	_TranslationsErrorsHe._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugHe implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'כל ההתראות בוטלו.';
 	@override String get fetchingData => 'שחזור נתונים עבור 7 הימים האחרונים...';
 	@override String id({required Object id}) => 'מזהה: ${id}';
+	@override String get showFeedbackRatingSheet => 'הצג טופס משוב/דירוג';
+	@override String get clearUserPreferences => 'נקה העדפות משתמש';
+	@override String get clearUserPreferencesConfirmationTitle => 'למחוק את העדפות המשתמש?';
+	@override String get clearUserPreferencesConfirmationMessage => 'הנושא, השפה והעדפות המשוב יאופסו. הארוחות והפרופיל לא יושפעו.';
+	@override String get clearUserProfile => 'נקה פרופיל משתמש';
+	@override String get clearUserProfileConfirmationTitle => 'למחוק את פרופיל המשתמש?';
+	@override String get clearUserProfileConfirmationMessage => 'נתוני הפרופיל שלך (מטרת יום, גובה, משקל וכו\') יימחקו. הארוחות וההעדפות לא יושפעו.';
+	@override String get clear => 'נקה';
+	@override String get cancel => 'ביטול';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsHe implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'התראות';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'משוב';
+	@override String get dataReset => 'איפוס נתונים';
 	@override String get appInfo => 'מידע על האפליקציה';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsHe {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'המטרה היומית היא צריכת הקלוריות היומית המומלצת שלך בהתבסס על ה-TDEE שלך ומטרת המשקל שלך. לצורך ירידת משקל, אתה צורך פחות קלוריות מה-TDEE שלך. לשמירה על משקל, אתה תואם את ה-TDEE שלך. לצורך עליית משקל, אתה צורך יותר קלוריות מה-TDEE שלך. זה עוזר לך להגיע לשינוי המשקל הרצוי שלך בקצב בריא.',
 			'common.close' => 'סגור',
 			'common.kContinue' => 'להמשיך',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'נהנים מ${appLabel}? החוויה שלכם חשובה לנו.',
+			'feedbackRating.yes' => 'כן, אני נהנה/נהנית',
+			'feedbackRating.no' => 'לא ממש',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} נבנה על ידי אדם אחד. דירוג מהיר בחנות Play עוזר לאחרים למצוא אותו ושומר על המשך הפיתוח — זה באמת עוזר. האם תוכל להקדיש רגע ולהשאיר דירוג?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} נבנה על ידי אדם אחד. המשוב שלך מעצב את מה שיבא — ואנחנו קוראים כל הודעה. האם ברצונך לשתף את מחשבותיך בדוא\"ל?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'סקרנים מי עומד מאחורי ${appLabel}? ראה ',
+			'feedbackRating.aboutUsLinkLabel' => 'עלינו',
 			'errors.loadingProfileData' => 'שגיאה בהטענת נתוני פרופיל',
 			'errors.somethingWentWrong' => 'משהו השתבש.',
 			'debug.title' => 'אפשרויות דיבוג',
 			'debug.sections.notifications' => 'התראות',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'משוב',
+			'debug.sections.dataReset' => 'איפוס נתונים',
 			'debug.sections.appInfo' => 'מידע על האפליקציה',
 			'debug.showActiveNotifications' => 'הצג התראות פעילות',
 			'debug.scheduleTestNotification' => 'תזמן התראה ניסי (10ש)',
@@ -1987,6 +2024,15 @@ extension on TranslationsHe {
 			'debug.allNotificationsCancelled' => 'כל ההתראות בוטלו.',
 			'debug.fetchingData' => 'שחזור נתונים עבור 7 הימים האחרונים...',
 			'debug.id' => ({required Object id}) => 'מזהה: ${id}',
+			'debug.showFeedbackRatingSheet' => 'הצג טופס משוב/דירוג',
+			'debug.clearUserPreferences' => 'נקה העדפות משתמש',
+			'debug.clearUserPreferencesConfirmationTitle' => 'למחוק את העדפות המשתמש?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'הנושא, השפה והעדפות המשוב יאופסו. הארוחות והפרופיל לא יושפעו.',
+			'debug.clearUserProfile' => 'נקה פרופיל משתמש',
+			'debug.clearUserProfileConfirmationTitle' => 'למחוק את פרופיל המשתמש?',
+			'debug.clearUserProfileConfirmationMessage' => 'נתוני הפרופיל שלך (מטרת יום, גובה, משקל וכו\') יימחקו. הארוחות וההעדפות לא יושפעו.',
+			'debug.clear' => 'נקה',
+			'debug.cancel' => 'ביטול',
 			'health.syncFailed' => 'לא ניתן לסנכרן עם Health Connect',
 			'health.mealSynced' => 'הארוחה סונכרנה עם Health Connect',
 			_ => null,

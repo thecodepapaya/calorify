@@ -596,6 +596,15 @@
     "close": "Bezárás",
     "continue": "Tovább"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Tetszik a {appLabel}? Fontos számunkra az élményed.",
+    "yes": "Igen, tetszik!",
+    "no": "Nem igazán",
+    "soloDevMessage": "{appLabel} egyetlen fejlesztő által készült. Egy rövid Play Áruház-beli értékelés segít másoknak megtalálni az alkalmazást és támogatja a fejlesztést — igazán sokat számít. Megtennéd, hogy hagysz egy értékelést?",
+    "shareFeedbackViaEmail": "{appLabel} egyetlen fejlesztő által készült. A visszajelzéseid nagyban alakítják a további fejlesztéseket — és minden üzenetet elolvasunk. Szeretnéd e-mailben megosztani a gondolataidat?",
+    "aboutUsMentionBeforeLink": "Kíváncsi vagy, ki áll a {appLabel} mögött? Nézd meg ",
+    "aboutUsLinkLabel": "Rólunk"
+  },
   "errors": {
     "loadingProfileData": "Hiba a profiladatok betöltésekor",
     "somethingWentWrong": "Valami hiba történt."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Értesítések",
       "healthConnect": "Health Connect",
+      "feedback": "Visszajelzés",
+      "dataReset": "Adatok visszaállítása",
       "appInfo": "Alkalmazás Információ"
     },
     "showActiveNotifications": "Aktív Értesítések Megjelenítése",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Reggeli értesítés kioldva.",
     "allNotificationsCancelled": "Összes értesítés törölve.",
     "fetchingData": "Adatok lekérése az elmúlt 7 napra...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Visszajelzés/értékelés megjelenítése",
+    "clearUserPreferences": "Felhasználói beállítások törlése",
+    "clearUserPreferencesConfirmationTitle": "Töröljük a felhasználói beállításokat?",
+    "clearUserPreferencesConfirmationMessage": "A téma, a nyelv és a visszajelzési beállítások visszaállnak. Az étkezések és a profil nem érintett.",
+    "clearUserProfile": "Felhasználói profil törlése",
+    "clearUserProfileConfirmationTitle": "Töröljük a felhasználói profilt?",
+    "clearUserProfileConfirmationMessage": "A profiladataid (napi cél, magasság, testsúly stb.) törlődnek. Az étkezések és a beállítások nem érintettek.",
+    "clear": "Törlés",
+    "cancel": "Mégse"
   },
   "health": {
     "syncFailed": "Nem sikerült szinkronizálni a Health Connect-tel",

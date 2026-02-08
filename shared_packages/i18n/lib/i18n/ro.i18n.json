@@ -596,6 +596,15 @@
     "close": "Închide",
     "continue": "Continuă"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Îți place {appLabel}? Experiența ta contează pentru noi.",
+    "yes": "Da, îmi place",
+    "no": "Nu chiar",
+    "soloDevMessage": "{appLabel} este creată de o singură persoană. O evaluare rapidă în Play Store îi ajută pe alții să o găsească și susține dezvoltarea — chiar contează. Ai un moment să lași o evaluare?",
+    "shareFeedbackViaEmail": "{appLabel} este creată de o singură persoană. Feedbackul tău modelează ceea ce urmează — citim fiecare mesaj. Ai dori să împărtășești gândurile tale prin e-mail?",
+    "aboutUsMentionBeforeLink": "Curios cine se află în spatele {appLabel}? Vezi ",
+    "aboutUsLinkLabel": "Despre noi"
+  },
   "errors": {
     "loadingProfileData": "Eroare la încărcarea datelor profilului",
     "somethingWentWrong": "Ceva a mers prost."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Notificări",
       "healthConnect": "Health Connect",
+      "feedback": "Feedback",
+      "dataReset": "Resetare date",
       "appInfo": "Informații despre Aplicație"
     },
     "showActiveNotifications": "Arată Notificările Active",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Notificarea de mic dejun a fost activată.",
     "allNotificationsCancelled": "Toate notificările au fost anulate.",
     "fetchingData": "Preluând date pentru ultimele 7 zile...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Afișează fereastra pentru feedback/evaluare",
+    "clearUserPreferences": "Șterge preferințele utilizatorului",
+    "clearUserPreferencesConfirmationTitle": "Ștergi preferințele utilizatorului?",
+    "clearUserPreferencesConfirmationMessage": "Tema, limba și preferințele de feedback vor fi resetate. Mesele nu vor fi afectate, iar profilul nu va fi afectat.",
+    "clearUserProfile": "Șterge profilul utilizatorului",
+    "clearUserProfileConfirmationTitle": "Ștergi profilul?",
+    "clearUserProfileConfirmationMessage": "Datele profilului tău (obiectiv zilnic, înălțime, greutate etc.) vor fi șterse. Mesele și preferințele nu vor fi afectate.",
+    "clear": "Șterge",
+    "cancel": "Anulează"
   },
   "health": {
     "syncFailed": "Nu s-a putut sincroniza cu Health Connect",

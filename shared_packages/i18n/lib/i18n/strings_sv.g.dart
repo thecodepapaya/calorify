@@ -55,6 +55,7 @@ class TranslationsSv with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginSv login = _TranslationsLoginSv._(_root);
 	@override late final _TranslationsDisclaimerSv disclaimer = _TranslationsDisclaimerSv._(_root);
 	@override late final _TranslationsCommonSv common = _TranslationsCommonSv._(_root);
+	@override late final _TranslationsFeedbackRatingSv feedbackRating = _TranslationsFeedbackRatingSv._(_root);
 	@override late final _TranslationsErrorsSv errors = _TranslationsErrorsSv._(_root);
 	@override late final _TranslationsDebugSv debug = _TranslationsDebugSv._(_root);
 	@override late final _TranslationsHealthSv health = _TranslationsHealthSv._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonSv implements TranslationsCommonEn {
 	@override String get kContinue => 'Fortsätt';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingSv implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Gillar du ${appLabel}? Din upplevelse betyder mycket för oss.';
+	@override String get yes => 'Ja, jag gillar det';
+	@override String get no => 'Inte riktigt';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} är utvecklat av en enda person. Ett snabbt betyg i Play Butik hjälper andra att hitta appen och håller utvecklingen igång — det betyder mycket. Skulle du kunna ta en stund för att lämna ett?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} är utvecklat av en enda person. Din feedback påverkar verkligen vad som kommer härnäst — och vi läser varje meddelande. Vill du dela dina tankar via e-post?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nyfiken på vem som ligger bakom ${appLabel}? Se ';
+	@override String get aboutUsLinkLabel => 'Om oss';
+}
+
 // Path: errors
 class _TranslationsErrorsSv implements TranslationsErrorsEn {
 	_TranslationsErrorsSv._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugSv implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Alla notifieringar avbröts.';
 	@override String get fetchingData => 'Hämtar data för de senaste 7 dagarna...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Visa återkopplings- och betygsruta';
+	@override String get clearUserPreferences => 'Återställ användarinställningar';
+	@override String get clearUserPreferencesConfirmationTitle => 'Återställ användarinställningar?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Tema, språk och feedbackinställningar kommer att återställas. Måltider och profil påverkas inte.';
+	@override String get clearUserProfile => 'Rensa användarprofil';
+	@override String get clearUserProfileConfirmationTitle => 'Rensa användarprofil?';
+	@override String get clearUserProfileConfirmationMessage => 'Din profilinformation (dagligt mål, längd, vikt med mera) kommer att raderas. Måltider och inställningar påverkas inte.';
+	@override String get clear => 'Rensa';
+	@override String get cancel => 'Avbryt';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsSv implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Notifieringar';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Återkoppling';
+	@override String get dataReset => 'Återställ data';
 	@override String get appInfo => 'Appinfo';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsSv {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Dagligt Mål är ditt rekommenderade dagliga kaloriintag baserat på din TDEE och viktmål. För viktnedgång konsumerar du färre kalorier än din TDEE. För vikthållning matchar du din TDEE. För viktökning konsumerar du fler kalorier än din TDEE. Detta hjälper dig att uppnå din önskade viktförändring i en hälsosam takt.',
 			'common.close' => 'Stäng',
 			'common.kContinue' => 'Fortsätt',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Gillar du ${appLabel}? Din upplevelse betyder mycket för oss.',
+			'feedbackRating.yes' => 'Ja, jag gillar det',
+			'feedbackRating.no' => 'Inte riktigt',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} är utvecklat av en enda person. Ett snabbt betyg i Play Butik hjälper andra att hitta appen och håller utvecklingen igång — det betyder mycket. Skulle du kunna ta en stund för att lämna ett?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} är utvecklat av en enda person. Din feedback påverkar verkligen vad som kommer härnäst — och vi läser varje meddelande. Vill du dela dina tankar via e-post?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nyfiken på vem som ligger bakom ${appLabel}? Se ',
+			'feedbackRating.aboutUsLinkLabel' => 'Om oss',
 			'errors.loadingProfileData' => 'Fel vid inläsning av profildata',
 			'errors.somethingWentWrong' => 'Något gick fel.',
 			'debug.title' => 'Debugalternativ',
 			'debug.sections.notifications' => 'Notifieringar',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Återkoppling',
+			'debug.sections.dataReset' => 'Återställ data',
 			'debug.sections.appInfo' => 'Appinfo',
 			'debug.showActiveNotifications' => 'Visa aktiva notifieringar',
 			'debug.scheduleTestNotification' => 'Schemalägg testnotifikation (10s)',
@@ -1987,6 +2024,15 @@ extension on TranslationsSv {
 			'debug.allNotificationsCancelled' => 'Alla notifieringar avbröts.',
 			'debug.fetchingData' => 'Hämtar data för de senaste 7 dagarna...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Visa återkopplings- och betygsruta',
+			'debug.clearUserPreferences' => 'Återställ användarinställningar',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Återställ användarinställningar?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Tema, språk och feedbackinställningar kommer att återställas. Måltider och profil påverkas inte.',
+			'debug.clearUserProfile' => 'Rensa användarprofil',
+			'debug.clearUserProfileConfirmationTitle' => 'Rensa användarprofil?',
+			'debug.clearUserProfileConfirmationMessage' => 'Din profilinformation (dagligt mål, längd, vikt med mera) kommer att raderas. Måltider och inställningar påverkas inte.',
+			'debug.clear' => 'Rensa',
+			'debug.cancel' => 'Avbryt',
 			'health.syncFailed' => 'Kunde inte synkronisera med Health Connect',
 			'health.mealSynced' => 'Måltid synkroniserad med Health Connect',
 			_ => null,

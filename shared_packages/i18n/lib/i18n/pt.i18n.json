@@ -596,6 +596,15 @@
     "close": "Fechar",
     "continue": "Continuar"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Está gostando do {appLabel}? Sua experiência importa para nós.",
+    "yes": "Sim, estou gostando.",
+    "no": "Na verdade, não.",
+    "soloDevMessage": "{appLabel} foi criado por uma pessoa. Uma avaliação rápida na Play Store ajuda outras pessoas a encontrar o app e mantém o desenvolvimento em andamento — realmente faz diferença. Você poderia deixar uma avaliação?",
+    "shareFeedbackViaEmail": "{appLabel} foi criado por uma pessoa. Seu feedback realmente molda o que vem a seguir — e nós lemos cada mensagem. Gostaria de compartilhar suas opiniões por e-mail?",
+    "aboutUsMentionBeforeLink": "Curioso para saber quem está por trás do {appLabel}? Veja ",
+    "aboutUsLinkLabel": "Sobre nós"
+  },
   "errors": {
     "loadingProfileData": "Erro ao carregar dados do perfil",
     "somethingWentWrong": "Algo deu errado."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Notificações",
       "healthConnect": "Health Connect",
+      "feedback": "Feedback",
+      "dataReset": "Redefinir dados",
       "appInfo": "Informações do Aplicativo"
     },
     "showActiveNotifications": "Mostrar Notificações Ativas",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Notificação de café da manhã acionada.",
     "allNotificationsCancelled": "Todas as notificações canceladas.",
     "fetchingData": "Buscando dados dos últimos 7 dias...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Mostrar painel de feedback/avaliação",
+    "clearUserPreferences": "Limpar preferências do usuário",
+    "clearUserPreferencesConfirmationTitle": "Limpar preferências do usuário?",
+    "clearUserPreferencesConfirmationMessage": "Tema, idioma e preferências de feedback serão redefinidos. Refeições e perfil não serão afetados.",
+    "clearUserProfile": "Limpar perfil do usuário",
+    "clearUserProfileConfirmationTitle": "Limpar perfil do usuário?",
+    "clearUserProfileConfirmationMessage": "Os dados do seu perfil (meta diária, altura, peso, etc.) serão apagados. Refeições e preferências não serão afetadas.",
+    "clear": "Limpar",
+    "cancel": "Cancelar"
   },
   "health": {
     "syncFailed": "Não foi possível sincronizar com o Health Connect",

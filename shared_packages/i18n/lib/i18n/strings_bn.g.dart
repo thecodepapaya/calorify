@@ -55,6 +55,7 @@ class TranslationsBn with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginBn login = _TranslationsLoginBn._(_root);
 	@override late final _TranslationsDisclaimerBn disclaimer = _TranslationsDisclaimerBn._(_root);
 	@override late final _TranslationsCommonBn common = _TranslationsCommonBn._(_root);
+	@override late final _TranslationsFeedbackRatingBn feedbackRating = _TranslationsFeedbackRatingBn._(_root);
 	@override late final _TranslationsErrorsBn errors = _TranslationsErrorsBn._(_root);
 	@override late final _TranslationsDebugBn debug = _TranslationsDebugBn._(_root);
 	@override late final _TranslationsHealthBn health = _TranslationsHealthBn._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonBn implements TranslationsCommonEn {
 	@override String get kContinue => 'অগ্রসর হোন';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingBn implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'আপনি কি ${appLabel} উপভোগ করছেন? আপনার অভিজ্ঞতা আমাদের জন্য গুরুত্বপূর্ণ।';
+	@override String get yes => 'হ্যাঁ, আমি উপভোগ করছি';
+	@override String get no => 'তেমন না';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} একজন ব্যক্তির দ্বারা তৈরি। একটি দ্রুত Play Store রেটিং অন্যদের এটি খুঁজে পেতে সাহায্য করে এবং উন্নয়ন চালিয়ে রাখতে সহায়ক — এটি সত্যিই সাহায্য করে। আপনি কি একটা ক্ষণ নিয়ে একটি রেটিং দেবেন?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} একজন ব্যক্তির তৈরি। আপনার প্রতিক্রিয়া ভবিষ্যৎ নির্ধারণে গুরুত্ব রাখে — এবং আমরা প্রতিটি বার্তা পড়ি। আপনি কি ইমেইলের মাধ্যমে আপনার মতামত শেয়ার করতে চান?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'জানতে চান ${appLabel}-এর পেছনে কে আছেন? দেখুন ';
+	@override String get aboutUsLinkLabel => 'আমাদের সম্পর্কে';
+}
+
 // Path: errors
 class _TranslationsErrorsBn implements TranslationsErrorsEn {
 	_TranslationsErrorsBn._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugBn implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'সমস্ত বিজ্ঞপ্তি বাতিল করা হয়েছে।';
 	@override String get fetchingData => 'গত ৭ দিনের জন্য ডেটা সংগৃহীত করা হচ্ছে...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'ফিডব্যাক/রেটিং শিট দেখান';
+	@override String get clearUserPreferences => 'ব্যবহারকারীর পছন্দসমূহ মুছুন';
+	@override String get clearUserPreferencesConfirmationTitle => 'ব্যবহারকারীর পছন্দসমূহ মুছবেন?';
+	@override String get clearUserPreferencesConfirmationMessage => 'থিম, ভাষা এবং ফিডব্যাক সংক্রান্ত পছন্দসমূহ রিসেট করা হবে। খাবারের এন্ট্রি এবং প্রোফাইল এতে প্রভাবিত হবে না।';
+	@override String get clearUserProfile => 'ব্যবহারকারীর প্রোফাইল মুছুন';
+	@override String get clearUserProfileConfirmationTitle => 'ব্যবহারকারীর প্রোফাইল মুছবেন?';
+	@override String get clearUserProfileConfirmationMessage => 'আপনার প্রোফাইল ডেটা (দৈনিক লক্ষ্য, উচ্চতা, ওজন ইত্যাদি) মুছে ফেলা হবে। খাবারের এন্ট্রি এবং পছন্দসমূহ এতে প্রভাবিত হবে না।';
+	@override String get clear => 'মুছুন';
+	@override String get cancel => 'বাতিল করুন';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsBn implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'বিজ্ঞপ্তি';
 	@override String get healthConnect => 'স্বাস্থ্য সংযোগ';
+	@override String get feedback => 'প্রতিক্রিয়া';
+	@override String get dataReset => 'ডেটা রিসেট';
 	@override String get appInfo => 'অ্যাপ তথ্য';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsBn {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'দৈনিক লক্ষ্য হল আপনার টিডিইই এবং ওজন লক্ষ্য অনুযায়ী আপনার সুপারিশকৃত দৈনিক ক্যালোরি গ্রহণ। ওজন কমানোর জন্য, আপনাকে আপনার টিডিইই-এর চেয়ে কম ক্যালোরি গ্রহণ করতে হবে। ওজন বজায় রাখার জন্য, আপনাকে আপনার টিডিইই-কে মানানসই করতে হবে। ওজন বাড়ানোর জন্য, আপনাকে আপনার টিডিইই-এর চেয়ে বেশি ক্যালোরি গ্রহণ করতে হবে। এটি আপনাকে স্বাস্থ্যকর গতি অনুসরণ করে আপনার কাঙ্খিত ওজন পরিবর্তন অর্জনে সাহায্য করে।',
 			'common.close' => 'বন্ধ করুন',
 			'common.kContinue' => 'অগ্রসর হোন',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'আপনি কি ${appLabel} উপভোগ করছেন? আপনার অভিজ্ঞতা আমাদের জন্য গুরুত্বপূর্ণ।',
+			'feedbackRating.yes' => 'হ্যাঁ, আমি উপভোগ করছি',
+			'feedbackRating.no' => 'তেমন না',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} একজন ব্যক্তির দ্বারা তৈরি। একটি দ্রুত Play Store রেটিং অন্যদের এটি খুঁজে পেতে সাহায্য করে এবং উন্নয়ন চালিয়ে রাখতে সহায়ক — এটি সত্যিই সাহায্য করে। আপনি কি একটা ক্ষণ নিয়ে একটি রেটিং দেবেন?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} একজন ব্যক্তির তৈরি। আপনার প্রতিক্রিয়া ভবিষ্যৎ নির্ধারণে গুরুত্ব রাখে — এবং আমরা প্রতিটি বার্তা পড়ি। আপনি কি ইমেইলের মাধ্যমে আপনার মতামত শেয়ার করতে চান?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'জানতে চান ${appLabel}-এর পেছনে কে আছেন? দেখুন ',
+			'feedbackRating.aboutUsLinkLabel' => 'আমাদের সম্পর্কে',
 			'errors.loadingProfileData' => 'প্রোফাইল তথ্য লোড করতে ত্রুটি',
 			'errors.somethingWentWrong' => 'কিছু ভুল হয়েছে।',
 			'debug.title' => 'ডিবাগ অপশন',
 			'debug.sections.notifications' => 'বিজ্ঞপ্তি',
 			'debug.sections.healthConnect' => 'স্বাস্থ্য সংযোগ',
+			'debug.sections.feedback' => 'প্রতিক্রিয়া',
+			'debug.sections.dataReset' => 'ডেটা রিসেট',
 			'debug.sections.appInfo' => 'অ্যাপ তথ্য',
 			'debug.showActiveNotifications' => 'সক্রিয় বিজ্ঞপ্তি দেখান',
 			'debug.scheduleTestNotification' => 'টেস্ট বিজ্ঞপ্তি নির্ধারণ করুন (১০ সেকেন্ড)',
@@ -1987,6 +2024,15 @@ extension on TranslationsBn {
 			'debug.allNotificationsCancelled' => 'সমস্ত বিজ্ঞপ্তি বাতিল করা হয়েছে।',
 			'debug.fetchingData' => 'গত ৭ দিনের জন্য ডেটা সংগৃহীত করা হচ্ছে...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'ফিডব্যাক/রেটিং শিট দেখান',
+			'debug.clearUserPreferences' => 'ব্যবহারকারীর পছন্দসমূহ মুছুন',
+			'debug.clearUserPreferencesConfirmationTitle' => 'ব্যবহারকারীর পছন্দসমূহ মুছবেন?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'থিম, ভাষা এবং ফিডব্যাক সংক্রান্ত পছন্দসমূহ রিসেট করা হবে। খাবারের এন্ট্রি এবং প্রোফাইল এতে প্রভাবিত হবে না।',
+			'debug.clearUserProfile' => 'ব্যবহারকারীর প্রোফাইল মুছুন',
+			'debug.clearUserProfileConfirmationTitle' => 'ব্যবহারকারীর প্রোফাইল মুছবেন?',
+			'debug.clearUserProfileConfirmationMessage' => 'আপনার প্রোফাইল ডেটা (দৈনিক লক্ষ্য, উচ্চতা, ওজন ইত্যাদি) মুছে ফেলা হবে। খাবারের এন্ট্রি এবং পছন্দসমূহ এতে প্রভাবিত হবে না।',
+			'debug.clear' => 'মুছুন',
+			'debug.cancel' => 'বাতিল করুন',
 			'health.syncFailed' => 'স্বাস্থ্য সংযোগে সিঙ্ক করা যায়নি',
 			'health.mealSynced' => 'খাবার স্বাস্থ্য সংযোগের সাথে সিঙ্ক হয়েছে',
 			_ => null,

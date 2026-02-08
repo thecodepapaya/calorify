@@ -596,6 +596,15 @@
     "close": "Zavřít",
     "continue": "Pokračovat"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Líbí se vám {appLabel}? Vaše zkušenost je pro nás důležitá.",
+    "yes": "Ano, líbí se mi.",
+    "no": "Ne, moc ne.",
+    "soloDevMessage": "{appLabel} vytváří jedna osoba. Krátké hodnocení v Obchodě Play pomůže ostatním aplikaci najít a podpoří další vývoj — opravdu to pomáhá. Věnujete chvilku a ohodnotíte ji?",
+    "shareFeedbackViaEmail": "{appLabel} vytváří jedna osoba. Vaše zpětná vazba skutečně ovlivňuje, co přijde dál — a každý vzkaz čteme. Chtěli byste své názory sdílet e-mailem?",
+    "aboutUsMentionBeforeLink": "Zajímá vás, kdo stojí za {appLabel}? Podívejte se ",
+    "aboutUsLinkLabel": "O nás"
+  },
   "errors": {
     "loadingProfileData": "Chyba při načítání dat profilu",
     "somethingWentWrong": "Něco se pokazilo."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Notifikace",
       "healthConnect": "Health Connect",
+      "feedback": "Zpětná vazba",
+      "dataReset": "Reset dat",
       "appInfo": "Informace o aplikaci"
     },
     "showActiveNotifications": "Zobrazit aktivní notifikace",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Notifikace na snídani byla spuštěna.",
     "allNotificationsCancelled": "Všechny notifikace byly zrušeny.",
     "fetchingData": "Načítám data za posledních 7 dní...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Zobrazit formulář pro zpětnou vazbu / hodnocení",
+    "clearUserPreferences": "Vymazat uživatelská nastavení",
+    "clearUserPreferencesConfirmationTitle": "Vymazat uživatelská nastavení?",
+    "clearUserPreferencesConfirmationMessage": "Téma, jazyk a nastavení týkající se zpětné vazby budou resetovány. Jídla a profil nebudou ovlivněny.",
+    "clearUserProfile": "Vymazat uživatelský profil",
+    "clearUserProfileConfirmationTitle": "Vymazat uživatelský profil?",
+    "clearUserProfileConfirmationMessage": "Data vašeho profilu (denní cíl, výška, váha atd.) budou vymazána. Jídla a nastavení nebudou ovlivněny.",
+    "clear": "Vymazat",
+    "cancel": "Zrušit"
   },
   "health": {
     "syncFailed": "Nedaří se synchronizovat s Health Connect",

@@ -55,6 +55,7 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginAr login = _TranslationsLoginAr._(_root);
 	@override late final _TranslationsDisclaimerAr disclaimer = _TranslationsDisclaimerAr._(_root);
 	@override late final _TranslationsCommonAr common = _TranslationsCommonAr._(_root);
+	@override late final _TranslationsFeedbackRatingAr feedbackRating = _TranslationsFeedbackRatingAr._(_root);
 	@override late final _TranslationsErrorsAr errors = _TranslationsErrorsAr._(_root);
 	@override late final _TranslationsDebugAr debug = _TranslationsDebugAr._(_root);
 	@override late final _TranslationsHealthAr health = _TranslationsHealthAr._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonAr implements TranslationsCommonEn {
 	@override String get kContinue => 'استمر';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingAr implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'هل تستمتع باستخدام ${appLabel}؟ تجربتك تهمنا.';
+	@override String get yes => 'نعم، أستمتع باستخدامه';
+	@override String get no => 'ليس حقًا';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} تم تطويره من قبل شخص واحد. تقييم سريع على متجر Play يساعد الآخرين في العثور عليه ويدعم استمرار التطوير — إنه مفيد حقًا. هل تود أن تترك تقييمًا؟';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} مبني من قبل شخص واحد. ملاحظاتك تشكل ما سيأتي — ونحن نقرأ كل رسالة. هل تود مشاركة أفكارك عبر البريد الإلكتروني؟';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'هل تريد معرفة من يقف وراء ${appLabel}؟ انظر ';
+	@override String get aboutUsLinkLabel => 'من نحن';
+}
+
 // Path: errors
 class _TranslationsErrorsAr implements TranslationsErrorsEn {
 	_TranslationsErrorsAr._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugAr implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'تم إلغاء جميع التنبيهات.';
 	@override String get fetchingData => 'جاري جلب البيانات لآخر 7 أيام...';
 	@override String id({required Object id}) => 'معرف: ${id}';
+	@override String get showFeedbackRatingSheet => 'عرض نافذة التقييم/التعليقات';
+	@override String get clearUserPreferences => 'مسح تفضيلات المستخدم';
+	@override String get clearUserPreferencesConfirmationTitle => 'مسح تفضيلات المستخدم؟';
+	@override String get clearUserPreferencesConfirmationMessage => 'سيتم إعادة تعيين السمة واللغة وتفضيلات التعليقات. لن تتأثر الوجبات والملف الشخصي.';
+	@override String get clearUserProfile => 'مسح الملف الشخصي';
+	@override String get clearUserProfileConfirmationTitle => 'مسح الملف الشخصي؟';
+	@override String get clearUserProfileConfirmationMessage => 'سيتم مسح بيانات ملفك الشخصي (الهدف اليومي، الطول، الوزن، إلخ). لن تتأثر الوجبات والتفضيلات.';
+	@override String get clear => 'مسح';
+	@override String get cancel => 'إلغاء';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsAr implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'التنبيهات';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'التعليقات';
+	@override String get dataReset => 'إعادة تعيين البيانات';
 	@override String get appInfo => 'معلومات التطبيق';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsAr {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'الهدف اليومي هو كمية السعرات الحرارية الموصى بها لك يوميًا بناءً على مجموع الإنفاق اليومي من الطاقة (TDEE) وهدف الوزن الخاص بك. لفقدان الوزن، تستهلك سعرات حرارية أقل من مجموع الإنفاق اليومي من الطاقة الخاص بك. للحفاظ على الوزن، تتطابق مع مجموع الإنفاق اليومي من الطاقة. لزيادة الوزن، تستهلك سعرات حرارية أكثر من مجموع الإنفاق اليومي من الطاقة الخاص بك. يساعدك ذلك في تحقيق التغيير المطلوب في وزنك بشكل صحي.',
 			'common.close' => 'إغلاق',
 			'common.kContinue' => 'استمر',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'هل تستمتع باستخدام ${appLabel}؟ تجربتك تهمنا.',
+			'feedbackRating.yes' => 'نعم، أستمتع باستخدامه',
+			'feedbackRating.no' => 'ليس حقًا',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} تم تطويره من قبل شخص واحد. تقييم سريع على متجر Play يساعد الآخرين في العثور عليه ويدعم استمرار التطوير — إنه مفيد حقًا. هل تود أن تترك تقييمًا؟',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} مبني من قبل شخص واحد. ملاحظاتك تشكل ما سيأتي — ونحن نقرأ كل رسالة. هل تود مشاركة أفكارك عبر البريد الإلكتروني؟',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'هل تريد معرفة من يقف وراء ${appLabel}؟ انظر ',
+			'feedbackRating.aboutUsLinkLabel' => 'من نحن',
 			'errors.loadingProfileData' => 'خطأ في تحميل بيانات الملف الشخصي',
 			'errors.somethingWentWrong' => 'حدث خطأ ما.',
 			'debug.title' => 'خيارات التصحيح',
 			'debug.sections.notifications' => 'التنبيهات',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'التعليقات',
+			'debug.sections.dataReset' => 'إعادة تعيين البيانات',
 			'debug.sections.appInfo' => 'معلومات التطبيق',
 			'debug.showActiveNotifications' => 'عرض التنبيهات النشطة',
 			'debug.scheduleTestNotification' => 'جدولة تنبيه اختبار (10 ثواني)',
@@ -1987,6 +2024,15 @@ extension on TranslationsAr {
 			'debug.allNotificationsCancelled' => 'تم إلغاء جميع التنبيهات.',
 			'debug.fetchingData' => 'جاري جلب البيانات لآخر 7 أيام...',
 			'debug.id' => ({required Object id}) => 'معرف: ${id}',
+			'debug.showFeedbackRatingSheet' => 'عرض نافذة التقييم/التعليقات',
+			'debug.clearUserPreferences' => 'مسح تفضيلات المستخدم',
+			'debug.clearUserPreferencesConfirmationTitle' => 'مسح تفضيلات المستخدم؟',
+			'debug.clearUserPreferencesConfirmationMessage' => 'سيتم إعادة تعيين السمة واللغة وتفضيلات التعليقات. لن تتأثر الوجبات والملف الشخصي.',
+			'debug.clearUserProfile' => 'مسح الملف الشخصي',
+			'debug.clearUserProfileConfirmationTitle' => 'مسح الملف الشخصي؟',
+			'debug.clearUserProfileConfirmationMessage' => 'سيتم مسح بيانات ملفك الشخصي (الهدف اليومي، الطول، الوزن، إلخ). لن تتأثر الوجبات والتفضيلات.',
+			'debug.clear' => 'مسح',
+			'debug.cancel' => 'إلغاء',
 			'health.syncFailed' => 'تعذر المزامنة مع Health Connect',
 			'health.mealSynced' => 'تمت مزامنة الوجبة مع Health Connect',
 			_ => null,

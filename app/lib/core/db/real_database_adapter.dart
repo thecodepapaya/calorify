@@ -128,6 +128,33 @@ class RealDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
+  Future<bool> hasSeenFeedbackSheet() async {
+    return await _database.hasSeenFeedbackSheet();
+  }
+
+  @override
+  Future<void> setFeedbackSheetShown() async {
+    await _database.setFeedbackSheetShown();
+  }
+
+  @override
+  Future<List<LoggedMeal>> getLatestMealsForFeedbackEligibility({
+    int limit = 5,
+  }) {
+    return _database.getLatestMealsForFeedbackEligibility(limit: limit);
+  }
+
+  @override
+  Future<void> clearUserPreferences() async {
+    await _database.clearUserPreferences();
+  }
+
+  @override
+  Future<void> clearUserProfile() async {
+    await _database.clearUserProfile();
+  }
+
+  @override
   Future<void> clearAllData() async {
     await _database.clearAllData();
   }

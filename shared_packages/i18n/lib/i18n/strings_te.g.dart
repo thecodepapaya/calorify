@@ -55,6 +55,7 @@ class TranslationsTe with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginTe login = _TranslationsLoginTe._(_root);
 	@override late final _TranslationsDisclaimerTe disclaimer = _TranslationsDisclaimerTe._(_root);
 	@override late final _TranslationsCommonTe common = _TranslationsCommonTe._(_root);
+	@override late final _TranslationsFeedbackRatingTe feedbackRating = _TranslationsFeedbackRatingTe._(_root);
 	@override late final _TranslationsErrorsTe errors = _TranslationsErrorsTe._(_root);
 	@override late final _TranslationsDebugTe debug = _TranslationsDebugTe._(_root);
 	@override late final _TranslationsHealthTe health = _TranslationsHealthTe._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonTe implements TranslationsCommonEn {
 	@override String get kContinue => 'కొనసాగించండి';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingTe implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'మీకు ${appLabel} నచ్చుతున్నదా? మీ అనుభవం మాకు ముఖ్యమే.';
+	@override String get yes => 'అవును, నాకు నచ్చుతోంది';
+	@override String get no => 'అంతగా కాదు';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} ఒకే ఒక వ్యక్తి చేత అభివృద్ధి చేయబడింది. చిన్న Play Store రేటింగ్ ఇతరులకు యాప్ కనుగొనడంలో మరియు అభివృద్ధిని కొనసాగించడంలో ఎంతగానో సహాయపడుతుంది — ఇది నిజంగా సహాయపడుతుంది. ఒక్క నిమిషం తీసుకొని రేటింగ్ ఇవ్వగలరా?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} ఒకే ఒక వ్యక్తి చేత అభివృద్ధి చేయబడింది. మీ ఫీడ్‌బ్యాక్ భవిష్యత్తులో ఏమి వచ్చేను తీర్చిదిద్దుతుంది — మేము ప్రతి సందేశాన్ని చదువుతాం. ఇమెయిల్ ద్వారా మీ అభిప్రాయాన్ని పంచుకోవాలనుకుంటున్నారా?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel} వెనుక ఎవరు ఉన్నారో తెలుసుకోవాలా? చూడండి ';
+	@override String get aboutUsLinkLabel => 'మా గురించి';
+}
+
 // Path: errors
 class _TranslationsErrorsTe implements TranslationsErrorsEn {
 	_TranslationsErrorsTe._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugTe implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'అన్ని గమనికలు రద్దు చేయబడ్డాయి.';
 	@override String get fetchingData => 'గత 7 రోజుల సమాచారం పొందడం...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'ఫీడ్‌బ్యాక్ / రేటింగ్ షీట్ చూపించండి';
+	@override String get clearUserPreferences => 'వినియోగదారు ఎంపికలు క్లియర్ చేయండి';
+	@override String get clearUserPreferencesConfirmationTitle => 'వినియోగదారు ఎంపికలు క్లియర్ చేయాలా?';
+	@override String get clearUserPreferencesConfirmationMessage => 'థీమ్, భాష మరియు ఫీడ్‌బ్యాక్ ఎంపికలు రీసెట్ చేయబడతాయి. భోజనాలు మరియు ప్రొఫైల్‌కు ఇది ప్రభావం లేదు.';
+	@override String get clearUserProfile => 'వినియోగదారు ప్రొఫైల్ క్లియర్ చేయండి';
+	@override String get clearUserProfileConfirmationTitle => 'వినియోగదారు ప్రొఫైల్ క్లియర్ చేయాలా?';
+	@override String get clearUserProfileConfirmationMessage => 'మీ ప్రొఫైల్ డేటా (దైనందిన లక్ష్యం, ఎత్తు, బరువు మొదలైనవి) తొలగించబడతాయి. భోజనాలు మరియు ఎంపికలు ప్రభావితం కావు.';
+	@override String get clear => 'క్లియర్';
+	@override String get cancel => 'రద్దు';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsTe implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'గమనికలు';
 	@override String get healthConnect => 'హెల్త్ కనెక్ట్';
+	@override String get feedback => 'ఫీడ్‌బ్యాక్';
+	@override String get dataReset => 'డేటా రీసెట్';
 	@override String get appInfo => 'యాప్ సమాచారం';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsTe {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'రోజు లక్ష్యం అంటే మీ TDEE మరియు బరువు లక్ష్యం ఆధారంగా మీకు సిఫారసు చేసిన ప్రతిరోజు కేలరీ తీసుకొనే పరిమాణం. బరువు తగ్గేందుకు, మీరు మీ TDEE కన్నా తక్కువ కేలరీలను తీసుకుంటారు. బరువు నిర్వహణకు, మీరు మీ TDEE సరిపోల్చుతారు. బరువు పెరగడం కోసం, మీరు మీ TDEE కన్నా ఎక్కువ కేలరీలు తీసుకుంటారు. ఇది మీ ఆశించిన బరువు మార్పును ఆరోగ్యకరమైన రీతిలో సాధించడంలో సహాయ పడుతుంది.',
 			'common.close' => 'క్లోజ్',
 			'common.kContinue' => 'కొనసాగించండి',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'మీకు ${appLabel} నచ్చుతున్నదా? మీ అనుభవం మాకు ముఖ్యమే.',
+			'feedbackRating.yes' => 'అవును, నాకు నచ్చుతోంది',
+			'feedbackRating.no' => 'అంతగా కాదు',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} ఒకే ఒక వ్యక్తి చేత అభివృద్ధి చేయబడింది. చిన్న Play Store రేటింగ్ ఇతరులకు యాప్ కనుగొనడంలో మరియు అభివృద్ధిని కొనసాగించడంలో ఎంతగానో సహాయపడుతుంది — ఇది నిజంగా సహాయపడుతుంది. ఒక్క నిమిషం తీసుకొని రేటింగ్ ఇవ్వగలరా?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} ఒకే ఒక వ్యక్తి చేత అభివృద్ధి చేయబడింది. మీ ఫీడ్‌బ్యాక్ భవిష్యత్తులో ఏమి వచ్చేను తీర్చిదిద్దుతుంది — మేము ప్రతి సందేశాన్ని చదువుతాం. ఇమెయిల్ ద్వారా మీ అభిప్రాయాన్ని పంచుకోవాలనుకుంటున్నారా?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel} వెనుక ఎవరు ఉన్నారో తెలుసుకోవాలా? చూడండి ',
+			'feedbackRating.aboutUsLinkLabel' => 'మా గురించి',
 			'errors.loadingProfileData' => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం',
 			'errors.somethingWentWrong' => 'ఏదో తప్పు జరిగింది.',
 			'debug.title' => 'డిబగ్ ఆప్షన్స్',
 			'debug.sections.notifications' => 'గమనికలు',
 			'debug.sections.healthConnect' => 'హెల్త్ కనెక్ట్',
+			'debug.sections.feedback' => 'ఫీడ్‌బ్యాక్',
+			'debug.sections.dataReset' => 'డేటా రీసెట్',
 			'debug.sections.appInfo' => 'యాప్ సమాచారం',
 			'debug.showActiveNotifications' => 'సకాలంలో గమనికలను చూపు',
 			'debug.scheduleTestNotification' => 'పరీక్ష గమనికను షెడ్యూల్ చేయండి (10సె)',
@@ -1987,6 +2024,15 @@ extension on TranslationsTe {
 			'debug.allNotificationsCancelled' => 'అన్ని గమనికలు రద్దు చేయబడ్డాయి.',
 			'debug.fetchingData' => 'గత 7 రోజుల సమాచారం పొందడం...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'ఫీడ్‌బ్యాక్ / రేటింగ్ షీట్ చూపించండి',
+			'debug.clearUserPreferences' => 'వినియోగదారు ఎంపికలు క్లియర్ చేయండి',
+			'debug.clearUserPreferencesConfirmationTitle' => 'వినియోగదారు ఎంపికలు క్లియర్ చేయాలా?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'థీమ్, భాష మరియు ఫీడ్‌బ్యాక్ ఎంపికలు రీసెట్ చేయబడతాయి. భోజనాలు మరియు ప్రొఫైల్‌కు ఇది ప్రభావం లేదు.',
+			'debug.clearUserProfile' => 'వినియోగదారు ప్రొఫైల్ క్లియర్ చేయండి',
+			'debug.clearUserProfileConfirmationTitle' => 'వినియోగదారు ప్రొఫైల్ క్లియర్ చేయాలా?',
+			'debug.clearUserProfileConfirmationMessage' => 'మీ ప్రొఫైల్ డేటా (దైనందిన లక్ష్యం, ఎత్తు, బరువు మొదలైనవి) తొలగించబడతాయి. భోజనాలు మరియు ఎంపికలు ప్రభావితం కావు.',
+			'debug.clear' => 'క్లియర్',
+			'debug.cancel' => 'రద్దు',
 			'health.syncFailed' => 'హెల్త్ కనెక్ట్ కు సింక్ చేయడంలో విఫలమైంది',
 			'health.mealSynced' => 'భోజనం హెల్త్ కనెక్ట్ తో సింక్ చేయబడింది',
 			_ => null,

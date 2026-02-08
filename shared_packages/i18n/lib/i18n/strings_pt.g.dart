@@ -55,6 +55,7 @@ class TranslationsPt with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginPt login = _TranslationsLoginPt._(_root);
 	@override late final _TranslationsDisclaimerPt disclaimer = _TranslationsDisclaimerPt._(_root);
 	@override late final _TranslationsCommonPt common = _TranslationsCommonPt._(_root);
+	@override late final _TranslationsFeedbackRatingPt feedbackRating = _TranslationsFeedbackRatingPt._(_root);
 	@override late final _TranslationsErrorsPt errors = _TranslationsErrorsPt._(_root);
 	@override late final _TranslationsDebugPt debug = _TranslationsDebugPt._(_root);
 	@override late final _TranslationsHealthPt health = _TranslationsHealthPt._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonPt implements TranslationsCommonEn {
 	@override String get kContinue => 'Continuar';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingPt implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingPt._(this._root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Está gostando do ${appLabel}? Sua experiência importa para nós.';
+	@override String get yes => 'Sim, estou gostando.';
+	@override String get no => 'Na verdade, não.';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} foi criado por uma pessoa. Uma avaliação rápida na Play Store ajuda outras pessoas a encontrar o app e mantém o desenvolvimento em andamento — realmente faz diferença. Você poderia deixar uma avaliação?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} foi criado por uma pessoa. Seu feedback realmente molda o que vem a seguir — e nós lemos cada mensagem. Gostaria de compartilhar suas opiniões por e-mail?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Curioso para saber quem está por trás do ${appLabel}? Veja ';
+	@override String get aboutUsLinkLabel => 'Sobre nós';
+}
+
 // Path: errors
 class _TranslationsErrorsPt implements TranslationsErrorsEn {
 	_TranslationsErrorsPt._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugPt implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Todas as notificações canceladas.';
 	@override String get fetchingData => 'Buscando dados dos últimos 7 dias...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Mostrar painel de feedback/avaliação';
+	@override String get clearUserPreferences => 'Limpar preferências do usuário';
+	@override String get clearUserPreferencesConfirmationTitle => 'Limpar preferências do usuário?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Tema, idioma e preferências de feedback serão redefinidos. Refeições e perfil não serão afetados.';
+	@override String get clearUserProfile => 'Limpar perfil do usuário';
+	@override String get clearUserProfileConfirmationTitle => 'Limpar perfil do usuário?';
+	@override String get clearUserProfileConfirmationMessage => 'Os dados do seu perfil (meta diária, altura, peso, etc.) serão apagados. Refeições e preferências não serão afetadas.';
+	@override String get clear => 'Limpar';
+	@override String get cancel => 'Cancelar';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsPt implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Notificações';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Feedback';
+	@override String get dataReset => 'Redefinir dados';
 	@override String get appInfo => 'Informações do Aplicativo';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsPt {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'A Meta Diária é sua ingestão calórica recomendada com base no seu TDEE e meta de peso. Para perda de peso, você consome menos calorias do que seu TDEE. Para manutenção do peso, você iguala seu TDEE. Para ganho de peso, você consome mais calorias do que seu TDEE. Isso ajuda você a alcançar a mudança de peso desejada de maneira saudável.',
 			'common.close' => 'Fechar',
 			'common.kContinue' => 'Continuar',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Está gostando do ${appLabel}? Sua experiência importa para nós.',
+			'feedbackRating.yes' => 'Sim, estou gostando.',
+			'feedbackRating.no' => 'Na verdade, não.',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} foi criado por uma pessoa. Uma avaliação rápida na Play Store ajuda outras pessoas a encontrar o app e mantém o desenvolvimento em andamento — realmente faz diferença. Você poderia deixar uma avaliação?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} foi criado por uma pessoa. Seu feedback realmente molda o que vem a seguir — e nós lemos cada mensagem. Gostaria de compartilhar suas opiniões por e-mail?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Curioso para saber quem está por trás do ${appLabel}? Veja ',
+			'feedbackRating.aboutUsLinkLabel' => 'Sobre nós',
 			'errors.loadingProfileData' => 'Erro ao carregar dados do perfil',
 			'errors.somethingWentWrong' => 'Algo deu errado.',
 			'debug.title' => 'Opções de Depuração',
 			'debug.sections.notifications' => 'Notificações',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Feedback',
+			'debug.sections.dataReset' => 'Redefinir dados',
 			'debug.sections.appInfo' => 'Informações do Aplicativo',
 			'debug.showActiveNotifications' => 'Mostrar Notificações Ativas',
 			'debug.scheduleTestNotification' => 'Agendar Notificação de Teste (10s)',
@@ -1987,6 +2024,15 @@ extension on TranslationsPt {
 			'debug.allNotificationsCancelled' => 'Todas as notificações canceladas.',
 			'debug.fetchingData' => 'Buscando dados dos últimos 7 dias...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Mostrar painel de feedback/avaliação',
+			'debug.clearUserPreferences' => 'Limpar preferências do usuário',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Limpar preferências do usuário?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Tema, idioma e preferências de feedback serão redefinidos. Refeições e perfil não serão afetados.',
+			'debug.clearUserProfile' => 'Limpar perfil do usuário',
+			'debug.clearUserProfileConfirmationTitle' => 'Limpar perfil do usuário?',
+			'debug.clearUserProfileConfirmationMessage' => 'Os dados do seu perfil (meta diária, altura, peso, etc.) serão apagados. Refeições e preferências não serão afetadas.',
+			'debug.clear' => 'Limpar',
+			'debug.cancel' => 'Cancelar',
 			'health.syncFailed' => 'Não foi possível sincronizar com o Health Connect',
 			'health.mealSynced' => 'Refeição sincronizada com o Health Connect',
 			_ => null,

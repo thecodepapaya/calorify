@@ -596,6 +596,15 @@
     "close": "Lukk",
     "continue": "Fortsett"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Liker du {appLabel}? Din opplevelse betyr mye for oss.",
+    "yes": "Ja, jeg liker den",
+    "no": "Ikke helt",
+    "soloDevMessage": "{appLabel} er laget av én person. En rask vurdering i Play Store gjør det lettere for andre å finne appen og holder utviklingen i gang — det hjelper virkelig. Vil du ta et øyeblikk til å legge igjen en vurdering?",
+    "shareFeedbackViaEmail": "{appLabel} er laget av én person. Tilbakemeldingene dine former hva som kommer videre — jeg leser hver melding. Vil du dele tankene dine via e-post?",
+    "aboutUsMentionBeforeLink": "Nysgjerrig på hvem som står bak {appLabel}? Se ",
+    "aboutUsLinkLabel": "Om oss"
+  },
   "errors": {
     "loadingProfileData": "Feil ved lasting av profildata",
     "somethingWentWrong": "Noe gikk galt."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Varsler",
       "healthConnect": "Health Connect",
+      "feedback": "Tilbakemelding",
+      "dataReset": "Nullstill data",
       "appInfo": "App Informasjon"
     },
     "showActiveNotifications": "Vis Aktive Varsler",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Frokostvarsel utløst.",
     "allNotificationsCancelled": "Alle varsler avbrutt.",
     "fetchingData": "Henter data for de siste 7 dagene...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Vis tilbakemeldings- og vurderingsskjema",
+    "clearUserPreferences": "Nullstill brukerinnstillinger",
+    "clearUserPreferencesConfirmationTitle": "Nullstill brukerinnstillinger?",
+    "clearUserPreferencesConfirmationMessage": "Tema, språk og tilbakemeldingsinnstillinger vil bli tilbakestilt. Måltider og profil påvirkes ikke.",
+    "clearUserProfile": "Nullstill brukerprofil",
+    "clearUserProfileConfirmationTitle": "Nullstill brukerprofil?",
+    "clearUserProfileConfirmationMessage": "Profildataene dine (daglig mål, høyde, vekt osv.) vil bli slettet. Måltider og innstillinger påvirkes ikke.",
+    "clear": "Nullstill",
+    "cancel": "Avbryt"
   },
   "health": {
     "syncFailed": "Kunne ikke synkronisere med Health Connect",

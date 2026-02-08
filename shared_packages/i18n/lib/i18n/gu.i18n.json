@@ -596,6 +596,15 @@
     "close": "બંદ કરો",
     "continue": "આગળ વધો"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "શું તમને {appLabel} ગમતું છે? આપનો અનુભવ અમારાં માટે મહત્વનો છે.",
+    "yes": "હા, મને ગમતું છે",
+    "no": "ખરેખર નહીં",
+    "soloDevMessage": "{appLabel} એક વ્યક્તિ દ્વારા બનાવવામાં આવ્યું છે. પ્લે સ્ટોર પર небольшો રેટિંગ અન્ય લોકોને તેને શોધવામાં અને વિકાસ ચાલુ રાખવામાં મદદ કરે છે — ખરેખર ઘણી મદદ થાય છે. શું તમે એક ક્ષણ કાઢી રેટિંગ આપી શકો?",
+    "shareFeedbackViaEmail": "{appLabel} એક વ્યક્તિ દ્વારા બનાવાયું છે. તમારું પ્રતિસાદ આગળ શું આવશે તે નિર્ધારિત કરે છે — અને અમે દરેક સંદેશો વાંચીએ છીએ. શું તમે ઇમેઇલ દ્વારા તમારા વિચારો શેર કરશો?",
+    "aboutUsMentionBeforeLink": "{appLabel} પાછળ કોણ છે તે જાણવા ઇચ્છો છો? જુઓ ",
+    "aboutUsLinkLabel": "અમારા વિશે"
+  },
   "errors": {
     "loadingProfileData": "પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ",
     "somethingWentWrong": "કોઈ મુશ્કેલી પડી."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "યાદદહન",
       "healthConnect": "HEALTH CONNECT",
+      "feedback": "પ્રતિસાદ",
+      "dataReset": "ડેટા રીસેટ",
       "appInfo": "એપ માહિતી"
     },
     "showActiveNotifications": "સક્રિય યાદદહનો દેખાડો",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "નાસ્તાનો યાદદહન ચાલુ થતું.",
     "allNotificationsCancelled": "બધા યાદદહન રદ કરવામાં આવ્યા છે.",
     "fetchingData": "આખી 7 દિવસ માટે ડેટા મેળવવામાં ...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "પ્રતિસાદ / રેટિંગ શીટ બતાવો",
+    "clearUserPreferences": "વપરાશકર્તાની પસંદગીઓ રીસેટ કરો",
+    "clearUserPreferencesConfirmationTitle": "વપરાશકર્તાની પસંદગીઓ રીસેટ કરવી?",
+    "clearUserPreferencesConfirmationMessage": "થીમ, ભાષા અને પ્રતિસાદની પસંદગીઓ રીસેટ કરવામાં આવશે. ભોજન અને પ્રોફાઇલ પર અસર નહીં થાય.",
+    "clearUserProfile": "વપરાશકર્તાની પ્રોફાઇલ રીસેટ કરો",
+    "clearUserProfileConfirmationTitle": "વપરાશકર્તાની પ્રોફાઇલ રીસેટ કરવી?",
+    "clearUserProfileConfirmationMessage": "તમારા પ્રોફાઇલનો ડેટા (દરરોજનું લક્ષ્ય, ઊંચાઈ, વજન, વગેરે) મિટાવવામાં આવશે. ભોજન અને પસંદગીઓ પર અસર નહીં થાય.",
+    "clear": "મિટાવો",
+    "cancel": "રદ કરો"
   },
   "health": {
     "syncFailed": "હેલ્થ કનેક્ટ સાથે સમન્વય શુધ્ધબૂક કર્યો નથી",

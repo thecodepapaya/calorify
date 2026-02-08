@@ -596,6 +596,15 @@
     "close": "關閉",
     "continue": "繼續"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "喜歡使用 {appLabel} 嗎？我們很重視您的使用體驗。",
+    "yes": "是的，我很喜歡",
+    "no": "不是很滿意",
+    "soloDevMessage": "{appLabel} 由一人開發。快速在 Play 商店留下評分能幫助更多人發現它，也能持續支持開發 — 真的很有幫助。您願意花一點時間留下評分嗎？",
+    "shareFeedbackViaEmail": "{appLabel} 由一人開發。您的回饋會決定下一步的方向 — 我們會閱讀每一封訊息。您想透過電子郵件分享想法嗎？",
+    "aboutUsMentionBeforeLink": "想知道是誰在打造 {appLabel} 嗎？請參閱 ",
+    "aboutUsLinkLabel": "關於我們"
+  },
   "errors": {
     "loadingProfileData": "載入個人資料數據出錯",
     "somethingWentWrong": "發生了錯誤。"
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "通知",
       "healthConnect": "Health Connect",
+      "feedback": "回饋",
+      "dataReset": "重設資料",
       "appInfo": "應用信息"
     },
     "showActiveNotifications": "顯示活動通知",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "已觸發早餐通知。",
     "allNotificationsCancelled": "已取消所有通知。",
     "fetchingData": "正在獲取過去 7 天的數據...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "顯示回饋／評分視窗",
+    "clearUserPreferences": "清除使用者偏好設定",
+    "clearUserPreferencesConfirmationTitle": "清除使用者偏好設定？",
+    "clearUserPreferencesConfirmationMessage": "主題、語言與回饋偏好將會被重置。餐點與個人資料不會受到影響。",
+    "clearUserProfile": "清除使用者個人資料",
+    "clearUserProfileConfirmationTitle": "清除使用者個人資料？",
+    "clearUserProfileConfirmationMessage": "您的個人資料（每日目標、身高、體重等）將會被清除。餐點與偏好設定不會受到影響。",
+    "clear": "清除",
+    "cancel": "取消"
   },
   "health": {
     "syncFailed": "無法同步到 Health Connect",

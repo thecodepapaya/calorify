@@ -596,6 +596,15 @@
     "close": "Chiudi",
     "continue": "Continua"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Ti sta piacendo {appLabel}? La tua esperienza è importante per noi.",
+    "yes": "Sì, mi piace",
+    "no": "No, non proprio",
+    "soloDevMessage": "{appLabel} è stato sviluppato da una sola persona. Una rapida valutazione sul Play Store aiuta gli altri a trovarlo e sostiene lo sviluppo — fa davvero la differenza. Ti va di dedicare un momento per lasciare una valutazione?",
+    "shareFeedbackViaEmail": "{appLabel} è stato sviluppato da una sola persona. Il tuo feedback influenza davvero ciò che verrà — leggiamo ogni messaggio. Vuoi condividere i tuoi pensieri via email?",
+    "aboutUsMentionBeforeLink": "Vuoi sapere chi c'è dietro {appLabel}? ",
+    "aboutUsLinkLabel": "Chi siamo"
+  },
   "errors": {
     "loadingProfileData": "Errore nel caricamento dei dati del profilo",
     "somethingWentWrong": "Qualcosa è andato storto."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Notifiche",
       "healthConnect": "Health Connect",
+      "feedback": "Feedback",
+      "dataReset": "Ripristino dati",
       "appInfo": "Informazioni sull'App"
     },
     "showActiveNotifications": "Mostra Notifiche Attive",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Notifica di colazione attivata.",
     "allNotificationsCancelled": "Tutte le notifiche annullate.",
     "fetchingData": "Recupero dati per gli ultimi 7 giorni...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Mostra scheda feedback/valutazione",
+    "clearUserPreferences": "Cancella preferenze utente",
+    "clearUserPreferencesConfirmationTitle": "Cancellare le preferenze utente?",
+    "clearUserPreferencesConfirmationMessage": "Tema, lingua e preferenze di feedback verranno ripristinati. Pasti e profilo non saranno interessati.",
+    "clearUserProfile": "Cancella profilo utente",
+    "clearUserProfileConfirmationTitle": "Cancellare il profilo utente?",
+    "clearUserProfileConfirmationMessage": "I dati del tuo profilo (obiettivo giornaliero, altezza, peso, ecc.) verranno cancellati. Pasti e preferenze non saranno interessati.",
+    "clear": "Cancella",
+    "cancel": "Annulla"
   },
   "health": {
     "syncFailed": "Impossibile sincronizzare con Health Connect",

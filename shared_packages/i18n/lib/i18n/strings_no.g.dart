@@ -55,6 +55,7 @@ class TranslationsNo with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginNo login = _TranslationsLoginNo._(_root);
 	@override late final _TranslationsDisclaimerNo disclaimer = _TranslationsDisclaimerNo._(_root);
 	@override late final _TranslationsCommonNo common = _TranslationsCommonNo._(_root);
+	@override late final _TranslationsFeedbackRatingNo feedbackRating = _TranslationsFeedbackRatingNo._(_root);
 	@override late final _TranslationsErrorsNo errors = _TranslationsErrorsNo._(_root);
 	@override late final _TranslationsDebugNo debug = _TranslationsDebugNo._(_root);
 	@override late final _TranslationsHealthNo health = _TranslationsHealthNo._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonNo implements TranslationsCommonEn {
 	@override String get kContinue => 'Fortsett';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingNo implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingNo._(this._root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Liker du ${appLabel}? Din opplevelse betyr mye for oss.';
+	@override String get yes => 'Ja, jeg liker den';
+	@override String get no => 'Ikke helt';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} er laget av én person. En rask vurdering i Play Store gjør det lettere for andre å finne appen og holder utviklingen i gang — det hjelper virkelig. Vil du ta et øyeblikk til å legge igjen en vurdering?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} er laget av én person. Tilbakemeldingene dine former hva som kommer videre — jeg leser hver melding. Vil du dele tankene dine via e-post?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nysgjerrig på hvem som står bak ${appLabel}? Se ';
+	@override String get aboutUsLinkLabel => 'Om oss';
+}
+
 // Path: errors
 class _TranslationsErrorsNo implements TranslationsErrorsEn {
 	_TranslationsErrorsNo._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugNo implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Alle varsler avbrutt.';
 	@override String get fetchingData => 'Henter data for de siste 7 dagene...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Vis tilbakemeldings- og vurderingsskjema';
+	@override String get clearUserPreferences => 'Nullstill brukerinnstillinger';
+	@override String get clearUserPreferencesConfirmationTitle => 'Nullstill brukerinnstillinger?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Tema, språk og tilbakemeldingsinnstillinger vil bli tilbakestilt. Måltider og profil påvirkes ikke.';
+	@override String get clearUserProfile => 'Nullstill brukerprofil';
+	@override String get clearUserProfileConfirmationTitle => 'Nullstill brukerprofil?';
+	@override String get clearUserProfileConfirmationMessage => 'Profildataene dine (daglig mål, høyde, vekt osv.) vil bli slettet. Måltider og innstillinger påvirkes ikke.';
+	@override String get clear => 'Nullstill';
+	@override String get cancel => 'Avbryt';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsNo implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Varsler';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Tilbakemelding';
+	@override String get dataReset => 'Nullstill data';
 	@override String get appInfo => 'App Informasjon';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsNo {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Daglig Mål er ditt anbefalte daglige kaloriinntak basert på TDEE og vektmål. For vekttap konsumerer du færre kalorier enn TDEE. For vektvedlikehold matcher du TDEE. For vektøkning konsumerer du flere kalorier enn TDEE. Dette hjelper deg med å oppnå ønsket vektendring i en sunn hastighet.',
 			'common.close' => 'Lukk',
 			'common.kContinue' => 'Fortsett',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Liker du ${appLabel}? Din opplevelse betyr mye for oss.',
+			'feedbackRating.yes' => 'Ja, jeg liker den',
+			'feedbackRating.no' => 'Ikke helt',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} er laget av én person. En rask vurdering i Play Store gjør det lettere for andre å finne appen og holder utviklingen i gang — det hjelper virkelig. Vil du ta et øyeblikk til å legge igjen en vurdering?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} er laget av én person. Tilbakemeldingene dine former hva som kommer videre — jeg leser hver melding. Vil du dele tankene dine via e-post?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nysgjerrig på hvem som står bak ${appLabel}? Se ',
+			'feedbackRating.aboutUsLinkLabel' => 'Om oss',
 			'errors.loadingProfileData' => 'Feil ved lasting av profildata',
 			'errors.somethingWentWrong' => 'Noe gikk galt.',
 			'debug.title' => 'Feilsøkingsalternativer',
 			'debug.sections.notifications' => 'Varsler',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Tilbakemelding',
+			'debug.sections.dataReset' => 'Nullstill data',
 			'debug.sections.appInfo' => 'App Informasjon',
 			'debug.showActiveNotifications' => 'Vis Aktive Varsler',
 			'debug.scheduleTestNotification' => 'Planlegg Testvarsel (10s)',
@@ -1987,6 +2024,15 @@ extension on TranslationsNo {
 			'debug.allNotificationsCancelled' => 'Alle varsler avbrutt.',
 			'debug.fetchingData' => 'Henter data for de siste 7 dagene...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Vis tilbakemeldings- og vurderingsskjema',
+			'debug.clearUserPreferences' => 'Nullstill brukerinnstillinger',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Nullstill brukerinnstillinger?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Tema, språk og tilbakemeldingsinnstillinger vil bli tilbakestilt. Måltider og profil påvirkes ikke.',
+			'debug.clearUserProfile' => 'Nullstill brukerprofil',
+			'debug.clearUserProfileConfirmationTitle' => 'Nullstill brukerprofil?',
+			'debug.clearUserProfileConfirmationMessage' => 'Profildataene dine (daglig mål, høyde, vekt osv.) vil bli slettet. Måltider og innstillinger påvirkes ikke.',
+			'debug.clear' => 'Nullstill',
+			'debug.cancel' => 'Avbryt',
 			'health.syncFailed' => 'Kunne ikke synkronisere med Health Connect',
 			'health.mealSynced' => 'Måltid synkronisert med Health Connect',
 			_ => null,

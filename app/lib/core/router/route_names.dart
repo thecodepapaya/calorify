@@ -10,6 +10,7 @@ class RouteNames {
   static const String healthScoreSheet = '/health_score_sheet';
   static const String languagePickerSheet = '/language_picker_sheet';
   static const String editMealSheet = '/edit_meal_sheet';
+  static const String feedbackRatingSheet = '/feedback_rating_sheet';
 
   // Dialogs
   static const String deleteMealConfirmationDialog =

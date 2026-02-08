@@ -596,6 +596,15 @@
     "close": "Sluiten",
     "continue": "Doorgaan"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Bevalt {appLabel} je? Jouw ervaring is belangrijk voor ons.",
+    "yes": "Ja, het bevalt me",
+    "no": "Niet echt",
+    "soloDevMessage": "{appLabel} is door één persoon gemaakt. Een korte beoordeling in de Play Store helpt anderen het te vinden en houdt de ontwikkeling gaande — het helpt echt. Zou je even de tijd willen nemen om er een achter te laten?",
+    "shareFeedbackViaEmail": "{appLabel} is door één persoon gemaakt. Jouw feedback bepaalt wat er daarna komt — en we lezen elk bericht. Wil je je feedback per e-mail delen?",
+    "aboutUsMentionBeforeLink": "Nieuwsgierig wie er achter {appLabel} zit? Zie ",
+    "aboutUsLinkLabel": "Over ons"
+  },
   "errors": {
     "loadingProfileData": "Fout bij het laden van profielgegevens",
     "somethingWentWrong": "Er is iets misgegaan."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Meldingen",
       "healthConnect": "Health Connect",
+      "feedback": "Feedback",
+      "dataReset": "Gegevens resetten",
       "appInfo": "App Informatie"
     },
     "showActiveNotifications": "Toon Actieve Meldingen",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Ontbijtmelding geactiveerd.",
     "allNotificationsCancelled": "Alle meldingen geannuleerd.",
     "fetchingData": "Gegevens ophalen voor de afgelopen 7 dagen...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Feedback-/beoordelingsscherm weergeven",
+    "clearUserPreferences": "Gebruikersvoorkeuren wissen",
+    "clearUserPreferencesConfirmationTitle": "Gebruikersvoorkeuren wissen?",
+    "clearUserPreferencesConfirmationMessage": "Thema, taal en feedbackvoorkeuren worden gereset. Maaltijden en profiel blijven onaangetast.",
+    "clearUserProfile": "Gebruikersprofiel wissen",
+    "clearUserProfileConfirmationTitle": "Gebruikersprofiel wissen?",
+    "clearUserProfileConfirmationMessage": "Je profielgegevens (dagelijks doel, lengte, gewicht, etc.) worden gewist. Maaltijden en voorkeuren blijven ongewijzigd.",
+    "clear": "Wissen",
+    "cancel": "Annuleren"
   },
   "health": {
     "syncFailed": "Kon niet synchroniseren met Health Connect",

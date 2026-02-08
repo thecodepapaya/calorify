@@ -596,6 +596,15 @@
     "close": "Κλείσιμο",
     "continue": "Συνέχεια"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Απολαμβάνεις το {appLabel}? Η εμπειρία σου έχει σημασία για εμάς.",
+    "yes": "Ναι, το απολαμβάνω",
+    "no": "Όχι και τόσο",
+    "soloDevMessage": "{appLabel} έχει δημιουργηθεί από ένα άτομο. Μία γρήγορη αξιολόγηση στο Play Store βοηθά άλλους να το βρουν και στηρίζει την ανάπτυξη — πραγματικά βοηθάει. Θα αφιερώσεις ένα λεπτό για να αφήσεις μία αξιολόγηση?",
+    "shareFeedbackViaEmail": "{appLabel} έχει δημιουργηθεί από ένα άτομο. Τα σχόλιά σου διαμορφώνουν πραγματικά το τι θα ακολουθήσει — και διαβάζουμε κάθε μήνυμα. Θα ήθελες να μοιραστείς τις σκέψεις σου μέσω email?",
+    "aboutUsMentionBeforeLink": "Σε ενδιαφέρει ποιος βρίσκεται πίσω από το {appLabel}? Δες ",
+    "aboutUsLinkLabel": "Σχετικά με εμάς"
+  },
   "errors": {
     "loadingProfileData": "Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ",
     "somethingWentWrong": "Κάτι πήγε στραβά."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Ειδοποιήσεις",
       "healthConnect": "Health Connect",
+      "feedback": "Ανατροφοδότηση",
+      "dataReset": "Επαναφορά δεδομένων",
       "appInfo": "Πληροφορίες Εφαρμογής"
     },
     "showActiveNotifications": "Δείξε τις Ενεργές Ειδοποιήσεις",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Η ειδοποίηση πρωινού ενεργοποιήθηκε.",
     "allNotificationsCancelled": "Όλες οι ειδοποιήσεις ακυρώθηκαν.",
     "fetchingData": "Εξαγωγή δεδομένων για τις τελευταίες 7 ημέρες...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Εμφάνιση φόρμας σχολίων/αξιολόγησης",
+    "clearUserPreferences": "Επαναφορά προτιμήσεων χρήστη",
+    "clearUserPreferencesConfirmationTitle": "Επαναφορά προτιμήσεων χρήστη?",
+    "clearUserPreferencesConfirmationMessage": "Οι ρυθμίσεις θέματος, γλώσσας και οι προτιμήσεις ανατροφοδότησης θα επαναφερθούν. Τα γεύματα και το προφίλ δεν επηρεάζονται.",
+    "clearUserProfile": "Διαγραφή προφίλ χρήστη",
+    "clearUserProfileConfirmationTitle": "Διαγραφή προφίλ χρήστη?",
+    "clearUserProfileConfirmationMessage": "Τα δεδομένα του προφίλ σου (ημερήσιος στόχος, ύψος, βάρος κ.λπ.) θα διαγραφούν. Τα γεύματα και οι προτιμήσεις δεν επηρεάζονται.",
+    "clear": "Διαγραφή",
+    "cancel": "Ακύρωση"
   },
   "health": {
     "syncFailed": "Δεν μπόρεσα να συγχρονίσω με το Health Connect",

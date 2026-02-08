@@ -596,6 +596,15 @@
     "close": "閉じる",
     "continue": "続ける"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "{appLabel} を気に入っていますか？ご利用の感想は私たちにとって大切です。",
+    "yes": "はい、気に入っています",
+    "no": "あまり良くありません",
+    "soloDevMessage": "{appLabel} はひとりで開発されています。Play ストアでの簡単な評価は他の人が見つけやすくなり、開発の継続にもつながります — 本当に助かります。評価をしていただけますか？",
+    "shareFeedbackViaEmail": "{appLabel} はひとりで開発されています。皆さんのフィードバックが今後の改善に直結します — すべてのメッセージを拝見しています。メールでご意見を共有しますか？",
+    "aboutUsMentionBeforeLink": "{appLabel} の開発者について知りたいですか？こちらをご覧ください ",
+    "aboutUsLinkLabel": "私たちについて"
+  },
   "errors": {
     "loadingProfileData": "プロフィールデータの読み込みエラー",
     "somethingWentWrong": "何かがうまくいきませんでした。"
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "通知",
       "healthConnect": "Health Connect",
+      "feedback": "フィードバック",
+      "dataReset": "データのリセット",
       "appInfo": "アプリ情報"
     },
     "showActiveNotifications": "アクティブな通知を表示",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "朝食通知がトリガーされました。",
     "allNotificationsCancelled": "すべての通知がキャンセルされました。",
     "fetchingData": "過去7日間のデータを取得しています...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "フィードバック／評価シートを表示",
+    "clearUserPreferences": "ユーザー設定をクリア",
+    "clearUserPreferencesConfirmationTitle": "ユーザー設定をクリアしますか？",
+    "clearUserPreferencesConfirmationMessage": "テーマ、言語、フィードバック設定がリセットされます。食事データやプロフィールには影響しません。",
+    "clearUserProfile": "ユーザープロフィールをクリア",
+    "clearUserProfileConfirmationTitle": "ユーザープロフィールをクリアしますか？",
+    "clearUserProfileConfirmationMessage": "日々の目標、身長、体重などのプロフィールデータが削除されます。食事データや設定には影響しません。",
+    "clear": "クリア",
+    "cancel": "キャンセル"
   },
   "health": {
     "syncFailed": "Health Connectへの同期に失敗しました。",

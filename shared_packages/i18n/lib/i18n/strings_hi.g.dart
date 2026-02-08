@@ -55,6 +55,7 @@ class TranslationsHi with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginHi login = _TranslationsLoginHi._(_root);
 	@override late final _TranslationsDisclaimerHi disclaimer = _TranslationsDisclaimerHi._(_root);
 	@override late final _TranslationsCommonHi common = _TranslationsCommonHi._(_root);
+	@override late final _TranslationsFeedbackRatingHi feedbackRating = _TranslationsFeedbackRatingHi._(_root);
 	@override late final _TranslationsErrorsHi errors = _TranslationsErrorsHi._(_root);
 	@override late final _TranslationsDebugHi debug = _TranslationsDebugHi._(_root);
 	@override late final _TranslationsHealthHi health = _TranslationsHealthHi._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonHi implements TranslationsCommonEn {
 	@override String get kContinue => 'जारी रखें';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingHi implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingHi._(this._root);
+
+	final TranslationsHi _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'क्या आप ${appLabel} का आनंद ले रहे हैं? आपका अनुभव हमारे लिए महत्वपूर्ण है।';
+	@override String get yes => 'हाँ, मुझे यह पसंद आ रहा है';
+	@override String get no => 'ज़्यादा नहीं';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} एक व्यक्ति द्वारा विकसित किया गया है। एक छोटी सी Play Store रेटिंग दूसरों को इसे खोजने में मदद करती है और विकास जारी रखने में सहायक होती है — यह वास्तव में मदद करता है। क्या आप एक मिनट लेकर रेटिंग छोड़ सकते हैं?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} एक व्यक्ति द्वारा बनाया गया है। आपकी प्रतिक्रिया वाकई यह तय करती है कि आगे क्या आएगा — और हम हर संदेश पढ़ते हैं। क्या आप ईमेल के जरिए अपनी राय साझा करना चाहेंगे?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'जानना चाहेंगे कि ${appLabel} के पीछे कौन है? देखें ';
+	@override String get aboutUsLinkLabel => 'हमारे बारे में';
+}
+
 // Path: errors
 class _TranslationsErrorsHi implements TranslationsErrorsEn {
 	_TranslationsErrorsHi._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugHi implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'सभी सूचनाएँ रद्द कर दी गई हैं।';
 	@override String get fetchingData => 'पिछले 7 दिनों के लिए डेटा प्राप्त कर रहे हैं...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'प्रतिक्रिया / रेटिंग शीट दिखाएँ';
+	@override String get clearUserPreferences => 'उपयोगकर्ता प्राथमिकताएँ साफ़ करें';
+	@override String get clearUserPreferencesConfirmationTitle => 'उपयोगकर्ता प्राथमिकताएँ साफ़ करें?';
+	@override String get clearUserPreferencesConfirmationMessage => 'थीम, भाषा और फीडबैक की प्राथमिकताएँ रीसेट हो जाएँगी। भोजन और प्रोफ़ाइल प्रभावित नहीं होंगे।';
+	@override String get clearUserProfile => 'उपयोगकर्ता प्रोफ़ाइल साफ़ करें';
+	@override String get clearUserProfileConfirmationTitle => 'उपयोगकर्ता प्रोफ़ाइल साफ़ करें?';
+	@override String get clearUserProfileConfirmationMessage => 'आपके प्रोफ़ाइल डेटा (दैनिक लक्ष्य, ऊँचाई, वजन, आदि) मिटा दिए जाएंगे। भोजन और प्राथमिकताएँ प्रभावित नहीं होंगी।';
+	@override String get clear => 'साफ़ करें';
+	@override String get cancel => 'रद्द करें';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsHi implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'सूचनाएँ';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'प्रतिक्रिया';
+	@override String get dataReset => 'डेटा रीसेट';
 	@override String get appInfo => 'ऐप जानकारी';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsHi {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'दैनिक लक्ष्य आपके टीडीईई और वजन लक्ष्य के आधार पर आपकी अनुशंसित दैनिक कैलोरी की मात्रा है। वजन घटाने के लिए, आप अपने टीडीईई से कम कैलोरी का सेवन करते हैं। वजन बनाए रखने के लिए, आप अपने टीडीईई के बराबर खाते हैं। वजन बढ़ाने के लिए, आप अपने टीडीईई से अधिक कैलोरी का सेवन करते हैं। यह आपको एक स्वस्थ गति से आपके इच्छित वजन परिवर्तन को प्राप्त करने में मदद करता है।',
 			'common.close' => 'बंद करें',
 			'common.kContinue' => 'जारी रखें',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'क्या आप ${appLabel} का आनंद ले रहे हैं? आपका अनुभव हमारे लिए महत्वपूर्ण है।',
+			'feedbackRating.yes' => 'हाँ, मुझे यह पसंद आ रहा है',
+			'feedbackRating.no' => 'ज़्यादा नहीं',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} एक व्यक्ति द्वारा विकसित किया गया है। एक छोटी सी Play Store रेटिंग दूसरों को इसे खोजने में मदद करती है और विकास जारी रखने में सहायक होती है — यह वास्तव में मदद करता है। क्या आप एक मिनट लेकर रेटिंग छोड़ सकते हैं?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} एक व्यक्ति द्वारा बनाया गया है। आपकी प्रतिक्रिया वाकई यह तय करती है कि आगे क्या आएगा — और हम हर संदेश पढ़ते हैं। क्या आप ईमेल के जरिए अपनी राय साझा करना चाहेंगे?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'जानना चाहेंगे कि ${appLabel} के पीछे कौन है? देखें ',
+			'feedbackRating.aboutUsLinkLabel' => 'हमारे बारे में',
 			'errors.loadingProfileData' => 'प्रोफ़ाइल डेटा लोड करने में त्रुटि',
 			'errors.somethingWentWrong' => 'कुछ गलत हुआ।',
 			'debug.title' => 'डिबग विकल्प',
 			'debug.sections.notifications' => 'सूचनाएँ',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'प्रतिक्रिया',
+			'debug.sections.dataReset' => 'डेटा रीसेट',
 			'debug.sections.appInfo' => 'ऐप जानकारी',
 			'debug.showActiveNotifications' => 'सक्रिय सूचनाएँ दिखाएँ',
 			'debug.scheduleTestNotification' => 'परीक्षण सूचना निर्धारित करें (10 सेकंड)',
@@ -1987,6 +2024,15 @@ extension on TranslationsHi {
 			'debug.allNotificationsCancelled' => 'सभी सूचनाएँ रद्द कर दी गई हैं।',
 			'debug.fetchingData' => 'पिछले 7 दिनों के लिए डेटा प्राप्त कर रहे हैं...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'प्रतिक्रिया / रेटिंग शीट दिखाएँ',
+			'debug.clearUserPreferences' => 'उपयोगकर्ता प्राथमिकताएँ साफ़ करें',
+			'debug.clearUserPreferencesConfirmationTitle' => 'उपयोगकर्ता प्राथमिकताएँ साफ़ करें?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'थीम, भाषा और फीडबैक की प्राथमिकताएँ रीसेट हो जाएँगी। भोजन और प्रोफ़ाइल प्रभावित नहीं होंगे।',
+			'debug.clearUserProfile' => 'उपयोगकर्ता प्रोफ़ाइल साफ़ करें',
+			'debug.clearUserProfileConfirmationTitle' => 'उपयोगकर्ता प्रोफ़ाइल साफ़ करें?',
+			'debug.clearUserProfileConfirmationMessage' => 'आपके प्रोफ़ाइल डेटा (दैनिक लक्ष्य, ऊँचाई, वजन, आदि) मिटा दिए जाएंगे। भोजन और प्राथमिकताएँ प्रभावित नहीं होंगी।',
+			'debug.clear' => 'साफ़ करें',
+			'debug.cancel' => 'रद्द करें',
 			'health.syncFailed' => 'Health Connect से सिंक नहीं हो पाया',
 			'health.mealSynced' => 'भोजन Health Connect के साथ सिंक किया गया',
 			_ => null,

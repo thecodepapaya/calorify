@@ -19,6 +19,7 @@ class MockDatabaseAdapter implements DatabaseInterface {
   UserProfile? _userProfile;
   ThemeMode _themeMode = ThemeMode.system;
   String? _languageCode;
+  bool _feedbackSheetShown = false;
 
   final StreamController<int?> _goalController =
       StreamController<int?>.broadcast();
@@ -251,6 +252,39 @@ class MockDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
+  Future<bool> hasSeenFeedbackSheet() async {
+    return _feedbackSheetShown;
+  }
+
+  @override
+  Future<void> setFeedbackSheetShown() async {
+    _feedbackSheetShown = true;
+  }
+
+  @override
+  Future<List<LoggedMeal>> getLatestMealsForFeedbackEligibility({
+    int limit = 5,
+  }) async {
+    final sorted = List<LoggedMeal>.from(_meals)
+      ..sort((a, b) => b.dateTime.compareTo(a.dateTime));
+    return sorted.take(limit).toList();
+  }
+
+  @override
+  Future<void> clearUserPreferences() async {
+    _feedbackSheetShown = false;
+    _themeMode = ThemeMode.system;
+    _languageCode = null;
+  }
+
+  @override
+  Future<void> clearUserProfile() async {
+    _userProfile = null;
+    _dailyCalorieGoal = null;
+    _goalController.add(null);
+  }
+
+  @override
   Future<void> clearAllData() async {
     _meals.clear();
     _favorites.clear();
@@ -258,6 +292,7 @@ class MockDatabaseAdapter implements DatabaseInterface {
     _dailyCalorieGoal = null;
     _languageCode = null;
     _themeMode = ThemeMode.system;
+    _feedbackSheetShown = false;
     _goalController.add(null);
   }
 }

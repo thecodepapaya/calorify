@@ -55,6 +55,7 @@ class TranslationsTr with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginTr login = _TranslationsLoginTr._(_root);
 	@override late final _TranslationsDisclaimerTr disclaimer = _TranslationsDisclaimerTr._(_root);
 	@override late final _TranslationsCommonTr common = _TranslationsCommonTr._(_root);
+	@override late final _TranslationsFeedbackRatingTr feedbackRating = _TranslationsFeedbackRatingTr._(_root);
 	@override late final _TranslationsErrorsTr errors = _TranslationsErrorsTr._(_root);
 	@override late final _TranslationsDebugTr debug = _TranslationsDebugTr._(_root);
 	@override late final _TranslationsHealthTr health = _TranslationsHealthTr._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonTr implements TranslationsCommonEn {
 	@override String get kContinue => 'Devam Et';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingTr implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => '${appLabel}\'ı beğeniyor musunuz? Deneyiminiz bizim için önemli.';
+	@override String get yes => 'Evet, beğeniyorum';
+	@override String get no => 'Pek değil';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} tek bir kişi tarafından geliştirildi. Kısa bir Play Store değerlendirmesi, başkalarının uygulamayı bulmasına yardımcı olur ve geliştirmeye devam etmemizi sağlar — gerçekten çok yardımcı olur. Bir dakikanızı ayırıp bir değerlendirme bırakır mıydınız?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} tek bir kişi tarafından geliştirildi. Geri bildiriminiz bir sonraki adımları şekillendiriyor — her mesajı okuyoruz. Düşüncelerinizi e-posta ile paylaşmak ister misiniz?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel}\'ın arkasında kim olduğunu merak ediyor musunuz? ';
+	@override String get aboutUsLinkLabel => 'Hakkımızda';
+}
+
 // Path: errors
 class _TranslationsErrorsTr implements TranslationsErrorsEn {
 	_TranslationsErrorsTr._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugTr implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Tüm bildirimler iptal edildi.';
 	@override String get fetchingData => 'Son 7 gün için veri alınıyor...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Geri bildirim / değerlendirme penceresini göster';
+	@override String get clearUserPreferences => 'Kullanıcı tercihlerini sıfırla';
+	@override String get clearUserPreferencesConfirmationTitle => 'Kullanıcı tercihleri sıfırlansın mı?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Tema, dil ve geri bildirim tercihleri sıfırlanacak. Öğünler ve profil etkilenmeyecek.';
+	@override String get clearUserProfile => 'Kullanıcı profilini sıfırla';
+	@override String get clearUserProfileConfirmationTitle => 'Kullanıcı profili sıfırlansın mı?';
+	@override String get clearUserProfileConfirmationMessage => 'Profil verileriniz (günlük hedef, boy, kilo vb.) sıfırlanacak. Öğünler ve tercihler etkilenmeyecek.';
+	@override String get clear => 'Sıfırla';
+	@override String get cancel => 'İptal';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsTr implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Bildirimler';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Geri bildirim';
+	@override String get dataReset => 'Veri sıfırlama';
 	@override String get appInfo => 'Uygulama Bilgisi';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsTr {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Günlük Hedef, TDEE\'nize ve ağırlık hedefinize dayalı olarak önerilen günlük kalori alımınızdır. Kilo kaybı için, TDEE\'nizden daha az kalori alırsınız. Kilo koruma için, TDEE\'nizle eşleşirsiniz. Kilo almak için, TDEE\'nizden daha fazla kalori alırsınız. Bu, istediğiniz ağırlık değişimini sağlıklı bir hızda gerçekleştirmenize yardımcı olur.',
 			'common.close' => 'Kapat',
 			'common.kContinue' => 'Devam Et',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel}\'ı beğeniyor musunuz? Deneyiminiz bizim için önemli.',
+			'feedbackRating.yes' => 'Evet, beğeniyorum',
+			'feedbackRating.no' => 'Pek değil',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} tek bir kişi tarafından geliştirildi. Kısa bir Play Store değerlendirmesi, başkalarının uygulamayı bulmasına yardımcı olur ve geliştirmeye devam etmemizi sağlar — gerçekten çok yardımcı olur. Bir dakikanızı ayırıp bir değerlendirme bırakır mıydınız?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} tek bir kişi tarafından geliştirildi. Geri bildiriminiz bir sonraki adımları şekillendiriyor — her mesajı okuyoruz. Düşüncelerinizi e-posta ile paylaşmak ister misiniz?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel}\'ın arkasında kim olduğunu merak ediyor musunuz? ',
+			'feedbackRating.aboutUsLinkLabel' => 'Hakkımızda',
 			'errors.loadingProfileData' => 'Profil verileri yüklenirken hata',
 			'errors.somethingWentWrong' => 'Bir şeyler ters gitti.',
 			'debug.title' => 'Hata Ayıklama Seçenekleri',
 			'debug.sections.notifications' => 'Bildirimler',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Geri bildirim',
+			'debug.sections.dataReset' => 'Veri sıfırlama',
 			'debug.sections.appInfo' => 'Uygulama Bilgisi',
 			'debug.showActiveNotifications' => 'Aktif Bildirimleri Göster',
 			'debug.scheduleTestNotification' => 'Test Bildirimi Zamanla (10s)',
@@ -1987,6 +2024,15 @@ extension on TranslationsTr {
 			'debug.allNotificationsCancelled' => 'Tüm bildirimler iptal edildi.',
 			'debug.fetchingData' => 'Son 7 gün için veri alınıyor...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Geri bildirim / değerlendirme penceresini göster',
+			'debug.clearUserPreferences' => 'Kullanıcı tercihlerini sıfırla',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Kullanıcı tercihleri sıfırlansın mı?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Tema, dil ve geri bildirim tercihleri sıfırlanacak. Öğünler ve profil etkilenmeyecek.',
+			'debug.clearUserProfile' => 'Kullanıcı profilini sıfırla',
+			'debug.clearUserProfileConfirmationTitle' => 'Kullanıcı profili sıfırlansın mı?',
+			'debug.clearUserProfileConfirmationMessage' => 'Profil verileriniz (günlük hedef, boy, kilo vb.) sıfırlanacak. Öğünler ve tercihler etkilenmeyecek.',
+			'debug.clear' => 'Sıfırla',
+			'debug.cancel' => 'İptal',
 			'health.syncFailed' => 'Health Connect ile senkronize edilemedi',
 			'health.mealSynced' => 'Yemek Health Connect ile senkronize edildi',
 			_ => null,

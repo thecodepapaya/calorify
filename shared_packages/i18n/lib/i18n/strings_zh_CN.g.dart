@@ -55,6 +55,7 @@ class TranslationsZhCn with BaseTranslations<AppLocale, Translations> implements
 	@override late final _TranslationsLoginZhCn login = _TranslationsLoginZhCn._(_root);
 	@override late final _TranslationsDisclaimerZhCn disclaimer = _TranslationsDisclaimerZhCn._(_root);
 	@override late final _TranslationsCommonZhCn common = _TranslationsCommonZhCn._(_root);
+	@override late final _TranslationsFeedbackRatingZhCn feedbackRating = _TranslationsFeedbackRatingZhCn._(_root);
 	@override late final _TranslationsErrorsZhCn errors = _TranslationsErrorsZhCn._(_root);
 	@override late final _TranslationsDebugZhCn debug = _TranslationsDebugZhCn._(_root);
 	@override late final _TranslationsHealthZhCn health = _TranslationsHealthZhCn._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonZhCn implements TranslationsCommonEn {
 	@override String get kContinue => '继续';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingZhCn implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => '喜欢使用 ${appLabel} 吗？您的体验对我们很重要。';
+	@override String get yes => '是的，我很喜欢';
+	@override String get no => '不是很';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} 由一人独立开发。在 Play 商店快速评分能帮助更多人发现应用并支持持续开发——这真的很重要。您愿意花一点时间留下评分吗？';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} 由一人独立开发。您的反馈会直接影响后续更新——我们会阅读每一条留言。您愿意通过电子邮件分享您的想法吗？';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '想知道是谁在开发 ${appLabel}？请查看 ';
+	@override String get aboutUsLinkLabel => '关于我们';
+}
+
 // Path: errors
 class _TranslationsErrorsZhCn implements TranslationsErrorsEn {
 	_TranslationsErrorsZhCn._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugZhCn implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => '所有通知已取消。';
 	@override String get fetchingData => '正在获取过去7天的数据...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => '显示反馈/评分面板';
+	@override String get clearUserPreferences => '清除用户偏好';
+	@override String get clearUserPreferencesConfirmationTitle => '清除用户偏好？';
+	@override String get clearUserPreferencesConfirmationMessage => '主题、语言和反馈偏好将被重置。餐食和个人资料不受影响。';
+	@override String get clearUserProfile => '清除个人资料';
+	@override String get clearUserProfileConfirmationTitle => '清除个人资料？';
+	@override String get clearUserProfileConfirmationMessage => '您的个人资料数据（每日目标、身高、体重等）将被清除。餐食和偏好设置不受影响。';
+	@override String get clear => '清除';
+	@override String get cancel => '取消';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsZhCn implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => '通知';
 	@override String get healthConnect => '健康连接';
+	@override String get feedback => '反馈';
+	@override String get dataReset => '数据重置';
 	@override String get appInfo => '应用信息';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsZhCn {
 			'disclaimer.healthMetrics.dailyGoal.description' => '每日目标是基于您的TDEE和体重目标推荐的每日卡路里摄入量。为了减重，您的卡路里摄入量应低于TDEE；为了维持体重，您的卡路里摄入量应与TDEE持平；为了增重，您的卡路里摄入量应高于TDEE。这有助于您以健康的节奏实现预期的体重变化。',
 			'common.close' => '关闭',
 			'common.kContinue' => '继续',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '喜欢使用 ${appLabel} 吗？您的体验对我们很重要。',
+			'feedbackRating.yes' => '是的，我很喜欢',
+			'feedbackRating.no' => '不是很',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} 由一人独立开发。在 Play 商店快速评分能帮助更多人发现应用并支持持续开发——这真的很重要。您愿意花一点时间留下评分吗？',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} 由一人独立开发。您的反馈会直接影响后续更新——我们会阅读每一条留言。您愿意通过电子邮件分享您的想法吗？',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '想知道是谁在开发 ${appLabel}？请查看 ',
+			'feedbackRating.aboutUsLinkLabel' => '关于我们',
 			'errors.loadingProfileData' => '加载个人资料数据时出错',
 			'errors.somethingWentWrong' => '出现了一些问题。',
 			'debug.title' => '调试选项',
 			'debug.sections.notifications' => '通知',
 			'debug.sections.healthConnect' => '健康连接',
+			'debug.sections.feedback' => '反馈',
+			'debug.sections.dataReset' => '数据重置',
 			'debug.sections.appInfo' => '应用信息',
 			'debug.showActiveNotifications' => '显示活动通知',
 			'debug.scheduleTestNotification' => '安排测试通知 (10秒)',
@@ -1987,6 +2024,15 @@ extension on TranslationsZhCn {
 			'debug.allNotificationsCancelled' => '所有通知已取消。',
 			'debug.fetchingData' => '正在获取过去7天的数据...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => '显示反馈/评分面板',
+			'debug.clearUserPreferences' => '清除用户偏好',
+			'debug.clearUserPreferencesConfirmationTitle' => '清除用户偏好？',
+			'debug.clearUserPreferencesConfirmationMessage' => '主题、语言和反馈偏好将被重置。餐食和个人资料不受影响。',
+			'debug.clearUserProfile' => '清除个人资料',
+			'debug.clearUserProfileConfirmationTitle' => '清除个人资料？',
+			'debug.clearUserProfileConfirmationMessage' => '您的个人资料数据（每日目标、身高、体重等）将被清除。餐食和偏好设置不受影响。',
+			'debug.clear' => '清除',
+			'debug.cancel' => '取消',
 			'health.syncFailed' => '无法同步到健康连接',
 			'health.mealSynced' => '餐点已与健康连接同步',
 			_ => null,

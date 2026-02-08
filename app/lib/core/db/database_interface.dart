@@ -78,6 +78,21 @@ abstract class DatabaseInterface {
   /// Set language code preference
   Future<void> setLanguageCode(String? code);
 
+  /// Whether the feedback/rating sheet has been shown to the user
+  Future<bool> hasSeenFeedbackSheet();
+
+  /// Mark that the feedback/rating sheet was shown (so it is not shown again)
+  Future<void> setFeedbackSheetShown();
+
+  /// Latest N meals by timestamp (for feedback eligibility check). Default limit 5.
+  Future<List<LoggedMeal>> getLatestMealsForFeedbackEligibility({int limit = 5});
+
+  /// Clear user preferences row only (for debug). Meals and profile unchanged.
+  Future<void> clearUserPreferences();
+
+  /// Clear user profile row only (for debug). Meals and preferences unchanged.
+  Future<void> clearUserProfile();
+
   /// Clear all data from the database
   Future<void> clearAllData();
 }

@@ -55,6 +55,7 @@ class TranslationsTh with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginTh login = _TranslationsLoginTh._(_root);
 	@override late final _TranslationsDisclaimerTh disclaimer = _TranslationsDisclaimerTh._(_root);
 	@override late final _TranslationsCommonTh common = _TranslationsCommonTh._(_root);
+	@override late final _TranslationsFeedbackRatingTh feedbackRating = _TranslationsFeedbackRatingTh._(_root);
 	@override late final _TranslationsErrorsTh errors = _TranslationsErrorsTh._(_root);
 	@override late final _TranslationsDebugTh debug = _TranslationsDebugTh._(_root);
 	@override late final _TranslationsHealthTh health = _TranslationsHealthTh._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonTh implements TranslationsCommonEn {
 	@override String get kContinue => 'ดำเนินการต่อ';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingTh implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'กำลังเพลิดเพลินกับ ${appLabel} ไหม? ประสบการณ์ของคุณสำคัญสำหรับเรา';
+	@override String get yes => 'ใช่ ฉันชอบมัน';
+	@override String get no => 'ไม่ค่อย';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} พัฒนาโดยคนคนเดียว การให้คะแนนสั้นๆ บน Play Store ช่วยให้คนอื่นค้นพบแอปและทำให้การพัฒนาต่อไปได้ — มันช่วยได้มาก คุณจะสละเวลาสักนิดเพื่อให้คะแนนไหม?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} พัฒนาโดยคนคนเดียว ความเห็นของคุณมีส่วนกำหนดทิศทางในอนาคต — เราอ่านทุกข้อความ คุณต้องการส่งความคิดเห็นทางอีเมลไหม?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'อยากรู้ว่าผู้ที่อยู่เบื้องหลัง ${appLabel} คือใคร? ดู ';
+	@override String get aboutUsLinkLabel => 'เกี่ยวกับเรา';
+}
+
 // Path: errors
 class _TranslationsErrorsTh implements TranslationsErrorsEn {
 	_TranslationsErrorsTh._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugTh implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'ยกเลิกการแจ้งเตือนทั้งหมด.';
 	@override String get fetchingData => 'กำลังดึงข้อมูลสำหรับ 7 วันที่ผ่านมา...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'แสดงหน้าข้อเสนอแนะ/การให้คะแนน';
+	@override String get clearUserPreferences => 'ล้างการตั้งค่าผู้ใช้';
+	@override String get clearUserPreferencesConfirmationTitle => 'ล้างการตั้งค่าผู้ใช้?';
+	@override String get clearUserPreferencesConfirmationMessage => 'ธีม ภาษา และการตั้งค่าการให้ข้อเสนอแนะจะถูกรีเซ็ต มื้ออาหารและโปรไฟล์จะไม่ถูกเปลี่ยนแปลง';
+	@override String get clearUserProfile => 'ล้างโปรไฟล์ผู้ใช้';
+	@override String get clearUserProfileConfirmationTitle => 'ล้างโปรไฟล์ผู้ใช้?';
+	@override String get clearUserProfileConfirmationMessage => 'ข้อมูลโปรไฟล์ของคุณ (เป้าหมายรายวัน ส่วนสูง น้ำหนัก ฯลฯ) จะถูกล้าง มื้ออาหารและการตั้งค่าจะไม่ถูกกระทบ';
+	@override String get clear => 'ล้าง';
+	@override String get cancel => 'ยกเลิก';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsTh implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'การแจ้งเตือน';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'ข้อเสนอแนะ';
+	@override String get dataReset => 'รีเซ็ตข้อมูล';
 	@override String get appInfo => 'ข้อมูลแอป';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsTh {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'เป้าหมายรายวันคือปริมาณแคลอรี่ที่แนะนำสำหรับการบริโภคในแต่ละวันซึ่งขึ้นอยู่กับ TDEE และเป้าหมายด้านน้ำหนักของคุณ สำหรับการลดน้ำหนัก คุณควรบริโภคแคลอรี่ให้น้อยกว่า TDEE ของคุณ สำหรับการรักษาน้ำหนัก คุณควรบริโภคแคลอรี่เท่ากับ TDEE ของคุณ และสำหรับการเพิ่มน้ำหนัก คุณควรบริโภคแคลอรี่มากกว่า TDEE การดำเนินชีวิตอย่างนี้จะช่วยให้คุณบรรลุการเปลี่ยนแปลงน้ำหนักที่ต้องการอย่างมีสุขภาพดี',
 			'common.close' => 'ปิด',
 			'common.kContinue' => 'ดำเนินการต่อ',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'กำลังเพลิดเพลินกับ ${appLabel} ไหม? ประสบการณ์ของคุณสำคัญสำหรับเรา',
+			'feedbackRating.yes' => 'ใช่ ฉันชอบมัน',
+			'feedbackRating.no' => 'ไม่ค่อย',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} พัฒนาโดยคนคนเดียว การให้คะแนนสั้นๆ บน Play Store ช่วยให้คนอื่นค้นพบแอปและทำให้การพัฒนาต่อไปได้ — มันช่วยได้มาก คุณจะสละเวลาสักนิดเพื่อให้คะแนนไหม?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} พัฒนาโดยคนคนเดียว ความเห็นของคุณมีส่วนกำหนดทิศทางในอนาคต — เราอ่านทุกข้อความ คุณต้องการส่งความคิดเห็นทางอีเมลไหม?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'อยากรู้ว่าผู้ที่อยู่เบื้องหลัง ${appLabel} คือใคร? ดู ',
+			'feedbackRating.aboutUsLinkLabel' => 'เกี่ยวกับเรา',
 			'errors.loadingProfileData' => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์',
 			'errors.somethingWentWrong' => 'มีบางอย่างผิดพลาด.',
 			'debug.title' => 'ตัวเลือกการดีบัก',
 			'debug.sections.notifications' => 'การแจ้งเตือน',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'ข้อเสนอแนะ',
+			'debug.sections.dataReset' => 'รีเซ็ตข้อมูล',
 			'debug.sections.appInfo' => 'ข้อมูลแอป',
 			'debug.showActiveNotifications' => 'แสดงการแจ้งเตือนที่ใช้งานอยู่',
 			'debug.scheduleTestNotification' => 'กำหนดการแจ้งเตือนทดสอบ (10 วินาที)',
@@ -1987,6 +2024,15 @@ extension on TranslationsTh {
 			'debug.allNotificationsCancelled' => 'ยกเลิกการแจ้งเตือนทั้งหมด.',
 			'debug.fetchingData' => 'กำลังดึงข้อมูลสำหรับ 7 วันที่ผ่านมา...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'แสดงหน้าข้อเสนอแนะ/การให้คะแนน',
+			'debug.clearUserPreferences' => 'ล้างการตั้งค่าผู้ใช้',
+			'debug.clearUserPreferencesConfirmationTitle' => 'ล้างการตั้งค่าผู้ใช้?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'ธีม ภาษา และการตั้งค่าการให้ข้อเสนอแนะจะถูกรีเซ็ต มื้ออาหารและโปรไฟล์จะไม่ถูกเปลี่ยนแปลง',
+			'debug.clearUserProfile' => 'ล้างโปรไฟล์ผู้ใช้',
+			'debug.clearUserProfileConfirmationTitle' => 'ล้างโปรไฟล์ผู้ใช้?',
+			'debug.clearUserProfileConfirmationMessage' => 'ข้อมูลโปรไฟล์ของคุณ (เป้าหมายรายวัน ส่วนสูง น้ำหนัก ฯลฯ) จะถูกล้าง มื้ออาหารและการตั้งค่าจะไม่ถูกกระทบ',
+			'debug.clear' => 'ล้าง',
+			'debug.cancel' => 'ยกเลิก',
 			'health.syncFailed' => 'ไม่สามารถซิงค์ไปยัง Health Connect',
 			'health.mealSynced' => 'มื้ออาหารซิงค์แล้วกับ Health Connect',
 			_ => null,

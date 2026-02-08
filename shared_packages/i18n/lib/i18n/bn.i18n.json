@@ -596,6 +596,15 @@
     "close": "বন্ধ করুন",
     "continue": "অগ্রসর হোন"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "আপনি কি {appLabel} উপভোগ করছেন? আপনার অভিজ্ঞতা আমাদের জন্য গুরুত্বপূর্ণ।",
+    "yes": "হ্যাঁ, আমি উপভোগ করছি",
+    "no": "তেমন না",
+    "soloDevMessage": "{appLabel} একজন ব্যক্তির দ্বারা তৈরি। একটি দ্রুত Play Store রেটিং অন্যদের এটি খুঁজে পেতে সাহায্য করে এবং উন্নয়ন চালিয়ে রাখতে সহায়ক — এটি সত্যিই সাহায্য করে। আপনি কি একটা ক্ষণ নিয়ে একটি রেটিং দেবেন?",
+    "shareFeedbackViaEmail": "{appLabel} একজন ব্যক্তির তৈরি। আপনার প্রতিক্রিয়া ভবিষ্যৎ নির্ধারণে গুরুত্ব রাখে — এবং আমরা প্রতিটি বার্তা পড়ি। আপনি কি ইমেইলের মাধ্যমে আপনার মতামত শেয়ার করতে চান?",
+    "aboutUsMentionBeforeLink": "জানতে চান {appLabel}-এর পেছনে কে আছেন? দেখুন ",
+    "aboutUsLinkLabel": "আমাদের সম্পর্কে"
+  },
   "errors": {
     "loadingProfileData": "প্রোফাইল তথ্য লোড করতে ত্রুটি",
     "somethingWentWrong": "কিছু ভুল হয়েছে।"
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "বিজ্ঞপ্তি",
       "healthConnect": "স্বাস্থ্য সংযোগ",
+      "feedback": "প্রতিক্রিয়া",
+      "dataReset": "ডেটা রিসেট",
       "appInfo": "অ্যাপ তথ্য"
     },
     "showActiveNotifications": "সক্রিয় বিজ্ঞপ্তি দেখান",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "সকালের নাস্তার বিজ্ঞপ্তি চালু হয়েছে।",
     "allNotificationsCancelled": "সমস্ত বিজ্ঞপ্তি বাতিল করা হয়েছে।",
     "fetchingData": "গত ৭ দিনের জন্য ডেটা সংগৃহীত করা হচ্ছে...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "ফিডব্যাক/রেটিং শিট দেখান",
+    "clearUserPreferences": "ব্যবহারকারীর পছন্দসমূহ মুছুন",
+    "clearUserPreferencesConfirmationTitle": "ব্যবহারকারীর পছন্দসমূহ মুছবেন?",
+    "clearUserPreferencesConfirmationMessage": "থিম, ভাষা এবং ফিডব্যাক সংক্রান্ত পছন্দসমূহ রিসেট করা হবে। খাবারের এন্ট্রি এবং প্রোফাইল এতে প্রভাবিত হবে না।",
+    "clearUserProfile": "ব্যবহারকারীর প্রোফাইল মুছুন",
+    "clearUserProfileConfirmationTitle": "ব্যবহারকারীর প্রোফাইল মুছবেন?",
+    "clearUserProfileConfirmationMessage": "আপনার প্রোফাইল ডেটা (দৈনিক লক্ষ্য, উচ্চতা, ওজন ইত্যাদি) মুছে ফেলা হবে। খাবারের এন্ট্রি এবং পছন্দসমূহ এতে প্রভাবিত হবে না।",
+    "clear": "মুছুন",
+    "cancel": "বাতিল করুন"
   },
   "health": {
     "syncFailed": "স্বাস্থ্য সংযোগে সিঙ্ক করা যায়নি",

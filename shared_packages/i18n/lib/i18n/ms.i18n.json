@@ -596,6 +596,15 @@
     "close": "Tutup",
     "continue": "Teruskan"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Menikmati {appLabel}? Pengalaman anda penting bagi kami.",
+    "yes": "Ya, saya menikmatinya",
+    "no": "Tidak begitu",
+    "soloDevMessage": "{appLabel} dibangunkan oleh seorang individu. Penilaian ringkas di Play Store membantu orang lain menemukannya dan menyokong pembangunan — ia sangat membantu. Bolehkah anda meluangkan sedikit masa untuk memberikannya penilaian?",
+    "shareFeedbackViaEmail": "{appLabel} dibangunkan oleh seorang individu. Maklum balas anda benar-benar membentuk apa yang akan datang — dan kami membaca setiap mesej. Mahu berkongsi pandangan anda melalui e-mel?",
+    "aboutUsMentionBeforeLink": "Ingin tahu siapa di sebalik {appLabel}? Lihat ",
+    "aboutUsLinkLabel": "Tentang kami"
+  },
   "errors": {
     "loadingProfileData": "Ralat memuatkan data profil",
     "somethingWentWrong": "Ada yang tidak kena."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Pemberitahuan",
       "healthConnect": "Health Connect",
+      "feedback": "Maklum balas",
+      "dataReset": "Tetapan semula data",
       "appInfo": "Maklumat Aplikasi"
     },
     "showActiveNotifications": "Tunjukkan Pemberitahuan Aktif",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Pemberitahuan sarapan diaktifkan.",
     "allNotificationsCancelled": "Semua pemberitahuan dibatalkan.",
     "fetchingData": "Mengambil data untuk 7 hari yang lepas...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Tunjukkan borang maklum balas / penilaian",
+    "clearUserPreferences": "Padam pilihan pengguna",
+    "clearUserPreferencesConfirmationTitle": "Padam pilihan pengguna?",
+    "clearUserPreferencesConfirmationMessage": "Tema, bahasa dan pilihan maklum balas akan ditetapkan semula. Rekod makanan dan profil tidak akan terjejas.",
+    "clearUserProfile": "Padam profil pengguna",
+    "clearUserProfileConfirmationTitle": "Padam profil pengguna?",
+    "clearUserProfileConfirmationMessage": "Data profil anda (matlamat harian, ketinggian, berat, dan lain-lain) akan dipadam. Rekod makanan dan tetapan tidak akan terjejas.",
+    "clear": "Padam",
+    "cancel": "Batal"
   },
   "health": {
     "syncFailed": "Tidak dapat menyinkronkan ke Health Connect",

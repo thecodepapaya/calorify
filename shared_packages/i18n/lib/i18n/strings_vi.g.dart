@@ -55,6 +55,7 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginVi login = _TranslationsLoginVi._(_root);
 	@override late final _TranslationsDisclaimerVi disclaimer = _TranslationsDisclaimerVi._(_root);
 	@override late final _TranslationsCommonVi common = _TranslationsCommonVi._(_root);
+	@override late final _TranslationsFeedbackRatingVi feedbackRating = _TranslationsFeedbackRatingVi._(_root);
 	@override late final _TranslationsErrorsVi errors = _TranslationsErrorsVi._(_root);
 	@override late final _TranslationsDebugVi debug = _TranslationsDebugVi._(_root);
 	@override late final _TranslationsHealthVi health = _TranslationsHealthVi._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonVi implements TranslationsCommonEn {
 	@override String get kContinue => 'Tiếp tục';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingVi implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Bạn đang hài lòng với ${appLabel}? Trải nghiệm của bạn rất quan trọng đối với chúng tôi.';
+	@override String get yes => 'Có, tôi thích nó';
+	@override String get no => 'Không lắm';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} được xây dựng bởi một người. Một đánh giá nhanh trên Play Store giúp người khác tìm thấy ứng dụng và duy trì phát triển — thực sự rất hữu ích. Bạn có thể dành chút thời gian để để lại đánh giá không?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} được xây dựng bởi một người. Phản hồi của bạn thực sự định hướng những gì sẽ tới — và chúng tôi đọc mọi tin nhắn. Bạn có muốn chia sẻ suy nghĩ qua email không?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Bạn tò mò ai đứng sau ${appLabel}? Xem ';
+	@override String get aboutUsLinkLabel => 'Về chúng tôi';
+}
+
 // Path: errors
 class _TranslationsErrorsVi implements TranslationsErrorsEn {
 	_TranslationsErrorsVi._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugVi implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Tất cả thông báo đã được hủy.';
 	@override String get fetchingData => 'Đang lấy dữ liệu cho 7 ngày vừa qua...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Hiển thị hộp phản hồi/đánh giá';
+	@override String get clearUserPreferences => 'Xóa tùy chọn người dùng';
+	@override String get clearUserPreferencesConfirmationTitle => 'Xóa tùy chọn người dùng?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Giao diện, ngôn ngữ và tùy chọn phản hồi sẽ được đặt lại. Bữa ăn và hồ sơ sẽ không bị ảnh hưởng.';
+	@override String get clearUserProfile => 'Xóa hồ sơ người dùng';
+	@override String get clearUserProfileConfirmationTitle => 'Xóa hồ sơ người dùng?';
+	@override String get clearUserProfileConfirmationMessage => 'Dữ liệu hồ sơ của bạn (mục tiêu hàng ngày, chiều cao, cân nặng, v.v.) sẽ bị xóa. Bữa ăn và tùy chọn sẽ không bị ảnh hưởng.';
+	@override String get clear => 'Xóa';
+	@override String get cancel => 'Hủy';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsVi implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Thông báo';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Phản hồi';
+	@override String get dataReset => 'Đặt lại dữ liệu';
 	@override String get appInfo => 'Thông tin ứng dụng';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsVi {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Mục tiêu hàng ngày là lượng calo mà bạn được khuyên nên tiêu thụ hàng ngày dựa trên TDEE và mục tiêu cân nặng của bạn. Để giảm cân, bạn tiêu thụ ít calo hơn TDEE của mình. Để duy trì cân nặng, bạn cần khớp với TDEE của mình. Để tăng cân, bạn tiêu thụ nhiều calo hơn TDEE của mình. Điều này giúp bạn đạt được thay đổi cân nặng mong muốn một cách lành mạnh.',
 			'common.close' => 'Đóng',
 			'common.kContinue' => 'Tiếp tục',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Bạn đang hài lòng với ${appLabel}? Trải nghiệm của bạn rất quan trọng đối với chúng tôi.',
+			'feedbackRating.yes' => 'Có, tôi thích nó',
+			'feedbackRating.no' => 'Không lắm',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} được xây dựng bởi một người. Một đánh giá nhanh trên Play Store giúp người khác tìm thấy ứng dụng và duy trì phát triển — thực sự rất hữu ích. Bạn có thể dành chút thời gian để để lại đánh giá không?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} được xây dựng bởi một người. Phản hồi của bạn thực sự định hướng những gì sẽ tới — và chúng tôi đọc mọi tin nhắn. Bạn có muốn chia sẻ suy nghĩ qua email không?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Bạn tò mò ai đứng sau ${appLabel}? Xem ',
+			'feedbackRating.aboutUsLinkLabel' => 'Về chúng tôi',
 			'errors.loadingProfileData' => 'Lỗi khi tải dữ liệu hồ sơ',
 			'errors.somethingWentWrong' => 'Đã xảy ra lỗi.',
 			'debug.title' => 'Tùy chọn gỡ lỗi',
 			'debug.sections.notifications' => 'Thông báo',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Phản hồi',
+			'debug.sections.dataReset' => 'Đặt lại dữ liệu',
 			'debug.sections.appInfo' => 'Thông tin ứng dụng',
 			'debug.showActiveNotifications' => 'Hiển thị thông báo đang hoạt động',
 			'debug.scheduleTestNotification' => 'Lên lịch thông báo thử nghiệm (10 giây)',
@@ -1987,6 +2024,15 @@ extension on TranslationsVi {
 			'debug.allNotificationsCancelled' => 'Tất cả thông báo đã được hủy.',
 			'debug.fetchingData' => 'Đang lấy dữ liệu cho 7 ngày vừa qua...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Hiển thị hộp phản hồi/đánh giá',
+			'debug.clearUserPreferences' => 'Xóa tùy chọn người dùng',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Xóa tùy chọn người dùng?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Giao diện, ngôn ngữ và tùy chọn phản hồi sẽ được đặt lại. Bữa ăn và hồ sơ sẽ không bị ảnh hưởng.',
+			'debug.clearUserProfile' => 'Xóa hồ sơ người dùng',
+			'debug.clearUserProfileConfirmationTitle' => 'Xóa hồ sơ người dùng?',
+			'debug.clearUserProfileConfirmationMessage' => 'Dữ liệu hồ sơ của bạn (mục tiêu hàng ngày, chiều cao, cân nặng, v.v.) sẽ bị xóa. Bữa ăn và tùy chọn sẽ không bị ảnh hưởng.',
+			'debug.clear' => 'Xóa',
+			'debug.cancel' => 'Hủy',
 			'health.syncFailed' => 'Không thể đồng bộ với Health Connect',
 			'health.mealSynced' => 'Bữa ăn đã được đồng bộ với Health Connect',
 			_ => null,

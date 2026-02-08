@@ -596,6 +596,15 @@
     "close": "Zamknij",
     "continue": "Kontynuuj"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Podoba Ci się {appLabel}? Twoje zdanie jest dla nas ważne.",
+    "yes": "Tak, podoba mi się",
+    "no": "Nie bardzo",
+    "soloDevMessage": "{appLabel} został stworzony przez jedną osobę. Krótka ocena w Sklepie Play pomaga innym znaleźć aplikację i wspiera dalszy rozwój — naprawdę pomaga. Czy poświęcisz chwilę, by wystawić ocenę?",
+    "shareFeedbackViaEmail": "{appLabel} został stworzony przez jedną osobę. Twoja opinia naprawdę kształtuje kolejne kroki — czytamy każdą wiadomość. Czy chcesz podzielić się uwagami przez e-mail?",
+    "aboutUsMentionBeforeLink": "Zastanawiasz się, kto stoi za {appLabel}? Zobacz ",
+    "aboutUsLinkLabel": "O nas"
+  },
   "errors": {
     "loadingProfileData": "Błąd ładowania danych profilu",
     "somethingWentWrong": "Coś poszło nie tak."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Powiadomienia",
       "healthConnect": "Health Connect",
+      "feedback": "Opinie",
+      "dataReset": "Reset danych",
       "appInfo": "Informacje o Aplikacji"
     },
     "showActiveNotifications": "Pokaż Aktywne Powiadomienia",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Wywołano powiadomienie o śniadaniu.",
     "allNotificationsCancelled": "Wszystkie powiadomienia anulowane.",
     "fetchingData": "Pobieranie danych z ostatnich 7 dni...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Pokaż formularz opinii/oceny",
+    "clearUserPreferences": "Wyczyść preferencje użytkownika",
+    "clearUserPreferencesConfirmationTitle": "Wyczyścić preferencje użytkownika?",
+    "clearUserPreferencesConfirmationMessage": "Motyw, język i preferencje dotyczące opinii zostaną zresetowane. Posiłki i profil nie ulegną zmianie.",
+    "clearUserProfile": "Wyczyść profil użytkownika",
+    "clearUserProfileConfirmationTitle": "Wyczyścić profil użytkownika?",
+    "clearUserProfileConfirmationMessage": "Dane profilu (cel dzienny, wzrost, waga itp.) zostaną wyczyszczone. Posiłki i preferencje nie zostaną zmienione.",
+    "clear": "Wyczyść",
+    "cancel": "Anuluj"
   },
   "health": {
     "syncFailed": "Nie udało się zsynchronizować z Health Connect",

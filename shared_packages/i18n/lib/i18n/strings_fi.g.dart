@@ -55,6 +55,7 @@ class TranslationsFi with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginFi login = _TranslationsLoginFi._(_root);
 	@override late final _TranslationsDisclaimerFi disclaimer = _TranslationsDisclaimerFi._(_root);
 	@override late final _TranslationsCommonFi common = _TranslationsCommonFi._(_root);
+	@override late final _TranslationsFeedbackRatingFi feedbackRating = _TranslationsFeedbackRatingFi._(_root);
 	@override late final _TranslationsErrorsFi errors = _TranslationsErrorsFi._(_root);
 	@override late final _TranslationsDebugFi debug = _TranslationsDebugFi._(_root);
 	@override late final _TranslationsHealthFi health = _TranslationsHealthFi._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonFi implements TranslationsCommonEn {
 	@override String get kContinue => 'Jatka';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingFi implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingFi._(this._root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Pidätkö ${appLabel}-sovelluksesta? Kokemuksesi on meille tärkeä.';
+	@override String get yes => 'Kyllä — pidän siitä';
+	@override String get no => 'Ei oikeastaan';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} on yhden henkilön kehittämä. Pikainen arvostelu Play Kaupassa auttaa muita löytämään sovelluksen ja pitää kehityksen käynnissä — se todella auttaa. Voisitko hetken jättää arvostelun?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} on yhden henkilön tekemä. Palautteesi vaikuttaa todella siihen, mitä seuraavaksi tehdään — ja luemme jokaisen viestin. Haluaisitko jakaa ajatuksesi sähköpostitse?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Haluatko tietää, kuka on ${appLabel}:n takana? Katso ';
+	@override String get aboutUsLinkLabel => 'Tietoa meistä';
+}
+
 // Path: errors
 class _TranslationsErrorsFi implements TranslationsErrorsEn {
 	_TranslationsErrorsFi._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugFi implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Kaikki ilmoitukset peruutettu.';
 	@override String get fetchingData => 'Hakee tietoja viimeisiltä 7 päivältä...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Näytä palaute- ja arvosteluikkuna';
+	@override String get clearUserPreferences => 'Nollaa käyttäjäasetukset';
+	@override String get clearUserPreferencesConfirmationTitle => 'Nollataanko käyttäjäasetukset?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Teema, kieli ja palautteeseen liittyvät asetukset nollataan. Ateriat ja profiilitiedot eivät muutu.';
+	@override String get clearUserProfile => 'Nollaa käyttäjäprofiili';
+	@override String get clearUserProfileConfirmationTitle => 'Nollataanko käyttäjäprofiili?';
+	@override String get clearUserProfileConfirmationMessage => 'Profiilitietosi (päivittäinen tavoite, pituus, paino jne.) tyhjennetään. Ateriat ja asetukset eivät muutu.';
+	@override String get clear => 'Tyhjennä';
+	@override String get cancel => 'Peruuta';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsFi implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Ilmoitukset';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Palaute';
+	@override String get dataReset => 'Tietojen nollaus';
 	@override String get appInfo => 'Sovellustiedot';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsFi {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Päivittäinen Tavoite on suositeltu päivittäinen kalorinsaantisi, joka perustuu TDEE:hesi ja painotavoitteeseesi. Painon pudotuksessa kulutat vähemmän kaloreita kuin TDEE:si. Painon ylläpidossa vastaat TDEE:si. Painon lisäämisessä kulutat enemmän kaloreita kuin TDEE:si. Tämä auttaa sinua saavuttamaan haluamasi painomuutoksen terveellisellä tahdilla.',
 			'common.close' => 'Sulje',
 			'common.kContinue' => 'Jatka',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Pidätkö ${appLabel}-sovelluksesta? Kokemuksesi on meille tärkeä.',
+			'feedbackRating.yes' => 'Kyllä — pidän siitä',
+			'feedbackRating.no' => 'Ei oikeastaan',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} on yhden henkilön kehittämä. Pikainen arvostelu Play Kaupassa auttaa muita löytämään sovelluksen ja pitää kehityksen käynnissä — se todella auttaa. Voisitko hetken jättää arvostelun?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} on yhden henkilön tekemä. Palautteesi vaikuttaa todella siihen, mitä seuraavaksi tehdään — ja luemme jokaisen viestin. Haluaisitko jakaa ajatuksesi sähköpostitse?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Haluatko tietää, kuka on ${appLabel}:n takana? Katso ',
+			'feedbackRating.aboutUsLinkLabel' => 'Tietoa meistä',
 			'errors.loadingProfileData' => 'Virhe profiilitietojen lataamisessa',
 			'errors.somethingWentWrong' => 'Jokin meni pieleen.',
 			'debug.title' => 'Debug-vaihtoehdot',
 			'debug.sections.notifications' => 'Ilmoitukset',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Palaute',
+			'debug.sections.dataReset' => 'Tietojen nollaus',
 			'debug.sections.appInfo' => 'Sovellustiedot',
 			'debug.showActiveNotifications' => 'Näytä aktiiviset ilmoitukset',
 			'debug.scheduleTestNotification' => 'Aikatauluta testimuistutus (10s)',
@@ -1987,6 +2024,15 @@ extension on TranslationsFi {
 			'debug.allNotificationsCancelled' => 'Kaikki ilmoitukset peruutettu.',
 			'debug.fetchingData' => 'Hakee tietoja viimeisiltä 7 päivältä...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Näytä palaute- ja arvosteluikkuna',
+			'debug.clearUserPreferences' => 'Nollaa käyttäjäasetukset',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Nollataanko käyttäjäasetukset?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Teema, kieli ja palautteeseen liittyvät asetukset nollataan. Ateriat ja profiilitiedot eivät muutu.',
+			'debug.clearUserProfile' => 'Nollaa käyttäjäprofiili',
+			'debug.clearUserProfileConfirmationTitle' => 'Nollataanko käyttäjäprofiili?',
+			'debug.clearUserProfileConfirmationMessage' => 'Profiilitietosi (päivittäinen tavoite, pituus, paino jne.) tyhjennetään. Ateriat ja asetukset eivät muutu.',
+			'debug.clear' => 'Tyhjennä',
+			'debug.cancel' => 'Peruuta',
 			'health.syncFailed' => 'Yhdistäminen Health Connectiin epäonnistui',
 			'health.mealSynced' => 'Ateria synkronoitu Health Connectin kanssa',
 			_ => null,

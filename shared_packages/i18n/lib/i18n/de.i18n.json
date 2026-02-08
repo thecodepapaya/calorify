@@ -596,6 +596,15 @@
     "close": "Schließen",
     "continue": "Fortfahren"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Gefällt dir {appLabel}? Deine Erfahrung ist uns wichtig.",
+    "yes": "Ja, gefällt mir",
+    "no": "Nicht wirklich",
+    "soloDevMessage": "{appLabel} wird von einer einzigen Person entwickelt. Eine kurze Play‑Store-Bewertung hilft anderen, die App zu finden, und hält die Entwicklung am Laufen — es hilft wirklich. Würdest du kurz eine Bewertung hinterlassen?",
+    "shareFeedbackViaEmail": "{appLabel} wird von einer einzelnen Person entwickelt. Dein Feedback prägt wirklich, was als Nächstes kommt — und ich lese jede Nachricht. Möchtest du deine Gedanken per E‑Mail teilen?",
+    "aboutUsMentionBeforeLink": "Neugierig, wer hinter {appLabel} steckt? Sieh dir ",
+    "aboutUsLinkLabel": "Über uns"
+  },
   "errors": {
     "loadingProfileData": "Fehler beim Laden der Profildaten",
     "somethingWentWrong": "Etwas ist schiefgegangen."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Benachrichtigungen",
       "healthConnect": "Health Connect",
+      "feedback": "Feedback",
+      "dataReset": "Daten zurücksetzen",
       "appInfo": "App-Informationen"
     },
     "showActiveNotifications": "Aktive Benachrichtigungen anzeigen",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Frühstücksbenachrichtigung ausgelöst.",
     "allNotificationsCancelled": "Alle Benachrichtigungen abgesagt.",
     "fetchingData": "Daten der letzten 7 Tage werden abgerufen...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Feedback-/Bewertungsdialog anzeigen",
+    "clearUserPreferences": "Benutzereinstellungen zurücksetzen",
+    "clearUserPreferencesConfirmationTitle": "Benutzereinstellungen zurücksetzen?",
+    "clearUserPreferencesConfirmationMessage": "Theme, Sprache und Feedback‑Einstellungen werden zurückgesetzt. Mahlzeiten und Profil sind nicht betroffen.",
+    "clearUserProfile": "Profil zurücksetzen",
+    "clearUserProfileConfirmationTitle": "Profil zurücksetzen?",
+    "clearUserProfileConfirmationMessage": "Deine Profildaten (tägliches Ziel, Größe, Gewicht usw.) werden gelöscht. Mahlzeiten und Einstellungen bleiben unverändert.",
+    "clear": "Zurücksetzen",
+    "cancel": "Abbrechen"
   },
   "health": {
     "syncFailed": "Konnte nicht mit Health Connect synchronisieren",

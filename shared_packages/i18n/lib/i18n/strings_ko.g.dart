@@ -55,6 +55,7 @@ class TranslationsKo with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginKo login = _TranslationsLoginKo._(_root);
 	@override late final _TranslationsDisclaimerKo disclaimer = _TranslationsDisclaimerKo._(_root);
 	@override late final _TranslationsCommonKo common = _TranslationsCommonKo._(_root);
+	@override late final _TranslationsFeedbackRatingKo feedbackRating = _TranslationsFeedbackRatingKo._(_root);
 	@override late final _TranslationsErrorsKo errors = _TranslationsErrorsKo._(_root);
 	@override late final _TranslationsDebugKo debug = _TranslationsDebugKo._(_root);
 	@override late final _TranslationsHealthKo health = _TranslationsHealthKo._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonKo implements TranslationsCommonEn {
 	@override String get kContinue => '계속하기';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingKo implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => '${appLabel}을(를) 즐기고 계신가요? 사용 경험이 저희에게는 중요합니다.';
+	@override String get yes => '네, 즐기고 있어요';
+	@override String get no => '아직 그렇지 않아요';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel}은(는) 한 사람이 만든 앱입니다. 간단한 플레이 스토어 평가가 다른 사람들이 앱을 찾는 데 도움이 되고 개발을 계속하는 데 큰 힘이 됩니다. 잠시 시간을 내어 평가해 주시겠어요?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel}은(는) 한 사람이 만든 앱입니다. 여러분의 피드백이 앞으로 어떤 기능이 추가될지에 큰 영향을 줍니다 — 저희는 모든 메시지를 꼼꼼히 읽습니다. 이메일로 의견을 공유하시겠어요?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel}의 제작자가 궁금하신가요? ';
+	@override String get aboutUsLinkLabel => '개발자 소개';
+}
+
 // Path: errors
 class _TranslationsErrorsKo implements TranslationsErrorsEn {
 	_TranslationsErrorsKo._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugKo implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => '모든 알림이 취소되었습니다.';
 	@override String get fetchingData => '최근 7일 동안의 데이터 가져오기...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => '피드백/평가 창 열기';
+	@override String get clearUserPreferences => '사용자 설정 초기화';
+	@override String get clearUserPreferencesConfirmationTitle => '사용자 설정을 초기화하시겠습니까?';
+	@override String get clearUserPreferencesConfirmationMessage => '테마, 언어, 피드백 설정이 초기화됩니다. 식사 기록과 프로필은 영향을 받지 않습니다.';
+	@override String get clearUserProfile => '프로필 초기화';
+	@override String get clearUserProfileConfirmationTitle => '프로필을 초기화하시겠습니까?';
+	@override String get clearUserProfileConfirmationMessage => '프로필 데이터(일일 목표, 키, 체중 등)가 초기화됩니다. 식사 기록 및 설정은 영향을 받지 않습니다.';
+	@override String get clear => '초기화';
+	@override String get cancel => '취소';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsKo implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => '알림';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => '피드백';
+	@override String get dataReset => '데이터 초기화';
 	@override String get appInfo => '앱 정보';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsKo {
 			'disclaimer.healthMetrics.dailyGoal.description' => '일일 목표는 귀하의 TDEE와 체중 목표에 기반한 추천 일일 칼로리 섭취량입니다. 체중 감소를 위해서는 TDEE보다 적은 칼로리를 섭취합니다. 체중 유지를 위해서는 TDEE와 일치시킵니다. 체중 증가를 위해서는 TDEE보다 더 많은 칼로리를 섭취합니다. 이는 건강한 속도로 원하는 체중 변화를 달성하는 데 도움이 됩니다.',
 			'common.close' => '닫기',
 			'common.kContinue' => '계속하기',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel}을(를) 즐기고 계신가요? 사용 경험이 저희에게는 중요합니다.',
+			'feedbackRating.yes' => '네, 즐기고 있어요',
+			'feedbackRating.no' => '아직 그렇지 않아요',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel}은(는) 한 사람이 만든 앱입니다. 간단한 플레이 스토어 평가가 다른 사람들이 앱을 찾는 데 도움이 되고 개발을 계속하는 데 큰 힘이 됩니다. 잠시 시간을 내어 평가해 주시겠어요?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel}은(는) 한 사람이 만든 앱입니다. 여러분의 피드백이 앞으로 어떤 기능이 추가될지에 큰 영향을 줍니다 — 저희는 모든 메시지를 꼼꼼히 읽습니다. 이메일로 의견을 공유하시겠어요?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel}의 제작자가 궁금하신가요? ',
+			'feedbackRating.aboutUsLinkLabel' => '개발자 소개',
 			'errors.loadingProfileData' => '프로필 데이터 로드 중 오류 발생',
 			'errors.somethingWentWrong' => '문제가 발생했습니다.',
 			'debug.title' => '디버그 옵션',
 			'debug.sections.notifications' => '알림',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => '피드백',
+			'debug.sections.dataReset' => '데이터 초기화',
 			'debug.sections.appInfo' => '앱 정보',
 			'debug.showActiveNotifications' => '활성 알림 표시',
 			'debug.scheduleTestNotification' => '테스트 알림 예약하기 (10초)',
@@ -1987,6 +2024,15 @@ extension on TranslationsKo {
 			'debug.allNotificationsCancelled' => '모든 알림이 취소되었습니다.',
 			'debug.fetchingData' => '최근 7일 동안의 데이터 가져오기...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => '피드백/평가 창 열기',
+			'debug.clearUserPreferences' => '사용자 설정 초기화',
+			'debug.clearUserPreferencesConfirmationTitle' => '사용자 설정을 초기화하시겠습니까?',
+			'debug.clearUserPreferencesConfirmationMessage' => '테마, 언어, 피드백 설정이 초기화됩니다. 식사 기록과 프로필은 영향을 받지 않습니다.',
+			'debug.clearUserProfile' => '프로필 초기화',
+			'debug.clearUserProfileConfirmationTitle' => '프로필을 초기화하시겠습니까?',
+			'debug.clearUserProfileConfirmationMessage' => '프로필 데이터(일일 목표, 키, 체중 등)가 초기화됩니다. 식사 기록 및 설정은 영향을 받지 않습니다.',
+			'debug.clear' => '초기화',
+			'debug.cancel' => '취소',
 			'health.syncFailed' => 'Health Connect와 동기화할 수 없습니다.',
 			'health.mealSynced' => '식사가 Health Connect와 동기화되었습니다.',
 			_ => null,

@@ -55,6 +55,7 @@ class TranslationsMs with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginMs login = _TranslationsLoginMs._(_root);
 	@override late final _TranslationsDisclaimerMs disclaimer = _TranslationsDisclaimerMs._(_root);
 	@override late final _TranslationsCommonMs common = _TranslationsCommonMs._(_root);
+	@override late final _TranslationsFeedbackRatingMs feedbackRating = _TranslationsFeedbackRatingMs._(_root);
 	@override late final _TranslationsErrorsMs errors = _TranslationsErrorsMs._(_root);
 	@override late final _TranslationsDebugMs debug = _TranslationsDebugMs._(_root);
 	@override late final _TranslationsHealthMs health = _TranslationsHealthMs._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonMs implements TranslationsCommonEn {
 	@override String get kContinue => 'Teruskan';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingMs implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Menikmati ${appLabel}? Pengalaman anda penting bagi kami.';
+	@override String get yes => 'Ya, saya menikmatinya';
+	@override String get no => 'Tidak begitu';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} dibangunkan oleh seorang individu. Penilaian ringkas di Play Store membantu orang lain menemukannya dan menyokong pembangunan — ia sangat membantu. Bolehkah anda meluangkan sedikit masa untuk memberikannya penilaian?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} dibangunkan oleh seorang individu. Maklum balas anda benar-benar membentuk apa yang akan datang — dan kami membaca setiap mesej. Mahu berkongsi pandangan anda melalui e-mel?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Ingin tahu siapa di sebalik ${appLabel}? Lihat ';
+	@override String get aboutUsLinkLabel => 'Tentang kami';
+}
+
 // Path: errors
 class _TranslationsErrorsMs implements TranslationsErrorsEn {
 	_TranslationsErrorsMs._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugMs implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Semua pemberitahuan dibatalkan.';
 	@override String get fetchingData => 'Mengambil data untuk 7 hari yang lepas...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Tunjukkan borang maklum balas / penilaian';
+	@override String get clearUserPreferences => 'Padam pilihan pengguna';
+	@override String get clearUserPreferencesConfirmationTitle => 'Padam pilihan pengguna?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Tema, bahasa dan pilihan maklum balas akan ditetapkan semula. Rekod makanan dan profil tidak akan terjejas.';
+	@override String get clearUserProfile => 'Padam profil pengguna';
+	@override String get clearUserProfileConfirmationTitle => 'Padam profil pengguna?';
+	@override String get clearUserProfileConfirmationMessage => 'Data profil anda (matlamat harian, ketinggian, berat, dan lain-lain) akan dipadam. Rekod makanan dan tetapan tidak akan terjejas.';
+	@override String get clear => 'Padam';
+	@override String get cancel => 'Batal';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsMs implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Pemberitahuan';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Maklum balas';
+	@override String get dataReset => 'Tetapan semula data';
 	@override String get appInfo => 'Maklumat Aplikasi';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsMs {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Matlamat Harian ialah pengambilan kalori harian yang disyorkan berdasarkan TDEE dan matlamat berat anda. Untuk penurunan berat badan, anda mengambil kalori kurang daripada TDEE anda. Untuk penyelenggaraan berat, anda sepadankan dengan TDEE anda. Untuk pertambahan berat, anda mengambil lebih banyak kalori daripada TDEE anda. Ini membantu anda mencapai perubahan berat yang diingini dengan cara yang sihat.',
 			'common.close' => 'Tutup',
 			'common.kContinue' => 'Teruskan',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Menikmati ${appLabel}? Pengalaman anda penting bagi kami.',
+			'feedbackRating.yes' => 'Ya, saya menikmatinya',
+			'feedbackRating.no' => 'Tidak begitu',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} dibangunkan oleh seorang individu. Penilaian ringkas di Play Store membantu orang lain menemukannya dan menyokong pembangunan — ia sangat membantu. Bolehkah anda meluangkan sedikit masa untuk memberikannya penilaian?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} dibangunkan oleh seorang individu. Maklum balas anda benar-benar membentuk apa yang akan datang — dan kami membaca setiap mesej. Mahu berkongsi pandangan anda melalui e-mel?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Ingin tahu siapa di sebalik ${appLabel}? Lihat ',
+			'feedbackRating.aboutUsLinkLabel' => 'Tentang kami',
 			'errors.loadingProfileData' => 'Ralat memuatkan data profil',
 			'errors.somethingWentWrong' => 'Ada yang tidak kena.',
 			'debug.title' => 'Pilihan Debug',
 			'debug.sections.notifications' => 'Pemberitahuan',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Maklum balas',
+			'debug.sections.dataReset' => 'Tetapan semula data',
 			'debug.sections.appInfo' => 'Maklumat Aplikasi',
 			'debug.showActiveNotifications' => 'Tunjukkan Pemberitahuan Aktif',
 			'debug.scheduleTestNotification' => 'Jadualkan Pemberitahuan Uji (10s)',
@@ -1987,6 +2024,15 @@ extension on TranslationsMs {
 			'debug.allNotificationsCancelled' => 'Semua pemberitahuan dibatalkan.',
 			'debug.fetchingData' => 'Mengambil data untuk 7 hari yang lepas...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Tunjukkan borang maklum balas / penilaian',
+			'debug.clearUserPreferences' => 'Padam pilihan pengguna',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Padam pilihan pengguna?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Tema, bahasa dan pilihan maklum balas akan ditetapkan semula. Rekod makanan dan profil tidak akan terjejas.',
+			'debug.clearUserProfile' => 'Padam profil pengguna',
+			'debug.clearUserProfileConfirmationTitle' => 'Padam profil pengguna?',
+			'debug.clearUserProfileConfirmationMessage' => 'Data profil anda (matlamat harian, ketinggian, berat, dan lain-lain) akan dipadam. Rekod makanan dan tetapan tidak akan terjejas.',
+			'debug.clear' => 'Padam',
+			'debug.cancel' => 'Batal',
 			'health.syncFailed' => 'Tidak dapat menyinkronkan ke Health Connect',
 			'health.mealSynced' => 'Hidangan disinkronkan dengan Health Connect',
 			_ => null,

@@ -55,6 +55,7 @@ class TranslationsRo with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginRo login = _TranslationsLoginRo._(_root);
 	@override late final _TranslationsDisclaimerRo disclaimer = _TranslationsDisclaimerRo._(_root);
 	@override late final _TranslationsCommonRo common = _TranslationsCommonRo._(_root);
+	@override late final _TranslationsFeedbackRatingRo feedbackRating = _TranslationsFeedbackRatingRo._(_root);
 	@override late final _TranslationsErrorsRo errors = _TranslationsErrorsRo._(_root);
 	@override late final _TranslationsDebugRo debug = _TranslationsDebugRo._(_root);
 	@override late final _TranslationsHealthRo health = _TranslationsHealthRo._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonRo implements TranslationsCommonEn {
 	@override String get kContinue => 'Continuă';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingRo implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Îți place ${appLabel}? Experiența ta contează pentru noi.';
+	@override String get yes => 'Da, îmi place';
+	@override String get no => 'Nu chiar';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} este creată de o singură persoană. O evaluare rapidă în Play Store îi ajută pe alții să o găsească și susține dezvoltarea — chiar contează. Ai un moment să lași o evaluare?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} este creată de o singură persoană. Feedbackul tău modelează ceea ce urmează — citim fiecare mesaj. Ai dori să împărtășești gândurile tale prin e-mail?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Curios cine se află în spatele ${appLabel}? Vezi ';
+	@override String get aboutUsLinkLabel => 'Despre noi';
+}
+
 // Path: errors
 class _TranslationsErrorsRo implements TranslationsErrorsEn {
 	_TranslationsErrorsRo._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugRo implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Toate notificările au fost anulate.';
 	@override String get fetchingData => 'Preluând date pentru ultimele 7 zile...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Afișează fereastra pentru feedback/evaluare';
+	@override String get clearUserPreferences => 'Șterge preferințele utilizatorului';
+	@override String get clearUserPreferencesConfirmationTitle => 'Ștergi preferințele utilizatorului?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Tema, limba și preferințele de feedback vor fi resetate. Mesele nu vor fi afectate, iar profilul nu va fi afectat.';
+	@override String get clearUserProfile => 'Șterge profilul utilizatorului';
+	@override String get clearUserProfileConfirmationTitle => 'Ștergi profilul?';
+	@override String get clearUserProfileConfirmationMessage => 'Datele profilului tău (obiectiv zilnic, înălțime, greutate etc.) vor fi șterse. Mesele și preferințele nu vor fi afectate.';
+	@override String get clear => 'Șterge';
+	@override String get cancel => 'Anulează';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsRo implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Notificări';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Feedback';
+	@override String get dataReset => 'Resetare date';
 	@override String get appInfo => 'Informații despre Aplicație';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsRo {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Obiectivul Zilnic este aportul tău caloric zilnic recomandat, bazat pe TDEE-ul tău și pe obiectivul tău de greutate. Pentru pierderea în greutate, consumi mai puține calorii decât TDEE-ul tău. Pentru menținerea greutății, îți egalizezi TDEE-ul. Pentru creșterea în greutate, consumi mai multe calorii decât TDEE-ul tău. Acest lucru te ajută să îți atingi schimbarea dorită în greutate într-un ritm sănătos.',
 			'common.close' => 'Închide',
 			'common.kContinue' => 'Continuă',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Îți place ${appLabel}? Experiența ta contează pentru noi.',
+			'feedbackRating.yes' => 'Da, îmi place',
+			'feedbackRating.no' => 'Nu chiar',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} este creată de o singură persoană. O evaluare rapidă în Play Store îi ajută pe alții să o găsească și susține dezvoltarea — chiar contează. Ai un moment să lași o evaluare?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} este creată de o singură persoană. Feedbackul tău modelează ceea ce urmează — citim fiecare mesaj. Ai dori să împărtășești gândurile tale prin e-mail?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Curios cine se află în spatele ${appLabel}? Vezi ',
+			'feedbackRating.aboutUsLinkLabel' => 'Despre noi',
 			'errors.loadingProfileData' => 'Eroare la încărcarea datelor profilului',
 			'errors.somethingWentWrong' => 'Ceva a mers prost.',
 			'debug.title' => 'Opțiuni de Debug',
 			'debug.sections.notifications' => 'Notificări',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Feedback',
+			'debug.sections.dataReset' => 'Resetare date',
 			'debug.sections.appInfo' => 'Informații despre Aplicație',
 			'debug.showActiveNotifications' => 'Arată Notificările Active',
 			'debug.scheduleTestNotification' => 'Programează Notificare de Test (10s)',
@@ -1987,6 +2024,15 @@ extension on TranslationsRo {
 			'debug.allNotificationsCancelled' => 'Toate notificările au fost anulate.',
 			'debug.fetchingData' => 'Preluând date pentru ultimele 7 zile...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Afișează fereastra pentru feedback/evaluare',
+			'debug.clearUserPreferences' => 'Șterge preferințele utilizatorului',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Ștergi preferințele utilizatorului?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Tema, limba și preferințele de feedback vor fi resetate. Mesele nu vor fi afectate, iar profilul nu va fi afectat.',
+			'debug.clearUserProfile' => 'Șterge profilul utilizatorului',
+			'debug.clearUserProfileConfirmationTitle' => 'Ștergi profilul?',
+			'debug.clearUserProfileConfirmationMessage' => 'Datele profilului tău (obiectiv zilnic, înălțime, greutate etc.) vor fi șterse. Mesele și preferințele nu vor fi afectate.',
+			'debug.clear' => 'Șterge',
+			'debug.cancel' => 'Anulează',
 			'health.syncFailed' => 'Nu s-a putut sincroniza cu Health Connect',
 			'health.mealSynced' => 'Masă sincronizată cu Health Connect',
 			_ => null,

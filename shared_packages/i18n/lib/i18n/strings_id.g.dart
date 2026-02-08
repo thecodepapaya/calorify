@@ -55,6 +55,7 @@ class TranslationsId with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginId login = _TranslationsLoginId._(_root);
 	@override late final _TranslationsDisclaimerId disclaimer = _TranslationsDisclaimerId._(_root);
 	@override late final _TranslationsCommonId common = _TranslationsCommonId._(_root);
+	@override late final _TranslationsFeedbackRatingId feedbackRating = _TranslationsFeedbackRatingId._(_root);
 	@override late final _TranslationsErrorsId errors = _TranslationsErrorsId._(_root);
 	@override late final _TranslationsDebugId debug = _TranslationsDebugId._(_root);
 	@override late final _TranslationsHealthId health = _TranslationsHealthId._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonId implements TranslationsCommonEn {
 	@override String get kContinue => 'Lanjutkan';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingId implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Menikmati ${appLabel}? Pengalaman Anda penting bagi kami.';
+	@override String get yes => 'Ya, saya menikmatinya';
+	@override String get no => 'Tidak begitu';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} dibuat oleh satu orang. Memberikan rating singkat di Play Store membantu orang lain menemukannya dan menjaga pengembangan tetap berjalan — ini sangat membantu. Maukah Anda meluangkan waktu untuk memberikan satu?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} dibuat oleh satu orang. Masukan Anda sangat menentukan apa yang akan datang berikutnya — dan kami membaca setiap pesan. Apakah Anda ingin membagikan pendapat lewat email?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Penasaran siapa di balik ${appLabel}? Lihat ';
+	@override String get aboutUsLinkLabel => 'Tentang kami';
+}
+
 // Path: errors
 class _TranslationsErrorsId implements TranslationsErrorsEn {
 	_TranslationsErrorsId._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugId implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Semua pemberitahuan dibatalkan.';
 	@override String get fetchingData => 'Mengambil data untuk 7 hari terakhir...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Tampilkan lembar umpan balik / penilaian';
+	@override String get clearUserPreferences => 'Hapus preferensi pengguna';
+	@override String get clearUserPreferencesConfirmationTitle => 'Hapus preferensi pengguna?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Tema, bahasa, dan preferensi umpan balik akan diatur ulang. Data makanan dan profil tidak akan terpengaruh.';
+	@override String get clearUserProfile => 'Hapus profil pengguna';
+	@override String get clearUserProfileConfirmationTitle => 'Hapus profil pengguna?';
+	@override String get clearUserProfileConfirmationMessage => 'Data profil Anda (target harian, tinggi, berat, dll.) akan dihapus. Data makanan dan preferensi tidak akan terpengaruh.';
+	@override String get clear => 'Hapus';
+	@override String get cancel => 'Batal';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsId implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Pemberitahuan';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Umpan balik';
+	@override String get dataReset => 'Atur ulang data';
 	@override String get appInfo => 'Info Aplikasi';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsId {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Tujuan Harian adalah asupan kalori harian yang direkomendasikan berdasarkan TDEE dan tujuan berat badan Anda. Untuk penurunan berat badan, Anda mengonsumsi kalori lebih sedikit daripada TDEE Anda. Untuk mempertahankan berat badan, Anda mencocokkan TDEE Anda. Untuk penambahan berat badan, Anda mengonsumsi kalori lebih banyak daripada TDEE Anda. Ini membantu Anda mencapai perubahan berat yang diinginkan dengan cara yang sehat.',
 			'common.close' => 'Tutup',
 			'common.kContinue' => 'Lanjutkan',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Menikmati ${appLabel}? Pengalaman Anda penting bagi kami.',
+			'feedbackRating.yes' => 'Ya, saya menikmatinya',
+			'feedbackRating.no' => 'Tidak begitu',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} dibuat oleh satu orang. Memberikan rating singkat di Play Store membantu orang lain menemukannya dan menjaga pengembangan tetap berjalan — ini sangat membantu. Maukah Anda meluangkan waktu untuk memberikan satu?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} dibuat oleh satu orang. Masukan Anda sangat menentukan apa yang akan datang berikutnya — dan kami membaca setiap pesan. Apakah Anda ingin membagikan pendapat lewat email?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Penasaran siapa di balik ${appLabel}? Lihat ',
+			'feedbackRating.aboutUsLinkLabel' => 'Tentang kami',
 			'errors.loadingProfileData' => 'Kesalahan saat memuat data profil',
 			'errors.somethingWentWrong' => 'Terjadi kesalahan.',
 			'debug.title' => 'Opsi Debug',
 			'debug.sections.notifications' => 'Pemberitahuan',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Umpan balik',
+			'debug.sections.dataReset' => 'Atur ulang data',
 			'debug.sections.appInfo' => 'Info Aplikasi',
 			'debug.showActiveNotifications' => 'Tampilkan Pemberitahuan Aktif',
 			'debug.scheduleTestNotification' => 'Jadwalkan Pemberitahuan Uji (10 detik)',
@@ -1987,6 +2024,15 @@ extension on TranslationsId {
 			'debug.allNotificationsCancelled' => 'Semua pemberitahuan dibatalkan.',
 			'debug.fetchingData' => 'Mengambil data untuk 7 hari terakhir...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Tampilkan lembar umpan balik / penilaian',
+			'debug.clearUserPreferences' => 'Hapus preferensi pengguna',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Hapus preferensi pengguna?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Tema, bahasa, dan preferensi umpan balik akan diatur ulang. Data makanan dan profil tidak akan terpengaruh.',
+			'debug.clearUserProfile' => 'Hapus profil pengguna',
+			'debug.clearUserProfileConfirmationTitle' => 'Hapus profil pengguna?',
+			'debug.clearUserProfileConfirmationMessage' => 'Data profil Anda (target harian, tinggi, berat, dll.) akan dihapus. Data makanan dan preferensi tidak akan terpengaruh.',
+			'debug.clear' => 'Hapus',
+			'debug.cancel' => 'Batal',
 			'health.syncFailed' => 'Tidak dapat menyinkronkan dengan Health Connect',
 			'health.mealSynced' => 'Makanan disinkronkan dengan Health Connect',
 			_ => null,

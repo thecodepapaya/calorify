@@ -55,6 +55,7 @@ class TranslationsUk with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginUk login = _TranslationsLoginUk._(_root);
 	@override late final _TranslationsDisclaimerUk disclaimer = _TranslationsDisclaimerUk._(_root);
 	@override late final _TranslationsCommonUk common = _TranslationsCommonUk._(_root);
+	@override late final _TranslationsFeedbackRatingUk feedbackRating = _TranslationsFeedbackRatingUk._(_root);
 	@override late final _TranslationsErrorsUk errors = _TranslationsErrorsUk._(_root);
 	@override late final _TranslationsDebugUk debug = _TranslationsDebugUk._(_root);
 	@override late final _TranslationsHealthUk health = _TranslationsHealthUk._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonUk implements TranslationsCommonEn {
 	@override String get kContinue => 'Продовжити';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingUk implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Вам подобається ${appLabel}? Ваша думка дуже важлива для нас.';
+	@override String get yes => 'Так, мені подобається';
+	@override String get no => 'Не дуже';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} створено однією людиною. Коротка оцінка в Play Store допоможе іншим знайти додаток і підтримає подальший розвиток — це справді важливо. Ви могли б залишити оцінку?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} створено однією людиною. Ваш відгук справді формує те, що буде далі — і ми читаємо кожне повідомлення. Хотіли б поділитися думками електронною поштою?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Цікавитесь, хто стоїть за ${appLabel}? Дізнайтеся більше ';
+	@override String get aboutUsLinkLabel => 'Про нас';
+}
+
 // Path: errors
 class _TranslationsErrorsUk implements TranslationsErrorsEn {
 	_TranslationsErrorsUk._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugUk implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Всі сповіщення скасовано.';
 	@override String get fetchingData => 'Отримання даних за останні 7 днів...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Показати форму відгуку/оцінки';
+	@override String get clearUserPreferences => 'Скинути налаштування користувача';
+	@override String get clearUserPreferencesConfirmationTitle => 'Скинути налаштування користувача?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Тему, мову та налаштування зворотного зв\'язку буде скинуто. Дані про прийоми їжі та профіль не постраждають.';
+	@override String get clearUserProfile => 'Скинути профіль користувача';
+	@override String get clearUserProfileConfirmationTitle => 'Скинути профіль користувача?';
+	@override String get clearUserProfileConfirmationMessage => 'Дані вашого профілю (щоденна мета, зріст, вага тощо) будуть видалені. Дані про прийоми їжі та налаштування не постраждають.';
+	@override String get clear => 'Очистити';
+	@override String get cancel => 'Скасувати';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsUk implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Сповіщення';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Зворотній зв\'язок';
+	@override String get dataReset => 'Скидання даних';
 	@override String get appInfo => 'Інформація про додаток';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsUk {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Щоденна мета — це ваша рекомендована добова калорійність, основана на вашому TDEE і цілі щодо ваги. Для схуднення вам потрібно споживати менше калорій, ніж ваш TDEE. Для підтримання ваги — відповідати вашому TDEE. Для набору ваги — споживати більше калорій, ніж ваш TDEE. Це допоможе вам досягти бажаних змін у вазі здоровими темпами.',
 			'common.close' => 'Закрити',
 			'common.kContinue' => 'Продовжити',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Вам подобається ${appLabel}? Ваша думка дуже важлива для нас.',
+			'feedbackRating.yes' => 'Так, мені подобається',
+			'feedbackRating.no' => 'Не дуже',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} створено однією людиною. Коротка оцінка в Play Store допоможе іншим знайти додаток і підтримає подальший розвиток — це справді важливо. Ви могли б залишити оцінку?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} створено однією людиною. Ваш відгук справді формує те, що буде далі — і ми читаємо кожне повідомлення. Хотіли б поділитися думками електронною поштою?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Цікавитесь, хто стоїть за ${appLabel}? Дізнайтеся більше ',
+			'feedbackRating.aboutUsLinkLabel' => 'Про нас',
 			'errors.loadingProfileData' => 'Помилка завантаження даних профілю',
 			'errors.somethingWentWrong' => 'Щось пішло не так.',
 			'debug.title' => 'Опції налагодження',
 			'debug.sections.notifications' => 'Сповіщення',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Зворотній зв\'язок',
+			'debug.sections.dataReset' => 'Скидання даних',
 			'debug.sections.appInfo' => 'Інформація про додаток',
 			'debug.showActiveNotifications' => 'Показати активні сповіщення',
 			'debug.scheduleTestNotification' => 'Запланувати тестове сповіщення (10с)',
@@ -1987,6 +2024,15 @@ extension on TranslationsUk {
 			'debug.allNotificationsCancelled' => 'Всі сповіщення скасовано.',
 			'debug.fetchingData' => 'Отримання даних за останні 7 днів...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Показати форму відгуку/оцінки',
+			'debug.clearUserPreferences' => 'Скинути налаштування користувача',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Скинути налаштування користувача?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Тему, мову та налаштування зворотного зв\'язку буде скинуто. Дані про прийоми їжі та профіль не постраждають.',
+			'debug.clearUserProfile' => 'Скинути профіль користувача',
+			'debug.clearUserProfileConfirmationTitle' => 'Скинути профіль користувача?',
+			'debug.clearUserProfileConfirmationMessage' => 'Дані вашого профілю (щоденна мета, зріст, вага тощо) будуть видалені. Дані про прийоми їжі та налаштування не постраждають.',
+			'debug.clear' => 'Очистити',
+			'debug.cancel' => 'Скасувати',
 			'health.syncFailed' => 'Не вдалося синхронізувати з Health Connect',
 			'health.mealSynced' => 'Страву синхронізовано з Health Connect',
 			_ => null,

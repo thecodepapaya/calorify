@@ -596,6 +596,15 @@
     "close": "Sulje",
     "continue": "Jatka"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Pidätkö {appLabel}-sovelluksesta? Kokemuksesi on meille tärkeä.",
+    "yes": "Kyllä — pidän siitä",
+    "no": "Ei oikeastaan",
+    "soloDevMessage": "{appLabel} on yhden henkilön kehittämä. Pikainen arvostelu Play Kaupassa auttaa muita löytämään sovelluksen ja pitää kehityksen käynnissä — se todella auttaa. Voisitko hetken jättää arvostelun?",
+    "shareFeedbackViaEmail": "{appLabel} on yhden henkilön tekemä. Palautteesi vaikuttaa todella siihen, mitä seuraavaksi tehdään — ja luemme jokaisen viestin. Haluaisitko jakaa ajatuksesi sähköpostitse?",
+    "aboutUsMentionBeforeLink": "Haluatko tietää, kuka on {appLabel}:n takana? Katso ",
+    "aboutUsLinkLabel": "Tietoa meistä"
+  },
   "errors": {
     "loadingProfileData": "Virhe profiilitietojen lataamisessa",
     "somethingWentWrong": "Jokin meni pieleen."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Ilmoitukset",
       "healthConnect": "Health Connect",
+      "feedback": "Palaute",
+      "dataReset": "Tietojen nollaus",
       "appInfo": "Sovellustiedot"
     },
     "showActiveNotifications": "Näytä aktiiviset ilmoitukset",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Aamiaismuistutus käynnistetty.",
     "allNotificationsCancelled": "Kaikki ilmoitukset peruutettu.",
     "fetchingData": "Hakee tietoja viimeisiltä 7 päivältä...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Näytä palaute- ja arvosteluikkuna",
+    "clearUserPreferences": "Nollaa käyttäjäasetukset",
+    "clearUserPreferencesConfirmationTitle": "Nollataanko käyttäjäasetukset?",
+    "clearUserPreferencesConfirmationMessage": "Teema, kieli ja palautteeseen liittyvät asetukset nollataan. Ateriat ja profiilitiedot eivät muutu.",
+    "clearUserProfile": "Nollaa käyttäjäprofiili",
+    "clearUserProfileConfirmationTitle": "Nollataanko käyttäjäprofiili?",
+    "clearUserProfileConfirmationMessage": "Profiilitietosi (päivittäinen tavoite, pituus, paino jne.) tyhjennetään. Ateriat ja asetukset eivät muutu.",
+    "clear": "Tyhjennä",
+    "cancel": "Peruuta"
   },
   "health": {
     "syncFailed": "Yhdistäminen Health Connectiin epäonnistui",

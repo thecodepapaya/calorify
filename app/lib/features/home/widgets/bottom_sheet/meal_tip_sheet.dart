@@ -26,6 +26,7 @@ Future<void> showMealTip({
   LoggedMeal? loggedMeal,
   Uint8List? imageBytes,
 }) {
+  final parentContext = context;
   return showModalBottomSheet(
     context: context,
     isDismissible: true,
@@ -34,7 +35,8 @@ Future<void> showMealTip({
     isScrollControlled: true,
     routeSettings: const RouteSettings(name: RouteNames.mealTipSheet),
     builder:
-        (context) => _MealTip(
+        (sheetContext) => _MealTip(
+          parentContext: parentContext,
           mealDetectionResult: mealDetectionResult,
           loggedMeal: loggedMeal,
           imageBytes: imageBytes,
@@ -43,13 +45,19 @@ Future<void> showMealTip({
 }
 
 class _MealTip extends StatelessWidget {
-  _MealTip({this.mealDetectionResult, this.loggedMeal, this.imageBytes})
-    : assert(mealDetectionResult != null || loggedMeal != null),
-      meal = mealDetectionResult?.meal ?? loggedMeal?.meal ?? Meal(),
-      metadata =
-          mealDetectionResult?.metadata ??
-          loggedMeal?.metadata ??
-          MealMetadata();
+  _MealTip({
+    required this.parentContext,
+    this.mealDetectionResult,
+    this.loggedMeal,
+    this.imageBytes,
+  }) : assert(mealDetectionResult != null || loggedMeal != null),
+       meal = mealDetectionResult?.meal ?? loggedMeal?.meal ?? Meal(),
+       metadata =
+           mealDetectionResult?.metadata ??
+           loggedMeal?.metadata ??
+           MealMetadata();
+
+  final BuildContext parentContext;
 
   final Meal meal;
   final MealMetadata metadata;
@@ -245,7 +253,11 @@ class _MealTip extends StatelessWidget {
           ? PrimaryButton(
             analyticsEvent: AnalyticsEvent.mealSave,
             onPressed: () async {
-              await logMeal(context, mealDetectionResult!.meal);
+              await logMeal(
+                context,
+                mealDetectionResult!.meal,
+                parentContext: parentContext,
+              );
               if (!context.mounted) return;
               Navigator.of(context).pop();
             },

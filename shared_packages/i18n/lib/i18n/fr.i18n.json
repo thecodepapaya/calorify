@@ -596,6 +596,15 @@
     "close": "Fermer",
     "continue": "Continuer"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Vous appréciez {appLabel} ? Votre expérience compte pour nous.",
+    "yes": "Oui, je l'apprécie",
+    "no": "Pas vraiment",
+    "soloDevMessage": "{appLabel} est développé par une seule personne. Une note rapide sur le Play Store aide les autres à le découvrir et permet au développement de se poursuivre — ça aide vraiment. Pourriez-vous prendre un instant pour en laisser une ?",
+    "shareFeedbackViaEmail": "{appLabel} est développé par une seule personne. Vos retours influencent vraiment la suite — et nous lisons chaque message. Souhaitez-vous partager vos impressions par e‑mail ?",
+    "aboutUsMentionBeforeLink": "Vous voulez savoir qui se cache derrière {appLabel} ? Consultez ",
+    "aboutUsLinkLabel": "À propos"
+  },
   "errors": {
     "loadingProfileData": "Erreur de chargement des données du profil",
     "somethingWentWrong": "Une erreur s'est produite."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Notifications",
       "healthConnect": "Health Connect",
+      "feedback": "Commentaires",
+      "dataReset": "Réinitialisation des données",
       "appInfo": "Informations sur l'application"
     },
     "showActiveNotifications": "Afficher les Notifications Actives",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Notification de petit-déjeuner déclenchée.",
     "allNotificationsCancelled": "Toutes les notifications annulées.",
     "fetchingData": "Récupération des données des 7 derniers jours...",
-    "id": "ID : {id}"
+    "id": "ID : {id}",
+    "showFeedbackRatingSheet": "Afficher la fenêtre de commentaires/notation",
+    "clearUserPreferences": "Effacer les préférences utilisateur",
+    "clearUserPreferencesConfirmationTitle": "Effacer les préférences utilisateur ?",
+    "clearUserPreferencesConfirmationMessage": "Le thème, la langue et les préférences de commentaires seront réinitialisés. Les repas et le profil ne seront pas affectés.",
+    "clearUserProfile": "Effacer le profil utilisateur",
+    "clearUserProfileConfirmationTitle": "Effacer le profil utilisateur ?",
+    "clearUserProfileConfirmationMessage": "Les données de votre profil (objectif quotidien, taille, poids, etc.) seront effacées. Les repas et les préférences ne seront pas affectés.",
+    "clear": "Effacer",
+    "cancel": "Annuler"
   },
   "health": {
     "syncFailed": "Échec de la synchronisation avec Health Connect",

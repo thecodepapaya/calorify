@@ -596,6 +596,15 @@
     "close": "క్లోజ్",
     "continue": "కొనసాగించండి"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "మీకు {appLabel} నచ్చుతున్నదా? మీ అనుభవం మాకు ముఖ్యమే.",
+    "yes": "అవును, నాకు నచ్చుతోంది",
+    "no": "అంతగా కాదు",
+    "soloDevMessage": "{appLabel} ఒకే ఒక వ్యక్తి చేత అభివృద్ధి చేయబడింది. చిన్న Play Store రేటింగ్ ఇతరులకు యాప్ కనుగొనడంలో మరియు అభివృద్ధిని కొనసాగించడంలో ఎంతగానో సహాయపడుతుంది — ఇది నిజంగా సహాయపడుతుంది. ఒక్క నిమిషం తీసుకొని రేటింగ్ ఇవ్వగలరా?",
+    "shareFeedbackViaEmail": "{appLabel} ఒకే ఒక వ్యక్తి చేత అభివృద్ధి చేయబడింది. మీ ఫీడ్‌బ్యాక్ భవిష్యత్తులో ఏమి వచ్చేను తీర్చిదిద్దుతుంది — మేము ప్రతి సందేశాన్ని చదువుతాం. ఇమెయిల్ ద్వారా మీ అభిప్రాయాన్ని పంచుకోవాలనుకుంటున్నారా?",
+    "aboutUsMentionBeforeLink": "{appLabel} వెనుక ఎవరు ఉన్నారో తెలుసుకోవాలా? చూడండి ",
+    "aboutUsLinkLabel": "మా గురించి"
+  },
   "errors": {
     "loadingProfileData": "ప్రొఫైల్ డేటా లోడింగ్ లోపం",
     "somethingWentWrong": "ఏదో తప్పు జరిగింది."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "గమనికలు",
       "healthConnect": "హెల్త్ కనెక్ట్",
+      "feedback": "ఫీడ్‌బ్యాక్",
+      "dataReset": "డేటా రీసెట్",
       "appInfo": "యాప్ సమాచారం"
     },
     "showActiveNotifications": "సకాలంలో గమనికలను చూపు",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "నాస్తా ద్వారా గమనిక చూపింది.",
     "allNotificationsCancelled": "అన్ని గమనికలు రద్దు చేయబడ్డాయి.",
     "fetchingData": "గత 7 రోజుల సమాచారం పొందడం...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "ఫీడ్‌బ్యాక్ / రేటింగ్ షీట్ చూపించండి",
+    "clearUserPreferences": "వినియోగదారు ఎంపికలు క్లియర్ చేయండి",
+    "clearUserPreferencesConfirmationTitle": "వినియోగదారు ఎంపికలు క్లియర్ చేయాలా?",
+    "clearUserPreferencesConfirmationMessage": "థీమ్, భాష మరియు ఫీడ్‌బ్యాక్ ఎంపికలు రీసెట్ చేయబడతాయి. భోజనాలు మరియు ప్రొఫైల్‌కు ఇది ప్రభావం లేదు.",
+    "clearUserProfile": "వినియోగదారు ప్రొఫైల్ క్లియర్ చేయండి",
+    "clearUserProfileConfirmationTitle": "వినియోగదారు ప్రొఫైల్ క్లియర్ చేయాలా?",
+    "clearUserProfileConfirmationMessage": "మీ ప్రొఫైల్ డేటా (దైనందిన లక్ష్యం, ఎత్తు, బరువు మొదలైనవి) తొలగించబడతాయి. భోజనాలు మరియు ఎంపికలు ప్రభావితం కావు.",
+    "clear": "క్లియర్",
+    "cancel": "రద్దు"
   },
   "health": {
     "syncFailed": "హెల్త్ కనెక్ట్ కు సింక్ చేయడంలో విఫలమైంది",

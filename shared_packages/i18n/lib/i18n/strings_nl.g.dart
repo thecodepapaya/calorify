@@ -55,6 +55,7 @@ class TranslationsNl with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginNl login = _TranslationsLoginNl._(_root);
 	@override late final _TranslationsDisclaimerNl disclaimer = _TranslationsDisclaimerNl._(_root);
 	@override late final _TranslationsCommonNl common = _TranslationsCommonNl._(_root);
+	@override late final _TranslationsFeedbackRatingNl feedbackRating = _TranslationsFeedbackRatingNl._(_root);
 	@override late final _TranslationsErrorsNl errors = _TranslationsErrorsNl._(_root);
 	@override late final _TranslationsDebugNl debug = _TranslationsDebugNl._(_root);
 	@override late final _TranslationsHealthNl health = _TranslationsHealthNl._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonNl implements TranslationsCommonEn {
 	@override String get kContinue => 'Doorgaan';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingNl implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Bevalt ${appLabel} je? Jouw ervaring is belangrijk voor ons.';
+	@override String get yes => 'Ja, het bevalt me';
+	@override String get no => 'Niet echt';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} is door één persoon gemaakt. Een korte beoordeling in de Play Store helpt anderen het te vinden en houdt de ontwikkeling gaande — het helpt echt. Zou je even de tijd willen nemen om er een achter te laten?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} is door één persoon gemaakt. Jouw feedback bepaalt wat er daarna komt — en we lezen elk bericht. Wil je je feedback per e-mail delen?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nieuwsgierig wie er achter ${appLabel} zit? Zie ';
+	@override String get aboutUsLinkLabel => 'Over ons';
+}
+
 // Path: errors
 class _TranslationsErrorsNl implements TranslationsErrorsEn {
 	_TranslationsErrorsNl._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugNl implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Alle meldingen geannuleerd.';
 	@override String get fetchingData => 'Gegevens ophalen voor de afgelopen 7 dagen...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Feedback-/beoordelingsscherm weergeven';
+	@override String get clearUserPreferences => 'Gebruikersvoorkeuren wissen';
+	@override String get clearUserPreferencesConfirmationTitle => 'Gebruikersvoorkeuren wissen?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Thema, taal en feedbackvoorkeuren worden gereset. Maaltijden en profiel blijven onaangetast.';
+	@override String get clearUserProfile => 'Gebruikersprofiel wissen';
+	@override String get clearUserProfileConfirmationTitle => 'Gebruikersprofiel wissen?';
+	@override String get clearUserProfileConfirmationMessage => 'Je profielgegevens (dagelijks doel, lengte, gewicht, etc.) worden gewist. Maaltijden en voorkeuren blijven ongewijzigd.';
+	@override String get clear => 'Wissen';
+	@override String get cancel => 'Annuleren';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsNl implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Meldingen';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Feedback';
+	@override String get dataReset => 'Gegevens resetten';
 	@override String get appInfo => 'App Informatie';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsNl {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Het Dagdoel is je aanbevolen dagelijkse calorie-inname op basis van je TDEE en gewichtsdoel. Voor gewichtsverlies consumeer je minder calorieën dan je TDEE. Voor gewichtsbehoud stem je je inname af op je TDEE. Voor gewichtstoename consumeer je meer calorieën dan je TDEE. Dit helpt je om je gewenste gewichtsverandering op een gezonde manier te bereiken.',
 			'common.close' => 'Sluiten',
 			'common.kContinue' => 'Doorgaan',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Bevalt ${appLabel} je? Jouw ervaring is belangrijk voor ons.',
+			'feedbackRating.yes' => 'Ja, het bevalt me',
+			'feedbackRating.no' => 'Niet echt',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} is door één persoon gemaakt. Een korte beoordeling in de Play Store helpt anderen het te vinden en houdt de ontwikkeling gaande — het helpt echt. Zou je even de tijd willen nemen om er een achter te laten?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} is door één persoon gemaakt. Jouw feedback bepaalt wat er daarna komt — en we lezen elk bericht. Wil je je feedback per e-mail delen?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nieuwsgierig wie er achter ${appLabel} zit? Zie ',
+			'feedbackRating.aboutUsLinkLabel' => 'Over ons',
 			'errors.loadingProfileData' => 'Fout bij het laden van profielgegevens',
 			'errors.somethingWentWrong' => 'Er is iets misgegaan.',
 			'debug.title' => 'Debug Opties',
 			'debug.sections.notifications' => 'Meldingen',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Feedback',
+			'debug.sections.dataReset' => 'Gegevens resetten',
 			'debug.sections.appInfo' => 'App Informatie',
 			'debug.showActiveNotifications' => 'Toon Actieve Meldingen',
 			'debug.scheduleTestNotification' => 'Plan Testmelding (10s)',
@@ -1987,6 +2024,15 @@ extension on TranslationsNl {
 			'debug.allNotificationsCancelled' => 'Alle meldingen geannuleerd.',
 			'debug.fetchingData' => 'Gegevens ophalen voor de afgelopen 7 dagen...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Feedback-/beoordelingsscherm weergeven',
+			'debug.clearUserPreferences' => 'Gebruikersvoorkeuren wissen',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Gebruikersvoorkeuren wissen?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Thema, taal en feedbackvoorkeuren worden gereset. Maaltijden en profiel blijven onaangetast.',
+			'debug.clearUserProfile' => 'Gebruikersprofiel wissen',
+			'debug.clearUserProfileConfirmationTitle' => 'Gebruikersprofiel wissen?',
+			'debug.clearUserProfileConfirmationMessage' => 'Je profielgegevens (dagelijks doel, lengte, gewicht, etc.) worden gewist. Maaltijden en voorkeuren blijven ongewijzigd.',
+			'debug.clear' => 'Wissen',
+			'debug.cancel' => 'Annuleren',
 			'health.syncFailed' => 'Kon niet synchroniseren met Health Connect',
 			'health.mealSynced' => 'Maaltijd gesynchroniseerd met Health Connect',
 			_ => null,

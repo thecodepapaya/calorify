@@ -55,6 +55,7 @@ class TranslationsFr with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginFr login = _TranslationsLoginFr._(_root);
 	@override late final _TranslationsDisclaimerFr disclaimer = _TranslationsDisclaimerFr._(_root);
 	@override late final _TranslationsCommonFr common = _TranslationsCommonFr._(_root);
+	@override late final _TranslationsFeedbackRatingFr feedbackRating = _TranslationsFeedbackRatingFr._(_root);
 	@override late final _TranslationsErrorsFr errors = _TranslationsErrorsFr._(_root);
 	@override late final _TranslationsDebugFr debug = _TranslationsDebugFr._(_root);
 	@override late final _TranslationsHealthFr health = _TranslationsHealthFr._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonFr implements TranslationsCommonEn {
 	@override String get kContinue => 'Continuer';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingFr implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Vous appréciez ${appLabel} ? Votre expérience compte pour nous.';
+	@override String get yes => 'Oui, je l\'apprécie';
+	@override String get no => 'Pas vraiment';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} est développé par une seule personne. Une note rapide sur le Play Store aide les autres à le découvrir et permet au développement de se poursuivre — ça aide vraiment. Pourriez-vous prendre un instant pour en laisser une ?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} est développé par une seule personne. Vos retours influencent vraiment la suite — et nous lisons chaque message. Souhaitez-vous partager vos impressions par e‑mail ?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Vous voulez savoir qui se cache derrière ${appLabel} ? Consultez ';
+	@override String get aboutUsLinkLabel => 'À propos';
+}
+
 // Path: errors
 class _TranslationsErrorsFr implements TranslationsErrorsEn {
 	_TranslationsErrorsFr._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugFr implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Toutes les notifications annulées.';
 	@override String get fetchingData => 'Récupération des données des 7 derniers jours...';
 	@override String id({required Object id}) => 'ID : ${id}';
+	@override String get showFeedbackRatingSheet => 'Afficher la fenêtre de commentaires/notation';
+	@override String get clearUserPreferences => 'Effacer les préférences utilisateur';
+	@override String get clearUserPreferencesConfirmationTitle => 'Effacer les préférences utilisateur ?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Le thème, la langue et les préférences de commentaires seront réinitialisés. Les repas et le profil ne seront pas affectés.';
+	@override String get clearUserProfile => 'Effacer le profil utilisateur';
+	@override String get clearUserProfileConfirmationTitle => 'Effacer le profil utilisateur ?';
+	@override String get clearUserProfileConfirmationMessage => 'Les données de votre profil (objectif quotidien, taille, poids, etc.) seront effacées. Les repas et les préférences ne seront pas affectés.';
+	@override String get clear => 'Effacer';
+	@override String get cancel => 'Annuler';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsFr implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Notifications';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Commentaires';
+	@override String get dataReset => 'Réinitialisation des données';
 	@override String get appInfo => 'Informations sur l\'application';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsFr {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'L\'Objectif Quotidien est votre apport calorique quotidien recommandé basé sur votre DET et votre objectif de poids. Pour perdre du poids, vous consommez moins de calories que votre DET. Pour maintenir votre poids, vous égalisez votre DET. Pour prendre du poids, vous consommez plus de calories que votre DET. Cela vous aide à atteindre votre changement de poids souhaité à un rythme sain.',
 			'common.close' => 'Fermer',
 			'common.kContinue' => 'Continuer',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Vous appréciez ${appLabel} ? Votre expérience compte pour nous.',
+			'feedbackRating.yes' => 'Oui, je l\'apprécie',
+			'feedbackRating.no' => 'Pas vraiment',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} est développé par une seule personne. Une note rapide sur le Play Store aide les autres à le découvrir et permet au développement de se poursuivre — ça aide vraiment. Pourriez-vous prendre un instant pour en laisser une ?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} est développé par une seule personne. Vos retours influencent vraiment la suite — et nous lisons chaque message. Souhaitez-vous partager vos impressions par e‑mail ?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Vous voulez savoir qui se cache derrière ${appLabel} ? Consultez ',
+			'feedbackRating.aboutUsLinkLabel' => 'À propos',
 			'errors.loadingProfileData' => 'Erreur de chargement des données du profil',
 			'errors.somethingWentWrong' => 'Une erreur s\'est produite.',
 			'debug.title' => 'Options de Débogage',
 			'debug.sections.notifications' => 'Notifications',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Commentaires',
+			'debug.sections.dataReset' => 'Réinitialisation des données',
 			'debug.sections.appInfo' => 'Informations sur l\'application',
 			'debug.showActiveNotifications' => 'Afficher les Notifications Actives',
 			'debug.scheduleTestNotification' => 'Planifier une Notification de Test (10s)',
@@ -1987,6 +2024,15 @@ extension on TranslationsFr {
 			'debug.allNotificationsCancelled' => 'Toutes les notifications annulées.',
 			'debug.fetchingData' => 'Récupération des données des 7 derniers jours...',
 			'debug.id' => ({required Object id}) => 'ID : ${id}',
+			'debug.showFeedbackRatingSheet' => 'Afficher la fenêtre de commentaires/notation',
+			'debug.clearUserPreferences' => 'Effacer les préférences utilisateur',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Effacer les préférences utilisateur ?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Le thème, la langue et les préférences de commentaires seront réinitialisés. Les repas et le profil ne seront pas affectés.',
+			'debug.clearUserProfile' => 'Effacer le profil utilisateur',
+			'debug.clearUserProfileConfirmationTitle' => 'Effacer le profil utilisateur ?',
+			'debug.clearUserProfileConfirmationMessage' => 'Les données de votre profil (objectif quotidien, taille, poids, etc.) seront effacées. Les repas et les préférences ne seront pas affectés.',
+			'debug.clear' => 'Effacer',
+			'debug.cancel' => 'Annuler',
 			'health.syncFailed' => 'Échec de la synchronisation avec Health Connect',
 			'health.mealSynced' => 'Repas synchronisé avec Health Connect',
 			_ => null,

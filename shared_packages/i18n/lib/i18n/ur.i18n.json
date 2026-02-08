@@ -596,6 +596,15 @@
     "close": "بند کریں",
     "continue": "جاری رکھیں"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "کیا آپ {appLabel} سے لطف اندوز ہو رہے ہیں؟ آپ کا تجربہ ہمارے لیے اہم ہے۔",
+    "yes": "ہاں، مجھے پسند آ رہا ہے",
+    "no": "اتنا پسند نہیں",
+    "soloDevMessage": "{appLabel} ایک ہی شخص نے تیار کی ہے۔ Play Store پر ایک مختصر درجہ بندی دوسروں کو ایپ تلاش کرنے میں مدد دیتی ہے اور ترقی کو جاری رکھنے میں مدد کرتی ہے — یہ واقعی مددگار ثابت ہوتی ہے۔ کیا آپ ایک لمحہ نکال کر ریٹنگ دیں گے؟",
+    "shareFeedbackViaEmail": "{appLabel} ایک ہی شخص نے تیار کی ہے۔ آپ کی رائے واقعی مستقبل کی سمت متعین کرتی ہے — اور ہم ہر پیغام پڑھتے ہیں۔ کیا آپ اپنے خیالات ای میل کے ذریعے بھیجنا چاہیں گے؟",
+    "aboutUsMentionBeforeLink": "کیا آپ جاننا چاہتے ہیں کہ {appLabel} کے پیچھے کون ہے؟ دیکھیں ",
+    "aboutUsLinkLabel": "ہمارے بارے میں"
+  },
   "errors": {
     "loadingProfileData": "پروفائل کا ڈیٹا لوڈ کرنے میں خرابی",
     "somethingWentWrong": "کچھ غلط ہوگیا۔"
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "نوٹیفیکیشن",
       "healthConnect": "ہیلتھ کنیکٹ",
+      "feedback": "رائے",
+      "dataReset": "ڈیٹا ری سیٹ",
       "appInfo": "ایپ کی معلومات"
     },
     "showActiveNotifications": "فعال نوٹیفیکیشن دکھائیں",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "ناشتے کی نوٹیفیکیشن متحرک ہوگئی۔",
     "allNotificationsCancelled": "تمام نوٹیفیکیشن منسوخ کر دی گئی ہیں۔",
     "fetchingData": "آخری 7 دنوں کے لیے ڈیٹا حاصل کیا جا رہا ہے...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "رائے/درجہ بندی شیٹ دکھائیں",
+    "clearUserPreferences": "صارف کی ترجیحات صاف کریں",
+    "clearUserPreferencesConfirmationTitle": "صارف کی ترجیحات صاف کریں؟",
+    "clearUserPreferencesConfirmationMessage": "تھیم، زبان، اور رائے کی ترتیبات ری سیٹ ہو جائیں گی۔ کھانے اور پروفائل متاثر نہیں ہوں گے۔",
+    "clearUserProfile": "صارف کا پروفائل صاف کریں",
+    "clearUserProfileConfirmationTitle": "صارف کا پروفائل صاف کریں؟",
+    "clearUserProfileConfirmationMessage": "آپ کا پروفائل ڈیٹا (روزانہ کا ہدف، قد، وزن، وغیرہ) حذف ہو جائے گا۔ کھانے اور ترجیحات متاثر نہیں ہوں گی۔",
+    "clear": "صاف کریں",
+    "cancel": "منسوخ کریں"
   },
   "health": {
     "syncFailed": "ہیلتھ کنیکٹ میں ہم آہنگ نہیں ہو سکا",

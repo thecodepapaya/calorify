@@ -55,6 +55,7 @@ class TranslationsGu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginGu login = _TranslationsLoginGu._(_root);
 	@override late final _TranslationsDisclaimerGu disclaimer = _TranslationsDisclaimerGu._(_root);
 	@override late final _TranslationsCommonGu common = _TranslationsCommonGu._(_root);
+	@override late final _TranslationsFeedbackRatingGu feedbackRating = _TranslationsFeedbackRatingGu._(_root);
 	@override late final _TranslationsErrorsGu errors = _TranslationsErrorsGu._(_root);
 	@override late final _TranslationsDebugGu debug = _TranslationsDebugGu._(_root);
 	@override late final _TranslationsHealthGu health = _TranslationsHealthGu._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonGu implements TranslationsCommonEn {
 	@override String get kContinue => 'આગળ વધો';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingGu implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'શું તમને ${appLabel} ગમતું છે? આપનો અનુભવ અમારાં માટે મહત્વનો છે.';
+	@override String get yes => 'હા, મને ગમતું છે';
+	@override String get no => 'ખરેખર નહીં';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} એક વ્યક્તિ દ્વારા બનાવવામાં આવ્યું છે. પ્લે સ્ટોર પર небольшો રેટિંગ અન્ય લોકોને તેને શોધવામાં અને વિકાસ ચાલુ રાખવામાં મદદ કરે છે — ખરેખર ઘણી મદદ થાય છે. શું તમે એક ક્ષણ કાઢી રેટિંગ આપી શકો?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} એક વ્યક્તિ દ્વારા બનાવાયું છે. તમારું પ્રતિસાદ આગળ શું આવશે તે નિર્ધારિત કરે છે — અને અમે દરેક સંદેશો વાંચીએ છીએ. શું તમે ઇમેઇલ દ્વારા તમારા વિચારો શેર કરશો?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel} પાછળ કોણ છે તે જાણવા ઇચ્છો છો? જુઓ ';
+	@override String get aboutUsLinkLabel => 'અમારા વિશે';
+}
+
 // Path: errors
 class _TranslationsErrorsGu implements TranslationsErrorsEn {
 	_TranslationsErrorsGu._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugGu implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'બધા યાદદહન રદ કરવામાં આવ્યા છે.';
 	@override String get fetchingData => 'આખી 7 દિવસ માટે ડેટા મેળવવામાં ...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'પ્રતિસાદ / રેટિંગ શીટ બતાવો';
+	@override String get clearUserPreferences => 'વપરાશકર્તાની પસંદગીઓ રીસેટ કરો';
+	@override String get clearUserPreferencesConfirmationTitle => 'વપરાશકર્તાની પસંદગીઓ રીસેટ કરવી?';
+	@override String get clearUserPreferencesConfirmationMessage => 'થીમ, ભાષા અને પ્રતિસાદની પસંદગીઓ રીસેટ કરવામાં આવશે. ભોજન અને પ્રોફાઇલ પર અસર નહીં થાય.';
+	@override String get clearUserProfile => 'વપરાશકર્તાની પ્રોફાઇલ રીસેટ કરો';
+	@override String get clearUserProfileConfirmationTitle => 'વપરાશકર્તાની પ્રોફાઇલ રીસેટ કરવી?';
+	@override String get clearUserProfileConfirmationMessage => 'તમારા પ્રોફાઇલનો ડેટા (દરરોજનું લક્ષ્ય, ઊંચાઈ, વજન, વગેરે) મિટાવવામાં આવશે. ભોજન અને પસંદગીઓ પર અસર નહીં થાય.';
+	@override String get clear => 'મિટાવો';
+	@override String get cancel => 'રદ કરો';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsGu implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'યાદદહન';
 	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get feedback => 'પ્રતિસાદ';
+	@override String get dataReset => 'ડેટા રીસેટ';
 	@override String get appInfo => 'એપ માહિતી';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsGu {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'દૈનિક લક્ષ્ય એ તમારું ભલામણ કરેલ દૈનિક કૅલોરી વપરાશ છે જે તમારા ટીડઈઈ અને વજન લક્ષ્ય આધારિત છે. વજન ઘટાડવા માટે, તમે તમારા ટીડઈઈ કરતાં ઓછા કૅલોરીઓ લેતા રહે છો. વજન જાળવવા માટે, તમે તમારા ટીડઈઈને મેળવો છો. વજન વધારવા માટે, તમે તમારા ટીડઈઈ કરતાં વધુ કૅલોરીઓ લેતા રહે છો. આ તમને આરોગ્યપ્રદ ટેમ્પમાં તમારા ઈચ્છિત વજન બદલાવ પ્રાપ્ત કરવામાં મદદ કરે છે.',
 			'common.close' => 'બંદ કરો',
 			'common.kContinue' => 'આગળ વધો',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'શું તમને ${appLabel} ગમતું છે? આપનો અનુભવ અમારાં માટે મહત્વનો છે.',
+			'feedbackRating.yes' => 'હા, મને ગમતું છે',
+			'feedbackRating.no' => 'ખરેખર નહીં',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} એક વ્યક્તિ દ્વારા બનાવવામાં આવ્યું છે. પ્લે સ્ટોર પર небольшો રેટિંગ અન્ય લોકોને તેને શોધવામાં અને વિકાસ ચાલુ રાખવામાં મદદ કરે છે — ખરેખર ઘણી મદદ થાય છે. શું તમે એક ક્ષણ કાઢી રેટિંગ આપી શકો?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} એક વ્યક્તિ દ્વારા બનાવાયું છે. તમારું પ્રતિસાદ આગળ શું આવશે તે નિર્ધારિત કરે છે — અને અમે દરેક સંદેશો વાંચીએ છીએ. શું તમે ઇમેઇલ દ્વારા તમારા વિચારો શેર કરશો?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel} પાછળ કોણ છે તે જાણવા ઇચ્છો છો? જુઓ ',
+			'feedbackRating.aboutUsLinkLabel' => 'અમારા વિશે',
 			'errors.loadingProfileData' => 'પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ',
 			'errors.somethingWentWrong' => 'કોઈ મુશ્કેલી પડી.',
 			'debug.title' => 'ડેબેક્ડ વિકલ્પો',
 			'debug.sections.notifications' => 'યાદદહન',
 			'debug.sections.healthConnect' => 'HEALTH CONNECT',
+			'debug.sections.feedback' => 'પ્રતિસાદ',
+			'debug.sections.dataReset' => 'ડેટા રીસેટ',
 			'debug.sections.appInfo' => 'એપ માહિતી',
 			'debug.showActiveNotifications' => 'સક્રિય યાદદહનો દેખાડો',
 			'debug.scheduleTestNotification' => 'ટેસ્ટ યાદદહન સ્કેડ્યૂલ કરો (10સે)',
@@ -1987,6 +2024,15 @@ extension on TranslationsGu {
 			'debug.allNotificationsCancelled' => 'બધા યાદદહન રદ કરવામાં આવ્યા છે.',
 			'debug.fetchingData' => 'આખી 7 દિવસ માટે ડેટા મેળવવામાં ...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'પ્રતિસાદ / રેટિંગ શીટ બતાવો',
+			'debug.clearUserPreferences' => 'વપરાશકર્તાની પસંદગીઓ રીસેટ કરો',
+			'debug.clearUserPreferencesConfirmationTitle' => 'વપરાશકર્તાની પસંદગીઓ રીસેટ કરવી?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'થીમ, ભાષા અને પ્રતિસાદની પસંદગીઓ રીસેટ કરવામાં આવશે. ભોજન અને પ્રોફાઇલ પર અસર નહીં થાય.',
+			'debug.clearUserProfile' => 'વપરાશકર્તાની પ્રોફાઇલ રીસેટ કરો',
+			'debug.clearUserProfileConfirmationTitle' => 'વપરાશકર્તાની પ્રોફાઇલ રીસેટ કરવી?',
+			'debug.clearUserProfileConfirmationMessage' => 'તમારા પ્રોફાઇલનો ડેટા (દરરોજનું લક્ષ્ય, ઊંચાઈ, વજન, વગેરે) મિટાવવામાં આવશે. ભોજન અને પસંદગીઓ પર અસર નહીં થાય.',
+			'debug.clear' => 'મિટાવો',
+			'debug.cancel' => 'રદ કરો',
 			'health.syncFailed' => 'હેલ્થ કનેક્ટ સાથે સમન્વય શુધ્ધબૂક કર્યો નથી',
 			'health.mealSynced' => 'ખોરાક હેલ્થ કનેક્ટ સાથે સંકળાયેલ છે',
 			_ => null,

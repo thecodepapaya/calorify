@@ -601,6 +601,15 @@
       "close": "Close",
       "continue": "Continue"
     },
+    "feedbackRating": {
+      "enjoyingQuestion": "Enjoying {appLabel}? Your experience matters to us.",
+      "yes": "Yes, I'm enjoying it",
+      "no": "Not really",
+      "soloDevMessage": "{appLabel} is built by one person. A quick Play Store rating helps others find it and keeps development going — it really helps. Would you take a moment to leave one?",
+      "shareFeedbackViaEmail": "{appLabel} is built by one person. Your feedback really shapes what comes next — and we read every message. Would you like to share your thoughts via email?",
+      "aboutUsMentionBeforeLink": "Curious who's behind {appLabel}? See ",
+      "aboutUsLinkLabel": "About us"
+    },
     "errors": {
       "loadingProfileData": "Error loading profile data",
       "somethingWentWrong": "Something went wrong."
@@ -610,6 +619,8 @@
       "sections": {
         "notifications": "Notifications",
         "healthConnect": "Health Connect",
+        "feedback": "Feedback",
+        "dataReset": "Data reset",
         "appInfo": "App Info"
       },
       "showActiveNotifications": "Show Active Notifications",
@@ -648,7 +659,16 @@
       "breakfastNotificationTriggered": "Breakfast notification triggered.",
       "allNotificationsCancelled": "All notifications cancelled.",
       "fetchingData": "Fetching data for the last 7 days...",
-      "id": "ID: {id}"
+      "id": "ID: {id}",
+      "showFeedbackRatingSheet": "Show feedback / rating sheet",
+      "clearUserPreferences": "Clear user preferences",
+      "clearUserPreferencesConfirmationTitle": "Clear user preferences?",
+      "clearUserPreferencesConfirmationMessage": "Theme, language, and feedback preferences will be reset. Meals and profile are not affected.",
+      "clearUserProfile": "Clear user profile",
+      "clearUserProfileConfirmationTitle": "Clear user profile?",
+      "clearUserProfileConfirmationMessage": "Your profile data (daily goal, height, weight, etc.) will be cleared. Meals and preferences are not affected.",
+      "clear": "Clear",
+      "cancel": "Cancel"
     },
     "health": {
       "syncFailed": "Could not sync to Health Connect",

@@ -596,6 +596,15 @@
     "close": "닫기",
     "continue": "계속하기"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "{appLabel}을(를) 즐기고 계신가요? 사용 경험이 저희에게는 중요합니다.",
+    "yes": "네, 즐기고 있어요",
+    "no": "아직 그렇지 않아요",
+    "soloDevMessage": "{appLabel}은(는) 한 사람이 만든 앱입니다. 간단한 플레이 스토어 평가가 다른 사람들이 앱을 찾는 데 도움이 되고 개발을 계속하는 데 큰 힘이 됩니다. 잠시 시간을 내어 평가해 주시겠어요?",
+    "shareFeedbackViaEmail": "{appLabel}은(는) 한 사람이 만든 앱입니다. 여러분의 피드백이 앞으로 어떤 기능이 추가될지에 큰 영향을 줍니다 — 저희는 모든 메시지를 꼼꼼히 읽습니다. 이메일로 의견을 공유하시겠어요?",
+    "aboutUsMentionBeforeLink": "{appLabel}의 제작자가 궁금하신가요? ",
+    "aboutUsLinkLabel": "개발자 소개"
+  },
   "errors": {
     "loadingProfileData": "프로필 데이터 로드 중 오류 발생",
     "somethingWentWrong": "문제가 발생했습니다."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "알림",
       "healthConnect": "Health Connect",
+      "feedback": "피드백",
+      "dataReset": "데이터 초기화",
       "appInfo": "앱 정보"
     },
     "showActiveNotifications": "활성 알림 표시",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "아침 식사 알림이 트리거되었습니다.",
     "allNotificationsCancelled": "모든 알림이 취소되었습니다.",
     "fetchingData": "최근 7일 동안의 데이터 가져오기...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "피드백/평가 창 열기",
+    "clearUserPreferences": "사용자 설정 초기화",
+    "clearUserPreferencesConfirmationTitle": "사용자 설정을 초기화하시겠습니까?",
+    "clearUserPreferencesConfirmationMessage": "테마, 언어, 피드백 설정이 초기화됩니다. 식사 기록과 프로필은 영향을 받지 않습니다.",
+    "clearUserProfile": "프로필 초기화",
+    "clearUserProfileConfirmationTitle": "프로필을 초기화하시겠습니까?",
+    "clearUserProfileConfirmationMessage": "프로필 데이터(일일 목표, 키, 체중 등)가 초기화됩니다. 식사 기록 및 설정은 영향을 받지 않습니다.",
+    "clear": "초기화",
+    "cancel": "취소"
   },
   "health": {
     "syncFailed": "Health Connect와 동기화할 수 없습니다.",

@@ -55,6 +55,7 @@ class TranslationsHu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginHu login = _TranslationsLoginHu._(_root);
 	@override late final _TranslationsDisclaimerHu disclaimer = _TranslationsDisclaimerHu._(_root);
 	@override late final _TranslationsCommonHu common = _TranslationsCommonHu._(_root);
+	@override late final _TranslationsFeedbackRatingHu feedbackRating = _TranslationsFeedbackRatingHu._(_root);
 	@override late final _TranslationsErrorsHu errors = _TranslationsErrorsHu._(_root);
 	@override late final _TranslationsDebugHu debug = _TranslationsDebugHu._(_root);
 	@override late final _TranslationsHealthHu health = _TranslationsHealthHu._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonHu implements TranslationsCommonEn {
 	@override String get kContinue => 'Tovább';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingHu implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Tetszik a ${appLabel}? Fontos számunkra az élményed.';
+	@override String get yes => 'Igen, tetszik!';
+	@override String get no => 'Nem igazán';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} egyetlen fejlesztő által készült. Egy rövid Play Áruház-beli értékelés segít másoknak megtalálni az alkalmazást és támogatja a fejlesztést — igazán sokat számít. Megtennéd, hogy hagysz egy értékelést?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} egyetlen fejlesztő által készült. A visszajelzéseid nagyban alakítják a további fejlesztéseket — és minden üzenetet elolvasunk. Szeretnéd e-mailben megosztani a gondolataidat?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Kíváncsi vagy, ki áll a ${appLabel} mögött? Nézd meg ';
+	@override String get aboutUsLinkLabel => 'Rólunk';
+}
+
 // Path: errors
 class _TranslationsErrorsHu implements TranslationsErrorsEn {
 	_TranslationsErrorsHu._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugHu implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Összes értesítés törölve.';
 	@override String get fetchingData => 'Adatok lekérése az elmúlt 7 napra...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Visszajelzés/értékelés megjelenítése';
+	@override String get clearUserPreferences => 'Felhasználói beállítások törlése';
+	@override String get clearUserPreferencesConfirmationTitle => 'Töröljük a felhasználói beállításokat?';
+	@override String get clearUserPreferencesConfirmationMessage => 'A téma, a nyelv és a visszajelzési beállítások visszaállnak. Az étkezések és a profil nem érintett.';
+	@override String get clearUserProfile => 'Felhasználói profil törlése';
+	@override String get clearUserProfileConfirmationTitle => 'Töröljük a felhasználói profilt?';
+	@override String get clearUserProfileConfirmationMessage => 'A profiladataid (napi cél, magasság, testsúly stb.) törlődnek. Az étkezések és a beállítások nem érintettek.';
+	@override String get clear => 'Törlés';
+	@override String get cancel => 'Mégse';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsHu implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Értesítések';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Visszajelzés';
+	@override String get dataReset => 'Adatok visszaállítása';
 	@override String get appInfo => 'Alkalmazás Információ';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsHu {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'A Napi Cél a javasolt napi kalóriabeviteled, amely a TDEE-d és a súlycélod alapján van megállapítva. Súlycsökkentés esetén kevesebb kalóriát fogyasztasz, mint a TDEE-d. A súly fenntartásához a TDEE-dnek megfelelő mennyiséget fogyasztasz. Súlygyarapodás érdekében pedig többet eszel, mint a TDEE-d. Ez segít elérni a kívánt súlyváltozást egészséges ütemben.',
 			'common.close' => 'Bezárás',
 			'common.kContinue' => 'Tovább',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Tetszik a ${appLabel}? Fontos számunkra az élményed.',
+			'feedbackRating.yes' => 'Igen, tetszik!',
+			'feedbackRating.no' => 'Nem igazán',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} egyetlen fejlesztő által készült. Egy rövid Play Áruház-beli értékelés segít másoknak megtalálni az alkalmazást és támogatja a fejlesztést — igazán sokat számít. Megtennéd, hogy hagysz egy értékelést?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} egyetlen fejlesztő által készült. A visszajelzéseid nagyban alakítják a további fejlesztéseket — és minden üzenetet elolvasunk. Szeretnéd e-mailben megosztani a gondolataidat?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Kíváncsi vagy, ki áll a ${appLabel} mögött? Nézd meg ',
+			'feedbackRating.aboutUsLinkLabel' => 'Rólunk',
 			'errors.loadingProfileData' => 'Hiba a profiladatok betöltésekor',
 			'errors.somethingWentWrong' => 'Valami hiba történt.',
 			'debug.title' => 'Hibakeresési Beállítások',
 			'debug.sections.notifications' => 'Értesítések',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Visszajelzés',
+			'debug.sections.dataReset' => 'Adatok visszaállítása',
 			'debug.sections.appInfo' => 'Alkalmazás Információ',
 			'debug.showActiveNotifications' => 'Aktív Értesítések Megjelenítése',
 			'debug.scheduleTestNotification' => 'Teszt Értesítés Ütemezése (10s)',
@@ -1987,6 +2024,15 @@ extension on TranslationsHu {
 			'debug.allNotificationsCancelled' => 'Összes értesítés törölve.',
 			'debug.fetchingData' => 'Adatok lekérése az elmúlt 7 napra...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Visszajelzés/értékelés megjelenítése',
+			'debug.clearUserPreferences' => 'Felhasználói beállítások törlése',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Töröljük a felhasználói beállításokat?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'A téma, a nyelv és a visszajelzési beállítások visszaállnak. Az étkezések és a profil nem érintett.',
+			'debug.clearUserProfile' => 'Felhasználói profil törlése',
+			'debug.clearUserProfileConfirmationTitle' => 'Töröljük a felhasználói profilt?',
+			'debug.clearUserProfileConfirmationMessage' => 'A profiladataid (napi cél, magasság, testsúly stb.) törlődnek. Az étkezések és a beállítások nem érintettek.',
+			'debug.clear' => 'Törlés',
+			'debug.cancel' => 'Mégse',
 			'health.syncFailed' => 'Nem sikerült szinkronizálni a Health Connect-tel',
 			'health.mealSynced' => 'Étkezés szinkronizálva a Health Connect-tel',
 			_ => null,

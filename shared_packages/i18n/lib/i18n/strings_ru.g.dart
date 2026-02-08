@@ -55,6 +55,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginRu login = _TranslationsLoginRu._(_root);
 	@override late final _TranslationsDisclaimerRu disclaimer = _TranslationsDisclaimerRu._(_root);
 	@override late final _TranslationsCommonRu common = _TranslationsCommonRu._(_root);
+	@override late final _TranslationsFeedbackRatingRu feedbackRating = _TranslationsFeedbackRatingRu._(_root);
 	@override late final _TranslationsErrorsRu errors = _TranslationsErrorsRu._(_root);
 	@override late final _TranslationsDebugRu debug = _TranslationsDebugRu._(_root);
 	@override late final _TranslationsHealthRu health = _TranslationsHealthRu._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonRu implements TranslationsCommonEn {
 	@override String get kContinue => 'Продолжить';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingRu implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Вам нравится ${appLabel}? Ваше мнение важно для нас.';
+	@override String get yes => 'Да, мне нравится';
+	@override String get no => 'Не очень';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} создан одним человеком. Быстрая оценка в Play Маркете помогает другим найти приложение и поддерживает разработку — это действительно помогает. Не могли бы вы уделить минуту, чтобы поставить оценку?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} создан одним человеком. Ваши отзывы действительно формируют то, что будет дальше — и мы читаем каждое сообщение. Хотите поделиться мнением по электронной почте?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Интересно, кто стоит за ${appLabel}? Посмотрите ';
+	@override String get aboutUsLinkLabel => 'О нас';
+}
+
 // Path: errors
 class _TranslationsErrorsRu implements TranslationsErrorsEn {
 	_TranslationsErrorsRu._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugRu implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Все уведомления отменены.';
 	@override String get fetchingData => 'Получение данных за последние 7 дней...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Показать окно обратной связи/оценки';
+	@override String get clearUserPreferences => 'Сбросить предпочтения пользователя';
+	@override String get clearUserPreferencesConfirmationTitle => 'Сбросить предпочтения пользователя?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Тема, язык и настройки обратной связи будут сброшены. Приёмы пищи и профиль не затронуты.';
+	@override String get clearUserProfile => 'Очистить профиль пользователя';
+	@override String get clearUserProfileConfirmationTitle => 'Очистить профиль пользователя?';
+	@override String get clearUserProfileConfirmationMessage => 'Данные вашего профиля (суточная норма, рост, вес и т.п.) будут удалены. Приёмы пищи и настройки не затронуты.';
+	@override String get clear => 'Очистить';
+	@override String get cancel => 'Отмена';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsRu implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Уведомления';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Обратная связь';
+	@override String get dataReset => 'Сброс данных';
 	@override String get appInfo => 'Информация о приложении';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsRu {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Ежедневная цель — это ваша рекомендуемая суточная калорийность, основанная на вашем TDEE и цели по весу. Для похудения вы потребляете меньше калорий, чем ваш TDEE. Для поддержания веса вы сопоставляете свои калории с TDEE. Для набора веса вы потребляете больше калорий, чем ваш TDEE. Это помогает вам достичь желаемого изменения веса с безопасной скоростью.',
 			'common.close' => 'Закрыть',
 			'common.kContinue' => 'Продолжить',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Вам нравится ${appLabel}? Ваше мнение важно для нас.',
+			'feedbackRating.yes' => 'Да, мне нравится',
+			'feedbackRating.no' => 'Не очень',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} создан одним человеком. Быстрая оценка в Play Маркете помогает другим найти приложение и поддерживает разработку — это действительно помогает. Не могли бы вы уделить минуту, чтобы поставить оценку?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} создан одним человеком. Ваши отзывы действительно формируют то, что будет дальше — и мы читаем каждое сообщение. Хотите поделиться мнением по электронной почте?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Интересно, кто стоит за ${appLabel}? Посмотрите ',
+			'feedbackRating.aboutUsLinkLabel' => 'О нас',
 			'errors.loadingProfileData' => 'Ошибка загрузки данных профиля',
 			'errors.somethingWentWrong' => 'Что-то пошло не так.',
 			'debug.title' => 'Опции отладки',
 			'debug.sections.notifications' => 'Уведомления',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Обратная связь',
+			'debug.sections.dataReset' => 'Сброс данных',
 			'debug.sections.appInfo' => 'Информация о приложении',
 			'debug.showActiveNotifications' => 'Показать активные уведомления',
 			'debug.scheduleTestNotification' => 'Запланировать тестовое уведомление (10с)',
@@ -1987,6 +2024,15 @@ extension on TranslationsRu {
 			'debug.allNotificationsCancelled' => 'Все уведомления отменены.',
 			'debug.fetchingData' => 'Получение данных за последние 7 дней...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Показать окно обратной связи/оценки',
+			'debug.clearUserPreferences' => 'Сбросить предпочтения пользователя',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Сбросить предпочтения пользователя?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Тема, язык и настройки обратной связи будут сброшены. Приёмы пищи и профиль не затронуты.',
+			'debug.clearUserProfile' => 'Очистить профиль пользователя',
+			'debug.clearUserProfileConfirmationTitle' => 'Очистить профиль пользователя?',
+			'debug.clearUserProfileConfirmationMessage' => 'Данные вашего профиля (суточная норма, рост, вес и т.п.) будут удалены. Приёмы пищи и настройки не затронуты.',
+			'debug.clear' => 'Очистить',
+			'debug.cancel' => 'Отмена',
 			'health.syncFailed' => 'Не удалось синхронизироваться с Health Connect',
 			'health.mealSynced' => 'Приём пищи синхронизирован с Health Connect',
 			_ => null,

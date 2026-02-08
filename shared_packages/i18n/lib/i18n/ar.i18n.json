@@ -596,6 +596,15 @@
     "close": "إغلاق",
     "continue": "استمر"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "هل تستمتع باستخدام {appLabel}؟ تجربتك تهمنا.",
+    "yes": "نعم، أستمتع باستخدامه",
+    "no": "ليس حقًا",
+    "soloDevMessage": "{appLabel} تم تطويره من قبل شخص واحد. تقييم سريع على متجر Play يساعد الآخرين في العثور عليه ويدعم استمرار التطوير — إنه مفيد حقًا. هل تود أن تترك تقييمًا؟",
+    "shareFeedbackViaEmail": "{appLabel} مبني من قبل شخص واحد. ملاحظاتك تشكل ما سيأتي — ونحن نقرأ كل رسالة. هل تود مشاركة أفكارك عبر البريد الإلكتروني؟",
+    "aboutUsMentionBeforeLink": "هل تريد معرفة من يقف وراء {appLabel}؟ انظر ",
+    "aboutUsLinkLabel": "من نحن"
+  },
   "errors": {
     "loadingProfileData": "خطأ في تحميل بيانات الملف الشخصي",
     "somethingWentWrong": "حدث خطأ ما."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "التنبيهات",
       "healthConnect": "Health Connect",
+      "feedback": "التعليقات",
+      "dataReset": "إعادة تعيين البيانات",
       "appInfo": "معلومات التطبيق"
     },
     "showActiveNotifications": "عرض التنبيهات النشطة",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "تم تفعيل تنبيه الإفطار.",
     "allNotificationsCancelled": "تم إلغاء جميع التنبيهات.",
     "fetchingData": "جاري جلب البيانات لآخر 7 أيام...",
-    "id": "معرف: {id}"
+    "id": "معرف: {id}",
+    "showFeedbackRatingSheet": "عرض نافذة التقييم/التعليقات",
+    "clearUserPreferences": "مسح تفضيلات المستخدم",
+    "clearUserPreferencesConfirmationTitle": "مسح تفضيلات المستخدم؟",
+    "clearUserPreferencesConfirmationMessage": "سيتم إعادة تعيين السمة واللغة وتفضيلات التعليقات. لن تتأثر الوجبات والملف الشخصي.",
+    "clearUserProfile": "مسح الملف الشخصي",
+    "clearUserProfileConfirmationTitle": "مسح الملف الشخصي؟",
+    "clearUserProfileConfirmationMessage": "سيتم مسح بيانات ملفك الشخصي (الهدف اليومي، الطول، الوزن، إلخ). لن تتأثر الوجبات والتفضيلات.",
+    "clear": "مسح",
+    "cancel": "إلغاء"
   },
   "health": {
     "syncFailed": "تعذر المزامنة مع Health Connect",

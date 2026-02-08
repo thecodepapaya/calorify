@@ -65,6 +65,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsLoginEn login = TranslationsLoginEn._(_root);
 	late final TranslationsDisclaimerEn disclaimer = TranslationsDisclaimerEn._(_root);
 	late final TranslationsCommonEn common = TranslationsCommonEn._(_root);
+	late final TranslationsFeedbackRatingEn feedbackRating = TranslationsFeedbackRatingEn._(_root);
 	late final TranslationsErrorsEn errors = TranslationsErrorsEn._(_root);
 	late final TranslationsDebugEn debug = TranslationsDebugEn._(_root);
 	late final TranslationsHealthEn health = TranslationsHealthEn._(_root);
@@ -561,6 +562,36 @@ class TranslationsCommonEn {
 	String get kContinue => 'Continue';
 }
 
+// Path: feedbackRating
+class TranslationsFeedbackRatingEn {
+	TranslationsFeedbackRatingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Enjoying {appLabel}? Your experience matters to us.'
+	String enjoyingQuestion({required Object appLabel}) => 'Enjoying ${appLabel}? Your experience matters to us.';
+
+	/// en: 'Yes, I'm enjoying it'
+	String get yes => 'Yes, I\'m enjoying it';
+
+	/// en: 'Not really'
+	String get no => 'Not really';
+
+	/// en: '{appLabel} is built by one person. A quick Play Store rating helps others find it and keeps development going — it really helps. Would you take a moment to leave one?'
+	String soloDevMessage({required Object appLabel}) => '${appLabel} is built by one person. A quick Play Store rating helps others find it and keeps development going — it really helps. Would you take a moment to leave one?';
+
+	/// en: '{appLabel} is built by one person. Your feedback really shapes what comes next — and we read every message. Would you like to share your thoughts via email?'
+	String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} is built by one person. Your feedback really shapes what comes next — and we read every message. Would you like to share your thoughts via email?';
+
+	/// en: 'Curious who's behind {appLabel}? See '
+	String aboutUsMentionBeforeLink({required Object appLabel}) => 'Curious who\'s behind ${appLabel}? See ';
+
+	/// en: 'About us'
+	String get aboutUsLinkLabel => 'About us';
+}
+
 // Path: errors
 class TranslationsErrorsEn {
 	TranslationsErrorsEn._(this._root);
@@ -699,6 +730,33 @@ class TranslationsDebugEn {
 
 	/// en: 'ID: {id}'
 	String id({required Object id}) => 'ID: ${id}';
+
+	/// en: 'Show feedback / rating sheet'
+	String get showFeedbackRatingSheet => 'Show feedback / rating sheet';
+
+	/// en: 'Clear user preferences'
+	String get clearUserPreferences => 'Clear user preferences';
+
+	/// en: 'Clear user preferences?'
+	String get clearUserPreferencesConfirmationTitle => 'Clear user preferences?';
+
+	/// en: 'Theme, language, and feedback preferences will be reset. Meals and profile are not affected.'
+	String get clearUserPreferencesConfirmationMessage => 'Theme, language, and feedback preferences will be reset. Meals and profile are not affected.';
+
+	/// en: 'Clear user profile'
+	String get clearUserProfile => 'Clear user profile';
+
+	/// en: 'Clear user profile?'
+	String get clearUserProfileConfirmationTitle => 'Clear user profile?';
+
+	/// en: 'Your profile data (daily goal, height, weight, etc.) will be cleared. Meals and preferences are not affected.'
+	String get clearUserProfileConfirmationMessage => 'Your profile data (daily goal, height, weight, etc.) will be cleared. Meals and preferences are not affected.';
+
+	/// en: 'Clear'
+	String get clear => 'Clear';
+
+	/// en: 'Cancel'
+	String get cancel => 'Cancel';
 }
 
 // Path: health
@@ -1726,6 +1784,12 @@ class TranslationsDebugSectionsEn {
 
 	/// en: 'Health Connect'
 	String get healthConnect => 'Health Connect';
+
+	/// en: 'Feedback'
+	String get feedback => 'Feedback';
+
+	/// en: 'Data reset'
+	String get dataReset => 'Data reset';
 
 	/// en: 'App Info'
 	String get appInfo => 'App Info';
@@ -2839,11 +2903,20 @@ extension on Translations {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Daily Goal is your recommended daily calorie intake based on your TDEE and weight goal. For weight loss, you consume fewer calories than your TDEE. For weight maintenance, you match your TDEE. For weight gain, you consume more calories than your TDEE. This helps you achieve your desired weight change at a healthy pace.',
 			'common.close' => 'Close',
 			'common.kContinue' => 'Continue',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Enjoying ${appLabel}? Your experience matters to us.',
+			'feedbackRating.yes' => 'Yes, I\'m enjoying it',
+			'feedbackRating.no' => 'Not really',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} is built by one person. A quick Play Store rating helps others find it and keeps development going — it really helps. Would you take a moment to leave one?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} is built by one person. Your feedback really shapes what comes next — and we read every message. Would you like to share your thoughts via email?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Curious who\'s behind ${appLabel}? See ',
+			'feedbackRating.aboutUsLinkLabel' => 'About us',
 			'errors.loadingProfileData' => 'Error loading profile data',
 			'errors.somethingWentWrong' => 'Something went wrong.',
 			'debug.title' => 'Debug Options',
 			'debug.sections.notifications' => 'Notifications',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Feedback',
+			'debug.sections.dataReset' => 'Data reset',
 			'debug.sections.appInfo' => 'App Info',
 			'debug.showActiveNotifications' => 'Show Active Notifications',
 			'debug.scheduleTestNotification' => 'Schedule Test Notification (10s)',
@@ -2882,6 +2955,15 @@ extension on Translations {
 			'debug.allNotificationsCancelled' => 'All notifications cancelled.',
 			'debug.fetchingData' => 'Fetching data for the last 7 days...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Show feedback / rating sheet',
+			'debug.clearUserPreferences' => 'Clear user preferences',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Clear user preferences?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Theme, language, and feedback preferences will be reset. Meals and profile are not affected.',
+			'debug.clearUserProfile' => 'Clear user profile',
+			'debug.clearUserProfileConfirmationTitle' => 'Clear user profile?',
+			'debug.clearUserProfileConfirmationMessage' => 'Your profile data (daily goal, height, weight, etc.) will be cleared. Meals and preferences are not affected.',
+			'debug.clear' => 'Clear',
+			'debug.cancel' => 'Cancel',
 			'health.syncFailed' => 'Could not sync to Health Connect',
 			'health.mealSynced' => 'Meal synced with Health Connect',
 			_ => null,

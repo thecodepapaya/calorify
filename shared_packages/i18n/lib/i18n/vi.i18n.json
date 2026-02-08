@@ -596,6 +596,15 @@
     "close": "Đóng",
     "continue": "Tiếp tục"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Bạn đang hài lòng với {appLabel}? Trải nghiệm của bạn rất quan trọng đối với chúng tôi.",
+    "yes": "Có, tôi thích nó",
+    "no": "Không lắm",
+    "soloDevMessage": "{appLabel} được xây dựng bởi một người. Một đánh giá nhanh trên Play Store giúp người khác tìm thấy ứng dụng và duy trì phát triển — thực sự rất hữu ích. Bạn có thể dành chút thời gian để để lại đánh giá không?",
+    "shareFeedbackViaEmail": "{appLabel} được xây dựng bởi một người. Phản hồi của bạn thực sự định hướng những gì sẽ tới — và chúng tôi đọc mọi tin nhắn. Bạn có muốn chia sẻ suy nghĩ qua email không?",
+    "aboutUsMentionBeforeLink": "Bạn tò mò ai đứng sau {appLabel}? Xem ",
+    "aboutUsLinkLabel": "Về chúng tôi"
+  },
   "errors": {
     "loadingProfileData": "Lỗi khi tải dữ liệu hồ sơ",
     "somethingWentWrong": "Đã xảy ra lỗi."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Thông báo",
       "healthConnect": "Health Connect",
+      "feedback": "Phản hồi",
+      "dataReset": "Đặt lại dữ liệu",
       "appInfo": "Thông tin ứng dụng"
     },
     "showActiveNotifications": "Hiển thị thông báo đang hoạt động",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Thông báo bữa sáng đã được kích hoạt.",
     "allNotificationsCancelled": "Tất cả thông báo đã được hủy.",
     "fetchingData": "Đang lấy dữ liệu cho 7 ngày vừa qua...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Hiển thị hộp phản hồi/đánh giá",
+    "clearUserPreferences": "Xóa tùy chọn người dùng",
+    "clearUserPreferencesConfirmationTitle": "Xóa tùy chọn người dùng?",
+    "clearUserPreferencesConfirmationMessage": "Giao diện, ngôn ngữ và tùy chọn phản hồi sẽ được đặt lại. Bữa ăn và hồ sơ sẽ không bị ảnh hưởng.",
+    "clearUserProfile": "Xóa hồ sơ người dùng",
+    "clearUserProfileConfirmationTitle": "Xóa hồ sơ người dùng?",
+    "clearUserProfileConfirmationMessage": "Dữ liệu hồ sơ của bạn (mục tiêu hàng ngày, chiều cao, cân nặng, v.v.) sẽ bị xóa. Bữa ăn và tùy chọn sẽ không bị ảnh hưởng.",
+    "clear": "Xóa",
+    "cancel": "Hủy"
   },
   "health": {
     "syncFailed": "Không thể đồng bộ với Health Connect",

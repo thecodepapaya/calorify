@@ -596,6 +596,15 @@
     "close": "Luk",
     "continue": "Fortsæt"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Nyder du {appLabel}? Din oplevelse betyder meget for os.",
+    "yes": "Ja, jeg nyder den",
+    "no": "Ikke rigtigt",
+    "soloDevMessage": "{appLabel} er udviklet af én person. En hurtig vurdering i Play Butik hjælper andre med at finde appen og holder udviklingen i gang — det betyder virkelig meget. Vil du give en vurdering?",
+    "shareFeedbackViaEmail": "{appLabel} er udviklet af én person. Din feedback former virkelig, hvad der kommer fremover — og vi læser hver eneste besked. Vil du dele dine tanker via e-mail?",
+    "aboutUsMentionBeforeLink": "Nysgerrig efter, hvem der står bag {appLabel}? Se ",
+    "aboutUsLinkLabel": "Om os"
+  },
   "errors": {
     "loadingProfileData": "Fejl ved indlæsning af profildata",
     "somethingWentWrong": "Noget gik galt."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Notifikationer",
       "healthConnect": "Health Connect",
+      "feedback": "Feedback",
+      "dataReset": "Nulstil data",
       "appInfo": "App Info"
     },
     "showActiveNotifications": "Vis Aktive Notifikationer",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Morgenmadnotifikation udløst.",
     "allNotificationsCancelled": "Alle notifikationer annulleret.",
     "fetchingData": "Henter data for de sidste 7 dage...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Vis feedback- og vurderingsark",
+    "clearUserPreferences": "Nulstil brugerindstillinger",
+    "clearUserPreferencesConfirmationTitle": "Nulstil brugerindstillinger?",
+    "clearUserPreferencesConfirmationMessage": "Tema, sprog og feedback-præferencer vil blive nulstillet. Måltider og profil påvirkes ikke.",
+    "clearUserProfile": "Nulstil brugerprofil",
+    "clearUserProfileConfirmationTitle": "Nulstil brugerprofil?",
+    "clearUserProfileConfirmationMessage": "Dine profildata (dagsmål, højde, vægt osv.) vil blive nulstillet. Måltider og indstillinger påvirkes ikke.",
+    "clear": "Nulstil",
+    "cancel": "Annuller"
   },
   "health": {
     "syncFailed": "Kunne ikke synkronisere med Health Connect",

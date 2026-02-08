@@ -1,13 +1,50 @@
-import 'package:models/models.dart';
+import 'dart:async';
+
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
-import 'package:i18n/i18n.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
+import 'package:models/models.dart';
 
-Future<void> logMeal(BuildContext context, Meal mealInfo) async {
+Future<void> logMeal(
+  BuildContext context,
+  Meal mealInfo, {
+  BuildContext? parentContext,
+}) async {
   await DatabaseService.databaseInterface.logMeal(mealInfo);
   if (!context.mounted) return;
   await _writeDataToHealthConnect(context, mealInfo);
+  if (!context.mounted) return;
+  final feedbackContext =
+      parentContext ?? Navigator.of(context).overlay?.context;
+  if (feedbackContext != null) {
+    unawaited(maybeShowFeedbackSheetAfterMealSaved(feedbackContext));
+  }
+}
+
+/// Checks eligibility (pref not shown + 5 meals or 3+ meals across 2+ days)
+/// and shows the feedback sheet if eligible. Waits for the meal sheet to close
+/// before showing so the feedback sheet is not hidden behind it.
+Future<void> maybeShowFeedbackSheetAfterMealSaved(BuildContext context) async {
+  final db = DatabaseService.databaseInterface;
+  if (await db.hasSeenFeedbackSheet()) return;
+  final meals = await db.getLatestMealsForFeedbackEligibility(limit: 5);
+  final distinctDays =
+      meals
+          .map(
+            (m) => DateTime(m.dateTime.year, m.dateTime.month, m.dateTime.day),
+          )
+          .toSet()
+          .length;
+
+  final eligible =
+      meals.length >= 5 || (meals.length >= 3 && distinctDays >= 2);
+  if (!eligible) return;
+  // Let the meal tip sheet close first so the feedback sheet is in the foreground.
+  await Future.delayed(const Duration(milliseconds: 800));
+  if (!context.mounted) return;
+  await showFeedbackRatingSheet(context);
 }
 
 Future<bool> _writeDataToHealthConnect(

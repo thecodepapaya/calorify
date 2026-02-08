@@ -55,6 +55,7 @@ class TranslationsTl with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginTl login = _TranslationsLoginTl._(_root);
 	@override late final _TranslationsDisclaimerTl disclaimer = _TranslationsDisclaimerTl._(_root);
 	@override late final _TranslationsCommonTl common = _TranslationsCommonTl._(_root);
+	@override late final _TranslationsFeedbackRatingTl feedbackRating = _TranslationsFeedbackRatingTl._(_root);
 	@override late final _TranslationsErrorsTl errors = _TranslationsErrorsTl._(_root);
 	@override late final _TranslationsDebugTl debug = _TranslationsDebugTl._(_root);
 	@override late final _TranslationsHealthTl health = _TranslationsHealthTl._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonTl implements TranslationsCommonEn {
 	@override String get kContinue => 'Magpatuloy';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingTl implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Nasasiyahan ka ba sa ${appLabel}? Mahalaga sa amin ang iyong karanasan.';
+	@override String get yes => 'Oo, nasisiyahan ako';
+	@override String get no => 'Hindi talaga';
+	@override String soloDevMessage({required Object appLabel}) => 'Ang ${appLabel} ay ginawa ng isang tao lamang. Ang isang mabilis na rating sa Play Store ay nakakatulong para makita ito ng iba at nagpapatuloy ang pag-unlad — malaking tulong talaga ito. Maaari ka bang maglaan ng sandali para mag-iwan ng rating?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => 'Ang ${appLabel} ay ginawa ng isang tao lamang. Malaki ang naiaambag ng iyong feedback sa mga susunod na hakbang — binabasa namin ang bawat mensahe. Gusto mo bang ibahagi ang iyong saloobin sa pamamagitan ng email?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nais mong malaman kung sino ang nasa likod ng ${appLabel}? Tingnan ';
+	@override String get aboutUsLinkLabel => 'Tungkol sa amin';
+}
+
 // Path: errors
 class _TranslationsErrorsTl implements TranslationsErrorsEn {
 	_TranslationsErrorsTl._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugTl implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Naka-cancel ang lahat ng notifikasyon.';
 	@override String get fetchingData => 'Kunin ang datos para sa nakaraang 7 araw...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Ipakita ang sheet para sa feedback at rating';
+	@override String get clearUserPreferences => 'I-reset ang mga kagustuhan ng user';
+	@override String get clearUserPreferencesConfirmationTitle => 'I-reset ang mga kagustuhan ng user?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Mare-reset ang tema, wika, at mga kagustuhan sa feedback. Hindi maaapektuhan ang mga pagkain at profile.';
+	@override String get clearUserProfile => 'Burahin ang profile ng user';
+	@override String get clearUserProfileConfirmationTitle => 'Burahin ba ang profile ng user?';
+	@override String get clearUserProfileConfirmationMessage => 'Mababura ang data ng iyong profile (pang-araw-araw na layunin, taas, timbang, atbp.). Hindi maaapektuhan ang mga pagkain at mga kagustuhan.';
+	@override String get clear => 'Burahin';
+	@override String get cancel => 'Kanselahin';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsTl implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Mga Notifikasyon';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Puna';
+	@override String get dataReset => 'I-reset ang data';
 	@override String get appInfo => 'Impormasyon ng App';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsTl {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Ang Arawang Layunin ay ang inirekomendang pang-araw-araw na calorie na kinakailangan batay sa iyong TDEE at layunin sa timbang. Para sa pagbaba ng timbang, kumakain ka ng mas kaunting calorie kaysa sa iyong TDEE. Para sa pagpapanatili ng timbang, katumbas mo ang iyong TDEE. Para sa pagtaas ng timbang, kumakain ka ng mas maraming calorie kaysa sa iyong TDEE. Tinutulungan ka nitong makamit ang iyong nais na pagbabago ng timbang sa isang malusog na takbo.',
 			'common.close' => 'Isara',
 			'common.kContinue' => 'Magpatuloy',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nasasiyahan ka ba sa ${appLabel}? Mahalaga sa amin ang iyong karanasan.',
+			'feedbackRating.yes' => 'Oo, nasisiyahan ako',
+			'feedbackRating.no' => 'Hindi talaga',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Ang ${appLabel} ay ginawa ng isang tao lamang. Ang isang mabilis na rating sa Play Store ay nakakatulong para makita ito ng iba at nagpapatuloy ang pag-unlad — malaking tulong talaga ito. Maaari ka bang maglaan ng sandali para mag-iwan ng rating?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => 'Ang ${appLabel} ay ginawa ng isang tao lamang. Malaki ang naiaambag ng iyong feedback sa mga susunod na hakbang — binabasa namin ang bawat mensahe. Gusto mo bang ibahagi ang iyong saloobin sa pamamagitan ng email?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nais mong malaman kung sino ang nasa likod ng ${appLabel}? Tingnan ',
+			'feedbackRating.aboutUsLinkLabel' => 'Tungkol sa amin',
 			'errors.loadingProfileData' => 'Error sa pag-load ng datos ng profile',
 			'errors.somethingWentWrong' => 'May nangyaring mali.',
 			'debug.title' => 'Mga Opsyon sa Debug',
 			'debug.sections.notifications' => 'Mga Notifikasyon',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Puna',
+			'debug.sections.dataReset' => 'I-reset ang data',
 			'debug.sections.appInfo' => 'Impormasyon ng App',
 			'debug.showActiveNotifications' => 'Ipakita ang Aktibong Notifikasyon',
 			'debug.scheduleTestNotification' => 'I-schedule ang Test Notification (10s)',
@@ -1987,6 +2024,15 @@ extension on TranslationsTl {
 			'debug.allNotificationsCancelled' => 'Naka-cancel ang lahat ng notifikasyon.',
 			'debug.fetchingData' => 'Kunin ang datos para sa nakaraang 7 araw...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Ipakita ang sheet para sa feedback at rating',
+			'debug.clearUserPreferences' => 'I-reset ang mga kagustuhan ng user',
+			'debug.clearUserPreferencesConfirmationTitle' => 'I-reset ang mga kagustuhan ng user?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Mare-reset ang tema, wika, at mga kagustuhan sa feedback. Hindi maaapektuhan ang mga pagkain at profile.',
+			'debug.clearUserProfile' => 'Burahin ang profile ng user',
+			'debug.clearUserProfileConfirmationTitle' => 'Burahin ba ang profile ng user?',
+			'debug.clearUserProfileConfirmationMessage' => 'Mababura ang data ng iyong profile (pang-araw-araw na layunin, taas, timbang, atbp.). Hindi maaapektuhan ang mga pagkain at mga kagustuhan.',
+			'debug.clear' => 'Burahin',
+			'debug.cancel' => 'Kanselahin',
 			'health.syncFailed' => 'Hindi ma-synchronize sa Health Connect',
 			'health.mealSynced' => 'Naka-synchronize ang pagkain sa Health Connect',
 			_ => null,

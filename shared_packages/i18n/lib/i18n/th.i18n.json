@@ -596,6 +596,15 @@
     "close": "ปิด",
     "continue": "ดำเนินการต่อ"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "กำลังเพลิดเพลินกับ {appLabel} ไหม? ประสบการณ์ของคุณสำคัญสำหรับเรา",
+    "yes": "ใช่ ฉันชอบมัน",
+    "no": "ไม่ค่อย",
+    "soloDevMessage": "{appLabel} พัฒนาโดยคนคนเดียว การให้คะแนนสั้นๆ บน Play Store ช่วยให้คนอื่นค้นพบแอปและทำให้การพัฒนาต่อไปได้ — มันช่วยได้มาก คุณจะสละเวลาสักนิดเพื่อให้คะแนนไหม?",
+    "shareFeedbackViaEmail": "{appLabel} พัฒนาโดยคนคนเดียว ความเห็นของคุณมีส่วนกำหนดทิศทางในอนาคต — เราอ่านทุกข้อความ คุณต้องการส่งความคิดเห็นทางอีเมลไหม?",
+    "aboutUsMentionBeforeLink": "อยากรู้ว่าผู้ที่อยู่เบื้องหลัง {appLabel} คือใคร? ดู ",
+    "aboutUsLinkLabel": "เกี่ยวกับเรา"
+  },
   "errors": {
     "loadingProfileData": "เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์",
     "somethingWentWrong": "มีบางอย่างผิดพลาด."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "การแจ้งเตือน",
       "healthConnect": "Health Connect",
+      "feedback": "ข้อเสนอแนะ",
+      "dataReset": "รีเซ็ตข้อมูล",
       "appInfo": "ข้อมูลแอป"
     },
     "showActiveNotifications": "แสดงการแจ้งเตือนที่ใช้งานอยู่",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "การแจ้งเตือนอาหารเช้าเกิดขึ้น.",
     "allNotificationsCancelled": "ยกเลิกการแจ้งเตือนทั้งหมด.",
     "fetchingData": "กำลังดึงข้อมูลสำหรับ 7 วันที่ผ่านมา...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "แสดงหน้าข้อเสนอแนะ/การให้คะแนน",
+    "clearUserPreferences": "ล้างการตั้งค่าผู้ใช้",
+    "clearUserPreferencesConfirmationTitle": "ล้างการตั้งค่าผู้ใช้?",
+    "clearUserPreferencesConfirmationMessage": "ธีม ภาษา และการตั้งค่าการให้ข้อเสนอแนะจะถูกรีเซ็ต มื้ออาหารและโปรไฟล์จะไม่ถูกเปลี่ยนแปลง",
+    "clearUserProfile": "ล้างโปรไฟล์ผู้ใช้",
+    "clearUserProfileConfirmationTitle": "ล้างโปรไฟล์ผู้ใช้?",
+    "clearUserProfileConfirmationMessage": "ข้อมูลโปรไฟล์ของคุณ (เป้าหมายรายวัน ส่วนสูง น้ำหนัก ฯลฯ) จะถูกล้าง มื้ออาหารและการตั้งค่าจะไม่ถูกกระทบ",
+    "clear": "ล้าง",
+    "cancel": "ยกเลิก"
   },
   "health": {
     "syncFailed": "ไม่สามารถซิงค์ไปยัง Health Connect",

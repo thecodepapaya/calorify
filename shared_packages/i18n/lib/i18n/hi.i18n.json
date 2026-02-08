@@ -596,6 +596,15 @@
     "close": "बंद करें",
     "continue": "जारी रखें"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "क्या आप {appLabel} का आनंद ले रहे हैं? आपका अनुभव हमारे लिए महत्वपूर्ण है।",
+    "yes": "हाँ, मुझे यह पसंद आ रहा है",
+    "no": "ज़्यादा नहीं",
+    "soloDevMessage": "{appLabel} एक व्यक्ति द्वारा विकसित किया गया है। एक छोटी सी Play Store रेटिंग दूसरों को इसे खोजने में मदद करती है और विकास जारी रखने में सहायक होती है — यह वास्तव में मदद करता है। क्या आप एक मिनट लेकर रेटिंग छोड़ सकते हैं?",
+    "shareFeedbackViaEmail": "{appLabel} एक व्यक्ति द्वारा बनाया गया है। आपकी प्रतिक्रिया वाकई यह तय करती है कि आगे क्या आएगा — और हम हर संदेश पढ़ते हैं। क्या आप ईमेल के जरिए अपनी राय साझा करना चाहेंगे?",
+    "aboutUsMentionBeforeLink": "जानना चाहेंगे कि {appLabel} के पीछे कौन है? देखें ",
+    "aboutUsLinkLabel": "हमारे बारे में"
+  },
   "errors": {
     "loadingProfileData": "प्रोफ़ाइल डेटा लोड करने में त्रुटि",
     "somethingWentWrong": "कुछ गलत हुआ।"
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "सूचनाएँ",
       "healthConnect": "Health Connect",
+      "feedback": "प्रतिक्रिया",
+      "dataReset": "डेटा रीसेट",
       "appInfo": "ऐप जानकारी"
     },
     "showActiveNotifications": "सक्रिय सूचनाएँ दिखाएँ",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "नाश्ते की सूचना ट्रिगर की गई।",
     "allNotificationsCancelled": "सभी सूचनाएँ रद्द कर दी गई हैं।",
     "fetchingData": "पिछले 7 दिनों के लिए डेटा प्राप्त कर रहे हैं...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "प्रतिक्रिया / रेटिंग शीट दिखाएँ",
+    "clearUserPreferences": "उपयोगकर्ता प्राथमिकताएँ साफ़ करें",
+    "clearUserPreferencesConfirmationTitle": "उपयोगकर्ता प्राथमिकताएँ साफ़ करें?",
+    "clearUserPreferencesConfirmationMessage": "थीम, भाषा और फीडबैक की प्राथमिकताएँ रीसेट हो जाएँगी। भोजन और प्रोफ़ाइल प्रभावित नहीं होंगे।",
+    "clearUserProfile": "उपयोगकर्ता प्रोफ़ाइल साफ़ करें",
+    "clearUserProfileConfirmationTitle": "उपयोगकर्ता प्रोफ़ाइल साफ़ करें?",
+    "clearUserProfileConfirmationMessage": "आपके प्रोफ़ाइल डेटा (दैनिक लक्ष्य, ऊँचाई, वजन, आदि) मिटा दिए जाएंगे। भोजन और प्राथमिकताएँ प्रभावित नहीं होंगी।",
+    "clear": "साफ़ करें",
+    "cancel": "रद्द करें"
   },
   "health": {
     "syncFailed": "Health Connect से सिंक नहीं हो पाया",

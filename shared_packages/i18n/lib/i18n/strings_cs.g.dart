@@ -55,6 +55,7 @@ class TranslationsCs with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginCs login = _TranslationsLoginCs._(_root);
 	@override late final _TranslationsDisclaimerCs disclaimer = _TranslationsDisclaimerCs._(_root);
 	@override late final _TranslationsCommonCs common = _TranslationsCommonCs._(_root);
+	@override late final _TranslationsFeedbackRatingCs feedbackRating = _TranslationsFeedbackRatingCs._(_root);
 	@override late final _TranslationsErrorsCs errors = _TranslationsErrorsCs._(_root);
 	@override late final _TranslationsDebugCs debug = _TranslationsDebugCs._(_root);
 	@override late final _TranslationsHealthCs health = _TranslationsHealthCs._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonCs implements TranslationsCommonEn {
 	@override String get kContinue => 'Pokračovat';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingCs implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Líbí se vám ${appLabel}? Vaše zkušenost je pro nás důležitá.';
+	@override String get yes => 'Ano, líbí se mi.';
+	@override String get no => 'Ne, moc ne.';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} vytváří jedna osoba. Krátké hodnocení v Obchodě Play pomůže ostatním aplikaci najít a podpoří další vývoj — opravdu to pomáhá. Věnujete chvilku a ohodnotíte ji?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} vytváří jedna osoba. Vaše zpětná vazba skutečně ovlivňuje, co přijde dál — a každý vzkaz čteme. Chtěli byste své názory sdílet e-mailem?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Zajímá vás, kdo stojí za ${appLabel}? Podívejte se ';
+	@override String get aboutUsLinkLabel => 'O nás';
+}
+
 // Path: errors
 class _TranslationsErrorsCs implements TranslationsErrorsEn {
 	_TranslationsErrorsCs._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugCs implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Všechny notifikace byly zrušeny.';
 	@override String get fetchingData => 'Načítám data za posledních 7 dní...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Zobrazit formulář pro zpětnou vazbu / hodnocení';
+	@override String get clearUserPreferences => 'Vymazat uživatelská nastavení';
+	@override String get clearUserPreferencesConfirmationTitle => 'Vymazat uživatelská nastavení?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Téma, jazyk a nastavení týkající se zpětné vazby budou resetovány. Jídla a profil nebudou ovlivněny.';
+	@override String get clearUserProfile => 'Vymazat uživatelský profil';
+	@override String get clearUserProfileConfirmationTitle => 'Vymazat uživatelský profil?';
+	@override String get clearUserProfileConfirmationMessage => 'Data vašeho profilu (denní cíl, výška, váha atd.) budou vymazána. Jídla a nastavení nebudou ovlivněny.';
+	@override String get clear => 'Vymazat';
+	@override String get cancel => 'Zrušit';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsCs implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Notifikace';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Zpětná vazba';
+	@override String get dataReset => 'Reset dat';
 	@override String get appInfo => 'Informace o aplikaci';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsCs {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Denní cíl je vaše doporučená denní příjem kalorií na základě vašeho TDEE a cílové hmotnosti. Při hubnutí konzumujete méně kalorií než vaše TDEE. Pro udržení hmotnosti odpovídáte svému TDEE. Při přibírání na váze konzumujete více kalorií než vaše TDEE. To vám pomůže dosáhnout požadované změny hmotnosti zdravým tempem.',
 			'common.close' => 'Zavřít',
 			'common.kContinue' => 'Pokračovat',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Líbí se vám ${appLabel}? Vaše zkušenost je pro nás důležitá.',
+			'feedbackRating.yes' => 'Ano, líbí se mi.',
+			'feedbackRating.no' => 'Ne, moc ne.',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} vytváří jedna osoba. Krátké hodnocení v Obchodě Play pomůže ostatním aplikaci najít a podpoří další vývoj — opravdu to pomáhá. Věnujete chvilku a ohodnotíte ji?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} vytváří jedna osoba. Vaše zpětná vazba skutečně ovlivňuje, co přijde dál — a každý vzkaz čteme. Chtěli byste své názory sdílet e-mailem?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Zajímá vás, kdo stojí za ${appLabel}? Podívejte se ',
+			'feedbackRating.aboutUsLinkLabel' => 'O nás',
 			'errors.loadingProfileData' => 'Chyba při načítání dat profilu',
 			'errors.somethingWentWrong' => 'Něco se pokazilo.',
 			'debug.title' => 'Možnosti ladění',
 			'debug.sections.notifications' => 'Notifikace',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Zpětná vazba',
+			'debug.sections.dataReset' => 'Reset dat',
 			'debug.sections.appInfo' => 'Informace o aplikaci',
 			'debug.showActiveNotifications' => 'Zobrazit aktivní notifikace',
 			'debug.scheduleTestNotification' => 'Naplánovat testovací notifikaci (10s)',
@@ -1987,6 +2024,15 @@ extension on TranslationsCs {
 			'debug.allNotificationsCancelled' => 'Všechny notifikace byly zrušeny.',
 			'debug.fetchingData' => 'Načítám data za posledních 7 dní...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Zobrazit formulář pro zpětnou vazbu / hodnocení',
+			'debug.clearUserPreferences' => 'Vymazat uživatelská nastavení',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Vymazat uživatelská nastavení?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Téma, jazyk a nastavení týkající se zpětné vazby budou resetovány. Jídla a profil nebudou ovlivněny.',
+			'debug.clearUserProfile' => 'Vymazat uživatelský profil',
+			'debug.clearUserProfileConfirmationTitle' => 'Vymazat uživatelský profil?',
+			'debug.clearUserProfileConfirmationMessage' => 'Data vašeho profilu (denní cíl, výška, váha atd.) budou vymazána. Jídla a nastavení nebudou ovlivněny.',
+			'debug.clear' => 'Vymazat',
+			'debug.cancel' => 'Zrušit',
 			'health.syncFailed' => 'Nedaří se synchronizovat s Health Connect',
 			'health.mealSynced' => 'Jídlo synchronizováno s Health Connect',
 			_ => null,

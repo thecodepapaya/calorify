@@ -596,6 +596,15 @@
     "close": "Закрыть",
     "continue": "Продолжить"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Вам нравится {appLabel}? Ваше мнение важно для нас.",
+    "yes": "Да, мне нравится",
+    "no": "Не очень",
+    "soloDevMessage": "{appLabel} создан одним человеком. Быстрая оценка в Play Маркете помогает другим найти приложение и поддерживает разработку — это действительно помогает. Не могли бы вы уделить минуту, чтобы поставить оценку?",
+    "shareFeedbackViaEmail": "{appLabel} создан одним человеком. Ваши отзывы действительно формируют то, что будет дальше — и мы читаем каждое сообщение. Хотите поделиться мнением по электронной почте?",
+    "aboutUsMentionBeforeLink": "Интересно, кто стоит за {appLabel}? Посмотрите ",
+    "aboutUsLinkLabel": "О нас"
+  },
   "errors": {
     "loadingProfileData": "Ошибка загрузки данных профиля",
     "somethingWentWrong": "Что-то пошло не так."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Уведомления",
       "healthConnect": "Health Connect",
+      "feedback": "Обратная связь",
+      "dataReset": "Сброс данных",
       "appInfo": "Информация о приложении"
     },
     "showActiveNotifications": "Показать активные уведомления",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Сигнализация о завтраке активирована.",
     "allNotificationsCancelled": "Все уведомления отменены.",
     "fetchingData": "Получение данных за последние 7 дней...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Показать окно обратной связи/оценки",
+    "clearUserPreferences": "Сбросить предпочтения пользователя",
+    "clearUserPreferencesConfirmationTitle": "Сбросить предпочтения пользователя?",
+    "clearUserPreferencesConfirmationMessage": "Тема, язык и настройки обратной связи будут сброшены. Приёмы пищи и профиль не затронуты.",
+    "clearUserProfile": "Очистить профиль пользователя",
+    "clearUserProfileConfirmationTitle": "Очистить профиль пользователя?",
+    "clearUserProfileConfirmationMessage": "Данные вашего профиля (суточная норма, рост, вес и т.п.) будут удалены. Приёмы пищи и настройки не затронуты.",
+    "clear": "Очистить",
+    "cancel": "Отмена"
   },
   "health": {
     "syncFailed": "Не удалось синхронизироваться с Health Connect",

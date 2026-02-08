@@ -42,4 +42,13 @@ enum AnalyticsEvent {
 
   // Misc
   easterEggDiscovered,
+
+  // Feedback / rating sheet
+  feedbackSheetShown,
+  feedbackSheetEnjoyingYes,
+  feedbackSheetEnjoyingNo,
+  feedbackSheetRateYes,
+  feedbackSheetRateNo,
+  feedbackSheetEmailYes,
+  feedbackSheetEmailNo,
 }

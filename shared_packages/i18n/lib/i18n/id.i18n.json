@@ -596,6 +596,15 @@
     "close": "Tutup",
     "continue": "Lanjutkan"
   },
+  "feedbackRating": {
+    "enjoyingQuestion": "Menikmati {appLabel}? Pengalaman Anda penting bagi kami.",
+    "yes": "Ya, saya menikmatinya",
+    "no": "Tidak begitu",
+    "soloDevMessage": "{appLabel} dibuat oleh satu orang. Memberikan rating singkat di Play Store membantu orang lain menemukannya dan menjaga pengembangan tetap berjalan — ini sangat membantu. Maukah Anda meluangkan waktu untuk memberikan satu?",
+    "shareFeedbackViaEmail": "{appLabel} dibuat oleh satu orang. Masukan Anda sangat menentukan apa yang akan datang berikutnya — dan kami membaca setiap pesan. Apakah Anda ingin membagikan pendapat lewat email?",
+    "aboutUsMentionBeforeLink": "Penasaran siapa di balik {appLabel}? Lihat ",
+    "aboutUsLinkLabel": "Tentang kami"
+  },
   "errors": {
     "loadingProfileData": "Kesalahan saat memuat data profil",
     "somethingWentWrong": "Terjadi kesalahan."
@@ -605,6 +614,8 @@
     "sections": {
       "notifications": "Pemberitahuan",
       "healthConnect": "Health Connect",
+      "feedback": "Umpan balik",
+      "dataReset": "Atur ulang data",
       "appInfo": "Info Aplikasi"
     },
     "showActiveNotifications": "Tampilkan Pemberitahuan Aktif",
@@ -643,7 +654,16 @@
     "breakfastNotificationTriggered": "Pemberitahuan sarapan diaktifkan.",
     "allNotificationsCancelled": "Semua pemberitahuan dibatalkan.",
     "fetchingData": "Mengambil data untuk 7 hari terakhir...",
-    "id": "ID: {id}"
+    "id": "ID: {id}",
+    "showFeedbackRatingSheet": "Tampilkan lembar umpan balik / penilaian",
+    "clearUserPreferences": "Hapus preferensi pengguna",
+    "clearUserPreferencesConfirmationTitle": "Hapus preferensi pengguna?",
+    "clearUserPreferencesConfirmationMessage": "Tema, bahasa, dan preferensi umpan balik akan diatur ulang. Data makanan dan profil tidak akan terpengaruh.",
+    "clearUserProfile": "Hapus profil pengguna",
+    "clearUserProfileConfirmationTitle": "Hapus profil pengguna?",
+    "clearUserProfileConfirmationMessage": "Data profil Anda (target harian, tinggi, berat, dll.) akan dihapus. Data makanan dan preferensi tidak akan terpengaruh.",
+    "clear": "Hapus",
+    "cancel": "Batal"
   },
   "health": {
     "syncFailed": "Tidak dapat menyinkronkan dengan Health Connect",

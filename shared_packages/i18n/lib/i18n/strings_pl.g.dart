@@ -55,6 +55,7 @@ class TranslationsPl with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsLoginPl login = _TranslationsLoginPl._(_root);
 	@override late final _TranslationsDisclaimerPl disclaimer = _TranslationsDisclaimerPl._(_root);
 	@override late final _TranslationsCommonPl common = _TranslationsCommonPl._(_root);
+	@override late final _TranslationsFeedbackRatingPl feedbackRating = _TranslationsFeedbackRatingPl._(_root);
 	@override late final _TranslationsErrorsPl errors = _TranslationsErrorsPl._(_root);
 	@override late final _TranslationsDebugPl debug = _TranslationsDebugPl._(_root);
 	@override late final _TranslationsHealthPl health = _TranslationsHealthPl._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonPl implements TranslationsCommonEn {
 	@override String get kContinue => 'Kontynuuj';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingPl implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingPl._(this._root);
+
+	final TranslationsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => 'Podoba Ci się ${appLabel}? Twoje zdanie jest dla nas ważne.';
+	@override String get yes => 'Tak, podoba mi się';
+	@override String get no => 'Nie bardzo';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} został stworzony przez jedną osobę. Krótka ocena w Sklepie Play pomaga innym znaleźć aplikację i wspiera dalszy rozwój — naprawdę pomaga. Czy poświęcisz chwilę, by wystawić ocenę?';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} został stworzony przez jedną osobę. Twoja opinia naprawdę kształtuje kolejne kroki — czytamy każdą wiadomość. Czy chcesz podzielić się uwagami przez e-mail?';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Zastanawiasz się, kto stoi za ${appLabel}? Zobacz ';
+	@override String get aboutUsLinkLabel => 'O nas';
+}
+
 // Path: errors
 class _TranslationsErrorsPl implements TranslationsErrorsEn {
 	_TranslationsErrorsPl._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugPl implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => 'Wszystkie powiadomienia anulowane.';
 	@override String get fetchingData => 'Pobieranie danych z ostatnich 7 dni...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => 'Pokaż formularz opinii/oceny';
+	@override String get clearUserPreferences => 'Wyczyść preferencje użytkownika';
+	@override String get clearUserPreferencesConfirmationTitle => 'Wyczyścić preferencje użytkownika?';
+	@override String get clearUserPreferencesConfirmationMessage => 'Motyw, język i preferencje dotyczące opinii zostaną zresetowane. Posiłki i profil nie ulegną zmianie.';
+	@override String get clearUserProfile => 'Wyczyść profil użytkownika';
+	@override String get clearUserProfileConfirmationTitle => 'Wyczyścić profil użytkownika?';
+	@override String get clearUserProfileConfirmationMessage => 'Dane profilu (cel dzienny, wzrost, waga itp.) zostaną wyczyszczone. Posiłki i preferencje nie zostaną zmienione.';
+	@override String get clear => 'Wyczyść';
+	@override String get cancel => 'Anuluj';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsPl implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Powiadomienia';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => 'Opinie';
+	@override String get dataReset => 'Reset danych';
 	@override String get appInfo => 'Informacje o Aplikacji';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsPl {
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Cel Dzienny to twoje zalecane dzienne spożycie kalorii na podstawie twojego TDEE i celu wagowego. Aby schudnąć, spożywasz mniej kalorii niż twoje TDEE. Aby utrzymać wagę, dostosowujesz swoje spożycie do TDEE. Aby przytyć, spożywasz więcej kalorii niż twoje TDEE. To pomaga osiągnąć pożądane zmiany w wadze w zdrowym tempie.',
 			'common.close' => 'Zamknij',
 			'common.kContinue' => 'Kontynuuj',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Podoba Ci się ${appLabel}? Twoje zdanie jest dla nas ważne.',
+			'feedbackRating.yes' => 'Tak, podoba mi się',
+			'feedbackRating.no' => 'Nie bardzo',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} został stworzony przez jedną osobę. Krótka ocena w Sklepie Play pomaga innym znaleźć aplikację i wspiera dalszy rozwój — naprawdę pomaga. Czy poświęcisz chwilę, by wystawić ocenę?',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} został stworzony przez jedną osobę. Twoja opinia naprawdę kształtuje kolejne kroki — czytamy każdą wiadomość. Czy chcesz podzielić się uwagami przez e-mail?',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Zastanawiasz się, kto stoi za ${appLabel}? Zobacz ',
+			'feedbackRating.aboutUsLinkLabel' => 'O nas',
 			'errors.loadingProfileData' => 'Błąd ładowania danych profilu',
 			'errors.somethingWentWrong' => 'Coś poszło nie tak.',
 			'debug.title' => 'Opcje Debugowania',
 			'debug.sections.notifications' => 'Powiadomienia',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => 'Opinie',
+			'debug.sections.dataReset' => 'Reset danych',
 			'debug.sections.appInfo' => 'Informacje o Aplikacji',
 			'debug.showActiveNotifications' => 'Pokaż Aktywne Powiadomienia',
 			'debug.scheduleTestNotification' => 'Zaprogramuj Powiadomienie Testowe (10s)',
@@ -1987,6 +2024,15 @@ extension on TranslationsPl {
 			'debug.allNotificationsCancelled' => 'Wszystkie powiadomienia anulowane.',
 			'debug.fetchingData' => 'Pobieranie danych z ostatnich 7 dni...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => 'Pokaż formularz opinii/oceny',
+			'debug.clearUserPreferences' => 'Wyczyść preferencje użytkownika',
+			'debug.clearUserPreferencesConfirmationTitle' => 'Wyczyścić preferencje użytkownika?',
+			'debug.clearUserPreferencesConfirmationMessage' => 'Motyw, język i preferencje dotyczące opinii zostaną zresetowane. Posiłki i profil nie ulegną zmianie.',
+			'debug.clearUserProfile' => 'Wyczyść profil użytkownika',
+			'debug.clearUserProfileConfirmationTitle' => 'Wyczyścić profil użytkownika?',
+			'debug.clearUserProfileConfirmationMessage' => 'Dane profilu (cel dzienny, wzrost, waga itp.) zostaną wyczyszczone. Posiłki i preferencje nie zostaną zmienione.',
+			'debug.clear' => 'Wyczyść',
+			'debug.cancel' => 'Anuluj',
 			'health.syncFailed' => 'Nie udało się zsynchronizować z Health Connect',
 			'health.mealSynced' => 'Posiłek zsynchronizowany z Health Connect',
 			_ => null,

@@ -55,6 +55,7 @@ class TranslationsZhTw with BaseTranslations<AppLocale, Translations> implements
 	@override late final _TranslationsLoginZhTw login = _TranslationsLoginZhTw._(_root);
 	@override late final _TranslationsDisclaimerZhTw disclaimer = _TranslationsDisclaimerZhTw._(_root);
 	@override late final _TranslationsCommonZhTw common = _TranslationsCommonZhTw._(_root);
+	@override late final _TranslationsFeedbackRatingZhTw feedbackRating = _TranslationsFeedbackRatingZhTw._(_root);
 	@override late final _TranslationsErrorsZhTw errors = _TranslationsErrorsZhTw._(_root);
 	@override late final _TranslationsDebugZhTw debug = _TranslationsDebugZhTw._(_root);
 	@override late final _TranslationsHealthZhTw health = _TranslationsHealthZhTw._(_root);
@@ -343,6 +344,22 @@ class _TranslationsCommonZhTw implements TranslationsCommonEn {
 	@override String get kContinue => '繼續';
 }
 
+// Path: feedbackRating
+class _TranslationsFeedbackRatingZhTw implements TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String enjoyingQuestion({required Object appLabel}) => '喜歡使用 ${appLabel} 嗎？我們很重視您的使用體驗。';
+	@override String get yes => '是的，我很喜歡';
+	@override String get no => '不是很滿意';
+	@override String soloDevMessage({required Object appLabel}) => '${appLabel} 由一人開發。快速在 Play 商店留下評分能幫助更多人發現它，也能持續支持開發 — 真的很有幫助。您願意花一點時間留下評分嗎？';
+	@override String shareFeedbackViaEmail({required Object appLabel}) => '${appLabel} 由一人開發。您的回饋會決定下一步的方向 — 我們會閱讀每一封訊息。您想透過電子郵件分享想法嗎？';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '想知道是誰在打造 ${appLabel} 嗎？請參閱 ';
+	@override String get aboutUsLinkLabel => '關於我們';
+}
+
 // Path: errors
 class _TranslationsErrorsZhTw implements TranslationsErrorsEn {
 	_TranslationsErrorsZhTw._(this._root);
@@ -400,6 +417,15 @@ class _TranslationsDebugZhTw implements TranslationsDebugEn {
 	@override String get allNotificationsCancelled => '已取消所有通知。';
 	@override String get fetchingData => '正在獲取過去 7 天的數據...';
 	@override String id({required Object id}) => 'ID: ${id}';
+	@override String get showFeedbackRatingSheet => '顯示回饋／評分視窗';
+	@override String get clearUserPreferences => '清除使用者偏好設定';
+	@override String get clearUserPreferencesConfirmationTitle => '清除使用者偏好設定？';
+	@override String get clearUserPreferencesConfirmationMessage => '主題、語言與回饋偏好將會被重置。餐點與個人資料不會受到影響。';
+	@override String get clearUserProfile => '清除使用者個人資料';
+	@override String get clearUserProfileConfirmationTitle => '清除使用者個人資料？';
+	@override String get clearUserProfileConfirmationMessage => '您的個人資料（每日目標、身高、體重等）將會被清除。餐點與偏好設定不會受到影響。';
+	@override String get clear => '清除';
+	@override String get cancel => '取消';
 }
 
 // Path: health
@@ -1070,6 +1096,8 @@ class _TranslationsDebugSectionsZhTw implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => '通知';
 	@override String get healthConnect => 'Health Connect';
+	@override String get feedback => '回饋';
+	@override String get dataReset => '重設資料';
 	@override String get appInfo => '應用信息';
 }
 
@@ -1944,11 +1972,20 @@ extension on TranslationsZhTw {
 			'disclaimer.healthMetrics.dailyGoal.description' => '每日目標是根據您的 TDEE 和體重目標推薦的每日卡路里攝入量。若要減肥，您需要攝入的卡路里少於您的 TDEE；若要維持體重，則需與 TDEE 持平；若要增重，您需攝入的卡路里超過您的 TDEE。這有助於您以健康的速度達成所期望的體重變化。',
 			'common.close' => '關閉',
 			'common.kContinue' => '繼續',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '喜歡使用 ${appLabel} 嗎？我們很重視您的使用體驗。',
+			'feedbackRating.yes' => '是的，我很喜歡',
+			'feedbackRating.no' => '不是很滿意',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '${appLabel} 由一人開發。快速在 Play 商店留下評分能幫助更多人發現它，也能持續支持開發 — 真的很有幫助。您願意花一點時間留下評分嗎？',
+			'feedbackRating.shareFeedbackViaEmail' => ({required Object appLabel}) => '${appLabel} 由一人開發。您的回饋會決定下一步的方向 — 我們會閱讀每一封訊息。您想透過電子郵件分享想法嗎？',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '想知道是誰在打造 ${appLabel} 嗎？請參閱 ',
+			'feedbackRating.aboutUsLinkLabel' => '關於我們',
 			'errors.loadingProfileData' => '載入個人資料數據出錯',
 			'errors.somethingWentWrong' => '發生了錯誤。',
 			'debug.title' => '調試選項',
 			'debug.sections.notifications' => '通知',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.feedback' => '回饋',
+			'debug.sections.dataReset' => '重設資料',
 			'debug.sections.appInfo' => '應用信息',
 			'debug.showActiveNotifications' => '顯示活動通知',
 			'debug.scheduleTestNotification' => '安排測試通知 (10 秒)',
@@ -1987,6 +2024,15 @@ extension on TranslationsZhTw {
 			'debug.allNotificationsCancelled' => '已取消所有通知。',
 			'debug.fetchingData' => '正在獲取過去 7 天的數據...',
 			'debug.id' => ({required Object id}) => 'ID: ${id}',
+			'debug.showFeedbackRatingSheet' => '顯示回饋／評分視窗',
+			'debug.clearUserPreferences' => '清除使用者偏好設定',
+			'debug.clearUserPreferencesConfirmationTitle' => '清除使用者偏好設定？',
+			'debug.clearUserPreferencesConfirmationMessage' => '主題、語言與回饋偏好將會被重置。餐點與個人資料不會受到影響。',
+			'debug.clearUserProfile' => '清除使用者個人資料',
+			'debug.clearUserProfileConfirmationTitle' => '清除使用者個人資料？',
+			'debug.clearUserProfileConfirmationMessage' => '您的個人資料（每日目標、身高、體重等）將會被清除。餐點與偏好設定不會受到影響。',
+			'debug.clear' => '清除',
+			'debug.cancel' => '取消',
 			'health.syncFailed' => '無法同步到 Health Connect',
 			'health.mealSynced' => '餐點已與 Health Connect 同步',
 			_ => null,

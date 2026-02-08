@@ -33,7 +33,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 15;
+  int get schemaVersion => 16;
 
   @override
   MigrationStrategy get migration {
@@ -94,6 +94,12 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           // in the database but won't be used by the app. They can be safely ignored.
           // The app now uses only the auto-increment 'id' column for both meal_info
           // and favorite_meal tables.
+        }
+        if (from < 16) {
+          await m.addColumn(
+            userPreferencesTable,
+            userPreferencesTable.feedbackSheetShown,
+          );
         }
       },
     );
@@ -157,6 +163,23 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
       UserPreferencesTableCompanion.insert(
         id: const Value(_userPreferencesId),
         theme: Value(mode.name),
+        updatedAt: Value(DateTime.now()),
+      ),
+    );
+  }
+
+  @override
+  Future<bool> hasSeenFeedbackSheet() async {
+    final prefs = await _getOrInitPreferences();
+    return prefs.feedbackSheetShown;
+  }
+
+  @override
+  Future<void> setFeedbackSheetShown() async {
+    await into(userPreferencesTable).insertOnConflictUpdate(
+      UserPreferencesTableCompanion.insert(
+        id: const Value(_userPreferencesId),
+        feedbackSheetShown: const Value(true),
         updatedAt: Value(DateTime.now()),
       ),
     );
@@ -318,6 +341,22 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
+  Future<List<LoggedMeal>> getLatestMealsForFeedbackEligibility({
+    int limit = 5,
+  }) {
+    return (select(mealInfoTable)
+          ..orderBy([
+            (t) =>
+                OrderingTerm(expression: t.timestamp, mode: OrderingMode.desc),
+          ])
+          ..limit(limit))
+        .get()
+        .then(
+          (rows) => rows.map((row) => MealInfoMapper.fromRow(row)).toList(),
+        );
+  }
+
+  @override
   DataSourceType get dataSourceType => DataSourceType.real;
 
   // User Profile Methods
@@ -354,6 +393,18 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         result.dateOfBirth != null &&
         result.weightGoal != null &&
         result.activityLevel != null;
+  }
+
+  @override
+  Future<void> clearUserPreferences() async {
+    await (delete(userPreferencesTable)
+      ..where((tbl) => tbl.id.equals(_userPreferencesId))).go();
+  }
+
+  @override
+  Future<void> clearUserProfile() async {
+    await (delete(userProfileTable)
+      ..where((tbl) => tbl.id.equals(_userProfileId))).go();
   }
 
   @override
