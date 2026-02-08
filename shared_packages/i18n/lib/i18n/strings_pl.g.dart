@@ -388,6 +388,7 @@ class _TranslationsDebugPl implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'Opcje Debugowania';
+	@override String get searchHint => 'Opcje wyszukiwania...';
 	@override late final _TranslationsDebugSectionsPl sections = _TranslationsDebugSectionsPl._(_root);
 	@override String get showActiveNotifications => 'Pokaż Aktywne Powiadomienia';
 	@override String get scheduleTestNotification => 'Zaprogramuj Powiadomienie Testowe (10s)';
@@ -435,6 +436,103 @@ class _TranslationsDebugPl implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => 'Dane profilu (cel dzienny, wzrost, waga itp.) zostaną wyczyszczone. Posiłki i preferencje nie zostaną zmienione.';
 	@override String get clear => 'Wyczyść';
 	@override String get cancel => 'Anuluj';
+	@override String get checkWatchConnection => 'Sprawdź połączenie z zegarkiem';
+	@override String get sendTestMessage => 'Wyślij wiadomość testową';
+	@override String get sendTestMessageSubtitle => 'Wyślij prostą wiadomość testową do zegarka';
+	@override String get sendTestMealData => 'Wyślij dane posiłku (test)';
+	@override String get sendTestMealDataSubtitle => 'Wyślij przykładowe dane posiłku do zegarka';
+	@override String get sendTestCalorieGoal => 'Wyślij cel kaloryczny (test)';
+	@override String get sendTestCalorieGoalSubtitle => 'Wyślij przykładowy cel kaloryczny do zegarka';
+	@override String get viewReceivedMessages => 'Zobacz otrzymane wiadomości';
+	@override String get viewReceivedMessagesSubtitle => 'Wyświetl wiadomości odebrane z zegarka';
+	@override String get watchConnected => 'Zegarek połączony ✓';
+	@override String get device => 'Urządzenie';
+	@override String get nearby => 'W pobliżu';
+	@override String get yes => 'Tak';
+	@override String get no => 'Nie';
+	@override String get connectedDevices => 'Połączone urządzenia';
+	@override String get deviceInfoUnavailable => '(Informacje o urządzeniu niedostępne)';
+	@override String get unknownDevice => 'Nieznane urządzenie';
+	@override String get watchNotConnected => 'Zegarek niepołączony ✗';
+	@override String get watchNotConnectedHint => 'Upewnij się:\n• Oba urządzenia są sparowane\n• Aplikacja na zegarku jest uruchomiona\n• Obie aplikacje są w trybie debug/staging';
+	@override String get watchConnection => 'Połączenie z zegarkiem';
+	@override String errorCheckingConnection({required Object error}) => 'Błąd sprawdzania połączenia: ${error}';
+	@override String get helloFromPhone => 'Cześć z telefonu!';
+	@override String get testMessageSentSuccess => 'Testowa wiadomość wysłana pomyślnie!';
+	@override String get testMessageFailed => 'Nie udało się wysłać wiadomości testowej. Sprawdź połączenie z zegarkiem.';
+	@override String errorSendingMessage({required Object error}) => 'Błąd wysyłania wiadomości: ${error}';
+	@override String get testMeal => 'Posiłek testowy';
+	@override String get testMealDataSentSuccess => 'Przykładowe dane posiłku wysłane pomyślnie!';
+	@override String get failedToSendMealData => 'Nie udało się wysłać danych posiłku. Sprawdź połączenie z zegarkiem.';
+	@override String errorSendingMealData({required Object error}) => 'Błąd wysyłania danych posiłku: ${error}';
+	@override String get testCalorieGoalSentSuccess => 'Przykładowy cel kaloryczny wysłany pomyślnie!';
+	@override String get failedToSendCalorieGoal => 'Nie udało się wysłać celu kalorycznego. Sprawdź połączenie z zegarkiem.';
+	@override String errorSendingCalorieGoal({required Object error}) => 'Błąd wysyłania celu kalorycznego: ${error}';
+	@override String get testAnalyzeImage => 'Test analizy obrazu';
+	@override String get testAnalyzeImageSubtitle => 'Prześlij wbudowany obraz testowy';
+	@override String get testDetectImage => 'Test wykrywania obrazu';
+	@override String get testDetectImageSubtitle => 'Rozpoznaj posiłek z adresu URL obrazu';
+	@override String get detectImageFromGallery => 'Wykryj obraz z galerii';
+	@override String get detectImageFromGallerySubtitle => 'Wybierz obraz, prześlij do bucketu i oszacuj kalorie';
+	@override String get testDetectText => 'Test rozpoznawania tekstu';
+	@override String get testDetectTextSubtitle => 'Rozpoznaj posiłek z opisu tekstowego';
+	@override String get testMealLoggingWithVariations => 'Testuj logowanie posiłku z wariantami';
+	@override String get testMealLoggingWithVariationsSubtitle => 'Przetestuj pełny przebieg logowania posiłku z wariantami';
+	@override String get mockMealWithVariations => 'Przykładowy posiłek z wariantami';
+	@override String get mockMealWithVariationsSubtitle => 'Podgląd wariantu i sekcji wskazówek bez logowania';
+	@override String get mockMealName => 'Grillowany kurczak z ryżem i warzywami';
+	@override String get mockTip => 'To przykładowa wskazówka do podglądu interfejsu. Posiłek nie został zalogowany.';
+	@override String get mockMealDescription => 'Przykładowy posiłek do debugowania';
+	@override String get portionSizeQuestion => 'Jaki był rozmiar porcji?';
+	@override String get extraSidesQuestion => 'Czy były dodatkowe dodatki?';
+	@override String get optionSmall => 'Mała';
+	@override String get optionMedium => 'Średnia';
+	@override String get optionLarge => 'Duża';
+	@override String get optionNone => 'Brak';
+	@override String get optionSideSalad => 'Sałatka (dodatek)';
+	@override String get optionBreadRoll => 'Bułka';
+	@override String get testingAnalyzeImage => 'Testowanie API analyzeImage...';
+	@override String get testingDetectImage => 'Testowanie API detectImage...';
+	@override String get testingDetectText => 'Testowanie API detectText...';
+	@override String get selectingImageFromGallery => 'Wybieranie obrazu z galerii...';
+	@override String get noImageSelected => 'Nie wybrano obrazu';
+	@override String get compressingImage => 'Kompresowanie obrazu...';
+	@override String get uploadingImageAndDetecting => 'Przesyłanie obrazu do bucketu i rozpoznawanie posiłku...';
+	@override String get testingMealLoggingFlow => 'Testowanie przebiegu logowania posiłku z wariantami...';
+	@override String get noMealIdentifiedInResponse => 'W odpowiedzi nie zidentyfikowano posiłku';
+	@override String get mealIdentified => 'Zidentyfikowano posiłek';
+	@override String get confidence => 'Pewność';
+	@override String get tip => 'Wskazówka';
+	@override String get mealName => 'Nazwa posiłku';
+	@override String get calories => 'Kalorie';
+	@override String get protein => 'Białko';
+	@override String get carbs => 'Węglowodany';
+	@override String get fat => 'Tłuszcz';
+	@override String get noMealInfo => 'Brak informacji o posiłku';
+	@override String get na => 'Brak danych';
+	@override String get analyzeImageResult => 'Wynik analizy obrazu';
+	@override String get detectImageResult => 'Wynik wykrywania obrazu';
+	@override String get detectImageFromGalleryResult => 'Wynik wykrywania obrazu z galerii';
+	@override String get detectTextResult => 'Wynik rozpoznawania tekstu';
+	@override String errorGeneric({required Object error}) => 'Błąd: ${error}';
+	@override String get variationsCount => 'Wariacje';
+	@override String get userPreferencesCleared => 'Wyczyszczono preferencje użytkownika';
+	@override String get userProfileCleared => 'Profil użytkownika wyczyszczony';
+	@override String get checkForUpdate => 'Sprawdź aktualizacje';
+	@override String get showPatchNumber => 'Pokaż numer poprawki';
+	@override String get showUpdateAvailable => 'Pokaż dostępność aktualizacji';
+	@override String get updateAvailable => 'Dostępna aktualizacja';
+	@override String get upToDate => 'Aktualne';
+	@override String get shorebirdUnavailable => 'Shorebird jest niedostępny w tym środowisku.';
+	@override String get patchNumberLabel => 'Numer poprawki';
+	@override String get noPatchInstalled => 'Brak zainstalowanej poprawki';
+	@override String get todaysSteps => 'Dzisiejsze kroki';
+	@override String get stepsLabel => 'Kroki';
+	@override String weightLabel({required Object value}) => 'Waga: ${value} kg';
+	@override String heightLabel({required Object value}) => 'Wzrost: ${value} cm';
+	@override String get receivedMessagesFromWatch => 'Otrzymane wiadomości z zegarka';
+	@override String get noMessagesReceivedYet => 'Brak odebranych wiadomości.\n\nWyślij dane testowe z zegarka, aby zobaczyć je tutaj.';
+	@override String get messagesCleared => 'Wiadomości wyczyszczone';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalPl implements TranslationsHomeDailyGoalEn {
 	@override String get description => 'Gotowy, by wyruszyć w swoją drogę do zdrowia? Ustaw poniżej swój dzienny cel kaloryczny, aby rozpocząć postęp.';
 	@override String get descriptionSet => 'Kompas ustawiony! To jest Twój dzienny cel kaloryczny do prowadzenia.';
 	@override String get yourGoal => 'Twój Cel';
+	@override String get goal => 'Cel';
 	@override String get dailyCalories => 'Dziennie kalorie (kcal)';
 	@override String get setGoal => 'Ustaw Cel';
 	@override String get intake => 'Spożycie';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryPl implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'Białko';
 	@override String get fat => 'Tłuszcz';
 	@override String get fiber => 'Błonnik';
+	@override String get grams => 'gramy';
+	@override String get chartAccessibilityLabel => 'Wykres makroskładników';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsPl implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Powiadomienia';
 	@override String get healthConnect => 'Health Connect';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => 'Testy API żywności';
 	@override String get feedback => 'Opinie';
 	@override String get dataReset => 'Reset danych';
 	@override String get appInfo => 'Informacje o Aplikacji';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsPl {
 			'home.dailyGoal.description' => 'Gotowy, by wyruszyć w swoją drogę do zdrowia? Ustaw poniżej swój dzienny cel kaloryczny, aby rozpocząć postęp.',
 			'home.dailyGoal.descriptionSet' => 'Kompas ustawiony! To jest Twój dzienny cel kaloryczny do prowadzenia.',
 			'home.dailyGoal.yourGoal' => 'Twój Cel',
+			'home.dailyGoal.goal' => 'Cel',
 			'home.dailyGoal.dailyCalories' => 'Dziennie kalorie (kcal)',
 			'home.dailyGoal.setGoal' => 'Ustaw Cel',
 			'home.dailyGoal.intake' => 'Spożycie',
@@ -1700,6 +1805,8 @@ extension on TranslationsPl {
 			'home.dailySummary.protein' => 'Białko',
 			'home.dailySummary.fat' => 'Tłuszcz',
 			'home.dailySummary.fiber' => 'Błonnik',
+			'home.dailySummary.grams' => 'gramy',
+			'home.dailySummary.chartAccessibilityLabel' => 'Wykres makroskładników',
 			'home.intakeProgress.title' => 'Podział Makroskładników Dziś',
 			'home.intakeProgress.target' => 'Cel',
 			'home.intakeProgress.current' => 'Bieżący',
@@ -2000,11 +2107,15 @@ extension on TranslationsPl {
 			'errors.loadingProfileData' => 'Błąd ładowania danych profilu',
 			'errors.somethingWentWrong' => 'Coś poszło nie tak.',
 			'debug.title' => 'Opcje Debugowania',
+			'debug.searchHint' => 'Opcje wyszukiwania...',
 			'debug.sections.notifications' => 'Powiadomienia',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'Testy API żywności',
 			'debug.sections.feedback' => 'Opinie',
 			'debug.sections.dataReset' => 'Reset danych',
 			'debug.sections.appInfo' => 'Informacje o Aplikacji',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'Pokaż Aktywne Powiadomienia',
 			'debug.scheduleTestNotification' => 'Zaprogramuj Powiadomienie Testowe (10s)',
 			'debug.triggerBreakfastNotification' => 'Wywołaj Powiadomienie o Śniadaniu',
@@ -2051,6 +2162,105 @@ extension on TranslationsPl {
 			'debug.clearUserProfileConfirmationMessage' => 'Dane profilu (cel dzienny, wzrost, waga itp.) zostaną wyczyszczone. Posiłki i preferencje nie zostaną zmienione.',
 			'debug.clear' => 'Wyczyść',
 			'debug.cancel' => 'Anuluj',
+			'debug.checkWatchConnection' => 'Sprawdź połączenie z zegarkiem',
+			'debug.sendTestMessage' => 'Wyślij wiadomość testową',
+			'debug.sendTestMessageSubtitle' => 'Wyślij prostą wiadomość testową do zegarka',
+			'debug.sendTestMealData' => 'Wyślij dane posiłku (test)',
+			'debug.sendTestMealDataSubtitle' => 'Wyślij przykładowe dane posiłku do zegarka',
+			'debug.sendTestCalorieGoal' => 'Wyślij cel kaloryczny (test)',
+			'debug.sendTestCalorieGoalSubtitle' => 'Wyślij przykładowy cel kaloryczny do zegarka',
+			'debug.viewReceivedMessages' => 'Zobacz otrzymane wiadomości',
+			'debug.viewReceivedMessagesSubtitle' => 'Wyświetl wiadomości odebrane z zegarka',
+			'debug.watchConnected' => 'Zegarek połączony ✓',
+			'debug.device' => 'Urządzenie',
+			'debug.nearby' => 'W pobliżu',
+			'debug.yes' => 'Tak',
+			'debug.no' => 'Nie',
+			'debug.connectedDevices' => 'Połączone urządzenia',
+			'debug.deviceInfoUnavailable' => '(Informacje o urządzeniu niedostępne)',
+			'debug.unknownDevice' => 'Nieznane urządzenie',
+			'debug.watchNotConnected' => 'Zegarek niepołączony ✗',
+			'debug.watchNotConnectedHint' => 'Upewnij się:\n• Oba urządzenia są sparowane\n• Aplikacja na zegarku jest uruchomiona\n• Obie aplikacje są w trybie debug/staging',
+			'debug.watchConnection' => 'Połączenie z zegarkiem',
+			'debug.errorCheckingConnection' => ({required Object error}) => 'Błąd sprawdzania połączenia: ${error}',
+			'debug.helloFromPhone' => 'Cześć z telefonu!',
+			'debug.testMessageSentSuccess' => 'Testowa wiadomość wysłana pomyślnie!',
+			'debug.testMessageFailed' => 'Nie udało się wysłać wiadomości testowej. Sprawdź połączenie z zegarkiem.',
+			'debug.errorSendingMessage' => ({required Object error}) => 'Błąd wysyłania wiadomości: ${error}',
+			'debug.testMeal' => 'Posiłek testowy',
+			'debug.testMealDataSentSuccess' => 'Przykładowe dane posiłku wysłane pomyślnie!',
+			'debug.failedToSendMealData' => 'Nie udało się wysłać danych posiłku. Sprawdź połączenie z zegarkiem.',
+			'debug.errorSendingMealData' => ({required Object error}) => 'Błąd wysyłania danych posiłku: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'Przykładowy cel kaloryczny wysłany pomyślnie!',
+			'debug.failedToSendCalorieGoal' => 'Nie udało się wysłać celu kalorycznego. Sprawdź połączenie z zegarkiem.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Błąd wysyłania celu kalorycznego: ${error}',
+			'debug.testAnalyzeImage' => 'Test analizy obrazu',
+			'debug.testAnalyzeImageSubtitle' => 'Prześlij wbudowany obraz testowy',
+			'debug.testDetectImage' => 'Test wykrywania obrazu',
+			'debug.testDetectImageSubtitle' => 'Rozpoznaj posiłek z adresu URL obrazu',
+			'debug.detectImageFromGallery' => 'Wykryj obraz z galerii',
+			'debug.detectImageFromGallerySubtitle' => 'Wybierz obraz, prześlij do bucketu i oszacuj kalorie',
+			'debug.testDetectText' => 'Test rozpoznawania tekstu',
+			'debug.testDetectTextSubtitle' => 'Rozpoznaj posiłek z opisu tekstowego',
+			'debug.testMealLoggingWithVariations' => 'Testuj logowanie posiłku z wariantami',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'Przetestuj pełny przebieg logowania posiłku z wariantami',
+			'debug.mockMealWithVariations' => 'Przykładowy posiłek z wariantami',
+			'debug.mockMealWithVariationsSubtitle' => 'Podgląd wariantu i sekcji wskazówek bez logowania',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'Grillowany kurczak z ryżem i warzywami',
+			'debug.mockTip' => 'To przykładowa wskazówka do podglądu interfejsu. Posiłek nie został zalogowany.',
+			'debug.mockMealDescription' => 'Przykładowy posiłek do debugowania',
+			'debug.portionSizeQuestion' => 'Jaki był rozmiar porcji?',
+			'debug.extraSidesQuestion' => 'Czy były dodatkowe dodatki?',
+			'debug.optionSmall' => 'Mała',
+			'debug.optionMedium' => 'Średnia',
+			'debug.optionLarge' => 'Duża',
+			'debug.optionNone' => 'Brak',
+			'debug.optionSideSalad' => 'Sałatka (dodatek)',
+			'debug.optionBreadRoll' => 'Bułka',
+			'debug.testingAnalyzeImage' => 'Testowanie API analyzeImage...',
+			'debug.testingDetectImage' => 'Testowanie API detectImage...',
+			'debug.testingDetectText' => 'Testowanie API detectText...',
+			'debug.selectingImageFromGallery' => 'Wybieranie obrazu z galerii...',
+			'debug.noImageSelected' => 'Nie wybrano obrazu',
+			'debug.compressingImage' => 'Kompresowanie obrazu...',
+			'debug.uploadingImageAndDetecting' => 'Przesyłanie obrazu do bucketu i rozpoznawanie posiłku...',
+			'debug.testingMealLoggingFlow' => 'Testowanie przebiegu logowania posiłku z wariantami...',
+			'debug.noMealIdentifiedInResponse' => 'W odpowiedzi nie zidentyfikowano posiłku',
+			'debug.mealIdentified' => 'Zidentyfikowano posiłek',
+			'debug.confidence' => 'Pewność',
+			'debug.tip' => 'Wskazówka',
+			'debug.mealName' => 'Nazwa posiłku',
+			'debug.calories' => 'Kalorie',
+			'debug.protein' => 'Białko',
+			'debug.carbs' => 'Węglowodany',
+			'debug.fat' => 'Tłuszcz',
+			'debug.noMealInfo' => 'Brak informacji o posiłku',
+			'debug.na' => 'Brak danych',
+			'debug.analyzeImageResult' => 'Wynik analizy obrazu',
+			'debug.detectImageResult' => 'Wynik wykrywania obrazu',
+			'debug.detectImageFromGalleryResult' => 'Wynik wykrywania obrazu z galerii',
+			'debug.detectTextResult' => 'Wynik rozpoznawania tekstu',
+			'debug.errorGeneric' => ({required Object error}) => 'Błąd: ${error}',
+			'debug.variationsCount' => 'Wariacje',
+			'debug.userPreferencesCleared' => 'Wyczyszczono preferencje użytkownika',
+			'debug.userProfileCleared' => 'Profil użytkownika wyczyszczony',
+			'debug.checkForUpdate' => 'Sprawdź aktualizacje',
+			'debug.showPatchNumber' => 'Pokaż numer poprawki',
+			'debug.showUpdateAvailable' => 'Pokaż dostępność aktualizacji',
+			'debug.updateAvailable' => 'Dostępna aktualizacja',
+			'debug.upToDate' => 'Aktualne',
+			'debug.shorebirdUnavailable' => 'Shorebird jest niedostępny w tym środowisku.',
+			'debug.patchNumberLabel' => 'Numer poprawki',
+			'debug.noPatchInstalled' => 'Brak zainstalowanej poprawki',
+			'debug.todaysSteps' => 'Dzisiejsze kroki',
+			'debug.stepsLabel' => 'Kroki',
+			'debug.weightLabel' => ({required Object value}) => 'Waga: ${value} kg',
+			'debug.heightLabel' => ({required Object value}) => 'Wzrost: ${value} cm',
+			'debug.receivedMessagesFromWatch' => 'Otrzymane wiadomości z zegarka',
+			'debug.noMessagesReceivedYet' => 'Brak odebranych wiadomości.\n\nWyślij dane testowe z zegarka, aby zobaczyć je tutaj.',
+			'debug.messagesCleared' => 'Wiadomości wyczyszczone',
 			'health.syncFailed' => 'Nie udało się zsynchronizować z Health Connect',
 			'health.mealSynced' => 'Posiłek zsynchronizowany z Health Connect',
 			_ => null,

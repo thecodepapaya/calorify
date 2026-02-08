@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/constants/app_constants.dart';
 import 'package:calorify/core/utilities/app_version.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/router/route_names.dart';
@@ -84,14 +85,12 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
     Analytics.instance.logEvent(AnalyticsEvent.feedbackSheetRateYes);
     setState(() => _isLoading = true);
     final success = await requestPlayStoreReview(
-      packageName: 'dev.thecodepapaya.calorify',
+      packageName: AppConstants.packageName,
     );
     if (!mounted) return;
     setState(() => _isLoading = false);
     if (!success) {
-      final uri = Uri.parse(
-        'https://play.google.com/store/apps/details?id=dev.thecodepapaya.calorify',
-      );
+      final uri = Uri.parse(AppConstants.playStoreUrl);
       if (await canLaunchUrl(uri)) {
         await launchUrl(uri, mode: LaunchMode.externalApplication);
       }
@@ -108,7 +107,7 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
     final versionInfo = await getAppVersionInfo();
     await sendFeedbackEmail(
       appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
-      emailAddress: 'calorify@thecodepapaya.dev',
+      emailAddress: AppConstants.supportEmail,
       version: versionInfo.uiVersionWithBuild,
     );
     if (!mounted) return;

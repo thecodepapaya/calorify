@@ -29,9 +29,11 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Only set locale-based default on first initialization
+    // Only set locale-based default on first initialization (use app-selected locale)
     if (!_unitSystemInitialized) {
-      _unitSystem = LocaleUtils.getDefaultUnitSystem(context);
+      _unitSystem = LocaleUtils.getDefaultUnitSystem(
+        TranslationProvider.of(context).locale.flutterLocale,
+      );
       _unitSystemInitialized = true;
     }
   }

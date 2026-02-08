@@ -1,7 +1,9 @@
-import 'package:models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:models/models.dart';
 
-/// Utility class for locale-based unit system detection and formatting
+/// Utility class for locale-based unit system detection and formatting.
+/// Use the app's selected locale (e.g. TranslationProvider.of(context).locale.flutterLocale)
+/// so unit system and formatting follow the app language, not the device locale.
 class LocaleUtils {
   LocaleUtils._();
 
@@ -12,24 +14,17 @@ class LocaleUtils {
     'MM', // Myanmar
   };
 
-  /// Determine the default unit system based on the user's locale
-  static UnitSystem getDefaultUnitSystem(BuildContext context) {
-    final locale = Localizations.localeOf(context);
+  /// Determine the default unit system based on the given locale (e.g. app-selected locale).
+  static UnitSystem getDefaultUnitSystem(Locale locale) {
     final countryCode = locale.countryCode?.toUpperCase();
-
     return imperialCountries.contains(countryCode)
         ? UnitSystem.IMPERIAL
         : UnitSystem.METRIC;
   }
 
-  /// Get the current locale
-  static Locale getCurrentLocale(BuildContext context) {
-    return Localizations.localeOf(context);
-  }
-
-  /// Get the country code from locale
-  static String? getCountryCode(BuildContext context) {
-    return Localizations.localeOf(context).countryCode?.toUpperCase();
+  /// Get the country code from the given locale.
+  static String? getCountryCode(Locale locale) {
+    return locale.countryCode?.toUpperCase();
   }
 
   /// Get unit system name using locale-specific formatting

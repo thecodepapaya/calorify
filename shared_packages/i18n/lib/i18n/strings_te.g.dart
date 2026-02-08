@@ -388,6 +388,7 @@ class _TranslationsDebugTe implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'డిబగ్ ఆప్షన్స్';
+	@override String get searchHint => 'శోధన ఎంపికలు...';
 	@override late final _TranslationsDebugSectionsTe sections = _TranslationsDebugSectionsTe._(_root);
 	@override String get showActiveNotifications => 'సకాలంలో గమనికలను చూపు';
 	@override String get scheduleTestNotification => 'పరీక్ష గమనికను షెడ్యూల్ చేయండి (10సె)';
@@ -435,6 +436,103 @@ class _TranslationsDebugTe implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => 'మీ ప్రొఫైల్ డేటా (దైనందిన లక్ష్యం, ఎత్తు, బరువు మొదలైనవి) తొలగించబడతాయి. భోజనాలు మరియు ఎంపికలు ప్రభావితం కావు.';
 	@override String get clear => 'క్లియర్';
 	@override String get cancel => 'రద్దు';
+	@override String get checkWatchConnection => 'వాచ్ కనెక్షన్ తనిఖీ చేయండి';
+	@override String get sendTestMessage => 'టెస్ట్ సందేశం పంపండి';
+	@override String get sendTestMessageSubtitle => 'వాచ్‌కు ఒక సరళమైన టెస్ట్ సందేశం పంపండి';
+	@override String get sendTestMealData => 'టెస్ట్ భోజన డాటా పంపండి';
+	@override String get sendTestMealDataSubtitle => 'వాచ్‌కు నమూనా భోజన డాటా పంపండి';
+	@override String get sendTestCalorieGoal => 'టెస్ట్ కాలరీ లక్ష్యాన్ని పంపండి';
+	@override String get sendTestCalorieGoalSubtitle => 'వాచ్‌కు నమూనా కాలరీ లక్ష్యం పంపండి';
+	@override String get viewReceivedMessages => 'స్వీకరించిన సందేశాలను వీక్షించండి';
+	@override String get viewReceivedMessagesSubtitle => 'వాచ్ నుండి పొందిన సందేశాలను చూడండి';
+	@override String get watchConnected => 'వాచ్ కనెక్ట్ అయింది ✓';
+	@override String get device => 'పరికరం';
+	@override String get nearby => 'పక్కనే';
+	@override String get yes => 'అవును';
+	@override String get no => 'కాదు';
+	@override String get connectedDevices => 'కనెక్ట్ అయిన పరికరాలు';
+	@override String get deviceInfoUnavailable => '(పరికర సమాచారం లభించదు)';
+	@override String get unknownDevice => 'తెలియని పరికరం';
+	@override String get watchNotConnected => 'వాచ్ కనెక్ట్ లేదు ✗';
+	@override String get watchNotConnectedHint => 'దయచేసి ఖాయం చేసుకోండి:\n• రెండూ పరికరాలు జత చేయబడి ఉండాలి\n• వాచ్ యాప్ నడుస్తుండాలి\n• రెండు యాప్స్ డీబగ్/స్టేజింగ్ మోడ్‌లో ఉండాలి';
+	@override String get watchConnection => 'వాచ్ కనెక్షన్';
+	@override String errorCheckingConnection({required Object error}) => 'కనెక్షన్ తనిఖీ చేయడంలో లోపం: ${error}';
+	@override String get helloFromPhone => 'ఫోన్ నుండి హలో!';
+	@override String get testMessageSentSuccess => 'టెస్ట్ సందేశం విజయవంతంగా పంపబడింది!';
+	@override String get testMessageFailed => 'టెస్ట్ సందేశం పంపలేకపోయాం. వాచ్ కనెక్షన్ తనిఖీ చేయండి.';
+	@override String errorSendingMessage({required Object error}) => 'సందేశం పంపేటప్పుడు లోపం: ${error}';
+	@override String get testMeal => 'టెస్ట్ భోజనం';
+	@override String get testMealDataSentSuccess => 'టెస్ట్ భోజన డాటా విజయవంతంగా పంపబడింది!';
+	@override String get failedToSendMealData => 'భోజన డాటా పంపలేకపోయాం. వాచ్ కనెక్షన్ తనిఖీ చేయండి.';
+	@override String errorSendingMealData({required Object error}) => 'భోజన డాటా పంపేటప్పుడు లోపం: ${error}';
+	@override String get testCalorieGoalSentSuccess => 'టెస్ట్ కాలరీ లక్ష్యం విజయవంతంగా పంపబడింది!';
+	@override String get failedToSendCalorieGoal => 'కాలరీ లక్ష్యాన్ని పంపలేకపోయాం. వాచ్ కనెక్షన్ తనిఖీ చేయండి.';
+	@override String errorSendingCalorieGoal({required Object error}) => 'కాలరీ లక్ష్యం పంపేటప్పుడు లోపం: ${error}';
+	@override String get testAnalyzeImage => 'ఇమేజ్ విశ్లేషణ పరీక్ష';
+	@override String get testAnalyzeImageSubtitle => 'హార్డ్‌కోడ్ చేసిన టెస్ట్ ఇమేజ్ అప్లోడ్ చేయండి';
+	@override String get testDetectImage => 'ఇమేజ్ గుర్తింపు పరీక్ష';
+	@override String get testDetectImageSubtitle => 'ఇమేజ్ URL నుండి భోజనాన్ని గుర్తించండి';
+	@override String get detectImageFromGallery => 'గ్యాలరీ నుండి ఇమేజ్ గుర్తించండి';
+	@override String get detectImageFromGallerySubtitle => 'ఇమేజ్ ఎంచుకొని బకెట్‌కు అప్లోడ్ చేసి కాలరీలు అంచనా వేయండి';
+	@override String get testDetectText => 'టెస్ట్ టెక్స్ట్ గుర్తింపు';
+	@override String get testDetectTextSubtitle => 'టెక్స్ట్ వివరణ నుంచి భోజనాన్ని గుర్తించండి';
+	@override String get testMealLoggingWithVariations => 'వేరియేషన్స్‌తో భోజనం లాగ్ చేయడం పరీక్షించండి';
+	@override String get testMealLoggingWithVariationsSubtitle => 'వేరియేషన్లతో పూర్తి భోజన లాగింగ్ ఫ్లోను పరీక్షించండి';
+	@override String get mockMealWithVariations => 'వేరియేషన్లతో మాక్ భోజనం';
+	@override String get mockMealWithVariationsSubtitle => 'లాగ్ చేయకుండా వేరియేషన్ మరియు టిప్ షీట్ UIని ప్రివ్యూ చేయండి';
+	@override String get mockMealName => 'రైస్ మరియు కూరగాయలతో గ్రిల్ చేసిన చికెన్';
+	@override String get mockTip => 'ఇది UI ప్రివ్యూకోసం మాక్ టిప్ మాత్రమే. భోజనం లాగ్ చేయబడలేదు.';
+	@override String get mockMealDescription => 'డీబగ్ కోసం మాక్ భోజనం';
+	@override String get portionSizeQuestion => 'పోర్షన్ పరిమాణం ఎలా ఉంది?';
+	@override String get extraSidesQuestion => 'ఏవైనా అదనపు సైడ్స్ ఉన్నాయా?';
+	@override String get optionSmall => 'చిన్నది';
+	@override String get optionMedium => 'మధ్యస్థం';
+	@override String get optionLarge => 'పెద్దది';
+	@override String get optionNone => 'ఏవీ లేదు';
+	@override String get optionSideSalad => 'సైడ్ సలాడ్';
+	@override String get optionBreadRoll => 'బ్రెడ్ రోల్';
+	@override String get testingAnalyzeImage => 'analyzeImage APIని పరీక్షిస్తున్నాం...';
+	@override String get testingDetectImage => 'detectImage APIని పరీక్షిస్తున్నాం...';
+	@override String get testingDetectText => 'detectText APIని పరీక్షిస్తున్నాం...';
+	@override String get selectingImageFromGallery => 'గ్యాలరీ నుండి ఇమేజ్ ఎంచుకుంటున్నాం...';
+	@override String get noImageSelected => 'ఏ ఇమేజ్ ఎంచుకోబడలేదు';
+	@override String get compressingImage => 'ఇమేజ్‌ను కంప్రెస్ చేస్తున్నాం...';
+	@override String get uploadingImageAndDetecting => 'ఇమేజ్‌ను బకెట్‌లోకి అప్లోడ్ చేసి భోజనాన్ని గుర్తిస్తున్నాం...';
+	@override String get testingMealLoggingFlow => 'వేరియేషన్లతో భోజన లాగింగ్ ఫ్లోను పరీక్షిస్తున్నాం...';
+	@override String get noMealIdentifiedInResponse => 'రిస్పాన్స్‌లో ఏ భోజనమూ గుర్తించబడలేదు';
+	@override String get mealIdentified => 'భోజనం గుర్తించబడింది';
+	@override String get confidence => 'నమ్మకం';
+	@override String get tip => 'సలహా';
+	@override String get mealName => 'భోజనం పేరు';
+	@override String get calories => 'కాలరీలు';
+	@override String get protein => 'ప్రోటీన్';
+	@override String get carbs => 'కార్బ్స్';
+	@override String get fat => 'కొవ్వు';
+	@override String get noMealInfo => 'భోజన సమాచారం లేదు';
+	@override String get na => 'లభ్యం కాదు';
+	@override String get analyzeImageResult => 'ఇమేజ్ విశ్లేషణ ఫలితం';
+	@override String get detectImageResult => 'ఇమేజ్ గుర్తింపు ఫలితం';
+	@override String get detectImageFromGalleryResult => 'గ్యాలరీ నుండి ఇమేజ్ గుర్తింపు ఫలితం';
+	@override String get detectTextResult => 'టెక్స్ట్ గుర్తింపు ఫలితం';
+	@override String errorGeneric({required Object error}) => 'లోపం: ${error}';
+	@override String get variationsCount => 'వేరియేషన్లు';
+	@override String get userPreferencesCleared => 'వాడుకరి ఎంపికలు తొలగించబడ్డాయి';
+	@override String get userProfileCleared => 'వాడుకరి ప్రొఫైల్ తొలగించబడింది';
+	@override String get checkForUpdate => 'అప్‌డేట్ కోసం తనిఖీ చేయండి';
+	@override String get showPatchNumber => 'పాచ్ నంబర్ చూపించండి';
+	@override String get showUpdateAvailable => 'అప్‌డేట్ లభ్యమున్నదని చూపించండి';
+	@override String get updateAvailable => 'అప్‌డేట్ లభ్యముంది';
+	@override String get upToDate => 'తాజా ఉంది';
+	@override String get shorebirdUnavailable => 'ఈ పరిసరాల్లో Shorebird అందుబాటులో లేదు.';
+	@override String get patchNumberLabel => 'పాచ్ నంబరు';
+	@override String get noPatchInstalled => 'పాచ్ ఇన్స్టాల్ చేయబడలేదు';
+	@override String get todaysSteps => 'ఈ రోజు అడుగులు';
+	@override String get stepsLabel => 'అడుగులు';
+	@override String weightLabel({required Object value}) => 'బరువు: ${value} kg';
+	@override String heightLabel({required Object value}) => 'ఎత్తు: ${value} cm';
+	@override String get receivedMessagesFromWatch => 'వాచ్ నుండి అందిన సందేశాలు';
+	@override String get noMessagesReceivedYet => 'ఇప్పటివరకు ఎలాంటి సందేశాలు అందలేదు.\n\nసందేశాలు చూడటానికి వాచ్ నుండి టెస్ట్ డేటా పంపండి.';
+	@override String get messagesCleared => 'సందేశాలు తొలగించబడ్డాయి';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalTe implements TranslationsHomeDailyGoalEn {
 	@override String get description => 'మీ ఆరోగ్య ప్రయాణం ప్రారంభించడానికి సిద్ధమైనారా? మీ ప్రగతిని ప్రారంభించడానికి కింద మీ రోజువారీ కేలొరీ లక్ష్యాన్ని సెట్ చేయండి.';
 	@override String get descriptionSet => 'మీ కొలతలు సృష్టించబడ్డాయి! ఇదే మీ దిశగా మార్గదర్శకంగా ఉంటుంది.';
 	@override String get yourGoal => 'మీ లక్ష్యం';
+	@override String get goal => 'లక్ష్యం';
 	@override String get dailyCalories => 'రోజువారీ కేలొరీలు (kcal)';
 	@override String get setGoal => 'లక్ష్యం నియమించు';
 	@override String get intake => 'ఆహారం';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryTe implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'ప్రోటీన్';
 	@override String get fat => 'కొవ్వు';
 	@override String get fiber => 'ఫైబర్';
+	@override String get grams => 'గ్రామాలు';
+	@override String get chartAccessibilityLabel => 'మాక్రో పోషకాల చార్ట్';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsTe implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'గమనికలు';
 	@override String get healthConnect => 'హెల్త్ కనెక్ట్';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => 'ఫుడ్ API పరీక్షలు';
 	@override String get feedback => 'ఫీడ్‌బ్యాక్';
 	@override String get dataReset => 'డేటా రీసెట్';
 	@override String get appInfo => 'యాప్ సమాచారం';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsTe {
 			'home.dailyGoal.description' => 'మీ ఆరోగ్య ప్రయాణం ప్రారంభించడానికి సిద్ధమైనారా? మీ ప్రగతిని ప్రారంభించడానికి కింద మీ రోజువారీ కేలొరీ లక్ష్యాన్ని సెట్ చేయండి.',
 			'home.dailyGoal.descriptionSet' => 'మీ కొలతలు సృష్టించబడ్డాయి! ఇదే మీ దిశగా మార్గదర్శకంగా ఉంటుంది.',
 			'home.dailyGoal.yourGoal' => 'మీ లక్ష్యం',
+			'home.dailyGoal.goal' => 'లక్ష్యం',
 			'home.dailyGoal.dailyCalories' => 'రోజువారీ కేలొరీలు (kcal)',
 			'home.dailyGoal.setGoal' => 'లక్ష్యం నియమించు',
 			'home.dailyGoal.intake' => 'ఆహారం',
@@ -1700,6 +1805,8 @@ extension on TranslationsTe {
 			'home.dailySummary.protein' => 'ప్రోటీన్',
 			'home.dailySummary.fat' => 'కొవ్వు',
 			'home.dailySummary.fiber' => 'ఫైబర్',
+			'home.dailySummary.grams' => 'గ్రామాలు',
+			'home.dailySummary.chartAccessibilityLabel' => 'మాక్రో పోషకాల చార్ట్',
 			'home.intakeProgress.title' => 'ఈ రోజు యొక్క మాక్రో విభజన',
 			'home.intakeProgress.target' => 'లక్ష్యం',
 			'home.intakeProgress.current' => 'ప్రస్తుత',
@@ -2000,11 +2107,15 @@ extension on TranslationsTe {
 			'errors.loadingProfileData' => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం',
 			'errors.somethingWentWrong' => 'ఏదో తప్పు జరిగింది.',
 			'debug.title' => 'డిబగ్ ఆప్షన్స్',
+			'debug.searchHint' => 'శోధన ఎంపికలు...',
 			'debug.sections.notifications' => 'గమనికలు',
 			'debug.sections.healthConnect' => 'హెల్త్ కనెక్ట్',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'ఫుడ్ API పరీక్షలు',
 			'debug.sections.feedback' => 'ఫీడ్‌బ్యాక్',
 			'debug.sections.dataReset' => 'డేటా రీసెట్',
 			'debug.sections.appInfo' => 'యాప్ సమాచారం',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'సకాలంలో గమనికలను చూపు',
 			'debug.scheduleTestNotification' => 'పరీక్ష గమనికను షెడ్యూల్ చేయండి (10సె)',
 			'debug.triggerBreakfastNotification' => 'అనాంర్త్న ఫలిపట్టు భోజనం గమనిక',
@@ -2051,6 +2162,105 @@ extension on TranslationsTe {
 			'debug.clearUserProfileConfirmationMessage' => 'మీ ప్రొఫైల్ డేటా (దైనందిన లక్ష్యం, ఎత్తు, బరువు మొదలైనవి) తొలగించబడతాయి. భోజనాలు మరియు ఎంపికలు ప్రభావితం కావు.',
 			'debug.clear' => 'క్లియర్',
 			'debug.cancel' => 'రద్దు',
+			'debug.checkWatchConnection' => 'వాచ్ కనెక్షన్ తనిఖీ చేయండి',
+			'debug.sendTestMessage' => 'టెస్ట్ సందేశం పంపండి',
+			'debug.sendTestMessageSubtitle' => 'వాచ్‌కు ఒక సరళమైన టెస్ట్ సందేశం పంపండి',
+			'debug.sendTestMealData' => 'టెస్ట్ భోజన డాటా పంపండి',
+			'debug.sendTestMealDataSubtitle' => 'వాచ్‌కు నమూనా భోజన డాటా పంపండి',
+			'debug.sendTestCalorieGoal' => 'టెస్ట్ కాలరీ లక్ష్యాన్ని పంపండి',
+			'debug.sendTestCalorieGoalSubtitle' => 'వాచ్‌కు నమూనా కాలరీ లక్ష్యం పంపండి',
+			'debug.viewReceivedMessages' => 'స్వీకరించిన సందేశాలను వీక్షించండి',
+			'debug.viewReceivedMessagesSubtitle' => 'వాచ్ నుండి పొందిన సందేశాలను చూడండి',
+			'debug.watchConnected' => 'వాచ్ కనెక్ట్ అయింది ✓',
+			'debug.device' => 'పరికరం',
+			'debug.nearby' => 'పక్కనే',
+			'debug.yes' => 'అవును',
+			'debug.no' => 'కాదు',
+			'debug.connectedDevices' => 'కనెక్ట్ అయిన పరికరాలు',
+			'debug.deviceInfoUnavailable' => '(పరికర సమాచారం లభించదు)',
+			'debug.unknownDevice' => 'తెలియని పరికరం',
+			'debug.watchNotConnected' => 'వాచ్ కనెక్ట్ లేదు ✗',
+			'debug.watchNotConnectedHint' => 'దయచేసి ఖాయం చేసుకోండి:\n• రెండూ పరికరాలు జత చేయబడి ఉండాలి\n• వాచ్ యాప్ నడుస్తుండాలి\n• రెండు యాప్స్ డీబగ్/స్టేజింగ్ మోడ్‌లో ఉండాలి',
+			'debug.watchConnection' => 'వాచ్ కనెక్షన్',
+			'debug.errorCheckingConnection' => ({required Object error}) => 'కనెక్షన్ తనిఖీ చేయడంలో లోపం: ${error}',
+			'debug.helloFromPhone' => 'ఫోన్ నుండి హలో!',
+			'debug.testMessageSentSuccess' => 'టెస్ట్ సందేశం విజయవంతంగా పంపబడింది!',
+			'debug.testMessageFailed' => 'టెస్ట్ సందేశం పంపలేకపోయాం. వాచ్ కనెక్షన్ తనిఖీ చేయండి.',
+			'debug.errorSendingMessage' => ({required Object error}) => 'సందేశం పంపేటప్పుడు లోపం: ${error}',
+			'debug.testMeal' => 'టెస్ట్ భోజనం',
+			'debug.testMealDataSentSuccess' => 'టెస్ట్ భోజన డాటా విజయవంతంగా పంపబడింది!',
+			'debug.failedToSendMealData' => 'భోజన డాటా పంపలేకపోయాం. వాచ్ కనెక్షన్ తనిఖీ చేయండి.',
+			'debug.errorSendingMealData' => ({required Object error}) => 'భోజన డాటా పంపేటప్పుడు లోపం: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'టెస్ట్ కాలరీ లక్ష్యం విజయవంతంగా పంపబడింది!',
+			'debug.failedToSendCalorieGoal' => 'కాలరీ లక్ష్యాన్ని పంపలేకపోయాం. వాచ్ కనెక్షన్ తనిఖీ చేయండి.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'కాలరీ లక్ష్యం పంపేటప్పుడు లోపం: ${error}',
+			'debug.testAnalyzeImage' => 'ఇమేజ్ విశ్లేషణ పరీక్ష',
+			'debug.testAnalyzeImageSubtitle' => 'హార్డ్‌కోడ్ చేసిన టెస్ట్ ఇమేజ్ అప్లోడ్ చేయండి',
+			'debug.testDetectImage' => 'ఇమేజ్ గుర్తింపు పరీక్ష',
+			'debug.testDetectImageSubtitle' => 'ఇమేజ్ URL నుండి భోజనాన్ని గుర్తించండి',
+			'debug.detectImageFromGallery' => 'గ్యాలరీ నుండి ఇమేజ్ గుర్తించండి',
+			'debug.detectImageFromGallerySubtitle' => 'ఇమేజ్ ఎంచుకొని బకెట్‌కు అప్లోడ్ చేసి కాలరీలు అంచనా వేయండి',
+			'debug.testDetectText' => 'టెస్ట్ టెక్స్ట్ గుర్తింపు',
+			'debug.testDetectTextSubtitle' => 'టెక్స్ట్ వివరణ నుంచి భోజనాన్ని గుర్తించండి',
+			'debug.testMealLoggingWithVariations' => 'వేరియేషన్స్‌తో భోజనం లాగ్ చేయడం పరీక్షించండి',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'వేరియేషన్లతో పూర్తి భోజన లాగింగ్ ఫ్లోను పరీక్షించండి',
+			'debug.mockMealWithVariations' => 'వేరియేషన్లతో మాక్ భోజనం',
+			'debug.mockMealWithVariationsSubtitle' => 'లాగ్ చేయకుండా వేరియేషన్ మరియు టిప్ షీట్ UIని ప్రివ్యూ చేయండి',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'రైస్ మరియు కూరగాయలతో గ్రిల్ చేసిన చికెన్',
+			'debug.mockTip' => 'ఇది UI ప్రివ్యూకోసం మాక్ టిప్ మాత్రమే. భోజనం లాగ్ చేయబడలేదు.',
+			'debug.mockMealDescription' => 'డీబగ్ కోసం మాక్ భోజనం',
+			'debug.portionSizeQuestion' => 'పోర్షన్ పరిమాణం ఎలా ఉంది?',
+			'debug.extraSidesQuestion' => 'ఏవైనా అదనపు సైడ్స్ ఉన్నాయా?',
+			'debug.optionSmall' => 'చిన్నది',
+			'debug.optionMedium' => 'మధ్యస్థం',
+			'debug.optionLarge' => 'పెద్దది',
+			'debug.optionNone' => 'ఏవీ లేదు',
+			'debug.optionSideSalad' => 'సైడ్ సలాడ్',
+			'debug.optionBreadRoll' => 'బ్రెడ్ రోల్',
+			'debug.testingAnalyzeImage' => 'analyzeImage APIని పరీక్షిస్తున్నాం...',
+			'debug.testingDetectImage' => 'detectImage APIని పరీక్షిస్తున్నాం...',
+			'debug.testingDetectText' => 'detectText APIని పరీక్షిస్తున్నాం...',
+			'debug.selectingImageFromGallery' => 'గ్యాలరీ నుండి ఇమేజ్ ఎంచుకుంటున్నాం...',
+			'debug.noImageSelected' => 'ఏ ఇమేజ్ ఎంచుకోబడలేదు',
+			'debug.compressingImage' => 'ఇమేజ్‌ను కంప్రెస్ చేస్తున్నాం...',
+			'debug.uploadingImageAndDetecting' => 'ఇమేజ్‌ను బకెట్‌లోకి అప్లోడ్ చేసి భోజనాన్ని గుర్తిస్తున్నాం...',
+			'debug.testingMealLoggingFlow' => 'వేరియేషన్లతో భోజన లాగింగ్ ఫ్లోను పరీక్షిస్తున్నాం...',
+			'debug.noMealIdentifiedInResponse' => 'రిస్పాన్స్‌లో ఏ భోజనమూ గుర్తించబడలేదు',
+			'debug.mealIdentified' => 'భోజనం గుర్తించబడింది',
+			'debug.confidence' => 'నమ్మకం',
+			'debug.tip' => 'సలహా',
+			'debug.mealName' => 'భోజనం పేరు',
+			'debug.calories' => 'కాలరీలు',
+			'debug.protein' => 'ప్రోటీన్',
+			'debug.carbs' => 'కార్బ్స్',
+			'debug.fat' => 'కొవ్వు',
+			'debug.noMealInfo' => 'భోజన సమాచారం లేదు',
+			'debug.na' => 'లభ్యం కాదు',
+			'debug.analyzeImageResult' => 'ఇమేజ్ విశ్లేషణ ఫలితం',
+			'debug.detectImageResult' => 'ఇమేజ్ గుర్తింపు ఫలితం',
+			'debug.detectImageFromGalleryResult' => 'గ్యాలరీ నుండి ఇమేజ్ గుర్తింపు ఫలితం',
+			'debug.detectTextResult' => 'టెక్స్ట్ గుర్తింపు ఫలితం',
+			'debug.errorGeneric' => ({required Object error}) => 'లోపం: ${error}',
+			'debug.variationsCount' => 'వేరియేషన్లు',
+			'debug.userPreferencesCleared' => 'వాడుకరి ఎంపికలు తొలగించబడ్డాయి',
+			'debug.userProfileCleared' => 'వాడుకరి ప్రొఫైల్ తొలగించబడింది',
+			'debug.checkForUpdate' => 'అప్‌డేట్ కోసం తనిఖీ చేయండి',
+			'debug.showPatchNumber' => 'పాచ్ నంబర్ చూపించండి',
+			'debug.showUpdateAvailable' => 'అప్‌డేట్ లభ్యమున్నదని చూపించండి',
+			'debug.updateAvailable' => 'అప్‌డేట్ లభ్యముంది',
+			'debug.upToDate' => 'తాజా ఉంది',
+			'debug.shorebirdUnavailable' => 'ఈ పరిసరాల్లో Shorebird అందుబాటులో లేదు.',
+			'debug.patchNumberLabel' => 'పాచ్ నంబరు',
+			'debug.noPatchInstalled' => 'పాచ్ ఇన్స్టాల్ చేయబడలేదు',
+			'debug.todaysSteps' => 'ఈ రోజు అడుగులు',
+			'debug.stepsLabel' => 'అడుగులు',
+			'debug.weightLabel' => ({required Object value}) => 'బరువు: ${value} kg',
+			'debug.heightLabel' => ({required Object value}) => 'ఎత్తు: ${value} cm',
+			'debug.receivedMessagesFromWatch' => 'వాచ్ నుండి అందిన సందేశాలు',
+			'debug.noMessagesReceivedYet' => 'ఇప్పటివరకు ఎలాంటి సందేశాలు అందలేదు.\n\nసందేశాలు చూడటానికి వాచ్ నుండి టెస్ట్ డేటా పంపండి.',
+			'debug.messagesCleared' => 'సందేశాలు తొలగించబడ్డాయి',
 			'health.syncFailed' => 'హెల్త్ కనెక్ట్ కు సింక్ చేయడంలో విఫలమైంది',
 			'health.mealSynced' => 'భోజనం హెల్త్ కనెక్ట్ తో సింక్ చేయబడింది',
 			_ => null,

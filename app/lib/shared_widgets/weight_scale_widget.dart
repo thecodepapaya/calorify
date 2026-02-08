@@ -1,5 +1,6 @@
 import 'package:calorify/shared_widgets/scale_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
 import 'package:intl/intl.dart';
 import 'package:models/models.dart';
 
@@ -45,8 +46,9 @@ class WeightScaleWidget extends StatelessWidget {
                   : ScaleConstants.weightImperialStep,
       formatValue: (value, unitSystem, context) {
         if (unitSystem.isMetric) {
-          // Metric: one decimal place for kg - use locale-aware formatting
-          final locale = Localizations.localeOf(context).toString();
+          // Metric: one decimal place for kg - use app-selected locale-aware formatting
+          final locale =
+              TranslationProvider.of(context).locale.flutterLocale.toString();
           return NumberFormat('#.#', locale).format(value);
         } else {
           // Imperial: whole numbers for lbs

@@ -388,6 +388,7 @@ class _TranslationsDebugCs implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'Možnosti ladění';
+	@override String get searchHint => 'Možnosti vyhledávání...';
 	@override late final _TranslationsDebugSectionsCs sections = _TranslationsDebugSectionsCs._(_root);
 	@override String get showActiveNotifications => 'Zobrazit aktivní notifikace';
 	@override String get scheduleTestNotification => 'Naplánovat testovací notifikaci (10s)';
@@ -435,6 +436,103 @@ class _TranslationsDebugCs implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => 'Data vašeho profilu (denní cíl, výška, váha atd.) budou vymazána. Jídla a nastavení nebudou ovlivněny.';
 	@override String get clear => 'Vymazat';
 	@override String get cancel => 'Zrušit';
+	@override String get checkWatchConnection => 'Zkontrolovat připojení k hodinkám';
+	@override String get sendTestMessage => 'Odeslat testovací zprávu';
+	@override String get sendTestMessageSubtitle => 'Odešlete jednoduchou testovací zprávu na hodinky';
+	@override String get sendTestMealData => 'Odeslat testovací údaje o jídle';
+	@override String get sendTestMealDataSubtitle => 'Odešlete ukázková data o jídle na hodinky';
+	@override String get sendTestCalorieGoal => 'Odeslat testovací cíl kalorií';
+	@override String get sendTestCalorieGoalSubtitle => 'Odeslat ukázkový cíl kalorií na hodinky';
+	@override String get viewReceivedMessages => 'Zobrazit přijaté zprávy';
+	@override String get viewReceivedMessagesSubtitle => 'Zobrazit zprávy přijaté z hodinek';
+	@override String get watchConnected => 'Hodinky jsou připojeny ✓';
+	@override String get device => 'Zařízení';
+	@override String get nearby => 'V okolí';
+	@override String get yes => 'Ano';
+	@override String get no => 'Ne';
+	@override String get connectedDevices => 'Připojená zařízení';
+	@override String get deviceInfoUnavailable => '(Informace o zařízení nejsou dostupné)';
+	@override String get unknownDevice => 'Neznámé zařízení';
+	@override String get watchNotConnected => 'Hodinky nejsou připojeny ✗';
+	@override String get watchNotConnectedHint => 'Ujistěte se:\n• Obě zařízení jsou spárována\n• Aplikace na hodinkách běží\n• Obě aplikace jsou v režimu ladění/staging';
+	@override String get watchConnection => 'Připojení hodinek';
+	@override String errorCheckingConnection({required Object error}) => 'Chyba při kontrole připojení: ${error}';
+	@override String get helloFromPhone => 'Ahoj z telefonu!';
+	@override String get testMessageSentSuccess => 'Testovací zpráva byla úspěšně odeslána!';
+	@override String get testMessageFailed => 'Nepodařilo se odeslat testovací zprávu. Zkontrolujte připojení hodinek.';
+	@override String errorSendingMessage({required Object error}) => 'Chyba při odesílání zprávy: ${error}';
+	@override String get testMeal => 'Testovací jídlo';
+	@override String get testMealDataSentSuccess => 'Testovací údaje o jídle byly úspěšně odeslány!';
+	@override String get failedToSendMealData => 'Nepodařilo se odeslat údaje o jídle. Zkontrolujte připojení hodinek.';
+	@override String errorSendingMealData({required Object error}) => 'Chyba při odesílání údajů o jídle: ${error}';
+	@override String get testCalorieGoalSentSuccess => 'Testovací cíl kalorií byl úspěšně odeslán!';
+	@override String get failedToSendCalorieGoal => 'Nepodařilo se odeslat cíl kalorií. Zkontrolujte připojení hodinek.';
+	@override String errorSendingCalorieGoal({required Object error}) => 'Chyba při odesílání cíle kalorií: ${error}';
+	@override String get testAnalyzeImage => 'Test analýzy obrázku';
+	@override String get testAnalyzeImageSubtitle => 'Nahrát předdefinovaný testovací obrázek';
+	@override String get testDetectImage => 'Test detekce obrázku';
+	@override String get testDetectImageSubtitle => 'Detekovat jídlo z URL obrázku';
+	@override String get detectImageFromGallery => 'Detekovat obrázek z galerie';
+	@override String get detectImageFromGallerySubtitle => 'Vyberte obrázek, nahrajte do úložiště a odhadněte kalorie';
+	@override String get testDetectText => 'Test detekce textu';
+	@override String get testDetectTextSubtitle => 'Detekovat jídlo z textového popisu';
+	@override String get testMealLoggingWithVariations => 'Testování záznamu jídla s variantami';
+	@override String get testMealLoggingWithVariationsSubtitle => 'Otestovat kompletní tok záznamu jídla s variantami';
+	@override String get mockMealWithVariations => 'Ukázkové jídlo s variantami';
+	@override String get mockMealWithVariationsSubtitle => 'Náhled rozhraní varianty a tipů bez uložení záznamu';
+	@override String get mockMealName => 'Grilované kuře s rýží a zeleninou';
+	@override String get mockTip => 'Toto je ukázková rada pro náhled rozhraní. Jídlo není uloženo.';
+	@override String get mockMealDescription => 'Ukázkové jídlo pro ladění';
+	@override String get portionSizeQuestion => 'Jaká byla velikost porce?';
+	@override String get extraSidesQuestion => 'Byly nějaké přílohy navíc?';
+	@override String get optionSmall => 'Malá';
+	@override String get optionMedium => 'Střední';
+	@override String get optionLarge => 'Velká';
+	@override String get optionNone => 'Žádné';
+	@override String get optionSideSalad => 'Malý salát';
+	@override String get optionBreadRoll => 'Pečivo';
+	@override String get testingAnalyzeImage => 'Testuje se API analyzeImage...';
+	@override String get testingDetectImage => 'Testuje se API detectImage...';
+	@override String get testingDetectText => 'Testuje se API detectText...';
+	@override String get selectingImageFromGallery => 'Výběr obrázku z galerie...';
+	@override String get noImageSelected => 'Žádný obrázek nebyl vybrán';
+	@override String get compressingImage => 'Komprimování obrázku...';
+	@override String get uploadingImageAndDetecting => 'Nahrávání obrázku do úložiště a detekce jídla...';
+	@override String get testingMealLoggingFlow => 'Testuje se tok záznamu jídla s variantami...';
+	@override String get noMealIdentifiedInResponse => 'V odpovědi nebylo identifikováno žádné jídlo';
+	@override String get mealIdentified => 'Jídlo identifikováno';
+	@override String get confidence => 'Pravděpodobnost';
+	@override String get tip => 'Tip';
+	@override String get mealName => 'Název jídla';
+	@override String get calories => 'Kalorie';
+	@override String get protein => 'Bílkoviny';
+	@override String get carbs => 'Sacharidy';
+	@override String get fat => 'Tuky';
+	@override String get noMealInfo => 'Žádné informace o jídle';
+	@override String get na => 'N/A';
+	@override String get analyzeImageResult => 'Výsledek analýzy obrázku';
+	@override String get detectImageResult => 'Výsledek detekce obrázku';
+	@override String get detectImageFromGalleryResult => 'Výsledek detekce obrázku z galerie';
+	@override String get detectTextResult => 'Výsledek detekce textu';
+	@override String errorGeneric({required Object error}) => 'Chyba: ${error}';
+	@override String get variationsCount => 'Varianty';
+	@override String get userPreferencesCleared => 'Uživatelské předvolby byly vymazány';
+	@override String get userProfileCleared => 'Uživatelský profil byl vymazán';
+	@override String get checkForUpdate => 'Zkontrolovat aktualizace';
+	@override String get showPatchNumber => 'Zobrazit číslo patche';
+	@override String get showUpdateAvailable => 'Zobrazit dostupnou aktualizaci';
+	@override String get updateAvailable => 'Aktualizace dostupná';
+	@override String get upToDate => 'Aktuální';
+	@override String get shorebirdUnavailable => 'Shorebird není v tomto prostředí k dispozici.';
+	@override String get patchNumberLabel => 'Číslo patche';
+	@override String get noPatchInstalled => 'Žádný patch není nainstalován';
+	@override String get todaysSteps => 'Dnešní kroky';
+	@override String get stepsLabel => 'Kroky';
+	@override String weightLabel({required Object value}) => 'Váha: ${value} kg';
+	@override String heightLabel({required Object value}) => 'Výška: ${value} cm';
+	@override String get receivedMessagesFromWatch => 'Přijaté zprávy z hodinek';
+	@override String get noMessagesReceivedYet => 'Dosud nebyly přijaty žádné zprávy.\n\nOdešlete testovací data z hodinek a zobrazí se zde.';
+	@override String get messagesCleared => 'Zprávy byly vymazány';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalCs implements TranslationsHomeDailyGoalEn {
 	@override String get description => 'Připraveni na začátek vaší wellness cesty? Nastavte si svůj denní kalorický cíl níže, abyste zahájili svůj pokrok.';
 	@override String get descriptionSet => 'Vaše kompas je nastaven! Toto je váš denní kalorický cíl, který vás povede.';
 	@override String get yourGoal => 'Váš cíl';
+	@override String get goal => 'Cíl';
 	@override String get dailyCalories => 'Denní kalorie (kcal)';
 	@override String get setGoal => 'Nastavit cíl';
 	@override String get intake => 'Příjem';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryCs implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'Bílkoviny';
 	@override String get fat => 'Tuky';
 	@override String get fiber => 'Vláknina';
+	@override String get grams => 'gramy';
+	@override String get chartAccessibilityLabel => 'Graf makroživin';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsCs implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Notifikace';
 	@override String get healthConnect => 'Health Connect';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => 'Testy Food API';
 	@override String get feedback => 'Zpětná vazba';
 	@override String get dataReset => 'Reset dat';
 	@override String get appInfo => 'Informace o aplikaci';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsCs {
 			'home.dailyGoal.description' => 'Připraveni na začátek vaší wellness cesty? Nastavte si svůj denní kalorický cíl níže, abyste zahájili svůj pokrok.',
 			'home.dailyGoal.descriptionSet' => 'Vaše kompas je nastaven! Toto je váš denní kalorický cíl, který vás povede.',
 			'home.dailyGoal.yourGoal' => 'Váš cíl',
+			'home.dailyGoal.goal' => 'Cíl',
 			'home.dailyGoal.dailyCalories' => 'Denní kalorie (kcal)',
 			'home.dailyGoal.setGoal' => 'Nastavit cíl',
 			'home.dailyGoal.intake' => 'Příjem',
@@ -1700,6 +1805,8 @@ extension on TranslationsCs {
 			'home.dailySummary.protein' => 'Bílkoviny',
 			'home.dailySummary.fat' => 'Tuky',
 			'home.dailySummary.fiber' => 'Vláknina',
+			'home.dailySummary.grams' => 'gramy',
+			'home.dailySummary.chartAccessibilityLabel' => 'Graf makroživin',
 			'home.intakeProgress.title' => 'Dnešní rozdělení makroživin',
 			'home.intakeProgress.target' => 'Cíl',
 			'home.intakeProgress.current' => 'Aktuální',
@@ -2000,11 +2107,15 @@ extension on TranslationsCs {
 			'errors.loadingProfileData' => 'Chyba při načítání dat profilu',
 			'errors.somethingWentWrong' => 'Něco se pokazilo.',
 			'debug.title' => 'Možnosti ladění',
+			'debug.searchHint' => 'Možnosti vyhledávání...',
 			'debug.sections.notifications' => 'Notifikace',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'Testy Food API',
 			'debug.sections.feedback' => 'Zpětná vazba',
 			'debug.sections.dataReset' => 'Reset dat',
 			'debug.sections.appInfo' => 'Informace o aplikaci',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'Zobrazit aktivní notifikace',
 			'debug.scheduleTestNotification' => 'Naplánovat testovací notifikaci (10s)',
 			'debug.triggerBreakfastNotification' => 'Spustit notifikaci na snídani',
@@ -2051,6 +2162,105 @@ extension on TranslationsCs {
 			'debug.clearUserProfileConfirmationMessage' => 'Data vašeho profilu (denní cíl, výška, váha atd.) budou vymazána. Jídla a nastavení nebudou ovlivněny.',
 			'debug.clear' => 'Vymazat',
 			'debug.cancel' => 'Zrušit',
+			'debug.checkWatchConnection' => 'Zkontrolovat připojení k hodinkám',
+			'debug.sendTestMessage' => 'Odeslat testovací zprávu',
+			'debug.sendTestMessageSubtitle' => 'Odešlete jednoduchou testovací zprávu na hodinky',
+			'debug.sendTestMealData' => 'Odeslat testovací údaje o jídle',
+			'debug.sendTestMealDataSubtitle' => 'Odešlete ukázková data o jídle na hodinky',
+			'debug.sendTestCalorieGoal' => 'Odeslat testovací cíl kalorií',
+			'debug.sendTestCalorieGoalSubtitle' => 'Odeslat ukázkový cíl kalorií na hodinky',
+			'debug.viewReceivedMessages' => 'Zobrazit přijaté zprávy',
+			'debug.viewReceivedMessagesSubtitle' => 'Zobrazit zprávy přijaté z hodinek',
+			'debug.watchConnected' => 'Hodinky jsou připojeny ✓',
+			'debug.device' => 'Zařízení',
+			'debug.nearby' => 'V okolí',
+			'debug.yes' => 'Ano',
+			'debug.no' => 'Ne',
+			'debug.connectedDevices' => 'Připojená zařízení',
+			'debug.deviceInfoUnavailable' => '(Informace o zařízení nejsou dostupné)',
+			'debug.unknownDevice' => 'Neznámé zařízení',
+			'debug.watchNotConnected' => 'Hodinky nejsou připojeny ✗',
+			'debug.watchNotConnectedHint' => 'Ujistěte se:\n• Obě zařízení jsou spárována\n• Aplikace na hodinkách běží\n• Obě aplikace jsou v režimu ladění/staging',
+			'debug.watchConnection' => 'Připojení hodinek',
+			'debug.errorCheckingConnection' => ({required Object error}) => 'Chyba při kontrole připojení: ${error}',
+			'debug.helloFromPhone' => 'Ahoj z telefonu!',
+			'debug.testMessageSentSuccess' => 'Testovací zpráva byla úspěšně odeslána!',
+			'debug.testMessageFailed' => 'Nepodařilo se odeslat testovací zprávu. Zkontrolujte připojení hodinek.',
+			'debug.errorSendingMessage' => ({required Object error}) => 'Chyba při odesílání zprávy: ${error}',
+			'debug.testMeal' => 'Testovací jídlo',
+			'debug.testMealDataSentSuccess' => 'Testovací údaje o jídle byly úspěšně odeslány!',
+			'debug.failedToSendMealData' => 'Nepodařilo se odeslat údaje o jídle. Zkontrolujte připojení hodinek.',
+			'debug.errorSendingMealData' => ({required Object error}) => 'Chyba při odesílání údajů o jídle: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'Testovací cíl kalorií byl úspěšně odeslán!',
+			'debug.failedToSendCalorieGoal' => 'Nepodařilo se odeslat cíl kalorií. Zkontrolujte připojení hodinek.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Chyba při odesílání cíle kalorií: ${error}',
+			'debug.testAnalyzeImage' => 'Test analýzy obrázku',
+			'debug.testAnalyzeImageSubtitle' => 'Nahrát předdefinovaný testovací obrázek',
+			'debug.testDetectImage' => 'Test detekce obrázku',
+			'debug.testDetectImageSubtitle' => 'Detekovat jídlo z URL obrázku',
+			'debug.detectImageFromGallery' => 'Detekovat obrázek z galerie',
+			'debug.detectImageFromGallerySubtitle' => 'Vyberte obrázek, nahrajte do úložiště a odhadněte kalorie',
+			'debug.testDetectText' => 'Test detekce textu',
+			'debug.testDetectTextSubtitle' => 'Detekovat jídlo z textového popisu',
+			'debug.testMealLoggingWithVariations' => 'Testování záznamu jídla s variantami',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'Otestovat kompletní tok záznamu jídla s variantami',
+			'debug.mockMealWithVariations' => 'Ukázkové jídlo s variantami',
+			'debug.mockMealWithVariationsSubtitle' => 'Náhled rozhraní varianty a tipů bez uložení záznamu',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'Grilované kuře s rýží a zeleninou',
+			'debug.mockTip' => 'Toto je ukázková rada pro náhled rozhraní. Jídlo není uloženo.',
+			'debug.mockMealDescription' => 'Ukázkové jídlo pro ladění',
+			'debug.portionSizeQuestion' => 'Jaká byla velikost porce?',
+			'debug.extraSidesQuestion' => 'Byly nějaké přílohy navíc?',
+			'debug.optionSmall' => 'Malá',
+			'debug.optionMedium' => 'Střední',
+			'debug.optionLarge' => 'Velká',
+			'debug.optionNone' => 'Žádné',
+			'debug.optionSideSalad' => 'Malý salát',
+			'debug.optionBreadRoll' => 'Pečivo',
+			'debug.testingAnalyzeImage' => 'Testuje se API analyzeImage...',
+			'debug.testingDetectImage' => 'Testuje se API detectImage...',
+			'debug.testingDetectText' => 'Testuje se API detectText...',
+			'debug.selectingImageFromGallery' => 'Výběr obrázku z galerie...',
+			'debug.noImageSelected' => 'Žádný obrázek nebyl vybrán',
+			'debug.compressingImage' => 'Komprimování obrázku...',
+			'debug.uploadingImageAndDetecting' => 'Nahrávání obrázku do úložiště a detekce jídla...',
+			'debug.testingMealLoggingFlow' => 'Testuje se tok záznamu jídla s variantami...',
+			'debug.noMealIdentifiedInResponse' => 'V odpovědi nebylo identifikováno žádné jídlo',
+			'debug.mealIdentified' => 'Jídlo identifikováno',
+			'debug.confidence' => 'Pravděpodobnost',
+			'debug.tip' => 'Tip',
+			'debug.mealName' => 'Název jídla',
+			'debug.calories' => 'Kalorie',
+			'debug.protein' => 'Bílkoviny',
+			'debug.carbs' => 'Sacharidy',
+			'debug.fat' => 'Tuky',
+			'debug.noMealInfo' => 'Žádné informace o jídle',
+			'debug.na' => 'N/A',
+			'debug.analyzeImageResult' => 'Výsledek analýzy obrázku',
+			'debug.detectImageResult' => 'Výsledek detekce obrázku',
+			'debug.detectImageFromGalleryResult' => 'Výsledek detekce obrázku z galerie',
+			'debug.detectTextResult' => 'Výsledek detekce textu',
+			'debug.errorGeneric' => ({required Object error}) => 'Chyba: ${error}',
+			'debug.variationsCount' => 'Varianty',
+			'debug.userPreferencesCleared' => 'Uživatelské předvolby byly vymazány',
+			'debug.userProfileCleared' => 'Uživatelský profil byl vymazán',
+			'debug.checkForUpdate' => 'Zkontrolovat aktualizace',
+			'debug.showPatchNumber' => 'Zobrazit číslo patche',
+			'debug.showUpdateAvailable' => 'Zobrazit dostupnou aktualizaci',
+			'debug.updateAvailable' => 'Aktualizace dostupná',
+			'debug.upToDate' => 'Aktuální',
+			'debug.shorebirdUnavailable' => 'Shorebird není v tomto prostředí k dispozici.',
+			'debug.patchNumberLabel' => 'Číslo patche',
+			'debug.noPatchInstalled' => 'Žádný patch není nainstalován',
+			'debug.todaysSteps' => 'Dnešní kroky',
+			'debug.stepsLabel' => 'Kroky',
+			'debug.weightLabel' => ({required Object value}) => 'Váha: ${value} kg',
+			'debug.heightLabel' => ({required Object value}) => 'Výška: ${value} cm',
+			'debug.receivedMessagesFromWatch' => 'Přijaté zprávy z hodinek',
+			'debug.noMessagesReceivedYet' => 'Dosud nebyly přijaty žádné zprávy.\n\nOdešlete testovací data z hodinek a zobrazí se zde.',
+			'debug.messagesCleared' => 'Zprávy byly vymazány',
 			'health.syncFailed' => 'Nedaří se synchronizovat s Health Connect',
 			'health.mealSynced' => 'Jídlo synchronizováno s Health Connect',
 			_ => null,

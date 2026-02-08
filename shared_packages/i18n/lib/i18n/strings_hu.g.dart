@@ -388,6 +388,7 @@ class _TranslationsDebugHu implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'Hibakeresési Beállítások';
+	@override String get searchHint => 'Keresési opciók...';
 	@override late final _TranslationsDebugSectionsHu sections = _TranslationsDebugSectionsHu._(_root);
 	@override String get showActiveNotifications => 'Aktív Értesítések Megjelenítése';
 	@override String get scheduleTestNotification => 'Teszt Értesítés Ütemezése (10s)';
@@ -435,6 +436,103 @@ class _TranslationsDebugHu implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => 'A profiladataid (napi cél, magasság, testsúly stb.) törlődnek. Az étkezések és a beállítások nem érintettek.';
 	@override String get clear => 'Törlés';
 	@override String get cancel => 'Mégse';
+	@override String get checkWatchConnection => 'Óra kapcsolat ellenőrzése';
+	@override String get sendTestMessage => 'Tesztüzenet küldése';
+	@override String get sendTestMessageSubtitle => 'Küldj egy egyszerű tesztüzenetet az órára';
+	@override String get sendTestMealData => 'Teszt ételadat küldése';
+	@override String get sendTestMealDataSubtitle => 'Minta ételadat küldése az órára';
+	@override String get sendTestCalorieGoal => 'Teszt kalóriacél küldése';
+	@override String get sendTestCalorieGoalSubtitle => 'Minta kalóriacél küldése az órára';
+	@override String get viewReceivedMessages => 'Kapott üzenetek megtekintése';
+	@override String get viewReceivedMessagesSubtitle => 'Az óráról érkezett üzenetek megtekintése';
+	@override String get watchConnected => 'Óra csatlakoztatva ✓';
+	@override String get device => 'Eszköz';
+	@override String get nearby => 'Közelben';
+	@override String get yes => 'Igen';
+	@override String get no => 'Nem';
+	@override String get connectedDevices => 'Csatlakoztatott eszközök';
+	@override String get deviceInfoUnavailable => '(Eszközinformációk nem elérhetők)';
+	@override String get unknownDevice => 'Ismeretlen eszköz';
+	@override String get watchNotConnected => 'Óra nincs csatlakoztatva ✗';
+	@override String get watchNotConnectedHint => 'Győződj meg róla:\n• Mindkét eszköz párosítva van\n• Az óra alkalmazás fut\n• Mindkét alkalmazás hibakereső/staging módban van';
+	@override String get watchConnection => 'Óra kapcsolat';
+	@override String errorCheckingConnection({required Object error}) => 'Hiba a kapcsolat ellenőrzése közben: ${error}';
+	@override String get helloFromPhone => 'Szia a telefonról!';
+	@override String get testMessageSentSuccess => 'Tesztüzenet sikeresen elküldve!';
+	@override String get testMessageFailed => 'Nem sikerült elküldeni a tesztüzenetet. Ellenőrizd az óra kapcsolatát.';
+	@override String errorSendingMessage({required Object error}) => 'Hiba az üzenet küldésekor: ${error}';
+	@override String get testMeal => 'Teszt étel';
+	@override String get testMealDataSentSuccess => 'Teszt ételadat sikeresen elküldve!';
+	@override String get failedToSendMealData => 'Nem sikerült elküldeni az ételadatot. Ellenőrizd az óra kapcsolatát.';
+	@override String errorSendingMealData({required Object error}) => 'Hiba az ételadat küldésekor: ${error}';
+	@override String get testCalorieGoalSentSuccess => 'Teszt kalóriacél sikeresen elküldve!';
+	@override String get failedToSendCalorieGoal => 'Nem sikerült elküldeni a kalóriacélt. Ellenőrizd az óra kapcsolatát.';
+	@override String errorSendingCalorieGoal({required Object error}) => 'Hiba a kalóriacél küldésekor: ${error}';
+	@override String get testAnalyzeImage => 'Kép elemzés tesztelése';
+	@override String get testAnalyzeImageSubtitle => 'Előre beállított tesztkép feltöltése';
+	@override String get testDetectImage => 'Kép felismerés tesztelése';
+	@override String get testDetectImageSubtitle => 'Ételfelismerés kép URL alapján';
+	@override String get detectImageFromGallery => 'Kép felismerése a galériából';
+	@override String get detectImageFromGallerySubtitle => 'Válassz képet, töltsd fel a tárhelyre és becsüld meg a kalóriákat';
+	@override String get testDetectText => 'Szövegfelismerés tesztelése';
+	@override String get testDetectTextSubtitle => 'Ételfelismerés szöveges leírásból';
+	@override String get testMealLoggingWithVariations => 'Ételfelvitel tesztelése variációkkal';
+	@override String get testMealLoggingWithVariationsSubtitle => 'Teszteld a teljes ételfelviteli folyamatot variációkkal';
+	@override String get mockMealWithVariations => 'Mintaétel variációkkal';
+	@override String get mockMealWithVariationsSubtitle => 'Variációk és tipp lap UI előnézete naplózás nélkül';
+	@override String get mockMealName => 'Grillezett csirke rizzsel és zöldségekkel';
+	@override String get mockTip => 'Ez egy minta tipp a felhasználói felület előnézetéhez. Az étel nincs rögzítve.';
+	@override String get mockMealDescription => 'Minta étel hibakereséshez';
+	@override String get portionSizeQuestion => 'Milyen volt az adagméret?';
+	@override String get extraSidesQuestion => 'Volt extra köret?';
+	@override String get optionSmall => 'Kicsi';
+	@override String get optionMedium => 'Közepes';
+	@override String get optionLarge => 'Nagy';
+	@override String get optionNone => 'Nincs';
+	@override String get optionSideSalad => 'Köret saláta';
+	@override String get optionBreadRoll => 'Zsemle';
+	@override String get testingAnalyzeImage => 'analyzeImage API tesztelése...';
+	@override String get testingDetectImage => 'detectImage API tesztelése...';
+	@override String get testingDetectText => 'detectText API tesztelése...';
+	@override String get selectingImageFromGallery => 'Kép kiválasztása a galériából...';
+	@override String get noImageSelected => 'Nincs kép kiválasztva';
+	@override String get compressingImage => 'Kép tömörítése...';
+	@override String get uploadingImageAndDetecting => 'Kép feltöltése a tárhelyre és az étel felismerése...';
+	@override String get testingMealLoggingFlow => 'Ételfelviteli folyamat tesztelése variációkkal...';
+	@override String get noMealIdentifiedInResponse => 'A válaszban nem azonosítható étel';
+	@override String get mealIdentified => 'Étel felismerve';
+	@override String get confidence => 'Valószínűség';
+	@override String get tip => 'Tipp';
+	@override String get mealName => 'Étel neve';
+	@override String get calories => 'Kalória';
+	@override String get protein => 'Fehérje';
+	@override String get carbs => 'Szénhidrát';
+	@override String get fat => 'Zsír';
+	@override String get noMealInfo => 'Nincs ételinformáció';
+	@override String get na => 'Nincs adat';
+	@override String get analyzeImageResult => 'Kép elemzés eredménye';
+	@override String get detectImageResult => 'Kép felismerés eredménye';
+	@override String get detectImageFromGalleryResult => 'Galériából történő kép felismerés eredménye';
+	@override String get detectTextResult => 'Szövegfelismerés eredménye';
+	@override String errorGeneric({required Object error}) => 'Hiba: ${error}';
+	@override String get variationsCount => 'Variációk';
+	@override String get userPreferencesCleared => 'Felhasználói beállítások törölve';
+	@override String get userProfileCleared => 'Felhasználói profil törölve';
+	@override String get checkForUpdate => 'Frissítések keresése';
+	@override String get showPatchNumber => 'Patch szám megjelenítése';
+	@override String get showUpdateAvailable => 'Frissítés elérhető jelzése';
+	@override String get updateAvailable => 'Frissítés elérhető';
+	@override String get upToDate => 'Naprakész';
+	@override String get shorebirdUnavailable => 'A Shorebird nem érhető el ebben a környezetben.';
+	@override String get patchNumberLabel => 'Patch szám';
+	@override String get noPatchInstalled => 'Nincs telepített patch';
+	@override String get todaysSteps => 'Mai lépések';
+	@override String get stepsLabel => 'Lépések';
+	@override String weightLabel({required Object value}) => 'Súly: ${value} kg';
+	@override String heightLabel({required Object value}) => 'Magasság: ${value} cm';
+	@override String get receivedMessagesFromWatch => 'Óráról kapott üzenetek';
+	@override String get noMessagesReceivedYet => 'Még nem érkezett üzenet.\n\nKüldj tesztadatot az óráról, hogy itt lásd az üzeneteket.';
+	@override String get messagesCleared => 'Üzenetek törölve';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalHu implements TranslationsHomeDailyGoalEn {
 	@override String get description => 'Készen állsz elindulni a jóléted útján? Állítsd be napi kalória célodat az alábbiakban a fejlődésed kezdetéhez.';
 	@override String get descriptionSet => 'A tájékozódásod beállítva! Ez a napi kalóriaszámod, ami irányt ad neked.';
 	@override String get yourGoal => 'Célod';
+	@override String get goal => 'Cél';
 	@override String get dailyCalories => 'Napi kalóriák (kcal)';
 	@override String get setGoal => 'Cél Beállítása';
 	@override String get intake => 'Fogyasztás';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryHu implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'Fehérjék';
 	@override String get fat => 'Zsírok';
 	@override String get fiber => 'Rost';
+	@override String get grams => 'gramm';
+	@override String get chartAccessibilityLabel => 'Makrotápanyagok grafikonja';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsHu implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Értesítések';
 	@override String get healthConnect => 'Health Connect';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => 'Étel API tesztek';
 	@override String get feedback => 'Visszajelzés';
 	@override String get dataReset => 'Adatok visszaállítása';
 	@override String get appInfo => 'Alkalmazás Információ';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsHu {
 			'home.dailyGoal.description' => 'Készen állsz elindulni a jóléted útján? Állítsd be napi kalória célodat az alábbiakban a fejlődésed kezdetéhez.',
 			'home.dailyGoal.descriptionSet' => 'A tájékozódásod beállítva! Ez a napi kalóriaszámod, ami irányt ad neked.',
 			'home.dailyGoal.yourGoal' => 'Célod',
+			'home.dailyGoal.goal' => 'Cél',
 			'home.dailyGoal.dailyCalories' => 'Napi kalóriák (kcal)',
 			'home.dailyGoal.setGoal' => 'Cél Beállítása',
 			'home.dailyGoal.intake' => 'Fogyasztás',
@@ -1700,6 +1805,8 @@ extension on TranslationsHu {
 			'home.dailySummary.protein' => 'Fehérjék',
 			'home.dailySummary.fat' => 'Zsírok',
 			'home.dailySummary.fiber' => 'Rost',
+			'home.dailySummary.grams' => 'gramm',
+			'home.dailySummary.chartAccessibilityLabel' => 'Makrotápanyagok grafikonja',
 			'home.intakeProgress.title' => 'Mai Makrómegoszlás',
 			'home.intakeProgress.target' => 'Cél',
 			'home.intakeProgress.current' => 'Jelenlegi',
@@ -2000,11 +2107,15 @@ extension on TranslationsHu {
 			'errors.loadingProfileData' => 'Hiba a profiladatok betöltésekor',
 			'errors.somethingWentWrong' => 'Valami hiba történt.',
 			'debug.title' => 'Hibakeresési Beállítások',
+			'debug.searchHint' => 'Keresési opciók...',
 			'debug.sections.notifications' => 'Értesítések',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'Étel API tesztek',
 			'debug.sections.feedback' => 'Visszajelzés',
 			'debug.sections.dataReset' => 'Adatok visszaállítása',
 			'debug.sections.appInfo' => 'Alkalmazás Információ',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'Aktív Értesítések Megjelenítése',
 			'debug.scheduleTestNotification' => 'Teszt Értesítés Ütemezése (10s)',
 			'debug.triggerBreakfastNotification' => 'Reggeli Értesítés Kioldása',
@@ -2051,6 +2162,105 @@ extension on TranslationsHu {
 			'debug.clearUserProfileConfirmationMessage' => 'A profiladataid (napi cél, magasság, testsúly stb.) törlődnek. Az étkezések és a beállítások nem érintettek.',
 			'debug.clear' => 'Törlés',
 			'debug.cancel' => 'Mégse',
+			'debug.checkWatchConnection' => 'Óra kapcsolat ellenőrzése',
+			'debug.sendTestMessage' => 'Tesztüzenet küldése',
+			'debug.sendTestMessageSubtitle' => 'Küldj egy egyszerű tesztüzenetet az órára',
+			'debug.sendTestMealData' => 'Teszt ételadat küldése',
+			'debug.sendTestMealDataSubtitle' => 'Minta ételadat küldése az órára',
+			'debug.sendTestCalorieGoal' => 'Teszt kalóriacél küldése',
+			'debug.sendTestCalorieGoalSubtitle' => 'Minta kalóriacél küldése az órára',
+			'debug.viewReceivedMessages' => 'Kapott üzenetek megtekintése',
+			'debug.viewReceivedMessagesSubtitle' => 'Az óráról érkezett üzenetek megtekintése',
+			'debug.watchConnected' => 'Óra csatlakoztatva ✓',
+			'debug.device' => 'Eszköz',
+			'debug.nearby' => 'Közelben',
+			'debug.yes' => 'Igen',
+			'debug.no' => 'Nem',
+			'debug.connectedDevices' => 'Csatlakoztatott eszközök',
+			'debug.deviceInfoUnavailable' => '(Eszközinformációk nem elérhetők)',
+			'debug.unknownDevice' => 'Ismeretlen eszköz',
+			'debug.watchNotConnected' => 'Óra nincs csatlakoztatva ✗',
+			'debug.watchNotConnectedHint' => 'Győződj meg róla:\n• Mindkét eszköz párosítva van\n• Az óra alkalmazás fut\n• Mindkét alkalmazás hibakereső/staging módban van',
+			'debug.watchConnection' => 'Óra kapcsolat',
+			'debug.errorCheckingConnection' => ({required Object error}) => 'Hiba a kapcsolat ellenőrzése közben: ${error}',
+			'debug.helloFromPhone' => 'Szia a telefonról!',
+			'debug.testMessageSentSuccess' => 'Tesztüzenet sikeresen elküldve!',
+			'debug.testMessageFailed' => 'Nem sikerült elküldeni a tesztüzenetet. Ellenőrizd az óra kapcsolatát.',
+			'debug.errorSendingMessage' => ({required Object error}) => 'Hiba az üzenet küldésekor: ${error}',
+			'debug.testMeal' => 'Teszt étel',
+			'debug.testMealDataSentSuccess' => 'Teszt ételadat sikeresen elküldve!',
+			'debug.failedToSendMealData' => 'Nem sikerült elküldeni az ételadatot. Ellenőrizd az óra kapcsolatát.',
+			'debug.errorSendingMealData' => ({required Object error}) => 'Hiba az ételadat küldésekor: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'Teszt kalóriacél sikeresen elküldve!',
+			'debug.failedToSendCalorieGoal' => 'Nem sikerült elküldeni a kalóriacélt. Ellenőrizd az óra kapcsolatát.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Hiba a kalóriacél küldésekor: ${error}',
+			'debug.testAnalyzeImage' => 'Kép elemzés tesztelése',
+			'debug.testAnalyzeImageSubtitle' => 'Előre beállított tesztkép feltöltése',
+			'debug.testDetectImage' => 'Kép felismerés tesztelése',
+			'debug.testDetectImageSubtitle' => 'Ételfelismerés kép URL alapján',
+			'debug.detectImageFromGallery' => 'Kép felismerése a galériából',
+			'debug.detectImageFromGallerySubtitle' => 'Válassz képet, töltsd fel a tárhelyre és becsüld meg a kalóriákat',
+			'debug.testDetectText' => 'Szövegfelismerés tesztelése',
+			'debug.testDetectTextSubtitle' => 'Ételfelismerés szöveges leírásból',
+			'debug.testMealLoggingWithVariations' => 'Ételfelvitel tesztelése variációkkal',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'Teszteld a teljes ételfelviteli folyamatot variációkkal',
+			'debug.mockMealWithVariations' => 'Mintaétel variációkkal',
+			'debug.mockMealWithVariationsSubtitle' => 'Variációk és tipp lap UI előnézete naplózás nélkül',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'Grillezett csirke rizzsel és zöldségekkel',
+			'debug.mockTip' => 'Ez egy minta tipp a felhasználói felület előnézetéhez. Az étel nincs rögzítve.',
+			'debug.mockMealDescription' => 'Minta étel hibakereséshez',
+			'debug.portionSizeQuestion' => 'Milyen volt az adagméret?',
+			'debug.extraSidesQuestion' => 'Volt extra köret?',
+			'debug.optionSmall' => 'Kicsi',
+			'debug.optionMedium' => 'Közepes',
+			'debug.optionLarge' => 'Nagy',
+			'debug.optionNone' => 'Nincs',
+			'debug.optionSideSalad' => 'Köret saláta',
+			'debug.optionBreadRoll' => 'Zsemle',
+			'debug.testingAnalyzeImage' => 'analyzeImage API tesztelése...',
+			'debug.testingDetectImage' => 'detectImage API tesztelése...',
+			'debug.testingDetectText' => 'detectText API tesztelése...',
+			'debug.selectingImageFromGallery' => 'Kép kiválasztása a galériából...',
+			'debug.noImageSelected' => 'Nincs kép kiválasztva',
+			'debug.compressingImage' => 'Kép tömörítése...',
+			'debug.uploadingImageAndDetecting' => 'Kép feltöltése a tárhelyre és az étel felismerése...',
+			'debug.testingMealLoggingFlow' => 'Ételfelviteli folyamat tesztelése variációkkal...',
+			'debug.noMealIdentifiedInResponse' => 'A válaszban nem azonosítható étel',
+			'debug.mealIdentified' => 'Étel felismerve',
+			'debug.confidence' => 'Valószínűség',
+			'debug.tip' => 'Tipp',
+			'debug.mealName' => 'Étel neve',
+			'debug.calories' => 'Kalória',
+			'debug.protein' => 'Fehérje',
+			'debug.carbs' => 'Szénhidrát',
+			'debug.fat' => 'Zsír',
+			'debug.noMealInfo' => 'Nincs ételinformáció',
+			'debug.na' => 'Nincs adat',
+			'debug.analyzeImageResult' => 'Kép elemzés eredménye',
+			'debug.detectImageResult' => 'Kép felismerés eredménye',
+			'debug.detectImageFromGalleryResult' => 'Galériából történő kép felismerés eredménye',
+			'debug.detectTextResult' => 'Szövegfelismerés eredménye',
+			'debug.errorGeneric' => ({required Object error}) => 'Hiba: ${error}',
+			'debug.variationsCount' => 'Variációk',
+			'debug.userPreferencesCleared' => 'Felhasználói beállítások törölve',
+			'debug.userProfileCleared' => 'Felhasználói profil törölve',
+			'debug.checkForUpdate' => 'Frissítések keresése',
+			'debug.showPatchNumber' => 'Patch szám megjelenítése',
+			'debug.showUpdateAvailable' => 'Frissítés elérhető jelzése',
+			'debug.updateAvailable' => 'Frissítés elérhető',
+			'debug.upToDate' => 'Naprakész',
+			'debug.shorebirdUnavailable' => 'A Shorebird nem érhető el ebben a környezetben.',
+			'debug.patchNumberLabel' => 'Patch szám',
+			'debug.noPatchInstalled' => 'Nincs telepített patch',
+			'debug.todaysSteps' => 'Mai lépések',
+			'debug.stepsLabel' => 'Lépések',
+			'debug.weightLabel' => ({required Object value}) => 'Súly: ${value} kg',
+			'debug.heightLabel' => ({required Object value}) => 'Magasság: ${value} cm',
+			'debug.receivedMessagesFromWatch' => 'Óráról kapott üzenetek',
+			'debug.noMessagesReceivedYet' => 'Még nem érkezett üzenet.\n\nKüldj tesztadatot az óráról, hogy itt lásd az üzeneteket.',
+			'debug.messagesCleared' => 'Üzenetek törölve',
 			'health.syncFailed' => 'Nem sikerült szinkronizálni a Health Connect-tel',
 			'health.mealSynced' => 'Étkezés szinkronizálva a Health Connect-tel',
 			_ => null,

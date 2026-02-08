@@ -388,6 +388,7 @@ class _TranslationsDebugUk implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'Опції налагодження';
+	@override String get searchHint => 'Параметри пошуку...';
 	@override late final _TranslationsDebugSectionsUk sections = _TranslationsDebugSectionsUk._(_root);
 	@override String get showActiveNotifications => 'Показати активні сповіщення';
 	@override String get scheduleTestNotification => 'Запланувати тестове сповіщення (10с)';
@@ -435,6 +436,103 @@ class _TranslationsDebugUk implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => 'Дані вашого профілю (щоденна мета, зріст, вага тощо) будуть видалені. Дані про прийоми їжі та налаштування не постраждають.';
 	@override String get clear => 'Очистити';
 	@override String get cancel => 'Скасувати';
+	@override String get checkWatchConnection => 'Перевірити підключення годинника';
+	@override String get sendTestMessage => 'Надіслати тестове повідомлення';
+	@override String get sendTestMessageSubtitle => 'Надішліть просте тестове повідомлення на годинник';
+	@override String get sendTestMealData => 'Надіслати тестові дані про страву';
+	@override String get sendTestMealDataSubtitle => 'Надішліть приклад даних про страву на годинник';
+	@override String get sendTestCalorieGoal => 'Надіслати тестову ціль по калоріям';
+	@override String get sendTestCalorieGoalSubtitle => 'Надішліть приклад цілі по калоріям на годинник';
+	@override String get viewReceivedMessages => 'Переглянути отримані повідомлення';
+	@override String get viewReceivedMessagesSubtitle => 'Перегляньте повідомлення, отримані з годинника';
+	@override String get watchConnected => 'Годинник підключено ✓';
+	@override String get device => 'Пристрій';
+	@override String get nearby => 'Поблизу';
+	@override String get yes => 'Так';
+	@override String get no => 'Ні';
+	@override String get connectedDevices => 'Підключені пристрої';
+	@override String get deviceInfoUnavailable => '(інформація про пристрій недоступна)';
+	@override String get unknownDevice => 'Невідомий пристрій';
+	@override String get watchNotConnected => 'Годинник не підключено ✗';
+	@override String get watchNotConnectedHint => 'Переконайтеся:\n• Обидва пристрої спаровані\n• Додаток на годиннику запущено\n• Обидва додатки працюють у режимі налагодження/стадингу';
+	@override String get watchConnection => 'Підключення годинника';
+	@override String errorCheckingConnection({required Object error}) => 'Помилка перевірки з\'єднання: ${error}';
+	@override String get helloFromPhone => 'Привіт з телефону!';
+	@override String get testMessageSentSuccess => 'Тестове повідомлення успішно надіслано!';
+	@override String get testMessageFailed => 'Не вдалося надіслати тестове повідомлення. Перевірте підключення годинника.';
+	@override String errorSendingMessage({required Object error}) => 'Помилка надсилання повідомлення: ${error}';
+	@override String get testMeal => 'Тестова страва';
+	@override String get testMealDataSentSuccess => 'Дані тестової страви успішно надіслано!';
+	@override String get failedToSendMealData => 'Не вдалося надіслати дані про страву. Перевірте підключення годинника.';
+	@override String errorSendingMealData({required Object error}) => 'Помилка під час відправки даних про страву: ${error}';
+	@override String get testCalorieGoalSentSuccess => 'Тестова ціль за калоріями успішно надіслана!';
+	@override String get failedToSendCalorieGoal => 'Не вдалося надіслати ціль по калоріям. Перевірте підключення годинника.';
+	@override String errorSendingCalorieGoal({required Object error}) => 'Помилка під час надсилання цілі по калоріям: ${error}';
+	@override String get testAnalyzeImage => 'Тест: аналіз зображення';
+	@override String get testAnalyzeImageSubtitle => 'Завантажити фіксоване тестове зображення';
+	@override String get testDetectImage => 'Тест: розпізнати зображення';
+	@override String get testDetectImageSubtitle => 'Розпізнати страву за URL зображення';
+	@override String get detectImageFromGallery => 'Розпізнати зображення з галереї';
+	@override String get detectImageFromGallerySubtitle => 'Виберіть зображення, завантажте до сховища та оцініть калорії';
+	@override String get testDetectText => 'Тест: розпізнавання тексту';
+	@override String get testDetectTextSubtitle => 'Розпізнати страву з опису текстом';
+	@override String get testMealLoggingWithVariations => 'Тест: запис їжі з варіаціями';
+	@override String get testMealLoggingWithVariationsSubtitle => 'Перевірте повний процес запису їжі з варіаціями';
+	@override String get mockMealWithVariations => 'Зразкова страва з варіаціями';
+	@override String get mockMealWithVariationsSubtitle => 'Попередній перегляд варіацій та інтерфейсу порад без запису';
+	@override String get mockMealName => 'Курка-гриль з рисом та овочами';
+	@override String get mockTip => 'Це тестова порада для попереднього перегляду інтерфейсу. Страва не заноситься в журнал.';
+	@override String get mockMealDescription => 'Тестова страва для налагодження';
+	@override String get portionSizeQuestion => 'Який був розмір порції?';
+	@override String get extraSidesQuestion => 'Є додаткові гарніри?';
+	@override String get optionSmall => 'Мала';
+	@override String get optionMedium => 'Середня';
+	@override String get optionLarge => 'Велика';
+	@override String get optionNone => 'Немає';
+	@override String get optionSideSalad => 'Салат-гарнір';
+	@override String get optionBreadRoll => 'Булочка';
+	@override String get testingAnalyzeImage => 'Тестування API analyzeImage...';
+	@override String get testingDetectImage => 'Тестування API detectImage...';
+	@override String get testingDetectText => 'Тестування API detectText...';
+	@override String get selectingImageFromGallery => 'Вибір зображення з галереї...';
+	@override String get noImageSelected => 'Зображення не вибрано';
+	@override String get compressingImage => 'Стиснення зображення...';
+	@override String get uploadingImageAndDetecting => 'Завантаження зображення до сховища та виявлення страви...';
+	@override String get testingMealLoggingFlow => 'Тестування процесу запису їжі з варіаціями...';
+	@override String get noMealIdentifiedInResponse => 'Страву не виявлено у відповіді';
+	@override String get mealIdentified => 'Страву виявлено';
+	@override String get confidence => 'Впевненість';
+	@override String get tip => 'Порада';
+	@override String get mealName => 'Назва страви';
+	@override String get calories => 'Калорії';
+	@override String get protein => 'Білки';
+	@override String get carbs => 'Вуглеводи';
+	@override String get fat => 'Жири';
+	@override String get noMealInfo => 'Інформація про страву відсутня';
+	@override String get na => 'Н/Д';
+	@override String get analyzeImageResult => 'Результат аналізу зображення';
+	@override String get detectImageResult => 'Результат розпізнавання зображення';
+	@override String get detectImageFromGalleryResult => 'Результат розпізнавання зображення з галереї';
+	@override String get detectTextResult => 'Результат розпізнавання тексту';
+	@override String errorGeneric({required Object error}) => 'Помилка: ${error}';
+	@override String get variationsCount => 'Варіації';
+	@override String get userPreferencesCleared => 'Налаштування користувача очищено';
+	@override String get userProfileCleared => 'Профіль користувача очищено';
+	@override String get checkForUpdate => 'Перевірити оновлення';
+	@override String get showPatchNumber => 'Показати номер патчу';
+	@override String get showUpdateAvailable => 'Показати доступне оновлення';
+	@override String get updateAvailable => 'Доступне оновлення';
+	@override String get upToDate => 'Актуально';
+	@override String get shorebirdUnavailable => 'Shorebird недоступний у цьому середовищі.';
+	@override String get patchNumberLabel => 'Номер патчу';
+	@override String get noPatchInstalled => 'Патч не встановлено';
+	@override String get todaysSteps => 'Кроки за сьогодні';
+	@override String get stepsLabel => 'Кроки';
+	@override String weightLabel({required Object value}) => 'Вага: ${value} кг';
+	@override String heightLabel({required Object value}) => 'Зріст: ${value} см';
+	@override String get receivedMessagesFromWatch => 'Отримані повідомлення з годинника';
+	@override String get noMessagesReceivedYet => 'Поки що повідомлень немає.\n\nНадішліть тестові дані з годинника, щоб побачити їх тут.';
+	@override String get messagesCleared => 'Повідомлення очищено';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalUk implements TranslationsHomeDailyGoalEn {
 	@override String get description => 'Готові розпочати свою подорож до здоров\'я? Встановіть свою щоденну калорійну ціль нижче, щоб розпочати свій прогрес.';
 	@override String get descriptionSet => 'Ваш компас налаштовано! Це ваша щоденна калорійна ціль, яка допоможе вам.';
 	@override String get yourGoal => 'Ваша ціль';
+	@override String get goal => 'Ціль';
 	@override String get dailyCalories => 'Щоденні калорії (ккал)';
 	@override String get setGoal => 'Встановити мету';
 	@override String get intake => 'Споживання';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryUk implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'Білок';
 	@override String get fat => 'Жир';
 	@override String get fiber => 'Волокна';
+	@override String get grams => 'г';
+	@override String get chartAccessibilityLabel => 'Діаграма макронутрієнтів';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsUk implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Сповіщення';
 	@override String get healthConnect => 'Health Connect';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => 'Тести Food API';
 	@override String get feedback => 'Зворотній зв\'язок';
 	@override String get dataReset => 'Скидання даних';
 	@override String get appInfo => 'Інформація про додаток';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsUk {
 			'home.dailyGoal.description' => 'Готові розпочати свою подорож до здоров\'я? Встановіть свою щоденну калорійну ціль нижче, щоб розпочати свій прогрес.',
 			'home.dailyGoal.descriptionSet' => 'Ваш компас налаштовано! Це ваша щоденна калорійна ціль, яка допоможе вам.',
 			'home.dailyGoal.yourGoal' => 'Ваша ціль',
+			'home.dailyGoal.goal' => 'Ціль',
 			'home.dailyGoal.dailyCalories' => 'Щоденні калорії (ккал)',
 			'home.dailyGoal.setGoal' => 'Встановити мету',
 			'home.dailyGoal.intake' => 'Споживання',
@@ -1700,6 +1805,8 @@ extension on TranslationsUk {
 			'home.dailySummary.protein' => 'Білок',
 			'home.dailySummary.fat' => 'Жир',
 			'home.dailySummary.fiber' => 'Волокна',
+			'home.dailySummary.grams' => 'г',
+			'home.dailySummary.chartAccessibilityLabel' => 'Діаграма макронутрієнтів',
 			'home.intakeProgress.title' => 'Сьогоднішній макро-спліт',
 			'home.intakeProgress.target' => 'Ціль',
 			'home.intakeProgress.current' => 'Поточний',
@@ -2000,11 +2107,15 @@ extension on TranslationsUk {
 			'errors.loadingProfileData' => 'Помилка завантаження даних профілю',
 			'errors.somethingWentWrong' => 'Щось пішло не так.',
 			'debug.title' => 'Опції налагодження',
+			'debug.searchHint' => 'Параметри пошуку...',
 			'debug.sections.notifications' => 'Сповіщення',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'Тести Food API',
 			'debug.sections.feedback' => 'Зворотній зв\'язок',
 			'debug.sections.dataReset' => 'Скидання даних',
 			'debug.sections.appInfo' => 'Інформація про додаток',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'Показати активні сповіщення',
 			'debug.scheduleTestNotification' => 'Запланувати тестове сповіщення (10с)',
 			'debug.triggerBreakfastNotification' => 'Запустити сповіщення про сніданок',
@@ -2051,6 +2162,105 @@ extension on TranslationsUk {
 			'debug.clearUserProfileConfirmationMessage' => 'Дані вашого профілю (щоденна мета, зріст, вага тощо) будуть видалені. Дані про прийоми їжі та налаштування не постраждають.',
 			'debug.clear' => 'Очистити',
 			'debug.cancel' => 'Скасувати',
+			'debug.checkWatchConnection' => 'Перевірити підключення годинника',
+			'debug.sendTestMessage' => 'Надіслати тестове повідомлення',
+			'debug.sendTestMessageSubtitle' => 'Надішліть просте тестове повідомлення на годинник',
+			'debug.sendTestMealData' => 'Надіслати тестові дані про страву',
+			'debug.sendTestMealDataSubtitle' => 'Надішліть приклад даних про страву на годинник',
+			'debug.sendTestCalorieGoal' => 'Надіслати тестову ціль по калоріям',
+			'debug.sendTestCalorieGoalSubtitle' => 'Надішліть приклад цілі по калоріям на годинник',
+			'debug.viewReceivedMessages' => 'Переглянути отримані повідомлення',
+			'debug.viewReceivedMessagesSubtitle' => 'Перегляньте повідомлення, отримані з годинника',
+			'debug.watchConnected' => 'Годинник підключено ✓',
+			'debug.device' => 'Пристрій',
+			'debug.nearby' => 'Поблизу',
+			'debug.yes' => 'Так',
+			'debug.no' => 'Ні',
+			'debug.connectedDevices' => 'Підключені пристрої',
+			'debug.deviceInfoUnavailable' => '(інформація про пристрій недоступна)',
+			'debug.unknownDevice' => 'Невідомий пристрій',
+			'debug.watchNotConnected' => 'Годинник не підключено ✗',
+			'debug.watchNotConnectedHint' => 'Переконайтеся:\n• Обидва пристрої спаровані\n• Додаток на годиннику запущено\n• Обидва додатки працюють у режимі налагодження/стадингу',
+			'debug.watchConnection' => 'Підключення годинника',
+			'debug.errorCheckingConnection' => ({required Object error}) => 'Помилка перевірки з\'єднання: ${error}',
+			'debug.helloFromPhone' => 'Привіт з телефону!',
+			'debug.testMessageSentSuccess' => 'Тестове повідомлення успішно надіслано!',
+			'debug.testMessageFailed' => 'Не вдалося надіслати тестове повідомлення. Перевірте підключення годинника.',
+			'debug.errorSendingMessage' => ({required Object error}) => 'Помилка надсилання повідомлення: ${error}',
+			'debug.testMeal' => 'Тестова страва',
+			'debug.testMealDataSentSuccess' => 'Дані тестової страви успішно надіслано!',
+			'debug.failedToSendMealData' => 'Не вдалося надіслати дані про страву. Перевірте підключення годинника.',
+			'debug.errorSendingMealData' => ({required Object error}) => 'Помилка під час відправки даних про страву: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'Тестова ціль за калоріями успішно надіслана!',
+			'debug.failedToSendCalorieGoal' => 'Не вдалося надіслати ціль по калоріям. Перевірте підключення годинника.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Помилка під час надсилання цілі по калоріям: ${error}',
+			'debug.testAnalyzeImage' => 'Тест: аналіз зображення',
+			'debug.testAnalyzeImageSubtitle' => 'Завантажити фіксоване тестове зображення',
+			'debug.testDetectImage' => 'Тест: розпізнати зображення',
+			'debug.testDetectImageSubtitle' => 'Розпізнати страву за URL зображення',
+			'debug.detectImageFromGallery' => 'Розпізнати зображення з галереї',
+			'debug.detectImageFromGallerySubtitle' => 'Виберіть зображення, завантажте до сховища та оцініть калорії',
+			'debug.testDetectText' => 'Тест: розпізнавання тексту',
+			'debug.testDetectTextSubtitle' => 'Розпізнати страву з опису текстом',
+			'debug.testMealLoggingWithVariations' => 'Тест: запис їжі з варіаціями',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'Перевірте повний процес запису їжі з варіаціями',
+			'debug.mockMealWithVariations' => 'Зразкова страва з варіаціями',
+			'debug.mockMealWithVariationsSubtitle' => 'Попередній перегляд варіацій та інтерфейсу порад без запису',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'Курка-гриль з рисом та овочами',
+			'debug.mockTip' => 'Це тестова порада для попереднього перегляду інтерфейсу. Страва не заноситься в журнал.',
+			'debug.mockMealDescription' => 'Тестова страва для налагодження',
+			'debug.portionSizeQuestion' => 'Який був розмір порції?',
+			'debug.extraSidesQuestion' => 'Є додаткові гарніри?',
+			'debug.optionSmall' => 'Мала',
+			'debug.optionMedium' => 'Середня',
+			'debug.optionLarge' => 'Велика',
+			'debug.optionNone' => 'Немає',
+			'debug.optionSideSalad' => 'Салат-гарнір',
+			'debug.optionBreadRoll' => 'Булочка',
+			'debug.testingAnalyzeImage' => 'Тестування API analyzeImage...',
+			'debug.testingDetectImage' => 'Тестування API detectImage...',
+			'debug.testingDetectText' => 'Тестування API detectText...',
+			'debug.selectingImageFromGallery' => 'Вибір зображення з галереї...',
+			'debug.noImageSelected' => 'Зображення не вибрано',
+			'debug.compressingImage' => 'Стиснення зображення...',
+			'debug.uploadingImageAndDetecting' => 'Завантаження зображення до сховища та виявлення страви...',
+			'debug.testingMealLoggingFlow' => 'Тестування процесу запису їжі з варіаціями...',
+			'debug.noMealIdentifiedInResponse' => 'Страву не виявлено у відповіді',
+			'debug.mealIdentified' => 'Страву виявлено',
+			'debug.confidence' => 'Впевненість',
+			'debug.tip' => 'Порада',
+			'debug.mealName' => 'Назва страви',
+			'debug.calories' => 'Калорії',
+			'debug.protein' => 'Білки',
+			'debug.carbs' => 'Вуглеводи',
+			'debug.fat' => 'Жири',
+			'debug.noMealInfo' => 'Інформація про страву відсутня',
+			'debug.na' => 'Н/Д',
+			'debug.analyzeImageResult' => 'Результат аналізу зображення',
+			'debug.detectImageResult' => 'Результат розпізнавання зображення',
+			'debug.detectImageFromGalleryResult' => 'Результат розпізнавання зображення з галереї',
+			'debug.detectTextResult' => 'Результат розпізнавання тексту',
+			'debug.errorGeneric' => ({required Object error}) => 'Помилка: ${error}',
+			'debug.variationsCount' => 'Варіації',
+			'debug.userPreferencesCleared' => 'Налаштування користувача очищено',
+			'debug.userProfileCleared' => 'Профіль користувача очищено',
+			'debug.checkForUpdate' => 'Перевірити оновлення',
+			'debug.showPatchNumber' => 'Показати номер патчу',
+			'debug.showUpdateAvailable' => 'Показати доступне оновлення',
+			'debug.updateAvailable' => 'Доступне оновлення',
+			'debug.upToDate' => 'Актуально',
+			'debug.shorebirdUnavailable' => 'Shorebird недоступний у цьому середовищі.',
+			'debug.patchNumberLabel' => 'Номер патчу',
+			'debug.noPatchInstalled' => 'Патч не встановлено',
+			'debug.todaysSteps' => 'Кроки за сьогодні',
+			'debug.stepsLabel' => 'Кроки',
+			'debug.weightLabel' => ({required Object value}) => 'Вага: ${value} кг',
+			'debug.heightLabel' => ({required Object value}) => 'Зріст: ${value} см',
+			'debug.receivedMessagesFromWatch' => 'Отримані повідомлення з годинника',
+			'debug.noMessagesReceivedYet' => 'Поки що повідомлень немає.\n\nНадішліть тестові дані з годинника, щоб побачити їх тут.',
+			'debug.messagesCleared' => 'Повідомлення очищено',
 			'health.syncFailed' => 'Не вдалося синхронізувати з Health Connect',
 			'health.mealSynced' => 'Страву синхронізовано з Health Connect',
 			_ => null,

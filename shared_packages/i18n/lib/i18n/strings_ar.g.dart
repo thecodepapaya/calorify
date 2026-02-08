@@ -388,6 +388,7 @@ class _TranslationsDebugAr implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'خيارات التصحيح';
+	@override String get searchHint => 'ابحث...';
 	@override late final _TranslationsDebugSectionsAr sections = _TranslationsDebugSectionsAr._(_root);
 	@override String get showActiveNotifications => 'عرض التنبيهات النشطة';
 	@override String get scheduleTestNotification => 'جدولة تنبيه اختبار (10 ثواني)';
@@ -435,6 +436,103 @@ class _TranslationsDebugAr implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => 'سيتم مسح بيانات ملفك الشخصي (الهدف اليومي، الطول، الوزن، إلخ). لن تتأثر الوجبات والتفضيلات.';
 	@override String get clear => 'مسح';
 	@override String get cancel => 'إلغاء';
+	@override String get checkWatchConnection => 'تحقق من اتصال الساعة';
+	@override String get sendTestMessage => 'إرسال رسالة اختبار';
+	@override String get sendTestMessageSubtitle => 'إرسال رسالة اختبار بسيطة إلى الساعة';
+	@override String get sendTestMealData => 'إرسال بيانات وجبة اختبارية';
+	@override String get sendTestMealDataSubtitle => 'إرسال بيانات وجبة نموذجية إلى الساعة';
+	@override String get sendTestCalorieGoal => 'إرسال هدف سعرات اختبارية';
+	@override String get sendTestCalorieGoalSubtitle => 'إرسال هدف سعرات نموذجي إلى الساعة';
+	@override String get viewReceivedMessages => 'عرض الرسائل المستلمة';
+	@override String get viewReceivedMessagesSubtitle => 'عرض الرسائل المستلمة من الساعة';
+	@override String get watchConnected => 'الساعة متصلة ✓';
+	@override String get device => 'الجهاز';
+	@override String get nearby => 'قريب';
+	@override String get yes => 'نعم';
+	@override String get no => 'لا';
+	@override String get connectedDevices => 'الأجهزة المتصلة';
+	@override String get deviceInfoUnavailable => '(معلومات الجهاز غير متاحة)';
+	@override String get unknownDevice => 'جهاز غير معروف';
+	@override String get watchNotConnected => 'الساعة غير متصلة ✗';
+	@override String get watchNotConnectedHint => 'تأكد من:\n• أن الجهازين مقترنان\n• أن تطبيق الساعة قيد التشغيل\n• أن كلا التطبيقين في وضع التصحيح/التجريبي';
+	@override String get watchConnection => 'اتصال الساعة';
+	@override String errorCheckingConnection({required Object error}) => 'خطأ في التحقق من الاتصال: ${error}';
+	@override String get helloFromPhone => 'مرحبًا من الهاتف!';
+	@override String get testMessageSentSuccess => 'تم إرسال رسالة الاختبار بنجاح!';
+	@override String get testMessageFailed => 'فشل إرسال رسالة الاختبار. تحقق من اتصال الساعة.';
+	@override String errorSendingMessage({required Object error}) => 'خطأ أثناء إرسال الرسالة: ${error}';
+	@override String get testMeal => 'وجبة اختبارية';
+	@override String get testMealDataSentSuccess => 'تم إرسال بيانات الوجبة الاختبارية بنجاح!';
+	@override String get failedToSendMealData => 'فشل إرسال بيانات الوجبة. تحقق من اتصال الساعة.';
+	@override String errorSendingMealData({required Object error}) => 'خطأ أثناء إرسال بيانات الوجبة: ${error}';
+	@override String get testCalorieGoalSentSuccess => 'تم إرسال هدف السعرات الاختباري بنجاح!';
+	@override String get failedToSendCalorieGoal => 'فشل إرسال هدف السعرات. تحقق من اتصال الساعة.';
+	@override String errorSendingCalorieGoal({required Object error}) => 'خطأ أثناء إرسال هدف السعرات: ${error}';
+	@override String get testAnalyzeImage => 'اختبار تحليل الصورة';
+	@override String get testAnalyzeImageSubtitle => 'رفع صورة اختبار مضمَّنة';
+	@override String get testDetectImage => 'اختبار اكتشاف الصورة';
+	@override String get testDetectImageSubtitle => 'اكتشاف الوجبة من رابط الصورة';
+	@override String get detectImageFromGallery => 'اكتشاف صورة من المعرض';
+	@override String get detectImageFromGallerySubtitle => 'اختر صورة، ارفعها إلى الحاوية وقم بتقدير السعرات';
+	@override String get testDetectText => 'اختبار اكتشاف النص';
+	@override String get testDetectTextSubtitle => 'اكتشاف الوجبة من وصف نصي';
+	@override String get testMealLoggingWithVariations => 'اختبار تسجيل الوجبة مع تنويعات';
+	@override String get testMealLoggingWithVariationsSubtitle => 'اختبار كامل لتدفق تسجيل الوجبة مع التنويعات';
+	@override String get mockMealWithVariations => 'وجبة نموذجية مع تنويعات';
+	@override String get mockMealWithVariationsSubtitle => 'معاينة التنويعات ونصائح الواجهة دون التسجيل';
+	@override String get mockMealName => 'دجاج مشوي مع أرز وخضروات';
+	@override String get mockTip => 'هذه نصيحة تجريبية لمعاينة واجهة المستخدم. الوجبة غير مسجلة.';
+	@override String get mockMealDescription => 'وجبة نموذجية للتصحيح';
+	@override String get portionSizeQuestion => 'كيف كان حجم الحصة؟';
+	@override String get extraSidesQuestion => 'هل هناك أطباق جانبية إضافية؟';
+	@override String get optionSmall => 'صغير';
+	@override String get optionMedium => 'متوسط';
+	@override String get optionLarge => 'كبير';
+	@override String get optionNone => 'لا شيء';
+	@override String get optionSideSalad => 'سلطة جانبية';
+	@override String get optionBreadRoll => 'رغيف خبز';
+	@override String get testingAnalyzeImage => 'جارٍ اختبار واجهة analyzeImage...';
+	@override String get testingDetectImage => 'جارٍ اختبار واجهة detectImage...';
+	@override String get testingDetectText => 'جارٍ اختبار واجهة detectText...';
+	@override String get selectingImageFromGallery => 'جاري اختيار صورة من المعرض...';
+	@override String get noImageSelected => 'لم يتم اختيار صورة';
+	@override String get compressingImage => 'جارٍ ضغط الصورة...';
+	@override String get uploadingImageAndDetecting => 'جارٍ رفع الصورة إلى التخزين واكتشاف الوجبة...';
+	@override String get testingMealLoggingFlow => 'جارٍ اختبار تدفق تسجيل الوجبات مع التنويعات...';
+	@override String get noMealIdentifiedInResponse => 'لم يتم تحديد أي وجبة في الاستجابة';
+	@override String get mealIdentified => 'تم تحديد الوجبة';
+	@override String get confidence => 'درجة الثقة';
+	@override String get tip => 'نصيحة';
+	@override String get mealName => 'اسم الوجبة';
+	@override String get calories => 'السعرات';
+	@override String get protein => 'البروتين';
+	@override String get carbs => 'الكربوهيدرات';
+	@override String get fat => 'الدهون';
+	@override String get noMealInfo => 'لا توجد معلومات عن الوجبة';
+	@override String get na => 'غير متوفر';
+	@override String get analyzeImageResult => 'نتيجة تحليل الصورة';
+	@override String get detectImageResult => 'نتيجة اكتشاف الصورة';
+	@override String get detectImageFromGalleryResult => 'نتيجة اكتشاف الصورة من المعرض';
+	@override String get detectTextResult => 'نتيجة اكتشاف النص';
+	@override String errorGeneric({required Object error}) => 'خطأ: ${error}';
+	@override String get variationsCount => 'التنويعات';
+	@override String get userPreferencesCleared => 'تم مسح تفضيلات المستخدم';
+	@override String get userProfileCleared => 'تم مسح ملف المستخدم';
+	@override String get checkForUpdate => 'التحقق من وجود تحديث';
+	@override String get showPatchNumber => 'عرض رقم التصحيح';
+	@override String get showUpdateAvailable => 'إظهار توفر تحديث';
+	@override String get updateAvailable => 'تحديث متاح';
+	@override String get upToDate => 'مُحدَّث';
+	@override String get shorebirdUnavailable => 'خدمة Shorebird غير متاحة في هذه البيئة.';
+	@override String get patchNumberLabel => 'رقم التصحيح';
+	@override String get noPatchInstalled => 'لا يوجد تصحيح مثبت';
+	@override String get todaysSteps => 'خطوات اليوم';
+	@override String get stepsLabel => 'الخطوات';
+	@override String weightLabel({required Object value}) => 'الوزن: ${value} كجم';
+	@override String heightLabel({required Object value}) => 'الطول: ${value} سم';
+	@override String get receivedMessagesFromWatch => 'الرسائل المستلمة من الساعة';
+	@override String get noMessagesReceivedYet => 'لم يتم استلام أي رسائل بعد.\n\nأرسل بيانات اختبار من الساعة لرؤية الرسائل هنا.';
+	@override String get messagesCleared => 'تم مسح الرسائل';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalAr implements TranslationsHomeDailyGoalEn {
 	@override String get description => 'هل أنت مستعد للانطلاق في رحلة الصحة الخاصة بك؟ حدد هدف السعرات الحرارية اليومية أدناه لبدء تقدمك.';
 	@override String get descriptionSet => 'تم تعيين بوصلتك! هذا هو هدف السعرات الحرارية اليومية لتوجيهك.';
 	@override String get yourGoal => 'هدفك';
+	@override String get goal => 'الهدف';
 	@override String get dailyCalories => 'السعرات الحرارية اليومية (كيلو كالوري)';
 	@override String get setGoal => 'حدد الهدف';
 	@override String get intake => 'تناول';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryAr implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'البروتين';
 	@override String get fat => 'الدهون';
 	@override String get fiber => 'الألياف';
+	@override String get grams => 'غرام';
+	@override String get chartAccessibilityLabel => 'مخطط المغذيات';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsAr implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'التنبيهات';
 	@override String get healthConnect => 'Health Connect';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => 'اختبارات Food API';
 	@override String get feedback => 'التعليقات';
 	@override String get dataReset => 'إعادة تعيين البيانات';
 	@override String get appInfo => 'معلومات التطبيق';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsAr {
 			'home.dailyGoal.description' => 'هل أنت مستعد للانطلاق في رحلة الصحة الخاصة بك؟ حدد هدف السعرات الحرارية اليومية أدناه لبدء تقدمك.',
 			'home.dailyGoal.descriptionSet' => 'تم تعيين بوصلتك! هذا هو هدف السعرات الحرارية اليومية لتوجيهك.',
 			'home.dailyGoal.yourGoal' => 'هدفك',
+			'home.dailyGoal.goal' => 'الهدف',
 			'home.dailyGoal.dailyCalories' => 'السعرات الحرارية اليومية (كيلو كالوري)',
 			'home.dailyGoal.setGoal' => 'حدد الهدف',
 			'home.dailyGoal.intake' => 'تناول',
@@ -1700,6 +1805,8 @@ extension on TranslationsAr {
 			'home.dailySummary.protein' => 'البروتين',
 			'home.dailySummary.fat' => 'الدهون',
 			'home.dailySummary.fiber' => 'الألياف',
+			'home.dailySummary.grams' => 'غرام',
+			'home.dailySummary.chartAccessibilityLabel' => 'مخطط المغذيات',
 			'home.intakeProgress.title' => 'نسبة الماكرو اليوم',
 			'home.intakeProgress.target' => 'الهدف',
 			'home.intakeProgress.current' => 'الحالي',
@@ -2000,11 +2107,15 @@ extension on TranslationsAr {
 			'errors.loadingProfileData' => 'خطأ في تحميل بيانات الملف الشخصي',
 			'errors.somethingWentWrong' => 'حدث خطأ ما.',
 			'debug.title' => 'خيارات التصحيح',
+			'debug.searchHint' => 'ابحث...',
 			'debug.sections.notifications' => 'التنبيهات',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'اختبارات Food API',
 			'debug.sections.feedback' => 'التعليقات',
 			'debug.sections.dataReset' => 'إعادة تعيين البيانات',
 			'debug.sections.appInfo' => 'معلومات التطبيق',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'عرض التنبيهات النشطة',
 			'debug.scheduleTestNotification' => 'جدولة تنبيه اختبار (10 ثواني)',
 			'debug.triggerBreakfastNotification' => 'تنبيه إفطار مُفعّل',
@@ -2051,6 +2162,105 @@ extension on TranslationsAr {
 			'debug.clearUserProfileConfirmationMessage' => 'سيتم مسح بيانات ملفك الشخصي (الهدف اليومي، الطول، الوزن، إلخ). لن تتأثر الوجبات والتفضيلات.',
 			'debug.clear' => 'مسح',
 			'debug.cancel' => 'إلغاء',
+			'debug.checkWatchConnection' => 'تحقق من اتصال الساعة',
+			'debug.sendTestMessage' => 'إرسال رسالة اختبار',
+			'debug.sendTestMessageSubtitle' => 'إرسال رسالة اختبار بسيطة إلى الساعة',
+			'debug.sendTestMealData' => 'إرسال بيانات وجبة اختبارية',
+			'debug.sendTestMealDataSubtitle' => 'إرسال بيانات وجبة نموذجية إلى الساعة',
+			'debug.sendTestCalorieGoal' => 'إرسال هدف سعرات اختبارية',
+			'debug.sendTestCalorieGoalSubtitle' => 'إرسال هدف سعرات نموذجي إلى الساعة',
+			'debug.viewReceivedMessages' => 'عرض الرسائل المستلمة',
+			'debug.viewReceivedMessagesSubtitle' => 'عرض الرسائل المستلمة من الساعة',
+			'debug.watchConnected' => 'الساعة متصلة ✓',
+			'debug.device' => 'الجهاز',
+			'debug.nearby' => 'قريب',
+			'debug.yes' => 'نعم',
+			'debug.no' => 'لا',
+			'debug.connectedDevices' => 'الأجهزة المتصلة',
+			'debug.deviceInfoUnavailable' => '(معلومات الجهاز غير متاحة)',
+			'debug.unknownDevice' => 'جهاز غير معروف',
+			'debug.watchNotConnected' => 'الساعة غير متصلة ✗',
+			'debug.watchNotConnectedHint' => 'تأكد من:\n• أن الجهازين مقترنان\n• أن تطبيق الساعة قيد التشغيل\n• أن كلا التطبيقين في وضع التصحيح/التجريبي',
+			'debug.watchConnection' => 'اتصال الساعة',
+			'debug.errorCheckingConnection' => ({required Object error}) => 'خطأ في التحقق من الاتصال: ${error}',
+			'debug.helloFromPhone' => 'مرحبًا من الهاتف!',
+			'debug.testMessageSentSuccess' => 'تم إرسال رسالة الاختبار بنجاح!',
+			'debug.testMessageFailed' => 'فشل إرسال رسالة الاختبار. تحقق من اتصال الساعة.',
+			'debug.errorSendingMessage' => ({required Object error}) => 'خطأ أثناء إرسال الرسالة: ${error}',
+			'debug.testMeal' => 'وجبة اختبارية',
+			'debug.testMealDataSentSuccess' => 'تم إرسال بيانات الوجبة الاختبارية بنجاح!',
+			'debug.failedToSendMealData' => 'فشل إرسال بيانات الوجبة. تحقق من اتصال الساعة.',
+			'debug.errorSendingMealData' => ({required Object error}) => 'خطأ أثناء إرسال بيانات الوجبة: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'تم إرسال هدف السعرات الاختباري بنجاح!',
+			'debug.failedToSendCalorieGoal' => 'فشل إرسال هدف السعرات. تحقق من اتصال الساعة.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'خطأ أثناء إرسال هدف السعرات: ${error}',
+			'debug.testAnalyzeImage' => 'اختبار تحليل الصورة',
+			'debug.testAnalyzeImageSubtitle' => 'رفع صورة اختبار مضمَّنة',
+			'debug.testDetectImage' => 'اختبار اكتشاف الصورة',
+			'debug.testDetectImageSubtitle' => 'اكتشاف الوجبة من رابط الصورة',
+			'debug.detectImageFromGallery' => 'اكتشاف صورة من المعرض',
+			'debug.detectImageFromGallerySubtitle' => 'اختر صورة، ارفعها إلى الحاوية وقم بتقدير السعرات',
+			'debug.testDetectText' => 'اختبار اكتشاف النص',
+			'debug.testDetectTextSubtitle' => 'اكتشاف الوجبة من وصف نصي',
+			'debug.testMealLoggingWithVariations' => 'اختبار تسجيل الوجبة مع تنويعات',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'اختبار كامل لتدفق تسجيل الوجبة مع التنويعات',
+			'debug.mockMealWithVariations' => 'وجبة نموذجية مع تنويعات',
+			'debug.mockMealWithVariationsSubtitle' => 'معاينة التنويعات ونصائح الواجهة دون التسجيل',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'دجاج مشوي مع أرز وخضروات',
+			'debug.mockTip' => 'هذه نصيحة تجريبية لمعاينة واجهة المستخدم. الوجبة غير مسجلة.',
+			'debug.mockMealDescription' => 'وجبة نموذجية للتصحيح',
+			'debug.portionSizeQuestion' => 'كيف كان حجم الحصة؟',
+			'debug.extraSidesQuestion' => 'هل هناك أطباق جانبية إضافية؟',
+			'debug.optionSmall' => 'صغير',
+			'debug.optionMedium' => 'متوسط',
+			'debug.optionLarge' => 'كبير',
+			'debug.optionNone' => 'لا شيء',
+			'debug.optionSideSalad' => 'سلطة جانبية',
+			'debug.optionBreadRoll' => 'رغيف خبز',
+			'debug.testingAnalyzeImage' => 'جارٍ اختبار واجهة analyzeImage...',
+			'debug.testingDetectImage' => 'جارٍ اختبار واجهة detectImage...',
+			'debug.testingDetectText' => 'جارٍ اختبار واجهة detectText...',
+			'debug.selectingImageFromGallery' => 'جاري اختيار صورة من المعرض...',
+			'debug.noImageSelected' => 'لم يتم اختيار صورة',
+			'debug.compressingImage' => 'جارٍ ضغط الصورة...',
+			'debug.uploadingImageAndDetecting' => 'جارٍ رفع الصورة إلى التخزين واكتشاف الوجبة...',
+			'debug.testingMealLoggingFlow' => 'جارٍ اختبار تدفق تسجيل الوجبات مع التنويعات...',
+			'debug.noMealIdentifiedInResponse' => 'لم يتم تحديد أي وجبة في الاستجابة',
+			'debug.mealIdentified' => 'تم تحديد الوجبة',
+			'debug.confidence' => 'درجة الثقة',
+			'debug.tip' => 'نصيحة',
+			'debug.mealName' => 'اسم الوجبة',
+			'debug.calories' => 'السعرات',
+			'debug.protein' => 'البروتين',
+			'debug.carbs' => 'الكربوهيدرات',
+			'debug.fat' => 'الدهون',
+			'debug.noMealInfo' => 'لا توجد معلومات عن الوجبة',
+			'debug.na' => 'غير متوفر',
+			'debug.analyzeImageResult' => 'نتيجة تحليل الصورة',
+			'debug.detectImageResult' => 'نتيجة اكتشاف الصورة',
+			'debug.detectImageFromGalleryResult' => 'نتيجة اكتشاف الصورة من المعرض',
+			'debug.detectTextResult' => 'نتيجة اكتشاف النص',
+			'debug.errorGeneric' => ({required Object error}) => 'خطأ: ${error}',
+			'debug.variationsCount' => 'التنويعات',
+			'debug.userPreferencesCleared' => 'تم مسح تفضيلات المستخدم',
+			'debug.userProfileCleared' => 'تم مسح ملف المستخدم',
+			'debug.checkForUpdate' => 'التحقق من وجود تحديث',
+			'debug.showPatchNumber' => 'عرض رقم التصحيح',
+			'debug.showUpdateAvailable' => 'إظهار توفر تحديث',
+			'debug.updateAvailable' => 'تحديث متاح',
+			'debug.upToDate' => 'مُحدَّث',
+			'debug.shorebirdUnavailable' => 'خدمة Shorebird غير متاحة في هذه البيئة.',
+			'debug.patchNumberLabel' => 'رقم التصحيح',
+			'debug.noPatchInstalled' => 'لا يوجد تصحيح مثبت',
+			'debug.todaysSteps' => 'خطوات اليوم',
+			'debug.stepsLabel' => 'الخطوات',
+			'debug.weightLabel' => ({required Object value}) => 'الوزن: ${value} كجم',
+			'debug.heightLabel' => ({required Object value}) => 'الطول: ${value} سم',
+			'debug.receivedMessagesFromWatch' => 'الرسائل المستلمة من الساعة',
+			'debug.noMessagesReceivedYet' => 'لم يتم استلام أي رسائل بعد.\n\nأرسل بيانات اختبار من الساعة لرؤية الرسائل هنا.',
+			'debug.messagesCleared' => 'تم مسح الرسائل',
 			'health.syncFailed' => 'تعذر المزامنة مع Health Connect',
 			'health.mealSynced' => 'تمت مزامنة الوجبة مع Health Connect',
 			_ => null,

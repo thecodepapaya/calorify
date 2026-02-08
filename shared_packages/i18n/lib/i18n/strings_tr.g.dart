@@ -388,6 +388,7 @@ class _TranslationsDebugTr implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'Hata Ayıklama Seçenekleri';
+	@override String get searchHint => 'Arama seçenekleri...';
 	@override late final _TranslationsDebugSectionsTr sections = _TranslationsDebugSectionsTr._(_root);
 	@override String get showActiveNotifications => 'Aktif Bildirimleri Göster';
 	@override String get scheduleTestNotification => 'Test Bildirimi Zamanla (10s)';
@@ -435,6 +436,103 @@ class _TranslationsDebugTr implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => 'Profil verileriniz (günlük hedef, boy, kilo vb.) sıfırlanacak. Öğünler ve tercihler etkilenmeyecek.';
 	@override String get clear => 'Sıfırla';
 	@override String get cancel => 'İptal';
+	@override String get checkWatchConnection => 'Saat Bağlantısını Kontrol Et';
+	@override String get sendTestMessage => 'Test Mesajı Gönder';
+	@override String get sendTestMessageSubtitle => 'Saat\'e basit bir test mesajı gönder';
+	@override String get sendTestMealData => 'Test Yemek Verisi Gönder';
+	@override String get sendTestMealDataSubtitle => 'Saat\'e örnek yemek verisi gönder';
+	@override String get sendTestCalorieGoal => 'Test Kalori Hedefi Gönder';
+	@override String get sendTestCalorieGoalSubtitle => 'Saat\'e örnek kalori hedefi gönder';
+	@override String get viewReceivedMessages => 'Alınan Mesajları Görüntüle';
+	@override String get viewReceivedMessagesSubtitle => 'Saatten alınan mesajları görüntüle';
+	@override String get watchConnected => 'Saat bağlı ✓';
+	@override String get device => 'Cihaz';
+	@override String get nearby => 'Yakındaki';
+	@override String get yes => 'Evet';
+	@override String get no => 'Hayır';
+	@override String get connectedDevices => 'Bağlı cihazlar';
+	@override String get deviceInfoUnavailable => '(Cihaz bilgisi kullanılamıyor)';
+	@override String get unknownDevice => 'Bilinmeyen Cihaz';
+	@override String get watchNotConnected => 'Saat bağlı değil ✗';
+	@override String get watchNotConnectedHint => 'Emin olun:\n• Her iki cihaz eşleştirilmiş\n• Saat uygulaması çalışıyor\n• Her iki uygulama da debug/staging modunda';
+	@override String get watchConnection => 'Saat Bağlantısı';
+	@override String errorCheckingConnection({required Object error}) => 'Bağlantı kontrol edilirken hata: ${error}';
+	@override String get helloFromPhone => 'Telefondan selam!';
+	@override String get testMessageSentSuccess => 'Test mesajı başarıyla gönderildi!';
+	@override String get testMessageFailed => 'Test mesajı gönderilemedi. Saat bağlantısını kontrol edin.';
+	@override String errorSendingMessage({required Object error}) => 'Mesaj gönderilirken hata: ${error}';
+	@override String get testMeal => 'Test Yemeği';
+	@override String get testMealDataSentSuccess => 'Test yemek verisi başarıyla gönderildi!';
+	@override String get failedToSendMealData => 'Yemek verisi gönderilemedi. Saat bağlantısını kontrol edin.';
+	@override String errorSendingMealData({required Object error}) => 'Yemek verisi gönderilirken hata: ${error}';
+	@override String get testCalorieGoalSentSuccess => 'Test kalori hedefi başarıyla gönderildi!';
+	@override String get failedToSendCalorieGoal => 'Kalori hedefi gönderilemedi. Saat bağlantısını kontrol edin.';
+	@override String errorSendingCalorieGoal({required Object error}) => 'Kalori hedefi gönderilirken hata: ${error}';
+	@override String get testAnalyzeImage => 'Görüntü Analiz Testi';
+	@override String get testAnalyzeImageSubtitle => 'Kodlanmış test görselini yükle';
+	@override String get testDetectImage => 'Görsel Tespit Testi';
+	@override String get testDetectImageSubtitle => 'Görsel URL\'sinden yemeği tespit et';
+	@override String get detectImageFromGallery => 'Galeriden Görsel Tespiti';
+	@override String get detectImageFromGallerySubtitle => 'Görseli seç, bucket\'a yükle ve kalorileri tahmin et';
+	@override String get testDetectText => 'Metin Tespit Testi';
+	@override String get testDetectTextSubtitle => 'Yemek açıklamasından yemeği tespit et';
+	@override String get testMealLoggingWithVariations => 'Varyasyonlarla Yemek Kaydı Testi';
+	@override String get testMealLoggingWithVariationsSubtitle => 'Varyasyonlarla tam yemek kaydetme akışını test et';
+	@override String get mockMealWithVariations => 'Varyasyonlu sahte öğün';
+	@override String get mockMealWithVariationsSubtitle => 'Kayıt etmeden varyasyon ve ipucu sayfası arayüzünü önizle';
+	@override String get mockMealName => 'Izgara tavuk, pilav ve sebzeler';
+	@override String get mockTip => 'Bu, UI önizlemesi için sahte bir ipucu. Öğün kaydedilmedi.';
+	@override String get mockMealDescription => 'Hata ayıklama için sahte öğün';
+	@override String get portionSizeQuestion => 'Porsiyon büyüklüğü nasıldı?';
+	@override String get extraSidesQuestion => 'Ek yan ürün var mı?';
+	@override String get optionSmall => 'Küçük';
+	@override String get optionMedium => 'Orta';
+	@override String get optionLarge => 'Büyük';
+	@override String get optionNone => 'Yok';
+	@override String get optionSideSalad => 'Yan salata';
+	@override String get optionBreadRoll => 'Ekmek';
+	@override String get testingAnalyzeImage => 'analyzeImage API\'si test ediliyor...';
+	@override String get testingDetectImage => 'detectImage API\'si test ediliyor...';
+	@override String get testingDetectText => 'detectText API\'si test ediliyor...';
+	@override String get selectingImageFromGallery => 'Galeriden görsel seçiliyor...';
+	@override String get noImageSelected => 'Görsel seçilmedi';
+	@override String get compressingImage => 'Görsel sıkıştırılıyor...';
+	@override String get uploadingImageAndDetecting => 'Görsel bucket\'a yükleniyor ve yemek tespit ediliyor...';
+	@override String get testingMealLoggingFlow => 'Varyasyonlarla yemek kaydı akışı test ediliyor...';
+	@override String get noMealIdentifiedInResponse => 'Yanıtta yemek tespit edilemedi';
+	@override String get mealIdentified => 'Yemek tespit edildi';
+	@override String get confidence => 'Güven';
+	@override String get tip => 'İpucu';
+	@override String get mealName => 'Yemek Adı';
+	@override String get calories => 'Kalori';
+	@override String get protein => 'Protein';
+	@override String get carbs => 'Karbonhidrat';
+	@override String get fat => 'Yağ';
+	@override String get noMealInfo => 'Öğün bilgisi yok';
+	@override String get na => 'Yok';
+	@override String get analyzeImageResult => 'Görüntü Analiz Sonucu';
+	@override String get detectImageResult => 'Görsel Tespit Sonucu';
+	@override String get detectImageFromGalleryResult => 'Galeriden Görsel Tespit Sonucu';
+	@override String get detectTextResult => 'Metin Tespit Sonucu';
+	@override String errorGeneric({required Object error}) => 'Hata: ${error}';
+	@override String get variationsCount => 'Varyasyonlar';
+	@override String get userPreferencesCleared => 'Kullanıcı tercihleri temizlendi';
+	@override String get userProfileCleared => 'Kullanıcı profili temizlendi';
+	@override String get checkForUpdate => 'Güncellemeyi kontrol et';
+	@override String get showPatchNumber => 'Yama numarasını göster';
+	@override String get showUpdateAvailable => 'Güncelleme mevcut göster';
+	@override String get updateAvailable => 'Güncelleme mevcut';
+	@override String get upToDate => 'Güncel';
+	@override String get shorebirdUnavailable => 'Bu ortamda Shorebird kullanılamıyor.';
+	@override String get patchNumberLabel => 'Yama numarası';
+	@override String get noPatchInstalled => 'Yama yüklü değil';
+	@override String get todaysSteps => 'Bugünün Adımları';
+	@override String get stepsLabel => 'Adımlar';
+	@override String weightLabel({required Object value}) => 'Kilo: ${value} kg';
+	@override String heightLabel({required Object value}) => 'Boy: ${value} cm';
+	@override String get receivedMessagesFromWatch => 'Saatten Alınan Mesajlar';
+	@override String get noMessagesReceivedYet => 'Henüz mesaj alınmadı.\n\nMesajları görmek için saatten test verisi gönderin.';
+	@override String get messagesCleared => 'Mesajlar temizlendi';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalTr implements TranslationsHomeDailyGoalEn {
 	@override String get description => 'Sağlık yolculuğunuza başlamaya hazır mısınız? Aşağıda günlük kalori hedefinizi belirleyin ve ilerlemenize başlayın.';
 	@override String get descriptionSet => 'Pusulanız ayarlandı! Bu günlük kalori hedefiniz, size rehberlik edecek.';
 	@override String get yourGoal => 'Hedefiniz';
+	@override String get goal => 'Hedef';
 	@override String get dailyCalories => 'Günlük kalori (kcal)';
 	@override String get setGoal => 'Hedef Belirle';
 	@override String get intake => 'Alım';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryTr implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'Protein';
 	@override String get fat => 'Yağ';
 	@override String get fiber => 'Lif';
+	@override String get grams => 'gram';
+	@override String get chartAccessibilityLabel => 'Makro besinler grafiği';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsTr implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Bildirimler';
 	@override String get healthConnect => 'Health Connect';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => 'Yemek API Testleri';
 	@override String get feedback => 'Geri bildirim';
 	@override String get dataReset => 'Veri sıfırlama';
 	@override String get appInfo => 'Uygulama Bilgisi';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsTr {
 			'home.dailyGoal.description' => 'Sağlık yolculuğunuza başlamaya hazır mısınız? Aşağıda günlük kalori hedefinizi belirleyin ve ilerlemenize başlayın.',
 			'home.dailyGoal.descriptionSet' => 'Pusulanız ayarlandı! Bu günlük kalori hedefiniz, size rehberlik edecek.',
 			'home.dailyGoal.yourGoal' => 'Hedefiniz',
+			'home.dailyGoal.goal' => 'Hedef',
 			'home.dailyGoal.dailyCalories' => 'Günlük kalori (kcal)',
 			'home.dailyGoal.setGoal' => 'Hedef Belirle',
 			'home.dailyGoal.intake' => 'Alım',
@@ -1700,6 +1805,8 @@ extension on TranslationsTr {
 			'home.dailySummary.protein' => 'Protein',
 			'home.dailySummary.fat' => 'Yağ',
 			'home.dailySummary.fiber' => 'Lif',
+			'home.dailySummary.grams' => 'gram',
+			'home.dailySummary.chartAccessibilityLabel' => 'Makro besinler grafiği',
 			'home.intakeProgress.title' => 'Bugünün Makro Dağılımı',
 			'home.intakeProgress.target' => 'Hedef',
 			'home.intakeProgress.current' => 'Mevcut',
@@ -2000,11 +2107,15 @@ extension on TranslationsTr {
 			'errors.loadingProfileData' => 'Profil verileri yüklenirken hata',
 			'errors.somethingWentWrong' => 'Bir şeyler ters gitti.',
 			'debug.title' => 'Hata Ayıklama Seçenekleri',
+			'debug.searchHint' => 'Arama seçenekleri...',
 			'debug.sections.notifications' => 'Bildirimler',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'Yemek API Testleri',
 			'debug.sections.feedback' => 'Geri bildirim',
 			'debug.sections.dataReset' => 'Veri sıfırlama',
 			'debug.sections.appInfo' => 'Uygulama Bilgisi',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'Aktif Bildirimleri Göster',
 			'debug.scheduleTestNotification' => 'Test Bildirimi Zamanla (10s)',
 			'debug.triggerBreakfastNotification' => 'Kahvaltı Bildirimini Tetikle',
@@ -2051,6 +2162,105 @@ extension on TranslationsTr {
 			'debug.clearUserProfileConfirmationMessage' => 'Profil verileriniz (günlük hedef, boy, kilo vb.) sıfırlanacak. Öğünler ve tercihler etkilenmeyecek.',
 			'debug.clear' => 'Sıfırla',
 			'debug.cancel' => 'İptal',
+			'debug.checkWatchConnection' => 'Saat Bağlantısını Kontrol Et',
+			'debug.sendTestMessage' => 'Test Mesajı Gönder',
+			'debug.sendTestMessageSubtitle' => 'Saat\'e basit bir test mesajı gönder',
+			'debug.sendTestMealData' => 'Test Yemek Verisi Gönder',
+			'debug.sendTestMealDataSubtitle' => 'Saat\'e örnek yemek verisi gönder',
+			'debug.sendTestCalorieGoal' => 'Test Kalori Hedefi Gönder',
+			'debug.sendTestCalorieGoalSubtitle' => 'Saat\'e örnek kalori hedefi gönder',
+			'debug.viewReceivedMessages' => 'Alınan Mesajları Görüntüle',
+			'debug.viewReceivedMessagesSubtitle' => 'Saatten alınan mesajları görüntüle',
+			'debug.watchConnected' => 'Saat bağlı ✓',
+			'debug.device' => 'Cihaz',
+			'debug.nearby' => 'Yakındaki',
+			'debug.yes' => 'Evet',
+			'debug.no' => 'Hayır',
+			'debug.connectedDevices' => 'Bağlı cihazlar',
+			'debug.deviceInfoUnavailable' => '(Cihaz bilgisi kullanılamıyor)',
+			'debug.unknownDevice' => 'Bilinmeyen Cihaz',
+			'debug.watchNotConnected' => 'Saat bağlı değil ✗',
+			'debug.watchNotConnectedHint' => 'Emin olun:\n• Her iki cihaz eşleştirilmiş\n• Saat uygulaması çalışıyor\n• Her iki uygulama da debug/staging modunda',
+			'debug.watchConnection' => 'Saat Bağlantısı',
+			'debug.errorCheckingConnection' => ({required Object error}) => 'Bağlantı kontrol edilirken hata: ${error}',
+			'debug.helloFromPhone' => 'Telefondan selam!',
+			'debug.testMessageSentSuccess' => 'Test mesajı başarıyla gönderildi!',
+			'debug.testMessageFailed' => 'Test mesajı gönderilemedi. Saat bağlantısını kontrol edin.',
+			'debug.errorSendingMessage' => ({required Object error}) => 'Mesaj gönderilirken hata: ${error}',
+			'debug.testMeal' => 'Test Yemeği',
+			'debug.testMealDataSentSuccess' => 'Test yemek verisi başarıyla gönderildi!',
+			'debug.failedToSendMealData' => 'Yemek verisi gönderilemedi. Saat bağlantısını kontrol edin.',
+			'debug.errorSendingMealData' => ({required Object error}) => 'Yemek verisi gönderilirken hata: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'Test kalori hedefi başarıyla gönderildi!',
+			'debug.failedToSendCalorieGoal' => 'Kalori hedefi gönderilemedi. Saat bağlantısını kontrol edin.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Kalori hedefi gönderilirken hata: ${error}',
+			'debug.testAnalyzeImage' => 'Görüntü Analiz Testi',
+			'debug.testAnalyzeImageSubtitle' => 'Kodlanmış test görselini yükle',
+			'debug.testDetectImage' => 'Görsel Tespit Testi',
+			'debug.testDetectImageSubtitle' => 'Görsel URL\'sinden yemeği tespit et',
+			'debug.detectImageFromGallery' => 'Galeriden Görsel Tespiti',
+			'debug.detectImageFromGallerySubtitle' => 'Görseli seç, bucket\'a yükle ve kalorileri tahmin et',
+			'debug.testDetectText' => 'Metin Tespit Testi',
+			'debug.testDetectTextSubtitle' => 'Yemek açıklamasından yemeği tespit et',
+			'debug.testMealLoggingWithVariations' => 'Varyasyonlarla Yemek Kaydı Testi',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'Varyasyonlarla tam yemek kaydetme akışını test et',
+			'debug.mockMealWithVariations' => 'Varyasyonlu sahte öğün',
+			'debug.mockMealWithVariationsSubtitle' => 'Kayıt etmeden varyasyon ve ipucu sayfası arayüzünü önizle',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'Izgara tavuk, pilav ve sebzeler',
+			'debug.mockTip' => 'Bu, UI önizlemesi için sahte bir ipucu. Öğün kaydedilmedi.',
+			'debug.mockMealDescription' => 'Hata ayıklama için sahte öğün',
+			'debug.portionSizeQuestion' => 'Porsiyon büyüklüğü nasıldı?',
+			'debug.extraSidesQuestion' => 'Ek yan ürün var mı?',
+			'debug.optionSmall' => 'Küçük',
+			'debug.optionMedium' => 'Orta',
+			'debug.optionLarge' => 'Büyük',
+			'debug.optionNone' => 'Yok',
+			'debug.optionSideSalad' => 'Yan salata',
+			'debug.optionBreadRoll' => 'Ekmek',
+			'debug.testingAnalyzeImage' => 'analyzeImage API\'si test ediliyor...',
+			'debug.testingDetectImage' => 'detectImage API\'si test ediliyor...',
+			'debug.testingDetectText' => 'detectText API\'si test ediliyor...',
+			'debug.selectingImageFromGallery' => 'Galeriden görsel seçiliyor...',
+			'debug.noImageSelected' => 'Görsel seçilmedi',
+			'debug.compressingImage' => 'Görsel sıkıştırılıyor...',
+			'debug.uploadingImageAndDetecting' => 'Görsel bucket\'a yükleniyor ve yemek tespit ediliyor...',
+			'debug.testingMealLoggingFlow' => 'Varyasyonlarla yemek kaydı akışı test ediliyor...',
+			'debug.noMealIdentifiedInResponse' => 'Yanıtta yemek tespit edilemedi',
+			'debug.mealIdentified' => 'Yemek tespit edildi',
+			'debug.confidence' => 'Güven',
+			'debug.tip' => 'İpucu',
+			'debug.mealName' => 'Yemek Adı',
+			'debug.calories' => 'Kalori',
+			'debug.protein' => 'Protein',
+			'debug.carbs' => 'Karbonhidrat',
+			'debug.fat' => 'Yağ',
+			'debug.noMealInfo' => 'Öğün bilgisi yok',
+			'debug.na' => 'Yok',
+			'debug.analyzeImageResult' => 'Görüntü Analiz Sonucu',
+			'debug.detectImageResult' => 'Görsel Tespit Sonucu',
+			'debug.detectImageFromGalleryResult' => 'Galeriden Görsel Tespit Sonucu',
+			'debug.detectTextResult' => 'Metin Tespit Sonucu',
+			'debug.errorGeneric' => ({required Object error}) => 'Hata: ${error}',
+			'debug.variationsCount' => 'Varyasyonlar',
+			'debug.userPreferencesCleared' => 'Kullanıcı tercihleri temizlendi',
+			'debug.userProfileCleared' => 'Kullanıcı profili temizlendi',
+			'debug.checkForUpdate' => 'Güncellemeyi kontrol et',
+			'debug.showPatchNumber' => 'Yama numarasını göster',
+			'debug.showUpdateAvailable' => 'Güncelleme mevcut göster',
+			'debug.updateAvailable' => 'Güncelleme mevcut',
+			'debug.upToDate' => 'Güncel',
+			'debug.shorebirdUnavailable' => 'Bu ortamda Shorebird kullanılamıyor.',
+			'debug.patchNumberLabel' => 'Yama numarası',
+			'debug.noPatchInstalled' => 'Yama yüklü değil',
+			'debug.todaysSteps' => 'Bugünün Adımları',
+			'debug.stepsLabel' => 'Adımlar',
+			'debug.weightLabel' => ({required Object value}) => 'Kilo: ${value} kg',
+			'debug.heightLabel' => ({required Object value}) => 'Boy: ${value} cm',
+			'debug.receivedMessagesFromWatch' => 'Saatten Alınan Mesajlar',
+			'debug.noMessagesReceivedYet' => 'Henüz mesaj alınmadı.\n\nMesajları görmek için saatten test verisi gönderin.',
+			'debug.messagesCleared' => 'Mesajlar temizlendi',
 			'health.syncFailed' => 'Health Connect ile senkronize edilemedi',
 			'health.mealSynced' => 'Yemek Health Connect ile senkronize edildi',
 			_ => null,

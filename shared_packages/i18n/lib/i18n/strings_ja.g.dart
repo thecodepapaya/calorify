@@ -388,6 +388,7 @@ class _TranslationsDebugJa implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'デバッグオプション';
+	@override String get searchHint => '検索オプション...';
 	@override late final _TranslationsDebugSectionsJa sections = _TranslationsDebugSectionsJa._(_root);
 	@override String get showActiveNotifications => 'アクティブな通知を表示';
 	@override String get scheduleTestNotification => 'テスト通知をスケジュール (10秒)';
@@ -435,6 +436,103 @@ class _TranslationsDebugJa implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => '日々の目標、身長、体重などのプロフィールデータが削除されます。食事データや設定には影響しません。';
 	@override String get clear => 'クリア';
 	@override String get cancel => 'キャンセル';
+	@override String get checkWatchConnection => 'ウォッチ接続を確認';
+	@override String get sendTestMessage => 'テストメッセージを送信';
+	@override String get sendTestMessageSubtitle => 'ウォッチに簡単なテストメッセージを送信します';
+	@override String get sendTestMealData => 'テスト食事データを送信';
+	@override String get sendTestMealDataSubtitle => 'サンプルの食事データをウォッチに送信します';
+	@override String get sendTestCalorieGoal => 'テストのカロリー目標を送信';
+	@override String get sendTestCalorieGoalSubtitle => 'サンプルのカロリー目標をウォッチに送信します';
+	@override String get viewReceivedMessages => '受信メッセージを表示';
+	@override String get viewReceivedMessagesSubtitle => 'ウォッチから受信したメッセージを表示します';
+	@override String get watchConnected => 'ウォッチが接続されています ✓';
+	@override String get device => 'デバイス';
+	@override String get nearby => '近くのデバイス';
+	@override String get yes => 'はい';
+	@override String get no => 'いいえ';
+	@override String get connectedDevices => '接続中のデバイス';
+	@override String get deviceInfoUnavailable => '(デバイス情報は利用できません)';
+	@override String get unknownDevice => '不明なデバイス';
+	@override String get watchNotConnected => 'ウォッチが接続されていません ✗';
+	@override String get watchNotConnectedHint => '確認してください：\n• 両方のデバイスがペアリングされている\n• ウォッチアプリが起動している\n• 両方のアプリがデバッグ/ステージングモードになっている';
+	@override String get watchConnection => 'ウォッチ接続';
+	@override String errorCheckingConnection({required Object error}) => '接続の確認中にエラーが発生しました: ${error}';
+	@override String get helloFromPhone => 'スマホからこんにちは！';
+	@override String get testMessageSentSuccess => 'テストメッセージを送信しました！';
+	@override String get testMessageFailed => 'テストメッセージの送信に失敗しました。ウォッチの接続を確認してください。';
+	@override String errorSendingMessage({required Object error}) => 'メッセージ送信中にエラーが発生しました: ${error}';
+	@override String get testMeal => 'テスト食事';
+	@override String get testMealDataSentSuccess => 'テスト食事データを送信しました！';
+	@override String get failedToSendMealData => '食事データの送信に失敗しました。ウォッチの接続を確認してください。';
+	@override String errorSendingMealData({required Object error}) => '食事データ送信中にエラーが発生しました: ${error}';
+	@override String get testCalorieGoalSentSuccess => 'テストのカロリー目標を送信しました！';
+	@override String get failedToSendCalorieGoal => 'カロリー目標の送信に失敗しました。ウォッチの接続を確認してください。';
+	@override String errorSendingCalorieGoal({required Object error}) => 'カロリー目標送信中にエラーが発生しました: ${error}';
+	@override String get testAnalyzeImage => '画像解析テスト';
+	@override String get testAnalyzeImageSubtitle => 'ハードコードされたテスト画像をアップロード';
+	@override String get testDetectImage => '画像検出テスト';
+	@override String get testDetectImageSubtitle => '画像URLから食事を検出する';
+	@override String get detectImageFromGallery => 'ギャラリーから画像を検出';
+	@override String get detectImageFromGallerySubtitle => '画像を選択してバケットにアップロードし、カロリーを推定する';
+	@override String get testDetectText => 'テキスト検出テスト';
+	@override String get testDetectTextSubtitle => 'テキスト記述から食事を検出する';
+	@override String get testMealLoggingWithVariations => 'バリエーション付き食事ログテスト';
+	@override String get testMealLoggingWithVariationsSubtitle => 'バリエーションを含む食事ログのフローをテストする';
+	@override String get mockMealWithVariations => 'バリエーション付きのモック食事';
+	@override String get mockMealWithVariationsSubtitle => '記録せずにバリエーションとチップシートのUIをプレビュー';
+	@override String get mockMealName => 'グリルチキン（ご飯と野菜）';
+	@override String get mockTip => 'これはUIプレビュー用のモックのヒントです。食事は記録されません。';
+	@override String get mockMealDescription => 'デバッグ用のモック食事';
+	@override String get portionSizeQuestion => '分量はどのくらいでしたか？';
+	@override String get extraSidesQuestion => '他に付け合わせはありましたか？';
+	@override String get optionSmall => '小';
+	@override String get optionMedium => '中';
+	@override String get optionLarge => '大';
+	@override String get optionNone => 'なし';
+	@override String get optionSideSalad => 'サイドサラダ';
+	@override String get optionBreadRoll => 'ロールパン';
+	@override String get testingAnalyzeImage => 'analyzeImage APIをテスト中...';
+	@override String get testingDetectImage => 'detectImage APIをテスト中...';
+	@override String get testingDetectText => 'detectText APIをテスト中...';
+	@override String get selectingImageFromGallery => 'ギャラリーから画像を選択しています...';
+	@override String get noImageSelected => '画像が選択されていません';
+	@override String get compressingImage => '画像を圧縮しています...';
+	@override String get uploadingImageAndDetecting => '画像をバケットにアップロードして食事を検出しています...';
+	@override String get testingMealLoggingFlow => 'バリエーションを含む食事ログフローをテストしています...';
+	@override String get noMealIdentifiedInResponse => 'レスポンスで食事が特定されませんでした';
+	@override String get mealIdentified => '食事が特定されました';
+	@override String get confidence => '信頼度';
+	@override String get tip => 'ヒント';
+	@override String get mealName => '食事名';
+	@override String get calories => 'カロリー';
+	@override String get protein => 'タンパク質';
+	@override String get carbs => '炭水化物';
+	@override String get fat => '脂質';
+	@override String get noMealInfo => '食事情報なし';
+	@override String get na => '該当なし';
+	@override String get analyzeImageResult => '画像解析結果';
+	@override String get detectImageResult => '画像検出結果';
+	@override String get detectImageFromGalleryResult => 'ギャラリーからの画像検出結果';
+	@override String get detectTextResult => 'テキスト検出結果';
+	@override String errorGeneric({required Object error}) => 'エラー: ${error}';
+	@override String get variationsCount => 'バリエーション数';
+	@override String get userPreferencesCleared => 'ユーザー設定をクリアしました';
+	@override String get userProfileCleared => 'ユーザープロフィールをクリアしました';
+	@override String get checkForUpdate => '更新を確認';
+	@override String get showPatchNumber => 'パッチ番号を表示';
+	@override String get showUpdateAvailable => 'アップデート利用可能を表示';
+	@override String get updateAvailable => 'アップデート利用可能';
+	@override String get upToDate => '最新です';
+	@override String get shorebirdUnavailable => 'この環境ではShorebirdは利用できません。';
+	@override String get patchNumberLabel => 'パッチ番号';
+	@override String get noPatchInstalled => 'パッチはインストールされていません';
+	@override String get todaysSteps => '今日の歩数';
+	@override String get stepsLabel => '歩数';
+	@override String weightLabel({required Object value}) => '体重: ${value} kg';
+	@override String heightLabel({required Object value}) => '身長: ${value} cm';
+	@override String get receivedMessagesFromWatch => 'ウォッチからの受信メッセージ';
+	@override String get noMessagesReceivedYet => 'まだメッセージは受信されていません。\n\nウォッチからテストデータを送信すると、ここにメッセージが表示されます。';
+	@override String get messagesCleared => 'メッセージをクリアしました';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalJa implements TranslationsHomeDailyGoalEn {
 	@override String get description => 'ウェルネスの旅を始める準備はできましたか？進捗を促進させるために、下にあなたのデイリーカロリー目標を設定してください。';
 	@override String get descriptionSet => 'コンパスが設定されました！これがあなたの進むべきデイリーカロリー目標です。';
 	@override String get yourGoal => 'あなたの目標';
+	@override String get goal => '目標';
 	@override String get dailyCalories => 'デイリーカロリー (kcal)';
 	@override String get setGoal => '目標を設定';
 	@override String get intake => '摂取';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryJa implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'タンパク質';
 	@override String get fat => '脂肪';
 	@override String get fiber => '繊維';
+	@override String get grams => 'グラム';
+	@override String get chartAccessibilityLabel => 'マクロ栄養素のグラフ';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsJa implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => '通知';
 	@override String get healthConnect => 'Health Connect';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => '食事APIテスト';
 	@override String get feedback => 'フィードバック';
 	@override String get dataReset => 'データのリセット';
 	@override String get appInfo => 'アプリ情報';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsJa {
 			'home.dailyGoal.description' => 'ウェルネスの旅を始める準備はできましたか？進捗を促進させるために、下にあなたのデイリーカロリー目標を設定してください。',
 			'home.dailyGoal.descriptionSet' => 'コンパスが設定されました！これがあなたの進むべきデイリーカロリー目標です。',
 			'home.dailyGoal.yourGoal' => 'あなたの目標',
+			'home.dailyGoal.goal' => '目標',
 			'home.dailyGoal.dailyCalories' => 'デイリーカロリー (kcal)',
 			'home.dailyGoal.setGoal' => '目標を設定',
 			'home.dailyGoal.intake' => '摂取',
@@ -1700,6 +1805,8 @@ extension on TranslationsJa {
 			'home.dailySummary.protein' => 'タンパク質',
 			'home.dailySummary.fat' => '脂肪',
 			'home.dailySummary.fiber' => '繊維',
+			'home.dailySummary.grams' => 'グラム',
+			'home.dailySummary.chartAccessibilityLabel' => 'マクロ栄養素のグラフ',
 			'home.intakeProgress.title' => '今日のマクロ分配',
 			'home.intakeProgress.target' => '目標',
 			'home.intakeProgress.current' => '現在',
@@ -2000,11 +2107,15 @@ extension on TranslationsJa {
 			'errors.loadingProfileData' => 'プロフィールデータの読み込みエラー',
 			'errors.somethingWentWrong' => '何かがうまくいきませんでした。',
 			'debug.title' => 'デバッグオプション',
+			'debug.searchHint' => '検索オプション...',
 			'debug.sections.notifications' => '通知',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => '食事APIテスト',
 			'debug.sections.feedback' => 'フィードバック',
 			'debug.sections.dataReset' => 'データのリセット',
 			'debug.sections.appInfo' => 'アプリ情報',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'アクティブな通知を表示',
 			'debug.scheduleTestNotification' => 'テスト通知をスケジュール (10秒)',
 			'debug.triggerBreakfastNotification' => '朝食通知を発生させる',
@@ -2051,6 +2162,105 @@ extension on TranslationsJa {
 			'debug.clearUserProfileConfirmationMessage' => '日々の目標、身長、体重などのプロフィールデータが削除されます。食事データや設定には影響しません。',
 			'debug.clear' => 'クリア',
 			'debug.cancel' => 'キャンセル',
+			'debug.checkWatchConnection' => 'ウォッチ接続を確認',
+			'debug.sendTestMessage' => 'テストメッセージを送信',
+			'debug.sendTestMessageSubtitle' => 'ウォッチに簡単なテストメッセージを送信します',
+			'debug.sendTestMealData' => 'テスト食事データを送信',
+			'debug.sendTestMealDataSubtitle' => 'サンプルの食事データをウォッチに送信します',
+			'debug.sendTestCalorieGoal' => 'テストのカロリー目標を送信',
+			'debug.sendTestCalorieGoalSubtitle' => 'サンプルのカロリー目標をウォッチに送信します',
+			'debug.viewReceivedMessages' => '受信メッセージを表示',
+			'debug.viewReceivedMessagesSubtitle' => 'ウォッチから受信したメッセージを表示します',
+			'debug.watchConnected' => 'ウォッチが接続されています ✓',
+			'debug.device' => 'デバイス',
+			'debug.nearby' => '近くのデバイス',
+			'debug.yes' => 'はい',
+			'debug.no' => 'いいえ',
+			'debug.connectedDevices' => '接続中のデバイス',
+			'debug.deviceInfoUnavailable' => '(デバイス情報は利用できません)',
+			'debug.unknownDevice' => '不明なデバイス',
+			'debug.watchNotConnected' => 'ウォッチが接続されていません ✗',
+			'debug.watchNotConnectedHint' => '確認してください：\n• 両方のデバイスがペアリングされている\n• ウォッチアプリが起動している\n• 両方のアプリがデバッグ/ステージングモードになっている',
+			'debug.watchConnection' => 'ウォッチ接続',
+			'debug.errorCheckingConnection' => ({required Object error}) => '接続の確認中にエラーが発生しました: ${error}',
+			'debug.helloFromPhone' => 'スマホからこんにちは！',
+			'debug.testMessageSentSuccess' => 'テストメッセージを送信しました！',
+			'debug.testMessageFailed' => 'テストメッセージの送信に失敗しました。ウォッチの接続を確認してください。',
+			'debug.errorSendingMessage' => ({required Object error}) => 'メッセージ送信中にエラーが発生しました: ${error}',
+			'debug.testMeal' => 'テスト食事',
+			'debug.testMealDataSentSuccess' => 'テスト食事データを送信しました！',
+			'debug.failedToSendMealData' => '食事データの送信に失敗しました。ウォッチの接続を確認してください。',
+			'debug.errorSendingMealData' => ({required Object error}) => '食事データ送信中にエラーが発生しました: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'テストのカロリー目標を送信しました！',
+			'debug.failedToSendCalorieGoal' => 'カロリー目標の送信に失敗しました。ウォッチの接続を確認してください。',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'カロリー目標送信中にエラーが発生しました: ${error}',
+			'debug.testAnalyzeImage' => '画像解析テスト',
+			'debug.testAnalyzeImageSubtitle' => 'ハードコードされたテスト画像をアップロード',
+			'debug.testDetectImage' => '画像検出テスト',
+			'debug.testDetectImageSubtitle' => '画像URLから食事を検出する',
+			'debug.detectImageFromGallery' => 'ギャラリーから画像を検出',
+			'debug.detectImageFromGallerySubtitle' => '画像を選択してバケットにアップロードし、カロリーを推定する',
+			'debug.testDetectText' => 'テキスト検出テスト',
+			'debug.testDetectTextSubtitle' => 'テキスト記述から食事を検出する',
+			'debug.testMealLoggingWithVariations' => 'バリエーション付き食事ログテスト',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'バリエーションを含む食事ログのフローをテストする',
+			'debug.mockMealWithVariations' => 'バリエーション付きのモック食事',
+			'debug.mockMealWithVariationsSubtitle' => '記録せずにバリエーションとチップシートのUIをプレビュー',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'グリルチキン（ご飯と野菜）',
+			'debug.mockTip' => 'これはUIプレビュー用のモックのヒントです。食事は記録されません。',
+			'debug.mockMealDescription' => 'デバッグ用のモック食事',
+			'debug.portionSizeQuestion' => '分量はどのくらいでしたか？',
+			'debug.extraSidesQuestion' => '他に付け合わせはありましたか？',
+			'debug.optionSmall' => '小',
+			'debug.optionMedium' => '中',
+			'debug.optionLarge' => '大',
+			'debug.optionNone' => 'なし',
+			'debug.optionSideSalad' => 'サイドサラダ',
+			'debug.optionBreadRoll' => 'ロールパン',
+			'debug.testingAnalyzeImage' => 'analyzeImage APIをテスト中...',
+			'debug.testingDetectImage' => 'detectImage APIをテスト中...',
+			'debug.testingDetectText' => 'detectText APIをテスト中...',
+			'debug.selectingImageFromGallery' => 'ギャラリーから画像を選択しています...',
+			'debug.noImageSelected' => '画像が選択されていません',
+			'debug.compressingImage' => '画像を圧縮しています...',
+			'debug.uploadingImageAndDetecting' => '画像をバケットにアップロードして食事を検出しています...',
+			'debug.testingMealLoggingFlow' => 'バリエーションを含む食事ログフローをテストしています...',
+			'debug.noMealIdentifiedInResponse' => 'レスポンスで食事が特定されませんでした',
+			'debug.mealIdentified' => '食事が特定されました',
+			'debug.confidence' => '信頼度',
+			'debug.tip' => 'ヒント',
+			'debug.mealName' => '食事名',
+			'debug.calories' => 'カロリー',
+			'debug.protein' => 'タンパク質',
+			'debug.carbs' => '炭水化物',
+			'debug.fat' => '脂質',
+			'debug.noMealInfo' => '食事情報なし',
+			'debug.na' => '該当なし',
+			'debug.analyzeImageResult' => '画像解析結果',
+			'debug.detectImageResult' => '画像検出結果',
+			'debug.detectImageFromGalleryResult' => 'ギャラリーからの画像検出結果',
+			'debug.detectTextResult' => 'テキスト検出結果',
+			'debug.errorGeneric' => ({required Object error}) => 'エラー: ${error}',
+			'debug.variationsCount' => 'バリエーション数',
+			'debug.userPreferencesCleared' => 'ユーザー設定をクリアしました',
+			'debug.userProfileCleared' => 'ユーザープロフィールをクリアしました',
+			'debug.checkForUpdate' => '更新を確認',
+			'debug.showPatchNumber' => 'パッチ番号を表示',
+			'debug.showUpdateAvailable' => 'アップデート利用可能を表示',
+			'debug.updateAvailable' => 'アップデート利用可能',
+			'debug.upToDate' => '最新です',
+			'debug.shorebirdUnavailable' => 'この環境ではShorebirdは利用できません。',
+			'debug.patchNumberLabel' => 'パッチ番号',
+			'debug.noPatchInstalled' => 'パッチはインストールされていません',
+			'debug.todaysSteps' => '今日の歩数',
+			'debug.stepsLabel' => '歩数',
+			'debug.weightLabel' => ({required Object value}) => '体重: ${value} kg',
+			'debug.heightLabel' => ({required Object value}) => '身長: ${value} cm',
+			'debug.receivedMessagesFromWatch' => 'ウォッチからの受信メッセージ',
+			'debug.noMessagesReceivedYet' => 'まだメッセージは受信されていません。\n\nウォッチからテストデータを送信すると、ここにメッセージが表示されます。',
+			'debug.messagesCleared' => 'メッセージをクリアしました',
 			'health.syncFailed' => 'Health Connectへの同期に失敗しました。',
 			'health.mealSynced' => '食事がHealth Connectと同期されました。',
 			_ => null,

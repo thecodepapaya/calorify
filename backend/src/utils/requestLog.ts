@@ -6,6 +6,7 @@
 const SENSITIVE_HEADERS = new Set([
   'authorization',
   'cookie',
+  'set-cookie',
   'x-api-key',
   'x-auth-token',
 ]);

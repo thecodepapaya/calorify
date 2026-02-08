@@ -388,6 +388,7 @@ class _TranslationsDebugTl implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'Mga Opsyon sa Debug';
+	@override String get searchHint => 'Mga pagpipilian sa paghahanap...';
 	@override late final _TranslationsDebugSectionsTl sections = _TranslationsDebugSectionsTl._(_root);
 	@override String get showActiveNotifications => 'Ipakita ang Aktibong Notifikasyon';
 	@override String get scheduleTestNotification => 'I-schedule ang Test Notification (10s)';
@@ -435,6 +436,103 @@ class _TranslationsDebugTl implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => 'Mababura ang data ng iyong profile (pang-araw-araw na layunin, taas, timbang, atbp.). Hindi maaapektuhan ang mga pagkain at mga kagustuhan.';
 	@override String get clear => 'Burahin';
 	@override String get cancel => 'Kanselahin';
+	@override String get checkWatchConnection => 'Suriin ang Koneksyon ng Relo';
+	@override String get sendTestMessage => 'Magpadala ng Pagsubok na Mensahe';
+	@override String get sendTestMessageSubtitle => 'Magpadala ng simpleng mensahe ng pagsubok sa relo';
+	@override String get sendTestMealData => 'Magpadala ng Pagsubok na Datos ng Pagkain';
+	@override String get sendTestMealDataSubtitle => 'Magpadala ng halimbawa ng datos ng pagkain sa relo';
+	@override String get sendTestCalorieGoal => 'Magpadala ng Pagsubok na Layunin sa Kaloriya';
+	@override String get sendTestCalorieGoalSubtitle => 'Magpadala ng halimbawa ng layunin sa kaloriya sa relo';
+	@override String get viewReceivedMessages => 'Tingnan ang Natanggap na Mensahe';
+	@override String get viewReceivedMessagesSubtitle => 'Tingnan ang mga mensaheng natanggap mula sa relo';
+	@override String get watchConnected => 'Nakakonekta ang relo ✓';
+	@override String get device => 'Aparato';
+	@override String get nearby => 'Malapit';
+	@override String get yes => 'Oo';
+	@override String get no => 'Hindi';
+	@override String get connectedDevices => 'Mga nakakonektang aparato';
+	@override String get deviceInfoUnavailable => '(Impormasyon ng aparato hindi magagamit)';
+	@override String get unknownDevice => 'Hindi kilalang aparato';
+	@override String get watchNotConnected => 'Hindi nakakonekta ang relo ✗';
+	@override String get watchNotConnectedHint => 'Tiyakin:\n• Naka-pair ang parehong aparato\n• Tumatakbo ang app sa relo\n• Parehong apps ay nasa debug/staging mode';
+	@override String get watchConnection => 'Koneksyon ng Relo';
+	@override String errorCheckingConnection({required Object error}) => 'Error sa pagsuri ng koneksyon: ${error}';
+	@override String get helloFromPhone => 'Hello mula sa telepono!';
+	@override String get testMessageSentSuccess => 'Matagumpay na naipadala ang mensahe ng pagsubok!';
+	@override String get testMessageFailed => 'Nabigo ang pagpapadala ng mensahe ng pagsubok. Suriin ang koneksyon ng relo.';
+	@override String errorSendingMessage({required Object error}) => 'Error sa pagpapadala ng mensahe: ${error}';
+	@override String get testMeal => 'Pagkaing Pagsubok';
+	@override String get testMealDataSentSuccess => 'Matagumpay na naipadala ang datos ng pagsubok na pagkain!';
+	@override String get failedToSendMealData => 'Nabigong ipadala ang datos ng pagkain. Suriin ang koneksyon ng relo.';
+	@override String errorSendingMealData({required Object error}) => 'Error sa pagpapadala ng datos ng pagkain: ${error}';
+	@override String get testCalorieGoalSentSuccess => 'Matagumpay na naipadala ang pagsubok na layunin sa kaloriya!';
+	@override String get failedToSendCalorieGoal => 'Nabigong ipadala ang layunin sa kaloriya. Suriin ang koneksyon ng relo.';
+	@override String errorSendingCalorieGoal({required Object error}) => 'Error sa pagpapadala ng layunin sa kaloriya: ${error}';
+	@override String get testAnalyzeImage => 'Pagsubok sa Pag-analyze ng Larawan';
+	@override String get testAnalyzeImageSubtitle => 'I-upload ang hardcoded na larawan ng pagsubok';
+	@override String get testDetectImage => 'Pagsubok sa Pag-detect ng Larawan';
+	@override String get testDetectImageSubtitle => 'I-detect ang pagkain mula sa URL ng larawan';
+	@override String get detectImageFromGallery => 'I-detect ang Larawan mula sa Gallery';
+	@override String get detectImageFromGallerySubtitle => 'Pumili ng larawan, i-upload sa bucket at tantiyahin ang kaloriya';
+	@override String get testDetectText => 'Pagsubok sa Pag-detect ng Teksto';
+	@override String get testDetectTextSubtitle => 'I-detect ang pagkain mula sa paglalarawang teksto';
+	@override String get testMealLoggingWithVariations => 'Pagsubok sa Pag-log ng Pagkain na may Mga Pagkakaiba';
+	@override String get testMealLoggingWithVariationsSubtitle => 'Subukan ang buong daloy ng pag-log ng pagkain kasama ang mga pagkakaiba';
+	@override String get mockMealWithVariations => 'Halimbawang pagkain na may mga pagkakaiba';
+	@override String get mockMealWithVariationsSubtitle => 'I-preview ang variation + tip sheet UI nang hindi nagla-log';
+	@override String get mockMealName => 'Inihaw na manok na may kanin at gulay';
+	@override String get mockTip => 'Ito ay halimbawang tip para sa preview ng UI. Hindi naka-log ang pagkain.';
+	@override String get mockMealDescription => 'Halimbawang pagkain para sa pag-debug';
+	@override String get portionSizeQuestion => 'Gaano kalaki ang bahagi?';
+	@override String get extraSidesQuestion => 'May ibang side dish ba?';
+	@override String get optionSmall => 'Maliit';
+	@override String get optionMedium => 'Katamtaman';
+	@override String get optionLarge => 'Malaki';
+	@override String get optionNone => 'Wala';
+	@override String get optionSideSalad => 'Salad na panig';
+	@override String get optionBreadRoll => 'Roll ng tinapay';
+	@override String get testingAnalyzeImage => 'Sinusubukan ang analyzeImage API...';
+	@override String get testingDetectImage => 'Sinusubukan ang detectImage API...';
+	@override String get testingDetectText => 'Sinusubukan ang detectText API...';
+	@override String get selectingImageFromGallery => 'Pumipili ng larawan mula sa gallery...';
+	@override String get noImageSelected => 'Walang napiling larawan';
+	@override String get compressingImage => 'Kinokompres ang larawan...';
+	@override String get uploadingImageAndDetecting => 'Ini-upload ang larawan sa bucket at tinutukoy ang pagkain...';
+	@override String get testingMealLoggingFlow => 'Sinusubukan ang daloy ng pag-log ng pagkain na may mga pagkakaiba...';
+	@override String get noMealIdentifiedInResponse => 'Walang natukoy na pagkain sa tugon';
+	@override String get mealIdentified => 'Natukoy ang Pagkain';
+	@override String get confidence => 'Kumpiyansa';
+	@override String get tip => 'Payo';
+	@override String get mealName => 'Pangalan ng Pagkain';
+	@override String get calories => 'Kaloriya';
+	@override String get protein => 'Protina';
+	@override String get carbs => 'Carbohidrato';
+	@override String get fat => 'Taba';
+	@override String get noMealInfo => 'Walang impormasyon tungkol sa pagkain';
+	@override String get na => 'N/A';
+	@override String get analyzeImageResult => 'Resulta ng Pag-analyze ng Larawan';
+	@override String get detectImageResult => 'Resulta ng Pag-detect ng Larawan';
+	@override String get detectImageFromGalleryResult => 'Resulta ng Pag-detect ng Larawan mula sa Gallery';
+	@override String get detectTextResult => 'Resulta ng Pag-detect ng Teksto';
+	@override String errorGeneric({required Object error}) => 'Error: ${error}';
+	@override String get variationsCount => 'Mga Pagkakaiba';
+	@override String get userPreferencesCleared => 'Nabura ang mga kagustuhan ng gumagamit';
+	@override String get userProfileCleared => 'Nabura ang profile ng gumagamit';
+	@override String get checkForUpdate => 'Suriin kung may update';
+	@override String get showPatchNumber => 'Ipakita ang numero ng patch';
+	@override String get showUpdateAvailable => 'Ipakita ang available na update';
+	@override String get updateAvailable => 'May magagamit na update';
+	@override String get upToDate => 'Naka-update';
+	@override String get shorebirdUnavailable => 'Hindi magagamit ang Shorebird sa environment na ito.';
+	@override String get patchNumberLabel => 'Numero ng patch';
+	@override String get noPatchInstalled => 'Walang naka-install na patch';
+	@override String get todaysSteps => 'Hakbang ngayong araw';
+	@override String get stepsLabel => 'Hakbang';
+	@override String weightLabel({required Object value}) => 'Timbang: ${value} kg';
+	@override String heightLabel({required Object value}) => 'Taas: ${value} cm';
+	@override String get receivedMessagesFromWatch => 'Mga mensaheng natanggap mula sa relo';
+	@override String get noMessagesReceivedYet => 'Wala pang natanggap na mensahe.\n\nMagpadala ng datos ng pagsubok mula sa relo upang makita ang mga mensahe dito.';
+	@override String get messagesCleared => 'Nabura ang mga mensahe';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalTl implements TranslationsHomeDailyGoalEn {
 	@override String get description => 'Handa ka na bang simulan ang iyong wellness journey? Itakda ang iyong pang-araw-araw na target na calorie sa ibaba upang simulan ang iyong progreso.';
 	@override String get descriptionSet => 'Nakaset na ang iyong kompas! Ito ang iyong pang-araw-araw na target na calorie upang gabayan ka.';
 	@override String get yourGoal => 'Ang Iyong Layunin';
+	@override String get goal => 'Layunin';
 	@override String get dailyCalories => 'Pang-araw-araw na calories (kcal)';
 	@override String get setGoal => 'Itakda ang Layunin';
 	@override String get intake => 'Konsumisyon';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryTl implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'Protina';
 	@override String get fat => 'Taba';
 	@override String get fiber => 'Fiber';
+	@override String get grams => 'gramo';
+	@override String get chartAccessibilityLabel => 'Tsart ng mga makronutriente';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsTl implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Mga Notifikasyon';
 	@override String get healthConnect => 'Health Connect';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => 'Mga Pagsubok ng Food API';
 	@override String get feedback => 'Puna';
 	@override String get dataReset => 'I-reset ang data';
 	@override String get appInfo => 'Impormasyon ng App';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsTl {
 			'home.dailyGoal.description' => 'Handa ka na bang simulan ang iyong wellness journey? Itakda ang iyong pang-araw-araw na target na calorie sa ibaba upang simulan ang iyong progreso.',
 			'home.dailyGoal.descriptionSet' => 'Nakaset na ang iyong kompas! Ito ang iyong pang-araw-araw na target na calorie upang gabayan ka.',
 			'home.dailyGoal.yourGoal' => 'Ang Iyong Layunin',
+			'home.dailyGoal.goal' => 'Layunin',
 			'home.dailyGoal.dailyCalories' => 'Pang-araw-araw na calories (kcal)',
 			'home.dailyGoal.setGoal' => 'Itakda ang Layunin',
 			'home.dailyGoal.intake' => 'Konsumisyon',
@@ -1700,6 +1805,8 @@ extension on TranslationsTl {
 			'home.dailySummary.protein' => 'Protina',
 			'home.dailySummary.fat' => 'Taba',
 			'home.dailySummary.fiber' => 'Fiber',
+			'home.dailySummary.grams' => 'gramo',
+			'home.dailySummary.chartAccessibilityLabel' => 'Tsart ng mga makronutriente',
 			'home.intakeProgress.title' => 'Paghahati ng Macro Ngayong Araw',
 			'home.intakeProgress.target' => 'Target',
 			'home.intakeProgress.current' => 'Kasalukuyan',
@@ -2000,11 +2107,15 @@ extension on TranslationsTl {
 			'errors.loadingProfileData' => 'Error sa pag-load ng datos ng profile',
 			'errors.somethingWentWrong' => 'May nangyaring mali.',
 			'debug.title' => 'Mga Opsyon sa Debug',
+			'debug.searchHint' => 'Mga pagpipilian sa paghahanap...',
 			'debug.sections.notifications' => 'Mga Notifikasyon',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'Mga Pagsubok ng Food API',
 			'debug.sections.feedback' => 'Puna',
 			'debug.sections.dataReset' => 'I-reset ang data',
 			'debug.sections.appInfo' => 'Impormasyon ng App',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'Ipakita ang Aktibong Notifikasyon',
 			'debug.scheduleTestNotification' => 'I-schedule ang Test Notification (10s)',
 			'debug.triggerBreakfastNotification' => 'I-trigger ang Breakfast Notification',
@@ -2051,6 +2162,105 @@ extension on TranslationsTl {
 			'debug.clearUserProfileConfirmationMessage' => 'Mababura ang data ng iyong profile (pang-araw-araw na layunin, taas, timbang, atbp.). Hindi maaapektuhan ang mga pagkain at mga kagustuhan.',
 			'debug.clear' => 'Burahin',
 			'debug.cancel' => 'Kanselahin',
+			'debug.checkWatchConnection' => 'Suriin ang Koneksyon ng Relo',
+			'debug.sendTestMessage' => 'Magpadala ng Pagsubok na Mensahe',
+			'debug.sendTestMessageSubtitle' => 'Magpadala ng simpleng mensahe ng pagsubok sa relo',
+			'debug.sendTestMealData' => 'Magpadala ng Pagsubok na Datos ng Pagkain',
+			'debug.sendTestMealDataSubtitle' => 'Magpadala ng halimbawa ng datos ng pagkain sa relo',
+			'debug.sendTestCalorieGoal' => 'Magpadala ng Pagsubok na Layunin sa Kaloriya',
+			'debug.sendTestCalorieGoalSubtitle' => 'Magpadala ng halimbawa ng layunin sa kaloriya sa relo',
+			'debug.viewReceivedMessages' => 'Tingnan ang Natanggap na Mensahe',
+			'debug.viewReceivedMessagesSubtitle' => 'Tingnan ang mga mensaheng natanggap mula sa relo',
+			'debug.watchConnected' => 'Nakakonekta ang relo ✓',
+			'debug.device' => 'Aparato',
+			'debug.nearby' => 'Malapit',
+			'debug.yes' => 'Oo',
+			'debug.no' => 'Hindi',
+			'debug.connectedDevices' => 'Mga nakakonektang aparato',
+			'debug.deviceInfoUnavailable' => '(Impormasyon ng aparato hindi magagamit)',
+			'debug.unknownDevice' => 'Hindi kilalang aparato',
+			'debug.watchNotConnected' => 'Hindi nakakonekta ang relo ✗',
+			'debug.watchNotConnectedHint' => 'Tiyakin:\n• Naka-pair ang parehong aparato\n• Tumatakbo ang app sa relo\n• Parehong apps ay nasa debug/staging mode',
+			'debug.watchConnection' => 'Koneksyon ng Relo',
+			'debug.errorCheckingConnection' => ({required Object error}) => 'Error sa pagsuri ng koneksyon: ${error}',
+			'debug.helloFromPhone' => 'Hello mula sa telepono!',
+			'debug.testMessageSentSuccess' => 'Matagumpay na naipadala ang mensahe ng pagsubok!',
+			'debug.testMessageFailed' => 'Nabigo ang pagpapadala ng mensahe ng pagsubok. Suriin ang koneksyon ng relo.',
+			'debug.errorSendingMessage' => ({required Object error}) => 'Error sa pagpapadala ng mensahe: ${error}',
+			'debug.testMeal' => 'Pagkaing Pagsubok',
+			'debug.testMealDataSentSuccess' => 'Matagumpay na naipadala ang datos ng pagsubok na pagkain!',
+			'debug.failedToSendMealData' => 'Nabigong ipadala ang datos ng pagkain. Suriin ang koneksyon ng relo.',
+			'debug.errorSendingMealData' => ({required Object error}) => 'Error sa pagpapadala ng datos ng pagkain: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'Matagumpay na naipadala ang pagsubok na layunin sa kaloriya!',
+			'debug.failedToSendCalorieGoal' => 'Nabigong ipadala ang layunin sa kaloriya. Suriin ang koneksyon ng relo.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Error sa pagpapadala ng layunin sa kaloriya: ${error}',
+			'debug.testAnalyzeImage' => 'Pagsubok sa Pag-analyze ng Larawan',
+			'debug.testAnalyzeImageSubtitle' => 'I-upload ang hardcoded na larawan ng pagsubok',
+			'debug.testDetectImage' => 'Pagsubok sa Pag-detect ng Larawan',
+			'debug.testDetectImageSubtitle' => 'I-detect ang pagkain mula sa URL ng larawan',
+			'debug.detectImageFromGallery' => 'I-detect ang Larawan mula sa Gallery',
+			'debug.detectImageFromGallerySubtitle' => 'Pumili ng larawan, i-upload sa bucket at tantiyahin ang kaloriya',
+			'debug.testDetectText' => 'Pagsubok sa Pag-detect ng Teksto',
+			'debug.testDetectTextSubtitle' => 'I-detect ang pagkain mula sa paglalarawang teksto',
+			'debug.testMealLoggingWithVariations' => 'Pagsubok sa Pag-log ng Pagkain na may Mga Pagkakaiba',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'Subukan ang buong daloy ng pag-log ng pagkain kasama ang mga pagkakaiba',
+			'debug.mockMealWithVariations' => 'Halimbawang pagkain na may mga pagkakaiba',
+			'debug.mockMealWithVariationsSubtitle' => 'I-preview ang variation + tip sheet UI nang hindi nagla-log',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'Inihaw na manok na may kanin at gulay',
+			'debug.mockTip' => 'Ito ay halimbawang tip para sa preview ng UI. Hindi naka-log ang pagkain.',
+			'debug.mockMealDescription' => 'Halimbawang pagkain para sa pag-debug',
+			'debug.portionSizeQuestion' => 'Gaano kalaki ang bahagi?',
+			'debug.extraSidesQuestion' => 'May ibang side dish ba?',
+			'debug.optionSmall' => 'Maliit',
+			'debug.optionMedium' => 'Katamtaman',
+			'debug.optionLarge' => 'Malaki',
+			'debug.optionNone' => 'Wala',
+			'debug.optionSideSalad' => 'Salad na panig',
+			'debug.optionBreadRoll' => 'Roll ng tinapay',
+			'debug.testingAnalyzeImage' => 'Sinusubukan ang analyzeImage API...',
+			'debug.testingDetectImage' => 'Sinusubukan ang detectImage API...',
+			'debug.testingDetectText' => 'Sinusubukan ang detectText API...',
+			'debug.selectingImageFromGallery' => 'Pumipili ng larawan mula sa gallery...',
+			'debug.noImageSelected' => 'Walang napiling larawan',
+			'debug.compressingImage' => 'Kinokompres ang larawan...',
+			'debug.uploadingImageAndDetecting' => 'Ini-upload ang larawan sa bucket at tinutukoy ang pagkain...',
+			'debug.testingMealLoggingFlow' => 'Sinusubukan ang daloy ng pag-log ng pagkain na may mga pagkakaiba...',
+			'debug.noMealIdentifiedInResponse' => 'Walang natukoy na pagkain sa tugon',
+			'debug.mealIdentified' => 'Natukoy ang Pagkain',
+			'debug.confidence' => 'Kumpiyansa',
+			'debug.tip' => 'Payo',
+			'debug.mealName' => 'Pangalan ng Pagkain',
+			'debug.calories' => 'Kaloriya',
+			'debug.protein' => 'Protina',
+			'debug.carbs' => 'Carbohidrato',
+			'debug.fat' => 'Taba',
+			'debug.noMealInfo' => 'Walang impormasyon tungkol sa pagkain',
+			'debug.na' => 'N/A',
+			'debug.analyzeImageResult' => 'Resulta ng Pag-analyze ng Larawan',
+			'debug.detectImageResult' => 'Resulta ng Pag-detect ng Larawan',
+			'debug.detectImageFromGalleryResult' => 'Resulta ng Pag-detect ng Larawan mula sa Gallery',
+			'debug.detectTextResult' => 'Resulta ng Pag-detect ng Teksto',
+			'debug.errorGeneric' => ({required Object error}) => 'Error: ${error}',
+			'debug.variationsCount' => 'Mga Pagkakaiba',
+			'debug.userPreferencesCleared' => 'Nabura ang mga kagustuhan ng gumagamit',
+			'debug.userProfileCleared' => 'Nabura ang profile ng gumagamit',
+			'debug.checkForUpdate' => 'Suriin kung may update',
+			'debug.showPatchNumber' => 'Ipakita ang numero ng patch',
+			'debug.showUpdateAvailable' => 'Ipakita ang available na update',
+			'debug.updateAvailable' => 'May magagamit na update',
+			'debug.upToDate' => 'Naka-update',
+			'debug.shorebirdUnavailable' => 'Hindi magagamit ang Shorebird sa environment na ito.',
+			'debug.patchNumberLabel' => 'Numero ng patch',
+			'debug.noPatchInstalled' => 'Walang naka-install na patch',
+			'debug.todaysSteps' => 'Hakbang ngayong araw',
+			'debug.stepsLabel' => 'Hakbang',
+			'debug.weightLabel' => ({required Object value}) => 'Timbang: ${value} kg',
+			'debug.heightLabel' => ({required Object value}) => 'Taas: ${value} cm',
+			'debug.receivedMessagesFromWatch' => 'Mga mensaheng natanggap mula sa relo',
+			'debug.noMessagesReceivedYet' => 'Wala pang natanggap na mensahe.\n\nMagpadala ng datos ng pagsubok mula sa relo upang makita ang mga mensahe dito.',
+			'debug.messagesCleared' => 'Nabura ang mga mensahe',
 			'health.syncFailed' => 'Hindi ma-synchronize sa Health Connect',
 			'health.mealSynced' => 'Naka-synchronize ang pagkain sa Health Connect',
 			_ => null,

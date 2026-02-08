@@ -109,6 +109,12 @@ async function buildApp() {
       if (v !== undefined) headersRecord[k] = Array.isArray(v) ? v.join(', ') : String(v);
     }
 
+    const resHeadersRecord: Record<string, string> = {};
+    const resHeaders = reply.getHeaders();
+    for (const [k, v] of Object.entries(resHeaders)) {
+      if (v !== undefined) resHeadersRecord[k] = Array.isArray(v) ? v.join(', ') : String(v);
+    }
+
     const maxBody = config.MAX_BODY_LOG_BYTES;
     const logBody = config.LOG_REQUEST_RESPONSE_BODIES;
 
@@ -132,6 +138,7 @@ async function buildApp() {
       res: {
         statusCode,
         responseTimeMs: responseTime,
+        headers: redactHeaders(resHeadersRecord),
         body: resBody,
       },
       method: request.method,

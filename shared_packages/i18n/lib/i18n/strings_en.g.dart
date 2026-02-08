@@ -645,6 +645,9 @@ class TranslationsDebugEn {
 	/// en: 'Debug Options'
 	String get title => 'Debug Options';
 
+	/// en: 'Search options...'
+	String get searchHint => 'Search options...';
+
 	late final TranslationsDebugSectionsEn sections = TranslationsDebugSectionsEn._(_root);
 
 	/// en: 'Show Active Notifications'
@@ -784,6 +787,297 @@ class TranslationsDebugEn {
 
 	/// en: 'Cancel'
 	String get cancel => 'Cancel';
+
+	/// en: 'Check Watch Connection'
+	String get checkWatchConnection => 'Check Watch Connection';
+
+	/// en: 'Send Test Message'
+	String get sendTestMessage => 'Send Test Message';
+
+	/// en: 'Send a simple test message to watch'
+	String get sendTestMessageSubtitle => 'Send a simple test message to watch';
+
+	/// en: 'Send Test Meal Data'
+	String get sendTestMealData => 'Send Test Meal Data';
+
+	/// en: 'Send sample meal data to watch'
+	String get sendTestMealDataSubtitle => 'Send sample meal data to watch';
+
+	/// en: 'Send Test Calorie Goal'
+	String get sendTestCalorieGoal => 'Send Test Calorie Goal';
+
+	/// en: 'Send sample calorie goal to watch'
+	String get sendTestCalorieGoalSubtitle => 'Send sample calorie goal to watch';
+
+	/// en: 'View Received Messages'
+	String get viewReceivedMessages => 'View Received Messages';
+
+	/// en: 'View messages received from watch'
+	String get viewReceivedMessagesSubtitle => 'View messages received from watch';
+
+	/// en: 'Watch is connected ✓'
+	String get watchConnected => 'Watch is connected ✓';
+
+	/// en: 'Device'
+	String get device => 'Device';
+
+	/// en: 'Nearby'
+	String get nearby => 'Nearby';
+
+	/// en: 'Yes'
+	String get yes => 'Yes';
+
+	/// en: 'No'
+	String get no => 'No';
+
+	/// en: 'Connected devices'
+	String get connectedDevices => 'Connected devices';
+
+	/// en: '(Device info unavailable)'
+	String get deviceInfoUnavailable => '(Device info unavailable)';
+
+	/// en: 'Unknown Device'
+	String get unknownDevice => 'Unknown Device';
+
+	/// en: 'Watch is not connected ✗'
+	String get watchNotConnected => 'Watch is not connected ✗';
+
+	/// en: 'Make sure: • Both devices are paired • Watch app is running • Both apps are in debug/staging mode'
+	String get watchNotConnectedHint => 'Make sure:\n• Both devices are paired\n• Watch app is running\n• Both apps are in debug/staging mode';
+
+	/// en: 'Watch Connection'
+	String get watchConnection => 'Watch Connection';
+
+	/// en: 'Error checking connection: {error}'
+	String errorCheckingConnection({required Object error}) => 'Error checking connection: ${error}';
+
+	/// en: 'Hello from phone!'
+	String get helloFromPhone => 'Hello from phone!';
+
+	/// en: 'Test message sent successfully!'
+	String get testMessageSentSuccess => 'Test message sent successfully!';
+
+	/// en: 'Failed to send test message. Check watch connection.'
+	String get testMessageFailed => 'Failed to send test message. Check watch connection.';
+
+	/// en: 'Error sending message: {error}'
+	String errorSendingMessage({required Object error}) => 'Error sending message: ${error}';
+
+	/// en: 'Test Meal'
+	String get testMeal => 'Test Meal';
+
+	/// en: 'Test meal data sent successfully!'
+	String get testMealDataSentSuccess => 'Test meal data sent successfully!';
+
+	/// en: 'Failed to send meal data. Check watch connection.'
+	String get failedToSendMealData => 'Failed to send meal data. Check watch connection.';
+
+	/// en: 'Error sending meal data: {error}'
+	String errorSendingMealData({required Object error}) => 'Error sending meal data: ${error}';
+
+	/// en: 'Test calorie goal sent successfully!'
+	String get testCalorieGoalSentSuccess => 'Test calorie goal sent successfully!';
+
+	/// en: 'Failed to send calorie goal. Check watch connection.'
+	String get failedToSendCalorieGoal => 'Failed to send calorie goal. Check watch connection.';
+
+	/// en: 'Error sending calorie goal: {error}'
+	String errorSendingCalorieGoal({required Object error}) => 'Error sending calorie goal: ${error}';
+
+	/// en: 'Test Analyze Image'
+	String get testAnalyzeImage => 'Test Analyze Image';
+
+	/// en: 'Upload hardcoded test image'
+	String get testAnalyzeImageSubtitle => 'Upload hardcoded test image';
+
+	/// en: 'Test Detect Image'
+	String get testDetectImage => 'Test Detect Image';
+
+	/// en: 'Detect meal from image URL'
+	String get testDetectImageSubtitle => 'Detect meal from image URL';
+
+	/// en: 'Detect Image from Gallery'
+	String get detectImageFromGallery => 'Detect Image from Gallery';
+
+	/// en: 'Select image, upload to bucket & estimate calories'
+	String get detectImageFromGallerySubtitle => 'Select image, upload to bucket & estimate calories';
+
+	/// en: 'Test Detect Text'
+	String get testDetectText => 'Test Detect Text';
+
+	/// en: 'Detect meal from text description'
+	String get testDetectTextSubtitle => 'Detect meal from text description';
+
+	/// en: 'Test Meal Logging with Variations'
+	String get testMealLoggingWithVariations => 'Test Meal Logging with Variations';
+
+	/// en: 'Test the full meal logging flow with variations'
+	String get testMealLoggingWithVariationsSubtitle => 'Test the full meal logging flow with variations';
+
+	/// en: 'Mock meal with variations'
+	String get mockMealWithVariations => 'Mock meal with variations';
+
+	/// en: 'Preview variation + tip sheet UI without logging'
+	String get mockMealWithVariationsSubtitle => 'Preview variation + tip sheet UI without logging';
+
+	/// en: 'Grilled chicken with rice and vegetables'
+	String get mockMealName => 'Grilled chicken with rice and vegetables';
+
+	/// en: 'This is a mock tip for UI preview. The meal is not logged.'
+	String get mockTip => 'This is a mock tip for UI preview. The meal is not logged.';
+
+	/// en: 'Mock meal for debug'
+	String get mockMealDescription => 'Mock meal for debug';
+
+	/// en: 'How was the portion size?'
+	String get portionSizeQuestion => 'How was the portion size?';
+
+	/// en: 'Any extra sides?'
+	String get extraSidesQuestion => 'Any extra sides?';
+
+	/// en: 'Small'
+	String get optionSmall => 'Small';
+
+	/// en: 'Medium'
+	String get optionMedium => 'Medium';
+
+	/// en: 'Large'
+	String get optionLarge => 'Large';
+
+	/// en: 'None'
+	String get optionNone => 'None';
+
+	/// en: 'Side salad'
+	String get optionSideSalad => 'Side salad';
+
+	/// en: 'Bread roll'
+	String get optionBreadRoll => 'Bread roll';
+
+	/// en: 'Testing analyzeImage API...'
+	String get testingAnalyzeImage => 'Testing analyzeImage API...';
+
+	/// en: 'Testing detectImage API...'
+	String get testingDetectImage => 'Testing detectImage API...';
+
+	/// en: 'Testing detectText API...'
+	String get testingDetectText => 'Testing detectText API...';
+
+	/// en: 'Selecting image from gallery...'
+	String get selectingImageFromGallery => 'Selecting image from gallery...';
+
+	/// en: 'No image selected'
+	String get noImageSelected => 'No image selected';
+
+	/// en: 'Compressing image...'
+	String get compressingImage => 'Compressing image...';
+
+	/// en: 'Uploading image to bucket and detecting meal...'
+	String get uploadingImageAndDetecting => 'Uploading image to bucket and detecting meal...';
+
+	/// en: 'Testing meal logging flow with variations...'
+	String get testingMealLoggingFlow => 'Testing meal logging flow with variations...';
+
+	/// en: 'No meal identified in response'
+	String get noMealIdentifiedInResponse => 'No meal identified in response';
+
+	/// en: 'Meal Identified'
+	String get mealIdentified => 'Meal Identified';
+
+	/// en: 'Confidence'
+	String get confidence => 'Confidence';
+
+	/// en: 'Tip'
+	String get tip => 'Tip';
+
+	/// en: 'Meal Name'
+	String get mealName => 'Meal Name';
+
+	/// en: 'Calories'
+	String get calories => 'Calories';
+
+	/// en: 'Protein'
+	String get protein => 'Protein';
+
+	/// en: 'Carbs'
+	String get carbs => 'Carbs';
+
+	/// en: 'Fat'
+	String get fat => 'Fat';
+
+	/// en: 'No meal info'
+	String get noMealInfo => 'No meal info';
+
+	/// en: 'N/A'
+	String get na => 'N/A';
+
+	/// en: 'Analyze Image Result'
+	String get analyzeImageResult => 'Analyze Image Result';
+
+	/// en: 'Detect Image Result'
+	String get detectImageResult => 'Detect Image Result';
+
+	/// en: 'Detect Image from Gallery Result'
+	String get detectImageFromGalleryResult => 'Detect Image from Gallery Result';
+
+	/// en: 'Detect Text Result'
+	String get detectTextResult => 'Detect Text Result';
+
+	/// en: 'Error: {error}'
+	String errorGeneric({required Object error}) => 'Error: ${error}';
+
+	/// en: 'Variations'
+	String get variationsCount => 'Variations';
+
+	/// en: 'User preferences cleared'
+	String get userPreferencesCleared => 'User preferences cleared';
+
+	/// en: 'User profile cleared'
+	String get userProfileCleared => 'User profile cleared';
+
+	/// en: 'Check for update'
+	String get checkForUpdate => 'Check for update';
+
+	/// en: 'Show patch number'
+	String get showPatchNumber => 'Show patch number';
+
+	/// en: 'Show update available'
+	String get showUpdateAvailable => 'Show update available';
+
+	/// en: 'Update available'
+	String get updateAvailable => 'Update available';
+
+	/// en: 'Up to date'
+	String get upToDate => 'Up to date';
+
+	/// en: 'Shorebird is unavailable in this environment.'
+	String get shorebirdUnavailable => 'Shorebird is unavailable in this environment.';
+
+	/// en: 'Patch number'
+	String get patchNumberLabel => 'Patch number';
+
+	/// en: 'No patch installed'
+	String get noPatchInstalled => 'No patch installed';
+
+	/// en: 'Today's Steps'
+	String get todaysSteps => 'Today\'s Steps';
+
+	/// en: 'Steps'
+	String get stepsLabel => 'Steps';
+
+	/// en: 'Weight: {value} kg'
+	String weightLabel({required Object value}) => 'Weight: ${value} kg';
+
+	/// en: 'Height: {value} cm'
+	String heightLabel({required Object value}) => 'Height: ${value} cm';
+
+	/// en: 'Received Messages from Watch'
+	String get receivedMessagesFromWatch => 'Received Messages from Watch';
+
+	/// en: 'No messages received yet. Send test data from watch to see messages here.'
+	String get noMessagesReceivedYet => 'No messages received yet.\n\nSend test data from watch to see messages here.';
+
+	/// en: 'Messages cleared'
+	String get messagesCleared => 'Messages cleared';
 }
 
 // Path: health
@@ -1035,6 +1329,9 @@ class TranslationsHomeDailyGoalEn {
 	/// en: 'Your Goal'
 	String get yourGoal => 'Your Goal';
 
+	/// en: 'Goal'
+	String get goal => 'Goal';
+
 	/// en: 'Daily calories (kcal)'
 	String get dailyCalories => 'Daily calories (kcal)';
 
@@ -1085,6 +1382,12 @@ class TranslationsHomeDailySummaryEn {
 
 	/// en: 'Fiber'
 	String get fiber => 'Fiber';
+
+	/// en: 'grams'
+	String get grams => 'grams';
+
+	/// en: 'Macros chart'
+	String get chartAccessibilityLabel => 'Macros chart';
 }
 
 // Path: home.intakeProgress
@@ -1812,6 +2115,12 @@ class TranslationsDebugSectionsEn {
 	/// en: 'Health Connect'
 	String get healthConnect => 'Health Connect';
 
+	/// en: 'Wear OS'
+	String get wearOs => 'Wear OS';
+
+	/// en: 'Food API Tests'
+	String get foodApiTests => 'Food API Tests';
+
 	/// en: 'Feedback'
 	String get feedback => 'Feedback';
 
@@ -1820,6 +2129,9 @@ class TranslationsDebugSectionsEn {
 
 	/// en: 'App Info'
 	String get appInfo => 'App Info';
+
+	/// en: 'Shorebird'
+	String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2635,6 +2947,7 @@ extension on Translations {
 			'home.dailyGoal.description' => 'Ready to embark on your wellness journey? Set your daily calorie target below to kickstart your progress.',
 			'home.dailyGoal.descriptionSet' => 'Your compass is set! This is your daily calorie target to guide you.',
 			'home.dailyGoal.yourGoal' => 'Your Goal',
+			'home.dailyGoal.goal' => 'Goal',
 			'home.dailyGoal.dailyCalories' => 'Daily calories (kcal)',
 			'home.dailyGoal.setGoal' => 'Set Goal',
 			'home.dailyGoal.intake' => 'Intake',
@@ -2649,6 +2962,8 @@ extension on Translations {
 			'home.dailySummary.protein' => 'Protein',
 			'home.dailySummary.fat' => 'Fat',
 			'home.dailySummary.fiber' => 'Fiber',
+			'home.dailySummary.grams' => 'grams',
+			'home.dailySummary.chartAccessibilityLabel' => 'Macros chart',
 			'home.intakeProgress.title' => 'Today\'s Macro Split',
 			'home.intakeProgress.target' => 'Target',
 			'home.intakeProgress.current' => 'Current',
@@ -2949,11 +3264,15 @@ extension on Translations {
 			'errors.loadingProfileData' => 'Error loading profile data',
 			'errors.somethingWentWrong' => 'Something went wrong.',
 			'debug.title' => 'Debug Options',
+			'debug.searchHint' => 'Search options...',
 			'debug.sections.notifications' => 'Notifications',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'Food API Tests',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Data reset',
 			'debug.sections.appInfo' => 'App Info',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'Show Active Notifications',
 			'debug.scheduleTestNotification' => 'Schedule Test Notification (10s)',
 			'debug.triggerBreakfastNotification' => 'Trigger Breakfast Notification',
@@ -3000,6 +3319,105 @@ extension on Translations {
 			'debug.clearUserProfileConfirmationMessage' => 'Your profile data (daily goal, height, weight, etc.) will be cleared. Meals and preferences are not affected.',
 			'debug.clear' => 'Clear',
 			'debug.cancel' => 'Cancel',
+			'debug.checkWatchConnection' => 'Check Watch Connection',
+			'debug.sendTestMessage' => 'Send Test Message',
+			'debug.sendTestMessageSubtitle' => 'Send a simple test message to watch',
+			'debug.sendTestMealData' => 'Send Test Meal Data',
+			'debug.sendTestMealDataSubtitle' => 'Send sample meal data to watch',
+			'debug.sendTestCalorieGoal' => 'Send Test Calorie Goal',
+			'debug.sendTestCalorieGoalSubtitle' => 'Send sample calorie goal to watch',
+			'debug.viewReceivedMessages' => 'View Received Messages',
+			'debug.viewReceivedMessagesSubtitle' => 'View messages received from watch',
+			'debug.watchConnected' => 'Watch is connected ✓',
+			'debug.device' => 'Device',
+			'debug.nearby' => 'Nearby',
+			'debug.yes' => 'Yes',
+			'debug.no' => 'No',
+			'debug.connectedDevices' => 'Connected devices',
+			'debug.deviceInfoUnavailable' => '(Device info unavailable)',
+			'debug.unknownDevice' => 'Unknown Device',
+			'debug.watchNotConnected' => 'Watch is not connected ✗',
+			'debug.watchNotConnectedHint' => 'Make sure:\n• Both devices are paired\n• Watch app is running\n• Both apps are in debug/staging mode',
+			'debug.watchConnection' => 'Watch Connection',
+			'debug.errorCheckingConnection' => ({required Object error}) => 'Error checking connection: ${error}',
+			'debug.helloFromPhone' => 'Hello from phone!',
+			'debug.testMessageSentSuccess' => 'Test message sent successfully!',
+			'debug.testMessageFailed' => 'Failed to send test message. Check watch connection.',
+			'debug.errorSendingMessage' => ({required Object error}) => 'Error sending message: ${error}',
+			'debug.testMeal' => 'Test Meal',
+			'debug.testMealDataSentSuccess' => 'Test meal data sent successfully!',
+			'debug.failedToSendMealData' => 'Failed to send meal data. Check watch connection.',
+			'debug.errorSendingMealData' => ({required Object error}) => 'Error sending meal data: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'Test calorie goal sent successfully!',
+			'debug.failedToSendCalorieGoal' => 'Failed to send calorie goal. Check watch connection.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Error sending calorie goal: ${error}',
+			'debug.testAnalyzeImage' => 'Test Analyze Image',
+			'debug.testAnalyzeImageSubtitle' => 'Upload hardcoded test image',
+			'debug.testDetectImage' => 'Test Detect Image',
+			'debug.testDetectImageSubtitle' => 'Detect meal from image URL',
+			'debug.detectImageFromGallery' => 'Detect Image from Gallery',
+			'debug.detectImageFromGallerySubtitle' => 'Select image, upload to bucket & estimate calories',
+			'debug.testDetectText' => 'Test Detect Text',
+			'debug.testDetectTextSubtitle' => 'Detect meal from text description',
+			'debug.testMealLoggingWithVariations' => 'Test Meal Logging with Variations',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'Test the full meal logging flow with variations',
+			'debug.mockMealWithVariations' => 'Mock meal with variations',
+			'debug.mockMealWithVariationsSubtitle' => 'Preview variation + tip sheet UI without logging',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'Grilled chicken with rice and vegetables',
+			'debug.mockTip' => 'This is a mock tip for UI preview. The meal is not logged.',
+			'debug.mockMealDescription' => 'Mock meal for debug',
+			'debug.portionSizeQuestion' => 'How was the portion size?',
+			'debug.extraSidesQuestion' => 'Any extra sides?',
+			'debug.optionSmall' => 'Small',
+			'debug.optionMedium' => 'Medium',
+			'debug.optionLarge' => 'Large',
+			'debug.optionNone' => 'None',
+			'debug.optionSideSalad' => 'Side salad',
+			'debug.optionBreadRoll' => 'Bread roll',
+			'debug.testingAnalyzeImage' => 'Testing analyzeImage API...',
+			'debug.testingDetectImage' => 'Testing detectImage API...',
+			'debug.testingDetectText' => 'Testing detectText API...',
+			'debug.selectingImageFromGallery' => 'Selecting image from gallery...',
+			'debug.noImageSelected' => 'No image selected',
+			'debug.compressingImage' => 'Compressing image...',
+			'debug.uploadingImageAndDetecting' => 'Uploading image to bucket and detecting meal...',
+			'debug.testingMealLoggingFlow' => 'Testing meal logging flow with variations...',
+			'debug.noMealIdentifiedInResponse' => 'No meal identified in response',
+			'debug.mealIdentified' => 'Meal Identified',
+			'debug.confidence' => 'Confidence',
+			'debug.tip' => 'Tip',
+			'debug.mealName' => 'Meal Name',
+			'debug.calories' => 'Calories',
+			'debug.protein' => 'Protein',
+			'debug.carbs' => 'Carbs',
+			'debug.fat' => 'Fat',
+			'debug.noMealInfo' => 'No meal info',
+			'debug.na' => 'N/A',
+			'debug.analyzeImageResult' => 'Analyze Image Result',
+			'debug.detectImageResult' => 'Detect Image Result',
+			'debug.detectImageFromGalleryResult' => 'Detect Image from Gallery Result',
+			'debug.detectTextResult' => 'Detect Text Result',
+			'debug.errorGeneric' => ({required Object error}) => 'Error: ${error}',
+			'debug.variationsCount' => 'Variations',
+			'debug.userPreferencesCleared' => 'User preferences cleared',
+			'debug.userProfileCleared' => 'User profile cleared',
+			'debug.checkForUpdate' => 'Check for update',
+			'debug.showPatchNumber' => 'Show patch number',
+			'debug.showUpdateAvailable' => 'Show update available',
+			'debug.updateAvailable' => 'Update available',
+			'debug.upToDate' => 'Up to date',
+			'debug.shorebirdUnavailable' => 'Shorebird is unavailable in this environment.',
+			'debug.patchNumberLabel' => 'Patch number',
+			'debug.noPatchInstalled' => 'No patch installed',
+			'debug.todaysSteps' => 'Today\'s Steps',
+			'debug.stepsLabel' => 'Steps',
+			'debug.weightLabel' => ({required Object value}) => 'Weight: ${value} kg',
+			'debug.heightLabel' => ({required Object value}) => 'Height: ${value} cm',
+			'debug.receivedMessagesFromWatch' => 'Received Messages from Watch',
+			'debug.noMessagesReceivedYet' => 'No messages received yet.\n\nSend test data from watch to see messages here.',
+			'debug.messagesCleared' => 'Messages cleared',
 			'health.syncFailed' => 'Could not sync to Health Connect',
 			'health.mealSynced' => 'Meal synced with Health Connect',
 			_ => null,

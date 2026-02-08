@@ -388,6 +388,7 @@ class _TranslationsDebugKo implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => '디버그 옵션';
+	@override String get searchHint => '검색 옵션...';
 	@override late final _TranslationsDebugSectionsKo sections = _TranslationsDebugSectionsKo._(_root);
 	@override String get showActiveNotifications => '활성 알림 표시';
 	@override String get scheduleTestNotification => '테스트 알림 예약하기 (10초)';
@@ -435,6 +436,103 @@ class _TranslationsDebugKo implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => '프로필 데이터(일일 목표, 키, 체중 등)가 초기화됩니다. 식사 기록 및 설정은 영향을 받지 않습니다.';
 	@override String get clear => '초기화';
 	@override String get cancel => '취소';
+	@override String get checkWatchConnection => '시계 연결 확인';
+	@override String get sendTestMessage => '테스트 메시지 전송';
+	@override String get sendTestMessageSubtitle => '시계에 간단한 테스트 메시지를 보냅니다.';
+	@override String get sendTestMealData => '테스트 식사 데이터 전송';
+	@override String get sendTestMealDataSubtitle => '시계에 식사 샘플 데이터를 보냅니다.';
+	@override String get sendTestCalorieGoal => '테스트 칼로리 목표 전송';
+	@override String get sendTestCalorieGoalSubtitle => '시계에 칼로리 목표 샘플을 보냅니다.';
+	@override String get viewReceivedMessages => '받은 메시지 보기';
+	@override String get viewReceivedMessagesSubtitle => '시계로부터 수신한 메시지를 봅니다.';
+	@override String get watchConnected => '시계가 연결됨 ✓';
+	@override String get device => '기기';
+	@override String get nearby => '주변';
+	@override String get yes => '예';
+	@override String get no => '아니오';
+	@override String get connectedDevices => '연결된 기기';
+	@override String get deviceInfoUnavailable => '(기기 정보 사용 불가)';
+	@override String get unknownDevice => '알 수 없는 기기';
+	@override String get watchNotConnected => '시계가 연결되지 않음 ✗';
+	@override String get watchNotConnectedHint => '다음을 확인하세요:\n• 두 기기가 페어링되어 있는지\n• 시계 앱이 실행 중인지\n• 두 앱 모두 디버그/스테이징 모드인지';
+	@override String get watchConnection => '시계 연결';
+	@override String errorCheckingConnection({required Object error}) => '연결 확인 중 오류: ${error}';
+	@override String get helloFromPhone => '휴대폰에서 보낸 인사!';
+	@override String get testMessageSentSuccess => '테스트 메시지를 성공적으로 보냈습니다!';
+	@override String get testMessageFailed => '테스트 메시지 전송에 실패했습니다. 시계 연결을 확인하세요.';
+	@override String errorSendingMessage({required Object error}) => '메시지 전송 중 오류: ${error}';
+	@override String get testMeal => '테스트 식사';
+	@override String get testMealDataSentSuccess => '테스트 식사 데이터를 성공적으로 보냈습니다!';
+	@override String get failedToSendMealData => '식사 데이터 전송에 실패했습니다. 시계 연결을 확인하세요.';
+	@override String errorSendingMealData({required Object error}) => '식사 데이터 전송 중 오류: ${error}';
+	@override String get testCalorieGoalSentSuccess => '테스트 칼로리 목표를 성공적으로 보냈습니다!';
+	@override String get failedToSendCalorieGoal => '칼로리 목표 전송에 실패했습니다. 시계 연결을 확인하세요.';
+	@override String errorSendingCalorieGoal({required Object error}) => '칼로리 목표 전송 중 오류: ${error}';
+	@override String get testAnalyzeImage => '이미지 분석 테스트';
+	@override String get testAnalyzeImageSubtitle => '미리 지정된 테스트 이미지를 업로드합니다.';
+	@override String get testDetectImage => '이미지 감지 테스트';
+	@override String get testDetectImageSubtitle => '이미지 URL로부터 식사를 감지합니다.';
+	@override String get detectImageFromGallery => '갤러리에서 이미지 감지';
+	@override String get detectImageFromGallerySubtitle => '이미지를 선택하여 버킷에 업로드하고 칼로리를 추정합니다.';
+	@override String get testDetectText => '텍스트 감지 테스트';
+	@override String get testDetectTextSubtitle => '텍스트 설명에서 식사를 감지합니다.';
+	@override String get testMealLoggingWithVariations => '변형이 있는 식사 기록 테스트';
+	@override String get testMealLoggingWithVariationsSubtitle => '변형을 포함한 전체 식사 기록 흐름을 테스트합니다.';
+	@override String get mockMealWithVariations => '변형이 있는 모의 식사';
+	@override String get mockMealWithVariationsSubtitle => '기록 없이 변형 및 팁 시트 UI를 미리봅니다.';
+	@override String get mockMealName => '구운 닭고기와 밥, 야채';
+	@override String get mockTip => 'UI 미리보기를 위한 모의 팁입니다. 식사는 기록되지 않습니다.';
+	@override String get mockMealDescription => '디버그용 모의 식사';
+	@override String get portionSizeQuestion => '1인분 크기는 어땠나요?';
+	@override String get extraSidesQuestion => '추가 반찬이 있었나요?';
+	@override String get optionSmall => '작음';
+	@override String get optionMedium => '보통';
+	@override String get optionLarge => '큼';
+	@override String get optionNone => '없음';
+	@override String get optionSideSalad => '사이드 샐러드';
+	@override String get optionBreadRoll => '빵 롤';
+	@override String get testingAnalyzeImage => 'analyzeImage API 테스트 중...';
+	@override String get testingDetectImage => 'detectImage API 테스트 중...';
+	@override String get testingDetectText => 'detectText API 테스트 중...';
+	@override String get selectingImageFromGallery => '갤러리에서 이미지 선택 중...';
+	@override String get noImageSelected => '선택된 이미지 없음';
+	@override String get compressingImage => '이미지 압축 중...';
+	@override String get uploadingImageAndDetecting => '이미지를 버킷에 업로드하고 식사를 감지하는 중...';
+	@override String get testingMealLoggingFlow => '변형이 있는 식사 기록 흐름 테스트 중...';
+	@override String get noMealIdentifiedInResponse => '응답에서 식사를 식별하지 못했습니다';
+	@override String get mealIdentified => '식사 식별됨';
+	@override String get confidence => '신뢰도';
+	@override String get tip => '팁';
+	@override String get mealName => '식사 이름';
+	@override String get calories => '칼로리';
+	@override String get protein => '단백질';
+	@override String get carbs => '탄수화물';
+	@override String get fat => '지방';
+	@override String get noMealInfo => '식사 정보 없음';
+	@override String get na => '해당 없음';
+	@override String get analyzeImageResult => '이미지 분석 결과';
+	@override String get detectImageResult => '이미지 감지 결과';
+	@override String get detectImageFromGalleryResult => '갤러리 이미지 감지 결과';
+	@override String get detectTextResult => '텍스트 감지 결과';
+	@override String errorGeneric({required Object error}) => '오류: ${error}';
+	@override String get variationsCount => '변형';
+	@override String get userPreferencesCleared => '사용자 환경설정이 초기화되었습니다';
+	@override String get userProfileCleared => '사용자 프로필이 초기화되었습니다';
+	@override String get checkForUpdate => '업데이트 확인';
+	@override String get showPatchNumber => '패치 번호 표시';
+	@override String get showUpdateAvailable => '업데이트 가능 표시';
+	@override String get updateAvailable => '업데이트 가능';
+	@override String get upToDate => '최신 상태';
+	@override String get shorebirdUnavailable => '이 환경에서는 Shorebird를 사용할 수 없습니다.';
+	@override String get patchNumberLabel => '패치 번호';
+	@override String get noPatchInstalled => '설치된 패치 없음';
+	@override String get todaysSteps => '오늘의 걸음 수';
+	@override String get stepsLabel => '걸음';
+	@override String weightLabel({required Object value}) => '체중: ${value} kg';
+	@override String heightLabel({required Object value}) => '키: ${value} cm';
+	@override String get receivedMessagesFromWatch => '시계로부터 받은 메시지';
+	@override String get noMessagesReceivedYet => '아직 메시지를 받지 못했습니다.\n\n시계에서 테스트 데이터를 보내면 여기에 메시지가 표시됩니다.';
+	@override String get messagesCleared => '메시지가 삭제되었습니다';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalKo implements TranslationsHomeDailyGoalEn {
 	@override String get description => '웰빙 여정을 시작할 준비가 되셨나요? 아래에 일일 칼로리 목표를 설정하여 진행을 시작하세요.';
 	@override String get descriptionSet => '당신의 나침반이 설정되었습니다! 이것은 당신을 안내할 일일 칼로리 목표입니다.';
 	@override String get yourGoal => '당신의 목표';
+	@override String get goal => '목표';
 	@override String get dailyCalories => '일일 칼로리 (kcal)';
 	@override String get setGoal => '목표 설정하기';
 	@override String get intake => '섭취량';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryKo implements TranslationsHomeDailySummaryEn 
 	@override String get protein => '단백질';
 	@override String get fat => '지방';
 	@override String get fiber => '섬유질';
+	@override String get grams => '그램';
+	@override String get chartAccessibilityLabel => '영양소 차트';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsKo implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => '알림';
 	@override String get healthConnect => 'Health Connect';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => 'Food API 테스트';
 	@override String get feedback => '피드백';
 	@override String get dataReset => '데이터 초기화';
 	@override String get appInfo => '앱 정보';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsKo {
 			'home.dailyGoal.description' => '웰빙 여정을 시작할 준비가 되셨나요? 아래에 일일 칼로리 목표를 설정하여 진행을 시작하세요.',
 			'home.dailyGoal.descriptionSet' => '당신의 나침반이 설정되었습니다! 이것은 당신을 안내할 일일 칼로리 목표입니다.',
 			'home.dailyGoal.yourGoal' => '당신의 목표',
+			'home.dailyGoal.goal' => '목표',
 			'home.dailyGoal.dailyCalories' => '일일 칼로리 (kcal)',
 			'home.dailyGoal.setGoal' => '목표 설정하기',
 			'home.dailyGoal.intake' => '섭취량',
@@ -1700,6 +1805,8 @@ extension on TranslationsKo {
 			'home.dailySummary.protein' => '단백질',
 			'home.dailySummary.fat' => '지방',
 			'home.dailySummary.fiber' => '섬유질',
+			'home.dailySummary.grams' => '그램',
+			'home.dailySummary.chartAccessibilityLabel' => '영양소 차트',
 			'home.intakeProgress.title' => '오늘의 매크로 분포',
 			'home.intakeProgress.target' => '목표',
 			'home.intakeProgress.current' => '현재',
@@ -2000,11 +2107,15 @@ extension on TranslationsKo {
 			'errors.loadingProfileData' => '프로필 데이터 로드 중 오류 발생',
 			'errors.somethingWentWrong' => '문제가 발생했습니다.',
 			'debug.title' => '디버그 옵션',
+			'debug.searchHint' => '검색 옵션...',
 			'debug.sections.notifications' => '알림',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'Food API 테스트',
 			'debug.sections.feedback' => '피드백',
 			'debug.sections.dataReset' => '데이터 초기화',
 			'debug.sections.appInfo' => '앱 정보',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => '활성 알림 표시',
 			'debug.scheduleTestNotification' => '테스트 알림 예약하기 (10초)',
 			'debug.triggerBreakfastNotification' => '아침 식사 알림 트리거',
@@ -2051,6 +2162,105 @@ extension on TranslationsKo {
 			'debug.clearUserProfileConfirmationMessage' => '프로필 데이터(일일 목표, 키, 체중 등)가 초기화됩니다. 식사 기록 및 설정은 영향을 받지 않습니다.',
 			'debug.clear' => '초기화',
 			'debug.cancel' => '취소',
+			'debug.checkWatchConnection' => '시계 연결 확인',
+			'debug.sendTestMessage' => '테스트 메시지 전송',
+			'debug.sendTestMessageSubtitle' => '시계에 간단한 테스트 메시지를 보냅니다.',
+			'debug.sendTestMealData' => '테스트 식사 데이터 전송',
+			'debug.sendTestMealDataSubtitle' => '시계에 식사 샘플 데이터를 보냅니다.',
+			'debug.sendTestCalorieGoal' => '테스트 칼로리 목표 전송',
+			'debug.sendTestCalorieGoalSubtitle' => '시계에 칼로리 목표 샘플을 보냅니다.',
+			'debug.viewReceivedMessages' => '받은 메시지 보기',
+			'debug.viewReceivedMessagesSubtitle' => '시계로부터 수신한 메시지를 봅니다.',
+			'debug.watchConnected' => '시계가 연결됨 ✓',
+			'debug.device' => '기기',
+			'debug.nearby' => '주변',
+			'debug.yes' => '예',
+			'debug.no' => '아니오',
+			'debug.connectedDevices' => '연결된 기기',
+			'debug.deviceInfoUnavailable' => '(기기 정보 사용 불가)',
+			'debug.unknownDevice' => '알 수 없는 기기',
+			'debug.watchNotConnected' => '시계가 연결되지 않음 ✗',
+			'debug.watchNotConnectedHint' => '다음을 확인하세요:\n• 두 기기가 페어링되어 있는지\n• 시계 앱이 실행 중인지\n• 두 앱 모두 디버그/스테이징 모드인지',
+			'debug.watchConnection' => '시계 연결',
+			'debug.errorCheckingConnection' => ({required Object error}) => '연결 확인 중 오류: ${error}',
+			'debug.helloFromPhone' => '휴대폰에서 보낸 인사!',
+			'debug.testMessageSentSuccess' => '테스트 메시지를 성공적으로 보냈습니다!',
+			'debug.testMessageFailed' => '테스트 메시지 전송에 실패했습니다. 시계 연결을 확인하세요.',
+			'debug.errorSendingMessage' => ({required Object error}) => '메시지 전송 중 오류: ${error}',
+			'debug.testMeal' => '테스트 식사',
+			'debug.testMealDataSentSuccess' => '테스트 식사 데이터를 성공적으로 보냈습니다!',
+			'debug.failedToSendMealData' => '식사 데이터 전송에 실패했습니다. 시계 연결을 확인하세요.',
+			'debug.errorSendingMealData' => ({required Object error}) => '식사 데이터 전송 중 오류: ${error}',
+			'debug.testCalorieGoalSentSuccess' => '테스트 칼로리 목표를 성공적으로 보냈습니다!',
+			'debug.failedToSendCalorieGoal' => '칼로리 목표 전송에 실패했습니다. 시계 연결을 확인하세요.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => '칼로리 목표 전송 중 오류: ${error}',
+			'debug.testAnalyzeImage' => '이미지 분석 테스트',
+			'debug.testAnalyzeImageSubtitle' => '미리 지정된 테스트 이미지를 업로드합니다.',
+			'debug.testDetectImage' => '이미지 감지 테스트',
+			'debug.testDetectImageSubtitle' => '이미지 URL로부터 식사를 감지합니다.',
+			'debug.detectImageFromGallery' => '갤러리에서 이미지 감지',
+			'debug.detectImageFromGallerySubtitle' => '이미지를 선택하여 버킷에 업로드하고 칼로리를 추정합니다.',
+			'debug.testDetectText' => '텍스트 감지 테스트',
+			'debug.testDetectTextSubtitle' => '텍스트 설명에서 식사를 감지합니다.',
+			'debug.testMealLoggingWithVariations' => '변형이 있는 식사 기록 테스트',
+			'debug.testMealLoggingWithVariationsSubtitle' => '변형을 포함한 전체 식사 기록 흐름을 테스트합니다.',
+			'debug.mockMealWithVariations' => '변형이 있는 모의 식사',
+			'debug.mockMealWithVariationsSubtitle' => '기록 없이 변형 및 팁 시트 UI를 미리봅니다.',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => '구운 닭고기와 밥, 야채',
+			'debug.mockTip' => 'UI 미리보기를 위한 모의 팁입니다. 식사는 기록되지 않습니다.',
+			'debug.mockMealDescription' => '디버그용 모의 식사',
+			'debug.portionSizeQuestion' => '1인분 크기는 어땠나요?',
+			'debug.extraSidesQuestion' => '추가 반찬이 있었나요?',
+			'debug.optionSmall' => '작음',
+			'debug.optionMedium' => '보통',
+			'debug.optionLarge' => '큼',
+			'debug.optionNone' => '없음',
+			'debug.optionSideSalad' => '사이드 샐러드',
+			'debug.optionBreadRoll' => '빵 롤',
+			'debug.testingAnalyzeImage' => 'analyzeImage API 테스트 중...',
+			'debug.testingDetectImage' => 'detectImage API 테스트 중...',
+			'debug.testingDetectText' => 'detectText API 테스트 중...',
+			'debug.selectingImageFromGallery' => '갤러리에서 이미지 선택 중...',
+			'debug.noImageSelected' => '선택된 이미지 없음',
+			'debug.compressingImage' => '이미지 압축 중...',
+			'debug.uploadingImageAndDetecting' => '이미지를 버킷에 업로드하고 식사를 감지하는 중...',
+			'debug.testingMealLoggingFlow' => '변형이 있는 식사 기록 흐름 테스트 중...',
+			'debug.noMealIdentifiedInResponse' => '응답에서 식사를 식별하지 못했습니다',
+			'debug.mealIdentified' => '식사 식별됨',
+			'debug.confidence' => '신뢰도',
+			'debug.tip' => '팁',
+			'debug.mealName' => '식사 이름',
+			'debug.calories' => '칼로리',
+			'debug.protein' => '단백질',
+			'debug.carbs' => '탄수화물',
+			'debug.fat' => '지방',
+			'debug.noMealInfo' => '식사 정보 없음',
+			'debug.na' => '해당 없음',
+			'debug.analyzeImageResult' => '이미지 분석 결과',
+			'debug.detectImageResult' => '이미지 감지 결과',
+			'debug.detectImageFromGalleryResult' => '갤러리 이미지 감지 결과',
+			'debug.detectTextResult' => '텍스트 감지 결과',
+			'debug.errorGeneric' => ({required Object error}) => '오류: ${error}',
+			'debug.variationsCount' => '변형',
+			'debug.userPreferencesCleared' => '사용자 환경설정이 초기화되었습니다',
+			'debug.userProfileCleared' => '사용자 프로필이 초기화되었습니다',
+			'debug.checkForUpdate' => '업데이트 확인',
+			'debug.showPatchNumber' => '패치 번호 표시',
+			'debug.showUpdateAvailable' => '업데이트 가능 표시',
+			'debug.updateAvailable' => '업데이트 가능',
+			'debug.upToDate' => '최신 상태',
+			'debug.shorebirdUnavailable' => '이 환경에서는 Shorebird를 사용할 수 없습니다.',
+			'debug.patchNumberLabel' => '패치 번호',
+			'debug.noPatchInstalled' => '설치된 패치 없음',
+			'debug.todaysSteps' => '오늘의 걸음 수',
+			'debug.stepsLabel' => '걸음',
+			'debug.weightLabel' => ({required Object value}) => '체중: ${value} kg',
+			'debug.heightLabel' => ({required Object value}) => '키: ${value} cm',
+			'debug.receivedMessagesFromWatch' => '시계로부터 받은 메시지',
+			'debug.noMessagesReceivedYet' => '아직 메시지를 받지 못했습니다.\n\n시계에서 테스트 데이터를 보내면 여기에 메시지가 표시됩니다.',
+			'debug.messagesCleared' => '메시지가 삭제되었습니다',
 			'health.syncFailed' => 'Health Connect와 동기화할 수 없습니다.',
 			'health.mealSynced' => '식사가 Health Connect와 동기화되었습니다.',
 			_ => null,

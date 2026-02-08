@@ -388,6 +388,7 @@ class _TranslationsDebugTh implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'ตัวเลือกการดีบัก';
+	@override String get searchHint => 'ตัวเลือกการค้นหา...';
 	@override late final _TranslationsDebugSectionsTh sections = _TranslationsDebugSectionsTh._(_root);
 	@override String get showActiveNotifications => 'แสดงการแจ้งเตือนที่ใช้งานอยู่';
 	@override String get scheduleTestNotification => 'กำหนดการแจ้งเตือนทดสอบ (10 วินาที)';
@@ -435,6 +436,103 @@ class _TranslationsDebugTh implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => 'ข้อมูลโปรไฟล์ของคุณ (เป้าหมายรายวัน ส่วนสูง น้ำหนัก ฯลฯ) จะถูกล้าง มื้ออาหารและการตั้งค่าจะไม่ถูกกระทบ';
 	@override String get clear => 'ล้าง';
 	@override String get cancel => 'ยกเลิก';
+	@override String get checkWatchConnection => 'ตรวจสอบการเชื่อมต่อกับนาฬิกา';
+	@override String get sendTestMessage => 'ส่งข้อความทดสอบ';
+	@override String get sendTestMessageSubtitle => 'ส่งข้อความทดสอบง่ายๆ ไปยังนาฬิกา';
+	@override String get sendTestMealData => 'ส่งข้อมูลมื้ออาหารทดสอบ';
+	@override String get sendTestMealDataSubtitle => 'ส่งข้อมูลมื้ออาหารตัวอย่างไปยังนาฬิกา';
+	@override String get sendTestCalorieGoal => 'ส่งเป้าหมายแคลอรีทดสอบ';
+	@override String get sendTestCalorieGoalSubtitle => 'ส่งเป้าหมายแคลอรีตัวอย่างไปยังนาฬิกา';
+	@override String get viewReceivedMessages => 'ดูข้อความที่ได้รับ';
+	@override String get viewReceivedMessagesSubtitle => 'ดูข้อความที่ได้รับจากนาฬิกา';
+	@override String get watchConnected => 'นาฬิกาเชื่อมต่อแล้ว ✓';
+	@override String get device => 'อุปกรณ์';
+	@override String get nearby => 'ใกล้เคียง';
+	@override String get yes => 'ใช่';
+	@override String get no => 'ไม่';
+	@override String get connectedDevices => 'อุปกรณ์ที่เชื่อมต่อ';
+	@override String get deviceInfoUnavailable => '(ข้อมูลอุปกรณ์ไม่พร้อมใช้งาน)';
+	@override String get unknownDevice => 'อุปกรณ์ไม่ทราบ';
+	@override String get watchNotConnected => 'นาฬิกาไม่ได้เชื่อมต่อ ✗';
+	@override String get watchNotConnectedHint => 'ตรวจสอบให้แน่ใจ:\n• ทั้งสองอุปกรณ์จับคู่กัน\n• แอปบนนาฬิกากำลังทำงาน\n• ทั้งสองแอปอยู่ในโหมดดีบัก/สเตจ';
+	@override String get watchConnection => 'การเชื่อมต่อกับนาฬิกา';
+	@override String errorCheckingConnection({required Object error}) => 'เกิดข้อผิดพลาดขณะตรวจสอบการเชื่อมต่อ: ${error}';
+	@override String get helloFromPhone => 'สวัสดีจากโทรศัพท์!';
+	@override String get testMessageSentSuccess => 'ส่งข้อความทดสอบสำเร็จ!';
+	@override String get testMessageFailed => 'ส่งข้อความทดสอบล้มเหลว โปรดตรวจสอบการเชื่อมต่อกับนาฬิกา.';
+	@override String errorSendingMessage({required Object error}) => 'เกิดข้อผิดพลาดขณะส่งข้อความ: ${error}';
+	@override String get testMeal => 'มื้ออาหารทดสอบ';
+	@override String get testMealDataSentSuccess => 'ส่งข้อมูลมื้ออาหารทดสอบสำเร็จ!';
+	@override String get failedToSendMealData => 'ส่งข้อมูลมื้ออาหารล้มเหลว โปรดตรวจสอบการเชื่อมต่อกับนาฬิกา.';
+	@override String errorSendingMealData({required Object error}) => 'เกิดข้อผิดพลาดขณะส่งข้อมูลมื้ออาหาร: ${error}';
+	@override String get testCalorieGoalSentSuccess => 'ส่งเป้าหมายแคลอรีทดสอบสำเร็จ!';
+	@override String get failedToSendCalorieGoal => 'ส่งเป้าหมายแคลอรีล้มเหลว โปรดตรวจสอบการเชื่อมต่อกับนาฬิกา.';
+	@override String errorSendingCalorieGoal({required Object error}) => 'เกิดข้อผิดพลาดขณะส่งเป้าหมายแคลอรี: ${error}';
+	@override String get testAnalyzeImage => 'ทดสอบวิเคราะห์รูปภาพ';
+	@override String get testAnalyzeImageSubtitle => 'อัปโหลดรูปภาพทดสอบที่กำหนดไว้ล่วงหน้า';
+	@override String get testDetectImage => 'ทดสอบตรวจจับรูปภาพ';
+	@override String get testDetectImageSubtitle => 'ตรวจจับมื้ออาหารจาก URL รูปภาพ';
+	@override String get detectImageFromGallery => 'ตรวจจับรูปจากคลังภาพ';
+	@override String get detectImageFromGallerySubtitle => 'เลือกภาพ อัปโหลดไปยังบัคเก็ต และประเมินแคลอรี';
+	@override String get testDetectText => 'ทดสอบตรวจจับข้อความ';
+	@override String get testDetectTextSubtitle => 'ตรวจจับมื้ออาหารจากคำอธิบายข้อความ';
+	@override String get testMealLoggingWithVariations => 'ทดสอบการบันทึกมื้ออาหารพร้อมตัวเลือกต่าง ๆ';
+	@override String get testMealLoggingWithVariationsSubtitle => 'ทดสอบกระบวนการบันทึกมื้ออาหารแบบเต็มพร้อมตัวเลือกต่าง ๆ';
+	@override String get mockMealWithVariations => 'มื้อจำลองพร้อมตัวเลือกต่าง ๆ';
+	@override String get mockMealWithVariationsSubtitle => 'ดูตัวอย่าง UI ของตัวเลือกและคำแนะนำโดยไม่ต้องบันทึก';
+	@override String get mockMealName => 'ไก่ย่างกับข้าวและผัก';
+	@override String get mockTip => 'นี่เป็นคำแนะนำจำลองสำหรับตัวอย่าง UI มื้ออาหารยังไม่ได้บันทึก';
+	@override String get mockMealDescription => 'มื้ออาหารจำลองสำหรับการดีบัก';
+	@override String get portionSizeQuestion => 'ขนาดจานเป็นอย่างไร?';
+	@override String get extraSidesQuestion => 'มีเครื่องเคียงเพิ่มเติมหรือไม่?';
+	@override String get optionSmall => 'เล็ก';
+	@override String get optionMedium => 'ปานกลาง';
+	@override String get optionLarge => 'ใหญ่';
+	@override String get optionNone => 'ไม่มี';
+	@override String get optionSideSalad => 'สลัดเครื่องเคียง';
+	@override String get optionBreadRoll => 'ขนมปังโรล';
+	@override String get testingAnalyzeImage => 'กำลังทดสอบ API analyzeImage...';
+	@override String get testingDetectImage => 'กำลังทดสอบ API detectImage...';
+	@override String get testingDetectText => 'กำลังทดสอบ API detectText...';
+	@override String get selectingImageFromGallery => 'กำลังเลือกภาพจากคลัง...';
+	@override String get noImageSelected => 'ไม่ได้เลือกรูปภาพ';
+	@override String get compressingImage => 'กำลังบีบอัดรูปภาพ...';
+	@override String get uploadingImageAndDetecting => 'กำลังอัปโหลดรูปไปยังบัคเก็ตและตรวจจับมื้ออาหาร...';
+	@override String get testingMealLoggingFlow => 'กำลังทดสอบกระบวนการบันทึกมื้ออาหารพร้อมตัวเลือก...';
+	@override String get noMealIdentifiedInResponse => 'ไม่พบมื้ออาหารในคำตอบ';
+	@override String get mealIdentified => 'พบมื้ออาหาร';
+	@override String get confidence => 'ความมั่นใจ';
+	@override String get tip => 'คำแนะนำ';
+	@override String get mealName => 'ชื่อมื้อ';
+	@override String get calories => 'แคลอรี';
+	@override String get protein => 'โปรตีน';
+	@override String get carbs => 'คาร์บ';
+	@override String get fat => 'ไขมัน';
+	@override String get noMealInfo => 'ไม่มีข้อมูลมื้ออาหาร';
+	@override String get na => 'ไม่มีข้อมูล';
+	@override String get analyzeImageResult => 'ผลการวิเคราะห์รูปภาพ';
+	@override String get detectImageResult => 'ผลการตรวจจับรูปภาพ';
+	@override String get detectImageFromGalleryResult => 'ผลการตรวจจับรูปจากคลังภาพ';
+	@override String get detectTextResult => 'ผลการตรวจจับจากข้อความ';
+	@override String errorGeneric({required Object error}) => 'เกิดข้อผิดพลาด: ${error}';
+	@override String get variationsCount => 'จำนวนตัวเลือก';
+	@override String get userPreferencesCleared => 'ล้างการตั้งค่าผู้ใช้แล้ว';
+	@override String get userProfileCleared => 'ล้างโปรไฟล์ผู้ใช้แล้ว';
+	@override String get checkForUpdate => 'ตรวจสอบการอัปเดต';
+	@override String get showPatchNumber => 'แสดงหมายเลขแพตช์';
+	@override String get showUpdateAvailable => 'แสดงว่ามีการอัปเดต';
+	@override String get updateAvailable => 'มีการอัปเดต';
+	@override String get upToDate => 'เป็นเวอร์ชันล่าสุด';
+	@override String get shorebirdUnavailable => 'ไม่สามารถใช้ Shorebird ในสภาพแวดล้อมนี้ได้.';
+	@override String get patchNumberLabel => 'หมายเลขแพตช์';
+	@override String get noPatchInstalled => 'ยังไม่มีแพตช์ติดตั้ง';
+	@override String get todaysSteps => 'ก้าวเดินวันนี้';
+	@override String get stepsLabel => 'ก้าวเดิน';
+	@override String weightLabel({required Object value}) => 'น้ำหนัก: ${value} กก.';
+	@override String heightLabel({required Object value}) => 'ส่วนสูง: ${value} ซม.';
+	@override String get receivedMessagesFromWatch => 'ข้อความที่ได้รับจากนาฬิกา';
+	@override String get noMessagesReceivedYet => 'ยังไม่มีข้อความที่ได้รับ\n\nส่งข้อมูลทดสอบจากนาฬิกาเพื่อดูข้อความที่นี่.';
+	@override String get messagesCleared => 'ล้างข้อความแล้ว';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalTh implements TranslationsHomeDailyGoalEn {
 	@override String get description => 'พร้อมที่จะเริ่มต้นการเดินทางสู่สุขภาพของคุณ? ตั้งค่าเป้าหมายแคลอรีรายวันของคุณด้านล่างเพื่อเริ่มการพัฒนา';
 	@override String get descriptionSet => 'เข็มทิศของคุณถูกตั้งแล้ว! นี่คือเป้าหมายแคลอรีรายวันของคุณเพื่อเป็นแนวทาง';
 	@override String get yourGoal => 'เป้าหมายของคุณ';
+	@override String get goal => 'เป้าหมาย';
 	@override String get dailyCalories => 'แคลอรีรายวัน (kcal)';
 	@override String get setGoal => 'ตั้งเป้าหมาย';
 	@override String get intake => 'การบริโภค';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryTh implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'โปรตีน';
 	@override String get fat => 'ไขมัน';
 	@override String get fiber => 'เส้นใย';
+	@override String get grams => 'กรัม';
+	@override String get chartAccessibilityLabel => 'กราฟสารอาหารหลัก';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsTh implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'การแจ้งเตือน';
 	@override String get healthConnect => 'Health Connect';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => 'การทดสอบ Food API';
 	@override String get feedback => 'ข้อเสนอแนะ';
 	@override String get dataReset => 'รีเซ็ตข้อมูล';
 	@override String get appInfo => 'ข้อมูลแอป';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsTh {
 			'home.dailyGoal.description' => 'พร้อมที่จะเริ่มต้นการเดินทางสู่สุขภาพของคุณ? ตั้งค่าเป้าหมายแคลอรีรายวันของคุณด้านล่างเพื่อเริ่มการพัฒนา',
 			'home.dailyGoal.descriptionSet' => 'เข็มทิศของคุณถูกตั้งแล้ว! นี่คือเป้าหมายแคลอรีรายวันของคุณเพื่อเป็นแนวทาง',
 			'home.dailyGoal.yourGoal' => 'เป้าหมายของคุณ',
+			'home.dailyGoal.goal' => 'เป้าหมาย',
 			'home.dailyGoal.dailyCalories' => 'แคลอรีรายวัน (kcal)',
 			'home.dailyGoal.setGoal' => 'ตั้งเป้าหมาย',
 			'home.dailyGoal.intake' => 'การบริโภค',
@@ -1700,6 +1805,8 @@ extension on TranslationsTh {
 			'home.dailySummary.protein' => 'โปรตีน',
 			'home.dailySummary.fat' => 'ไขมัน',
 			'home.dailySummary.fiber' => 'เส้นใย',
+			'home.dailySummary.grams' => 'กรัม',
+			'home.dailySummary.chartAccessibilityLabel' => 'กราฟสารอาหารหลัก',
 			'home.intakeProgress.title' => 'การแบ่งส่วนแมกโครวันนี้',
 			'home.intakeProgress.target' => 'เป้าหมาย',
 			'home.intakeProgress.current' => 'ปัจจุบัน',
@@ -2000,11 +2107,15 @@ extension on TranslationsTh {
 			'errors.loadingProfileData' => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์',
 			'errors.somethingWentWrong' => 'มีบางอย่างผิดพลาด.',
 			'debug.title' => 'ตัวเลือกการดีบัก',
+			'debug.searchHint' => 'ตัวเลือกการค้นหา...',
 			'debug.sections.notifications' => 'การแจ้งเตือน',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'การทดสอบ Food API',
 			'debug.sections.feedback' => 'ข้อเสนอแนะ',
 			'debug.sections.dataReset' => 'รีเซ็ตข้อมูล',
 			'debug.sections.appInfo' => 'ข้อมูลแอป',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'แสดงการแจ้งเตือนที่ใช้งานอยู่',
 			'debug.scheduleTestNotification' => 'กำหนดการแจ้งเตือนทดสอบ (10 วินาที)',
 			'debug.triggerBreakfastNotification' => 'กระตุ้นการแจ้งเตือนอาหารเช้า',
@@ -2051,6 +2162,105 @@ extension on TranslationsTh {
 			'debug.clearUserProfileConfirmationMessage' => 'ข้อมูลโปรไฟล์ของคุณ (เป้าหมายรายวัน ส่วนสูง น้ำหนัก ฯลฯ) จะถูกล้าง มื้ออาหารและการตั้งค่าจะไม่ถูกกระทบ',
 			'debug.clear' => 'ล้าง',
 			'debug.cancel' => 'ยกเลิก',
+			'debug.checkWatchConnection' => 'ตรวจสอบการเชื่อมต่อกับนาฬิกา',
+			'debug.sendTestMessage' => 'ส่งข้อความทดสอบ',
+			'debug.sendTestMessageSubtitle' => 'ส่งข้อความทดสอบง่ายๆ ไปยังนาฬิกา',
+			'debug.sendTestMealData' => 'ส่งข้อมูลมื้ออาหารทดสอบ',
+			'debug.sendTestMealDataSubtitle' => 'ส่งข้อมูลมื้ออาหารตัวอย่างไปยังนาฬิกา',
+			'debug.sendTestCalorieGoal' => 'ส่งเป้าหมายแคลอรีทดสอบ',
+			'debug.sendTestCalorieGoalSubtitle' => 'ส่งเป้าหมายแคลอรีตัวอย่างไปยังนาฬิกา',
+			'debug.viewReceivedMessages' => 'ดูข้อความที่ได้รับ',
+			'debug.viewReceivedMessagesSubtitle' => 'ดูข้อความที่ได้รับจากนาฬิกา',
+			'debug.watchConnected' => 'นาฬิกาเชื่อมต่อแล้ว ✓',
+			'debug.device' => 'อุปกรณ์',
+			'debug.nearby' => 'ใกล้เคียง',
+			'debug.yes' => 'ใช่',
+			'debug.no' => 'ไม่',
+			'debug.connectedDevices' => 'อุปกรณ์ที่เชื่อมต่อ',
+			'debug.deviceInfoUnavailable' => '(ข้อมูลอุปกรณ์ไม่พร้อมใช้งาน)',
+			'debug.unknownDevice' => 'อุปกรณ์ไม่ทราบ',
+			'debug.watchNotConnected' => 'นาฬิกาไม่ได้เชื่อมต่อ ✗',
+			'debug.watchNotConnectedHint' => 'ตรวจสอบให้แน่ใจ:\n• ทั้งสองอุปกรณ์จับคู่กัน\n• แอปบนนาฬิกากำลังทำงาน\n• ทั้งสองแอปอยู่ในโหมดดีบัก/สเตจ',
+			'debug.watchConnection' => 'การเชื่อมต่อกับนาฬิกา',
+			'debug.errorCheckingConnection' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะตรวจสอบการเชื่อมต่อ: ${error}',
+			'debug.helloFromPhone' => 'สวัสดีจากโทรศัพท์!',
+			'debug.testMessageSentSuccess' => 'ส่งข้อความทดสอบสำเร็จ!',
+			'debug.testMessageFailed' => 'ส่งข้อความทดสอบล้มเหลว โปรดตรวจสอบการเชื่อมต่อกับนาฬิกา.',
+			'debug.errorSendingMessage' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะส่งข้อความ: ${error}',
+			'debug.testMeal' => 'มื้ออาหารทดสอบ',
+			'debug.testMealDataSentSuccess' => 'ส่งข้อมูลมื้ออาหารทดสอบสำเร็จ!',
+			'debug.failedToSendMealData' => 'ส่งข้อมูลมื้ออาหารล้มเหลว โปรดตรวจสอบการเชื่อมต่อกับนาฬิกา.',
+			'debug.errorSendingMealData' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะส่งข้อมูลมื้ออาหาร: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'ส่งเป้าหมายแคลอรีทดสอบสำเร็จ!',
+			'debug.failedToSendCalorieGoal' => 'ส่งเป้าหมายแคลอรีล้มเหลว โปรดตรวจสอบการเชื่อมต่อกับนาฬิกา.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะส่งเป้าหมายแคลอรี: ${error}',
+			'debug.testAnalyzeImage' => 'ทดสอบวิเคราะห์รูปภาพ',
+			'debug.testAnalyzeImageSubtitle' => 'อัปโหลดรูปภาพทดสอบที่กำหนดไว้ล่วงหน้า',
+			'debug.testDetectImage' => 'ทดสอบตรวจจับรูปภาพ',
+			'debug.testDetectImageSubtitle' => 'ตรวจจับมื้ออาหารจาก URL รูปภาพ',
+			'debug.detectImageFromGallery' => 'ตรวจจับรูปจากคลังภาพ',
+			'debug.detectImageFromGallerySubtitle' => 'เลือกภาพ อัปโหลดไปยังบัคเก็ต และประเมินแคลอรี',
+			'debug.testDetectText' => 'ทดสอบตรวจจับข้อความ',
+			'debug.testDetectTextSubtitle' => 'ตรวจจับมื้ออาหารจากคำอธิบายข้อความ',
+			'debug.testMealLoggingWithVariations' => 'ทดสอบการบันทึกมื้ออาหารพร้อมตัวเลือกต่าง ๆ',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'ทดสอบกระบวนการบันทึกมื้ออาหารแบบเต็มพร้อมตัวเลือกต่าง ๆ',
+			'debug.mockMealWithVariations' => 'มื้อจำลองพร้อมตัวเลือกต่าง ๆ',
+			'debug.mockMealWithVariationsSubtitle' => 'ดูตัวอย่าง UI ของตัวเลือกและคำแนะนำโดยไม่ต้องบันทึก',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'ไก่ย่างกับข้าวและผัก',
+			'debug.mockTip' => 'นี่เป็นคำแนะนำจำลองสำหรับตัวอย่าง UI มื้ออาหารยังไม่ได้บันทึก',
+			'debug.mockMealDescription' => 'มื้ออาหารจำลองสำหรับการดีบัก',
+			'debug.portionSizeQuestion' => 'ขนาดจานเป็นอย่างไร?',
+			'debug.extraSidesQuestion' => 'มีเครื่องเคียงเพิ่มเติมหรือไม่?',
+			'debug.optionSmall' => 'เล็ก',
+			'debug.optionMedium' => 'ปานกลาง',
+			'debug.optionLarge' => 'ใหญ่',
+			'debug.optionNone' => 'ไม่มี',
+			'debug.optionSideSalad' => 'สลัดเครื่องเคียง',
+			'debug.optionBreadRoll' => 'ขนมปังโรล',
+			'debug.testingAnalyzeImage' => 'กำลังทดสอบ API analyzeImage...',
+			'debug.testingDetectImage' => 'กำลังทดสอบ API detectImage...',
+			'debug.testingDetectText' => 'กำลังทดสอบ API detectText...',
+			'debug.selectingImageFromGallery' => 'กำลังเลือกภาพจากคลัง...',
+			'debug.noImageSelected' => 'ไม่ได้เลือกรูปภาพ',
+			'debug.compressingImage' => 'กำลังบีบอัดรูปภาพ...',
+			'debug.uploadingImageAndDetecting' => 'กำลังอัปโหลดรูปไปยังบัคเก็ตและตรวจจับมื้ออาหาร...',
+			'debug.testingMealLoggingFlow' => 'กำลังทดสอบกระบวนการบันทึกมื้ออาหารพร้อมตัวเลือก...',
+			'debug.noMealIdentifiedInResponse' => 'ไม่พบมื้ออาหารในคำตอบ',
+			'debug.mealIdentified' => 'พบมื้ออาหาร',
+			'debug.confidence' => 'ความมั่นใจ',
+			'debug.tip' => 'คำแนะนำ',
+			'debug.mealName' => 'ชื่อมื้อ',
+			'debug.calories' => 'แคลอรี',
+			'debug.protein' => 'โปรตีน',
+			'debug.carbs' => 'คาร์บ',
+			'debug.fat' => 'ไขมัน',
+			'debug.noMealInfo' => 'ไม่มีข้อมูลมื้ออาหาร',
+			'debug.na' => 'ไม่มีข้อมูล',
+			'debug.analyzeImageResult' => 'ผลการวิเคราะห์รูปภาพ',
+			'debug.detectImageResult' => 'ผลการตรวจจับรูปภาพ',
+			'debug.detectImageFromGalleryResult' => 'ผลการตรวจจับรูปจากคลังภาพ',
+			'debug.detectTextResult' => 'ผลการตรวจจับจากข้อความ',
+			'debug.errorGeneric' => ({required Object error}) => 'เกิดข้อผิดพลาด: ${error}',
+			'debug.variationsCount' => 'จำนวนตัวเลือก',
+			'debug.userPreferencesCleared' => 'ล้างการตั้งค่าผู้ใช้แล้ว',
+			'debug.userProfileCleared' => 'ล้างโปรไฟล์ผู้ใช้แล้ว',
+			'debug.checkForUpdate' => 'ตรวจสอบการอัปเดต',
+			'debug.showPatchNumber' => 'แสดงหมายเลขแพตช์',
+			'debug.showUpdateAvailable' => 'แสดงว่ามีการอัปเดต',
+			'debug.updateAvailable' => 'มีการอัปเดต',
+			'debug.upToDate' => 'เป็นเวอร์ชันล่าสุด',
+			'debug.shorebirdUnavailable' => 'ไม่สามารถใช้ Shorebird ในสภาพแวดล้อมนี้ได้.',
+			'debug.patchNumberLabel' => 'หมายเลขแพตช์',
+			'debug.noPatchInstalled' => 'ยังไม่มีแพตช์ติดตั้ง',
+			'debug.todaysSteps' => 'ก้าวเดินวันนี้',
+			'debug.stepsLabel' => 'ก้าวเดิน',
+			'debug.weightLabel' => ({required Object value}) => 'น้ำหนัก: ${value} กก.',
+			'debug.heightLabel' => ({required Object value}) => 'ส่วนสูง: ${value} ซม.',
+			'debug.receivedMessagesFromWatch' => 'ข้อความที่ได้รับจากนาฬิกา',
+			'debug.noMessagesReceivedYet' => 'ยังไม่มีข้อความที่ได้รับ\n\nส่งข้อมูลทดสอบจากนาฬิกาเพื่อดูข้อความที่นี่.',
+			'debug.messagesCleared' => 'ล้างข้อความแล้ว',
 			'health.syncFailed' => 'ไม่สามารถซิงค์ไปยัง Health Connect',
 			'health.mealSynced' => 'มื้ออาหารซิงค์แล้วกับ Health Connect',
 			_ => null,

@@ -93,6 +93,12 @@ services:
       - LOKI_URL=http://loki:3100
     volumes:
       - ./firebase-adminsdk.json:/app/firebase-service-account.json:ro
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/health', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     depends_on:
       db-prod:
         condition: service_healthy
@@ -138,6 +144,12 @@ services:
       - ./src:/app/src # Live reload for staging dev
       - ./firebase-adminsdk.json:/app/firebase-service-account.json:ro
     command: npm run dev
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/health', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     depends_on:
       db-staging:
         condition: service_healthy

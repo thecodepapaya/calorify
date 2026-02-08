@@ -388,6 +388,7 @@ class _TranslationsDebugZhTw implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => '調試選項';
+	@override String get searchHint => '搜尋選項...';
 	@override late final _TranslationsDebugSectionsZhTw sections = _TranslationsDebugSectionsZhTw._(_root);
 	@override String get showActiveNotifications => '顯示活動通知';
 	@override String get scheduleTestNotification => '安排測試通知 (10 秒)';
@@ -435,6 +436,103 @@ class _TranslationsDebugZhTw implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => '您的個人資料（每日目標、身高、體重等）將會被清除。餐點與偏好設定不會受到影響。';
 	@override String get clear => '清除';
 	@override String get cancel => '取消';
+	@override String get checkWatchConnection => '檢查手錶連線';
+	@override String get sendTestMessage => '傳送測試訊息';
+	@override String get sendTestMessageSubtitle => '向手錶傳送簡單測試訊息';
+	@override String get sendTestMealData => '傳送測試餐點資料';
+	@override String get sendTestMealDataSubtitle => '向手錶傳送範例餐點資料';
+	@override String get sendTestCalorieGoal => '傳送測試卡路里目標';
+	@override String get sendTestCalorieGoalSubtitle => '向手錶傳送範例卡路里目標';
+	@override String get viewReceivedMessages => '檢視已接收訊息';
+	@override String get viewReceivedMessagesSubtitle => '檢視從手錶接收的訊息';
+	@override String get watchConnected => '手錶已連線 ✓';
+	@override String get device => '裝置';
+	@override String get nearby => '附近';
+	@override String get yes => '是';
+	@override String get no => '否';
+	@override String get connectedDevices => '已連線的裝置';
+	@override String get deviceInfoUnavailable => '(裝置資訊無法取得)';
+	@override String get unknownDevice => '未知裝置';
+	@override String get watchNotConnected => '手錶未連線 ✗';
+	@override String get watchNotConnectedHint => '請確認：\n• 兩台裝置已配對\n• 手錶應用正在執行中\n• 兩個應用都處於偵錯/測試模式';
+	@override String get watchConnection => '手錶連線';
+	@override String errorCheckingConnection({required Object error}) => '檢查連線時發生錯誤：${error}';
+	@override String get helloFromPhone => '來自手機的問候！';
+	@override String get testMessageSentSuccess => '測試訊息傳送成功！';
+	@override String get testMessageFailed => '測試訊息傳送失敗。請檢查手錶連線。';
+	@override String errorSendingMessage({required Object error}) => '傳送訊息時發生錯誤：${error}';
+	@override String get testMeal => '測試餐點';
+	@override String get testMealDataSentSuccess => '測試餐點資料傳送成功！';
+	@override String get failedToSendMealData => '餐點資料傳送失敗。請檢查手錶連線。';
+	@override String errorSendingMealData({required Object error}) => '傳送餐點資料時發生錯誤：${error}';
+	@override String get testCalorieGoalSentSuccess => '測試卡路里目標傳送成功！';
+	@override String get failedToSendCalorieGoal => '卡路里目標傳送失敗。請檢查手錶連線。';
+	@override String errorSendingCalorieGoal({required Object error}) => '傳送卡路里目標時發生錯誤：${error}';
+	@override String get testAnalyzeImage => '測試分析圖片';
+	@override String get testAnalyzeImageSubtitle => '上傳硬編碼的測試圖片';
+	@override String get testDetectImage => '測試偵測圖片';
+	@override String get testDetectImageSubtitle => '從圖片 URL 偵測餐點';
+	@override String get detectImageFromGallery => '從相簿偵測圖片';
+	@override String get detectImageFromGallerySubtitle => '選擇圖片，上傳到儲存桶並估算卡路里';
+	@override String get testDetectText => '測試文字偵測';
+	@override String get testDetectTextSubtitle => '從文字描述偵測餐點';
+	@override String get testMealLoggingWithVariations => '測試含變體的餐點記錄流程';
+	@override String get testMealLoggingWithVariationsSubtitle => '測試含變體的完整餐點記錄流程';
+	@override String get mockMealWithVariations => '含變體的模擬餐點';
+	@override String get mockMealWithVariationsSubtitle => '預覽變體與提示面板的 UI（不會記錄）';
+	@override String get mockMealName => '烤雞配米飯與蔬菜';
+	@override String get mockTip => '此為 UI 預覽用的模擬提示，餐點不會被記錄。';
+	@override String get mockMealDescription => '除錯用模擬餐點';
+	@override String get portionSizeQuestion => '份量大小如何？';
+	@override String get extraSidesQuestion => '是否有額外配菜？';
+	@override String get optionSmall => '小';
+	@override String get optionMedium => '中';
+	@override String get optionLarge => '大';
+	@override String get optionNone => '無';
+	@override String get optionSideSalad => '沙拉（配菜）';
+	@override String get optionBreadRoll => '餐包';
+	@override String get testingAnalyzeImage => '正在測試 analyzeImage API...';
+	@override String get testingDetectImage => '正在測試 detectImage API...';
+	@override String get testingDetectText => '正在測試 detectText API...';
+	@override String get selectingImageFromGallery => '從相簿選取圖片...';
+	@override String get noImageSelected => '未選取圖片';
+	@override String get compressingImage => '正在壓縮圖片...';
+	@override String get uploadingImageAndDetecting => '正在上傳圖片到儲存桶並偵測餐點...';
+	@override String get testingMealLoggingFlow => '正在測試含變體的餐點記錄流程...';
+	@override String get noMealIdentifiedInResponse => '回應中未辨識出餐點';
+	@override String get mealIdentified => '已辨識餐點';
+	@override String get confidence => '置信度';
+	@override String get tip => '小提醒';
+	@override String get mealName => '餐點名稱';
+	@override String get calories => '卡路里';
+	@override String get protein => '蛋白質';
+	@override String get carbs => '碳水';
+	@override String get fat => '脂肪';
+	@override String get noMealInfo => '無餐點資訊';
+	@override String get na => '不適用';
+	@override String get analyzeImageResult => '分析圖片結果';
+	@override String get detectImageResult => '偵測圖片結果';
+	@override String get detectImageFromGalleryResult => '從相簿偵測結果';
+	@override String get detectTextResult => '文字偵測結果';
+	@override String errorGeneric({required Object error}) => '錯誤：${error}';
+	@override String get variationsCount => '變體數量';
+	@override String get userPreferencesCleared => '使用者偏好已清除';
+	@override String get userProfileCleared => '使用者資料已清除';
+	@override String get checkForUpdate => '檢查更新';
+	@override String get showPatchNumber => '顯示補丁編號';
+	@override String get showUpdateAvailable => '顯示有可用更新';
+	@override String get updateAvailable => '有更新可用';
+	@override String get upToDate => '已是最新版本';
+	@override String get shorebirdUnavailable => '在此環境中無法使用 Shorebird。';
+	@override String get patchNumberLabel => '補丁編號';
+	@override String get noPatchInstalled => '尚未安裝補丁';
+	@override String get todaysSteps => '今日步數';
+	@override String get stepsLabel => '步數';
+	@override String weightLabel({required Object value}) => '體重：${value} 公斤';
+	@override String heightLabel({required Object value}) => '身高：${value} 公分';
+	@override String get receivedMessagesFromWatch => '從手錶接收的訊息';
+	@override String get noMessagesReceivedYet => '尚未收到任何訊息。\n\n從手錶傳送測試資料即可在此查看訊息。';
+	@override String get messagesCleared => '訊息已清除';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalZhTw implements TranslationsHomeDailyGoalEn {
 	@override String get description => '準備開始您的健康之旅嗎？在下面設定您的每日卡路里目標以啟動您的進程。';
 	@override String get descriptionSet => '您的指北針已設置！這是您的每日卡路里目標，指導您。';
 	@override String get yourGoal => '您的目標';
+	@override String get goal => '目標';
 	@override String get dailyCalories => '每日卡路里 (kcal)';
 	@override String get setGoal => '設定目標';
 	@override String get intake => '攝取';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryZhTw implements TranslationsHomeDailySummaryE
 	@override String get protein => '蛋白質';
 	@override String get fat => '脂肪';
 	@override String get fiber => '纖維';
+	@override String get grams => '公克';
+	@override String get chartAccessibilityLabel => '三大營養素圖表';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsZhTw implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => '通知';
 	@override String get healthConnect => 'Health Connect';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => '食物 API 測試';
 	@override String get feedback => '回饋';
 	@override String get dataReset => '重設資料';
 	@override String get appInfo => '應用信息';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsZhTw {
 			'home.dailyGoal.description' => '準備開始您的健康之旅嗎？在下面設定您的每日卡路里目標以啟動您的進程。',
 			'home.dailyGoal.descriptionSet' => '您的指北針已設置！這是您的每日卡路里目標，指導您。',
 			'home.dailyGoal.yourGoal' => '您的目標',
+			'home.dailyGoal.goal' => '目標',
 			'home.dailyGoal.dailyCalories' => '每日卡路里 (kcal)',
 			'home.dailyGoal.setGoal' => '設定目標',
 			'home.dailyGoal.intake' => '攝取',
@@ -1700,6 +1805,8 @@ extension on TranslationsZhTw {
 			'home.dailySummary.protein' => '蛋白質',
 			'home.dailySummary.fat' => '脂肪',
 			'home.dailySummary.fiber' => '纖維',
+			'home.dailySummary.grams' => '公克',
+			'home.dailySummary.chartAccessibilityLabel' => '三大營養素圖表',
 			'home.intakeProgress.title' => '今天的宏量分配',
 			'home.intakeProgress.target' => '目標',
 			'home.intakeProgress.current' => '目前',
@@ -2000,11 +2107,15 @@ extension on TranslationsZhTw {
 			'errors.loadingProfileData' => '載入個人資料數據出錯',
 			'errors.somethingWentWrong' => '發生了錯誤。',
 			'debug.title' => '調試選項',
+			'debug.searchHint' => '搜尋選項...',
 			'debug.sections.notifications' => '通知',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => '食物 API 測試',
 			'debug.sections.feedback' => '回饋',
 			'debug.sections.dataReset' => '重設資料',
 			'debug.sections.appInfo' => '應用信息',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => '顯示活動通知',
 			'debug.scheduleTestNotification' => '安排測試通知 (10 秒)',
 			'debug.triggerBreakfastNotification' => '觸發早餐通知',
@@ -2051,6 +2162,105 @@ extension on TranslationsZhTw {
 			'debug.clearUserProfileConfirmationMessage' => '您的個人資料（每日目標、身高、體重等）將會被清除。餐點與偏好設定不會受到影響。',
 			'debug.clear' => '清除',
 			'debug.cancel' => '取消',
+			'debug.checkWatchConnection' => '檢查手錶連線',
+			'debug.sendTestMessage' => '傳送測試訊息',
+			'debug.sendTestMessageSubtitle' => '向手錶傳送簡單測試訊息',
+			'debug.sendTestMealData' => '傳送測試餐點資料',
+			'debug.sendTestMealDataSubtitle' => '向手錶傳送範例餐點資料',
+			'debug.sendTestCalorieGoal' => '傳送測試卡路里目標',
+			'debug.sendTestCalorieGoalSubtitle' => '向手錶傳送範例卡路里目標',
+			'debug.viewReceivedMessages' => '檢視已接收訊息',
+			'debug.viewReceivedMessagesSubtitle' => '檢視從手錶接收的訊息',
+			'debug.watchConnected' => '手錶已連線 ✓',
+			'debug.device' => '裝置',
+			'debug.nearby' => '附近',
+			'debug.yes' => '是',
+			'debug.no' => '否',
+			'debug.connectedDevices' => '已連線的裝置',
+			'debug.deviceInfoUnavailable' => '(裝置資訊無法取得)',
+			'debug.unknownDevice' => '未知裝置',
+			'debug.watchNotConnected' => '手錶未連線 ✗',
+			'debug.watchNotConnectedHint' => '請確認：\n• 兩台裝置已配對\n• 手錶應用正在執行中\n• 兩個應用都處於偵錯/測試模式',
+			'debug.watchConnection' => '手錶連線',
+			'debug.errorCheckingConnection' => ({required Object error}) => '檢查連線時發生錯誤：${error}',
+			'debug.helloFromPhone' => '來自手機的問候！',
+			'debug.testMessageSentSuccess' => '測試訊息傳送成功！',
+			'debug.testMessageFailed' => '測試訊息傳送失敗。請檢查手錶連線。',
+			'debug.errorSendingMessage' => ({required Object error}) => '傳送訊息時發生錯誤：${error}',
+			'debug.testMeal' => '測試餐點',
+			'debug.testMealDataSentSuccess' => '測試餐點資料傳送成功！',
+			'debug.failedToSendMealData' => '餐點資料傳送失敗。請檢查手錶連線。',
+			'debug.errorSendingMealData' => ({required Object error}) => '傳送餐點資料時發生錯誤：${error}',
+			'debug.testCalorieGoalSentSuccess' => '測試卡路里目標傳送成功！',
+			'debug.failedToSendCalorieGoal' => '卡路里目標傳送失敗。請檢查手錶連線。',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => '傳送卡路里目標時發生錯誤：${error}',
+			'debug.testAnalyzeImage' => '測試分析圖片',
+			'debug.testAnalyzeImageSubtitle' => '上傳硬編碼的測試圖片',
+			'debug.testDetectImage' => '測試偵測圖片',
+			'debug.testDetectImageSubtitle' => '從圖片 URL 偵測餐點',
+			'debug.detectImageFromGallery' => '從相簿偵測圖片',
+			'debug.detectImageFromGallerySubtitle' => '選擇圖片，上傳到儲存桶並估算卡路里',
+			'debug.testDetectText' => '測試文字偵測',
+			'debug.testDetectTextSubtitle' => '從文字描述偵測餐點',
+			'debug.testMealLoggingWithVariations' => '測試含變體的餐點記錄流程',
+			'debug.testMealLoggingWithVariationsSubtitle' => '測試含變體的完整餐點記錄流程',
+			'debug.mockMealWithVariations' => '含變體的模擬餐點',
+			'debug.mockMealWithVariationsSubtitle' => '預覽變體與提示面板的 UI（不會記錄）',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => '烤雞配米飯與蔬菜',
+			'debug.mockTip' => '此為 UI 預覽用的模擬提示，餐點不會被記錄。',
+			'debug.mockMealDescription' => '除錯用模擬餐點',
+			'debug.portionSizeQuestion' => '份量大小如何？',
+			'debug.extraSidesQuestion' => '是否有額外配菜？',
+			'debug.optionSmall' => '小',
+			'debug.optionMedium' => '中',
+			'debug.optionLarge' => '大',
+			'debug.optionNone' => '無',
+			'debug.optionSideSalad' => '沙拉（配菜）',
+			'debug.optionBreadRoll' => '餐包',
+			'debug.testingAnalyzeImage' => '正在測試 analyzeImage API...',
+			'debug.testingDetectImage' => '正在測試 detectImage API...',
+			'debug.testingDetectText' => '正在測試 detectText API...',
+			'debug.selectingImageFromGallery' => '從相簿選取圖片...',
+			'debug.noImageSelected' => '未選取圖片',
+			'debug.compressingImage' => '正在壓縮圖片...',
+			'debug.uploadingImageAndDetecting' => '正在上傳圖片到儲存桶並偵測餐點...',
+			'debug.testingMealLoggingFlow' => '正在測試含變體的餐點記錄流程...',
+			'debug.noMealIdentifiedInResponse' => '回應中未辨識出餐點',
+			'debug.mealIdentified' => '已辨識餐點',
+			'debug.confidence' => '置信度',
+			'debug.tip' => '小提醒',
+			'debug.mealName' => '餐點名稱',
+			'debug.calories' => '卡路里',
+			'debug.protein' => '蛋白質',
+			'debug.carbs' => '碳水',
+			'debug.fat' => '脂肪',
+			'debug.noMealInfo' => '無餐點資訊',
+			'debug.na' => '不適用',
+			'debug.analyzeImageResult' => '分析圖片結果',
+			'debug.detectImageResult' => '偵測圖片結果',
+			'debug.detectImageFromGalleryResult' => '從相簿偵測結果',
+			'debug.detectTextResult' => '文字偵測結果',
+			'debug.errorGeneric' => ({required Object error}) => '錯誤：${error}',
+			'debug.variationsCount' => '變體數量',
+			'debug.userPreferencesCleared' => '使用者偏好已清除',
+			'debug.userProfileCleared' => '使用者資料已清除',
+			'debug.checkForUpdate' => '檢查更新',
+			'debug.showPatchNumber' => '顯示補丁編號',
+			'debug.showUpdateAvailable' => '顯示有可用更新',
+			'debug.updateAvailable' => '有更新可用',
+			'debug.upToDate' => '已是最新版本',
+			'debug.shorebirdUnavailable' => '在此環境中無法使用 Shorebird。',
+			'debug.patchNumberLabel' => '補丁編號',
+			'debug.noPatchInstalled' => '尚未安裝補丁',
+			'debug.todaysSteps' => '今日步數',
+			'debug.stepsLabel' => '步數',
+			'debug.weightLabel' => ({required Object value}) => '體重：${value} 公斤',
+			'debug.heightLabel' => ({required Object value}) => '身高：${value} 公分',
+			'debug.receivedMessagesFromWatch' => '從手錶接收的訊息',
+			'debug.noMessagesReceivedYet' => '尚未收到任何訊息。\n\n從手錶傳送測試資料即可在此查看訊息。',
+			'debug.messagesCleared' => '訊息已清除',
 			'health.syncFailed' => '無法同步到 Health Connect',
 			'health.mealSynced' => '餐點已與 Health Connect 同步',
 			_ => null,

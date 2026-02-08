@@ -1,6 +1,6 @@
 import 'package:calorify/core/constants/colors.dart';
-import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
 
 /// Shared macro legend widget for displaying macro nutrient labels
 /// Used in both macro split charts and 7-day macro history charts
@@ -9,6 +9,7 @@ class MacroLegend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return Center(
       child: Wrap(
         spacing: 16,

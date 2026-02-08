@@ -388,6 +388,7 @@ class _TranslationsDebugEl implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'Επιλογές Αποσφαλμάτωσης';
+	@override String get searchHint => 'Επιλογές αναζήτησης...';
 	@override late final _TranslationsDebugSectionsEl sections = _TranslationsDebugSectionsEl._(_root);
 	@override String get showActiveNotifications => 'Δείξε τις Ενεργές Ειδοποιήσεις';
 	@override String get scheduleTestNotification => 'Προγραμματισμός Δοκιμής Ειδοποίησης (10s)';
@@ -435,6 +436,103 @@ class _TranslationsDebugEl implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => 'Τα δεδομένα του προφίλ σου (ημερήσιος στόχος, ύψος, βάρος κ.λπ.) θα διαγραφούν. Τα γεύματα και οι προτιμήσεις δεν επηρεάζονται.';
 	@override String get clear => 'Διαγραφή';
 	@override String get cancel => 'Ακύρωση';
+	@override String get checkWatchConnection => 'Έλεγχος σύνδεσης ρολογιού';
+	@override String get sendTestMessage => 'Αποστολή δοκιμαστικού μηνύματος';
+	@override String get sendTestMessageSubtitle => 'Στείλτε ένα απλό δοκιμαστικό μήνυμα στο ρολόι';
+	@override String get sendTestMealData => 'Αποστολή δοκιμαστικών δεδομένων γεύματος';
+	@override String get sendTestMealDataSubtitle => 'Στείλτε δείγμα δεδομένων γεύματος στο ρολόι';
+	@override String get sendTestCalorieGoal => 'Αποστολή δοκιμαστικού στόχου θερμίδων';
+	@override String get sendTestCalorieGoalSubtitle => 'Στείλτε δείγμα στόχου θερμίδων στο ρολόι';
+	@override String get viewReceivedMessages => 'Προβολή ληφθέντων μηνυμάτων';
+	@override String get viewReceivedMessagesSubtitle => 'Προβάλετε τα μηνύματα που λήφθηκαν από το ρολόι';
+	@override String get watchConnected => 'Το ρολόι είναι συνδεδεμένο ✓';
+	@override String get device => 'Συσκευή';
+	@override String get nearby => 'Κοντινές συσκευές';
+	@override String get yes => 'Ναι';
+	@override String get no => 'Όχι';
+	@override String get connectedDevices => 'Συνδεδεμένες συσκευές';
+	@override String get deviceInfoUnavailable => '(Πληροφορίες συσκευής μη διαθέσιμες)';
+	@override String get unknownDevice => 'Άγνωστη συσκευή';
+	@override String get watchNotConnected => 'Το ρολόι δεν είναι συνδεδεμένο ✗';
+	@override String get watchNotConnectedHint => 'Βεβαιωθείτε ότι:\n• Και οι δύο συσκευές είναι συζευγμένες\n• Η εφαρμογή στο ρολόι τρέχει\n• Και οι δύο εφαρμογές είναι σε λειτουργία debug/staging';
+	@override String get watchConnection => 'Σύνδεση ρολογιού';
+	@override String errorCheckingConnection({required Object error}) => 'Σφάλμα κατά τον έλεγχο σύνδεσης: ${error}';
+	@override String get helloFromPhone => 'Γεια από το τηλέφωνο!';
+	@override String get testMessageSentSuccess => 'Το δοκιμαστικό μήνυμα στάλθηκε με επιτυχία!';
+	@override String get testMessageFailed => 'Αποτυχία αποστολής δοκιμαστικού μηνύματος. Ελέγξτε τη σύνδεση του ρολογιού.';
+	@override String errorSendingMessage({required Object error}) => 'Σφάλμα κατά την αποστολή μηνύματος: ${error}';
+	@override String get testMeal => 'Δοκιμαστικό γεύμα';
+	@override String get testMealDataSentSuccess => 'Τα δοκιμαστικά δεδομένα γεύματος στάλθηκαν με επιτυχία!';
+	@override String get failedToSendMealData => 'Αποτυχία αποστολής δεδομένων γεύματος. Ελέγξτε τη σύνδεση του ρολογιού.';
+	@override String errorSendingMealData({required Object error}) => 'Σφάλμα κατά την αποστολή δεδομένων γεύματος: ${error}';
+	@override String get testCalorieGoalSentSuccess => 'Ο δοκιμαστικός στόχος θερμίδων στάλθηκε με επιτυχία!';
+	@override String get failedToSendCalorieGoal => 'Αποτυχία αποστολής στόχου θερμίδων. Ελέγξτε τη σύνδεση του ρολογιού.';
+	@override String errorSendingCalorieGoal({required Object error}) => 'Σφάλμα κατά την αποστολή στόχου θερμίδων: ${error}';
+	@override String get testAnalyzeImage => 'Δοκιμή ανάλυσης εικόνας';
+	@override String get testAnalyzeImageSubtitle => 'Ανέβασμα προκαθορισμένης δοκιμαστικής εικόνας';
+	@override String get testDetectImage => 'Δοκιμή ανίχνευσης εικόνας';
+	@override String get testDetectImageSubtitle => 'Ανίχνευση γεύματος από URL εικόνας';
+	@override String get detectImageFromGallery => 'Ανίχνευση εικόνας από τη συλλογή';
+	@override String get detectImageFromGallerySubtitle => 'Επιλέξτε εικόνα, ανεβάστε στον bucket και εκτιμήστε τις θερμίδες';
+	@override String get testDetectText => 'Δοκιμή ανίχνευσης κειμένου';
+	@override String get testDetectTextSubtitle => 'Ανίχνευση γεύματος από περιγραφή κειμένου';
+	@override String get testMealLoggingWithVariations => 'Δοκιμή καταγραφής γεύματος με παραλλαγές';
+	@override String get testMealLoggingWithVariationsSubtitle => 'Δοκιμάστε ολόκληρη τη ροή καταγραφής γεύματος με παραλλαγές';
+	@override String get mockMealWithVariations => 'Προσομοιωμένο γεύμα με παραλλαγές';
+	@override String get mockMealWithVariationsSubtitle => 'Προεπισκόπηση παραλλαγής και του φύλλου συμβουλών χωρίς καταχώρηση';
+	@override String get mockMealName => 'Κοτόπουλο στη σχάρα με ρύζι και λαχανικά';
+	@override String get mockTip => 'Αυτή είναι μια προσομοιωμένη συμβουλή για προεπισκόπηση του UI. Το γεύμα δεν καταγράφεται.';
+	@override String get mockMealDescription => 'Προσομοιωμένο γεύμα για αποσφαλμάτωση';
+	@override String get portionSizeQuestion => 'Πώς ήταν το μέγεθος της μερίδας;';
+	@override String get extraSidesQuestion => 'Κάποια επιπλέον συνοδευτικά;';
+	@override String get optionSmall => 'Μικρή';
+	@override String get optionMedium => 'Μεσαία';
+	@override String get optionLarge => 'Μεγάλη';
+	@override String get optionNone => 'Κανένα';
+	@override String get optionSideSalad => 'Σαλάτα (συνοδευτικό)';
+	@override String get optionBreadRoll => 'Ψωμάκι';
+	@override String get testingAnalyzeImage => 'Δοκιμή analyzeImage API...';
+	@override String get testingDetectImage => 'Δοκιμή detectImage API...';
+	@override String get testingDetectText => 'Δοκιμή detectText API...';
+	@override String get selectingImageFromGallery => 'Επιλογή εικόνας από τη συλλογή...';
+	@override String get noImageSelected => 'Δεν επιλέχθηκε εικόνα';
+	@override String get compressingImage => 'Συμπίεση εικόνας...';
+	@override String get uploadingImageAndDetecting => 'Ανέβασμα εικόνας στο bucket και ανίχνευση γεύματος...';
+	@override String get testingMealLoggingFlow => 'Δοκιμή ροής καταγραφής γεύματος με παραλλαγές...';
+	@override String get noMealIdentifiedInResponse => 'Δεν εντοπίστηκε γεύμα στην απάντηση';
+	@override String get mealIdentified => 'Εντοπίστηκε γεύμα';
+	@override String get confidence => 'Βαθμός εμπιστοσύνης';
+	@override String get tip => 'Συμβουλή';
+	@override String get mealName => 'Όνομα γεύματος';
+	@override String get calories => 'Θερμίδες';
+	@override String get protein => 'Πρωτεΐνη';
+	@override String get carbs => 'Υδατάνθρακες';
+	@override String get fat => 'Λίπος';
+	@override String get noMealInfo => 'Δεν υπάρχουν πληροφορίες γεύματος';
+	@override String get na => 'Μη διαθέσιμο';
+	@override String get analyzeImageResult => 'Αποτέλεσμα ανάλυσης εικόνας';
+	@override String get detectImageResult => 'Αποτέλεσμα ανίχνευσης εικόνας';
+	@override String get detectImageFromGalleryResult => 'Αποτέλεσμα ανίχνευσης εικόνας από τη συλλογή';
+	@override String get detectTextResult => 'Αποτέλεσμα ανίχνευσης κειμένου';
+	@override String errorGeneric({required Object error}) => 'Σφάλμα: ${error}';
+	@override String get variationsCount => 'Παραλλαγές';
+	@override String get userPreferencesCleared => 'Οι προτιμήσεις χρήστη διαγράφηκαν';
+	@override String get userProfileCleared => 'Το προφίλ χρήστη διαγράφηκε';
+	@override String get checkForUpdate => 'Έλεγχος για ενημερώσεις';
+	@override String get showPatchNumber => 'Εμφάνιση αριθμού patch';
+	@override String get showUpdateAvailable => 'Εμφάνιση διαθέσιμης ενημέρωσης';
+	@override String get updateAvailable => 'Υπάρχει ενημέρωση';
+	@override String get upToDate => 'Ενημερωμένο';
+	@override String get shorebirdUnavailable => 'Το Shorebird δεν είναι διαθέσιμο σε αυτό το περιβάλλον.';
+	@override String get patchNumberLabel => 'Αριθμός patch';
+	@override String get noPatchInstalled => 'Δεν υπάρχει εγκατεστημένο patch';
+	@override String get todaysSteps => 'Βήματα σήμερα';
+	@override String get stepsLabel => 'Βήματα';
+	@override String weightLabel({required Object value}) => 'Βάρος: ${value} κιλά';
+	@override String heightLabel({required Object value}) => 'Ύψος: ${value} εκ.';
+	@override String get receivedMessagesFromWatch => 'Ληφθέντα μηνύματα από το ρολόι';
+	@override String get noMessagesReceivedYet => 'Δεν έχουν ληφθεί μηνύματα ακόμη.\n\nΣτείλτε δοκιμαστικά δεδομένα από το ρολόι για να δείτε τα μηνύματα εδώ.';
+	@override String get messagesCleared => 'Τα μηνύματα διαγράφηκαν';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalEl implements TranslationsHomeDailyGoalEn {
 	@override String get description => 'Έτοιμος να ξεκινήσεις το ταξίδι ευεξίας σου; Ορίστε τον καθημερινό σας στόχο θερμίδων παρακάτω για να ξεκινήσεις την πρόοδό σου.';
 	@override String get descriptionSet => 'Ο προσανατολισμός σας είναι έτοιμος! Αυτός είναι ο καθημερινός σας στόχος θερμίδων για καθοδήγηση.';
 	@override String get yourGoal => 'Ο Στόχος σας';
+	@override String get goal => 'Στόχος';
 	@override String get dailyCalories => 'Καθημερινές θερμίδες (kcal)';
 	@override String get setGoal => 'Ορίστε Στόχο';
 	@override String get intake => 'Κατανάλωση';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryEl implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'Πρωτεΐνη';
 	@override String get fat => 'Λίπος';
 	@override String get fiber => 'Ίνες';
+	@override String get grams => 'γραμμάρια';
+	@override String get chartAccessibilityLabel => 'Διάγραμμα μακροθρεπτικών συστατικών';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsEl implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Ειδοποιήσεις';
 	@override String get healthConnect => 'Health Connect';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => 'Δοκιμές Food API';
 	@override String get feedback => 'Ανατροφοδότηση';
 	@override String get dataReset => 'Επαναφορά δεδομένων';
 	@override String get appInfo => 'Πληροφορίες Εφαρμογής';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsEl {
 			'home.dailyGoal.description' => 'Έτοιμος να ξεκινήσεις το ταξίδι ευεξίας σου; Ορίστε τον καθημερινό σας στόχο θερμίδων παρακάτω για να ξεκινήσεις την πρόοδό σου.',
 			'home.dailyGoal.descriptionSet' => 'Ο προσανατολισμός σας είναι έτοιμος! Αυτός είναι ο καθημερινός σας στόχος θερμίδων για καθοδήγηση.',
 			'home.dailyGoal.yourGoal' => 'Ο Στόχος σας',
+			'home.dailyGoal.goal' => 'Στόχος',
 			'home.dailyGoal.dailyCalories' => 'Καθημερινές θερμίδες (kcal)',
 			'home.dailyGoal.setGoal' => 'Ορίστε Στόχο',
 			'home.dailyGoal.intake' => 'Κατανάλωση',
@@ -1700,6 +1805,8 @@ extension on TranslationsEl {
 			'home.dailySummary.protein' => 'Πρωτεΐνη',
 			'home.dailySummary.fat' => 'Λίπος',
 			'home.dailySummary.fiber' => 'Ίνες',
+			'home.dailySummary.grams' => 'γραμμάρια',
+			'home.dailySummary.chartAccessibilityLabel' => 'Διάγραμμα μακροθρεπτικών συστατικών',
 			'home.intakeProgress.title' => 'Ο Σημερινός Διαχωρισμός Μακροθρεπτικών Συστατικών',
 			'home.intakeProgress.target' => 'Στόχος',
 			'home.intakeProgress.current' => 'Τρέχων',
@@ -2000,11 +2107,15 @@ extension on TranslationsEl {
 			'errors.loadingProfileData' => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ',
 			'errors.somethingWentWrong' => 'Κάτι πήγε στραβά.',
 			'debug.title' => 'Επιλογές Αποσφαλμάτωσης',
+			'debug.searchHint' => 'Επιλογές αναζήτησης...',
 			'debug.sections.notifications' => 'Ειδοποιήσεις',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'Δοκιμές Food API',
 			'debug.sections.feedback' => 'Ανατροφοδότηση',
 			'debug.sections.dataReset' => 'Επαναφορά δεδομένων',
 			'debug.sections.appInfo' => 'Πληροφορίες Εφαρμογής',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'Δείξε τις Ενεργές Ειδοποιήσεις',
 			'debug.scheduleTestNotification' => 'Προγραμματισμός Δοκιμής Ειδοποίησης (10s)',
 			'debug.triggerBreakfastNotification' => 'Ενεργοποίηση Ειδοποίησης Πρωινού',
@@ -2051,6 +2162,105 @@ extension on TranslationsEl {
 			'debug.clearUserProfileConfirmationMessage' => 'Τα δεδομένα του προφίλ σου (ημερήσιος στόχος, ύψος, βάρος κ.λπ.) θα διαγραφούν. Τα γεύματα και οι προτιμήσεις δεν επηρεάζονται.',
 			'debug.clear' => 'Διαγραφή',
 			'debug.cancel' => 'Ακύρωση',
+			'debug.checkWatchConnection' => 'Έλεγχος σύνδεσης ρολογιού',
+			'debug.sendTestMessage' => 'Αποστολή δοκιμαστικού μηνύματος',
+			'debug.sendTestMessageSubtitle' => 'Στείλτε ένα απλό δοκιμαστικό μήνυμα στο ρολόι',
+			'debug.sendTestMealData' => 'Αποστολή δοκιμαστικών δεδομένων γεύματος',
+			'debug.sendTestMealDataSubtitle' => 'Στείλτε δείγμα δεδομένων γεύματος στο ρολόι',
+			'debug.sendTestCalorieGoal' => 'Αποστολή δοκιμαστικού στόχου θερμίδων',
+			'debug.sendTestCalorieGoalSubtitle' => 'Στείλτε δείγμα στόχου θερμίδων στο ρολόι',
+			'debug.viewReceivedMessages' => 'Προβολή ληφθέντων μηνυμάτων',
+			'debug.viewReceivedMessagesSubtitle' => 'Προβάλετε τα μηνύματα που λήφθηκαν από το ρολόι',
+			'debug.watchConnected' => 'Το ρολόι είναι συνδεδεμένο ✓',
+			'debug.device' => 'Συσκευή',
+			'debug.nearby' => 'Κοντινές συσκευές',
+			'debug.yes' => 'Ναι',
+			'debug.no' => 'Όχι',
+			'debug.connectedDevices' => 'Συνδεδεμένες συσκευές',
+			'debug.deviceInfoUnavailable' => '(Πληροφορίες συσκευής μη διαθέσιμες)',
+			'debug.unknownDevice' => 'Άγνωστη συσκευή',
+			'debug.watchNotConnected' => 'Το ρολόι δεν είναι συνδεδεμένο ✗',
+			'debug.watchNotConnectedHint' => 'Βεβαιωθείτε ότι:\n• Και οι δύο συσκευές είναι συζευγμένες\n• Η εφαρμογή στο ρολόι τρέχει\n• Και οι δύο εφαρμογές είναι σε λειτουργία debug/staging',
+			'debug.watchConnection' => 'Σύνδεση ρολογιού',
+			'debug.errorCheckingConnection' => ({required Object error}) => 'Σφάλμα κατά τον έλεγχο σύνδεσης: ${error}',
+			'debug.helloFromPhone' => 'Γεια από το τηλέφωνο!',
+			'debug.testMessageSentSuccess' => 'Το δοκιμαστικό μήνυμα στάλθηκε με επιτυχία!',
+			'debug.testMessageFailed' => 'Αποτυχία αποστολής δοκιμαστικού μηνύματος. Ελέγξτε τη σύνδεση του ρολογιού.',
+			'debug.errorSendingMessage' => ({required Object error}) => 'Σφάλμα κατά την αποστολή μηνύματος: ${error}',
+			'debug.testMeal' => 'Δοκιμαστικό γεύμα',
+			'debug.testMealDataSentSuccess' => 'Τα δοκιμαστικά δεδομένα γεύματος στάλθηκαν με επιτυχία!',
+			'debug.failedToSendMealData' => 'Αποτυχία αποστολής δεδομένων γεύματος. Ελέγξτε τη σύνδεση του ρολογιού.',
+			'debug.errorSendingMealData' => ({required Object error}) => 'Σφάλμα κατά την αποστολή δεδομένων γεύματος: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'Ο δοκιμαστικός στόχος θερμίδων στάλθηκε με επιτυχία!',
+			'debug.failedToSendCalorieGoal' => 'Αποτυχία αποστολής στόχου θερμίδων. Ελέγξτε τη σύνδεση του ρολογιού.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Σφάλμα κατά την αποστολή στόχου θερμίδων: ${error}',
+			'debug.testAnalyzeImage' => 'Δοκιμή ανάλυσης εικόνας',
+			'debug.testAnalyzeImageSubtitle' => 'Ανέβασμα προκαθορισμένης δοκιμαστικής εικόνας',
+			'debug.testDetectImage' => 'Δοκιμή ανίχνευσης εικόνας',
+			'debug.testDetectImageSubtitle' => 'Ανίχνευση γεύματος από URL εικόνας',
+			'debug.detectImageFromGallery' => 'Ανίχνευση εικόνας από τη συλλογή',
+			'debug.detectImageFromGallerySubtitle' => 'Επιλέξτε εικόνα, ανεβάστε στον bucket και εκτιμήστε τις θερμίδες',
+			'debug.testDetectText' => 'Δοκιμή ανίχνευσης κειμένου',
+			'debug.testDetectTextSubtitle' => 'Ανίχνευση γεύματος από περιγραφή κειμένου',
+			'debug.testMealLoggingWithVariations' => 'Δοκιμή καταγραφής γεύματος με παραλλαγές',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'Δοκιμάστε ολόκληρη τη ροή καταγραφής γεύματος με παραλλαγές',
+			'debug.mockMealWithVariations' => 'Προσομοιωμένο γεύμα με παραλλαγές',
+			'debug.mockMealWithVariationsSubtitle' => 'Προεπισκόπηση παραλλαγής και του φύλλου συμβουλών χωρίς καταχώρηση',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'Κοτόπουλο στη σχάρα με ρύζι και λαχανικά',
+			'debug.mockTip' => 'Αυτή είναι μια προσομοιωμένη συμβουλή για προεπισκόπηση του UI. Το γεύμα δεν καταγράφεται.',
+			'debug.mockMealDescription' => 'Προσομοιωμένο γεύμα για αποσφαλμάτωση',
+			'debug.portionSizeQuestion' => 'Πώς ήταν το μέγεθος της μερίδας;',
+			'debug.extraSidesQuestion' => 'Κάποια επιπλέον συνοδευτικά;',
+			'debug.optionSmall' => 'Μικρή',
+			'debug.optionMedium' => 'Μεσαία',
+			'debug.optionLarge' => 'Μεγάλη',
+			'debug.optionNone' => 'Κανένα',
+			'debug.optionSideSalad' => 'Σαλάτα (συνοδευτικό)',
+			'debug.optionBreadRoll' => 'Ψωμάκι',
+			'debug.testingAnalyzeImage' => 'Δοκιμή analyzeImage API...',
+			'debug.testingDetectImage' => 'Δοκιμή detectImage API...',
+			'debug.testingDetectText' => 'Δοκιμή detectText API...',
+			'debug.selectingImageFromGallery' => 'Επιλογή εικόνας από τη συλλογή...',
+			'debug.noImageSelected' => 'Δεν επιλέχθηκε εικόνα',
+			'debug.compressingImage' => 'Συμπίεση εικόνας...',
+			'debug.uploadingImageAndDetecting' => 'Ανέβασμα εικόνας στο bucket και ανίχνευση γεύματος...',
+			'debug.testingMealLoggingFlow' => 'Δοκιμή ροής καταγραφής γεύματος με παραλλαγές...',
+			'debug.noMealIdentifiedInResponse' => 'Δεν εντοπίστηκε γεύμα στην απάντηση',
+			'debug.mealIdentified' => 'Εντοπίστηκε γεύμα',
+			'debug.confidence' => 'Βαθμός εμπιστοσύνης',
+			'debug.tip' => 'Συμβουλή',
+			'debug.mealName' => 'Όνομα γεύματος',
+			'debug.calories' => 'Θερμίδες',
+			'debug.protein' => 'Πρωτεΐνη',
+			'debug.carbs' => 'Υδατάνθρακες',
+			'debug.fat' => 'Λίπος',
+			'debug.noMealInfo' => 'Δεν υπάρχουν πληροφορίες γεύματος',
+			'debug.na' => 'Μη διαθέσιμο',
+			'debug.analyzeImageResult' => 'Αποτέλεσμα ανάλυσης εικόνας',
+			'debug.detectImageResult' => 'Αποτέλεσμα ανίχνευσης εικόνας',
+			'debug.detectImageFromGalleryResult' => 'Αποτέλεσμα ανίχνευσης εικόνας από τη συλλογή',
+			'debug.detectTextResult' => 'Αποτέλεσμα ανίχνευσης κειμένου',
+			'debug.errorGeneric' => ({required Object error}) => 'Σφάλμα: ${error}',
+			'debug.variationsCount' => 'Παραλλαγές',
+			'debug.userPreferencesCleared' => 'Οι προτιμήσεις χρήστη διαγράφηκαν',
+			'debug.userProfileCleared' => 'Το προφίλ χρήστη διαγράφηκε',
+			'debug.checkForUpdate' => 'Έλεγχος για ενημερώσεις',
+			'debug.showPatchNumber' => 'Εμφάνιση αριθμού patch',
+			'debug.showUpdateAvailable' => 'Εμφάνιση διαθέσιμης ενημέρωσης',
+			'debug.updateAvailable' => 'Υπάρχει ενημέρωση',
+			'debug.upToDate' => 'Ενημερωμένο',
+			'debug.shorebirdUnavailable' => 'Το Shorebird δεν είναι διαθέσιμο σε αυτό το περιβάλλον.',
+			'debug.patchNumberLabel' => 'Αριθμός patch',
+			'debug.noPatchInstalled' => 'Δεν υπάρχει εγκατεστημένο patch',
+			'debug.todaysSteps' => 'Βήματα σήμερα',
+			'debug.stepsLabel' => 'Βήματα',
+			'debug.weightLabel' => ({required Object value}) => 'Βάρος: ${value} κιλά',
+			'debug.heightLabel' => ({required Object value}) => 'Ύψος: ${value} εκ.',
+			'debug.receivedMessagesFromWatch' => 'Ληφθέντα μηνύματα από το ρολόι',
+			'debug.noMessagesReceivedYet' => 'Δεν έχουν ληφθεί μηνύματα ακόμη.\n\nΣτείλτε δοκιμαστικά δεδομένα από το ρολόι για να δείτε τα μηνύματα εδώ.',
+			'debug.messagesCleared' => 'Τα μηνύματα διαγράφηκαν',
 			'health.syncFailed' => 'Δεν μπόρεσα να συγχρονίσω με το Health Connect',
 			'health.mealSynced' => 'Το γεύμα συγχρονίστηκε με το Health Connect',
 			_ => null,

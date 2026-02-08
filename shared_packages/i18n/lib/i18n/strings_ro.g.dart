@@ -388,6 +388,7 @@ class _TranslationsDebugRo implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'Opțiuni de Debug';
+	@override String get searchHint => 'Opțiuni de căutare...';
 	@override late final _TranslationsDebugSectionsRo sections = _TranslationsDebugSectionsRo._(_root);
 	@override String get showActiveNotifications => 'Arată Notificările Active';
 	@override String get scheduleTestNotification => 'Programează Notificare de Test (10s)';
@@ -435,6 +436,103 @@ class _TranslationsDebugRo implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => 'Datele profilului tău (obiectiv zilnic, înălțime, greutate etc.) vor fi șterse. Mesele și preferințele nu vor fi afectate.';
 	@override String get clear => 'Șterge';
 	@override String get cancel => 'Anulează';
+	@override String get checkWatchConnection => 'Verifică conexiunea ceasului';
+	@override String get sendTestMessage => 'Trimite mesaj de test';
+	@override String get sendTestMessageSubtitle => 'Trimite un mesaj simplu de test către ceas';
+	@override String get sendTestMealData => 'Trimite date de masă de test';
+	@override String get sendTestMealDataSubtitle => 'Trimite date de masă exemplu către ceas';
+	@override String get sendTestCalorieGoal => 'Trimite obiectiv caloric de test';
+	@override String get sendTestCalorieGoalSubtitle => 'Trimite obiectiv caloric exemplu către ceas';
+	@override String get viewReceivedMessages => 'Vezi mesajele primite';
+	@override String get viewReceivedMessagesSubtitle => 'Vezi mesajele primite de la ceas';
+	@override String get watchConnected => 'Ceasul este conectat ✓';
+	@override String get device => 'Dispozitiv';
+	@override String get nearby => 'În apropiere';
+	@override String get yes => 'Da';
+	@override String get no => 'Nu';
+	@override String get connectedDevices => 'Dispozitive conectate';
+	@override String get deviceInfoUnavailable => '(Informații dispozitiv indisponibile)';
+	@override String get unknownDevice => 'Dispozitiv necunoscut';
+	@override String get watchNotConnected => 'Ceasul nu este conectat ✗';
+	@override String get watchNotConnectedHint => 'Asigură-te că:\n• Ambele dispozitive sunt împerecheate\n• Aplicația de pe ceas rulează\n• Ambele aplicații sunt în modul debug/staging';
+	@override String get watchConnection => 'Conexiune ceas';
+	@override String errorCheckingConnection({required Object error}) => 'Eroare la verificarea conexiunii: ${error}';
+	@override String get helloFromPhone => 'Salut de pe telefon!';
+	@override String get testMessageSentSuccess => 'Mesajul de test a fost trimis cu succes!';
+	@override String get testMessageFailed => 'Trimiterea mesajului de test a eșuat. Verifică conexiunea ceasului.';
+	@override String errorSendingMessage({required Object error}) => 'Eroare la trimiterea mesajului: ${error}';
+	@override String get testMeal => 'Masă de test';
+	@override String get testMealDataSentSuccess => 'Datele mesei de test au fost trimise cu succes!';
+	@override String get failedToSendMealData => 'Trimiterea datelor mesei a eșuat. Verifică conexiunea ceasului.';
+	@override String errorSendingMealData({required Object error}) => 'Eroare la trimiterea datelor mesei: ${error}';
+	@override String get testCalorieGoalSentSuccess => 'Obiectivul caloric de test a fost trimis cu succes!';
+	@override String get failedToSendCalorieGoal => 'Trimiterea obiectivului caloric a eșuat. Verifică conexiunea ceasului.';
+	@override String errorSendingCalorieGoal({required Object error}) => 'Eroare la trimiterea obiectivului caloric: ${error}';
+	@override String get testAnalyzeImage => 'Test analiză imagine';
+	@override String get testAnalyzeImageSubtitle => 'Încarcă o imagine de test predefinită';
+	@override String get testDetectImage => 'Test detectare imagine';
+	@override String get testDetectImageSubtitle => 'Detectează masa din URL-ul imaginii';
+	@override String get detectImageFromGallery => 'Detectează imagine din galerie';
+	@override String get detectImageFromGallerySubtitle => 'Selectează o imagine, încarcă în bucket și estimează caloriile';
+	@override String get testDetectText => 'Test detectare text';
+	@override String get testDetectTextSubtitle => 'Detectează masa din descrierea text';
+	@override String get testMealLoggingWithVariations => 'Testează înregistrarea mesei cu variante';
+	@override String get testMealLoggingWithVariationsSubtitle => 'Testează întregul flux de înregistrare a mesei cu variante';
+	@override String get mockMealWithVariations => 'Masă simulată cu variante';
+	@override String get mockMealWithVariationsSubtitle => 'Previzualizează varianta și foaia de sfaturi fără a înregistra masa';
+	@override String get mockMealName => 'Pui la grătar cu orez și legume';
+	@override String get mockTip => 'Acesta este un sfat simulant pentru previzualizarea UI. Masa nu este înregistrată.';
+	@override String get mockMealDescription => 'Masă simulată pentru depanare';
+	@override String get portionSizeQuestion => 'Cum a fost porția?';
+	@override String get extraSidesQuestion => 'Au existat garnituri suplimentare?';
+	@override String get optionSmall => 'Mic';
+	@override String get optionMedium => 'Mediu';
+	@override String get optionLarge => 'Mare';
+	@override String get optionNone => 'Niciuna';
+	@override String get optionSideSalad => 'Salată (garnitură)';
+	@override String get optionBreadRoll => 'Chiflă';
+	@override String get testingAnalyzeImage => 'Se testează API-ul analyzeImage...';
+	@override String get testingDetectImage => 'Se testează API-ul detectImage...';
+	@override String get testingDetectText => 'Se testează API-ul detectText...';
+	@override String get selectingImageFromGallery => 'Se selectează imaginea din galerie...';
+	@override String get noImageSelected => 'Nicio imagine selectată';
+	@override String get compressingImage => 'Se comprimă imaginea...';
+	@override String get uploadingImageAndDetecting => 'Se încarcă imaginea în bucket și se detectează masa...';
+	@override String get testingMealLoggingFlow => 'Se testează fluxul de înregistrare a mesei cu variante...';
+	@override String get noMealIdentifiedInResponse => 'Nicio masă identificată în răspuns';
+	@override String get mealIdentified => 'Masă identificată';
+	@override String get confidence => 'Încredere';
+	@override String get tip => 'Sfat';
+	@override String get mealName => 'Nume masă';
+	@override String get calories => 'Calorii';
+	@override String get protein => 'Proteine';
+	@override String get carbs => 'Carbohidrați';
+	@override String get fat => 'Grăsimi';
+	@override String get noMealInfo => 'Nu există informații despre masă';
+	@override String get na => 'N/A';
+	@override String get analyzeImageResult => 'Rezultat analiză imagine';
+	@override String get detectImageResult => 'Rezultat detectare imagine';
+	@override String get detectImageFromGalleryResult => 'Rezultat detectare imagine din galerie';
+	@override String get detectTextResult => 'Rezultat detectare text';
+	@override String errorGeneric({required Object error}) => 'Eroare: ${error}';
+	@override String get variationsCount => 'Variații';
+	@override String get userPreferencesCleared => 'Preferințele utilizatorului au fost șterse';
+	@override String get userProfileCleared => 'Profilul utilizatorului a fost șters';
+	@override String get checkForUpdate => 'Verifică actualizări';
+	@override String get showPatchNumber => 'Afișează numărul patch-ului';
+	@override String get showUpdateAvailable => 'Afișează actualizare disponibilă';
+	@override String get updateAvailable => 'Actualizare disponibilă';
+	@override String get upToDate => 'La zi';
+	@override String get shorebirdUnavailable => 'Shorebird nu este disponibil în acest mediu.';
+	@override String get patchNumberLabel => 'Număr patch';
+	@override String get noPatchInstalled => 'Niciun patch instalat';
+	@override String get todaysSteps => 'Pașii de astăzi';
+	@override String get stepsLabel => 'Pași';
+	@override String weightLabel({required Object value}) => 'Greutate: ${value} kg';
+	@override String heightLabel({required Object value}) => 'Înălțime: ${value} cm';
+	@override String get receivedMessagesFromWatch => 'Mesaje primite de la ceas';
+	@override String get noMessagesReceivedYet => 'Nu s-au primit mesaje încă.\n\nTrimite date de test de pe ceas pentru a vedea mesajele aici.';
+	@override String get messagesCleared => 'Mesajele au fost șterse';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalRo implements TranslationsHomeDailyGoalEn {
 	@override String get description => 'Ești gata să începi călătoria ta de sănătate? Stabilește-ți ținta zilnică de calorii mai jos pentru a-ți porni progresul.';
 	@override String get descriptionSet => 'Busola ta este setată! Aceasta este ținta ta zilnică de calorii pentru a te gândi.';
 	@override String get yourGoal => 'Obiectivul tău';
+	@override String get goal => 'Obiectiv';
 	@override String get dailyCalories => 'Calorii zilnice (kcal)';
 	@override String get setGoal => 'Stabilește Obiectiv';
 	@override String get intake => 'Consum';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryRo implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'Proteine';
 	@override String get fat => 'Grăsimi';
 	@override String get fiber => 'Fibre';
+	@override String get grams => 'grame';
+	@override String get chartAccessibilityLabel => 'Graficul macronutrienților';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsRo implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Notificări';
 	@override String get healthConnect => 'Health Connect';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => 'Teste Food API';
 	@override String get feedback => 'Feedback';
 	@override String get dataReset => 'Resetare date';
 	@override String get appInfo => 'Informații despre Aplicație';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsRo {
 			'home.dailyGoal.description' => 'Ești gata să începi călătoria ta de sănătate? Stabilește-ți ținta zilnică de calorii mai jos pentru a-ți porni progresul.',
 			'home.dailyGoal.descriptionSet' => 'Busola ta este setată! Aceasta este ținta ta zilnică de calorii pentru a te gândi.',
 			'home.dailyGoal.yourGoal' => 'Obiectivul tău',
+			'home.dailyGoal.goal' => 'Obiectiv',
 			'home.dailyGoal.dailyCalories' => 'Calorii zilnice (kcal)',
 			'home.dailyGoal.setGoal' => 'Stabilește Obiectiv',
 			'home.dailyGoal.intake' => 'Consum',
@@ -1700,6 +1805,8 @@ extension on TranslationsRo {
 			'home.dailySummary.protein' => 'Proteine',
 			'home.dailySummary.fat' => 'Grăsimi',
 			'home.dailySummary.fiber' => 'Fibre',
+			'home.dailySummary.grams' => 'grame',
+			'home.dailySummary.chartAccessibilityLabel' => 'Graficul macronutrienților',
 			'home.intakeProgress.title' => 'Divizarea Macronutrienților de Azi',
 			'home.intakeProgress.target' => 'Obiectiv',
 			'home.intakeProgress.current' => 'Curent',
@@ -2000,11 +2107,15 @@ extension on TranslationsRo {
 			'errors.loadingProfileData' => 'Eroare la încărcarea datelor profilului',
 			'errors.somethingWentWrong' => 'Ceva a mers prost.',
 			'debug.title' => 'Opțiuni de Debug',
+			'debug.searchHint' => 'Opțiuni de căutare...',
 			'debug.sections.notifications' => 'Notificări',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'Teste Food API',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Resetare date',
 			'debug.sections.appInfo' => 'Informații despre Aplicație',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'Arată Notificările Active',
 			'debug.scheduleTestNotification' => 'Programează Notificare de Test (10s)',
 			'debug.triggerBreakfastNotification' => 'Activează Notificarea de Mic Dejun',
@@ -2051,6 +2162,105 @@ extension on TranslationsRo {
 			'debug.clearUserProfileConfirmationMessage' => 'Datele profilului tău (obiectiv zilnic, înălțime, greutate etc.) vor fi șterse. Mesele și preferințele nu vor fi afectate.',
 			'debug.clear' => 'Șterge',
 			'debug.cancel' => 'Anulează',
+			'debug.checkWatchConnection' => 'Verifică conexiunea ceasului',
+			'debug.sendTestMessage' => 'Trimite mesaj de test',
+			'debug.sendTestMessageSubtitle' => 'Trimite un mesaj simplu de test către ceas',
+			'debug.sendTestMealData' => 'Trimite date de masă de test',
+			'debug.sendTestMealDataSubtitle' => 'Trimite date de masă exemplu către ceas',
+			'debug.sendTestCalorieGoal' => 'Trimite obiectiv caloric de test',
+			'debug.sendTestCalorieGoalSubtitle' => 'Trimite obiectiv caloric exemplu către ceas',
+			'debug.viewReceivedMessages' => 'Vezi mesajele primite',
+			'debug.viewReceivedMessagesSubtitle' => 'Vezi mesajele primite de la ceas',
+			'debug.watchConnected' => 'Ceasul este conectat ✓',
+			'debug.device' => 'Dispozitiv',
+			'debug.nearby' => 'În apropiere',
+			'debug.yes' => 'Da',
+			'debug.no' => 'Nu',
+			'debug.connectedDevices' => 'Dispozitive conectate',
+			'debug.deviceInfoUnavailable' => '(Informații dispozitiv indisponibile)',
+			'debug.unknownDevice' => 'Dispozitiv necunoscut',
+			'debug.watchNotConnected' => 'Ceasul nu este conectat ✗',
+			'debug.watchNotConnectedHint' => 'Asigură-te că:\n• Ambele dispozitive sunt împerecheate\n• Aplicația de pe ceas rulează\n• Ambele aplicații sunt în modul debug/staging',
+			'debug.watchConnection' => 'Conexiune ceas',
+			'debug.errorCheckingConnection' => ({required Object error}) => 'Eroare la verificarea conexiunii: ${error}',
+			'debug.helloFromPhone' => 'Salut de pe telefon!',
+			'debug.testMessageSentSuccess' => 'Mesajul de test a fost trimis cu succes!',
+			'debug.testMessageFailed' => 'Trimiterea mesajului de test a eșuat. Verifică conexiunea ceasului.',
+			'debug.errorSendingMessage' => ({required Object error}) => 'Eroare la trimiterea mesajului: ${error}',
+			'debug.testMeal' => 'Masă de test',
+			'debug.testMealDataSentSuccess' => 'Datele mesei de test au fost trimise cu succes!',
+			'debug.failedToSendMealData' => 'Trimiterea datelor mesei a eșuat. Verifică conexiunea ceasului.',
+			'debug.errorSendingMealData' => ({required Object error}) => 'Eroare la trimiterea datelor mesei: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'Obiectivul caloric de test a fost trimis cu succes!',
+			'debug.failedToSendCalorieGoal' => 'Trimiterea obiectivului caloric a eșuat. Verifică conexiunea ceasului.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Eroare la trimiterea obiectivului caloric: ${error}',
+			'debug.testAnalyzeImage' => 'Test analiză imagine',
+			'debug.testAnalyzeImageSubtitle' => 'Încarcă o imagine de test predefinită',
+			'debug.testDetectImage' => 'Test detectare imagine',
+			'debug.testDetectImageSubtitle' => 'Detectează masa din URL-ul imaginii',
+			'debug.detectImageFromGallery' => 'Detectează imagine din galerie',
+			'debug.detectImageFromGallerySubtitle' => 'Selectează o imagine, încarcă în bucket și estimează caloriile',
+			'debug.testDetectText' => 'Test detectare text',
+			'debug.testDetectTextSubtitle' => 'Detectează masa din descrierea text',
+			'debug.testMealLoggingWithVariations' => 'Testează înregistrarea mesei cu variante',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'Testează întregul flux de înregistrare a mesei cu variante',
+			'debug.mockMealWithVariations' => 'Masă simulată cu variante',
+			'debug.mockMealWithVariationsSubtitle' => 'Previzualizează varianta și foaia de sfaturi fără a înregistra masa',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'Pui la grătar cu orez și legume',
+			'debug.mockTip' => 'Acesta este un sfat simulant pentru previzualizarea UI. Masa nu este înregistrată.',
+			'debug.mockMealDescription' => 'Masă simulată pentru depanare',
+			'debug.portionSizeQuestion' => 'Cum a fost porția?',
+			'debug.extraSidesQuestion' => 'Au existat garnituri suplimentare?',
+			'debug.optionSmall' => 'Mic',
+			'debug.optionMedium' => 'Mediu',
+			'debug.optionLarge' => 'Mare',
+			'debug.optionNone' => 'Niciuna',
+			'debug.optionSideSalad' => 'Salată (garnitură)',
+			'debug.optionBreadRoll' => 'Chiflă',
+			'debug.testingAnalyzeImage' => 'Se testează API-ul analyzeImage...',
+			'debug.testingDetectImage' => 'Se testează API-ul detectImage...',
+			'debug.testingDetectText' => 'Se testează API-ul detectText...',
+			'debug.selectingImageFromGallery' => 'Se selectează imaginea din galerie...',
+			'debug.noImageSelected' => 'Nicio imagine selectată',
+			'debug.compressingImage' => 'Se comprimă imaginea...',
+			'debug.uploadingImageAndDetecting' => 'Se încarcă imaginea în bucket și se detectează masa...',
+			'debug.testingMealLoggingFlow' => 'Se testează fluxul de înregistrare a mesei cu variante...',
+			'debug.noMealIdentifiedInResponse' => 'Nicio masă identificată în răspuns',
+			'debug.mealIdentified' => 'Masă identificată',
+			'debug.confidence' => 'Încredere',
+			'debug.tip' => 'Sfat',
+			'debug.mealName' => 'Nume masă',
+			'debug.calories' => 'Calorii',
+			'debug.protein' => 'Proteine',
+			'debug.carbs' => 'Carbohidrați',
+			'debug.fat' => 'Grăsimi',
+			'debug.noMealInfo' => 'Nu există informații despre masă',
+			'debug.na' => 'N/A',
+			'debug.analyzeImageResult' => 'Rezultat analiză imagine',
+			'debug.detectImageResult' => 'Rezultat detectare imagine',
+			'debug.detectImageFromGalleryResult' => 'Rezultat detectare imagine din galerie',
+			'debug.detectTextResult' => 'Rezultat detectare text',
+			'debug.errorGeneric' => ({required Object error}) => 'Eroare: ${error}',
+			'debug.variationsCount' => 'Variații',
+			'debug.userPreferencesCleared' => 'Preferințele utilizatorului au fost șterse',
+			'debug.userProfileCleared' => 'Profilul utilizatorului a fost șters',
+			'debug.checkForUpdate' => 'Verifică actualizări',
+			'debug.showPatchNumber' => 'Afișează numărul patch-ului',
+			'debug.showUpdateAvailable' => 'Afișează actualizare disponibilă',
+			'debug.updateAvailable' => 'Actualizare disponibilă',
+			'debug.upToDate' => 'La zi',
+			'debug.shorebirdUnavailable' => 'Shorebird nu este disponibil în acest mediu.',
+			'debug.patchNumberLabel' => 'Număr patch',
+			'debug.noPatchInstalled' => 'Niciun patch instalat',
+			'debug.todaysSteps' => 'Pașii de astăzi',
+			'debug.stepsLabel' => 'Pași',
+			'debug.weightLabel' => ({required Object value}) => 'Greutate: ${value} kg',
+			'debug.heightLabel' => ({required Object value}) => 'Înălțime: ${value} cm',
+			'debug.receivedMessagesFromWatch' => 'Mesaje primite de la ceas',
+			'debug.noMessagesReceivedYet' => 'Nu s-au primit mesaje încă.\n\nTrimite date de test de pe ceas pentru a vedea mesajele aici.',
+			'debug.messagesCleared' => 'Mesajele au fost șterse',
 			'health.syncFailed' => 'Nu s-a putut sincroniza cu Health Connect',
 			'health.mealSynced' => 'Masă sincronizată cu Health Connect',
 			_ => null,

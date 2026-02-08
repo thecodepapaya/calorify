@@ -97,7 +97,7 @@ class _MacroChartState extends State<MacroChart>
                     return Transform.scale(scale: value, child: child);
                   },
                   child: Semantics(
-                    label: 'Macros chart icon',
+                    label: t.home.dailySummary.chartAccessibilityLabel,
                     excludeSemantics: true,
                     child: Icon(
                       LucideIcons.chartPie,
@@ -245,7 +245,6 @@ class _MacroChartState extends State<MacroChart>
                   _MacroLegend(
                     color: proteinIconColor,
                     label: t.home.dailySummary.protein,
-                    shortLabel: 'P',
                     value: _totalProtein,
                     icon: LucideIcons.dumbbell,
                     animation: _animation,
@@ -254,7 +253,6 @@ class _MacroChartState extends State<MacroChart>
                   _MacroLegend(
                     color: carbsIconColor,
                     label: t.home.dailySummary.carbs,
-                    shortLabel: 'C',
                     value: _totalCarbs,
                     icon: LucideIcons.wheat,
                     animation: _animation,
@@ -263,7 +261,6 @@ class _MacroChartState extends State<MacroChart>
                   _MacroLegend(
                     color: fatIconColor,
                     label: t.home.dailySummary.fat,
-                    shortLabel: 'F',
                     value: _totalFat,
                     icon: LucideIcons.droplet,
                     animation: _animation,
@@ -305,7 +302,6 @@ class _MacroChartState extends State<MacroChart>
 class _MacroLegend extends StatelessWidget {
   final Color color;
   final String label;
-  final String shortLabel;
   final int value;
   final IconData icon;
   final Animation<double> animation;
@@ -314,20 +310,24 @@ class _MacroLegend extends StatelessWidget {
   const _MacroLegend({
     required this.color,
     required this.label,
-    required this.shortLabel,
     required this.value,
     required this.icon,
     required this.animation,
     required this.delay,
   });
 
+  /// First character of the translated label for compact display (localized).
+  String get _shortLabel =>
+      label.isNotEmpty ? label.substring(0, 1).toUpperCase() : '';
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final t = Translations.of(context);
 
     return Semantics(
-      label: '$label: $value grams',
+      label: '$label: $value ${t.home.dailySummary.grams}',
       child: FadeTransition(
         opacity: Tween<double>(begin: 0.0, end: 1.0).animate(
           CurvedAnimation(
@@ -365,7 +365,7 @@ class _MacroLegend extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                shortLabel,
+                _shortLabel,
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                   fontWeight: FontWeight.w600,

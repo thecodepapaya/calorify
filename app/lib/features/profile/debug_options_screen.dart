@@ -66,7 +66,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
               padding: const EdgeInsets.only(bottom: 16),
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Search options...',
+                  hintText: t.debug.searchHint,
                   prefixIcon: const Icon(LucideIcons.search, size: 20),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -91,12 +91,12 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
               const SizedBox(height: 24),
             ],
             if (wearOsOptions != null) ...[
-              _buildSectionTitle(context, 'Wear OS'),
+              _buildSectionTitle(context, t.debug.sections.wearOs),
               wearOsOptions,
               const SizedBox(height: 24),
             ],
             if (foodApiOptions != null) ...[
-              _buildSectionTitle(context, 'Food API Tests'),
+              _buildSectionTitle(context, t.debug.sections.foodApiTests),
               foodApiOptions,
               const SizedBox(height: 24),
             ],
@@ -116,7 +116,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
               const SizedBox(height: 24),
             ],
             if (shorebirdOptions != null) ...[
-              _buildSectionTitle(context, 'Shorebird'),
+              _buildSectionTitle(context, t.debug.sections.shorebird),
               shorebirdOptions,
               const SizedBox(height: 24),
             ],
@@ -310,42 +310,42 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
   }
 
   Widget? _buildWearOsOptions(BuildContext context) {
-    const section = 'Wear OS';
-    const titleSubtitle = [
-      ('Check Watch Connection', null),
-      ('Send Test Message', 'Send a simple test message to watch'),
-      ('Send Test Meal Data', 'Send sample meal data to watch'),
-      ('Send Test Calorie Goal', 'Send sample calorie goal to watch'),
-      ('View Received Messages', 'View messages received from watch'),
+    final section = t.debug.sections.wearOs;
+    final titleSubtitle = [
+      (t.debug.checkWatchConnection, null),
+      (t.debug.sendTestMessage, t.debug.sendTestMessageSubtitle),
+      (t.debug.sendTestMealData, t.debug.sendTestMealDataSubtitle),
+      (t.debug.sendTestCalorieGoal, t.debug.sendTestCalorieGoalSubtitle),
+      (t.debug.viewReceivedMessages, t.debug.viewReceivedMessagesSubtitle),
     ];
     final items = <Widget>[
       ListTile(
         leading: const Icon(LucideIcons.watch),
-        title: const Text('Check Watch Connection'),
+        title: Text(t.debug.checkWatchConnection),
         onTap: _checkWatchConnection,
       ),
       ListTile(
         leading: const Icon(LucideIcons.send),
-        title: const Text('Send Test Message'),
-        subtitle: const Text('Send a simple test message to watch'),
+        title: Text(t.debug.sendTestMessage),
+        subtitle: Text(t.debug.sendTestMessageSubtitle),
         onTap: _sendTestMessage,
       ),
       ListTile(
         leading: const Icon(LucideIcons.database),
-        title: const Text('Send Test Meal Data'),
-        subtitle: const Text('Send sample meal data to watch'),
+        title: Text(t.debug.sendTestMealData),
+        subtitle: Text(t.debug.sendTestMealDataSubtitle),
         onTap: _sendTestMealData,
       ),
       ListTile(
         leading: const Icon(LucideIcons.activity),
-        title: const Text('Send Test Calorie Goal'),
-        subtitle: const Text('Send sample calorie goal to watch'),
+        title: Text(t.debug.sendTestCalorieGoal),
+        subtitle: Text(t.debug.sendTestCalorieGoalSubtitle),
         onTap: _sendTestCalorieGoal,
       ),
       ListTile(
         leading: const Icon(LucideIcons.inbox),
-        title: const Text('View Received Messages'),
-        subtitle: const Text('View messages received from watch'),
+        title: Text(t.debug.viewReceivedMessages),
+        subtitle: Text(t.debug.viewReceivedMessagesSubtitle),
         onTap: _viewReceivedMessages,
       ),
     ];
@@ -367,28 +367,27 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       if (connected) {
         final watchInfo = await WearOsPhoneChannel.getConnectedWatchInfo();
         if (watchInfo != null) {
-          final deviceName = watchInfo['name'] as String? ?? 'Unknown Device';
+          final deviceName = watchInfo['name'] as String? ?? t.debug.unknownDevice;
           final isNearby = watchInfo['isNearby'] as bool? ?? false;
           final count = watchInfo['count'] as int? ?? 1;
 
-          message = 'Watch is connected ✓\n\n';
-          message += 'Device: $deviceName\n';
-          message += 'Nearby: ${isNearby ? "Yes" : "No"}\n';
+          message = '${t.debug.watchConnected}\n\n';
+          message += '${t.debug.device}: $deviceName\n';
+          message += '${t.debug.nearby}: ${isNearby ? t.debug.yes : t.debug.no}\n';
           if (count > 1) {
-            message += 'Connected devices: $count';
+            message += '${t.debug.connectedDevices}: $count';
           }
         } else {
-          message = 'Watch is connected ✓\n\n(Device info unavailable)';
+          message = '${t.debug.watchConnected}\n\n${t.debug.deviceInfoUnavailable}';
         }
       } else {
-        message =
-            'Watch is not connected ✗\n\nMake sure:\n• Both devices are paired\n• Watch app is running\n• Both apps are in debug/staging mode';
+        message = '${t.debug.watchNotConnected}\n\n${t.debug.watchNotConnectedHint}';
       }
 
-      _showDataDialog('Watch Connection', message);
+      _showDataDialog(t.debug.watchConnection, message);
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar('Error checking connection: $e');
+      _showSnackbar(t.debug.errorCheckingConnection(error: e.toString()));
     }
   }
 
@@ -397,7 +396,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       final success = await WearOsPhoneChannel.sendToWatch(
         path: '/test',
         data: {
-          'message': 'Hello from phone!',
+          'message': t.debug.helloFromPhone,
           'timestamp': DateTime.now().toIso8601String(),
           'type': 'test',
         },
@@ -405,12 +404,12 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       if (!mounted) return;
       _showSnackbar(
         success
-            ? 'Test message sent successfully!'
-            : 'Failed to send test message. Check watch connection.',
+            ? t.debug.testMessageSentSuccess
+            : t.debug.testMessageFailed,
       );
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar('Error sending message: $e');
+      _showSnackbar(t.debug.errorSendingMessage(error: e.toString()));
     }
   }
 
@@ -418,7 +417,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     try {
       final testMeal = {
         'id': 'test-${DateTime.now().millisecondsSinceEpoch}',
-        'name': 'Test Meal',
+        'name': t.debug.testMeal,
         'calories': 500,
         'protein': 30.0,
         'carbs': 60.0,
@@ -437,12 +436,12 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       if (!mounted) return;
       _showSnackbar(
         success
-            ? 'Test meal data sent successfully!'
-            : 'Failed to send meal data. Check watch connection.',
+            ? t.debug.testMealDataSentSuccess
+            : t.debug.failedToSendMealData,
       );
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar('Error sending meal data: $e');
+      _showSnackbar(t.debug.errorSendingMealData(error: e.toString()));
     }
   }
 
@@ -455,73 +454,60 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       if (!mounted) return;
       _showSnackbar(
         success
-            ? 'Test calorie goal sent successfully!'
-            : 'Failed to send calorie goal. Check watch connection.',
+            ? t.debug.testCalorieGoalSentSuccess
+            : t.debug.failedToSendCalorieGoal,
       );
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar('Error sending calorie goal: $e');
+      _showSnackbar(t.debug.errorSendingCalorieGoal(error: e.toString()));
     }
   }
 
   Widget? _buildFoodApiOptions(BuildContext context) {
-    const section = 'Food API Tests';
-    const titleSubtitle = [
-      ('Test Analyze Image', 'Upload hardcoded test image'),
-      ('Test Detect Image', 'Detect meal from image URL'),
-      (
-        'Detect Image from Gallery',
-        'Select image, upload to bucket & estimate calories',
-      ),
-      ('Test Detect Text', 'Detect meal from text description'),
-      (
-        'Test Meal Logging with Variations',
-        'Test the full meal logging flow with variations',
-      ),
-      (
-        'Mock meal with variations',
-        'Preview variation + tip sheet UI without logging',
-      ),
+    final section = t.debug.sections.foodApiTests;
+    final titleSubtitle = [
+      (t.debug.testAnalyzeImage, t.debug.testAnalyzeImageSubtitle),
+      (t.debug.testDetectImage, t.debug.testDetectImageSubtitle),
+      (t.debug.detectImageFromGallery, t.debug.detectImageFromGallerySubtitle),
+      (t.debug.testDetectText, t.debug.testDetectTextSubtitle),
+      (t.debug.testMealLoggingWithVariations, t.debug.testMealLoggingWithVariationsSubtitle),
+      (t.debug.mockMealWithVariations, t.debug.mockMealWithVariationsSubtitle),
     ];
     final items = <Widget>[
       ListTile(
         leading: const Icon(LucideIcons.image),
-        title: const Text('Test Analyze Image'),
-        subtitle: const Text('Upload hardcoded test image'),
+        title: Text(t.debug.testAnalyzeImage),
+        subtitle: Text(t.debug.testAnalyzeImageSubtitle),
         onTap: _testAnalyzeImage,
       ),
       ListTile(
         leading: const Icon(LucideIcons.link),
-        title: const Text('Test Detect Image'),
-        subtitle: const Text('Detect meal from image URL'),
+        title: Text(t.debug.testDetectImage),
+        subtitle: Text(t.debug.testDetectImageSubtitle),
         onTap: _testDetectImage,
       ),
       ListTile(
         leading: const Icon(LucideIcons.upload),
-        title: const Text('Detect Image from Gallery'),
-        subtitle: const Text(
-          'Select image, upload to bucket & estimate calories',
-        ),
+        title: Text(t.debug.detectImageFromGallery),
+        subtitle: Text(t.debug.detectImageFromGallerySubtitle),
         onTap: _testDetectImageFromGallery,
       ),
       ListTile(
         leading: const Icon(LucideIcons.type),
-        title: const Text('Test Detect Text'),
-        subtitle: const Text('Detect meal from text description'),
+        title: Text(t.debug.testDetectText),
+        subtitle: Text(t.debug.testDetectTextSubtitle),
         onTap: _testDetectText,
       ),
       ListTile(
         leading: const Icon(LucideIcons.info),
-        title: const Text('Test Meal Logging with Variations'),
-        subtitle: const Text('Test the full meal logging flow with variations'),
+        title: Text(t.debug.testMealLoggingWithVariations),
+        subtitle: Text(t.debug.testMealLoggingWithVariationsSubtitle),
         onTap: _testMealLoggingWithVariations,
       ),
       ListTile(
         leading: const Icon(LucideIcons.beaker),
-        title: const Text('Mock meal with variations'),
-        subtitle: const Text(
-          'Preview variation + tip sheet UI without logging',
-        ),
+        title: Text(t.debug.mockMealWithVariations),
+        subtitle: Text(t.debug.mockMealWithVariationsSubtitle),
         onTap: _mockMealWithVariations,
       ),
     ];
@@ -548,7 +534,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
 
   MealDetectionResponse _createMockMealDetectionResponse() {
     final baseMeal = Meal(
-      name: 'Grilled chicken with rice and vegetables',
+      name: t.debug.mockMealName,
       quantity: '1 serving',
       type: MealType.LUNCH,
       macros: MealMacro(
@@ -562,16 +548,16 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     final result = MealDetectionResult(
       mealIdentified: true,
       calorieConfidence: CalorieConfidence.MEDIUM,
-      tip: 'This is a mock tip for UI preview. The meal is not logged.',
+      tip: t.debug.mockTip,
       meal: baseMeal,
-      metadata: MealMetadata(mealDescription: 'Mock meal for debug'),
+      metadata: MealMetadata(mealDescription: t.debug.mockMealDescription),
     );
     final variations = [
       Variation(
-        question: 'How was the portion size?',
+        question: t.debug.portionSizeQuestion,
         options: [
           Variation_Option(
-            option: 'Small',
+            option: t.debug.optionSmall,
             macroDiff: MealMacro(
               calories: -80,
               carbs: -15,
@@ -580,9 +566,9 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
               fiber: -1,
             ),
           ),
-          Variation_Option(option: 'Medium'),
+          Variation_Option(option: t.debug.optionMedium),
           Variation_Option(
-            option: 'Large',
+            option: t.debug.optionLarge,
             macroDiff: MealMacro(
               calories: 100,
               carbs: 12,
@@ -594,11 +580,11 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
         ],
       ),
       Variation(
-        question: 'Any extra sides?',
+        question: t.debug.extraSidesQuestion,
         options: [
-          Variation_Option(option: 'None'),
+          Variation_Option(option: t.debug.optionNone),
           Variation_Option(
-            option: 'Side salad',
+            option: t.debug.optionSideSalad,
             macroDiff: MealMacro(
               calories: 50,
               carbs: 6,
@@ -608,7 +594,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
             ),
           ),
           Variation_Option(
-            option: 'Bread roll',
+            option: t.debug.optionBreadRoll,
             macroDiff: MealMacro(
               calories: 120,
               carbs: 22,
@@ -625,7 +611,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
 
   Future<void> _testAnalyzeImage() async {
     try {
-      _showSnackbar('Testing analyzeImage API...');
+      _showSnackbar(t.debug.testingAnalyzeImage);
 
       final testImageUrl =
           'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
@@ -651,28 +637,28 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       final mealInfo = result.hasMeal() ? result.meal : null;
 
       final resultText = '''
-Meal Identified: ${result.mealIdentified}
-Confidence: ${result.calorieConfidence.name}
-Tip: ${result.tip.isNotEmpty ? result.tip : 'N/A'}
+${t.debug.mealIdentified}: ${result.mealIdentified}
+${t.debug.confidence}: ${result.calorieConfidence.name}
+${t.debug.tip}: ${result.tip.isNotEmpty ? result.tip : t.debug.na}
 ${mealInfo != null ? '''
-Meal Name: ${mealInfo.name}
-Calories: ${mealInfo.macros.calories}
-Protein: ${mealInfo.macros.protein}g
-Carbs: ${mealInfo.macros.carbs}g
-Fat: ${mealInfo.macros.fat}g
-''' : 'No meal info'}
+${t.debug.mealName}: ${mealInfo.name}
+${t.debug.calories}: ${mealInfo.macros.calories}
+${t.debug.protein}: ${mealInfo.macros.protein}g
+${t.debug.carbs}: ${mealInfo.macros.carbs}g
+${t.debug.fat}: ${mealInfo.macros.fat}g
+''' : t.debug.noMealInfo}
 ''';
 
-      _showDataDialog('Analyze Image Result', resultText);
+      _showDataDialog(t.debug.analyzeImageResult, resultText);
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar('Error: $e');
+      _showSnackbar(t.debug.errorGeneric(error: e.toString()));
     }
   }
 
   Future<void> _testDetectImage() async {
     try {
-      _showSnackbar('Testing detectImage API...');
+      _showSnackbar(t.debug.testingDetectImage);
 
       const testImageUrl =
           'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
@@ -702,28 +688,28 @@ Fat: ${mealInfo.macros.fat}g
       final mealInfo = result.hasMeal() ? result.meal : null;
 
       final resultText = '''
-Meal Identified: ${result.mealIdentified}
-Confidence: ${result.calorieConfidence.name}
-Tip: ${result.tip.isNotEmpty ? result.tip : 'N/A'}
+${t.debug.mealIdentified}: ${result.mealIdentified}
+${t.debug.confidence}: ${result.calorieConfidence.name}
+${t.debug.tip}: ${result.tip.isNotEmpty ? result.tip : t.debug.na}
 ${mealInfo != null ? '''
-Meal Name: ${mealInfo.name}
-Calories: ${mealInfo.macros.calories}
-Protein: ${mealInfo.macros.protein}g
-Carbs: ${mealInfo.macros.carbs}g
-Fat: ${mealInfo.macros.fat}g
-''' : 'No meal info'}
+${t.debug.mealName}: ${mealInfo.name}
+${t.debug.calories}: ${mealInfo.macros.calories}
+${t.debug.protein}: ${mealInfo.macros.protein}g
+${t.debug.carbs}: ${mealInfo.macros.carbs}g
+${t.debug.fat}: ${mealInfo.macros.fat}g
+''' : t.debug.noMealInfo}
 ''';
 
-      _showDataDialog('Detect Image Result', resultText);
+      _showDataDialog(t.debug.detectImageResult, resultText);
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar('Error: $e');
+      _showSnackbar(t.debug.errorGeneric(error: e.toString()));
     }
   }
 
   Future<void> _testDetectImageFromGallery() async {
     try {
-      _showSnackbar('Selecting image from gallery...');
+      _showSnackbar(t.debug.selectingImageFromGallery);
 
       final pickerService = ImagePickerService();
       File? imageFile;
@@ -737,12 +723,12 @@ Fat: ${mealInfo.macros.fat}g
 
       if (imageFile == null) {
         if (!mounted) return;
-        _showSnackbar('No image selected');
+        _showSnackbar(t.debug.noImageSelected);
         return;
       }
 
       if (!mounted) return;
-      _showSnackbar('Compressing image...');
+      _showSnackbar(t.debug.compressingImage);
 
       // Compress the image before uploading
       final compressedBytes = await ImageCompressionService.instance
@@ -756,7 +742,7 @@ Fat: ${mealInfo.macros.fat}g
       await compressedFile.writeAsBytes(compressedBytes);
 
       if (!mounted) return;
-      _showSnackbar('Uploading image to bucket and detecting meal...');
+      _showSnackbar(t.debug.uploadingImageAndDetecting);
 
       final repository = FoodRepository();
       final detectResponse = await repository.detectImage(
@@ -776,28 +762,28 @@ Fat: ${mealInfo.macros.fat}g
       final mealInfo = result.hasMeal() ? result.meal : null;
 
       final resultText = '''
-Meal Identified: ${result.mealIdentified}
-Confidence: ${result.calorieConfidence.name}
-Tip: ${result.tip.isNotEmpty ? result.tip : 'N/A'}
+${t.debug.mealIdentified}: ${result.mealIdentified}
+${t.debug.confidence}: ${result.calorieConfidence.name}
+${t.debug.tip}: ${result.tip.isNotEmpty ? result.tip : t.debug.na}
 ${mealInfo != null ? '''
-Meal Name: ${mealInfo.name}
-Calories: ${mealInfo.macros.calories}
-Protein: ${mealInfo.macros.protein}g
-Carbs: ${mealInfo.macros.carbs}g
-Fat: ${mealInfo.macros.fat}g
-''' : 'No meal info'}
+${t.debug.mealName}: ${mealInfo.name}
+${t.debug.calories}: ${mealInfo.macros.calories}
+${t.debug.protein}: ${mealInfo.macros.protein}g
+${t.debug.carbs}: ${mealInfo.macros.carbs}g
+${t.debug.fat}: ${mealInfo.macros.fat}g
+''' : t.debug.noMealInfo}
 ''';
 
-      _showDataDialog('Detect Image from Gallery Result', resultText);
+      _showDataDialog(t.debug.detectImageFromGalleryResult, resultText);
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar('Error: $e');
+      _showSnackbar(t.debug.errorGeneric(error: e.toString()));
     }
   }
 
   Future<void> _testDetectText() async {
     try {
-      _showSnackbar('Testing detectText API...');
+      _showSnackbar(t.debug.testingDetectText);
 
       const testText =
           'I had a large grilled chicken breast with roasted vegetables and quinoa for lunch';
@@ -811,29 +797,29 @@ Fat: ${mealInfo.macros.fat}g
       final mealInfo = result.hasMeal() ? result.meal : null;
 
       final resultText = '''
-Meal Identified: ${result.mealIdentified}
-Confidence: ${result.calorieConfidence.name}
-Tip: ${result.tip.isNotEmpty ? result.tip : 'N/A'}
+${t.debug.mealIdentified}: ${result.mealIdentified}
+${t.debug.confidence}: ${result.calorieConfidence.name}
+${t.debug.tip}: ${result.tip.isNotEmpty ? result.tip : t.debug.na}
 ${mealInfo != null ? '''
-Meal Name: ${mealInfo.name}
-Calories: ${mealInfo.macros.calories}
-Protein: ${mealInfo.macros.protein}g
-Carbs: ${mealInfo.macros.carbs}g
-Fat: ${mealInfo.macros.fat}g
-''' : 'No meal info'}
-Variations: ${response.variations.length}
+${t.debug.mealName}: ${mealInfo.name}
+${t.debug.calories}: ${mealInfo.macros.calories}
+${t.debug.protein}: ${mealInfo.macros.protein}g
+${t.debug.carbs}: ${mealInfo.macros.carbs}g
+${t.debug.fat}: ${mealInfo.macros.fat}g
+''' : t.debug.noMealInfo}
+${t.debug.variationsCount}: ${response.variations.length}
 ''';
 
-      _showDataDialog('Detect Text Result', resultText);
+      _showDataDialog(t.debug.detectTextResult, resultText);
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar('Error: $e');
+      _showSnackbar(t.debug.errorGeneric(error: e.toString()));
     }
   }
 
   Future<void> _testMealLoggingWithVariations() async {
     try {
-      _showSnackbar('Testing meal logging flow with variations...');
+      _showSnackbar(t.debug.testingMealLoggingFlow);
 
       // Navigate to Log screen first
       if (!mounted) return;
@@ -863,12 +849,12 @@ Variations: ${response.variations.length}
             mealDetectionResult: response.result,
           );
         } else {
-          _showSnackbar('No meal identified in response');
+          _showSnackbar(t.debug.noMealIdentifiedInResponse);
         }
       }
-    } catch (e) {
+      } catch (e) {
       if (!mounted) return;
-      _showSnackbar('Error: $e');
+      _showSnackbar(t.debug.errorGeneric(error: e.toString()));
     }
   }
 
@@ -934,7 +920,7 @@ Variations: ${response.variations.length}
                   if (!dialogContext.mounted) return;
                   Navigator.pop(dialogContext);
                   if (!context.mounted) return;
-                  _showSnackbar('User preferences cleared');
+                  _showSnackbar(t.debug.userPreferencesCleared);
                 },
                 child: Text(t.debug.clear),
               ),
@@ -964,7 +950,7 @@ Variations: ${response.variations.length}
                   if (!dialogContext.mounted) return;
                   Navigator.pop(dialogContext);
                   if (!context.mounted) return;
-                  _showSnackbar('User profile cleared');
+                  _showSnackbar(t.debug.userProfileCleared);
                 },
                 child: Text(t.debug.clear),
               ),
@@ -991,26 +977,26 @@ Variations: ${response.variations.length}
   }
 
   Widget? _buildShorebirdOptions(BuildContext context) {
-    const section = 'Shorebird';
-    const titles = [
-      'Check for update',
-      'Show patch number',
-      'Show update available',
+    final section = t.debug.sections.shorebird;
+    final titles = [
+      t.debug.checkForUpdate,
+      t.debug.showPatchNumber,
+      t.debug.showUpdateAvailable,
     ];
     final items = <Widget>[
       ListTile(
         leading: const Icon(LucideIcons.download),
-        title: const Text('Check for update'),
+        title: Text(t.debug.checkForUpdate),
         onTap: _shorebirdCheckForUpdate,
       ),
       ListTile(
         leading: const Icon(LucideIcons.hash),
-        title: const Text('Show patch number'),
+        title: Text(t.debug.showPatchNumber),
         onTap: _shorebirdShowPatchNumber,
       ),
       ListTile(
         leading: const Icon(LucideIcons.circleAlert),
-        title: const Text('Show update available'),
+        title: Text(t.debug.showUpdateAvailable),
         onTap: _shorebirdShowUpdateAvailable,
       ),
     ];
@@ -1027,13 +1013,13 @@ Variations: ${response.variations.length}
       final status = await ShorebirdUpdater().checkForUpdate();
       if (!mounted) return;
       final message =
-          status == UpdateStatus.outdated ? 'Update available' : 'Up to date';
-      _showDataDialog('Check for update', message);
+          status == UpdateStatus.outdated ? t.debug.updateAvailable : t.debug.upToDate;
+      _showDataDialog(t.debug.checkForUpdate, '$message ($status)');
     } catch (_) {
       if (!mounted) return;
       _showDataDialog(
-        'Check for update',
-        'Shorebird is unavailable in this environment.',
+        t.debug.checkForUpdate,
+        t.debug.shorebirdUnavailable,
       );
     }
   }
@@ -1044,14 +1030,14 @@ Variations: ${response.variations.length}
       if (!mounted) return;
       final message =
           patch != null
-              ? 'Patch number: ${patch.number}'
-              : 'No patch installed';
-      _showDataDialog('Show patch number', message);
+              ? '${t.debug.patchNumberLabel}: ${patch.number}'
+              : t.debug.noPatchInstalled;
+      _showDataDialog(t.debug.showPatchNumber, '$message ${patch ?? "null"}');
     } catch (_) {
       if (!mounted) return;
       _showDataDialog(
-        'Show patch number',
-        'Shorebird is unavailable in this environment.',
+        t.debug.showPatchNumber,
+        t.debug.shorebirdUnavailable,
       );
     }
   }
@@ -1061,8 +1047,8 @@ Variations: ${response.variations.length}
   }
 
   void _checkCurrentLocale() {
-    final locale = LocaleUtils.getCurrentLocale(context);
-    final unitSystem = LocaleUtils.getDefaultUnitSystem(context);
+    final locale = TranslationProvider.of(context).locale.flutterLocale;
+    final unitSystem = LocaleUtils.getDefaultUnitSystem(locale);
     final isMetric = unitSystem == UnitSystem.METRIC;
     final countryCode = locale.countryCode ?? 'N/A';
     final languageCode = locale.languageCode;
@@ -1079,7 +1065,7 @@ Variations: ${response.variations.length}
 
   Future<void> _fetchTodaysSteps() async {
     final steps = await HealthService.instance.getTodaySteps();
-    _showDataDialog('Today\'s Steps', 'Steps: $steps');
+    _showDataDialog(t.debug.todaysSteps, '${t.debug.stepsLabel}: $steps');
   }
 
   Future<void> _fetchLatestWeight() async {
@@ -1089,7 +1075,7 @@ Variations: ${response.variations.length}
     } else {
       _showDataDialog(
         t.debug.latestWeight,
-        'Weight: ${weight.toStringAsFixed(UnitSystem.METRIC.weightPrecision)} kg',
+        t.debug.weightLabel(value: weight.toStringAsFixed(UnitSystem.METRIC.weightPrecision)),
       );
     }
   }
@@ -1102,7 +1088,7 @@ Variations: ${response.variations.length}
       // Height is usually in meters from Health Connect
       _showDataDialog(
         t.debug.latestHeight,
-        'Height: ${(height * 100).toStringAsFixed(UnitSystem.METRIC.heightPrecision)} cm',
+        t.debug.heightLabel(value: (height * 100).toStringAsFixed(UnitSystem.METRIC.heightPrecision)),
       );
     }
   }
@@ -1189,13 +1175,13 @@ Variations: ${response.variations.length}
       ),
       builder:
           (context) => AlertDialog(
-            title: const Text('Received Messages from Watch'),
+            title: Text(t.debug.receivedMessagesFromWatch),
             content: SizedBox(
               width: double.maxFinite,
               child:
                   WearOsMessageLog.messages.isEmpty
-                      ? const Text(
-                        'No messages received yet.\n\nSend test data from watch to see messages here.',
+                      ? Text(
+                        t.debug.noMessagesReceivedYet,
                       )
                       : ListView.builder(
                         shrinkWrap: true,
@@ -1252,9 +1238,9 @@ Variations: ${response.variations.length}
                     WearOsMessageLog.clear();
                     setState(() {});
                     Navigator.of(context).pop();
-                    _showSnackbar('Messages cleared');
+                    _showSnackbar(t.debug.messagesCleared);
                   },
-                  child: const Text('Clear'),
+                  child: Text(t.debug.clear),
                 ),
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
+import 'package:calorify/core/constants/app_constants.dart';
 import 'package:calorify/core/utilities/app_version.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class AboutScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         children: [
           const SizedBox(height: 16),
           // Tagline
@@ -142,7 +143,7 @@ class AboutScreen extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -243,11 +244,10 @@ class AboutScreen extends StatelessWidget {
   Widget _buildPrivacyPolicyLink(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    const privacyPolicyUrl = 'https://calorify.thecodepapaya.dev/privacy.html';
 
     return InkWell(
       onTap: () async {
-        final uri = Uri.parse(privacyPolicyUrl);
+        final uri = Uri.parse(AppConstants.privacyPolicyUrl);
         await launchUrl(uri, mode: LaunchMode.externalApplication);
       },
       borderRadius: BorderRadius.circular(12),
@@ -289,17 +289,15 @@ class AboutScreen extends StatelessWidget {
   }
 
   Widget _buildDeveloperLinks(BuildContext context) {
-    const website = 'https://thecodepapaya.dev';
-
     return Column(
       children: [
         _buildLinkTile(
           context,
           icon: LucideIcons.globe,
           title: t.settings.about.developer.website,
-          subtitle: website,
+          subtitle: AppConstants.developerWebsite,
           onTap: () async {
-            final uri = Uri.parse(website);
+            final uri = Uri.parse(AppConstants.developerWebsite);
             await launchUrl(uri, mode: LaunchMode.externalApplication);
           },
         ),
@@ -308,12 +306,12 @@ class AboutScreen extends StatelessWidget {
           context,
           icon: LucideIcons.mail,
           title: t.settings.about.developer.email,
-          subtitle: 'calorify@thecodepapaya.dev',
+          subtitle: AppConstants.supportEmail,
           onTap: () async {
                 final versionInfo = await getAppVersionInfo();
                 await sendFeedbackEmail(
                   appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
-                  emailAddress: 'calorify@thecodepapaya.dev',
+                  emailAddress: AppConstants.supportEmail,
                   version: versionInfo.uiVersionWithBuild,
                 );
               },
@@ -389,7 +387,7 @@ class AboutScreen extends StatelessWidget {
           title: t.settings.about.feedback.rateApp,
           onTap:
               () => requestPlayStoreReview(
-                packageName: 'dev.thecodepapaya.calorify',
+                packageName: AppConstants.packageName,
               ),
         ),
         const SizedBox(height: 12),
@@ -401,7 +399,7 @@ class AboutScreen extends StatelessWidget {
             final versionInfo = await getAppVersionInfo();
             await sendFeedbackEmail(
               appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
-              emailAddress: 'calorify@thecodepapaya.dev',
+              emailAddress: AppConstants.supportEmail,
               version: versionInfo.uiVersionWithBuild,
             );
           },

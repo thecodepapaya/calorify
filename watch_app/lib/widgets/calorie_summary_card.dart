@@ -1,5 +1,6 @@
 import 'package:specs/specs.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'dart:math' as math;
 
@@ -188,7 +189,7 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  'Goal: ${widget.goal}',
+                  '${t.home.dailyGoal.goal}: ${widget.goal}',
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: colorScheme.onSurfaceVariant,
                     fontSize: 9,

@@ -388,6 +388,7 @@ class _TranslationsDebugNo implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'Feilsøkingsalternativer';
+	@override String get searchHint => 'Søk...';
 	@override late final _TranslationsDebugSectionsNo sections = _TranslationsDebugSectionsNo._(_root);
 	@override String get showActiveNotifications => 'Vis Aktive Varsler';
 	@override String get scheduleTestNotification => 'Planlegg Testvarsel (10s)';
@@ -435,6 +436,103 @@ class _TranslationsDebugNo implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => 'Profildataene dine (daglig mål, høyde, vekt osv.) vil bli slettet. Måltider og innstillinger påvirkes ikke.';
 	@override String get clear => 'Nullstill';
 	@override String get cancel => 'Avbryt';
+	@override String get checkWatchConnection => 'Sjekk klokketilkobling';
+	@override String get sendTestMessage => 'Send testmelding';
+	@override String get sendTestMessageSubtitle => 'Send en enkel testmelding til klokken';
+	@override String get sendTestMealData => 'Send testmåltidsdata';
+	@override String get sendTestMealDataSubtitle => 'Send eksempel-måltidsdata til klokken';
+	@override String get sendTestCalorieGoal => 'Send test kalorimål';
+	@override String get sendTestCalorieGoalSubtitle => 'Send eksempel på kalorimål til klokken';
+	@override String get viewReceivedMessages => 'Se mottatte meldinger';
+	@override String get viewReceivedMessagesSubtitle => 'Se meldinger mottatt fra klokken';
+	@override String get watchConnected => 'Klokken er tilkoblet ✓';
+	@override String get device => 'Enhet';
+	@override String get nearby => 'I nærheten';
+	@override String get yes => 'Ja';
+	@override String get no => 'Nei';
+	@override String get connectedDevices => 'Tilkoblede enheter';
+	@override String get deviceInfoUnavailable => '(Enhetsinfo utilgjengelig)';
+	@override String get unknownDevice => 'Ukjent enhet';
+	@override String get watchNotConnected => 'Klokken er ikke tilkoblet ✗';
+	@override String get watchNotConnectedHint => 'Sørg for:\n• Begge enhetene er paret\n• Klokke-appen kjører\n• Begge appene er i debug-/staging-modus';
+	@override String get watchConnection => 'Klokketilkobling';
+	@override String errorCheckingConnection({required Object error}) => 'Feil ved sjekk av tilkobling: ${error}';
+	@override String get helloFromPhone => 'Hei fra telefonen!';
+	@override String get testMessageSentSuccess => 'Testmelding sendt!';
+	@override String get testMessageFailed => 'Kunne ikke sende testmelding. Sjekk klokketilkoblingen.';
+	@override String errorSendingMessage({required Object error}) => 'Feil ved sending av melding: ${error}';
+	@override String get testMeal => 'Testmåltid';
+	@override String get testMealDataSentSuccess => 'Testmåltidsdata sendt!';
+	@override String get failedToSendMealData => 'Kunne ikke sende måltidsdata. Sjekk klokketilkoblingen.';
+	@override String errorSendingMealData({required Object error}) => 'Feil ved sending av måltidsdata: ${error}';
+	@override String get testCalorieGoalSentSuccess => 'Test kalorimål sendt!';
+	@override String get failedToSendCalorieGoal => 'Kunne ikke sende kalorimål. Sjekk klokketilkoblingen.';
+	@override String errorSendingCalorieGoal({required Object error}) => 'Feil ved sending av kalorimål: ${error}';
+	@override String get testAnalyzeImage => 'Test bildeanalyse';
+	@override String get testAnalyzeImageSubtitle => 'Last opp forhåndsbestemt testbilde';
+	@override String get testDetectImage => 'Test bildedeteksjon';
+	@override String get testDetectImageSubtitle => 'Oppdag måltid fra bilde-URL';
+	@override String get detectImageFromGallery => 'Oppdag bilde fra galleri';
+	@override String get detectImageFromGallerySubtitle => 'Velg bilde, last opp til bucket og estimer kalorier';
+	@override String get testDetectText => 'Test tekstdeteksjon';
+	@override String get testDetectTextSubtitle => 'Gjenkjenn måltid fra tekstbeskrivelse';
+	@override String get testMealLoggingWithVariations => 'Test måltidslogging med varianter';
+	@override String get testMealLoggingWithVariationsSubtitle => 'Test hele flyten for måltidslogging med varianter';
+	@override String get mockMealWithVariations => 'Eksempelmåltid med varianter';
+	@override String get mockMealWithVariationsSubtitle => 'Forhåndsvis variasjon + tipsark i UI uten å logge';
+	@override String get mockMealName => 'Grillet kylling med ris og grønnsaker';
+	@override String get mockTip => 'Dette er et eksempel-tips for forhåndsvisning. Måltidet blir ikke logget.';
+	@override String get mockMealDescription => 'Eksempelmåltid for feilsøking';
+	@override String get portionSizeQuestion => 'Hvordan var porsjonsstørrelsen?';
+	@override String get extraSidesQuestion => 'Noe ekstra tilbehør?';
+	@override String get optionSmall => 'Liten';
+	@override String get optionMedium => 'Middels';
+	@override String get optionLarge => 'Stor';
+	@override String get optionNone => 'Ingen';
+	@override String get optionSideSalad => 'Sidesalat';
+	@override String get optionBreadRoll => 'Rundstykke';
+	@override String get testingAnalyzeImage => 'Tester analyzeImage API...';
+	@override String get testingDetectImage => 'Tester detectImage API...';
+	@override String get testingDetectText => 'Tester detectText API...';
+	@override String get selectingImageFromGallery => 'Velger bilde fra galleriet...';
+	@override String get noImageSelected => 'Ingen bilde valgt';
+	@override String get compressingImage => 'Komprimerer bilde...';
+	@override String get uploadingImageAndDetecting => 'Laster opp bilde til bucket og oppdager måltid...';
+	@override String get testingMealLoggingFlow => 'Tester hele flyten for måltidslogging med varianter...';
+	@override String get noMealIdentifiedInResponse => 'Ingen måltid identifisert i svaret';
+	@override String get mealIdentified => 'Måltid identifisert';
+	@override String get confidence => 'Sannsynlighet';
+	@override String get tip => 'Tips';
+	@override String get mealName => 'Måltid';
+	@override String get calories => 'Kalorier';
+	@override String get protein => 'Protein';
+	@override String get carbs => 'Karbohydrater';
+	@override String get fat => 'Fett';
+	@override String get noMealInfo => 'Ingen måltidsinfo';
+	@override String get na => 'Ikke tilgjengelig';
+	@override String get analyzeImageResult => 'Resultat av bildeanalyse';
+	@override String get detectImageResult => 'Resultat av bildedeteksjon';
+	@override String get detectImageFromGalleryResult => 'Resultat av bildedeteksjon fra galleri';
+	@override String get detectTextResult => 'Resultat av tekstdeteksjon';
+	@override String errorGeneric({required Object error}) => 'Feil: ${error}';
+	@override String get variationsCount => 'Varianter';
+	@override String get userPreferencesCleared => 'Brukerpreferanser tilbakestilt';
+	@override String get userProfileCleared => 'Brukerprofil tilbakestilt';
+	@override String get checkForUpdate => 'Søk etter oppdatering';
+	@override String get showPatchNumber => 'Vis patch-nummer';
+	@override String get showUpdateAvailable => 'Vis at oppdatering er tilgjengelig';
+	@override String get updateAvailable => 'Oppdatering tilgjengelig';
+	@override String get upToDate => 'Oppdatert';
+	@override String get shorebirdUnavailable => 'Shorebird er utilgjengelig i dette miljøet.';
+	@override String get patchNumberLabel => 'Patch-nummer';
+	@override String get noPatchInstalled => 'Ingen patch installert';
+	@override String get todaysSteps => 'Dagens skritt';
+	@override String get stepsLabel => 'Skritt';
+	@override String weightLabel({required Object value}) => 'Vekt: ${value} kg';
+	@override String heightLabel({required Object value}) => 'Høyde: ${value} cm';
+	@override String get receivedMessagesFromWatch => 'Meldinger mottatt fra klokken';
+	@override String get noMessagesReceivedYet => 'Ingen meldinger mottatt ennå.\n\nSend testdata fra klokken for å se meldinger her.';
+	@override String get messagesCleared => 'Meldinger slettet';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalNo implements TranslationsHomeDailyGoalEn {
 	@override String get description => 'Klar til å begynne på din velvære reise? Sett ditt daglige kalori mål under for å kickstarte fremdriften din.';
 	@override String get descriptionSet => 'Kompassen din er innstilt! Dette er ditt daglige kalori mål for å guide deg.';
 	@override String get yourGoal => 'Ditt Mål';
+	@override String get goal => 'Mål';
 	@override String get dailyCalories => 'Daglige kalorier (kcal)';
 	@override String get setGoal => 'Sett Mål';
 	@override String get intake => 'Inntak';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryNo implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'Protein';
 	@override String get fat => 'Fett';
 	@override String get fiber => 'Fiber';
+	@override String get grams => 'gram';
+	@override String get chartAccessibilityLabel => 'Diagram over makronæringsstoffer';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsNo implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'Varsler';
 	@override String get healthConnect => 'Health Connect';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => 'Food API-tester';
 	@override String get feedback => 'Tilbakemelding';
 	@override String get dataReset => 'Nullstill data';
 	@override String get appInfo => 'App Informasjon';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsNo {
 			'home.dailyGoal.description' => 'Klar til å begynne på din velvære reise? Sett ditt daglige kalori mål under for å kickstarte fremdriften din.',
 			'home.dailyGoal.descriptionSet' => 'Kompassen din er innstilt! Dette er ditt daglige kalori mål for å guide deg.',
 			'home.dailyGoal.yourGoal' => 'Ditt Mål',
+			'home.dailyGoal.goal' => 'Mål',
 			'home.dailyGoal.dailyCalories' => 'Daglige kalorier (kcal)',
 			'home.dailyGoal.setGoal' => 'Sett Mål',
 			'home.dailyGoal.intake' => 'Inntak',
@@ -1700,6 +1805,8 @@ extension on TranslationsNo {
 			'home.dailySummary.protein' => 'Protein',
 			'home.dailySummary.fat' => 'Fett',
 			'home.dailySummary.fiber' => 'Fiber',
+			'home.dailySummary.grams' => 'gram',
+			'home.dailySummary.chartAccessibilityLabel' => 'Diagram over makronæringsstoffer',
 			'home.intakeProgress.title' => 'Dagens Makrofordeling',
 			'home.intakeProgress.target' => 'Mål',
 			'home.intakeProgress.current' => 'Nåværende',
@@ -2000,11 +2107,15 @@ extension on TranslationsNo {
 			'errors.loadingProfileData' => 'Feil ved lasting av profildata',
 			'errors.somethingWentWrong' => 'Noe gikk galt.',
 			'debug.title' => 'Feilsøkingsalternativer',
+			'debug.searchHint' => 'Søk...',
 			'debug.sections.notifications' => 'Varsler',
 			'debug.sections.healthConnect' => 'Health Connect',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'Food API-tester',
 			'debug.sections.feedback' => 'Tilbakemelding',
 			'debug.sections.dataReset' => 'Nullstill data',
 			'debug.sections.appInfo' => 'App Informasjon',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'Vis Aktive Varsler',
 			'debug.scheduleTestNotification' => 'Planlegg Testvarsel (10s)',
 			'debug.triggerBreakfastNotification' => 'Utgi Frokost Varsel',
@@ -2051,6 +2162,105 @@ extension on TranslationsNo {
 			'debug.clearUserProfileConfirmationMessage' => 'Profildataene dine (daglig mål, høyde, vekt osv.) vil bli slettet. Måltider og innstillinger påvirkes ikke.',
 			'debug.clear' => 'Nullstill',
 			'debug.cancel' => 'Avbryt',
+			'debug.checkWatchConnection' => 'Sjekk klokketilkobling',
+			'debug.sendTestMessage' => 'Send testmelding',
+			'debug.sendTestMessageSubtitle' => 'Send en enkel testmelding til klokken',
+			'debug.sendTestMealData' => 'Send testmåltidsdata',
+			'debug.sendTestMealDataSubtitle' => 'Send eksempel-måltidsdata til klokken',
+			'debug.sendTestCalorieGoal' => 'Send test kalorimål',
+			'debug.sendTestCalorieGoalSubtitle' => 'Send eksempel på kalorimål til klokken',
+			'debug.viewReceivedMessages' => 'Se mottatte meldinger',
+			'debug.viewReceivedMessagesSubtitle' => 'Se meldinger mottatt fra klokken',
+			'debug.watchConnected' => 'Klokken er tilkoblet ✓',
+			'debug.device' => 'Enhet',
+			'debug.nearby' => 'I nærheten',
+			'debug.yes' => 'Ja',
+			'debug.no' => 'Nei',
+			'debug.connectedDevices' => 'Tilkoblede enheter',
+			'debug.deviceInfoUnavailable' => '(Enhetsinfo utilgjengelig)',
+			'debug.unknownDevice' => 'Ukjent enhet',
+			'debug.watchNotConnected' => 'Klokken er ikke tilkoblet ✗',
+			'debug.watchNotConnectedHint' => 'Sørg for:\n• Begge enhetene er paret\n• Klokke-appen kjører\n• Begge appene er i debug-/staging-modus',
+			'debug.watchConnection' => 'Klokketilkobling',
+			'debug.errorCheckingConnection' => ({required Object error}) => 'Feil ved sjekk av tilkobling: ${error}',
+			'debug.helloFromPhone' => 'Hei fra telefonen!',
+			'debug.testMessageSentSuccess' => 'Testmelding sendt!',
+			'debug.testMessageFailed' => 'Kunne ikke sende testmelding. Sjekk klokketilkoblingen.',
+			'debug.errorSendingMessage' => ({required Object error}) => 'Feil ved sending av melding: ${error}',
+			'debug.testMeal' => 'Testmåltid',
+			'debug.testMealDataSentSuccess' => 'Testmåltidsdata sendt!',
+			'debug.failedToSendMealData' => 'Kunne ikke sende måltidsdata. Sjekk klokketilkoblingen.',
+			'debug.errorSendingMealData' => ({required Object error}) => 'Feil ved sending av måltidsdata: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'Test kalorimål sendt!',
+			'debug.failedToSendCalorieGoal' => 'Kunne ikke sende kalorimål. Sjekk klokketilkoblingen.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Feil ved sending av kalorimål: ${error}',
+			'debug.testAnalyzeImage' => 'Test bildeanalyse',
+			'debug.testAnalyzeImageSubtitle' => 'Last opp forhåndsbestemt testbilde',
+			'debug.testDetectImage' => 'Test bildedeteksjon',
+			'debug.testDetectImageSubtitle' => 'Oppdag måltid fra bilde-URL',
+			'debug.detectImageFromGallery' => 'Oppdag bilde fra galleri',
+			'debug.detectImageFromGallerySubtitle' => 'Velg bilde, last opp til bucket og estimer kalorier',
+			'debug.testDetectText' => 'Test tekstdeteksjon',
+			'debug.testDetectTextSubtitle' => 'Gjenkjenn måltid fra tekstbeskrivelse',
+			'debug.testMealLoggingWithVariations' => 'Test måltidslogging med varianter',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'Test hele flyten for måltidslogging med varianter',
+			'debug.mockMealWithVariations' => 'Eksempelmåltid med varianter',
+			'debug.mockMealWithVariationsSubtitle' => 'Forhåndsvis variasjon + tipsark i UI uten å logge',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'Grillet kylling med ris og grønnsaker',
+			'debug.mockTip' => 'Dette er et eksempel-tips for forhåndsvisning. Måltidet blir ikke logget.',
+			'debug.mockMealDescription' => 'Eksempelmåltid for feilsøking',
+			'debug.portionSizeQuestion' => 'Hvordan var porsjonsstørrelsen?',
+			'debug.extraSidesQuestion' => 'Noe ekstra tilbehør?',
+			'debug.optionSmall' => 'Liten',
+			'debug.optionMedium' => 'Middels',
+			'debug.optionLarge' => 'Stor',
+			'debug.optionNone' => 'Ingen',
+			'debug.optionSideSalad' => 'Sidesalat',
+			'debug.optionBreadRoll' => 'Rundstykke',
+			'debug.testingAnalyzeImage' => 'Tester analyzeImage API...',
+			'debug.testingDetectImage' => 'Tester detectImage API...',
+			'debug.testingDetectText' => 'Tester detectText API...',
+			'debug.selectingImageFromGallery' => 'Velger bilde fra galleriet...',
+			'debug.noImageSelected' => 'Ingen bilde valgt',
+			'debug.compressingImage' => 'Komprimerer bilde...',
+			'debug.uploadingImageAndDetecting' => 'Laster opp bilde til bucket og oppdager måltid...',
+			'debug.testingMealLoggingFlow' => 'Tester hele flyten for måltidslogging med varianter...',
+			'debug.noMealIdentifiedInResponse' => 'Ingen måltid identifisert i svaret',
+			'debug.mealIdentified' => 'Måltid identifisert',
+			'debug.confidence' => 'Sannsynlighet',
+			'debug.tip' => 'Tips',
+			'debug.mealName' => 'Måltid',
+			'debug.calories' => 'Kalorier',
+			'debug.protein' => 'Protein',
+			'debug.carbs' => 'Karbohydrater',
+			'debug.fat' => 'Fett',
+			'debug.noMealInfo' => 'Ingen måltidsinfo',
+			'debug.na' => 'Ikke tilgjengelig',
+			'debug.analyzeImageResult' => 'Resultat av bildeanalyse',
+			'debug.detectImageResult' => 'Resultat av bildedeteksjon',
+			'debug.detectImageFromGalleryResult' => 'Resultat av bildedeteksjon fra galleri',
+			'debug.detectTextResult' => 'Resultat av tekstdeteksjon',
+			'debug.errorGeneric' => ({required Object error}) => 'Feil: ${error}',
+			'debug.variationsCount' => 'Varianter',
+			'debug.userPreferencesCleared' => 'Brukerpreferanser tilbakestilt',
+			'debug.userProfileCleared' => 'Brukerprofil tilbakestilt',
+			'debug.checkForUpdate' => 'Søk etter oppdatering',
+			'debug.showPatchNumber' => 'Vis patch-nummer',
+			'debug.showUpdateAvailable' => 'Vis at oppdatering er tilgjengelig',
+			'debug.updateAvailable' => 'Oppdatering tilgjengelig',
+			'debug.upToDate' => 'Oppdatert',
+			'debug.shorebirdUnavailable' => 'Shorebird er utilgjengelig i dette miljøet.',
+			'debug.patchNumberLabel' => 'Patch-nummer',
+			'debug.noPatchInstalled' => 'Ingen patch installert',
+			'debug.todaysSteps' => 'Dagens skritt',
+			'debug.stepsLabel' => 'Skritt',
+			'debug.weightLabel' => ({required Object value}) => 'Vekt: ${value} kg',
+			'debug.heightLabel' => ({required Object value}) => 'Høyde: ${value} cm',
+			'debug.receivedMessagesFromWatch' => 'Meldinger mottatt fra klokken',
+			'debug.noMessagesReceivedYet' => 'Ingen meldinger mottatt ennå.\n\nSend testdata fra klokken for å se meldinger her.',
+			'debug.messagesCleared' => 'Meldinger slettet',
 			'health.syncFailed' => 'Kunne ikke synkronisere med Health Connect',
 			'health.mealSynced' => 'Måltid synkronisert med Health Connect',
 			_ => null,

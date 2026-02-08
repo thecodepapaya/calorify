@@ -89,7 +89,7 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
                     ),
                     child: Text(
                       DateFormat.yMMMMd(
-                        Localizations.localeOf(context).toString(),
+                        TranslationProvider.of(context).locale.flutterLocale.toString(),
                       ).format(_dateOfBirth),
                       style: theme.textTheme.headlineSmall?.copyWith(
                         color: colorScheme.primary,

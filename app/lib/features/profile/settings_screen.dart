@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
+import 'package:calorify/core/constants/app_constants.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/utilities/app_version.dart';
 import 'package:calorify/core/router/route_names.dart';
@@ -600,7 +601,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final versionInfo = await getAppVersionInfo();
     await sendFeedbackEmail(
       appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
-      emailAddress: 'calorify@thecodepapaya.dev',
+      emailAddress: AppConstants.supportEmail,
       version: versionInfo.uiVersionWithBuild,
     );
   }

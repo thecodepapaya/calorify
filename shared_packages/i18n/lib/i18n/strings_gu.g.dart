@@ -388,6 +388,7 @@ class _TranslationsDebugGu implements TranslationsDebugEn {
 
 	// Translations
 	@override String get title => 'ડેબેક્ડ વિકલ્પો';
+	@override String get searchHint => 'શોધ વિકલ્પો...';
 	@override late final _TranslationsDebugSectionsGu sections = _TranslationsDebugSectionsGu._(_root);
 	@override String get showActiveNotifications => 'સક્રિય યાદદહનો દેખાડો';
 	@override String get scheduleTestNotification => 'ટેસ્ટ યાદદહન સ્કેડ્યૂલ કરો (10સે)';
@@ -435,6 +436,103 @@ class _TranslationsDebugGu implements TranslationsDebugEn {
 	@override String get clearUserProfileConfirmationMessage => 'તમારા પ્રોફાઇલનો ડેટા (દરરોજનું લક્ષ્ય, ઊંચાઈ, વજન, વગેરે) મિટાવવામાં આવશે. ભોજન અને પસંદગીઓ પર અસર નહીં થાય.';
 	@override String get clear => 'મિટાવો';
 	@override String get cancel => 'રદ કરો';
+	@override String get checkWatchConnection => 'વોચ કનેક્શન તપાસો';
+	@override String get sendTestMessage => 'ટેસ્ટ સંદેશ મોકલો';
+	@override String get sendTestMessageSubtitle => 'વોચ પર એક સાદું ટેસ્ટ સંદેશ મોકલો';
+	@override String get sendTestMealData => 'ટેસ્ટ ભોજન ડેટા મોકલો';
+	@override String get sendTestMealDataSubtitle => 'વોચ પર નમૂનાવાર ભોજન ડેટા મોકલો';
+	@override String get sendTestCalorieGoal => 'ટેસ્ટ કેલોરી લક્ષ્ય મોકલો';
+	@override String get sendTestCalorieGoalSubtitle => 'વોચ પર નમૂનાવાર કેલોરી લક્ષ્ય મોકલવો';
+	@override String get viewReceivedMessages => 'મોકલાયેલી સંદેશાઓ જુઓ';
+	@override String get viewReceivedMessagesSubtitle => 'વોચથી આપવામાં આવેલા સંદેશાઓ જુઓ';
+	@override String get watchConnected => 'વોચ જોડાયેલ છે ✓';
+	@override String get device => 'ઉપકરણ';
+	@override String get nearby => 'નજીક';
+	@override String get yes => 'હા';
+	@override String get no => 'નહીં';
+	@override String get connectedDevices => 'જોડાયેલા ઉપકરણો';
+	@override String get deviceInfoUnavailable => '(ઉપકરણની માહિતી ઉપલબ્ધ નથી)';
+	@override String get unknownDevice => 'અજાણ્યું ઉપકરણ';
+	@override String get watchNotConnected => 'વોચ જોડાયેલ નથી ✗';
+	@override String get watchNotConnectedHint => 'નિશ્ચિત કરો:\n• બંને ઉપકરણો જોડાયેલા છે\n• વોચ એપ ચાલુ છે\n• બંને એપ્સ ડિબગ/સ્ટેજિંગ મોડમાં છે';
+	@override String get watchConnection => 'વોચ કનેક્શન';
+	@override String errorCheckingConnection({required Object error}) => 'કનેક્શન તપાસવામાં ભૂલ: ${error}';
+	@override String get helloFromPhone => 'ફોન તરફથી નમસ્તે!';
+	@override String get testMessageSentSuccess => 'ટેસ્ટ સંદેશ સફળતાપૂર્વક મોકલાયો!';
+	@override String get testMessageFailed => 'ટેસ્ટ સંદેશ મોકલવામાં નિષ્ફળ રહ્યો. વોચ કનેક્શન તપાસો.';
+	@override String errorSendingMessage({required Object error}) => 'સંદેશ મોકલવામાં ભૂલ: ${error}';
+	@override String get testMeal => 'ટેસ્ટ ભોજન';
+	@override String get testMealDataSentSuccess => 'ટેસ્ટ ભોજન ડેટા સફળતાપૂર્વક મોકલાયો!';
+	@override String get failedToSendMealData => 'ભોજન ડેટા મોકલવામાં નિષ્ફળ. વોચ કનેક્શન તપાસો.';
+	@override String errorSendingMealData({required Object error}) => 'ભોજન ડેટા મોકલવામાં ભૂલ: ${error}';
+	@override String get testCalorieGoalSentSuccess => 'ટેસ્ટ કેલોરી લક્ષ્ય સફળતાપૂર્વક મોકલાયું!';
+	@override String get failedToSendCalorieGoal => 'કેલોરી લક્ષ્ય મોકલવામાં નિષ્ફળ. વોચ કનેક્શન તપાસો.';
+	@override String errorSendingCalorieGoal({required Object error}) => 'કેલોરી લક્ષ્ય મોકલવામાં ભૂલ: ${error}';
+	@override String get testAnalyzeImage => 'ઇમેજ વિશ્લેષણ ટેસ્ટ';
+	@override String get testAnalyzeImageSubtitle => 'હાર્ડકોડ કરેલી ટેસ્ટ ઈમેજ અપલોડ કરો';
+	@override String get testDetectImage => 'ઇમેજ ઓળખ ટેસ્ટ';
+	@override String get testDetectImageSubtitle => 'છબીના URL પરથી ભોજન ઓળખો';
+	@override String get detectImageFromGallery => 'ગેલેરીમાંથી છબી ઓળખો';
+	@override String get detectImageFromGallerySubtitle => 'છબી પસંદ કરો, બકેટ પર અપલોડ કરો અને કેલોરીનો અંદાજ લો';
+	@override String get testDetectText => 'ટેક્સ્ટ ઓળખ ટેસ્ટ';
+	@override String get testDetectTextSubtitle => 'ટેક્સ્ટ વર્ણન પરથી ભોજન ઓળખો';
+	@override String get testMealLoggingWithVariations => 'વૈવિધ્ય સાથેની ભોજન લોગિંગ ટેસ્ટ';
+	@override String get testMealLoggingWithVariationsSubtitle => 'વૈવિધ્ય સાથે સંપૂર્ણ ભોજન લોગિંગ પ્રવાહનું પરીક્ષણ કરો';
+	@override String get mockMealWithVariations => 'મોક ભોજન (વૈવિધ્ય સાથે)';
+	@override String get mockMealWithVariationsSubtitle => 'લોગ કર્યા વિના વૈવિધ્ય અને ટિપ શીટ UI પૂર્વાવલોકન';
+	@override String get mockMealName => 'ગ્રિલ્ડ ચિકન સાથે ચોખા અને શાકભાજી';
+	@override String get mockTip => 'આ UI પૂર્વદર્શન માટે નકલી સૂચન છે. ભોજન લોગ થયું નથી.';
+	@override String get mockMealDescription => 'ડિબગ માટે નકલી ભોજન';
+	@override String get portionSizeQuestion => 'પોર્શનનું કદ કેવું હતું?';
+	@override String get extraSidesQuestion => 'કોઈ વધારાના સાઇડ હતા?';
+	@override String get optionSmall => 'નાનું';
+	@override String get optionMedium => 'મધ્યમ';
+	@override String get optionLarge => 'મોટું';
+	@override String get optionNone => 'કોઈ નહીં';
+	@override String get optionSideSalad => 'સાઇડ સલાડ';
+	@override String get optionBreadRoll => 'બ્રેડ રોલ';
+	@override String get testingAnalyzeImage => 'analyzeImage API પરીક્ષણ...';
+	@override String get testingDetectImage => 'detectImage API પરીક્ષણ...';
+	@override String get testingDetectText => 'detectText API પરીક્ષણ...';
+	@override String get selectingImageFromGallery => 'ગેલેરીમાંથી ઈમેજ પસંદ કરી રહ્યા છે...';
+	@override String get noImageSelected => 'કોઈ ઈમેજ પસંદ કરવામાં આવી નથી';
+	@override String get compressingImage => 'ઈમેજ સંકુચિત કરી રહ્યા છે...';
+	@override String get uploadingImageAndDetecting => 'ઈમેજ બકેટ પર અપલોડ કરી ભોજન ઓળખી રહ્યું છે...';
+	@override String get testingMealLoggingFlow => 'વૈવિધ્ય સાથે ભોજન લોગિંગ પ્રવાહનું પરીક્ષણ...';
+	@override String get noMealIdentifiedInResponse => 'પ્રતિસાદમાં કોઈ ભોજન ઓળખાતું નથી';
+	@override String get mealIdentified => 'ભોજન ઓળખાયું';
+	@override String get confidence => 'નિશ્ચિતતા';
+	@override String get tip => 'સૂચન';
+	@override String get mealName => 'ભોજનનું નામ';
+	@override String get calories => 'કેલોરીઝ';
+	@override String get protein => 'પ્રોટીન';
+	@override String get carbs => 'કાર્બ્સ';
+	@override String get fat => 'ચરબી';
+	@override String get noMealInfo => 'કોઈ ભોજન માહિતી નથી';
+	@override String get na => 'લાગુ નથી';
+	@override String get analyzeImageResult => 'ઇમેજ વિશ્લેષણ પરિણામ';
+	@override String get detectImageResult => 'ઇમેજ શોધ પરિણામ';
+	@override String get detectImageFromGalleryResult => 'ગેલેરીમાંથી છબી શોધનું પરિણામ';
+	@override String get detectTextResult => 'ટેક્સ્ટ શોધ પરિણામ';
+	@override String errorGeneric({required Object error}) => 'ત્રુટિ: ${error}';
+	@override String get variationsCount => 'વૈવિધ્યાઓ';
+	@override String get userPreferencesCleared => 'વપરાશકર્તાની પસંદગીઓ સાફ થઈ ગઇ';
+	@override String get userProfileCleared => 'વપરાશકર્તાની પ્રોફાઇલ સાફ કરી દેવામાં આવી છે';
+	@override String get checkForUpdate => 'અપડેટ તપાસો';
+	@override String get showPatchNumber => 'પેચ નંબર બતાવો';
+	@override String get showUpdateAvailable => 'અપડેટ ઉપલબ્ધ બતાવો';
+	@override String get updateAvailable => 'અપડેટ ઉપલબ્ધ છે';
+	@override String get upToDate => 'અપડેટ છે';
+	@override String get shorebirdUnavailable => 'આ પર્યાવરણમાં Shorebird ઉપલબ્ધ નથી.';
+	@override String get patchNumberLabel => 'પેચ નંબર';
+	@override String get noPatchInstalled => 'કોઈ પેચ ઇન્સ્ટોલ થયેલો નથી';
+	@override String get todaysSteps => 'આજના પગલાં';
+	@override String get stepsLabel => 'પગલાં';
+	@override String weightLabel({required Object value}) => 'વજન: ${value} કિગ્રા';
+	@override String heightLabel({required Object value}) => 'ઊંચાઈ: ${value} સેમી';
+	@override String get receivedMessagesFromWatch => 'વોચથી મળેલી સંદેશાઓ';
+	@override String get noMessagesReceivedYet => 'અજ સુધી કોઈ સંદેશ મળ્યો નથી.\n\nમેસેજો જોવા માટે વોચમાંથી ટેસ્ટ ડેટા મોકલો.';
+	@override String get messagesCleared => 'સંદેશાઓ સાફ થયા';
 }
 
 // Path: health
@@ -597,6 +695,7 @@ class _TranslationsHomeDailyGoalGu implements TranslationsHomeDailyGoalEn {
 	@override String get description => 'તમારા આરોગ્યના માર્ગો શરૂ કરવા માટે સંપૂર્ણ રીતે તૈયાર છો? તમારી દૈનિક કૅલરીના લક્ષ્યને નીચે નક્કી કરો.';
 	@override String get descriptionSet => 'તમારી દિશામાં સેટ છે! આ તમારા દૈનિક કૅલરીના લક્ષ્ય છે જે તમને માર્ગદર્શન આપશે.';
 	@override String get yourGoal => 'તમારું લક્ષ્ય';
+	@override String get goal => 'લક્ષ્ય';
 	@override String get dailyCalories => 'દૈનિક કૅલરી (કકલ)';
 	@override String get setGoal => 'લક્ષ્ય નક્કી કરો';
 	@override String get intake => 'આહાર';
@@ -620,6 +719,8 @@ class _TranslationsHomeDailySummaryGu implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'પ્રોટીન';
 	@override String get fat => 'ચરબી';
 	@override String get fiber => 'ફાઇબર';
+	@override String get grams => 'ગ્રામ';
+	@override String get chartAccessibilityLabel => 'મેક્રો પોષક તત્વો ચાર્ટ';
 }
 
 // Path: home.intakeProgress
@@ -1105,9 +1206,12 @@ class _TranslationsDebugSectionsGu implements TranslationsDebugSectionsEn {
 	// Translations
 	@override String get notifications => 'યાદદહન';
 	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get wearOs => 'Wear OS';
+	@override String get foodApiTests => 'Food API ટેસ્ટ';
 	@override String get feedback => 'પ્રતિસાદ';
 	@override String get dataReset => 'ડેટા રીસેટ';
 	@override String get appInfo => 'એપ માહિતી';
+	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1686,6 +1790,7 @@ extension on TranslationsGu {
 			'home.dailyGoal.description' => 'તમારા આરોગ્યના માર્ગો શરૂ કરવા માટે સંપૂર્ણ રીતે તૈયાર છો? તમારી દૈનિક કૅલરીના લક્ષ્યને નીચે નક્કી કરો.',
 			'home.dailyGoal.descriptionSet' => 'તમારી દિશામાં સેટ છે! આ તમારા દૈનિક કૅલરીના લક્ષ્ય છે જે તમને માર્ગદર્શન આપશે.',
 			'home.dailyGoal.yourGoal' => 'તમારું લક્ષ્ય',
+			'home.dailyGoal.goal' => 'લક્ષ્ય',
 			'home.dailyGoal.dailyCalories' => 'દૈનિક કૅલરી (કકલ)',
 			'home.dailyGoal.setGoal' => 'લક્ષ્ય નક્કી કરો',
 			'home.dailyGoal.intake' => 'આહાર',
@@ -1700,6 +1805,8 @@ extension on TranslationsGu {
 			'home.dailySummary.protein' => 'પ્રોટીન',
 			'home.dailySummary.fat' => 'ચરબી',
 			'home.dailySummary.fiber' => 'ફાઇબર',
+			'home.dailySummary.grams' => 'ગ્રામ',
+			'home.dailySummary.chartAccessibilityLabel' => 'મેક્રો પોષક તત્વો ચાર્ટ',
 			'home.intakeProgress.title' => 'આજના મેડકરાહત્વ',
 			'home.intakeProgress.target' => 'લક્ષ્ય',
 			'home.intakeProgress.current' => 'હાલમાં',
@@ -2000,11 +2107,15 @@ extension on TranslationsGu {
 			'errors.loadingProfileData' => 'પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ',
 			'errors.somethingWentWrong' => 'કોઈ મુશ્કેલી પડી.',
 			'debug.title' => 'ડેબેક્ડ વિકલ્પો',
+			'debug.searchHint' => 'શોધ વિકલ્પો...',
 			'debug.sections.notifications' => 'યાદદહન',
 			'debug.sections.healthConnect' => 'HEALTH CONNECT',
+			'debug.sections.wearOs' => 'Wear OS',
+			'debug.sections.foodApiTests' => 'Food API ટેસ્ટ',
 			'debug.sections.feedback' => 'પ્રતિસાદ',
 			'debug.sections.dataReset' => 'ડેટા રીસેટ',
 			'debug.sections.appInfo' => 'એપ માહિતી',
+			'debug.sections.shorebird' => 'Shorebird',
 			'debug.showActiveNotifications' => 'સક્રિય યાદદહનો દેખાડો',
 			'debug.scheduleTestNotification' => 'ટેસ્ટ યાદદહન સ્કેડ્યૂલ કરો (10સે)',
 			'debug.triggerBreakfastNotification' => 'નાસ્તાનો યાદદહન ચાલુ કરો',
@@ -2051,6 +2162,105 @@ extension on TranslationsGu {
 			'debug.clearUserProfileConfirmationMessage' => 'તમારા પ્રોફાઇલનો ડેટા (દરરોજનું લક્ષ્ય, ઊંચાઈ, વજન, વગેરે) મિટાવવામાં આવશે. ભોજન અને પસંદગીઓ પર અસર નહીં થાય.',
 			'debug.clear' => 'મિટાવો',
 			'debug.cancel' => 'રદ કરો',
+			'debug.checkWatchConnection' => 'વોચ કનેક્શન તપાસો',
+			'debug.sendTestMessage' => 'ટેસ્ટ સંદેશ મોકલો',
+			'debug.sendTestMessageSubtitle' => 'વોચ પર એક સાદું ટેસ્ટ સંદેશ મોકલો',
+			'debug.sendTestMealData' => 'ટેસ્ટ ભોજન ડેટા મોકલો',
+			'debug.sendTestMealDataSubtitle' => 'વોચ પર નમૂનાવાર ભોજન ડેટા મોકલો',
+			'debug.sendTestCalorieGoal' => 'ટેસ્ટ કેલોરી લક્ષ્ય મોકલો',
+			'debug.sendTestCalorieGoalSubtitle' => 'વોચ પર નમૂનાવાર કેલોરી લક્ષ્ય મોકલવો',
+			'debug.viewReceivedMessages' => 'મોકલાયેલી સંદેશાઓ જુઓ',
+			'debug.viewReceivedMessagesSubtitle' => 'વોચથી આપવામાં આવેલા સંદેશાઓ જુઓ',
+			'debug.watchConnected' => 'વોચ જોડાયેલ છે ✓',
+			'debug.device' => 'ઉપકરણ',
+			'debug.nearby' => 'નજીક',
+			'debug.yes' => 'હા',
+			'debug.no' => 'નહીં',
+			'debug.connectedDevices' => 'જોડાયેલા ઉપકરણો',
+			'debug.deviceInfoUnavailable' => '(ઉપકરણની માહિતી ઉપલબ્ધ નથી)',
+			'debug.unknownDevice' => 'અજાણ્યું ઉપકરણ',
+			'debug.watchNotConnected' => 'વોચ જોડાયેલ નથી ✗',
+			'debug.watchNotConnectedHint' => 'નિશ્ચિત કરો:\n• બંને ઉપકરણો જોડાયેલા છે\n• વોચ એપ ચાલુ છે\n• બંને એપ્સ ડિબગ/સ્ટેજિંગ મોડમાં છે',
+			'debug.watchConnection' => 'વોચ કનેક્શન',
+			'debug.errorCheckingConnection' => ({required Object error}) => 'કનેક્શન તપાસવામાં ભૂલ: ${error}',
+			'debug.helloFromPhone' => 'ફોન તરફથી નમસ્તે!',
+			'debug.testMessageSentSuccess' => 'ટેસ્ટ સંદેશ સફળતાપૂર્વક મોકલાયો!',
+			'debug.testMessageFailed' => 'ટેસ્ટ સંદેશ મોકલવામાં નિષ્ફળ રહ્યો. વોચ કનેક્શન તપાસો.',
+			'debug.errorSendingMessage' => ({required Object error}) => 'સંદેશ મોકલવામાં ભૂલ: ${error}',
+			'debug.testMeal' => 'ટેસ્ટ ભોજન',
+			'debug.testMealDataSentSuccess' => 'ટેસ્ટ ભોજન ડેટા સફળતાપૂર્વક મોકલાયો!',
+			'debug.failedToSendMealData' => 'ભોજન ડેટા મોકલવામાં નિષ્ફળ. વોચ કનેક્શન તપાસો.',
+			'debug.errorSendingMealData' => ({required Object error}) => 'ભોજન ડેટા મોકલવામાં ભૂલ: ${error}',
+			'debug.testCalorieGoalSentSuccess' => 'ટેસ્ટ કેલોરી લક્ષ્ય સફળતાપૂર્વક મોકલાયું!',
+			'debug.failedToSendCalorieGoal' => 'કેલોરી લક્ષ્ય મોકલવામાં નિષ્ફળ. વોચ કનેક્શન તપાસો.',
+			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'કેલોરી લક્ષ્ય મોકલવામાં ભૂલ: ${error}',
+			'debug.testAnalyzeImage' => 'ઇમેજ વિશ્લેષણ ટેસ્ટ',
+			'debug.testAnalyzeImageSubtitle' => 'હાર્ડકોડ કરેલી ટેસ્ટ ઈમેજ અપલોડ કરો',
+			'debug.testDetectImage' => 'ઇમેજ ઓળખ ટેસ્ટ',
+			'debug.testDetectImageSubtitle' => 'છબીના URL પરથી ભોજન ઓળખો',
+			'debug.detectImageFromGallery' => 'ગેલેરીમાંથી છબી ઓળખો',
+			'debug.detectImageFromGallerySubtitle' => 'છબી પસંદ કરો, બકેટ પર અપલોડ કરો અને કેલોરીનો અંદાજ લો',
+			'debug.testDetectText' => 'ટેક્સ્ટ ઓળખ ટેસ્ટ',
+			'debug.testDetectTextSubtitle' => 'ટેક્સ્ટ વર્ણન પરથી ભોજન ઓળખો',
+			'debug.testMealLoggingWithVariations' => 'વૈવિધ્ય સાથેની ભોજન લોગિંગ ટેસ્ટ',
+			'debug.testMealLoggingWithVariationsSubtitle' => 'વૈવિધ્ય સાથે સંપૂર્ણ ભોજન લોગિંગ પ્રવાહનું પરીક્ષણ કરો',
+			'debug.mockMealWithVariations' => 'મોક ભોજન (વૈવિધ્ય સાથે)',
+			'debug.mockMealWithVariationsSubtitle' => 'લોગ કર્યા વિના વૈવિધ્ય અને ટિપ શીટ UI પૂર્વાવલોકન',
+			_ => null,
+		} ?? switch (path) {
+			'debug.mockMealName' => 'ગ્રિલ્ડ ચિકન સાથે ચોખા અને શાકભાજી',
+			'debug.mockTip' => 'આ UI પૂર્વદર્શન માટે નકલી સૂચન છે. ભોજન લોગ થયું નથી.',
+			'debug.mockMealDescription' => 'ડિબગ માટે નકલી ભોજન',
+			'debug.portionSizeQuestion' => 'પોર્શનનું કદ કેવું હતું?',
+			'debug.extraSidesQuestion' => 'કોઈ વધારાના સાઇડ હતા?',
+			'debug.optionSmall' => 'નાનું',
+			'debug.optionMedium' => 'મધ્યમ',
+			'debug.optionLarge' => 'મોટું',
+			'debug.optionNone' => 'કોઈ નહીં',
+			'debug.optionSideSalad' => 'સાઇડ સલાડ',
+			'debug.optionBreadRoll' => 'બ્રેડ રોલ',
+			'debug.testingAnalyzeImage' => 'analyzeImage API પરીક્ષણ...',
+			'debug.testingDetectImage' => 'detectImage API પરીક્ષણ...',
+			'debug.testingDetectText' => 'detectText API પરીક્ષણ...',
+			'debug.selectingImageFromGallery' => 'ગેલેરીમાંથી ઈમેજ પસંદ કરી રહ્યા છે...',
+			'debug.noImageSelected' => 'કોઈ ઈમેજ પસંદ કરવામાં આવી નથી',
+			'debug.compressingImage' => 'ઈમેજ સંકુચિત કરી રહ્યા છે...',
+			'debug.uploadingImageAndDetecting' => 'ઈમેજ બકેટ પર અપલોડ કરી ભોજન ઓળખી રહ્યું છે...',
+			'debug.testingMealLoggingFlow' => 'વૈવિધ્ય સાથે ભોજન લોગિંગ પ્રવાહનું પરીક્ષણ...',
+			'debug.noMealIdentifiedInResponse' => 'પ્રતિસાદમાં કોઈ ભોજન ઓળખાતું નથી',
+			'debug.mealIdentified' => 'ભોજન ઓળખાયું',
+			'debug.confidence' => 'નિશ્ચિતતા',
+			'debug.tip' => 'સૂચન',
+			'debug.mealName' => 'ભોજનનું નામ',
+			'debug.calories' => 'કેલોરીઝ',
+			'debug.protein' => 'પ્રોટીન',
+			'debug.carbs' => 'કાર્બ્સ',
+			'debug.fat' => 'ચરબી',
+			'debug.noMealInfo' => 'કોઈ ભોજન માહિતી નથી',
+			'debug.na' => 'લાગુ નથી',
+			'debug.analyzeImageResult' => 'ઇમેજ વિશ્લેષણ પરિણામ',
+			'debug.detectImageResult' => 'ઇમેજ શોધ પરિણામ',
+			'debug.detectImageFromGalleryResult' => 'ગેલેરીમાંથી છબી શોધનું પરિણામ',
+			'debug.detectTextResult' => 'ટેક્સ્ટ શોધ પરિણામ',
+			'debug.errorGeneric' => ({required Object error}) => 'ત્રુટિ: ${error}',
+			'debug.variationsCount' => 'વૈવિધ્યાઓ',
+			'debug.userPreferencesCleared' => 'વપરાશકર્તાની પસંદગીઓ સાફ થઈ ગઇ',
+			'debug.userProfileCleared' => 'વપરાશકર્તાની પ્રોફાઇલ સાફ કરી દેવામાં આવી છે',
+			'debug.checkForUpdate' => 'અપડેટ તપાસો',
+			'debug.showPatchNumber' => 'પેચ નંબર બતાવો',
+			'debug.showUpdateAvailable' => 'અપડેટ ઉપલબ્ધ બતાવો',
+			'debug.updateAvailable' => 'અપડેટ ઉપલબ્ધ છે',
+			'debug.upToDate' => 'અપડેટ છે',
+			'debug.shorebirdUnavailable' => 'આ પર્યાવરણમાં Shorebird ઉપલબ્ધ નથી.',
+			'debug.patchNumberLabel' => 'પેચ નંબર',
+			'debug.noPatchInstalled' => 'કોઈ પેચ ઇન્સ્ટોલ થયેલો નથી',
+			'debug.todaysSteps' => 'આજના પગલાં',
+			'debug.stepsLabel' => 'પગલાં',
+			'debug.weightLabel' => ({required Object value}) => 'વજન: ${value} કિગ્રા',
+			'debug.heightLabel' => ({required Object value}) => 'ઊંચાઈ: ${value} સેમી',
+			'debug.receivedMessagesFromWatch' => 'વોચથી મળેલી સંદેશાઓ',
+			'debug.noMessagesReceivedYet' => 'અજ સુધી કોઈ સંદેશ મળ્યો નથી.\n\nમેસેજો જોવા માટે વોચમાંથી ટેસ્ટ ડેટા મોકલો.',
+			'debug.messagesCleared' => 'સંદેશાઓ સાફ થયા',
 			'health.syncFailed' => 'હેલ્થ કનેક્ટ સાથે સમન્વય શુધ્ધબૂક કર્યો નથી',
 			'health.mealSynced' => 'ખોરાક હેલ્થ કનેક્ટ સાથે સંકળાયેલ છે',
 			_ => null,

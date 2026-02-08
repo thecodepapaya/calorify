@@ -15,10 +15,27 @@ class IntakeHistoryBarChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
+    return _ChartCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const _ChartHeader(),
+          const SizedBox(height: 24),
+          const _MacroHistoryChart(),
+        ],
+      ),
+    );
+  }
+}
 
+class _ChartCard extends StatelessWidget {
+  const _ChartCard({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       margin: globalMargin,
       padding: const EdgeInsets.all(16),
@@ -26,26 +43,34 @@ class IntakeHistoryBarChart extends StatelessWidget {
         borderRadius: globalRadius,
         border: Border.all(color: colorScheme.outline),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(LucideIcons.chartBar, color: colorScheme.primary),
-              const SizedBox(width: 8),
-              Text(
-                t.home.intakeHistory.title,
-                style: textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onSurface,
-                ),
-              ),
-            ],
+      child: child,
+    );
+  }
+}
+
+class _ChartHeader extends StatelessWidget {
+  const _ChartHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(LucideIcons.chartBar, color: colorScheme.primary),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            t.home.intakeHistory.title,
+            style: textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.w600,
+              color: colorScheme.onSurface,
+            ),
           ),
-          const SizedBox(height: 24),
-          const _MacroHistoryChart(),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -116,10 +141,6 @@ class _MacroHistoryChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
-
     return StreamBuilder<List<LoggedMeal>>(
       stream: DatabaseService.databaseInterface.watchAllMealsForLast7Days(),
       builder: (context, snapshot) {
@@ -142,150 +163,11 @@ class _MacroHistoryChart extends StatelessWidget {
               stream: DatabaseService.databaseInterface.watchDailyCalorieGoal(),
               builder: (context, goalSnapshot) {
                 final dailyGoal = goalSnapshot.data?.toDouble() ?? 2000.0;
-
-                return SizedBox(
-                  height: 250,
-                  child: BarChart(
-                    BarChartData(
-                      alignment: BarChartAlignment.spaceAround,
-                      maxY: _getMaxY(dailyData, dailyGoal),
-                      extraLinesData: ExtraLinesData(
-                        horizontalLines: [
-                          HorizontalLine(
-                            y: dailyGoal,
-                            color: colorScheme.primary.withValues(alpha: 0.5),
-                            strokeWidth: 2,
-                            dashArray: [5, 5],
-                            label: HorizontalLineLabel(
-                              show: true,
-                              alignment: Alignment.topRight,
-                              padding: const EdgeInsets.only(
-                                right: 5,
-                                bottom: 5,
-                              ),
-                              style: textTheme.labelSmall?.copyWith(
-                                color: colorScheme.primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              labelResolver:
-                                  (line) =>
-                                      'Goal: ${dailyGoal.toInt()}${t.home.dailyGoal.kcal}',
-                            ),
-                          ),
-                        ],
-                      ),
-                      barTouchData: BarTouchData(
-                        enabled: true,
-                        touchTooltipData: BarTouchTooltipData(
-                          getTooltipColor:
-                              (group) => colorScheme.surfaceContainerHighest,
-                          getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                            return BarTooltipItem(
-                              '${rod.toY.toInt()}${t.home.dailyGoal.kcal}',
-                              textTheme.bodySmall!.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      titlesData: FlTitlesData(
-                        show: true,
-                        bottomTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            getTitlesWidget: (double value, TitleMeta meta) {
-                              final index = value.toInt();
-                              if (index >= 0 && index < sortedDates.length) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Text(
-                                    DateFormat('E').format(sortedDates[index]),
-                                    style: textTheme.labelSmall,
-                                  ),
-                                );
-                              }
-                              return const SizedBox.shrink();
-                            },
-                            reservedSize: 30,
-                          ),
-                        ),
-                        leftTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                        topTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                        rightTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                      ),
-                      gridData: const FlGridData(show: false),
-                      borderData: FlBorderData(show: false),
-                      barGroups: List.generate(sortedDates.length, (index) {
-                        final dayDate = sortedDates[index];
-                        final data = dailyData[dayDate]!;
-                        final dailyCalories = data['calories']!;
-                        final totalGrams =
-                            data['carbs']! +
-                            data['protein']! +
-                            data['fat']! +
-                            data['fiber']!;
-
-                        if (totalGrams == 0) {
-                          return BarChartGroupData(
-                            x: index,
-                            barRods: [BarChartRodData(toY: 0, width: 16)],
-                          );
-                        }
-
-                        final carbHeight =
-                            (data['carbs']! / totalGrams) * dailyCalories;
-                        final proteinHeight =
-                            (data['protein']! / totalGrams) * dailyCalories;
-                        final fatHeight =
-                            (data['fat']! / totalGrams) * dailyCalories;
-                        final fiberHeight =
-                            (data['fiber']! / totalGrams) * dailyCalories;
-
-                        return BarChartGroupData(
-                          x: index,
-                          barRods: [
-                            BarChartRodData(
-                              toY: dailyCalories,
-                              width: 16,
-                              borderRadius: BorderRadius.circular(4),
-                              rodStackItems: [
-                                BarChartRodStackItem(
-                                  0,
-                                  carbHeight,
-                                  carbsIconColor,
-                                ),
-                                BarChartRodStackItem(
-                                  carbHeight,
-                                  carbHeight + proteinHeight,
-                                  proteinIconColor,
-                                ),
-                                BarChartRodStackItem(
-                                  carbHeight + proteinHeight,
-                                  carbHeight + proteinHeight + fatHeight,
-                                  fatIconColor,
-                                ),
-                                BarChartRodStackItem(
-                                  carbHeight + proteinHeight + fatHeight,
-                                  carbHeight +
-                                      proteinHeight +
-                                      fatHeight +
-                                      fiberHeight,
-                                  fiberIconColor,
-                                ),
-                              ],
-                            ),
-                          ],
-                        );
-                      }),
-                    ),
-                  ),
+                return _BarChartWithGoal(
+                  dailyData: dailyData,
+                  sortedDates: sortedDates,
+                  dailyGoal: dailyGoal,
+                  maxY: _getMaxY(dailyData, dailyGoal),
                 );
               },
             ),
@@ -295,6 +177,172 @@ class _MacroHistoryChart extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+class _BarChartWithGoal extends StatelessWidget {
+  const _BarChartWithGoal({
+    required this.dailyData,
+    required this.sortedDates,
+    required this.dailyGoal,
+    required this.maxY,
+  });
+
+  final Map<DateTime, Map<String, double>> dailyData;
+  final List<DateTime> sortedDates;
+  final double dailyGoal;
+  final double maxY;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+    return SizedBox(
+      height: 250,
+      child: BarChart(
+        BarChartData(
+          alignment: BarChartAlignment.spaceAround,
+          maxY: maxY,
+          extraLinesData: _buildGoalLine(context, colorScheme, textTheme),
+          barTouchData: _buildBarTouchData(context, colorScheme, textTheme),
+          titlesData: _buildTitlesData(context, textTheme),
+          gridData: const FlGridData(show: false),
+          borderData: FlBorderData(show: false),
+          barGroups: _buildBarGroups(),
+        ),
+      ),
+    );
+  }
+
+  ExtraLinesData _buildGoalLine(
+    BuildContext context,
+    ColorScheme colorScheme,
+    TextTheme textTheme,
+  ) {
+    final t = Translations.of(context);
+    return ExtraLinesData(
+      horizontalLines: [
+        HorizontalLine(
+          y: dailyGoal,
+          color: colorScheme.primary.withValues(alpha: 0.5),
+          strokeWidth: 2,
+          dashArray: [5, 5],
+          label: HorizontalLineLabel(
+            show: true,
+            alignment: Alignment.topRight,
+            padding: const EdgeInsets.only(right: 5, bottom: 5),
+            style: textTheme.labelSmall?.copyWith(
+              color: colorScheme.primary,
+              fontWeight: FontWeight.bold,
+            ),
+            labelResolver:
+                (line) =>
+                    '${t.home.dailyGoal.goal}: ${dailyGoal.toInt()} ${t.home.dailyGoal.kcal}',
+          ),
+        ),
+      ],
+    );
+  }
+
+  BarTouchData _buildBarTouchData(
+    BuildContext context,
+    ColorScheme colorScheme,
+    TextTheme textTheme,
+  ) {
+    final t = Translations.of(context);
+    return BarTouchData(
+      enabled: true,
+      touchTooltipData: BarTouchTooltipData(
+        getTooltipColor: (group) => colorScheme.surfaceContainerHighest,
+        getTooltipItem: (group, groupIndex, rod, rodIndex) {
+          return BarTooltipItem(
+            '${rod.toY.toInt()} ${t.home.dailyGoal.kcal}',
+            textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold),
+          );
+        },
+      ),
+    );
+  }
+
+  FlTitlesData _buildTitlesData(BuildContext context, TextTheme textTheme) {
+    final locale = TranslationProvider.of(context).locale.flutterLocale;
+    return FlTitlesData(
+      show: true,
+      bottomTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          getTitlesWidget: (double value, TitleMeta meta) {
+            final index = value.toInt();
+            if (index >= 0 && index < sortedDates.length) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  DateFormat('E', locale.toString()).format(sortedDates[index]),
+                  style: textTheme.labelSmall,
+                ),
+              );
+            }
+            return const SizedBox.shrink();
+          },
+          reservedSize: 30,
+        ),
+      ),
+      leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+    );
+  }
+
+  List<BarChartGroupData> _buildBarGroups() {
+    return List.generate(sortedDates.length, (index) {
+      final dayDate = sortedDates[index];
+      final data = dailyData[dayDate]!;
+      final dailyCalories = data['calories']!;
+      final totalGrams =
+          data['carbs']! + data['protein']! + data['fat']! + data['fiber']!;
+
+      if (totalGrams == 0) {
+        return BarChartGroupData(
+          x: index,
+          barRods: [BarChartRodData(toY: 0, width: 16)],
+        );
+      }
+
+      final carbHeight = (data['carbs']! / totalGrams) * dailyCalories;
+      final proteinHeight = (data['protein']! / totalGrams) * dailyCalories;
+      final fatHeight = (data['fat']! / totalGrams) * dailyCalories;
+      final fiberHeight = (data['fiber']! / totalGrams) * dailyCalories;
+
+      return BarChartGroupData(
+        x: index,
+        barRods: [
+          BarChartRodData(
+            toY: dailyCalories,
+            width: 16,
+            borderRadius: BorderRadius.circular(4),
+            rodStackItems: [
+              BarChartRodStackItem(0, carbHeight, carbsIconColor),
+              BarChartRodStackItem(
+                carbHeight,
+                carbHeight + proteinHeight,
+                proteinIconColor,
+              ),
+              BarChartRodStackItem(
+                carbHeight + proteinHeight,
+                carbHeight + proteinHeight + fatHeight,
+                fatIconColor,
+              ),
+              BarChartRodStackItem(
+                carbHeight + proteinHeight + fatHeight,
+                carbHeight + proteinHeight + fatHeight + fiberHeight,
+                fiberIconColor,
+              ),
+            ],
+          ),
+        ],
+      );
+    });
   }
 }
 
