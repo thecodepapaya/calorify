@@ -1,4 +1,5 @@
 import { FastifyInstance } from 'fastify';
+import config from '../config.js';
 
 export async function healthRoutes(fastify: FastifyInstance): Promise<void> {
   // Root: welcome message (for browsers/docs)
@@ -20,7 +21,7 @@ export async function healthRoutes(fastify: FastifyInstance): Promise<void> {
   }, async () => {
     return {
       message: 'Welcome to Calorify Backend API',
-      version: '1.0.0',
+      version: config.APP_VERSION,
     };
   });
 

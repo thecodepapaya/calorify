@@ -169,7 +169,7 @@ async function buildApp() {
       info: {
         title: 'Calorify Backend API',
         description: 'API documentation for Calorify Backend - Food analysis and user profile management',
-        version: '1.0.0',
+        version: config.APP_VERSION,
       },
       servers: [
         {

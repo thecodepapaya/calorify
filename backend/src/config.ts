@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import { existsSync } from 'fs';
 import { readFileSync } from 'fs';
-import { resolve } from 'path';
+import { join, resolve } from 'path';
 
 // Load environment variables: use staging.env for local dev (no separate dev env file),
 // then .env if present for overrides (e.g. DATABASE_URL, FIREBASE_SERVICE_ACCOUNT_PATH).
@@ -12,6 +12,8 @@ dotenv.config({ override: true });
 
 interface Config {
     readonly APP_NAME: string;
+    /** Version returned at GET /. Set APP_VERSION in env, or falls back to package.json version. */
+    readonly APP_VERSION: string;
     readonly DEBUG: boolean;
     readonly API_V1_STR: string;
     readonly SECRET_KEY: string;
@@ -101,8 +103,21 @@ function validateFirebaseServiceAccount(path: string | null): string | null {
 }
 
 const port = getEnvVarNumber('PORT', 8000);
+
+function getAppVersion(): string {
+    const fromEnv = getEnvVarOptional('APP_VERSION');
+    if (fromEnv) return fromEnv;
+    try {
+        const pkg = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf-8'));
+        return typeof pkg.version === 'string' ? pkg.version : '1.0.0';
+    } catch {
+        return '1.0.0';
+    }
+}
+
 const config: Config = {
     APP_NAME: getEnvVar('APP_NAME', 'CalorifyBackend'),
+    APP_VERSION: getAppVersion(),
     DEBUG: getEnvVarBoolean('DEBUG', true),
     API_V1_STR: getEnvVar('API_V1_STR', '/api/v1'),
     SECRET_KEY: getEnvVar('SECRET_KEY', 'DEFAULT_SECRET_KEY'),
