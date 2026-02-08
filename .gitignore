@@ -30,3 +30,7 @@ migrate_working_dir/
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# Golden test generated images
+app/test/golden/goldens/
+app/test/golden/failures/

@@ -57,16 +57,18 @@ void main() {
         () => mockDatabaseInterface.watchAllFavoriteMeals(),
       ).thenAnswer((_) => Stream.value(mockFavorites));
 
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          const FavoritesScreen(),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(
-          tester,
-          'favorites_screen_with_items_${device.name}',
-        );
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            const FavoritesScreen(),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'favorites_screen_with_items_${locale.name}_${device.name}',
+          );
+        }
       }
     });
 
@@ -75,16 +77,18 @@ void main() {
         () => mockDatabaseInterface.watchAllFavoriteMeals(),
       ).thenAnswer((_) => Stream.value([]));
 
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          const FavoritesScreen(),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(
-          tester,
-          'favorites_screen_empty_${device.name}',
-        );
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            const FavoritesScreen(),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'favorites_screen_empty_${locale.name}_${device.name}',
+          );
+        }
       }
     });
   });

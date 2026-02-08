@@ -35,13 +35,18 @@ void main() {
 
   group('ProfileScreen Golden Tests', () {
     testGoldens('Profile view', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          const ProfileScreen(),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'profile_screen_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            const ProfileScreen(),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'profile_screen_${locale.name}_${device.name}',
+          );
+        }
       }
     });
   });

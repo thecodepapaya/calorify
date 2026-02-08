@@ -232,6 +232,10 @@ class _TranslationsEditProfileCs implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'Úroveň aktivity';
 	@override String get metric => 'Metrické';
 	@override String get imperial => 'Imperiální';
+	@override String get unitCm => 'cm';
+	@override String get unitFt => 'ft';
+	@override String get unitKg => 'kg';
+	@override String get unitLbs => 'lbs';
 	@override String get metricCm => 'Metrické (cm)';
 	@override String get imperialFtIn => 'Imperiální (ft/in)';
 	@override String get metricKg => 'Metrické (kg)';
@@ -1804,6 +1808,10 @@ extension on TranslationsCs {
 			'editProfile.activityLevel' => 'Úroveň aktivity',
 			'editProfile.metric' => 'Metrické',
 			'editProfile.imperial' => 'Imperiální',
+			'editProfile.unitCm' => 'cm',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => 'kg',
+			'editProfile.unitLbs' => 'lbs',
 			'editProfile.metricCm' => 'Metrické (cm)',
 			'editProfile.imperialFtIn' => 'Imperiální (ft/in)',
 			'editProfile.metricKg' => 'Metrické (kg)',

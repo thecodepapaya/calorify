@@ -57,113 +57,146 @@ void main() {
 
   group('Onboarding Golden Tests', () {
     testGoldens('Welcome screen', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          WelcomeScreen(onContinue: () {}),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'onboarding_welcome_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            WelcomeScreen(onContinue: () {}),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'onboarding_welcome_${locale.name}_${device.name}',
+          );
+        }
       }
     });
 
     testGoldens('Weight Goal screen', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          WeightGoalScreen(onContinue: () {}),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(
-          tester,
-          'onboarding_weight_goal_${device.name}',
-        );
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            WeightGoalScreen(onContinue: () {}),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'onboarding_weight_goal_${locale.name}_${device.name}',
+          );
+        }
       }
     });
 
     testGoldens('Activity Level screen', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          ActivityLevelScreen(onContinue: () {}),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(
-          tester,
-          'onboarding_activity_level_${device.name}',
-        );
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            ActivityLevelScreen(onContinue: () {}),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'onboarding_activity_level_${locale.name}_${device.name}',
+          );
+        }
       }
     });
 
     testGoldens('Gender step', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          GenderStepScreen(onContinue: () {}),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'onboarding_gender_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            GenderStepScreen(onContinue: () {}),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'onboarding_gender_${locale.name}_${device.name}',
+          );
+        }
       }
     });
 
     testGoldens('Height step', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          HeightStepScreen(onContinue: () {}),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'onboarding_height_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            HeightStepScreen(onContinue: () {}),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'onboarding_height_${locale.name}_${device.name}',
+          );
+        }
       }
     });
 
     testGoldens('Weight step', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          WeightStepScreen(onContinue: () {}),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'onboarding_weight_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            WeightStepScreen(onContinue: () {}),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'onboarding_weight_${locale.name}_${device.name}',
+          );
+        }
       }
     });
 
     testGoldens('Age step', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          AgeStepScreen(onContinue: () {}),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'onboarding_age_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            AgeStepScreen(onContinue: () {}),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'onboarding_age_${locale.name}_${device.name}',
+          );
+        }
       }
     });
 
     testGoldens('Health Connect screen', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          HealthConnectScreen(onContinue: () {}),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(
-          tester,
-          'onboarding_health_connect_${device.name}',
-        );
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            HealthConnectScreen(onContinue: () {}),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'onboarding_health_connect_${locale.name}_${device.name}',
+          );
+        }
       }
     });
 
     testGoldens('Reminder Notifications screen', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          ReminderNotificationsScreen(onContinue: () {}),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(
-          tester,
-          'onboarding_reminders_${device.name}',
-        );
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            ReminderNotificationsScreen(onContinue: () {}),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'onboarding_reminders_${locale.name}_${device.name}',
+          );
+        }
       }
     });
   });

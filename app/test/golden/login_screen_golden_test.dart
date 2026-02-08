@@ -23,13 +23,18 @@ void main() {
 
   group('LoginScreen Golden Tests', () {
     testGoldens('renders correctly', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          const LoginScreen(),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'login_screen_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            const LoginScreen(),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'login_screen_${locale.name}_${device.name}',
+          );
+        }
       }
     });
   });

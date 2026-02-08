@@ -33,13 +33,18 @@ void main() {
         ],
       );
 
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          widget,
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'onboarding_progress_bar_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            widget,
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'onboarding_progress_bar_${locale.name}_${device.name}',
+          );
+        }
       }
     });
   });

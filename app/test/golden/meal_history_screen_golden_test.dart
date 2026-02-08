@@ -32,13 +32,18 @@ void main() {
         ),
       ).thenAnswer((_) async => []);
 
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          const MealHistoryScreen(),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'meal_history_empty_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            const MealHistoryScreen(),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'meal_history_empty_${locale.name}_${device.name}',
+          );
+        }
       }
     });
 
@@ -71,16 +76,18 @@ void main() {
         ),
       ).thenAnswer((_) async => mockMeals);
 
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          const MealHistoryScreen(),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(
-          tester,
-          'meal_history_with_meals_${device.name}',
-        );
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            const MealHistoryScreen(),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'meal_history_with_meals_${locale.name}_${device.name}',
+          );
+        }
       }
     });
   });

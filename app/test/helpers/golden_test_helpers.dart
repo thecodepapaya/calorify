@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:calorify/core/constants/theme.dart';
 import 'package:i18n/i18n.dart';
@@ -10,10 +11,19 @@ Future<void> loadFonts() async {
   await loadAppFonts();
 }
 
-WidgetWrapper goldenWrapper({ThemeData? theme, dynamic router, RouteData? routeData}) {
+/// All supported locales used for golden tests.
+const goldenTestLocales = AppLocale.values;
+
+WidgetWrapper goldenWrapper({
+  ThemeData? theme,
+  dynamic router,
+  RouteData? routeData,
+  AppLocale? locale,
+}) {
   final mockRouteData = routeData ?? MockRouteData();
   final mockRouter = router ?? MockStackRouter();
-  
+  final appLocale = locale ?? AppLocale.en;
+
   if (mockRouteData is MockRouteData) {
     stubRouteData(mockRouteData);
   }
@@ -23,8 +33,10 @@ WidgetWrapper goldenWrapper({ThemeData? theme, dynamic router, RouteData? routeD
   } else if (mockRouter is MockStackRouter) {
     stubStackRouter(mockRouter);
   }
-  
+
   return (child) {
+    LocaleSettings.setLocaleSync(appLocale);
+
     Widget content = child;
     if (router != null) {
       content = RouterScope(
@@ -40,9 +52,15 @@ WidgetWrapper goldenWrapper({ThemeData? theme, dynamic router, RouteData? routeD
 
     return TranslationProvider(
       child: ProviderScope(
-        child: materialAppWrapper(
-          theme: theme ?? AppThemes.lightTheme,
-        )(content),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: theme?.copyWith(platform: TargetPlatform.android) ??
+              AppThemes.lightTheme.copyWith(platform: TargetPlatform.android),
+          locale: appLocale.flutterLocale,
+          supportedLocales: AppLocaleUtils.supportedLocales,
+          localizationsDelegates: GlobalMaterialLocalizations.delegates,
+          home: Material(child: content),
+        ),
       ),
     );
   };

@@ -232,6 +232,10 @@ class _TranslationsEditProfileAr implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'مستوى النشاط';
 	@override String get metric => 'متري';
 	@override String get imperial => 'إمبراطوري';
+	@override String get unitCm => 'سم';
+	@override String get unitFt => 'قدم';
+	@override String get unitKg => 'كغ';
+	@override String get unitLbs => 'رطل';
 	@override String get metricCm => 'متري (سم)';
 	@override String get imperialFtIn => 'إمبراطوري (قدم/بوصة)';
 	@override String get metricKg => 'متري (كجم)';
@@ -1804,6 +1808,10 @@ extension on TranslationsAr {
 			'editProfile.activityLevel' => 'مستوى النشاط',
 			'editProfile.metric' => 'متري',
 			'editProfile.imperial' => 'إمبراطوري',
+			'editProfile.unitCm' => 'سم',
+			'editProfile.unitFt' => 'قدم',
+			'editProfile.unitKg' => 'كغ',
+			'editProfile.unitLbs' => 'رطل',
 			'editProfile.metricCm' => 'متري (سم)',
 			'editProfile.imperialFtIn' => 'إمبراطوري (قدم/بوصة)',
 			'editProfile.metricKg' => 'متري (كجم)',

@@ -14,13 +14,18 @@ void main() {
 
   group('EditMealScreen Golden Tests', () {
     testGoldens('Initial view - Add Mode', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          const EditMealScreen(),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'edit_meal_add_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            const EditMealScreen(),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'edit_meal_add_${locale.name}_${device.name}',
+          );
+        }
       }
     });
 
@@ -45,13 +50,18 @@ void main() {
         createdAt: dateTimeToIso8601String(DateTime(2023, 10, 27, 19, 30)),
       );
 
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          EditMealScreen(loggedMeal: mockLoggedMeal),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(tester, 'edit_meal_edit_${device.name}');
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            EditMealScreen(loggedMeal: mockLoggedMeal),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'edit_meal_edit_${locale.name}_${device.name}',
+          );
+        }
       }
     });
   });

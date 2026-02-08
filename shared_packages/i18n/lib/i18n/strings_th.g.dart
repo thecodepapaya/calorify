@@ -232,6 +232,10 @@ class _TranslationsEditProfileTh implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'ระดับกิจกรรม';
 	@override String get metric => 'เมตริก';
 	@override String get imperial => 'อิมพีเรียล';
+	@override String get unitCm => 'ซม.';
+	@override String get unitFt => 'ฟุต';
+	@override String get unitKg => 'กก.';
+	@override String get unitLbs => 'ปอนด์';
 	@override String get metricCm => 'เมตริก (ซม.)';
 	@override String get imperialFtIn => 'อิมพีเรียล (ฟุต/นิ้ว)';
 	@override String get metricKg => 'เมตริก (กก.)';
@@ -1804,6 +1808,10 @@ extension on TranslationsTh {
 			'editProfile.activityLevel' => 'ระดับกิจกรรม',
 			'editProfile.metric' => 'เมตริก',
 			'editProfile.imperial' => 'อิมพีเรียล',
+			'editProfile.unitCm' => 'ซม.',
+			'editProfile.unitFt' => 'ฟุต',
+			'editProfile.unitKg' => 'กก.',
+			'editProfile.unitLbs' => 'ปอนด์',
 			'editProfile.metricCm' => 'เมตริก (ซม.)',
 			'editProfile.imperialFtIn' => 'อิมพีเรียล (ฟุต/นิ้ว)',
 			'editProfile.metricKg' => 'เมตริก (กก.)',

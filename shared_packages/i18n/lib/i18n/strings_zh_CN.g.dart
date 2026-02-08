@@ -232,6 +232,10 @@ class _TranslationsEditProfileZhCn implements TranslationsEditProfileEn {
 	@override String get activityLevel => '活动水平';
 	@override String get metric => '公制';
 	@override String get imperial => '英制';
+	@override String get unitCm => '厘米';
+	@override String get unitFt => '英尺';
+	@override String get unitKg => '千克';
+	@override String get unitLbs => '磅';
 	@override String get metricCm => '公制 (厘米)';
 	@override String get imperialFtIn => '英制 (英尺/英寸)';
 	@override String get metricKg => '公制 (千克)';
@@ -1804,6 +1808,10 @@ extension on TranslationsZhCn {
 			'editProfile.activityLevel' => '活动水平',
 			'editProfile.metric' => '公制',
 			'editProfile.imperial' => '英制',
+			'editProfile.unitCm' => '厘米',
+			'editProfile.unitFt' => '英尺',
+			'editProfile.unitKg' => '千克',
+			'editProfile.unitLbs' => '磅',
 			'editProfile.metricCm' => '公制 (厘米)',
 			'editProfile.imperialFtIn' => '英制 (英尺/英寸)',
 			'editProfile.metricKg' => '公制 (千克)',

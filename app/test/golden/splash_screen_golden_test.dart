@@ -23,16 +23,18 @@ void main() {
 
   group('SplashScreen Golden Tests', () {
     testGoldens('renders correctly', (WidgetTester tester) async {
-      await tester.pumpWidgetBuilder(
-        StackRouterScope(
-          controller: mockRouter,
-          stateHash: 0,
-          child: const SplashScreen(),
-        ),
-        wrapper: goldenWrapper(router: mockRouter),
-      );
-      
-      await screenMatchesGolden(tester, 'splash_screen');
+      for (final locale in goldenTestLocales) {
+        await tester.pumpWidgetBuilder(
+          StackRouterScope(
+            controller: mockRouter,
+            stateHash: 0,
+            child: const SplashScreen(),
+          ),
+          wrapper: goldenWrapper(router: mockRouter, locale: locale),
+        );
+
+        await screenMatchesGolden(tester, 'splash_screen_${locale.name}');
+      }
     });
   });
 }

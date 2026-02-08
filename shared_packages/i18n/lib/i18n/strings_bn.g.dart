@@ -232,6 +232,10 @@ class _TranslationsEditProfileBn implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'ক্রিয়াকলাপের স্তর';
 	@override String get metric => 'মেট্রিক';
 	@override String get imperial => 'ইম্পেরিয়াল';
+	@override String get unitCm => 'সেমি';
+	@override String get unitFt => 'ফুট';
+	@override String get unitKg => 'কেজি';
+	@override String get unitLbs => 'পাউন্ড';
 	@override String get metricCm => 'মেট্রিক (সেমি)';
 	@override String get imperialFtIn => 'ইম্পেরিয়াল (ফুট/ইঞ্চি)';
 	@override String get metricKg => 'মেট্রিক (কেজি)';
@@ -1804,6 +1808,10 @@ extension on TranslationsBn {
 			'editProfile.activityLevel' => 'ক্রিয়াকলাপের স্তর',
 			'editProfile.metric' => 'মেট্রিক',
 			'editProfile.imperial' => 'ইম্পেরিয়াল',
+			'editProfile.unitCm' => 'সেমি',
+			'editProfile.unitFt' => 'ফুট',
+			'editProfile.unitKg' => 'কেজি',
+			'editProfile.unitLbs' => 'পাউন্ড',
 			'editProfile.metricCm' => 'মেট্রিক (সেমি)',
 			'editProfile.imperialFtIn' => 'ইম্পেরিয়াল (ফুট/ইঞ্চি)',
 			'editProfile.metricKg' => 'মেট্রিক (কেজি)',

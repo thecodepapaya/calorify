@@ -43,16 +43,18 @@ void main() {
 
   group('SettingsScreen Golden Tests', () {
     testGoldens('Initial view', (WidgetTester tester) async {
-      for (final device in testDevices) {
-        await tester.pumpWidgetBuilder(
-          const SettingsScreen(),
-          wrapper: goldenWrapper(),
-          surfaceSize: device.size,
-        );
-        await screenMatchesGolden(
-          tester,
-          'settings_screen_initial_${device.name}',
-        );
+      for (final locale in goldenTestLocales) {
+        for (final device in testDevices) {
+          await tester.pumpWidgetBuilder(
+            const SettingsScreen(),
+            wrapper: goldenWrapper(locale: locale),
+            surfaceSize: device.size,
+          );
+          await screenMatchesGolden(
+            tester,
+            'settings_screen_initial_${locale.name}_${device.name}',
+          );
+        }
       }
     });
   });

@@ -232,6 +232,10 @@ class _TranslationsEditProfileTe implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'యాక్టివిటీ స్థాయి';
 	@override String get metric => 'మెట్రిక్';
 	@override String get imperial => 'ఇంపీరియల్';
+	@override String get unitCm => 'సె.మీ.';
+	@override String get unitFt => 'అడుగు';
+	@override String get unitKg => 'కి.గ్రా.';
+	@override String get unitLbs => 'పౌన్డ్';
 	@override String get metricCm => 'మెట్రిక్ (సెం)';
 	@override String get imperialFtIn => 'ఇంపీరియల్ (అంగుళాలు)';
 	@override String get metricKg => 'మెట్రిక్ (కేజీలు)';
@@ -1804,6 +1808,10 @@ extension on TranslationsTe {
 			'editProfile.activityLevel' => 'యాక్టివిటీ స్థాయి',
 			'editProfile.metric' => 'మెట్రిక్',
 			'editProfile.imperial' => 'ఇంపీరియల్',
+			'editProfile.unitCm' => 'సె.మీ.',
+			'editProfile.unitFt' => 'అడుగు',
+			'editProfile.unitKg' => 'కి.గ్రా.',
+			'editProfile.unitLbs' => 'పౌన్డ్',
 			'editProfile.metricCm' => 'మెట్రిక్ (సెం)',
 			'editProfile.imperialFtIn' => 'ఇంపీరియల్ (అంగుళాలు)',
 			'editProfile.metricKg' => 'మెట్రిక్ (కేజీలు)',

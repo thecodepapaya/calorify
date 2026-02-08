@@ -12,14 +12,22 @@ void main() {
 
   group('EditReminderScreen Golden Tests', () {
     testGoldens('Initial view', (WidgetTester tester) async {
-      final builder = DeviceBuilder()
-        ..addScenario(
-          name: 'Edit Reminder',
-          widget: const EditReminderScreen(),
-        );
+      for (final locale in goldenTestLocales) {
+        final builder = DeviceBuilder()
+          ..addScenario(
+            name: 'Edit Reminder',
+            widget: const EditReminderScreen(),
+          );
 
-      await tester.pumpDeviceBuilder(builder, wrapper: goldenWrapper());
-      await screenMatchesGolden(tester, 'edit_reminder_screen');
+        await tester.pumpDeviceBuilder(
+          builder,
+          wrapper: goldenWrapper(locale: locale),
+        );
+        await screenMatchesGolden(
+          tester,
+          'edit_reminder_screen_${locale.name}',
+        );
+      }
     });
   });
 }

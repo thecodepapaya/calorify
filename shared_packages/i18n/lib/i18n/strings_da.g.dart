@@ -232,6 +232,10 @@ class _TranslationsEditProfileDa implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'Aktivitetsniveau';
 	@override String get metric => 'Metisk';
 	@override String get imperial => 'Imperial';
+	@override String get unitCm => 'cm';
+	@override String get unitFt => 'ft';
+	@override String get unitKg => 'kg';
+	@override String get unitLbs => 'lbs';
 	@override String get metricCm => 'Metisk (cm)';
 	@override String get imperialFtIn => 'Imperial (ft/in)';
 	@override String get metricKg => 'Metisk (kg)';
@@ -1804,6 +1808,10 @@ extension on TranslationsDa {
 			'editProfile.activityLevel' => 'Aktivitetsniveau',
 			'editProfile.metric' => 'Metisk',
 			'editProfile.imperial' => 'Imperial',
+			'editProfile.unitCm' => 'cm',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => 'kg',
+			'editProfile.unitLbs' => 'lbs',
 			'editProfile.metricCm' => 'Metisk (cm)',
 			'editProfile.imperialFtIn' => 'Imperial (ft/in)',
 			'editProfile.metricKg' => 'Metisk (kg)',

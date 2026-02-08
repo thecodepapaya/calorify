@@ -232,6 +232,10 @@ class _TranslationsEditProfileUr implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'سرگرمی کی سطح';
 	@override String get metric => 'میٹرک';
 	@override String get imperial => 'امپیریل';
+	@override String get unitCm => 'سم';
+	@override String get unitFt => 'فٹ';
+	@override String get unitKg => 'کلو';
+	@override String get unitLbs => 'پاؤنڈ';
 	@override String get metricCm => 'میٹرک (سینٹی میٹر)';
 	@override String get imperialFtIn => 'امپیریل (فیٹ/انچ)';
 	@override String get metricKg => 'میٹرک (کلو)';
@@ -1804,6 +1808,10 @@ extension on TranslationsUr {
 			'editProfile.activityLevel' => 'سرگرمی کی سطح',
 			'editProfile.metric' => 'میٹرک',
 			'editProfile.imperial' => 'امپیریل',
+			'editProfile.unitCm' => 'سم',
+			'editProfile.unitFt' => 'فٹ',
+			'editProfile.unitKg' => 'کلو',
+			'editProfile.unitLbs' => 'پاؤنڈ',
 			'editProfile.metricCm' => 'میٹرک (سینٹی میٹر)',
 			'editProfile.imperialFtIn' => 'امپیریل (فیٹ/انچ)',
 			'editProfile.metricKg' => 'میٹرک (کلو)',

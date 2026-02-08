@@ -232,6 +232,10 @@ class _TranslationsEditProfileNl implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'Activiteitsniveau';
 	@override String get metric => 'Metrisch';
 	@override String get imperial => 'Imperiaal';
+	@override String get unitCm => 'cm';
+	@override String get unitFt => 'ft';
+	@override String get unitKg => 'kg';
+	@override String get unitLbs => 'lbs';
 	@override String get metricCm => 'Metrisch (cm)';
 	@override String get imperialFtIn => 'Imperiaal (ft/in)';
 	@override String get metricKg => 'Metrisch (kg)';
@@ -1804,6 +1808,10 @@ extension on TranslationsNl {
 			'editProfile.activityLevel' => 'Activiteitsniveau',
 			'editProfile.metric' => 'Metrisch',
 			'editProfile.imperial' => 'Imperiaal',
+			'editProfile.unitCm' => 'cm',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => 'kg',
+			'editProfile.unitLbs' => 'lbs',
 			'editProfile.metricCm' => 'Metrisch (cm)',
 			'editProfile.imperialFtIn' => 'Imperiaal (ft/in)',
 			'editProfile.metricKg' => 'Metrisch (kg)',

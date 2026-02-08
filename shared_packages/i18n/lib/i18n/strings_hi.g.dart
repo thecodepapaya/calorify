@@ -232,6 +232,10 @@ class _TranslationsEditProfileHi implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'गतिविधि स्तर';
 	@override String get metric => 'मीट्रिक';
 	@override String get imperial => 'इम्पीरियल';
+	@override String get unitCm => 'सेमी';
+	@override String get unitFt => 'फुट';
+	@override String get unitKg => 'किग्रा';
+	@override String get unitLbs => 'पाउंड';
 	@override String get metricCm => 'मीट्रिक (सेमी)';
 	@override String get imperialFtIn => 'इम्पीरियल (फुट/इंच)';
 	@override String get metricKg => 'मीट्रिक (किलो)';
@@ -1804,6 +1808,10 @@ extension on TranslationsHi {
 			'editProfile.activityLevel' => 'गतिविधि स्तर',
 			'editProfile.metric' => 'मीट्रिक',
 			'editProfile.imperial' => 'इम्पीरियल',
+			'editProfile.unitCm' => 'सेमी',
+			'editProfile.unitFt' => 'फुट',
+			'editProfile.unitKg' => 'किग्रा',
+			'editProfile.unitLbs' => 'पाउंड',
 			'editProfile.metricCm' => 'मीट्रिक (सेमी)',
 			'editProfile.imperialFtIn' => 'इम्पीरियल (फुट/इंच)',
 			'editProfile.metricKg' => 'मीट्रिक (किलो)',
