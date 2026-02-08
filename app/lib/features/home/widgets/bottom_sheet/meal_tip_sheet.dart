@@ -128,7 +128,7 @@ class _MealTip extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
 
-    final canShowMealImage = metadata.imageUrl.isNotEmpty;
+    final canShowMealImage = imageBytes != null || metadata.imageUrl.isNotEmpty;
     final canShowMealTip = mealDetectionResult?.tip.isNotEmpty ?? false;
 
     final timestamp = loggedMeal?.dateTime ?? DateTime.now();
@@ -168,7 +168,7 @@ class _MealTip extends StatelessWidget {
       ),
       if (canShowMealImage) ...[
         SizedBox(height: 16),
-        MealImage(imageUrl: metadata.imageUrl),
+        MealImage(imageBytes: imageBytes, imageUrl: metadata.imageUrl),
       ],
       if (canShowMealTip) ...[
         SizedBox(height: 16),
@@ -256,30 +256,30 @@ class _MealTip extends StatelessWidget {
       mealDetectionResult != null
           ? (previewOnly
               ? SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton.icon(
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: Icon(LucideIcons.x, size: 20),
-                    label: Text(t.common.close),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                    ),
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: Icon(LucideIcons.x, size: 20),
+                  label: Text(t.common.close),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
-                )
+                ),
+              )
               : PrimaryButton(
-                  analyticsEvent: AnalyticsEvent.mealSave,
-                  onPressed: () async {
-                    await logMeal(
-                      context,
-                      mealDetectionResult!.meal,
-                      parentContext: parentContext,
-                    );
-                    if (!context.mounted) return;
-                    Navigator.of(context).pop();
-                  },
-                  text: t.meal.saveMeal,
-                  leadingIcon: LucideIcons.save,
-                ))
+                analyticsEvent: AnalyticsEvent.mealSave,
+                onPressed: () async {
+                  await logMeal(
+                    context,
+                    mealDetectionResult!.meal,
+                    parentContext: parentContext,
+                  );
+                  if (!context.mounted) return;
+                  Navigator.of(context).pop();
+                },
+                text: t.meal.saveMeal,
+                leadingIcon: LucideIcons.save,
+              ))
           : Row(
             children: [
               if (loggedMeal != null)
