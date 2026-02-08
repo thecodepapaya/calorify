@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { createErrorResponse } from '../../utils/errors.js';
 import { query } from '../../services/database.js';
-import { authenticateUser } from '../../middleware/auth.js';
+import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 
 interface UserProfileBody {
   height?: number;
@@ -128,11 +128,7 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
     },
     async (request: FastifyRequest<{ Body: UserProfileBody }>, reply: FastifyReply) => {
       try {
-        // Authentication temporarily disabled
-        // const userId = getCurrentUserId(request);
-        // For now, use a placeholder user ID or generate one
-        // In production, this should be the authenticated user's ID
-        const userId = 'temp-user-id-staging'; // TODO: Remove when re-enabling authentication
+        const userId = getCurrentUserId(request);
 
         const {
           height,

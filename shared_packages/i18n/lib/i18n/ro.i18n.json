@@ -615,7 +615,8 @@
     "noThanks": "Nu, mulțumesc",
     "aboutUsDescription": "Creat cu grijă de o echipă mică. Ne concentrăm pe confidențialitate, simplitate și pe a te ajuta să dezvolți obiceiuri alimentare mai sănătoase.",
     "aboutUsMentionBeforeLink": "Curios cine se află în spatele {appLabel}? Vezi ",
-    "aboutUsLinkLabel": "Despre noi"
+    "aboutUsLinkLabel": "Despre noi",
+    "thankYouMessage": "Mulțumim! Te vom întreba din nou altădată."
   },
   "errors": {
     "loadingProfileData": "Eroare la încărcarea datelor profilului",

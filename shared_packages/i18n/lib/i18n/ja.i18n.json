@@ -615,7 +615,8 @@
     "noThanks": "いいえ、結構です",
     "aboutUsDescription": "小さなチームが心を込めて作りました。プライバシーとシンプルさを重視し、あなたがより良い食習慣を身につけられるようサポートします。",
     "aboutUsMentionBeforeLink": "{appLabel} の開発者について知りたいですか？こちらをご覧ください ",
-    "aboutUsLinkLabel": "私たちについて"
+    "aboutUsLinkLabel": "私たちについて",
+    "thankYouMessage": "ありがとうございます！また別の機会にぜひご意見をお聞かせください。"
   },
   "errors": {
     "loadingProfileData": "プロフィールデータの読み込みエラー",

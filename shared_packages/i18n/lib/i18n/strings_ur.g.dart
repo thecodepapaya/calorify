@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingUr implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'ایک چھوٹی ٹیم نے توجہ اور محبت کے ساتھ بنایا گیا۔ ہم رازداری، سادگی، اور آپ کو بہتر غذائی عادات بنانے میں مدد دینے پر فوکس کرتے ہیں۔';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'کیا آپ جاننا چاہتے ہیں کہ ${appLabel} کے پیچھے کون ہے؟ دیکھیں ';
 	@override String get aboutUsLinkLabel => 'ہمارے بارے میں';
+	@override String get thankYouMessage => 'شکریہ! ہم کسی اور وقت دوبارہ پوچھیں گے۔';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsUr {
 			'feedbackRating.aboutUsDescription' => 'ایک چھوٹی ٹیم نے توجہ اور محبت کے ساتھ بنایا گیا۔ ہم رازداری، سادگی، اور آپ کو بہتر غذائی عادات بنانے میں مدد دینے پر فوکس کرتے ہیں۔',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'کیا آپ جاننا چاہتے ہیں کہ ${appLabel} کے پیچھے کون ہے؟ دیکھیں ',
 			'feedbackRating.aboutUsLinkLabel' => 'ہمارے بارے میں',
+			'feedbackRating.thankYouMessage' => 'شکریہ! ہم کسی اور وقت دوبارہ پوچھیں گے۔',
 			'errors.loadingProfileData' => 'پروفائل کا ڈیٹا لوڈ کرنے میں خرابی',
 			'errors.somethingWentWrong' => 'کچھ غلط ہوگیا۔',
 			'debug.title' => 'ڈیبگ کے اختیارات',
@@ -2211,9 +2213,9 @@ extension on TranslationsUr {
 			'debug.testDetectTextSubtitle' => 'متنی وضاحت سے کھانا شناخت کریں',
 			'debug.testMealLoggingWithVariations' => 'تغیرات کے ساتھ میل لاگنگ ٹیسٹ',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'تغیرات کے ساتھ مکمل میل لاگنگ فلو کا ٹیسٹ کریں',
-			'debug.mockMealWithVariations' => 'تغیرات کے ساتھ نمونہ کھانا',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'تغیرات کے ساتھ نمونہ کھانا',
 			'debug.mockMealWithVariationsSubtitle' => 'لاگ کیے بغیر ویریئیشن اور ٹِپ شیٹ UI کا پریویو کریں',
 			'debug.mockMealName' => 'گرِلڈ چکن کے ساتھ چاول اور سبزیاں',
 			'debug.mockTip' => 'یہ UI پریویو کے لیے ایک نمونہ مشورہ ہے۔ یہ کھانا لاگ نہیں کیا گیا۔',

@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingRu implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Создано с заботой небольшой командой. Мы уделяем особое внимание конфиденциальности, простоте и помогаем вам выработать более здоровые пищевые привычки.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Интересно, кто стоит за ${appLabel}? Посмотрите ';
 	@override String get aboutUsLinkLabel => 'О нас';
+	@override String get thankYouMessage => 'Спасибо! Мы спросим об этом в другой раз.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsRu {
 			'feedbackRating.aboutUsDescription' => 'Создано с заботой небольшой командой. Мы уделяем особое внимание конфиденциальности, простоте и помогаем вам выработать более здоровые пищевые привычки.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Интересно, кто стоит за ${appLabel}? Посмотрите ',
 			'feedbackRating.aboutUsLinkLabel' => 'О нас',
+			'feedbackRating.thankYouMessage' => 'Спасибо! Мы спросим об этом в другой раз.',
 			'errors.loadingProfileData' => 'Ошибка загрузки данных профиля',
 			'errors.somethingWentWrong' => 'Что-то пошло не так.',
 			'debug.title' => 'Опции отладки',
@@ -2211,9 +2213,9 @@ extension on TranslationsRu {
 			'debug.testDetectTextSubtitle' => 'Определить блюдо по описанию текста',
 			'debug.testMealLoggingWithVariations' => 'Тест регистрации приема пищи с вариациями',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Протестировать полный процесс записи приема пищи с вариациями',
-			'debug.mockMealWithVariations' => 'Макет блюда с вариациями',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Макет блюда с вариациями',
 			'debug.mockMealWithVariationsSubtitle' => 'Предпросмотр вариаций и подсказок без записи',
 			'debug.mockMealName' => 'Жареная курица с рисом и овощами',
 			'debug.mockTip' => 'Это тестовая подсказка для предварительного просмотра интерфейса. Прием пищи не сохраняется.',

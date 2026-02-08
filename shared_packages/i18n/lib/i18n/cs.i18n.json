@@ -615,7 +615,8 @@
     "noThanks": "Ne, děkuji",
     "aboutUsDescription": "Vytvořeno s péčí malým týmem. Dbáme na soukromí, jednoduchost a pomáháme vám vytvářet lepší stravovací návyky.",
     "aboutUsMentionBeforeLink": "Zajímá vás, kdo stojí za {appLabel}? Podívejte se ",
-    "aboutUsLinkLabel": "O nás"
+    "aboutUsLinkLabel": "O nás",
+    "thankYouMessage": "Děkujeme! Zeptáme se znovu jindy."
   },
   "errors": {
     "loadingProfileData": "Chyba při načítání dat profilu",

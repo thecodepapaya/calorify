@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingEs implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Hecho con esmero por un equipo pequeño. Nos centramos en la privacidad, la simplicidad y en ayudarte a adoptar hábitos alimentarios más saludables.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '¿Tienes curiosidad por saber quién está detrás de ${appLabel}? Consulta ';
 	@override String get aboutUsLinkLabel => 'Sobre nosotros';
+	@override String get thankYouMessage => '¡Gracias! Te preguntaremos de nuevo en otra ocasión.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsEs {
 			'feedbackRating.aboutUsDescription' => 'Hecho con esmero por un equipo pequeño. Nos centramos en la privacidad, la simplicidad y en ayudarte a adoptar hábitos alimentarios más saludables.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '¿Tienes curiosidad por saber quién está detrás de ${appLabel}? Consulta ',
 			'feedbackRating.aboutUsLinkLabel' => 'Sobre nosotros',
+			'feedbackRating.thankYouMessage' => '¡Gracias! Te preguntaremos de nuevo en otra ocasión.',
 			'errors.loadingProfileData' => 'Error al cargar datos del perfil',
 			'errors.somethingWentWrong' => 'Algo salió mal.',
 			'debug.title' => 'Opciones de Depuración',
@@ -2211,9 +2213,9 @@ extension on TranslationsEs {
 			'debug.testDetectTextSubtitle' => 'Detectar comida desde una descripción de texto',
 			'debug.testMealLoggingWithVariations' => 'Probar registro de comida con variaciones',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Probar el flujo completo de registro de comida con variaciones',
-			'debug.mockMealWithVariations' => 'Comida simulada con variaciones',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Comida simulada con variaciones',
 			'debug.mockMealWithVariationsSubtitle' => 'Vista previa de variantes y notas sin registrar la comida',
 			'debug.mockMealName' => 'Pollo a la parrilla con arroz y verduras',
 			'debug.mockTip' => 'Esta es una sugerencia simulada para la vista previa de la interfaz. La comida no se registra.',

@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingDa implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Skabt med omhu af et lille team. Vi er fokuserede på dit privatliv, enkelhed og på at hjælpe dig med at opbygge sundere spisevaner.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nysgerrig efter, hvem der står bag ${appLabel}? Se ';
 	@override String get aboutUsLinkLabel => 'Om os';
+	@override String get thankYouMessage => 'Tak! Vi spørger igen en anden gang.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsDa {
 			'feedbackRating.aboutUsDescription' => 'Skabt med omhu af et lille team. Vi er fokuserede på dit privatliv, enkelhed og på at hjælpe dig med at opbygge sundere spisevaner.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nysgerrig efter, hvem der står bag ${appLabel}? Se ',
 			'feedbackRating.aboutUsLinkLabel' => 'Om os',
+			'feedbackRating.thankYouMessage' => 'Tak! Vi spørger igen en anden gang.',
 			'errors.loadingProfileData' => 'Fejl ved indlæsning af profildata',
 			'errors.somethingWentWrong' => 'Noget gik galt.',
 			'debug.title' => 'Debug Indstillinger',
@@ -2211,9 +2213,9 @@ extension on TranslationsDa {
 			'debug.testDetectTextSubtitle' => 'Genkend måltid ud fra tekstbeskrivelse',
 			'debug.testMealLoggingWithVariations' => 'Test: måltidsregistrering med variationer',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Test hele flowet for måltidsregistrering med variationer',
-			'debug.mockMealWithVariations' => 'Mock-måltid med variationer',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Mock-måltid med variationer',
 			'debug.mockMealWithVariationsSubtitle' => 'Forhåndsvis variation og tip-ark uden at logge måltidet',
 			'debug.mockMealName' => 'Grillet kylling med ris og grøntsager',
 			'debug.mockTip' => 'Dette er et mock-tip til UI-forhåndsvisning. Måltidet bliver ikke logget.',

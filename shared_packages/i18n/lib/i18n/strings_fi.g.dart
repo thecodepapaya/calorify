@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingFi implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Pienen tiimin huolella tehty. Keskitymme yksityisyyteen, yksinkertaisuuteen ja siihen, että autamme sinua kehittämään parempia ruokailutottumuksia.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Haluatko tietää, kuka on ${appLabel}:n takana? Katso ';
 	@override String get aboutUsLinkLabel => 'Tietoa meistä';
+	@override String get thankYouMessage => 'Kiitos! Kysymme uudestaan myöhemmin.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsFi {
 			'feedbackRating.aboutUsDescription' => 'Pienen tiimin huolella tehty. Keskitymme yksityisyyteen, yksinkertaisuuteen ja siihen, että autamme sinua kehittämään parempia ruokailutottumuksia.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Haluatko tietää, kuka on ${appLabel}:n takana? Katso ',
 			'feedbackRating.aboutUsLinkLabel' => 'Tietoa meistä',
+			'feedbackRating.thankYouMessage' => 'Kiitos! Kysymme uudestaan myöhemmin.',
 			'errors.loadingProfileData' => 'Virhe profiilitietojen lataamisessa',
 			'errors.somethingWentWrong' => 'Jokin meni pieleen.',
 			'debug.title' => 'Debug-vaihtoehdot',
@@ -2211,9 +2213,9 @@ extension on TranslationsFi {
 			'debug.testDetectTextSubtitle' => 'Tunnista ateria tekstikuvauksen perusteella',
 			'debug.testMealLoggingWithVariations' => 'Testaa aterian kirjaus variaatioilla',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Testaa koko aterian kirjausprosessi variaatioineen',
-			'debug.mockMealWithVariations' => 'Mallipäivä (variaatioilla)',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Mallipäivä (variaatioilla)',
 			'debug.mockMealWithVariationsSubtitle' => 'Esikatsele variaatio- ja vinkkinäkymää ilman kirjaamista',
 			'debug.mockMealName' => 'Grillattua kanaa riisin ja vihannesten kanssa',
 			'debug.mockTip' => 'Tämä on esimerkkivinkki käyttöliittymän esikatseluun. Ateriaa ei ole kirjattu.',

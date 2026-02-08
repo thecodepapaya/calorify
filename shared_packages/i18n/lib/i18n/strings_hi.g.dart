@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingHi implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'छोटी टीम द्वारा ध्यानपूर्वक तैयार किया गया। हम आपकी गोपनीयता, सरलता, और आपको बेहतर खाने की आदतें विकसित करने में मदद करने के लिए समर्पित हैं।';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'जानना चाहेंगे कि ${appLabel} के पीछे कौन है? देखें ';
 	@override String get aboutUsLinkLabel => 'हमारे बारे में';
+	@override String get thankYouMessage => 'धन्यवाद! हम फिर कभी पूछेंगे।';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsHi {
 			'feedbackRating.aboutUsDescription' => 'छोटी टीम द्वारा ध्यानपूर्वक तैयार किया गया। हम आपकी गोपनीयता, सरलता, और आपको बेहतर खाने की आदतें विकसित करने में मदद करने के लिए समर्पित हैं।',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'जानना चाहेंगे कि ${appLabel} के पीछे कौन है? देखें ',
 			'feedbackRating.aboutUsLinkLabel' => 'हमारे बारे में',
+			'feedbackRating.thankYouMessage' => 'धन्यवाद! हम फिर कभी पूछेंगे।',
 			'errors.loadingProfileData' => 'प्रोफ़ाइल डेटा लोड करने में त्रुटि',
 			'errors.somethingWentWrong' => 'कुछ गलत हुआ।',
 			'debug.title' => 'डिबग विकल्प',
@@ -2211,9 +2213,9 @@ extension on TranslationsHi {
 			'debug.testDetectTextSubtitle' => 'टेक्स्ट विवरण से भोजन पहचानें',
 			'debug.testMealLoggingWithVariations' => 'वैरिएशन्स के साथ टेस्ट भोजन लॉगिंग',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'वैरिएशन्स के साथ पूरा भोजन लॉगिंग फ्लो टेस्ट करें',
-			'debug.mockMealWithVariations' => 'वैरिएशन्स के साथ नकली भोजन',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'वैरिएशन्स के साथ नकली भोजन',
 			'debug.mockMealWithVariationsSubtitle' => 'लॉग किए बिना वैरिएशन + टिप शीट UI का पूर्वावलोकन करें',
 			'debug.mockMealName' => 'ग्रिल्ड चिकन, चावल और सब्जियों के साथ',
 			'debug.mockTip' => 'यह UI पूर्वावलोकन के लिए एक नकली टिप है। यह भोजन लॉग नहीं किया गया है।',

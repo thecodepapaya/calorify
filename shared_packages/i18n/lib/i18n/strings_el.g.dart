@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingEl implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Δημιουργήθηκε με φροντίδα από μια μικρή ομάδα. Δίνουμε προτεραιότητα στην ιδιωτικότητα, την απλότητα και στο να σας βοηθάμε να αποκτήσετε καλύτερες διατροφικές συνήθειες.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Σε ενδιαφέρει ποιος βρίσκεται πίσω από το ${appLabel}? Δες ';
 	@override String get aboutUsLinkLabel => 'Σχετικά με εμάς';
+	@override String get thankYouMessage => 'Ευχαριστούμε! Θα σε ρωτήσουμε ξανά κάποια άλλη φορά.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsEl {
 			'feedbackRating.aboutUsDescription' => 'Δημιουργήθηκε με φροντίδα από μια μικρή ομάδα. Δίνουμε προτεραιότητα στην ιδιωτικότητα, την απλότητα και στο να σας βοηθάμε να αποκτήσετε καλύτερες διατροφικές συνήθειες.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Σε ενδιαφέρει ποιος βρίσκεται πίσω από το ${appLabel}? Δες ',
 			'feedbackRating.aboutUsLinkLabel' => 'Σχετικά με εμάς',
+			'feedbackRating.thankYouMessage' => 'Ευχαριστούμε! Θα σε ρωτήσουμε ξανά κάποια άλλη φορά.',
 			'errors.loadingProfileData' => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ',
 			'errors.somethingWentWrong' => 'Κάτι πήγε στραβά.',
 			'debug.title' => 'Επιλογές Αποσφαλμάτωσης',
@@ -2211,9 +2213,9 @@ extension on TranslationsEl {
 			'debug.testDetectTextSubtitle' => 'Ανίχνευση γεύματος από περιγραφή κειμένου',
 			'debug.testMealLoggingWithVariations' => 'Δοκιμή καταγραφής γεύματος με παραλλαγές',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Δοκιμάστε ολόκληρη τη ροή καταγραφής γεύματος με παραλλαγές',
-			'debug.mockMealWithVariations' => 'Προσομοιωμένο γεύμα με παραλλαγές',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Προσομοιωμένο γεύμα με παραλλαγές',
 			'debug.mockMealWithVariationsSubtitle' => 'Προεπισκόπηση παραλλαγής και του φύλλου συμβουλών χωρίς καταχώρηση',
 			'debug.mockMealName' => 'Κοτόπουλο στη σχάρα με ρύζι και λαχανικά',
 			'debug.mockTip' => 'Αυτή είναι μια προσομοιωμένη συμβουλή για προεπισκόπηση του UI. Το γεύμα δεν καταγράφεται.',

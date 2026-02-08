@@ -615,7 +615,8 @@
     "noThanks": "No, gracias",
     "aboutUsDescription": "Hecho con esmero por un equipo pequeño. Nos centramos en la privacidad, la simplicidad y en ayudarte a adoptar hábitos alimentarios más saludables.",
     "aboutUsMentionBeforeLink": "¿Tienes curiosidad por saber quién está detrás de {appLabel}? Consulta ",
-    "aboutUsLinkLabel": "Sobre nosotros"
+    "aboutUsLinkLabel": "Sobre nosotros",
+    "thankYouMessage": "¡Gracias! Preguntaremos de nuevo en otro momento."
   },
   "errors": {
     "loadingProfileData": "Error al cargar datos del perfil",

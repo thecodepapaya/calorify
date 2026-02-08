@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingGu implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'એક નાની ટીમ દ્વારા જતનપૂર્વક બનાવવામાં આવ્યું. અમે ગોપનીયતા, સરળતા અને તમને વધુ સ્વસ્થ ખોરાકની આદતો વિકસાવવા મદદ કરવા પર ધ્યાન કેન્દ્રિત કરીએ છીએ.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel} પાછળ કોણ છે તે જાણવા ઇચ્છો છો? જુઓ ';
 	@override String get aboutUsLinkLabel => 'અમારા વિશે';
+	@override String get thankYouMessage => 'આભાર! અમે પછી ક્યારેક ફરીથી પૂછશું.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsGu {
 			'feedbackRating.aboutUsDescription' => 'એક નાની ટીમ દ્વારા જતનપૂર્વક બનાવવામાં આવ્યું. અમે ગોપનીયતા, સરળતા અને તમને વધુ સ્વસ્થ ખોરાકની આદતો વિકસાવવા મદદ કરવા પર ધ્યાન કેન્દ્રિત કરીએ છીએ.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel} પાછળ કોણ છે તે જાણવા ઇચ્છો છો? જુઓ ',
 			'feedbackRating.aboutUsLinkLabel' => 'અમારા વિશે',
+			'feedbackRating.thankYouMessage' => 'આભાર! અમે પછી ક્યારેક ફરીથી પૂછશું.',
 			'errors.loadingProfileData' => 'પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ',
 			'errors.somethingWentWrong' => 'કોઈ મુશ્કેલી પડી.',
 			'debug.title' => 'ડેબેક્ડ વિકલ્પો',
@@ -2211,9 +2213,9 @@ extension on TranslationsGu {
 			'debug.testDetectTextSubtitle' => 'ટેક્સ્ટ વર્ણન પરથી ભોજન ઓળખો',
 			'debug.testMealLoggingWithVariations' => 'વૈવિધ્ય સાથેની ભોજન લોગિંગ ટેસ્ટ',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'વૈવિધ્ય સાથે સંપૂર્ણ ભોજન લોગિંગ પ્રવાહનું પરીક્ષણ કરો',
-			'debug.mockMealWithVariations' => 'મોક ભોજન (વૈવિધ્ય સાથે)',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'મોક ભોજન (વૈવિધ્ય સાથે)',
 			'debug.mockMealWithVariationsSubtitle' => 'લોગ કર્યા વિના વૈવિધ્ય અને ટિપ શીટ UI પૂર્વાવલોકન',
 			'debug.mockMealName' => 'ગ્રિલ્ડ ચિકન સાથે ચોખા અને શાકભાજી',
 			'debug.mockTip' => 'આ UI પૂર્વદર્શન માટે નકલી સૂચન છે. ભોજન લોગ થયું નથી.',

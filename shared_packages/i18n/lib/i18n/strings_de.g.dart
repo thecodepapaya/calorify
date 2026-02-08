@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingDe implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Mit Sorgfalt von einem kleinen Team entwickelt. Wir legen Wert auf Datenschutz, Einfachheit und darauf, dir zu helfen, gesündere Essgewohnheiten aufzubauen.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Neugierig, wer hinter ${appLabel} steckt? Sieh dir ';
 	@override String get aboutUsLinkLabel => 'Über uns';
+	@override String get thankYouMessage => 'Danke! Wir fragen dich später noch einmal.';
 }
 
 // Path: errors
@@ -1212,7 +1213,7 @@ class _TranslationsDebugSectionsDe implements TranslationsDebugSectionsEn {
 	@override String get notifications => 'Benachrichtigungen';
 	@override String get healthConnect => 'Health Connect';
 	@override String get wearOs => 'Wear OS';
-	@override String get foodApiTests => 'Food API Tests';
+	@override String get foodApiTests => 'Lebensmittel-API-Tests';
 	@override String get profileApiTests => 'Profil-API-Tests';
 	@override String get feedback => 'Feedback';
 	@override String get dataReset => 'Daten zurücksetzen';
@@ -2110,6 +2111,7 @@ extension on TranslationsDe {
 			'feedbackRating.aboutUsDescription' => 'Mit Sorgfalt von einem kleinen Team entwickelt. Wir legen Wert auf Datenschutz, Einfachheit und darauf, dir zu helfen, gesündere Essgewohnheiten aufzubauen.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Neugierig, wer hinter ${appLabel} steckt? Sieh dir ',
 			'feedbackRating.aboutUsLinkLabel' => 'Über uns',
+			'feedbackRating.thankYouMessage' => 'Danke! Wir fragen dich später noch einmal.',
 			'errors.loadingProfileData' => 'Fehler beim Laden der Profildaten',
 			'errors.somethingWentWrong' => 'Etwas ist schiefgegangen.',
 			'debug.title' => 'Debug-Optionen',
@@ -2117,7 +2119,7 @@ extension on TranslationsDe {
 			'debug.sections.notifications' => 'Benachrichtigungen',
 			'debug.sections.healthConnect' => 'Health Connect',
 			'debug.sections.wearOs' => 'Wear OS',
-			'debug.sections.foodApiTests' => 'Food API Tests',
+			'debug.sections.foodApiTests' => 'Lebensmittel-API-Tests',
 			'debug.sections.profileApiTests' => 'Profil-API-Tests',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Daten zurücksetzen',
@@ -2211,9 +2213,9 @@ extension on TranslationsDe {
 			'debug.testDetectTextSubtitle' => 'Mahlzeit anhand von Textbeschreibung erkennen',
 			'debug.testMealLoggingWithVariations' => 'Mahlzeitenprotokollierung mit Varianten testen',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Teste den vollständigen Ablauf der Mahlzeitenprotokollierung mit Varianten',
-			'debug.mockMealWithVariations' => 'Mustermahlzeit mit Varianten',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Mustermahlzeit mit Varianten',
 			'debug.mockMealWithVariationsSubtitle' => 'Vorschau der Varianten- und Tippanzeige ohne Protokollierung',
 			'debug.mockMealName' => 'Gegrilltes Hähnchen mit Reis und Gemüse',
 			'debug.mockTip' => 'Dies ist ein Mustertipp zur UI-Vorschau. Die Mahlzeit wird nicht protokolliert.',

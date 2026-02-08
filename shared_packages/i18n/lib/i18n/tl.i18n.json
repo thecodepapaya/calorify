@@ -615,7 +615,8 @@
     "noThanks": "Hindi, salamat",
     "aboutUsDescription": "Ginawa nang may malasakit ng isang maliit na koponan. Nakatuon kami sa pagkapribado, sa pagiging simple, at sa pagtulong sa iyo na bumuo ng mas malusog na gawi sa pagkain.",
     "aboutUsMentionBeforeLink": "Nais mong malaman kung sino ang nasa likod ng {appLabel}? Tingnan ",
-    "aboutUsLinkLabel": "Tungkol sa amin"
+    "aboutUsLinkLabel": "Tungkol sa amin",
+    "thankYouMessage": "Salamat! Tatanungin ka namin ulit sa susunod."
   },
   "errors": {
     "loadingProfileData": "Error sa pag-load ng datos ng profile",

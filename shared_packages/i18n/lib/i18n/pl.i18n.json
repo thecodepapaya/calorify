@@ -615,7 +615,8 @@
     "noThanks": "Nie, dziękuję",
     "aboutUsDescription": "Stworzone z troską przez niewielki zespół. Skupiamy się na prywatności, prostocie i pomagamy ci budować zdrowsze nawyki żywieniowe.",
     "aboutUsMentionBeforeLink": "Zastanawiasz się, kto stoi za {appLabel}? Zobacz ",
-    "aboutUsLinkLabel": "O nas"
+    "aboutUsLinkLabel": "O nas",
+    "thankYouMessage": "Dziękujemy! Zapytamy ponownie następnym razem."
   },
   "errors": {
     "loadingProfileData": "Błąd ładowania danych profilu",

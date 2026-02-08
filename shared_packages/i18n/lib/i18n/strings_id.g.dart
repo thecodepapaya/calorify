@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingId implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Dibuat dengan penuh perhatian oleh tim kecil. Kami berfokus pada privasi, kesederhanaan, dan membantu Anda membangun kebiasaan makan yang lebih sehat.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Penasaran siapa di balik ${appLabel}? Lihat ';
 	@override String get aboutUsLinkLabel => 'Tentang kami';
+	@override String get thankYouMessage => 'Terima kasih! Kami akan bertanya lagi di lain waktu.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsId {
 			'feedbackRating.aboutUsDescription' => 'Dibuat dengan penuh perhatian oleh tim kecil. Kami berfokus pada privasi, kesederhanaan, dan membantu Anda membangun kebiasaan makan yang lebih sehat.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Penasaran siapa di balik ${appLabel}? Lihat ',
 			'feedbackRating.aboutUsLinkLabel' => 'Tentang kami',
+			'feedbackRating.thankYouMessage' => 'Terima kasih! Kami akan bertanya lagi di lain waktu.',
 			'errors.loadingProfileData' => 'Kesalahan saat memuat data profil',
 			'errors.somethingWentWrong' => 'Terjadi kesalahan.',
 			'debug.title' => 'Opsi Debug',
@@ -2211,9 +2213,9 @@ extension on TranslationsId {
 			'debug.testDetectTextSubtitle' => 'Deteksi makanan dari deskripsi teks',
 			'debug.testMealLoggingWithVariations' => 'Uji Pencatatan Makanan dengan Variasi',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Uji alur pencatatan makanan lengkap dengan variasi',
-			'debug.mockMealWithVariations' => 'Contoh makanan dengan variasi',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Contoh makanan dengan variasi',
 			'debug.mockMealWithVariationsSubtitle' => 'Pratinjau variasi + lembar tips UI tanpa mencatat',
 			'debug.mockMealName' => 'Ayam panggang dengan nasi dan sayuran',
 			'debug.mockTip' => 'Ini adalah tip contoh untuk pratinjau UI. Makanan tidak dicatat.',

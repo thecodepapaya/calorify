@@ -615,7 +615,8 @@
     "noThanks": "لا، شكرًا",
     "aboutUsDescription": "تم تطويرها بعناية من قبل فريق صغير. نركّز على الخصوصية والبساطة، ونساعدك على بناء عادات غذائية أفضل.",
     "aboutUsMentionBeforeLink": "هل تريد معرفة من يقف وراء {appLabel}؟ انظر ",
-    "aboutUsLinkLabel": "من نحن"
+    "aboutUsLinkLabel": "من نحن",
+    "thankYouMessage": "شكراً! سنسأل مرة أخرى لاحقاً."
   },
   "errors": {
     "loadingProfileData": "خطأ في تحميل بيانات الملف الشخصي",

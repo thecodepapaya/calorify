@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingFr implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Conçu avec soin par une petite équipe. Nous privilégions la confidentialité, la simplicité et l\'accompagnement pour vous aider à adopter de meilleures habitudes alimentaires.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Vous voulez savoir qui se cache derrière ${appLabel} ? Consultez ';
 	@override String get aboutUsLinkLabel => 'À propos';
+	@override String get thankYouMessage => 'Merci ! Nous vous redemanderons plus tard.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsFr {
 			'feedbackRating.aboutUsDescription' => 'Conçu avec soin par une petite équipe. Nous privilégions la confidentialité, la simplicité et l\'accompagnement pour vous aider à adopter de meilleures habitudes alimentaires.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Vous voulez savoir qui se cache derrière ${appLabel} ? Consultez ',
 			'feedbackRating.aboutUsLinkLabel' => 'À propos',
+			'feedbackRating.thankYouMessage' => 'Merci ! Nous vous redemanderons plus tard.',
 			'errors.loadingProfileData' => 'Erreur de chargement des données du profil',
 			'errors.somethingWentWrong' => 'Une erreur s\'est produite.',
 			'debug.title' => 'Options de Débogage',
@@ -2211,9 +2213,9 @@ extension on TranslationsFr {
 			'debug.testDetectTextSubtitle' => 'Détecter un repas à partir d\'une description textuelle',
 			'debug.testMealLoggingWithVariations' => 'Tester l\'enregistrement de repas avec variations',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Tester le flux complet d\'enregistrement de repas avec variations',
-			'debug.mockMealWithVariations' => 'Repas simulé avec variations',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Repas simulé avec variations',
 			'debug.mockMealWithVariationsSubtitle' => 'Aperçu de l\'interface des variations + fiche conseils sans enregistrer',
 			'debug.mockMealName' => 'Poulet grillé avec riz et légumes',
 			'debug.mockTip' => 'Ceci est un conseil fictif pour l\'aperçu de l\'interface. Le repas n\'est pas enregistré.',

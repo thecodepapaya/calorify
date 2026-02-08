@@ -494,6 +494,10 @@ This generates `backend/src/protos/calorify/models.ts` from `protos/calorify/mod
 
 **Note**: Database services are defined in `docker-compose.yml` but not connected to the application. If database functionality is needed in the future, you can add database connection logic using libraries like `pg` or `prisma`.
 
+### Migrations
+
+SQL migrations in `migrations/*.sql` run **automatically on server startup**. The app tracks applied migrations in a `schema_migrations` table and runs any new `.sql` file in alphabetical order. No manual step required for new environments or new migrations.
+
 ---
 
 ## Authentication

@@ -615,7 +615,8 @@
     "noThanks": "לא תודה",
     "aboutUsDescription": "נוצר בקפידה על ידי צוות קטן. אנו שמים דגש על פרטיות, על פשטות, ועל סיוע לך בפיתוח הרגלי אכילה בריאים יותר.",
     "aboutUsMentionBeforeLink": "סקרנים מי עומד מאחורי {appLabel}? ראה ",
-    "aboutUsLinkLabel": "עלינו"
+    "aboutUsLinkLabel": "עלינו",
+    "thankYouMessage": "תודה! נשאל שוב בהזדמנות אחרת."
   },
   "errors": {
     "loadingProfileData": "שגיאה בהטענת נתוני פרופיל",

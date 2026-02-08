@@ -118,7 +118,7 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
 
   void _showThankYouAndPop() {
     _closedByTerminalAction = true;
-    showFlushbar("Thanks! We'll ask again another time.", context: context);
+    showFlushbar(t.feedbackRating.thankYouMessage, context: context);
     Navigator.of(context).pop();
   }
 

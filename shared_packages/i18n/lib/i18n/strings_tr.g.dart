@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingTr implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Küçük bir ekip tarafından özenle hazırlandı. Gizliliğe, sadeliğe ve daha sağlıklı beslenme alışkanlıkları edinmenize yardımcı olmaya odaklanıyoruz.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel}\'ın arkasında kim olduğunu merak ediyor musunuz? ';
 	@override String get aboutUsLinkLabel => 'Hakkımızda';
+	@override String get thankYouMessage => 'Teşekkürler! Başka bir zaman tekrar soracağız.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsTr {
 			'feedbackRating.aboutUsDescription' => 'Küçük bir ekip tarafından özenle hazırlandı. Gizliliğe, sadeliğe ve daha sağlıklı beslenme alışkanlıkları edinmenize yardımcı olmaya odaklanıyoruz.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel}\'ın arkasında kim olduğunu merak ediyor musunuz? ',
 			'feedbackRating.aboutUsLinkLabel' => 'Hakkımızda',
+			'feedbackRating.thankYouMessage' => 'Teşekkürler! Başka bir zaman tekrar soracağız.',
 			'errors.loadingProfileData' => 'Profil verileri yüklenirken hata',
 			'errors.somethingWentWrong' => 'Bir şeyler ters gitti.',
 			'debug.title' => 'Hata Ayıklama Seçenekleri',
@@ -2211,9 +2213,9 @@ extension on TranslationsTr {
 			'debug.testDetectTextSubtitle' => 'Yemek açıklamasından yemeği tespit et',
 			'debug.testMealLoggingWithVariations' => 'Varyasyonlarla Yemek Kaydı Testi',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Varyasyonlarla tam yemek kaydetme akışını test et',
-			'debug.mockMealWithVariations' => 'Varyasyonlu sahte öğün',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Varyasyonlu sahte öğün',
 			'debug.mockMealWithVariationsSubtitle' => 'Kayıt etmeden varyasyon ve ipucu sayfası arayüzünü önizle',
 			'debug.mockMealName' => 'Izgara tavuk, pilav ve sebzeler',
 			'debug.mockTip' => 'Bu, UI önizlemesi için sahte bir ipucu. Öğün kaydedilmedi.',

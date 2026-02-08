@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingZhTw implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => '由一個小團隊用心打造。我們重視隱私、追求簡單，並致力於幫助你建立更健康的飲食習慣。';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '想知道是誰在打造 ${appLabel} 嗎？請參閱 ';
 	@override String get aboutUsLinkLabel => '關於我們';
+	@override String get thankYouMessage => '謝謝！我們下次會再問您。';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsZhTw {
 			'feedbackRating.aboutUsDescription' => '由一個小團隊用心打造。我們重視隱私、追求簡單，並致力於幫助你建立更健康的飲食習慣。',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '想知道是誰在打造 ${appLabel} 嗎？請參閱 ',
 			'feedbackRating.aboutUsLinkLabel' => '關於我們',
+			'feedbackRating.thankYouMessage' => '謝謝！我們下次會再問您。',
 			'errors.loadingProfileData' => '載入個人資料數據出錯',
 			'errors.somethingWentWrong' => '發生了錯誤。',
 			'debug.title' => '調試選項',
@@ -2211,9 +2213,9 @@ extension on TranslationsZhTw {
 			'debug.testDetectTextSubtitle' => '從文字描述偵測餐點',
 			'debug.testMealLoggingWithVariations' => '測試含變體的餐點記錄流程',
 			'debug.testMealLoggingWithVariationsSubtitle' => '測試含變體的完整餐點記錄流程',
-			'debug.mockMealWithVariations' => '含變體的模擬餐點',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => '含變體的模擬餐點',
 			'debug.mockMealWithVariationsSubtitle' => '預覽變體與提示面板的 UI（不會記錄）',
 			'debug.mockMealName' => '烤雞配米飯與蔬菜',
 			'debug.mockTip' => '此為 UI 預覽用的模擬提示，餐點不會被記錄。',

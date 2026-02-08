@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingKo implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => '작은 팀이 정성을 다해 만들었습니다. 우리는 개인정보 보호와 단순성을 중시하며, 여러분이 더 건강한 식습관을 만들어 가도록 돕는 데 집중합니다.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel}의 제작자가 궁금하신가요? ';
 	@override String get aboutUsLinkLabel => '개발자 소개';
+	@override String get thankYouMessage => '감사합니다! 다음에 다시 여쭤볼게요.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsKo {
 			'feedbackRating.aboutUsDescription' => '작은 팀이 정성을 다해 만들었습니다. 우리는 개인정보 보호와 단순성을 중시하며, 여러분이 더 건강한 식습관을 만들어 가도록 돕는 데 집중합니다.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel}의 제작자가 궁금하신가요? ',
 			'feedbackRating.aboutUsLinkLabel' => '개발자 소개',
+			'feedbackRating.thankYouMessage' => '감사합니다! 다음에 다시 여쭤볼게요.',
 			'errors.loadingProfileData' => '프로필 데이터 로드 중 오류 발생',
 			'errors.somethingWentWrong' => '문제가 발생했습니다.',
 			'debug.title' => '디버그 옵션',
@@ -2211,9 +2213,9 @@ extension on TranslationsKo {
 			'debug.testDetectTextSubtitle' => '텍스트 설명에서 식사를 감지합니다.',
 			'debug.testMealLoggingWithVariations' => '변형이 있는 식사 기록 테스트',
 			'debug.testMealLoggingWithVariationsSubtitle' => '변형을 포함한 전체 식사 기록 흐름을 테스트합니다.',
-			'debug.mockMealWithVariations' => '변형이 있는 모의 식사',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => '변형이 있는 모의 식사',
 			'debug.mockMealWithVariationsSubtitle' => '기록 없이 변형 및 팁 시트 UI를 미리봅니다.',
 			'debug.mockMealName' => '구운 닭고기와 밥, 야채',
 			'debug.mockTip' => 'UI 미리보기를 위한 모의 팁입니다. 식사는 기록되지 않습니다.',

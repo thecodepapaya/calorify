@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingHu implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Egy kis csapat gondos munkájával készült. Különös figyelmet fordítunk a magánszférára, az egyszerűségre és arra, hogy segítsünk jobb étkezési szokásokat kialakítanod.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Kíváncsi vagy, ki áll a ${appLabel} mögött? Nézd meg ';
 	@override String get aboutUsLinkLabel => 'Rólunk';
+	@override String get thankYouMessage => 'Köszönjük! Később ismét megkérdezünk.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsHu {
 			'feedbackRating.aboutUsDescription' => 'Egy kis csapat gondos munkájával készült. Különös figyelmet fordítunk a magánszférára, az egyszerűségre és arra, hogy segítsünk jobb étkezési szokásokat kialakítanod.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Kíváncsi vagy, ki áll a ${appLabel} mögött? Nézd meg ',
 			'feedbackRating.aboutUsLinkLabel' => 'Rólunk',
+			'feedbackRating.thankYouMessage' => 'Köszönjük! Később ismét megkérdezünk.',
 			'errors.loadingProfileData' => 'Hiba a profiladatok betöltésekor',
 			'errors.somethingWentWrong' => 'Valami hiba történt.',
 			'debug.title' => 'Hibakeresési Beállítások',
@@ -2211,9 +2213,9 @@ extension on TranslationsHu {
 			'debug.testDetectTextSubtitle' => 'Ételfelismerés szöveges leírásból',
 			'debug.testMealLoggingWithVariations' => 'Ételfelvitel tesztelése variációkkal',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Teszteld a teljes ételfelviteli folyamatot variációkkal',
-			'debug.mockMealWithVariations' => 'Mintaétel variációkkal',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Mintaétel variációkkal',
 			'debug.mockMealWithVariationsSubtitle' => 'Variációk és tipp lap UI előnézete naplózás nélkül',
 			'debug.mockMealName' => 'Grillezett csirke rizzsel és zöldségekkel',
 			'debug.mockTip' => 'Ez egy minta tipp a felhasználói felület előnézetéhez. Az étel nincs rögzítve.',

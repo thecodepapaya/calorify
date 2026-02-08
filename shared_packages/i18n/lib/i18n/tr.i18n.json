@@ -615,7 +615,8 @@
     "noThanks": "Hayır, teşekkürler",
     "aboutUsDescription": "Küçük bir ekip tarafından özenle hazırlandı. Gizliliğe, sadeliğe ve daha sağlıklı beslenme alışkanlıkları edinmenize yardımcı olmaya odaklanıyoruz.",
     "aboutUsMentionBeforeLink": "{appLabel}'ın arkasında kim olduğunu merak ediyor musunuz? ",
-    "aboutUsLinkLabel": "Hakkımızda"
+    "aboutUsLinkLabel": "Hakkımızda",
+    "thankYouMessage": "Teşekkürler! Başka bir zaman tekrar soracağız."
   },
   "errors": {
     "loadingProfileData": "Profil verileri yüklenirken hata",

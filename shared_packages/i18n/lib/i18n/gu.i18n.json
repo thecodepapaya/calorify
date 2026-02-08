@@ -615,7 +615,8 @@
     "noThanks": "નહીં, આભાર",
     "aboutUsDescription": "એક નાની ટીમ દ્વારા જતનપૂર્વક બનાવવામાં આવ્યું. અમે ગોપનીયતા, સરળતા અને તમને વધુ સ્વસ્થ ખોરાકની આદતો વિકસાવવા મદદ કરવા પર ધ્યાન કેન્દ્રિત કરીએ છીએ.",
     "aboutUsMentionBeforeLink": "{appLabel} પાછળ કોણ છે તે જાણવા ઇચ્છો છો? જુઓ ",
-    "aboutUsLinkLabel": "અમારા વિશે"
+    "aboutUsLinkLabel": "અમારા વિશે",
+    "thankYouMessage": "આભાર! અમે ફરી બીજા સમયે પૂછીશું."
   },
   "errors": {
     "loadingProfileData": "પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ",

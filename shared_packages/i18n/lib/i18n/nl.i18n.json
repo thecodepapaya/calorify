@@ -615,7 +615,8 @@
     "noThanks": "Nee, bedankt",
     "aboutUsDescription": "Met zorg gemaakt door een klein team. We staan voor privacy en eenvoud, en helpen je gezondere eetgewoonten op te bouwen.",
     "aboutUsMentionBeforeLink": "Nieuwsgierig wie er achter {appLabel} zit? Zie ",
-    "aboutUsLinkLabel": "Over ons"
+    "aboutUsLinkLabel": "Over ons",
+    "thankYouMessage": "Bedankt! We vragen het je later nog eens."
   },
   "errors": {
     "loadingProfileData": "Fout bij het laden van profielgegevens",

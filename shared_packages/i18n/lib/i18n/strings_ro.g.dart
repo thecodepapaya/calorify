@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingRo implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Creat cu grijă de o echipă mică. Ne concentrăm pe confidențialitate, simplitate și pe a te ajuta să dezvolți obiceiuri alimentare mai sănătoase.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Curios cine se află în spatele ${appLabel}? Vezi ';
 	@override String get aboutUsLinkLabel => 'Despre noi';
+	@override String get thankYouMessage => 'Mulțumim! Te vom întreba din nou altădată.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsRo {
 			'feedbackRating.aboutUsDescription' => 'Creat cu grijă de o echipă mică. Ne concentrăm pe confidențialitate, simplitate și pe a te ajuta să dezvolți obiceiuri alimentare mai sănătoase.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Curios cine se află în spatele ${appLabel}? Vezi ',
 			'feedbackRating.aboutUsLinkLabel' => 'Despre noi',
+			'feedbackRating.thankYouMessage' => 'Mulțumim! Te vom întreba din nou altădată.',
 			'errors.loadingProfileData' => 'Eroare la încărcarea datelor profilului',
 			'errors.somethingWentWrong' => 'Ceva a mers prost.',
 			'debug.title' => 'Opțiuni de Debug',
@@ -2211,9 +2213,9 @@ extension on TranslationsRo {
 			'debug.testDetectTextSubtitle' => 'Detectează masa din descrierea text',
 			'debug.testMealLoggingWithVariations' => 'Testează înregistrarea mesei cu variante',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Testează întregul flux de înregistrare a mesei cu variante',
-			'debug.mockMealWithVariations' => 'Masă simulată cu variante',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Masă simulată cu variante',
 			'debug.mockMealWithVariationsSubtitle' => 'Previzualizează varianta și foaia de sfaturi fără a înregistra masa',
 			'debug.mockMealName' => 'Pui la grătar cu orez și legume',
 			'debug.mockTip' => 'Acesta este un sfat simulant pentru previzualizarea UI. Masa nu este înregistrată.',

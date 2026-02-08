@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingPl implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Stworzone z troską przez niewielki zespół. Skupiamy się na prywatności, prostocie i pomagamy ci budować zdrowsze nawyki żywieniowe.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Zastanawiasz się, kto stoi za ${appLabel}? Zobacz ';
 	@override String get aboutUsLinkLabel => 'O nas';
+	@override String get thankYouMessage => 'Dziękujemy! Zapytamy ponownie następnym razem.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsPl {
 			'feedbackRating.aboutUsDescription' => 'Stworzone z troską przez niewielki zespół. Skupiamy się na prywatności, prostocie i pomagamy ci budować zdrowsze nawyki żywieniowe.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Zastanawiasz się, kto stoi za ${appLabel}? Zobacz ',
 			'feedbackRating.aboutUsLinkLabel' => 'O nas',
+			'feedbackRating.thankYouMessage' => 'Dziękujemy! Zapytamy ponownie następnym razem.',
 			'errors.loadingProfileData' => 'Błąd ładowania danych profilu',
 			'errors.somethingWentWrong' => 'Coś poszło nie tak.',
 			'debug.title' => 'Opcje Debugowania',
@@ -2211,9 +2213,9 @@ extension on TranslationsPl {
 			'debug.testDetectTextSubtitle' => 'Rozpoznaj posiłek z opisu tekstowego',
 			'debug.testMealLoggingWithVariations' => 'Testuj logowanie posiłku z wariantami',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Przetestuj pełny przebieg logowania posiłku z wariantami',
-			'debug.mockMealWithVariations' => 'Przykładowy posiłek z wariantami',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Przykładowy posiłek z wariantami',
 			'debug.mockMealWithVariationsSubtitle' => 'Podgląd wariantu i sekcji wskazówek bez logowania',
 			'debug.mockMealName' => 'Grillowany kurczak z ryżem i warzywami',
 			'debug.mockTip' => 'To przykładowa wskazówka do podglądu interfejsu. Posiłek nie został zalogowany.',

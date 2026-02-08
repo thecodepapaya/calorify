@@ -615,7 +615,8 @@
     "noThanks": "Ei kiitos",
     "aboutUsDescription": "Pienen tiimin huolella tehty. Keskitymme yksityisyyteen, yksinkertaisuuteen ja siihen, että autamme sinua kehittämään parempia ruokailutottumuksia.",
     "aboutUsMentionBeforeLink": "Haluatko tietää, kuka on {appLabel}:n takana? Katso ",
-    "aboutUsLinkLabel": "Tietoa meistä"
+    "aboutUsLinkLabel": "Tietoa meistä",
+    "thankYouMessage": "Kiitos! Kysymme uudestaan myöhemmin."
   },
   "errors": {
     "loadingProfileData": "Virhe profiilitietojen lataamisessa",

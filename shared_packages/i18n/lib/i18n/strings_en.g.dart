@@ -617,6 +617,9 @@ class TranslationsFeedbackRatingEn {
 
 	/// en: 'About us'
 	String get aboutUsLinkLabel => 'About us';
+
+	/// en: 'Thanks! We'll ask again another time.'
+	String get thankYouMessage => 'Thanks! We\'ll ask again another time.';
 }
 
 // Path: errors
@@ -3279,6 +3282,7 @@ extension on Translations {
 			'feedbackRating.aboutUsDescription' => 'Made with care by a small team. We\'re focused on privacy, simplicity, and helping you build better eating habits.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Curious who\'s behind ${appLabel}? See ',
 			'feedbackRating.aboutUsLinkLabel' => 'About us',
+			'feedbackRating.thankYouMessage' => 'Thanks! We\'ll ask again another time.',
 			'errors.loadingProfileData' => 'Error loading profile data',
 			'errors.somethingWentWrong' => 'Something went wrong.',
 			'debug.title' => 'Debug Options',
@@ -3380,9 +3384,9 @@ extension on Translations {
 			'debug.testDetectTextSubtitle' => 'Detect meal from text description',
 			'debug.testMealLoggingWithVariations' => 'Test Meal Logging with Variations',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Test the full meal logging flow with variations',
-			'debug.mockMealWithVariations' => 'Mock meal with variations',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Mock meal with variations',
 			'debug.mockMealWithVariationsSubtitle' => 'Preview variation + tip sheet UI without logging',
 			'debug.mockMealName' => 'Grilled chicken with rice and vegetables',
 			'debug.mockTip' => 'This is a mock tip for UI preview. The meal is not logged.',

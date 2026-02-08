@@ -615,7 +615,8 @@
     "noThanks": "Nem, köszönöm",
     "aboutUsDescription": "Egy kis csapat gondos munkájával készült. Különös figyelmet fordítunk a magánszférára, az egyszerűségre és arra, hogy segítsünk jobb étkezési szokásokat kialakítanod.",
     "aboutUsMentionBeforeLink": "Kíváncsi vagy, ki áll a {appLabel} mögött? Nézd meg ",
-    "aboutUsLinkLabel": "Rólunk"
+    "aboutUsLinkLabel": "Rólunk",
+    "thankYouMessage": "Köszönjük! Később ismét megkérdezünk."
   },
   "errors": {
     "loadingProfileData": "Hiba a profiladatok betöltésekor",

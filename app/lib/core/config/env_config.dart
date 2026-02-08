@@ -30,8 +30,8 @@ class EnvConfig {
   String get apiBaseUrl {
     switch (flavor) {
       case Flavor.staging:
-        // return 'https://staging-api-calorify.thecodepapaya.dev';
-        return 'http://10.0.2.2:8000';
+        return 'https://staging-api-calorify.thecodepapaya.dev';
+      // return 'http://10.0.2.2:8000';
       case Flavor.prod:
         return 'https://api-calorify.thecodepapaya.dev';
     }

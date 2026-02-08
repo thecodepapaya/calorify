@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingJa implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => '小さなチームが心を込めて作りました。プライバシーとシンプルさを重視し、あなたがより良い食習慣を身につけられるようサポートします。';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel} の開発者について知りたいですか？こちらをご覧ください ';
 	@override String get aboutUsLinkLabel => '私たちについて';
+	@override String get thankYouMessage => 'ありがとうございます！また別の機会にぜひご意見をお聞かせください。';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsJa {
 			'feedbackRating.aboutUsDescription' => '小さなチームが心を込めて作りました。プライバシーとシンプルさを重視し、あなたがより良い食習慣を身につけられるようサポートします。',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel} の開発者について知りたいですか？こちらをご覧ください ',
 			'feedbackRating.aboutUsLinkLabel' => '私たちについて',
+			'feedbackRating.thankYouMessage' => 'ありがとうございます！また別の機会にぜひご意見をお聞かせください。',
 			'errors.loadingProfileData' => 'プロフィールデータの読み込みエラー',
 			'errors.somethingWentWrong' => '何かがうまくいきませんでした。',
 			'debug.title' => 'デバッグオプション',
@@ -2211,9 +2213,9 @@ extension on TranslationsJa {
 			'debug.testDetectTextSubtitle' => 'テキスト記述から食事を検出する',
 			'debug.testMealLoggingWithVariations' => 'バリエーション付き食事ログテスト',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'バリエーションを含む食事ログのフローをテストする',
-			'debug.mockMealWithVariations' => 'バリエーション付きのモック食事',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'バリエーション付きのモック食事',
 			'debug.mockMealWithVariationsSubtitle' => '記録せずにバリエーションとチップシートのUIをプレビュー',
 			'debug.mockMealName' => 'グリルチキン（ご飯と野菜）',
 			'debug.mockTip' => 'これはUIプレビュー用のモックのヒントです。食事は記録されません。',

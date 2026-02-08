@@ -615,7 +615,8 @@
     "noThanks": "Nein, danke",
     "aboutUsDescription": "Mit Sorgfalt von einem kleinen Team entwickelt. Wir legen Wert auf Datenschutz, Einfachheit und darauf, dir zu helfen, gesündere Essgewohnheiten aufzubauen.",
     "aboutUsMentionBeforeLink": "Neugierig, wer hinter {appLabel} steckt? Sieh dir ",
-    "aboutUsLinkLabel": "Über uns"
+    "aboutUsLinkLabel": "Über uns",
+    "thankYouMessage": "Danke! Wir fragen ein anderes Mal wieder."
   },
   "errors": {
     "loadingProfileData": "Fehler beim Laden der Profildaten",
@@ -628,7 +629,7 @@
       "notifications": "Benachrichtigungen",
       "healthConnect": "Health Connect",
       "wearOs": "Wear OS",
-      "foodApiTests": "Food API Tests",
+      "foodApiTests": "Lebensmittel-API-Tests",
       "profileApiTests": "Profil-API-Tests",
       "feedback": "Feedback",
       "dataReset": "Daten zurücksetzen",

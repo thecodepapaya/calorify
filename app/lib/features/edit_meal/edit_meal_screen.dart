@@ -298,6 +298,7 @@ class EditMealScreenState extends State<EditMealScreen> {
       Navigator.of(context).pop();
     } on Exception catch (e, st) {
       log('Error saving meal:', error: e, stackTrace: st);
+      if (!mounted) return;
       showFlushbar(t.meal.errorSaving(error: e), context: context);
     }
   }

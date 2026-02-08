@@ -8,7 +8,7 @@ import { resolve } from 'path';
 if (existsSync('staging.env')) {
     dotenv.config({ path: 'staging.env' });
 }
-dotenv.config();
+dotenv.config({ override: true });
 
 interface Config {
     readonly APP_NAME: string;

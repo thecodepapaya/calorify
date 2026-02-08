@@ -615,7 +615,8 @@
     "noThanks": "Không, cảm ơn",
     "aboutUsDescription": "Được tạo nên với sự chăm chút bởi một nhóm nhỏ. Chúng tôi tập trung vào quyền riêng tư, tính đơn giản và hỗ trợ bạn xây dựng thói quen ăn uống lành mạnh hơn.",
     "aboutUsMentionBeforeLink": "Bạn tò mò ai đứng sau {appLabel}? Xem ",
-    "aboutUsLinkLabel": "Về chúng tôi"
+    "aboutUsLinkLabel": "Về chúng tôi",
+    "thankYouMessage": "Cảm ơn! Chúng tôi sẽ hỏi lại bạn vào dịp khác."
   },
   "errors": {
     "loadingProfileData": "Lỗi khi tải dữ liệu hồ sơ",

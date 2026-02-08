@@ -615,7 +615,8 @@
     "noThanks": "No thanks",
     "aboutUsDescription": "Made with care by a small team. We're focused on privacy, simplicity, and helping you build better eating habits.",
     "aboutUsMentionBeforeLink": "Curious who's behind {appLabel}? See ",
-    "aboutUsLinkLabel": "About us"
+    "aboutUsLinkLabel": "About us",
+    "thankYouMessage": "Thanks! We'll ask again another time."
   },
   "errors": {
     "loadingProfileData": "Error loading profile data",

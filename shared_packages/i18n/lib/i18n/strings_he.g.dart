@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingHe implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'נוצר בקפידה על ידי צוות קטן. אנו שמים דגש על פרטיות, על פשטות, ועל סיוע לך בפיתוח הרגלי אכילה בריאים יותר.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'סקרנים מי עומד מאחורי ${appLabel}? ראה ';
 	@override String get aboutUsLinkLabel => 'עלינו';
+	@override String get thankYouMessage => 'תודה! נשאל שוב בהזדמנות אחרת.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsHe {
 			'feedbackRating.aboutUsDescription' => 'נוצר בקפידה על ידי צוות קטן. אנו שמים דגש על פרטיות, על פשטות, ועל סיוע לך בפיתוח הרגלי אכילה בריאים יותר.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'סקרנים מי עומד מאחורי ${appLabel}? ראה ',
 			'feedbackRating.aboutUsLinkLabel' => 'עלינו',
+			'feedbackRating.thankYouMessage' => 'תודה! נשאל שוב בהזדמנות אחרת.',
 			'errors.loadingProfileData' => 'שגיאה בהטענת נתוני פרופיל',
 			'errors.somethingWentWrong' => 'משהו השתבש.',
 			'debug.title' => 'אפשרויות דיבוג',
@@ -2211,9 +2213,9 @@ extension on TranslationsHe {
 			'debug.testDetectTextSubtitle' => 'זהה ארוחה מתוך תיאור טקסטואלי',
 			'debug.testMealLoggingWithVariations' => 'בדיקת רישום ארוחה עם וריאציות',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'בדוק את זרימת רישום הארוחה המלאה עם וריאציות',
-			'debug.mockMealWithVariations' => 'ארוחה מדומה עם וריאציות',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'ארוחה מדומה עם וריאציות',
 			'debug.mockMealWithVariationsSubtitle' => 'תצוגה מקדימה של וריאציות + דף טיפים ללא רישום',
 			'debug.mockMealName' => 'עוף בגריל עם אורז וירקות',
 			'debug.mockTip' => 'זהו טיפ מדומה לתצוגת ממשק. הארוחה לא נרשמה.',

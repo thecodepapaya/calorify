@@ -339,9 +339,12 @@ class _ReminderNotificationsScreenState
         showFlushbar(t.reminders.permissionDenied, context: context);
       }
     } catch (e) {
+      if (!mounted) return;
       showFlushbar(t.reminders.errorEnabling(error: e), context: context);
     } finally {
-      setState(() => _isLoading = false);
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
     }
   }
 
@@ -369,7 +372,10 @@ class _ReminderNotificationsScreenState
       if (mounted) widget.onContinue();
     } catch (e) {
       if (mounted) {
-        showFlushbar(t.reminders.errorCompletingSetup(error: e), context: context);
+        showFlushbar(
+          t.reminders.errorCompletingSetup(error: e),
+          context: context,
+        );
       }
     } finally {
       setState(() => _isLoading = false);

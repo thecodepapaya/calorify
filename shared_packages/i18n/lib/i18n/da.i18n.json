@@ -615,7 +615,8 @@
     "noThanks": "Nej tak",
     "aboutUsDescription": "Skabt med omhu af et lille team. Vi er fokuserede på dit privatliv, enkelhed og på at hjælpe dig med at opbygge sundere spisevaner.",
     "aboutUsMentionBeforeLink": "Nysgerrig efter, hvem der står bag {appLabel}? Se ",
-    "aboutUsLinkLabel": "Om os"
+    "aboutUsLinkLabel": "Om os",
+    "thankYouMessage": "Tak! Vi spørger igen på et andet tidspunkt."
   },
   "errors": {
     "loadingProfileData": "Fejl ved indlæsning af profildata",

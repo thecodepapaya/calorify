@@ -615,7 +615,8 @@
     "noThanks": "아니요, 괜찮아요",
     "aboutUsDescription": "작은 팀이 정성을 다해 만들었습니다. 우리는 개인정보 보호와 단순성을 중시하며, 여러분이 더 건강한 식습관을 만들어 가도록 돕는 데 집중합니다.",
     "aboutUsMentionBeforeLink": "{appLabel}의 제작자가 궁금하신가요? ",
-    "aboutUsLinkLabel": "개발자 소개"
+    "aboutUsLinkLabel": "개발자 소개",
+    "thankYouMessage": "감사합니다! 다음에 다시 여쭤볼게요."
   },
   "errors": {
     "loadingProfileData": "프로필 데이터 로드 중 오류 발생",

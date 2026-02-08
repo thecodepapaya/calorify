@@ -3,13 +3,9 @@ import 'package:models/models.dart';
 
 class ProfileRepository {
   Future<void> updateUserProfile(UserProfile profile) async {
-    try {
-      await NetworkClient.instance.client.put(
-        '/api/v1/users/profile',
-        data: profile,
-      );
-    } catch (e) {
-      // Handle exceptions
-    }
+    await NetworkClient.instance.client.put(
+      '/api/v1/users/profile',
+      data: profile,
+    );
   }
 }

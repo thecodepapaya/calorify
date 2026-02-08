@@ -9,6 +9,7 @@ import { redactHeaders, bodyForLog } from './utils/requestLog.js';
 import config from './config.js';
 import { initializeDatabase } from './services/database.js';
 import { initializeFirebase } from './services/firebase.js';
+import { runMigrations } from './services/migrate.js';
 
 async function buildApp() {
   // Configure Pino logger with Loki transport in production/staging
@@ -228,10 +229,11 @@ async function start() {
     // Initialize Firebase
     initializeFirebase();
 
-    // Initialize database connection
+    // Initialize database connection and run pending migrations
     if (config.DATABASE_URL) {
       initializeDatabase();
       console.log('✅ Database connection initialized');
+      await runMigrations();
     } else {
       console.warn('⚠️  DATABASE_URL not set, database features will be unavailable');
     }

@@ -615,7 +615,8 @@
     "noThanks": "Nej tack",
     "aboutUsDescription": "Skapad med omsorg av ett litet team. Vi prioriterar integritet, enkelhet och att hjälpa dig utveckla hälsosammare matvanor.",
     "aboutUsMentionBeforeLink": "Nyfiken på vem som ligger bakom {appLabel}? Se ",
-    "aboutUsLinkLabel": "Om oss"
+    "aboutUsLinkLabel": "Om oss",
+    "thankYouMessage": "Tack! Vi frågar igen vid ett annat tillfälle."
   },
   "errors": {
     "loadingProfileData": "Fel vid inläsning av profildata",

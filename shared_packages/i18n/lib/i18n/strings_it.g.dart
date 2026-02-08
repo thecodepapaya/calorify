@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingIt implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Realizzato con cura da un piccolo team. Siamo attenti alla privacy, alla semplicità e ad aiutarti a costruire abitudini alimentari più sane.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Vuoi sapere chi c\'è dietro ${appLabel}? ';
 	@override String get aboutUsLinkLabel => 'Chi siamo';
+	@override String get thankYouMessage => 'Grazie! Ti chiederemo di nuovo in un altro momento.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsIt {
 			'feedbackRating.aboutUsDescription' => 'Realizzato con cura da un piccolo team. Siamo attenti alla privacy, alla semplicità e ad aiutarti a costruire abitudini alimentari più sane.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Vuoi sapere chi c\'è dietro ${appLabel}? ',
 			'feedbackRating.aboutUsLinkLabel' => 'Chi siamo',
+			'feedbackRating.thankYouMessage' => 'Grazie! Ti chiederemo di nuovo in un altro momento.',
 			'errors.loadingProfileData' => 'Errore nel caricamento dei dati del profilo',
 			'errors.somethingWentWrong' => 'Qualcosa è andato storto.',
 			'debug.title' => 'Opzioni di Debug',
@@ -2211,9 +2213,9 @@ extension on TranslationsIt {
 			'debug.testDetectTextSubtitle' => 'Rileva pasto da descrizione testuale',
 			'debug.testMealLoggingWithVariations' => 'Test registrazione pasto con variazioni',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Testa il flusso completo di registrazione pasto con variazioni',
-			'debug.mockMealWithVariations' => 'Pasto di esempio con variazioni',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Pasto di esempio con variazioni',
 			'debug.mockMealWithVariationsSubtitle' => 'Anteprima UI di variazioni e suggerimenti senza registrare',
 			'debug.mockMealName' => 'Pollo alla griglia con riso e verdure',
 			'debug.mockTip' => 'Questo è un suggerimento di esempio per l\'anteprima dell\'interfaccia. Il pasto non viene registrato.',

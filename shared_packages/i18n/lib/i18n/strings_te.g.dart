@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingTe implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'చిన్న బృందం శ్రద్ధగా రూపొందించిన యాప్. మేము గోప్యత, సరళత మరియు మీరు మెరుగైన ఆహార అలవాట్లు ఏర్పరచుకోవడంలో సహాయపడటంపై దృష్టి పెట్టాము.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel} వెనుక ఎవరు ఉన్నారో తెలుసుకోవాలా? చూడండి ';
 	@override String get aboutUsLinkLabel => 'మా గురించి';
+	@override String get thankYouMessage => 'ధన్యవాదాలు! మేము మరోసారి అడుగుతాము.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsTe {
 			'feedbackRating.aboutUsDescription' => 'చిన్న బృందం శ్రద్ధగా రూపొందించిన యాప్. మేము గోప్యత, సరళత మరియు మీరు మెరుగైన ఆహార అలవాట్లు ఏర్పరచుకోవడంలో సహాయపడటంపై దృష్టి పెట్టాము.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel} వెనుక ఎవరు ఉన్నారో తెలుసుకోవాలా? చూడండి ',
 			'feedbackRating.aboutUsLinkLabel' => 'మా గురించి',
+			'feedbackRating.thankYouMessage' => 'ధన్యవాదాలు! మేము మరోసారి అడుగుతాము.',
 			'errors.loadingProfileData' => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం',
 			'errors.somethingWentWrong' => 'ఏదో తప్పు జరిగింది.',
 			'debug.title' => 'డిబగ్ ఆప్షన్స్',
@@ -2211,9 +2213,9 @@ extension on TranslationsTe {
 			'debug.testDetectTextSubtitle' => 'టెక్స్ట్ వివరణ నుంచి భోజనాన్ని గుర్తించండి',
 			'debug.testMealLoggingWithVariations' => 'వేరియేషన్స్‌తో భోజనం లాగ్ చేయడం పరీక్షించండి',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'వేరియేషన్లతో పూర్తి భోజన లాగింగ్ ఫ్లోను పరీక్షించండి',
-			'debug.mockMealWithVariations' => 'వేరియేషన్లతో మాక్ భోజనం',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'వేరియేషన్లతో మాక్ భోజనం',
 			'debug.mockMealWithVariationsSubtitle' => 'లాగ్ చేయకుండా వేరియేషన్ మరియు టిప్ షీట్ UIని ప్రివ్యూ చేయండి',
 			'debug.mockMealName' => 'రైస్ మరియు కూరగాయలతో గ్రిల్ చేసిన చికెన్',
 			'debug.mockTip' => 'ఇది UI ప్రివ్యూకోసం మాక్ టిప్ మాత్రమే. భోజనం లాగ్ చేయబడలేదు.',

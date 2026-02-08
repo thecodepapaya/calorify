@@ -117,12 +117,15 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
           const objectKey =
             oIndex >= 0
               ? pathParts
-                  .slice(oIndex + 1)
-                  .map((seg) => encodeURIComponent(seg))
-                  .join('/')
-              : encodeURIComponent(pathParts[pathParts.length - 1]);
+                .slice(oIndex + 1)
+                .map((seg) => encodeURIComponent(decodeURIComponent(seg)))
+                .join('/')
+              : encodeURIComponent(decodeURIComponent(pathParts[pathParts.length - 1]));
 
-          finalImageUrl = `${config.ORACLE_BUCKET_DOWNLOAD_URL}${objectKey}`;
+          const baseUrl = config.ORACLE_BUCKET_DOWNLOAD_URL.endsWith('/')
+            ? config.ORACLE_BUCKET_DOWNLOAD_URL
+            : `${config.ORACLE_BUCKET_DOWNLOAD_URL}/`;
+          finalImageUrl = `${baseUrl}${objectKey}`;
         } catch {
           reply.status(400).send(createErrorResponse('Invalid imageUrl format'));
           return;

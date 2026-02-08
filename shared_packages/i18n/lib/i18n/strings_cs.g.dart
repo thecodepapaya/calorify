@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingCs implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Vytvořeno s péčí malým týmem. Dbáme na soukromí, jednoduchost a pomáháme vám vytvářet lepší stravovací návyky.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Zajímá vás, kdo stojí za ${appLabel}? Podívejte se ';
 	@override String get aboutUsLinkLabel => 'O nás';
+	@override String get thankYouMessage => 'Děkujeme! Zeptáme se znovu jindy.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsCs {
 			'feedbackRating.aboutUsDescription' => 'Vytvořeno s péčí malým týmem. Dbáme na soukromí, jednoduchost a pomáháme vám vytvářet lepší stravovací návyky.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Zajímá vás, kdo stojí za ${appLabel}? Podívejte se ',
 			'feedbackRating.aboutUsLinkLabel' => 'O nás',
+			'feedbackRating.thankYouMessage' => 'Děkujeme! Zeptáme se znovu jindy.',
 			'errors.loadingProfileData' => 'Chyba při načítání dat profilu',
 			'errors.somethingWentWrong' => 'Něco se pokazilo.',
 			'debug.title' => 'Možnosti ladění',
@@ -2211,9 +2213,9 @@ extension on TranslationsCs {
 			'debug.testDetectTextSubtitle' => 'Detekovat jídlo z textového popisu',
 			'debug.testMealLoggingWithVariations' => 'Testování záznamu jídla s variantami',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Otestovat kompletní tok záznamu jídla s variantami',
-			'debug.mockMealWithVariations' => 'Ukázkové jídlo s variantami',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Ukázkové jídlo s variantami',
 			'debug.mockMealWithVariationsSubtitle' => 'Náhled rozhraní varianty a tipů bez uložení záznamu',
 			'debug.mockMealName' => 'Grilované kuře s rýží a zeleninou',
 			'debug.mockTip' => 'Toto je ukázková rada pro náhled rozhraní. Jídlo není uloženo.',

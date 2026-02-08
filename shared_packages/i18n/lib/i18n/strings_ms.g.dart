@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingMs implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Dibuat dengan penuh perhatian oleh sebuah pasukan kecil. Kami memberi tumpuan kepada privasi, kesederhanaan, dan membantu anda membina tabiat pemakanan yang lebih baik.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Ingin tahu siapa di sebalik ${appLabel}? Lihat ';
 	@override String get aboutUsLinkLabel => 'Tentang kami';
+	@override String get thankYouMessage => 'Terima kasih! Kami akan bertanya lagi lain kali.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsMs {
 			'feedbackRating.aboutUsDescription' => 'Dibuat dengan penuh perhatian oleh sebuah pasukan kecil. Kami memberi tumpuan kepada privasi, kesederhanaan, dan membantu anda membina tabiat pemakanan yang lebih baik.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Ingin tahu siapa di sebalik ${appLabel}? Lihat ',
 			'feedbackRating.aboutUsLinkLabel' => 'Tentang kami',
+			'feedbackRating.thankYouMessage' => 'Terima kasih! Kami akan bertanya lagi lain kali.',
 			'errors.loadingProfileData' => 'Ralat memuatkan data profil',
 			'errors.somethingWentWrong' => 'Ada yang tidak kena.',
 			'debug.title' => 'Pilihan Debug',
@@ -2211,9 +2213,9 @@ extension on TranslationsMs {
 			'debug.testDetectTextSubtitle' => 'Kenal pasti hidangan daripada keterangan teks',
 			'debug.testMealLoggingWithVariations' => 'Uji Pencatatan Makanan dengan Variasi',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Uji keseluruhan aliran pencatatan makanan dengan variasi',
-			'debug.mockMealWithVariations' => 'Makanan tiruan dengan variasi',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Makanan tiruan dengan variasi',
 			'debug.mockMealWithVariationsSubtitle' => 'Pratonton variasi + helaian petua tanpa mencatat',
 			'debug.mockMealName' => 'Ayam panggang dengan nasi dan sayur-sayuran',
 			'debug.mockTip' => 'Ini adalah petua tiruan untuk pratonton UI. Makanan ini tidak dicatat.',

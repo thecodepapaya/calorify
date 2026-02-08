@@ -615,7 +615,8 @@
     "noThanks": "不用，謝謝",
     "aboutUsDescription": "由一個小團隊用心打造。我們重視隱私、追求簡單，並致力於幫助你建立更健康的飲食習慣。",
     "aboutUsMentionBeforeLink": "想知道是誰在打造 {appLabel} 嗎？請參閱 ",
-    "aboutUsLinkLabel": "關於我們"
+    "aboutUsLinkLabel": "關於我們",
+    "thankYouMessage": "謝謝！我們下次會再問您。"
   },
   "errors": {
     "loadingProfileData": "載入個人資料數據出錯",

@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingAr implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'تم تطويرها بعناية من قبل فريق صغير. نركّز على الخصوصية والبساطة، ونساعدك على بناء عادات غذائية أفضل.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'هل تريد معرفة من يقف وراء ${appLabel}؟ انظر ';
 	@override String get aboutUsLinkLabel => 'من نحن';
+	@override String get thankYouMessage => 'شكرًا! سنطلب رأيك مرة أخرى لاحقًا.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsAr {
 			'feedbackRating.aboutUsDescription' => 'تم تطويرها بعناية من قبل فريق صغير. نركّز على الخصوصية والبساطة، ونساعدك على بناء عادات غذائية أفضل.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'هل تريد معرفة من يقف وراء ${appLabel}؟ انظر ',
 			'feedbackRating.aboutUsLinkLabel' => 'من نحن',
+			'feedbackRating.thankYouMessage' => 'شكرًا! سنطلب رأيك مرة أخرى لاحقًا.',
 			'errors.loadingProfileData' => 'خطأ في تحميل بيانات الملف الشخصي',
 			'errors.somethingWentWrong' => 'حدث خطأ ما.',
 			'debug.title' => 'خيارات التصحيح',
@@ -2211,9 +2213,9 @@ extension on TranslationsAr {
 			'debug.testDetectTextSubtitle' => 'اكتشاف الوجبة من وصف نصي',
 			'debug.testMealLoggingWithVariations' => 'اختبار تسجيل الوجبة مع تنويعات',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'اختبار كامل لتدفق تسجيل الوجبة مع التنويعات',
-			'debug.mockMealWithVariations' => 'وجبة نموذجية مع تنويعات',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'وجبة نموذجية مع تنويعات',
 			'debug.mockMealWithVariationsSubtitle' => 'معاينة التنويعات ونصائح الواجهة دون التسجيل',
 			'debug.mockMealName' => 'دجاج مشوي مع أرز وخضروات',
 			'debug.mockTip' => 'هذه نصيحة تجريبية لمعاينة واجهة المستخدم. الوجبة غير مسجلة.',

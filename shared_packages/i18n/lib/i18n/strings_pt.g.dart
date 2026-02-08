@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingPt implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Feito com carinho por uma pequena equipe. Priorizamos a privacidade, a simplicidade e ajudar você a desenvolver hábitos alimentares mais saudáveis.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Curioso para saber quem está por trás do ${appLabel}? Veja ';
 	@override String get aboutUsLinkLabel => 'Sobre nós';
+	@override String get thankYouMessage => 'Obrigado! Perguntaremos novamente mais tarde.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsPt {
 			'feedbackRating.aboutUsDescription' => 'Feito com carinho por uma pequena equipe. Priorizamos a privacidade, a simplicidade e ajudar você a desenvolver hábitos alimentares mais saudáveis.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Curioso para saber quem está por trás do ${appLabel}? Veja ',
 			'feedbackRating.aboutUsLinkLabel' => 'Sobre nós',
+			'feedbackRating.thankYouMessage' => 'Obrigado! Perguntaremos novamente mais tarde.',
 			'errors.loadingProfileData' => 'Erro ao carregar dados do perfil',
 			'errors.somethingWentWrong' => 'Algo deu errado.',
 			'debug.title' => 'Opções de Depuração',
@@ -2211,9 +2213,9 @@ extension on TranslationsPt {
 			'debug.testDetectTextSubtitle' => 'Detectar refeição a partir da descrição em texto',
 			'debug.testMealLoggingWithVariations' => 'Testar registro de refeição com variações',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Testar o fluxo completo de registro de refeição com variações',
-			'debug.mockMealWithVariations' => 'Refeição simulada com variações',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Refeição simulada com variações',
 			'debug.mockMealWithVariationsSubtitle' => 'Visualizar variações + painel de dicas sem registrar',
 			'debug.mockMealName' => 'Frango grelhado com arroz e legumes',
 			'debug.mockTip' => 'Esta é uma dica de exemplo para visualização da interface. A refeição não será registrada.',

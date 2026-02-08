@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingTl implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Ginawa nang may malasakit ng isang maliit na koponan. Nakatuon kami sa pagkapribado, sa pagiging simple, at sa pagtulong sa iyo na bumuo ng mas malusog na gawi sa pagkain.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nais mong malaman kung sino ang nasa likod ng ${appLabel}? Tingnan ';
 	@override String get aboutUsLinkLabel => 'Tungkol sa amin';
+	@override String get thankYouMessage => 'Salamat! Tatanungin ka namin ulit sa susunod.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsTl {
 			'feedbackRating.aboutUsDescription' => 'Ginawa nang may malasakit ng isang maliit na koponan. Nakatuon kami sa pagkapribado, sa pagiging simple, at sa pagtulong sa iyo na bumuo ng mas malusog na gawi sa pagkain.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nais mong malaman kung sino ang nasa likod ng ${appLabel}? Tingnan ',
 			'feedbackRating.aboutUsLinkLabel' => 'Tungkol sa amin',
+			'feedbackRating.thankYouMessage' => 'Salamat! Tatanungin ka namin ulit sa susunod.',
 			'errors.loadingProfileData' => 'Error sa pag-load ng datos ng profile',
 			'errors.somethingWentWrong' => 'May nangyaring mali.',
 			'debug.title' => 'Mga Opsyon sa Debug',
@@ -2211,9 +2213,9 @@ extension on TranslationsTl {
 			'debug.testDetectTextSubtitle' => 'I-detect ang pagkain mula sa paglalarawang teksto',
 			'debug.testMealLoggingWithVariations' => 'Pagsubok sa Pag-log ng Pagkain na may Mga Pagkakaiba',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Subukan ang buong daloy ng pag-log ng pagkain kasama ang mga pagkakaiba',
-			'debug.mockMealWithVariations' => 'Halimbawang pagkain na may mga pagkakaiba',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Halimbawang pagkain na may mga pagkakaiba',
 			'debug.mockMealWithVariationsSubtitle' => 'I-preview ang variation + tip sheet UI nang hindi nagla-log',
 			'debug.mockMealName' => 'Inihaw na manok na may kanin at gulay',
 			'debug.mockTip' => 'Ito ay halimbawang tip para sa preview ng UI. Hindi naka-log ang pagkain.',

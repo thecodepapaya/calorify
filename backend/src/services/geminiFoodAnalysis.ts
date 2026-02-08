@@ -219,12 +219,12 @@ class GeminiFoodAnalysisService {
           option: opt.option,
           macroDiff: opt.macro_diff && typeof opt.macro_diff === 'object'
             ? {
-                calories: Math.round(Number(opt.macro_diff.calories) || 0),
-                carbs: Math.round(Number(opt.macro_diff.carbs) || 0),
-                protein: Math.round(Number(opt.macro_diff.protein) || 0),
-                fat: Math.round(Number(opt.macro_diff.fat) || 0),
-                fiber: Math.round(Number(opt.macro_diff.fiber) || 0),
-              }
+              calories: Math.round(Number(opt.macro_diff.calories) || 0),
+              carbs: Math.round(Number(opt.macro_diff.carbs) || 0),
+              protein: Math.round(Number(opt.macro_diff.protein) || 0),
+              fat: Math.round(Number(opt.macro_diff.fat) || 0),
+              fiber: Math.round(Number(opt.macro_diff.fiber) || 0),
+            }
             : undefined,
         })),
     };
@@ -254,15 +254,24 @@ class GeminiFoodAnalysisService {
     if (cleaned.startsWith('{')) {
       let braceCount = 0;
       let lastBrace = -1;
+      let inString = false;
+      let prevChar = '';
       for (let i = 0; i < cleaned.length; i++) {
-        if (cleaned[i] === '{') braceCount++;
-        if (cleaned[i] === '}') {
-          braceCount--;
-          if (braceCount === 0) {
-            lastBrace = i;
-            break;
+        const char = cleaned[i];
+        if (char === '"' && prevChar !== '\\') {
+          inString = !inString;
+        }
+        if (!inString) {
+          if (char === '{') braceCount++;
+          if (char === '}') {
+            braceCount--;
+            if (braceCount === 0) {
+              lastBrace = i;
+              break;
+            }
           }
         }
+        prevChar = char;
       }
       if (lastBrace !== -1) {
         cleaned = cleaned.substring(0, lastBrace + 1);
@@ -331,9 +340,9 @@ class GeminiFoodAnalysisService {
         },
         health: resultData.meal.health
           ? {
-              healthScore: this.parseHealthScore(resultData.meal.health.health_score),
-              healthScoreReason: resultData.meal.health.health_score_reason,
-            }
+            healthScore: this.parseHealthScore(resultData.meal.health.health_score),
+            healthScoreReason: resultData.meal.health.health_score_reason,
+          }
           : undefined,
       };
     }
@@ -347,8 +356,8 @@ class GeminiFoodAnalysisService {
 
     let variations: Variation[] = Array.isArray(resultDict.variations)
       ? resultDict.variations
-          .filter((c) => c && typeof c.question === 'string' && Array.isArray(c.options))
-          .map((c) => this.mapVariation(c))
+        .filter((c) => c && typeof c.question === 'string' && Array.isArray(c.options))
+        .map((c) => this.mapVariation(c))
       : [];
 
     if (config.ENVIRONMENT === 'staging' && variations.length === 0 && result.mealIdentified && result.meal) {

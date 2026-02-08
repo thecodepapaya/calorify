@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingNl implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Met zorg gemaakt door een klein team. We staan voor privacy en eenvoud, en helpen je gezondere eetgewoonten op te bouwen.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nieuwsgierig wie er achter ${appLabel} zit? Zie ';
 	@override String get aboutUsLinkLabel => 'Over ons';
+	@override String get thankYouMessage => 'Bedankt! We vragen het je later nog eens.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsNl {
 			'feedbackRating.aboutUsDescription' => 'Met zorg gemaakt door een klein team. We staan voor privacy en eenvoud, en helpen je gezondere eetgewoonten op te bouwen.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nieuwsgierig wie er achter ${appLabel} zit? Zie ',
 			'feedbackRating.aboutUsLinkLabel' => 'Over ons',
+			'feedbackRating.thankYouMessage' => 'Bedankt! We vragen het je later nog eens.',
 			'errors.loadingProfileData' => 'Fout bij het laden van profielgegevens',
 			'errors.somethingWentWrong' => 'Er is iets misgegaan.',
 			'debug.title' => 'Debug Opties',
@@ -2211,9 +2213,9 @@ extension on TranslationsNl {
 			'debug.testDetectTextSubtitle' => 'Detecteer maaltijd vanuit tekstbeschrijving',
 			'debug.testMealLoggingWithVariations' => 'Test maaltijdregistratie met variaties',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Test de volledige maaltijdregistratie-flow met variaties',
-			'debug.mockMealWithVariations' => 'Mockmaaltijd met variaties',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Mockmaaltijd met variaties',
 			'debug.mockMealWithVariationsSubtitle' => 'Bekijk variatie en tipblad-UI zonder te registreren',
 			'debug.mockMealName' => 'Gegrilde kip met rijst en groenten',
 			'debug.mockTip' => 'Dit is een voorbeeldtip voor UI-voorvertoning. De maaltijd wordt niet geregistreerd.',

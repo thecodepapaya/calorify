@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingVi implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Được tạo nên với sự chăm chút bởi một nhóm nhỏ. Chúng tôi tập trung vào quyền riêng tư, tính đơn giản và hỗ trợ bạn xây dựng thói quen ăn uống lành mạnh hơn.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Bạn tò mò ai đứng sau ${appLabel}? Xem ';
 	@override String get aboutUsLinkLabel => 'Về chúng tôi';
+	@override String get thankYouMessage => 'Cảm ơn! Chúng tôi sẽ hỏi lại bạn vào dịp khác.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsVi {
 			'feedbackRating.aboutUsDescription' => 'Được tạo nên với sự chăm chút bởi một nhóm nhỏ. Chúng tôi tập trung vào quyền riêng tư, tính đơn giản và hỗ trợ bạn xây dựng thói quen ăn uống lành mạnh hơn.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Bạn tò mò ai đứng sau ${appLabel}? Xem ',
 			'feedbackRating.aboutUsLinkLabel' => 'Về chúng tôi',
+			'feedbackRating.thankYouMessage' => 'Cảm ơn! Chúng tôi sẽ hỏi lại bạn vào dịp khác.',
 			'errors.loadingProfileData' => 'Lỗi khi tải dữ liệu hồ sơ',
 			'errors.somethingWentWrong' => 'Đã xảy ra lỗi.',
 			'debug.title' => 'Tùy chọn gỡ lỗi',
@@ -2211,9 +2213,9 @@ extension on TranslationsVi {
 			'debug.testDetectTextSubtitle' => 'Phát hiện bữa ăn từ mô tả văn bản',
 			'debug.testMealLoggingWithVariations' => 'Thử ghi nhận bữa ăn với biến thể',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Thử toàn bộ quy trình ghi nhận bữa ăn có biến thể',
-			'debug.mockMealWithVariations' => 'Bữa ăn mẫu có biến thể',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Bữa ăn mẫu có biến thể',
 			'debug.mockMealWithVariationsSubtitle' => 'Xem trước giao diện biến thể + mẹo mà không ghi nhận',
 			'debug.mockMealName' => 'Gà nướng với cơm và rau',
 			'debug.mockTip' => 'Đây là mẹo giả để xem giao diện. Bữa ăn không được ghi nhận.',

@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingBn implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'একটি ছোট দল যত্নসহ তৈরি করেছে। আমরা গোপনীয়তা, সরলতা এবং আপনাকে আরও স্বাস্থ্যকর খাদ্যাভ্যাস গড়তে সাহায্য করার ওপর গুরুত্ব দিই।';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'জানতে চান ${appLabel}-এর পেছনে কে আছেন? দেখুন ';
 	@override String get aboutUsLinkLabel => 'আমাদের সম্পর্কে';
+	@override String get thankYouMessage => 'ধন্যবাদ! আমরা ভবিষ্যতে আবার জিজ্ঞাসা করব।';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsBn {
 			'feedbackRating.aboutUsDescription' => 'একটি ছোট দল যত্নসহ তৈরি করেছে। আমরা গোপনীয়তা, সরলতা এবং আপনাকে আরও স্বাস্থ্যকর খাদ্যাভ্যাস গড়তে সাহায্য করার ওপর গুরুত্ব দিই।',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'জানতে চান ${appLabel}-এর পেছনে কে আছেন? দেখুন ',
 			'feedbackRating.aboutUsLinkLabel' => 'আমাদের সম্পর্কে',
+			'feedbackRating.thankYouMessage' => 'ধন্যবাদ! আমরা ভবিষ্যতে আবার জিজ্ঞাসা করব।',
 			'errors.loadingProfileData' => 'প্রোফাইল তথ্য লোড করতে ত্রুটি',
 			'errors.somethingWentWrong' => 'কিছু ভুল হয়েছে।',
 			'debug.title' => 'ডিবাগ অপশন',
@@ -2211,9 +2213,9 @@ extension on TranslationsBn {
 			'debug.testDetectTextSubtitle' => 'টেক্সট বর্ণনা থেকে মিল সনাক্ত করুন',
 			'debug.testMealLoggingWithVariations' => 'ভ্যারিয়েশনের সঙ্গে মিল লগিং টেস্ট',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'ভ্যারিয়েশনসহ পূর্ণ মিল লগিং ফ্লো পরীক্ষা করুন',
-			'debug.mockMealWithVariations' => 'ভ্যারিয়েশনসহ মক মিল',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'ভ্যারিয়েশনসহ মক মিল',
 			'debug.mockMealWithVariationsSubtitle' => 'লগিং ছাড়াই ভ্যারিয়েশন ও টিপ শিট UI প্রিভিউ করুন',
 			'debug.mockMealName' => 'রাইস ও সবজির সঙ্গে গ্রিলড চিকেন',
 			'debug.mockTip' => 'এটি UI প্রিভিউর জন্য একটি মক টিপ। মিলটি লগ করা হয়নি।',

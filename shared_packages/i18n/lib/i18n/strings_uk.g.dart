@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingUk implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Створено з турботою невеликою командою. Ми дбаємо про вашу конфіденційність, цінуємо простоту та підтримуємо вас у формуванні кращих харчових звичок.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Цікавитесь, хто стоїть за ${appLabel}? Дізнайтеся більше ';
 	@override String get aboutUsLinkLabel => 'Про нас';
+	@override String get thankYouMessage => 'Дякуємо! Ми ще запитаємо пізніше.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsUk {
 			'feedbackRating.aboutUsDescription' => 'Створено з турботою невеликою командою. Ми дбаємо про вашу конфіденційність, цінуємо простоту та підтримуємо вас у формуванні кращих харчових звичок.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Цікавитесь, хто стоїть за ${appLabel}? Дізнайтеся більше ',
 			'feedbackRating.aboutUsLinkLabel' => 'Про нас',
+			'feedbackRating.thankYouMessage' => 'Дякуємо! Ми ще запитаємо пізніше.',
 			'errors.loadingProfileData' => 'Помилка завантаження даних профілю',
 			'errors.somethingWentWrong' => 'Щось пішло не так.',
 			'debug.title' => 'Опції налагодження',
@@ -2211,9 +2213,9 @@ extension on TranslationsUk {
 			'debug.testDetectTextSubtitle' => 'Розпізнати страву з опису текстом',
 			'debug.testMealLoggingWithVariations' => 'Тест: запис їжі з варіаціями',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Перевірте повний процес запису їжі з варіаціями',
-			'debug.mockMealWithVariations' => 'Зразкова страва з варіаціями',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'Зразкова страва з варіаціями',
 			'debug.mockMealWithVariationsSubtitle' => 'Попередній перегляд варіацій та інтерфейсу порад без запису',
 			'debug.mockMealName' => 'Курка-гриль з рисом та овочами',
 			'debug.mockTip' => 'Це тестова порада для попереднього перегляду інтерфейсу. Страва не заноситься в журнал.',

@@ -367,6 +367,7 @@ class _TranslationsFeedbackRatingTh implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'สร้างด้วยความใส่ใจโดยทีมงานขนาดเล็ก เรามุ่งเน้นเรื่องความเป็นส่วนตัว ความเรียบง่าย และช่วยให้คุณสร้างนิสัยการรับประทานอาหารที่ดีขึ้น';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'อยากรู้ว่าผู้ที่อยู่เบื้องหลัง ${appLabel} คือใคร? ดู ';
 	@override String get aboutUsLinkLabel => 'เกี่ยวกับเรา';
+	@override String get thankYouMessage => 'ขอบคุณ! เราจะถามคุณอีกครั้งในโอกาสหน้า.';
 }
 
 // Path: errors
@@ -2110,6 +2111,7 @@ extension on TranslationsTh {
 			'feedbackRating.aboutUsDescription' => 'สร้างด้วยความใส่ใจโดยทีมงานขนาดเล็ก เรามุ่งเน้นเรื่องความเป็นส่วนตัว ความเรียบง่าย และช่วยให้คุณสร้างนิสัยการรับประทานอาหารที่ดีขึ้น',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'อยากรู้ว่าผู้ที่อยู่เบื้องหลัง ${appLabel} คือใคร? ดู ',
 			'feedbackRating.aboutUsLinkLabel' => 'เกี่ยวกับเรา',
+			'feedbackRating.thankYouMessage' => 'ขอบคุณ! เราจะถามคุณอีกครั้งในโอกาสหน้า.',
 			'errors.loadingProfileData' => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์',
 			'errors.somethingWentWrong' => 'มีบางอย่างผิดพลาด.',
 			'debug.title' => 'ตัวเลือกการดีบัก',
@@ -2211,9 +2213,9 @@ extension on TranslationsTh {
 			'debug.testDetectTextSubtitle' => 'ตรวจจับมื้ออาหารจากคำอธิบายข้อความ',
 			'debug.testMealLoggingWithVariations' => 'ทดสอบการบันทึกมื้ออาหารพร้อมตัวเลือกต่าง ๆ',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'ทดสอบกระบวนการบันทึกมื้ออาหารแบบเต็มพร้อมตัวเลือกต่าง ๆ',
-			'debug.mockMealWithVariations' => 'มื้อจำลองพร้อมตัวเลือกต่าง ๆ',
 			_ => null,
 		} ?? switch (path) {
+			'debug.mockMealWithVariations' => 'มื้อจำลองพร้อมตัวเลือกต่าง ๆ',
 			'debug.mockMealWithVariationsSubtitle' => 'ดูตัวอย่าง UI ของตัวเลือกและคำแนะนำโดยไม่ต้องบันทึก',
 			'debug.mockMealName' => 'ไก่ย่างกับข้าวและผัก',
 			'debug.mockTip' => 'นี่เป็นคำแนะนำจำลองสำหรับตัวอย่าง UI มื้ออาหารยังไม่ได้บันทึก',
