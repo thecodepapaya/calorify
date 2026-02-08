@@ -1,4 +1,5 @@
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/core/utilities/app_version.dart';
 import 'package:calorify/features/profile/settings_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
@@ -24,6 +25,12 @@ void main() {
       buildNumber: '1',
       buildSignature: 'buildSignature',
     );
+    // Avoid calling Shorebird in tests (unavailable in test environment).
+    getAppVersionInfoTestOverride = Future.value(const AppVersionInfo(
+      versionDisplay: '1.0.0',
+      buildNumber: '1',
+      patchNumber: null,
+    ));
   });
 
   setUp(() {

@@ -1,5 +1,4 @@
 import 'package:in_app_review/in_app_review.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Requests an in-app review for the Play Store.
@@ -7,18 +6,14 @@ import 'package:url_launcher/url_launcher.dart';
 /// If in-app review is not available, fails, or the app is a staging build,
 /// falls back to opening the Play Store listing page.
 ///
-/// [packageName] should be the app's package name (e.g., 'dev.thecodepapaya.calorify')
-/// Note: For staging builds (package name contains '.staging'), this will
-/// always open the Play Store directly as in-app review doesn't work for staging builds.
+/// [packageName] should be the app's package name (e.g., 'dev.thecodepapaya.calorify'
+/// or 'dev.thecodepapaya.calorify.staging' for staging). For package names containing
+/// '.staging', in-app review is skipped and the Play Store listing is opened directly.
 ///
 /// Returns true if the review was requested or Play Store was opened, false otherwise
 Future<bool> requestPlayStoreReview({required String packageName}) async {
   try {
-    // Check if this is a staging build - in-app review doesn't work for staging
-    final packageInfo = await PackageInfo.fromPlatform();
-    final isStagingBuild =
-        packageInfo.packageName.contains('.staging') ||
-        packageName.contains('.staging');
+    final isStagingBuild = packageName.contains('.staging');
 
     if (isStagingBuild) {
       // For staging builds, skip in-app review and go straight to Play Store

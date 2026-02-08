@@ -1,7 +1,6 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:i18n/i18n.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Encodes query parameters for use in URIs
@@ -17,7 +16,7 @@ String? encodeQueryParameters(Map<String, String> params) {
 /// Creates and launches a feedback email with device and app information
 ///
 /// The email includes:
-/// - App version and build number
+/// - [version] App version string (e.g. "1.2.6" or "1.2.6#3" with patch number)
 /// - Device model and OS version
 /// - User UID (if available)
 ///
@@ -25,12 +24,9 @@ String? encodeQueryParameters(Map<String, String> params) {
 Future<bool> sendFeedbackEmail({
   required String appLabel,
   required String emailAddress,
+  required String version,
 }) async {
   try {
-    final packageInfo = await PackageInfo.fromPlatform();
-    final version = packageInfo.version;
-    final buildNumber = packageInfo.buildNumber;
-
     final deviceInfo = DeviceInfoPlugin();
     final androidInfo = await deviceInfo.androidInfo;
     final deviceModel = androidInfo.model;
@@ -44,7 +40,7 @@ ${t.settings.sendFeedback.emailBodyPrefix}
 
 
 --------------------
-${t.settings.sendFeedback.appVersion}: $version+$buildNumber
+${t.settings.sendFeedback.appVersion}: $version
 ${t.settings.sendFeedback.device}: $deviceModel
 ${t.settings.sendFeedback.osVersion}: $deviceVersion
 ${t.settings.sendFeedback.uid}: $uid''';

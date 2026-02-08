@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
+import 'package:calorify/core/utilities/app_version.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -308,11 +309,14 @@ class AboutScreen extends StatelessWidget {
           icon: LucideIcons.mail,
           title: t.settings.about.developer.email,
           subtitle: 'calorify@thecodepapaya.dev',
-          onTap:
-              () => sendFeedbackEmail(
-                appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
-                emailAddress: 'calorify@thecodepapaya.dev',
-              ),
+          onTap: () async {
+                final versionInfo = await getAppVersionInfo();
+                await sendFeedbackEmail(
+                  appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+                  emailAddress: 'calorify@thecodepapaya.dev',
+                  version: versionInfo.versionDisplay,
+                );
+              },
         ),
       ],
     );
@@ -393,11 +397,14 @@ class AboutScreen extends StatelessWidget {
           context,
           icon: LucideIcons.mail,
           title: t.settings.about.feedback.sendFeedback,
-          onTap:
-              () => sendFeedbackEmail(
-                appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
-                emailAddress: 'calorify@thecodepapaya.dev',
-              ),
+          onTap: () async {
+            final versionInfo = await getAppVersionInfo();
+            await sendFeedbackEmail(
+              appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+              emailAddress: 'calorify@thecodepapaya.dev',
+              version: versionInfo.versionDisplay,
+            );
+          },
         ),
       ],
     );

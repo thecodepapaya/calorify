@@ -3,25 +3,26 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/network/network_client.dart';
 import 'package:calorify/core/repositories/food_repository.dart';
-import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/router/app_router.dart';
-import 'package:calorify/core/services/picker_service.dart';
+import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_sheet.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/meal_variation_sheet.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
-import 'package:dio/dio.dart';
-import 'package:models/models.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
+import 'package:calorify/core/services/picker_service.dart';
 import 'package:calorify/core/services/wear_os_channel.dart';
 import 'package:calorify/core/services/wear_os_message_log.dart';
-import 'package:services/services.dart';
-import 'package:utils/utils.dart';
-import 'package:i18n/i18n.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_variation_sheet.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
+import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:models/models.dart';
+import 'package:services/services.dart';
+import 'package:shorebird_code_push/shorebird_code_push.dart';
+import 'package:utils/utils.dart';
 
 @RoutePage()
 class DebugOptionsScreen extends StatefulWidget {
@@ -59,6 +60,9 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
           const SizedBox(height: 24),
           _buildSectionTitle(context, t.debug.sections.appInfo),
           _buildAppInfoOptions(context),
+          const SizedBox(height: 24),
+          _buildSectionTitle(context, 'Shorebird'),
+          _buildShorebirdOptions(context),
         ],
       ),
     );
@@ -627,7 +631,7 @@ Variations: ${response.variations.length}
 
       // Navigate to Log screen first
       if (!mounted) return;
-      context.router.push(const LogRoute());
+      await context.router.push(const LogRoute());
 
       // Wait a bit for navigation to complete
       await Future.delayed(const Duration(milliseconds: 500));
@@ -701,26 +705,28 @@ Variations: ${response.variations.length}
       routeSettings: const RouteSettings(
         name: RouteNames.clearDataConfirmationDialog,
       ),
-      builder: (dialogContext) => AlertDialog(
-        title: Text(t.debug.clearUserPreferencesConfirmationTitle),
-        content: Text(t.debug.clearUserPreferencesConfirmationMessage),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: Text(t.debug.cancel),
+      builder:
+          (dialogContext) => AlertDialog(
+            title: Text(t.debug.clearUserPreferencesConfirmationTitle),
+            content: Text(t.debug.clearUserPreferencesConfirmationMessage),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext),
+                child: Text(t.debug.cancel),
+              ),
+              TextButton(
+                onPressed: () async {
+                  await DatabaseService.databaseInterface
+                      .clearUserPreferences();
+                  if (!dialogContext.mounted) return;
+                  Navigator.pop(dialogContext);
+                  if (!context.mounted) return;
+                  _showSnackbar('User preferences cleared');
+                },
+                child: Text(t.debug.clear),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () async {
-              await DatabaseService.databaseInterface.clearUserPreferences();
-              if (!dialogContext.mounted) return;
-              Navigator.pop(dialogContext);
-              if (!context.mounted) return;
-              _showSnackbar('User preferences cleared');
-            },
-            child: Text(t.debug.clear),
-          ),
-        ],
-      ),
     );
   }
 
@@ -730,26 +736,27 @@ Variations: ${response.variations.length}
       routeSettings: const RouteSettings(
         name: RouteNames.clearDataConfirmationDialog,
       ),
-      builder: (dialogContext) => AlertDialog(
-        title: Text(t.debug.clearUserProfileConfirmationTitle),
-        content: Text(t.debug.clearUserProfileConfirmationMessage),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: Text(t.debug.cancel),
+      builder:
+          (dialogContext) => AlertDialog(
+            title: Text(t.debug.clearUserProfileConfirmationTitle),
+            content: Text(t.debug.clearUserProfileConfirmationMessage),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext),
+                child: Text(t.debug.cancel),
+              ),
+              TextButton(
+                onPressed: () async {
+                  await DatabaseService.databaseInterface.clearUserProfile();
+                  if (!dialogContext.mounted) return;
+                  Navigator.pop(dialogContext);
+                  if (!context.mounted) return;
+                  _showSnackbar('User profile cleared');
+                },
+                child: Text(t.debug.clear),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () async {
-              await DatabaseService.databaseInterface.clearUserProfile();
-              if (!dialogContext.mounted) return;
-              Navigator.pop(dialogContext);
-              if (!context.mounted) return;
-              _showSnackbar('User profile cleared');
-            },
-            child: Text(t.debug.clear),
-          ),
-        ],
-      ),
     );
   }
 
@@ -764,6 +771,80 @@ Variations: ${response.variations.length}
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildShorebirdOptions(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(LucideIcons.download),
+            title: const Text('Check for update'),
+            onTap: _shorebirdCheckForUpdate,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.hash),
+            title: const Text('Show patch number'),
+            onTap: _shorebirdShowPatchNumber,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.circleAlert),
+            title: const Text('Show update available'),
+            onTap: _shorebirdShowUpdateAvailable,
+          ),
+          ListTile(
+            leading: const Icon(LucideIcons.info),
+            title: const Text('Show errors'),
+            onTap: _shorebirdShowErrors,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _shorebirdCheckForUpdate() async {
+    try {
+      final status = await ShorebirdUpdater().checkForUpdate();
+      if (!mounted) return;
+      final message =
+          status == UpdateStatus.outdated ? 'Update available' : 'Up to date';
+      _showDataDialog('Check for update', message);
+    } catch (_) {
+      if (!mounted) return;
+      _showDataDialog(
+        'Check for update',
+        'Shorebird is unavailable in this environment.',
+      );
+    }
+  }
+
+  Future<void> _shorebirdShowPatchNumber() async {
+    try {
+      final patch = await ShorebirdUpdater().readCurrentPatch();
+      if (!mounted) return;
+      final message =
+          patch != null
+              ? 'Patch number: ${patch.number}'
+              : 'No patch installed';
+      _showDataDialog('Show patch number', message);
+    } catch (_) {
+      if (!mounted) return;
+      _showDataDialog(
+        'Show patch number',
+        'Shorebird is unavailable in this environment.',
+      );
+    }
+  }
+
+  Future<void> _shorebirdShowUpdateAvailable() async {
+    await _shorebirdCheckForUpdate();
+  }
+
+  void _shorebirdShowErrors() {
+    _showDataDialog(
+      'Show errors',
+      'Updates are managed by Shorebird; errors are not exposed to the app.',
     );
   }
 

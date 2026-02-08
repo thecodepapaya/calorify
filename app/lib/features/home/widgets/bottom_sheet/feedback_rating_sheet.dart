@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/utilities/app_version.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/analytics.dart';
@@ -70,9 +71,11 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet> {
   }
 
   Future<void> _onEmailYes() async {
+    final versionInfo = await getAppVersionInfo();
     await sendFeedbackEmail(
       appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
       emailAddress: 'calorify@thecodepapaya.dev',
+      version: versionInfo.versionDisplay,
     );
     if (!mounted) return;
     Navigator.of(context).pop();

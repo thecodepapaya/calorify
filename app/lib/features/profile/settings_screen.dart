@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/router/app_router.dart';
+import 'package:calorify/core/utilities/app_version.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/providers/theme_provider.dart';
@@ -14,7 +15,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:services/services.dart';
 
 @RoutePage()
@@ -596,16 +596,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
   }
 
-  void _sendFeedbackEmail() async {
+  Future<void> _sendFeedbackEmail() async {
+    final versionInfo = await getAppVersionInfo();
     await sendFeedbackEmail(
       appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
       emailAddress: 'calorify@thecodepapaya.dev',
+      version: versionInfo.versionDisplay,
     );
   }
 
   Widget _buildAppInfo() {
-    return FutureBuilder<PackageInfo>(
-      future: PackageInfo.fromPlatform(),
+    return FutureBuilder<AppVersionInfo>(
+      future: getAppVersionInfo(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return const SizedBox.shrink();
         final info = snapshot.data!;
@@ -629,7 +631,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             child: Column(
               children: [
                 Text(
-                  t.settings.appInfo.version(version: info.version),
+                  t.settings.appInfo.version(version: info.versionDisplay),
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                     fontSize: 12,
