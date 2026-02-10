@@ -30,7 +30,7 @@ void main() {
 
     when(() => mockHealthService.status).thenReturn(HealthConnectSdkStatus.sdkAvailable);
     when(() => mockHealthService.isAuthorized).thenReturn(true);
-    when(() => mockHealthService.getTotalCaloriesBurned()).thenAnswer((_) async => 500.0);
+    when(() => mockHealthService.getTotalCaloriesBurned()).thenAnswer((_) async => CaloriesResult(calories: 500.0, usedFallback: false));
     when(() => mockDatabaseInterface.watchDailyCalorieGoal()).thenAnswer((_) => Stream.value(2000));
     when(() => mockDatabaseInterface.getDailyCalorieGoal()).thenAnswer((_) async => 2000);
     when(() => mockDatabaseInterface.watchAllMealsForToday()).thenAnswer((_) => Stream.value([]));

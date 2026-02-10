@@ -82,7 +82,7 @@ void main() {
     when(() => mockHealthService.isAuthorized).thenReturn(true);
     when(
       () => mockHealthService.getTotalCaloriesBurned(),
-    ).thenAnswer((_) async => 500.0);
+    ).thenAnswer((_) async => CaloriesResult(calories: 500.0, usedFallback: false));
   });
 
   testWidgets('Navigation flow integration test', (WidgetTester tester) async {

@@ -215,7 +215,8 @@ DisclaimerData getCalorieExpenditureDisclaimer({
       ),
       DisclaimerEntry(
         title: t.disclaimer.weightEstimate.professionalGuidance.title,
-        description: t.disclaimer.weightEstimate.professionalGuidance.description,
+        description:
+            t.disclaimer.weightEstimate.professionalGuidance.description,
       ),
     ]);
   } else {
@@ -234,16 +235,12 @@ DisclaimerData getCalorieExpenditureDisclaimer({
         ),
       );
     } else if (isHealthConnectAvailable && !hasCaloriesData) {
-      bullets.addAll([
+      bullets.add(
         DisclaimerEntry(
           title: t.disclaimer.weightEstimate.calorieAccuracy.title,
           description: t.disclaimer.weightEstimate.calorieAccuracy.description,
         ),
-        DisclaimerEntry(
-          title: t.disclaimer.weightEstimate.calorieAccuracy.title,
-          description: t.disclaimer.weightEstimate.calorieAccuracy.description,
-        ),
-      ]);
+      );
     } else {
       // Generic fallback if nothing else applies
       bullets.add(
