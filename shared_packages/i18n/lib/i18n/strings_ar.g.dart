@@ -335,6 +335,7 @@ class _TranslationsDisclaimerAr implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapAr snap = _TranslationsDisclaimerSnapAr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateAr weightEstimate = _TranslationsDisclaimerWeightEstimateAr._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsAr healthMetrics = _TranslationsDisclaimerHealthMetricsAr._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureAr calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureAr._(_root);
 }
 
 // Path: common
@@ -367,7 +368,7 @@ class _TranslationsFeedbackRatingAr implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'تم تطويرها بعناية من قبل فريق صغير. نركّز على الخصوصية والبساطة، ونساعدك على بناء عادات غذائية أفضل.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'هل تريد معرفة من يقف وراء ${appLabel}؟ انظر ';
 	@override String get aboutUsLinkLabel => 'من نحن';
-	@override String get thankYouMessage => 'شكرًا! سنطلب رأيك مرة أخرى لاحقًا.';
+	@override String get thankYouMessage => 'شكراً! سنسأل مرة أخرى لاحقاً.';
 }
 
 // Path: errors
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsAr implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalAr dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalAr._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureAr implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'تقدير السعرات الحرارية المحروقة';
+	@override String get description => 'عندما تكون بيانات Health Connect غير متاحة، نقوم بتقدير السعرات الحرارية التي حرقتها اليوم باستخدام معدل الأيض الأساسي (BMR) ومستوى نشاطك (TDEE)، ونعدّها بحسب الجزء من اليوم الذي مضى.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedAr howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedAr._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceAr professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceAr._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsAr implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsAr._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalAr implements TranslationsDis
 	@override String get description => 'الهدف اليومي هو كمية السعرات الحرارية الموصى بها لك يوميًا بناءً على مجموع الإنفاق اليومي من الطاقة (TDEE) وهدف الوزن الخاص بك. لفقدان الوزن، تستهلك سعرات حرارية أقل من مجموع الإنفاق اليومي من الطاقة الخاص بك. للحفاظ على الوزن، تتطابق مع مجموع الإنفاق اليومي من الطاقة. لزيادة الوزن، تستهلك سعرات حرارية أكثر من مجموع الإنفاق اليومي من الطاقة الخاص بك. يساعدك ذلك في تحقيق التغيير المطلوب في وزنك بشكل صحي.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedAr implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'كيفية حساب التقدير';
+	@override String get description => 'نحسب TDEE الخاص بك (استنادًا إلى ملفك الشخصي) ونضربه في نسبة اليوم المنقضية (الساعات + الدقائق) / 24 لتقدير السعرات التي تم حرقها حتى الآن.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceAr implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'إرشادات مهنية';
+	@override String get description => 'لا تستخدم هذا التقدير لاتخاذ قرارات طبية. استشر دائمًا متخصصًا في الرعاية الصحية أو أخصائي تغذية مسجل للحصول على نصائح مخصصة لإدارة الوزن.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedAr implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedAr._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsAr {
 			'disclaimer.healthMetrics.tdee.description' => 'مجموع الإنفاق اليومي من الطاقة (TDEE) هو إجمالي السعرات الحرارية التي تحرقها يوميًا، بما في ذلك معدل الأيض الأساسي الخاص بك بالإضافة إلى السعرات الحرارية من النشاط البدني والحركة اليومية. يعتمد مجموع الإنفاق اليومي من الطاقة على معدل الأيض الأساسي الخاص بك ومستوى نشاطك. يعني مجموع الإنفاق اليومي من الطاقة الأعلى أنك تحرق المزيد من السعرات الحرارية بشكل عام، عادةً بسبب كونك أكثر نشاطًا أو لامتلاكك معدل أيض أساسي أعلى. يشير مجموع الإنفاق اليومي من الطاقة المنخفض إلى نشاط يومي أقل أو معدل أيض أساسي أقل.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'الهدف اليومي',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'الهدف اليومي هو كمية السعرات الحرارية الموصى بها لك يوميًا بناءً على مجموع الإنفاق اليومي من الطاقة (TDEE) وهدف الوزن الخاص بك. لفقدان الوزن، تستهلك سعرات حرارية أقل من مجموع الإنفاق اليومي من الطاقة الخاص بك. للحفاظ على الوزن، تتطابق مع مجموع الإنفاق اليومي من الطاقة. لزيادة الوزن، تستهلك سعرات حرارية أكثر من مجموع الإنفاق اليومي من الطاقة الخاص بك. يساعدك ذلك في تحقيق التغيير المطلوب في وزنك بشكل صحي.',
+			'disclaimer.calorieExpenditure.title' => 'تقدير السعرات الحرارية المحروقة',
+			'disclaimer.calorieExpenditure.description' => 'عندما تكون بيانات Health Connect غير متاحة، نقوم بتقدير السعرات الحرارية التي حرقتها اليوم باستخدام معدل الأيض الأساسي (BMR) ومستوى نشاطك (TDEE)، ونعدّها بحسب الجزء من اليوم الذي مضى.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'كيفية حساب التقدير',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'نحسب TDEE الخاص بك (استنادًا إلى ملفك الشخصي) ونضربه في نسبة اليوم المنقضية (الساعات + الدقائق) / 24 لتقدير السعرات التي تم حرقها حتى الآن.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'إرشادات مهنية',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'لا تستخدم هذا التقدير لاتخاذ قرارات طبية. استشر دائمًا متخصصًا في الرعاية الصحية أو أخصائي تغذية مسجل للحصول على نصائح مخصصة لإدارة الوزن.',
 			'common.close' => 'إغلاق',
 			'common.kContinue' => 'استمر',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'هل تستمتع بـ${appLabel}؟',
@@ -2111,7 +2153,7 @@ extension on TranslationsAr {
 			'feedbackRating.aboutUsDescription' => 'تم تطويرها بعناية من قبل فريق صغير. نركّز على الخصوصية والبساطة، ونساعدك على بناء عادات غذائية أفضل.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'هل تريد معرفة من يقف وراء ${appLabel}؟ انظر ',
 			'feedbackRating.aboutUsLinkLabel' => 'من نحن',
-			'feedbackRating.thankYouMessage' => 'شكرًا! سنطلب رأيك مرة أخرى لاحقًا.',
+			'feedbackRating.thankYouMessage' => 'شكراً! سنسأل مرة أخرى لاحقاً.',
 			'errors.loadingProfileData' => 'خطأ في تحميل بيانات الملف الشخصي',
 			'errors.somethingWentWrong' => 'حدث خطأ ما.',
 			'debug.title' => 'خيارات التصحيح',
@@ -2207,14 +2249,14 @@ extension on TranslationsAr {
 			'debug.testAnalyzeImageSubtitle' => 'رفع صورة اختبار مضمَّنة',
 			'debug.testDetectImage' => 'اختبار اكتشاف الصورة',
 			'debug.testDetectImageSubtitle' => 'اكتشاف الوجبة من رابط الصورة',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'اكتشاف صورة من المعرض',
 			'debug.detectImageFromGallerySubtitle' => 'اختر صورة، ارفعها إلى الحاوية وقم بتقدير السعرات',
 			'debug.testDetectText' => 'اختبار اكتشاف النص',
 			'debug.testDetectTextSubtitle' => 'اكتشاف الوجبة من وصف نصي',
 			'debug.testMealLoggingWithVariations' => 'اختبار تسجيل الوجبة مع تنويعات',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'اختبار كامل لتدفق تسجيل الوجبة مع التنويعات',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'وجبة نموذجية مع تنويعات',
 			'debug.mockMealWithVariationsSubtitle' => 'معاينة التنويعات ونصائح الواجهة دون التسجيل',
 			'debug.mockMealName' => 'دجاج مشوي مع أرز وخضروات',

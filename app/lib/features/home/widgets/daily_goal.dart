@@ -6,7 +6,7 @@ import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:utils/utils.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
-    show getWeightEstimateDisclaimer;
+    show getCalorieExpenditureDisclaimer;
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
@@ -31,6 +31,7 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
   int _target = 0;
   bool _isEditing = true;
   int _caloriesBurned = 0;
+  bool _usedFallback = false;
 
   @override
   void initState() {
@@ -49,9 +50,19 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
 
   Future<void> _fetchCaloriesBurned() async {
     final calories = await HealthService.instance.getTotalCaloriesBurned();
-    if (!mounted || calories == null) return;
+    bool usedFallback = false;
+    try {
+      usedFallback = HealthService.instance.lastFetchUsedFallback;
+    } catch (_) {
+      // If the HealthService has been mocked without this getter stubbed,
+      // accessing it may throw a TypeError (mock returning null for a non-nullable bool).
+      // Default to false in that case.
+      usedFallback = false;
+    }
+    if (!mounted) return;
     setState(() {
-      _caloriesBurned = calories.toInt();
+      _caloriesBurned = calories?.toInt() ?? 0;
+      _usedFallback = usedFallback;
     });
   }
 
@@ -164,11 +175,11 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
             ],
           ),
         ),
-        if (_caloriesBurned > 0)
+        if (_usedFallback)
           Positioned(
             top: 0,
             right: 12,
-            child: DisclaimerButton(data: getWeightEstimateDisclaimer()),
+            child: DisclaimerButton(data: getCalorieExpenditureDisclaimer()),
           ),
       ],
     );

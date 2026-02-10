@@ -335,6 +335,7 @@ class _TranslationsDisclaimerTr implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapTr snap = _TranslationsDisclaimerSnapTr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateTr weightEstimate = _TranslationsDisclaimerWeightEstimateTr._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTr healthMetrics = _TranslationsDisclaimerHealthMetricsTr._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureTr calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureTr._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsTr implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalTr dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalTr._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureTr implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kalori harcaması tahmini';
+	@override String get description => 'Health Connect verileri kullanılamadığında, bugünkü yakılan kaloriyi Bazal Metabolizma Hızınız (BMR) ve aktivite seviyeniz (TDEE) kullanarak, günün geçen bölümüne göre ölçekleyerek tahmin ederiz.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedTr howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedTr._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTr professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTr._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsTr implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsTr._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalTr implements TranslationsDis
 	@override String get description => 'Günlük Hedef, TDEE\'nize ve ağırlık hedefinize dayalı olarak önerilen günlük kalori alımınızdır. Kilo kaybı için, TDEE\'nizden daha az kalori alırsınız. Kilo koruma için, TDEE\'nizle eşleşirsiniz. Kilo almak için, TDEE\'nizden daha fazla kalori alırsınız. Bu, istediğiniz ağırlık değişimini sağlıklı bir hızda gerçekleştirmenize yardımcı olur.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedTr implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tahmin nasıl hesaplanır';
+	@override String get description => 'Profilinize göre TDEE\'nizi hesaplar ve günün geçen kısmının kesri (saatler + dakikalar) / 24 ile çarparak şu ana kadar yakılan kaloriyi tahmin ederiz.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTr implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Profesyonel Rehberlik';
+	@override String get description => 'Bu tahmini tıbbi kararlar almak için kullanmayın. Kişiye özel kilo yönetimi önerileri için her zaman bir sağlık uzmanına veya kayıtlı diyetisyene danışın.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTr implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTr._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsTr {
 			'disclaimer.healthMetrics.tdee.description' => 'Toplam Günlük Enerji Harcaması (TDEE), gün boyunca yaktığınız toplam kalori miktarını ifade eder; bu, BMR’iniz ve fiziksel aktivite ile günlük hareketten kaynaklanan kalorileri içerir. TDEE, BMR’iniz ve aktivite seviyenizle bağlantılıdır. Daha yüksek bir TDEE, genellikle daha aktif olmaktan veya daha yüksek bir BMR\'e sahip olmaktan dolayı, toplamda daha fazla kalori yaktığınız anlamına gelir. Daha düşük bir TDEE, günlük aktivitenizin daha az olduğunu veya daha düşük bir BMR\'e sahip olduğunuzu gösterir.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Günlük Hedef',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Günlük Hedef, TDEE\'nize ve ağırlık hedefinize dayalı olarak önerilen günlük kalori alımınızdır. Kilo kaybı için, TDEE\'nizden daha az kalori alırsınız. Kilo koruma için, TDEE\'nizle eşleşirsiniz. Kilo almak için, TDEE\'nizden daha fazla kalori alırsınız. Bu, istediğiniz ağırlık değişimini sağlıklı bir hızda gerçekleştirmenize yardımcı olur.',
+			'disclaimer.calorieExpenditure.title' => 'Kalori harcaması tahmini',
+			'disclaimer.calorieExpenditure.description' => 'Health Connect verileri kullanılamadığında, bugünkü yakılan kaloriyi Bazal Metabolizma Hızınız (BMR) ve aktivite seviyeniz (TDEE) kullanarak, günün geçen bölümüne göre ölçekleyerek tahmin ederiz.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Tahmin nasıl hesaplanır',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Profilinize göre TDEE\'nizi hesaplar ve günün geçen kısmının kesri (saatler + dakikalar) / 24 ile çarparak şu ana kadar yakılan kaloriyi tahmin ederiz.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Profesyonel Rehberlik',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Bu tahmini tıbbi kararlar almak için kullanmayın. Kişiye özel kilo yönetimi önerileri için her zaman bir sağlık uzmanına veya kayıtlı diyetisyene danışın.',
 			'common.close' => 'Kapat',
 			'common.kContinue' => 'Devam Et',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} hoşunuza gidiyor mu?',
@@ -2207,14 +2249,14 @@ extension on TranslationsTr {
 			'debug.testAnalyzeImageSubtitle' => 'Kodlanmış test görselini yükle',
 			'debug.testDetectImage' => 'Görsel Tespit Testi',
 			'debug.testDetectImageSubtitle' => 'Görsel URL\'sinden yemeği tespit et',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Galeriden Görsel Tespiti',
 			'debug.detectImageFromGallerySubtitle' => 'Görseli seç, bucket\'a yükle ve kalorileri tahmin et',
 			'debug.testDetectText' => 'Metin Tespit Testi',
 			'debug.testDetectTextSubtitle' => 'Yemek açıklamasından yemeği tespit et',
 			'debug.testMealLoggingWithVariations' => 'Varyasyonlarla Yemek Kaydı Testi',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Varyasyonlarla tam yemek kaydetme akışını test et',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Varyasyonlu sahte öğün',
 			'debug.mockMealWithVariationsSubtitle' => 'Kayıt etmeden varyasyon ve ipucu sayfası arayüzünü önizle',
 			'debug.mockMealName' => 'Izgara tavuk, pilav ve sebzeler',

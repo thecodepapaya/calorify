@@ -597,6 +597,18 @@
         "title": "Dagdoel",
         "description": "Het Dagdoel is je aanbevolen dagelijkse calorie-inname op basis van je TDEE en gewichtsdoel. Voor gewichtsverlies consumeer je minder calorieën dan je TDEE. Voor gewichtsbehoud stem je je inname af op je TDEE. Voor gewichtstoename consumeer je meer calorieën dan je TDEE. Dit helpt je om je gewenste gewichtsverandering op een gezonde manier te bereiken."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Schatting van calorieverbruik",
+      "description": "Wanneer Health Connect-gegevens niet beschikbaar zijn, schatten we de vandaag verbrande calorieën op basis van je basale stofwisselingssnelheid (BMR) en je activiteitsniveau (TDEE), geschaald naar het deel van de dag dat verstreken is.",
+      "howCalculated": {
+        "title": "Hoe de schatting wordt berekend",
+        "description": "We berekenen je TDEE (op basis van je profiel) en vermenigvuldigen deze met de fractie van de dag die verstreken is (uren + minuten) / 24 om de tot nu toe verbrande calorieën te schatten."
+      },
+      "professionalGuidance": {
+        "title": "Professioneel advies",
+        "description": "Gebruik deze schatting niet voor medische beslissingen. Raadpleeg altijd een zorgverlener of een geregistreerde diëtist(e) voor persoonlijk advies over gewichtsbeheersing."
+      }
     }
   },
   "common": {

@@ -335,6 +335,7 @@ class _TranslationsDisclaimerZhTw implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapZhTw snap = _TranslationsDisclaimerSnapZhTw._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateZhTw weightEstimate = _TranslationsDisclaimerWeightEstimateZhTw._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsZhTw healthMetrics = _TranslationsDisclaimerHealthMetricsZhTw._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureZhTw calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureZhTw._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsZhTw implements TranslationsDisclaimer
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalZhTw dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalZhTw._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureZhTw implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '熱量消耗估算';
+	@override String get description => '當 Health Connect 資料不可用時，我們會使用您的基礎代謝率 (BMR) 和活動量 (TDEE)，並依照一天已過的比例，來估算今天已消耗的熱量。';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedZhTw howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedZhTw._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceZhTw professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceZhTw._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsZhTw implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsZhTw._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalZhTw implements TranslationsD
 	@override String get description => '每日目標是根據您的 TDEE 和體重目標推薦的每日卡路里攝入量。若要減肥，您需要攝入的卡路里少於您的 TDEE；若要維持體重，則需與 TDEE 持平；若要增重，您需攝入的卡路里超過您的 TDEE。這有助於您以健康的速度達成所期望的體重變化。';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedZhTw implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '估算方式';
+	@override String get description => '我們會根據您的個人資料計算每日總熱量消耗 (TDEE)，然後以一天中已過的比例（小時 + 分鐘）/ 24 乘上該值，來估算目前為止已消耗的熱量。';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceZhTw implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '專業建議';
+	@override String get description => '請勿以此估算作為醫療決策的依據。欲取得個人化的體重管理建議，請務必諮詢醫療專業人員或註冊營養師。';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedZhTw implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedZhTw._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsZhTw {
 			'disclaimer.healthMetrics.tdee.description' => '每日總能量消耗 (TDEE) 是您每天燃燒的總卡路里，包括 BMR 加上身體活動和日常運動消耗的卡路里。TDEE 取決於您的 BMR 和活動水平。較高的 TDEE 意味著您整體燃燒更多卡路里，通常是因為活動量更大或 BMR 較高；而較低的 TDEE 則暗示日常活動較少或 BMR 較低。',
 			'disclaimer.healthMetrics.dailyGoal.title' => '每日目標',
 			'disclaimer.healthMetrics.dailyGoal.description' => '每日目標是根據您的 TDEE 和體重目標推薦的每日卡路里攝入量。若要減肥，您需要攝入的卡路里少於您的 TDEE；若要維持體重，則需與 TDEE 持平；若要增重，您需攝入的卡路里超過您的 TDEE。這有助於您以健康的速度達成所期望的體重變化。',
+			'disclaimer.calorieExpenditure.title' => '熱量消耗估算',
+			'disclaimer.calorieExpenditure.description' => '當 Health Connect 資料不可用時，我們會使用您的基礎代謝率 (BMR) 和活動量 (TDEE)，並依照一天已過的比例，來估算今天已消耗的熱量。',
+			'disclaimer.calorieExpenditure.howCalculated.title' => '估算方式',
+			'disclaimer.calorieExpenditure.howCalculated.description' => '我們會根據您的個人資料計算每日總熱量消耗 (TDEE)，然後以一天中已過的比例（小時 + 分鐘）/ 24 乘上該值，來估算目前為止已消耗的熱量。',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => '專業建議',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => '請勿以此估算作為醫療決策的依據。欲取得個人化的體重管理建議，請務必諮詢醫療專業人員或註冊營養師。',
 			'common.close' => '關閉',
 			'common.kContinue' => '繼續',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '你喜歡使用${appLabel}嗎？',
@@ -2207,14 +2249,14 @@ extension on TranslationsZhTw {
 			'debug.testAnalyzeImageSubtitle' => '上傳硬編碼的測試圖片',
 			'debug.testDetectImage' => '測試偵測圖片',
 			'debug.testDetectImageSubtitle' => '從圖片 URL 偵測餐點',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => '從相簿偵測圖片',
 			'debug.detectImageFromGallerySubtitle' => '選擇圖片，上傳到儲存桶並估算卡路里',
 			'debug.testDetectText' => '測試文字偵測',
 			'debug.testDetectTextSubtitle' => '從文字描述偵測餐點',
 			'debug.testMealLoggingWithVariations' => '測試含變體的餐點記錄流程',
 			'debug.testMealLoggingWithVariationsSubtitle' => '測試含變體的完整餐點記錄流程',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => '含變體的模擬餐點',
 			'debug.mockMealWithVariationsSubtitle' => '預覽變體與提示面板的 UI（不會記錄）',
 			'debug.mockMealName' => '烤雞配米飯與蔬菜',

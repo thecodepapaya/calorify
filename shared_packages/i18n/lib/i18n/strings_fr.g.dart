@@ -335,6 +335,7 @@ class _TranslationsDisclaimerFr implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapFr snap = _TranslationsDisclaimerSnapFr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateFr weightEstimate = _TranslationsDisclaimerWeightEstimateFr._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsFr healthMetrics = _TranslationsDisclaimerHealthMetricsFr._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureFr calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureFr._(_root);
 }
 
 // Path: common
@@ -367,7 +368,7 @@ class _TranslationsFeedbackRatingFr implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Conçu avec soin par une petite équipe. Nous privilégions la confidentialité, la simplicité et l\'accompagnement pour vous aider à adopter de meilleures habitudes alimentaires.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Vous voulez savoir qui se cache derrière ${appLabel} ? Consultez ';
 	@override String get aboutUsLinkLabel => 'À propos';
-	@override String get thankYouMessage => 'Merci ! Nous vous redemanderons plus tard.';
+	@override String get thankYouMessage => 'Merci ! Nous redemanderons une autre fois.';
 }
 
 // Path: errors
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsFr implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalFr dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalFr._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureFr implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Estimation de la dépense calorique';
+	@override String get description => 'Lorsque les données Health Connect ne sont pas disponibles, nous estimons les calories brûlées aujourd\'hui en utilisant votre métabolisme de base (BMR) et votre dépense énergétique quotidienne totale (TDEE), ajustée à la portion de la journée déjà écoulée.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedFr howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedFr._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFr professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFr._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsFr implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsFr._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalFr implements TranslationsDis
 	@override String get description => 'L\'Objectif Quotidien est votre apport calorique quotidien recommandé basé sur votre DET et votre objectif de poids. Pour perdre du poids, vous consommez moins de calories que votre DET. Pour maintenir votre poids, vous égalisez votre DET. Pour prendre du poids, vous consommez plus de calories que votre DET. Cela vous aide à atteindre votre changement de poids souhaité à un rythme sain.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedFr implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Comment l\'estimation est calculée';
+	@override String get description => 'Nous calculons votre TDEE (en fonction de votre profil) puis le multiplions par la fraction de la journée écoulée (heures + minutes) / 24 pour estimer les calories brûlées jusqu\'à présent.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFr implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Conseils professionnels';
+	@override String get description => 'N\'utilisez pas cette estimation pour prendre des décisions médicales. Consultez toujours un professionnel de santé ou un diététicien diplômé pour obtenir des conseils personnalisés en matière de gestion du poids.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFr implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFr._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsFr {
 			'disclaimer.healthMetrics.tdee.description' => 'La Dépense Énergétique Totale (DET) est le total des calories que vous brûlez par jour, y compris votre TMB plus les calories provenant de l\'activité physique et des mouvements quotidiens. La DET dépend de votre TMB et de votre niveau d\'activité. Une DET plus élevée signifie que vous brûlez plus de calories au total, généralement en étant plus actif ou en ayant un TMB plus élevé. Une DET plus faible suggère moins d\'activité quotidienne ou un TMB plus bas.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Objectif Quotidien',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'L\'Objectif Quotidien est votre apport calorique quotidien recommandé basé sur votre DET et votre objectif de poids. Pour perdre du poids, vous consommez moins de calories que votre DET. Pour maintenir votre poids, vous égalisez votre DET. Pour prendre du poids, vous consommez plus de calories que votre DET. Cela vous aide à atteindre votre changement de poids souhaité à un rythme sain.',
+			'disclaimer.calorieExpenditure.title' => 'Estimation de la dépense calorique',
+			'disclaimer.calorieExpenditure.description' => 'Lorsque les données Health Connect ne sont pas disponibles, nous estimons les calories brûlées aujourd\'hui en utilisant votre métabolisme de base (BMR) et votre dépense énergétique quotidienne totale (TDEE), ajustée à la portion de la journée déjà écoulée.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Comment l\'estimation est calculée',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Nous calculons votre TDEE (en fonction de votre profil) puis le multiplions par la fraction de la journée écoulée (heures + minutes) / 24 pour estimer les calories brûlées jusqu\'à présent.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Conseils professionnels',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'N\'utilisez pas cette estimation pour prendre des décisions médicales. Consultez toujours un professionnel de santé ou un diététicien diplômé pour obtenir des conseils personnalisés en matière de gestion du poids.',
 			'common.close' => 'Fermer',
 			'common.kContinue' => 'Continuer',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Vous aimez ${appLabel} ?',
@@ -2111,7 +2153,7 @@ extension on TranslationsFr {
 			'feedbackRating.aboutUsDescription' => 'Conçu avec soin par une petite équipe. Nous privilégions la confidentialité, la simplicité et l\'accompagnement pour vous aider à adopter de meilleures habitudes alimentaires.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Vous voulez savoir qui se cache derrière ${appLabel} ? Consultez ',
 			'feedbackRating.aboutUsLinkLabel' => 'À propos',
-			'feedbackRating.thankYouMessage' => 'Merci ! Nous vous redemanderons plus tard.',
+			'feedbackRating.thankYouMessage' => 'Merci ! Nous redemanderons une autre fois.',
 			'errors.loadingProfileData' => 'Erreur de chargement des données du profil',
 			'errors.somethingWentWrong' => 'Une erreur s\'est produite.',
 			'debug.title' => 'Options de Débogage',
@@ -2207,14 +2249,14 @@ extension on TranslationsFr {
 			'debug.testAnalyzeImageSubtitle' => 'Téléverser une image de test préconfigurée',
 			'debug.testDetectImage' => 'Tester la détection d\'image',
 			'debug.testDetectImageSubtitle' => 'Détecter le repas depuis une URL d\'image',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Détecter une image depuis la galerie',
 			'debug.detectImageFromGallerySubtitle' => 'Sélectionner une image, la téléverser sur le bucket et estimer les calories',
 			'debug.testDetectText' => 'Tester la détection de texte',
 			'debug.testDetectTextSubtitle' => 'Détecter un repas à partir d\'une description textuelle',
 			'debug.testMealLoggingWithVariations' => 'Tester l\'enregistrement de repas avec variations',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Tester le flux complet d\'enregistrement de repas avec variations',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Repas simulé avec variations',
 			'debug.mockMealWithVariationsSubtitle' => 'Aperçu de l\'interface des variations + fiche conseils sans enregistrer',
 			'debug.mockMealName' => 'Poulet grillé avec riz et légumes',

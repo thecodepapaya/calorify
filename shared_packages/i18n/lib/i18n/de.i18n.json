@@ -597,6 +597,18 @@
         "title": "Tagesziel",
         "description": "Das Tagesziel ist Ihre empfohlene tägliche Kalorienaufnahme basierend auf Ihrem TDEE und Ihrem Gewichtsziel. Für Gewichtsverlust konsumieren Sie weniger Kalorien als Ihr TDEE. Für die Gewichtserhaltung stimmen Sie Ihren TDEE ab. Für Gewichtszunahme konsumieren Sie mehr Kalorien als Ihr TDEE. Dies hilft Ihnen, Ihre gewünschte Gewichtsveränderung in einem gesunden Tempo zu erreichen."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Schätzung des Kalorienverbrauchs",
+      "description": "Wenn Health Connect-Daten nicht verfügbar sind, schätzen wir, wie viele Kalorien Sie heute verbrannt haben, basierend auf Ihrem Grundumsatz (BMR) und Ihrem Aktivitätsniveau (TDEE). Die Schätzung wird auf den bereits verstrichenen Teil des Tages hochgerechnet.",
+      "howCalculated": {
+        "title": "Wie die Schätzung berechnet wird",
+        "description": "Wir berechnen Ihren TDEE (basierend auf Ihrem Profil) und multiplizieren ihn mit dem bereits verstrichenen Tagesanteil (Stunden + Minuten) / 24, um die bisher verbrannten Kalorien zu schätzen."
+      },
+      "professionalGuidance": {
+        "title": "Professionelle Hinweise",
+        "description": "Nutzen Sie diese Schätzung nicht für medizinische Entscheidungen. Konsultieren Sie stets eine medizinische Fachkraft oder einen registrierten Ernährungsberater oder eine registrierte Ernährungsberaterin für individuelle Beratung zur Gewichtskontrolle."
+      }
     }
   },
   "common": {

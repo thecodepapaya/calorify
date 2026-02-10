@@ -202,7 +202,11 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
           },
           onSecondary: () {
             Analytics.instance.logEvent(AnalyticsEvent.feedbackSheetEnjoyingNo);
-            _showThankYouAndPop();
+            _fadeController.reverse().then((_) {
+              if (!mounted) return;
+              setState(() => _step = _FeedbackSheetStep.emailPrompt);
+              _fadeController.forward();
+            });
           },
         ),
       ],

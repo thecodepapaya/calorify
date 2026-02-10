@@ -597,6 +597,18 @@
         "title": "Arawang Layunin",
         "description": "Ang Arawang Layunin ay ang inirekomendang pang-araw-araw na calorie na kinakailangan batay sa iyong TDEE at layunin sa timbang. Para sa pagbaba ng timbang, kumakain ka ng mas kaunting calorie kaysa sa iyong TDEE. Para sa pagpapanatili ng timbang, katumbas mo ang iyong TDEE. Para sa pagtaas ng timbang, kumakain ka ng mas maraming calorie kaysa sa iyong TDEE. Tinutulungan ka nitong makamit ang iyong nais na pagbabago ng timbang sa isang malusog na takbo."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Tantiyang pagkasunog ng kaloriya",
+      "description": "Kapag hindi magagamit ang data mula sa Health Connect, tinatantiya namin kung ilang kaloriya ang nasunog ngayong araw gamit ang iyong Basal Metabolic Rate (BMR) at antas ng aktibidad (TDEE), at inaangkop ito sa bahagi ng araw na lumipas.",
+      "howCalculated": {
+        "title": "Paano kinakalkula ang pagtatantya",
+        "description": "Kinakalkula namin ang iyong TDEE (batay sa iyong profile) at pinararami ito ng proporsyon ng araw na lumipas (oras + minuto) / 24 upang tantiyahin ang kaloriya na nasunog hanggang ngayon."
+      },
+      "professionalGuidance": {
+        "title": "Propesyonal na Patnubay",
+        "description": "Huwag gamitin ang pagtatantyang ito bilang batayan para sa mga medikal na desisyon. Laging kumonsulta sa isang propesyonal sa pangangalagang pangkalusugan o rehistradong dietitian para sa personal na payo tungkol sa pamamahala ng timbang."
+      }
     }
   },
   "common": {

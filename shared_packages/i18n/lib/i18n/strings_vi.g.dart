@@ -335,6 +335,7 @@ class _TranslationsDisclaimerVi implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapVi snap = _TranslationsDisclaimerSnapVi._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateVi weightEstimate = _TranslationsDisclaimerWeightEstimateVi._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsVi healthMetrics = _TranslationsDisclaimerHealthMetricsVi._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureVi calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureVi._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsVi implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalVi dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalVi._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureVi implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ước tính calo tiêu hao';
+	@override String get description => 'Khi dữ liệu từ Health Connect không có sẵn, chúng tôi ước tính số calo bạn đã tiêu hao trong ngày dựa trên tỷ lệ trao đổi chất cơ bản (BMR) và mức độ hoạt động của bạn (TDEE), rồi điều chỉnh theo phần ngày đã trôi qua.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedVi howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedVi._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceVi professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceVi._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsVi implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsVi._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalVi implements TranslationsDis
 	@override String get description => 'Mục tiêu hàng ngày là lượng calo mà bạn được khuyên nên tiêu thụ hàng ngày dựa trên TDEE và mục tiêu cân nặng của bạn. Để giảm cân, bạn tiêu thụ ít calo hơn TDEE của mình. Để duy trì cân nặng, bạn cần khớp với TDEE của mình. Để tăng cân, bạn tiêu thụ nhiều calo hơn TDEE của mình. Điều này giúp bạn đạt được thay đổi cân nặng mong muốn một cách lành mạnh.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedVi implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Cách tính ước tính';
+	@override String get description => 'Chúng tôi tính TDEE của bạn (dựa trên hồ sơ cá nhân) và nhân với tỷ lệ phần ngày đã trôi qua (giờ + phút) / 24 để ước tính số calo đã tiêu hao cho đến hiện tại.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceVi implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hướng dẫn chuyên môn';
+	@override String get description => 'Không sử dụng ước tính này để đưa ra quyết định y tế. Luôn tham khảo ý kiến bác sĩ, chuyên gia chăm sóc sức khỏe hoặc chuyên gia dinh dưỡng được đăng ký để nhận lời khuyên cá nhân hóa về quản lý cân nặng.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedVi implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedVi._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsVi {
 			'disclaimer.healthMetrics.tdee.description' => 'Chi tiêu năng lượng hàng ngày tổng cộng (TDEE) là tổng số calo mà bạn đốt cháy mỗi ngày, bao gồm BMR của bạn cộng với calo từ hoạt động thể chất và di chuyển hàng ngày. TDEE phụ thuộc vào BMR và mức độ hoạt động của bạn. Một TDEE cao có nghĩa là bạn đốt cháy nhiều calo hơn tổng thể, thường là do hoạt động nhiều hơn hoặc có BMR cao hơn. Một TDEE thấp hơn cho thấy hoạt động hàng ngày ít hơn hoặc BMR thấp hơn.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Mục tiêu hàng ngày',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Mục tiêu hàng ngày là lượng calo mà bạn được khuyên nên tiêu thụ hàng ngày dựa trên TDEE và mục tiêu cân nặng của bạn. Để giảm cân, bạn tiêu thụ ít calo hơn TDEE của mình. Để duy trì cân nặng, bạn cần khớp với TDEE của mình. Để tăng cân, bạn tiêu thụ nhiều calo hơn TDEE của mình. Điều này giúp bạn đạt được thay đổi cân nặng mong muốn một cách lành mạnh.',
+			'disclaimer.calorieExpenditure.title' => 'Ước tính calo tiêu hao',
+			'disclaimer.calorieExpenditure.description' => 'Khi dữ liệu từ Health Connect không có sẵn, chúng tôi ước tính số calo bạn đã tiêu hao trong ngày dựa trên tỷ lệ trao đổi chất cơ bản (BMR) và mức độ hoạt động của bạn (TDEE), rồi điều chỉnh theo phần ngày đã trôi qua.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Cách tính ước tính',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Chúng tôi tính TDEE của bạn (dựa trên hồ sơ cá nhân) và nhân với tỷ lệ phần ngày đã trôi qua (giờ + phút) / 24 để ước tính số calo đã tiêu hao cho đến hiện tại.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Hướng dẫn chuyên môn',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Không sử dụng ước tính này để đưa ra quyết định y tế. Luôn tham khảo ý kiến bác sĩ, chuyên gia chăm sóc sức khỏe hoặc chuyên gia dinh dưỡng được đăng ký để nhận lời khuyên cá nhân hóa về quản lý cân nặng.',
 			'common.close' => 'Đóng',
 			'common.kContinue' => 'Tiếp tục',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Bạn có thích ${appLabel} không?',
@@ -2207,14 +2249,14 @@ extension on TranslationsVi {
 			'debug.testAnalyzeImageSubtitle' => 'Tải ảnh thử cố định lên',
 			'debug.testDetectImage' => 'Thử phát hiện ảnh',
 			'debug.testDetectImageSubtitle' => 'Phát hiện bữa ăn từ URL ảnh',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Phát hiện ảnh từ Thư viện',
 			'debug.detectImageFromGallerySubtitle' => 'Chọn ảnh, tải lên bucket và ước tính calo',
 			'debug.testDetectText' => 'Thử phát hiện văn bản',
 			'debug.testDetectTextSubtitle' => 'Phát hiện bữa ăn từ mô tả văn bản',
 			'debug.testMealLoggingWithVariations' => 'Thử ghi nhận bữa ăn với biến thể',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Thử toàn bộ quy trình ghi nhận bữa ăn có biến thể',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Bữa ăn mẫu có biến thể',
 			'debug.mockMealWithVariationsSubtitle' => 'Xem trước giao diện biến thể + mẹo mà không ghi nhận',
 			'debug.mockMealName' => 'Gà nướng với cơm và rau',

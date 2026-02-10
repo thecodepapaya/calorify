@@ -335,6 +335,7 @@ class _TranslationsDisclaimerPt implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapPt snap = _TranslationsDisclaimerSnapPt._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimatePt weightEstimate = _TranslationsDisclaimerWeightEstimatePt._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsPt healthMetrics = _TranslationsDisclaimerHealthMetricsPt._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditurePt calorieExpenditure = _TranslationsDisclaimerCalorieExpenditurePt._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsPt implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalPt dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalPt._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditurePt implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditurePt._(this._root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Estimativa de gasto calórico';
+	@override String get description => 'Quando os dados do Health Connect não estão disponíveis, estimamos as calorias gastas hoje usando sua Taxa Metabólica Basal (BMR) e seu nível de atividade (TDEE), ajustando para a parte do dia que já passou.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedPt howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedPt._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidancePt professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidancePt._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsPt implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsPt._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalPt implements TranslationsDis
 	@override String get description => 'A Meta Diária é sua ingestão calórica recomendada com base no seu TDEE e meta de peso. Para perda de peso, você consome menos calorias do que seu TDEE. Para manutenção do peso, você iguala seu TDEE. Para ganho de peso, você consome mais calorias do que seu TDEE. Isso ajuda você a alcançar a mudança de peso desejada de maneira saudável.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedPt implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedPt._(this._root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Como a estimativa é calculada';
+	@override String get description => 'Calculamos seu TDEE (com base no seu perfil) e multiplicamos pela fração do dia que já passou (horas + minutos) / 24 para estimar as calorias gastas até agora.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidancePt implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidancePt._(this._root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Orientação profissional';
+	@override String get description => 'Não use esta estimativa para tomar decisões médicas. Consulte sempre um profissional de saúde ou um nutricionista registrado para obter orientação personalizada sobre manejo/controle de peso.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedPt implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedPt._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsPt {
 			'disclaimer.healthMetrics.tdee.description' => 'O Gasto Energético Diário Total (TDEE) é o total de calorias que você queima por dia, incluindo sua GEB mais calorias de atividade física e movimento diário. O TDEE depende da sua GEB e nível de atividade. Um TDEE mais alto significa que você queima mais calorias no total, geralmente por ser mais ativo ou ter uma GEB maior. Um TDEE mais baixo sugere menos atividade diária ou uma GEB menor.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Meta Diária',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'A Meta Diária é sua ingestão calórica recomendada com base no seu TDEE e meta de peso. Para perda de peso, você consome menos calorias do que seu TDEE. Para manutenção do peso, você iguala seu TDEE. Para ganho de peso, você consome mais calorias do que seu TDEE. Isso ajuda você a alcançar a mudança de peso desejada de maneira saudável.',
+			'disclaimer.calorieExpenditure.title' => 'Estimativa de gasto calórico',
+			'disclaimer.calorieExpenditure.description' => 'Quando os dados do Health Connect não estão disponíveis, estimamos as calorias gastas hoje usando sua Taxa Metabólica Basal (BMR) e seu nível de atividade (TDEE), ajustando para a parte do dia que já passou.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Como a estimativa é calculada',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Calculamos seu TDEE (com base no seu perfil) e multiplicamos pela fração do dia que já passou (horas + minutos) / 24 para estimar as calorias gastas até agora.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Orientação profissional',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Não use esta estimativa para tomar decisões médicas. Consulte sempre um profissional de saúde ou um nutricionista registrado para obter orientação personalizada sobre manejo/controle de peso.',
 			'common.close' => 'Fechar',
 			'common.kContinue' => 'Continuar',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Você está gostando do ${appLabel}?',
@@ -2207,14 +2249,14 @@ extension on TranslationsPt {
 			'debug.testAnalyzeImageSubtitle' => 'Enviar imagem de teste predefinida',
 			'debug.testDetectImage' => 'Testar detecção de imagem',
 			'debug.testDetectImageSubtitle' => 'Detectar refeição a partir da URL da imagem',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Detectar imagem da galeria',
 			'debug.detectImageFromGallerySubtitle' => 'Selecione imagem, envie para o bucket e estime calorias',
 			'debug.testDetectText' => 'Testar detecção de texto',
 			'debug.testDetectTextSubtitle' => 'Detectar refeição a partir da descrição em texto',
 			'debug.testMealLoggingWithVariations' => 'Testar registro de refeição com variações',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Testar o fluxo completo de registro de refeição com variações',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Refeição simulada com variações',
 			'debug.mockMealWithVariationsSubtitle' => 'Visualizar variações + painel de dicas sem registrar',
 			'debug.mockMealName' => 'Frango grelhado com arroz e legumes',

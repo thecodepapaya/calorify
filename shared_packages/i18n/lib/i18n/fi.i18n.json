@@ -597,6 +597,18 @@
         "title": "Päivittäinen Tavoite",
         "description": "Päivittäinen Tavoite on suositeltu päivittäinen kalorinsaantisi, joka perustuu TDEE:hesi ja painotavoitteeseesi. Painon pudotuksessa kulutat vähemmän kaloreita kuin TDEE:si. Painon ylläpidossa vastaat TDEE:si. Painon lisäämisessä kulutat enemmän kaloreita kuin TDEE:si. Tämä auttaa sinua saavuttamaan haluamasi painomuutoksen terveellisellä tahdilla."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Arvio kalorinkulutuksesta",
+      "description": "Kun Health Connect -dataa ei ole saatavilla, arvioimme tämän päivän poltetut kalorit käyttämällä perusaineenvaihduntaasi (BMR) ja aktiivisuustasoasi (TDEE), skaalattuna kuluneen päivän osuudelle.",
+      "howCalculated": {
+        "title": "Miten arvio lasketaan",
+        "description": "Laskemme TDEE-arvosi (profiilisi perusteella) ja kerromme sen kuluneen päivän murto-osalla (tunnit + minuutit) / 24 arvioidaksemme tähän mennessä poltetut kalorit."
+      },
+      "professionalGuidance": {
+        "title": "Ammattilaisohjeet",
+        "description": "Tätä arviota ei saa käyttää lääkinnällisten päätösten perustana. Kysy aina terveydenhuollon ammattilaiselta tai laillistetulta ravitsemusterapeutilta henkilökohtaista neuvontaa painonhallintaan."
+      }
     }
   },
   "common": {

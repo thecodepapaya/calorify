@@ -4,6 +4,7 @@ import 'package:models/models.dart';
 import 'package:health/health.dart' hide MealType;
 import 'package:health/health.dart' as health show MealType;
 import 'package:flutter/foundation.dart';
+import 'package:calorify/core/services/onboarding_service.dart';
 
 class HealthService {
   HealthService._({Health? health}) : _health = health ?? Health();
@@ -21,6 +22,11 @@ class HealthService {
       HealthService._(health: health);
 
   final Health _health;
+  bool _lastFetchUsedFallback = false;
+
+  /// True if the most recent `getTotalCaloriesBurned` call returned a
+  /// profile-based estimate instead of Health Connect data.
+  bool get lastFetchUsedFallback => _lastFetchUsedFallback;
 
   HealthConnectSdkStatus status = HealthConnectSdkStatus.sdkUnavailable;
 
@@ -347,68 +353,57 @@ class HealthService {
       log('Cannot get total calories burned: service not initialized');
       return null;
     }
-    if (status != HealthConnectSdkStatus.sdkAvailable) {
-      log(
-        'Cannot get total calories burned: Health Connect SDK not available. Status: $status',
-      );
-      return null;
-    }
-    if (!await hasPermission(
-      HealthDataType.TOTAL_CALORIES_BURNED,
-      HealthDataAccess.READ,
-    )) {
-      return null;
-    }
+    // Reset fallback flag for each fetch
+    _lastFetchUsedFallback = false;
 
-    // Mock data when Health Connect is connected
-    // Returns a realistic value based on time of day
-    if (_isAuthorized && status != HealthConnectSdkStatus.sdkUnavailable) {
-      final now = DateTime.now();
-      final hour = now.hour;
+    // 1) If Health Connect is available and we have permission, try to fetch real data.
+    try {
+      if (status == HealthConnectSdkStatus.sdkAvailable &&
+          await hasPermission(
+            HealthDataType.TOTAL_CALORIES_BURNED,
+            HealthDataAccess.READ,
+          )) {
+        final now = DateTime.now();
+        final startTime = DateTime(now.year, now.month, now.day);
+        final endTime = now;
 
-      // Calculate mock calories based on time of day
-      // Base calories increase throughout the day
-      // Typical daily burn: 1800-2500 calories
-      // This simulates progressive calorie burn throughout the day
-      double mockCalories;
-      if (hour < 6) {
-        // Early morning (midnight to 6 AM): minimal activity
-        mockCalories = 200.0 + (hour * 10.0);
-      } else if (hour < 12) {
-        // Morning (6 AM to noon): moderate activity
-        mockCalories = 250.0 + ((hour - 6) * 25.0);
-      } else if (hour < 18) {
-        // Afternoon (noon to 6 PM): higher activity
-        mockCalories = 400.0 + ((hour - 12) * 30.0);
-      } else {
-        // Evening (6 PM to midnight): continued activity
-        mockCalories = 580.0 + ((hour - 18) * 20.0);
+        final data = await fetchHealthData(
+          startTime,
+          endTime,
+          HealthDataType.TOTAL_CALORIES_BURNED,
+        );
+
+        if (data.isNotEmpty) {
+          final totalCalories = data
+              .map((e) => (e.value as NumericHealthValue).numericValue.toDouble())
+              .reduce((value, element) => value + element);
+          _lastFetchUsedFallback = false;
+          return totalCalories;
+        }
+        // If data empty, fall through to fallback estimate
       }
-
-      // Add some randomness to make it more realistic (±10%)
-      final random = (now.millisecond % 200 - 100) / 1000.0;
-      mockCalories = mockCalories * (1.0 + random);
-
-      return mockCalories.roundToDouble();
+    } catch (e, st) {
+      log('Error fetching health connect calories: $e', stackTrace: st);
+      // Continue to fallback path
     }
 
-    final now = DateTime.now();
-    final startTime = DateTime(now.year, now.month, now.day);
-    final endTime = now;
+    // 2) Fallback: estimate using user profile (TDEE * fraction of day)
+    try {
+      final profile = await OnboardingService.instance.getProfileData();
+      if (profile != null) {
+        final estimate =
+            OnboardingService.instance.estimateCaloriesBurnedTodayFromProfile(profile);
+        if (estimate != null) {
+          _lastFetchUsedFallback = true;
+          return estimate;
+        }
+      }
+    } catch (e, st) {
+      log('Error estimating calories from profile: $e', stackTrace: st);
+    }
 
-    final data = await fetchHealthData(
-      startTime,
-      endTime,
-      HealthDataType.TOTAL_CALORIES_BURNED,
-    );
-
-    if (data.isEmpty) return null;
-
-    final totalCalories = data
-        .map((e) => (e.value as NumericHealthValue).numericValue.toDouble())
-        .reduce((value, element) => value + element);
-
-    return totalCalories;
+    // Nothing available
+    return null;
   }
 
   Future<bool> hasPermission(

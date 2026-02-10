@@ -335,6 +335,7 @@ class _TranslationsDisclaimerKo implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapKo snap = _TranslationsDisclaimerSnapKo._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateKo weightEstimate = _TranslationsDisclaimerWeightEstimateKo._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsKo healthMetrics = _TranslationsDisclaimerHealthMetricsKo._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureKo calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureKo._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsKo implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalKo dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalKo._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureKo implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '칼로리 소모량 추정';
+	@override String get description => 'Health Connect 데이터를 사용할 수 없을 때, 기초대사량(BMR)과 활동 수준(TDEE)을 사용해 오늘 소모된 칼로리를 추정하며 경과한 하루 비율에 따라 보정합니다.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedKo howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedKo._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceKo professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceKo._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsKo implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsKo._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalKo implements TranslationsDis
 	@override String get description => '일일 목표는 귀하의 TDEE와 체중 목표에 기반한 추천 일일 칼로리 섭취량입니다. 체중 감소를 위해서는 TDEE보다 적은 칼로리를 섭취합니다. 체중 유지를 위해서는 TDEE와 일치시킵니다. 체중 증가를 위해서는 TDEE보다 더 많은 칼로리를 섭취합니다. 이는 건강한 속도로 원하는 체중 변화를 달성하는 데 도움이 됩니다.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedKo implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '추정치 계산 방법';
+	@override String get description => '프로필을 바탕으로 TDEE를 계산하고, 경과한 하루의 비율 (시간 + 분) / 24 을 곱해 현재까지 소모된 칼로리를 추정합니다.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceKo implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '전문가 안내';
+	@override String get description => '이 추정값을 의료적 결정의 근거로 사용하지 마세요. 개인화된 체중 관리 조언은 반드시 의료 전문가 또는 등록된 영양사와 상담하십시오.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedKo implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedKo._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsKo {
 			'disclaimer.healthMetrics.tdee.description' => '총 일일 에너지 소비(TDEE)는 BMR에 신체 활동 및 일상적인 움직임에서 소모된 칼로리를 더한 하루 동안 소모하는 총 칼로리입니다. TDEE는 귀하의 BMR과 활동 수준에 따라 달라집니다. TDEE가 높을수록 일반적으로 더 많은 칼로리를 소모하며 이는 더 활동적이거나 BMR이 높은 경우가 많습니다. TDEE가 낮은 경우는 일상적인 활동이 적거나 BMR이 낮다는 것을 나타냅니다.',
 			'disclaimer.healthMetrics.dailyGoal.title' => '일일 목표',
 			'disclaimer.healthMetrics.dailyGoal.description' => '일일 목표는 귀하의 TDEE와 체중 목표에 기반한 추천 일일 칼로리 섭취량입니다. 체중 감소를 위해서는 TDEE보다 적은 칼로리를 섭취합니다. 체중 유지를 위해서는 TDEE와 일치시킵니다. 체중 증가를 위해서는 TDEE보다 더 많은 칼로리를 섭취합니다. 이는 건강한 속도로 원하는 체중 변화를 달성하는 데 도움이 됩니다.',
+			'disclaimer.calorieExpenditure.title' => '칼로리 소모량 추정',
+			'disclaimer.calorieExpenditure.description' => 'Health Connect 데이터를 사용할 수 없을 때, 기초대사량(BMR)과 활동 수준(TDEE)을 사용해 오늘 소모된 칼로리를 추정하며 경과한 하루 비율에 따라 보정합니다.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => '추정치 계산 방법',
+			'disclaimer.calorieExpenditure.howCalculated.description' => '프로필을 바탕으로 TDEE를 계산하고, 경과한 하루의 비율 (시간 + 분) / 24 을 곱해 현재까지 소모된 칼로리를 추정합니다.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => '전문가 안내',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => '이 추정값을 의료적 결정의 근거로 사용하지 마세요. 개인화된 체중 관리 조언은 반드시 의료 전문가 또는 등록된 영양사와 상담하십시오.',
 			'common.close' => '닫기',
 			'common.kContinue' => '계속하기',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel}을(를) 즐기고 계신가요?',
@@ -2207,14 +2249,14 @@ extension on TranslationsKo {
 			'debug.testAnalyzeImageSubtitle' => '미리 지정된 테스트 이미지를 업로드합니다.',
 			'debug.testDetectImage' => '이미지 감지 테스트',
 			'debug.testDetectImageSubtitle' => '이미지 URL로부터 식사를 감지합니다.',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => '갤러리에서 이미지 감지',
 			'debug.detectImageFromGallerySubtitle' => '이미지를 선택하여 버킷에 업로드하고 칼로리를 추정합니다.',
 			'debug.testDetectText' => '텍스트 감지 테스트',
 			'debug.testDetectTextSubtitle' => '텍스트 설명에서 식사를 감지합니다.',
 			'debug.testMealLoggingWithVariations' => '변형이 있는 식사 기록 테스트',
 			'debug.testMealLoggingWithVariationsSubtitle' => '변형을 포함한 전체 식사 기록 흐름을 테스트합니다.',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => '변형이 있는 모의 식사',
 			'debug.mockMealWithVariationsSubtitle' => '기록 없이 변형 및 팁 시트 UI를 미리봅니다.',
 			'debug.mockMealName' => '구운 닭고기와 밥, 야채',

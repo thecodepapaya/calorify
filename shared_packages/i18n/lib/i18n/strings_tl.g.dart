@@ -335,6 +335,7 @@ class _TranslationsDisclaimerTl implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapTl snap = _TranslationsDisclaimerSnapTl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateTl weightEstimate = _TranslationsDisclaimerWeightEstimateTl._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTl healthMetrics = _TranslationsDisclaimerHealthMetricsTl._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureTl calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureTl._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsTl implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalTl dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalTl._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureTl implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tantiyang pagkasunog ng kaloriya';
+	@override String get description => 'Kapag hindi magagamit ang data mula sa Health Connect, tinatantiya namin kung ilang kaloriya ang nasunog ngayong araw gamit ang iyong Basal Metabolic Rate (BMR) at antas ng aktibidad (TDEE), at inaangkop ito sa bahagi ng araw na lumipas.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedTl howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedTl._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTl professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTl._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsTl implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsTl._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalTl implements TranslationsDis
 	@override String get description => 'Ang Arawang Layunin ay ang inirekomendang pang-araw-araw na calorie na kinakailangan batay sa iyong TDEE at layunin sa timbang. Para sa pagbaba ng timbang, kumakain ka ng mas kaunting calorie kaysa sa iyong TDEE. Para sa pagpapanatili ng timbang, katumbas mo ang iyong TDEE. Para sa pagtaas ng timbang, kumakain ka ng mas maraming calorie kaysa sa iyong TDEE. Tinutulungan ka nitong makamit ang iyong nais na pagbabago ng timbang sa isang malusog na takbo.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedTl implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Paano kinakalkula ang pagtatantya';
+	@override String get description => 'Kinakalkula namin ang iyong TDEE (batay sa iyong profile) at pinararami ito ng proporsyon ng araw na lumipas (oras + minuto) / 24 upang tantiyahin ang kaloriya na nasunog hanggang ngayon.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTl implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Propesyonal na Patnubay';
+	@override String get description => 'Huwag gamitin ang pagtatantyang ito bilang batayan para sa mga medikal na desisyon. Laging kumonsulta sa isang propesyonal sa pangangalagang pangkalusugan o rehistradong dietitian para sa personal na payo tungkol sa pamamahala ng timbang.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTl implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTl._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsTl {
 			'disclaimer.healthMetrics.tdee.description' => 'Ang Total Daily Energy Expenditure (TDEE) ay ang kabuuang calorie na sinusunog mo sa isang araw, kabilang ang iyong BMR at mga calorie mula sa pisikal na aktibidad at pang-araw-araw na paggalaw. Ang TDEE ay nakadepende sa iyong BMR at antas ng aktibidad. Ang mas mataas na TDEE ay nangangahulugang mas maraming calorie ang iyong sinusunog sa kabuuan, karaniwang mula sa pagiging mas aktibo o pagkakaroon ng mas mataas na BMR. Ang mas mababang TDEE ay nagpapahiwatig ng mas kaunting aktibidad sa araw-araw o mas mababang BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Arawang Layunin',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Ang Arawang Layunin ay ang inirekomendang pang-araw-araw na calorie na kinakailangan batay sa iyong TDEE at layunin sa timbang. Para sa pagbaba ng timbang, kumakain ka ng mas kaunting calorie kaysa sa iyong TDEE. Para sa pagpapanatili ng timbang, katumbas mo ang iyong TDEE. Para sa pagtaas ng timbang, kumakain ka ng mas maraming calorie kaysa sa iyong TDEE. Tinutulungan ka nitong makamit ang iyong nais na pagbabago ng timbang sa isang malusog na takbo.',
+			'disclaimer.calorieExpenditure.title' => 'Tantiyang pagkasunog ng kaloriya',
+			'disclaimer.calorieExpenditure.description' => 'Kapag hindi magagamit ang data mula sa Health Connect, tinatantiya namin kung ilang kaloriya ang nasunog ngayong araw gamit ang iyong Basal Metabolic Rate (BMR) at antas ng aktibidad (TDEE), at inaangkop ito sa bahagi ng araw na lumipas.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Paano kinakalkula ang pagtatantya',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kinakalkula namin ang iyong TDEE (batay sa iyong profile) at pinararami ito ng proporsyon ng araw na lumipas (oras + minuto) / 24 upang tantiyahin ang kaloriya na nasunog hanggang ngayon.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Propesyonal na Patnubay',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Huwag gamitin ang pagtatantyang ito bilang batayan para sa mga medikal na desisyon. Laging kumonsulta sa isang propesyonal sa pangangalagang pangkalusugan o rehistradong dietitian para sa personal na payo tungkol sa pamamahala ng timbang.',
 			'common.close' => 'Isara',
 			'common.kContinue' => 'Magpatuloy',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nasisiyahan ka ba sa ${appLabel}?',
@@ -2207,14 +2249,14 @@ extension on TranslationsTl {
 			'debug.testAnalyzeImageSubtitle' => 'I-upload ang hardcoded na larawan ng pagsubok',
 			'debug.testDetectImage' => 'Pagsubok sa Pag-detect ng Larawan',
 			'debug.testDetectImageSubtitle' => 'I-detect ang pagkain mula sa URL ng larawan',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'I-detect ang Larawan mula sa Gallery',
 			'debug.detectImageFromGallerySubtitle' => 'Pumili ng larawan, i-upload sa bucket at tantiyahin ang kaloriya',
 			'debug.testDetectText' => 'Pagsubok sa Pag-detect ng Teksto',
 			'debug.testDetectTextSubtitle' => 'I-detect ang pagkain mula sa paglalarawang teksto',
 			'debug.testMealLoggingWithVariations' => 'Pagsubok sa Pag-log ng Pagkain na may Mga Pagkakaiba',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Subukan ang buong daloy ng pag-log ng pagkain kasama ang mga pagkakaiba',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Halimbawang pagkain na may mga pagkakaiba',
 			'debug.mockMealWithVariationsSubtitle' => 'I-preview ang variation + tip sheet UI nang hindi nagla-log',
 			'debug.mockMealName' => 'Inihaw na manok na may kanin at gulay',

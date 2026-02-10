@@ -597,6 +597,18 @@
         "title": "Cel Dzienny",
         "description": "Cel Dzienny to twoje zalecane dzienne spożycie kalorii na podstawie twojego TDEE i celu wagowego. Aby schudnąć, spożywasz mniej kalorii niż twoje TDEE. Aby utrzymać wagę, dostosowujesz swoje spożycie do TDEE. Aby przytyć, spożywasz więcej kalorii niż twoje TDEE. To pomaga osiągnąć pożądane zmiany w wadze w zdrowym tempie."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Szacunkowe spalanie kalorii",
+      "description": "Gdy dane z Health Connect są niedostępne, szacujemy dzisiejsze spalone kalorie na podstawie twojej podstawowej przemiany materii (BMR) i poziomu aktywności (TDEE), przeskalowując je proporcjonalnie do części dnia, która już upłynęła.",
+      "howCalculated": {
+        "title": "Jak obliczamy szacunek",
+        "description": "Obliczamy twoje TDEE (na podstawie danych z profilu), a następnie mnożymy je przez ułamek dnia, który już upłynął (godziny + minuty) / 24, aby oszacować dotychczasowe spalanie kalorii."
+      },
+      "professionalGuidance": {
+        "title": "Wskazówki specjalistyczne",
+        "description": "Nie używaj tego oszacowania do podejmowania decyzji medycznych. Zawsze skonsultuj się ze specjalistą opieki zdrowotnej lub zarejestrowanym dietetykiem, aby uzyskać spersonalizowane porady dotyczące zarządzania masą ciała."
+      }
     }
   },
   "common": {

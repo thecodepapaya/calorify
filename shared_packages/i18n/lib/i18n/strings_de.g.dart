@@ -335,6 +335,7 @@ class _TranslationsDisclaimerDe implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapDe snap = _TranslationsDisclaimerSnapDe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateDe weightEstimate = _TranslationsDisclaimerWeightEstimateDe._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsDe healthMetrics = _TranslationsDisclaimerHealthMetricsDe._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureDe calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureDe._(_root);
 }
 
 // Path: common
@@ -367,7 +368,7 @@ class _TranslationsFeedbackRatingDe implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Mit Sorgfalt von einem kleinen Team entwickelt. Wir legen Wert auf Datenschutz, Einfachheit und darauf, dir zu helfen, gesündere Essgewohnheiten aufzubauen.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Neugierig, wer hinter ${appLabel} steckt? Sieh dir ';
 	@override String get aboutUsLinkLabel => 'Über uns';
-	@override String get thankYouMessage => 'Danke! Wir fragen dich später noch einmal.';
+	@override String get thankYouMessage => 'Danke! Wir fragen ein anderes Mal wieder.';
 }
 
 // Path: errors
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsDe implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalDe dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalDe._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureDe implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureDe._(this._root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Schätzung des Kalorienverbrauchs';
+	@override String get description => 'Wenn Health Connect-Daten nicht verfügbar sind, schätzen wir, wie viele Kalorien Sie heute verbrannt haben, basierend auf Ihrem Grundumsatz (BMR) und Ihrem Aktivitätsniveau (TDEE). Die Schätzung wird auf den bereits verstrichenen Teil des Tages hochgerechnet.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedDe howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedDe._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceDe professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceDe._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsDe implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsDe._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalDe implements TranslationsDis
 	@override String get description => 'Das Tagesziel ist Ihre empfohlene tägliche Kalorienaufnahme basierend auf Ihrem TDEE und Ihrem Gewichtsziel. Für Gewichtsverlust konsumieren Sie weniger Kalorien als Ihr TDEE. Für die Gewichtserhaltung stimmen Sie Ihren TDEE ab. Für Gewichtszunahme konsumieren Sie mehr Kalorien als Ihr TDEE. Dies hilft Ihnen, Ihre gewünschte Gewichtsveränderung in einem gesunden Tempo zu erreichen.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedDe implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedDe._(this._root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Wie die Schätzung berechnet wird';
+	@override String get description => 'Wir berechnen Ihren TDEE (basierend auf Ihrem Profil) und multiplizieren ihn mit dem bereits verstrichenen Tagesanteil (Stunden + Minuten) / 24, um die bisher verbrannten Kalorien zu schätzen.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceDe implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceDe._(this._root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Professionelle Hinweise';
+	@override String get description => 'Nutzen Sie diese Schätzung nicht für medizinische Entscheidungen. Konsultieren Sie stets eine medizinische Fachkraft oder einen registrierten Ernährungsberater oder eine registrierte Ernährungsberaterin für individuelle Beratung zur Gewichtskontrolle.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedDe implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedDe._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsDe {
 			'disclaimer.healthMetrics.tdee.description' => 'Der Gesamtenergieverbrauch pro Tag (TDEE) ist die Gesamtzahl der Kalorien, die Sie pro Tag verbrennen, einschließlich Ihres BMR plus Kalorien aus körperlicher Aktivität und täglicher Bewegung. Der TDEE hängt von Ihrem BMR und Ihrem Aktivitätslevel ab. Ein höherer TDEE bedeutet, dass Sie insgesamt mehr Kalorien verbrennen, normalerweise weil Sie aktiver sind oder einen höheren BMR haben. Ein niedrigerer TDEE deutet auf weniger tägliche Aktivität oder einen niedrigeren BMR hin.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Tagesziel',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Das Tagesziel ist Ihre empfohlene tägliche Kalorienaufnahme basierend auf Ihrem TDEE und Ihrem Gewichtsziel. Für Gewichtsverlust konsumieren Sie weniger Kalorien als Ihr TDEE. Für die Gewichtserhaltung stimmen Sie Ihren TDEE ab. Für Gewichtszunahme konsumieren Sie mehr Kalorien als Ihr TDEE. Dies hilft Ihnen, Ihre gewünschte Gewichtsveränderung in einem gesunden Tempo zu erreichen.',
+			'disclaimer.calorieExpenditure.title' => 'Schätzung des Kalorienverbrauchs',
+			'disclaimer.calorieExpenditure.description' => 'Wenn Health Connect-Daten nicht verfügbar sind, schätzen wir, wie viele Kalorien Sie heute verbrannt haben, basierend auf Ihrem Grundumsatz (BMR) und Ihrem Aktivitätsniveau (TDEE). Die Schätzung wird auf den bereits verstrichenen Teil des Tages hochgerechnet.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Wie die Schätzung berechnet wird',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Wir berechnen Ihren TDEE (basierend auf Ihrem Profil) und multiplizieren ihn mit dem bereits verstrichenen Tagesanteil (Stunden + Minuten) / 24, um die bisher verbrannten Kalorien zu schätzen.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professionelle Hinweise',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Nutzen Sie diese Schätzung nicht für medizinische Entscheidungen. Konsultieren Sie stets eine medizinische Fachkraft oder einen registrierten Ernährungsberater oder eine registrierte Ernährungsberaterin für individuelle Beratung zur Gewichtskontrolle.',
 			'common.close' => 'Schließen',
 			'common.kContinue' => 'Fortfahren',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Gefällt dir ${appLabel}?',
@@ -2111,7 +2153,7 @@ extension on TranslationsDe {
 			'feedbackRating.aboutUsDescription' => 'Mit Sorgfalt von einem kleinen Team entwickelt. Wir legen Wert auf Datenschutz, Einfachheit und darauf, dir zu helfen, gesündere Essgewohnheiten aufzubauen.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Neugierig, wer hinter ${appLabel} steckt? Sieh dir ',
 			'feedbackRating.aboutUsLinkLabel' => 'Über uns',
-			'feedbackRating.thankYouMessage' => 'Danke! Wir fragen dich später noch einmal.',
+			'feedbackRating.thankYouMessage' => 'Danke! Wir fragen ein anderes Mal wieder.',
 			'errors.loadingProfileData' => 'Fehler beim Laden der Profildaten',
 			'errors.somethingWentWrong' => 'Etwas ist schiefgegangen.',
 			'debug.title' => 'Debug-Optionen',
@@ -2207,14 +2249,14 @@ extension on TranslationsDe {
 			'debug.testAnalyzeImageSubtitle' => 'Lade ein fest vorgegebenes Testbild hoch',
 			'debug.testDetectImage' => 'Bild-Erkennung testen',
 			'debug.testDetectImageSubtitle' => 'Mahlzeit anhand einer Bild-URL erkennen',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Bild aus Galerie erkennen',
 			'debug.detectImageFromGallerySubtitle' => 'Bild auswählen, in Bucket hochladen und Kalorien schätzen',
 			'debug.testDetectText' => 'Texterkennung testen',
 			'debug.testDetectTextSubtitle' => 'Mahlzeit anhand von Textbeschreibung erkennen',
 			'debug.testMealLoggingWithVariations' => 'Mahlzeitenprotokollierung mit Varianten testen',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Teste den vollständigen Ablauf der Mahlzeitenprotokollierung mit Varianten',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Mustermahlzeit mit Varianten',
 			'debug.mockMealWithVariationsSubtitle' => 'Vorschau der Varianten- und Tippanzeige ohne Protokollierung',
 			'debug.mockMealName' => 'Gegrilltes Hähnchen mit Reis und Gemüse',

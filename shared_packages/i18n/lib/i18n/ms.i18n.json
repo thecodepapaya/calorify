@@ -597,6 +597,18 @@
         "title": "Matlamat Harian",
         "description": "Matlamat Harian ialah pengambilan kalori harian yang disyorkan berdasarkan TDEE dan matlamat berat anda. Untuk penurunan berat badan, anda mengambil kalori kurang daripada TDEE anda. Untuk penyelenggaraan berat, anda sepadankan dengan TDEE anda. Untuk pertambahan berat, anda mengambil lebih banyak kalori daripada TDEE anda. Ini membantu anda mencapai perubahan berat yang diingini dengan cara yang sihat."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Anggaran pembakaran kalori",
+      "description": "Apabila data Health Connect tidak tersedia, kami menganggarkan kalori yang dibakar hari ini menggunakan Kadar Metabolik Asas (BMR) dan tahap aktiviti anda (TDEE), diselaraskan mengikut bahagian hari yang telah berlalu.",
+      "howCalculated": {
+        "title": "Bagaimana anggaran dikira",
+        "description": "Kami mengira TDEE anda (berdasarkan profil anda) dan mendarabkannya dengan pecahan hari yang telah berlalu (jam + minit) / 24 untuk menganggarkan kalori yang telah dibakar setakat ini."
+      },
+      "professionalGuidance": {
+        "title": "Panduan profesional",
+        "description": "Jangan gunakan anggaran ini untuk membuat keputusan perubatan. Sentiasa rujuk kepada profesional penjagaan kesihatan atau pakar diet berdaftar untuk nasihat pengurusan berat badan yang disesuaikan."
+      }
     }
   },
   "common": {

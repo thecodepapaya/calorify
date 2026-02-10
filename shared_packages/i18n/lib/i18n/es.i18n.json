@@ -597,6 +597,18 @@
         "title": "Objetivo Diario",
         "description": "El Objetivo Diario es tu ingesta calórica diaria recomendada basada en tu TDEE y objetivo de peso. Para perder peso, consumes menos calorías que tu TDEE. Para mantener el peso, igualas tu TDEE. Para ganar peso, consumes más calorías que tu TDEE. Esto te ayuda a lograr tu cambio de peso deseado a un ritmo saludable."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Estimación del gasto calórico",
+      "description": "Cuando los datos de Health Connect no están disponibles, estimamos las calorías quemadas hoy usando tu tasa metabólica basal (BMR/TMB) y tu nivel de actividad (TDEE), ajustando el resultado según la fracción del día que ha transcurrido.",
+      "howCalculated": {
+        "title": "Cómo se calcula la estimación",
+        "description": "Calculamos tu TDEE (según tu perfil) y lo multiplicamos por la fracción del día transcurrido (horas + minutos) / 24 para estimar las calorías quemadas hasta ahora."
+      },
+      "professionalGuidance": {
+        "title": "Orientación profesional",
+        "description": "No uses esta estimación para tomar decisiones médicas. Consulta siempre a un profesional de la salud o a un dietista/nutricionista registrado para obtener asesoramiento personalizado sobre el manejo del peso."
+      }
     }
   },
   "common": {

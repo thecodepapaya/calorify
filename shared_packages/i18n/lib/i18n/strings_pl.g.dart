@@ -335,6 +335,7 @@ class _TranslationsDisclaimerPl implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapPl snap = _TranslationsDisclaimerSnapPl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimatePl weightEstimate = _TranslationsDisclaimerWeightEstimatePl._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsPl healthMetrics = _TranslationsDisclaimerHealthMetricsPl._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditurePl calorieExpenditure = _TranslationsDisclaimerCalorieExpenditurePl._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsPl implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalPl dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalPl._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditurePl implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditurePl._(this._root);
+
+	final TranslationsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Szacunkowe spalanie kalorii';
+	@override String get description => 'Gdy dane z Health Connect są niedostępne, szacujemy dzisiejsze spalone kalorie na podstawie twojej podstawowej przemiany materii (BMR) i poziomu aktywności (TDEE), przeskalowując je proporcjonalnie do części dnia, która już upłynęła.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedPl howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedPl._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidancePl professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidancePl._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsPl implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsPl._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalPl implements TranslationsDis
 	@override String get description => 'Cel Dzienny to twoje zalecane dzienne spożycie kalorii na podstawie twojego TDEE i celu wagowego. Aby schudnąć, spożywasz mniej kalorii niż twoje TDEE. Aby utrzymać wagę, dostosowujesz swoje spożycie do TDEE. Aby przytyć, spożywasz więcej kalorii niż twoje TDEE. To pomaga osiągnąć pożądane zmiany w wadze w zdrowym tempie.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedPl implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedPl._(this._root);
+
+	final TranslationsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Jak obliczamy szacunek';
+	@override String get description => 'Obliczamy twoje TDEE (na podstawie danych z profilu), a następnie mnożymy je przez ułamek dnia, który już upłynął (godziny + minuty) / 24, aby oszacować dotychczasowe spalanie kalorii.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidancePl implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidancePl._(this._root);
+
+	final TranslationsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Wskazówki specjalistyczne';
+	@override String get description => 'Nie używaj tego oszacowania do podejmowania decyzji medycznych. Zawsze skonsultuj się ze specjalistą opieki zdrowotnej lub zarejestrowanym dietetykiem, aby uzyskać spersonalizowane porady dotyczące zarządzania masą ciała.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedPl implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedPl._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsPl {
 			'disclaimer.healthMetrics.tdee.description' => 'Całkowite Dzienne Wydatkowanie Energii (TDEE) to całkowita liczba kalorii, które spalasz dziennie, w tym twoje BMR oraz kalorie pochodzące z aktywności fizycznej i codziennego ruchu. TDEE zależy od twojego BMR i poziomu aktywności. Wyższe TDEE oznacza, że spalasz więcej kalorii ogólnie, zazwyczaj z powodu większej aktywności lub wyższego BMR. Niższe TDEE sugeruje mniejszą aktywność dzienną lub niższe BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Cel Dzienny',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Cel Dzienny to twoje zalecane dzienne spożycie kalorii na podstawie twojego TDEE i celu wagowego. Aby schudnąć, spożywasz mniej kalorii niż twoje TDEE. Aby utrzymać wagę, dostosowujesz swoje spożycie do TDEE. Aby przytyć, spożywasz więcej kalorii niż twoje TDEE. To pomaga osiągnąć pożądane zmiany w wadze w zdrowym tempie.',
+			'disclaimer.calorieExpenditure.title' => 'Szacunkowe spalanie kalorii',
+			'disclaimer.calorieExpenditure.description' => 'Gdy dane z Health Connect są niedostępne, szacujemy dzisiejsze spalone kalorie na podstawie twojej podstawowej przemiany materii (BMR) i poziomu aktywności (TDEE), przeskalowując je proporcjonalnie do części dnia, która już upłynęła.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Jak obliczamy szacunek',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Obliczamy twoje TDEE (na podstawie danych z profilu), a następnie mnożymy je przez ułamek dnia, który już upłynął (godziny + minuty) / 24, aby oszacować dotychczasowe spalanie kalorii.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Wskazówki specjalistyczne',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Nie używaj tego oszacowania do podejmowania decyzji medycznych. Zawsze skonsultuj się ze specjalistą opieki zdrowotnej lub zarejestrowanym dietetykiem, aby uzyskać spersonalizowane porady dotyczące zarządzania masą ciała.',
 			'common.close' => 'Zamknij',
 			'common.kContinue' => 'Kontynuuj',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Czy podoba Ci się ${appLabel}?',
@@ -2207,14 +2249,14 @@ extension on TranslationsPl {
 			'debug.testAnalyzeImageSubtitle' => 'Prześlij wbudowany obraz testowy',
 			'debug.testDetectImage' => 'Test wykrywania obrazu',
 			'debug.testDetectImageSubtitle' => 'Rozpoznaj posiłek z adresu URL obrazu',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Wykryj obraz z galerii',
 			'debug.detectImageFromGallerySubtitle' => 'Wybierz obraz, prześlij do bucketu i oszacuj kalorie',
 			'debug.testDetectText' => 'Test rozpoznawania tekstu',
 			'debug.testDetectTextSubtitle' => 'Rozpoznaj posiłek z opisu tekstowego',
 			'debug.testMealLoggingWithVariations' => 'Testuj logowanie posiłku z wariantami',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Przetestuj pełny przebieg logowania posiłku z wariantami',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Przykładowy posiłek z wariantami',
 			'debug.mockMealWithVariationsSubtitle' => 'Podgląd wariantu i sekcji wskazówek bez logowania',
 			'debug.mockMealName' => 'Grillowany kurczak z ryżem i warzywami',

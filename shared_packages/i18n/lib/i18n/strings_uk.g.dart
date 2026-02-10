@@ -335,6 +335,7 @@ class _TranslationsDisclaimerUk implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapUk snap = _TranslationsDisclaimerSnapUk._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateUk weightEstimate = _TranslationsDisclaimerWeightEstimateUk._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsUk healthMetrics = _TranslationsDisclaimerHealthMetricsUk._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureUk calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureUk._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsUk implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalUk dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalUk._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureUk implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Оцінка витрат калорій';
+	@override String get description => 'Коли дані Health Connect недоступні, ми оцінюємо сьогоднішні витрати калорій, використовуючи ваш базальний обмін речовин (BMR) і рівень активності (TDEE), пропорційно тій частині дня, яка вже пройшла.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedUk howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedUk._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceUk professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceUk._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsUk implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsUk._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalUk implements TranslationsDis
 	@override String get description => 'Щоденна мета — це ваша рекомендована добова калорійність, основана на вашому TDEE і цілі щодо ваги. Для схуднення вам потрібно споживати менше калорій, ніж ваш TDEE. Для підтримання ваги — відповідати вашому TDEE. Для набору ваги — споживати більше калорій, ніж ваш TDEE. Це допоможе вам досягти бажаних змін у вазі здоровими темпами.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedUk implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Як обчислюється ця оцінка';
+	@override String get description => 'Ми обчислюємо ваш TDEE (на основі профілю) і множимо його на частку пройденого часу доби (години + хвилини) / 24, щоб оцінити кількість калорій, спалених до цього моменту.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceUk implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Поради фахівців';
+	@override String get description => 'Не використовуйте цю оцінку для прийняття медичних рішень. Завжди консультуйтеся з медичним працівником або зареєстрованим дієтологом для отримання персоналізованих порад щодо контролю ваги.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUk implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUk._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsUk {
 			'disclaimer.healthMetrics.tdee.description' => 'Тотальне добове енергоспоживання (TDEE) — це загальна кількість калорій, яку ви спалюєте щодня, включаючи ваш BMR, а також калорії від фізичної активності та щоденних рухів. TDEE залежить від вашого BMR та рівня активності. Вищий TDEE означає, що ви спалюєте більше калорій загалом, зазвичай через більшу активність або вищий BMR. Нижчий TDEE свідчить про меншу щоденну активність або нижчий BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Щоденна мета',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Щоденна мета — це ваша рекомендована добова калорійність, основана на вашому TDEE і цілі щодо ваги. Для схуднення вам потрібно споживати менше калорій, ніж ваш TDEE. Для підтримання ваги — відповідати вашому TDEE. Для набору ваги — споживати більше калорій, ніж ваш TDEE. Це допоможе вам досягти бажаних змін у вазі здоровими темпами.',
+			'disclaimer.calorieExpenditure.title' => 'Оцінка витрат калорій',
+			'disclaimer.calorieExpenditure.description' => 'Коли дані Health Connect недоступні, ми оцінюємо сьогоднішні витрати калорій, використовуючи ваш базальний обмін речовин (BMR) і рівень активності (TDEE), пропорційно тій частині дня, яка вже пройшла.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Як обчислюється ця оцінка',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Ми обчислюємо ваш TDEE (на основі профілю) і множимо його на частку пройденого часу доби (години + хвилини) / 24, щоб оцінити кількість калорій, спалених до цього моменту.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Поради фахівців',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Не використовуйте цю оцінку для прийняття медичних рішень. Завжди консультуйтеся з медичним працівником або зареєстрованим дієтологом для отримання персоналізованих порад щодо контролю ваги.',
 			'common.close' => 'Закрити',
 			'common.kContinue' => 'Продовжити',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Чи подобається вам ${appLabel}?',
@@ -2207,14 +2249,14 @@ extension on TranslationsUk {
 			'debug.testAnalyzeImageSubtitle' => 'Завантажити фіксоване тестове зображення',
 			'debug.testDetectImage' => 'Тест: розпізнати зображення',
 			'debug.testDetectImageSubtitle' => 'Розпізнати страву за URL зображення',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Розпізнати зображення з галереї',
 			'debug.detectImageFromGallerySubtitle' => 'Виберіть зображення, завантажте до сховища та оцініть калорії',
 			'debug.testDetectText' => 'Тест: розпізнавання тексту',
 			'debug.testDetectTextSubtitle' => 'Розпізнати страву з опису текстом',
 			'debug.testMealLoggingWithVariations' => 'Тест: запис їжі з варіаціями',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Перевірте повний процес запису їжі з варіаціями',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Зразкова страва з варіаціями',
 			'debug.mockMealWithVariationsSubtitle' => 'Попередній перегляд варіацій та інтерфейсу порад без запису',
 			'debug.mockMealName' => 'Курка-гриль з рисом та овочами',

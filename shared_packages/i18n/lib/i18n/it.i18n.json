@@ -597,6 +597,18 @@
         "title": "Obiettivo Giornaliero",
         "description": "L'Obiettivo Giornaliero è il tuo apporto calorico giornaliero raccomandato basato sul tuo TDEE e sull'obiettivo di peso. Per la perdita di peso, consumi meno calorie rispetto al tuo TDEE. Per il mantenimento del peso, eguagli il tuo TDEE. Per l'aumento di peso, consumi più calorie rispetto al tuo TDEE. Questo ti aiuta a raggiungere il cambiamento di peso desiderato a un ritmo sano."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Stima del dispendio calorico",
+      "description": "Quando i dati di Health Connect non sono disponibili, stimiamo le calorie bruciate oggi utilizzando il tuo Metabolismo Basale (BMR) e il livello di attività (TDEE), adeguandole alla porzione della giornata trascorsa.",
+      "howCalculated": {
+        "title": "Come viene calcolata la stima",
+        "description": "Calcoliamo il tuo TDEE (in base al tuo profilo) e lo moltiplichiamo per la frazione della giornata trascorsa (ore + minuti) / 24 per stimare le calorie bruciate finora."
+      },
+      "professionalGuidance": {
+        "title": "Consigli professionali",
+        "description": "Non usare questa stima per prendere decisioni mediche. Consulta sempre un professionista sanitario o un dietista/nutrizionista registrato per consigli personalizzati sulla gestione del peso."
+      }
     }
   },
   "common": {

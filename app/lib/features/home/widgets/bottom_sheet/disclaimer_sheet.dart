@@ -204,3 +204,24 @@ DisclaimerData getHealthMetricsDisclaimer() {
     ],
   );
 }
+
+DisclaimerData getCalorieExpenditureDisclaimer() {
+  return DisclaimerData(
+    title: t.disclaimer.calorieExpenditure.title,
+    description: t.disclaimer.calorieExpenditure.description,
+    bulletPoints: [
+      DisclaimerEntry(
+        title: t.disclaimer.weightEstimate.calorieAccuracy.title,
+        description: t.disclaimer.weightEstimate.calorieAccuracy.description,
+      ),
+      DisclaimerEntry(
+        title: t.disclaimer.calorieExpenditure.howCalculated.title,
+        description: t.disclaimer.calorieExpenditure.howCalculated.description,
+      ),
+      DisclaimerEntry(
+        title: t.disclaimer.calorieExpenditure.professionalGuidance.title,
+        description: t.disclaimer.calorieExpenditure.professionalGuidance.description,
+      ),
+    ],
+  );
+}

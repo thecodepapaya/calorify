@@ -335,6 +335,7 @@ class _TranslationsDisclaimerCs implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapCs snap = _TranslationsDisclaimerSnapCs._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateCs weightEstimate = _TranslationsDisclaimerWeightEstimateCs._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsCs healthMetrics = _TranslationsDisclaimerHealthMetricsCs._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureCs calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureCs._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsCs implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalCs dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalCs._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureCs implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Odhad spálených kalorií';
+	@override String get description => 'Když nejsou k dispozici údaje z Health Connect, odhadneme dnešní spálené kalorie pomocí vašeho bazálního metabolismu (BMR) a úrovně aktivity (TDEE). Výsledek upravíme podle části dne, která již uplynula.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedCs howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedCs._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceCs professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceCs._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsCs implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsCs._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalCs implements TranslationsDis
 	@override String get description => 'Denní cíl je vaše doporučená denní příjem kalorií na základě vašeho TDEE a cílové hmotnosti. Při hubnutí konzumujete méně kalorií než vaše TDEE. Pro udržení hmotnosti odpovídáte svému TDEE. Při přibírání na váze konzumujete více kalorií než vaše TDEE. To vám pomůže dosáhnout požadované změny hmotnosti zdravým tempem.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedCs implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Jak je odhad vypočítán';
+	@override String get description => 'Spočítáme vaše TDEE (na základě profilu) a vynásobíme jej poměrem uplynulé části dne (hodiny + minuty) / 24, abychom odhadli dosud spálené kalorie.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceCs implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Odborné doporučení';
+	@override String get description => 'Tento odhad nepoužívejte k rozhodování o zdravotní péči. Vždy se poraďte se zdravotnickým odborníkem nebo registrovaným dietologem, pokud potřebujete individuální rady ohledně řízení hmotnosti.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedCs implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedCs._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsCs {
 			'disclaimer.healthMetrics.tdee.description' => 'Celkový denní výdej energie (TDEE) je celkový počet kalorií, které spálíte za den, včetně vašeho BMR plus kalorií z fyzické aktivity a denního pohybu. TDEE závisí na vašem BMR a úrovni aktivity. Vyšší TDEE znamená, že spálíte více kalorií celkově, obvykle díky větší aktivitě nebo vyššímu BMR. Nižší TDEE naznačuje méně denní aktivity nebo nižší BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Denní cíl',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Denní cíl je vaše doporučená denní příjem kalorií na základě vašeho TDEE a cílové hmotnosti. Při hubnutí konzumujete méně kalorií než vaše TDEE. Pro udržení hmotnosti odpovídáte svému TDEE. Při přibírání na váze konzumujete více kalorií než vaše TDEE. To vám pomůže dosáhnout požadované změny hmotnosti zdravým tempem.',
+			'disclaimer.calorieExpenditure.title' => 'Odhad spálených kalorií',
+			'disclaimer.calorieExpenditure.description' => 'Když nejsou k dispozici údaje z Health Connect, odhadneme dnešní spálené kalorie pomocí vašeho bazálního metabolismu (BMR) a úrovně aktivity (TDEE). Výsledek upravíme podle části dne, která již uplynula.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Jak je odhad vypočítán',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Spočítáme vaše TDEE (na základě profilu) a vynásobíme jej poměrem uplynulé části dne (hodiny + minuty) / 24, abychom odhadli dosud spálené kalorie.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Odborné doporučení',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Tento odhad nepoužívejte k rozhodování o zdravotní péči. Vždy se poraďte se zdravotnickým odborníkem nebo registrovaným dietologem, pokud potřebujete individuální rady ohledně řízení hmotnosti.',
 			'common.close' => 'Zavřít',
 			'common.kContinue' => 'Pokračovat',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Líbí se vám ${appLabel}?',
@@ -2207,14 +2249,14 @@ extension on TranslationsCs {
 			'debug.testAnalyzeImageSubtitle' => 'Nahrát předdefinovaný testovací obrázek',
 			'debug.testDetectImage' => 'Test detekce obrázku',
 			'debug.testDetectImageSubtitle' => 'Detekovat jídlo z URL obrázku',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Detekovat obrázek z galerie',
 			'debug.detectImageFromGallerySubtitle' => 'Vyberte obrázek, nahrajte do úložiště a odhadněte kalorie',
 			'debug.testDetectText' => 'Test detekce textu',
 			'debug.testDetectTextSubtitle' => 'Detekovat jídlo z textového popisu',
 			'debug.testMealLoggingWithVariations' => 'Testování záznamu jídla s variantami',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Otestovat kompletní tok záznamu jídla s variantami',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Ukázkové jídlo s variantami',
 			'debug.mockMealWithVariationsSubtitle' => 'Náhled rozhraní varianty a tipů bez uložení záznamu',
 			'debug.mockMealName' => 'Grilované kuře s rýží a zeleninou',

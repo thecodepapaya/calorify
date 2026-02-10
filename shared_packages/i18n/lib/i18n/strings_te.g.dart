@@ -335,6 +335,7 @@ class _TranslationsDisclaimerTe implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapTe snap = _TranslationsDisclaimerSnapTe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateTe weightEstimate = _TranslationsDisclaimerWeightEstimateTe._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTe healthMetrics = _TranslationsDisclaimerHealthMetricsTe._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureTe calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureTe._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsTe implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalTe dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalTe._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureTe implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'క్యాలరీ ఖర్చు అంచనా';
+	@override String get description => 'Health Connect డేటా అందుబాటులో లేకపోతే, రోజులో ఇప్పటివరకు మీరు ఖర్చు చేసిన క్యాలరీలను మీ బేసల్ మెటబాలిక్ రేట్ (BMR) మరియు శారీరక కార్యకలాప స్థాయి (TDEE) ఆధారంగా అంచనా వేస్తాము. ఈ అంచనాను రోజు గడిచిన భాగానికి అనుగుణంగా సర్దుతాము.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedTe howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedTe._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTe professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTe._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsTe implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsTe._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalTe implements TranslationsDis
 	@override String get description => 'రోజు లక్ష్యం అంటే మీ TDEE మరియు బరువు లక్ష్యం ఆధారంగా మీకు సిఫారసు చేసిన ప్రతిరోజు కేలరీ తీసుకొనే పరిమాణం. బరువు తగ్గేందుకు, మీరు మీ TDEE కన్నా తక్కువ కేలరీలను తీసుకుంటారు. బరువు నిర్వహణకు, మీరు మీ TDEE సరిపోల్చుతారు. బరువు పెరగడం కోసం, మీరు మీ TDEE కన్నా ఎక్కువ కేలరీలు తీసుకుంటారు. ఇది మీ ఆశించిన బరువు మార్పును ఆరోగ్యకరమైన రీతిలో సాధించడంలో సహాయ పడుతుంది.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedTe implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ఈ అంచనా ఎలా లెక్కించబడుతుంది';
+	@override String get description => 'మేము మీ ప్రొఫైల్ ఆధారంగా TDEEని గణించి, రోజులో గడిచిన భాగాన్ని ((గంటలు + నిమిషాలు) / 24) తో గుణించి ఇప్పటివరకూ బర్న్ అయిన క్యాలరీలను అంచనా వేస్తాము.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTe implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'వృత్తిపరమైన సూచన';
+	@override String get description => 'ఈ అంచనాను వైద్య నిర్ణయాల కోసం ఉపయోగించకండి. వ్యక్తిగత బరువు నిర్వహణకు సంబంధించిన సలహాల కోసం ఎప్పుడూ ఆరోగ్య సంరక్షణ నిపుణుడు లేదా నమోదిత డైటీషియన్‌ను సంప్రదించండి.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTe implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTe._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsTe {
 			'disclaimer.healthMetrics.tdee.description' => 'మొత్తం రోజు శక్తి ఖర్చు (TDEE) అంటే మీరు ప్రతి రోజూ కరిగించే మొత్తం కేలరీలు, అందులో మీ BMR మరియు శారీరక కార్యకలాపాల నుండి కేలరీస్ కలవు. TDEE మీ BMR మరియు కార్యకలాప స్థాయి పై ఆధారపడి ఉంటుంది. అధిక TDEE అంటే మీరు మొత్తం కేలરીలను ఎక్కువగా కరిగిస్తారు, సాధారణంగా ఎక్కువ కార్యకలాపం చేయడం లేదా అధిక BMR వల్ల. తక్కువ TDEE అంటే తక్కువ రోజు కార్యకలాపం లేదా తక్కువ BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'రోజు లక్ష్యం',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'రోజు లక్ష్యం అంటే మీ TDEE మరియు బరువు లక్ష్యం ఆధారంగా మీకు సిఫారసు చేసిన ప్రతిరోజు కేలరీ తీసుకొనే పరిమాణం. బరువు తగ్గేందుకు, మీరు మీ TDEE కన్నా తక్కువ కేలరీలను తీసుకుంటారు. బరువు నిర్వహణకు, మీరు మీ TDEE సరిపోల్చుతారు. బరువు పెరగడం కోసం, మీరు మీ TDEE కన్నా ఎక్కువ కేలరీలు తీసుకుంటారు. ఇది మీ ఆశించిన బరువు మార్పును ఆరోగ్యకరమైన రీతిలో సాధించడంలో సహాయ పడుతుంది.',
+			'disclaimer.calorieExpenditure.title' => 'క్యాలరీ ఖర్చు అంచనా',
+			'disclaimer.calorieExpenditure.description' => 'Health Connect డేటా అందుబాటులో లేకపోతే, రోజులో ఇప్పటివరకు మీరు ఖర్చు చేసిన క్యాలరీలను మీ బేసల్ మెటబాలిక్ రేట్ (BMR) మరియు శారీరక కార్యకలాప స్థాయి (TDEE) ఆధారంగా అంచనా వేస్తాము. ఈ అంచనాను రోజు గడిచిన భాగానికి అనుగుణంగా సర్దుతాము.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'ఈ అంచనా ఎలా లెక్కించబడుతుంది',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'మేము మీ ప్రొఫైల్ ఆధారంగా TDEEని గణించి, రోజులో గడిచిన భాగాన్ని ((గంటలు + నిమిషాలు) / 24) తో గుణించి ఇప్పటివరకూ బర్న్ అయిన క్యాలరీలను అంచనా వేస్తాము.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'వృత్తిపరమైన సూచన',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'ఈ అంచనాను వైద్య నిర్ణయాల కోసం ఉపయోగించకండి. వ్యక్తిగత బరువు నిర్వహణకు సంబంధించిన సలహాల కోసం ఎప్పుడూ ఆరోగ్య సంరక్షణ నిపుణుడు లేదా నమోదిత డైటీషియన్‌ను సంప్రదించండి.',
 			'common.close' => 'క్లోజ్',
 			'common.kContinue' => 'కొనసాగించండి',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'మీకు ${appLabel} ఉపయోగించడం నచ్చుతున్నదా?',
@@ -2207,14 +2249,14 @@ extension on TranslationsTe {
 			'debug.testAnalyzeImageSubtitle' => 'హార్డ్‌కోడ్ చేసిన టెస్ట్ ఇమేజ్ అప్లోడ్ చేయండి',
 			'debug.testDetectImage' => 'ఇమేజ్ గుర్తింపు పరీక్ష',
 			'debug.testDetectImageSubtitle' => 'ఇమేజ్ URL నుండి భోజనాన్ని గుర్తించండి',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'గ్యాలరీ నుండి ఇమేజ్ గుర్తించండి',
 			'debug.detectImageFromGallerySubtitle' => 'ఇమేజ్ ఎంచుకొని బకెట్‌కు అప్లోడ్ చేసి కాలరీలు అంచనా వేయండి',
 			'debug.testDetectText' => 'టెస్ట్ టెక్స్ట్ గుర్తింపు',
 			'debug.testDetectTextSubtitle' => 'టెక్స్ట్ వివరణ నుంచి భోజనాన్ని గుర్తించండి',
 			'debug.testMealLoggingWithVariations' => 'వేరియేషన్స్‌తో భోజనం లాగ్ చేయడం పరీక్షించండి',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'వేరియేషన్లతో పూర్తి భోజన లాగింగ్ ఫ్లోను పరీక్షించండి',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'వేరియేషన్లతో మాక్ భోజనం',
 			'debug.mockMealWithVariationsSubtitle' => 'లాగ్ చేయకుండా వేరియేషన్ మరియు టిప్ షీట్ UIని ప్రివ్యూ చేయండి',
 			'debug.mockMealName' => 'రైస్ మరియు కూరగాయలతో గ్రిల్ చేసిన చికెన్',

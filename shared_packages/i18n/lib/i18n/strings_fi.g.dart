@@ -335,6 +335,7 @@ class _TranslationsDisclaimerFi implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapFi snap = _TranslationsDisclaimerSnapFi._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateFi weightEstimate = _TranslationsDisclaimerWeightEstimateFi._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsFi healthMetrics = _TranslationsDisclaimerHealthMetricsFi._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureFi calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureFi._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsFi implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalFi dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalFi._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureFi implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureFi._(this._root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Arvio kalorinkulutuksesta';
+	@override String get description => 'Kun Health Connect -dataa ei ole saatavilla, arvioimme tämän päivän poltetut kalorit käyttämällä perusaineenvaihduntaasi (BMR) ja aktiivisuustasoasi (TDEE), skaalattuna kuluneen päivän osuudelle.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedFi howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedFi._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFi professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFi._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsFi implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsFi._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalFi implements TranslationsDis
 	@override String get description => 'Päivittäinen Tavoite on suositeltu päivittäinen kalorinsaantisi, joka perustuu TDEE:hesi ja painotavoitteeseesi. Painon pudotuksessa kulutat vähemmän kaloreita kuin TDEE:si. Painon ylläpidossa vastaat TDEE:si. Painon lisäämisessä kulutat enemmän kaloreita kuin TDEE:si. Tämä auttaa sinua saavuttamaan haluamasi painomuutoksen terveellisellä tahdilla.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedFi implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedFi._(this._root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Miten arvio lasketaan';
+	@override String get description => 'Laskemme TDEE-arvosi (profiilisi perusteella) ja kerromme sen kuluneen päivän murto-osalla (tunnit + minuutit) / 24 arvioidaksemme tähän mennessä poltetut kalorit.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFi implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFi._(this._root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ammattilaisohjeet';
+	@override String get description => 'Tätä arviota ei saa käyttää lääkinnällisten päätösten perustana. Kysy aina terveydenhuollon ammattilaiselta tai laillistetulta ravitsemusterapeutilta henkilökohtaista neuvontaa painonhallintaan.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFi implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFi._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsFi {
 			'disclaimer.healthMetrics.tdee.description' => 'Kokonaispäivittäinen energian kulutus (TDEE) on kokonaiskalorimäärä, jonka poltat päivässä, mukaan lukien BMR ja kalorit fyysisestä aktiivisuudesta ja päivittäisestä liikkumisesta. TDEE riippuu BMR:stäsi ja aktiivisuustasostasi. Korkeampi TDEE tarkoittaa, että poltat enemmän kaloreita yhteensä, yleensä koska olet aktiivisempi tai sinulla on korkeampi BMR. Alempi TDEE viittaa vähäisempään päivittäiseen aktiivisuuteen tai matalampaan BMR:ään.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Päivittäinen Tavoite',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Päivittäinen Tavoite on suositeltu päivittäinen kalorinsaantisi, joka perustuu TDEE:hesi ja painotavoitteeseesi. Painon pudotuksessa kulutat vähemmän kaloreita kuin TDEE:si. Painon ylläpidossa vastaat TDEE:si. Painon lisäämisessä kulutat enemmän kaloreita kuin TDEE:si. Tämä auttaa sinua saavuttamaan haluamasi painomuutoksen terveellisellä tahdilla.',
+			'disclaimer.calorieExpenditure.title' => 'Arvio kalorinkulutuksesta',
+			'disclaimer.calorieExpenditure.description' => 'Kun Health Connect -dataa ei ole saatavilla, arvioimme tämän päivän poltetut kalorit käyttämällä perusaineenvaihduntaasi (BMR) ja aktiivisuustasoasi (TDEE), skaalattuna kuluneen päivän osuudelle.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Miten arvio lasketaan',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Laskemme TDEE-arvosi (profiilisi perusteella) ja kerromme sen kuluneen päivän murto-osalla (tunnit + minuutit) / 24 arvioidaksemme tähän mennessä poltetut kalorit.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Ammattilaisohjeet',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Tätä arviota ei saa käyttää lääkinnällisten päätösten perustana. Kysy aina terveydenhuollon ammattilaiselta tai laillistetulta ravitsemusterapeutilta henkilökohtaista neuvontaa painonhallintaan.',
 			'common.close' => 'Sulje',
 			'common.kContinue' => 'Jatka',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nautitko ${appLabel}:stä?',
@@ -2207,14 +2249,14 @@ extension on TranslationsFi {
 			'debug.testAnalyzeImageSubtitle' => 'Lähetä kovakoodattu testikuva',
 			'debug.testDetectImage' => 'Testaa kuvan tunnistus',
 			'debug.testDetectImageSubtitle' => 'Tunnista ateria kuvan URL-osoitteesta',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Tunnista kuva galleriasta',
 			'debug.detectImageFromGallerySubtitle' => 'Valitse kuva, lataa säilöön ja arvioi kalorit',
 			'debug.testDetectText' => 'Testaa tekstintunnistusta',
 			'debug.testDetectTextSubtitle' => 'Tunnista ateria tekstikuvauksen perusteella',
 			'debug.testMealLoggingWithVariations' => 'Testaa aterian kirjaus variaatioilla',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Testaa koko aterian kirjausprosessi variaatioineen',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Mallipäivä (variaatioilla)',
 			'debug.mockMealWithVariationsSubtitle' => 'Esikatsele variaatio- ja vinkkinäkymää ilman kirjaamista',
 			'debug.mockMealName' => 'Grillattua kanaa riisin ja vihannesten kanssa',
