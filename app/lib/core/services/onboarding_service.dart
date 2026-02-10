@@ -116,6 +116,18 @@ class OnboardingService {
     return tdee; // Fallback to maintain weight
   }
 
+  /// Estimate calories burned so far today using the user's profile/TDEE.
+  /// Uses a simple fractional-day scaling:
+  /// estimate = TDEE * (hoursPassed + minutes/60 + seconds/3600) / 24
+  double? estimateCaloriesBurnedTodayFromProfile(UserProfile data) {
+    final tdee = calculateTDEE(data);
+    if (tdee == null) return null;
+    final now = DateTime.now();
+    final fractionOfDay =
+        (now.hour + now.minute / 60.0 + now.second / 3600.0) / 24.0;
+    return tdee * fractionOfDay;
+  }
+
   /// Calculate ideal weight based on height using the formula:
   /// Ideal Weight (kg) = Target BMI * (Height in meters)^2
   double? calculateIdealWeight(UserProfile data) {

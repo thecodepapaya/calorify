@@ -335,6 +335,7 @@ class _TranslationsDisclaimerBn implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapBn snap = _TranslationsDisclaimerSnapBn._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBn weightEstimate = _TranslationsDisclaimerWeightEstimateBn._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsBn healthMetrics = _TranslationsDisclaimerHealthMetricsBn._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureBn calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureBn._(_root);
 }
 
 // Path: common
@@ -367,7 +368,7 @@ class _TranslationsFeedbackRatingBn implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'একটি ছোট দল যত্নসহ তৈরি করেছে। আমরা গোপনীয়তা, সরলতা এবং আপনাকে আরও স্বাস্থ্যকর খাদ্যাভ্যাস গড়তে সাহায্য করার ওপর গুরুত্ব দিই।';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'জানতে চান ${appLabel}-এর পেছনে কে আছেন? দেখুন ';
 	@override String get aboutUsLinkLabel => 'আমাদের সম্পর্কে';
-	@override String get thankYouMessage => 'ধন্যবাদ! আমরা ভবিষ্যতে আবার জিজ্ঞাসা করব।';
+	@override String get thankYouMessage => 'ধন্যবাদ! আমরা আবার অন্য সময় জিজ্ঞাসা করব।';
 }
 
 // Path: errors
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsBn implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalBn dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalBn._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureBn implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ক্যালোরি ব্যয় অনুমান';
+	@override String get description => 'যখন Health Connect ডেটা উপলব্ধ থাকে না, আমরা আপনার বেসাল মেটাবলিক রেট (BMR) এবং ক্রিয়াকলাপের স্তর (TDEE) ব্যবহার করে আজকে যত ক্যালোরি বার্ন হয়েছে তা অনুমান করি, এবং দিনের যে অংশটি কেটে গেছে তার অনুপাতে স্কেল করি।';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedBn howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedBn._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceBn professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceBn._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsBn implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsBn._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalBn implements TranslationsDis
 	@override String get description => 'দৈনিক লক্ষ্য হল আপনার টিডিইই এবং ওজন লক্ষ্য অনুযায়ী আপনার সুপারিশকৃত দৈনিক ক্যালোরি গ্রহণ। ওজন কমানোর জন্য, আপনাকে আপনার টিডিইই-এর চেয়ে কম ক্যালোরি গ্রহণ করতে হবে। ওজন বজায় রাখার জন্য, আপনাকে আপনার টিডিইই-কে মানানসই করতে হবে। ওজন বাড়ানোর জন্য, আপনাকে আপনার টিডিইই-এর চেয়ে বেশি ক্যালোরি গ্রহণ করতে হবে। এটি আপনাকে স্বাস্থ্যকর গতি অনুসরণ করে আপনার কাঙ্খিত ওজন পরিবর্তন অর্জনে সাহায্য করে।';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedBn implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'কিভাবে অনুমানটি গণনা করা হয়';
+	@override String get description => 'আমরা আপনার প্রোফাইলের উপর ভিত্তি করে TDEE গণনা করি এবং দিন অতিবাহিত অংশের অনুপাত ((ঘন্টা + মিনিট) / 24) দ্বারা গুণ করে এখন পর্যন্ত বার্ন হওয়া ক্যালোরি অনুমান করি।';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceBn implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'পেশাদার নির্দেশনা';
+	@override String get description => 'চিকিৎসাগত সিদ্ধান্ত নেওয়ার জন্য এই অনুমান ব্যবহার করবেন না। ব্যক্তিগতকৃত ওজন ব্যবস্থাপনার পরামর্শের জন্য সর্বদা একজন স্বাস্থ্যসেবা পেশাজীবী বা নিবন্ধিত ডায়েটিশিয়ানের সাথে পরামর্শ করুন।';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedBn implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedBn._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsBn {
 			'disclaimer.healthMetrics.tdee.description' => 'মোট দৈনিক শক্তি ব্যয় (টিডিইই) হল আপনার দৈনিক পোড়ানো মোট ক্যালোরি, এতে আপনার বিএমআর এবং শারীরিক কার্যকলাপ ও দৈনন্দিন চলাফেরা থেকে প্রাপ্ত ক্যালোরি অন্তর্ভুক্ত। টিডিইই আপনার বিএমআর এবং কার্যকলাপের স্তরের উপর নির্ভর করে। একটি উচ্চ টিডিইই মানে হল আপনি মোটর ক্ষেত্রে বেশি ক্যালোরি পোড়াচ্ছেন, সাধারণত বেশি সক্রিয় হওয়া বা উচ্চ বিএমআর থাকার কারণে। একটি নিম্ন টিডিইই কম দৈনন্দিন কার্যক্রম বা কম বিএমআর নির্দেশ করে।',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'দৈনিক লক্ষ্য',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'দৈনিক লক্ষ্য হল আপনার টিডিইই এবং ওজন লক্ষ্য অনুযায়ী আপনার সুপারিশকৃত দৈনিক ক্যালোরি গ্রহণ। ওজন কমানোর জন্য, আপনাকে আপনার টিডিইই-এর চেয়ে কম ক্যালোরি গ্রহণ করতে হবে। ওজন বজায় রাখার জন্য, আপনাকে আপনার টিডিইই-কে মানানসই করতে হবে। ওজন বাড়ানোর জন্য, আপনাকে আপনার টিডিইই-এর চেয়ে বেশি ক্যালোরি গ্রহণ করতে হবে। এটি আপনাকে স্বাস্থ্যকর গতি অনুসরণ করে আপনার কাঙ্খিত ওজন পরিবর্তন অর্জনে সাহায্য করে।',
+			'disclaimer.calorieExpenditure.title' => 'ক্যালোরি ব্যয় অনুমান',
+			'disclaimer.calorieExpenditure.description' => 'যখন Health Connect ডেটা উপলব্ধ থাকে না, আমরা আপনার বেসাল মেটাবলিক রেট (BMR) এবং ক্রিয়াকলাপের স্তর (TDEE) ব্যবহার করে আজকে যত ক্যালোরি বার্ন হয়েছে তা অনুমান করি, এবং দিনের যে অংশটি কেটে গেছে তার অনুপাতে স্কেল করি।',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'কিভাবে অনুমানটি গণনা করা হয়',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'আমরা আপনার প্রোফাইলের উপর ভিত্তি করে TDEE গণনা করি এবং দিন অতিবাহিত অংশের অনুপাত ((ঘন্টা + মিনিট) / 24) দ্বারা গুণ করে এখন পর্যন্ত বার্ন হওয়া ক্যালোরি অনুমান করি।',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'পেশাদার নির্দেশনা',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'চিকিৎসাগত সিদ্ধান্ত নেওয়ার জন্য এই অনুমান ব্যবহার করবেন না। ব্যক্তিগতকৃত ওজন ব্যবস্থাপনার পরামর্শের জন্য সর্বদা একজন স্বাস্থ্যসেবা পেশাজীবী বা নিবন্ধিত ডায়েটিশিয়ানের সাথে পরামর্শ করুন।',
 			'common.close' => 'বন্ধ করুন',
 			'common.kContinue' => 'অগ্রসর হোন',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'আপনি কি ${appLabel} উপভোগ করছেন?',
@@ -2111,7 +2153,7 @@ extension on TranslationsBn {
 			'feedbackRating.aboutUsDescription' => 'একটি ছোট দল যত্নসহ তৈরি করেছে। আমরা গোপনীয়তা, সরলতা এবং আপনাকে আরও স্বাস্থ্যকর খাদ্যাভ্যাস গড়তে সাহায্য করার ওপর গুরুত্ব দিই।',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'জানতে চান ${appLabel}-এর পেছনে কে আছেন? দেখুন ',
 			'feedbackRating.aboutUsLinkLabel' => 'আমাদের সম্পর্কে',
-			'feedbackRating.thankYouMessage' => 'ধন্যবাদ! আমরা ভবিষ্যতে আবার জিজ্ঞাসা করব।',
+			'feedbackRating.thankYouMessage' => 'ধন্যবাদ! আমরা আবার অন্য সময় জিজ্ঞাসা করব।',
 			'errors.loadingProfileData' => 'প্রোফাইল তথ্য লোড করতে ত্রুটি',
 			'errors.somethingWentWrong' => 'কিছু ভুল হয়েছে।',
 			'debug.title' => 'ডিবাগ অপশন',
@@ -2207,14 +2249,14 @@ extension on TranslationsBn {
 			'debug.testAnalyzeImageSubtitle' => 'নির্দিষ্ট টেস্ট ইমেজ আপলোড করুন',
 			'debug.testDetectImage' => 'চিত্র সনাক্তকরণ টেস্ট',
 			'debug.testDetectImageSubtitle' => 'ইমেজ URL থেকে মিল সনাক্ত করুন',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'গ্যালারি থেকে চিত্র সনাক্তকরণ',
 			'debug.detectImageFromGallerySubtitle' => 'ছবি নির্বাচন করুন, বাকেটে আপলোড করুন ও ক্যালোরি অনুমান করুন',
 			'debug.testDetectText' => 'টেক্সট সনাক্তকরণ টেস্ট',
 			'debug.testDetectTextSubtitle' => 'টেক্সট বর্ণনা থেকে মিল সনাক্ত করুন',
 			'debug.testMealLoggingWithVariations' => 'ভ্যারিয়েশনের সঙ্গে মিল লগিং টেস্ট',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'ভ্যারিয়েশনসহ পূর্ণ মিল লগিং ফ্লো পরীক্ষা করুন',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'ভ্যারিয়েশনসহ মক মিল',
 			'debug.mockMealWithVariationsSubtitle' => 'লগিং ছাড়াই ভ্যারিয়েশন ও টিপ শিট UI প্রিভিউ করুন',
 			'debug.mockMealName' => 'রাইস ও সবজির সঙ্গে গ্রিলড চিকেন',

@@ -597,6 +597,18 @@
         "title": "Günlük Hedef",
         "description": "Günlük Hedef, TDEE'nize ve ağırlık hedefinize dayalı olarak önerilen günlük kalori alımınızdır. Kilo kaybı için, TDEE'nizden daha az kalori alırsınız. Kilo koruma için, TDEE'nizle eşleşirsiniz. Kilo almak için, TDEE'nizden daha fazla kalori alırsınız. Bu, istediğiniz ağırlık değişimini sağlıklı bir hızda gerçekleştirmenize yardımcı olur."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Kalori harcaması tahmini",
+      "description": "Health Connect verileri kullanılamadığında, bugünkü yakılan kaloriyi Bazal Metabolizma Hızınız (BMR) ve aktivite seviyeniz (TDEE) kullanarak, günün geçen bölümüne göre ölçekleyerek tahmin ederiz.",
+      "howCalculated": {
+        "title": "Tahmin nasıl hesaplanır",
+        "description": "Profilinize göre TDEE'nizi hesaplar ve günün geçen kısmının kesri (saatler + dakikalar) / 24 ile çarparak şu ana kadar yakılan kaloriyi tahmin ederiz."
+      },
+      "professionalGuidance": {
+        "title": "Profesyonel Rehberlik",
+        "description": "Bu tahmini tıbbi kararlar almak için kullanmayın. Kişiye özel kilo yönetimi önerileri için her zaman bir sağlık uzmanına veya kayıtlı diyetisyene danışın."
+      }
     }
   },
   "common": {

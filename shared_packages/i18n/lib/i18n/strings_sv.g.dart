@@ -335,6 +335,7 @@ class _TranslationsDisclaimerSv implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapSv snap = _TranslationsDisclaimerSnapSv._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateSv weightEstimate = _TranslationsDisclaimerWeightEstimateSv._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsSv healthMetrics = _TranslationsDisclaimerHealthMetricsSv._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureSv calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureSv._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsSv implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalSv dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalSv._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureSv implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Uppskattning av kaloriförbrukning';
+	@override String get description => 'När Health Connect-data inte är tillgänglig uppskattar vi dagens förbrukade kalorier med hjälp av din basalmetabolism (BMR) och aktivitetsnivå (TDEE), anpassat efter hur stor del av dagen som har passerat.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedSv howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedSv._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceSv professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceSv._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsSv implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsSv._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalSv implements TranslationsDis
 	@override String get description => 'Dagligt Mål är ditt rekommenderade dagliga kaloriintag baserat på din TDEE och viktmål. För viktnedgång konsumerar du färre kalorier än din TDEE. För vikthållning matchar du din TDEE. För viktökning konsumerar du fler kalorier än din TDEE. Detta hjälper dig att uppnå din önskade viktförändring i en hälsosam takt.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedSv implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hur uppskattningen beräknas';
+	@override String get description => 'Vi beräknar din TDEE (baserat på din profil) och multiplicerar den med andelen av dagen som förflutit (timmar + minuter) / 24 för att uppskatta hur många kalorier som förbrukats hittills.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceSv implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Professionell vägledning';
+	@override String get description => 'Använd inte denna uppskattning som underlag för medicinska beslut. Rådgör alltid med vårdpersonal eller en legitimerad dietist för personligt anpassade råd om vikt- och hälsohantering.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedSv implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedSv._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsSv {
 			'disclaimer.healthMetrics.tdee.description' => 'Totalt Dagligt Energibehov (TDEE) är de totala kalorier du förbränner per dag, inklusive din BMR plus kalorier från fysisk aktivitet och daglig rörelse. TDEE beror på din BMR och aktivitetsnivå. En högre TDEE innebär att du förbränner fler kalorier totalt, vanligtvis på grund av att du är mer aktiv eller har en högre BMR. En lägre TDEE tyder på mindre daglig aktivitet eller en lägre BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Dagligt Mål',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Dagligt Mål är ditt rekommenderade dagliga kaloriintag baserat på din TDEE och viktmål. För viktnedgång konsumerar du färre kalorier än din TDEE. För vikthållning matchar du din TDEE. För viktökning konsumerar du fler kalorier än din TDEE. Detta hjälper dig att uppnå din önskade viktförändring i en hälsosam takt.',
+			'disclaimer.calorieExpenditure.title' => 'Uppskattning av kaloriförbrukning',
+			'disclaimer.calorieExpenditure.description' => 'När Health Connect-data inte är tillgänglig uppskattar vi dagens förbrukade kalorier med hjälp av din basalmetabolism (BMR) och aktivitetsnivå (TDEE), anpassat efter hur stor del av dagen som har passerat.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Hur uppskattningen beräknas',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Vi beräknar din TDEE (baserat på din profil) och multiplicerar den med andelen av dagen som förflutit (timmar + minuter) / 24 för att uppskatta hur många kalorier som förbrukats hittills.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professionell vägledning',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Använd inte denna uppskattning som underlag för medicinska beslut. Rådgör alltid med vårdpersonal eller en legitimerad dietist för personligt anpassade råd om vikt- och hälsohantering.',
 			'common.close' => 'Stäng',
 			'common.kContinue' => 'Fortsätt',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Tycker du om ${appLabel}?',
@@ -2207,14 +2249,14 @@ extension on TranslationsSv {
 			'debug.testAnalyzeImageSubtitle' => 'Ladda upp fördefinierad testbild',
 			'debug.testDetectImage' => 'Testa bildigenkänning',
 			'debug.testDetectImageSubtitle' => 'Identifiera måltid från bild-URL',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Identifiera bild från galleriet',
 			'debug.detectImageFromGallerySubtitle' => 'Välj bild, ladda upp till bucket och uppskatta kalorier',
 			'debug.testDetectText' => 'Testa textigenkänning',
 			'debug.testDetectTextSubtitle' => 'Identifiera måltid från textbeskrivning',
 			'debug.testMealLoggingWithVariations' => 'Testa måltidsloggning med variationer',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Testa hela flödet för måltidsloggning med variationer',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Fiktiv måltid med variationer',
 			'debug.mockMealWithVariationsSubtitle' => 'Förhandsgranska variations- och tipsvyn utan att logga',
 			'debug.mockMealName' => 'Grillad kyckling med ris och grönsaker',

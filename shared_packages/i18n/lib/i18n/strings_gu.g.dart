@@ -335,6 +335,7 @@ class _TranslationsDisclaimerGu implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapGu snap = _TranslationsDisclaimerSnapGu._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateGu weightEstimate = _TranslationsDisclaimerWeightEstimateGu._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsGu healthMetrics = _TranslationsDisclaimerHealthMetricsGu._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureGu calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureGu._(_root);
 }
 
 // Path: common
@@ -367,7 +368,7 @@ class _TranslationsFeedbackRatingGu implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'એક નાની ટીમ દ્વારા જતનપૂર્વક બનાવવામાં આવ્યું. અમે ગોપનીયતા, સરળતા અને તમને વધુ સ્વસ્થ ખોરાકની આદતો વિકસાવવા મદદ કરવા પર ધ્યાન કેન્દ્રિત કરીએ છીએ.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel} પાછળ કોણ છે તે જાણવા ઇચ્છો છો? જુઓ ';
 	@override String get aboutUsLinkLabel => 'અમારા વિશે';
-	@override String get thankYouMessage => 'આભાર! અમે પછી ક્યારેક ફરીથી પૂછશું.';
+	@override String get thankYouMessage => 'આભાર! અમે ફરી બીજા સમયે પૂછીશું.';
 }
 
 // Path: errors
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsGu implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalGu dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalGu._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureGu implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'કૅલરી ખર્ચનો અંદાજ';
+	@override String get description => 'જ્યારે Health Connect ડેટા ઉપલબ્ધ ન હોય, ત્યારે અમે તમારા બેઝલ મેટાબોલિક દર (BMR) અને પ્રવૃત્તિ સ્તર (TDEE)નો ઉપયોગ કરીને આજ સુધી બર્ન થયેલ કૅલરીઝનો અંદાજ લગાવીએ છીએ, અને તે દિવસે પસાર થયેલા ભાગ પ્રમાણે સ્કેલ કરીએ છીએ.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedGu howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedGu._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceGu professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceGu._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsGu implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsGu._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalGu implements TranslationsDis
 	@override String get description => 'દૈનિક લક્ષ્ય એ તમારું ભલામણ કરેલ દૈનિક કૅલોરી વપરાશ છે જે તમારા ટીડઈઈ અને વજન લક્ષ્ય આધારિત છે. વજન ઘટાડવા માટે, તમે તમારા ટીડઈઈ કરતાં ઓછા કૅલોરીઓ લેતા રહે છો. વજન જાળવવા માટે, તમે તમારા ટીડઈઈને મેળવો છો. વજન વધારવા માટે, તમે તમારા ટીડઈઈ કરતાં વધુ કૅલોરીઓ લેતા રહે છો. આ તમને આરોગ્યપ્રદ ટેમ્પમાં તમારા ઈચ્છિત વજન બદલાવ પ્રાપ્ત કરવામાં મદદ કરે છે.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedGu implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'અંદાજ કેવી રીતે ગણવામાં આવે છે';
+	@override String get description => 'અમે તમારા પ્રોફાઇલ આધારિત TDEE ગણીએ છીએ અને તેને દિવસના પસાર થયેલા ભાગ (કલાક + મિનિટ) / 24 થી ગુણાકાર કરી આજ સુધી બર્ન થયેલી કૅલરીઝનો અંદાજ કાઢીએ છીએ.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceGu implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'વ્યાવસાયિક માર્ગદર્શન';
+	@override String get description => 'આ અંદાજનો ઉપયોગ મેડીકલ નિર્ણય લેવા માટે ન કરો. વ્યક્તિગત વજન વ્યવસ્થાપન માટેની સલાહ માટે હંમેશા આરોગ્ય વ્યાવસાયિક અથવા નોંધાયેલા ડાયેટિશિયનનો પરામર્ષ લો.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedGu implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedGu._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsGu {
 			'disclaimer.healthMetrics.tdee.description' => 'કુલ દૈનિક ઊર્જા વ્યય (ટીડઈઈ) તે કુલ કૅલોરીઓ છે જે તમે દરરોજ બર્ન કરો છો, જેમાં તમારો બીએમઆર અને શારીરિક પ્રવૃત્તિ અને દૈનિક ચાલ બંનેની કૅલોરીઓ સામેલ છે. ટીડઈઈ તમારા બીએમઆર અને પ્રવૃત્તિના સ્તર પર આધારિત છે. વધુ ટીડઈઈનો અર્થ એ છે કે તમે કુલમાં વધુ કૅલોરીઓ બર્ન કરો છો, જે સામાન્ય રીતે વધુ એકસરસિઝ અથવા વધુ બીએમઆર ગણવામાં આવે છે. ઓછો ટીડઈઈ વધુ દૈનિક પ્રવૃત્તિઓ અથવા ઓછા બીએમઆરનો સંકેત આપે છે.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'દૈનિક લક્ષ્ય',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'દૈનિક લક્ષ્ય એ તમારું ભલામણ કરેલ દૈનિક કૅલોરી વપરાશ છે જે તમારા ટીડઈઈ અને વજન લક્ષ્ય આધારિત છે. વજન ઘટાડવા માટે, તમે તમારા ટીડઈઈ કરતાં ઓછા કૅલોરીઓ લેતા રહે છો. વજન જાળવવા માટે, તમે તમારા ટીડઈઈને મેળવો છો. વજન વધારવા માટે, તમે તમારા ટીડઈઈ કરતાં વધુ કૅલોરીઓ લેતા રહે છો. આ તમને આરોગ્યપ્રદ ટેમ્પમાં તમારા ઈચ્છિત વજન બદલાવ પ્રાપ્ત કરવામાં મદદ કરે છે.',
+			'disclaimer.calorieExpenditure.title' => 'કૅલરી ખર્ચનો અંદાજ',
+			'disclaimer.calorieExpenditure.description' => 'જ્યારે Health Connect ડેટા ઉપલબ્ધ ન હોય, ત્યારે અમે તમારા બેઝલ મેટાબોલિક દર (BMR) અને પ્રવૃત્તિ સ્તર (TDEE)નો ઉપયોગ કરીને આજ સુધી બર્ન થયેલ કૅલરીઝનો અંદાજ લગાવીએ છીએ, અને તે દિવસે પસાર થયેલા ભાગ પ્રમાણે સ્કેલ કરીએ છીએ.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'અંદાજ કેવી રીતે ગણવામાં આવે છે',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'અમે તમારા પ્રોફાઇલ આધારિત TDEE ગણીએ છીએ અને તેને દિવસના પસાર થયેલા ભાગ (કલાક + મિનિટ) / 24 થી ગુણાકાર કરી આજ સુધી બર્ન થયેલી કૅલરીઝનો અંદાજ કાઢીએ છીએ.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'વ્યાવસાયિક માર્ગદર્શન',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'આ અંદાજનો ઉપયોગ મેડીકલ નિર્ણય લેવા માટે ન કરો. વ્યક્તિગત વજન વ્યવસ્થાપન માટેની સલાહ માટે હંમેશા આરોગ્ય વ્યાવસાયિક અથવા નોંધાયેલા ડાયેટિશિયનનો પરામર્ષ લો.',
 			'common.close' => 'બંદ કરો',
 			'common.kContinue' => 'આગળ વધો',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'શું તમે ${appLabel} નો આનંદ લઈ રહ્યાં છો?',
@@ -2111,7 +2153,7 @@ extension on TranslationsGu {
 			'feedbackRating.aboutUsDescription' => 'એક નાની ટીમ દ્વારા જતનપૂર્વક બનાવવામાં આવ્યું. અમે ગોપનીયતા, સરળતા અને તમને વધુ સ્વસ્થ ખોરાકની આદતો વિકસાવવા મદદ કરવા પર ધ્યાન કેન્દ્રિત કરીએ છીએ.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel} પાછળ કોણ છે તે જાણવા ઇચ્છો છો? જુઓ ',
 			'feedbackRating.aboutUsLinkLabel' => 'અમારા વિશે',
-			'feedbackRating.thankYouMessage' => 'આભાર! અમે પછી ક્યારેક ફરીથી પૂછશું.',
+			'feedbackRating.thankYouMessage' => 'આભાર! અમે ફરી બીજા સમયે પૂછીશું.',
 			'errors.loadingProfileData' => 'પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ',
 			'errors.somethingWentWrong' => 'કોઈ મુશ્કેલી પડી.',
 			'debug.title' => 'ડેબેક્ડ વિકલ્પો',
@@ -2207,14 +2249,14 @@ extension on TranslationsGu {
 			'debug.testAnalyzeImageSubtitle' => 'હાર્ડકોડ કરેલી ટેસ્ટ ઈમેજ અપલોડ કરો',
 			'debug.testDetectImage' => 'ઇમેજ ઓળખ ટેસ્ટ',
 			'debug.testDetectImageSubtitle' => 'છબીના URL પરથી ભોજન ઓળખો',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'ગેલેરીમાંથી છબી ઓળખો',
 			'debug.detectImageFromGallerySubtitle' => 'છબી પસંદ કરો, બકેટ પર અપલોડ કરો અને કેલોરીનો અંદાજ લો',
 			'debug.testDetectText' => 'ટેક્સ્ટ ઓળખ ટેસ્ટ',
 			'debug.testDetectTextSubtitle' => 'ટેક્સ્ટ વર્ણન પરથી ભોજન ઓળખો',
 			'debug.testMealLoggingWithVariations' => 'વૈવિધ્ય સાથેની ભોજન લોગિંગ ટેસ્ટ',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'વૈવિધ્ય સાથે સંપૂર્ણ ભોજન લોગિંગ પ્રવાહનું પરીક્ષણ કરો',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'મોક ભોજન (વૈવિધ્ય સાથે)',
 			'debug.mockMealWithVariationsSubtitle' => 'લોગ કર્યા વિના વૈવિધ્ય અને ટિપ શીટ UI પૂર્વાવલોકન',
 			'debug.mockMealName' => 'ગ્રિલ્ડ ચિકન સાથે ચોખા અને શાકભાજી',

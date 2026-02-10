@@ -597,6 +597,18 @@
         "title": "Daglig Mål",
         "description": "Daglig Mål er ditt anbefalte daglige kaloriinntak basert på TDEE og vektmål. For vekttap konsumerer du færre kalorier enn TDEE. For vektvedlikehold matcher du TDEE. For vektøkning konsumerer du flere kalorier enn TDEE. Dette hjelper deg med å oppnå ønsket vektendring i en sunn hastighet."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Estimert kaloriforbruk",
+      "description": "Når Health Connect-data ikke er tilgjengelig, estimerer vi dagens forbrente kalorier ved å bruke ditt basalstoffskifte (BMR) og aktivitetsnivå (TDEE), justert for den delen av dagen som har gått.",
+      "howCalculated": {
+        "title": "Hvordan estimatet beregnes",
+        "description": "Vi beregner ditt TDEE (basert på profilen din) og multipliserer det med andelen av dagen som har gått (timer + minutter)/24 for å anslå hvor mange kalorier som er forbrent så langt."
+      },
+      "professionalGuidance": {
+        "title": "Faglig veiledning",
+        "description": "Ikke bruk dette estimatet til å ta medisinske beslutninger. Kontakt alltid helsepersonell eller en registrert ernæringsfysiolog for personlig rådgivning om vektkontroll."
+      }
     }
   },
   "common": {

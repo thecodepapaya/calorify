@@ -335,6 +335,7 @@ class _TranslationsDisclaimerId implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapId snap = _TranslationsDisclaimerSnapId._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateId weightEstimate = _TranslationsDisclaimerWeightEstimateId._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsId healthMetrics = _TranslationsDisclaimerHealthMetricsId._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureId calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureId._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsId implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalId dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalId._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureId implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Perkiraan pengeluaran kalori';
+	@override String get description => 'Jika data Health Connect tidak tersedia, kami memperkirakan kalori yang terbakar hari ini dengan menggunakan Laju Metabolisme Basal (BMR) dan tingkat aktivitas Anda untuk menghitung Pengeluaran Energi Harian Total (TDEE), lalu menyesuaikannya dengan proporsi hari yang telah berlalu.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedId howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedId._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceId professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceId._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsId implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsId._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalId implements TranslationsDis
 	@override String get description => 'Tujuan Harian adalah asupan kalori harian yang direkomendasikan berdasarkan TDEE dan tujuan berat badan Anda. Untuk penurunan berat badan, Anda mengonsumsi kalori lebih sedikit daripada TDEE Anda. Untuk mempertahankan berat badan, Anda mencocokkan TDEE Anda. Untuk penambahan berat badan, Anda mengonsumsi kalori lebih banyak daripada TDEE Anda. Ini membantu Anda mencapai perubahan berat yang diinginkan dengan cara yang sehat.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedId implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Bagaimana perkiraan dihitung';
+	@override String get description => 'Kami menghitung TDEE Anda (berdasarkan profil Anda) dan mengalikannya dengan fraksi hari yang telah berlalu (jam + menit) / 24 untuk memperkirakan kalori yang telah terbakar sejauh ini.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceId implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Panduan profesional';
+	@override String get description => 'Jangan gunakan perkiraan ini untuk membuat keputusan medis. Selalu konsultasikan dengan profesional kesehatan atau ahli gizi terdaftar untuk mendapatkan saran pengelolaan berat badan yang disesuaikan dengan kebutuhan Anda.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedId implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedId._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsId {
 			'disclaimer.healthMetrics.tdee.description' => 'Total Daily Energy Expenditure (TDEE) adalah total kalori yang Anda bakar per hari, termasuk BMR Anda ditambah kalori dari aktivitas fisik dan pergerakan sehari-hari. TDEE tergantung pada BMR dan tingkat aktivitas Anda. TDEE yang lebih tinggi berarti Anda membakar lebih banyak kalori secara keseluruhan, biasanya karena lebih aktif atau memiliki BMR yang lebih tinggi. TDEE yang lebih rendah menunjukkan kurangnya aktivitas sehari-hari atau BMR yang lebih rendah.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Tujuan Harian',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Tujuan Harian adalah asupan kalori harian yang direkomendasikan berdasarkan TDEE dan tujuan berat badan Anda. Untuk penurunan berat badan, Anda mengonsumsi kalori lebih sedikit daripada TDEE Anda. Untuk mempertahankan berat badan, Anda mencocokkan TDEE Anda. Untuk penambahan berat badan, Anda mengonsumsi kalori lebih banyak daripada TDEE Anda. Ini membantu Anda mencapai perubahan berat yang diinginkan dengan cara yang sehat.',
+			'disclaimer.calorieExpenditure.title' => 'Perkiraan pengeluaran kalori',
+			'disclaimer.calorieExpenditure.description' => 'Jika data Health Connect tidak tersedia, kami memperkirakan kalori yang terbakar hari ini dengan menggunakan Laju Metabolisme Basal (BMR) dan tingkat aktivitas Anda untuk menghitung Pengeluaran Energi Harian Total (TDEE), lalu menyesuaikannya dengan proporsi hari yang telah berlalu.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Bagaimana perkiraan dihitung',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kami menghitung TDEE Anda (berdasarkan profil Anda) dan mengalikannya dengan fraksi hari yang telah berlalu (jam + menit) / 24 untuk memperkirakan kalori yang telah terbakar sejauh ini.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Panduan profesional',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Jangan gunakan perkiraan ini untuk membuat keputusan medis. Selalu konsultasikan dengan profesional kesehatan atau ahli gizi terdaftar untuk mendapatkan saran pengelolaan berat badan yang disesuaikan dengan kebutuhan Anda.',
 			'common.close' => 'Tutup',
 			'common.kContinue' => 'Lanjutkan',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Menikmati ${appLabel}?',
@@ -2207,14 +2249,14 @@ extension on TranslationsId {
 			'debug.testAnalyzeImageSubtitle' => 'Unggah gambar uji yang sudah ditentukan',
 			'debug.testDetectImage' => 'Uji Deteksi Gambar',
 			'debug.testDetectImageSubtitle' => 'Deteksi makanan dari URL gambar',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Deteksi Gambar dari Galeri',
 			'debug.detectImageFromGallerySubtitle' => 'Pilih gambar, unggah ke bucket & estimasi kalori',
 			'debug.testDetectText' => 'Uji Deteksi Teks',
 			'debug.testDetectTextSubtitle' => 'Deteksi makanan dari deskripsi teks',
 			'debug.testMealLoggingWithVariations' => 'Uji Pencatatan Makanan dengan Variasi',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Uji alur pencatatan makanan lengkap dengan variasi',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Contoh makanan dengan variasi',
 			'debug.mockMealWithVariationsSubtitle' => 'Pratinjau variasi + lembar tips UI tanpa mencatat',
 			'debug.mockMealName' => 'Ayam panggang dengan nasi dan sayuran',

@@ -597,6 +597,18 @@
         "title": "Objectif Quotidien",
         "description": "L'Objectif Quotidien est votre apport calorique quotidien recommandé basé sur votre DET et votre objectif de poids. Pour perdre du poids, vous consommez moins de calories que votre DET. Pour maintenir votre poids, vous égalisez votre DET. Pour prendre du poids, vous consommez plus de calories que votre DET. Cela vous aide à atteindre votre changement de poids souhaité à un rythme sain."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Estimation de la dépense calorique",
+      "description": "Lorsque les données Health Connect ne sont pas disponibles, nous estimons les calories brûlées aujourd'hui en utilisant votre métabolisme de base (BMR) et votre dépense énergétique quotidienne totale (TDEE), ajustée à la portion de la journée déjà écoulée.",
+      "howCalculated": {
+        "title": "Comment l'estimation est calculée",
+        "description": "Nous calculons votre TDEE (en fonction de votre profil) puis le multiplions par la fraction de la journée écoulée (heures + minutes) / 24 pour estimer les calories brûlées jusqu'à présent."
+      },
+      "professionalGuidance": {
+        "title": "Conseils professionnels",
+        "description": "N'utilisez pas cette estimation pour prendre des décisions médicales. Consultez toujours un professionnel de santé ou un diététicien diplômé pour obtenir des conseils personnalisés en matière de gestion du poids."
+      }
     }
   },
   "common": {

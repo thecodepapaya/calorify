@@ -602,6 +602,18 @@
           "title": "Daily Goal",
           "description": "Daily Goal is your recommended daily calorie intake based on your TDEE and weight goal. For weight loss, you consume fewer calories than your TDEE. For weight maintenance, you match your TDEE. For weight gain, you consume more calories than your TDEE. This helps you achieve your desired weight change at a healthy pace."
         }
+      },
+      "calorieExpenditure": {
+        "title": "Calorie expenditure estimate",
+        "description": "When Health Connect data is unavailable, we estimate today's calories burned using your Basal Metabolic Rate (BMR) and activity level (TDEE), scaled for the portion of the day that has passed.",
+        "howCalculated": {
+          "title": "How the estimate is calculated",
+          "description": "We compute your TDEE (based on your profile) and multiply it by the fraction of the day elapsed (hours + minutes) / 24 to estimate calories burned so far."
+        },
+        "professionalGuidance": {
+          "title": "Professional Guidance",
+          "description": "Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice."
+        }
       }
     },
     "common": {

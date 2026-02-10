@@ -335,6 +335,7 @@ class _TranslationsDisclaimerDa implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapDa snap = _TranslationsDisclaimerSnapDa._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateDa weightEstimate = _TranslationsDisclaimerWeightEstimateDa._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsDa healthMetrics = _TranslationsDisclaimerHealthMetricsDa._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureDa calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureDa._(_root);
 }
 
 // Path: common
@@ -367,7 +368,7 @@ class _TranslationsFeedbackRatingDa implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Skabt med omhu af et lille team. Vi er fokuserede på dit privatliv, enkelhed og på at hjælpe dig med at opbygge sundere spisevaner.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nysgerrig efter, hvem der står bag ${appLabel}? Se ';
 	@override String get aboutUsLinkLabel => 'Om os';
-	@override String get thankYouMessage => 'Tak! Vi spørger igen en anden gang.';
+	@override String get thankYouMessage => 'Tak! Vi spørger igen på et andet tidspunkt.';
 }
 
 // Path: errors
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsDa implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalDa dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalDa._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureDa implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureDa._(this._root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Anslået kalorieforbrug';
+	@override String get description => 'Når Health Connect-data ikke er tilgængelige, estimerer vi, hvor mange kalorier du har forbrændt i dag ved at bruge din basale stofskiftehastighed (BMR) og dit aktivitetsniveau (TDEE), tilpasset den del af dagen, der er passeret.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedDa howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedDa._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceDa professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceDa._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsDa implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsDa._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalDa implements TranslationsDis
 	@override String get description => 'Dagligt Mål er dit anbefalede daglige kalorieindtag baseret på din TDEE og vægtmål. For vægttab indtager du færre kalorier end din TDEE. For vægtvedligeholdelse matcher du din TDEE. For vægtøgning indtager du flere kalorier end din TDEE. Dette hjælper dig med at opnå din ønskede vægtændring i et sundt tempo.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedDa implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedDa._(this._root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Sådan beregnes estimatet';
+	@override String get description => 'Vi beregner dit TDEE (baseret på din profil) og ganger det med den andel af dagen, der er gået (timer + minutter) / 24 for at anslå, hvor mange kalorier der er forbrændt indtil nu.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceDa implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceDa._(this._root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Professionel vejledning';
+	@override String get description => 'Brug ikke dette estimat til at træffe medicinske beslutninger. Kontakt altid en sundhedsprofessionel eller en autoriseret diætist for personlig rådgivning om vægtstyring.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedDa implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedDa._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsDa {
 			'disclaimer.healthMetrics.tdee.description' => 'Total Daglig Energiforbrug (TDEE) er det samlede antal kalorier, du forbrænder pr. dag, inklusive din BMR plus kalorier fra fysisk aktivitet og daglig bevægelse. TDEE afhænger af din BMR og aktivitetsniveau. En højere TDEE betyder, at du forbrænder flere kalorier samlet, ofte fordi du er mere aktiv eller har en højere BMR. En lavere TDEE antyder mindre daglig aktivitet eller en lavere BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Dagligt Mål',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Dagligt Mål er dit anbefalede daglige kalorieindtag baseret på din TDEE og vægtmål. For vægttab indtager du færre kalorier end din TDEE. For vægtvedligeholdelse matcher du din TDEE. For vægtøgning indtager du flere kalorier end din TDEE. Dette hjælper dig med at opnå din ønskede vægtændring i et sundt tempo.',
+			'disclaimer.calorieExpenditure.title' => 'Anslået kalorieforbrug',
+			'disclaimer.calorieExpenditure.description' => 'Når Health Connect-data ikke er tilgængelige, estimerer vi, hvor mange kalorier du har forbrændt i dag ved at bruge din basale stofskiftehastighed (BMR) og dit aktivitetsniveau (TDEE), tilpasset den del af dagen, der er passeret.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Sådan beregnes estimatet',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Vi beregner dit TDEE (baseret på din profil) og ganger det med den andel af dagen, der er gået (timer + minutter) / 24 for at anslå, hvor mange kalorier der er forbrændt indtil nu.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professionel vejledning',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Brug ikke dette estimat til at træffe medicinske beslutninger. Kontakt altid en sundhedsprofessionel eller en autoriseret diætist for personlig rådgivning om vægtstyring.',
 			'common.close' => 'Luk',
 			'common.kContinue' => 'Fortsæt',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nyder du ${appLabel}?',
@@ -2111,7 +2153,7 @@ extension on TranslationsDa {
 			'feedbackRating.aboutUsDescription' => 'Skabt med omhu af et lille team. Vi er fokuserede på dit privatliv, enkelhed og på at hjælpe dig med at opbygge sundere spisevaner.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nysgerrig efter, hvem der står bag ${appLabel}? Se ',
 			'feedbackRating.aboutUsLinkLabel' => 'Om os',
-			'feedbackRating.thankYouMessage' => 'Tak! Vi spørger igen en anden gang.',
+			'feedbackRating.thankYouMessage' => 'Tak! Vi spørger igen på et andet tidspunkt.',
 			'errors.loadingProfileData' => 'Fejl ved indlæsning af profildata',
 			'errors.somethingWentWrong' => 'Noget gik galt.',
 			'debug.title' => 'Debug Indstillinger',
@@ -2207,14 +2249,14 @@ extension on TranslationsDa {
 			'debug.testAnalyzeImageSubtitle' => 'Upload et hårdkodet testbillede',
 			'debug.testDetectImage' => 'Test: genkend billede',
 			'debug.testDetectImageSubtitle' => 'Genkend måltid fra billede-URL',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Genkend billede fra galleri',
 			'debug.detectImageFromGallerySubtitle' => 'Vælg billede, upload til bucket og estimer kalorier',
 			'debug.testDetectText' => 'Test: genkend tekst',
 			'debug.testDetectTextSubtitle' => 'Genkend måltid ud fra tekstbeskrivelse',
 			'debug.testMealLoggingWithVariations' => 'Test: måltidsregistrering med variationer',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Test hele flowet for måltidsregistrering med variationer',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Mock-måltid med variationer',
 			'debug.mockMealWithVariationsSubtitle' => 'Forhåndsvis variation og tip-ark uden at logge måltidet',
 			'debug.mockMealName' => 'Grillet kylling med ris og grøntsager',

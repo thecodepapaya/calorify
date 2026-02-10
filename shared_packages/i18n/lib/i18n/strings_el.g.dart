@@ -335,6 +335,7 @@ class _TranslationsDisclaimerEl implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapEl snap = _TranslationsDisclaimerSnapEl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateEl weightEstimate = _TranslationsDisclaimerWeightEstimateEl._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsEl healthMetrics = _TranslationsDisclaimerHealthMetricsEl._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureEl calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureEl._(_root);
 }
 
 // Path: common
@@ -367,7 +368,7 @@ class _TranslationsFeedbackRatingEl implements TranslationsFeedbackRatingEn {
 	@override String get aboutUsDescription => 'Δημιουργήθηκε με φροντίδα από μια μικρή ομάδα. Δίνουμε προτεραιότητα στην ιδιωτικότητα, την απλότητα και στο να σας βοηθάμε να αποκτήσετε καλύτερες διατροφικές συνήθειες.';
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Σε ενδιαφέρει ποιος βρίσκεται πίσω από το ${appLabel}? Δες ';
 	@override String get aboutUsLinkLabel => 'Σχετικά με εμάς';
-	@override String get thankYouMessage => 'Ευχαριστούμε! Θα σε ρωτήσουμε ξανά κάποια άλλη φορά.';
+	@override String get thankYouMessage => 'Ευχαριστούμε! Θα ρωτήσουμε ξανά αργότερα.';
 }
 
 // Path: errors
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsEl implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalEl dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalEl._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureEl implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Εκτίμηση καύσης θερμίδων';
+	@override String get description => 'Όταν τα δεδομένα του Health Connect δεν είναι διαθέσιμα, εκτιμούμε τις θερμίδες που κάψατε σήμερα χρησιμοποιώντας τον Βασικό Μεταβολικό σας Ρυθμό (BMR) και το επίπεδο δραστηριότητάς σας (TDEE), προσαρμοσμένα στο μέρος της ημέρας που έχει περάσει.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedEl howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedEl._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEl professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEl._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsEl implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsEl._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalEl implements TranslationsDis
 	@override String get description => 'Ο Ημερήσιος Στόχος είναι η συνιστώμενη ημερήσια θερμιδική σας πρόσληψη με βάση το TDEE σας και τον στόχο βάρους σας. Για απώλεια βάρους, καταναλώνετε λιγότερες θερμίδες από το TDEE σας. Για συντήρηση βάρους, ισοφαρίζετε το TDEE σας. Για αύξηση βάρους, καταναλώνετε περισσότερες θερμίδες από το TDEE σας. Αυτό σας βοηθά να επιτύχετε την επιθυμητή αλλαγή βάρους σας με υγιή ρυθμό.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedEl implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Πώς υπολογίζεται η εκτίμηση';
+	@override String get description => 'Υπολογίζουμε το TDEE σας (βάσει του προφίλ σας) και το πολλαπλασιάζουμε με το κλάσμα της ημέρας που έχει περάσει (ώρες + λεπτά) / 24 για να εκτιμήσουμε τις θερμίδες που έχουν καεί μέχρι τώρα.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEl implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Επαγγελματικές οδηγίες';
+	@override String get description => 'Μην χρησιμοποιείτε αυτή την εκτίμηση για λήψη ιατρικών αποφάσεων. Συμβουλευτείτε πάντα έναν επαγγελματία υγείας ή έναν εγγεγραμμένο διαιτολόγο για εξατομικευμένες συμβουλές διαχείρισης βάρους.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEl implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEl._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsEl {
 			'disclaimer.healthMetrics.tdee.description' => 'Η Συνολική Ημερήσια Ενεργειακή Δαπάνη (TDEE) είναι οι συνολικές θερμίδες που καίτε ανά ημέρα, συμπεριλαμβανομένου του BMR σας και τις θερμίδες που προέρχονται από τη σωματική δραστηριότητα και την καθημερινή κίνηση. Το TDEE εξαρτάται από τον BMR σας και το επίπεδο δραστηριότητάς σας. Ένας υψηλότερος TDEE σημαίνει ότι καίτε περισσότερες θερμίδες συνολικά, συνήθως από την περισσότερη δραστηριότητα ή έναν υψηλότερο BMR. Ένας χαμηλότερος TDEE υποδεικνύει λιγότερη καθημερινή δραστηριότητα ή χαμηλότερο BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Ημερήσιος Στόχος',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Ο Ημερήσιος Στόχος είναι η συνιστώμενη ημερήσια θερμιδική σας πρόσληψη με βάση το TDEE σας και τον στόχο βάρους σας. Για απώλεια βάρους, καταναλώνετε λιγότερες θερμίδες από το TDEE σας. Για συντήρηση βάρους, ισοφαρίζετε το TDEE σας. Για αύξηση βάρους, καταναλώνετε περισσότερες θερμίδες από το TDEE σας. Αυτό σας βοηθά να επιτύχετε την επιθυμητή αλλαγή βάρους σας με υγιή ρυθμό.',
+			'disclaimer.calorieExpenditure.title' => 'Εκτίμηση καύσης θερμίδων',
+			'disclaimer.calorieExpenditure.description' => 'Όταν τα δεδομένα του Health Connect δεν είναι διαθέσιμα, εκτιμούμε τις θερμίδες που κάψατε σήμερα χρησιμοποιώντας τον Βασικό Μεταβολικό σας Ρυθμό (BMR) και το επίπεδο δραστηριότητάς σας (TDEE), προσαρμοσμένα στο μέρος της ημέρας που έχει περάσει.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Πώς υπολογίζεται η εκτίμηση',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Υπολογίζουμε το TDEE σας (βάσει του προφίλ σας) και το πολλαπλασιάζουμε με το κλάσμα της ημέρας που έχει περάσει (ώρες + λεπτά) / 24 για να εκτιμήσουμε τις θερμίδες που έχουν καεί μέχρι τώρα.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Επαγγελματικές οδηγίες',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Μην χρησιμοποιείτε αυτή την εκτίμηση για λήψη ιατρικών αποφάσεων. Συμβουλευτείτε πάντα έναν επαγγελματία υγείας ή έναν εγγεγραμμένο διαιτολόγο για εξατομικευμένες συμβουλές διαχείρισης βάρους.',
 			'common.close' => 'Κλείσιμο',
 			'common.kContinue' => 'Συνέχεια',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Απολαμβάνεις το ${appLabel};',
@@ -2111,7 +2153,7 @@ extension on TranslationsEl {
 			'feedbackRating.aboutUsDescription' => 'Δημιουργήθηκε με φροντίδα από μια μικρή ομάδα. Δίνουμε προτεραιότητα στην ιδιωτικότητα, την απλότητα και στο να σας βοηθάμε να αποκτήσετε καλύτερες διατροφικές συνήθειες.',
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Σε ενδιαφέρει ποιος βρίσκεται πίσω από το ${appLabel}? Δες ',
 			'feedbackRating.aboutUsLinkLabel' => 'Σχετικά με εμάς',
-			'feedbackRating.thankYouMessage' => 'Ευχαριστούμε! Θα σε ρωτήσουμε ξανά κάποια άλλη φορά.',
+			'feedbackRating.thankYouMessage' => 'Ευχαριστούμε! Θα ρωτήσουμε ξανά αργότερα.',
 			'errors.loadingProfileData' => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ',
 			'errors.somethingWentWrong' => 'Κάτι πήγε στραβά.',
 			'debug.title' => 'Επιλογές Αποσφαλμάτωσης',
@@ -2207,14 +2249,14 @@ extension on TranslationsEl {
 			'debug.testAnalyzeImageSubtitle' => 'Ανέβασμα προκαθορισμένης δοκιμαστικής εικόνας',
 			'debug.testDetectImage' => 'Δοκιμή ανίχνευσης εικόνας',
 			'debug.testDetectImageSubtitle' => 'Ανίχνευση γεύματος από URL εικόνας',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Ανίχνευση εικόνας από τη συλλογή',
 			'debug.detectImageFromGallerySubtitle' => 'Επιλέξτε εικόνα, ανεβάστε στον bucket και εκτιμήστε τις θερμίδες',
 			'debug.testDetectText' => 'Δοκιμή ανίχνευσης κειμένου',
 			'debug.testDetectTextSubtitle' => 'Ανίχνευση γεύματος από περιγραφή κειμένου',
 			'debug.testMealLoggingWithVariations' => 'Δοκιμή καταγραφής γεύματος με παραλλαγές',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Δοκιμάστε ολόκληρη τη ροή καταγραφής γεύματος με παραλλαγές',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Προσομοιωμένο γεύμα με παραλλαγές',
 			'debug.mockMealWithVariationsSubtitle' => 'Προεπισκόπηση παραλλαγής και του φύλλου συμβουλών χωρίς καταχώρηση',
 			'debug.mockMealName' => 'Κοτόπουλο στη σχάρα με ρύζι και λαχανικά',

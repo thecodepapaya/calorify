@@ -335,6 +335,7 @@ class _TranslationsDisclaimerRu implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapRu snap = _TranslationsDisclaimerSnapRu._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateRu weightEstimate = _TranslationsDisclaimerWeightEstimateRu._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsRu healthMetrics = _TranslationsDisclaimerHealthMetricsRu._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureRu calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureRu._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsRu implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalRu dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalRu._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureRu implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Оценка расхода калорий';
+	@override String get description => 'Когда данные Health Connect недоступны, мы оцениваем количество сожжённых сегодня калорий, используя ваш базальный обмен веществ (BMR) и уровень активности (TDEE), пропорционально той части дня, которая уже прошла.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedRu howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedRu._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceRu professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceRu._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsRu implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsRu._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalRu implements TranslationsDis
 	@override String get description => 'Ежедневная цель — это ваша рекомендуемая суточная калорийность, основанная на вашем TDEE и цели по весу. Для похудения вы потребляете меньше калорий, чем ваш TDEE. Для поддержания веса вы сопоставляете свои калории с TDEE. Для набора веса вы потребляете больше калорий, чем ваш TDEE. Это помогает вам достичь желаемого изменения веса с безопасной скоростью.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedRu implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Как рассчитывается оценка';
+	@override String get description => 'Мы вычисляем ваш TDEE (на основе данных профиля) и умножаем его на долю прошедшего дня (часы + минуты) / 24, чтобы оценить количество сожжённых калорий на данный момент.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceRu implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Рекомендации специалистов';
+	@override String get description => 'Не используйте эту оценку для принятия медицинских решений. Всегда консультируйтесь со специалистом в области здравоохранения или с зарегистрированным диетологом для получения персональных рекомендаций по управлению весом.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedRu implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedRu._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsRu {
 			'disclaimer.healthMetrics.tdee.description' => 'Общие ежедневные энергетические затраты (TDEE) — это общее количество калорий, которые вы сжигаете за день, включая ваш BMR и калории от физической активности и повседневного движения. TDEE зависит от вашего BMR и уровня активности. Более высокий TDEE означает, что вы сжигаете больше калорий в целом, обычно из-за большей активности или более высокого BMR. Более низкий TDEE предполагает меньшую ежедневную активность или низкий BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Ежедневная цель',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Ежедневная цель — это ваша рекомендуемая суточная калорийность, основанная на вашем TDEE и цели по весу. Для похудения вы потребляете меньше калорий, чем ваш TDEE. Для поддержания веса вы сопоставляете свои калории с TDEE. Для набора веса вы потребляете больше калорий, чем ваш TDEE. Это помогает вам достичь желаемого изменения веса с безопасной скоростью.',
+			'disclaimer.calorieExpenditure.title' => 'Оценка расхода калорий',
+			'disclaimer.calorieExpenditure.description' => 'Когда данные Health Connect недоступны, мы оцениваем количество сожжённых сегодня калорий, используя ваш базальный обмен веществ (BMR) и уровень активности (TDEE), пропорционально той части дня, которая уже прошла.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Как рассчитывается оценка',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Мы вычисляем ваш TDEE (на основе данных профиля) и умножаем его на долю прошедшего дня (часы + минуты) / 24, чтобы оценить количество сожжённых калорий на данный момент.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Рекомендации специалистов',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Не используйте эту оценку для принятия медицинских решений. Всегда консультируйтесь со специалистом в области здравоохранения или с зарегистрированным диетологом для получения персональных рекомендаций по управлению весом.',
 			'common.close' => 'Закрыть',
 			'common.kContinue' => 'Продолжить',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Вам нравится ${appLabel}?',
@@ -2207,14 +2249,14 @@ extension on TranslationsRu {
 			'debug.testAnalyzeImageSubtitle' => 'Загрузить заранее заданное тестовое изображение',
 			'debug.testDetectImage' => 'Тест обнаружения изображения',
 			'debug.testDetectImageSubtitle' => 'Определить блюдо по URL изображения',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Определить изображение из галереи',
 			'debug.detectImageFromGallerySubtitle' => 'Выбрать изображение, загрузить в хранилище и оценить калории',
 			'debug.testDetectText' => 'Тест обнаружения текста',
 			'debug.testDetectTextSubtitle' => 'Определить блюдо по описанию текста',
 			'debug.testMealLoggingWithVariations' => 'Тест регистрации приема пищи с вариациями',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Протестировать полный процесс записи приема пищи с вариациями',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Макет блюда с вариациями',
 			'debug.mockMealWithVariationsSubtitle' => 'Предпросмотр вариаций и подсказок без записи',
 			'debug.mockMealName' => 'Жареная курица с рисом и овощами',

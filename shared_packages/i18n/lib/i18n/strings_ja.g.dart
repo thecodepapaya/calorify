@@ -335,6 +335,7 @@ class _TranslationsDisclaimerJa implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapJa snap = _TranslationsDisclaimerSnapJa._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateJa weightEstimate = _TranslationsDisclaimerWeightEstimateJa._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsJa healthMetrics = _TranslationsDisclaimerHealthMetricsJa._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureJa calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureJa._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsJa implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalJa dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalJa._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureJa implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '消費カロリーの推定値';
+	@override String get description => 'Health Connect のデータが利用できない場合、基礎代謝量（BMR）と活動レベル（TDEE）を用いて、本日これまでに消費したカロリーを1日の経過割合に応じて推定します。';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedJa howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedJa._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceJa professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceJa._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsJa implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsJa._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalJa implements TranslationsDis
 	@override String get description => '1日の目標は、あなたのTDEEと体重目標に基づく推奨される1日のカロリー摂取量です。減量のためには、TDEEよりも少ないカロリーを摂取します。体重維持のためには、TDEEに合わせます。増量のためには、TDEEよりも多くのカロリーを摂取します。これにより、健康的なペースで望ましい体重の変化を達成することができます。';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedJa implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '推定値の算出方法';
+	@override String get description => 'プロフィールに基づいてTDEEを算出し、経過した日数の割合（経過時間（時間＋分）/ 24）を掛け合わせて、これまでの消費カロリーを推定します。';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceJa implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '専門家からの助言';
+	@override String get description => 'この推定値を医療的な判断に用いないでください。個別の体重管理については、必ず医療専門家や登録栄養士に相談してください。';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedJa implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedJa._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsJa {
 			'disclaimer.healthMetrics.tdee.description' => '1日の総エネルギー消費量 (TDEE) は、BMRと身体活動や日常の動きからのカロリーを含めた、1日に消費する総カロリー量です。TDEEはあなたのBMRと活動レベルによって異なります。TDEEが高いと、一般的にはよりアクティブであるか、またはBMRが高いために、全体的に多くのカロリーを消費します。TDEEが低い場合は、日常の活動が少ないか、BMRが低いことを示唆しています。',
 			'disclaimer.healthMetrics.dailyGoal.title' => '1日の目標',
 			'disclaimer.healthMetrics.dailyGoal.description' => '1日の目標は、あなたのTDEEと体重目標に基づく推奨される1日のカロリー摂取量です。減量のためには、TDEEよりも少ないカロリーを摂取します。体重維持のためには、TDEEに合わせます。増量のためには、TDEEよりも多くのカロリーを摂取します。これにより、健康的なペースで望ましい体重の変化を達成することができます。',
+			'disclaimer.calorieExpenditure.title' => '消費カロリーの推定値',
+			'disclaimer.calorieExpenditure.description' => 'Health Connect のデータが利用できない場合、基礎代謝量（BMR）と活動レベル（TDEE）を用いて、本日これまでに消費したカロリーを1日の経過割合に応じて推定します。',
+			'disclaimer.calorieExpenditure.howCalculated.title' => '推定値の算出方法',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'プロフィールに基づいてTDEEを算出し、経過した日数の割合（経過時間（時間＋分）/ 24）を掛け合わせて、これまでの消費カロリーを推定します。',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => '専門家からの助言',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'この推定値を医療的な判断に用いないでください。個別の体重管理については、必ず医療専門家や登録栄養士に相談してください。',
 			'common.close' => '閉じる',
 			'common.kContinue' => '続ける',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel}をお楽しみいただけていますか？',
@@ -2207,14 +2249,14 @@ extension on TranslationsJa {
 			'debug.testAnalyzeImageSubtitle' => 'ハードコードされたテスト画像をアップロード',
 			'debug.testDetectImage' => '画像検出テスト',
 			'debug.testDetectImageSubtitle' => '画像URLから食事を検出する',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'ギャラリーから画像を検出',
 			'debug.detectImageFromGallerySubtitle' => '画像を選択してバケットにアップロードし、カロリーを推定する',
 			'debug.testDetectText' => 'テキスト検出テスト',
 			'debug.testDetectTextSubtitle' => 'テキスト記述から食事を検出する',
 			'debug.testMealLoggingWithVariations' => 'バリエーション付き食事ログテスト',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'バリエーションを含む食事ログのフローをテストする',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'バリエーション付きのモック食事',
 			'debug.mockMealWithVariationsSubtitle' => '記録せずにバリエーションとチップシートのUIをプレビュー',
 			'debug.mockMealName' => 'グリルチキン（ご飯と野菜）',

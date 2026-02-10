@@ -597,6 +597,18 @@
         "title": "Meta Diária",
         "description": "A Meta Diária é sua ingestão calórica recomendada com base no seu TDEE e meta de peso. Para perda de peso, você consome menos calorias do que seu TDEE. Para manutenção do peso, você iguala seu TDEE. Para ganho de peso, você consome mais calorias do que seu TDEE. Isso ajuda você a alcançar a mudança de peso desejada de maneira saudável."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Estimativa de gasto calórico",
+      "description": "Quando os dados do Health Connect não estão disponíveis, estimamos as calorias gastas hoje usando sua Taxa Metabólica Basal (BMR) e seu nível de atividade (TDEE), ajustando para a parte do dia que já passou.",
+      "howCalculated": {
+        "title": "Como a estimativa é calculada",
+        "description": "Calculamos seu TDEE (com base no seu perfil) e multiplicamos pela fração do dia que já passou (horas + minutos) / 24 para estimar as calorias gastas até agora."
+      },
+      "professionalGuidance": {
+        "title": "Orientação profissional",
+        "description": "Não use esta estimativa para tomar decisões médicas. Consulte sempre um profissional de saúde ou um nutricionista registrado para obter orientação personalizada sobre manejo/controle de peso."
+      }
     }
   },
   "common": {

@@ -597,6 +597,18 @@
         "title": "Napi Cél",
         "description": "A Napi Cél a javasolt napi kalóriabeviteled, amely a TDEE-d és a súlycélod alapján van megállapítva. Súlycsökkentés esetén kevesebb kalóriát fogyasztasz, mint a TDEE-d. A súly fenntartásához a TDEE-dnek megfelelő mennyiséget fogyasztasz. Súlygyarapodás érdekében pedig többet eszel, mint a TDEE-d. Ez segít elérni a kívánt súlyváltozást egészséges ütemben."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Kalóriafelhasználás becslése",
+      "description": "Ha a Health Connect adatai nem állnak rendelkezésre, a mai nap során elégetett kalóriákat a nyugalmi anyagcsere (BMR) és az aktivitási szint (TDEE) alapján becsüljük, a napnak már eltelt részével arányosítva.",
+      "howCalculated": {
+        "title": "Hogyan számítjuk a becslést",
+        "description": "Kiszámítjuk a TDEE-t (a profilod alapján), majd megszorozzuk a nap eltelt hányadával ((órák + percek) / 24), hogy megbecsüljük az eddig elégetett kalóriákat."
+      },
+      "professionalGuidance": {
+        "title": "Szakmai útmutatás",
+        "description": "Ne használd ezt a becslést orvosi döntések meghozatalára. Mindig konzultálj egészségügyi szakemberrel vagy regisztrált dietetikussal személyre szabott testsúlykezelési tanácsért."
+      }
     }
   },
   "common": {

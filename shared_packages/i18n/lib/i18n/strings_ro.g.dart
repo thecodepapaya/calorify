@@ -335,6 +335,7 @@ class _TranslationsDisclaimerRo implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapRo snap = _TranslationsDisclaimerSnapRo._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateRo weightEstimate = _TranslationsDisclaimerWeightEstimateRo._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsRo healthMetrics = _TranslationsDisclaimerHealthMetricsRo._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureRo calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureRo._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsRo implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalRo dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalRo._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureRo implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Estimare a caloriilor arse';
+	@override String get description => 'Când datele din Health Connect nu sunt disponibile, estimăm caloriile arse astăzi pe baza ratei metabolice bazale (BMR) și a nivelului tău de activitate (TDEE), ajustând estimarea după partea din zi care a trecut.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedRo howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedRo._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceRo professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceRo._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsRo implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsRo._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalRo implements TranslationsDis
 	@override String get description => 'Obiectivul Zilnic este aportul tău caloric zilnic recomandat, bazat pe TDEE-ul tău și pe obiectivul tău de greutate. Pentru pierderea în greutate, consumi mai puține calorii decât TDEE-ul tău. Pentru menținerea greutății, îți egalizezi TDEE-ul. Pentru creșterea în greutate, consumi mai multe calorii decât TDEE-ul tău. Acest lucru te ajută să îți atingi schimbarea dorită în greutate într-un ritm sănătos.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedRo implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Cum se calculează estimarea';
+	@override String get description => 'Calculăm TDEE-ul tău (pe baza profilului) și îl înmulțim cu fracțiunea din zi care a trecut (ore + minute) / 24 pentru a estima caloriile arse până acum.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceRo implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Recomandare profesională';
+	@override String get description => 'Nu folosi această estimare pentru a lua decizii medicale. Consultă întotdeauna un profesionist din domeniul sănătății sau un dietetician înregistrat pentru sfaturi personalizate privind gestionarea greutății.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedRo implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedRo._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsRo {
 			'disclaimer.healthMetrics.tdee.description' => 'Cheltuiala Totală Zilnică de Energie (TDEE) este numărul total de calorii pe care le arzi pe zi, incluzând BMR-ul tău plus caloriile din activitatea fizică și mișcarea zilnică. TDEE depinde de BMR-ul tău și de nivelul de activitate. Un TDEE mai mare înseamnă că arzi mai multe calorii în general, de obicei, datorită unei activități mai intense sau a unui BMR mai mare. Un TDEE mai mic sugerează o activitate zilnică mai redusă sau un BMR mai mic.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Obiectiv Zilnic',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Obiectivul Zilnic este aportul tău caloric zilnic recomandat, bazat pe TDEE-ul tău și pe obiectivul tău de greutate. Pentru pierderea în greutate, consumi mai puține calorii decât TDEE-ul tău. Pentru menținerea greutății, îți egalizezi TDEE-ul. Pentru creșterea în greutate, consumi mai multe calorii decât TDEE-ul tău. Acest lucru te ajută să îți atingi schimbarea dorită în greutate într-un ritm sănătos.',
+			'disclaimer.calorieExpenditure.title' => 'Estimare a caloriilor arse',
+			'disclaimer.calorieExpenditure.description' => 'Când datele din Health Connect nu sunt disponibile, estimăm caloriile arse astăzi pe baza ratei metabolice bazale (BMR) și a nivelului tău de activitate (TDEE), ajustând estimarea după partea din zi care a trecut.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Cum se calculează estimarea',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Calculăm TDEE-ul tău (pe baza profilului) și îl înmulțim cu fracțiunea din zi care a trecut (ore + minute) / 24 pentru a estima caloriile arse până acum.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Recomandare profesională',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Nu folosi această estimare pentru a lua decizii medicale. Consultă întotdeauna un profesionist din domeniul sănătății sau un dietetician înregistrat pentru sfaturi personalizate privind gestionarea greutății.',
 			'common.close' => 'Închide',
 			'common.kContinue' => 'Continuă',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Îți place ${appLabel}?',
@@ -2207,14 +2249,14 @@ extension on TranslationsRo {
 			'debug.testAnalyzeImageSubtitle' => 'Încarcă o imagine de test predefinită',
 			'debug.testDetectImage' => 'Test detectare imagine',
 			'debug.testDetectImageSubtitle' => 'Detectează masa din URL-ul imaginii',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Detectează imagine din galerie',
 			'debug.detectImageFromGallerySubtitle' => 'Selectează o imagine, încarcă în bucket și estimează caloriile',
 			'debug.testDetectText' => 'Test detectare text',
 			'debug.testDetectTextSubtitle' => 'Detectează masa din descrierea text',
 			'debug.testMealLoggingWithVariations' => 'Testează înregistrarea mesei cu variante',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Testează întregul flux de înregistrare a mesei cu variante',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Masă simulată cu variante',
 			'debug.mockMealWithVariationsSubtitle' => 'Previzualizează varianta și foaia de sfaturi fără a înregistra masa',
 			'debug.mockMealName' => 'Pui la grătar cu orez și legume',

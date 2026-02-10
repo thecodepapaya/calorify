@@ -597,6 +597,18 @@
         "title": "Tujuan Harian",
         "description": "Tujuan Harian adalah asupan kalori harian yang direkomendasikan berdasarkan TDEE dan tujuan berat badan Anda. Untuk penurunan berat badan, Anda mengonsumsi kalori lebih sedikit daripada TDEE Anda. Untuk mempertahankan berat badan, Anda mencocokkan TDEE Anda. Untuk penambahan berat badan, Anda mengonsumsi kalori lebih banyak daripada TDEE Anda. Ini membantu Anda mencapai perubahan berat yang diinginkan dengan cara yang sehat."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Perkiraan pengeluaran kalori",
+      "description": "Jika data Health Connect tidak tersedia, kami memperkirakan kalori yang terbakar hari ini dengan menggunakan Laju Metabolisme Basal (BMR) dan tingkat aktivitas Anda untuk menghitung Pengeluaran Energi Harian Total (TDEE), lalu menyesuaikannya dengan proporsi hari yang telah berlalu.",
+      "howCalculated": {
+        "title": "Bagaimana perkiraan dihitung",
+        "description": "Kami menghitung TDEE Anda (berdasarkan profil Anda) dan mengalikannya dengan fraksi hari yang telah berlalu (jam + menit) / 24 untuk memperkirakan kalori yang telah terbakar sejauh ini."
+      },
+      "professionalGuidance": {
+        "title": "Panduan profesional",
+        "description": "Jangan gunakan perkiraan ini untuk membuat keputusan medis. Selalu konsultasikan dengan profesional kesehatan atau ahli gizi terdaftar untuk mendapatkan saran pengelolaan berat badan yang disesuaikan dengan kebutuhan Anda."
+      }
     }
   },
   "common": {

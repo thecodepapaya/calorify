@@ -597,6 +597,18 @@
         "title": "Mục tiêu hàng ngày",
         "description": "Mục tiêu hàng ngày là lượng calo mà bạn được khuyên nên tiêu thụ hàng ngày dựa trên TDEE và mục tiêu cân nặng của bạn. Để giảm cân, bạn tiêu thụ ít calo hơn TDEE của mình. Để duy trì cân nặng, bạn cần khớp với TDEE của mình. Để tăng cân, bạn tiêu thụ nhiều calo hơn TDEE của mình. Điều này giúp bạn đạt được thay đổi cân nặng mong muốn một cách lành mạnh."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Ước tính calo tiêu hao",
+      "description": "Khi dữ liệu từ Health Connect không có sẵn, chúng tôi ước tính số calo bạn đã tiêu hao trong ngày dựa trên tỷ lệ trao đổi chất cơ bản (BMR) và mức độ hoạt động của bạn (TDEE), rồi điều chỉnh theo phần ngày đã trôi qua.",
+      "howCalculated": {
+        "title": "Cách tính ước tính",
+        "description": "Chúng tôi tính TDEE của bạn (dựa trên hồ sơ cá nhân) và nhân với tỷ lệ phần ngày đã trôi qua (giờ + phút) / 24 để ước tính số calo đã tiêu hao cho đến hiện tại."
+      },
+      "professionalGuidance": {
+        "title": "Hướng dẫn chuyên môn",
+        "description": "Không sử dụng ước tính này để đưa ra quyết định y tế. Luôn tham khảo ý kiến bác sĩ, chuyên gia chăm sóc sức khỏe hoặc chuyên gia dinh dưỡng được đăng ký để nhận lời khuyên cá nhân hóa về quản lý cân nặng."
+      }
     }
   },
   "common": {

@@ -557,6 +557,7 @@ class TranslationsDisclaimerEn {
 	late final TranslationsDisclaimerSnapEn snap = TranslationsDisclaimerSnapEn._(_root);
 	late final TranslationsDisclaimerWeightEstimateEn weightEstimate = TranslationsDisclaimerWeightEstimateEn._(_root);
 	late final TranslationsDisclaimerHealthMetricsEn healthMetrics = TranslationsDisclaimerHealthMetricsEn._(_root);
+	late final TranslationsDisclaimerCalorieExpenditureEn calorieExpenditure = TranslationsDisclaimerCalorieExpenditureEn._(_root);
 }
 
 // Path: common
@@ -2119,6 +2120,24 @@ class TranslationsDisclaimerHealthMetricsEn {
 	late final TranslationsDisclaimerHealthMetricsDailyGoalEn dailyGoal = TranslationsDisclaimerHealthMetricsDailyGoalEn._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class TranslationsDisclaimerCalorieExpenditureEn {
+	TranslationsDisclaimerCalorieExpenditureEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Calorie expenditure estimate'
+	String get title => 'Calorie expenditure estimate';
+
+	/// en: 'When Health Connect data is unavailable, we estimate today's calories burned using your Basal Metabolic Rate (BMR) and activity level (TDEE), scaled for the portion of the day that has passed.'
+	String get description => 'When Health Connect data is unavailable, we estimate today\'s calories burned using your Basal Metabolic Rate (BMR) and activity level (TDEE), scaled for the portion of the day that has passed.';
+
+	late final TranslationsDisclaimerCalorieExpenditureHowCalculatedEn howCalculated = TranslationsDisclaimerCalorieExpenditureHowCalculatedEn._(_root);
+	late final TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn professionalGuidance = TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn._(_root);
+}
+
 // Path: debug.sections
 class TranslationsDebugSectionsEn {
 	TranslationsDebugSectionsEn._(this._root);
@@ -2810,6 +2829,36 @@ class TranslationsDisclaimerHealthMetricsDailyGoalEn {
 	String get description => 'Daily Goal is your recommended daily calorie intake based on your TDEE and weight goal. For weight loss, you consume fewer calories than your TDEE. For weight maintenance, you match your TDEE. For weight gain, you consume more calories than your TDEE. This helps you achieve your desired weight change at a healthy pace.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	TranslationsDisclaimerCalorieExpenditureHowCalculatedEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'How the estimate is calculated'
+	String get title => 'How the estimate is calculated';
+
+	/// en: 'We compute your TDEE (based on your profile) and multiply it by the fraction of the day elapsed (hours + minutes) / 24 to estimate calories burned so far.'
+	String get description => 'We compute your TDEE (based on your profile) and multiply it by the fraction of the day elapsed (hours + minutes) / 24 to estimate calories burned so far.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Professional Guidance'
+	String get title => 'Professional Guidance';
+
+	/// en: 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.'
+	String get description => 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn._(this._root);
@@ -3268,6 +3317,12 @@ extension on Translations {
 			'disclaimer.healthMetrics.tdee.description' => 'Total Daily Energy Expenditure (TDEE) is the total calories you burn per day, including your BMR plus calories from physical activity and daily movement. TDEE depends on your BMR and activity level. A higher TDEE means you burn more calories overall, usually from being more active or having a higher BMR. A lower TDEE suggests less daily activity or a lower BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Daily Goal',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Daily Goal is your recommended daily calorie intake based on your TDEE and weight goal. For weight loss, you consume fewer calories than your TDEE. For weight maintenance, you match your TDEE. For weight gain, you consume more calories than your TDEE. This helps you achieve your desired weight change at a healthy pace.',
+			'disclaimer.calorieExpenditure.title' => 'Calorie expenditure estimate',
+			'disclaimer.calorieExpenditure.description' => 'When Health Connect data is unavailable, we estimate today\'s calories burned using your Basal Metabolic Rate (BMR) and activity level (TDEE), scaled for the portion of the day that has passed.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'How the estimate is calculated',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'We compute your TDEE (based on your profile) and multiply it by the fraction of the day elapsed (hours + minutes) / 24 to estimate calories burned so far.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professional Guidance',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.',
 			'common.close' => 'Close',
 			'common.kContinue' => 'Continue',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Enjoying ${appLabel}?',
@@ -3378,14 +3433,14 @@ extension on Translations {
 			'debug.testAnalyzeImageSubtitle' => 'Upload hardcoded test image',
 			'debug.testDetectImage' => 'Test Detect Image',
 			'debug.testDetectImageSubtitle' => 'Detect meal from image URL',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Detect Image from Gallery',
 			'debug.detectImageFromGallerySubtitle' => 'Select image, upload to bucket & estimate calories',
 			'debug.testDetectText' => 'Test Detect Text',
 			'debug.testDetectTextSubtitle' => 'Detect meal from text description',
 			'debug.testMealLoggingWithVariations' => 'Test Meal Logging with Variations',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Test the full meal logging flow with variations',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Mock meal with variations',
 			'debug.mockMealWithVariationsSubtitle' => 'Preview variation + tip sheet UI without logging',
 			'debug.mockMealName' => 'Grilled chicken with rice and vegetables',

@@ -597,6 +597,18 @@
         "title": "Denní cíl",
         "description": "Denní cíl je vaše doporučená denní příjem kalorií na základě vašeho TDEE a cílové hmotnosti. Při hubnutí konzumujete méně kalorií než vaše TDEE. Pro udržení hmotnosti odpovídáte svému TDEE. Při přibírání na váze konzumujete více kalorií než vaše TDEE. To vám pomůže dosáhnout požadované změny hmotnosti zdravým tempem."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Odhad spálených kalorií",
+      "description": "Když nejsou k dispozici údaje z Health Connect, odhadneme dnešní spálené kalorie pomocí vašeho bazálního metabolismu (BMR) a úrovně aktivity (TDEE). Výsledek upravíme podle části dne, která již uplynula.",
+      "howCalculated": {
+        "title": "Jak je odhad vypočítán",
+        "description": "Spočítáme vaše TDEE (na základě profilu) a vynásobíme jej poměrem uplynulé části dne (hodiny + minuty) / 24, abychom odhadli dosud spálené kalorie."
+      },
+      "professionalGuidance": {
+        "title": "Odborné doporučení",
+        "description": "Tento odhad nepoužívejte k rozhodování o zdravotní péči. Vždy se poraďte se zdravotnickým odborníkem nebo registrovaným dietologem, pokud potřebujete individuální rady ohledně řízení hmotnosti."
+      }
     }
   },
   "common": {

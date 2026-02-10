@@ -335,6 +335,7 @@ class _TranslationsDisclaimerHe implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapHe snap = _TranslationsDisclaimerSnapHe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateHe weightEstimate = _TranslationsDisclaimerWeightEstimateHe._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsHe healthMetrics = _TranslationsDisclaimerHealthMetricsHe._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureHe calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureHe._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsHe implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalHe dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalHe._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureHe implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'אומדן קלוריות שנשרפו';
+	@override String get description => 'כאשר נתוני Health Connect אינם זמינים, אנו מעריכים את הקלוריות שנשרפו היום באמצעות קצב חילוף החומרים הבסיסי שלך (BMR) ורמת הפעילות הגופנית (TDEE), ומתאימים את ההערכה לפי החלק מהיום שעבר.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedHe howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedHe._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceHe professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceHe._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsHe implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsHe._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalHe implements TranslationsDis
 	@override String get description => 'המטרה היומית היא צריכת הקלוריות היומית המומלצת שלך בהתבסס על ה-TDEE שלך ומטרת המשקל שלך. לצורך ירידת משקל, אתה צורך פחות קלוריות מה-TDEE שלך. לשמירה על משקל, אתה תואם את ה-TDEE שלך. לצורך עליית משקל, אתה צורך יותר קלוריות מה-TDEE שלך. זה עוזר לך להגיע לשינוי המשקל הרצוי שלך בקצב בריא.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedHe implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'כיצד מחושבת ההערכה';
+	@override String get description => 'אנו מחשבים את ה‑TDEE שלך (בהתבסס על הפרופיל שלך) וכופלים אותו בשבר של היום שעבר (שעות + דקות) / 24 כדי לאמוד את הקלוריות שנשרפו עד כה.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceHe implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'הנחיות מקצועיות';
+	@override String get description => 'אין להשתמש בהערכה זו לקבלת החלטות רפואיות. תמיד יש להיוועץ עם איש מקצוע בתחום הבריאות או עם דיאטן/ית רשום/ה לצורך קבלת ייעוץ מותאם לניהול המשקל.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHe implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHe._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsHe {
 			'disclaimer.healthMetrics.tdee.description' => 'ההוצאה הקולורית היומית הכוללת (TDEE) היא סך הקלוריות שאתה שורף ביום, כולל את ה-BMR שלך פלוס קלוריות מפעילות גופנית ותנועה יומית. ה-TDEE תלוי ב-BMR שלך וברמת הפעילות שלך. TDEE גבוה יותר פירושו שאתה שורף יותר קלוריות בסך הכל, בדרך כלל כתוצאה מפעילות רבה יותר או BMR גבוה יותר. TDEE נמוך יותר מצביע על פחות פעילות יומיומית או BMR נמוך יותר.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'מטרה יומית',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'המטרה היומית היא צריכת הקלוריות היומית המומלצת שלך בהתבסס על ה-TDEE שלך ומטרת המשקל שלך. לצורך ירידת משקל, אתה צורך פחות קלוריות מה-TDEE שלך. לשמירה על משקל, אתה תואם את ה-TDEE שלך. לצורך עליית משקל, אתה צורך יותר קלוריות מה-TDEE שלך. זה עוזר לך להגיע לשינוי המשקל הרצוי שלך בקצב בריא.',
+			'disclaimer.calorieExpenditure.title' => 'אומדן קלוריות שנשרפו',
+			'disclaimer.calorieExpenditure.description' => 'כאשר נתוני Health Connect אינם זמינים, אנו מעריכים את הקלוריות שנשרפו היום באמצעות קצב חילוף החומרים הבסיסי שלך (BMR) ורמת הפעילות הגופנית (TDEE), ומתאימים את ההערכה לפי החלק מהיום שעבר.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'כיצד מחושבת ההערכה',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'אנו מחשבים את ה‑TDEE שלך (בהתבסס על הפרופיל שלך) וכופלים אותו בשבר של היום שעבר (שעות + דקות) / 24 כדי לאמוד את הקלוריות שנשרפו עד כה.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'הנחיות מקצועיות',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'אין להשתמש בהערכה זו לקבלת החלטות רפואיות. תמיד יש להיוועץ עם איש מקצוע בתחום הבריאות או עם דיאטן/ית רשום/ה לצורך קבלת ייעוץ מותאם לניהול המשקל.',
 			'common.close' => 'סגור',
 			'common.kContinue' => 'להמשיך',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'נהנים מהשימוש ב${appLabel}?',
@@ -2207,14 +2249,14 @@ extension on TranslationsHe {
 			'debug.testAnalyzeImageSubtitle' => 'העלה תמונת בדיקה מובנית',
 			'debug.testDetectImage' => 'בדיקת זיהוי תמונה',
 			'debug.testDetectImageSubtitle' => 'זיהוי ארוחה מתוך כתובת URL של תמונה',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'זיהוי תמונה מהגלריה',
 			'debug.detectImageFromGallerySubtitle' => 'בחר תמונה, העלה לאחסון והערך את הקלוריות',
 			'debug.testDetectText' => 'בדיקת זיהוי טקסט',
 			'debug.testDetectTextSubtitle' => 'זהה ארוחה מתוך תיאור טקסטואלי',
 			'debug.testMealLoggingWithVariations' => 'בדיקת רישום ארוחה עם וריאציות',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'בדוק את זרימת רישום הארוחה המלאה עם וריאציות',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'ארוחה מדומה עם וריאציות',
 			'debug.mockMealWithVariationsSubtitle' => 'תצוגה מקדימה של וריאציות + דף טיפים ללא רישום',
 			'debug.mockMealName' => 'עוף בגריל עם אורז וירקות',

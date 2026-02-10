@@ -335,6 +335,7 @@ class _TranslationsDisclaimerNl implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapNl snap = _TranslationsDisclaimerSnapNl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateNl weightEstimate = _TranslationsDisclaimerWeightEstimateNl._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsNl healthMetrics = _TranslationsDisclaimerHealthMetricsNl._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureNl calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureNl._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsNl implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalNl dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalNl._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureNl implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Schatting van calorieverbruik';
+	@override String get description => 'Wanneer Health Connect-gegevens niet beschikbaar zijn, schatten we de vandaag verbrande calorieën op basis van je basale stofwisselingssnelheid (BMR) en je activiteitsniveau (TDEE), geschaald naar het deel van de dag dat verstreken is.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedNl howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedNl._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceNl professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceNl._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsNl implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsNl._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalNl implements TranslationsDis
 	@override String get description => 'Het Dagdoel is je aanbevolen dagelijkse calorie-inname op basis van je TDEE en gewichtsdoel. Voor gewichtsverlies consumeer je minder calorieën dan je TDEE. Voor gewichtsbehoud stem je je inname af op je TDEE. Voor gewichtstoename consumeer je meer calorieën dan je TDEE. Dit helpt je om je gewenste gewichtsverandering op een gezonde manier te bereiken.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedNl implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hoe de schatting wordt berekend';
+	@override String get description => 'We berekenen je TDEE (op basis van je profiel) en vermenigvuldigen deze met de fractie van de dag die verstreken is (uren + minuten) / 24 om de tot nu toe verbrande calorieën te schatten.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceNl implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Professioneel advies';
+	@override String get description => 'Gebruik deze schatting niet voor medische beslissingen. Raadpleeg altijd een zorgverlener of een geregistreerde diëtist(e) voor persoonlijk advies over gewichtsbeheersing.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedNl implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedNl._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsNl {
 			'disclaimer.healthMetrics.tdee.description' => 'Het Totale Dagelijkse Energieverbruik (TDEE) is het totale aantal calorieën dat je per dag verbrandt, inclusief je BMR plus calorieën van fysieke activiteit en dagelijkse beweging. TDEE is afhankelijk van je BMR en activiteitsniveau. Een hogere TDEE betekent dat je over het algemeen meer calorieën verbrandt, meestal door meer actief te zijn of een hogere BMR te hebben. Een lagere TDEE suggereert minder dagelijkse activiteit of een lagere BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Dagdoel',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Het Dagdoel is je aanbevolen dagelijkse calorie-inname op basis van je TDEE en gewichtsdoel. Voor gewichtsverlies consumeer je minder calorieën dan je TDEE. Voor gewichtsbehoud stem je je inname af op je TDEE. Voor gewichtstoename consumeer je meer calorieën dan je TDEE. Dit helpt je om je gewenste gewichtsverandering op een gezonde manier te bereiken.',
+			'disclaimer.calorieExpenditure.title' => 'Schatting van calorieverbruik',
+			'disclaimer.calorieExpenditure.description' => 'Wanneer Health Connect-gegevens niet beschikbaar zijn, schatten we de vandaag verbrande calorieën op basis van je basale stofwisselingssnelheid (BMR) en je activiteitsniveau (TDEE), geschaald naar het deel van de dag dat verstreken is.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Hoe de schatting wordt berekend',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'We berekenen je TDEE (op basis van je profiel) en vermenigvuldigen deze met de fractie van de dag die verstreken is (uren + minuten) / 24 om de tot nu toe verbrande calorieën te schatten.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professioneel advies',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Gebruik deze schatting niet voor medische beslissingen. Raadpleeg altijd een zorgverlener of een geregistreerde diëtist(e) voor persoonlijk advies over gewichtsbeheersing.',
 			'common.close' => 'Sluiten',
 			'common.kContinue' => 'Doorgaan',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Geniet je van ${appLabel}?',
@@ -2207,14 +2249,14 @@ extension on TranslationsNl {
 			'debug.testAnalyzeImageSubtitle' => 'Upload een vooraf ingestelde testafbeelding',
 			'debug.testDetectImage' => 'Test: afbeelding detecteren',
 			'debug.testDetectImageSubtitle' => 'Detecteer maaltijd vanuit afbeeldings-URL',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Detecteer afbeelding uit galerij',
 			'debug.detectImageFromGallerySubtitle' => 'Selecteer afbeelding, upload naar bucket en schat calorieën',
 			'debug.testDetectText' => 'Test: tekst detecteren',
 			'debug.testDetectTextSubtitle' => 'Detecteer maaltijd vanuit tekstbeschrijving',
 			'debug.testMealLoggingWithVariations' => 'Test maaltijdregistratie met variaties',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Test de volledige maaltijdregistratie-flow met variaties',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Mockmaaltijd met variaties',
 			'debug.mockMealWithVariationsSubtitle' => 'Bekijk variatie en tipblad-UI zonder te registreren',
 			'debug.mockMealName' => 'Gegrilde kip met rijst en groenten',

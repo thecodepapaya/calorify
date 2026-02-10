@@ -335,6 +335,7 @@ class _TranslationsDisclaimerNo implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapNo snap = _TranslationsDisclaimerSnapNo._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateNo weightEstimate = _TranslationsDisclaimerWeightEstimateNo._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsNo healthMetrics = _TranslationsDisclaimerHealthMetricsNo._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureNo calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureNo._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsNo implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalNo dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalNo._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureNo implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureNo._(this._root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Estimert kaloriforbruk';
+	@override String get description => 'Når Health Connect-data ikke er tilgjengelig, estimerer vi dagens forbrente kalorier ved å bruke ditt basalstoffskifte (BMR) og aktivitetsnivå (TDEE), justert for den delen av dagen som har gått.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedNo howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedNo._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceNo professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceNo._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsNo implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsNo._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalNo implements TranslationsDis
 	@override String get description => 'Daglig Mål er ditt anbefalte daglige kaloriinntak basert på TDEE og vektmål. For vekttap konsumerer du færre kalorier enn TDEE. For vektvedlikehold matcher du TDEE. For vektøkning konsumerer du flere kalorier enn TDEE. Dette hjelper deg med å oppnå ønsket vektendring i en sunn hastighet.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedNo implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedNo._(this._root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hvordan estimatet beregnes';
+	@override String get description => 'Vi beregner ditt TDEE (basert på profilen din) og multipliserer det med andelen av dagen som har gått (timer + minutter)/24 for å anslå hvor mange kalorier som er forbrent så langt.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceNo implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceNo._(this._root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Faglig veiledning';
+	@override String get description => 'Ikke bruk dette estimatet til å ta medisinske beslutninger. Kontakt alltid helsepersonell eller en registrert ernæringsfysiolog for personlig rådgivning om vektkontroll.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedNo implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedNo._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsNo {
 			'disclaimer.healthMetrics.tdee.description' => 'Total Daglig Energiforbruk (TDEE) er totalt antall kalorier du forbrenner per dag, inkludert BMR pluss kalorier fra fysisk aktivitet og daglig bevegelse. TDEE avhenger av din BMR og aktivitetsnivå. En høyere TDEE betyr at du forbrenner flere kalorier totalt, vanligvis fordi du er mer aktiv eller har en høyere BMR. En lavere TDEE antyder mindre daglig aktivitet eller en lavere BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Daglig Mål',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Daglig Mål er ditt anbefalte daglige kaloriinntak basert på TDEE og vektmål. For vekttap konsumerer du færre kalorier enn TDEE. For vektvedlikehold matcher du TDEE. For vektøkning konsumerer du flere kalorier enn TDEE. Dette hjelper deg med å oppnå ønsket vektendring i en sunn hastighet.',
+			'disclaimer.calorieExpenditure.title' => 'Estimert kaloriforbruk',
+			'disclaimer.calorieExpenditure.description' => 'Når Health Connect-data ikke er tilgjengelig, estimerer vi dagens forbrente kalorier ved å bruke ditt basalstoffskifte (BMR) og aktivitetsnivå (TDEE), justert for den delen av dagen som har gått.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Hvordan estimatet beregnes',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Vi beregner ditt TDEE (basert på profilen din) og multipliserer det med andelen av dagen som har gått (timer + minutter)/24 for å anslå hvor mange kalorier som er forbrent så langt.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Faglig veiledning',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Ikke bruk dette estimatet til å ta medisinske beslutninger. Kontakt alltid helsepersonell eller en registrert ernæringsfysiolog for personlig rådgivning om vektkontroll.',
 			'common.close' => 'Lukk',
 			'common.kContinue' => 'Fortsett',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Liker du ${appLabel}?',
@@ -2207,14 +2249,14 @@ extension on TranslationsNo {
 			'debug.testAnalyzeImageSubtitle' => 'Last opp forhåndsbestemt testbilde',
 			'debug.testDetectImage' => 'Test bildedeteksjon',
 			'debug.testDetectImageSubtitle' => 'Oppdag måltid fra bilde-URL',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Oppdag bilde fra galleri',
 			'debug.detectImageFromGallerySubtitle' => 'Velg bilde, last opp til bucket og estimer kalorier',
 			'debug.testDetectText' => 'Test tekstdeteksjon',
 			'debug.testDetectTextSubtitle' => 'Gjenkjenn måltid fra tekstbeskrivelse',
 			'debug.testMealLoggingWithVariations' => 'Test måltidslogging med varianter',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Test hele flyten for måltidslogging med varianter',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Eksempelmåltid med varianter',
 			'debug.mockMealWithVariationsSubtitle' => 'Forhåndsvis variasjon + tipsark i UI uten å logge',
 			'debug.mockMealName' => 'Grillet kylling med ris og grønnsaker',

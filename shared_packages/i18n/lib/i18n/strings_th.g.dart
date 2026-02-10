@@ -335,6 +335,7 @@ class _TranslationsDisclaimerTh implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapTh snap = _TranslationsDisclaimerSnapTh._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateTh weightEstimate = _TranslationsDisclaimerWeightEstimateTh._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTh healthMetrics = _TranslationsDisclaimerHealthMetricsTh._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureTh calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureTh._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsTh implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalTh dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalTh._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureTh implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'การประมาณการการใช้พลังงาน (แคลอรี)';
+	@override String get description => 'เมื่อไม่สามารถเรียกข้อมูลจาก Health Connect ได้ เราจะประมาณจำนวนแคลอรีที่เผาผลาญไปในวันนี้โดยใช้ค่าอัตราการเผาผลาญพื้นฐานของร่างกาย (BMR) และระดับกิจกรรม (TDEE) ปรับตามสัดส่วนของวันที่ผ่านไป';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedTh howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedTh._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTh professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTh._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsTh implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsTh._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalTh implements TranslationsDis
 	@override String get description => 'เป้าหมายรายวันคือปริมาณแคลอรี่ที่แนะนำสำหรับการบริโภคในแต่ละวันซึ่งขึ้นอยู่กับ TDEE และเป้าหมายด้านน้ำหนักของคุณ สำหรับการลดน้ำหนัก คุณควรบริโภคแคลอรี่ให้น้อยกว่า TDEE ของคุณ สำหรับการรักษาน้ำหนัก คุณควรบริโภคแคลอรี่เท่ากับ TDEE ของคุณ และสำหรับการเพิ่มน้ำหนัก คุณควรบริโภคแคลอรี่มากกว่า TDEE การดำเนินชีวิตอย่างนี้จะช่วยให้คุณบรรลุการเปลี่ยนแปลงน้ำหนักที่ต้องการอย่างมีสุขภาพดี';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedTh implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'วิธีการคำนวณ';
+	@override String get description => 'เราคำนวณค่า TDEE ของคุณ (อิงตามข้อมูลโปรไฟล์) และคูณด้วยสัดส่วนของวันที่ผ่านไป (ชั่วโมง + นาที) ÷ 24 เพื่อประมาณจำนวนแคลอรีที่เผาผลาญไปจนถึงขณะนี้';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTh implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'คำแนะนำจากผู้เชี่ยวชาญ';
+	@override String get description => 'อย่าใช้การประมาณการนี้เป็นพื้นฐานในการตัดสินใจทางการแพทย์ ให้ปรึกษาผู้เชี่ยวชาญด้านสุขภาพหรือผู้เชี่ยวชาญด้านโภชนาการที่ได้รับใบอนุญาตเสมอ เพื่อรับคำแนะนำการจัดการน้ำหนักที่เหมาะกับคุณ';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTh implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTh._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsTh {
 			'disclaimer.healthMetrics.tdee.description' => 'การใช้พลังงานทั้งหมดในแต่ละวัน (TDEE) คือจำนวนแคลอรี่ที่คุณเผาผลาญในแต่ละวัน รวมถึง BMR ของคุณบวกกับแคลอรี่จากกิจกรรมทางกายและการเคลื่อนไหวในชีวิตประจำวัน TDEE ขึ้นอยู่กับ BMR และระดับกิจกรรมของคุณ TDEE ที่สูงหมายถึงการเผาผลาญแคลอรี่มากขึ้นโดยรวม ซึ่งมักเกิดจากการที่คุณมีความเคลื่อนไหวมากขึ้นหรือมี BMR ที่สูงกว่า ในขณะที่ TDEE ที่ต่ำกว่าจะบ่งบอกถึงความเคลื่อนไหวในแต่ละวันน้อยลงหรือมี BMR ที่ต่ำกว่า',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'เป้าหมายรายวัน',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'เป้าหมายรายวันคือปริมาณแคลอรี่ที่แนะนำสำหรับการบริโภคในแต่ละวันซึ่งขึ้นอยู่กับ TDEE และเป้าหมายด้านน้ำหนักของคุณ สำหรับการลดน้ำหนัก คุณควรบริโภคแคลอรี่ให้น้อยกว่า TDEE ของคุณ สำหรับการรักษาน้ำหนัก คุณควรบริโภคแคลอรี่เท่ากับ TDEE ของคุณ และสำหรับการเพิ่มน้ำหนัก คุณควรบริโภคแคลอรี่มากกว่า TDEE การดำเนินชีวิตอย่างนี้จะช่วยให้คุณบรรลุการเปลี่ยนแปลงน้ำหนักที่ต้องการอย่างมีสุขภาพดี',
+			'disclaimer.calorieExpenditure.title' => 'การประมาณการการใช้พลังงาน (แคลอรี)',
+			'disclaimer.calorieExpenditure.description' => 'เมื่อไม่สามารถเรียกข้อมูลจาก Health Connect ได้ เราจะประมาณจำนวนแคลอรีที่เผาผลาญไปในวันนี้โดยใช้ค่าอัตราการเผาผลาญพื้นฐานของร่างกาย (BMR) และระดับกิจกรรม (TDEE) ปรับตามสัดส่วนของวันที่ผ่านไป',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'วิธีการคำนวณ',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'เราคำนวณค่า TDEE ของคุณ (อิงตามข้อมูลโปรไฟล์) และคูณด้วยสัดส่วนของวันที่ผ่านไป (ชั่วโมง + นาที) ÷ 24 เพื่อประมาณจำนวนแคลอรีที่เผาผลาญไปจนถึงขณะนี้',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'คำแนะนำจากผู้เชี่ยวชาญ',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'อย่าใช้การประมาณการนี้เป็นพื้นฐานในการตัดสินใจทางการแพทย์ ให้ปรึกษาผู้เชี่ยวชาญด้านสุขภาพหรือผู้เชี่ยวชาญด้านโภชนาการที่ได้รับใบอนุญาตเสมอ เพื่อรับคำแนะนำการจัดการน้ำหนักที่เหมาะกับคุณ',
 			'common.close' => 'ปิด',
 			'common.kContinue' => 'ดำเนินการต่อ',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'คุณกำลังเพลิดเพลินกับ ${appLabel} อยู่หรือเปล่า?',
@@ -2207,14 +2249,14 @@ extension on TranslationsTh {
 			'debug.testAnalyzeImageSubtitle' => 'อัปโหลดรูปภาพทดสอบที่กำหนดไว้ล่วงหน้า',
 			'debug.testDetectImage' => 'ทดสอบตรวจจับรูปภาพ',
 			'debug.testDetectImageSubtitle' => 'ตรวจจับมื้ออาหารจาก URL รูปภาพ',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'ตรวจจับรูปจากคลังภาพ',
 			'debug.detectImageFromGallerySubtitle' => 'เลือกภาพ อัปโหลดไปยังบัคเก็ต และประเมินแคลอรี',
 			'debug.testDetectText' => 'ทดสอบตรวจจับข้อความ',
 			'debug.testDetectTextSubtitle' => 'ตรวจจับมื้ออาหารจากคำอธิบายข้อความ',
 			'debug.testMealLoggingWithVariations' => 'ทดสอบการบันทึกมื้ออาหารพร้อมตัวเลือกต่าง ๆ',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'ทดสอบกระบวนการบันทึกมื้ออาหารแบบเต็มพร้อมตัวเลือกต่าง ๆ',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'มื้อจำลองพร้อมตัวเลือกต่าง ๆ',
 			'debug.mockMealWithVariationsSubtitle' => 'ดูตัวอย่าง UI ของตัวเลือกและคำแนะนำโดยไม่ต้องบันทึก',
 			'debug.mockMealName' => 'ไก่ย่างกับข้าวและผัก',

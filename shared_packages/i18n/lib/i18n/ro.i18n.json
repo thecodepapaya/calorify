@@ -597,6 +597,18 @@
         "title": "Obiectiv Zilnic",
         "description": "Obiectivul Zilnic este aportul tău caloric zilnic recomandat, bazat pe TDEE-ul tău și pe obiectivul tău de greutate. Pentru pierderea în greutate, consumi mai puține calorii decât TDEE-ul tău. Pentru menținerea greutății, îți egalizezi TDEE-ul. Pentru creșterea în greutate, consumi mai multe calorii decât TDEE-ul tău. Acest lucru te ajută să îți atingi schimbarea dorită în greutate într-un ritm sănătos."
       }
+    },
+    "calorieExpenditure": {
+      "title": "Estimare a caloriilor arse",
+      "description": "Când datele din Health Connect nu sunt disponibile, estimăm caloriile arse astăzi pe baza ratei metabolice bazale (BMR) și a nivelului tău de activitate (TDEE), ajustând estimarea după partea din zi care a trecut.",
+      "howCalculated": {
+        "title": "Cum se calculează estimarea",
+        "description": "Calculăm TDEE-ul tău (pe baza profilului) și îl înmulțim cu fracțiunea din zi care a trecut (ore + minute) / 24 pentru a estima caloriile arse până acum."
+      },
+      "professionalGuidance": {
+        "title": "Recomandare profesională",
+        "description": "Nu folosi această estimare pentru a lua decizii medicale. Consultă întotdeauna un profesionist din domeniul sănătății sau un dietetician înregistrat pentru sfaturi personalizate privind gestionarea greutății."
+      }
     }
   },
   "common": {

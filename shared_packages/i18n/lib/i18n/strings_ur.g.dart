@@ -335,6 +335,7 @@ class _TranslationsDisclaimerUr implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapUr snap = _TranslationsDisclaimerSnapUr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateUr weightEstimate = _TranslationsDisclaimerWeightEstimateUr._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsUr healthMetrics = _TranslationsDisclaimerHealthMetricsUr._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureUr calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureUr._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsUr implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalUr dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalUr._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureUr implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'کیلوریز خرچ کا تخمینہ';
+	@override String get description => 'جب Health Connect کا ڈیٹا دستیاب نہ ہو، ہم آپ کے بیسل میٹابولک ریٹ (BMR) اور سرگرمی کی سطح (TDEE) کی بنیاد پر آج کے جلائے گئے کیلوریز کا اندازہ لگاتے ہیں اور اسے دن کے گذرے ہوئے حصے کے تناسب کے مطابق ایڈجسٹ کرتے ہیں۔';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedUr howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedUr._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceUr professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceUr._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsUr implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsUr._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalUr implements TranslationsDis
 	@override String get description => 'روزانہ کا ہدف آپ کی ٹی ڈی ای ای اور وزن کے مقصد کی بنیاد پر تجویز کردہ روزانہ کی کیلوری کی مقدار ہے۔ وزن کم کرنے کے لیے، آپ اپنی ٹی ڈی ای ای سے کم کیلوریز کھاتے ہیں۔ وزن کو برقرار رکھنے کے لیے، آپ اپنی ٹی ڈی ای ای کے برابر کھاتے ہیں۔ وزن بڑھانے کے لیے، آپ اپنی ٹی ڈی ای ای سے زیادہ کیلوریز کھاتے ہیں۔ یہ آپ کو صحت مند رفتار پر مطلوبہ وزن میں تبدیلی حاصل کرنے میں مدد کرتا ہے۔';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedUr implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'یہ اندازہ کیسے نکالا جاتا ہے';
+	@override String get description => 'ہم آپ کا TDEE (آپ کی پروفائل کی بنیاد پر) شمار کرتے ہیں اور اسے دن کے گذرے ہوئے حصے کے تناسب (گھنٹے + منٹ) / 24 سے ضرب دے کر اب تک جلائی گئی کیلوریز کا اندازہ لگاتے ہیں۔';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceUr implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'پیشہ ورانہ رہنمائی';
+	@override String get description => 'اس اندازے کو طبی فیصلوں کے لیے استعمال نہ کریں۔ ذاتی وزن کے انتظام کے لیے ہمیشہ کسی صحت کے پیشہ ور یا رجسٹرڈ ڈائیٹیشن سے مشورہ کریں۔';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUr implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUr._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsUr {
 			'disclaimer.healthMetrics.tdee.description' => 'مکمل روزانہ کی توانائی کی خرچ (ٹی ڈی ای ای) کل کیلوریز ہیں جو آپ ایک دن میں جلاتے ہیں، بشمول آپ کا بی ایم آر اور جسمانی سرگرمی اور روزمرہ کی حرکت سے جلی ہوئی کیلوریز۔ ٹی ڈی ای ای آپ کے بی ایم آر اور سرگرمی کی سطح پر منحصر ہے۔ زیادہ ٹی ڈی ای ای کا مطلب ہے کہ آپ عام طور پر زیادہ کیلوریز جلاتے ہیں، عموماً زیادہ فعال ہونے یا زیادہ بی ایم آر کی وجہ سے۔ کم ٹی ڈی ای ای کم روزانہ کی سرگرمی یا کم بی ایم آر کی طرف اشارہ کرتا ہے۔',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'روزانہ کا ہدف',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'روزانہ کا ہدف آپ کی ٹی ڈی ای ای اور وزن کے مقصد کی بنیاد پر تجویز کردہ روزانہ کی کیلوری کی مقدار ہے۔ وزن کم کرنے کے لیے، آپ اپنی ٹی ڈی ای ای سے کم کیلوریز کھاتے ہیں۔ وزن کو برقرار رکھنے کے لیے، آپ اپنی ٹی ڈی ای ای کے برابر کھاتے ہیں۔ وزن بڑھانے کے لیے، آپ اپنی ٹی ڈی ای ای سے زیادہ کیلوریز کھاتے ہیں۔ یہ آپ کو صحت مند رفتار پر مطلوبہ وزن میں تبدیلی حاصل کرنے میں مدد کرتا ہے۔',
+			'disclaimer.calorieExpenditure.title' => 'کیلوریز خرچ کا تخمینہ',
+			'disclaimer.calorieExpenditure.description' => 'جب Health Connect کا ڈیٹا دستیاب نہ ہو، ہم آپ کے بیسل میٹابولک ریٹ (BMR) اور سرگرمی کی سطح (TDEE) کی بنیاد پر آج کے جلائے گئے کیلوریز کا اندازہ لگاتے ہیں اور اسے دن کے گذرے ہوئے حصے کے تناسب کے مطابق ایڈجسٹ کرتے ہیں۔',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'یہ اندازہ کیسے نکالا جاتا ہے',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'ہم آپ کا TDEE (آپ کی پروفائل کی بنیاد پر) شمار کرتے ہیں اور اسے دن کے گذرے ہوئے حصے کے تناسب (گھنٹے + منٹ) / 24 سے ضرب دے کر اب تک جلائی گئی کیلوریز کا اندازہ لگاتے ہیں۔',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'پیشہ ورانہ رہنمائی',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'اس اندازے کو طبی فیصلوں کے لیے استعمال نہ کریں۔ ذاتی وزن کے انتظام کے لیے ہمیشہ کسی صحت کے پیشہ ور یا رجسٹرڈ ڈائیٹیشن سے مشورہ کریں۔',
 			'common.close' => 'بند کریں',
 			'common.kContinue' => 'جاری رکھیں',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'کیا آپ ${appLabel} سے لطف اندوز ہو رہے ہیں؟',
@@ -2207,14 +2249,14 @@ extension on TranslationsUr {
 			'debug.testAnalyzeImageSubtitle' => 'پہلے سے طے شدہ ٹیسٹ تصویر اپلوڈ کریں',
 			'debug.testDetectImage' => 'تصویر شناخت ٹیسٹ',
 			'debug.testDetectImageSubtitle' => 'تصویر کے URL سے کھانا شناخت کریں',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'گیلری سے تصویر شناخت کریں',
 			'debug.detectImageFromGallerySubtitle' => 'تصویر منتخب کریں، بکٹ میں اپلوڈ کریں اور کیلوریز کا اندازہ لگائیں',
 			'debug.testDetectText' => 'متن شناخت ٹیسٹ',
 			'debug.testDetectTextSubtitle' => 'متنی وضاحت سے کھانا شناخت کریں',
 			'debug.testMealLoggingWithVariations' => 'تغیرات کے ساتھ میل لاگنگ ٹیسٹ',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'تغیرات کے ساتھ مکمل میل لاگنگ فلو کا ٹیسٹ کریں',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'تغیرات کے ساتھ نمونہ کھانا',
 			'debug.mockMealWithVariationsSubtitle' => 'لاگ کیے بغیر ویریئیشن اور ٹِپ شیٹ UI کا پریویو کریں',
 			'debug.mockMealName' => 'گرِلڈ چکن کے ساتھ چاول اور سبزیاں',

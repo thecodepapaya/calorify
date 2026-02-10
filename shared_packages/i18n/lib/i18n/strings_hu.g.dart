@@ -335,6 +335,7 @@ class _TranslationsDisclaimerHu implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapHu snap = _TranslationsDisclaimerSnapHu._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateHu weightEstimate = _TranslationsDisclaimerWeightEstimateHu._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsHu healthMetrics = _TranslationsDisclaimerHealthMetricsHu._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureHu calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureHu._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsHu implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalHu dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalHu._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureHu implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kalóriafelhasználás becslése';
+	@override String get description => 'Ha a Health Connect adatai nem állnak rendelkezésre, a mai nap során elégetett kalóriákat a nyugalmi anyagcsere (BMR) és az aktivitási szint (TDEE) alapján becsüljük, a napnak már eltelt részével arányosítva.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedHu howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedHu._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceHu professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceHu._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsHu implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsHu._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalHu implements TranslationsDis
 	@override String get description => 'A Napi Cél a javasolt napi kalóriabeviteled, amely a TDEE-d és a súlycélod alapján van megállapítva. Súlycsökkentés esetén kevesebb kalóriát fogyasztasz, mint a TDEE-d. A súly fenntartásához a TDEE-dnek megfelelő mennyiséget fogyasztasz. Súlygyarapodás érdekében pedig többet eszel, mint a TDEE-d. Ez segít elérni a kívánt súlyváltozást egészséges ütemben.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedHu implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hogyan számítjuk a becslést';
+	@override String get description => 'Kiszámítjuk a TDEE-t (a profilod alapján), majd megszorozzuk a nap eltelt hányadával ((órák + percek) / 24), hogy megbecsüljük az eddig elégetett kalóriákat.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceHu implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Szakmai útmutatás';
+	@override String get description => 'Ne használd ezt a becslést orvosi döntések meghozatalára. Mindig konzultálj egészségügyi szakemberrel vagy regisztrált dietetikussal személyre szabott testsúlykezelési tanácsért.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHu implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHu._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsHu {
 			'disclaimer.healthMetrics.tdee.description' => 'A Teljes Napi Energiafelhasználás (TDEE) az a kalóriamennyiség, amelyet egy nap alatt elégetsz, beleértve a BMR-t és a fizikai aktivitásból valamint a napi mozgásból származó kalóriákat. A TDEE a BMR-dtől és az aktivitási szintedtől függ. A magasabb TDEE azt jelenti, hogy összességében több kalóriát égetsz el, általában a nagyobb aktivitásból vagy a magasabb BMR-ből adódóan. Az alacsonyabb TDEE kevesebb napi aktivitást vagy alacsonyabb BMR-t jelez.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Napi Cél',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'A Napi Cél a javasolt napi kalóriabeviteled, amely a TDEE-d és a súlycélod alapján van megállapítva. Súlycsökkentés esetén kevesebb kalóriát fogyasztasz, mint a TDEE-d. A súly fenntartásához a TDEE-dnek megfelelő mennyiséget fogyasztasz. Súlygyarapodás érdekében pedig többet eszel, mint a TDEE-d. Ez segít elérni a kívánt súlyváltozást egészséges ütemben.',
+			'disclaimer.calorieExpenditure.title' => 'Kalóriafelhasználás becslése',
+			'disclaimer.calorieExpenditure.description' => 'Ha a Health Connect adatai nem állnak rendelkezésre, a mai nap során elégetett kalóriákat a nyugalmi anyagcsere (BMR) és az aktivitási szint (TDEE) alapján becsüljük, a napnak már eltelt részével arányosítva.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Hogyan számítjuk a becslést',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kiszámítjuk a TDEE-t (a profilod alapján), majd megszorozzuk a nap eltelt hányadával ((órák + percek) / 24), hogy megbecsüljük az eddig elégetett kalóriákat.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Szakmai útmutatás',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Ne használd ezt a becslést orvosi döntések meghozatalára. Mindig konzultálj egészségügyi szakemberrel vagy regisztrált dietetikussal személyre szabott testsúlykezelési tanácsért.',
 			'common.close' => 'Bezárás',
 			'common.kContinue' => 'Tovább',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Tetszik a ${appLabel}?',
@@ -2207,14 +2249,14 @@ extension on TranslationsHu {
 			'debug.testAnalyzeImageSubtitle' => 'Előre beállított tesztkép feltöltése',
 			'debug.testDetectImage' => 'Kép felismerés tesztelése',
 			'debug.testDetectImageSubtitle' => 'Ételfelismerés kép URL alapján',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Kép felismerése a galériából',
 			'debug.detectImageFromGallerySubtitle' => 'Válassz képet, töltsd fel a tárhelyre és becsüld meg a kalóriákat',
 			'debug.testDetectText' => 'Szövegfelismerés tesztelése',
 			'debug.testDetectTextSubtitle' => 'Ételfelismerés szöveges leírásból',
 			'debug.testMealLoggingWithVariations' => 'Ételfelvitel tesztelése variációkkal',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Teszteld a teljes ételfelviteli folyamatot variációkkal',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Mintaétel variációkkal',
 			'debug.mockMealWithVariationsSubtitle' => 'Variációk és tipp lap UI előnézete naplózás nélkül',
 			'debug.mockMealName' => 'Grillezett csirke rizzsel és zöldségekkel',

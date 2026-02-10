@@ -335,6 +335,7 @@ class _TranslationsDisclaimerIt implements TranslationsDisclaimerEn {
 	@override late final _TranslationsDisclaimerSnapIt snap = _TranslationsDisclaimerSnapIt._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateIt weightEstimate = _TranslationsDisclaimerWeightEstimateIt._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsIt healthMetrics = _TranslationsDisclaimerHealthMetricsIt._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureIt calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureIt._(_root);
 }
 
 // Path: common
@@ -1203,6 +1204,19 @@ class _TranslationsDisclaimerHealthMetricsIt implements TranslationsDisclaimerHe
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalIt dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalIt._(_root);
 }
 
+// Path: disclaimer.calorieExpenditure
+class _TranslationsDisclaimerCalorieExpenditureIt implements TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureIt._(this._root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Stima del dispendio calorico';
+	@override String get description => 'Quando i dati di Health Connect non sono disponibili, stimiamo le calorie bruciate oggi utilizzando il tuo Metabolismo Basale (BMR) e il livello di attività (TDEE), adeguandole alla porzione della giornata trascorsa.';
+	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedIt howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedIt._(_root);
+	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceIt professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceIt._(_root);
+}
+
 // Path: debug.sections
 class _TranslationsDebugSectionsIt implements TranslationsDebugSectionsEn {
 	_TranslationsDebugSectionsIt._(this._root);
@@ -1657,6 +1671,28 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalIt implements TranslationsDis
 	@override String get description => 'L\'Obiettivo Giornaliero è il tuo apporto calorico giornaliero raccomandato basato sul tuo TDEE e sull\'obiettivo di peso. Per la perdita di peso, consumi meno calorie rispetto al tuo TDEE. Per il mantenimento del peso, eguagli il tuo TDEE. Per l\'aumento di peso, consumi più calorie rispetto al tuo TDEE. Questo ti aiuta a raggiungere il cambiamento di peso desiderato a un ritmo sano.';
 }
 
+// Path: disclaimer.calorieExpenditure.howCalculated
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedIt implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedIt._(this._root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Come viene calcolata la stima';
+	@override String get description => 'Calcoliamo il tuo TDEE (in base al tuo profilo) e lo moltiplichiamo per la frazione della giornata trascorsa (ore + minuti) / 24 per stimare le calorie bruciate finora.';
+}
+
+// Path: disclaimer.calorieExpenditure.professionalGuidance
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceIt implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceIt._(this._root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Consigli professionali';
+	@override String get description => 'Non usare questa stima per prendere decisioni mediche. Consulta sempre un professionista sanitario o un dietista/nutrizionista registrato per consigli personalizzati sulla gestione del peso.';
+}
+
 // Path: settings.healthConnect.permissions.caloriesBurned
 class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedIt implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedIt._(this._root);
@@ -2097,6 +2133,12 @@ extension on TranslationsIt {
 			'disclaimer.healthMetrics.tdee.description' => 'Il Consumo Totale di Energia Giornaliero (TDEE) è il totale delle calorie che bruci ogni giorno, incluso il tuo BMR più le calorie derivanti dall\'attività fisica e dal movimento quotidiano. Il TDEE dipende dal tuo BMR e dal livello di attività. Un TDEE più alto significa che bruci più calorie complessivamente, di solito a causa di una maggiore attività o di un BMR più elevato. Un TDEE più basso suggerisce meno attività quotidiana o un BMR inferiore.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Obiettivo Giornaliero',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'L\'Obiettivo Giornaliero è il tuo apporto calorico giornaliero raccomandato basato sul tuo TDEE e sull\'obiettivo di peso. Per la perdita di peso, consumi meno calorie rispetto al tuo TDEE. Per il mantenimento del peso, eguagli il tuo TDEE. Per l\'aumento di peso, consumi più calorie rispetto al tuo TDEE. Questo ti aiuta a raggiungere il cambiamento di peso desiderato a un ritmo sano.',
+			'disclaimer.calorieExpenditure.title' => 'Stima del dispendio calorico',
+			'disclaimer.calorieExpenditure.description' => 'Quando i dati di Health Connect non sono disponibili, stimiamo le calorie bruciate oggi utilizzando il tuo Metabolismo Basale (BMR) e il livello di attività (TDEE), adeguandole alla porzione della giornata trascorsa.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Come viene calcolata la stima',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Calcoliamo il tuo TDEE (in base al tuo profilo) e lo moltiplichiamo per la frazione della giornata trascorsa (ore + minuti) / 24 per stimare le calorie bruciate finora.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Consigli professionali',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Non usare questa stima per prendere decisioni mediche. Consulta sempre un professionista sanitario o un dietista/nutrizionista registrato per consigli personalizzati sulla gestione del peso.',
 			'common.close' => 'Chiudi',
 			'common.kContinue' => 'Continua',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Ti sta piacendo ${appLabel}?',
@@ -2207,14 +2249,14 @@ extension on TranslationsIt {
 			'debug.testAnalyzeImageSubtitle' => 'Carica immagine di test predefinita',
 			'debug.testDetectImage' => 'Test Rilevamento Immagine',
 			'debug.testDetectImageSubtitle' => 'Rileva pasto da URL immagine',
+			_ => null,
+		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Rileva immagine dalla galleria',
 			'debug.detectImageFromGallerySubtitle' => 'Seleziona immagine, caricala nel bucket e stima le calorie',
 			'debug.testDetectText' => 'Test Rilevamento Testo',
 			'debug.testDetectTextSubtitle' => 'Rileva pasto da descrizione testuale',
 			'debug.testMealLoggingWithVariations' => 'Test registrazione pasto con variazioni',
 			'debug.testMealLoggingWithVariationsSubtitle' => 'Testa il flusso completo di registrazione pasto con variazioni',
-			_ => null,
-		} ?? switch (path) {
 			'debug.mockMealWithVariations' => 'Pasto di esempio con variazioni',
 			'debug.mockMealWithVariationsSubtitle' => 'Anteprima UI di variazioni e suggerimenti senza registrare',
 			'debug.mockMealName' => 'Pollo alla griglia con riso e verdure',
