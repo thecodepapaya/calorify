@@ -7,6 +7,7 @@ import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:utils/utils.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getCalorieExpenditureDisclaimer;
+import 'package:health/health.dart' show HealthConnectSdkStatus;
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
@@ -175,12 +176,18 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
             ],
           ),
         ),
-        if (_usedFallback)
-          Positioned(
-            top: 0,
-            right: 12,
-            child: DisclaimerButton(data: getCalorieExpenditureDisclaimer()),
+        Positioned(
+          top: 0,
+          right: 12,
+          child: DisclaimerButton(
+            data: getCalorieExpenditureDisclaimer(
+              usedFallback: _usedFallback,
+              isHealthConnectAvailable:
+                  HealthService.instance.status == HealthConnectSdkStatus.sdkAvailable,
+              hasCaloriesData: _caloriesBurned > 0,
+            ),
           ),
+        ),
       ],
     );
   }
