@@ -156,33 +156,7 @@ DisclaimerData getSnapDisclaimer() {
   );
 }
 
-DisclaimerData getWeightEstimateDisclaimer() {
-  return DisclaimerData(
-    title: t.disclaimer.weightEstimate.title,
-    description: t.disclaimer.weightEstimate.description,
-    bulletPoints: [
-      DisclaimerEntry(
-        title: t.disclaimer.weightEstimate.calorieAccuracy.title,
-        description: t.disclaimer.weightEstimate.calorieAccuracy.description,
-      ),
-      DisclaimerEntry(
-        title: t.disclaimer.weightEstimate.biologicalFactors.title,
-        description: t.disclaimer.weightEstimate.biologicalFactors.description(
-          appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
-        ),
-      ),
-      DisclaimerEntry(
-        title: t.disclaimer.weightEstimate.waterWeight.title,
-        description: t.disclaimer.weightEstimate.waterWeight.description,
-      ),
-      DisclaimerEntry(
-        title: t.disclaimer.weightEstimate.professionalGuidance.title,
-        description:
-            t.disclaimer.weightEstimate.professionalGuidance.description,
-      ),
-    ],
-  );
-}
+// getWeightEstimateDisclaimer removed — use `getHealthMetricsDisclaimer` or specific disclaimers as needed.
 
 DisclaimerData getHealthMetricsDisclaimer() {
   return DisclaimerData(
@@ -205,23 +179,85 @@ DisclaimerData getHealthMetricsDisclaimer() {
   );
 }
 
-DisclaimerData getCalorieExpenditureDisclaimer() {
-  return DisclaimerData(
-    title: t.disclaimer.calorieExpenditure.title,
-    description: t.disclaimer.calorieExpenditure.description,
-    bulletPoints: [
-      DisclaimerEntry(
-        title: t.disclaimer.weightEstimate.calorieAccuracy.title,
-        description: t.disclaimer.weightEstimate.calorieAccuracy.description,
-      ),
+DisclaimerData getCalorieExpenditureDisclaimer({
+  required bool usedFallback,
+  bool isHealthConnectAvailable = false,
+  bool hasCaloriesData = false,
+}) {
+  // Base info always included
+  final bullets = <DisclaimerEntry>[
+    DisclaimerEntry(
+      title: t.disclaimer.weightEstimate.title,
+      description: t.disclaimer.weightEstimate.description,
+    ),
+  ];
+
+  if (usedFallback) {
+    // Explain how fallback estimate is calculated and its limitations
+    bullets.addAll([
       DisclaimerEntry(
         title: t.disclaimer.calorieExpenditure.howCalculated.title,
         description: t.disclaimer.calorieExpenditure.howCalculated.description,
       ),
       DisclaimerEntry(
-        title: t.disclaimer.calorieExpenditure.professionalGuidance.title,
-        description: t.disclaimer.calorieExpenditure.professionalGuidance.description,
+        title: t.disclaimer.weightEstimate.calorieAccuracy.title,
+        description: t.disclaimer.weightEstimate.calorieAccuracy.description,
       ),
-    ],
+      DisclaimerEntry(
+        title: t.disclaimer.weightEstimate.biologicalFactors.title,
+        description: t.disclaimer.weightEstimate.biologicalFactors.description(
+          appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+        ),
+      ),
+      DisclaimerEntry(
+        title: t.disclaimer.weightEstimate.waterWeight.title,
+        description: t.disclaimer.weightEstimate.waterWeight.description,
+      ),
+      DisclaimerEntry(
+        title: t.disclaimer.weightEstimate.professionalGuidance.title,
+        description: t.disclaimer.weightEstimate.professionalGuidance.description,
+      ),
+    ]);
+  } else {
+    // Health Connect is available / data-backed path
+    if (isHealthConnectAvailable && hasCaloriesData) {
+      bullets.add(
+        DisclaimerEntry(
+          title: t.disclaimer.healthMetrics.dailyGoal.title,
+          description: t.disclaimer.healthMetrics.dailyGoal.description,
+        ),
+      );
+      bullets.add(
+        DisclaimerEntry(
+          title: t.disclaimer.weightEstimate.calorieAccuracy.title,
+          description: t.disclaimer.weightEstimate.calorieAccuracy.description,
+        ),
+      );
+    } else if (isHealthConnectAvailable && !hasCaloriesData) {
+      bullets.addAll([
+        DisclaimerEntry(
+          title: t.disclaimer.weightEstimate.calorieAccuracy.title,
+          description: t.disclaimer.weightEstimate.calorieAccuracy.description,
+        ),
+        DisclaimerEntry(
+          title: t.disclaimer.weightEstimate.calorieAccuracy.title,
+          description: t.disclaimer.weightEstimate.calorieAccuracy.description,
+        ),
+      ]);
+    } else {
+      // Generic fallback if nothing else applies
+      bullets.add(
+        DisclaimerEntry(
+          title: t.disclaimer.weightEstimate.calorieAccuracy.title,
+          description: t.disclaimer.weightEstimate.calorieAccuracy.description,
+        ),
+      );
+    }
+  }
+
+  return DisclaimerData(
+    title: t.disclaimer.calorieExpenditure.title,
+    description: t.disclaimer.calorieExpenditure.description,
+    bulletPoints: bullets,
   );
 }
