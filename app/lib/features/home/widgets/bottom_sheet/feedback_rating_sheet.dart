@@ -66,14 +66,14 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
     );
     _fadeController.forward();
     Analytics.instance.logEvent(AnalyticsEvent.feedbackSheetShown);
+    if (widget.persistShown) {
+      unawaited(DatabaseService.databaseInterface.setFeedbackSheetShown());
+    }
   }
 
   @override
   void dispose() {
     _fadeController.dispose();
-    if (widget.persistShown) {
-      unawaited(DatabaseService.databaseInterface.setFeedbackSheetShown());
-    }
     if (!_closedByTerminalAction) {
       Analytics.instance.logEvent(AnalyticsEvent.feedbackSheetDismissed);
     }
