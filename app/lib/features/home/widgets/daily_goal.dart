@@ -50,16 +50,9 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
   }
 
   Future<void> _fetchCaloriesBurned() async {
-    final calories = await HealthService.instance.getTotalCaloriesBurned();
-    bool usedFallback = false;
-    try {
-      usedFallback = HealthService.instance.lastFetchUsedFallback;
-    } catch (_) {
-      // If the HealthService has been mocked without this getter stubbed,
-      // accessing it may throw a TypeError (mock returning null for a non-nullable bool).
-      // Default to false in that case.
-      usedFallback = false;
-    }
+    final result = await HealthService.instance.getTotalCaloriesBurned();
+    final calories = result?.calories;
+    final usedFallback = result?.usedFallback ?? false;
     if (!mounted) return;
     setState(() {
       _caloriesBurned = calories?.toInt() ?? 0;

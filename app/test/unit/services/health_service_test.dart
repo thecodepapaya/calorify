@@ -23,6 +23,11 @@ void main() {
     healthService = HealthService.test(health: mockHealth);
     HealthService.setMockInstance(healthService);
   });
+ 
+  tearDown(() {
+    // Reset any global test-time singletons to avoid test pollution
+    OnboardingService.setMockInstance(null);
+  });
 
   group('HealthService', () {
     test('init sets status and authorization correctly', () async {
@@ -81,9 +86,9 @@ void main() {
           .thenReturn(600.0);
       OnboardingService.setMockInstance(mockOnboarding);
 
-      final calories = await healthService.getTotalCaloriesBurned();
-      expect(calories, 600.0);
-      expect(HealthService.instance.lastFetchUsedFallback, isTrue);
+      final result = await healthService.getTotalCaloriesBurned();
+      expect(result?.calories, 600.0);
+      expect(result?.usedFallback, isTrue);
     });
   });
 }

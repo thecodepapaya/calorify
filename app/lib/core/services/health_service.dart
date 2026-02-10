@@ -6,6 +6,17 @@ import 'package:health/health.dart' as health show MealType;
 import 'package:flutter/foundation.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 
+/// Result object returned by `getTotalCaloriesBurned`.
+/// `calories` may be null if no data or estimate is available.
+/// `usedFallback` is true when the value was estimated from the user profile.
+/// Keep this type in this file so callers can destructure the result and avoid
+/// racing against separate getters.
+class CaloriesResult {
+  final double calories;
+  final bool usedFallback;
+  CaloriesResult({required this.calories, required this.usedFallback});
+}
+
 class HealthService {
   HealthService._({Health? health}) : _health = health ?? Health();
 
@@ -348,7 +359,7 @@ class HealthService {
         .reduce((a, b) => a + b);
   }
 
-  Future<double?> getTotalCaloriesBurned() async {
+  Future<CaloriesResult?> getTotalCaloriesBurned() async {
     if (!_ensureInitialized()) {
       log('Cannot get total calories burned: service not initialized');
       return null;
@@ -375,10 +386,12 @@ class HealthService {
 
         if (data.isNotEmpty) {
           final totalCalories = data
-              .map((e) => (e.value as NumericHealthValue).numericValue.toDouble())
+              .map(
+                (e) => (e.value as NumericHealthValue).numericValue.toDouble(),
+              )
               .reduce((value, element) => value + element);
           _lastFetchUsedFallback = false;
-          return totalCalories;
+          return CaloriesResult(calories: totalCalories, usedFallback: false);
         }
         // If data empty, fall through to fallback estimate
       }
@@ -391,11 +404,11 @@ class HealthService {
     try {
       final profile = await OnboardingService.instance.getProfileData();
       if (profile != null) {
-        final estimate =
-            OnboardingService.instance.estimateCaloriesBurnedTodayFromProfile(profile);
+        final estimate = OnboardingService.instance
+            .estimateCaloriesBurnedTodayFromProfile(profile);
         if (estimate != null) {
           _lastFetchUsedFallback = true;
-          return estimate;
+          return CaloriesResult(calories: estimate, usedFallback: true);
         }
       }
     } catch (e, st) {

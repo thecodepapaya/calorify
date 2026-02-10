@@ -46,7 +46,7 @@ void main() {
     when(() => mockHealthService.isAuthorized).thenReturn(true);
     when(
       () => mockHealthService.getTotalCaloriesBurned(),
-    ).thenAnswer((_) async => 500.0);
+    ).thenAnswer((_) async => CaloriesResult(calories: 500.0, usedFallback: false));
   });
 
   group('Home Widgets Golden Tests', () {
