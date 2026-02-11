@@ -57,7 +57,6 @@ class TranslationsMs with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsCommonMs common = _TranslationsCommonMs._(_root);
 	@override late final _TranslationsFeedbackRatingMs feedbackRating = _TranslationsFeedbackRatingMs._(_root);
 	@override late final _TranslationsErrorsMs errors = _TranslationsErrorsMs._(_root);
-	@override late final _TranslationsDebugMs debug = _TranslationsDebugMs._(_root);
 	@override late final _TranslationsHealthMs health = _TranslationsHealthMs._(_root);
 }
 
@@ -359,6 +358,8 @@ class _TranslationsFeedbackRatingMs implements TranslationsFeedbackRatingEn {
 	@override String enjoyingQuestion({required Object appLabel}) => 'Anda menikmati ${appLabel}?';
 	@override String get yes => 'Ya, saya menikmatinya';
 	@override String get no => 'Tidak begitu';
+	@override String get rateStepHeading => 'Beri penilaian di Play Store';
+	@override String get emailStepHeading => 'Hantar maklum balas melalui e-mel';
 	@override String soloDevMessage({required Object appLabel}) => 'Penilaian ringkas membantu orang lain menemui ${appLabel} dan menyokong pembangunan aplikasi. Boleh luangkan sedikit masa untuk memberi penilaian?';
 	@override String get shareFeedbackViaEmail => 'Maklum balas anda membentuk apa yang akan datang — kami membaca setiap mesej. Adakah anda ingin berkongsi pendapat melalui e-mel?';
 	@override String get rateCta => 'Beri penilaian di Play Store';
@@ -380,171 +381,6 @@ class _TranslationsErrorsMs implements TranslationsErrorsEn {
 	// Translations
 	@override String get loadingProfileData => 'Ralat memuatkan data profil';
 	@override String get somethingWentWrong => 'Ada yang tidak kena.';
-}
-
-// Path: debug
-class _TranslationsDebugMs implements TranslationsDebugEn {
-	_TranslationsDebugMs._(this._root);
-
-	final TranslationsMs _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Pilihan Debug';
-	@override String get searchHint => 'Pilihan carian...';
-	@override late final _TranslationsDebugSectionsMs sections = _TranslationsDebugSectionsMs._(_root);
-	@override String get inspectDatabaseTables => 'Periksa jadual pangkalan data';
-	@override String get databaseInspectorTitle => 'Pemeriksa Pangkalan Data';
-	@override String get databaseOnlyWithRealData => 'Pemeriksaan pangkalan data hanya tersedia apabila menggunakan data sebenar (bukan data tiruan).';
-	@override String tableRowCount({required Object count}) => '${count} baris';
-	@override String get emptyTable => 'Tiada baris';
-	@override String get showActiveNotifications => 'Tunjukkan Pemberitahuan Aktif';
-	@override String get scheduleTestNotification => 'Jadualkan Pemberitahuan Uji (10s)';
-	@override String get triggerBreakfastNotification => 'Trigger Pemberitahuan Sarapan';
-	@override String get cancelAllNotifications => 'Batalkan Semua Pemberitahuan';
-	@override String get activeNotifications => 'Pemberitahuan Aktif';
-	@override String get noTitle => 'Tiada Tajuk';
-	@override String get noBody => 'Tiada Kandungan';
-	@override String get fetchTodaysSteps => 'Ambil Langkah Hari Ini';
-	@override String get fetchTodaysCalories => 'Ambil Kalori Hari Ini';
-	@override String get fetchLatestWeight => 'Ambil Berat Terkini';
-	@override String get fetchLatestHeight => 'Ambil Tinggi Terkini';
-	@override String get writeTestWeight => 'Tulis Berat Uji (70kg)';
-	@override String get writeTestHeight => 'Tulis Tinggi Uji (175cm)';
-	@override String get syncLast7Days => 'Sinkronkan 7 Hari Terakhir';
-	@override String get sync7DaysTitle => 'Sinkron 7-Hari';
-	@override String get checkCurrentLocale => 'Semak Lokasi Semasa';
-	@override String get currentLocale => 'Lokasi Semasa';
-	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Bahasa: ${languageCode}\nNegara: ${countryCode}\nSistem Unit: ${unitSystem}';
-	@override String get latestWeight => 'Berat Terkini';
-	@override String get latestHeight => 'Tinggi Terkini';
-	@override String get todaysCalories => 'Kalori Hari Ini';
-	@override String totalCaloriesBurned({required Object calories}) => 'Jumlah kalori yang dibakar: ${calories}';
-	@override String syncSuccess({required Object count}) => 'Berjaya mengambil ${count} data untuk Langkah, Kalori, dan Berat sepanjang 7 hari yang lepas.';
-	@override String get noWeightData => 'Tiada data berat dijumpai dalam 30 hari yang lepas.';
-	@override String get noHeightData => 'Tiada data tinggi dijumpai dalam setahun yang lepas.';
-	@override String get noCalorieData => 'Tiada data kalori dijumpai untuk hari ini.';
-	@override String get weightWritten => 'Berjaya menulis berat uji (70kg).';
-	@override String get weightWriteFailed => 'Gagal untuk menulis berat uji.';
-	@override String get heightWritten => 'Berjaya menulis tinggi uji (175cm).';
-	@override String get heightWriteFailed => 'Gagal untuk menulis tinggi uji.';
-	@override String get noNotifications => 'Tiada pemberitahuan aktif.';
-	@override String get testNotificationScheduled => 'Pemberitahuan uji dijadualkan untuk 10 saat dari sekarang.';
-	@override String get testNotificationBody => 'Ini adalah pemberitahuan uji yang dijadualkan untuk 10 saat dari sekarang.';
-	@override String get breakfastNotificationTriggered => 'Pemberitahuan sarapan diaktifkan.';
-	@override String get allNotificationsCancelled => 'Semua pemberitahuan dibatalkan.';
-	@override String get fetchingData => 'Mengambil data untuk 7 hari yang lepas...';
-	@override String id({required Object id}) => 'ID: ${id}';
-	@override String get showFeedbackRatingSheet => 'Tunjukkan borang maklum balas / penilaian';
-	@override String get clearUserPreferences => 'Padam pilihan pengguna';
-	@override String get clearUserPreferencesConfirmationTitle => 'Padam pilihan pengguna?';
-	@override String get clearUserPreferencesConfirmationMessage => 'Tema, bahasa dan pilihan maklum balas akan ditetapkan semula. Rekod makanan dan profil tidak akan terjejas.';
-	@override String get clearUserProfile => 'Padam profil pengguna';
-	@override String get clearUserProfileConfirmationTitle => 'Padam profil pengguna?';
-	@override String get clearUserProfileConfirmationMessage => 'Data profil anda (matlamat harian, ketinggian, berat, dan lain-lain) akan dipadam. Rekod makanan dan tetapan tidak akan terjejas.';
-	@override String get clear => 'Padam';
-	@override String get cancel => 'Batal';
-	@override String get checkWatchConnection => 'Semak Sambungan Jam';
-	@override String get sendTestMessage => 'Hantar Mesej Ujian';
-	@override String get sendTestMessageSubtitle => 'Hantar mesej ujian ringkas ke jam';
-	@override String get sendTestMealData => 'Hantar Data Makanan Ujian';
-	@override String get sendTestMealDataSubtitle => 'Hantar data makanan contoh ke jam';
-	@override String get sendTestCalorieGoal => 'Hantar Matlamat Kalori Ujian';
-	@override String get sendTestCalorieGoalSubtitle => 'Hantar matlamat kalori contoh ke jam';
-	@override String get viewReceivedMessages => 'Lihat Mesej Diterima';
-	@override String get viewReceivedMessagesSubtitle => 'Lihat mesej yang diterima dari jam';
-	@override String get watchConnected => 'Jam disambungkan ✓';
-	@override String get device => 'Peranti';
-	@override String get nearby => 'Berhampiran';
-	@override String get yes => 'Ya';
-	@override String get no => 'Tidak';
-	@override String get connectedDevices => 'Peranti yang disambungkan';
-	@override String get deviceInfoUnavailable => '(Maklumat peranti tidak tersedia)';
-	@override String get unknownDevice => 'Peranti tidak diketahui';
-	@override String get watchNotConnected => 'Jam tidak disambungkan ✗';
-	@override String get watchNotConnectedHint => 'Pastikan:\n• Kedua-dua peranti dipasangkan\n• Aplikasi jam sedang berjalan\n• Kedua-dua aplikasi dalam mod debug/staging';
-	@override String get watchConnection => 'Sambungan Jam';
-	@override String errorCheckingConnection({required Object error}) => 'Ralat semasa memeriksa sambungan: ${error}';
-	@override String get helloFromPhone => 'Hai dari telefon!';
-	@override String get testMessageSentSuccess => 'Mesej ujian berjaya dihantar!';
-	@override String get testMessageFailed => 'Gagal menghantar mesej ujian. Semak sambungan jam.';
-	@override String errorSendingMessage({required Object error}) => 'Ralat menghantar mesej: ${error}';
-	@override String get testMeal => 'Makanan Ujian';
-	@override String get testMealDataSentSuccess => 'Data makanan ujian berjaya dihantar!';
-	@override String get failedToSendMealData => 'Gagal menghantar data makanan. Semak sambungan jam.';
-	@override String errorSendingMealData({required Object error}) => 'Ralat menghantar data makanan: ${error}';
-	@override String get testCalorieGoalSentSuccess => 'Matlamat kalori ujian berjaya dihantar!';
-	@override String get failedToSendCalorieGoal => 'Gagal menghantar matlamat kalori. Semak sambungan jam.';
-	@override String errorSendingCalorieGoal({required Object error}) => 'Ralat menghantar matlamat kalori: ${error}';
-	@override String get testAnalyzeImage => 'Uji Analisis Imej';
-	@override String get testAnalyzeImageSubtitle => 'Muat naik imej ujian yang telah ditetapkan';
-	@override String get testDetectImage => 'Uji Pengesanan Imej';
-	@override String get testDetectImageSubtitle => 'Kenal pasti hidangan daripada URL imej';
-	@override String get detectImageFromGallery => 'Kenal pasti Imej dari Galeri';
-	@override String get detectImageFromGallerySubtitle => 'Pilih imej, muat naik ke bucket storan & anggarkan kalori';
-	@override String get testDetectText => 'Uji Pengesanan Teks';
-	@override String get testDetectTextSubtitle => 'Kenal pasti hidangan daripada keterangan teks';
-	@override String get testMealLoggingWithVariations => 'Uji Pencatatan Makanan dengan Variasi';
-	@override String get testMealLoggingWithVariationsSubtitle => 'Uji keseluruhan aliran pencatatan makanan dengan variasi';
-	@override String get mockMealWithVariations => 'Makanan tiruan dengan variasi';
-	@override String get mockMealWithVariationsSubtitle => 'Pratonton variasi + helaian petua tanpa mencatat';
-	@override String get mockMealName => 'Ayam panggang dengan nasi dan sayur-sayuran';
-	@override String get mockTip => 'Ini adalah petua tiruan untuk pratonton UI. Makanan ini tidak dicatat.';
-	@override String get mockMealDescription => 'Makanan tiruan untuk debug';
-	@override String get portionSizeQuestion => 'Bagaimanakah saiz hidangan?';
-	@override String get extraSidesQuestion => 'Ada lauk sampingan tambahan?';
-	@override String get optionSmall => 'Kecil';
-	@override String get optionMedium => 'Sederhana';
-	@override String get optionLarge => 'Besar';
-	@override String get optionNone => 'Tiada';
-	@override String get optionSideSalad => 'Salad sampingan';
-	@override String get optionBreadRoll => 'Roti gulung';
-	@override String get testingAnalyzeImage => 'Sedang menguji API analyzeImage...';
-	@override String get testingDetectImage => 'Sedang menguji API detectImage...';
-	@override String get testingDetectText => 'Sedang menguji API detectText...';
-	@override String get selectingImageFromGallery => 'Memilih imej dari galeri...';
-	@override String get noImageSelected => 'Tiada imej dipilih';
-	@override String get compressingImage => 'Memampatkan imej...';
-	@override String get uploadingImageAndDetecting => 'Memuat naik imej ke bucket storan dan mengesan hidangan...';
-	@override String get testingMealLoggingFlow => 'Sedang menguji aliran pencatatan makanan dengan variasi...';
-	@override String get testUpdateProfile => 'Uji kemas kini profil';
-	@override String get testUpdateProfileSubtitle => 'Hantar profil contoh ke pelayan (POST)';
-	@override String get testingProfileApi => 'Menguji API profil...';
-	@override String get profileUpdateSuccess => 'API profil memberi respons dengan jayanya';
-	@override String profileUpdateFailed({required Object error}) => 'Ralat API profil: ${error}';
-	@override String get noMealIdentifiedInResponse => 'Tiada hidangan dikenal pasti dalam respons';
-	@override String get mealIdentified => 'Hidangan Dikenal Pasti';
-	@override String get confidence => 'Keyakinan';
-	@override String get tip => 'Petua';
-	@override String get mealName => 'Nama Hidangan';
-	@override String get calories => 'Kalori';
-	@override String get protein => 'Protein';
-	@override String get carbs => 'Karbohidrat';
-	@override String get fat => 'Lemak';
-	@override String get noMealInfo => 'Tiada maklumat hidangan';
-	@override String get na => 'Tiada';
-	@override String get analyzeImageResult => 'Hasil Analisis Imej';
-	@override String get detectImageResult => 'Hasil Pengesanan Imej';
-	@override String get detectImageFromGalleryResult => 'Hasil Pengesanan Imej dari Galeri';
-	@override String get detectTextResult => 'Hasil Pengesanan Teks';
-	@override String errorGeneric({required Object error}) => 'Ralat: ${error}';
-	@override String get variationsCount => 'Variasi';
-	@override String get userPreferencesCleared => 'Keutamaan pengguna telah dibersihkan';
-	@override String get userProfileCleared => 'Profil pengguna telah dibersihkan';
-	@override String get checkForUpdate => 'Semak kemas kini';
-	@override String get showPatchNumber => 'Tunjukkan nombor tampalan';
-	@override String get showUpdateAvailable => 'Tunjukkan kemas kini tersedia';
-	@override String get updateAvailable => 'Kemas kini tersedia';
-	@override String get upToDate => 'Terkini';
-	@override String get shorebirdUnavailable => 'Shorebird tidak tersedia dalam persekitaran ini.';
-	@override String get patchNumberLabel => 'Nombor tampalan';
-	@override String get noPatchInstalled => 'Tiada tampalan dipasang';
-	@override String get todaysSteps => 'Langkah Hari Ini';
-	@override String get stepsLabel => 'Langkah';
-	@override String weightLabel({required Object value}) => 'Berat: ${value} kg';
-	@override String heightLabel({required Object value}) => 'Tinggi: ${value} cm';
-	@override String get receivedMessagesFromWatch => 'Mesej Diterima dari Jam';
-	@override String get noMessagesReceivedYet => 'Tiada mesej diterima lagi.\n\nHantar data ujian dari jam untuk melihat mesej di sini.';
-	@override String get messagesCleared => 'Mesej telah dibersihkan';
 }
 
 // Path: health
@@ -1220,25 +1056,6 @@ class _TranslationsDisclaimerCalorieExpenditureMs implements TranslationsDisclai
 	@override String get description => 'Apabila data Health Connect tidak tersedia, kami menganggarkan kalori yang dibakar hari ini menggunakan Kadar Metabolik Asas (BMR) dan tahap aktiviti anda (TDEE), diselaraskan mengikut bahagian hari yang telah berlalu.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedMs howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedMs._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceMs professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceMs._(_root);
-}
-
-// Path: debug.sections
-class _TranslationsDebugSectionsMs implements TranslationsDebugSectionsEn {
-	_TranslationsDebugSectionsMs._(this._root);
-
-	final TranslationsMs _root; // ignore: unused_field
-
-	// Translations
-	@override String get notifications => 'Pemberitahuan';
-	@override String get healthConnect => 'Health Connect';
-	@override String get wearOs => 'Wear OS';
-	@override String get foodApiTests => 'Ujian API Makanan';
-	@override String get profileApiTests => 'Ujian API Profil';
-	@override String get feedback => 'Maklum balas';
-	@override String get dataReset => 'Tetapan semula data';
-	@override String get database => 'Pangkalan Data';
-	@override String get appInfo => 'Maklumat Aplikasi';
-	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2150,6 +1967,8 @@ extension on TranslationsMs {
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Anda menikmati ${appLabel}?',
 			'feedbackRating.yes' => 'Ya, saya menikmatinya',
 			'feedbackRating.no' => 'Tidak begitu',
+			'feedbackRating.rateStepHeading' => 'Beri penilaian di Play Store',
+			'feedbackRating.emailStepHeading' => 'Hantar maklum balas melalui e-mel',
 			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Penilaian ringkas membantu orang lain menemui ${appLabel} dan menyokong pembangunan aplikasi. Boleh luangkan sedikit masa untuk memberi penilaian?',
 			'feedbackRating.shareFeedbackViaEmail' => 'Maklum balas anda membentuk apa yang akan datang — kami membaca setiap mesej. Adakah anda ingin berkongsi pendapat melalui e-mel?',
 			'feedbackRating.rateCta' => 'Beri penilaian di Play Store',
@@ -2162,173 +1981,6 @@ extension on TranslationsMs {
 			'feedbackRating.thankYouMessage' => 'Terima kasih! Kami akan bertanya lagi lain kali.',
 			'errors.loadingProfileData' => 'Ralat memuatkan data profil',
 			'errors.somethingWentWrong' => 'Ada yang tidak kena.',
-			'debug.title' => 'Pilihan Debug',
-			'debug.searchHint' => 'Pilihan carian...',
-			'debug.sections.notifications' => 'Pemberitahuan',
-			'debug.sections.healthConnect' => 'Health Connect',
-			'debug.sections.wearOs' => 'Wear OS',
-			'debug.sections.foodApiTests' => 'Ujian API Makanan',
-			'debug.sections.profileApiTests' => 'Ujian API Profil',
-			'debug.sections.feedback' => 'Maklum balas',
-			'debug.sections.dataReset' => 'Tetapan semula data',
-			'debug.sections.database' => 'Pangkalan Data',
-			'debug.sections.appInfo' => 'Maklumat Aplikasi',
-			'debug.sections.shorebird' => 'Shorebird',
-			'debug.inspectDatabaseTables' => 'Periksa jadual pangkalan data',
-			'debug.databaseInspectorTitle' => 'Pemeriksa Pangkalan Data',
-			'debug.databaseOnlyWithRealData' => 'Pemeriksaan pangkalan data hanya tersedia apabila menggunakan data sebenar (bukan data tiruan).',
-			'debug.tableRowCount' => ({required Object count}) => '${count} baris',
-			'debug.emptyTable' => 'Tiada baris',
-			'debug.showActiveNotifications' => 'Tunjukkan Pemberitahuan Aktif',
-			'debug.scheduleTestNotification' => 'Jadualkan Pemberitahuan Uji (10s)',
-			'debug.triggerBreakfastNotification' => 'Trigger Pemberitahuan Sarapan',
-			'debug.cancelAllNotifications' => 'Batalkan Semua Pemberitahuan',
-			'debug.activeNotifications' => 'Pemberitahuan Aktif',
-			'debug.noTitle' => 'Tiada Tajuk',
-			'debug.noBody' => 'Tiada Kandungan',
-			'debug.fetchTodaysSteps' => 'Ambil Langkah Hari Ini',
-			'debug.fetchTodaysCalories' => 'Ambil Kalori Hari Ini',
-			'debug.fetchLatestWeight' => 'Ambil Berat Terkini',
-			'debug.fetchLatestHeight' => 'Ambil Tinggi Terkini',
-			'debug.writeTestWeight' => 'Tulis Berat Uji (70kg)',
-			'debug.writeTestHeight' => 'Tulis Tinggi Uji (175cm)',
-			'debug.syncLast7Days' => 'Sinkronkan 7 Hari Terakhir',
-			'debug.sync7DaysTitle' => 'Sinkron 7-Hari',
-			'debug.checkCurrentLocale' => 'Semak Lokasi Semasa',
-			'debug.currentLocale' => 'Lokasi Semasa',
-			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Bahasa: ${languageCode}\nNegara: ${countryCode}\nSistem Unit: ${unitSystem}',
-			'debug.latestWeight' => 'Berat Terkini',
-			'debug.latestHeight' => 'Tinggi Terkini',
-			'debug.todaysCalories' => 'Kalori Hari Ini',
-			'debug.totalCaloriesBurned' => ({required Object calories}) => 'Jumlah kalori yang dibakar: ${calories}',
-			'debug.syncSuccess' => ({required Object count}) => 'Berjaya mengambil ${count} data untuk Langkah, Kalori, dan Berat sepanjang 7 hari yang lepas.',
-			'debug.noWeightData' => 'Tiada data berat dijumpai dalam 30 hari yang lepas.',
-			'debug.noHeightData' => 'Tiada data tinggi dijumpai dalam setahun yang lepas.',
-			'debug.noCalorieData' => 'Tiada data kalori dijumpai untuk hari ini.',
-			'debug.weightWritten' => 'Berjaya menulis berat uji (70kg).',
-			'debug.weightWriteFailed' => 'Gagal untuk menulis berat uji.',
-			'debug.heightWritten' => 'Berjaya menulis tinggi uji (175cm).',
-			'debug.heightWriteFailed' => 'Gagal untuk menulis tinggi uji.',
-			'debug.noNotifications' => 'Tiada pemberitahuan aktif.',
-			'debug.testNotificationScheduled' => 'Pemberitahuan uji dijadualkan untuk 10 saat dari sekarang.',
-			'debug.testNotificationBody' => 'Ini adalah pemberitahuan uji yang dijadualkan untuk 10 saat dari sekarang.',
-			'debug.breakfastNotificationTriggered' => 'Pemberitahuan sarapan diaktifkan.',
-			'debug.allNotificationsCancelled' => 'Semua pemberitahuan dibatalkan.',
-			'debug.fetchingData' => 'Mengambil data untuk 7 hari yang lepas...',
-			'debug.id' => ({required Object id}) => 'ID: ${id}',
-			'debug.showFeedbackRatingSheet' => 'Tunjukkan borang maklum balas / penilaian',
-			'debug.clearUserPreferences' => 'Padam pilihan pengguna',
-			'debug.clearUserPreferencesConfirmationTitle' => 'Padam pilihan pengguna?',
-			'debug.clearUserPreferencesConfirmationMessage' => 'Tema, bahasa dan pilihan maklum balas akan ditetapkan semula. Rekod makanan dan profil tidak akan terjejas.',
-			'debug.clearUserProfile' => 'Padam profil pengguna',
-			'debug.clearUserProfileConfirmationTitle' => 'Padam profil pengguna?',
-			'debug.clearUserProfileConfirmationMessage' => 'Data profil anda (matlamat harian, ketinggian, berat, dan lain-lain) akan dipadam. Rekod makanan dan tetapan tidak akan terjejas.',
-			'debug.clear' => 'Padam',
-			'debug.cancel' => 'Batal',
-			'debug.checkWatchConnection' => 'Semak Sambungan Jam',
-			'debug.sendTestMessage' => 'Hantar Mesej Ujian',
-			'debug.sendTestMessageSubtitle' => 'Hantar mesej ujian ringkas ke jam',
-			'debug.sendTestMealData' => 'Hantar Data Makanan Ujian',
-			'debug.sendTestMealDataSubtitle' => 'Hantar data makanan contoh ke jam',
-			'debug.sendTestCalorieGoal' => 'Hantar Matlamat Kalori Ujian',
-			'debug.sendTestCalorieGoalSubtitle' => 'Hantar matlamat kalori contoh ke jam',
-			'debug.viewReceivedMessages' => 'Lihat Mesej Diterima',
-			'debug.viewReceivedMessagesSubtitle' => 'Lihat mesej yang diterima dari jam',
-			'debug.watchConnected' => 'Jam disambungkan ✓',
-			'debug.device' => 'Peranti',
-			'debug.nearby' => 'Berhampiran',
-			'debug.yes' => 'Ya',
-			'debug.no' => 'Tidak',
-			'debug.connectedDevices' => 'Peranti yang disambungkan',
-			'debug.deviceInfoUnavailable' => '(Maklumat peranti tidak tersedia)',
-			'debug.unknownDevice' => 'Peranti tidak diketahui',
-			'debug.watchNotConnected' => 'Jam tidak disambungkan ✗',
-			'debug.watchNotConnectedHint' => 'Pastikan:\n• Kedua-dua peranti dipasangkan\n• Aplikasi jam sedang berjalan\n• Kedua-dua aplikasi dalam mod debug/staging',
-			'debug.watchConnection' => 'Sambungan Jam',
-			'debug.errorCheckingConnection' => ({required Object error}) => 'Ralat semasa memeriksa sambungan: ${error}',
-			'debug.helloFromPhone' => 'Hai dari telefon!',
-			'debug.testMessageSentSuccess' => 'Mesej ujian berjaya dihantar!',
-			'debug.testMessageFailed' => 'Gagal menghantar mesej ujian. Semak sambungan jam.',
-			'debug.errorSendingMessage' => ({required Object error}) => 'Ralat menghantar mesej: ${error}',
-			'debug.testMeal' => 'Makanan Ujian',
-			'debug.testMealDataSentSuccess' => 'Data makanan ujian berjaya dihantar!',
-			'debug.failedToSendMealData' => 'Gagal menghantar data makanan. Semak sambungan jam.',
-			'debug.errorSendingMealData' => ({required Object error}) => 'Ralat menghantar data makanan: ${error}',
-			'debug.testCalorieGoalSentSuccess' => 'Matlamat kalori ujian berjaya dihantar!',
-			_ => null,
-		} ?? switch (path) {
-			'debug.failedToSendCalorieGoal' => 'Gagal menghantar matlamat kalori. Semak sambungan jam.',
-			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Ralat menghantar matlamat kalori: ${error}',
-			'debug.testAnalyzeImage' => 'Uji Analisis Imej',
-			'debug.testAnalyzeImageSubtitle' => 'Muat naik imej ujian yang telah ditetapkan',
-			'debug.testDetectImage' => 'Uji Pengesanan Imej',
-			'debug.testDetectImageSubtitle' => 'Kenal pasti hidangan daripada URL imej',
-			'debug.detectImageFromGallery' => 'Kenal pasti Imej dari Galeri',
-			'debug.detectImageFromGallerySubtitle' => 'Pilih imej, muat naik ke bucket storan & anggarkan kalori',
-			'debug.testDetectText' => 'Uji Pengesanan Teks',
-			'debug.testDetectTextSubtitle' => 'Kenal pasti hidangan daripada keterangan teks',
-			'debug.testMealLoggingWithVariations' => 'Uji Pencatatan Makanan dengan Variasi',
-			'debug.testMealLoggingWithVariationsSubtitle' => 'Uji keseluruhan aliran pencatatan makanan dengan variasi',
-			'debug.mockMealWithVariations' => 'Makanan tiruan dengan variasi',
-			'debug.mockMealWithVariationsSubtitle' => 'Pratonton variasi + helaian petua tanpa mencatat',
-			'debug.mockMealName' => 'Ayam panggang dengan nasi dan sayur-sayuran',
-			'debug.mockTip' => 'Ini adalah petua tiruan untuk pratonton UI. Makanan ini tidak dicatat.',
-			'debug.mockMealDescription' => 'Makanan tiruan untuk debug',
-			'debug.portionSizeQuestion' => 'Bagaimanakah saiz hidangan?',
-			'debug.extraSidesQuestion' => 'Ada lauk sampingan tambahan?',
-			'debug.optionSmall' => 'Kecil',
-			'debug.optionMedium' => 'Sederhana',
-			'debug.optionLarge' => 'Besar',
-			'debug.optionNone' => 'Tiada',
-			'debug.optionSideSalad' => 'Salad sampingan',
-			'debug.optionBreadRoll' => 'Roti gulung',
-			'debug.testingAnalyzeImage' => 'Sedang menguji API analyzeImage...',
-			'debug.testingDetectImage' => 'Sedang menguji API detectImage...',
-			'debug.testingDetectText' => 'Sedang menguji API detectText...',
-			'debug.selectingImageFromGallery' => 'Memilih imej dari galeri...',
-			'debug.noImageSelected' => 'Tiada imej dipilih',
-			'debug.compressingImage' => 'Memampatkan imej...',
-			'debug.uploadingImageAndDetecting' => 'Memuat naik imej ke bucket storan dan mengesan hidangan...',
-			'debug.testingMealLoggingFlow' => 'Sedang menguji aliran pencatatan makanan dengan variasi...',
-			'debug.testUpdateProfile' => 'Uji kemas kini profil',
-			'debug.testUpdateProfileSubtitle' => 'Hantar profil contoh ke pelayan (POST)',
-			'debug.testingProfileApi' => 'Menguji API profil...',
-			'debug.profileUpdateSuccess' => 'API profil memberi respons dengan jayanya',
-			'debug.profileUpdateFailed' => ({required Object error}) => 'Ralat API profil: ${error}',
-			'debug.noMealIdentifiedInResponse' => 'Tiada hidangan dikenal pasti dalam respons',
-			'debug.mealIdentified' => 'Hidangan Dikenal Pasti',
-			'debug.confidence' => 'Keyakinan',
-			'debug.tip' => 'Petua',
-			'debug.mealName' => 'Nama Hidangan',
-			'debug.calories' => 'Kalori',
-			'debug.protein' => 'Protein',
-			'debug.carbs' => 'Karbohidrat',
-			'debug.fat' => 'Lemak',
-			'debug.noMealInfo' => 'Tiada maklumat hidangan',
-			'debug.na' => 'Tiada',
-			'debug.analyzeImageResult' => 'Hasil Analisis Imej',
-			'debug.detectImageResult' => 'Hasil Pengesanan Imej',
-			'debug.detectImageFromGalleryResult' => 'Hasil Pengesanan Imej dari Galeri',
-			'debug.detectTextResult' => 'Hasil Pengesanan Teks',
-			'debug.errorGeneric' => ({required Object error}) => 'Ralat: ${error}',
-			'debug.variationsCount' => 'Variasi',
-			'debug.userPreferencesCleared' => 'Keutamaan pengguna telah dibersihkan',
-			'debug.userProfileCleared' => 'Profil pengguna telah dibersihkan',
-			'debug.checkForUpdate' => 'Semak kemas kini',
-			'debug.showPatchNumber' => 'Tunjukkan nombor tampalan',
-			'debug.showUpdateAvailable' => 'Tunjukkan kemas kini tersedia',
-			'debug.updateAvailable' => 'Kemas kini tersedia',
-			'debug.upToDate' => 'Terkini',
-			'debug.shorebirdUnavailable' => 'Shorebird tidak tersedia dalam persekitaran ini.',
-			'debug.patchNumberLabel' => 'Nombor tampalan',
-			'debug.noPatchInstalled' => 'Tiada tampalan dipasang',
-			'debug.todaysSteps' => 'Langkah Hari Ini',
-			'debug.stepsLabel' => 'Langkah',
-			'debug.weightLabel' => ({required Object value}) => 'Berat: ${value} kg',
-			'debug.heightLabel' => ({required Object value}) => 'Tinggi: ${value} cm',
-			'debug.receivedMessagesFromWatch' => 'Mesej Diterima dari Jam',
-			'debug.noMessagesReceivedYet' => 'Tiada mesej diterima lagi.\n\nHantar data ujian dari jam untuk melihat mesej di sini.',
-			'debug.messagesCleared' => 'Mesej telah dibersihkan',
 			'health.syncFailed' => 'Tidak dapat menyinkronkan ke Health Connect',
 			'health.mealSynced' => 'Hidangan disinkronkan dengan Health Connect',
 			_ => null,

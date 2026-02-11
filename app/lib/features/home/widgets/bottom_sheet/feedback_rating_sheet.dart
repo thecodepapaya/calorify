@@ -232,6 +232,22 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Row(
+          children: [
+            Icon(LucideIcons.star, color: colorScheme.onSurface, size: 28),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                t.feedbackRating.rateStepHeading,
+                style: textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: colorScheme.onSurface,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
         Text(
           t.feedbackRating.soloDevMessage(
             appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
@@ -266,6 +282,22 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Row(
+          children: [
+            Icon(LucideIcons.mail, color: colorScheme.onSurface, size: 28),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                t.feedbackRating.emailStepHeading,
+                style: textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: colorScheme.onSurface,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
         Text(
           t.feedbackRating.shareFeedbackViaEmail,
           style: textTheme.bodyMedium?.copyWith(

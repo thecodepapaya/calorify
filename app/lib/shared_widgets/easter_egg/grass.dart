@@ -1,6 +1,7 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/services/analytics.dart';
-import 'package:calorify/shared_widgets/cat_peek_easter_egg.dart';
+import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
+import 'package:calorify/shared_widgets/easter_egg/cat_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -15,23 +16,18 @@ class Grass extends StatefulWidget {
 }
 
 class _GrassState extends State<Grass> {
-  bool _showCat = false;
-
   void _handleTap() {
     Analytics.instance.logEvent(AnalyticsEvent.easterEggDiscovered);
-    if (!_showCat) {
-      debugPrint('🌱 Grass tapped! Showing cute cat easter egg...');
-      setState(() {
-        _showCat = true;
-      });
-      widget.onTap?.call();
-    }
-  }
-
-  void _onCatAnimationComplete() {
-    setState(() {
-      _showCat = false;
-    });
+    debugPrint(
+      '🌱 Grass tapped! Showing cute cat easter egg (global overlay)...',
+    );
+    // Use global overlay to show a random cat from the bottom (grass)
+    CatOverlay.of(context)?.showCat(
+      asset: null,
+      edgeHint: Edge.bottom,
+      // grassHeight: widget.height,
+    );
+    widget.onTap?.call();
   }
 
   @override
@@ -46,12 +42,7 @@ class _GrassState extends State<Grass> {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            // Cat appears behind the grass
-            if (_showCat)
-              CatPeekEasterEgg(
-                grassHeight: widget.height,
-                onComplete: _onCatAnimationComplete,
-              ),
+            // Cats handled by global overlay (CatOverlay); grass remains visual only.
             // SVG grass (on top)
             Positioned(
               left: -16, // Overflow 16px on left

@@ -57,7 +57,6 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsCommonRu common = _TranslationsCommonRu._(_root);
 	@override late final _TranslationsFeedbackRatingRu feedbackRating = _TranslationsFeedbackRatingRu._(_root);
 	@override late final _TranslationsErrorsRu errors = _TranslationsErrorsRu._(_root);
-	@override late final _TranslationsDebugRu debug = _TranslationsDebugRu._(_root);
 	@override late final _TranslationsHealthRu health = _TranslationsHealthRu._(_root);
 }
 
@@ -359,6 +358,8 @@ class _TranslationsFeedbackRatingRu implements TranslationsFeedbackRatingEn {
 	@override String enjoyingQuestion({required Object appLabel}) => 'Вам нравится ${appLabel}?';
 	@override String get yes => 'Да, мне нравится';
 	@override String get no => 'Не очень';
+	@override String get rateStepHeading => 'Оцените в Google Play';
+	@override String get emailStepHeading => 'Отправьте отзыв по электронной почте';
 	@override String soloDevMessage({required Object appLabel}) => 'Короткая оценка помогает другим найти ${appLabel} и поддерживает дальнейшую разработку. Не могли бы вы уделить минуту, чтобы поставить её?';
 	@override String get shareFeedbackViaEmail => 'Ваш отзыв формирует дальнейшее развитие приложения — мы читаем каждое сообщение. Хотите поделиться своими мыслями по электронной почте?';
 	@override String get rateCta => 'Оцените в Google Play';
@@ -380,171 +381,6 @@ class _TranslationsErrorsRu implements TranslationsErrorsEn {
 	// Translations
 	@override String get loadingProfileData => 'Ошибка загрузки данных профиля';
 	@override String get somethingWentWrong => 'Что-то пошло не так.';
-}
-
-// Path: debug
-class _TranslationsDebugRu implements TranslationsDebugEn {
-	_TranslationsDebugRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Опции отладки';
-	@override String get searchHint => 'Параметры поиска...';
-	@override late final _TranslationsDebugSectionsRu sections = _TranslationsDebugSectionsRu._(_root);
-	@override String get inspectDatabaseTables => 'Просмотреть таблицы базы данных';
-	@override String get databaseInspectorTitle => 'Инспектор базы данных';
-	@override String get databaseOnlyWithRealData => 'Инспекция базы данных доступна только при использовании реальных данных (не с мок-данными).';
-	@override String tableRowCount({required Object count}) => '${count} строк';
-	@override String get emptyTable => 'Нет строк';
-	@override String get showActiveNotifications => 'Показать активные уведомления';
-	@override String get scheduleTestNotification => 'Запланировать тестовое уведомление (10с)';
-	@override String get triggerBreakfastNotification => 'Сигнализировать о завтраке';
-	@override String get cancelAllNotifications => 'Отменить все уведомления';
-	@override String get activeNotifications => 'Активные уведомления';
-	@override String get noTitle => 'Нет названия';
-	@override String get noBody => 'Нет тела';
-	@override String get fetchTodaysSteps => 'Получить шаги за сегодня';
-	@override String get fetchTodaysCalories => 'Получить калории за сегодня';
-	@override String get fetchLatestWeight => 'Получить последний вес';
-	@override String get fetchLatestHeight => 'Получить последний рост';
-	@override String get writeTestWeight => 'Записать тестовый вес (70кг)';
-	@override String get writeTestHeight => 'Записать тестовый рост (175см)';
-	@override String get syncLast7Days => 'Синхронизировать за последние 7 дней';
-	@override String get sync7DaysTitle => 'Синхронизация за 7 дней';
-	@override String get checkCurrentLocale => 'Проверить текущую локализацию';
-	@override String get currentLocale => 'Текущая локализация';
-	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Язык: ${languageCode}\nСтрана: ${countryCode}\nСистема единиц: ${unitSystem}';
-	@override String get latestWeight => 'Последний вес';
-	@override String get latestHeight => 'Последний рост';
-	@override String get todaysCalories => 'Калории за сегодня';
-	@override String totalCaloriesBurned({required Object calories}) => 'Всего сожжённых калорий: ${calories}';
-	@override String syncSuccess({required Object count}) => 'Успешно получено ${count} данных за последние 7 дней по шагам, калориям и весу.';
-	@override String get noWeightData => 'Данные о весе не найдены за последние 30 дней.';
-	@override String get noHeightData => 'Данные о росте не найдены за последний год.';
-	@override String get noCalorieData => 'Данные о калориях не найдены за сегодня.';
-	@override String get weightWritten => 'Тестовый вес (70кг) успешно записан.';
-	@override String get weightWriteFailed => 'Не удалось записать тестовый вес.';
-	@override String get heightWritten => 'Тестовый рост (175см) успешно записан.';
-	@override String get heightWriteFailed => 'Не удалось записать тестовый рост.';
-	@override String get noNotifications => 'Нет активных уведомлений.';
-	@override String get testNotificationScheduled => 'Тестовое уведомление запланировано на 10 секунд с этого момента.';
-	@override String get testNotificationBody => 'Это тестовое уведомление, запланированное на 10 секунд с этого момента.';
-	@override String get breakfastNotificationTriggered => 'Сигнализация о завтраке активирована.';
-	@override String get allNotificationsCancelled => 'Все уведомления отменены.';
-	@override String get fetchingData => 'Получение данных за последние 7 дней...';
-	@override String id({required Object id}) => 'ID: ${id}';
-	@override String get showFeedbackRatingSheet => 'Показать окно обратной связи/оценки';
-	@override String get clearUserPreferences => 'Сбросить предпочтения пользователя';
-	@override String get clearUserPreferencesConfirmationTitle => 'Сбросить предпочтения пользователя?';
-	@override String get clearUserPreferencesConfirmationMessage => 'Тема, язык и настройки обратной связи будут сброшены. Приёмы пищи и профиль не затронуты.';
-	@override String get clearUserProfile => 'Очистить профиль пользователя';
-	@override String get clearUserProfileConfirmationTitle => 'Очистить профиль пользователя?';
-	@override String get clearUserProfileConfirmationMessage => 'Данные вашего профиля (суточная норма, рост, вес и т.п.) будут удалены. Приёмы пищи и настройки не затронуты.';
-	@override String get clear => 'Очистить';
-	@override String get cancel => 'Отмена';
-	@override String get checkWatchConnection => 'Проверить подключение часов';
-	@override String get sendTestMessage => 'Отправить тестовое сообщение';
-	@override String get sendTestMessageSubtitle => 'Отправить простое тестовое сообщение на часы';
-	@override String get sendTestMealData => 'Отправить тестовые данные о приеме пищи';
-	@override String get sendTestMealDataSubtitle => 'Отправить пример данных о приеме пищи на часы';
-	@override String get sendTestCalorieGoal => 'Отправить тестовую цель по калориям';
-	@override String get sendTestCalorieGoalSubtitle => 'Отправить пример цели по калориям на часы';
-	@override String get viewReceivedMessages => 'Просмотреть полученные сообщения';
-	@override String get viewReceivedMessagesSubtitle => 'Просмотреть сообщения, полученные от часов';
-	@override String get watchConnected => 'Часы подключены ✓';
-	@override String get device => 'Устройство';
-	@override String get nearby => 'Рядом';
-	@override String get yes => 'Да';
-	@override String get no => 'Нет';
-	@override String get connectedDevices => 'Подключенные устройства';
-	@override String get deviceInfoUnavailable => '(Информация об устройстве недоступна)';
-	@override String get unknownDevice => 'Неизвестное устройство';
-	@override String get watchNotConnected => 'Часы не подключены ✗';
-	@override String get watchNotConnectedHint => 'Убедитесь, что:\n• Оба устройства сопряжены\n• Приложение на часах запущено\n• Оба приложения в режиме отладки/тестирования';
-	@override String get watchConnection => 'Подключение часов';
-	@override String errorCheckingConnection({required Object error}) => 'Ошибка при проверке подключения: ${error}';
-	@override String get helloFromPhone => 'Привет с телефона!';
-	@override String get testMessageSentSuccess => 'Тестовое сообщение успешно отправлено!';
-	@override String get testMessageFailed => 'Не удалось отправить тестовое сообщение. Проверьте подключение часов.';
-	@override String errorSendingMessage({required Object error}) => 'Ошибка при отправке сообщения: ${error}';
-	@override String get testMeal => 'Тестовый прием пищи';
-	@override String get testMealDataSentSuccess => 'Тестовые данные о приеме пищи успешно отправлены!';
-	@override String get failedToSendMealData => 'Не удалось отправить данные о приеме пищи. Проверьте подключение часов.';
-	@override String errorSendingMealData({required Object error}) => 'Ошибка при отправке данных о приеме пищи: ${error}';
-	@override String get testCalorieGoalSentSuccess => 'Тестовая цель по калориям успешно отправлена!';
-	@override String get failedToSendCalorieGoal => 'Не удалось отправить цель по калориям. Проверьте подключение часов.';
-	@override String errorSendingCalorieGoal({required Object error}) => 'Ошибка при отправке цели по калориям: ${error}';
-	@override String get testAnalyzeImage => 'Тест анализа изображения';
-	@override String get testAnalyzeImageSubtitle => 'Загрузить заранее заданное тестовое изображение';
-	@override String get testDetectImage => 'Тест обнаружения изображения';
-	@override String get testDetectImageSubtitle => 'Определить блюдо по URL изображения';
-	@override String get detectImageFromGallery => 'Определить изображение из галереи';
-	@override String get detectImageFromGallerySubtitle => 'Выбрать изображение, загрузить в хранилище и оценить калории';
-	@override String get testDetectText => 'Тест обнаружения текста';
-	@override String get testDetectTextSubtitle => 'Определить блюдо по описанию текста';
-	@override String get testMealLoggingWithVariations => 'Тест регистрации приема пищи с вариациями';
-	@override String get testMealLoggingWithVariationsSubtitle => 'Протестировать полный процесс записи приема пищи с вариациями';
-	@override String get mockMealWithVariations => 'Макет блюда с вариациями';
-	@override String get mockMealWithVariationsSubtitle => 'Предпросмотр вариаций и подсказок без записи';
-	@override String get mockMealName => 'Жареная курица с рисом и овощами';
-	@override String get mockTip => 'Это тестовая подсказка для предварительного просмотра интерфейса. Прием пищи не сохраняется.';
-	@override String get mockMealDescription => 'Тестовое блюдо для отладки';
-	@override String get portionSizeQuestion => 'Какой был размер порции?';
-	@override String get extraSidesQuestion => 'Есть дополнительные гарниры?';
-	@override String get optionSmall => 'Маленькая';
-	@override String get optionMedium => 'Средняя';
-	@override String get optionLarge => 'Большая';
-	@override String get optionNone => 'Нет';
-	@override String get optionSideSalad => 'Салат-гарнир';
-	@override String get optionBreadRoll => 'Булочка';
-	@override String get testingAnalyzeImage => 'Тестирование API analyzeImage...';
-	@override String get testingDetectImage => 'Тестирование API detectImage...';
-	@override String get testingDetectText => 'Тестирование API detectText...';
-	@override String get selectingImageFromGallery => 'Выбор изображения из галереи...';
-	@override String get noImageSelected => 'Изображение не выбрано';
-	@override String get compressingImage => 'Сжатие изображения...';
-	@override String get uploadingImageAndDetecting => 'Загрузка изображения в хранилище и определение блюда...';
-	@override String get testingMealLoggingFlow => 'Тестирование процесса записи приема пищи с вариациями...';
-	@override String get testUpdateProfile => 'Тест обновления профиля';
-	@override String get testUpdateProfileSubtitle => 'Отправить тестовый профиль на сервер (POST)';
-	@override String get testingProfileApi => 'Тестирование API профиля...';
-	@override String get profileUpdateSuccess => 'API профиля ответил успешно';
-	@override String profileUpdateFailed({required Object error}) => 'Ошибка API профиля: ${error}';
-	@override String get noMealIdentifiedInResponse => 'В ответе не найдено блюдо';
-	@override String get mealIdentified => 'Блюдо определено';
-	@override String get confidence => 'Уверенность';
-	@override String get tip => 'Совет';
-	@override String get mealName => 'Название блюда';
-	@override String get calories => 'Калории';
-	@override String get protein => 'Белки';
-	@override String get carbs => 'Углеводы';
-	@override String get fat => 'Жиры';
-	@override String get noMealInfo => 'Информация о блюде отсутствует';
-	@override String get na => 'н/д';
-	@override String get analyzeImageResult => 'Результат анализа изображения';
-	@override String get detectImageResult => 'Результат обнаружения изображения';
-	@override String get detectImageFromGalleryResult => 'Результат определения изображения из галереи';
-	@override String get detectTextResult => 'Результат определения текста';
-	@override String errorGeneric({required Object error}) => 'Ошибка: ${error}';
-	@override String get variationsCount => 'Вариации';
-	@override String get userPreferencesCleared => 'Настройки пользователя сброшены';
-	@override String get userProfileCleared => 'Профиль пользователя очищен';
-	@override String get checkForUpdate => 'Проверить обновления';
-	@override String get showPatchNumber => 'Показать номер патча';
-	@override String get showUpdateAvailable => 'Показать доступное обновление';
-	@override String get updateAvailable => 'Доступно обновление';
-	@override String get upToDate => 'Актуально';
-	@override String get shorebirdUnavailable => 'Shorebird недоступен в этой среде.';
-	@override String get patchNumberLabel => 'Номер патча';
-	@override String get noPatchInstalled => 'Патч не установлен';
-	@override String get todaysSteps => 'Шаги за сегодня';
-	@override String get stepsLabel => 'Шаги';
-	@override String weightLabel({required Object value}) => 'Вес: ${value} кг';
-	@override String heightLabel({required Object value}) => 'Рост: ${value} см';
-	@override String get receivedMessagesFromWatch => 'Сообщения, полученные от часов';
-	@override String get noMessagesReceivedYet => 'Сообщений пока нет.\n\nОтправьте тестовые данные с часов, чтобы увидеть сообщения здесь.';
-	@override String get messagesCleared => 'Сообщения очищены';
 }
 
 // Path: health
@@ -1220,25 +1056,6 @@ class _TranslationsDisclaimerCalorieExpenditureRu implements TranslationsDisclai
 	@override String get description => 'Когда данные Health Connect недоступны, мы оцениваем количество сожжённых сегодня калорий, используя ваш базальный обмен веществ (BMR) и уровень активности (TDEE), пропорционально той части дня, которая уже прошла.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedRu howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedRu._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceRu professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceRu._(_root);
-}
-
-// Path: debug.sections
-class _TranslationsDebugSectionsRu implements TranslationsDebugSectionsEn {
-	_TranslationsDebugSectionsRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get notifications => 'Уведомления';
-	@override String get healthConnect => 'Health Connect';
-	@override String get wearOs => 'Wear OS';
-	@override String get foodApiTests => 'Тесты Food API';
-	@override String get profileApiTests => 'Тесты API профиля';
-	@override String get feedback => 'Обратная связь';
-	@override String get dataReset => 'Сброс данных';
-	@override String get database => 'База данных';
-	@override String get appInfo => 'Информация о приложении';
-	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2150,6 +1967,8 @@ extension on TranslationsRu {
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Вам нравится ${appLabel}?',
 			'feedbackRating.yes' => 'Да, мне нравится',
 			'feedbackRating.no' => 'Не очень',
+			'feedbackRating.rateStepHeading' => 'Оцените в Google Play',
+			'feedbackRating.emailStepHeading' => 'Отправьте отзыв по электронной почте',
 			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Короткая оценка помогает другим найти ${appLabel} и поддерживает дальнейшую разработку. Не могли бы вы уделить минуту, чтобы поставить её?',
 			'feedbackRating.shareFeedbackViaEmail' => 'Ваш отзыв формирует дальнейшее развитие приложения — мы читаем каждое сообщение. Хотите поделиться своими мыслями по электронной почте?',
 			'feedbackRating.rateCta' => 'Оцените в Google Play',
@@ -2162,173 +1981,6 @@ extension on TranslationsRu {
 			'feedbackRating.thankYouMessage' => 'Спасибо! Мы спросим об этом в другой раз.',
 			'errors.loadingProfileData' => 'Ошибка загрузки данных профиля',
 			'errors.somethingWentWrong' => 'Что-то пошло не так.',
-			'debug.title' => 'Опции отладки',
-			'debug.searchHint' => 'Параметры поиска...',
-			'debug.sections.notifications' => 'Уведомления',
-			'debug.sections.healthConnect' => 'Health Connect',
-			'debug.sections.wearOs' => 'Wear OS',
-			'debug.sections.foodApiTests' => 'Тесты Food API',
-			'debug.sections.profileApiTests' => 'Тесты API профиля',
-			'debug.sections.feedback' => 'Обратная связь',
-			'debug.sections.dataReset' => 'Сброс данных',
-			'debug.sections.database' => 'База данных',
-			'debug.sections.appInfo' => 'Информация о приложении',
-			'debug.sections.shorebird' => 'Shorebird',
-			'debug.inspectDatabaseTables' => 'Просмотреть таблицы базы данных',
-			'debug.databaseInspectorTitle' => 'Инспектор базы данных',
-			'debug.databaseOnlyWithRealData' => 'Инспекция базы данных доступна только при использовании реальных данных (не с мок-данными).',
-			'debug.tableRowCount' => ({required Object count}) => '${count} строк',
-			'debug.emptyTable' => 'Нет строк',
-			'debug.showActiveNotifications' => 'Показать активные уведомления',
-			'debug.scheduleTestNotification' => 'Запланировать тестовое уведомление (10с)',
-			'debug.triggerBreakfastNotification' => 'Сигнализировать о завтраке',
-			'debug.cancelAllNotifications' => 'Отменить все уведомления',
-			'debug.activeNotifications' => 'Активные уведомления',
-			'debug.noTitle' => 'Нет названия',
-			'debug.noBody' => 'Нет тела',
-			'debug.fetchTodaysSteps' => 'Получить шаги за сегодня',
-			'debug.fetchTodaysCalories' => 'Получить калории за сегодня',
-			'debug.fetchLatestWeight' => 'Получить последний вес',
-			'debug.fetchLatestHeight' => 'Получить последний рост',
-			'debug.writeTestWeight' => 'Записать тестовый вес (70кг)',
-			'debug.writeTestHeight' => 'Записать тестовый рост (175см)',
-			'debug.syncLast7Days' => 'Синхронизировать за последние 7 дней',
-			'debug.sync7DaysTitle' => 'Синхронизация за 7 дней',
-			'debug.checkCurrentLocale' => 'Проверить текущую локализацию',
-			'debug.currentLocale' => 'Текущая локализация',
-			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Язык: ${languageCode}\nСтрана: ${countryCode}\nСистема единиц: ${unitSystem}',
-			'debug.latestWeight' => 'Последний вес',
-			'debug.latestHeight' => 'Последний рост',
-			'debug.todaysCalories' => 'Калории за сегодня',
-			'debug.totalCaloriesBurned' => ({required Object calories}) => 'Всего сожжённых калорий: ${calories}',
-			'debug.syncSuccess' => ({required Object count}) => 'Успешно получено ${count} данных за последние 7 дней по шагам, калориям и весу.',
-			'debug.noWeightData' => 'Данные о весе не найдены за последние 30 дней.',
-			'debug.noHeightData' => 'Данные о росте не найдены за последний год.',
-			'debug.noCalorieData' => 'Данные о калориях не найдены за сегодня.',
-			'debug.weightWritten' => 'Тестовый вес (70кг) успешно записан.',
-			'debug.weightWriteFailed' => 'Не удалось записать тестовый вес.',
-			'debug.heightWritten' => 'Тестовый рост (175см) успешно записан.',
-			'debug.heightWriteFailed' => 'Не удалось записать тестовый рост.',
-			'debug.noNotifications' => 'Нет активных уведомлений.',
-			'debug.testNotificationScheduled' => 'Тестовое уведомление запланировано на 10 секунд с этого момента.',
-			'debug.testNotificationBody' => 'Это тестовое уведомление, запланированное на 10 секунд с этого момента.',
-			'debug.breakfastNotificationTriggered' => 'Сигнализация о завтраке активирована.',
-			'debug.allNotificationsCancelled' => 'Все уведомления отменены.',
-			'debug.fetchingData' => 'Получение данных за последние 7 дней...',
-			'debug.id' => ({required Object id}) => 'ID: ${id}',
-			'debug.showFeedbackRatingSheet' => 'Показать окно обратной связи/оценки',
-			'debug.clearUserPreferences' => 'Сбросить предпочтения пользователя',
-			'debug.clearUserPreferencesConfirmationTitle' => 'Сбросить предпочтения пользователя?',
-			'debug.clearUserPreferencesConfirmationMessage' => 'Тема, язык и настройки обратной связи будут сброшены. Приёмы пищи и профиль не затронуты.',
-			'debug.clearUserProfile' => 'Очистить профиль пользователя',
-			'debug.clearUserProfileConfirmationTitle' => 'Очистить профиль пользователя?',
-			'debug.clearUserProfileConfirmationMessage' => 'Данные вашего профиля (суточная норма, рост, вес и т.п.) будут удалены. Приёмы пищи и настройки не затронуты.',
-			'debug.clear' => 'Очистить',
-			'debug.cancel' => 'Отмена',
-			'debug.checkWatchConnection' => 'Проверить подключение часов',
-			'debug.sendTestMessage' => 'Отправить тестовое сообщение',
-			'debug.sendTestMessageSubtitle' => 'Отправить простое тестовое сообщение на часы',
-			'debug.sendTestMealData' => 'Отправить тестовые данные о приеме пищи',
-			'debug.sendTestMealDataSubtitle' => 'Отправить пример данных о приеме пищи на часы',
-			'debug.sendTestCalorieGoal' => 'Отправить тестовую цель по калориям',
-			'debug.sendTestCalorieGoalSubtitle' => 'Отправить пример цели по калориям на часы',
-			'debug.viewReceivedMessages' => 'Просмотреть полученные сообщения',
-			'debug.viewReceivedMessagesSubtitle' => 'Просмотреть сообщения, полученные от часов',
-			'debug.watchConnected' => 'Часы подключены ✓',
-			'debug.device' => 'Устройство',
-			'debug.nearby' => 'Рядом',
-			'debug.yes' => 'Да',
-			'debug.no' => 'Нет',
-			'debug.connectedDevices' => 'Подключенные устройства',
-			'debug.deviceInfoUnavailable' => '(Информация об устройстве недоступна)',
-			'debug.unknownDevice' => 'Неизвестное устройство',
-			'debug.watchNotConnected' => 'Часы не подключены ✗',
-			'debug.watchNotConnectedHint' => 'Убедитесь, что:\n• Оба устройства сопряжены\n• Приложение на часах запущено\n• Оба приложения в режиме отладки/тестирования',
-			'debug.watchConnection' => 'Подключение часов',
-			'debug.errorCheckingConnection' => ({required Object error}) => 'Ошибка при проверке подключения: ${error}',
-			'debug.helloFromPhone' => 'Привет с телефона!',
-			'debug.testMessageSentSuccess' => 'Тестовое сообщение успешно отправлено!',
-			'debug.testMessageFailed' => 'Не удалось отправить тестовое сообщение. Проверьте подключение часов.',
-			'debug.errorSendingMessage' => ({required Object error}) => 'Ошибка при отправке сообщения: ${error}',
-			'debug.testMeal' => 'Тестовый прием пищи',
-			'debug.testMealDataSentSuccess' => 'Тестовые данные о приеме пищи успешно отправлены!',
-			'debug.failedToSendMealData' => 'Не удалось отправить данные о приеме пищи. Проверьте подключение часов.',
-			'debug.errorSendingMealData' => ({required Object error}) => 'Ошибка при отправке данных о приеме пищи: ${error}',
-			'debug.testCalorieGoalSentSuccess' => 'Тестовая цель по калориям успешно отправлена!',
-			_ => null,
-		} ?? switch (path) {
-			'debug.failedToSendCalorieGoal' => 'Не удалось отправить цель по калориям. Проверьте подключение часов.',
-			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Ошибка при отправке цели по калориям: ${error}',
-			'debug.testAnalyzeImage' => 'Тест анализа изображения',
-			'debug.testAnalyzeImageSubtitle' => 'Загрузить заранее заданное тестовое изображение',
-			'debug.testDetectImage' => 'Тест обнаружения изображения',
-			'debug.testDetectImageSubtitle' => 'Определить блюдо по URL изображения',
-			'debug.detectImageFromGallery' => 'Определить изображение из галереи',
-			'debug.detectImageFromGallerySubtitle' => 'Выбрать изображение, загрузить в хранилище и оценить калории',
-			'debug.testDetectText' => 'Тест обнаружения текста',
-			'debug.testDetectTextSubtitle' => 'Определить блюдо по описанию текста',
-			'debug.testMealLoggingWithVariations' => 'Тест регистрации приема пищи с вариациями',
-			'debug.testMealLoggingWithVariationsSubtitle' => 'Протестировать полный процесс записи приема пищи с вариациями',
-			'debug.mockMealWithVariations' => 'Макет блюда с вариациями',
-			'debug.mockMealWithVariationsSubtitle' => 'Предпросмотр вариаций и подсказок без записи',
-			'debug.mockMealName' => 'Жареная курица с рисом и овощами',
-			'debug.mockTip' => 'Это тестовая подсказка для предварительного просмотра интерфейса. Прием пищи не сохраняется.',
-			'debug.mockMealDescription' => 'Тестовое блюдо для отладки',
-			'debug.portionSizeQuestion' => 'Какой был размер порции?',
-			'debug.extraSidesQuestion' => 'Есть дополнительные гарниры?',
-			'debug.optionSmall' => 'Маленькая',
-			'debug.optionMedium' => 'Средняя',
-			'debug.optionLarge' => 'Большая',
-			'debug.optionNone' => 'Нет',
-			'debug.optionSideSalad' => 'Салат-гарнир',
-			'debug.optionBreadRoll' => 'Булочка',
-			'debug.testingAnalyzeImage' => 'Тестирование API analyzeImage...',
-			'debug.testingDetectImage' => 'Тестирование API detectImage...',
-			'debug.testingDetectText' => 'Тестирование API detectText...',
-			'debug.selectingImageFromGallery' => 'Выбор изображения из галереи...',
-			'debug.noImageSelected' => 'Изображение не выбрано',
-			'debug.compressingImage' => 'Сжатие изображения...',
-			'debug.uploadingImageAndDetecting' => 'Загрузка изображения в хранилище и определение блюда...',
-			'debug.testingMealLoggingFlow' => 'Тестирование процесса записи приема пищи с вариациями...',
-			'debug.testUpdateProfile' => 'Тест обновления профиля',
-			'debug.testUpdateProfileSubtitle' => 'Отправить тестовый профиль на сервер (POST)',
-			'debug.testingProfileApi' => 'Тестирование API профиля...',
-			'debug.profileUpdateSuccess' => 'API профиля ответил успешно',
-			'debug.profileUpdateFailed' => ({required Object error}) => 'Ошибка API профиля: ${error}',
-			'debug.noMealIdentifiedInResponse' => 'В ответе не найдено блюдо',
-			'debug.mealIdentified' => 'Блюдо определено',
-			'debug.confidence' => 'Уверенность',
-			'debug.tip' => 'Совет',
-			'debug.mealName' => 'Название блюда',
-			'debug.calories' => 'Калории',
-			'debug.protein' => 'Белки',
-			'debug.carbs' => 'Углеводы',
-			'debug.fat' => 'Жиры',
-			'debug.noMealInfo' => 'Информация о блюде отсутствует',
-			'debug.na' => 'н/д',
-			'debug.analyzeImageResult' => 'Результат анализа изображения',
-			'debug.detectImageResult' => 'Результат обнаружения изображения',
-			'debug.detectImageFromGalleryResult' => 'Результат определения изображения из галереи',
-			'debug.detectTextResult' => 'Результат определения текста',
-			'debug.errorGeneric' => ({required Object error}) => 'Ошибка: ${error}',
-			'debug.variationsCount' => 'Вариации',
-			'debug.userPreferencesCleared' => 'Настройки пользователя сброшены',
-			'debug.userProfileCleared' => 'Профиль пользователя очищен',
-			'debug.checkForUpdate' => 'Проверить обновления',
-			'debug.showPatchNumber' => 'Показать номер патча',
-			'debug.showUpdateAvailable' => 'Показать доступное обновление',
-			'debug.updateAvailable' => 'Доступно обновление',
-			'debug.upToDate' => 'Актуально',
-			'debug.shorebirdUnavailable' => 'Shorebird недоступен в этой среде.',
-			'debug.patchNumberLabel' => 'Номер патча',
-			'debug.noPatchInstalled' => 'Патч не установлен',
-			'debug.todaysSteps' => 'Шаги за сегодня',
-			'debug.stepsLabel' => 'Шаги',
-			'debug.weightLabel' => ({required Object value}) => 'Вес: ${value} кг',
-			'debug.heightLabel' => ({required Object value}) => 'Рост: ${value} см',
-			'debug.receivedMessagesFromWatch' => 'Сообщения, полученные от часов',
-			'debug.noMessagesReceivedYet' => 'Сообщений пока нет.\n\nОтправьте тестовые данные с часов, чтобы увидеть сообщения здесь.',
-			'debug.messagesCleared' => 'Сообщения очищены',
 			'health.syncFailed' => 'Не удалось синхронизироваться с Health Connect',
 			'health.mealSynced' => 'Приём пищи синхронизирован с Health Connect',
 			_ => null,

@@ -57,7 +57,6 @@ class TranslationsNl with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsCommonNl common = _TranslationsCommonNl._(_root);
 	@override late final _TranslationsFeedbackRatingNl feedbackRating = _TranslationsFeedbackRatingNl._(_root);
 	@override late final _TranslationsErrorsNl errors = _TranslationsErrorsNl._(_root);
-	@override late final _TranslationsDebugNl debug = _TranslationsDebugNl._(_root);
 	@override late final _TranslationsHealthNl health = _TranslationsHealthNl._(_root);
 }
 
@@ -359,6 +358,8 @@ class _TranslationsFeedbackRatingNl implements TranslationsFeedbackRatingEn {
 	@override String enjoyingQuestion({required Object appLabel}) => 'Geniet je van ${appLabel}?';
 	@override String get yes => 'Ja, het bevalt me';
 	@override String get no => 'Niet echt';
+	@override String get rateStepHeading => 'Beoordeel in de Play Store';
+	@override String get emailStepHeading => 'Stuur feedback per e-mail';
 	@override String soloDevMessage({required Object appLabel}) => 'Een korte beoordeling helpt anderen ${appLabel} te vinden en houdt de ontwikkeling gaande. Wil je even de tijd nemen om er een achter te laten?';
 	@override String get shareFeedbackViaEmail => 'Je feedback bepaalt wat er hierna komt — we lezen elk bericht. Wil je je gedachten via e-mail met ons delen?';
 	@override String get rateCta => 'Beoordeel ons in de Play Store';
@@ -380,171 +381,6 @@ class _TranslationsErrorsNl implements TranslationsErrorsEn {
 	// Translations
 	@override String get loadingProfileData => 'Fout bij het laden van profielgegevens';
 	@override String get somethingWentWrong => 'Er is iets misgegaan.';
-}
-
-// Path: debug
-class _TranslationsDebugNl implements TranslationsDebugEn {
-	_TranslationsDebugNl._(this._root);
-
-	final TranslationsNl _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Debug Opties';
-	@override String get searchHint => 'Zoekopties...';
-	@override late final _TranslationsDebugSectionsNl sections = _TranslationsDebugSectionsNl._(_root);
-	@override String get inspectDatabaseTables => 'Database-tabellen bekijken';
-	@override String get databaseInspectorTitle => 'Database-inspectie';
-	@override String get databaseOnlyWithRealData => 'Database-inspectie is alleen beschikbaar wanneer echte gegevens worden gebruikt (niet bij gesimuleerde gegevens).';
-	@override String tableRowCount({required Object count}) => '${count} rijen';
-	@override String get emptyTable => 'Geen rijen';
-	@override String get showActiveNotifications => 'Toon Actieve Meldingen';
-	@override String get scheduleTestNotification => 'Plan Testmelding (10s)';
-	@override String get triggerBreakfastNotification => 'Activeer Ontbijtmelding';
-	@override String get cancelAllNotifications => 'Annuleer Alle Meldingen';
-	@override String get activeNotifications => 'Actieve Meldingen';
-	@override String get noTitle => 'Geen Titel';
-	@override String get noBody => 'Geen Body';
-	@override String get fetchTodaysSteps => 'Haal Vandaagse Stappen Op';
-	@override String get fetchTodaysCalories => 'Haal Vandaagse Calorieën Op';
-	@override String get fetchLatestWeight => 'Haal Laatste Gewicht Op';
-	@override String get fetchLatestHeight => 'Haal Laatste Lengte Op';
-	@override String get writeTestWeight => 'Schrijf Testgewicht (70kg)';
-	@override String get writeTestHeight => 'Schrijf Testlengte (175cm)';
-	@override String get syncLast7Days => 'Synchroniseer Laatste 7 Dagen';
-	@override String get sync7DaysTitle => '7-Daagse Synchronisatie';
-	@override String get checkCurrentLocale => 'Controleer Huidige Locale';
-	@override String get currentLocale => 'Huidige Locale';
-	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Taal: ${languageCode}\nLand: ${countryCode}\nEenheidssysteem: ${unitSystem}';
-	@override String get latestWeight => 'Laatste Gewicht';
-	@override String get latestHeight => 'Laatste Lengte';
-	@override String get todaysCalories => 'Vandaagse Calorieën';
-	@override String totalCaloriesBurned({required Object calories}) => 'Totaal verbrande calorieën: ${calories}';
-	@override String syncSuccess({required Object count}) => 'Met succes ${count} gegevenspunten opgehaald voor Stappen, Calorieën en Gewicht over de afgelopen 7 dagen.';
-	@override String get noWeightData => 'Geen gewichtsgegevens gevonden in de afgelopen 30 dagen.';
-	@override String get noHeightData => 'Geen lengtedata gevonden in het afgelopen jaar.';
-	@override String get noCalorieData => 'Geen caloriedata gevonden voor vandaag.';
-	@override String get weightWritten => 'Testgewicht (70kg) succesvol geschreven.';
-	@override String get weightWriteFailed => 'Kon testgewicht niet schrijven.';
-	@override String get heightWritten => 'Testlengte (175cm) succesvol geschreven.';
-	@override String get heightWriteFailed => 'Kon testlengte niet schrijven.';
-	@override String get noNotifications => 'Geen actieve meldingen.';
-	@override String get testNotificationScheduled => 'Testmelding gepland voor 10 seconden vanaf nu.';
-	@override String get testNotificationBody => 'Dit is een testmelding gepland voor 10 seconden vanaf nu.';
-	@override String get breakfastNotificationTriggered => 'Ontbijtmelding geactiveerd.';
-	@override String get allNotificationsCancelled => 'Alle meldingen geannuleerd.';
-	@override String get fetchingData => 'Gegevens ophalen voor de afgelopen 7 dagen...';
-	@override String id({required Object id}) => 'ID: ${id}';
-	@override String get showFeedbackRatingSheet => 'Feedback-/beoordelingsscherm weergeven';
-	@override String get clearUserPreferences => 'Gebruikersvoorkeuren wissen';
-	@override String get clearUserPreferencesConfirmationTitle => 'Gebruikersvoorkeuren wissen?';
-	@override String get clearUserPreferencesConfirmationMessage => 'Thema, taal en feedbackvoorkeuren worden gereset. Maaltijden en profiel blijven onaangetast.';
-	@override String get clearUserProfile => 'Gebruikersprofiel wissen';
-	@override String get clearUserProfileConfirmationTitle => 'Gebruikersprofiel wissen?';
-	@override String get clearUserProfileConfirmationMessage => 'Je profielgegevens (dagelijks doel, lengte, gewicht, etc.) worden gewist. Maaltijden en voorkeuren blijven ongewijzigd.';
-	@override String get clear => 'Wissen';
-	@override String get cancel => 'Annuleren';
-	@override String get checkWatchConnection => 'Controleer horlogeverbinding';
-	@override String get sendTestMessage => 'Verstuur testbericht';
-	@override String get sendTestMessageSubtitle => 'Stuur een eenvoudig testbericht naar het horloge';
-	@override String get sendTestMealData => 'Verstuur testmaaltijdgegevens';
-	@override String get sendTestMealDataSubtitle => 'Stuur voorbeeldmaaltijdgegevens naar het horloge';
-	@override String get sendTestCalorieGoal => 'Verstuur test-caloriedoel';
-	@override String get sendTestCalorieGoalSubtitle => 'Stuur voorbeeld caloriedoel naar het horloge';
-	@override String get viewReceivedMessages => 'Bekijk ontvangen berichten';
-	@override String get viewReceivedMessagesSubtitle => 'Bekijk berichten ontvangen van het horloge';
-	@override String get watchConnected => 'Horloge is verbonden ✓';
-	@override String get device => 'Apparaat';
-	@override String get nearby => 'In de buurt';
-	@override String get yes => 'Ja';
-	@override String get no => 'Nee';
-	@override String get connectedDevices => 'Verbonden apparaten';
-	@override String get deviceInfoUnavailable => '(Apparaatgegevens niet beschikbaar)';
-	@override String get unknownDevice => 'Onbekend apparaat';
-	@override String get watchNotConnected => 'Horloge is niet verbonden ✗';
-	@override String get watchNotConnectedHint => 'Zorg ervoor:\n• Beide apparaten zijn gekoppeld\n• De horloge-app draait\n• Beide apps staan in debug-/stagingmodus';
-	@override String get watchConnection => 'Horlogeverbinding';
-	@override String errorCheckingConnection({required Object error}) => 'Fout bij controleren van verbinding: ${error}';
-	@override String get helloFromPhone => 'Hallo vanaf je telefoon!';
-	@override String get testMessageSentSuccess => 'Testbericht succesvol verzonden!';
-	@override String get testMessageFailed => 'Kon testbericht niet verzenden. Controleer de horlogeverbinding.';
-	@override String errorSendingMessage({required Object error}) => 'Fout bij verzenden bericht: ${error}';
-	@override String get testMeal => 'Testmaaltijd';
-	@override String get testMealDataSentSuccess => 'Testmaaltijdgegevens succesvol verzonden!';
-	@override String get failedToSendMealData => 'Kon maaltijdgegevens niet verzenden. Controleer de horlogeverbinding.';
-	@override String errorSendingMealData({required Object error}) => 'Fout bij verzenden maaltijdgegevens: ${error}';
-	@override String get testCalorieGoalSentSuccess => 'Test-caloriedoel succesvol verzonden!';
-	@override String get failedToSendCalorieGoal => 'Kon caloriedoel niet verzenden. Controleer de horlogeverbinding.';
-	@override String errorSendingCalorieGoal({required Object error}) => 'Fout bij verzenden caloriedoel: ${error}';
-	@override String get testAnalyzeImage => 'Test: afbeelding analyseren';
-	@override String get testAnalyzeImageSubtitle => 'Upload een vooraf ingestelde testafbeelding';
-	@override String get testDetectImage => 'Test: afbeelding detecteren';
-	@override String get testDetectImageSubtitle => 'Detecteer maaltijd vanuit afbeeldings-URL';
-	@override String get detectImageFromGallery => 'Detecteer afbeelding uit galerij';
-	@override String get detectImageFromGallerySubtitle => 'Selecteer afbeelding, upload naar bucket en schat calorieën';
-	@override String get testDetectText => 'Test: tekst detecteren';
-	@override String get testDetectTextSubtitle => 'Detecteer maaltijd vanuit tekstbeschrijving';
-	@override String get testMealLoggingWithVariations => 'Test maaltijdregistratie met variaties';
-	@override String get testMealLoggingWithVariationsSubtitle => 'Test de volledige maaltijdregistratie-flow met variaties';
-	@override String get mockMealWithVariations => 'Mockmaaltijd met variaties';
-	@override String get mockMealWithVariationsSubtitle => 'Bekijk variatie en tipblad-UI zonder te registreren';
-	@override String get mockMealName => 'Gegrilde kip met rijst en groenten';
-	@override String get mockTip => 'Dit is een voorbeeldtip voor UI-voorvertoning. De maaltijd wordt niet geregistreerd.';
-	@override String get mockMealDescription => 'Voorbeeldmaaltijd voor debugging';
-	@override String get portionSizeQuestion => 'Hoe was de portiegrootte?';
-	@override String get extraSidesQuestion => 'Nog extra bijgerechten?';
-	@override String get optionSmall => 'Klein';
-	@override String get optionMedium => 'Gemiddeld';
-	@override String get optionLarge => 'Groot';
-	@override String get optionNone => 'Geen';
-	@override String get optionSideSalad => 'Bijgerecht: salade';
-	@override String get optionBreadRoll => 'Broodje';
-	@override String get testingAnalyzeImage => 'Aan het testen: analyzeImage API...';
-	@override String get testingDetectImage => 'Aan het testen: detectImage API...';
-	@override String get testingDetectText => 'Aan het testen: detectText API...';
-	@override String get selectingImageFromGallery => 'Afbeelding selecteren uit galerij...';
-	@override String get noImageSelected => 'Geen afbeelding geselecteerd';
-	@override String get compressingImage => 'Afbeelding wordt gecomprimeerd...';
-	@override String get uploadingImageAndDetecting => 'Afbeelding uploaden naar bucket en maaltijd detecteren...';
-	@override String get testingMealLoggingFlow => 'Bezig met testen van maaltijdregistratieflow met variaties...';
-	@override String get testUpdateProfile => 'Profiel bijwerken testen';
-	@override String get testUpdateProfileSubtitle => 'Stuur voorbeeldprofiel via POST naar de backend';
-	@override String get testingProfileApi => 'Profiel-API wordt getest...';
-	@override String get profileUpdateSuccess => 'Profiel-API reageerde succesvol';
-	@override String profileUpdateFailed({required Object error}) => 'Fout bij profiel-API: ${error}';
-	@override String get noMealIdentifiedInResponse => 'Geen maaltijd gevonden in reactie';
-	@override String get mealIdentified => 'Maaltijd gevonden';
-	@override String get confidence => 'Betrouwbaarheid';
-	@override String get tip => 'Tip';
-	@override String get mealName => 'Maaltijdnaam';
-	@override String get calories => 'Calorieën';
-	@override String get protein => 'Eiwit';
-	@override String get carbs => 'Koolhydraten';
-	@override String get fat => 'Vet';
-	@override String get noMealInfo => 'Geen maaltijdinformatie';
-	@override String get na => 'N.v.t.';
-	@override String get analyzeImageResult => 'Resultaat afbeeldinganalyse';
-	@override String get detectImageResult => 'Resultaat afbeeldingdetectie';
-	@override String get detectImageFromGalleryResult => 'Resultaat detectie afbeelding uit galerij';
-	@override String get detectTextResult => 'Resultaat tekstdetectie';
-	@override String errorGeneric({required Object error}) => 'Fout: ${error}';
-	@override String get variationsCount => 'Variaties';
-	@override String get userPreferencesCleared => 'Gebruikersvoorkeuren gewist';
-	@override String get userProfileCleared => 'Gebruikersprofiel gewist';
-	@override String get checkForUpdate => 'Controleren op update';
-	@override String get showPatchNumber => 'Toon patchnummer';
-	@override String get showUpdateAvailable => 'Toon update beschikbaar';
-	@override String get updateAvailable => 'Update beschikbaar';
-	@override String get upToDate => 'Up-to-date';
-	@override String get shorebirdUnavailable => 'Shorebird is niet beschikbaar in deze omgeving.';
-	@override String get patchNumberLabel => 'Patchnummer';
-	@override String get noPatchInstalled => 'Geen patch geïnstalleerd';
-	@override String get todaysSteps => 'Stappen vandaag';
-	@override String get stepsLabel => 'Stappen';
-	@override String weightLabel({required Object value}) => 'Gewicht: ${value} kg';
-	@override String heightLabel({required Object value}) => 'Lengte: ${value} cm';
-	@override String get receivedMessagesFromWatch => 'Ontvangen berichten van het horloge';
-	@override String get noMessagesReceivedYet => 'Nog geen berichten ontvangen.\n\nStuur testgegevens vanaf het horloge om hier berichten te zien.';
-	@override String get messagesCleared => 'Berichten gewist';
 }
 
 // Path: health
@@ -1220,25 +1056,6 @@ class _TranslationsDisclaimerCalorieExpenditureNl implements TranslationsDisclai
 	@override String get description => 'Wanneer Health Connect-gegevens niet beschikbaar zijn, schatten we de vandaag verbrande calorieën op basis van je basale stofwisselingssnelheid (BMR) en je activiteitsniveau (TDEE), geschaald naar het deel van de dag dat verstreken is.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedNl howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedNl._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceNl professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceNl._(_root);
-}
-
-// Path: debug.sections
-class _TranslationsDebugSectionsNl implements TranslationsDebugSectionsEn {
-	_TranslationsDebugSectionsNl._(this._root);
-
-	final TranslationsNl _root; // ignore: unused_field
-
-	// Translations
-	@override String get notifications => 'Meldingen';
-	@override String get healthConnect => 'Health Connect';
-	@override String get wearOs => 'Wear OS';
-	@override String get foodApiTests => 'Food API-tests';
-	@override String get profileApiTests => 'Profiel-API-tests';
-	@override String get feedback => 'Feedback';
-	@override String get dataReset => 'Gegevens resetten';
-	@override String get database => 'Database';
-	@override String get appInfo => 'App Informatie';
-	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2150,6 +1967,8 @@ extension on TranslationsNl {
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Geniet je van ${appLabel}?',
 			'feedbackRating.yes' => 'Ja, het bevalt me',
 			'feedbackRating.no' => 'Niet echt',
+			'feedbackRating.rateStepHeading' => 'Beoordeel in de Play Store',
+			'feedbackRating.emailStepHeading' => 'Stuur feedback per e-mail',
 			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Een korte beoordeling helpt anderen ${appLabel} te vinden en houdt de ontwikkeling gaande. Wil je even de tijd nemen om er een achter te laten?',
 			'feedbackRating.shareFeedbackViaEmail' => 'Je feedback bepaalt wat er hierna komt — we lezen elk bericht. Wil je je gedachten via e-mail met ons delen?',
 			'feedbackRating.rateCta' => 'Beoordeel ons in de Play Store',
@@ -2162,173 +1981,6 @@ extension on TranslationsNl {
 			'feedbackRating.thankYouMessage' => 'Bedankt! We vragen het je later nog eens.',
 			'errors.loadingProfileData' => 'Fout bij het laden van profielgegevens',
 			'errors.somethingWentWrong' => 'Er is iets misgegaan.',
-			'debug.title' => 'Debug Opties',
-			'debug.searchHint' => 'Zoekopties...',
-			'debug.sections.notifications' => 'Meldingen',
-			'debug.sections.healthConnect' => 'Health Connect',
-			'debug.sections.wearOs' => 'Wear OS',
-			'debug.sections.foodApiTests' => 'Food API-tests',
-			'debug.sections.profileApiTests' => 'Profiel-API-tests',
-			'debug.sections.feedback' => 'Feedback',
-			'debug.sections.dataReset' => 'Gegevens resetten',
-			'debug.sections.database' => 'Database',
-			'debug.sections.appInfo' => 'App Informatie',
-			'debug.sections.shorebird' => 'Shorebird',
-			'debug.inspectDatabaseTables' => 'Database-tabellen bekijken',
-			'debug.databaseInspectorTitle' => 'Database-inspectie',
-			'debug.databaseOnlyWithRealData' => 'Database-inspectie is alleen beschikbaar wanneer echte gegevens worden gebruikt (niet bij gesimuleerde gegevens).',
-			'debug.tableRowCount' => ({required Object count}) => '${count} rijen',
-			'debug.emptyTable' => 'Geen rijen',
-			'debug.showActiveNotifications' => 'Toon Actieve Meldingen',
-			'debug.scheduleTestNotification' => 'Plan Testmelding (10s)',
-			'debug.triggerBreakfastNotification' => 'Activeer Ontbijtmelding',
-			'debug.cancelAllNotifications' => 'Annuleer Alle Meldingen',
-			'debug.activeNotifications' => 'Actieve Meldingen',
-			'debug.noTitle' => 'Geen Titel',
-			'debug.noBody' => 'Geen Body',
-			'debug.fetchTodaysSteps' => 'Haal Vandaagse Stappen Op',
-			'debug.fetchTodaysCalories' => 'Haal Vandaagse Calorieën Op',
-			'debug.fetchLatestWeight' => 'Haal Laatste Gewicht Op',
-			'debug.fetchLatestHeight' => 'Haal Laatste Lengte Op',
-			'debug.writeTestWeight' => 'Schrijf Testgewicht (70kg)',
-			'debug.writeTestHeight' => 'Schrijf Testlengte (175cm)',
-			'debug.syncLast7Days' => 'Synchroniseer Laatste 7 Dagen',
-			'debug.sync7DaysTitle' => '7-Daagse Synchronisatie',
-			'debug.checkCurrentLocale' => 'Controleer Huidige Locale',
-			'debug.currentLocale' => 'Huidige Locale',
-			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Taal: ${languageCode}\nLand: ${countryCode}\nEenheidssysteem: ${unitSystem}',
-			'debug.latestWeight' => 'Laatste Gewicht',
-			'debug.latestHeight' => 'Laatste Lengte',
-			'debug.todaysCalories' => 'Vandaagse Calorieën',
-			'debug.totalCaloriesBurned' => ({required Object calories}) => 'Totaal verbrande calorieën: ${calories}',
-			'debug.syncSuccess' => ({required Object count}) => 'Met succes ${count} gegevenspunten opgehaald voor Stappen, Calorieën en Gewicht over de afgelopen 7 dagen.',
-			'debug.noWeightData' => 'Geen gewichtsgegevens gevonden in de afgelopen 30 dagen.',
-			'debug.noHeightData' => 'Geen lengtedata gevonden in het afgelopen jaar.',
-			'debug.noCalorieData' => 'Geen caloriedata gevonden voor vandaag.',
-			'debug.weightWritten' => 'Testgewicht (70kg) succesvol geschreven.',
-			'debug.weightWriteFailed' => 'Kon testgewicht niet schrijven.',
-			'debug.heightWritten' => 'Testlengte (175cm) succesvol geschreven.',
-			'debug.heightWriteFailed' => 'Kon testlengte niet schrijven.',
-			'debug.noNotifications' => 'Geen actieve meldingen.',
-			'debug.testNotificationScheduled' => 'Testmelding gepland voor 10 seconden vanaf nu.',
-			'debug.testNotificationBody' => 'Dit is een testmelding gepland voor 10 seconden vanaf nu.',
-			'debug.breakfastNotificationTriggered' => 'Ontbijtmelding geactiveerd.',
-			'debug.allNotificationsCancelled' => 'Alle meldingen geannuleerd.',
-			'debug.fetchingData' => 'Gegevens ophalen voor de afgelopen 7 dagen...',
-			'debug.id' => ({required Object id}) => 'ID: ${id}',
-			'debug.showFeedbackRatingSheet' => 'Feedback-/beoordelingsscherm weergeven',
-			'debug.clearUserPreferences' => 'Gebruikersvoorkeuren wissen',
-			'debug.clearUserPreferencesConfirmationTitle' => 'Gebruikersvoorkeuren wissen?',
-			'debug.clearUserPreferencesConfirmationMessage' => 'Thema, taal en feedbackvoorkeuren worden gereset. Maaltijden en profiel blijven onaangetast.',
-			'debug.clearUserProfile' => 'Gebruikersprofiel wissen',
-			'debug.clearUserProfileConfirmationTitle' => 'Gebruikersprofiel wissen?',
-			'debug.clearUserProfileConfirmationMessage' => 'Je profielgegevens (dagelijks doel, lengte, gewicht, etc.) worden gewist. Maaltijden en voorkeuren blijven ongewijzigd.',
-			'debug.clear' => 'Wissen',
-			'debug.cancel' => 'Annuleren',
-			'debug.checkWatchConnection' => 'Controleer horlogeverbinding',
-			'debug.sendTestMessage' => 'Verstuur testbericht',
-			'debug.sendTestMessageSubtitle' => 'Stuur een eenvoudig testbericht naar het horloge',
-			'debug.sendTestMealData' => 'Verstuur testmaaltijdgegevens',
-			'debug.sendTestMealDataSubtitle' => 'Stuur voorbeeldmaaltijdgegevens naar het horloge',
-			'debug.sendTestCalorieGoal' => 'Verstuur test-caloriedoel',
-			'debug.sendTestCalorieGoalSubtitle' => 'Stuur voorbeeld caloriedoel naar het horloge',
-			'debug.viewReceivedMessages' => 'Bekijk ontvangen berichten',
-			'debug.viewReceivedMessagesSubtitle' => 'Bekijk berichten ontvangen van het horloge',
-			'debug.watchConnected' => 'Horloge is verbonden ✓',
-			'debug.device' => 'Apparaat',
-			'debug.nearby' => 'In de buurt',
-			'debug.yes' => 'Ja',
-			'debug.no' => 'Nee',
-			'debug.connectedDevices' => 'Verbonden apparaten',
-			'debug.deviceInfoUnavailable' => '(Apparaatgegevens niet beschikbaar)',
-			'debug.unknownDevice' => 'Onbekend apparaat',
-			'debug.watchNotConnected' => 'Horloge is niet verbonden ✗',
-			'debug.watchNotConnectedHint' => 'Zorg ervoor:\n• Beide apparaten zijn gekoppeld\n• De horloge-app draait\n• Beide apps staan in debug-/stagingmodus',
-			'debug.watchConnection' => 'Horlogeverbinding',
-			'debug.errorCheckingConnection' => ({required Object error}) => 'Fout bij controleren van verbinding: ${error}',
-			'debug.helloFromPhone' => 'Hallo vanaf je telefoon!',
-			'debug.testMessageSentSuccess' => 'Testbericht succesvol verzonden!',
-			'debug.testMessageFailed' => 'Kon testbericht niet verzenden. Controleer de horlogeverbinding.',
-			'debug.errorSendingMessage' => ({required Object error}) => 'Fout bij verzenden bericht: ${error}',
-			'debug.testMeal' => 'Testmaaltijd',
-			'debug.testMealDataSentSuccess' => 'Testmaaltijdgegevens succesvol verzonden!',
-			'debug.failedToSendMealData' => 'Kon maaltijdgegevens niet verzenden. Controleer de horlogeverbinding.',
-			'debug.errorSendingMealData' => ({required Object error}) => 'Fout bij verzenden maaltijdgegevens: ${error}',
-			'debug.testCalorieGoalSentSuccess' => 'Test-caloriedoel succesvol verzonden!',
-			_ => null,
-		} ?? switch (path) {
-			'debug.failedToSendCalorieGoal' => 'Kon caloriedoel niet verzenden. Controleer de horlogeverbinding.',
-			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Fout bij verzenden caloriedoel: ${error}',
-			'debug.testAnalyzeImage' => 'Test: afbeelding analyseren',
-			'debug.testAnalyzeImageSubtitle' => 'Upload een vooraf ingestelde testafbeelding',
-			'debug.testDetectImage' => 'Test: afbeelding detecteren',
-			'debug.testDetectImageSubtitle' => 'Detecteer maaltijd vanuit afbeeldings-URL',
-			'debug.detectImageFromGallery' => 'Detecteer afbeelding uit galerij',
-			'debug.detectImageFromGallerySubtitle' => 'Selecteer afbeelding, upload naar bucket en schat calorieën',
-			'debug.testDetectText' => 'Test: tekst detecteren',
-			'debug.testDetectTextSubtitle' => 'Detecteer maaltijd vanuit tekstbeschrijving',
-			'debug.testMealLoggingWithVariations' => 'Test maaltijdregistratie met variaties',
-			'debug.testMealLoggingWithVariationsSubtitle' => 'Test de volledige maaltijdregistratie-flow met variaties',
-			'debug.mockMealWithVariations' => 'Mockmaaltijd met variaties',
-			'debug.mockMealWithVariationsSubtitle' => 'Bekijk variatie en tipblad-UI zonder te registreren',
-			'debug.mockMealName' => 'Gegrilde kip met rijst en groenten',
-			'debug.mockTip' => 'Dit is een voorbeeldtip voor UI-voorvertoning. De maaltijd wordt niet geregistreerd.',
-			'debug.mockMealDescription' => 'Voorbeeldmaaltijd voor debugging',
-			'debug.portionSizeQuestion' => 'Hoe was de portiegrootte?',
-			'debug.extraSidesQuestion' => 'Nog extra bijgerechten?',
-			'debug.optionSmall' => 'Klein',
-			'debug.optionMedium' => 'Gemiddeld',
-			'debug.optionLarge' => 'Groot',
-			'debug.optionNone' => 'Geen',
-			'debug.optionSideSalad' => 'Bijgerecht: salade',
-			'debug.optionBreadRoll' => 'Broodje',
-			'debug.testingAnalyzeImage' => 'Aan het testen: analyzeImage API...',
-			'debug.testingDetectImage' => 'Aan het testen: detectImage API...',
-			'debug.testingDetectText' => 'Aan het testen: detectText API...',
-			'debug.selectingImageFromGallery' => 'Afbeelding selecteren uit galerij...',
-			'debug.noImageSelected' => 'Geen afbeelding geselecteerd',
-			'debug.compressingImage' => 'Afbeelding wordt gecomprimeerd...',
-			'debug.uploadingImageAndDetecting' => 'Afbeelding uploaden naar bucket en maaltijd detecteren...',
-			'debug.testingMealLoggingFlow' => 'Bezig met testen van maaltijdregistratieflow met variaties...',
-			'debug.testUpdateProfile' => 'Profiel bijwerken testen',
-			'debug.testUpdateProfileSubtitle' => 'Stuur voorbeeldprofiel via POST naar de backend',
-			'debug.testingProfileApi' => 'Profiel-API wordt getest...',
-			'debug.profileUpdateSuccess' => 'Profiel-API reageerde succesvol',
-			'debug.profileUpdateFailed' => ({required Object error}) => 'Fout bij profiel-API: ${error}',
-			'debug.noMealIdentifiedInResponse' => 'Geen maaltijd gevonden in reactie',
-			'debug.mealIdentified' => 'Maaltijd gevonden',
-			'debug.confidence' => 'Betrouwbaarheid',
-			'debug.tip' => 'Tip',
-			'debug.mealName' => 'Maaltijdnaam',
-			'debug.calories' => 'Calorieën',
-			'debug.protein' => 'Eiwit',
-			'debug.carbs' => 'Koolhydraten',
-			'debug.fat' => 'Vet',
-			'debug.noMealInfo' => 'Geen maaltijdinformatie',
-			'debug.na' => 'N.v.t.',
-			'debug.analyzeImageResult' => 'Resultaat afbeeldinganalyse',
-			'debug.detectImageResult' => 'Resultaat afbeeldingdetectie',
-			'debug.detectImageFromGalleryResult' => 'Resultaat detectie afbeelding uit galerij',
-			'debug.detectTextResult' => 'Resultaat tekstdetectie',
-			'debug.errorGeneric' => ({required Object error}) => 'Fout: ${error}',
-			'debug.variationsCount' => 'Variaties',
-			'debug.userPreferencesCleared' => 'Gebruikersvoorkeuren gewist',
-			'debug.userProfileCleared' => 'Gebruikersprofiel gewist',
-			'debug.checkForUpdate' => 'Controleren op update',
-			'debug.showPatchNumber' => 'Toon patchnummer',
-			'debug.showUpdateAvailable' => 'Toon update beschikbaar',
-			'debug.updateAvailable' => 'Update beschikbaar',
-			'debug.upToDate' => 'Up-to-date',
-			'debug.shorebirdUnavailable' => 'Shorebird is niet beschikbaar in deze omgeving.',
-			'debug.patchNumberLabel' => 'Patchnummer',
-			'debug.noPatchInstalled' => 'Geen patch geïnstalleerd',
-			'debug.todaysSteps' => 'Stappen vandaag',
-			'debug.stepsLabel' => 'Stappen',
-			'debug.weightLabel' => ({required Object value}) => 'Gewicht: ${value} kg',
-			'debug.heightLabel' => ({required Object value}) => 'Lengte: ${value} cm',
-			'debug.receivedMessagesFromWatch' => 'Ontvangen berichten van het horloge',
-			'debug.noMessagesReceivedYet' => 'Nog geen berichten ontvangen.\n\nStuur testgegevens vanaf het horloge om hier berichten te zien.',
-			'debug.messagesCleared' => 'Berichten gewist',
 			'health.syncFailed' => 'Kon niet synchroniseren met Health Connect',
 			'health.mealSynced' => 'Maaltijd gesynchroniseerd met Health Connect',
 			_ => null,
