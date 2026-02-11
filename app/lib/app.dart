@@ -9,6 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:measure_flutter/measure_flutter.dart';
+import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
 
 final _appRouter = AppRouter();
 
@@ -20,6 +21,7 @@ class CalorifyApp extends ConsumerWidget {
     final themeMode = ref.watch(appThemeProvider);
     final t = Translations.of(context);
 
+    final flushbarBuilder = FlashyFlushbarProvider.init();
     return MaterialApp.router(
       title: t.appLabel(env: EnvConfig.instance.envSuffix),
       theme: AppThemes.lightTheme,
@@ -28,7 +30,16 @@ class CalorifyApp extends ConsumerWidget {
       locale: TranslationProvider.of(context).locale.flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      builder: FlashyFlushbarProvider.init(),
+      builder:
+          (context, child) => CatOverlay(
+            child: Builder(
+              builder: (ctx) {
+                return flushbarBuilder != null
+                    ? flushbarBuilder(ctx, child)
+                    : (child ?? const SizedBox.shrink());
+              },
+            ),
+          ),
       routerConfig: _appRouter.config(
         navigatorObservers: () => [RouteLogger(), MsrNavigatorObserver()],
       ),

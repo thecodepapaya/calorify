@@ -57,7 +57,6 @@ class TranslationsHe with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsCommonHe common = _TranslationsCommonHe._(_root);
 	@override late final _TranslationsFeedbackRatingHe feedbackRating = _TranslationsFeedbackRatingHe._(_root);
 	@override late final _TranslationsErrorsHe errors = _TranslationsErrorsHe._(_root);
-	@override late final _TranslationsDebugHe debug = _TranslationsDebugHe._(_root);
 	@override late final _TranslationsHealthHe health = _TranslationsHealthHe._(_root);
 }
 
@@ -359,6 +358,8 @@ class _TranslationsFeedbackRatingHe implements TranslationsFeedbackRatingEn {
 	@override String enjoyingQuestion({required Object appLabel}) => 'נהנים מהשימוש ב${appLabel}?';
 	@override String get yes => 'כן, אני נהנה/נהנית';
 	@override String get no => 'לא ממש';
+	@override String get rateStepHeading => 'דרג בחנות Play';
+	@override String get emailStepHeading => 'שלח משוב בדואר אלקטרוני';
 	@override String soloDevMessage({required Object appLabel}) => 'דירוג קצר עוזר לאחרים למצוא את ${appLabel} ומאפשר לנו להמשיך בפיתוח. האם ברצונך להקדיש רגע ולהשאיר דירוג?';
 	@override String get shareFeedbackViaEmail => 'המשוב שלך מעצב את הצעדים הבאים — אנחנו קוראים כל הודעה. האם ברצונך לשתף את מחשבותיך בדוא"ל?';
 	@override String get rateCta => 'דרגו אותנו ב-Google Play';
@@ -380,171 +381,6 @@ class _TranslationsErrorsHe implements TranslationsErrorsEn {
 	// Translations
 	@override String get loadingProfileData => 'שגיאה בהטענת נתוני פרופיל';
 	@override String get somethingWentWrong => 'משהו השתבש.';
-}
-
-// Path: debug
-class _TranslationsDebugHe implements TranslationsDebugEn {
-	_TranslationsDebugHe._(this._root);
-
-	final TranslationsHe _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'אפשרויות דיבוג';
-	@override String get searchHint => 'אפשרויות חיפוש...';
-	@override late final _TranslationsDebugSectionsHe sections = _TranslationsDebugSectionsHe._(_root);
-	@override String get inspectDatabaseTables => 'בדוק טבלאות במסד הנתונים';
-	@override String get databaseInspectorTitle => 'בודק מסד הנתונים';
-	@override String get databaseOnlyWithRealData => 'בדיקת מסד הנתונים זמינה רק בעת שימוש בנתונים אמיתיים (לא בנתוני דמה).';
-	@override String tableRowCount({required Object count}) => '${count} שורות';
-	@override String get emptyTable => 'אין שורות';
-	@override String get showActiveNotifications => 'הצג התראות פעילות';
-	@override String get scheduleTestNotification => 'תזמן התראה ניסי (10ש)';
-	@override String get triggerBreakfastNotification => 'הפעל התראת ארוחת בוקר';
-	@override String get cancelAllNotifications => 'בטל את כל ההתראות';
-	@override String get activeNotifications => 'התראות פעילות';
-	@override String get noTitle => 'אין כותרת';
-	@override String get noBody => 'אין תוכן';
-	@override String get fetchTodaysSteps => 'שחזר את צעדי היום';
-	@override String get fetchTodaysCalories => 'שחזר את קלוריות היום';
-	@override String get fetchLatestWeight => 'שחזר את המשקל הרלוונטי ביותר';
-	@override String get fetchLatestHeight => 'שחזר את הגובה הרלוונטי ביותר';
-	@override String get writeTestWeight => 'כתוב משקל ניסי (70ק"ג)';
-	@override String get writeTestHeight => 'כתוב גובה ניסי (175ס"מ)';
-	@override String get syncLast7Days => 'סנכרן את 7 הימים האחרונים';
-	@override String get sync7DaysTitle => 'סנכרון של 7 ימים';
-	@override String get checkCurrentLocale => 'בדוק את המיקום הנוכחי';
-	@override String get currentLocale => 'מיקום נוכחי';
-	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'שפה: ${languageCode}\nמדינה: ${countryCode}\nמערכת יחידות: ${unitSystem}';
-	@override String get latestWeight => 'המשקל האחרון';
-	@override String get latestHeight => 'הגובה האחרון';
-	@override String get todaysCalories => 'קלוריות להיום';
-	@override String totalCaloriesBurned({required Object calories}) => 'סה"כ קלוריות שנשרפו: ${calories}';
-	@override String syncSuccess({required Object count}) => 'התקבלו בהצלחה ${count} נתונים לנוגעים לצעדים, קלוריות ומשקל במהלך 7 הימים האחרונים.';
-	@override String get noWeightData => 'לא נמצאה נתוני משקל במהלך 30 הימים האחרונים.';
-	@override String get noHeightData => 'לא נמצאה נתוני גובה במהלך השנה האחרונה.';
-	@override String get noCalorieData => 'לא נמצאה נתוני קלוריות להיום.';
-	@override String get weightWritten => 'נכתב בהצלחה משקל ניסי (70ק"ג).';
-	@override String get weightWriteFailed => 'נכשל לכתוב משקל ניסי.';
-	@override String get heightWritten => 'נכתב בהצלחה גובה ניסי (175ס"מ).';
-	@override String get heightWriteFailed => 'נכשל לכתוב גובה ניסי.';
-	@override String get noNotifications => 'אין התראות פעילות.';
-	@override String get testNotificationScheduled => 'התראת ניסי מתוזמנת ל-10 שניות מהיום.';
-	@override String get testNotificationBody => 'זוהי התראת ניסי מתוזמנת ל-10 שניות מהיום.';
-	@override String get breakfastNotificationTriggered => 'הופעלה התראת ארוחת בוקר.';
-	@override String get allNotificationsCancelled => 'כל ההתראות בוטלו.';
-	@override String get fetchingData => 'שחזור נתונים עבור 7 הימים האחרונים...';
-	@override String id({required Object id}) => 'מזהה: ${id}';
-	@override String get showFeedbackRatingSheet => 'הצג טופס משוב/דירוג';
-	@override String get clearUserPreferences => 'נקה העדפות משתמש';
-	@override String get clearUserPreferencesConfirmationTitle => 'למחוק את העדפות המשתמש?';
-	@override String get clearUserPreferencesConfirmationMessage => 'הנושא, השפה והעדפות המשוב יאופסו. הארוחות והפרופיל לא יושפעו.';
-	@override String get clearUserProfile => 'נקה פרופיל משתמש';
-	@override String get clearUserProfileConfirmationTitle => 'למחוק את פרופיל המשתמש?';
-	@override String get clearUserProfileConfirmationMessage => 'נתוני הפרופיל שלך (מטרת יום, גובה, משקל וכו\') יימחקו. הארוחות וההעדפות לא יושפעו.';
-	@override String get clear => 'נקה';
-	@override String get cancel => 'ביטול';
-	@override String get checkWatchConnection => 'בדוק חיבור לשעון';
-	@override String get sendTestMessage => 'שלח הודעת בדיקה';
-	@override String get sendTestMessageSubtitle => 'שלח הודעת בדיקה פשוטה לשעון';
-	@override String get sendTestMealData => 'שלח נתוני ארוחה לדוגמה';
-	@override String get sendTestMealDataSubtitle => 'שלח נתוני ארוחה לדוגמה לשעון';
-	@override String get sendTestCalorieGoal => 'שלח יעד קלוריות לדוגמה';
-	@override String get sendTestCalorieGoalSubtitle => 'שלח יעד קלוריות לדוגמה לשעון';
-	@override String get viewReceivedMessages => 'הצג הודעות שהתקבלו';
-	@override String get viewReceivedMessagesSubtitle => 'הצג הודעות שהתקבלו מהשעון';
-	@override String get watchConnected => 'השעון מחובר ✓';
-	@override String get device => 'מכשיר';
-	@override String get nearby => 'בקרבה';
-	@override String get yes => 'כן';
-	@override String get no => 'לא';
-	@override String get connectedDevices => 'מכשירים מחוברים';
-	@override String get deviceInfoUnavailable => '(מידע על המכשיר אינו זמין)';
-	@override String get unknownDevice => 'מכשיר לא ידוע';
-	@override String get watchNotConnected => 'השעון אינו מחובר ✗';
-	@override String get watchNotConnectedHint => 'ודא:\n• שני המכשירים מזווגים\n• אפליקציית השעון פועלת\n• שתי האפליקציות במצב דיבאג/סטייג\'ינג';
-	@override String get watchConnection => 'חיבור לשעון';
-	@override String errorCheckingConnection({required Object error}) => 'שגיאה בבדיקת החיבור: ${error}';
-	@override String get helloFromPhone => 'שלום מהטלפון!';
-	@override String get testMessageSentSuccess => 'הודעת בדיקה נשלחה בהצלחה!';
-	@override String get testMessageFailed => 'שליחת הודעת בדיקה נכשלה. בדוק את החיבור לשעון.';
-	@override String errorSendingMessage({required Object error}) => 'שגיאה בשליחת ההודעה: ${error}';
-	@override String get testMeal => 'ארוחת בדיקה';
-	@override String get testMealDataSentSuccess => 'נתוני הארוחה נשלחו בהצלחה!';
-	@override String get failedToSendMealData => 'שליחת נתוני הארוחה נכשלה. בדוק את החיבור לשעון.';
-	@override String errorSendingMealData({required Object error}) => 'שגיאה בשליחת נתוני הארוחה: ${error}';
-	@override String get testCalorieGoalSentSuccess => 'יעד הקלוריות נשלח בהצלחה!';
-	@override String get failedToSendCalorieGoal => 'שליחת יעד הקלוריות נכשלה. בדוק את החיבור לשעון.';
-	@override String errorSendingCalorieGoal({required Object error}) => 'שגיאה בשליחת יעד הקלוריות: ${error}';
-	@override String get testAnalyzeImage => 'בדיקת ניתוח תמונה';
-	@override String get testAnalyzeImageSubtitle => 'העלה תמונת בדיקה מובנית';
-	@override String get testDetectImage => 'בדיקת זיהוי תמונה';
-	@override String get testDetectImageSubtitle => 'זיהוי ארוחה מתוך כתובת URL של תמונה';
-	@override String get detectImageFromGallery => 'זיהוי תמונה מהגלריה';
-	@override String get detectImageFromGallerySubtitle => 'בחר תמונה, העלה לאחסון והערך את הקלוריות';
-	@override String get testDetectText => 'בדיקת זיהוי טקסט';
-	@override String get testDetectTextSubtitle => 'זהה ארוחה מתוך תיאור טקסטואלי';
-	@override String get testMealLoggingWithVariations => 'בדיקת רישום ארוחה עם וריאציות';
-	@override String get testMealLoggingWithVariationsSubtitle => 'בדוק את זרימת רישום הארוחה המלאה עם וריאציות';
-	@override String get mockMealWithVariations => 'ארוחה מדומה עם וריאציות';
-	@override String get mockMealWithVariationsSubtitle => 'תצוגה מקדימה של וריאציות + דף טיפים ללא רישום';
-	@override String get mockMealName => 'עוף בגריל עם אורז וירקות';
-	@override String get mockTip => 'זהו טיפ מדומה לתצוגת ממשק. הארוחה לא נרשמה.';
-	@override String get mockMealDescription => 'ארוחת דיבאג מדומה';
-	@override String get portionSizeQuestion => 'מה היה גודל המנה?';
-	@override String get extraSidesQuestion => 'יש תוספות בצד?';
-	@override String get optionSmall => 'קטן';
-	@override String get optionMedium => 'בינוני';
-	@override String get optionLarge => 'גדול';
-	@override String get optionNone => 'ללא';
-	@override String get optionSideSalad => 'סלט בצד';
-	@override String get optionBreadRoll => 'לחמניה';
-	@override String get testingAnalyzeImage => 'בודק API ניתוח תמונה...';
-	@override String get testingDetectImage => 'בודק API זיהוי תמונה...';
-	@override String get testingDetectText => 'בודק API זיהוי טקסט...';
-	@override String get selectingImageFromGallery => 'בוחרים תמונה מהגלריה...';
-	@override String get noImageSelected => 'לא נבחרה תמונה';
-	@override String get compressingImage => 'מכווץ את התמונה...';
-	@override String get uploadingImageAndDetecting => 'מעלה תמונה לאחסון ומזהה את הארוחה...';
-	@override String get testingMealLoggingFlow => 'בודק את זרימת רישום הארוחה עם וריאציות...';
-	@override String get testUpdateProfile => 'בדיקת עדכון פרופיל';
-	@override String get testUpdateProfileSubtitle => 'שלח פרופיל דוגמה לשרת באמצעות POST';
-	@override String get testingProfileApi => 'בודק את ה-API של הפרופיל...';
-	@override String get profileUpdateSuccess => 'ה-API של הפרופיל הגיב בהצלחה';
-	@override String profileUpdateFailed({required Object error}) => 'שגיאה ב-API של הפרופיל: ${error}';
-	@override String get noMealIdentifiedInResponse => 'לא זוהתה ארוחה בתשובה';
-	@override String get mealIdentified => 'זוהתה ארוחה';
-	@override String get confidence => 'רמת ביטחון';
-	@override String get tip => 'טיפ';
-	@override String get mealName => 'שם הארוחה';
-	@override String get calories => 'קלוריות';
-	@override String get protein => 'חלבון';
-	@override String get carbs => 'פחמימות';
-	@override String get fat => 'שומן';
-	@override String get noMealInfo => 'אין מידע על הארוחה';
-	@override String get na => 'לא זמין';
-	@override String get analyzeImageResult => 'תוצאת ניתוח תמונה';
-	@override String get detectImageResult => 'תוצאת זיהוי תמונה';
-	@override String get detectImageFromGalleryResult => 'תוצאת זיהוי תמונה מהגלריה';
-	@override String get detectTextResult => 'תוצאת זיהוי טקסט';
-	@override String errorGeneric({required Object error}) => 'שגיאה: ${error}';
-	@override String get variationsCount => 'וריאציות';
-	@override String get userPreferencesCleared => 'העדפות המשתמש נמחקו';
-	@override String get userProfileCleared => 'פרופיל המשתמש נוקה';
-	@override String get checkForUpdate => 'בדוק עדכונים';
-	@override String get showPatchNumber => 'הצג מספר הפאץ\'';
-	@override String get showUpdateAvailable => 'הצג עדכון זמין';
-	@override String get updateAvailable => 'עדכון זמין';
-	@override String get upToDate => 'מעודכן';
-	@override String get shorebirdUnavailable => 'Shorebird אינו זמין בסביבה זו.';
-	@override String get patchNumberLabel => 'מספר הפאץ\'';
-	@override String get noPatchInstalled => 'אין פאץ\' מותקן';
-	@override String get todaysSteps => 'צעדים להיום';
-	@override String get stepsLabel => 'צעדים';
-	@override String weightLabel({required Object value}) => 'משקל: ${value} ק"ג';
-	@override String heightLabel({required Object value}) => 'גובה: ${value} ס"מ';
-	@override String get receivedMessagesFromWatch => 'הודעות שהתקבלו מהשעון';
-	@override String get noMessagesReceivedYet => 'עדיין לא התקבלו הודעות.\n\nשלח נתוני בדיקה מהשעון כדי לראות הודעות כאן.';
-	@override String get messagesCleared => 'הודעות נמחקו';
 }
 
 // Path: health
@@ -1220,25 +1056,6 @@ class _TranslationsDisclaimerCalorieExpenditureHe implements TranslationsDisclai
 	@override String get description => 'כאשר נתוני Health Connect אינם זמינים, אנו מעריכים את הקלוריות שנשרפו היום באמצעות קצב חילוף החומרים הבסיסי שלך (BMR) ורמת הפעילות הגופנית (TDEE), ומתאימים את ההערכה לפי החלק מהיום שעבר.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedHe howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedHe._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceHe professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceHe._(_root);
-}
-
-// Path: debug.sections
-class _TranslationsDebugSectionsHe implements TranslationsDebugSectionsEn {
-	_TranslationsDebugSectionsHe._(this._root);
-
-	final TranslationsHe _root; // ignore: unused_field
-
-	// Translations
-	@override String get notifications => 'התראות';
-	@override String get healthConnect => 'Health Connect';
-	@override String get wearOs => 'Wear OS';
-	@override String get foodApiTests => 'בדיקות Food API';
-	@override String get profileApiTests => 'בדיקות API של הפרופיל';
-	@override String get feedback => 'משוב';
-	@override String get dataReset => 'איפוס נתונים';
-	@override String get database => 'מסד נתונים';
-	@override String get appInfo => 'מידע על האפליקציה';
-	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2150,6 +1967,8 @@ extension on TranslationsHe {
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'נהנים מהשימוש ב${appLabel}?',
 			'feedbackRating.yes' => 'כן, אני נהנה/נהנית',
 			'feedbackRating.no' => 'לא ממש',
+			'feedbackRating.rateStepHeading' => 'דרג בחנות Play',
+			'feedbackRating.emailStepHeading' => 'שלח משוב בדואר אלקטרוני',
 			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'דירוג קצר עוזר לאחרים למצוא את ${appLabel} ומאפשר לנו להמשיך בפיתוח. האם ברצונך להקדיש רגע ולהשאיר דירוג?',
 			'feedbackRating.shareFeedbackViaEmail' => 'המשוב שלך מעצב את הצעדים הבאים — אנחנו קוראים כל הודעה. האם ברצונך לשתף את מחשבותיך בדוא"ל?',
 			'feedbackRating.rateCta' => 'דרגו אותנו ב-Google Play',
@@ -2162,173 +1981,6 @@ extension on TranslationsHe {
 			'feedbackRating.thankYouMessage' => 'תודה! נשאל שוב בהזדמנות אחרת.',
 			'errors.loadingProfileData' => 'שגיאה בהטענת נתוני פרופיל',
 			'errors.somethingWentWrong' => 'משהו השתבש.',
-			'debug.title' => 'אפשרויות דיבוג',
-			'debug.searchHint' => 'אפשרויות חיפוש...',
-			'debug.sections.notifications' => 'התראות',
-			'debug.sections.healthConnect' => 'Health Connect',
-			'debug.sections.wearOs' => 'Wear OS',
-			'debug.sections.foodApiTests' => 'בדיקות Food API',
-			'debug.sections.profileApiTests' => 'בדיקות API של הפרופיל',
-			'debug.sections.feedback' => 'משוב',
-			'debug.sections.dataReset' => 'איפוס נתונים',
-			'debug.sections.database' => 'מסד נתונים',
-			'debug.sections.appInfo' => 'מידע על האפליקציה',
-			'debug.sections.shorebird' => 'Shorebird',
-			'debug.inspectDatabaseTables' => 'בדוק טבלאות במסד הנתונים',
-			'debug.databaseInspectorTitle' => 'בודק מסד הנתונים',
-			'debug.databaseOnlyWithRealData' => 'בדיקת מסד הנתונים זמינה רק בעת שימוש בנתונים אמיתיים (לא בנתוני דמה).',
-			'debug.tableRowCount' => ({required Object count}) => '${count} שורות',
-			'debug.emptyTable' => 'אין שורות',
-			'debug.showActiveNotifications' => 'הצג התראות פעילות',
-			'debug.scheduleTestNotification' => 'תזמן התראה ניסי (10ש)',
-			'debug.triggerBreakfastNotification' => 'הפעל התראת ארוחת בוקר',
-			'debug.cancelAllNotifications' => 'בטל את כל ההתראות',
-			'debug.activeNotifications' => 'התראות פעילות',
-			'debug.noTitle' => 'אין כותרת',
-			'debug.noBody' => 'אין תוכן',
-			'debug.fetchTodaysSteps' => 'שחזר את צעדי היום',
-			'debug.fetchTodaysCalories' => 'שחזר את קלוריות היום',
-			'debug.fetchLatestWeight' => 'שחזר את המשקל הרלוונטי ביותר',
-			'debug.fetchLatestHeight' => 'שחזר את הגובה הרלוונטי ביותר',
-			'debug.writeTestWeight' => 'כתוב משקל ניסי (70ק"ג)',
-			'debug.writeTestHeight' => 'כתוב גובה ניסי (175ס"מ)',
-			'debug.syncLast7Days' => 'סנכרן את 7 הימים האחרונים',
-			'debug.sync7DaysTitle' => 'סנכרון של 7 ימים',
-			'debug.checkCurrentLocale' => 'בדוק את המיקום הנוכחי',
-			'debug.currentLocale' => 'מיקום נוכחי',
-			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'שפה: ${languageCode}\nמדינה: ${countryCode}\nמערכת יחידות: ${unitSystem}',
-			'debug.latestWeight' => 'המשקל האחרון',
-			'debug.latestHeight' => 'הגובה האחרון',
-			'debug.todaysCalories' => 'קלוריות להיום',
-			'debug.totalCaloriesBurned' => ({required Object calories}) => 'סה"כ קלוריות שנשרפו: ${calories}',
-			'debug.syncSuccess' => ({required Object count}) => 'התקבלו בהצלחה ${count} נתונים לנוגעים לצעדים, קלוריות ומשקל במהלך 7 הימים האחרונים.',
-			'debug.noWeightData' => 'לא נמצאה נתוני משקל במהלך 30 הימים האחרונים.',
-			'debug.noHeightData' => 'לא נמצאה נתוני גובה במהלך השנה האחרונה.',
-			'debug.noCalorieData' => 'לא נמצאה נתוני קלוריות להיום.',
-			'debug.weightWritten' => 'נכתב בהצלחה משקל ניסי (70ק"ג).',
-			'debug.weightWriteFailed' => 'נכשל לכתוב משקל ניסי.',
-			'debug.heightWritten' => 'נכתב בהצלחה גובה ניסי (175ס"מ).',
-			'debug.heightWriteFailed' => 'נכשל לכתוב גובה ניסי.',
-			'debug.noNotifications' => 'אין התראות פעילות.',
-			'debug.testNotificationScheduled' => 'התראת ניסי מתוזמנת ל-10 שניות מהיום.',
-			'debug.testNotificationBody' => 'זוהי התראת ניסי מתוזמנת ל-10 שניות מהיום.',
-			'debug.breakfastNotificationTriggered' => 'הופעלה התראת ארוחת בוקר.',
-			'debug.allNotificationsCancelled' => 'כל ההתראות בוטלו.',
-			'debug.fetchingData' => 'שחזור נתונים עבור 7 הימים האחרונים...',
-			'debug.id' => ({required Object id}) => 'מזהה: ${id}',
-			'debug.showFeedbackRatingSheet' => 'הצג טופס משוב/דירוג',
-			'debug.clearUserPreferences' => 'נקה העדפות משתמש',
-			'debug.clearUserPreferencesConfirmationTitle' => 'למחוק את העדפות המשתמש?',
-			'debug.clearUserPreferencesConfirmationMessage' => 'הנושא, השפה והעדפות המשוב יאופסו. הארוחות והפרופיל לא יושפעו.',
-			'debug.clearUserProfile' => 'נקה פרופיל משתמש',
-			'debug.clearUserProfileConfirmationTitle' => 'למחוק את פרופיל המשתמש?',
-			'debug.clearUserProfileConfirmationMessage' => 'נתוני הפרופיל שלך (מטרת יום, גובה, משקל וכו\') יימחקו. הארוחות וההעדפות לא יושפעו.',
-			'debug.clear' => 'נקה',
-			'debug.cancel' => 'ביטול',
-			'debug.checkWatchConnection' => 'בדוק חיבור לשעון',
-			'debug.sendTestMessage' => 'שלח הודעת בדיקה',
-			'debug.sendTestMessageSubtitle' => 'שלח הודעת בדיקה פשוטה לשעון',
-			'debug.sendTestMealData' => 'שלח נתוני ארוחה לדוגמה',
-			'debug.sendTestMealDataSubtitle' => 'שלח נתוני ארוחה לדוגמה לשעון',
-			'debug.sendTestCalorieGoal' => 'שלח יעד קלוריות לדוגמה',
-			'debug.sendTestCalorieGoalSubtitle' => 'שלח יעד קלוריות לדוגמה לשעון',
-			'debug.viewReceivedMessages' => 'הצג הודעות שהתקבלו',
-			'debug.viewReceivedMessagesSubtitle' => 'הצג הודעות שהתקבלו מהשעון',
-			'debug.watchConnected' => 'השעון מחובר ✓',
-			'debug.device' => 'מכשיר',
-			'debug.nearby' => 'בקרבה',
-			'debug.yes' => 'כן',
-			'debug.no' => 'לא',
-			'debug.connectedDevices' => 'מכשירים מחוברים',
-			'debug.deviceInfoUnavailable' => '(מידע על המכשיר אינו זמין)',
-			'debug.unknownDevice' => 'מכשיר לא ידוע',
-			'debug.watchNotConnected' => 'השעון אינו מחובר ✗',
-			'debug.watchNotConnectedHint' => 'ודא:\n• שני המכשירים מזווגים\n• אפליקציית השעון פועלת\n• שתי האפליקציות במצב דיבאג/סטייג\'ינג',
-			'debug.watchConnection' => 'חיבור לשעון',
-			'debug.errorCheckingConnection' => ({required Object error}) => 'שגיאה בבדיקת החיבור: ${error}',
-			'debug.helloFromPhone' => 'שלום מהטלפון!',
-			'debug.testMessageSentSuccess' => 'הודעת בדיקה נשלחה בהצלחה!',
-			'debug.testMessageFailed' => 'שליחת הודעת בדיקה נכשלה. בדוק את החיבור לשעון.',
-			'debug.errorSendingMessage' => ({required Object error}) => 'שגיאה בשליחת ההודעה: ${error}',
-			'debug.testMeal' => 'ארוחת בדיקה',
-			'debug.testMealDataSentSuccess' => 'נתוני הארוחה נשלחו בהצלחה!',
-			'debug.failedToSendMealData' => 'שליחת נתוני הארוחה נכשלה. בדוק את החיבור לשעון.',
-			'debug.errorSendingMealData' => ({required Object error}) => 'שגיאה בשליחת נתוני הארוחה: ${error}',
-			'debug.testCalorieGoalSentSuccess' => 'יעד הקלוריות נשלח בהצלחה!',
-			_ => null,
-		} ?? switch (path) {
-			'debug.failedToSendCalorieGoal' => 'שליחת יעד הקלוריות נכשלה. בדוק את החיבור לשעון.',
-			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'שגיאה בשליחת יעד הקלוריות: ${error}',
-			'debug.testAnalyzeImage' => 'בדיקת ניתוח תמונה',
-			'debug.testAnalyzeImageSubtitle' => 'העלה תמונת בדיקה מובנית',
-			'debug.testDetectImage' => 'בדיקת זיהוי תמונה',
-			'debug.testDetectImageSubtitle' => 'זיהוי ארוחה מתוך כתובת URL של תמונה',
-			'debug.detectImageFromGallery' => 'זיהוי תמונה מהגלריה',
-			'debug.detectImageFromGallerySubtitle' => 'בחר תמונה, העלה לאחסון והערך את הקלוריות',
-			'debug.testDetectText' => 'בדיקת זיהוי טקסט',
-			'debug.testDetectTextSubtitle' => 'זהה ארוחה מתוך תיאור טקסטואלי',
-			'debug.testMealLoggingWithVariations' => 'בדיקת רישום ארוחה עם וריאציות',
-			'debug.testMealLoggingWithVariationsSubtitle' => 'בדוק את זרימת רישום הארוחה המלאה עם וריאציות',
-			'debug.mockMealWithVariations' => 'ארוחה מדומה עם וריאציות',
-			'debug.mockMealWithVariationsSubtitle' => 'תצוגה מקדימה של וריאציות + דף טיפים ללא רישום',
-			'debug.mockMealName' => 'עוף בגריל עם אורז וירקות',
-			'debug.mockTip' => 'זהו טיפ מדומה לתצוגת ממשק. הארוחה לא נרשמה.',
-			'debug.mockMealDescription' => 'ארוחת דיבאג מדומה',
-			'debug.portionSizeQuestion' => 'מה היה גודל המנה?',
-			'debug.extraSidesQuestion' => 'יש תוספות בצד?',
-			'debug.optionSmall' => 'קטן',
-			'debug.optionMedium' => 'בינוני',
-			'debug.optionLarge' => 'גדול',
-			'debug.optionNone' => 'ללא',
-			'debug.optionSideSalad' => 'סלט בצד',
-			'debug.optionBreadRoll' => 'לחמניה',
-			'debug.testingAnalyzeImage' => 'בודק API ניתוח תמונה...',
-			'debug.testingDetectImage' => 'בודק API זיהוי תמונה...',
-			'debug.testingDetectText' => 'בודק API זיהוי טקסט...',
-			'debug.selectingImageFromGallery' => 'בוחרים תמונה מהגלריה...',
-			'debug.noImageSelected' => 'לא נבחרה תמונה',
-			'debug.compressingImage' => 'מכווץ את התמונה...',
-			'debug.uploadingImageAndDetecting' => 'מעלה תמונה לאחסון ומזהה את הארוחה...',
-			'debug.testingMealLoggingFlow' => 'בודק את זרימת רישום הארוחה עם וריאציות...',
-			'debug.testUpdateProfile' => 'בדיקת עדכון פרופיל',
-			'debug.testUpdateProfileSubtitle' => 'שלח פרופיל דוגמה לשרת באמצעות POST',
-			'debug.testingProfileApi' => 'בודק את ה-API של הפרופיל...',
-			'debug.profileUpdateSuccess' => 'ה-API של הפרופיל הגיב בהצלחה',
-			'debug.profileUpdateFailed' => ({required Object error}) => 'שגיאה ב-API של הפרופיל: ${error}',
-			'debug.noMealIdentifiedInResponse' => 'לא זוהתה ארוחה בתשובה',
-			'debug.mealIdentified' => 'זוהתה ארוחה',
-			'debug.confidence' => 'רמת ביטחון',
-			'debug.tip' => 'טיפ',
-			'debug.mealName' => 'שם הארוחה',
-			'debug.calories' => 'קלוריות',
-			'debug.protein' => 'חלבון',
-			'debug.carbs' => 'פחמימות',
-			'debug.fat' => 'שומן',
-			'debug.noMealInfo' => 'אין מידע על הארוחה',
-			'debug.na' => 'לא זמין',
-			'debug.analyzeImageResult' => 'תוצאת ניתוח תמונה',
-			'debug.detectImageResult' => 'תוצאת זיהוי תמונה',
-			'debug.detectImageFromGalleryResult' => 'תוצאת זיהוי תמונה מהגלריה',
-			'debug.detectTextResult' => 'תוצאת זיהוי טקסט',
-			'debug.errorGeneric' => ({required Object error}) => 'שגיאה: ${error}',
-			'debug.variationsCount' => 'וריאציות',
-			'debug.userPreferencesCleared' => 'העדפות המשתמש נמחקו',
-			'debug.userProfileCleared' => 'פרופיל המשתמש נוקה',
-			'debug.checkForUpdate' => 'בדוק עדכונים',
-			'debug.showPatchNumber' => 'הצג מספר הפאץ\'',
-			'debug.showUpdateAvailable' => 'הצג עדכון זמין',
-			'debug.updateAvailable' => 'עדכון זמין',
-			'debug.upToDate' => 'מעודכן',
-			'debug.shorebirdUnavailable' => 'Shorebird אינו זמין בסביבה זו.',
-			'debug.patchNumberLabel' => 'מספר הפאץ\'',
-			'debug.noPatchInstalled' => 'אין פאץ\' מותקן',
-			'debug.todaysSteps' => 'צעדים להיום',
-			'debug.stepsLabel' => 'צעדים',
-			'debug.weightLabel' => ({required Object value}) => 'משקל: ${value} ק"ג',
-			'debug.heightLabel' => ({required Object value}) => 'גובה: ${value} ס"מ',
-			'debug.receivedMessagesFromWatch' => 'הודעות שהתקבלו מהשעון',
-			'debug.noMessagesReceivedYet' => 'עדיין לא התקבלו הודעות.\n\nשלח נתוני בדיקה מהשעון כדי לראות הודעות כאן.',
-			'debug.messagesCleared' => 'הודעות נמחקו',
 			'health.syncFailed' => 'לא ניתן לסנכרן עם Health Connect',
 			'health.mealSynced' => 'הארוחה סונכרנה עם Health Connect',
 			_ => null,

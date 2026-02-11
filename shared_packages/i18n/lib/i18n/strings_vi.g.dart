@@ -57,7 +57,6 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsCommonVi common = _TranslationsCommonVi._(_root);
 	@override late final _TranslationsFeedbackRatingVi feedbackRating = _TranslationsFeedbackRatingVi._(_root);
 	@override late final _TranslationsErrorsVi errors = _TranslationsErrorsVi._(_root);
-	@override late final _TranslationsDebugVi debug = _TranslationsDebugVi._(_root);
 	@override late final _TranslationsHealthVi health = _TranslationsHealthVi._(_root);
 }
 
@@ -359,6 +358,8 @@ class _TranslationsFeedbackRatingVi implements TranslationsFeedbackRatingEn {
 	@override String enjoyingQuestion({required Object appLabel}) => 'Bạn có thích ${appLabel} không?';
 	@override String get yes => 'Có, tôi thích nó';
 	@override String get no => 'Không lắm';
+	@override String get rateStepHeading => 'Đánh giá trên Play Store';
+	@override String get emailStepHeading => 'Gửi phản hồi qua email';
 	@override String soloDevMessage({required Object appLabel}) => 'Một đánh giá nhanh sẽ giúp người khác tìm thấy ${appLabel} và giúp quá trình phát triển tiếp tục. Bạn có thể dành chút thời gian để để lại một đánh giá không?';
 	@override String get shareFeedbackViaEmail => 'Phản hồi của bạn góp phần định hình những cải tiến tiếp theo — chúng tôi đọc từng phản hồi. Bạn có muốn chia sẻ suy nghĩ qua email không?';
 	@override String get rateCta => 'Đánh giá trên Cửa hàng Play';
@@ -380,171 +381,6 @@ class _TranslationsErrorsVi implements TranslationsErrorsEn {
 	// Translations
 	@override String get loadingProfileData => 'Lỗi khi tải dữ liệu hồ sơ';
 	@override String get somethingWentWrong => 'Đã xảy ra lỗi.';
-}
-
-// Path: debug
-class _TranslationsDebugVi implements TranslationsDebugEn {
-	_TranslationsDebugVi._(this._root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Tùy chọn gỡ lỗi';
-	@override String get searchHint => 'Tìm kiếm...';
-	@override late final _TranslationsDebugSectionsVi sections = _TranslationsDebugSectionsVi._(_root);
-	@override String get inspectDatabaseTables => 'Kiểm tra các bảng cơ sở dữ liệu';
-	@override String get databaseInspectorTitle => 'Trình kiểm tra cơ sở dữ liệu';
-	@override String get databaseOnlyWithRealData => 'Việc kiểm tra cơ sở dữ liệu chỉ khả dụng khi sử dụng dữ liệu thật (không phải dữ liệu mô phỏng).';
-	@override String tableRowCount({required Object count}) => '${count} hàng';
-	@override String get emptyTable => 'Không có hàng nào';
-	@override String get showActiveNotifications => 'Hiển thị thông báo đang hoạt động';
-	@override String get scheduleTestNotification => 'Lên lịch thông báo thử nghiệm (10 giây)';
-	@override String get triggerBreakfastNotification => 'Kích hoạt thông báo bữa sáng';
-	@override String get cancelAllNotifications => 'Hủy tất cả thông báo';
-	@override String get activeNotifications => 'Thông báo đang hoạt động';
-	@override String get noTitle => 'Không có tiêu đề';
-	@override String get noBody => 'Không có nội dung';
-	@override String get fetchTodaysSteps => 'Lấy số bước hôm nay';
-	@override String get fetchTodaysCalories => 'Lấy calo hôm nay';
-	@override String get fetchLatestWeight => 'Lấy cân nặng mới nhất';
-	@override String get fetchLatestHeight => 'Lấy chiều cao mới nhất';
-	@override String get writeTestWeight => 'Ghi trọng lượng thử nghiệm (70kg)';
-	@override String get writeTestHeight => 'Ghi chiều cao thử nghiệm (175cm)';
-	@override String get syncLast7Days => 'Đồng bộ 7 ngày vừa qua';
-	@override String get sync7DaysTitle => 'Đồng bộ 7 ngày';
-	@override String get checkCurrentLocale => 'Kiểm tra địa phương hiện tại';
-	@override String get currentLocale => 'Địa phương hiện tại';
-	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Ngôn ngữ: ${languageCode}\nQuốc gia: ${countryCode}\nHệ thống đơn vị: ${unitSystem}';
-	@override String get latestWeight => 'Cân nặng mới nhất';
-	@override String get latestHeight => 'Chiều cao mới nhất';
-	@override String get todaysCalories => 'Calo hôm nay';
-	@override String totalCaloriesBurned({required Object calories}) => 'Tổng calo đã đốt cháy: ${calories}';
-	@override String syncSuccess({required Object count}) => 'Đã đồng bộ thành công ${count} điểm dữ liệu cho bước, calo và cân nặng trong 7 ngày qua.';
-	@override String get noWeightData => 'Không tìm thấy dữ liệu cân nặng trong 30 ngày qua.';
-	@override String get noHeightData => 'Không tìm thấy dữ liệu chiều cao trong năm qua.';
-	@override String get noCalorieData => 'Không tìm thấy dữ liệu calo cho hôm nay.';
-	@override String get weightWritten => 'Ghi trọng lượng thử nghiệm thành công (70kg).';
-	@override String get weightWriteFailed => 'Không thể ghi trọng lượng thử nghiệm.';
-	@override String get heightWritten => 'Ghi chiều cao thử nghiệm thành công (175cm).';
-	@override String get heightWriteFailed => 'Không thể ghi chiều cao thử nghiệm.';
-	@override String get noNotifications => 'Không có thông báo đang hoạt động.';
-	@override String get testNotificationScheduled => 'Thời gian thử nghiệm đã được lên lịch sau 10 giây.';
-	@override String get testNotificationBody => 'Đây là thông báo thử nghiệm được lên lịch sau 10 giây.';
-	@override String get breakfastNotificationTriggered => 'Thông báo bữa sáng đã được kích hoạt.';
-	@override String get allNotificationsCancelled => 'Tất cả thông báo đã được hủy.';
-	@override String get fetchingData => 'Đang lấy dữ liệu cho 7 ngày vừa qua...';
-	@override String id({required Object id}) => 'ID: ${id}';
-	@override String get showFeedbackRatingSheet => 'Hiển thị hộp phản hồi/đánh giá';
-	@override String get clearUserPreferences => 'Xóa tùy chọn người dùng';
-	@override String get clearUserPreferencesConfirmationTitle => 'Xóa tùy chọn người dùng?';
-	@override String get clearUserPreferencesConfirmationMessage => 'Giao diện, ngôn ngữ và tùy chọn phản hồi sẽ được đặt lại. Bữa ăn và hồ sơ sẽ không bị ảnh hưởng.';
-	@override String get clearUserProfile => 'Xóa hồ sơ người dùng';
-	@override String get clearUserProfileConfirmationTitle => 'Xóa hồ sơ người dùng?';
-	@override String get clearUserProfileConfirmationMessage => 'Dữ liệu hồ sơ của bạn (mục tiêu hàng ngày, chiều cao, cân nặng, v.v.) sẽ bị xóa. Bữa ăn và tùy chọn sẽ không bị ảnh hưởng.';
-	@override String get clear => 'Xóa';
-	@override String get cancel => 'Hủy';
-	@override String get checkWatchConnection => 'Kiểm tra kết nối đồng hồ';
-	@override String get sendTestMessage => 'Gửi tin nhắn thử';
-	@override String get sendTestMessageSubtitle => 'Gửi một tin nhắn thử đơn giản tới đồng hồ';
-	@override String get sendTestMealData => 'Gửi dữ liệu bữa ăn thử';
-	@override String get sendTestMealDataSubtitle => 'Gửi dữ liệu mẫu bữa ăn tới đồng hồ';
-	@override String get sendTestCalorieGoal => 'Gửi mục tiêu calo thử';
-	@override String get sendTestCalorieGoalSubtitle => 'Gửi mục tiêu calo mẫu tới đồng hồ';
-	@override String get viewReceivedMessages => 'Xem tin nhắn đã nhận';
-	@override String get viewReceivedMessagesSubtitle => 'Xem tin nhắn nhận từ đồng hồ';
-	@override String get watchConnected => 'Đồng hồ đã kết nối ✓';
-	@override String get device => 'Thiết bị';
-	@override String get nearby => 'Gần đó';
-	@override String get yes => 'Có';
-	@override String get no => 'Không';
-	@override String get connectedDevices => 'Thiết bị đã kết nối';
-	@override String get deviceInfoUnavailable => '(Thông tin thiết bị không có sẵn)';
-	@override String get unknownDevice => 'Thiết bị không xác định';
-	@override String get watchNotConnected => 'Đồng hồ chưa kết nối ✗';
-	@override String get watchNotConnectedHint => 'Hãy đảm bảo:\n• Cả hai thiết bị đã ghép đôi\n• Ứng dụng trên đồng hồ đang chạy\n• Cả hai ứng dụng đang ở chế độ debug/staging';
-	@override String get watchConnection => 'Kết nối đồng hồ';
-	@override String errorCheckingConnection({required Object error}) => 'Lỗi khi kiểm tra kết nối: ${error}';
-	@override String get helloFromPhone => 'Xin chào từ điện thoại!';
-	@override String get testMessageSentSuccess => 'Đã gửi tin nhắn thử thành công!';
-	@override String get testMessageFailed => 'Gửi tin nhắn thử thất bại. Kiểm tra kết nối đồng hồ.';
-	@override String errorSendingMessage({required Object error}) => 'Lỗi khi gửi tin nhắn: ${error}';
-	@override String get testMeal => 'Bữa ăn thử';
-	@override String get testMealDataSentSuccess => 'Đã gửi dữ liệu bữa ăn thử thành công!';
-	@override String get failedToSendMealData => 'Gửi dữ liệu bữa ăn thất bại. Kiểm tra kết nối đồng hồ.';
-	@override String errorSendingMealData({required Object error}) => 'Lỗi khi gửi dữ liệu bữa ăn: ${error}';
-	@override String get testCalorieGoalSentSuccess => 'Đã gửi mục tiêu calo thử thành công!';
-	@override String get failedToSendCalorieGoal => 'Gửi mục tiêu calo thất bại. Kiểm tra kết nối đồng hồ.';
-	@override String errorSendingCalorieGoal({required Object error}) => 'Lỗi khi gửi mục tiêu calo: ${error}';
-	@override String get testAnalyzeImage => 'Thử phân tích ảnh';
-	@override String get testAnalyzeImageSubtitle => 'Tải ảnh thử cố định lên';
-	@override String get testDetectImage => 'Thử phát hiện ảnh';
-	@override String get testDetectImageSubtitle => 'Phát hiện bữa ăn từ URL ảnh';
-	@override String get detectImageFromGallery => 'Phát hiện ảnh từ Thư viện';
-	@override String get detectImageFromGallerySubtitle => 'Chọn ảnh, tải lên bucket và ước tính calo';
-	@override String get testDetectText => 'Thử phát hiện văn bản';
-	@override String get testDetectTextSubtitle => 'Phát hiện bữa ăn từ mô tả văn bản';
-	@override String get testMealLoggingWithVariations => 'Thử ghi nhận bữa ăn với biến thể';
-	@override String get testMealLoggingWithVariationsSubtitle => 'Thử toàn bộ quy trình ghi nhận bữa ăn có biến thể';
-	@override String get mockMealWithVariations => 'Bữa ăn mẫu có biến thể';
-	@override String get mockMealWithVariationsSubtitle => 'Xem trước giao diện biến thể + mẹo mà không ghi nhận';
-	@override String get mockMealName => 'Gà nướng với cơm và rau';
-	@override String get mockTip => 'Đây là mẹo giả để xem giao diện. Bữa ăn không được ghi nhận.';
-	@override String get mockMealDescription => 'Bữa ăn mẫu để gỡ lỗi';
-	@override String get portionSizeQuestion => 'Kích thước khẩu phần như thế nào?';
-	@override String get extraSidesQuestion => 'Có món phụ thêm không?';
-	@override String get optionSmall => 'Nhỏ';
-	@override String get optionMedium => 'Vừa';
-	@override String get optionLarge => 'Lớn';
-	@override String get optionNone => 'Không có';
-	@override String get optionSideSalad => 'Salad phụ';
-	@override String get optionBreadRoll => 'Ổ bánh mì';
-	@override String get testingAnalyzeImage => 'Đang kiểm tra API analyzeImage...';
-	@override String get testingDetectImage => 'Đang kiểm tra API detectImage...';
-	@override String get testingDetectText => 'Đang kiểm tra API detectText...';
-	@override String get selectingImageFromGallery => 'Đang chọn ảnh từ thư viện...';
-	@override String get noImageSelected => 'Chưa chọn ảnh';
-	@override String get compressingImage => 'Đang nén ảnh...';
-	@override String get uploadingImageAndDetecting => 'Đang tải ảnh lên bucket và phát hiện bữa ăn...';
-	@override String get testingMealLoggingFlow => 'Đang kiểm tra quy trình ghi nhận bữa ăn có biến thể...';
-	@override String get testUpdateProfile => 'Kiểm tra cập nhật hồ sơ';
-	@override String get testUpdateProfileSubtitle => 'Gửi hồ sơ mẫu (POST) tới backend';
-	@override String get testingProfileApi => 'Đang kiểm tra API hồ sơ...';
-	@override String get profileUpdateSuccess => 'API hồ sơ phản hồi thành công';
-	@override String profileUpdateFailed({required Object error}) => 'Lỗi API hồ sơ: ${error}';
-	@override String get noMealIdentifiedInResponse => 'Không xác định được bữa ăn trong phản hồi';
-	@override String get mealIdentified => 'Đã xác định bữa ăn';
-	@override String get confidence => 'Độ tin cậy';
-	@override String get tip => 'Mẹo';
-	@override String get mealName => 'Tên bữa ăn';
-	@override String get calories => 'Calo';
-	@override String get protein => 'Protein';
-	@override String get carbs => 'Tinh bột';
-	@override String get fat => 'Chất béo';
-	@override String get noMealInfo => 'Không có thông tin bữa ăn';
-	@override String get na => 'N/A';
-	@override String get analyzeImageResult => 'Kết quả phân tích ảnh';
-	@override String get detectImageResult => 'Kết quả phát hiện ảnh';
-	@override String get detectImageFromGalleryResult => 'Kết quả phát hiện ảnh từ Thư viện';
-	@override String get detectTextResult => 'Kết quả phát hiện văn bản';
-	@override String errorGeneric({required Object error}) => 'Lỗi: ${error}';
-	@override String get variationsCount => 'Biến thể';
-	@override String get userPreferencesCleared => 'Đã xóa tùy chọn người dùng';
-	@override String get userProfileCleared => 'Đã xóa hồ sơ người dùng';
-	@override String get checkForUpdate => 'Kiểm tra cập nhật';
-	@override String get showPatchNumber => 'Hiển thị số bản vá';
-	@override String get showUpdateAvailable => 'Hiện thông báo có bản cập nhật';
-	@override String get updateAvailable => 'Có bản cập nhật';
-	@override String get upToDate => 'Mới nhất';
-	@override String get shorebirdUnavailable => 'Shorebird không khả dụng trong môi trường này.';
-	@override String get patchNumberLabel => 'Số bản vá';
-	@override String get noPatchInstalled => 'Chưa cài bản vá';
-	@override String get todaysSteps => 'Số bước hôm nay';
-	@override String get stepsLabel => 'Bước';
-	@override String weightLabel({required Object value}) => 'Cân nặng: ${value} kg';
-	@override String heightLabel({required Object value}) => 'Chiều cao: ${value} cm';
-	@override String get receivedMessagesFromWatch => 'Tin nhắn nhận từ đồng hồ';
-	@override String get noMessagesReceivedYet => 'Chưa có tin nhắn nào.\n\nGửi dữ liệu thử từ đồng hồ để xem tin nhắn ở đây.';
-	@override String get messagesCleared => 'Đã xóa tin nhắn';
 }
 
 // Path: health
@@ -1220,25 +1056,6 @@ class _TranslationsDisclaimerCalorieExpenditureVi implements TranslationsDisclai
 	@override String get description => 'Khi dữ liệu từ Health Connect không có sẵn, chúng tôi ước tính số calo bạn đã tiêu hao trong ngày dựa trên tỷ lệ trao đổi chất cơ bản (BMR) và mức độ hoạt động của bạn (TDEE), rồi điều chỉnh theo phần ngày đã trôi qua.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedVi howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedVi._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceVi professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceVi._(_root);
-}
-
-// Path: debug.sections
-class _TranslationsDebugSectionsVi implements TranslationsDebugSectionsEn {
-	_TranslationsDebugSectionsVi._(this._root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get notifications => 'Thông báo';
-	@override String get healthConnect => 'Health Connect';
-	@override String get wearOs => 'Wear OS';
-	@override String get foodApiTests => 'Kiểm tra API Thực phẩm';
-	@override String get profileApiTests => 'Kiểm tra API hồ sơ';
-	@override String get feedback => 'Phản hồi';
-	@override String get dataReset => 'Đặt lại dữ liệu';
-	@override String get database => 'Cơ sở dữ liệu';
-	@override String get appInfo => 'Thông tin ứng dụng';
-	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2150,6 +1967,8 @@ extension on TranslationsVi {
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Bạn có thích ${appLabel} không?',
 			'feedbackRating.yes' => 'Có, tôi thích nó',
 			'feedbackRating.no' => 'Không lắm',
+			'feedbackRating.rateStepHeading' => 'Đánh giá trên Play Store',
+			'feedbackRating.emailStepHeading' => 'Gửi phản hồi qua email',
 			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Một đánh giá nhanh sẽ giúp người khác tìm thấy ${appLabel} và giúp quá trình phát triển tiếp tục. Bạn có thể dành chút thời gian để để lại một đánh giá không?',
 			'feedbackRating.shareFeedbackViaEmail' => 'Phản hồi của bạn góp phần định hình những cải tiến tiếp theo — chúng tôi đọc từng phản hồi. Bạn có muốn chia sẻ suy nghĩ qua email không?',
 			'feedbackRating.rateCta' => 'Đánh giá trên Cửa hàng Play',
@@ -2162,173 +1981,6 @@ extension on TranslationsVi {
 			'feedbackRating.thankYouMessage' => 'Cảm ơn! Chúng tôi sẽ hỏi lại bạn vào dịp khác.',
 			'errors.loadingProfileData' => 'Lỗi khi tải dữ liệu hồ sơ',
 			'errors.somethingWentWrong' => 'Đã xảy ra lỗi.',
-			'debug.title' => 'Tùy chọn gỡ lỗi',
-			'debug.searchHint' => 'Tìm kiếm...',
-			'debug.sections.notifications' => 'Thông báo',
-			'debug.sections.healthConnect' => 'Health Connect',
-			'debug.sections.wearOs' => 'Wear OS',
-			'debug.sections.foodApiTests' => 'Kiểm tra API Thực phẩm',
-			'debug.sections.profileApiTests' => 'Kiểm tra API hồ sơ',
-			'debug.sections.feedback' => 'Phản hồi',
-			'debug.sections.dataReset' => 'Đặt lại dữ liệu',
-			'debug.sections.database' => 'Cơ sở dữ liệu',
-			'debug.sections.appInfo' => 'Thông tin ứng dụng',
-			'debug.sections.shorebird' => 'Shorebird',
-			'debug.inspectDatabaseTables' => 'Kiểm tra các bảng cơ sở dữ liệu',
-			'debug.databaseInspectorTitle' => 'Trình kiểm tra cơ sở dữ liệu',
-			'debug.databaseOnlyWithRealData' => 'Việc kiểm tra cơ sở dữ liệu chỉ khả dụng khi sử dụng dữ liệu thật (không phải dữ liệu mô phỏng).',
-			'debug.tableRowCount' => ({required Object count}) => '${count} hàng',
-			'debug.emptyTable' => 'Không có hàng nào',
-			'debug.showActiveNotifications' => 'Hiển thị thông báo đang hoạt động',
-			'debug.scheduleTestNotification' => 'Lên lịch thông báo thử nghiệm (10 giây)',
-			'debug.triggerBreakfastNotification' => 'Kích hoạt thông báo bữa sáng',
-			'debug.cancelAllNotifications' => 'Hủy tất cả thông báo',
-			'debug.activeNotifications' => 'Thông báo đang hoạt động',
-			'debug.noTitle' => 'Không có tiêu đề',
-			'debug.noBody' => 'Không có nội dung',
-			'debug.fetchTodaysSteps' => 'Lấy số bước hôm nay',
-			'debug.fetchTodaysCalories' => 'Lấy calo hôm nay',
-			'debug.fetchLatestWeight' => 'Lấy cân nặng mới nhất',
-			'debug.fetchLatestHeight' => 'Lấy chiều cao mới nhất',
-			'debug.writeTestWeight' => 'Ghi trọng lượng thử nghiệm (70kg)',
-			'debug.writeTestHeight' => 'Ghi chiều cao thử nghiệm (175cm)',
-			'debug.syncLast7Days' => 'Đồng bộ 7 ngày vừa qua',
-			'debug.sync7DaysTitle' => 'Đồng bộ 7 ngày',
-			'debug.checkCurrentLocale' => 'Kiểm tra địa phương hiện tại',
-			'debug.currentLocale' => 'Địa phương hiện tại',
-			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Ngôn ngữ: ${languageCode}\nQuốc gia: ${countryCode}\nHệ thống đơn vị: ${unitSystem}',
-			'debug.latestWeight' => 'Cân nặng mới nhất',
-			'debug.latestHeight' => 'Chiều cao mới nhất',
-			'debug.todaysCalories' => 'Calo hôm nay',
-			'debug.totalCaloriesBurned' => ({required Object calories}) => 'Tổng calo đã đốt cháy: ${calories}',
-			'debug.syncSuccess' => ({required Object count}) => 'Đã đồng bộ thành công ${count} điểm dữ liệu cho bước, calo và cân nặng trong 7 ngày qua.',
-			'debug.noWeightData' => 'Không tìm thấy dữ liệu cân nặng trong 30 ngày qua.',
-			'debug.noHeightData' => 'Không tìm thấy dữ liệu chiều cao trong năm qua.',
-			'debug.noCalorieData' => 'Không tìm thấy dữ liệu calo cho hôm nay.',
-			'debug.weightWritten' => 'Ghi trọng lượng thử nghiệm thành công (70kg).',
-			'debug.weightWriteFailed' => 'Không thể ghi trọng lượng thử nghiệm.',
-			'debug.heightWritten' => 'Ghi chiều cao thử nghiệm thành công (175cm).',
-			'debug.heightWriteFailed' => 'Không thể ghi chiều cao thử nghiệm.',
-			'debug.noNotifications' => 'Không có thông báo đang hoạt động.',
-			'debug.testNotificationScheduled' => 'Thời gian thử nghiệm đã được lên lịch sau 10 giây.',
-			'debug.testNotificationBody' => 'Đây là thông báo thử nghiệm được lên lịch sau 10 giây.',
-			'debug.breakfastNotificationTriggered' => 'Thông báo bữa sáng đã được kích hoạt.',
-			'debug.allNotificationsCancelled' => 'Tất cả thông báo đã được hủy.',
-			'debug.fetchingData' => 'Đang lấy dữ liệu cho 7 ngày vừa qua...',
-			'debug.id' => ({required Object id}) => 'ID: ${id}',
-			'debug.showFeedbackRatingSheet' => 'Hiển thị hộp phản hồi/đánh giá',
-			'debug.clearUserPreferences' => 'Xóa tùy chọn người dùng',
-			'debug.clearUserPreferencesConfirmationTitle' => 'Xóa tùy chọn người dùng?',
-			'debug.clearUserPreferencesConfirmationMessage' => 'Giao diện, ngôn ngữ và tùy chọn phản hồi sẽ được đặt lại. Bữa ăn và hồ sơ sẽ không bị ảnh hưởng.',
-			'debug.clearUserProfile' => 'Xóa hồ sơ người dùng',
-			'debug.clearUserProfileConfirmationTitle' => 'Xóa hồ sơ người dùng?',
-			'debug.clearUserProfileConfirmationMessage' => 'Dữ liệu hồ sơ của bạn (mục tiêu hàng ngày, chiều cao, cân nặng, v.v.) sẽ bị xóa. Bữa ăn và tùy chọn sẽ không bị ảnh hưởng.',
-			'debug.clear' => 'Xóa',
-			'debug.cancel' => 'Hủy',
-			'debug.checkWatchConnection' => 'Kiểm tra kết nối đồng hồ',
-			'debug.sendTestMessage' => 'Gửi tin nhắn thử',
-			'debug.sendTestMessageSubtitle' => 'Gửi một tin nhắn thử đơn giản tới đồng hồ',
-			'debug.sendTestMealData' => 'Gửi dữ liệu bữa ăn thử',
-			'debug.sendTestMealDataSubtitle' => 'Gửi dữ liệu mẫu bữa ăn tới đồng hồ',
-			'debug.sendTestCalorieGoal' => 'Gửi mục tiêu calo thử',
-			'debug.sendTestCalorieGoalSubtitle' => 'Gửi mục tiêu calo mẫu tới đồng hồ',
-			'debug.viewReceivedMessages' => 'Xem tin nhắn đã nhận',
-			'debug.viewReceivedMessagesSubtitle' => 'Xem tin nhắn nhận từ đồng hồ',
-			'debug.watchConnected' => 'Đồng hồ đã kết nối ✓',
-			'debug.device' => 'Thiết bị',
-			'debug.nearby' => 'Gần đó',
-			'debug.yes' => 'Có',
-			'debug.no' => 'Không',
-			'debug.connectedDevices' => 'Thiết bị đã kết nối',
-			'debug.deviceInfoUnavailable' => '(Thông tin thiết bị không có sẵn)',
-			'debug.unknownDevice' => 'Thiết bị không xác định',
-			'debug.watchNotConnected' => 'Đồng hồ chưa kết nối ✗',
-			'debug.watchNotConnectedHint' => 'Hãy đảm bảo:\n• Cả hai thiết bị đã ghép đôi\n• Ứng dụng trên đồng hồ đang chạy\n• Cả hai ứng dụng đang ở chế độ debug/staging',
-			'debug.watchConnection' => 'Kết nối đồng hồ',
-			'debug.errorCheckingConnection' => ({required Object error}) => 'Lỗi khi kiểm tra kết nối: ${error}',
-			'debug.helloFromPhone' => 'Xin chào từ điện thoại!',
-			'debug.testMessageSentSuccess' => 'Đã gửi tin nhắn thử thành công!',
-			'debug.testMessageFailed' => 'Gửi tin nhắn thử thất bại. Kiểm tra kết nối đồng hồ.',
-			'debug.errorSendingMessage' => ({required Object error}) => 'Lỗi khi gửi tin nhắn: ${error}',
-			'debug.testMeal' => 'Bữa ăn thử',
-			'debug.testMealDataSentSuccess' => 'Đã gửi dữ liệu bữa ăn thử thành công!',
-			'debug.failedToSendMealData' => 'Gửi dữ liệu bữa ăn thất bại. Kiểm tra kết nối đồng hồ.',
-			'debug.errorSendingMealData' => ({required Object error}) => 'Lỗi khi gửi dữ liệu bữa ăn: ${error}',
-			'debug.testCalorieGoalSentSuccess' => 'Đã gửi mục tiêu calo thử thành công!',
-			_ => null,
-		} ?? switch (path) {
-			'debug.failedToSendCalorieGoal' => 'Gửi mục tiêu calo thất bại. Kiểm tra kết nối đồng hồ.',
-			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Lỗi khi gửi mục tiêu calo: ${error}',
-			'debug.testAnalyzeImage' => 'Thử phân tích ảnh',
-			'debug.testAnalyzeImageSubtitle' => 'Tải ảnh thử cố định lên',
-			'debug.testDetectImage' => 'Thử phát hiện ảnh',
-			'debug.testDetectImageSubtitle' => 'Phát hiện bữa ăn từ URL ảnh',
-			'debug.detectImageFromGallery' => 'Phát hiện ảnh từ Thư viện',
-			'debug.detectImageFromGallerySubtitle' => 'Chọn ảnh, tải lên bucket và ước tính calo',
-			'debug.testDetectText' => 'Thử phát hiện văn bản',
-			'debug.testDetectTextSubtitle' => 'Phát hiện bữa ăn từ mô tả văn bản',
-			'debug.testMealLoggingWithVariations' => 'Thử ghi nhận bữa ăn với biến thể',
-			'debug.testMealLoggingWithVariationsSubtitle' => 'Thử toàn bộ quy trình ghi nhận bữa ăn có biến thể',
-			'debug.mockMealWithVariations' => 'Bữa ăn mẫu có biến thể',
-			'debug.mockMealWithVariationsSubtitle' => 'Xem trước giao diện biến thể + mẹo mà không ghi nhận',
-			'debug.mockMealName' => 'Gà nướng với cơm và rau',
-			'debug.mockTip' => 'Đây là mẹo giả để xem giao diện. Bữa ăn không được ghi nhận.',
-			'debug.mockMealDescription' => 'Bữa ăn mẫu để gỡ lỗi',
-			'debug.portionSizeQuestion' => 'Kích thước khẩu phần như thế nào?',
-			'debug.extraSidesQuestion' => 'Có món phụ thêm không?',
-			'debug.optionSmall' => 'Nhỏ',
-			'debug.optionMedium' => 'Vừa',
-			'debug.optionLarge' => 'Lớn',
-			'debug.optionNone' => 'Không có',
-			'debug.optionSideSalad' => 'Salad phụ',
-			'debug.optionBreadRoll' => 'Ổ bánh mì',
-			'debug.testingAnalyzeImage' => 'Đang kiểm tra API analyzeImage...',
-			'debug.testingDetectImage' => 'Đang kiểm tra API detectImage...',
-			'debug.testingDetectText' => 'Đang kiểm tra API detectText...',
-			'debug.selectingImageFromGallery' => 'Đang chọn ảnh từ thư viện...',
-			'debug.noImageSelected' => 'Chưa chọn ảnh',
-			'debug.compressingImage' => 'Đang nén ảnh...',
-			'debug.uploadingImageAndDetecting' => 'Đang tải ảnh lên bucket và phát hiện bữa ăn...',
-			'debug.testingMealLoggingFlow' => 'Đang kiểm tra quy trình ghi nhận bữa ăn có biến thể...',
-			'debug.testUpdateProfile' => 'Kiểm tra cập nhật hồ sơ',
-			'debug.testUpdateProfileSubtitle' => 'Gửi hồ sơ mẫu (POST) tới backend',
-			'debug.testingProfileApi' => 'Đang kiểm tra API hồ sơ...',
-			'debug.profileUpdateSuccess' => 'API hồ sơ phản hồi thành công',
-			'debug.profileUpdateFailed' => ({required Object error}) => 'Lỗi API hồ sơ: ${error}',
-			'debug.noMealIdentifiedInResponse' => 'Không xác định được bữa ăn trong phản hồi',
-			'debug.mealIdentified' => 'Đã xác định bữa ăn',
-			'debug.confidence' => 'Độ tin cậy',
-			'debug.tip' => 'Mẹo',
-			'debug.mealName' => 'Tên bữa ăn',
-			'debug.calories' => 'Calo',
-			'debug.protein' => 'Protein',
-			'debug.carbs' => 'Tinh bột',
-			'debug.fat' => 'Chất béo',
-			'debug.noMealInfo' => 'Không có thông tin bữa ăn',
-			'debug.na' => 'N/A',
-			'debug.analyzeImageResult' => 'Kết quả phân tích ảnh',
-			'debug.detectImageResult' => 'Kết quả phát hiện ảnh',
-			'debug.detectImageFromGalleryResult' => 'Kết quả phát hiện ảnh từ Thư viện',
-			'debug.detectTextResult' => 'Kết quả phát hiện văn bản',
-			'debug.errorGeneric' => ({required Object error}) => 'Lỗi: ${error}',
-			'debug.variationsCount' => 'Biến thể',
-			'debug.userPreferencesCleared' => 'Đã xóa tùy chọn người dùng',
-			'debug.userProfileCleared' => 'Đã xóa hồ sơ người dùng',
-			'debug.checkForUpdate' => 'Kiểm tra cập nhật',
-			'debug.showPatchNumber' => 'Hiển thị số bản vá',
-			'debug.showUpdateAvailable' => 'Hiện thông báo có bản cập nhật',
-			'debug.updateAvailable' => 'Có bản cập nhật',
-			'debug.upToDate' => 'Mới nhất',
-			'debug.shorebirdUnavailable' => 'Shorebird không khả dụng trong môi trường này.',
-			'debug.patchNumberLabel' => 'Số bản vá',
-			'debug.noPatchInstalled' => 'Chưa cài bản vá',
-			'debug.todaysSteps' => 'Số bước hôm nay',
-			'debug.stepsLabel' => 'Bước',
-			'debug.weightLabel' => ({required Object value}) => 'Cân nặng: ${value} kg',
-			'debug.heightLabel' => ({required Object value}) => 'Chiều cao: ${value} cm',
-			'debug.receivedMessagesFromWatch' => 'Tin nhắn nhận từ đồng hồ',
-			'debug.noMessagesReceivedYet' => 'Chưa có tin nhắn nào.\n\nGửi dữ liệu thử từ đồng hồ để xem tin nhắn ở đây.',
-			'debug.messagesCleared' => 'Đã xóa tin nhắn',
 			'health.syncFailed' => 'Không thể đồng bộ với Health Connect',
 			'health.mealSynced' => 'Bữa ăn đã được đồng bộ với Health Connect',
 			_ => null,

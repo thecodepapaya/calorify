@@ -57,7 +57,6 @@ class TranslationsPt with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsCommonPt common = _TranslationsCommonPt._(_root);
 	@override late final _TranslationsFeedbackRatingPt feedbackRating = _TranslationsFeedbackRatingPt._(_root);
 	@override late final _TranslationsErrorsPt errors = _TranslationsErrorsPt._(_root);
-	@override late final _TranslationsDebugPt debug = _TranslationsDebugPt._(_root);
 	@override late final _TranslationsHealthPt health = _TranslationsHealthPt._(_root);
 }
 
@@ -359,6 +358,8 @@ class _TranslationsFeedbackRatingPt implements TranslationsFeedbackRatingEn {
 	@override String enjoyingQuestion({required Object appLabel}) => 'Você está gostando do ${appLabel}?';
 	@override String get yes => 'Sim, estou gostando.';
 	@override String get no => 'Na verdade, não.';
+	@override String get rateStepHeading => 'Avaliar na Play Store';
+	@override String get emailStepHeading => 'Enviar feedback por e-mail';
 	@override String soloDevMessage({required Object appLabel}) => 'Uma avaliação rápida ajuda outras pessoas a encontrar ${appLabel} e mantém o desenvolvimento em andamento. Você poderia dedicar um momento para deixar uma avaliação?';
 	@override String get shareFeedbackViaEmail => 'Seu feedback orienta os próximos passos — lemos todas as mensagens. Gostaria de compartilhar suas impressões por e-mail?';
 	@override String get rateCta => 'Avaliar na Play Store';
@@ -380,171 +381,6 @@ class _TranslationsErrorsPt implements TranslationsErrorsEn {
 	// Translations
 	@override String get loadingProfileData => 'Erro ao carregar dados do perfil';
 	@override String get somethingWentWrong => 'Algo deu errado.';
-}
-
-// Path: debug
-class _TranslationsDebugPt implements TranslationsDebugEn {
-	_TranslationsDebugPt._(this._root);
-
-	final TranslationsPt _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Opções de Depuração';
-	@override String get searchHint => 'Procurar opções...';
-	@override late final _TranslationsDebugSectionsPt sections = _TranslationsDebugSectionsPt._(_root);
-	@override String get inspectDatabaseTables => 'Inspecionar tabelas do banco de dados';
-	@override String get databaseInspectorTitle => 'Inspetor do banco de dados';
-	@override String get databaseOnlyWithRealData => 'A inspeção do banco de dados está disponível apenas ao usar dados reais (não simulados).';
-	@override String tableRowCount({required Object count}) => '${count} linhas';
-	@override String get emptyTable => 'Sem linhas';
-	@override String get showActiveNotifications => 'Mostrar Notificações Ativas';
-	@override String get scheduleTestNotification => 'Agendar Notificação de Teste (10s)';
-	@override String get triggerBreakfastNotification => 'Ativar Notificação de Café da Manhã';
-	@override String get cancelAllNotifications => 'Cancelar Todas as Notificações';
-	@override String get activeNotifications => 'Notificações Ativas';
-	@override String get noTitle => 'Sem Título';
-	@override String get noBody => 'Sem Corpo';
-	@override String get fetchTodaysSteps => 'Buscar Passos de Hoje';
-	@override String get fetchTodaysCalories => 'Buscar Calorias de Hoje';
-	@override String get fetchLatestWeight => 'Buscar Último Peso';
-	@override String get fetchLatestHeight => 'Buscar Última Altura';
-	@override String get writeTestWeight => 'Escrever Peso de Teste (70kg)';
-	@override String get writeTestHeight => 'Escrever Altura de Teste (175cm)';
-	@override String get syncLast7Days => 'Sincronizar Últimos 7 Dias';
-	@override String get sync7DaysTitle => 'Sincronização de 7 Dias';
-	@override String get checkCurrentLocale => 'Verificar Localização Atual';
-	@override String get currentLocale => 'Localização Atual';
-	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Idioma: ${languageCode}\nPaís: ${countryCode}\nSistema de Unidades: ${unitSystem}';
-	@override String get latestWeight => 'Último Peso';
-	@override String get latestHeight => 'Última Altura';
-	@override String get todaysCalories => 'Calorias de Hoje';
-	@override String totalCaloriesBurned({required Object calories}) => 'Calorias totais queimadas: ${calories}';
-	@override String syncSuccess({required Object count}) => 'Dados sincronizados com sucesso para ${count} pontos de referência de Passos, Calorias e Peso nos últimos 7 dias.';
-	@override String get noWeightData => 'Nenhum dado de peso encontrado nos últimos 30 dias.';
-	@override String get noHeightData => 'Nenhum dado de altura encontrado no último ano.';
-	@override String get noCalorieData => 'Nenhum dado de calorias encontrado para hoje.';
-	@override String get weightWritten => 'Peso de teste (70kg) escrito com sucesso.';
-	@override String get weightWriteFailed => 'Falha ao escrever peso de teste.';
-	@override String get heightWritten => 'Altura de teste (175cm) escrita com sucesso.';
-	@override String get heightWriteFailed => 'Falha ao escrever altura de teste.';
-	@override String get noNotifications => 'Nenhuma notificação ativa.';
-	@override String get testNotificationScheduled => 'Notificação de teste agendada para 10 segundos a partir de agora.';
-	@override String get testNotificationBody => 'Esta é uma notificação de teste agendada para 10 segundos a partir de agora.';
-	@override String get breakfastNotificationTriggered => 'Notificação de café da manhã acionada.';
-	@override String get allNotificationsCancelled => 'Todas as notificações canceladas.';
-	@override String get fetchingData => 'Buscando dados dos últimos 7 dias...';
-	@override String id({required Object id}) => 'ID: ${id}';
-	@override String get showFeedbackRatingSheet => 'Mostrar painel de feedback/avaliação';
-	@override String get clearUserPreferences => 'Limpar preferências do usuário';
-	@override String get clearUserPreferencesConfirmationTitle => 'Limpar preferências do usuário?';
-	@override String get clearUserPreferencesConfirmationMessage => 'Tema, idioma e preferências de feedback serão redefinidos. Refeições e perfil não serão afetados.';
-	@override String get clearUserProfile => 'Limpar perfil do usuário';
-	@override String get clearUserProfileConfirmationTitle => 'Limpar perfil do usuário?';
-	@override String get clearUserProfileConfirmationMessage => 'Os dados do seu perfil (meta diária, altura, peso, etc.) serão apagados. Refeições e preferências não serão afetadas.';
-	@override String get clear => 'Limpar';
-	@override String get cancel => 'Cancelar';
-	@override String get checkWatchConnection => 'Verificar conexão com o relógio';
-	@override String get sendTestMessage => 'Enviar mensagem de teste';
-	@override String get sendTestMessageSubtitle => 'Enviar uma mensagem de teste simples para o relógio';
-	@override String get sendTestMealData => 'Enviar dados de refeição de teste';
-	@override String get sendTestMealDataSubtitle => 'Enviar dados de refeição de exemplo para o relógio';
-	@override String get sendTestCalorieGoal => 'Enviar meta de calorias de teste';
-	@override String get sendTestCalorieGoalSubtitle => 'Enviar meta de calorias de exemplo para o relógio';
-	@override String get viewReceivedMessages => 'Ver mensagens recebidas';
-	@override String get viewReceivedMessagesSubtitle => 'Ver mensagens recebidas do relógio';
-	@override String get watchConnected => 'Relógio conectado ✓';
-	@override String get device => 'Dispositivo';
-	@override String get nearby => 'Nas proximidades';
-	@override String get yes => 'Sim';
-	@override String get no => 'Não';
-	@override String get connectedDevices => 'Dispositivos conectados';
-	@override String get deviceInfoUnavailable => '(Informações do dispositivo indisponíveis)';
-	@override String get unknownDevice => 'Dispositivo desconhecido';
-	@override String get watchNotConnected => 'Relógio não está conectado ✗';
-	@override String get watchNotConnectedHint => 'Verifique se:\n• Ambos os dispositivos estão pareados\n• O app do relógio está em execução\n• Ambos os apps estão em modo debug/staging';
-	@override String get watchConnection => 'Conexão com o relógio';
-	@override String errorCheckingConnection({required Object error}) => 'Erro ao verificar conexão: ${error}';
-	@override String get helloFromPhone => 'Olá do celular!';
-	@override String get testMessageSentSuccess => 'Mensagem de teste enviada com sucesso!';
-	@override String get testMessageFailed => 'Falha ao enviar mensagem de teste. Verifique a conexão com o relógio.';
-	@override String errorSendingMessage({required Object error}) => 'Erro ao enviar mensagem: ${error}';
-	@override String get testMeal => 'Refeição de teste';
-	@override String get testMealDataSentSuccess => 'Dados da refeição de teste enviados com sucesso!';
-	@override String get failedToSendMealData => 'Falha ao enviar dados da refeição. Verifique a conexão com o relógio.';
-	@override String errorSendingMealData({required Object error}) => 'Erro ao enviar dados da refeição: ${error}';
-	@override String get testCalorieGoalSentSuccess => 'Meta de calorias de teste enviada com sucesso!';
-	@override String get failedToSendCalorieGoal => 'Falha ao enviar a meta de calorias. Verifique a conexão com o relógio.';
-	@override String errorSendingCalorieGoal({required Object error}) => 'Erro ao enviar meta de calorias: ${error}';
-	@override String get testAnalyzeImage => 'Testar análise de imagem';
-	@override String get testAnalyzeImageSubtitle => 'Enviar imagem de teste predefinida';
-	@override String get testDetectImage => 'Testar detecção de imagem';
-	@override String get testDetectImageSubtitle => 'Detectar refeição a partir da URL da imagem';
-	@override String get detectImageFromGallery => 'Detectar imagem da galeria';
-	@override String get detectImageFromGallerySubtitle => 'Selecione imagem, envie para o bucket e estime calorias';
-	@override String get testDetectText => 'Testar detecção de texto';
-	@override String get testDetectTextSubtitle => 'Detectar refeição a partir da descrição em texto';
-	@override String get testMealLoggingWithVariations => 'Testar registro de refeição com variações';
-	@override String get testMealLoggingWithVariationsSubtitle => 'Testar o fluxo completo de registro de refeição com variações';
-	@override String get mockMealWithVariations => 'Refeição simulada com variações';
-	@override String get mockMealWithVariationsSubtitle => 'Visualizar variações + painel de dicas sem registrar';
-	@override String get mockMealName => 'Frango grelhado com arroz e legumes';
-	@override String get mockTip => 'Esta é uma dica de exemplo para visualização da interface. A refeição não será registrada.';
-	@override String get mockMealDescription => 'Refeição simulada para depuração';
-	@override String get portionSizeQuestion => 'Como foi o tamanho da porção?';
-	@override String get extraSidesQuestion => 'Algum acompanhamento extra?';
-	@override String get optionSmall => 'Pequena';
-	@override String get optionMedium => 'Média';
-	@override String get optionLarge => 'Grande';
-	@override String get optionNone => 'Nenhum';
-	@override String get optionSideSalad => 'Salada como acompanhamento';
-	@override String get optionBreadRoll => 'Pãozinho';
-	@override String get testingAnalyzeImage => 'Testando API analyzeImage...';
-	@override String get testingDetectImage => 'Testando API detectImage...';
-	@override String get testingDetectText => 'Testando API detectText...';
-	@override String get selectingImageFromGallery => 'Selecionando imagem da galeria...';
-	@override String get noImageSelected => 'Nenhuma imagem selecionada';
-	@override String get compressingImage => 'Comprimindo imagem...';
-	@override String get uploadingImageAndDetecting => 'Enviando imagem para o bucket e detectando refeição...';
-	@override String get testingMealLoggingFlow => 'Testando fluxo de registro de refeição com variações...';
-	@override String get testUpdateProfile => 'Testar atualização do perfil';
-	@override String get testUpdateProfileSubtitle => 'Enviar perfil de exemplo via POST para o backend';
-	@override String get testingProfileApi => 'Testando a API de perfil...';
-	@override String get profileUpdateSuccess => 'A API de perfil respondeu com sucesso';
-	@override String profileUpdateFailed({required Object error}) => 'Erro na API de perfil: ${error}';
-	@override String get noMealIdentifiedInResponse => 'Nenhuma refeição identificada na resposta';
-	@override String get mealIdentified => 'Refeição identificada';
-	@override String get confidence => 'Confiança';
-	@override String get tip => 'Dica';
-	@override String get mealName => 'Nome da refeição';
-	@override String get calories => 'Calorias';
-	@override String get protein => 'Proteína';
-	@override String get carbs => 'Carboidratos';
-	@override String get fat => 'Gordura';
-	@override String get noMealInfo => 'Sem informações da refeição';
-	@override String get na => 'N/D';
-	@override String get analyzeImageResult => 'Resultado da análise da imagem';
-	@override String get detectImageResult => 'Resultado da detecção de imagem';
-	@override String get detectImageFromGalleryResult => 'Resultado da detecção de imagem da galeria';
-	@override String get detectTextResult => 'Resultado da detecção de texto';
-	@override String errorGeneric({required Object error}) => 'Erro: ${error}';
-	@override String get variationsCount => 'Variações';
-	@override String get userPreferencesCleared => 'Preferências do usuário limpas';
-	@override String get userProfileCleared => 'Perfil do usuário limpo';
-	@override String get checkForUpdate => 'Verificar atualizações';
-	@override String get showPatchNumber => 'Mostrar número do patch';
-	@override String get showUpdateAvailable => 'Mostrar atualização disponível';
-	@override String get updateAvailable => 'Atualização disponível';
-	@override String get upToDate => 'Atualizado';
-	@override String get shorebirdUnavailable => 'Shorebird não está disponível neste ambiente.';
-	@override String get patchNumberLabel => 'Número do patch';
-	@override String get noPatchInstalled => 'Nenhum patch instalado';
-	@override String get todaysSteps => 'Passos de hoje';
-	@override String get stepsLabel => 'Passos';
-	@override String weightLabel({required Object value}) => 'Peso: ${value} kg';
-	@override String heightLabel({required Object value}) => 'Altura: ${value} cm';
-	@override String get receivedMessagesFromWatch => 'Mensagens recebidas do relógio';
-	@override String get noMessagesReceivedYet => 'Nenhuma mensagem recebida ainda.\n\nEnvie dados de teste do relógio para ver mensagens aqui.';
-	@override String get messagesCleared => 'Mensagens apagadas';
 }
 
 // Path: health
@@ -1220,25 +1056,6 @@ class _TranslationsDisclaimerCalorieExpenditurePt implements TranslationsDisclai
 	@override String get description => 'Quando os dados do Health Connect não estão disponíveis, estimamos as calorias gastas hoje usando sua Taxa Metabólica Basal (BMR) e seu nível de atividade (TDEE), ajustando para a parte do dia que já passou.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedPt howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedPt._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidancePt professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidancePt._(_root);
-}
-
-// Path: debug.sections
-class _TranslationsDebugSectionsPt implements TranslationsDebugSectionsEn {
-	_TranslationsDebugSectionsPt._(this._root);
-
-	final TranslationsPt _root; // ignore: unused_field
-
-	// Translations
-	@override String get notifications => 'Notificações';
-	@override String get healthConnect => 'Health Connect';
-	@override String get wearOs => 'Wear OS';
-	@override String get foodApiTests => 'Testes da API de Alimentos';
-	@override String get profileApiTests => 'Testes da API de Perfil';
-	@override String get feedback => 'Feedback';
-	@override String get dataReset => 'Redefinir dados';
-	@override String get database => 'Banco de dados';
-	@override String get appInfo => 'Informações do Aplicativo';
-	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2150,6 +1967,8 @@ extension on TranslationsPt {
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Você está gostando do ${appLabel}?',
 			'feedbackRating.yes' => 'Sim, estou gostando.',
 			'feedbackRating.no' => 'Na verdade, não.',
+			'feedbackRating.rateStepHeading' => 'Avaliar na Play Store',
+			'feedbackRating.emailStepHeading' => 'Enviar feedback por e-mail',
 			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Uma avaliação rápida ajuda outras pessoas a encontrar ${appLabel} e mantém o desenvolvimento em andamento. Você poderia dedicar um momento para deixar uma avaliação?',
 			'feedbackRating.shareFeedbackViaEmail' => 'Seu feedback orienta os próximos passos — lemos todas as mensagens. Gostaria de compartilhar suas impressões por e-mail?',
 			'feedbackRating.rateCta' => 'Avaliar na Play Store',
@@ -2162,173 +1981,6 @@ extension on TranslationsPt {
 			'feedbackRating.thankYouMessage' => 'Obrigado! Perguntaremos novamente mais tarde.',
 			'errors.loadingProfileData' => 'Erro ao carregar dados do perfil',
 			'errors.somethingWentWrong' => 'Algo deu errado.',
-			'debug.title' => 'Opções de Depuração',
-			'debug.searchHint' => 'Procurar opções...',
-			'debug.sections.notifications' => 'Notificações',
-			'debug.sections.healthConnect' => 'Health Connect',
-			'debug.sections.wearOs' => 'Wear OS',
-			'debug.sections.foodApiTests' => 'Testes da API de Alimentos',
-			'debug.sections.profileApiTests' => 'Testes da API de Perfil',
-			'debug.sections.feedback' => 'Feedback',
-			'debug.sections.dataReset' => 'Redefinir dados',
-			'debug.sections.database' => 'Banco de dados',
-			'debug.sections.appInfo' => 'Informações do Aplicativo',
-			'debug.sections.shorebird' => 'Shorebird',
-			'debug.inspectDatabaseTables' => 'Inspecionar tabelas do banco de dados',
-			'debug.databaseInspectorTitle' => 'Inspetor do banco de dados',
-			'debug.databaseOnlyWithRealData' => 'A inspeção do banco de dados está disponível apenas ao usar dados reais (não simulados).',
-			'debug.tableRowCount' => ({required Object count}) => '${count} linhas',
-			'debug.emptyTable' => 'Sem linhas',
-			'debug.showActiveNotifications' => 'Mostrar Notificações Ativas',
-			'debug.scheduleTestNotification' => 'Agendar Notificação de Teste (10s)',
-			'debug.triggerBreakfastNotification' => 'Ativar Notificação de Café da Manhã',
-			'debug.cancelAllNotifications' => 'Cancelar Todas as Notificações',
-			'debug.activeNotifications' => 'Notificações Ativas',
-			'debug.noTitle' => 'Sem Título',
-			'debug.noBody' => 'Sem Corpo',
-			'debug.fetchTodaysSteps' => 'Buscar Passos de Hoje',
-			'debug.fetchTodaysCalories' => 'Buscar Calorias de Hoje',
-			'debug.fetchLatestWeight' => 'Buscar Último Peso',
-			'debug.fetchLatestHeight' => 'Buscar Última Altura',
-			'debug.writeTestWeight' => 'Escrever Peso de Teste (70kg)',
-			'debug.writeTestHeight' => 'Escrever Altura de Teste (175cm)',
-			'debug.syncLast7Days' => 'Sincronizar Últimos 7 Dias',
-			'debug.sync7DaysTitle' => 'Sincronização de 7 Dias',
-			'debug.checkCurrentLocale' => 'Verificar Localização Atual',
-			'debug.currentLocale' => 'Localização Atual',
-			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Idioma: ${languageCode}\nPaís: ${countryCode}\nSistema de Unidades: ${unitSystem}',
-			'debug.latestWeight' => 'Último Peso',
-			'debug.latestHeight' => 'Última Altura',
-			'debug.todaysCalories' => 'Calorias de Hoje',
-			'debug.totalCaloriesBurned' => ({required Object calories}) => 'Calorias totais queimadas: ${calories}',
-			'debug.syncSuccess' => ({required Object count}) => 'Dados sincronizados com sucesso para ${count} pontos de referência de Passos, Calorias e Peso nos últimos 7 dias.',
-			'debug.noWeightData' => 'Nenhum dado de peso encontrado nos últimos 30 dias.',
-			'debug.noHeightData' => 'Nenhum dado de altura encontrado no último ano.',
-			'debug.noCalorieData' => 'Nenhum dado de calorias encontrado para hoje.',
-			'debug.weightWritten' => 'Peso de teste (70kg) escrito com sucesso.',
-			'debug.weightWriteFailed' => 'Falha ao escrever peso de teste.',
-			'debug.heightWritten' => 'Altura de teste (175cm) escrita com sucesso.',
-			'debug.heightWriteFailed' => 'Falha ao escrever altura de teste.',
-			'debug.noNotifications' => 'Nenhuma notificação ativa.',
-			'debug.testNotificationScheduled' => 'Notificação de teste agendada para 10 segundos a partir de agora.',
-			'debug.testNotificationBody' => 'Esta é uma notificação de teste agendada para 10 segundos a partir de agora.',
-			'debug.breakfastNotificationTriggered' => 'Notificação de café da manhã acionada.',
-			'debug.allNotificationsCancelled' => 'Todas as notificações canceladas.',
-			'debug.fetchingData' => 'Buscando dados dos últimos 7 dias...',
-			'debug.id' => ({required Object id}) => 'ID: ${id}',
-			'debug.showFeedbackRatingSheet' => 'Mostrar painel de feedback/avaliação',
-			'debug.clearUserPreferences' => 'Limpar preferências do usuário',
-			'debug.clearUserPreferencesConfirmationTitle' => 'Limpar preferências do usuário?',
-			'debug.clearUserPreferencesConfirmationMessage' => 'Tema, idioma e preferências de feedback serão redefinidos. Refeições e perfil não serão afetados.',
-			'debug.clearUserProfile' => 'Limpar perfil do usuário',
-			'debug.clearUserProfileConfirmationTitle' => 'Limpar perfil do usuário?',
-			'debug.clearUserProfileConfirmationMessage' => 'Os dados do seu perfil (meta diária, altura, peso, etc.) serão apagados. Refeições e preferências não serão afetadas.',
-			'debug.clear' => 'Limpar',
-			'debug.cancel' => 'Cancelar',
-			'debug.checkWatchConnection' => 'Verificar conexão com o relógio',
-			'debug.sendTestMessage' => 'Enviar mensagem de teste',
-			'debug.sendTestMessageSubtitle' => 'Enviar uma mensagem de teste simples para o relógio',
-			'debug.sendTestMealData' => 'Enviar dados de refeição de teste',
-			'debug.sendTestMealDataSubtitle' => 'Enviar dados de refeição de exemplo para o relógio',
-			'debug.sendTestCalorieGoal' => 'Enviar meta de calorias de teste',
-			'debug.sendTestCalorieGoalSubtitle' => 'Enviar meta de calorias de exemplo para o relógio',
-			'debug.viewReceivedMessages' => 'Ver mensagens recebidas',
-			'debug.viewReceivedMessagesSubtitle' => 'Ver mensagens recebidas do relógio',
-			'debug.watchConnected' => 'Relógio conectado ✓',
-			'debug.device' => 'Dispositivo',
-			'debug.nearby' => 'Nas proximidades',
-			'debug.yes' => 'Sim',
-			'debug.no' => 'Não',
-			'debug.connectedDevices' => 'Dispositivos conectados',
-			'debug.deviceInfoUnavailable' => '(Informações do dispositivo indisponíveis)',
-			'debug.unknownDevice' => 'Dispositivo desconhecido',
-			'debug.watchNotConnected' => 'Relógio não está conectado ✗',
-			'debug.watchNotConnectedHint' => 'Verifique se:\n• Ambos os dispositivos estão pareados\n• O app do relógio está em execução\n• Ambos os apps estão em modo debug/staging',
-			'debug.watchConnection' => 'Conexão com o relógio',
-			'debug.errorCheckingConnection' => ({required Object error}) => 'Erro ao verificar conexão: ${error}',
-			'debug.helloFromPhone' => 'Olá do celular!',
-			'debug.testMessageSentSuccess' => 'Mensagem de teste enviada com sucesso!',
-			'debug.testMessageFailed' => 'Falha ao enviar mensagem de teste. Verifique a conexão com o relógio.',
-			'debug.errorSendingMessage' => ({required Object error}) => 'Erro ao enviar mensagem: ${error}',
-			'debug.testMeal' => 'Refeição de teste',
-			'debug.testMealDataSentSuccess' => 'Dados da refeição de teste enviados com sucesso!',
-			'debug.failedToSendMealData' => 'Falha ao enviar dados da refeição. Verifique a conexão com o relógio.',
-			'debug.errorSendingMealData' => ({required Object error}) => 'Erro ao enviar dados da refeição: ${error}',
-			'debug.testCalorieGoalSentSuccess' => 'Meta de calorias de teste enviada com sucesso!',
-			_ => null,
-		} ?? switch (path) {
-			'debug.failedToSendCalorieGoal' => 'Falha ao enviar a meta de calorias. Verifique a conexão com o relógio.',
-			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Erro ao enviar meta de calorias: ${error}',
-			'debug.testAnalyzeImage' => 'Testar análise de imagem',
-			'debug.testAnalyzeImageSubtitle' => 'Enviar imagem de teste predefinida',
-			'debug.testDetectImage' => 'Testar detecção de imagem',
-			'debug.testDetectImageSubtitle' => 'Detectar refeição a partir da URL da imagem',
-			'debug.detectImageFromGallery' => 'Detectar imagem da galeria',
-			'debug.detectImageFromGallerySubtitle' => 'Selecione imagem, envie para o bucket e estime calorias',
-			'debug.testDetectText' => 'Testar detecção de texto',
-			'debug.testDetectTextSubtitle' => 'Detectar refeição a partir da descrição em texto',
-			'debug.testMealLoggingWithVariations' => 'Testar registro de refeição com variações',
-			'debug.testMealLoggingWithVariationsSubtitle' => 'Testar o fluxo completo de registro de refeição com variações',
-			'debug.mockMealWithVariations' => 'Refeição simulada com variações',
-			'debug.mockMealWithVariationsSubtitle' => 'Visualizar variações + painel de dicas sem registrar',
-			'debug.mockMealName' => 'Frango grelhado com arroz e legumes',
-			'debug.mockTip' => 'Esta é uma dica de exemplo para visualização da interface. A refeição não será registrada.',
-			'debug.mockMealDescription' => 'Refeição simulada para depuração',
-			'debug.portionSizeQuestion' => 'Como foi o tamanho da porção?',
-			'debug.extraSidesQuestion' => 'Algum acompanhamento extra?',
-			'debug.optionSmall' => 'Pequena',
-			'debug.optionMedium' => 'Média',
-			'debug.optionLarge' => 'Grande',
-			'debug.optionNone' => 'Nenhum',
-			'debug.optionSideSalad' => 'Salada como acompanhamento',
-			'debug.optionBreadRoll' => 'Pãozinho',
-			'debug.testingAnalyzeImage' => 'Testando API analyzeImage...',
-			'debug.testingDetectImage' => 'Testando API detectImage...',
-			'debug.testingDetectText' => 'Testando API detectText...',
-			'debug.selectingImageFromGallery' => 'Selecionando imagem da galeria...',
-			'debug.noImageSelected' => 'Nenhuma imagem selecionada',
-			'debug.compressingImage' => 'Comprimindo imagem...',
-			'debug.uploadingImageAndDetecting' => 'Enviando imagem para o bucket e detectando refeição...',
-			'debug.testingMealLoggingFlow' => 'Testando fluxo de registro de refeição com variações...',
-			'debug.testUpdateProfile' => 'Testar atualização do perfil',
-			'debug.testUpdateProfileSubtitle' => 'Enviar perfil de exemplo via POST para o backend',
-			'debug.testingProfileApi' => 'Testando a API de perfil...',
-			'debug.profileUpdateSuccess' => 'A API de perfil respondeu com sucesso',
-			'debug.profileUpdateFailed' => ({required Object error}) => 'Erro na API de perfil: ${error}',
-			'debug.noMealIdentifiedInResponse' => 'Nenhuma refeição identificada na resposta',
-			'debug.mealIdentified' => 'Refeição identificada',
-			'debug.confidence' => 'Confiança',
-			'debug.tip' => 'Dica',
-			'debug.mealName' => 'Nome da refeição',
-			'debug.calories' => 'Calorias',
-			'debug.protein' => 'Proteína',
-			'debug.carbs' => 'Carboidratos',
-			'debug.fat' => 'Gordura',
-			'debug.noMealInfo' => 'Sem informações da refeição',
-			'debug.na' => 'N/D',
-			'debug.analyzeImageResult' => 'Resultado da análise da imagem',
-			'debug.detectImageResult' => 'Resultado da detecção de imagem',
-			'debug.detectImageFromGalleryResult' => 'Resultado da detecção de imagem da galeria',
-			'debug.detectTextResult' => 'Resultado da detecção de texto',
-			'debug.errorGeneric' => ({required Object error}) => 'Erro: ${error}',
-			'debug.variationsCount' => 'Variações',
-			'debug.userPreferencesCleared' => 'Preferências do usuário limpas',
-			'debug.userProfileCleared' => 'Perfil do usuário limpo',
-			'debug.checkForUpdate' => 'Verificar atualizações',
-			'debug.showPatchNumber' => 'Mostrar número do patch',
-			'debug.showUpdateAvailable' => 'Mostrar atualização disponível',
-			'debug.updateAvailable' => 'Atualização disponível',
-			'debug.upToDate' => 'Atualizado',
-			'debug.shorebirdUnavailable' => 'Shorebird não está disponível neste ambiente.',
-			'debug.patchNumberLabel' => 'Número do patch',
-			'debug.noPatchInstalled' => 'Nenhum patch instalado',
-			'debug.todaysSteps' => 'Passos de hoje',
-			'debug.stepsLabel' => 'Passos',
-			'debug.weightLabel' => ({required Object value}) => 'Peso: ${value} kg',
-			'debug.heightLabel' => ({required Object value}) => 'Altura: ${value} cm',
-			'debug.receivedMessagesFromWatch' => 'Mensagens recebidas do relógio',
-			'debug.noMessagesReceivedYet' => 'Nenhuma mensagem recebida ainda.\n\nEnvie dados de teste do relógio para ver mensagens aqui.',
-			'debug.messagesCleared' => 'Mensagens apagadas',
 			'health.syncFailed' => 'Não foi possível sincronizar com o Health Connect',
 			'health.mealSynced' => 'Refeição sincronizada com o Health Connect',
 			_ => null,

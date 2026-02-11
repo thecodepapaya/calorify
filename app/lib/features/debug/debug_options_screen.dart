@@ -15,10 +15,13 @@ import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_shee
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_variation_sheet.dart';
 import 'package:calorify/features/debug/database_inspector_screen.dart';
+import 'package:calorify/shared_widgets/easter_egg/cat_assets.dart';
+import 'package:calorify/shared_widgets/easter_egg/cat_easter_egg_test_screen.dart';
+import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
+import 'package:calorify/shared_widgets/easter_egg/cat_trigger.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart' hide MealType;
-import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:services/services.dart';
@@ -62,16 +65,14 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       }
 
       final meals = await db.getLatestMealsForFeedbackEligibility(limit: 5);
-      final distinctDays = meals
-          .map(
-            (m) => DateTime(
-              m.dateTime.year,
-              m.dateTime.month,
-              m.dateTime.day,
-            ),
-          )
-          .toSet()
-          .length;
+      final distinctDays =
+          meals
+              .map(
+                (m) =>
+                    DateTime(m.dateTime.year, m.dateTime.month, m.dateTime.day),
+              )
+              .toSet()
+              .length;
 
       final eligible =
           meals.length >= 5 || (meals.length >= 3 && distinctDays >= 2);
@@ -97,9 +98,10 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     final databaseOptions = _buildDatabaseOptions(context);
     final appInfoOptions = _buildAppInfoOptions(context);
     final shorebirdOptions = _buildShorebirdOptions(context);
+    final catEasterEggOptions = _buildCatEasterEggOptions(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(t.debug.title)),
+      appBar: AppBar(title: const Text('Debug Options')),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         behavior: HitTestBehavior.translucent,
@@ -110,7 +112,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
               padding: const EdgeInsets.only(bottom: 16),
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: t.debug.searchHint,
+                  hintText: 'Search options...',
                   prefixIcon: const Icon(LucideIcons.search, size: 20),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -125,62 +127,170 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
               ),
             ),
             if (notificationOptions != null) ...[
-              _buildSectionTitle(context, t.debug.sections.notifications),
+              _buildSectionTitle(context, 'Notifications'),
               notificationOptions,
               const SizedBox(height: 24),
             ],
             if (healthConnectOptions != null) ...[
-              _buildSectionTitle(context, t.debug.sections.healthConnect),
+              _buildSectionTitle(context, 'Health Connect'),
               healthConnectOptions,
               const SizedBox(height: 24),
             ],
             if (wearOsOptions != null) ...[
-              _buildSectionTitle(context, t.debug.sections.wearOs),
+              _buildSectionTitle(context, 'Wear OS'),
               wearOsOptions,
               const SizedBox(height: 24),
             ],
             if (foodApiOptions != null) ...[
-              _buildSectionTitle(context, t.debug.sections.foodApiTests),
+              _buildSectionTitle(context, 'Food API Tests'),
               foodApiOptions,
               const SizedBox(height: 24),
             ],
             if (profileApiOptions != null) ...[
-              _buildSectionTitle(context, t.debug.sections.profileApiTests),
+              _buildSectionTitle(context, 'Profile API Tests'),
               profileApiOptions,
               const SizedBox(height: 24),
             ],
             if (feedbackOptions != null) ...[
-              _buildSectionTitle(context, t.debug.sections.feedback),
+              _buildSectionTitle(context, 'Feedback'),
               feedbackOptions,
               const SizedBox(height: 24),
             ],
             if (dataResetOptions != null) ...[
-              _buildSectionTitle(context, t.debug.sections.dataReset),
+              _buildSectionTitle(context, 'Data reset'),
               dataResetOptions,
               const SizedBox(height: 24),
             ],
             if (databaseOptions != null) ...[
-              _buildSectionTitle(
-                context,
-                t['debug.sections.database'],
-              ),
+              _buildSectionTitle(context, 'Database'),
               databaseOptions,
               const SizedBox(height: 24),
             ],
             if (appInfoOptions != null) ...[
-              _buildSectionTitle(context, t.debug.sections.appInfo),
+              _buildSectionTitle(context, 'App Info'),
               appInfoOptions,
               const SizedBox(height: 24),
             ],
             if (shorebirdOptions != null) ...[
-              _buildSectionTitle(context, t.debug.sections.shorebird),
+              _buildSectionTitle(context, 'Shorebird'),
               shorebirdOptions,
+              const SizedBox(height: 24),
+            ],
+            if (catEasterEggOptions != null) ...[
+              _buildSectionTitle(context, 'Cat Easter Egg'),
+              catEasterEggOptions,
               const SizedBox(height: 24),
             ],
           ],
         ),
       ),
     );
+  }
+
+  Widget? _buildCatEasterEggOptions(BuildContext context) {
+    final section = 'Cat Easter Egg';
+    final titles = [
+      'Cat Easter Egg testing (by asset)',
+      'Random cat (any animation)',
+      'Side peek from left',
+      'Side peek from right',
+      'Top peek',
+      'Grass / bottom (peek pop)',
+      'Leaping cat',
+      'Pounce cat',
+      'CatTrigger demo (tap this row)',
+    ];
+    final items = <Widget>[
+      ListTile(
+        leading: const Icon(LucideIcons.list),
+        title: const Text('Cat Easter Egg testing (by asset)'),
+        subtitle: const Text('Test each cat in catAnimParams'),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => const CatEasterEggTestScreen(),
+              settings: const RouteSettings(name: 'catEasterEggTest'),
+            ),
+          );
+        },
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.cat),
+        title: const Text('Random cat (any animation)'),
+        onTap: () => CatOverlay.of(context)?.showCat(),
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.arrowRightFromLine),
+        title: const Text('Side peek from left'),
+        onTap:
+            () => CatOverlay.of(context)?.showCat(
+              preferredAnimation: CatAnimationType.sidePeek,
+              edgeHint: Edge.left,
+            ),
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.arrowLeftFromLine),
+        title: const Text('Side peek from right'),
+        onTap:
+            () => CatOverlay.of(context)?.showCat(
+              preferredAnimation: CatAnimationType.sidePeek,
+              edgeHint: Edge.right,
+            ),
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.arrowDownFromLine),
+        title: const Text('Top peek'),
+        onTap:
+            () => CatOverlay.of(context)?.showCat(
+              preferredAnimation: CatAnimationType.topPeek,
+              edgeHint: Edge.top,
+            ),
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.flower2),
+        title: const Text('Grass / bottom (peek pop)'),
+        onTap:
+            () => CatOverlay.of(context)?.showCat(
+              preferredAnimation: CatAnimationType.peekPop,
+              edgeHint: Edge.bottom,
+              grassHeight: 120,
+            ),
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.rabbit),
+        title: const Text('Leaping cat'),
+        onTap:
+            () => CatOverlay.of(context)?.showCat(
+              preferredAnimation: CatAnimationType.leaping,
+              edgeHint: Edge.bottom,
+            ),
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.zap),
+        title: const Text('Pounce cat'),
+        onTap:
+            () => CatOverlay.of(context)?.showCat(
+              preferredAnimation: CatAnimationType.pounce,
+              edgeHint: Edge.top,
+            ),
+      ),
+      CatTrigger(
+        preferredAsset: CatAsset.partyHat,
+        animationHint: CatAnimationType.sidePeek,
+        edgeHint: Edge.right,
+        child: ListTile(
+          leading: const Icon(LucideIcons.hand),
+          title: const Text('CatTrigger demo (tap this row)'),
+          subtitle: const Text('This row is wrapped with CatTrigger'),
+        ),
+      ),
+    ];
+    final filtered = <Widget>[];
+    for (var i = 0; i < items.length; i++) {
+      if (_matchesQuery(section, titles[i])) filtered.add(items[i]);
+    }
+    if (filtered.isEmpty) return null;
+    return Card(child: Column(children: filtered));
   }
 
   Widget _buildSectionTitle(BuildContext context, String title) {
@@ -196,34 +306,34 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
   }
 
   Widget? _buildNotificationOptions(BuildContext context) {
-    final section = t.debug.sections.notifications;
+    const section = 'Notifications';
     final items = <Widget>[
       ListTile(
         leading: const Icon(LucideIcons.list),
-        title: Text(t.debug.showActiveNotifications),
+        title: const Text('Show Active Notifications'),
         onTap: _showActiveNotifications,
       ),
       ListTile(
         leading: const Icon(LucideIcons.bellPlus),
-        title: Text(t.debug.scheduleTestNotification),
+        title: const Text('Schedule Test Notification (10s)'),
         onTap: _scheduleTestNotification,
       ),
       ListTile(
         leading: const Icon(LucideIcons.bellRing),
-        title: Text(t.debug.triggerBreakfastNotification),
+        title: const Text('Trigger Breakfast Notification'),
         onTap: _triggerBreakfastNotification,
       ),
       ListTile(
         leading: const Icon(LucideIcons.bellOff),
-        title: Text(t.debug.cancelAllNotifications),
+        title: const Text('Cancel All Notifications'),
         onTap: _cancelAllNotifications,
       ),
     ];
-    final titles = [
-      t.debug.showActiveNotifications,
-      t.debug.scheduleTestNotification,
-      t.debug.triggerBreakfastNotification,
-      t.debug.cancelAllNotifications,
+    const titles = [
+      'Show Active Notifications',
+      'Schedule Test Notification (10s)',
+      'Trigger Breakfast Notification',
+      'Cancel All Notifications',
     ];
     final filtered = <Widget>[];
     for (var i = 0; i < items.length; i++) {
@@ -239,7 +349,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     if (!mounted) return;
 
     if (pendingRequests.isEmpty) {
-      _showSnackbar(t.debug.noNotifications);
+      _showSnackbar('No active notifications.');
       return;
     }
 
@@ -250,7 +360,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       ),
       builder:
           (context) => AlertDialog(
-            title: Text(t.debug.activeNotifications),
+            title: const Text('Active Notifications'),
             content: SizedBox(
               width: double.maxFinite,
               child: ListView.builder(
@@ -259,9 +369,9 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
                 itemBuilder: (context, index) {
                   final request = pendingRequests[index];
                   return ListTile(
-                    title: Text(request.title ?? t.debug.noTitle),
-                    subtitle: Text(request.body ?? t.debug.noBody),
-                    trailing: Text(t.debug.id(id: request.id)),
+                    title: Text(request.title ?? 'No Title'),
+                    subtitle: Text(request.body ?? 'No Body'),
+                    trailing: Text('ID: ${request.id}'),
                   );
                 },
               ),
@@ -269,7 +379,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text(t.common.close),
+                child: const Text('Close'),
               ),
             ],
           ),
@@ -279,80 +389,84 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
   Future<void> _scheduleTestNotification() async {
     await NotificationService.instance.scheduleReminder(
       id: 99,
-      title: t.notifications.test.title,
-      body: t.debug.testNotificationBody,
+      title: 'Test Notification',
+      body: 'This is a test notification scheduled for 10 seconds from now.',
       scheduledTime: DateTime.now().add(const Duration(seconds: 10)),
     );
-    _showSnackbar(t.debug.testNotificationScheduled);
+    _showSnackbar('Test notification scheduled for 10 seconds from now.');
   }
 
   Future<void> _triggerBreakfastNotification() async {
     await NotificationService.instance.scheduleReminder(
       id: 1,
-      title: t.notifications.breakfast.title,
-      body: t.notifications.breakfast.body,
+      title: 'Breakfast Time! 🍳',
+      body: "Don't forget to log your breakfast",
       scheduledTime: DateTime.now().add(const Duration(seconds: 5)),
       payload: 'meal_reminder_breakfast',
       channel: NotificationService.remindersChannel,
     );
-    _showSnackbar(t.debug.breakfastNotificationTriggered);
+    _showSnackbar('Breakfast notification triggered.');
   }
 
   Future<void> _cancelAllNotifications() async {
     await NotificationService.instance.cancelAllNotifications();
-    _showSnackbar(t.debug.allNotificationsCancelled);
+    _showSnackbar('All notifications cancelled.');
   }
 
   void _showSnackbar(String message) {
     if (!mounted) return;
-    showFlushbar(message, duration: const Duration(seconds: 2), context: context);
+    showFlushbar(
+      message,
+      duration: const Duration(seconds: 2),
+      context: context,
+    );
   }
 
   Widget? _buildHealthConnectOptions(BuildContext context) {
-    final section = t.debug.sections.healthConnect;
-    final titles = [
-      t.debug.fetchTodaysSteps,
-      t.debug.fetchTodaysCalories,
-      t.debug.fetchLatestWeight,
-      t.debug.fetchLatestHeight,
-      t.debug.writeTestWeight,
-      t.debug.writeTestHeight,
-      t.debug.syncLast7Days,
+    const section = 'Health Connect';
+    const titles = [
+      "Fetch Today's Steps",
+      "Fetch Today's Calories",
+      'Fetch Latest Weight',
+      'Fetch Latest Height',
+      'Write Test Weight (70kg)',
+      'Write Test Height (175cm)',
+      'Sync Last 7 Days',
     ];
     final items = <Widget>[
       ListTile(
         leading: const Icon(LucideIcons.activity),
-        title: Text(t.debug.fetchTodaysSteps),
+        title: const Text("Fetch Today's Steps"),
         onTap: _fetchTodaysSteps,
       ),
       ListTile(
         leading: const Icon(LucideIcons.flame),
-        title: Text(t.debug.fetchTodaysCalories),
+        title: const Text("Fetch Today's Calories"),
         onTap: _fetchTodaysCalories,
       ),
       ListTile(
         leading: const Icon(LucideIcons.scale),
-        title: Text(t.debug.fetchLatestWeight),
+        title: const Text('Fetch Latest Weight'),
         onTap: _fetchLatestWeight,
       ),
       ListTile(
         leading: const Icon(LucideIcons.ruler),
-        title: Text(t.debug.fetchLatestHeight),
+        title: const Text('Fetch Latest Height'),
         onTap: _fetchLatestHeight,
       ),
       ListTile(
         leading: const Icon(LucideIcons.plus),
-        title: Text(t.debug.writeTestWeight),
+        title: const Text('Write Test Weight (70kg)'),
         onTap: _writeTestWeight,
       ),
       ListTile(
         leading: const Icon(LucideIcons.plus),
-        title: Text(t.debug.writeTestHeight),
+        title: const Text('Write Test Height (175cm)'),
         onTap: _writeTestHeight,
       ),
       ListTile(
         leading: const Icon(LucideIcons.refreshCw),
-        title: Text(t.debug.syncLast7Days),
+        title: const Text('Sync Last 7 Days'),
         onTap: _syncLast7Days,
       ),
     ];
@@ -365,42 +479,42 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
   }
 
   Widget? _buildWearOsOptions(BuildContext context) {
-    final section = t.debug.sections.wearOs;
-    final titleSubtitle = [
-      (t.debug.checkWatchConnection, null),
-      (t.debug.sendTestMessage, t.debug.sendTestMessageSubtitle),
-      (t.debug.sendTestMealData, t.debug.sendTestMealDataSubtitle),
-      (t.debug.sendTestCalorieGoal, t.debug.sendTestCalorieGoalSubtitle),
-      (t.debug.viewReceivedMessages, t.debug.viewReceivedMessagesSubtitle),
+    const section = 'Wear OS';
+    const titleSubtitle = [
+      ('Check Watch Connection', null),
+      ('Send Test Message', 'Send a simple test message to watch'),
+      ('Send Test Meal Data', 'Send sample meal data to watch'),
+      ('Send Test Calorie Goal', 'Send sample calorie goal to watch'),
+      ('View Received Messages', 'View messages received from watch'),
     ];
     final items = <Widget>[
       ListTile(
         leading: const Icon(LucideIcons.watch),
-        title: Text(t.debug.checkWatchConnection),
+        title: const Text('Check Watch Connection'),
         onTap: _checkWatchConnection,
       ),
       ListTile(
         leading: const Icon(LucideIcons.send),
-        title: Text(t.debug.sendTestMessage),
-        subtitle: Text(t.debug.sendTestMessageSubtitle),
+        title: const Text('Send Test Message'),
+        subtitle: const Text('Send a simple test message to watch'),
         onTap: _sendTestMessage,
       ),
       ListTile(
         leading: const Icon(LucideIcons.database),
-        title: Text(t.debug.sendTestMealData),
-        subtitle: Text(t.debug.sendTestMealDataSubtitle),
+        title: const Text('Send Test Meal Data'),
+        subtitle: const Text('Send sample meal data to watch'),
         onTap: _sendTestMealData,
       ),
       ListTile(
         leading: const Icon(LucideIcons.activity),
-        title: Text(t.debug.sendTestCalorieGoal),
-        subtitle: Text(t.debug.sendTestCalorieGoalSubtitle),
+        title: const Text('Send Test Calorie Goal'),
+        subtitle: const Text('Send sample calorie goal to watch'),
         onTap: _sendTestCalorieGoal,
       ),
       ListTile(
         leading: const Icon(LucideIcons.inbox),
-        title: Text(t.debug.viewReceivedMessages),
-        subtitle: Text(t.debug.viewReceivedMessagesSubtitle),
+        title: const Text('View Received Messages'),
+        subtitle: const Text('View messages received from watch'),
         onTap: _viewReceivedMessages,
       ),
     ];
@@ -422,27 +536,29 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       if (connected) {
         final watchInfo = await WearOsPhoneChannel.getConnectedWatchInfo();
         if (watchInfo != null) {
-          final deviceName = watchInfo['name'] as String? ?? t.debug.unknownDevice;
+          final deviceName =
+              watchInfo['name'] as String? ?? 'Unknown Device';
           final isNearby = watchInfo['isNearby'] as bool? ?? false;
           final count = watchInfo['count'] as int? ?? 1;
 
-          message = '${t.debug.watchConnected}\n\n';
-          message += '${t.debug.device}: $deviceName\n';
-          message += '${t.debug.nearby}: ${isNearby ? t.debug.yes : t.debug.no}\n';
+          message = 'Watch is connected ✓\n\n';
+          message += 'Device: $deviceName\n';
+          message += 'Nearby: ${isNearby ? 'Yes' : 'No'}\n';
           if (count > 1) {
-            message += '${t.debug.connectedDevices}: $count';
+            message += 'Connected devices: $count';
           }
         } else {
-          message = '${t.debug.watchConnected}\n\n${t.debug.deviceInfoUnavailable}';
+          message = 'Watch is connected ✓\n\n(Device info unavailable)';
         }
       } else {
-        message = '${t.debug.watchNotConnected}\n\n${t.debug.watchNotConnectedHint}';
+        message =
+            'Watch is not connected ✗\n\nMake sure:\n• Both devices are paired\n• Watch app is running\n• Both apps are in debug/staging mode';
       }
 
-      _showDataDialog(t.debug.watchConnection, message);
+      _showDataDialog('Watch Connection', message);
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar(t.debug.errorCheckingConnection(error: e.toString()));
+      _showSnackbar('Error checking connection: $e');
     }
   }
 
@@ -451,7 +567,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       final success = await WearOsPhoneChannel.sendToWatch(
         path: '/test',
         data: {
-          'message': t.debug.helloFromPhone,
+          'message': 'Hello from phone!',
           'timestamp': DateTime.now().toIso8601String(),
           'type': 'test',
         },
@@ -459,12 +575,12 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       if (!mounted) return;
       _showSnackbar(
         success
-            ? t.debug.testMessageSentSuccess
-            : t.debug.testMessageFailed,
+            ? 'Test message sent successfully!'
+            : 'Failed to send test message. Check watch connection.',
       );
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar(t.debug.errorSendingMessage(error: e.toString()));
+      _showSnackbar('Error sending message: $e');
     }
   }
 
@@ -472,7 +588,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     try {
       final testMeal = {
         'id': 'test-${DateTime.now().millisecondsSinceEpoch}',
-        'name': t.debug.testMeal,
+        'name': 'Test Meal',
         'calories': 500,
         'protein': 30.0,
         'carbs': 60.0,
@@ -491,12 +607,12 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       if (!mounted) return;
       _showSnackbar(
         success
-            ? t.debug.testMealDataSentSuccess
-            : t.debug.failedToSendMealData,
+            ? 'Test meal data sent successfully!'
+            : 'Failed to send meal data. Check watch connection.',
       );
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar(t.debug.errorSendingMealData(error: e.toString()));
+      _showSnackbar('Error sending meal data: $e');
     }
   }
 
@@ -509,60 +625,60 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       if (!mounted) return;
       _showSnackbar(
         success
-            ? t.debug.testCalorieGoalSentSuccess
-            : t.debug.failedToSendCalorieGoal,
+            ? 'Test calorie goal sent successfully!'
+            : 'Failed to send calorie goal. Check watch connection.',
       );
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar(t.debug.errorSendingCalorieGoal(error: e.toString()));
+      _showSnackbar('Error sending calorie goal: $e');
     }
   }
 
   Widget? _buildFoodApiOptions(BuildContext context) {
-    final section = t.debug.sections.foodApiTests;
-    final titleSubtitle = [
-      (t.debug.testAnalyzeImage, t.debug.testAnalyzeImageSubtitle),
-      (t.debug.testDetectImage, t.debug.testDetectImageSubtitle),
-      (t.debug.detectImageFromGallery, t.debug.detectImageFromGallerySubtitle),
-      (t.debug.testDetectText, t.debug.testDetectTextSubtitle),
-      (t.debug.testMealLoggingWithVariations, t.debug.testMealLoggingWithVariationsSubtitle),
-      (t.debug.mockMealWithVariations, t.debug.mockMealWithVariationsSubtitle),
+    const section = 'Food API Tests';
+    const titleSubtitle = [
+      ('Test Analyze Image', 'Upload hardcoded test image'),
+      ('Test Detect Image', 'Detect meal from image URL'),
+      ('Detect Image from Gallery', 'Select image, upload to bucket & estimate calories'),
+      ('Test Detect Text', 'Detect meal from text description'),
+      ('Test Meal Logging with Variations', 'Test the full meal logging flow with variations'),
+      ('Mock meal with variations', 'Preview variation + tip sheet UI without logging'),
     ];
     final items = <Widget>[
       ListTile(
         leading: const Icon(LucideIcons.image),
-        title: Text(t.debug.testAnalyzeImage),
-        subtitle: Text(t.debug.testAnalyzeImageSubtitle),
+        title: const Text('Test Analyze Image'),
+        subtitle: const Text('Upload hardcoded test image'),
         onTap: _testAnalyzeImage,
       ),
       ListTile(
         leading: const Icon(LucideIcons.link),
-        title: Text(t.debug.testDetectImage),
-        subtitle: Text(t.debug.testDetectImageSubtitle),
+        title: const Text('Test Detect Image'),
+        subtitle: const Text('Detect meal from image URL'),
         onTap: _testDetectImage,
       ),
       ListTile(
         leading: const Icon(LucideIcons.upload),
-        title: Text(t.debug.detectImageFromGallery),
-        subtitle: Text(t.debug.detectImageFromGallerySubtitle),
+        title: const Text('Detect Image from Gallery'),
+        subtitle: const Text('Select image, upload to bucket & estimate calories'),
         onTap: _testDetectImageFromGallery,
       ),
       ListTile(
         leading: const Icon(LucideIcons.type),
-        title: Text(t.debug.testDetectText),
-        subtitle: Text(t.debug.testDetectTextSubtitle),
+        title: const Text('Test Detect Text'),
+        subtitle: const Text('Detect meal from text description'),
         onTap: _testDetectText,
       ),
       ListTile(
         leading: const Icon(LucideIcons.info),
-        title: Text(t.debug.testMealLoggingWithVariations),
-        subtitle: Text(t.debug.testMealLoggingWithVariationsSubtitle),
+        title: const Text('Test Meal Logging with Variations'),
+        subtitle: const Text('Test the full meal logging flow with variations'),
         onTap: _testMealLoggingWithVariations,
       ),
       ListTile(
         leading: const Icon(LucideIcons.beaker),
-        title: Text(t.debug.mockMealWithVariations),
-        subtitle: Text(t.debug.mockMealWithVariationsSubtitle),
+        title: const Text('Mock meal with variations'),
+        subtitle: const Text('Preview variation + tip sheet UI without logging'),
         onTap: _mockMealWithVariations,
       ),
     ];
@@ -576,15 +692,15 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
   }
 
   Widget? _buildProfileApiOptions(BuildContext context) {
-    final section = t.debug.sections.profileApiTests;
-    final titleSubtitle = [
-      (t.debug.testUpdateProfile, t.debug.testUpdateProfileSubtitle),
+    const section = 'Profile API Tests';
+    const titleSubtitle = [
+      ('Test update profile', 'POST sample profile to backend'),
     ];
     final items = <Widget>[
       ListTile(
         leading: const Icon(LucideIcons.userCog),
-        title: Text(t.debug.testUpdateProfile),
-        subtitle: Text(t.debug.testUpdateProfileSubtitle),
+        title: const Text('Test update profile'),
+        subtitle: const Text('POST sample profile to backend'),
         onTap: _testUpdateProfile,
       ),
     ];
@@ -599,31 +715,33 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
 
   Future<void> _testUpdateProfile() async {
     try {
-      _showSnackbar(t.debug.testingProfileApi);
+      _showSnackbar('Testing profile API...');
 
       // Call profile API directly so we can show success/error (repository swallows exceptions)
-      final response = await NetworkClient.instance.client.post<Map<String, dynamic>>(
-        '/api/v1/user/profile',
-        data: <String, dynamic>{
-          'height': 175,
-          'weight': 70,
-          'targetWeight': 68,
-          'gender': 'MALE',
-          'dailyCalorieGoal': 2000,
-          'heightUnit': 'METRIC',
-          'weightUnit': 'METRIC',
-        },
-      );
+      final response = await NetworkClient.instance.client
+          .post<Map<String, dynamic>>(
+            '/api/v1/user/profile',
+            data: <String, dynamic>{
+              'height': 175,
+              'weight': 70,
+              'targetWeight': 68,
+              'gender': 'MALE',
+              'dailyCalorieGoal': 2000,
+              'heightUnit': 'METRIC',
+              'weightUnit': 'METRIC',
+            },
+          );
 
       if (!mounted) return;
-      final message = response.data?['message'] ?? response.data?.toString() ?? '';
+      final message =
+          response.data?['message'] ?? response.data?.toString() ?? '';
       _showDataDialog(
-        t.debug.profileUpdateSuccess,
-        message.isNotEmpty ? message : t.debug.profileUpdateSuccess,
+        'Profile API responded successfully',
+        message.isNotEmpty ? message : 'Profile API responded successfully',
       );
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar(t.debug.profileUpdateFailed(error: e.toString()));
+      _showSnackbar('Profile API error: $e');
     }
   }
 
@@ -640,8 +758,12 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
   }
 
   MealDetectionResponse _createMockMealDetectionResponse() {
+    const mockMealName = 'Grilled chicken with rice and vegetables';
+    const mockTip =
+        'This is a mock tip for UI preview. The meal is not logged.';
+    const mockMealDescription = 'Mock meal for debug';
     final baseMeal = Meal(
-      name: t.debug.mockMealName,
+      name: mockMealName,
       quantity: '1 serving',
       type: MealType.LUNCH,
       macros: MealMacro(
@@ -655,16 +777,24 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     final result = MealDetectionResult(
       mealIdentified: true,
       calorieConfidence: CalorieConfidence.MEDIUM,
-      tip: t.debug.mockTip,
+      tip: mockTip,
       meal: baseMeal,
-      metadata: MealMetadata(mealDescription: t.debug.mockMealDescription),
+      metadata: MealMetadata(mealDescription: mockMealDescription),
     );
+    const portionSizeQuestion = 'How was the portion size?';
+    const extraSidesQuestion = 'Any extra sides?';
+    const optionSmall = 'Small';
+    const optionMedium = 'Medium';
+    const optionLarge = 'Large';
+    const optionNone = 'None';
+    const optionSideSalad = 'Side salad';
+    const optionBreadRoll = 'Bread roll';
     final variations = [
       Variation(
-        question: t.debug.portionSizeQuestion,
+        question: portionSizeQuestion,
         options: [
           Variation_Option(
-            option: t.debug.optionSmall,
+            option: optionSmall,
             macroDiff: MealMacro(
               calories: -80,
               carbs: -15,
@@ -673,9 +803,9 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
               fiber: -1,
             ),
           ),
-          Variation_Option(option: t.debug.optionMedium),
+          Variation_Option(option: optionMedium),
           Variation_Option(
-            option: t.debug.optionLarge,
+            option: optionLarge,
             macroDiff: MealMacro(
               calories: 100,
               carbs: 12,
@@ -687,11 +817,11 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
         ],
       ),
       Variation(
-        question: t.debug.extraSidesQuestion,
+        question: extraSidesQuestion,
         options: [
-          Variation_Option(option: t.debug.optionNone),
+          Variation_Option(option: optionNone),
           Variation_Option(
-            option: t.debug.optionSideSalad,
+            option: optionSideSalad,
             macroDiff: MealMacro(
               calories: 50,
               carbs: 6,
@@ -701,7 +831,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
             ),
           ),
           Variation_Option(
-            option: t.debug.optionBreadRoll,
+            option: optionBreadRoll,
             macroDiff: MealMacro(
               calories: 120,
               carbs: 22,
@@ -716,9 +846,25 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     return MealDetectionResponse(result: result, variations: variations);
   }
 
+  String _formatMealResult(MealDetectionResult result) {
+    final mealInfo = result.hasMeal() ? result.meal : null;
+    return '''
+Meal Identified: ${result.mealIdentified}
+Confidence: ${result.calorieConfidence.name}
+Tip: ${result.tip.isNotEmpty ? result.tip : 'N/A'}
+${mealInfo != null ? '''
+Meal Name: ${mealInfo.name}
+Calories: ${mealInfo.macros.calories}
+Protein: ${mealInfo.macros.protein}g
+Carbs: ${mealInfo.macros.carbs}g
+Fat: ${mealInfo.macros.fat}g
+''' : 'No meal info'}
+''';
+  }
+
   Future<void> _testAnalyzeImage() async {
     try {
-      _showSnackbar(t.debug.testingAnalyzeImage);
+      _showSnackbar('Testing analyzeImage API...');
 
       final testImageUrl =
           'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
@@ -741,31 +887,16 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       if (!mounted) return;
 
       final result = apiResponse.result;
-      final mealInfo = result.hasMeal() ? result.meal : null;
-
-      final resultText = '''
-${t.debug.mealIdentified}: ${result.mealIdentified}
-${t.debug.confidence}: ${result.calorieConfidence.name}
-${t.debug.tip}: ${result.tip.isNotEmpty ? result.tip : t.debug.na}
-${mealInfo != null ? '''
-${t.debug.mealName}: ${mealInfo.name}
-${t.debug.calories}: ${mealInfo.macros.calories}
-${t.debug.protein}: ${mealInfo.macros.protein}g
-${t.debug.carbs}: ${mealInfo.macros.carbs}g
-${t.debug.fat}: ${mealInfo.macros.fat}g
-''' : t.debug.noMealInfo}
-''';
-
-      _showDataDialog(t.debug.analyzeImageResult, resultText);
+      _showDataDialog('Analyze Image Result', _formatMealResult(result));
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar(t.debug.errorGeneric(error: e.toString()));
+      _showSnackbar('Error: $e');
     }
   }
 
   Future<void> _testDetectImage() async {
     try {
-      _showSnackbar(t.debug.testingDetectImage);
+      _showSnackbar('Testing detectImage API...');
 
       const testImageUrl =
           'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
@@ -792,31 +923,16 @@ ${t.debug.fat}: ${mealInfo.macros.fat}g
       if (!mounted) return;
 
       final result = detectResponse.result;
-      final mealInfo = result.hasMeal() ? result.meal : null;
-
-      final resultText = '''
-${t.debug.mealIdentified}: ${result.mealIdentified}
-${t.debug.confidence}: ${result.calorieConfidence.name}
-${t.debug.tip}: ${result.tip.isNotEmpty ? result.tip : t.debug.na}
-${mealInfo != null ? '''
-${t.debug.mealName}: ${mealInfo.name}
-${t.debug.calories}: ${mealInfo.macros.calories}
-${t.debug.protein}: ${mealInfo.macros.protein}g
-${t.debug.carbs}: ${mealInfo.macros.carbs}g
-${t.debug.fat}: ${mealInfo.macros.fat}g
-''' : t.debug.noMealInfo}
-''';
-
-      _showDataDialog(t.debug.detectImageResult, resultText);
+      _showDataDialog('Detect Image Result', _formatMealResult(result));
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar(t.debug.errorGeneric(error: e.toString()));
+      _showSnackbar('Error: $e');
     }
   }
 
   Future<void> _testDetectImageFromGallery() async {
     try {
-      _showSnackbar(t.debug.selectingImageFromGallery);
+      _showSnackbar('Selecting image from gallery...');
 
       final pickerService = ImagePickerService();
       File? imageFile;
@@ -830,12 +946,12 @@ ${t.debug.fat}: ${mealInfo.macros.fat}g
 
       if (imageFile == null) {
         if (!mounted) return;
-        _showSnackbar(t.debug.noImageSelected);
+        _showSnackbar('No image selected');
         return;
       }
 
       if (!mounted) return;
-      _showSnackbar(t.debug.compressingImage);
+      _showSnackbar('Compressing image...');
 
       // Compress the image before uploading
       final compressedBytes = await ImageCompressionService.instance
@@ -849,7 +965,7 @@ ${t.debug.fat}: ${mealInfo.macros.fat}g
       await compressedFile.writeAsBytes(compressedBytes);
 
       if (!mounted) return;
-      _showSnackbar(t.debug.uploadingImageAndDetecting);
+      _showSnackbar('Uploading image to bucket and detecting meal...');
 
       final repository = FoodRepository();
       final detectResponse = await repository.detectImage(
@@ -866,31 +982,19 @@ ${t.debug.fat}: ${mealInfo.macros.fat}g
       if (!mounted) return;
 
       final result = detectResponse.result;
-      final mealInfo = result.hasMeal() ? result.meal : null;
-
-      final resultText = '''
-${t.debug.mealIdentified}: ${result.mealIdentified}
-${t.debug.confidence}: ${result.calorieConfidence.name}
-${t.debug.tip}: ${result.tip.isNotEmpty ? result.tip : t.debug.na}
-${mealInfo != null ? '''
-${t.debug.mealName}: ${mealInfo.name}
-${t.debug.calories}: ${mealInfo.macros.calories}
-${t.debug.protein}: ${mealInfo.macros.protein}g
-${t.debug.carbs}: ${mealInfo.macros.carbs}g
-${t.debug.fat}: ${mealInfo.macros.fat}g
-''' : t.debug.noMealInfo}
-''';
-
-      _showDataDialog(t.debug.detectImageFromGalleryResult, resultText);
+      _showDataDialog(
+        'Detect Image from Gallery Result',
+        _formatMealResult(result),
+      );
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar(t.debug.errorGeneric(error: e.toString()));
+      _showSnackbar('Error: $e');
     }
   }
 
   Future<void> _testDetectText() async {
     try {
-      _showSnackbar(t.debug.testingDetectText);
+      _showSnackbar('Testing detectText API...');
 
       const testText =
           'I had a large grilled chicken breast with roasted vegetables and quinoa for lunch';
@@ -901,32 +1005,18 @@ ${t.debug.fat}: ${mealInfo.macros.fat}g
       if (!mounted) return;
 
       final result = response.result;
-      final mealInfo = result.hasMeal() ? result.meal : null;
-
-      final resultText = '''
-${t.debug.mealIdentified}: ${result.mealIdentified}
-${t.debug.confidence}: ${result.calorieConfidence.name}
-${t.debug.tip}: ${result.tip.isNotEmpty ? result.tip : t.debug.na}
-${mealInfo != null ? '''
-${t.debug.mealName}: ${mealInfo.name}
-${t.debug.calories}: ${mealInfo.macros.calories}
-${t.debug.protein}: ${mealInfo.macros.protein}g
-${t.debug.carbs}: ${mealInfo.macros.carbs}g
-${t.debug.fat}: ${mealInfo.macros.fat}g
-''' : t.debug.noMealInfo}
-${t.debug.variationsCount}: ${response.variations.length}
-''';
-
-      _showDataDialog(t.debug.detectTextResult, resultText);
+      final resultText =
+          '${_formatMealResult(result)}Variations: ${response.variations.length}';
+      _showDataDialog('Detect Text Result', resultText);
     } catch (e) {
       if (!mounted) return;
-      _showSnackbar(t.debug.errorGeneric(error: e.toString()));
+      _showSnackbar('Error: $e');
     }
   }
 
   Future<void> _testMealLoggingWithVariations() async {
     try {
-      _showSnackbar(t.debug.testingMealLoggingFlow);
+      _showSnackbar('Testing meal logging flow with variations...');
 
       // Navigate to Log screen first
       if (!mounted) return;
@@ -956,25 +1046,25 @@ ${t.debug.variationsCount}: ${response.variations.length}
             mealDetectionResult: response.result,
           );
         } else {
-          _showSnackbar(t.debug.noMealIdentifiedInResponse);
+          _showSnackbar('No meal identified in response');
         }
       }
-      } catch (e) {
+    } catch (e) {
       if (!mounted) return;
-      _showSnackbar(t.debug.errorGeneric(error: e.toString()));
+      _showSnackbar('Error: $e');
     }
   }
 
   Widget? _buildFeedbackOptions(BuildContext context) {
-    final section = t.debug.sections.feedback;
-    final title = t.debug.showFeedbackRatingSheet;
+    const section = 'Feedback';
+    const title = 'Show feedback / rating sheet';
     if (!_matchesQuery(section, title)) return null;
     return Card(
       child: Column(
         children: [
           ListTile(
             leading: const Icon(LucideIcons.star),
-            title: Text(t.debug.showFeedbackRatingSheet),
+            title: const Text('Show feedback / rating sheet'),
             trailing: _buildFeedbackEligibilityIndicator(context),
             onTap: () => showFeedbackRatingSheet(context, persistShown: false),
           ),
@@ -989,22 +1079,18 @@ ${t.debug.variationsCount}: ${response.variations.length}
       return const SizedBox.shrink();
     }
 
-    final color = eligible
-        ? Theme.of(context).colorScheme.primary
-        : Theme.of(context).disabledColor;
-    final icon =
-        eligible ? LucideIcons.badgeCheck : LucideIcons.circleOff;
+    final color =
+        eligible
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).disabledColor;
+    final icon = eligible ? LucideIcons.badgeCheck : LucideIcons.circleOff;
 
-    return Icon(
-      icon,
-      size: 18,
-      color: color,
-    );
+    return Icon(icon, size: 18, color: color);
   }
 
   Widget? _buildDatabaseOptions(BuildContext context) {
-    final section = t['debug.sections.database'];
-    final title = t['debug.inspectDatabaseTables'];
+    const section = 'Database';
+    const title = 'Inspect database tables';
     if (!_matchesQuery(section, title)) return null;
     return Card(
       child: Column(
@@ -1027,17 +1113,17 @@ ${t.debug.variationsCount}: ${response.variations.length}
   }
 
   Widget? _buildDataResetOptions(BuildContext context) {
-    final section = t.debug.sections.dataReset;
-    final titles = [t.debug.clearUserPreferences, t.debug.clearUserProfile];
+    const section = 'Data reset';
+    const titles = ['Clear user preferences', 'Clear user profile'];
     final items = <Widget>[
       ListTile(
         leading: const Icon(LucideIcons.settings),
-        title: Text(t.debug.clearUserPreferences),
+        title: const Text('Clear user preferences'),
         onTap: () => _showClearPreferencesConfirmation(context),
       ),
       ListTile(
         leading: const Icon(LucideIcons.user),
-        title: Text(t.debug.clearUserProfile),
+        title: const Text('Clear user profile'),
         onTap: () => _showClearProfileConfirmation(context),
       ),
     ];
@@ -1057,12 +1143,14 @@ ${t.debug.variationsCount}: ${response.variations.length}
       ),
       builder:
           (dialogContext) => AlertDialog(
-            title: Text(t.debug.clearUserPreferencesConfirmationTitle),
-            content: Text(t.debug.clearUserPreferencesConfirmationMessage),
+            title: const Text('Clear user preferences?'),
+            content: const Text(
+              'Theme, language, and feedback preferences will be reset. Meals and profile are not affected.',
+            ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(dialogContext),
-                child: Text(t.debug.cancel),
+                child: const Text('Cancel'),
               ),
               TextButton(
                 onPressed: () async {
@@ -1071,9 +1159,9 @@ ${t.debug.variationsCount}: ${response.variations.length}
                   if (!dialogContext.mounted) return;
                   Navigator.pop(dialogContext);
                   if (!context.mounted) return;
-                  _showSnackbar(t.debug.userPreferencesCleared);
+                  _showSnackbar('User preferences cleared');
                 },
-                child: Text(t.debug.clear),
+                child: const Text('Clear'),
               ),
             ],
           ),
@@ -1088,12 +1176,14 @@ ${t.debug.variationsCount}: ${response.variations.length}
       ),
       builder:
           (dialogContext) => AlertDialog(
-            title: Text(t.debug.clearUserProfileConfirmationTitle),
-            content: Text(t.debug.clearUserProfileConfirmationMessage),
+            title: const Text('Clear user profile?'),
+            content: const Text(
+              'Your profile data (daily goal, height, weight, etc.) will be cleared. Meals and preferences are not affected.',
+            ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(dialogContext),
-                child: Text(t.debug.cancel),
+                child: const Text('Cancel'),
               ),
               TextButton(
                 onPressed: () async {
@@ -1101,9 +1191,9 @@ ${t.debug.variationsCount}: ${response.variations.length}
                   if (!dialogContext.mounted) return;
                   Navigator.pop(dialogContext);
                   if (!context.mounted) return;
-                  _showSnackbar(t.debug.userProfileCleared);
+                  _showSnackbar('User profile cleared');
                 },
-                child: Text(t.debug.clear),
+                child: const Text('Clear'),
               ),
             ],
           ),
@@ -1111,15 +1201,15 @@ ${t.debug.variationsCount}: ${response.variations.length}
   }
 
   Widget? _buildAppInfoOptions(BuildContext context) {
-    final section = t.debug.sections.appInfo;
-    final title = t.debug.checkCurrentLocale;
+    const section = 'App Info';
+    const title = 'Check Current Locale';
     if (!_matchesQuery(section, title)) return null;
     return Card(
       child: Column(
         children: [
           ListTile(
             leading: const Icon(LucideIcons.languages),
-            title: Text(t.debug.checkCurrentLocale),
+            title: const Text('Check Current Locale'),
             onTap: _checkCurrentLocale,
           ),
         ],
@@ -1128,26 +1218,26 @@ ${t.debug.variationsCount}: ${response.variations.length}
   }
 
   Widget? _buildShorebirdOptions(BuildContext context) {
-    final section = t.debug.sections.shorebird;
-    final titles = [
-      t.debug.checkForUpdate,
-      t.debug.showPatchNumber,
-      t.debug.showUpdateAvailable,
+    const section = 'Shorebird';
+    const titles = [
+      'Check for update',
+      'Show patch number',
+      'Show update available',
     ];
     final items = <Widget>[
       ListTile(
         leading: const Icon(LucideIcons.download),
-        title: Text(t.debug.checkForUpdate),
+        title: const Text('Check for update'),
         onTap: _shorebirdCheckForUpdate,
       ),
       ListTile(
         leading: const Icon(LucideIcons.hash),
-        title: Text(t.debug.showPatchNumber),
+        title: const Text('Show patch number'),
         onTap: _shorebirdShowPatchNumber,
       ),
       ListTile(
         leading: const Icon(LucideIcons.circleAlert),
-        title: Text(t.debug.showUpdateAvailable),
+        title: const Text('Show update available'),
         onTap: _shorebirdShowUpdateAvailable,
       ),
     ];
@@ -1164,13 +1254,13 @@ ${t.debug.variationsCount}: ${response.variations.length}
       final status = await ShorebirdUpdater().checkForUpdate();
       if (!mounted) return;
       final message =
-          status == UpdateStatus.outdated ? t.debug.updateAvailable : t.debug.upToDate;
-      _showDataDialog(t.debug.checkForUpdate, '$message ($status)');
+          status == UpdateStatus.outdated ? 'Update available' : 'Up to date';
+      _showDataDialog('Check for update', '$message ($status)');
     } catch (_) {
       if (!mounted) return;
       _showDataDialog(
-        t.debug.checkForUpdate,
-        t.debug.shorebirdUnavailable,
+        'Check for update',
+        'Shorebird is unavailable in this environment.',
       );
     }
   }
@@ -1181,14 +1271,14 @@ ${t.debug.variationsCount}: ${response.variations.length}
       if (!mounted) return;
       final message =
           patch != null
-              ? '${t.debug.patchNumberLabel}: ${patch.number}'
-              : t.debug.noPatchInstalled;
-      _showDataDialog(t.debug.showPatchNumber, '$message ${patch ?? "null"}');
+              ? 'Patch number: ${patch.number}'
+              : 'No patch installed';
+      _showDataDialog('Show patch number', '$message ${patch ?? "null"}');
     } catch (_) {
       if (!mounted) return;
       _showDataDialog(
-        t.debug.showPatchNumber,
-        t.debug.shorebirdUnavailable,
+        'Show patch number',
+        'Shorebird is unavailable in this environment.',
       );
     }
   }
@@ -1198,35 +1288,32 @@ ${t.debug.variationsCount}: ${response.variations.length}
   }
 
   void _checkCurrentLocale() {
-    final locale = TranslationProvider.of(context).locale.flutterLocale;
+    final locale = Localizations.localeOf(context);
     final unitSystem = LocaleUtils.getDefaultUnitSystem(locale);
     final isMetric = unitSystem == UnitSystem.METRIC;
     final countryCode = locale.countryCode ?? 'N/A';
     final languageCode = locale.languageCode;
+    final unitSystemLabel = isMetric ? 'Metric' : 'Imperial';
 
     _showDataDialog(
-      t.debug.currentLocale,
-      t.debug.localeInfo(
-        languageCode: languageCode,
-        countryCode: countryCode,
-        unitSystem: isMetric ? t.editProfile.metric : t.editProfile.imperial,
-      ),
+      'Current Locale',
+      'Language: $languageCode\nCountry: $countryCode\nUnit System: $unitSystemLabel',
     );
   }
 
   Future<void> _fetchTodaysSteps() async {
     final steps = await HealthService.instance.getTodaySteps();
-    _showDataDialog(t.debug.todaysSteps, '${t.debug.stepsLabel}: $steps');
+    _showDataDialog("Today's Steps", 'Steps: $steps');
   }
 
   Future<void> _fetchLatestWeight() async {
     final weight = await HealthService.instance.getLatestWeight();
     if (weight == null) {
-      _showSnackbar(t.debug.noWeightData);
+      _showSnackbar('No weight data found in the last 30 days.');
     } else {
       _showDataDialog(
-        t.debug.latestWeight,
-        t.debug.weightLabel(value: weight.toStringAsFixed(UnitSystem.METRIC.weightPrecision)),
+        'Latest Weight',
+        'Weight: ${weight.toStringAsFixed(UnitSystem.METRIC.weightPrecision)} kg',
       );
     }
   }
@@ -1234,12 +1321,12 @@ ${t.debug.variationsCount}: ${response.variations.length}
   Future<void> _fetchLatestHeight() async {
     final height = await HealthService.instance.getLatestHeight();
     if (height == null) {
-      _showSnackbar(t.debug.noHeightData);
+      _showSnackbar('No height data found in the last year.');
     } else {
       // Height is usually in meters from Health Connect
       _showDataDialog(
-        t.debug.latestHeight,
-        t.debug.heightLabel(value: (height * 100).toStringAsFixed(UnitSystem.METRIC.heightPrecision)),
+        'Latest Height',
+        'Height: ${(height * 100).toStringAsFixed(UnitSystem.METRIC.heightPrecision)} cm',
       );
     }
   }
@@ -1247,18 +1334,18 @@ ${t.debug.variationsCount}: ${response.variations.length}
   Future<void> _writeTestWeight() async {
     final success = await HealthService.instance.writeWeight(70.0);
     if (success) {
-      _showSnackbar(t.debug.weightWritten);
+      _showSnackbar('Successfully wrote test weight (70kg).');
     } else {
-      _showSnackbar(t.debug.weightWriteFailed);
+      _showSnackbar('Failed to write test weight.');
     }
   }
 
   Future<void> _writeTestHeight() async {
     final success = await HealthService.instance.writeHeight(175.0);
     if (success) {
-      _showSnackbar(t.debug.heightWritten);
+      _showSnackbar('Successfully wrote test height (175cm).');
     } else {
-      _showSnackbar(t.debug.heightWriteFailed);
+      _showSnackbar('Failed to write test height.');
     }
   }
 
@@ -1274,7 +1361,7 @@ ${t.debug.variationsCount}: ${response.variations.length}
     if (!mounted) return;
 
     if (calories.isEmpty) {
-      _showSnackbar(t.debug.noCalorieData);
+      _showSnackbar('No calorie data found for today.');
       return;
     }
 
@@ -1283,8 +1370,8 @@ ${t.debug.variationsCount}: ${response.variations.length}
         .reduce((value, element) => value + element);
 
     _showDataDialog(
-      t.debug.todaysCalories,
-      t.debug.totalCaloriesBurned(calories: totalCalories.toStringAsFixed(2)),
+      "Today's Calories",
+      'Total calories burned: ${totalCalories.toStringAsFixed(2)}',
     );
   }
 
@@ -1292,7 +1379,7 @@ ${t.debug.variationsCount}: ${response.variations.length}
     final now = DateTime.now();
     final sevenDaysAgo = now.subtract(const Duration(days: 7));
 
-    _showSnackbar(t.debug.fetchingData);
+    _showSnackbar('Fetching data for the last 7 days...');
 
     final types = [
       HealthDataType.STEPS,
@@ -1311,8 +1398,8 @@ ${t.debug.variationsCount}: ${response.variations.length}
     }
 
     _showDataDialog(
-      t.debug.sync7DaysTitle,
-      t.debug.syncSuccess(count: totalPoints),
+      '7-Day Sync',
+      'Successfully fetched $totalPoints data points for Steps, Calories, and Weight over the last 7 days.',
     );
   }
 
@@ -1326,14 +1413,14 @@ ${t.debug.variationsCount}: ${response.variations.length}
       ),
       builder:
           (context) => AlertDialog(
-            title: Text(t.debug.receivedMessagesFromWatch),
+            title: const Text('Received Messages from Watch'),
             content: SizedBox(
               width: double.maxFinite,
               child:
                   WearOsMessageLog.messages.isEmpty
-                      ? Text(
-                        t.debug.noMessagesReceivedYet,
-                      )
+                      ? const Text(
+                          'No messages received yet.\n\nSend test data from watch to see messages here.',
+                        )
                       : ListView.builder(
                         shrinkWrap: true,
                         itemCount: WearOsMessageLog.messages.length,
@@ -1389,13 +1476,13 @@ ${t.debug.variationsCount}: ${response.variations.length}
                     WearOsMessageLog.clear();
                     setState(() {});
                     Navigator.of(context).pop();
-                    _showSnackbar(t.debug.messagesCleared);
+                    _showSnackbar('Messages cleared');
                   },
-                  child: Text(t.debug.clear),
+                  child: const Text('Clear'),
                 ),
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text(t.common.close),
+                child: const Text('Close'),
               ),
             ],
           ),
@@ -1420,12 +1507,10 @@ ${t.debug.variationsCount}: ${response.variations.length}
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text(t.common.close),
+                child: const Text('Close'),
               ),
             ],
           ),
     );
   }
 }
-
-

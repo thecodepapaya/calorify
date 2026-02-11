@@ -57,7 +57,6 @@ class TranslationsSv with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsCommonSv common = _TranslationsCommonSv._(_root);
 	@override late final _TranslationsFeedbackRatingSv feedbackRating = _TranslationsFeedbackRatingSv._(_root);
 	@override late final _TranslationsErrorsSv errors = _TranslationsErrorsSv._(_root);
-	@override late final _TranslationsDebugSv debug = _TranslationsDebugSv._(_root);
 	@override late final _TranslationsHealthSv health = _TranslationsHealthSv._(_root);
 }
 
@@ -359,6 +358,8 @@ class _TranslationsFeedbackRatingSv implements TranslationsFeedbackRatingEn {
 	@override String enjoyingQuestion({required Object appLabel}) => 'Tycker du om ${appLabel}?';
 	@override String get yes => 'Ja, jag gillar det';
 	@override String get no => 'Inte riktigt';
+	@override String get rateStepHeading => 'Betygsätt i Google Play';
+	@override String get emailStepHeading => 'Skicka feedback via e-post';
 	@override String soloDevMessage({required Object appLabel}) => 'En snabb bedömning hjälper andra att hitta ${appLabel} och håller utvecklingen igång. Skulle du ta en stund och ge ett betyg?';
 	@override String get shareFeedbackViaEmail => 'Din feedback påverkar vad som kommer härnäst — vi läser varje meddelande. Vill du dela dina tankar via e-post?';
 	@override String get rateCta => 'Betygsätt i Google Play';
@@ -380,171 +381,6 @@ class _TranslationsErrorsSv implements TranslationsErrorsEn {
 	// Translations
 	@override String get loadingProfileData => 'Fel vid inläsning av profildata';
 	@override String get somethingWentWrong => 'Något gick fel.';
-}
-
-// Path: debug
-class _TranslationsDebugSv implements TranslationsDebugEn {
-	_TranslationsDebugSv._(this._root);
-
-	final TranslationsSv _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Debugalternativ';
-	@override String get searchHint => 'Sökalternativ...';
-	@override late final _TranslationsDebugSectionsSv sections = _TranslationsDebugSectionsSv._(_root);
-	@override String get inspectDatabaseTables => 'Inspektera databastabeller';
-	@override String get databaseInspectorTitle => 'Databasinspektör';
-	@override String get databaseOnlyWithRealData => 'Databasinspektion är endast tillgänglig när du använder verkliga data (inte mockdata).';
-	@override String tableRowCount({required Object count}) => '${count} rader';
-	@override String get emptyTable => 'Inga rader';
-	@override String get showActiveNotifications => 'Visa aktiva notifieringar';
-	@override String get scheduleTestNotification => 'Schemalägg testnotifikation (10s)';
-	@override String get triggerBreakfastNotification => 'Aktivera frukostnotifikation';
-	@override String get cancelAllNotifications => 'Avbryt alla notifieringar';
-	@override String get activeNotifications => 'Aktiva notifieringar';
-	@override String get noTitle => 'Ingen titel';
-	@override String get noBody => 'Ingen kropp';
-	@override String get fetchTodaysSteps => 'Hämta dagens steg';
-	@override String get fetchTodaysCalories => 'Hämta dagens kalorier';
-	@override String get fetchLatestWeight => 'Hämta senaste vikten';
-	@override String get fetchLatestHeight => 'Hämta senaste längden';
-	@override String get writeTestWeight => 'Skriv testvikt (70kg)';
-	@override String get writeTestHeight => 'Skriv testlängd (175cm)';
-	@override String get syncLast7Days => 'Synkronisera senaste 7 dagarna';
-	@override String get sync7DaysTitle => '7-dagars synkronisering';
-	@override String get checkCurrentLocale => 'Kontrollera nuvarande språkvariant';
-	@override String get currentLocale => 'Aktuell språkvariant';
-	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Språk: ${languageCode}\nLand: ${countryCode}\nEnhetssystem: ${unitSystem}';
-	@override String get latestWeight => 'Senaste vikten';
-	@override String get latestHeight => 'Senaste längden';
-	@override String get todaysCalories => 'Dagens kalorier';
-	@override String totalCaloriesBurned({required Object calories}) => 'Totalt brända kalorier: ${calories}';
-	@override String syncSuccess({required Object count}) => 'Framgångsrikt hämtat ${count} datapunkter för Steg, Kalorier och Vikt under de senaste 7 dagarna.';
-	@override String get noWeightData => 'Ingen viktdata hittades under de senaste 30 dagarna.';
-	@override String get noHeightData => 'Ingen längddata hittades under det senaste året.';
-	@override String get noCalorieData => 'Ingen kaloridata hittades för idag.';
-	@override String get weightWritten => 'Testvikt (70kg) har skrivits.';
-	@override String get weightWriteFailed => 'Misslyckades med att skriva testvikt.';
-	@override String get heightWritten => 'Testlängd (175cm) har skrivits.';
-	@override String get heightWriteFailed => 'Misslyckades med att skriva testlängd.';
-	@override String get noNotifications => 'Inga aktiva notifieringar.';
-	@override String get testNotificationScheduled => 'Testnotifikation schemalagd för 10 sekunder från nu.';
-	@override String get testNotificationBody => 'Detta är en testnotifikation schemalagd för 10 sekunder från nu.';
-	@override String get breakfastNotificationTriggered => 'Frukostnotifikation aktiverad.';
-	@override String get allNotificationsCancelled => 'Alla notifieringar avbröts.';
-	@override String get fetchingData => 'Hämtar data för de senaste 7 dagarna...';
-	@override String id({required Object id}) => 'ID: ${id}';
-	@override String get showFeedbackRatingSheet => 'Visa återkopplings- och betygsruta';
-	@override String get clearUserPreferences => 'Återställ användarinställningar';
-	@override String get clearUserPreferencesConfirmationTitle => 'Återställ användarinställningar?';
-	@override String get clearUserPreferencesConfirmationMessage => 'Tema, språk och feedbackinställningar kommer att återställas. Måltider och profil påverkas inte.';
-	@override String get clearUserProfile => 'Rensa användarprofil';
-	@override String get clearUserProfileConfirmationTitle => 'Rensa användarprofil?';
-	@override String get clearUserProfileConfirmationMessage => 'Din profilinformation (dagligt mål, längd, vikt med mera) kommer att raderas. Måltider och inställningar påverkas inte.';
-	@override String get clear => 'Rensa';
-	@override String get cancel => 'Avbryt';
-	@override String get checkWatchConnection => 'Kontrollera klockans anslutning';
-	@override String get sendTestMessage => 'Skicka testmeddelande';
-	@override String get sendTestMessageSubtitle => 'Skicka ett enkelt testmeddelande till klockan';
-	@override String get sendTestMealData => 'Skicka testmåldata';
-	@override String get sendTestMealDataSubtitle => 'Skicka exempel på måltidsdata till klockan';
-	@override String get sendTestCalorieGoal => 'Skicka testkalorimål';
-	@override String get sendTestCalorieGoalSubtitle => 'Skicka exempel på kalorimål till klockan';
-	@override String get viewReceivedMessages => 'Visa mottagna meddelanden';
-	@override String get viewReceivedMessagesSubtitle => 'Visa meddelanden mottagna från klockan';
-	@override String get watchConnected => 'Klockan är ansluten ✓';
-	@override String get device => 'Enhet';
-	@override String get nearby => 'I närheten';
-	@override String get yes => 'Ja';
-	@override String get no => 'Nej';
-	@override String get connectedDevices => 'Anslutna enheter';
-	@override String get deviceInfoUnavailable => '(Enhetsinformation ej tillgänglig)';
-	@override String get unknownDevice => 'Okänd enhet';
-	@override String get watchNotConnected => 'Klockan är inte ansluten ✗';
-	@override String get watchNotConnectedHint => 'Se till att:\n• Båda enheterna är parade\n• Klockappen körs\n• Båda apparna är i debug-/staging-läge';
-	@override String get watchConnection => 'Klockans anslutning';
-	@override String errorCheckingConnection({required Object error}) => 'Fel vid kontroll av anslutning: ${error}';
-	@override String get helloFromPhone => 'Hej från telefonen!';
-	@override String get testMessageSentSuccess => 'Testmeddelande skickat!';
-	@override String get testMessageFailed => 'Kunde inte skicka testmeddelande. Kontrollera klockans anslutning.';
-	@override String errorSendingMessage({required Object error}) => 'Fel vid skickande av meddelande: ${error}';
-	@override String get testMeal => 'Testmåltid';
-	@override String get testMealDataSentSuccess => 'Testmåltidsdata skickades!';
-	@override String get failedToSendMealData => 'Kunde inte skicka måltidsdata. Kontrollera klockans anslutning.';
-	@override String errorSendingMealData({required Object error}) => 'Fel vid skickande av måltidsdata: ${error}';
-	@override String get testCalorieGoalSentSuccess => 'Testkalorimål skickat!';
-	@override String get failedToSendCalorieGoal => 'Kunde inte skicka kalorimål. Kontrollera klockans anslutning.';
-	@override String errorSendingCalorieGoal({required Object error}) => 'Fel vid skickande av kalorimål: ${error}';
-	@override String get testAnalyzeImage => 'Testa bildanalys';
-	@override String get testAnalyzeImageSubtitle => 'Ladda upp fördefinierad testbild';
-	@override String get testDetectImage => 'Testa bildigenkänning';
-	@override String get testDetectImageSubtitle => 'Identifiera måltid från bild-URL';
-	@override String get detectImageFromGallery => 'Identifiera bild från galleriet';
-	@override String get detectImageFromGallerySubtitle => 'Välj bild, ladda upp till bucket och uppskatta kalorier';
-	@override String get testDetectText => 'Testa textigenkänning';
-	@override String get testDetectTextSubtitle => 'Identifiera måltid från textbeskrivning';
-	@override String get testMealLoggingWithVariations => 'Testa måltidsloggning med variationer';
-	@override String get testMealLoggingWithVariationsSubtitle => 'Testa hela flödet för måltidsloggning med variationer';
-	@override String get mockMealWithVariations => 'Fiktiv måltid med variationer';
-	@override String get mockMealWithVariationsSubtitle => 'Förhandsgranska variations- och tipsvyn utan att logga';
-	@override String get mockMealName => 'Grillad kyckling med ris och grönsaker';
-	@override String get mockTip => 'Detta är ett exempelråd för förhandsvisning av gränssnittet. Måltiden loggas inte.';
-	@override String get mockMealDescription => 'Fiktiv måltid för felsökning';
-	@override String get portionSizeQuestion => 'Hur var portionsstorleken?';
-	@override String get extraSidesQuestion => 'Några extra tillbehör?';
-	@override String get optionSmall => 'Liten';
-	@override String get optionMedium => 'Medium';
-	@override String get optionLarge => 'Stor';
-	@override String get optionNone => 'Ingen';
-	@override String get optionSideSalad => 'Sallad som tillbehör';
-	@override String get optionBreadRoll => 'Fralla';
-	@override String get testingAnalyzeImage => 'Testar analyzeImage-API...';
-	@override String get testingDetectImage => 'Testar detectImage-API...';
-	@override String get testingDetectText => 'Testar detectText-API...';
-	@override String get selectingImageFromGallery => 'Väljer bild från galleriet...';
-	@override String get noImageSelected => 'Ingen bild vald';
-	@override String get compressingImage => 'Komprimerar bild...';
-	@override String get uploadingImageAndDetecting => 'Laddar upp bild till bucket och identifierar måltid...';
-	@override String get testingMealLoggingFlow => 'Testar flöde för måltidsloggning med variationer...';
-	@override String get testUpdateProfile => 'Testa profiluppdatering';
-	@override String get testUpdateProfileSubtitle => 'Skicka exempelprofil till backend med POST';
-	@override String get testingProfileApi => 'Testar profil-API...';
-	@override String get profileUpdateSuccess => 'Profil-API:t svarade framgångsrikt';
-	@override String profileUpdateFailed({required Object error}) => 'Fel i profil-API: ${error}';
-	@override String get noMealIdentifiedInResponse => 'Ingen måltid identifierad i svaret';
-	@override String get mealIdentified => 'Måltid identifierad';
-	@override String get confidence => 'Sannolikhet';
-	@override String get tip => 'Tips';
-	@override String get mealName => 'Måltidens namn';
-	@override String get calories => 'Kalorier';
-	@override String get protein => 'Protein';
-	@override String get carbs => 'Kolhydrater';
-	@override String get fat => 'Fett';
-	@override String get noMealInfo => 'Ingen måltidsinformation';
-	@override String get na => 'N/A';
-	@override String get analyzeImageResult => 'Resultat av bildanalys';
-	@override String get detectImageResult => 'Resultat av bildigenkänning';
-	@override String get detectImageFromGalleryResult => 'Resultat för bildidentifiering från galleriet';
-	@override String get detectTextResult => 'Resultat av textigenkänning';
-	@override String errorGeneric({required Object error}) => 'Fel: ${error}';
-	@override String get variationsCount => 'Variationer';
-	@override String get userPreferencesCleared => 'Användarinställningar rensade';
-	@override String get userProfileCleared => 'Användarprofil rensad';
-	@override String get checkForUpdate => 'Sök efter uppdatering';
-	@override String get showPatchNumber => 'Visa patchnummer';
-	@override String get showUpdateAvailable => 'Visa uppdatering tillgänglig';
-	@override String get updateAvailable => 'Uppdatering tillgänglig';
-	@override String get upToDate => 'Uppdaterad';
-	@override String get shorebirdUnavailable => 'Shorebird är inte tillgängligt i denna miljö.';
-	@override String get patchNumberLabel => 'Patchnummer';
-	@override String get noPatchInstalled => 'Ingen patch installerad';
-	@override String get todaysSteps => 'Dagens steg';
-	@override String get stepsLabel => 'Steg';
-	@override String weightLabel({required Object value}) => 'Vikt: ${value} kg';
-	@override String heightLabel({required Object value}) => 'Längd: ${value} cm';
-	@override String get receivedMessagesFromWatch => 'Mottagna meddelanden från klockan';
-	@override String get noMessagesReceivedYet => 'Inga meddelanden mottagna ännu.\n\nSkicka testdata från klockan för att se meddelanden här.';
-	@override String get messagesCleared => 'Meddelanden raderade';
 }
 
 // Path: health
@@ -1220,25 +1056,6 @@ class _TranslationsDisclaimerCalorieExpenditureSv implements TranslationsDisclai
 	@override String get description => 'När Health Connect-data inte är tillgänglig uppskattar vi dagens förbrukade kalorier med hjälp av din basalmetabolism (BMR) och aktivitetsnivå (TDEE), anpassat efter hur stor del av dagen som har passerat.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedSv howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedSv._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceSv professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceSv._(_root);
-}
-
-// Path: debug.sections
-class _TranslationsDebugSectionsSv implements TranslationsDebugSectionsEn {
-	_TranslationsDebugSectionsSv._(this._root);
-
-	final TranslationsSv _root; // ignore: unused_field
-
-	// Translations
-	@override String get notifications => 'Notifieringar';
-	@override String get healthConnect => 'Health Connect';
-	@override String get wearOs => 'Wear OS';
-	@override String get foodApiTests => 'Food API-tester';
-	@override String get profileApiTests => 'Profil-API-tester';
-	@override String get feedback => 'Återkoppling';
-	@override String get dataReset => 'Återställ data';
-	@override String get database => 'Databas';
-	@override String get appInfo => 'Appinfo';
-	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2150,6 +1967,8 @@ extension on TranslationsSv {
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Tycker du om ${appLabel}?',
 			'feedbackRating.yes' => 'Ja, jag gillar det',
 			'feedbackRating.no' => 'Inte riktigt',
+			'feedbackRating.rateStepHeading' => 'Betygsätt i Google Play',
+			'feedbackRating.emailStepHeading' => 'Skicka feedback via e-post',
 			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'En snabb bedömning hjälper andra att hitta ${appLabel} och håller utvecklingen igång. Skulle du ta en stund och ge ett betyg?',
 			'feedbackRating.shareFeedbackViaEmail' => 'Din feedback påverkar vad som kommer härnäst — vi läser varje meddelande. Vill du dela dina tankar via e-post?',
 			'feedbackRating.rateCta' => 'Betygsätt i Google Play',
@@ -2162,173 +1981,6 @@ extension on TranslationsSv {
 			'feedbackRating.thankYouMessage' => 'Tack! Vi frågar igen vid ett annat tillfälle.',
 			'errors.loadingProfileData' => 'Fel vid inläsning av profildata',
 			'errors.somethingWentWrong' => 'Något gick fel.',
-			'debug.title' => 'Debugalternativ',
-			'debug.searchHint' => 'Sökalternativ...',
-			'debug.sections.notifications' => 'Notifieringar',
-			'debug.sections.healthConnect' => 'Health Connect',
-			'debug.sections.wearOs' => 'Wear OS',
-			'debug.sections.foodApiTests' => 'Food API-tester',
-			'debug.sections.profileApiTests' => 'Profil-API-tester',
-			'debug.sections.feedback' => 'Återkoppling',
-			'debug.sections.dataReset' => 'Återställ data',
-			'debug.sections.database' => 'Databas',
-			'debug.sections.appInfo' => 'Appinfo',
-			'debug.sections.shorebird' => 'Shorebird',
-			'debug.inspectDatabaseTables' => 'Inspektera databastabeller',
-			'debug.databaseInspectorTitle' => 'Databasinspektör',
-			'debug.databaseOnlyWithRealData' => 'Databasinspektion är endast tillgänglig när du använder verkliga data (inte mockdata).',
-			'debug.tableRowCount' => ({required Object count}) => '${count} rader',
-			'debug.emptyTable' => 'Inga rader',
-			'debug.showActiveNotifications' => 'Visa aktiva notifieringar',
-			'debug.scheduleTestNotification' => 'Schemalägg testnotifikation (10s)',
-			'debug.triggerBreakfastNotification' => 'Aktivera frukostnotifikation',
-			'debug.cancelAllNotifications' => 'Avbryt alla notifieringar',
-			'debug.activeNotifications' => 'Aktiva notifieringar',
-			'debug.noTitle' => 'Ingen titel',
-			'debug.noBody' => 'Ingen kropp',
-			'debug.fetchTodaysSteps' => 'Hämta dagens steg',
-			'debug.fetchTodaysCalories' => 'Hämta dagens kalorier',
-			'debug.fetchLatestWeight' => 'Hämta senaste vikten',
-			'debug.fetchLatestHeight' => 'Hämta senaste längden',
-			'debug.writeTestWeight' => 'Skriv testvikt (70kg)',
-			'debug.writeTestHeight' => 'Skriv testlängd (175cm)',
-			'debug.syncLast7Days' => 'Synkronisera senaste 7 dagarna',
-			'debug.sync7DaysTitle' => '7-dagars synkronisering',
-			'debug.checkCurrentLocale' => 'Kontrollera nuvarande språkvariant',
-			'debug.currentLocale' => 'Aktuell språkvariant',
-			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Språk: ${languageCode}\nLand: ${countryCode}\nEnhetssystem: ${unitSystem}',
-			'debug.latestWeight' => 'Senaste vikten',
-			'debug.latestHeight' => 'Senaste längden',
-			'debug.todaysCalories' => 'Dagens kalorier',
-			'debug.totalCaloriesBurned' => ({required Object calories}) => 'Totalt brända kalorier: ${calories}',
-			'debug.syncSuccess' => ({required Object count}) => 'Framgångsrikt hämtat ${count} datapunkter för Steg, Kalorier och Vikt under de senaste 7 dagarna.',
-			'debug.noWeightData' => 'Ingen viktdata hittades under de senaste 30 dagarna.',
-			'debug.noHeightData' => 'Ingen längddata hittades under det senaste året.',
-			'debug.noCalorieData' => 'Ingen kaloridata hittades för idag.',
-			'debug.weightWritten' => 'Testvikt (70kg) har skrivits.',
-			'debug.weightWriteFailed' => 'Misslyckades med att skriva testvikt.',
-			'debug.heightWritten' => 'Testlängd (175cm) har skrivits.',
-			'debug.heightWriteFailed' => 'Misslyckades med att skriva testlängd.',
-			'debug.noNotifications' => 'Inga aktiva notifieringar.',
-			'debug.testNotificationScheduled' => 'Testnotifikation schemalagd för 10 sekunder från nu.',
-			'debug.testNotificationBody' => 'Detta är en testnotifikation schemalagd för 10 sekunder från nu.',
-			'debug.breakfastNotificationTriggered' => 'Frukostnotifikation aktiverad.',
-			'debug.allNotificationsCancelled' => 'Alla notifieringar avbröts.',
-			'debug.fetchingData' => 'Hämtar data för de senaste 7 dagarna...',
-			'debug.id' => ({required Object id}) => 'ID: ${id}',
-			'debug.showFeedbackRatingSheet' => 'Visa återkopplings- och betygsruta',
-			'debug.clearUserPreferences' => 'Återställ användarinställningar',
-			'debug.clearUserPreferencesConfirmationTitle' => 'Återställ användarinställningar?',
-			'debug.clearUserPreferencesConfirmationMessage' => 'Tema, språk och feedbackinställningar kommer att återställas. Måltider och profil påverkas inte.',
-			'debug.clearUserProfile' => 'Rensa användarprofil',
-			'debug.clearUserProfileConfirmationTitle' => 'Rensa användarprofil?',
-			'debug.clearUserProfileConfirmationMessage' => 'Din profilinformation (dagligt mål, längd, vikt med mera) kommer att raderas. Måltider och inställningar påverkas inte.',
-			'debug.clear' => 'Rensa',
-			'debug.cancel' => 'Avbryt',
-			'debug.checkWatchConnection' => 'Kontrollera klockans anslutning',
-			'debug.sendTestMessage' => 'Skicka testmeddelande',
-			'debug.sendTestMessageSubtitle' => 'Skicka ett enkelt testmeddelande till klockan',
-			'debug.sendTestMealData' => 'Skicka testmåldata',
-			'debug.sendTestMealDataSubtitle' => 'Skicka exempel på måltidsdata till klockan',
-			'debug.sendTestCalorieGoal' => 'Skicka testkalorimål',
-			'debug.sendTestCalorieGoalSubtitle' => 'Skicka exempel på kalorimål till klockan',
-			'debug.viewReceivedMessages' => 'Visa mottagna meddelanden',
-			'debug.viewReceivedMessagesSubtitle' => 'Visa meddelanden mottagna från klockan',
-			'debug.watchConnected' => 'Klockan är ansluten ✓',
-			'debug.device' => 'Enhet',
-			'debug.nearby' => 'I närheten',
-			'debug.yes' => 'Ja',
-			'debug.no' => 'Nej',
-			'debug.connectedDevices' => 'Anslutna enheter',
-			'debug.deviceInfoUnavailable' => '(Enhetsinformation ej tillgänglig)',
-			'debug.unknownDevice' => 'Okänd enhet',
-			'debug.watchNotConnected' => 'Klockan är inte ansluten ✗',
-			'debug.watchNotConnectedHint' => 'Se till att:\n• Båda enheterna är parade\n• Klockappen körs\n• Båda apparna är i debug-/staging-läge',
-			'debug.watchConnection' => 'Klockans anslutning',
-			'debug.errorCheckingConnection' => ({required Object error}) => 'Fel vid kontroll av anslutning: ${error}',
-			'debug.helloFromPhone' => 'Hej från telefonen!',
-			'debug.testMessageSentSuccess' => 'Testmeddelande skickat!',
-			'debug.testMessageFailed' => 'Kunde inte skicka testmeddelande. Kontrollera klockans anslutning.',
-			'debug.errorSendingMessage' => ({required Object error}) => 'Fel vid skickande av meddelande: ${error}',
-			'debug.testMeal' => 'Testmåltid',
-			'debug.testMealDataSentSuccess' => 'Testmåltidsdata skickades!',
-			'debug.failedToSendMealData' => 'Kunde inte skicka måltidsdata. Kontrollera klockans anslutning.',
-			'debug.errorSendingMealData' => ({required Object error}) => 'Fel vid skickande av måltidsdata: ${error}',
-			'debug.testCalorieGoalSentSuccess' => 'Testkalorimål skickat!',
-			_ => null,
-		} ?? switch (path) {
-			'debug.failedToSendCalorieGoal' => 'Kunde inte skicka kalorimål. Kontrollera klockans anslutning.',
-			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Fel vid skickande av kalorimål: ${error}',
-			'debug.testAnalyzeImage' => 'Testa bildanalys',
-			'debug.testAnalyzeImageSubtitle' => 'Ladda upp fördefinierad testbild',
-			'debug.testDetectImage' => 'Testa bildigenkänning',
-			'debug.testDetectImageSubtitle' => 'Identifiera måltid från bild-URL',
-			'debug.detectImageFromGallery' => 'Identifiera bild från galleriet',
-			'debug.detectImageFromGallerySubtitle' => 'Välj bild, ladda upp till bucket och uppskatta kalorier',
-			'debug.testDetectText' => 'Testa textigenkänning',
-			'debug.testDetectTextSubtitle' => 'Identifiera måltid från textbeskrivning',
-			'debug.testMealLoggingWithVariations' => 'Testa måltidsloggning med variationer',
-			'debug.testMealLoggingWithVariationsSubtitle' => 'Testa hela flödet för måltidsloggning med variationer',
-			'debug.mockMealWithVariations' => 'Fiktiv måltid med variationer',
-			'debug.mockMealWithVariationsSubtitle' => 'Förhandsgranska variations- och tipsvyn utan att logga',
-			'debug.mockMealName' => 'Grillad kyckling med ris och grönsaker',
-			'debug.mockTip' => 'Detta är ett exempelråd för förhandsvisning av gränssnittet. Måltiden loggas inte.',
-			'debug.mockMealDescription' => 'Fiktiv måltid för felsökning',
-			'debug.portionSizeQuestion' => 'Hur var portionsstorleken?',
-			'debug.extraSidesQuestion' => 'Några extra tillbehör?',
-			'debug.optionSmall' => 'Liten',
-			'debug.optionMedium' => 'Medium',
-			'debug.optionLarge' => 'Stor',
-			'debug.optionNone' => 'Ingen',
-			'debug.optionSideSalad' => 'Sallad som tillbehör',
-			'debug.optionBreadRoll' => 'Fralla',
-			'debug.testingAnalyzeImage' => 'Testar analyzeImage-API...',
-			'debug.testingDetectImage' => 'Testar detectImage-API...',
-			'debug.testingDetectText' => 'Testar detectText-API...',
-			'debug.selectingImageFromGallery' => 'Väljer bild från galleriet...',
-			'debug.noImageSelected' => 'Ingen bild vald',
-			'debug.compressingImage' => 'Komprimerar bild...',
-			'debug.uploadingImageAndDetecting' => 'Laddar upp bild till bucket och identifierar måltid...',
-			'debug.testingMealLoggingFlow' => 'Testar flöde för måltidsloggning med variationer...',
-			'debug.testUpdateProfile' => 'Testa profiluppdatering',
-			'debug.testUpdateProfileSubtitle' => 'Skicka exempelprofil till backend med POST',
-			'debug.testingProfileApi' => 'Testar profil-API...',
-			'debug.profileUpdateSuccess' => 'Profil-API:t svarade framgångsrikt',
-			'debug.profileUpdateFailed' => ({required Object error}) => 'Fel i profil-API: ${error}',
-			'debug.noMealIdentifiedInResponse' => 'Ingen måltid identifierad i svaret',
-			'debug.mealIdentified' => 'Måltid identifierad',
-			'debug.confidence' => 'Sannolikhet',
-			'debug.tip' => 'Tips',
-			'debug.mealName' => 'Måltidens namn',
-			'debug.calories' => 'Kalorier',
-			'debug.protein' => 'Protein',
-			'debug.carbs' => 'Kolhydrater',
-			'debug.fat' => 'Fett',
-			'debug.noMealInfo' => 'Ingen måltidsinformation',
-			'debug.na' => 'N/A',
-			'debug.analyzeImageResult' => 'Resultat av bildanalys',
-			'debug.detectImageResult' => 'Resultat av bildigenkänning',
-			'debug.detectImageFromGalleryResult' => 'Resultat för bildidentifiering från galleriet',
-			'debug.detectTextResult' => 'Resultat av textigenkänning',
-			'debug.errorGeneric' => ({required Object error}) => 'Fel: ${error}',
-			'debug.variationsCount' => 'Variationer',
-			'debug.userPreferencesCleared' => 'Användarinställningar rensade',
-			'debug.userProfileCleared' => 'Användarprofil rensad',
-			'debug.checkForUpdate' => 'Sök efter uppdatering',
-			'debug.showPatchNumber' => 'Visa patchnummer',
-			'debug.showUpdateAvailable' => 'Visa uppdatering tillgänglig',
-			'debug.updateAvailable' => 'Uppdatering tillgänglig',
-			'debug.upToDate' => 'Uppdaterad',
-			'debug.shorebirdUnavailable' => 'Shorebird är inte tillgängligt i denna miljö.',
-			'debug.patchNumberLabel' => 'Patchnummer',
-			'debug.noPatchInstalled' => 'Ingen patch installerad',
-			'debug.todaysSteps' => 'Dagens steg',
-			'debug.stepsLabel' => 'Steg',
-			'debug.weightLabel' => ({required Object value}) => 'Vikt: ${value} kg',
-			'debug.heightLabel' => ({required Object value}) => 'Längd: ${value} cm',
-			'debug.receivedMessagesFromWatch' => 'Mottagna meddelanden från klockan',
-			'debug.noMessagesReceivedYet' => 'Inga meddelanden mottagna ännu.\n\nSkicka testdata från klockan för att se meddelanden här.',
-			'debug.messagesCleared' => 'Meddelanden raderade',
 			'health.syncFailed' => 'Kunde inte synkronisera med Health Connect',
 			'health.mealSynced' => 'Måltid synkroniserad med Health Connect',
 			_ => null,

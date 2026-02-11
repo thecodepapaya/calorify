@@ -7,7 +7,7 @@ import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/app_version.dart';
-import 'package:calorify/shared_widgets/grass.dart';
+import 'package:calorify/shared_widgets/easter_egg/grass.dart';
 import 'package:calorify/shared_widgets/language_picker_sheet.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

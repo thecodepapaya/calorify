@@ -17,79 +17,90 @@ class DatabaseLogger implements DatabaseInterface {
   @override
   Future<String?> getLanguageCode() {
     return _logRead(
-      'user_preferences',
-      'getLanguageCode',
-      () => _delegate.getLanguageCode(),
+      table: 'user_preferences',
+      operation: 'getLanguageCode',
+      action: () => _delegate.getLanguageCode(),
     );
   }
 
   @override
   Future<void> setLanguageCode(String? code) async {
-    await _logWrite('user_preferences', 'setLanguageCode', {
-      'languageCode': code ?? 'null',
-    }, () => _delegate.setLanguageCode(code));
+    await _logWrite(
+      table: 'user_preferences',
+      operation: 'setLanguageCode',
+      context: {'languageCode': code ?? 'null'},
+      action: () => _delegate.setLanguageCode(code),
+    );
   }
 
   @override
   Future<ThemeMode> getThemeMode() {
     return _logRead(
-      'user_preferences',
-      'getThemeMode',
-      () => _delegate.getThemeMode(),
+      table: 'user_preferences',
+      operation: 'getThemeMode',
+      action: () => _delegate.getThemeMode(),
     );
   }
 
   @override
   Future<void> setThemeMode(ThemeMode mode) async {
-    await _logWrite('user_preferences', 'setThemeMode', {
-      'theme': mode.name,
-    }, () => _delegate.setThemeMode(mode));
+    await _logWrite(
+      table: 'user_preferences',
+      operation: 'setThemeMode',
+      context: {'theme': mode.name},
+      action: () => _delegate.setThemeMode(mode),
+    );
   }
 
   @override
   Future<bool> hasSeenFeedbackSheet() {
     return _logRead(
-      'user_preferences',
-      'hasSeenFeedbackSheet',
-      () => _delegate.hasSeenFeedbackSheet(),
+      table: 'user_preferences',
+      operation: 'hasSeenFeedbackSheet',
+      action: () => _delegate.hasSeenFeedbackSheet(),
     );
   }
 
   @override
   Future<void> setFeedbackSheetShown() async {
     await _logWrite(
-      'user_preferences',
-      'setFeedbackSheetShown',
-      {},
-      () => _delegate.setFeedbackSheetShown(),
+      table: 'user_preferences',
+      operation: 'setFeedbackSheetShown',
+      context: {},
+      action: () => _delegate.setFeedbackSheetShown(),
     );
   }
 
   // User Profile Operations
   @override
   Future<void> saveUserProfile(UserProfile profile) async {
-    await _logWrite('user_profile', 'saveUserProfile', {
-      'hasHeight': profile.hasHeight(),
-      'hasWeight': profile.hasWeight(),
-      'hasGender': profile.hasGender(),
-    }, () => _delegate.saveUserProfile(profile));
+    await _logWrite(
+      table: 'user_profile',
+      operation: 'saveUserProfile',
+      context: {
+        'hasHeight': profile.hasHeight(),
+        'hasWeight': profile.hasWeight(),
+        'hasGender': profile.hasGender(),
+      },
+      action: () => _delegate.saveUserProfile(profile),
+    );
   }
 
   @override
   Future<UserProfile?> getUserProfile() {
     return _logRead(
-      'user_profile',
-      'getUserProfile',
-      () => _delegate.getUserProfile(),
+      table: 'user_profile',
+      operation: 'getUserProfile',
+      action: () => _delegate.getUserProfile(),
     );
   }
 
   @override
   Future<bool> isProfileComplete() {
     return _logRead(
-      'user_profile',
-      'isProfileComplete',
-      () => _delegate.isProfileComplete(),
+      table: 'user_profile',
+      operation: 'isProfileComplete',
+      action: () => _delegate.isProfileComplete(),
     );
   }
 
@@ -97,69 +108,83 @@ class DatabaseLogger implements DatabaseInterface {
   @override
   Future<int?> getDailyCalorieGoal() {
     return _logRead(
-      'user_profile',
-      'getDailyCalorieGoal',
-      () => _delegate.getDailyCalorieGoal(),
+      table: 'user_profile',
+      operation: 'getDailyCalorieGoal',
+      action: () => _delegate.getDailyCalorieGoal(),
     );
   }
 
   @override
   Stream<int?> watchDailyCalorieGoal() {
-    log('[DB READ] user_profile | watchDailyCalorieGoal | Stream');
-    return _delegate.watchDailyCalorieGoal();
+    return _logStream<int?>(
+      table: 'user_profile',
+      operation: 'watchDailyCalorieGoal',
+      streamFactory: () => _delegate.watchDailyCalorieGoal(),
+    );
   }
 
   @override
   Future<void> setDailyCalorieGoal(int goal) async {
     await _logWrite(
-      'user_profile',
-      'setDailyCalorieGoal',
-      {'goal': goal},
-      () => _delegate.setDailyCalorieGoal(goal),
+      table: 'user_profile',
+      operation: 'setDailyCalorieGoal',
+      context: {'goal': goal},
+      action: () => _delegate.setDailyCalorieGoal(goal),
     );
   }
 
   // Meal Operations
   @override
   Future<void> logMeal(Meal mealInfo) async {
-    await _logWrite('meal_info', 'logMeal', {
-      'name': mealInfo.name,
-      'calories': mealInfo.macros.calories,
-    }, () => _delegate.logMeal(mealInfo));
+    await _logWrite(
+      table: 'meal_info',
+      operation: 'logMeal',
+      context: {'name': mealInfo.name, 'calories': mealInfo.macros.calories},
+      action: () => _delegate.logMeal(mealInfo),
+    );
   }
 
   @override
   Future<void> upsertMeal(LoggedMeal mealInfo) async {
-    await _logWrite('meal_info', 'upsertMeal', {
-      'id': mealInfo.clientId,
-      'name': mealInfo.meal.name,
-      'calories': mealInfo.meal.macros.calories,
-    }, () => _delegate.upsertMeal(mealInfo));
+    await _logWrite(
+      table: 'meal_info',
+      operation: 'upsertMeal',
+      context: {
+        'id': mealInfo.clientId,
+        'name': mealInfo.meal.name,
+        'calories': mealInfo.meal.macros.calories,
+      },
+      action: () => _delegate.upsertMeal(mealInfo),
+    );
   }
 
   @override
   Future<void> deleteMeal(int mealId) async {
-    await _logWrite('meal_info', 'deleteMeal', {
-      'mealId': mealId,
-    }, () => _delegate.deleteMeal(mealId));
+    await _logWrite(
+      table: 'meal_info',
+      operation: 'deleteMeal',
+      context: {'mealId': mealId},
+      action: () => _delegate.deleteMeal(mealId),
+    );
   }
 
   @override
   Future<LoggedMeal?> getMealById(int mealId) {
     return _logRead(
-      'meal_info',
-      'getMealById',
-      () => _delegate.getMealById(mealId),
+      table: 'meal_info',
+      operation: 'getMealById',
+      action: () => _delegate.getMealById(mealId),
     );
   }
 
   @override
   Future<List<LoggedMeal>> paginatedMealsHistory({required int offset}) async {
     final contextStr = 'offset=$offset';
-    log('[DB READ] meal_info | paginatedMealsHistory | $contextStr');
-    final result = await _delegate.paginatedMealsHistory(offset: offset);
-    log(
-      '[DB READ] meal_info | paginatedMealsHistory | Result: ${result.length} meals',
+    final result = await _logRead(
+      table: 'meal_info',
+      operation: 'paginatedMealsHistory',
+      additionalContext: contextStr,
+      action: () => _delegate.paginatedMealsHistory(offset: offset),
     );
     return result;
   }
@@ -168,91 +193,109 @@ class DatabaseLogger implements DatabaseInterface {
   Future<List<LoggedMeal>> getLatestMealsForFeedbackEligibility({
     int limit = 5,
   }) async {
-    log('[DB READ] meal_info | getLatestMealsForFeedbackEligibility | limit=$limit');
-    final result =
-        await _delegate.getLatestMealsForFeedbackEligibility(limit: limit);
-    log(
-      '[DB READ] meal_info | getLatestMealsForFeedbackEligibility | Result: ${result.length} meals',
+    final result = await _logRead(
+      table: 'meal_info',
+      operation: 'getLatestMealsForFeedbackEligibility',
+      additionalContext: 'limit=$limit',
+      action:
+          () => _delegate.getLatestMealsForFeedbackEligibility(limit: limit),
     );
     return result;
   }
 
   @override
   Stream<List<LoggedMeal>> watchAllMealsForToday() {
-    log('[DB READ] meal_info | watchAllMealsForToday | Stream');
-    return _delegate.watchAllMealsForToday();
+    return _logStream<List<LoggedMeal>>(
+      table: 'meal_info',
+      operation: 'watchAllMealsForToday',
+      streamFactory: () => _delegate.watchAllMealsForToday(),
+    );
   }
 
   @override
   Stream<List<LoggedMeal>> watchAllMealsForLast7Days() {
-    log('[DB READ] meal_info | watchAllMealsForLast7Days | Stream');
-    return _delegate.watchAllMealsForLast7Days();
+    return _logStream<List<LoggedMeal>>(
+      table: 'meal_info',
+      operation: 'watchAllMealsForLast7Days',
+      streamFactory: () => _delegate.watchAllMealsForLast7Days(),
+    );
   }
 
   // Favorite Meal Operations
   @override
   Future<bool> isFavoriteMeal(int mealId) async {
-    log('[DB READ] favorite_meal | isFavoriteMeal | mealId=$mealId');
-    return await _delegate.isFavoriteMeal(mealId);
+    return await _logRead(
+      table: 'favorite_meal',
+      operation: 'isFavoriteMeal',
+      action: () => _delegate.isFavoriteMeal(mealId),
+    );
   }
 
   @override
   Future<void> addToFavorites(LoggedMeal mealInfo) async {
-    await _logWrite('favorite_meal', 'addToFavorites', {
-      'id': mealInfo.clientId,
-      'name': mealInfo.meal.name,
-    }, () => _delegate.addToFavorites(mealInfo));
+    await _logWrite(
+      table: 'favorite_meal',
+      operation: 'addToFavorites',
+      context: {'id': mealInfo.clientId, 'name': mealInfo.meal.name},
+      action: () => _delegate.addToFavorites(mealInfo),
+    );
   }
 
   @override
   Future<void> removeFavoriteMeal(int mealId) async {
     await _logWrite(
-      'favorite_meal',
-      'removeFavoriteMeal',
-      {'mealId': mealId},
-      () => _delegate.removeFavoriteMeal(mealId),
+      table: 'favorite_meal',
+      operation: 'removeFavoriteMeal',
+      context: {'mealId': mealId},
+      action: () => _delegate.removeFavoriteMeal(mealId),
     );
   }
 
   @override
   Future<void> updateFavoriteLastUsedAt(int mealId) async {
     await _logWrite(
-      'favorite_meal',
-      'updateFavoriteLastUsedAt',
-      {'mealId': mealId},
-      () => _delegate.updateFavoriteLastUsedAt(mealId),
+      table: 'favorite_meal',
+      operation: 'updateFavoriteLastUsedAt',
+      context: {'mealId': mealId},
+      action: () => _delegate.updateFavoriteLastUsedAt(mealId),
     );
   }
 
   @override
   Stream<List<FavoriteMeal>> watchAllFavoriteMeals() {
-    log('[DB READ] favorite_meal | watchAllFavoriteMeals | Stream');
-    return _delegate.watchAllFavoriteMeals();
+    return _logStream<List<FavoriteMeal>>(
+      table: 'favorite_meal',
+      operation: 'watchAllFavoriteMeals',
+      streamFactory: () => _delegate.watchAllFavoriteMeals(),
+    );
   }
 
   @override
   Stream<List<FavoriteMeal>> watchLastUsedFavoriteMeals() {
-    log('[DB READ] favorite_meal | watchLastUsedFavoriteMeals | Stream');
-    return _delegate.watchLastUsedFavoriteMeals();
+    return _logStream<List<FavoriteMeal>>(
+      table: 'favorite_meal',
+      operation: 'watchLastUsedFavoriteMeals',
+      streamFactory: () => _delegate.watchLastUsedFavoriteMeals(),
+    );
   }
 
   @override
   Future<void> clearUserPreferences() async {
     await _logWrite(
-      'user_preferences',
-      'clearUserPreferences',
-      {},
-      () => _delegate.clearUserPreferences(),
+      table: 'user_preferences',
+      operation: 'clearUserPreferences',
+      context: {},
+      action: () => _delegate.clearUserPreferences(),
     );
   }
 
   @override
   Future<void> clearUserProfile() async {
     await _logWrite(
-      'user_profile',
-      'clearUserProfile',
-      {},
-      () => _delegate.clearUserProfile(),
+      table: 'user_profile',
+      operation: 'clearUserProfile',
+      context: {},
+      action: () => _delegate.clearUserProfile(),
     );
   }
 
@@ -260,32 +303,58 @@ class DatabaseLogger implements DatabaseInterface {
   @override
   Future<void> clearAllData() async {
     await _logWrite(
-      'all_tables',
-      'clearAllData',
-      {},
-      () => _delegate.clearAllData(),
+      table: 'all_tables',
+      operation: 'clearAllData',
+      context: {},
+      action: () => _delegate.clearAllData(),
     );
   }
 
   // Helper methods for logging
-  Future<T> _logRead<T>(
-    String table,
-    String operation,
-    Future<T> Function() action,
-  ) async {
-    log('[DB READ] $table | $operation');
+  Stream<T> _logStream<T>({
+    required String table,
+    required String operation,
+    required Stream<T> Function() streamFactory,
+    String? additionalContext,
+  }) {
+    var msg = '[DB STREAM] $table | $operation';
+    if (additionalContext != null && additionalContext.isNotEmpty) {
+      msg = '$msg | $additionalContext';
+    }
+    log(msg);
+    return streamFactory();
+  }
+
+  Future<T> _logRead<T>({
+    required String table,
+    required String operation,
+    required Future<T> Function() action,
+    String? additionalContext,
+  }) async {
+    var msg = '[DB READ] $table | $operation';
+    if (additionalContext != null && additionalContext.isNotEmpty) {
+      msg = '$msg | $additionalContext';
+    }
+    log(msg);
     final result = await action();
     return result;
   }
 
-  Future<T> _logWrite<T>(
-    String table,
-    String operation,
-    Map<String, dynamic> context,
-    Future<T> Function() action,
-  ) async {
+  Future<T> _logWrite<T>({
+    required String table,
+    required String operation,
+    Map<String, dynamic> context = const {},
+    required Future<T> Function() action,
+    String? additionalContext,
+  }) async {
     final contextStr = _formatContext(context);
-    log('[DB WRITE] $table | $operation | $contextStr');
+    var msg = '[DB WRITE] $table | $operation';
+    if (contextStr.isNotEmpty) msg = '$msg | $contextStr';
+
+    if (additionalContext != null && additionalContext.isNotEmpty) {
+      msg = '$msg | $additionalContext';
+    }
+    log(msg);
     final result = await action();
     return result;
   }

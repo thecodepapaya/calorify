@@ -57,7 +57,6 @@ class TranslationsFi with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsCommonFi common = _TranslationsCommonFi._(_root);
 	@override late final _TranslationsFeedbackRatingFi feedbackRating = _TranslationsFeedbackRatingFi._(_root);
 	@override late final _TranslationsErrorsFi errors = _TranslationsErrorsFi._(_root);
-	@override late final _TranslationsDebugFi debug = _TranslationsDebugFi._(_root);
 	@override late final _TranslationsHealthFi health = _TranslationsHealthFi._(_root);
 }
 
@@ -359,6 +358,8 @@ class _TranslationsFeedbackRatingFi implements TranslationsFeedbackRatingEn {
 	@override String enjoyingQuestion({required Object appLabel}) => 'Nautitko ${appLabel}:stä?';
 	@override String get yes => 'Kyllä — pidän siitä';
 	@override String get no => 'Ei oikeastaan';
+	@override String get rateStepHeading => 'Arvostele Play-kaupassa';
+	@override String get emailStepHeading => 'Lähetä palautetta sähköpostitse';
 	@override String soloDevMessage({required Object appLabel}) => 'Nopea arvio auttaa muita löytämään ${appLabel} ja pitää kehityksen käynnissä. Haluaisitko käyttää hetken ja jättää arvion?';
 	@override String get shareFeedbackViaEmail => 'Palautteesi vaikuttaa siihen, mitä teemme seuraavaksi — luemme jokaisen viestin. Haluaisitko jakaa ajatuksesi sähköpostitse?';
 	@override String get rateCta => 'Arvostele Play-kaupassa';
@@ -380,171 +381,6 @@ class _TranslationsErrorsFi implements TranslationsErrorsEn {
 	// Translations
 	@override String get loadingProfileData => 'Virhe profiilitietojen lataamisessa';
 	@override String get somethingWentWrong => 'Jokin meni pieleen.';
-}
-
-// Path: debug
-class _TranslationsDebugFi implements TranslationsDebugEn {
-	_TranslationsDebugFi._(this._root);
-
-	final TranslationsFi _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Debug-vaihtoehdot';
-	@override String get searchHint => 'Hae asetuksia...';
-	@override late final _TranslationsDebugSectionsFi sections = _TranslationsDebugSectionsFi._(_root);
-	@override String get inspectDatabaseTables => 'Tarkastele tietokannan tauluja';
-	@override String get databaseInspectorTitle => 'Tietokannan tarkastaja';
-	@override String get databaseOnlyWithRealData => 'Tietokannan tarkastelu on mahdollista vain todellisilla tiedoilla (ei testidatalla).';
-	@override String tableRowCount({required Object count}) => '${count} riviä';
-	@override String get emptyTable => 'Ei rivejä';
-	@override String get showActiveNotifications => 'Näytä aktiiviset ilmoitukset';
-	@override String get scheduleTestNotification => 'Aikatauluta testimuistutus (10s)';
-	@override String get triggerBreakfastNotification => 'Käynnistä aamiaismuistutus';
-	@override String get cancelAllNotifications => 'Peruuta kaikki ilmoitukset';
-	@override String get activeNotifications => 'Aktiiviset ilmoitukset';
-	@override String get noTitle => 'Ei otsikkoa';
-	@override String get noBody => 'Ei sisältöä';
-	@override String get fetchTodaysSteps => 'Hae tämän päivän askeleet';
-	@override String get fetchTodaysCalories => 'Hae tämän päivän kalorit';
-	@override String get fetchLatestWeight => 'Hae viimeisin paino';
-	@override String get fetchLatestHeight => 'Hae viimeisin pituus';
-	@override String get writeTestWeight => 'Kirjoita testipaino (70kg)';
-	@override String get writeTestHeight => 'Kirjoita testipituus (175cm)';
-	@override String get syncLast7Days => 'Synkronoi viimeiset 7 päivää';
-	@override String get sync7DaysTitle => '7 päivän Synkronointi';
-	@override String get checkCurrentLocale => 'Tarkista nykyinen kieliasetus';
-	@override String get currentLocale => 'Nykyinen kieli';
-	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Kieli: ${languageCode}\nMaa: ${countryCode}\nYksikköjärjestelmä: ${unitSystem}';
-	@override String get latestWeight => 'Viimeisin paino';
-	@override String get latestHeight => 'Viimeisin pituus';
-	@override String get todaysCalories => 'Tämän päivän kalorit';
-	@override String totalCaloriesBurned({required Object calories}) => 'Yhteensä poltetut kalorit: ${calories}';
-	@override String syncSuccess({required Object count}) => 'Onnistuneesti haettu ${count} tietopistettä askeleista, kaloreista ja painosta viimeisten 7 päivän aikana.';
-	@override String get noWeightData => 'Viimeisen 30 päivän aikana ei ole löytöjä painotiedoista.';
-	@override String get noHeightData => 'Viimeisen vuoden aikana ei ole löytöjä pituustiedoista.';
-	@override String get noCalorieData => 'Tänään ei ole löytöjä kalorietiedoista.';
-	@override String get weightWritten => 'Testipaino (70kg) kirjoitettu onnistuneesti.';
-	@override String get weightWriteFailed => 'Testipainon kirjoittaminen epäonnistui.';
-	@override String get heightWritten => 'Testipituus (175 cm) kirjoitettu onnistuneesti.';
-	@override String get heightWriteFailed => 'Testipituuden kirjoittaminen epäonnistui.';
-	@override String get noNotifications => 'Ei aktiivisia ilmoituksia.';
-	@override String get testNotificationScheduled => 'Testimuistutus aikataulutettu 10 sekunniksi nyt.';
-	@override String get testNotificationBody => 'Tämä on testimuistutus, joka aikataulutettiin 10 sekunniksi nyt.';
-	@override String get breakfastNotificationTriggered => 'Aamiaismuistutus käynnistetty.';
-	@override String get allNotificationsCancelled => 'Kaikki ilmoitukset peruutettu.';
-	@override String get fetchingData => 'Hakee tietoja viimeisiltä 7 päivältä...';
-	@override String id({required Object id}) => 'ID: ${id}';
-	@override String get showFeedbackRatingSheet => 'Näytä palaute- ja arvosteluikkuna';
-	@override String get clearUserPreferences => 'Nollaa käyttäjäasetukset';
-	@override String get clearUserPreferencesConfirmationTitle => 'Nollataanko käyttäjäasetukset?';
-	@override String get clearUserPreferencesConfirmationMessage => 'Teema, kieli ja palautteeseen liittyvät asetukset nollataan. Ateriat ja profiilitiedot eivät muutu.';
-	@override String get clearUserProfile => 'Nollaa käyttäjäprofiili';
-	@override String get clearUserProfileConfirmationTitle => 'Nollataanko käyttäjäprofiili?';
-	@override String get clearUserProfileConfirmationMessage => 'Profiilitietosi (päivittäinen tavoite, pituus, paino jne.) tyhjennetään. Ateriat ja asetukset eivät muutu.';
-	@override String get clear => 'Tyhjennä';
-	@override String get cancel => 'Peruuta';
-	@override String get checkWatchConnection => 'Tarkista kelloyhteys';
-	@override String get sendTestMessage => 'Lähetä testiviesti';
-	@override String get sendTestMessageSubtitle => 'Lähetä yksinkertainen testiviesti kelloon';
-	@override String get sendTestMealData => 'Lähetä testiateriatiedot';
-	@override String get sendTestMealDataSubtitle => 'Lähetä esimerkkiaineistoa kelloon';
-	@override String get sendTestCalorieGoal => 'Lähetä testikaloritavoite';
-	@override String get sendTestCalorieGoalSubtitle => 'Lähetä esimerkkikaloritavoite kelloon';
-	@override String get viewReceivedMessages => 'Näytä vastaanotetut viestit';
-	@override String get viewReceivedMessagesSubtitle => 'Näytä kellosta vastaanotetut viestit';
-	@override String get watchConnected => 'Kello yhdistetty ✓';
-	@override String get device => 'Laite';
-	@override String get nearby => 'Lähellä';
-	@override String get yes => 'Kyllä';
-	@override String get no => 'Ei';
-	@override String get connectedDevices => 'Yhdistetyt laitteet';
-	@override String get deviceInfoUnavailable => '(Laitetietoja ei saatavilla)';
-	@override String get unknownDevice => 'Tuntematon laite';
-	@override String get watchNotConnected => 'Kello ei ole yhdistetty ✗';
-	@override String get watchNotConnectedHint => 'Varmista:\n• Laitteet on paritettu\n• Kellosovellus on käynnissä\n• Molemmat sovellukset ovat debug-/staging-tilassa';
-	@override String get watchConnection => 'Kelloyhteys';
-	@override String errorCheckingConnection({required Object error}) => 'Virhe yhteyden tarkistamisessa: ${error}';
-	@override String get helloFromPhone => 'Hei puhelimesta!';
-	@override String get testMessageSentSuccess => 'Testiviesti lähetetty onnistuneesti!';
-	@override String get testMessageFailed => 'Testiviestin lähetys epäonnistui. Tarkista kelloyhteys.';
-	@override String errorSendingMessage({required Object error}) => 'Virhe viestin lähettämisessä: ${error}';
-	@override String get testMeal => 'Testiateria';
-	@override String get testMealDataSentSuccess => 'Testiateriatiedot lähetetty onnistuneesti!';
-	@override String get failedToSendMealData => 'Ateriatietojen lähetys epäonnistui. Tarkista kelloyhteys.';
-	@override String errorSendingMealData({required Object error}) => 'Virhe ateriatietojen lähettämisessä: ${error}';
-	@override String get testCalorieGoalSentSuccess => 'Testikaloritavoite lähetetty onnistuneesti!';
-	@override String get failedToSendCalorieGoal => 'Kaloritavoitteen lähetys epäonnistui. Tarkista kelloyhteys.';
-	@override String errorSendingCalorieGoal({required Object error}) => 'Virhe kaloritavoitteen lähettämisessä: ${error}';
-	@override String get testAnalyzeImage => 'Testaa kuvan analysointi';
-	@override String get testAnalyzeImageSubtitle => 'Lähetä kovakoodattu testikuva';
-	@override String get testDetectImage => 'Testaa kuvan tunnistus';
-	@override String get testDetectImageSubtitle => 'Tunnista ateria kuvan URL-osoitteesta';
-	@override String get detectImageFromGallery => 'Tunnista kuva galleriasta';
-	@override String get detectImageFromGallerySubtitle => 'Valitse kuva, lataa säilöön ja arvioi kalorit';
-	@override String get testDetectText => 'Testaa tekstintunnistusta';
-	@override String get testDetectTextSubtitle => 'Tunnista ateria tekstikuvauksen perusteella';
-	@override String get testMealLoggingWithVariations => 'Testaa aterian kirjaus variaatioilla';
-	@override String get testMealLoggingWithVariationsSubtitle => 'Testaa koko aterian kirjausprosessi variaatioineen';
-	@override String get mockMealWithVariations => 'Mallipäivä (variaatioilla)';
-	@override String get mockMealWithVariationsSubtitle => 'Esikatsele variaatio- ja vinkkinäkymää ilman kirjaamista';
-	@override String get mockMealName => 'Grillattua kanaa riisin ja vihannesten kanssa';
-	@override String get mockTip => 'Tämä on esimerkkivinkki käyttöliittymän esikatseluun. Ateriaa ei ole kirjattu.';
-	@override String get mockMealDescription => 'Mallinäytteinen ateria debuggausta varten';
-	@override String get portionSizeQuestion => 'Kuinka suuri annoskoko oli?';
-	@override String get extraSidesQuestion => 'Onko lisukkeita?';
-	@override String get optionSmall => 'Pieni';
-	@override String get optionMedium => 'Keskikokoinen';
-	@override String get optionLarge => 'Suuri';
-	@override String get optionNone => 'Ei mitään';
-	@override String get optionSideSalad => 'Lisäsalaatti';
-	@override String get optionBreadRoll => 'Sämpylä';
-	@override String get testingAnalyzeImage => 'Testataan analyzeImage-APIa...';
-	@override String get testingDetectImage => 'Testataan detectImage-APIa...';
-	@override String get testingDetectText => 'Testataan detectText-APIa...';
-	@override String get selectingImageFromGallery => 'Valitaan kuva galleriasta...';
-	@override String get noImageSelected => 'Ei valittua kuvaa';
-	@override String get compressingImage => 'Kuvapakkaus...';
-	@override String get uploadingImageAndDetecting => 'Lähetetään kuva säilöön ja tunnistetaan ateria...';
-	@override String get testingMealLoggingFlow => 'Testataan aterian kirjausprosessia variaatioilla...';
-	@override String get testUpdateProfile => 'Testaa profiilin päivitys';
-	@override String get testUpdateProfileSubtitle => 'Lähetä esimerkkiprofiili POST-pyynnöllä palvelimelle';
-	@override String get testingProfileApi => 'Testataan profiili-APIa...';
-	@override String get profileUpdateSuccess => 'Profiili-API vastasi onnistuneesti';
-	@override String profileUpdateFailed({required Object error}) => 'Profiili-API-virhe: ${error}';
-	@override String get noMealIdentifiedInResponse => 'Vastauksesta ei tunnistettu ateriaa';
-	@override String get mealIdentified => 'Ateria tunnistettu';
-	@override String get confidence => 'Luottamustaso';
-	@override String get tip => 'Vinkki';
-	@override String get mealName => 'Aterian nimi';
-	@override String get calories => 'Kalorit';
-	@override String get protein => 'Proteiini';
-	@override String get carbs => 'Hiilihydraatit';
-	@override String get fat => 'Rasva';
-	@override String get noMealInfo => 'Ei ateriatietoja';
-	@override String get na => 'Ei saatavilla';
-	@override String get analyzeImageResult => 'Kuvan analysoinnin tulos';
-	@override String get detectImageResult => 'Kuvan tunnistuksen tulos';
-	@override String get detectImageFromGalleryResult => 'Gallerian kuvan tunnistuksen tulos';
-	@override String get detectTextResult => 'Tekstin tunnistuksen tulos';
-	@override String errorGeneric({required Object error}) => 'Virhe: ${error}';
-	@override String get variationsCount => 'Variaatiot';
-	@override String get userPreferencesCleared => 'Käyttäjäasetukset tyhjennetty';
-	@override String get userProfileCleared => 'Käyttäjäprofiili tyhjennetty';
-	@override String get checkForUpdate => 'Tarkista päivitykset';
-	@override String get showPatchNumber => 'Näytä patch-numero';
-	@override String get showUpdateAvailable => 'Näytä saatavilla oleva päivitys';
-	@override String get updateAvailable => 'Päivitys saatavilla';
-	@override String get upToDate => 'Ajantasalla';
-	@override String get shorebirdUnavailable => 'Shorebird ei ole käytettävissä tässä ympäristössä.';
-	@override String get patchNumberLabel => 'Patch-numero';
-	@override String get noPatchInstalled => 'Ei asennettua patchia';
-	@override String get todaysSteps => 'Tämän päivän askeleet';
-	@override String get stepsLabel => 'Askeleet';
-	@override String weightLabel({required Object value}) => 'Paino: ${value} kg';
-	@override String heightLabel({required Object value}) => 'Pituus: ${value} cm';
-	@override String get receivedMessagesFromWatch => 'Vastaanotetut viestit kellosta';
-	@override String get noMessagesReceivedYet => 'Ei vielä vastaanotettu viestejä.\n\nLähetä testitietoja kellosta nähdäksesi viestit täällä.';
-	@override String get messagesCleared => 'Viestit tyhjennetty';
 }
 
 // Path: health
@@ -1220,25 +1056,6 @@ class _TranslationsDisclaimerCalorieExpenditureFi implements TranslationsDisclai
 	@override String get description => 'Kun Health Connect -dataa ei ole saatavilla, arvioimme tämän päivän poltetut kalorit käyttämällä perusaineenvaihduntaasi (BMR) ja aktiivisuustasoasi (TDEE), skaalattuna kuluneen päivän osuudelle.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedFi howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedFi._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFi professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFi._(_root);
-}
-
-// Path: debug.sections
-class _TranslationsDebugSectionsFi implements TranslationsDebugSectionsEn {
-	_TranslationsDebugSectionsFi._(this._root);
-
-	final TranslationsFi _root; // ignore: unused_field
-
-	// Translations
-	@override String get notifications => 'Ilmoitukset';
-	@override String get healthConnect => 'Health Connect';
-	@override String get wearOs => 'Wear OS';
-	@override String get foodApiTests => 'Ruoan API -testit';
-	@override String get profileApiTests => 'Profiili-API-testit';
-	@override String get feedback => 'Palaute';
-	@override String get dataReset => 'Tietojen nollaus';
-	@override String get database => 'Tietokanta';
-	@override String get appInfo => 'Sovellustiedot';
-	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2150,6 +1967,8 @@ extension on TranslationsFi {
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nautitko ${appLabel}:stä?',
 			'feedbackRating.yes' => 'Kyllä — pidän siitä',
 			'feedbackRating.no' => 'Ei oikeastaan',
+			'feedbackRating.rateStepHeading' => 'Arvostele Play-kaupassa',
+			'feedbackRating.emailStepHeading' => 'Lähetä palautetta sähköpostitse',
 			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Nopea arvio auttaa muita löytämään ${appLabel} ja pitää kehityksen käynnissä. Haluaisitko käyttää hetken ja jättää arvion?',
 			'feedbackRating.shareFeedbackViaEmail' => 'Palautteesi vaikuttaa siihen, mitä teemme seuraavaksi — luemme jokaisen viestin. Haluaisitko jakaa ajatuksesi sähköpostitse?',
 			'feedbackRating.rateCta' => 'Arvostele Play-kaupassa',
@@ -2162,173 +1981,6 @@ extension on TranslationsFi {
 			'feedbackRating.thankYouMessage' => 'Kiitos! Kysymme uudestaan myöhemmin.',
 			'errors.loadingProfileData' => 'Virhe profiilitietojen lataamisessa',
 			'errors.somethingWentWrong' => 'Jokin meni pieleen.',
-			'debug.title' => 'Debug-vaihtoehdot',
-			'debug.searchHint' => 'Hae asetuksia...',
-			'debug.sections.notifications' => 'Ilmoitukset',
-			'debug.sections.healthConnect' => 'Health Connect',
-			'debug.sections.wearOs' => 'Wear OS',
-			'debug.sections.foodApiTests' => 'Ruoan API -testit',
-			'debug.sections.profileApiTests' => 'Profiili-API-testit',
-			'debug.sections.feedback' => 'Palaute',
-			'debug.sections.dataReset' => 'Tietojen nollaus',
-			'debug.sections.database' => 'Tietokanta',
-			'debug.sections.appInfo' => 'Sovellustiedot',
-			'debug.sections.shorebird' => 'Shorebird',
-			'debug.inspectDatabaseTables' => 'Tarkastele tietokannan tauluja',
-			'debug.databaseInspectorTitle' => 'Tietokannan tarkastaja',
-			'debug.databaseOnlyWithRealData' => 'Tietokannan tarkastelu on mahdollista vain todellisilla tiedoilla (ei testidatalla).',
-			'debug.tableRowCount' => ({required Object count}) => '${count} riviä',
-			'debug.emptyTable' => 'Ei rivejä',
-			'debug.showActiveNotifications' => 'Näytä aktiiviset ilmoitukset',
-			'debug.scheduleTestNotification' => 'Aikatauluta testimuistutus (10s)',
-			'debug.triggerBreakfastNotification' => 'Käynnistä aamiaismuistutus',
-			'debug.cancelAllNotifications' => 'Peruuta kaikki ilmoitukset',
-			'debug.activeNotifications' => 'Aktiiviset ilmoitukset',
-			'debug.noTitle' => 'Ei otsikkoa',
-			'debug.noBody' => 'Ei sisältöä',
-			'debug.fetchTodaysSteps' => 'Hae tämän päivän askeleet',
-			'debug.fetchTodaysCalories' => 'Hae tämän päivän kalorit',
-			'debug.fetchLatestWeight' => 'Hae viimeisin paino',
-			'debug.fetchLatestHeight' => 'Hae viimeisin pituus',
-			'debug.writeTestWeight' => 'Kirjoita testipaino (70kg)',
-			'debug.writeTestHeight' => 'Kirjoita testipituus (175cm)',
-			'debug.syncLast7Days' => 'Synkronoi viimeiset 7 päivää',
-			'debug.sync7DaysTitle' => '7 päivän Synkronointi',
-			'debug.checkCurrentLocale' => 'Tarkista nykyinen kieliasetus',
-			'debug.currentLocale' => 'Nykyinen kieli',
-			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Kieli: ${languageCode}\nMaa: ${countryCode}\nYksikköjärjestelmä: ${unitSystem}',
-			'debug.latestWeight' => 'Viimeisin paino',
-			'debug.latestHeight' => 'Viimeisin pituus',
-			'debug.todaysCalories' => 'Tämän päivän kalorit',
-			'debug.totalCaloriesBurned' => ({required Object calories}) => 'Yhteensä poltetut kalorit: ${calories}',
-			'debug.syncSuccess' => ({required Object count}) => 'Onnistuneesti haettu ${count} tietopistettä askeleista, kaloreista ja painosta viimeisten 7 päivän aikana.',
-			'debug.noWeightData' => 'Viimeisen 30 päivän aikana ei ole löytöjä painotiedoista.',
-			'debug.noHeightData' => 'Viimeisen vuoden aikana ei ole löytöjä pituustiedoista.',
-			'debug.noCalorieData' => 'Tänään ei ole löytöjä kalorietiedoista.',
-			'debug.weightWritten' => 'Testipaino (70kg) kirjoitettu onnistuneesti.',
-			'debug.weightWriteFailed' => 'Testipainon kirjoittaminen epäonnistui.',
-			'debug.heightWritten' => 'Testipituus (175 cm) kirjoitettu onnistuneesti.',
-			'debug.heightWriteFailed' => 'Testipituuden kirjoittaminen epäonnistui.',
-			'debug.noNotifications' => 'Ei aktiivisia ilmoituksia.',
-			'debug.testNotificationScheduled' => 'Testimuistutus aikataulutettu 10 sekunniksi nyt.',
-			'debug.testNotificationBody' => 'Tämä on testimuistutus, joka aikataulutettiin 10 sekunniksi nyt.',
-			'debug.breakfastNotificationTriggered' => 'Aamiaismuistutus käynnistetty.',
-			'debug.allNotificationsCancelled' => 'Kaikki ilmoitukset peruutettu.',
-			'debug.fetchingData' => 'Hakee tietoja viimeisiltä 7 päivältä...',
-			'debug.id' => ({required Object id}) => 'ID: ${id}',
-			'debug.showFeedbackRatingSheet' => 'Näytä palaute- ja arvosteluikkuna',
-			'debug.clearUserPreferences' => 'Nollaa käyttäjäasetukset',
-			'debug.clearUserPreferencesConfirmationTitle' => 'Nollataanko käyttäjäasetukset?',
-			'debug.clearUserPreferencesConfirmationMessage' => 'Teema, kieli ja palautteeseen liittyvät asetukset nollataan. Ateriat ja profiilitiedot eivät muutu.',
-			'debug.clearUserProfile' => 'Nollaa käyttäjäprofiili',
-			'debug.clearUserProfileConfirmationTitle' => 'Nollataanko käyttäjäprofiili?',
-			'debug.clearUserProfileConfirmationMessage' => 'Profiilitietosi (päivittäinen tavoite, pituus, paino jne.) tyhjennetään. Ateriat ja asetukset eivät muutu.',
-			'debug.clear' => 'Tyhjennä',
-			'debug.cancel' => 'Peruuta',
-			'debug.checkWatchConnection' => 'Tarkista kelloyhteys',
-			'debug.sendTestMessage' => 'Lähetä testiviesti',
-			'debug.sendTestMessageSubtitle' => 'Lähetä yksinkertainen testiviesti kelloon',
-			'debug.sendTestMealData' => 'Lähetä testiateriatiedot',
-			'debug.sendTestMealDataSubtitle' => 'Lähetä esimerkkiaineistoa kelloon',
-			'debug.sendTestCalorieGoal' => 'Lähetä testikaloritavoite',
-			'debug.sendTestCalorieGoalSubtitle' => 'Lähetä esimerkkikaloritavoite kelloon',
-			'debug.viewReceivedMessages' => 'Näytä vastaanotetut viestit',
-			'debug.viewReceivedMessagesSubtitle' => 'Näytä kellosta vastaanotetut viestit',
-			'debug.watchConnected' => 'Kello yhdistetty ✓',
-			'debug.device' => 'Laite',
-			'debug.nearby' => 'Lähellä',
-			'debug.yes' => 'Kyllä',
-			'debug.no' => 'Ei',
-			'debug.connectedDevices' => 'Yhdistetyt laitteet',
-			'debug.deviceInfoUnavailable' => '(Laitetietoja ei saatavilla)',
-			'debug.unknownDevice' => 'Tuntematon laite',
-			'debug.watchNotConnected' => 'Kello ei ole yhdistetty ✗',
-			'debug.watchNotConnectedHint' => 'Varmista:\n• Laitteet on paritettu\n• Kellosovellus on käynnissä\n• Molemmat sovellukset ovat debug-/staging-tilassa',
-			'debug.watchConnection' => 'Kelloyhteys',
-			'debug.errorCheckingConnection' => ({required Object error}) => 'Virhe yhteyden tarkistamisessa: ${error}',
-			'debug.helloFromPhone' => 'Hei puhelimesta!',
-			'debug.testMessageSentSuccess' => 'Testiviesti lähetetty onnistuneesti!',
-			'debug.testMessageFailed' => 'Testiviestin lähetys epäonnistui. Tarkista kelloyhteys.',
-			'debug.errorSendingMessage' => ({required Object error}) => 'Virhe viestin lähettämisessä: ${error}',
-			'debug.testMeal' => 'Testiateria',
-			'debug.testMealDataSentSuccess' => 'Testiateriatiedot lähetetty onnistuneesti!',
-			'debug.failedToSendMealData' => 'Ateriatietojen lähetys epäonnistui. Tarkista kelloyhteys.',
-			'debug.errorSendingMealData' => ({required Object error}) => 'Virhe ateriatietojen lähettämisessä: ${error}',
-			'debug.testCalorieGoalSentSuccess' => 'Testikaloritavoite lähetetty onnistuneesti!',
-			_ => null,
-		} ?? switch (path) {
-			'debug.failedToSendCalorieGoal' => 'Kaloritavoitteen lähetys epäonnistui. Tarkista kelloyhteys.',
-			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Virhe kaloritavoitteen lähettämisessä: ${error}',
-			'debug.testAnalyzeImage' => 'Testaa kuvan analysointi',
-			'debug.testAnalyzeImageSubtitle' => 'Lähetä kovakoodattu testikuva',
-			'debug.testDetectImage' => 'Testaa kuvan tunnistus',
-			'debug.testDetectImageSubtitle' => 'Tunnista ateria kuvan URL-osoitteesta',
-			'debug.detectImageFromGallery' => 'Tunnista kuva galleriasta',
-			'debug.detectImageFromGallerySubtitle' => 'Valitse kuva, lataa säilöön ja arvioi kalorit',
-			'debug.testDetectText' => 'Testaa tekstintunnistusta',
-			'debug.testDetectTextSubtitle' => 'Tunnista ateria tekstikuvauksen perusteella',
-			'debug.testMealLoggingWithVariations' => 'Testaa aterian kirjaus variaatioilla',
-			'debug.testMealLoggingWithVariationsSubtitle' => 'Testaa koko aterian kirjausprosessi variaatioineen',
-			'debug.mockMealWithVariations' => 'Mallipäivä (variaatioilla)',
-			'debug.mockMealWithVariationsSubtitle' => 'Esikatsele variaatio- ja vinkkinäkymää ilman kirjaamista',
-			'debug.mockMealName' => 'Grillattua kanaa riisin ja vihannesten kanssa',
-			'debug.mockTip' => 'Tämä on esimerkkivinkki käyttöliittymän esikatseluun. Ateriaa ei ole kirjattu.',
-			'debug.mockMealDescription' => 'Mallinäytteinen ateria debuggausta varten',
-			'debug.portionSizeQuestion' => 'Kuinka suuri annoskoko oli?',
-			'debug.extraSidesQuestion' => 'Onko lisukkeita?',
-			'debug.optionSmall' => 'Pieni',
-			'debug.optionMedium' => 'Keskikokoinen',
-			'debug.optionLarge' => 'Suuri',
-			'debug.optionNone' => 'Ei mitään',
-			'debug.optionSideSalad' => 'Lisäsalaatti',
-			'debug.optionBreadRoll' => 'Sämpylä',
-			'debug.testingAnalyzeImage' => 'Testataan analyzeImage-APIa...',
-			'debug.testingDetectImage' => 'Testataan detectImage-APIa...',
-			'debug.testingDetectText' => 'Testataan detectText-APIa...',
-			'debug.selectingImageFromGallery' => 'Valitaan kuva galleriasta...',
-			'debug.noImageSelected' => 'Ei valittua kuvaa',
-			'debug.compressingImage' => 'Kuvapakkaus...',
-			'debug.uploadingImageAndDetecting' => 'Lähetetään kuva säilöön ja tunnistetaan ateria...',
-			'debug.testingMealLoggingFlow' => 'Testataan aterian kirjausprosessia variaatioilla...',
-			'debug.testUpdateProfile' => 'Testaa profiilin päivitys',
-			'debug.testUpdateProfileSubtitle' => 'Lähetä esimerkkiprofiili POST-pyynnöllä palvelimelle',
-			'debug.testingProfileApi' => 'Testataan profiili-APIa...',
-			'debug.profileUpdateSuccess' => 'Profiili-API vastasi onnistuneesti',
-			'debug.profileUpdateFailed' => ({required Object error}) => 'Profiili-API-virhe: ${error}',
-			'debug.noMealIdentifiedInResponse' => 'Vastauksesta ei tunnistettu ateriaa',
-			'debug.mealIdentified' => 'Ateria tunnistettu',
-			'debug.confidence' => 'Luottamustaso',
-			'debug.tip' => 'Vinkki',
-			'debug.mealName' => 'Aterian nimi',
-			'debug.calories' => 'Kalorit',
-			'debug.protein' => 'Proteiini',
-			'debug.carbs' => 'Hiilihydraatit',
-			'debug.fat' => 'Rasva',
-			'debug.noMealInfo' => 'Ei ateriatietoja',
-			'debug.na' => 'Ei saatavilla',
-			'debug.analyzeImageResult' => 'Kuvan analysoinnin tulos',
-			'debug.detectImageResult' => 'Kuvan tunnistuksen tulos',
-			'debug.detectImageFromGalleryResult' => 'Gallerian kuvan tunnistuksen tulos',
-			'debug.detectTextResult' => 'Tekstin tunnistuksen tulos',
-			'debug.errorGeneric' => ({required Object error}) => 'Virhe: ${error}',
-			'debug.variationsCount' => 'Variaatiot',
-			'debug.userPreferencesCleared' => 'Käyttäjäasetukset tyhjennetty',
-			'debug.userProfileCleared' => 'Käyttäjäprofiili tyhjennetty',
-			'debug.checkForUpdate' => 'Tarkista päivitykset',
-			'debug.showPatchNumber' => 'Näytä patch-numero',
-			'debug.showUpdateAvailable' => 'Näytä saatavilla oleva päivitys',
-			'debug.updateAvailable' => 'Päivitys saatavilla',
-			'debug.upToDate' => 'Ajantasalla',
-			'debug.shorebirdUnavailable' => 'Shorebird ei ole käytettävissä tässä ympäristössä.',
-			'debug.patchNumberLabel' => 'Patch-numero',
-			'debug.noPatchInstalled' => 'Ei asennettua patchia',
-			'debug.todaysSteps' => 'Tämän päivän askeleet',
-			'debug.stepsLabel' => 'Askeleet',
-			'debug.weightLabel' => ({required Object value}) => 'Paino: ${value} kg',
-			'debug.heightLabel' => ({required Object value}) => 'Pituus: ${value} cm',
-			'debug.receivedMessagesFromWatch' => 'Vastaanotetut viestit kellosta',
-			'debug.noMessagesReceivedYet' => 'Ei vielä vastaanotettu viestejä.\n\nLähetä testitietoja kellosta nähdäksesi viestit täällä.',
-			'debug.messagesCleared' => 'Viestit tyhjennetty',
 			'health.syncFailed' => 'Yhdistäminen Health Connectiin epäonnistui',
 			'health.mealSynced' => 'Ateria synkronoitu Health Connectin kanssa',
 			_ => null,

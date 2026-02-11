@@ -57,7 +57,6 @@ class TranslationsTr with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsCommonTr common = _TranslationsCommonTr._(_root);
 	@override late final _TranslationsFeedbackRatingTr feedbackRating = _TranslationsFeedbackRatingTr._(_root);
 	@override late final _TranslationsErrorsTr errors = _TranslationsErrorsTr._(_root);
-	@override late final _TranslationsDebugTr debug = _TranslationsDebugTr._(_root);
 	@override late final _TranslationsHealthTr health = _TranslationsHealthTr._(_root);
 }
 
@@ -359,6 +358,8 @@ class _TranslationsFeedbackRatingTr implements TranslationsFeedbackRatingEn {
 	@override String enjoyingQuestion({required Object appLabel}) => '${appLabel} hoşunuza gidiyor mu?';
 	@override String get yes => 'Evet, beğeniyorum';
 	@override String get no => 'Pek değil';
+	@override String get rateStepHeading => 'Play Store\'da puan verin';
+	@override String get emailStepHeading => 'Geri bildirimi e-postayla gönderin';
 	@override String soloDevMessage({required Object appLabel}) => 'Kısa bir değerlendirme, diğer kullanıcıların ${appLabel}\'ı keşfetmesine yardımcı olur ve geliştirmeye devam etmemizi sağlar. Birkaç dakikanızı ayırıp değerlendirme bırakır mısınız?';
 	@override String get shareFeedbackViaEmail => 'Geri bildiriminiz geleceği şekillendirir — her mesajı dikkatle okuyoruz. Düşüncelerinizi e-posta ile paylaşmak ister misiniz?';
 	@override String get rateCta => 'Play Store\'da puan ver';
@@ -380,171 +381,6 @@ class _TranslationsErrorsTr implements TranslationsErrorsEn {
 	// Translations
 	@override String get loadingProfileData => 'Profil verileri yüklenirken hata';
 	@override String get somethingWentWrong => 'Bir şeyler ters gitti.';
-}
-
-// Path: debug
-class _TranslationsDebugTr implements TranslationsDebugEn {
-	_TranslationsDebugTr._(this._root);
-
-	final TranslationsTr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Hata Ayıklama Seçenekleri';
-	@override String get searchHint => 'Arama seçenekleri...';
-	@override late final _TranslationsDebugSectionsTr sections = _TranslationsDebugSectionsTr._(_root);
-	@override String get inspectDatabaseTables => 'Veritabanı tablolarını incele';
-	@override String get databaseInspectorTitle => 'Veritabanı İnceleyicisi';
-	@override String get databaseOnlyWithRealData => 'Veritabanı incelemesi yalnızca gerçek verilerle (sahte/mock verilerle değil) kullanılabilir.';
-	@override String tableRowCount({required Object count}) => '${count} satır';
-	@override String get emptyTable => 'Satır yok';
-	@override String get showActiveNotifications => 'Aktif Bildirimleri Göster';
-	@override String get scheduleTestNotification => 'Test Bildirimi Zamanla (10s)';
-	@override String get triggerBreakfastNotification => 'Kahvaltı Bildirimini Tetikle';
-	@override String get cancelAllNotifications => 'Tüm Bildirimleri İptal Et';
-	@override String get activeNotifications => 'Aktif Bildirimler';
-	@override String get noTitle => 'Başlık Yok';
-	@override String get noBody => 'Gövde Yok';
-	@override String get fetchTodaysSteps => 'Bugünün Adımlarını Al';
-	@override String get fetchTodaysCalories => 'Bugünün Kalorilerini Al';
-	@override String get fetchLatestWeight => 'En Son Kiloyu Al';
-	@override String get fetchLatestHeight => 'En Son Boyu Al';
-	@override String get writeTestWeight => 'Test Kilosunu Yaz (70kg)';
-	@override String get writeTestHeight => 'Test Boyunu Yaz (175cm)';
-	@override String get syncLast7Days => 'Son 7 Günü Senkronize Et';
-	@override String get sync7DaysTitle => '7-Günlük Senkronizasyon';
-	@override String get checkCurrentLocale => 'Geçerli Yereli Kontrol Et';
-	@override String get currentLocale => 'Geçerli Yerel';
-	@override String localeInfo({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Dil: ${languageCode}\nÜlke: ${countryCode}\nBirim Sistemi: ${unitSystem}';
-	@override String get latestWeight => 'Son Kilo';
-	@override String get latestHeight => 'Son Boy';
-	@override String get todaysCalories => 'Bugünün Kalorileri';
-	@override String totalCaloriesBurned({required Object calories}) => 'Son 7 günde toplam yakılan kalori: ${calories}';
-	@override String syncSuccess({required Object count}) => 'Son 7 gün içinde adımlar, kaloriler ve kilo için ${count} veri noktası başarıyla alındı.';
-	@override String get noWeightData => 'Son 30 günde kilo verisi bulunamadı.';
-	@override String get noHeightData => 'Son bir yılda boy verisi bulunamadı.';
-	@override String get noCalorieData => 'Bugün için kalori verisi bulunamadı.';
-	@override String get weightWritten => 'Test kilosu (70kg) başarıyla yazıldı.';
-	@override String get weightWriteFailed => 'Test kilosunu yazmada başarısız.';
-	@override String get heightWritten => 'Test boyu (175cm) başarıyla yazıldı.';
-	@override String get heightWriteFailed => 'Test boyunu yazmada başarısız.';
-	@override String get noNotifications => 'Aktif bildirim yok.';
-	@override String get testNotificationScheduled => 'Test bildirimi 10 saniye sonra planlandı.';
-	@override String get testNotificationBody => 'Bu, 10 saniye sonra planlanan bir test bildirimidir.';
-	@override String get breakfastNotificationTriggered => 'Kahvaltı bildirimi tetiklendi.';
-	@override String get allNotificationsCancelled => 'Tüm bildirimler iptal edildi.';
-	@override String get fetchingData => 'Son 7 gün için veri alınıyor...';
-	@override String id({required Object id}) => 'ID: ${id}';
-	@override String get showFeedbackRatingSheet => 'Geri bildirim / değerlendirme penceresini göster';
-	@override String get clearUserPreferences => 'Kullanıcı tercihlerini sıfırla';
-	@override String get clearUserPreferencesConfirmationTitle => 'Kullanıcı tercihleri sıfırlansın mı?';
-	@override String get clearUserPreferencesConfirmationMessage => 'Tema, dil ve geri bildirim tercihleri sıfırlanacak. Öğünler ve profil etkilenmeyecek.';
-	@override String get clearUserProfile => 'Kullanıcı profilini sıfırla';
-	@override String get clearUserProfileConfirmationTitle => 'Kullanıcı profili sıfırlansın mı?';
-	@override String get clearUserProfileConfirmationMessage => 'Profil verileriniz (günlük hedef, boy, kilo vb.) sıfırlanacak. Öğünler ve tercihler etkilenmeyecek.';
-	@override String get clear => 'Sıfırla';
-	@override String get cancel => 'İptal';
-	@override String get checkWatchConnection => 'Saat Bağlantısını Kontrol Et';
-	@override String get sendTestMessage => 'Test Mesajı Gönder';
-	@override String get sendTestMessageSubtitle => 'Saat\'e basit bir test mesajı gönder';
-	@override String get sendTestMealData => 'Test Yemek Verisi Gönder';
-	@override String get sendTestMealDataSubtitle => 'Saat\'e örnek yemek verisi gönder';
-	@override String get sendTestCalorieGoal => 'Test Kalori Hedefi Gönder';
-	@override String get sendTestCalorieGoalSubtitle => 'Saat\'e örnek kalori hedefi gönder';
-	@override String get viewReceivedMessages => 'Alınan Mesajları Görüntüle';
-	@override String get viewReceivedMessagesSubtitle => 'Saatten alınan mesajları görüntüle';
-	@override String get watchConnected => 'Saat bağlı ✓';
-	@override String get device => 'Cihaz';
-	@override String get nearby => 'Yakındaki';
-	@override String get yes => 'Evet';
-	@override String get no => 'Hayır';
-	@override String get connectedDevices => 'Bağlı cihazlar';
-	@override String get deviceInfoUnavailable => '(Cihaz bilgisi kullanılamıyor)';
-	@override String get unknownDevice => 'Bilinmeyen Cihaz';
-	@override String get watchNotConnected => 'Saat bağlı değil ✗';
-	@override String get watchNotConnectedHint => 'Emin olun:\n• Her iki cihaz eşleştirilmiş\n• Saat uygulaması çalışıyor\n• Her iki uygulama da debug/staging modunda';
-	@override String get watchConnection => 'Saat Bağlantısı';
-	@override String errorCheckingConnection({required Object error}) => 'Bağlantı kontrol edilirken hata: ${error}';
-	@override String get helloFromPhone => 'Telefondan selam!';
-	@override String get testMessageSentSuccess => 'Test mesajı başarıyla gönderildi!';
-	@override String get testMessageFailed => 'Test mesajı gönderilemedi. Saat bağlantısını kontrol edin.';
-	@override String errorSendingMessage({required Object error}) => 'Mesaj gönderilirken hata: ${error}';
-	@override String get testMeal => 'Test Yemeği';
-	@override String get testMealDataSentSuccess => 'Test yemek verisi başarıyla gönderildi!';
-	@override String get failedToSendMealData => 'Yemek verisi gönderilemedi. Saat bağlantısını kontrol edin.';
-	@override String errorSendingMealData({required Object error}) => 'Yemek verisi gönderilirken hata: ${error}';
-	@override String get testCalorieGoalSentSuccess => 'Test kalori hedefi başarıyla gönderildi!';
-	@override String get failedToSendCalorieGoal => 'Kalori hedefi gönderilemedi. Saat bağlantısını kontrol edin.';
-	@override String errorSendingCalorieGoal({required Object error}) => 'Kalori hedefi gönderilirken hata: ${error}';
-	@override String get testAnalyzeImage => 'Görüntü Analiz Testi';
-	@override String get testAnalyzeImageSubtitle => 'Kodlanmış test görselini yükle';
-	@override String get testDetectImage => 'Görsel Tespit Testi';
-	@override String get testDetectImageSubtitle => 'Görsel URL\'sinden yemeği tespit et';
-	@override String get detectImageFromGallery => 'Galeriden Görsel Tespiti';
-	@override String get detectImageFromGallerySubtitle => 'Görseli seç, bucket\'a yükle ve kalorileri tahmin et';
-	@override String get testDetectText => 'Metin Tespit Testi';
-	@override String get testDetectTextSubtitle => 'Yemek açıklamasından yemeği tespit et';
-	@override String get testMealLoggingWithVariations => 'Varyasyonlarla Yemek Kaydı Testi';
-	@override String get testMealLoggingWithVariationsSubtitle => 'Varyasyonlarla tam yemek kaydetme akışını test et';
-	@override String get mockMealWithVariations => 'Varyasyonlu sahte öğün';
-	@override String get mockMealWithVariationsSubtitle => 'Kayıt etmeden varyasyon ve ipucu sayfası arayüzünü önizle';
-	@override String get mockMealName => 'Izgara tavuk, pilav ve sebzeler';
-	@override String get mockTip => 'Bu, UI önizlemesi için sahte bir ipucu. Öğün kaydedilmedi.';
-	@override String get mockMealDescription => 'Hata ayıklama için sahte öğün';
-	@override String get portionSizeQuestion => 'Porsiyon büyüklüğü nasıldı?';
-	@override String get extraSidesQuestion => 'Ek yan ürün var mı?';
-	@override String get optionSmall => 'Küçük';
-	@override String get optionMedium => 'Orta';
-	@override String get optionLarge => 'Büyük';
-	@override String get optionNone => 'Yok';
-	@override String get optionSideSalad => 'Yan salata';
-	@override String get optionBreadRoll => 'Ekmek';
-	@override String get testingAnalyzeImage => 'analyzeImage API\'si test ediliyor...';
-	@override String get testingDetectImage => 'detectImage API\'si test ediliyor...';
-	@override String get testingDetectText => 'detectText API\'si test ediliyor...';
-	@override String get selectingImageFromGallery => 'Galeriden görsel seçiliyor...';
-	@override String get noImageSelected => 'Görsel seçilmedi';
-	@override String get compressingImage => 'Görsel sıkıştırılıyor...';
-	@override String get uploadingImageAndDetecting => 'Görsel bucket\'a yükleniyor ve yemek tespit ediliyor...';
-	@override String get testingMealLoggingFlow => 'Varyasyonlarla yemek kaydı akışı test ediliyor...';
-	@override String get testUpdateProfile => 'Profil güncellemesini test et';
-	@override String get testUpdateProfileSubtitle => 'Örnek profili sunucuya POST ile gönder';
-	@override String get testingProfileApi => 'Profil API\'si test ediliyor...';
-	@override String get profileUpdateSuccess => 'Profil API\'si başarıyla yanıt verdi';
-	@override String profileUpdateFailed({required Object error}) => 'Profil API hatası: ${error}';
-	@override String get noMealIdentifiedInResponse => 'Yanıtta yemek tespit edilemedi';
-	@override String get mealIdentified => 'Yemek tespit edildi';
-	@override String get confidence => 'Güven';
-	@override String get tip => 'İpucu';
-	@override String get mealName => 'Yemek Adı';
-	@override String get calories => 'Kalori';
-	@override String get protein => 'Protein';
-	@override String get carbs => 'Karbonhidrat';
-	@override String get fat => 'Yağ';
-	@override String get noMealInfo => 'Öğün bilgisi yok';
-	@override String get na => 'Yok';
-	@override String get analyzeImageResult => 'Görüntü Analiz Sonucu';
-	@override String get detectImageResult => 'Görsel Tespit Sonucu';
-	@override String get detectImageFromGalleryResult => 'Galeriden Görsel Tespit Sonucu';
-	@override String get detectTextResult => 'Metin Tespit Sonucu';
-	@override String errorGeneric({required Object error}) => 'Hata: ${error}';
-	@override String get variationsCount => 'Varyasyonlar';
-	@override String get userPreferencesCleared => 'Kullanıcı tercihleri temizlendi';
-	@override String get userProfileCleared => 'Kullanıcı profili temizlendi';
-	@override String get checkForUpdate => 'Güncellemeyi kontrol et';
-	@override String get showPatchNumber => 'Yama numarasını göster';
-	@override String get showUpdateAvailable => 'Güncelleme mevcut göster';
-	@override String get updateAvailable => 'Güncelleme mevcut';
-	@override String get upToDate => 'Güncel';
-	@override String get shorebirdUnavailable => 'Bu ortamda Shorebird kullanılamıyor.';
-	@override String get patchNumberLabel => 'Yama numarası';
-	@override String get noPatchInstalled => 'Yama yüklü değil';
-	@override String get todaysSteps => 'Bugünün Adımları';
-	@override String get stepsLabel => 'Adımlar';
-	@override String weightLabel({required Object value}) => 'Kilo: ${value} kg';
-	@override String heightLabel({required Object value}) => 'Boy: ${value} cm';
-	@override String get receivedMessagesFromWatch => 'Saatten Alınan Mesajlar';
-	@override String get noMessagesReceivedYet => 'Henüz mesaj alınmadı.\n\nMesajları görmek için saatten test verisi gönderin.';
-	@override String get messagesCleared => 'Mesajlar temizlendi';
 }
 
 // Path: health
@@ -1220,25 +1056,6 @@ class _TranslationsDisclaimerCalorieExpenditureTr implements TranslationsDisclai
 	@override String get description => 'Health Connect verileri kullanılamadığında, bugünkü yakılan kaloriyi Bazal Metabolizma Hızınız (BMR) ve aktivite seviyeniz (TDEE) kullanarak, günün geçen bölümüne göre ölçekleyerek tahmin ederiz.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedTr howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedTr._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTr professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTr._(_root);
-}
-
-// Path: debug.sections
-class _TranslationsDebugSectionsTr implements TranslationsDebugSectionsEn {
-	_TranslationsDebugSectionsTr._(this._root);
-
-	final TranslationsTr _root; // ignore: unused_field
-
-	// Translations
-	@override String get notifications => 'Bildirimler';
-	@override String get healthConnect => 'Health Connect';
-	@override String get wearOs => 'Wear OS';
-	@override String get foodApiTests => 'Yemek API Testleri';
-	@override String get profileApiTests => 'Profil API Testleri';
-	@override String get feedback => 'Geri bildirim';
-	@override String get dataReset => 'Veri sıfırlama';
-	@override String get database => 'Veritabanı';
-	@override String get appInfo => 'Uygulama Bilgisi';
-	@override String get shorebird => 'Shorebird';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2150,6 +1967,8 @@ extension on TranslationsTr {
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} hoşunuza gidiyor mu?',
 			'feedbackRating.yes' => 'Evet, beğeniyorum',
 			'feedbackRating.no' => 'Pek değil',
+			'feedbackRating.rateStepHeading' => 'Play Store\'da puan verin',
+			'feedbackRating.emailStepHeading' => 'Geri bildirimi e-postayla gönderin',
 			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Kısa bir değerlendirme, diğer kullanıcıların ${appLabel}\'ı keşfetmesine yardımcı olur ve geliştirmeye devam etmemizi sağlar. Birkaç dakikanızı ayırıp değerlendirme bırakır mısınız?',
 			'feedbackRating.shareFeedbackViaEmail' => 'Geri bildiriminiz geleceği şekillendirir — her mesajı dikkatle okuyoruz. Düşüncelerinizi e-posta ile paylaşmak ister misiniz?',
 			'feedbackRating.rateCta' => 'Play Store\'da puan ver',
@@ -2162,173 +1981,6 @@ extension on TranslationsTr {
 			'feedbackRating.thankYouMessage' => 'Teşekkürler! Başka bir zaman tekrar soracağız.',
 			'errors.loadingProfileData' => 'Profil verileri yüklenirken hata',
 			'errors.somethingWentWrong' => 'Bir şeyler ters gitti.',
-			'debug.title' => 'Hata Ayıklama Seçenekleri',
-			'debug.searchHint' => 'Arama seçenekleri...',
-			'debug.sections.notifications' => 'Bildirimler',
-			'debug.sections.healthConnect' => 'Health Connect',
-			'debug.sections.wearOs' => 'Wear OS',
-			'debug.sections.foodApiTests' => 'Yemek API Testleri',
-			'debug.sections.profileApiTests' => 'Profil API Testleri',
-			'debug.sections.feedback' => 'Geri bildirim',
-			'debug.sections.dataReset' => 'Veri sıfırlama',
-			'debug.sections.database' => 'Veritabanı',
-			'debug.sections.appInfo' => 'Uygulama Bilgisi',
-			'debug.sections.shorebird' => 'Shorebird',
-			'debug.inspectDatabaseTables' => 'Veritabanı tablolarını incele',
-			'debug.databaseInspectorTitle' => 'Veritabanı İnceleyicisi',
-			'debug.databaseOnlyWithRealData' => 'Veritabanı incelemesi yalnızca gerçek verilerle (sahte/mock verilerle değil) kullanılabilir.',
-			'debug.tableRowCount' => ({required Object count}) => '${count} satır',
-			'debug.emptyTable' => 'Satır yok',
-			'debug.showActiveNotifications' => 'Aktif Bildirimleri Göster',
-			'debug.scheduleTestNotification' => 'Test Bildirimi Zamanla (10s)',
-			'debug.triggerBreakfastNotification' => 'Kahvaltı Bildirimini Tetikle',
-			'debug.cancelAllNotifications' => 'Tüm Bildirimleri İptal Et',
-			'debug.activeNotifications' => 'Aktif Bildirimler',
-			'debug.noTitle' => 'Başlık Yok',
-			'debug.noBody' => 'Gövde Yok',
-			'debug.fetchTodaysSteps' => 'Bugünün Adımlarını Al',
-			'debug.fetchTodaysCalories' => 'Bugünün Kalorilerini Al',
-			'debug.fetchLatestWeight' => 'En Son Kiloyu Al',
-			'debug.fetchLatestHeight' => 'En Son Boyu Al',
-			'debug.writeTestWeight' => 'Test Kilosunu Yaz (70kg)',
-			'debug.writeTestHeight' => 'Test Boyunu Yaz (175cm)',
-			'debug.syncLast7Days' => 'Son 7 Günü Senkronize Et',
-			'debug.sync7DaysTitle' => '7-Günlük Senkronizasyon',
-			'debug.checkCurrentLocale' => 'Geçerli Yereli Kontrol Et',
-			'debug.currentLocale' => 'Geçerli Yerel',
-			'debug.localeInfo' => ({required Object languageCode, required Object countryCode, required Object unitSystem}) => 'Dil: ${languageCode}\nÜlke: ${countryCode}\nBirim Sistemi: ${unitSystem}',
-			'debug.latestWeight' => 'Son Kilo',
-			'debug.latestHeight' => 'Son Boy',
-			'debug.todaysCalories' => 'Bugünün Kalorileri',
-			'debug.totalCaloriesBurned' => ({required Object calories}) => 'Son 7 günde toplam yakılan kalori: ${calories}',
-			'debug.syncSuccess' => ({required Object count}) => 'Son 7 gün içinde adımlar, kaloriler ve kilo için ${count} veri noktası başarıyla alındı.',
-			'debug.noWeightData' => 'Son 30 günde kilo verisi bulunamadı.',
-			'debug.noHeightData' => 'Son bir yılda boy verisi bulunamadı.',
-			'debug.noCalorieData' => 'Bugün için kalori verisi bulunamadı.',
-			'debug.weightWritten' => 'Test kilosu (70kg) başarıyla yazıldı.',
-			'debug.weightWriteFailed' => 'Test kilosunu yazmada başarısız.',
-			'debug.heightWritten' => 'Test boyu (175cm) başarıyla yazıldı.',
-			'debug.heightWriteFailed' => 'Test boyunu yazmada başarısız.',
-			'debug.noNotifications' => 'Aktif bildirim yok.',
-			'debug.testNotificationScheduled' => 'Test bildirimi 10 saniye sonra planlandı.',
-			'debug.testNotificationBody' => 'Bu, 10 saniye sonra planlanan bir test bildirimidir.',
-			'debug.breakfastNotificationTriggered' => 'Kahvaltı bildirimi tetiklendi.',
-			'debug.allNotificationsCancelled' => 'Tüm bildirimler iptal edildi.',
-			'debug.fetchingData' => 'Son 7 gün için veri alınıyor...',
-			'debug.id' => ({required Object id}) => 'ID: ${id}',
-			'debug.showFeedbackRatingSheet' => 'Geri bildirim / değerlendirme penceresini göster',
-			'debug.clearUserPreferences' => 'Kullanıcı tercihlerini sıfırla',
-			'debug.clearUserPreferencesConfirmationTitle' => 'Kullanıcı tercihleri sıfırlansın mı?',
-			'debug.clearUserPreferencesConfirmationMessage' => 'Tema, dil ve geri bildirim tercihleri sıfırlanacak. Öğünler ve profil etkilenmeyecek.',
-			'debug.clearUserProfile' => 'Kullanıcı profilini sıfırla',
-			'debug.clearUserProfileConfirmationTitle' => 'Kullanıcı profili sıfırlansın mı?',
-			'debug.clearUserProfileConfirmationMessage' => 'Profil verileriniz (günlük hedef, boy, kilo vb.) sıfırlanacak. Öğünler ve tercihler etkilenmeyecek.',
-			'debug.clear' => 'Sıfırla',
-			'debug.cancel' => 'İptal',
-			'debug.checkWatchConnection' => 'Saat Bağlantısını Kontrol Et',
-			'debug.sendTestMessage' => 'Test Mesajı Gönder',
-			'debug.sendTestMessageSubtitle' => 'Saat\'e basit bir test mesajı gönder',
-			'debug.sendTestMealData' => 'Test Yemek Verisi Gönder',
-			'debug.sendTestMealDataSubtitle' => 'Saat\'e örnek yemek verisi gönder',
-			'debug.sendTestCalorieGoal' => 'Test Kalori Hedefi Gönder',
-			'debug.sendTestCalorieGoalSubtitle' => 'Saat\'e örnek kalori hedefi gönder',
-			'debug.viewReceivedMessages' => 'Alınan Mesajları Görüntüle',
-			'debug.viewReceivedMessagesSubtitle' => 'Saatten alınan mesajları görüntüle',
-			'debug.watchConnected' => 'Saat bağlı ✓',
-			'debug.device' => 'Cihaz',
-			'debug.nearby' => 'Yakındaki',
-			'debug.yes' => 'Evet',
-			'debug.no' => 'Hayır',
-			'debug.connectedDevices' => 'Bağlı cihazlar',
-			'debug.deviceInfoUnavailable' => '(Cihaz bilgisi kullanılamıyor)',
-			'debug.unknownDevice' => 'Bilinmeyen Cihaz',
-			'debug.watchNotConnected' => 'Saat bağlı değil ✗',
-			'debug.watchNotConnectedHint' => 'Emin olun:\n• Her iki cihaz eşleştirilmiş\n• Saat uygulaması çalışıyor\n• Her iki uygulama da debug/staging modunda',
-			'debug.watchConnection' => 'Saat Bağlantısı',
-			'debug.errorCheckingConnection' => ({required Object error}) => 'Bağlantı kontrol edilirken hata: ${error}',
-			'debug.helloFromPhone' => 'Telefondan selam!',
-			'debug.testMessageSentSuccess' => 'Test mesajı başarıyla gönderildi!',
-			'debug.testMessageFailed' => 'Test mesajı gönderilemedi. Saat bağlantısını kontrol edin.',
-			'debug.errorSendingMessage' => ({required Object error}) => 'Mesaj gönderilirken hata: ${error}',
-			'debug.testMeal' => 'Test Yemeği',
-			'debug.testMealDataSentSuccess' => 'Test yemek verisi başarıyla gönderildi!',
-			'debug.failedToSendMealData' => 'Yemek verisi gönderilemedi. Saat bağlantısını kontrol edin.',
-			'debug.errorSendingMealData' => ({required Object error}) => 'Yemek verisi gönderilirken hata: ${error}',
-			'debug.testCalorieGoalSentSuccess' => 'Test kalori hedefi başarıyla gönderildi!',
-			_ => null,
-		} ?? switch (path) {
-			'debug.failedToSendCalorieGoal' => 'Kalori hedefi gönderilemedi. Saat bağlantısını kontrol edin.',
-			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Kalori hedefi gönderilirken hata: ${error}',
-			'debug.testAnalyzeImage' => 'Görüntü Analiz Testi',
-			'debug.testAnalyzeImageSubtitle' => 'Kodlanmış test görselini yükle',
-			'debug.testDetectImage' => 'Görsel Tespit Testi',
-			'debug.testDetectImageSubtitle' => 'Görsel URL\'sinden yemeği tespit et',
-			'debug.detectImageFromGallery' => 'Galeriden Görsel Tespiti',
-			'debug.detectImageFromGallerySubtitle' => 'Görseli seç, bucket\'a yükle ve kalorileri tahmin et',
-			'debug.testDetectText' => 'Metin Tespit Testi',
-			'debug.testDetectTextSubtitle' => 'Yemek açıklamasından yemeği tespit et',
-			'debug.testMealLoggingWithVariations' => 'Varyasyonlarla Yemek Kaydı Testi',
-			'debug.testMealLoggingWithVariationsSubtitle' => 'Varyasyonlarla tam yemek kaydetme akışını test et',
-			'debug.mockMealWithVariations' => 'Varyasyonlu sahte öğün',
-			'debug.mockMealWithVariationsSubtitle' => 'Kayıt etmeden varyasyon ve ipucu sayfası arayüzünü önizle',
-			'debug.mockMealName' => 'Izgara tavuk, pilav ve sebzeler',
-			'debug.mockTip' => 'Bu, UI önizlemesi için sahte bir ipucu. Öğün kaydedilmedi.',
-			'debug.mockMealDescription' => 'Hata ayıklama için sahte öğün',
-			'debug.portionSizeQuestion' => 'Porsiyon büyüklüğü nasıldı?',
-			'debug.extraSidesQuestion' => 'Ek yan ürün var mı?',
-			'debug.optionSmall' => 'Küçük',
-			'debug.optionMedium' => 'Orta',
-			'debug.optionLarge' => 'Büyük',
-			'debug.optionNone' => 'Yok',
-			'debug.optionSideSalad' => 'Yan salata',
-			'debug.optionBreadRoll' => 'Ekmek',
-			'debug.testingAnalyzeImage' => 'analyzeImage API\'si test ediliyor...',
-			'debug.testingDetectImage' => 'detectImage API\'si test ediliyor...',
-			'debug.testingDetectText' => 'detectText API\'si test ediliyor...',
-			'debug.selectingImageFromGallery' => 'Galeriden görsel seçiliyor...',
-			'debug.noImageSelected' => 'Görsel seçilmedi',
-			'debug.compressingImage' => 'Görsel sıkıştırılıyor...',
-			'debug.uploadingImageAndDetecting' => 'Görsel bucket\'a yükleniyor ve yemek tespit ediliyor...',
-			'debug.testingMealLoggingFlow' => 'Varyasyonlarla yemek kaydı akışı test ediliyor...',
-			'debug.testUpdateProfile' => 'Profil güncellemesini test et',
-			'debug.testUpdateProfileSubtitle' => 'Örnek profili sunucuya POST ile gönder',
-			'debug.testingProfileApi' => 'Profil API\'si test ediliyor...',
-			'debug.profileUpdateSuccess' => 'Profil API\'si başarıyla yanıt verdi',
-			'debug.profileUpdateFailed' => ({required Object error}) => 'Profil API hatası: ${error}',
-			'debug.noMealIdentifiedInResponse' => 'Yanıtta yemek tespit edilemedi',
-			'debug.mealIdentified' => 'Yemek tespit edildi',
-			'debug.confidence' => 'Güven',
-			'debug.tip' => 'İpucu',
-			'debug.mealName' => 'Yemek Adı',
-			'debug.calories' => 'Kalori',
-			'debug.protein' => 'Protein',
-			'debug.carbs' => 'Karbonhidrat',
-			'debug.fat' => 'Yağ',
-			'debug.noMealInfo' => 'Öğün bilgisi yok',
-			'debug.na' => 'Yok',
-			'debug.analyzeImageResult' => 'Görüntü Analiz Sonucu',
-			'debug.detectImageResult' => 'Görsel Tespit Sonucu',
-			'debug.detectImageFromGalleryResult' => 'Galeriden Görsel Tespit Sonucu',
-			'debug.detectTextResult' => 'Metin Tespit Sonucu',
-			'debug.errorGeneric' => ({required Object error}) => 'Hata: ${error}',
-			'debug.variationsCount' => 'Varyasyonlar',
-			'debug.userPreferencesCleared' => 'Kullanıcı tercihleri temizlendi',
-			'debug.userProfileCleared' => 'Kullanıcı profili temizlendi',
-			'debug.checkForUpdate' => 'Güncellemeyi kontrol et',
-			'debug.showPatchNumber' => 'Yama numarasını göster',
-			'debug.showUpdateAvailable' => 'Güncelleme mevcut göster',
-			'debug.updateAvailable' => 'Güncelleme mevcut',
-			'debug.upToDate' => 'Güncel',
-			'debug.shorebirdUnavailable' => 'Bu ortamda Shorebird kullanılamıyor.',
-			'debug.patchNumberLabel' => 'Yama numarası',
-			'debug.noPatchInstalled' => 'Yama yüklü değil',
-			'debug.todaysSteps' => 'Bugünün Adımları',
-			'debug.stepsLabel' => 'Adımlar',
-			'debug.weightLabel' => ({required Object value}) => 'Kilo: ${value} kg',
-			'debug.heightLabel' => ({required Object value}) => 'Boy: ${value} cm',
-			'debug.receivedMessagesFromWatch' => 'Saatten Alınan Mesajlar',
-			'debug.noMessagesReceivedYet' => 'Henüz mesaj alınmadı.\n\nMesajları görmek için saatten test verisi gönderin.',
-			'debug.messagesCleared' => 'Mesajlar temizlendi',
 			'health.syncFailed' => 'Health Connect ile senkronize edilemedi',
 			'health.mealSynced' => 'Yemek Health Connect ile senkronize edildi',
 			_ => null,

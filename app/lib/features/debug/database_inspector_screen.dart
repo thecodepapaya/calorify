@@ -2,7 +2,6 @@ import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:drift/drift.dart' show OrderingMode, OrderingTerm;
 import 'package:flutter/material.dart';
-import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class DatabaseInspectorScreen extends StatefulWidget {
@@ -32,7 +31,7 @@ class _DatabaseInspectorScreenState extends State<DatabaseInspectorScreen> {
     final db = DatabaseService.rawDatabase;
 
     return Scaffold(
-      appBar: AppBar(title: Text(t['debug.databaseInspectorTitle'])),
+      appBar: AppBar(title: const Text('Database Inspector')),
       body:
           db == null
               ? _buildMockDataMessage(context)
@@ -45,7 +44,7 @@ class _DatabaseInspectorScreenState extends State<DatabaseInspectorScreen> {
       child: Padding(
         padding: const EdgeInsets.all(24),
         child: Text(
-          t['debug.databaseOnlyWithRealData'],
+          'Database inspection is only available when using real data (not mock).',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
@@ -78,7 +77,7 @@ class _DatabaseInspectorScreenState extends State<DatabaseInspectorScreen> {
         if (tables.isEmpty) {
           return Center(
             child: Text(
-              t['debug.emptyTable'],
+              'No rows',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           );
@@ -91,31 +90,13 @@ class _DatabaseInspectorScreenState extends State<DatabaseInspectorScreen> {
           itemBuilder: (context, index) {
             final meta = tables[index];
             final hasRows = meta.rowCount > 0;
-
-            String rowCountText;
-            final template = t['debug.tableRowCount'];
-            if (template is String) {
-              rowCountText = template.replaceAll(
-                '{count}',
-                meta.rowCount.toString(),
-              );
-            } else if (template is Function) {
-              try {
-                // Slang templates with {count} become a function like
-                // ({required Object count}) => String
-                rowCountText = template(count: meta.rowCount) as String;
-              } catch (_) {
-                rowCountText = '${meta.rowCount} rows';
-              }
-            } else {
-              rowCountText = '${meta.rowCount} rows';
-            }
+            final rowCountText = '${meta.rowCount} rows';
 
             return Card(
               child: ListTile(
                 leading: const Icon(LucideIcons.table),
                 title: Text(meta.displayName),
-                subtitle: Text(hasRows ? rowCountText : t['debug.emptyTable']),
+                subtitle: Text(hasRows ? rowCountText : 'No rows'),
                 trailing:
                     hasRows
                         ? const Icon(LucideIcons.chevronRight, size: 18)
@@ -227,7 +208,7 @@ class _DatabaseInspectorScreenState extends State<DatabaseInspectorScreen> {
                         final rows =
                             snapshot.data ?? const <Map<String, dynamic>>[];
                         if (rows.isEmpty) {
-                          return Center(child: Text(t['debug.emptyTable']));
+                          return const Center(child: Text('No rows'));
                         }
 
                         return ListView.builder(
