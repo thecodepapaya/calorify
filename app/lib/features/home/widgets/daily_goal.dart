@@ -108,7 +108,7 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
       children: [
         Container(
           margin: globalMargin,
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
             borderRadius: globalRadius,
             border: Border.all(color: colorScheme.outline),
@@ -134,7 +134,7 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
                   ),
                 ],
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 6),
               Text(
                 isTargetSet
                     ? t.home.dailyGoal.descriptionSet
@@ -143,7 +143,7 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
                   color: colorScheme.onSecondary.withValues(alpha: 0.7),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 14),
               StreamBuilder<List<LoggedMeal>>(
                 stream:
                     DatabaseService.databaseInterface.watchAllMealsForToday(),
@@ -268,9 +268,9 @@ class _ShowGoal extends StatelessWidget {
         ),
         // Burned Calories (if tracked)
         if (caloriesBurned > 0) ...[
-          SizedBox(height: 20),
+          SizedBox(height: 12),
           Divider(height: 1),
-          SizedBox(height: 20),
+          SizedBox(height: 12),
           Row(
             crossAxisAlignment: CrossAxisAlignment.baseline,
             textBaseline: TextBaseline.alphabetic,
@@ -303,7 +303,7 @@ class _ShowGoal extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 12),
           FutureBuilder<UserProfile?>(
             future: OnboardingService.instance.getProfileData(),
             builder: (context, profileSnapshot) {
@@ -428,7 +428,7 @@ class _GoalInputState extends State<_GoalInput> {
             Text(t.home.dailyGoal.kcal, style: textTheme.bodyLarge),
           ],
         ),
-        SizedBox(height: 12),
+        SizedBox(height: 8),
         Align(
           alignment: Alignment.centerRight,
           child: PrimaryButton(

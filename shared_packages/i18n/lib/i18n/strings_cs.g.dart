@@ -392,6 +392,11 @@ class _TranslationsDebugCs implements TranslationsDebugEn {
 	@override String get title => 'Možnosti ladění';
 	@override String get searchHint => 'Možnosti vyhledávání...';
 	@override late final _TranslationsDebugSectionsCs sections = _TranslationsDebugSectionsCs._(_root);
+	@override String get inspectDatabaseTables => 'Prohlédnout tabulky databáze';
+	@override String get databaseInspectorTitle => 'Inspektor databáze';
+	@override String get databaseOnlyWithRealData => 'Inspekce databáze je dostupná pouze při použití reálných dat (ne testovacích).';
+	@override String tableRowCount({required Object count}) => '${count} řádků';
+	@override String get emptyTable => 'Žádné záznamy';
 	@override String get showActiveNotifications => 'Zobrazit aktivní notifikace';
 	@override String get scheduleTestNotification => 'Naplánovat testovací notifikaci (10s)';
 	@override String get triggerBreakfastNotification => 'Spustit notifikaci na snídani';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsCs implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Testy API profilu';
 	@override String get feedback => 'Zpětná vazba';
 	@override String get dataReset => 'Reset dat';
+	@override String get database => 'Databáze';
 	@override String get appInfo => 'Informace o aplikaci';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsCs {
 			'debug.sections.profileApiTests' => 'Testy API profilu',
 			'debug.sections.feedback' => 'Zpětná vazba',
 			'debug.sections.dataReset' => 'Reset dat',
+			'debug.sections.database' => 'Databáze',
 			'debug.sections.appInfo' => 'Informace o aplikaci',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Prohlédnout tabulky databáze',
+			'debug.databaseInspectorTitle' => 'Inspektor databáze',
+			'debug.databaseOnlyWithRealData' => 'Inspekce databáze je dostupná pouze při použití reálných dat (ne testovacích).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} řádků',
+			'debug.emptyTable' => 'Žádné záznamy',
 			'debug.showActiveNotifications' => 'Zobrazit aktivní notifikace',
 			'debug.scheduleTestNotification' => 'Naplánovat testovací notifikaci (10s)',
 			'debug.triggerBreakfastNotification' => 'Spustit notifikaci na snídani',
@@ -2243,14 +2255,14 @@ extension on TranslationsCs {
 			'debug.failedToSendMealData' => 'Nepodařilo se odeslat údaje o jídle. Zkontrolujte připojení hodinek.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Chyba při odesílání údajů o jídle: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Testovací cíl kalorií byl úspěšně odeslán!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Nepodařilo se odeslat cíl kalorií. Zkontrolujte připojení hodinek.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Chyba při odesílání cíle kalorií: ${error}',
 			'debug.testAnalyzeImage' => 'Test analýzy obrázku',
 			'debug.testAnalyzeImageSubtitle' => 'Nahrát předdefinovaný testovací obrázek',
 			'debug.testDetectImage' => 'Test detekce obrázku',
 			'debug.testDetectImageSubtitle' => 'Detekovat jídlo z URL obrázku',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Detekovat obrázek z galerie',
 			'debug.detectImageFromGallerySubtitle' => 'Vyberte obrázek, nahrajte do úložiště a odhadněte kalorie',
 			'debug.testDetectText' => 'Test detekce textu',

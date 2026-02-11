@@ -392,6 +392,11 @@ class _TranslationsDebugIt implements TranslationsDebugEn {
 	@override String get title => 'Opzioni di Debug';
 	@override String get searchHint => 'Cerca opzioni...';
 	@override late final _TranslationsDebugSectionsIt sections = _TranslationsDebugSectionsIt._(_root);
+	@override String get inspectDatabaseTables => 'Ispeziona le tabelle del database';
+	@override String get databaseInspectorTitle => 'Ispezione del database';
+	@override String get databaseOnlyWithRealData => 'L\'ispezione del database è disponibile solo quando si usano dati reali (non simulati).';
+	@override String tableRowCount({required Object count}) => '${count} righe';
+	@override String get emptyTable => 'Nessuna riga';
 	@override String get showActiveNotifications => 'Mostra Notifiche Attive';
 	@override String get scheduleTestNotification => 'Pianifica Notifica di Test (10s)';
 	@override String get triggerBreakfastNotification => 'Attiva Notifica Colazione';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsIt implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Test API del profilo';
 	@override String get feedback => 'Feedback';
 	@override String get dataReset => 'Ripristino dati';
+	@override String get database => 'Database';
 	@override String get appInfo => 'Informazioni sull\'App';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsIt {
 			'debug.sections.profileApiTests' => 'Test API del profilo',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Ripristino dati',
+			'debug.sections.database' => 'Database',
 			'debug.sections.appInfo' => 'Informazioni sull\'App',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Ispeziona le tabelle del database',
+			'debug.databaseInspectorTitle' => 'Ispezione del database',
+			'debug.databaseOnlyWithRealData' => 'L\'ispezione del database è disponibile solo quando si usano dati reali (non simulati).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} righe',
+			'debug.emptyTable' => 'Nessuna riga',
 			'debug.showActiveNotifications' => 'Mostra Notifiche Attive',
 			'debug.scheduleTestNotification' => 'Pianifica Notifica di Test (10s)',
 			'debug.triggerBreakfastNotification' => 'Attiva Notifica Colazione',
@@ -2243,14 +2255,14 @@ extension on TranslationsIt {
 			'debug.failedToSendMealData' => 'Invio dei dati del pasto fallito. Verifica la connessione con l\'orologio.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Errore nell\'invio dei dati del pasto: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Obiettivo calorie di prova inviato con successo!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Invio dell\'obiettivo calorie fallito. Verifica la connessione con l\'orologio.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Errore nell\'invio dell\'obiettivo calorie: ${error}',
 			'debug.testAnalyzeImage' => 'Test Analisi Immagine',
 			'debug.testAnalyzeImageSubtitle' => 'Carica immagine di test predefinita',
 			'debug.testDetectImage' => 'Test Rilevamento Immagine',
 			'debug.testDetectImageSubtitle' => 'Rileva pasto da URL immagine',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Rileva immagine dalla galleria',
 			'debug.detectImageFromGallerySubtitle' => 'Seleziona immagine, caricala nel bucket e stima le calorie',
 			'debug.testDetectText' => 'Test Rilevamento Testo',

@@ -392,6 +392,11 @@ class _TranslationsDebugFi implements TranslationsDebugEn {
 	@override String get title => 'Debug-vaihtoehdot';
 	@override String get searchHint => 'Hae asetuksia...';
 	@override late final _TranslationsDebugSectionsFi sections = _TranslationsDebugSectionsFi._(_root);
+	@override String get inspectDatabaseTables => 'Tarkastele tietokannan tauluja';
+	@override String get databaseInspectorTitle => 'Tietokannan tarkastaja';
+	@override String get databaseOnlyWithRealData => 'Tietokannan tarkastelu on mahdollista vain todellisilla tiedoilla (ei testidatalla).';
+	@override String tableRowCount({required Object count}) => '${count} riviä';
+	@override String get emptyTable => 'Ei rivejä';
 	@override String get showActiveNotifications => 'Näytä aktiiviset ilmoitukset';
 	@override String get scheduleTestNotification => 'Aikatauluta testimuistutus (10s)';
 	@override String get triggerBreakfastNotification => 'Käynnistä aamiaismuistutus';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsFi implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Profiili-API-testit';
 	@override String get feedback => 'Palaute';
 	@override String get dataReset => 'Tietojen nollaus';
+	@override String get database => 'Tietokanta';
 	@override String get appInfo => 'Sovellustiedot';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsFi {
 			'debug.sections.profileApiTests' => 'Profiili-API-testit',
 			'debug.sections.feedback' => 'Palaute',
 			'debug.sections.dataReset' => 'Tietojen nollaus',
+			'debug.sections.database' => 'Tietokanta',
 			'debug.sections.appInfo' => 'Sovellustiedot',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Tarkastele tietokannan tauluja',
+			'debug.databaseInspectorTitle' => 'Tietokannan tarkastaja',
+			'debug.databaseOnlyWithRealData' => 'Tietokannan tarkastelu on mahdollista vain todellisilla tiedoilla (ei testidatalla).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} riviä',
+			'debug.emptyTable' => 'Ei rivejä',
 			'debug.showActiveNotifications' => 'Näytä aktiiviset ilmoitukset',
 			'debug.scheduleTestNotification' => 'Aikatauluta testimuistutus (10s)',
 			'debug.triggerBreakfastNotification' => 'Käynnistä aamiaismuistutus',
@@ -2243,14 +2255,14 @@ extension on TranslationsFi {
 			'debug.failedToSendMealData' => 'Ateriatietojen lähetys epäonnistui. Tarkista kelloyhteys.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Virhe ateriatietojen lähettämisessä: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Testikaloritavoite lähetetty onnistuneesti!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Kaloritavoitteen lähetys epäonnistui. Tarkista kelloyhteys.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Virhe kaloritavoitteen lähettämisessä: ${error}',
 			'debug.testAnalyzeImage' => 'Testaa kuvan analysointi',
 			'debug.testAnalyzeImageSubtitle' => 'Lähetä kovakoodattu testikuva',
 			'debug.testDetectImage' => 'Testaa kuvan tunnistus',
 			'debug.testDetectImageSubtitle' => 'Tunnista ateria kuvan URL-osoitteesta',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Tunnista kuva galleriasta',
 			'debug.detectImageFromGallerySubtitle' => 'Valitse kuva, lataa säilöön ja arvioi kalorit',
 			'debug.testDetectText' => 'Testaa tekstintunnistusta',

@@ -392,6 +392,11 @@ class _TranslationsDebugUk implements TranslationsDebugEn {
 	@override String get title => 'Опції налагодження';
 	@override String get searchHint => 'Параметри пошуку...';
 	@override late final _TranslationsDebugSectionsUk sections = _TranslationsDebugSectionsUk._(_root);
+	@override String get inspectDatabaseTables => 'Переглянути таблиці бази даних';
+	@override String get databaseInspectorTitle => 'Інспектор бази даних';
+	@override String get databaseOnlyWithRealData => 'Перегляд бази даних доступний лише при використанні реальних даних (не тестових).';
+	@override String tableRowCount({required Object count}) => '${count} рядків';
+	@override String get emptyTable => 'Немає записів';
 	@override String get showActiveNotifications => 'Показати активні сповіщення';
 	@override String get scheduleTestNotification => 'Запланувати тестове сповіщення (10с)';
 	@override String get triggerBreakfastNotification => 'Запустити сповіщення про сніданок';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsUk implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Тести API профілю';
 	@override String get feedback => 'Зворотній зв\'язок';
 	@override String get dataReset => 'Скидання даних';
+	@override String get database => 'База даних';
 	@override String get appInfo => 'Інформація про додаток';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsUk {
 			'debug.sections.profileApiTests' => 'Тести API профілю',
 			'debug.sections.feedback' => 'Зворотній зв\'язок',
 			'debug.sections.dataReset' => 'Скидання даних',
+			'debug.sections.database' => 'База даних',
 			'debug.sections.appInfo' => 'Інформація про додаток',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Переглянути таблиці бази даних',
+			'debug.databaseInspectorTitle' => 'Інспектор бази даних',
+			'debug.databaseOnlyWithRealData' => 'Перегляд бази даних доступний лише при використанні реальних даних (не тестових).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} рядків',
+			'debug.emptyTable' => 'Немає записів',
 			'debug.showActiveNotifications' => 'Показати активні сповіщення',
 			'debug.scheduleTestNotification' => 'Запланувати тестове сповіщення (10с)',
 			'debug.triggerBreakfastNotification' => 'Запустити сповіщення про сніданок',
@@ -2243,14 +2255,14 @@ extension on TranslationsUk {
 			'debug.failedToSendMealData' => 'Не вдалося надіслати дані про страву. Перевірте підключення годинника.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Помилка під час відправки даних про страву: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Тестова ціль за калоріями успішно надіслана!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Не вдалося надіслати ціль по калоріям. Перевірте підключення годинника.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Помилка під час надсилання цілі по калоріям: ${error}',
 			'debug.testAnalyzeImage' => 'Тест: аналіз зображення',
 			'debug.testAnalyzeImageSubtitle' => 'Завантажити фіксоване тестове зображення',
 			'debug.testDetectImage' => 'Тест: розпізнати зображення',
 			'debug.testDetectImageSubtitle' => 'Розпізнати страву за URL зображення',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Розпізнати зображення з галереї',
 			'debug.detectImageFromGallerySubtitle' => 'Виберіть зображення, завантажте до сховища та оцініть калорії',
 			'debug.testDetectText' => 'Тест: розпізнавання тексту',

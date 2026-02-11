@@ -392,6 +392,11 @@ class _TranslationsDebugAr implements TranslationsDebugEn {
 	@override String get title => 'خيارات التصحيح';
 	@override String get searchHint => 'ابحث...';
 	@override late final _TranslationsDebugSectionsAr sections = _TranslationsDebugSectionsAr._(_root);
+	@override String get inspectDatabaseTables => 'عرض جداول قاعدة البيانات';
+	@override String get databaseInspectorTitle => 'مستكشف قاعدة البيانات';
+	@override String get databaseOnlyWithRealData => 'فحص قاعدة البيانات متاح فقط عند استخدام بيانات حقيقية (وليست بيانات محاكاة).';
+	@override String tableRowCount({required Object count}) => '${count} صفوف';
+	@override String get emptyTable => 'لا توجد صفوف';
 	@override String get showActiveNotifications => 'عرض التنبيهات النشطة';
 	@override String get scheduleTestNotification => 'جدولة تنبيه اختبار (10 ثواني)';
 	@override String get triggerBreakfastNotification => 'تنبيه إفطار مُفعّل';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsAr implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'اختبارات واجهة برمجة تطبيقات الملف الشخصي';
 	@override String get feedback => 'التعليقات';
 	@override String get dataReset => 'إعادة تعيين البيانات';
+	@override String get database => 'قاعدة البيانات';
 	@override String get appInfo => 'معلومات التطبيق';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsAr {
 			'debug.sections.profileApiTests' => 'اختبارات واجهة برمجة تطبيقات الملف الشخصي',
 			'debug.sections.feedback' => 'التعليقات',
 			'debug.sections.dataReset' => 'إعادة تعيين البيانات',
+			'debug.sections.database' => 'قاعدة البيانات',
 			'debug.sections.appInfo' => 'معلومات التطبيق',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'عرض جداول قاعدة البيانات',
+			'debug.databaseInspectorTitle' => 'مستكشف قاعدة البيانات',
+			'debug.databaseOnlyWithRealData' => 'فحص قاعدة البيانات متاح فقط عند استخدام بيانات حقيقية (وليست بيانات محاكاة).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} صفوف',
+			'debug.emptyTable' => 'لا توجد صفوف',
 			'debug.showActiveNotifications' => 'عرض التنبيهات النشطة',
 			'debug.scheduleTestNotification' => 'جدولة تنبيه اختبار (10 ثواني)',
 			'debug.triggerBreakfastNotification' => 'تنبيه إفطار مُفعّل',
@@ -2243,14 +2255,14 @@ extension on TranslationsAr {
 			'debug.failedToSendMealData' => 'فشل إرسال بيانات الوجبة. تحقق من اتصال الساعة.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'خطأ أثناء إرسال بيانات الوجبة: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'تم إرسال هدف السعرات الاختباري بنجاح!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'فشل إرسال هدف السعرات. تحقق من اتصال الساعة.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'خطأ أثناء إرسال هدف السعرات: ${error}',
 			'debug.testAnalyzeImage' => 'اختبار تحليل الصورة',
 			'debug.testAnalyzeImageSubtitle' => 'رفع صورة اختبار مضمَّنة',
 			'debug.testDetectImage' => 'اختبار اكتشاف الصورة',
 			'debug.testDetectImageSubtitle' => 'اكتشاف الوجبة من رابط الصورة',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'اكتشاف صورة من المعرض',
 			'debug.detectImageFromGallerySubtitle' => 'اختر صورة، ارفعها إلى الحاوية وقم بتقدير السعرات',
 			'debug.testDetectText' => 'اختبار اكتشاف النص',

@@ -392,6 +392,11 @@ class _TranslationsDebugId implements TranslationsDebugEn {
 	@override String get title => 'Opsi Debug';
 	@override String get searchHint => 'Opsi pencarian...';
 	@override late final _TranslationsDebugSectionsId sections = _TranslationsDebugSectionsId._(_root);
+	@override String get inspectDatabaseTables => 'Periksa tabel basis data';
+	@override String get databaseInspectorTitle => 'Inspektur Basis Data';
+	@override String get databaseOnlyWithRealData => 'Inspeksi basis data hanya tersedia saat menggunakan data nyata (bukan data tiruan).';
+	@override String tableRowCount({required Object count}) => '${count} baris';
+	@override String get emptyTable => 'Tidak ada baris';
 	@override String get showActiveNotifications => 'Tampilkan Pemberitahuan Aktif';
 	@override String get scheduleTestNotification => 'Jadwalkan Pemberitahuan Uji (10 detik)';
 	@override String get triggerBreakfastNotification => 'Aktifkan Pemberitahuan Sarapan';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsId implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Tes API Profil';
 	@override String get feedback => 'Umpan balik';
 	@override String get dataReset => 'Atur ulang data';
+	@override String get database => 'Basis data';
 	@override String get appInfo => 'Info Aplikasi';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsId {
 			'debug.sections.profileApiTests' => 'Tes API Profil',
 			'debug.sections.feedback' => 'Umpan balik',
 			'debug.sections.dataReset' => 'Atur ulang data',
+			'debug.sections.database' => 'Basis data',
 			'debug.sections.appInfo' => 'Info Aplikasi',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Periksa tabel basis data',
+			'debug.databaseInspectorTitle' => 'Inspektur Basis Data',
+			'debug.databaseOnlyWithRealData' => 'Inspeksi basis data hanya tersedia saat menggunakan data nyata (bukan data tiruan).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} baris',
+			'debug.emptyTable' => 'Tidak ada baris',
 			'debug.showActiveNotifications' => 'Tampilkan Pemberitahuan Aktif',
 			'debug.scheduleTestNotification' => 'Jadwalkan Pemberitahuan Uji (10 detik)',
 			'debug.triggerBreakfastNotification' => 'Aktifkan Pemberitahuan Sarapan',
@@ -2243,14 +2255,14 @@ extension on TranslationsId {
 			'debug.failedToSendMealData' => 'Gagal mengirim data makanan. Periksa koneksi jam.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Kesalahan mengirim data makanan: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Target kalori uji berhasil dikirim!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Gagal mengirim target kalori. Periksa koneksi jam.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Kesalahan mengirim target kalori: ${error}',
 			'debug.testAnalyzeImage' => 'Uji Analisis Gambar',
 			'debug.testAnalyzeImageSubtitle' => 'Unggah gambar uji yang sudah ditentukan',
 			'debug.testDetectImage' => 'Uji Deteksi Gambar',
 			'debug.testDetectImageSubtitle' => 'Deteksi makanan dari URL gambar',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Deteksi Gambar dari Galeri',
 			'debug.detectImageFromGallerySubtitle' => 'Pilih gambar, unggah ke bucket & estimasi kalori',
 			'debug.testDetectText' => 'Uji Deteksi Teks',

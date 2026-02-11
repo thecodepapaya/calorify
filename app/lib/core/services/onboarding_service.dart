@@ -117,14 +117,24 @@ class OnboardingService {
   }
 
   /// Estimate calories burned so far today using the user's profile/TDEE.
-  /// Uses a simple fractional-day scaling:
-  /// estimate = TDEE * (hoursPassed + minutes/60 + seconds/3600) / 24
+  /// When Health Connect is not allowed and we fall back to this estimate,
+  /// we don't want calories to change every minute (causing UI jitter),
+  /// so we advance in coarse time blocks.
+  ///
+  /// Implementation detail:
+  /// - We use fixed-size blocks (e.g. 3 hours) and round the current time
+  ///   down to the start of the current block.
+  /// - estimate = TDEE * (blockStartHours / 24)
   double? estimateCaloriesBurnedTodayFromProfile(UserProfile data) {
     final tdee = calculateTDEE(data);
     if (tdee == null) return null;
     final now = DateTime.now();
-    final fractionOfDay =
-        (now.hour + now.minute / 60.0 + now.second / 3600.0) / 24.0;
+    // Size of each time block (in hours). Adjust this if we want coarser or
+    // finer fallback updates.
+    const blockSizeHours = 3;
+    final blocksElapsed = now.hour ~/ blockSizeHours;
+    final blockStartHours = blocksElapsed * blockSizeHours;
+    final fractionOfDay = blockStartHours / 24;
     return tdee * fractionOfDay;
   }
 

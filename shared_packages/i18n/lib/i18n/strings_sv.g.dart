@@ -392,6 +392,11 @@ class _TranslationsDebugSv implements TranslationsDebugEn {
 	@override String get title => 'Debugalternativ';
 	@override String get searchHint => 'Sökalternativ...';
 	@override late final _TranslationsDebugSectionsSv sections = _TranslationsDebugSectionsSv._(_root);
+	@override String get inspectDatabaseTables => 'Inspektera databastabeller';
+	@override String get databaseInspectorTitle => 'Databasinspektör';
+	@override String get databaseOnlyWithRealData => 'Databasinspektion är endast tillgänglig när du använder verkliga data (inte mockdata).';
+	@override String tableRowCount({required Object count}) => '${count} rader';
+	@override String get emptyTable => 'Inga rader';
 	@override String get showActiveNotifications => 'Visa aktiva notifieringar';
 	@override String get scheduleTestNotification => 'Schemalägg testnotifikation (10s)';
 	@override String get triggerBreakfastNotification => 'Aktivera frukostnotifikation';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsSv implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Profil-API-tester';
 	@override String get feedback => 'Återkoppling';
 	@override String get dataReset => 'Återställ data';
+	@override String get database => 'Databas';
 	@override String get appInfo => 'Appinfo';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsSv {
 			'debug.sections.profileApiTests' => 'Profil-API-tester',
 			'debug.sections.feedback' => 'Återkoppling',
 			'debug.sections.dataReset' => 'Återställ data',
+			'debug.sections.database' => 'Databas',
 			'debug.sections.appInfo' => 'Appinfo',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Inspektera databastabeller',
+			'debug.databaseInspectorTitle' => 'Databasinspektör',
+			'debug.databaseOnlyWithRealData' => 'Databasinspektion är endast tillgänglig när du använder verkliga data (inte mockdata).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} rader',
+			'debug.emptyTable' => 'Inga rader',
 			'debug.showActiveNotifications' => 'Visa aktiva notifieringar',
 			'debug.scheduleTestNotification' => 'Schemalägg testnotifikation (10s)',
 			'debug.triggerBreakfastNotification' => 'Aktivera frukostnotifikation',
@@ -2243,14 +2255,14 @@ extension on TranslationsSv {
 			'debug.failedToSendMealData' => 'Kunde inte skicka måltidsdata. Kontrollera klockans anslutning.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Fel vid skickande av måltidsdata: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Testkalorimål skickat!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Kunde inte skicka kalorimål. Kontrollera klockans anslutning.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Fel vid skickande av kalorimål: ${error}',
 			'debug.testAnalyzeImage' => 'Testa bildanalys',
 			'debug.testAnalyzeImageSubtitle' => 'Ladda upp fördefinierad testbild',
 			'debug.testDetectImage' => 'Testa bildigenkänning',
 			'debug.testDetectImageSubtitle' => 'Identifiera måltid från bild-URL',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Identifiera bild från galleriet',
 			'debug.detectImageFromGallerySubtitle' => 'Välj bild, ladda upp till bucket och uppskatta kalorier',
 			'debug.testDetectText' => 'Testa textigenkänning',

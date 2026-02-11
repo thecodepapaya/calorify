@@ -135,13 +135,23 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _step == _FeedbackSheetStep.enjoyingQuestion
-                ? _buildEnjoyingStep(context, textTheme, colorScheme)
-                : _step == _FeedbackSheetStep.ratePrompt
-                ? _buildRateStep(context, textTheme, colorScheme)
-                : _step == _FeedbackSheetStep.emailPrompt
-                ? _buildEmailStep(context, textTheme, colorScheme)
-                : _buildEnjoyingStep(context, textTheme, colorScheme),
+            switch (_step) {
+              _FeedbackSheetStep.enjoyingQuestion => _buildEnjoyingStep(
+                context,
+                textTheme,
+                colorScheme,
+              ),
+              _FeedbackSheetStep.ratePrompt => _buildRateStep(
+                context,
+                textTheme,
+                colorScheme,
+              ),
+              _FeedbackSheetStep.emailPrompt => _buildEmailStep(
+                context,
+                textTheme,
+                colorScheme,
+              ),
+            },
             const SizedBox(height: 8),
           ],
         ),

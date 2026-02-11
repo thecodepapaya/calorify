@@ -654,6 +654,21 @@ class TranslationsDebugEn {
 
 	late final TranslationsDebugSectionsEn sections = TranslationsDebugSectionsEn._(_root);
 
+	/// en: 'Inspect database tables'
+	String get inspectDatabaseTables => 'Inspect database tables';
+
+	/// en: 'Database Inspector'
+	String get databaseInspectorTitle => 'Database Inspector';
+
+	/// en: 'Database inspection is only available when using real data (not mock).'
+	String get databaseOnlyWithRealData => 'Database inspection is only available when using real data (not mock).';
+
+	/// en: '{count} rows'
+	String tableRowCount({required Object count}) => '${count} rows';
+
+	/// en: 'No rows'
+	String get emptyTable => 'No rows';
+
 	/// en: 'Show Active Notifications'
 	String get showActiveNotifications => 'Show Active Notifications';
 
@@ -2128,8 +2143,8 @@ class TranslationsDisclaimerCalorieExpenditureEn {
 
 	// Translations
 
-	/// en: 'Calorie expenditure estimate'
-	String get title => 'Calorie expenditure estimate';
+	/// en: 'Calorie Expenditure Estimate'
+	String get title => 'Calorie Expenditure Estimate';
 
 	/// en: 'When Health Connect data is unavailable, we estimate today's calories burned using your Basal Metabolic Rate (BMR) and activity level (TDEE), scaled for the portion of the day that has passed.'
 	String get description => 'When Health Connect data is unavailable, we estimate today\'s calories burned using your Basal Metabolic Rate (BMR) and activity level (TDEE), scaled for the portion of the day that has passed.';
@@ -2166,6 +2181,9 @@ class TranslationsDebugSectionsEn {
 
 	/// en: 'Data reset'
 	String get dataReset => 'Data reset';
+
+	/// en: 'Database'
+	String get database => 'Database';
 
 	/// en: 'App Info'
 	String get appInfo => 'App Info';
@@ -2837,8 +2855,8 @@ class TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
 
 	// Translations
 
-	/// en: 'How the estimate is calculated'
-	String get title => 'How the estimate is calculated';
+	/// en: 'How The Estimate Is Calculated'
+	String get title => 'How The Estimate Is Calculated';
 
 	/// en: 'We compute your TDEE (based on your profile) and multiply it by the fraction of the day elapsed (hours + minutes) / 24 to estimate calories burned so far.'
 	String get description => 'We compute your TDEE (based on your profile) and multiply it by the fraction of the day elapsed (hours + minutes) / 24 to estimate calories burned so far.';
@@ -3317,9 +3335,9 @@ extension on Translations {
 			'disclaimer.healthMetrics.tdee.description' => 'Total Daily Energy Expenditure (TDEE) is the total calories you burn per day, including your BMR plus calories from physical activity and daily movement. TDEE depends on your BMR and activity level. A higher TDEE means you burn more calories overall, usually from being more active or having a higher BMR. A lower TDEE suggests less daily activity or a lower BMR.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Daily Goal',
 			'disclaimer.healthMetrics.dailyGoal.description' => 'Daily Goal is your recommended daily calorie intake based on your TDEE and weight goal. For weight loss, you consume fewer calories than your TDEE. For weight maintenance, you match your TDEE. For weight gain, you consume more calories than your TDEE. This helps you achieve your desired weight change at a healthy pace.',
-			'disclaimer.calorieExpenditure.title' => 'Calorie expenditure estimate',
+			'disclaimer.calorieExpenditure.title' => 'Calorie Expenditure Estimate',
 			'disclaimer.calorieExpenditure.description' => 'When Health Connect data is unavailable, we estimate today\'s calories burned using your Basal Metabolic Rate (BMR) and activity level (TDEE), scaled for the portion of the day that has passed.',
-			'disclaimer.calorieExpenditure.howCalculated.title' => 'How the estimate is calculated',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'How The Estimate Is Calculated',
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'We compute your TDEE (based on your profile) and multiply it by the fraction of the day elapsed (hours + minutes) / 24 to estimate calories burned so far.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professional Guidance',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.',
@@ -3349,8 +3367,14 @@ extension on Translations {
 			'debug.sections.profileApiTests' => 'Profile API Tests',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Data reset',
+			'debug.sections.database' => 'Database',
 			'debug.sections.appInfo' => 'App Info',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Inspect database tables',
+			'debug.databaseInspectorTitle' => 'Database Inspector',
+			'debug.databaseOnlyWithRealData' => 'Database inspection is only available when using real data (not mock).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} rows',
+			'debug.emptyTable' => 'No rows',
 			'debug.showActiveNotifications' => 'Show Active Notifications',
 			'debug.scheduleTestNotification' => 'Schedule Test Notification (10s)',
 			'debug.triggerBreakfastNotification' => 'Trigger Breakfast Notification',
@@ -3427,14 +3451,14 @@ extension on Translations {
 			'debug.failedToSendMealData' => 'Failed to send meal data. Check watch connection.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Error sending meal data: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Test calorie goal sent successfully!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Failed to send calorie goal. Check watch connection.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Error sending calorie goal: ${error}',
 			'debug.testAnalyzeImage' => 'Test Analyze Image',
 			'debug.testAnalyzeImageSubtitle' => 'Upload hardcoded test image',
 			'debug.testDetectImage' => 'Test Detect Image',
 			'debug.testDetectImageSubtitle' => 'Detect meal from image URL',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Detect Image from Gallery',
 			'debug.detectImageFromGallerySubtitle' => 'Select image, upload to bucket & estimate calories',
 			'debug.testDetectText' => 'Test Detect Text',

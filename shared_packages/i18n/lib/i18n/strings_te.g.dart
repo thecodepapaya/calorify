@@ -392,6 +392,11 @@ class _TranslationsDebugTe implements TranslationsDebugEn {
 	@override String get title => 'డిబగ్ ఆప్షన్స్';
 	@override String get searchHint => 'శోధన ఎంపికలు...';
 	@override late final _TranslationsDebugSectionsTe sections = _TranslationsDebugSectionsTe._(_root);
+	@override String get inspectDatabaseTables => 'డేటాబేస్ పట్టికలను పరిశీలించండి';
+	@override String get databaseInspectorTitle => 'డేటాబేస్ పరిశీలకుడు';
+	@override String get databaseOnlyWithRealData => 'డేటాబేస్ పరిశీలన కేవలం వాస్తవ డేటా ఉపయోగిస్తున్నప్పుడు మాత్రమే అందుబాటులో ఉంటుంది (నకిలీ కాదు).';
+	@override String tableRowCount({required Object count}) => '${count} వరుసలు';
+	@override String get emptyTable => 'వరుసలు లేవు';
 	@override String get showActiveNotifications => 'సకాలంలో గమనికలను చూపు';
 	@override String get scheduleTestNotification => 'పరీక్ష గమనికను షెడ్యూల్ చేయండి (10సె)';
 	@override String get triggerBreakfastNotification => 'అనాంర్త్న ఫలిపట్టు భోజనం గమనిక';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsTe implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'ప్రొఫైల్ API పరీక్షలు';
 	@override String get feedback => 'ఫీడ్‌బ్యాక్';
 	@override String get dataReset => 'డేటా రీసెట్';
+	@override String get database => 'డేటాబేస్';
 	@override String get appInfo => 'యాప్ సమాచారం';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsTe {
 			'debug.sections.profileApiTests' => 'ప్రొఫైల్ API పరీక్షలు',
 			'debug.sections.feedback' => 'ఫీడ్‌బ్యాక్',
 			'debug.sections.dataReset' => 'డేటా రీసెట్',
+			'debug.sections.database' => 'డేటాబేస్',
 			'debug.sections.appInfo' => 'యాప్ సమాచారం',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'డేటాబేస్ పట్టికలను పరిశీలించండి',
+			'debug.databaseInspectorTitle' => 'డేటాబేస్ పరిశీలకుడు',
+			'debug.databaseOnlyWithRealData' => 'డేటాబేస్ పరిశీలన కేవలం వాస్తవ డేటా ఉపయోగిస్తున్నప్పుడు మాత్రమే అందుబాటులో ఉంటుంది (నకిలీ కాదు).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} వరుసలు',
+			'debug.emptyTable' => 'వరుసలు లేవు',
 			'debug.showActiveNotifications' => 'సకాలంలో గమనికలను చూపు',
 			'debug.scheduleTestNotification' => 'పరీక్ష గమనికను షెడ్యూల్ చేయండి (10సె)',
 			'debug.triggerBreakfastNotification' => 'అనాంర్త్న ఫలిపట్టు భోజనం గమనిక',
@@ -2243,14 +2255,14 @@ extension on TranslationsTe {
 			'debug.failedToSendMealData' => 'భోజన డాటా పంపలేకపోయాం. వాచ్ కనెక్షన్ తనిఖీ చేయండి.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'భోజన డాటా పంపేటప్పుడు లోపం: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'టెస్ట్ కాలరీ లక్ష్యం విజయవంతంగా పంపబడింది!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'కాలరీ లక్ష్యాన్ని పంపలేకపోయాం. వాచ్ కనెక్షన్ తనిఖీ చేయండి.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'కాలరీ లక్ష్యం పంపేటప్పుడు లోపం: ${error}',
 			'debug.testAnalyzeImage' => 'ఇమేజ్ విశ్లేషణ పరీక్ష',
 			'debug.testAnalyzeImageSubtitle' => 'హార్డ్‌కోడ్ చేసిన టెస్ట్ ఇమేజ్ అప్లోడ్ చేయండి',
 			'debug.testDetectImage' => 'ఇమేజ్ గుర్తింపు పరీక్ష',
 			'debug.testDetectImageSubtitle' => 'ఇమేజ్ URL నుండి భోజనాన్ని గుర్తించండి',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'గ్యాలరీ నుండి ఇమేజ్ గుర్తించండి',
 			'debug.detectImageFromGallerySubtitle' => 'ఇమేజ్ ఎంచుకొని బకెట్‌కు అప్లోడ్ చేసి కాలరీలు అంచనా వేయండి',
 			'debug.testDetectText' => 'టెస్ట్ టెక్స్ట్ గుర్తింపు',

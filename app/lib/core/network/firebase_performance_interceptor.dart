@@ -1,60 +1,49 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 
-/// Interceptor for tracking API performance using Firebase Performance Monitoring
-/// Tracks HTTP metrics including request/response times
+/// Interceptor for tracking API performance using Firebase Performance Monitoring.
+/// Uses a private map to store metrics so they don't pollute request logs.
 class FirebasePerformanceInterceptor extends Interceptor {
+  final _metrics = <RequestOptions, HttpMetric>{};
+
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    // Start HTTP metric tracking
-    final httpMetric = FirebasePerformance.instance.newHttpMetric(
+    final metric = FirebasePerformance.instance.newHttpMetric(
       options.uri.toString(),
-      _convertMethod(options.method),
+      _toHttpMethod(options.method),
     );
-    httpMetric.start();
-    options.extra['http_metric'] = httpMetric;
-
+    metric.start();
+    _metrics[options] = metric;
     handler.next(options);
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    final httpMetric =
-        response.requestOptions.extra['http_metric'] as HttpMetric?;
-    if (httpMetric != null) {
-      httpMetric.stop();
-    }
+    _stopAndRemove(response.requestOptions);
     handler.next(response);
   }
 
   @override
   void onError(DioException error, ErrorInterceptorHandler handler) {
-    final httpMetric = error.requestOptions.extra['http_metric'] as HttpMetric?;
-    if (httpMetric != null) {
-      httpMetric.stop();
-    }
+    _stopAndRemove(error.requestOptions);
     handler.next(error);
   }
 
-  /// Convert Dio HTTP method to Firebase Performance HttpMethod
-  HttpMethod _convertMethod(String method) {
-    switch (method.toUpperCase()) {
-      case 'GET':
-        return HttpMethod.Get;
-      case 'POST':
-        return HttpMethod.Post;
-      case 'PUT':
-        return HttpMethod.Put;
-      case 'DELETE':
-        return HttpMethod.Delete;
-      case 'PATCH':
-        return HttpMethod.Patch;
-      case 'HEAD':
-        return HttpMethod.Head;
-      case 'OPTIONS':
-        return HttpMethod.Options;
-      default:
-        return HttpMethod.Get;
-    }
+  void _stopAndRemove(RequestOptions options) {
+    final metric = _metrics.remove(options);
+    metric?.stop();
+  }
+
+  HttpMethod _toHttpMethod(String method) {
+    return switch (method.toUpperCase()) {
+      'GET' => HttpMethod.Get,
+      'POST' => HttpMethod.Post,
+      'PUT' => HttpMethod.Put,
+      'DELETE' => HttpMethod.Delete,
+      'PATCH' => HttpMethod.Patch,
+      'HEAD' => HttpMethod.Head,
+      'OPTIONS' => HttpMethod.Options,
+      _ => HttpMethod.Get,
+    };
   }
 }

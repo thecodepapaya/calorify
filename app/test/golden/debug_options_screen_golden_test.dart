@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:calorify/features/profile/debug_options_screen.dart';
+import 'package:calorify/features/debug/debug_options_screen.dart';
 import '../helpers/golden_test_helpers.dart';
 import '../setup/all_tests.dart';
 

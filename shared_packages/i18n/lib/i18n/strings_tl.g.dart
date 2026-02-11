@@ -392,6 +392,11 @@ class _TranslationsDebugTl implements TranslationsDebugEn {
 	@override String get title => 'Mga Opsyon sa Debug';
 	@override String get searchHint => 'Mga pagpipilian sa paghahanap...';
 	@override late final _TranslationsDebugSectionsTl sections = _TranslationsDebugSectionsTl._(_root);
+	@override String get inspectDatabaseTables => 'Suriin ang mga talahanayan ng database';
+	@override String get databaseInspectorTitle => 'Tagasuri ng Database';
+	@override String get databaseOnlyWithRealData => 'Ang pagsisiyasat ng database ay magagamit lamang kapag gumagamit ng totoong data (hindi pekeng data).';
+	@override String tableRowCount({required Object count}) => '${count} na hilera';
+	@override String get emptyTable => 'Walang hilera';
 	@override String get showActiveNotifications => 'Ipakita ang Aktibong Notifikasyon';
 	@override String get scheduleTestNotification => 'I-schedule ang Test Notification (10s)';
 	@override String get triggerBreakfastNotification => 'I-trigger ang Breakfast Notification';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsTl implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Mga Pagsubok ng Profile API';
 	@override String get feedback => 'Puna';
 	@override String get dataReset => 'I-reset ang data';
+	@override String get database => 'Base ng Datos';
 	@override String get appInfo => 'Impormasyon ng App';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsTl {
 			'debug.sections.profileApiTests' => 'Mga Pagsubok ng Profile API',
 			'debug.sections.feedback' => 'Puna',
 			'debug.sections.dataReset' => 'I-reset ang data',
+			'debug.sections.database' => 'Base ng Datos',
 			'debug.sections.appInfo' => 'Impormasyon ng App',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Suriin ang mga talahanayan ng database',
+			'debug.databaseInspectorTitle' => 'Tagasuri ng Database',
+			'debug.databaseOnlyWithRealData' => 'Ang pagsisiyasat ng database ay magagamit lamang kapag gumagamit ng totoong data (hindi pekeng data).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} na hilera',
+			'debug.emptyTable' => 'Walang hilera',
 			'debug.showActiveNotifications' => 'Ipakita ang Aktibong Notifikasyon',
 			'debug.scheduleTestNotification' => 'I-schedule ang Test Notification (10s)',
 			'debug.triggerBreakfastNotification' => 'I-trigger ang Breakfast Notification',
@@ -2243,14 +2255,14 @@ extension on TranslationsTl {
 			'debug.failedToSendMealData' => 'Nabigong ipadala ang datos ng pagkain. Suriin ang koneksyon ng relo.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Error sa pagpapadala ng datos ng pagkain: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Matagumpay na naipadala ang pagsubok na layunin sa kaloriya!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Nabigong ipadala ang layunin sa kaloriya. Suriin ang koneksyon ng relo.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Error sa pagpapadala ng layunin sa kaloriya: ${error}',
 			'debug.testAnalyzeImage' => 'Pagsubok sa Pag-analyze ng Larawan',
 			'debug.testAnalyzeImageSubtitle' => 'I-upload ang hardcoded na larawan ng pagsubok',
 			'debug.testDetectImage' => 'Pagsubok sa Pag-detect ng Larawan',
 			'debug.testDetectImageSubtitle' => 'I-detect ang pagkain mula sa URL ng larawan',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'I-detect ang Larawan mula sa Gallery',
 			'debug.detectImageFromGallerySubtitle' => 'Pumili ng larawan, i-upload sa bucket at tantiyahin ang kaloriya',
 			'debug.testDetectText' => 'Pagsubok sa Pag-detect ng Teksto',

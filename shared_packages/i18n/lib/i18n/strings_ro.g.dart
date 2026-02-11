@@ -392,6 +392,11 @@ class _TranslationsDebugRo implements TranslationsDebugEn {
 	@override String get title => 'Opțiuni de Debug';
 	@override String get searchHint => 'Opțiuni de căutare...';
 	@override late final _TranslationsDebugSectionsRo sections = _TranslationsDebugSectionsRo._(_root);
+	@override String get inspectDatabaseTables => 'Inspectează tabelele bazei de date';
+	@override String get databaseInspectorTitle => 'Inspectorul bazei de date';
+	@override String get databaseOnlyWithRealData => 'Inspecția bazei de date este disponibilă doar atunci când folosești date reale (nu date simulate/mock).';
+	@override String tableRowCount({required Object count}) => '${count} rânduri';
+	@override String get emptyTable => 'Nicio înregistrare';
 	@override String get showActiveNotifications => 'Arată Notificările Active';
 	@override String get scheduleTestNotification => 'Programează Notificare de Test (10s)';
 	@override String get triggerBreakfastNotification => 'Activează Notificarea de Mic Dejun';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsRo implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Teste API pentru profil';
 	@override String get feedback => 'Feedback';
 	@override String get dataReset => 'Resetare date';
+	@override String get database => 'Bază de date';
 	@override String get appInfo => 'Informații despre Aplicație';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsRo {
 			'debug.sections.profileApiTests' => 'Teste API pentru profil',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Resetare date',
+			'debug.sections.database' => 'Bază de date',
 			'debug.sections.appInfo' => 'Informații despre Aplicație',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Inspectează tabelele bazei de date',
+			'debug.databaseInspectorTitle' => 'Inspectorul bazei de date',
+			'debug.databaseOnlyWithRealData' => 'Inspecția bazei de date este disponibilă doar atunci când folosești date reale (nu date simulate/mock).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} rânduri',
+			'debug.emptyTable' => 'Nicio înregistrare',
 			'debug.showActiveNotifications' => 'Arată Notificările Active',
 			'debug.scheduleTestNotification' => 'Programează Notificare de Test (10s)',
 			'debug.triggerBreakfastNotification' => 'Activează Notificarea de Mic Dejun',
@@ -2243,14 +2255,14 @@ extension on TranslationsRo {
 			'debug.failedToSendMealData' => 'Trimiterea datelor mesei a eșuat. Verifică conexiunea ceasului.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Eroare la trimiterea datelor mesei: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Obiectivul caloric de test a fost trimis cu succes!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Trimiterea obiectivului caloric a eșuat. Verifică conexiunea ceasului.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Eroare la trimiterea obiectivului caloric: ${error}',
 			'debug.testAnalyzeImage' => 'Test analiză imagine',
 			'debug.testAnalyzeImageSubtitle' => 'Încarcă o imagine de test predefinită',
 			'debug.testDetectImage' => 'Test detectare imagine',
 			'debug.testDetectImageSubtitle' => 'Detectează masa din URL-ul imaginii',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Detectează imagine din galerie',
 			'debug.detectImageFromGallerySubtitle' => 'Selectează o imagine, încarcă în bucket și estimează caloriile',
 			'debug.testDetectText' => 'Test detectare text',

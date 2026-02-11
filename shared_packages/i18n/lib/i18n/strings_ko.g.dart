@@ -392,6 +392,11 @@ class _TranslationsDebugKo implements TranslationsDebugEn {
 	@override String get title => '디버그 옵션';
 	@override String get searchHint => '검색 옵션...';
 	@override late final _TranslationsDebugSectionsKo sections = _TranslationsDebugSectionsKo._(_root);
+	@override String get inspectDatabaseTables => '데이터베이스 테이블 검사';
+	@override String get databaseInspectorTitle => '데이터베이스 검사기';
+	@override String get databaseOnlyWithRealData => '데이터베이스 검사는 실제 데이터(모의 데이터 아님)를 사용할 때만 가능합니다.';
+	@override String tableRowCount({required Object count}) => '${count}행';
+	@override String get emptyTable => '행이 없습니다';
 	@override String get showActiveNotifications => '활성 알림 표시';
 	@override String get scheduleTestNotification => '테스트 알림 예약하기 (10초)';
 	@override String get triggerBreakfastNotification => '아침 식사 알림 트리거';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsKo implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => '프로필 API 테스트';
 	@override String get feedback => '피드백';
 	@override String get dataReset => '데이터 초기화';
+	@override String get database => '데이터베이스';
 	@override String get appInfo => '앱 정보';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsKo {
 			'debug.sections.profileApiTests' => '프로필 API 테스트',
 			'debug.sections.feedback' => '피드백',
 			'debug.sections.dataReset' => '데이터 초기화',
+			'debug.sections.database' => '데이터베이스',
 			'debug.sections.appInfo' => '앱 정보',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => '데이터베이스 테이블 검사',
+			'debug.databaseInspectorTitle' => '데이터베이스 검사기',
+			'debug.databaseOnlyWithRealData' => '데이터베이스 검사는 실제 데이터(모의 데이터 아님)를 사용할 때만 가능합니다.',
+			'debug.tableRowCount' => ({required Object count}) => '${count}행',
+			'debug.emptyTable' => '행이 없습니다',
 			'debug.showActiveNotifications' => '활성 알림 표시',
 			'debug.scheduleTestNotification' => '테스트 알림 예약하기 (10초)',
 			'debug.triggerBreakfastNotification' => '아침 식사 알림 트리거',
@@ -2243,14 +2255,14 @@ extension on TranslationsKo {
 			'debug.failedToSendMealData' => '식사 데이터 전송에 실패했습니다. 시계 연결을 확인하세요.',
 			'debug.errorSendingMealData' => ({required Object error}) => '식사 데이터 전송 중 오류: ${error}',
 			'debug.testCalorieGoalSentSuccess' => '테스트 칼로리 목표를 성공적으로 보냈습니다!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => '칼로리 목표 전송에 실패했습니다. 시계 연결을 확인하세요.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => '칼로리 목표 전송 중 오류: ${error}',
 			'debug.testAnalyzeImage' => '이미지 분석 테스트',
 			'debug.testAnalyzeImageSubtitle' => '미리 지정된 테스트 이미지를 업로드합니다.',
 			'debug.testDetectImage' => '이미지 감지 테스트',
 			'debug.testDetectImageSubtitle' => '이미지 URL로부터 식사를 감지합니다.',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => '갤러리에서 이미지 감지',
 			'debug.detectImageFromGallerySubtitle' => '이미지를 선택하여 버킷에 업로드하고 칼로리를 추정합니다.',
 			'debug.testDetectText' => '텍스트 감지 테스트',

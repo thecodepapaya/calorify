@@ -392,6 +392,11 @@ class _TranslationsDebugUr implements TranslationsDebugEn {
 	@override String get title => 'ڈیبگ کے اختیارات';
 	@override String get searchHint => 'تلاش کے اختیارات...';
 	@override late final _TranslationsDebugSectionsUr sections = _TranslationsDebugSectionsUr._(_root);
+	@override String get inspectDatabaseTables => 'ڈیٹا بیس کی جدولوں کا معائنہ کریں';
+	@override String get databaseInspectorTitle => 'ڈیٹا بیس انسپکٹر';
+	@override String get databaseOnlyWithRealData => 'ڈیٹا بیس کا معائنہ صرف حقیقی ڈیٹا کے ساتھ ممکن ہے (نقلی ڈیٹا کے ساتھ نہیں)۔';
+	@override String tableRowCount({required Object count}) => '${count} قطاریں';
+	@override String get emptyTable => 'کوئی قطار موجود نہیں';
 	@override String get showActiveNotifications => 'فعال نوٹیفیکیشن دکھائیں';
 	@override String get scheduleTestNotification => 'ٹیسٹ نوٹیفیکیشن کا شیڈول بنائیں (10 سیکنڈ)';
 	@override String get triggerBreakfastNotification => 'ناشتے کی نوٹیفیکیشن متحرک کریں';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsUr implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'پروفائل API ٹیسٹس';
 	@override String get feedback => 'رائے';
 	@override String get dataReset => 'ڈیٹا ری سیٹ';
+	@override String get database => 'ڈیٹا بیس';
 	@override String get appInfo => 'ایپ کی معلومات';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsUr {
 			'debug.sections.profileApiTests' => 'پروفائل API ٹیسٹس',
 			'debug.sections.feedback' => 'رائے',
 			'debug.sections.dataReset' => 'ڈیٹا ری سیٹ',
+			'debug.sections.database' => 'ڈیٹا بیس',
 			'debug.sections.appInfo' => 'ایپ کی معلومات',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'ڈیٹا بیس کی جدولوں کا معائنہ کریں',
+			'debug.databaseInspectorTitle' => 'ڈیٹا بیس انسپکٹر',
+			'debug.databaseOnlyWithRealData' => 'ڈیٹا بیس کا معائنہ صرف حقیقی ڈیٹا کے ساتھ ممکن ہے (نقلی ڈیٹا کے ساتھ نہیں)۔',
+			'debug.tableRowCount' => ({required Object count}) => '${count} قطاریں',
+			'debug.emptyTable' => 'کوئی قطار موجود نہیں',
 			'debug.showActiveNotifications' => 'فعال نوٹیفیکیشن دکھائیں',
 			'debug.scheduleTestNotification' => 'ٹیسٹ نوٹیفیکیشن کا شیڈول بنائیں (10 سیکنڈ)',
 			'debug.triggerBreakfastNotification' => 'ناشتے کی نوٹیفیکیشن متحرک کریں',
@@ -2243,14 +2255,14 @@ extension on TranslationsUr {
 			'debug.failedToSendMealData' => 'کھانے کا ڈیٹا بھیجنے میں ناکامی۔ واچ کنکشن چیک کریں۔',
 			'debug.errorSendingMealData' => ({required Object error}) => 'کھانے کا ڈیٹا بھیجتے وقت خرابی: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'ٹیسٹ کیلوری ہدف کامیابی سے بھیجا گیا!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'کیلوری ہدف بھیجنے میں ناکامی۔ واچ کنکشن چیک کریں۔',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'کیلوری ہدف بھیجتے وقت خرابی: ${error}',
 			'debug.testAnalyzeImage' => 'تصویر تجزیہ ٹیسٹ',
 			'debug.testAnalyzeImageSubtitle' => 'پہلے سے طے شدہ ٹیسٹ تصویر اپلوڈ کریں',
 			'debug.testDetectImage' => 'تصویر شناخت ٹیسٹ',
 			'debug.testDetectImageSubtitle' => 'تصویر کے URL سے کھانا شناخت کریں',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'گیلری سے تصویر شناخت کریں',
 			'debug.detectImageFromGallerySubtitle' => 'تصویر منتخب کریں، بکٹ میں اپلوڈ کریں اور کیلوریز کا اندازہ لگائیں',
 			'debug.testDetectText' => 'متن شناخت ٹیسٹ',

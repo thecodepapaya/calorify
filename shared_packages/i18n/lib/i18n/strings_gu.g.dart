@@ -392,6 +392,11 @@ class _TranslationsDebugGu implements TranslationsDebugEn {
 	@override String get title => 'ડેબેક્ડ વિકલ્પો';
 	@override String get searchHint => 'શોધ વિકલ્પો...';
 	@override late final _TranslationsDebugSectionsGu sections = _TranslationsDebugSectionsGu._(_root);
+	@override String get inspectDatabaseTables => 'ડેટાબેસ ટેબલો તપાસો';
+	@override String get databaseInspectorTitle => 'ડેટાબેસ ઇન્સ્પેક્ટર';
+	@override String get databaseOnlyWithRealData => 'ડેટાબેસનું નિરીક્ષણ ફક્ત વાસ્તવિક ડેટા સાથે જ ઉપલબ્ધ છે (મોક ડેટા માટે નથી).';
+	@override String tableRowCount({required Object count}) => '${count} પંક્તિઓ';
+	@override String get emptyTable => 'કોઈ પંક્તિઓ નથી';
 	@override String get showActiveNotifications => 'સક્રિય યાદદહનો દેખાડો';
 	@override String get scheduleTestNotification => 'ટેસ્ટ યાદદહન સ્કેડ્યૂલ કરો (10સે)';
 	@override String get triggerBreakfastNotification => 'નાસ્તાનો યાદદહન ચાલુ કરો';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsGu implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'પ્રોફાઇલ API પરીક્ષણો';
 	@override String get feedback => 'પ્રતિસાદ';
 	@override String get dataReset => 'ડેટા રીસેટ';
+	@override String get database => 'ડેટાબેસ';
 	@override String get appInfo => 'એપ માહિતી';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsGu {
 			'debug.sections.profileApiTests' => 'પ્રોફાઇલ API પરીક્ષણો',
 			'debug.sections.feedback' => 'પ્રતિસાદ',
 			'debug.sections.dataReset' => 'ડેટા રીસેટ',
+			'debug.sections.database' => 'ડેટાબેસ',
 			'debug.sections.appInfo' => 'એપ માહિતી',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'ડેટાબેસ ટેબલો તપાસો',
+			'debug.databaseInspectorTitle' => 'ડેટાબેસ ઇન્સ્પેક્ટર',
+			'debug.databaseOnlyWithRealData' => 'ડેટાબેસનું નિરીક્ષણ ફક્ત વાસ્તવિક ડેટા સાથે જ ઉપલબ્ધ છે (મોક ડેટા માટે નથી).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} પંક્તિઓ',
+			'debug.emptyTable' => 'કોઈ પંક્તિઓ નથી',
 			'debug.showActiveNotifications' => 'સક્રિય યાદદહનો દેખાડો',
 			'debug.scheduleTestNotification' => 'ટેસ્ટ યાદદહન સ્કેડ્યૂલ કરો (10સે)',
 			'debug.triggerBreakfastNotification' => 'નાસ્તાનો યાદદહન ચાલુ કરો',
@@ -2243,14 +2255,14 @@ extension on TranslationsGu {
 			'debug.failedToSendMealData' => 'ભોજન ડેટા મોકલવામાં નિષ્ફળ. વોચ કનેક્શન તપાસો.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'ભોજન ડેટા મોકલવામાં ભૂલ: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'ટેસ્ટ કેલોરી લક્ષ્ય સફળતાપૂર્વક મોકલાયું!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'કેલોરી લક્ષ્ય મોકલવામાં નિષ્ફળ. વોચ કનેક્શન તપાસો.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'કેલોરી લક્ષ્ય મોકલવામાં ભૂલ: ${error}',
 			'debug.testAnalyzeImage' => 'ઇમેજ વિશ્લેષણ ટેસ્ટ',
 			'debug.testAnalyzeImageSubtitle' => 'હાર્ડકોડ કરેલી ટેસ્ટ ઈમેજ અપલોડ કરો',
 			'debug.testDetectImage' => 'ઇમેજ ઓળખ ટેસ્ટ',
 			'debug.testDetectImageSubtitle' => 'છબીના URL પરથી ભોજન ઓળખો',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'ગેલેરીમાંથી છબી ઓળખો',
 			'debug.detectImageFromGallerySubtitle' => 'છબી પસંદ કરો, બકેટ પર અપલોડ કરો અને કેલોરીનો અંદાજ લો',
 			'debug.testDetectText' => 'ટેક્સ્ટ ઓળખ ટેસ્ટ',

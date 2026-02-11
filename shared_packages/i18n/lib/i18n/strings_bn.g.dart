@@ -392,6 +392,11 @@ class _TranslationsDebugBn implements TranslationsDebugEn {
 	@override String get title => 'ডিবাগ অপশন';
 	@override String get searchHint => 'অনুসন্ধান বিকল্প...';
 	@override late final _TranslationsDebugSectionsBn sections = _TranslationsDebugSectionsBn._(_root);
+	@override String get inspectDatabaseTables => 'ডেটাবেস টেবিল পরিদর্শন করুন';
+	@override String get databaseInspectorTitle => 'ডেটাবেস পরিদর্শক';
+	@override String get databaseOnlyWithRealData => 'ডেটাবেস পরিদর্শন শুধুমাত্র বাস্তব ডেটা ব্যবহার করার সময়ই উপলব্ধ (নকল ডেটার জন্য নয়)।';
+	@override String tableRowCount({required Object count}) => '${count}টি সারি';
+	@override String get emptyTable => 'কোনও সারি নেই';
 	@override String get showActiveNotifications => 'সক্রিয় বিজ্ঞপ্তি দেখান';
 	@override String get scheduleTestNotification => 'টেস্ট বিজ্ঞপ্তি নির্ধারণ করুন (১০ সেকেন্ড)';
 	@override String get triggerBreakfastNotification => 'সকালের নাস্তার বিজ্ঞপ্তি চালান';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsBn implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'প্রোফাইল API পরীক্ষা';
 	@override String get feedback => 'প্রতিক্রিয়া';
 	@override String get dataReset => 'ডেটা রিসেট';
+	@override String get database => 'ডাটাবেস';
 	@override String get appInfo => 'অ্যাপ তথ্য';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsBn {
 			'debug.sections.profileApiTests' => 'প্রোফাইল API পরীক্ষা',
 			'debug.sections.feedback' => 'প্রতিক্রিয়া',
 			'debug.sections.dataReset' => 'ডেটা রিসেট',
+			'debug.sections.database' => 'ডাটাবেস',
 			'debug.sections.appInfo' => 'অ্যাপ তথ্য',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'ডেটাবেস টেবিল পরিদর্শন করুন',
+			'debug.databaseInspectorTitle' => 'ডেটাবেস পরিদর্শক',
+			'debug.databaseOnlyWithRealData' => 'ডেটাবেস পরিদর্শন শুধুমাত্র বাস্তব ডেটা ব্যবহার করার সময়ই উপলব্ধ (নকল ডেটার জন্য নয়)।',
+			'debug.tableRowCount' => ({required Object count}) => '${count}টি সারি',
+			'debug.emptyTable' => 'কোনও সারি নেই',
 			'debug.showActiveNotifications' => 'সক্রিয় বিজ্ঞপ্তি দেখান',
 			'debug.scheduleTestNotification' => 'টেস্ট বিজ্ঞপ্তি নির্ধারণ করুন (১০ সেকেন্ড)',
 			'debug.triggerBreakfastNotification' => 'সকালের নাস্তার বিজ্ঞপ্তি চালান',
@@ -2243,14 +2255,14 @@ extension on TranslationsBn {
 			'debug.failedToSendMealData' => 'মিল ডেটা পাঠানো ব্যর্থ হয়েছে। ওয়াচ সংযোগ পরীক্ষা করুন।',
 			'debug.errorSendingMealData' => ({required Object error}) => 'মিল ডেটা পাঠাতে ত্রুটি: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'টেস্ট ক্যালোরি লক্ষ্য সফলভাবে পাঠানো হয়েছে!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'ক্যালোরি লক্ষ্য পাঠানো ব্যর্থ। ওয়াচ সংযোগ পরীক্ষা করুন।',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'ক্যালোরি লক্ষ্য পাঠাতে ত্রুটি: ${error}',
 			'debug.testAnalyzeImage' => 'চিত্র বিশ্লেষণ টেস্ট',
 			'debug.testAnalyzeImageSubtitle' => 'নির্দিষ্ট টেস্ট ইমেজ আপলোড করুন',
 			'debug.testDetectImage' => 'চিত্র সনাক্তকরণ টেস্ট',
 			'debug.testDetectImageSubtitle' => 'ইমেজ URL থেকে মিল সনাক্ত করুন',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'গ্যালারি থেকে চিত্র সনাক্তকরণ',
 			'debug.detectImageFromGallerySubtitle' => 'ছবি নির্বাচন করুন, বাকেটে আপলোড করুন ও ক্যালোরি অনুমান করুন',
 			'debug.testDetectText' => 'টেক্সট সনাক্তকরণ টেস্ট',
