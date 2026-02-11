@@ -392,6 +392,11 @@ class _TranslationsDebugPt implements TranslationsDebugEn {
 	@override String get title => 'Opções de Depuração';
 	@override String get searchHint => 'Procurar opções...';
 	@override late final _TranslationsDebugSectionsPt sections = _TranslationsDebugSectionsPt._(_root);
+	@override String get inspectDatabaseTables => 'Inspecionar tabelas do banco de dados';
+	@override String get databaseInspectorTitle => 'Inspetor do banco de dados';
+	@override String get databaseOnlyWithRealData => 'A inspeção do banco de dados está disponível apenas ao usar dados reais (não simulados).';
+	@override String tableRowCount({required Object count}) => '${count} linhas';
+	@override String get emptyTable => 'Sem linhas';
 	@override String get showActiveNotifications => 'Mostrar Notificações Ativas';
 	@override String get scheduleTestNotification => 'Agendar Notificação de Teste (10s)';
 	@override String get triggerBreakfastNotification => 'Ativar Notificação de Café da Manhã';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsPt implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Testes da API de Perfil';
 	@override String get feedback => 'Feedback';
 	@override String get dataReset => 'Redefinir dados';
+	@override String get database => 'Banco de dados';
 	@override String get appInfo => 'Informações do Aplicativo';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsPt {
 			'debug.sections.profileApiTests' => 'Testes da API de Perfil',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Redefinir dados',
+			'debug.sections.database' => 'Banco de dados',
 			'debug.sections.appInfo' => 'Informações do Aplicativo',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Inspecionar tabelas do banco de dados',
+			'debug.databaseInspectorTitle' => 'Inspetor do banco de dados',
+			'debug.databaseOnlyWithRealData' => 'A inspeção do banco de dados está disponível apenas ao usar dados reais (não simulados).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} linhas',
+			'debug.emptyTable' => 'Sem linhas',
 			'debug.showActiveNotifications' => 'Mostrar Notificações Ativas',
 			'debug.scheduleTestNotification' => 'Agendar Notificação de Teste (10s)',
 			'debug.triggerBreakfastNotification' => 'Ativar Notificação de Café da Manhã',
@@ -2243,14 +2255,14 @@ extension on TranslationsPt {
 			'debug.failedToSendMealData' => 'Falha ao enviar dados da refeição. Verifique a conexão com o relógio.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Erro ao enviar dados da refeição: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Meta de calorias de teste enviada com sucesso!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Falha ao enviar a meta de calorias. Verifique a conexão com o relógio.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Erro ao enviar meta de calorias: ${error}',
 			'debug.testAnalyzeImage' => 'Testar análise de imagem',
 			'debug.testAnalyzeImageSubtitle' => 'Enviar imagem de teste predefinida',
 			'debug.testDetectImage' => 'Testar detecção de imagem',
 			'debug.testDetectImageSubtitle' => 'Detectar refeição a partir da URL da imagem',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Detectar imagem da galeria',
 			'debug.detectImageFromGallerySubtitle' => 'Selecione imagem, envie para o bucket e estime calorias',
 			'debug.testDetectText' => 'Testar detecção de texto',

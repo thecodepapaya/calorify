@@ -14,6 +14,7 @@ import 'package:calorify/core/services/wear_os_message_log.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_variation_sheet.dart';
+import 'package:calorify/features/debug/database_inspector_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart' hide MealType;
@@ -34,6 +35,7 @@ class DebugOptionsScreen extends StatefulWidget {
 
 class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
   String _searchQuery = '';
+  bool? _isFeedbackEligible;
 
   bool _matchesQuery(String a, [String? b, String? c]) {
     if (_searchQuery.trim().isEmpty) return true;
@@ -41,6 +43,46 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     return a.toLowerCase().contains(q) ||
         (b != null && b.toLowerCase().contains(q)) ||
         (c != null && c.toLowerCase().contains(q));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFeedbackEligibility();
+  }
+
+  Future<void> _loadFeedbackEligibility() async {
+    try {
+      final db = DatabaseService.databaseInterface;
+      final hasSeen = await db.hasSeenFeedbackSheet();
+      if (hasSeen) {
+        if (!mounted) return;
+        setState(() => _isFeedbackEligible = false);
+        return;
+      }
+
+      final meals = await db.getLatestMealsForFeedbackEligibility(limit: 5);
+      final distinctDays = meals
+          .map(
+            (m) => DateTime(
+              m.dateTime.year,
+              m.dateTime.month,
+              m.dateTime.day,
+            ),
+          )
+          .toSet()
+          .length;
+
+      final eligible =
+          meals.length >= 5 || (meals.length >= 3 && distinctDays >= 2);
+
+      if (!mounted) return;
+      setState(() => _isFeedbackEligible = eligible);
+    } catch (_) {
+      // In debug screen, failures here should not break the UI.
+      if (!mounted) return;
+      setState(() => _isFeedbackEligible = null);
+    }
   }
 
   @override
@@ -52,6 +94,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     final profileApiOptions = _buildProfileApiOptions(context);
     final feedbackOptions = _buildFeedbackOptions(context);
     final dataResetOptions = _buildDataResetOptions(context);
+    final databaseOptions = _buildDatabaseOptions(context);
     final appInfoOptions = _buildAppInfoOptions(context);
     final shorebirdOptions = _buildShorebirdOptions(context);
 
@@ -114,6 +157,14 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
             if (dataResetOptions != null) ...[
               _buildSectionTitle(context, t.debug.sections.dataReset),
               dataResetOptions,
+              const SizedBox(height: 24),
+            ],
+            if (databaseOptions != null) ...[
+              _buildSectionTitle(
+                context,
+                t['debug.sections.database'],
+              ),
+              databaseOptions,
               const SizedBox(height: 24),
             ],
             if (appInfoOptions != null) ...[
@@ -924,7 +975,51 @@ ${t.debug.variationsCount}: ${response.variations.length}
           ListTile(
             leading: const Icon(LucideIcons.star),
             title: Text(t.debug.showFeedbackRatingSheet),
+            trailing: _buildFeedbackEligibilityIndicator(context),
             onTap: () => showFeedbackRatingSheet(context, persistShown: false),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget? _buildFeedbackEligibilityIndicator(BuildContext context) {
+    final eligible = _isFeedbackEligible;
+    if (eligible == null) {
+      return const SizedBox.shrink();
+    }
+
+    final color = eligible
+        ? Theme.of(context).colorScheme.primary
+        : Theme.of(context).disabledColor;
+    final icon =
+        eligible ? LucideIcons.badgeCheck : LucideIcons.circleOff;
+
+    return Icon(
+      icon,
+      size: 18,
+      color: color,
+    );
+  }
+
+  Widget? _buildDatabaseOptions(BuildContext context) {
+    final section = t['debug.sections.database'];
+    final title = t['debug.inspectDatabaseTables'];
+    if (!_matchesQuery(section, title)) return null;
+    return Card(
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(LucideIcons.database),
+            title: Text(title),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const DatabaseInspectorScreen(),
+                  settings: const RouteSettings(name: 'databaseInspector'),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -1332,3 +1427,5 @@ ${t.debug.variationsCount}: ${response.variations.length}
     );
   }
 }
+
+

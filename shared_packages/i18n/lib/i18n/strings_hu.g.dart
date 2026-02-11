@@ -392,6 +392,11 @@ class _TranslationsDebugHu implements TranslationsDebugEn {
 	@override String get title => 'Hibakeresési Beállítások';
 	@override String get searchHint => 'Keresési opciók...';
 	@override late final _TranslationsDebugSectionsHu sections = _TranslationsDebugSectionsHu._(_root);
+	@override String get inspectDatabaseTables => 'Adatbázis-táblák megtekintése';
+	@override String get databaseInspectorTitle => 'Adatbázis-ellenőrző';
+	@override String get databaseOnlyWithRealData => 'Az adatbázis-ellenőrzés csak valódi adatokkal (nem tesztadatokkal) érhető el.';
+	@override String tableRowCount({required Object count}) => '${count} sor';
+	@override String get emptyTable => 'Nincsenek sorok';
 	@override String get showActiveNotifications => 'Aktív Értesítések Megjelenítése';
 	@override String get scheduleTestNotification => 'Teszt Értesítés Ütemezése (10s)';
 	@override String get triggerBreakfastNotification => 'Reggeli Értesítés Kioldása';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsHu implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Profil API tesztek';
 	@override String get feedback => 'Visszajelzés';
 	@override String get dataReset => 'Adatok visszaállítása';
+	@override String get database => 'Adatbázis';
 	@override String get appInfo => 'Alkalmazás Információ';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsHu {
 			'debug.sections.profileApiTests' => 'Profil API tesztek',
 			'debug.sections.feedback' => 'Visszajelzés',
 			'debug.sections.dataReset' => 'Adatok visszaállítása',
+			'debug.sections.database' => 'Adatbázis',
 			'debug.sections.appInfo' => 'Alkalmazás Információ',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Adatbázis-táblák megtekintése',
+			'debug.databaseInspectorTitle' => 'Adatbázis-ellenőrző',
+			'debug.databaseOnlyWithRealData' => 'Az adatbázis-ellenőrzés csak valódi adatokkal (nem tesztadatokkal) érhető el.',
+			'debug.tableRowCount' => ({required Object count}) => '${count} sor',
+			'debug.emptyTable' => 'Nincsenek sorok',
 			'debug.showActiveNotifications' => 'Aktív Értesítések Megjelenítése',
 			'debug.scheduleTestNotification' => 'Teszt Értesítés Ütemezése (10s)',
 			'debug.triggerBreakfastNotification' => 'Reggeli Értesítés Kioldása',
@@ -2243,14 +2255,14 @@ extension on TranslationsHu {
 			'debug.failedToSendMealData' => 'Nem sikerült elküldeni az ételadatot. Ellenőrizd az óra kapcsolatát.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Hiba az ételadat küldésekor: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Teszt kalóriacél sikeresen elküldve!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Nem sikerült elküldeni a kalóriacélt. Ellenőrizd az óra kapcsolatát.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Hiba a kalóriacél küldésekor: ${error}',
 			'debug.testAnalyzeImage' => 'Kép elemzés tesztelése',
 			'debug.testAnalyzeImageSubtitle' => 'Előre beállított tesztkép feltöltése',
 			'debug.testDetectImage' => 'Kép felismerés tesztelése',
 			'debug.testDetectImageSubtitle' => 'Ételfelismerés kép URL alapján',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Kép felismerése a galériából',
 			'debug.detectImageFromGallerySubtitle' => 'Válassz képet, töltsd fel a tárhelyre és becsüld meg a kalóriákat',
 			'debug.testDetectText' => 'Szövegfelismerés tesztelése',

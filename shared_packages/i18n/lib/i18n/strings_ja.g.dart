@@ -392,6 +392,11 @@ class _TranslationsDebugJa implements TranslationsDebugEn {
 	@override String get title => 'デバッグオプション';
 	@override String get searchHint => '検索オプション...';
 	@override late final _TranslationsDebugSectionsJa sections = _TranslationsDebugSectionsJa._(_root);
+	@override String get inspectDatabaseTables => 'データベースのテーブルを検査する';
+	@override String get databaseInspectorTitle => 'データベースインスペクター';
+	@override String get databaseOnlyWithRealData => 'データベースの検査は実データ使用時のみ可能です（モックデータでは利用できません）。';
+	@override String tableRowCount({required Object count}) => '${count}行';
+	@override String get emptyTable => 'データがありません';
 	@override String get showActiveNotifications => 'アクティブな通知を表示';
 	@override String get scheduleTestNotification => 'テスト通知をスケジュール (10秒)';
 	@override String get triggerBreakfastNotification => '朝食通知を発生させる';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsJa implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'プロフィールAPIのテスト';
 	@override String get feedback => 'フィードバック';
 	@override String get dataReset => 'データのリセット';
+	@override String get database => 'データベース';
 	@override String get appInfo => 'アプリ情報';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsJa {
 			'debug.sections.profileApiTests' => 'プロフィールAPIのテスト',
 			'debug.sections.feedback' => 'フィードバック',
 			'debug.sections.dataReset' => 'データのリセット',
+			'debug.sections.database' => 'データベース',
 			'debug.sections.appInfo' => 'アプリ情報',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'データベースのテーブルを検査する',
+			'debug.databaseInspectorTitle' => 'データベースインスペクター',
+			'debug.databaseOnlyWithRealData' => 'データベースの検査は実データ使用時のみ可能です（モックデータでは利用できません）。',
+			'debug.tableRowCount' => ({required Object count}) => '${count}行',
+			'debug.emptyTable' => 'データがありません',
 			'debug.showActiveNotifications' => 'アクティブな通知を表示',
 			'debug.scheduleTestNotification' => 'テスト通知をスケジュール (10秒)',
 			'debug.triggerBreakfastNotification' => '朝食通知を発生させる',
@@ -2243,14 +2255,14 @@ extension on TranslationsJa {
 			'debug.failedToSendMealData' => '食事データの送信に失敗しました。ウォッチの接続を確認してください。',
 			'debug.errorSendingMealData' => ({required Object error}) => '食事データ送信中にエラーが発生しました: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'テストのカロリー目標を送信しました！',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'カロリー目標の送信に失敗しました。ウォッチの接続を確認してください。',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'カロリー目標送信中にエラーが発生しました: ${error}',
 			'debug.testAnalyzeImage' => '画像解析テスト',
 			'debug.testAnalyzeImageSubtitle' => 'ハードコードされたテスト画像をアップロード',
 			'debug.testDetectImage' => '画像検出テスト',
 			'debug.testDetectImageSubtitle' => '画像URLから食事を検出する',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'ギャラリーから画像を検出',
 			'debug.detectImageFromGallerySubtitle' => '画像を選択してバケットにアップロードし、カロリーを推定する',
 			'debug.testDetectText' => 'テキスト検出テスト',

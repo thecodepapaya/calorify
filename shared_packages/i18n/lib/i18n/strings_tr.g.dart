@@ -392,6 +392,11 @@ class _TranslationsDebugTr implements TranslationsDebugEn {
 	@override String get title => 'Hata Ayıklama Seçenekleri';
 	@override String get searchHint => 'Arama seçenekleri...';
 	@override late final _TranslationsDebugSectionsTr sections = _TranslationsDebugSectionsTr._(_root);
+	@override String get inspectDatabaseTables => 'Veritabanı tablolarını incele';
+	@override String get databaseInspectorTitle => 'Veritabanı İnceleyicisi';
+	@override String get databaseOnlyWithRealData => 'Veritabanı incelemesi yalnızca gerçek verilerle (sahte/mock verilerle değil) kullanılabilir.';
+	@override String tableRowCount({required Object count}) => '${count} satır';
+	@override String get emptyTable => 'Satır yok';
 	@override String get showActiveNotifications => 'Aktif Bildirimleri Göster';
 	@override String get scheduleTestNotification => 'Test Bildirimi Zamanla (10s)';
 	@override String get triggerBreakfastNotification => 'Kahvaltı Bildirimini Tetikle';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsTr implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Profil API Testleri';
 	@override String get feedback => 'Geri bildirim';
 	@override String get dataReset => 'Veri sıfırlama';
+	@override String get database => 'Veritabanı';
 	@override String get appInfo => 'Uygulama Bilgisi';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsTr {
 			'debug.sections.profileApiTests' => 'Profil API Testleri',
 			'debug.sections.feedback' => 'Geri bildirim',
 			'debug.sections.dataReset' => 'Veri sıfırlama',
+			'debug.sections.database' => 'Veritabanı',
 			'debug.sections.appInfo' => 'Uygulama Bilgisi',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Veritabanı tablolarını incele',
+			'debug.databaseInspectorTitle' => 'Veritabanı İnceleyicisi',
+			'debug.databaseOnlyWithRealData' => 'Veritabanı incelemesi yalnızca gerçek verilerle (sahte/mock verilerle değil) kullanılabilir.',
+			'debug.tableRowCount' => ({required Object count}) => '${count} satır',
+			'debug.emptyTable' => 'Satır yok',
 			'debug.showActiveNotifications' => 'Aktif Bildirimleri Göster',
 			'debug.scheduleTestNotification' => 'Test Bildirimi Zamanla (10s)',
 			'debug.triggerBreakfastNotification' => 'Kahvaltı Bildirimini Tetikle',
@@ -2243,14 +2255,14 @@ extension on TranslationsTr {
 			'debug.failedToSendMealData' => 'Yemek verisi gönderilemedi. Saat bağlantısını kontrol edin.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Yemek verisi gönderilirken hata: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Test kalori hedefi başarıyla gönderildi!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Kalori hedefi gönderilemedi. Saat bağlantısını kontrol edin.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Kalori hedefi gönderilirken hata: ${error}',
 			'debug.testAnalyzeImage' => 'Görüntü Analiz Testi',
 			'debug.testAnalyzeImageSubtitle' => 'Kodlanmış test görselini yükle',
 			'debug.testDetectImage' => 'Görsel Tespit Testi',
 			'debug.testDetectImageSubtitle' => 'Görsel URL\'sinden yemeği tespit et',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Galeriden Görsel Tespiti',
 			'debug.detectImageFromGallerySubtitle' => 'Görseli seç, bucket\'a yükle ve kalorileri tahmin et',
 			'debug.testDetectText' => 'Metin Tespit Testi',

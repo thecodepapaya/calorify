@@ -604,10 +604,10 @@
         }
       },
       "calorieExpenditure": {
-        "title": "Calorie expenditure estimate",
+        "title": "Calorie Expenditure Estimate",
         "description": "When Health Connect data is unavailable, we estimate today's calories burned using your Basal Metabolic Rate (BMR) and activity level (TDEE), scaled for the portion of the day that has passed.",
         "howCalculated": {
-          "title": "How the estimate is calculated",
+          "title": "How The Estimate Is Calculated",
           "description": "We compute your TDEE (based on your profile) and multiply it by the fraction of the day elapsed (hours + minutes) / 24 to estimate calories burned so far."
         },
         "professionalGuidance": {
@@ -650,9 +650,15 @@
         "profileApiTests": "Profile API Tests",
         "feedback": "Feedback",
         "dataReset": "Data reset",
+        "database": "Database",
         "appInfo": "App Info",
         "shorebird": "Shorebird"
       },
+      "inspectDatabaseTables": "Inspect database tables",
+      "databaseInspectorTitle": "Database Inspector",
+      "databaseOnlyWithRealData": "Database inspection is only available when using real data (not mock).",
+      "tableRowCount": "{count} rows",
+      "emptyTable": "No rows",
       "showActiveNotifications": "Show Active Notifications",
       "scheduleTestNotification": "Schedule Test Notification (10s)",
       "triggerBreakfastNotification": "Trigger Breakfast Notification",

@@ -392,6 +392,11 @@ class _TranslationsDebugTh implements TranslationsDebugEn {
 	@override String get title => 'ตัวเลือกการดีบัก';
 	@override String get searchHint => 'ตัวเลือกการค้นหา...';
 	@override late final _TranslationsDebugSectionsTh sections = _TranslationsDebugSectionsTh._(_root);
+	@override String get inspectDatabaseTables => 'ตรวจสอบตารางฐานข้อมูล';
+	@override String get databaseInspectorTitle => 'ตัวตรวจสอบฐานข้อมูล';
+	@override String get databaseOnlyWithRealData => 'การตรวจสอบฐานข้อมูลใช้ได้เฉพาะเมื่อใช้ข้อมูลจริงเท่านั้น (ไม่รองรับข้อมูลจำลอง)';
+	@override String tableRowCount({required Object count}) => '${count} แถว';
+	@override String get emptyTable => 'ไม่มีข้อมูลในตาราง';
 	@override String get showActiveNotifications => 'แสดงการแจ้งเตือนที่ใช้งานอยู่';
 	@override String get scheduleTestNotification => 'กำหนดการแจ้งเตือนทดสอบ (10 วินาที)';
 	@override String get triggerBreakfastNotification => 'กระตุ้นการแจ้งเตือนอาหารเช้า';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsTh implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'การทดสอบ API โปรไฟล์';
 	@override String get feedback => 'ข้อเสนอแนะ';
 	@override String get dataReset => 'รีเซ็ตข้อมูล';
+	@override String get database => 'ฐานข้อมูล';
 	@override String get appInfo => 'ข้อมูลแอป';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsTh {
 			'debug.sections.profileApiTests' => 'การทดสอบ API โปรไฟล์',
 			'debug.sections.feedback' => 'ข้อเสนอแนะ',
 			'debug.sections.dataReset' => 'รีเซ็ตข้อมูล',
+			'debug.sections.database' => 'ฐานข้อมูล',
 			'debug.sections.appInfo' => 'ข้อมูลแอป',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'ตรวจสอบตารางฐานข้อมูล',
+			'debug.databaseInspectorTitle' => 'ตัวตรวจสอบฐานข้อมูล',
+			'debug.databaseOnlyWithRealData' => 'การตรวจสอบฐานข้อมูลใช้ได้เฉพาะเมื่อใช้ข้อมูลจริงเท่านั้น (ไม่รองรับข้อมูลจำลอง)',
+			'debug.tableRowCount' => ({required Object count}) => '${count} แถว',
+			'debug.emptyTable' => 'ไม่มีข้อมูลในตาราง',
 			'debug.showActiveNotifications' => 'แสดงการแจ้งเตือนที่ใช้งานอยู่',
 			'debug.scheduleTestNotification' => 'กำหนดการแจ้งเตือนทดสอบ (10 วินาที)',
 			'debug.triggerBreakfastNotification' => 'กระตุ้นการแจ้งเตือนอาหารเช้า',
@@ -2243,14 +2255,14 @@ extension on TranslationsTh {
 			'debug.failedToSendMealData' => 'ส่งข้อมูลมื้ออาหารล้มเหลว โปรดตรวจสอบการเชื่อมต่อกับนาฬิกา.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะส่งข้อมูลมื้ออาหาร: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'ส่งเป้าหมายแคลอรีทดสอบสำเร็จ!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'ส่งเป้าหมายแคลอรีล้มเหลว โปรดตรวจสอบการเชื่อมต่อกับนาฬิกา.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะส่งเป้าหมายแคลอรี: ${error}',
 			'debug.testAnalyzeImage' => 'ทดสอบวิเคราะห์รูปภาพ',
 			'debug.testAnalyzeImageSubtitle' => 'อัปโหลดรูปภาพทดสอบที่กำหนดไว้ล่วงหน้า',
 			'debug.testDetectImage' => 'ทดสอบตรวจจับรูปภาพ',
 			'debug.testDetectImageSubtitle' => 'ตรวจจับมื้ออาหารจาก URL รูปภาพ',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'ตรวจจับรูปจากคลังภาพ',
 			'debug.detectImageFromGallerySubtitle' => 'เลือกภาพ อัปโหลดไปยังบัคเก็ต และประเมินแคลอรี',
 			'debug.testDetectText' => 'ทดสอบตรวจจับข้อความ',

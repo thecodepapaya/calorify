@@ -392,6 +392,11 @@ class _TranslationsDebugEl implements TranslationsDebugEn {
 	@override String get title => 'Επιλογές Αποσφαλμάτωσης';
 	@override String get searchHint => 'Επιλογές αναζήτησης...';
 	@override late final _TranslationsDebugSectionsEl sections = _TranslationsDebugSectionsEl._(_root);
+	@override String get inspectDatabaseTables => 'Επιθεώρηση πινάκων της βάσης δεδομένων';
+	@override String get databaseInspectorTitle => 'Επιθεωρητής βάσης δεδομένων';
+	@override String get databaseOnlyWithRealData => 'Η επιθεώρηση της βάσης δεδομένων είναι διαθέσιμη μόνο όταν χρησιμοποιούνται πραγματικά δεδομένα (όχι πλασματικά).';
+	@override String tableRowCount({required Object count}) => '${count} εγγραφές';
+	@override String get emptyTable => 'Δεν υπάρχουν εγγραφές';
 	@override String get showActiveNotifications => 'Δείξε τις Ενεργές Ειδοποιήσεις';
 	@override String get scheduleTestNotification => 'Προγραμματισμός Δοκιμής Ειδοποίησης (10s)';
 	@override String get triggerBreakfastNotification => 'Ενεργοποίηση Ειδοποίησης Πρωινού';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsEl implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Δοκιμές API προφίλ';
 	@override String get feedback => 'Ανατροφοδότηση';
 	@override String get dataReset => 'Επαναφορά δεδομένων';
+	@override String get database => 'Βάση δεδομένων';
 	@override String get appInfo => 'Πληροφορίες Εφαρμογής';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsEl {
 			'debug.sections.profileApiTests' => 'Δοκιμές API προφίλ',
 			'debug.sections.feedback' => 'Ανατροφοδότηση',
 			'debug.sections.dataReset' => 'Επαναφορά δεδομένων',
+			'debug.sections.database' => 'Βάση δεδομένων',
 			'debug.sections.appInfo' => 'Πληροφορίες Εφαρμογής',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Επιθεώρηση πινάκων της βάσης δεδομένων',
+			'debug.databaseInspectorTitle' => 'Επιθεωρητής βάσης δεδομένων',
+			'debug.databaseOnlyWithRealData' => 'Η επιθεώρηση της βάσης δεδομένων είναι διαθέσιμη μόνο όταν χρησιμοποιούνται πραγματικά δεδομένα (όχι πλασματικά).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} εγγραφές',
+			'debug.emptyTable' => 'Δεν υπάρχουν εγγραφές',
 			'debug.showActiveNotifications' => 'Δείξε τις Ενεργές Ειδοποιήσεις',
 			'debug.scheduleTestNotification' => 'Προγραμματισμός Δοκιμής Ειδοποίησης (10s)',
 			'debug.triggerBreakfastNotification' => 'Ενεργοποίηση Ειδοποίησης Πρωινού',
@@ -2243,14 +2255,14 @@ extension on TranslationsEl {
 			'debug.failedToSendMealData' => 'Αποτυχία αποστολής δεδομένων γεύματος. Ελέγξτε τη σύνδεση του ρολογιού.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Σφάλμα κατά την αποστολή δεδομένων γεύματος: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Ο δοκιμαστικός στόχος θερμίδων στάλθηκε με επιτυχία!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Αποτυχία αποστολής στόχου θερμίδων. Ελέγξτε τη σύνδεση του ρολογιού.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Σφάλμα κατά την αποστολή στόχου θερμίδων: ${error}',
 			'debug.testAnalyzeImage' => 'Δοκιμή ανάλυσης εικόνας',
 			'debug.testAnalyzeImageSubtitle' => 'Ανέβασμα προκαθορισμένης δοκιμαστικής εικόνας',
 			'debug.testDetectImage' => 'Δοκιμή ανίχνευσης εικόνας',
 			'debug.testDetectImageSubtitle' => 'Ανίχνευση γεύματος από URL εικόνας',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Ανίχνευση εικόνας από τη συλλογή',
 			'debug.detectImageFromGallerySubtitle' => 'Επιλέξτε εικόνα, ανεβάστε στον bucket και εκτιμήστε τις θερμίδες',
 			'debug.testDetectText' => 'Δοκιμή ανίχνευσης κειμένου',

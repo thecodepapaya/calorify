@@ -392,6 +392,11 @@ class _TranslationsDebugHe implements TranslationsDebugEn {
 	@override String get title => 'אפשרויות דיבוג';
 	@override String get searchHint => 'אפשרויות חיפוש...';
 	@override late final _TranslationsDebugSectionsHe sections = _TranslationsDebugSectionsHe._(_root);
+	@override String get inspectDatabaseTables => 'בדוק טבלאות במסד הנתונים';
+	@override String get databaseInspectorTitle => 'בודק מסד הנתונים';
+	@override String get databaseOnlyWithRealData => 'בדיקת מסד הנתונים זמינה רק בעת שימוש בנתונים אמיתיים (לא בנתוני דמה).';
+	@override String tableRowCount({required Object count}) => '${count} שורות';
+	@override String get emptyTable => 'אין שורות';
 	@override String get showActiveNotifications => 'הצג התראות פעילות';
 	@override String get scheduleTestNotification => 'תזמן התראה ניסי (10ש)';
 	@override String get triggerBreakfastNotification => 'הפעל התראת ארוחת בוקר';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsHe implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'בדיקות API של הפרופיל';
 	@override String get feedback => 'משוב';
 	@override String get dataReset => 'איפוס נתונים';
+	@override String get database => 'מסד נתונים';
 	@override String get appInfo => 'מידע על האפליקציה';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsHe {
 			'debug.sections.profileApiTests' => 'בדיקות API של הפרופיל',
 			'debug.sections.feedback' => 'משוב',
 			'debug.sections.dataReset' => 'איפוס נתונים',
+			'debug.sections.database' => 'מסד נתונים',
 			'debug.sections.appInfo' => 'מידע על האפליקציה',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'בדוק טבלאות במסד הנתונים',
+			'debug.databaseInspectorTitle' => 'בודק מסד הנתונים',
+			'debug.databaseOnlyWithRealData' => 'בדיקת מסד הנתונים זמינה רק בעת שימוש בנתונים אמיתיים (לא בנתוני דמה).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} שורות',
+			'debug.emptyTable' => 'אין שורות',
 			'debug.showActiveNotifications' => 'הצג התראות פעילות',
 			'debug.scheduleTestNotification' => 'תזמן התראה ניסי (10ש)',
 			'debug.triggerBreakfastNotification' => 'הפעל התראת ארוחת בוקר',
@@ -2243,14 +2255,14 @@ extension on TranslationsHe {
 			'debug.failedToSendMealData' => 'שליחת נתוני הארוחה נכשלה. בדוק את החיבור לשעון.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'שגיאה בשליחת נתוני הארוחה: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'יעד הקלוריות נשלח בהצלחה!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'שליחת יעד הקלוריות נכשלה. בדוק את החיבור לשעון.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'שגיאה בשליחת יעד הקלוריות: ${error}',
 			'debug.testAnalyzeImage' => 'בדיקת ניתוח תמונה',
 			'debug.testAnalyzeImageSubtitle' => 'העלה תמונת בדיקה מובנית',
 			'debug.testDetectImage' => 'בדיקת זיהוי תמונה',
 			'debug.testDetectImageSubtitle' => 'זיהוי ארוחה מתוך כתובת URL של תמונה',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'זיהוי תמונה מהגלריה',
 			'debug.detectImageFromGallerySubtitle' => 'בחר תמונה, העלה לאחסון והערך את הקלוריות',
 			'debug.testDetectText' => 'בדיקת זיהוי טקסט',

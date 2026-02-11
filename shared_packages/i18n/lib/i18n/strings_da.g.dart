@@ -392,6 +392,11 @@ class _TranslationsDebugDa implements TranslationsDebugEn {
 	@override String get title => 'Debug Indstillinger';
 	@override String get searchHint => 'Søgeindstillinger...';
 	@override late final _TranslationsDebugSectionsDa sections = _TranslationsDebugSectionsDa._(_root);
+	@override String get inspectDatabaseTables => 'Gennemse databasetabeller';
+	@override String get databaseInspectorTitle => 'Databaseinspektør';
+	@override String get databaseOnlyWithRealData => 'Databaseinspektion er kun tilgængelig, når der bruges reelle data (ikke mock-data).';
+	@override String tableRowCount({required Object count}) => '${count} rækker';
+	@override String get emptyTable => 'Ingen rækker';
 	@override String get showActiveNotifications => 'Vis Aktive Notifikationer';
 	@override String get scheduleTestNotification => 'Planlæg Testnotifikation (10s)';
 	@override String get triggerBreakfastNotification => 'Udløs Morgenmad Notifikation';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsDa implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Profil-API-tests';
 	@override String get feedback => 'Feedback';
 	@override String get dataReset => 'Nulstil data';
+	@override String get database => 'Database';
 	@override String get appInfo => 'App Info';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsDa {
 			'debug.sections.profileApiTests' => 'Profil-API-tests',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Nulstil data',
+			'debug.sections.database' => 'Database',
 			'debug.sections.appInfo' => 'App Info',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Gennemse databasetabeller',
+			'debug.databaseInspectorTitle' => 'Databaseinspektør',
+			'debug.databaseOnlyWithRealData' => 'Databaseinspektion er kun tilgængelig, når der bruges reelle data (ikke mock-data).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} rækker',
+			'debug.emptyTable' => 'Ingen rækker',
 			'debug.showActiveNotifications' => 'Vis Aktive Notifikationer',
 			'debug.scheduleTestNotification' => 'Planlæg Testnotifikation (10s)',
 			'debug.triggerBreakfastNotification' => 'Udløs Morgenmad Notifikation',
@@ -2243,14 +2255,14 @@ extension on TranslationsDa {
 			'debug.failedToSendMealData' => 'Kunne ikke sende måltidsdata. Tjek urforbindelsen.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Fejl ved afsendelse af måltidsdata: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Test kaloriemål sendt med succes!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Kunne ikke sende kaloriemål. Tjek urforbindelsen.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Fejl ved afsendelse af kaloriemål: ${error}',
 			'debug.testAnalyzeImage' => 'Test: billedanalyse',
 			'debug.testAnalyzeImageSubtitle' => 'Upload et hårdkodet testbillede',
 			'debug.testDetectImage' => 'Test: genkend billede',
 			'debug.testDetectImageSubtitle' => 'Genkend måltid fra billede-URL',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Genkend billede fra galleri',
 			'debug.detectImageFromGallerySubtitle' => 'Vælg billede, upload til bucket og estimer kalorier',
 			'debug.testDetectText' => 'Test: genkend tekst',

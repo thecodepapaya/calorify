@@ -392,6 +392,11 @@ class _TranslationsDebugRu implements TranslationsDebugEn {
 	@override String get title => 'Опции отладки';
 	@override String get searchHint => 'Параметры поиска...';
 	@override late final _TranslationsDebugSectionsRu sections = _TranslationsDebugSectionsRu._(_root);
+	@override String get inspectDatabaseTables => 'Просмотреть таблицы базы данных';
+	@override String get databaseInspectorTitle => 'Инспектор базы данных';
+	@override String get databaseOnlyWithRealData => 'Инспекция базы данных доступна только при использовании реальных данных (не с мок-данными).';
+	@override String tableRowCount({required Object count}) => '${count} строк';
+	@override String get emptyTable => 'Нет строк';
 	@override String get showActiveNotifications => 'Показать активные уведомления';
 	@override String get scheduleTestNotification => 'Запланировать тестовое уведомление (10с)';
 	@override String get triggerBreakfastNotification => 'Сигнализировать о завтраке';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsRu implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Тесты API профиля';
 	@override String get feedback => 'Обратная связь';
 	@override String get dataReset => 'Сброс данных';
+	@override String get database => 'База данных';
 	@override String get appInfo => 'Информация о приложении';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsRu {
 			'debug.sections.profileApiTests' => 'Тесты API профиля',
 			'debug.sections.feedback' => 'Обратная связь',
 			'debug.sections.dataReset' => 'Сброс данных',
+			'debug.sections.database' => 'База данных',
 			'debug.sections.appInfo' => 'Информация о приложении',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Просмотреть таблицы базы данных',
+			'debug.databaseInspectorTitle' => 'Инспектор базы данных',
+			'debug.databaseOnlyWithRealData' => 'Инспекция базы данных доступна только при использовании реальных данных (не с мок-данными).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} строк',
+			'debug.emptyTable' => 'Нет строк',
 			'debug.showActiveNotifications' => 'Показать активные уведомления',
 			'debug.scheduleTestNotification' => 'Запланировать тестовое уведомление (10с)',
 			'debug.triggerBreakfastNotification' => 'Сигнализировать о завтраке',
@@ -2243,14 +2255,14 @@ extension on TranslationsRu {
 			'debug.failedToSendMealData' => 'Не удалось отправить данные о приеме пищи. Проверьте подключение часов.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Ошибка при отправке данных о приеме пищи: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Тестовая цель по калориям успешно отправлена!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Не удалось отправить цель по калориям. Проверьте подключение часов.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Ошибка при отправке цели по калориям: ${error}',
 			'debug.testAnalyzeImage' => 'Тест анализа изображения',
 			'debug.testAnalyzeImageSubtitle' => 'Загрузить заранее заданное тестовое изображение',
 			'debug.testDetectImage' => 'Тест обнаружения изображения',
 			'debug.testDetectImageSubtitle' => 'Определить блюдо по URL изображения',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Определить изображение из галереи',
 			'debug.detectImageFromGallerySubtitle' => 'Выбрать изображение, загрузить в хранилище и оценить калории',
 			'debug.testDetectText' => 'Тест обнаружения текста',

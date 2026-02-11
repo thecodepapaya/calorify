@@ -392,6 +392,11 @@ class _TranslationsDebugNl implements TranslationsDebugEn {
 	@override String get title => 'Debug Opties';
 	@override String get searchHint => 'Zoekopties...';
 	@override late final _TranslationsDebugSectionsNl sections = _TranslationsDebugSectionsNl._(_root);
+	@override String get inspectDatabaseTables => 'Database-tabellen bekijken';
+	@override String get databaseInspectorTitle => 'Database-inspectie';
+	@override String get databaseOnlyWithRealData => 'Database-inspectie is alleen beschikbaar wanneer echte gegevens worden gebruikt (niet bij gesimuleerde gegevens).';
+	@override String tableRowCount({required Object count}) => '${count} rijen';
+	@override String get emptyTable => 'Geen rijen';
 	@override String get showActiveNotifications => 'Toon Actieve Meldingen';
 	@override String get scheduleTestNotification => 'Plan Testmelding (10s)';
 	@override String get triggerBreakfastNotification => 'Activeer Ontbijtmelding';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsNl implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Profiel-API-tests';
 	@override String get feedback => 'Feedback';
 	@override String get dataReset => 'Gegevens resetten';
+	@override String get database => 'Database';
 	@override String get appInfo => 'App Informatie';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsNl {
 			'debug.sections.profileApiTests' => 'Profiel-API-tests',
 			'debug.sections.feedback' => 'Feedback',
 			'debug.sections.dataReset' => 'Gegevens resetten',
+			'debug.sections.database' => 'Database',
 			'debug.sections.appInfo' => 'App Informatie',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Database-tabellen bekijken',
+			'debug.databaseInspectorTitle' => 'Database-inspectie',
+			'debug.databaseOnlyWithRealData' => 'Database-inspectie is alleen beschikbaar wanneer echte gegevens worden gebruikt (niet bij gesimuleerde gegevens).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} rijen',
+			'debug.emptyTable' => 'Geen rijen',
 			'debug.showActiveNotifications' => 'Toon Actieve Meldingen',
 			'debug.scheduleTestNotification' => 'Plan Testmelding (10s)',
 			'debug.triggerBreakfastNotification' => 'Activeer Ontbijtmelding',
@@ -2243,14 +2255,14 @@ extension on TranslationsNl {
 			'debug.failedToSendMealData' => 'Kon maaltijdgegevens niet verzenden. Controleer de horlogeverbinding.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Fout bij verzenden maaltijdgegevens: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Test-caloriedoel succesvol verzonden!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Kon caloriedoel niet verzenden. Controleer de horlogeverbinding.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Fout bij verzenden caloriedoel: ${error}',
 			'debug.testAnalyzeImage' => 'Test: afbeelding analyseren',
 			'debug.testAnalyzeImageSubtitle' => 'Upload een vooraf ingestelde testafbeelding',
 			'debug.testDetectImage' => 'Test: afbeelding detecteren',
 			'debug.testDetectImageSubtitle' => 'Detecteer maaltijd vanuit afbeeldings-URL',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Detecteer afbeelding uit galerij',
 			'debug.detectImageFromGallerySubtitle' => 'Selecteer afbeelding, upload naar bucket en schat calorieën',
 			'debug.testDetectText' => 'Test: tekst detecteren',

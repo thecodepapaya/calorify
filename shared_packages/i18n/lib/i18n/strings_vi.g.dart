@@ -392,6 +392,11 @@ class _TranslationsDebugVi implements TranslationsDebugEn {
 	@override String get title => 'Tùy chọn gỡ lỗi';
 	@override String get searchHint => 'Tìm kiếm...';
 	@override late final _TranslationsDebugSectionsVi sections = _TranslationsDebugSectionsVi._(_root);
+	@override String get inspectDatabaseTables => 'Kiểm tra các bảng cơ sở dữ liệu';
+	@override String get databaseInspectorTitle => 'Trình kiểm tra cơ sở dữ liệu';
+	@override String get databaseOnlyWithRealData => 'Việc kiểm tra cơ sở dữ liệu chỉ khả dụng khi sử dụng dữ liệu thật (không phải dữ liệu mô phỏng).';
+	@override String tableRowCount({required Object count}) => '${count} hàng';
+	@override String get emptyTable => 'Không có hàng nào';
 	@override String get showActiveNotifications => 'Hiển thị thông báo đang hoạt động';
 	@override String get scheduleTestNotification => 'Lên lịch thông báo thử nghiệm (10 giây)';
 	@override String get triggerBreakfastNotification => 'Kích hoạt thông báo bữa sáng';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsVi implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => 'Kiểm tra API hồ sơ';
 	@override String get feedback => 'Phản hồi';
 	@override String get dataReset => 'Đặt lại dữ liệu';
+	@override String get database => 'Cơ sở dữ liệu';
 	@override String get appInfo => 'Thông tin ứng dụng';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsVi {
 			'debug.sections.profileApiTests' => 'Kiểm tra API hồ sơ',
 			'debug.sections.feedback' => 'Phản hồi',
 			'debug.sections.dataReset' => 'Đặt lại dữ liệu',
+			'debug.sections.database' => 'Cơ sở dữ liệu',
 			'debug.sections.appInfo' => 'Thông tin ứng dụng',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => 'Kiểm tra các bảng cơ sở dữ liệu',
+			'debug.databaseInspectorTitle' => 'Trình kiểm tra cơ sở dữ liệu',
+			'debug.databaseOnlyWithRealData' => 'Việc kiểm tra cơ sở dữ liệu chỉ khả dụng khi sử dụng dữ liệu thật (không phải dữ liệu mô phỏng).',
+			'debug.tableRowCount' => ({required Object count}) => '${count} hàng',
+			'debug.emptyTable' => 'Không có hàng nào',
 			'debug.showActiveNotifications' => 'Hiển thị thông báo đang hoạt động',
 			'debug.scheduleTestNotification' => 'Lên lịch thông báo thử nghiệm (10 giây)',
 			'debug.triggerBreakfastNotification' => 'Kích hoạt thông báo bữa sáng',
@@ -2243,14 +2255,14 @@ extension on TranslationsVi {
 			'debug.failedToSendMealData' => 'Gửi dữ liệu bữa ăn thất bại. Kiểm tra kết nối đồng hồ.',
 			'debug.errorSendingMealData' => ({required Object error}) => 'Lỗi khi gửi dữ liệu bữa ăn: ${error}',
 			'debug.testCalorieGoalSentSuccess' => 'Đã gửi mục tiêu calo thử thành công!',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => 'Gửi mục tiêu calo thất bại. Kiểm tra kết nối đồng hồ.',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => 'Lỗi khi gửi mục tiêu calo: ${error}',
 			'debug.testAnalyzeImage' => 'Thử phân tích ảnh',
 			'debug.testAnalyzeImageSubtitle' => 'Tải ảnh thử cố định lên',
 			'debug.testDetectImage' => 'Thử phát hiện ảnh',
 			'debug.testDetectImageSubtitle' => 'Phát hiện bữa ăn từ URL ảnh',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => 'Phát hiện ảnh từ Thư viện',
 			'debug.detectImageFromGallerySubtitle' => 'Chọn ảnh, tải lên bucket và ước tính calo',
 			'debug.testDetectText' => 'Thử phát hiện văn bản',

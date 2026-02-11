@@ -29,7 +29,7 @@ class _FavoriteMealsState extends State<FavoriteMeals> {
 
     return Container(
       margin: globalMargin,
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: globalRadius,
         border: Border.all(color: colorScheme.outline),
@@ -50,14 +50,14 @@ class _FavoriteMealsState extends State<FavoriteMeals> {
               ),
             ],
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 6),
           Text(
             t.home.favoriteMeals.description,
             style: textTheme.bodyMedium?.copyWith(
               color: colorScheme.onSecondary.withValues(alpha: 0.7),
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 14),
           StreamBuilder<List<FavoriteMeal>>(
             stream:
                 DatabaseService.databaseInterface.watchLastUsedFavoriteMeals(),
@@ -77,14 +77,14 @@ class _FavoriteMealsState extends State<FavoriteMeals> {
                     padding: EdgeInsets.zero,
                     physics: const NeverScrollableScrollPhysics(),
                     separatorBuilder:
-                        (context, index) => const SizedBox(height: 10),
+                        (context, index) => const SizedBox(height: 8),
                     itemBuilder: (context, index) {
                       final meal = favoriteMeals[index];
                       return _MealTile(favoriteMeal: meal);
                     },
                   ),
                   if (favoriteMeals.length > 3) ...[
-                    SizedBox(height: 8),
+                    SizedBox(height: 6),
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
@@ -125,13 +125,13 @@ class _NoFavorites extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           Icon(
             LucideIcons.star,
             size: 48,
             color: colorScheme.onSecondary.withValues(alpha: 0.3),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           Text(
             t.home.favoriteMeals.noFavorites,
             style: textTheme.bodyLarge?.copyWith(
@@ -144,7 +144,7 @@ class _NoFavorites extends StatelessWidget {
               color: colorScheme.onSecondary.withValues(alpha: 0.7),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
         ],
       ),
     );

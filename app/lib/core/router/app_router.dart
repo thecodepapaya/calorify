@@ -9,7 +9,7 @@ import 'package:calorify/features/log/log_screen.dart';
 import 'package:calorify/features/main/main_screen.dart';
 import 'package:calorify/features/onboarding/onboarding_screen.dart';
 import 'package:calorify/features/profile/about_screen.dart';
-import 'package:calorify/features/profile/debug_options_screen.dart';
+import 'package:calorify/features/debug/debug_options_screen.dart';
 import 'package:calorify/features/profile/edit_profile_screen.dart';
 import 'package:calorify/features/profile/edit_reminder_screen.dart';
 import 'package:calorify/features/profile/health_connect_permissions_screen.dart';

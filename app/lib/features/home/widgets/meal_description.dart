@@ -35,7 +35,7 @@ class _DescribeMealState extends State<DescribeMeal> {
       children: [
         Container(
           margin: globalMargin,
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: globalRadius,
             border: Border.all(color: colorScheme.outline),
@@ -56,14 +56,14 @@ class _DescribeMealState extends State<DescribeMeal> {
                   ),
                 ],
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 6),
               Text(
                 t.home.mealDescription.description,
                 style: textTheme.bodyMedium?.copyWith(
                   color: colorScheme.onSecondary.withValues(alpha: 0.7),
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 14),
               TextFormField(
                 controller: _textController,
                 enabled: !_isLoading,
@@ -80,7 +80,7 @@ class _DescribeMealState extends State<DescribeMeal> {
                 minLines: 2,
                 maxLines: 3,
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 12),
               PrimaryButton(
                 analyticsEvent: AnalyticsEvent.addMealFromDescription,
                 onPressed: _onProcessMealDescription,

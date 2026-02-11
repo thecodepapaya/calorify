@@ -392,6 +392,11 @@ class _TranslationsDebugZhTw implements TranslationsDebugEn {
 	@override String get title => '調試選項';
 	@override String get searchHint => '搜尋選項...';
 	@override late final _TranslationsDebugSectionsZhTw sections = _TranslationsDebugSectionsZhTw._(_root);
+	@override String get inspectDatabaseTables => '檢查資料表';
+	@override String get databaseInspectorTitle => '資料庫檢視器';
+	@override String get databaseOnlyWithRealData => '資料庫檢視僅在使用真實資料（非模擬）時可用。';
+	@override String tableRowCount({required Object count}) => '${count} 筆';
+	@override String get emptyTable => '尚無資料';
 	@override String get showActiveNotifications => '顯示活動通知';
 	@override String get scheduleTestNotification => '安排測試通知 (10 秒)';
 	@override String get triggerBreakfastNotification => '觸發早餐通知';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsZhTw implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => '個人資料 API 測試';
 	@override String get feedback => '回饋';
 	@override String get dataReset => '重設資料';
+	@override String get database => '資料庫';
 	@override String get appInfo => '應用信息';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsZhTw {
 			'debug.sections.profileApiTests' => '個人資料 API 測試',
 			'debug.sections.feedback' => '回饋',
 			'debug.sections.dataReset' => '重設資料',
+			'debug.sections.database' => '資料庫',
 			'debug.sections.appInfo' => '應用信息',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => '檢查資料表',
+			'debug.databaseInspectorTitle' => '資料庫檢視器',
+			'debug.databaseOnlyWithRealData' => '資料庫檢視僅在使用真實資料（非模擬）時可用。',
+			'debug.tableRowCount' => ({required Object count}) => '${count} 筆',
+			'debug.emptyTable' => '尚無資料',
 			'debug.showActiveNotifications' => '顯示活動通知',
 			'debug.scheduleTestNotification' => '安排測試通知 (10 秒)',
 			'debug.triggerBreakfastNotification' => '觸發早餐通知',
@@ -2243,14 +2255,14 @@ extension on TranslationsZhTw {
 			'debug.failedToSendMealData' => '餐點資料傳送失敗。請檢查手錶連線。',
 			'debug.errorSendingMealData' => ({required Object error}) => '傳送餐點資料時發生錯誤：${error}',
 			'debug.testCalorieGoalSentSuccess' => '測試卡路里目標傳送成功！',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => '卡路里目標傳送失敗。請檢查手錶連線。',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => '傳送卡路里目標時發生錯誤：${error}',
 			'debug.testAnalyzeImage' => '測試分析圖片',
 			'debug.testAnalyzeImageSubtitle' => '上傳硬編碼的測試圖片',
 			'debug.testDetectImage' => '測試偵測圖片',
 			'debug.testDetectImageSubtitle' => '從圖片 URL 偵測餐點',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => '從相簿偵測圖片',
 			'debug.detectImageFromGallerySubtitle' => '選擇圖片，上傳到儲存桶並估算卡路里',
 			'debug.testDetectText' => '測試文字偵測',

@@ -20,7 +20,7 @@ class IntakeHistoryBarChart extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const _ChartHeader(),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
           const _MacroHistoryChart(),
         ],
       ),
@@ -171,7 +171,7 @@ class _MacroHistoryChart extends StatelessWidget {
                 );
               },
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
             const MacroLegend(),
           ],
         );
@@ -199,7 +199,7 @@ class _BarChartWithGoal extends StatelessWidget {
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
     return SizedBox(
-      height: 250,
+      height: 200,
       child: BarChart(
         BarChartData(
           alignment: BarChartAlignment.spaceAround,
@@ -365,14 +365,14 @@ class _EmptyHistoryGraphic extends StatelessWidget {
         children: [
           // Greyed out bar chart
           SizedBox(
-            height: 90,
+            height: 70,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: List.generate(7, (index) {
                 // Varying heights for visual interest
                 final heights = [0.3, 0.5, 0.4, 0.6, 0.35, 0.45, 0.55];
-                final height = heights[index] * 70;
+                final height = heights[index] * 55;
                 return Container(
                   margin: const EdgeInsets.symmetric(horizontal: 2.5),
                   width: 10,
@@ -385,7 +385,7 @@ class _EmptyHistoryGraphic extends StatelessWidget {
               }),
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
           Text(
             t.home.intakeHistory.noHistoryYet,
             style: textTheme.titleMedium?.copyWith(

@@ -392,6 +392,11 @@ class _TranslationsDebugZhCn implements TranslationsDebugEn {
 	@override String get title => '调试选项';
 	@override String get searchHint => '搜索选项...';
 	@override late final _TranslationsDebugSectionsZhCn sections = _TranslationsDebugSectionsZhCn._(_root);
+	@override String get inspectDatabaseTables => '检查数据库表';
+	@override String get databaseInspectorTitle => '数据库检查器';
+	@override String get databaseOnlyWithRealData => '数据库检查仅在使用真实数据（非模拟数据）时可用。';
+	@override String tableRowCount({required Object count}) => '${count} 行';
+	@override String get emptyTable => '暂无记录';
 	@override String get showActiveNotifications => '显示活动通知';
 	@override String get scheduleTestNotification => '安排测试通知 (10秒)';
 	@override String get triggerBreakfastNotification => '触发早餐通知';
@@ -1231,6 +1236,7 @@ class _TranslationsDebugSectionsZhCn implements TranslationsDebugSectionsEn {
 	@override String get profileApiTests => '个人资料 API 测试';
 	@override String get feedback => '反馈';
 	@override String get dataReset => '数据重置';
+	@override String get database => '数据库';
 	@override String get appInfo => '应用信息';
 	@override String get shorebird => 'Shorebird';
 }
@@ -2165,8 +2171,14 @@ extension on TranslationsZhCn {
 			'debug.sections.profileApiTests' => '个人资料 API 测试',
 			'debug.sections.feedback' => '反馈',
 			'debug.sections.dataReset' => '数据重置',
+			'debug.sections.database' => '数据库',
 			'debug.sections.appInfo' => '应用信息',
 			'debug.sections.shorebird' => 'Shorebird',
+			'debug.inspectDatabaseTables' => '检查数据库表',
+			'debug.databaseInspectorTitle' => '数据库检查器',
+			'debug.databaseOnlyWithRealData' => '数据库检查仅在使用真实数据（非模拟数据）时可用。',
+			'debug.tableRowCount' => ({required Object count}) => '${count} 行',
+			'debug.emptyTable' => '暂无记录',
 			'debug.showActiveNotifications' => '显示活动通知',
 			'debug.scheduleTestNotification' => '安排测试通知 (10秒)',
 			'debug.triggerBreakfastNotification' => '触发早餐通知',
@@ -2243,14 +2255,14 @@ extension on TranslationsZhCn {
 			'debug.failedToSendMealData' => '发送餐数据失败。请检查手表连接。',
 			'debug.errorSendingMealData' => ({required Object error}) => '发送餐数据时出错：${error}',
 			'debug.testCalorieGoalSentSuccess' => '测试卡路里目标发送成功！',
+			_ => null,
+		} ?? switch (path) {
 			'debug.failedToSendCalorieGoal' => '发送卡路里目标失败。请检查手表连接。',
 			'debug.errorSendingCalorieGoal' => ({required Object error}) => '发送卡路里目标时出错：${error}',
 			'debug.testAnalyzeImage' => '测试图像分析',
 			'debug.testAnalyzeImageSubtitle' => '上传硬编码的测试图片',
 			'debug.testDetectImage' => '测试图像识别',
 			'debug.testDetectImageSubtitle' => '从图片 URL 识别餐品',
-			_ => null,
-		} ?? switch (path) {
 			'debug.detectImageFromGallery' => '从相册识别图片',
 			'debug.detectImageFromGallerySubtitle' => '选择图片，上传到存储并估算卡路里',
 			'debug.testDetectText' => '测试文本识别',
