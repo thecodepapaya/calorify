@@ -1,0 +1,5 @@
+What's New:
+• Bug fixes and stability improvements
+• Performance and reliability updates
+
+Thanks for using Calorify! 🥗
