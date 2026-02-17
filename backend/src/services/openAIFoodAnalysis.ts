@@ -50,10 +50,10 @@ interface OpenAIResponse {
         fat: number;
         fiber: number;
       };
-      health?: {
+      health: {
         health_score: string;
-        health_score_reason?: string;
-      };
+        health_score_reason: string;
+      } | null;
     } | null;
   };
   variations: OpenAIVariation[];
@@ -64,7 +64,6 @@ const OPENAI_FOOD_ANALYSIS_MODEL = 'gpt-4.1-nano' as const;
 /** JSON Schema for Structured Outputs; matches OpenAIResponse. */
 const MEAL_DETECTION_RESPONSE_SCHEMA = {
   type: 'object' as const,
-  description: 'Food analysis response with detected meal details and optional clarification variations.',
   properties: {
     result: {
       type: 'object' as const,
@@ -115,21 +114,28 @@ const MEAL_DETECTION_RESPONSE_SCHEMA = {
                   additionalProperties: false,
                 },
                 health: {
-                  type: 'object' as const,
-                  description: 'Optional health evaluation for the identified meal.',
-                  properties: {
-                    health_score: {
-                      type: 'string' as const,
-                      enum: ['HEALTHY', 'NEUTRAL', 'UNHEALTHY'],
-                      description: 'Health score label based on nutritional balance. Example: "HEALTHY".',
+                  description: 'Health evaluation for the meal, or null when not provided.',
+                  anyOf: [
+                    {
+                      type: 'object' as const,
+                      properties: {
+                        health_score: {
+                          type: 'string' as const,
+                          enum: ['HEALTHY', 'NEUTRAL', 'UNHEALTHY'],
+                          description: 'Health score label based on nutritional balance',
+                        },
+                        health_score_reason: {
+                          type: 'string' as const,
+                          description: 'Concise reason for the assigned health score. Example: "Balanced protein and fiber."',
+                        },
+                      },
+                      required: ['health_score', 'health_score_reason'],
+                      additionalProperties: false,
                     },
-                    health_score_reason: {
-                      type: 'string' as const,
-                      description: 'Concise reason for the assigned health score. Example: "Balanced protein and fiber."',
+                    {
+                      type: 'null' as const,
                     },
-                  },
-                  required: ['health_score', 'health_score_reason'],
-                  additionalProperties: false,
+                  ],
                 },
               },
               required: ['name', 'quantity', 'type', 'macros', 'health'],
@@ -146,12 +152,12 @@ const MEAL_DETECTION_RESPONSE_SCHEMA = {
     },
     variations: {
       type: 'array' as const,
-      description: 'Optional variation questions when confidence is LOW or MEDIUM.',
+      description: 'Clarification questions only for LOW or MEDIUM confidence results. Return an empty array for HIGH/UNSPECIFIED confidence.',
       items: {
         type: 'object' as const,
-        description: 'One variation question with options.',
+        description: 'One meal-specific clarification question with options.',
         properties: {
-          question: { type: 'string' as const, description: 'Question to disambiguate. Example: "What portion size is this?"' },
+          question: { type: 'string' as const, description: 'Question to increase calorie confidence in the detected meal.' },
           options: {
             type: 'array' as const,
             items: {
@@ -210,6 +216,50 @@ class OpenAIFoodAnalysisService {
     this.client = new OpenAI({ apiKey });
   }
 
+  private shouldDebugLog(): boolean {
+    return config.DEBUG || config.ENVIRONMENT === 'staging';
+  }
+
+  private logLocale(method: string, locale: string): void {
+    if (this.shouldDebugLog()) {
+      console.log(`[OpenAI] ${method} - locale:`, locale, 'language:', locale);
+    }
+  }
+
+  /**
+   * Execute a structured completion call and parse model JSON output.
+   */
+  private async createStructuredResponse(
+    messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
+  ): Promise<OpenAIResponse> {
+    const response = await this.client.chat.completions.create({
+      model: OPENAI_FOOD_ANALYSIS_MODEL,
+      messages,
+      response_format: MEAL_DETECTION_RESPONSE_FORMAT,
+      max_tokens: 800,
+    });
+
+    const content = response.choices[0]?.message?.content;
+    if (!content) {
+      throw new Error('No response content from OpenAI');
+    }
+
+    // For strict json_schema responses, content is expected to be valid JSON.
+    // Parse raw content first; only fall back to sanitizer for defensive compatibility.
+    try {
+      return JSON.parse(content) as OpenAIResponse;
+    } catch (parseError) {
+      const jsonText = this.extractJson(content);
+      try {
+        return JSON.parse(jsonText) as OpenAIResponse;
+      } catch (fallbackParseError) {
+        throw new Error(
+          `Failed to parse OpenAI response as JSON: ${fallbackParseError instanceof Error ? fallbackParseError.message : 'Unknown error'}`
+        );
+      }
+    }
+  }
+
   /**
    * Parse meal type string to protobuf enum value
    */
@@ -250,85 +300,6 @@ class OpenAIFoodAnalysisService {
       HIGH: CalorieConfidenceEnum.HIGH,
     };
     return mapping[upper] ?? CalorieConfidenceEnum.UNSPECIFIED;
-  }
-
-  /**
-   * Get mock variations for testing in staging environment
-   * Returns a set of sample variations to test the meal logging flow
-   */
-  private getMockVariations(): Variation[] {
-    return [
-      {
-        question: 'What does the white bowl contain?',
-        options: [
-          {
-            option: 'Curd (Yogurt)',
-            macroDiff: {
-              calories: 50,
-              carbs: 5,
-              protein: 3,
-              fat: 2,
-              fiber: 0,
-            },
-          },
-          {
-            option: 'Labaan (Buttermilk)',
-            macroDiff: {
-              calories: 30,
-              carbs: 3,
-              protein: 2,
-              fat: 1,
-              fiber: 0,
-            },
-          },
-          {
-            option: 'Raita (Yogurt with vegetables)',
-            macroDiff: {
-              calories: 60,
-              carbs: 6,
-              protein: 4,
-              fat: 2,
-              fiber: 1,
-            },
-          },
-        ],
-      },
-      {
-        question: 'What type of rice is this?',
-        options: [
-          {
-            option: 'White Rice',
-            macroDiff: {
-              calories: 200,
-              carbs: 45,
-              protein: 4,
-              fat: 0,
-              fiber: 1,
-            },
-          },
-          {
-            option: 'Brown Rice',
-            macroDiff: {
-              calories: 220,
-              carbs: 46,
-              protein: 5,
-              fat: 2,
-              fiber: 4,
-            },
-          },
-          {
-            option: 'Basmati Rice',
-            macroDiff: {
-              calories: 205,
-              carbs: 44,
-              protein: 4,
-              fat: 0,
-              fiber: 1,
-            },
-          },
-        ],
-      },
-    ];
   }
 
   /**
@@ -501,25 +472,21 @@ class OpenAIFoodAnalysisService {
     }
     // If meal_identified is false, mealInfo remains undefined (which is valid per proto definition)
 
+    const calorieConfidence = this.mapCalorieConfidence(resultData.calorie_confidence);
+
     const result: MealDetectionResult = {
       mealIdentified: resultData.meal_identified,
-      calorieConfidence: this.mapCalorieConfidence(resultData.calorie_confidence),
+      calorieConfidence,
       tip: resultData.tip,
       meal: mealInfo,
     };
 
-    // Map variations if present - validate it's an array
-    // Ensure variations is always an array (even if missing from response)
-    let variations: Variation[] = Array.isArray(resultDict.variations)
+    // Use only model-provided variations; keep structural validation.
+    const variations: Variation[] = Array.isArray(resultDict.variations)
       ? resultDict.variations
         .filter((c) => c && typeof c.question === 'string' && Array.isArray(c.options))
         .map((c) => this.mapVariation(c))
       : [];
-
-    // Mock variations in staging environment for testing
-    if (config.ENVIRONMENT === 'staging' && variations.length === 0 && result.mealIdentified && result.meal) {
-      variations = this.getMockVariations();
-    }
 
     // Ensure response always includes variations array
     const response: MealDetectionResponse = {
@@ -545,57 +512,25 @@ class OpenAIFoodAnalysisService {
         throw new Error('Invalid image URL format');
       }
 
-      // Log locale for debugging
-      if (config.DEBUG || config.ENVIRONMENT === 'staging') {
-        console.log('[OpenAI] analyzeImageFromUrl - locale:', locale, 'language:', locale);
-      }
+      this.logLocale('analyzeImageFromUrl', locale);
 
-      const response = await this.client.chat.completions.create({
-        model: OPENAI_FOOD_ANALYSIS_MODEL,
-        messages: [
-          {
-            role: 'system',
-            content: getFoodAnalysisSystemPrompt(locale),
-          },
-          {
-            role: 'user',
-            content: [
-              {
-                type: 'image_url',
-                image_url: {
-                  url: imageUrl,
-                },
+      const resultDict = await this.createStructuredResponse([
+        {
+          role: 'system',
+          content: getFoodAnalysisSystemPrompt(locale),
+        },
+        {
+          role: 'user',
+          content: [
+            {
+              type: 'image_url',
+              image_url: {
+                url: imageUrl,
               },
-            ],
-          },
-        ],
-        response_format: MEAL_DETECTION_RESPONSE_FORMAT,
-        max_tokens: 800,
-      });
-
-      const content = response.choices[0]?.message?.content;
-      if (!content) {
-        throw new Error('No response content from OpenAI');
-      }
-
-      const jsonText = this.extractJson(content);
-      let resultDict: OpenAIResponse;
-      try {
-        // Strict JSON parsing - ensure valid JSON
-        resultDict = JSON.parse(jsonText) as OpenAIResponse;
-
-        // Validate JSON structure
-        if (!resultDict || typeof resultDict !== 'object') {
-          throw new Error('Invalid JSON structure: root must be an object');
-        }
-        if (!resultDict.result || typeof resultDict.result !== 'object') {
-          throw new Error('Invalid JSON structure: missing or invalid "result" field');
-        }
-      } catch (parseError) {
-        throw new Error(
-          `Failed to parse OpenAI response as JSON: ${parseError instanceof Error ? parseError.message : 'Unknown error'}`
-        );
-      }
+            },
+          ],
+        },
+      ]);
 
       return this.buildProtoResponse(resultDict);
     } catch (error) {
@@ -621,57 +556,25 @@ class OpenAIFoodAnalysisService {
       const validMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
       const finalMimeType = validMimeTypes.includes(mimeType) ? mimeType : 'image/jpeg';
 
-      // Log locale for debugging
-      if (config.DEBUG || config.ENVIRONMENT === 'staging') {
-        console.log('[OpenAI] analyzeImageFromBuffer - locale:', locale, 'language:', locale);
-      }
+      this.logLocale('analyzeImageFromBuffer', locale);
 
-      const response = await this.client.chat.completions.create({
-        model: OPENAI_FOOD_ANALYSIS_MODEL,
-        messages: [
-          {
-            role: 'system',
-            content: getFoodAnalysisSystemPrompt(locale),
-          },
-          {
-            role: 'user',
-            content: [
-              {
-                type: 'image_url',
-                image_url: {
-                  url: `data:${finalMimeType};base64,${base64Image}`,
-                },
+      const resultDict = await this.createStructuredResponse([
+        {
+          role: 'system',
+          content: getFoodAnalysisSystemPrompt(locale),
+        },
+        {
+          role: 'user',
+          content: [
+            {
+              type: 'image_url',
+              image_url: {
+                url: `data:${finalMimeType};base64,${base64Image}`,
               },
-            ],
-          },
-        ],
-        response_format: MEAL_DETECTION_RESPONSE_FORMAT,
-        max_tokens: 800,
-      });
-
-      const content = response.choices[0]?.message?.content;
-      if (!content) {
-        throw new Error('No response content from OpenAI');
-      }
-
-      const jsonText = this.extractJson(content);
-      let resultDict: OpenAIResponse;
-      try {
-        // Strict JSON parsing - ensure valid JSON
-        resultDict = JSON.parse(jsonText) as OpenAIResponse;
-
-        // Validate JSON structure
-        if (!resultDict || typeof resultDict !== 'object') {
-          throw new Error('Invalid JSON structure: root must be an object');
-        }
-        if (!resultDict.result || typeof resultDict.result !== 'object') {
-          throw new Error('Invalid JSON structure: missing or invalid "result" field');
-        }
-      } catch (parseError) {
-        throw new Error(
-          `Failed to parse OpenAI response as JSON: ${parseError instanceof Error ? parseError.message : 'Unknown error'}`
-        );
-      }
+            },
+          ],
+        },
+      ]);
 
       // Return full response with variations
       return this.buildProtoResponse(resultDict);
@@ -690,50 +593,18 @@ class OpenAIFoodAnalysisService {
    */
   async analyzeTextDescription(description: string, locale: string = 'en'): Promise<MealDetectionResponse> {
     try {
-      // Log locale for debugging
-      if (config.DEBUG || config.ENVIRONMENT === 'staging') {
-        console.log('[OpenAI] analyzeTextDescription - locale:', locale, 'language:', locale);
-      }
+      this.logLocale('analyzeTextDescription', locale);
 
-      const response = await this.client.chat.completions.create({
-        model: OPENAI_FOOD_ANALYSIS_MODEL,
-        messages: [
-          {
-            role: 'system',
-            content: getFoodAnalysisSystemPrompt(locale),
-          },
-          {
-            role: 'user',
-            content: description,
-          },
-        ],
-        response_format: MEAL_DETECTION_RESPONSE_FORMAT,
-        max_tokens: 800,
-      });
-
-      const content = response.choices[0]?.message?.content;
-      if (!content) {
-        throw new Error('No response content from OpenAI');
-      }
-
-      const jsonText = this.extractJson(content);
-      let resultDict: OpenAIResponse;
-      try {
-        // Strict JSON parsing - ensure valid JSON
-        resultDict = JSON.parse(jsonText) as OpenAIResponse;
-
-        // Validate JSON structure
-        if (!resultDict || typeof resultDict !== 'object') {
-          throw new Error('Invalid JSON structure: root must be an object');
-        }
-        if (!resultDict.result || typeof resultDict.result !== 'object') {
-          throw new Error('Invalid JSON structure: missing or invalid "result" field');
-        }
-      } catch (parseError) {
-        throw new Error(
-          `Failed to parse OpenAI response as JSON: ${parseError instanceof Error ? parseError.message : 'Unknown error'}`
-        );
-      }
+      const resultDict = await this.createStructuredResponse([
+        {
+          role: 'system',
+          content: getFoodAnalysisSystemPrompt(locale),
+        },
+        {
+          role: 'user',
+          content: description,
+        },
+      ]);
 
       return this.buildProtoResponse(resultDict);
     } catch (error) {
