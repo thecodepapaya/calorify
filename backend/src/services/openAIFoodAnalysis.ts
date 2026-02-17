@@ -39,7 +39,7 @@ interface OpenAIResponse {
     meal_identified: boolean;
     calorie_confidence: 'UNSPECIFIED' | 'LOW' | 'MEDIUM' | 'HIGH';
     tip: string;
-    meal?: {
+    meal: {
       name: string;
       quantity: string;
       type: string;
@@ -54,9 +54,9 @@ interface OpenAIResponse {
         health_score: string;
         health_score_reason?: string;
       };
-    };
+    } | null;
   };
-  variations?: OpenAIVariation[];
+  variations: OpenAIVariation[];
 }
 
 const OPENAI_FOOD_ANALYSIS_MODEL = 'gpt-4.1-nano' as const;
@@ -83,58 +83,65 @@ const MEAL_DETECTION_RESPONSE_SCHEMA = {
           description: 'Short useful fact or benefit related to the identified meal. Example: "High fiber helps digestion."',
         },
         meal: {
-          type: 'object' as const,
-          description: 'Detailed meal information. Required when meal_identified is true.',
-          properties: {
-            name: {
-              type: 'string' as const,
-              description: 'Concise meal name (for example, "Chicken Salad" or "Apple Slices").',
-            },
-            quantity: {
-              type: 'string' as const,
-              description: 'Portion description (for example, "1 bowl", "2 slices", "1 serving").',
-            },
-            type: {
-              type: 'string' as const,
-              enum: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'UNKNOWN'],
-              description: 'Meal type. Example: "LUNCH".',
-            },
-            macros: {
+          description: 'Detailed meal information when identified; null otherwise.',
+          anyOf: [
+            {
               type: 'object' as const,
-              description: 'Estimated macro nutrients in kcal and grams.',
               properties: {
-                calories: { type: 'number' as const, description: 'calories in kcal.' },
-                carbs: { type: 'number' as const, description: 'carbohydrates in grams.' },
-                protein: { type: 'number' as const, description: 'protein in grams.' },
-                fat: { type: 'number' as const, description: 'fat in grams.' },
-                fiber: { type: 'number' as const, description: 'fiber in grams.' },
+                name: {
+                  type: 'string' as const,
+                  description: 'Concise meal name (for example, "Chicken Salad" or "Apple Slices").',
+                },
+                quantity: {
+                  type: 'string' as const,
+                  description: 'Portion description (for example, "1 bowl", "2 slices", "1 serving").',
+                },
+                type: {
+                  type: 'string' as const,
+                  enum: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'UNKNOWN'],
+                  description: 'Meal type. Example: "LUNCH".',
+                },
+                macros: {
+                  type: 'object' as const,
+                  description: 'Estimated macro nutrients in kcal and grams.',
+                  properties: {
+                    calories: { type: 'number' as const, description: 'calories in kcal.' },
+                    carbs: { type: 'number' as const, description: 'carbohydrates in grams.' },
+                    protein: { type: 'number' as const, description: 'protein in grams.' },
+                    fat: { type: 'number' as const, description: 'fat in grams.' },
+                    fiber: { type: 'number' as const, description: 'fiber in grams.' },
+                  },
+                  required: ['calories', 'carbs', 'protein', 'fat', 'fiber'],
+                  additionalProperties: false,
+                },
+                health: {
+                  type: 'object' as const,
+                  description: 'Optional health evaluation for the identified meal.',
+                  properties: {
+                    health_score: {
+                      type: 'string' as const,
+                      enum: ['HEALTHY', 'NEUTRAL', 'UNHEALTHY'],
+                      description: 'Health score label based on nutritional balance. Example: "HEALTHY".',
+                    },
+                    health_score_reason: {
+                      type: 'string' as const,
+                      description: 'Concise reason for the assigned health score. Example: "Balanced protein and fiber."',
+                    },
+                  },
+                  required: ['health_score', 'health_score_reason'],
+                  additionalProperties: false,
+                },
               },
-              required: ['calories', 'carbs', 'protein', 'fat', 'fiber'],
+              required: ['name', 'quantity', 'type', 'macros', 'health'],
               additionalProperties: false,
             },
-            health: {
-              type: 'object' as const,
-              description: 'Optional health evaluation for the identified meal.',
-              properties: {
-                health_score: {
-                  type: 'string' as const,
-                  enum: ['HEALTHY', 'NEUTRAL', 'UNHEALTHY'],
-                  description: 'Health score label based on nutritional balance. Example: "HEALTHY".',
-                },
-                health_score_reason: {
-                  type: 'string' as const,
-                  description: 'Concise reason for the assigned health score. Example: "Balanced protein and fiber."',
-                },
-              },
-              required: ['health_score', 'health_score_reason'],
-              additionalProperties: false,
+            {
+              type: 'null' as const,
             },
-          },
-          required: ['name', 'quantity', 'type', 'macros', 'health'],
-          additionalProperties: false,
+          ],
         },
       },
-      required: ['meal_identified', 'calorie_confidence', 'tip'],
+      required: ['meal_identified', 'calorie_confidence', 'tip', 'meal'],
       additionalProperties: false,
     },
     variations: {
@@ -178,7 +185,7 @@ const MEAL_DETECTION_RESPONSE_SCHEMA = {
       },
     },
   },
-  required: ['result'],
+  required: ['result', 'variations'],
   additionalProperties: false,
 };
 
@@ -441,8 +448,11 @@ class OpenAIFoodAnalysisService {
     }
 
     // Map meal if present and meal_identified is true
-    // Only validate meal when meal_identified is true (per system prompt: "meal required if meal_identified=true")
+    // Enforce cross-field rule: meal must be non-null when meal_identified is true.
     let mealInfo: Meal | undefined;
+    if (resultData.meal_identified && !resultData.meal) {
+      throw new Error('Response has "meal_identified"=true but missing "meal" details');
+    }
     if (resultData.meal_identified && resultData.meal) {
       // Validate required meal fields
       if (!resultData.meal.name || typeof resultData.meal.name !== 'string') {
