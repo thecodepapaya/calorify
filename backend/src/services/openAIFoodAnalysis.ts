@@ -172,7 +172,7 @@ const MEAL_DETECTION_RESPONSE_SCHEMA = {
                 },
                 macro_diff: {
                   type: 'object' as const,
-                  description: 'Delta to apply to base macros for this option.',
+                  description: 'Delta to apply to the base macros of the entire detected meal quantity (the whole meal in result.meal).',
                   properties: {
                     calories: { type: 'number' as const },
                     protein: { type: 'number' as const },
