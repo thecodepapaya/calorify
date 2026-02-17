@@ -1,6 +1,7 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,32 @@ class HealthConnectPromptCard extends StatelessWidget {
 
   final VoidCallback? onSetupComplete;
 
-  Future<void> _onConnectPressed(bool isInstallRequired) async {
+  Future<void> _onConnectPressed(
+    BuildContext context,
+    bool isInstallRequired,
+  ) async {
     if (isInstallRequired) {
       await HealthService.instance.installHealthConnect();
     } else {
-      await HealthService.instance.requestAuthorization();
+      try {
+        final success =
+            await HealthService.instance.requestAuthorization();
+        if (!context.mounted) return;
+        if (!success) {
+          showFlushbar(
+            t.settings.healthConnect.permissionRequestCancelledOrFailed,
+            duration: const Duration(seconds: 5),
+            context: context,
+          );
+        }
+      } catch (_) {
+        if (!context.mounted) return;
+        showFlushbar(
+          t.settings.healthConnect.permissionRequestFailed,
+          duration: const Duration(seconds: 5),
+          context: context,
+        );
+      }
     }
     onSetupComplete?.call();
   }
@@ -65,7 +87,7 @@ class HealthConnectPromptCard extends StatelessWidget {
           SizedBox(width: 8),
           PrimaryButton(
             analyticsEvent: AnalyticsEvent.connectHealth,
-            onPressed: () => _onConnectPressed(isInstallRequired),
+            onPressed: () => _onConnectPressed(context, isInstallRequired),
             text: isInstallRequired ? t.home.connectHealth.install : t.home.connectHealth.connect,
             minimumSize: Size(40, 40),
           ),

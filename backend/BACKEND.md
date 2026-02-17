@@ -365,8 +365,10 @@ Fastify can be configured with Swagger/OpenAPI documentation using `@fastify/swa
 
 **Loading Order**:
 1. Environment variables (highest priority)
-2. `.env` file (if present, loaded via dotenv)
-3. Default values (lowest priority)
+2. `production.env` defaults (if present)
+3. `staging.env` overrides when running `npm run dev` (loaded explicitly before standard dotenv)
+4. `.env` file (if present, loaded via dotenv)
+5. Default values (lowest priority)
 
 ### Environment Files
 

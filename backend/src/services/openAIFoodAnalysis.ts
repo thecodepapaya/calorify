@@ -59,6 +59,139 @@ interface OpenAIResponse {
   variations?: OpenAIVariation[];
 }
 
+const OPENAI_FOOD_ANALYSIS_MODEL = 'gpt-4.1-nano' as const;
+
+/** JSON Schema for Structured Outputs; matches OpenAIResponse. */
+const MEAL_DETECTION_RESPONSE_SCHEMA = {
+  type: 'object' as const,
+  description: 'Food analysis response with detected meal details and optional clarification variations.',
+  properties: {
+    result: {
+      type: 'object' as const,
+      properties: {
+        meal_identified: {
+          type: 'boolean' as const,
+          description: 'Boolean indicating whether a meal was identified. When true, include the meal object',
+        },
+        calorie_confidence: {
+          type: 'string' as const,
+          enum: ['UNSPECIFIED', 'LOW', 'MEDIUM', 'HIGH'],
+          description: 'Confidence bucket for calorie estimation accuracy.',
+        },
+        tip: {
+          type: 'string' as const,
+          description: 'Short useful fact or benefit related to the identified meal. Example: "High fiber helps digestion."',
+        },
+        meal: {
+          type: 'object' as const,
+          description: 'Detailed meal information. Required when meal_identified is true.',
+          properties: {
+            name: {
+              type: 'string' as const,
+              description: 'Concise meal name (for example, "Chicken Salad" or "Apple Slices").',
+            },
+            quantity: {
+              type: 'string' as const,
+              description: 'Portion description (for example, "1 bowl", "2 slices", "1 serving").',
+            },
+            type: {
+              type: 'string' as const,
+              enum: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'UNKNOWN'],
+              description: 'Meal type. Example: "LUNCH".',
+            },
+            macros: {
+              type: 'object' as const,
+              description: 'Estimated macro nutrients in kcal and grams.',
+              properties: {
+                calories: { type: 'number' as const, description: 'calories in kcal.' },
+                carbs: { type: 'number' as const, description: 'carbohydrates in grams.' },
+                protein: { type: 'number' as const, description: 'protein in grams.' },
+                fat: { type: 'number' as const, description: 'fat in grams.' },
+                fiber: { type: 'number' as const, description: 'fiber in grams.' },
+              },
+              required: ['calories', 'carbs', 'protein', 'fat', 'fiber'],
+              additionalProperties: false,
+            },
+            health: {
+              type: 'object' as const,
+              description: 'Optional health evaluation for the identified meal.',
+              properties: {
+                health_score: {
+                  type: 'string' as const,
+                  enum: ['HEALTHY', 'NEUTRAL', 'UNHEALTHY'],
+                  description: 'Health score label based on nutritional balance. Example: "HEALTHY".',
+                },
+                health_score_reason: {
+                  type: 'string' as const,
+                  description: 'Concise reason for the assigned health score. Example: "Balanced protein and fiber."',
+                },
+              },
+              required: ['health_score', 'health_score_reason'],
+              additionalProperties: false,
+            },
+          },
+          required: ['name', 'quantity', 'type', 'macros', 'health'],
+          additionalProperties: false,
+        },
+      },
+      required: ['meal_identified', 'calorie_confidence', 'tip'],
+      additionalProperties: false,
+    },
+    variations: {
+      type: 'array' as const,
+      description: 'Optional variation questions when confidence is LOW or MEDIUM.',
+      items: {
+        type: 'object' as const,
+        description: 'One variation question with options.',
+        properties: {
+          question: { type: 'string' as const, description: 'Question to disambiguate. Example: "What portion size is this?"' },
+          options: {
+            type: 'array' as const,
+            items: {
+              type: 'object' as const,
+              properties: {
+                option: {
+                  type: 'string' as const,
+                  description: 'Option label. Example: "1 bowl".',
+                },
+                macro_diff: {
+                  type: 'object' as const,
+                  description: 'Delta to apply to base macros for this option.',
+                  properties: {
+                    calories: { type: 'number' as const },
+                    protein: { type: 'number' as const },
+                    carbs: { type: 'number' as const },
+                    fat: { type: 'number' as const },
+                    fiber: { type: 'number' as const },
+                  },
+                  required: ['calories', 'protein', 'carbs', 'fat', 'fiber'],
+                  additionalProperties: false,
+                },
+              },
+              required: ['option', 'macro_diff'],
+              additionalProperties: false,
+            },
+          },
+        },
+        required: ['question', 'options'],
+        additionalProperties: false,
+      },
+    },
+  },
+  required: ['result'],
+  additionalProperties: false,
+};
+
+const MEAL_DETECTION_RESPONSE_FORMAT = {
+  type: 'json_schema' as const,
+  json_schema: {
+    name: 'meal_detection_response',
+    description: 'Structured food analysis result with meal and optional variations',
+    schema: MEAL_DETECTION_RESPONSE_SCHEMA,
+    strict: true,
+  },
+};
+
 class OpenAIFoodAnalysisService {
   private client: OpenAI;
 
@@ -236,9 +369,9 @@ class OpenAIFoodAnalysisService {
   }
 
   /**
-   * Extract JSON from OpenAI response text
-   * Handles markdown code blocks if present
-   * Ensures strict JSON format
+   * Extract JSON from OpenAI response text.
+   * With response_format json_schema (strict), the response is typically raw JSON;
+   * we still strip markdown and normalize braces for robustness.
    */
   private extractJson(text: string): string {
     let cleaned = text.trim();
@@ -408,7 +541,7 @@ class OpenAIFoodAnalysisService {
       }
 
       const response = await this.client.chat.completions.create({
-        model: 'gpt-4o-mini',
+        model: OPENAI_FOOD_ANALYSIS_MODEL,
         messages: [
           {
             role: 'system',
@@ -426,7 +559,7 @@ class OpenAIFoodAnalysisService {
             ],
           },
         ],
-        response_format: { type: 'json_object' },
+        response_format: MEAL_DETECTION_RESPONSE_FORMAT,
         max_tokens: 800,
       });
 
@@ -484,7 +617,7 @@ class OpenAIFoodAnalysisService {
       }
 
       const response = await this.client.chat.completions.create({
-        model: 'gpt-4o-mini',
+        model: OPENAI_FOOD_ANALYSIS_MODEL,
         messages: [
           {
             role: 'system',
@@ -502,7 +635,7 @@ class OpenAIFoodAnalysisService {
             ],
           },
         ],
-        response_format: { type: 'json_object' },
+        response_format: MEAL_DETECTION_RESPONSE_FORMAT,
         max_tokens: 800,
       });
 
@@ -553,7 +686,7 @@ class OpenAIFoodAnalysisService {
       }
 
       const response = await this.client.chat.completions.create({
-        model: 'gpt-4o-mini',
+        model: OPENAI_FOOD_ANALYSIS_MODEL,
         messages: [
           {
             role: 'system',
@@ -564,7 +697,7 @@ class OpenAIFoodAnalysisService {
             content: description,
           },
         ],
-        response_format: { type: 'json_object' },
+        response_format: MEAL_DETECTION_RESPONSE_FORMAT,
         max_tokens: 800,
       });
 

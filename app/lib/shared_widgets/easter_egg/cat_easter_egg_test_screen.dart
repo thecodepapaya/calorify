@@ -3,80 +3,140 @@ import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-/// Debug sub-screen to test cat easter egg: each [catAnimParams] entry
-/// is shown as a button that triggers that cat with its params.
-class CatEasterEggTestScreen extends StatelessWidget {
+/// Debug screen to simulate all cat animations. Pick a cat and trigger
+/// any animation that cat supports.
+class CatEasterEggTestScreen extends StatefulWidget {
   const CatEasterEggTestScreen({super.key});
 
-  static String _assetLabel(CatAsset asset) {
-    final name = asset.name;
+  @override
+  State<CatEasterEggTestScreen> createState() => _CatEasterEggTestScreenState();
+}
+
+class _CatEasterEggTestScreenState extends State<CatEasterEggTestScreen> {
+  late Cat _selectedCat;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedCat = allCats.first;
+  }
+
+  static String _catLabel(Cat cat) {
+    final name = cat.runtimeType.toString();
     return name
+        .replaceAll(RegExp(r'Cat$'), '')
         .split(RegExp(r'(?=[A-Z])'))
-        .map((s) => s.isEmpty ? s : '${s[0].toUpperCase()}${s.substring(1).toLowerCase()}')
+        .where((s) => s.isNotEmpty)
+        .map(
+          (s) =>
+              '${s[0].toUpperCase()}${s.length > 1 ? s.substring(1).toLowerCase() : ''}',
+        )
         .join(' ');
   }
 
-  static String _paramsSummary(CatAnimParams p) {
-    final parts = <String>[];
-    if (p.peekPopDuration != const Duration(milliseconds: 2000)) {
-      parts.add('peekPop ${p.peekPopDuration.inMilliseconds}ms');
+  static String _animationLabel(CatAnimationType type) {
+    final name = type.name;
+    return name
+        .split(RegExp(r'(?=[A-Z])'))
+        .where((s) => s.isNotEmpty)
+        .map(
+          (s) =>
+              '${s[0].toUpperCase()}${s.length > 1 ? s.substring(1).toLowerCase() : ''}',
+        )
+        .join(' ');
+  }
+
+  /// Edge hint that works for this animation type (so overlay doesn't filter it out).
+  static Edge? _edgeForAnimation(CatAnimationType type) {
+    switch (type) {
+      case CatAnimationType.topPeek:
+        return Edge.top;
+      case CatAnimationType.sidePeek:
+        return Edge.left;
+      case CatAnimationType.peek:
+      case CatAnimationType.jumpAtYou:
+      case CatAnimationType.doublePeek:
+        return Edge.bottom;
     }
-    if (p.leapDuration != const Duration(milliseconds: 1800)) {
-      parts.add('leap ${p.leapDuration.inMilliseconds}ms');
-    }
-    if (p.sidePeekDuration != const Duration(milliseconds: 2000)) {
-      parts.add('sidePeek ${p.sidePeekDuration.inMilliseconds}ms');
-    }
-    if (p.leapHeight != 80.0) parts.add('leapH ${p.leapHeight}');
-    if (p.horizontalTravel != 140.0) parts.add('travel ${p.horizontalTravel}');
-    if (p.xRange != 100.0) parts.add('xRange ${p.xRange}');
-    if (p.yRange != 60.0) parts.add('yRange ${p.yRange}');
-    if (p.peekYOffset != -40.0) parts.add('peekY ${p.peekYOffset}');
-    if (p.sidePeekYOffsetFactor != 0.3) parts.add('sideY ${p.sidePeekYOffsetFactor}');
-    if (p.allowedCropFraction != 0.4) parts.add('crop ${p.allowedCropFraction}');
-    return parts.isEmpty ? 'defaults' : parts.join(', ');
   }
 
   @override
   Widget build(BuildContext context) {
-    final entries = catAnimParams.entries.toList();
+    final cats = allCats;
+    final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Cat Easter Egg Testing')),
-      body: ListView.builder(
+      appBar: AppBar(title: const Text('Cat Animation Simulator')),
+      body: ListView(
         padding: const EdgeInsets.all(16),
-        itemCount: entries.length,
-        itemBuilder: (context, index) {
-          final asset = entries[index].key;
-          final params = entries[index].value;
-          final eligible = catAnimationEligibility[asset];
-          final eligibleStr = eligible
-              ?.map((e) => e.name)
-              .join(', ') ?? '—';
-
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Card(
-              child: ListTile(
-                leading: const Icon(LucideIcons.cat, color: Colors.orange),
-                title: Text(_assetLabel(asset)),
-                subtitle: Text(
-                  '${_paramsSummary(params)}\nEligible: $eligibleStr',
-                  style: Theme.of(context).textTheme.bodySmall,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                isThreeLine: true,
-                onTap: () {
-                  CatOverlay.of(context)?.showCat(
-                    asset: asset,
-                    grassHeight: 120,
-                  );
-                },
+        children: [
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Select cat', style: theme.textTheme.titleSmall),
+                  const SizedBox(height: 8),
+                  DropdownButton<Cat>(
+                    value: _selectedCat,
+                    isExpanded: true,
+                    items:
+                        cats.map((c) {
+                          return DropdownMenuItem<Cat>(
+                            value: c,
+                            child: Text(_catLabel(c)),
+                          );
+                        }).toList(),
+                    onChanged: (Cat? value) {
+                      if (value != null) setState(() => _selectedCat = value);
+                    },
+                  ),
+                ],
               ),
             ),
-          );
-        },
+          ),
+          const SizedBox(height: 16),
+          Text('Animations', style: theme.textTheme.titleMedium),
+          const SizedBox(height: 8),
+          ...CatAnimationType.values.map((type) {
+            final supported = catSupportsAnimation(_selectedCat, type);
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Card(
+                child: ListTile(
+                  leading: Icon(
+                    supported ? LucideIcons.play : LucideIcons.minus,
+                    color:
+                        supported
+                            ? theme.colorScheme.primary
+                            : theme.disabledColor,
+                  ),
+                  title: Text(_animationLabel(type)),
+                  subtitle: Text(
+                    supported ? 'Tap to play' : 'Not supported for this cat',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: supported ? null : theme.disabledColor,
+                    ),
+                  ),
+                  trailing:
+                      supported
+                          ? FilledButton.tonal(
+                            onPressed: () {
+                              CatOverlay.of(context)?.showCat(
+                                preferredCat: _selectedCat,
+                                preferredAnimation: type,
+                                edgeHint: _edgeForAnimation(type),
+                              );
+                            },
+                            child: const Text('Play'),
+                          )
+                          : null,
+                ),
+              ),
+            );
+          }),
+        ],
       ),
     );
   }

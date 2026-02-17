@@ -7,24 +7,28 @@ import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
 class CatTrigger extends StatelessWidget {
   const CatTrigger({
     required this.child,
-    this.preferredAsset,
+    this.preferredCat,
     this.animationHint,
-    this.xRange,
-    this.yRange,
     this.edgeHint,
     this.triggerProbability = 1.0,
+    this.onTrigger,
+    this.overrides,
     super.key,
   });
 
   final Widget child;
-  final CatAsset? preferredAsset;
+  final Cat? preferredCat;
   final CatAnimationType? animationHint;
-  final double? xRange;
-  final double? yRange;
   final Edge? edgeHint;
 
   /// Probability that a tap will show a cat (0.0 to 1.0). Default is 1 (always).
   final double triggerProbability;
+
+  /// Called when a cat is about to be shown (e.g. for analytics).
+  final VoidCallback? onTrigger;
+
+  /// Optional runtime overrides for this trigger (position, edge).
+  final CatAnimationOverrides? overrides;
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +36,12 @@ class CatTrigger extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onTap: () {
         if (math.Random().nextDouble() >= triggerProbability) return;
-        final overlay = CatOverlay.of(context);
-        overlay?.showCat(
-          asset: preferredAsset,
+        onTrigger?.call();
+        CatOverlay.of(context)?.showCat(
+          preferredCat: preferredCat,
           preferredAnimation: animationHint,
           edgeHint: edgeHint,
-          overrides:
-              xRange == null && yRange == null
-                  ? null
-                  : CatAnimParams(xRange: xRange ?? 0, yRange: yRange ?? 0),
+          overrides: overrides,
         );
       },
       child: child,

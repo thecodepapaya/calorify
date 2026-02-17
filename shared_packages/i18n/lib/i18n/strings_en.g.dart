@@ -1494,11 +1494,11 @@ class TranslationsSettingsHealthConnectEn {
 	/// en: 'Request Permissions'
 	String get requestPermissions => 'Request Permissions';
 
-	/// en: 'Permission request was cancelled or failed. Please try again or grant permissions manually in Health Connect settings.'
-	String get permissionRequestCancelledOrFailed => 'Permission request was cancelled or failed. Please try again or grant permissions manually in Health Connect settings.';
+	/// en: 'Permission was denied or the request failed. If Health Connect didn't open, go to your device Settings > Apps > Health Connect > App permissions to allow access.'
+	String get permissionRequestCancelledOrFailed => 'Permission was denied or the request failed. If Health Connect didn\'t open, go to your device Settings > Apps > Health Connect > App permissions to allow access.';
 
-	/// en: 'Unable to request permissions. Please try again or grant permissions manually in Health Connect settings.'
-	String get permissionRequestFailed => 'Unable to request permissions. Please try again or grant permissions manually in Health Connect settings.';
+	/// en: 'Unable to request permissions. If Health Connect didn't open, go to your device Settings > Apps > Health Connect > App permissions to allow access.'
+	String get permissionRequestFailed => 'Unable to request permissions. If Health Connect didn\'t open, go to your device Settings > Apps > Health Connect > App permissions to allow access.';
 
 	/// en: 'Requesting...'
 	String get requestingPermissions => 'Requesting...';
@@ -2741,8 +2741,8 @@ extension on Translations {
 			'settings.healthConnect.managePermissions' => 'Manage Permissions',
 			'settings.healthConnect.openSettings' => 'Open Health Connect Settings',
 			'settings.healthConnect.requestPermissions' => 'Request Permissions',
-			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Permission request was cancelled or failed. Please try again or grant permissions manually in Health Connect settings.',
-			'settings.healthConnect.permissionRequestFailed' => 'Unable to request permissions. Please try again or grant permissions manually in Health Connect settings.',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Permission was denied or the request failed. If Health Connect didn\'t open, go to your device Settings > Apps > Health Connect > App permissions to allow access.',
+			'settings.healthConnect.permissionRequestFailed' => 'Unable to request permissions. If Health Connect didn\'t open, go to your device Settings > Apps > Health Connect > App permissions to allow access.',
 			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'About',
 			'settings.about.tagline' => 'Fast, free, and privacy-first calorie awareness',

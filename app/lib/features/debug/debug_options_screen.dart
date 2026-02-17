@@ -195,16 +195,15 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       'Side peek from left',
       'Side peek from right',
       'Top peek',
-      'Grass / bottom (peek pop)',
-      'Leaping cat',
-      'Pounce cat',
+      'Grass / bottom (peek)',
+      'Double peek cat',
       'CatTrigger demo (tap this row)',
     ];
     final items = <Widget>[
       ListTile(
         leading: const Icon(LucideIcons.list),
         title: const Text('Cat Easter Egg testing (by asset)'),
-        subtitle: const Text('Test each cat in catAnimParams'),
+        subtitle: const Text('Simulate all animations with selectable cat'),
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute<void>(
@@ -248,34 +247,25 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       ),
       ListTile(
         leading: const Icon(LucideIcons.flower2),
-        title: const Text('Grass / bottom (peek pop)'),
+        title: const Text('Grass / bottom (pop peek)'),
         onTap:
             () => CatOverlay.of(context)?.showCat(
-              preferredAnimation: CatAnimationType.peekPop,
-              edgeHint: Edge.bottom,
-              grassHeight: 120,
-            ),
-      ),
-      ListTile(
-        leading: const Icon(LucideIcons.rabbit),
-        title: const Text('Leaping cat'),
-        onTap:
-            () => CatOverlay.of(context)?.showCat(
-              preferredAnimation: CatAnimationType.leaping,
+              preferredAnimation: CatAnimationType.peek,
               edgeHint: Edge.bottom,
             ),
       ),
+      // leaping/pounce/bounce/wiggle removed
       ListTile(
-        leading: const Icon(LucideIcons.zap),
-        title: const Text('Pounce cat'),
+        leading: const Icon(LucideIcons.eye),
+        title: const Text('Double peek cat'),
         onTap:
             () => CatOverlay.of(context)?.showCat(
-              preferredAnimation: CatAnimationType.pounce,
-              edgeHint: Edge.top,
+              preferredAnimation: CatAnimationType.doublePeek,
+              edgeHint: Edge.bottom,
             ),
       ),
       CatTrigger(
-        preferredAsset: CatAsset.partyHat,
+        preferredCat: PartyHatCat(),
         animationHint: CatAnimationType.sidePeek,
         edgeHint: Edge.right,
         child: ListTile(
@@ -536,8 +526,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       if (connected) {
         final watchInfo = await WearOsPhoneChannel.getConnectedWatchInfo();
         if (watchInfo != null) {
-          final deviceName =
-              watchInfo['name'] as String? ?? 'Unknown Device';
+          final deviceName = watchInfo['name'] as String? ?? 'Unknown Device';
           final isNearby = watchInfo['isNearby'] as bool? ?? false;
           final count = watchInfo['count'] as int? ?? 1;
 
@@ -639,10 +628,19 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     const titleSubtitle = [
       ('Test Analyze Image', 'Upload hardcoded test image'),
       ('Test Detect Image', 'Detect meal from image URL'),
-      ('Detect Image from Gallery', 'Select image, upload to bucket & estimate calories'),
+      (
+        'Detect Image from Gallery',
+        'Select image, upload to bucket & estimate calories',
+      ),
       ('Test Detect Text', 'Detect meal from text description'),
-      ('Test Meal Logging with Variations', 'Test the full meal logging flow with variations'),
-      ('Mock meal with variations', 'Preview variation + tip sheet UI without logging'),
+      (
+        'Test Meal Logging with Variations',
+        'Test the full meal logging flow with variations',
+      ),
+      (
+        'Mock meal with variations',
+        'Preview variation + tip sheet UI without logging',
+      ),
     ];
     final items = <Widget>[
       ListTile(
@@ -660,7 +658,9 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       ListTile(
         leading: const Icon(LucideIcons.upload),
         title: const Text('Detect Image from Gallery'),
-        subtitle: const Text('Select image, upload to bucket & estimate calories'),
+        subtitle: const Text(
+          'Select image, upload to bucket & estimate calories',
+        ),
         onTap: _testDetectImageFromGallery,
       ),
       ListTile(
@@ -678,7 +678,9 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       ListTile(
         leading: const Icon(LucideIcons.beaker),
         title: const Text('Mock meal with variations'),
-        subtitle: const Text('Preview variation + tip sheet UI without logging'),
+        subtitle: const Text(
+          'Preview variation + tip sheet UI without logging',
+        ),
         onTap: _mockMealWithVariations,
       ),
     ];
@@ -1419,8 +1421,8 @@ Fat: ${mealInfo.macros.fat}g
               child:
                   WearOsMessageLog.messages.isEmpty
                       ? const Text(
-                          'No messages received yet.\n\nSend test data from watch to see messages here.',
-                        )
+                        'No messages received yet.\n\nSend test data from watch to see messages here.',
+                      )
                       : ListView.builder(
                         shrinkWrap: true,
                         itemCount: WearOsMessageLog.messages.length,

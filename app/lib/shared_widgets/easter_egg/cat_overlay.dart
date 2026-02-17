@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_assets.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_peek_easter_egg.dart';
@@ -16,30 +18,53 @@ class CatOverlay extends StatefulWidget {
 
 class CatOverlayState extends State<CatOverlay> {
   final GlobalKey<OverlayState> _overlayKey = GlobalKey<OverlayState>();
+  static final _random = math.Random();
 
   OverlayState? get _overlay => _overlayKey.currentState;
 
   void showCat({
-    CatAsset? asset,
-    Offset? globalPosition,
+    Cat? preferredCat,
     CatAnimationType? preferredAnimation,
     Edge? edgeHint,
-    CatAnimParams? overrides,
-    double grassHeight = 120,
+    CatAnimationOverrides? overrides,
   }) {
-    final chosenAsset =
-        asset ?? (catAnimationEligibility.keys.toList()..shuffle()).first;
-    final params =
-        overrides ?? catAnimParams[chosenAsset] ?? const CatAnimParams();
+    // Resolve edge: use hint or pick random via [Edge.auto].
+    final edge = edgeHint ?? Edge.auto;
 
-    final eligible = catAnimationEligibility[chosenAsset];
-    if (eligible == null) {
-      debugPrint('🐱 No eligible animations for cat asset: $chosenAsset');
+    final forEdge = edge.eligibleAnimations;
+    final pool = forEdge
+        .where((a) => eligibleCatsForAnimation(a).isNotEmpty)
+        .toList();
+    if (pool.isEmpty) {
+      debugPrint('🐱 No animations eligible for edge: $edge');
       return;
     }
+
     final animationType =
-        preferredAnimation ??
-        (List<CatAnimationType>.from(eligible)..shuffle()).first;
+        preferredAnimation != null && pool.contains(preferredAnimation)
+            ? preferredAnimation
+            : (List<CatAnimationType>.from(pool)..shuffle()).first;
+
+    final eligible = eligibleCatsForAnimation(animationType);
+    if (eligible.isEmpty) {
+      debugPrint('🐱 No cat supports animation: $animationType');
+      return;
+    }
+    final chosenCat = preferredCat != null &&
+            catSupportsAnimation(preferredCat, animationType)
+        ? preferredCat
+        : eligible[_random.nextInt(eligible.length)];
+
+    final positionOptions = [-1.0, 0.0, 1.0];
+    final hBias = positionOptions[_random.nextInt(positionOptions.length)];
+    final vBias = positionOptions[_random.nextInt(positionOptions.length)];
+    final resolvedOverrides = overrides ??
+        CatAnimationOverrides(
+          horizontalBias: hBias,
+          sideHint: edge is LeftEdge || edge is RightEdge ? edge : null,
+          peekEdge: edge,
+          peekOffset: edge is TopEdge || edge is BottomEdge ? hBias : vBias,
+        );
 
     OverlayEntry? entryRef;
     entryRef = OverlayEntry(
@@ -48,30 +73,18 @@ class CatOverlayState extends State<CatOverlay> {
           entryRef?.remove();
         }
 
-        final isEdgeAnimation =
-            animationType == CatAnimationType.sidePeek ||
-            animationType == CatAnimationType.topPeek;
+        final size = MediaQuery.sizeOf(ctx);
         final content = CatAnimationWidget(
-          asset: chosenAsset,
+          cat: chosenCat,
           animationType: animationType,
-          params: params,
           onComplete: removeEntry,
-          grassHeight: grassHeight,
+          overrides: resolvedOverrides,
         );
-
-        return Positioned.fill(
-          child: IgnorePointer(
-            child:
-                isEdgeAnimation
-                    ? content
-                    : Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SizedBox(
-                        height: grassHeight + 220,
-                        width: double.infinity,
-                        child: content,
-                      ),
-                    ),
+        return IgnorePointer(
+          child: SizedBox(
+            width: size.width,
+            height: size.height,
+            child: content,
           ),
         );
       },

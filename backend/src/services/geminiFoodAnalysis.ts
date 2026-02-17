@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI, type Part } from '@google/generative-ai';
+import { GoogleGenerativeAI, type Part, type ResponseSchema, SchemaType } from '@google/generative-ai';
 import type {
   MealDetectionResult,
   MealDetectionResponse,
@@ -17,6 +17,121 @@ import {
 } from '../protos/meal/meal.js';
 import config from '../config.js';
 import { getFoodAnalysisSystemPrompt } from './foodAnalysisSystemPrompt.js';
+
+const GEMINI_FOOD_ANALYSIS_MODEL = 'gemini-2.5-flash-lite' as const;
+
+/** JSON Schema for Gemini structured output; matches GeminiResponse. */
+const MEAL_DETECTION_RESPONSE_SCHEMA: ResponseSchema = {
+  type: SchemaType.OBJECT,
+  description: 'Food analysis response with detected meal details and optional clarification variations.',
+  properties: {
+    result: {
+      type: SchemaType.OBJECT,
+      properties: {
+        meal_identified: {
+          type: SchemaType.BOOLEAN,
+          description: 'Boolean indicating whether a meal was identified. When true, include the meal object',
+        },
+        calorie_confidence: {
+          type: SchemaType.STRING,
+          enum: ['UNSPECIFIED', 'LOW', 'MEDIUM', 'HIGH'],
+          description: 'Confidence bucket for calorie estimation accuracy.',
+        },
+        tip: {
+          type: SchemaType.STRING,
+          description: 'Short useful fact or benefit related to the identified meal. Example: "High fiber helps digestion."',
+        },
+        meal: {
+          type: SchemaType.OBJECT,
+          description: 'Detailed meal information. Required when meal_identified is true.',
+          properties: {
+            name: {
+              type: SchemaType.STRING,
+              description: 'Concise meal name (for example, "Chicken Salad" or "Apple Slices").',
+            },
+            quantity: {
+              type: SchemaType.STRING,
+              description: 'Portion description (for example, "1 bowl", "2 slices", "1 serving").',
+            },
+            type: {
+              type: SchemaType.STRING,
+              enum: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'UNKNOWN'],
+              description: 'Meal type. Example: "LUNCH".',
+            },
+            macros: {
+              type: SchemaType.OBJECT,
+              description: 'Estimated macro nutrients in kcal and grams.',
+              properties: {
+                calories: { type: SchemaType.NUMBER, description: 'calories in kcal.' },
+                carbs: { type: SchemaType.NUMBER, description: 'carbohydrates in grams.' },
+                protein: { type: SchemaType.NUMBER, description: 'protein in grams.' },
+                fat: { type: SchemaType.NUMBER, description: 'fat in grams.' },
+                fiber: { type: SchemaType.NUMBER, description: 'fiber in grams.' },
+              },
+              required: ['calories', 'carbs', 'protein', 'fat', 'fiber'],
+            },
+            health: {
+              type: SchemaType.OBJECT,
+              description: 'Optional health evaluation for the identified meal.',
+              properties: {
+                health_score: {
+                  type: SchemaType.STRING,
+                  enum: ['HEALTHY', 'NEUTRAL', 'UNHEALTHY'],
+                  description: 'Health score label based on nutritional balance. Example: "HEALTHY".',
+                },
+                health_score_reason: {
+                  type: SchemaType.STRING,
+                  description: 'Concise reason for the assigned health score. Example: "Balanced protein and fiber."',
+                },
+              },
+              required: ['health_score', 'health_score_reason'],
+            },
+          },
+          required: ['name', 'quantity', 'type', 'macros', 'health'],
+        },
+      },
+      required: ['meal_identified', 'calorie_confidence', 'tip'],
+    },
+    variations: {
+      type: SchemaType.ARRAY,
+      description: 'Optional variation questions when confidence is LOW or MEDIUM.',
+      items: {
+        type: SchemaType.OBJECT,
+        description: 'One variation question with options.',
+        properties: {
+          question: { type: SchemaType.STRING, description: 'Question to disambiguate. Example: "What portion size is this?"' },
+          options: {
+            type: SchemaType.ARRAY,
+            items: {
+              type: SchemaType.OBJECT,
+              properties: {
+                option: {
+                  type: SchemaType.STRING,
+                  description: 'Option label. Example: "1 bowl".',
+                },
+                macro_diff: {
+                  type: SchemaType.OBJECT,
+                  description: 'Delta to apply to base macros for this option.',
+                  properties: {
+                    calories: { type: SchemaType.NUMBER },
+                    protein: { type: SchemaType.NUMBER },
+                    carbs: { type: SchemaType.NUMBER },
+                    fat: { type: SchemaType.NUMBER },
+                    fiber: { type: SchemaType.NUMBER },
+                  },
+                  required: ['calories', 'protein', 'carbs', 'fat', 'fiber'],
+                },
+              },
+              required: ['option', 'macro_diff'],
+            },
+          },
+        },
+        required: ['question', 'options'],
+      },
+    },
+  },
+  required: ['result'],
+};
 
 interface GeminiVariationOption {
   option: string;
@@ -375,11 +490,13 @@ class GeminiFoodAnalysisService {
    */
   private async generateAndParse(userParts: Part[], locale: string): Promise<MealDetectionResponse> {
     const model = this.genAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
+      model: GEMINI_FOOD_ANALYSIS_MODEL,
       systemInstruction: getFoodAnalysisSystemPrompt(locale),
       generationConfig: {
         maxOutputTokens: 800,
         temperature: 0.2,
+        responseMimeType: 'application/json',
+        responseSchema: MEAL_DETECTION_RESPONSE_SCHEMA,
       },
     });
 
