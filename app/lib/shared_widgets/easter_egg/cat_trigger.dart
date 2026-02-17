@@ -36,8 +36,10 @@ class CatTrigger extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onTap: () {
         if (math.Random().nextDouble() >= triggerProbability) return;
+        final overlay = CatOverlay.of(context);
+        if (overlay == null) return;
         onTrigger?.call();
-        CatOverlay.of(context)?.showCat(
+        overlay.showCat(
           preferredCat: preferredCat,
           preferredAnimation: animationHint,
           edgeHint: edgeHint,

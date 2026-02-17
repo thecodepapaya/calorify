@@ -18,6 +18,7 @@ class _CatEasterEggTestScreenState extends State<CatEasterEggTestScreen> {
   @override
   void initState() {
     super.initState();
+    assert(allCats.isNotEmpty, 'allCats must not be empty');
     _selectedCat = allCats.first;
   }
 
