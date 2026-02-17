@@ -152,12 +152,15 @@ const MEAL_DETECTION_RESPONSE_SCHEMA = {
     },
     variations: {
       type: 'array' as const,
-      description: 'Clarification questions only for LOW or MEDIUM confidence results. Return an empty array for HIGH/UNSPECIFIED confidence.',
+      description: 'Clarification questions for LOW and MEDIUM confidence results. Return an empty array for HIGH/UNSPECIFIED confidence.',
       items: {
         type: 'object' as const,
         description: 'One meal-specific clarification question with options.',
         properties: {
-          question: { type: 'string' as const, description: 'Question to increase calorie confidence in the detected meal.' },
+          question: {
+            type: 'string' as const,
+            description: 'A short, specific clarification question about the detected meal to improve calorie confidence (for example portion size, preparation method, ingredient variant). Must be directly related to this meal and answerable by the provided options.',
+          },
           options: {
             type: 'array' as const,
             items: {
