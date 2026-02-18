@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "dev": "tsx watch src/index.ts",
-        "build": "tsc",
+        "build": "tsc && mkdir -p dist/scripts && cp src/scripts/usda-foods-sample.json dist/scripts/",
         "start": "node dist/index.js",
         "lint": "eslint src --ext .ts",
         "type-check": "tsc --noEmit",
