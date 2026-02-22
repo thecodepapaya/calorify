@@ -1,13 +1,11 @@
-name: Flutter Android CI/CD
+name: Flutter Watch App Release
 
 on:
   workflow_dispatch:
 
 jobs:
-  build-android:
+  release-android-watch-app:
     runs-on: ubuntu-latest
-    env:
-      SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -43,39 +41,34 @@ jobs:
 
       - name: Decode Android signing files
         run: |
-          echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 --decode > app/android/app/upload-keystore.jks
-          echo "${{ secrets.ANDROID_KEY_PROPERTIES_B64 }}" | base64 --decode > app/android/key.properties
           echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 --decode > watch_app/android/app/upload-keystore.jks
           echo "${{ secrets.ANDROID_KEY_PROPERTIES_B64 }}" | base64 --decode > watch_app/android/key.properties
 
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: "temurin"
+          java-version: "17"
 
-      - name: Setup Shorebird
-        uses: shorebirdtech/setup-shorebird@v1
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
+          flutter-version: "3.41.0"
+          channel: stable
           cache: true
 
-      - name: Build Android AppBundle (Main App) with Shorebird
-        uses: shorebirdtech/shorebird-release@v1
-        with:
-          platform: android
-          args: --flavor=prod
-          working-directory: app
-          flutter-version: "3.38.5"
+      - name: Install dependencies
+        working-directory: watch_app
+        run: flutter pub get
 
-      # - name: Build Android AppBundle (Watch App)
-      #   working-directory: watch_app
-      #   run: flutter build appbundle --release
+      - name: Build Android AppBundle (Watch App)
+        working-directory: watch_app
+        run: flutter build appbundle --release
 
       - name: Install Ruby dependencies
         run: bundle install
 
-      - name: Upload to Play Store
-        run: bundle exec fastlane android release
+      - name: Upload Watch App to Play Store
+        run: bundle exec fastlane android release_watch
         env:
           SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
-      

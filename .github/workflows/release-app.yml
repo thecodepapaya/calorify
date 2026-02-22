@@ -1,0 +1,74 @@
+name: Flutter App Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release-android-app:
+    runs-on: ubuntu-latest
+    env:
+      SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2.0"
+          bundler-cache: true
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Prepare Android SDK build-cache for caching
+        run: |
+          sudo mkdir -p /usr/local/lib/android/sdk/build-cache
+          sudo chmod -R 777 /usr/local/lib/android/sdk/build-cache
+
+      - name: Cache Android SDK build-cache
+        uses: actions/cache@v4
+        with:
+          path: /usr/local/lib/android/sdk/build-cache
+          key: ${{ runner.os }}-android-sdk-build-cache
+          restore-keys: |
+            ${{ runner.os }}-android-sdk-build-cache-
+
+      - name: Decode Android signing files
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 --decode > app/android/app/upload-keystore.jks
+          echo "${{ secrets.ANDROID_KEY_PROPERTIES_B64 }}" | base64 --decode > app/android/key.properties
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Setup Shorebird
+        uses: shorebirdtech/setup-shorebird@v1
+        with:
+          cache: true
+
+      - name: Build Android AppBundle (Main App) with Shorebird
+        uses: shorebirdtech/shorebird-release@v1
+        with:
+          platform: android
+          args: --flavor=prod
+          working-directory: app
+          flutter-version: "3.41.0"
+
+      - name: Install Ruby dependencies
+        run: bundle install
+
+      - name: Upload to Play Store
+        run: bundle exec fastlane android release
+        env:
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
