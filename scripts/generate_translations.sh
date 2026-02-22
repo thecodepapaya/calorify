@@ -34,7 +34,7 @@ I18N_PKG_DIR=""
 I18N_DIR="lib/i18n"
 LOG_FILE=""
 FULL_TRANSLATION=false
-API_KEY="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"
+API_KEY="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"
 MAX_PARALLEL_JOBS=5  # Maximum parallel translation jobs (adjust to avoid rate limiting)
 
 # Translation tracking
