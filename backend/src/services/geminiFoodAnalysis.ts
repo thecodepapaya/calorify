@@ -23,14 +23,14 @@ const GEMINI_FOOD_ANALYSIS_MODEL = 'gemini-2.5-flash-lite' as const;
 /** JSON Schema for Gemini structured output; matches GeminiResponse. */
 const MEAL_DETECTION_RESPONSE_SCHEMA: ResponseSchema = {
   type: SchemaType.OBJECT,
-  description: 'Food analysis response with detected meal details and optional clarification variations.',
+  description: 'Food analysis response with detected food details and optional clarification variations.',
   properties: {
     result: {
       type: SchemaType.OBJECT,
       properties: {
         meal_identified: {
           type: SchemaType.BOOLEAN,
-          description: 'Boolean indicating whether a meal was identified. When true, include the meal object',
+          description: 'Boolean indicating whether food was identified. When true, include the meal object',
         },
         calorie_confidence: {
           type: SchemaType.STRING,
@@ -39,15 +39,15 @@ const MEAL_DETECTION_RESPONSE_SCHEMA: ResponseSchema = {
         },
         tip: {
           type: SchemaType.STRING,
-          description: 'Short useful fact or benefit related to the identified meal. Example: "High fiber helps digestion."',
+          description: 'Short useful fact or benefit related to the identified food(s). Example: "High fiber helps digestion."',
         },
         meal: {
           type: SchemaType.OBJECT,
-          description: 'Detailed meal information. Required when meal_identified is true.',
+          description: 'Detailed food information. Required when meal_identified is true.',
           properties: {
             name: {
               type: SchemaType.STRING,
-              description: 'Concise meal name (for example, "Chicken Salad" or "Apple Slices").',
+              description: 'Concise meal/food name, ~30 characters or less, eg. "Chicken Salad", "Apple Slices"',
             },
             quantity: {
               type: SchemaType.STRING,
@@ -56,7 +56,7 @@ const MEAL_DETECTION_RESPONSE_SCHEMA: ResponseSchema = {
             type: {
               type: SchemaType.STRING,
               enum: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'UNKNOWN'],
-              description: 'Meal type. Example: "LUNCH".',
+              description: 'Food type based on timestamp from file creation metadata or food description.',
             },
             macros: {
               type: SchemaType.OBJECT,
@@ -72,16 +72,16 @@ const MEAL_DETECTION_RESPONSE_SCHEMA: ResponseSchema = {
             },
             health: {
               type: SchemaType.OBJECT,
-              description: 'Optional health evaluation for the identified meal.',
+              description: 'Health evaluation for the identified meal.',
               properties: {
                 health_score: {
                   type: SchemaType.STRING,
                   enum: ['HEALTHY', 'NEUTRAL', 'UNHEALTHY'],
-                  description: 'Health score label based on nutritional balance. Example: "HEALTHY".',
+                  description: 'Health score label based on nutritional balance.',
                 },
                 health_score_reason: {
                   type: SchemaType.STRING,
-                  description: 'Concise reason for the assigned health score. Example: "Balanced protein and fiber."',
+                  description: 'Concise reason for the assigned health score. Example: "Balanced protein and fiber.", "Too much sugar"',
                 },
               },
               required: ['health_score', 'health_score_reason'],
@@ -94,12 +94,12 @@ const MEAL_DETECTION_RESPONSE_SCHEMA: ResponseSchema = {
     },
     variations: {
       type: SchemaType.ARRAY,
-      description: 'Optional variation questions when confidence is LOW or MEDIUM.',
+      description: 'Optional variation questions when confidence is LOW or MEDIUM. At-most 3 questions.',
       items: {
         type: SchemaType.OBJECT,
         description: 'One variation question with options.',
         properties: {
-          question: { type: SchemaType.STRING, description: 'Question to disambiguate. Example: "What portion size is this?"' },
+          question: { type: SchemaType.STRING, description: 'Concise wh-question to disambiguate. Example: "What portion size is this?"' },
           options: {
             type: SchemaType.ARRAY,
             items: {

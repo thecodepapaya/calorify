@@ -64,13 +64,14 @@ const OPENAI_FOOD_ANALYSIS_MODEL = 'gpt-4.1-nano' as const;
 /** JSON Schema for Structured Outputs; matches OpenAIResponse. */
 const MEAL_DETECTION_RESPONSE_SCHEMA = {
   type: 'object' as const,
+  description: 'Food analysis response with detected food details and optional clarification variations.',
   properties: {
     result: {
       type: 'object' as const,
       properties: {
         meal_identified: {
           type: 'boolean' as const,
-          description: 'Boolean indicating whether a meal was identified. When true, include the meal object',
+          description: 'Boolean indicating whether food was identified. When true, include the meal object',
         },
         calorie_confidence: {
           type: 'string' as const,
@@ -79,17 +80,17 @@ const MEAL_DETECTION_RESPONSE_SCHEMA = {
         },
         tip: {
           type: 'string' as const,
-          description: 'Short useful fact or benefit related to the identified meal. Example: "High fiber helps digestion."',
+          description: 'Short useful fact or benefit related to the identified food(s). Example: "High fiber helps digestion."',
         },
         meal: {
-          description: 'Detailed meal information when identified; null otherwise.',
+          description: 'Detailed food information. Required when meal_identified is true.',
           anyOf: [
             {
               type: 'object' as const,
               properties: {
                 name: {
                   type: 'string' as const,
-                  description: 'Concise meal name (for example, "Chicken Salad" or "Apple Slices").',
+                  description: 'Concise meal/food name, ~30 characters or less, eg. "Chicken Salad", "Apple Slices"',
                 },
                 quantity: {
                   type: 'string' as const,
@@ -98,7 +99,7 @@ const MEAL_DETECTION_RESPONSE_SCHEMA = {
                 type: {
                   type: 'string' as const,
                   enum: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'UNKNOWN'],
-                  description: 'Meal type. Example: "LUNCH".',
+                  description: 'Food type based on timestamp from file creation metadata or food description.',
                 },
                 macros: {
                   type: 'object' as const,
@@ -114,7 +115,7 @@ const MEAL_DETECTION_RESPONSE_SCHEMA = {
                   additionalProperties: false,
                 },
                 health: {
-                  description: 'Health evaluation for the meal, or null when not provided.',
+                  description: 'Health evaluation for the identified meal.',
                   anyOf: [
                     {
                       type: 'object' as const,
@@ -122,11 +123,11 @@ const MEAL_DETECTION_RESPONSE_SCHEMA = {
                         health_score: {
                           type: 'string' as const,
                           enum: ['HEALTHY', 'NEUTRAL', 'UNHEALTHY'],
-                          description: 'Health score label based on nutritional balance',
+                          description: 'Health score label based on nutritional balance.',
                         },
                         health_score_reason: {
                           type: 'string' as const,
-                          description: 'Concise reason for the assigned health score. Example: "Balanced protein and fiber."',
+                          description: 'Concise reason for the assigned health score. Example: "Balanced protein and fiber.", "Too much sugar"',
                         },
                       },
                       required: ['health_score', 'health_score_reason'],
@@ -152,14 +153,14 @@ const MEAL_DETECTION_RESPONSE_SCHEMA = {
     },
     variations: {
       type: 'array' as const,
-      description: 'Clarification questions for LOW and MEDIUM confidence results. Return an empty array for HIGH/UNSPECIFIED confidence.',
+      description: 'Optional variation questions when confidence is LOW or MEDIUM. At-most 3 questions.',
       items: {
         type: 'object' as const,
-        description: 'One meal-specific clarification question with options.',
+        description: 'One variation question with options.',
         properties: {
           question: {
             type: 'string' as const,
-            description: 'A short, specific clarification question about the detected meal to improve calorie confidence (for example portion size, preparation method, ingredient variant). Must be directly related to this meal and answerable by the provided options.',
+            description: 'Concise wh-question to disambiguate. Example: "What portion size is this?"',
           },
           options: {
             type: 'array' as const,
@@ -172,7 +173,7 @@ const MEAL_DETECTION_RESPONSE_SCHEMA = {
                 },
                 macro_diff: {
                   type: 'object' as const,
-                  description: 'Delta to apply to the base macros of the entire detected meal quantity (the whole meal in result.meal).',
+                  description: 'Delta to apply to base macros for this option.',
                   properties: {
                     calories: { type: 'number' as const },
                     protein: { type: 'number' as const },
