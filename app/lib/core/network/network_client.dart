@@ -61,8 +61,7 @@ class NetworkClient {
               RateLimitException(
                 requestOptions: exception.requestOptions,
                 response: exception.response,
-                message:
-                    'You\'ve made too many requests. Please wait a moment before trying again.',
+                message: t.errors.rateLimitExceeded,
               ),
             );
           }
