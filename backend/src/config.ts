@@ -30,6 +30,8 @@ interface Config {
     readonly LOG_REQUEST_RESPONSE_BODIES: boolean;
     /** Max size in bytes for request/response body in logs. Larger bodies are truncated. */
     readonly MAX_BODY_LOG_BYTES: number;
+    /** Trust X-Forwarded-* headers for client IP (set true when behind a proxy/load balancer). */
+    readonly TRUST_PROXY: boolean;
 }
 
 function getEnvVar(name: string, defaultValue?: string): string {
@@ -144,6 +146,7 @@ const config: Config = {
         true
     ),
     MAX_BODY_LOG_BYTES: getEnvVarNumber('MAX_BODY_LOG_BYTES', 8192),
+    TRUST_PROXY: getEnvVarBoolean('TRUST_PROXY', false),
 } as const;
 
 // Validate critical settings in production
