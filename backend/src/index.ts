@@ -51,6 +51,7 @@ async function buildApp() {
 
   const fastify = Fastify({
     logger: loggerConfig,
+    trustProxy: config.TRUST_PROXY,
     // Generate request IDs for log correlation
     genReqId: (req) => {
       const reqId = req.headers['x-request-id'];
