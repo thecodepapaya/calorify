@@ -40,6 +40,7 @@ class TranslationsFi with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Suomi';
 	@override String get flag => '🇫🇮';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsFi errors = _TranslationsErrorsFi._(_root);
 	@override late final _TranslationsOnboardingFi onboarding = _TranslationsOnboardingFi._(_root);
 	@override late final _TranslationsTabsFi tabs = _TranslationsTabsFi._(_root);
 	@override late final _TranslationsHomeFi home = _TranslationsHomeFi._(_root);
@@ -56,8 +57,18 @@ class TranslationsFi with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerFi disclaimer = _TranslationsDisclaimerFi._(_root);
 	@override late final _TranslationsCommonFi common = _TranslationsCommonFi._(_root);
 	@override late final _TranslationsFeedbackRatingFi feedbackRating = _TranslationsFeedbackRatingFi._(_root);
-	@override late final _TranslationsErrorsFi errors = _TranslationsErrorsFi._(_root);
 	@override late final _TranslationsHealthFi health = _TranslationsHealthFi._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsFi implements TranslationsErrorsEn {
+	_TranslationsErrorsFi._(this._root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Virhe profiilitietojen lataamisessa';
+	@override String get somethingWentWrong => 'Jokin meni pieleen.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingFi implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Haluatko tietää, kuka on ${appLabel}:n takana? Katso ';
 	@override String get aboutUsLinkLabel => 'Tietoa meistä';
 	@override String get thankYouMessage => 'Kiitos! Kysymme uudestaan myöhemmin.';
-}
-
-// Path: errors
-class _TranslationsErrorsFi implements TranslationsErrorsEn {
-	_TranslationsErrorsFi._(this._root);
-
-	final TranslationsFi _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Virhe profiilitietojen lataamisessa';
-	@override String get somethingWentWrong => 'Jokin meni pieleen.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsFi {
 			'language' => 'Suomi',
 			'flag' => '🇫🇮',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Virhe profiilitietojen lataamisessa',
+			'errors.somethingWentWrong' => 'Jokin meni pieleen.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Tervetuloa ${appLabel} -sovellukseen',
 			'onboarding.subtitle' => 'Henkilökohtainen ravitsemuskumppanisi, jota ohjaa tekoäly',
 			'onboarding.getStarted' => 'Aloita',
@@ -1979,8 +1981,6 @@ extension on TranslationsFi {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Haluatko tietää, kuka on ${appLabel}:n takana? Katso ',
 			'feedbackRating.aboutUsLinkLabel' => 'Tietoa meistä',
 			'feedbackRating.thankYouMessage' => 'Kiitos! Kysymme uudestaan myöhemmin.',
-			'errors.loadingProfileData' => 'Virhe profiilitietojen lataamisessa',
-			'errors.somethingWentWrong' => 'Jokin meni pieleen.',
 			'health.syncFailed' => 'Yhdistäminen Health Connectiin epäonnistui',
 			'health.mealSynced' => 'Ateria synkronoitu Health Connectin kanssa',
 			_ => null,

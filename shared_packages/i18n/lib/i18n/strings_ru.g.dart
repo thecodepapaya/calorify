@@ -40,6 +40,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Русский';
 	@override String get flag => '🇷🇺';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsRu errors = _TranslationsErrorsRu._(_root);
 	@override late final _TranslationsOnboardingRu onboarding = _TranslationsOnboardingRu._(_root);
 	@override late final _TranslationsTabsRu tabs = _TranslationsTabsRu._(_root);
 	@override late final _TranslationsHomeRu home = _TranslationsHomeRu._(_root);
@@ -56,8 +57,18 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerRu disclaimer = _TranslationsDisclaimerRu._(_root);
 	@override late final _TranslationsCommonRu common = _TranslationsCommonRu._(_root);
 	@override late final _TranslationsFeedbackRatingRu feedbackRating = _TranslationsFeedbackRatingRu._(_root);
-	@override late final _TranslationsErrorsRu errors = _TranslationsErrorsRu._(_root);
 	@override late final _TranslationsHealthRu health = _TranslationsHealthRu._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsRu implements TranslationsErrorsEn {
+	_TranslationsErrorsRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Ошибка загрузки данных профиля';
+	@override String get somethingWentWrong => 'Что-то пошло не так.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingRu implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Интересно, кто стоит за ${appLabel}? Посмотрите ';
 	@override String get aboutUsLinkLabel => 'О нас';
 	@override String get thankYouMessage => 'Спасибо! Мы спросим об этом в другой раз.';
-}
-
-// Path: errors
-class _TranslationsErrorsRu implements TranslationsErrorsEn {
-	_TranslationsErrorsRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Ошибка загрузки данных профиля';
-	@override String get somethingWentWrong => 'Что-то пошло не так.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsRu {
 			'language' => 'Русский',
 			'flag' => '🇷🇺',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Ошибка загрузки данных профиля',
+			'errors.somethingWentWrong' => 'Что-то пошло не так.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Добро пожаловать в ${appLabel}',
 			'onboarding.subtitle' => 'Ваш личный помощник по питанию, работающий на AI',
 			'onboarding.getStarted' => 'Начать',
@@ -1979,8 +1981,6 @@ extension on TranslationsRu {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Интересно, кто стоит за ${appLabel}? Посмотрите ',
 			'feedbackRating.aboutUsLinkLabel' => 'О нас',
 			'feedbackRating.thankYouMessage' => 'Спасибо! Мы спросим об этом в другой раз.',
-			'errors.loadingProfileData' => 'Ошибка загрузки данных профиля',
-			'errors.somethingWentWrong' => 'Что-то пошло не так.',
 			'health.syncFailed' => 'Не удалось синхронизироваться с Health Connect',
 			'health.mealSynced' => 'Приём пищи синхронизирован с Health Connect',
 			_ => null,

@@ -40,6 +40,7 @@ class TranslationsTh with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'ไทย';
 	@override String get flag => '🇹🇭';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsTh errors = _TranslationsErrorsTh._(_root);
 	@override late final _TranslationsOnboardingTh onboarding = _TranslationsOnboardingTh._(_root);
 	@override late final _TranslationsTabsTh tabs = _TranslationsTabsTh._(_root);
 	@override late final _TranslationsHomeTh home = _TranslationsHomeTh._(_root);
@@ -56,8 +57,18 @@ class TranslationsTh with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerTh disclaimer = _TranslationsDisclaimerTh._(_root);
 	@override late final _TranslationsCommonTh common = _TranslationsCommonTh._(_root);
 	@override late final _TranslationsFeedbackRatingTh feedbackRating = _TranslationsFeedbackRatingTh._(_root);
-	@override late final _TranslationsErrorsTh errors = _TranslationsErrorsTh._(_root);
 	@override late final _TranslationsHealthTh health = _TranslationsHealthTh._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsTh implements TranslationsErrorsEn {
+	_TranslationsErrorsTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์';
+	@override String get somethingWentWrong => 'มีบางอย่างผิดพลาด.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingTh implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'อยากรู้ว่าผู้ที่อยู่เบื้องหลัง ${appLabel} คือใคร? ดู ';
 	@override String get aboutUsLinkLabel => 'เกี่ยวกับเรา';
 	@override String get thankYouMessage => 'ขอบคุณ! เราจะถามคุณอีกครั้งในโอกาสหน้า.';
-}
-
-// Path: errors
-class _TranslationsErrorsTh implements TranslationsErrorsEn {
-	_TranslationsErrorsTh._(this._root);
-
-	final TranslationsTh _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์';
-	@override String get somethingWentWrong => 'มีบางอย่างผิดพลาด.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsTh {
 			'language' => 'ไทย',
 			'flag' => '🇹🇭',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์',
+			'errors.somethingWentWrong' => 'มีบางอย่างผิดพลาด.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'ยินดีต้อนรับสู่ ${appLabel}',
 			'onboarding.subtitle' => 'คู่หูด้านโภชนาการส่วนบุคคลที่ขับเคลื่อนโดย AI',
 			'onboarding.getStarted' => 'เริ่มต้น',
@@ -1979,8 +1981,6 @@ extension on TranslationsTh {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'อยากรู้ว่าผู้ที่อยู่เบื้องหลัง ${appLabel} คือใคร? ดู ',
 			'feedbackRating.aboutUsLinkLabel' => 'เกี่ยวกับเรา',
 			'feedbackRating.thankYouMessage' => 'ขอบคุณ! เราจะถามคุณอีกครั้งในโอกาสหน้า.',
-			'errors.loadingProfileData' => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์',
-			'errors.somethingWentWrong' => 'มีบางอย่างผิดพลาด.',
 			'health.syncFailed' => 'ไม่สามารถซิงค์ไปยัง Health Connect',
 			'health.mealSynced' => 'มื้ออาหารซิงค์แล้วกับ Health Connect',
 			_ => null,

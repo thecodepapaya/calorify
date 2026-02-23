@@ -2,6 +2,10 @@
   "language": "中文（台灣）",
   "flag": "🇹🇼",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "載入個人資料數據出錯",
+    "somethingWentWrong": "發生了錯誤。"
+  },
   "onboarding": {
     "welcome": "歡迎使用 {appLabel}",
     "subtitle": "您個人的營養夥伴，由 AI 提供支持",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "想知道是誰在打造 {appLabel} 嗎？請參閱 ",
     "aboutUsLinkLabel": "關於我們",
     "thankYouMessage": "謝謝！我們下次會再問您。"
-  },
-  "errors": {
-    "loadingProfileData": "載入個人資料數據出錯",
-    "somethingWentWrong": "發生了錯誤。"
   },
   "health": {
     "syncFailed": "無法同步到 Health Connect",

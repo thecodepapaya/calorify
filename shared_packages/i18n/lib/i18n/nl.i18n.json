@@ -2,6 +2,10 @@
   "language": "Nederlands",
   "flag": "🇳🇱",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Fout bij het laden van profielgegevens",
+    "somethingWentWrong": "Er is iets misgegaan."
+  },
   "onboarding": {
     "welcome": "Welkom bij {appLabel}",
     "subtitle": "Jouw persoonlijke voedingsgenoot aangedreven door AI",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Nieuwsgierig wie er achter {appLabel} zit? Zie ",
     "aboutUsLinkLabel": "Over ons",
     "thankYouMessage": "Bedankt! We vragen het je later nog eens."
-  },
-  "errors": {
-    "loadingProfileData": "Fout bij het laden van profielgegevens",
-    "somethingWentWrong": "Er is iets misgegaan."
   },
   "health": {
     "syncFailed": "Kon niet synchroniseren met Health Connect",

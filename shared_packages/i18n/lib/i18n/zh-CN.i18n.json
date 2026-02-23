@@ -2,6 +2,10 @@
   "language": "简体中文",
   "flag": "🇨🇳",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "加载个人资料数据时出错",
+    "somethingWentWrong": "出现了一些问题。"
+  },
   "onboarding": {
     "welcome": "欢迎使用{appLabel}",
     "subtitle": "您个性化的营养伴侣，基于 AI 技术",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "想知道是谁在开发 {appLabel}？请查看 ",
     "aboutUsLinkLabel": "关于我们",
     "thankYouMessage": "谢谢！我们以后会再次征求您的意见。"
-  },
-  "errors": {
-    "loadingProfileData": "加载个人资料数据时出错",
-    "somethingWentWrong": "出现了一些问题。"
   },
   "health": {
     "syncFailed": "无法同步到健康连接",

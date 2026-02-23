@@ -2,6 +2,10 @@
   "language": "Magyar",
   "flag": "🇭🇺",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Hiba a profiladatok betöltésekor",
+    "somethingWentWrong": "Valami hiba történt."
+  },
   "onboarding": {
     "welcome": "Üdvözöljük a(z) {appLabel} alkalmazásban",
     "subtitle": "Személyes táplálkozási társ, amelyet az AI hajt",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Kíváncsi vagy, ki áll a {appLabel} mögött? Nézd meg ",
     "aboutUsLinkLabel": "Rólunk",
     "thankYouMessage": "Köszönjük! Később ismét megkérdezünk."
-  },
-  "errors": {
-    "loadingProfileData": "Hiba a profiladatok betöltésekor",
-    "somethingWentWrong": "Valami hiba történt."
   },
   "health": {
     "syncFailed": "Nem sikerült szinkronizálni a Health Connect-tel",

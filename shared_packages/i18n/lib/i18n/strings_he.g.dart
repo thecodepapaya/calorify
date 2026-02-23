@@ -40,6 +40,7 @@ class TranslationsHe with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'עברית';
 	@override String get flag => '🇮🇱';
 	@override String appLabel({required Object env}) => 'קלוריפיי${env}';
+	@override late final _TranslationsErrorsHe errors = _TranslationsErrorsHe._(_root);
 	@override late final _TranslationsOnboardingHe onboarding = _TranslationsOnboardingHe._(_root);
 	@override late final _TranslationsTabsHe tabs = _TranslationsTabsHe._(_root);
 	@override late final _TranslationsHomeHe home = _TranslationsHomeHe._(_root);
@@ -56,8 +57,18 @@ class TranslationsHe with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerHe disclaimer = _TranslationsDisclaimerHe._(_root);
 	@override late final _TranslationsCommonHe common = _TranslationsCommonHe._(_root);
 	@override late final _TranslationsFeedbackRatingHe feedbackRating = _TranslationsFeedbackRatingHe._(_root);
-	@override late final _TranslationsErrorsHe errors = _TranslationsErrorsHe._(_root);
 	@override late final _TranslationsHealthHe health = _TranslationsHealthHe._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsHe implements TranslationsErrorsEn {
+	_TranslationsErrorsHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'שגיאה בהטענת נתוני פרופיל';
+	@override String get somethingWentWrong => 'משהו השתבש.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingHe implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'סקרנים מי עומד מאחורי ${appLabel}? ראה ';
 	@override String get aboutUsLinkLabel => 'עלינו';
 	@override String get thankYouMessage => 'תודה! נשאל שוב בהזדמנות אחרת.';
-}
-
-// Path: errors
-class _TranslationsErrorsHe implements TranslationsErrorsEn {
-	_TranslationsErrorsHe._(this._root);
-
-	final TranslationsHe _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'שגיאה בהטענת נתוני פרופיל';
-	@override String get somethingWentWrong => 'משהו השתבש.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsHe {
 			'language' => 'עברית',
 			'flag' => '🇮🇱',
 			'appLabel' => ({required Object env}) => 'קלוריפיי${env}',
+			'errors.loadingProfileData' => 'שגיאה בהטענת נתוני פרופיל',
+			'errors.somethingWentWrong' => 'משהו השתבש.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'ברוך הבא ל${appLabel}',
 			'onboarding.subtitle' => 'בן זוגך האישי לתזונה המונע על ידי בינה מלאכותית',
 			'onboarding.getStarted' => 'בוא נתחיל',
@@ -1979,8 +1981,6 @@ extension on TranslationsHe {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'סקרנים מי עומד מאחורי ${appLabel}? ראה ',
 			'feedbackRating.aboutUsLinkLabel' => 'עלינו',
 			'feedbackRating.thankYouMessage' => 'תודה! נשאל שוב בהזדמנות אחרת.',
-			'errors.loadingProfileData' => 'שגיאה בהטענת נתוני פרופיל',
-			'errors.somethingWentWrong' => 'משהו השתבש.',
 			'health.syncFailed' => 'לא ניתן לסנכרן עם Health Connect',
 			'health.mealSynced' => 'הארוחה סונכרנה עם Health Connect',
 			_ => null,

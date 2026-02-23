@@ -40,6 +40,7 @@ class TranslationsTl with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Tagalog';
 	@override String get flag => '🇵🇭';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsTl errors = _TranslationsErrorsTl._(_root);
 	@override late final _TranslationsOnboardingTl onboarding = _TranslationsOnboardingTl._(_root);
 	@override late final _TranslationsTabsTl tabs = _TranslationsTabsTl._(_root);
 	@override late final _TranslationsHomeTl home = _TranslationsHomeTl._(_root);
@@ -56,8 +57,18 @@ class TranslationsTl with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerTl disclaimer = _TranslationsDisclaimerTl._(_root);
 	@override late final _TranslationsCommonTl common = _TranslationsCommonTl._(_root);
 	@override late final _TranslationsFeedbackRatingTl feedbackRating = _TranslationsFeedbackRatingTl._(_root);
-	@override late final _TranslationsErrorsTl errors = _TranslationsErrorsTl._(_root);
 	@override late final _TranslationsHealthTl health = _TranslationsHealthTl._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsTl implements TranslationsErrorsEn {
+	_TranslationsErrorsTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Error sa pag-load ng datos ng profile';
+	@override String get somethingWentWrong => 'May nangyaring mali.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingTl implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nais mong malaman kung sino ang nasa likod ng ${appLabel}? Tingnan ';
 	@override String get aboutUsLinkLabel => 'Tungkol sa amin';
 	@override String get thankYouMessage => 'Salamat! Tatanungin ka namin ulit sa susunod.';
-}
-
-// Path: errors
-class _TranslationsErrorsTl implements TranslationsErrorsEn {
-	_TranslationsErrorsTl._(this._root);
-
-	final TranslationsTl _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Error sa pag-load ng datos ng profile';
-	@override String get somethingWentWrong => 'May nangyaring mali.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsTl {
 			'language' => 'Tagalog',
 			'flag' => '🇵🇭',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Error sa pag-load ng datos ng profile',
+			'errors.somethingWentWrong' => 'May nangyaring mali.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Maligayang pagdating sa ${appLabel}',
 			'onboarding.subtitle' => 'Ang iyong personal na kasamahan sa nutrisyon na pinapagana ng AI',
 			'onboarding.getStarted' => 'Magsimula',
@@ -1979,8 +1981,6 @@ extension on TranslationsTl {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nais mong malaman kung sino ang nasa likod ng ${appLabel}? Tingnan ',
 			'feedbackRating.aboutUsLinkLabel' => 'Tungkol sa amin',
 			'feedbackRating.thankYouMessage' => 'Salamat! Tatanungin ka namin ulit sa susunod.',
-			'errors.loadingProfileData' => 'Error sa pag-load ng datos ng profile',
-			'errors.somethingWentWrong' => 'May nangyaring mali.',
 			'health.syncFailed' => 'Hindi ma-synchronize sa Health Connect',
 			'health.mealSynced' => 'Naka-synchronize ang pagkain sa Health Connect',
 			_ => null,

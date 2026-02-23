@@ -488,10 +488,10 @@ class GeminiFoodAnalysisService {
   /**
    * Call Gemini and parse response into MealDetectionResponse
    */
-  private async generateAndParse(userParts: Part[], locale: string): Promise<MealDetectionResponse> {
+  private async generateAndParse(userParts: Part[], locale: string, countryCode?: string): Promise<MealDetectionResponse> {
     const model = this.genAI.getGenerativeModel({
       model: GEMINI_FOOD_ANALYSIS_MODEL,
-      systemInstruction: getFoodAnalysisSystemPrompt(locale),
+      systemInstruction: getFoodAnalysisSystemPrompt(locale, countryCode),
       generationConfig: {
         maxOutputTokens: 800,
         temperature: 0.2,
@@ -530,7 +530,7 @@ class GeminiFoodAnalysisService {
    * Analyze food image from URL using Gemini
    * Fetches the image and analyzes via buffer path.
    */
-  async analyzeImageFromUrl(imageUrl: string, locale: string = 'en'): Promise<MealDetectionResponse> {
+  async analyzeImageFromUrl(imageUrl: string, locale: string = 'en', countryCode?: string): Promise<MealDetectionResponse> {
     try {
       try {
         new URL(imageUrl);
@@ -539,7 +539,7 @@ class GeminiFoodAnalysisService {
       }
 
       if (config.DEBUG || config.ENVIRONMENT === 'staging') {
-        console.log('[Gemini] analyzeImageFromUrl - locale:', locale);
+        console.log('[Gemini] analyzeImageFromUrl - locale:', locale, 'country:', countryCode);
       }
 
       const res = await fetch(imageUrl);
@@ -551,7 +551,7 @@ class GeminiFoodAnalysisService {
       const contentType = res.headers.get('content-type') ?? 'image/jpeg';
       const mimeType = contentType.split(';')[0]?.trim() || 'image/jpeg';
 
-      return this.analyzeImageFromBuffer(buffer, mimeType, locale);
+      return this.analyzeImageFromBuffer(buffer, mimeType, locale, countryCode);
     } catch (error) {
       throw new Error(
         `Failed to analyze image: ${error instanceof Error ? error.message : 'Unknown error'}`
@@ -565,7 +565,8 @@ class GeminiFoodAnalysisService {
   async analyzeImageFromBuffer(
     imageBuffer: Buffer,
     mimeType: string = 'image/jpeg',
-    locale: string = 'en'
+    locale: string = 'en',
+    countryCode?: string
   ): Promise<MealDetectionResponse> {
     try {
       const validMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
@@ -573,7 +574,7 @@ class GeminiFoodAnalysisService {
       const base64Image = imageBuffer.toString('base64');
 
       if (config.DEBUG || config.ENVIRONMENT === 'staging') {
-        console.log('[Gemini] analyzeImageFromBuffer - locale:', locale);
+        console.log('[Gemini] analyzeImageFromBuffer - locale:', locale, 'country:', countryCode);
       }
 
       const parts: Part[] = [
@@ -586,7 +587,7 @@ class GeminiFoodAnalysisService {
         },
       ];
 
-      return this.generateAndParse(parts, locale);
+      return this.generateAndParse(parts, locale, countryCode);
     } catch (error) {
       throw new Error(
         `Failed to analyze image: ${error instanceof Error ? error.message : 'Unknown error'}`
@@ -597,14 +598,14 @@ class GeminiFoodAnalysisService {
   /**
    * Analyze food description using Gemini
    */
-  async analyzeTextDescription(description: string, locale: string = 'en'): Promise<MealDetectionResponse> {
+  async analyzeTextDescription(description: string, locale: string = 'en', countryCode?: string): Promise<MealDetectionResponse> {
     try {
       if (config.DEBUG || config.ENVIRONMENT === 'staging') {
-        console.log('[Gemini] analyzeTextDescription - locale:', locale);
+        console.log('[Gemini] analyzeTextDescription - locale:', locale, 'country:', countryCode);
       }
 
       const parts: Part[] = [{ text: description }];
-      return this.generateAndParse(parts, locale);
+      return this.generateAndParse(parts, locale, countryCode);
     } catch (error) {
       throw new Error(
         `Failed to analyze description: ${error instanceof Error ? error.message : 'Unknown error'}`

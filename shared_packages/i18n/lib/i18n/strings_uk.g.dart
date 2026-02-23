@@ -40,6 +40,7 @@ class TranslationsUk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Українська';
 	@override String get flag => '🇺🇦';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsUk errors = _TranslationsErrorsUk._(_root);
 	@override late final _TranslationsOnboardingUk onboarding = _TranslationsOnboardingUk._(_root);
 	@override late final _TranslationsTabsUk tabs = _TranslationsTabsUk._(_root);
 	@override late final _TranslationsHomeUk home = _TranslationsHomeUk._(_root);
@@ -56,8 +57,18 @@ class TranslationsUk with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerUk disclaimer = _TranslationsDisclaimerUk._(_root);
 	@override late final _TranslationsCommonUk common = _TranslationsCommonUk._(_root);
 	@override late final _TranslationsFeedbackRatingUk feedbackRating = _TranslationsFeedbackRatingUk._(_root);
-	@override late final _TranslationsErrorsUk errors = _TranslationsErrorsUk._(_root);
 	@override late final _TranslationsHealthUk health = _TranslationsHealthUk._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsUk implements TranslationsErrorsEn {
+	_TranslationsErrorsUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Помилка завантаження даних профілю';
+	@override String get somethingWentWrong => 'Щось пішло не так.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingUk implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Цікавитесь, хто стоїть за ${appLabel}? Дізнайтеся більше ';
 	@override String get aboutUsLinkLabel => 'Про нас';
 	@override String get thankYouMessage => 'Дякуємо! Ми ще запитаємо пізніше.';
-}
-
-// Path: errors
-class _TranslationsErrorsUk implements TranslationsErrorsEn {
-	_TranslationsErrorsUk._(this._root);
-
-	final TranslationsUk _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Помилка завантаження даних профілю';
-	@override String get somethingWentWrong => 'Щось пішло не так.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsUk {
 			'language' => 'Українська',
 			'flag' => '🇺🇦',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Помилка завантаження даних профілю',
+			'errors.somethingWentWrong' => 'Щось пішло не так.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Ласкаво просимо до ${appLabel}',
 			'onboarding.subtitle' => 'Ваш особистий супутник у харчуванні, підкріплений ШІ',
 			'onboarding.getStarted' => 'Розпочати',
@@ -1979,8 +1981,6 @@ extension on TranslationsUk {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Цікавитесь, хто стоїть за ${appLabel}? Дізнайтеся більше ',
 			'feedbackRating.aboutUsLinkLabel' => 'Про нас',
 			'feedbackRating.thankYouMessage' => 'Дякуємо! Ми ще запитаємо пізніше.',
-			'errors.loadingProfileData' => 'Помилка завантаження даних профілю',
-			'errors.somethingWentWrong' => 'Щось пішло не так.',
 			'health.syncFailed' => 'Не вдалося синхронізувати з Health Connect',
 			'health.mealSynced' => 'Страву синхронізовано з Health Connect',
 			_ => null,

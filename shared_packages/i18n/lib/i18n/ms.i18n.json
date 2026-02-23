@@ -2,6 +2,10 @@
   "language": "Bahasa Melayu",
   "flag": "🇲🇾",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Ralat memuatkan data profil",
+    "somethingWentWrong": "Ada yang tidak kena."
+  },
   "onboarding": {
     "welcome": "Selamat datang ke {appLabel}",
     "subtitle": "Rakan pemakanan peribadi anda yang dikuasakan oleh AI",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Ingin tahu siapa di sebalik {appLabel}? Lihat ",
     "aboutUsLinkLabel": "Tentang kami",
     "thankYouMessage": "Terima kasih! Kami akan bertanya lagi lain kali."
-  },
-  "errors": {
-    "loadingProfileData": "Ralat memuatkan data profil",
-    "somethingWentWrong": "Ada yang tidak kena."
   },
   "health": {
     "syncFailed": "Tidak dapat menyinkronkan ke Health Connect",

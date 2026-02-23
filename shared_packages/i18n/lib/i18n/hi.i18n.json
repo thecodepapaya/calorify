@@ -2,6 +2,10 @@
   "language": "हिन्दी",
   "flag": "🇮🇳",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "प्रोफ़ाइल डेटा लोड करने में त्रुटि",
+    "somethingWentWrong": "कुछ गलत हुआ।"
+  },
   "onboarding": {
     "welcome": "{appLabel} में आपका स्वागत है",
     "subtitle": "AI द्वारा समर्थित आपका व्यक्तिगत पोषण साथी",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "जानना चाहेंगे कि {appLabel} के पीछे कौन है? देखें ",
     "aboutUsLinkLabel": "हमारे बारे में",
     "thankYouMessage": "धन्यवाद! हम फिर कभी पूछेंगे।"
-  },
-  "errors": {
-    "loadingProfileData": "प्रोफ़ाइल डेटा लोड करने में त्रुटि",
-    "somethingWentWrong": "कुछ गलत हुआ।"
   },
   "health": {
     "syncFailed": "Health Connect से सिंक नहीं हो पाया",

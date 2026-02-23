@@ -40,6 +40,7 @@ class TranslationsKo with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => '한국어';
 	@override String get flag => '🇰🇷';
 	@override String appLabel({required Object env}) => '칼로리파이${env}';
+	@override late final _TranslationsErrorsKo errors = _TranslationsErrorsKo._(_root);
 	@override late final _TranslationsOnboardingKo onboarding = _TranslationsOnboardingKo._(_root);
 	@override late final _TranslationsTabsKo tabs = _TranslationsTabsKo._(_root);
 	@override late final _TranslationsHomeKo home = _TranslationsHomeKo._(_root);
@@ -56,8 +57,18 @@ class TranslationsKo with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerKo disclaimer = _TranslationsDisclaimerKo._(_root);
 	@override late final _TranslationsCommonKo common = _TranslationsCommonKo._(_root);
 	@override late final _TranslationsFeedbackRatingKo feedbackRating = _TranslationsFeedbackRatingKo._(_root);
-	@override late final _TranslationsErrorsKo errors = _TranslationsErrorsKo._(_root);
 	@override late final _TranslationsHealthKo health = _TranslationsHealthKo._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsKo implements TranslationsErrorsEn {
+	_TranslationsErrorsKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => '프로필 데이터 로드 중 오류 발생';
+	@override String get somethingWentWrong => '문제가 발생했습니다.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingKo implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel}의 제작자가 궁금하신가요? ';
 	@override String get aboutUsLinkLabel => '개발자 소개';
 	@override String get thankYouMessage => '감사합니다! 다음에 다시 여쭤볼게요.';
-}
-
-// Path: errors
-class _TranslationsErrorsKo implements TranslationsErrorsEn {
-	_TranslationsErrorsKo._(this._root);
-
-	final TranslationsKo _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => '프로필 데이터 로드 중 오류 발생';
-	@override String get somethingWentWrong => '문제가 발생했습니다.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsKo {
 			'language' => '한국어',
 			'flag' => '🇰🇷',
 			'appLabel' => ({required Object env}) => '칼로리파이${env}',
+			'errors.loadingProfileData' => '프로필 데이터 로드 중 오류 발생',
+			'errors.somethingWentWrong' => '문제가 발생했습니다.',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel}에 오신 것을 환영합니다',
 			'onboarding.subtitle' => 'AI가 지원하는 개인 영양 동반자',
 			'onboarding.getStarted' => '시작하기',
@@ -1979,8 +1981,6 @@ extension on TranslationsKo {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel}의 제작자가 궁금하신가요? ',
 			'feedbackRating.aboutUsLinkLabel' => '개발자 소개',
 			'feedbackRating.thankYouMessage' => '감사합니다! 다음에 다시 여쭤볼게요.',
-			'errors.loadingProfileData' => '프로필 데이터 로드 중 오류 발생',
-			'errors.somethingWentWrong' => '문제가 발생했습니다.',
 			'health.syncFailed' => 'Health Connect와 동기화할 수 없습니다.',
 			'health.mealSynced' => '식사가 Health Connect와 동기화되었습니다.',
 			_ => null,

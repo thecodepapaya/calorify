@@ -2,6 +2,10 @@
   "language": "తెలుగు",
   "flag": "🇮🇳",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "ప్రొఫైల్ డేటా లోడింగ్ లోపం",
+    "somethingWentWrong": "ఏదో తప్పు జరిగింది."
+  },
   "onboarding": {
     "welcome": "{appLabel} లో స్వాగతం",
     "subtitle": "మీ వ్యక్తిగత పోషణ సహాయకుడు AI తో",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "{appLabel} వెనుక ఎవరు ఉన్నారో తెలుసుకోవాలా? చూడండి ",
     "aboutUsLinkLabel": "మా గురించి",
     "thankYouMessage": "ధన్యవాదాలు! మేము మరోసారి అడుగుతాము."
-  },
-  "errors": {
-    "loadingProfileData": "ప్రొఫైల్ డేటా లోడింగ్ లోపం",
-    "somethingWentWrong": "ఏదో తప్పు జరిగింది."
   },
   "health": {
     "syncFailed": "హెల్త్ కనెక్ట్ కు సింక్ చేయడంలో విఫలమైంది",

@@ -3,6 +3,7 @@ import cors from '@fastify/cors';
 import multipart from '@fastify/multipart';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
+import rateLimit from '@fastify/rate-limit';
 import { registerRoutes } from './routes/index.js';
 import { errorHandler } from './utils/errors.js';
 import { redactHeaders, bodyForLog } from './utils/requestLog.js';
@@ -157,6 +158,26 @@ async function buildApp() {
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept-Language'],
+  });
+
+  // Register rate limiting
+  await fastify.register(rateLimit, {
+    global: true,
+    max: 100,
+    timeWindow: '1 minute',
+    keyGenerator: (request) => {
+      // Use userId if available (from authenticateUser middleware)
+      // Otherwise fallback to IP address
+      return (request as any).userId || request.ip;
+    },
+    errorResponseBuilder: (_request, context) => {
+      return {
+        statusCode: 429,
+        error: 'Too Many Requests',
+        message: `Rate limit exceeded. Try again in ${context.after}.`,
+        detail: 'RATE_LIMIT_EXCEEDED',
+      };
+    },
   });
 
   // Register multipart for file uploads

@@ -40,6 +40,7 @@ class TranslationsDe with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Deutsch';
 	@override String get flag => '🇩🇪';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsDe errors = _TranslationsErrorsDe._(_root);
 	@override late final _TranslationsOnboardingDe onboarding = _TranslationsOnboardingDe._(_root);
 	@override late final _TranslationsTabsDe tabs = _TranslationsTabsDe._(_root);
 	@override late final _TranslationsHomeDe home = _TranslationsHomeDe._(_root);
@@ -56,8 +57,18 @@ class TranslationsDe with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerDe disclaimer = _TranslationsDisclaimerDe._(_root);
 	@override late final _TranslationsCommonDe common = _TranslationsCommonDe._(_root);
 	@override late final _TranslationsFeedbackRatingDe feedbackRating = _TranslationsFeedbackRatingDe._(_root);
-	@override late final _TranslationsErrorsDe errors = _TranslationsErrorsDe._(_root);
 	@override late final _TranslationsHealthDe health = _TranslationsHealthDe._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsDe implements TranslationsErrorsEn {
+	_TranslationsErrorsDe._(this._root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Fehler beim Laden der Profildaten';
+	@override String get somethingWentWrong => 'Etwas ist schiefgegangen.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingDe implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Neugierig, wer hinter ${appLabel} steckt? Sieh dir ';
 	@override String get aboutUsLinkLabel => 'Über uns';
 	@override String get thankYouMessage => 'Danke! Wir fragen ein anderes Mal wieder.';
-}
-
-// Path: errors
-class _TranslationsErrorsDe implements TranslationsErrorsEn {
-	_TranslationsErrorsDe._(this._root);
-
-	final TranslationsDe _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Fehler beim Laden der Profildaten';
-	@override String get somethingWentWrong => 'Etwas ist schiefgegangen.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsDe {
 			'language' => 'Deutsch',
 			'flag' => '🇩🇪',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Fehler beim Laden der Profildaten',
+			'errors.somethingWentWrong' => 'Etwas ist schiefgegangen.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Willkommen bei ${appLabel}',
 			'onboarding.subtitle' => 'Ihr persönlicher Ernährungsbegleiter, betrieben von KI',
 			'onboarding.getStarted' => 'Loslegen',
@@ -1979,8 +1981,6 @@ extension on TranslationsDe {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Neugierig, wer hinter ${appLabel} steckt? Sieh dir ',
 			'feedbackRating.aboutUsLinkLabel' => 'Über uns',
 			'feedbackRating.thankYouMessage' => 'Danke! Wir fragen ein anderes Mal wieder.',
-			'errors.loadingProfileData' => 'Fehler beim Laden der Profildaten',
-			'errors.somethingWentWrong' => 'Etwas ist schiefgegangen.',
 			'health.syncFailed' => 'Konnte nicht mit Health Connect synchronisieren',
 			'health.mealSynced' => 'Mahlzeit mit Health Connect synchronisiert',
 			_ => null,

@@ -2,6 +2,10 @@
   "language": "Tiếng Việt",
   "flag": "🇻🇳",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Lỗi khi tải dữ liệu hồ sơ",
+    "somethingWentWrong": "Đã xảy ra lỗi."
+  },
   "onboarding": {
     "welcome": "Chào mừng bạn đến với {appLabel}",
     "subtitle": "Người bạn đồng hành dinh dưỡng cá nhân của bạn được hỗ trợ bởi AI",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Bạn tò mò ai đứng sau {appLabel}? Xem ",
     "aboutUsLinkLabel": "Về chúng tôi",
     "thankYouMessage": "Cảm ơn! Chúng tôi sẽ hỏi lại bạn vào dịp khác."
-  },
-  "errors": {
-    "loadingProfileData": "Lỗi khi tải dữ liệu hồ sơ",
-    "somethingWentWrong": "Đã xảy ra lỗi."
   },
   "health": {
     "syncFailed": "Không thể đồng bộ với Health Connect",

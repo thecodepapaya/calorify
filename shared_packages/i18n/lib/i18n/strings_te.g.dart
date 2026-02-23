@@ -40,6 +40,7 @@ class TranslationsTe with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'తెలుగు';
 	@override String get flag => '🇮🇳';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsTe errors = _TranslationsErrorsTe._(_root);
 	@override late final _TranslationsOnboardingTe onboarding = _TranslationsOnboardingTe._(_root);
 	@override late final _TranslationsTabsTe tabs = _TranslationsTabsTe._(_root);
 	@override late final _TranslationsHomeTe home = _TranslationsHomeTe._(_root);
@@ -56,8 +57,18 @@ class TranslationsTe with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerTe disclaimer = _TranslationsDisclaimerTe._(_root);
 	@override late final _TranslationsCommonTe common = _TranslationsCommonTe._(_root);
 	@override late final _TranslationsFeedbackRatingTe feedbackRating = _TranslationsFeedbackRatingTe._(_root);
-	@override late final _TranslationsErrorsTe errors = _TranslationsErrorsTe._(_root);
 	@override late final _TranslationsHealthTe health = _TranslationsHealthTe._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsTe implements TranslationsErrorsEn {
+	_TranslationsErrorsTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం';
+	@override String get somethingWentWrong => 'ఏదో తప్పు జరిగింది.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingTe implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel} వెనుక ఎవరు ఉన్నారో తెలుసుకోవాలా? చూడండి ';
 	@override String get aboutUsLinkLabel => 'మా గురించి';
 	@override String get thankYouMessage => 'ధన్యవాదాలు! మేము మరోసారి అడుగుతాము.';
-}
-
-// Path: errors
-class _TranslationsErrorsTe implements TranslationsErrorsEn {
-	_TranslationsErrorsTe._(this._root);
-
-	final TranslationsTe _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం';
-	@override String get somethingWentWrong => 'ఏదో తప్పు జరిగింది.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsTe {
 			'language' => 'తెలుగు',
 			'flag' => '🇮🇳',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం',
+			'errors.somethingWentWrong' => 'ఏదో తప్పు జరిగింది.',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} లో స్వాగతం',
 			'onboarding.subtitle' => 'మీ వ్యక్తిగత పోషణ సహాయకుడు AI తో',
 			'onboarding.getStarted' => 'ప్రారంభించండి',
@@ -1979,8 +1981,6 @@ extension on TranslationsTe {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel} వెనుక ఎవరు ఉన్నారో తెలుసుకోవాలా? చూడండి ',
 			'feedbackRating.aboutUsLinkLabel' => 'మా గురించి',
 			'feedbackRating.thankYouMessage' => 'ధన్యవాదాలు! మేము మరోసారి అడుగుతాము.',
-			'errors.loadingProfileData' => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం',
-			'errors.somethingWentWrong' => 'ఏదో తప్పు జరిగింది.',
 			'health.syncFailed' => 'హెల్త్ కనెక్ట్ కు సింక్ చేయడంలో విఫలమైంది',
 			'health.mealSynced' => 'భోజనం హెల్త్ కనెక్ట్ తో సింక్ చేయబడింది',
 			_ => null,

@@ -2,6 +2,10 @@
   "language": "اردو",
   "flag": "🇵🇰",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "پروفائل کا ڈیٹا لوڈ کرنے میں خرابی",
+    "somethingWentWrong": "کچھ غلط ہوگیا۔"
+  },
   "onboarding": {
     "welcome": "{appLabel} میں خوش آمدید",
     "subtitle": "آپ کا ذاتی غذائیت ساتھی جو AI کی طاقت سے ہے",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "کیا آپ جاننا چاہتے ہیں کہ {appLabel} کے پیچھے کون ہے؟ دیکھیں ",
     "aboutUsLinkLabel": "ہمارے بارے میں",
     "thankYouMessage": "شکریہ! ہم کسی اور وقت دوبارہ پوچھیں گے۔"
-  },
-  "errors": {
-    "loadingProfileData": "پروفائل کا ڈیٹا لوڈ کرنے میں خرابی",
-    "somethingWentWrong": "کچھ غلط ہوگیا۔"
   },
   "health": {
     "syncFailed": "ہیلتھ کنیکٹ میں ہم آہنگ نہیں ہو سکا",

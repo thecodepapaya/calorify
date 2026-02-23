@@ -7,6 +7,10 @@
     "language": "English",
     "flag": "🇺🇸",
     "appLabel": "Calorify{env}",
+    "errors": {
+      "loadingProfileData": "Error loading profile data",
+      "somethingWentWrong": "Something went wrong."
+    },
     "onboarding": {
       "welcome": "Welcome to {appLabel}",
       "subtitle": "Your personal nutrition companion powered by AI",
@@ -636,10 +640,6 @@
       "aboutUsMentionBeforeLink": "Curious who's behind {appLabel}? See ",
       "aboutUsLinkLabel": "About us",
       "thankYouMessage": "Thanks! We'll ask again another time."
-    },
-    "errors": {
-      "loadingProfileData": "Error loading profile data",
-      "somethingWentWrong": "Something went wrong."
     },
     "health": {
       "syncFailed": "Could not sync to Health Connect",

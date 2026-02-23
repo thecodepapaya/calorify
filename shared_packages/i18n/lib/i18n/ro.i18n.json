@@ -2,6 +2,10 @@
   "language": "Română",
   "flag": "🇷🇴",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Eroare la încărcarea datelor profilului",
+    "somethingWentWrong": "Ceva a mers prost."
+  },
   "onboarding": {
     "welcome": "Bine ai venit la {appLabel}",
     "subtitle": "Companionul tău personal în nutriție alimentat de AI",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Curios cine se află în spatele {appLabel}? Vezi ",
     "aboutUsLinkLabel": "Despre noi",
     "thankYouMessage": "Mulțumim! Te vom întreba din nou altădată."
-  },
-  "errors": {
-    "loadingProfileData": "Eroare la încărcarea datelor profilului",
-    "somethingWentWrong": "Ceva a mers prost."
   },
   "health": {
     "syncFailed": "Nu s-a putut sincroniza cu Health Connect",

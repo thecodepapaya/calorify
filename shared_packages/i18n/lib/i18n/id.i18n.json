@@ -2,6 +2,10 @@
   "language": "Bahasa Indonesia",
   "flag": "🇮🇩",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Kesalahan saat memuat data profil",
+    "somethingWentWrong": "Terjadi kesalahan."
+  },
   "onboarding": {
     "welcome": "Selamat datang di {appLabel}",
     "subtitle": "Pendamping nutrisi pribadi Anda yang didukung oleh AI",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Penasaran siapa di balik {appLabel}? Lihat ",
     "aboutUsLinkLabel": "Tentang kami",
     "thankYouMessage": "Terima kasih! Kami akan bertanya lagi di lain waktu."
-  },
-  "errors": {
-    "loadingProfileData": "Kesalahan saat memuat data profil",
-    "somethingWentWrong": "Terjadi kesalahan."
   },
   "health": {
     "syncFailed": "Tidak dapat menyinkronkan dengan Health Connect",

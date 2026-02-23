@@ -50,6 +50,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Calorify{env}'
 	String appLabel({required Object env}) => 'Calorify${env}';
 
+	late final TranslationsErrorsEn errors = TranslationsErrorsEn._(_root);
 	late final TranslationsOnboardingEn onboarding = TranslationsOnboardingEn._(_root);
 	late final TranslationsTabsEn tabs = TranslationsTabsEn._(_root);
 	late final TranslationsHomeEn home = TranslationsHomeEn._(_root);
@@ -66,8 +67,22 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsDisclaimerEn disclaimer = TranslationsDisclaimerEn._(_root);
 	late final TranslationsCommonEn common = TranslationsCommonEn._(_root);
 	late final TranslationsFeedbackRatingEn feedbackRating = TranslationsFeedbackRatingEn._(_root);
-	late final TranslationsErrorsEn errors = TranslationsErrorsEn._(_root);
 	late final TranslationsHealthEn health = TranslationsHealthEn._(_root);
+}
+
+// Path: errors
+class TranslationsErrorsEn {
+	TranslationsErrorsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Error loading profile data'
+	String get loadingProfileData => 'Error loading profile data';
+
+	/// en: 'Something went wrong.'
+	String get somethingWentWrong => 'Something went wrong.';
 }
 
 // Path: onboarding
@@ -626,21 +641,6 @@ class TranslationsFeedbackRatingEn {
 
 	/// en: 'Thanks! We'll ask again another time.'
 	String get thankYouMessage => 'Thanks! We\'ll ask again another time.';
-}
-
-// Path: errors
-class TranslationsErrorsEn {
-	TranslationsErrorsEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Error loading profile data'
-	String get loadingProfileData => 'Error loading profile data';
-
-	/// en: 'Something went wrong.'
-	String get somethingWentWrong => 'Something went wrong.';
 }
 
 // Path: health
@@ -1494,11 +1494,11 @@ class TranslationsSettingsHealthConnectEn {
 	/// en: 'Request Permissions'
 	String get requestPermissions => 'Request Permissions';
 
-	/// en: 'Permission was denied or the request failed. If Health Connect didn't open, go to your device Settings > Apps > Health Connect > App permissions to allow access.'
-	String get permissionRequestCancelledOrFailed => 'Permission was denied or the request failed. If Health Connect didn\'t open, go to your device Settings > Apps > Health Connect > App permissions to allow access.';
+	/// en: 'Permission request was cancelled or failed. Please try again or grant permissions manually in Health Connect settings.'
+	String get permissionRequestCancelledOrFailed => 'Permission request was cancelled or failed. Please try again or grant permissions manually in Health Connect settings.';
 
-	/// en: 'Unable to request permissions. If Health Connect didn't open, go to your device Settings > Apps > Health Connect > App permissions to allow access.'
-	String get permissionRequestFailed => 'Unable to request permissions. If Health Connect didn\'t open, go to your device Settings > Apps > Health Connect > App permissions to allow access.';
+	/// en: 'Unable to request permissions. Please try again or grant permissions manually in Health Connect settings.'
+	String get permissionRequestFailed => 'Unable to request permissions. Please try again or grant permissions manually in Health Connect settings.';
 
 	/// en: 'Requesting...'
 	String get requestingPermissions => 'Requesting...';
@@ -2432,6 +2432,8 @@ extension on Translations {
 			'language' => 'English',
 			'flag' => '🇺🇸',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Error loading profile data',
+			'errors.somethingWentWrong' => 'Something went wrong.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Welcome to ${appLabel}',
 			'onboarding.subtitle' => 'Your personal nutrition companion powered by AI',
 			'onboarding.getStarted' => 'Get Started',
@@ -2741,8 +2743,8 @@ extension on Translations {
 			'settings.healthConnect.managePermissions' => 'Manage Permissions',
 			'settings.healthConnect.openSettings' => 'Open Health Connect Settings',
 			'settings.healthConnect.requestPermissions' => 'Request Permissions',
-			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Permission was denied or the request failed. If Health Connect didn\'t open, go to your device Settings > Apps > Health Connect > App permissions to allow access.',
-			'settings.healthConnect.permissionRequestFailed' => 'Unable to request permissions. If Health Connect didn\'t open, go to your device Settings > Apps > Health Connect > App permissions to allow access.',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Permission request was cancelled or failed. Please try again or grant permissions manually in Health Connect settings.',
+			'settings.healthConnect.permissionRequestFailed' => 'Unable to request permissions. Please try again or grant permissions manually in Health Connect settings.',
 			'settings.healthConnect.requestingPermissions' => 'Requesting...',
 			'settings.about.title' => 'About',
 			'settings.about.tagline' => 'Fast, free, and privacy-first calorie awareness',
@@ -2848,8 +2850,6 @@ extension on Translations {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Curious who\'s behind ${appLabel}? See ',
 			'feedbackRating.aboutUsLinkLabel' => 'About us',
 			'feedbackRating.thankYouMessage' => 'Thanks! We\'ll ask again another time.',
-			'errors.loadingProfileData' => 'Error loading profile data',
-			'errors.somethingWentWrong' => 'Something went wrong.',
 			'health.syncFailed' => 'Could not sync to Health Connect',
 			'health.mealSynced' => 'Meal synced with Health Connect',
 			_ => null,

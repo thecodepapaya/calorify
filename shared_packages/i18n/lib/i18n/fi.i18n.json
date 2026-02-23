@@ -2,6 +2,10 @@
   "language": "Suomi",
   "flag": "🇫🇮",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Virhe profiilitietojen lataamisessa",
+    "somethingWentWrong": "Jokin meni pieleen."
+  },
   "onboarding": {
     "welcome": "Tervetuloa {appLabel} -sovellukseen",
     "subtitle": "Henkilökohtainen ravitsemuskumppanisi, jota ohjaa tekoäly",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Haluatko tietää, kuka on {appLabel}:n takana? Katso ",
     "aboutUsLinkLabel": "Tietoa meistä",
     "thankYouMessage": "Kiitos! Kysymme uudestaan myöhemmin."
-  },
-  "errors": {
-    "loadingProfileData": "Virhe profiilitietojen lataamisessa",
-    "somethingWentWrong": "Jokin meni pieleen."
   },
   "health": {
     "syncFailed": "Yhdistäminen Health Connectiin epäonnistui",

@@ -2,6 +2,10 @@
   "language": "한국어",
   "flag": "🇰🇷",
   "appLabel": "칼로리파이{env}",
+  "errors": {
+    "loadingProfileData": "프로필 데이터 로드 중 오류 발생",
+    "somethingWentWrong": "문제가 발생했습니다."
+  },
   "onboarding": {
     "welcome": "{appLabel}에 오신 것을 환영합니다",
     "subtitle": "AI가 지원하는 개인 영양 동반자",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "{appLabel}의 제작자가 궁금하신가요? ",
     "aboutUsLinkLabel": "개발자 소개",
     "thankYouMessage": "감사합니다! 다음에 다시 여쭤볼게요."
-  },
-  "errors": {
-    "loadingProfileData": "프로필 데이터 로드 중 오류 발생",
-    "somethingWentWrong": "문제가 발생했습니다."
   },
   "health": {
     "syncFailed": "Health Connect와 동기화할 수 없습니다.",

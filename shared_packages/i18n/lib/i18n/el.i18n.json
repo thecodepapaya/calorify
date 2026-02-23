@@ -2,6 +2,10 @@
   "language": "Ελληνικά",
   "flag": "🇬🇷",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ",
+    "somethingWentWrong": "Κάτι πήγε στραβά."
+  },
   "onboarding": {
     "welcome": "Καλώς ήρθατε στο {appLabel}",
     "subtitle": "Ο προσωπικός σου συνοδοιπόρος στη διατροφή που στηρίζεται στην τεχνητή νοημοσύνη",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Σε ενδιαφέρει ποιος βρίσκεται πίσω από το {appLabel}? Δες ",
     "aboutUsLinkLabel": "Σχετικά με εμάς",
     "thankYouMessage": "Ευχαριστούμε! Θα ρωτήσουμε ξανά αργότερα."
-  },
-  "errors": {
-    "loadingProfileData": "Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ",
-    "somethingWentWrong": "Κάτι πήγε στραβά."
   },
   "health": {
     "syncFailed": "Δεν μπόρεσα να συγχρονίσω με το Health Connect",

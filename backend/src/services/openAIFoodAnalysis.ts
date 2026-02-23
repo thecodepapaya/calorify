@@ -59,7 +59,7 @@ interface OpenAIResponse {
   variations: OpenAIVariation[];
 }
 
-const OPENAI_FOOD_ANALYSIS_MODEL = 'gpt-4.1-nano' as const;
+const OPENAI_FOOD_ANALYSIS_MODEL = 'gpt-5-nano' as const;
 
 /** JSON Schema for Structured Outputs; matches OpenAIResponse. */
 const MEAL_DETECTION_RESPONSE_SCHEMA = {
@@ -506,8 +506,9 @@ class OpenAIFoodAnalysisService {
    * Returns a protobuf-typed MealDetectionResponse with variations
    * @param imageUrl - URL of the image to analyze
    * @param locale - Language code for the response (default: 'en')
+   * @param countryCode - 2-letter country code (e.g., 'US')
    */
-  async analyzeImageFromUrl(imageUrl: string, locale: string = 'en'): Promise<MealDetectionResponse> {
+  async analyzeImageFromUrl(imageUrl: string, locale: string = 'en', countryCode?: string): Promise<MealDetectionResponse> {
     try {
       // Validate URL format
       try {
@@ -521,7 +522,7 @@ class OpenAIFoodAnalysisService {
       const resultDict = await this.createStructuredResponse([
         {
           role: 'system',
-          content: getFoodAnalysisSystemPrompt(locale),
+          content: getFoodAnalysisSystemPrompt(locale, countryCode),
         },
         {
           role: 'user',
@@ -550,8 +551,9 @@ class OpenAIFoodAnalysisService {
    * @param imageBuffer - Image buffer to analyze
    * @param mimeType - MIME type of the image (default: 'image/jpeg')
    * @param locale - Language code for the response (default: 'en')
+   * @param countryCode - 2-letter country code (e.g., 'US')
    */
-  async analyzeImageFromBuffer(imageBuffer: Buffer, mimeType: string = 'image/jpeg', locale: string = 'en'): Promise<MealDetectionResponse> {
+  async analyzeImageFromBuffer(imageBuffer: Buffer, mimeType: string = 'image/jpeg', locale: string = 'en', countryCode?: string): Promise<MealDetectionResponse> {
     try {
       // Convert buffer to base64
       const base64Image = imageBuffer.toString('base64');
@@ -565,7 +567,7 @@ class OpenAIFoodAnalysisService {
       const resultDict = await this.createStructuredResponse([
         {
           role: 'system',
-          content: getFoodAnalysisSystemPrompt(locale),
+          content: getFoodAnalysisSystemPrompt(locale, countryCode),
         },
         {
           role: 'user',
@@ -594,15 +596,16 @@ class OpenAIFoodAnalysisService {
    * Returns a protobuf-typed MealDetectionResponse with variations
    * @param description - Text description of the food
    * @param locale - Language code for the response (default: 'en')
+   * @param countryCode - 2-letter country code (e.g., 'US')
    */
-  async analyzeTextDescription(description: string, locale: string = 'en'): Promise<MealDetectionResponse> {
+  async analyzeTextDescription(description: string, locale: string = 'en', countryCode?: string): Promise<MealDetectionResponse> {
     try {
       this.logLocale('analyzeTextDescription', locale);
 
       const resultDict = await this.createStructuredResponse([
         {
           role: 'system',
-          content: getFoodAnalysisSystemPrompt(locale),
+          content: getFoodAnalysisSystemPrompt(locale, countryCode),
         },
         {
           role: 'user',

@@ -2,6 +2,10 @@
   "language": "Deutsch",
   "flag": "🇩🇪",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Fehler beim Laden der Profildaten",
+    "somethingWentWrong": "Etwas ist schiefgegangen."
+  },
   "onboarding": {
     "welcome": "Willkommen bei {appLabel}",
     "subtitle": "Ihr persönlicher Ernährungsbegleiter, betrieben von KI",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Neugierig, wer hinter {appLabel} steckt? Sieh dir ",
     "aboutUsLinkLabel": "Über uns",
     "thankYouMessage": "Danke! Wir fragen ein anderes Mal wieder."
-  },
-  "errors": {
-    "loadingProfileData": "Fehler beim Laden der Profildaten",
-    "somethingWentWrong": "Etwas ist schiefgegangen."
   },
   "health": {
     "syncFailed": "Konnte nicht mit Health Connect synchronisieren",

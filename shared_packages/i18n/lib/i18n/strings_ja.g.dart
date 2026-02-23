@@ -40,6 +40,7 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => '日本語';
 	@override String get flag => '🇯🇵';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsJa errors = _TranslationsErrorsJa._(_root);
 	@override late final _TranslationsOnboardingJa onboarding = _TranslationsOnboardingJa._(_root);
 	@override late final _TranslationsTabsJa tabs = _TranslationsTabsJa._(_root);
 	@override late final _TranslationsHomeJa home = _TranslationsHomeJa._(_root);
@@ -56,8 +57,18 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerJa disclaimer = _TranslationsDisclaimerJa._(_root);
 	@override late final _TranslationsCommonJa common = _TranslationsCommonJa._(_root);
 	@override late final _TranslationsFeedbackRatingJa feedbackRating = _TranslationsFeedbackRatingJa._(_root);
-	@override late final _TranslationsErrorsJa errors = _TranslationsErrorsJa._(_root);
 	@override late final _TranslationsHealthJa health = _TranslationsHealthJa._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsJa implements TranslationsErrorsEn {
+	_TranslationsErrorsJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'プロフィールデータの読み込みエラー';
+	@override String get somethingWentWrong => '何かがうまくいきませんでした。';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingJa implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel} の開発者について知りたいですか？こちらをご覧ください ';
 	@override String get aboutUsLinkLabel => '私たちについて';
 	@override String get thankYouMessage => 'ありがとうございます！また別の機会にぜひご意見をお聞かせください。';
-}
-
-// Path: errors
-class _TranslationsErrorsJa implements TranslationsErrorsEn {
-	_TranslationsErrorsJa._(this._root);
-
-	final TranslationsJa _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'プロフィールデータの読み込みエラー';
-	@override String get somethingWentWrong => '何かがうまくいきませんでした。';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsJa {
 			'language' => '日本語',
 			'flag' => '🇯🇵',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'プロフィールデータの読み込みエラー',
+			'errors.somethingWentWrong' => '何かがうまくいきませんでした。',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel}へようこそ',
 			'onboarding.subtitle' => 'AIによるあなたの個人的な栄養コンパニオン',
 			'onboarding.getStarted' => '始める',
@@ -1979,8 +1981,6 @@ extension on TranslationsJa {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel} の開発者について知りたいですか？こちらをご覧ください ',
 			'feedbackRating.aboutUsLinkLabel' => '私たちについて',
 			'feedbackRating.thankYouMessage' => 'ありがとうございます！また別の機会にぜひご意見をお聞かせください。',
-			'errors.loadingProfileData' => 'プロフィールデータの読み込みエラー',
-			'errors.somethingWentWrong' => '何かがうまくいきませんでした。',
 			'health.syncFailed' => 'Health Connectへの同期に失敗しました。',
 			'health.mealSynced' => '食事がHealth Connectと同期されました。',
 			_ => null,

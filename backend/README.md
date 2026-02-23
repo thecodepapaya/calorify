@@ -11,7 +11,7 @@ A high-performance Node.js/Fastify backend API server for AI-powered food analys
 
 ## Features
 
-- AI Food Analysis (Image & Text) using OpenAI GPT-4o-mini (default) & Google Gemini 2.5 Flash Lite
+- AI Food Analysis (Image & Text) using OpenAI gpt-5-nano (default) & Google Gemini 2.5 Flash Lite
 - Firebase Authentication (currently disabled for testing)
 - TypeScript with strict type checking
 - Protobuf-based data contracts with auto-synced API schemas
@@ -23,7 +23,7 @@ A high-performance Node.js/Fastify backend API server for AI-powered food analys
 - **Framework**: Fastify 4.x
 - **Runtime**: Node.js 20+ (LTS)
 - **Language**: TypeScript (strict mode)
-- **AI**: OpenAI GPT-4o-mini (default for all endpoints), Google Gemini 2.5 Flash Lite (legacy service)
+- **AI**: OpenAI gpt-5-nano (default for all endpoints), Google Gemini 2.5 Flash Lite (legacy service)
 - **Auth**: Firebase Admin SDK
 - **Data Models**: Protobuf (generated TypeScript types)
 - **Database**: PostgreSQL 15

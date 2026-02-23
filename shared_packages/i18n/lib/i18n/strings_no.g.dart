@@ -40,6 +40,7 @@ class TranslationsNo with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Norsk';
 	@override String get flag => '🇳🇴';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsNo errors = _TranslationsErrorsNo._(_root);
 	@override late final _TranslationsOnboardingNo onboarding = _TranslationsOnboardingNo._(_root);
 	@override late final _TranslationsTabsNo tabs = _TranslationsTabsNo._(_root);
 	@override late final _TranslationsHomeNo home = _TranslationsHomeNo._(_root);
@@ -56,8 +57,18 @@ class TranslationsNo with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerNo disclaimer = _TranslationsDisclaimerNo._(_root);
 	@override late final _TranslationsCommonNo common = _TranslationsCommonNo._(_root);
 	@override late final _TranslationsFeedbackRatingNo feedbackRating = _TranslationsFeedbackRatingNo._(_root);
-	@override late final _TranslationsErrorsNo errors = _TranslationsErrorsNo._(_root);
 	@override late final _TranslationsHealthNo health = _TranslationsHealthNo._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsNo implements TranslationsErrorsEn {
+	_TranslationsErrorsNo._(this._root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Feil ved lasting av profildata';
+	@override String get somethingWentWrong => 'Noe gikk galt.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingNo implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nysgjerrig på hvem som står bak ${appLabel}? Se ';
 	@override String get aboutUsLinkLabel => 'Om oss';
 	@override String get thankYouMessage => 'Takk! Vi spør igjen senere.';
-}
-
-// Path: errors
-class _TranslationsErrorsNo implements TranslationsErrorsEn {
-	_TranslationsErrorsNo._(this._root);
-
-	final TranslationsNo _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Feil ved lasting av profildata';
-	@override String get somethingWentWrong => 'Noe gikk galt.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsNo {
 			'language' => 'Norsk',
 			'flag' => '🇳🇴',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Feil ved lasting av profildata',
+			'errors.somethingWentWrong' => 'Noe gikk galt.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Velkommen til ${appLabel}',
 			'onboarding.subtitle' => 'Din personlige kostholdsassistent drevet av AI',
 			'onboarding.getStarted' => 'Kom i gang',
@@ -1979,8 +1981,6 @@ extension on TranslationsNo {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nysgjerrig på hvem som står bak ${appLabel}? Se ',
 			'feedbackRating.aboutUsLinkLabel' => 'Om oss',
 			'feedbackRating.thankYouMessage' => 'Takk! Vi spør igjen senere.',
-			'errors.loadingProfileData' => 'Feil ved lasting av profildata',
-			'errors.somethingWentWrong' => 'Noe gikk galt.',
 			'health.syncFailed' => 'Kunne ikke synkronisere med Health Connect',
 			'health.mealSynced' => 'Måltid synkronisert med Health Connect',
 			_ => null,

@@ -40,6 +40,7 @@ class TranslationsUr with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'اردو';
 	@override String get flag => '🇵🇰';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsUr errors = _TranslationsErrorsUr._(_root);
 	@override late final _TranslationsOnboardingUr onboarding = _TranslationsOnboardingUr._(_root);
 	@override late final _TranslationsTabsUr tabs = _TranslationsTabsUr._(_root);
 	@override late final _TranslationsHomeUr home = _TranslationsHomeUr._(_root);
@@ -56,8 +57,18 @@ class TranslationsUr with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerUr disclaimer = _TranslationsDisclaimerUr._(_root);
 	@override late final _TranslationsCommonUr common = _TranslationsCommonUr._(_root);
 	@override late final _TranslationsFeedbackRatingUr feedbackRating = _TranslationsFeedbackRatingUr._(_root);
-	@override late final _TranslationsErrorsUr errors = _TranslationsErrorsUr._(_root);
 	@override late final _TranslationsHealthUr health = _TranslationsHealthUr._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsUr implements TranslationsErrorsEn {
+	_TranslationsErrorsUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'پروفائل کا ڈیٹا لوڈ کرنے میں خرابی';
+	@override String get somethingWentWrong => 'کچھ غلط ہوگیا۔';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingUr implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'کیا آپ جاننا چاہتے ہیں کہ ${appLabel} کے پیچھے کون ہے؟ دیکھیں ';
 	@override String get aboutUsLinkLabel => 'ہمارے بارے میں';
 	@override String get thankYouMessage => 'شکریہ! ہم کسی اور وقت دوبارہ پوچھیں گے۔';
-}
-
-// Path: errors
-class _TranslationsErrorsUr implements TranslationsErrorsEn {
-	_TranslationsErrorsUr._(this._root);
-
-	final TranslationsUr _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'پروفائل کا ڈیٹا لوڈ کرنے میں خرابی';
-	@override String get somethingWentWrong => 'کچھ غلط ہوگیا۔';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsUr {
 			'language' => 'اردو',
 			'flag' => '🇵🇰',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'پروفائل کا ڈیٹا لوڈ کرنے میں خرابی',
+			'errors.somethingWentWrong' => 'کچھ غلط ہوگیا۔',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} میں خوش آمدید',
 			'onboarding.subtitle' => 'آپ کا ذاتی غذائیت ساتھی جو AI کی طاقت سے ہے',
 			'onboarding.getStarted' => 'شروع کریں',
@@ -1979,8 +1981,6 @@ extension on TranslationsUr {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'کیا آپ جاننا چاہتے ہیں کہ ${appLabel} کے پیچھے کون ہے؟ دیکھیں ',
 			'feedbackRating.aboutUsLinkLabel' => 'ہمارے بارے میں',
 			'feedbackRating.thankYouMessage' => 'شکریہ! ہم کسی اور وقت دوبارہ پوچھیں گے۔',
-			'errors.loadingProfileData' => 'پروفائل کا ڈیٹا لوڈ کرنے میں خرابی',
-			'errors.somethingWentWrong' => 'کچھ غلط ہوگیا۔',
 			'health.syncFailed' => 'ہیلتھ کنیکٹ میں ہم آہنگ نہیں ہو سکا',
 			'health.mealSynced' => 'کھانا ہیلتھ کنیکٹ کے ساتھ ہم آہنگ ہو گیا',
 			_ => null,

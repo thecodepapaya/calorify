@@ -40,6 +40,7 @@ class TranslationsNl with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Nederlands';
 	@override String get flag => '🇳🇱';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsNl errors = _TranslationsErrorsNl._(_root);
 	@override late final _TranslationsOnboardingNl onboarding = _TranslationsOnboardingNl._(_root);
 	@override late final _TranslationsTabsNl tabs = _TranslationsTabsNl._(_root);
 	@override late final _TranslationsHomeNl home = _TranslationsHomeNl._(_root);
@@ -56,8 +57,18 @@ class TranslationsNl with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerNl disclaimer = _TranslationsDisclaimerNl._(_root);
 	@override late final _TranslationsCommonNl common = _TranslationsCommonNl._(_root);
 	@override late final _TranslationsFeedbackRatingNl feedbackRating = _TranslationsFeedbackRatingNl._(_root);
-	@override late final _TranslationsErrorsNl errors = _TranslationsErrorsNl._(_root);
 	@override late final _TranslationsHealthNl health = _TranslationsHealthNl._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsNl implements TranslationsErrorsEn {
+	_TranslationsErrorsNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Fout bij het laden van profielgegevens';
+	@override String get somethingWentWrong => 'Er is iets misgegaan.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingNl implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nieuwsgierig wie er achter ${appLabel} zit? Zie ';
 	@override String get aboutUsLinkLabel => 'Over ons';
 	@override String get thankYouMessage => 'Bedankt! We vragen het je later nog eens.';
-}
-
-// Path: errors
-class _TranslationsErrorsNl implements TranslationsErrorsEn {
-	_TranslationsErrorsNl._(this._root);
-
-	final TranslationsNl _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Fout bij het laden van profielgegevens';
-	@override String get somethingWentWrong => 'Er is iets misgegaan.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsNl {
 			'language' => 'Nederlands',
 			'flag' => '🇳🇱',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Fout bij het laden van profielgegevens',
+			'errors.somethingWentWrong' => 'Er is iets misgegaan.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Welkom bij ${appLabel}',
 			'onboarding.subtitle' => 'Jouw persoonlijke voedingsgenoot aangedreven door AI',
 			'onboarding.getStarted' => 'Aan de Slag',
@@ -1979,8 +1981,6 @@ extension on TranslationsNl {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nieuwsgierig wie er achter ${appLabel} zit? Zie ',
 			'feedbackRating.aboutUsLinkLabel' => 'Over ons',
 			'feedbackRating.thankYouMessage' => 'Bedankt! We vragen het je later nog eens.',
-			'errors.loadingProfileData' => 'Fout bij het laden van profielgegevens',
-			'errors.somethingWentWrong' => 'Er is iets misgegaan.',
 			'health.syncFailed' => 'Kon niet synchroniseren met Health Connect',
 			'health.mealSynced' => 'Maaltijd gesynchroniseerd met Health Connect',
 			_ => null,

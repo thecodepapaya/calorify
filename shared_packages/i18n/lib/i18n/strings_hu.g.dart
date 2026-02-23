@@ -40,6 +40,7 @@ class TranslationsHu with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Magyar';
 	@override String get flag => '🇭🇺';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsHu errors = _TranslationsErrorsHu._(_root);
 	@override late final _TranslationsOnboardingHu onboarding = _TranslationsOnboardingHu._(_root);
 	@override late final _TranslationsTabsHu tabs = _TranslationsTabsHu._(_root);
 	@override late final _TranslationsHomeHu home = _TranslationsHomeHu._(_root);
@@ -56,8 +57,18 @@ class TranslationsHu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerHu disclaimer = _TranslationsDisclaimerHu._(_root);
 	@override late final _TranslationsCommonHu common = _TranslationsCommonHu._(_root);
 	@override late final _TranslationsFeedbackRatingHu feedbackRating = _TranslationsFeedbackRatingHu._(_root);
-	@override late final _TranslationsErrorsHu errors = _TranslationsErrorsHu._(_root);
 	@override late final _TranslationsHealthHu health = _TranslationsHealthHu._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsHu implements TranslationsErrorsEn {
+	_TranslationsErrorsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Hiba a profiladatok betöltésekor';
+	@override String get somethingWentWrong => 'Valami hiba történt.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingHu implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Kíváncsi vagy, ki áll a ${appLabel} mögött? Nézd meg ';
 	@override String get aboutUsLinkLabel => 'Rólunk';
 	@override String get thankYouMessage => 'Köszönjük! Később ismét megkérdezünk.';
-}
-
-// Path: errors
-class _TranslationsErrorsHu implements TranslationsErrorsEn {
-	_TranslationsErrorsHu._(this._root);
-
-	final TranslationsHu _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Hiba a profiladatok betöltésekor';
-	@override String get somethingWentWrong => 'Valami hiba történt.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsHu {
 			'language' => 'Magyar',
 			'flag' => '🇭🇺',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Hiba a profiladatok betöltésekor',
+			'errors.somethingWentWrong' => 'Valami hiba történt.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Üdvözöljük a(z) ${appLabel} alkalmazásban',
 			'onboarding.subtitle' => 'Személyes táplálkozási társ, amelyet az AI hajt',
 			'onboarding.getStarted' => 'Kezdjük el',
@@ -1979,8 +1981,6 @@ extension on TranslationsHu {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Kíváncsi vagy, ki áll a ${appLabel} mögött? Nézd meg ',
 			'feedbackRating.aboutUsLinkLabel' => 'Rólunk',
 			'feedbackRating.thankYouMessage' => 'Köszönjük! Később ismét megkérdezünk.',
-			'errors.loadingProfileData' => 'Hiba a profiladatok betöltésekor',
-			'errors.somethingWentWrong' => 'Valami hiba történt.',
 			'health.syncFailed' => 'Nem sikerült szinkronizálni a Health Connect-tel',
 			'health.mealSynced' => 'Étkezés szinkronizálva a Health Connect-tel',
 			_ => null,
