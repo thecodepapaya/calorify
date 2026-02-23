@@ -40,6 +40,7 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Tiếng Việt';
 	@override String get flag => '🇻🇳';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsVi errors = _TranslationsErrorsVi._(_root);
 	@override late final _TranslationsOnboardingVi onboarding = _TranslationsOnboardingVi._(_root);
 	@override late final _TranslationsTabsVi tabs = _TranslationsTabsVi._(_root);
 	@override late final _TranslationsHomeVi home = _TranslationsHomeVi._(_root);
@@ -56,8 +57,18 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerVi disclaimer = _TranslationsDisclaimerVi._(_root);
 	@override late final _TranslationsCommonVi common = _TranslationsCommonVi._(_root);
 	@override late final _TranslationsFeedbackRatingVi feedbackRating = _TranslationsFeedbackRatingVi._(_root);
-	@override late final _TranslationsErrorsVi errors = _TranslationsErrorsVi._(_root);
 	@override late final _TranslationsHealthVi health = _TranslationsHealthVi._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsVi implements TranslationsErrorsEn {
+	_TranslationsErrorsVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Lỗi khi tải dữ liệu hồ sơ';
+	@override String get somethingWentWrong => 'Đã xảy ra lỗi.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingVi implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Bạn tò mò ai đứng sau ${appLabel}? Xem ';
 	@override String get aboutUsLinkLabel => 'Về chúng tôi';
 	@override String get thankYouMessage => 'Cảm ơn! Chúng tôi sẽ hỏi lại bạn vào dịp khác.';
-}
-
-// Path: errors
-class _TranslationsErrorsVi implements TranslationsErrorsEn {
-	_TranslationsErrorsVi._(this._root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Lỗi khi tải dữ liệu hồ sơ';
-	@override String get somethingWentWrong => 'Đã xảy ra lỗi.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsVi {
 			'language' => 'Tiếng Việt',
 			'flag' => '🇻🇳',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Lỗi khi tải dữ liệu hồ sơ',
+			'errors.somethingWentWrong' => 'Đã xảy ra lỗi.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Chào mừng bạn đến với ${appLabel}',
 			'onboarding.subtitle' => 'Người bạn đồng hành dinh dưỡng cá nhân của bạn được hỗ trợ bởi AI',
 			'onboarding.getStarted' => 'Bắt đầu',
@@ -1979,8 +1981,6 @@ extension on TranslationsVi {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Bạn tò mò ai đứng sau ${appLabel}? Xem ',
 			'feedbackRating.aboutUsLinkLabel' => 'Về chúng tôi',
 			'feedbackRating.thankYouMessage' => 'Cảm ơn! Chúng tôi sẽ hỏi lại bạn vào dịp khác.',
-			'errors.loadingProfileData' => 'Lỗi khi tải dữ liệu hồ sơ',
-			'errors.somethingWentWrong' => 'Đã xảy ra lỗi.',
 			'health.syncFailed' => 'Không thể đồng bộ với Health Connect',
 			'health.mealSynced' => 'Bữa ăn đã được đồng bộ với Health Connect',
 			_ => null,

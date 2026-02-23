@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/network/firebase_performance_interceptor.dart';
+import 'package:calorify/core/network/rate_limit_exception.dart';
 import 'package:calorify/core/services/auth_service.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
@@ -52,6 +53,18 @@ class NetworkClient {
           options.headers['Accept-Language'] = locale;
 
           handler.next(options);
+        },
+        onError: (exception, handler) {
+          if (exception.response?.statusCode == 429) {
+            return handler.reject(
+              RateLimitException(
+                requestOptions: exception.requestOptions,
+                response: exception.response,
+                message: t.errors.rateLimitExceeded,
+              ),
+            );
+          }
+          handler.next(exception);
         },
       ),
     );

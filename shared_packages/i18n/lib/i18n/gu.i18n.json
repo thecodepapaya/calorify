@@ -2,6 +2,10 @@
   "language": "ગુજરાતી",
   "flag": "🇮🇳",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ",
+    "somethingWentWrong": "કોઈ મુશ્કેલી પડી."
+  },
   "onboarding": {
     "welcome": "તમે {appLabel} માં સ્વાગત છે",
     "subtitle": "આઇએઇ દ્વારા સક્ષમ તમારા વ્યક્તિગત પોષણ સહાયક",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "{appLabel} પાછળ કોણ છે તે જાણવા ઇચ્છો છો? જુઓ ",
     "aboutUsLinkLabel": "અમારા વિશે",
     "thankYouMessage": "આભાર! અમે ફરી બીજા સમયે પૂછીશું."
-  },
-  "errors": {
-    "loadingProfileData": "પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ",
-    "somethingWentWrong": "કોઈ મુશ્કેલી પડી."
   },
   "health": {
     "syncFailed": "હેલ્થ કનેક્ટ સાથે સમન્વય શુધ્ધબૂક કર્યો નથી",

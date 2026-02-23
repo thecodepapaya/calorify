@@ -2,6 +2,10 @@
   "language": "Italiano",
   "flag": "🇮🇹",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Errore nel caricamento dei dati del profilo",
+    "somethingWentWrong": "Qualcosa è andato storto."
+  },
   "onboarding": {
     "welcome": "Benvenuto su {appLabel}",
     "subtitle": "Il tuo compagno personale per la nutrizione alimentato dall'IA",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Vuoi sapere chi c'è dietro {appLabel}? ",
     "aboutUsLinkLabel": "Chi siamo",
     "thankYouMessage": "Grazie! Ti chiederemo di nuovo in un altro momento."
-  },
-  "errors": {
-    "loadingProfileData": "Errore nel caricamento dei dati del profilo",
-    "somethingWentWrong": "Qualcosa è andato storto."
   },
   "health": {
     "syncFailed": "Impossibile sincronizzare con Health Connect",

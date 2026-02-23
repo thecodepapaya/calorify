@@ -48,3 +48,20 @@ export function getLocaleFromRequest(
     // Return the first valid language code, or default
     return languages.length > 0 ? languages[0] : defaultLocale;
 }
+
+/**
+ * Extract country code from Cloudflare cf-ipcountry header.
+ * 
+ * @param request - Fastify request object
+ * @returns 2-character country code (e.g., 'US', 'GB') or undefined
+ */
+export function getCountryFromRequest(request: FastifyRequest): string | undefined {
+    const country = request.headers['cf-ipcountry'] || 
+                   (request.headers as any)['cf-ipcountry'];
+    
+    if (typeof country === 'string') {
+        return country;
+    }
+    
+    return undefined;
+}

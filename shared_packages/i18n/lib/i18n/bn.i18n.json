@@ -2,6 +2,10 @@
   "language": "বাংলা",
   "flag": "🇧🇩",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "প্রোফাইল তথ্য লোড করতে ত্রুটি",
+    "somethingWentWrong": "কিছু ভুল হয়েছে।"
+  },
   "onboarding": {
     "welcome": "{appLabel} এ স্বাগতম",
     "subtitle": "এটি আপনার ব্যক্তিগত পুষ্টি সঙ্গী, যা AI দ্বারা পরিচালিত",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "জানতে চান {appLabel}-এর পেছনে কে আছেন? দেখুন ",
     "aboutUsLinkLabel": "আমাদের সম্পর্কে",
     "thankYouMessage": "ধন্যবাদ! আমরা আবার অন্য সময় জিজ্ঞাসা করব।"
-  },
-  "errors": {
-    "loadingProfileData": "প্রোফাইল তথ্য লোড করতে ত্রুটি",
-    "somethingWentWrong": "কিছু ভুল হয়েছে।"
   },
   "health": {
     "syncFailed": "স্বাস্থ্য সংযোগে সিঙ্ক করা যায়নি",

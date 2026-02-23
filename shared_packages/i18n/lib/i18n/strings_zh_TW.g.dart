@@ -40,6 +40,7 @@ class TranslationsZhTw with BaseTranslations<AppLocale, Translations> implements
 	@override String get language => '中文（台灣）';
 	@override String get flag => '🇹🇼';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsZhTw errors = _TranslationsErrorsZhTw._(_root);
 	@override late final _TranslationsOnboardingZhTw onboarding = _TranslationsOnboardingZhTw._(_root);
 	@override late final _TranslationsTabsZhTw tabs = _TranslationsTabsZhTw._(_root);
 	@override late final _TranslationsHomeZhTw home = _TranslationsHomeZhTw._(_root);
@@ -56,8 +57,18 @@ class TranslationsZhTw with BaseTranslations<AppLocale, Translations> implements
 	@override late final _TranslationsDisclaimerZhTw disclaimer = _TranslationsDisclaimerZhTw._(_root);
 	@override late final _TranslationsCommonZhTw common = _TranslationsCommonZhTw._(_root);
 	@override late final _TranslationsFeedbackRatingZhTw feedbackRating = _TranslationsFeedbackRatingZhTw._(_root);
-	@override late final _TranslationsErrorsZhTw errors = _TranslationsErrorsZhTw._(_root);
 	@override late final _TranslationsHealthZhTw health = _TranslationsHealthZhTw._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsZhTw implements TranslationsErrorsEn {
+	_TranslationsErrorsZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => '載入個人資料數據出錯';
+	@override String get somethingWentWrong => '發生了錯誤。';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingZhTw implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '想知道是誰在打造 ${appLabel} 嗎？請參閱 ';
 	@override String get aboutUsLinkLabel => '關於我們';
 	@override String get thankYouMessage => '謝謝！我們下次會再問您。';
-}
-
-// Path: errors
-class _TranslationsErrorsZhTw implements TranslationsErrorsEn {
-	_TranslationsErrorsZhTw._(this._root);
-
-	final TranslationsZhTw _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => '載入個人資料數據出錯';
-	@override String get somethingWentWrong => '發生了錯誤。';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsZhTw {
 			'language' => '中文（台灣）',
 			'flag' => '🇹🇼',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => '載入個人資料數據出錯',
+			'errors.somethingWentWrong' => '發生了錯誤。',
 			'onboarding.welcome' => ({required Object appLabel}) => '歡迎使用 ${appLabel}',
 			'onboarding.subtitle' => '您個人的營養夥伴，由 AI 提供支持',
 			'onboarding.getStarted' => '開始使用',
@@ -1979,8 +1981,6 @@ extension on TranslationsZhTw {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '想知道是誰在打造 ${appLabel} 嗎？請參閱 ',
 			'feedbackRating.aboutUsLinkLabel' => '關於我們',
 			'feedbackRating.thankYouMessage' => '謝謝！我們下次會再問您。',
-			'errors.loadingProfileData' => '載入個人資料數據出錯',
-			'errors.somethingWentWrong' => '發生了錯誤。',
 			'health.syncFailed' => '無法同步到 Health Connect',
 			'health.mealSynced' => '餐點已與 Health Connect 同步',
 			_ => null,

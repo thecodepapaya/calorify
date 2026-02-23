@@ -2,6 +2,10 @@
   "language": "Čeština",
   "flag": "🇨🇿",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Chyba při načítání dat profilu",
+    "somethingWentWrong": "Něco se pokazilo."
+  },
   "onboarding": {
     "welcome": "Vítejte v {appLabel}",
     "subtitle": "Váš osobní nutriční společník, který využívá umělou inteligenci",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Zajímá vás, kdo stojí za {appLabel}? Podívejte se ",
     "aboutUsLinkLabel": "O nás",
     "thankYouMessage": "Děkujeme! Zeptáme se znovu jindy."
-  },
-  "errors": {
-    "loadingProfileData": "Chyba při načítání dat profilu",
-    "somethingWentWrong": "Něco se pokazilo."
   },
   "health": {
     "syncFailed": "Nedaří se synchronizovat s Health Connect",

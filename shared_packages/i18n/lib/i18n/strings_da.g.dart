@@ -40,6 +40,7 @@ class TranslationsDa with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Dansk';
 	@override String get flag => '🇩🇰';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsDa errors = _TranslationsErrorsDa._(_root);
 	@override late final _TranslationsOnboardingDa onboarding = _TranslationsOnboardingDa._(_root);
 	@override late final _TranslationsTabsDa tabs = _TranslationsTabsDa._(_root);
 	@override late final _TranslationsHomeDa home = _TranslationsHomeDa._(_root);
@@ -56,8 +57,18 @@ class TranslationsDa with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerDa disclaimer = _TranslationsDisclaimerDa._(_root);
 	@override late final _TranslationsCommonDa common = _TranslationsCommonDa._(_root);
 	@override late final _TranslationsFeedbackRatingDa feedbackRating = _TranslationsFeedbackRatingDa._(_root);
-	@override late final _TranslationsErrorsDa errors = _TranslationsErrorsDa._(_root);
 	@override late final _TranslationsHealthDa health = _TranslationsHealthDa._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsDa implements TranslationsErrorsEn {
+	_TranslationsErrorsDa._(this._root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Fejl ved indlæsning af profildata';
+	@override String get somethingWentWrong => 'Noget gik galt.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingDa implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nysgerrig efter, hvem der står bag ${appLabel}? Se ';
 	@override String get aboutUsLinkLabel => 'Om os';
 	@override String get thankYouMessage => 'Tak! Vi spørger igen på et andet tidspunkt.';
-}
-
-// Path: errors
-class _TranslationsErrorsDa implements TranslationsErrorsEn {
-	_TranslationsErrorsDa._(this._root);
-
-	final TranslationsDa _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Fejl ved indlæsning af profildata';
-	@override String get somethingWentWrong => 'Noget gik galt.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsDa {
 			'language' => 'Dansk',
 			'flag' => '🇩🇰',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Fejl ved indlæsning af profildata',
+			'errors.somethingWentWrong' => 'Noget gik galt.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Velkommen til ${appLabel}',
 			'onboarding.subtitle' => 'Din personlige ernæringseftersyn drevet af AI',
 			'onboarding.getStarted' => 'Kom i gang',
@@ -1979,8 +1981,6 @@ extension on TranslationsDa {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nysgerrig efter, hvem der står bag ${appLabel}? Se ',
 			'feedbackRating.aboutUsLinkLabel' => 'Om os',
 			'feedbackRating.thankYouMessage' => 'Tak! Vi spørger igen på et andet tidspunkt.',
-			'errors.loadingProfileData' => 'Fejl ved indlæsning af profildata',
-			'errors.somethingWentWrong' => 'Noget gik galt.',
 			'health.syncFailed' => 'Kunne ikke synkronisere med Health Connect',
 			'health.mealSynced' => 'Måltid synkroniseret med Health Connect',
 			_ => null,

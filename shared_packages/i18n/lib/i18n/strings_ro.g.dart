@@ -40,6 +40,7 @@ class TranslationsRo with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Română';
 	@override String get flag => '🇷🇴';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsRo errors = _TranslationsErrorsRo._(_root);
 	@override late final _TranslationsOnboardingRo onboarding = _TranslationsOnboardingRo._(_root);
 	@override late final _TranslationsTabsRo tabs = _TranslationsTabsRo._(_root);
 	@override late final _TranslationsHomeRo home = _TranslationsHomeRo._(_root);
@@ -56,8 +57,18 @@ class TranslationsRo with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerRo disclaimer = _TranslationsDisclaimerRo._(_root);
 	@override late final _TranslationsCommonRo common = _TranslationsCommonRo._(_root);
 	@override late final _TranslationsFeedbackRatingRo feedbackRating = _TranslationsFeedbackRatingRo._(_root);
-	@override late final _TranslationsErrorsRo errors = _TranslationsErrorsRo._(_root);
 	@override late final _TranslationsHealthRo health = _TranslationsHealthRo._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsRo implements TranslationsErrorsEn {
+	_TranslationsErrorsRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Eroare la încărcarea datelor profilului';
+	@override String get somethingWentWrong => 'Ceva a mers prost.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingRo implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Curios cine se află în spatele ${appLabel}? Vezi ';
 	@override String get aboutUsLinkLabel => 'Despre noi';
 	@override String get thankYouMessage => 'Mulțumim! Te vom întreba din nou altădată.';
-}
-
-// Path: errors
-class _TranslationsErrorsRo implements TranslationsErrorsEn {
-	_TranslationsErrorsRo._(this._root);
-
-	final TranslationsRo _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Eroare la încărcarea datelor profilului';
-	@override String get somethingWentWrong => 'Ceva a mers prost.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsRo {
 			'language' => 'Română',
 			'flag' => '🇷🇴',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Eroare la încărcarea datelor profilului',
+			'errors.somethingWentWrong' => 'Ceva a mers prost.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Bine ai venit la ${appLabel}',
 			'onboarding.subtitle' => 'Companionul tău personal în nutriție alimentat de AI',
 			'onboarding.getStarted' => 'Începe',
@@ -1979,8 +1981,6 @@ extension on TranslationsRo {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Curios cine se află în spatele ${appLabel}? Vezi ',
 			'feedbackRating.aboutUsLinkLabel' => 'Despre noi',
 			'feedbackRating.thankYouMessage' => 'Mulțumim! Te vom întreba din nou altădată.',
-			'errors.loadingProfileData' => 'Eroare la încărcarea datelor profilului',
-			'errors.somethingWentWrong' => 'Ceva a mers prost.',
 			'health.syncFailed' => 'Nu s-a putut sincroniza cu Health Connect',
 			'health.mealSynced' => 'Masă sincronizată cu Health Connect',
 			_ => null,

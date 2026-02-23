@@ -40,6 +40,7 @@ class TranslationsPt with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Português';
 	@override String get flag => '🇵🇹';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsPt errors = _TranslationsErrorsPt._(_root);
 	@override late final _TranslationsOnboardingPt onboarding = _TranslationsOnboardingPt._(_root);
 	@override late final _TranslationsTabsPt tabs = _TranslationsTabsPt._(_root);
 	@override late final _TranslationsHomePt home = _TranslationsHomePt._(_root);
@@ -56,8 +57,18 @@ class TranslationsPt with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerPt disclaimer = _TranslationsDisclaimerPt._(_root);
 	@override late final _TranslationsCommonPt common = _TranslationsCommonPt._(_root);
 	@override late final _TranslationsFeedbackRatingPt feedbackRating = _TranslationsFeedbackRatingPt._(_root);
-	@override late final _TranslationsErrorsPt errors = _TranslationsErrorsPt._(_root);
 	@override late final _TranslationsHealthPt health = _TranslationsHealthPt._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsPt implements TranslationsErrorsEn {
+	_TranslationsErrorsPt._(this._root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Erro ao carregar dados do perfil';
+	@override String get somethingWentWrong => 'Algo deu errado.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingPt implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Curioso para saber quem está por trás do ${appLabel}? Veja ';
 	@override String get aboutUsLinkLabel => 'Sobre nós';
 	@override String get thankYouMessage => 'Obrigado! Perguntaremos novamente mais tarde.';
-}
-
-// Path: errors
-class _TranslationsErrorsPt implements TranslationsErrorsEn {
-	_TranslationsErrorsPt._(this._root);
-
-	final TranslationsPt _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Erro ao carregar dados do perfil';
-	@override String get somethingWentWrong => 'Algo deu errado.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsPt {
 			'language' => 'Português',
 			'flag' => '🇵🇹',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Erro ao carregar dados do perfil',
+			'errors.somethingWentWrong' => 'Algo deu errado.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Bem-vindo ao ${appLabel}',
 			'onboarding.subtitle' => 'Seu companheiro pessoal de nutrição com tecnologia de IA',
 			'onboarding.getStarted' => 'Começar',
@@ -1979,8 +1981,6 @@ extension on TranslationsPt {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Curioso para saber quem está por trás do ${appLabel}? Veja ',
 			'feedbackRating.aboutUsLinkLabel' => 'Sobre nós',
 			'feedbackRating.thankYouMessage' => 'Obrigado! Perguntaremos novamente mais tarde.',
-			'errors.loadingProfileData' => 'Erro ao carregar dados do perfil',
-			'errors.somethingWentWrong' => 'Algo deu errado.',
 			'health.syncFailed' => 'Não foi possível sincronizar com o Health Connect',
 			'health.mealSynced' => 'Refeição sincronizada com o Health Connect',
 			_ => null,

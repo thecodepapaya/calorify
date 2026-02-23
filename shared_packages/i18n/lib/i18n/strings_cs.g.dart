@@ -40,6 +40,7 @@ class TranslationsCs with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Čeština';
 	@override String get flag => '🇨🇿';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsCs errors = _TranslationsErrorsCs._(_root);
 	@override late final _TranslationsOnboardingCs onboarding = _TranslationsOnboardingCs._(_root);
 	@override late final _TranslationsTabsCs tabs = _TranslationsTabsCs._(_root);
 	@override late final _TranslationsHomeCs home = _TranslationsHomeCs._(_root);
@@ -56,8 +57,18 @@ class TranslationsCs with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerCs disclaimer = _TranslationsDisclaimerCs._(_root);
 	@override late final _TranslationsCommonCs common = _TranslationsCommonCs._(_root);
 	@override late final _TranslationsFeedbackRatingCs feedbackRating = _TranslationsFeedbackRatingCs._(_root);
-	@override late final _TranslationsErrorsCs errors = _TranslationsErrorsCs._(_root);
 	@override late final _TranslationsHealthCs health = _TranslationsHealthCs._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsCs implements TranslationsErrorsEn {
+	_TranslationsErrorsCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Chyba při načítání dat profilu';
+	@override String get somethingWentWrong => 'Něco se pokazilo.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingCs implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Zajímá vás, kdo stojí za ${appLabel}? Podívejte se ';
 	@override String get aboutUsLinkLabel => 'O nás';
 	@override String get thankYouMessage => 'Děkujeme! Zeptáme se znovu jindy.';
-}
-
-// Path: errors
-class _TranslationsErrorsCs implements TranslationsErrorsEn {
-	_TranslationsErrorsCs._(this._root);
-
-	final TranslationsCs _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Chyba při načítání dat profilu';
-	@override String get somethingWentWrong => 'Něco se pokazilo.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsCs {
 			'language' => 'Čeština',
 			'flag' => '🇨🇿',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Chyba při načítání dat profilu',
+			'errors.somethingWentWrong' => 'Něco se pokazilo.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Vítejte v ${appLabel}',
 			'onboarding.subtitle' => 'Váš osobní nutriční společník, který využívá umělou inteligenci',
 			'onboarding.getStarted' => 'Začít',
@@ -1979,8 +1981,6 @@ extension on TranslationsCs {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Zajímá vás, kdo stojí za ${appLabel}? Podívejte se ',
 			'feedbackRating.aboutUsLinkLabel' => 'O nás',
 			'feedbackRating.thankYouMessage' => 'Děkujeme! Zeptáme se znovu jindy.',
-			'errors.loadingProfileData' => 'Chyba při načítání dat profilu',
-			'errors.somethingWentWrong' => 'Něco se pokazilo.',
 			'health.syncFailed' => 'Nedaří se synchronizovat s Health Connect',
 			'health.mealSynced' => 'Jídlo synchronizováno s Health Connect',
 			_ => null,

@@ -2,6 +2,10 @@
   "language": "日本語",
   "flag": "🇯🇵",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "プロフィールデータの読み込みエラー",
+    "somethingWentWrong": "何かがうまくいきませんでした。"
+  },
   "onboarding": {
     "welcome": "{appLabel}へようこそ",
     "subtitle": "AIによるあなたの個人的な栄養コンパニオン",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "{appLabel} の開発者について知りたいですか？こちらをご覧ください ",
     "aboutUsLinkLabel": "私たちについて",
     "thankYouMessage": "ありがとうございます！また別の機会にぜひご意見をお聞かせください。"
-  },
-  "errors": {
-    "loadingProfileData": "プロフィールデータの読み込みエラー",
-    "somethingWentWrong": "何かがうまくいきませんでした。"
   },
   "health": {
     "syncFailed": "Health Connectへの同期に失敗しました。",

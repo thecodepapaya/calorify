@@ -2,6 +2,13 @@
   "language": "English",
   "flag": "🇺🇸",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "rateLimitExceeded": "You've made too many requests. Please wait a moment before trying again.",
+    "networkError": "Network error. Please check your internet connection.",
+    "unknownError": "Something went wrong. Please try again later.",
+    "loadingProfileData": "Error loading profile data",
+    "somethingWentWrong": "Something went wrong."
+  },
   "onboarding": {
     "welcome": "Welcome to {appLabel}",
     "subtitle": "Your personal nutrition companion powered by AI",

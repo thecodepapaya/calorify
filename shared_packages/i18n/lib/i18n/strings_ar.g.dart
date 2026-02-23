@@ -40,6 +40,7 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'العربية';
 	@override String get flag => '🇸🇩';
 	@override String appLabel({required Object env}) => 'كالوري في ${env}';
+	@override late final _TranslationsErrorsAr errors = _TranslationsErrorsAr._(_root);
 	@override late final _TranslationsOnboardingAr onboarding = _TranslationsOnboardingAr._(_root);
 	@override late final _TranslationsTabsAr tabs = _TranslationsTabsAr._(_root);
 	@override late final _TranslationsHomeAr home = _TranslationsHomeAr._(_root);
@@ -56,8 +57,18 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerAr disclaimer = _TranslationsDisclaimerAr._(_root);
 	@override late final _TranslationsCommonAr common = _TranslationsCommonAr._(_root);
 	@override late final _TranslationsFeedbackRatingAr feedbackRating = _TranslationsFeedbackRatingAr._(_root);
-	@override late final _TranslationsErrorsAr errors = _TranslationsErrorsAr._(_root);
 	@override late final _TranslationsHealthAr health = _TranslationsHealthAr._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsAr implements TranslationsErrorsEn {
+	_TranslationsErrorsAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'خطأ في تحميل بيانات الملف الشخصي';
+	@override String get somethingWentWrong => 'حدث خطأ ما.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingAr implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'هل تريد معرفة من يقف وراء ${appLabel}؟ انظر ';
 	@override String get aboutUsLinkLabel => 'من نحن';
 	@override String get thankYouMessage => 'شكراً! سنسأل مرة أخرى لاحقاً.';
-}
-
-// Path: errors
-class _TranslationsErrorsAr implements TranslationsErrorsEn {
-	_TranslationsErrorsAr._(this._root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'خطأ في تحميل بيانات الملف الشخصي';
-	@override String get somethingWentWrong => 'حدث خطأ ما.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsAr {
 			'language' => 'العربية',
 			'flag' => '🇸🇩',
 			'appLabel' => ({required Object env}) => 'كالوري في ${env}',
+			'errors.loadingProfileData' => 'خطأ في تحميل بيانات الملف الشخصي',
+			'errors.somethingWentWrong' => 'حدث خطأ ما.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'مرحبًا بكم في ${appLabel}',
 			'onboarding.subtitle' => 'رفيقك الشخصي للتغذية المدعوم بالذكاء الاصطناعي',
 			'onboarding.getStarted' => 'ابدأ الآن',
@@ -1979,8 +1981,6 @@ extension on TranslationsAr {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'هل تريد معرفة من يقف وراء ${appLabel}؟ انظر ',
 			'feedbackRating.aboutUsLinkLabel' => 'من نحن',
 			'feedbackRating.thankYouMessage' => 'شكراً! سنسأل مرة أخرى لاحقاً.',
-			'errors.loadingProfileData' => 'خطأ في تحميل بيانات الملف الشخصي',
-			'errors.somethingWentWrong' => 'حدث خطأ ما.',
 			'health.syncFailed' => 'تعذر المزامنة مع Health Connect',
 			'health.mealSynced' => 'تمت مزامنة الوجبة مع Health Connect',
 			_ => null,

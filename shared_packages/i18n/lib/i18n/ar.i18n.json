@@ -2,6 +2,10 @@
   "language": "العربية",
   "flag": "🇸🇩",
   "appLabel": "كالوري في {env}",
+  "errors": {
+    "loadingProfileData": "خطأ في تحميل بيانات الملف الشخصي",
+    "somethingWentWrong": "حدث خطأ ما."
+  },
   "onboarding": {
     "welcome": "مرحبًا بكم في {appLabel}",
     "subtitle": "رفيقك الشخصي للتغذية المدعوم بالذكاء الاصطناعي",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "هل تريد معرفة من يقف وراء {appLabel}؟ انظر ",
     "aboutUsLinkLabel": "من نحن",
     "thankYouMessage": "شكراً! سنسأل مرة أخرى لاحقاً."
-  },
-  "errors": {
-    "loadingProfileData": "خطأ في تحميل بيانات الملف الشخصي",
-    "somethingWentWrong": "حدث خطأ ما."
   },
   "health": {
     "syncFailed": "تعذر المزامنة مع Health Connect",

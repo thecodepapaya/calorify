@@ -2,6 +2,10 @@
   "language": "Türkçe",
   "flag": "🇹🇷",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Profil verileri yüklenirken hata",
+    "somethingWentWrong": "Bir şeyler ters gitti."
+  },
   "onboarding": {
     "welcome": "{appLabel}'ye hoş geldiniz",
     "subtitle": "AI ile güçlendirilmiş kişisel beslenme danışmanınız",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "{appLabel}'ın arkasında kim olduğunu merak ediyor musunuz? ",
     "aboutUsLinkLabel": "Hakkımızda",
     "thankYouMessage": "Teşekkürler! Başka bir zaman tekrar soracağız."
-  },
-  "errors": {
-    "loadingProfileData": "Profil verileri yüklenirken hata",
-    "somethingWentWrong": "Bir şeyler ters gitti."
   },
   "health": {
     "syncFailed": "Health Connect ile senkronize edilemedi",

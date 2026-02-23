@@ -27,15 +27,38 @@ function validateLocale(locale: string): string {
 }
 
 /**
+ * Validates country code. Must be 2 characters, alphabets only.
+ * @param country - Raw country code from cf-ipcountry header
+ * @returns Sanitized 2-character country code or undefined
+ */
+function validateCountry(country?: string): string | undefined {
+  if (!country || typeof country !== 'string') return undefined;
+  const normalized = country.trim().toUpperCase();
+  // Must be exactly 2 alphabetic characters
+  if (/^[A-Z]{2}$/.test(normalized)) {
+    return normalized;
+  }
+  return undefined;
+}
+
+/**
  * Get system prompt with locale instruction for food analysis.
  * Locale is validated against a strict allowlist before interpolation.
  * @param locale - Language code (e.g., 'en', 'es', 'fr')
+ * @param countryCode - 2-letter country code (e.g., 'US', 'GB', 'IN')
  * @returns System prompt string
  */
-export function getFoodAnalysisSystemPrompt(locale: string = 'en'): string {
+export function getFoodAnalysisSystemPrompt(locale: string = 'en', countryCode?: string): string {
   const safeLocale = validateLocale(locale);
-  return `You are an expert food analysis AI. Given an image or text 
-  description, identify the food item(s) and provide a 
-  detailed analysis of the food item(s). All user-facing text 
-  must be in ${safeLocale} locale. All numbers integers.`;
+  const safeCountry = validateCountry(countryCode);
+
+  let countryContext = '';
+  if (safeCountry) {
+    countryContext = `The user is located in ${safeCountry}. Use this for local cuisine context and regional variations. `;
+  }
+
+  return `You are an expert food analysis AI. You analyze images or text. 
+  Given an image or text description, you identify the food item(s) 
+  and provide a detailed analysis of the food item(s). ${countryContext}All user-facing text 
+  must be in ${safeLocale}. All numbers integers.`;
 }

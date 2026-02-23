@@ -179,7 +179,7 @@ max_tokens: 800  // Sufficient for most responses, prevents over-generation
 async analyzeTextDescription(description: string, locale: string = 'en'): Promise<MealDetectionResponse> {
   try {
     const response = await this.client.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: 'gpt-5-nano',
       messages: [
         {
           role: 'system',

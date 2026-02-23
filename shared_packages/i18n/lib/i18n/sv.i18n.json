@@ -2,6 +2,10 @@
   "language": "Svenska",
   "flag": "🇸🇪",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Fel vid inläsning av profildata",
+    "somethingWentWrong": "Något gick fel."
+  },
   "onboarding": {
     "welcome": "Välkommen till {appLabel}",
     "subtitle": "Din personliga kostkompis som drivs av AI",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Nyfiken på vem som ligger bakom {appLabel}? Se ",
     "aboutUsLinkLabel": "Om oss",
     "thankYouMessage": "Tack! Vi frågar igen vid ett annat tillfälle."
-  },
-  "errors": {
-    "loadingProfileData": "Fel vid inläsning av profildata",
-    "somethingWentWrong": "Något gick fel."
   },
   "health": {
     "syncFailed": "Kunde inte synkronisera med Health Connect",

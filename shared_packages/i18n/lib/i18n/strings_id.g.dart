@@ -40,6 +40,7 @@ class TranslationsId with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Bahasa Indonesia';
 	@override String get flag => '🇮🇩';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsId errors = _TranslationsErrorsId._(_root);
 	@override late final _TranslationsOnboardingId onboarding = _TranslationsOnboardingId._(_root);
 	@override late final _TranslationsTabsId tabs = _TranslationsTabsId._(_root);
 	@override late final _TranslationsHomeId home = _TranslationsHomeId._(_root);
@@ -56,8 +57,18 @@ class TranslationsId with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerId disclaimer = _TranslationsDisclaimerId._(_root);
 	@override late final _TranslationsCommonId common = _TranslationsCommonId._(_root);
 	@override late final _TranslationsFeedbackRatingId feedbackRating = _TranslationsFeedbackRatingId._(_root);
-	@override late final _TranslationsErrorsId errors = _TranslationsErrorsId._(_root);
 	@override late final _TranslationsHealthId health = _TranslationsHealthId._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsId implements TranslationsErrorsEn {
+	_TranslationsErrorsId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Kesalahan saat memuat data profil';
+	@override String get somethingWentWrong => 'Terjadi kesalahan.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingId implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Penasaran siapa di balik ${appLabel}? Lihat ';
 	@override String get aboutUsLinkLabel => 'Tentang kami';
 	@override String get thankYouMessage => 'Terima kasih! Kami akan bertanya lagi di lain waktu.';
-}
-
-// Path: errors
-class _TranslationsErrorsId implements TranslationsErrorsEn {
-	_TranslationsErrorsId._(this._root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Kesalahan saat memuat data profil';
-	@override String get somethingWentWrong => 'Terjadi kesalahan.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsId {
 			'language' => 'Bahasa Indonesia',
 			'flag' => '🇮🇩',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Kesalahan saat memuat data profil',
+			'errors.somethingWentWrong' => 'Terjadi kesalahan.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Selamat datang di ${appLabel}',
 			'onboarding.subtitle' => 'Pendamping nutrisi pribadi Anda yang didukung oleh AI',
 			'onboarding.getStarted' => 'Mulai',
@@ -1979,8 +1981,6 @@ extension on TranslationsId {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Penasaran siapa di balik ${appLabel}? Lihat ',
 			'feedbackRating.aboutUsLinkLabel' => 'Tentang kami',
 			'feedbackRating.thankYouMessage' => 'Terima kasih! Kami akan bertanya lagi di lain waktu.',
-			'errors.loadingProfileData' => 'Kesalahan saat memuat data profil',
-			'errors.somethingWentWrong' => 'Terjadi kesalahan.',
 			'health.syncFailed' => 'Tidak dapat menyinkronkan dengan Health Connect',
 			'health.mealSynced' => 'Makanan disinkronkan dengan Health Connect',
 			_ => null,

@@ -2,6 +2,10 @@
   "language": "Tagalog",
   "flag": "🇵🇭",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Error sa pag-load ng datos ng profile",
+    "somethingWentWrong": "May nangyaring mali."
+  },
   "onboarding": {
     "welcome": "Maligayang pagdating sa {appLabel}",
     "subtitle": "Ang iyong personal na kasamahan sa nutrisyon na pinapagana ng AI",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Nais mong malaman kung sino ang nasa likod ng {appLabel}? Tingnan ",
     "aboutUsLinkLabel": "Tungkol sa amin",
     "thankYouMessage": "Salamat! Tatanungin ka namin ulit sa susunod."
-  },
-  "errors": {
-    "loadingProfileData": "Error sa pag-load ng datos ng profile",
-    "somethingWentWrong": "May nangyaring mali."
   },
   "health": {
     "syncFailed": "Hindi ma-synchronize sa Health Connect",

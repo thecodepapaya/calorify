@@ -40,6 +40,7 @@ class TranslationsEl with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Ελληνικά';
 	@override String get flag => '🇬🇷';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsEl errors = _TranslationsErrorsEl._(_root);
 	@override late final _TranslationsOnboardingEl onboarding = _TranslationsOnboardingEl._(_root);
 	@override late final _TranslationsTabsEl tabs = _TranslationsTabsEl._(_root);
 	@override late final _TranslationsHomeEl home = _TranslationsHomeEl._(_root);
@@ -56,8 +57,18 @@ class TranslationsEl with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerEl disclaimer = _TranslationsDisclaimerEl._(_root);
 	@override late final _TranslationsCommonEl common = _TranslationsCommonEl._(_root);
 	@override late final _TranslationsFeedbackRatingEl feedbackRating = _TranslationsFeedbackRatingEl._(_root);
-	@override late final _TranslationsErrorsEl errors = _TranslationsErrorsEl._(_root);
 	@override late final _TranslationsHealthEl health = _TranslationsHealthEl._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsEl implements TranslationsErrorsEn {
+	_TranslationsErrorsEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ';
+	@override String get somethingWentWrong => 'Κάτι πήγε στραβά.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingEl implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Σε ενδιαφέρει ποιος βρίσκεται πίσω από το ${appLabel}? Δες ';
 	@override String get aboutUsLinkLabel => 'Σχετικά με εμάς';
 	@override String get thankYouMessage => 'Ευχαριστούμε! Θα ρωτήσουμε ξανά αργότερα.';
-}
-
-// Path: errors
-class _TranslationsErrorsEl implements TranslationsErrorsEn {
-	_TranslationsErrorsEl._(this._root);
-
-	final TranslationsEl _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ';
-	@override String get somethingWentWrong => 'Κάτι πήγε στραβά.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsEl {
 			'language' => 'Ελληνικά',
 			'flag' => '🇬🇷',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ',
+			'errors.somethingWentWrong' => 'Κάτι πήγε στραβά.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Καλώς ήρθατε στο ${appLabel}',
 			'onboarding.subtitle' => 'Ο προσωπικός σου συνοδοιπόρος στη διατροφή που στηρίζεται στην τεχνητή νοημοσύνη',
 			'onboarding.getStarted' => 'Ας ξεκινήσουμε',
@@ -1979,8 +1981,6 @@ extension on TranslationsEl {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Σε ενδιαφέρει ποιος βρίσκεται πίσω από το ${appLabel}? Δες ',
 			'feedbackRating.aboutUsLinkLabel' => 'Σχετικά με εμάς',
 			'feedbackRating.thankYouMessage' => 'Ευχαριστούμε! Θα ρωτήσουμε ξανά αργότερα.',
-			'errors.loadingProfileData' => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ',
-			'errors.somethingWentWrong' => 'Κάτι πήγε στραβά.',
 			'health.syncFailed' => 'Δεν μπόρεσα να συγχρονίσω με το Health Connect',
 			'health.mealSynced' => 'Το γεύμα συγχρονίστηκε με το Health Connect',
 			_ => null,

@@ -40,6 +40,7 @@ class TranslationsTr with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Türkçe';
 	@override String get flag => '🇹🇷';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsTr errors = _TranslationsErrorsTr._(_root);
 	@override late final _TranslationsOnboardingTr onboarding = _TranslationsOnboardingTr._(_root);
 	@override late final _TranslationsTabsTr tabs = _TranslationsTabsTr._(_root);
 	@override late final _TranslationsHomeTr home = _TranslationsHomeTr._(_root);
@@ -56,8 +57,18 @@ class TranslationsTr with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerTr disclaimer = _TranslationsDisclaimerTr._(_root);
 	@override late final _TranslationsCommonTr common = _TranslationsCommonTr._(_root);
 	@override late final _TranslationsFeedbackRatingTr feedbackRating = _TranslationsFeedbackRatingTr._(_root);
-	@override late final _TranslationsErrorsTr errors = _TranslationsErrorsTr._(_root);
 	@override late final _TranslationsHealthTr health = _TranslationsHealthTr._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsTr implements TranslationsErrorsEn {
+	_TranslationsErrorsTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Profil verileri yüklenirken hata';
+	@override String get somethingWentWrong => 'Bir şeyler ters gitti.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingTr implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel}\'ın arkasında kim olduğunu merak ediyor musunuz? ';
 	@override String get aboutUsLinkLabel => 'Hakkımızda';
 	@override String get thankYouMessage => 'Teşekkürler! Başka bir zaman tekrar soracağız.';
-}
-
-// Path: errors
-class _TranslationsErrorsTr implements TranslationsErrorsEn {
-	_TranslationsErrorsTr._(this._root);
-
-	final TranslationsTr _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Profil verileri yüklenirken hata';
-	@override String get somethingWentWrong => 'Bir şeyler ters gitti.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsTr {
 			'language' => 'Türkçe',
 			'flag' => '🇹🇷',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Profil verileri yüklenirken hata',
+			'errors.somethingWentWrong' => 'Bir şeyler ters gitti.',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel}\'ye hoş geldiniz',
 			'onboarding.subtitle' => 'AI ile güçlendirilmiş kişisel beslenme danışmanınız',
 			'onboarding.getStarted' => 'Başlayın',
@@ -1979,8 +1981,6 @@ extension on TranslationsTr {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel}\'ın arkasında kim olduğunu merak ediyor musunuz? ',
 			'feedbackRating.aboutUsLinkLabel' => 'Hakkımızda',
 			'feedbackRating.thankYouMessage' => 'Teşekkürler! Başka bir zaman tekrar soracağız.',
-			'errors.loadingProfileData' => 'Profil verileri yüklenirken hata',
-			'errors.somethingWentWrong' => 'Bir şeyler ters gitti.',
 			'health.syncFailed' => 'Health Connect ile senkronize edilemedi',
 			'health.mealSynced' => 'Yemek Health Connect ile senkronize edildi',
 			_ => null,

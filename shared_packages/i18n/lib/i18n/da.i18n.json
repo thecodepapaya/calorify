@@ -2,6 +2,10 @@
   "language": "Dansk",
   "flag": "🇩🇰",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Fejl ved indlæsning af profildata",
+    "somethingWentWrong": "Noget gik galt."
+  },
   "onboarding": {
     "welcome": "Velkommen til {appLabel}",
     "subtitle": "Din personlige ernæringseftersyn drevet af AI",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Nysgerrig efter, hvem der står bag {appLabel}? Se ",
     "aboutUsLinkLabel": "Om os",
     "thankYouMessage": "Tak! Vi spørger igen på et andet tidspunkt."
-  },
-  "errors": {
-    "loadingProfileData": "Fejl ved indlæsning af profildata",
-    "somethingWentWrong": "Noget gik galt."
   },
   "health": {
     "syncFailed": "Kunne ikke synkronisere med Health Connect",

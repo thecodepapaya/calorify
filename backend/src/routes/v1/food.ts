@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { openAIFoodAnalysisService } from '../../services/openAIFoodAnalysis.js';
 import { createErrorResponse } from '../../utils/errors.js';
-import { getLocaleFromRequest } from '../../utils/locale.js';
+import { getLocaleFromRequest, getCountryFromRequest } from '../../utils/locale.js';
 import config from '../../config.js';
 // TEMPORARY: auth disabled on food APIs
 // import { authenticateUser } from '../../middleware/auth.js';
@@ -26,6 +26,12 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
   fastify.post(
     '/analyze-image',
     {
+      config: {
+        rateLimit: {
+          max: 20,
+          timeWindow: '1 minute',
+        },
+      },
       // TEMPORARY: auth disabled
       // preHandler: [authenticateUser],
       schema: {
@@ -63,9 +69,10 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
 
         // Extract locale from Accept-Language header
         const locale = getLocaleFromRequest(request);
+        const countryCode = getCountryFromRequest(request);
 
         // Analyze image using OpenAI (default AI service)
-        const result = await openAIFoodAnalysisService.analyzeImageFromBuffer(buffer, mimeType, locale);
+        const result = await openAIFoodAnalysisService.analyzeImageFromBuffer(buffer, mimeType, locale, countryCode);
 
         // Return protobuf object directly (Fastify handles JSON serialization)
         reply.send(result);
@@ -86,6 +93,12 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
   fastify.post<{ Body: ImageMealDetectionRequest }>(
     '/detect-image',
     {
+      config: {
+        rateLimit: {
+          max: 20,
+          timeWindow: '1 minute',
+        },
+      },
       // TEMPORARY: auth disabled
       // preHandler: [authenticateUser],
       schema: {
@@ -136,9 +149,10 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
 
         // Extract locale from Accept-Language header
         const locale = getLocaleFromRequest(request);
+        const countryCode = getCountryFromRequest(request);
 
         // Analyze image from URL using OpenAI
-        const response = await openAIFoodAnalysisService.analyzeImageFromUrl(finalImageUrl, locale);
+        const response = await openAIFoodAnalysisService.analyzeImageFromUrl(finalImageUrl, locale, countryCode);
 
         // Return protobuf object directly (Fastify handles JSON serialization)
         reply.send(response);
@@ -159,6 +173,12 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
   fastify.post<{ Body: TextMealDetectionRequest }>(
     '/detect-text',
     {
+      config: {
+        rateLimit: {
+          max: 20,
+          timeWindow: '1 minute',
+        },
+      },
       // TEMPORARY: auth disabled
       // preHandler: [authenticateUser],
       schema: {
@@ -185,9 +205,10 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
 
         // Extract locale from Accept-Language header
         const locale = getLocaleFromRequest(request);
+        const countryCode = getCountryFromRequest(request);
 
         // Analyze text description using OpenAI
-        const response = await openAIFoodAnalysisService.analyzeTextDescription(textDescription, locale);
+        const response = await openAIFoodAnalysisService.analyzeTextDescription(textDescription, locale, countryCode);
 
         // Return protobuf object directly (Fastify handles JSON serialization)
         reply.send(response);

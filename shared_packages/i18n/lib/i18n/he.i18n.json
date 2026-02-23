@@ -2,6 +2,10 @@
   "language": "עברית",
   "flag": "🇮🇱",
   "appLabel": "קלוריפיי{env}",
+  "errors": {
+    "loadingProfileData": "שגיאה בהטענת נתוני פרופיל",
+    "somethingWentWrong": "משהו השתבש."
+  },
   "onboarding": {
     "welcome": "ברוך הבא ל{appLabel}",
     "subtitle": "בן זוגך האישי לתזונה המונע על ידי בינה מלאכותית",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "סקרנים מי עומד מאחורי {appLabel}? ראה ",
     "aboutUsLinkLabel": "עלינו",
     "thankYouMessage": "תודה! נשאל שוב בהזדמנות אחרת."
-  },
-  "errors": {
-    "loadingProfileData": "שגיאה בהטענת נתוני פרופיל",
-    "somethingWentWrong": "משהו השתבש."
   },
   "health": {
     "syncFailed": "לא ניתן לסנכרן עם Health Connect",

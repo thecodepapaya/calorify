@@ -228,7 +228,7 @@ const ALIASES: Record<string, string> = {
 // ---------------------------------------------------------------------------
 // OpenAI client
 // ---------------------------------------------------------------------------
-const DECOMPOSITION_MODEL = 'gpt-4.1-nano';
+const DECOMPOSITION_MODEL = 'gpt-5-nano';
 
 function getOpenAI(): OpenAI {
   const key = process.env.OPENAI_API_KEY;

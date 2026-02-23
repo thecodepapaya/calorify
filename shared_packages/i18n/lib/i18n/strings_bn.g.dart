@@ -40,6 +40,7 @@ class TranslationsBn with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'বাংলা';
 	@override String get flag => '🇧🇩';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsBn errors = _TranslationsErrorsBn._(_root);
 	@override late final _TranslationsOnboardingBn onboarding = _TranslationsOnboardingBn._(_root);
 	@override late final _TranslationsTabsBn tabs = _TranslationsTabsBn._(_root);
 	@override late final _TranslationsHomeBn home = _TranslationsHomeBn._(_root);
@@ -56,8 +57,18 @@ class TranslationsBn with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerBn disclaimer = _TranslationsDisclaimerBn._(_root);
 	@override late final _TranslationsCommonBn common = _TranslationsCommonBn._(_root);
 	@override late final _TranslationsFeedbackRatingBn feedbackRating = _TranslationsFeedbackRatingBn._(_root);
-	@override late final _TranslationsErrorsBn errors = _TranslationsErrorsBn._(_root);
 	@override late final _TranslationsHealthBn health = _TranslationsHealthBn._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsBn implements TranslationsErrorsEn {
+	_TranslationsErrorsBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'প্রোফাইল তথ্য লোড করতে ত্রুটি';
+	@override String get somethingWentWrong => 'কিছু ভুল হয়েছে।';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingBn implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'জানতে চান ${appLabel}-এর পেছনে কে আছেন? দেখুন ';
 	@override String get aboutUsLinkLabel => 'আমাদের সম্পর্কে';
 	@override String get thankYouMessage => 'ধন্যবাদ! আমরা আবার অন্য সময় জিজ্ঞাসা করব।';
-}
-
-// Path: errors
-class _TranslationsErrorsBn implements TranslationsErrorsEn {
-	_TranslationsErrorsBn._(this._root);
-
-	final TranslationsBn _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'প্রোফাইল তথ্য লোড করতে ত্রুটি';
-	@override String get somethingWentWrong => 'কিছু ভুল হয়েছে।';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsBn {
 			'language' => 'বাংলা',
 			'flag' => '🇧🇩',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'প্রোফাইল তথ্য লোড করতে ত্রুটি',
+			'errors.somethingWentWrong' => 'কিছু ভুল হয়েছে।',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} এ স্বাগতম',
 			'onboarding.subtitle' => 'এটি আপনার ব্যক্তিগত পুষ্টি সঙ্গী, যা AI দ্বারা পরিচালিত',
 			'onboarding.getStarted' => 'শুরু করুন',
@@ -1979,8 +1981,6 @@ extension on TranslationsBn {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'জানতে চান ${appLabel}-এর পেছনে কে আছেন? দেখুন ',
 			'feedbackRating.aboutUsLinkLabel' => 'আমাদের সম্পর্কে',
 			'feedbackRating.thankYouMessage' => 'ধন্যবাদ! আমরা আবার অন্য সময় জিজ্ঞাসা করব।',
-			'errors.loadingProfileData' => 'প্রোফাইল তথ্য লোড করতে ত্রুটি',
-			'errors.somethingWentWrong' => 'কিছু ভুল হয়েছে।',
 			'health.syncFailed' => 'স্বাস্থ্য সংযোগে সিঙ্ক করা যায়নি',
 			'health.mealSynced' => 'খাবার স্বাস্থ্য সংযোগের সাথে সিঙ্ক হয়েছে',
 			_ => null,

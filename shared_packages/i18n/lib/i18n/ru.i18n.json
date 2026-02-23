@@ -2,6 +2,10 @@
   "language": "Русский",
   "flag": "🇷🇺",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Ошибка загрузки данных профиля",
+    "somethingWentWrong": "Что-то пошло не так."
+  },
   "onboarding": {
     "welcome": "Добро пожаловать в {appLabel}",
     "subtitle": "Ваш личный помощник по питанию, работающий на AI",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Интересно, кто стоит за {appLabel}? Посмотрите ",
     "aboutUsLinkLabel": "О нас",
     "thankYouMessage": "Спасибо! Мы спросим об этом в другой раз."
-  },
-  "errors": {
-    "loadingProfileData": "Ошибка загрузки данных профиля",
-    "somethingWentWrong": "Что-то пошло не так."
   },
   "health": {
     "syncFailed": "Не удалось синхронизироваться с Health Connect",

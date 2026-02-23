@@ -2,6 +2,10 @@
   "language": "Українська",
   "flag": "🇺🇦",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "Помилка завантаження даних профілю",
+    "somethingWentWrong": "Щось пішло не так."
+  },
   "onboarding": {
     "welcome": "Ласкаво просимо до {appLabel}",
     "subtitle": "Ваш особистий супутник у харчуванні, підкріплений ШІ",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "Цікавитесь, хто стоїть за {appLabel}? Дізнайтеся більше ",
     "aboutUsLinkLabel": "Про нас",
     "thankYouMessage": "Дякуємо! Ми ще запитаємо пізніше."
-  },
-  "errors": {
-    "loadingProfileData": "Помилка завантаження даних профілю",
-    "somethingWentWrong": "Щось пішло не так."
   },
   "health": {
     "syncFailed": "Не вдалося синхронізувати з Health Connect",

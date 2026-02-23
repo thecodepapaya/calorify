@@ -40,6 +40,7 @@ class TranslationsSv with BaseTranslations<AppLocale, Translations> implements T
 	@override String get language => 'Svenska';
 	@override String get flag => '🇸🇪';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
+	@override late final _TranslationsErrorsSv errors = _TranslationsErrorsSv._(_root);
 	@override late final _TranslationsOnboardingSv onboarding = _TranslationsOnboardingSv._(_root);
 	@override late final _TranslationsTabsSv tabs = _TranslationsTabsSv._(_root);
 	@override late final _TranslationsHomeSv home = _TranslationsHomeSv._(_root);
@@ -56,8 +57,18 @@ class TranslationsSv with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDisclaimerSv disclaimer = _TranslationsDisclaimerSv._(_root);
 	@override late final _TranslationsCommonSv common = _TranslationsCommonSv._(_root);
 	@override late final _TranslationsFeedbackRatingSv feedbackRating = _TranslationsFeedbackRatingSv._(_root);
-	@override late final _TranslationsErrorsSv errors = _TranslationsErrorsSv._(_root);
 	@override late final _TranslationsHealthSv health = _TranslationsHealthSv._(_root);
+}
+
+// Path: errors
+class _TranslationsErrorsSv implements TranslationsErrorsEn {
+	_TranslationsErrorsSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadingProfileData => 'Fel vid inläsning av profildata';
+	@override String get somethingWentWrong => 'Något gick fel.';
 }
 
 // Path: onboarding
@@ -370,17 +381,6 @@ class _TranslationsFeedbackRatingSv implements TranslationsFeedbackRatingEn {
 	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nyfiken på vem som ligger bakom ${appLabel}? Se ';
 	@override String get aboutUsLinkLabel => 'Om oss';
 	@override String get thankYouMessage => 'Tack! Vi frågar igen vid ett annat tillfälle.';
-}
-
-// Path: errors
-class _TranslationsErrorsSv implements TranslationsErrorsEn {
-	_TranslationsErrorsSv._(this._root);
-
-	final TranslationsSv _root; // ignore: unused_field
-
-	// Translations
-	@override String get loadingProfileData => 'Fel vid inläsning av profildata';
-	@override String get somethingWentWrong => 'Något gick fel.';
 }
 
 // Path: health
@@ -1563,6 +1563,8 @@ extension on TranslationsSv {
 			'language' => 'Svenska',
 			'flag' => '🇸🇪',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.loadingProfileData' => 'Fel vid inläsning av profildata',
+			'errors.somethingWentWrong' => 'Något gick fel.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Välkommen till ${appLabel}',
 			'onboarding.subtitle' => 'Din personliga kostkompis som drivs av AI',
 			'onboarding.getStarted' => 'Kom igång',
@@ -1979,8 +1981,6 @@ extension on TranslationsSv {
 			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nyfiken på vem som ligger bakom ${appLabel}? Se ',
 			'feedbackRating.aboutUsLinkLabel' => 'Om oss',
 			'feedbackRating.thankYouMessage' => 'Tack! Vi frågar igen vid ett annat tillfälle.',
-			'errors.loadingProfileData' => 'Fel vid inläsning av profildata',
-			'errors.somethingWentWrong' => 'Något gick fel.',
 			'health.syncFailed' => 'Kunde inte synkronisera med Health Connect',
 			'health.mealSynced' => 'Måltid synkroniserad med Health Connect',
 			_ => null,

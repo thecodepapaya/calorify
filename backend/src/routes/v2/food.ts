@@ -14,6 +14,12 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
   fastify.post<{ Body: AnalyzeTextBody }>(
     '/analyze-text',
     {
+      config: {
+        rateLimit: {
+          max: 20,
+          timeWindow: '1 minute',
+        },
+      },
       schema: {
         description:
           'Analyze a meal from text description. Streams pipeline events as NDJSON: decomposition, ingredients, uncertainty (with clarifications), then result. No variations step.',

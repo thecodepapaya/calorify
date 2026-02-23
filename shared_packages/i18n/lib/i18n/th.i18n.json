@@ -2,6 +2,10 @@
   "language": "ไทย",
   "flag": "🇹🇭",
   "appLabel": "Calorify{env}",
+  "errors": {
+    "loadingProfileData": "เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์",
+    "somethingWentWrong": "มีบางอย่างผิดพลาด."
+  },
   "onboarding": {
     "welcome": "ยินดีต้อนรับสู่ {appLabel}",
     "subtitle": "คู่หูด้านโภชนาการส่วนบุคคลที่ขับเคลื่อนโดย AI",
@@ -631,10 +635,6 @@
     "aboutUsMentionBeforeLink": "อยากรู้ว่าผู้ที่อยู่เบื้องหลัง {appLabel} คือใคร? ดู ",
     "aboutUsLinkLabel": "เกี่ยวกับเรา",
     "thankYouMessage": "ขอบคุณ! เราจะถามคุณอีกครั้งในโอกาสหน้า."
-  },
-  "errors": {
-    "loadingProfileData": "เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์",
-    "somethingWentWrong": "มีบางอย่างผิดพลาด."
   },
   "health": {
     "syncFailed": "ไม่สามารถซิงค์ไปยัง Health Connect",
