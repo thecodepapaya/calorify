@@ -59,7 +59,7 @@ interface OpenAIResponse {
   variations: OpenAIVariation[];
 }
 
-const OPENAI_FOOD_ANALYSIS_MODEL = 'gpt-4.1-nano' as const;
+const OPENAI_FOOD_ANALYSIS_MODEL = 'gpt-5-nano' as const;
 
 /** JSON Schema for Structured Outputs; matches OpenAIResponse. */
 const MEAL_DETECTION_RESPONSE_SCHEMA = {
