@@ -10,6 +10,7 @@
         "start": "node dist/index.js",
         "lint": "eslint src --ext .ts",
         "type-check": "tsc --noEmit",
+        "usda:import": "tsx src/scripts/import-usda.ts",
         "docker:up:staging": "docker compose --profile staging up -d --build",
         "docker:up:prod": "docker compose --profile production up -d --build"
     },
@@ -31,6 +32,7 @@
         "dotenv": "^16.4.5",
         "fastify": "^4.26.2",
         "firebase-admin": "^12.6.0",
+        "csv-parse": "^5.5.6",
         "openai": "^4.28.0",
         "pg": "^8.11.3",
         "pino-loki": "^3.0.0"
