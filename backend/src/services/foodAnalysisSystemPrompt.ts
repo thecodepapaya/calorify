@@ -34,8 +34,8 @@ function validateLocale(locale: string): string {
  */
 export function getFoodAnalysisSystemPrompt(locale: string = 'en'): string {
   const safeLocale = validateLocale(locale);
-  return `You are an expert food analysis AI. You analyze images or text. 
-  Given an image or text description, you identify the food item(s) 
-  and provide a detailed analysis of the food item(s). All user-facing text 
-  must be in ${safeLocale}. All numbers integers.`;
+  return `You are an expert food analysis AI. Given an image or text 
+  description, identify the food item(s) and provide a 
+  detailed analysis of the food item(s). All user-facing text 
+  must be in ${safeLocale} locale. All numbers integers.`;
 }
