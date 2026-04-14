@@ -19,6 +19,27 @@ function extractToken(request: FastifyRequest): string | null {
 }
 
 /**
+ * Best-effort auth lookup. Returns undefined when no valid bearer token is present.
+ */
+export async function getOptionalUserId(
+  request: FastifyRequest
+): Promise<string | undefined> {
+  const token = extractToken(request);
+  if (!token) {
+    return undefined;
+  }
+
+  try {
+    const decodedToken = await verifyFirebaseToken(token);
+    const userId = getUserIdFromToken(decodedToken);
+    (request as FastifyRequest & { userId: string }).userId = userId;
+    return userId;
+  } catch {
+    return undefined;
+  }
+}
+
+/**
  * Authentication middleware for Fastify
  * Verifies Firebase ID token and adds user ID to request
  */

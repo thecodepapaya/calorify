@@ -1,11 +1,22 @@
 import 'dart:io';
 
+import 'package:calorify/core/models/meal_analysis_v2.dart';
 import 'package:calorify/core/network/network_client.dart';
 import 'package:calorify/core/services/auth_service.dart';
 import 'package:dio/dio.dart';
 import 'package:models/models.dart';
 import 'package:uuid/uuid.dart';
 import 'package:utils/utils.dart';
+
+class V2ImageAnalysisHandle {
+  const V2ImageAnalysisHandle({
+    required this.uploadedImageUrl,
+    required this.events,
+  });
+
+  final String uploadedImageUrl;
+  final Stream<V2MealAnalysisEvent> events;
+}
 
 class FoodRepository {
   Future<MealDetectionResponse> analyzeImage({required File imageFile}) async {
@@ -27,42 +38,7 @@ class FoodRepository {
   }
 
   Future<MealDetectionResponse> detectImage({required File imageFile}) async {
-    // Validate file extension
-    final fileExtension = imageFile.path.split('.').last.toLowerCase();
-    if (!ImageConfig.isAllowedImageExtension(fileExtension)) {
-      throw ArgumentError(
-        'Image format not supported. Allowed formats: ${ImageConfig.allowedImageExtensions.join(", ")}',
-      );
-    }
-
-    // Folder = Firebase UID or "anonymous" when unauthenticated (upload never denied)
-    final folder =
-        AuthService.instance.currentUser?.uid ?? 'anonymous';
-
-    // Filename = <iso_timestamp>_<uuid>.<ext>
-    const uuid = Uuid();
-    final isoTimestamp =
-        DateTime.now().toUtc().toIso8601String();
-    final fileName = '${isoTimestamp}_${uuid.v4()}.$fileExtension';
-
-    // Object key: folder/filename (URL-encode segments for colons etc. in ISO timestamp)
-    final objectKey =
-        '${Uri.encodeComponent(folder)}/${Uri.encodeComponent(fileName)}';
-    final uploadUrl =
-        '${ImageConfig.oracleBucketUploadUrl}$objectKey';
-
-    // Get MIME type from config
-    final contentType = ImageConfig.getMimeType(fileExtension);
-
-    // Upload image to Oracle bucket
-    final fileBytes = await imageFile.readAsBytes();
-
-    // Upload to Oracle Object Storage using PUT request
-    await NetworkClient.instance.client.put(
-      uploadUrl,
-      data: fileBytes,
-      options: Options(headers: {'Content-Type': contentType}),
-    );
+    final uploadUrl = await _uploadImage(imageFile);
 
     // Send the full authenticated upload URL
     final request = ImageMealDetectionRequest(imageUrl: uploadUrl);
@@ -82,5 +58,109 @@ class FoodRepository {
           MealDetectionResponse.new,
           request: request,
         );
+  }
+
+  Future<Stream<V2MealAnalysisEvent>> analyzeTextV2({
+    required String textDescription,
+  }) {
+    return NetworkClient.instance.streamPost<V2MealAnalysisEvent>(
+      '/api/v2/food/analyze-text',
+      V2MealAnalysisEvent.fromJson,
+      data: {'textDescription': textDescription},
+    );
+  }
+
+  Future<V2ImageAnalysisHandle> analyzeImageV2({required File imageFile}) async {
+    final uploadUrl = await _uploadImage(imageFile);
+    final events = await NetworkClient.instance.streamPost<V2MealAnalysisEvent>(
+      '/api/v2/food/analyze-image',
+      V2MealAnalysisEvent.fromJson,
+      data: {'imageUrl': uploadUrl},
+    );
+    return V2ImageAnalysisHandle(uploadedImageUrl: uploadUrl, events: events);
+  }
+
+  Future<Stream<V2MealAnalysisEvent>> clarifyV2({
+    required String analysisId,
+    required List<V2MealClarificationAnswer> answers,
+  }) {
+    return NetworkClient.instance.streamPost<V2MealAnalysisEvent>(
+      '/api/v2/food/clarify',
+      V2MealAnalysisEvent.fromJson,
+      data: {
+        'analysisId': analysisId,
+        'answers': answers.map((answer) => answer.toJson()).toList(),
+      },
+    );
+  }
+
+  Future<Stream<V2MealAnalysisEvent>> submitMealTypeV2({
+    required String analysisId,
+    required MealType mealType,
+  }) {
+    return NetworkClient.instance.streamPost<V2MealAnalysisEvent>(
+      '/api/v2/food/meal-type',
+      V2MealAnalysisEvent.fromJson,
+      data: {
+        'analysisId': analysisId,
+        'mealType': switch (mealType) {
+          MealType.BREAKFAST => 'BREAKFAST',
+          MealType.LUNCH => 'LUNCH',
+          MealType.DINNER => 'DINNER',
+          MealType.SNACK => 'SNACK',
+          _ => 'UNKNOWN',
+        },
+      },
+    );
+  }
+
+  Future<void> submitPositiveFeedbackV2({required String analysisId}) async {
+    await NetworkClient.instance.client.post(
+      '/api/v2/food/feedback',
+      data: {'analysisId': analysisId, 'signal': 'up'},
+    );
+  }
+
+  Future<Stream<V2MealAnalysisEvent>> reanalyzeV2({
+    required String analysisId,
+    required List<V2MealFeedbackIssue> issues,
+    String? otherText,
+  }) {
+    return NetworkClient.instance.streamPost<V2MealAnalysisEvent>(
+      '/api/v2/food/reanalyze',
+      V2MealAnalysisEvent.fromJson,
+      data: {
+        'analysisId': analysisId,
+        'issues': issues.map((issue) => issue.apiValue).toList(),
+        if (otherText != null && otherText.isNotEmpty) 'otherText': otherText,
+      },
+    );
+  }
+
+  Future<String> _uploadImage(File imageFile) async {
+    final fileExtension = imageFile.path.split('.').last.toLowerCase();
+    if (!ImageConfig.isAllowedImageExtension(fileExtension)) {
+      throw ArgumentError(
+        'Image format not supported. Allowed formats: ${ImageConfig.allowedImageExtensions.join(", ")}',
+      );
+    }
+
+    final folder = AuthService.instance.currentUser?.uid ?? 'anonymous';
+    const uuid = Uuid();
+    final isoTimestamp = DateTime.now().toUtc().toIso8601String();
+    final fileName = '${isoTimestamp}_${uuid.v4()}.$fileExtension';
+    final objectKey =
+        '${Uri.encodeComponent(folder)}/${Uri.encodeComponent(fileName)}';
+    final uploadUrl = '${ImageConfig.oracleBucketUploadUrl}$objectKey';
+    final contentType = ImageConfig.getMimeType(fileExtension);
+    final fileBytes = await imageFile.readAsBytes();
+
+    await NetworkClient.instance.client.put(
+      uploadUrl,
+      data: fileBytes,
+      options: Options(headers: {'Content-Type': contentType}),
+    );
+
+    return uploadUrl;
   }
 }
