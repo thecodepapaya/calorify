@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:calorify/core/config/env_config.dart';
@@ -60,7 +61,8 @@ class NetworkClient {
               RateLimitException(
                 requestOptions: exception.requestOptions,
                 response: exception.response,
-                message: t.errors.rateLimitExceeded,
+                message:
+                    'You\'ve made too many requests. Please wait a moment before trying again.',
               ),
             );
           }
@@ -111,5 +113,40 @@ class NetworkClient {
 
   void _handleError(DioException exception, String endpoint) {
     // Error handling can be extended with error reporting if needed
+  }
+
+  Future<Stream<T>> streamPost<T>(
+    String endpoint,
+    T Function(Map<String, dynamic>) parseEvent, {
+    required Object data,
+  }) async {
+    try {
+      final response = await _dio.post<ResponseBody>(
+        endpoint,
+        data: data,
+        options: Options(
+          responseType: ResponseType.stream,
+          headers: {'Accept': 'application/x-ndjson'},
+        ),
+      );
+
+      final responseBody = response.data;
+      if (responseBody == null) {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          message: 'Empty streamed response',
+        );
+      }
+
+      return utf8.decoder
+          .bind(responseBody.stream)
+          .transform(const LineSplitter())
+          .where((line) => line.trim().isNotEmpty)
+          .map((line) => jsonDecode(line) as Map<String, dynamic>)
+          .map(parseEvent);
+    } on DioException catch (exception) {
+      _handleError(exception, endpoint);
+      rethrow;
+    }
   }
 }

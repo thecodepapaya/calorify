@@ -2,6 +2,8 @@ import 'dart:typed_data';
 
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
+import 'package:calorify/core/models/meal_analysis_v2.dart';
+import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/database_service.dart';
@@ -10,6 +12,8 @@ import 'package:calorify/features/history/widgets/meal_quantity.dart';
 import 'package:calorify/features/history/widgets/meal_timestamp.dart';
 import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_feedback_sheet.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/meal_image.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
@@ -25,6 +29,7 @@ Future<void> showMealTip({
   MealDetectionResult? mealDetectionResult,
   LoggedMeal? loggedMeal,
   Uint8List? imageBytes,
+  V2MealAnalysisContext? v2Analysis,
   bool previewOnly = false,
 }) {
   final parentContext = context;
@@ -41,39 +46,68 @@ Future<void> showMealTip({
           mealDetectionResult: mealDetectionResult,
           loggedMeal: loggedMeal,
           imageBytes: imageBytes,
+          v2Analysis: v2Analysis,
           previewOnly: previewOnly,
         ),
   );
 }
 
-class _MealTip extends StatelessWidget {
-  _MealTip({
+class _MealTip extends StatefulWidget {
+  const _MealTip({
     required this.parentContext,
     this.mealDetectionResult,
     this.loggedMeal,
     this.imageBytes,
+    this.v2Analysis,
     this.previewOnly = false,
-  }) : assert(mealDetectionResult != null || loggedMeal != null),
-       meal = mealDetectionResult?.meal ?? loggedMeal?.meal ?? Meal(),
-       metadata =
-           mealDetectionResult?.metadata ??
-           loggedMeal?.metadata ??
-           MealMetadata();
+  }) : assert(mealDetectionResult != null || loggedMeal != null);
 
   final BuildContext parentContext;
-
-  final Meal meal;
-  final MealMetadata metadata;
   final MealDetectionResult? mealDetectionResult;
   final LoggedMeal? loggedMeal;
   final Uint8List? imageBytes;
+  final V2MealAnalysisContext? v2Analysis;
   final bool previewOnly;
+
+  @override
+  State<_MealTip> createState() => _MealTipState();
+}
+
+class _MealTipState extends State<_MealTip> {
+  MealDetectionResult? _mealDetectionResult;
+  V2MealAnalysisContext? _v2Analysis;
+  bool _isFeedbackSubmitting = false;
+  bool? _feedbackValue;
+
+  Meal get meal =>
+      _mealDetectionResult?.meal ?? widget.loggedMeal?.meal ?? Meal();
+
+  MealMetadata get metadata =>
+      _mealDetectionResult?.metadata ??
+      widget.loggedMeal?.metadata ??
+      MealMetadata();
+
+  bool get _canShowFeedback =>
+      _v2Analysis != null &&
+      _mealDetectionResult != null &&
+      widget.loggedMeal == null &&
+      !_v2Analysis!.isRevised;
+
+  @override
+  void initState() {
+    super.initState();
+    _mealDetectionResult = widget.mealDetectionResult;
+    _v2Analysis = widget.v2Analysis;
+    if (_canShowFeedback) {
+      Analytics.instance.logEvent(AnalyticsEvent.mealFeedbackShown);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final isMealUnidentified =
-        (mealDetectionResult == null && loggedMeal == null) ||
-        mealDetectionResult?.mealIdentified == false;
+        (_mealDetectionResult == null && widget.loggedMeal == null) ||
+        _mealDetectionResult?.mealIdentified == false;
 
     return BaseBottomSheet(
       child: Column(
@@ -109,15 +143,15 @@ class _MealTip extends StatelessWidget {
         ],
       ),
       SizedBox(height: 16),
-      if (mealDetectionResult?.tip.isNotEmpty ?? false) ...[
+      if (_mealDetectionResult?.tip.isNotEmpty ?? false) ...[
         Text(
-          mealDetectionResult!.tip,
+          _mealDetectionResult!.tip,
           style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
         ),
         SizedBox(height: 12),
       ],
-      if (imageBytes != null || metadata.imageUrl.isNotEmpty) ...[
-        MealImage(imageBytes: imageBytes, imageUrl: metadata.imageUrl),
+      if (widget.imageBytes != null || metadata.imageUrl.isNotEmpty) ...[
+        MealImage(imageBytes: widget.imageBytes, imageUrl: metadata.imageUrl),
         const SizedBox(height: 12),
       ],
     ];
@@ -128,10 +162,11 @@ class _MealTip extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
 
-    final canShowMealImage = imageBytes != null || metadata.imageUrl.isNotEmpty;
-    final canShowMealTip = mealDetectionResult?.tip.isNotEmpty ?? false;
+    final canShowMealImage =
+        widget.imageBytes != null || metadata.imageUrl.isNotEmpty;
+    final canShowMealTip = _mealDetectionResult?.tip.isNotEmpty ?? false;
 
-    final timestamp = loggedMeal?.dateTime ?? DateTime.now();
+    final timestamp = widget.loggedMeal?.dateTime ?? DateTime.now();
 
     return [
       Row(
@@ -163,17 +198,59 @@ class _MealTip extends StatelessWidget {
             ),
           ),
           SizedBox(width: 12),
-          if (loggedMeal != null) _FavoriteMealStar(loggedMeal: loggedMeal!),
+          if (widget.loggedMeal != null || _canShowFeedback)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (widget.loggedMeal != null)
+                  _FavoriteMealStar(loggedMeal: widget.loggedMeal!),
+                if (_canShowFeedback) ...[
+                  IconButton(
+                    onPressed:
+                        _isFeedbackSubmitting || _feedbackValue != null
+                            ? null
+                            : _submitPositiveFeedback,
+                    padding: EdgeInsets.zero,
+                    visualDensity: VisualDensity.compact,
+                    icon: Icon(
+                      LucideIcons.thumbsUp,
+                      size: 22,
+                      color:
+                          _feedbackValue == true
+                              ? colorScheme.primary
+                              : colorScheme.onSurface.withValues(alpha: 0.5),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  IconButton(
+                    onPressed:
+                        _isFeedbackSubmitting || _feedbackValue != null
+                            ? null
+                            : _submitNegativeFeedback,
+                    padding: EdgeInsets.zero,
+                    visualDensity: VisualDensity.compact,
+                    icon: Icon(
+                      LucideIcons.thumbsDown,
+                      size: 22,
+                      color:
+                          _feedbackValue == false
+                              ? colorScheme.error
+                              : colorScheme.onSurface.withValues(alpha: 0.5),
+                    ),
+                  ),
+                ],
+              ],
+            ),
         ],
       ),
       if (canShowMealImage) ...[
         SizedBox(height: 16),
-        MealImage(imageBytes: imageBytes, imageUrl: metadata.imageUrl),
+        MealImage(imageBytes: widget.imageBytes, imageUrl: metadata.imageUrl),
       ],
       if (canShowMealTip) ...[
         SizedBox(height: 16),
         Text(
-          mealDetectionResult?.tip ?? '',
+          _mealDetectionResult?.tip ?? '',
           style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
         ),
       ],
@@ -253,8 +330,8 @@ class _MealTip extends StatelessWidget {
         ],
       ),
       SizedBox(height: 20),
-      mealDetectionResult != null
-          ? (previewOnly
+      _mealDetectionResult != null
+          ? (widget.previewOnly
               ? SizedBox(
                 width: double.infinity,
                 child: OutlinedButton.icon(
@@ -271,8 +348,8 @@ class _MealTip extends StatelessWidget {
                 onPressed: () async {
                   await logMeal(
                     context,
-                    mealDetectionResult!.meal,
-                    parentContext: parentContext,
+                    _mealDetectionResult!.meal,
+                    parentContext: widget.parentContext,
                   );
                   if (!context.mounted) return;
                   Navigator.of(context).pop();
@@ -282,11 +359,14 @@ class _MealTip extends StatelessWidget {
               ))
           : Row(
             children: [
-              if (loggedMeal != null)
+              if (widget.loggedMeal != null)
                 Expanded(
                   child: SecondaryButton(
                     onPressed: () {
-                      _showDeleteConfirmation(context, loggedMeal!.clientId);
+                      _showDeleteConfirmation(
+                        context,
+                        widget.loggedMeal!.clientId,
+                      );
                     },
                     text: t.meal.delete,
                     icon: LucideIcons.trash2,
@@ -303,7 +383,7 @@ class _MealTip extends StatelessWidget {
                     showEditMealSheet(
                       parentContext,
                       meal: meal,
-                      loggedMeal: loggedMeal,
+                      loggedMeal: widget.loggedMeal,
                     );
                   },
                   text: t.meal.editMeal,
@@ -314,6 +394,93 @@ class _MealTip extends StatelessWidget {
             ],
           ),
     ];
+  }
+
+  Future<void> _submitPositiveFeedback() async {
+    final analysisId = _v2Analysis?.result.analysisId;
+    if (analysisId == null || analysisId.isEmpty) return;
+
+    setState(() {
+      _isFeedbackSubmitting = true;
+    });
+
+    try {
+      await FoodRepository().submitPositiveFeedbackV2(analysisId: analysisId);
+      if (!mounted) return;
+      Analytics.instance.logEvent(AnalyticsEvent.mealFeedbackThumbsUp);
+      showFlushbar('Thanks for the feedback!', context: context);
+      setState(() {
+        _feedbackValue = true;
+      });
+    } on Exception catch (error) {
+      if (!mounted) return;
+      showFlushbar('$error', context: context);
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isFeedbackSubmitting = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _submitNegativeFeedback() async {
+    final analysisId = _v2Analysis?.result.analysisId;
+    if (analysisId == null || analysisId.isEmpty) return;
+
+    Analytics.instance.logEvent(AnalyticsEvent.mealFeedbackThumbsDownOpened);
+    final feedbackInput = await showV2MealFeedbackSheet(context);
+    if (!mounted || feedbackInput == null) return;
+
+    setState(() {
+      _isFeedbackSubmitting = true;
+      _feedbackValue = false;
+    });
+
+    try {
+      final nextContext = await resolveV2MealAnalysisFlow(
+        context: context,
+        startAnalysis: () => FoodRepository().reanalyzeV2(
+          analysisId: analysisId,
+          issues: feedbackInput.issues,
+          otherText: feedbackInput.otherText,
+        ),
+        imageBytes: widget.imageBytes,
+        imageUrl: _v2Analysis?.imageUrl,
+        textDescription: _v2Analysis?.textDescription,
+      );
+
+      if (!mounted) return;
+      if (nextContext == null) {
+        throw Exception('No revised result received');
+      }
+
+      Analytics.instance.logEvent(AnalyticsEvent.mealFeedbackThumbsDownSubmitted);
+      Analytics.instance.logEvent(AnalyticsEvent.mealReanalysisSucceeded);
+
+      final updatedContext = nextContext.copyWith(isRevised: true);
+
+      setState(() {
+        _v2Analysis = updatedContext;
+        _mealDetectionResult = updatedContext.toMealDetectionResult();
+        _feedbackValue = null;
+      });
+
+      showFlushbar('Updated the meal analysis based on your feedback.', context: context);
+    } on Exception catch (error) {
+      if (!mounted) return;
+      Analytics.instance.logEvent(AnalyticsEvent.mealReanalysisFailed);
+      setState(() {
+        _feedbackValue = null;
+      });
+      showFlushbar('$error', context: context);
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isFeedbackSubmitting = false;
+        });
+      }
+    }
   }
 
   Future<void> _showDeleteConfirmation(BuildContext context, int mealId) {

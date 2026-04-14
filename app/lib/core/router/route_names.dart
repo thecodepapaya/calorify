@@ -7,10 +7,14 @@ class RouteNames {
   static const String disclaimerSheet = '/disclaimer_sheet';
   static const String mealTipSheet = '/meal_tip_sheet';
   static const String mealVariationSheet = '/meal_variation_sheet';
+  static const String mealAnalysisSheet = '/meal_analysis_sheet';
+  static const String mealClarificationSheet = '/meal_clarification_sheet';
+  static const String mealTypeSheet = '/meal_type_sheet';
   static const String healthScoreSheet = '/health_score_sheet';
   static const String languagePickerSheet = '/language_picker_sheet';
   static const String editMealSheet = '/edit_meal_sheet';
   static const String feedbackRatingSheet = '/feedback_rating_sheet';
+  static const String mealFeedbackSheet = '/meal_feedback_sheet';
 
   // Dialogs
   static const String deleteMealConfirmationDialog =
