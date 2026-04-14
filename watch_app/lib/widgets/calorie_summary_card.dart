@@ -1,18 +1,19 @@
-import 'package:specs/specs.dart';
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'dart:math' as math;
+import 'package:specs/specs.dart';
 
 class CalorieSummaryCard extends StatefulWidget {
-  final int totalCalories;
-  final int goal;
-
   const CalorieSummaryCard({
     super.key,
     required this.totalCalories,
     required this.goal,
   });
+
+  final int totalCalories;
+  final int goal;
 
   @override
   State<CalorieSummaryCard> createState() => _CalorieSummaryCardState();
@@ -28,25 +29,10 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 600),
       vsync: this,
     );
-
-    final progress = (widget.totalCalories / widget.goal).clamp(0.0, 1.0);
-    _progressAnimation = Tween<double>(begin: 0.0, end: progress).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.3, 1.0, curve: Curves.easeOutCubic),
-      ),
-    );
-
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.0, 0.4, curve: Curves.easeIn),
-      ),
-    );
-
+    _rebuildAnimations(0.0);
     _controller.forward();
   }
 
@@ -55,16 +41,27 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
     super.didUpdateWidget(oldWidget);
     if (oldWidget.totalCalories != widget.totalCalories ||
         oldWidget.goal != widget.goal) {
-      final progress = (widget.totalCalories / widget.goal).clamp(0.0, 1.0);
-      _progressAnimation = Tween<double>(
-        begin: _progressAnimation.value,
-        end: progress,
-      ).animate(
-        CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
-      );
-      _controller.reset();
-      _controller.forward();
+      final from = _progressAnimation.value;
+      _rebuildAnimations(from);
+      _controller
+        ..reset()
+        ..forward();
     }
+  }
+
+  void _rebuildAnimations(double from) {
+    final target = widget.goal > 0
+        ? (widget.totalCalories / widget.goal).clamp(0.0, 1.0)
+        : 0.0;
+    _progressAnimation = Tween<double>(begin: from, end: target).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
+    );
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 0.5, curve: Curves.easeIn),
+      ),
+    );
   }
 
   @override
@@ -78,50 +75,27 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final isOverGoal = widget.totalCalories > widget.goal;
-    final progress = _progressAnimation.value;
-    final percentage = ((widget.totalCalories / widget.goal) * 100).round();
-    final remaining = (widget.goal - widget.totalCalories).clamp(
-      0,
-      widget.goal,
-    );
+    final percentage = widget.goal > 0
+        ? ((widget.totalCalories / widget.goal) * 100).round()
+        : 0;
+    final remaining = (widget.goal - widget.totalCalories).clamp(0, widget.goal);
+    final activeColor =
+        isOverGoal ? colorScheme.error : colorScheme.calorieIconColor;
 
     return Semantics(
       label:
           'Calorie summary. ${widget.totalCalories} calories consumed out of ${widget.goal} goal. $percentage% complete.',
-      value: '${widget.totalCalories} / ${widget.goal} calories',
       child: FadeTransition(
         opacity: _fadeAnimation,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Header with icon and label
+            // Header
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TweenAnimationBuilder<double>(
-                  tween: Tween(begin: 0.0, end: 1.0),
-                  duration: const Duration(milliseconds: 800),
-                  curve: Curves.elasticOut,
-                  builder: (context, value, child) {
-                    return Transform.scale(
-                      scale: value,
-                      child: Transform.rotate(
-                        angle: (1 - value) * math.pi * 0.5,
-                        child: child,
-                      ),
-                    );
-                  },
-                  child: Semantics(
-                    label: 'Calories icon',
-                    excludeSemantics: true,
-                    child: Icon(
-                      LucideIcons.flame,
-                      size: 18,
-                      color: colorScheme.calorieIconColor,
-                    ),
-                  ),
-                ),
+                Icon(LucideIcons.flame, size: 16, color: activeColor),
                 const SizedBox(width: 6),
                 Text(
                   'Calories',
@@ -135,36 +109,21 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
               ],
             ),
             const SizedBox(height: 10),
-            // Main display: Large number with unit
+            // Large calorie number
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
               children: [
-                TweenAnimationBuilder<int>(
-                  tween: IntTween(begin: 0, end: widget.totalCalories),
-                  duration: const Duration(milliseconds: 1200),
-                  curve: Curves.easeOutCubic,
-                  builder: (context, value, child) {
-                    return Semantics(
-                      label: '$value calories consumed',
-                      excludeSemantics: true,
-                      child: Text(
-                        '$value',
-                        style: theme.textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 28,
-                          height: 1.0,
-                          color:
-                              isOverGoal
-                                  ? colorScheme.error
-                                  : colorScheme.calorieIconColor,
-                          letterSpacing: -0.5,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    );
-                  },
+                Text(
+                  '${widget.totalCalories}',
+                  style: theme.textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 28,
+                    height: 1.0,
+                    color: activeColor,
+                    letterSpacing: -0.5,
+                  ),
                 ),
                 const SizedBox(width: 4),
                 Text(
@@ -178,7 +137,7 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
               ],
             ),
             const SizedBox(height: 4),
-            // Goal and remaining info
+            // Goal & remaining
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -202,7 +161,7 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
                     size: 10,
                     color: colorScheme.primary.withValues(alpha: 0.7),
                   ),
-                  const SizedBox(width: 4),
+                  const SizedBox(width: 3),
                   Text(
                     '$remaining left',
                     style: theme.textTheme.labelSmall?.copyWith(
@@ -215,51 +174,36 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
               ],
             ),
             const SizedBox(height: 10),
-            // Circular progress with percentage
+            // Circular progress
             Stack(
               alignment: Alignment.center,
               children: [
                 Semantics(
                   label: 'Progress: $percentage%',
-                  value: '$percentage%',
                   child: SizedBox(
                     width: 70,
                     height: 70,
                     child: AnimatedBuilder(
                       animation: _progressAnimation,
-                      builder: (context, child) {
-                        return CircularProgressIndicator(
-                          value: progress > 1.0 ? 1.0 : progress,
-                          strokeWidth: 7,
-                          backgroundColor: colorScheme.surfaceContainerHighest,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            isOverGoal
-                                ? colorScheme.error
-                                : colorScheme.calorieIconColor,
-                          ),
-                        );
-                      },
+                      builder: (context, _) => CircularProgressIndicator(
+                        value: math.min(_progressAnimation.value, 1.0),
+                        strokeWidth: 7,
+                        backgroundColor: colorScheme.surfaceContainerHighest,
+                        valueColor: AlwaysStoppedAnimation<Color>(activeColor),
+                      ),
                     ),
                   ),
                 ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    AnimatedBuilder(
-                      animation: _progressAnimation,
-                      builder: (context, child) {
-                        return Text(
-                          '$percentage%',
-                          style: theme.textTheme.labelMedium?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 11,
-                            color:
-                                isOverGoal
-                                    ? colorScheme.error
-                                    : colorScheme.calorieIconColor,
-                          ),
-                        );
-                      },
+                    Text(
+                      '$percentage%',
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 11,
+                        color: activeColor,
+                      ),
                     ),
                     const SizedBox(height: 2),
                     Icon(
@@ -267,10 +211,9 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
                           ? Icons.warning_amber_rounded
                           : LucideIcons.check,
                       size: 12,
-                      color:
-                          isOverGoal
-                              ? colorScheme.error
-                              : colorScheme.primary.withValues(alpha: 0.7),
+                      color: isOverGoal
+                          ? colorScheme.error
+                          : colorScheme.primary.withValues(alpha: 0.7),
                     ),
                   ],
                 ),

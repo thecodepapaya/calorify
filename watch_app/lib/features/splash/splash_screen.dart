@@ -4,6 +4,7 @@ import 'package:calorify_watch/core/services/sync_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:services/services.dart';
 import 'package:widgets/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -31,21 +32,21 @@ class _SplashScreenState extends State<SplashScreen> {
         final auth = FirebaseAuth.instance;
         if (auth.currentUser == null) {
           await auth.signInAnonymously();
-          debugPrint('Guest user signed in for AI services');
+          if (kDebugMode) debugPrint('Guest user signed in for AI services');
         } else {
-          debugPrint('User already authenticated: ${auth.currentUser!.uid}');
+          if (kDebugMode) debugPrint('User already authenticated: ${auth.currentUser!.uid}');
         }
       } catch (e) {
-        debugPrint('Firebase Auth initialization failed: $e');
+        if (kDebugMode) debugPrint('Firebase Auth initialization failed: $e');
         // Continue - app can still work without AI features
       }
 
       // Initialize Food Analysis Service (required for meal logging)
       try {
         await FoodAnalysisService.instance.initialize();
-        debugPrint('FoodAnalysisService initialized successfully');
+        if (kDebugMode) debugPrint('FoodAnalysisService initialized successfully');
       } catch (e) {
-        debugPrint('FoodAnalysisService initialization failed: $e');
+        if (kDebugMode) debugPrint('FoodAnalysisService initialization failed: $e');
         // Continue - user will see error when trying to log meal
       }
 
@@ -54,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
         await SyncService.instance.initialize();
       } catch (e) {
         // Log error but continue - app can work without watch connection
-        debugPrint('Wear OS initialization failed: $e');
+        if (kDebugMode) debugPrint('Wear OS initialization failed: $e');
       }
 
       // Small delay to show splash screen
@@ -67,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen> {
     } catch (e) {
       // If initialization fails, still navigate to home
       // The app can handle connection errors gracefully
-      debugPrint('Splash initialization error: $e');
+      if (kDebugMode) debugPrint('Splash initialization error: $e');
       if (!mounted) return;
       await context.router.replace(const HomeRoute());
     }

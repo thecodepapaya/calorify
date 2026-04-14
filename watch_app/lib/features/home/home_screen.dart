@@ -3,81 +3,53 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/router/app_router.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
-import 'package:models/models.dart';
-import 'package:specs/specs.dart';
 import 'package:calorify_watch/widgets/calorie_summary_card.dart';
-import 'package:calorify_watch/widgets/macro_chart.dart';
 import 'package:calorify_watch/widgets/calorie_trend_chart.dart';
-import 'package:calorify_watch/widgets/meal_list_item.dart';
 import 'package:calorify_watch/widgets/carousel_scroll_view.dart';
+import 'package:calorify_watch/widgets/macro_chart.dart';
+import 'package:calorify_watch/widgets/meal_list_item.dart';
+import 'package:calorify_watch/widgets/shimmer_placeholder.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:models/models.dart';
+import 'package:specs/specs.dart';
 
 @RoutePage()
-class HomeScreen extends ConsumerStatefulWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen>
-    with TickerProviderStateMixin {
-  List<LoggedMeal> _todaysMeals = [];
-  int? _calorieGoal;
-  int _totalCalories = 0;
-  bool _isLoading = true;
+class _HomeScreenState extends State<HomeScreen> {
+  bool _initialLoadDone = false;
   String? _errorMessage;
-  late AnimationController _refreshController;
 
   @override
   void initState() {
     super.initState();
-    _refreshController = AnimationController(
-      duration: const Duration(milliseconds: 1000),
-      vsync: this,
-    );
-    _loadData();
+    _initialLoad();
   }
 
-  @override
-  void dispose() {
-    _refreshController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _loadData() async {
-    setState(() {
-      _isLoading = true;
-      _errorMessage = null;
-    });
-    _refreshController.reset();
-    _refreshController.forward();
-
+  Future<void> _initialLoad() async {
     try {
-      final meals = await SyncService.instance.requestTodaysMeals();
-      final goal = await SyncService.instance.requestCalorieGoal();
+      await SyncService.instance.refreshDashboard();
+    } catch (_) {}
+    if (mounted) setState(() => _initialLoadDone = true);
+  }
 
-      setState(() {
-        _todaysMeals = meals;
-        _calorieGoal = goal;
-        _totalCalories = meals.fold(
-          0,
-          (sum, meal) => sum + meal.meal.macros.calories,
-        );
-        _isLoading = false;
-        _errorMessage = null;
-      });
-      unawaited(HapticFeedback.lightImpact());
+  Future<void> _refresh() async {
+    HapticFeedback.mediumImpact();
+    setState(() => _errorMessage = null);
+    try {
+      await SyncService.instance.refreshDashboard(forceRefresh: true);
+      HapticFeedback.lightImpact();
     } catch (e) {
-      setState(() {
-        _isLoading = false;
-        _errorMessage = 'Failed to load data. Please try again.';
-      });
-      unawaited(HapticFeedback.mediumImpact());
+      if (mounted) setState(() => _errorMessage = 'Could not refresh. Check your phone.');
+      HapticFeedback.mediumImpact();
     }
   }
 
@@ -86,365 +58,474 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
+    // Show skeleton on very first load (no cache yet)
+    final cache = SyncService.instance;
+    final hasCachedData = cache.syncState.value != SyncState.idle ||
+        _initialLoadDone;
+
+    if (!hasCachedData) {
+      return Scaffold(
+        backgroundColor: colorScheme.surface,
+        body: const SafeArea(child: HomeScreenSkeleton()),
+      );
+    }
+
     return Scaffold(
       backgroundColor: colorScheme.surface,
       body: SafeArea(
         minimum: circularWatchPadding,
-        child:
-            _isLoading
-                ? Semantics(
-                  label: 'Loading calorie data',
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        RotationTransition(
-                          turns: _refreshController,
-                          child: Icon(
-                            LucideIcons.loader,
-                            size: 40,
-                            color: colorScheme.primary,
+        child: ValueListenableBuilder<List<LoggedMeal>>(
+          valueListenable: SyncService.instance.todaysMeals,
+          builder: (context, meals, _) {
+            return ValueListenableBuilder<int?>(
+              valueListenable: SyncService.instance.calorieGoal,
+              builder: (context, goal, _) {
+                final totalCalories = meals.fold<int>(
+                  0,
+                  (sum, m) => sum + m.meal.macros.calories,
+                );
+                return RefreshIndicator(
+                  onRefresh: _refresh,
+                  color: colorScheme.primary,
+                  backgroundColor: colorScheme.surface,
+                  child: CarouselScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(
+                      parent: BouncingScrollPhysics(),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    children: [
+                      // Sync status header
+                      _SyncStatusHeader(onRefresh: _refresh),
+                      if (_errorMessage != null)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Text(
+                            _errorMessage!,
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              color: colorScheme.error,
+                              fontSize: 9,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        const SizedBox(height: 12),
-                        Text(
-                          'Syncing...',
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: colorScheme.onSurfaceVariant,
-                            fontSize: 10,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              LucideIcons.watch,
-                              size: 10,
-                              color: colorScheme.onSurfaceVariant.withValues(
-                                alpha: 0.5,
-                              ),
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              'Connecting to phone',
-                              style: theme.textTheme.labelSmall?.copyWith(
-                                color: colorScheme.onSurfaceVariant.withValues(
-                                  alpha: 0.5,
-                                ),
-                                fontSize: 8,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-                : _errorMessage != null
-                ? _ErrorView(message: _errorMessage!, onRetry: _loadData)
-                : CarouselScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
-                  minScale: 0.88,
-                  scaleRange: 0.12,
-                  children: [
-                    // Header with sync status and debug button
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  LucideIcons.check,
-                                  size: 12,
-                                  color: colorScheme.primary.withValues(
-                                    alpha: 0.7,
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                                Flexible(
-                                  child: Text(
-                                    'Synced',
-                                    style: theme.textTheme.labelSmall?.copyWith(
-                                      color: colorScheme.onSurfaceVariant
-                                          .withValues(alpha: 0.6),
-                                      fontSize: 8,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          if (kDebugMode)
-                            GestureDetector(
-                              onTap: () {
-                                HapticFeedback.lightImpact();
-                                context.router.push(const DebugRoute());
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                  color: colorScheme.tertiaryContainer
-                                      .withValues(alpha: 0.5),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  LucideIcons.bug,
-                                  size: 12,
-                                  color: colorScheme.tertiary,
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                    // Calorie Summary
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 14),
-                      child: CalorieSummaryCard(
-                        totalCalories: _totalCalories,
-                        goal: _calorieGoal ?? 2000,
-                      ),
-                    ),
-                    // Macro Chart
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 14),
-                      child: MacroChart(meals: _todaysMeals),
-                    ),
-                    // Calorie Trend Chart
-                    if (_todaysMeals.isNotEmpty)
+                      // Calorie Summary
                       Padding(
                         padding: const EdgeInsets.only(bottom: 14),
-                        child: CalorieTrendChart(meals: _todaysMeals),
-                      ),
-                    // Action Buttons
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 14),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _WatchActionButton(
-                            icon: LucideIcons.mic,
-                            label: 'Log Meal',
-                            onTap:
-                                () => context.router.push(const LogMealRoute()),
-                            delay: 0.0,
-                          ),
-                          const SizedBox(width: 16),
-                          _WatchActionButton(
-                            icon: LucideIcons.history,
-                            label: 'History',
-                            onTap:
-                                () => context.router.push(const HistoryRoute()),
-                            delay: 0.1,
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Today's Meals section
-                    if (_todaysMeals.isNotEmpty) ...[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              LucideIcons.packageOpen,
-                              size: 16,
-                              color: colorScheme.primary,
-                            ),
-                            const SizedBox(width: 6),
-                            Flexible(
-                              child: Text(
-                                'Today\'s Meals',
-                                style: theme.textTheme.titleSmall?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 0.3,
-                                  color: colorScheme.onSurface,
-                                  fontSize: 11,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const SizedBox(width: 6),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 6,
-                                vertical: 2,
-                              ),
-                              decoration: BoxDecoration(
-                                color: colorScheme.primaryContainer.withValues(
-                                  alpha: 0.3,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                '${_todaysMeals.length}',
-                                style: theme.textTheme.labelSmall?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 9,
-                                  color: colorScheme.primary,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
+                        child: CalorieSummaryCard(
+                          totalCalories: totalCalories,
+                          goal: goal ?? 2000,
                         ),
                       ),
-                      ..._todaysMeals
-                          .take(3)
-                          .toList()
-                          .asMap()
-                          .entries
-                          .map(
-                            (entry) => Padding(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: MealListItem(
-                                meal: entry.value,
-                                index: entry.key,
-                              ),
-                            ),
-                          ),
-                      if (_todaysMeals.length > 3)
+                      // Macro Chart
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 14),
+                        child: MacroChart(meals: meals),
+                      ),
+                      // Trend Chart
+                      if (meals.isNotEmpty)
                         Padding(
-                          padding: const EdgeInsets.only(top: 6, bottom: 12),
-                          child: GestureDetector(
-                            onTap: () {
-                              HapticFeedback.lightImpact();
-                              context.router.push(const HistoryRoute());
-                            },
-                            child: Semantics(
-                              label:
-                                  '${_todaysMeals.length - 3} more meals. Tap to view all.',
-                              button: true,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    LucideIcons.arrowRight,
-                                    size: 10,
-                                    color: colorScheme.primary,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Flexible(
-                                    child: Text(
-                                      'View ${_todaysMeals.length - 3} more',
-                                      style: theme.textTheme.labelSmall
-                                          ?.copyWith(
-                                            color: colorScheme.primary,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 9,
-                                          ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ],
+                          padding: const EdgeInsets.only(bottom: 14),
+                          child: CalorieTrendChart(meals: meals),
+                        ),
+                      // Action buttons
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 14),
+                        child: _ActionButtons(),
+                      ),
+                      // Today's meals
+                      if (meals.isNotEmpty) ...[
+                        _MealsSectionHeader(count: meals.length),
+                        ...meals.take(3).toList().asMap().entries.map(
+                              (e) => Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: MealListItem(
+                                  meal: e.value,
+                                  index: e.key,
+                                  onDelete: e.value.hasClientId() && e.value.clientId > 0
+                                      ? () => _deleteMeal(e.value.clientId)
+                                      : null,
+                                ),
                               ),
                             ),
-                          ),
+                        if (meals.length > 3)
+                          _ViewMoreButton(extraCount: meals.length - 3),
+                      ] else
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 12),
+                          child: _EmptyMealsView(),
                         ),
-                    ] else ...[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        child: _EmptyMealsView(),
-                      ),
                     ],
-                  ],
-                ),
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
+
+  Future<void> _deleteMeal(int mealId) async {
+    final ok = await SyncService.instance.deleteMeal(mealId);
+    if (!ok && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Could not delete meal'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
 }
 
-class _ErrorView extends StatelessWidget {
-  final String message;
-  final VoidCallback onRetry;
+// ---------------------------------------------------------------------------
+// Sync status header
+// ---------------------------------------------------------------------------
 
-  const _ErrorView({required this.message, required this.onRetry});
+class _SyncStatusHeader extends StatelessWidget {
+  const _SyncStatusHeader({required this.onRefresh});
+
+  final VoidCallback onRefresh;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return Semantics(
-      label: 'Error: $message. Double tap to retry',
-      button: true,
-      onTap: onRetry,
-      child: Center(
-        child: Padding(
-          padding: circularWatchPadding,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.error_outline, size: 32, color: colorScheme.error),
-              const SizedBox(height: 12),
-              Flexible(
-                child: Text(
-                  message,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                    fontSize: 10,
-                  ),
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                ),
-              ),
-              const SizedBox(height: 16),
-              GestureDetector(
-                onTap: () {
-                  HapticFeedback.mediumImpact();
-                  onRetry();
-                },
-                child: Semantics(
-                  label: 'Retry loading data',
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 10,
-                    ),
-                    constraints: const BoxConstraints(
-                      minWidth: 44,
-                      minHeight: 44,
-                    ),
-                    decoration: BoxDecoration(
-                      color: colorScheme.primaryContainer,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: colorScheme.primary.withValues(alpha: 0.4),
-                        width: 1.5,
-                      ),
-                    ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ValueListenableBuilder<SyncState>(
+            valueListenable: SyncService.instance.syncState,
+            builder: (context, state, _) {
+              return ValueListenableBuilder<DateTime?>(
+                valueListenable: SyncService.instance.lastSyncTime,
+                builder: (context, lastSync, _) {
+                  return Expanded(
                     child: Row(
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          LucideIcons.refreshCw,
-                          size: 14,
-                          color: colorScheme.onPrimaryContainer,
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          'Retry',
-                          style: theme.textTheme.labelMedium?.copyWith(
-                            color: colorScheme.onPrimaryContainer,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 10,
+                        _stateIcon(context, state, colorScheme),
+                        const SizedBox(width: 4),
+                        Flexible(
+                          child: Text(
+                            _stateLabel(state, lastSync),
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              color: colorScheme.onSurfaceVariant
+                                  .withValues(alpha: 0.6),
+                              fontSize: 8,
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ],
                     ),
-                  ),
+                  );
+                },
+              );
+            },
+          ),
+          if (kDebugMode)
+            GestureDetector(
+              onTap: () {
+                HapticFeedback.lightImpact();
+                context.router.push(const DebugRoute());
+              },
+              child: Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: colorScheme.tertiaryContainer.withValues(alpha: 0.5),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  LucideIcons.bug,
+                  size: 12,
+                  color: colorScheme.tertiary,
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _stateIcon(
+    BuildContext context,
+    SyncState state,
+    ColorScheme colorScheme,
+  ) {
+    switch (state) {
+      case SyncState.syncing:
+        return SizedBox(
+          width: 10,
+          height: 10,
+          child: CircularProgressIndicator(
+            strokeWidth: 1.5,
+            color: colorScheme.primary,
+          ),
+        );
+      case SyncState.synced:
+        return Icon(
+          LucideIcons.check,
+          size: 10,
+          color: colorScheme.primary.withValues(alpha: 0.7),
+        );
+      case SyncState.error:
+        return Icon(
+          LucideIcons.circleAlert,
+          size: 10,
+          color: colorScheme.error,
+        );
+      case SyncState.disconnected:
+        return Icon(
+          LucideIcons.wifi,
+          size: 10,
+          color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+        );
+      case SyncState.idle:
+        return Icon(
+          LucideIcons.watch,
+          size: 10,
+          color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+        );
+    }
+  }
+
+  String _stateLabel(SyncState state, DateTime? lastSync) {
+    switch (state) {
+      case SyncState.syncing:
+        return 'Syncing...';
+      case SyncState.synced:
+        if (lastSync != null) {
+          final diff = DateTime.now().difference(lastSync);
+          if (diff.inMinutes < 1) return 'Synced just now';
+          if (diff.inMinutes < 60) return 'Synced ${diff.inMinutes}m ago';
+        }
+        return 'Synced';
+      case SyncState.error:
+        return 'Sync failed';
+      case SyncState.disconnected:
+        return 'Phone disconnected';
+      case SyncState.idle:
+        return 'Tap to sync';
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Action buttons
+// ---------------------------------------------------------------------------
+
+class _ActionButtons extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _ActionBtn(
+              icon: LucideIcons.mic,
+              label: 'Log',
+              color: colorScheme.primary,
+              onTap: () => context.router.push(const LogMealRoute()),
+            ),
+            const SizedBox(width: 16),
+            _ActionBtn(
+              icon: LucideIcons.history,
+              label: 'History',
+              color: colorScheme.secondary,
+              onTap: () => context.router.push(const HistoryRoute()),
+            ),
+            const SizedBox(width: 16),
+            _ActionBtn(
+              icon: LucideIcons.star,
+              label: 'Favorites',
+              color: colorScheme.tertiary,
+              onTap: () => context.router.push(const FavoritesRoute()),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _ActionBtn extends StatefulWidget {
+  const _ActionBtn({
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final Color color;
+  final VoidCallback onTap;
+
+  @override
+  State<_ActionBtn> createState() => _ActionBtnState();
+}
+
+class _ActionBtnState extends State<_ActionBtn> {
+  bool _pressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Semantics(
+      label: '${widget.label} button',
+      button: true,
+      child: GestureDetector(
+        onTapDown: (_) {
+          setState(() => _pressed = true);
+          HapticFeedback.lightImpact();
+        },
+        onTapUp: (_) {
+          setState(() => _pressed = false);
+          HapticFeedback.mediumImpact();
+          widget.onTap();
+        },
+        onTapCancel: () => setState(() => _pressed = false),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 120),
+              width: 46,
+              height: 46,
+              decoration: BoxDecoration(
+                color: _pressed
+                    ? widget.color.withValues(alpha: 0.7)
+                    : widget.color,
+                shape: BoxShape.circle,
+                boxShadow: _pressed
+                    ? []
+                    : [
+                        BoxShadow(
+                          color: widget.color.withValues(alpha: 0.25),
+                          blurRadius: 8,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+              ),
+              child: AnimatedScale(
+                scale: _pressed ? 0.92 : 1.0,
+                duration: const Duration(milliseconds: 100),
+                child: Icon(
+                  widget.icon,
+                  size: 20,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              widget.label,
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                fontSize: 8,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Meals section
+// ---------------------------------------------------------------------------
+
+class _MealsSectionHeader extends StatelessWidget {
+  const _MealsSectionHeader({required this.count});
+  final int count;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(LucideIcons.packageOpen, size: 14, color: colorScheme.primary),
+          const SizedBox(width: 6),
+          Flexible(
+            child: Text(
+              "Today's Meals",
+              style: theme.textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.3,
+                color: colorScheme.onSurface,
+                fontSize: 11,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          const SizedBox(width: 6),
+          Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            decoration: BoxDecoration(
+              color: colorScheme.primaryContainer.withValues(alpha: 0.3),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              '$count',
+              style: theme.textTheme.labelSmall?.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 9,
+                color: colorScheme.primary,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ViewMoreButton extends StatelessWidget {
+  const _ViewMoreButton({required this.extraCount});
+  final int extraCount;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    return Padding(
+      padding: const EdgeInsets.only(top: 4, bottom: 12),
+      child: GestureDetector(
+        onTap: () {
+          HapticFeedback.lightImpact();
+          context.router.push(const HistoryRoute());
+        },
+        child: Semantics(
+          label: '$extraCount more meals, tap to view all',
+          button: true,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(LucideIcons.arrowRight, size: 10, color: colorScheme.primary),
+              const SizedBox(width: 4),
+              Text(
+                'View $extraCount more',
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: colorScheme.primary,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 9,
                 ),
               ),
             ],
@@ -455,142 +536,13 @@ class _ErrorView extends StatelessWidget {
   }
 }
 
-class _WatchActionButton extends StatefulWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-  final double delay;
-
-  const _WatchActionButton({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-    this.delay = 0.0,
-  });
-
-  @override
-  State<_WatchActionButton> createState() => _WatchActionButtonState();
-}
-
-class _WatchActionButtonState extends State<_WatchActionButton>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _scaleAnimation;
-  late Animation<double> _fadeAnimation;
-  bool _isPressed = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 600),
-      vsync: this,
-    );
-
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Interval(
-          widget.delay,
-          0.8 + widget.delay,
-          curve: Curves.easeOut,
-        ),
-      ),
-    );
-
-    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Interval(
-          widget.delay,
-          0.8 + widget.delay,
-          curve: Curves.easeOutBack,
-        ),
-      ),
-    );
-
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
-    return Semantics(
-      label: '${widget.label} button',
-      button: true,
-      onTap: () {
-        HapticFeedback.mediumImpact();
-        widget.onTap();
-      },
-      child: FadeTransition(
-        opacity: _fadeAnimation,
-        child: ScaleTransition(
-          scale: _scaleAnimation,
-          child: GestureDetector(
-            onTapDown: (_) {
-              setState(() => _isPressed = true);
-              HapticFeedback.lightImpact();
-            },
-            onTapUp: (_) {
-              setState(() => _isPressed = false);
-              HapticFeedback.mediumImpact();
-              widget.onTap();
-            },
-            onTapCancel: () => setState(() => _isPressed = false),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeOutCubic,
-              width: 52,
-              height: 52,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors:
-                      _isPressed
-                          ? [
-                            colorScheme.primary.withValues(alpha: 0.85),
-                            colorScheme.primaryContainer.withValues(alpha: 0.9),
-                          ]
-                          : [colorScheme.primary, colorScheme.primaryContainer],
-                ),
-                shape: BoxShape.circle,
-                boxShadow:
-                    _isPressed
-                        ? []
-                        : [
-                          BoxShadow(
-                            color: colorScheme.primary.withValues(alpha: 0.3),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                            spreadRadius: 0,
-                          ),
-                        ],
-              ),
-              transform: Matrix4.identity()..scale(_isPressed ? 0.92 : 1.0),
-              child: Icon(widget.icon, size: 22, color: colorScheme.onPrimary),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class _EmptyMealsView extends StatelessWidget {
+  const _EmptyMealsView();
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-
     return Semantics(
       label: 'No meals logged today',
       child: Padding(
@@ -600,8 +552,8 @@ class _EmptyMealsView extends StatelessWidget {
           children: [
             Icon(
               LucideIcons.listChecks,
-              size: 32,
-              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+              size: 28,
+              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
             ),
             const SizedBox(height: 8),
             Text(
@@ -624,7 +576,7 @@ class _EmptyMealsView extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  'Tap "Log Meal" to start',
+                  'Tap Log to start',
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: colorScheme.primary.withValues(alpha: 0.7),
                     fontSize: 8,
