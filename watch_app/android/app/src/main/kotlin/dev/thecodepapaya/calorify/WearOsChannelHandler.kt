@@ -9,6 +9,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import java.util.concurrent.ConcurrentHashMap
 
 class WearOsChannelHandler(
     private val context: android.content.Context,
@@ -22,6 +23,7 @@ class WearOsChannelHandler(
     private var wearableDataClient: DataClient? = null
     private var wearableMessageClient: MessageClient? = null
     private var eventSink: EventChannel.EventSink? = null
+    private val pendingResponses = ConcurrentHashMap<String, CompletableDeferred<Map<String, Any>?>>()
     
     private val TAG = "WearOsChannelHandler"
 
@@ -129,6 +131,9 @@ class WearOsChannelHandler(
 
             val jsonData = JSONObject(data).toString()
             val payload = jsonData.toByteArray(StandardCharsets.UTF_8)
+            val responsePath = "/calorify_phone$path"
+            val responseDeferred = CompletableDeferred<Map<String, Any>?>()
+            pendingResponses[responsePath] = responseDeferred
             
             // Use MessageClient for request-response pattern
             val messagePath = "/calorify_watch$path"
@@ -142,26 +147,23 @@ class WearOsChannelHandler(
                 )?.await()
                 
                 Log.d(TAG, "Message sent successfully to phone: $messagePath")
-                
-                // Wait for response via DataClient
-                val response = waitForResponse(messagePath)
-                return@withContext response ?: mapOf("success" to true)
+
+                val response = withTimeoutOrNull(5000) {
+                    responseDeferred.await()
+                }
+
+                return@withContext response
+                    ?: mapOf("success" to false, "error" to "Response timed out")
             } catch (e: Exception) {
                 Log.e(TAG, "Failed to send message", e)
                 return@withContext mapOf("success" to false, "error" to (e.message ?: "Unknown error"))
+            } finally {
+                pendingResponses.remove(responsePath)
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error sending message", e)
             return@withContext mapOf("success" to false, "error" to (e.message ?: "Unknown error"))
         }
-    }
-
-    private suspend fun waitForResponse(path: String): Map<String, Any>? {
-        // Wait up to 5 seconds for a response via message
-        // For simplicity, we'll use a timeout and return null if no response
-        // In production, you might want to implement a proper response handler
-        delay(1000) // Wait 1 second for response
-        return null // Response will come via onMessageReceived
     }
 
     private suspend fun getConnectedNodes(): List<Node> {
@@ -198,6 +200,7 @@ class WearOsChannelHandler(
                     message.putAll(payloadMap)
 
                     Log.d(TAG, "Received message from phone: path=$logicalPath, data=$payloadMap")
+                    pendingResponses.remove(messageEvent.path)?.complete(payloadMap)
                     eventSink?.success(message)
                 } catch (e: Exception) {
                     Log.e(TAG, "Error parsing message", e)

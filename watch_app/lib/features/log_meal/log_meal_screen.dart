@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/router/app_router.dart';
-import 'package:calorify_watch/core/services/sync_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -20,155 +20,83 @@ class LogMealScreen extends StatefulWidget {
 
 class _LogMealScreenState extends State<LogMealScreen>
     with TickerProviderStateMixin {
-  final stt.SpeechToText _speech = stt.SpeechToText();
+  final _speech = stt.SpeechToText();
   bool _isListening = false;
   bool _isProcessing = false;
-  String _transcribedText = '';
-  String? _errorMessage;
-  late AnimationController _buttonAnimationController;
-  late Animation<double> _buttonSizeAnimation;
-  late Animation<Offset> _buttonPositionAnimation;
-  Timer? _amplitudeTimer;
-  List<double> _audioLevels = List.filled(5, 0.0);
+  String _transcript = '';
+  String? _error;
+
+  // Waveform
+  Timer? _waveTimer;
+  List<double> _levels = List.filled(5, 0.0);
+
+  // Auto-stop countdown
+  static const _listenTimeout = 15;
+  Timer? _countdownTimer;
+  int _secondsLeft = _listenTimeout;
 
   @override
   void initState() {
     super.initState();
-    _buttonAnimationController = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-
-    _buttonSizeAnimation = Tween<double>(begin: 48.0, end: 32.0).animate(
-      CurvedAnimation(
-        parent: _buttonAnimationController,
-        curve: Curves.easeInOut,
-      ),
-    );
-
-    _buttonPositionAnimation = Tween<Offset>(
-      begin: const Offset(0, 0),
-      end: const Offset(0, 0.3),
-    ).animate(
-      CurvedAnimation(
-        parent: _buttonAnimationController,
-        curve: Curves.easeInOut,
-      ),
-    );
-
-    _initializeSpeech();
+    _initSpeech();
   }
 
   @override
   void dispose() {
     _speech.cancel();
-    _amplitudeTimer?.cancel();
-    _buttonAnimationController.dispose();
+    _waveTimer?.cancel();
+    _countdownTimer?.cancel();
     super.dispose();
   }
 
-  Future<void> _initializeSpeech() async {
-    final available = await _speech.initialize();
-    if (!available) {
-      setState(() {
-        _errorMessage = 'Speech recognition is not available on this device.';
-      });
-      unawaited(HapticFeedback.heavyImpact());
+  Future<void> _initSpeech() async {
+    final ok = await _speech.initialize();
+    if (!ok && mounted) {
+      setState(() => _error = 'Speech recognition unavailable on this device.');
+      HapticFeedback.heavyImpact();
     }
   }
 
   Future<void> _toggleRecording() async {
-    if (_isListening) {
-      await _stopListening();
-    } else {
-      await _startListening();
-    }
+    _isListening ? await _stopListening() : await _startListening();
   }
 
   Future<void> _startListening() async {
     if (!await _speech.initialize()) {
-      setState(() {
-        _errorMessage = 'Speech recognition is not available on this device.';
-      });
-      unawaited(HapticFeedback.heavyImpact());
+      setState(() => _error = 'Speech recognition unavailable.');
+      HapticFeedback.heavyImpact();
       return;
     }
 
-    unawaited(HapticFeedback.mediumImpact());
+    HapticFeedback.mediumImpact();
     setState(() {
       _isListening = true;
-      _transcribedText = '';
-      _errorMessage = null;
-      _audioLevels = List.filled(5, 0.0);
+      _transcript = '';
+      _error = null;
+      _levels = List.filled(5, 0.0);
+      _secondsLeft = _listenTimeout;
     });
 
-    // Auto-stop after 8 seconds if user hasn't stopped manually
-    Timer(const Duration(seconds: 8), () {
-      if (mounted && _isListening) {
-        debugPrint('Auto-stopping after 8 seconds');
-        _stopListening();
-      }
-    });
+    _startCountdown();
+    _startWaveform();
 
     try {
-      debugPrint('Starting speech recognition...');
-      debugPrint(
-        'Speech recognition initialized: ${await _speech.initialize()}',
-      );
-      debugPrint(
-        'Speech recognition isListening before: ${_speech.isListening}',
-      );
-
-      final listenResult = await _speech.listen(
-        onResult: (result) {
-          debugPrint('=== onResult callback triggered ===');
-          debugPrint('Recognized words: "${result.recognizedWords}"');
-          debugPrint('Final result: ${result.finalResult}');
-          debugPrint('Has words: ${result.recognizedWords.isNotEmpty}');
-
-          if (!mounted) {
-            debugPrint('Widget not mounted, ignoring result');
-            return;
-          }
-
+      await _speech.listen(
+        onResult: (r) {
+          if (!mounted) return;
           setState(() {
-            _transcribedText = result.recognizedWords;
-            debugPrint(
-              'Transcript updated in state: "$_transcribedText" (final: ${result.finalResult})',
-            );
-
-            // Boost waveform when speech is detected
-            if (result.recognizedWords.isNotEmpty && mounted) {
-              // Increase waveform levels when speech is detected
-              final boost =
-                  0.3 +
-                  (0.4 *
-                      (result.recognizedWords.length / 50.0).clamp(0.0, 1.0));
-              for (int i = 0; i < 5; i++) {
-                final currentLevel = _audioLevels[i];
-                _audioLevels[i] = (currentLevel * 0.7) + (boost * 0.3);
+            _transcript = r.recognizedWords;
+            if (_transcript.isNotEmpty) {
+              final boost = 0.3 +
+                  0.4 * (_transcript.length / 50.0).clamp(0.0, 1.0);
+              for (var i = 0; i < 5; i++) {
+                _levels[i] = (_levels[i] * 0.7 + boost * 0.3).clamp(0.0, 1.0);
               }
-            }
-
-            // Animate button when transcript appears
-            if (_transcribedText.isNotEmpty &&
-                !_buttonAnimationController.isCompleted) {
-              _buttonAnimationController.forward();
-            } else if (_transcribedText.isEmpty &&
-                _buttonAnimationController.isCompleted) {
-              _buttonAnimationController.reverse();
-            }
-            // Don't auto-process on finalResult - wait for user to tap stop
-            // Only auto-stop if we've been listening for 8+ seconds
-            if (result.finalResult) {
-              debugPrint('Final result received, but waiting for user to stop');
-              // Keep listening until user taps stop or 8 seconds pass
             }
           });
         },
-        listenFor: const Duration(seconds: 5),
-        // Don't auto-stop on pause, wait for user
-        pauseFor: const Duration(seconds: 2),
+        listenFor: const Duration(seconds: _listenTimeout),
+        pauseFor: const Duration(seconds: 4),
         listenOptions: stt.SpeechListenOptions(
           listenMode: stt.ListenMode.dictation,
           cancelOnError: false,
@@ -178,118 +106,83 @@ class _LogMealScreenState extends State<LogMealScreen>
         ),
         localeId: 'en_US',
       );
-      debugPrint(
-        'Speech recognition listen() completed. Returned: $listenResult',
-      );
-      debugPrint(
-        'Speech recognition isListening property: ${_speech.isListening}',
-      );
-
-      // Check if listening actually started (listen() can return null, true, or false)
-      final isActuallyListening = listenResult ?? _speech.isListening;
-      if (!isActuallyListening) {
-        debugPrint(
-          'WARNING: Speech recognition did not start - listen() returned: $listenResult, isListening: ${_speech.isListening}',
-        );
-        if (mounted) {
-          setState(() {
-            _isListening = false;
-            _errorMessage =
-                'Failed to start listening. Please check microphone permissions.';
-          });
-          _stopSimulatedWaveform();
-          return;
-        }
-      } else {
-        debugPrint('Speech recognition is active and listening');
-      }
-
-      // Don't start audio level monitoring - it conflicts with speech recognition
-      // Instead, use a simulated waveform that shows activity
-      _startSimulatedWaveform();
     } catch (e) {
       if (!mounted) return;
-      debugPrint('Error starting speech recognition: $e');
-      _stopSimulatedWaveform();
+      _stopWaveform();
+      _countdownTimer?.cancel();
       setState(() {
         _isListening = false;
-        _errorMessage = 'Failed to start recording: $e';
+        _error = 'Could not start recording. Check microphone permissions.';
       });
-      unawaited(HapticFeedback.heavyImpact());
+      HapticFeedback.heavyImpact();
     }
   }
 
-  Future<void> _stopListening() async {
-    try {
-      await _speech.stop();
-    } catch (e) {
-      debugPrint('Error stopping speech recognition: $e');
-    }
-
-    if (!mounted) return;
-    _stopSimulatedWaveform();
-    setState(() {
-      _isListening = false;
-      _buttonAnimationController.reverse();
-      if (_transcribedText.isEmpty) {
-        HapticFeedback.mediumImpact();
-        setState(() {
-          _errorMessage = 'No speech detected. Please try again.';
-        });
-      } else {
-        _isProcessing = true;
-        _processMealDescription(_transcribedText);
+  void _startCountdown() {
+    _countdownTimer?.cancel();
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (t) {
+      if (!mounted || !_isListening) {
+        t.cancel();
+        return;
+      }
+      setState(() => _secondsLeft--);
+      if (_secondsLeft <= 0) {
+        t.cancel();
+        if (_isListening) _stopListening();
       }
     });
   }
 
-  void _startSimulatedWaveform() {
-    // Use a timer to animate the waveform while listening
-    _amplitudeTimer?.cancel();
-    _amplitudeTimer = Timer.periodic(const Duration(milliseconds: 150), (
-      timer,
-    ) {
-      if (!_isListening || !mounted) {
-        timer.cancel();
-        return;
-      }
-
-      // Create animated waveform pattern
-      final time = DateTime.now().millisecondsSinceEpoch * 0.003;
+  void _startWaveform() {
+    _waveTimer?.cancel();
+    _waveTimer = Timer.periodic(const Duration(milliseconds: 150), (_) {
+      if (!_isListening || !mounted) return;
+      final t = DateTime.now().millisecondsSinceEpoch * 0.003;
       setState(() {
-        for (int i = 0; i < 5; i++) {
-          final phase = (time + i * 0.3) % (2 * 3.14159);
-          final level =
-              0.3 +
-              (0.7 *
+        for (var i = 0; i < 5; i++) {
+          final phase = (t + i * 0.3) % (2 * 3.14159);
+          _levels[i] = 0.3 +
+              0.7 *
                   (0.5 +
                       0.5 *
                           (phase < 3.14159
                               ? phase / 3.14159
-                              : (6.28318 - phase) / 3.14159)));
-          _audioLevels[i] = level;
+                              : (6.28318 - phase) / 3.14159));
         }
       });
     });
   }
 
-  void _stopSimulatedWaveform() {
-    _amplitudeTimer?.cancel();
-    _amplitudeTimer = null;
-    if (mounted) {
-      setState(() {
-        _audioLevels = List.filled(5, 0.0);
-      });
+  void _stopWaveform() {
+    _waveTimer?.cancel();
+    _waveTimer = null;
+    if (mounted) setState(() => _levels = List.filled(5, 0.0));
+  }
+
+  Future<void> _stopListening() async {
+    _countdownTimer?.cancel();
+    _stopWaveform();
+    try {
+      await _speech.stop();
+    } catch (_) {}
+    if (!mounted) return;
+    setState(() => _isListening = false);
+
+    if (_transcript.isEmpty) {
+      setState(() => _error = 'No speech detected. Tap the mic to try again.');
+      HapticFeedback.mediumImpact();
+    } else {
+      setState(() => _isProcessing = true);
+      await _processMeal(_transcript);
     }
   }
 
-  Future<void> _processMealDescription(String description) async {
-    if (description.isEmpty) {
+  Future<void> _processMeal(String description) async {
+    if (description.trim().isEmpty) {
       setState(() {
         _isProcessing = false;
-        _errorMessage = 'Please dictate a meal description.';
+        _error = 'Please describe a meal.';
       });
-      unawaited(HapticFeedback.mediumImpact());
       return;
     }
 
@@ -298,33 +191,28 @@ class _LogMealScreenState extends State<LogMealScreen>
         description: description,
       );
 
+      if (!mounted) return;
+
       if (result.mealIdentified) {
-        // Send to phone in background
-        SyncService.instance.sendMeal(result.meal);
-
-        setState(() {
-          _isProcessing = false;
-          _errorMessage = null;
-        });
-        unawaited(HapticFeedback.heavyImpact());
-
-        // Navigate to result screen
-        if (mounted) {
-          await context.router.push(MealResultRoute(result: result));
-        }
+        setState(() => _isProcessing = false);
+        HapticFeedback.heavyImpact();
+        // Navigate to result — meal is NOT sent until user confirms there
+        await context.router.push(MealResultRoute(result: result));
       } else {
         setState(() {
           _isProcessing = false;
-          _errorMessage = 'AI could not identify the meal.';
+          _error = "Couldn't identify that meal. Try describing it differently.";
         });
-        unawaited(HapticFeedback.mediumImpact());
+        HapticFeedback.mediumImpact();
       }
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         _isProcessing = false;
-        _errorMessage = 'An error occurred: $e';
+        _error = 'Analysis failed. Please try again.';
       });
-      unawaited(HapticFeedback.heavyImpact());
+      if (kDebugMode) debugPrint('Meal analysis error: $e');
+      HapticFeedback.heavyImpact();
     }
   }
 
@@ -332,207 +220,223 @@ class _LogMealScreenState extends State<LogMealScreen>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final isListeningWithLayout = _isListening;
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
       body: SafeArea(
-        child:
-            isListeningWithLayout
-                ? Column(
+        child: _isProcessing
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Transcript area (top 70%)
-                    Expanded(
-                      flex: 7,
-                      child: Column(
-                        children: [
-                          // Sound meter bar
-                          _buildSoundMeter(theme, colorScheme),
-                          // Transcript text
-                          Expanded(
-                            child: Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(16),
-                              child:
-                                  _transcribedText.isEmpty
-                                      ? Center(
-                                        child: Text(
-                                          'Listening...',
-                                          style: theme.textTheme.bodyMedium
-                                              ?.copyWith(
-                                                fontSize: 12,
-                                                color: colorScheme
-                                                    .onSurfaceVariant
-                                                    .withValues(alpha: 0.6),
-                                              ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      )
-                                      : SingleChildScrollView(
-                                        child: Text(
-                                          _transcribedText,
-                                          style: theme.textTheme.bodyMedium
-                                              ?.copyWith(
-                                                fontSize: 12,
-                                                color: colorScheme.onSurface,
-                                              ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                            ),
-                          ),
-                        ],
+                    const AppLoader(size: 36),
+                    const SizedBox(height: 14),
+                    Text(
+                      'Identifying meal…',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        fontSize: 11,
+                        color: colorScheme.onSurfaceVariant,
                       ),
-                    ),
-                    // Bottom area with stop button (bottom 30%)
-                    Expanded(
-                      flex: 3,
-                      child: Center(
-                        child: SlideTransition(
-                          position: _buttonPositionAnimation,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: GestureDetector(
-                              onTap: _toggleRecording,
-                              child: Container(
-                                width: 32,
-                                height: 32,
-                                decoration: BoxDecoration(
-                                  color: colorScheme.error,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  LucideIcons.square,
-                                  size: 14,
-                                  color: colorScheme.onError,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ],
-                )
-                : _isProcessing
-                ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const AppLoader(size: 40),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Identifying meal...',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          fontSize: 12,
-                          color: colorScheme.onSurfaceVariant.withValues(
-                            alpha: 0.8,
-                          ),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                )
-                : Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Sound meter bar (when listening)
-                      if (_isListening) ...[
-                        _buildSoundMeter(theme, colorScheme),
-                        const SizedBox(height: 16),
-                      ],
-                      // Recording button (centered when no transcript)
-                      AnimatedBuilder(
-                        animation: _buttonAnimationController,
-                        builder: (context, child) {
-                          return GestureDetector(
-                            onTap: _toggleRecording,
-                            child: Container(
-                              width: _buttonSizeAnimation.value,
-                              height: _buttonSizeAnimation.value,
-                              decoration: BoxDecoration(
-                                color:
-                                    _isListening
-                                        ? colorScheme.error
-                                        : colorScheme.primary,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                _isListening
-                                    ? LucideIcons.square
-                                    : LucideIcons.mic,
-                                size: _buttonSizeAnimation.value * 0.42,
-                                color:
-                                    _isListening
-                                        ? colorScheme.onError
-                                        : colorScheme.onPrimary,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                      // Hint text below button
-                      if (!_isListening && _errorMessage == null) ...[
-                        const SizedBox(height: 12),
-                        Text(
-                          'Tap to start recording',
-                          style: theme.textTheme.labelSmall?.copyWith(
-                            color: colorScheme.onSurfaceVariant.withValues(
-                              alpha: 0.6,
-                            ),
-                            fontSize: 10,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                      // Error message
-                      if (_errorMessage != null) ...[
-                        const SizedBox(height: 16),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Text(
-                            _errorMessage!,
-                            style: theme.textTheme.labelSmall?.copyWith(
-                              color: colorScheme.error,
-                              fontSize: 9,
-                            ),
-                            textAlign: TextAlign.center,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
                 ),
+              )
+            : _isListening
+                ? _ListeningView(
+                    transcript: _transcript,
+                    levels: _levels,
+                    secondsLeft: _secondsLeft,
+                    onStop: _stopListening,
+                  )
+                : _IdleView(
+                    error: _error,
+                    onTap: _toggleRecording,
+                  ),
       ),
     );
   }
+}
 
-  Widget _buildSoundMeter(ThemeData theme, ColorScheme colorScheme) {
-    return Container(
-      height: 24,
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: List.generate(5, (index) {
-          // Use real audio levels
-          final level = _audioLevels[index];
-          final height = 4.0 + (16.0 * level);
+// ── Listening layout ──────────────────────────────────────────────────────────
 
-          return Container(
-            width: 3,
-            height: height,
-            margin: const EdgeInsets.symmetric(horizontal: 2),
-            decoration: BoxDecoration(
-              color: colorScheme.error.withValues(alpha: 0.6 + (0.4 * level)),
-              borderRadius: BorderRadius.circular(1.5),
+class _ListeningView extends StatelessWidget {
+  const _ListeningView({
+    required this.transcript,
+    required this.levels,
+    required this.secondsLeft,
+    required this.onStop,
+  });
+  final String transcript;
+  final List<double> levels;
+  final int secondsLeft;
+  final VoidCallback onStop;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Column(
+      children: [
+        // Waveform + timer
+        Container(
+          height: 32,
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ...List.generate(5, (i) {
+                final h = 4.0 + 18.0 * levels[i];
+                return Container(
+                  width: 3,
+                  height: h,
+                  margin: const EdgeInsets.symmetric(horizontal: 2),
+                  decoration: BoxDecoration(
+                    color: colorScheme.error
+                        .withValues(alpha: 0.5 + 0.5 * levels[i]),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                );
+              }),
+              const SizedBox(width: 10),
+              Text(
+                '${secondsLeft}s',
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+                  fontSize: 9,
+                ),
+              ),
+            ],
+          ),
+        ),
+        // Transcript
+        Expanded(
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: transcript.isEmpty
+                ? Center(
+                    child: Text(
+                      'Listening…',
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        fontSize: 12,
+                        color: colorScheme.onSurfaceVariant
+                            .withValues(alpha: 0.55),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                : SingleChildScrollView(
+                    child: Text(
+                      transcript,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        fontSize: 12,
+                        color: colorScheme.onSurface,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+          ),
+        ),
+        // Stop button
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Semantics(
+            label: 'Stop recording',
+            button: true,
+            child: GestureDetector(
+              onTap: onStop,
+              child: Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: colorScheme.error,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: colorScheme.error.withValues(alpha: 0.35),
+                      blurRadius: 10,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child:
+                    Icon(LucideIcons.square, size: 16, color: colorScheme.onError),
+              ),
             ),
-          );
-        }),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// ── Idle layout ───────────────────────────────────────────────────────────────
+
+class _IdleView extends StatelessWidget {
+  const _IdleView({required this.error, required this.onTap});
+  final String? error;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Semantics(
+            label: 'Tap to start recording',
+            button: true,
+            child: GestureDetector(
+              onTap: onTap,
+              child: Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  color: colorScheme.primary,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: colorScheme.primary.withValues(alpha: 0.3),
+                      blurRadius: 14,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Icon(LucideIcons.mic,
+                    size: 26, color: colorScheme.onPrimary),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            error == null ? 'Tap to record' : '',
+            style: theme.textTheme.labelSmall?.copyWith(
+              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+              fontSize: 10,
+            ),
+          ),
+          if (error != null) ...[
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                error!,
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: colorScheme.error,
+                  fontSize: 9,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 4,
+              ),
+            ),
+          ],
+        ],
       ),
     );
   }

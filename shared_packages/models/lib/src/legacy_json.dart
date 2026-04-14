@@ -53,6 +53,7 @@ LoggedMeal mealInfoFromLegacyJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> mealInfoToLegacyJson(LoggedMeal loggedMeal) {
   final json = <String, dynamic>{
+    'client_id': loggedMeal.hasClientId() ? loggedMeal.clientId : 0,
     'meal_name': loggedMeal.meal.name,
     'meal_quantity': loggedMeal.meal.quantity,
     'meal_type': loggedMeal.meal.type.legacyName,
@@ -61,6 +62,10 @@ Map<String, dynamic> mealInfoToLegacyJson(LoggedMeal loggedMeal) {
     'carbs': loggedMeal.meal.macros.carbs,
     'fat': loggedMeal.meal.macros.fat,
     'fiber': loggedMeal.meal.macros.fiber,
+    'timestamp':
+        loggedMeal.hasCreatedAt()
+            ? loggedMeal.createdAt
+            : dateTimeToIso8601String(DateTime.now()),
   };
 
   if (loggedMeal.hasMetadata() && loggedMeal.metadata.hasImageUrl()) {
@@ -73,6 +78,30 @@ Map<String, dynamic> mealInfoToLegacyJson(LoggedMeal loggedMeal) {
     json['health_score_reason'] = loggedMeal.meal.health.healthScoreReason;
   }
   return json;
+}
+
+FavoriteMeal favoriteMealFromLegacyJson(Map<String, dynamic> json) {
+  final normalized = Map<String, dynamic>.from(json);
+  final mealInfo = normalized['meal_info'];
+
+  return FavoriteMeal(
+    clientId: normalized['client_id'] as int? ?? 0,
+    loggedMeal:
+        mealInfo is Map<String, dynamic>
+            ? mealInfoFromLegacyJson(mealInfo)
+            : mealInfoFromLegacyJson(normalized),
+    favoriteAt: normalized['favorite_at'] as String? ?? '',
+    lastUsedAt: normalized['last_used_at'] as String? ?? '',
+  );
+}
+
+Map<String, dynamic> favoriteMealToLegacyJson(FavoriteMeal favoriteMeal) {
+  return {
+    'client_id': favoriteMeal.hasClientId() ? favoriteMeal.clientId : 0,
+    'favorite_at': favoriteMeal.favoriteAt,
+    'last_used_at': favoriteMeal.lastUsedAt,
+    'meal_info': mealInfoToLegacyJson(favoriteMeal.loggedMeal),
+  };
 }
 
 MealDetectionResult mealDetectionResultFromLegacyJson(

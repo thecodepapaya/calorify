@@ -70,12 +70,16 @@ class WearOsService {
       switch (path) {
         case '/meal':
           return await _handleMealLog(data);
+        case '/meal/delete':
+          return await _handleDeleteMeal(data);
         case '/meals/today':
           return await _handleGetTodaysMeals();
         case '/calorie_goal':
           return await _handleGetCalorieGoal();
         case '/user_profile':
           return await _handleGetUserProfile();
+        case '/favorites':
+          return await _handleGetFavoriteMeals();
         default:
           debugPrint('Unknown message path: $path');
           return {'success': false, 'error': 'Unknown path'};
@@ -90,9 +94,36 @@ class WearOsService {
     try {
       final meal = mealInfoFromLegacyJson(data);
       await DatabaseService.databaseInterface.logMeal(meal.meal);
+      final favoriteMealId = data['favorite_meal_id'];
+      if (favoriteMealId is int && favoriteMealId > 0) {
+        await DatabaseService.databaseInterface.updateFavoriteLastUsedAt(
+          favoriteMealId,
+        );
+      } else if (favoriteMealId is num && favoriteMealId > 0) {
+        await DatabaseService.databaseInterface.updateFavoriteLastUsedAt(
+          favoriteMealId.toInt(),
+        );
+      }
       return {'success': true};
     } catch (e) {
       debugPrint('Error logging meal from watch: $e');
+      return {'success': false, 'error': e.toString()};
+    }
+  }
+
+  Future<Map<String, dynamic>> _handleDeleteMeal(
+    Map<String, dynamic> data,
+  ) async {
+    try {
+      final mealId = data['meal_id'];
+      if (mealId is! num) {
+        return {'success': false, 'error': 'Invalid meal id'};
+      }
+
+      await DatabaseService.databaseInterface.deleteMeal(mealId.toInt());
+      return {'success': true};
+    } catch (e) {
+      debugPrint('Error deleting meal from watch: $e');
       return {'success': false, 'error': e.toString()};
     }
   }
@@ -137,6 +168,23 @@ class WearOsService {
       return {'success': false, 'error': 'Profile not found'};
     } catch (e) {
       debugPrint('Error getting user profile: $e');
+      return {'success': false, 'error': e.toString()};
+    }
+  }
+
+  Future<Map<String, dynamic>> _handleGetFavoriteMeals() async {
+    try {
+      final favorites = await DatabaseService.databaseInterface
+          .watchLastUsedFavoriteMeals()
+          .first
+          .timeout(const Duration(seconds: 5));
+
+      return {
+        'success': true,
+        'favorites': favorites.map(favoriteMealToLegacyJson).toList(),
+      };
+    } catch (e) {
+      debugPrint('Error getting favorite meals: $e');
       return {'success': false, 'error': e.toString()};
     }
   }

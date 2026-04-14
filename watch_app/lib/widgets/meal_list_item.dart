@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -8,10 +6,18 @@ import 'package:models/models.dart';
 import 'package:specs/specs.dart';
 
 class MealListItem extends StatefulWidget {
+  const MealListItem({
+    super.key,
+    required this.meal,
+    this.index = 0,
+    this.onDelete,
+  });
+
   final LoggedMeal meal;
   final int index;
 
-  const MealListItem({super.key, required this.meal, this.index = 0});
+  /// Called when the user confirms deletion. If null, deletion UI is hidden.
+  final VoidCallback? onDelete;
 
   @override
   State<MealListItem> createState() => _MealListItemState();
@@ -21,43 +27,19 @@ class _MealListItemState extends State<MealListItem>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
-  late Animation<Offset> _slideAnimation;
-  late Animation<double> _scaleAnimation;
   bool _isPressed = false;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-
-    final delay = widget.index * 0.1;
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Interval(delay, 0.8 + delay, curve: Curves.easeOut),
-      ),
+    _fadeAnimation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOut,
     );
-
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(-0.15, 0),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Interval(delay, 0.8 + delay, curve: Curves.easeOutCubic),
-      ),
-    );
-
-    _scaleAnimation = Tween<double>(begin: 0.9, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Interval(delay, 0.8 + delay, curve: Curves.easeOutBack),
-      ),
-    );
-
     _controller.forward();
   }
 
@@ -67,76 +49,211 @@ class _MealListItemState extends State<MealListItem>
     super.dispose();
   }
 
-  String _formatTimestamp(DateTime? dateTime) {
-    if (dateTime == null) return '--:--';
-    return DateFormat('HH:mm').format(dateTime);
+  String _formatTime(DateTime? dt) =>
+      dt != null ? DateFormat('HH:mm').format(dt) : '--:--';
+
+  void _showDeleteConfirm(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    HapticFeedback.mediumImpact();
+    showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        backgroundColor: colorScheme.surface,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(LucideIcons.trash2, size: 28, color: colorScheme.error),
+            const SizedBox(height: 10),
+            Text(
+              'Delete meal?',
+              style: theme.textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 13,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              widget.meal.meal.name,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+                fontSize: 10,
+              ),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(
+              'Cancel',
+              style: theme.textTheme.labelMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(true);
+              HapticFeedback.heavyImpact();
+              widget.onDelete?.call();
+            },
+            child: Text(
+              'Delete',
+              style: theme.textTheme.labelMedium?.copyWith(
+                color: colorScheme.error,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final mealName = widget.meal.meal.name;
-    final calories = widget.meal.meal.macros.calories;
-    final timestamp = _formatTimestamp(widget.meal.dateTime);
-    final protein = widget.meal.meal.macros.protein;
-    final carbs = widget.meal.meal.macros.carbs;
-    final fat = widget.meal.meal.macros.fat;
+    final meal = widget.meal.meal;
+    final calories = meal.macros.calories;
+    final timestamp = _formatTime(widget.meal.dateTime);
 
     return Semantics(
-      label: '$mealName, $calories calories, logged at $timestamp',
-      button: false,
+      label: '${meal.name}, $calories calories, logged at $timestamp.'
+          '${widget.onDelete != null ? ' Long press to delete.' : ''}',
       child: FadeTransition(
         opacity: _fadeAnimation,
-        child: SlideTransition(
-          position: _slideAnimation,
-          child: ScaleTransition(
-            scale: _scaleAnimation,
-            child: GestureDetector(
-              onTapDown: (_) {
-                setState(() => _isPressed = true);
-                HapticFeedback.lightImpact();
-              },
-              onTapUp: (_) => setState(() => _isPressed = false),
-              onTapCancel: () => setState(() => _isPressed = false),
-              child: Transform.scale(
-                scale: _isPressed ? 0.98 : 1.0,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _MealIcon(colorScheme: colorScheme),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
+        child: GestureDetector(
+          onTapDown: (_) {
+            setState(() => _isPressed = true);
+            HapticFeedback.lightImpact();
+          },
+          onTapUp: (_) => setState(() => _isPressed = false),
+          onTapCancel: () => setState(() => _isPressed = false),
+          onLongPress: widget.onDelete != null
+              ? () => _showDeleteConfirm(context)
+              : null,
+          child: AnimatedScale(
+            scale: _isPressed ? 0.97 : 1.0,
+            duration: const Duration(milliseconds: 120),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Icon
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: colorScheme.primaryContainer.withValues(alpha: 0.3),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Icon(
+                      LucideIcons.utensilsCrossed,
+                      size: 14,
+                      color: colorScheme.primary,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  // Name + macros
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
                           children: [
-                            _MealNameRow(
-                              name: mealName,
-                              timestamp: timestamp,
-                              theme: theme,
-                              colorScheme: colorScheme,
+                            Expanded(
+                              child: Text(
+                                meal.name,
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 11,
+                                  color: colorScheme.onSurface,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                            const SizedBox(height: 6),
-                            _MacrosRow(
-                              protein: protein,
-                              carbs: carbs,
-                              fat: fat,
+                            const SizedBox(width: 4),
+                            Icon(
+                              LucideIcons.clock,
+                              size: 9,
+                              color: colorScheme.onSurfaceVariant
+                                  .withValues(alpha: 0.6),
+                            ),
+                            const SizedBox(width: 2),
+                            Text(
+                              timestamp,
+                              style: theme.textTheme.labelSmall?.copyWith(
+                                color: colorScheme.onSurfaceVariant,
+                                fontSize: 8,
+                              ),
                             ),
                           ],
                         ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            _Macro(
+                              icon: LucideIcons.dumbbell,
+                              value: meal.macros.protein,
+                              color: proteinIconColor,
+                            ),
+                            const SizedBox(width: 6),
+                            _Macro(
+                              icon: LucideIcons.wheat,
+                              value: meal.macros.carbs,
+                              color: carbsIconColor,
+                            ),
+                            const SizedBox(width: 6),
+                            _Macro(
+                              icon: LucideIcons.droplet,
+                              value: meal.macros.fat,
+                              color: fatIconColor,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  // Calories
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        LucideIcons.flame,
+                        size: 13,
+                        color: colorScheme.calorieIconColor,
                       ),
-                      const SizedBox(width: 8),
-                      _CaloriesBadge(
-                        calories: calories,
-                        theme: theme,
-                        colorScheme: colorScheme,
+                      const SizedBox(height: 2),
+                      Text(
+                        '$calories',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: colorScheme.calorieIconColor,
+                          fontSize: 11,
+                        ),
+                      ),
+                      Text(
+                        'kcal',
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          color: colorScheme.calorieIconColor
+                              .withValues(alpha: 0.7),
+                          fontSize: 7,
+                        ),
                       ),
                     ],
                   ),
-                ),
+                ],
               ),
             ),
           ),
@@ -146,204 +263,20 @@ class _MealListItemState extends State<MealListItem>
   }
 }
 
-class _MealIcon extends StatelessWidget {
-  final ColorScheme colorScheme;
-
-  const _MealIcon({required this.colorScheme});
-
-  @override
-  Widget build(BuildContext context) {
-    return TweenAnimationBuilder<double>(
-      tween: Tween(begin: 0.0, end: 1.0),
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.elasticOut,
-      builder: (context, value, child) {
-        return Transform.scale(
-          scale: value,
-          child: Transform.rotate(
-            angle: (1 - value) * math.pi * 0.25,
-            child: child,
-          ),
-        );
-      },
-      child: Semantics(
-        label: 'Meal icon',
-        excludeSemantics: true,
-        child: Container(
-          padding: const EdgeInsets.all(6),
-          decoration: BoxDecoration(
-            color: colorScheme.primaryContainer.withValues(alpha: 0.3),
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Icon(
-            LucideIcons.utensilsCrossed,
-            size: 14,
-            color: colorScheme.primary,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _MealNameRow extends StatelessWidget {
-  final String name;
-  final String timestamp;
-  final ThemeData theme;
-  final ColorScheme colorScheme;
-
-  const _MealNameRow({
-    required this.name,
-    required this.timestamp,
-    required this.theme,
-    required this.colorScheme,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(
-            name,
-            style: theme.textTheme.bodySmall?.copyWith(
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.1,
-              color: colorScheme.onSurface,
-              fontSize: 11,
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        const SizedBox(width: 4),
-        Icon(
-          LucideIcons.clock,
-          size: 10,
-          color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
-        ),
-        const SizedBox(width: 2),
-        Text(
-          timestamp,
-          style: theme.textTheme.labelSmall?.copyWith(
-            color: colorScheme.onSurfaceVariant,
-            fontSize: 8,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _MacrosRow extends StatelessWidget {
-  final int protein;
-  final int carbs;
-  final int fat;
-
-  const _MacrosRow({
-    required this.protein,
-    required this.carbs,
-    required this.fat,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        _MacroBadge(
-          icon: LucideIcons.dumbbell,
-          value: protein,
-          color: proteinIconColor,
-          label: 'P',
-        ),
-        const SizedBox(width: 6),
-        _MacroBadge(
-          icon: LucideIcons.wheat,
-          value: carbs,
-          color: carbsIconColor,
-          label: 'C',
-        ),
-        const SizedBox(width: 6),
-        _MacroBadge(
-          icon: LucideIcons.droplet,
-          value: fat,
-          color: fatIconColor,
-          label: 'F',
-        ),
-      ],
-    );
-  }
-}
-
-class _CaloriesBadge extends StatelessWidget {
-  final int calories;
-  final ThemeData theme;
-  final ColorScheme colorScheme;
-
-  const _CaloriesBadge({
-    required this.calories,
-    required this.theme,
-    required this.colorScheme,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      label: '$calories calories',
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            LucideIcons.flame,
-            size: 14,
-            color: colorScheme.calorieIconColor,
-          ),
-          const SizedBox(height: 2),
-          TweenAnimationBuilder<int>(
-            tween: IntTween(begin: 0, end: calories),
-            duration: const Duration(milliseconds: 800),
-            curve: Curves.easeOutCubic,
-            builder: (context, animatedValue, child) {
-              return Text(
-                '$animatedValue',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: colorScheme.calorieIconColor,
-                  fontSize: 11,
-                ),
-              );
-            },
-          ),
-          Text(
-            'kcal',
-            style: theme.textTheme.labelSmall?.copyWith(
-              color: colorScheme.calorieIconColor.withValues(alpha: 0.7),
-              fontSize: 7,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _MacroBadge extends StatelessWidget {
-  final IconData icon;
-  final int value;
-  final Color color;
-  final String label;
-
-  const _MacroBadge({
+class _Macro extends StatelessWidget {
+  const _Macro({
     required this.icon,
     required this.value,
     required this.color,
-    required this.label,
   });
+
+  final IconData icon;
+  final int value;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
