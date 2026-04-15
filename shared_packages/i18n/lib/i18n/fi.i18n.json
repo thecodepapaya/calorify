@@ -3,6 +3,9 @@
   "flag": "🇫🇮",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "Olet tehnyt liian monta pyyntöä. Odota hetki ja yritä uudelleen.",
+    "networkError": "Verkkovirhe. Tarkista internet-yhteytesi.",
+    "unknownError": "Jotain meni pieleen. Yritä hetken kuluttua uudelleen.",
     "loadingProfileData": "Virhe profiilitietojen lataamisessa",
     "somethingWentWrong": "Jokin meni pieleen."
   },
@@ -141,6 +144,11 @@
     "history": "Historia"
   },
   "home": {
+    "aiSummary": {
+      "title": "Henkilökohtainen tekoälyyn perustuva yhteenveto",
+      "logMore": "Kirjaa seuraavien päivien aikana lisää aterioita, niin saat henkilökohtaisia tekoälyyn perustuvia oivalluksia.",
+      "loading": "Haetaan yhteenvetoasi..."
+    },
     "dailyGoal": {
       "title": "Aseta Päivittäinen Tavoitteesi",
       "titleSet": "Päivittäinen Tavoitteesi",

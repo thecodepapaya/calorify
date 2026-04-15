@@ -67,6 +67,9 @@ class _TranslationsErrorsCs implements TranslationsErrorsEn {
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Odeslali jste příliš mnoho požadavků. Počkejte prosím chvíli a zkuste to znovu.';
+	@override String get networkError => 'Chyba sítě. Zkontrolujte prosím připojení k internetu.';
+	@override String get unknownError => 'Něco se pokazilo. Zkuste to prosím později.';
 	@override String get loadingProfileData => 'Chyba při načítání dat profilu';
 	@override String get somethingWentWrong => 'Něco se pokazilo.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeCs implements TranslationsHomeEn {
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryCs aiSummary = _TranslationsHomeAiSummaryCs._(_root);
 	@override late final _TranslationsHomeDailyGoalCs dailyGoal = _TranslationsHomeDailyGoalCs._(_root);
 	@override late final _TranslationsHomeDailySummaryCs dailySummary = _TranslationsHomeDailySummaryCs._(_root);
 	@override late final _TranslationsHomeIntakeProgressCs intakeProgress = _TranslationsHomeIntakeProgressCs._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementCs implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessCs trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessCs._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileCs healthProfile = _TranslationsOnboardingReinforcementHealthProfileCs._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleCs goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleCs._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryCs implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Váš AI přehled';
+	@override String get logMore => 'Zaznamenávejte více jídel v příštích dnech, abyste získali personalizované postřehy od AI.';
+	@override String get loading => 'Načítám váš přehled...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsCs {
 			'language' => 'Čeština',
 			'flag' => '🇨🇿',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Odeslali jste příliš mnoho požadavků. Počkejte prosím chvíli a zkuste to znovu.',
+			'errors.networkError' => 'Chyba sítě. Zkontrolujte prosím připojení k internetu.',
+			'errors.unknownError' => 'Něco se pokazilo. Zkuste to prosím později.',
 			'errors.loadingProfileData' => 'Chyba při načítání dat profilu',
 			'errors.somethingWentWrong' => 'Něco se pokazilo.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Vítejte v ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsCs {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktivní',
 			'tabs.dashboard' => 'Nástěnka',
 			'tabs.history' => 'Historie',
+			'home.aiSummary.title' => 'Váš AI přehled',
+			'home.aiSummary.logMore' => 'Zaznamenávejte více jídel v příštích dnech, abyste získali personalizované postřehy od AI.',
+			'home.aiSummary.loading' => 'Načítám váš přehled...',
 			'home.dailyGoal.title' => 'Nastavte si svůj denní cíl',
 			'home.dailyGoal.titleSet' => 'Váš denní cíl',
 			'home.dailyGoal.description' => 'Připraveni na začátek vaší wellness cesty? Nastavte si svůj denní kalorický cíl níže, abyste zahájili svůj pokrok.',

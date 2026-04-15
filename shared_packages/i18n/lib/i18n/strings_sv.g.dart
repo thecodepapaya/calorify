@@ -67,6 +67,9 @@ class _TranslationsErrorsSv implements TranslationsErrorsEn {
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Du har gjort för många förfrågningar. Vänta en liten stund och försök igen.';
+	@override String get networkError => 'Nätverksfel. Kontrollera din internetanslutning.';
+	@override String get unknownError => 'Något gick fel. Försök igen senare.';
 	@override String get loadingProfileData => 'Fel vid inläsning av profildata';
 	@override String get somethingWentWrong => 'Något gick fel.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeSv implements TranslationsHomeEn {
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummarySv aiSummary = _TranslationsHomeAiSummarySv._(_root);
 	@override late final _TranslationsHomeDailyGoalSv dailyGoal = _TranslationsHomeDailyGoalSv._(_root);
 	@override late final _TranslationsHomeDailySummarySv dailySummary = _TranslationsHomeDailySummarySv._(_root);
 	@override late final _TranslationsHomeIntakeProgressSv intakeProgress = _TranslationsHomeIntakeProgressSv._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementSv implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessSv trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessSv._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileSv healthProfile = _TranslationsOnboardingReinforcementHealthProfileSv._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleSv goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleSv._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummarySv implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummarySv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Din AI-sammanfattning';
+	@override String get logMore => 'Logga fler måltider under de närmaste dagarna för att få dina personliga AI-insikter.';
+	@override String get loading => 'Hämtar din sammanfattning...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsSv {
 			'language' => 'Svenska',
 			'flag' => '🇸🇪',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Du har gjort för många förfrågningar. Vänta en liten stund och försök igen.',
+			'errors.networkError' => 'Nätverksfel. Kontrollera din internetanslutning.',
+			'errors.unknownError' => 'Något gick fel. Försök igen senare.',
 			'errors.loadingProfileData' => 'Fel vid inläsning av profildata',
 			'errors.somethingWentWrong' => 'Något gick fel.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Välkommen till ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsSv {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktiv',
 			'tabs.dashboard' => 'Instrumentbräda',
 			'tabs.history' => 'Historik',
+			'home.aiSummary.title' => 'Din AI-sammanfattning',
+			'home.aiSummary.logMore' => 'Logga fler måltider under de närmaste dagarna för att få dina personliga AI-insikter.',
+			'home.aiSummary.loading' => 'Hämtar din sammanfattning...',
 			'home.dailyGoal.title' => 'Ställ in ditt dagliga mål',
 			'home.dailyGoal.titleSet' => 'Ditt dagliga mål',
 			'home.dailyGoal.description' => 'Redo att påbörja din wellness-resa? Ställ in ditt dagliga kalorimål nedan för att kickstarta din progress.',

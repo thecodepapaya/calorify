@@ -3,6 +3,9 @@
   "flag": "🇮🇹",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "Hai effettuato troppe richieste. Attendi un momento prima di riprovare.",
+    "networkError": "Errore di rete. Controlla la tua connessione Internet.",
+    "unknownError": "Qualcosa è andato storto. Riprova più tardi.",
     "loadingProfileData": "Errore nel caricamento dei dati del profilo",
     "somethingWentWrong": "Qualcosa è andato storto."
   },
@@ -141,6 +144,11 @@
     "history": "Cronologia"
   },
   "home": {
+    "aiSummary": {
+      "title": "Il tuo riepilogo IA",
+      "logMore": "Registra più pasti nei prossimi giorni per ricevere approfondimenti personalizzati dall'IA.",
+      "loading": "Caricamento del tuo riepilogo..."
+    },
     "dailyGoal": {
       "title": "Imposta il Tuo Obiettivo Giornaliero",
       "titleSet": "Il Tuo Obiettivo Giornaliero",

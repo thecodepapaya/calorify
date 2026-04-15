@@ -78,6 +78,15 @@ class TranslationsErrorsEn {
 
 	// Translations
 
+	/// en: 'You've made too many requests. Please wait a moment before trying again.'
+	String get rateLimitExceeded => 'You\'ve made too many requests. Please wait a moment before trying again.';
+
+	/// en: 'Network error. Please check your internet connection.'
+	String get networkError => 'Network error. Please check your internet connection.';
+
+	/// en: 'Something went wrong. Please try again later.'
+	String get unknownError => 'Something went wrong. Please try again later.';
+
 	/// en: 'Error loading profile data'
 	String get loadingProfileData => 'Error loading profile data';
 
@@ -136,6 +145,7 @@ class TranslationsHomeEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	late final TranslationsHomeAiSummaryEn aiSummary = TranslationsHomeAiSummaryEn._(_root);
 	late final TranslationsHomeDailyGoalEn dailyGoal = TranslationsHomeDailyGoalEn._(_root);
 	late final TranslationsHomeDailySummaryEn dailySummary = TranslationsHomeDailySummaryEn._(_root);
 	late final TranslationsHomeIntakeProgressEn intakeProgress = TranslationsHomeIntakeProgressEn._(_root);
@@ -867,6 +877,24 @@ class TranslationsOnboardingReinforcementEn {
 	late final TranslationsOnboardingReinforcementTrackingSuccessEn trackingSuccess = TranslationsOnboardingReinforcementTrackingSuccessEn._(_root);
 	late final TranslationsOnboardingReinforcementHealthProfileEn healthProfile = TranslationsOnboardingReinforcementHealthProfileEn._(_root);
 	late final TranslationsOnboardingReinforcementGoalLifestyleEn goalLifestyle = TranslationsOnboardingReinforcementGoalLifestyleEn._(_root);
+}
+
+// Path: home.aiSummary
+class TranslationsHomeAiSummaryEn {
+	TranslationsHomeAiSummaryEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Your AI Summary'
+	String get title => 'Your AI Summary';
+
+	/// en: 'Log more meals over the next few days to get your personalized AI insights.'
+	String get logMore => 'Log more meals over the next few days to get your personalized AI insights.';
+
+	/// en: 'Loading your summary...'
+	String get loading => 'Loading your summary...';
 }
 
 // Path: home.dailyGoal
@@ -2432,6 +2460,9 @@ extension on Translations {
 			'language' => 'English',
 			'flag' => '🇺🇸',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'You\'ve made too many requests. Please wait a moment before trying again.',
+			'errors.networkError' => 'Network error. Please check your internet connection.',
+			'errors.unknownError' => 'Something went wrong. Please try again later.',
 			'errors.loadingProfileData' => 'Error loading profile data',
 			'errors.somethingWentWrong' => 'Something went wrong.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Welcome to ${appLabel}',
@@ -2522,6 +2553,9 @@ extension on Translations {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'active',
 			'tabs.dashboard' => 'Dashboard',
 			'tabs.history' => 'History',
+			'home.aiSummary.title' => 'Your AI Summary',
+			'home.aiSummary.logMore' => 'Log more meals over the next few days to get your personalized AI insights.',
+			'home.aiSummary.loading' => 'Loading your summary...',
 			'home.dailyGoal.title' => 'Set Your Daily Goal',
 			'home.dailyGoal.titleSet' => 'Your Daily Goal',
 			'home.dailyGoal.description' => 'Ready to embark on your wellness journey? Set your daily calorie target below to kickstart your progress.',

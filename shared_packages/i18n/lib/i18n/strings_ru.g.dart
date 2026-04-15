@@ -67,6 +67,9 @@ class _TranslationsErrorsRu implements TranslationsErrorsEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Слишком много запросов. Пожалуйста, подождите немного и попробуйте снова.';
+	@override String get networkError => 'Ошибка сети. Пожалуйста, проверьте подключение к интернету.';
+	@override String get unknownError => 'Что-то пошло не так. Пожалуйста, попробуйте позже.';
 	@override String get loadingProfileData => 'Ошибка загрузки данных профиля';
 	@override String get somethingWentWrong => 'Что-то пошло не так.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeRu implements TranslationsHomeEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryRu aiSummary = _TranslationsHomeAiSummaryRu._(_root);
 	@override late final _TranslationsHomeDailyGoalRu dailyGoal = _TranslationsHomeDailyGoalRu._(_root);
 	@override late final _TranslationsHomeDailySummaryRu dailySummary = _TranslationsHomeDailySummaryRu._(_root);
 	@override late final _TranslationsHomeIntakeProgressRu intakeProgress = _TranslationsHomeIntakeProgressRu._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementRu implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessRu trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessRu._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileRu healthProfile = _TranslationsOnboardingReinforcementHealthProfileRu._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleRu goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleRu._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryRu implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ваш ИИ-обзор';
+	@override String get logMore => 'Записывайте больше приёмов пищи в ближайшие несколько дней, чтобы получить персонализированные рекомендации от ИИ.';
+	@override String get loading => 'Загружаем ваш обзор...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsRu {
 			'language' => 'Русский',
 			'flag' => '🇷🇺',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Слишком много запросов. Пожалуйста, подождите немного и попробуйте снова.',
+			'errors.networkError' => 'Ошибка сети. Пожалуйста, проверьте подключение к интернету.',
+			'errors.unknownError' => 'Что-то пошло не так. Пожалуйста, попробуйте позже.',
 			'errors.loadingProfileData' => 'Ошибка загрузки данных профиля',
 			'errors.somethingWentWrong' => 'Что-то пошло не так.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Добро пожаловать в ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsRu {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'активный',
 			'tabs.dashboard' => 'Панель',
 			'tabs.history' => 'История',
+			'home.aiSummary.title' => 'Ваш ИИ-обзор',
+			'home.aiSummary.logMore' => 'Записывайте больше приёмов пищи в ближайшие несколько дней, чтобы получить персонализированные рекомендации от ИИ.',
+			'home.aiSummary.loading' => 'Загружаем ваш обзор...',
 			'home.dailyGoal.title' => 'Установите вашу дневную цель',
 			'home.dailyGoal.titleSet' => 'Ваша дневная цель',
 			'home.dailyGoal.description' => 'Готовы начать ваше путешествие к благополучию? Установите вашу ежедневную калорийную цель ниже, чтобы запустить ваш прогресс.',

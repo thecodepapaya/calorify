@@ -3,6 +3,9 @@
   "flag": "🇭🇺",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "Túl sok kérést indítottál. Kérlek, várj egy pillanatot, majd próbáld újra.",
+    "networkError": "Hálózati hiba. Kérlek, ellenőrizd az internetkapcsolatodat.",
+    "unknownError": "Valami hiba történt. Kérlek, próbáld meg később újra.",
     "loadingProfileData": "Hiba a profiladatok betöltésekor",
     "somethingWentWrong": "Valami hiba történt."
   },
@@ -141,6 +144,11 @@
     "history": "Történelem"
   },
   "home": {
+    "aiSummary": {
+      "title": "AI-összegzésed",
+      "logMore": "Rögzíts több étkezést a következő napokban, hogy megkapd a személyre szabott AI-elemzéseidet.",
+      "loading": "AI-összegzésed betöltése..."
+    },
     "dailyGoal": {
       "title": "Állítsd Be Napi Célodat",
       "titleSet": "Napi Célod",

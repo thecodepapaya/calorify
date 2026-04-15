@@ -67,6 +67,9 @@ class _TranslationsErrorsUk implements TranslationsErrorsEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Ви зробили занадто багато запитів. Будь ласка, зачекайте хвилину і спробуйте ще раз.';
+	@override String get networkError => 'Помилка мережі. Будь ласка, перевірте підключення до інтернету.';
+	@override String get unknownError => 'Щось пішло не так. Будь ласка, спробуйте ще раз пізніше.';
 	@override String get loadingProfileData => 'Помилка завантаження даних профілю';
 	@override String get somethingWentWrong => 'Щось пішло не так.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeUk implements TranslationsHomeEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryUk aiSummary = _TranslationsHomeAiSummaryUk._(_root);
 	@override late final _TranslationsHomeDailyGoalUk dailyGoal = _TranslationsHomeDailyGoalUk._(_root);
 	@override late final _TranslationsHomeDailySummaryUk dailySummary = _TranslationsHomeDailySummaryUk._(_root);
 	@override late final _TranslationsHomeIntakeProgressUk intakeProgress = _TranslationsHomeIntakeProgressUk._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementUk implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessUk trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessUk._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileUk healthProfile = _TranslationsOnboardingReinforcementHealthProfileUk._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleUk goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleUk._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryUk implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ваш підсумок від ШІ';
+	@override String get logMore => 'Записуйте більше прийомів їжі протягом наступних кількох днів, щоб отримати персоналізовані рекомендації від ШІ.';
+	@override String get loading => 'Завантажується ваш підсумок...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsUk {
 			'language' => 'Українська',
 			'flag' => '🇺🇦',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Ви зробили занадто багато запитів. Будь ласка, зачекайте хвилину і спробуйте ще раз.',
+			'errors.networkError' => 'Помилка мережі. Будь ласка, перевірте підключення до інтернету.',
+			'errors.unknownError' => 'Щось пішло не так. Будь ласка, спробуйте ще раз пізніше.',
 			'errors.loadingProfileData' => 'Помилка завантаження даних профілю',
 			'errors.somethingWentWrong' => 'Щось пішло не так.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Ласкаво просимо до ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsUk {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'активний',
 			'tabs.dashboard' => 'Панель',
 			'tabs.history' => 'Історія',
+			'home.aiSummary.title' => 'Ваш підсумок від ШІ',
+			'home.aiSummary.logMore' => 'Записуйте більше прийомів їжі протягом наступних кількох днів, щоб отримати персоналізовані рекомендації від ШІ.',
+			'home.aiSummary.loading' => 'Завантажується ваш підсумок...',
 			'home.dailyGoal.title' => 'Встановіть свою щоденну ціль',
 			'home.dailyGoal.titleSet' => 'Ваша щоденна ціль',
 			'home.dailyGoal.description' => 'Готові розпочати свою подорож до здоров\'я? Встановіть свою щоденну калорійну ціль нижче, щоб розпочати свій прогрес.',

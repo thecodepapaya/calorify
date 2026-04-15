@@ -3,6 +3,9 @@
   "flag": "🇨🇿",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "Odeslali jste příliš mnoho požadavků. Počkejte prosím chvíli a zkuste to znovu.",
+    "networkError": "Chyba sítě. Zkontrolujte prosím připojení k internetu.",
+    "unknownError": "Něco se pokazilo. Zkuste to prosím později.",
     "loadingProfileData": "Chyba při načítání dat profilu",
     "somethingWentWrong": "Něco se pokazilo."
   },
@@ -141,6 +144,11 @@
     "history": "Historie"
   },
   "home": {
+    "aiSummary": {
+      "title": "Váš AI přehled",
+      "logMore": "Zaznamenávejte více jídel v příštích dnech, abyste získali personalizované postřehy od AI.",
+      "loading": "Načítám váš přehled..."
+    },
     "dailyGoal": {
       "title": "Nastavte si svůj denní cíl",
       "titleSet": "Váš denní cíl",

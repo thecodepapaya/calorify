@@ -8,6 +8,9 @@
     "flag": "🇺🇸",
     "appLabel": "Calorify{env}",
     "errors": {
+      "rateLimitExceeded": "You've made too many requests. Please wait a moment before trying again.",
+      "networkError": "Network error. Please check your internet connection.",
+      "unknownError": "Something went wrong. Please try again later.",
       "loadingProfileData": "Error loading profile data",
       "somethingWentWrong": "Something went wrong."
     },
@@ -146,6 +149,11 @@
       "history": "History"
     },
     "home": {
+      "aiSummary": {
+        "title": "Your AI Summary",
+        "logMore": "Log more meals over the next few days to get your personalized AI insights.",
+        "loading": "Loading your summary..."
+      },
       "dailyGoal": {
         "title": "Set Your Daily Goal",
         "titleSet": "Your Daily Goal",

@@ -644,10 +644,6 @@
     "aboutUsLinkLabel": "About us",
     "thankYouMessage": "Thanks! We'll ask again another time."
   },
-  "errors": {
-    "loadingProfileData": "Error loading profile data",
-    "somethingWentWrong": "Something went wrong."
-  },
   "health": {
     "syncFailed": "Could not sync to Health Connect",
     "mealSynced": "Meal synced with Health Connect"

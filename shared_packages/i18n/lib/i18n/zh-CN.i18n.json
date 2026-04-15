@@ -3,6 +3,9 @@
   "flag": "🇨🇳",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "您请求过于频繁。请稍候再试。",
+    "networkError": "网络错误。请检查您的网络连接。",
+    "unknownError": "出现问题。请稍后再试。",
     "loadingProfileData": "加载个人资料数据时出错",
     "somethingWentWrong": "出现了一些问题。"
   },
@@ -141,6 +144,11 @@
     "history": "历史记录"
   },
   "home": {
+    "aiSummary": {
+      "title": "您的 AI 营养总结",
+      "logMore": "在接下来的几天里多记录几餐，以获得个性化的 AI 洞察。",
+      "loading": "正在加载您的 AI 总结..."
+    },
     "dailyGoal": {
       "title": "设定您的每日目标",
       "titleSet": "您的每日目标",
