@@ -3,8 +3,8 @@ import { openAIFoodAnalysisService } from '../../services/openAIFoodAnalysis.js'
 import { createErrorResponse } from '../../utils/errors.js';
 import { getLocaleFromRequest, getCountryFromRequest } from '../../utils/locale.js';
 import config from '../../config.js';
-// TEMPORARY: auth disabled on food APIs
-// import { authenticateUser } from '../../middleware/auth.js';
+import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
+import { query } from '../../services/database.js';
 import type {
   ImageMealDetectionRequest,
   TextMealDetectionRequest,
@@ -18,7 +18,64 @@ import {
   getStandardErrorResponses,
 } from '../../utils/schema-generator.js';
 
+interface AiSummaryRow {
+  summary: string;
+  generated_at: Date;
+}
+
 export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
+  /**
+   * GET /api/v1/food/ai-summary
+   * Returns the latest AI-generated nutritional summary for the authenticated user.
+   */
+  fastify.get(
+    '/ai-summary',
+    {
+      preHandler: [authenticateUser],
+      schema: {
+        description: 'Get the latest AI-generated meal summary for the authenticated user.',
+        tags: ['Food'],
+        security: [{ bearerAuth: [] }],
+        response: {
+          200: {
+            type: 'object',
+            properties: {
+              summary: { type: 'string', nullable: true },
+              generatedAt: { type: 'string', nullable: true },
+            },
+          },
+        },
+      } as any,
+    },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      if (!config.DATABASE_URL) {
+        reply.send({ summary: null, generatedAt: null });
+        return;
+      }
+
+      const userId = getCurrentUserId(request);
+      const { rows } = await query<AiSummaryRow>(
+        `SELECT summary, generated_at
+           FROM ai_summaries
+          WHERE user_id = $1
+          ORDER BY generated_at DESC
+          LIMIT 1`,
+        [userId]
+      );
+
+      const row = rows[0];
+      if (!row) {
+        reply.send({ summary: null, generatedAt: null });
+        return;
+      }
+
+      reply.send({
+        summary: row.summary,
+        generatedAt: row.generated_at.toISOString(),
+      });
+    }
+  );
+
   /**
    * POST /api/v1/food/analyze-image
    * Analyze a food image using AI

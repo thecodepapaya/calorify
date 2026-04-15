@@ -11,6 +11,7 @@ import config from './config.js';
 import { initializeDatabase } from './services/database.js';
 import { initializeFirebase } from './services/firebase.js';
 import { runMigrations } from './services/migrate.js';
+import { startAiSummaryCron } from './jobs/aiSummaryCron.js';
 
 async function buildApp() {
   // Configure Pino logger with Loki transport in production/staging
@@ -270,6 +271,11 @@ async function start() {
     }
 
     const app = await buildApp();
+
+    // Start scheduled jobs
+    if (config.DATABASE_URL) {
+      startAiSummaryCron();
+    }
 
     await app.listen({
       port: config.PORT,
