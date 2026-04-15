@@ -15,4 +15,5 @@ class MealInfoTable extends Table {
   TextColumn get healthScore =>
       text().nullable()(); // 'healthy', 'neutral', 'unhealthy', 'unknown'
   TextColumn get healthScoreReason => text().nullable()();
+  TextColumn get analysisId => text().nullable()(); // V2 analysis session ID; null for non-V2 meals
 }

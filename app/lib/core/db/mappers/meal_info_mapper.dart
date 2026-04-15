@@ -9,6 +9,7 @@ extension MealToCompanion on Meal {
     int? clientId,
     DateTime? timestamp,
     String? imageUrl,
+    String? analysisId,
   }) {
     return MealInfoTableCompanion(
       id: clientId != null ? Value(clientId) : const Value.absent(),
@@ -30,6 +31,7 @@ extension MealToCompanion on Meal {
           hasHealth() && health.hasHealthScoreReason()
               ? Value(health.healthScoreReason)
               : const Value.absent(),
+      analysisId: analysisId != null ? Value(analysisId) : const Value.absent(),
     );
   }
 }

@@ -1,7 +1,11 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import config from '../../config.js';
 import { getOptionalUserId } from '../../middleware/auth.js';
-import { recordMealAnalysisFeedback } from '../../services/mealAnalysisStore.js';
+import {
+  confirmMealAnalysisLogged,
+  recordMealAnalysisFeedback,
+  type MealLogConfirmationRecord,
+} from '../../services/mealAnalysisStore.js';
 import {
   analyzeImageMeal,
   analyzeTextMeal,
@@ -45,6 +49,19 @@ interface ReanalyzeBody {
   analysisId: string;
   issues: MealFeedbackIssue[];
   otherText?: string;
+}
+
+interface ConfirmLogBody {
+  analysisId: string;
+  loggedAt: string;
+  mealName: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  fiber: number;
+  mealType: string;
+  quantity: string;
 }
 
 type StreamFormat = 'ndjson' | 'sse';
@@ -411,6 +428,48 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
         request.headers.accept,
         reanalyzeMeal(analysisId, issues, otherText, userId)
       );
+    }
+  );
+
+  fastify.post<{ Body: ConfirmLogBody }>(
+    '/confirm-log',
+    {
+      schema: {
+        description:
+          'Confirm that the user saved a V2 meal analysis result to their log. ' +
+          'Stamps logged_at and the final meal data on the analysis session row.',
+        tags: ['Food', 'V2'],
+        body: {
+          type: 'object',
+          required: [
+            'analysisId', 'loggedAt', 'mealName',
+            'calories', 'protein', 'carbs', 'fat', 'fiber',
+            'mealType', 'quantity',
+          ],
+          properties: {
+            analysisId: { type: 'string' },
+            loggedAt:   { type: 'string' },
+            mealName:   { type: 'string' },
+            calories:   { type: 'number' },
+            protein:    { type: 'number' },
+            carbs:      { type: 'number' },
+            fat:        { type: 'number' },
+            fiber:      { type: 'number' },
+            mealType:   { type: 'string' },
+            quantity:   { type: 'string' },
+          },
+        },
+      } as any,
+    },
+    async (request: FastifyRequest<{ Body: ConfirmLogBody }>, reply: FastifyReply) => {
+      const body = request.body ?? {};
+      if (!body.analysisId || typeof body.analysisId !== 'string') {
+        reply.status(400).send(createErrorResponse('analysisId is required'));
+        return;
+      }
+
+      await confirmMealAnalysisLogged(body as MealLogConfirmationRecord);
+      reply.send({ ok: true });
     }
   );
 }

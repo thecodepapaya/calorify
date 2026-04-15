@@ -72,7 +72,7 @@ class MockDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
-  Future<void> logMeal(Meal mealInfo) async {
+  Future<void> logMeal(Meal mealInfo, {String? analysisId}) async {
     // Convert Meal to LoggedMeal and add to the mock database
     final loggedMeal = LoggedMeal(
       clientId: _nextMealId++,
