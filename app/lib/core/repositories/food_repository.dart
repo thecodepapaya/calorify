@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:calorify/core/models/ai_summary_result.dart';
 import 'package:calorify/core/models/meal_analysis_v2.dart';
 import 'package:calorify/core/network/network_client.dart';
 import 'package:calorify/core/services/auth_service.dart';
@@ -190,5 +191,16 @@ class FoodRepository {
     );
 
     return uploadUrl;
+  }
+
+  Future<AiSummaryResult?> getAiSummary() async {
+    final response = await NetworkClient.instance.client
+        .get<Map<String, dynamic>>('/api/v1/food/ai-summary');
+    final data = response.data;
+    if (data == null || data['summary'] == null) return null;
+    return AiSummaryResult(
+      summary: data['summary'] as String,
+      generatedAt: DateTime.parse(data['generatedAt'] as String),
+    );
   }
 }

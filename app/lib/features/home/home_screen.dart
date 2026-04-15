@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/features/home/widgets/ai_summary_card.dart';
 import 'package:calorify/features/home/widgets/connect_health.dart';
 import 'package:calorify/features/home/widgets/daily_goal.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
@@ -36,12 +37,13 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const SizedBox(height: 10),
+            const AiSummaryCard(),
             if (!isHealthConnectUnsupported && !isHealthConnectAuthorized) ...[
               const SizedBox(height: 10),
               HealthConnectPromptCard(
                 onSetupComplete: _onHealthConnectSetupComplete,
               ),
-              const SizedBox(height: 10),
             ],
             const SizedBox(height: 10),
             SetDailyGoal(

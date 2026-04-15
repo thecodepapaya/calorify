@@ -144,6 +144,11 @@
     "history": "History"
   },
   "home": {
+    "aiSummary": {
+      "title": "Your AI Summary",
+      "logMore": "Log more meals over the next few days to get your personalized AI insights.",
+      "loading": "Loading your summary..."
+    },
     "dailyGoal": {
       "title": "Set Your Daily Goal",
       "titleSet": "Your Daily Goal",
