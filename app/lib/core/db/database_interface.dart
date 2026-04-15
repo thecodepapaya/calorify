@@ -14,8 +14,8 @@ abstract class DatabaseInterface {
   /// Set daily calorie goal
   Future<void> setDailyCalorieGoal(int goal);
 
-  /// Log a meal
-  Future<void> logMeal(Meal mealInfo);
+  /// Log a meal. [analysisId] is non-null only for V2 analysis results.
+  Future<void> logMeal(Meal mealInfo, {String? analysisId});
 
   /// Upsert a meal
   Future<void> upsertMeal(LoggedMeal mealInfo);

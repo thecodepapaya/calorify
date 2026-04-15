@@ -121,6 +121,34 @@ class FoodRepository {
     );
   }
 
+  Future<void> confirmMealLogV2({
+    required String analysisId,
+    required Meal meal,
+    required DateTime loggedAt,
+  }) async {
+    await NetworkClient.instance.client.post(
+      '/api/v2/food/confirm-log',
+      data: {
+        'analysisId': analysisId,
+        'loggedAt': loggedAt.toUtc().toIso8601String(),
+        'mealName': meal.name,
+        'calories': meal.macros.calories,
+        'protein': meal.macros.protein,
+        'carbs': meal.macros.carbs,
+        'fat': meal.macros.fat,
+        'fiber': meal.macros.fiber,
+        'mealType': switch (meal.type) {
+          MealType.BREAKFAST => 'BREAKFAST',
+          MealType.LUNCH => 'LUNCH',
+          MealType.DINNER => 'DINNER',
+          MealType.SNACK => 'SNACK',
+          _ => 'UNKNOWN',
+        },
+        'quantity': meal.quantity,
+      },
+    );
+  }
+
   Future<Stream<V2MealAnalysisEvent>> reanalyzeV2({
     required String analysisId,
     required List<V2MealFeedbackIssue> issues,

@@ -252,3 +252,49 @@ export async function recordMealAnalysisFeedback(
     ]
   );
 }
+
+export interface MealLogConfirmationRecord {
+  analysisId: string;
+  loggedAt: string;
+  mealName: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  fiber: number;
+  mealType: string;
+  quantity: string;
+}
+
+export async function confirmMealAnalysisLogged(
+  record: MealLogConfirmationRecord
+): Promise<void> {
+  assertDatabaseConfigured();
+
+  await query(
+    `UPDATE meal_analysis_session
+        SET logged_at        = $2,
+            logged_meal_name = $3,
+            logged_calories  = $4,
+            logged_protein   = $5,
+            logged_carbs     = $6,
+            logged_fat       = $7,
+            logged_fiber     = $8,
+            logged_meal_type = $9,
+            logged_quantity  = $10,
+            updated_at       = CURRENT_TIMESTAMP
+      WHERE analysis_id = $1`,
+    [
+      record.analysisId,
+      record.loggedAt,
+      record.mealName,
+      record.calories,
+      record.protein,
+      record.carbs,
+      record.fat,
+      record.fiber,
+      record.mealType,
+      record.quantity,
+    ]
+  );
+}

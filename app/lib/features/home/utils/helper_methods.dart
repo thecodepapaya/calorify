@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_sheet.dart';
@@ -14,8 +15,26 @@ Future<void> logMeal(
   BuildContext context,
   Meal mealInfo, {
   BuildContext? parentContext,
+  String? analysisId,
 }) async {
-  await DatabaseService.databaseInterface.logMeal(mealInfo);
+  final loggedAt = DateTime.now();
+
+  await DatabaseService.databaseInterface.logMeal(mealInfo, analysisId: analysisId);
+
+  // Best-effort confirmation to the backend for V2 meals.
+  // Never blocks the UI — failures are silently ignored.
+  if (analysisId != null && analysisId.isNotEmpty) {
+    unawaited(
+      FoodRepository()
+          .confirmMealLogV2(
+            analysisId: analysisId,
+            meal: mealInfo,
+            loggedAt: loggedAt,
+          )
+          .catchError((_) {}),
+    );
+  }
+
   if (!context.mounted) return;
   await _writeDataToHealthConnect(context, mealInfo);
   if (!context.mounted) return;

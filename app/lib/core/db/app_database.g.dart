@@ -149,6 +149,17 @@ class $MealInfoTableTable extends MealInfoTable
         type: DriftSqlType.string,
         requiredDuringInsert: false,
       );
+  static const VerificationMeta _analysisIdMeta = const VerificationMeta(
+    'analysisId',
+  );
+  @override
+  late final GeneratedColumn<String> analysisId = GeneratedColumn<String>(
+    'analysis_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -164,6 +175,7 @@ class $MealInfoTableTable extends MealInfoTable
     imageUrl,
     healthScore,
     healthScoreReason,
+    analysisId,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -279,6 +291,12 @@ class $MealInfoTableTable extends MealInfoTable
         ),
       );
     }
+    if (data.containsKey('analysis_id')) {
+      context.handle(
+        _analysisIdMeta,
+        analysisId.isAcceptableOrUnknown(data['analysis_id']!, _analysisIdMeta),
+      );
+    }
     return context;
   }
 
@@ -350,6 +368,10 @@ class $MealInfoTableTable extends MealInfoTable
         DriftSqlType.string,
         data['${effectivePrefix}health_score_reason'],
       ),
+      analysisId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}analysis_id'],
+      ),
     );
   }
 
@@ -374,6 +396,7 @@ class MealInfoTableData extends DataClass
   final String? imageUrl;
   final String? healthScore;
   final String? healthScoreReason;
+  final String? analysisId;
   const MealInfoTableData({
     required this.id,
     required this.mealName,
@@ -388,6 +411,7 @@ class MealInfoTableData extends DataClass
     this.imageUrl,
     this.healthScore,
     this.healthScoreReason,
+    this.analysisId,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -410,6 +434,9 @@ class MealInfoTableData extends DataClass
     }
     if (!nullToAbsent || healthScoreReason != null) {
       map['health_score_reason'] = Variable<String>(healthScoreReason);
+    }
+    if (!nullToAbsent || analysisId != null) {
+      map['analysis_id'] = Variable<String>(analysisId);
     }
     return map;
   }
@@ -438,6 +465,10 @@ class MealInfoTableData extends DataClass
           healthScoreReason == null && nullToAbsent
               ? const Value.absent()
               : Value(healthScoreReason),
+      analysisId:
+          analysisId == null && nullToAbsent
+              ? const Value.absent()
+              : Value(analysisId),
     );
   }
 
@@ -462,6 +493,7 @@ class MealInfoTableData extends DataClass
       healthScoreReason: serializer.fromJson<String?>(
         json['healthScoreReason'],
       ),
+      analysisId: serializer.fromJson<String?>(json['analysisId']),
     );
   }
   @override
@@ -481,6 +513,7 @@ class MealInfoTableData extends DataClass
       'imageUrl': serializer.toJson<String?>(imageUrl),
       'healthScore': serializer.toJson<String?>(healthScore),
       'healthScoreReason': serializer.toJson<String?>(healthScoreReason),
+      'analysisId': serializer.toJson<String?>(analysisId),
     };
   }
 
@@ -498,6 +531,7 @@ class MealInfoTableData extends DataClass
     Value<String?> imageUrl = const Value.absent(),
     Value<String?> healthScore = const Value.absent(),
     Value<String?> healthScoreReason = const Value.absent(),
+    Value<String?> analysisId = const Value.absent(),
   }) => MealInfoTableData(
     id: id ?? this.id,
     mealName: mealName ?? this.mealName,
@@ -515,6 +549,7 @@ class MealInfoTableData extends DataClass
         healthScoreReason.present
             ? healthScoreReason.value
             : this.healthScoreReason,
+    analysisId: analysisId.present ? analysisId.value : this.analysisId,
   );
   MealInfoTableData copyWithCompanion(MealInfoTableCompanion data) {
     return MealInfoTableData(
@@ -538,6 +573,8 @@ class MealInfoTableData extends DataClass
           data.healthScoreReason.present
               ? data.healthScoreReason.value
               : this.healthScoreReason,
+      analysisId:
+          data.analysisId.present ? data.analysisId.value : this.analysisId,
     );
   }
 
@@ -556,7 +593,8 @@ class MealInfoTableData extends DataClass
           ..write('timestamp: $timestamp, ')
           ..write('imageUrl: $imageUrl, ')
           ..write('healthScore: $healthScore, ')
-          ..write('healthScoreReason: $healthScoreReason')
+          ..write('healthScoreReason: $healthScoreReason, ')
+          ..write('analysisId: $analysisId')
           ..write(')'))
         .toString();
   }
@@ -576,6 +614,7 @@ class MealInfoTableData extends DataClass
     imageUrl,
     healthScore,
     healthScoreReason,
+    analysisId,
   );
   @override
   bool operator ==(Object other) =>
@@ -593,7 +632,8 @@ class MealInfoTableData extends DataClass
           other.timestamp == this.timestamp &&
           other.imageUrl == this.imageUrl &&
           other.healthScore == this.healthScore &&
-          other.healthScoreReason == this.healthScoreReason);
+          other.healthScoreReason == this.healthScoreReason &&
+          other.analysisId == this.analysisId);
 }
 
 class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
@@ -610,6 +650,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   final Value<String?> imageUrl;
   final Value<String?> healthScore;
   final Value<String?> healthScoreReason;
+  final Value<String?> analysisId;
   const MealInfoTableCompanion({
     this.id = const Value.absent(),
     this.mealName = const Value.absent(),
@@ -624,6 +665,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     this.imageUrl = const Value.absent(),
     this.healthScore = const Value.absent(),
     this.healthScoreReason = const Value.absent(),
+    this.analysisId = const Value.absent(),
   });
   MealInfoTableCompanion.insert({
     this.id = const Value.absent(),
@@ -639,6 +681,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     this.imageUrl = const Value.absent(),
     this.healthScore = const Value.absent(),
     this.healthScoreReason = const Value.absent(),
+    this.analysisId = const Value.absent(),
   }) : mealName = Value(mealName),
        mealQuantity = Value(mealQuantity),
        mealType = Value(mealType),
@@ -662,6 +705,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Expression<String>? imageUrl,
     Expression<String>? healthScore,
     Expression<String>? healthScoreReason,
+    Expression<String>? analysisId,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -677,6 +721,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
       if (imageUrl != null) 'image_url': imageUrl,
       if (healthScore != null) 'health_score': healthScore,
       if (healthScoreReason != null) 'health_score_reason': healthScoreReason,
+      if (analysisId != null) 'analysis_id': analysisId,
     });
   }
 
@@ -694,6 +739,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Value<String?>? imageUrl,
     Value<String?>? healthScore,
     Value<String?>? healthScoreReason,
+    Value<String?>? analysisId,
   }) {
     return MealInfoTableCompanion(
       id: id ?? this.id,
@@ -709,6 +755,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
       imageUrl: imageUrl ?? this.imageUrl,
       healthScore: healthScore ?? this.healthScore,
       healthScoreReason: healthScoreReason ?? this.healthScoreReason,
+      analysisId: analysisId ?? this.analysisId,
     );
   }
 
@@ -754,6 +801,9 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     if (healthScoreReason.present) {
       map['health_score_reason'] = Variable<String>(healthScoreReason.value);
     }
+    if (analysisId.present) {
+      map['analysis_id'] = Variable<String>(analysisId.value);
+    }
     return map;
   }
 
@@ -772,7 +822,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
           ..write('timestamp: $timestamp, ')
           ..write('imageUrl: $imageUrl, ')
           ..write('healthScore: $healthScore, ')
-          ..write('healthScoreReason: $healthScoreReason')
+          ..write('healthScoreReason: $healthScoreReason, ')
+          ..write('analysisId: $analysisId')
           ..write(')'))
         .toString();
   }
@@ -2083,6 +2134,17 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         type: DriftSqlType.string,
         requiredDuringInsert: false,
       );
+  static const VerificationMeta _analysisIdMeta = const VerificationMeta(
+    'analysisId',
+  );
+  @override
+  late final GeneratedColumn<String> analysisId = GeneratedColumn<String>(
+    'analysis_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
   );
@@ -2121,6 +2183,7 @@ class $FavoriteMealTableTable extends FavoriteMealTable
     imageUrl,
     healthScore,
     healthScoreReason,
+    analysisId,
     createdAt,
     lastUsedAt,
   ];
@@ -2238,6 +2301,12 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         ),
       );
     }
+    if (data.containsKey('analysis_id')) {
+      context.handle(
+        _analysisIdMeta,
+        analysisId.isAcceptableOrUnknown(data['analysis_id']!, _analysisIdMeta),
+      );
+    }
     if (data.containsKey('created_at')) {
       context.handle(
         _createdAtMeta,
@@ -2324,6 +2393,10 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         DriftSqlType.string,
         data['${effectivePrefix}health_score_reason'],
       ),
+      analysisId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}analysis_id'],
+      ),
       createdAt:
           attachedDatabase.typeMapping.read(
             DriftSqlType.dateTime,
@@ -2357,6 +2430,7 @@ class FavoriteMealTableData extends DataClass
   final String? imageUrl;
   final String? healthScore;
   final String? healthScoreReason;
+  final String? analysisId;
   final DateTime createdAt;
   final DateTime? lastUsedAt;
   const FavoriteMealTableData({
@@ -2373,6 +2447,7 @@ class FavoriteMealTableData extends DataClass
     this.imageUrl,
     this.healthScore,
     this.healthScoreReason,
+    this.analysisId,
     required this.createdAt,
     this.lastUsedAt,
   });
@@ -2397,6 +2472,9 @@ class FavoriteMealTableData extends DataClass
     }
     if (!nullToAbsent || healthScoreReason != null) {
       map['health_score_reason'] = Variable<String>(healthScoreReason);
+    }
+    if (!nullToAbsent || analysisId != null) {
+      map['analysis_id'] = Variable<String>(analysisId);
     }
     map['created_at'] = Variable<DateTime>(createdAt);
     if (!nullToAbsent || lastUsedAt != null) {
@@ -2429,6 +2507,10 @@ class FavoriteMealTableData extends DataClass
           healthScoreReason == null && nullToAbsent
               ? const Value.absent()
               : Value(healthScoreReason),
+      analysisId:
+          analysisId == null && nullToAbsent
+              ? const Value.absent()
+              : Value(analysisId),
       createdAt: Value(createdAt),
       lastUsedAt:
           lastUsedAt == null && nullToAbsent
@@ -2458,6 +2540,7 @@ class FavoriteMealTableData extends DataClass
       healthScoreReason: serializer.fromJson<String?>(
         json['healthScoreReason'],
       ),
+      analysisId: serializer.fromJson<String?>(json['analysisId']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       lastUsedAt: serializer.fromJson<DateTime?>(json['lastUsedAt']),
     );
@@ -2479,6 +2562,7 @@ class FavoriteMealTableData extends DataClass
       'imageUrl': serializer.toJson<String?>(imageUrl),
       'healthScore': serializer.toJson<String?>(healthScore),
       'healthScoreReason': serializer.toJson<String?>(healthScoreReason),
+      'analysisId': serializer.toJson<String?>(analysisId),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'lastUsedAt': serializer.toJson<DateTime?>(lastUsedAt),
     };
@@ -2498,6 +2582,7 @@ class FavoriteMealTableData extends DataClass
     Value<String?> imageUrl = const Value.absent(),
     Value<String?> healthScore = const Value.absent(),
     Value<String?> healthScoreReason = const Value.absent(),
+    Value<String?> analysisId = const Value.absent(),
     DateTime? createdAt,
     Value<DateTime?> lastUsedAt = const Value.absent(),
   }) => FavoriteMealTableData(
@@ -2517,6 +2602,7 @@ class FavoriteMealTableData extends DataClass
         healthScoreReason.present
             ? healthScoreReason.value
             : this.healthScoreReason,
+    analysisId: analysisId.present ? analysisId.value : this.analysisId,
     createdAt: createdAt ?? this.createdAt,
     lastUsedAt: lastUsedAt.present ? lastUsedAt.value : this.lastUsedAt,
   );
@@ -2542,6 +2628,8 @@ class FavoriteMealTableData extends DataClass
           data.healthScoreReason.present
               ? data.healthScoreReason.value
               : this.healthScoreReason,
+      analysisId:
+          data.analysisId.present ? data.analysisId.value : this.analysisId,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       lastUsedAt:
           data.lastUsedAt.present ? data.lastUsedAt.value : this.lastUsedAt,
@@ -2564,6 +2652,7 @@ class FavoriteMealTableData extends DataClass
           ..write('imageUrl: $imageUrl, ')
           ..write('healthScore: $healthScore, ')
           ..write('healthScoreReason: $healthScoreReason, ')
+          ..write('analysisId: $analysisId, ')
           ..write('createdAt: $createdAt, ')
           ..write('lastUsedAt: $lastUsedAt')
           ..write(')'))
@@ -2585,6 +2674,7 @@ class FavoriteMealTableData extends DataClass
     imageUrl,
     healthScore,
     healthScoreReason,
+    analysisId,
     createdAt,
     lastUsedAt,
   );
@@ -2605,6 +2695,7 @@ class FavoriteMealTableData extends DataClass
           other.imageUrl == this.imageUrl &&
           other.healthScore == this.healthScore &&
           other.healthScoreReason == this.healthScoreReason &&
+          other.analysisId == this.analysisId &&
           other.createdAt == this.createdAt &&
           other.lastUsedAt == this.lastUsedAt);
 }
@@ -2624,6 +2715,7 @@ class FavoriteMealTableCompanion
   final Value<String?> imageUrl;
   final Value<String?> healthScore;
   final Value<String?> healthScoreReason;
+  final Value<String?> analysisId;
   final Value<DateTime> createdAt;
   final Value<DateTime?> lastUsedAt;
   const FavoriteMealTableCompanion({
@@ -2640,6 +2732,7 @@ class FavoriteMealTableCompanion
     this.imageUrl = const Value.absent(),
     this.healthScore = const Value.absent(),
     this.healthScoreReason = const Value.absent(),
+    this.analysisId = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.lastUsedAt = const Value.absent(),
   });
@@ -2657,6 +2750,7 @@ class FavoriteMealTableCompanion
     this.imageUrl = const Value.absent(),
     this.healthScore = const Value.absent(),
     this.healthScoreReason = const Value.absent(),
+    this.analysisId = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.lastUsedAt = const Value.absent(),
   }) : mealName = Value(mealName),
@@ -2682,6 +2776,7 @@ class FavoriteMealTableCompanion
     Expression<String>? imageUrl,
     Expression<String>? healthScore,
     Expression<String>? healthScoreReason,
+    Expression<String>? analysisId,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? lastUsedAt,
   }) {
@@ -2699,6 +2794,7 @@ class FavoriteMealTableCompanion
       if (imageUrl != null) 'image_url': imageUrl,
       if (healthScore != null) 'health_score': healthScore,
       if (healthScoreReason != null) 'health_score_reason': healthScoreReason,
+      if (analysisId != null) 'analysis_id': analysisId,
       if (createdAt != null) 'created_at': createdAt,
       if (lastUsedAt != null) 'last_used_at': lastUsedAt,
     });
@@ -2718,6 +2814,7 @@ class FavoriteMealTableCompanion
     Value<String?>? imageUrl,
     Value<String?>? healthScore,
     Value<String?>? healthScoreReason,
+    Value<String?>? analysisId,
     Value<DateTime>? createdAt,
     Value<DateTime?>? lastUsedAt,
   }) {
@@ -2735,6 +2832,7 @@ class FavoriteMealTableCompanion
       imageUrl: imageUrl ?? this.imageUrl,
       healthScore: healthScore ?? this.healthScore,
       healthScoreReason: healthScoreReason ?? this.healthScoreReason,
+      analysisId: analysisId ?? this.analysisId,
       createdAt: createdAt ?? this.createdAt,
       lastUsedAt: lastUsedAt ?? this.lastUsedAt,
     );
@@ -2782,6 +2880,9 @@ class FavoriteMealTableCompanion
     if (healthScoreReason.present) {
       map['health_score_reason'] = Variable<String>(healthScoreReason.value);
     }
+    if (analysisId.present) {
+      map['analysis_id'] = Variable<String>(analysisId.value);
+    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
@@ -2807,6 +2908,7 @@ class FavoriteMealTableCompanion
           ..write('imageUrl: $imageUrl, ')
           ..write('healthScore: $healthScore, ')
           ..write('healthScoreReason: $healthScoreReason, ')
+          ..write('analysisId: $analysisId, ')
           ..write('createdAt: $createdAt, ')
           ..write('lastUsedAt: $lastUsedAt')
           ..write(')'))
@@ -3435,6 +3537,7 @@ typedef $$MealInfoTableTableCreateCompanionBuilder =
       Value<String?> imageUrl,
       Value<String?> healthScore,
       Value<String?> healthScoreReason,
+      Value<String?> analysisId,
     });
 typedef $$MealInfoTableTableUpdateCompanionBuilder =
     MealInfoTableCompanion Function({
@@ -3451,6 +3554,7 @@ typedef $$MealInfoTableTableUpdateCompanionBuilder =
       Value<String?> imageUrl,
       Value<String?> healthScore,
       Value<String?> healthScoreReason,
+      Value<String?> analysisId,
     });
 
 class $$MealInfoTableTableFilterComposer
@@ -3524,6 +3628,11 @@ class $$MealInfoTableTableFilterComposer
 
   ColumnFilters<String> get healthScoreReason => $composableBuilder(
     column: $table.healthScoreReason,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get analysisId => $composableBuilder(
+    column: $table.analysisId,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -3601,6 +3710,11 @@ class $$MealInfoTableTableOrderingComposer
     column: $table.healthScoreReason,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get analysisId => $composableBuilder(
+    column: $table.analysisId,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$MealInfoTableTableAnnotationComposer
@@ -3654,6 +3768,11 @@ class $$MealInfoTableTableAnnotationComposer
 
   GeneratedColumn<String> get healthScoreReason => $composableBuilder(
     column: $table.healthScoreReason,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get analysisId => $composableBuilder(
+    column: $table.analysisId,
     builder: (column) => column,
   );
 }
@@ -3710,6 +3829,7 @@ class $$MealInfoTableTableTableManager
                 Value<String?> imageUrl = const Value.absent(),
                 Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
+                Value<String?> analysisId = const Value.absent(),
               }) => MealInfoTableCompanion(
                 id: id,
                 mealName: mealName,
@@ -3724,6 +3844,7 @@ class $$MealInfoTableTableTableManager
                 imageUrl: imageUrl,
                 healthScore: healthScore,
                 healthScoreReason: healthScoreReason,
+                analysisId: analysisId,
               ),
           createCompanionCallback:
               ({
@@ -3740,6 +3861,7 @@ class $$MealInfoTableTableTableManager
                 Value<String?> imageUrl = const Value.absent(),
                 Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
+                Value<String?> analysisId = const Value.absent(),
               }) => MealInfoTableCompanion.insert(
                 id: id,
                 mealName: mealName,
@@ -3754,6 +3876,7 @@ class $$MealInfoTableTableTableManager
                 imageUrl: imageUrl,
                 healthScore: healthScore,
                 healthScoreReason: healthScoreReason,
+                analysisId: analysisId,
               ),
           withReferenceMapper:
               (p0) =>
@@ -4410,6 +4533,7 @@ typedef $$FavoriteMealTableTableCreateCompanionBuilder =
       Value<String?> imageUrl,
       Value<String?> healthScore,
       Value<String?> healthScoreReason,
+      Value<String?> analysisId,
       Value<DateTime> createdAt,
       Value<DateTime?> lastUsedAt,
     });
@@ -4428,6 +4552,7 @@ typedef $$FavoriteMealTableTableUpdateCompanionBuilder =
       Value<String?> imageUrl,
       Value<String?> healthScore,
       Value<String?> healthScoreReason,
+      Value<String?> analysisId,
       Value<DateTime> createdAt,
       Value<DateTime?> lastUsedAt,
     });
@@ -4503,6 +4628,11 @@ class $$FavoriteMealTableTableFilterComposer
 
   ColumnFilters<String> get healthScoreReason => $composableBuilder(
     column: $table.healthScoreReason,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get analysisId => $composableBuilder(
+    column: $table.analysisId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -4591,6 +4721,11 @@ class $$FavoriteMealTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get analysisId => $composableBuilder(
+    column: $table.analysisId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
@@ -4653,6 +4788,11 @@ class $$FavoriteMealTableTableAnnotationComposer
 
   GeneratedColumn<String> get healthScoreReason => $composableBuilder(
     column: $table.healthScoreReason,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get analysisId => $composableBuilder(
+    column: $table.analysisId,
     builder: (column) => column,
   );
 
@@ -4724,6 +4864,7 @@ class $$FavoriteMealTableTableTableManager
                 Value<String?> imageUrl = const Value.absent(),
                 Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
+                Value<String?> analysisId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime?> lastUsedAt = const Value.absent(),
               }) => FavoriteMealTableCompanion(
@@ -4740,6 +4881,7 @@ class $$FavoriteMealTableTableTableManager
                 imageUrl: imageUrl,
                 healthScore: healthScore,
                 healthScoreReason: healthScoreReason,
+                analysisId: analysisId,
                 createdAt: createdAt,
                 lastUsedAt: lastUsedAt,
               ),
@@ -4758,6 +4900,7 @@ class $$FavoriteMealTableTableTableManager
                 Value<String?> imageUrl = const Value.absent(),
                 Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
+                Value<String?> analysisId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime?> lastUsedAt = const Value.absent(),
               }) => FavoriteMealTableCompanion.insert(
@@ -4774,6 +4917,7 @@ class $$FavoriteMealTableTableTableManager
                 imageUrl: imageUrl,
                 healthScore: healthScore,
                 healthScoreReason: healthScoreReason,
+                analysisId: analysisId,
                 createdAt: createdAt,
                 lastUsedAt: lastUsedAt,
               ),

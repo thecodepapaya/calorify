@@ -24,8 +24,8 @@ class RealDatabaseAdapter implements DatabaseInterface {
   }
 
   @override
-  Future<void> logMeal(Meal mealInfo) async {
-    await _database.logMeal(mealInfo);
+  Future<void> logMeal(Meal mealInfo, {String? analysisId}) async {
+    await _database.logMeal(mealInfo, analysisId: analysisId);
   }
 
   @override

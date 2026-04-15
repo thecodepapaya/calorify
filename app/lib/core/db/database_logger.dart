@@ -135,12 +135,12 @@ class DatabaseLogger implements DatabaseInterface {
 
   // Meal Operations
   @override
-  Future<void> logMeal(Meal mealInfo) async {
+  Future<void> logMeal(Meal mealInfo, {String? analysisId}) async {
     await _logWrite(
       table: 'meal_info',
       operation: 'logMeal',
       context: {'name': mealInfo.name, 'calories': mealInfo.macros.calories},
-      action: () => _delegate.logMeal(mealInfo),
+      action: () => _delegate.logMeal(mealInfo, analysisId: analysisId),
     );
   }
 

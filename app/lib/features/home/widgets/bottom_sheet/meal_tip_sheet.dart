@@ -350,6 +350,7 @@ class _MealTipState extends State<_MealTip> {
                     context,
                     _mealDetectionResult!.meal,
                     parentContext: widget.parentContext,
+                    analysisId: _v2Analysis?.result.analysisId,
                   );
                   if (!context.mounted) return;
                   Navigator.of(context).pop();

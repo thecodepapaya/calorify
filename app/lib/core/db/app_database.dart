@@ -33,7 +33,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 16;
+  int get schemaVersion => 17;
 
   @override
   MigrationStrategy get migration {
@@ -100,6 +100,9 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
             userPreferencesTable,
             userPreferencesTable.feedbackSheetShownAt,
           );
+        }
+        if (from < 17) {
+          await m.addColumn(mealInfoTable, mealInfoTable.analysisId);
         }
       },
     );
@@ -243,10 +246,10 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
-  Future<void> logMeal(Meal mealInfo) async {
-    await into(
-      mealInfoTable,
-    ).insert(mealInfo.toCompanion(timestamp: DateTime.now()));
+  Future<void> logMeal(Meal mealInfo, {String? analysisId}) async {
+    await into(mealInfoTable).insert(
+      mealInfo.toCompanion(timestamp: DateTime.now(), analysisId: analysisId),
+    );
   }
 
   @override
