@@ -41,9 +41,7 @@ function formatMealsAsCsv(meals: MealRow[]): string {
     .join('\n');
 }
 
-function getClient(): OpenAI {
-  return new OpenAI({ apiKey: config.OPENAI_API_KEY ?? undefined });
-}
+const openai = new OpenAI({ apiKey: config.OPENAI_API_KEY ?? undefined });
 
 // ---------------------------------------------------------------------------
 // Types shared between service and cron
@@ -142,10 +140,8 @@ export async function submitBatch(
   if (requests.length === 0) throw new Error('No requests to batch');
 
   const jsonl = buildBatchJsonl(requests);
-  const client = getClient();
-
   // Upload the JSONL as an input file
-  const inputFile = await client.files.create({
+  const inputFile = await openai.files.create({
     file: await toFile(Buffer.from(jsonl, 'utf-8'), 'ai_summary_batch.jsonl', {
       type: 'application/jsonl',
     }),
@@ -153,7 +149,7 @@ export async function submitBatch(
   });
 
   // Create the batch job
-  const batch = await client.batches.create({
+  const batch = await openai.batches.create({
     input_file_id: inputFile.id,
     endpoint: '/v1/chat/completions',
     completion_window: '24h',
@@ -196,8 +192,7 @@ export async function pollAndProcessBatch(
   openAiBatchId: string,
   userData: Record<string, BatchUserMeta>
 ): Promise<PollResult> {
-  const client = getClient();
-  const batch = await client.batches.retrieve(openAiBatchId);
+  const batch = await openai.batches.retrieve(openAiBatchId);
 
   // Map OpenAI status to our internal status
   const statusMap: Record<string, BatchStatus> = {
@@ -221,7 +216,7 @@ export async function pollAndProcessBatch(
   }
 
   // Download and parse the results JSONL
-  const fileResponse = await client.files.content(batch.output_file_id);
+  const fileResponse = await openai.files.content(batch.output_file_id);
   const text = await fileResponse.text();
   const lines = text.split('\n').filter((l) => l.trim().length > 0);
 
