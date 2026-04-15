@@ -67,6 +67,9 @@ class _TranslationsErrorsHe implements TranslationsErrorsEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'נראה שנשלחו יותר מדי בקשות. אנא המתן רגע ונסה שוב.';
+	@override String get networkError => 'שגיאת רשת. בדוק את חיבור האינטרנט ונסה שוב.';
+	@override String get unknownError => 'משהו השתבש. אנא נסה שוב מאוחר יותר.';
 	@override String get loadingProfileData => 'שגיאה בהטענת נתוני פרופיל';
 	@override String get somethingWentWrong => 'משהו השתבש.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeHe implements TranslationsHomeEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryHe aiSummary = _TranslationsHomeAiSummaryHe._(_root);
 	@override late final _TranslationsHomeDailyGoalHe dailyGoal = _TranslationsHomeDailyGoalHe._(_root);
 	@override late final _TranslationsHomeDailySummaryHe dailySummary = _TranslationsHomeDailySummaryHe._(_root);
 	@override late final _TranslationsHomeIntakeProgressHe intakeProgress = _TranslationsHomeIntakeProgressHe._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementHe implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessHe trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessHe._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileHe healthProfile = _TranslationsOnboardingReinforcementHealthProfileHe._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleHe goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleHe._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryHe implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'הסיכום שלך מבוסס בינה מלאכותית';
+	@override String get logMore => 'תעד עוד ארוחות בימים הקרובים כדי לקבל תובנות מותאמות אישית מבוססות בינה מלאכותית.';
+	@override String get loading => 'טוען את הסיכום שלך...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsHe {
 			'language' => 'עברית',
 			'flag' => '🇮🇱',
 			'appLabel' => ({required Object env}) => 'קלוריפיי${env}',
+			'errors.rateLimitExceeded' => 'נראה שנשלחו יותר מדי בקשות. אנא המתן רגע ונסה שוב.',
+			'errors.networkError' => 'שגיאת רשת. בדוק את חיבור האינטרנט ונסה שוב.',
+			'errors.unknownError' => 'משהו השתבש. אנא נסה שוב מאוחר יותר.',
 			'errors.loadingProfileData' => 'שגיאה בהטענת נתוני פרופיל',
 			'errors.somethingWentWrong' => 'משהו השתבש.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'ברוך הבא ל${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsHe {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'פעיל',
 			'tabs.dashboard' => 'לוח בקרה',
 			'tabs.history' => 'היסטוריה',
+			'home.aiSummary.title' => 'הסיכום שלך מבוסס בינה מלאכותית',
+			'home.aiSummary.logMore' => 'תעד עוד ארוחות בימים הקרובים כדי לקבל תובנות מותאמות אישית מבוססות בינה מלאכותית.',
+			'home.aiSummary.loading' => 'טוען את הסיכום שלך...',
 			'home.dailyGoal.title' => 'קבע את המטרה היומית שלך',
 			'home.dailyGoal.titleSet' => 'המטרה היומית שלך',
 			'home.dailyGoal.description' => 'מוכן לצאת לדרך לבריאותך? קבע את יעד הקלוריות היומי שלך למטה כדי להתחיל את ההתקדמות שלך.',

@@ -67,6 +67,9 @@ class _TranslationsErrorsTe implements TranslationsErrorsEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'మీరు చాలా ఎక్కువ అభ్యర్థనలను పంపించారు. దయచేసి మళ్ళీ ప్రయత్నించే ముందు కొంత సమయం వేచి ఉండండి.';
+	@override String get networkError => 'నెట్‌వర్క్ లోపం. దయచేసి మీ ఇంటర్నెట్ కనెక్షన్‌ను తనిఖీ చేయండి.';
+	@override String get unknownError => 'ఏదో తప్పుగా జరిగింది. దయచేసి కొంతసేపటి తర్వాత మళ్లీ ప్రయత్నించండి.';
 	@override String get loadingProfileData => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం';
 	@override String get somethingWentWrong => 'ఏదో తప్పు జరిగింది.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeTe implements TranslationsHomeEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryTe aiSummary = _TranslationsHomeAiSummaryTe._(_root);
 	@override late final _TranslationsHomeDailyGoalTe dailyGoal = _TranslationsHomeDailyGoalTe._(_root);
 	@override late final _TranslationsHomeDailySummaryTe dailySummary = _TranslationsHomeDailySummaryTe._(_root);
 	@override late final _TranslationsHomeIntakeProgressTe intakeProgress = _TranslationsHomeIntakeProgressTe._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementTe implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessTe trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessTe._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileTe healthProfile = _TranslationsOnboardingReinforcementHealthProfileTe._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleTe goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleTe._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryTe implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'మీ AI సారాంశం';
+	@override String get logMore => 'మీ వ్యక్తిగత AI సూచనలు పొందడానికి రాబోయే కొన్ని రోజుల్లో మరిన్ని భోజనాలు నమోదు చేయండి.';
+	@override String get loading => 'మీ సారాంశం లోడ్ అవుతోంది...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsTe {
 			'language' => 'తెలుగు',
 			'flag' => '🇮🇳',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'మీరు చాలా ఎక్కువ అభ్యర్థనలను పంపించారు. దయచేసి మళ్ళీ ప్రయత్నించే ముందు కొంత సమయం వేచి ఉండండి.',
+			'errors.networkError' => 'నెట్‌వర్క్ లోపం. దయచేసి మీ ఇంటర్నెట్ కనెక్షన్‌ను తనిఖీ చేయండి.',
+			'errors.unknownError' => 'ఏదో తప్పుగా జరిగింది. దయచేసి కొంతసేపటి తర్వాత మళ్లీ ప్రయత్నించండి.',
 			'errors.loadingProfileData' => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం',
 			'errors.somethingWentWrong' => 'ఏదో తప్పు జరిగింది.',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} లో స్వాగతం',
@@ -1653,6 +1672,9 @@ extension on TranslationsTe {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'యాక్టివ్',
 			'tabs.dashboard' => 'డాష్బోర్డు',
 			'tabs.history' => 'చరిత్ర',
+			'home.aiSummary.title' => 'మీ AI సారాంశం',
+			'home.aiSummary.logMore' => 'మీ వ్యక్తిగత AI సూచనలు పొందడానికి రాబోయే కొన్ని రోజుల్లో మరిన్ని భోజనాలు నమోదు చేయండి.',
+			'home.aiSummary.loading' => 'మీ సారాంశం లోడ్ అవుతోంది...',
 			'home.dailyGoal.title' => 'మీ రోజువారీ లక్ష్యాన్ని సెట్ చేయండి',
 			'home.dailyGoal.titleSet' => 'మీ రోజువారీ లక్ష్యం',
 			'home.dailyGoal.description' => 'మీ ఆరోగ్య ప్రయాణం ప్రారంభించడానికి సిద్ధమైనారా? మీ ప్రగతిని ప్రారంభించడానికి కింద మీ రోజువారీ కేలొరీ లక్ష్యాన్ని సెట్ చేయండి.',

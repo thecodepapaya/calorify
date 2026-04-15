@@ -67,6 +67,9 @@ class _TranslationsErrorsTr implements TranslationsErrorsEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Çok fazla istek yaptınız. Lütfen tekrar denemeden önce biraz bekleyin.';
+	@override String get networkError => 'Ağ hatası. Lütfen internet bağlantınızı kontrol edin.';
+	@override String get unknownError => 'Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.';
 	@override String get loadingProfileData => 'Profil verileri yüklenirken hata';
 	@override String get somethingWentWrong => 'Bir şeyler ters gitti.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeTr implements TranslationsHomeEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryTr aiSummary = _TranslationsHomeAiSummaryTr._(_root);
 	@override late final _TranslationsHomeDailyGoalTr dailyGoal = _TranslationsHomeDailyGoalTr._(_root);
 	@override late final _TranslationsHomeDailySummaryTr dailySummary = _TranslationsHomeDailySummaryTr._(_root);
 	@override late final _TranslationsHomeIntakeProgressTr intakeProgress = _TranslationsHomeIntakeProgressTr._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementTr implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessTr trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessTr._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileTr healthProfile = _TranslationsOnboardingReinforcementHealthProfileTr._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleTr goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleTr._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryTr implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Yapay Zeka Özetiniz';
+	@override String get logMore => 'Kişiselleştirilmiş yapay zeka içgörülerinizi almak için önümüzdeki birkaç gün içinde daha fazla öğün kaydedin.';
+	@override String get loading => 'Özetiniz yükleniyor...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsTr {
 			'language' => 'Türkçe',
 			'flag' => '🇹🇷',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Çok fazla istek yaptınız. Lütfen tekrar denemeden önce biraz bekleyin.',
+			'errors.networkError' => 'Ağ hatası. Lütfen internet bağlantınızı kontrol edin.',
+			'errors.unknownError' => 'Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.',
 			'errors.loadingProfileData' => 'Profil verileri yüklenirken hata',
 			'errors.somethingWentWrong' => 'Bir şeyler ters gitti.',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel}\'ye hoş geldiniz',
@@ -1653,6 +1672,9 @@ extension on TranslationsTr {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktif',
 			'tabs.dashboard' => 'Gösterge Tablosu',
 			'tabs.history' => 'Geçmiş',
+			'home.aiSummary.title' => 'Yapay Zeka Özetiniz',
+			'home.aiSummary.logMore' => 'Kişiselleştirilmiş yapay zeka içgörülerinizi almak için önümüzdeki birkaç gün içinde daha fazla öğün kaydedin.',
+			'home.aiSummary.loading' => 'Özetiniz yükleniyor...',
 			'home.dailyGoal.title' => 'Günlük Hedefinizi Belirleyin',
 			'home.dailyGoal.titleSet' => 'Günlük Hedefiniz',
 			'home.dailyGoal.description' => 'Sağlık yolculuğunuza başlamaya hazır mısınız? Aşağıda günlük kalori hedefinizi belirleyin ve ilerlemenize başlayın.',

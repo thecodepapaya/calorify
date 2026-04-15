@@ -3,6 +3,9 @@
   "flag": "🇪🇸",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "Has realizado demasiadas solicitudes. Por favor, espera un momento antes de intentarlo de nuevo.",
+    "networkError": "Error de red. Por favor, comprueba tu conexión a Internet.",
+    "unknownError": "Algo salió mal. Por favor, inténtalo de nuevo más tarde.",
     "loadingProfileData": "Error al cargar datos del perfil",
     "somethingWentWrong": "Algo salió mal."
   },
@@ -141,6 +144,11 @@
     "history": "Historia"
   },
   "home": {
+    "aiSummary": {
+      "title": "Tu resumen de IA",
+      "logMore": "Registra más comidas en los próximos días para obtener tus recomendaciones personalizadas de IA.",
+      "loading": "Cargando tu resumen..."
+    },
     "dailyGoal": {
       "title": "Establece tu Objetivo Diario",
       "titleSet": "Tu Objetivo Diario",

@@ -3,6 +3,9 @@
   "flag": "🇵🇱",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "Wykonałeś zbyt wiele żądań. Zaczekaj chwilę i spróbuj ponownie.",
+    "networkError": "Wystąpił błąd sieci. Sprawdź połączenie internetowe i spróbuj ponownie.",
+    "unknownError": "Coś poszło nie tak. Spróbuj ponownie później.",
     "loadingProfileData": "Błąd ładowania danych profilu",
     "somethingWentWrong": "Coś poszło nie tak."
   },
@@ -141,6 +144,11 @@
     "history": "Historia"
   },
   "home": {
+    "aiSummary": {
+      "title": "Twoje podsumowanie AI",
+      "logMore": "Zarejestruj więcej posiłków w ciągu najbliższych dni, aby otrzymać spersonalizowane wskazówki od AI.",
+      "loading": "Wczytywanie Twojego podsumowania..."
+    },
     "dailyGoal": {
       "title": "Ustaw Swój Codzienny Cel",
       "titleSet": "Twój Codzienny Cel",

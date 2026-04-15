@@ -3,6 +3,9 @@
   "flag": "🇩🇪",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "Du hast zu viele Anfragen gesendet. Bitte warte einen Moment, bevor du es erneut versuchst.",
+    "networkError": "Netzwerkfehler. Bitte überprüfe deine Internetverbindung.",
+    "unknownError": "Etwas ist schiefgelaufen. Bitte versuche es später noch einmal.",
     "loadingProfileData": "Fehler beim Laden der Profildaten",
     "somethingWentWrong": "Etwas ist schiefgegangen."
   },
@@ -141,6 +144,11 @@
     "history": "Historie"
   },
   "home": {
+    "aiSummary": {
+      "title": "Deine KI‑Zusammenfassung",
+      "logMore": "Trage in den nächsten Tagen mehr Mahlzeiten ein, um deine personalisierten KI‑Einblicke zu erhalten.",
+      "loading": "Deine Zusammenfassung wird geladen..."
+    },
     "dailyGoal": {
       "title": "Setze dein tägliches Ziel",
       "titleSet": "Dein tägliches Ziel",

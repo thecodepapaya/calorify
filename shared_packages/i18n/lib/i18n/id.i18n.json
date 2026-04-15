@@ -3,6 +3,9 @@
   "flag": "🇮🇩",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "Anda telah melakukan terlalu banyak permintaan. Silakan tunggu sebentar sebelum mencoba lagi.",
+    "networkError": "Terjadi kesalahan jaringan. Periksa koneksi internet Anda.",
+    "unknownError": "Terjadi kesalahan. Silakan coba lagi nanti.",
     "loadingProfileData": "Kesalahan saat memuat data profil",
     "somethingWentWrong": "Terjadi kesalahan."
   },
@@ -141,6 +144,11 @@
     "history": "Riwayat"
   },
   "home": {
+    "aiSummary": {
+      "title": "Ringkasan AI Anda",
+      "logMore": "Catat lebih banyak makanan selama beberapa hari ke depan agar Anda mendapatkan wawasan AI yang dipersonalisasi.",
+      "loading": "Memuat ringkasan Anda..."
+    },
     "dailyGoal": {
       "title": "Tetapkan Tujuan Harian Anda",
       "titleSet": "Tujuan Harian Anda",

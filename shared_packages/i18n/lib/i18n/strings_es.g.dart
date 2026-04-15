@@ -67,6 +67,9 @@ class _TranslationsErrorsEs implements TranslationsErrorsEn {
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Has realizado demasiadas solicitudes. Por favor, espera un momento antes de intentarlo de nuevo.';
+	@override String get networkError => 'Error de red. Por favor, comprueba tu conexión a Internet.';
+	@override String get unknownError => 'Algo salió mal. Por favor, inténtalo de nuevo más tarde.';
 	@override String get loadingProfileData => 'Error al cargar datos del perfil';
 	@override String get somethingWentWrong => 'Algo salió mal.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeEs implements TranslationsHomeEn {
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryEs aiSummary = _TranslationsHomeAiSummaryEs._(_root);
 	@override late final _TranslationsHomeDailyGoalEs dailyGoal = _TranslationsHomeDailyGoalEs._(_root);
 	@override late final _TranslationsHomeDailySummaryEs dailySummary = _TranslationsHomeDailySummaryEs._(_root);
 	@override late final _TranslationsHomeIntakeProgressEs intakeProgress = _TranslationsHomeIntakeProgressEs._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementEs implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessEs trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessEs._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileEs healthProfile = _TranslationsOnboardingReinforcementHealthProfileEs._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleEs goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleEs._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryEs implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tu resumen de IA';
+	@override String get logMore => 'Registra más comidas en los próximos días para obtener tus recomendaciones personalizadas de IA.';
+	@override String get loading => 'Cargando tu resumen...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsEs {
 			'language' => 'Español',
 			'flag' => '🇪🇸',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Has realizado demasiadas solicitudes. Por favor, espera un momento antes de intentarlo de nuevo.',
+			'errors.networkError' => 'Error de red. Por favor, comprueba tu conexión a Internet.',
+			'errors.unknownError' => 'Algo salió mal. Por favor, inténtalo de nuevo más tarde.',
 			'errors.loadingProfileData' => 'Error al cargar datos del perfil',
 			'errors.somethingWentWrong' => 'Algo salió mal.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Bienvenido a ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsEs {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'activo',
 			'tabs.dashboard' => 'Tablero',
 			'tabs.history' => 'Historia',
+			'home.aiSummary.title' => 'Tu resumen de IA',
+			'home.aiSummary.logMore' => 'Registra más comidas en los próximos días para obtener tus recomendaciones personalizadas de IA.',
+			'home.aiSummary.loading' => 'Cargando tu resumen...',
 			'home.dailyGoal.title' => 'Establece tu Objetivo Diario',
 			'home.dailyGoal.titleSet' => 'Tu Objetivo Diario',
 			'home.dailyGoal.description' => '¿Listo para embarcarte en tu viaje de bienestar? Establece tu objetivo calórico diario a continuación para iniciar tu progreso.',

@@ -67,6 +67,9 @@ class _TranslationsErrorsNl implements TranslationsErrorsEn {
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Je hebt te veel verzoeken gedaan. Wacht even en probeer het zo opnieuw.';
+	@override String get networkError => 'Netwerkfout. Controleer je internetverbinding en probeer het opnieuw.';
+	@override String get unknownError => 'Er is iets misgegaan. Probeer het later opnieuw.';
 	@override String get loadingProfileData => 'Fout bij het laden van profielgegevens';
 	@override String get somethingWentWrong => 'Er is iets misgegaan.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeNl implements TranslationsHomeEn {
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryNl aiSummary = _TranslationsHomeAiSummaryNl._(_root);
 	@override late final _TranslationsHomeDailyGoalNl dailyGoal = _TranslationsHomeDailyGoalNl._(_root);
 	@override late final _TranslationsHomeDailySummaryNl dailySummary = _TranslationsHomeDailySummaryNl._(_root);
 	@override late final _TranslationsHomeIntakeProgressNl intakeProgress = _TranslationsHomeIntakeProgressNl._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementNl implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessNl trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessNl._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileNl healthProfile = _TranslationsOnboardingReinforcementHealthProfileNl._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleNl goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleNl._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryNl implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Je AI-samenvatting';
+	@override String get logMore => 'Log de komende dagen meer maaltijden om je gepersonaliseerde AI-inzichten te krijgen.';
+	@override String get loading => 'Je samenvatting wordt geladen...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsNl {
 			'language' => 'Nederlands',
 			'flag' => '🇳🇱',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Je hebt te veel verzoeken gedaan. Wacht even en probeer het zo opnieuw.',
+			'errors.networkError' => 'Netwerkfout. Controleer je internetverbinding en probeer het opnieuw.',
+			'errors.unknownError' => 'Er is iets misgegaan. Probeer het later opnieuw.',
 			'errors.loadingProfileData' => 'Fout bij het laden van profielgegevens',
 			'errors.somethingWentWrong' => 'Er is iets misgegaan.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Welkom bij ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsNl {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'actief',
 			'tabs.dashboard' => 'Dashboard',
 			'tabs.history' => 'Geschiedenis',
+			'home.aiSummary.title' => 'Je AI-samenvatting',
+			'home.aiSummary.logMore' => 'Log de komende dagen meer maaltijden om je gepersonaliseerde AI-inzichten te krijgen.',
+			'home.aiSummary.loading' => 'Je samenvatting wordt geladen...',
 			'home.dailyGoal.title' => 'Stel Je Dagdoel In',
 			'home.dailyGoal.titleSet' => 'Je Dagdoel',
 			'home.dailyGoal.description' => 'Klaar om aan je welzijnsreis te beginnen? Stel hieronder je dagelijkse calorie-target in om je voortgang te starten.',

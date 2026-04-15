@@ -67,6 +67,9 @@ class _TranslationsErrorsRo implements TranslationsErrorsEn {
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Ai făcut prea multe cereri. Așteaptă puțin înainte de a încerca din nou.';
+	@override String get networkError => 'Eroare de rețea. Verifică conexiunea la internet.';
+	@override String get unknownError => 'Ceva nu a mers bine. Te rugăm să încerci din nou mai târziu.';
 	@override String get loadingProfileData => 'Eroare la încărcarea datelor profilului';
 	@override String get somethingWentWrong => 'Ceva a mers prost.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeRo implements TranslationsHomeEn {
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryRo aiSummary = _TranslationsHomeAiSummaryRo._(_root);
 	@override late final _TranslationsHomeDailyGoalRo dailyGoal = _TranslationsHomeDailyGoalRo._(_root);
 	@override late final _TranslationsHomeDailySummaryRo dailySummary = _TranslationsHomeDailySummaryRo._(_root);
 	@override late final _TranslationsHomeIntakeProgressRo intakeProgress = _TranslationsHomeIntakeProgressRo._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementRo implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessRo trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessRo._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileRo healthProfile = _TranslationsOnboardingReinforcementHealthProfileRo._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleRo goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleRo._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryRo implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Rezumatul tău AI';
+	@override String get logMore => 'Înregistrează mai multe mese în următoarele câteva zile pentru a primi informații personalizate de la AI.';
+	@override String get loading => 'Se încarcă rezumatul tău...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsRo {
 			'language' => 'Română',
 			'flag' => '🇷🇴',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Ai făcut prea multe cereri. Așteaptă puțin înainte de a încerca din nou.',
+			'errors.networkError' => 'Eroare de rețea. Verifică conexiunea la internet.',
+			'errors.unknownError' => 'Ceva nu a mers bine. Te rugăm să încerci din nou mai târziu.',
 			'errors.loadingProfileData' => 'Eroare la încărcarea datelor profilului',
 			'errors.somethingWentWrong' => 'Ceva a mers prost.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Bine ai venit la ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsRo {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'activ',
 			'tabs.dashboard' => 'Tabloul de Bord',
 			'tabs.history' => 'Istoric',
+			'home.aiSummary.title' => 'Rezumatul tău AI',
+			'home.aiSummary.logMore' => 'Înregistrează mai multe mese în următoarele câteva zile pentru a primi informații personalizate de la AI.',
+			'home.aiSummary.loading' => 'Se încarcă rezumatul tău...',
 			'home.dailyGoal.title' => 'Stabilește-ți Obiectivul Zilnic',
 			'home.dailyGoal.titleSet' => 'Obiectivul Tău Zilnic',
 			'home.dailyGoal.description' => 'Ești gata să începi călătoria ta de sănătate? Stabilește-ți ținta zilnică de calorii mai jos pentru a-ți porni progresul.',

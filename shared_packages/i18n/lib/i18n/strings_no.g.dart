@@ -67,6 +67,9 @@ class _TranslationsErrorsNo implements TranslationsErrorsEn {
 	final TranslationsNo _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Du har sendt for mange forespørsler. Vennligst vent et øyeblikk og prøv igjen.';
+	@override String get networkError => 'Nettverksfeil. Kontroller internettforbindelsen din og prøv igjen.';
+	@override String get unknownError => 'Noe gikk galt. Vennligst prøv igjen senere.';
 	@override String get loadingProfileData => 'Feil ved lasting av profildata';
 	@override String get somethingWentWrong => 'Noe gikk galt.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeNo implements TranslationsHomeEn {
 	final TranslationsNo _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryNo aiSummary = _TranslationsHomeAiSummaryNo._(_root);
 	@override late final _TranslationsHomeDailyGoalNo dailyGoal = _TranslationsHomeDailyGoalNo._(_root);
 	@override late final _TranslationsHomeDailySummaryNo dailySummary = _TranslationsHomeDailySummaryNo._(_root);
 	@override late final _TranslationsHomeIntakeProgressNo intakeProgress = _TranslationsHomeIntakeProgressNo._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementNo implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessNo trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessNo._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileNo healthProfile = _TranslationsOnboardingReinforcementHealthProfileNo._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleNo goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleNo._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryNo implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryNo._(this._root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Din AI-oppsummering';
+	@override String get logMore => 'Registrer flere måltider de neste dagene for å få personlige AI-innsikter.';
+	@override String get loading => 'Laster sammendraget ditt...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsNo {
 			'language' => 'Norsk',
 			'flag' => '🇳🇴',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Du har sendt for mange forespørsler. Vennligst vent et øyeblikk og prøv igjen.',
+			'errors.networkError' => 'Nettverksfeil. Kontroller internettforbindelsen din og prøv igjen.',
+			'errors.unknownError' => 'Noe gikk galt. Vennligst prøv igjen senere.',
 			'errors.loadingProfileData' => 'Feil ved lasting av profildata',
 			'errors.somethingWentWrong' => 'Noe gikk galt.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Velkommen til ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsNo {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktiv',
 			'tabs.dashboard' => 'Dashbord',
 			'tabs.history' => 'Historikk',
+			'home.aiSummary.title' => 'Din AI-oppsummering',
+			'home.aiSummary.logMore' => 'Registrer flere måltider de neste dagene for å få personlige AI-innsikter.',
+			'home.aiSummary.loading' => 'Laster sammendraget ditt...',
 			'home.dailyGoal.title' => 'Sett Ditt Daglige Mål',
 			'home.dailyGoal.titleSet' => 'Ditt Daglige Mål',
 			'home.dailyGoal.description' => 'Klar til å begynne på din velvære reise? Sett ditt daglige kalori mål under for å kickstarte fremdriften din.',

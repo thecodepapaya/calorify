@@ -67,6 +67,9 @@ class _TranslationsErrorsKo implements TranslationsErrorsEn {
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => '요청을 너무 많이 하셨습니다. 잠시 후 다시 시도해 주세요.';
+	@override String get networkError => '네트워크 오류가 발생했습니다. 인터넷 연결을 확인해 주세요.';
+	@override String get unknownError => '문제가 발생했습니다. 잠시 후 다시 시도해 주세요.';
 	@override String get loadingProfileData => '프로필 데이터 로드 중 오류 발생';
 	@override String get somethingWentWrong => '문제가 발생했습니다.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeKo implements TranslationsHomeEn {
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryKo aiSummary = _TranslationsHomeAiSummaryKo._(_root);
 	@override late final _TranslationsHomeDailyGoalKo dailyGoal = _TranslationsHomeDailyGoalKo._(_root);
 	@override late final _TranslationsHomeDailySummaryKo dailySummary = _TranslationsHomeDailySummaryKo._(_root);
 	@override late final _TranslationsHomeIntakeProgressKo intakeProgress = _TranslationsHomeIntakeProgressKo._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementKo implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessKo trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessKo._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileKo healthProfile = _TranslationsOnboardingReinforcementHealthProfileKo._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleKo goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleKo._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryKo implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '나만의 AI 요약';
+	@override String get logMore => '향후 며칠 동안 식사를 더 기록하면 개인화된 AI 인사이트를 받아보실 수 있습니다.';
+	@override String get loading => '요약을 불러오는 중입니다...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsKo {
 			'language' => '한국어',
 			'flag' => '🇰🇷',
 			'appLabel' => ({required Object env}) => '칼로리파이${env}',
+			'errors.rateLimitExceeded' => '요청을 너무 많이 하셨습니다. 잠시 후 다시 시도해 주세요.',
+			'errors.networkError' => '네트워크 오류가 발생했습니다. 인터넷 연결을 확인해 주세요.',
+			'errors.unknownError' => '문제가 발생했습니다. 잠시 후 다시 시도해 주세요.',
 			'errors.loadingProfileData' => '프로필 데이터 로드 중 오류 발생',
 			'errors.somethingWentWrong' => '문제가 발생했습니다.',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel}에 오신 것을 환영합니다',
@@ -1653,6 +1672,9 @@ extension on TranslationsKo {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => '활동적',
 			'tabs.dashboard' => '대시보드',
 			'tabs.history' => '기록',
+			'home.aiSummary.title' => '나만의 AI 요약',
+			'home.aiSummary.logMore' => '향후 며칠 동안 식사를 더 기록하면 개인화된 AI 인사이트를 받아보실 수 있습니다.',
+			'home.aiSummary.loading' => '요약을 불러오는 중입니다...',
 			'home.dailyGoal.title' => '일일 목표 설정',
 			'home.dailyGoal.titleSet' => '당신의 일일 목표',
 			'home.dailyGoal.description' => '웰빙 여정을 시작할 준비가 되셨나요? 아래에 일일 칼로리 목표를 설정하여 진행을 시작하세요.',

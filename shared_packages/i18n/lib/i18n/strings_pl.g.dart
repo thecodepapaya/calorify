@@ -67,6 +67,9 @@ class _TranslationsErrorsPl implements TranslationsErrorsEn {
 	final TranslationsPl _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Wykonałeś zbyt wiele żądań. Zaczekaj chwilę i spróbuj ponownie.';
+	@override String get networkError => 'Wystąpił błąd sieci. Sprawdź połączenie internetowe i spróbuj ponownie.';
+	@override String get unknownError => 'Coś poszło nie tak. Spróbuj ponownie później.';
 	@override String get loadingProfileData => 'Błąd ładowania danych profilu';
 	@override String get somethingWentWrong => 'Coś poszło nie tak.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomePl implements TranslationsHomeEn {
 	final TranslationsPl _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryPl aiSummary = _TranslationsHomeAiSummaryPl._(_root);
 	@override late final _TranslationsHomeDailyGoalPl dailyGoal = _TranslationsHomeDailyGoalPl._(_root);
 	@override late final _TranslationsHomeDailySummaryPl dailySummary = _TranslationsHomeDailySummaryPl._(_root);
 	@override late final _TranslationsHomeIntakeProgressPl intakeProgress = _TranslationsHomeIntakeProgressPl._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementPl implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessPl trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessPl._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfilePl healthProfile = _TranslationsOnboardingReinforcementHealthProfilePl._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestylePl goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestylePl._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryPl implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryPl._(this._root);
+
+	final TranslationsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Twoje podsumowanie AI';
+	@override String get logMore => 'Zarejestruj więcej posiłków w ciągu najbliższych dni, aby otrzymać spersonalizowane wskazówki od AI.';
+	@override String get loading => 'Wczytywanie Twojego podsumowania...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsPl {
 			'language' => 'Polski',
 			'flag' => '🇵🇱',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Wykonałeś zbyt wiele żądań. Zaczekaj chwilę i spróbuj ponownie.',
+			'errors.networkError' => 'Wystąpił błąd sieci. Sprawdź połączenie internetowe i spróbuj ponownie.',
+			'errors.unknownError' => 'Coś poszło nie tak. Spróbuj ponownie później.',
 			'errors.loadingProfileData' => 'Błąd ładowania danych profilu',
 			'errors.somethingWentWrong' => 'Coś poszło nie tak.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Witamy w ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsPl {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktywny',
 			'tabs.dashboard' => 'Panel',
 			'tabs.history' => 'Historia',
+			'home.aiSummary.title' => 'Twoje podsumowanie AI',
+			'home.aiSummary.logMore' => 'Zarejestruj więcej posiłków w ciągu najbliższych dni, aby otrzymać spersonalizowane wskazówki od AI.',
+			'home.aiSummary.loading' => 'Wczytywanie Twojego podsumowania...',
 			'home.dailyGoal.title' => 'Ustaw Swój Codzienny Cel',
 			'home.dailyGoal.titleSet' => 'Twój Codzienny Cel',
 			'home.dailyGoal.description' => 'Gotowy, by wyruszyć w swoją drogę do zdrowia? Ustaw poniżej swój dzienny cel kaloryczny, aby rozpocząć postęp.',

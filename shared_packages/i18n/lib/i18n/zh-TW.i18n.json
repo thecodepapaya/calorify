@@ -3,6 +3,9 @@
   "flag": "🇹🇼",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "您已送出過多請求。請稍等片刻再試。",
+    "networkError": "網路錯誤。請檢查您的網路連線。",
+    "unknownError": "發生錯誤。請稍後再試。",
     "loadingProfileData": "載入個人資料數據出錯",
     "somethingWentWrong": "發生了錯誤。"
   },
@@ -141,6 +144,11 @@
     "history": "歷史"
   },
   "home": {
+    "aiSummary": {
+      "title": "您的 AI 摘要",
+      "logMore": "在接下來幾天多紀錄幾餐，以獲得個人化的 AI 洞見。",
+      "loading": "正在載入您的摘要..."
+    },
     "dailyGoal": {
       "title": "設定您的每日目標",
       "titleSet": "您的每日目標",

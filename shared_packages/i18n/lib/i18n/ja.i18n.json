@@ -3,6 +3,9 @@
   "flag": "🇯🇵",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "リクエストが多すぎます。しばらく待ってからもう一度お試しください。",
+    "networkError": "ネットワークエラーです。インターネット接続を確認してください。",
+    "unknownError": "問題が発生しました。後でもう一度お試しください。",
     "loadingProfileData": "プロフィールデータの読み込みエラー",
     "somethingWentWrong": "何かがうまくいきませんでした。"
   },
@@ -141,6 +144,11 @@
     "history": "履歴"
   },
   "home": {
+    "aiSummary": {
+      "title": "あなたのAIサマリー",
+      "logMore": "今後数日間に食事をもっと記録すると、あなたに合わせたAIのインサイトが得られます。",
+      "loading": "サマリーを読み込んでいます…"
+    },
     "dailyGoal": {
       "title": "日々の目標を設定",
       "titleSet": "あなたのデイリーゴール",

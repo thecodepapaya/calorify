@@ -67,6 +67,9 @@ class _TranslationsErrorsAr implements TranslationsErrorsEn {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'لقد أرسلت عددًا كبيرًا من الطلبات. الرجاء الانتظار قليلاً ثم المحاولة مرة أخرى.';
+	@override String get networkError => 'خطأ في الشبكة. يرجى التحقق من اتصالك بالإنترنت.';
+	@override String get unknownError => 'حدث خطأ ما. الرجاء المحاولة مرة أخرى لاحقًا.';
 	@override String get loadingProfileData => 'خطأ في تحميل بيانات الملف الشخصي';
 	@override String get somethingWentWrong => 'حدث خطأ ما.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeAr implements TranslationsHomeEn {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryAr aiSummary = _TranslationsHomeAiSummaryAr._(_root);
 	@override late final _TranslationsHomeDailyGoalAr dailyGoal = _TranslationsHomeDailyGoalAr._(_root);
 	@override late final _TranslationsHomeDailySummaryAr dailySummary = _TranslationsHomeDailySummaryAr._(_root);
 	@override late final _TranslationsHomeIntakeProgressAr intakeProgress = _TranslationsHomeIntakeProgressAr._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementAr implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessAr trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessAr._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileAr healthProfile = _TranslationsOnboardingReinforcementHealthProfileAr._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleAr goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleAr._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryAr implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ملخص الذكاء الاصطناعي الخاص بك';
+	@override String get logMore => 'سجل المزيد من الوجبات خلال الأيام القليلة القادمة للحصول على رؤى مخصصة من الذكاء الاصطناعي.';
+	@override String get loading => 'جارٍ تحميل ملخصك...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsAr {
 			'language' => 'العربية',
 			'flag' => '🇸🇩',
 			'appLabel' => ({required Object env}) => 'كالوري في ${env}',
+			'errors.rateLimitExceeded' => 'لقد أرسلت عددًا كبيرًا من الطلبات. الرجاء الانتظار قليلاً ثم المحاولة مرة أخرى.',
+			'errors.networkError' => 'خطأ في الشبكة. يرجى التحقق من اتصالك بالإنترنت.',
+			'errors.unknownError' => 'حدث خطأ ما. الرجاء المحاولة مرة أخرى لاحقًا.',
 			'errors.loadingProfileData' => 'خطأ في تحميل بيانات الملف الشخصي',
 			'errors.somethingWentWrong' => 'حدث خطأ ما.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'مرحبًا بكم في ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsAr {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'نشط',
 			'tabs.dashboard' => 'لوحة التحكم',
 			'tabs.history' => 'التاريخ',
+			'home.aiSummary.title' => 'ملخص الذكاء الاصطناعي الخاص بك',
+			'home.aiSummary.logMore' => 'سجل المزيد من الوجبات خلال الأيام القليلة القادمة للحصول على رؤى مخصصة من الذكاء الاصطناعي.',
+			'home.aiSummary.loading' => 'جارٍ تحميل ملخصك...',
 			'home.dailyGoal.title' => 'حدد هدفك اليومي',
 			'home.dailyGoal.titleSet' => 'هدفك اليومي',
 			'home.dailyGoal.description' => 'هل أنت مستعد للانطلاق في رحلة الصحة الخاصة بك؟ حدد هدف السعرات الحرارية اليومية أدناه لبدء تقدمك.',

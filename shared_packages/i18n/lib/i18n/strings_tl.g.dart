@@ -67,6 +67,9 @@ class _TranslationsErrorsTl implements TranslationsErrorsEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Nagpadala ka ng masyadong maraming kahilingan. Pakihintay muna nang sandali bago subukang muli.';
+	@override String get networkError => 'May problema sa network. Pakisuri ang iyong koneksyon sa internet.';
+	@override String get unknownError => 'Nagkaroon ng problema. Pakisubukang muli mamaya.';
 	@override String get loadingProfileData => 'Error sa pag-load ng datos ng profile';
 	@override String get somethingWentWrong => 'May nangyaring mali.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeTl implements TranslationsHomeEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryTl aiSummary = _TranslationsHomeAiSummaryTl._(_root);
 	@override late final _TranslationsHomeDailyGoalTl dailyGoal = _TranslationsHomeDailyGoalTl._(_root);
 	@override late final _TranslationsHomeDailySummaryTl dailySummary = _TranslationsHomeDailySummaryTl._(_root);
 	@override late final _TranslationsHomeIntakeProgressTl intakeProgress = _TranslationsHomeIntakeProgressTl._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementTl implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessTl trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessTl._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileTl healthProfile = _TranslationsOnboardingReinforcementHealthProfileTl._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleTl goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleTl._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryTl implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Buod ng iyong AI';
+	@override String get logMore => 'Itala pa ang mga pagkain sa mga susunod na araw para makuha ang iyong personalisadong mga pananaw mula sa AI.';
+	@override String get loading => 'Ikinakarga ang iyong buod...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsTl {
 			'language' => 'Tagalog',
 			'flag' => '🇵🇭',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Nagpadala ka ng masyadong maraming kahilingan. Pakihintay muna nang sandali bago subukang muli.',
+			'errors.networkError' => 'May problema sa network. Pakisuri ang iyong koneksyon sa internet.',
+			'errors.unknownError' => 'Nagkaroon ng problema. Pakisubukang muli mamaya.',
 			'errors.loadingProfileData' => 'Error sa pag-load ng datos ng profile',
 			'errors.somethingWentWrong' => 'May nangyaring mali.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Maligayang pagdating sa ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsTl {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktibo',
 			'tabs.dashboard' => 'Dashboard',
 			'tabs.history' => 'Kasaysayan',
+			'home.aiSummary.title' => 'Buod ng iyong AI',
+			'home.aiSummary.logMore' => 'Itala pa ang mga pagkain sa mga susunod na araw para makuha ang iyong personalisadong mga pananaw mula sa AI.',
+			'home.aiSummary.loading' => 'Ikinakarga ang iyong buod...',
 			'home.dailyGoal.title' => 'Itakda ang Iyong Pang-araw-araw na Layunin',
 			'home.dailyGoal.titleSet' => 'Ang Iyong Pang-araw-araw na Layunin',
 			'home.dailyGoal.description' => 'Handa ka na bang simulan ang iyong wellness journey? Itakda ang iyong pang-araw-araw na target na calorie sa ibaba upang simulan ang iyong progreso.',

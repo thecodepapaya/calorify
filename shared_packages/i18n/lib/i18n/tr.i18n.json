@@ -3,6 +3,9 @@
   "flag": "🇹🇷",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "Çok fazla istek yaptınız. Lütfen tekrar denemeden önce biraz bekleyin.",
+    "networkError": "Ağ hatası. Lütfen internet bağlantınızı kontrol edin.",
+    "unknownError": "Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.",
     "loadingProfileData": "Profil verileri yüklenirken hata",
     "somethingWentWrong": "Bir şeyler ters gitti."
   },
@@ -141,6 +144,11 @@
     "history": "Geçmiş"
   },
   "home": {
+    "aiSummary": {
+      "title": "Yapay Zeka Özetiniz",
+      "logMore": "Kişiselleştirilmiş yapay zeka içgörülerinizi almak için önümüzdeki birkaç gün içinde daha fazla öğün kaydedin.",
+      "loading": "Özetiniz yükleniyor..."
+    },
     "dailyGoal": {
       "title": "Günlük Hedefinizi Belirleyin",
       "titleSet": "Günlük Hedefiniz",

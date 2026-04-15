@@ -67,6 +67,9 @@ class _TranslationsErrorsZhCn implements TranslationsErrorsEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => '您请求过于频繁。请稍候再试。';
+	@override String get networkError => '网络错误。请检查您的网络连接。';
+	@override String get unknownError => '出现问题。请稍后再试。';
 	@override String get loadingProfileData => '加载个人资料数据时出错';
 	@override String get somethingWentWrong => '出现了一些问题。';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeZhCn implements TranslationsHomeEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryZhCn aiSummary = _TranslationsHomeAiSummaryZhCn._(_root);
 	@override late final _TranslationsHomeDailyGoalZhCn dailyGoal = _TranslationsHomeDailyGoalZhCn._(_root);
 	@override late final _TranslationsHomeDailySummaryZhCn dailySummary = _TranslationsHomeDailySummaryZhCn._(_root);
 	@override late final _TranslationsHomeIntakeProgressZhCn intakeProgress = _TranslationsHomeIntakeProgressZhCn._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementZhCn implements TranslationsOnboarding
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessZhCn trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessZhCn._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileZhCn healthProfile = _TranslationsOnboardingReinforcementHealthProfileZhCn._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleZhCn goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleZhCn._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryZhCn implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '您的 AI 营养总结';
+	@override String get logMore => '在接下来的几天里多记录几餐，以获得个性化的 AI 洞察。';
+	@override String get loading => '正在加载您的 AI 总结...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsZhCn {
 			'language' => '简体中文',
 			'flag' => '🇨🇳',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => '您请求过于频繁。请稍候再试。',
+			'errors.networkError' => '网络错误。请检查您的网络连接。',
+			'errors.unknownError' => '出现问题。请稍后再试。',
 			'errors.loadingProfileData' => '加载个人资料数据时出错',
 			'errors.somethingWentWrong' => '出现了一些问题。',
 			'onboarding.welcome' => ({required Object appLabel}) => '欢迎使用${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsZhCn {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => '活跃',
 			'tabs.dashboard' => '仪表板',
 			'tabs.history' => '历史记录',
+			'home.aiSummary.title' => '您的 AI 营养总结',
+			'home.aiSummary.logMore' => '在接下来的几天里多记录几餐，以获得个性化的 AI 洞察。',
+			'home.aiSummary.loading' => '正在加载您的 AI 总结...',
 			'home.dailyGoal.title' => '设定您的每日目标',
 			'home.dailyGoal.titleSet' => '您的每日目标',
 			'home.dailyGoal.description' => '准备好开始您的健康之旅了吗？在下面设定您的每日卡路里目标，开启您的进步之路。',

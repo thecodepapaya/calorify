@@ -67,6 +67,9 @@ class _TranslationsErrorsJa implements TranslationsErrorsEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'リクエストが多すぎます。しばらく待ってからもう一度お試しください。';
+	@override String get networkError => 'ネットワークエラーです。インターネット接続を確認してください。';
+	@override String get unknownError => '問題が発生しました。後でもう一度お試しください。';
 	@override String get loadingProfileData => 'プロフィールデータの読み込みエラー';
 	@override String get somethingWentWrong => '何かがうまくいきませんでした。';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeJa implements TranslationsHomeEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryJa aiSummary = _TranslationsHomeAiSummaryJa._(_root);
 	@override late final _TranslationsHomeDailyGoalJa dailyGoal = _TranslationsHomeDailyGoalJa._(_root);
 	@override late final _TranslationsHomeDailySummaryJa dailySummary = _TranslationsHomeDailySummaryJa._(_root);
 	@override late final _TranslationsHomeIntakeProgressJa intakeProgress = _TranslationsHomeIntakeProgressJa._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementJa implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessJa trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessJa._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileJa healthProfile = _TranslationsOnboardingReinforcementHealthProfileJa._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleJa goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleJa._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryJa implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'あなたのAIサマリー';
+	@override String get logMore => '今後数日間に食事をもっと記録すると、あなたに合わせたAIのインサイトが得られます。';
+	@override String get loading => 'サマリーを読み込んでいます…';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsJa {
 			'language' => '日本語',
 			'flag' => '🇯🇵',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'リクエストが多すぎます。しばらく待ってからもう一度お試しください。',
+			'errors.networkError' => 'ネットワークエラーです。インターネット接続を確認してください。',
+			'errors.unknownError' => '問題が発生しました。後でもう一度お試しください。',
 			'errors.loadingProfileData' => 'プロフィールデータの読み込みエラー',
 			'errors.somethingWentWrong' => '何かがうまくいきませんでした。',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel}へようこそ',
@@ -1653,6 +1672,9 @@ extension on TranslationsJa {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => '活動的',
 			'tabs.dashboard' => 'ダッシュボード',
 			'tabs.history' => '履歴',
+			'home.aiSummary.title' => 'あなたのAIサマリー',
+			'home.aiSummary.logMore' => '今後数日間に食事をもっと記録すると、あなたに合わせたAIのインサイトが得られます。',
+			'home.aiSummary.loading' => 'サマリーを読み込んでいます…',
 			'home.dailyGoal.title' => '日々の目標を設定',
 			'home.dailyGoal.titleSet' => 'あなたのデイリーゴール',
 			'home.dailyGoal.description' => 'ウェルネスの旅を始める準備はできましたか？進捗を促進させるために、下にあなたのデイリーカロリー目標を設定してください。',

@@ -67,6 +67,9 @@ class _TranslationsErrorsEl implements TranslationsErrorsEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Έχετε κάνει πάρα πολλά αιτήματα. Παρακαλούμε περιμένετε λίγο πριν δοκιμάσετε ξανά.';
+	@override String get networkError => 'Σφάλμα δικτύου. Ελέγξτε τη σύνδεσή σας στο διαδίκτυο.';
+	@override String get unknownError => 'Κάτι πήγε στραβά. Δοκιμάστε ξανά αργότερα.';
 	@override String get loadingProfileData => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ';
 	@override String get somethingWentWrong => 'Κάτι πήγε στραβά.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeEl implements TranslationsHomeEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryEl aiSummary = _TranslationsHomeAiSummaryEl._(_root);
 	@override late final _TranslationsHomeDailyGoalEl dailyGoal = _TranslationsHomeDailyGoalEl._(_root);
 	@override late final _TranslationsHomeDailySummaryEl dailySummary = _TranslationsHomeDailySummaryEl._(_root);
 	@override late final _TranslationsHomeIntakeProgressEl intakeProgress = _TranslationsHomeIntakeProgressEl._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementEl implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessEl trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessEl._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileEl healthProfile = _TranslationsOnboardingReinforcementHealthProfileEl._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleEl goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleEl._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryEl implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Η σύνοψή σας με AI';
+	@override String get logMore => 'Καταγράψτε περισσότερα γεύματα τις επόμενες ημέρες για να λάβετε εξατομικευμένες πληροφορίες από το AI.';
+	@override String get loading => 'Φόρτωση της σύνοψής σας...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsEl {
 			'language' => 'Ελληνικά',
 			'flag' => '🇬🇷',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Έχετε κάνει πάρα πολλά αιτήματα. Παρακαλούμε περιμένετε λίγο πριν δοκιμάσετε ξανά.',
+			'errors.networkError' => 'Σφάλμα δικτύου. Ελέγξτε τη σύνδεσή σας στο διαδίκτυο.',
+			'errors.unknownError' => 'Κάτι πήγε στραβά. Δοκιμάστε ξανά αργότερα.',
 			'errors.loadingProfileData' => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ',
 			'errors.somethingWentWrong' => 'Κάτι πήγε στραβά.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Καλώς ήρθατε στο ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsEl {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'ενεργός',
 			'tabs.dashboard' => 'Πίνακας Ελέγχου',
 			'tabs.history' => 'Ιστορικό',
+			'home.aiSummary.title' => 'Η σύνοψή σας με AI',
+			'home.aiSummary.logMore' => 'Καταγράψτε περισσότερα γεύματα τις επόμενες ημέρες για να λάβετε εξατομικευμένες πληροφορίες από το AI.',
+			'home.aiSummary.loading' => 'Φόρτωση της σύνοψής σας...',
 			'home.dailyGoal.title' => 'Ορίστε τον Καθημερινό Στόχο σας',
 			'home.dailyGoal.titleSet' => 'Ο Καθημερινός σας Στόχος',
 			'home.dailyGoal.description' => 'Έτοιμος να ξεκινήσεις το ταξίδι ευεξίας σου; Ορίστε τον καθημερινό σας στόχο θερμίδων παρακάτω για να ξεκινήσεις την πρόοδό σου.',

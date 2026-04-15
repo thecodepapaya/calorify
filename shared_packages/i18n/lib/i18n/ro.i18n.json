@@ -3,6 +3,9 @@
   "flag": "🇷🇴",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "Ai făcut prea multe cereri. Așteaptă puțin înainte de a încerca din nou.",
+    "networkError": "Eroare de rețea. Verifică conexiunea la internet.",
+    "unknownError": "Ceva nu a mers bine. Te rugăm să încerci din nou mai târziu.",
     "loadingProfileData": "Eroare la încărcarea datelor profilului",
     "somethingWentWrong": "Ceva a mers prost."
   },
@@ -141,6 +144,11 @@
     "history": "Istoric"
   },
   "home": {
+    "aiSummary": {
+      "title": "Rezumatul tău AI",
+      "logMore": "Înregistrează mai multe mese în următoarele câteva zile pentru a primi informații personalizate de la AI.",
+      "loading": "Se încarcă rezumatul tău..."
+    },
     "dailyGoal": {
       "title": "Stabilește-ți Obiectivul Zilnic",
       "titleSet": "Obiectivul Tău Zilnic",

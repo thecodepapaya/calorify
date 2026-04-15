@@ -67,6 +67,9 @@ class _TranslationsErrorsHu implements TranslationsErrorsEn {
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Túl sok kérést indítottál. Kérlek, várj egy pillanatot, majd próbáld újra.';
+	@override String get networkError => 'Hálózati hiba. Kérlek, ellenőrizd az internetkapcsolatodat.';
+	@override String get unknownError => 'Valami hiba történt. Kérlek, próbáld meg később újra.';
 	@override String get loadingProfileData => 'Hiba a profiladatok betöltésekor';
 	@override String get somethingWentWrong => 'Valami hiba történt.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeHu implements TranslationsHomeEn {
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryHu aiSummary = _TranslationsHomeAiSummaryHu._(_root);
 	@override late final _TranslationsHomeDailyGoalHu dailyGoal = _TranslationsHomeDailyGoalHu._(_root);
 	@override late final _TranslationsHomeDailySummaryHu dailySummary = _TranslationsHomeDailySummaryHu._(_root);
 	@override late final _TranslationsHomeIntakeProgressHu intakeProgress = _TranslationsHomeIntakeProgressHu._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementHu implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessHu trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessHu._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileHu healthProfile = _TranslationsOnboardingReinforcementHealthProfileHu._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleHu goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleHu._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryHu implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'AI-összegzésed';
+	@override String get logMore => 'Rögzíts több étkezést a következő napokban, hogy megkapd a személyre szabott AI-elemzéseidet.';
+	@override String get loading => 'AI-összegzésed betöltése...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsHu {
 			'language' => 'Magyar',
 			'flag' => '🇭🇺',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Túl sok kérést indítottál. Kérlek, várj egy pillanatot, majd próbáld újra.',
+			'errors.networkError' => 'Hálózati hiba. Kérlek, ellenőrizd az internetkapcsolatodat.',
+			'errors.unknownError' => 'Valami hiba történt. Kérlek, próbáld meg később újra.',
 			'errors.loadingProfileData' => 'Hiba a profiladatok betöltésekor',
 			'errors.somethingWentWrong' => 'Valami hiba történt.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Üdvözöljük a(z) ${appLabel} alkalmazásban',
@@ -1653,6 +1672,9 @@ extension on TranslationsHu {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktív',
 			'tabs.dashboard' => 'Irányítópult',
 			'tabs.history' => 'Történelem',
+			'home.aiSummary.title' => 'AI-összegzésed',
+			'home.aiSummary.logMore' => 'Rögzíts több étkezést a következő napokban, hogy megkapd a személyre szabott AI-elemzéseidet.',
+			'home.aiSummary.loading' => 'AI-összegzésed betöltése...',
 			'home.dailyGoal.title' => 'Állítsd Be Napi Célodat',
 			'home.dailyGoal.titleSet' => 'Napi Célod',
 			'home.dailyGoal.description' => 'Készen állsz elindulni a jóléted útján? Állítsd be napi kalória célodat az alábbiakban a fejlődésed kezdetéhez.',

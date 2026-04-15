@@ -3,6 +3,9 @@
   "flag": "🇵🇭",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "Nagpadala ka ng masyadong maraming kahilingan. Pakihintay muna nang sandali bago subukang muli.",
+    "networkError": "May problema sa network. Pakisuri ang iyong koneksyon sa internet.",
+    "unknownError": "Nagkaroon ng problema. Pakisubukang muli mamaya.",
     "loadingProfileData": "Error sa pag-load ng datos ng profile",
     "somethingWentWrong": "May nangyaring mali."
   },
@@ -141,6 +144,11 @@
     "history": "Kasaysayan"
   },
   "home": {
+    "aiSummary": {
+      "title": "Buod ng iyong AI",
+      "logMore": "Itala pa ang mga pagkain sa mga susunod na araw para makuha ang iyong personalisadong mga pananaw mula sa AI.",
+      "loading": "Ikinakarga ang iyong buod..."
+    },
     "dailyGoal": {
       "title": "Itakda ang Iyong Pang-araw-araw na Layunin",
       "titleSet": "Ang Iyong Pang-araw-araw na Layunin",

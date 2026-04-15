@@ -3,6 +3,9 @@
   "flag": "🇳🇱",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "Je hebt te veel verzoeken gedaan. Wacht even en probeer het zo opnieuw.",
+    "networkError": "Netwerkfout. Controleer je internetverbinding en probeer het opnieuw.",
+    "unknownError": "Er is iets misgegaan. Probeer het later opnieuw.",
     "loadingProfileData": "Fout bij het laden van profielgegevens",
     "somethingWentWrong": "Er is iets misgegaan."
   },
@@ -141,6 +144,11 @@
     "history": "Geschiedenis"
   },
   "home": {
+    "aiSummary": {
+      "title": "Je AI-samenvatting",
+      "logMore": "Log de komende dagen meer maaltijden om je gepersonaliseerde AI-inzichten te krijgen.",
+      "loading": "Je samenvatting wordt geladen..."
+    },
     "dailyGoal": {
       "title": "Stel Je Dagdoel In",
       "titleSet": "Je Dagdoel",

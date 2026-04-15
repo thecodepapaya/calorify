@@ -67,6 +67,9 @@ class _TranslationsErrorsTh implements TranslationsErrorsEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'คุณส่งคำขอมากเกินไป โปรดรอสักครู่แล้วลองใหม่อีกครั้ง';
+	@override String get networkError => 'เกิดข้อผิดพลาดเครือข่าย โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ';
+	@override String get unknownError => 'เกิดข้อผิดพลาดบางอย่าง โปรดลองอีกครั้งในภายหลัง';
 	@override String get loadingProfileData => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์';
 	@override String get somethingWentWrong => 'มีบางอย่างผิดพลาด.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeTh implements TranslationsHomeEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryTh aiSummary = _TranslationsHomeAiSummaryTh._(_root);
 	@override late final _TranslationsHomeDailyGoalTh dailyGoal = _TranslationsHomeDailyGoalTh._(_root);
 	@override late final _TranslationsHomeDailySummaryTh dailySummary = _TranslationsHomeDailySummaryTh._(_root);
 	@override late final _TranslationsHomeIntakeProgressTh intakeProgress = _TranslationsHomeIntakeProgressTh._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementTh implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessTh trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessTh._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileTh healthProfile = _TranslationsOnboardingReinforcementHealthProfileTh._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleTh goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleTh._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryTh implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'สรุปจาก AI ของคุณ';
+	@override String get logMore => 'บันทึกมื้ออาหารเพิ่มในอีกไม่กี่วันข้างหน้า เพื่อให้ AI มอบข้อมูลเชิงลึกส่วนบุคคลด้านโภชนาการแก่คุณ';
+	@override String get loading => 'กำลังโหลดสรุปของคุณ...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsTh {
 			'language' => 'ไทย',
 			'flag' => '🇹🇭',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'คุณส่งคำขอมากเกินไป โปรดรอสักครู่แล้วลองใหม่อีกครั้ง',
+			'errors.networkError' => 'เกิดข้อผิดพลาดเครือข่าย โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ',
+			'errors.unknownError' => 'เกิดข้อผิดพลาดบางอย่าง โปรดลองอีกครั้งในภายหลัง',
 			'errors.loadingProfileData' => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์',
 			'errors.somethingWentWrong' => 'มีบางอย่างผิดพลาด.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'ยินดีต้อนรับสู่ ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsTh {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'กระตือรือร้น',
 			'tabs.dashboard' => 'หน้าหลัก',
 			'tabs.history' => 'ประวัติ',
+			'home.aiSummary.title' => 'สรุปจาก AI ของคุณ',
+			'home.aiSummary.logMore' => 'บันทึกมื้ออาหารเพิ่มในอีกไม่กี่วันข้างหน้า เพื่อให้ AI มอบข้อมูลเชิงลึกส่วนบุคคลด้านโภชนาการแก่คุณ',
+			'home.aiSummary.loading' => 'กำลังโหลดสรุปของคุณ...',
 			'home.dailyGoal.title' => 'ตั้งค่าเป้าหมายรายวันของคุณ',
 			'home.dailyGoal.titleSet' => 'เป้าหมายรายวันของคุณ',
 			'home.dailyGoal.description' => 'พร้อมที่จะเริ่มต้นการเดินทางสู่สุขภาพของคุณ? ตั้งค่าเป้าหมายแคลอรีรายวันของคุณด้านล่างเพื่อเริ่มการพัฒนา',

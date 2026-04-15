@@ -67,6 +67,9 @@ class _TranslationsErrorsId implements TranslationsErrorsEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Anda telah melakukan terlalu banyak permintaan. Silakan tunggu sebentar sebelum mencoba lagi.';
+	@override String get networkError => 'Terjadi kesalahan jaringan. Periksa koneksi internet Anda.';
+	@override String get unknownError => 'Terjadi kesalahan. Silakan coba lagi nanti.';
 	@override String get loadingProfileData => 'Kesalahan saat memuat data profil';
 	@override String get somethingWentWrong => 'Terjadi kesalahan.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeId implements TranslationsHomeEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryId aiSummary = _TranslationsHomeAiSummaryId._(_root);
 	@override late final _TranslationsHomeDailyGoalId dailyGoal = _TranslationsHomeDailyGoalId._(_root);
 	@override late final _TranslationsHomeDailySummaryId dailySummary = _TranslationsHomeDailySummaryId._(_root);
 	@override late final _TranslationsHomeIntakeProgressId intakeProgress = _TranslationsHomeIntakeProgressId._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementId implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessId trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessId._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileId healthProfile = _TranslationsOnboardingReinforcementHealthProfileId._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleId goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleId._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryId implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ringkasan AI Anda';
+	@override String get logMore => 'Catat lebih banyak makanan selama beberapa hari ke depan agar Anda mendapatkan wawasan AI yang dipersonalisasi.';
+	@override String get loading => 'Memuat ringkasan Anda...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsId {
 			'language' => 'Bahasa Indonesia',
 			'flag' => '🇮🇩',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Anda telah melakukan terlalu banyak permintaan. Silakan tunggu sebentar sebelum mencoba lagi.',
+			'errors.networkError' => 'Terjadi kesalahan jaringan. Periksa koneksi internet Anda.',
+			'errors.unknownError' => 'Terjadi kesalahan. Silakan coba lagi nanti.',
 			'errors.loadingProfileData' => 'Kesalahan saat memuat data profil',
 			'errors.somethingWentWrong' => 'Terjadi kesalahan.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Selamat datang di ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsId {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktif',
 			'tabs.dashboard' => 'Dasbor',
 			'tabs.history' => 'Riwayat',
+			'home.aiSummary.title' => 'Ringkasan AI Anda',
+			'home.aiSummary.logMore' => 'Catat lebih banyak makanan selama beberapa hari ke depan agar Anda mendapatkan wawasan AI yang dipersonalisasi.',
+			'home.aiSummary.loading' => 'Memuat ringkasan Anda...',
 			'home.dailyGoal.title' => 'Tetapkan Tujuan Harian Anda',
 			'home.dailyGoal.titleSet' => 'Tujuan Harian Anda',
 			'home.dailyGoal.description' => 'Siap untuk memulai perjalanan kesejahteraan Anda? Tetapkan target kalori harian Anda di bawah ini untuk memulai kemajuan Anda.',

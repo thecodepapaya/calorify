@@ -67,6 +67,9 @@ class _TranslationsErrorsGu implements TranslationsErrorsEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'તમે બહુ વધુ વિનંતીઓ કરી છે. કૃપા કરીને થોડીવાર રાહ જોઈને ફરીથી પ્રયાસ કરો.';
+	@override String get networkError => 'નેટવર્ક ત્રુટી. કૃપા કરીને તમારું ઇન્ટરનેટ કનેક્શન તપાસો.';
+	@override String get unknownError => 'કંઈક ગડબડ થઈ ગઈ છે. કૃપા કરીને પછીથી ફરીથી પ્રયાસ કરો.';
 	@override String get loadingProfileData => 'પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ';
 	@override String get somethingWentWrong => 'કોઈ મુશ્કેલી પડી.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeGu implements TranslationsHomeEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryGu aiSummary = _TranslationsHomeAiSummaryGu._(_root);
 	@override late final _TranslationsHomeDailyGoalGu dailyGoal = _TranslationsHomeDailyGoalGu._(_root);
 	@override late final _TranslationsHomeDailySummaryGu dailySummary = _TranslationsHomeDailySummaryGu._(_root);
 	@override late final _TranslationsHomeIntakeProgressGu intakeProgress = _TranslationsHomeIntakeProgressGu._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementGu implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessGu trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessGu._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileGu healthProfile = _TranslationsOnboardingReinforcementHealthProfileGu._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleGu goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleGu._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryGu implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'તમારો AI સારાંશ';
+	@override String get logMore => 'આગલા થોડા દિવસોમાં વધુ ભોજન નોંધો જેથી તમને વ્યક્તિગત AI સૂચનો મળે.';
+	@override String get loading => 'તમારો સારાંશ લોડ થઈ રહ્યો છે...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsGu {
 			'language' => 'ગુજરાતી',
 			'flag' => '🇮🇳',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'તમે બહુ વધુ વિનંતીઓ કરી છે. કૃપા કરીને થોડીવાર રાહ જોઈને ફરીથી પ્રયાસ કરો.',
+			'errors.networkError' => 'નેટવર્ક ત્રુટી. કૃપા કરીને તમારું ઇન્ટરનેટ કનેક્શન તપાસો.',
+			'errors.unknownError' => 'કંઈક ગડબડ થઈ ગઈ છે. કૃપા કરીને પછીથી ફરીથી પ્રયાસ કરો.',
 			'errors.loadingProfileData' => 'પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ',
 			'errors.somethingWentWrong' => 'કોઈ મુશ્કેલી પડી.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'તમે ${appLabel} માં સ્વાગત છે',
@@ -1653,6 +1672,9 @@ extension on TranslationsGu {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'ક્રિયાશીલ',
 			'tabs.dashboard' => 'ડેશબોર્ડ',
 			'tabs.history' => 'ઇતિહાસ',
+			'home.aiSummary.title' => 'તમારો AI સારાંશ',
+			'home.aiSummary.logMore' => 'આગલા થોડા દિવસોમાં વધુ ભોજન નોંધો જેથી તમને વ્યક્તિગત AI સૂચનો મળે.',
+			'home.aiSummary.loading' => 'તમારો સારાંશ લોડ થઈ રહ્યો છે...',
 			'home.dailyGoal.title' => 'તમે રોજના લક્ષ્યને નક્કી કરો',
 			'home.dailyGoal.titleSet' => 'તમારા રોજના લક્ષ્ય',
 			'home.dailyGoal.description' => 'તમારા આરોગ્યના માર્ગો શરૂ કરવા માટે સંપૂર્ણ રીતે તૈયાર છો? તમારી દૈનિક કૅલરીના લક્ષ્યને નીચે નક્કી કરો.',

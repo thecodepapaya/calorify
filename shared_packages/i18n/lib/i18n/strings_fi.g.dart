@@ -67,6 +67,9 @@ class _TranslationsErrorsFi implements TranslationsErrorsEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Olet tehnyt liian monta pyyntöä. Odota hetki ja yritä uudelleen.';
+	@override String get networkError => 'Verkkovirhe. Tarkista internet-yhteytesi.';
+	@override String get unknownError => 'Jotain meni pieleen. Yritä hetken kuluttua uudelleen.';
 	@override String get loadingProfileData => 'Virhe profiilitietojen lataamisessa';
 	@override String get somethingWentWrong => 'Jokin meni pieleen.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeFi implements TranslationsHomeEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryFi aiSummary = _TranslationsHomeAiSummaryFi._(_root);
 	@override late final _TranslationsHomeDailyGoalFi dailyGoal = _TranslationsHomeDailyGoalFi._(_root);
 	@override late final _TranslationsHomeDailySummaryFi dailySummary = _TranslationsHomeDailySummaryFi._(_root);
 	@override late final _TranslationsHomeIntakeProgressFi intakeProgress = _TranslationsHomeIntakeProgressFi._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementFi implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessFi trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessFi._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileFi healthProfile = _TranslationsOnboardingReinforcementHealthProfileFi._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleFi goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleFi._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryFi implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryFi._(this._root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Henkilökohtainen tekoälyyn perustuva yhteenveto';
+	@override String get logMore => 'Kirjaa seuraavien päivien aikana lisää aterioita, niin saat henkilökohtaisia tekoälyyn perustuvia oivalluksia.';
+	@override String get loading => 'Haetaan yhteenvetoasi...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsFi {
 			'language' => 'Suomi',
 			'flag' => '🇫🇮',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Olet tehnyt liian monta pyyntöä. Odota hetki ja yritä uudelleen.',
+			'errors.networkError' => 'Verkkovirhe. Tarkista internet-yhteytesi.',
+			'errors.unknownError' => 'Jotain meni pieleen. Yritä hetken kuluttua uudelleen.',
 			'errors.loadingProfileData' => 'Virhe profiilitietojen lataamisessa',
 			'errors.somethingWentWrong' => 'Jokin meni pieleen.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Tervetuloa ${appLabel} -sovellukseen',
@@ -1653,6 +1672,9 @@ extension on TranslationsFi {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktiivinen',
 			'tabs.dashboard' => 'Hallintapaneeli',
 			'tabs.history' => 'Historia',
+			'home.aiSummary.title' => 'Henkilökohtainen tekoälyyn perustuva yhteenveto',
+			'home.aiSummary.logMore' => 'Kirjaa seuraavien päivien aikana lisää aterioita, niin saat henkilökohtaisia tekoälyyn perustuvia oivalluksia.',
+			'home.aiSummary.loading' => 'Haetaan yhteenvetoasi...',
 			'home.dailyGoal.title' => 'Aseta Päivittäinen Tavoitteesi',
 			'home.dailyGoal.titleSet' => 'Päivittäinen Tavoitteesi',
 			'home.dailyGoal.description' => 'Valmiina aloittamaan hyvinvointimatkasi? Aseta päivittäinen kaloritavoitteesi alla käynnistääksesi edistymisesi.',

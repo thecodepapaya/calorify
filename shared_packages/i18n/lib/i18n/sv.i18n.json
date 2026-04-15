@@ -3,6 +3,9 @@
   "flag": "🇸🇪",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "Du har gjort för många förfrågningar. Vänta en liten stund och försök igen.",
+    "networkError": "Nätverksfel. Kontrollera din internetanslutning.",
+    "unknownError": "Något gick fel. Försök igen senare.",
     "loadingProfileData": "Fel vid inläsning av profildata",
     "somethingWentWrong": "Något gick fel."
   },
@@ -141,6 +144,11 @@
     "history": "Historik"
   },
   "home": {
+    "aiSummary": {
+      "title": "Din AI-sammanfattning",
+      "logMore": "Logga fler måltider under de närmaste dagarna för att få dina personliga AI-insikter.",
+      "loading": "Hämtar din sammanfattning..."
+    },
     "dailyGoal": {
       "title": "Ställ in ditt dagliga mål",
       "titleSet": "Ditt dagliga mål",

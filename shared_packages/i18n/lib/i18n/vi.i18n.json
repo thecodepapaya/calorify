@@ -3,6 +3,9 @@
   "flag": "🇻🇳",
   "appLabel": "Calorify{env}",
   "errors": {
+    "rateLimitExceeded": "Bạn đã thực hiện quá nhiều yêu cầu. Vui lòng chờ một lát rồi thử lại.",
+    "networkError": "Lỗi mạng. Vui lòng kiểm tra kết nối Internet của bạn.",
+    "unknownError": "Đã xảy ra lỗi. Vui lòng thử lại sau.",
     "loadingProfileData": "Lỗi khi tải dữ liệu hồ sơ",
     "somethingWentWrong": "Đã xảy ra lỗi."
   },
@@ -141,6 +144,11 @@
     "history": "Lịch sử"
   },
   "home": {
+    "aiSummary": {
+      "title": "Tóm tắt AI của bạn",
+      "logMore": "Ghi lại thêm bữa ăn trong vài ngày tới để nhận được những phân tích cá nhân hóa từ AI.",
+      "loading": "Đang tải tóm tắt của bạn..."
+    },
     "dailyGoal": {
       "title": "Đặt mục tiêu hàng ngày của bạn",
       "titleSet": "Mục tiêu hàng ngày của bạn",

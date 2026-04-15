@@ -67,6 +67,9 @@ class _TranslationsErrorsVi implements TranslationsErrorsEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
+	@override String get rateLimitExceeded => 'Bạn đã thực hiện quá nhiều yêu cầu. Vui lòng chờ một lát rồi thử lại.';
+	@override String get networkError => 'Lỗi mạng. Vui lòng kiểm tra kết nối Internet của bạn.';
+	@override String get unknownError => 'Đã xảy ra lỗi. Vui lòng thử lại sau.';
 	@override String get loadingProfileData => 'Lỗi khi tải dữ liệu hồ sơ';
 	@override String get somethingWentWrong => 'Đã xảy ra lỗi.';
 }
@@ -111,6 +114,7 @@ class _TranslationsHomeVi implements TranslationsHomeEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsHomeAiSummaryVi aiSummary = _TranslationsHomeAiSummaryVi._(_root);
 	@override late final _TranslationsHomeDailyGoalVi dailyGoal = _TranslationsHomeDailyGoalVi._(_root);
 	@override late final _TranslationsHomeDailySummaryVi dailySummary = _TranslationsHomeDailySummaryVi._(_root);
 	@override late final _TranslationsHomeIntakeProgressVi intakeProgress = _TranslationsHomeIntakeProgressVi._(_root);
@@ -529,6 +533,18 @@ class _TranslationsOnboardingReinforcementVi implements TranslationsOnboardingRe
 	@override late final _TranslationsOnboardingReinforcementTrackingSuccessVi trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessVi._(_root);
 	@override late final _TranslationsOnboardingReinforcementHealthProfileVi healthProfile = _TranslationsOnboardingReinforcementHealthProfileVi._(_root);
 	@override late final _TranslationsOnboardingReinforcementGoalLifestyleVi goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleVi._(_root);
+}
+
+// Path: home.aiSummary
+class _TranslationsHomeAiSummaryVi implements TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tóm tắt AI của bạn';
+	@override String get logMore => 'Ghi lại thêm bữa ăn trong vài ngày tới để nhận được những phân tích cá nhân hóa từ AI.';
+	@override String get loading => 'Đang tải tóm tắt của bạn...';
 }
 
 // Path: home.dailyGoal
@@ -1563,6 +1579,9 @@ extension on TranslationsVi {
 			'language' => 'Tiếng Việt',
 			'flag' => '🇻🇳',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
+			'errors.rateLimitExceeded' => 'Bạn đã thực hiện quá nhiều yêu cầu. Vui lòng chờ một lát rồi thử lại.',
+			'errors.networkError' => 'Lỗi mạng. Vui lòng kiểm tra kết nối Internet của bạn.',
+			'errors.unknownError' => 'Đã xảy ra lỗi. Vui lòng thử lại sau.',
 			'errors.loadingProfileData' => 'Lỗi khi tải dữ liệu hồ sơ',
 			'errors.somethingWentWrong' => 'Đã xảy ra lỗi.',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Chào mừng bạn đến với ${appLabel}',
@@ -1653,6 +1672,9 @@ extension on TranslationsVi {
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'năng động',
 			'tabs.dashboard' => 'Bảng điều khiển',
 			'tabs.history' => 'Lịch sử',
+			'home.aiSummary.title' => 'Tóm tắt AI của bạn',
+			'home.aiSummary.logMore' => 'Ghi lại thêm bữa ăn trong vài ngày tới để nhận được những phân tích cá nhân hóa từ AI.',
+			'home.aiSummary.loading' => 'Đang tải tóm tắt của bạn...',
 			'home.dailyGoal.title' => 'Đặt mục tiêu hàng ngày của bạn',
 			'home.dailyGoal.titleSet' => 'Mục tiêu hàng ngày của bạn',
 			'home.dailyGoal.description' => 'Sẵn sàng để bắt đầu hành trình sức khỏe? Đặt mục tiêu calo hàng ngày của bạn bên dưới để khởi đầu tiến trình.',
