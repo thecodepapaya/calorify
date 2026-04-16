@@ -6,11 +6,10 @@
 
 import OpenAI from 'openai';
 import { randomUUID } from 'node:crypto';
-import { readFileSync, existsSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import config from '../config.js';
 import { getFoodAnalysisSystemPrompt } from './foodAnalysisSystemPrompt.js';
+import { canonicalizeWithUsda } from './usdaLookup.js';
+import { calcMacrosFromUsdaRow } from './usdaLookupUtils.js';
 import {
   getMealAnalysisSession,
   recordMealAnalysisClarification,
@@ -18,18 +17,6 @@ import {
   type MealTypeSource,
   upsertMealAnalysisSession,
 } from './mealAnalysisStore.js';
-
-interface FoodEntry {
-  id: string;
-  canonical_name: string;
-  kcal_per_100g: number;
-  protein_per_100g: number;
-  carbs_per_100g: number;
-  fat_per_100g: number;
-  fiber_per_100g: number;
-  default_weight_grams: number;
-  source: string;
-}
 
 interface LLMIngredient {
   raw_name: string;
@@ -236,123 +223,6 @@ interface PipelineRunContext {
   otherText?: string;
 }
 
-function getFoodDbPath(): string {
-  const __dirname = dirname(fileURLToPath(import.meta.url));
-  const fromDist = join(__dirname, '../scripts/usda-foods-sample.json');
-  const fromSrc = join(process.cwd(), 'src/scripts/usda-foods-sample.json');
-  if (existsSync(fromDist)) return fromDist;
-  if (existsSync(fromSrc)) return fromSrc;
-  return fromSrc;
-}
-
-const FOOD_DB: FoodEntry[] = JSON.parse(readFileSync(getFoodDbPath(), 'utf-8'));
-const foodIndex = new Map<string, FoodEntry>();
-for (const food of FOOD_DB) {
-  foodIndex.set(food.id, food);
-}
-
-const ALIASES: Record<string, string> = {
-  roti: 'wheat-flour-whole',
-  chapati: 'wheat-flour-whole',
-  phulka: 'wheat-flour-whole',
-  atta: 'wheat-flour-whole',
-  naan: 'wheat-flour-refined',
-  maida: 'wheat-flour-refined',
-  aloo: 'potato-boiled',
-  potato: 'potato-boiled',
-  bhindi: 'okra-cooked',
-  okra: 'okra-cooked',
-  baingan: 'eggplant-cooked',
-  eggplant: 'eggplant-cooked',
-  palak: 'spinach-cooked',
-  spinach: 'spinach-cooked',
-  gobhi: 'cauliflower-cooked',
-  cauliflower: 'cauliflower-cooked',
-  gajar: 'carrot-raw',
-  carrot: 'carrot-raw',
-  matar: 'green-peas-cooked',
-  peas: 'green-peas-cooked',
-  tamatar: 'tomato-raw',
-  tomato: 'tomato-raw',
-  pyaaz: 'onion-raw',
-  onion: 'onion-raw',
-  dahi: 'yogurt-plain',
-  curd: 'yogurt-plain',
-  yogurt: 'yogurt-plain',
-  chawal: 'rice-white-cooked',
-  rice: 'rice-white-cooked',
-  'white rice': 'rice-white-cooked',
-  'brown rice': 'rice-brown-cooked',
-  dal: 'toor-dal-cooked',
-  'toor dal': 'toor-dal-cooked',
-  'arhar dal': 'toor-dal-cooked',
-  'moong dal': 'moong-dal-cooked',
-  moong: 'moong-dal-cooked',
-  'chana dal': 'chana-dal-cooked',
-  'masoor dal': 'lentils-red-cooked',
-  masoor: 'lentils-red-cooked',
-  'red lentils': 'lentils-red-cooked',
-  rajma: 'rajma-cooked',
-  'kidney beans': 'rajma-cooked',
-  chole: 'chickpeas-cooked',
-  chickpeas: 'chickpeas-cooked',
-  makhan: 'butter',
-  tel: 'oil-vegetable',
-  'cooking oil': 'oil-vegetable',
-  'vegetable oil': 'oil-vegetable',
-  'olive oil': 'oil-olive',
-  'coconut oil': 'oil-coconut',
-  'mustard oil': 'oil-mustard',
-  namak: 'salt',
-  cheeni: 'sugar-white',
-  sugar: 'sugar-white',
-  gur: 'jaggery',
-  shahad: 'honey',
-  paneer: 'paneer',
-  ghee: 'ghee',
-  chicken: 'chicken-breast-cooked',
-  'chicken breast': 'chicken-breast-cooked',
-  'chicken thigh': 'chicken-thigh-cooked',
-  egg: 'egg-whole-cooked',
-  eggs: 'egg-whole-cooked',
-  salmon: 'salmon-cooked',
-  lamb: 'lamb-cooked',
-  shrimp: 'shrimp-cooked',
-  tofu: 'tofu-firm',
-  oats: 'oats-rolled-dry',
-  pasta: 'pasta-cooked',
-  avocado: 'avocado',
-  banana: 'banana',
-  apple: 'apple',
-  mango: 'mango',
-  garlic: 'garlic',
-  ginger: 'ginger',
-  adrak: 'ginger',
-  lahsun: 'garlic',
-  haldi: 'turmeric-powder',
-  turmeric: 'turmeric-powder',
-  jeera: 'cumin-seeds',
-  cumin: 'cumin-seeds',
-  cabbage: 'cabbage-cooked',
-  'patta gobhi': 'cabbage-cooked',
-  broccoli: 'broccoli-cooked',
-  almond: 'almond',
-  almonds: 'almond',
-  badam: 'almond',
-  'peanut butter': 'peanut-butter',
-  bread: 'bread-white',
-  'white bread': 'bread-white',
-  'whole wheat bread': 'bread-whole-wheat',
-  milk: 'milk-whole',
-  'whole milk': 'milk-whole',
-  'skim milk': 'milk-skim',
-  cheese: 'cheese-cheddar',
-  cheddar: 'cheese-cheddar',
-  cream: 'cream-heavy',
-  coconut: 'coconut-fresh',
-  'coconut milk': 'coconut-milk',
-};
-
 const DECOMPOSITION_MODEL = 'gpt-5-nano';
 
 const DECOMPOSITION_SYSTEM_PROMPT = `You are a food decomposition AI. Your ONLY job is to break down a meal description into individual atomic ingredients with gram estimates.
@@ -465,74 +335,6 @@ const PRESENTATION_SCHEMA = {
 
 function normalize(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
-}
-
-function fuzzyScore(a: string, b: string): number {
-  const aNorm = normalize(a);
-  const bNorm = normalize(b);
-  if (aNorm === bNorm) return 1;
-  if (bNorm.includes(aNorm) || aNorm.includes(bNorm)) return 0.9;
-  const aWords = new Set(aNorm.split(' '));
-  const bWords = new Set(bNorm.split(' '));
-  let overlap = 0;
-  for (const word of aWords) {
-    if (bWords.has(word)) overlap++;
-  }
-  const union = new Set([...aWords, ...bWords]).size;
-  return union > 0 ? overlap / union : 0;
-}
-
-function canonicalize(hint: string): CanonicalMatch {
-  const normalizedHint = normalize(hint);
-  if (ALIASES[normalizedHint]) {
-    const food = foodIndex.get(ALIASES[normalizedHint]);
-    if (food) {
-      return { foodId: food.id, canonicalName: food.canonical_name, score: 1, matchType: 'alias' };
-    }
-  }
-
-  for (const food of FOOD_DB) {
-    if (normalize(food.canonical_name) === normalizedHint || food.id === normalizedHint) {
-      return { foodId: food.id, canonicalName: food.canonical_name, score: 1, matchType: 'exact' };
-    }
-  }
-
-  let bestFood: FoodEntry | null = null;
-  let bestScore = 0;
-  for (const food of FOOD_DB) {
-    const score = Math.max(
-      fuzzyScore(normalizedHint, food.canonical_name),
-      fuzzyScore(normalizedHint, food.id.replace(/-/g, ' '))
-    );
-    if (score > bestScore) {
-      bestScore = score;
-      bestFood = food;
-    }
-  }
-
-  if (bestFood && bestScore >= 0.4) {
-    return {
-      foodId: bestFood.id,
-      canonicalName: bestFood.canonical_name,
-      score: bestScore,
-      matchType: 'fuzzy',
-    };
-  }
-
-  return { foodId: '', canonicalName: hint, score: 0, matchType: 'unmatched' };
-}
-
-function calcMacros(foodId: string, grams: number): Macros {
-  const food = foodIndex.get(foodId);
-  if (!food) return { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
-  const ratio = grams / 100;
-  return {
-    calories: Math.round(food.kcal_per_100g * ratio),
-    protein: +(food.protein_per_100g * ratio).toFixed(1),
-    carbs: +(food.carbs_per_100g * ratio).toFixed(1),
-    fat: +(food.fat_per_100g * ratio).toFixed(1),
-    fiber: +(food.fiber_per_100g * ratio).toFixed(1),
-  };
 }
 
 function calcMacrosFromPer100g(per100g: LLMFallbackEntry, grams: number): Macros {
@@ -774,10 +576,29 @@ async function resolveIngredients(client: OpenAI, decomposition: LLMDecompositio
   const unmatched: { index: number; ingredient: LLMIngredient }[] = [];
 
   for (const ingredient of decomposition.ingredients) {
-    const match = canonicalize(ingredient.canonical_hint);
-    const macros = calcMacros(match.foodId, ingredient.grams_estimated);
-    const minMacros = calcMacros(match.foodId, ingredient.min_grams);
-    const maxMacros = calcMacros(match.foodId, ingredient.max_grams);
+    const usdaMatch = await canonicalizeWithUsda(ingredient.canonical_hint);
+    const match: CanonicalMatch = usdaMatch.row
+      ? {
+          foodId: String(usdaMatch.row.fdc_id),
+          canonicalName: usdaMatch.row.description,
+          score: usdaMatch.score,
+          matchType: usdaMatch.matchType,
+        }
+      : {
+          foodId: '',
+          canonicalName: ingredient.canonical_hint,
+          score: 0,
+          matchType: 'unmatched',
+        };
+    const macros = usdaMatch.row
+      ? calcMacrosFromUsdaRow(usdaMatch.row, ingredient.grams_estimated)
+      : { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
+    const minMacros = usdaMatch.row
+      ? calcMacrosFromUsdaRow(usdaMatch.row, ingredient.min_grams)
+      : { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
+    const maxMacros = usdaMatch.row
+      ? calcMacrosFromUsdaRow(usdaMatch.row, ingredient.max_grams)
+      : { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
     if (match.matchType === 'unmatched') unmatched.push({ index: resolved.length, ingredient });
     resolved.push({
       rawName: ingredient.raw_name,
@@ -808,8 +629,12 @@ async function resolveIngredients(client: OpenAI, decomposition: LLMDecompositio
         current.match = { ...current.match, matchType: 'llm_fallback' };
         current.source = 'llm_fallback';
       }
+      console.log(
+        `[nutritionEngineV2] USDA unmatched=${unmatched.length} fallbackApplied=${unmatched.length}`
+      );
     } catch {
       // Keep unresolved items as zero macros.
+      console.warn(`[nutritionEngineV2] USDA unmatched=${unmatched.length} fallbackFailed=true`);
     }
   }
 
@@ -817,10 +642,7 @@ async function resolveIngredients(client: OpenAI, decomposition: LLMDecompositio
 }
 
 function recalculateIngredient(ingredient: ResolvedIngredient, nextGrams: number): ResolvedIngredient {
-  const nextMacros =
-    ingredient.source === 'db' && ingredient.match.foodId
-      ? calcMacros(ingredient.match.foodId, nextGrams)
-      : scaleMacros(ingredient.macros, ingredient.grams, nextGrams);
+  const nextMacros = scaleMacros(ingredient.macros, ingredient.grams, nextGrams);
   return {
     ...ingredient,
     grams: nextGrams,
