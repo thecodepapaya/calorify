@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
 import 'package:calorify_watch/widgets/carousel_scroll_view.dart';
@@ -24,7 +26,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   void initState() {
     super.initState();
-    _load();
+    unawaited(_load());
   }
 
   Future<void> _load({bool force = false}) async {
@@ -38,13 +40,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   Future<void> _onRefresh() async {
-    HapticFeedback.mediumImpact();
+    unawaited(HapticFeedback.mediumImpact());
     await _load(force: true);
-    HapticFeedback.lightImpact();
+    unawaited(HapticFeedback.lightImpact());
   }
 
   Future<void> _deleteMeal(int mealId) async {
-    HapticFeedback.mediumImpact();
+    unawaited(HapticFeedback.mediumImpact());
     final ok = await SyncService.instance.deleteMeal(mealId);
     if (!ok && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -75,7 +77,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   _CircleBtn(
                     icon: Icons.arrow_back,
                     onTap: () {
-                      HapticFeedback.lightImpact();
+                      unawaited(HapticFeedback.lightImpact());
                       context.router.pop();
                     },
                     semanticLabel: 'Back',
@@ -89,7 +91,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       const SizedBox(width: 5),
                       ValueListenableBuilder<List<LoggedMeal>>(
                         valueListenable: SyncService.instance.todaysMeals,
-                        builder: (_, meals, __) => Text(
+                        builder: (_, meals, _) => Text(
                           "Today's Meals",
                           style: theme.textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.w700,
@@ -101,7 +103,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       const SizedBox(width: 5),
                       ValueListenableBuilder<List<LoggedMeal>>(
                         valueListenable: SyncService.instance.todaysMeals,
-                        builder: (_, meals, __) => Container(
+                        builder: (_, meals, _) => Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 6, vertical: 2),
                           decoration: BoxDecoration(
@@ -124,7 +126,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   const Spacer(),
                   ValueListenableBuilder<SyncState>(
                     valueListenable: SyncService.instance.syncState,
-                    builder: (_, state, __) => _CircleBtn(
+                    builder: (_, state, _) => _CircleBtn(
                       icon: LucideIcons.refreshCw,
                       onTap: _onRefresh,
                       semanticLabel: 'Refresh meals',
@@ -138,7 +140,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             Expanded(
               child: ValueListenableBuilder<List<LoggedMeal>>(
                 valueListenable: SyncService.instance.todaysMeals,
-                builder: (_, meals, __) {
+                builder: (_, meals, _) {
                   if (!_loaded && meals.isEmpty) {
                     return const ListScreenSkeleton();
                   }
@@ -276,7 +278,7 @@ class _ErrorView extends StatelessWidget {
             const SizedBox(height: 14),
             GestureDetector(
               onTap: () {
-                HapticFeedback.mediumImpact();
+                unawaited(HapticFeedback.mediumImpact());
                 onRetry();
               },
               child: Container(

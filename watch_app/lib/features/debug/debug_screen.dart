@@ -76,7 +76,7 @@ class _DebugScreenState extends State<DebugScreen> {
               _messages.removeRange(50, _messages.length);
             }
           });
-          HapticFeedback.lightImpact();
+          unawaited(HapticFeedback.lightImpact());
         }
       },
       onError: (error) {
@@ -100,12 +100,12 @@ class _DebugScreenState extends State<DebugScreen> {
     setState(() {
       _messages.clear();
     });
-    HapticFeedback.mediumImpact();
+    unawaited(HapticFeedback.mediumImpact());
   }
 
   Future<void> _sendTestMessage() async {
     if (!_isPhoneConnected) {
-      HapticFeedback.mediumImpact();
+      unawaited(HapticFeedback.mediumImpact());
       return;
     }
     try {
@@ -117,15 +117,15 @@ class _DebugScreenState extends State<DebugScreen> {
           'type': 'test',
         },
       );
-      HapticFeedback.lightImpact();
+      unawaited(HapticFeedback.lightImpact());
     } catch (e) {
-      HapticFeedback.mediumImpact();
+      unawaited(HapticFeedback.mediumImpact());
     }
   }
 
   Future<void> _sendTestMeal() async {
     if (!_isPhoneConnected) {
-      HapticFeedback.mediumImpact();
+      unawaited(HapticFeedback.mediumImpact());
       return;
     }
     try {
@@ -141,15 +141,15 @@ class _DebugScreenState extends State<DebugScreen> {
           'timestamp': DateTime.now().toIso8601String(),
         },
       );
-      HapticFeedback.lightImpact();
+      unawaited(HapticFeedback.lightImpact());
     } catch (e) {
-      HapticFeedback.mediumImpact();
+      unawaited(HapticFeedback.mediumImpact());
     }
   }
 
   Future<void> _sendTestGoal() async {
     if (!_isPhoneConnected) {
-      HapticFeedback.mediumImpact();
+      unawaited(HapticFeedback.mediumImpact());
       return;
     }
     try {
@@ -161,9 +161,9 @@ class _DebugScreenState extends State<DebugScreen> {
           'source': 'watch_debug',
         },
       );
-      HapticFeedback.lightImpact();
+      unawaited(HapticFeedback.lightImpact());
     } catch (e) {
-      HapticFeedback.mediumImpact();
+      unawaited(HapticFeedback.mediumImpact());
     }
   }
 

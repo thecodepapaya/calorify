@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:calorify_watch/core/repositories/food_repository.dart';
 import 'package:calorify_watch/core/router/app_router.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:services/services.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:widgets/widgets.dart';
 
@@ -38,7 +38,7 @@ class _LogMealScreenState extends State<LogMealScreen>
   @override
   void initState() {
     super.initState();
-    _initSpeech();
+    unawaited(_initSpeech());
   }
 
   @override
@@ -53,7 +53,7 @@ class _LogMealScreenState extends State<LogMealScreen>
     final ok = await _speech.initialize();
     if (!ok && mounted) {
       setState(() => _error = 'Speech recognition unavailable on this device.');
-      HapticFeedback.heavyImpact();
+      unawaited(HapticFeedback.heavyImpact());
     }
   }
 
@@ -64,11 +64,11 @@ class _LogMealScreenState extends State<LogMealScreen>
   Future<void> _startListening() async {
     if (!await _speech.initialize()) {
       setState(() => _error = 'Speech recognition unavailable.');
-      HapticFeedback.heavyImpact();
+      unawaited(HapticFeedback.heavyImpact());
       return;
     }
 
-    HapticFeedback.mediumImpact();
+    unawaited(HapticFeedback.mediumImpact());
     setState(() {
       _isListening = true;
       _transcript = '';
@@ -114,7 +114,7 @@ class _LogMealScreenState extends State<LogMealScreen>
         _isListening = false;
         _error = 'Could not start recording. Check microphone permissions.';
       });
-      HapticFeedback.heavyImpact();
+      unawaited(HapticFeedback.heavyImpact());
     }
   }
 
@@ -170,7 +170,7 @@ class _LogMealScreenState extends State<LogMealScreen>
 
     if (_transcript.isEmpty) {
       setState(() => _error = 'No speech detected. Tap the mic to try again.');
-      HapticFeedback.mediumImpact();
+      unawaited(HapticFeedback.mediumImpact());
     } else {
       setState(() => _isProcessing = true);
       await _processMeal(_transcript);
@@ -187,15 +187,16 @@ class _LogMealScreenState extends State<LogMealScreen>
     }
 
     try {
-      final result = await FoodAnalysisService.instance.analyzeFoodDescription(
-        description: description,
+      final response = await const WatchFoodRepository().detectText(
+        textDescription: description,
       );
+      final result = response.result;
 
       if (!mounted) return;
 
       if (result.mealIdentified) {
         setState(() => _isProcessing = false);
-        HapticFeedback.heavyImpact();
+        unawaited(HapticFeedback.heavyImpact());
         // Navigate to result — meal is NOT sent until user confirms there
         await context.router.push(MealResultRoute(result: result));
       } else {
@@ -203,7 +204,7 @@ class _LogMealScreenState extends State<LogMealScreen>
           _isProcessing = false;
           _error = "Couldn't identify that meal. Try describing it differently.";
         });
-        HapticFeedback.mediumImpact();
+        unawaited(HapticFeedback.mediumImpact());
       }
     } catch (e) {
       if (!mounted) return;
@@ -212,7 +213,7 @@ class _LogMealScreenState extends State<LogMealScreen>
         _error = 'Analysis failed. Please try again.';
       });
       if (kDebugMode) debugPrint('Meal analysis error: $e');
-      HapticFeedback.heavyImpact();
+      unawaited(HapticFeedback.heavyImpact());
     }
   }
 
