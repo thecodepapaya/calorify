@@ -13,6 +13,7 @@
         "type-check": "tsc --noEmit",
         "usda:import": "tsx src/scripts/import-usda.ts",
         "usda:refresh": "tsx src/scripts/usda-refresh.ts",
+        "usda:bootstrap": "tsx src/scripts/usda-bootstrap.ts",
         "docker:up:staging": "docker compose --profile staging up -d --build",
         "docker:up:prod": "docker compose --profile production up -d --build"
     },
