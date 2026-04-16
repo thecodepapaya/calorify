@@ -72,6 +72,7 @@ A high-performance Node.js/Fastify backend API server for AI-powered food analys
 - `npm run usda:import` - Bootstrap local Postgres `usda_foods` from USDA CSV files
 - `npm run usda:refresh` - Run a versioned USDA refresh into Postgres
 - `npm run usda:bootstrap` - Download hardcoded USDA ZIP, extract required CSVs, and import in one step
+  - Optional: set `USDA_ZIP_PATH` to use an already-downloaded ZIP file instead of downloading
 
 ## API Endpoints
 
