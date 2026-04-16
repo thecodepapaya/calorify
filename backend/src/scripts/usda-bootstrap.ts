@@ -15,6 +15,7 @@ const execFileAsync = promisify(execFile);
 
 const USDA_ZIP_URL =
   'https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_csv_2025-12-18.zip';
+const USDA_EXTRACTED_DIR_HINT = 'FoodData_Central_csv_2025-12-18';
 const REQUIRED_FILES = ['food.csv', 'nutrient.csv', 'food_nutrient.csv'] as const;
 const DEFAULT_TARGET_DIR = join(process.cwd(), 'data', 'usda');
 
@@ -58,8 +59,17 @@ async function extractZip(zipPath: string, extractDir: string): Promise<void> {
   await execFileAsync('unzip', ['-o', zipPath, '-d', extractDir]);
 }
 
+async function resolveExtractRoot(extractDir: string): Promise<string> {
+  const hinted = join(extractDir, USDA_EXTRACTED_DIR_HINT);
+  if (existsSync(hinted)) {
+    return hinted;
+  }
+  return extractDir;
+}
+
 async function stageCsvs(extractDir: string, targetDir: string): Promise<void> {
-  const files = await findRequiredCsvs(extractDir);
+  const extractRoot = await resolveExtractRoot(extractDir);
+  const files = await findRequiredCsvs(extractRoot);
   await mkdir(targetDir, { recursive: true });
   await Promise.all(REQUIRED_FILES.map((name) => cp(files[name], join(targetDir, name))));
 }
@@ -70,12 +80,20 @@ async function main(): Promise<void> {
   }
 
   const runId = Date.now().toString();
-  const zipPath = join(tmpdir(), `usda_${runId}.zip`);
+  const localZipPath = process.env.USDA_ZIP_PATH;
+  const zipPath = localZipPath || join(tmpdir(), `usda_${runId}.zip`);
   const extractDir = join(tmpdir(), `usda_extract_${runId}`);
   const targetDir = process.env.USDA_DATA_DIR ?? DEFAULT_TARGET_DIR;
 
-  console.log(`[usda:bootstrap] downloading ZIP from ${USDA_ZIP_URL}`);
-  await downloadZip(zipPath);
+  if (localZipPath) {
+    if (!existsSync(localZipPath)) {
+      throw new Error(`USDA_ZIP_PATH does not exist: ${localZipPath}`);
+    }
+    console.log(`[usda:bootstrap] using local ZIP at ${localZipPath}`);
+  } else {
+    console.log(`[usda:bootstrap] downloading ZIP from ${USDA_ZIP_URL}`);
+    await downloadZip(zipPath);
+  }
 
   console.log('[usda:bootstrap] extracting ZIP');
   await extractZip(zipPath, extractDir);
