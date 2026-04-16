@@ -26,8 +26,14 @@ class _AiSummaryCardState extends State<AiSummaryCard> {
     return FutureBuilder<AiSummaryResult?>(
       future: _summaryFuture,
       builder: (context, snapshot) {
-        // Don't show card while loading or on error — only show when we have data
+        // Don't show card while loading — only show when we have data
         if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SizedBox.shrink();
+        }
+
+        // Log errors for debugging but don't surface them to the user
+        if (snapshot.hasError) {
+          debugPrint('[AiSummaryCard] Failed to load AI summary: ${snapshot.error}');
           return const SizedBox.shrink();
         }
 

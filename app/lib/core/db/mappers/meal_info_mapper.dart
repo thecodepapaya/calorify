@@ -103,7 +103,7 @@ extension MealInfoMapper on LoggedMeal {
         quantity: data.mealQuantity,
         type: mealTypeFromLegacyName(data.mealType),
         health: MealHealth(
-          healthScore: healthScoreFromLegacyName(data.healthScore as String),
+          healthScore: healthScoreFromLegacyName(data.healthScore),
           healthScoreReason: data.healthScoreReason,
         ),
         macros: MealMacro(
