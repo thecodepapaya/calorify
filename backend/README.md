@@ -67,7 +67,10 @@ A high-performance Node.js/Fastify backend API server for AI-powered food analys
 - `npm start` - Run production server
 - `npm run lint` - Run ESLint
 - `npm run type-check` - Type check without building
+- `npm test` - Run backend unit tests
 - `npm run validate-schemas` - Validate OpenAPI schemas match proto definitions
+- `npm run usda:import` - Bootstrap local Postgres `usda_foods` from USDA CSV files
+- `npm run usda:refresh` - Run a versioned USDA refresh into Postgres
 
 ## API Endpoints
 
@@ -179,6 +182,14 @@ curl http://localhost:8001/  # Staging
 - `production.env` - Production settings (Docker)
 - `staging.env` - Staging settings; also used as the base for local dev (`npm run dev`)
 - `.env` - Optional local overrides (not committed), e.g. `FIREBASE_SERVICE_ACCOUNT_PATH`, `DATABASE_URL`
+
+### USDA Ingestion and Refresh Variables
+
+- `USDA_DATA_DIR` - Directory containing `food.csv`, `nutrient.csv`, `food_nutrient.csv` (default: `backend/data/usda`)
+- `USDA_DATASET_VERSION` - Logical dataset version label for import/refresh audit rows
+- `USDA_SOURCE_RELEASE_DATE` - USDA release date metadata (optional)
+- `USDA_AUTO_REFRESH_ENABLED` - Enable scheduled refresh job (`true`/`false`, default `false`)
+- `USDA_REFRESH_CRON` - Cron expression for scheduled refresh (default `0 3 1 * *`)
 
 ## Project Structure
 
