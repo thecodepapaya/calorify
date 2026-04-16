@@ -42,14 +42,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _refresh() async {
-    HapticFeedback.mediumImpact();
+    unawaited(HapticFeedback.mediumImpact());
     setState(() => _errorMessage = null);
     try {
       await SyncService.instance.refreshDashboard(forceRefresh: true);
-      HapticFeedback.lightImpact();
+      unawaited(HapticFeedback.lightImpact());
     } catch (e) {
       if (mounted) setState(() => _errorMessage = 'Could not refresh. Check your phone.');
-      HapticFeedback.mediumImpact();
+      unawaited(HapticFeedback.mediumImpact());
     }
   }
 
@@ -233,7 +233,7 @@ class _SyncStatusHeader extends StatelessWidget {
           if (kDebugMode)
             GestureDetector(
               onTap: () {
-                HapticFeedback.lightImpact();
+                unawaited(HapticFeedback.lightImpact());
                 context.router.push(const DebugRoute());
               },
               child: Container(
@@ -387,11 +387,11 @@ class _ActionBtnState extends State<_ActionBtn> {
       child: GestureDetector(
         onTapDown: (_) {
           setState(() => _pressed = true);
-          HapticFeedback.lightImpact();
+          unawaited(HapticFeedback.lightImpact());
         },
         onTapUp: (_) {
           setState(() => _pressed = false);
-          HapticFeedback.mediumImpact();
+          unawaited(HapticFeedback.mediumImpact());
           widget.onTap();
         },
         onTapCancel: () => setState(() => _pressed = false),
@@ -509,7 +509,7 @@ class _ViewMoreButton extends StatelessWidget {
       padding: const EdgeInsets.only(top: 4, bottom: 12),
       child: GestureDetector(
         onTap: () {
-          HapticFeedback.lightImpact();
+          unawaited(HapticFeedback.lightImpact());
           context.router.push(const HistoryRoute());
         },
         child: Semantics(

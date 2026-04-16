@@ -6,12 +6,12 @@ class EnvConfig {
   bool _isProd = false;
 
   void init() {
-    // In a real app, you'd check environment variables or build config
-    _isProd = const bool.fromEnvironment(
-      'dart.vm.product',
-      defaultValue: false,
-    );
+    _isProd = const bool.fromEnvironment('dart.vm.product', defaultValue: false);
   }
 
   bool get isProd => _isProd;
+
+  String get apiBaseUrl => _isProd
+      ? 'https://api-calorify.thecodepapaya.dev'
+      : 'https://staging-api-calorify.thecodepapaya.dev';
 }

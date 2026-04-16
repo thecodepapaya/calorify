@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
 import 'package:calorify_watch/widgets/carousel_scroll_view.dart';
@@ -24,7 +26,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   void initState() {
     super.initState();
-    _load();
+    unawaited(_load());
   }
 
   Future<void> _load({bool force = false}) async {
@@ -41,7 +43,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Future<void> _logFavorite(FavoriteMeal fav, int index) async {
     if (_loggingIndex != null) return;
     setState(() => _loggingIndex = index);
-    HapticFeedback.mediumImpact();
+    unawaited(HapticFeedback.mediumImpact());
 
     final ok = await SyncService.instance.sendMeal(
       fav.loggedMeal.meal,
@@ -52,7 +54,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     setState(() => _loggingIndex = null);
 
     if (ok) {
-      HapticFeedback.heavyImpact();
+      unawaited(HapticFeedback.heavyImpact());
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('${fav.loggedMeal.meal.name} logged!'),
@@ -60,7 +62,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         ),
       );
     } else {
-      HapticFeedback.mediumImpact();
+      unawaited(HapticFeedback.mediumImpact());
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Failed to log meal. Is your phone nearby?'),
@@ -107,14 +109,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   const Spacer(),
                   ValueListenableBuilder<SyncState>(
                     valueListenable: SyncService.instance.syncState,
-                    builder: (_, state, __) {
+                    builder: (_, state, _) {
                       final spinning = state == SyncState.syncing;
                       return Semantics(
                         label: 'Refresh favorites',
                         button: true,
                         child: GestureDetector(
                           onTap: () {
-                            HapticFeedback.mediumImpact();
+                            unawaited(HapticFeedback.mediumImpact());
                             _load(force: true);
                           },
                           child: Container(
@@ -148,7 +150,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             Expanded(
               child: ValueListenableBuilder<List<FavoriteMeal>>(
                 valueListenable: SyncService.instance.favoriteMeals,
-                builder: (_, favorites, __) {
+                builder: (_, favorites, _) {
                   if (!_loaded && favorites.isEmpty) {
                     return const ListScreenSkeleton();
                   }
@@ -203,7 +205,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       button: true,
       child: GestureDetector(
         onTap: () {
-          HapticFeedback.lightImpact();
+          unawaited(HapticFeedback.lightImpact());
           context.router.pop();
         },
         child: Container(
@@ -432,7 +434,7 @@ class _ErrorView extends StatelessWidget {
             const SizedBox(height: 14),
             GestureDetector(
               onTap: () {
-                HapticFeedback.mediumImpact();
+                unawaited(HapticFeedback.mediumImpact());
                 onRetry();
               },
               child: Container(

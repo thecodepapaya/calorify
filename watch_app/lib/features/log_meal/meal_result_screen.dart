@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/router/app_router.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
@@ -26,7 +28,7 @@ class _MealResultScreenState extends State<MealResultScreen> {
   Future<void> _logMeal() async {
     if (_logging || _logged) return;
     setState(() => _logging = true);
-    HapticFeedback.mediumImpact();
+    unawaited(HapticFeedback.mediumImpact());
 
     final ok = await SyncService.instance.sendMeal(_meal);
 
@@ -36,12 +38,12 @@ class _MealResultScreenState extends State<MealResultScreen> {
         _logging = false;
         _logged = true;
       });
-      HapticFeedback.heavyImpact();
+      unawaited(HapticFeedback.heavyImpact());
       await Future.delayed(const Duration(milliseconds: 900));
       if (mounted) context.router.popUntilRouteWithName('HomeRoute');
     } else {
       setState(() => _logging = false);
-      HapticFeedback.mediumImpact();
+      unawaited(HapticFeedback.mediumImpact());
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Failed to log meal. Is your phone nearby?'),
@@ -194,7 +196,7 @@ class _MealResultScreenState extends State<MealResultScreen> {
                 _SecondaryBtn(
                   label: 'Log Another',
                   onTap: () {
-                    HapticFeedback.lightImpact();
+                    unawaited(HapticFeedback.lightImpact());
                     context.router.popAndPush(const LogMealRoute());
                   },
                 ),
@@ -202,7 +204,7 @@ class _MealResultScreenState extends State<MealResultScreen> {
                 // Cancel
                 TextButton(
                   onPressed: () {
-                    HapticFeedback.lightImpact();
+                    unawaited(HapticFeedback.lightImpact());
                     context.router.popUntilRouteWithName('HomeRoute');
                   },
                   style: TextButton.styleFrom(
