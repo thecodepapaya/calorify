@@ -9,8 +9,10 @@ class ShimmerScope extends StatefulWidget {
   final Widget child;
 
   @override
+  // ignore: library_private_types_in_public_api
   State<ShimmerScope> createState() => _ShimmerScopeState();
 
+  // ignore: library_private_types_in_public_api
   static _ShimmerScopeState? of(BuildContext context) =>
       context.findAncestorStateOfType<_ShimmerScopeState>();
 }

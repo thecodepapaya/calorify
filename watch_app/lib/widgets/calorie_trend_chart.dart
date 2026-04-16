@@ -179,7 +179,7 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
                           barWidth: 2.5,
                           dotData: FlDotData(
                             show: true,
-                            getDotPainter: (spot, _, __, ___) =>
+                            getDotPainter: (spot, p0, p1, p2) =>
                                 FlDotCirclePainter(
                               radius: spot.y > 0 ? 3 : 0,
                               color: colorScheme.calorieIconColor,
