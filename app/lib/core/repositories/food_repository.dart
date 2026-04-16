@@ -197,7 +197,7 @@ class FoodRepository {
     final response = await NetworkClient.instance.client
         .get<Map<String, dynamic>>('/api/v1/food/ai-summary');
     final data = response.data;
-    if (data == null || data['summary'] == null) return null;
+    if (data == null || data['summary'] == null || data['generatedAt'] == null) return null;
     return AiSummaryResult(
       summary: data['summary'] as String,
       generatedAt: DateTime.parse(data['generatedAt'] as String),
