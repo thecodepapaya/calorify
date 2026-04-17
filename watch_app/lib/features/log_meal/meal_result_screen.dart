@@ -40,7 +40,7 @@ class _MealResultScreenState extends State<MealResultScreen> {
       });
       unawaited(HapticFeedback.heavyImpact());
       await Future.delayed(const Duration(milliseconds: 900));
-      if (mounted) context.router.popUntilRouteWithName('HomeRoute');
+      if (mounted) context.router.popUntilRouteWithName(HomeRoute.name);
     } else {
       setState(() => _logging = false);
       unawaited(HapticFeedback.mediumImpact());
@@ -154,19 +154,19 @@ class _MealResultScreenState extends State<MealResultScreen> {
                 children: [
                   _MacroPill(
                       icon: LucideIcons.dumbbell,
-                      color: proteinIconColor,
+                      color: colorScheme.proteinIconColor,
                       value: macros.protein,
                       label: 'P'),
                   const SizedBox(width: 8),
                   _MacroPill(
                       icon: LucideIcons.wheat,
-                      color: carbsIconColor,
+                      color: colorScheme.carbsIconColor,
                       value: macros.carbs,
                       label: 'C'),
                   const SizedBox(width: 8),
                   _MacroPill(
                       icon: LucideIcons.droplet,
-                      color: fatIconColor,
+                      color: colorScheme.fatIconColor,
                       value: macros.fat,
                       label: 'F'),
                   if (macros.fiber > 0) ...[
@@ -205,7 +205,7 @@ class _MealResultScreenState extends State<MealResultScreen> {
                 TextButton(
                   onPressed: () {
                     unawaited(HapticFeedback.lightImpact());
-                    context.router.popUntilRouteWithName('HomeRoute');
+                    context.router.popUntilRouteWithName(HomeRoute.name);
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,

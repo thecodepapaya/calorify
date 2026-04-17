@@ -216,8 +216,18 @@ class _CircleBtnState extends State<_CircleBtn>
   void initState() {
     super.initState();
     _spin = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 800))
-      ..repeat();
+        vsync: this, duration: const Duration(milliseconds: 800));
+    if (widget.spinning) _spin.repeat();
+  }
+
+  @override
+  void didUpdateWidget(_CircleBtn oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.spinning && !oldWidget.spinning) {
+      _spin.repeat();
+    } else if (!widget.spinning && oldWidget.spinning) {
+      _spin.stop();
+    }
   }
 
   @override

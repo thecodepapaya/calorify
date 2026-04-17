@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/repositories/food_repository.dart';
@@ -140,14 +141,14 @@ class _LogMealScreenState extends State<LogMealScreen>
       final t = DateTime.now().millisecondsSinceEpoch * 0.003;
       setState(() {
         for (var i = 0; i < 5; i++) {
-          final phase = (t + i * 0.3) % (2 * 3.14159);
+          final phase = (t + i * 0.3) % (2 * math.pi);
           _levels[i] = 0.3 +
               0.7 *
                   (0.5 +
                       0.5 *
-                          (phase < 3.14159
-                              ? phase / 3.14159
-                              : (6.28318 - phase) / 3.14159));
+                          (phase < math.pi
+                              ? phase / math.pi
+                              : (2 * math.pi - phase) / math.pi));
         }
       });
     });

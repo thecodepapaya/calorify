@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -55,7 +57,7 @@ class _MealListItemState extends State<MealListItem>
   void _showDeleteConfirm(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final theme = Theme.of(context);
-    HapticFeedback.mediumImpact();
+    unawaited(HapticFeedback.mediumImpact());
     showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
@@ -101,7 +103,7 @@ class _MealListItemState extends State<MealListItem>
           TextButton(
             onPressed: () {
               Navigator.of(context).pop(true);
-              HapticFeedback.heavyImpact();
+              unawaited(HapticFeedback.heavyImpact());
               widget.onDelete?.call();
             },
             child: Text(
@@ -133,7 +135,7 @@ class _MealListItemState extends State<MealListItem>
         child: GestureDetector(
           onTapDown: (_) {
             setState(() => _isPressed = true);
-            HapticFeedback.lightImpact();
+            unawaited(HapticFeedback.lightImpact());
           },
           onTapUp: (_) => setState(() => _isPressed = false),
           onTapCancel: () => setState(() => _isPressed = false),
@@ -205,19 +207,19 @@ class _MealListItemState extends State<MealListItem>
                             _Macro(
                               icon: LucideIcons.dumbbell,
                               value: meal.macros.protein,
-                              color: proteinIconColor,
+                              color: colorScheme.proteinIconColor,
                             ),
                             const SizedBox(width: 6),
                             _Macro(
                               icon: LucideIcons.wheat,
                               value: meal.macros.carbs,
-                              color: carbsIconColor,
+                              color: colorScheme.carbsIconColor,
                             ),
                             const SizedBox(width: 6),
                             _Macro(
                               icon: LucideIcons.droplet,
                               value: meal.macros.fat,
-                              color: fatIconColor,
+                              color: colorScheme.fatIconColor,
                             ),
                           ],
                         ),

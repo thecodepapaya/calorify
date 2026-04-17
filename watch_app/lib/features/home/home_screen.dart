@@ -335,6 +335,7 @@ class _ActionButtons extends StatelessWidget {
               icon: LucideIcons.mic,
               label: 'Log',
               color: colorScheme.primary,
+              iconColor: colorScheme.onPrimary,
               onTap: () => context.router.push(const LogMealRoute()),
             ),
             const SizedBox(width: 16),
@@ -342,6 +343,7 @@ class _ActionButtons extends StatelessWidget {
               icon: LucideIcons.history,
               label: 'History',
               color: colorScheme.secondary,
+              iconColor: colorScheme.onSecondary,
               onTap: () => context.router.push(const HistoryRoute()),
             ),
             const SizedBox(width: 16),
@@ -349,6 +351,7 @@ class _ActionButtons extends StatelessWidget {
               icon: LucideIcons.star,
               label: 'Favorites',
               color: colorScheme.tertiary,
+              iconColor: colorScheme.onTertiary,
               onTap: () => context.router.push(const FavoritesRoute()),
             ),
           ],
@@ -363,12 +366,14 @@ class _ActionBtn extends StatefulWidget {
     required this.icon,
     required this.label,
     required this.color,
+    required this.iconColor,
     required this.onTap,
   });
 
   final IconData icon;
   final String label;
   final Color color;
+  final Color iconColor;
   final VoidCallback onTap;
 
   @override
@@ -423,7 +428,7 @@ class _ActionBtnState extends State<_ActionBtn> {
                 child: Icon(
                   widget.icon,
                   size: 20,
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: widget.iconColor,
                 ),
               ),
             ),

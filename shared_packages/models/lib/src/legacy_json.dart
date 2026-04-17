@@ -110,7 +110,9 @@ MealDetectionResult mealDetectionResultFromLegacyJson(
   return MealDetectionResult(
     mealIdentified: json['meal_identified'] as bool? ?? false,
     calorieConfidence:
-        json['calorie_confidence'] as CalorieConfidence? ??
+        CalorieConfidence.valueOf(
+          (json['calorie_confidence'] as num?)?.toInt() ?? 0,
+        ) ??
         CalorieConfidence.UNSPECIFIED,
     tip: json['tip'] as String? ?? '',
     meal:
