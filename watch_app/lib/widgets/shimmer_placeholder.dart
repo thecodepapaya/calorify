@@ -76,9 +76,7 @@ class ShimmerBox extends StatelessWidget {
       builder: (context, _) {
         final colorScheme = Theme.of(context).colorScheme;
         final base = colorScheme.surfaceContainerHighest;
-        final highlight = colorScheme.surfaceContainerHighest.withValues(
-          alpha: 0.3,
-        );
+        final highlight = Color.lerp(base, colorScheme.onSurface, 0.10)!;
         final t = scope.shimmer.value;
         return Container(
           width: width,

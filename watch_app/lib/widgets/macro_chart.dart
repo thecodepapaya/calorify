@@ -135,17 +135,17 @@ class _MacroChartState extends State<MacroChart>
                             sections: [
                               _section(
                                 _totalProtein.toDouble(),
-                                proteinIconColor,
+                                colorScheme.proteinIconColor,
                                 _animation.value,
                               ),
                               _section(
                                 _totalCarbs.toDouble(),
-                                carbsIconColor,
+                                colorScheme.carbsIconColor,
                                 _animation.value,
                               ),
                               _section(
                                 _totalFat.toDouble(),
-                                fatIconColor,
+                                colorScheme.fatIconColor,
                                 _animation.value,
                               ),
                             ],
@@ -182,19 +182,19 @@ class _MacroChartState extends State<MacroChart>
                 children: [
                   _MacroBadge(
                     icon: LucideIcons.dumbbell,
-                    color: proteinIconColor,
+                    color: colorScheme.proteinIconColor,
                     label: t.home.dailySummary.protein,
                     value: _totalProtein,
                   ),
                   _MacroBadge(
                     icon: LucideIcons.wheat,
-                    color: carbsIconColor,
+                    color: colorScheme.carbsIconColor,
                     label: t.home.dailySummary.carbs,
                     value: _totalCarbs,
                   ),
                   _MacroBadge(
                     icon: LucideIcons.droplet,
-                    color: fatIconColor,
+                    color: colorScheme.fatIconColor,
                     label: t.home.dailySummary.fat,
                     value: _totalFat,
                   ),

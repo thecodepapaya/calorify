@@ -65,6 +65,10 @@ class WatchNetworkClient {
       endpoint,
       data: request.toProto3Json(),
     );
-    return parseResponse()..mergeFromProto3Json(response.data!);
+    final data = response.data;
+    if (data == null) {
+      throw StateError('Empty response from $endpoint (status ${response.statusCode})');
+    }
+    return parseResponse()..mergeFromProto3Json(data);
   }
 }

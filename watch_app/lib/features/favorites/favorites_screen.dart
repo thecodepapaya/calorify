@@ -21,7 +21,7 @@ class FavoritesScreen extends StatefulWidget {
 class _FavoritesScreenState extends State<FavoritesScreen> {
   bool _loaded = false;
   String? _error;
-  int? _loggingIndex;
+  int? _loggingClientId;
 
   @override
   void initState() {
@@ -40,18 +40,23 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     if (mounted) setState(() => _loaded = true);
   }
 
-  Future<void> _logFavorite(FavoriteMeal fav, int index) async {
-    if (_loggingIndex != null) return;
-    setState(() => _loggingIndex = index);
+  Future<void> _logFavorite(FavoriteMeal fav) async {
+    final id = fav.clientId;
+    if (_loggingClientId != null) return;
+    setState(() => _loggingClientId = id);
     unawaited(HapticFeedback.mediumImpact());
 
+    if (!fav.hasLoggedMeal() || !fav.loggedMeal.hasMeal()) {
+      setState(() => _loggingClientId = null);
+      return;
+    }
     final ok = await SyncService.instance.sendMeal(
       fav.loggedMeal.meal,
       favoriteMealId: fav.hasClientId() ? fav.clientId : null,
     );
 
     if (!mounted) return;
-    setState(() => _loggingIndex = null);
+    setState(() => _loggingClientId = null);
 
     if (ok) {
       unawaited(HapticFeedback.heavyImpact());
@@ -181,8 +186,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               padding: const EdgeInsets.only(bottom: 8),
                               child: _FavoriteItem(
                                 fav: e.value,
-                                isLogging: _loggingIndex == e.key,
-                                onLog: () => _logFavorite(e.value, e.key),
+                                isLogging: _loggingClientId == e.value.clientId,
+                                onLog: () => _logFavorite(e.value),
                               ),
                             ),
                           )
@@ -306,17 +311,17 @@ class _FavoriteItemState extends State<_FavoriteItem> {
                       Row(
                         children: [
                           _MiniMacro(
-                              color: proteinIconColor,
+                              color: colorScheme.proteinIconColor,
                               value: meal.macros.protein,
                               label: 'P'),
                           const SizedBox(width: 5),
                           _MiniMacro(
-                              color: carbsIconColor,
+                              color: colorScheme.carbsIconColor,
                               value: meal.macros.carbs,
                               label: 'C'),
                           const SizedBox(width: 5),
                           _MiniMacro(
-                              color: fatIconColor,
+                              color: colorScheme.fatIconColor,
                               value: meal.macros.fat,
                               label: 'F'),
                         ],
