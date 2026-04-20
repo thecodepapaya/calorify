@@ -62,9 +62,7 @@ class MealLogCard extends StatelessWidget {
                       ).copyWith(top: 2),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: colorScheme.onSecondary.withValues(alpha: 0.7),
-                        ),
+                        border: Border.all(color: colorScheme.outline),
                       ),
                       child: MealTypeIndicator(type: loggedMeal.meal.type),
                     ),

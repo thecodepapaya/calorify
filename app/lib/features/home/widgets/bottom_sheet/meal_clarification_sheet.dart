@@ -1,6 +1,8 @@
 import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/meal_analysis_v2.dart';
 import 'package:calorify/core/router/route_names.dart';
+import 'package:calorify/shared_widgets/app_outlined_button.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +62,16 @@ class _V2MealClarificationSheetState extends State<_V2MealClarificationSheet> {
               fontWeight: FontWeight.w600,
             ),
           ),
+          const SizedBox(height: 12),
+          ClipRRect(
+            borderRadius: globalRadius,
+            child: LinearProgressIndicator(
+              value: (_currentQuestionIndex + 1) / widget.clarifications.length,
+              minHeight: 6,
+              backgroundColor: colorScheme.surfaceContainerHighest,
+              color: colorScheme.primary,
+            ),
+          ),
           const SizedBox(height: 6),
           Text(
             'Question ${_currentQuestionIndex + 1} of ${widget.clarifications.length}',
@@ -96,14 +108,13 @@ class _V2MealClarificationSheetState extends State<_V2MealClarificationSheet> {
             children: [
               if (_currentQuestionIndex > 0)
                 Expanded(
-                  child: OutlinedButton(
-                    onPressed:
-                        () {
-                          setState(() {
-                            _currentQuestionIndex--;
-                          });
-                        },
-                    child: const Text('Back'),
+                  child: AppOutlinedButton(
+                    onPressed: () {
+                      setState(() {
+                        _currentQuestionIndex--;
+                      });
+                    },
+                    text: 'Back',
                   ),
                 ),
               if (_currentQuestionIndex > 0) const SizedBox(width: 12),

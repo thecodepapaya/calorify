@@ -1,6 +1,7 @@
-import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/ai_summary_result.dart';
 import 'package:calorify/core/repositories/food_repository.dart';
+import 'package:calorify/shared_widgets/app_card.dart';
+import 'package:calorify/shared_widgets/section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -57,32 +58,17 @@ class _SummaryCardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
 
-    return Container(
-      margin: globalMargin,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: globalRadius,
-        border: Border.all(color: colorScheme.outline),
-      ),
+    return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(width: double.infinity),
-          Row(
-            children: [
-              Icon(LucideIcons.sparkles, size: 18, color: colorScheme.primary),
-              const SizedBox(width: 8),
-              Text(
-                t.home.aiSummary.title,
-                style: textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onSurface,
-                ),
-              ),
-            ],
+          SectionHeader(
+            icon: LucideIcons.sparkles,
+            title: t.home.aiSummary.title,
+            iconSize: 18,
           ),
           const SizedBox(height: 12),
           Text(

@@ -6,8 +6,11 @@ import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
+import 'package:calorify/shared_widgets/app_card.dart';
+import 'package:calorify/shared_widgets/empty_state_widget.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/shared_widgets/section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -23,41 +26,25 @@ class FavoriteMeals extends StatefulWidget {
 class _FavoriteMealsState extends State<FavoriteMeals> {
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
+    final theme = Theme.of(context);
 
-    return Container(
-      margin: globalMargin,
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        borderRadius: globalRadius,
-        border: Border.all(color: colorScheme.outline),
-      ),
+    return AppCard(
+      padding: const EdgeInsets.all(12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(LucideIcons.star, color: colorScheme.primary),
-              SizedBox(width: 8),
-              Text(
-                t.home.favoriteMeals.title,
-                style: textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onSurface,
-                ),
-              ),
-            ],
+          SectionHeader(
+            icon: LucideIcons.star,
+            title: t.home.favoriteMeals.title,
           ),
           SizedBox(height: 6),
           Text(
             t.home.favoriteMeals.description,
-            style: textTheme.bodyMedium?.copyWith(
-              color: colorScheme.onSecondary.withValues(alpha: 0.7),
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
-          SizedBox(height: 14),
+          const SizedBox(height: 14),
           StreamBuilder<List<FavoriteMeal>>(
             stream:
                 DatabaseService.databaseInterface.watchLastUsedFavoriteMeals(),
@@ -67,7 +54,11 @@ class _FavoriteMealsState extends State<FavoriteMeals> {
               }
               final favoriteMeals = snapshot.data;
               if (favoriteMeals == null || favoriteMeals.isEmpty) {
-                return const _NoFavorites();
+                return EmptyStateWidget(
+                  icon: LucideIcons.star,
+                  title: t.home.favoriteMeals.noFavorites,
+                  subtitle: t.home.favoriteMeals.addFavoriteHint,
+                );
               }
               return Column(
                 children: [
@@ -106,45 +97,6 @@ class _FavoriteMealsState extends State<FavoriteMeals> {
               );
             },
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class _NoFavorites extends StatelessWidget {
-  const _NoFavorites();
-
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
-
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 12),
-          Icon(
-            LucideIcons.star,
-            size: 48,
-            color: colorScheme.onSecondary.withValues(alpha: 0.3),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            t.home.favoriteMeals.noFavorites,
-            style: textTheme.bodyLarge?.copyWith(
-              color: colorScheme.onSecondary.withValues(alpha: 0.7),
-            ),
-          ),
-          Text(
-            t.home.favoriteMeals.addFavoriteHint,
-            style: textTheme.bodyMedium?.copyWith(
-              color: colorScheme.onSecondary.withValues(alpha: 0.7),
-            ),
-          ),
-          const SizedBox(height: 12),
         ],
       ),
     );

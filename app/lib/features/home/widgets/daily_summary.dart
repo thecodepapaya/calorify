@@ -1,6 +1,7 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/shared_widgets/app_card.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
@@ -12,21 +13,13 @@ class DailySummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
-    return Container(
-      margin: globalMargin,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: globalRadius,
-        border: Border.all(color: colorScheme.outline),
-      ),
+    return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(width: double.infinity),
           Text(
             t.home.dailySummary.title,
             style: textTheme.titleLarge?.copyWith(

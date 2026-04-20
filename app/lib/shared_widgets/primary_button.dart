@@ -77,7 +77,7 @@ class PrimaryButton extends StatelessWidget {
           return baseStyle?.copyWith(color: colorScheme.onPrimary);
         }),
         shape: WidgetStatePropertyAll(
-          RoundedRectangleBorder(borderRadius: globalRadius),
+          RoundedRectangleBorder(borderRadius: buttonRadius),
         ),
       ),
       child: Row(

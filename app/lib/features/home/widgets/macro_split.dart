@@ -1,5 +1,6 @@
 import 'package:calorify/core/constants/colors.dart';
-import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/shared_widgets/app_card.dart';
+import 'package:calorify/shared_widgets/section_header.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:i18n/i18n.dart';
@@ -37,35 +38,13 @@ class MacroSplit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
-
-    return Container(
-      margin: globalMargin,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: globalRadius,
-        border: Border.all(color: colorScheme.outline),
-      ),
+    return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(LucideIcons.chartPie, color: colorScheme.primary),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  t.home.intakeProgress.title,
-                  style: textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: colorScheme.onSurface,
-                  ),
-                ),
-              ),
-            ],
+          SectionHeader(
+            icon: LucideIcons.chartPie,
+            title: t.home.intakeProgress.title,
           ),
           const SizedBox(height: 24),
           StreamBuilder<List<LoggedMeal>>(

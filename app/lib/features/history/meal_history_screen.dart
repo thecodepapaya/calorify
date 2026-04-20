@@ -6,6 +6,7 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/history/widgets/icon_nutrition.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
+import 'package:calorify/shared_widgets/empty_state_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
 import 'package:intl/intl.dart';
@@ -123,40 +124,11 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
     );
   }
 
-  Widget get _emptyView {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
-
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(
-          LucideIcons.listChecks,
-          size: 48,
-          color: colorScheme.onSecondary.withValues(alpha: 0.8),
-        ),
-        SizedBox(height: 20),
-        Text(
-          t.history.noMeals,
-          style: textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w600,
-            color: colorScheme.onSecondary.withValues(alpha: 0.7),
-          ),
-        ),
-        SizedBox(height: 12),
-        Text(
-          t.history.emptyMessage,
-          textAlign: TextAlign.center,
-          style: textTheme.bodyMedium?.copyWith(
-            color: colorScheme.onSecondary.withValues(alpha: 0.7),
-          ),
-        ),
-        SizedBox(height: 120),
-      ],
-    );
-  }
+  Widget get _emptyView => EmptyStateWidget(
+    icon: LucideIcons.listChecks,
+    title: t.history.noMeals,
+    subtitle: t.history.emptyMessage,
+  );
 
   List<_DayMeals> _groupMealsByDay(List<LoggedMeal> allMeals) {
     if (allMeals.isEmpty) return [];

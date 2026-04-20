@@ -5,7 +5,9 @@ import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
 import 'package:i18n/i18n.dart';
+import 'package:calorify/shared_widgets/empty_state_widget.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
+import 'package:calorify/shared_widgets/section_header.dart';
 import 'package:widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -15,28 +17,15 @@ class MealLog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
-
     return Container(
       margin: globalMargin,
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(LucideIcons.packageOpen, color: colorScheme.primary),
-              const SizedBox(width: 8),
-              Text(
-                t.home.mealLog.title,
-                style: textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onSurface,
-                ),
-              ),
-            ],
+          SectionHeader(
+            icon: LucideIcons.packageOpen,
+            title: t.home.mealLog.title,
           ),
           const SizedBox(height: 8),
           StreamBuilder<List<LoggedMeal>>(
@@ -52,25 +41,14 @@ class MealLog extends StatelessWidget {
               final meals = snapshot.data ?? [];
               final hasMealLogs = meals.isNotEmpty;
 
-              return Column(
-                children: [
-                  hasMealLogs ? _MealsList(meals) : const _EmptyLog(),
-                  const SizedBox(height: 12),
-                  if (!hasMealLogs) ...[
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        t.home.mealLog.emptyMessage,
-                        textAlign: TextAlign.center,
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSecondary.withValues(alpha: 0.7),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                  ],
-                ],
-              );
+              if (!hasMealLogs) {
+                return EmptyStateWidget(
+                  icon: LucideIcons.listChecks,
+                  title: t.home.mealLog.noMealsToday,
+                  subtitle: t.home.mealLog.emptyMessage,
+                );
+              }
+              return _MealsList(meals);
             },
           ),
           Align(
@@ -83,7 +61,7 @@ class MealLog extends StatelessWidget {
               },
               style: ButtonStyle(
                 textStyle: WidgetStatePropertyAll(
-                  textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
               child: Text(t.home.mealLog.seeAllMeals),
@@ -92,44 +70,6 @@ class MealLog extends StatelessWidget {
           const SizedBox(height: 40),
         ],
       ),
-    );
-  }
-}
-
-class _EmptyLog extends StatelessWidget {
-  const _EmptyLog();
-
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
-
-    return Column(
-      children: [
-        Divider(),
-        const SizedBox(height: 40),
-        Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                LucideIcons.listChecks,
-                size: 48,
-                color: colorScheme.onSecondary.withValues(alpha: 0.8),
-              ),
-              SizedBox(height: 20),
-              Text(
-                t.home.mealLog.noMealsToday,
-                style: textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onSecondary.withValues(alpha: 0.7),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

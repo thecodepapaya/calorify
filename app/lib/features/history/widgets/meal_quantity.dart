@@ -18,14 +18,14 @@ class MealQuantityIndicator extends StatelessWidget {
       children: [
         Icon(
           LucideIcons.utensils,
-          color: colorScheme.onSecondary.withValues(alpha: 0.7),
+          color: colorScheme.onSurfaceVariant,
           size: 12,
         ),
         SizedBox(width: 2),
         Text(
           quantity,
           style: textTheme.bodySmall?.copyWith(
-            color: colorScheme.onSecondary.withValues(alpha: 0.7),
+            color: colorScheme.onSurfaceVariant,
           ),
         ),
       ],

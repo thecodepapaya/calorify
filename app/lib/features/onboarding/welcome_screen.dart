@@ -1,4 +1,5 @@
 import 'package:calorify/core/config/env_config.dart';
+import 'package:calorify/shared_widgets/app_filled_button.dart';
 import 'package:i18n/i18n.dart';
 import 'package:widgets/widgets.dart';
 import 'package:calorify/shared_widgets/language_picker_sheet.dart';
@@ -142,24 +143,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               padding: const EdgeInsets.all(24.0),
               child: FadeTransition(
                 opacity: _fadeAnimation,
-                child: SizedBox(
-                  width: double.infinity,
-                  child: FilledButton(
-                    onPressed: widget.onContinue,
-                    style: FilledButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    ),
-                    child: Text(
-                      t.onboarding.getStarted,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                child: AppFilledButton(
+                  onPressed: widget.onContinue,
+                  text: t.onboarding.getStarted,
                 ),
               ),
             ),

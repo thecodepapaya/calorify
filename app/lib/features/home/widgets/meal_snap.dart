@@ -119,7 +119,7 @@ class _MealSnapState extends State<MealSnap> {
               t.home.mealSnap.description,
               textAlign: TextAlign.center,
               style: textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSecondary.withValues(alpha: 0.7),
+                color: colorScheme.onSurfaceVariant,
               ),
             ),
           ],
@@ -203,7 +203,7 @@ class _MealSnapState extends State<MealSnap> {
       style: OutlinedButton.styleFrom(
         padding: EdgeInsets.symmetric(vertical: 16),
         side: BorderSide(color: colorScheme.outline),
-        shape: RoundedRectangleBorder(borderRadius: globalRadius),
+        shape: RoundedRectangleBorder(borderRadius: buttonRadius),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

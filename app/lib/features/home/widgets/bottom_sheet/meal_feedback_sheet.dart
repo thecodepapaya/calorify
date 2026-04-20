@@ -1,6 +1,7 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/models/meal_analysis_v2.dart';
 import 'package:calorify/core/router/route_names.dart';
+import 'package:calorify/shared_widgets/app_outlined_button.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class V2MealFeedbackInput {
 Future<V2MealFeedbackInput?> showV2MealFeedbackSheet(BuildContext context) {
   return showModalBottomSheet<V2MealFeedbackInput>(
     context: context,
+    isDismissible: true,
     isScrollControlled: true,
     showDragHandle: true,
     routeSettings: const RouteSettings(name: RouteNames.mealFeedbackSheet),
@@ -119,9 +121,9 @@ class _V2MealFeedbackSheetState extends State<_V2MealFeedbackSheet> {
           Row(
             children: [
               Expanded(
-                child: OutlinedButton(
+                child: AppOutlinedButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancel'),
+                  text: 'Cancel',
                 ),
               ),
               const SizedBox(width: 12),

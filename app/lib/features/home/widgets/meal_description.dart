@@ -58,7 +58,7 @@ class _DescribeMealState extends State<DescribeMeal> {
               Text(
                 t.home.mealDescription.description,
                 style: textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSecondary.withValues(alpha: 0.7),
+                  color: colorScheme.onSurfaceVariant,
                 ),
               ),
               SizedBox(height: 14),
