@@ -152,6 +152,7 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
     with SingleTickerProviderStateMixin {
   StreamSubscription<V2MealAnalysisEvent>? _subscription;
   V2MealAnalysisEvent? _lastEvent;
+  bool _isLoading = true;
 
   late final AnimationController _shimmerController;
 
@@ -243,8 +244,10 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
             ],
           ),
           const SizedBox(height: 24),
-          CircularProgressIndicator(color: colorScheme.primary),
-          const SizedBox(height: 20),
+          if (_isLoading) ...[
+            CircularProgressIndicator(color: colorScheme.primary),
+            const SizedBox(height: 20),
+          ],
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
             transitionBuilder: (child, animation) =>
@@ -373,7 +376,10 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
             );
           }
         },
-        onDone: () {},
+        onDone: () {
+          if (!mounted) return;
+          setState(() => _isLoading = false);
+        },
       );
     } on Exception catch (error) {
       if (!mounted) return;
