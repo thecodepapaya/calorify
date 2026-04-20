@@ -173,12 +173,12 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
   }
 
   Widget _shimmerBox({double width = double.infinity, double height = 16}) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final base = colorScheme.surfaceContainerHighest;
+    final highlight = colorScheme.onSurfaceVariant.withValues(alpha: 0.12);
     return AnimatedBuilder(
       animation: _shimmerController,
       builder: (context, _) {
-        final colorScheme = Theme.of(context).colorScheme;
-        final base = colorScheme.surfaceContainerHighest;
-        final highlight = colorScheme.onSurfaceVariant.withValues(alpha: 0.12);
         final t = _shimmerController.value;
         final begin = Alignment(t * 4 - 2, 0);
         final end = Alignment(t * 4 - 1, 0);
