@@ -1,6 +1,7 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/shared_widgets/app_filled_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
@@ -139,27 +140,9 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
             ),
           ),
           const Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 0.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: _saveAndContinue,
-                style: FilledButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-                child: Text(
-                  t.onboarding.age.next,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
+          AppFilledButton(
+            onPressed: _saveAndContinue,
+            text: t.onboarding.age.next,
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
+import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/meal_analysis_v2.dart';
 import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/router/route_names.dart';
@@ -179,18 +180,20 @@ class _MealTipState extends State<_MealTip> {
               children: [
                 Text(
                   meal.name,
-                  style: textTheme.titleMedium?.copyWith(
+                  style: textTheme.titleLarge?.copyWith(
                     color: colorScheme.onSurface,
+                    fontWeight: FontWeight.w600,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
+                const SizedBox(height: 4),
                 Wrap(
+                  spacing: 8,
+                  runSpacing: 4,
                   children: [
                     MealTypeIndicator(type: meal.type),
-                    SizedBox(width: 8),
                     MealQuantityIndicator(quantity: meal.quantity),
-                    SizedBox(width: 8),
                     MealTimestamp(timestamp: timestamp),
                   ],
                 ),
@@ -210,8 +213,6 @@ class _MealTipState extends State<_MealTip> {
                         _isFeedbackSubmitting || _feedbackValue != null
                             ? null
                             : _submitPositiveFeedback,
-                    padding: EdgeInsets.zero,
-                    visualDensity: VisualDensity.compact,
                     icon: Icon(
                       LucideIcons.thumbsUp,
                       size: 22,
@@ -221,14 +222,11 @@ class _MealTipState extends State<_MealTip> {
                               : colorScheme.onSurface.withValues(alpha: 0.5),
                     ),
                   ),
-                  const SizedBox(width: 4),
                   IconButton(
                     onPressed:
                         _isFeedbackSubmitting || _feedbackValue != null
                             ? null
                             : _submitNegativeFeedback,
-                    padding: EdgeInsets.zero,
-                    visualDensity: VisualDensity.compact,
                     icon: Icon(
                       LucideIcons.thumbsDown,
                       size: 22,
@@ -254,82 +252,93 @@ class _MealTipState extends State<_MealTip> {
           style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
         ),
       ],
-      SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            LucideIcons.flame,
-            color: colorScheme.calorieIconColor,
-            size: 32,
-          ),
-          SizedBox(width: 4),
-          RichText(
-            text: TextSpan(
+      const SizedBox(height: 16),
+      Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+        decoration: BoxDecoration(
+          color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+          borderRadius: globalRadius,
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextSpan(
-                  text: meal.macros.calories.toStringAsFixed(0),
-                  style: textTheme.headlineLarge?.copyWith(
-                    color: colorScheme.calorieIconColor,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Icon(
+                  LucideIcons.flame,
+                  color: colorScheme.calorieIconColor,
+                  size: 32,
                 ),
-                TextSpan(
-                  text: ' kcal',
-                  style: textTheme.titleLarge?.copyWith(
-                    color: colorScheme.onSurface.withValues(alpha: 0.7),
-                    fontWeight: FontWeight.normal,
+                const SizedBox(width: 4),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: meal.macros.calories.toStringAsFixed(0),
+                        style: textTheme.headlineLarge?.copyWith(
+                          color: colorScheme.calorieIconColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' kcal',
+                        style: textTheme.titleLarge?.copyWith(
+                          color: colorScheme.onSurface.withValues(alpha: 0.7),
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+            const SizedBox(height: 16),
+            Row(
+              spacing: 8,
+              children: [
+                Expanded(
+                  child: NutrientTile(
+                    icon: LucideIcons.wheat,
+                    label: t.home.dailySummary.carbs,
+                    value: meal.macros.carbs.toDouble(),
+                    unit: 'g',
+                    iconColor: carbsIconColor,
+                  ),
+                ),
+                Expanded(
+                  child: NutrientTile(
+                    icon: LucideIcons.drumstick,
+                    label: t.home.dailySummary.protein,
+                    value: meal.macros.protein.toDouble(),
+                    unit: 'g',
+                    iconColor: proteinIconColor,
+                  ),
+                ),
+                Expanded(
+                  child: NutrientTile(
+                    icon: LucideIcons.egg,
+                    label: t.home.dailySummary.fat,
+                    value: meal.macros.fat.toDouble(),
+                    unit: 'g',
+                    iconColor: fatIconColor,
+                  ),
+                ),
+                Expanded(
+                  child: NutrientTile(
+                    icon: LucideIcons.leaf,
+                    label: t.home.dailySummary.fiber,
+                    value: meal.macros.fiber.toDouble(),
+                    unit: 'g',
+                    iconColor: fiberIconColor,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-      SizedBox(height: 16),
-      Row(
-        spacing: 8,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            child: NutrientTile(
-              icon: LucideIcons.wheat,
-              label: t.home.dailySummary.carbs,
-              value: meal.macros.carbs.toDouble(),
-              unit: 'g',
-              iconColor: carbsIconColor,
-            ),
-          ),
-          Expanded(
-            child: NutrientTile(
-              icon: LucideIcons.drumstick,
-              label: t.home.dailySummary.protein,
-              value: meal.macros.protein.toDouble(),
-              unit: 'g',
-              iconColor: proteinIconColor,
-            ),
-          ),
-          Expanded(
-            child: NutrientTile(
-              icon: LucideIcons.egg,
-              label: t.home.dailySummary.fat,
-              value: meal.macros.fat.toDouble(),
-              unit: 'g',
-              iconColor: fatIconColor,
-            ),
-          ),
-          Expanded(
-            child: NutrientTile(
-              icon: LucideIcons.leaf,
-              label: t.home.dailySummary.fiber,
-              value: meal.macros.fiber.toDouble(),
-              unit: 'g',
-              iconColor: fiberIconColor,
-            ),
-          ),
-        ],
-      ),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
       _mealDetectionResult != null
           ? (widget.previewOnly
               ? SizedBox(

@@ -1,7 +1,8 @@
 import 'package:calorify/core/constants/colors.dart';
-import 'package:calorify/core/constants/styles.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/shared_widgets/app_card.dart';
+import 'package:calorify/shared_widgets/section_header.dart';
 import 'package:i18n/i18n.dart';
 import 'package:widgets/widgets.dart';
 import 'package:calorify/shared_widgets/macro_legend.dart';
@@ -15,62 +16,18 @@ class IntakeHistoryBarChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _ChartCard(
+    return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const _ChartHeader(),
+          SectionHeader(
+            icon: LucideIcons.chartBar,
+            title: t.home.intakeHistory.title,
+          ),
           const SizedBox(height: 16),
           const _MacroHistoryChart(),
         ],
       ),
-    );
-  }
-}
-
-class _ChartCard extends StatelessWidget {
-  const _ChartCard({required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return Container(
-      margin: globalMargin,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: globalRadius,
-        border: Border.all(color: colorScheme.outline),
-      ),
-      child: child,
-    );
-  }
-}
-
-class _ChartHeader extends StatelessWidget {
-  const _ChartHeader();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final textTheme = theme.textTheme;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(LucideIcons.chartBar, color: colorScheme.primary),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            t.home.intakeHistory.title,
-            style: textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-              color: colorScheme.onSurface,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

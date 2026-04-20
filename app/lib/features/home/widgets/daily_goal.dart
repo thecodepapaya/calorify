@@ -140,7 +140,7 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
                     ? t.home.dailyGoal.descriptionSet
                     : t.home.dailyGoal.description,
                 style: textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSecondary.withValues(alpha: 0.7),
+                  color: colorScheme.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: 14),

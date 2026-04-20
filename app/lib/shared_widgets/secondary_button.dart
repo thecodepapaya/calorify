@@ -27,7 +27,7 @@ class SecondaryButton extends StatelessWidget {
           onPressed?.call();
         },
         style: OutlinedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: globalRadius),
+          shape: RoundedRectangleBorder(borderRadius: buttonRadius),
           padding: const EdgeInsets.symmetric(vertical: 16.0),
         ),
         child: Row(

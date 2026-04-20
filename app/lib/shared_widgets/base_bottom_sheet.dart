@@ -22,7 +22,7 @@ class BaseBottomSheet extends StatelessWidget {
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
           child: SingleChildScrollView(
-            padding: padding ?? globalSheetPadding,
+            padding: padding ?? globalSheetPadding.add(const EdgeInsets.only(bottom: 20)),
             child: child,
           ),
         ),

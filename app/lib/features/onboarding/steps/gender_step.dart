@@ -4,6 +4,7 @@ import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
+import 'package:calorify/shared_widgets/app_filled_button.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -66,27 +67,9 @@ class _GenderStepScreenState extends State<GenderStepScreen> {
             ),
           ),
           const Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 0.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: _selectedGender != null ? _saveAndContinue : null,
-                style: FilledButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-                child: Text(
-                  t.onboarding.gender.next,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
+          AppFilledButton(
+            onPressed: _selectedGender != null ? _saveAndContinue : null,
+            text: t.onboarding.gender.next,
           ),
         ],
       ),

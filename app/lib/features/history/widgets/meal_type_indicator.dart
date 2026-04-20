@@ -28,14 +28,14 @@ class MealTypeIndicator extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: colorScheme.onSecondary.withValues(alpha: 0.7),
+          color: colorScheme.onSurfaceVariant,
           size: 12,
         ),
         SizedBox(width: 4),
         Text(
           type.displayName,
           style: textTheme.labelSmall?.copyWith(
-            color: colorScheme.onSecondary.withValues(alpha: 0.7),
+            color: colorScheme.onSurfaceVariant,
           ),
         ),
       ],

@@ -148,21 +148,54 @@ class _V2MealAnalysisSheet extends StatefulWidget {
   State<_V2MealAnalysisSheet> createState() => _V2MealAnalysisSheetState();
 }
 
-class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet> {
+class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
+    with SingleTickerProviderStateMixin {
   StreamSubscription<V2MealAnalysisEvent>? _subscription;
   V2MealAnalysisEvent? _lastEvent;
-  bool _isLoading = true;
+
+  late final AnimationController _shimmerController;
 
   @override
   void initState() {
     super.initState();
+    _shimmerController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1400),
+    )..repeat();
     _beginAnalysis();
   }
 
   @override
   void dispose() {
+    _shimmerController.dispose();
     _subscription?.cancel();
     super.dispose();
+  }
+
+  Widget _shimmerBox({double width = double.infinity, double height = 16}) {
+    return AnimatedBuilder(
+      animation: _shimmerController,
+      builder: (context, _) {
+        final colorScheme = Theme.of(context).colorScheme;
+        final base = colorScheme.surfaceContainerHighest;
+        final highlight = colorScheme.onSurfaceVariant.withValues(alpha: 0.12);
+        final t = _shimmerController.value;
+        final begin = Alignment(t * 4 - 2, 0);
+        final end = Alignment(t * 4 - 1, 0);
+        return Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            gradient: LinearGradient(
+              begin: begin,
+              end: end,
+              colors: [base, highlight, base],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -188,12 +221,15 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet> {
         _lastEvent?.result?.ingredients.length ??
         0;
 
+    final hasMealName = mealName != null && mealName.isNotEmpty;
+
     return BaseBottomSheet(
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(LucideIcons.wandSparkles, color: colorScheme.primary),
               const SizedBox(width: 8),
@@ -206,38 +242,74 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet> {
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          if (_isLoading) ...[
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: CircularProgressIndicator(color: colorScheme.primary),
-              ),
+          const SizedBox(height: 24),
+          CircularProgressIndicator(color: colorScheme.primary),
+          const SizedBox(height: 20),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            transitionBuilder: (child, animation) =>
+                FadeTransition(opacity: animation, child: child),
+            child: Text(
+              statusText,
+              key: ValueKey<String>(statusText),
+              textAlign: TextAlign.center,
+              style: textTheme.titleMedium?.copyWith(color: colorScheme.onSurface),
             ),
-            const SizedBox(height: 16),
-          ],
-          Text(
-            statusText,
-            style: textTheme.titleMedium?.copyWith(color: colorScheme.onSurface),
           ),
-          if (mealName != null && mealName.isNotEmpty) ...[
-            const SizedBox(height: 8),
-            Text(
-              mealName,
-              style: textTheme.bodyLarge?.copyWith(
-                color: colorScheme.onSurface.withValues(alpha: 0.8),
-              ),
-            ),
-          ],
-          if (ingredientCount > 0) ...[
-            const SizedBox(height: 8),
-            Text(
-              '$ingredientCount ingredients detected',
-              style: textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSurface.withValues(alpha: 0.7),
-              ),
-            ),
-          ],
+          const SizedBox(height: 16),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 400),
+            transitionBuilder: (child, animation) =>
+                FadeTransition(opacity: animation, child: child),
+            child: hasMealName
+                ? Text(
+                    mealName,
+                    key: ValueKey<String>(mealName),
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: textTheme.bodyLarge?.copyWith(
+                      color: colorScheme.onSurface.withValues(alpha: 0.85),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
+                : SizedBox(
+                    key: const ValueKey('shimmer-name'),
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        _shimmerBox(width: 200, height: 18),
+                      ],
+                    ),
+                  ),
+          ),
+          const SizedBox(height: 8),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 400),
+            transitionBuilder: (child, animation) =>
+                FadeTransition(opacity: animation, child: child),
+            child: ingredientCount > 0
+                ? Text(
+                    '$ingredientCount ingredients detected',
+                    key: ValueKey<int>(ingredientCount),
+                    textAlign: TextAlign.center,
+                    style: textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onSurface.withValues(alpha: 0.6),
+                    ),
+                  )
+                : SizedBox(
+                    key: const ValueKey('shimmer-ingredients'),
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        _shimmerBox(width: 140, height: 13),
+                      ],
+                    ),
+                  ),
+          ),
+          const SizedBox(height: 8),
         ],
       ),
     );
@@ -301,12 +373,7 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet> {
             );
           }
         },
-        onDone: () {
-          if (!mounted) return;
-          setState(() {
-            _isLoading = false;
-          });
-        },
+        onDone: () {},
       );
     } on Exception catch (error) {
       if (!mounted) return;
