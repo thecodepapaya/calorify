@@ -568,7 +568,12 @@ class GeminiFoodAnalysisService {
       const contentType = res.headers.get('content-type') ?? 'image/jpeg';
       const mimeType = contentType.split(';')[0]?.trim() || 'image/jpeg';
 
-      return this.analyzeImageFromBuffer(buffer, mimeType, locale, countryCode);
+      return await this.analyzeImageFromBuffer(
+        buffer,
+        mimeType,
+        locale,
+        countryCode
+      );
     } catch (error) {
       throw new Error(
         `Failed to analyze image: ${error instanceof Error ? error.message : 'Unknown error'}`
@@ -604,7 +609,7 @@ class GeminiFoodAnalysisService {
         },
       ];
 
-      return this.generateAndParse(parts, locale, countryCode);
+      return await this.generateAndParse(parts, locale, countryCode);
     } catch (error) {
       throw new Error(
         `Failed to analyze image: ${error instanceof Error ? error.message : 'Unknown error'}`
@@ -622,7 +627,7 @@ class GeminiFoodAnalysisService {
       }
 
       const parts: Part[] = [{ text: description }];
-      return this.generateAndParse(parts, locale, countryCode);
+      return await this.generateAndParse(parts, locale, countryCode);
     } catch (error) {
       throw new Error(
         `Failed to analyze description: ${error instanceof Error ? error.message : 'Unknown error'}`
