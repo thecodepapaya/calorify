@@ -47,7 +47,24 @@ describe('CircuitBreaker', () => {
     assert.equal(breaker.getState(), 'CLOSED');
   });
 
-  it('transitions OPEN → HALF_OPEN after reset timeout and closes on success', async () => {
+  it('getState is a pure read and does not flip to HALF_OPEN on its own', async () => {
+    let fakeNow = 1_000_000;
+    const breaker = new CircuitBreaker({
+      name: 'test',
+      failureThreshold: 1,
+      resetTimeoutMs: 5_000,
+      now: () => fakeNow,
+    });
+
+    await assert.rejects(breaker.execute(async () => { throw new Error('fail'); }));
+    assert.equal(breaker.getState(), 'OPEN');
+
+    // Cooldown elapsed — but no one has called execute yet, so state stays OPEN.
+    fakeNow += 5_000;
+    assert.equal(breaker.getState(), 'OPEN');
+  });
+
+  it('transitions OPEN → HALF_OPEN on the next execute after cooldown and closes on success', async () => {
     let fakeNow = 1_000_000;
     const breaker = new CircuitBreaker({
       name: 'test',
@@ -63,9 +80,8 @@ describe('CircuitBreaker', () => {
     await assert.rejects(breaker.execute(boom));
     assert.equal(breaker.getState(), 'OPEN');
 
-    // Advance past the reset window.
+    // Advance past the reset window. The first execute after this flips to HALF_OPEN.
     fakeNow += 5_000;
-    assert.equal(breaker.getState(), 'HALF_OPEN');
 
     const result = await breaker.execute(async () => 'recovered');
     assert.equal(result, 'recovered');
@@ -85,9 +101,68 @@ describe('CircuitBreaker', () => {
     assert.equal(breaker.getState(), 'OPEN');
 
     fakeNow += 1_000;
-    assert.equal(breaker.getState(), 'HALF_OPEN');
 
     await assert.rejects(breaker.execute(async () => { throw new Error('still fail'); }));
     assert.equal(breaker.getState(), 'OPEN');
+  });
+
+  it('only lets one concurrent request probe in HALF_OPEN; the rest fail fast', async () => {
+    let fakeNow = 1_000_000;
+    const breaker = new CircuitBreaker({
+      name: 'test',
+      failureThreshold: 1,
+      resetTimeoutMs: 1_000,
+      now: () => fakeNow,
+    });
+
+    await assert.rejects(breaker.execute(async () => { throw new Error('fail'); }));
+    assert.equal(breaker.getState(), 'OPEN');
+
+    fakeNow += 1_000;
+
+    // First request grabs the HALF_OPEN slot and starts a long-running probe.
+    let resolveProbe: (v: string) => void = () => {};
+    const probePromise = breaker.execute(
+      () => new Promise<string>((resolve) => {
+        resolveProbe = resolve;
+      })
+    );
+
+    // While the probe is in flight, concurrent requests must fail fast.
+    assert.equal(breaker.getState(), 'HALF_OPEN');
+    let stampeded = false;
+    await assert.rejects(
+      breaker.execute(async () => {
+        stampeded = true;
+        return 'should not run';
+      }),
+      CircuitBreakerOpenError
+    );
+    assert.equal(stampeded, false);
+
+    // Resolve the probe; breaker should close.
+    resolveProbe('recovered');
+    const result = await probePromise;
+    assert.equal(result, 'recovered');
+    assert.equal(breaker.getState(), 'CLOSED');
+  });
+
+  it('uses the injectable clock in the open error message', async () => {
+    let fakeNow = 0;
+    const breaker = new CircuitBreaker({
+      name: 'test',
+      failureThreshold: 1,
+      resetTimeoutMs: 10_000,
+      now: () => fakeNow,
+    });
+
+    await assert.rejects(breaker.execute(async () => { throw new Error('fail'); }));
+
+    // fakeNow hasn't advanced; retry-after should reflect the full 10s window
+    // using the injected clock, independent of the real Date.now().
+    await assert.rejects(
+      breaker.execute(async () => 'nope'),
+      (err: unknown) => err instanceof CircuitBreakerOpenError && /Retry in ~10s/.test((err as Error).message)
+    );
   });
 });
