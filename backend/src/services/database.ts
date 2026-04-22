@@ -56,6 +56,36 @@ export async function query<T extends QueryResultRow = QueryResultRow>(
 }
 
 /**
+ * Run `fn` inside a BEGIN/COMMIT transaction.
+ * Rolls back if `fn` throws. The client is passed in so callers can execute
+ * multiple statements atomically.
+ */
+export async function withTransaction<T>(
+  fn: (client: PoolClient) => Promise<T>
+): Promise<T> {
+  if (!pool) {
+    throw new Error('Database pool not initialized. Call initializeDatabase() first.');
+  }
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const result = await fn(client);
+    await client.query('COMMIT');
+    return result;
+  } catch (err) {
+    try {
+      await client.query('ROLLBACK');
+    } catch (rollbackErr) {
+      // Log rollback failure but preserve the original error.
+      console.error('Rollback failed after transaction error:', rollbackErr);
+    }
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
+/**
  * Close the database connection pool
  */
 export async function closeDatabase(): Promise<void> {
