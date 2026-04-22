@@ -28,10 +28,14 @@ class EnvConfig {
   }
 
   String get apiBaseUrl {
+    const useLocalBackend = bool.fromEnvironment('USE_LOCAL_BACKEND');
+    if (useLocalBackend) {
+      // 10.0.2.2 routes to host localhost from an Android emulator
+      return 'http://10.0.2.2:8000';
+    }
     switch (flavor) {
       case Flavor.staging:
         return 'https://staging-api-calorify.thecodepapaya.dev';
-      // return 'http://10.0.2.2:8000';
       case Flavor.prod:
         return 'https://api-calorify.thecodepapaya.dev';
     }

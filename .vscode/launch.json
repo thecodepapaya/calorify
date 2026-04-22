@@ -12,6 +12,17 @@
             ]
         },
         {
+            "name": "Run Staging (Localhost)",
+            "request": "launch",
+            "type": "dart",
+            "program": "app/lib/main.dart",
+            "args": [
+                "--flavor",
+                "staging",
+                "--dart-define=USE_LOCAL_BACKEND=true"
+            ]
+        },
+        {
             "name": "Run Staging Profile",
             "request": "launch",
             "flutterMode": "profile",
@@ -84,8 +95,10 @@
             ],
             "cwd": "${workspaceFolder}/backend",
             "env": {
-                "ENVIRONMENT": "development"
+                "ENVIRONMENT": "development",
+                "DATABASE_URL": "postgresql://calorify:calorify_pwd_staging@localhost:5433/calorify_staging"
             },
+            "preLaunchTask": "start-db-staging",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "skipFiles": [

@@ -2,6 +2,16 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "start-db-staging",
+            "type": "shell",
+            "command": "docker compose --profile staging up db-staging -d --wait",
+            "options": {
+                "cwd": "${workspaceFolder}/backend"
+            },
+            "isBackground": false,
+            "problemMatcher": []
+        },
+        {
             "label": "build-backend",
             "type": "npm",
             "script": "build",
