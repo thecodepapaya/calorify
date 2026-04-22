@@ -501,13 +501,23 @@ class GeminiFoodAnalysisService {
     });
 
     // Enforce a 30s timeout — protects the backend from hanging on slow Gemini responses.
+    // Uses AbortController so the underlying HTTP request is actually cancelled (not just
+    // the awaited promise), and clears the timer on success so it doesn't keep the event
+    // loop alive.
     const GEMINI_TIMEOUT_MS = 30_000;
-    const result = await Promise.race([
-      model.generateContent(userParts),
-      new Promise<never>((_, reject) =>
-        setTimeout(() => reject(new Error('Gemini request timed out after 30s')), GEMINI_TIMEOUT_MS),
-      ),
-    ]);
+    const controller = new AbortController();
+    const timeoutHandle = setTimeout(() => controller.abort(), GEMINI_TIMEOUT_MS);
+    let result: Awaited<ReturnType<typeof model.generateContent>>;
+    try {
+      result = await model.generateContent(userParts, { signal: controller.signal });
+    } catch (err) {
+      if (controller.signal.aborted) {
+        throw new Error('Gemini request timed out after 30s');
+      }
+      throw err;
+    } finally {
+      clearTimeout(timeoutHandle);
+    }
     const response = result.response;
     const content = response.text();
     if (!content) {
