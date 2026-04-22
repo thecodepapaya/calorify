@@ -1,5 +1,5 @@
 import config from '../config.js';
-import { query } from './database.js';
+import { query, withTransaction } from './database.js';
 
 export type MealAnalysisSource = 'text' | 'image';
 export type FeedbackSignal = 'up' | 'down';
@@ -187,19 +187,23 @@ export async function recordMealAnalysisClarification(
 ): Promise<void> {
   assertDatabaseConfigured();
 
-  await query(
-    `INSERT INTO meal_analysis_clarification (analysis_id, answers_payload)
-      VALUES ($1, $2::jsonb)`,
-    [analysisId, JSON.stringify(answers)]
-  );
+  const answersJson = JSON.stringify(answers);
+  // Atomic: avoid an orphaned clarification row if the session update fails.
+  await withTransaction(async (client) => {
+    await client.query(
+      `INSERT INTO meal_analysis_clarification (analysis_id, answers_payload)
+        VALUES ($1, $2::jsonb)`,
+      [analysisId, answersJson]
+    );
 
-  await query(
-    `UPDATE meal_analysis_session
-      SET clarification_answers = $2::jsonb,
-          updated_at = CURRENT_TIMESTAMP
-      WHERE analysis_id = $1`,
-    [analysisId, JSON.stringify(answers)]
-  );
+    await client.query(
+      `UPDATE meal_analysis_session
+        SET clarification_answers = $2::jsonb,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE analysis_id = $1`,
+      [analysisId, answersJson]
+    );
+  });
 }
 
 export async function recordMealAnalysisMealType(
@@ -209,23 +213,26 @@ export async function recordMealAnalysisMealType(
 ): Promise<void> {
   assertDatabaseConfigured();
 
-  await query(
-    `INSERT INTO meal_analysis_meal_type (
-        analysis_id,
-        selected_meal_type,
-        source
-      ) VALUES ($1, $2, $3)`,
-    [analysisId, selectedMealType, source]
-  );
+  // Atomic: avoid an orphaned meal_type row if the session update fails.
+  await withTransaction(async (client) => {
+    await client.query(
+      `INSERT INTO meal_analysis_meal_type (
+          analysis_id,
+          selected_meal_type,
+          source
+        ) VALUES ($1, $2, $3)`,
+      [analysisId, selectedMealType, source]
+    );
 
-  await query(
-    `UPDATE meal_analysis_session
-      SET selected_meal_type = $2,
-          selected_meal_type_source = $3,
-          updated_at = CURRENT_TIMESTAMP
-      WHERE analysis_id = $1`,
-    [analysisId, selectedMealType, source]
-  );
+    await client.query(
+      `UPDATE meal_analysis_session
+        SET selected_meal_type = $2,
+            selected_meal_type_source = $3,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE analysis_id = $1`,
+      [analysisId, selectedMealType, source]
+    );
+  });
 }
 
 export async function recordMealAnalysisFeedback(

@@ -1,5 +1,6 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
+import helmet from '@fastify/helmet';
 import multipart from '@fastify/multipart';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
@@ -54,6 +55,9 @@ async function buildApp() {
   const fastify = Fastify({
     logger: loggerConfig,
     trustProxy: config.TRUST_PROXY,
+    // 60s per-request timeout — prevents slow AI/DB handlers from holding connections open
+    // indefinitely. Individual AI client timeouts (30s) still trigger first for cleaner errors.
+    requestTimeout: 60_000,
     // Generate request IDs for log correlation
     genReqId: (req) => {
       const reqId = req.headers['x-request-id'];
@@ -153,6 +157,14 @@ async function buildApp() {
       requestBody: reqBody,
       responseBody: resBody,
     }, `← ${request.method} ${request.url} ${statusCode} (${responseTime}ms)`);
+  });
+
+  // Register Helmet for standard security headers (CSP, HSTS, X-Frame-Options, etc.).
+  // Disable contentSecurityPolicy because Swagger UI requires inline scripts/styles and
+  // loads resources from its own CDN. CSP is re-applied per-route by Swagger UI's own config.
+  await fastify.register(helmet, {
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
   });
 
   // Register CORS - must be registered before other plugins

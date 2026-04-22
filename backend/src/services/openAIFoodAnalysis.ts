@@ -217,7 +217,9 @@ class OpenAIFoodAnalysisService {
     if (!apiKey) {
       throw new Error('OPENAI_API_KEY environment variable is not set');
     }
-    this.client = new OpenAI({ apiKey });
+    // 30s per-request timeout and 2 retries on network/5xx errors.
+    // Protects the backend from hanging indefinitely on slow OpenAI responses.
+    this.client = new OpenAI({ apiKey, timeout: 30_000, maxRetries: 2 });
   }
 
   private shouldDebugLog(): boolean {

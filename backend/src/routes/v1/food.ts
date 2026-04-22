@@ -89,8 +89,7 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
           timeWindow: '1 minute',
         },
       },
-      // TEMPORARY: auth disabled
-      // preHandler: [authenticateUser],
+      preHandler: [authenticateUser],
       schema: {
         description: 'Analyze a food image using OpenAI. Upload an image file to get detailed nutritional information including calories, macros, health score, and variations.',
         tags: ['Food'],
@@ -156,8 +155,7 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
           timeWindow: '1 minute',
         },
       },
-      // TEMPORARY: auth disabled
-      // preHandler: [authenticateUser],
+      preHandler: [authenticateUser],
       schema: {
         description: 'Detect meal from image URL using OpenAI. Returns MealDetectionResponse with variations if confidence is LOW/MEDIUM.',
         tags: ['Food'],
@@ -236,8 +234,7 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
           timeWindow: '1 minute',
         },
       },
-      // TEMPORARY: auth disabled
-      // preHandler: [authenticateUser],
+      preHandler: [authenticateUser],
       schema: {
         description: 'Detect meal from text description using OpenAI. Returns MealDetectionResponse with variations if confidence is LOW/MEDIUM.',
         tags: ['Food'],

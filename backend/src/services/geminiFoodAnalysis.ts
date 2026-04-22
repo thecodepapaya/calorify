@@ -500,7 +500,14 @@ class GeminiFoodAnalysisService {
       },
     });
 
-    const result = await model.generateContent(userParts);
+    // Enforce a 30s timeout — protects the backend from hanging on slow Gemini responses.
+    const GEMINI_TIMEOUT_MS = 30_000;
+    const result = await Promise.race([
+      model.generateContent(userParts),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Gemini request timed out after 30s')), GEMINI_TIMEOUT_MS),
+      ),
+    ]);
     const response = result.response;
     const content = response.text();
     if (!content) {
