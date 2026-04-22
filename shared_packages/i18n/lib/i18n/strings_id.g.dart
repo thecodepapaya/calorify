@@ -187,6 +187,13 @@ class _TranslationsFavoritesId implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Favorit';
 	@override String get empty => 'Belum ada makanan favorit.';
+	@override String get searchPlaceholder => 'Cari hidangan favorit';
+	@override String get searchEmptyTitle => 'Tidak ada favorit yang cocok untuk pencarian Anda';
+	@override String get searchEmptySubtitle => 'Coba gunakan nama hidangan, jumlah, atau jenis makanan lain.';
+	@override String get sortLabel => 'Urutkan favorit';
+	@override String get undo => 'Urungkan';
+	@override String removed({required Object name}) => '${name} telah dihapus dari favorit';
+	@override late final _TranslationsFavoritesSortOptionsId sortOptions = _TranslationsFavoritesSortOptionsId._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationId implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Pertanyaan ${current} dari ${total}';
 	@override String get noVariationsAvailable => 'Tidak ada variasi yang tersedia';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsId implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Terbaru';
+	@override String get calories => 'Kalori';
+	@override String get alphabetical => 'Abjad (A-Z)';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsId {
 			'meal.variation.noVariationsAvailable' => 'Tidak ada variasi yang tersedia',
 			'favorites.title' => 'Favorit',
 			'favorites.empty' => 'Belum ada makanan favorit.',
+			'favorites.searchPlaceholder' => 'Cari hidangan favorit',
+			'favorites.searchEmptyTitle' => 'Tidak ada favorit yang cocok untuk pencarian Anda',
+			'favorites.searchEmptySubtitle' => 'Coba gunakan nama hidangan, jumlah, atau jenis makanan lain.',
+			'favorites.sortLabel' => 'Urutkan favorit',
+			'favorites.undo' => 'Urungkan',
+			'favorites.removed' => ({required Object name}) => '${name} telah dihapus dari favorit',
+			'favorites.sortOptions.recent' => 'Terbaru',
+			'favorites.sortOptions.calories' => 'Kalori',
+			'favorites.sortOptions.alphabetical' => 'Abjad (A-Z)',
 			'profile.title' => 'Profil',
 			'profile.noProfileData' => 'Data profil tidak ditemukan',
 			'profile.yourProfile' => 'Profil Anda',

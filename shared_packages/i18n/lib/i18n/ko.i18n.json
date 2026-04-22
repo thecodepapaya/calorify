@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "즐겨찾기",
-    "empty": "즐겨찾는 식사가 없습니다."
+    "empty": "즐겨찾는 식사가 없습니다.",
+    "searchPlaceholder": "즐겨찾는 식사 검색",
+    "searchEmptyTitle": "검색에 일치하는 즐겨찾기가 없습니다",
+    "searchEmptySubtitle": "다른 식사 이름, 수량 또는 식사 유형으로 다시 시도해보세요.",
+    "sortLabel": "즐겨찾기 정렬",
+    "undo": "되돌리기",
+    "removed": "즐겨찾기에서 {name}을(를) 제거했습니다",
+    "sortOptions": {
+      "recent": "최근",
+      "calories": "칼로리",
+      "alphabetical": "가나다순"
+    }
   },
   "profile": {
     "title": "프로필",

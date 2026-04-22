@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Favorit",
-    "empty": "Belum ada makanan favorit."
+    "empty": "Belum ada makanan favorit.",
+    "searchPlaceholder": "Cari hidangan favorit",
+    "searchEmptyTitle": "Tidak ada favorit yang cocok untuk pencarian Anda",
+    "searchEmptySubtitle": "Coba gunakan nama hidangan, jumlah, atau jenis makanan lain.",
+    "sortLabel": "Urutkan favorit",
+    "undo": "Urungkan",
+    "removed": "{name} telah dihapus dari favorit",
+    "sortOptions": {
+      "recent": "Terbaru",
+      "calories": "Kalori",
+      "alphabetical": "Abjad (A-Z)"
+    }
   },
   "profile": {
     "title": "Profil",

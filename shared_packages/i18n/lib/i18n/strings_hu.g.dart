@@ -187,6 +187,13 @@ class _TranslationsFavoritesHu implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Kedvencek';
 	@override String get empty => 'Még nincs kedvenc étkezés.';
+	@override String get searchPlaceholder => 'Kedvenc ételek keresése';
+	@override String get searchEmptyTitle => 'A kereséshez nem található kedvenc';
+	@override String get searchEmptySubtitle => 'Próbálj meg más ételnevet, mennyiséget vagy étkezéstípust.';
+	@override String get sortLabel => 'Kedvencek rendezése';
+	@override String get undo => 'Visszavonás';
+	@override String removed({required Object name}) => '${name} eltávolítva a kedvencek közül';
+	@override late final _TranslationsFavoritesSortOptionsHu sortOptions = _TranslationsFavoritesSortOptionsHu._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationHu implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Kérdés ${current} a ${total}-ből';
 	@override String get noVariationsAvailable => 'Nincsenek elérhető variációk';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsHu implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Legutóbbi';
+	@override String get calories => 'Kalóriák';
+	@override String get alphabetical => 'Ábécésorrend';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsHu {
 			'meal.variation.noVariationsAvailable' => 'Nincsenek elérhető variációk',
 			'favorites.title' => 'Kedvencek',
 			'favorites.empty' => 'Még nincs kedvenc étkezés.',
+			'favorites.searchPlaceholder' => 'Kedvenc ételek keresése',
+			'favorites.searchEmptyTitle' => 'A kereséshez nem található kedvenc',
+			'favorites.searchEmptySubtitle' => 'Próbálj meg más ételnevet, mennyiséget vagy étkezéstípust.',
+			'favorites.sortLabel' => 'Kedvencek rendezése',
+			'favorites.undo' => 'Visszavonás',
+			'favorites.removed' => ({required Object name}) => '${name} eltávolítva a kedvencek közül',
+			'favorites.sortOptions.recent' => 'Legutóbbi',
+			'favorites.sortOptions.calories' => 'Kalóriák',
+			'favorites.sortOptions.alphabetical' => 'Ábécésorrend',
 			'profile.title' => 'Profil',
 			'profile.noProfileData' => 'Nincs profil adat',
 			'profile.yourProfile' => 'A Te Profilod',

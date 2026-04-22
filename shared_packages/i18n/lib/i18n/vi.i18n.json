@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Yêu thích",
-    "empty": "Chưa có bữa ăn yêu thích nào."
+    "empty": "Chưa có bữa ăn yêu thích nào.",
+    "searchPlaceholder": "Tìm bữa ăn yêu thích",
+    "searchEmptyTitle": "Không có mục yêu thích nào phù hợp với tìm kiếm của bạn",
+    "searchEmptySubtitle": "Thử tên bữa khác, số lượng hoặc loại bữa.",
+    "sortLabel": "Sắp xếp mục yêu thích",
+    "undo": "Hoàn tác",
+    "removed": "Đã xóa {name} khỏi danh sách yêu thích",
+    "sortOptions": {
+      "recent": "Gần đây",
+      "calories": "Calo",
+      "alphabetical": "A-Z"
+    }
   },
   "profile": {
     "title": "Hồ sơ",

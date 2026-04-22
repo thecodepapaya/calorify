@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Favoritter",
-    "empty": "Ingen favorittmåltider enda."
+    "empty": "Ingen favorittmåltider enda.",
+    "searchPlaceholder": "Søk etter favorittmåltider",
+    "searchEmptyTitle": "Ingen favoritter samsvarer med søket ditt",
+    "searchEmptySubtitle": "Prøv et annet måltidsnavn, en annen mengde eller en annen måltidstype.",
+    "sortLabel": "Sorter favoritter",
+    "undo": "Angre",
+    "removed": "Fjernet {name} fra favorittene dine",
+    "sortOptions": {
+      "recent": "Nyeste",
+      "calories": "Kalorier",
+      "alphabetical": "A–Å"
+    }
   },
   "profile": {
     "title": "Profil",

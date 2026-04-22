@@ -187,6 +187,13 @@ class _TranslationsFavoritesBn implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'প্রিয় খাবার';
 	@override String get empty => 'এখনো কোন প্রিয় খাবার নেই।';
+	@override String get searchPlaceholder => 'প্রিয় খাবার খুঁজুন';
+	@override String get searchEmptyTitle => 'আপনার অনুসন্ধানের সাথে কোনো প্রিয় খাবার মিলল না';
+	@override String get searchEmptySubtitle => 'অন্যান্য খাবারের নাম, পরিমাণ বা খাবারের ধরন ব্যবহার করে আবার চেষ্টা করুন।';
+	@override String get sortLabel => 'প্রিয়গুলো সাজান';
+	@override String get undo => 'পূর্বাবস্থায় ফিরান';
+	@override String removed({required Object name}) => '${name} আপনার প্রিয় তালিকা থেকে সরানো হয়েছে';
+	@override late final _TranslationsFavoritesSortOptionsBn sortOptions = _TranslationsFavoritesSortOptionsBn._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationBn implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'প্রশ্ন ${current}/${total}';
 	@override String get noVariationsAvailable => 'কোনও বিকল্প উপলব্ধ নেই';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsBn implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'সাম্প্রতিক';
+	@override String get calories => 'ক্যালোরি';
+	@override String get alphabetical => 'অক্ষরক্রম';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsBn {
 			'meal.variation.noVariationsAvailable' => 'কোনও বিকল্প উপলব্ধ নেই',
 			'favorites.title' => 'প্রিয় খাবার',
 			'favorites.empty' => 'এখনো কোন প্রিয় খাবার নেই।',
+			'favorites.searchPlaceholder' => 'প্রিয় খাবার খুঁজুন',
+			'favorites.searchEmptyTitle' => 'আপনার অনুসন্ধানের সাথে কোনো প্রিয় খাবার মিলল না',
+			'favorites.searchEmptySubtitle' => 'অন্যান্য খাবারের নাম, পরিমাণ বা খাবারের ধরন ব্যবহার করে আবার চেষ্টা করুন।',
+			'favorites.sortLabel' => 'প্রিয়গুলো সাজান',
+			'favorites.undo' => 'পূর্বাবস্থায় ফিরান',
+			'favorites.removed' => ({required Object name}) => '${name} আপনার প্রিয় তালিকা থেকে সরানো হয়েছে',
+			'favorites.sortOptions.recent' => 'সাম্প্রতিক',
+			'favorites.sortOptions.calories' => 'ক্যালোরি',
+			'favorites.sortOptions.alphabetical' => 'অক্ষরক্রম',
 			'profile.title' => 'প্রোফাইল',
 			'profile.noProfileData' => 'কোন প্রোফাইল তথ্য পাওয়া যায়নি',
 			'profile.yourProfile' => 'আপনার প্রোফাইল',

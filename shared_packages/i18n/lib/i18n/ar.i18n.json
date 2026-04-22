@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "المفضلات",
-    "empty": "لا توجد وجبات مفضلة بعد."
+    "empty": "لا توجد وجبات مفضلة بعد.",
+    "searchPlaceholder": "ابحث عن الوجبات المفضلة",
+    "searchEmptyTitle": "لا توجد مفضلات تطابق بحثك",
+    "searchEmptySubtitle": "جرّب اسم وجبة أو كمية أو نوع وجبة مختلفًا",
+    "sortLabel": "فرز المفضلات",
+    "undo": "تراجع",
+    "removed": "تمت إزالة {name} من المفضلات",
+    "sortOptions": {
+      "recent": "الأحدث",
+      "calories": "السعرات الحرارية",
+      "alphabetical": "أ-ي"
+    }
   },
   "profile": {
     "title": "الملف الشخصي",

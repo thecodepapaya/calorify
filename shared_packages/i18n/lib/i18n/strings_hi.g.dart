@@ -187,6 +187,13 @@ class _TranslationsFavoritesHi implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'पसंदीदा';
 	@override String get empty => 'अभी तक कोई पसंदीदा भोजन नहीं।';
+	@override String get searchPlaceholder => 'पसंदीदा भोजन खोजें';
+	@override String get searchEmptyTitle => 'आपकी खोज से कोई पसंदीदा नहीं मिला';
+	@override String get searchEmptySubtitle => 'किसी अलग भोजन के नाम, मात्रा, या भोजन के प्रकार को आज़माएँ।';
+	@override String get sortLabel => 'पसंदीदा छाँटें';
+	@override String get undo => 'पूर्ववत करें';
+	@override String removed({required Object name}) => '${name} को पसंदीदा सूची से हटा दिया गया';
+	@override late final _TranslationsFavoritesSortOptionsHi sortOptions = _TranslationsFavoritesSortOptionsHi._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationHi implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'प्रश्न ${current} में से ${total}';
 	@override String get noVariationsAvailable => 'कोई विकल्प उपलब्ध नहीं है';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsHi implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsHi._(this._root);
+
+	final TranslationsHi _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'हालिया';
+	@override String get calories => 'कैलोरी';
+	@override String get alphabetical => 'अक्षरानुक्रम';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsHi {
 			'meal.variation.noVariationsAvailable' => 'कोई विकल्प उपलब्ध नहीं है',
 			'favorites.title' => 'पसंदीदा',
 			'favorites.empty' => 'अभी तक कोई पसंदीदा भोजन नहीं।',
+			'favorites.searchPlaceholder' => 'पसंदीदा भोजन खोजें',
+			'favorites.searchEmptyTitle' => 'आपकी खोज से कोई पसंदीदा नहीं मिला',
+			'favorites.searchEmptySubtitle' => 'किसी अलग भोजन के नाम, मात्रा, या भोजन के प्रकार को आज़माएँ।',
+			'favorites.sortLabel' => 'पसंदीदा छाँटें',
+			'favorites.undo' => 'पूर्ववत करें',
+			'favorites.removed' => ({required Object name}) => '${name} को पसंदीदा सूची से हटा दिया गया',
+			'favorites.sortOptions.recent' => 'हालिया',
+			'favorites.sortOptions.calories' => 'कैलोरी',
+			'favorites.sortOptions.alphabetical' => 'अक्षरानुक्रम',
 			'profile.title' => 'प्रोफ़ाइल',
 			'profile.noProfileData' => 'कोई प्रोफ़ाइल डेटा नहीं मिला',
 			'profile.yourProfile' => 'आपकी प्रोफ़ाइल',

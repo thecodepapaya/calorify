@@ -187,6 +187,13 @@ class _TranslationsFavoritesTr implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Favoriler';
 	@override String get empty => 'Henüz favori yemek yok.';
+	@override String get searchPlaceholder => 'Favori yemekleri ara';
+	@override String get searchEmptyTitle => 'Aramanıza uyan favori bulunamadı';
+	@override String get searchEmptySubtitle => 'Farklı bir yemek adı, porsiyon veya öğün türü deneyin.';
+	@override String get sortLabel => 'Favorileri sırala';
+	@override String get undo => 'Geri al';
+	@override String removed({required Object name}) => '${name} favorilerden kaldırıldı';
+	@override late final _TranslationsFavoritesSortOptionsTr sortOptions = _TranslationsFavoritesSortOptionsTr._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationTr implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Soru ${current} / ${total}';
 	@override String get noVariationsAvailable => 'Hiç varyasyon bulunamadı';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsTr implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Son eklenenler';
+	@override String get calories => 'Kalori';
+	@override String get alphabetical => 'A-Z';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsTr {
 			'meal.variation.noVariationsAvailable' => 'Hiç varyasyon bulunamadı',
 			'favorites.title' => 'Favoriler',
 			'favorites.empty' => 'Henüz favori yemek yok.',
+			'favorites.searchPlaceholder' => 'Favori yemekleri ara',
+			'favorites.searchEmptyTitle' => 'Aramanıza uyan favori bulunamadı',
+			'favorites.searchEmptySubtitle' => 'Farklı bir yemek adı, porsiyon veya öğün türü deneyin.',
+			'favorites.sortLabel' => 'Favorileri sırala',
+			'favorites.undo' => 'Geri al',
+			'favorites.removed' => ({required Object name}) => '${name} favorilerden kaldırıldı',
+			'favorites.sortOptions.recent' => 'Son eklenenler',
+			'favorites.sortOptions.calories' => 'Kalori',
+			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'Profil',
 			'profile.noProfileData' => 'Profil verisi bulunamadı',
 			'profile.yourProfile' => 'Profiliniz',

@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Favoritos",
-    "empty": "Ainda não há refeições favoritas."
+    "empty": "Ainda não há refeições favoritas.",
+    "searchPlaceholder": "Pesquisar refeições favoritas",
+    "searchEmptyTitle": "Nenhum favorito corresponde à sua pesquisa",
+    "searchEmptySubtitle": "Tente um nome de refeição, quantidade ou tipo de refeição diferente.",
+    "sortLabel": "Ordenar favoritos",
+    "undo": "Desfazer",
+    "removed": "Removido {name} dos favoritos",
+    "sortOptions": {
+      "recent": "Recentes",
+      "calories": "Calorias",
+      "alphabetical": "A-Z"
+    }
   },
   "profile": {
     "title": "Perfil",

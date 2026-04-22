@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Kedvencek",
-    "empty": "Még nincs kedvenc étkezés."
+    "empty": "Még nincs kedvenc étkezés.",
+    "searchPlaceholder": "Kedvenc ételek keresése",
+    "searchEmptyTitle": "A kereséshez nem található kedvenc",
+    "searchEmptySubtitle": "Próbálj meg más ételnevet, mennyiséget vagy étkezéstípust.",
+    "sortLabel": "Kedvencek rendezése",
+    "undo": "Visszavonás",
+    "removed": "{name} eltávolítva a kedvencek közül",
+    "sortOptions": {
+      "recent": "Legutóbbi",
+      "calories": "Kalóriák",
+      "alphabetical": "Ábécésorrend"
+    }
   },
   "profile": {
     "title": "Profil",

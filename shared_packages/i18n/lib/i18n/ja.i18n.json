@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "お気に入り",
-    "empty": "まだお気に入りの食事はありません。"
+    "empty": "まだお気に入りの食事はありません。",
+    "searchPlaceholder": "お気に入りの食事を検索",
+    "searchEmptyTitle": "検索に一致するお気に入りはありません",
+    "searchEmptySubtitle": "別の食事名、量、または食事の種類を試してみてください。",
+    "sortLabel": "お気に入りを並び替え",
+    "undo": "元に戻す",
+    "removed": "{name}をお気に入りから削除しました",
+    "sortOptions": {
+      "recent": "最近",
+      "calories": "カロリー順",
+      "alphabetical": "アルファベット順"
+    }
   },
   "profile": {
     "title": "プロフィール",

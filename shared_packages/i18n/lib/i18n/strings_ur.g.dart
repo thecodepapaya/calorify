@@ -187,6 +187,13 @@ class _TranslationsFavoritesUr implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'پسندیدہ';
 	@override String get empty => 'ابھی کوئی پسندیدہ کھانے نہیں ہیں۔';
+	@override String get searchPlaceholder => 'اپنے پسندیدہ کھانوں کو تلاش کریں';
+	@override String get searchEmptyTitle => 'آپ کی تلاش سے کوئی پسندیدہ نہیں ملا';
+	@override String get searchEmptySubtitle => 'کسی مختلف کھانے کا نام، مقدار، یا کھانے کی قسم آزمائیں۔';
+	@override String get sortLabel => 'پسندیدہ ترتیب دیں';
+	@override String get undo => 'واپس کریں';
+	@override String removed({required Object name}) => 'ہم نے ${name} کو پسندیدہ فہرست سے ہٹا دیا۔';
+	@override late final _TranslationsFavoritesSortOptionsUr sortOptions = _TranslationsFavoritesSortOptionsUr._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationUr implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'سوال ${current} (کل ${total})';
 	@override String get noVariationsAvailable => 'کوئی مختلف اختیارات دستیاب نہیں';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsUr implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'تازہ ترین';
+	@override String get calories => 'کیلوریز';
+	@override String get alphabetical => 'الف-ی';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsUr {
 			'meal.variation.noVariationsAvailable' => 'کوئی مختلف اختیارات دستیاب نہیں',
 			'favorites.title' => 'پسندیدہ',
 			'favorites.empty' => 'ابھی کوئی پسندیدہ کھانے نہیں ہیں۔',
+			'favorites.searchPlaceholder' => 'اپنے پسندیدہ کھانوں کو تلاش کریں',
+			'favorites.searchEmptyTitle' => 'آپ کی تلاش سے کوئی پسندیدہ نہیں ملا',
+			'favorites.searchEmptySubtitle' => 'کسی مختلف کھانے کا نام، مقدار، یا کھانے کی قسم آزمائیں۔',
+			'favorites.sortLabel' => 'پسندیدہ ترتیب دیں',
+			'favorites.undo' => 'واپس کریں',
+			'favorites.removed' => ({required Object name}) => 'ہم نے ${name} کو پسندیدہ فہرست سے ہٹا دیا۔',
+			'favorites.sortOptions.recent' => 'تازہ ترین',
+			'favorites.sortOptions.calories' => 'کیلوریز',
+			'favorites.sortOptions.alphabetical' => 'الف-ی',
 			'profile.title' => 'پروفائل',
 			'profile.noProfileData' => 'کوئی پروفائل ڈیٹا نہیں ملا',
 			'profile.yourProfile' => 'آپ کا پروفائل',

@@ -187,6 +187,13 @@ class _TranslationsFavoritesKo implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => '즐겨찾기';
 	@override String get empty => '즐겨찾는 식사가 없습니다.';
+	@override String get searchPlaceholder => '즐겨찾는 식사 검색';
+	@override String get searchEmptyTitle => '검색에 일치하는 즐겨찾기가 없습니다';
+	@override String get searchEmptySubtitle => '다른 식사 이름, 수량 또는 식사 유형으로 다시 시도해보세요.';
+	@override String get sortLabel => '즐겨찾기 정렬';
+	@override String get undo => '되돌리기';
+	@override String removed({required Object name}) => '즐겨찾기에서 ${name}을(를) 제거했습니다';
+	@override late final _TranslationsFavoritesSortOptionsKo sortOptions = _TranslationsFavoritesSortOptionsKo._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationKo implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => '질문 ${current} / ${total}';
 	@override String get noVariationsAvailable => '사용 가능한 변형이 없습니다';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsKo implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => '최근';
+	@override String get calories => '칼로리';
+	@override String get alphabetical => '가나다순';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsKo {
 			'meal.variation.noVariationsAvailable' => '사용 가능한 변형이 없습니다',
 			'favorites.title' => '즐겨찾기',
 			'favorites.empty' => '즐겨찾는 식사가 없습니다.',
+			'favorites.searchPlaceholder' => '즐겨찾는 식사 검색',
+			'favorites.searchEmptyTitle' => '검색에 일치하는 즐겨찾기가 없습니다',
+			'favorites.searchEmptySubtitle' => '다른 식사 이름, 수량 또는 식사 유형으로 다시 시도해보세요.',
+			'favorites.sortLabel' => '즐겨찾기 정렬',
+			'favorites.undo' => '되돌리기',
+			'favorites.removed' => ({required Object name}) => '즐겨찾기에서 ${name}을(를) 제거했습니다',
+			'favorites.sortOptions.recent' => '최근',
+			'favorites.sortOptions.calories' => '칼로리',
+			'favorites.sortOptions.alphabetical' => '가나다순',
 			'profile.title' => '프로필',
 			'profile.noProfileData' => '프로필 데이터가 없습니다.',
 			'profile.yourProfile' => '당신의 프로필',

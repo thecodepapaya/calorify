@@ -187,6 +187,13 @@ class _TranslationsFavoritesTl implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Mga Paborito';
 	@override String get empty => 'Walang paboritong pagkain sa ngayon.';
+	@override String get searchPlaceholder => 'Maghanap ng paboritong pagkain';
+	@override String get searchEmptyTitle => 'Walang paborito ang tumutugma sa iyong paghahanap';
+	@override String get searchEmptySubtitle => 'Subukan ang ibang pangalan ng pagkain, dami, o uri ng pagkain.';
+	@override String get sortLabel => 'Iayos ang mga paborito';
+	@override String get undo => 'Bawiin';
+	@override String removed({required Object name}) => 'Tinanggal ang ${name} mula sa mga paborito';
+	@override late final _TranslationsFavoritesSortOptionsTl sortOptions = _TranslationsFavoritesSortOptionsTl._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationTl implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Tanong ${current} sa ${total}';
 	@override String get noVariationsAvailable => 'Walang ibang pagpipilian';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsTl implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Pinakabago';
+	@override String get calories => 'Kaloriya';
+	@override String get alphabetical => 'A-Z';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsTl {
 			'meal.variation.noVariationsAvailable' => 'Walang ibang pagpipilian',
 			'favorites.title' => 'Mga Paborito',
 			'favorites.empty' => 'Walang paboritong pagkain sa ngayon.',
+			'favorites.searchPlaceholder' => 'Maghanap ng paboritong pagkain',
+			'favorites.searchEmptyTitle' => 'Walang paborito ang tumutugma sa iyong paghahanap',
+			'favorites.searchEmptySubtitle' => 'Subukan ang ibang pangalan ng pagkain, dami, o uri ng pagkain.',
+			'favorites.sortLabel' => 'Iayos ang mga paborito',
+			'favorites.undo' => 'Bawiin',
+			'favorites.removed' => ({required Object name}) => 'Tinanggal ang ${name} mula sa mga paborito',
+			'favorites.sortOptions.recent' => 'Pinakabago',
+			'favorites.sortOptions.calories' => 'Kaloriya',
+			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'Profile',
 			'profile.noProfileData' => 'Walang natagpuang datos ng profile',
 			'profile.yourProfile' => 'Ang Iyong Profile',

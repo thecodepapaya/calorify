@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Oblíbené",
-    "empty": "Žádná oblíbená jídla zatím."
+    "empty": "Žádná oblíbená jídla zatím.",
+    "searchPlaceholder": "Hledat oblíbená jídla",
+    "searchEmptyTitle": "Žádné oblíbené položky neodpovídají vašemu hledání",
+    "searchEmptySubtitle": "Zkuste jiné jméno jídla, množství nebo typ pokrmu.",
+    "sortLabel": "Seřadit oblíbené",
+    "undo": "Zpět",
+    "removed": "Odebráno {name} z oblíbených",
+    "sortOptions": {
+      "recent": "Nedávné",
+      "calories": "Kalorie",
+      "alphabetical": "Abecedně"
+    }
   },
   "profile": {
     "title": "Profil",

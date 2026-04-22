@@ -187,6 +187,13 @@ class _TranslationsFavoritesSv implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Favoriter';
 	@override String get empty => 'Inga favoritmåltider ännu.';
+	@override String get searchPlaceholder => 'Sök favoriträtter';
+	@override String get searchEmptyTitle => 'Inga favoriter matchar din sökning';
+	@override String get searchEmptySubtitle => 'Prova ett annat maträttsnamn, antal eller måltidstyp.';
+	@override String get sortLabel => 'Sortera favoriter';
+	@override String get undo => 'Ångra';
+	@override String removed({required Object name}) => 'Tog bort ${name} från favoriterna';
+	@override late final _TranslationsFavoritesSortOptionsSv sortOptions = _TranslationsFavoritesSortOptionsSv._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationSv implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Fråga ${current} av ${total}';
 	@override String get noVariationsAvailable => 'Inga varianter tillgängliga';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsSv implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsSv._(this._root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Senaste';
+	@override String get calories => 'Kalorier';
+	@override String get alphabetical => 'A–Ö';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsSv {
 			'meal.variation.noVariationsAvailable' => 'Inga varianter tillgängliga',
 			'favorites.title' => 'Favoriter',
 			'favorites.empty' => 'Inga favoritmåltider ännu.',
+			'favorites.searchPlaceholder' => 'Sök favoriträtter',
+			'favorites.searchEmptyTitle' => 'Inga favoriter matchar din sökning',
+			'favorites.searchEmptySubtitle' => 'Prova ett annat maträttsnamn, antal eller måltidstyp.',
+			'favorites.sortLabel' => 'Sortera favoriter',
+			'favorites.undo' => 'Ångra',
+			'favorites.removed' => ({required Object name}) => 'Tog bort ${name} från favoriterna',
+			'favorites.sortOptions.recent' => 'Senaste',
+			'favorites.sortOptions.calories' => 'Kalorier',
+			'favorites.sortOptions.alphabetical' => 'A–Ö',
 			'profile.title' => 'Profil',
 			'profile.noProfileData' => 'Ingen profildata hittad',
 			'profile.yourProfile' => 'Din profil',

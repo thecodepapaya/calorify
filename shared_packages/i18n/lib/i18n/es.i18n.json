@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Favoritos",
-    "empty": "Aún no hay comidas favoritas."
+    "empty": "Aún no hay comidas favoritas.",
+    "searchPlaceholder": "Buscar comidas favoritas",
+    "searchEmptyTitle": "No hay favoritos que coincidan con tu búsqueda",
+    "searchEmptySubtitle": "Prueba con otro nombre de plato, cantidad o tipo de comida.",
+    "sortLabel": "Ordenar favoritos",
+    "undo": "Deshacer",
+    "removed": "Has eliminado {name} de tus favoritos",
+    "sortOptions": {
+      "recent": "Más recientes",
+      "calories": "Calorías",
+      "alphabetical": "A-Z"
+    }
   },
   "profile": {
     "title": "Perfil",

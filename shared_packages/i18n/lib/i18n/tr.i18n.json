@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Favoriler",
-    "empty": "Henüz favori yemek yok."
+    "empty": "Henüz favori yemek yok.",
+    "searchPlaceholder": "Favori yemekleri ara",
+    "searchEmptyTitle": "Aramanıza uyan favori bulunamadı",
+    "searchEmptySubtitle": "Farklı bir yemek adı, porsiyon veya öğün türü deneyin.",
+    "sortLabel": "Favorileri sırala",
+    "undo": "Geri al",
+    "removed": "{name} favorilerden kaldırıldı",
+    "sortOptions": {
+      "recent": "Son eklenenler",
+      "calories": "Kalori",
+      "alphabetical": "A-Z"
+    }
   },
   "profile": {
     "title": "Profil",

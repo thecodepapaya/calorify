@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Ulubione",
-    "empty": "Brak ulubionych posiłków."
+    "empty": "Brak ulubionych posiłków.",
+    "searchPlaceholder": "Wyszukaj ulubione posiłki",
+    "searchEmptyTitle": "Brak ulubionych pasujących do wyszukiwania",
+    "searchEmptySubtitle": "Spróbuj innej nazwy posiłku, ilości lub typu posiłku.",
+    "sortLabel": "Sortuj ulubione",
+    "undo": "Cofnij",
+    "removed": "Usunięto {name} z ulubionych",
+    "sortOptions": {
+      "recent": "Najnowsze",
+      "calories": "Kalorie",
+      "alphabetical": "A–Z"
+    }
   },
   "profile": {
     "title": "Profil",

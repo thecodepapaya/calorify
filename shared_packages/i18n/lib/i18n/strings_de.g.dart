@@ -187,6 +187,13 @@ class _TranslationsFavoritesDe implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Favoriten';
 	@override String get empty => 'Noch keine Lieblingsmahlzeiten.';
+	@override String get searchPlaceholder => 'Favoriten durchsuchen';
+	@override String get searchEmptyTitle => 'Keine Favoriten entsprechen deiner Suche';
+	@override String get searchEmptySubtitle => 'Versuche einen anderen Namen, eine andere Menge oder eine andere Mahlzeitart.';
+	@override String get sortLabel => 'Favoriten sortieren';
+	@override String get undo => 'Rückgängig';
+	@override String removed({required Object name}) => 'Entfernt ${name} aus deinen Favoriten';
+	@override late final _TranslationsFavoritesSortOptionsDe sortOptions = _TranslationsFavoritesSortOptionsDe._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationDe implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Frage ${current} von ${total}';
 	@override String get noVariationsAvailable => 'Keine Varianten verfügbar';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsDe implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsDe._(this._root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Neueste';
+	@override String get calories => 'Kalorien';
+	@override String get alphabetical => 'A–Z';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsDe {
 			'meal.variation.noVariationsAvailable' => 'Keine Varianten verfügbar',
 			'favorites.title' => 'Favoriten',
 			'favorites.empty' => 'Noch keine Lieblingsmahlzeiten.',
+			'favorites.searchPlaceholder' => 'Favoriten durchsuchen',
+			'favorites.searchEmptyTitle' => 'Keine Favoriten entsprechen deiner Suche',
+			'favorites.searchEmptySubtitle' => 'Versuche einen anderen Namen, eine andere Menge oder eine andere Mahlzeitart.',
+			'favorites.sortLabel' => 'Favoriten sortieren',
+			'favorites.undo' => 'Rückgängig',
+			'favorites.removed' => ({required Object name}) => 'Entfernt ${name} aus deinen Favoriten',
+			'favorites.sortOptions.recent' => 'Neueste',
+			'favorites.sortOptions.calories' => 'Kalorien',
+			'favorites.sortOptions.alphabetical' => 'A–Z',
 			'profile.title' => 'Profil',
 			'profile.noProfileData' => 'Keine Profildaten gefunden',
 			'profile.yourProfile' => 'Dein Profil',

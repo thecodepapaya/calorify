@@ -187,6 +187,13 @@ class _TranslationsFavoritesPt implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Favoritos';
 	@override String get empty => 'Ainda não há refeições favoritas.';
+	@override String get searchPlaceholder => 'Pesquisar refeições favoritas';
+	@override String get searchEmptyTitle => 'Nenhum favorito corresponde à sua pesquisa';
+	@override String get searchEmptySubtitle => 'Tente um nome de refeição, quantidade ou tipo de refeição diferente.';
+	@override String get sortLabel => 'Ordenar favoritos';
+	@override String get undo => 'Desfazer';
+	@override String removed({required Object name}) => 'Removido ${name} dos favoritos';
+	@override late final _TranslationsFavoritesSortOptionsPt sortOptions = _TranslationsFavoritesSortOptionsPt._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationPt implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Pergunta ${current} de ${total}';
 	@override String get noVariationsAvailable => 'Não há variações disponíveis';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsPt implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsPt._(this._root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Recentes';
+	@override String get calories => 'Calorias';
+	@override String get alphabetical => 'A-Z';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsPt {
 			'meal.variation.noVariationsAvailable' => 'Não há variações disponíveis',
 			'favorites.title' => 'Favoritos',
 			'favorites.empty' => 'Ainda não há refeições favoritas.',
+			'favorites.searchPlaceholder' => 'Pesquisar refeições favoritas',
+			'favorites.searchEmptyTitle' => 'Nenhum favorito corresponde à sua pesquisa',
+			'favorites.searchEmptySubtitle' => 'Tente um nome de refeição, quantidade ou tipo de refeição diferente.',
+			'favorites.sortLabel' => 'Ordenar favoritos',
+			'favorites.undo' => 'Desfazer',
+			'favorites.removed' => ({required Object name}) => 'Removido ${name} dos favoritos',
+			'favorites.sortOptions.recent' => 'Recentes',
+			'favorites.sortOptions.calories' => 'Calorias',
+			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'Perfil',
 			'profile.noProfileData' => 'Nenhum dado de perfil encontrado',
 			'profile.yourProfile' => 'Seu Perfil',

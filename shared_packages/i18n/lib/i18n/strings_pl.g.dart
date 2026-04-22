@@ -187,6 +187,13 @@ class _TranslationsFavoritesPl implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Ulubione';
 	@override String get empty => 'Brak ulubionych posiłków.';
+	@override String get searchPlaceholder => 'Wyszukaj ulubione posiłki';
+	@override String get searchEmptyTitle => 'Brak ulubionych pasujących do wyszukiwania';
+	@override String get searchEmptySubtitle => 'Spróbuj innej nazwy posiłku, ilości lub typu posiłku.';
+	@override String get sortLabel => 'Sortuj ulubione';
+	@override String get undo => 'Cofnij';
+	@override String removed({required Object name}) => 'Usunięto ${name} z ulubionych';
+	@override late final _TranslationsFavoritesSortOptionsPl sortOptions = _TranslationsFavoritesSortOptionsPl._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationPl implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Pytanie ${current} z ${total}';
 	@override String get noVariationsAvailable => 'Brak dostępnych wariantów';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsPl implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsPl._(this._root);
+
+	final TranslationsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Najnowsze';
+	@override String get calories => 'Kalorie';
+	@override String get alphabetical => 'A–Z';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsPl {
 			'meal.variation.noVariationsAvailable' => 'Brak dostępnych wariantów',
 			'favorites.title' => 'Ulubione',
 			'favorites.empty' => 'Brak ulubionych posiłków.',
+			'favorites.searchPlaceholder' => 'Wyszukaj ulubione posiłki',
+			'favorites.searchEmptyTitle' => 'Brak ulubionych pasujących do wyszukiwania',
+			'favorites.searchEmptySubtitle' => 'Spróbuj innej nazwy posiłku, ilości lub typu posiłku.',
+			'favorites.sortLabel' => 'Sortuj ulubione',
+			'favorites.undo' => 'Cofnij',
+			'favorites.removed' => ({required Object name}) => 'Usunięto ${name} z ulubionych',
+			'favorites.sortOptions.recent' => 'Najnowsze',
+			'favorites.sortOptions.calories' => 'Kalorie',
+			'favorites.sortOptions.alphabetical' => 'A–Z',
 			'profile.title' => 'Profil',
 			'profile.noProfileData' => 'Brak danych profilowych',
 			'profile.yourProfile' => 'Twój Profil',

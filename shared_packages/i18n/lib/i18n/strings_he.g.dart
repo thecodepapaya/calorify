@@ -187,6 +187,13 @@ class _TranslationsFavoritesHe implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'אהובים';
 	@override String get empty => 'אין ארוחות אהובות עדיין.';
+	@override String get searchPlaceholder => 'חפש מנות מועדפות';
+	@override String get searchEmptyTitle => 'אין מועדפים שמתאימים לחיפוש שלך';
+	@override String get searchEmptySubtitle => 'נסה להשתמש בשם מנה, בכמות או בסוג ארוחה שונים.';
+	@override String get sortLabel => 'מיין מועדפים';
+	@override String get undo => 'בטל';
+	@override String removed({required Object name}) => 'הוסר ${name} מהמועדפים';
+	@override late final _TranslationsFavoritesSortOptionsHe sortOptions = _TranslationsFavoritesSortOptionsHe._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationHe implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'שאלה ${current} מתוך ${total}';
 	@override String get noVariationsAvailable => 'אין וריאציות זמינות';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsHe implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'לאחרונה';
+	@override String get calories => 'קלוריות';
+	@override String get alphabetical => 'לפי סדר אלפביתי';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsHe {
 			'meal.variation.noVariationsAvailable' => 'אין וריאציות זמינות',
 			'favorites.title' => 'אהובים',
 			'favorites.empty' => 'אין ארוחות אהובות עדיין.',
+			'favorites.searchPlaceholder' => 'חפש מנות מועדפות',
+			'favorites.searchEmptyTitle' => 'אין מועדפים שמתאימים לחיפוש שלך',
+			'favorites.searchEmptySubtitle' => 'נסה להשתמש בשם מנה, בכמות או בסוג ארוחה שונים.',
+			'favorites.sortLabel' => 'מיין מועדפים',
+			'favorites.undo' => 'בטל',
+			'favorites.removed' => ({required Object name}) => 'הוסר ${name} מהמועדפים',
+			'favorites.sortOptions.recent' => 'לאחרונה',
+			'favorites.sortOptions.calories' => 'קלוריות',
+			'favorites.sortOptions.alphabetical' => 'לפי סדר אלפביתי',
 			'profile.title' => 'פרופיל',
 			'profile.noProfileData' => 'לא נמצאו נתוני פרופיל',
 			'profile.yourProfile' => 'הפרופיל שלך',

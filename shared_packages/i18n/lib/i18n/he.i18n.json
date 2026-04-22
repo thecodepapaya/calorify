@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "אהובים",
-    "empty": "אין ארוחות אהובות עדיין."
+    "empty": "אין ארוחות אהובות עדיין.",
+    "searchPlaceholder": "חפש מנות מועדפות",
+    "searchEmptyTitle": "אין מועדפים שמתאימים לחיפוש שלך",
+    "searchEmptySubtitle": "נסה להשתמש בשם מנה, בכמות או בסוג ארוחה שונים.",
+    "sortLabel": "מיין מועדפים",
+    "undo": "בטל",
+    "removed": "הוסר {name} מהמועדפים",
+    "sortOptions": {
+      "recent": "לאחרונה",
+      "calories": "קלוריות",
+      "alphabetical": "לפי סדר אלפביתי"
+    }
   },
   "profile": {
     "title": "פרופיל",

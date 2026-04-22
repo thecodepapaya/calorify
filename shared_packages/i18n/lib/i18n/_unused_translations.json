@@ -277,7 +277,18 @@
     },
     "favorites": {
       "title": "Favorites",
-      "empty": "No favorite meals yet."
+      "empty": "No favorite meals yet.",
+      "searchPlaceholder": "Search favorite meals",
+      "searchEmptyTitle": "No favorites match your search",
+      "searchEmptySubtitle": "Try a different meal name, quantity, or meal type.",
+      "sortLabel": "Sort favorites",
+      "undo": "Undo",
+      "removed": "Removed {name} from favorites",
+      "sortOptions": {
+        "recent": "Recent",
+        "calories": "Calories",
+        "alphabetical": "A-Z"
+      }
     },
     "profile": {
       "title": "Profile",

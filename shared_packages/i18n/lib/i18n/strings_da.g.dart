@@ -187,6 +187,13 @@ class _TranslationsFavoritesDa implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Favoritter';
 	@override String get empty => 'Ingen favoritmåltider endnu.';
+	@override String get searchPlaceholder => 'Søg i favoritmåltider';
+	@override String get searchEmptyTitle => 'Ingen favoritter matcher din søgning';
+	@override String get searchEmptySubtitle => 'Prøv et andet måltidsnavn, en anden mængde eller en anden måltidstype.';
+	@override String get sortLabel => 'Sorter favoritter';
+	@override String get undo => 'Fortryd';
+	@override String removed({required Object name}) => 'Fjernet ${name} fra favoritterne';
+	@override late final _TranslationsFavoritesSortOptionsDa sortOptions = _TranslationsFavoritesSortOptionsDa._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationDa implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Spørgsmål ${current} af ${total}';
 	@override String get noVariationsAvailable => 'Ingen variationer tilgængelige';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsDa implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsDa._(this._root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Seneste';
+	@override String get calories => 'Kalorier';
+	@override String get alphabetical => 'A-Å';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsDa {
 			'meal.variation.noVariationsAvailable' => 'Ingen variationer tilgængelige',
 			'favorites.title' => 'Favoritter',
 			'favorites.empty' => 'Ingen favoritmåltider endnu.',
+			'favorites.searchPlaceholder' => 'Søg i favoritmåltider',
+			'favorites.searchEmptyTitle' => 'Ingen favoritter matcher din søgning',
+			'favorites.searchEmptySubtitle' => 'Prøv et andet måltidsnavn, en anden mængde eller en anden måltidstype.',
+			'favorites.sortLabel' => 'Sorter favoritter',
+			'favorites.undo' => 'Fortryd',
+			'favorites.removed' => ({required Object name}) => 'Fjernet ${name} fra favoritterne',
+			'favorites.sortOptions.recent' => 'Seneste',
+			'favorites.sortOptions.calories' => 'Kalorier',
+			'favorites.sortOptions.alphabetical' => 'A-Å',
 			'profile.title' => 'Profil',
 			'profile.noProfileData' => 'Ingen profildata fundet',
 			'profile.yourProfile' => 'Din Profil',

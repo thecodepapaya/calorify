@@ -187,6 +187,13 @@ class _TranslationsFavoritesTe implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'ప్రియమైనవి';
 	@override String get empty => 'ఇప్పటివరకు ప్రియమైన భోజనాలు లేవు.';
+	@override String get searchPlaceholder => 'ఇష్టమైన భోజనాలు శోధించండి';
+	@override String get searchEmptyTitle => 'మీ శోధనకు సరిపడే ఇష్టమైనవి కనబడలేదు';
+	@override String get searchEmptySubtitle => 'వేరే భోజన పేరు, పరిమాణం లేదా భోజన రకం ప్రయత్నించండి.';
+	@override String get sortLabel => 'ఇష్టాలను వర్గీకరించండి';
+	@override String get undo => 'తిరిగి తీసుకోండి';
+	@override String removed({required Object name}) => 'ఇష్టమైనవల నుంచి ${name} తీసివేశారు';
+	@override late final _TranslationsFavoritesSortOptionsTe sortOptions = _TranslationsFavoritesSortOptionsTe._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationTe implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object total, required Object current}) => '${total}లో ${current}వ ప్రశ్న';
 	@override String get noVariationsAvailable => 'వైవిధ్యాలు అందుబాటులో లేవు';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsTe implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'ఇటీవల';
+	@override String get calories => 'కాలరీలు';
+	@override String get alphabetical => 'అక్షరాల క్రమం';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsTe {
 			'meal.variation.noVariationsAvailable' => 'వైవిధ్యాలు అందుబాటులో లేవు',
 			'favorites.title' => 'ప్రియమైనవి',
 			'favorites.empty' => 'ఇప్పటివరకు ప్రియమైన భోజనాలు లేవు.',
+			'favorites.searchPlaceholder' => 'ఇష్టమైన భోజనాలు శోధించండి',
+			'favorites.searchEmptyTitle' => 'మీ శోధనకు సరిపడే ఇష్టమైనవి కనబడలేదు',
+			'favorites.searchEmptySubtitle' => 'వేరే భోజన పేరు, పరిమాణం లేదా భోజన రకం ప్రయత్నించండి.',
+			'favorites.sortLabel' => 'ఇష్టాలను వర్గీకరించండి',
+			'favorites.undo' => 'తిరిగి తీసుకోండి',
+			'favorites.removed' => ({required Object name}) => 'ఇష్టమైనవల నుంచి ${name} తీసివేశారు',
+			'favorites.sortOptions.recent' => 'ఇటీవల',
+			'favorites.sortOptions.calories' => 'కాలరీలు',
+			'favorites.sortOptions.alphabetical' => 'అక్షరాల క్రమం',
 			'profile.title' => 'ప్రొఫైల్',
 			'profile.noProfileData' => 'ప్రొఫైల్ డేటా లేదు',
 			'profile.yourProfile' => 'మీ ప్రొఫైల్',

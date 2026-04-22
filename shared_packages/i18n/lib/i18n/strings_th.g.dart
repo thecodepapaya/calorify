@@ -187,6 +187,13 @@ class _TranslationsFavoritesTh implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'มื้อโปรด';
 	@override String get empty => 'ยังไม่มีมื้ออาหารโปรด.';
+	@override String get searchPlaceholder => 'ค้นหาอาหารโปรด';
+	@override String get searchEmptyTitle => 'ไม่พบรายการโปรดที่ตรงกับการค้นหา';
+	@override String get searchEmptySubtitle => 'ลองค้นหาด้วยชื่ออาหาร ปริมาณ หรือประเภทมื้ออาหารอื่น';
+	@override String get sortLabel => 'จัดเรียงรายการโปรด';
+	@override String get undo => 'เลิกทำ';
+	@override String removed({required Object name}) => 'ลบ ${name} ออกจากรายการโปรด';
+	@override late final _TranslationsFavoritesSortOptionsTh sortOptions = _TranslationsFavoritesSortOptionsTh._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationTh implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'คำถามที่ ${current} จาก ${total}';
 	@override String get noVariationsAvailable => 'ไม่มีตัวเลือกเพิ่มเติม';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsTh implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'ล่าสุด';
+	@override String get calories => 'แคลอรี่';
+	@override String get alphabetical => 'A-Z';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsTh {
 			'meal.variation.noVariationsAvailable' => 'ไม่มีตัวเลือกเพิ่มเติม',
 			'favorites.title' => 'มื้อโปรด',
 			'favorites.empty' => 'ยังไม่มีมื้ออาหารโปรด.',
+			'favorites.searchPlaceholder' => 'ค้นหาอาหารโปรด',
+			'favorites.searchEmptyTitle' => 'ไม่พบรายการโปรดที่ตรงกับการค้นหา',
+			'favorites.searchEmptySubtitle' => 'ลองค้นหาด้วยชื่ออาหาร ปริมาณ หรือประเภทมื้ออาหารอื่น',
+			'favorites.sortLabel' => 'จัดเรียงรายการโปรด',
+			'favorites.undo' => 'เลิกทำ',
+			'favorites.removed' => ({required Object name}) => 'ลบ ${name} ออกจากรายการโปรด',
+			'favorites.sortOptions.recent' => 'ล่าสุด',
+			'favorites.sortOptions.calories' => 'แคลอรี่',
+			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'โปรไฟล์',
 			'profile.noProfileData' => 'ไม่มีข้อมูลโปรไฟล์',
 			'profile.yourProfile' => 'โปรไฟล์ของคุณ',
