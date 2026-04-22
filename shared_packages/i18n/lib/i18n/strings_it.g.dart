@@ -72,6 +72,7 @@ class _TranslationsErrorsIt implements TranslationsErrorsEn {
 	@override String get unknownError => 'Qualcosa è andato storto. Riprova più tardi.';
 	@override String get loadingProfileData => 'Errore nel caricamento dei dati del profilo';
 	@override String get somethingWentWrong => 'Qualcosa è andato storto.';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsIt {
 			'errors.unknownError' => 'Qualcosa è andato storto. Riprova più tardi.',
 			'errors.loadingProfileData' => 'Errore nel caricamento dei dati del profilo',
 			'errors.somethingWentWrong' => 'Qualcosa è andato storto.',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Benvenuto su ${appLabel}',
 			'onboarding.subtitle' => 'Il tuo compagno personale per la nutrizione alimentato dall\'IA',
 			'onboarding.getStarted' => 'Inizia',

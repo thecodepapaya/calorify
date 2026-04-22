@@ -72,6 +72,7 @@ class _TranslationsErrorsZhTw implements TranslationsErrorsEn {
 	@override String get unknownError => '發生錯誤。請稍後再試。';
 	@override String get loadingProfileData => '載入個人資料數據出錯';
 	@override String get somethingWentWrong => '發生了錯誤。';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsZhTw {
 			'errors.unknownError' => '發生錯誤。請稍後再試。',
 			'errors.loadingProfileData' => '載入個人資料數據出錯',
 			'errors.somethingWentWrong' => '發生了錯誤。',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => '歡迎使用 ${appLabel}',
 			'onboarding.subtitle' => '您個人的營養夥伴，由 AI 提供支持',
 			'onboarding.getStarted' => '開始使用',

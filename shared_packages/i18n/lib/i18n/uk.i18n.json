@@ -7,7 +7,8 @@
     "networkError": "Помилка мережі. Будь ласка, перевірте підключення до інтернету.",
     "unknownError": "Щось пішло не так. Будь ласка, спробуйте ще раз пізніше.",
     "loadingProfileData": "Помилка завантаження даних профілю",
-    "somethingWentWrong": "Щось пішло не так."
+    "somethingWentWrong": "Щось пішло не так.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "Ласкаво просимо до {appLabel}",

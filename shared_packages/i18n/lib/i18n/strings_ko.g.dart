@@ -72,6 +72,7 @@ class _TranslationsErrorsKo implements TranslationsErrorsEn {
 	@override String get unknownError => '문제가 발생했습니다. 잠시 후 다시 시도해 주세요.';
 	@override String get loadingProfileData => '프로필 데이터 로드 중 오류 발생';
 	@override String get somethingWentWrong => '문제가 발생했습니다.';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsKo {
 			'errors.unknownError' => '문제가 발생했습니다. 잠시 후 다시 시도해 주세요.',
 			'errors.loadingProfileData' => '프로필 데이터 로드 중 오류 발생',
 			'errors.somethingWentWrong' => '문제가 발생했습니다.',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel}에 오신 것을 환영합니다',
 			'onboarding.subtitle' => 'AI가 지원하는 개인 영양 동반자',
 			'onboarding.getStarted' => '시작하기',

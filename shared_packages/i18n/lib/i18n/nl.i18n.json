@@ -7,7 +7,8 @@
     "networkError": "Netwerkfout. Controleer je internetverbinding en probeer het opnieuw.",
     "unknownError": "Er is iets misgegaan. Probeer het later opnieuw.",
     "loadingProfileData": "Fout bij het laden van profielgegevens",
-    "somethingWentWrong": "Er is iets misgegaan."
+    "somethingWentWrong": "Er is iets misgegaan.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "Welkom bij {appLabel}",

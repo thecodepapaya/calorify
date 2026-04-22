@@ -7,7 +7,8 @@
     "networkError": "Nettverksfeil. Kontroller internettforbindelsen din og prøv igjen.",
     "unknownError": "Noe gikk galt. Vennligst prøv igjen senere.",
     "loadingProfileData": "Feil ved lasting av profildata",
-    "somethingWentWrong": "Noe gikk galt."
+    "somethingWentWrong": "Noe gikk galt.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "Velkommen til {appLabel}",

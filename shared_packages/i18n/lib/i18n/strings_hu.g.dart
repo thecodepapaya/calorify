@@ -72,6 +72,7 @@ class _TranslationsErrorsHu implements TranslationsErrorsEn {
 	@override String get unknownError => 'Valami hiba történt. Kérlek, próbáld meg később újra.';
 	@override String get loadingProfileData => 'Hiba a profiladatok betöltésekor';
 	@override String get somethingWentWrong => 'Valami hiba történt.';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsHu {
 			'errors.unknownError' => 'Valami hiba történt. Kérlek, próbáld meg később újra.',
 			'errors.loadingProfileData' => 'Hiba a profiladatok betöltésekor',
 			'errors.somethingWentWrong' => 'Valami hiba történt.',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Üdvözöljük a(z) ${appLabel} alkalmazásban',
 			'onboarding.subtitle' => 'Személyes táplálkozási társ, amelyet az AI hajt',
 			'onboarding.getStarted' => 'Kezdjük el',

@@ -7,7 +7,8 @@
     "networkError": "خطأ في الشبكة. يرجى التحقق من اتصالك بالإنترنت.",
     "unknownError": "حدث خطأ ما. الرجاء المحاولة مرة أخرى لاحقًا.",
     "loadingProfileData": "خطأ في تحميل بيانات الملف الشخصي",
-    "somethingWentWrong": "حدث خطأ ما."
+    "somethingWentWrong": "حدث خطأ ما.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "مرحبًا بكم في {appLabel}",

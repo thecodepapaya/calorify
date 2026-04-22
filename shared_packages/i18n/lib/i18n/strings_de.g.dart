@@ -72,6 +72,7 @@ class _TranslationsErrorsDe implements TranslationsErrorsEn {
 	@override String get unknownError => 'Etwas ist schiefgelaufen. Bitte versuche es später noch einmal.';
 	@override String get loadingProfileData => 'Fehler beim Laden der Profildaten';
 	@override String get somethingWentWrong => 'Etwas ist schiefgegangen.';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsDe {
 			'errors.unknownError' => 'Etwas ist schiefgelaufen. Bitte versuche es später noch einmal.',
 			'errors.loadingProfileData' => 'Fehler beim Laden der Profildaten',
 			'errors.somethingWentWrong' => 'Etwas ist schiefgegangen.',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Willkommen bei ${appLabel}',
 			'onboarding.subtitle' => 'Ihr persönlicher Ernährungsbegleiter, betrieben von KI',
 			'onboarding.getStarted' => 'Loslegen',

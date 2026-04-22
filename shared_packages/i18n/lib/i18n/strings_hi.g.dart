@@ -72,6 +72,7 @@ class _TranslationsErrorsHi implements TranslationsErrorsEn {
 	@override String get unknownError => 'कुछ गलत हो गया है। कृपया बाद में पुनः प्रयास करें।';
 	@override String get loadingProfileData => 'प्रोफ़ाइल डेटा लोड करने में त्रुटि';
 	@override String get somethingWentWrong => 'कुछ गलत हुआ।';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsHi {
 			'errors.unknownError' => 'कुछ गलत हो गया है। कृपया बाद में पुनः प्रयास करें।',
 			'errors.loadingProfileData' => 'प्रोफ़ाइल डेटा लोड करने में त्रुटि',
 			'errors.somethingWentWrong' => 'कुछ गलत हुआ।',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} में आपका स्वागत है',
 			'onboarding.subtitle' => 'AI द्वारा समर्थित आपका व्यक्तिगत पोषण साथी',
 			'onboarding.getStarted' => 'शुरू करें',

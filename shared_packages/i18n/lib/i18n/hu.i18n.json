@@ -7,7 +7,8 @@
     "networkError": "Hálózati hiba. Kérlek, ellenőrizd az internetkapcsolatodat.",
     "unknownError": "Valami hiba történt. Kérlek, próbáld meg később újra.",
     "loadingProfileData": "Hiba a profiladatok betöltésekor",
-    "somethingWentWrong": "Valami hiba történt."
+    "somethingWentWrong": "Valami hiba történt.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "Üdvözöljük a(z) {appLabel} alkalmazásban",

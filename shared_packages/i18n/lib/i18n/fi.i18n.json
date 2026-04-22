@@ -7,7 +7,8 @@
     "networkError": "Verkkovirhe. Tarkista internet-yhteytesi.",
     "unknownError": "Jotain meni pieleen. Yritä hetken kuluttua uudelleen.",
     "loadingProfileData": "Virhe profiilitietojen lataamisessa",
-    "somethingWentWrong": "Jokin meni pieleen."
+    "somethingWentWrong": "Jokin meni pieleen.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "Tervetuloa {appLabel} -sovellukseen",

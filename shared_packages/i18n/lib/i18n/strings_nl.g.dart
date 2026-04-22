@@ -72,6 +72,7 @@ class _TranslationsErrorsNl implements TranslationsErrorsEn {
 	@override String get unknownError => 'Er is iets misgegaan. Probeer het later opnieuw.';
 	@override String get loadingProfileData => 'Fout bij het laden van profielgegevens';
 	@override String get somethingWentWrong => 'Er is iets misgegaan.';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsNl {
 			'errors.unknownError' => 'Er is iets misgegaan. Probeer het later opnieuw.',
 			'errors.loadingProfileData' => 'Fout bij het laden van profielgegevens',
 			'errors.somethingWentWrong' => 'Er is iets misgegaan.',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Welkom bij ${appLabel}',
 			'onboarding.subtitle' => 'Jouw persoonlijke voedingsgenoot aangedreven door AI',
 			'onboarding.getStarted' => 'Aan de Slag',

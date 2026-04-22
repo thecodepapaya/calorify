@@ -72,6 +72,7 @@ class _TranslationsErrorsZhCn implements TranslationsErrorsEn {
 	@override String get unknownError => '出现问题。请稍后再试。';
 	@override String get loadingProfileData => '加载个人资料数据时出错';
 	@override String get somethingWentWrong => '出现了一些问题。';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsZhCn {
 			'errors.unknownError' => '出现问题。请稍后再试。',
 			'errors.loadingProfileData' => '加载个人资料数据时出错',
 			'errors.somethingWentWrong' => '出现了一些问题。',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => '欢迎使用${appLabel}',
 			'onboarding.subtitle' => '您个性化的营养伴侣，基于 AI 技术',
 			'onboarding.getStarted' => '开始使用',

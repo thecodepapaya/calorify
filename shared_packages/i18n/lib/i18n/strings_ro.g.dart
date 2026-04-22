@@ -72,6 +72,7 @@ class _TranslationsErrorsRo implements TranslationsErrorsEn {
 	@override String get unknownError => 'Ceva nu a mers bine. Te rugăm să încerci din nou mai târziu.';
 	@override String get loadingProfileData => 'Eroare la încărcarea datelor profilului';
 	@override String get somethingWentWrong => 'Ceva a mers prost.';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsRo {
 			'errors.unknownError' => 'Ceva nu a mers bine. Te rugăm să încerci din nou mai târziu.',
 			'errors.loadingProfileData' => 'Eroare la încărcarea datelor profilului',
 			'errors.somethingWentWrong' => 'Ceva a mers prost.',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Bine ai venit la ${appLabel}',
 			'onboarding.subtitle' => 'Companionul tău personal în nutriție alimentat de AI',
 			'onboarding.getStarted' => 'Începe',

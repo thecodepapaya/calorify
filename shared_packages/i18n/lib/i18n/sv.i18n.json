@@ -7,7 +7,8 @@
     "networkError": "Nätverksfel. Kontrollera din internetanslutning.",
     "unknownError": "Något gick fel. Försök igen senare.",
     "loadingProfileData": "Fel vid inläsning av profildata",
-    "somethingWentWrong": "Något gick fel."
+    "somethingWentWrong": "Något gick fel.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "Välkommen till {appLabel}",

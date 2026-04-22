@@ -1,33 +1,33 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/core/providers/favorites_providers.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
-import 'package:models/models.dart';
 import 'package:widgets/widgets.dart';
 
 @RoutePage()
-class FavoritesScreen extends StatelessWidget {
+class FavoritesScreen extends ConsumerWidget {
   const FavoritesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final favoritesAsync = ref.watch(favoriteMealsProvider);
+
     return Scaffold(
       appBar: AppBar(title: Text(t.favorites.title)),
       body: Padding(
         padding: globalMargin,
-        child: StreamBuilder<List<FavoriteMeal>>(
-          stream: DatabaseService.databaseInterface.watchAllFavoriteMeals(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const AppLoader();
-            }
-            if (snapshot.hasError) {
-              return ErrorView(error: snapshot.error!);
-            }
-            final meals = snapshot.data ?? [];
+        child: favoritesAsync.when(
+          loading: () => const AppLoader(),
+          error:
+              (error, _) => ErrorView(
+                error: error,
+                onRetry: () => ref.invalidate(favoriteMealsProvider),
+              ),
+          data: (meals) {
             if (meals.isEmpty) {
               return Center(child: Text(t.favorites.empty));
             }

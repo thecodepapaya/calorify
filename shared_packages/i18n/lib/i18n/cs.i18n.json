@@ -7,7 +7,8 @@
     "networkError": "Chyba sítě. Zkontrolujte prosím připojení k internetu.",
     "unknownError": "Něco se pokazilo. Zkuste to prosím později.",
     "loadingProfileData": "Chyba při načítání dat profilu",
-    "somethingWentWrong": "Něco se pokazilo."
+    "somethingWentWrong": "Něco se pokazilo.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "Vítejte v {appLabel}",

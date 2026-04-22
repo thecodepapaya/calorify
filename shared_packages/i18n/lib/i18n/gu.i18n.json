@@ -7,7 +7,8 @@
     "networkError": "નેટવર્ક ત્રુટી. કૃપા કરીને તમારું ઇન્ટરનેટ કનેક્શન તપાસો.",
     "unknownError": "કંઈક ગડબડ થઈ ગઈ છે. કૃપા કરીને પછીથી ફરીથી પ્રયાસ કરો.",
     "loadingProfileData": "પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ",
-    "somethingWentWrong": "કોઈ મુશ્કેલી પડી."
+    "somethingWentWrong": "કોઈ મુશ્કેલી પડી.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "તમે {appLabel} માં સ્વાગત છે",

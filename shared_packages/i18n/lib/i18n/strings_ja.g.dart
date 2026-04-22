@@ -72,6 +72,7 @@ class _TranslationsErrorsJa implements TranslationsErrorsEn {
 	@override String get unknownError => '問題が発生しました。後でもう一度お試しください。';
 	@override String get loadingProfileData => 'プロフィールデータの読み込みエラー';
 	@override String get somethingWentWrong => '何かがうまくいきませんでした。';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsJa {
 			'errors.unknownError' => '問題が発生しました。後でもう一度お試しください。',
 			'errors.loadingProfileData' => 'プロフィールデータの読み込みエラー',
 			'errors.somethingWentWrong' => '何かがうまくいきませんでした。',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel}へようこそ',
 			'onboarding.subtitle' => 'AIによるあなたの個人的な栄養コンパニオン',
 			'onboarding.getStarted' => '始める',

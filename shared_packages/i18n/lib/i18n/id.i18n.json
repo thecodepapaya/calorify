@@ -7,7 +7,8 @@
     "networkError": "Terjadi kesalahan jaringan. Periksa koneksi internet Anda.",
     "unknownError": "Terjadi kesalahan. Silakan coba lagi nanti.",
     "loadingProfileData": "Kesalahan saat memuat data profil",
-    "somethingWentWrong": "Terjadi kesalahan."
+    "somethingWentWrong": "Terjadi kesalahan.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "Selamat datang di {appLabel}",

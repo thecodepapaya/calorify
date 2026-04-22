@@ -7,7 +7,8 @@
     "networkError": "Eroare de rețea. Verifică conexiunea la internet.",
     "unknownError": "Ceva nu a mers bine. Te rugăm să încerci din nou mai târziu.",
     "loadingProfileData": "Eroare la încărcarea datelor profilului",
-    "somethingWentWrong": "Ceva a mers prost."
+    "somethingWentWrong": "Ceva a mers prost.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "Bine ai venit la {appLabel}",

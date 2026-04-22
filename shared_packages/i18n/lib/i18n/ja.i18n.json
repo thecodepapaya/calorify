@@ -7,7 +7,8 @@
     "networkError": "ネットワークエラーです。インターネット接続を確認してください。",
     "unknownError": "問題が発生しました。後でもう一度お試しください。",
     "loadingProfileData": "プロフィールデータの読み込みエラー",
-    "somethingWentWrong": "何かがうまくいきませんでした。"
+    "somethingWentWrong": "何かがうまくいきませんでした。",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "{appLabel}へようこそ",

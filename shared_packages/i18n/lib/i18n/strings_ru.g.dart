@@ -72,6 +72,7 @@ class _TranslationsErrorsRu implements TranslationsErrorsEn {
 	@override String get unknownError => 'Что-то пошло не так. Пожалуйста, попробуйте позже.';
 	@override String get loadingProfileData => 'Ошибка загрузки данных профиля';
 	@override String get somethingWentWrong => 'Что-то пошло не так.';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsRu {
 			'errors.unknownError' => 'Что-то пошло не так. Пожалуйста, попробуйте позже.',
 			'errors.loadingProfileData' => 'Ошибка загрузки данных профиля',
 			'errors.somethingWentWrong' => 'Что-то пошло не так.',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Добро пожаловать в ${appLabel}',
 			'onboarding.subtitle' => 'Ваш личный помощник по питанию, работающий на AI',
 			'onboarding.getStarted' => 'Начать',

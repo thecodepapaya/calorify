@@ -72,6 +72,7 @@ class _TranslationsErrorsSv implements TranslationsErrorsEn {
 	@override String get unknownError => 'Något gick fel. Försök igen senare.';
 	@override String get loadingProfileData => 'Fel vid inläsning av profildata';
 	@override String get somethingWentWrong => 'Något gick fel.';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsSv {
 			'errors.unknownError' => 'Något gick fel. Försök igen senare.',
 			'errors.loadingProfileData' => 'Fel vid inläsning av profildata',
 			'errors.somethingWentWrong' => 'Något gick fel.',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Välkommen till ${appLabel}',
 			'onboarding.subtitle' => 'Din personliga kostkompis som drivs av AI',
 			'onboarding.getStarted' => 'Kom igång',
