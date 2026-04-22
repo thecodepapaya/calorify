@@ -24,6 +24,8 @@ export interface CircuitBreakerOptions {
   resetTimeoutMs?: number;
   /** Optional clock override for tests. */
   now?: () => number;
+  /** Optional callback fired whenever the breaker changes state (useful for metrics). */
+  onStateChange?: (next: CircuitState, prev: CircuitState) => void;
 }
 
 export class CircuitBreakerOpenError extends Error {
@@ -42,12 +44,25 @@ export class CircuitBreaker {
   private readonly failureThreshold: number;
   private readonly resetTimeoutMs: number;
   private readonly now: () => number;
+  private readonly onStateChange?: (next: CircuitState, prev: CircuitState) => void;
 
   constructor(options: CircuitBreakerOptions) {
     this.name = options.name;
     this.failureThreshold = options.failureThreshold ?? 5;
     this.resetTimeoutMs = options.resetTimeoutMs ?? 30_000;
     this.now = options.now ?? Date.now;
+    this.onStateChange = options.onStateChange;
+  }
+
+  private transition(next: CircuitState): void {
+    const prev = this.state;
+    if (prev === next) return;
+    this.state = next;
+    try {
+      this.onStateChange?.(next, prev);
+    } catch {
+      // Metrics callbacks must never break the breaker.
+    }
   }
 
   /** Pure read of the current state. Does not mutate. */
@@ -65,7 +80,7 @@ export class CircuitBreaker {
       if (elapsed < this.resetTimeoutMs) {
         throw new CircuitBreakerOpenError(this.name, this.resetTimeoutMs - elapsed);
       }
-      this.state = 'HALF_OPEN';
+      this.transition('HALF_OPEN');
     } else if (this.state === 'HALF_OPEN') {
       // A trial probe is already in flight; don't stampede the upstream.
       throw new CircuitBreakerOpenError(this.name, 0);
@@ -83,22 +98,22 @@ export class CircuitBreaker {
 
   private onSuccess(): void {
     this.consecutiveFailures = 0;
-    this.state = 'CLOSED';
+    this.transition('CLOSED');
   }
 
   private onFailure(): void {
     this.consecutiveFailures += 1;
     // A HALF_OPEN trial that fails re-opens the breaker immediately, regardless of threshold.
     if (this.state === 'HALF_OPEN' || this.consecutiveFailures >= this.failureThreshold) {
-      this.state = 'OPEN';
       this.openedAt = this.now();
+      this.transition('OPEN');
     }
   }
 
   /** Test/admin helper: forcibly reset to CLOSED. */
   reset(): void {
-    this.state = 'CLOSED';
     this.consecutiveFailures = 0;
     this.openedAt = 0;
+    this.transition('CLOSED');
   }
 }

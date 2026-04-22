@@ -14,6 +14,11 @@ import { initializeFirebase } from './services/firebase.js';
 import { runMigrations } from './services/migrate.js';
 import { startAiSummaryCron } from './jobs/aiSummaryCron.js';
 import { startUsdaRefreshCron } from './jobs/usdaRefreshCron.js';
+import {
+  registry as metricsRegistry,
+  httpRequestsTotal,
+  httpRequestDurationSeconds,
+} from './services/metrics.js';
 
 async function buildApp() {
   // Configure Pino logger with Loki transport in production/staging
@@ -159,6 +164,25 @@ async function buildApp() {
     }, `← ${request.method} ${request.url} ${statusCode} (${responseTime}ms)`);
   });
 
+  // Record Prometheus HTTP metrics. Uses onResponse (not onSend) so the statusCode is final.
+  // We label by the Fastify route pattern (e.g. `/api/v1/food/detect-text`) rather than the raw
+  // URL to avoid unbounded label cardinality from path params / query strings.
+  fastify.addHook('onResponse', async (request, reply) => {
+    // Don't count the scrape endpoint itself — it would inflate request counts and skew dashboards.
+    if (request.url.startsWith('/metrics')) return;
+
+    const startTime = (request as any).startTime;
+    const durationSec = startTime ? (Date.now() - startTime) / 1000 : 0;
+    const route = (request.routeOptions?.url ?? request.routerPath ?? 'unmatched') as string;
+    const labels = {
+      method: request.method,
+      route,
+      status: String(reply.statusCode),
+    };
+    httpRequestsTotal.inc(labels);
+    httpRequestDurationSeconds.observe(labels, durationSec);
+  });
+
   // Register Helmet globally with its default security headers (including a strict CSP,
   // HSTS, X-Frame-Options, etc.). Swagger UI is registered in an encapsulated scope below
   // with CSP disabled, so the relaxed policy only applies to the /docs routes — the rest
@@ -262,6 +286,28 @@ async function buildApp() {
       },
     });
   });
+
+  // Prometheus scrape endpoint. No auth (internal/private network only — expose via your
+  // ingress/firewall rules, not Firebase auth). Excluded from rate limiting so a busy scrape
+  // schedule can't lock itself out.
+  fastify.get(
+    '/metrics',
+    {
+      config: { rateLimit: false },
+      schema: {
+        description: 'Prometheus metrics endpoint (plaintext exposition format).',
+        tags: ['Health'],
+        response: {
+          200: { type: 'string' },
+        },
+      },
+      logLevel: 'warn', // suppress per-scrape info logs
+    },
+    async (_request, reply) => {
+      reply.header('Content-Type', metricsRegistry.contentType);
+      return metricsRegistry.metrics();
+    }
+  );
 
   // Register routes
   await fastify.register(registerRoutes);
