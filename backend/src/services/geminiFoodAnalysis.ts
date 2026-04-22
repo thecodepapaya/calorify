@@ -17,6 +17,7 @@ import {
 } from '../protos/meal/meal.js';
 import config from '../config.js';
 import { getFoodAnalysisSystemPrompt } from './foodAnalysisSystemPrompt.js';
+import { CircuitBreaker } from '../utils/circuitBreaker.js';
 
 const GEMINI_FOOD_ANALYSIS_MODEL = 'gemini-2.5-flash-lite' as const;
 
@@ -176,6 +177,13 @@ interface GeminiResponse {
 
 class GeminiFoodAnalysisService {
   private genAI: GoogleGenerativeAI;
+  // Circuit breaker: after 5 consecutive failures, fail fast for 30s instead of piling
+  // up slow requests against an unhealthy upstream. Any success resets the counter.
+  private breaker = new CircuitBreaker({
+    name: 'gemini-food-analysis',
+    failureThreshold: 5,
+    resetTimeoutMs: 30_000,
+  });
 
   constructor() {
     const apiKey = config.GEMINI_API_KEY;
@@ -505,19 +513,20 @@ class GeminiFoodAnalysisService {
     // the awaited promise), and clears the timer on success so it doesn't keep the event
     // loop alive.
     const GEMINI_TIMEOUT_MS = 30_000;
-    const controller = new AbortController();
-    const timeoutHandle = setTimeout(() => controller.abort(), GEMINI_TIMEOUT_MS);
-    let result: Awaited<ReturnType<typeof model.generateContent>>;
-    try {
-      result = await model.generateContent(userParts, { signal: controller.signal });
-    } catch (err) {
-      if (controller.signal.aborted) {
-        throw new Error('Gemini request timed out after 30s');
+    const result = await this.breaker.execute(async () => {
+      const controller = new AbortController();
+      const timeoutHandle = setTimeout(() => controller.abort(), GEMINI_TIMEOUT_MS);
+      try {
+        return await model.generateContent(userParts, { signal: controller.signal });
+      } catch (err) {
+        if (controller.signal.aborted) {
+          throw new Error('Gemini request timed out after 30s');
+        }
+        throw err;
+      } finally {
+        clearTimeout(timeoutHandle);
       }
-      throw err;
-    } finally {
-      clearTimeout(timeoutHandle);
-    }
+    });
     const response = result.response;
     const content = response.text();
     if (!content) {

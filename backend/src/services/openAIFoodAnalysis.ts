@@ -17,6 +17,7 @@ import {
 } from '../protos/meal/meal.js';
 import config from '../config.js';
 import { getFoodAnalysisSystemPrompt } from './foodAnalysisSystemPrompt.js';
+import { CircuitBreaker } from '../utils/circuitBreaker.js';
 
 interface OpenAIVariationOption {
   option: string;
@@ -211,6 +212,13 @@ const MEAL_DETECTION_RESPONSE_FORMAT = {
 
 class OpenAIFoodAnalysisService {
   private client: OpenAI;
+  // Circuit breaker: after 5 consecutive failures, fail fast for 30s instead of piling
+  // up slow requests against an unhealthy upstream. Any success resets the counter.
+  private breaker = new CircuitBreaker({
+    name: 'openai-food-analysis',
+    failureThreshold: 5,
+    resetTimeoutMs: 30_000,
+  });
 
   constructor() {
     const apiKey = config.OPENAI_API_KEY;
@@ -238,12 +246,14 @@ class OpenAIFoodAnalysisService {
   private async createStructuredResponse(
     messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
   ): Promise<OpenAIResponse> {
-    const response = await this.client.chat.completions.create({
-      model: OPENAI_FOOD_ANALYSIS_MODEL,
-      messages,
-      response_format: MEAL_DETECTION_RESPONSE_FORMAT,
-      max_tokens: 800,
-    });
+    const response = await this.breaker.execute(() =>
+      this.client.chat.completions.create({
+        model: OPENAI_FOOD_ANALYSIS_MODEL,
+        messages,
+        response_format: MEAL_DETECTION_RESPONSE_FORMAT,
+        max_tokens: 800,
+      })
+    );
 
     const content = response.choices[0]?.message?.content;
     if (!content) {
