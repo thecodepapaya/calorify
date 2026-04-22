@@ -1,15 +1,17 @@
 import 'package:calorify/core/constants/colors.dart';
-import 'package:models/models.dart';
-import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/shared_widgets/app_card.dart';
+import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/shared_widgets/section_header.dart';
 import 'package:i18n/i18n.dart';
 import 'package:widgets/widgets.dart';
 import 'package:calorify/shared_widgets/macro_legend.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:models/models.dart';
 
 class IntakeHistoryBarChart extends StatelessWidget {
   const IntakeHistoryBarChart({super.key});
@@ -32,7 +34,7 @@ class IntakeHistoryBarChart extends StatelessWidget {
   }
 }
 
-class _MacroHistoryChart extends StatelessWidget {
+class _MacroHistoryChart extends ConsumerWidget {
   const _MacroHistoryChart();
 
   Map<DateTime, Map<String, double>> _processMealsData(
@@ -97,42 +99,37 @@ class _MacroHistoryChart extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<List<LoggedMeal>>(
-      stream: DatabaseService.databaseInterface.watchAllMealsForLast7Days(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: AppLoader());
-        }
-        final meals = snapshot.data ?? [];
-        final hasData = meals.isNotEmpty;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mealsAsync = ref.watch(last7DaysMealsProvider);
+    final goalAsync = ref.watch(dailyCalorieGoalProvider);
 
-        if (!hasData) {
-          return const _EmptyHistoryGraphic();
-        }
+    if (mealsAsync.isLoading) {
+      return const Center(child: AppLoader());
+    }
+    if (mealsAsync.hasError) {
+      return ErrorView(error: mealsAsync.error!);
+    }
 
-        final dailyData = _processMealsData(meals);
-        final sortedDates = dailyData.keys.toList()..sort();
+    final meals = mealsAsync.value ?? const <LoggedMeal>[];
+    if (meals.isEmpty) {
+      return const _EmptyHistoryGraphic();
+    }
 
-        return Column(
-          children: [
-            StreamBuilder<int?>(
-              stream: DatabaseService.databaseInterface.watchDailyCalorieGoal(),
-              builder: (context, goalSnapshot) {
-                final dailyGoal = goalSnapshot.data?.toDouble() ?? 2000.0;
-                return _BarChartWithGoal(
-                  dailyData: dailyData,
-                  sortedDates: sortedDates,
-                  dailyGoal: dailyGoal,
-                  maxY: _getMaxY(dailyData, dailyGoal),
-                );
-              },
-            ),
-            const SizedBox(height: 16),
-            const MacroLegend(),
-          ],
-        );
-      },
+    final dailyData = _processMealsData(meals);
+    final sortedDates = dailyData.keys.toList()..sort();
+    final dailyGoal = goalAsync.value?.toDouble() ?? 2000.0;
+
+    return Column(
+      children: [
+        _BarChartWithGoal(
+          dailyData: dailyData,
+          sortedDates: sortedDates,
+          dailyGoal: dailyGoal,
+          maxY: _getMaxY(dailyData, dailyGoal),
+        ),
+        const SizedBox(height: 16),
+        const MacroLegend(),
+      ],
     );
   }
 }

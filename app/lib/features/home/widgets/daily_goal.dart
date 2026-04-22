@@ -1,10 +1,6 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:models/models.dart';
-import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/core/services/health_service.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:utils/utils.dart';
+import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getCalorieExpenditureDisclaimer;
 import 'package:health/health.dart' show HealthConnectSdkStatus;
@@ -15,9 +11,13 @@ import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:models/models.dart';
+import 'package:utils/utils.dart';
+import 'package:widgets/widgets.dart';
 
-class SetDailyGoal extends StatefulWidget {
+class SetDailyGoal extends ConsumerStatefulWidget {
   const SetDailyGoal({super.key, this.healthConnectRefreshTrigger = 0});
 
   /// When this value changes (e.g. after user connects Health Connect),
@@ -25,48 +25,15 @@ class SetDailyGoal extends StatefulWidget {
   final int healthConnectRefreshTrigger;
 
   @override
-  State<SetDailyGoal> createState() => _SetDailyGoalState();
+  ConsumerState<SetDailyGoal> createState() => _SetDailyGoalState();
 }
 
-class _SetDailyGoalState extends State<SetDailyGoal> {
-  int _target = 0;
-  bool _isEditing = true;
-  int _caloriesBurned = 0;
-  bool _usedFallback = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadGoalFromDb();
-    _fetchCaloriesBurned();
-  }
-
-  @override
-  void didUpdateWidget(SetDailyGoal oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.healthConnectRefreshTrigger != oldWidget.healthConnectRefreshTrigger) {
-      _fetchCaloriesBurned();
-    }
-  }
-
-  Future<void> _fetchCaloriesBurned() async {
-    final result = await HealthService.instance.getTotalCaloriesBurned();
-    final calories = result?.calories;
-    final usedFallback = result?.usedFallback ?? false;
-    if (!mounted) return;
-    setState(() {
-      _caloriesBurned = calories?.toInt() ?? 0;
-      _usedFallback = usedFallback;
-    });
-  }
+class _SetDailyGoalState extends ConsumerState<SetDailyGoal> {
+  bool _isEditing = false;
 
   Future<void> _updateAndSaveGoal(int calories) async {
     try {
-      await DatabaseService.databaseInterface.setDailyCalorieGoal(calories);
-
-      setState(() {
-        _target = calories;
-      });
+      await ref.read(databaseInterfaceProvider).setDailyCalorieGoal(calories);
     } catch (e) {
       debugPrint('Error saving daily goal: $e');
     } finally {
@@ -76,33 +43,24 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
     }
   }
 
-  Future<void> _loadGoalFromDb() async {
-    try {
-      final savedGoal =
-          await DatabaseService.databaseInterface.getDailyCalorieGoal();
-      if (savedGoal != null) {
-        _target = savedGoal;
-        _isEditing = false;
-      } else {
-        _isEditing = true;
-      }
-    } catch (e) {
-      debugPrint('Error loading daily goal: $e');
-      _isEditing = true;
-    } finally {
-      if (mounted) {
-        setState(() {});
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
+    final healthService = ref.watch(healthServiceProvider);
+    final goalAsync = ref.watch(dailyCalorieGoalProvider);
+    final mealsAsync = ref.watch(todaysMealsProvider);
+    final caloriesBurnedAsync = ref.watch(
+      caloriesBurnedProvider(widget.healthConnectRefreshTrigger),
+    );
+    final caloriesBurned = caloriesBurnedAsync.value?.calories.toInt() ?? 0;
+    final usedFallback = caloriesBurnedAsync.value?.usedFallback ?? false;
+    final goal = goalAsync.value ?? 0;
 
-    final isTargetSet = _target > 0;
+    final isTargetSet = goal > 0;
+    final isLoading = goalAsync.isLoading || mealsAsync.isLoading;
+    final hasError = goalAsync.hasError || mealsAsync.hasError;
 
     return Stack(
       children: [
@@ -144,28 +102,31 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
                 ),
               ),
               const SizedBox(height: 14),
-              StreamBuilder<List<LoggedMeal>>(
-                stream:
-                    DatabaseService.databaseInterface.watchAllMealsForToday(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return ErrorView(error: snapshot.error!);
-                  }
-                  final loggedMeals = snapshot.data ?? [];
-                  final caloriesConsumed = loggedMeals.fold(
-                    0,
-                    (sum, loggedMeal) => sum + loggedMeal.meal.macros.calories,
-                  );
-                  return _isEditing
-                      ? _GoalInput(onSetGoal: _updateAndSaveGoal)
-                      : _ShowGoal(
-                        caloriesGoal: _target,
-                        caloriesBurned: _caloriesBurned,
-                        caloriesConsumed: caloriesConsumed,
-                        onEdit: () => setState(() => _isEditing = true),
-                      );
-                },
-              ),
+              if (hasError)
+                ErrorView(error: goalAsync.error ?? mealsAsync.error!)
+              else if (isLoading)
+                const Center(child: AppLoader())
+              else
+                Builder(
+                  builder: (context) {
+                    final loggedMeals = mealsAsync.value ?? <LoggedMeal>[];
+                    final caloriesConsumed = loggedMeals.fold(
+                      0,
+                      (sum, loggedMeal) =>
+                          sum + loggedMeal.meal.macros.calories,
+                    );
+                    final shouldEdit = !isTargetSet || _isEditing;
+
+                    return shouldEdit
+                        ? _GoalInput(onSetGoal: _updateAndSaveGoal)
+                        : _ShowGoal(
+                          caloriesGoal: goal,
+                          caloriesBurned: caloriesBurned,
+                          caloriesConsumed: caloriesConsumed,
+                          onEdit: () => setState(() => _isEditing = true),
+                        );
+                  },
+                ),
             ],
           ),
         ),
@@ -174,10 +135,10 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
           right: 12,
           child: DisclaimerButton(
             data: getCalorieExpenditureDisclaimer(
-              usedFallback: _usedFallback,
+              usedFallback: usedFallback,
               isHealthConnectAvailable:
-                  HealthService.instance.status == HealthConnectSdkStatus.sdkAvailable,
-              hasCaloriesData: _caloriesBurned > 0,
+                  healthService.status == HealthConnectSdkStatus.sdkAvailable,
+              hasCaloriesData: caloriesBurned > 0,
             ),
           ),
         ),
@@ -186,7 +147,7 @@ class _SetDailyGoalState extends State<SetDailyGoal> {
   }
 }
 
-class _ShowGoal extends StatelessWidget {
+class _ShowGoal extends ConsumerWidget {
   const _ShowGoal({
     required this.caloriesGoal,
     required this.onEdit,
@@ -200,7 +161,7 @@ class _ShowGoal extends StatelessWidget {
   final int caloriesConsumed;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
@@ -304,14 +265,11 @@ class _ShowGoal extends StatelessWidget {
             ],
           ),
           SizedBox(height: 12),
-          FutureBuilder<UserProfile?>(
-            future: OnboardingService.instance.getProfileData(),
-            builder: (context, profileSnapshot) {
-              // Default to metric if profile not available
+          Builder(
+            builder: (context) {
+              final profile = ref.watch(userProfileProvider).value;
               final weightUnit =
-                  profileSnapshot.data != null
-                      ? profileSnapshot.data!.weightUnit.normalized
-                      : UnitSystem.METRIC;
+                  profile?.weightUnit.normalized ?? UnitSystem.METRIC;
               final formattedWeightChange = LocaleUtils.formatWeightChange(
                 weightChangeGrams,
                 weightUnit,
