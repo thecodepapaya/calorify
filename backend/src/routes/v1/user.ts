@@ -2,19 +2,27 @@ import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { createErrorResponse } from '../../utils/errors.js';
 import { query } from '../../services/database.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
+import { parseBody, z } from '../../utils/validation.js';
 
-interface UserProfileBody {
-  height?: number;
-  weight?: number;
-  targetWeight?: number;
-  gender?: string;
-  dateOfBirth?: number; // Unix timestamp in milliseconds
-  weightGoal?: string;
-  activityLevel?: string;
-  heightUnit?: string;
-  weightUnit?: string;
-  dailyCalorieGoal?: number;
-}
+// Zod schema adds bounds checks that Fastify's JSON schema isn't expressing:
+// - heights 30–300cm (or equivalent), weights 1–1000kg, calorie goal 500–20000.
+// - DOB: any valid positive Unix timestamp (milliseconds).
+// All fields optional because this endpoint is a partial-update PATCH-like POST.
+const userProfileBodySchema = z.object({
+  height: z.number().finite().positive().max(400).optional(),
+  weight: z.number().finite().positive().max(1000).optional(),
+  targetWeight: z.number().finite().positive().max(1000).optional(),
+  gender: z.enum(['MALE', 'FEMALE', 'OTHER']).optional(),
+  dateOfBirth: z.number().int().positive().optional(),
+  weightGoal: z.enum(['LOSE_WEIGHT', 'MAINTAIN_WEIGHT', 'GAIN_WEIGHT']).optional(),
+  activityLevel: z
+    .enum(['SEDENTARY', 'LIGHTLY_ACTIVE', 'MODERATELY_ACTIVE', 'VERY_ACTIVE', 'EXTREMELY_ACTIVE'])
+    .optional(),
+  heightUnit: z.enum(['METRIC', 'IMPERIAL']).optional(),
+  weightUnit: z.enum(['METRIC', 'IMPERIAL']).optional(),
+  dailyCalorieGoal: z.number().finite().positive().max(20_000).optional(),
+});
+type UserProfileBody = z.infer<typeof userProfileBodySchema>;
 
 export async function userRoutes(fastify: FastifyInstance): Promise<void> {
   /**
@@ -130,6 +138,8 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
       try {
         const userId = getCurrentUserId(request);
 
+        const parsed = parseBody(userProfileBodySchema, request.body, reply);
+        if (!parsed) return;
         const {
           height,
           weight,
@@ -141,7 +151,7 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
           heightUnit,
           weightUnit,
           dailyCalorieGoal,
-        } = request.body;
+        } = parsed;
 
         // Check if profile already exists
         const existingProfile = await query<{ id: string }>(
