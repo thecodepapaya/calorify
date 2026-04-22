@@ -14,55 +14,89 @@ import {
   FEEDBACK_ISSUES,
   MEAL_TYPES,
   reanalyzeMeal,
-  type ClarificationAnswerDTO,
-  type MealFeedbackIssue,
-  type MealTypeValue,
   type PipelineEvent,
 } from '../../services/nutritionEngineV2.js';
 import { createErrorResponse } from '../../utils/errors.js';
 import { getCountryFromRequest, getLocaleFromRequest } from '../../utils/locale.js';
+import { nonEmptyString, parseBody, urlString, z } from '../../utils/validation.js';
 
-interface AnalyzeTextBody {
-  textDescription: string;
-}
+// -----------------------------
+// Zod schemas for request bodies
+// -----------------------------
+// These provide runtime validation with stricter constraints than the Fastify
+// JSON-schema definitions (trimmed non-empty strings, URL format, numeric
+// bounds, whitelisted enums) and give the handlers typed input.
 
-interface AnalyzeImageBody {
-  imageUrl: string;
-}
+const analyzeTextBodySchema = z.object({
+  textDescription: nonEmptyString.max(2000, 'must be at most 2000 characters'),
+});
+type AnalyzeTextBody = z.infer<typeof analyzeTextBodySchema>;
 
-interface ClarifyBody {
-  analysisId: string;
-  answers: ClarificationAnswerDTO[];
-}
+const analyzeImageBodySchema = z.object({
+  imageUrl: urlString,
+});
+type AnalyzeImageBody = z.infer<typeof analyzeImageBodySchema>;
 
-interface FeedbackBody {
-  analysisId: string;
-  signal: 'up';
-}
+const clarifyBodySchema = z.object({
+  analysisId: nonEmptyString,
+  answers: z
+    .array(
+      z.object({
+        ingredient_name: nonEmptyString,
+        selected_option_index: z.number().int().nonnegative(),
+      })
+    )
+    .min(1, 'must contain at least one answer'),
+});
+type ClarifyBody = z.infer<typeof clarifyBodySchema>;
 
-interface MealTypeBody {
-  analysisId: string;
-  mealType: MealTypeValue;
-}
+const feedbackBodySchema = z.object({
+  analysisId: nonEmptyString,
+  signal: z.literal('up'),
+});
+type FeedbackBody = z.infer<typeof feedbackBodySchema>;
 
-interface ReanalyzeBody {
-  analysisId: string;
-  issues: MealFeedbackIssue[];
-  otherText?: string;
-}
+const mealTypeBodySchema = z.object({
+  analysisId: nonEmptyString,
+  mealType: z.enum(MEAL_TYPES),
+});
+type MealTypeBody = z.infer<typeof mealTypeBodySchema>;
 
-interface ConfirmLogBody {
-  analysisId: string;
-  loggedAt: string;
-  mealName: string;
-  calories: number;
-  protein: number;
-  carbs: number;
-  fat: number;
-  fiber: number;
-  mealType: string;
-  quantity: string;
-}
+const reanalyzeBodySchema = z.object({
+  analysisId: nonEmptyString,
+  issues: z.array(z.enum(FEEDBACK_ISSUES)).min(1, 'must contain at least one issue'),
+  otherText: z.string().trim().max(2000).optional(),
+});
+type ReanalyzeBody = z.infer<typeof reanalyzeBodySchema>;
+
+const confirmLogBodySchema = z.object({
+  analysisId: nonEmptyString,
+  loggedAt: nonEmptyString,
+  mealName: nonEmptyString.max(500),
+  calories: z.number().finite().nonnegative().max(100_000),
+  protein: z.number().finite().nonnegative().max(10_000),
+  carbs: z.number().finite().nonnegative().max(10_000),
+  fat: z.number().finite().nonnegative().max(10_000),
+  fiber: z.number().finite().nonnegative().max(10_000),
+  mealType: nonEmptyString,
+  quantity: nonEmptyString.max(200),
+});
+type ConfirmLogBody = z.infer<typeof confirmLogBodySchema>;
+// Ensure the confirm-log body keeps satisfying the store record shape at compile time.
+type _ConfirmLogMatchesStoreRecord = ConfirmLogBody extends MealLogConfirmationRecord ? true : never;
+const _confirmLogCheck: _ConfirmLogMatchesStoreRecord = true;
+void _confirmLogCheck;
+
+// Preserve the public Fastify route typing (used by <{Body: ...}> generics below).
+export type {
+  AnalyzeTextBody,
+  AnalyzeImageBody,
+  ClarifyBody,
+  FeedbackBody,
+  MealTypeBody,
+  ReanalyzeBody,
+  ConfirmLogBody,
+};
 
 type StreamFormat = 'ndjson' | 'sse';
 
@@ -170,17 +204,14 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       } as any,
     },
     async (request: FastifyRequest<{ Body: AnalyzeTextBody }>, reply: FastifyReply) => {
-      const { textDescription } = request.body ?? {};
-      if (!textDescription || typeof textDescription !== 'string' || textDescription.trim() === '') {
-        reply.status(400).send(createErrorResponse('textDescription is required'));
-        return;
-      }
+      const parsed = parseBody(analyzeTextBodySchema, request.body, reply);
+      if (!parsed) return;
 
       const userId = await getOptionalUserId(request);
       await streamEvents(
         reply,
         request.headers.accept,
-        analyzeTextMeal(textDescription.trim(), {
+        analyzeTextMeal(parsed.textDescription, {
           locale: getLocaleFromRequest(request),
           countryCode: getCountryFromRequest(request),
           userId,
@@ -223,15 +254,12 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       } as any,
     },
     async (request: FastifyRequest<{ Body: AnalyzeImageBody }>, reply: FastifyReply) => {
-      const { imageUrl } = request.body ?? {};
-      if (!imageUrl || typeof imageUrl !== 'string' || imageUrl.trim() === '') {
-        reply.status(400).send(createErrorResponse('imageUrl is required'));
-        return;
-      }
+      const parsed = parseBody(analyzeImageBodySchema, request.body, reply);
+      if (!parsed) return;
 
       let finalImageUrl: string;
       try {
-        finalImageUrl = toDownloadUrl(imageUrl.trim());
+        finalImageUrl = toDownloadUrl(parsed.imageUrl);
       } catch {
         reply.status(400).send(createErrorResponse('Invalid imageUrl format'));
         return;
@@ -277,17 +305,14 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       } as any,
     },
     async (request: FastifyRequest<{ Body: ClarifyBody }>, reply: FastifyReply) => {
-      const { analysisId, answers } = request.body ?? {};
-      if (!analysisId || typeof analysisId !== 'string') {
-        reply.status(400).send(createErrorResponse('analysisId is required'));
-        return;
-      }
-      if (!Array.isArray(answers) || answers.length === 0) {
-        reply.status(400).send(createErrorResponse('answers are required'));
-        return;
-      }
+      const parsed = parseBody(clarifyBodySchema, request.body, reply);
+      if (!parsed) return;
 
-      await streamEvents(reply, request.headers.accept, continueMealAnalysis(analysisId, answers));
+      await streamEvents(
+        reply,
+        request.headers.accept,
+        continueMealAnalysis(parsed.analysisId, parsed.answers)
+      );
     }
   );
 
@@ -308,19 +333,12 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       } as any,
     },
     async (request: FastifyRequest<{ Body: FeedbackBody }>, reply: FastifyReply) => {
-      const { analysisId, signal } = request.body ?? {};
-      if (!analysisId || typeof analysisId !== 'string') {
-        reply.status(400).send(createErrorResponse('analysisId is required'));
-        return;
-      }
-      if (signal !== 'up') {
-        reply.status(400).send(createErrorResponse('signal must be up'));
-        return;
-      }
+      const parsed = parseBody(feedbackBodySchema, request.body, reply);
+      if (!parsed) return;
 
       const userId = await getOptionalUserId(request);
       await recordMealAnalysisFeedback({
-        analysisId,
+        analysisId: parsed.analysisId,
         userId,
         signal: 'up',
         payload: request.body,
@@ -349,26 +367,13 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       } as any,
     },
     async (request: FastifyRequest<{ Body: MealTypeBody }>, reply: FastifyReply) => {
-      const { analysisId, mealType } = request.body ?? {};
-      if (!analysisId || typeof analysisId !== 'string') {
-        reply.status(400).send(createErrorResponse('analysisId is required'));
-        return;
-      }
-      if (
-        !mealType ||
-        (mealType !== 'BREAKFAST' &&
-          mealType !== 'LUNCH' &&
-          mealType !== 'DINNER' &&
-          mealType !== 'SNACK')
-      ) {
-        reply.status(400).send(createErrorResponse('mealType is required'));
-        return;
-      }
+      const parsed = parseBody(mealTypeBodySchema, request.body, reply);
+      if (!parsed) return;
 
       await streamEvents(
         reply,
         request.headers.accept,
-        continueMealAnalysisWithMealType(analysisId, mealType)
+        continueMealAnalysisWithMealType(parsed.analysisId, parsed.mealType)
       );
     }
   );
@@ -397,36 +402,23 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       } as any,
     },
     async (request: FastifyRequest<{ Body: ReanalyzeBody }>, reply: FastifyReply) => {
-      const { analysisId, issues, otherText } = request.body ?? {};
-      if (!analysisId || typeof analysisId !== 'string') {
-        reply.status(400).send(createErrorResponse('analysisId is required'));
-        return;
-      }
-      if (!Array.isArray(issues) || issues.length === 0) {
-        reply.status(400).send(createErrorResponse('issues are required'));
-        return;
-      }
-
-      const invalidIssue = issues.find((issue) => !FEEDBACK_ISSUES.includes(issue));
-      if (invalidIssue) {
-        reply.status(400).send(createErrorResponse(`Unsupported issue: ${invalidIssue}`));
-        return;
-      }
+      const parsed = parseBody(reanalyzeBodySchema, request.body, reply);
+      if (!parsed) return;
 
       const userId = await getOptionalUserId(request);
       await recordMealAnalysisFeedback({
-        analysisId,
+        analysisId: parsed.analysisId,
         userId,
         signal: 'down',
-        issues,
-        otherText,
+        issues: parsed.issues,
+        otherText: parsed.otherText,
         payload: request.body,
       });
 
       await streamEvents(
         reply,
         request.headers.accept,
-        reanalyzeMeal(analysisId, issues, otherText, userId)
+        reanalyzeMeal(parsed.analysisId, parsed.issues, parsed.otherText, userId)
       );
     }
   );
@@ -462,13 +454,10 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       } as any,
     },
     async (request: FastifyRequest<{ Body: ConfirmLogBody }>, reply: FastifyReply) => {
-      const body = request.body ?? {};
-      if (!body.analysisId || typeof body.analysisId !== 'string') {
-        reply.status(400).send(createErrorResponse('analysisId is required'));
-        return;
-      }
+      const parsed = parseBody(confirmLogBodySchema, request.body, reply);
+      if (!parsed) return;
 
-      await confirmMealAnalysisLogged(body as MealLogConfirmationRecord);
+      await confirmMealAnalysisLogged(parsed);
       reply.send({ ok: true });
     }
   );

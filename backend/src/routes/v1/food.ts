@@ -5,10 +5,19 @@ import { getLocaleFromRequest, getCountryFromRequest } from '../../utils/locale.
 import config from '../../config.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import { query } from '../../services/database.js';
+import { nonEmptyString, parseBody, urlString, z } from '../../utils/validation.js';
 import type {
   ImageMealDetectionRequest,
   TextMealDetectionRequest,
 } from '../../protos/calorify/meal_detection.js';
+
+const imageDetectionBodySchema = z.object({
+  imageUrl: urlString,
+});
+
+const textDetectionBodySchema = z.object({
+  textDescription: nonEmptyString.max(2000, 'must be at most 2000 characters'),
+});
 // IMPORTANT: Use schema generator functions to keep documentation in sync with proto definitions
 // See: src/utils/schema-generator.ts and SCHEMA_SYNC.md
 import {
@@ -171,14 +180,11 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
     },
     async (request: FastifyRequest<{ Body: ImageMealDetectionRequest }>, reply: FastifyReply) => {
       try {
-        const { imageUrl } = request.body;
+        const parsed = parseBody(imageDetectionBodySchema, request.body, reply);
+        if (!parsed) return;
+        const { imageUrl } = parsed;
 
-        if (!imageUrl || typeof imageUrl !== 'string' || imageUrl.trim() === '') {
-          reply.status(400).send(createErrorResponse('imageUrl is required'));
-          return;
-        }
-
-        // Validate URL format and convert upload URL to download URL
+        // Convert upload URL to download URL.
         // Object key = path after bucket "o/" (supports folderized keys: uid/iso_uuid.ext)
         let finalImageUrl: string;
         try {
@@ -250,19 +256,15 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
     },
     async (request: FastifyRequest<{ Body: TextMealDetectionRequest }>, reply: FastifyReply) => {
       try {
-        const { textDescription } = request.body;
-
-        if (!textDescription || typeof textDescription !== 'string' || textDescription.trim() === '') {
-          reply.status(400).send(createErrorResponse('textDescription is required'));
-          return;
-        }
+        const parsed = parseBody(textDetectionBodySchema, request.body, reply);
+        if (!parsed) return;
 
         // Extract locale from Accept-Language header
         const locale = getLocaleFromRequest(request);
         const countryCode = getCountryFromRequest(request);
 
         // Analyze text description using OpenAI
-        const response = await openAIFoodAnalysisService.analyzeTextDescription(textDescription, locale, countryCode);
+        const response = await openAIFoodAnalysisService.analyzeTextDescription(parsed.textDescription, locale, countryCode);
 
         // Return protobuf object directly (Fastify handles JSON serialization)
         reply.send(response);
