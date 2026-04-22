@@ -8,7 +8,7 @@
         "dev": "tsx watch src/index.ts",
         "build": "tsc",
         "start": "node dist/index.js",
-        "test": "tsx --test src/**/*.test.ts",
+        "test": "node --test --experimental-test-module-mocks --import tsx --disable-warning=ExperimentalWarning src/**/*.test.ts",
         "lint": "eslint src --ext .ts",
         "type-check": "tsc --noEmit",
         "usda:import": "tsx src/scripts/import-usda.ts",

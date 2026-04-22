@@ -8,8 +8,18 @@ import { mock } from 'node:test';
 
 const mockQuery = mock.fn(async (_sql: string, _params?: unknown[]) => ({ rows: [] }));
 
+// `withTransaction(fn)` is used by the clarification and meal-type writers.
+// The fake client proxies its `query` calls back to `mockQuery` so existing
+// assertions that count query calls keep working after the transaction refactor.
+const fakeClient = {
+  query: mockQuery,
+};
+const mockWithTransaction = mock.fn(
+  async <T>(fn: (client: typeof fakeClient) => Promise<T>): Promise<T> => fn(fakeClient)
+);
+
 await mock.module('./database.js', {
-  namedExports: { query: mockQuery },
+  namedExports: { query: mockQuery, withTransaction: mockWithTransaction },
 });
 
 await mock.module('../config.js', {
