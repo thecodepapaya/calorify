@@ -159,11 +159,13 @@ async function buildApp() {
     }, `← ${request.method} ${request.url} ${statusCode} (${responseTime}ms)`);
   });
 
-  // Register Helmet for standard security headers (CSP, HSTS, X-Frame-Options, etc.).
-  // Disable contentSecurityPolicy because Swagger UI requires inline scripts/styles and
-  // loads resources from its own CDN. CSP is re-applied per-route by Swagger UI's own config.
+  // Register Helmet globally with its default security headers (including a strict CSP,
+  // HSTS, X-Frame-Options, etc.). Swagger UI is registered in an encapsulated scope below
+  // with CSP disabled, so the relaxed policy only applies to the /docs routes — the rest
+  // of the API keeps the default helmet CSP.
   await fastify.register(helmet, {
-    contentSecurityPolicy: false,
+    // Embedder policy can break Swagger UI's cross-origin resources; safe to leave off
+    // since we're a JSON API, not a document host.
     crossOriginEmbedderPolicy: false,
   });
 
@@ -231,24 +233,34 @@ async function buildApp() {
     },
   });
 
-  // Register Swagger UI
-  await fastify.register(swaggerUi, {
-    routePrefix: '/docs',
-    uiConfig: {
-      docExpansion: 'list',
-      deepLinking: true,
-      persistAuthorization: true,
-    },
-    staticCSP: true,
-    transformStaticCSP: (header: string) => header,
-    uiHooks: {
-      onRequest: async (_request, reply) => {
-        // Ensure CORS headers are set for Swagger UI
-        reply.header('Access-Control-Allow-Origin', '*');
-        reply.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        reply.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  // Register Swagger UI inside an encapsulated scope that re-registers helmet with CSP
+  // disabled. Swagger UI needs inline scripts/styles and its own `staticCSP` provides a
+  // purpose-built CSP for the /docs routes; helmet's strict global CSP would break it.
+  // This scoping keeps the default strict CSP applied to every other route.
+  await fastify.register(async (docsScope) => {
+    await docsScope.register(helmet, {
+      global: true,
+      contentSecurityPolicy: false,
+      crossOriginEmbedderPolicy: false,
+    });
+    await docsScope.register(swaggerUi, {
+      routePrefix: '/docs',
+      uiConfig: {
+        docExpansion: 'list',
+        deepLinking: true,
+        persistAuthorization: true,
       },
-    },
+      staticCSP: true,
+      transformStaticCSP: (header: string) => header,
+      uiHooks: {
+        onRequest: async (_request, reply) => {
+          // Ensure CORS headers are set for Swagger UI
+          reply.header('Access-Control-Allow-Origin', '*');
+          reply.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+          reply.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        },
+      },
+    });
   });
 
   // Register routes
