@@ -3,12 +3,14 @@
  *
  * States:
  *   CLOSED    — normal operation. Failures are counted; reaching the threshold flips to OPEN.
- *   OPEN      — requests fail fast without invoking the underlying call. After `resetTimeoutMs`,
- *               the next request transitions the breaker to HALF_OPEN.
- *   HALF_OPEN — a single trial request is permitted. Success closes the breaker; failure re-opens it.
+ *   OPEN      — requests fail fast without invoking the underlying call. Once `resetTimeoutMs`
+ *               has elapsed since the breaker opened, the *next* `execute` call transitions to
+ *               HALF_OPEN and is allowed through as the single trial probe.
+ *   HALF_OPEN — a trial request is in flight. Any other concurrent request fails fast until the
+ *               trial resolves. Success closes the breaker; failure re-opens it.
  *
- * Consecutive failures only — any success resets the counter. Keeps the implementation dependency-free
- * and easy to reason about. Use one breaker per upstream (e.g. one for OpenAI, one for Gemini).
+ * Consecutive failures only — any success resets the counter. Dependency-free; use one breaker
+ * per upstream (e.g. one for OpenAI, one for Gemini).
  */
 
 export type CircuitState = 'CLOSED' | 'OPEN' | 'HALF_OPEN';
@@ -25,8 +27,8 @@ export interface CircuitBreakerOptions {
 }
 
 export class CircuitBreakerOpenError extends Error {
-  constructor(name: string, reopensAt: number) {
-    const seconds = Math.max(0, Math.ceil((reopensAt - Date.now()) / 1000));
+  constructor(name: string, retryAfterMs: number) {
+    const seconds = Math.max(0, Math.ceil(retryAfterMs / 1000));
     super(`Circuit breaker "${name}" is OPEN; failing fast. Retry in ~${seconds}s.`);
     this.name = 'CircuitBreakerOpenError';
   }
@@ -48,18 +50,25 @@ export class CircuitBreaker {
     this.now = options.now ?? Date.now;
   }
 
+  /** Pure read of the current state. Does not mutate. */
   getState(): CircuitState {
-    // Lazily transition OPEN → HALF_OPEN when the cooldown elapses so callers see the right state.
-    if (this.state === 'OPEN' && this.now() - this.openedAt >= this.resetTimeoutMs) {
-      this.state = 'HALF_OPEN';
-    }
     return this.state;
   }
 
   async execute<T>(fn: () => Promise<T>): Promise<T> {
-    const state = this.getState();
-    if (state === 'OPEN') {
-      throw new CircuitBreakerOpenError(this.name, this.openedAt + this.resetTimeoutMs);
+    // JS is single-threaded, so the synchronous block below is atomic with respect to other
+    // execute() callers: the first request whose gate check sees OPEN-with-elapsed-cooldown
+    // flips the state to HALF_OPEN and proceeds as the trial; every other concurrent request
+    // observes HALF_OPEN (or still-OPEN) and fails fast.
+    if (this.state === 'OPEN') {
+      const elapsed = this.now() - this.openedAt;
+      if (elapsed < this.resetTimeoutMs) {
+        throw new CircuitBreakerOpenError(this.name, this.resetTimeoutMs - elapsed);
+      }
+      this.state = 'HALF_OPEN';
+    } else if (this.state === 'HALF_OPEN') {
+      // A trial probe is already in flight; don't stampede the upstream.
+      throw new CircuitBreakerOpenError(this.name, 0);
     }
 
     try {
@@ -79,7 +88,7 @@ export class CircuitBreaker {
 
   private onFailure(): void {
     this.consecutiveFailures += 1;
-    // A trial request in HALF_OPEN that fails immediately re-opens the breaker.
+    // A HALF_OPEN trial that fails re-opens the breaker immediately, regardless of threshold.
     if (this.state === 'HALF_OPEN' || this.consecutiveFailures >= this.failureThreshold) {
       this.state = 'OPEN';
       this.openedAt = this.now();
