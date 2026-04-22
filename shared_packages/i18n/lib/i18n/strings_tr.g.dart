@@ -72,7 +72,7 @@ class _TranslationsErrorsTr implements TranslationsErrorsEn {
 	@override String get unknownError => 'Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.';
 	@override String get loadingProfileData => 'Profil verileri yüklenirken hata';
 	@override String get somethingWentWrong => 'Bir şeyler ters gitti.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'Tekrar dene';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsTr {
 			'errors.unknownError' => 'Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.',
 			'errors.loadingProfileData' => 'Profil verileri yüklenirken hata',
 			'errors.somethingWentWrong' => 'Bir şeyler ters gitti.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'Tekrar dene',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel}\'ye hoş geldiniz',
 			'onboarding.subtitle' => 'AI ile güçlendirilmiş kişisel beslenme danışmanınız',
 			'onboarding.getStarted' => 'Başlayın',

@@ -8,7 +8,7 @@
     "unknownError": "Något gick fel. Försök igen senare.",
     "loadingProfileData": "Fel vid inläsning av profildata",
     "somethingWentWrong": "Något gick fel.",
-    "retry": "Retry"
+    "retry": "Försök igen"
   },
   "onboarding": {
     "welcome": "Välkommen till {appLabel}",

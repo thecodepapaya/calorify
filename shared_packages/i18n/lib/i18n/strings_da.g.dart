@@ -72,7 +72,7 @@ class _TranslationsErrorsDa implements TranslationsErrorsEn {
 	@override String get unknownError => 'Noget gik galt. Prøv venligst igen senere.';
 	@override String get loadingProfileData => 'Fejl ved indlæsning af profildata';
 	@override String get somethingWentWrong => 'Noget gik galt.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'Prøv igen';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsDa {
 			'errors.unknownError' => 'Noget gik galt. Prøv venligst igen senere.',
 			'errors.loadingProfileData' => 'Fejl ved indlæsning af profildata',
 			'errors.somethingWentWrong' => 'Noget gik galt.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'Prøv igen',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Velkommen til ${appLabel}',
 			'onboarding.subtitle' => 'Din personlige ernæringseftersyn drevet af AI',
 			'onboarding.getStarted' => 'Kom i gang',

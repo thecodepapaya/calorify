@@ -8,7 +8,7 @@
     "unknownError": "Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.",
     "loadingProfileData": "Profil verileri yüklenirken hata",
     "somethingWentWrong": "Bir şeyler ters gitti.",
-    "retry": "Retry"
+    "retry": "Tekrar dene"
   },
   "onboarding": {
     "welcome": "{appLabel}'ye hoş geldiniz",

@@ -8,7 +8,7 @@
     "unknownError": "Jotain meni pieleen. Yritä hetken kuluttua uudelleen.",
     "loadingProfileData": "Virhe profiilitietojen lataamisessa",
     "somethingWentWrong": "Jokin meni pieleen.",
-    "retry": "Retry"
+    "retry": "Yritä uudelleen"
   },
   "onboarding": {
     "welcome": "Tervetuloa {appLabel} -sovellukseen",

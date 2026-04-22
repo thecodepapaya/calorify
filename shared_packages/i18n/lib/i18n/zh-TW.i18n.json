@@ -8,7 +8,7 @@
     "unknownError": "發生錯誤。請稍後再試。",
     "loadingProfileData": "載入個人資料數據出錯",
     "somethingWentWrong": "發生了錯誤。",
-    "retry": "Retry"
+    "retry": "再試一次"
   },
   "onboarding": {
     "welcome": "歡迎使用 {appLabel}",

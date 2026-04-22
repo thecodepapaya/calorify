@@ -72,7 +72,7 @@ class _TranslationsErrorsBn implements TranslationsErrorsEn {
 	@override String get unknownError => 'কিছু ভুল হয়েছে। দয়া করে পরে আবার চেষ্টা করুন।';
 	@override String get loadingProfileData => 'প্রোফাইল তথ্য লোড করতে ত্রুটি';
 	@override String get somethingWentWrong => 'কিছু ভুল হয়েছে।';
-	@override String get retry => 'Retry';
+	@override String get retry => 'আবার চেষ্টা করুন';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsBn {
 			'errors.unknownError' => 'কিছু ভুল হয়েছে। দয়া করে পরে আবার চেষ্টা করুন।',
 			'errors.loadingProfileData' => 'প্রোফাইল তথ্য লোড করতে ত্রুটি',
 			'errors.somethingWentWrong' => 'কিছু ভুল হয়েছে।',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'আবার চেষ্টা করুন',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} এ স্বাগতম',
 			'onboarding.subtitle' => 'এটি আপনার ব্যক্তিগত পুষ্টি সঙ্গী, যা AI দ্বারা পরিচালিত',
 			'onboarding.getStarted' => 'শুরু করুন',

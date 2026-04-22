@@ -8,7 +8,7 @@
     "unknownError": "เกิดข้อผิดพลาดบางอย่าง โปรดลองอีกครั้งในภายหลัง",
     "loadingProfileData": "เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์",
     "somethingWentWrong": "มีบางอย่างผิดพลาด.",
-    "retry": "Retry"
+    "retry": "ลองอีกครั้ง"
   },
   "onboarding": {
     "welcome": "ยินดีต้อนรับสู่ {appLabel}",

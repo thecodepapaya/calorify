@@ -72,7 +72,7 @@ class _TranslationsErrorsCs implements TranslationsErrorsEn {
 	@override String get unknownError => 'Něco se pokazilo. Zkuste to prosím později.';
 	@override String get loadingProfileData => 'Chyba při načítání dat profilu';
 	@override String get somethingWentWrong => 'Něco se pokazilo.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'Zkusit znovu';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsCs {
 			'errors.unknownError' => 'Něco se pokazilo. Zkuste to prosím později.',
 			'errors.loadingProfileData' => 'Chyba při načítání dat profilu',
 			'errors.somethingWentWrong' => 'Něco se pokazilo.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'Zkusit znovu',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Vítejte v ${appLabel}',
 			'onboarding.subtitle' => 'Váš osobní nutriční společník, který využívá umělou inteligenci',
 			'onboarding.getStarted' => 'Začít',

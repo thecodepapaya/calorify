@@ -72,7 +72,7 @@ class _TranslationsErrorsEl implements TranslationsErrorsEn {
 	@override String get unknownError => 'Κάτι πήγε στραβά. Δοκιμάστε ξανά αργότερα.';
 	@override String get loadingProfileData => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ';
 	@override String get somethingWentWrong => 'Κάτι πήγε στραβά.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'Δοκιμάστε ξανά';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsEl {
 			'errors.unknownError' => 'Κάτι πήγε στραβά. Δοκιμάστε ξανά αργότερα.',
 			'errors.loadingProfileData' => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ',
 			'errors.somethingWentWrong' => 'Κάτι πήγε στραβά.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'Δοκιμάστε ξανά',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Καλώς ήρθατε στο ${appLabel}',
 			'onboarding.subtitle' => 'Ο προσωπικός σου συνοδοιπόρος στη διατροφή που στηρίζεται στην τεχνητή νοημοσύνη',
 			'onboarding.getStarted' => 'Ας ξεκινήσουμε',

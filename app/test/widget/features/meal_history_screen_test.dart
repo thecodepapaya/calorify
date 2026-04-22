@@ -124,5 +124,59 @@ void main() {
         () => mockDatabaseInterface.paginatedMealsHistory(offset: 30),
       ).called(1);
     });
+
+    testWidgets('shows a retry action when pagination fails', (
+      WidgetTester tester,
+    ) async {
+      final firstPage = List.generate(
+        30,
+        (index) => _buildLoggedMeal(
+          clientId: index + 1,
+          name: 'Meal ${index + 1}',
+          calories: 100 + index,
+        ),
+      );
+      final secondPage = [
+        _buildLoggedMeal(clientId: 31, name: 'Meal 31', calories: 131),
+      ];
+      var loadMoreAttempts = 0;
+
+      when(
+        () => mockDatabaseInterface.paginatedMealsHistory(
+          offset: any(named: 'offset'),
+        ),
+      ).thenAnswer((invocation) async {
+        final offset = invocation.namedArguments[#offset] as int? ?? 0;
+        if (offset == 0) return firstPage;
+        if (offset == 30) {
+          if (loadMoreAttempts++ == 0) {
+            throw Exception('temporary pagination failure');
+          }
+          return secondPage;
+        }
+        return <LoggedMeal>[];
+      });
+
+      await tester.pumpWidget(wrapWithProviders(const MealHistoryScreen()));
+      await tester.pumpAndSettle();
+
+      await tester.drag(find.byType(ListView), const Offset(0, -4000));
+      await tester.pump();
+      await tester.pumpAndSettle();
+
+      expect(find.text('Meal 31'), findsNothing);
+      expect(find.text('Retry'), findsOneWidget);
+
+      await tester.drag(find.byType(ListView), const Offset(0, -600));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Retry'));
+      await tester.pump();
+      await tester.pumpAndSettle();
+
+      expect(find.text('Meal 31'), findsOneWidget);
+      verify(
+        () => mockDatabaseInterface.paginatedMealsHistory(offset: 30),
+      ).called(2);
+    });
   });
 }

@@ -8,7 +8,7 @@
     "unknownError": "حدث خطأ ما. الرجاء المحاولة مرة أخرى لاحقًا.",
     "loadingProfileData": "خطأ في تحميل بيانات الملف الشخصي",
     "somethingWentWrong": "حدث خطأ ما.",
-    "retry": "Retry"
+    "retry": "حاول مرة أخرى"
   },
   "onboarding": {
     "welcome": "مرحبًا بكم في {appLabel}",

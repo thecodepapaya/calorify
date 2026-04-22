@@ -8,7 +8,7 @@
     "unknownError": "Ada sesuatu yang tidak kena. Sila cuba lagi kemudian.",
     "loadingProfileData": "Ralat memuatkan data profil",
     "somethingWentWrong": "Ada yang tidak kena.",
-    "retry": "Retry"
+    "retry": "Cuba lagi"
   },
   "onboarding": {
     "welcome": "Selamat datang ke {appLabel}",

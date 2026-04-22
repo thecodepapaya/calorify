@@ -72,7 +72,7 @@ class _TranslationsErrorsTe implements TranslationsErrorsEn {
 	@override String get unknownError => 'ఏదో తప్పుగా జరిగింది. దయచేసి కొంతసేపటి తర్వాత మళ్లీ ప్రయత్నించండి.';
 	@override String get loadingProfileData => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం';
 	@override String get somethingWentWrong => 'ఏదో తప్పు జరిగింది.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'మళ్లీ ప్రయత్నించండి';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsTe {
 			'errors.unknownError' => 'ఏదో తప్పుగా జరిగింది. దయచేసి కొంతసేపటి తర్వాత మళ్లీ ప్రయత్నించండి.',
 			'errors.loadingProfileData' => 'ప్రొఫైల్ డేటా లోడింగ్ లోపం',
 			'errors.somethingWentWrong' => 'ఏదో తప్పు జరిగింది.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'మళ్లీ ప్రయత్నించండి',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} లో స్వాగతం',
 			'onboarding.subtitle' => 'మీ వ్యక్తిగత పోషణ సహాయకుడు AI తో',
 			'onboarding.getStarted' => 'ప్రారంభించండి',
