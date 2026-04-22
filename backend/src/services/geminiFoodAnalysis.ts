@@ -18,6 +18,7 @@ import {
 import config from '../config.js';
 import { getFoodAnalysisSystemPrompt } from './foodAnalysisSystemPrompt.js';
 import { CircuitBreaker } from '../utils/circuitBreaker.js';
+import { instrumentAiCall, recordCircuitBreakerState } from './metrics.js';
 
 const GEMINI_FOOD_ANALYSIS_MODEL = 'gemini-2.5-flash-lite' as const;
 
@@ -183,6 +184,7 @@ class GeminiFoodAnalysisService {
     name: 'gemini-food-analysis',
     failureThreshold: 5,
     resetTimeoutMs: 30_000,
+    onStateChange: (next) => recordCircuitBreakerState('gemini-food-analysis', next),
   });
 
   constructor() {
@@ -513,20 +515,22 @@ class GeminiFoodAnalysisService {
     // the awaited promise), and clears the timer on success so it doesn't keep the event
     // loop alive.
     const GEMINI_TIMEOUT_MS = 30_000;
-    const result = await this.breaker.execute(async () => {
-      const controller = new AbortController();
-      const timeoutHandle = setTimeout(() => controller.abort(), GEMINI_TIMEOUT_MS);
-      try {
-        return await model.generateContent(userParts, { signal: controller.signal });
-      } catch (err) {
-        if (controller.signal.aborted) {
-          throw new Error('Gemini request timed out after 30s');
+    const result = await this.breaker.execute(() =>
+      instrumentAiCall('gemini', async () => {
+        const controller = new AbortController();
+        const timeoutHandle = setTimeout(() => controller.abort(), GEMINI_TIMEOUT_MS);
+        try {
+          return await model.generateContent(userParts, { signal: controller.signal });
+        } catch (err) {
+          if (controller.signal.aborted) {
+            throw new Error('Gemini request timed out after 30s');
+          }
+          throw err;
+        } finally {
+          clearTimeout(timeoutHandle);
         }
-        throw err;
-      } finally {
-        clearTimeout(timeoutHandle);
-      }
-    });
+      })
+    );
     const response = result.response;
     const content = response.text();
     if (!content) {

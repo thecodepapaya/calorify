@@ -147,6 +147,30 @@ describe('CircuitBreaker', () => {
     assert.equal(breaker.getState(), 'CLOSED');
   });
 
+  it('invokes onStateChange on every state transition', async () => {
+    let fakeNow = 1_000_000;
+    const events: Array<[string, string]> = [];
+    const breaker = new CircuitBreaker({
+      name: 'test',
+      failureThreshold: 1,
+      resetTimeoutMs: 1_000,
+      now: () => fakeNow,
+      onStateChange: (next, prev) => events.push([prev, next]),
+    });
+
+    // CLOSED → OPEN
+    await assert.rejects(breaker.execute(async () => { throw new Error('fail'); }));
+    // Cooldown elapses, next execute flips OPEN → HALF_OPEN, success flips HALF_OPEN → CLOSED.
+    fakeNow += 1_000;
+    await breaker.execute(async () => 'ok');
+
+    assert.deepEqual(events, [
+      ['CLOSED', 'OPEN'],
+      ['OPEN', 'HALF_OPEN'],
+      ['HALF_OPEN', 'CLOSED'],
+    ]);
+  });
+
   it('uses the injectable clock in the open error message', async () => {
     let fakeNow = 0;
     const breaker = new CircuitBreaker({
