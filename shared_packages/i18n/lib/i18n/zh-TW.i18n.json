@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "最愛",
-    "empty": "尚未有最愛餐點。"
+    "empty": "尚未有最愛餐點。",
+    "searchPlaceholder": "搜尋收藏的餐點",
+    "searchEmptyTitle": "沒有收藏符合搜尋條件",
+    "searchEmptySubtitle": "請嘗試不同的餐點名稱、數量或餐別。",
+    "sortLabel": "排序收藏",
+    "undo": "復原",
+    "removed": "已從收藏移除「{name}」",
+    "sortOptions": {
+      "recent": "最近",
+      "calories": "卡路里",
+      "alphabetical": "字母順序 (A-Z)"
+    }
   },
   "profile": {
     "title": "個人檔案",

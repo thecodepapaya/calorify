@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Preferiti",
-    "empty": "Nessun pasto preferito per ora."
+    "empty": "Nessun pasto preferito per ora.",
+    "searchPlaceholder": "Cerca tra i pasti preferiti",
+    "searchEmptyTitle": "Nessun preferito corrisponde alla tua ricerca",
+    "searchEmptySubtitle": "Prova con un nome del pasto, una quantità o un tipo di pasto diversi.",
+    "sortLabel": "Ordina i preferiti",
+    "undo": "Annulla",
+    "removed": "Hai rimosso {name} dai preferiti",
+    "sortOptions": {
+      "recent": "Recenti",
+      "calories": "Calorie",
+      "alphabetical": "A-Z"
+    }
   },
   "profile": {
     "title": "Profilo",

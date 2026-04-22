@@ -187,6 +187,13 @@ class _TranslationsFavoritesAr implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'المفضلات';
 	@override String get empty => 'لا توجد وجبات مفضلة بعد.';
+	@override String get searchPlaceholder => 'ابحث عن الوجبات المفضلة';
+	@override String get searchEmptyTitle => 'لا توجد مفضلات تطابق بحثك';
+	@override String get searchEmptySubtitle => 'جرّب اسم وجبة أو كمية أو نوع وجبة مختلفًا';
+	@override String get sortLabel => 'فرز المفضلات';
+	@override String get undo => 'تراجع';
+	@override String removed({required Object name}) => 'تمت إزالة ${name} من المفضلات';
+	@override late final _TranslationsFavoritesSortOptionsAr sortOptions = _TranslationsFavoritesSortOptionsAr._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationAr implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'السؤال ${current} من ${total}';
 	@override String get noVariationsAvailable => 'لا توجد تنويعات متاحة';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsAr implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'الأحدث';
+	@override String get calories => 'السعرات الحرارية';
+	@override String get alphabetical => 'أ-ي';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsAr {
 			'meal.variation.noVariationsAvailable' => 'لا توجد تنويعات متاحة',
 			'favorites.title' => 'المفضلات',
 			'favorites.empty' => 'لا توجد وجبات مفضلة بعد.',
+			'favorites.searchPlaceholder' => 'ابحث عن الوجبات المفضلة',
+			'favorites.searchEmptyTitle' => 'لا توجد مفضلات تطابق بحثك',
+			'favorites.searchEmptySubtitle' => 'جرّب اسم وجبة أو كمية أو نوع وجبة مختلفًا',
+			'favorites.sortLabel' => 'فرز المفضلات',
+			'favorites.undo' => 'تراجع',
+			'favorites.removed' => ({required Object name}) => 'تمت إزالة ${name} من المفضلات',
+			'favorites.sortOptions.recent' => 'الأحدث',
+			'favorites.sortOptions.calories' => 'السعرات الحرارية',
+			'favorites.sortOptions.alphabetical' => 'أ-ي',
 			'profile.title' => 'الملف الشخصي',
 			'profile.noProfileData' => 'لا توجد بيانات ملف شخصية',
 			'profile.yourProfile' => 'ملفك الشخصي',

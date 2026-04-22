@@ -187,6 +187,13 @@ class _TranslationsFavoritesJa implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'お気に入り';
 	@override String get empty => 'まだお気に入りの食事はありません。';
+	@override String get searchPlaceholder => 'お気に入りの食事を検索';
+	@override String get searchEmptyTitle => '検索に一致するお気に入りはありません';
+	@override String get searchEmptySubtitle => '別の食事名、量、または食事の種類を試してみてください。';
+	@override String get sortLabel => 'お気に入りを並び替え';
+	@override String get undo => '元に戻す';
+	@override String removed({required Object name}) => '${name}をお気に入りから削除しました';
+	@override late final _TranslationsFavoritesSortOptionsJa sortOptions = _TranslationsFavoritesSortOptionsJa._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationJa implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object total, required Object current}) => '全${total}問中 ${current}問目';
 	@override String get noVariationsAvailable => '利用可能なバリエーションはありません';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsJa implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => '最近';
+	@override String get calories => 'カロリー順';
+	@override String get alphabetical => 'アルファベット順';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsJa {
 			'meal.variation.noVariationsAvailable' => '利用可能なバリエーションはありません',
 			'favorites.title' => 'お気に入り',
 			'favorites.empty' => 'まだお気に入りの食事はありません。',
+			'favorites.searchPlaceholder' => 'お気に入りの食事を検索',
+			'favorites.searchEmptyTitle' => '検索に一致するお気に入りはありません',
+			'favorites.searchEmptySubtitle' => '別の食事名、量、または食事の種類を試してみてください。',
+			'favorites.sortLabel' => 'お気に入りを並び替え',
+			'favorites.undo' => '元に戻す',
+			'favorites.removed' => ({required Object name}) => '${name}をお気に入りから削除しました',
+			'favorites.sortOptions.recent' => '最近',
+			'favorites.sortOptions.calories' => 'カロリー順',
+			'favorites.sortOptions.alphabetical' => 'アルファベット順',
 			'profile.title' => 'プロフィール',
 			'profile.noProfileData' => 'プロフィールデータが見つかりません',
 			'profile.yourProfile' => 'あなたのプロフィール',

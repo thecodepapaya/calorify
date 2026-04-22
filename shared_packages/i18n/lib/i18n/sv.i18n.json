@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Favoriter",
-    "empty": "Inga favoritmåltider ännu."
+    "empty": "Inga favoritmåltider ännu.",
+    "searchPlaceholder": "Sök favoriträtter",
+    "searchEmptyTitle": "Inga favoriter matchar din sökning",
+    "searchEmptySubtitle": "Prova ett annat maträttsnamn, antal eller måltidstyp.",
+    "sortLabel": "Sortera favoriter",
+    "undo": "Ångra",
+    "removed": "Tog bort {name} från favoriterna",
+    "sortOptions": {
+      "recent": "Senaste",
+      "calories": "Kalorier",
+      "alphabetical": "A–Ö"
+    }
   },
   "profile": {
     "title": "Profil",

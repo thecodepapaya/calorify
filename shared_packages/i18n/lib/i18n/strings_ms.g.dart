@@ -187,6 +187,13 @@ class _TranslationsFavoritesMs implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Kegemaran';
 	@override String get empty => 'Tiada hidangan kegemaran lagi.';
+	@override String get searchPlaceholder => 'Cari hidangan kegemaran';
+	@override String get searchEmptyTitle => 'Tiada makanan kegemaran yang sepadan dengan carian anda';
+	@override String get searchEmptySubtitle => 'Cuba nama hidangan, kuantiti, atau jenis hidangan yang berbeza.';
+	@override String get sortLabel => 'Susun kegemaran';
+	@override String get undo => 'Batal';
+	@override String removed({required Object name}) => 'Anda telah mengeluarkan ${name} daripada kegemaran.';
+	@override late final _TranslationsFavoritesSortOptionsMs sortOptions = _TranslationsFavoritesSortOptionsMs._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationMs implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Soalan ${current} daripada ${total}';
 	@override String get noVariationsAvailable => 'Tiada variasi tersedia';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsMs implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsMs._(this._root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Terkini';
+	@override String get calories => 'Kalori';
+	@override String get alphabetical => 'A-Z';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsMs {
 			'meal.variation.noVariationsAvailable' => 'Tiada variasi tersedia',
 			'favorites.title' => 'Kegemaran',
 			'favorites.empty' => 'Tiada hidangan kegemaran lagi.',
+			'favorites.searchPlaceholder' => 'Cari hidangan kegemaran',
+			'favorites.searchEmptyTitle' => 'Tiada makanan kegemaran yang sepadan dengan carian anda',
+			'favorites.searchEmptySubtitle' => 'Cuba nama hidangan, kuantiti, atau jenis hidangan yang berbeza.',
+			'favorites.sortLabel' => 'Susun kegemaran',
+			'favorites.undo' => 'Batal',
+			'favorites.removed' => ({required Object name}) => 'Anda telah mengeluarkan ${name} daripada kegemaran.',
+			'favorites.sortOptions.recent' => 'Terkini',
+			'favorites.sortOptions.calories' => 'Kalori',
+			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'Profil',
 			'profile.noProfileData' => 'Tiada data profil ditemukan',
 			'profile.yourProfile' => 'Profil Anda',

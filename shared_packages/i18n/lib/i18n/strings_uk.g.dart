@@ -187,6 +187,13 @@ class _TranslationsFavoritesUk implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Улюблені';
 	@override String get empty => 'Ще немає улюблених страв.';
+	@override String get searchPlaceholder => 'Шукати у улюблених стравах';
+	@override String get searchEmptyTitle => 'Немає улюблених, які відповідають пошуку';
+	@override String get searchEmptySubtitle => 'Спробуйте іншу назву страви, кількість або тип прийому їжі.';
+	@override String get sortLabel => 'Сортувати улюблені страви';
+	@override String get undo => 'Скасувати';
+	@override String removed({required Object name}) => 'Видалено ${name} з улюблених';
+	@override late final _TranslationsFavoritesSortOptionsUk sortOptions = _TranslationsFavoritesSortOptionsUk._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationUk implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Питання ${current} з ${total}';
 	@override String get noVariationsAvailable => 'Немає доступних варіантів';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsUk implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Останні';
+	@override String get calories => 'Калорії';
+	@override String get alphabetical => 'А–Я';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsUk {
 			'meal.variation.noVariationsAvailable' => 'Немає доступних варіантів',
 			'favorites.title' => 'Улюблені',
 			'favorites.empty' => 'Ще немає улюблених страв.',
+			'favorites.searchPlaceholder' => 'Шукати у улюблених стравах',
+			'favorites.searchEmptyTitle' => 'Немає улюблених, які відповідають пошуку',
+			'favorites.searchEmptySubtitle' => 'Спробуйте іншу назву страви, кількість або тип прийому їжі.',
+			'favorites.sortLabel' => 'Сортувати улюблені страви',
+			'favorites.undo' => 'Скасувати',
+			'favorites.removed' => ({required Object name}) => 'Видалено ${name} з улюблених',
+			'favorites.sortOptions.recent' => 'Останні',
+			'favorites.sortOptions.calories' => 'Калорії',
+			'favorites.sortOptions.alphabetical' => 'А–Я',
 			'profile.title' => 'Профіль',
 			'profile.noProfileData' => 'Дані профілю не знайдено',
 			'profile.yourProfile' => 'Ваш профіль',

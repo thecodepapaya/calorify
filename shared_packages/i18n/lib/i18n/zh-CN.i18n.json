@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "收藏夹",
-    "empty": "尚未添加收藏餐点。"
+    "empty": "尚未添加收藏餐点。",
+    "searchPlaceholder": "搜索收藏的餐点",
+    "searchEmptyTitle": "没有收藏匹配您的搜索",
+    "searchEmptySubtitle": "尝试不同的菜名、数量或餐食类型。",
+    "sortLabel": "排序收藏",
+    "undo": "撤销",
+    "removed": "已将「{name}」从收藏中移除",
+    "sortOptions": {
+      "recent": "最近",
+      "calories": "卡路里",
+      "alphabetical": "字母顺序 (A–Z)"
+    }
   },
   "profile": {
     "title": "个人资料",

@@ -187,6 +187,13 @@ class _TranslationsFavoritesVi implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Yêu thích';
 	@override String get empty => 'Chưa có bữa ăn yêu thích nào.';
+	@override String get searchPlaceholder => 'Tìm bữa ăn yêu thích';
+	@override String get searchEmptyTitle => 'Không có mục yêu thích nào phù hợp với tìm kiếm của bạn';
+	@override String get searchEmptySubtitle => 'Thử tên bữa khác, số lượng hoặc loại bữa.';
+	@override String get sortLabel => 'Sắp xếp mục yêu thích';
+	@override String get undo => 'Hoàn tác';
+	@override String removed({required Object name}) => 'Đã xóa ${name} khỏi danh sách yêu thích';
+	@override late final _TranslationsFavoritesSortOptionsVi sortOptions = _TranslationsFavoritesSortOptionsVi._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationVi implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Câu hỏi ${current} trên ${total}';
 	@override String get noVariationsAvailable => 'Không có biến thể nào';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsVi implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Gần đây';
+	@override String get calories => 'Calo';
+	@override String get alphabetical => 'A-Z';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsVi {
 			'meal.variation.noVariationsAvailable' => 'Không có biến thể nào',
 			'favorites.title' => 'Yêu thích',
 			'favorites.empty' => 'Chưa có bữa ăn yêu thích nào.',
+			'favorites.searchPlaceholder' => 'Tìm bữa ăn yêu thích',
+			'favorites.searchEmptyTitle' => 'Không có mục yêu thích nào phù hợp với tìm kiếm của bạn',
+			'favorites.searchEmptySubtitle' => 'Thử tên bữa khác, số lượng hoặc loại bữa.',
+			'favorites.sortLabel' => 'Sắp xếp mục yêu thích',
+			'favorites.undo' => 'Hoàn tác',
+			'favorites.removed' => ({required Object name}) => 'Đã xóa ${name} khỏi danh sách yêu thích',
+			'favorites.sortOptions.recent' => 'Gần đây',
+			'favorites.sortOptions.calories' => 'Calo',
+			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'Hồ sơ',
 			'profile.noProfileData' => 'Chưa tìm thấy dữ liệu hồ sơ',
 			'profile.yourProfile' => 'Hồ sơ của bạn',

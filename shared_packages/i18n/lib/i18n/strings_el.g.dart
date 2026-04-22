@@ -187,6 +187,13 @@ class _TranslationsFavoritesEl implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Αγαπημένα';
 	@override String get empty => 'Δεν υπάρχουν αγαπημένα γεύματα ακόμη.';
+	@override String get searchPlaceholder => 'Αναζήτηση αγαπημένων γευμάτων';
+	@override String get searchEmptyTitle => 'Κανένα αγαπημένο γεύμα δεν ταιριάζει με την αναζήτησή σας';
+	@override String get searchEmptySubtitle => 'Δοκιμάστε άλλο όνομα γεύματος, διαφορετική ποσότητα ή τύπο γεύματος.';
+	@override String get sortLabel => 'Ταξινόμηση αγαπημένων';
+	@override String get undo => 'Αναίρεση';
+	@override String removed({required Object name}) => 'Αφαιρέθηκε ${name} από τα αγαπημένα';
+	@override late final _TranslationsFavoritesSortOptionsEl sortOptions = _TranslationsFavoritesSortOptionsEl._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationEl implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Ερώτηση ${current} από ${total}';
 	@override String get noVariationsAvailable => 'Δεν υπάρχουν διαθέσιμες παραλλαγές';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsEl implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Πρόσφατα';
+	@override String get calories => 'Θερμίδες';
+	@override String get alphabetical => 'Αλφαβητικά';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsEl {
 			'meal.variation.noVariationsAvailable' => 'Δεν υπάρχουν διαθέσιμες παραλλαγές',
 			'favorites.title' => 'Αγαπημένα',
 			'favorites.empty' => 'Δεν υπάρχουν αγαπημένα γεύματα ακόμη.',
+			'favorites.searchPlaceholder' => 'Αναζήτηση αγαπημένων γευμάτων',
+			'favorites.searchEmptyTitle' => 'Κανένα αγαπημένο γεύμα δεν ταιριάζει με την αναζήτησή σας',
+			'favorites.searchEmptySubtitle' => 'Δοκιμάστε άλλο όνομα γεύματος, διαφορετική ποσότητα ή τύπο γεύματος.',
+			'favorites.sortLabel' => 'Ταξινόμηση αγαπημένων',
+			'favorites.undo' => 'Αναίρεση',
+			'favorites.removed' => ({required Object name}) => 'Αφαιρέθηκε ${name} από τα αγαπημένα',
+			'favorites.sortOptions.recent' => 'Πρόσφατα',
+			'favorites.sortOptions.calories' => 'Θερμίδες',
+			'favorites.sortOptions.alphabetical' => 'Αλφαβητικά',
 			'profile.title' => 'Προφίλ',
 			'profile.noProfileData' => 'Δεν βρέθηκαν δεδομένα προφίλ',
 			'profile.yourProfile' => 'Το Προφίλ Σου',

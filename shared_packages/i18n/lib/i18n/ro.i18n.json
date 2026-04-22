@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Favorite",
-    "empty": "Nu sunt mese favorite încă."
+    "empty": "Nu sunt mese favorite încă.",
+    "searchPlaceholder": "Caută mâncăruri preferate",
+    "searchEmptyTitle": "Niciun element din favorite nu corespunde căutării",
+    "searchEmptySubtitle": "Încearcă un alt nume de mâncare, o altă cantitate sau un alt tip de masă.",
+    "sortLabel": "Sortează favoritele",
+    "undo": "Anulează",
+    "removed": "Am eliminat {name} din favorite",
+    "sortOptions": {
+      "recent": "Recente",
+      "calories": "Calorii",
+      "alphabetical": "A–Z"
+    }
   },
   "profile": {
     "title": "Profil",

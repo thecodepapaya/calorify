@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "มื้อโปรด",
-    "empty": "ยังไม่มีมื้ออาหารโปรด."
+    "empty": "ยังไม่มีมื้ออาหารโปรด.",
+    "searchPlaceholder": "ค้นหาอาหารโปรด",
+    "searchEmptyTitle": "ไม่พบรายการโปรดที่ตรงกับการค้นหา",
+    "searchEmptySubtitle": "ลองค้นหาด้วยชื่ออาหาร ปริมาณ หรือประเภทมื้ออาหารอื่น",
+    "sortLabel": "จัดเรียงรายการโปรด",
+    "undo": "เลิกทำ",
+    "removed": "ลบ {name} ออกจากรายการโปรด",
+    "sortOptions": {
+      "recent": "ล่าสุด",
+      "calories": "แคลอรี่",
+      "alphabetical": "A-Z"
+    }
   },
   "profile": {
     "title": "โปรไฟล์",

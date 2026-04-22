@@ -187,6 +187,13 @@ class _TranslationsFavoritesNl implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Favorieten';
 	@override String get empty => 'Nog geen favoriete maaltijden.';
+	@override String get searchPlaceholder => 'Zoek favoriete maaltijden';
+	@override String get searchEmptyTitle => 'Geen favorieten komen overeen met je zoekopdracht';
+	@override String get searchEmptySubtitle => 'Probeer een andere maaltijdnaam, hoeveelheid of maaltijdtype.';
+	@override String get sortLabel => 'Sorteer favorieten';
+	@override String get undo => 'Ongedaan maken';
+	@override String removed({required Object name}) => '${name} is uit je favorieten verwijderd';
+	@override late final _TranslationsFavoritesSortOptionsNl sortOptions = _TranslationsFavoritesSortOptionsNl._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationNl implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Vraag ${current} van ${total}';
 	@override String get noVariationsAvailable => 'Geen variaties beschikbaar';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsNl implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Meest recent';
+	@override String get calories => 'Calorieën';
+	@override String get alphabetical => 'A-Z';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsNl {
 			'meal.variation.noVariationsAvailable' => 'Geen variaties beschikbaar',
 			'favorites.title' => 'Favorieten',
 			'favorites.empty' => 'Nog geen favoriete maaltijden.',
+			'favorites.searchPlaceholder' => 'Zoek favoriete maaltijden',
+			'favorites.searchEmptyTitle' => 'Geen favorieten komen overeen met je zoekopdracht',
+			'favorites.searchEmptySubtitle' => 'Probeer een andere maaltijdnaam, hoeveelheid of maaltijdtype.',
+			'favorites.sortLabel' => 'Sorteer favorieten',
+			'favorites.undo' => 'Ongedaan maken',
+			'favorites.removed' => ({required Object name}) => '${name} is uit je favorieten verwijderd',
+			'favorites.sortOptions.recent' => 'Meest recent',
+			'favorites.sortOptions.calories' => 'Calorieën',
+			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'Profiel',
 			'profile.noProfileData' => 'Geen profielgegevens gevonden',
 			'profile.yourProfile' => 'Je Profiel',

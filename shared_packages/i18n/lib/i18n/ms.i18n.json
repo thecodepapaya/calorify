@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Kegemaran",
-    "empty": "Tiada hidangan kegemaran lagi."
+    "empty": "Tiada hidangan kegemaran lagi.",
+    "searchPlaceholder": "Cari hidangan kegemaran",
+    "searchEmptyTitle": "Tiada makanan kegemaran yang sepadan dengan carian anda",
+    "searchEmptySubtitle": "Cuba nama hidangan, kuantiti, atau jenis hidangan yang berbeza.",
+    "sortLabel": "Susun kegemaran",
+    "undo": "Batal",
+    "removed": "Anda telah mengeluarkan {name} daripada kegemaran.",
+    "sortOptions": {
+      "recent": "Terkini",
+      "calories": "Kalori",
+      "alphabetical": "A-Z"
+    }
   },
   "profile": {
     "title": "Profil",

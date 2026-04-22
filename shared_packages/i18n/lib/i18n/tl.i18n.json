@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Mga Paborito",
-    "empty": "Walang paboritong pagkain sa ngayon."
+    "empty": "Walang paboritong pagkain sa ngayon.",
+    "searchPlaceholder": "Maghanap ng paboritong pagkain",
+    "searchEmptyTitle": "Walang paborito ang tumutugma sa iyong paghahanap",
+    "searchEmptySubtitle": "Subukan ang ibang pangalan ng pagkain, dami, o uri ng pagkain.",
+    "sortLabel": "Iayos ang mga paborito",
+    "undo": "Bawiin",
+    "removed": "Tinanggal ang {name} mula sa mga paborito",
+    "sortOptions": {
+      "recent": "Pinakabago",
+      "calories": "Kaloriya",
+      "alphabetical": "A-Z"
+    }
   },
   "profile": {
     "title": "Profile",

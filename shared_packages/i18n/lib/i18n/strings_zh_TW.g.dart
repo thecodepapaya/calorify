@@ -187,6 +187,13 @@ class _TranslationsFavoritesZhTw implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => '最愛';
 	@override String get empty => '尚未有最愛餐點。';
+	@override String get searchPlaceholder => '搜尋收藏的餐點';
+	@override String get searchEmptyTitle => '沒有收藏符合搜尋條件';
+	@override String get searchEmptySubtitle => '請嘗試不同的餐點名稱、數量或餐別。';
+	@override String get sortLabel => '排序收藏';
+	@override String get undo => '復原';
+	@override String removed({required Object name}) => '已從收藏移除「${name}」';
+	@override late final _TranslationsFavoritesSortOptionsZhTw sortOptions = _TranslationsFavoritesSortOptionsZhTw._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationZhTw implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => '第 ${current} 題，共 ${total} 題';
 	@override String get noVariationsAvailable => '目前沒有可用的變體';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsZhTw implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsZhTw._(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => '最近';
+	@override String get calories => '卡路里';
+	@override String get alphabetical => '字母順序 (A-Z)';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsZhTw {
 			'meal.variation.noVariationsAvailable' => '目前沒有可用的變體',
 			'favorites.title' => '最愛',
 			'favorites.empty' => '尚未有最愛餐點。',
+			'favorites.searchPlaceholder' => '搜尋收藏的餐點',
+			'favorites.searchEmptyTitle' => '沒有收藏符合搜尋條件',
+			'favorites.searchEmptySubtitle' => '請嘗試不同的餐點名稱、數量或餐別。',
+			'favorites.sortLabel' => '排序收藏',
+			'favorites.undo' => '復原',
+			'favorites.removed' => ({required Object name}) => '已從收藏移除「${name}」',
+			'favorites.sortOptions.recent' => '最近',
+			'favorites.sortOptions.calories' => '卡路里',
+			'favorites.sortOptions.alphabetical' => '字母順序 (A-Z)',
 			'profile.title' => '個人檔案',
 			'profile.noProfileData' => '找不到個人檔案數據',
 			'profile.yourProfile' => '您的個人檔案',

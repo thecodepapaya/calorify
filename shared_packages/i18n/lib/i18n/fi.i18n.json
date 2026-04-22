@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Suosikit",
-    "empty": "Ei suosikkiaterioita vielä."
+    "empty": "Ei suosikkiaterioita vielä.",
+    "searchPlaceholder": "Etsi suosikkeja",
+    "searchEmptyTitle": "Hakuehdolle ei löytynyt suosikkeja",
+    "searchEmptySubtitle": "Kokeile eri ruoan nimeä, määrää tai ateriatyyppiä.",
+    "sortLabel": "Lajittele suosikit",
+    "undo": "Kumoa",
+    "removed": "Poistettiin {name} suosikeista",
+    "sortOptions": {
+      "recent": "Viimeisimmät",
+      "calories": "Kalorit",
+      "alphabetical": "A–Ö"
+    }
   },
   "profile": {
     "title": "Profiili",

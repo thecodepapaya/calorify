@@ -187,6 +187,13 @@ class _TranslationsFavoritesGu implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'પસંદગીઓ';
 	@override String get empty => 'હજી સુધી કોઈ પસંદી ખોરાક નથી.';
+	@override String get searchPlaceholder => 'મનપસંદ ભોજન શોધો';
+	@override String get searchEmptyTitle => 'તમારી શોધ સાથે કોઈ મનપસંદ વસ્તુ મેળ ખાતી નથી';
+	@override String get searchEmptySubtitle => 'ભિન્ન ભોજનનું નામ, માત્રા અથવા પ્રકાર અજમાવો.';
+	@override String get sortLabel => 'મનપસંદને ક્રમબદ્ધ કરો';
+	@override String get undo => 'પાછું કરો';
+	@override String removed({required Object name}) => '${name}ને મનપસંદમાંથી દૂર કર્યું';
+	@override late final _TranslationsFavoritesSortOptionsGu sortOptions = _TranslationsFavoritesSortOptionsGu._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationGu implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object total, required Object current}) => '${total} માંથી પ્રશ્ન ${current}';
 	@override String get noVariationsAvailable => 'કોઈ વિવિધતાઓ ઉપલબ્ધ નથી';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsGu implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsGu._(this._root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'તાજેતરના';
+	@override String get calories => 'કેલરીઝ';
+	@override String get alphabetical => 'અક્ષર ક્રમ (A-Z)';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsGu {
 			'meal.variation.noVariationsAvailable' => 'કોઈ વિવિધતાઓ ઉપલબ્ધ નથી',
 			'favorites.title' => 'પસંદગીઓ',
 			'favorites.empty' => 'હજી સુધી કોઈ પસંદી ખોરાક નથી.',
+			'favorites.searchPlaceholder' => 'મનપસંદ ભોજન શોધો',
+			'favorites.searchEmptyTitle' => 'તમારી શોધ સાથે કોઈ મનપસંદ વસ્તુ મેળ ખાતી નથી',
+			'favorites.searchEmptySubtitle' => 'ભિન્ન ભોજનનું નામ, માત્રા અથવા પ્રકાર અજમાવો.',
+			'favorites.sortLabel' => 'મનપસંદને ક્રમબદ્ધ કરો',
+			'favorites.undo' => 'પાછું કરો',
+			'favorites.removed' => ({required Object name}) => '${name}ને મનપસંદમાંથી દૂર કર્યું',
+			'favorites.sortOptions.recent' => 'તાજેતરના',
+			'favorites.sortOptions.calories' => 'કેલરીઝ',
+			'favorites.sortOptions.alphabetical' => 'અક્ષર ક્રમ (A-Z)',
 			'profile.title' => 'પ્રોફાઇલ',
 			'profile.noProfileData' => 'પોતાની માહિતી ઉપલબ્ધ નથી',
 			'profile.yourProfile' => 'તમારી પ્રોફાઇલ',

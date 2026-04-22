@@ -187,6 +187,13 @@ class _TranslationsFavoritesEs implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Favoritos';
 	@override String get empty => 'Aún no hay comidas favoritas.';
+	@override String get searchPlaceholder => 'Buscar comidas favoritas';
+	@override String get searchEmptyTitle => 'No hay favoritos que coincidan con tu búsqueda';
+	@override String get searchEmptySubtitle => 'Prueba con otro nombre de plato, cantidad o tipo de comida.';
+	@override String get sortLabel => 'Ordenar favoritos';
+	@override String get undo => 'Deshacer';
+	@override String removed({required Object name}) => 'Has eliminado ${name} de tus favoritos';
+	@override late final _TranslationsFavoritesSortOptionsEs sortOptions = _TranslationsFavoritesSortOptionsEs._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationEs implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Pregunta ${current} de ${total}';
 	@override String get noVariationsAvailable => 'No hay variaciones disponibles';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsEs implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsEs._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Más recientes';
+	@override String get calories => 'Calorías';
+	@override String get alphabetical => 'A-Z';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsEs {
 			'meal.variation.noVariationsAvailable' => 'No hay variaciones disponibles',
 			'favorites.title' => 'Favoritos',
 			'favorites.empty' => 'Aún no hay comidas favoritas.',
+			'favorites.searchPlaceholder' => 'Buscar comidas favoritas',
+			'favorites.searchEmptyTitle' => 'No hay favoritos que coincidan con tu búsqueda',
+			'favorites.searchEmptySubtitle' => 'Prueba con otro nombre de plato, cantidad o tipo de comida.',
+			'favorites.sortLabel' => 'Ordenar favoritos',
+			'favorites.undo' => 'Deshacer',
+			'favorites.removed' => ({required Object name}) => 'Has eliminado ${name} de tus favoritos',
+			'favorites.sortOptions.recent' => 'Más recientes',
+			'favorites.sortOptions.calories' => 'Calorías',
+			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'Perfil',
 			'profile.noProfileData' => 'No se encontraron datos de perfil',
 			'profile.yourProfile' => 'Tu Perfil',

@@ -12,4 +12,14 @@ class FavoriteMealsNotifier extends StreamNotifier<List<FavoriteMeal>> {
   Stream<List<FavoriteMeal>> build() {
     return ref.watch(databaseInterfaceProvider).watchAllFavoriteMeals();
   }
+
+  Future<void> removeFavoriteMeal(LoggedMeal meal) {
+    return ref
+        .read(databaseInterfaceProvider)
+        .removeFavoriteMeal(meal.clientId);
+  }
+
+  Future<void> restoreFavoriteMeal(LoggedMeal meal) {
+    return ref.read(databaseInterfaceProvider).addToFavorites(meal);
+  }
 }

@@ -187,6 +187,13 @@ class _TranslationsFavoritesFi implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Suosikit';
 	@override String get empty => 'Ei suosikkiaterioita vielä.';
+	@override String get searchPlaceholder => 'Etsi suosikkeja';
+	@override String get searchEmptyTitle => 'Hakuehdolle ei löytynyt suosikkeja';
+	@override String get searchEmptySubtitle => 'Kokeile eri ruoan nimeä, määrää tai ateriatyyppiä.';
+	@override String get sortLabel => 'Lajittele suosikit';
+	@override String get undo => 'Kumoa';
+	@override String removed({required Object name}) => 'Poistettiin ${name} suosikeista';
+	@override late final _TranslationsFavoritesSortOptionsFi sortOptions = _TranslationsFavoritesSortOptionsFi._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationFi implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Kysymys ${current}/${total}';
 	@override String get noVariationsAvailable => 'Muunnelmia ei ole saatavilla';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsFi implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsFi._(this._root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Viimeisimmät';
+	@override String get calories => 'Kalorit';
+	@override String get alphabetical => 'A–Ö';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsFi {
 			'meal.variation.noVariationsAvailable' => 'Muunnelmia ei ole saatavilla',
 			'favorites.title' => 'Suosikit',
 			'favorites.empty' => 'Ei suosikkiaterioita vielä.',
+			'favorites.searchPlaceholder' => 'Etsi suosikkeja',
+			'favorites.searchEmptyTitle' => 'Hakuehdolle ei löytynyt suosikkeja',
+			'favorites.searchEmptySubtitle' => 'Kokeile eri ruoan nimeä, määrää tai ateriatyyppiä.',
+			'favorites.sortLabel' => 'Lajittele suosikit',
+			'favorites.undo' => 'Kumoa',
+			'favorites.removed' => ({required Object name}) => 'Poistettiin ${name} suosikeista',
+			'favorites.sortOptions.recent' => 'Viimeisimmät',
+			'favorites.sortOptions.calories' => 'Kalorit',
+			'favorites.sortOptions.alphabetical' => 'A–Ö',
 			'profile.title' => 'Profiili',
 			'profile.noProfileData' => 'Profiilitietoja ei löytynyt',
 			'profile.yourProfile' => 'Profiilisi',

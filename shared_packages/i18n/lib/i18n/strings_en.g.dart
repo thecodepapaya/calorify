@@ -286,6 +286,26 @@ class TranslationsFavoritesEn {
 
 	/// en: 'No favorite meals yet.'
 	String get empty => 'No favorite meals yet.';
+
+	/// en: 'Search favorite meals'
+	String get searchPlaceholder => 'Search favorite meals';
+
+	/// en: 'No favorites match your search'
+	String get searchEmptyTitle => 'No favorites match your search';
+
+	/// en: 'Try a different meal name, quantity, or meal type.'
+	String get searchEmptySubtitle => 'Try a different meal name, quantity, or meal type.';
+
+	/// en: 'Sort favorites'
+	String get sortLabel => 'Sort favorites';
+
+	/// en: 'Undo'
+	String get undo => 'Undo';
+
+	/// en: 'Removed {name} from favorites'
+	String removed({required Object name}) => 'Removed ${name} from favorites';
+
+	late final TranslationsFavoritesSortOptionsEn sortOptions = TranslationsFavoritesSortOptionsEn._(_root);
 }
 
 // Path: profile
@@ -1189,6 +1209,24 @@ class TranslationsMealVariationEn {
 
 	/// en: 'No variations available'
 	String get noVariationsAvailable => 'No variations available';
+}
+
+// Path: favorites.sortOptions
+class TranslationsFavoritesSortOptionsEn {
+	TranslationsFavoritesSortOptionsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Recent'
+	String get recent => 'Recent';
+
+	/// en: 'Calories'
+	String get calories => 'Calories';
+
+	/// en: 'A-Z'
+	String get alphabetical => 'A-Z';
 }
 
 // Path: profile.sections
@@ -2653,6 +2691,15 @@ extension on Translations {
 			'meal.variation.noVariationsAvailable' => 'No variations available',
 			'favorites.title' => 'Favorites',
 			'favorites.empty' => 'No favorite meals yet.',
+			'favorites.searchPlaceholder' => 'Search favorite meals',
+			'favorites.searchEmptyTitle' => 'No favorites match your search',
+			'favorites.searchEmptySubtitle' => 'Try a different meal name, quantity, or meal type.',
+			'favorites.sortLabel' => 'Sort favorites',
+			'favorites.undo' => 'Undo',
+			'favorites.removed' => ({required Object name}) => 'Removed ${name} from favorites',
+			'favorites.sortOptions.recent' => 'Recent',
+			'favorites.sortOptions.calories' => 'Calories',
+			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'Profile',
 			'profile.noProfileData' => 'No profile data found',
 			'profile.yourProfile' => 'Your Profile',

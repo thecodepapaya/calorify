@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Favoriten",
-    "empty": "Noch keine Lieblingsmahlzeiten."
+    "empty": "Noch keine Lieblingsmahlzeiten.",
+    "searchPlaceholder": "Favoriten durchsuchen",
+    "searchEmptyTitle": "Keine Favoriten entsprechen deiner Suche",
+    "searchEmptySubtitle": "Versuche einen anderen Namen, eine andere Menge oder eine andere Mahlzeitart.",
+    "sortLabel": "Favoriten sortieren",
+    "undo": "Rückgängig",
+    "removed": "Entfernt {name} aus deinen Favoriten",
+    "sortOptions": {
+      "recent": "Neueste",
+      "calories": "Kalorien",
+      "alphabetical": "A–Z"
+    }
   },
   "profile": {
     "title": "Profil",

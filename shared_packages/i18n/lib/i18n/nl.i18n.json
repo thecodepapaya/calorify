@@ -272,7 +272,18 @@
   },
   "favorites": {
     "title": "Favorieten",
-    "empty": "Nog geen favoriete maaltijden."
+    "empty": "Nog geen favoriete maaltijden.",
+    "searchPlaceholder": "Zoek favoriete maaltijden",
+    "searchEmptyTitle": "Geen favorieten komen overeen met je zoekopdracht",
+    "searchEmptySubtitle": "Probeer een andere maaltijdnaam, hoeveelheid of maaltijdtype.",
+    "sortLabel": "Sorteer favorieten",
+    "undo": "Ongedaan maken",
+    "removed": "{name} is uit je favorieten verwijderd",
+    "sortOptions": {
+      "recent": "Meest recent",
+      "calories": "Calorieën",
+      "alphabetical": "A-Z"
+    }
   },
   "profile": {
     "title": "Profiel",

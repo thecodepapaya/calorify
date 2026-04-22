@@ -187,6 +187,13 @@ class _TranslationsFavoritesZhCn implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => '收藏夹';
 	@override String get empty => '尚未添加收藏餐点。';
+	@override String get searchPlaceholder => '搜索收藏的餐点';
+	@override String get searchEmptyTitle => '没有收藏匹配您的搜索';
+	@override String get searchEmptySubtitle => '尝试不同的菜名、数量或餐食类型。';
+	@override String get sortLabel => '排序收藏';
+	@override String get undo => '撤销';
+	@override String removed({required Object name}) => '已将「${name}」从收藏中移除';
+	@override late final _TranslationsFavoritesSortOptionsZhCn sortOptions = _TranslationsFavoritesSortOptionsZhCn._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationZhCn implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => '第 ${current} 个问题，共 ${total} 个';
 	@override String get noVariationsAvailable => '暂无可用变体';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsZhCn implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => '最近';
+	@override String get calories => '卡路里';
+	@override String get alphabetical => '字母顺序 (A–Z)';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsZhCn {
 			'meal.variation.noVariationsAvailable' => '暂无可用变体',
 			'favorites.title' => '收藏夹',
 			'favorites.empty' => '尚未添加收藏餐点。',
+			'favorites.searchPlaceholder' => '搜索收藏的餐点',
+			'favorites.searchEmptyTitle' => '没有收藏匹配您的搜索',
+			'favorites.searchEmptySubtitle' => '尝试不同的菜名、数量或餐食类型。',
+			'favorites.sortLabel' => '排序收藏',
+			'favorites.undo' => '撤销',
+			'favorites.removed' => ({required Object name}) => '已将「${name}」从收藏中移除',
+			'favorites.sortOptions.recent' => '最近',
+			'favorites.sortOptions.calories' => '卡路里',
+			'favorites.sortOptions.alphabetical' => '字母顺序 (A–Z)',
 			'profile.title' => '个人资料',
 			'profile.noProfileData' => '未找到个人资料数据',
 			'profile.yourProfile' => '您的个人资料',

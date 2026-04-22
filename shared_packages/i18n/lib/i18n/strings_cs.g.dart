@@ -187,6 +187,13 @@ class _TranslationsFavoritesCs implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Oblíbené';
 	@override String get empty => 'Žádná oblíbená jídla zatím.';
+	@override String get searchPlaceholder => 'Hledat oblíbená jídla';
+	@override String get searchEmptyTitle => 'Žádné oblíbené položky neodpovídají vašemu hledání';
+	@override String get searchEmptySubtitle => 'Zkuste jiné jméno jídla, množství nebo typ pokrmu.';
+	@override String get sortLabel => 'Seřadit oblíbené';
+	@override String get undo => 'Zpět';
+	@override String removed({required Object name}) => 'Odebráno ${name} z oblíbených';
+	@override late final _TranslationsFavoritesSortOptionsCs sortOptions = _TranslationsFavoritesSortOptionsCs._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationCs implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Otázka ${current} z ${total}';
 	@override String get noVariationsAvailable => 'Nejsou dostupné žádné varianty';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsCs implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Nedávné';
+	@override String get calories => 'Kalorie';
+	@override String get alphabetical => 'Abecedně';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsCs {
 			'meal.variation.noVariationsAvailable' => 'Nejsou dostupné žádné varianty',
 			'favorites.title' => 'Oblíbené',
 			'favorites.empty' => 'Žádná oblíbená jídla zatím.',
+			'favorites.searchPlaceholder' => 'Hledat oblíbená jídla',
+			'favorites.searchEmptyTitle' => 'Žádné oblíbené položky neodpovídají vašemu hledání',
+			'favorites.searchEmptySubtitle' => 'Zkuste jiné jméno jídla, množství nebo typ pokrmu.',
+			'favorites.sortLabel' => 'Seřadit oblíbené',
+			'favorites.undo' => 'Zpět',
+			'favorites.removed' => ({required Object name}) => 'Odebráno ${name} z oblíbených',
+			'favorites.sortOptions.recent' => 'Nedávné',
+			'favorites.sortOptions.calories' => 'Kalorie',
+			'favorites.sortOptions.alphabetical' => 'Abecedně',
 			'profile.title' => 'Profil',
 			'profile.noProfileData' => 'Nebyla nalezena žádná data profilu',
 			'profile.yourProfile' => 'Váš profil',

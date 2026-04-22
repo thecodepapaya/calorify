@@ -187,6 +187,13 @@ class _TranslationsFavoritesRo implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Favorite';
 	@override String get empty => 'Nu sunt mese favorite încă.';
+	@override String get searchPlaceholder => 'Caută mâncăruri preferate';
+	@override String get searchEmptyTitle => 'Niciun element din favorite nu corespunde căutării';
+	@override String get searchEmptySubtitle => 'Încearcă un alt nume de mâncare, o altă cantitate sau un alt tip de masă.';
+	@override String get sortLabel => 'Sortează favoritele';
+	@override String get undo => 'Anulează';
+	@override String removed({required Object name}) => 'Am eliminat ${name} din favorite';
+	@override late final _TranslationsFavoritesSortOptionsRo sortOptions = _TranslationsFavoritesSortOptionsRo._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationRo implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Întrebarea ${current} din ${total}';
 	@override String get noVariationsAvailable => 'Nu există variații disponibile';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsRo implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Recente';
+	@override String get calories => 'Calorii';
+	@override String get alphabetical => 'A–Z';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsRo {
 			'meal.variation.noVariationsAvailable' => 'Nu există variații disponibile',
 			'favorites.title' => 'Favorite',
 			'favorites.empty' => 'Nu sunt mese favorite încă.',
+			'favorites.searchPlaceholder' => 'Caută mâncăruri preferate',
+			'favorites.searchEmptyTitle' => 'Niciun element din favorite nu corespunde căutării',
+			'favorites.searchEmptySubtitle' => 'Încearcă un alt nume de mâncare, o altă cantitate sau un alt tip de masă.',
+			'favorites.sortLabel' => 'Sortează favoritele',
+			'favorites.undo' => 'Anulează',
+			'favorites.removed' => ({required Object name}) => 'Am eliminat ${name} din favorite',
+			'favorites.sortOptions.recent' => 'Recente',
+			'favorites.sortOptions.calories' => 'Calorii',
+			'favorites.sortOptions.alphabetical' => 'A–Z',
 			'profile.title' => 'Profil',
 			'profile.noProfileData' => 'Nu s-au găsit date de profil',
 			'profile.yourProfile' => 'Profilul Tău',

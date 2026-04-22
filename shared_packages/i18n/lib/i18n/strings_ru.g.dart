@@ -187,6 +187,13 @@ class _TranslationsFavoritesRu implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Избранное';
 	@override String get empty => 'Нет любимых блюд.';
+	@override String get searchPlaceholder => 'Поиск любимых блюд';
+	@override String get searchEmptyTitle => 'Нет избранных, соответствующих вашему запросу';
+	@override String get searchEmptySubtitle => 'Попробуйте другое название блюда, количество или тип приёма пищи.';
+	@override String get sortLabel => 'Сортировать избранное';
+	@override String get undo => 'Отменить';
+	@override String removed({required Object name}) => 'Удалено ${name} из избранного';
+	@override late final _TranslationsFavoritesSortOptionsRu sortOptions = _TranslationsFavoritesSortOptionsRu._(_root);
 }
 
 // Path: profile
@@ -715,6 +722,18 @@ class _TranslationsMealVariationRu implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Вопрос ${current} из ${total}';
 	@override String get noVariationsAvailable => 'Нет доступных вариантов';
+}
+
+// Path: favorites.sortOptions
+class _TranslationsFavoritesSortOptionsRu implements TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get recent => 'Недавние';
+	@override String get calories => 'Калории';
+	@override String get alphabetical => 'А–Я';
 }
 
 // Path: profile.sections
@@ -1770,6 +1789,15 @@ extension on TranslationsRu {
 			'meal.variation.noVariationsAvailable' => 'Нет доступных вариантов',
 			'favorites.title' => 'Избранное',
 			'favorites.empty' => 'Нет любимых блюд.',
+			'favorites.searchPlaceholder' => 'Поиск любимых блюд',
+			'favorites.searchEmptyTitle' => 'Нет избранных, соответствующих вашему запросу',
+			'favorites.searchEmptySubtitle' => 'Попробуйте другое название блюда, количество или тип приёма пищи.',
+			'favorites.sortLabel' => 'Сортировать избранное',
+			'favorites.undo' => 'Отменить',
+			'favorites.removed' => ({required Object name}) => 'Удалено ${name} из избранного',
+			'favorites.sortOptions.recent' => 'Недавние',
+			'favorites.sortOptions.calories' => 'Калории',
+			'favorites.sortOptions.alphabetical' => 'А–Я',
 			'profile.title' => 'Профиль',
 			'profile.noProfileData' => 'Данные профиля не найдены',
 			'profile.yourProfile' => 'Ваш профиль',
