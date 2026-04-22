@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/features/home/home_screen.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/database_service.dart';
@@ -27,9 +28,9 @@ void main() {
       () => mockHealthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
     when(() => mockHealthService.isAuthorized).thenReturn(true);
-    when(
-      () => mockHealthService.getTotalCaloriesBurned(),
-    ).thenAnswer((_) async => CaloriesResult(calories: 500.0, usedFallback: false));
+    when(() => mockHealthService.getTotalCaloriesBurned()).thenAnswer(
+      (_) async => CaloriesResult(calories: 500.0, usedFallback: false),
+    );
     when(
       () => mockDatabaseInterface.watchDailyCalorieGoal(),
     ).thenAnswer((_) => Stream.value(2000));
@@ -46,7 +47,12 @@ void main() {
 
   group('HomeScreen Widget', () {
     testWidgets('renders all major components', (WidgetTester tester) async {
-      await tester.pumpWidget(wrapWithProviders(const HomeScreen()));
+      await tester.pumpWidget(
+        wrapWithProviders(
+          const HomeScreen(),
+          overrides: [aiSummaryProvider.overrideWith((ref) => null)],
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(HomeScreen), findsOneWidget);
@@ -65,7 +71,12 @@ void main() {
       final mockHealthService = HealthService.instance;
       when(() => mockHealthService.isAuthorized).thenReturn(false);
 
-      await tester.pumpWidget(wrapWithProviders(const HomeScreen()));
+      await tester.pumpWidget(
+        wrapWithProviders(
+          const HomeScreen(),
+          overrides: [aiSummaryProvider.overrideWith((ref) => null)],
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.textContaining('Connect'), findsWidgets);

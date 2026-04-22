@@ -1,14 +1,16 @@
 import 'package:calorify/core/constants/colors.dart';
+import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/shared_widgets/app_card.dart';
+import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/shared_widgets/section_header.dart';
-import 'package:models/models.dart';
-import 'package:calorify/core/services/database_service.dart';
 import 'package:i18n/i18n.dart';
 import 'package:widgets/widgets.dart';
 import 'package:calorify/shared_widgets/macro_legend.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:models/models.dart';
 
 /// Target macro grams from daily calorie goal (protein 25%, carbs 50%, fat 20%, fiber 5%).
 ({double protein, double carbs, double fat, double fiber})
@@ -33,11 +35,14 @@ _targetMacrosFromGoal(int dailyGoal) {
   );
 }
 
-class MacroSplit extends StatelessWidget {
+class MacroSplit extends ConsumerWidget {
   const MacroSplit({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mealsAsync = ref.watch(todaysMealsProvider);
+    final goalAsync = ref.watch(dailyCalorieGoalProvider);
+
     return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,12 +52,7 @@ class MacroSplit extends StatelessWidget {
             title: t.home.intakeProgress.title,
           ),
           const SizedBox(height: 24),
-          StreamBuilder<List<LoggedMeal>>(
-            stream: DatabaseService.databaseInterface.watchAllMealsForToday(),
-            builder:
-                (context, mealsSnapshot) =>
-                    _buildMealsSnapshot(context, mealsSnapshot),
-          ),
+          _buildBody(context, mealsAsync, goalAsync),
           const SizedBox(height: 16),
           const MacroLegend(),
         ],
@@ -60,20 +60,20 @@ class MacroSplit extends StatelessWidget {
     );
   }
 
-  Widget _buildMealsSnapshot(
+  Widget _buildBody(
     BuildContext context,
-    AsyncSnapshot<List<LoggedMeal>> mealsSnapshot,
+    AsyncValue<List<LoggedMeal>> mealsAsync,
+    AsyncValue<int?> goalAsync,
   ) {
-    if (mealsSnapshot.connectionState == ConnectionState.waiting) {
+    if (mealsAsync.isLoading) {
       return const Center(child: AppLoader());
     }
-    final meals = mealsSnapshot.data ?? [];
-    return StreamBuilder<int?>(
-      stream: DatabaseService.databaseInterface.watchDailyCalorieGoal(),
-      builder:
-          (context, goalSnapshot) =>
-              _buildChartsRow(context, meals, goalSnapshot.data ?? 2000),
-    );
+    if (mealsAsync.hasError) {
+      return ErrorView(error: mealsAsync.error!);
+    }
+
+    final meals = mealsAsync.value ?? const <LoggedMeal>[];
+    return _buildChartsRow(context, meals, goalAsync.value ?? 2000);
   }
 
   Widget _buildChartsRow(

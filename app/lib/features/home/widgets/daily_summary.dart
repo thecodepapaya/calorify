@@ -1,20 +1,37 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/shared_widgets/app_card.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 
-class DailySummaryCard extends StatelessWidget {
+class DailySummaryCard extends ConsumerWidget {
   const DailySummaryCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme textTheme = Theme.of(context).textTheme;
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final mealsAsync = ref.watch(todaysMealsProvider);
+
+    if (mealsAsync.hasError) {
+      return AppCard(child: ErrorView(error: mealsAsync.error!));
+    }
+
+    final List<LoggedMeal> loggedMeals =
+        mealsAsync.value ?? const <LoggedMeal>[];
+    double protein = 0, carbs = 0, fat = 0, fiber = 0;
+
+    for (final loggedMeal in loggedMeals) {
+      protein += loggedMeal.meal.macros.protein;
+      carbs += loggedMeal.meal.macros.carbs;
+      fat += loggedMeal.meal.macros.fat;
+      fiber += loggedMeal.meal.macros.fiber;
+    }
 
     return AppCard(
       child: Column(
@@ -28,64 +45,47 @@ class DailySummaryCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          StreamBuilder<List<LoggedMeal>>(
-            stream: DatabaseService.databaseInterface.watchAllMealsForToday(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return ErrorView(error: snapshot.error!);
-              }
-              final loggedMeals = snapshot.data ?? [];
-              double protein = 0, carbs = 0, fat = 0, fiber = 0;
-
-              for (final loggedMeal in loggedMeals) {
-                protein += loggedMeal.meal.macros.protein;
-                carbs += loggedMeal.meal.macros.carbs;
-                fat += loggedMeal.meal.macros.fat;
-                fiber += loggedMeal.meal.macros.fiber;
-              }
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                spacing: 8,
-                children: [
-                  Expanded(
-                    child: NutrientTile(
-                      icon: LucideIcons.wheat,
-                      label: t.home.dailySummary.carbs,
-                      value: carbs,
-                      unit: 'g',
-                      iconColor: carbsIconColor,
-                    ),
-                  ),
-                  Expanded(
-                    child: NutrientTile(
-                      icon: LucideIcons.drumstick,
-                      label: t.home.dailySummary.protein,
-                      value: protein,
-                      unit: 'g',
-                      iconColor: proteinIconColor,
-                    ),
-                  ),
-                  Expanded(
-                    child: NutrientTile(
-                      icon: LucideIcons.egg,
-                      label: t.home.dailySummary.fat,
-                      value: fat,
-                      unit: 'g',
-                      iconColor: fatIconColor,
-                    ),
-                  ),
-                  Expanded(
-                    child: NutrientTile(
-                      icon: LucideIcons.leaf,
-                      label: t.home.dailySummary.fiber,
-                      value: fiber,
-                      unit: 'g',
-                      iconColor: fiberIconColor,
-                    ),
-                  ),
-                ],
-              );
-            },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            spacing: 8,
+            children: [
+              Expanded(
+                child: NutrientTile(
+                  icon: LucideIcons.wheat,
+                  label: t.home.dailySummary.carbs,
+                  value: carbs,
+                  unit: 'g',
+                  iconColor: carbsIconColor,
+                ),
+              ),
+              Expanded(
+                child: NutrientTile(
+                  icon: LucideIcons.drumstick,
+                  label: t.home.dailySummary.protein,
+                  value: protein,
+                  unit: 'g',
+                  iconColor: proteinIconColor,
+                ),
+              ),
+              Expanded(
+                child: NutrientTile(
+                  icon: LucideIcons.egg,
+                  label: t.home.dailySummary.fat,
+                  value: fat,
+                  unit: 'g',
+                  iconColor: fatIconColor,
+                ),
+              ),
+              Expanded(
+                child: NutrientTile(
+                  icon: LucideIcons.leaf,
+                  label: t.home.dailySummary.fiber,
+                  value: fiber,
+                  unit: 'g',
+                  iconColor: fiberIconColor,
+                ),
+              ),
+            ],
           ),
         ],
       ),
