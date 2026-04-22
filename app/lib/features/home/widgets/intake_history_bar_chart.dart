@@ -107,7 +107,10 @@ class _MacroHistoryChart extends ConsumerWidget {
       return const Center(child: AppLoader());
     }
     if (mealsAsync.hasError) {
-      return ErrorView(error: mealsAsync.error!);
+      return ErrorView(
+        error: mealsAsync.error!,
+        onRetry: () => ref.invalidate(last7DaysMealsProvider),
+      );
     }
 
     final meals = mealsAsync.value ?? const <LoggedMeal>[];
