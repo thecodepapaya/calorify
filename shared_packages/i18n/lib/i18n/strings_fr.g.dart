@@ -72,6 +72,7 @@ class _TranslationsErrorsFr implements TranslationsErrorsEn {
 	@override String get unknownError => 'Une erreur est survenue. Veuillez réessayer plus tard.';
 	@override String get loadingProfileData => 'Erreur de chargement des données du profil';
 	@override String get somethingWentWrong => 'Une erreur s\'est produite.';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsFr {
 			'errors.unknownError' => 'Une erreur est survenue. Veuillez réessayer plus tard.',
 			'errors.loadingProfileData' => 'Erreur de chargement des données du profil',
 			'errors.somethingWentWrong' => 'Une erreur s\'est produite.',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Bienvenue dans ${appLabel}',
 			'onboarding.subtitle' => 'Votre compagnon personnel en nutrition propulsé par l\'IA',
 			'onboarding.getStarted' => 'Commencer',

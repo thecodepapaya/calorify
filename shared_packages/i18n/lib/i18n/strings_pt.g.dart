@@ -72,6 +72,7 @@ class _TranslationsErrorsPt implements TranslationsErrorsEn {
 	@override String get unknownError => 'Algo deu errado. Por favor, tente novamente mais tarde.';
 	@override String get loadingProfileData => 'Erro ao carregar dados do perfil';
 	@override String get somethingWentWrong => 'Algo deu errado.';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsPt {
 			'errors.unknownError' => 'Algo deu errado. Por favor, tente novamente mais tarde.',
 			'errors.loadingProfileData' => 'Erro ao carregar dados do perfil',
 			'errors.somethingWentWrong' => 'Algo deu errado.',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Bem-vindo ao ${appLabel}',
 			'onboarding.subtitle' => 'Seu companheiro pessoal de nutrição com tecnologia de IA',
 			'onboarding.getStarted' => 'Começar',

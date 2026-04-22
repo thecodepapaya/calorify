@@ -7,7 +7,8 @@
     "networkError": "نیٹ ورک کی خرابی۔ براہِ کرم اپنی انٹرنیٹ کنکشن چیک کریں۔",
     "unknownError": "کچھ غلط ہو گیا ہے۔ براہِ کرم بعد میں دوبارہ کوشش کریں۔",
     "loadingProfileData": "پروفائل کا ڈیٹا لوڈ کرنے میں خرابی",
-    "somethingWentWrong": "کچھ غلط ہوگیا۔"
+    "somethingWentWrong": "کچھ غلط ہوگیا۔",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "{appLabel} میں خوش آمدید",

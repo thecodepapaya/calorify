@@ -72,6 +72,7 @@ class _TranslationsErrorsTh implements TranslationsErrorsEn {
 	@override String get unknownError => 'เกิดข้อผิดพลาดบางอย่าง โปรดลองอีกครั้งในภายหลัง';
 	@override String get loadingProfileData => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์';
 	@override String get somethingWentWrong => 'มีบางอย่างผิดพลาด.';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsTh {
 			'errors.unknownError' => 'เกิดข้อผิดพลาดบางอย่าง โปรดลองอีกครั้งในภายหลัง',
 			'errors.loadingProfileData' => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์',
 			'errors.somethingWentWrong' => 'มีบางอย่างผิดพลาด.',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => 'ยินดีต้อนรับสู่ ${appLabel}',
 			'onboarding.subtitle' => 'คู่หูด้านโภชนาการส่วนบุคคลที่ขับเคลื่อนโดย AI',
 			'onboarding.getStarted' => 'เริ่มต้น',

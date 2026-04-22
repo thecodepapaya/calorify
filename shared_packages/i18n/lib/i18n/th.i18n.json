@@ -7,7 +7,8 @@
     "networkError": "เกิดข้อผิดพลาดเครือข่าย โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ",
     "unknownError": "เกิดข้อผิดพลาดบางอย่าง โปรดลองอีกครั้งในภายหลัง",
     "loadingProfileData": "เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์",
-    "somethingWentWrong": "มีบางอย่างผิดพลาด."
+    "somethingWentWrong": "มีบางอย่างผิดพลาด.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "ยินดีต้อนรับสู่ {appLabel}",

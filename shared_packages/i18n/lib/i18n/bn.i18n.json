@@ -7,7 +7,8 @@
     "networkError": "নেটওয়ার্ক ত্রুটি। অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন।",
     "unknownError": "কিছু ভুল হয়েছে। দয়া করে পরে আবার চেষ্টা করুন।",
     "loadingProfileData": "প্রোফাইল তথ্য লোড করতে ত্রুটি",
-    "somethingWentWrong": "কিছু ভুল হয়েছে।"
+    "somethingWentWrong": "কিছু ভুল হয়েছে।",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "{appLabel} এ স্বাগতম",

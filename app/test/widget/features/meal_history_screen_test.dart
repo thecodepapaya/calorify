@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:calorify/features/history/meal_history_screen.dart';
@@ -9,6 +10,33 @@ import '../../helpers/test_helpers.dart';
 import '../../setup/all_tests.dart';
 
 class MockDatabaseInterface extends Mock implements DatabaseInterface {}
+
+LoggedMeal _buildLoggedMeal({
+  required int clientId,
+  required String name,
+  required int calories,
+}) {
+  return LoggedMeal(
+    clientId: clientId,
+    meal: Meal(
+      name: name,
+      quantity: '1',
+      type: MealType.SNACK,
+      macros: MealMacro(
+        calories: calories,
+        protein: 0,
+        carbs: 25,
+        fat: 0,
+        fiber: 4,
+      ),
+      health: MealHealth(
+        healthScore: HealthScore.HEALTHY,
+        healthScoreReason: 'Good',
+      ),
+    ),
+    createdAt: dateTimeToIso8601String(DateTime.now()),
+  );
+}
 
 void main() {
   late MockDatabaseInterface mockDatabaseInterface;
@@ -40,26 +68,7 @@ void main() {
 
     testWidgets('renders meals list', (WidgetTester tester) async {
       final mockMeals = [
-        LoggedMeal(
-          clientId: 1,
-          meal: Meal(
-            name: 'Apple',
-            quantity: '1',
-            type: MealType.SNACK,
-            macros: MealMacro(
-              calories: 95,
-              protein: 0,
-              carbs: 25,
-              fat: 0,
-              fiber: 4,
-            ),
-            health: MealHealth(
-              healthScore: HealthScore.HEALTHY,
-              healthScoreReason: 'Good',
-            ),
-          ),
-          createdAt: dateTimeToIso8601String(DateTime.now()),
-        ),
+        _buildLoggedMeal(clientId: 1, name: 'Apple', calories: 95),
       ];
 
       when(
@@ -73,6 +82,47 @@ void main() {
 
       expect(find.text('Apple'), findsOneWidget);
       expect(find.text('95'), findsWidgets); // Calorie value
+    });
+
+    testWidgets('loads more meals when scrolled near the bottom', (
+      WidgetTester tester,
+    ) async {
+      final firstPage = List.generate(
+        30,
+        (index) => _buildLoggedMeal(
+          clientId: index + 1,
+          name: 'Meal ${index + 1}',
+          calories: 100 + index,
+        ),
+      );
+      final secondPage = [
+        _buildLoggedMeal(clientId: 31, name: 'Meal 31', calories: 131),
+      ];
+
+      when(
+        () => mockDatabaseInterface.paginatedMealsHistory(
+          offset: any(named: 'offset'),
+        ),
+      ).thenAnswer((invocation) async {
+        final offset = invocation.namedArguments[#offset] as int? ?? 0;
+        if (offset == 0) return firstPage;
+        if (offset == 30) return secondPage;
+        return <LoggedMeal>[];
+      });
+
+      await tester.pumpWidget(wrapWithProviders(const MealHistoryScreen()));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Meal 31'), findsNothing);
+
+      await tester.drag(find.byType(ListView), const Offset(0, -4000));
+      await tester.pump();
+      await tester.pumpAndSettle();
+
+      expect(find.text('Meal 31'), findsOneWidget);
+      verify(
+        () => mockDatabaseInterface.paginatedMealsHistory(offset: 30),
+      ).called(1);
     });
   });
 }

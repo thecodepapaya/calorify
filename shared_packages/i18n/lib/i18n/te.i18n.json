@@ -7,7 +7,8 @@
     "networkError": "నెట్‌వర్క్ లోపం. దయచేసి మీ ఇంటర్నెట్ కనెక్షన్‌ను తనిఖీ చేయండి.",
     "unknownError": "ఏదో తప్పుగా జరిగింది. దయచేసి కొంతసేపటి తర్వాత మళ్లీ ప్రయత్నించండి.",
     "loadingProfileData": "ప్రొఫైల్ డేటా లోడింగ్ లోపం",
-    "somethingWentWrong": "ఏదో తప్పు జరిగింది."
+    "somethingWentWrong": "ఏదో తప్పు జరిగింది.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "{appLabel} లో స్వాగతం",

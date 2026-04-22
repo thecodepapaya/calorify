@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/core/providers/history_providers.dart';
 import 'package:calorify/features/history/widgets/icon_nutrition.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
 import 'package:calorify/shared_widgets/empty_state_widget.dart';
+import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -15,33 +17,26 @@ import 'package:models/models.dart';
 import 'package:widgets/widgets.dart';
 
 @RoutePage()
-class MealHistoryScreen extends StatefulWidget {
+class MealHistoryScreen extends ConsumerStatefulWidget {
   const MealHistoryScreen({super.key});
 
   @override
-  State<MealHistoryScreen> createState() => _MealHistoryScreenState();
+  ConsumerState<MealHistoryScreen> createState() => _MealHistoryScreenState();
 }
 
-class _MealHistoryScreenState extends State<MealHistoryScreen> {
-  List<LoggedMeal> meals = [];
-  int currentPage = 0;
-  bool isLoading = false;
-  bool allMealsLoaded = false;
+class _MealHistoryScreenState extends ConsumerState<MealHistoryScreen> {
   final ScrollController _scrollController = ScrollController();
-
-  static const int _mealsPerPage = 30;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
-    _fetchMeals();
   }
 
   void _onScroll() {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 200) {
-      _fetchMeals();
+      unawaited(ref.read(mealHistoryProvider.notifier).loadMore());
     }
   }
 
@@ -52,50 +47,43 @@ class _MealHistoryScreenState extends State<MealHistoryScreen> {
     super.dispose();
   }
 
-  Future<void> _fetchMeals() async {
-    if (isLoading || allMealsLoaded) return;
-
-    setState(() => isLoading = true);
-
-    try {
-      final fetchedMeals = await DatabaseService.databaseInterface
-          .paginatedMealsHistory(offset: currentPage * _mealsPerPage);
-
-      if (fetchedMeals.length < _mealsPerPage) allMealsLoaded = true;
-
-      meals.addAll(fetchedMeals);
-      currentPage++;
-    } finally {
-      setState(() => isLoading = false);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final List<_DayMeals> groupedMeals = _groupMealsByDay(meals);
+    final historyAsync = ref.watch(mealHistoryProvider);
 
     return Scaffold(
       body: Padding(
         padding: globalMargin,
-        child: Builder(
-          builder: (context) {
-            if (isLoading && groupedMeals.isEmpty) {
-              return AppLoader();
-            }
+        child: historyAsync.when(
+          loading: () => const Center(child: AppLoader()),
+          error:
+              (error, _) => ErrorView(
+                error: error,
+                onRetry: () => ref.invalidate(mealHistoryProvider),
+              ),
+          data: (historyState) {
+            final groupedMeals = _groupMealsByDay(historyState.meals);
 
-            if (groupedMeals.isEmpty && allMealsLoaded) {
+            if (groupedMeals.isEmpty && historyState.allMealsLoaded) {
               return Center(child: _emptyView);
             }
 
             return ListView.builder(
               controller: _scrollController,
-              itemCount: groupedMeals.length + (allMealsLoaded ? 0 : 1),
+              itemCount:
+                  groupedMeals.length + (historyState.allMealsLoaded ? 0 : 1),
               itemBuilder: (context, index) {
-                if (index == groupedMeals.length && !allMealsLoaded) {
-                  return Center(child: AppLoader());
+                if (index == groupedMeals.length &&
+                    !historyState.allMealsLoaded) {
+                  return Center(
+                    child:
+                        historyState.isLoadingMore
+                            ? const AppLoader()
+                            : const SizedBox.shrink(),
+                  );
                 }
                 if (index >= groupedMeals.length) {
-                  return SizedBox.shrink();
+                  return const SizedBox.shrink();
                 }
 
                 final _DayMeals dayData = groupedMeals[index];

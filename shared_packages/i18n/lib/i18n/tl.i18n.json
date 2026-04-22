@@ -7,7 +7,8 @@
     "networkError": "May problema sa network. Pakisuri ang iyong koneksyon sa internet.",
     "unknownError": "Nagkaroon ng problema. Pakisubukang muli mamaya.",
     "loadingProfileData": "Error sa pag-load ng datos ng profile",
-    "somethingWentWrong": "May nangyaring mali."
+    "somethingWentWrong": "May nangyaring mali.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "Maligayang pagdating sa {appLabel}",

@@ -72,6 +72,7 @@ class _TranslationsErrorsId implements TranslationsErrorsEn {
 	@override String get unknownError => 'Terjadi kesalahan. Silakan coba lagi nanti.';
 	@override String get loadingProfileData => 'Kesalahan saat memuat data profil';
 	@override String get somethingWentWrong => 'Terjadi kesalahan.';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsId {
 			'errors.unknownError' => 'Terjadi kesalahan. Silakan coba lagi nanti.',
 			'errors.loadingProfileData' => 'Kesalahan saat memuat data profil',
 			'errors.somethingWentWrong' => 'Terjadi kesalahan.',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Selamat datang di ${appLabel}',
 			'onboarding.subtitle' => 'Pendamping nutrisi pribadi Anda yang didukung oleh AI',
 			'onboarding.getStarted' => 'Mulai',

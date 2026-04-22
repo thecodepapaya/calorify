@@ -7,7 +7,8 @@
     "networkError": "שגיאת רשת. בדוק את חיבור האינטרנט ונסה שוב.",
     "unknownError": "משהו השתבש. אנא נסה שוב מאוחר יותר.",
     "loadingProfileData": "שגיאה בהטענת נתוני פרופיל",
-    "somethingWentWrong": "משהו השתבש."
+    "somethingWentWrong": "משהו השתבש.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "ברוך הבא ל{appLabel}",

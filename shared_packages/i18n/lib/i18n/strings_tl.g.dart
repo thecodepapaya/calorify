@@ -72,6 +72,7 @@ class _TranslationsErrorsTl implements TranslationsErrorsEn {
 	@override String get unknownError => 'Nagkaroon ng problema. Pakisubukang muli mamaya.';
 	@override String get loadingProfileData => 'Error sa pag-load ng datos ng profile';
 	@override String get somethingWentWrong => 'May nangyaring mali.';
+	@override String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -1584,6 +1585,7 @@ extension on TranslationsTl {
 			'errors.unknownError' => 'Nagkaroon ng problema. Pakisubukang muli mamaya.',
 			'errors.loadingProfileData' => 'Error sa pag-load ng datos ng profile',
 			'errors.somethingWentWrong' => 'May nangyaring mali.',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Maligayang pagdating sa ${appLabel}',
 			'onboarding.subtitle' => 'Ang iyong personal na kasamahan sa nutrisyon na pinapagana ng AI',
 			'onboarding.getStarted' => 'Magsimula',

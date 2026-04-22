@@ -7,7 +7,8 @@
     "networkError": "Erro de rede. Verifique sua conexão com a internet.",
     "unknownError": "Algo deu errado. Por favor, tente novamente mais tarde.",
     "loadingProfileData": "Erro ao carregar dados do perfil",
-    "somethingWentWrong": "Algo deu errado."
+    "somethingWentWrong": "Algo deu errado.",
+    "retry": "Retry"
   },
   "onboarding": {
     "welcome": "Bem-vindo ao {appLabel}",
