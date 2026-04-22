@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:calorify_watch/core/services/data_cache.dart';
+import 'package:calorify_watch/core/services/watch_auth_session.dart';
 import 'package:calorify_watch/core/services/wear_os_channel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:models/models.dart';
@@ -33,6 +34,7 @@ class SyncService {
 
     try {
       await Future.delayed(const Duration(milliseconds: 100));
+      await WatchAuthSession.instance.initialize();
 
       final success = await WearOsChannel.initialize();
       if (!success) {
@@ -49,6 +51,7 @@ class SyncService {
         return;
       }
 
+      await WatchAuthSession.instance.refreshFromPhone();
       _restoreCachedSyncState();
     } catch (error) {
       _debugLog('Failed to initialize sync service: $error');
@@ -68,10 +71,13 @@ class SyncService {
     await _refreshDashboardData();
   }
 
-  Future<List<LoggedMeal>> requestTodaysMeals({bool forceRefresh = false}) async {
+  Future<List<LoggedMeal>> requestTodaysMeals({
+    bool forceRefresh = false,
+  }) async {
     await _ensureInitialized();
 
-    if (!forceRefresh && (_cache.todaysMeals.value.isNotEmpty || _cache.hasFreshData)) {
+    if (!forceRefresh &&
+        (_cache.todaysMeals.value.isNotEmpty || _cache.hasFreshData)) {
       _restoreCachedSyncState();
       unawaited(_refreshDashboardData());
       return _cache.todaysMeals.value;
@@ -84,7 +90,8 @@ class SyncService {
   Future<int?> requestCalorieGoal({bool forceRefresh = false}) async {
     await _ensureInitialized();
 
-    if (!forceRefresh && (_cache.calorieGoal.value != null || _cache.hasFreshData)) {
+    if (!forceRefresh &&
+        (_cache.calorieGoal.value != null || _cache.hasFreshData)) {
       _restoreCachedSyncState();
       unawaited(_refreshDashboardData());
       return _cache.calorieGoal.value;
@@ -262,14 +269,14 @@ class SyncService {
       );
 
       if (response != null && response['success'] == true) {
-        final favoritesData = response['favorites'] as List<dynamic>? ?? const [];
+        final favoritesData =
+            response['favorites'] as List<dynamic>? ?? const [];
         final favorites =
             favoritesData
                 .map(
-                  (json) =>
-                      favoriteMealFromLegacyJson(
-                        Map<String, dynamic>.from(json as Map),
-                      ),
+                  (json) => favoriteMealFromLegacyJson(
+                    Map<String, dynamic>.from(json as Map),
+                  ),
                 )
                 .toList();
 
@@ -296,9 +303,7 @@ class SyncService {
       return mealsData
           .map(
             (json) =>
-                mealInfoFromLegacyJson(
-                  Map<String, dynamic>.from(json as Map),
-                ),
+                mealInfoFromLegacyJson(Map<String, dynamic>.from(json as Map)),
           )
           .toList();
     }
@@ -334,11 +339,15 @@ class SyncService {
 
   Future<bool> _ensurePhoneConnected() async {
     final connected = await isPhoneConnected();
+    if (connected) {
+      unawaited(WatchAuthSession.instance.refreshFromPhone());
+      return true;
+    }
     if (!connected) {
       syncState.value = SyncState.disconnected;
       return false;
     }
-    return true;
+    return false;
   }
 
   bool get _hasDashboardCache =>

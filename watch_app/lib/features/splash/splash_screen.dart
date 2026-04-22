@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/router/app_router.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:widgets/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -26,19 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
       // Small delay to ensure Flutter engine is fully ready
       await Future.delayed(const Duration(milliseconds: 300));
 
-      // Sign in anonymously so the food analysis API can attach a Bearer token.
-      try {
-        final auth = FirebaseAuth.instance;
-        if (auth.currentUser == null) {
-          await auth.signInAnonymously();
-          if (kDebugMode) debugPrint('Guest user signed in');
-        }
-      } catch (e) {
-        if (kDebugMode) debugPrint('Firebase Auth init failed: $e');
-        // Continue — API calls without a token still reach the server.
-      }
-
-      // Initialize Wear OS sync service.
+      // Initialize Wear OS sync service so the watch can reuse the phone's
+      // authenticated session instead of creating its own backend identity.
       try {
         await SyncService.instance.initialize();
       } catch (e) {

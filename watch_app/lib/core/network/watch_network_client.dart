@@ -1,14 +1,13 @@
 import 'package:calorify_watch/core/config/env_config.dart';
+import 'package:calorify_watch/core/services/watch_auth_session.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:protobuf/protobuf.dart';
 
 /// Lightweight Dio-based network client for the watch app.
 ///
-/// Uses Firebase Auth to attach a Bearer token so the backend can identify
-/// the caller.  The watch signs in anonymously in [SplashScreen], so a token
-/// is always available after initialisation.
+/// Reuses the phone app's authenticated Firebase session so watch-originated
+/// analysis requests are attributed to the same backend user.
 class WatchNetworkClient {
   WatchNetworkClient._() : _dio = _buildDio();
 
@@ -30,16 +29,18 @@ class WatchNetworkClient {
       ),
     );
 
-    // Attach Firebase ID token on every request.
+    // Attach the phone app's Firebase ID token on every request.
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           try {
-            final user = FirebaseAuth.instance.currentUser;
-            if (user != null) {
-              final token = await user.getIdToken();
-              if (token != null) {
-                options.headers['Authorization'] = 'Bearer $token';
+            final session = await WatchAuthSession.instance.getSession();
+            if (session != null) {
+              options.headers['Authorization'] = 'Bearer ${session.authToken}';
+              options.headers['X-Calorify-User-Id'] = session.userId;
+              if (session.fcmToken != null && session.fcmToken!.isNotEmpty) {
+                options.headers['X-Calorify-Phone-Fcm-Token'] =
+                    session.fcmToken;
               }
             }
           } catch (e) {
@@ -61,13 +62,24 @@ class WatchNetworkClient {
     RespT Function() parseResponse, {
     required ReqT request,
   }) async {
+    final session = await WatchAuthSession.instance.getSession(
+      refreshIfNeeded: true,
+    );
+    if (session == null || session.authToken.isEmpty) {
+      throw StateError(
+        'Open Calorify on your phone to refresh watch authentication.',
+      );
+    }
+
     final response = await _dio.post<Map<String, dynamic>>(
       endpoint,
       data: request.toProto3Json(),
     );
     final data = response.data;
     if (data == null) {
-      throw StateError('Empty response from $endpoint (status ${response.statusCode})');
+      throw StateError(
+        'Empty response from $endpoint (status ${response.statusCode})',
+      );
     }
     return parseResponse()..mergeFromProto3Json(data);
   }
