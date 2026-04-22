@@ -8,7 +8,7 @@
     "unknownError": "Algo deu errado. Por favor, tente novamente mais tarde.",
     "loadingProfileData": "Erro ao carregar dados do perfil",
     "somethingWentWrong": "Algo deu errado.",
-    "retry": "Retry"
+    "retry": "Tentar novamente"
   },
   "onboarding": {
     "welcome": "Bem-vindo ao {appLabel}",

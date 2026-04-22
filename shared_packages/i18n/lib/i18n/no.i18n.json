@@ -8,7 +8,7 @@
     "unknownError": "Noe gikk galt. Vennligst prøv igjen senere.",
     "loadingProfileData": "Feil ved lasting av profildata",
     "somethingWentWrong": "Noe gikk galt.",
-    "retry": "Retry"
+    "retry": "Prøv igjen"
   },
   "onboarding": {
     "welcome": "Velkommen til {appLabel}",

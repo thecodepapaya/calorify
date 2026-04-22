@@ -8,7 +8,7 @@
     "unknownError": "Nagkaroon ng problema. Pakisubukang muli mamaya.",
     "loadingProfileData": "Error sa pag-load ng datos ng profile",
     "somethingWentWrong": "May nangyaring mali.",
-    "retry": "Retry"
+    "retry": "Subukan muli"
   },
   "onboarding": {
     "welcome": "Maligayang pagdating sa {appLabel}",

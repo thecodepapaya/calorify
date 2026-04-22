@@ -72,7 +72,7 @@ class _TranslationsErrorsPl implements TranslationsErrorsEn {
 	@override String get unknownError => 'Coś poszło nie tak. Spróbuj ponownie później.';
 	@override String get loadingProfileData => 'Błąd ładowania danych profilu';
 	@override String get somethingWentWrong => 'Coś poszło nie tak.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'Spróbuj ponownie';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsPl {
 			'errors.unknownError' => 'Coś poszło nie tak. Spróbuj ponownie później.',
 			'errors.loadingProfileData' => 'Błąd ładowania danych profilu',
 			'errors.somethingWentWrong' => 'Coś poszło nie tak.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'Spróbuj ponownie',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Witamy w ${appLabel}',
 			'onboarding.subtitle' => 'Twój osobisty towarzysz w odżywianiu wspierany sztuczną inteligencją',
 			'onboarding.getStarted' => 'Rozpocznij',

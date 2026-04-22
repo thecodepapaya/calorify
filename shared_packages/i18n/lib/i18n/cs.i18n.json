@@ -8,7 +8,7 @@
     "unknownError": "Něco se pokazilo. Zkuste to prosím později.",
     "loadingProfileData": "Chyba při načítání dat profilu",
     "somethingWentWrong": "Něco se pokazilo.",
-    "retry": "Retry"
+    "retry": "Zkusit znovu"
   },
   "onboarding": {
     "welcome": "Vítejte v {appLabel}",

@@ -72,7 +72,7 @@ class _TranslationsErrorsAr implements TranslationsErrorsEn {
 	@override String get unknownError => 'حدث خطأ ما. الرجاء المحاولة مرة أخرى لاحقًا.';
 	@override String get loadingProfileData => 'خطأ في تحميل بيانات الملف الشخصي';
 	@override String get somethingWentWrong => 'حدث خطأ ما.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'حاول مرة أخرى';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsAr {
 			'errors.unknownError' => 'حدث خطأ ما. الرجاء المحاولة مرة أخرى لاحقًا.',
 			'errors.loadingProfileData' => 'خطأ في تحميل بيانات الملف الشخصي',
 			'errors.somethingWentWrong' => 'حدث خطأ ما.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'حاول مرة أخرى',
 			'onboarding.welcome' => ({required Object appLabel}) => 'مرحبًا بكم في ${appLabel}',
 			'onboarding.subtitle' => 'رفيقك الشخصي للتغذية المدعوم بالذكاء الاصطناعي',
 			'onboarding.getStarted' => 'ابدأ الآن',

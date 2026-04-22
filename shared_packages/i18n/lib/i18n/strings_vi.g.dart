@@ -72,7 +72,7 @@ class _TranslationsErrorsVi implements TranslationsErrorsEn {
 	@override String get unknownError => 'Đã xảy ra lỗi. Vui lòng thử lại sau.';
 	@override String get loadingProfileData => 'Lỗi khi tải dữ liệu hồ sơ';
 	@override String get somethingWentWrong => 'Đã xảy ra lỗi.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'Thử lại';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsVi {
 			'errors.unknownError' => 'Đã xảy ra lỗi. Vui lòng thử lại sau.',
 			'errors.loadingProfileData' => 'Lỗi khi tải dữ liệu hồ sơ',
 			'errors.somethingWentWrong' => 'Đã xảy ra lỗi.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'Thử lại',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Chào mừng bạn đến với ${appLabel}',
 			'onboarding.subtitle' => 'Người bạn đồng hành dinh dưỡng cá nhân của bạn được hỗ trợ bởi AI',
 			'onboarding.getStarted' => 'Bắt đầu',

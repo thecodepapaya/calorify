@@ -8,7 +8,7 @@
     "unknownError": "Что-то пошло не так. Пожалуйста, попробуйте позже.",
     "loadingProfileData": "Ошибка загрузки данных профиля",
     "somethingWentWrong": "Что-то пошло не так.",
-    "retry": "Retry"
+    "retry": "Повторить"
   },
   "onboarding": {
     "welcome": "Добро пожаловать в {appLabel}",

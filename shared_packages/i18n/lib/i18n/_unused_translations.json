@@ -12,7 +12,8 @@
       "networkError": "Network error. Please check your internet connection.",
       "unknownError": "Something went wrong. Please try again later.",
       "loadingProfileData": "Error loading profile data",
-      "somethingWentWrong": "Something went wrong."
+      "somethingWentWrong": "Something went wrong.",
+      "retry": "Retry"
     },
     "onboarding": {
       "welcome": "Welcome to {appLabel}",

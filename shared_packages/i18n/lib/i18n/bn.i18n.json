@@ -8,7 +8,7 @@
     "unknownError": "কিছু ভুল হয়েছে। দয়া করে পরে আবার চেষ্টা করুন।",
     "loadingProfileData": "প্রোফাইল তথ্য লোড করতে ত্রুটি",
     "somethingWentWrong": "কিছু ভুল হয়েছে।",
-    "retry": "Retry"
+    "retry": "আবার চেষ্টা করুন"
   },
   "onboarding": {
     "welcome": "{appLabel} এ স্বাগতম",

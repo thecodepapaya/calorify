@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/errors/app_error.dart';
 import 'package:calorify/core/providers/history_providers.dart';
 import 'package:calorify/features/history/widgets/icon_nutrition.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
@@ -75,11 +76,15 @@ class _MealHistoryScreenState extends ConsumerState<MealHistoryScreen> {
               itemBuilder: (context, index) {
                 if (index == groupedMeals.length &&
                     !historyState.allMealsLoaded) {
-                  return Center(
-                    child:
-                        historyState.isLoadingMore
-                            ? const AppLoader()
-                            : const SizedBox.shrink(),
+                  return _PaginationStatus(
+                    isLoadingMore: historyState.isLoadingMore,
+                    error: historyState.loadMoreError,
+                    onRetry:
+                        () => unawaited(
+                          ref
+                              .read(mealHistoryProvider.notifier)
+                              .loadMore(force: true),
+                        ),
                   );
                 }
                 if (index >= groupedMeals.length) {
@@ -161,6 +166,65 @@ class _MealHistoryScreenState extends ConsumerState<MealHistoryScreen> {
     }
 
     return groupedDayMeals;
+  }
+}
+
+class _PaginationStatus extends StatelessWidget {
+  const _PaginationStatus({
+    required this.isLoadingMore,
+    required this.error,
+    required this.onRetry,
+  });
+
+  final bool isLoadingMore;
+  final AppError? error;
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    if (isLoadingMore) {
+      return const Center(child: AppLoader());
+    }
+
+    if (error == null) {
+      return const SizedBox.shrink();
+    }
+
+    final theme = Theme.of(context);
+    final color = theme.colorScheme.onSurface.withValues(alpha: 0.7);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            _messageFor(error!),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.bodyMedium?.copyWith(color: color),
+          ),
+          const SizedBox(height: 8),
+          FilledButton.tonalIcon(
+            onPressed: onRetry,
+            icon: const Icon(LucideIcons.refreshCw, size: 16),
+            label: Text(t.errors.retry),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _messageFor(AppError error) {
+    return switch (error) {
+      NetworkError() => t.errors.networkError,
+      RateLimitError() => t.errors.rateLimitExceeded,
+      AuthError() ||
+      ServerError() ||
+      ValidationError() ||
+      ParseError() => error.message,
+      UnknownError() =>
+        error.message.isNotEmpty ? error.message : t.errors.somethingWentWrong,
+    };
   }
 }
 

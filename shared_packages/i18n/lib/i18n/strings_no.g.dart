@@ -72,7 +72,7 @@ class _TranslationsErrorsNo implements TranslationsErrorsEn {
 	@override String get unknownError => 'Noe gikk galt. Vennligst prøv igjen senere.';
 	@override String get loadingProfileData => 'Feil ved lasting av profildata';
 	@override String get somethingWentWrong => 'Noe gikk galt.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'Prøv igjen';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsNo {
 			'errors.unknownError' => 'Noe gikk galt. Vennligst prøv igjen senere.',
 			'errors.loadingProfileData' => 'Feil ved lasting av profildata',
 			'errors.somethingWentWrong' => 'Noe gikk galt.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'Prøv igjen',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Velkommen til ${appLabel}',
 			'onboarding.subtitle' => 'Din personlige kostholdsassistent drevet av AI',
 			'onboarding.getStarted' => 'Kom i gang',

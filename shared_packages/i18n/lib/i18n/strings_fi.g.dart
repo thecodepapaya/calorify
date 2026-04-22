@@ -72,7 +72,7 @@ class _TranslationsErrorsFi implements TranslationsErrorsEn {
 	@override String get unknownError => 'Jotain meni pieleen. Yritä hetken kuluttua uudelleen.';
 	@override String get loadingProfileData => 'Virhe profiilitietojen lataamisessa';
 	@override String get somethingWentWrong => 'Jokin meni pieleen.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'Yritä uudelleen';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsFi {
 			'errors.unknownError' => 'Jotain meni pieleen. Yritä hetken kuluttua uudelleen.',
 			'errors.loadingProfileData' => 'Virhe profiilitietojen lataamisessa',
 			'errors.somethingWentWrong' => 'Jokin meni pieleen.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'Yritä uudelleen',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Tervetuloa ${appLabel} -sovellukseen',
 			'onboarding.subtitle' => 'Henkilökohtainen ravitsemuskumppanisi, jota ohjaa tekoäly',
 			'onboarding.getStarted' => 'Aloita',

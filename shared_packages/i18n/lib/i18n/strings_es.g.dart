@@ -72,7 +72,7 @@ class _TranslationsErrorsEs implements TranslationsErrorsEn {
 	@override String get unknownError => 'Algo salió mal. Por favor, inténtalo de nuevo más tarde.';
 	@override String get loadingProfileData => 'Error al cargar datos del perfil';
 	@override String get somethingWentWrong => 'Algo salió mal.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'Reintentar';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsEs {
 			'errors.unknownError' => 'Algo salió mal. Por favor, inténtalo de nuevo más tarde.',
 			'errors.loadingProfileData' => 'Error al cargar datos del perfil',
 			'errors.somethingWentWrong' => 'Algo salió mal.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'Reintentar',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Bienvenido a ${appLabel}',
 			'onboarding.subtitle' => 'Tu compañero personal de nutrición impulsado por IA',
 			'onboarding.getStarted' => 'Comenzar',

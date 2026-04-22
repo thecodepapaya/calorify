@@ -72,7 +72,7 @@ class _TranslationsErrorsGu implements TranslationsErrorsEn {
 	@override String get unknownError => 'કંઈક ગડબડ થઈ ગઈ છે. કૃપા કરીને પછીથી ફરીથી પ્રયાસ કરો.';
 	@override String get loadingProfileData => 'પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ';
 	@override String get somethingWentWrong => 'કોઈ મુશ્કેલી પડી.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'ફરીથી પ્રયાસ કરો';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsGu {
 			'errors.unknownError' => 'કંઈક ગડબડ થઈ ગઈ છે. કૃપા કરીને પછીથી ફરીથી પ્રયાસ કરો.',
 			'errors.loadingProfileData' => 'પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ',
 			'errors.somethingWentWrong' => 'કોઈ મુશ્કેલી પડી.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'ફરીથી પ્રયાસ કરો',
 			'onboarding.welcome' => ({required Object appLabel}) => 'તમે ${appLabel} માં સ્વાગત છે',
 			'onboarding.subtitle' => 'આઇએઇ દ્વારા સક્ષમ તમારા વ્યક્તિગત પોષણ સહાયક',
 			'onboarding.getStarted' => 'શરૂ કરીને જોઈએ',

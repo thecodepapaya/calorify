@@ -72,7 +72,7 @@ class _TranslationsErrorsUk implements TranslationsErrorsEn {
 	@override String get unknownError => 'Щось пішло не так. Будь ласка, спробуйте ще раз пізніше.';
 	@override String get loadingProfileData => 'Помилка завантаження даних профілю';
 	@override String get somethingWentWrong => 'Щось пішло не так.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'Спробуйте ще раз';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsUk {
 			'errors.unknownError' => 'Щось пішло не так. Будь ласка, спробуйте ще раз пізніше.',
 			'errors.loadingProfileData' => 'Помилка завантаження даних профілю',
 			'errors.somethingWentWrong' => 'Щось пішло не так.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'Спробуйте ще раз',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Ласкаво просимо до ${appLabel}',
 			'onboarding.subtitle' => 'Ваш особистий супутник у харчуванні, підкріплений ШІ',
 			'onboarding.getStarted' => 'Розпочати',

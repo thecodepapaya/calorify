@@ -8,7 +8,7 @@
     "unknownError": "કંઈક ગડબડ થઈ ગઈ છે. કૃપા કરીને પછીથી ફરીથી પ્રયાસ કરો.",
     "loadingProfileData": "પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ",
     "somethingWentWrong": "કોઈ મુશ્કેલી પડી.",
-    "retry": "Retry"
+    "retry": "ફરીથી પ્રયાસ કરો"
   },
   "onboarding": {
     "welcome": "તમે {appLabel} માં સ્વાગત છે",

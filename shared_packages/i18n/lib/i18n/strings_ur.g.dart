@@ -72,7 +72,7 @@ class _TranslationsErrorsUr implements TranslationsErrorsEn {
 	@override String get unknownError => 'کچھ غلط ہو گیا ہے۔ براہِ کرم بعد میں دوبارہ کوشش کریں۔';
 	@override String get loadingProfileData => 'پروفائل کا ڈیٹا لوڈ کرنے میں خرابی';
 	@override String get somethingWentWrong => 'کچھ غلط ہوگیا۔';
-	@override String get retry => 'Retry';
+	@override String get retry => 'دوبارہ کوشش کریں';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsUr {
 			'errors.unknownError' => 'کچھ غلط ہو گیا ہے۔ براہِ کرم بعد میں دوبارہ کوشش کریں۔',
 			'errors.loadingProfileData' => 'پروفائل کا ڈیٹا لوڈ کرنے میں خرابی',
 			'errors.somethingWentWrong' => 'کچھ غلط ہوگیا۔',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'دوبارہ کوشش کریں',
 			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} میں خوش آمدید',
 			'onboarding.subtitle' => 'آپ کا ذاتی غذائیت ساتھی جو AI کی طاقت سے ہے',
 			'onboarding.getStarted' => 'شروع کریں',

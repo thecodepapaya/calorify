@@ -8,7 +8,7 @@
     "unknownError": "Κάτι πήγε στραβά. Δοκιμάστε ξανά αργότερα.",
     "loadingProfileData": "Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ",
     "somethingWentWrong": "Κάτι πήγε στραβά.",
-    "retry": "Retry"
+    "retry": "Δοκιμάστε ξανά"
   },
   "onboarding": {
     "welcome": "Καλώς ήρθατε στο {appLabel}",

@@ -8,7 +8,7 @@
     "unknownError": "Qualcosa è andato storto. Riprova più tardi.",
     "loadingProfileData": "Errore nel caricamento dei dati del profilo",
     "somethingWentWrong": "Qualcosa è andato storto.",
-    "retry": "Retry"
+    "retry": "Riprova"
   },
   "onboarding": {
     "welcome": "Benvenuto su {appLabel}",

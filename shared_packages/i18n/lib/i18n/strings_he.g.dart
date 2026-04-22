@@ -72,7 +72,7 @@ class _TranslationsErrorsHe implements TranslationsErrorsEn {
 	@override String get unknownError => 'משהו השתבש. אנא נסה שוב מאוחר יותר.';
 	@override String get loadingProfileData => 'שגיאה בהטענת נתוני פרופיל';
 	@override String get somethingWentWrong => 'משהו השתבש.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'נסה שוב';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsHe {
 			'errors.unknownError' => 'משהו השתבש. אנא נסה שוב מאוחר יותר.',
 			'errors.loadingProfileData' => 'שגיאה בהטענת נתוני פרופיל',
 			'errors.somethingWentWrong' => 'משהו השתבש.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'נסה שוב',
 			'onboarding.welcome' => ({required Object appLabel}) => 'ברוך הבא ל${appLabel}',
 			'onboarding.subtitle' => 'בן זוגך האישי לתזונה המונע על ידי בינה מלאכותית',
 			'onboarding.getStarted' => 'בוא נתחיל',

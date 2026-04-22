@@ -72,7 +72,7 @@ class _TranslationsErrorsMs implements TranslationsErrorsEn {
 	@override String get unknownError => 'Ada sesuatu yang tidak kena. Sila cuba lagi kemudian.';
 	@override String get loadingProfileData => 'Ralat memuatkan data profil';
 	@override String get somethingWentWrong => 'Ada yang tidak kena.';
-	@override String get retry => 'Retry';
+	@override String get retry => 'Cuba lagi';
 }
 
 // Path: onboarding
@@ -1585,7 +1585,7 @@ extension on TranslationsMs {
 			'errors.unknownError' => 'Ada sesuatu yang tidak kena. Sila cuba lagi kemudian.',
 			'errors.loadingProfileData' => 'Ralat memuatkan data profil',
 			'errors.somethingWentWrong' => 'Ada yang tidak kena.',
-			'errors.retry' => 'Retry',
+			'errors.retry' => 'Cuba lagi',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Selamat datang ke ${appLabel}',
 			'onboarding.subtitle' => 'Rakan pemakanan peribadi anda yang dikuasakan oleh AI',
 			'onboarding.getStarted' => 'Mulakan',

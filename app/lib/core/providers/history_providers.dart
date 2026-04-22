@@ -1,4 +1,6 @@
 import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/db/database_interface.dart';
+import 'package:calorify/core/errors/app_error.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:models/models.dart';
@@ -8,21 +10,27 @@ class MealHistoryState {
     required this.meals,
     required this.allMealsLoaded,
     this.isLoadingMore = false,
+    this.loadMoreError,
   });
 
   final List<LoggedMeal> meals;
   final bool allMealsLoaded;
   final bool isLoadingMore;
+  final AppError? loadMoreError;
 
   MealHistoryState copyWith({
     List<LoggedMeal>? meals,
     bool? allMealsLoaded,
     bool? isLoadingMore,
+    AppError? loadMoreError,
+    bool clearLoadMoreError = false,
   }) {
     return MealHistoryState(
       meals: meals ?? this.meals,
       allMealsLoaded: allMealsLoaded ?? this.allMealsLoaded,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+      loadMoreError:
+          clearLoadMoreError ? null : (loadMoreError ?? this.loadMoreError),
     );
   }
 }
@@ -37,39 +45,53 @@ class MealHistoryNotifier extends AsyncNotifier<MealHistoryState> {
 
   @override
   Future<MealHistoryState> build() async {
-    final meals = await _fetchMeals(offset: 0);
+    final database = ref.watch(databaseInterfaceProvider);
+    final meals = await _fetchMeals(database: database, offset: 0);
     return MealHistoryState(
       meals: meals,
       allMealsLoaded: meals.length < _mealsPerPage,
     );
   }
 
-  Future<void> loadMore() async {
+  Future<void> loadMore({bool force = false}) async {
     final current = state.value;
-    if (current == null || current.isLoadingMore || current.allMealsLoaded) {
+    if (current == null ||
+        current.isLoadingMore ||
+        current.allMealsLoaded ||
+        (!force && current.loadMoreError != null)) {
       return;
     }
 
-    state = AsyncData(current.copyWith(isLoadingMore: true));
+    state = AsyncData(
+      current.copyWith(isLoadingMore: true, clearLoadMoreError: true),
+    );
 
     try {
-      final nextPage = await _fetchMeals(offset: current.meals.length);
+      final nextPage = await _fetchMeals(
+        database: ref.read(databaseInterfaceProvider),
+        offset: current.meals.length,
+      );
       state = AsyncData(
         current.copyWith(
           meals: [...current.meals, ...nextPage],
           allMealsLoaded: nextPage.length < _mealsPerPage,
           isLoadingMore: false,
+          clearLoadMoreError: true,
         ),
       );
-    } catch (error) {
-      debugPrint('Failed to load more meal history: $error');
-      state = AsyncData(current.copyWith(isLoadingMore: false));
+    } catch (error, stackTrace) {
+      final appError = AppError.fromException(error, stackTrace);
+      debugPrint('Failed to load more meal history: $appError');
+      state = AsyncData(
+        current.copyWith(isLoadingMore: false, loadMoreError: appError),
+      );
     }
   }
 
-  Future<List<LoggedMeal>> _fetchMeals({required int offset}) {
-    return ref
-        .read(databaseInterfaceProvider)
-        .paginatedMealsHistory(offset: offset);
+  Future<List<LoggedMeal>> _fetchMeals({
+    required DatabaseInterface database,
+    required int offset,
+  }) {
+    return database.paginatedMealsHistory(offset: offset);
   }
 }
