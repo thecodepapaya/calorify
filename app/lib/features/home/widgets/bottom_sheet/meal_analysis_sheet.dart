@@ -71,19 +71,17 @@ Future<V2MealAnalysisContext?> resolveV2MealAnalysisFlow({
       return outcome.resultContext;
     }
 
-    final rootContext = Navigator.of(context, rootNavigator: true).overlay?.context;
-    final safeContext = rootContext ?? context;
-    if (!safeContext.mounted || outcome.analysisId == null) {
+    if (!context.mounted || outcome.analysisId == null) {
       return null;
     }
 
     if (outcome.clarifications.isNotEmpty) {
       Analytics.instance.logEvent(AnalyticsEvent.mealClarificationShown);
       final answers = await showV2MealClarificationSheet(
-        context: safeContext,
+        context: context,
         clarifications: outcome.clarifications,
       );
-      if (answers == null || !safeContext.mounted) {
+      if (answers == null || !context.mounted) {
         Analytics.instance.logEvent(AnalyticsEvent.mealClarificationDismissed);
         return null;
       }
@@ -97,10 +95,10 @@ Future<V2MealAnalysisContext?> resolveV2MealAnalysisFlow({
     if (outcome.mealTypeQuestion != null) {
       Analytics.instance.logEvent(AnalyticsEvent.mealTypeQuestionShown);
       final selectedMealType = await showV2MealTypeSheet(
-        context: safeContext,
+        context: context,
         question: outcome.mealTypeQuestion!,
       );
-      if (selectedMealType == null || !safeContext.mounted) {
+      if (selectedMealType == null || !context.mounted) {
         Analytics.instance.logEvent(AnalyticsEvent.mealTypeQuestionDismissed);
         return null;
       }
@@ -379,6 +377,15 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
         onDone: () {
           if (!mounted) return;
           setState(() => _isLoading = false);
+        },
+        onError: (Object error) {
+          if (!mounted) return;
+          Analytics.instance.logEvent(AnalyticsEvent.mealAnalysisV2Failed);
+          showFlushbar(
+            error is Exception ? '$error' : 'Failed to analyze meal',
+            context: context,
+          );
+          Navigator.of(context).pop();
         },
       );
     } on Exception catch (error) {

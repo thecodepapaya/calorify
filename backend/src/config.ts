@@ -97,6 +97,11 @@ function validateFirebaseServiceAccount(path: string | null): string | null {
         const fallback = resolve(LOCAL_FIREBASE_FALLBACK);
         if (existsSync(fallback)) {
             resolvedPath = fallback;
+        } else {
+            // Neither Docker path nor local fallback exists — Firebase disabled for local dev.
+            // Place firebase-adminsdk.json in backend/ to enable Firebase auth locally.
+            console.warn('[config] Firebase service account not found — Firebase auth disabled. Add backend/firebase-adminsdk.json to enable it.');
+            return null;
         }
     }
 

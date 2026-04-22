@@ -113,6 +113,8 @@ services:
     container_name: calorify-db-staging
     restart: always
     profiles: ["staging"]
+    ports:
+      - "127.0.0.1:5433:5432"
     volumes:
       - postgres_data_staging:/var/lib/postgresql/data
     environment:
