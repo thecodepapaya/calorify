@@ -1,10 +1,14 @@
 import 'dart:async';
-import 'package:models/models.dart';
+
+import 'package:calorify/core/repositories/food_repository.dart';
+import 'package:calorify/core/services/auth_service.dart';
 import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/wear_os_channel.dart';
 import 'package:calorify/core/services/wear_os_message_log.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:models/models.dart';
 
 /// Service to handle Wear OS messages from the watch app
 class WearOsService {
@@ -14,6 +18,7 @@ class WearOsService {
 
   bool _isInitialized = false;
   StreamSubscription<Map<String, dynamic>>? _messageSubscription;
+  FoodRepository _foodRepository = FoodRepository();
 
   /// Initialize the Wear OS service
   Future<void> initialize() async {
@@ -80,6 +85,10 @@ class WearOsService {
           return await _handleGetUserProfile();
         case '/favorites':
           return await _handleGetFavoriteMeals();
+        case '/auth/session':
+          return await _handleGetAuthSession();
+        case '/analysis/detect-text':
+          return await _handleDetectText(data);
         default:
           debugPrint('Unknown message path: $path');
           return {'success': false, 'error': 'Unknown path'};
@@ -187,6 +196,67 @@ class WearOsService {
       debugPrint('Error getting favorite meals: $e');
       return {'success': false, 'error': e.toString()};
     }
+  }
+
+  Future<Map<String, dynamic>> _handleGetAuthSession() async {
+    try {
+      final user = AuthService.instance.currentUser;
+      if (user == null) {
+        return {'success': false, 'error': 'Phone user session is unavailable'};
+      }
+
+      final authToken =
+          AuthService.instance.authToken ?? await user.getIdToken();
+      if (authToken == null || authToken.isEmpty) {
+        return {'success': false, 'error': 'Phone auth token is unavailable'};
+      }
+
+      return {
+        'success': true,
+        'session': {
+          'uid': user.uid,
+          'authToken': authToken,
+          'isAnonymous': user.isAnonymous,
+          'syncedAt': DateTime.now().toUtc().toIso8601String(),
+          if (NotificationService.instance.fcmToken != null)
+            'fcmToken': NotificationService.instance.fcmToken,
+        },
+      };
+    } catch (e) {
+      debugPrint('Error getting auth session for watch: $e');
+      return {'success': false, 'error': e.toString()};
+    }
+  }
+
+  Future<Map<String, dynamic>> _handleDetectText(
+    Map<String, dynamic> data,
+  ) async {
+    try {
+      final textDescription = data['textDescription'] as String?;
+      if (textDescription == null || textDescription.trim().isEmpty) {
+        return {'success': false, 'error': 'textDescription is required'};
+      }
+
+      final response = await _foodRepository.detectText(
+        textDescription: textDescription.trim(),
+      );
+
+      return {'success': true, 'response': response.toProto3Json()};
+    } catch (e) {
+      debugPrint('Error analyzing watch text meal: $e');
+      return {'success': false, 'error': e.toString()};
+    }
+  }
+
+  @visibleForTesting
+  void setFoodRepository(FoodRepository repository) {
+    _foodRepository = repository;
+  }
+
+  @visibleForTesting
+  void resetForTesting() {
+    _foodRepository = FoodRepository();
+    dispose();
   }
 
   /// Send data update to watch app
