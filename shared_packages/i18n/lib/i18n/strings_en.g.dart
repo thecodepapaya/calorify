@@ -92,6 +92,9 @@ class TranslationsErrorsEn {
 
 	/// en: 'Something went wrong.'
 	String get somethingWentWrong => 'Something went wrong.';
+
+	/// en: 'Retry'
+	String get retry => 'Retry';
 }
 
 // Path: onboarding
@@ -2465,6 +2468,7 @@ extension on Translations {
 			'errors.unknownError' => 'Something went wrong. Please try again later.',
 			'errors.loadingProfileData' => 'Error loading profile data',
 			'errors.somethingWentWrong' => 'Something went wrong.',
+			'errors.retry' => 'Retry',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Welcome to ${appLabel}',
 			'onboarding.subtitle' => 'Your personal nutrition companion powered by AI',
 			'onboarding.getStarted' => 'Get Started',

@@ -52,7 +52,7 @@ class MacroSplit extends ConsumerWidget {
             title: t.home.intakeProgress.title,
           ),
           const SizedBox(height: 24),
-          _buildBody(context, mealsAsync, goalAsync),
+          _buildBody(context, ref, mealsAsync, goalAsync),
           const SizedBox(height: 16),
           const MacroLegend(),
         ],
@@ -62,6 +62,7 @@ class MacroSplit extends ConsumerWidget {
 
   Widget _buildBody(
     BuildContext context,
+    WidgetRef ref,
     AsyncValue<List<LoggedMeal>> mealsAsync,
     AsyncValue<int?> goalAsync,
   ) {
@@ -69,7 +70,10 @@ class MacroSplit extends ConsumerWidget {
       return const Center(child: AppLoader());
     }
     if (mealsAsync.hasError) {
-      return ErrorView(error: mealsAsync.error!);
+      return ErrorView(
+        error: mealsAsync.error!,
+        onRetry: () => ref.invalidate(todaysMealsProvider),
+      );
     }
 
     final meals = mealsAsync.value ?? const <LoggedMeal>[];

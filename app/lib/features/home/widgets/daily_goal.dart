@@ -103,7 +103,13 @@ class _SetDailyGoalState extends ConsumerState<SetDailyGoal> {
               ),
               const SizedBox(height: 14),
               if (hasError)
-                ErrorView(error: goalAsync.error ?? mealsAsync.error!)
+                ErrorView(
+                  error: goalAsync.error ?? mealsAsync.error!,
+                  onRetry: () {
+                    ref.invalidate(dailyCalorieGoalProvider);
+                    ref.invalidate(todaysMealsProvider);
+                  },
+                )
               else if (isLoading)
                 const Center(child: AppLoader())
               else

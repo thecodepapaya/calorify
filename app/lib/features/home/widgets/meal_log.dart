@@ -33,7 +33,10 @@ class MealLog extends ConsumerWidget {
           const SizedBox(height: 8),
           mealsAsync.when(
             loading: () => const AppLoader(),
-            error: (error, _) => ErrorView(error: error),
+            error: (error, _) => ErrorView(
+              error: error,
+              onRetry: () => ref.invalidate(todaysMealsProvider),
+            ),
             data: (meals) {
               if (meals.isEmpty) {
                 return EmptyStateWidget(

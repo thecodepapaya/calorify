@@ -19,7 +19,12 @@ class DailySummaryCard extends ConsumerWidget {
     final mealsAsync = ref.watch(todaysMealsProvider);
 
     if (mealsAsync.hasError) {
-      return AppCard(child: ErrorView(error: mealsAsync.error!));
+      return AppCard(
+        child: ErrorView(
+          error: mealsAsync.error!,
+          onRetry: () => ref.invalidate(todaysMealsProvider),
+        ),
+      );
     }
 
     final List<LoggedMeal> loggedMeals =
