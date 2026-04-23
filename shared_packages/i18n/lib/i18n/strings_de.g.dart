@@ -169,7 +169,10 @@ class _TranslationsMealDe implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Fehler beim Speichern der Mahlzeit: ${error}';
 	@override String get removedFromFavorites => 'Von den Favoriten entfernt!';
 	@override String get savedAsFavorite => 'Mahlzeit als Favorit gespeichert!';
+	@override String get unfavorite => 'Favorit entfernen';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Favorit konnte nicht aktualisiert werden: ${error}';
+	@override String get feedbackThanks => 'Danke für dein Feedback!';
+	@override String get reanalysisUpdated => 'Wir haben die Analyse der Mahlzeit basierend auf deinem Feedback aktualisiert.';
 	@override String failedToProcess({required Object error}) => 'Verarbeitung fehlgeschlagen: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Bildverarbeitung fehlgeschlagen: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Fehler beim Komprimieren des Bildes: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsDe {
 			'meal.errorSaving' => ({required Object error}) => 'Fehler beim Speichern der Mahlzeit: ${error}',
 			'meal.removedFromFavorites' => 'Von den Favoriten entfernt!',
 			'meal.savedAsFavorite' => 'Mahlzeit als Favorit gespeichert!',
+			'meal.unfavorite' => 'Favorit entfernen',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Favorit konnte nicht aktualisiert werden: ${error}',
+			'meal.feedbackThanks' => 'Danke für dein Feedback!',
+			'meal.reanalysisUpdated' => 'Wir haben die Analyse der Mahlzeit basierend auf deinem Feedback aktualisiert.',
 			'meal.failedToProcess' => ({required Object error}) => 'Verarbeitung fehlgeschlagen: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Bildverarbeitung fehlgeschlagen: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fehler beim Komprimieren des Bildes: ${error}',

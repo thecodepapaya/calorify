@@ -169,7 +169,10 @@ class _TranslationsMealEl implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Σφάλμα κατά την αποθήκευση του γεύματος: ${error}';
 	@override String get removedFromFavorites => 'Αφαιρέθηκε από τα αγαπημένα!';
 	@override String get savedAsFavorite => 'Το γεύμα αποθηκεύτηκε ως αγαπημένο!';
+	@override String get unfavorite => 'Αφαίρεση από τα αγαπημένα';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Δεν μπόρεσα να ενημερώσω το αγαπημένο: ${error}';
+	@override String get feedbackThanks => 'Ευχαριστούμε για τα σχόλιά σας!';
+	@override String get reanalysisUpdated => 'Ενημερώσαμε την ανάλυση του γεύματος βάσει των σχολίων σας.';
 	@override String failedToProcess({required Object error}) => 'Αποτυχία επεξεργασίας: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Αποτυχία επεξεργασίας εικόνας: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Λάθος συμπίεσης εικόνας: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsEl {
 			'meal.errorSaving' => ({required Object error}) => 'Σφάλμα κατά την αποθήκευση του γεύματος: ${error}',
 			'meal.removedFromFavorites' => 'Αφαιρέθηκε από τα αγαπημένα!',
 			'meal.savedAsFavorite' => 'Το γεύμα αποθηκεύτηκε ως αγαπημένο!',
+			'meal.unfavorite' => 'Αφαίρεση από τα αγαπημένα',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Δεν μπόρεσα να ενημερώσω το αγαπημένο: ${error}',
+			'meal.feedbackThanks' => 'Ευχαριστούμε για τα σχόλιά σας!',
+			'meal.reanalysisUpdated' => 'Ενημερώσαμε την ανάλυση του γεύματος βάσει των σχολίων σας.',
 			'meal.failedToProcess' => ({required Object error}) => 'Αποτυχία επεξεργασίας: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Αποτυχία επεξεργασίας εικόνας: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Λάθος συμπίεσης εικόνας: ${error}',

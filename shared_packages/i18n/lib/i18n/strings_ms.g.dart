@@ -169,7 +169,10 @@ class _TranslationsMealMs implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Ralat semasa menyimpan makanan: ${error}';
 	@override String get removedFromFavorites => 'Dihapus dari kegemaran!';
 	@override String get savedAsFavorite => 'Hidangan disimpan sebagai kegemaran!';
+	@override String get unfavorite => 'Keluarkan dari kegemaran';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Tidak dapat mengemas kini kegemaran: ${error}';
+	@override String get feedbackThanks => 'Terima kasih atas maklum balas anda!';
+	@override String get reanalysisUpdated => 'Analisis hidangan telah dikemas kini berdasarkan maklum balas anda.';
 	@override String failedToProcess({required Object error}) => 'Gagal untuk memproses: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Gagal untuk memproses gambar: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Ralat memampatkan gambar: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsMs {
 			'meal.errorSaving' => ({required Object error}) => 'Ralat semasa menyimpan makanan: ${error}',
 			'meal.removedFromFavorites' => 'Dihapus dari kegemaran!',
 			'meal.savedAsFavorite' => 'Hidangan disimpan sebagai kegemaran!',
+			'meal.unfavorite' => 'Keluarkan dari kegemaran',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Tidak dapat mengemas kini kegemaran: ${error}',
+			'meal.feedbackThanks' => 'Terima kasih atas maklum balas anda!',
+			'meal.reanalysisUpdated' => 'Analisis hidangan telah dikemas kini berdasarkan maklum balas anda.',
 			'meal.failedToProcess' => ({required Object error}) => 'Gagal untuk memproses: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Gagal untuk memproses gambar: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Ralat memampatkan gambar: ${error}',

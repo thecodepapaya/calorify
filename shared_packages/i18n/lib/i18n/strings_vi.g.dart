@@ -169,7 +169,10 @@ class _TranslationsMealVi implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Lỗi khi lưu bữa ăn: ${error}';
 	@override String get removedFromFavorites => 'Đã xóa khỏi yêu thích!';
 	@override String get savedAsFavorite => 'Bữa ăn đã được lưu làm yêu thích!';
+	@override String get unfavorite => 'Bỏ yêu thích';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Không thể cập nhật yêu thích: ${error}';
+	@override String get feedbackThanks => 'Cảm ơn bạn đã phản hồi!';
+	@override String get reanalysisUpdated => 'Đã cập nhật phân tích bữa ăn dựa trên phản hồi của bạn.';
 	@override String failedToProcess({required Object error}) => 'Không thể xử lý: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Không thể xử lý hình ảnh: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Lỗi nén hình ảnh: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsVi {
 			'meal.errorSaving' => ({required Object error}) => 'Lỗi khi lưu bữa ăn: ${error}',
 			'meal.removedFromFavorites' => 'Đã xóa khỏi yêu thích!',
 			'meal.savedAsFavorite' => 'Bữa ăn đã được lưu làm yêu thích!',
+			'meal.unfavorite' => 'Bỏ yêu thích',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Không thể cập nhật yêu thích: ${error}',
+			'meal.feedbackThanks' => 'Cảm ơn bạn đã phản hồi!',
+			'meal.reanalysisUpdated' => 'Đã cập nhật phân tích bữa ăn dựa trên phản hồi của bạn.',
 			'meal.failedToProcess' => ({required Object error}) => 'Không thể xử lý: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Không thể xử lý hình ảnh: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Lỗi nén hình ảnh: ${error}',

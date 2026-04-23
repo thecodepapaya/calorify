@@ -169,7 +169,10 @@ class _TranslationsMealRu implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Ошибка при сохранении приёма пищи: ${error}';
 	@override String get removedFromFavorites => 'Удалено из избранного!';
 	@override String get savedAsFavorite => 'Приём пищи сохранён как любимое!';
+	@override String get unfavorite => 'Убрать из избранного';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Не удалось обновить любимое: ${error}';
+	@override String get feedbackThanks => 'Спасибо за ваш отзыв!';
+	@override String get reanalysisUpdated => 'Мы обновили анализ приёма пищи на основе вашего отзыва.';
 	@override String failedToProcess({required Object error}) => 'Не удалось обработать: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Не удалось обработать изображение: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Ошибка сжатия изображения: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsRu {
 			'meal.errorSaving' => ({required Object error}) => 'Ошибка при сохранении приёма пищи: ${error}',
 			'meal.removedFromFavorites' => 'Удалено из избранного!',
 			'meal.savedAsFavorite' => 'Приём пищи сохранён как любимое!',
+			'meal.unfavorite' => 'Убрать из избранного',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Не удалось обновить любимое: ${error}',
+			'meal.feedbackThanks' => 'Спасибо за ваш отзыв!',
+			'meal.reanalysisUpdated' => 'Мы обновили анализ приёма пищи на основе вашего отзыва.',
 			'meal.failedToProcess' => ({required Object error}) => 'Не удалось обработать: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Не удалось обработать изображение: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Ошибка сжатия изображения: ${error}',

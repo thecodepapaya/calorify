@@ -187,7 +187,8 @@ class _MealTipState extends State<_MealTip> {
     final TextTheme textTheme = theme.textTheme;
 
     final canShowMealImage =
-        (widget.imageBytes?.isNotEmpty ?? false) || metadata.imageUrl.isNotEmpty;
+        (widget.imageBytes?.isNotEmpty ?? false) ||
+        metadata.imageUrl.isNotEmpty;
     final canShowMealTip = _mealDetectionResult?.tip.isNotEmpty ?? false;
 
     final timestamp = widget.loggedMeal?.dateTime ?? DateTime.now();
@@ -401,7 +402,7 @@ class _MealTipState extends State<_MealTip> {
           Expanded(
             child: SecondaryButton(
               onPressed: _removeFromFavorites,
-              text: 'Unfavorite',
+              text: t.meal.unfavorite,
               icon: LucideIcons.starOff,
               analyticsEvent: AnalyticsEvent.favoriteRemove,
             ),
@@ -501,7 +502,7 @@ class _MealTipState extends State<_MealTip> {
           .submitPositiveFeedbackV2(analysisId: analysisId);
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.mealFeedbackThumbsUp);
-      showFlushbar('Thanks for the feedback!', context: context);
+      showFlushbar(t.meal.feedbackThanks, context: context);
       setState(() {
         _feedbackValue = true;
       });
@@ -564,10 +565,7 @@ class _MealTipState extends State<_MealTip> {
         _feedbackValue = null;
       });
 
-      showFlushbar(
-        'Updated the meal analysis based on your feedback.',
-        context: context,
-      );
+      showFlushbar(t.meal.reanalysisUpdated, context: context);
     } on Exception catch (error) {
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.mealReanalysisFailed);

@@ -252,8 +252,17 @@ class TranslationsMealEn {
 	/// en: 'Meal saved as favorite!'
 	String get savedAsFavorite => 'Meal saved as favorite!';
 
+	/// en: 'Unfavorite'
+	String get unfavorite => 'Unfavorite';
+
 	/// en: 'Could not update favorite: {error}'
 	String couldNotUpdateFavorite({required Object error}) => 'Could not update favorite: ${error}';
+
+	/// en: 'Thanks for the feedback!'
+	String get feedbackThanks => 'Thanks for the feedback!';
+
+	/// en: 'Updated the meal analysis based on your feedback.'
+	String get reanalysisUpdated => 'Updated the meal analysis based on your feedback.';
 
 	/// en: 'Failed to process: {error}'
 	String failedToProcess({required Object error}) => 'Failed to process: ${error}';
@@ -2739,7 +2748,10 @@ extension on Translations {
 			'meal.errorSaving' => ({required Object error}) => 'Error saving meal: ${error}',
 			'meal.removedFromFavorites' => 'Removed from favorites!',
 			'meal.savedAsFavorite' => 'Meal saved as favorite!',
+			'meal.unfavorite' => 'Unfavorite',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Could not update favorite: ${error}',
+			'meal.feedbackThanks' => 'Thanks for the feedback!',
+			'meal.reanalysisUpdated' => 'Updated the meal analysis based on your feedback.',
 			'meal.failedToProcess' => ({required Object error}) => 'Failed to process: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Failed to process image: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Error compressing image: ${error}',

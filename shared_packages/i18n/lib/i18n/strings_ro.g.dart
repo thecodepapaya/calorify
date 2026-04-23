@@ -169,7 +169,10 @@ class _TranslationsMealRo implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Eroare la salvarea mesei: ${error}';
 	@override String get removedFromFavorites => 'Eliminată din favorite!';
 	@override String get savedAsFavorite => 'Masa a fost salvată ca favorit!';
+	@override String get unfavorite => 'Elimină din favorite';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Nu s-a putut actualiza favoritul: ${error}';
+	@override String get feedbackThanks => 'Mulțumim pentru feedback!';
+	@override String get reanalysisUpdated => 'Am actualizat analiza mesei pe baza feedback-ului tău.';
 	@override String failedToProcess({required Object error}) => 'Nu s-a putut procesa: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Nu s-a putut procesa imaginea: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Eroare la comprimarea imaginii: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsRo {
 			'meal.errorSaving' => ({required Object error}) => 'Eroare la salvarea mesei: ${error}',
 			'meal.removedFromFavorites' => 'Eliminată din favorite!',
 			'meal.savedAsFavorite' => 'Masa a fost salvată ca favorit!',
+			'meal.unfavorite' => 'Elimină din favorite',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Nu s-a putut actualiza favoritul: ${error}',
+			'meal.feedbackThanks' => 'Mulțumim pentru feedback!',
+			'meal.reanalysisUpdated' => 'Am actualizat analiza mesei pe baza feedback-ului tău.',
 			'meal.failedToProcess' => ({required Object error}) => 'Nu s-a putut procesa: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Nu s-a putut procesa imaginea: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Eroare la comprimarea imaginii: ${error}',

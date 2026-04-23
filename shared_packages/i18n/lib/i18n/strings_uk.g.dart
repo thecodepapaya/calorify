@@ -169,7 +169,10 @@ class _TranslationsMealUk implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Не вдалося зберегти страву: ${error}';
 	@override String get removedFromFavorites => 'Вилучено з улюблених!';
 	@override String get savedAsFavorite => 'Страву збережено як улюблену!';
+	@override String get unfavorite => 'Прибрати з улюблених';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Не вдалося оновити улюблену: ${error}';
+	@override String get feedbackThanks => 'Дякуємо за відгук!';
+	@override String get reanalysisUpdated => 'Ми оновили аналіз страви на основі вашого відгуку.';
 	@override String failedToProcess({required Object error}) => 'Не вдалося обробити: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Не вдалося обробити зображення: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Помилка стиснення зображення: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsUk {
 			'meal.errorSaving' => ({required Object error}) => 'Не вдалося зберегти страву: ${error}',
 			'meal.removedFromFavorites' => 'Вилучено з улюблених!',
 			'meal.savedAsFavorite' => 'Страву збережено як улюблену!',
+			'meal.unfavorite' => 'Прибрати з улюблених',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Не вдалося оновити улюблену: ${error}',
+			'meal.feedbackThanks' => 'Дякуємо за відгук!',
+			'meal.reanalysisUpdated' => 'Ми оновили аналіз страви на основі вашого відгуку.',
 			'meal.failedToProcess' => ({required Object error}) => 'Не вдалося обробити: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Не вдалося обробити зображення: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Помилка стиснення зображення: ${error}',

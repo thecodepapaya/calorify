@@ -169,7 +169,10 @@ class _TranslationsMealFi implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Virhe tallennettaessa ateriaa: ${error}';
 	@override String get removedFromFavorites => 'Poistettu suosikeista!';
 	@override String get savedAsFavorite => 'Ateria tallennettu suosikiksi!';
+	@override String get unfavorite => 'Poista suosikeista';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Suosikkia ei voitu päivittää: ${error}';
+	@override String get feedbackThanks => 'Kiitos palautteesta!';
+	@override String get reanalysisUpdated => 'Päivitimme aterian analyysin palautteesi perusteella.';
 	@override String failedToProcess({required Object error}) => 'Käsittely epäonnistui: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Kuvan käsittely epäonnistui: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Virhe kuvan pakkaamisessa: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsFi {
 			'meal.errorSaving' => ({required Object error}) => 'Virhe tallennettaessa ateriaa: ${error}',
 			'meal.removedFromFavorites' => 'Poistettu suosikeista!',
 			'meal.savedAsFavorite' => 'Ateria tallennettu suosikiksi!',
+			'meal.unfavorite' => 'Poista suosikeista',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Suosikkia ei voitu päivittää: ${error}',
+			'meal.feedbackThanks' => 'Kiitos palautteesta!',
+			'meal.reanalysisUpdated' => 'Päivitimme aterian analyysin palautteesi perusteella.',
 			'meal.failedToProcess' => ({required Object error}) => 'Käsittely epäonnistui: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Kuvan käsittely epäonnistui: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Virhe kuvan pakkaamisessa: ${error}',

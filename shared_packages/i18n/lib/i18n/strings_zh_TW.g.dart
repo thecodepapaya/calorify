@@ -169,7 +169,10 @@ class _TranslationsMealZhTw implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => '儲存餐點時發生錯誤：${error}';
 	@override String get removedFromFavorites => '已從最愛中移除！';
 	@override String get savedAsFavorite => '餐點已保存為最愛！';
+	@override String get unfavorite => '取消收藏';
 	@override String couldNotUpdateFavorite({required Object error}) => '無法更新最愛：${error}';
+	@override String get feedbackThanks => '感謝你的回饋！';
+	@override String get reanalysisUpdated => '已根據你的回饋更新餐點分析。';
 	@override String failedToProcess({required Object error}) => '處理失敗：${error}';
 	@override String failedToProcessImage({required Object error}) => '處理圖像失敗：${error}';
 	@override String errorCompressingImage({required Object error}) => '壓縮圖像時出錯：${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsZhTw {
 			'meal.errorSaving' => ({required Object error}) => '儲存餐點時發生錯誤：${error}',
 			'meal.removedFromFavorites' => '已從最愛中移除！',
 			'meal.savedAsFavorite' => '餐點已保存為最愛！',
+			'meal.unfavorite' => '取消收藏',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => '無法更新最愛：${error}',
+			'meal.feedbackThanks' => '感謝你的回饋！',
+			'meal.reanalysisUpdated' => '已根據你的回饋更新餐點分析。',
 			'meal.failedToProcess' => ({required Object error}) => '處理失敗：${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => '處理圖像失敗：${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => '壓縮圖像時出錯：${error}',

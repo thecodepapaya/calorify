@@ -169,7 +169,10 @@ class _TranslationsMealNo implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Feil ved lagring av måltid: ${error}';
 	@override String get removedFromFavorites => 'Fjernet fra favoritter!';
 	@override String get savedAsFavorite => 'Måltid lagret som favoritt!';
+	@override String get unfavorite => 'Fjern fra favoritter';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Kunne ikke oppdatere favoritt: ${error}';
+	@override String get feedbackThanks => 'Takk for tilbakemeldingen!';
+	@override String get reanalysisUpdated => 'Måltidsanalysen er oppdatert basert på tilbakemeldingen din.';
 	@override String failedToProcess({required Object error}) => 'Feil under prosessering: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Feil under prosessering av bilde: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Feil under komprimering av bilde: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsNo {
 			'meal.errorSaving' => ({required Object error}) => 'Feil ved lagring av måltid: ${error}',
 			'meal.removedFromFavorites' => 'Fjernet fra favoritter!',
 			'meal.savedAsFavorite' => 'Måltid lagret som favoritt!',
+			'meal.unfavorite' => 'Fjern fra favoritter',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Kunne ikke oppdatere favoritt: ${error}',
+			'meal.feedbackThanks' => 'Takk for tilbakemeldingen!',
+			'meal.reanalysisUpdated' => 'Måltidsanalysen er oppdatert basert på tilbakemeldingen din.',
 			'meal.failedToProcess' => ({required Object error}) => 'Feil under prosessering: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Feil under prosessering av bilde: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Feil under komprimering av bilde: ${error}',

@@ -169,7 +169,10 @@ class _TranslationsMealUr implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'خوراک محفوظ کرنے میں خرابی: ${error}';
 	@override String get removedFromFavorites => 'پسندیدہ سے ہٹا دیا گیا!';
 	@override String get savedAsFavorite => 'کھانا پسندیدہ کے طور پر محفوظ کر لیا گیا!';
+	@override String get unfavorite => 'پسندیدہ ہٹائیں';
 	@override String couldNotUpdateFavorite({required Object error}) => 'پسندیدہ کو اپ ڈیٹ نہیں کر سکا: ${error}';
+	@override String get feedbackThanks => 'آپ کی رائے کا شکریہ!';
+	@override String get reanalysisUpdated => 'آپ کی رائے کی بنیاد پر کھانے کے تجزیے کو اپ ڈیٹ کر دیا گیا ہے۔';
 	@override String failedToProcess({required Object error}) => 'عملدرآمد میں ناکامی: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'تصویر کے عمل میں ناکامی: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'تصویر کمپریس کرنے میں خرابی: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsUr {
 			'meal.errorSaving' => ({required Object error}) => 'خوراک محفوظ کرنے میں خرابی: ${error}',
 			'meal.removedFromFavorites' => 'پسندیدہ سے ہٹا دیا گیا!',
 			'meal.savedAsFavorite' => 'کھانا پسندیدہ کے طور پر محفوظ کر لیا گیا!',
+			'meal.unfavorite' => 'پسندیدہ ہٹائیں',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'پسندیدہ کو اپ ڈیٹ نہیں کر سکا: ${error}',
+			'meal.feedbackThanks' => 'آپ کی رائے کا شکریہ!',
+			'meal.reanalysisUpdated' => 'آپ کی رائے کی بنیاد پر کھانے کے تجزیے کو اپ ڈیٹ کر دیا گیا ہے۔',
 			'meal.failedToProcess' => ({required Object error}) => 'عملدرآمد میں ناکامی: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'تصویر کے عمل میں ناکامی: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'تصویر کمپریس کرنے میں خرابی: ${error}',

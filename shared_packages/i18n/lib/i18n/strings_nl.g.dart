@@ -169,7 +169,10 @@ class _TranslationsMealNl implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Fout bij het opslaan van de maaltijd: ${error}';
 	@override String get removedFromFavorites => 'Verwijderd uit favorieten!';
 	@override String get savedAsFavorite => 'Maaltijd opgeslagen als favoriet!';
+	@override String get unfavorite => 'Verwijder uit favorieten';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Kon favoriet niet bijwerken: ${error}';
+	@override String get feedbackThanks => 'Bedankt voor je feedback!';
+	@override String get reanalysisUpdated => 'We hebben de maaltijdanalyse bijgewerkt op basis van je feedback.';
 	@override String failedToProcess({required Object error}) => 'Kon niet verwerken: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Kon afbeelding niet verwerken: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Fout bij het comprimeren van afbeelding: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsNl {
 			'meal.errorSaving' => ({required Object error}) => 'Fout bij het opslaan van de maaltijd: ${error}',
 			'meal.removedFromFavorites' => 'Verwijderd uit favorieten!',
 			'meal.savedAsFavorite' => 'Maaltijd opgeslagen als favoriet!',
+			'meal.unfavorite' => 'Verwijder uit favorieten',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Kon favoriet niet bijwerken: ${error}',
+			'meal.feedbackThanks' => 'Bedankt voor je feedback!',
+			'meal.reanalysisUpdated' => 'We hebben de maaltijdanalyse bijgewerkt op basis van je feedback.',
 			'meal.failedToProcess' => ({required Object error}) => 'Kon niet verwerken: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Kon afbeelding niet verwerken: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fout bij het comprimeren van afbeelding: ${error}',

@@ -169,7 +169,10 @@ class _TranslationsMealFr implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Erreur lors de l\'enregistrement du repas : ${error}';
 	@override String get removedFromFavorites => 'Retiré des favoris !';
 	@override String get savedAsFavorite => 'Repas enregistré comme favori !';
+	@override String get unfavorite => 'Retirer des favoris';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Impossible de mettre à jour le favori : ${error}';
+	@override String get feedbackThanks => 'Merci pour votre retour !';
+	@override String get reanalysisUpdated => 'L\'analyse du repas a été mise à jour en fonction de votre retour.';
 	@override String failedToProcess({required Object error}) => 'Échec du traitement : ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Échec du traitement de l\'image : ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Erreur de compression de l\'image : ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsFr {
 			'meal.errorSaving' => ({required Object error}) => 'Erreur lors de l\'enregistrement du repas : ${error}',
 			'meal.removedFromFavorites' => 'Retiré des favoris !',
 			'meal.savedAsFavorite' => 'Repas enregistré comme favori !',
+			'meal.unfavorite' => 'Retirer des favoris',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Impossible de mettre à jour le favori : ${error}',
+			'meal.feedbackThanks' => 'Merci pour votre retour !',
+			'meal.reanalysisUpdated' => 'L\'analyse du repas a été mise à jour en fonction de votre retour.',
 			'meal.failedToProcess' => ({required Object error}) => 'Échec du traitement : ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Échec du traitement de l\'image : ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Erreur de compression de l\'image : ${error}',

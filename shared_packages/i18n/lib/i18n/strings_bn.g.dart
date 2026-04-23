@@ -169,7 +169,10 @@ class _TranslationsMealBn implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'খাবার সংরক্ষণে ত্রুটি: ${error}';
 	@override String get removedFromFavorites => 'প্রিয় থেকে সরানো হয়েছে!';
 	@override String get savedAsFavorite => 'খাবার প্রিয় হিসেবে সংরক্ষিত হয়েছে!';
+	@override String get unfavorite => 'প্রিয় থেকে সরান';
 	@override String couldNotUpdateFavorite({required Object error}) => 'প্রিয় আপডেট করা যায়নি: ${error}';
+	@override String get feedbackThanks => 'মতামতের জন্য ধন্যবাদ!';
+	@override String get reanalysisUpdated => 'আপনার মতামতের ভিত্তিতে খাবারের বিশ্লেষণ আপডেট করা হয়েছে।';
 	@override String failedToProcess({required Object error}) => 'প্রক্রিয়া করতে ব্যর্থ: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'ছবি প্রক্রিয়া করতে ব্যর্থ: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'ছবি সংকোচন করতে ত্রুটি: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsBn {
 			'meal.errorSaving' => ({required Object error}) => 'খাবার সংরক্ষণে ত্রুটি: ${error}',
 			'meal.removedFromFavorites' => 'প্রিয় থেকে সরানো হয়েছে!',
 			'meal.savedAsFavorite' => 'খাবার প্রিয় হিসেবে সংরক্ষিত হয়েছে!',
+			'meal.unfavorite' => 'প্রিয় থেকে সরান',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'প্রিয় আপডেট করা যায়নি: ${error}',
+			'meal.feedbackThanks' => 'মতামতের জন্য ধন্যবাদ!',
+			'meal.reanalysisUpdated' => 'আপনার মতামতের ভিত্তিতে খাবারের বিশ্লেষণ আপডেট করা হয়েছে।',
 			'meal.failedToProcess' => ({required Object error}) => 'প্রক্রিয়া করতে ব্যর্থ: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'ছবি প্রক্রিয়া করতে ব্যর্থ: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'ছবি সংকোচন করতে ত্রুটি: ${error}',
