@@ -68,11 +68,85 @@ A high-performance Node.js/Fastify backend API server for AI-powered food analys
 - `npm run lint` - Run ESLint
 - `npm run type-check` - Type check without building
 - `npm test` - Run backend unit tests
+- `npm run analysis:v2:cli -- --text "2 rotis with dal"` - Exercise the streamed V2 food-analysis API from the terminal
 - `npm run validate-schemas` - Validate OpenAPI schemas match proto definitions
 - `npm run usda:import` - Bootstrap local Postgres `usda_foods` from USDA CSV files
 - `npm run usda:refresh` - Run a versioned USDA refresh into Postgres
 - `npm run usda:bootstrap` - Download hardcoded USDA ZIP, extract required CSVs, and import in one step
   - Optional: set `USDA_ZIP_PATH` to use an already-downloaded ZIP file instead of downloading
+
+## Streamed V2 Analysis CLI
+
+Use the CLI when you want to debug `/api/v2/food/analyze-text` or `/api/v2/food/analyze-image` without the app. It hits the real streamed backend endpoints, prints each streamed event, shows USDA vs AI fallback per ingredient, and emits a request ID you can use to correlate backend logs.
+
+Common commands:
+
+```bash
+# Local dev server started with `npm run dev`
+npm run analysis:v2:cli -- --base-url http://localhost:8000 --text "2 rotis with dal"
+
+# Docker staging backend exposed on host port 8001
+npm run analysis:v2:cli -- --base-url http://localhost:8001 --text "poha with peanuts"
+
+# Analyze an already-hosted image URL through the streamed V2 route
+npm run analysis:v2:cli -- --base-url http://localhost:8000 --image-url "https://example.com/meal.jpg"
+
+# Upload a local image file to the existing bucket, then analyze it through V2
+npm run analysis:v2:cli -- --base-url http://localhost:8000 --image-file ./meal.jpg
+
+# Stop after the first streamed pass instead of answering clarification / meal-type prompts
+npm run analysis:v2:cli -- --base-url http://localhost:8000 --text "1 banana" --no-interactive
+
+# Print raw NDJSON too
+npm run analysis:v2:cli -- --base-url http://localhost:8000 --text "dal rice" --raw
+
+# Query Loki after the run using the generated request ID
+npm run analysis:v2:cli -- --base-url http://localhost:8000 --text "dal rice" --check-loki
+```
+
+Useful flags:
+
+- `--base-url http://localhost:8000` for `npm run dev`
+- `--base-url http://localhost:8001` for the Docker staging service
+- `--no-interactive` to stop when clarification or meal-type selection is needed
+- `--raw` to print the raw streamed NDJSON lines
+- `--check-loki` to query Loki for the correlated request logs after the run
+- `--request-id <id>` to override the generated request/correlation ID
+
+The CLI output includes:
+
+- streamed step timings as observed by the client
+- ingredient source summaries: `USDA/db` vs `AI fallback`
+- a `requestId` for log correlation
+
+The backend logs for the same request now include a structured `traceSummary` with:
+
+- `llmCallCount`
+- `usdaLookupCount`
+- `dbWriteCount`
+- per-step timings under `traceSummary.steps[]`
+
+To inspect console logs for a specific CLI run:
+
+```bash
+# Docker staging backend
+docker compose logs --since 5m backend-staging | rg 'meal-cli-|meal_analysis_v2'
+
+# Narrow to a specific request ID printed by the CLI
+docker compose logs --since 5m backend-staging | rg 'meal-cli-123|meal_analysis_v2'
+```
+
+To inspect Loki/Grafana:
+
+```bash
+# Start shared logging services if they are not already up
+docker compose up -d loki grafana promtail
+```
+
+- Grafana dashboard: `http://localhost:3000`
+- Loki API: `http://localhost:3100`
+- In Grafana Explore, query with the request ID printed by the CLI, for example:
+  - `{app="calorify-backend"} |= "meal-cli-123"`
 
 ## API Endpoints
 

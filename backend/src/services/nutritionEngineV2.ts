@@ -69,6 +69,29 @@ interface LLMFallbackEntry {
   fiber_per_100g: number;
 }
 
+interface AnalysisLogger {
+  info: (obj: Record<string, unknown>, msg?: string) => void;
+  warn: (obj: Record<string, unknown>, msg?: string) => void;
+  error: (obj: Record<string, unknown>, msg?: string) => void;
+}
+
+type TraceStepCategory = 'llm' | 'usda' | 'pipeline' | 'db';
+
+interface TraceStep {
+  category: TraceStepCategory;
+  name: string;
+  durationMs: number;
+  meta?: Record<string, unknown>;
+}
+
+interface AnalysisTrace {
+  startedAt: number;
+  steps: TraceStep[];
+  llmCallCount: number;
+  usdaLookupCount: number;
+  dbWriteCount: number;
+}
+
 interface UncertaintyReport {
   variancePercent: number;
   needsClarification: boolean;
@@ -207,6 +230,8 @@ export interface AnalysisRequestOptions {
   otherText?: string;
   selectedMealType?: MealTypeValue;
   selectedMealTypeSource?: MealTypeSource;
+  logger?: AnalysisLogger;
+  trace?: AnalysisTrace;
 }
 
 interface PipelineRunContext {
@@ -221,9 +246,11 @@ interface PipelineRunContext {
   selectedMealTypeSource?: MealTypeSource;
   feedbackIssues?: MealFeedbackIssue[];
   otherText?: string;
+  logger?: AnalysisLogger;
+  trace?: AnalysisTrace;
 }
 
-const DECOMPOSITION_MODEL = 'gpt-5-nano';
+const DECOMPOSITION_MODEL = 'gpt-4.1-nano';
 
 const DECOMPOSITION_SYSTEM_PROMPT = `You are a food decomposition AI. Your ONLY job is to break down a meal description into individual atomic ingredients with gram estimates.
 
@@ -449,6 +476,109 @@ function toResolvedIngredientDto(resolved: ResolvedIngredient[]): ResolvedIngred
   }));
 }
 
+function logAnalysis(
+  logger: AnalysisLogger | undefined,
+  level: 'info' | 'warn' | 'error',
+  event: string,
+  data: Record<string, unknown>
+): void {
+  if (!logger) return;
+  logger[level](
+    {
+      type: 'meal_analysis_v2',
+      event,
+      ...data,
+    },
+    event
+  );
+}
+
+function createAnalysisTrace(): AnalysisTrace {
+  return {
+    startedAt: Date.now(),
+    steps: [],
+    llmCallCount: 0,
+    usdaLookupCount: 0,
+    dbWriteCount: 0,
+  };
+}
+
+function traceSummary(trace: AnalysisTrace | undefined): Record<string, unknown> | undefined {
+  if (!trace) return undefined;
+  return {
+    totalDurationMs: Date.now() - trace.startedAt,
+    llmCallCount: trace.llmCallCount,
+    usdaLookupCount: trace.usdaLookupCount,
+    dbWriteCount: trace.dbWriteCount,
+    steps: trace.steps,
+  };
+}
+
+async function traceAsync<T>(
+  trace: AnalysisTrace | undefined,
+  category: TraceStepCategory,
+  name: string,
+  meta: Record<string, unknown>,
+  fn: () => Promise<T>
+): Promise<T> {
+  const startedAt = Date.now();
+  try {
+    const result = await fn();
+    const durationMs = Date.now() - startedAt;
+    if (trace) {
+      trace.steps.push({ category, name, durationMs, meta });
+      if (category === 'llm') trace.llmCallCount += 1;
+      if (category === 'usda') trace.usdaLookupCount += 1;
+      if (category === 'db') trace.dbWriteCount += 1;
+    }
+    return result;
+  } catch (error) {
+    const durationMs = Date.now() - startedAt;
+    if (trace) {
+      trace.steps.push({
+        category,
+        name,
+        durationMs,
+        meta: {
+          ...meta,
+          ok: false,
+          error: error instanceof Error ? error.message : 'Unknown error',
+        },
+      });
+      if (category === 'llm') trace.llmCallCount += 1;
+      if (category === 'usda') trace.usdaLookupCount += 1;
+      if (category === 'db') trace.dbWriteCount += 1;
+    }
+    throw error;
+  }
+}
+
+function summarizeResolvedSources(resolved: ResolvedIngredient[]): {
+  total: number;
+  dbCount: number;
+  llmFallbackCount: number;
+  unmatchedCount: number;
+  matchTypes: Record<string, number>;
+} {
+  const summary = {
+    total: resolved.length,
+    dbCount: 0,
+    llmFallbackCount: 0,
+    unmatchedCount: 0,
+    matchTypes: {} as Record<string, number>,
+  };
+
+  for (const ingredient of resolved) {
+    if (ingredient.source === 'db') summary.dbCount += 1;
+    if (ingredient.source === 'llm_fallback') summary.llmFallbackCount += 1;
+    if (ingredient.match.matchType === 'unmatched') summary.unmatchedCount += 1;
+    summary.matchTypes[ingredient.match.matchType] =
+      (summary.matchTypes[ingredient.match.matchType] ?? 0) + 1;
+  }
+
+  return summary;
+}
+
 function buildCorrectionContext(issues?: MealFeedbackIssue[], otherText?: string): string {
   if ((!issues || issues.length === 0) && !otherText) return '';
   return [
@@ -505,7 +635,7 @@ async function decomposeFromText(
       type: 'json_schema',
       json_schema: { name: 'meal_decomposition', schema: DECOMPOSITION_SCHEMA, strict: true },
     },
-    max_tokens: 1200,
+    max_completion_tokens: 1200,
   });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty LLM response');
@@ -538,7 +668,7 @@ async function decomposeFromImage(
       type: 'json_schema',
       json_schema: { name: 'meal_decomposition', schema: DECOMPOSITION_SCHEMA, strict: true },
     },
-    max_tokens: 1200,
+    max_completion_tokens: 1200,
   });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty LLM response');
@@ -558,7 +688,7 @@ async function estimateMacrosViaLLM(client: OpenAI, names: string[]): Promise<Ma
       type: 'json_schema',
       json_schema: { name: 'macro_fallback', schema: FALLBACK_SCHEMA, strict: true },
     },
-    max_tokens: 800,
+    max_completion_tokens: 800,
   });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty LLM fallback response');
@@ -571,12 +701,28 @@ async function estimateMacrosViaLLM(client: OpenAI, names: string[]): Promise<Ma
   return result;
 }
 
-async function resolveIngredients(client: OpenAI, decomposition: LLMDecomposition): Promise<ResolvedIngredient[]> {
+async function resolveIngredients(
+  client: OpenAI,
+  decomposition: LLMDecomposition,
+  logger?: AnalysisLogger,
+  analysisId?: string,
+  trace?: AnalysisTrace
+): Promise<ResolvedIngredient[]> {
   const resolved: ResolvedIngredient[] = [];
   const unmatched: { index: number; ingredient: LLMIngredient }[] = [];
 
   for (const ingredient of decomposition.ingredients) {
-    const usdaMatch = await canonicalizeWithUsda(ingredient.canonical_hint);
+    const usdaMatch = await traceAsync(
+      trace,
+      'usda',
+      'canonicalize_with_usda',
+      {
+        analysisId,
+        ingredient: ingredient.raw_name,
+        canonicalHint: ingredient.canonical_hint,
+      },
+      () => canonicalizeWithUsda(ingredient.canonical_hint)
+    );
     const match: CanonicalMatch = usdaMatch.row
       ? {
           foodId: String(usdaMatch.row.fdc_id),
@@ -614,10 +760,19 @@ async function resolveIngredients(client: OpenAI, decomposition: LLMDecompositio
   }
 
   if (unmatched.length > 0) {
+    const unmatchedHints = unmatched.map((item) => item.ingredient.canonical_hint);
     try {
-      const fallbackMap = await estimateMacrosViaLLM(
-        client,
-        unmatched.map((item) => item.ingredient.canonical_hint)
+      const fallbackMap = await traceAsync(
+        trace,
+        'llm',
+        'estimate_macros_fallback',
+        {
+          analysisId,
+          model: DECOMPOSITION_MODEL,
+          unmatchedCount: unmatched.length,
+          unmatchedHints,
+        },
+        () => estimateMacrosViaLLM(client, unmatchedHints)
       );
       for (const { index, ingredient } of unmatched) {
         const entry = fallbackMap.get(normalize(ingredient.canonical_hint));
@@ -629,12 +784,18 @@ async function resolveIngredients(client: OpenAI, decomposition: LLMDecompositio
         current.match = { ...current.match, matchType: 'llm_fallback' };
         current.source = 'llm_fallback';
       }
-      console.log(
-        `[nutritionEngineV2] USDA unmatched=${unmatched.length} fallbackApplied=${unmatched.length}`
-      );
+      logAnalysis(logger, 'warn', 'llm_macro_fallback_applied', {
+        analysisId,
+        unmatchedCount: unmatched.length,
+        unmatchedHints,
+      });
     } catch {
       // Keep unresolved items as zero macros.
-      console.warn(`[nutritionEngineV2] USDA unmatched=${unmatched.length} fallbackFailed=true`);
+      logAnalysis(logger, 'error', 'llm_macro_fallback_failed', {
+        analysisId,
+        unmatchedCount: unmatched.length,
+        unmatchedHints,
+      });
     }
   }
 
@@ -712,7 +873,7 @@ async function enrichPresentationFromText(
       type: 'json_schema',
       json_schema: { name: 'meal_presentation', schema: PRESENTATION_SCHEMA, strict: true },
     },
-    max_tokens: 800,
+    max_completion_tokens: 800,
   });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty presentation response');
@@ -757,7 +918,7 @@ async function enrichPresentationFromImage(
       type: 'json_schema',
       json_schema: { name: 'meal_presentation', schema: PRESENTATION_SCHEMA, strict: true },
     },
-    max_tokens: 800,
+    max_completion_tokens: 800,
   });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty presentation response');
@@ -837,6 +998,10 @@ async function* runPipelineFromDecomposition(
   emitDecomposition: boolean = true,
   persistClarificationAnswers: boolean = true
 ): AsyncGenerator<PipelineEvent> {
+  const startedAt = Date.now();
+  const logger = context.logger;
+  const trace = context.trace;
+
   const decompositionEvent: PipelineEvent = {
     step: 'decomposition',
     data: {
@@ -846,10 +1011,32 @@ async function* runPipelineFromDecomposition(
       ingredients: toDecompositionDto(decomposition),
     },
   };
-  await persistSessionSnapshot(context, { decompositionData: decompositionEvent.data });
+  await traceAsync(
+    trace,
+    'db',
+    'persist_session_snapshot',
+    { analysisId: context.analysisId, stage: 'decomposition' },
+    () => persistSessionSnapshot(context, { decompositionData: decompositionEvent.data })
+  );
   if (emitDecomposition) yield decompositionEvent;
 
-  let resolved = await resolveIngredients(client, decomposition);
+  logAnalysis(logger, 'info', 'decomposition_complete', {
+    analysisId: context.analysisId,
+    source: context.source,
+    ingredientCount: decomposition.ingredients.length,
+    confidence: decomposition.confidence,
+    durationMs: Date.now() - startedAt,
+  });
+
+  const resolveStartedAt = Date.now();
+  let resolved = await traceAsync(
+    trace,
+    'pipeline',
+    'resolve_ingredients',
+    { analysisId: context.analysisId, source: context.source, ingredientCount: decomposition.ingredients.length },
+    () => resolveIngredients(client, decomposition, logger, context.analysisId, trace)
+  );
+  let sourceSummary = summarizeResolvedSources(resolved);
   const ingredientsEvent: PipelineEvent = {
     step: 'ingredients',
     data: {
@@ -857,22 +1044,48 @@ async function* runPipelineFromDecomposition(
       ingredients: toResolvedIngredientDto(resolved),
     },
   };
-  await persistSessionSnapshot(context, {
-    decompositionData: decompositionEvent.data,
-    ingredientsData: ingredientsEvent.data,
-    clarificationAnswers,
-  });
+  await traceAsync(
+    trace,
+    'db',
+    'persist_session_snapshot',
+    { analysisId: context.analysisId, stage: 'ingredients' },
+    () =>
+      persistSessionSnapshot(context, {
+        decompositionData: decompositionEvent.data,
+        ingredientsData: ingredientsEvent.data,
+        clarificationAnswers,
+      })
+  );
   yield ingredientsEvent;
+
+  logAnalysis(
+    logger,
+    sourceSummary.llmFallbackCount > 0 ? 'warn' : 'info',
+    'ingredients_resolved',
+    {
+      analysisId: context.analysisId,
+      source: context.source,
+      durationMs: Date.now() - resolveStartedAt,
+      sourceSummary,
+    }
+  );
 
   let uncertainty = analyzeUncertainty(resolved);
   let clarifications = uncertainty.needsClarification ? generateClarifications(resolved) : [];
 
   if (clarificationAnswers && clarificationAnswers.length > 0) {
     resolved = applyClarificationAnswers(resolved, clarifications, clarificationAnswers);
+    sourceSummary = summarizeResolvedSources(resolved);
     uncertainty = analyzeUncertainty(resolved);
     clarifications = [];
     if (persistClarificationAnswers) {
-      await recordMealAnalysisClarification(context.analysisId, clarificationAnswers);
+      await traceAsync(
+        trace,
+        'db',
+        'record_meal_analysis_clarification',
+        { analysisId: context.analysisId, answerCount: clarificationAnswers.length },
+        () => recordMealAnalysisClarification(context.analysisId, clarificationAnswers)
+      );
     }
   }
 
@@ -886,20 +1099,53 @@ async function* runPipelineFromDecomposition(
       clarifications,
     },
   };
-  await persistSessionSnapshot(context, {
-    decompositionData: decompositionEvent.data,
-    ingredientsData: { analysis_id: context.analysisId, ingredients: toResolvedIngredientDto(resolved) },
-    uncertaintyData: uncertaintyEvent.data,
-    clarificationAnswers,
-  });
+  await traceAsync(
+    trace,
+    'db',
+    'persist_session_snapshot',
+    { analysisId: context.analysisId, stage: 'uncertainty' },
+    () =>
+      persistSessionSnapshot(context, {
+        decompositionData: decompositionEvent.data,
+        ingredientsData: { analysis_id: context.analysisId, ingredients: toResolvedIngredientDto(resolved) },
+        uncertaintyData: uncertaintyEvent.data,
+        clarificationAnswers,
+      })
+  );
   yield uncertaintyEvent;
 
+  logAnalysis(logger, 'info', 'uncertainty_evaluated', {
+    analysisId: context.analysisId,
+    source: context.source,
+    needsClarification: clarifications.length > 0,
+    clarificationCount: clarifications.length,
+    variancePercent: uncertainty.variancePercent,
+  });
+
   if (clarifications.length > 0 && (!clarificationAnswers || clarificationAnswers.length === 0)) {
+    logAnalysis(logger, 'info', 'clarification_requested', {
+      analysisId: context.analysisId,
+      source: context.source,
+      totalDurationMs: Date.now() - startedAt,
+      clarificationCount: clarifications.length,
+      sourceSummary,
+    });
     return;
   }
 
   const totalMacros = sumMacros(resolved.map((ingredient) => ingredient.macros));
-  const presentation = await enrichPresentation(client, context, resolved, totalMacros);
+  const presentation = await traceAsync(
+    trace,
+    'llm',
+    'enrich_presentation',
+    {
+      analysisId: context.analysisId,
+      source: context.source,
+      model: DECOMPOSITION_MODEL,
+      ingredientCount: resolved.length,
+    },
+    () => enrichPresentation(client, context, resolved, totalMacros)
+  );
 
   if (!context.selectedMealType && (!presentation.meal_type_confident || presentation.meal_type === 'UNKNOWN')) {
     const mealTypeQuestionEvent: PipelineEvent = {
@@ -912,14 +1158,29 @@ async function* runPipelineFromDecomposition(
           presentation.meal_type !== 'UNKNOWN' ? presentation.meal_type : undefined,
       },
     };
-    await persistSessionSnapshot(context, {
-      decompositionData: decompositionEvent.data,
-      ingredientsData: { analysis_id: context.analysisId, ingredients: toResolvedIngredientDto(resolved) },
-      uncertaintyData: uncertaintyEvent.data,
-      mealTypeQuestionData: mealTypeQuestionEvent.data,
-      clarificationAnswers,
-    });
+    await traceAsync(
+      trace,
+      'db',
+      'persist_session_snapshot',
+      { analysisId: context.analysisId, stage: 'meal_type_question' },
+      () =>
+        persistSessionSnapshot(context, {
+          decompositionData: decompositionEvent.data,
+          ingredientsData: { analysis_id: context.analysisId, ingredients: toResolvedIngredientDto(resolved) },
+          uncertaintyData: uncertaintyEvent.data,
+          mealTypeQuestionData: mealTypeQuestionEvent.data,
+          clarificationAnswers,
+        })
+    );
     yield mealTypeQuestionEvent;
+    logAnalysis(logger, 'info', 'meal_type_question_requested', {
+      analysisId: context.analysisId,
+      source: context.source,
+      totalDurationMs: Date.now() - startedAt,
+      inferredMealType:
+        presentation.meal_type !== 'UNKNOWN' ? presentation.meal_type : undefined,
+      sourceSummary,
+    });
     return;
   }
 
@@ -928,7 +1189,13 @@ async function* runPipelineFromDecomposition(
     context.selectedMealTypeSource ??
     (context.selectedMealType ? 'user' : 'model');
 
-  await recordMealAnalysisMealType(context.analysisId, finalMealType, mealTypeSource);
+  await traceAsync(
+    trace,
+    'db',
+    'record_meal_analysis_meal_type',
+    { analysisId: context.analysisId, finalMealType, mealTypeSource },
+    () => recordMealAnalysisMealType(context.analysisId, finalMealType, mealTypeSource)
+  );
 
   const resultEvent: PipelineEvent = {
     step: 'result',
@@ -946,14 +1213,32 @@ async function* runPipelineFromDecomposition(
       ingredients: toResolvedIngredientDto(resolved),
     },
   };
-  await persistSessionSnapshot(context, {
-    decompositionData: decompositionEvent.data,
-    ingredientsData: { analysis_id: context.analysisId, ingredients: toResolvedIngredientDto(resolved) },
-    uncertaintyData: uncertaintyEvent.data,
-    resultData: resultEvent.data,
-    clarificationAnswers,
-  });
+  await traceAsync(
+    trace,
+    'db',
+    'persist_session_snapshot',
+    { analysisId: context.analysisId, stage: 'result' },
+    () =>
+      persistSessionSnapshot(context, {
+        decompositionData: decompositionEvent.data,
+        ingredientsData: { analysis_id: context.analysisId, ingredients: toResolvedIngredientDto(resolved) },
+        uncertaintyData: uncertaintyEvent.data,
+        resultData: resultEvent.data,
+        clarificationAnswers,
+      })
+  );
   yield resultEvent;
+
+  logAnalysis(logger, 'info', 'analysis_completed', {
+    analysisId: context.analysisId,
+    source: context.source,
+    totalDurationMs: Date.now() - startedAt,
+    mealType: finalMealType,
+    mealTypeSource,
+    calories: totalMacros.calories,
+    sourceSummary,
+    traceSummary: traceSummary(trace),
+  });
 }
 
 function sessionToDecomposition(session: Awaited<ReturnType<typeof getMealAnalysisSession>>): LLMDecomposition | undefined {
@@ -984,6 +1269,7 @@ export async function* analyzeTextMeal(
   options: AnalysisRequestOptions = {}
 ): AsyncGenerator<PipelineEvent> {
   const analysisId = options.analysisId ?? randomUUID();
+  const trace = options.trace ?? createAnalysisTrace();
   const context: PipelineRunContext = {
     analysisId,
     parentAnalysisId: options.parentAnalysisId,
@@ -996,17 +1282,44 @@ export async function* analyzeTextMeal(
     selectedMealTypeSource: options.selectedMealTypeSource,
     feedbackIssues: options.feedbackIssues,
     otherText: options.otherText,
+    logger: options.logger,
+    trace,
   };
 
   try {
+    logAnalysis(options.logger, 'info', 'analysis_started', {
+      analysisId,
+      source: 'text',
+      locale: context.locale,
+      countryCode: context.countryCode,
+      textLength: input.length,
+      hasFeedbackContext: Boolean(options.feedbackIssues?.length || options.otherText),
+    });
     const client = getOpenAiClient();
-    const decomposition = await decomposeFromText(
-      client,
-      input,
-      buildCorrectionContext(options.feedbackIssues, options.otherText)
+    const decomposition = await traceAsync(
+      trace,
+      'llm',
+      'decompose_text',
+      {
+        analysisId,
+        model: DECOMPOSITION_MODEL,
+        source: 'text',
+      },
+      () =>
+        decomposeFromText(
+          client,
+          input,
+          buildCorrectionContext(options.feedbackIssues, options.otherText)
+        )
     );
     yield* runPipelineFromDecomposition(client, decomposition, context);
   } catch (error) {
+    logAnalysis(options.logger, 'error', 'analysis_failed', {
+      analysisId,
+      source: 'text',
+      message: error instanceof Error ? error.message : 'Analysis failed',
+      traceSummary: traceSummary(trace),
+    });
     yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Analysis failed');
   }
 }
@@ -1016,6 +1329,7 @@ export async function* analyzeImageMeal(
   options: AnalysisRequestOptions = {}
 ): AsyncGenerator<PipelineEvent> {
   const analysisId = options.analysisId ?? randomUUID();
+  const trace = options.trace ?? createAnalysisTrace();
   const context: PipelineRunContext = {
     analysisId,
     parentAnalysisId: options.parentAnalysisId,
@@ -1028,26 +1342,65 @@ export async function* analyzeImageMeal(
     selectedMealTypeSource: options.selectedMealTypeSource,
     feedbackIssues: options.feedbackIssues,
     otherText: options.otherText,
+    logger: options.logger,
+    trace,
   };
 
   try {
+    logAnalysis(options.logger, 'info', 'analysis_started', {
+      analysisId,
+      source: 'image',
+      locale: context.locale,
+      countryCode: context.countryCode,
+      imageUrlHost: (() => {
+        try {
+          return new URL(imageUrl).host;
+        } catch {
+          return 'invalid-url';
+        }
+      })(),
+      hasFeedbackContext: Boolean(options.feedbackIssues?.length || options.otherText),
+    });
     const client = getOpenAiClient();
-    const decomposition = await decomposeFromImage(
-      client,
-      imageUrl,
-      buildCorrectionContext(options.feedbackIssues, options.otherText)
+    const decomposition = await traceAsync(
+      trace,
+      'llm',
+      'decompose_image',
+      {
+        analysisId,
+        model: DECOMPOSITION_MODEL,
+        source: 'image',
+      },
+      () =>
+        decomposeFromImage(
+          client,
+          imageUrl,
+          buildCorrectionContext(options.feedbackIssues, options.otherText)
+        )
     );
     yield* runPipelineFromDecomposition(client, decomposition, context);
   } catch (error) {
+    logAnalysis(options.logger, 'error', 'analysis_failed', {
+      analysisId,
+      source: 'image',
+      message: error instanceof Error ? error.message : 'Image analysis failed',
+      traceSummary: traceSummary(trace),
+    });
     yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Image analysis failed');
   }
 }
 
 export async function* continueMealAnalysis(
   analysisId: string,
-  answers: ClarificationAnswerDTO[]
+  answers: ClarificationAnswerDTO[],
+  options: AnalysisRequestOptions = {}
 ): AsyncGenerator<PipelineEvent> {
+  const trace = options.trace ?? createAnalysisTrace();
   try {
+    logAnalysis(options.logger, 'info', 'clarification_resume_started', {
+      analysisId,
+      answerCount: answers.length,
+    });
     const session = await getMealAnalysisSession(analysisId);
     if (!session) {
       yield buildErrorEvent(analysisId, 'Analysis session not found');
@@ -1069,20 +1422,33 @@ export async function* continueMealAnalysis(
       requestPayload: (session.requestPayload as Record<string, unknown>) ?? {},
       selectedMealType: session.selectedMealType as MealTypeValue | undefined,
       selectedMealTypeSource: session.selectedMealTypeSource,
+      logger: options.logger,
+      trace,
     };
 
     const client = getOpenAiClient();
     yield* runPipelineFromDecomposition(client, decomposition, context, answers, false);
   } catch (error) {
+    logAnalysis(options.logger, 'error', 'clarification_resume_failed', {
+      analysisId,
+      message: error instanceof Error ? error.message : 'Clarification failed',
+      traceSummary: traceSummary(trace),
+    });
     yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Clarification failed');
   }
 }
 
 export async function* continueMealAnalysisWithMealType(
   analysisId: string,
-  selectedMealType: MealTypeValue
+  selectedMealType: MealTypeValue,
+  options: AnalysisRequestOptions = {}
 ): AsyncGenerator<PipelineEvent> {
+  const trace = options.trace ?? createAnalysisTrace();
   try {
+    logAnalysis(options.logger, 'info', 'meal_type_resume_started', {
+      analysisId,
+      selectedMealType,
+    });
     const session = await getMealAnalysisSession(analysisId);
     if (!session) {
       yield buildErrorEvent(analysisId, 'Analysis session not found');
@@ -1104,6 +1470,8 @@ export async function* continueMealAnalysisWithMealType(
       requestPayload: (session.requestPayload as Record<string, unknown>) ?? {},
       selectedMealType,
       selectedMealTypeSource: 'user',
+      logger: options.logger,
+      trace,
     };
 
     const client = getOpenAiClient();
@@ -1116,6 +1484,12 @@ export async function* continueMealAnalysisWithMealType(
       false
     );
   } catch (error) {
+    logAnalysis(options.logger, 'error', 'meal_type_resume_failed', {
+      analysisId,
+      selectedMealType,
+      message: error instanceof Error ? error.message : 'Meal type continuation failed',
+      traceSummary: traceSummary(trace),
+    });
     yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Meal type continuation failed');
   }
 }
@@ -1124,9 +1498,17 @@ export async function* reanalyzeMeal(
   analysisId: string,
   issues: MealFeedbackIssue[],
   otherText?: string,
-  userId?: string
+  userId?: string,
+  requestOptions: AnalysisRequestOptions = {}
 ): AsyncGenerator<PipelineEvent> {
+  const trace = requestOptions.trace ?? createAnalysisTrace();
   try {
+    logAnalysis(requestOptions.logger, 'info', 'reanalyze_started', {
+      analysisId,
+      issues,
+      issueCount: issues.length,
+      hasOtherText: Boolean(otherText),
+    });
     const session = await getMealAnalysisSession(analysisId);
     if (!session) {
       yield buildErrorEvent(analysisId, 'Analysis session not found');
@@ -1148,6 +1530,8 @@ export async function* reanalyzeMeal(
           : undefined,
       selectedMealTypeSource:
         session.selectedMealTypeSource === 'user' ? 'user' : undefined,
+      logger: requestOptions.logger,
+      trace,
     };
 
     const requestPayload = (session.requestPayload as Record<string, unknown>) ?? {};
@@ -1168,6 +1552,11 @@ export async function* reanalyzeMeal(
     }
     yield* analyzeTextMeal(textDescription, options);
   } catch (error) {
+    logAnalysis(requestOptions.logger, 'error', 'reanalyze_failed', {
+      analysisId,
+      message: error instanceof Error ? error.message : 'Reanalysis failed',
+      traceSummary: traceSummary(trace),
+    });
     yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Reanalysis failed');
   }
 }
