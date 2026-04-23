@@ -2,12 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/tabs.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/features/home/widgets/home_skeletons.dart';
 import 'package:calorify/features/history/widgets/logged_meals.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/empty_state_widget.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/shared_widgets/section_header.dart';
-import 'package:widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -32,11 +32,12 @@ class MealLog extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           mealsAsync.when(
-            loading: () => const AppLoader(),
-            error: (error, _) => ErrorView(
-              error: error,
-              onRetry: () => ref.invalidate(todaysMealsProvider),
-            ),
+            loading: () => const MealLogSkeleton(),
+            error:
+                (error, _) => ErrorView(
+                  error: error,
+                  onRetry: () => ref.invalidate(todaysMealsProvider),
+                ),
             data: (meals) {
               if (meals.isEmpty) {
                 return EmptyStateWidget(

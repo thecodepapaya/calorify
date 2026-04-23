@@ -1,11 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:calorify/core/models/ai_summary_result.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/features/home/home_screen.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:health/health.dart';
+import 'package:models/models.dart';
+import 'package:widgets/widgets.dart';
 import '../../helpers/test_helpers.dart';
 import '../../setup/all_tests.dart';
 
@@ -53,7 +58,7 @@ void main() {
           overrides: [aiSummaryProvider.overrideWith((ref) => null)],
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       expect(find.byType(HomeScreen), findsOneWidget);
       // Components from the build method
@@ -77,9 +82,48 @@ void main() {
           overrides: [aiSummaryProvider.overrideWith((ref) => null)],
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       expect(find.textContaining('Connect'), findsWidgets);
+    });
+
+    testWidgets('shows skeleton cards while dashboard data is loading', (
+      WidgetTester tester,
+    ) async {
+      final todaysMealsController =
+          StreamController<List<LoggedMeal>>.broadcast();
+      final last7DaysMealsController =
+          StreamController<List<LoggedMeal>>.broadcast();
+      final dailyGoalController = StreamController<int?>.broadcast();
+      final aiSummaryCompleter = Completer<AiSummaryResult?>();
+
+      addTearDown(() async {
+        await todaysMealsController.close();
+        await last7DaysMealsController.close();
+        await dailyGoalController.close();
+      });
+
+      await tester.pumpWidget(
+        wrapWithProviders(
+          const HomeScreen(),
+          overrides: [
+            todaysMealsProvider.overrideWith(
+              (ref) => todaysMealsController.stream,
+            ),
+            last7DaysMealsProvider.overrideWith(
+              (ref) => last7DaysMealsController.stream,
+            ),
+            dailyCalorieGoalProvider.overrideWith(
+              (ref) => dailyGoalController.stream,
+            ),
+            aiSummaryProvider.overrideWith((ref) => aiSummaryCompleter.future),
+          ],
+        ),
+      );
+      await tester.pump();
+
+      expect(find.byType(ShimmerBox), findsWidgets);
+      expect(find.byType(AppLoader), findsNothing);
     });
   });
 }

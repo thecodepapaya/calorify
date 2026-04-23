@@ -1,5 +1,6 @@
 import 'package:calorify/core/models/ai_summary_result.dart';
 import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/features/home/widgets/home_skeletons.dart';
 import 'package:calorify/shared_widgets/app_card.dart';
 import 'package:calorify/shared_widgets/section_header.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class AiSummaryCard extends ConsumerWidget {
     final summaryAsync = ref.watch(aiSummaryProvider);
 
     return summaryAsync.when(
-      loading: () => const _SummaryCardScaffold(child: _LoadingState()),
+      loading: () => const AiSummarySkeletonCard(),
       error:
           (error, _) => _SummaryCardScaffold(
             child: _ErrorState(
@@ -71,8 +72,9 @@ class _SummaryCardContent extends StatelessWidget {
     final colorScheme = theme.colorScheme;
     final localeTag =
         TranslationProvider.of(context).locale.flutterLocale.toLanguageTag();
-    final generatedAt =
-        DateFormat.MMMd(localeTag).add_jm().format(summary.generatedAt);
+    final generatedAt = DateFormat.MMMd(
+      localeTag,
+    ).add_jm().format(summary.generatedAt);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,15 +184,6 @@ class _MetricChip extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class _LoadingState extends StatelessWidget {
-  const _LoadingState();
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(t.home.aiSummary.loading);
   }
 }
 
