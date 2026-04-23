@@ -115,7 +115,7 @@ function buildBatchJsonl(requests: UserSummaryRequest[]): string {
               content: `Meal log (date, type B/L/D/S, name, calories):\n${req.csv}`,
             },
           ],
-          max_tokens: 200,
+          max_completion_tokens: 200,
         },
       };
       return JSON.stringify(line);

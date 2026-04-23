@@ -317,7 +317,7 @@ async function decompose(openai: OpenAI, input: string): Promise<LLMDecompositio
         strict: true,
       },
     },
-    max_tokens: 1200,
+    max_completion_tokens: 1200,
   });
   const elapsed = Math.round(performance.now() - t0);
 
@@ -399,7 +399,7 @@ async function estimateMacrosViaLLM(
         strict: true,
       },
     },
-    max_tokens: 800,
+    max_completion_tokens: 800,
   });
   const elapsed = Math.round(performance.now() - t0);
 
