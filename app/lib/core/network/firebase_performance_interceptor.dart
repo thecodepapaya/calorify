@@ -24,9 +24,9 @@ class FirebasePerformanceInterceptor extends Interceptor {
   }
 
   @override
-  void onError(DioException error, ErrorInterceptorHandler handler) {
-    _stopAndRemove(error.requestOptions);
-    handler.next(error);
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    _stopAndRemove(err.requestOptions);
+    handler.next(err);
   }
 
   void _stopAndRemove(RequestOptions options) {

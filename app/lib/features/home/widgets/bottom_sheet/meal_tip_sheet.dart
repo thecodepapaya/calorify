@@ -25,8 +25,16 @@ import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 
+enum MealDetailsSheetPurpose {
+  mealAddition,
+  historyEdit,
+  favorites,
+  debugPreview,
+}
+
 Future<void> showMealTip({
   required BuildContext context,
+  required MealDetailsSheetPurpose purpose,
   MealDetectionResult? mealDetectionResult,
   LoggedMeal? loggedMeal,
   Uint8List? imageBytes,
@@ -44,6 +52,7 @@ Future<void> showMealTip({
     builder:
         (sheetContext) => _MealTip(
           parentContext: parentContext,
+          purpose: purpose,
           mealDetectionResult: mealDetectionResult,
           loggedMeal: loggedMeal,
           imageBytes: imageBytes,
@@ -56,6 +65,7 @@ Future<void> showMealTip({
 class _MealTip extends StatefulWidget {
   const _MealTip({
     required this.parentContext,
+    required this.purpose,
     this.mealDetectionResult,
     this.loggedMeal,
     this.imageBytes,
@@ -64,6 +74,7 @@ class _MealTip extends StatefulWidget {
   }) : assert(mealDetectionResult != null || loggedMeal != null);
 
   final BuildContext parentContext;
+  final MealDetailsSheetPurpose purpose;
   final MealDetectionResult? mealDetectionResult;
   final LoggedMeal? loggedMeal;
   final Uint8List? imageBytes;
@@ -89,10 +100,21 @@ class _MealTipState extends State<_MealTip> {
       MealMetadata();
 
   bool get _canShowFeedback =>
+      widget.purpose == MealDetailsSheetPurpose.mealAddition &&
       _v2Analysis != null &&
       _mealDetectionResult != null &&
       widget.loggedMeal == null &&
       !_v2Analysis!.isRevised;
+
+  bool get _isLoggedMealFlow => widget.loggedMeal != null;
+  bool get _showFavoriteHeaderAction =>
+      _isLoggedMealFlow &&
+      widget.purpose == MealDetailsSheetPurpose.historyEdit;
+  bool get _showHistoryActions =>
+      _isLoggedMealFlow &&
+      widget.purpose == MealDetailsSheetPurpose.historyEdit;
+  bool get _showFavoritesActions =>
+      _isLoggedMealFlow && widget.purpose == MealDetailsSheetPurpose.favorites;
 
   @override
   void initState() {
@@ -151,7 +173,8 @@ class _MealTipState extends State<_MealTip> {
         ),
         SizedBox(height: 12),
       ],
-      if (widget.imageBytes != null || metadata.imageUrl.isNotEmpty) ...[
+      if ((widget.imageBytes?.isNotEmpty ?? false) ||
+          metadata.imageUrl.isNotEmpty) ...[
         MealImage(imageBytes: widget.imageBytes, imageUrl: metadata.imageUrl),
         const SizedBox(height: 12),
       ],
@@ -164,7 +187,7 @@ class _MealTipState extends State<_MealTip> {
     final TextTheme textTheme = theme.textTheme;
 
     final canShowMealImage =
-        widget.imageBytes != null || metadata.imageUrl.isNotEmpty;
+        (widget.imageBytes?.isNotEmpty ?? false) || metadata.imageUrl.isNotEmpty;
     final canShowMealTip = _mealDetectionResult?.tip.isNotEmpty ?? false;
 
     final timestamp = widget.loggedMeal?.dateTime ?? DateTime.now();
@@ -201,11 +224,11 @@ class _MealTipState extends State<_MealTip> {
             ),
           ),
           SizedBox(width: 12),
-          if (widget.loggedMeal != null || _canShowFeedback)
+          if (_showFavoriteHeaderAction || _canShowFeedback)
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (widget.loggedMeal != null)
+                if (_showFavoriteHeaderAction)
                   _FavoriteMealStar(loggedMeal: widget.loggedMeal!),
                 if (_canShowFeedback) ...[
                   IconButton(
@@ -367,43 +390,101 @@ class _MealTipState extends State<_MealTip> {
                 text: t.meal.saveMeal,
                 leadingIcon: LucideIcons.save,
               ))
-          : Row(
-            children: [
-              if (widget.loggedMeal != null)
-                Expanded(
-                  child: SecondaryButton(
-                    onPressed: () {
-                      _showDeleteConfirmation(
-                        context,
-                        widget.loggedMeal!.clientId,
-                      );
-                    },
-                    text: t.meal.delete,
-                    icon: LucideIcons.trash2,
-                    analyticsEvent: AnalyticsEvent.mealDelete,
-                  ),
-                ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: PrimaryButton(
-                  onPressed: () {
-                    final navigator = Navigator.of(context);
-                    final parentContext = navigator.context;
-                    navigator.pop();
-                    showEditMealSheet(
-                      parentContext,
-                      meal: meal,
-                      loggedMeal: widget.loggedMeal,
-                    );
-                  },
-                  text: t.meal.editMeal,
-                  leadingIcon: LucideIcons.pencil,
-                  analyticsEvent: AnalyticsEvent.mealEdit,
-                ),
-              ),
-            ],
-          ),
+          : _buildLoggedMealActions(context),
     ];
+  }
+
+  Widget _buildLoggedMealActions(BuildContext context) {
+    if (_showFavoritesActions) {
+      return Row(
+        children: [
+          Expanded(
+            child: SecondaryButton(
+              onPressed: _removeFromFavorites,
+              text: 'Unfavorite',
+              icon: LucideIcons.starOff,
+              analyticsEvent: AnalyticsEvent.favoriteRemove,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: PrimaryButton(
+              onPressed: () => _openEditMealSheet(context),
+              text: t.meal.editMeal,
+              leadingIcon: LucideIcons.pencil,
+              analyticsEvent: AnalyticsEvent.mealEdit,
+            ),
+          ),
+        ],
+      );
+    }
+
+    if (_showHistoryActions) {
+      return Row(
+        children: [
+          Expanded(
+            child: SecondaryButton(
+              onPressed: () {
+                _showDeleteConfirmation(context, widget.loggedMeal!.clientId);
+              },
+              text: t.meal.delete,
+              icon: LucideIcons.trash2,
+              analyticsEvent: AnalyticsEvent.mealDelete,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: PrimaryButton(
+              onPressed: () => _openEditMealSheet(context),
+              text: t.meal.editMeal,
+              leadingIcon: LucideIcons.pencil,
+              analyticsEvent: AnalyticsEvent.mealEdit,
+            ),
+          ),
+        ],
+      );
+    }
+
+    return SizedBox(
+      width: double.infinity,
+      child: OutlinedButton.icon(
+        onPressed: () => Navigator.of(context).pop(),
+        icon: Icon(LucideIcons.x, size: 20),
+        label: Text(t.common.close),
+        style: OutlinedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+        ),
+      ),
+    );
+  }
+
+  void _openEditMealSheet(BuildContext context) {
+    final navigator = Navigator.of(context);
+    final parentContext = navigator.context;
+    navigator.pop();
+    showEditMealSheet(parentContext, meal: meal, loggedMeal: widget.loggedMeal);
+  }
+
+  Future<void> _removeFromFavorites() async {
+    final loggedMeal = widget.loggedMeal;
+    if (loggedMeal == null) return;
+
+    try {
+      await ProviderScope.containerOf(
+        context,
+        listen: false,
+      ).read(databaseInterfaceProvider).removeFavoriteMeal(loggedMeal.clientId);
+      if (!mounted) return;
+      Analytics.instance.logEvent(AnalyticsEvent.favoriteRemove);
+      showFlushbar(t.meal.removedFromFavorites, context: context);
+      Navigator.of(context).pop();
+    } on Exception catch (error) {
+      if (!mounted) return;
+      showFlushbar(
+        t.meal.couldNotUpdateFavorite(error: error),
+        context: context,
+      );
+    }
   }
 
   Future<void> _submitPositiveFeedback() async {
@@ -415,12 +496,9 @@ class _MealTipState extends State<_MealTip> {
     });
 
     try {
-      await ProviderScope.containerOf(
-        context,
-        listen: false,
-      ).read(foodRepositoryProvider).submitPositiveFeedbackV2(
-        analysisId: analysisId,
-      );
+      await ProviderScope.containerOf(context, listen: false)
+          .read(foodRepositoryProvider)
+          .submitPositiveFeedbackV2(analysisId: analysisId);
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.mealFeedbackThumbsUp);
       showFlushbar('Thanks for the feedback!', context: context);
@@ -456,14 +534,13 @@ class _MealTipState extends State<_MealTip> {
       final nextContext = await resolveV2MealAnalysisFlow(
         context: context,
         startAnalysis:
-            () => ProviderScope.containerOf(
-              context,
-              listen: false,
-            ).read(foodRepositoryProvider).reanalyzeV2(
-          analysisId: analysisId,
-          issues: feedbackInput.issues,
-          otherText: feedbackInput.otherText,
-        ),
+            () => ProviderScope.containerOf(context, listen: false)
+                .read(foodRepositoryProvider)
+                .reanalyzeV2(
+                  analysisId: analysisId,
+                  issues: feedbackInput.issues,
+                  otherText: feedbackInput.otherText,
+                ),
         imageBytes: widget.imageBytes,
         imageUrl: _v2Analysis?.imageUrl,
         textDescription: _v2Analysis?.textDescription,
@@ -474,7 +551,9 @@ class _MealTipState extends State<_MealTip> {
         throw Exception('No revised result received');
       }
 
-      Analytics.instance.logEvent(AnalyticsEvent.mealFeedbackThumbsDownSubmitted);
+      Analytics.instance.logEvent(
+        AnalyticsEvent.mealFeedbackThumbsDownSubmitted,
+      );
       Analytics.instance.logEvent(AnalyticsEvent.mealReanalysisSucceeded);
 
       final updatedContext = nextContext.copyWith(isRevised: true);
@@ -485,7 +564,10 @@ class _MealTipState extends State<_MealTip> {
         _feedbackValue = null;
       });
 
-      showFlushbar('Updated the meal analysis based on your feedback.', context: context);
+      showFlushbar(
+        'Updated the meal analysis based on your feedback.',
+        context: context,
+      );
     } on Exception catch (error) {
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.mealReanalysisFailed);

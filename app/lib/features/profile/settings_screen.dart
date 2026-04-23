@@ -636,10 +636,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
       if (!mounted) return;
 
-      await Share.shareXFiles(
-        [XFile(file.path)],
-        text: t.settings.exportMealHistory.shareText,
-        subject: t.settings.exportMealHistory.title,
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(file.path)],
+          text: t.settings.exportMealHistory.shareText,
+          subject: t.settings.exportMealHistory.title,
+        ),
       );
     } catch (error) {
       if (!mounted) return;

@@ -55,9 +55,9 @@
       "next": "Далее"
     },
     "bmiScale": {
-      "underweight": "Недовес",
+      "underweight": "Ниже нормы",
       "healthy": "Здоровый",
-      "overweight": "Избыточный вес",
+      "overweight": "Выше нормы",
       "obese": "Ожирение",
       "categories": {
         "underweight": "Недовес",

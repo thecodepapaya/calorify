@@ -34,6 +34,7 @@ Future<void> showV2MealAnalysisFlow({
 
   await showMealTip(
     context: context,
+    purpose: MealDetailsSheetPurpose.mealAddition,
     imageBytes: finalContext.imageBytes,
     mealDetectionResult: finalContext.toMealDetectionResult(),
     v2Analysis: finalContext,
@@ -60,12 +61,13 @@ Future<V2MealAnalysisContext?> resolveV2MealAnalysisFlow({
       showDragHandle: true,
       isScrollControlled: true,
       routeSettings: const RouteSettings(name: RouteNames.mealAnalysisSheet),
-      builder: (context) => _V2MealAnalysisSheet(
-        startAnalysis: nextAnalysis,
-        imageBytes: imageBytes,
-        imageUrl: imageUrl,
-        textDescription: textDescription,
-      ),
+      builder:
+          (context) => _V2MealAnalysisSheet(
+            startAnalysis: nextAnalysis,
+            imageBytes: imageBytes,
+            imageUrl: imageUrl,
+            textDescription: textDescription,
+          ),
     );
 
     if (outcome == null || !context.mounted) {
@@ -90,10 +92,11 @@ Future<V2MealAnalysisContext?> resolveV2MealAnalysisFlow({
         Analytics.instance.logEvent(AnalyticsEvent.mealClarificationDismissed);
         return null;
       }
-      nextAnalysis = () => repository.clarifyV2(
-        analysisId: outcome.analysisId!,
-        answers: answers,
-      );
+      nextAnalysis =
+          () => repository.clarifyV2(
+            analysisId: outcome.analysisId!,
+            answers: answers,
+          );
       continue;
     }
 
@@ -107,10 +110,11 @@ Future<V2MealAnalysisContext?> resolveV2MealAnalysisFlow({
         Analytics.instance.logEvent(AnalyticsEvent.mealTypeQuestionDismissed);
         return null;
       }
-      nextAnalysis = () => repository.submitMealTypeV2(
-        analysisId: outcome.analysisId!,
-        mealType: selectedMealType,
-      );
+      nextAnalysis =
+          () => repository.submitMealTypeV2(
+            analysisId: outcome.analysisId!,
+            mealType: selectedMealType,
+          );
       continue;
     }
 
@@ -212,7 +216,8 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
       V2MealAnalysisStep.decomposition => 'Understanding your meal...',
       V2MealAnalysisStep.ingredients => 'Matching ingredients...',
       V2MealAnalysisStep.uncertainty => 'Checking confidence...',
-      V2MealAnalysisStep.mealTypeQuestion => 'Waiting for a quick confirmation...',
+      V2MealAnalysisStep.mealTypeQuestion =>
+        'Waiting for a quick confirmation...',
       V2MealAnalysisStep.result => 'Finalizing result...',
       V2MealAnalysisStep.error => 'Something went wrong',
       null => 'Analyzing your meal...',
@@ -253,67 +258,70 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
           ],
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
-            transitionBuilder: (child, animation) =>
-                FadeTransition(opacity: animation, child: child),
+            transitionBuilder:
+                (child, animation) =>
+                    FadeTransition(opacity: animation, child: child),
             child: Text(
               statusText,
               key: ValueKey<String>(statusText),
               textAlign: TextAlign.center,
-              style: textTheme.titleMedium?.copyWith(color: colorScheme.onSurface),
+              style: textTheme.titleMedium?.copyWith(
+                color: colorScheme.onSurface,
+              ),
             ),
           ),
           const SizedBox(height: 16),
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 400),
-            transitionBuilder: (child, animation) =>
-                FadeTransition(opacity: animation, child: child),
-            child: hasMealName
-                ? Text(
-                    mealName,
-                    key: ValueKey<String>(mealName),
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: textTheme.bodyLarge?.copyWith(
-                      color: colorScheme.onSurface.withValues(alpha: 0.85),
-                      fontWeight: FontWeight.w500,
+            transitionBuilder:
+                (child, animation) =>
+                    FadeTransition(opacity: animation, child: child),
+            child:
+                hasMealName
+                    ? Text(
+                      mealName,
+                      key: ValueKey<String>(mealName),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.bodyLarge?.copyWith(
+                        color: colorScheme.onSurface.withValues(alpha: 0.85),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )
+                    : SizedBox(
+                      key: const ValueKey('shimmer-name'),
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [_shimmerBox(width: 200, height: 18)],
+                      ),
                     ),
-                  )
-                : SizedBox(
-                    key: const ValueKey('shimmer-name'),
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        _shimmerBox(width: 200, height: 18),
-                      ],
-                    ),
-                  ),
           ),
           const SizedBox(height: 8),
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 400),
-            transitionBuilder: (child, animation) =>
-                FadeTransition(opacity: animation, child: child),
-            child: ingredientCount > 0
-                ? Text(
-                    '$ingredientCount ingredients detected',
-                    key: ValueKey<int>(ingredientCount),
-                    textAlign: TextAlign.center,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onSurface.withValues(alpha: 0.6),
+            transitionBuilder:
+                (child, animation) =>
+                    FadeTransition(opacity: animation, child: child),
+            child:
+                ingredientCount > 0
+                    ? Text(
+                      '$ingredientCount ingredients detected',
+                      key: ValueKey<int>(ingredientCount),
+                      textAlign: TextAlign.center,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onSurface.withValues(alpha: 0.6),
+                      ),
+                    )
+                    : SizedBox(
+                      key: const ValueKey('shimmer-ingredients'),
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [_shimmerBox(width: 140, height: 13)],
+                      ),
                     ),
-                  )
-                : SizedBox(
-                    key: const ValueKey('shimmer-ingredients'),
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        _shimmerBox(width: 140, height: 13),
-                      ],
-                    ),
-                  ),
           ),
           const SizedBox(height: 8),
         ],

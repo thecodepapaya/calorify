@@ -55,9 +55,9 @@
       "next": "Seterusnya"
     },
     "bmiScale": {
-      "underweight": "Berat badan rendah",
+      "underweight": "Berat Rendah",
       "healthy": "Sihat",
-      "overweight": "Berat badan berlebihan",
+      "overweight": "Berat Berlebihan",
       "obese": "Obes",
       "categories": {
         "underweight": "Berat badan rendah",

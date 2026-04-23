@@ -11,12 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
 import 'package:models/models.dart';
 import 'package:utils/utils.dart';
+import 'package:widgets/widgets.dart';
 
 Future<void> showEditMealSheet(
   BuildContext context, {
   Meal? meal,
   LoggedMeal? loggedMeal,
   Uint8List? imageBytes,
+  bool saveAsFavorite = false,
 }) {
   return showModalBottomSheet(
     context: context,
@@ -30,6 +32,7 @@ Future<void> showEditMealSheet(
           meal: meal,
           loggedMeal: loggedMeal,
           imageBytes: imageBytes,
+          saveAsFavorite: saveAsFavorite,
         ),
   );
 }
@@ -38,12 +41,14 @@ class EditMealScreen extends StatefulWidget {
   final Meal? meal;
   final LoggedMeal? loggedMeal;
   final Uint8List? imageBytes;
+  final bool saveAsFavorite;
 
   const EditMealScreen({
     super.key,
     this.meal,
     this.loggedMeal,
     this.imageBytes,
+    this.saveAsFavorite = false,
   });
 
   @override
@@ -52,7 +57,9 @@ class EditMealScreen extends StatefulWidget {
 
 class EditMealScreenState extends State<EditMealScreen> {
   late TextEditingController _nameController;
+  late TextEditingController _dateController;
   late TextEditingController _timeController;
+  late DateTime _selectedDate;
   late TimeOfDay _selectedTime;
   late int _calories;
   late int _carbs;
@@ -72,6 +79,7 @@ class EditMealScreenState extends State<EditMealScreen> {
       // Editing a logged meal
       final loggedMeal = widget.loggedMeal!;
       _nameController = TextEditingController(text: loggedMeal.meal.name);
+      _selectedDate = loggedMeal.dateTime;
       _selectedTime = TimeOfDay.fromDateTime(loggedMeal.dateTime);
       _calories = loggedMeal.meal.macros.calories;
       _carbs = loggedMeal.meal.macros.carbs.round();
@@ -87,6 +95,7 @@ class EditMealScreenState extends State<EditMealScreen> {
       // Editing a meal (legacy support)
       final meal = widget.meal!;
       _nameController = TextEditingController(text: meal.name);
+      _selectedDate = DateTime.now();
       _selectedTime = TimeOfDay.now();
       _calories = meal.macros.calories;
       _carbs = meal.macros.carbs.round();
@@ -98,6 +107,7 @@ class EditMealScreenState extends State<EditMealScreen> {
     } else {
       // Creating a new meal
       _nameController = TextEditingController();
+      _selectedDate = DateTime.now();
       _selectedTime = TimeOfDay.now();
       _calories = 0;
       _carbs = 0;
@@ -107,135 +117,278 @@ class EditMealScreenState extends State<EditMealScreen> {
       _mealType = MealType.UNKNOWN;
       _mealQuantityController = TextEditingController();
     }
+    _dateController = TextEditingController();
     _timeController = TextEditingController();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _dateController.text = MaterialLocalizations.of(
+      context,
+    ).formatMediumDate(_selectedDate);
     _timeController.text = _selectedTime.format(context);
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _dateController.dispose();
+    _timeController.dispose();
+    _mealQuantityController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
 
     return BaseBottomSheet(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+      headerTitle: Text(
+        isEditing ? t.meal.editMeal : t.meal.addMeal,
+        style: textTheme.titleLarge?.copyWith(
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+      headerAction: TextButton(
+        onPressed: _saveMeal,
+        child: Text(t.meal.save),
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                isEditing ? t.meal.editMeal : t.meal.addMeal,
-                style: textTheme.titleLarge,
-              ),
-              TextButton(
-                onPressed: _saveMeal,
-                child: Text(
-                  t.meal.save,
-                  style: textTheme.titleMedium?.copyWith(
-                    color: colorScheme.primary,
-                  ),
+            if (_hasImage()) ...[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: MealImage(
+                  imageBytes: widget.imageBytes,
+                  imageUrl: _getImageUrl(),
                 ),
               ),
+              const SizedBox(height: 16),
             ],
-          ),
-          const SizedBox(height: 20),
-          if (_hasImage()) ...[
-            MealImage(imageBytes: widget.imageBytes, imageUrl: _getImageUrl()),
-            const SizedBox(height: 20),
-          ],
-          TextField(
-            controller: _nameController,
-            decoration: InputDecoration(
-              labelText: t.meal.mealName,
-              hintText: t.meal.mealNameHint,
-              hintStyle: textTheme.bodyLarge?.copyWith(
-                color: colorScheme.onSurface.withValues(alpha: 0.6),
+            TextField(
+              controller: _nameController,
+              decoration: _inputDecoration(
+                context,
+                label: t.meal.mealName,
+                hint: t.meal.mealNameHint,
+                icon: AppIcons.utensils,
               ),
-              border: OutlineInputBorder(borderRadius: globalRadius),
             ),
-          ),
-          const SizedBox(height: 20),
-          TextField(
-            controller: _timeController,
-            readOnly: true,
-            decoration: InputDecoration(
-              labelText: t.meal.timeOfMeal,
-              hintText: t.meal.timeOfMealHint,
-              hintStyle: textTheme.bodyLarge?.copyWith(
-                color: colorScheme.onSurface.withValues(alpha: 0.6),
-              ),
-              border: OutlineInputBorder(borderRadius: globalRadius),
-            ),
-            onTap: () async {
-              final time = await showTimePicker(
-                context: context,
-                initialTime: _selectedTime,
-              );
-              if (time != null) {
-                setState(() {
-                  _selectedTime = time;
-                  _timeController.text = time.format(context);
-                });
-              }
-            },
-          ),
-          const SizedBox(height: 20),
-          DropdownButtonFormField<MealType>(
-            initialValue: _mealType,
-            decoration: InputDecoration(
-              labelText: t.meal.mealType,
-              border: OutlineInputBorder(borderRadius: globalRadius),
-            ),
-            items:
-                mealTypeValues
-                    .map(
-                      (type) => DropdownMenuItem(
-                        value: type,
-                        child: Text(type.legacyName.capitalized),
+            const SizedBox(height: 16),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final dateField = TextField(
+                  controller: _dateController,
+                  readOnly: true,
+                  decoration: _inputDecoration(
+                    context,
+                    label: MaterialLocalizations.of(context).dateInputLabel,
+                    icon: AppIcons.calendar,
+                  ),
+                  onTap: () async {
+                    final date = await showDatePicker(
+                      context: context,
+                      initialDate: _selectedDate,
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2100),
+                    );
+                    if (date != null) {
+                      setState(() {
+                        _selectedDate = date;
+                        _dateController.text = MaterialLocalizations.of(
+                          context,
+                        ).formatMediumDate(date);
+                      });
+                    }
+                  },
+                );
+                final timeField = TextField(
+                  controller: _timeController,
+                  readOnly: true,
+                  decoration: _inputDecoration(
+                    context,
+                    label: t.meal.timeOfMeal,
+                    hint: t.meal.timeOfMealHint,
+                    icon: AppIcons.clock,
+                  ),
+                  onTap: () async {
+                    final time = await showTimePicker(
+                      context: context,
+                      initialTime: _selectedTime,
+                    );
+                    if (time != null) {
+                      setState(() {
+                        _selectedTime = time;
+                        _timeController.text = time.format(context);
+                      });
+                    }
+                  },
+                );
+                final mealTypeField = DropdownButtonFormField<MealType>(
+                  initialValue: _mealType,
+                  decoration: _inputDecoration(
+                    context,
+                    label: t.meal.mealType,
+                    icon: AppIcons.utensilsCrossed,
+                  ),
+                  items:
+                      mealTypeValues
+                          .map(
+                            (type) => DropdownMenuItem(
+                              value: type,
+                              child: Text(type.legacyName.capitalized),
+                            ),
+                          )
+                          .toList(),
+                  onChanged: (value) {
+                    if (value != null) {
+                      setState(() => _mealType = value);
+                    }
+                  },
+                );
+
+                if (constraints.maxWidth < 600) {
+                  return Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(child: dateField),
+                          const SizedBox(width: 12),
+                          Expanded(child: timeField),
+                        ],
                       ),
-                    )
-                    .toList(),
-            onChanged: (value) {
-              if (value != null) {
-                setState(() => _mealType = value);
-              }
-            },
-          ),
-          const SizedBox(height: 20),
-          TextField(
-            controller: _mealQuantityController,
-            decoration: InputDecoration(
-              labelText: t.meal.mealQuantity,
-              hintText: t.meal.mealQuantityHint,
-              hintStyle: textTheme.bodyLarge?.copyWith(
-                color: colorScheme.onSurface.withValues(alpha: 0.6),
-              ),
-              border: OutlineInputBorder(borderRadius: globalRadius),
+                      const SizedBox(height: 12),
+                      mealTypeField,
+                    ],
+                  );
+                }
+
+                return Row(
+                  children: [
+                    Expanded(flex: 3, child: dateField),
+                    const SizedBox(width: 12),
+                    Expanded(flex: 3, child: timeField),
+                    const SizedBox(width: 12),
+                    Expanded(flex: 4, child: mealTypeField),
+                  ],
+                );
+              },
             ),
-          ),
-          const SizedBox(height: 20),
-          _buildSlider(t.meal.nutrition.calories, _calories, 0, 1500, (value) {
-            setState(() => _calories = value);
-          }),
-          _buildSlider(t.meal.nutrition.carbs, _carbs, 0, 200, (value) {
-            setState(() => _carbs = value);
-          }),
-          _buildSlider(t.meal.nutrition.protein, _protein, 0, 200, (value) {
-            setState(() => _protein = value);
-          }),
-          _buildSlider(t.meal.nutrition.fat, _fat, 0, 200, (value) {
-            setState(() => _fat = value);
-          }),
-          _buildSlider(t.meal.nutrition.fiber, _fiber, 0, 100, (value) {
-            setState(() => _fiber = value);
-          }),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _mealQuantityController,
+              decoration: _inputDecoration(
+                context,
+                label: t.meal.mealQuantity,
+                hint: t.meal.mealQuantityHint,
+                icon: AppIcons.scale,
+              ),
+            ),
+            const SizedBox(height: 14),
+            _buildMacroGrid(),
+            const SizedBox(height: 8),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMacroGrid() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        const spacing = 10.0;
+        final tileWidth = (constraints.maxWidth - spacing) / 2;
+
+        return Wrap(
+          spacing: spacing,
+          runSpacing: spacing,
+          children: [
+            _buildMacroCard(
+              width: tileWidth,
+              label: t.meal.nutrition.calories,
+              value: _calories,
+              min: 0,
+              max: 1500,
+              onChanged: (value) => setState(() => _calories = value),
+            ),
+            _buildMacroCard(
+              width: tileWidth,
+              label: _stripTrailingUnit(t.meal.nutrition.carbs),
+              value: _carbs,
+              min: 0,
+              max: 240,
+              unit: 'g',
+              onChanged: (value) => setState(() => _carbs = value),
+            ),
+            _buildMacroCard(
+              width: tileWidth,
+              label: _stripTrailingUnit(t.meal.nutrition.protein),
+              value: _protein,
+              min: 0,
+              max: 120,
+              unit: 'g',
+              onChanged: (value) => setState(() => _protein = value),
+            ),
+            _buildMacroCard(
+              width: tileWidth,
+              label: _stripTrailingUnit(t.meal.nutrition.fat),
+              value: _fat,
+              min: 0,
+              max: 100,
+              unit: 'g',
+              onChanged: (value) => setState(() => _fat = value),
+            ),
+            _buildMacroCard(
+              width: tileWidth,
+              label: _stripTrailingUnit(t.meal.nutrition.fiber),
+              value: _fiber,
+              min: 0,
+              max: 40,
+              unit: 'g',
+              onChanged: (value) => setState(() => _fiber = value),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  InputDecoration _inputDecoration(
+    BuildContext context, {
+    required String label,
+    String? hint,
+    IconData? icon,
+  }) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return InputDecoration(
+      labelText: label,
+      hintText: hint,
+      prefixIcon: icon != null ? Icon(icon, size: 20) : null,
+      hintStyle: theme.textTheme.bodyMedium?.copyWith(
+        color: colorScheme.onSurface.withValues(alpha: 0.55),
+      ),
+      filled: true,
+      fillColor: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+      border: OutlineInputBorder(
+        borderRadius: globalRadius,
+        borderSide: BorderSide(
+          color: colorScheme.outlineVariant.withValues(alpha: 0.6),
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: globalRadius,
+        borderSide: BorderSide(
+          color: colorScheme.outlineVariant.withValues(alpha: 0.6),
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: globalRadius,
+        borderSide: BorderSide(color: colorScheme.primary, width: 1.4),
       ),
     );
   }
@@ -251,11 +404,10 @@ class EditMealScreenState extends State<EditMealScreen> {
   }
 
   Future<void> _saveMeal() async {
-    final now = DateTime.now();
     final newTimestamp = DateTime(
-      now.year,
-      now.month,
-      now.day,
+      _selectedDate.year,
+      _selectedDate.month,
+      _selectedDate.day,
       _selectedTime.hour,
       _selectedTime.minute,
     );
@@ -289,10 +441,15 @@ class EditMealScreenState extends State<EditMealScreen> {
 
     try {
       await DatabaseService.databaseInterface.upsertMeal(mealInfo);
+      if (widget.saveAsFavorite) {
+        await DatabaseService.databaseInterface.addToFavorites(mealInfo);
+      }
 
       if (!mounted) return;
       showFlushbar(
-        isEditing ? t.meal.updatedSuccessfully : t.meal.savedSuccessfully,
+        widget.saveAsFavorite
+            ? t.meal.savedAsFavorite
+            : (isEditing ? t.meal.updatedSuccessfully : t.meal.savedSuccessfully),
         context: context,
       );
       Navigator.of(context).pop();
@@ -303,26 +460,81 @@ class EditMealScreenState extends State<EditMealScreen> {
     }
   }
 
-  Widget _buildSlider(
-    String label,
-    int value,
-    int min,
-    int max,
-    ValueChanged<int> onChanged,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('$label: ${value.toStringAsFixed(1)}'),
-        Slider(
-          value: value.toDouble(),
-          min: min.toDouble(),
-          max: max.toDouble(),
-          divisions: (max - min).toInt(),
-          label: value.toStringAsFixed(1),
-          onChanged: (value) => onChanged(value.toInt()),
+  Widget _buildMacroCard({
+    required double width,
+    required String label,
+    required int value,
+    required int min,
+    required int max,
+    String? unit,
+    required ValueChanged<int> onChanged,
+  }) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return SizedBox(
+      width: width,
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(12, 10, 10, 6),
+        decoration: BoxDecoration(
+          color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.32),
+          borderRadius: BorderRadius.circular(12),
         ),
-      ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    label,
+                    style: textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: colorScheme.onSurface.withValues(alpha: 0.8),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
+                  decoration: BoxDecoration(
+                    color: colorScheme.primary.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    unit == null ? value.toString() : '$value $unit',
+                    style: textTheme.labelSmall?.copyWith(
+                      color: colorScheme.primary,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SliderTheme(
+              data: SliderTheme.of(context).copyWith(
+                trackHeight: 3,
+                thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 7),
+                overlayShape: SliderComponentShape.noOverlay,
+              ),
+              child: Slider(
+                value: value.toDouble(),
+                min: min.toDouble(),
+                max: max.toDouble(),
+                divisions: max - min,
+                label: value.toString(),
+                onChanged: (value) => onChanged(value.toInt()),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
+  }
+
+  String _stripTrailingUnit(String label) {
+    return label.replaceFirst(RegExp(r'\s*\([^)]*\)\s*$'), '');
   }
 }

@@ -480,9 +480,9 @@ class _TranslationsOnboardingBmiScaleId implements TranslationsOnboardingBmiScal
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Kekurangan berat badan';
+	@override String get underweight => 'Kurus';
 	@override String get healthy => 'Sehat';
-	@override String get overweight => 'Kelebihan berat badan';
+	@override String get overweight => 'Kelebihan';
 	@override String get obese => 'Obesitas';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesId categories = _TranslationsOnboardingBmiScaleCategoriesId._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesId messages = _TranslationsOnboardingBmiScaleMessagesId._(_root);
@@ -1655,9 +1655,9 @@ extension on TranslationsId {
 			'onboarding.age.title' => 'Kapan ulang tahun Anda?',
 			'onboarding.age.description' => 'Usia Anda membantu kami menghitung kebutuhan kalori Anda dengan akurat.',
 			'onboarding.age.next' => 'Selanjutnya',
-			'onboarding.bmiScale.underweight' => 'Kekurangan berat badan',
+			'onboarding.bmiScale.underweight' => 'Kurus',
 			'onboarding.bmiScale.healthy' => 'Sehat',
-			'onboarding.bmiScale.overweight' => 'Kelebihan berat badan',
+			'onboarding.bmiScale.overweight' => 'Kelebihan',
 			'onboarding.bmiScale.obese' => 'Obesitas',
 			'onboarding.bmiScale.categories.underweight' => 'Kekurangan berat badan',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Berat badan sehat',

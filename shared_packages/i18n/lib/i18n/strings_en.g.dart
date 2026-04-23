@@ -802,14 +802,14 @@ class TranslationsOnboardingBmiScaleEn {
 
 	// Translations
 
-	/// en: 'Underweight'
-	String get underweight => 'Underweight';
+	/// en: 'Under'
+	String get underweight => 'Under';
 
 	/// en: 'Healthy'
 	String get healthy => 'Healthy';
 
-	/// en: 'Overweight'
-	String get overweight => 'Overweight';
+	/// en: 'Over'
+	String get overweight => 'Over';
 
 	/// en: 'Obese'
 	String get obese => 'Obese';
@@ -2583,9 +2583,9 @@ extension on Translations {
 			'onboarding.age.title' => 'When is your birthday?',
 			'onboarding.age.description' => 'Your age helps us calculate your calorie needs accurately.',
 			'onboarding.age.next' => 'Next',
-			'onboarding.bmiScale.underweight' => 'Underweight',
+			'onboarding.bmiScale.underweight' => 'Under',
 			'onboarding.bmiScale.healthy' => 'Healthy',
-			'onboarding.bmiScale.overweight' => 'Overweight',
+			'onboarding.bmiScale.overweight' => 'Over',
 			'onboarding.bmiScale.obese' => 'Obese',
 			'onboarding.bmiScale.categories.underweight' => 'Underweight',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Healthy weight',

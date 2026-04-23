@@ -76,7 +76,7 @@ class _MealSnapState extends State<MealSnap> {
       borderRadius: globalRadius,
       child: Container(
         width: double.infinity,
-        height: 200,
+        height: 144,
         decoration: BoxDecoration(
           borderRadius: globalRadius,
           border: Border.all(
@@ -96,31 +96,23 @@ class _MealSnapState extends State<MealSnap> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: colorScheme.primary,
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 LucideIcons.camera,
-                size: 28,
+                size: 22,
                 color: colorScheme.onPrimary,
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 10),
             Text(
-              t.home.mealSnap.title,
-              style: textTheme.titleLarge?.copyWith(
+              t.home.mealSnap.openCamera,
+              style: textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: colorScheme.onSurface,
-              ),
-            ),
-            SizedBox(height: 6),
-            Text(
-              t.home.mealSnap.description,
-              textAlign: TextAlign.center,
-              style: textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSurfaceVariant,
               ),
             ),
           ],
@@ -202,7 +194,7 @@ class _MealSnapState extends State<MealSnap> {
         onPressed();
       },
       style: OutlinedButton.styleFrom(
-        padding: EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         side: BorderSide(color: colorScheme.outline),
         shape: RoundedRectangleBorder(borderRadius: buttonRadius),
       ),

@@ -78,24 +78,47 @@ class BMIScale extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildLabel(
-              t.onboarding.bmiScale.underweight,
-              theme,
-              isBold: bmi < 18.5,
+            Expanded(
+              flex: (18.5 - 15).toInt(),
+              child: Center(
+                child: _buildLabel(
+                  t.onboarding.bmiScale.underweight,
+                  theme,
+                  isBold: bmi < 18.5,
+                ),
+              ),
             ),
-            _buildLabel(
-              t.onboarding.bmiScale.healthy,
-              theme,
-              isBold: bmi >= 18.5 && bmi < 25,
+            Expanded(
+              flex: (25 - 18.5).toInt(),
+              child: Center(
+                child: _buildLabel(
+                  t.onboarding.bmiScale.healthy,
+                  theme,
+                  isBold: bmi >= 18.5 && bmi < 25,
+                ),
+              ),
             ),
-            _buildLabel(
-              t.onboarding.bmiScale.overweight,
-              theme,
-              isBold: bmi >= 25 && bmi < 30,
+            Expanded(
+              flex: (30 - 25).toInt(),
+              child: Center(
+                child: _buildLabel(
+                  t.onboarding.bmiScale.overweight,
+                  theme,
+                  isBold: bmi >= 25 && bmi < 30,
+                ),
+              ),
             ),
-            _buildLabel(t.onboarding.bmiScale.obese, theme, isBold: bmi >= 30),
+            Expanded(
+              flex: (35 - 30).toInt(),
+              child: Center(
+                child: _buildLabel(
+                  t.onboarding.bmiScale.obese,
+                  theme,
+                  isBold: bmi >= 30,
+                ),
+              ),
+            ),
           ],
         ),
       ],

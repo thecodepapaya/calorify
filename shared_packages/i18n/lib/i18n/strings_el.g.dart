@@ -480,9 +480,9 @@ class _TranslationsOnboardingBmiScaleEl implements TranslationsOnboardingBmiScal
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Ανεπαρκές βάρος';
+	@override String get underweight => 'Λιποβαρής';
 	@override String get healthy => 'Υγιές';
-	@override String get overweight => 'Υπερβολικό βάρος';
+	@override String get overweight => 'Υπέρβαρος';
 	@override String get obese => 'Παχυσαρκία';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesEl categories = _TranslationsOnboardingBmiScaleCategoriesEl._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesEl messages = _TranslationsOnboardingBmiScaleMessagesEl._(_root);
@@ -1655,9 +1655,9 @@ extension on TranslationsEl {
 			'onboarding.age.title' => 'Πότε έχεις γενέθλια;',
 			'onboarding.age.description' => 'Η ηλικία σου βοηθά να υπολογίσουμε ακριβώς τις θερμιδικές σου ανάγκες.',
 			'onboarding.age.next' => 'Επόμενο',
-			'onboarding.bmiScale.underweight' => 'Ανεπαρκές βάρος',
+			'onboarding.bmiScale.underweight' => 'Λιποβαρής',
 			'onboarding.bmiScale.healthy' => 'Υγιές',
-			'onboarding.bmiScale.overweight' => 'Υπερβολικό βάρος',
+			'onboarding.bmiScale.overweight' => 'Υπέρβαρος',
 			'onboarding.bmiScale.obese' => 'Παχυσαρκία',
 			'onboarding.bmiScale.categories.underweight' => 'Ανεπαρκές βάρος',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Υγιές βάρος',

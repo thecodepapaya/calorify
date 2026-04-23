@@ -480,9 +480,9 @@ class _TranslationsOnboardingBmiScaleUr implements TranslationsOnboardingBmiScal
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'کم وزن';
+	@override String get underweight => 'کم';
 	@override String get healthy => 'صحت مند';
-	@override String get overweight => 'زیادہ وزن';
+	@override String get overweight => 'زیادہ';
 	@override String get obese => 'موٹا';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesUr categories = _TranslationsOnboardingBmiScaleCategoriesUr._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesUr messages = _TranslationsOnboardingBmiScaleMessagesUr._(_root);
@@ -1655,9 +1655,9 @@ extension on TranslationsUr {
 			'onboarding.age.title' => 'آپ کی سالگرہ کب ہے؟',
 			'onboarding.age.description' => 'آپ کی عمر ہماری مدد کرتی ہے کہ ہم آپ کی کیلوری کی ضروریات کو درست طریقے سے شمار کریں۔',
 			'onboarding.age.next' => 'اگلا',
-			'onboarding.bmiScale.underweight' => 'کم وزن',
+			'onboarding.bmiScale.underweight' => 'کم',
 			'onboarding.bmiScale.healthy' => 'صحت مند',
-			'onboarding.bmiScale.overweight' => 'زیادہ وزن',
+			'onboarding.bmiScale.overweight' => 'زیادہ',
 			'onboarding.bmiScale.obese' => 'موٹا',
 			'onboarding.bmiScale.categories.underweight' => 'کم وزن',
 			'onboarding.bmiScale.categories.healthyWeight' => 'صحت مند وزن',

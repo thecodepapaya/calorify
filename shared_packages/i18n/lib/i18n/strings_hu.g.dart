@@ -480,7 +480,7 @@ class _TranslationsOnboardingBmiScaleHu implements TranslationsOnboardingBmiScal
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Súlyhiányos';
+	@override String get underweight => 'Alultáplált';
 	@override String get healthy => 'Egészséges';
 	@override String get overweight => 'Túlsúlyos';
 	@override String get obese => 'Elhízott';
@@ -1655,7 +1655,7 @@ extension on TranslationsHu {
 			'onboarding.age.title' => 'Mikor van a születésnapod?',
 			'onboarding.age.description' => 'A korod segít pontosan kiszámolni a kalóriaszükségletedet.',
 			'onboarding.age.next' => 'Tovább',
-			'onboarding.bmiScale.underweight' => 'Súlyhiányos',
+			'onboarding.bmiScale.underweight' => 'Alultáplált',
 			'onboarding.bmiScale.healthy' => 'Egészséges',
 			'onboarding.bmiScale.overweight' => 'Túlsúlyos',
 			'onboarding.bmiScale.obese' => 'Elhízott',

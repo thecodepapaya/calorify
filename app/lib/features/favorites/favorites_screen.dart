@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/providers/favorites_providers.dart';
-import 'package:calorify/features/history/widgets/meal_type_indicator.dart';
+import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
+import 'package:calorify/features/history/widgets/logged_meals.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/shared_widgets/empty_state_widget.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
@@ -44,13 +44,21 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
   Widget build(BuildContext context) {
     final favoritesAsync = ref.watch(favoriteMealsProvider);
     final visibleFavorites = ref.watch(
-      filteredFavoriteMealsProvider(
-        (query: _query, sortOption: _sortOption),
-      ),
+      filteredFavoriteMealsProvider((query: _query, sortOption: _sortOption)),
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text(t.favorites.title)),
+      appBar: AppBar(
+        title: Text(t.favorites.title),
+        actions: [
+          IconButton.filledTonal(
+            onPressed: _openCustomFavoriteMealSheet,
+            tooltip: t.meal.addMeal,
+            icon: const Icon(LucideIcons.plus),
+          ),
+          const SizedBox(width: 8),
+        ],
+      ),
       body: Padding(
         padding: globalMargin,
         child: favoritesAsync.when(
@@ -87,8 +95,7 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
                           ? const _EmptySearchState()
                           : ListView.separated(
                             itemCount: visibleFavorites.length,
-                            separatorBuilder:
-                                (_, _) => const SizedBox(height: 12),
+                            separatorBuilder: (_, _) => const SizedBox.shrink(),
                             itemBuilder: (context, index) {
                               final favorite = visibleFavorites[index];
                               return Dismissible(
@@ -112,6 +119,10 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _openCustomFavoriteMealSheet() {
+    return showEditMealSheet(context, saveAsFavorite: true);
   }
 
   Future<void> _removeFavorite(WidgetRef ref, FavoriteMeal favorite) async {
@@ -256,143 +267,10 @@ class _FavoriteMealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final meal = favoriteMeal.loggedMeal.meal;
-    final theme = Theme.of(context);
-
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        borderRadius: globalRadius,
-        onTap:
-            () => showMealTip(
-              context: context,
-              loggedMeal: favoriteMeal.loggedMeal,
-            ),
-        child: Ink(
-          padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            borderRadius: globalRadius,
-            border: Border.all(color: theme.colorScheme.outline),
-            color: theme.colorScheme.surfaceContainerLowest,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          meal.name,
-                          style: theme.textTheme.titleMedium,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          meal.quantity,
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onSurfaceVariant,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  if (meal.type != MealType.UNKNOWN)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(999),
-                        border: Border.all(color: theme.colorScheme.outline),
-                      ),
-                      child: MealTypeIndicator(type: meal.type),
-                    ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  _MacroChip(
-                    label: t.home.dailySummary.calories,
-                    value: '${meal.macros.calories}',
-                    color: theme.colorScheme.calorieIconColor,
-                  ),
-                  _MacroChip(
-                    label: t.home.dailySummary.protein,
-                    value: '${meal.macros.protein.toStringAsFixed(0)}g',
-                    color: proteinIconColor,
-                  ),
-                  _MacroChip(
-                    label: t.home.dailySummary.carbs,
-                    value: '${meal.macros.carbs.toStringAsFixed(0)}g',
-                    color: carbsIconColor,
-                  ),
-                  _MacroChip(
-                    label: t.home.dailySummary.fat,
-                    value: '${meal.macros.fat.toStringAsFixed(0)}g',
-                    color: fatIconColor,
-                  ),
-                  _MacroChip(
-                    label: t.home.dailySummary.fiber,
-                    value: '${meal.macros.fiber.toStringAsFixed(0)}g',
-                    color: fiberIconColor,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _MacroChip extends StatelessWidget {
-  const _MacroChip({
-    required this.label,
-    required this.value,
-    required this.color,
-  });
-
-  final String label;
-  final String value;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(999),
-        color: color.withValues(alpha: 0.12),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          ),
-          const SizedBox(width: 8),
-          Text(
-            '$label $value',
-            style: theme.textTheme.bodySmall?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
+    return MealLogCard(
+      loggedMeal: favoriteMeal.loggedMeal,
+      showTimestamp: false,
+      sheetPurpose: MealDetailsSheetPurpose.favorites,
     );
   }
 }

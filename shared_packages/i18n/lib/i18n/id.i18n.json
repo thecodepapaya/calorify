@@ -55,9 +55,9 @@
       "next": "Selanjutnya"
     },
     "bmiScale": {
-      "underweight": "Kekurangan berat badan",
+      "underweight": "Kurus",
       "healthy": "Sehat",
-      "overweight": "Kelebihan berat badan",
+      "overweight": "Kelebihan",
       "obese": "Obesitas",
       "categories": {
         "underweight": "Kekurangan berat badan",

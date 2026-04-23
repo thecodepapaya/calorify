@@ -55,9 +55,9 @@
       "next": "اگلا"
     },
     "bmiScale": {
-      "underweight": "کم وزن",
+      "underweight": "کم",
       "healthy": "صحت مند",
-      "overweight": "زیادہ وزن",
+      "overweight": "زیادہ",
       "obese": "موٹا",
       "categories": {
         "underweight": "کم وزن",

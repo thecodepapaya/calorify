@@ -55,9 +55,9 @@
       "next": "Next"
     },
     "bmiScale": {
-      "underweight": "Underweight",
+      "underweight": "Under",
       "healthy": "Healthy",
-      "overweight": "Overweight",
+      "overweight": "Over",
       "obese": "Obese",
       "categories": {
         "underweight": "Underweight",

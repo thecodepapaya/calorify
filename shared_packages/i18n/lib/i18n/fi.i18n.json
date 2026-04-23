@@ -55,9 +55,9 @@
       "next": "Seuraava"
     },
     "bmiScale": {
-      "underweight": "Alipainoinen",
+      "underweight": "Alipaino",
       "healthy": "Terveellinen",
-      "overweight": "Ylipainoinen",
+      "overweight": "Ylipaino",
       "obese": "Lihava",
       "categories": {
         "underweight": "Alipainoinen",

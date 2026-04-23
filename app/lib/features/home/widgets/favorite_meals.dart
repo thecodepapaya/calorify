@@ -5,6 +5,7 @@ import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/providers/meal_log_providers.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/analytics.dart';
+import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/shared_widgets/app_card.dart';
@@ -31,9 +32,27 @@ class FavoriteMeals extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SectionHeader(
-            icon: LucideIcons.star,
-            title: t.home.favoriteMeals.title,
+          Row(
+            children: [
+              Expanded(
+                child: SectionHeader(
+                  icon: LucideIcons.star,
+                  title: t.home.favoriteMeals.title,
+                ),
+              ),
+              FilledButton.tonalIcon(
+                onPressed: () => showEditMealSheet(context, saveAsFavorite: true),
+                icon: const Icon(LucideIcons.plus, size: 18),
+                label: Text(t.home.favoriteMeals.add),
+                style: FilledButton.styleFrom(
+                  visualDensity: VisualDensity.compact,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 8,
+                  ),
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 6),
           Text(
@@ -116,6 +135,7 @@ class _MealTile extends StatelessWidget {
       onTap:
           () => showMealTip(
             context: context,
+            purpose: MealDetailsSheetPurpose.favorites,
             loggedMeal: favoriteMeal.loggedMeal,
           ),
 
@@ -161,7 +181,10 @@ class _MealTile extends StatelessWidget {
                   }
                 } on Exception catch (e) {
                   if (context.mounted) {
-                    showFlushbar(t.meal.couldNotAdd(error: e), context: context);
+                    showFlushbar(
+                      t.meal.couldNotAdd(error: e),
+                      context: context,
+                    );
                   }
                 }
               },

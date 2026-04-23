@@ -16,10 +16,12 @@ class MealLogCard extends StatelessWidget {
     super.key,
     required this.loggedMeal,
     this.showTimestamp = true,
+    this.sheetPurpose = MealDetailsSheetPurpose.historyEdit,
   });
 
   final LoggedMeal loggedMeal;
   final bool showTimestamp;
+  final MealDetailsSheetPurpose sheetPurpose;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,11 @@ class MealLogCard extends StatelessWidget {
       child: InkWell(
         borderRadius: globalRadius,
         onTap: () {
-          showMealTip(context: context, loggedMeal: loggedMeal);
+          showMealTip(
+            context: context,
+            purpose: sheetPurpose,
+            loggedMeal: loggedMeal,
+          );
         },
         child: Container(
           padding: EdgeInsets.all(12),

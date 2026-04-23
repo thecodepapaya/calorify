@@ -480,9 +480,9 @@ class _TranslationsOnboardingBmiScaleNo implements TranslationsOnboardingBmiScal
 	final TranslationsNo _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Undervektig';
+	@override String get underweight => 'Undervekt';
 	@override String get healthy => 'Normalvektig';
-	@override String get overweight => 'Overvektig';
+	@override String get overweight => 'Overvekt';
 	@override String get obese => 'Kraftig overvektig';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesNo categories = _TranslationsOnboardingBmiScaleCategoriesNo._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesNo messages = _TranslationsOnboardingBmiScaleMessagesNo._(_root);
@@ -1655,9 +1655,9 @@ extension on TranslationsNo {
 			'onboarding.age.title' => 'Når har du bursdag?',
 			'onboarding.age.description' => 'Alderen din hjelper oss å beregne dine kaloribehov korrekt.',
 			'onboarding.age.next' => 'Neste',
-			'onboarding.bmiScale.underweight' => 'Undervektig',
+			'onboarding.bmiScale.underweight' => 'Undervekt',
 			'onboarding.bmiScale.healthy' => 'Normalvektig',
-			'onboarding.bmiScale.overweight' => 'Overvektig',
+			'onboarding.bmiScale.overweight' => 'Overvekt',
 			'onboarding.bmiScale.obese' => 'Kraftig overvektig',
 			'onboarding.bmiScale.categories.underweight' => 'Undervektig',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Normalvektig',

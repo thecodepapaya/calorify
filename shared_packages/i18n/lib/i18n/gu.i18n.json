@@ -55,9 +55,9 @@
       "next": "આગળ"
     },
     "bmiScale": {
-      "underweight": "કમજોરી",
+      "underweight": "ઓછું",
       "healthy": "હેલ્ધી",
-      "overweight": "વધારે વજન",
+      "overweight": "વધું",
       "obese": "સ્થૂળતા",
       "categories": {
         "underweight": "કમજોરી",

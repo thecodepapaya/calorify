@@ -480,7 +480,7 @@ class _TranslationsOnboardingBmiScaleEs implements TranslationsOnboardingBmiScal
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Bajo Peso';
+	@override String get underweight => 'Bajo peso';
 	@override String get healthy => 'Peso Saludable';
 	@override String get overweight => 'Sobrepeso';
 	@override String get obese => 'Obeso';
@@ -1655,7 +1655,7 @@ extension on TranslationsEs {
 			'onboarding.age.title' => '¿Cuándo es tu cumpleaños?',
 			'onboarding.age.description' => 'Tu edad nos ayuda a calcular con precisión tus necesidades calóricas.',
 			'onboarding.age.next' => 'Siguiente',
-			'onboarding.bmiScale.underweight' => 'Bajo Peso',
+			'onboarding.bmiScale.underweight' => 'Bajo peso',
 			'onboarding.bmiScale.healthy' => 'Peso Saludable',
 			'onboarding.bmiScale.overweight' => 'Sobrepeso',
 			'onboarding.bmiScale.obese' => 'Obeso',

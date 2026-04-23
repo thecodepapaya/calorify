@@ -482,7 +482,7 @@ class _TranslationsOnboardingBmiScalePt implements TranslationsOnboardingBmiScal
 	// Translations
 	@override String get underweight => 'Abaixo do peso';
 	@override String get healthy => 'Saudável';
-	@override String get overweight => 'Acima do peso';
+	@override String get overweight => 'Sobrepeso';
 	@override String get obese => 'Obeso';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesPt categories = _TranslationsOnboardingBmiScaleCategoriesPt._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesPt messages = _TranslationsOnboardingBmiScaleMessagesPt._(_root);
@@ -1657,7 +1657,7 @@ extension on TranslationsPt {
 			'onboarding.age.next' => 'Próximo',
 			'onboarding.bmiScale.underweight' => 'Abaixo do peso',
 			'onboarding.bmiScale.healthy' => 'Saudável',
-			'onboarding.bmiScale.overweight' => 'Acima do peso',
+			'onboarding.bmiScale.overweight' => 'Sobrepeso',
 			'onboarding.bmiScale.obese' => 'Obeso',
 			'onboarding.bmiScale.categories.underweight' => 'Abaixo do peso',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Peso saudável',

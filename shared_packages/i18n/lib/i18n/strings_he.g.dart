@@ -480,7 +480,7 @@ class _TranslationsOnboardingBmiScaleHe implements TranslationsOnboardingBmiScal
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'תת משקל';
+	@override String get underweight => 'תת-משקל';
 	@override String get healthy => 'משקל בריא';
 	@override String get overweight => 'עודף משקל';
 	@override String get obese => 'השמנה';
@@ -1655,7 +1655,7 @@ extension on TranslationsHe {
 			'onboarding.age.title' => 'מתי יום ההולדת שלך?',
 			'onboarding.age.description' => 'גילך עוזר לנו לחשב את צרכי הקלוריות שלך בצורה מדויקת.',
 			'onboarding.age.next' => 'הבא',
-			'onboarding.bmiScale.underweight' => 'תת משקל',
+			'onboarding.bmiScale.underweight' => 'תת-משקל',
 			'onboarding.bmiScale.healthy' => 'משקל בריא',
 			'onboarding.bmiScale.overweight' => 'עודף משקל',
 			'onboarding.bmiScale.obese' => 'השמנה',
