@@ -134,6 +134,7 @@ async function buildApp() {
 
     const reqBody = logBody ? bodyForLog((request as any).body, maxBody) : null;
     const resPayload = (request as any).responsePayload;
+    const streamMeta = (request as any).streamResponseMeta;
     const resBody = logBody && resPayload !== undefined
       ? bodyForLog(resPayload, maxBody)
       : null;
@@ -161,6 +162,7 @@ async function buildApp() {
       responseTime,
       requestBody: reqBody,
       responseBody: resBody,
+      responseStream: streamMeta ?? null,
     }, `← ${request.method} ${request.url} ${statusCode} (${responseTime}ms)`);
   });
 

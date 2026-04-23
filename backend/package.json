@@ -11,6 +11,7 @@
         "test": "node --test --experimental-test-module-mocks --import tsx --disable-warning=ExperimentalWarning src/**/*.test.ts",
         "lint": "eslint src --ext .ts",
         "type-check": "tsc --noEmit",
+        "analysis:v2:cli": "tsx src/scripts/meal-analysis-api-cli.ts",
         "usda:import": "tsx src/scripts/import-usda.ts",
         "usda:refresh": "tsx src/scripts/usda-refresh.ts",
         "usda:bootstrap": "tsx src/scripts/usda-bootstrap.ts",

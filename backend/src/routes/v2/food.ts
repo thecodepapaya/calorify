@@ -99,6 +99,13 @@ export type {
 };
 
 type StreamFormat = 'ndjson' | 'sse';
+type StreamResponseMeta = {
+  format: StreamFormat;
+  eventCount: number;
+  firstSteps: string[];
+  lastStep?: string;
+  hasErrorEvent: boolean;
+};
 
 function getStreamFormat(acceptHeader?: string): StreamFormat {
   if (!acceptHeader) return 'ndjson';
@@ -139,6 +146,13 @@ async function streamEvents(
   stream: AsyncGenerator<PipelineEvent>
 ): Promise<void> {
   const format = getStreamFormat(acceptHeader);
+  const streamMeta: StreamResponseMeta = {
+    format,
+    eventCount: 0,
+    firstSteps: [],
+    hasErrorEvent: false,
+  };
+  (reply.request as any).streamResponseMeta = streamMeta;
 
   reply.hijack();
   reply.raw.writeHead(200, {
@@ -151,12 +165,22 @@ async function streamEvents(
 
   try {
     for await (const event of stream) {
+      streamMeta.eventCount += 1;
+      streamMeta.lastStep = event.step;
+      if (streamMeta.firstSteps.length < 5) {
+        streamMeta.firstSteps.push(event.step);
+      }
+      if (event.step === 'error') {
+        streamMeta.hasErrorEvent = true;
+      }
+
       writeEvent(reply, format, event);
       if (event.step === 'error') {
         break;
       }
     }
   } catch (error) {
+    streamMeta.hasErrorEvent = true;
     writeEvent(reply, format, {
       step: 'error',
       data: {
@@ -215,6 +239,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
           locale: getLocaleFromRequest(request),
           countryCode: getCountryFromRequest(request),
           userId,
+          logger: request.log,
         })
       );
     }
@@ -273,6 +298,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
           locale: getLocaleFromRequest(request),
           countryCode: getCountryFromRequest(request),
           userId,
+          logger: request.log,
         })
       );
     }
@@ -311,7 +337,9 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       await streamEvents(
         reply,
         request.headers.accept,
-        continueMealAnalysis(parsed.analysisId, parsed.answers)
+        continueMealAnalysis(parsed.analysisId, parsed.answers, {
+          logger: request.log,
+        })
       );
     }
   );
@@ -373,7 +401,9 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       await streamEvents(
         reply,
         request.headers.accept,
-        continueMealAnalysisWithMealType(parsed.analysisId, parsed.mealType)
+        continueMealAnalysisWithMealType(parsed.analysisId, parsed.mealType, {
+          logger: request.log,
+        })
       );
     }
   );
@@ -418,7 +448,9 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       await streamEvents(
         reply,
         request.headers.accept,
-        reanalyzeMeal(parsed.analysisId, parsed.issues, parsed.otherText, userId)
+        reanalyzeMeal(parsed.analysisId, parsed.issues, parsed.otherText, userId, {
+          logger: request.log,
+        })
       );
     }
   );
