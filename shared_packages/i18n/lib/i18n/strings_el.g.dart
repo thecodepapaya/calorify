@@ -283,6 +283,7 @@ class _TranslationsSettingsEl implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersEl mealReminders = _TranslationsSettingsMealRemindersEl._(_root);
 	@override late final _TranslationsSettingsThemeEl theme = _TranslationsSettingsThemeEl._(_root);
 	@override late final _TranslationsSettingsSendFeedbackEl sendFeedback = _TranslationsSettingsSendFeedbackEl._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryEl exportMealHistory = _TranslationsSettingsExportMealHistoryEl._(_root);
 	@override late final _TranslationsSettingsClearAllDataEl clearAllData = _TranslationsSettingsClearAllDataEl._(_root);
 	@override late final _TranslationsSettingsDebugOptionsEl debugOptions = _TranslationsSettingsDebugOptionsEl._(_root);
 	@override String get developerModeEnabled => 'Η λειτουργία προγραμματιστή έχει ενεργοποιηθεί!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryEl implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'Η σύνοψή σας με AI';
 	@override String get logMore => 'Καταγράψτε περισσότερα γεύματα τις επόμενες ημέρες για να λάβετε εξατομικευμένες πληροφορίες από το AI.';
 	@override String get loading => 'Φόρτωση της σύνοψής σας...';
+	@override String mealCount({required Object count}) => '${count} καταγεγραμμένα γεύματα';
+	@override String macroBalanceScore({required Object score}) => 'Βαθμολογία ισορροπίας ${score}';
+	@override String get topFoods => 'Κορυφαίες τροφές';
+	@override String get trendUp => 'Οι θερμίδες αυξάνονται';
+	@override String get trendDown => 'Οι θερμίδες μειώνονται';
+	@override String get trendSteady => 'Οι θερμίδες παραμένουν σταθερές';
+	@override String generatedAt({required Object time}) => 'Ενημερώθηκε ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackEl implements TranslationsSettingsSendFee
 	@override String get device => 'Συσκευή';
 	@override String get osVersion => 'Έκδοση OS';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryEl implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Εξαγωγή ιστορικού γευμάτων';
+	@override String get subtitle => 'Μοιραστείτε ένα αρχείο CSV με τα καταγεγραμμένα γεύματά σας';
+	@override String get shareText => 'Εξαγωγή ιστορικού γευμάτων από το Calorify';
+	@override String failed({required Object error}) => 'Δεν ήταν δυνατή η εξαγωγή του ιστορικού γευμάτων: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsEl {
 			'home.aiSummary.title' => 'Η σύνοψή σας με AI',
 			'home.aiSummary.logMore' => 'Καταγράψτε περισσότερα γεύματα τις επόμενες ημέρες για να λάβετε εξατομικευμένες πληροφορίες από το AI.',
 			'home.aiSummary.loading' => 'Φόρτωση της σύνοψής σας...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} καταγεγραμμένα γεύματα',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Βαθμολογία ισορροπίας ${score}',
+			'home.aiSummary.topFoods' => 'Κορυφαίες τροφές',
+			'home.aiSummary.trendUp' => 'Οι θερμίδες αυξάνονται',
+			'home.aiSummary.trendDown' => 'Οι θερμίδες μειώνονται',
+			'home.aiSummary.trendSteady' => 'Οι θερμίδες παραμένουν σταθερές',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'Ενημερώθηκε ${time}',
 			'home.dailyGoal.title' => 'Ορίστε τον Καθημερινό Στόχο σας',
 			'home.dailyGoal.titleSet' => 'Ο Καθημερινός σας Στόχος',
 			'home.dailyGoal.description' => 'Έτοιμος να ξεκινήσεις το ταξίδι ευεξίας σου; Ορίστε τον καθημερινό σας στόχο θερμίδων παρακάτω για να ξεκινήσεις την πρόοδό σου.',
@@ -1898,6 +1926,10 @@ extension on TranslationsEl {
 			'settings.sendFeedback.device' => 'Συσκευή',
 			'settings.sendFeedback.osVersion' => 'Έκδοση OS',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'Εξαγωγή ιστορικού γευμάτων',
+			'settings.exportMealHistory.subtitle' => 'Μοιραστείτε ένα αρχείο CSV με τα καταγεγραμμένα γεύματά σας',
+			'settings.exportMealHistory.shareText' => 'Εξαγωγή ιστορικού γευμάτων από το Calorify',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Δεν ήταν δυνατή η εξαγωγή του ιστορικού γευμάτων: ${error}',
 			'settings.clearAllData.title' => 'Διαγραφή Όλων των Δεδομένων',
 			'settings.clearAllData.subtitle' => 'Διαγράφει ανεπιστρεπτί όλες τις πληροφορίες σου',
 			'settings.clearAllData.confirmationTitle' => 'Διαγραφή Όλων των Δεδομένων;',

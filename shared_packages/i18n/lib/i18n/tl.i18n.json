@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "Buod ng iyong AI",
       "logMore": "Itala pa ang mga pagkain sa mga susunod na araw para makuha ang iyong personalisadong mga pananaw mula sa AI.",
-      "loading": "Ikinakarga ang iyong buod..."
+      "loading": "Ikinakarga ang iyong buod...",
+      "mealCount": "{count} na naitalang pagkain",
+      "macroBalanceScore": "Iskor ng balanse {score}",
+      "topFoods": "Nangungunang mga pagkain",
+      "trendUp": "Tumataas ang bilang ng calories",
+      "trendDown": "Bumababa ang bilang ng calories",
+      "trendSteady": "Nanatiling matatag ang bilang ng calories",
+      "generatedAt": "Huling na-update {time}"
     },
     "dailyGoal": {
       "title": "Itakda ang Iyong Pang-araw-araw na Layunin",
@@ -435,6 +442,12 @@
       "device": "Kagamitan",
       "osVersion": "Bersyon ng OS",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "I-export ang Kasaysayan ng Pagkain",
+      "subtitle": "Ibahagi ang CSV ng iyong mga naitalang pagkain",
+      "shareText": "Export ng iyong kasaysayan ng pagkain mula sa Calorify",
+      "failed": "Hindi ma-export ang kasaysayan ng pagkain: {error}"
     },
     "clearAllData": {
       "title": "I-clear ang Lahat ng Datos",

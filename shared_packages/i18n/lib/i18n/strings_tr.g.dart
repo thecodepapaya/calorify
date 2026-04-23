@@ -283,6 +283,7 @@ class _TranslationsSettingsTr implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersTr mealReminders = _TranslationsSettingsMealRemindersTr._(_root);
 	@override late final _TranslationsSettingsThemeTr theme = _TranslationsSettingsThemeTr._(_root);
 	@override late final _TranslationsSettingsSendFeedbackTr sendFeedback = _TranslationsSettingsSendFeedbackTr._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryTr exportMealHistory = _TranslationsSettingsExportMealHistoryTr._(_root);
 	@override late final _TranslationsSettingsClearAllDataTr clearAllData = _TranslationsSettingsClearAllDataTr._(_root);
 	@override late final _TranslationsSettingsDebugOptionsTr debugOptions = _TranslationsSettingsDebugOptionsTr._(_root);
 	@override String get developerModeEnabled => 'Geliştirici modu etkinleştirildi!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryTr implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'Yapay Zeka Özetiniz';
 	@override String get logMore => 'Kişiselleştirilmiş yapay zeka içgörülerinizi almak için önümüzdeki birkaç gün içinde daha fazla öğün kaydedin.';
 	@override String get loading => 'Özetiniz yükleniyor...';
+	@override String mealCount({required Object count}) => '${count} öğün kaydedildi';
+	@override String macroBalanceScore({required Object score}) => 'Makro denge puanı ${score}';
+	@override String get topFoods => 'En sık tüketilen yiyecekler';
+	@override String get trendUp => 'Kaloriler yükseliyor';
+	@override String get trendDown => 'Kaloriler düşüyor';
+	@override String get trendSteady => 'Kaloriler dengede';
+	@override String generatedAt({required Object time}) => 'Güncellendi ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackTr implements TranslationsSettingsSendFee
 	@override String get device => 'Cihaz';
 	@override String get osVersion => 'İşletim Sistemi Versiyonu';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryTr implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Öğün Geçmişini Dışa Aktar';
+	@override String get subtitle => 'Kaydettiğiniz öğünlerin CSV dosyasını paylaşın';
+	@override String get shareText => 'Calorify öğün geçmişi dışa aktarımı';
+	@override String failed({required Object error}) => 'Öğün geçmişi dışa aktarılamadı: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsTr {
 			'home.aiSummary.title' => 'Yapay Zeka Özetiniz',
 			'home.aiSummary.logMore' => 'Kişiselleştirilmiş yapay zeka içgörülerinizi almak için önümüzdeki birkaç gün içinde daha fazla öğün kaydedin.',
 			'home.aiSummary.loading' => 'Özetiniz yükleniyor...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} öğün kaydedildi',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Makro denge puanı ${score}',
+			'home.aiSummary.topFoods' => 'En sık tüketilen yiyecekler',
+			'home.aiSummary.trendUp' => 'Kaloriler yükseliyor',
+			'home.aiSummary.trendDown' => 'Kaloriler düşüyor',
+			'home.aiSummary.trendSteady' => 'Kaloriler dengede',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'Güncellendi ${time}',
 			'home.dailyGoal.title' => 'Günlük Hedefinizi Belirleyin',
 			'home.dailyGoal.titleSet' => 'Günlük Hedefiniz',
 			'home.dailyGoal.description' => 'Sağlık yolculuğunuza başlamaya hazır mısınız? Aşağıda günlük kalori hedefinizi belirleyin ve ilerlemenize başlayın.',
@@ -1898,6 +1926,10 @@ extension on TranslationsTr {
 			'settings.sendFeedback.device' => 'Cihaz',
 			'settings.sendFeedback.osVersion' => 'İşletim Sistemi Versiyonu',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'Öğün Geçmişini Dışa Aktar',
+			'settings.exportMealHistory.subtitle' => 'Kaydettiğiniz öğünlerin CSV dosyasını paylaşın',
+			'settings.exportMealHistory.shareText' => 'Calorify öğün geçmişi dışa aktarımı',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Öğün geçmişi dışa aktarılamadı: ${error}',
 			'settings.clearAllData.title' => 'Tüm Verileri Temizle',
 			'settings.clearAllData.subtitle' => 'Tüm bilgilerinizi geri döndürülemez bir şekilde silin',
 			'settings.clearAllData.confirmationTitle' => 'Tüm Verileri Temizle?',

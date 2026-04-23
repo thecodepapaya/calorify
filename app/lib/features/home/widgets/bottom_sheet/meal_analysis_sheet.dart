@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/models/meal_analysis_v2.dart';
-import 'package:calorify/core/repositories/food_repository.dart';
+import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
@@ -12,6 +12,7 @@ import 'package:calorify/features/home/widgets/bottom_sheet/meal_type_sheet.dart
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 Future<void> showV2MealAnalysisFlow({
@@ -49,6 +50,10 @@ Future<V2MealAnalysisContext?> resolveV2MealAnalysisFlow({
   var nextAnalysis = startAnalysis;
 
   while (context.mounted) {
+    final repository = ProviderScope.containerOf(
+      context,
+      listen: false,
+    ).read(foodRepositoryProvider);
     final outcome = await showModalBottomSheet<_V2MealAnalysisOutcome>(
       context: context,
       isDismissible: true,
@@ -85,7 +90,7 @@ Future<V2MealAnalysisContext?> resolveV2MealAnalysisFlow({
         Analytics.instance.logEvent(AnalyticsEvent.mealClarificationDismissed);
         return null;
       }
-      nextAnalysis = () => FoodRepository().clarifyV2(
+      nextAnalysis = () => repository.clarifyV2(
         analysisId: outcome.analysisId!,
         answers: answers,
       );
@@ -102,7 +107,7 @@ Future<V2MealAnalysisContext?> resolveV2MealAnalysisFlow({
         Analytics.instance.logEvent(AnalyticsEvent.mealTypeQuestionDismissed);
         return null;
       }
-      nextAnalysis = () => FoodRepository().submitMealTypeV2(
+      nextAnalysis = () => repository.submitMealTypeV2(
         analysisId: outcome.analysisId!,
         mealType: selectedMealType,
       );

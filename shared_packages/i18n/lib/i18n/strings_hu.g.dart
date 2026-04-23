@@ -283,6 +283,7 @@ class _TranslationsSettingsHu implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersHu mealReminders = _TranslationsSettingsMealRemindersHu._(_root);
 	@override late final _TranslationsSettingsThemeHu theme = _TranslationsSettingsThemeHu._(_root);
 	@override late final _TranslationsSettingsSendFeedbackHu sendFeedback = _TranslationsSettingsSendFeedbackHu._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryHu exportMealHistory = _TranslationsSettingsExportMealHistoryHu._(_root);
 	@override late final _TranslationsSettingsClearAllDataHu clearAllData = _TranslationsSettingsClearAllDataHu._(_root);
 	@override late final _TranslationsSettingsDebugOptionsHu debugOptions = _TranslationsSettingsDebugOptionsHu._(_root);
 	@override String get developerModeEnabled => 'Fejlesztő mód engedélyezve!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryHu implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'AI-összegzésed';
 	@override String get logMore => 'Rögzíts több étkezést a következő napokban, hogy megkapd a személyre szabott AI-elemzéseidet.';
 	@override String get loading => 'AI-összegzésed betöltése...';
+	@override String mealCount({required Object count}) => '${count} rögzített étkezés';
+	@override String macroBalanceScore({required Object score}) => 'Egyensúly-pontszám ${score}';
+	@override String get topFoods => 'Leggyakoribb ételek';
+	@override String get trendUp => 'Kalóriabevitel növekvő tendenciát mutat';
+	@override String get trendDown => 'Kalóriabevitel csökkenő tendenciát mutat';
+	@override String get trendSteady => 'Kalóriabevitel stabil';
+	@override String generatedAt({required Object time}) => 'Frissítve ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackHu implements TranslationsSettingsSendFee
 	@override String get device => 'Eszköz';
 	@override String get osVersion => 'OS Verzió';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryHu implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Étkezési előzmények exportálása';
+	@override String get subtitle => 'Oszd meg a rögzített étkezéseid CSV-fájlját';
+	@override String get shareText => 'A Calorify étkezési előzmények exportja';
+	@override String failed({required Object error}) => 'Nem sikerült exportálni az étkezési előzményeket: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsHu {
 			'home.aiSummary.title' => 'AI-összegzésed',
 			'home.aiSummary.logMore' => 'Rögzíts több étkezést a következő napokban, hogy megkapd a személyre szabott AI-elemzéseidet.',
 			'home.aiSummary.loading' => 'AI-összegzésed betöltése...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} rögzített étkezés',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Egyensúly-pontszám ${score}',
+			'home.aiSummary.topFoods' => 'Leggyakoribb ételek',
+			'home.aiSummary.trendUp' => 'Kalóriabevitel növekvő tendenciát mutat',
+			'home.aiSummary.trendDown' => 'Kalóriabevitel csökkenő tendenciát mutat',
+			'home.aiSummary.trendSteady' => 'Kalóriabevitel stabil',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'Frissítve ${time}',
 			'home.dailyGoal.title' => 'Állítsd Be Napi Célodat',
 			'home.dailyGoal.titleSet' => 'Napi Célod',
 			'home.dailyGoal.description' => 'Készen állsz elindulni a jóléted útján? Állítsd be napi kalória célodat az alábbiakban a fejlődésed kezdetéhez.',
@@ -1898,6 +1926,10 @@ extension on TranslationsHu {
 			'settings.sendFeedback.device' => 'Eszköz',
 			'settings.sendFeedback.osVersion' => 'OS Verzió',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'Étkezési előzmények exportálása',
+			'settings.exportMealHistory.subtitle' => 'Oszd meg a rögzített étkezéseid CSV-fájlját',
+			'settings.exportMealHistory.shareText' => 'A Calorify étkezési előzmények exportja',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Nem sikerült exportálni az étkezési előzményeket: ${error}',
 			'settings.clearAllData.title' => 'Összes Adat Törlése',
 			'settings.clearAllData.subtitle' => 'Visszafordíthatatlanul töröld az összes információdat',
 			'settings.clearAllData.confirmationTitle' => 'Összes Adat Törlése?',

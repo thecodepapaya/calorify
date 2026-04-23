@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "Henkilökohtainen tekoälyyn perustuva yhteenveto",
       "logMore": "Kirjaa seuraavien päivien aikana lisää aterioita, niin saat henkilökohtaisia tekoälyyn perustuvia oivalluksia.",
-      "loading": "Haetaan yhteenvetoasi..."
+      "loading": "Haetaan yhteenvetoasi...",
+      "mealCount": "{count} kirjattua ateriaa",
+      "macroBalanceScore": "Tasapainopiste {score}",
+      "topFoods": "Suosituimmat ruoat",
+      "trendUp": "Kalorit kasvussa",
+      "trendDown": "Kalorit laskussa",
+      "trendSteady": "Kalorit pysyvät tasaisina",
+      "generatedAt": "Päivitetty {time}"
     },
     "dailyGoal": {
       "title": "Aseta Päivittäinen Tavoitteesi",
@@ -435,6 +442,12 @@
       "device": "Laite",
       "osVersion": "Käyttöjärjestelmäversio",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "Vie ateriahistoria",
+      "subtitle": "Jaa CSV-tiedosto kirjaamistasi aterioista",
+      "shareText": "Calorify-ateriahistorian vienti",
+      "failed": "Ateriahistorian vienti epäonnistui: {error}"
     },
     "clearAllData": {
       "title": "Tyhjennä Kaikki Tiedot",

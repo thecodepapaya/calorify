@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "Yapay Zeka Özetiniz",
       "logMore": "Kişiselleştirilmiş yapay zeka içgörülerinizi almak için önümüzdeki birkaç gün içinde daha fazla öğün kaydedin.",
-      "loading": "Özetiniz yükleniyor..."
+      "loading": "Özetiniz yükleniyor...",
+      "mealCount": "{count} öğün kaydedildi",
+      "macroBalanceScore": "Makro denge puanı {score}",
+      "topFoods": "En sık tüketilen yiyecekler",
+      "trendUp": "Kaloriler yükseliyor",
+      "trendDown": "Kaloriler düşüyor",
+      "trendSteady": "Kaloriler dengede",
+      "generatedAt": "Güncellendi {time}"
     },
     "dailyGoal": {
       "title": "Günlük Hedefinizi Belirleyin",
@@ -435,6 +442,12 @@
       "device": "Cihaz",
       "osVersion": "İşletim Sistemi Versiyonu",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "Öğün Geçmişini Dışa Aktar",
+      "subtitle": "Kaydettiğiniz öğünlerin CSV dosyasını paylaşın",
+      "shareText": "Calorify öğün geçmişi dışa aktarımı",
+      "failed": "Öğün geçmişi dışa aktarılamadı: {error}"
     },
     "clearAllData": {
       "title": "Tüm Verileri Temizle",

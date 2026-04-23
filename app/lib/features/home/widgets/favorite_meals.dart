@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/meal_log_providers.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/analytics.dart';
-import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/shared_widgets/app_card.dart';
@@ -12,21 +13,18 @@ import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:calorify/shared_widgets/section_header.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 
-class FavoriteMeals extends StatefulWidget {
+class FavoriteMeals extends ConsumerWidget {
   const FavoriteMeals({super.key});
 
   @override
-  State<FavoriteMeals> createState() => _FavoriteMealsState();
-}
-
-class _FavoriteMealsState extends State<FavoriteMeals> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final favoriteMealsAsync = ref.watch(lastUsedFavoriteMealsProvider);
 
     return AppCard(
       padding: const EdgeInsets.all(12),
@@ -45,15 +43,11 @@ class _FavoriteMealsState extends State<FavoriteMeals> {
             ),
           ),
           const SizedBox(height: 14),
-          StreamBuilder<List<FavoriteMeal>>(
-            stream:
-                DatabaseService.databaseInterface.watchLastUsedFavoriteMeals(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return ErrorView(error: snapshot.error!);
-              }
-              final favoriteMeals = snapshot.data;
-              if (favoriteMeals == null || favoriteMeals.isEmpty) {
+          favoriteMealsAsync.when(
+            loading: () => const SizedBox.shrink(),
+            error: (error, _) => ErrorView(error: error),
+            data: (favoriteMeals) {
+              if (favoriteMeals.isEmpty) {
                 return EmptyStateWidget(
                   icon: LucideIcons.star,
                   title: t.home.favoriteMeals.noFavorites,
@@ -110,6 +104,8 @@ class _MealTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final container = ProviderScope.containerOf(context, listen: false);
+    final database = container.read(databaseInterfaceProvider);
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
@@ -159,8 +155,7 @@ class _MealTile extends StatelessWidget {
                 try {
                   await logMeal(context, meal, parentContext: context);
                   final favMealId = favoriteMeal.clientId;
-                  await DatabaseService.databaseInterface
-                      .updateFavoriteLastUsedAt(favMealId);
+                  await database.updateFavoriteLastUsedAt(favMealId);
                   if (context.mounted) {
                     showFlushbar(t.meal.addedToLog, context: context);
                   }

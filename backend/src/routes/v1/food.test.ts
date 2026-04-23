@@ -153,8 +153,18 @@ test('GET /ai-summary returns null when no DATABASE_URL', async () => {
     url: '/api/v1/food/ai-summary',
     headers: { authorization: 'Bearer valid-token' },
   });
+  if (response.statusCode !== 200) {
+    throw new Error(response.body);
+  }
   assert.equal(response.statusCode, 200);
-  assert.deepEqual(response.json(), { summary: null, generatedAt: null });
+  assert.deepEqual(response.json(), {
+    summary: null,
+    generatedAt: null,
+    mealCount: 0,
+    topFoods: [],
+    macroBalanceScore: 0,
+    trend: 'steady',
+  });
   await app.close();
 
   // Restore
@@ -177,16 +187,61 @@ test('GET /ai-summary returns null summary when no row in DB', async () => {
     url: '/api/v1/food/ai-summary',
     headers: { authorization: 'Bearer valid-token' },
   });
+  if (response.statusCode !== 200) {
+    throw new Error(response.body);
+  }
   assert.equal(response.statusCode, 200);
-  assert.deepEqual(response.json(), { summary: null, generatedAt: null });
+  assert.deepEqual(response.json(), {
+    summary: null,
+    generatedAt: null,
+    mealCount: 0,
+    topFoods: [],
+    macroBalanceScore: 0,
+    trend: 'steady',
+  });
   await app.close();
 });
 
 test('GET /ai-summary returns summary and generatedAt from DB row', async () => {
   const generatedAt = new Date('2024-01-15T10:00:00Z');
-  resetQuery({
+  mockQuery.mock.resetCalls();
+  mockQuery.mock.mockImplementationOnce(async () => ({
     rows: [{ summary: 'You logged healthy meals!', generated_at: generatedAt }],
-  });
+  }));
+  mockQuery.mock.mockImplementationOnce(async () => ({
+    rows: [
+      {
+        logged_at: new Date('2024-01-15T10:00:00Z'),
+        logged_meal_name: 'Oats Bowl',
+        logged_meal_type: 'BREAKFAST',
+        logged_calories: 350,
+        logged_protein: 18,
+        logged_carbs: 45,
+        logged_fat: 10,
+        logged_fiber: 6,
+      },
+      {
+        logged_at: new Date('2024-01-14T12:00:00Z'),
+        logged_meal_name: 'Oats Bowl',
+        logged_meal_type: 'LUNCH',
+        logged_calories: 420,
+        logged_protein: 28,
+        logged_carbs: 42,
+        logged_fat: 12,
+        logged_fiber: 8,
+      },
+      {
+        logged_at: new Date('2024-01-13T19:00:00Z'),
+        logged_meal_name: 'Dal Rice',
+        logged_meal_type: 'DINNER',
+        logged_calories: 390,
+        logged_protein: 14,
+        logged_carbs: 56,
+        logged_fat: 9,
+        logged_fiber: 7,
+      },
+    ],
+  }));
   const app = await buildTestApp();
   const response = await app.inject({
     method: 'GET',
@@ -197,6 +252,38 @@ test('GET /ai-summary returns summary and generatedAt from DB row', async () => 
   const body = response.json();
   assert.equal(body.summary, 'You logged healthy meals!');
   assert.equal(body.generatedAt, generatedAt.toISOString());
+  assert.equal(body.mealCount, 3);
+  assert.deepEqual(body.topFoods, ['Oats Bowl', 'Dal Rice']);
+  assert.equal(typeof body.macroBalanceScore, 'number');
+  assert.ok(['up', 'down', 'steady'].includes(body.trend));
+  await app.close();
+});
+
+test('GET /export returns CSV meal history for authenticated user', async () => {
+  resetQuery({
+    rows: [
+      {
+        logged_at: new Date('2024-01-15T10:00:00Z'),
+        logged_meal_name: 'Oats Bowl',
+        logged_meal_type: 'BREAKFAST',
+        logged_calories: 350,
+        logged_protein: 18,
+        logged_carbs: 45,
+        logged_fat: 10,
+        logged_fiber: 6,
+      },
+    ],
+  });
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/v1/food/export',
+    headers: { authorization: 'Bearer valid-token' },
+  });
+  assert.equal(response.statusCode, 200);
+  assert.match(response.headers['content-type'] ?? '', /text\/csv/);
+  assert.match(response.body, /logged_at,meal_type,meal_name,calories/);
+  assert.match(response.body, /Oats Bowl/);
   await app.close();
 });
 

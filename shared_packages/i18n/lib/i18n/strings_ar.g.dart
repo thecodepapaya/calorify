@@ -283,6 +283,7 @@ class _TranslationsSettingsAr implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersAr mealReminders = _TranslationsSettingsMealRemindersAr._(_root);
 	@override late final _TranslationsSettingsThemeAr theme = _TranslationsSettingsThemeAr._(_root);
 	@override late final _TranslationsSettingsSendFeedbackAr sendFeedback = _TranslationsSettingsSendFeedbackAr._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryAr exportMealHistory = _TranslationsSettingsExportMealHistoryAr._(_root);
 	@override late final _TranslationsSettingsClearAllDataAr clearAllData = _TranslationsSettingsClearAllDataAr._(_root);
 	@override late final _TranslationsSettingsDebugOptionsAr debugOptions = _TranslationsSettingsDebugOptionsAr._(_root);
 	@override String get developerModeEnabled => 'تم تفعيل وضع المطور!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryAr implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'ملخص الذكاء الاصطناعي الخاص بك';
 	@override String get logMore => 'سجل المزيد من الوجبات خلال الأيام القليلة القادمة للحصول على رؤى مخصصة من الذكاء الاصطناعي.';
 	@override String get loading => 'جارٍ تحميل ملخصك...';
+	@override String mealCount({required Object count}) => 'تم تسجيل ${count} وجبة';
+	@override String macroBalanceScore({required Object score}) => 'درجة التوازن ${score}';
+	@override String get topFoods => 'الأطعمة الأكثر شيوعًا';
+	@override String get trendUp => 'زيادة في السعرات الحرارية';
+	@override String get trendDown => 'انخفاض في السعرات الحرارية';
+	@override String get trendSteady => 'السعرات الحرارية مستقرة';
+	@override String generatedAt({required Object time}) => 'تم التحديث ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackAr implements TranslationsSettingsSendFee
 	@override String get device => 'الجهاز';
 	@override String get osVersion => 'إصدار نظام التشغيل';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryAr implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'تصدير سجل الوجبات';
+	@override String get subtitle => 'مشاركة ملف CSV يحتوي على وجباتك المسجلة';
+	@override String get shareText => 'تصدير سجل وجبات Calorify الخاص بك';
+	@override String failed({required Object error}) => 'تعذر تصدير سجل الوجبات: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsAr {
 			'home.aiSummary.title' => 'ملخص الذكاء الاصطناعي الخاص بك',
 			'home.aiSummary.logMore' => 'سجل المزيد من الوجبات خلال الأيام القليلة القادمة للحصول على رؤى مخصصة من الذكاء الاصطناعي.',
 			'home.aiSummary.loading' => 'جارٍ تحميل ملخصك...',
+			'home.aiSummary.mealCount' => ({required Object count}) => 'تم تسجيل ${count} وجبة',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'درجة التوازن ${score}',
+			'home.aiSummary.topFoods' => 'الأطعمة الأكثر شيوعًا',
+			'home.aiSummary.trendUp' => 'زيادة في السعرات الحرارية',
+			'home.aiSummary.trendDown' => 'انخفاض في السعرات الحرارية',
+			'home.aiSummary.trendSteady' => 'السعرات الحرارية مستقرة',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'تم التحديث ${time}',
 			'home.dailyGoal.title' => 'حدد هدفك اليومي',
 			'home.dailyGoal.titleSet' => 'هدفك اليومي',
 			'home.dailyGoal.description' => 'هل أنت مستعد للانطلاق في رحلة الصحة الخاصة بك؟ حدد هدف السعرات الحرارية اليومية أدناه لبدء تقدمك.',
@@ -1898,6 +1926,10 @@ extension on TranslationsAr {
 			'settings.sendFeedback.device' => 'الجهاز',
 			'settings.sendFeedback.osVersion' => 'إصدار نظام التشغيل',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'تصدير سجل الوجبات',
+			'settings.exportMealHistory.subtitle' => 'مشاركة ملف CSV يحتوي على وجباتك المسجلة',
+			'settings.exportMealHistory.shareText' => 'تصدير سجل وجبات Calorify الخاص بك',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'تعذر تصدير سجل الوجبات: ${error}',
 			'settings.clearAllData.title' => 'مسح جميع البيانات',
 			'settings.clearAllData.subtitle' => 'حذف جميع معلوماتك بشكل لا يمكن التراجع عنه',
 			'settings.clearAllData.confirmationTitle' => 'مسح جميع البيانات؟',

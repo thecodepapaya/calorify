@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "Din AI-opsummering",
       "logMore": "Registrer flere måltider i løbet af de næste par dage for at få dine personlige AI-indsigter.",
-      "loading": "Indlæser din opsummering..."
+      "loading": "Indlæser din opsummering...",
+      "mealCount": "{count} måltider registreret",
+      "macroBalanceScore": "Balance-score {score}",
+      "topFoods": "Topfødevarer",
+      "trendUp": "Kalorieindtag stiger",
+      "trendDown": "Kalorieindtag falder",
+      "trendSteady": "Kalorieindtag er stabilt",
+      "generatedAt": "Opdateret {time}"
     },
     "dailyGoal": {
       "title": "Sæt Dit Daglige Mål",
@@ -435,6 +442,12 @@
       "device": "Enhed",
       "osVersion": "OS Version",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "Eksporter måltidshistorik",
+      "subtitle": "Del en CSV med dine registrerede måltider",
+      "shareText": "Din Calorify-eksport af måltidshistorik",
+      "failed": "Kunne ikke eksportere måltidshistorik: {error}"
     },
     "clearAllData": {
       "title": "Slet Al Data",

@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "您的 AI 摘要",
       "logMore": "在接下來幾天多紀錄幾餐，以獲得個人化的 AI 洞見。",
-      "loading": "正在載入您的摘要..."
+      "loading": "正在載入您的摘要...",
+      "mealCount": "{count} 筆餐點已記錄",
+      "macroBalanceScore": "營養平衡分數 {score}",
+      "topFoods": "最常攝取的食物",
+      "trendUp": "熱量有上升趨勢",
+      "trendDown": "熱量有下降趨勢",
+      "trendSteady": "熱量維持穩定",
+      "generatedAt": "更新於 {time}"
     },
     "dailyGoal": {
       "title": "設定您的每日目標",
@@ -435,6 +442,12 @@
       "device": "設備",
       "osVersion": "操作系統版本",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "匯出餐點記錄",
+      "subtitle": "以 CSV 格式分享您的餐點記錄",
+      "shareText": "您的 Calorify 餐點記錄匯出",
+      "failed": "無法匯出餐點記錄：{error}"
     },
     "clearAllData": {
       "title": "清除所有數據",

@@ -283,6 +283,7 @@ class _TranslationsSettingsRo implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersRo mealReminders = _TranslationsSettingsMealRemindersRo._(_root);
 	@override late final _TranslationsSettingsThemeRo theme = _TranslationsSettingsThemeRo._(_root);
 	@override late final _TranslationsSettingsSendFeedbackRo sendFeedback = _TranslationsSettingsSendFeedbackRo._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryRo exportMealHistory = _TranslationsSettingsExportMealHistoryRo._(_root);
 	@override late final _TranslationsSettingsClearAllDataRo clearAllData = _TranslationsSettingsClearAllDataRo._(_root);
 	@override late final _TranslationsSettingsDebugOptionsRo debugOptions = _TranslationsSettingsDebugOptionsRo._(_root);
 	@override String get developerModeEnabled => 'Mod dezvoltator activat!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryRo implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'Rezumatul tău AI';
 	@override String get logMore => 'Înregistrează mai multe mese în următoarele câteva zile pentru a primi informații personalizate de la AI.';
 	@override String get loading => 'Se încarcă rezumatul tău...';
+	@override String mealCount({required Object count}) => '${count} mese înregistrate';
+	@override String macroBalanceScore({required Object score}) => 'Scor de echilibru ${score}';
+	@override String get topFoods => 'Top alimente';
+	@override String get trendUp => 'Calorii în creștere';
+	@override String get trendDown => 'Calorii în scădere';
+	@override String get trendSteady => 'Calorii stabile';
+	@override String generatedAt({required Object time}) => 'Actualizat ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackRo implements TranslationsSettingsSendFee
 	@override String get device => 'Dispozitiv';
 	@override String get osVersion => 'Versiunea OS';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryRo implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Exportă istoricul meselor';
+	@override String get subtitle => 'Partajează un fișier CSV cu mesele tale înregistrate';
+	@override String get shareText => 'Exportul istoricului meselor din Calorify';
+	@override String failed({required Object error}) => 'Nu am putut exporta istoricul meselor: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsRo {
 			'home.aiSummary.title' => 'Rezumatul tău AI',
 			'home.aiSummary.logMore' => 'Înregistrează mai multe mese în următoarele câteva zile pentru a primi informații personalizate de la AI.',
 			'home.aiSummary.loading' => 'Se încarcă rezumatul tău...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} mese înregistrate',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Scor de echilibru ${score}',
+			'home.aiSummary.topFoods' => 'Top alimente',
+			'home.aiSummary.trendUp' => 'Calorii în creștere',
+			'home.aiSummary.trendDown' => 'Calorii în scădere',
+			'home.aiSummary.trendSteady' => 'Calorii stabile',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'Actualizat ${time}',
 			'home.dailyGoal.title' => 'Stabilește-ți Obiectivul Zilnic',
 			'home.dailyGoal.titleSet' => 'Obiectivul Tău Zilnic',
 			'home.dailyGoal.description' => 'Ești gata să începi călătoria ta de sănătate? Stabilește-ți ținta zilnică de calorii mai jos pentru a-ți porni progresul.',
@@ -1898,6 +1926,10 @@ extension on TranslationsRo {
 			'settings.sendFeedback.device' => 'Dispozitiv',
 			'settings.sendFeedback.osVersion' => 'Versiunea OS',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'Exportă istoricul meselor',
+			'settings.exportMealHistory.subtitle' => 'Partajează un fișier CSV cu mesele tale înregistrate',
+			'settings.exportMealHistory.shareText' => 'Exportul istoricului meselor din Calorify',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Nu am putut exporta istoricul meselor: ${error}',
 			'settings.clearAllData.title' => 'Șterge Toate Datele',
 			'settings.clearAllData.subtitle' => 'Șterge irevocabil toate informațiile tale',
 			'settings.clearAllData.confirmationTitle' => 'Șterge Toate Datele?',

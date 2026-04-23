@@ -283,6 +283,7 @@ class _TranslationsSettingsVi implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersVi mealReminders = _TranslationsSettingsMealRemindersVi._(_root);
 	@override late final _TranslationsSettingsThemeVi theme = _TranslationsSettingsThemeVi._(_root);
 	@override late final _TranslationsSettingsSendFeedbackVi sendFeedback = _TranslationsSettingsSendFeedbackVi._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryVi exportMealHistory = _TranslationsSettingsExportMealHistoryVi._(_root);
 	@override late final _TranslationsSettingsClearAllDataVi clearAllData = _TranslationsSettingsClearAllDataVi._(_root);
 	@override late final _TranslationsSettingsDebugOptionsVi debugOptions = _TranslationsSettingsDebugOptionsVi._(_root);
 	@override String get developerModeEnabled => 'Chế độ nhà phát triển đã được bật!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryVi implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'Tóm tắt AI của bạn';
 	@override String get logMore => 'Ghi lại thêm bữa ăn trong vài ngày tới để nhận được những phân tích cá nhân hóa từ AI.';
 	@override String get loading => 'Đang tải tóm tắt của bạn...';
+	@override String mealCount({required Object count}) => '${count} bữa đã ghi';
+	@override String macroBalanceScore({required Object score}) => 'Điểm cân bằng ${score}';
+	@override String get topFoods => 'Thực phẩm hàng đầu';
+	@override String get trendUp => 'Lượng calo đang tăng';
+	@override String get trendDown => 'Lượng calo đang giảm';
+	@override String get trendSteady => 'Lượng calo ổn định';
+	@override String generatedAt({required Object time}) => 'Cập nhật ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackVi implements TranslationsSettingsSendFee
 	@override String get device => 'Thiết bị';
 	@override String get osVersion => 'Phiên bản hệ điều hành';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryVi implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Xuất lịch sử bữa ăn';
+	@override String get subtitle => 'Chia sẻ một tệp CSV chứa các bữa bạn đã ghi';
+	@override String get shareText => 'Tệp xuất lịch sử bữa ăn của bạn từ Calorify';
+	@override String failed({required Object error}) => 'Không thể xuất lịch sử bữa ăn: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsVi {
 			'home.aiSummary.title' => 'Tóm tắt AI của bạn',
 			'home.aiSummary.logMore' => 'Ghi lại thêm bữa ăn trong vài ngày tới để nhận được những phân tích cá nhân hóa từ AI.',
 			'home.aiSummary.loading' => 'Đang tải tóm tắt của bạn...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} bữa đã ghi',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Điểm cân bằng ${score}',
+			'home.aiSummary.topFoods' => 'Thực phẩm hàng đầu',
+			'home.aiSummary.trendUp' => 'Lượng calo đang tăng',
+			'home.aiSummary.trendDown' => 'Lượng calo đang giảm',
+			'home.aiSummary.trendSteady' => 'Lượng calo ổn định',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'Cập nhật ${time}',
 			'home.dailyGoal.title' => 'Đặt mục tiêu hàng ngày của bạn',
 			'home.dailyGoal.titleSet' => 'Mục tiêu hàng ngày của bạn',
 			'home.dailyGoal.description' => 'Sẵn sàng để bắt đầu hành trình sức khỏe? Đặt mục tiêu calo hàng ngày của bạn bên dưới để khởi đầu tiến trình.',
@@ -1898,6 +1926,10 @@ extension on TranslationsVi {
 			'settings.sendFeedback.device' => 'Thiết bị',
 			'settings.sendFeedback.osVersion' => 'Phiên bản hệ điều hành',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'Xuất lịch sử bữa ăn',
+			'settings.exportMealHistory.subtitle' => 'Chia sẻ một tệp CSV chứa các bữa bạn đã ghi',
+			'settings.exportMealHistory.shareText' => 'Tệp xuất lịch sử bữa ăn của bạn từ Calorify',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Không thể xuất lịch sử bữa ăn: ${error}',
 			'settings.clearAllData.title' => 'Xóa tất cả dữ liệu',
 			'settings.clearAllData.subtitle' => 'Xóa vĩnh viễn tất cả thông tin của bạn',
 			'settings.clearAllData.confirmationTitle' => 'Có chắc chắn xóa tất cả dữ liệu?',

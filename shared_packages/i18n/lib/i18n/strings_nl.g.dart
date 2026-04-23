@@ -283,6 +283,7 @@ class _TranslationsSettingsNl implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersNl mealReminders = _TranslationsSettingsMealRemindersNl._(_root);
 	@override late final _TranslationsSettingsThemeNl theme = _TranslationsSettingsThemeNl._(_root);
 	@override late final _TranslationsSettingsSendFeedbackNl sendFeedback = _TranslationsSettingsSendFeedbackNl._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryNl exportMealHistory = _TranslationsSettingsExportMealHistoryNl._(_root);
 	@override late final _TranslationsSettingsClearAllDataNl clearAllData = _TranslationsSettingsClearAllDataNl._(_root);
 	@override late final _TranslationsSettingsDebugOptionsNl debugOptions = _TranslationsSettingsDebugOptionsNl._(_root);
 	@override String get developerModeEnabled => 'Ontwikkelaarsmode ingeschakeld!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryNl implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'Je AI-samenvatting';
 	@override String get logMore => 'Log de komende dagen meer maaltijden om je gepersonaliseerde AI-inzichten te krijgen.';
 	@override String get loading => 'Je samenvatting wordt geladen...';
+	@override String mealCount({required Object count}) => '${count} maaltijden bijgehouden';
+	@override String macroBalanceScore({required Object score}) => 'Balansscore ${score}';
+	@override String get topFoods => 'Top voedingsmiddelen';
+	@override String get trendUp => 'Calorieën stijgen';
+	@override String get trendDown => 'Calorieën dalen';
+	@override String get trendSteady => 'Calorieën blijven stabiel';
+	@override String generatedAt({required Object time}) => 'Bijgewerkt ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackNl implements TranslationsSettingsSendFee
 	@override String get device => 'Apparaat';
 	@override String get osVersion => 'OS Versie';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryNl implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Maaltijdgeschiedenis exporteren';
+	@override String get subtitle => 'Deel een CSV-bestand van je geregistreerde maaltijden';
+	@override String get shareText => 'Calorify: export van je maaltijdgeschiedenis';
+	@override String failed({required Object error}) => 'Kon maaltijdgeschiedenis niet exporteren: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsNl {
 			'home.aiSummary.title' => 'Je AI-samenvatting',
 			'home.aiSummary.logMore' => 'Log de komende dagen meer maaltijden om je gepersonaliseerde AI-inzichten te krijgen.',
 			'home.aiSummary.loading' => 'Je samenvatting wordt geladen...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} maaltijden bijgehouden',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Balansscore ${score}',
+			'home.aiSummary.topFoods' => 'Top voedingsmiddelen',
+			'home.aiSummary.trendUp' => 'Calorieën stijgen',
+			'home.aiSummary.trendDown' => 'Calorieën dalen',
+			'home.aiSummary.trendSteady' => 'Calorieën blijven stabiel',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'Bijgewerkt ${time}',
 			'home.dailyGoal.title' => 'Stel Je Dagdoel In',
 			'home.dailyGoal.titleSet' => 'Je Dagdoel',
 			'home.dailyGoal.description' => 'Klaar om aan je welzijnsreis te beginnen? Stel hieronder je dagelijkse calorie-target in om je voortgang te starten.',
@@ -1898,6 +1926,10 @@ extension on TranslationsNl {
 			'settings.sendFeedback.device' => 'Apparaat',
 			'settings.sendFeedback.osVersion' => 'OS Versie',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'Maaltijdgeschiedenis exporteren',
+			'settings.exportMealHistory.subtitle' => 'Deel een CSV-bestand van je geregistreerde maaltijden',
+			'settings.exportMealHistory.shareText' => 'Calorify: export van je maaltijdgeschiedenis',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Kon maaltijdgeschiedenis niet exporteren: ${error}',
 			'settings.clearAllData.title' => 'Verwijder Alle Gegevens',
 			'settings.clearAllData.subtitle' => 'Verwijder al je informatie onherroepelijk',
 			'settings.clearAllData.confirmationTitle' => 'Alle Gegevens Verwijderen?',

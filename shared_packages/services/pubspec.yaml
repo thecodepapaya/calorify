@@ -14,7 +14,6 @@ dependencies:
     path: ../models
   i18n:
     path: ../i18n
-  firebase_ai: ^3.4.0
   firebase_auth: ^6.1.0
   json_annotation: ^4.9.0
   device_info_plus: ^12.1.0

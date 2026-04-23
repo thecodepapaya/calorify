@@ -283,6 +283,7 @@ class _TranslationsSettingsZhCn implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersZhCn mealReminders = _TranslationsSettingsMealRemindersZhCn._(_root);
 	@override late final _TranslationsSettingsThemeZhCn theme = _TranslationsSettingsThemeZhCn._(_root);
 	@override late final _TranslationsSettingsSendFeedbackZhCn sendFeedback = _TranslationsSettingsSendFeedbackZhCn._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryZhCn exportMealHistory = _TranslationsSettingsExportMealHistoryZhCn._(_root);
 	@override late final _TranslationsSettingsClearAllDataZhCn clearAllData = _TranslationsSettingsClearAllDataZhCn._(_root);
 	@override late final _TranslationsSettingsDebugOptionsZhCn debugOptions = _TranslationsSettingsDebugOptionsZhCn._(_root);
 	@override String get developerModeEnabled => '开发者模式已启用！';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryZhCn implements TranslationsHomeAiSummaryEn {
 	@override String get title => '您的 AI 营养总结';
 	@override String get logMore => '在接下来的几天里多记录几餐，以获得个性化的 AI 洞察。';
 	@override String get loading => '正在加载您的 AI 总结...';
+	@override String mealCount({required Object count}) => '已记录 ${count} 次用餐';
+	@override String macroBalanceScore({required Object score}) => '营养平衡得分 ${score}';
+	@override String get topFoods => '常吃食物';
+	@override String get trendUp => '卡路里上升趋势';
+	@override String get trendDown => '卡路里下降趋势';
+	@override String get trendSteady => '卡路里保持稳定';
+	@override String generatedAt({required Object time}) => '更新于 ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackZhCn implements TranslationsSettingsSendF
 	@override String get device => '设备';
 	@override String get osVersion => '操作系统版本';
 	@override String get uid => '用户ID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryZhCn implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '导出用餐记录';
+	@override String get subtitle => '以 CSV 格式分享您记录的用餐';
+	@override String get shareText => '您的 Calorify 用餐记录导出';
+	@override String failed({required Object error}) => '无法导出用餐记录：${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsZhCn {
 			'home.aiSummary.title' => '您的 AI 营养总结',
 			'home.aiSummary.logMore' => '在接下来的几天里多记录几餐，以获得个性化的 AI 洞察。',
 			'home.aiSummary.loading' => '正在加载您的 AI 总结...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '已记录 ${count} 次用餐',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => '营养平衡得分 ${score}',
+			'home.aiSummary.topFoods' => '常吃食物',
+			'home.aiSummary.trendUp' => '卡路里上升趋势',
+			'home.aiSummary.trendDown' => '卡路里下降趋势',
+			'home.aiSummary.trendSteady' => '卡路里保持稳定',
+			'home.aiSummary.generatedAt' => ({required Object time}) => '更新于 ${time}',
 			'home.dailyGoal.title' => '设定您的每日目标',
 			'home.dailyGoal.titleSet' => '您的每日目标',
 			'home.dailyGoal.description' => '准备好开始您的健康之旅了吗？在下面设定您的每日卡路里目标，开启您的进步之路。',
@@ -1898,6 +1926,10 @@ extension on TranslationsZhCn {
 			'settings.sendFeedback.device' => '设备',
 			'settings.sendFeedback.osVersion' => '操作系统版本',
 			'settings.sendFeedback.uid' => '用户ID',
+			'settings.exportMealHistory.title' => '导出用餐记录',
+			'settings.exportMealHistory.subtitle' => '以 CSV 格式分享您记录的用餐',
+			'settings.exportMealHistory.shareText' => '您的 Calorify 用餐记录导出',
+			'settings.exportMealHistory.failed' => ({required Object error}) => '无法导出用餐记录：${error}',
 			'settings.clearAllData.title' => '清除所有数据',
 			'settings.clearAllData.subtitle' => '不可逆转地删除您的所有信息',
 			'settings.clearAllData.confirmationTitle' => '清除所有数据？',

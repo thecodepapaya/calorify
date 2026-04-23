@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "나만의 AI 요약",
       "logMore": "향후 며칠 동안 식사를 더 기록하면 개인화된 AI 인사이트를 받아보실 수 있습니다.",
-      "loading": "요약을 불러오는 중입니다..."
+      "loading": "요약을 불러오는 중입니다...",
+      "mealCount": "{count}개의 식사가 기록되었습니다",
+      "macroBalanceScore": "영양 균형 점수 {score}",
+      "topFoods": "자주 먹는 음식",
+      "trendUp": "칼로리 증가 추세",
+      "trendDown": "칼로리 감소 추세",
+      "trendSteady": "칼로리 안정세",
+      "generatedAt": "{time}에 업데이트됨"
     },
     "dailyGoal": {
       "title": "일일 목표 설정",
@@ -435,6 +442,12 @@
       "device": "장치",
       "osVersion": "OS 버전",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "식사 기록 내보내기",
+      "subtitle": "로그된 식사를 CSV 파일로 공유하세요",
+      "shareText": "Calorify 식사 기록 내보내기",
+      "failed": "식사 기록 내보내기에 실패했습니다: {error}"
     },
     "clearAllData": {
       "title": "모든 데이터 지우기",

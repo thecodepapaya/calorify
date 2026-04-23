@@ -1,120 +1,105 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:models/models.dart';
+import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/profile_providers.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:calorify/core/services/database_service.dart';
 import 'package:utils/utils.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getHealthMetricsDisclaimer;
+import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:i18n/i18n.dart';
 import 'package:widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:models/models.dart';
 
 @RoutePage()
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  UserProfile? _userProfile;
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadProfileData();
-  }
-
-  Future<void> _loadProfileData() async {
-    final data = await OnboardingService.instance.getProfileData();
-    if (!mounted) return;
-    setState(() {
-      _userProfile = data;
-      _isLoading = false;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final profileAsync = ref.watch(userProfileProvider);
 
-    if (_isLoading) {
-      return const Scaffold(body: Center(child: AppLoader()));
-    }
-
-    if (_userProfile == null) {
-      return Scaffold(
-        backgroundColor: colorScheme.surface,
-        appBar: AppBar(
-          title: Text(t.profile.title),
-          centerTitle: true,
-          backgroundColor: colorScheme.surface,
-          elevation: 0,
-        ),
-        body: Center(child: Text(t.profile.noProfileData)),
-      );
-    }
-
-    return Scaffold(
-      backgroundColor: colorScheme.surface,
-      appBar: AppBar(
-        title: Text(t.profile.title),
-        centerTitle: true,
-        backgroundColor: colorScheme.surface,
-        elevation: 0,
-        actions: [
-          IconButton(
-            onPressed: _editProfile,
-            icon: const Icon(LucideIcons.pencil, size: 20),
-            iconSize: 20,
-            padding: const EdgeInsets.all(8),
-            constraints: const BoxConstraints(),
+    return profileAsync.when(
+      loading: () => const Scaffold(body: Center(child: AppLoader())),
+      error:
+          (error, _) => Scaffold(
+            body: Center(child: ErrorView(error: error)),
           ),
-        ],
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        children: [
-          // Basic Information Section
-          _buildCardSection(t.profile.sections.profile, [
-            _buildProfileHeader(context),
-          ]),
-          const SizedBox(height: 16),
-          _buildCardSection(t.profile.sections.basicInformation, [
-            _buildPersonalDetailsTile(),
-            _buildHeightTile(),
-            _buildWeightTile(),
-            if (_userProfile!.age != null) _buildAgeTile(),
-          ]),
-          const SizedBox(height: 16),
+      data: (userProfile) {
+        if (userProfile == null) {
+          return Scaffold(
+            backgroundColor: colorScheme.surface,
+            appBar: AppBar(
+              title: Text(t.profile.title),
+              centerTitle: true,
+              backgroundColor: colorScheme.surface,
+              elevation: 0,
+            ),
+            body: Center(child: Text(t.profile.noProfileData)),
+          );
+        }
 
-          // Goals & Activity Section
-          _buildCardSection(t.profile.sections.goalsAndActivity, [
-            _buildDailyGoalTile(),
-            _buildWeightGoalTile(),
-            _buildTargetWeightTile(),
-            _buildActivityLevelTile(),
-          ]),
-          const SizedBox(height: 16),
-
-          // Calculated Values Section - Always show, even if values are N/A
-          _buildCardSection(t.profile.sections.calculatedValues, [
-            _buildCalculatedValuesTile(),
-          ]),
-          const SizedBox(height: 32),
-        ],
-      ),
+        return Scaffold(
+          backgroundColor: colorScheme.surface,
+          appBar: AppBar(
+            title: Text(t.profile.title),
+            centerTitle: true,
+            backgroundColor: colorScheme.surface,
+            elevation: 0,
+            actions: [
+              IconButton(
+                onPressed: () => _editProfile(context, ref, userProfile),
+                icon: const Icon(LucideIcons.pencil, size: 20),
+                iconSize: 20,
+                padding: const EdgeInsets.all(8),
+                constraints: const BoxConstraints(),
+              ),
+            ],
+          ),
+          body: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            children: [
+              _buildCardSection(context, t.profile.sections.profile, [
+                _buildProfileHeader(context),
+              ]),
+              const SizedBox(height: 16),
+              _buildCardSection(context, t.profile.sections.basicInformation, [
+                _buildPersonalDetailsTile(context, userProfile),
+                _buildHeightTile(context, userProfile),
+                _buildWeightTile(context, userProfile),
+                if (userProfile.age != null) _buildAgeTile(context, userProfile),
+              ]),
+              const SizedBox(height: 16),
+              _buildCardSection(context, t.profile.sections.goalsAndActivity, [
+                _buildDailyGoalTile(context, ref),
+                _buildWeightGoalTile(context, userProfile),
+                _buildTargetWeightTile(context, userProfile),
+                _buildActivityLevelTile(context, userProfile),
+              ]),
+              const SizedBox(height: 16),
+              _buildCardSection(context, t.profile.sections.calculatedValues, [
+                _buildCalculatedValuesTile(context, userProfile),
+              ]),
+              const SizedBox(height: 32),
+            ],
+          ),
+        );
+      },
     );
   }
 
-  Widget _buildCardSection(String title, List<Widget> children) {
+  Widget _buildCardSection(
+    BuildContext context,
+    String title,
+    List<Widget> children,
+  ) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
@@ -169,12 +154,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildPersonalDetailsTile() {
+  Widget _buildPersonalDetailsTile(BuildContext context, UserProfile userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final gender =
-        _userProfile!.hasGender()
-            ? _userProfile!.gender.displayName
+        userProfile.hasGender()
+            ? userProfile.gender.displayName
             : t.profile.notSet;
 
     return ListTile(
@@ -194,11 +179,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildHeightTile() {
+  Widget _buildHeightTile(BuildContext context, UserProfile userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final height = _userProfile!.hasHeight() ? _userProfile!.height : null;
-    final heightUnit = _userProfile!.heightUnit.normalized;
+    final height = userProfile.hasHeight() ? userProfile.height : null;
+    final heightUnit = userProfile.heightUnit.normalized;
 
     String heightText = t.profile.notSet;
     if (height != null) {
@@ -222,11 +207,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildWeightTile() {
+  Widget _buildWeightTile(BuildContext context, UserProfile userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final weight = _userProfile!.hasWeight() ? _userProfile!.weight : null;
-    final weightUnit = _userProfile!.weightUnit.normalized;
+    final weight = userProfile.hasWeight() ? userProfile.weight : null;
+    final weightUnit = userProfile.weightUnit.normalized;
 
     String weightText = t.profile.notSet;
     if (weight != null) {
@@ -251,10 +236,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildAgeTile() {
+  Widget _buildAgeTile(BuildContext context, UserProfile userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final age = _userProfile!.age;
+    final age = userProfile.age;
 
     return ListTile(
       leading: Container(
@@ -270,47 +255,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildDailyGoalTile() {
+  Widget _buildDailyGoalTile(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final goalAsync = ref.watch(savedDailyCalorieGoalProvider);
+    final goal = goalAsync.maybeWhen(data: (value) => value ?? 0, orElse: () => 0);
+    final goalText =
+        goal > 0
+            ? '$goal ${t.profile.calculatedValues.calPerDay}'
+            : t.profile.notSet;
 
-    return FutureBuilder<int?>(
-      future: DatabaseService.databaseInterface.getDailyCalorieGoal(),
-      builder: (context, snapshot) {
-        final goal = snapshot.data ?? 0;
-        final goalText =
-            goal > 0
-                ? '$goal ${t.profile.calculatedValues.calPerDay}'
-                : t.profile.notSet;
-
-        return ListTile(
-          leading: Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: colorScheme.primaryContainer.withValues(alpha: 0.4),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              LucideIcons.flame,
-              color: colorScheme.primary,
-              size: 20,
-            ),
-          ),
-          title: Text(
-            t.profile.calculatedValues.dailyGoal,
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
-          subtitle: Text(goalText),
-        );
-      },
+    return ListTile(
+      leading: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(LucideIcons.flame, color: colorScheme.primary, size: 20),
+      ),
+      title: Text(
+        t.profile.calculatedValues.dailyGoal,
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+      subtitle: Text(goalText),
     );
   }
 
-  Widget _buildWeightGoalTile() {
+  Widget _buildWeightGoalTile(BuildContext context, UserProfile userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final weightGoal =
-        _userProfile!.hasWeightGoal() ? _userProfile!.weightGoal : null;
+        userProfile.hasWeightGoal() ? userProfile.weightGoal : null;
 
     return ListTile(
       leading: Container(
@@ -329,11 +305,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildTargetWeightTile() {
+  Widget _buildTargetWeightTile(BuildContext context, UserProfile userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final targetWeight = _userProfile!.targetWeight;
-    final weightUnit = _userProfile!.weightUnit;
+    final targetWeight = userProfile.targetWeight;
+    final weightUnit = userProfile.weightUnit;
 
     String targetWeightText = t.profile.notSet;
     targetWeightText =
@@ -356,11 +332,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildActivityLevelTile() {
+  Widget _buildActivityLevelTile(
+    BuildContext context,
+    UserProfile userProfile,
+  ) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final activityLevel =
-        _userProfile!.hasActivityLevel() ? _userProfile!.activityLevel : null;
+        userProfile.hasActivityLevel() ? userProfile.activityLevel : null;
 
     return ListTile(
       leading: Container(
@@ -379,13 +358,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildCalculatedValuesTile() {
+  Widget _buildCalculatedValuesTile(
+    BuildContext context,
+    UserProfile userProfile,
+  ) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final bmr = OnboardingService.instance.calculateBMR(_userProfile!);
-    final tdee = OnboardingService.instance.calculateTDEE(_userProfile!);
+    final bmr = OnboardingService.instance.calculateBMR(userProfile);
+    final tdee = OnboardingService.instance.calculateTDEE(userProfile);
     final dailyCalorieGoal = OnboardingService.instance
-        .calculateDailyCalorieGoal(_userProfile!);
+        .calculateDailyCalorieGoal(userProfile);
 
     // Always display BMR, TDEE, and Daily Goal - show N/A if calculation fails
     final bmrText =
@@ -453,14 +435,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Future<void> _editProfile() async {
-    if (_userProfile == null) return;
-    // Navigate to edit profile screen and wait for it to be popped.
-    await context.router.push(EditProfileRoute(userProfile: _userProfile!));
-    // When we return, reload the data to reflect any changes.
-    setState(() {
-      _isLoading = true;
-    });
-    await _loadProfileData();
+  Future<void> _editProfile(
+    BuildContext context,
+    WidgetRef ref,
+    UserProfile userProfile,
+  ) async {
+    await context.router.push(EditProfileRoute(userProfile: userProfile));
+    ref.invalidate(userProfileProvider);
+    ref.invalidate(savedDailyCalorieGoalProvider);
   }
 }

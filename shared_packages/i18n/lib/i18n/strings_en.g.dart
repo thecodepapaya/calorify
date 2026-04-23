@@ -478,6 +478,7 @@ class TranslationsSettingsEn {
 	late final TranslationsSettingsMealRemindersEn mealReminders = TranslationsSettingsMealRemindersEn._(_root);
 	late final TranslationsSettingsThemeEn theme = TranslationsSettingsThemeEn._(_root);
 	late final TranslationsSettingsSendFeedbackEn sendFeedback = TranslationsSettingsSendFeedbackEn._(_root);
+	late final TranslationsSettingsExportMealHistoryEn exportMealHistory = TranslationsSettingsExportMealHistoryEn._(_root);
 	late final TranslationsSettingsClearAllDataEn clearAllData = TranslationsSettingsClearAllDataEn._(_root);
 	late final TranslationsSettingsDebugOptionsEn debugOptions = TranslationsSettingsDebugOptionsEn._(_root);
 
@@ -918,6 +919,27 @@ class TranslationsHomeAiSummaryEn {
 
 	/// en: 'Loading your summary...'
 	String get loading => 'Loading your summary...';
+
+	/// en: '{count} meals logged'
+	String mealCount({required Object count}) => '${count} meals logged';
+
+	/// en: 'Balance score {score}'
+	String macroBalanceScore({required Object score}) => 'Balance score ${score}';
+
+	/// en: 'Top foods'
+	String get topFoods => 'Top foods';
+
+	/// en: 'Calories trending up'
+	String get trendUp => 'Calories trending up';
+
+	/// en: 'Calories trending down'
+	String get trendDown => 'Calories trending down';
+
+	/// en: 'Calories staying steady'
+	String get trendSteady => 'Calories staying steady';
+
+	/// en: 'Updated {time}'
+	String generatedAt({required Object time}) => 'Updated ${time}';
 }
 
 // Path: home.dailyGoal
@@ -1496,6 +1518,27 @@ class TranslationsSettingsSendFeedbackEn {
 
 	/// en: 'UID'
 	String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class TranslationsSettingsExportMealHistoryEn {
+	TranslationsSettingsExportMealHistoryEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Export Meal History'
+	String get title => 'Export Meal History';
+
+	/// en: 'Share a CSV of your logged meals'
+	String get subtitle => 'Share a CSV of your logged meals';
+
+	/// en: 'Your Calorify meal history export'
+	String get shareText => 'Your Calorify meal history export';
+
+	/// en: 'Could not export meal history: {error}'
+	String failed({required Object error}) => 'Could not export meal history: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -2598,6 +2641,13 @@ extension on Translations {
 			'home.aiSummary.title' => 'Your AI Summary',
 			'home.aiSummary.logMore' => 'Log more meals over the next few days to get your personalized AI insights.',
 			'home.aiSummary.loading' => 'Loading your summary...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} meals logged',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Balance score ${score}',
+			'home.aiSummary.topFoods' => 'Top foods',
+			'home.aiSummary.trendUp' => 'Calories trending up',
+			'home.aiSummary.trendDown' => 'Calories trending down',
+			'home.aiSummary.trendSteady' => 'Calories staying steady',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'Updated ${time}',
 			'home.dailyGoal.title' => 'Set Your Daily Goal',
 			'home.dailyGoal.titleSet' => 'Your Daily Goal',
 			'home.dailyGoal.description' => 'Ready to embark on your wellness journey? Set your daily calorie target below to kickstart your progress.',
@@ -2800,6 +2850,10 @@ extension on Translations {
 			'settings.sendFeedback.device' => 'Device',
 			'settings.sendFeedback.osVersion' => 'OS Version',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'Export Meal History',
+			'settings.exportMealHistory.subtitle' => 'Share a CSV of your logged meals',
+			'settings.exportMealHistory.shareText' => 'Your Calorify meal history export',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Could not export meal history: ${error}',
 			'settings.clearAllData.title' => 'Clear All Data',
 			'settings.clearAllData.subtitle' => 'Irreversibly delete all your information',
 			'settings.clearAllData.confirmationTitle' => 'Clear All Data?',

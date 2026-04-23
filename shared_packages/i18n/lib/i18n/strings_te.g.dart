@@ -283,6 +283,7 @@ class _TranslationsSettingsTe implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersTe mealReminders = _TranslationsSettingsMealRemindersTe._(_root);
 	@override late final _TranslationsSettingsThemeTe theme = _TranslationsSettingsThemeTe._(_root);
 	@override late final _TranslationsSettingsSendFeedbackTe sendFeedback = _TranslationsSettingsSendFeedbackTe._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryTe exportMealHistory = _TranslationsSettingsExportMealHistoryTe._(_root);
 	@override late final _TranslationsSettingsClearAllDataTe clearAllData = _TranslationsSettingsClearAllDataTe._(_root);
 	@override late final _TranslationsSettingsDebugOptionsTe debugOptions = _TranslationsSettingsDebugOptionsTe._(_root);
 	@override String get developerModeEnabled => 'డెవలపర్ మోడ్ సాధనంలో ఉంది!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryTe implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'మీ AI సారాంశం';
 	@override String get logMore => 'మీ వ్యక్తిగత AI సూచనలు పొందడానికి రాబోయే కొన్ని రోజుల్లో మరిన్ని భోజనాలు నమోదు చేయండి.';
 	@override String get loading => 'మీ సారాంశం లోడ్ అవుతోంది...';
+	@override String mealCount({required Object count}) => '${count} భోజనాలు నమోదు అయ్యాయి';
+	@override String macroBalanceScore({required Object score}) => 'సమతుల్యత స్కోర్ ${score}';
+	@override String get topFoods => 'ప్రముఖ ఆహారాలు';
+	@override String get trendUp => 'కాలరీలు పెరుగుతున్నాయి';
+	@override String get trendDown => 'కాలరీలు తగ్గుతున్నాయి';
+	@override String get trendSteady => 'కాలరీలు స్థిరంగా ఉన్నాయి';
+	@override String generatedAt({required Object time}) => 'నవీకరించబడింది ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackTe implements TranslationsSettingsSendFee
 	@override String get device => 'పరికరం';
 	@override String get osVersion => 'OS వెర్షన్';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryTe implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'భోజన చరిత్ర ఎగుమతి';
+	@override String get subtitle => 'మీ నమోదు చేసిన భోజనాల CSV ఫైల్‌ను పంచుకోండి';
+	@override String get shareText => 'మీ Calorify భోజన చరిత్ర ఎగుమతి';
+	@override String failed({required Object error}) => 'భోజన చరిత్రను ఎగుమతి చేయలేకపోయాం: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsTe {
 			'home.aiSummary.title' => 'మీ AI సారాంశం',
 			'home.aiSummary.logMore' => 'మీ వ్యక్తిగత AI సూచనలు పొందడానికి రాబోయే కొన్ని రోజుల్లో మరిన్ని భోజనాలు నమోదు చేయండి.',
 			'home.aiSummary.loading' => 'మీ సారాంశం లోడ్ అవుతోంది...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} భోజనాలు నమోదు అయ్యాయి',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'సమతుల్యత స్కోర్ ${score}',
+			'home.aiSummary.topFoods' => 'ప్రముఖ ఆహారాలు',
+			'home.aiSummary.trendUp' => 'కాలరీలు పెరుగుతున్నాయి',
+			'home.aiSummary.trendDown' => 'కాలరీలు తగ్గుతున్నాయి',
+			'home.aiSummary.trendSteady' => 'కాలరీలు స్థిరంగా ఉన్నాయి',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'నవీకరించబడింది ${time}',
 			'home.dailyGoal.title' => 'మీ రోజువారీ లక్ష్యాన్ని సెట్ చేయండి',
 			'home.dailyGoal.titleSet' => 'మీ రోజువారీ లక్ష్యం',
 			'home.dailyGoal.description' => 'మీ ఆరోగ్య ప్రయాణం ప్రారంభించడానికి సిద్ధమైనారా? మీ ప్రగతిని ప్రారంభించడానికి కింద మీ రోజువారీ కేలొరీ లక్ష్యాన్ని సెట్ చేయండి.',
@@ -1898,6 +1926,10 @@ extension on TranslationsTe {
 			'settings.sendFeedback.device' => 'పరికరం',
 			'settings.sendFeedback.osVersion' => 'OS వెర్షన్',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'భోజన చరిత్ర ఎగుమతి',
+			'settings.exportMealHistory.subtitle' => 'మీ నమోదు చేసిన భోజనాల CSV ఫైల్‌ను పంచుకోండి',
+			'settings.exportMealHistory.shareText' => 'మీ Calorify భోజన చరిత్ర ఎగుమతి',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'భోజన చరిత్రను ఎగుమతి చేయలేకపోయాం: ${error}',
 			'settings.clearAllData.title' => 'అన్ని డేటాను క్లియర్ చేయండి',
 			'settings.clearAllData.subtitle' => 'మీ సమాచారం కార్యరహితంగా తొలగించండి',
 			'settings.clearAllData.confirmationTitle' => 'అన్ని డేటాను క్లియర్ చేయాలనుకుంటున్నారు?',

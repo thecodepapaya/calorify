@@ -31,7 +31,7 @@ Shared internationalization.
 
 ### services
 Shared services.
-- FoodAnalysisService (AI meal analysis)
+- Shared utility integrations such as flushbars, email feedback, image compression, review prompts, and version info
 
 ## Usage
 

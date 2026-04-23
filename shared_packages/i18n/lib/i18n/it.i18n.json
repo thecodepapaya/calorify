@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "Il tuo riepilogo IA",
       "logMore": "Registra più pasti nei prossimi giorni per ricevere approfondimenti personalizzati dall'IA.",
-      "loading": "Caricamento del tuo riepilogo..."
+      "loading": "Caricamento del tuo riepilogo...",
+      "mealCount": "{count} pasti registrati",
+      "macroBalanceScore": "Punteggio di equilibrio {score}",
+      "topFoods": "Alimenti principali",
+      "trendUp": "Calorie in aumento",
+      "trendDown": "Calorie in calo",
+      "trendSteady": "Calorie stabili",
+      "generatedAt": "Aggiornato {time}"
     },
     "dailyGoal": {
       "title": "Imposta il Tuo Obiettivo Giornaliero",
@@ -435,6 +442,12 @@
       "device": "Dispositivo",
       "osVersion": "Versione OS",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "Esporta cronologia pasti",
+      "subtitle": "Condividi un CSV dei tuoi pasti registrati",
+      "shareText": "Esportazione della cronologia pasti di Calorify",
+      "failed": "Impossibile esportare la cronologia dei pasti: {error}"
     },
     "clearAllData": {
       "title": "Cancella Tutti i Dati",
