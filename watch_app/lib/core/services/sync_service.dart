@@ -12,6 +12,8 @@ enum SyncState { idle, syncing, synced, error, disconnected }
 
 enum SyncRequestResult { synced, queued, failed }
 
+enum _PendingOperationProcessResult { applied, retryLater, drop }
+
 /// Service to sync data between watch and main app using Wear OS Data Layer.
 class SyncService {
   SyncService._();
@@ -471,12 +473,18 @@ class SyncService {
     syncState.value = SyncState.syncing;
 
     for (final operation in operations) {
-      final success = await _performPendingOperation(operation);
-      if (!success) {
-        syncState.value = SyncState.error;
-        return false;
+      final result = await _performPendingOperation(operation);
+      switch (result) {
+        case _PendingOperationProcessResult.applied:
+          await _database.deletePendingOperation(operation.id);
+          break;
+        case _PendingOperationProcessResult.drop:
+          await _dropPendingOperation(operation);
+          break;
+        case _PendingOperationProcessResult.retryLater:
+          syncState.value = SyncState.disconnected;
+          return false;
       }
-      await _database.deletePendingOperation(operation.id);
     }
 
     _markSynced();
@@ -484,30 +492,83 @@ class SyncService {
     return true;
   }
 
-  Future<bool> _performPendingOperation(PendingWatchOperation operation) async {
+  Future<_PendingOperationProcessResult> _performPendingOperation(
+    PendingWatchOperation operation,
+  ) async {
+    try {
+      switch (operation.type) {
+        case PendingWatchOperationType.logMeal:
+          final meal = operation.meal;
+          if (meal == null) {
+            _debugLog(
+              'Dropping queued meal ${operation.mealId} because its payload '
+              'could not be decoded.',
+            );
+            return _PendingOperationProcessResult.drop;
+          }
+
+          final requestData = mealInfoToLegacyJson(meal);
+          if (operation.favoriteMealId != null) {
+            requestData['favorite_meal_id'] = operation.favoriteMealId;
+          }
+
+          final response = await WearOsChannel.sendMessage(
+            path: '/meal',
+            data: requestData,
+          );
+          return _classifyPendingOperationResponse(
+            response,
+            operation: operation,
+          );
+        case PendingWatchOperationType.deleteMeal:
+          final response = await WearOsChannel.sendMessage(
+            path: '/meal/delete',
+            data: {'meal_id': operation.mealId},
+          );
+          return _classifyPendingOperationResponse(
+            response,
+            operation: operation,
+          );
+      }
+    } catch (error) {
+      _debugLog(
+        'Retrying queued ${operation.type.name} for meal ${operation.mealId} '
+        'after unexpected error: $error',
+      );
+      return _PendingOperationProcessResult.retryLater;
+    }
+  }
+
+  _PendingOperationProcessResult _classifyPendingOperationResponse(
+    Map<String, dynamic>? response, {
+    required PendingWatchOperation operation,
+  }) {
+    if (response == null) {
+      return _PendingOperationProcessResult.retryLater;
+    }
+
+    if (response['success'] == true) {
+      return _PendingOperationProcessResult.applied;
+    }
+
+    _debugLog(
+      'Dropping queued ${operation.type.name} for meal ${operation.mealId} '
+      'after server rejection: ${response['error'] ?? response}',
+    );
+    return _PendingOperationProcessResult.drop;
+  }
+
+  Future<void> _dropPendingOperation(PendingWatchOperation operation) async {
+    await _database.deletePendingOperation(operation.id);
+
     switch (operation.type) {
       case PendingWatchOperationType.logMeal:
-        final meal = operation.meal;
-        if (meal == null) {
-          return false;
-        }
-
-        final requestData = mealInfoToLegacyJson(meal);
-        if (operation.favoriteMealId != null) {
-          requestData['favorite_meal_id'] = operation.favoriteMealId;
-        }
-
-        final response = await WearOsChannel.sendMessage(
-          path: '/meal',
-          data: requestData,
-        );
-        return response != null && response['success'] == true;
+        _cache.removeMealById(operation.mealId);
+        await _database.deleteCachedMeal(operation.mealId);
+        break;
       case PendingWatchOperationType.deleteMeal:
-        final response = await WearOsChannel.sendMessage(
-          path: '/meal/delete',
-          data: {'meal_id': operation.mealId},
-        );
-        return response != null && response['success'] == true;
+        // The meal was already removed locally when the delete was queued.
+        break;
     }
   }
 
