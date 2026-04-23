@@ -13,10 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
-import 'package:utils/utils.dart';
 import 'package:widgets/widgets.dart';
-
-enum _FavoriteSortOption { recent, calories, alphabetical }
 
 @RoutePage()
 class FavoritesScreen extends ConsumerStatefulWidget {
@@ -28,8 +25,8 @@ class FavoritesScreen extends ConsumerStatefulWidget {
 
 class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
   late final TextEditingController _searchController;
-  String _query = '';
-  _FavoriteSortOption _sortOption = _FavoriteSortOption.recent;
+  var _query = '';
+  var _sortOption = FavoriteSortOption.recent;
 
   @override
   void initState() {
@@ -46,6 +43,11 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
   @override
   Widget build(BuildContext context) {
     final favoritesAsync = ref.watch(favoriteMealsProvider);
+    final visibleFavorites = ref.watch(
+      filteredFavoriteMealsProvider(
+        (query: _query, sortOption: _sortOption),
+      ),
+    );
 
     return Scaffold(
       appBar: AppBar(title: Text(t.favorites.title)),
@@ -63,19 +65,20 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
               return _EmptyFavoritesState(message: t.favorites.empty);
             }
 
-            final visibleFavorites = _applySearchAndSort(favorites);
-
             return Column(
               children: [
                 _FavoritesToolbar(
                   controller: _searchController,
+                  query: _query,
                   sortOption: _sortOption,
                   onChanged: (value) => setState(() => _query = value.trim()),
                   onClear: () {
                     _searchController.clear();
                     setState(() => _query = '');
                   },
-                  onSortChanged: (value) => setState(() => _sortOption = value),
+                  onSortChanged: (value) {
+                    setState(() => _sortOption = value);
+                  },
                 ),
                 const SizedBox(height: 16),
                 Expanded(
@@ -109,42 +112,6 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
         ),
       ),
     );
-  }
-
-  List<FavoriteMeal> _applySearchAndSort(List<FavoriteMeal> favorites) {
-    final query = _query.toLowerCase();
-    final filtered =
-        favorites.where((favorite) {
-          if (query.isEmpty) return true;
-          final meal = favorite.loggedMeal.meal;
-          final haystacks = [meal.name, meal.quantity, meal.type.legacyName];
-          return haystacks.any((value) => value.toLowerCase().contains(query));
-        }).toList();
-
-    filtered.sort((a, b) {
-      return switch (_sortOption) {
-        _FavoriteSortOption.recent => _sortByRecent(a, b),
-        _FavoriteSortOption.calories => b.loggedMeal.meal.macros.calories
-            .compareTo(a.loggedMeal.meal.macros.calories),
-        _FavoriteSortOption.alphabetical => a.loggedMeal.meal.name
-            .toLowerCase()
-            .compareTo(b.loggedMeal.meal.name.toLowerCase()),
-      };
-    });
-
-    return filtered;
-  }
-
-  int _sortByRecent(FavoriteMeal a, FavoriteMeal b) {
-    final aDate =
-        iso8601StringToDateTime(a.lastUsedAt) ??
-        iso8601StringToDateTime(a.favoriteAt) ??
-        a.loggedMeal.dateTime;
-    final bDate =
-        iso8601StringToDateTime(b.lastUsedAt) ??
-        iso8601StringToDateTime(b.favoriteAt) ??
-        b.loggedMeal.dateTime;
-    return bDate.compareTo(aDate);
   }
 
   Future<void> _removeFavorite(WidgetRef ref, FavoriteMeal favorite) async {
@@ -195,6 +162,7 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
 class _FavoritesToolbar extends StatelessWidget {
   const _FavoritesToolbar({
     required this.controller,
+    required this.query,
     required this.sortOption,
     required this.onChanged,
     required this.onClear,
@@ -202,10 +170,11 @@ class _FavoritesToolbar extends StatelessWidget {
   });
 
   final TextEditingController controller;
-  final _FavoriteSortOption sortOption;
+  final String query;
+  final FavoriteSortOption sortOption;
   final ValueChanged<String> onChanged;
   final VoidCallback onClear;
-  final ValueChanged<_FavoriteSortOption> onSortChanged;
+  final ValueChanged<FavoriteSortOption> onSortChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -220,7 +189,7 @@ class _FavoritesToolbar extends StatelessWidget {
             decoration: InputDecoration(
               prefixIcon: const Icon(LucideIcons.search),
               suffixIcon:
-                  controller.text.isEmpty
+                  query.isEmpty
                       ? null
                       : IconButton(
                         onPressed: onClear,
@@ -232,22 +201,22 @@ class _FavoritesToolbar extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 12),
-        PopupMenuButton<_FavoriteSortOption>(
+        PopupMenuButton<FavoriteSortOption>(
           tooltip: t.favorites.sortLabel,
           initialValue: sortOption,
           onSelected: onSortChanged,
           itemBuilder:
               (context) => [
                 PopupMenuItem(
-                  value: _FavoriteSortOption.recent,
+                  value: FavoriteSortOption.recent,
                   child: Text(t.favorites.sortOptions.recent),
                 ),
                 PopupMenuItem(
-                  value: _FavoriteSortOption.calories,
+                  value: FavoriteSortOption.calories,
                   child: Text(t.favorites.sortOptions.calories),
                 ),
                 PopupMenuItem(
-                  value: _FavoriteSortOption.alphabetical,
+                  value: FavoriteSortOption.alphabetical,
                   child: Text(t.favorites.sortOptions.alphabetical),
                 ),
               ],
@@ -271,11 +240,11 @@ class _FavoritesToolbar extends StatelessWidget {
     );
   }
 
-  String _sortLabel(_FavoriteSortOption option) {
+  String _sortLabel(FavoriteSortOption option) {
     return switch (option) {
-      _FavoriteSortOption.recent => t.favorites.sortOptions.recent,
-      _FavoriteSortOption.calories => t.favorites.sortOptions.calories,
-      _FavoriteSortOption.alphabetical => t.favorites.sortOptions.alphabetical,
+      FavoriteSortOption.recent => t.favorites.sortOptions.recent,
+      FavoriteSortOption.calories => t.favorites.sortOptions.calories,
+      FavoriteSortOption.alphabetical => t.favorites.sortOptions.alphabetical,
     };
   }
 }
