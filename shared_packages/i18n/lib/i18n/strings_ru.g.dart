@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryRu implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => 'История макроэлементов за 7 дней';
+	@override String get trendTitle => 'Динамика за сегодня';
+	@override String peakHour({required Object hour}) => 'Пик: ${hour}:00';
 	@override String get noHistoryYet => 'История отсутствует';
 	@override String get startLogging => 'Начните регистрировать приёмы пищи, чтобы увидеть ваши\nтенденции макроэлементов за 7 дней здесь';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsRu {
 			'home.intakeProgress.target' => 'Цель',
 			'home.intakeProgress.current' => 'Текущий',
 			'home.intakeHistory.title' => 'История макроэлементов за 7 дней',
+			'home.intakeHistory.trendTitle' => 'Динамика за сегодня',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Пик: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'История отсутствует',
 			'home.intakeHistory.startLogging' => 'Начните регистрировать приёмы пищи, чтобы увидеть ваши\nтенденции макроэлементов за 7 дней здесь',
 			'home.mealLog.title' => 'Зарегистрированные приёмы пищи',

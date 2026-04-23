@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "Cronologia dei Macro di 7 Giorni",
+      "trendTitle": "Andamento di oggi",
+      "peakHour": "Picco: {hour}:00",
       "noHistoryYet": "Nessuna cronologia disponibile",
       "startLogging": "Inizia a registrare i pasti per vedere qui\nle tue tendenze macro di 7 giorni"
     },

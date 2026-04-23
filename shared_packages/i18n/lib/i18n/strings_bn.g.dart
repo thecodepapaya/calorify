@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryBn implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7-দিনের ম্যাক্রো ইতিহাস';
+	@override String get trendTitle => 'আজকের প্রবণতা';
+	@override String peakHour({required Object hour}) => 'শীর্ষ সময়: ${hour}:00';
 	@override String get noHistoryYet => 'এখনো কোন ইতিহাস নেই';
 	@override String get startLogging => 'আপনার খাবারগুলি লগ করতে শুরু করুন যে এখানে আপনার\n7-দিনের ম্যাক্রো প্রবণতা দেখতে';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsBn {
 			'home.intakeProgress.target' => 'টার্গেট',
 			'home.intakeProgress.current' => 'বর্তমান',
 			'home.intakeHistory.title' => '7-দিনের ম্যাক্রো ইতিহাস',
+			'home.intakeHistory.trendTitle' => 'আজকের প্রবণতা',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'শীর্ষ সময়: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'এখনো কোন ইতিহাস নেই',
 			'home.intakeHistory.startLogging' => 'আপনার খাবারগুলি লগ করতে শুরু করুন যে এখানে আপনার\n7-দিনের ম্যাক্রো প্রবণতা দেখতে',
 			'home.mealLog.title' => 'লগ করা খাবার',

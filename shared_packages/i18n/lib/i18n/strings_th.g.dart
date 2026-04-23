@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryTh implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => 'ประวัติแมกโคร 7 วัน';
+	@override String get trendTitle => 'แนวโน้มวันนี้';
+	@override String peakHour({required Object hour}) => 'ช่วงเวลาสูงสุด: ${hour}:00';
 	@override String get noHistoryYet => 'ยังไม่มีประวัติ';
 	@override String get startLogging => 'เริ่มบันทึกมื้ออาหารเพื่อดูแนวโน้มแมกโคร 7 วันที่นี่';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsTh {
 			'home.intakeProgress.target' => 'เป้าหมาย',
 			'home.intakeProgress.current' => 'ปัจจุบัน',
 			'home.intakeHistory.title' => 'ประวัติแมกโคร 7 วัน',
+			'home.intakeHistory.trendTitle' => 'แนวโน้มวันนี้',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'ช่วงเวลาสูงสุด: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'ยังไม่มีประวัติ',
 			'home.intakeHistory.startLogging' => 'เริ่มบันทึกมื้ออาหารเพื่อดูแนวโน้มแมกโคร 7 วันที่นี่',
 			'home.mealLog.title' => 'มื้ออาหารที่บันทึก',

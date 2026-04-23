@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryZhCn implements TranslationsHomeIntakeHistor
 
 	// Translations
 	@override String get title => '7天宏观历史';
+	@override String get trendTitle => '今日摄入趋势';
+	@override String peakHour({required Object hour}) => '高峰：${hour}:00';
 	@override String get noHistoryYet => '还没有历史记录';
 	@override String get startLogging => '开始记录餐点，以查看您在此处的\n7天宏观趋势';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsZhCn {
 			'home.intakeProgress.target' => '目标',
 			'home.intakeProgress.current' => '当前',
 			'home.intakeHistory.title' => '7天宏观历史',
+			'home.intakeHistory.trendTitle' => '今日摄入趋势',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => '高峰：${hour}:00',
 			'home.intakeHistory.noHistoryYet' => '还没有历史记录',
 			'home.intakeHistory.startLogging' => '开始记录餐点，以查看您在此处的\n7天宏观趋势',
 			'home.mealLog.title' => '已记录的餐点',

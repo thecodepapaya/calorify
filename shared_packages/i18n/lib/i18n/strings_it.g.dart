@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryIt implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => 'Cronologia dei Macro di 7 Giorni';
+	@override String get trendTitle => 'Andamento di oggi';
+	@override String peakHour({required Object hour}) => 'Picco: ${hour}:00';
 	@override String get noHistoryYet => 'Nessuna cronologia disponibile';
 	@override String get startLogging => 'Inizia a registrare i pasti per vedere qui\nle tue tendenze macro di 7 giorni';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsIt {
 			'home.intakeProgress.target' => 'Obiettivo',
 			'home.intakeProgress.current' => 'Attuale',
 			'home.intakeHistory.title' => 'Cronologia dei Macro di 7 Giorni',
+			'home.intakeHistory.trendTitle' => 'Andamento di oggi',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Picco: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Nessuna cronologia disponibile',
 			'home.intakeHistory.startLogging' => 'Inizia a registrare i pasti per vedere qui\nle tue tendenze macro di 7 giorni',
 			'home.mealLog.title' => 'Pasti Registrati',

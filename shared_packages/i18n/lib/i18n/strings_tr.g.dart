@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryTr implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7 Günlük Makro Geçmişi';
+	@override String get trendTitle => 'Bugünün Eğilimi';
+	@override String peakHour({required Object hour}) => 'Zirve: ${hour}:00';
 	@override String get noHistoryYet => 'Henüz geçmiş yok';
 	@override String get startLogging => 'Yemekleri kaydetmeye başlayın ve burada\n7 günlük makro eğilimlerinizi görün';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsTr {
 			'home.intakeProgress.target' => 'Hedef',
 			'home.intakeProgress.current' => 'Mevcut',
 			'home.intakeHistory.title' => '7 Günlük Makro Geçmişi',
+			'home.intakeHistory.trendTitle' => 'Bugünün Eğilimi',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Zirve: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Henüz geçmiş yok',
 			'home.intakeHistory.startLogging' => 'Yemekleri kaydetmeye başlayın ve burada\n7 günlük makro eğilimlerinizi görün',
 			'home.mealLog.title' => 'Kaydedilen Yemekler',

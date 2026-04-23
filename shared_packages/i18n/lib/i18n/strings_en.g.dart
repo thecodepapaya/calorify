@@ -1055,6 +1055,12 @@ class TranslationsHomeIntakeHistoryEn {
 	/// en: '7-Day Macro History'
 	String get title => '7-Day Macro History';
 
+	/// en: 'Today's Trend'
+	String get trendTitle => 'Today\'s Trend';
+
+	/// en: 'Peak: {hour}:00'
+	String peakHour({required Object hour}) => 'Peak: ${hour}:00';
+
 	/// en: 'No history yet'
 	String get noHistoryYet => 'No history yet';
 
@@ -2674,6 +2680,8 @@ extension on Translations {
 			'home.intakeProgress.target' => 'Target',
 			'home.intakeProgress.current' => 'Current',
 			'home.intakeHistory.title' => '7-Day Macro History',
+			'home.intakeHistory.trendTitle' => 'Today\'s Trend',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Peak: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'No history yet',
 			'home.intakeHistory.startLogging' => 'Start logging meals to see your\n7-day macro trends here',
 			'home.mealLog.title' => 'Logged Meals',

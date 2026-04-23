@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "7-Tage Makroverlauf",
+      "trendTitle": "Heutiger Trend",
+      "peakHour": "Spitzenzeit: {hour}:00",
       "noHistoryYet": "Noch keine Historie",
       "startLogging": "Beginnen Sie mit der Protokollierung von Mahlzeiten, um hier Ihre\n7-Tage-Makrotrends zu sehen"
     },

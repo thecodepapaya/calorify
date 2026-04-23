@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:specs/specs.dart';
@@ -88,6 +89,7 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final translations = Translations.of(context);
 
     if (widget.meals.isEmpty) return const SizedBox.shrink();
 
@@ -109,7 +111,7 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
                 ),
                 const SizedBox(width: 6),
                 Text(
-                  "Today's Trend",
+                  translations.home.intakeHistory.trendTitle,
                   style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w700,
                     letterSpacing: 0.3,
@@ -181,7 +183,7 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
                               dotData: FlDotData(
                                 show: true,
                                 getDotPainter:
-                                    (spot, x, y, lineBarData) =>
+                                    (spot, isCurrentSpot, barData, index) =>
                                         FlDotCirclePainter(
                                           radius: spot.y > 0 ? 3 : 0,
                                           color: colorScheme.calorieIconColor,
@@ -217,7 +219,7 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    'Peak: $_peakHour:00',
+                    translations.home.intakeHistory.peakHour(hour: _peakHour),
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                       fontSize: 8,

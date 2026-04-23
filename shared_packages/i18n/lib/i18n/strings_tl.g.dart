@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryTl implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7-Araw na Kasaysayan ng Macro';
+	@override String get trendTitle => 'Uso Ngayong Araw';
+	@override String peakHour({required Object hour}) => 'Pinakamataas: ${hour}:00';
 	@override String get noHistoryYet => 'Wala pang kasaysayan';
 	@override String get startLogging => 'Simulan ang pag-log ng mga pagkain upang makita ang iyong\n7-araw na trend sa macro dito';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsTl {
 			'home.intakeProgress.target' => 'Target',
 			'home.intakeProgress.current' => 'Kasalukuyan',
 			'home.intakeHistory.title' => '7-Araw na Kasaysayan ng Macro',
+			'home.intakeHistory.trendTitle' => 'Uso Ngayong Araw',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Pinakamataas: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Wala pang kasaysayan',
 			'home.intakeHistory.startLogging' => 'Simulan ang pag-log ng mga pagkain upang makita ang iyong\n7-araw na trend sa macro dito',
 			'home.mealLog.title' => 'Naka-log na mga Pagkain',

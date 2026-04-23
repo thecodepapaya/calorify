@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "7-Dages Makrohistorik",
+      "trendTitle": "Dagens tendens",
+      "peakHour": "Top: {hour}:00",
       "noHistoryYet": "Ingen historie endnu",
       "startLogging": "Begynd at logge måltider for at se dine\n7-dages makrotrends her"
     },

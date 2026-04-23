@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "Historie makroživin za 7 dní",
+      "trendTitle": "Dnešní trend",
+      "peakHour": "Vrchol: {hour}:00",
       "noHistoryYet": "Žádná historie zatím",
       "startLogging": "Začněte zaznamenávat jídla, abyste zde viděli\ntrendy makroživin za 7 dní"
     },

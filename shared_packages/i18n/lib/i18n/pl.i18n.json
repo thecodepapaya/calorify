@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "Historia Makroskładników z 7 Dni",
+      "trendTitle": "Dzisiejszy trend",
+      "peakHour": "Szczyt: {hour}:00",
       "noHistoryYet": "Brak historii",
       "startLogging": "Rozpocznij rejestrowanie posiłków, aby zobaczyć swoje\n7-dniowe trendy makroskładników tutaj"
     },

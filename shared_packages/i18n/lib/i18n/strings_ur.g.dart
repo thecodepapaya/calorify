@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryUr implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7 دنوں کی میکرو تاریخ';
+	@override String get trendTitle => 'آج کا رجحان';
+	@override String peakHour({required Object hour}) => 'عروج کا وقت: ${hour}:00';
 	@override String get noHistoryYet => 'ابھی کوئی تاریخ نہیں';
 	@override String get startLogging => 'اپنے کھانے کے اندراج شروع کریں تاکہ آپ یہاں اپنی 7 دن کی میکرو کی ٹرینڈز دیکھ سکیں';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsUr {
 			'home.intakeProgress.target' => 'ہدف',
 			'home.intakeProgress.current' => 'موجودہ',
 			'home.intakeHistory.title' => '7 دنوں کی میکرو تاریخ',
+			'home.intakeHistory.trendTitle' => 'آج کا رجحان',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'عروج کا وقت: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'ابھی کوئی تاریخ نہیں',
 			'home.intakeHistory.startLogging' => 'اپنے کھانے کے اندراج شروع کریں تاکہ آپ یہاں اپنی 7 دن کی میکرو کی ٹرینڈز دیکھ سکیں',
 			'home.mealLog.title' => 'اندراج شدہ کھانے',

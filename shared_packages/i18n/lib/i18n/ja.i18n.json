@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "7日間のマクロ履歴",
+      "trendTitle": "今日の摂取傾向",
+      "peakHour": "ピーク時間: {hour}:00",
       "noHistoryYet": "履歴はまだありません。",
       "startLogging": "食事を記録し始めて、ここで7日間のマクロトレンドを確認しましょう。"
     },

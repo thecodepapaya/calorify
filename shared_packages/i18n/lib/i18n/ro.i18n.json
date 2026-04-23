@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "Istoricul Macronutrienților pe 7 Zile",
+      "trendTitle": "Tendința de astăzi",
+      "peakHour": "Vârf: {hour}:00",
       "noHistoryYet": "Nu există istoric încă",
       "startLogging": "Începe să înregistrezi mese pentru a vedea tendințele tale de macronutrienți aici"
     },

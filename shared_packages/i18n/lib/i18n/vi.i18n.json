@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "Lịch sử Macro 7 ngày",
+      "trendTitle": "Xu hướng hôm nay",
+      "peakHour": "Giờ cao điểm: {hour}:00",
       "noHistoryYet": "Chưa có lịch sử nào",
       "startLogging": "Bắt đầu ghi chú bữa ăn để xem xu hướng macro 7 ngày của bạn ở đây"
     },

@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryHe implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => 'היסטוריית המקרו של 7 ימים';
+	@override String get trendTitle => 'מגמת היום';
+	@override String peakHour({required Object hour}) => 'שיא בשעה ${hour}:00';
 	@override String get noHistoryYet => 'אין היסטוריה עדיין';
 	@override String get startLogging => 'התחל לרשום ארוחות כדי לראות את מגמות המקרו שלך כאן במהלך 7 הימים';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsHe {
 			'home.intakeProgress.target' => 'יעד',
 			'home.intakeProgress.current' => 'נוכחי',
 			'home.intakeHistory.title' => 'היסטוריית המקרו של 7 ימים',
+			'home.intakeHistory.trendTitle' => 'מגמת היום',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'שיא בשעה ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'אין היסטוריה עדיין',
 			'home.intakeHistory.startLogging' => 'התחל לרשום ארוחות כדי לראות את מגמות המקרו שלך כאן במהלך 7 הימים',
 			'home.mealLog.title' => 'ארוחות רשומות',

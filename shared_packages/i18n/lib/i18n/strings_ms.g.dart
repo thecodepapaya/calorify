@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryMs implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => 'Sejarah Makro 7-Hari';
+	@override String get trendTitle => 'Trend Hari Ini';
+	@override String peakHour({required Object hour}) => 'Jam puncak: ${hour}:00';
 	@override String get noHistoryYet => 'Tiada sejarah lagi';
 	@override String get startLogging => 'Mulakan pencatatan hidangan untuk melihat\ntrend makro 7-hari anda di sini';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsMs {
 			'home.intakeProgress.target' => 'Sasaran',
 			'home.intakeProgress.current' => 'Semasa',
 			'home.intakeHistory.title' => 'Sejarah Makro 7-Hari',
+			'home.intakeHistory.trendTitle' => 'Trend Hari Ini',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Jam puncak: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Tiada sejarah lagi',
 			'home.intakeHistory.startLogging' => 'Mulakan pencatatan hidangan untuk melihat\ntrend makro 7-hari anda di sini',
 			'home.mealLog.title' => 'Hidangan yang Dicatat',

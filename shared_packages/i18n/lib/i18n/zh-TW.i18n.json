@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "7 天的宏量歷史",
+      "trendTitle": "今日趨勢",
+      "peakHour": "高峰時段：{hour}:00",
       "noHistoryYet": "尚未有歷史記錄",
       "startLogging": "開始記錄餐點以查看您的\n七天宏量趨勢"
     },

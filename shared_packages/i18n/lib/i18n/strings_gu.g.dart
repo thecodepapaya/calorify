@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryGu implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7-દિવસનો મેડકરાહત્વ ઈતિહાસ';
+	@override String get trendTitle => 'આજનું વલણ';
+	@override String peakHour({required Object hour}) => 'શિખર: ${hour}:00';
 	@override String get noHistoryYet => 'હજુ સુધી કોઈ ઈતિહાસ નથી';
 	@override String get startLogging => 'વિભાગો નોંધવા શરૂ કરો જેથી તમે અહીં તમારા\n7-દિવસના મેડકરાહત્વો જોયા';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsGu {
 			'home.intakeProgress.target' => 'લક્ષ્ય',
 			'home.intakeProgress.current' => 'હાલમાં',
 			'home.intakeHistory.title' => '7-દિવસનો મેડકરાહત્વ ઈતિહાસ',
+			'home.intakeHistory.trendTitle' => 'આજનું વલણ',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'શિખર: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'હજુ સુધી કોઈ ઈતિહાસ નથી',
 			'home.intakeHistory.startLogging' => 'વિભાગો નોંધવા શરૂ કરો જેથી તમે અહીં તમારા\n7-દિવસના મેડકરાહત્વો જોયા',
 			'home.mealLog.title' => 'નોંધાયેલા ખોરાક',

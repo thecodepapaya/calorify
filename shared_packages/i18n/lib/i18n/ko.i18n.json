@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "7일 매크로 기록",
+      "trendTitle": "오늘의 섭취 경향",
+      "peakHour": "최고: {hour}:00",
       "noHistoryYet": "기록이 없습니다.",
       "startLogging": "여기에서 7일 매크로 트렌드를 확인하기 위해 식사를 기록하기 시작하세요."
     },
