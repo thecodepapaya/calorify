@@ -1,5 +1,6 @@
 import OpenAI, { toFile } from 'openai';
 import config from '../config.js';
+import { OPENAI_AI_SUMMARY_MODEL } from '../openaiModels.js';
 import { query } from './database.js';
 
 // ---------------------------------------------------------------------------
@@ -106,7 +107,7 @@ function buildBatchJsonl(requests: UserSummaryRequest[]): string {
         method: 'POST',
         url: '/v1/chat/completions',
         body: {
-          model: 'gpt-4o-mini',
+          model: OPENAI_AI_SUMMARY_MODEL,
           response_format: { type: 'json_object' },
           messages: [
             { role: 'system', content: systemPrompt },

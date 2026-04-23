@@ -14,7 +14,7 @@ lazy: false
 string_interpolation: braces
 
 gpt:
-  model: gpt-4o-mini
+  model: gpt-5-mini
   description: |
     Calorify is a personal nutrition companion and calorie tracker app.
     It uses AI to recognize food from photos and calculate nutritional facts.

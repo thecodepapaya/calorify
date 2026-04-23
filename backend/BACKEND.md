@@ -20,7 +20,7 @@
 
 ## Overview
 
-The Calorify Backend is a minimal, high-performance Node.js/Fastify server that provides AI-powered food analysis capabilities. It uses OpenAI gpt-5-nano (default) to analyze food images and text descriptions, returning detailed nutritional information. A legacy Gemini 2.5 Flash Lite service is also available.
+The Calorify Backend is a minimal, high-performance Node.js/Fastify server that provides AI-powered food analysis capabilities. It uses OpenAI `gpt-4.1-nano` for meal analysis and OpenAI `gpt-5-mini` for AI summaries. A legacy Gemini 2.5 Flash Lite service is also available.
 
 ### Key Characteristics
 - **Minimal Design**: Focused solely on food analysis
@@ -34,7 +34,7 @@ The Calorify Backend is a minimal, high-performance Node.js/Fastify server that 
 - **Framework**: Fastify 4.x
 - **Runtime**: Node.js 20+ (LTS)
 - **Language**: TypeScript (strict mode)
-- **AI**: OpenAI gpt-5-nano (default), Google Generative AI (Gemini 2.5 Flash Lite - legacy)
+- **AI**: OpenAI `gpt-4.1-nano` for meal analysis, OpenAI `gpt-5-mini` for AI summaries, Google Generative AI (Gemini 2.5 Flash Lite - legacy)
 - **Auth**: Firebase Admin SDK
 - **Data Models**: Protobuf (TypeScript types generated via ts-proto)
 - **Containerization**: Docker & Docker Compose
@@ -267,22 +267,29 @@ Fastify can be configured with Swagger/OpenAPI documentation using `@fastify/swa
 **Key Methods**:
 
 #### `analyzeImageFromBuffer(imageBuffer: Buffer, mimeType: string): Promise<MealDetectionResult>`
-- Processes image using OpenAI gpt-5-nano Vision API
+- Processes image using OpenAI `gpt-4.1-nano`
 - Extracts JSON response from AI
 - Converts to Protobuf-typed `MealDetectionResult`
 - Handles image conversion to base64
 
 #### `analyzeTextDescriptionLegacy(description: string): Promise<MealDetectionResult>`
-- Processes text description using OpenAI gpt-5-nano
+- Processes text description using OpenAI `gpt-4.1-nano`
 - Extracts JSON response from AI
 - Converts to Protobuf-typed `MealDetectionResult`
 
 #### `analyzeImageFromUrl(imageUrl: string): Promise<MealDetectionResponse>`
-- Processes image from URL using OpenAI gpt-5-nano Vision API
+- Processes image from URL using OpenAI `gpt-4.1-nano`
 - Returns `MealDetectionResponse` with variations
 
 #### `analyzeTextDescription(description: string): Promise<MealDetectionResponse>`
-- Processes text description using OpenAI gpt-5-nano
+- Processes text description using OpenAI `gpt-4.1-nano`
+
+### OpenAI Model Constants
+
+Backend OpenAI model names are centralized in `src/openaiModels.ts`:
+
+- `OPENAI_MEAL_ANALYSIS_MODEL = gpt-4.1-nano`
+- `OPENAI_AI_SUMMARY_MODEL = gpt-5-mini`
 - Returns `MealDetectionResponse` with variations
 
 **Internal Helpers**:

@@ -24,6 +24,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
+import 'package:widgets/widgets.dart';
 
 enum MealDetailsSheetPurpose {
   mealAddition,
@@ -412,7 +413,7 @@ class _MealTipState extends State<_MealTip> {
             child: PrimaryButton(
               onPressed: () => _openEditMealSheet(context),
               text: t.meal.editMeal,
-              leadingIcon: LucideIcons.pencil,
+              leadingIcon: AppIcons.pencil,
               analyticsEvent: AnalyticsEvent.mealEdit,
             ),
           ),
@@ -438,7 +439,7 @@ class _MealTipState extends State<_MealTip> {
             child: PrimaryButton(
               onPressed: () => _openEditMealSheet(context),
               text: t.meal.editMeal,
-              leadingIcon: LucideIcons.pencil,
+              leadingIcon: AppIcons.pencil,
               analyticsEvent: AnalyticsEvent.mealEdit,
             ),
           ),

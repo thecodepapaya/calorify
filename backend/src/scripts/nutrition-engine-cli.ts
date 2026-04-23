@@ -15,6 +15,7 @@ type ReadlineInterface = ReturnType<typeof createInterface>;
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import dotenv from 'dotenv';
+import { OPENAI_MEAL_ANALYSIS_MODEL } from '../openaiModels.js';
 
 // ---------------------------------------------------------------------------
 // Environment
@@ -228,8 +229,6 @@ const ALIASES: Record<string, string> = {
 // ---------------------------------------------------------------------------
 // OpenAI client
 // ---------------------------------------------------------------------------
-const DECOMPOSITION_MODEL = 'gpt-4.1-nano';
-
 function getOpenAI(): OpenAI {
   const key = process.env.OPENAI_API_KEY;
   if (!key) {
@@ -304,7 +303,7 @@ const DECOMPOSITION_SCHEMA = {
 async function decompose(openai: OpenAI, input: string): Promise<LLMDecomposition> {
   const t0 = performance.now();
   const response = await openai.chat.completions.create({
-    model: DECOMPOSITION_MODEL,
+    model: OPENAI_MEAL_ANALYSIS_MODEL,
     messages: [
       { role: 'system', content: DECOMPOSITION_SYSTEM_PROMPT },
       { role: 'user', content: input },
@@ -327,7 +326,7 @@ async function decompose(openai: OpenAI, input: string): Promise<LLMDecompositio
   const parsed = JSON.parse(raw) as LLMDecomposition;
   const tokens = response.usage;
   console.log(
-    D(`  LLM call: ${elapsed}ms | tokens: ${tokens?.prompt_tokens ?? '?'}→${tokens?.completion_tokens ?? '?'} | model: ${DECOMPOSITION_MODEL}`),
+    D(`  LLM call: ${elapsed}ms | tokens: ${tokens?.prompt_tokens ?? '?'}→${tokens?.completion_tokens ?? '?'} | model: ${OPENAI_MEAL_ANALYSIS_MODEL}`),
   );
   return parsed;
 }
@@ -386,7 +385,7 @@ async function estimateMacrosViaLLM(
   const prompt = names.map((n, i) => `${i + 1}. ${n}`).join('\n');
 
   const response = await client.chat.completions.create({
-    model: DECOMPOSITION_MODEL,
+    model: OPENAI_MEAL_ANALYSIS_MODEL,
     messages: [
       { role: 'system', content: FALLBACK_SYSTEM_PROMPT },
       { role: 'user', content: `Provide per-100g macros for:\n${prompt}` },
@@ -409,7 +408,7 @@ async function estimateMacrosViaLLM(
   const parsed = JSON.parse(raw) as LLMFallbackResponse;
   const tokens = response.usage;
   console.log(
-    D(`  LLM fallback call: ${elapsed}ms | tokens: ${tokens?.prompt_tokens ?? '?'}→${tokens?.completion_tokens ?? '?'} | model: ${DECOMPOSITION_MODEL}`),
+    D(`  LLM fallback call: ${elapsed}ms | tokens: ${tokens?.prompt_tokens ?? '?'}→${tokens?.completion_tokens ?? '?'} | model: ${OPENAI_MEAL_ANALYSIS_MODEL}`),
   );
 
   const result = new Map<string, LLMFallbackEntry>();

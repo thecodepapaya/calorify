@@ -66,7 +66,7 @@
 │                          │ API Calls                         │
 │                          ▼                                   │
 │  ┌──────────────────────────────────────────────┐           │
-│  │   AI Services (Gemini / OpenAI gpt-5-nano)    │           │
+│  │   AI Services (Gemini / OpenAI)               │           │
 │  └──────────────────────────────────────────────┘           │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -90,7 +90,7 @@
 - **Framework**: Fastify 4.x
 - **Runtime**: Node.js 20+ (LTS)
 - **Language**: TypeScript (strict mode)
-- **AI**: OpenAI (gpt-5-nano - default), Google Generative AI (Gemini 1.5 Flash - legacy)
+- **AI**: OpenAI (`gpt-4.1-nano` for meal analysis, `gpt-5-mini` for summaries/translations), Google Generative AI (Gemini 1.5 Flash - legacy)
 - **Authentication**: Firebase Admin SDK
 - **Rate Limiting**: @fastify/rate-limit (Global & Route-specific)
 - **Data Models**: Protobuf (generated TypeScript types)
@@ -229,7 +229,7 @@ Run `./scripts/generate_protos.sh` to update generated code in both frontend and
 ### Schema Synchronization System
 Centralized schema generator added to keep API docs in sync with proto definitions.
 
-### New OpenAI gpt-5-nano Endpoints
+### OpenAI Meal Analysis Endpoints
 - `POST /api/v1/food/detect-image`
 - `POST /api/v1/food/detect-text`
 - Variations included when confidence is LOW/MEDIUM.

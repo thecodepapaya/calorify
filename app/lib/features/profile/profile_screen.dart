@@ -56,7 +56,7 @@ class ProfileScreen extends ConsumerWidget {
             actions: [
               IconButton(
                 onPressed: () => _editProfile(context, ref, userProfile),
-                icon: const Icon(LucideIcons.pencil, size: 20),
+                icon: Icon(AppIcons.pencil, size: 20),
                 iconSize: 20,
                 padding: const EdgeInsets.all(8),
                 constraints: const BoxConstraints(),

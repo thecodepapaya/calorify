@@ -11,7 +11,8 @@ A high-performance Node.js/Fastify backend API server for AI-powered food analys
 
 ## Features
 
-- AI Food Analysis (Image & Text) using OpenAI gpt-5-nano (default) & Google Gemini 2.5 Flash Lite
+- AI Food Analysis (Image & Text) using OpenAI `gpt-4.1-nano` & Google Gemini 2.5 Flash Lite
+- AI meal summaries using OpenAI `gpt-5-mini`
 - Firebase Authentication (currently disabled for testing)
 - TypeScript with strict type checking
 - Protobuf-based data contracts with auto-synced API schemas
@@ -23,7 +24,7 @@ A high-performance Node.js/Fastify backend API server for AI-powered food analys
 - **Framework**: Fastify 4.x
 - **Runtime**: Node.js 20+ (LTS)
 - **Language**: TypeScript (strict mode)
-- **AI**: OpenAI gpt-5-nano (default for all endpoints), Google Gemini 2.5 Flash Lite (legacy service)
+- **AI**: OpenAI `gpt-4.1-nano` for meal analysis, OpenAI `gpt-5-mini` for AI summaries, Google Gemini 2.5 Flash Lite for the legacy service
 - **Auth**: Firebase Admin SDK
 - **Data Models**: Protobuf (generated TypeScript types)
 - **Database**: PostgreSQL 15
@@ -74,6 +75,13 @@ A high-performance Node.js/Fastify backend API server for AI-powered food analys
 - `npm run usda:refresh` - Run a versioned USDA refresh into Postgres
 - `npm run usda:bootstrap` - Download hardcoded USDA ZIP, extract required CSVs, and import in one step
   - Optional: set `USDA_ZIP_PATH` to use an already-downloaded ZIP file instead of downloading
+
+## OpenAI Models
+
+Backend OpenAI model names are declared once in [src/openaiModels.ts](/Users/ashutosh/Projects/calorify/backend/src/openaiModels.ts:1).
+
+- `OPENAI_MEAL_ANALYSIS_MODEL = gpt-4.1-nano`
+- `OPENAI_AI_SUMMARY_MODEL = gpt-5-mini`
 
 ## Streamed V2 Analysis CLI
 

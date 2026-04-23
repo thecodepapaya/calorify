@@ -7,6 +7,7 @@
 import OpenAI from 'openai';
 import { randomUUID } from 'node:crypto';
 import config from '../config.js';
+import { OPENAI_MEAL_ANALYSIS_MODEL } from '../openaiModels.js';
 import { getFoodAnalysisSystemPrompt } from './foodAnalysisSystemPrompt.js';
 import { canonicalizeWithUsda } from './usdaLookup.js';
 import { calcMacrosFromUsdaRow } from './usdaLookupUtils.js';
@@ -249,8 +250,6 @@ interface PipelineRunContext {
   logger?: AnalysisLogger;
   trace?: AnalysisTrace;
 }
-
-const DECOMPOSITION_MODEL = 'gpt-4.1-nano';
 
 const DECOMPOSITION_SYSTEM_PROMPT = `You are a food decomposition AI. Your ONLY job is to break down a meal description into individual atomic ingredients with gram estimates.
 
@@ -626,7 +625,7 @@ async function decomposeFromText(
 ): Promise<LLMDecomposition> {
   const userContent = correctionContext ? `${input}\n\n${correctionContext}` : input;
   const response = await client.chat.completions.create({
-    model: DECOMPOSITION_MODEL,
+    model: OPENAI_MEAL_ANALYSIS_MODEL,
     messages: [
       { role: 'system', content: DECOMPOSITION_SYSTEM_PROMPT },
       { role: 'user', content: userContent },
@@ -648,7 +647,7 @@ async function decomposeFromImage(
   correctionContext?: string
 ): Promise<LLMDecomposition> {
   const response = await client.chat.completions.create({
-    model: DECOMPOSITION_MODEL,
+    model: OPENAI_MEAL_ANALYSIS_MODEL,
     messages: [
       { role: 'system', content: DECOMPOSITION_SYSTEM_PROMPT },
       {
@@ -679,7 +678,7 @@ async function estimateMacrosViaLLM(client: OpenAI, names: string[]): Promise<Ma
   if (names.length === 0) return new Map();
   const prompt = names.map((name, index) => `${index + 1}. ${name}`).join('\n');
   const response = await client.chat.completions.create({
-    model: DECOMPOSITION_MODEL,
+    model: OPENAI_MEAL_ANALYSIS_MODEL,
     messages: [
       { role: 'system', content: FALLBACK_SYSTEM_PROMPT },
       { role: 'user', content: `Provide per-100g macros for:\n${prompt}` },
@@ -768,7 +767,7 @@ async function resolveIngredients(
         'estimate_macros_fallback',
         {
           analysisId,
-          model: DECOMPOSITION_MODEL,
+          model: OPENAI_MEAL_ANALYSIS_MODEL,
           unmatchedCount: unmatched.length,
           unmatchedHints,
         },
@@ -861,7 +860,7 @@ async function enrichPresentationFromText(
     .join('\n\n');
 
   const response = await client.chat.completions.create({
-    model: DECOMPOSITION_MODEL,
+    model: OPENAI_MEAL_ANALYSIS_MODEL,
     messages: [
       {
         role: 'system',
@@ -900,7 +899,7 @@ async function enrichPresentationFromImage(
     .join('\n\n');
 
   const response = await client.chat.completions.create({
-    model: DECOMPOSITION_MODEL,
+    model: OPENAI_MEAL_ANALYSIS_MODEL,
     messages: [
       {
         role: 'system',
@@ -1141,7 +1140,7 @@ async function* runPipelineFromDecomposition(
     {
       analysisId: context.analysisId,
       source: context.source,
-      model: DECOMPOSITION_MODEL,
+      model: OPENAI_MEAL_ANALYSIS_MODEL,
       ingredientCount: resolved.length,
     },
     () => enrichPresentation(client, context, resolved, totalMacros)
@@ -1302,7 +1301,7 @@ export async function* analyzeTextMeal(
       'decompose_text',
       {
         analysisId,
-        model: DECOMPOSITION_MODEL,
+        model: OPENAI_MEAL_ANALYSIS_MODEL,
         source: 'text',
       },
       () =>
@@ -1368,7 +1367,7 @@ export async function* analyzeImageMeal(
       'decompose_image',
       {
         analysisId,
-        model: DECOMPOSITION_MODEL,
+        model: OPENAI_MEAL_ANALYSIS_MODEL,
         source: 'image',
       },
       () =>
