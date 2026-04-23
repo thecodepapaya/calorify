@@ -169,7 +169,10 @@ class _TranslationsMealTe implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'భోజనం సేవ్ చేయడంలో లోపం: ${error}';
 	@override String get removedFromFavorites => 'ప్రియమైనదుల నుంచి తొలగించబడింది!';
 	@override String get savedAsFavorite => 'భోజనం ప్రియమైనదిగా నిల్వ చేయబడింది!';
+	@override String get unfavorite => 'ఫేవరెట్ తొలగించు';
 	@override String couldNotUpdateFavorite({required Object error}) => 'ప్రియమైనదిని నవీకరించలేకపోయింది: ${error}';
+	@override String get feedbackThanks => 'ఫీడ్బ్యాక్ ఇచ్చినందుకు ధన్యవాదాలు!';
+	@override String get reanalysisUpdated => 'మీ ఫీడ్బ్యాక్ ఆధారంగా భోజన విశ్లేషణను నవీకరించాము.';
 	@override String failedToProcess({required Object error}) => 'సాధనం చేయడంలో వైఫల్యం: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'చిత్రాన్ని చదవడంలో విఫలమైంది: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'చిత్రం సంకోచించడంలో వైఫల్యం: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsTe {
 			'meal.errorSaving' => ({required Object error}) => 'భోజనం సేవ్ చేయడంలో లోపం: ${error}',
 			'meal.removedFromFavorites' => 'ప్రియమైనదుల నుంచి తొలగించబడింది!',
 			'meal.savedAsFavorite' => 'భోజనం ప్రియమైనదిగా నిల్వ చేయబడింది!',
+			'meal.unfavorite' => 'ఫేవరెట్ తొలగించు',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'ప్రియమైనదిని నవీకరించలేకపోయింది: ${error}',
+			'meal.feedbackThanks' => 'ఫీడ్బ్యాక్ ఇచ్చినందుకు ధన్యవాదాలు!',
+			'meal.reanalysisUpdated' => 'మీ ఫీడ్బ్యాక్ ఆధారంగా భోజన విశ్లేషణను నవీకరించాము.',
 			'meal.failedToProcess' => ({required Object error}) => 'సాధనం చేయడంలో వైఫల్యం: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'చిత్రాన్ని చదవడంలో విఫలమైంది: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'చిత్రం సంకోచించడంలో వైఫల్యం: ${error}',

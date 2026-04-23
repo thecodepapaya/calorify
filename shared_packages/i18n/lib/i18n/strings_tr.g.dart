@@ -169,7 +169,10 @@ class _TranslationsMealTr implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Öğün kaydedilirken hata oluştu: ${error}';
 	@override String get removedFromFavorites => 'Favorilerden çıkarıldı!';
 	@override String get savedAsFavorite => 'Yemek favori olarak kaydedildi!';
+	@override String get unfavorite => 'Favorilerden Kaldır';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Favori güncellenemedi: ${error}';
+	@override String get feedbackThanks => 'Geri bildiriminiz için teşekkürler!';
+	@override String get reanalysisUpdated => 'Geri bildiriminiz doğrultusunda öğün analizini güncelledik.';
 	@override String failedToProcess({required Object error}) => 'İşlem gerçekleştirilemedi: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Görüntü işlenemedi: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Görüntü sıkıştırırken hata: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsTr {
 			'meal.errorSaving' => ({required Object error}) => 'Öğün kaydedilirken hata oluştu: ${error}',
 			'meal.removedFromFavorites' => 'Favorilerden çıkarıldı!',
 			'meal.savedAsFavorite' => 'Yemek favori olarak kaydedildi!',
+			'meal.unfavorite' => 'Favorilerden Kaldır',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Favori güncellenemedi: ${error}',
+			'meal.feedbackThanks' => 'Geri bildiriminiz için teşekkürler!',
+			'meal.reanalysisUpdated' => 'Geri bildiriminiz doğrultusunda öğün analizini güncelledik.',
 			'meal.failedToProcess' => ({required Object error}) => 'İşlem gerçekleştirilemedi: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Görüntü işlenemedi: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Görüntü sıkıştırırken hata: ${error}',

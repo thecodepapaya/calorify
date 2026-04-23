@@ -169,7 +169,10 @@ class _TranslationsMealIt implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Errore durante il salvataggio del pasto: ${error}';
 	@override String get removedFromFavorites => 'Rimosso dai preferiti!';
 	@override String get savedAsFavorite => 'Pasto salvato come preferito!';
+	@override String get unfavorite => 'Rimuovi dai preferiti';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Impossibile aggiornare il preferito: ${error}';
+	@override String get feedbackThanks => 'Grazie per il tuo riscontro!';
+	@override String get reanalysisUpdated => 'Abbiamo aggiornato l\'analisi del pasto in base al tuo riscontro.';
 	@override String failedToProcess({required Object error}) => 'Impossibile elaborare: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Impossibile elaborare l\'immagine: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Errore nella compressione dell\'immagine: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsIt {
 			'meal.errorSaving' => ({required Object error}) => 'Errore durante il salvataggio del pasto: ${error}',
 			'meal.removedFromFavorites' => 'Rimosso dai preferiti!',
 			'meal.savedAsFavorite' => 'Pasto salvato come preferito!',
+			'meal.unfavorite' => 'Rimuovi dai preferiti',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Impossibile aggiornare il preferito: ${error}',
+			'meal.feedbackThanks' => 'Grazie per il tuo riscontro!',
+			'meal.reanalysisUpdated' => 'Abbiamo aggiornato l\'analisi del pasto in base al tuo riscontro.',
 			'meal.failedToProcess' => ({required Object error}) => 'Impossibile elaborare: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Impossibile elaborare l\'immagine: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Errore nella compressione dell\'immagine: ${error}',

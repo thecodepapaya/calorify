@@ -169,7 +169,10 @@ class _TranslationsMealDa implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Kunne ikke gemme måltidet: ${error}';
 	@override String get removedFromFavorites => 'Fjernet fra favoritter!';
 	@override String get savedAsFavorite => 'Måltid gemt som favorit!';
+	@override String get unfavorite => 'Fjern fra favoritter';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Kunne ikke opdatere favorit: ${error}';
+	@override String get feedbackThanks => 'Tak for din feedback!';
+	@override String get reanalysisUpdated => 'Måltidsanalysen er opdateret på baggrund af din feedback.';
 	@override String failedToProcess({required Object error}) => 'Kunne ikke behandle: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Kunne ikke behandle billede: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Fejl ved komprimering af billede: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsDa {
 			'meal.errorSaving' => ({required Object error}) => 'Kunne ikke gemme måltidet: ${error}',
 			'meal.removedFromFavorites' => 'Fjernet fra favoritter!',
 			'meal.savedAsFavorite' => 'Måltid gemt som favorit!',
+			'meal.unfavorite' => 'Fjern fra favoritter',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Kunne ikke opdatere favorit: ${error}',
+			'meal.feedbackThanks' => 'Tak for din feedback!',
+			'meal.reanalysisUpdated' => 'Måltidsanalysen er opdateret på baggrund af din feedback.',
 			'meal.failedToProcess' => ({required Object error}) => 'Kunne ikke behandle: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Kunne ikke behandle billede: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fejl ved komprimering af billede: ${error}',

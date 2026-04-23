@@ -169,7 +169,10 @@ class _TranslationsMealTh implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'เกิดข้อผิดพลาดในการบันทึกมื้ออาหาร: ${error}';
 	@override String get removedFromFavorites => 'ลบออกจากมื้อโปรด!';
 	@override String get savedAsFavorite => 'มื้ออาหารบันทึกเป็นโปรด!';
+	@override String get unfavorite => 'เอาออกจากรายการโปรด';
 	@override String couldNotUpdateFavorite({required Object error}) => 'ไม่สามารถอัปเดตโปรดได้: ${error}';
+	@override String get feedbackThanks => 'ขอบคุณสำหรับคำติชม!';
+	@override String get reanalysisUpdated => 'อัปเดตการวิเคราะห์มื้ออาหารตามคำติชมของคุณแล้ว';
 	@override String failedToProcess({required Object error}) => 'ไม่สามารถประมวลผล: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'ไม่สามารถประมวลผลภาพ: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'เกิดข้อผิดพลาดในการบีบอัดภาพ: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsTh {
 			'meal.errorSaving' => ({required Object error}) => 'เกิดข้อผิดพลาดในการบันทึกมื้ออาหาร: ${error}',
 			'meal.removedFromFavorites' => 'ลบออกจากมื้อโปรด!',
 			'meal.savedAsFavorite' => 'มื้ออาหารบันทึกเป็นโปรด!',
+			'meal.unfavorite' => 'เอาออกจากรายการโปรด',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'ไม่สามารถอัปเดตโปรดได้: ${error}',
+			'meal.feedbackThanks' => 'ขอบคุณสำหรับคำติชม!',
+			'meal.reanalysisUpdated' => 'อัปเดตการวิเคราะห์มื้ออาหารตามคำติชมของคุณแล้ว',
 			'meal.failedToProcess' => ({required Object error}) => 'ไม่สามารถประมวลผล: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'ไม่สามารถประมวลผลภาพ: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'เกิดข้อผิดพลาดในการบีบอัดภาพ: ${error}',

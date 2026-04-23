@@ -169,7 +169,10 @@ class _TranslationsMealCs implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Chyba při ukládání jídla: ${error}';
 	@override String get removedFromFavorites => 'Odebráno z oblíbených!';
 	@override String get savedAsFavorite => 'Jídlo bylo uloženo jako oblíbené!';
+	@override String get unfavorite => 'Odebrat z oblíbených';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Nelze aktualizovat oblíbené: ${error}';
+	@override String get feedbackThanks => 'Díky za zpětnou vazbu!';
+	@override String get reanalysisUpdated => 'Aktualizovali jsme analýzu jídla na základě vaší zpětné vazby.';
 	@override String failedToProcess({required Object error}) => 'Nepodařilo se zpracovat: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Nepodařilo se zpracovat obrázek: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Chyba při kompresi obrázku: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsCs {
 			'meal.errorSaving' => ({required Object error}) => 'Chyba při ukládání jídla: ${error}',
 			'meal.removedFromFavorites' => 'Odebráno z oblíbených!',
 			'meal.savedAsFavorite' => 'Jídlo bylo uloženo jako oblíbené!',
+			'meal.unfavorite' => 'Odebrat z oblíbených',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Nelze aktualizovat oblíbené: ${error}',
+			'meal.feedbackThanks' => 'Díky za zpětnou vazbu!',
+			'meal.reanalysisUpdated' => 'Aktualizovali jsme analýzu jídla na základě vaší zpětné vazby.',
 			'meal.failedToProcess' => ({required Object error}) => 'Nepodařilo se zpracovat: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Nepodařilo se zpracovat obrázek: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Chyba při kompresi obrázku: ${error}',

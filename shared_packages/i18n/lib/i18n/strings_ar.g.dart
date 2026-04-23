@@ -169,7 +169,10 @@ class _TranslationsMealAr implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'خطأ عند حفظ الوجبة: ${error}';
 	@override String get removedFromFavorites => 'تمت إزالتها من المفضلات!';
 	@override String get savedAsFavorite => 'تمت حفظ الوجبة كمفضلة!';
+	@override String get unfavorite => 'إلغاء التفضيل';
 	@override String couldNotUpdateFavorite({required Object error}) => 'تعذر تحديث المفضلة: ${error}';
+	@override String get feedbackThanks => 'شكرًا على ملاحظاتك!';
+	@override String get reanalysisUpdated => 'تم تحديث تحليل الوجبة بناءً على ملاحظاتك.';
 	@override String failedToProcess({required Object error}) => 'فشل في المعالجة: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'فشل في معالجة الصورة: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'خطأ في ضغط الصورة: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsAr {
 			'meal.errorSaving' => ({required Object error}) => 'خطأ عند حفظ الوجبة: ${error}',
 			'meal.removedFromFavorites' => 'تمت إزالتها من المفضلات!',
 			'meal.savedAsFavorite' => 'تمت حفظ الوجبة كمفضلة!',
+			'meal.unfavorite' => 'إلغاء التفضيل',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'تعذر تحديث المفضلة: ${error}',
+			'meal.feedbackThanks' => 'شكرًا على ملاحظاتك!',
+			'meal.reanalysisUpdated' => 'تم تحديث تحليل الوجبة بناءً على ملاحظاتك.',
 			'meal.failedToProcess' => ({required Object error}) => 'فشل في المعالجة: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'فشل في معالجة الصورة: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'خطأ في ضغط الصورة: ${error}',

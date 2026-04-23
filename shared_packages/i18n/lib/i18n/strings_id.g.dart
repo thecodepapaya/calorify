@@ -169,7 +169,10 @@ class _TranslationsMealId implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Terjadi kesalahan saat menyimpan makanan: ${error}';
 	@override String get removedFromFavorites => 'Dihapus dari favorit!';
 	@override String get savedAsFavorite => 'Makanan disimpan sebagai favorit!';
+	@override String get unfavorite => 'Hapus dari favorit';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Tidak dapat memperbarui favorit: ${error}';
+	@override String get feedbackThanks => 'Terima kasih atas masukannya!';
+	@override String get reanalysisUpdated => 'Analisis makanan telah diperbarui berdasarkan masukan Anda.';
 	@override String failedToProcess({required Object error}) => 'Gagal memproses: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Gagal memproses gambar: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Kesalahan saat mengompres gambar: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsId {
 			'meal.errorSaving' => ({required Object error}) => 'Terjadi kesalahan saat menyimpan makanan: ${error}',
 			'meal.removedFromFavorites' => 'Dihapus dari favorit!',
 			'meal.savedAsFavorite' => 'Makanan disimpan sebagai favorit!',
+			'meal.unfavorite' => 'Hapus dari favorit',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Tidak dapat memperbarui favorit: ${error}',
+			'meal.feedbackThanks' => 'Terima kasih atas masukannya!',
+			'meal.reanalysisUpdated' => 'Analisis makanan telah diperbarui berdasarkan masukan Anda.',
 			'meal.failedToProcess' => ({required Object error}) => 'Gagal memproses: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Gagal memproses gambar: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Kesalahan saat mengompres gambar: ${error}',

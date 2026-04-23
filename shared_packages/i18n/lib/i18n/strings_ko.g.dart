@@ -169,7 +169,10 @@ class _TranslationsMealKo implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => '식사 저장 중 오류가 발생했습니다: ${error}';
 	@override String get removedFromFavorites => '즐겨찾기에서 제거되었습니다!';
 	@override String get savedAsFavorite => '식사가 즐겨찾기로 저장되었습니다!';
+	@override String get unfavorite => '즐겨찾기 해제';
 	@override String couldNotUpdateFavorite({required Object error}) => '즐겨찾기를 업데이트할 수 없습니다: ${error}';
+	@override String get feedbackThanks => '소중한 피드백 감사합니다!';
+	@override String get reanalysisUpdated => '피드백을 반영해 식사 분석을 업데이트했습니다.';
 	@override String failedToProcess({required Object error}) => '처리 실패: ${error}';
 	@override String failedToProcessImage({required Object error}) => '이미지 처리 실패: ${error}';
 	@override String errorCompressingImage({required Object error}) => '이미지 압축 오류: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsKo {
 			'meal.errorSaving' => ({required Object error}) => '식사 저장 중 오류가 발생했습니다: ${error}',
 			'meal.removedFromFavorites' => '즐겨찾기에서 제거되었습니다!',
 			'meal.savedAsFavorite' => '식사가 즐겨찾기로 저장되었습니다!',
+			'meal.unfavorite' => '즐겨찾기 해제',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => '즐겨찾기를 업데이트할 수 없습니다: ${error}',
+			'meal.feedbackThanks' => '소중한 피드백 감사합니다!',
+			'meal.reanalysisUpdated' => '피드백을 반영해 식사 분석을 업데이트했습니다.',
 			'meal.failedToProcess' => ({required Object error}) => '처리 실패: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => '이미지 처리 실패: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => '이미지 압축 오류: ${error}',

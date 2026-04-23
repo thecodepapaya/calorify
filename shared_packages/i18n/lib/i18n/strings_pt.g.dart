@@ -169,7 +169,10 @@ class _TranslationsMealPt implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Erro ao salvar a refeição: ${error}';
 	@override String get removedFromFavorites => 'Removido dos favoritos!';
 	@override String get savedAsFavorite => 'Refeição salva como favorita!';
+	@override String get unfavorite => 'Remover dos favoritos';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Não foi possível atualizar o favorito: ${error}';
+	@override String get feedbackThanks => 'Obrigado pelo seu feedback!';
+	@override String get reanalysisUpdated => 'Atualizamos a análise da refeição com base no seu feedback.';
 	@override String failedToProcess({required Object error}) => 'Falha ao processar: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Falha ao processar a imagem: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Erro ao comprimir a imagem: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsPt {
 			'meal.errorSaving' => ({required Object error}) => 'Erro ao salvar a refeição: ${error}',
 			'meal.removedFromFavorites' => 'Removido dos favoritos!',
 			'meal.savedAsFavorite' => 'Refeição salva como favorita!',
+			'meal.unfavorite' => 'Remover dos favoritos',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Não foi possível atualizar o favorito: ${error}',
+			'meal.feedbackThanks' => 'Obrigado pelo seu feedback!',
+			'meal.reanalysisUpdated' => 'Atualizamos a análise da refeição com base no seu feedback.',
 			'meal.failedToProcess' => ({required Object error}) => 'Falha ao processar: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Falha ao processar a imagem: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Erro ao comprimir a imagem: ${error}',

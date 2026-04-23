@@ -169,7 +169,10 @@ class _TranslationsMealGu implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'ભોજન સાચવવામાં ભૂલ: ${error}';
 	@override String get removedFromFavorites => 'પસંદીમાંથી દૂર કરવામાં આવ્યું!';
 	@override String get savedAsFavorite => 'ખોરાકને પસંદી તરીકે સેવ કર્યું!';
+	@override String get unfavorite => 'પ્રિયમાંથી કાઢો';
 	@override String couldNotUpdateFavorite({required Object error}) => 'પસંદીમાં સુધારો કરવામાં અસફળ: ${error}';
+	@override String get feedbackThanks => 'પ્રતિસાદ માટે આપનો આભાર!';
+	@override String get reanalysisUpdated => 'અમે તમારા પ્રતિસાદના આધારે ભોજનનું વિશ્લેષણ અપડેટ કર્યું.';
 	@override String failedToProcess({required Object error}) => 'પ્રક્રિયા કરવામાં અસફળ: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'છબાને પ્રક્રિયા કરવામાં અસફળ: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'તશે છબી સંકોચીત કરવામાં ભૂલ: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsGu {
 			'meal.errorSaving' => ({required Object error}) => 'ભોજન સાચવવામાં ભૂલ: ${error}',
 			'meal.removedFromFavorites' => 'પસંદીમાંથી દૂર કરવામાં આવ્યું!',
 			'meal.savedAsFavorite' => 'ખોરાકને પસંદી તરીકે સેવ કર્યું!',
+			'meal.unfavorite' => 'પ્રિયમાંથી કાઢો',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'પસંદીમાં સુધારો કરવામાં અસફળ: ${error}',
+			'meal.feedbackThanks' => 'પ્રતિસાદ માટે આપનો આભાર!',
+			'meal.reanalysisUpdated' => 'અમે તમારા પ્રતિસાદના આધારે ભોજનનું વિશ્લેષણ અપડેટ કર્યું.',
 			'meal.failedToProcess' => ({required Object error}) => 'પ્રક્રિયા કરવામાં અસફળ: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'છબાને પ્રક્રિયા કરવામાં અસફળ: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'તશે છબી સંકોચીત કરવામાં ભૂલ: ${error}',

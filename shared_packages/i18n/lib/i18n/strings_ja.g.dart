@@ -169,7 +169,10 @@ class _TranslationsMealJa implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => '食事の保存中にエラーが発生しました：${error}';
 	@override String get removedFromFavorites => 'お気に入りから削除されました！';
 	@override String get savedAsFavorite => '食事がお気に入りとして保存されました！';
+	@override String get unfavorite => 'お気に入り解除';
 	@override String couldNotUpdateFavorite({required Object error}) => 'お気に入りの更新に失敗しました: ${error}';
+	@override String get feedbackThanks => 'フィードバックありがとうございます！';
+	@override String get reanalysisUpdated => 'フィードバックに基づいて食事の解析を更新しました。';
 	@override String failedToProcess({required Object error}) => '処理に失敗しました: ${error}';
 	@override String failedToProcessImage({required Object error}) => '画像の処理に失敗しました: ${error}';
 	@override String errorCompressingImage({required Object error}) => '画像の圧縮エラー: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsJa {
 			'meal.errorSaving' => ({required Object error}) => '食事の保存中にエラーが発生しました：${error}',
 			'meal.removedFromFavorites' => 'お気に入りから削除されました！',
 			'meal.savedAsFavorite' => '食事がお気に入りとして保存されました！',
+			'meal.unfavorite' => 'お気に入り解除',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'お気に入りの更新に失敗しました: ${error}',
+			'meal.feedbackThanks' => 'フィードバックありがとうございます！',
+			'meal.reanalysisUpdated' => 'フィードバックに基づいて食事の解析を更新しました。',
 			'meal.failedToProcess' => ({required Object error}) => '処理に失敗しました: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => '画像の処理に失敗しました: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => '画像の圧縮エラー: ${error}',

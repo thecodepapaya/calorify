@@ -169,7 +169,10 @@ class _TranslationsMealHe implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'שגיאה בשמירת הארוחה: ${error}';
 	@override String get removedFromFavorites => 'הוסר מהאהובים!';
 	@override String get savedAsFavorite => 'הארוחה נשמרה כאהובה!';
+	@override String get unfavorite => 'הסר מהמועדפים';
 	@override String couldNotUpdateFavorite({required Object error}) => 'לא ניתן לעדכן אהוב: ${error}';
+	@override String get feedbackThanks => 'תודה על המשוב!';
+	@override String get reanalysisUpdated => 'ניתוח הארוחה עודכן בהתאם למשוב שלך.';
 	@override String failedToProcess({required Object error}) => 'נכשל בעיבוד: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'נכשל בעיבוד התמונה: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'שגיאה בצמצום התמונה: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsHe {
 			'meal.errorSaving' => ({required Object error}) => 'שגיאה בשמירת הארוחה: ${error}',
 			'meal.removedFromFavorites' => 'הוסר מהאהובים!',
 			'meal.savedAsFavorite' => 'הארוחה נשמרה כאהובה!',
+			'meal.unfavorite' => 'הסר מהמועדפים',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'לא ניתן לעדכן אהוב: ${error}',
+			'meal.feedbackThanks' => 'תודה על המשוב!',
+			'meal.reanalysisUpdated' => 'ניתוח הארוחה עודכן בהתאם למשוב שלך.',
 			'meal.failedToProcess' => ({required Object error}) => 'נכשל בעיבוד: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'נכשל בעיבוד התמונה: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'שגיאה בצמצום התמונה: ${error}',

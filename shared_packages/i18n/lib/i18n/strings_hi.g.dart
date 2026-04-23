@@ -169,7 +169,10 @@ class _TranslationsMealHi implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'भोजन सहेजने में त्रुटि: ${error}';
 	@override String get removedFromFavorites => 'पसंदीदा से हटा दिया गया!';
 	@override String get savedAsFavorite => 'भोजन को पसंदीदा के रूप में सहेजा गया!';
+	@override String get unfavorite => 'पसंदीदा से हटाएँ';
 	@override String couldNotUpdateFavorite({required Object error}) => 'पसंदीदा को अपडेट करने में असफल: ${error}';
+	@override String get feedbackThanks => 'आपकी प्रतिक्रिया के लिए धन्यवाद!';
+	@override String get reanalysisUpdated => 'आपकी प्रतिक्रिया के आधार पर इस भोजन का विश्लेषण अपडेट कर दिया गया है।';
 	@override String failedToProcess({required Object error}) => 'प्रक्रिया में विफल: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'चित्र को संसाधित करने में विफल: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'छवि संकुचन में त्रुटि: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsHi {
 			'meal.errorSaving' => ({required Object error}) => 'भोजन सहेजने में त्रुटि: ${error}',
 			'meal.removedFromFavorites' => 'पसंदीदा से हटा दिया गया!',
 			'meal.savedAsFavorite' => 'भोजन को पसंदीदा के रूप में सहेजा गया!',
+			'meal.unfavorite' => 'पसंदीदा से हटाएँ',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'पसंदीदा को अपडेट करने में असफल: ${error}',
+			'meal.feedbackThanks' => 'आपकी प्रतिक्रिया के लिए धन्यवाद!',
+			'meal.reanalysisUpdated' => 'आपकी प्रतिक्रिया के आधार पर इस भोजन का विश्लेषण अपडेट कर दिया गया है।',
 			'meal.failedToProcess' => ({required Object error}) => 'प्रक्रिया में विफल: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'चित्र को संसाधित करने में विफल: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'छवि संकुचन में त्रुटि: ${error}',

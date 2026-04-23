@@ -169,7 +169,10 @@ class _TranslationsMealSv implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Fel vid sparning av måltid: ${error}';
 	@override String get removedFromFavorites => 'Borttagen från favoriter!';
 	@override String get savedAsFavorite => 'Måltid sparad som favorit!';
+	@override String get unfavorite => 'Ta bort från favoriter';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Kunde inte uppdatera favorit: ${error}';
+	@override String get feedbackThanks => 'Tack för din återkoppling!';
+	@override String get reanalysisUpdated => 'Måltidsanalysen uppdaterades utifrån din återkoppling.';
 	@override String failedToProcess({required Object error}) => 'Misslyckades med att bearbeta: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Misslyckades med att bearbeta bilden: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Fel vid komprimering av bild: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsSv {
 			'meal.errorSaving' => ({required Object error}) => 'Fel vid sparning av måltid: ${error}',
 			'meal.removedFromFavorites' => 'Borttagen från favoriter!',
 			'meal.savedAsFavorite' => 'Måltid sparad som favorit!',
+			'meal.unfavorite' => 'Ta bort från favoriter',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Kunde inte uppdatera favorit: ${error}',
+			'meal.feedbackThanks' => 'Tack för din återkoppling!',
+			'meal.reanalysisUpdated' => 'Måltidsanalysen uppdaterades utifrån din återkoppling.',
 			'meal.failedToProcess' => ({required Object error}) => 'Misslyckades med att bearbeta: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Misslyckades med att bearbeta bilden: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fel vid komprimering av bild: ${error}',

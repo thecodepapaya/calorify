@@ -169,7 +169,10 @@ class _TranslationsMealHu implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Hiba az étkezés mentésekor: ${error}';
 	@override String get removedFromFavorites => 'Eltávolítva a kedvencek közül!';
 	@override String get savedAsFavorite => 'Étkezés mentve kedvencként!';
+	@override String get unfavorite => 'Kedvencekből eltávolít';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Nem lehetett frissíteni a kedvencet: ${error}';
+	@override String get feedbackThanks => 'Köszönjük a visszajelzésedet!';
+	@override String get reanalysisUpdated => 'A visszajelzésed alapján frissítettük az étkezés elemzését.';
 	@override String failedToProcess({required Object error}) => 'A feldolgozás nem sikerült: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'A kép feldolgozása nem sikerült: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Hiba a kép tömörítésekor: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsHu {
 			'meal.errorSaving' => ({required Object error}) => 'Hiba az étkezés mentésekor: ${error}',
 			'meal.removedFromFavorites' => 'Eltávolítva a kedvencek közül!',
 			'meal.savedAsFavorite' => 'Étkezés mentve kedvencként!',
+			'meal.unfavorite' => 'Kedvencekből eltávolít',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Nem lehetett frissíteni a kedvencet: ${error}',
+			'meal.feedbackThanks' => 'Köszönjük a visszajelzésedet!',
+			'meal.reanalysisUpdated' => 'A visszajelzésed alapján frissítettük az étkezés elemzését.',
 			'meal.failedToProcess' => ({required Object error}) => 'A feldolgozás nem sikerült: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'A kép feldolgozása nem sikerült: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Hiba a kép tömörítésekor: ${error}',

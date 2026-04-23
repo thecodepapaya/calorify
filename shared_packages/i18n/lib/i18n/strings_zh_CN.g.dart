@@ -169,7 +169,10 @@ class _TranslationsMealZhCn implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => '保存餐食时出错：${error}';
 	@override String get removedFromFavorites => '已从收藏中移除！';
 	@override String get savedAsFavorite => '餐点已保存为收藏！';
+	@override String get unfavorite => '取消收藏';
 	@override String couldNotUpdateFavorite({required Object error}) => '无法更新收藏：${error}';
+	@override String get feedbackThanks => '感谢您的反馈！';
+	@override String get reanalysisUpdated => '已根据您的反馈更新了餐点分析。';
 	@override String failedToProcess({required Object error}) => '处理失败：${error}';
 	@override String failedToProcessImage({required Object error}) => '处理图像失败：${error}';
 	@override String errorCompressingImage({required Object error}) => '压缩图像时出错：${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsZhCn {
 			'meal.errorSaving' => ({required Object error}) => '保存餐食时出错：${error}',
 			'meal.removedFromFavorites' => '已从收藏中移除！',
 			'meal.savedAsFavorite' => '餐点已保存为收藏！',
+			'meal.unfavorite' => '取消收藏',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => '无法更新收藏：${error}',
+			'meal.feedbackThanks' => '感谢您的反馈！',
+			'meal.reanalysisUpdated' => '已根据您的反馈更新了餐点分析。',
 			'meal.failedToProcess' => ({required Object error}) => '处理失败：${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => '处理图像失败：${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => '压缩图像时出错：${error}',

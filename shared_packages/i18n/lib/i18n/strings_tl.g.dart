@@ -169,7 +169,10 @@ class _TranslationsMealTl implements TranslationsMealEn {
 	@override String errorSaving({required Object error}) => 'Nabigong i-save ang pagkain: ${error}';
 	@override String get removedFromFavorites => 'Tinanggal mula sa mga paborito!';
 	@override String get savedAsFavorite => 'Naitabi ang pagkain bilang paborito!';
+	@override String get unfavorite => 'Alisin mula sa mga paborito';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Hindi ma-update ang paborito: ${error}';
+	@override String get feedbackThanks => 'Salamat sa iyong puna!';
+	@override String get reanalysisUpdated => 'Na-update ang pagsusuri ng pagkain batay sa iyong puna.';
 	@override String failedToProcess({required Object error}) => 'Nabigo sa pagproseso: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Nabigo sa pagproseso ng larawan: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Error sa pag-compress ng larawan: ${error}';
@@ -1811,7 +1814,10 @@ extension on TranslationsTl {
 			'meal.errorSaving' => ({required Object error}) => 'Nabigong i-save ang pagkain: ${error}',
 			'meal.removedFromFavorites' => 'Tinanggal mula sa mga paborito!',
 			'meal.savedAsFavorite' => 'Naitabi ang pagkain bilang paborito!',
+			'meal.unfavorite' => 'Alisin mula sa mga paborito',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Hindi ma-update ang paborito: ${error}',
+			'meal.feedbackThanks' => 'Salamat sa iyong puna!',
+			'meal.reanalysisUpdated' => 'Na-update ang pagsusuri ng pagkain batay sa iyong puna.',
 			'meal.failedToProcess' => ({required Object error}) => 'Nabigo sa pagproseso: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Nabigo sa pagproseso ng larawan: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Error sa pag-compress ng larawan: ${error}',
