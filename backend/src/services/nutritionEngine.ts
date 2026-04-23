@@ -8,6 +8,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import config from '../config.js';
+import { OPENAI_MEAL_ANALYSIS_MODEL } from '../openaiModels.js';
 
 // ---------------------------------------------------------------------------
 // Types (internal pipeline)
@@ -279,8 +280,6 @@ const ALIASES: Record<string, string> = {
 // ---------------------------------------------------------------------------
 // OpenAI
 // ---------------------------------------------------------------------------
-const DECOMPOSITION_MODEL = 'gpt-4.1-nano';
-
 const DECOMPOSITION_SYSTEM_PROMPT = `You are a food decomposition AI. Your ONLY job is to break down a meal description into individual atomic ingredients with gram estimates.
 
 RULES:
@@ -484,7 +483,7 @@ function varianceToCalorieConfidence(variancePercent: number): string {
 // ---------------------------------------------------------------------------
 async function decompose(client: OpenAI, input: string): Promise<LLMDecomposition> {
   const response = await client.chat.completions.create({
-    model: DECOMPOSITION_MODEL,
+    model: OPENAI_MEAL_ANALYSIS_MODEL,
     messages: [
       { role: 'system', content: DECOMPOSITION_SYSTEM_PROMPT },
       { role: 'user', content: input },
@@ -507,7 +506,7 @@ async function estimateMacrosViaLLM(
   if (names.length === 0) return new Map();
   const prompt = names.map((n, i) => `${i + 1}. ${n}`).join('\n');
   const response = await client.chat.completions.create({
-    model: DECOMPOSITION_MODEL,
+    model: OPENAI_MEAL_ANALYSIS_MODEL,
     messages: [
       { role: 'system', content: FALLBACK_SYSTEM_PROMPT },
       { role: 'user', content: `Provide per-100g macros for:\n${prompt}` },

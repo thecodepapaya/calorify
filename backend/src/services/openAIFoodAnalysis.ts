@@ -16,6 +16,7 @@ import {
   CalorieConfidence as CalorieConfidenceEnum,
 } from '../protos/meal/meal.js';
 import config from '../config.js';
+import { OPENAI_MEAL_ANALYSIS_MODEL } from '../openaiModels.js';
 import { getFoodAnalysisSystemPrompt } from './foodAnalysisSystemPrompt.js';
 import { CircuitBreaker } from '../utils/circuitBreaker.js';
 import { instrumentAiCall, recordCircuitBreakerState } from './metrics.js';
@@ -60,8 +61,6 @@ interface OpenAIResponse {
   };
   variations: OpenAIVariation[];
 }
-
-const OPENAI_FOOD_ANALYSIS_MODEL = 'gpt-4.1-nano' as const;
 
 /** JSON Schema for Structured Outputs; matches OpenAIResponse. */
 const MEAL_DETECTION_RESPONSE_SCHEMA = {
@@ -251,7 +250,7 @@ class OpenAIFoodAnalysisService {
     const response = await this.breaker.execute(() =>
       instrumentAiCall('openai', () =>
         this.client.chat.completions.create({
-          model: OPENAI_FOOD_ANALYSIS_MODEL,
+          model: OPENAI_MEAL_ANALYSIS_MODEL,
           messages,
           response_format: MEAL_DETECTION_RESPONSE_FORMAT,
           max_completion_tokens: 800,

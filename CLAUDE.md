@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This App Does
 
-Calorify is an AI-powered calorie tracking app. Users photograph or describe food; the backend uses OpenAI (gpt-5-nano, primary) or Gemini 1.5 Flash (legacy) to identify items and calculate macros. Results sync via Firebase. There is a Flutter main app, a Wear OS companion app, and a Node.js/Fastify backend.
+Calorify is an AI-powered calorie tracking app. Users photograph or describe food; the backend uses OpenAI (`gpt-4.1-nano` for meal analysis, `gpt-5-mini` for AI summaries) or Gemini 1.5 Flash (legacy) to identify items and calculate macros. Results sync via Firebase. There is a Flutter main app, a Wear OS companion app, and a Node.js/Fastify backend.
 
 ## Commands
 
@@ -65,7 +65,7 @@ Flutter App (Dart/Riverpod)
 Node.js/Fastify Backend (TypeScript)
     ├── Firebase Admin (auth)
     ├── PostgreSQL (meal analysis store, USDA data)
-    ├── OpenAI API (gpt-5-nano) ─ primary food analysis
+    ├── OpenAI API (`gpt-4.1-nano` meal analysis, `gpt-5-mini` summaries)
     └── Gemini 1.5 Flash ─ legacy food analysis
 ```
 
