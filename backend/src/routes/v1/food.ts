@@ -68,9 +68,9 @@ function computeAiSummaryStats(meals: RecentMealRow[]) {
   }
 
   const foodCounts = new Map<string, number>();
-  let protein = 0;
-  let carbs = 0;
-  let fat = 0;
+  let proteinCalories = 0;
+  let carbCalories = 0;
+  let fatCalories = 0;
 
   const previousMeals = meals.filter(
     (meal) => Date.now() - toMillis(meal.logged_at) > 24 * 60 * 60 * 1000
@@ -84,9 +84,9 @@ function computeAiSummaryStats(meals: RecentMealRow[]) {
     if (name) {
       foodCounts.set(name, (foodCounts.get(name) ?? 0) + 1);
     }
-    protein += meal.logged_protein ?? 0;
-    carbs += meal.logged_carbs ?? 0;
-    fat += meal.logged_fat ?? 0;
+    proteinCalories += (meal.logged_protein ?? 0) * 4;
+    carbCalories += (meal.logged_carbs ?? 0) * 4;
+    fatCalories += (meal.logged_fat ?? 0) * 9;
   }
 
   const topFoods = [...foodCounts.entries()]
@@ -94,12 +94,12 @@ function computeAiSummaryStats(meals: RecentMealRow[]) {
     .slice(0, 3)
     .map(([name]) => name);
 
-  const totalMacros = protein + carbs + fat;
+  const totalMacroCalories = proteinCalories + carbCalories + fatCalories;
   let macroBalanceScore = 0;
-  if (totalMacros > 0) {
-    const carbRatio = carbs / totalMacros;
-    const proteinRatio = protein / totalMacros;
-    const fatRatio = fat / totalMacros;
+  if (totalMacroCalories > 0) {
+    const carbRatio = carbCalories / totalMacroCalories;
+    const proteinRatio = proteinCalories / totalMacroCalories;
+    const fatRatio = fatCalories / totalMacroCalories;
     const deviation =
       Math.abs(carbRatio - 0.5) +
       Math.abs(proteinRatio - 0.2) +
