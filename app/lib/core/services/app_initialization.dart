@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:calorify/core/repositories/profile_repository.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
@@ -76,11 +75,6 @@ class AppInitialization {
       await Performance.trace(
         TraceType.analyticsServiceInit,
         Analytics.instance.initialize,
-        parentSpan: span,
-      );
-      await Performance.trace(
-        TraceType.foodAnalysisServiceInit,
-        FoodAnalysisService.instance.initialize,
         parentSpan: span,
       );
       await Performance.trace(

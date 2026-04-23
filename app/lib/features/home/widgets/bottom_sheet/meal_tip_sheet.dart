@@ -4,10 +4,9 @@ import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/models/meal_analysis_v2.dart';
-import 'package:calorify/core/repositories/food_repository.dart';
+import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/analytics.dart';
-import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
 import 'package:calorify/features/history/widgets/meal_quantity.dart';
 import 'package:calorify/features/history/widgets/meal_timestamp.dart';
@@ -21,6 +20,7 @@ import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:calorify/shared_widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
@@ -415,7 +415,12 @@ class _MealTipState extends State<_MealTip> {
     });
 
     try {
-      await FoodRepository().submitPositiveFeedbackV2(analysisId: analysisId);
+      await ProviderScope.containerOf(
+        context,
+        listen: false,
+      ).read(foodRepositoryProvider).submitPositiveFeedbackV2(
+        analysisId: analysisId,
+      );
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.mealFeedbackThumbsUp);
       showFlushbar('Thanks for the feedback!', context: context);
@@ -450,7 +455,11 @@ class _MealTipState extends State<_MealTip> {
     try {
       final nextContext = await resolveV2MealAnalysisFlow(
         context: context,
-        startAnalysis: () => FoodRepository().reanalyzeV2(
+        startAnalysis:
+            () => ProviderScope.containerOf(
+              context,
+              listen: false,
+            ).read(foodRepositoryProvider).reanalyzeV2(
           analysisId: analysisId,
           issues: feedbackInput.issues,
           otherText: feedbackInput.otherText,
@@ -518,7 +527,10 @@ class _MealTipState extends State<_MealTip> {
               ),
               child: Text(t.meal.deleteConfirmation.delete),
               onPressed: () async {
-                await DatabaseService.databaseInterface.deleteMeal(mealId);
+                await ProviderScope.containerOf(
+                  context,
+                  listen: false,
+                ).read(databaseInterfaceProvider).deleteMeal(mealId);
                 if (!context.mounted) return;
                 Navigator.of(dialogContext).pop();
                 navigator.pop();
@@ -554,9 +566,10 @@ class _FavoriteMealStarState extends State<_FavoriteMealStar> {
 
   Future<void> _checkIfFavorite() async {
     final mealId = widget.loggedMeal.clientId;
-    final isFavorite = await DatabaseService.databaseInterface.isFavoriteMeal(
-      mealId,
-    );
+    final isFavorite = await ProviderScope.containerOf(
+      context,
+      listen: false,
+    ).read(databaseInterfaceProvider).isFavoriteMeal(mealId);
 
     if (!mounted) return;
 
@@ -586,18 +599,18 @@ class _FavoriteMealStarState extends State<_FavoriteMealStar> {
   }
 
   Future<void> _toggleFavorite() async {
+    final database = ProviderScope.containerOf(
+      context,
+      listen: false,
+    ).read(databaseInterfaceProvider);
     try {
       if (_isFavorite) {
-        await DatabaseService.databaseInterface.removeFavoriteMeal(
-          widget.loggedMeal.clientId,
-        );
+        await database.removeFavoriteMeal(widget.loggedMeal.clientId);
         Analytics.instance.logEvent(AnalyticsEvent.favoriteRemove);
         if (!mounted) return;
         showFlushbar(t.meal.removedFromFavorites, context: context);
       } else {
-        await DatabaseService.databaseInterface.addToFavorites(
-          widget.loggedMeal,
-        );
+        await database.addToFavorites(widget.loggedMeal);
         Analytics.instance.logEvent(AnalyticsEvent.favoriteAdd);
         if (!mounted) return;
         showFlushbar(t.meal.savedAsFavorite, context: context);

@@ -1,6 +1,6 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/repositories/food_repository.dart';
+import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
@@ -10,6 +10,7 @@ import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class DescribeMeal extends StatefulWidget {
@@ -104,7 +105,10 @@ class _DescribeMealState extends State<DescribeMeal> {
     });
 
     try {
-      final repository = FoodRepository();
+      final repository = ProviderScope.containerOf(
+        context,
+        listen: false,
+      ).read(foodRepositoryProvider);
       await showV2MealAnalysisFlow(
         context: context,
         startAnalysis:

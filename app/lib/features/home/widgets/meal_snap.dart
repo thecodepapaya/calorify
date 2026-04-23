@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/repositories/food_repository.dart';
+import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/picker_service.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
@@ -11,6 +11,7 @@ import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dar
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:services/services.dart';
@@ -225,6 +226,7 @@ class _MealSnapState extends State<MealSnap> {
   }
 
   Future<void> _onSelectImage(File image) async {
+    final container = ProviderScope.containerOf(context, listen: false);
     // Show loading state immediately for better UX
     setState(() {
       _file = image;
@@ -254,7 +256,7 @@ class _MealSnapState extends State<MealSnap> {
       await compressedFile.writeAsBytes(compressedImageByte);
 
       try {
-        final repository = FoodRepository();
+        final repository = container.read(foodRepositoryProvider);
         final analysisHandle = await repository.analyzeImageV2(
           imageFile: compressedFile,
         );

@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "Váš AI přehled",
       "logMore": "Zaznamenávejte více jídel v příštích dnech, abyste získali personalizované postřehy od AI.",
-      "loading": "Načítám váš přehled..."
+      "loading": "Načítám váš přehled...",
+      "mealCount": "{count} zaznamenaných jídel",
+      "macroBalanceScore": "Skóre vyváženosti {score}",
+      "topFoods": "Nejčastější potraviny",
+      "trendUp": "Kalorie stoupají",
+      "trendDown": "Kalorie klesají",
+      "trendSteady": "Kalorie jsou stabilní",
+      "generatedAt": "Aktualizováno {time}"
     },
     "dailyGoal": {
       "title": "Nastavte si svůj denní cíl",
@@ -435,6 +442,12 @@
       "device": "Zařízení",
       "osVersion": "Verze OS",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "Export historie jídel",
+      "subtitle": "Sdílejte CSV s vašimi zaznamenanými jídly",
+      "shareText": "Váš export historie jídel z Calorify",
+      "failed": "Nepodařilo se exportovat historii jídel: {error}"
     },
     "clearAllData": {
       "title": "Vymazat všechna data",

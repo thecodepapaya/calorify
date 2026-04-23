@@ -283,6 +283,7 @@ class _TranslationsSettingsFi implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersFi mealReminders = _TranslationsSettingsMealRemindersFi._(_root);
 	@override late final _TranslationsSettingsThemeFi theme = _TranslationsSettingsThemeFi._(_root);
 	@override late final _TranslationsSettingsSendFeedbackFi sendFeedback = _TranslationsSettingsSendFeedbackFi._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryFi exportMealHistory = _TranslationsSettingsExportMealHistoryFi._(_root);
 	@override late final _TranslationsSettingsClearAllDataFi clearAllData = _TranslationsSettingsClearAllDataFi._(_root);
 	@override late final _TranslationsSettingsDebugOptionsFi debugOptions = _TranslationsSettingsDebugOptionsFi._(_root);
 	@override String get developerModeEnabled => 'Kehittäjätila käytössä!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryFi implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'Henkilökohtainen tekoälyyn perustuva yhteenveto';
 	@override String get logMore => 'Kirjaa seuraavien päivien aikana lisää aterioita, niin saat henkilökohtaisia tekoälyyn perustuvia oivalluksia.';
 	@override String get loading => 'Haetaan yhteenvetoasi...';
+	@override String mealCount({required Object count}) => '${count} kirjattua ateriaa';
+	@override String macroBalanceScore({required Object score}) => 'Tasapainopiste ${score}';
+	@override String get topFoods => 'Suosituimmat ruoat';
+	@override String get trendUp => 'Kalorit kasvussa';
+	@override String get trendDown => 'Kalorit laskussa';
+	@override String get trendSteady => 'Kalorit pysyvät tasaisina';
+	@override String generatedAt({required Object time}) => 'Päivitetty ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackFi implements TranslationsSettingsSendFee
 	@override String get device => 'Laite';
 	@override String get osVersion => 'Käyttöjärjestelmäversio';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryFi implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryFi._(this._root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Vie ateriahistoria';
+	@override String get subtitle => 'Jaa CSV-tiedosto kirjaamistasi aterioista';
+	@override String get shareText => 'Calorify-ateriahistorian vienti';
+	@override String failed({required Object error}) => 'Ateriahistorian vienti epäonnistui: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsFi {
 			'home.aiSummary.title' => 'Henkilökohtainen tekoälyyn perustuva yhteenveto',
 			'home.aiSummary.logMore' => 'Kirjaa seuraavien päivien aikana lisää aterioita, niin saat henkilökohtaisia tekoälyyn perustuvia oivalluksia.',
 			'home.aiSummary.loading' => 'Haetaan yhteenvetoasi...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} kirjattua ateriaa',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Tasapainopiste ${score}',
+			'home.aiSummary.topFoods' => 'Suosituimmat ruoat',
+			'home.aiSummary.trendUp' => 'Kalorit kasvussa',
+			'home.aiSummary.trendDown' => 'Kalorit laskussa',
+			'home.aiSummary.trendSteady' => 'Kalorit pysyvät tasaisina',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'Päivitetty ${time}',
 			'home.dailyGoal.title' => 'Aseta Päivittäinen Tavoitteesi',
 			'home.dailyGoal.titleSet' => 'Päivittäinen Tavoitteesi',
 			'home.dailyGoal.description' => 'Valmiina aloittamaan hyvinvointimatkasi? Aseta päivittäinen kaloritavoitteesi alla käynnistääksesi edistymisesi.',
@@ -1898,6 +1926,10 @@ extension on TranslationsFi {
 			'settings.sendFeedback.device' => 'Laite',
 			'settings.sendFeedback.osVersion' => 'Käyttöjärjestelmäversio',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'Vie ateriahistoria',
+			'settings.exportMealHistory.subtitle' => 'Jaa CSV-tiedosto kirjaamistasi aterioista',
+			'settings.exportMealHistory.shareText' => 'Calorify-ateriahistorian vienti',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Ateriahistorian vienti epäonnistui: ${error}',
 			'settings.clearAllData.title' => 'Tyhjennä Kaikki Tiedot',
 			'settings.clearAllData.subtitle' => 'Poista peruuttamattomasti kaikki tietosi',
 			'settings.clearAllData.confirmationTitle' => 'Tyhjennä kaikki tiedot?',

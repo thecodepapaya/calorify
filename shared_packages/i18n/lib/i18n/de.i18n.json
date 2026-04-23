@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "Deine KI‑Zusammenfassung",
       "logMore": "Trage in den nächsten Tagen mehr Mahlzeiten ein, um deine personalisierten KI‑Einblicke zu erhalten.",
-      "loading": "Deine Zusammenfassung wird geladen..."
+      "loading": "Deine Zusammenfassung wird geladen...",
+      "mealCount": "{count} Mahlzeiten protokolliert",
+      "macroBalanceScore": "Ausgewogenheitswert {score}",
+      "topFoods": "Top-Lebensmittel",
+      "trendUp": "Kalorien steigen an",
+      "trendDown": "Kalorien nehmen ab",
+      "trendSteady": "Kalorien bleiben stabil",
+      "generatedAt": "Aktualisiert {time}"
     },
     "dailyGoal": {
       "title": "Setze dein tägliches Ziel",
@@ -435,6 +442,12 @@
       "device": "Gerät",
       "osVersion": "Betriebssystemversion",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "Mahlzeitenverlauf exportieren",
+      "subtitle": "Teile eine CSV-Datei mit deinen protokollierten Mahlzeiten",
+      "shareText": "Export deiner Calorify-Mahlzeiten",
+      "failed": "Der Export deines Mahlzeitenverlaufs ist fehlgeschlagen: {error}"
     },
     "clearAllData": {
       "title": "Alle Daten löschen",

@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "Tóm tắt AI của bạn",
       "logMore": "Ghi lại thêm bữa ăn trong vài ngày tới để nhận được những phân tích cá nhân hóa từ AI.",
-      "loading": "Đang tải tóm tắt của bạn..."
+      "loading": "Đang tải tóm tắt của bạn...",
+      "mealCount": "{count} bữa đã ghi",
+      "macroBalanceScore": "Điểm cân bằng {score}",
+      "topFoods": "Thực phẩm hàng đầu",
+      "trendUp": "Lượng calo đang tăng",
+      "trendDown": "Lượng calo đang giảm",
+      "trendSteady": "Lượng calo ổn định",
+      "generatedAt": "Cập nhật {time}"
     },
     "dailyGoal": {
       "title": "Đặt mục tiêu hàng ngày của bạn",
@@ -435,6 +442,12 @@
       "device": "Thiết bị",
       "osVersion": "Phiên bản hệ điều hành",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "Xuất lịch sử bữa ăn",
+      "subtitle": "Chia sẻ một tệp CSV chứa các bữa bạn đã ghi",
+      "shareText": "Tệp xuất lịch sử bữa ăn của bạn từ Calorify",
+      "failed": "Không thể xuất lịch sử bữa ăn: {error}"
     },
     "clearAllData": {
       "title": "Xóa tất cả dữ liệu",

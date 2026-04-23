@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "あなたのAIサマリー",
       "logMore": "今後数日間に食事をもっと記録すると、あなたに合わせたAIのインサイトが得られます。",
-      "loading": "サマリーを読み込んでいます…"
+      "loading": "サマリーを読み込んでいます…",
+      "mealCount": "{count}件の食事を記録しました",
+      "macroBalanceScore": "バランススコア {score}",
+      "topFoods": "よく摂った食品",
+      "trendUp": "摂取カロリーが上昇中",
+      "trendDown": "摂取カロリーが減少傾向",
+      "trendSteady": "摂取カロリーが安定しています",
+      "generatedAt": "更新: {time}"
     },
     "dailyGoal": {
       "title": "日々の目標を設定",
@@ -435,6 +442,12 @@
       "device": "デバイス",
       "osVersion": "OSバージョン",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "食事履歴をエクスポート",
+      "subtitle": "記録した食事をCSVファイルで共有する",
+      "shareText": "Calorifyの食事履歴のエクスポート",
+      "failed": "食事履歴をエクスポートできませんでした: {error}"
     },
     "clearAllData": {
       "title": "すべてのデータをクリア",

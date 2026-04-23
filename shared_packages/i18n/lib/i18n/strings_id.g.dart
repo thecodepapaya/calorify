@@ -283,6 +283,7 @@ class _TranslationsSettingsId implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersId mealReminders = _TranslationsSettingsMealRemindersId._(_root);
 	@override late final _TranslationsSettingsThemeId theme = _TranslationsSettingsThemeId._(_root);
 	@override late final _TranslationsSettingsSendFeedbackId sendFeedback = _TranslationsSettingsSendFeedbackId._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryId exportMealHistory = _TranslationsSettingsExportMealHistoryId._(_root);
 	@override late final _TranslationsSettingsClearAllDataId clearAllData = _TranslationsSettingsClearAllDataId._(_root);
 	@override late final _TranslationsSettingsDebugOptionsId debugOptions = _TranslationsSettingsDebugOptionsId._(_root);
 	@override String get developerModeEnabled => 'Mode pengembang diaktifkan!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryId implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'Ringkasan AI Anda';
 	@override String get logMore => 'Catat lebih banyak makanan selama beberapa hari ke depan agar Anda mendapatkan wawasan AI yang dipersonalisasi.';
 	@override String get loading => 'Memuat ringkasan Anda...';
+	@override String mealCount({required Object count}) => '${count} makanan tercatat';
+	@override String macroBalanceScore({required Object score}) => 'Skor keseimbangan ${score}';
+	@override String get topFoods => 'Makanan teratas';
+	@override String get trendUp => 'Kalori meningkat';
+	@override String get trendDown => 'Kalori menurun';
+	@override String get trendSteady => 'Kalori stabil';
+	@override String generatedAt({required Object time}) => 'Diperbarui ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackId implements TranslationsSettingsSendFee
 	@override String get device => 'Perangkat';
 	@override String get osVersion => 'Versi OS';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryId implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ekspor Riwayat Makan';
+	@override String get subtitle => 'Bagikan file CSV berisi riwayat makan Anda';
+	@override String get shareText => 'Ekspor riwayat makan Calorify Anda';
+	@override String failed({required Object error}) => 'Gagal mengekspor riwayat makan: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsId {
 			'home.aiSummary.title' => 'Ringkasan AI Anda',
 			'home.aiSummary.logMore' => 'Catat lebih banyak makanan selama beberapa hari ke depan agar Anda mendapatkan wawasan AI yang dipersonalisasi.',
 			'home.aiSummary.loading' => 'Memuat ringkasan Anda...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} makanan tercatat',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Skor keseimbangan ${score}',
+			'home.aiSummary.topFoods' => 'Makanan teratas',
+			'home.aiSummary.trendUp' => 'Kalori meningkat',
+			'home.aiSummary.trendDown' => 'Kalori menurun',
+			'home.aiSummary.trendSteady' => 'Kalori stabil',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'Diperbarui ${time}',
 			'home.dailyGoal.title' => 'Tetapkan Tujuan Harian Anda',
 			'home.dailyGoal.titleSet' => 'Tujuan Harian Anda',
 			'home.dailyGoal.description' => 'Siap untuk memulai perjalanan kesejahteraan Anda? Tetapkan target kalori harian Anda di bawah ini untuk memulai kemajuan Anda.',
@@ -1898,6 +1926,10 @@ extension on TranslationsId {
 			'settings.sendFeedback.device' => 'Perangkat',
 			'settings.sendFeedback.osVersion' => 'Versi OS',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'Ekspor Riwayat Makan',
+			'settings.exportMealHistory.subtitle' => 'Bagikan file CSV berisi riwayat makan Anda',
+			'settings.exportMealHistory.shareText' => 'Ekspor riwayat makan Calorify Anda',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Gagal mengekspor riwayat makan: ${error}',
 			'settings.clearAllData.title' => 'Hapus Semua Data',
 			'settings.clearAllData.subtitle' => 'Hapus semua informasi Anda secara tidak dapat dibalik',
 			'settings.clearAllData.confirmationTitle' => 'Hapus Semua Data?',

@@ -283,6 +283,7 @@ class _TranslationsSettingsTl implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersTl mealReminders = _TranslationsSettingsMealRemindersTl._(_root);
 	@override late final _TranslationsSettingsThemeTl theme = _TranslationsSettingsThemeTl._(_root);
 	@override late final _TranslationsSettingsSendFeedbackTl sendFeedback = _TranslationsSettingsSendFeedbackTl._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryTl exportMealHistory = _TranslationsSettingsExportMealHistoryTl._(_root);
 	@override late final _TranslationsSettingsClearAllDataTl clearAllData = _TranslationsSettingsClearAllDataTl._(_root);
 	@override late final _TranslationsSettingsDebugOptionsTl debugOptions = _TranslationsSettingsDebugOptionsTl._(_root);
 	@override String get developerModeEnabled => 'Naka-enable ang developer mode!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryTl implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'Buod ng iyong AI';
 	@override String get logMore => 'Itala pa ang mga pagkain sa mga susunod na araw para makuha ang iyong personalisadong mga pananaw mula sa AI.';
 	@override String get loading => 'Ikinakarga ang iyong buod...';
+	@override String mealCount({required Object count}) => '${count} na naitalang pagkain';
+	@override String macroBalanceScore({required Object score}) => 'Iskor ng balanse ${score}';
+	@override String get topFoods => 'Nangungunang mga pagkain';
+	@override String get trendUp => 'Tumataas ang bilang ng calories';
+	@override String get trendDown => 'Bumababa ang bilang ng calories';
+	@override String get trendSteady => 'Nanatiling matatag ang bilang ng calories';
+	@override String generatedAt({required Object time}) => 'Huling na-update ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackTl implements TranslationsSettingsSendFee
 	@override String get device => 'Kagamitan';
 	@override String get osVersion => 'Bersyon ng OS';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryTl implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'I-export ang Kasaysayan ng Pagkain';
+	@override String get subtitle => 'Ibahagi ang CSV ng iyong mga naitalang pagkain';
+	@override String get shareText => 'Export ng iyong kasaysayan ng pagkain mula sa Calorify';
+	@override String failed({required Object error}) => 'Hindi ma-export ang kasaysayan ng pagkain: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsTl {
 			'home.aiSummary.title' => 'Buod ng iyong AI',
 			'home.aiSummary.logMore' => 'Itala pa ang mga pagkain sa mga susunod na araw para makuha ang iyong personalisadong mga pananaw mula sa AI.',
 			'home.aiSummary.loading' => 'Ikinakarga ang iyong buod...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} na naitalang pagkain',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Iskor ng balanse ${score}',
+			'home.aiSummary.topFoods' => 'Nangungunang mga pagkain',
+			'home.aiSummary.trendUp' => 'Tumataas ang bilang ng calories',
+			'home.aiSummary.trendDown' => 'Bumababa ang bilang ng calories',
+			'home.aiSummary.trendSteady' => 'Nanatiling matatag ang bilang ng calories',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'Huling na-update ${time}',
 			'home.dailyGoal.title' => 'Itakda ang Iyong Pang-araw-araw na Layunin',
 			'home.dailyGoal.titleSet' => 'Ang Iyong Pang-araw-araw na Layunin',
 			'home.dailyGoal.description' => 'Handa ka na bang simulan ang iyong wellness journey? Itakda ang iyong pang-araw-araw na target na calorie sa ibaba upang simulan ang iyong progreso.',
@@ -1898,6 +1926,10 @@ extension on TranslationsTl {
 			'settings.sendFeedback.device' => 'Kagamitan',
 			'settings.sendFeedback.osVersion' => 'Bersyon ng OS',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'I-export ang Kasaysayan ng Pagkain',
+			'settings.exportMealHistory.subtitle' => 'Ibahagi ang CSV ng iyong mga naitalang pagkain',
+			'settings.exportMealHistory.shareText' => 'Export ng iyong kasaysayan ng pagkain mula sa Calorify',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Hindi ma-export ang kasaysayan ng pagkain: ${error}',
 			'settings.clearAllData.title' => 'I-clear ang Lahat ng Datos',
 			'settings.clearAllData.subtitle' => 'Irerepormang tanggalin ang lahat ng iyong impormasyon',
 			'settings.clearAllData.confirmationTitle' => 'I-clear ang Lahat ng Datos?',

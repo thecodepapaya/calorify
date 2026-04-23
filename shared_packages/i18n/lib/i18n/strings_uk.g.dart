@@ -283,6 +283,7 @@ class _TranslationsSettingsUk implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersUk mealReminders = _TranslationsSettingsMealRemindersUk._(_root);
 	@override late final _TranslationsSettingsThemeUk theme = _TranslationsSettingsThemeUk._(_root);
 	@override late final _TranslationsSettingsSendFeedbackUk sendFeedback = _TranslationsSettingsSendFeedbackUk._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryUk exportMealHistory = _TranslationsSettingsExportMealHistoryUk._(_root);
 	@override late final _TranslationsSettingsClearAllDataUk clearAllData = _TranslationsSettingsClearAllDataUk._(_root);
 	@override late final _TranslationsSettingsDebugOptionsUk debugOptions = _TranslationsSettingsDebugOptionsUk._(_root);
 	@override String get developerModeEnabled => 'Режим розробника увімкнено!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryUk implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'Ваш підсумок від ШІ';
 	@override String get logMore => 'Записуйте більше прийомів їжі протягом наступних кількох днів, щоб отримати персоналізовані рекомендації від ШІ.';
 	@override String get loading => 'Завантажується ваш підсумок...';
+	@override String mealCount({required Object count}) => 'Записано ${count} прийомів їжі';
+	@override String macroBalanceScore({required Object score}) => 'Оцінка балансу макронутрієнтів: ${score}';
+	@override String get topFoods => 'Найчастіші продукти';
+	@override String get trendUp => 'Калорії зростають';
+	@override String get trendDown => 'Калорії зменшуються';
+	@override String get trendSteady => 'Калорії залишаються стабільними';
+	@override String generatedAt({required Object time}) => 'Оновлено ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackUk implements TranslationsSettingsSendFee
 	@override String get device => 'Пристрій';
 	@override String get osVersion => 'Версія ОС';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryUk implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Експорт історії прийомів їжі';
+	@override String get subtitle => 'Поділіться CSV‑файлом із записаними прийомами їжі';
+	@override String get shareText => 'Експорт історії прийомів їжі з Calorify';
+	@override String failed({required Object error}) => 'Не вдалося експортувати історію прийомів їжі: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsUk {
 			'home.aiSummary.title' => 'Ваш підсумок від ШІ',
 			'home.aiSummary.logMore' => 'Записуйте більше прийомів їжі протягом наступних кількох днів, щоб отримати персоналізовані рекомендації від ШІ.',
 			'home.aiSummary.loading' => 'Завантажується ваш підсумок...',
+			'home.aiSummary.mealCount' => ({required Object count}) => 'Записано ${count} прийомів їжі',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Оцінка балансу макронутрієнтів: ${score}',
+			'home.aiSummary.topFoods' => 'Найчастіші продукти',
+			'home.aiSummary.trendUp' => 'Калорії зростають',
+			'home.aiSummary.trendDown' => 'Калорії зменшуються',
+			'home.aiSummary.trendSteady' => 'Калорії залишаються стабільними',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'Оновлено ${time}',
 			'home.dailyGoal.title' => 'Встановіть свою щоденну ціль',
 			'home.dailyGoal.titleSet' => 'Ваша щоденна ціль',
 			'home.dailyGoal.description' => 'Готові розпочати свою подорож до здоров\'я? Встановіть свою щоденну калорійну ціль нижче, щоб розпочати свій прогрес.',
@@ -1898,6 +1926,10 @@ extension on TranslationsUk {
 			'settings.sendFeedback.device' => 'Пристрій',
 			'settings.sendFeedback.osVersion' => 'Версія ОС',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'Експорт історії прийомів їжі',
+			'settings.exportMealHistory.subtitle' => 'Поділіться CSV‑файлом із записаними прийомами їжі',
+			'settings.exportMealHistory.shareText' => 'Експорт історії прийомів їжі з Calorify',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Не вдалося експортувати історію прийомів їжі: ${error}',
 			'settings.clearAllData.title' => 'Очистити всі дані',
 			'settings.clearAllData.subtitle' => 'Безповоротно видалити всю вашу інформацію',
 			'settings.clearAllData.confirmationTitle' => 'Очистити всі дані?',

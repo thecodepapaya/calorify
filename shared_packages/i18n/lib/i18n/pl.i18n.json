@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "Twoje podsumowanie AI",
       "logMore": "Zarejestruj więcej posiłków w ciągu najbliższych dni, aby otrzymać spersonalizowane wskazówki od AI.",
-      "loading": "Wczytywanie Twojego podsumowania..."
+      "loading": "Wczytywanie Twojego podsumowania...",
+      "mealCount": "{count} zapisanych posiłków",
+      "macroBalanceScore": "Ocena równowagi {score}",
+      "topFoods": "Najpopularniejsze produkty",
+      "trendUp": "Kalorie rosną",
+      "trendDown": "Kalorie spadają",
+      "trendSteady": "Kalorie stabilne",
+      "generatedAt": "Zaktualizowano {time}"
     },
     "dailyGoal": {
       "title": "Ustaw Swój Codzienny Cel",
@@ -435,6 +442,12 @@
       "device": "Urządzenie",
       "osVersion": "Wersja OS",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "Eksport historii posiłków",
+      "subtitle": "Udostępnij plik CSV z zapisanymi posiłkami",
+      "shareText": "Eksport historii posiłków z Calorify",
+      "failed": "Nie udało się wyeksportować historii posiłków: {error}"
     },
     "clearAllData": {
       "title": "Wyczyść Wszystkie Dane",

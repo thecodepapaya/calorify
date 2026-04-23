@@ -197,10 +197,34 @@ class FoodRepository {
     final response = await NetworkClient.instance.client
         .get<Map<String, dynamic>>('/api/v1/food/ai-summary');
     final data = response.data;
-    if (data == null || data['summary'] == null || data['generatedAt'] == null) return null;
+    if (data == null || data['summary'] == null || data['generatedAt'] == null) {
+      return null;
+    }
+
+    final trend = switch (data['trend']) {
+      'up' => AiSummaryTrend.up,
+      'down' => AiSummaryTrend.down,
+      _ => AiSummaryTrend.steady,
+    };
+
     return AiSummaryResult(
       summary: data['summary'] as String,
       generatedAt: DateTime.parse(data['generatedAt'] as String),
+      mealCount: (data['mealCount'] as num?)?.toInt() ?? 0,
+      topFoods:
+          ((data['topFoods'] as List?) ?? const <dynamic>[])
+              .whereType<String>()
+              .toList(),
+      macroBalanceScore: (data['macroBalanceScore'] as num?)?.toInt() ?? 0,
+      trend: trend,
     );
+  }
+
+  Future<String> exportMealHistoryCsv() async {
+    final response = await NetworkClient.instance.client.get<String>(
+      '/api/v1/food/export',
+      options: Options(responseType: ResponseType.plain),
+    );
+    return response.data ?? '';
   }
 }

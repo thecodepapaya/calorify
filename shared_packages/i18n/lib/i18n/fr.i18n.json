@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "Votre résumé par l'IA",
       "logMore": "Enregistrez davantage de repas dans les prochains jours pour obtenir des analyses personnalisées de l'IA.",
-      "loading": "Chargement de votre résumé..."
+      "loading": "Chargement de votre résumé...",
+      "mealCount": "{count} repas enregistrés",
+      "macroBalanceScore": "Score d'équilibre {score}",
+      "topFoods": "Aliments principaux",
+      "trendUp": "Calories en hausse",
+      "trendDown": "Calories en baisse",
+      "trendSteady": "Calories stables",
+      "generatedAt": "Mis à jour {time}"
     },
     "dailyGoal": {
       "title": "Définir Votre Objectif Journalier",
@@ -435,6 +442,12 @@
       "device": "Appareil",
       "osVersion": "Version du système d'exploitation",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "Exporter l'historique des repas",
+      "subtitle": "Partagez un fichier CSV de vos repas enregistrés",
+      "shareText": "Export de votre historique de repas Calorify",
+      "failed": "Impossible d'exporter l'historique des repas : {error}"
     },
     "clearAllData": {
       "title": "Effacer Toutes les Données",

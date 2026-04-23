@@ -283,6 +283,7 @@ class _TranslationsSettingsHe implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersHe mealReminders = _TranslationsSettingsMealRemindersHe._(_root);
 	@override late final _TranslationsSettingsThemeHe theme = _TranslationsSettingsThemeHe._(_root);
 	@override late final _TranslationsSettingsSendFeedbackHe sendFeedback = _TranslationsSettingsSendFeedbackHe._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryHe exportMealHistory = _TranslationsSettingsExportMealHistoryHe._(_root);
 	@override late final _TranslationsSettingsClearAllDataHe clearAllData = _TranslationsSettingsClearAllDataHe._(_root);
 	@override late final _TranslationsSettingsDebugOptionsHe debugOptions = _TranslationsSettingsDebugOptionsHe._(_root);
 	@override String get developerModeEnabled => 'מצב מפתח הופעל!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryHe implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'הסיכום שלך מבוסס בינה מלאכותית';
 	@override String get logMore => 'תעד עוד ארוחות בימים הקרובים כדי לקבל תובנות מותאמות אישית מבוססות בינה מלאכותית.';
 	@override String get loading => 'טוען את הסיכום שלך...';
+	@override String mealCount({required Object count}) => 'נרשמו ${count} ארוחות';
+	@override String macroBalanceScore({required Object score}) => 'ציון איזון ${score}';
+	@override String get topFoods => 'מזונות מובילים';
+	@override String get trendUp => 'קלוריות במגמת עלייה';
+	@override String get trendDown => 'קלוריות במגמת ירידה';
+	@override String get trendSteady => 'קלוריות יציבות';
+	@override String generatedAt({required Object time}) => 'עודכן ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackHe implements TranslationsSettingsSendFee
 	@override String get device => 'מכשיר';
 	@override String get osVersion => 'גרסת מערכת הפעלה';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryHe implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryHe._(this._root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ייצוא היסטוריית הארוחות';
+	@override String get subtitle => 'שתף קובץ CSV של הארוחות שנרשמו';
+	@override String get shareText => 'ייצוא היסטוריית הארוחות שלך מ‑Calorify';
+	@override String failed({required Object error}) => 'לא ניתן לייצא את היסטוריית הארוחות: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsHe {
 			'home.aiSummary.title' => 'הסיכום שלך מבוסס בינה מלאכותית',
 			'home.aiSummary.logMore' => 'תעד עוד ארוחות בימים הקרובים כדי לקבל תובנות מותאמות אישית מבוססות בינה מלאכותית.',
 			'home.aiSummary.loading' => 'טוען את הסיכום שלך...',
+			'home.aiSummary.mealCount' => ({required Object count}) => 'נרשמו ${count} ארוחות',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'ציון איזון ${score}',
+			'home.aiSummary.topFoods' => 'מזונות מובילים',
+			'home.aiSummary.trendUp' => 'קלוריות במגמת עלייה',
+			'home.aiSummary.trendDown' => 'קלוריות במגמת ירידה',
+			'home.aiSummary.trendSteady' => 'קלוריות יציבות',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'עודכן ${time}',
 			'home.dailyGoal.title' => 'קבע את המטרה היומית שלך',
 			'home.dailyGoal.titleSet' => 'המטרה היומית שלך',
 			'home.dailyGoal.description' => 'מוכן לצאת לדרך לבריאותך? קבע את יעד הקלוריות היומי שלך למטה כדי להתחיל את ההתקדמות שלך.',
@@ -1898,6 +1926,10 @@ extension on TranslationsHe {
 			'settings.sendFeedback.device' => 'מכשיר',
 			'settings.sendFeedback.osVersion' => 'גרסת מערכת הפעלה',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'ייצוא היסטוריית הארוחות',
+			'settings.exportMealHistory.subtitle' => 'שתף קובץ CSV של הארוחות שנרשמו',
+			'settings.exportMealHistory.shareText' => 'ייצוא היסטוריית הארוחות שלך מ‑Calorify',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'לא ניתן לייצא את היסטוריית הארוחות: ${error}',
 			'settings.clearAllData.title' => 'מחק את כל הנתונים',
 			'settings.clearAllData.subtitle' => 'מחק לצמיתות את כל המידע שלך',
 			'settings.clearAllData.confirmationTitle' => 'מחק את כל הנתונים?',

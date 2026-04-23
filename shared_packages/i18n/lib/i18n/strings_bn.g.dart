@@ -283,6 +283,7 @@ class _TranslationsSettingsBn implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersBn mealReminders = _TranslationsSettingsMealRemindersBn._(_root);
 	@override late final _TranslationsSettingsThemeBn theme = _TranslationsSettingsThemeBn._(_root);
 	@override late final _TranslationsSettingsSendFeedbackBn sendFeedback = _TranslationsSettingsSendFeedbackBn._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryBn exportMealHistory = _TranslationsSettingsExportMealHistoryBn._(_root);
 	@override late final _TranslationsSettingsClearAllDataBn clearAllData = _TranslationsSettingsClearAllDataBn._(_root);
 	@override late final _TranslationsSettingsDebugOptionsBn debugOptions = _TranslationsSettingsDebugOptionsBn._(_root);
 	@override String get developerModeEnabled => 'ডেভেলপার মোড সক্রিয়!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryBn implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'আপনার AI সারাংশ';
 	@override String get logMore => 'পরবর্তী কয়েক দিনে আরও খাবার লগ করুন যাতে আপনি আপনার ব্যক্তিগতকৃত AI অন্তর্দৃষ্টি পেতে পারেন।';
 	@override String get loading => 'আপনার সারাংশ লোড হচ্ছে...';
+	@override String mealCount({required Object count}) => '${count}টি খাবার লগ করা হয়েছে';
+	@override String macroBalanceScore({required Object score}) => 'সন্তুলন স্কোর ${score}';
+	@override String get topFoods => 'শীর্ষ খাবার';
+	@override String get trendUp => 'ক্যালরি বাড়ছে';
+	@override String get trendDown => 'ক্যালরি কমছে';
+	@override String get trendSteady => 'ক্যালরি স্থিতিশীল';
+	@override String generatedAt({required Object time}) => 'হালনাগাদ ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackBn implements TranslationsSettingsSendFee
 	@override String get device => 'যন্ত্র';
 	@override String get osVersion => 'OS সংস্করণ';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryBn implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'খাবারের ইতিহাস রপ্তানি';
+	@override String get subtitle => 'আপনি লগ করা খাবারের CSV শেয়ার করুন';
+	@override String get shareText => 'আপনার Calorify-এর খাবারের ইতিহাস রপ্তানি';
+	@override String failed({required Object error}) => 'খাবারের ইতিহাস রপ্তানি করা যায়নি: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsBn {
 			'home.aiSummary.title' => 'আপনার AI সারাংশ',
 			'home.aiSummary.logMore' => 'পরবর্তী কয়েক দিনে আরও খাবার লগ করুন যাতে আপনি আপনার ব্যক্তিগতকৃত AI অন্তর্দৃষ্টি পেতে পারেন।',
 			'home.aiSummary.loading' => 'আপনার সারাংশ লোড হচ্ছে...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count}টি খাবার লগ করা হয়েছে',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'সন্তুলন স্কোর ${score}',
+			'home.aiSummary.topFoods' => 'শীর্ষ খাবার',
+			'home.aiSummary.trendUp' => 'ক্যালরি বাড়ছে',
+			'home.aiSummary.trendDown' => 'ক্যালরি কমছে',
+			'home.aiSummary.trendSteady' => 'ক্যালরি স্থিতিশীল',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'হালনাগাদ ${time}',
 			'home.dailyGoal.title' => 'আপনার দৈনিক লক্ষ্য নির্ধারণ করুন',
 			'home.dailyGoal.titleSet' => 'আপনার দৈনিক লক্ষ্য',
 			'home.dailyGoal.description' => 'আপনার সাস্থ্য যাত্রা শুরু করার জন্য প্রস্তুত? আপনার অগ্রগতি শুরু করার জন্য নিচে আপনার দৈনিক ক্যালোরি টার্গেট সেট করুন।',
@@ -1898,6 +1926,10 @@ extension on TranslationsBn {
 			'settings.sendFeedback.device' => 'যন্ত্র',
 			'settings.sendFeedback.osVersion' => 'OS সংস্করণ',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'খাবারের ইতিহাস রপ্তানি',
+			'settings.exportMealHistory.subtitle' => 'আপনি লগ করা খাবারের CSV শেয়ার করুন',
+			'settings.exportMealHistory.shareText' => 'আপনার Calorify-এর খাবারের ইতিহাস রপ্তানি',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'খাবারের ইতিহাস রপ্তানি করা যায়নি: ${error}',
 			'settings.clearAllData.title' => 'সকল তথ্য মুছুন',
 			'settings.clearAllData.subtitle' => 'আপনার সমস্ত তথ্য স্থায়ীভাবে মুছুন',
 			'settings.clearAllData.confirmationTitle' => 'সকল তথ্য মুছতে?',

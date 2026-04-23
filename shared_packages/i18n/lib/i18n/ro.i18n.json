@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "Rezumatul tău AI",
       "logMore": "Înregistrează mai multe mese în următoarele câteva zile pentru a primi informații personalizate de la AI.",
-      "loading": "Se încarcă rezumatul tău..."
+      "loading": "Se încarcă rezumatul tău...",
+      "mealCount": "{count} mese înregistrate",
+      "macroBalanceScore": "Scor de echilibru {score}",
+      "topFoods": "Top alimente",
+      "trendUp": "Calorii în creștere",
+      "trendDown": "Calorii în scădere",
+      "trendSteady": "Calorii stabile",
+      "generatedAt": "Actualizat {time}"
     },
     "dailyGoal": {
       "title": "Stabilește-ți Obiectivul Zilnic",
@@ -435,6 +442,12 @@
       "device": "Dispozitiv",
       "osVersion": "Versiunea OS",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "Exportă istoricul meselor",
+      "subtitle": "Partajează un fișier CSV cu mesele tale înregistrate",
+      "shareText": "Exportul istoricului meselor din Calorify",
+      "failed": "Nu am putut exporta istoricul meselor: {error}"
     },
     "clearAllData": {
       "title": "Șterge Toate Datele",

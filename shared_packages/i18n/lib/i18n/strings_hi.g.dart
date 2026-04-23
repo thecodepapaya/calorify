@@ -283,6 +283,7 @@ class _TranslationsSettingsHi implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersHi mealReminders = _TranslationsSettingsMealRemindersHi._(_root);
 	@override late final _TranslationsSettingsThemeHi theme = _TranslationsSettingsThemeHi._(_root);
 	@override late final _TranslationsSettingsSendFeedbackHi sendFeedback = _TranslationsSettingsSendFeedbackHi._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryHi exportMealHistory = _TranslationsSettingsExportMealHistoryHi._(_root);
 	@override late final _TranslationsSettingsClearAllDataHi clearAllData = _TranslationsSettingsClearAllDataHi._(_root);
 	@override late final _TranslationsSettingsDebugOptionsHi debugOptions = _TranslationsSettingsDebugOptionsHi._(_root);
 	@override String get developerModeEnabled => 'डेवलपर मोड सक्षम किया गया है!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryHi implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'आपका AI सारांश';
 	@override String get logMore => 'अगले कुछ दिनों में और भोजन दर्ज करें ताकि आपको व्यक्तिगत AI अंतर्दृष्टियाँ मिल सकें।';
 	@override String get loading => 'आपका सारांश लोड हो रहा है...';
+	@override String mealCount({required Object count}) => 'आपने ${count} भोजन दर्ज किए';
+	@override String macroBalanceScore({required Object score}) => 'संतुलन स्कोर ${score}';
+	@override String get topFoods => 'शीर्ष खाद्य पदार्थ';
+	@override String get trendUp => 'कैलोरीज़ बढ़ रही हैं';
+	@override String get trendDown => 'कैलोरीज़ घट रही हैं';
+	@override String get trendSteady => 'कैलोरीज़ स्थिर हैं';
+	@override String generatedAt({required Object time}) => 'अद्यतन ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackHi implements TranslationsSettingsSendFee
 	@override String get device => 'डिवाइस';
 	@override String get osVersion => 'ओएस संस्करण';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryHi implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryHi._(this._root);
+
+	final TranslationsHi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'भोजन इतिहास निर्यात करें';
+	@override String get subtitle => 'लॉग किए गए भोजन का CSV साझा करें';
+	@override String get shareText => 'Calorify: आपका भोजन इतिहास निर्यात';
+	@override String failed({required Object error}) => 'भोजन इतिहास निर्यात नहीं हो सका: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsHi {
 			'home.aiSummary.title' => 'आपका AI सारांश',
 			'home.aiSummary.logMore' => 'अगले कुछ दिनों में और भोजन दर्ज करें ताकि आपको व्यक्तिगत AI अंतर्दृष्टियाँ मिल सकें।',
 			'home.aiSummary.loading' => 'आपका सारांश लोड हो रहा है...',
+			'home.aiSummary.mealCount' => ({required Object count}) => 'आपने ${count} भोजन दर्ज किए',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'संतुलन स्कोर ${score}',
+			'home.aiSummary.topFoods' => 'शीर्ष खाद्य पदार्थ',
+			'home.aiSummary.trendUp' => 'कैलोरीज़ बढ़ रही हैं',
+			'home.aiSummary.trendDown' => 'कैलोरीज़ घट रही हैं',
+			'home.aiSummary.trendSteady' => 'कैलोरीज़ स्थिर हैं',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'अद्यतन ${time}',
 			'home.dailyGoal.title' => 'अपना दैनिक लक्ष्य सेट करें',
 			'home.dailyGoal.titleSet' => 'आपका दैनिक लक्ष्य',
 			'home.dailyGoal.description' => 'क्या आप अपने स्वास्थ्य यात्रा पर निकलने के लिए तैयार हैं? नीचे अपना दैनिक कैलोरी लक्ष्य सेट करें ताकि आपको अपनी प्रगति शुरू हो सके।',
@@ -1898,6 +1926,10 @@ extension on TranslationsHi {
 			'settings.sendFeedback.device' => 'डिवाइस',
 			'settings.sendFeedback.osVersion' => 'ओएस संस्करण',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'भोजन इतिहास निर्यात करें',
+			'settings.exportMealHistory.subtitle' => 'लॉग किए गए भोजन का CSV साझा करें',
+			'settings.exportMealHistory.shareText' => 'Calorify: आपका भोजन इतिहास निर्यात',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'भोजन इतिहास निर्यात नहीं हो सका: ${error}',
 			'settings.clearAllData.title' => 'सारे डेटा मिटाएं',
 			'settings.clearAllData.subtitle' => 'आपकी सारी जानकारी को स्थायी रूप से हटा दें',
 			'settings.clearAllData.confirmationTitle' => 'सारे डेटा मिटाने के लिए?',

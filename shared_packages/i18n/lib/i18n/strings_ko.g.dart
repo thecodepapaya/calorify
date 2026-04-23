@@ -283,6 +283,7 @@ class _TranslationsSettingsKo implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersKo mealReminders = _TranslationsSettingsMealRemindersKo._(_root);
 	@override late final _TranslationsSettingsThemeKo theme = _TranslationsSettingsThemeKo._(_root);
 	@override late final _TranslationsSettingsSendFeedbackKo sendFeedback = _TranslationsSettingsSendFeedbackKo._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryKo exportMealHistory = _TranslationsSettingsExportMealHistoryKo._(_root);
 	@override late final _TranslationsSettingsClearAllDataKo clearAllData = _TranslationsSettingsClearAllDataKo._(_root);
 	@override late final _TranslationsSettingsDebugOptionsKo debugOptions = _TranslationsSettingsDebugOptionsKo._(_root);
 	@override String get developerModeEnabled => '개발자 모드가 활성화되었습니다!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryKo implements TranslationsHomeAiSummaryEn {
 	@override String get title => '나만의 AI 요약';
 	@override String get logMore => '향후 며칠 동안 식사를 더 기록하면 개인화된 AI 인사이트를 받아보실 수 있습니다.';
 	@override String get loading => '요약을 불러오는 중입니다...';
+	@override String mealCount({required Object count}) => '${count}개의 식사가 기록되었습니다';
+	@override String macroBalanceScore({required Object score}) => '영양 균형 점수 ${score}';
+	@override String get topFoods => '자주 먹는 음식';
+	@override String get trendUp => '칼로리 증가 추세';
+	@override String get trendDown => '칼로리 감소 추세';
+	@override String get trendSteady => '칼로리 안정세';
+	@override String generatedAt({required Object time}) => '${time}에 업데이트됨';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackKo implements TranslationsSettingsSendFee
 	@override String get device => '장치';
 	@override String get osVersion => 'OS 버전';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryKo implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '식사 기록 내보내기';
+	@override String get subtitle => '로그된 식사를 CSV 파일로 공유하세요';
+	@override String get shareText => 'Calorify 식사 기록 내보내기';
+	@override String failed({required Object error}) => '식사 기록 내보내기에 실패했습니다: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsKo {
 			'home.aiSummary.title' => '나만의 AI 요약',
 			'home.aiSummary.logMore' => '향후 며칠 동안 식사를 더 기록하면 개인화된 AI 인사이트를 받아보실 수 있습니다.',
 			'home.aiSummary.loading' => '요약을 불러오는 중입니다...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count}개의 식사가 기록되었습니다',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => '영양 균형 점수 ${score}',
+			'home.aiSummary.topFoods' => '자주 먹는 음식',
+			'home.aiSummary.trendUp' => '칼로리 증가 추세',
+			'home.aiSummary.trendDown' => '칼로리 감소 추세',
+			'home.aiSummary.trendSteady' => '칼로리 안정세',
+			'home.aiSummary.generatedAt' => ({required Object time}) => '${time}에 업데이트됨',
 			'home.dailyGoal.title' => '일일 목표 설정',
 			'home.dailyGoal.titleSet' => '당신의 일일 목표',
 			'home.dailyGoal.description' => '웰빙 여정을 시작할 준비가 되셨나요? 아래에 일일 칼로리 목표를 설정하여 진행을 시작하세요.',
@@ -1898,6 +1926,10 @@ extension on TranslationsKo {
 			'settings.sendFeedback.device' => '장치',
 			'settings.sendFeedback.osVersion' => 'OS 버전',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => '식사 기록 내보내기',
+			'settings.exportMealHistory.subtitle' => '로그된 식사를 CSV 파일로 공유하세요',
+			'settings.exportMealHistory.shareText' => 'Calorify 식사 기록 내보내기',
+			'settings.exportMealHistory.failed' => ({required Object error}) => '식사 기록 내보내기에 실패했습니다: ${error}',
 			'settings.clearAllData.title' => '모든 데이터 지우기',
 			'settings.clearAllData.subtitle' => '모든 정보를 영구히 삭제합니다.',
 			'settings.clearAllData.confirmationTitle' => '모든 데이터 지우기?',

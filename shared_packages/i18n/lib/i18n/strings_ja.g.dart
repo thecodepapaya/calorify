@@ -283,6 +283,7 @@ class _TranslationsSettingsJa implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersJa mealReminders = _TranslationsSettingsMealRemindersJa._(_root);
 	@override late final _TranslationsSettingsThemeJa theme = _TranslationsSettingsThemeJa._(_root);
 	@override late final _TranslationsSettingsSendFeedbackJa sendFeedback = _TranslationsSettingsSendFeedbackJa._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryJa exportMealHistory = _TranslationsSettingsExportMealHistoryJa._(_root);
 	@override late final _TranslationsSettingsClearAllDataJa clearAllData = _TranslationsSettingsClearAllDataJa._(_root);
 	@override late final _TranslationsSettingsDebugOptionsJa debugOptions = _TranslationsSettingsDebugOptionsJa._(_root);
 	@override String get developerModeEnabled => '開発者モードが有効になりました！';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryJa implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'あなたのAIサマリー';
 	@override String get logMore => '今後数日間に食事をもっと記録すると、あなたに合わせたAIのインサイトが得られます。';
 	@override String get loading => 'サマリーを読み込んでいます…';
+	@override String mealCount({required Object count}) => '${count}件の食事を記録しました';
+	@override String macroBalanceScore({required Object score}) => 'バランススコア ${score}';
+	@override String get topFoods => 'よく摂った食品';
+	@override String get trendUp => '摂取カロリーが上昇中';
+	@override String get trendDown => '摂取カロリーが減少傾向';
+	@override String get trendSteady => '摂取カロリーが安定しています';
+	@override String generatedAt({required Object time}) => '更新: ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackJa implements TranslationsSettingsSendFee
 	@override String get device => 'デバイス';
 	@override String get osVersion => 'OSバージョン';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryJa implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '食事履歴をエクスポート';
+	@override String get subtitle => '記録した食事をCSVファイルで共有する';
+	@override String get shareText => 'Calorifyの食事履歴のエクスポート';
+	@override String failed({required Object error}) => '食事履歴をエクスポートできませんでした: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsJa {
 			'home.aiSummary.title' => 'あなたのAIサマリー',
 			'home.aiSummary.logMore' => '今後数日間に食事をもっと記録すると、あなたに合わせたAIのインサイトが得られます。',
 			'home.aiSummary.loading' => 'サマリーを読み込んでいます…',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count}件の食事を記録しました',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'バランススコア ${score}',
+			'home.aiSummary.topFoods' => 'よく摂った食品',
+			'home.aiSummary.trendUp' => '摂取カロリーが上昇中',
+			'home.aiSummary.trendDown' => '摂取カロリーが減少傾向',
+			'home.aiSummary.trendSteady' => '摂取カロリーが安定しています',
+			'home.aiSummary.generatedAt' => ({required Object time}) => '更新: ${time}',
 			'home.dailyGoal.title' => '日々の目標を設定',
 			'home.dailyGoal.titleSet' => 'あなたのデイリーゴール',
 			'home.dailyGoal.description' => 'ウェルネスの旅を始める準備はできましたか？進捗を促進させるために、下にあなたのデイリーカロリー目標を設定してください。',
@@ -1898,6 +1926,10 @@ extension on TranslationsJa {
 			'settings.sendFeedback.device' => 'デバイス',
 			'settings.sendFeedback.osVersion' => 'OSバージョン',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => '食事履歴をエクスポート',
+			'settings.exportMealHistory.subtitle' => '記録した食事をCSVファイルで共有する',
+			'settings.exportMealHistory.shareText' => 'Calorifyの食事履歴のエクスポート',
+			'settings.exportMealHistory.failed' => ({required Object error}) => '食事履歴をエクスポートできませんでした: ${error}',
 			'settings.clearAllData.title' => 'すべてのデータをクリア',
 			'settings.clearAllData.subtitle' => 'すべての情報を取り消し不可能に削除します',
 			'settings.clearAllData.confirmationTitle' => 'すべてのデータをクリアしますか？',

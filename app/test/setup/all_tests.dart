@@ -4,7 +4,6 @@ import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
-import 'package:calorify/core/services/food_analysis.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/services/performance_service.dart';
 import 'package:calorify/core/services/database_service.dart';
@@ -56,8 +55,6 @@ void setupAllTests() {
   when(() => mockNotifications.initialize()).thenAnswer((_) async {});
   NotificationService.setMockInstance(mockNotifications);
 
-  FoodAnalysisService.setMockInstance(MockFoodAnalysisService());
-
   final mockOnboarding = MockOnboardingService();
   when(() => mockOnboarding.getProfileData()).thenAnswer((_) async => null);
   OnboardingService.setMockInstance(mockOnboarding);
@@ -79,8 +76,6 @@ class MockAnalytics extends Mock implements Analytics {}
 class MockHealthService extends Mock implements HealthService {}
 
 class MockNotificationService extends Mock implements NotificationService {}
-
-class MockFoodAnalysisService extends Mock implements FoodAnalysisService {}
 
 class MockOnboardingService extends Mock implements OnboardingService {}
 

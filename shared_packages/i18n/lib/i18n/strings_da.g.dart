@@ -283,6 +283,7 @@ class _TranslationsSettingsDa implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersDa mealReminders = _TranslationsSettingsMealRemindersDa._(_root);
 	@override late final _TranslationsSettingsThemeDa theme = _TranslationsSettingsThemeDa._(_root);
 	@override late final _TranslationsSettingsSendFeedbackDa sendFeedback = _TranslationsSettingsSendFeedbackDa._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryDa exportMealHistory = _TranslationsSettingsExportMealHistoryDa._(_root);
 	@override late final _TranslationsSettingsClearAllDataDa clearAllData = _TranslationsSettingsClearAllDataDa._(_root);
 	@override late final _TranslationsSettingsDebugOptionsDa debugOptions = _TranslationsSettingsDebugOptionsDa._(_root);
 	@override String get developerModeEnabled => 'Udviklertilstand aktiveret!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryDa implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'Din AI-opsummering';
 	@override String get logMore => 'Registrer flere måltider i løbet af de næste par dage for at få dine personlige AI-indsigter.';
 	@override String get loading => 'Indlæser din opsummering...';
+	@override String mealCount({required Object count}) => '${count} måltider registreret';
+	@override String macroBalanceScore({required Object score}) => 'Balance-score ${score}';
+	@override String get topFoods => 'Topfødevarer';
+	@override String get trendUp => 'Kalorieindtag stiger';
+	@override String get trendDown => 'Kalorieindtag falder';
+	@override String get trendSteady => 'Kalorieindtag er stabilt';
+	@override String generatedAt({required Object time}) => 'Opdateret ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackDa implements TranslationsSettingsSendFee
 	@override String get device => 'Enhed';
 	@override String get osVersion => 'OS Version';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryDa implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryDa._(this._root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Eksporter måltidshistorik';
+	@override String get subtitle => 'Del en CSV med dine registrerede måltider';
+	@override String get shareText => 'Din Calorify-eksport af måltidshistorik';
+	@override String failed({required Object error}) => 'Kunne ikke eksportere måltidshistorik: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsDa {
 			'home.aiSummary.title' => 'Din AI-opsummering',
 			'home.aiSummary.logMore' => 'Registrer flere måltider i løbet af de næste par dage for at få dine personlige AI-indsigter.',
 			'home.aiSummary.loading' => 'Indlæser din opsummering...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} måltider registreret',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Balance-score ${score}',
+			'home.aiSummary.topFoods' => 'Topfødevarer',
+			'home.aiSummary.trendUp' => 'Kalorieindtag stiger',
+			'home.aiSummary.trendDown' => 'Kalorieindtag falder',
+			'home.aiSummary.trendSteady' => 'Kalorieindtag er stabilt',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'Opdateret ${time}',
 			'home.dailyGoal.title' => 'Sæt Dit Daglige Mål',
 			'home.dailyGoal.titleSet' => 'Dit Daglige Mål',
 			'home.dailyGoal.description' => 'Klar til at påbegynde din wellnessrejse? Sæt dit daglige kalorie mål nedenfor for at kickstarte din fremgang.',
@@ -1898,6 +1926,10 @@ extension on TranslationsDa {
 			'settings.sendFeedback.device' => 'Enhed',
 			'settings.sendFeedback.osVersion' => 'OS Version',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'Eksporter måltidshistorik',
+			'settings.exportMealHistory.subtitle' => 'Del en CSV med dine registrerede måltider',
+			'settings.exportMealHistory.shareText' => 'Din Calorify-eksport af måltidshistorik',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Kunne ikke eksportere måltidshistorik: ${error}',
 			'settings.clearAllData.title' => 'Slet Al Data',
 			'settings.clearAllData.subtitle' => 'Slet alle dine oplysninger uigenkaldeligt',
 			'settings.clearAllData.confirmationTitle' => 'Slet Al Data?',

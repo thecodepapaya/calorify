@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "Ringkasan AI Anda",
       "logMore": "Catat lebih banyak makanan selama beberapa hari ke depan agar Anda mendapatkan wawasan AI yang dipersonalisasi.",
-      "loading": "Memuat ringkasan Anda..."
+      "loading": "Memuat ringkasan Anda...",
+      "mealCount": "{count} makanan tercatat",
+      "macroBalanceScore": "Skor keseimbangan {score}",
+      "topFoods": "Makanan teratas",
+      "trendUp": "Kalori meningkat",
+      "trendDown": "Kalori menurun",
+      "trendSteady": "Kalori stabil",
+      "generatedAt": "Diperbarui {time}"
     },
     "dailyGoal": {
       "title": "Tetapkan Tujuan Harian Anda",
@@ -435,6 +442,12 @@
       "device": "Perangkat",
       "osVersion": "Versi OS",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "Ekspor Riwayat Makan",
+      "subtitle": "Bagikan file CSV berisi riwayat makan Anda",
+      "shareText": "Ekspor riwayat makan Calorify Anda",
+      "failed": "Gagal mengekspor riwayat makan: {error}"
     },
     "clearAllData": {
       "title": "Hapus Semua Data",

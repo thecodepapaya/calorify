@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:calorify/core/repositories/food_repository.dart';
-import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:models/models.dart';
 import 'package:services/services.dart';
@@ -18,14 +17,17 @@ Future<void> logMeal(
   String? analysisId,
 }) async {
   final loggedAt = DateTime.now();
+  final container = ProviderScope.containerOf(context, listen: false);
+  final database = container.read(databaseInterfaceProvider);
+  final foodRepository = container.read(foodRepositoryProvider);
 
-  await DatabaseService.databaseInterface.logMeal(mealInfo, analysisId: analysisId);
+  await database.logMeal(mealInfo, analysisId: analysisId);
 
   // Best-effort confirmation to the backend for V2 meals.
   // Never blocks the UI — failures are silently ignored.
   if (analysisId != null && analysisId.isNotEmpty) {
     unawaited(
-      FoodRepository()
+      foodRepository
           .confirmMealLogV2(
             analysisId: analysisId,
             meal: mealInfo,
@@ -49,7 +51,10 @@ Future<void> logMeal(
 /// and shows the feedback sheet if eligible. Waits for the meal sheet to close
 /// before showing so the feedback sheet is not hidden behind it.
 Future<void> maybeShowFeedbackSheetAfterMealSaved(BuildContext context) async {
-  final db = DatabaseService.databaseInterface;
+  final db = ProviderScope.containerOf(
+    context,
+    listen: false,
+  ).read(databaseInterfaceProvider);
   if (await db.hasSeenFeedbackSheet()) return;
   final meals = await db.getLatestMealsForFeedbackEligibility(limit: 5);
   final distinctDays =
@@ -73,10 +78,14 @@ Future<bool> _writeDataToHealthConnect(
   BuildContext context,
   Meal mealInfo,
 ) async {
-  if (!HealthService.instance.isAuthorized) return false;
+  final healthService = ProviderScope.containerOf(
+    context,
+    listen: false,
+  ).read(healthServiceProvider);
+  if (!healthService.isAuthorized) return false;
 
   try {
-    final isSuccess = await HealthService.instance.writeMealData(mealInfo);
+    final isSuccess = await healthService.writeMealData(mealInfo);
     if (!isSuccess) throw Exception(t.health.syncFailed);
 
     if (!context.mounted) return false;

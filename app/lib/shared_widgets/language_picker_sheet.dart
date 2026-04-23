@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/core/services/food_analysis.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -200,13 +199,6 @@ class _LanguagePickerSheetState extends State<LanguagePickerSheet> {
           // Save language preference to database
           final db = DatabaseService.databaseInterface;
           await db.setLanguageCode(locale.languageCode);
-
-          // Reinitialize FoodAnalysisService with new locale
-          try {
-            await FoodAnalysisService.instance.reinitialize();
-          } catch (e) {
-            // Service might not be initialized yet, ignore error
-          }
 
           if (context.mounted) Navigator.pop(context);
         },

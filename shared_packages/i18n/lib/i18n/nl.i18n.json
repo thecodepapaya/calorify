@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "Je AI-samenvatting",
       "logMore": "Log de komende dagen meer maaltijden om je gepersonaliseerde AI-inzichten te krijgen.",
-      "loading": "Je samenvatting wordt geladen..."
+      "loading": "Je samenvatting wordt geladen...",
+      "mealCount": "{count} maaltijden bijgehouden",
+      "macroBalanceScore": "Balansscore {score}",
+      "topFoods": "Top voedingsmiddelen",
+      "trendUp": "Calorieën stijgen",
+      "trendDown": "Calorieën dalen",
+      "trendSteady": "Calorieën blijven stabiel",
+      "generatedAt": "Bijgewerkt {time}"
     },
     "dailyGoal": {
       "title": "Stel Je Dagdoel In",
@@ -435,6 +442,12 @@
       "device": "Apparaat",
       "osVersion": "OS Versie",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "Maaltijdgeschiedenis exporteren",
+      "subtitle": "Deel een CSV-bestand van je geregistreerde maaltijden",
+      "shareText": "Calorify: export van je maaltijdgeschiedenis",
+      "failed": "Kon maaltijdgeschiedenis niet exporteren: {error}"
     },
     "clearAllData": {
       "title": "Verwijder Alle Gegevens",

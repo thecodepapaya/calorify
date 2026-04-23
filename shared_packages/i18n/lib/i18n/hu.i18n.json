@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "AI-összegzésed",
       "logMore": "Rögzíts több étkezést a következő napokban, hogy megkapd a személyre szabott AI-elemzéseidet.",
-      "loading": "AI-összegzésed betöltése..."
+      "loading": "AI-összegzésed betöltése...",
+      "mealCount": "{count} rögzített étkezés",
+      "macroBalanceScore": "Egyensúly-pontszám {score}",
+      "topFoods": "Leggyakoribb ételek",
+      "trendUp": "Kalóriabevitel növekvő tendenciát mutat",
+      "trendDown": "Kalóriabevitel csökkenő tendenciát mutat",
+      "trendSteady": "Kalóriabevitel stabil",
+      "generatedAt": "Frissítve {time}"
     },
     "dailyGoal": {
       "title": "Állítsd Be Napi Célodat",
@@ -435,6 +442,12 @@
       "device": "Eszköz",
       "osVersion": "OS Verzió",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "Étkezési előzmények exportálása",
+      "subtitle": "Oszd meg a rögzített étkezéseid CSV-fájlját",
+      "shareText": "A Calorify étkezési előzmények exportja",
+      "failed": "Nem sikerült exportálni az étkezési előzményeket: {error}"
     },
     "clearAllData": {
       "title": "Összes Adat Törlése",

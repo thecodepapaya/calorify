@@ -283,6 +283,7 @@ class _TranslationsSettingsCs implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersCs mealReminders = _TranslationsSettingsMealRemindersCs._(_root);
 	@override late final _TranslationsSettingsThemeCs theme = _TranslationsSettingsThemeCs._(_root);
 	@override late final _TranslationsSettingsSendFeedbackCs sendFeedback = _TranslationsSettingsSendFeedbackCs._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryCs exportMealHistory = _TranslationsSettingsExportMealHistoryCs._(_root);
 	@override late final _TranslationsSettingsClearAllDataCs clearAllData = _TranslationsSettingsClearAllDataCs._(_root);
 	@override late final _TranslationsSettingsDebugOptionsCs debugOptions = _TranslationsSettingsDebugOptionsCs._(_root);
 	@override String get developerModeEnabled => 'Režim vývojáře je povolen!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryCs implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'Váš AI přehled';
 	@override String get logMore => 'Zaznamenávejte více jídel v příštích dnech, abyste získali personalizované postřehy od AI.';
 	@override String get loading => 'Načítám váš přehled...';
+	@override String mealCount({required Object count}) => '${count} zaznamenaných jídel';
+	@override String macroBalanceScore({required Object score}) => 'Skóre vyváženosti ${score}';
+	@override String get topFoods => 'Nejčastější potraviny';
+	@override String get trendUp => 'Kalorie stoupají';
+	@override String get trendDown => 'Kalorie klesají';
+	@override String get trendSteady => 'Kalorie jsou stabilní';
+	@override String generatedAt({required Object time}) => 'Aktualizováno ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackCs implements TranslationsSettingsSendFee
 	@override String get device => 'Zařízení';
 	@override String get osVersion => 'Verze OS';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryCs implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Export historie jídel';
+	@override String get subtitle => 'Sdílejte CSV s vašimi zaznamenanými jídly';
+	@override String get shareText => 'Váš export historie jídel z Calorify';
+	@override String failed({required Object error}) => 'Nepodařilo se exportovat historii jídel: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsCs {
 			'home.aiSummary.title' => 'Váš AI přehled',
 			'home.aiSummary.logMore' => 'Zaznamenávejte více jídel v příštích dnech, abyste získali personalizované postřehy od AI.',
 			'home.aiSummary.loading' => 'Načítám váš přehled...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} zaznamenaných jídel',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Skóre vyváženosti ${score}',
+			'home.aiSummary.topFoods' => 'Nejčastější potraviny',
+			'home.aiSummary.trendUp' => 'Kalorie stoupají',
+			'home.aiSummary.trendDown' => 'Kalorie klesají',
+			'home.aiSummary.trendSteady' => 'Kalorie jsou stabilní',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'Aktualizováno ${time}',
 			'home.dailyGoal.title' => 'Nastavte si svůj denní cíl',
 			'home.dailyGoal.titleSet' => 'Váš denní cíl',
 			'home.dailyGoal.description' => 'Připraveni na začátek vaší wellness cesty? Nastavte si svůj denní kalorický cíl níže, abyste zahájili svůj pokrok.',
@@ -1898,6 +1926,10 @@ extension on TranslationsCs {
 			'settings.sendFeedback.device' => 'Zařízení',
 			'settings.sendFeedback.osVersion' => 'Verze OS',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'Export historie jídel',
+			'settings.exportMealHistory.subtitle' => 'Sdílejte CSV s vašimi zaznamenanými jídly',
+			'settings.exportMealHistory.shareText' => 'Váš export historie jídel z Calorify',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Nepodařilo se exportovat historii jídel: ${error}',
 			'settings.clearAllData.title' => 'Vymazat všechna data',
 			'settings.clearAllData.subtitle' => 'Nevratně smažte všechny své informace',
 			'settings.clearAllData.confirmationTitle' => 'Vymazat všechna data?',

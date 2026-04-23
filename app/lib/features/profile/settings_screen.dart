@@ -1,11 +1,13 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/app_constants.dart';
+import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/profile_providers.dart';
 import 'package:calorify/core/providers/theme_provider.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/router/route_names.dart';
-import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/app_version.dart';
 import 'package:calorify/shared_widgets/easter_egg/grass.dart';
 import 'package:calorify/shared_widgets/language_picker_sheet.dart';
@@ -15,7 +17,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:services/services.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:utils/utils.dart';
 
 @RoutePage()
@@ -27,32 +31,21 @@ class SettingsScreen extends ConsumerStatefulWidget {
 }
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
-  UserProfile? _userProfile;
-  bool _isLoading = true;
   int _debugTapCount = 0;
+  bool _isExporting = false;
   bool _showDebugOptions = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadSettings();
-  }
-
-  Future<void> _loadSettings() async {
-    final profile = await OnboardingService.instance.getProfileData();
-    if (!mounted) return;
-    setState(() {
-      _userProfile = profile;
-      _isLoading = false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final profileAsync = ref.watch(userProfileProvider);
+    final userProfile = profileAsync.maybeWhen(
+      data: (profile) => profile,
+      orElse: () => null,
+    );
 
-    if (_isLoading) {
+    if (profileAsync.isLoading) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
@@ -88,13 +81,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               subtitle: Text(t.settings.editProfile.subtitle),
               trailing: const Icon(LucideIcons.chevronRight, size: 18),
               onTap:
-                  _userProfile != null
+                  userProfile != null
                       ? () async {
                         await context.router.push(
-                          EditProfileRoute(userProfile: _userProfile!),
+                          EditProfileRoute(userProfile: userProfile),
                         );
-                        // Reload profile data after returning from edit screen
-                        await _loadSettings();
+                        ref.invalidate(userProfileProvider);
+                        ref.invalidate(savedDailyCalorieGoalProvider);
                       }
                       : null,
             ),
@@ -103,8 +96,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           _buildCardSection(t.settings.sections.localization, [
             _buildLanguageTile(),
             _buildThemeTile(),
-            _buildHeightUnitTile(),
-            _buildWeightUnitTile(),
+            _buildHeightUnitTile(userProfile),
+            _buildWeightUnitTile(userProfile),
           ]),
           const SizedBox(height: 16),
           _buildCardSection(t.settings.sections.notifications, [
@@ -182,6 +175,34 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 ),
               ),
               onTap: _sendFeedbackEmail,
+            ),
+            ListTile(
+              leading: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  LucideIcons.download,
+                  color: colorScheme.primary,
+                  size: 20,
+                ),
+              ),
+              title: Text(
+                t.settings.exportMealHistory.title,
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+              subtitle: Text(t.settings.exportMealHistory.subtitle),
+              trailing:
+                  _isExporting
+                      ? const SizedBox(
+                        height: 18,
+                        width: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                      : const Icon(LucideIcons.chevronRight, size: 18),
+              onTap: _isExporting ? null : _exportMealHistory,
             ),
           ]),
           const SizedBox(height: 16),
@@ -394,12 +415,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
   }
 
-  Widget _buildHeightUnitTile() {
+  Widget _buildHeightUnitTile(UserProfile? userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final unitSystem =
-        _userProfile != null
-            ? _userProfile!.heightUnit.normalized
+        userProfile != null
+            ? userProfile.heightUnit.normalized
             : UnitSystem.METRIC;
 
     return ListTile(
@@ -444,7 +465,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           final newUnit = selection.first;
           if (newUnit.isMetric == unitSystem.isMetric) return;
 
-          final currentHeight = _userProfile?.height;
+          final currentHeight = userProfile?.height;
           double? newHeight;
 
           if (currentHeight != null) {
@@ -454,29 +475,27 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     : LocaleUtils.convertHeightToImperial(currentHeight);
           }
 
-          final updatedProfile = _userProfile?.deepCopy();
+          final updatedProfile = userProfile?.deepCopy();
           if (updatedProfile != null && newHeight != null) {
             updatedProfile.height = newHeight;
             updatedProfile.heightUnit = newUnit;
           }
 
           if (updatedProfile != null) {
-            await OnboardingService.instance.saveProfileData(updatedProfile);
-            setState(() {
-              _userProfile = updatedProfile;
-            });
+            await ref.read(profileActionsProvider).updateProfile(updatedProfile);
+            ref.invalidate(userProfileProvider);
           }
         },
       ),
     );
   }
 
-  Widget _buildWeightUnitTile() {
+  Widget _buildWeightUnitTile(UserProfile? userProfile) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final unitSystem =
-        _userProfile != null
-            ? _userProfile!.weightUnit.normalized
+        userProfile != null
+            ? userProfile.weightUnit.normalized
             : UnitSystem.METRIC;
 
     return ListTile(
@@ -521,8 +540,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           final newUnit = selection.first;
           if (newUnit.isMetric == unitSystem.isMetric) return;
 
-          final currentWeight = _userProfile?.weight;
-          final currentTargetWeight = _userProfile?.targetWeight;
+          final currentWeight = userProfile?.weight;
+          final currentTargetWeight = userProfile?.targetWeight;
           double? newWeight;
           double? newTargetWeight;
 
@@ -540,7 +559,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     : LocaleUtils.convertWeightToImperial(currentTargetWeight);
           }
 
-          final updatedProfile = _userProfile?.deepCopy();
+          final updatedProfile = userProfile?.deepCopy();
           if (updatedProfile != null && newWeight != null) {
             updatedProfile.weight = newWeight;
             if (newTargetWeight != null) {
@@ -550,10 +569,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           }
 
           if (updatedProfile != null) {
-            await OnboardingService.instance.saveProfileData(updatedProfile);
-            setState(() {
-              _userProfile = updatedProfile;
-            });
+            await ref.read(profileActionsProvider).updateProfile(updatedProfile);
+            ref.invalidate(userProfileProvider);
           }
         },
       ),
@@ -578,7 +595,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
             TextButton(
               onPressed: () async {
-                await DatabaseService.databaseInterface.clearAllData();
+                await ref.read(profileActionsProvider).clearAllData();
                 if (!context.mounted) return;
                 Navigator.pop(context);
                 await context.router.pushAndPopUntil(
@@ -604,6 +621,41 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       emailAddress: AppConstants.supportEmail,
       version: versionInfo.uiVersionWithBuild,
     );
+  }
+
+  Future<void> _exportMealHistory() async {
+    setState(() {
+      _isExporting = true;
+    });
+
+    try {
+      final csv = await ref.read(foodRepositoryProvider).exportMealHistoryCsv();
+      final directory = await getTemporaryDirectory();
+      final file = File('${directory.path}/calorify-meal-history.csv');
+      await file.writeAsString(csv);
+
+      if (!mounted) return;
+
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(file.path)],
+          text: t.settings.exportMealHistory.shareText,
+          subject: t.settings.exportMealHistory.title,
+        ),
+      );
+    } catch (error) {
+      if (!mounted) return;
+      showFlushbar(
+        t.settings.exportMealHistory.failed(error: '$error'),
+        context: context,
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isExporting = false;
+        });
+      }
+    }
   }
 
   Widget _buildAppInfo() {

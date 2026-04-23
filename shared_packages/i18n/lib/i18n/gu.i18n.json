@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "તમારો AI સારાંશ",
       "logMore": "આગલા થોડા દિવસોમાં વધુ ભોજન નોંધો જેથી તમને વ્યક્તિગત AI સૂચનો મળે.",
-      "loading": "તમારો સારાંશ લોડ થઈ રહ્યો છે..."
+      "loading": "તમારો સારાંશ લોડ થઈ રહ્યો છે...",
+      "mealCount": "{count} ભોજન નોંધાયા",
+      "macroBalanceScore": "સંતુલન સ્કોર {score}",
+      "topFoods": "પ્રમુખ ખોરાક",
+      "trendUp": "કેલરી વધતી જઈ રહી છે",
+      "trendDown": "કેલરીઓ ઘટતી જઈ રહી છે",
+      "trendSteady": "કેલરીઓ સ્થિર છે",
+      "generatedAt": "અપડેટ: {time}"
     },
     "dailyGoal": {
       "title": "તમે રોજના લક્ષ્યને નક્કી કરો",
@@ -435,6 +442,12 @@
       "device": "યંત્ર",
       "osVersion": "ઓએસ આવૃત્તિ",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "ભોજન ઇતિહાસ નિકાસ કરો",
+      "subtitle": "તમારા નોંધાયેલા ભોજનનું CSV શેર કરો",
+      "shareText": "તમારો Calorify ભોજન ઇતિહાસ નિકાસ",
+      "failed": "ભોજન ઇતિહાસ નિકાસ કરી શકાયો નથી: {error}"
     },
     "clearAllData": {
       "title": "બધી માહિતી દૂર કરો",

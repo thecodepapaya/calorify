@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:models/models.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/profile_providers.dart';
 import 'package:utils/utils.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
@@ -10,23 +10,23 @@ import 'package:calorify/shared_widgets/profile_enum_extensions.dart';
 import 'package:calorify/shared_widgets/selection_card.dart';
 import 'package:calorify/shared_widgets/value_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 @RoutePage()
-class EditProfileScreen extends StatefulWidget {
+class EditProfileScreen extends ConsumerStatefulWidget {
   final UserProfile userProfile;
 
   const EditProfileScreen({super.key, required this.userProfile});
 
   @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
+  ConsumerState<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
+class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
-  late final Future<int?> _savedGoalFuture;
   bool _didApplySavedGoal = false;
 
   // Initialize with safe defaults
@@ -141,8 +141,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _originalWeightUnit = _weightUnit;
     _originalDailyCalorieGoal = _dailyCalorieGoal;
 
-    // Load saved calorie goal asynchronously
-    _savedGoalFuture = DatabaseService.databaseInterface.getDailyCalorieGoal();
   }
 
   bool _hasChanges() {
@@ -653,74 +651,70 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget _buildDailyCalorieGoalTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final savedGoalAsync = ref.watch(savedDailyCalorieGoalProvider);
 
-    return FutureBuilder<int?>(
-      future: _savedGoalFuture,
-      builder: (context, snapshot) {
-        if (snapshot.hasData && !_didApplySavedGoal) {
-          final savedGoal = snapshot.data ?? 0;
-          _didApplySavedGoal = true;
-          _dailyCalorieGoal = savedGoal;
-          _originalDailyCalorieGoal = savedGoal;
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            _calorieGoalController.text =
-                savedGoal > 0 ? savedGoal.toString() : '';
-            if (!mounted) return;
-            setState(() {});
-          });
-        }
+    if (savedGoalAsync.hasValue && !_didApplySavedGoal) {
+      final savedGoal = savedGoalAsync.value ?? 0;
+      _didApplySavedGoal = true;
+      _dailyCalorieGoal = savedGoal;
+      _originalDailyCalorieGoal = savedGoal;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _calorieGoalController.text =
+            savedGoal > 0 ? savedGoal.toString() : '';
+        if (!mounted) return;
+        setState(() {});
+      });
+    }
 
-        return ListTile(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: _cardContentHorizontalPadding,
-            vertical: _cardContentVerticalPadding,
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: _cardContentHorizontalPadding,
+        vertical: _cardContentVerticalPadding,
+      ),
+      leading: Container(
+        padding: const EdgeInsets.all(_iconContainerPadding),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withValues(
+            alpha: _iconContainerOpacity,
           ),
-          leading: Container(
-            padding: const EdgeInsets.all(_iconContainerPadding),
-            decoration: BoxDecoration(
-              color: colorScheme.primaryContainer.withValues(
-                alpha: _iconContainerOpacity,
-              ),
-              shape: BoxShape.circle,
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          LucideIcons.flame,
+          color: colorScheme.primary,
+          size: _iconSize,
+        ),
+      ),
+      title: Text(
+        t.home.dailyGoal.dailyCalories,
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+      subtitle: Padding(
+        padding: const EdgeInsets.only(top: _subtitleTopPadding),
+        child: TextFormField(
+          controller: _calorieGoalController,
+          keyboardType: TextInputType.number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          decoration: InputDecoration(
+            hintText: '0',
+            suffixText: t.home.dailyGoal.kcal,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(
-              LucideIcons.flame,
-              color: colorScheme.primary,
-              size: _iconSize,
-            ),
-          ),
-          title: Text(
-            t.home.dailyGoal.dailyCalories,
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
-          subtitle: Padding(
-            padding: const EdgeInsets.only(top: _subtitleTopPadding),
-            child: TextFormField(
-              controller: _calorieGoalController,
-              keyboardType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              decoration: InputDecoration(
-                hintText: '0',
-                suffixText: t.home.dailyGoal.kcal,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-              ),
-              onChanged: (value) {
-                final goal = int.tryParse(value) ?? 0;
-                setState(() {
-                  _dailyCalorieGoal = goal;
-                });
-              },
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 8,
             ),
           ),
-          isThreeLine: true,
-        );
-      },
+          onChanged: (value) {
+            final goal = int.tryParse(value) ?? 0;
+            setState(() {
+              _dailyCalorieGoal = goal;
+            });
+          },
+        ),
+      ),
+      isThreeLine: true,
     );
   }
 
@@ -738,17 +732,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       updatedData.heightUnit = _heightUnit;
       updatedData.weightUnit = _weightUnit;
 
-      // Save the updated profile data (upsert)
-      await OnboardingService.instance.saveProfileData(updatedData);
-
-      // Save daily calorie goal if changed
-      if (_dailyCalorieGoal != _originalDailyCalorieGoal) {
-        if (_dailyCalorieGoal > 0) {
-          await DatabaseService.databaseInterface.setDailyCalorieGoal(
-            _dailyCalorieGoal,
+      await ref
+          .read(profileActionsProvider)
+          .saveProfile(
+            profile: updatedData,
+            dailyCalorieGoal: _dailyCalorieGoal,
+            originalDailyCalorieGoal: _originalDailyCalorieGoal,
           );
-        }
-      }
+      ref.invalidate(userProfileProvider);
+      ref.invalidate(savedDailyCalorieGoalProvider);
 
       if (!mounted) return;
 

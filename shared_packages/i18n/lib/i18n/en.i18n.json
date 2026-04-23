@@ -148,7 +148,14 @@
     "aiSummary": {
       "title": "Your AI Summary",
       "logMore": "Log more meals over the next few days to get your personalized AI insights.",
-      "loading": "Loading your summary..."
+      "loading": "Loading your summary...",
+      "mealCount": "{count} meals logged",
+      "macroBalanceScore": "Balance score {score}",
+      "topFoods": "Top foods",
+      "trendUp": "Calories trending up",
+      "trendDown": "Calories trending down",
+      "trendSteady": "Calories staying steady",
+      "generatedAt": "Updated {time}"
     },
     "dailyGoal": {
       "title": "Set Your Daily Goal",
@@ -435,6 +442,12 @@
       "device": "Device",
       "osVersion": "OS Version",
       "uid": "UID"
+    },
+    "exportMealHistory": {
+      "title": "Export Meal History",
+      "subtitle": "Share a CSV of your logged meals",
+      "shareText": "Your Calorify meal history export",
+      "failed": "Could not export meal history: {error}"
     },
     "clearAllData": {
       "title": "Clear All Data",

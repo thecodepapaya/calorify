@@ -283,6 +283,7 @@ class _TranslationsSettingsTh implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsMealRemindersTh mealReminders = _TranslationsSettingsMealRemindersTh._(_root);
 	@override late final _TranslationsSettingsThemeTh theme = _TranslationsSettingsThemeTh._(_root);
 	@override late final _TranslationsSettingsSendFeedbackTh sendFeedback = _TranslationsSettingsSendFeedbackTh._(_root);
+	@override late final _TranslationsSettingsExportMealHistoryTh exportMealHistory = _TranslationsSettingsExportMealHistoryTh._(_root);
 	@override late final _TranslationsSettingsClearAllDataTh clearAllData = _TranslationsSettingsClearAllDataTh._(_root);
 	@override late final _TranslationsSettingsDebugOptionsTh debugOptions = _TranslationsSettingsDebugOptionsTh._(_root);
 	@override String get developerModeEnabled => 'โหมดนักพัฒนาเปิดใช้งานแล้ว!';
@@ -553,6 +554,13 @@ class _TranslationsHomeAiSummaryTh implements TranslationsHomeAiSummaryEn {
 	@override String get title => 'สรุปจาก AI ของคุณ';
 	@override String get logMore => 'บันทึกมื้ออาหารเพิ่มในอีกไม่กี่วันข้างหน้า เพื่อให้ AI มอบข้อมูลเชิงลึกส่วนบุคคลด้านโภชนาการแก่คุณ';
 	@override String get loading => 'กำลังโหลดสรุปของคุณ...';
+	@override String mealCount({required Object count}) => '${count} มื้อที่บันทึกไว้';
+	@override String macroBalanceScore({required Object score}) => 'คะแนนความสมดุล ${score}';
+	@override String get topFoods => 'อาหารยอดนิยม';
+	@override String get trendUp => 'แคลอรีมีแนวโน้มเพิ่มขึ้น';
+	@override String get trendDown => 'แคลอรีมีแนวโน้มลดลง';
+	@override String get trendSteady => 'แคลอรีคงที่';
+	@override String generatedAt({required Object time}) => 'ปรับปรุงเมื่อ ${time}';
 }
 
 // Path: home.dailyGoal
@@ -913,6 +921,19 @@ class _TranslationsSettingsSendFeedbackTh implements TranslationsSettingsSendFee
 	@override String get device => 'อุปกรณ์';
 	@override String get osVersion => 'เวอร์ชัน OS';
 	@override String get uid => 'UID';
+}
+
+// Path: settings.exportMealHistory
+class _TranslationsSettingsExportMealHistoryTh implements TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryTh._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ส่งออกประวัติการบันทึกมื้ออาหาร';
+	@override String get subtitle => 'แชร์ไฟล์ CSV ของมื้ออาหารที่คุณบันทึก';
+	@override String get shareText => 'การส่งออกประวัติการมื้ออาหารของคุณจาก Calorify';
+	@override String failed({required Object error}) => 'ไม่สามารถส่งออกประวัติการมื้ออาหารได้: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1696,6 +1717,13 @@ extension on TranslationsTh {
 			'home.aiSummary.title' => 'สรุปจาก AI ของคุณ',
 			'home.aiSummary.logMore' => 'บันทึกมื้ออาหารเพิ่มในอีกไม่กี่วันข้างหน้า เพื่อให้ AI มอบข้อมูลเชิงลึกส่วนบุคคลด้านโภชนาการแก่คุณ',
 			'home.aiSummary.loading' => 'กำลังโหลดสรุปของคุณ...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} มื้อที่บันทึกไว้',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'คะแนนความสมดุล ${score}',
+			'home.aiSummary.topFoods' => 'อาหารยอดนิยม',
+			'home.aiSummary.trendUp' => 'แคลอรีมีแนวโน้มเพิ่มขึ้น',
+			'home.aiSummary.trendDown' => 'แคลอรีมีแนวโน้มลดลง',
+			'home.aiSummary.trendSteady' => 'แคลอรีคงที่',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'ปรับปรุงเมื่อ ${time}',
 			'home.dailyGoal.title' => 'ตั้งค่าเป้าหมายรายวันของคุณ',
 			'home.dailyGoal.titleSet' => 'เป้าหมายรายวันของคุณ',
 			'home.dailyGoal.description' => 'พร้อมที่จะเริ่มต้นการเดินทางสู่สุขภาพของคุณ? ตั้งค่าเป้าหมายแคลอรีรายวันของคุณด้านล่างเพื่อเริ่มการพัฒนา',
@@ -1898,6 +1926,10 @@ extension on TranslationsTh {
 			'settings.sendFeedback.device' => 'อุปกรณ์',
 			'settings.sendFeedback.osVersion' => 'เวอร์ชัน OS',
 			'settings.sendFeedback.uid' => 'UID',
+			'settings.exportMealHistory.title' => 'ส่งออกประวัติการบันทึกมื้ออาหาร',
+			'settings.exportMealHistory.subtitle' => 'แชร์ไฟล์ CSV ของมื้ออาหารที่คุณบันทึก',
+			'settings.exportMealHistory.shareText' => 'การส่งออกประวัติการมื้ออาหารของคุณจาก Calorify',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'ไม่สามารถส่งออกประวัติการมื้ออาหารได้: ${error}',
 			'settings.clearAllData.title' => 'ลบข้อมูลทั้งหมด',
 			'settings.clearAllData.subtitle' => 'ลบข้อมูลของคุณทั้งหมดอย่างถาวร',
 			'settings.clearAllData.confirmationTitle' => 'ลบข้อมูลทั้งหมด?',
