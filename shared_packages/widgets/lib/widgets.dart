@@ -2,4 +2,8 @@ library;
 
 export 'src/animated_leaf.dart';
 export 'src/border_text.dart';
+export 'src/calorie_summary_card.dart';
+export 'src/calorie_trend_chart.dart';
 export 'src/loading_indicator.dart';
+export 'src/macro_chart.dart';
+export 'src/shimmer_placeholder.dart';

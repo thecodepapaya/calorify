@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 
-/// A lightweight shimmer skeleton widget for loading states.
-/// Uses a single shared [AnimationController] via an [InheritedWidget] so
-/// multiple placeholders animate in perfect sync with minimal overhead.
 class ShimmerScope extends StatefulWidget {
   const ShimmerScope({super.key, required this.child});
 
   final Widget child;
 
   @override
-  // ignore: library_private_types_in_public_api
   State<ShimmerScope> createState() => _ShimmerScopeState();
 
-  // ignore: library_private_types_in_public_api
-  static _ShimmerScopeState? of(BuildContext context) =>
-      context.findAncestorStateOfType<_ShimmerScopeState>();
+  static Animation<double>? maybeOf(BuildContext context) =>
+      context.findAncestorStateOfType<_ShimmerScopeState>()?.shimmer;
 }
 
 class _ShimmerScopeState extends State<ShimmerScope>
@@ -42,8 +37,6 @@ class _ShimmerScopeState extends State<ShimmerScope>
   Widget build(BuildContext context) => widget.child;
 }
 
-/// Renders a single shimmer placeholder rectangle.
-/// Must be a descendant of [ShimmerScope].
 class ShimmerBox extends StatelessWidget {
   const ShimmerBox({
     super.key,
@@ -58,9 +51,8 @@ class ShimmerBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scope = ShimmerScope.of(context);
-    if (scope == null) {
-      // Fallback: static grey box
+    final shimmer = ShimmerScope.maybeOf(context);
+    if (shimmer == null) {
       return Container(
         width: width,
         height: height,
@@ -72,12 +64,12 @@ class ShimmerBox extends StatelessWidget {
     }
 
     return AnimatedBuilder(
-      animation: scope.shimmer,
+      animation: shimmer,
       builder: (context, _) {
         final colorScheme = Theme.of(context).colorScheme;
         final base = colorScheme.surfaceContainerHighest;
         final highlight = Color.lerp(base, colorScheme.onSurface, 0.10)!;
-        final t = scope.shimmer.value;
+        final value = shimmer.value;
         return Container(
           width: width,
           height: height,
@@ -87,9 +79,9 @@ class ShimmerBox extends StatelessWidget {
               end: Alignment.centerRight,
               colors: [base, highlight, base],
               stops: [
-                (t - 0.3).clamp(0.0, 1.0),
-                t.clamp(0.0, 1.0),
-                (t + 0.3).clamp(0.0, 1.0),
+                (value - 0.3).clamp(0.0, 1.0),
+                value.clamp(0.0, 1.0),
+                (value + 0.3).clamp(0.0, 1.0),
               ],
             ),
             borderRadius: BorderRadius.circular(borderRadius),
@@ -100,7 +92,6 @@ class ShimmerBox extends StatelessWidget {
   }
 }
 
-/// Skeleton for the home screen while data loads.
 class HomeScreenSkeleton extends StatelessWidget {
   const HomeScreenSkeleton({super.key});
 
@@ -112,14 +103,12 @@ class HomeScreenSkeleton extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Calorie ring placeholder
             const ShimmerBox(width: 70, height: 70, borderRadius: 35),
             const SizedBox(height: 12),
             const ShimmerBox(width: 100, height: 14, borderRadius: 7),
             const SizedBox(height: 6),
             const ShimmerBox(width: 60, height: 10, borderRadius: 5),
             const SizedBox(height: 20),
-            // Macro row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: const [
@@ -129,10 +118,17 @@ class HomeScreenSkeleton extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20),
-            // Meal item placeholders
-            const ShimmerBox(width: double.infinity, height: 44, borderRadius: 8),
+            const ShimmerBox(
+              width: double.infinity,
+              height: 44,
+              borderRadius: 8,
+            ),
             const SizedBox(height: 8),
-            const ShimmerBox(width: double.infinity, height: 44, borderRadius: 8),
+            const ShimmerBox(
+              width: double.infinity,
+              height: 44,
+              borderRadius: 8,
+            ),
           ],
         ),
       ),
@@ -140,7 +136,6 @@ class HomeScreenSkeleton extends StatelessWidget {
   }
 }
 
-/// Skeleton for the history / favorites screen while data loads.
 class ListScreenSkeleton extends StatelessWidget {
   const ListScreenSkeleton({super.key, this.itemCount = 3});
 
@@ -154,9 +149,9 @@ class ListScreenSkeleton extends StatelessWidget {
         child: Column(
           children: List.generate(
             itemCount,
-            (i) => Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: const ShimmerBox(
+            (_) => const Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: ShimmerBox(
                 width: double.infinity,
                 height: 52,
                 borderRadius: 10,

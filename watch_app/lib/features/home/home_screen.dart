@@ -3,18 +3,15 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/router/app_router.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
-import 'package:calorify_watch/widgets/calorie_summary_card.dart';
-import 'package:calorify_watch/widgets/calorie_trend_chart.dart';
 import 'package:calorify_watch/widgets/carousel_scroll_view.dart';
-import 'package:calorify_watch/widgets/macro_chart.dart';
 import 'package:calorify_watch/widgets/meal_list_item.dart';
-import 'package:calorify_watch/widgets/shimmer_placeholder.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:specs/specs.dart';
+import 'package:widgets/widgets.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
@@ -48,7 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
       await SyncService.instance.refreshDashboard(forceRefresh: true);
       unawaited(HapticFeedback.lightImpact());
     } catch (e) {
-      if (mounted) setState(() => _errorMessage = 'Could not refresh. Check your phone.');
+      if (mounted) {
+        setState(() => _errorMessage = 'Could not refresh. Check your phone.');
+      }
       unawaited(HapticFeedback.mediumImpact());
     }
   }
@@ -60,8 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // Show skeleton on very first load (no cache yet)
     final cache = SyncService.instance;
-    final hasCachedData = cache.syncState.value != SyncState.idle ||
-        _initialLoadDone;
+    final hasCachedData =
+        cache.syncState.value != SyncState.idle || _initialLoadDone;
 
     if (!hasCachedData) {
       return Scaffold(
@@ -138,15 +137,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       // Today's meals
                       if (meals.isNotEmpty) ...[
                         _MealsSectionHeader(count: meals.length),
-                        ...meals.take(3).toList().asMap().entries.map(
+                        ...meals
+                            .take(3)
+                            .toList()
+                            .asMap()
+                            .entries
+                            .map(
                               (e) => Padding(
                                 padding: const EdgeInsets.only(bottom: 8),
                                 child: MealListItem(
                                   meal: e.value,
                                   index: e.key,
-                                  onDelete: e.value.hasClientId() && e.value.clientId > 0
-                                      ? () => _deleteMeal(e.value.clientId)
-                                      : null,
+                                  onDelete:
+                                      e.value.hasClientId() &&
+                                              e.value.clientId > 0
+                                          ? () => _deleteMeal(e.value.clientId)
+                                          : null,
                                 ),
                               ),
                             ),
@@ -216,8 +222,9 @@ class _SyncStatusHeader extends StatelessWidget {
                           child: Text(
                             _stateLabel(state, lastSync),
                             style: theme.textTheme.labelSmall?.copyWith(
-                              color: colorScheme.onSurfaceVariant
-                                  .withValues(alpha: 0.6),
+                              color: colorScheme.onSurfaceVariant.withValues(
+                                alpha: 0.6,
+                              ),
                               fontSize: 8,
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -408,28 +415,26 @@ class _ActionBtnState extends State<_ActionBtn> {
               width: 46,
               height: 46,
               decoration: BoxDecoration(
-                color: _pressed
-                    ? widget.color.withValues(alpha: 0.7)
-                    : widget.color,
+                color:
+                    _pressed
+                        ? widget.color.withValues(alpha: 0.7)
+                        : widget.color,
                 shape: BoxShape.circle,
-                boxShadow: _pressed
-                    ? []
-                    : [
-                        BoxShadow(
-                          color: widget.color.withValues(alpha: 0.25),
-                          blurRadius: 8,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
+                boxShadow:
+                    _pressed
+                        ? []
+                        : [
+                          BoxShadow(
+                            color: widget.color.withValues(alpha: 0.25),
+                            blurRadius: 8,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
               ),
               child: AnimatedScale(
                 scale: _pressed ? 0.92 : 1.0,
                 duration: const Duration(milliseconds: 100),
-                child: Icon(
-                  widget.icon,
-                  size: 20,
-                  color: widget.iconColor,
-                ),
+                child: Icon(widget.icon, size: 20, color: widget.iconColor),
               ),
             ),
             const SizedBox(height: 4),
@@ -481,8 +486,7 @@ class _MealsSectionHeader extends StatelessWidget {
           ),
           const SizedBox(width: 6),
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
               color: colorScheme.primaryContainer.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(8),
@@ -523,7 +527,11 @@ class _ViewMoreButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(LucideIcons.arrowRight, size: 10, color: colorScheme.primary),
+              Icon(
+                LucideIcons.arrowRight,
+                size: 10,
+                color: colorScheme.primary,
+              ),
               const SizedBox(width: 4),
               Text(
                 'View $extraCount more',
