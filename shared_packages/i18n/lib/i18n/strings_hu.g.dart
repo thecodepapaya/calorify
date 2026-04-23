@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryHu implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7 Napos Makró Történelem';
+	@override String get trendTitle => 'Mai trend';
+	@override String peakHour({required Object hour}) => 'Csúcs: ${hour}:00';
 	@override String get noHistoryYet => 'Nincs még történet';
 	@override String get startLogging => 'Kezd el étkezéseid naplózását, hogy itt lásd\na 7 napos makró trendjeidet';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsHu {
 			'home.intakeProgress.target' => 'Cél',
 			'home.intakeProgress.current' => 'Jelenlegi',
 			'home.intakeHistory.title' => '7 Napos Makró Történelem',
+			'home.intakeHistory.trendTitle' => 'Mai trend',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Csúcs: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Nincs még történet',
 			'home.intakeHistory.startLogging' => 'Kezd el étkezéseid naplózását, hogy itt lásd\na 7 napos makró trendjeidet',
 			'home.mealLog.title' => 'Naplózott Étkezések',

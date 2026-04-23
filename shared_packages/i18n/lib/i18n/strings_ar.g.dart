@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryAr implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => 'تاريخ الماكرو لمدة 7 أيام';
+	@override String get trendTitle => 'اتجاه اليوم';
+	@override String peakHour({required Object hour}) => 'الذروة: ${hour}:00';
 	@override String get noHistoryYet => 'لا يوجد تاريخ بعد';
 	@override String get startLogging => 'ابدأ بتسجيل الوجبات لترى اتجاهات الماكرو لدينا هنا';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsAr {
 			'home.intakeProgress.target' => 'الهدف',
 			'home.intakeProgress.current' => 'الحالي',
 			'home.intakeHistory.title' => 'تاريخ الماكرو لمدة 7 أيام',
+			'home.intakeHistory.trendTitle' => 'اتجاه اليوم',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'الذروة: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'لا يوجد تاريخ بعد',
 			'home.intakeHistory.startLogging' => 'ابدأ بتسجيل الوجبات لترى اتجاهات الماكرو لدينا هنا',
 			'home.mealLog.title' => 'الوجبات المسجلة',

@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "Sejarah Makro 7-Hari",
+      "trendTitle": "Trend Hari Ini",
+      "peakHour": "Jam puncak: {hour}:00",
       "noHistoryYet": "Tiada sejarah lagi",
       "startLogging": "Mulakan pencatatan hidangan untuk melihat\ntrend makro 7-hari anda di sini"
     },

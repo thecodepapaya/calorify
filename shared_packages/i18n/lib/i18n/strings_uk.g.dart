@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryUk implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7-денна історія макро';
+	@override String get trendTitle => 'Сьогоднішня тенденція';
+	@override String peakHour({required Object hour}) => 'Пік: ${hour}:00';
 	@override String get noHistoryYet => 'Історії ще немає';
 	@override String get startLogging => 'Розпочніть ведення обліку страв, щоб побачити ваші\n7-денні макро-тенденції тут';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsUk {
 			'home.intakeProgress.target' => 'Ціль',
 			'home.intakeProgress.current' => 'Поточний',
 			'home.intakeHistory.title' => '7-денна історія макро',
+			'home.intakeHistory.trendTitle' => 'Сьогоднішня тенденція',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Пік: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Історії ще немає',
 			'home.intakeHistory.startLogging' => 'Розпочніть ведення обліку страв, щоб побачити ваші\n7-денні макро-тенденції тут',
 			'home.mealLog.title' => 'Зареєстровані страви',

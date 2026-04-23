@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryJa implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7日間のマクロ履歴';
+	@override String get trendTitle => '今日の摂取傾向';
+	@override String peakHour({required Object hour}) => 'ピーク時間: ${hour}:00';
 	@override String get noHistoryYet => '履歴はまだありません。';
 	@override String get startLogging => '食事を記録し始めて、ここで7日間のマクロトレンドを確認しましょう。';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsJa {
 			'home.intakeProgress.target' => '目標',
 			'home.intakeProgress.current' => '現在',
 			'home.intakeHistory.title' => '7日間のマクロ履歴',
+			'home.intakeHistory.trendTitle' => '今日の摂取傾向',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'ピーク時間: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => '履歴はまだありません。',
 			'home.intakeHistory.startLogging' => '食事を記録し始めて、ここで7日間のマクロトレンドを確認しましょう。',
 			'home.mealLog.title' => 'ログされた食事',

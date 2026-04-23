@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "7-Araw na Kasaysayan ng Macro",
+      "trendTitle": "Uso Ngayong Araw",
+      "peakHour": "Pinakamataas: {hour}:00",
       "noHistoryYet": "Wala pang kasaysayan",
       "startLogging": "Simulan ang pag-log ng mga pagkain upang makita ang iyong\n7-araw na trend sa macro dito"
     },

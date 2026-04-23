@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryId implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => 'Riwayat Makro 7-Hari';
+	@override String get trendTitle => 'Tren Hari Ini';
+	@override String peakHour({required Object hour}) => 'Jam puncak: ${hour}:00';
 	@override String get noHistoryYet => 'Belum ada riwayat';
 	@override String get startLogging => 'Mulailah mencatat makanan untuk melihat tren makro 7-hari Anda di sini';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsId {
 			'home.intakeProgress.target' => 'Target',
 			'home.intakeProgress.current' => 'Sekarang',
 			'home.intakeHistory.title' => 'Riwayat Makro 7-Hari',
+			'home.intakeHistory.trendTitle' => 'Tren Hari Ini',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Jam puncak: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Belum ada riwayat',
 			'home.intakeHistory.startLogging' => 'Mulailah mencatat makanan untuk melihat tren makro 7-hari Anda di sini',
 			'home.mealLog.title' => 'Makanan yang Dicatat',

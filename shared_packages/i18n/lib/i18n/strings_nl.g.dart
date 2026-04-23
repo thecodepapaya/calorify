@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryNl implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7-daagse macro geschiedenis';
+	@override String get trendTitle => 'Trend van vandaag';
+	@override String peakHour({required Object hour}) => 'Piek: ${hour}:00';
 	@override String get noHistoryYet => 'Geen geschiedenis tot nu toe';
 	@override String get startLogging => 'Begin met het bijhouden van maaltijden om je\n7-daagse macrotrends hier te zien';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsNl {
 			'home.intakeProgress.target' => 'Doel',
 			'home.intakeProgress.current' => 'Huidig',
 			'home.intakeHistory.title' => '7-daagse macro geschiedenis',
+			'home.intakeHistory.trendTitle' => 'Trend van vandaag',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Piek: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Geen geschiedenis tot nu toe',
 			'home.intakeHistory.startLogging' => 'Begin met het bijhouden van maaltijden om je\n7-daagse macrotrends hier te zien',
 			'home.mealLog.title' => 'Ingevoerde Maaltijden',

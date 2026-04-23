@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryPl implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => 'Historia Makroskładników z 7 Dni';
+	@override String get trendTitle => 'Dzisiejszy trend';
+	@override String peakHour({required Object hour}) => 'Szczyt: ${hour}:00';
 	@override String get noHistoryYet => 'Brak historii';
 	@override String get startLogging => 'Rozpocznij rejestrowanie posiłków, aby zobaczyć swoje\n7-dniowe trendy makroskładników tutaj';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsPl {
 			'home.intakeProgress.target' => 'Cel',
 			'home.intakeProgress.current' => 'Bieżący',
 			'home.intakeHistory.title' => 'Historia Makroskładników z 7 Dni',
+			'home.intakeHistory.trendTitle' => 'Dzisiejszy trend',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Szczyt: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Brak historii',
 			'home.intakeHistory.startLogging' => 'Rozpocznij rejestrowanie posiłków, aby zobaczyć swoje\n7-dniowe trendy makroskładników tutaj',
 			'home.mealLog.title' => 'Zarejestrowane Posiłki',

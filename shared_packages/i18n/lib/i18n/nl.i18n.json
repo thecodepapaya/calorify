@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "7-daagse macro geschiedenis",
+      "trendTitle": "Trend van vandaag",
+      "peakHour": "Piek: {hour}:00",
       "noHistoryYet": "Geen geschiedenis tot nu toe",
       "startLogging": "Begin met het bijhouden van maaltijden om je\n7-daagse macrotrends hier te zien"
     },

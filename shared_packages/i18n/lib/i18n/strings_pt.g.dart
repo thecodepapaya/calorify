@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryPt implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => 'Histórico de Macronutrientes de 7 Dias';
+	@override String get trendTitle => 'Tendência de hoje';
+	@override String peakHour({required Object hour}) => 'Pico: ${hour}:00';
 	@override String get noHistoryYet => 'Sem histórico ainda';
 	@override String get startLogging => 'Comece a registrar refeições para ver suas\ntendências de macronutrientes aqui';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsPt {
 			'home.intakeProgress.target' => 'Meta',
 			'home.intakeProgress.current' => 'Atual',
 			'home.intakeHistory.title' => 'Histórico de Macronutrientes de 7 Dias',
+			'home.intakeHistory.trendTitle' => 'Tendência de hoje',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Pico: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Sem histórico ainda',
 			'home.intakeHistory.startLogging' => 'Comece a registrar refeições para ver suas\ntendências de macronutrientes aqui',
 			'home.mealLog.title' => 'Refeições Registradas',

@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryCs implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => 'Historie makroživin za 7 dní';
+	@override String get trendTitle => 'Dnešní trend';
+	@override String peakHour({required Object hour}) => 'Vrchol: ${hour}:00';
 	@override String get noHistoryYet => 'Žádná historie zatím';
 	@override String get startLogging => 'Začněte zaznamenávat jídla, abyste zde viděli\ntrendy makroživin za 7 dní';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsCs {
 			'home.intakeProgress.target' => 'Cíl',
 			'home.intakeProgress.current' => 'Aktuální',
 			'home.intakeHistory.title' => 'Historie makroživin za 7 dní',
+			'home.intakeHistory.trendTitle' => 'Dnešní trend',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Vrchol: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Žádná historie zatím',
 			'home.intakeHistory.startLogging' => 'Začněte zaznamenávat jídla, abyste zde viděli\ntrendy makroživin za 7 dní',
 			'home.mealLog.title' => 'Zaznamenaná jídla',

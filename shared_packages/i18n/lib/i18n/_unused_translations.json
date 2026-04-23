@@ -195,6 +195,8 @@
       },
       "intakeHistory": {
         "title": "7-Day Macro History",
+        "trendTitle": "Today's Trend",
+        "peakHour": "Peak: {hour}:00",
         "noHistoryYet": "No history yet",
         "startLogging": "Start logging meals to see your\n7-day macro trends here"
       },

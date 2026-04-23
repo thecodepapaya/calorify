@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryEl implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => 'Ιστορικό 7 Ημερών Μακροθρεπτικών Συστατικών';
+	@override String get trendTitle => 'Σημερινή τάση';
+	@override String peakHour({required Object hour}) => 'Ώρα αιχμής: ${hour}:00';
 	@override String get noHistoryYet => 'Δεν υπάρχει ιστορικό μέχρι τώρα';
 	@override String get startLogging => 'Άρχισε να καταγράφεις γεύματα για να δεις τις τάσεις μακροθρεπτικών συστατικών σου εδώ';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsEl {
 			'home.intakeProgress.target' => 'Στόχος',
 			'home.intakeProgress.current' => 'Τρέχων',
 			'home.intakeHistory.title' => 'Ιστορικό 7 Ημερών Μακροθρεπτικών Συστατικών',
+			'home.intakeHistory.trendTitle' => 'Σημερινή τάση',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Ώρα αιχμής: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Δεν υπάρχει ιστορικό μέχρι τώρα',
 			'home.intakeHistory.startLogging' => 'Άρχισε να καταγράφεις γεύματα για να δεις τις τάσεις μακροθρεπτικών συστατικών σου εδώ',
 			'home.mealLog.title' => 'Καταγεγραμμένα Γεύματα',

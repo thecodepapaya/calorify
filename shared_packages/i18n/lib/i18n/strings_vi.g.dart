@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryVi implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => 'Lịch sử Macro 7 ngày';
+	@override String get trendTitle => 'Xu hướng hôm nay';
+	@override String peakHour({required Object hour}) => 'Giờ cao điểm: ${hour}:00';
 	@override String get noHistoryYet => 'Chưa có lịch sử nào';
 	@override String get startLogging => 'Bắt đầu ghi chú bữa ăn để xem xu hướng macro 7 ngày của bạn ở đây';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsVi {
 			'home.intakeProgress.target' => 'Mục tiêu',
 			'home.intakeProgress.current' => 'Hiện tại',
 			'home.intakeHistory.title' => 'Lịch sử Macro 7 ngày',
+			'home.intakeHistory.trendTitle' => 'Xu hướng hôm nay',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Giờ cao điểm: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Chưa có lịch sử nào',
 			'home.intakeHistory.startLogging' => 'Bắt đầu ghi chú bữa ăn để xem xu hướng macro 7 ngày của bạn ở đây',
 			'home.mealLog.title' => 'Bữa ăn đã ghi',

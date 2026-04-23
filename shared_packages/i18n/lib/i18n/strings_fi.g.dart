@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryFi implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7 päivän Makro Historia';
+	@override String get trendTitle => 'Päivän trendi';
+	@override String peakHour({required Object hour}) => 'Huippu: klo ${hour}:00';
 	@override String get noHistoryYet => 'Ei historiaa vielä';
 	@override String get startLogging => 'Aloita aterioiden kirjaaminen nähdäksesi täältä 7 päivän makrotrendit';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsFi {
 			'home.intakeProgress.target' => 'Tavoite',
 			'home.intakeProgress.current' => 'Nykyinen',
 			'home.intakeHistory.title' => '7 päivän Makro Historia',
+			'home.intakeHistory.trendTitle' => 'Päivän trendi',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Huippu: klo ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Ei historiaa vielä',
 			'home.intakeHistory.startLogging' => 'Aloita aterioiden kirjaaminen nähdäksesi täältä 7 päivän makrotrendit',
 			'home.mealLog.title' => 'Kirjatut Ateriat',

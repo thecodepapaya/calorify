@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "Riwayat Makro 7-Hari",
+      "trendTitle": "Tren Hari Ini",
+      "peakHour": "Jam puncak: {hour}:00",
       "noHistoryYet": "Belum ada riwayat",
       "startLogging": "Mulailah mencatat makanan untuk melihat tren makro 7-hari Anda di sini"
     },

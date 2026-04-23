@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "7 Napos Makró Történelem",
+      "trendTitle": "Mai trend",
+      "peakHour": "Csúcs: {hour}:00",
       "noHistoryYet": "Nincs még történet",
       "startLogging": "Kezd el étkezéseid naplózását, hogy itt lásd\na 7 napos makró trendjeidet"
     },

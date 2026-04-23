@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "7 päivän Makro Historia",
+      "trendTitle": "Päivän trendi",
+      "peakHour": "Huippu: klo {hour}:00",
       "noHistoryYet": "Ei historiaa vielä",
       "startLogging": "Aloita aterioiden kirjaaminen nähdäksesi täältä 7 päivän makrotrendit"
     },

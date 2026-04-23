@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryTe implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7-రోజుల మాక్రో చరిత్ర';
+	@override String get trendTitle => 'ఈ రోజు ధోరణి';
+	@override String peakHour({required Object hour}) => 'శిఖర సమయం: ${hour}:00';
 	@override String get noHistoryYet => 'ఇప్పటివరకు చరిత్ర లేదు';
 	@override String get startLogging => 'మీ భోజనాలను లాగ్ చేయడం ప్రారంభించడం ద్వారా మీ\n7-రోజుల మాక్రో ధోరణులను ఇక్కడ చూడండి';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsTe {
 			'home.intakeProgress.target' => 'లక్ష్యం',
 			'home.intakeProgress.current' => 'ప్రస్తుత',
 			'home.intakeHistory.title' => '7-రోజుల మాక్రో చరిత్ర',
+			'home.intakeHistory.trendTitle' => 'ఈ రోజు ధోరణి',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'శిఖర సమయం: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'ఇప్పటివరకు చరిత్ర లేదు',
 			'home.intakeHistory.startLogging' => 'మీ భోజనాలను లాగ్ చేయడం ప్రారంభించడం ద్వారా మీ\n7-రోజుల మాక్రో ధోరణులను ఇక్కడ చూడండి',
 			'home.mealLog.title' => 'లాగ్ చేసిన భోజనలు',

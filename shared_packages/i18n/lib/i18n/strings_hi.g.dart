@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryHi implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7-दिन का मैक्रो इतिहास';
+	@override String get trendTitle => 'आज का रुझान';
+	@override String peakHour({required Object hour}) => 'शिखर: ${hour}:00';
 	@override String get noHistoryYet => 'कोई इतिहास नहीं है';
 	@override String get startLogging => 'अपने भोजन को लॉग करना शुरू करें ताकि आप यहां अपने 7-दिन के मैक्रो रुझान देख सकें।';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsHi {
 			'home.intakeProgress.target' => 'लक्ष्य',
 			'home.intakeProgress.current' => 'वर्तमान',
 			'home.intakeHistory.title' => '7-दिन का मैक्रो इतिहास',
+			'home.intakeHistory.trendTitle' => 'आज का रुझान',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'शिखर: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'कोई इतिहास नहीं है',
 			'home.intakeHistory.startLogging' => 'अपने भोजन को लॉग करना शुरू करें ताकि आप यहां अपने 7-दिन के मैक्रो रुझान देख सकें।',
 			'home.mealLog.title' => 'लॉग की गई भोजन',

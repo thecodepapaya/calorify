@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "7 Günlük Makro Geçmişi",
+      "trendTitle": "Bugünün Eğilimi",
+      "peakHour": "Zirve: {hour}:00",
       "noHistoryYet": "Henüz geçmiş yok",
       "startLogging": "Yemekleri kaydetmeye başlayın ve burada\n7 günlük makro eğilimlerinizi görün"
     },

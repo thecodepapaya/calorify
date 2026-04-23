@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryNo implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7-Dagers Makrohistorikk';
+	@override String get trendTitle => 'Dagens trend';
+	@override String peakHour({required Object hour}) => 'Topp: ${hour}:00';
 	@override String get noHistoryYet => 'Ingen historikk enda';
 	@override String get startLogging => 'Begynn å loggføre måltider for å se dine\n7-dagers makrotrender her';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsNo {
 			'home.intakeProgress.target' => 'Mål',
 			'home.intakeProgress.current' => 'Nåværende',
 			'home.intakeHistory.title' => '7-Dagers Makrohistorikk',
+			'home.intakeHistory.trendTitle' => 'Dagens trend',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Topp: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Ingen historikk enda',
 			'home.intakeHistory.startLogging' => 'Begynn å loggføre måltider for å se dine\n7-dagers makrotrender her',
 			'home.mealLog.title' => 'Loggførte Måltider',

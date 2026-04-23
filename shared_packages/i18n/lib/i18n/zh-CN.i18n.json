@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "7天宏观历史",
+      "trendTitle": "今日摄入趋势",
+      "peakHour": "高峰：{hour}:00",
       "noHistoryYet": "还没有历史记录",
       "startLogging": "开始记录餐点，以查看您在此处的\n7天宏观趋势"
     },

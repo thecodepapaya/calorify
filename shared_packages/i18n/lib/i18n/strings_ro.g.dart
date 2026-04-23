@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryRo implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => 'Istoricul Macronutrienților pe 7 Zile';
+	@override String get trendTitle => 'Tendința de astăzi';
+	@override String peakHour({required Object hour}) => 'Vârf: ${hour}:00';
 	@override String get noHistoryYet => 'Nu există istoric încă';
 	@override String get startLogging => 'Începe să înregistrezi mese pentru a vedea tendințele tale de macronutrienți aici';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsRo {
 			'home.intakeProgress.target' => 'Obiectiv',
 			'home.intakeProgress.current' => 'Curent',
 			'home.intakeHistory.title' => 'Istoricul Macronutrienților pe 7 Zile',
+			'home.intakeHistory.trendTitle' => 'Tendința de astăzi',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Vârf: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Nu există istoric încă',
 			'home.intakeHistory.startLogging' => 'Începe să înregistrezi mese pentru a vedea tendințele tale de macronutrienți aici',
 			'home.mealLog.title' => 'Mese Înregistrate',

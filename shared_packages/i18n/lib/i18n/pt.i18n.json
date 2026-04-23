@@ -190,6 +190,8 @@
     },
     "intakeHistory": {
       "title": "Histórico de Macronutrientes de 7 Dias",
+      "trendTitle": "Tendência de hoje",
+      "peakHour": "Pico: {hour}:00",
       "noHistoryYet": "Sem histórico ainda",
       "startLogging": "Comece a registrar refeições para ver suas\ntendências de macronutrientes aqui"
     },

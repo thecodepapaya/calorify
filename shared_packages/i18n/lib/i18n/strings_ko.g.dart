@@ -623,6 +623,8 @@ class _TranslationsHomeIntakeHistoryKo implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7일 매크로 기록';
+	@override String get trendTitle => '오늘의 섭취 경향';
+	@override String peakHour({required Object hour}) => '최고: ${hour}:00';
 	@override String get noHistoryYet => '기록이 없습니다.';
 	@override String get startLogging => '여기에서 7일 매크로 트렌드를 확인하기 위해 식사를 기록하기 시작하세요.';
 }
@@ -1750,6 +1752,8 @@ extension on TranslationsKo {
 			'home.intakeProgress.target' => '목표',
 			'home.intakeProgress.current' => '현재',
 			'home.intakeHistory.title' => '7일 매크로 기록',
+			'home.intakeHistory.trendTitle' => '오늘의 섭취 경향',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => '최고: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => '기록이 없습니다.',
 			'home.intakeHistory.startLogging' => '여기에서 7일 매크로 트렌드를 확인하기 위해 식사를 기록하기 시작하세요.',
 			'home.mealLog.title' => '기록된 식사',
