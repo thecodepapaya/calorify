@@ -220,7 +220,7 @@ function tableLine(widths: number[], l: string, m: string, r: string): string {
 }
 
 function tableRow(cells: string[], widths: number[]): string {
-  return '│' + cells.map((cell, i) => ` ${cell.padEnd(widths[i]!)} `).join('│') + '│';
+  return '│' + widths.map((width, i) => ` ${(cells[i] ?? '').padEnd(width)} `).join('│') + '│';
 }
 
 function renderTable(headers: string[], rows: string[][]): string {
@@ -767,9 +767,9 @@ function printFlowExplanation(calls: CallRecord[]): void {
   console.log(`\n  ${B('Why is it slow?')}`);
   console.log(`  Each call involves sequential LLM round-trips — you pay the API latency per call.`);
   console.log(`  Common causes:`);
-  console.log(`    ${D('•')} ${B('AI fallback macros')} — USDA had 0 matches, so a second LLM call estimated all macros`);
-  console.log(`    ${D('•')} ${B('Presentation LLM')} — runs after every clarification round to generate health/tip text`);
-  console.log(`    ${D('•')} ${B('Meal-type re-run')} — presentation re-executes once meal type is confirmed`);
+  console.log(`    ${D('•')} ${B('Decomposition LLM')} — first call always breaks the meal into atomic ingredients`);
+  console.log(`    ${D('•')} ${B('AI fallback macros')} — when USDA has no match, a second LLM estimates macros for unmatched items`);
+  console.log(`    ${D('•')} ${B('Presentation LLM')} — runs once (in whichever call has both clarifications resolved and meal type known)`);
   console.log(`  ${D('→')} Better USDA match rate = fewer AI fallback calls = faster first response.`);
 }
 

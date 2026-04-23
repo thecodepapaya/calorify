@@ -184,6 +184,8 @@ export type PipelineEvent =
         meal_name: string;
         confidence: number;
         ingredients: DecomposedIngredientDTO[];
+        inferred_meal_type: MealTypeValue;
+        meal_type_confident: boolean;
       };
     }
   | {
@@ -949,33 +951,24 @@ async function enrichPresentation(
   resolved: ResolvedIngredient[],
   totalMacros: Macros
 ): Promise<PresentationResult> {
+  // Invariant: meal type is always resolved by runPipelineFromDecomposition
+  // (user pick → decomposition inference → text heuristic) before this is called.
+  if (!context.selectedMealType) {
+    throw new Error('enrichPresentation called without a resolved meal type');
+  }
+
   const correctionContext = buildCorrectionContext(context.feedbackIssues, context.otherText);
-  const explicitMealType = !context.selectedMealType && context.source === 'text'
-    ? detectExplicitMealTypeFromText(String(context.requestPayload.textDescription ?? ''))
-    : undefined;
 
   const enriched =
     context.source === 'image'
       ? await enrichPresentationFromImage(client, context, resolved, totalMacros, correctionContext)
       : await enrichPresentationFromText(client, context, resolved, totalMacros, correctionContext);
 
-  if (context.selectedMealType) {
-    return {
-      ...enriched,
-      meal_type: context.selectedMealType,
-      meal_type_confident: true,
-    };
-  }
-
-  if (explicitMealType) {
-    return {
-      ...enriched,
-      meal_type: explicitMealType,
-      meal_type_confident: true,
-    };
-  }
-
-  return enriched;
+  return {
+    ...enriched,
+    meal_type: context.selectedMealType,
+    meal_type_confident: true,
+  };
 }
 
 async function persistSessionSnapshot(
@@ -1027,12 +1020,10 @@ async function* runPipelineFromDecomposition(
       meal_name: decomposition.meal_name,
       confidence: decomposition.confidence,
       ingredients: toDecompositionDto(decomposition),
-      // The following two fields are included in the persisted snapshot so that
-      // /clarify and /meal-type can reuse the decomposition-time meal-type inference
-      // without re-running the presentation LLM.
-      ...(
-        { inferred_meal_type: decomposition.inferred_meal_type, meal_type_confident: decomposition.meal_type_confident } as Record<string, unknown>
-      ),
+      // Persisted so /clarify and /meal-type can reuse the decomposition-time
+      // meal-type inference without re-running the presentation LLM.
+      inferred_meal_type: decomposition.inferred_meal_type,
+      meal_type_confident: decomposition.meal_type_confident,
     },
   };
   await traceAsync(
