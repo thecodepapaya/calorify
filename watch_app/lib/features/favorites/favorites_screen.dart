@@ -49,7 +49,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       setState(() => _loggingClientId = null);
       return;
     }
-    final ok = await SyncService.instance.sendMeal(
+    final result = await SyncService.instance.sendMeal(
       fav.loggedMeal.meal,
       favoriteMealId: fav.hasClientId() ? fav.clientId : null,
     );
@@ -57,12 +57,22 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     if (!mounted) return;
     setState(() => _loggingClientId = null);
 
-    if (ok) {
+    if (result == SyncRequestResult.synced) {
       unawaited(HapticFeedback.heavyImpact());
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('${fav.loggedMeal.meal.name} logged!'),
           duration: const Duration(seconds: 2),
+        ),
+      );
+    } else if (result == SyncRequestResult.queued) {
+      unawaited(HapticFeedback.lightImpact());
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '${fav.loggedMeal.meal.name} saved offline. It will sync when your phone reconnects.',
+          ),
+          duration: const Duration(seconds: 3),
         ),
       );
     } else {

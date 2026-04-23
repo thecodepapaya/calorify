@@ -26,6 +26,28 @@ class DataCache {
     return DateTime.now().difference(syncedAt) < cacheLifetime;
   }
 
+  void restoreSnapshot({
+    required List<LoggedMeal> meals,
+    required List<FavoriteMeal> favorites,
+    required int? goal,
+    required DateTime? syncedAt,
+  }) {
+    todaysMeals.value = _sortMeals(meals);
+    calorieGoal.value = goal;
+    favoriteMeals.value = List<FavoriteMeal>.unmodifiable(favorites);
+    lastSyncTime.value = syncedAt;
+
+    final lowestTemporaryId = meals
+        .where((meal) => meal.hasClientId() && meal.clientId < 0)
+        .map((meal) => meal.clientId)
+        .fold<int?>(
+          null,
+          (lowest, id) => lowest == null || id < lowest ? id : lowest,
+        );
+    _nextTemporaryMealId =
+        lowestTemporaryId != null ? lowestTemporaryId - 1 : -1;
+  }
+
   void updateDashboard({
     required List<LoggedMeal> meals,
     required int? goal,

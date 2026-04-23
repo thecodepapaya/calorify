@@ -22,6 +22,7 @@ class MealResultScreen extends StatefulWidget {
 class _MealResultScreenState extends State<MealResultScreen> {
   bool _logging = false;
   bool _logged = false;
+  bool _queuedOffline = false;
 
   Meal get _meal => widget.result.meal;
 
@@ -30,15 +31,31 @@ class _MealResultScreenState extends State<MealResultScreen> {
     setState(() => _logging = true);
     unawaited(HapticFeedback.mediumImpact());
 
-    final ok = await SyncService.instance.sendMeal(_meal);
+    final result = await SyncService.instance.sendMeal(_meal);
 
     if (!mounted) return;
-    if (ok) {
+    if (result == SyncRequestResult.synced ||
+        result == SyncRequestResult.queued) {
       setState(() {
         _logging = false;
         _logged = true;
+        _queuedOffline = result == SyncRequestResult.queued;
       });
-      unawaited(HapticFeedback.heavyImpact());
+      unawaited(
+        result == SyncRequestResult.synced
+            ? HapticFeedback.heavyImpact()
+            : HapticFeedback.lightImpact(),
+      );
+      if (result == SyncRequestResult.queued) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Meal saved offline. It will sync when your phone reconnects.',
+            ),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
       await Future.delayed(const Duration(milliseconds: 900));
       if (mounted) context.router.popUntilRouteWithName(HomeRoute.name);
     } else {
@@ -72,19 +89,26 @@ class _MealResultScreenState extends State<MealResultScreen> {
               // Success / logged state icon
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
-                child: _logged
-                    ? Icon(LucideIcons.circleCheckBig,
-                        key: const ValueKey('check'),
-                        size: 28,
-                        color: colorScheme.primary)
-                    : Icon(LucideIcons.sparkles,
-                        key: const ValueKey('sparkles'),
-                        size: 28,
-                        color: colorScheme.primary),
+                child:
+                    _logged
+                        ? Icon(
+                          LucideIcons.circleCheckBig,
+                          key: const ValueKey('check'),
+                          size: 28,
+                          color: colorScheme.primary,
+                        )
+                        : Icon(
+                          LucideIcons.sparkles,
+                          key: const ValueKey('sparkles'),
+                          size: 28,
+                          color: colorScheme.primary,
+                        ),
               ),
               const SizedBox(height: 6),
               Text(
-                _logged ? 'Logged!' : 'Meal Found',
+                _logged
+                    ? (_queuedOffline ? 'Saved Offline' : 'Logged!')
+                    : 'Meal Found',
                 style: theme.textTheme.labelMedium?.copyWith(
                   color: colorScheme.primary,
                   fontWeight: FontWeight.w600,
@@ -125,8 +149,11 @@ class _MealResultScreenState extends State<MealResultScreen> {
                 crossAxisAlignment: CrossAxisAlignment.baseline,
                 textBaseline: TextBaseline.alphabetic,
                 children: [
-                  Icon(LucideIcons.flame,
-                      size: 18, color: colorScheme.calorieIconColor),
+                  Icon(
+                    LucideIcons.flame,
+                    size: 18,
+                    color: colorScheme.calorieIconColor,
+                  ),
                   const SizedBox(width: 4),
                   Text(
                     '${macros.calories}',
@@ -153,29 +180,33 @@ class _MealResultScreenState extends State<MealResultScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _MacroPill(
-                      icon: LucideIcons.dumbbell,
-                      color: colorScheme.proteinIconColor,
-                      value: macros.protein,
-                      label: 'P'),
+                    icon: LucideIcons.dumbbell,
+                    color: colorScheme.proteinIconColor,
+                    value: macros.protein,
+                    label: 'P',
+                  ),
                   const SizedBox(width: 8),
                   _MacroPill(
-                      icon: LucideIcons.wheat,
-                      color: colorScheme.carbsIconColor,
-                      value: macros.carbs,
-                      label: 'C'),
+                    icon: LucideIcons.wheat,
+                    color: colorScheme.carbsIconColor,
+                    value: macros.carbs,
+                    label: 'C',
+                  ),
                   const SizedBox(width: 8),
                   _MacroPill(
-                      icon: LucideIcons.droplet,
-                      color: colorScheme.fatIconColor,
-                      value: macros.fat,
-                      label: 'F'),
+                    icon: LucideIcons.droplet,
+                    color: colorScheme.fatIconColor,
+                    value: macros.fat,
+                    label: 'F',
+                  ),
                   if (macros.fiber > 0) ...[
                     const SizedBox(width: 8),
                     _MacroPill(
-                        icon: LucideIcons.leaf,
-                        color: colorScheme.fiberIconColor,
-                        value: macros.fiber,
-                        label: 'Fi'),
+                      icon: LucideIcons.leaf,
+                      color: colorScheme.fiberIconColor,
+                      value: macros.fiber,
+                      label: 'Fi',
+                    ),
                   ],
                 ],
               ),
@@ -184,8 +215,7 @@ class _MealResultScreenState extends State<MealResultScreen> {
               if (!_logged) ...[
                 _PrimaryBtn(
                   label: _logging ? 'Logging…' : 'Log Meal',
-                  icon:
-                      _logging ? null : LucideIcons.plus,
+                  icon: _logging ? null : LucideIcons.plus,
                   loading: _logging,
                   onTap: _logMeal,
                   color: colorScheme.primary,
@@ -215,7 +245,9 @@ class _MealResultScreenState extends State<MealResultScreen> {
                   child: Text(
                     'Cancel',
                     style: theme.textTheme.labelSmall?.copyWith(
-                      color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+                      color: colorScheme.onSurfaceVariant.withValues(
+                        alpha: 0.6,
+                      ),
                       fontSize: 9,
                     ),
                   ),
@@ -360,7 +392,9 @@ class _SecondaryBtn extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           border: Border.all(
-              color: colorScheme.outline.withValues(alpha: 0.5), width: 1),
+            color: colorScheme.outline.withValues(alpha: 0.5),
+            width: 1,
+          ),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Text(

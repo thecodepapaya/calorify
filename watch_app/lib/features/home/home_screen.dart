@@ -149,8 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   meal: e.value,
                                   index: e.key,
                                   onDelete:
-                                      e.value.hasClientId() &&
-                                              e.value.clientId > 0
+                                      e.value.hasClientId()
                                           ? () => _deleteMeal(e.value.clientId)
                                           : null,
                                 ),
@@ -175,8 +174,21 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _deleteMeal(int mealId) async {
-    final ok = await SyncService.instance.deleteMeal(mealId);
-    if (!ok && mounted) {
+    final result = await SyncService.instance.deleteMeal(mealId);
+    if (!mounted) return;
+
+    if (result == SyncRequestResult.queued) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            mealId < 0
+                ? 'Meal removed from the offline queue.'
+                : 'Meal removed offline. It will sync when your phone reconnects.',
+          ),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (result == SyncRequestResult.failed) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Could not delete meal'),
