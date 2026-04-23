@@ -81,6 +81,16 @@ class NetworkClient {
           responseBody: true,
           responseHeader: false,
           compact: true,
+          logPrint: (object) {
+            final message = object.toString();
+            if (message.contains("Instance of 'ResponseBody'")) {
+              debugPrint(
+                'Streamed HTTP response detected (NDJSON). Payload lines are logged as they arrive.',
+              );
+              return;
+            }
+            debugPrint(message);
+          },
         ),
       );
     }
@@ -141,6 +151,12 @@ class NetworkClient {
           .bind(responseBody.stream)
           .transform(const LineSplitter())
           .where((line) => line.trim().isNotEmpty)
+          .map((line) {
+            if (kDebugMode || EnvConfig.instance.isStaging) {
+              debugPrint('[stream:$endpoint] $line');
+            }
+            return line;
+          })
           .map((line) => jsonDecode(line) as Map<String, dynamic>)
           .map(parseEvent);
     } on DioException catch (exception) {

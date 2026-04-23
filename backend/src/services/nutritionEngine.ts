@@ -493,7 +493,7 @@ async function decompose(client: OpenAI, input: string): Promise<LLMDecompositio
       type: 'json_schema',
       json_schema: { name: 'meal_decomposition', schema: DECOMPOSITION_SCHEMA, strict: true },
     },
-    max_tokens: 1200,
+    max_completion_tokens: 1200,
   });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty LLM response');
@@ -516,7 +516,7 @@ async function estimateMacrosViaLLM(
       type: 'json_schema',
       json_schema: { name: 'macro_fallback', schema: FALLBACK_SCHEMA, strict: true },
     },
-    max_tokens: 800,
+    max_completion_tokens: 800,
   });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty LLM fallback response');
