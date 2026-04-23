@@ -28,6 +28,7 @@ class EditProfileScreen extends ConsumerStatefulWidget {
 class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _didApplySavedGoal = false;
+  late final ProviderSubscription<AsyncValue<int?>> _savedGoalSubscription;
 
   // Initialize with safe defaults
   late double _height;
@@ -140,7 +141,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     _originalHeightUnit = _heightUnit;
     _originalWeightUnit = _weightUnit;
     _originalDailyCalorieGoal = _dailyCalorieGoal;
-
+    _savedGoalSubscription = ref.listenManual<AsyncValue<int?>>(
+      savedDailyCalorieGoalProvider,
+      (_, next) => next.whenData(_applySavedGoal),
+      fireImmediately: true,
+    );
   }
 
   bool _hasChanges() {
@@ -157,8 +162,23 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
   @override
   void dispose() {
+    _savedGoalSubscription.close();
     _calorieGoalController.dispose();
     super.dispose();
+  }
+
+  void _applySavedGoal(int? savedGoalValue) {
+    if (_didApplySavedGoal) return;
+
+    final savedGoal = savedGoalValue ?? 0;
+    _didApplySavedGoal = true;
+    _dailyCalorieGoal = savedGoal;
+    _originalDailyCalorieGoal = savedGoal;
+    _calorieGoalController.text = savedGoal > 0 ? savedGoal.toString() : '';
+
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -651,20 +671,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   Widget _buildDailyCalorieGoalTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final savedGoalAsync = ref.watch(savedDailyCalorieGoalProvider);
-
-    if (savedGoalAsync.hasValue && !_didApplySavedGoal) {
-      final savedGoal = savedGoalAsync.value ?? 0;
-      _didApplySavedGoal = true;
-      _dailyCalorieGoal = savedGoal;
-      _originalDailyCalorieGoal = savedGoal;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _calorieGoalController.text =
-            savedGoal > 0 ? savedGoal.toString() : '';
-        if (!mounted) return;
-        setState(() {});
-      });
-    }
+    ref.watch(savedDailyCalorieGoalProvider);
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(

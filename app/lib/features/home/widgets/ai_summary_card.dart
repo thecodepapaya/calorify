@@ -69,7 +69,10 @@ class _SummaryCardContent extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
-    final generatedAt = DateFormat.MMMd().add_jm().format(summary.generatedAt);
+    final localeTag =
+        TranslationProvider.of(context).locale.flutterLocale.toLanguageTag();
+    final generatedAt =
+        DateFormat.MMMd(localeTag).add_jm().format(summary.generatedAt);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
