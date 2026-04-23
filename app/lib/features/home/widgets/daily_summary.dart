@@ -1,6 +1,7 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/features/home/widgets/home_skeletons.dart';
 import 'package:calorify/shared_widgets/app_card.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,10 @@ class DailySummaryCard extends ConsumerWidget {
     final TextTheme textTheme = Theme.of(context).textTheme;
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final mealsAsync = ref.watch(todaysMealsProvider);
+
+    if (mealsAsync.isLoading) {
+      return const DailySummarySkeleton();
+    }
 
     if (mealsAsync.hasError) {
       return AppCard(

@@ -4,6 +4,7 @@ import 'package:calorify/features/home/widgets/ai_summary_card.dart';
 import 'package:calorify/features/home/widgets/connect_health.dart';
 import 'package:calorify/features/home/widgets/daily_goal.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
+import 'package:calorify/features/home/widgets/home_skeletons.dart';
 import 'package:calorify/features/home/widgets/intake_history_bar_chart.dart';
 import 'package:calorify/features/home/widgets/macro_split.dart';
 import 'package:calorify/features/home/widgets/meal_log.dart';
@@ -37,30 +38,33 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            const AiSummaryCard(),
-            if (!isHealthConnectUnsupported && !isHealthConnectAuthorized) ...[
+        child: HomeDashboardShimmer(
+          child: Column(
+            children: [
               const SizedBox(height: 10),
-              HealthConnectPromptCard(
-                onSetupComplete: _onHealthConnectSetupComplete,
+              const AiSummaryCard(),
+              if (!isHealthConnectUnsupported &&
+                  !isHealthConnectAuthorized) ...[
+                const SizedBox(height: 10),
+                HealthConnectPromptCard(
+                  onSetupComplete: _onHealthConnectSetupComplete,
+                ),
+              ],
+              const SizedBox(height: 10),
+              SetDailyGoal(
+                healthConnectRefreshTrigger: _healthConnectRefreshTrigger,
               ),
+              const SizedBox(height: 20),
+              const DailySummaryCard(),
+              const SizedBox(height: 20),
+              const MacroSplit(),
+              const SizedBox(height: 20),
+              const IntakeHistoryBarChart(),
+              const SizedBox(height: 20),
+              const MealLog(),
+              const SizedBox(height: 120),
             ],
-            const SizedBox(height: 10),
-            SetDailyGoal(
-              healthConnectRefreshTrigger: _healthConnectRefreshTrigger,
-            ),
-            const SizedBox(height: 20),
-            const DailySummaryCard(),
-            const SizedBox(height: 20),
-            const MacroSplit(),
-            const SizedBox(height: 20),
-            const IntakeHistoryBarChart(),
-            const SizedBox(height: 20),
-            const MealLog(),
-            const SizedBox(height: 120),
-          ],
+          ),
         ),
       ),
     );

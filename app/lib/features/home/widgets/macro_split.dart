@@ -1,10 +1,10 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/features/home/widgets/home_skeletons.dart';
 import 'package:calorify/shared_widgets/app_card.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/shared_widgets/section_header.dart';
 import 'package:i18n/i18n.dart';
-import 'package:widgets/widgets.dart';
 import 'package:calorify/shared_widgets/macro_legend.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +67,7 @@ class MacroSplit extends ConsumerWidget {
     AsyncValue<int?> goalAsync,
   ) {
     if (mealsAsync.isLoading) {
-      return const Center(child: AppLoader());
+      return const MacroSplitSkeleton();
     }
     if (mealsAsync.hasError) {
       return ErrorView(

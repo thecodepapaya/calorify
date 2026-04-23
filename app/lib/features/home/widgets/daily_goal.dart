@@ -3,6 +3,7 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getCalorieExpenditureDisclaimer;
+import 'package:calorify/features/home/widgets/home_skeletons.dart';
 import 'package:health/health.dart' show HealthConnectSdkStatus;
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:i18n/i18n.dart';
@@ -15,7 +16,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:utils/utils.dart';
-import 'package:widgets/widgets.dart';
 
 class SetDailyGoal extends ConsumerStatefulWidget {
   const SetDailyGoal({super.key, this.healthConnectRefreshTrigger = 0});
@@ -111,7 +111,7 @@ class _SetDailyGoalState extends ConsumerState<SetDailyGoal> {
                   },
                 )
               else if (isLoading)
-                const Center(child: AppLoader())
+                const DailyGoalSkeleton()
               else
                 Builder(
                   builder: (context) {
