@@ -482,7 +482,7 @@ class _TranslationsOnboardingBmiScaleZhTw implements TranslationsOnboardingBmiSc
 	// Translations
 	@override String get underweight => '過輕';
 	@override String get healthy => '健康';
-	@override String get overweight => '超重';
+	@override String get overweight => '過重';
 	@override String get obese => '肥胖';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesZhTw categories = _TranslationsOnboardingBmiScaleCategoriesZhTw._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesZhTw messages = _TranslationsOnboardingBmiScaleMessagesZhTw._(_root);
@@ -1657,7 +1657,7 @@ extension on TranslationsZhTw {
 			'onboarding.age.next' => '下一步',
 			'onboarding.bmiScale.underweight' => '過輕',
 			'onboarding.bmiScale.healthy' => '健康',
-			'onboarding.bmiScale.overweight' => '超重',
+			'onboarding.bmiScale.overweight' => '過重',
 			'onboarding.bmiScale.obese' => '肥胖',
 			'onboarding.bmiScale.categories.underweight' => '過輕',
 			'onboarding.bmiScale.categories.healthyWeight' => '健康體重',

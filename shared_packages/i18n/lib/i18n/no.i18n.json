@@ -55,9 +55,9 @@
       "next": "Neste"
     },
     "bmiScale": {
-      "underweight": "Undervektig",
+      "underweight": "Undervekt",
       "healthy": "Normalvektig",
-      "overweight": "Overvektig",
+      "overweight": "Overvekt",
       "obese": "Kraftig overvektig",
       "categories": {
         "underweight": "Undervektig",

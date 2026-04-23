@@ -279,7 +279,7 @@ const ALIASES: Record<string, string> = {
 // ---------------------------------------------------------------------------
 // OpenAI
 // ---------------------------------------------------------------------------
-const DECOMPOSITION_MODEL = 'gpt-5-nano';
+const DECOMPOSITION_MODEL = 'gpt-4.1-nano';
 
 const DECOMPOSITION_SYSTEM_PROMPT = `You are a food decomposition AI. Your ONLY job is to break down a meal description into individual atomic ingredients with gram estimates.
 

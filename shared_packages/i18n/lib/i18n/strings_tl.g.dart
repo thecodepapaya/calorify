@@ -480,9 +480,9 @@ class _TranslationsOnboardingBmiScaleTl implements TranslationsOnboardingBmiScal
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Kulang sa timbang';
+	@override String get underweight => 'Kulang';
 	@override String get healthy => 'Malusog';
-	@override String get overweight => 'Sobra sa timbang';
+	@override String get overweight => 'Sobra';
 	@override String get obese => 'Obesity';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesTl categories = _TranslationsOnboardingBmiScaleCategoriesTl._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesTl messages = _TranslationsOnboardingBmiScaleMessagesTl._(_root);
@@ -1655,9 +1655,9 @@ extension on TranslationsTl {
 			'onboarding.age.title' => 'Kailan ang iyong kaarawan?',
 			'onboarding.age.description' => 'Ang iyong edad ay tumutulong upang tumpak na kalkulahin ang iyong pangangailangan sa calorie.',
 			'onboarding.age.next' => 'Susunod',
-			'onboarding.bmiScale.underweight' => 'Kulang sa timbang',
+			'onboarding.bmiScale.underweight' => 'Kulang',
 			'onboarding.bmiScale.healthy' => 'Malusog',
-			'onboarding.bmiScale.overweight' => 'Sobra sa timbang',
+			'onboarding.bmiScale.overweight' => 'Sobra',
 			'onboarding.bmiScale.obese' => 'Obesity',
 			'onboarding.bmiScale.categories.underweight' => 'Kulang sa timbang',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Malusog na timbang',

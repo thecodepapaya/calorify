@@ -480,9 +480,9 @@ class _TranslationsOnboardingBmiScaleGu implements TranslationsOnboardingBmiScal
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'કમજોરી';
+	@override String get underweight => 'ઓછું';
 	@override String get healthy => 'હેલ્ધી';
-	@override String get overweight => 'વધારે વજન';
+	@override String get overweight => 'વધું';
 	@override String get obese => 'સ્થૂળતા';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesGu categories = _TranslationsOnboardingBmiScaleCategoriesGu._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesGu messages = _TranslationsOnboardingBmiScaleMessagesGu._(_root);
@@ -1655,9 +1655,9 @@ extension on TranslationsGu {
 			'onboarding.age.title' => 'તમારું જન્મ દિવસ ક્યારે છે?',
 			'onboarding.age.description' => 'તમારી ઉમરથી અમને તમારી કૅલોરીની જરૂરિયાતો ચોક્કસ રીતે ગણવામાં મદદ થાય છે.',
 			'onboarding.age.next' => 'આગળ',
-			'onboarding.bmiScale.underweight' => 'કમજોરી',
+			'onboarding.bmiScale.underweight' => 'ઓછું',
 			'onboarding.bmiScale.healthy' => 'હેલ્ધી',
-			'onboarding.bmiScale.overweight' => 'વધારે વજન',
+			'onboarding.bmiScale.overweight' => 'વધું',
 			'onboarding.bmiScale.obese' => 'સ્થૂળતા',
 			'onboarding.bmiScale.categories.underweight' => 'કમજોરી',
 			'onboarding.bmiScale.categories.healthyWeight' => 'હેલ્ધી વજન',

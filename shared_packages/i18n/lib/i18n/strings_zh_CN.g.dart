@@ -480,7 +480,7 @@ class _TranslationsOnboardingBmiScaleZhCn implements TranslationsOnboardingBmiSc
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => '体重过轻';
+	@override String get underweight => '偏瘦';
 	@override String get healthy => '健康';
 	@override String get overweight => '超重';
 	@override String get obese => '肥胖';
@@ -1655,7 +1655,7 @@ extension on TranslationsZhCn {
 			'onboarding.age.title' => '你的生日是什么时候？',
 			'onboarding.age.description' => '你的年龄有助于我们准确计算你的卡路里需求。',
 			'onboarding.age.next' => '下一步',
-			'onboarding.bmiScale.underweight' => '体重过轻',
+			'onboarding.bmiScale.underweight' => '偏瘦',
 			'onboarding.bmiScale.healthy' => '健康',
 			'onboarding.bmiScale.overweight' => '超重',
 			'onboarding.bmiScale.obese' => '肥胖',

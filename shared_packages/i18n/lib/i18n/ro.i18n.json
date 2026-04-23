@@ -55,9 +55,9 @@
       "next": "Următorul"
     },
     "bmiScale": {
-      "underweight": "Subponderal",
+      "underweight": "Sub",
       "healthy": "Sănătos",
-      "overweight": "Supraponderal",
+      "overweight": "Peste",
       "obese": "Obez",
       "categories": {
         "underweight": "Subponderal",

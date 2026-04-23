@@ -480,9 +480,9 @@ class _TranslationsOnboardingBmiScaleFi implements TranslationsOnboardingBmiScal
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Alipainoinen';
+	@override String get underweight => 'Alipaino';
 	@override String get healthy => 'Terveellinen';
-	@override String get overweight => 'Ylipainoinen';
+	@override String get overweight => 'Ylipaino';
 	@override String get obese => 'Lihava';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesFi categories = _TranslationsOnboardingBmiScaleCategoriesFi._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesFi messages = _TranslationsOnboardingBmiScaleMessagesFi._(_root);
@@ -1655,9 +1655,9 @@ extension on TranslationsFi {
 			'onboarding.age.title' => 'Milloin on syntymäpäiväsi?',
 			'onboarding.age.description' => 'Ikäsi auttaa meitä laskemaan päivittäiset kaloritarpeesi tarkasti.',
 			'onboarding.age.next' => 'Seuraava',
-			'onboarding.bmiScale.underweight' => 'Alipainoinen',
+			'onboarding.bmiScale.underweight' => 'Alipaino',
 			'onboarding.bmiScale.healthy' => 'Terveellinen',
-			'onboarding.bmiScale.overweight' => 'Ylipainoinen',
+			'onboarding.bmiScale.overweight' => 'Ylipaino',
 			'onboarding.bmiScale.obese' => 'Lihava',
 			'onboarding.bmiScale.categories.underweight' => 'Alipainoinen',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Terveellinen paino',

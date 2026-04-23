@@ -55,9 +55,9 @@
       "next": "తరువాత"
     },
     "bmiScale": {
-      "underweight": "తక్కువ బరువు",
+      "underweight": "బరువు తక్కువ",
       "healthy": "ఆరోగ్యకరమైన",
-      "overweight": "అధిక బరువు",
+      "overweight": "బరువు ఎక్కువ",
       "obese": "స్థూలకాయం",
       "categories": {
         "underweight": "తక్కువ బరువు",

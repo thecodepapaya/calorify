@@ -186,6 +186,10 @@ class _MealVariationState extends State<_MealVariation>
       if (!mounted) return;
       showMealTip(
         context: safeContext,
+        purpose:
+            widget.isDebugPreview
+                ? MealDetailsSheetPurpose.debugPreview
+                : MealDetailsSheetPurpose.mealAddition,
         mealDetectionResult: updatedResult,
         imageBytes: widget.imageBytes,
         previewOnly: widget.isDebugPreview,

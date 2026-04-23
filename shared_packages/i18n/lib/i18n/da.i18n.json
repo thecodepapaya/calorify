@@ -55,9 +55,9 @@
       "next": "Næste"
     },
     "bmiScale": {
-      "underweight": "Undervejet",
+      "underweight": "Undervægt",
       "healthy": "Sund",
-      "overweight": "Overvægtig",
+      "overweight": "Overvægt",
       "obese": "Fedme",
       "categories": {
         "underweight": "Undervejet",

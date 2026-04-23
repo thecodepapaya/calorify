@@ -480,9 +480,9 @@ class _TranslationsOnboardingBmiScaleDa implements TranslationsOnboardingBmiScal
 	final TranslationsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Undervejet';
+	@override String get underweight => 'Undervægt';
 	@override String get healthy => 'Sund';
-	@override String get overweight => 'Overvægtig';
+	@override String get overweight => 'Overvægt';
 	@override String get obese => 'Fedme';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesDa categories = _TranslationsOnboardingBmiScaleCategoriesDa._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesDa messages = _TranslationsOnboardingBmiScaleMessagesDa._(_root);
@@ -1655,9 +1655,9 @@ extension on TranslationsDa {
 			'onboarding.age.title' => 'Hvornår har du fødselsdag?',
 			'onboarding.age.description' => 'Din alder hjælper os med nøjagtigt at beregne dit kaloriebehov.',
 			'onboarding.age.next' => 'Næste',
-			'onboarding.bmiScale.underweight' => 'Undervejet',
+			'onboarding.bmiScale.underweight' => 'Undervægt',
 			'onboarding.bmiScale.healthy' => 'Sund',
-			'onboarding.bmiScale.overweight' => 'Overvægtig',
+			'onboarding.bmiScale.overweight' => 'Overvægt',
 			'onboarding.bmiScale.obese' => 'Fedme',
 			'onboarding.bmiScale.categories.underweight' => 'Undervejet',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Sund vægt',

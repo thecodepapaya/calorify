@@ -480,9 +480,9 @@ class _TranslationsOnboardingBmiScaleTe implements TranslationsOnboardingBmiScal
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'తక్కువ బరువు';
+	@override String get underweight => 'బరువు తక్కువ';
 	@override String get healthy => 'ఆరోగ్యకరమైన';
-	@override String get overweight => 'అధిక బరువు';
+	@override String get overweight => 'బరువు ఎక్కువ';
 	@override String get obese => 'స్థూలకాయం';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesTe categories = _TranslationsOnboardingBmiScaleCategoriesTe._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesTe messages = _TranslationsOnboardingBmiScaleMessagesTe._(_root);
@@ -1655,9 +1655,9 @@ extension on TranslationsTe {
 			'onboarding.age.title' => 'మీ పుట్టినరోజు ఎప్పుడు?',
 			'onboarding.age.description' => 'మీ వయస్సు మీ కేలొరీ అవసరాలను ఖచ్చితంగా లెక్కించడంలో సహాయపడుతుంది.',
 			'onboarding.age.next' => 'తరువాత',
-			'onboarding.bmiScale.underweight' => 'తక్కువ బరువు',
+			'onboarding.bmiScale.underweight' => 'బరువు తక్కువ',
 			'onboarding.bmiScale.healthy' => 'ఆరోగ్యకరమైన',
-			'onboarding.bmiScale.overweight' => 'అధిక బరువు',
+			'onboarding.bmiScale.overweight' => 'బరువు ఎక్కువ',
 			'onboarding.bmiScale.obese' => 'స్థూలకాయం',
 			'onboarding.bmiScale.categories.underweight' => 'తక్కువ బరువు',
 			'onboarding.bmiScale.categories.healthyWeight' => 'ఆరోగ్యకరమైన బరువు',

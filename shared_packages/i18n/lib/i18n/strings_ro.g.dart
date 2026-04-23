@@ -480,9 +480,9 @@ class _TranslationsOnboardingBmiScaleRo implements TranslationsOnboardingBmiScal
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Subponderal';
+	@override String get underweight => 'Sub';
 	@override String get healthy => 'Sănătos';
-	@override String get overweight => 'Supraponderal';
+	@override String get overweight => 'Peste';
 	@override String get obese => 'Obez';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesRo categories = _TranslationsOnboardingBmiScaleCategoriesRo._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesRo messages = _TranslationsOnboardingBmiScaleMessagesRo._(_root);
@@ -1655,9 +1655,9 @@ extension on TranslationsRo {
 			'onboarding.age.title' => 'Când este ziua ta de naștere?',
 			'onboarding.age.description' => 'Vârsta ta ne ajută să calculăm nevoile tale calorice cu precizie.',
 			'onboarding.age.next' => 'Următorul',
-			'onboarding.bmiScale.underweight' => 'Subponderal',
+			'onboarding.bmiScale.underweight' => 'Sub',
 			'onboarding.bmiScale.healthy' => 'Sănătos',
-			'onboarding.bmiScale.overweight' => 'Supraponderal',
+			'onboarding.bmiScale.overweight' => 'Peste',
 			'onboarding.bmiScale.obese' => 'Obez',
 			'onboarding.bmiScale.categories.underweight' => 'Subponderal',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Greutate sănătoasă',

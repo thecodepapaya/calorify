@@ -55,9 +55,9 @@
       "next": "Susunod"
     },
     "bmiScale": {
-      "underweight": "Kulang sa timbang",
+      "underweight": "Kulang",
       "healthy": "Malusog",
-      "overweight": "Sobra sa timbang",
+      "overweight": "Sobra",
       "obese": "Obesity",
       "categories": {
         "underweight": "Kulang sa timbang",

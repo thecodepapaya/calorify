@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -155,7 +157,7 @@ Future<void> pumpUntilFound(
   Duration timeout = const Duration(seconds: 5),
 }) async {
   bool timerFinished = false;
-  Future.delayed(timeout).then((_) => timerFinished = true);
+  unawaited(Future.delayed(timeout).then((_) => timerFinished = true));
 
   while (!timerFinished) {
     await tester.pump();

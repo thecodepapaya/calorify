@@ -480,7 +480,7 @@ class _TranslationsOnboardingBmiScaleBn implements TranslationsOnboardingBmiScal
 	final TranslationsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'আবশ্যক গঠন';
+	@override String get underweight => 'অল্প ওজন';
 	@override String get healthy => 'সুস্থ';
 	@override String get overweight => 'অতিরিক্ত ওজন';
 	@override String get obese => 'মোটা';
@@ -1655,7 +1655,7 @@ extension on TranslationsBn {
 			'onboarding.age.title' => 'আপনার জন্মদিন কখন?',
 			'onboarding.age.description' => 'আপনার বয়স আমাদের আপনার ক্যালোরির প্রয়োজন সঠিকভাবে হিসাব করতে সাহায্য করে।',
 			'onboarding.age.next' => 'পরবর্তী',
-			'onboarding.bmiScale.underweight' => 'আবশ্যক গঠন',
+			'onboarding.bmiScale.underweight' => 'অল্প ওজন',
 			'onboarding.bmiScale.healthy' => 'সুস্থ',
 			'onboarding.bmiScale.overweight' => 'অতিরিক্ত ওজন',
 			'onboarding.bmiScale.obese' => 'মোটা',

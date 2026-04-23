@@ -480,7 +480,7 @@ class _TranslationsOnboardingBmiScaleVi implements TranslationsOnboardingBmiScal
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Gầy';
+	@override String get underweight => 'Thiếu cân';
 	@override String get healthy => 'Khỏe mạnh';
 	@override String get overweight => 'Thừa cân';
 	@override String get obese => 'Béo phì';
@@ -1655,7 +1655,7 @@ extension on TranslationsVi {
 			'onboarding.age.title' => 'Ngày sinh của bạn là khi nào?',
 			'onboarding.age.description' => 'Tuổi của bạn giúp chúng tôi tính toán nhu cầu calo một cách chính xác.',
 			'onboarding.age.next' => 'Tiếp theo',
-			'onboarding.bmiScale.underweight' => 'Gầy',
+			'onboarding.bmiScale.underweight' => 'Thiếu cân',
 			'onboarding.bmiScale.healthy' => 'Khỏe mạnh',
 			'onboarding.bmiScale.overweight' => 'Thừa cân',
 			'onboarding.bmiScale.obese' => 'Béo phì',

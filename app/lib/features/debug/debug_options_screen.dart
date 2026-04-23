@@ -1045,6 +1045,7 @@ Fat: ${mealInfo.macros.fat}g
         if (response.result.hasMeal()) {
           await showMealTip(
             context: context,
+            purpose: MealDetailsSheetPurpose.debugPreview,
             mealDetectionResult: response.result,
           );
         } else {

@@ -55,7 +55,7 @@
       "next": "Tovább"
     },
     "bmiScale": {
-      "underweight": "Súlyhiányos",
+      "underweight": "Alultáplált",
       "healthy": "Egészséges",
       "overweight": "Túlsúlyos",
       "obese": "Elhízott",

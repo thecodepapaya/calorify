@@ -480,9 +480,9 @@ class _TranslationsOnboardingBmiScaleRu implements TranslationsOnboardingBmiScal
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Недовес';
+	@override String get underweight => 'Ниже нормы';
 	@override String get healthy => 'Здоровый';
-	@override String get overweight => 'Избыточный вес';
+	@override String get overweight => 'Выше нормы';
 	@override String get obese => 'Ожирение';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesRu categories = _TranslationsOnboardingBmiScaleCategoriesRu._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesRu messages = _TranslationsOnboardingBmiScaleMessagesRu._(_root);
@@ -1655,9 +1655,9 @@ extension on TranslationsRu {
 			'onboarding.age.title' => 'Когда у вас день рождения?',
 			'onboarding.age.description' => 'Ваш возраст помогает нам точно рассчитать ваши потребности в калориях.',
 			'onboarding.age.next' => 'Далее',
-			'onboarding.bmiScale.underweight' => 'Недовес',
+			'onboarding.bmiScale.underweight' => 'Ниже нормы',
 			'onboarding.bmiScale.healthy' => 'Здоровый',
-			'onboarding.bmiScale.overweight' => 'Избыточный вес',
+			'onboarding.bmiScale.overweight' => 'Выше нормы',
 			'onboarding.bmiScale.obese' => 'Ожирение',
 			'onboarding.bmiScale.categories.underweight' => 'Недовес',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Здоровый вес',

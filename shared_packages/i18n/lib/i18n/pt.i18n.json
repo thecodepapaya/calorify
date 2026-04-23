@@ -57,7 +57,7 @@
     "bmiScale": {
       "underweight": "Abaixo do peso",
       "healthy": "Saudável",
-      "overweight": "Acima do peso",
+      "overweight": "Sobrepeso",
       "obese": "Obeso",
       "categories": {
         "underweight": "Abaixo do peso",

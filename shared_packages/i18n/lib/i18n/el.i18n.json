@@ -55,9 +55,9 @@
       "next": "Επόμενο"
     },
     "bmiScale": {
-      "underweight": "Ανεπαρκές βάρος",
+      "underweight": "Λιποβαρής",
       "healthy": "Υγιές",
-      "overweight": "Υπερβολικό βάρος",
+      "overweight": "Υπέρβαρος",
       "obese": "Παχυσαρκία",
       "categories": {
         "underweight": "Ανεπαρκές βάρος",

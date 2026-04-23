@@ -1,6 +1,7 @@
 library;
 
 export 'src/animated_leaf.dart';
+export 'src/app_icons.dart';
 export 'src/border_text.dart';
 export 'src/calorie_summary_card.dart';
 export 'src/calorie_trend_chart.dart';

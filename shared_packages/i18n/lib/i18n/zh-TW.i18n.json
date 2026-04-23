@@ -57,7 +57,7 @@
     "bmiScale": {
       "underweight": "過輕",
       "healthy": "健康",
-      "overweight": "超重",
+      "overweight": "過重",
       "obese": "肥胖",
       "categories": {
         "underweight": "過輕",
