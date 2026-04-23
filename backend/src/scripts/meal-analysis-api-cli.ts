@@ -198,9 +198,62 @@ type StreamOutcome =
   | { kind: 'meal-type'; analysisId: string; question: Extract<V2Event, { step: 'meal_type_question' }>['data'] }
   | { kind: 'error'; analysisId?: string; message: string };
 
+// Records what happened in each HTTP call for the flow summary.
+type CallRecord = {
+  label: string;
+  endpoint: string;
+  startedAt: number;
+  durationMs: number;
+  stopReason: string;
+};
+
+// ── Table renderer ──────────────────────────────────────────────────────────
+
+function tableWidths(headers: string[], rows: string[][]): number[] {
+  return headers.map((h, i) =>
+    Math.max(h.length, ...rows.map((r) => r[i]?.length ?? 0))
+  );
+}
+
+function tableLine(widths: number[], l: string, m: string, r: string): string {
+  return l + widths.map((w) => '─'.repeat(w + 2)).join(m) + r;
+}
+
+function tableRow(cells: string[], widths: number[]): string {
+  return '│' + cells.map((cell, i) => ` ${cell.padEnd(widths[i]!)} `).join('│') + '│';
+}
+
+function renderTable(headers: string[], rows: string[][]): string {
+  const widths = tableWidths(headers, rows);
+  const lines = [
+    tableLine(widths, '┌', '┬', '┐'),
+    tableRow(headers, widths),
+    tableLine(widths, '├', '┼', '┤'),
+    ...rows.map((row) => tableRow(row, widths)),
+    tableLine(widths, '└', '┴', '┘'),
+  ];
+  return lines.join('\n');
+}
+
+// ── Formatting helpers ───────────────────────────────────────────────────────
+
 function hr(label: string): void {
   console.log(`\n${c.cyan}── ${label} ──${c.reset}`);
 }
+
+function ts(ms: number): string {
+  return `+${(ms / 1000).toFixed(2)}s`;
+}
+
+function pct(v: number): string {
+  return `${(v * 100).toFixed(1)}%`;
+}
+
+function sourceBadge(source: 'db' | 'llm_fallback'): string {
+  return source === 'db' ? 'USDA' : 'AI';
+}
+
+// ── Usage ────────────────────────────────────────────────────────────────────
 
 function usage(): string {
   return [
@@ -226,6 +279,8 @@ function usage(): string {
     '  --help                  Show this message',
   ].join('\n');
 }
+
+// ── Arg parsing ──────────────────────────────────────────────────────────────
 
 function parseArgs(argv: string[]): Args {
   const args: Args = {
@@ -378,14 +433,12 @@ async function uploadImageFile(imageFile: string): Promise<string> {
   const uploadUrl = `${ORACLE_BUCKET_UPLOAD_URL}${objectKey}`;
 
   hr('Upload');
-  console.log(`${D('file:')} ${imageFile}`);
+  console.log(`${D('file:')}   ${imageFile}`);
   console.log(`${D('object:')} ${objectKey}`);
 
   const response = await fetch(uploadUrl, {
     method: 'PUT',
-    headers: {
-      'Content-Type': mimeTypeForExtension(extension),
-    },
+    headers: { 'Content-Type': mimeTypeForExtension(extension) },
     body: fileBytes,
   });
 
@@ -398,144 +451,144 @@ async function uploadImageFile(imageFile: string): Promise<string> {
   return uploadUrl;
 }
 
-function summarizeSources(
-  ingredients: Array<{ source: 'db' | 'llm_fallback'; match_type: string }>
-): { db: number; llmFallback: number; matchTypes: Record<string, number> } {
-  const summary = {
-    db: 0,
-    llmFallback: 0,
-    matchTypes: {} as Record<string, number>,
-  };
+// ── Event printers ──────────────────────────────────────────────────────────
 
-  for (const ingredient of ingredients) {
-    if (ingredient.source === 'db') summary.db += 1;
-    if (ingredient.source === 'llm_fallback') summary.llmFallback += 1;
-    summary.matchTypes[ingredient.match_type] =
-      (summary.matchTypes[ingredient.match_type] ?? 0) + 1;
-  }
-
-  return summary;
-}
-
-function printSources(
-  ingredients: Array<{
-    raw_name: string;
-    canonical_name: string;
-    match_type: string;
-    grams: number;
-    source: 'db' | 'llm_fallback';
-  }>
+function printEvent(
+  event: V2Event,
+  sinceStartMs: number,
+  isContinuation: boolean
 ): void {
-  const summary = summarizeSources(ingredients);
-  console.log(
-    `${D('source summary:')} USDA/db=${summary.db} | AI fallback=${summary.llmFallback} | matchTypes=${JSON.stringify(summary.matchTypes)}`
-  );
-  for (const ingredient of ingredients) {
-    const sourceTag = ingredient.source === 'db' ? G('USDA') : Y('AI');
-    console.log(
-      `  - ${ingredient.raw_name} -> ${ingredient.canonical_name} | ${sourceTag} | match=${ingredient.match_type} | ${ingredient.grams}g`
-    );
-  }
-}
-
-function formatDuration(ms: number): string {
-  return `${(ms / 1000).toFixed(2)}s`;
-}
-
-function printTraceSummary(traceSummary: unknown): void {
-  if (!traceSummary || typeof traceSummary !== 'object') return;
-  const summary = traceSummary as {
-    totalDurationMs?: unknown;
-    llmCallCount?: unknown;
-    usdaLookupCount?: unknown;
-    dbWriteCount?: unknown;
-    steps?: Array<{
-      category?: unknown;
-      name?: unknown;
-      durationMs?: unknown;
-      meta?: unknown;
-    }>;
-  };
-
-  console.log(
-    `  trace: total=${String(summary.totalDurationMs ?? '-')}ms | llmCalls=${String(summary.llmCallCount ?? '-')} | usdaLookups=${String(summary.usdaLookupCount ?? '-')} | dbWrites=${String(summary.dbWriteCount ?? '-')}`
-  );
-
-  if (!Array.isArray(summary.steps) || summary.steps.length === 0) return;
-  for (const step of summary.steps) {
-    const meta =
-      step.meta && typeof step.meta === 'object'
-        ? JSON.stringify(step.meta)
-        : '';
-    console.log(
-      `    - [${String(step.category ?? '-')}] ${String(step.name ?? '-')} ${String(step.durationMs ?? '-')}ms${meta ? ` ${meta}` : ''}`
-    );
-  }
-}
-
-function printEvent(event: V2Event, sinceStartMs: number, deltaMs: number): void {
-  const prefix = `${C(`[+${formatDuration(sinceStartMs)} | +${formatDuration(deltaMs)}]`)}`;
+  const tag = C(`[${ts(sinceStartMs)}]`);
 
   switch (event.step) {
-    case 'decomposition':
-      console.log(`${prefix} ${B('decomposition')} ${event.data.meal_name} (confidence=${event.data.confidence})`);
-      for (const ingredient of event.data.ingredients) {
-        console.log(
-          `  - ${ingredient.raw_name} -> ${ingredient.canonical_hint} | ${ingredient.grams_estimated}g (${ingredient.min_grams}-${ingredient.max_grams}g)`
-        );
+    case 'decomposition': {
+      const conf = event.data.confidence >= 0.8 ? G : event.data.confidence >= 0.5 ? Y : R;
+      console.log(`${tag} ${B('decomposition')}  ${event.data.meal_name}  confidence=${conf(String(event.data.confidence))}`);
+      const rows = event.data.ingredients.map((ing) => [
+        ing.raw_name,
+        ing.canonical_hint,
+        `${ing.grams_estimated}g`,
+        `${ing.min_grams}–${ing.max_grams}g`,
+      ]);
+      console.log(renderTable(['Ingredient', 'Canonical hint', 'Est', 'Range'], rows)
+        .split('\n').map((l) => `  ${l}`).join('\n'));
+      break;
+    }
+
+    case 'ingredients': {
+      const n = event.data.ingredients.length;
+      const db = event.data.ingredients.filter((i) => i.source === 'db').length;
+      const ai = n - db;
+      const dbTag = db > 0 ? G(`USDA: ${db}`) : D(`USDA: 0`);
+      const aiTag = ai > 0 ? Y(`AI: ${ai}`) : D(`AI: 0`);
+
+      if (isContinuation) {
+        console.log(`${tag} ${B('ingredients')}  ${n} resolved  ${dbTag}  ${aiTag}  ${D('(unchanged — loaded from session)')}`);
+      } else {
+        console.log(`${tag} ${B('ingredients')}  ${n} resolved  ${dbTag}  ${aiTag}`);
+        const rows = event.data.ingredients.map((ing) => [
+          ing.raw_name,
+          ing.canonical_name,
+          sourceBadge(ing.source),
+          `${ing.grams}g`,
+        ]);
+        console.log(renderTable(['Ingredient', 'Resolved as', 'Src', 'Grams'], rows)
+          .split('\n').map((l) => `  ${l}`).join('\n'));
       }
       break;
+    }
 
-    case 'ingredients':
-      console.log(`${prefix} ${B('ingredients')} ${event.data.ingredients.length} resolved ingredient(s)`);
-      printSources(event.data.ingredients);
-      break;
+    case 'uncertainty': {
+      const v = event.data.variance_percent;
+      const vStr = pct(v);
+      const band = `${event.data.calorie_band.min}–${event.data.calorie_band.max} kcal`;
 
-    case 'uncertainty':
-      console.log(
-        `${prefix} ${B('uncertainty')} variance=${event.data.variance_percent} | clarification=${event.data.needs_clarification ? Y('yes') : G('no')} | band=${event.data.calorie_band.min}-${event.data.calorie_band.max} kcal`
-      );
-      if (event.data.clarifications.length > 0) {
+      if (event.data.needs_clarification) {
+        console.log(`${tag} ${B('uncertainty')}  variance=${Y(vStr)}  band=${band}  ${Y('→ clarification needed')}`);
         for (const clarification of event.data.clarifications) {
-          console.log(`  ? ${clarification.question}`);
-          clarification.options.forEach((option, index) => {
-            const isDefault = index === clarification.default_option_index ? ' default' : '';
-            console.log(`    ${index + 1}. ${option.label} (${option.grams}g, delta ${option.calorie_delta} kcal)${isDefault}`);
+          console.log(`\n  ${B('?')} ${clarification.question}`);
+          const rows = clarification.options.map((opt, idx) => {
+            const isDefault = idx === clarification.default_option_index;
+            const label = isDefault ? `${opt.label} [default]` : opt.label;
+            const delta = opt.calorie_delta === 0 ? '±0' : opt.calorie_delta > 0 ? `+${opt.calorie_delta}` : String(opt.calorie_delta);
+            return [`${idx + 1}`, label, `${opt.grams}g`, `${delta} kcal`];
           });
+          console.log(renderTable(['#', 'Option', 'Grams', 'Calorie delta'], rows)
+            .split('\n').map((l) => `    ${l}`).join('\n'));
         }
+      } else {
+        const vColor = v <= 0.1 ? G : v <= 0.2 ? Y : R;
+        console.log(`${tag} ${B('uncertainty')}  variance=${vColor(vStr)}  band=${G(band)}  ${G('✓ no clarification needed')}`);
       }
       break;
+    }
 
     case 'meal_type_question':
       console.log(
-        `${prefix} ${B('meal_type_question')} ${event.data.question} | options=${event.data.options.join(', ')}${event.data.inferred_meal_type ? ` | inferred=${event.data.inferred_meal_type}` : ''}`
+        `${tag} ${B('meal_type_question')}  ${event.data.question}  options=${event.data.options.join(' | ')}${
+          event.data.inferred_meal_type ? `  ${D(`inferred=${event.data.inferred_meal_type}`)}` : ''
+        }`
       );
       break;
 
-    case 'result':
+    case 'result': {
+      const m = event.data.macros;
+      const confColor = event.data.calorie_confidence === 'HIGH' ? G : event.data.calorie_confidence === 'MEDIUM' ? Y : R;
       console.log(
-        `${prefix} ${G(B('result'))} ${event.data.meal_name} | ${event.data.quantity} | mealType=${event.data.meal_type} (${event.data.meal_type_source})`
+        `${tag} ${G(B('result'))}  ${B(event.data.meal_name)}  ·  ${event.data.meal_type}  ·  confidence=${confColor(event.data.calorie_confidence)}`
       );
-      console.log(
-        `  macros: ${event.data.macros.calories} kcal | P ${event.data.macros.protein} | C ${event.data.macros.carbs} | F ${event.data.macros.fat} | Fi ${event.data.macros.fiber}`
-      );
-      console.log(
-        `  confidence: ${event.data.calorie_confidence} | band=${event.data.calorie_band.min}-${event.data.calorie_band.max} kcal`
-      );
+
+      // Macros table
+      const macroRows = [
+        ['Calories', `${m.calories} kcal`],
+        ['Protein',  `${m.protein}g`],
+        ['Carbs',    `${m.carbs}g`],
+        ['Fat',      `${m.fat}g`],
+        ['Fiber',    `${m.fiber}g`],
+      ];
+      console.log(renderTable(['Macro', 'Amount'], macroRows)
+        .split('\n').map((l) => `  ${l}`).join('\n'));
+
+      const band = `${event.data.calorie_band.min}–${event.data.calorie_band.max} kcal`;
+      console.log(`  ${D('Band:')} ${band}  (${event.data.quantity})`);
+
       if (event.data.health) {
-        console.log(`  health: ${event.data.health.health_score} | ${event.data.health.health_score_reason}`);
+        const healthColor =
+          event.data.health.health_score === 'HEALTHY' ? G :
+          event.data.health.health_score === 'NEUTRAL' ? Y : R;
+        console.log(`  ${D('Health:')} ${healthColor(event.data.health.health_score)}`);
+        console.log(`  ${D('       ')} ${event.data.health.health_score_reason}`);
       }
       if (event.data.tip) {
-        console.log(`  tip: ${event.data.tip}`);
+        console.log(`  ${D('Tip:')}    ${event.data.tip}`);
       }
-      printSources(event.data.ingredients);
+
+      // Ingredient breakdown table
+      console.log(`\n  ${B('Ingredients')}`);
+      const ingRows = event.data.ingredients.map((ing) => [
+        ing.raw_name,
+        ing.canonical_name,
+        sourceBadge(ing.source),
+        `${ing.grams}g`,
+        `${ing.macros.calories}`,
+        `${ing.macros.protein}g`,
+        `${ing.macros.carbs}g`,
+        `${ing.macros.fat}g`,
+      ]);
+      console.log(renderTable(
+        ['Ingredient', 'Resolved as', 'Src', 'Grams', 'kcal', 'Prot', 'Carb', 'Fat'],
+        ingRows
+      ).split('\n').map((l) => `  ${l}`).join('\n'));
       break;
+    }
 
     case 'error':
-      console.log(`${prefix} ${R(B('error'))} ${event.data.message}`);
+      console.log(`${tag} ${R(B('error'))}  ${event.data.message}`);
       break;
   }
 }
+
+// ── NDJSON stream reader ──────────────────────────────────────────────────────
 
 async function readNdjsonStream(
   response: Response,
@@ -574,7 +627,8 @@ async function postStream(
   url: string,
   headers: Record<string, string>,
   payload: Record<string, unknown>,
-  raw: boolean
+  raw: boolean,
+  isContinuation: boolean = false
 ): Promise<StreamOutcome> {
   let response: Response;
   try {
@@ -606,7 +660,6 @@ async function postStream(
   }
 
   const startedAt = Date.now();
-  let lastEventAt = startedAt;
   let analysisId = '';
   let outcome: StreamOutcome | undefined;
 
@@ -617,26 +670,17 @@ async function postStream(
     const event = JSON.parse(line) as V2Event;
     analysisId = (event as { data?: { analysis_id?: string } }).data?.analysis_id ?? analysisId;
     const now = Date.now();
-    printEvent(event, now - startedAt, now - lastEventAt);
-    lastEventAt = now;
+    printEvent(event, now - startedAt, isContinuation);
 
     if (event.step === 'result') {
       outcome = { kind: 'result', analysisId: event.data.analysis_id, result: event.data };
       return;
     }
     if (event.step === 'error') {
-      outcome = {
-        kind: 'error',
-        analysisId: event.data.analysis_id,
-        message: event.data.message,
-      };
+      outcome = { kind: 'error', analysisId: event.data.analysis_id, message: event.data.message };
       return;
     }
-    if (
-      event.step === 'uncertainty' &&
-      event.data.needs_clarification &&
-      event.data.clarifications.length > 0
-    ) {
+    if (event.step === 'uncertainty' && event.data.needs_clarification && event.data.clarifications.length > 0) {
       outcome = {
         kind: 'clarification',
         analysisId: event.data.analysis_id,
@@ -645,11 +689,7 @@ async function postStream(
       return;
     }
     if (event.step === 'meal_type_question') {
-      outcome = {
-        kind: 'meal-type',
-        analysisId: event.data.analysis_id,
-        question: event.data,
-      };
+      outcome = { kind: 'meal-type', analysisId: event.data.analysis_id, question: event.data };
     }
   });
 
@@ -660,6 +700,8 @@ async function postStream(
   };
 }
 
+// ── Interactive prompts ───────────────────────────────────────────────────────
+
 async function promptForClarifications(
   clarifications: Extract<StreamOutcome, { kind: 'clarification' }>['clarifications']
 ): Promise<Array<{ ingredient_name: string; selected_option_index: number }>> {
@@ -667,23 +709,13 @@ async function promptForClarifications(
   try {
     const answers: Array<{ ingredient_name: string; selected_option_index: number }> = [];
     for (const clarification of clarifications) {
-      console.log(`\n${B(clarification.question)}`);
-      clarification.options.forEach((option, index) => {
-        const isDefault = index === clarification.default_option_index ? ' (default)' : '';
-        console.log(`  ${index + 1}. ${option.label}${isDefault}`);
-      });
-      const raw = await rl.question('Select option number: ');
+      const raw = await rl.question(`\nSelect option for "${clarification.ingredient_name}" (1–${clarification.options.length}): `);
       const numeric = Number.parseInt(raw.trim(), 10);
       const selected =
-        Number.isFinite(numeric) &&
-        numeric >= 1 &&
-        numeric <= clarification.options.length
+        Number.isFinite(numeric) && numeric >= 1 && numeric <= clarification.options.length
           ? numeric - 1
           : clarification.default_option_index;
-      answers.push({
-        ingredient_name: clarification.ingredient_name,
-        selected_option_index: selected,
-      });
+      answers.push({ ingredient_name: clarification.ingredient_name, selected_option_index: selected });
     }
     return answers;
   } finally {
@@ -696,12 +728,12 @@ async function promptForMealType(
 ): Promise<string> {
   const rl = createInterface({ input: process.stdin, output: process.stdout });
   try {
-    console.log(`\n${B(question.question)}`);
+    console.log(`\n  ${B(question.question)}`);
     question.options.forEach((option, index) => {
-      const inferred = option === question.inferred_meal_type ? ' (inferred)' : '';
-      console.log(`  ${index + 1}. ${option}${inferred}`);
+      const inferred = option === question.inferred_meal_type ? D(' (inferred)') : '';
+      console.log(`    ${index + 1}.  ${option}${inferred}`);
     });
-    const raw = await rl.question('Select meal type number: ');
+    const raw = await rl.question('  Select number: ');
     const numeric = Number.parseInt(raw.trim(), 10);
     const selectedIndex =
       Number.isFinite(numeric) && numeric >= 1 && numeric <= question.options.length
@@ -711,6 +743,66 @@ async function promptForMealType(
   } finally {
     await rl.close();
   }
+}
+
+// ── Flow explanation ──────────────────────────────────────────────────────────
+
+function printFlowExplanation(calls: CallRecord[]): void {
+  hr('Flow explanation');
+
+  console.log(
+    `  ${calls.length} HTTP ${calls.length === 1 ? 'call was' : 'calls were'} made. ` +
+    `The V2 pipeline is a multi-turn conversation — each call streams events until it needs ` +
+    `user input, then pauses. A new POST resumes from the saved session.\n`
+  );
+
+  calls.forEach((call, i) => {
+    const num = `Call ${i + 1}`;
+    const dur = `${(call.durationMs / 1000).toFixed(2)}s`;
+    console.log(`  ${C(B(num))}  ${call.label}  ${D(call.endpoint)}  ${D(dur)}`);
+    console.log(`         Stopped: ${call.stopReason}`);
+    if (i < calls.length - 1) console.log();
+  });
+
+  console.log(`\n  ${B('Why is it slow?')}`);
+  console.log(`  Each call involves sequential LLM round-trips — you pay the API latency per call.`);
+  console.log(`  Common causes:`);
+  console.log(`    ${D('•')} ${B('AI fallback macros')} — USDA had 0 matches, so a second LLM call estimated all macros`);
+  console.log(`    ${D('•')} ${B('Presentation LLM')} — runs after every clarification round to generate health/tip text`);
+  console.log(`    ${D('•')} ${B('Meal-type re-run')} — presentation re-executes once meal type is confirmed`);
+  console.log(`  ${D('→')} Better USDA match rate = fewer AI fallback calls = faster first response.`);
+}
+
+// ── Loki check ───────────────────────────────────────────────────────────────
+
+function printTraceSummary(traceSummary: unknown): void {
+  if (!traceSummary || typeof traceSummary !== 'object') return;
+  const summary = traceSummary as {
+    totalDurationMs?: unknown;
+    llmCallCount?: unknown;
+    usdaLookupCount?: unknown;
+    dbWriteCount?: unknown;
+    steps?: Array<{
+      category?: unknown;
+      name?: unknown;
+      durationMs?: unknown;
+      meta?: unknown;
+    }>;
+  };
+
+  console.log(
+    `  ${D('trace:')} total=${String(summary.totalDurationMs ?? '-')}ms | llmCalls=${String(summary.llmCallCount ?? '-')} | usdaLookups=${String(summary.usdaLookupCount ?? '-')} | dbWrites=${String(summary.dbWriteCount ?? '-')}`
+  );
+
+  if (!Array.isArray(summary.steps) || summary.steps.length === 0) return;
+  const rows = summary.steps.map((step) => [
+    String(step.category ?? '-'),
+    String(step.name ?? '-'),
+    `${String(step.durationMs ?? '-')}ms`,
+    step.meta ? JSON.stringify(step.meta) : '',
+  ]);
+  console.log(renderTable(['Category', 'Step', 'Duration', 'Meta'], rows)
+    .split('\n').map((l) => `  ${l}`).join('\n'));
 }
 
 async function maybeCheckLoki(args: Args): Promise<void> {
@@ -751,21 +843,25 @@ async function maybeCheckLoki(args: Args): Promise<void> {
       }
 
       console.log(`${G(`found ${values.length} Loki log line(s)`)}`);
+      const rows: string[][] = [];
       for (const [, line] of values.slice(-10)) {
         try {
           const parsed = JSON.parse(line) as Record<string, unknown>;
-          const event = typeof parsed.event === 'string' ? parsed.event : '';
-          const type = typeof parsed.type === 'string' ? parsed.type : '';
-          const msg = typeof parsed.msg === 'string' ? parsed.msg : '';
-          const reqId = typeof parsed.reqId === 'string' ? parsed.reqId : args.requestId;
-          const duration = parsed.totalDurationMs ?? parsed.responseTime ?? '';
-          console.log(`  - reqId=${reqId} type=${type || '-'} event=${event || '-'} msg=${msg || '-'} duration=${String(duration || '-')}`);
+          const event = typeof parsed.event === 'string' ? parsed.event : '-';
+          const type = typeof parsed.type === 'string' ? parsed.type : '-';
+          const msg = typeof parsed.msg === 'string' ? parsed.msg : '-';
+          const duration = String(parsed.totalDurationMs ?? parsed.responseTime ?? '-');
+          rows.push([event, type, msg, duration]);
           if (parsed.traceSummary) {
             printTraceSummary(parsed.traceSummary);
           }
         } catch {
           console.log(`  - ${line}`);
         }
+      }
+      if (rows.length > 0) {
+        console.log(renderTable(['event', 'type', 'msg', 'duration'], rows)
+          .split('\n').map((l) => `  ${l}`).join('\n'));
       }
       console.log(`${D('LogQL:')} ${query}`);
       return;
@@ -776,45 +872,63 @@ async function maybeCheckLoki(args: Args): Promise<void> {
   }
 
   console.log(`${Y('No Loki logs found within timeout.')}`);
-  if (lastError) {
-    console.log(`${D('last Loki error:')} ${lastError}`);
-  }
+  if (lastError) console.log(`${D('last Loki error:')} ${lastError}`);
   console.log(`${D('Try in Grafana Explore:')} ${query}`);
 }
+
+// ── Main run ──────────────────────────────────────────────────────────────────
 
 async function run(args: Args): Promise<number> {
   const headers = buildHeaders(args);
   let imageUrl = args.imageUrl;
+  const callLog: CallRecord[] = [];
 
   hr('Request');
-  console.log(`${D('baseUrl:')} ${args.baseUrl}`);
-  console.log(`${D('locale:')} ${args.locale}`);
-  console.log(`${D('requestId:')} ${args.requestId}`);
-  console.log(`${D('interactive:')} ${args.interactive ? 'yes' : 'no'}`);
+  console.log(`${D('Backend:')}   ${args.baseUrl}`);
+  console.log(`${D('Locale:')}    ${args.locale}`);
+  console.log(`${D('Mode:')}      ${args.mode}`);
+  console.log(`${D('RequestId:')} ${args.requestId}`);
 
   if (args.mode === 'image' && args.imageFile) {
     imageUrl = await uploadImageFile(args.imageFile);
   }
 
   let outcome: StreamOutcome;
+
   if (args.mode === 'text') {
     hr('Analyze Text');
-    console.log(`${D('text:')} ${args.text}`);
+    console.log(`${D('Input:')} ${args.text}`);
+    const t0 = Date.now();
     outcome = await postStream(
       new URL('/api/v2/food/analyze-text', args.baseUrl).toString(),
       headers,
       { textDescription: args.text!.trim() },
-      args.raw
+      args.raw,
+      false
     );
+    const dur = Date.now() - t0;
+    const stopReason =
+      outcome.kind === 'clarification'
+        ? `variance too high → asked about portion size`
+        : outcome.kind === 'meal-type'
+        ? `meal type not confident → asked for meal type`
+        : outcome.kind === 'result'
+        ? 'completed'
+        : `error: ${outcome.message}`;
+    callLog.push({ label: 'Analyze Text', endpoint: '/api/v2/food/analyze-text', startedAt: t0, durationMs: dur, stopReason });
   } else {
     hr('Analyze Image');
     console.log(`${D('imageUrl:')} ${imageUrl}`);
+    const t0 = Date.now();
     outcome = await postStream(
       new URL('/api/v2/food/analyze-image', args.baseUrl).toString(),
       headers,
       { imageUrl },
-      args.raw
+      args.raw,
+      false
     );
+    const dur = Date.now() - t0;
+    callLog.push({ label: 'Analyze Image', endpoint: '/api/v2/food/analyze-image', startedAt: t0, durationMs: dur, stopReason: outcome.kind });
   }
 
   while (true) {
@@ -822,15 +936,24 @@ async function run(args: Args): Promise<number> {
       if (!args.interactive) break;
       const answers = await promptForClarifications(outcome.clarifications);
       hr('Clarify');
+      const t0 = Date.now();
       outcome = await postStream(
         new URL('/api/v2/food/clarify', args.baseUrl).toString(),
         headers,
-        {
-          analysisId: outcome.analysisId,
-          answers,
-        },
-        args.raw
+        { analysisId: outcome.analysisId, answers },
+        args.raw,
+        true
       );
+      const dur = Date.now() - t0;
+      const stopReason =
+        outcome.kind === 'meal-type'
+          ? 'meal type not confident → asked for meal type'
+          : outcome.kind === 'result'
+          ? 'completed'
+          : outcome.kind === 'clarification'
+          ? 'more clarification needed'
+          : `error: ${'message' in outcome ? outcome.message : ''}`;
+      callLog.push({ label: 'Clarify', endpoint: '/api/v2/food/clarify', startedAt: t0, durationMs: dur, stopReason });
       continue;
     }
 
@@ -838,15 +961,22 @@ async function run(args: Args): Promise<number> {
       if (!args.interactive) break;
       const selectedMealType = await promptForMealType(outcome.question);
       hr('Submit Meal Type');
+      const t0 = Date.now();
       outcome = await postStream(
         new URL('/api/v2/food/meal-type', args.baseUrl).toString(),
         headers,
-        {
-          analysisId: outcome.analysisId,
-          mealType: selectedMealType,
-        },
-        args.raw
+        { analysisId: outcome.analysisId, mealType: selectedMealType },
+        args.raw,
+        true
       );
+      const dur = Date.now() - t0;
+      callLog.push({
+        label: 'Submit Meal Type',
+        endpoint: '/api/v2/food/meal-type',
+        startedAt: t0,
+        durationMs: dur,
+        stopReason: outcome.kind === 'result' ? 'completed' : outcome.kind,
+      });
       continue;
     }
 
@@ -856,31 +986,26 @@ async function run(args: Args): Promise<number> {
   hr('Summary');
   switch (outcome.kind) {
     case 'result':
-      console.log(`${G('Analysis completed successfully.')}`);
-      console.log(`${D('analysisId:')} ${outcome.analysisId}`);
-      console.log(`${D('final meal:')} ${outcome.result.meal_name}`);
+      console.log(`  ${G('Analysis completed.')}  analysisId=${outcome.analysisId}`);
+      console.log(`  ${D('Meal:')} ${outcome.result.meal_name}`);
       break;
     case 'clarification':
-      console.log(`${Y('Analysis stopped at clarification step.')}`);
-      console.log(`${D('analysisId:')} ${outcome.analysisId}`);
+      console.log(`  ${Y('Stopped at clarification.')}  analysisId=${outcome.analysisId}`);
       break;
     case 'meal-type':
-      console.log(`${Y('Analysis stopped at meal-type question.')}`);
-      console.log(`${D('analysisId:')} ${outcome.analysisId}`);
+      console.log(`  ${Y('Stopped at meal-type question.')}  analysisId=${outcome.analysisId}`);
       break;
     case 'error':
-      console.log(`${R('Analysis failed.')}`);
-      if (outcome.analysisId) {
-        console.log(`${D('analysisId:')} ${outcome.analysisId}`);
-      }
-      console.log(`${D('message:')} ${outcome.message}`);
+      console.log(`  ${R('Analysis failed.')}`);
+      if (outcome.analysisId) console.log(`  ${D('analysisId:')} ${outcome.analysisId}`);
+      console.log(`  ${D('message:')} ${outcome.message}`);
       break;
   }
+  console.log(`  ${D('Log hint:')} docker compose logs --since 5m backend-staging | rg '${args.requestId}|meal_analysis_v2'`);
 
-  console.log(`${D('log correlation requestId:')} ${args.requestId}`);
-  console.log(
-    `${D('console hint:')} docker compose logs --since 5m backend-staging | rg '${args.requestId}|meal_analysis_v2'`
-  );
+  if (callLog.length > 1 || (callLog.length === 1 && callLog[0]!.stopReason !== 'completed')) {
+    printFlowExplanation(callLog);
+  }
 
   await maybeCheckLoki(args);
   return outcome.kind === 'error' ? 1 : 0;

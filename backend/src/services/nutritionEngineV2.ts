@@ -32,6 +32,8 @@ interface LLMDecomposition {
   meal_name: string;
   ingredients: LLMIngredient[];
   confidence: number;
+  inferred_meal_type: MealTypeValue;
+  meal_type_confident: boolean;
 }
 
 interface CanonicalMatch {
@@ -260,6 +262,10 @@ RULES:
 4. Prefer cooked weights for cooked dishes.
 5. Include ALL ingredients — oils, butter, ghee, salt, spices.
 6. confidence: 0-1 reflecting how confident you are overall.
+7. inferred_meal_type: one of BREAKFAST, LUNCH, DINNER, SNACK, or UNKNOWN.
+   - Use UNKNOWN when the description/image does not clearly imply a single meal context.
+   - Strong signals: explicit keywords ("breakfast", "lunch", "dinner"), classic dishes with fixed meal context (pancakes/cereal → BREAKFAST; ramen/curry-rice → LUNCH/DINNER), tiny portions/sweets → SNACK.
+8. meal_type_confident: true ONLY when the meal_name or visible context strongly implies a single meal type. When in doubt, set false so the user is asked.
 
 Portion references: 1 chapati/roti ≈ 30g whole wheat flour + 3g oil/ghee; 1 cup cooked rice ≈ 185g; 1 cup cooked dal ≈ 210g; 1 tbsp oil/ghee ≈ 14g; 1 medium egg ≈ 50g; 1 cup milk ≈ 245g; 1 medium banana ≈ 120g; 1 slice bread ≈ 30g`;
 
@@ -284,8 +290,13 @@ const DECOMPOSITION_SCHEMA = {
       },
     },
     confidence: { type: 'number' as const },
+    inferred_meal_type: {
+      type: 'string' as const,
+      enum: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'UNKNOWN'],
+    },
+    meal_type_confident: { type: 'boolean' as const },
   },
-  required: ['meal_name', 'ingredients', 'confidence'] as const,
+  required: ['meal_name', 'ingredients', 'confidence', 'inferred_meal_type', 'meal_type_confident'] as const,
   additionalProperties: false,
 };
 
@@ -710,18 +721,26 @@ async function resolveIngredients(
   const resolved: ResolvedIngredient[] = [];
   const unmatched: { index: number; ingredient: LLMIngredient }[] = [];
 
-  for (const ingredient of decomposition.ingredients) {
-    const usdaMatch = await traceAsync(
-      trace,
-      'usda',
-      'canonicalize_with_usda',
-      {
-        analysisId,
-        ingredient: ingredient.raw_name,
-        canonicalHint: ingredient.canonical_hint,
-      },
-      () => canonicalizeWithUsda(ingredient.canonical_hint)
-    );
+  // USDA lookups are independent — run them in parallel to collapse per-ingredient latency.
+  const usdaMatches = await Promise.all(
+    decomposition.ingredients.map((ingredient) =>
+      traceAsync(
+        trace,
+        'usda',
+        'canonicalize_with_usda',
+        {
+          analysisId,
+          ingredient: ingredient.raw_name,
+          canonicalHint: ingredient.canonical_hint,
+        },
+        () => canonicalizeWithUsda(ingredient.canonical_hint)
+      )
+    )
+  );
+
+  for (let i = 0; i < decomposition.ingredients.length; i++) {
+    const ingredient = decomposition.ingredients[i]!;
+    const usdaMatch = usdaMatches[i]!;
     const match: CanonicalMatch = usdaMatch.row
       ? {
           foodId: String(usdaMatch.row.fdc_id),
@@ -1008,6 +1027,12 @@ async function* runPipelineFromDecomposition(
       meal_name: decomposition.meal_name,
       confidence: decomposition.confidence,
       ingredients: toDecompositionDto(decomposition),
+      // The following two fields are included in the persisted snapshot so that
+      // /clarify and /meal-type can reuse the decomposition-time meal-type inference
+      // without re-running the presentation LLM.
+      ...(
+        { inferred_meal_type: decomposition.inferred_meal_type, meal_type_confident: decomposition.meal_type_confident } as Record<string, unknown>
+      ),
     },
   };
   await traceAsync(
@@ -1132,21 +1157,22 @@ async function* runPipelineFromDecomposition(
     return;
   }
 
-  const totalMacros = sumMacros(resolved.map((ingredient) => ingredient.macros));
-  const presentation = await traceAsync(
-    trace,
-    'llm',
-    'enrich_presentation',
-    {
-      analysisId: context.analysisId,
-      source: context.source,
-      model: OPENAI_MEAL_ANALYSIS_MODEL,
-      ingredientCount: resolved.length,
-    },
-    () => enrichPresentation(client, context, resolved, totalMacros)
-  );
+  // Resolve meal-type BEFORE running the presentation LLM.
+  // Priority: user selection > decomposition-time inference (if confident) > text heuristic.
+  // If none applies, we emit meal_type_question here so presentation runs exactly once across
+  // the whole clarify/meal-type flow (instead of twice: pre-question and post-question).
+  const decompositionInferredMealType =
+    decomposition.meal_type_confident && decomposition.inferred_meal_type !== 'UNKNOWN'
+      ? decomposition.inferred_meal_type
+      : undefined;
+  const textHeuristicMealType =
+    context.source === 'text'
+      ? detectExplicitMealTypeFromText(String(context.requestPayload.textDescription ?? ''))
+      : undefined;
+  const preResolvedMealType: MealTypeValue | undefined =
+    context.selectedMealType ?? decompositionInferredMealType ?? textHeuristicMealType;
 
-  if (!context.selectedMealType && (!presentation.meal_type_confident || presentation.meal_type === 'UNKNOWN')) {
+  if (!preResolvedMealType) {
     const mealTypeQuestionEvent: PipelineEvent = {
       step: 'meal_type_question',
       data: {
@@ -1154,7 +1180,7 @@ async function* runPipelineFromDecomposition(
         question: 'Which meal is this?',
         options: [...MEAL_TYPES],
         inferred_meal_type:
-          presentation.meal_type !== 'UNKNOWN' ? presentation.meal_type : undefined,
+          decomposition.inferred_meal_type !== 'UNKNOWN' ? decomposition.inferred_meal_type : undefined,
       },
     };
     await traceAsync(
@@ -1177,13 +1203,35 @@ async function* runPipelineFromDecomposition(
       source: context.source,
       totalDurationMs: Date.now() - startedAt,
       inferredMealType:
-        presentation.meal_type !== 'UNKNOWN' ? presentation.meal_type : undefined,
+        decomposition.inferred_meal_type !== 'UNKNOWN' ? decomposition.inferred_meal_type : undefined,
       sourceSummary,
     });
     return;
   }
 
-  const finalMealType: MealTypeValue = context.selectedMealType ?? presentation.meal_type;
+  // Feed the resolved meal-type into the context so enrichPresentation treats it as user-chosen
+  // (skips the presentation LLM's own meal_type inference branch).
+  const presentationContext: PipelineRunContext = {
+    ...context,
+    selectedMealType: preResolvedMealType,
+    selectedMealTypeSource: context.selectedMealTypeSource ?? (context.selectedMealType ? 'user' : 'model'),
+  };
+
+  const totalMacros = sumMacros(resolved.map((ingredient) => ingredient.macros));
+  const presentation = await traceAsync(
+    trace,
+    'llm',
+    'enrich_presentation',
+    {
+      analysisId: context.analysisId,
+      source: context.source,
+      model: OPENAI_MEAL_ANALYSIS_MODEL,
+      ingredientCount: resolved.length,
+    },
+    () => enrichPresentation(client, presentationContext, resolved, totalMacros)
+  );
+
+  const finalMealType: MealTypeValue = preResolvedMealType;
   const mealTypeSource: MealTypeSource =
     context.selectedMealTypeSource ??
     (context.selectedMealType ? 'user' : 'model');
@@ -1246,6 +1294,8 @@ function sessionToDecomposition(session: Awaited<ReturnType<typeof getMealAnalys
         meal_name: string;
         confidence: number;
         ingredients: DecomposedIngredientDTO[];
+        inferred_meal_type?: MealTypeValue;
+        meal_type_confident?: boolean;
       })
     | undefined;
   if (!decompositionData) return undefined;
@@ -1260,6 +1310,8 @@ function sessionToDecomposition(session: Awaited<ReturnType<typeof getMealAnalys
       max_grams: ingredient.max_grams,
       notes: ingredient.notes,
     })),
+    inferred_meal_type: decompositionData.inferred_meal_type ?? 'UNKNOWN',
+    meal_type_confident: decompositionData.meal_type_confident ?? false,
   };
 }
 
