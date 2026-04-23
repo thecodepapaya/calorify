@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
 import 'package:calorify_watch/widgets/carousel_scroll_view.dart';
-import 'package:calorify_watch/widgets/shimmer_placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:specs/specs.dart';
+import 'package:widgets/widgets.dart';
 
 @RoutePage()
 class FavoritesScreen extends StatefulWidget {
@@ -32,8 +32,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Future<void> _load({bool force = false}) async {
     setState(() => _error = null);
     try {
-      await SyncService.instance.requestFavoriteMeals(
-          forceRefresh: force);
+      await SyncService.instance.requestFavoriteMeals(forceRefresh: force);
     } catch (_) {
       if (mounted) setState(() => _error = 'Could not load favorites');
     }
@@ -98,8 +97,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(LucideIcons.star,
-                          size: 14, color: colorScheme.tertiary),
+                      Icon(
+                        LucideIcons.star,
+                        size: 14,
+                        color: colorScheme.tertiary,
+                      ),
                       const SizedBox(width: 5),
                       Text(
                         'Favorites',
@@ -132,17 +134,20 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                   .withValues(alpha: 0.5),
                               shape: BoxShape.circle,
                             ),
-                            child: spinning
-                                ? Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 1.5,
-                                      color: colorScheme.primary,
+                            child:
+                                spinning
+                                    ? Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 1.5,
+                                        color: colorScheme.primary,
+                                      ),
+                                    )
+                                    : Icon(
+                                      LucideIcons.refreshCw,
+                                      size: 16,
+                                      color: colorScheme.onSurfaceVariant,
                                     ),
-                                  )
-                                : Icon(LucideIcons.refreshCw,
-                                    size: 16,
-                                    color: colorScheme.onSurfaceVariant),
                           ),
                         ),
                       );
@@ -177,21 +182,25 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         parent: BouncingScrollPhysics(),
                       ),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 4),
-                      children: favorites
-                          .asMap()
-                          .entries
-                          .map(
-                            (e) => Padding(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: _FavoriteItem(
-                                fav: e.value,
-                                isLogging: _loggingClientId == e.value.clientId,
-                                onLog: () => _logFavorite(e.value),
-                              ),
-                            ),
-                          )
-                          .toList(),
+                        horizontal: 12,
+                        vertical: 4,
+                      ),
+                      children:
+                          favorites
+                              .asMap()
+                              .entries
+                              .map(
+                                (e) => Padding(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: _FavoriteItem(
+                                    fav: e.value,
+                                    isLogging:
+                                        _loggingClientId == e.value.clientId,
+                                    onLog: () => _logFavorite(e.value),
+                                  ),
+                                ),
+                              )
+                              .toList(),
                     ),
                   );
                 },
@@ -220,8 +229,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
             shape: BoxShape.circle,
           ),
-          child: Icon(Icons.arrow_back,
-              size: 16, color: colorScheme.onSurfaceVariant),
+          child: Icon(
+            Icons.arrow_back,
+            size: 16,
+            color: colorScheme.onSurfaceVariant,
+          ),
         ),
       ),
     );
@@ -268,8 +280,7 @@ class _FavoriteItemState extends State<_FavoriteItem> {
           scale: _pressed ? 0.97 : 1.0,
           duration: const Duration(milliseconds: 100),
           child: Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
               color: colorScheme.surfaceContainerLow,
               borderRadius: BorderRadius.circular(12),
@@ -283,12 +294,14 @@ class _FavoriteItemState extends State<_FavoriteItem> {
                 Container(
                   padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                    color: colorScheme.tertiaryContainer
-                        .withValues(alpha: 0.4),
+                    color: colorScheme.tertiaryContainer.withValues(alpha: 0.4),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(LucideIcons.star,
-                      size: 13, color: colorScheme.tertiary),
+                  child: Icon(
+                    LucideIcons.star,
+                    size: 13,
+                    color: colorScheme.tertiary,
+                  ),
                 ),
                 const SizedBox(width: 10),
                 // Name + macros
@@ -311,19 +324,22 @@ class _FavoriteItemState extends State<_FavoriteItem> {
                       Row(
                         children: [
                           _MiniMacro(
-                              color: colorScheme.proteinIconColor,
-                              value: meal.macros.protein,
-                              label: 'P'),
+                            color: colorScheme.proteinIconColor,
+                            value: meal.macros.protein,
+                            label: 'P',
+                          ),
                           const SizedBox(width: 5),
                           _MiniMacro(
-                              color: colorScheme.carbsIconColor,
-                              value: meal.macros.carbs,
-                              label: 'C'),
+                            color: colorScheme.carbsIconColor,
+                            value: meal.macros.carbs,
+                            label: 'C',
+                          ),
                           const SizedBox(width: 5),
                           _MiniMacro(
-                              color: colorScheme.fatIconColor,
-                              value: meal.macros.fat,
-                              label: 'F'),
+                            color: colorScheme.fatIconColor,
+                            value: meal.macros.fat,
+                            label: 'F',
+                          ),
                         ],
                       ),
                     ],
@@ -338,8 +354,11 @@ class _FavoriteItemState extends State<_FavoriteItem> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(LucideIcons.flame,
-                            size: 11, color: colorScheme.calorieIconColor),
+                        Icon(
+                          LucideIcons.flame,
+                          size: 11,
+                          color: colorScheme.calorieIconColor,
+                        ),
                         const SizedBox(width: 2),
                         Text(
                           '$calories',
@@ -354,30 +373,34 @@ class _FavoriteItemState extends State<_FavoriteItem> {
                     const SizedBox(height: 5),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 9, vertical: 5),
+                        horizontal: 9,
+                        vertical: 5,
+                      ),
                       decoration: BoxDecoration(
-                        color: widget.isLogging
-                            ? colorScheme.primary.withValues(alpha: 0.6)
-                            : colorScheme.primary,
+                        color:
+                            widget.isLogging
+                                ? colorScheme.primary.withValues(alpha: 0.6)
+                                : colorScheme.primary,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: widget.isLogging
-                          ? SizedBox(
-                              width: 12,
-                              height: 12,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 1.5,
-                                color: colorScheme.onPrimary,
+                      child:
+                          widget.isLogging
+                              ? SizedBox(
+                                width: 12,
+                                height: 12,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 1.5,
+                                  color: colorScheme.onPrimary,
+                                ),
+                              )
+                              : Text(
+                                'Log',
+                                style: theme.textTheme.labelSmall?.copyWith(
+                                  color: colorScheme.onPrimary,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 9,
+                                ),
                               ),
-                            )
-                          : Text(
-                              'Log',
-                              style: theme.textTheme.labelSmall?.copyWith(
-                                color: colorScheme.onPrimary,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 9,
-                              ),
-                            ),
                     ),
                   ],
                 ),
@@ -391,8 +414,11 @@ class _FavoriteItemState extends State<_FavoriteItem> {
 }
 
 class _MiniMacro extends StatelessWidget {
-  const _MiniMacro(
-      {required this.color, required this.value, required this.label});
+  const _MiniMacro({
+    required this.color,
+    required this.value,
+    required this.label,
+  });
   final Color color;
   final int value;
   final String label;
@@ -432,8 +458,10 @@ class _ErrorView extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               message,
-              style: theme.textTheme.bodySmall
-                  ?.copyWith(color: colorScheme.onSurfaceVariant, fontSize: 10),
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+                fontSize: 10,
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 14),
@@ -443,19 +471,26 @@ class _ErrorView extends StatelessWidget {
                 onRetry();
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: colorScheme.primaryContainer,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                      color: colorScheme.primary.withValues(alpha: 0.4),
-                      width: 1.5),
+                    color: colorScheme.primary.withValues(alpha: 0.4),
+                    width: 1.5,
+                  ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(LucideIcons.refreshCw,
-                        size: 13, color: colorScheme.onPrimaryContainer),
+                    Icon(
+                      LucideIcons.refreshCw,
+                      size: 13,
+                      color: colorScheme.onPrimaryContainer,
+                    ),
                     const SizedBox(width: 6),
                     Text(
                       'Retry',
@@ -489,9 +524,11 @@ class _EmptyView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(LucideIcons.star,
-                  size: 36,
-                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.35)),
+              Icon(
+                LucideIcons.star,
+                size: 36,
+                color: colorScheme.onSurfaceVariant.withValues(alpha: 0.35),
+              ),
               const SizedBox(height: 10),
               Text(
                 'No favorites yet',

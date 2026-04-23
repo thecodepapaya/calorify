@@ -50,12 +50,14 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
   }
 
   void _rebuildAnimations(double from) {
-    final target = widget.goal > 0
-        ? (widget.totalCalories / widget.goal).clamp(0.0, 1.0)
-        : 0.0;
-    _progressAnimation = Tween<double>(begin: from, end: target).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
-    );
+    final target =
+        widget.goal > 0
+            ? (widget.totalCalories / widget.goal).clamp(0.0, 1.0)
+            : 0.0;
+    _progressAnimation = Tween<double>(
+      begin: from,
+      end: target,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
@@ -75,10 +77,14 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final isOverGoal = widget.totalCalories > widget.goal;
-    final percentage = widget.goal > 0
-        ? ((widget.totalCalories / widget.goal) * 100).round()
-        : 0;
-    final remaining = (widget.goal - widget.totalCalories).clamp(0, widget.goal);
+    final percentage =
+        widget.goal > 0
+            ? ((widget.totalCalories / widget.goal) * 100).round()
+            : 0;
+    final remaining = (widget.goal - widget.totalCalories).clamp(
+      0,
+      widget.goal,
+    );
     final activeColor =
         isOverGoal ? colorScheme.error : colorScheme.calorieIconColor;
 
@@ -91,14 +97,13 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Header
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(LucideIcons.flame, size: 16, color: activeColor),
                 const SizedBox(width: 6),
                 Text(
-                  'Calories',
+                  t.home.dailySummary.calories,
                   style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w700,
                     letterSpacing: 0.3,
@@ -109,7 +114,6 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
               ],
             ),
             const SizedBox(height: 10),
-            // Large calorie number
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -127,7 +131,7 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  'kcal',
+                  t.home.dailyGoal.kcal,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: colorScheme.onSurfaceVariant,
                     fontWeight: FontWeight.w500,
@@ -137,7 +141,6 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
               ],
             ),
             const SizedBox(height: 4),
-            // Goal & remaining
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -174,7 +177,6 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
               ],
             ),
             const SizedBox(height: 10),
-            // Circular progress
             Stack(
               alignment: Alignment.center,
               children: [
@@ -185,12 +187,16 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
                     height: 70,
                     child: AnimatedBuilder(
                       animation: _progressAnimation,
-                      builder: (context, _) => CircularProgressIndicator(
-                        value: math.min(_progressAnimation.value, 1.0),
-                        strokeWidth: 7,
-                        backgroundColor: colorScheme.surfaceContainerHighest,
-                        valueColor: AlwaysStoppedAnimation<Color>(activeColor),
-                      ),
+                      builder:
+                          (context, _) => CircularProgressIndicator(
+                            value: math.min(_progressAnimation.value, 1.0),
+                            strokeWidth: 7,
+                            backgroundColor:
+                                colorScheme.surfaceContainerHighest,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              activeColor,
+                            ),
+                          ),
                     ),
                   ),
                 ),
@@ -211,9 +217,10 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
                           ? Icons.warning_amber_rounded
                           : LucideIcons.check,
                       size: 12,
-                      color: isOverGoal
-                          ? colorScheme.error
-                          : colorScheme.primary.withValues(alpha: 0.7),
+                      color:
+                          isOverGoal
+                              ? colorScheme.error
+                              : colorScheme.primary.withValues(alpha: 0.7),
                     ),
                   ],
                 ),

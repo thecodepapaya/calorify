@@ -4,12 +4,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
 import 'package:calorify_watch/widgets/carousel_scroll_view.dart';
 import 'package:calorify_watch/widgets/meal_list_item.dart';
-import 'package:calorify_watch/widgets/shimmer_placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:specs/specs.dart';
+import 'package:widgets/widgets.dart';
 
 @RoutePage()
 class HistoryScreen extends StatefulWidget {
@@ -86,52 +86,61 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(LucideIcons.packageOpen,
-                          size: 14, color: colorScheme.primary),
-                      const SizedBox(width: 5),
-                      ValueListenableBuilder<List<LoggedMeal>>(
-                        valueListenable: SyncService.instance.todaysMeals,
-                        builder: (_, meals, _) => Text(
-                          "Today's Meals",
-                          style: theme.textTheme.titleSmall?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 11,
-                            color: colorScheme.onSurface,
-                          ),
-                        ),
+                      Icon(
+                        LucideIcons.packageOpen,
+                        size: 14,
+                        color: colorScheme.primary,
                       ),
                       const SizedBox(width: 5),
                       ValueListenableBuilder<List<LoggedMeal>>(
                         valueListenable: SyncService.instance.todaysMeals,
-                        builder: (_, meals, _) => Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color:
-                                colorScheme.primaryContainer.withValues(alpha: 0.3),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            '${meals.length}',
-                            style: theme.textTheme.labelSmall?.copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 9,
-                              color: colorScheme.primary,
+                        builder:
+                            (_, meals, _) => Text(
+                              "Today's Meals",
+                              style: theme.textTheme.titleSmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 11,
+                                color: colorScheme.onSurface,
+                              ),
                             ),
-                          ),
-                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      ValueListenableBuilder<List<LoggedMeal>>(
+                        valueListenable: SyncService.instance.todaysMeals,
+                        builder:
+                            (_, meals, _) => Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 6,
+                                vertical: 2,
+                              ),
+                              decoration: BoxDecoration(
+                                color: colorScheme.primaryContainer.withValues(
+                                  alpha: 0.3,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                '${meals.length}',
+                                style: theme.textTheme.labelSmall?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 9,
+                                  color: colorScheme.primary,
+                                ),
+                              ),
+                            ),
                       ),
                     ],
                   ),
                   const Spacer(),
                   ValueListenableBuilder<SyncState>(
                     valueListenable: SyncService.instance.syncState,
-                    builder: (_, state, _) => _CircleBtn(
-                      icon: LucideIcons.refreshCw,
-                      onTap: _onRefresh,
-                      semanticLabel: 'Refresh meals',
-                      spinning: state == SyncState.syncing,
-                    ),
+                    builder:
+                        (_, state, _) => _CircleBtn(
+                          icon: LucideIcons.refreshCw,
+                          onTap: _onRefresh,
+                          semanticLabel: 'Refresh meals',
+                          spinning: state == SyncState.syncing,
+                        ),
                   ),
                 ],
               ),
@@ -146,7 +155,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   }
                   if (_error != null && meals.isEmpty) {
                     return _ErrorView(
-                        message: _error!, onRetry: () => _load(force: true));
+                      message: _error!,
+                      onRetry: () => _load(force: true),
+                    );
                   }
                   if (meals.isEmpty) {
                     return _EmptyView();
@@ -160,24 +171,29 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         parent: BouncingScrollPhysics(),
                       ),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 4),
-                      children: meals
-                          .asMap()
-                          .entries
-                          .map(
-                            (e) => Padding(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: MealListItem(
-                                meal: e.value,
-                                index: e.key,
-                                onDelete:
-                                    e.value.hasClientId() && e.value.clientId > 0
-                                        ? () => _deleteMeal(e.value.clientId)
-                                        : null,
-                              ),
-                            ),
-                          )
-                          .toList(),
+                        horizontal: 12,
+                        vertical: 4,
+                      ),
+                      children:
+                          meals
+                              .asMap()
+                              .entries
+                              .map(
+                                (e) => Padding(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: MealListItem(
+                                    meal: e.value,
+                                    index: e.key,
+                                    onDelete:
+                                        e.value.hasClientId() &&
+                                                e.value.clientId > 0
+                                            ? () =>
+                                                _deleteMeal(e.value.clientId)
+                                            : null,
+                                  ),
+                                ),
+                              )
+                              .toList(),
                     ),
                   );
                 },
@@ -216,7 +232,9 @@ class _CircleBtnState extends State<_CircleBtn>
   void initState() {
     super.initState();
     _spin = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 800));
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
     if (widget.spinning) _spin.repeat();
   }
 
@@ -239,7 +257,11 @@ class _CircleBtnState extends State<_CircleBtn>
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    Widget icon = Icon(widget.icon, size: 16, color: colorScheme.onSurfaceVariant);
+    Widget icon = Icon(
+      widget.icon,
+      size: 16,
+      color: colorScheme.onSurfaceVariant,
+    );
     if (widget.spinning) {
       icon = RotationTransition(turns: _spin, child: icon);
     }
@@ -281,8 +303,10 @@ class _ErrorView extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               message,
-              style: theme.textTheme.bodySmall
-                  ?.copyWith(color: colorScheme.onSurfaceVariant, fontSize: 10),
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+                fontSize: 10,
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 14),
@@ -292,20 +316,26 @@ class _ErrorView extends StatelessWidget {
                 onRetry();
               },
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: colorScheme.primaryContainer,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                      color: colorScheme.primary.withValues(alpha: 0.4),
-                      width: 1.5),
+                    color: colorScheme.primary.withValues(alpha: 0.4),
+                    width: 1.5,
+                  ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(LucideIcons.refreshCw,
-                        size: 14, color: colorScheme.onPrimaryContainer),
+                    Icon(
+                      LucideIcons.refreshCw,
+                      size: 14,
+                      color: colorScheme.onPrimaryContainer,
+                    ),
                     const SizedBox(width: 6),
                     Text(
                       'Retry',
@@ -339,9 +369,11 @@ class _EmptyView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(LucideIcons.listChecks,
-                  size: 40,
-                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4)),
+              Icon(
+                LucideIcons.listChecks,
+                size: 40,
+                color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
+              ),
               const SizedBox(height: 10),
               Text(
                 'No meals logged',

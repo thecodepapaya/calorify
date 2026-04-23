@@ -19,16 +19,14 @@ class _MacroChartState extends State<MacroChart>
   late AnimationController _controller;
   late Animation<double> _animation;
 
-  int get _totalProtein => widget.meals.fold(
-        0,
-        (sum, m) => sum + m.meal.macros.protein,
-      );
+  int get _totalProtein =>
+      widget.meals.fold(0, (sum, meal) => sum + meal.meal.macros.protein);
   int get _totalCarbs =>
-      widget.meals.fold(0, (sum, m) => sum + m.meal.macros.carbs);
+      widget.meals.fold(0, (sum, meal) => sum + meal.meal.macros.carbs);
   int get _totalFat =>
-      widget.meals.fold(0, (sum, m) => sum + m.meal.macros.fat);
+      widget.meals.fold(0, (sum, meal) => sum + meal.meal.macros.fat);
   int get _totalFiber =>
-      widget.meals.fold(0, (sum, m) => sum + m.meal.macros.fiber);
+      widget.meals.fold(0, (sum, meal) => sum + meal.meal.macros.fiber);
   int get _total => _totalProtein + _totalCarbs + _totalFat;
 
   @override
@@ -65,27 +63,31 @@ class _MacroChartState extends State<MacroChart>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final t = Translations.of(context);
+    final translations = Translations.of(context);
 
     return Semantics(
-      label: _total == 0
-          ? 'Macros: no data yet'
-          : 'Macros: $_totalProtein g protein, $_totalCarbs g carbs, $_totalFat g fat, $_totalFiber g fiber',
+      label:
+          _total == 0
+              ? 'Macros: no data yet'
+              : 'Macros: $_totalProtein g protein, $_totalCarbs g carbs, $_totalFat g fat, $_totalFiber g fiber',
       child: FadeTransition(
         opacity: _animation,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Header
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(LucideIcons.chartPie, size: 16, color: colorScheme.primary),
+                Icon(
+                  LucideIcons.chartPie,
+                  size: 16,
+                  color: colorScheme.primary,
+                ),
                 const SizedBox(width: 4),
                 Flexible(
                   child: Text(
-                    t.home.intakeProgress.title,
+                    translations.home.intakeProgress.title,
                     style: theme.textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w700,
                       letterSpacing: 0.3,
@@ -110,7 +112,7 @@ class _MacroChartState extends State<MacroChart>
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    t.home.intakeHistory.noHistoryYet,
+                    translations.home.intakeHistory.noHistoryYet,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                       fontSize: 9,
@@ -119,7 +121,6 @@ class _MacroChartState extends State<MacroChart>
                 ],
               )
             else ...[
-              // Pie chart
               Stack(
                 alignment: Alignment.center,
                 children: [
@@ -128,29 +129,30 @@ class _MacroChartState extends State<MacroChart>
                       height: 90,
                       child: AnimatedBuilder(
                         animation: _animation,
-                        builder: (context, _) => PieChart(
-                          PieChartData(
-                            sectionsSpace: 2,
-                            centerSpaceRadius: 28,
-                            sections: [
-                              _section(
-                                _totalProtein.toDouble(),
-                                colorScheme.proteinIconColor,
-                                _animation.value,
+                        builder:
+                            (context, _) => PieChart(
+                              PieChartData(
+                                sectionsSpace: 2,
+                                centerSpaceRadius: 28,
+                                sections: [
+                                  _section(
+                                    _totalProtein.toDouble(),
+                                    colorScheme.proteinIconColor,
+                                    _animation.value,
+                                  ),
+                                  _section(
+                                    _totalCarbs.toDouble(),
+                                    colorScheme.carbsIconColor,
+                                    _animation.value,
+                                  ),
+                                  _section(
+                                    _totalFat.toDouble(),
+                                    colorScheme.fatIconColor,
+                                    _animation.value,
+                                  ),
+                                ],
                               ),
-                              _section(
-                                _totalCarbs.toDouble(),
-                                colorScheme.carbsIconColor,
-                                _animation.value,
-                              ),
-                              _section(
-                                _totalFat.toDouble(),
-                                colorScheme.fatIconColor,
-                                _animation.value,
-                              ),
-                            ],
-                          ),
-                        ),
+                            ),
                       ),
                     ),
                   ),
@@ -160,7 +162,9 @@ class _MacroChartState extends State<MacroChart>
                       Icon(
                         LucideIcons.scale,
                         size: 12,
-                        color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+                        color: colorScheme.onSurfaceVariant.withValues(
+                          alpha: 0.6,
+                        ),
                       ),
                       const SizedBox(height: 2),
                       Text(
@@ -176,33 +180,32 @@ class _MacroChartState extends State<MacroChart>
                 ],
               ),
               const SizedBox(height: 10),
-              // Macro legend row
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _MacroBadge(
                     icon: LucideIcons.dumbbell,
                     color: colorScheme.proteinIconColor,
-                    label: t.home.dailySummary.protein,
+                    label: translations.home.dailySummary.protein,
                     value: _totalProtein,
                   ),
                   _MacroBadge(
                     icon: LucideIcons.wheat,
                     color: colorScheme.carbsIconColor,
-                    label: t.home.dailySummary.carbs,
+                    label: translations.home.dailySummary.carbs,
                     value: _totalCarbs,
                   ),
                   _MacroBadge(
                     icon: LucideIcons.droplet,
                     color: colorScheme.fatIconColor,
-                    label: t.home.dailySummary.fat,
+                    label: translations.home.dailySummary.fat,
                     value: _totalFat,
                   ),
                   if (_totalFiber > 0)
                     _MacroBadge(
                       icon: LucideIcons.leaf,
                       color: colorScheme.fiberIconColor,
-                      label: t.home.dailySummary.fiber,
+                      label: translations.home.dailySummary.fiber,
                       value: _totalFiber,
                     ),
                 ],
@@ -218,8 +221,8 @@ class _MacroChartState extends State<MacroChart>
     return PieChartSectionData(
       value: value * animValue,
       color: color,
-      title: '',
-      radius: 36 * animValue,
+      radius: 16,
+      showTitle: false,
     );
   }
 }
@@ -240,33 +243,36 @@ class _MacroBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final t = Translations.of(context);
-    return Semantics(
-      label: '$label: $value ${t.home.dailySummary.grams}',
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 11, color: color),
-          const SizedBox(height: 3),
-          Text(
-            label.isNotEmpty ? label[0].toUpperCase() : '',
-            style: theme.textTheme.labelSmall?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
-              fontWeight: FontWeight.w600,
-              fontSize: 8,
-            ),
+    final colorScheme = theme.colorScheme;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.14),
+            borderRadius: BorderRadius.circular(8),
           ),
-          const SizedBox(height: 1),
-          Text(
-            '${value}g',
-            style: theme.textTheme.labelSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: color,
-              fontSize: 10,
-            ),
+          child: Icon(icon, size: 12, color: color),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          '$value',
+          style: theme.textTheme.labelMedium?.copyWith(
+            fontWeight: FontWeight.w700,
+            fontSize: 9,
+            color: colorScheme.onSurface,
           ),
-        ],
-      ),
+        ),
+        Text(
+          label,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: colorScheme.onSurfaceVariant,
+            fontSize: 7,
+          ),
+        ),
+      ],
     );
   }
 }
