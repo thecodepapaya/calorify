@@ -7,6 +7,7 @@ import 'package:calorify_watch/core/db/tables/cached_meals.dart';
 import 'package:calorify_watch/core/db/tables/pending_operations.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:flutter/foundation.dart';
 import 'package:models/models.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -91,6 +92,7 @@ class WatchDatabase extends _$WatchDatabase {
           batch.insertAll(
             cachedMealsTable,
             meals.map(_cachedMealCompanionFromLoggedMeal).toList(),
+            mode: InsertMode.insertOrReplace,
           );
         });
       }
@@ -109,6 +111,7 @@ class WatchDatabase extends _$WatchDatabase {
           batch.insertAll(
             cachedMealsTable,
             meals.map(_cachedMealCompanionFromLoggedMeal).toList(),
+            mode: InsertMode.insertOrReplace,
           );
         });
       }
@@ -131,6 +134,7 @@ class WatchDatabase extends _$WatchDatabase {
           batch.insertAll(
             cachedFavoritesTable,
             favorites.map(_cachedFavoriteCompanionFromFavoriteMeal).toList(),
+            mode: InsertMode.insertOrReplace,
           );
         });
       }
@@ -206,7 +210,24 @@ class WatchDatabase extends _$WatchDatabase {
         await (select(pendingOperationsTable)
           ..orderBy([(tbl) => OrderingTerm.asc(tbl.createdAt)])).get();
 
-    return rows.map(_pendingOperationFromRow).toList();
+    final operations = <PendingWatchOperation>[];
+    for (final row in rows) {
+      final operation = _pendingOperationFromRow(row);
+      if (operation != null) {
+        operations.add(operation);
+        continue;
+      }
+
+      _debugLog(
+        'Dropping pending operation ${row.id} with unsupported payload '
+        'type "${row.operationType}".',
+      );
+      await deletePendingOperation(row.id);
+      if (row.operationType == PendingWatchOperationType.logMeal.name) {
+        await deleteCachedMeal(row.mealId);
+      }
+    }
+    return operations;
   }
 
   Future<bool> hasPendingOperations() async {
@@ -239,19 +260,29 @@ class WatchDatabase extends _$WatchDatabase {
     );
   }
 
-  PendingWatchOperation _pendingOperationFromRow(
+  PendingWatchOperation? _pendingOperationFromRow(
     PendingOperationsTableData row,
   ) {
-    final type = PendingWatchOperationType.values.firstWhere(
-      (value) => value.name == row.operationType,
-    );
+    final type =
+        PendingWatchOperationType.values.asNameMap()[row.operationType];
+    if (type == null) {
+      return null;
+    }
 
     LoggedMeal? meal;
-    if (row.payloadJson != null) {
-      final decoded = jsonDecode(row.payloadJson!);
-      if (decoded is Map) {
-        meal = mealInfoFromLegacyJson(Map<String, dynamic>.from(decoded));
+    try {
+      if (row.payloadJson != null) {
+        final decoded = jsonDecode(row.payloadJson!);
+        if (decoded is Map) {
+          meal = mealInfoFromLegacyJson(Map<String, dynamic>.from(decoded));
+        }
       }
+    } catch (error) {
+      _debugLog(
+        'Failed to decode queued operation ${row.id}; removing it from cache: '
+        '$error',
+      );
+      return null;
     }
 
     return PendingWatchOperation(
@@ -274,7 +305,7 @@ class WatchDatabase extends _$WatchDatabase {
     final health = meal.meal.health;
 
     return CachedMealsTableCompanion.insert(
-      mealId: Value(meal.hasClientId() ? meal.clientId : 0),
+      mealId: Value(_cacheMealIdForLoggedMeal(meal, timestamp: timestamp)),
       mealName: meal.meal.name,
       mealQuantity: meal.meal.quantity,
       mealType: meal.meal.type.legacyName,
@@ -315,7 +346,14 @@ class WatchDatabase extends _$WatchDatabase {
     final health = loggedMeal.meal.health;
 
     return CachedFavoritesTableCompanion.insert(
-      mealId: Value(favorite.hasClientId() ? favorite.clientId : 0),
+      mealId: Value(
+        _cacheMealIdForFavoriteMeal(
+          favorite,
+          loggedMeal: loggedMeal,
+          timestamp: timestamp,
+          favoritedAt: favoritedAt,
+        ),
+      ),
       mealName: loggedMeal.meal.name,
       mealQuantity: loggedMeal.meal.quantity,
       mealType: loggedMeal.meal.type.legacyName,
@@ -397,6 +435,61 @@ class WatchDatabase extends _$WatchDatabase {
               ? dateTimeToIso8601String(row.lastUsedAt!)
               : '',
     );
+  }
+
+  int _cacheMealIdForLoggedMeal(
+    LoggedMeal meal, {
+    required DateTime timestamp,
+  }) {
+    if (meal.hasClientId() && meal.clientId != 0) {
+      return meal.clientId;
+    }
+
+    return _syntheticCacheMealId(
+      timestamp: timestamp,
+      name: meal.meal.name,
+      quantity: meal.meal.quantity,
+    );
+  }
+
+  int _cacheMealIdForFavoriteMeal(
+    FavoriteMeal favorite, {
+    required LoggedMeal loggedMeal,
+    required DateTime timestamp,
+    required DateTime favoritedAt,
+  }) {
+    if (favorite.hasClientId() && favorite.clientId != 0) {
+      return favorite.clientId;
+    }
+
+    return _syntheticCacheMealId(
+      timestamp: favoritedAt,
+      name: loggedMeal.meal.name,
+      quantity: loggedMeal.meal.quantity,
+      fallbackTimestamp: timestamp,
+    );
+  }
+
+  int _syntheticCacheMealId({
+    required DateTime timestamp,
+    required String name,
+    required String quantity,
+    DateTime? fallbackTimestamp,
+  }) {
+    final effectiveTimestamp =
+        timestamp.millisecondsSinceEpoch != 0
+            ? timestamp
+            : (fallbackTimestamp ?? DateTime.now());
+    final signatureHash = Object.hash(name, quantity).abs() % 1000;
+    return -((effectiveTimestamp.microsecondsSinceEpoch.abs() * 1000) +
+        signatureHash +
+        1);
+  }
+
+  void _debugLog(String message) {
+    if (kDebugMode) {
+      debugPrint('[WatchDatabase] $message');
+    }
   }
 }
 
