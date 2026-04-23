@@ -50,10 +50,7 @@ const Y = (s: string) => `${c.yellow}${s}${c.reset}`;
 const R = (s: string) => `${c.red}${s}${c.reset}`;
 const C = (s: string) => `${c.cyan}${s}${c.reset}`;
 
-const DEFAULT_BASE_URL = (() => {
-  const externalPort = process.env.EXTERNAL_PORT ?? process.env.PORT ?? '8000';
-  return `http://localhost:${externalPort}`;
-})();
+const DEFAULT_BASE_URL = `http://localhost:${process.env.PORT ?? '8000'}`;
 
 const DEFAULT_LOKI_URL = 'http://localhost:3100';
 
@@ -579,11 +576,19 @@ async function postStream(
   payload: Record<string, unknown>,
   raw: boolean
 ): Promise<StreamOutcome> {
-  const response = await fetch(url, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(payload),
-  });
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload),
+    });
+  } catch (error) {
+    return {
+      kind: 'error',
+      message: `Request to ${url} failed: ${error instanceof Error ? error.message : 'Unknown fetch error'}`,
+    };
+  }
 
   if (!response.ok) {
     const text = await response.text().catch(() => '');
