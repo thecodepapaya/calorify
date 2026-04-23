@@ -76,6 +76,7 @@ class _CalorieSummaryCardState extends State<CalorieSummaryCard>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final t = Translations.of(context);
     final isOverGoal = widget.totalCalories > widget.goal;
     final percentage =
         widget.goal > 0
