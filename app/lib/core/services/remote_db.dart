@@ -6,6 +6,7 @@ class RemoteDb {
     try {
       final payload = FcmToken(token: token);
       await SyncService.instance.enqueueFcmToken(payload);
+      await SyncService.instance.syncPending();
     } catch (e) {
       // Handle exceptions, e.g., log to a crash reporting service
     }

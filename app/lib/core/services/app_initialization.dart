@@ -16,6 +16,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:i18n/i18n.dart';
+import 'package:measure_flutter/measure_flutter.dart' show Span;
 
 /// App initialization service that sets up the database service
 class AppInitialization {
@@ -35,77 +36,113 @@ class AppInitialization {
 
     final span = Performance.instance.startTrace(TraceType.splashScreenLoad);
 
-    try {
-      // Load saved language preference after DB is initialized
-      final db = DatabaseService.databaseInterface;
-      final languageCode = await db.getLanguageCode();
-      if (languageCode != null) {
-        // Use saved preference
-        final locale = AppLocaleUtils.parse(languageCode);
-        await LocaleSettings.setLocale(locale);
-      } else {
-        // We let it be empty for now as requested.
-        // Slang will use the default locale (en) if nothing is set.
-        await LocaleSettings.setLocale(AppLocale.en);
-      }
+    var hadInitializationError = false;
 
-      await Performance.trace(
-        TraceType.firebaseCrashlyticsInit,
-        _initializeCrashlytics,
-        parentSpan: span,
-      );
-      await Performance.trace(
-        TraceType.firebaseAuthInit,
-        _initializeFirebaseAuth,
-        parentSpan: span,
-      );
-      await Performance.trace(
-        TraceType.firebaseAppCheckInit,
-        _initializeAppCheck,
-        parentSpan: span,
-      );
+    hadInitializationError |=
+        !await _runInitializationStep(
+          'language preference',
+          TraceType.databaseServiceInit,
+          _loadSavedLanguagePreference,
+          parentSpan: span,
+        );
+    hadInitializationError |=
+        !await _runInitializationStep(
+          'Firebase Crashlytics',
+          TraceType.firebaseCrashlyticsInit,
+          _initializeCrashlytics,
+          parentSpan: span,
+        );
+    hadInitializationError |=
+        !await _runInitializationStep(
+          'Firebase Auth',
+          TraceType.firebaseAuthInit,
+          _initializeFirebaseAuth,
+          parentSpan: span,
+        );
+    hadInitializationError |=
+        !await _runInitializationStep(
+          'Firebase App Check',
+          TraceType.firebaseAppCheckInit,
+          _initializeAppCheck,
+          parentSpan: span,
+        );
+    hadInitializationError |=
+        !await _runInitializationStep(
+          'Health service',
+          TraceType.healthServiceInit,
+          HealthService.instance.init,
+          parentSpan: span,
+        );
+    hadInitializationError |=
+        !await _runInitializationStep(
+          'Analytics service',
+          TraceType.analyticsServiceInit,
+          Analytics.instance.initialize,
+          parentSpan: span,
+        );
+    hadInitializationError |=
+        !await _runInitializationStep(
+          'Notification service',
+          TraceType.notificationServiceInit,
+          NotificationService.instance.initialize,
+          parentSpan: span,
+        );
+    // SyncService temporarily disabled
+    // unawaited(SyncService.instance.initialize());
+    hadInitializationError |=
+        !await _runInitializationStep(
+          'Wear OS service',
+          TraceType.watchServiceInit,
+          WearOsService.instance.initialize,
+          parentSpan: span,
+        );
 
-      // Initialize core services
-      await Performance.trace(
-        TraceType.healthServiceInit,
-        HealthService.instance.init,
-        parentSpan: span,
-      );
-
-      await Performance.trace(
-        TraceType.analyticsServiceInit,
-        Analytics.instance.initialize,
-        parentSpan: span,
-      );
-      await Performance.trace(
-        TraceType.notificationServiceInit,
-        NotificationService.instance.initialize,
-        parentSpan: span,
-      );
-      // SyncService temporarily disabled
-      // unawaited(SyncService.instance.initialize());
-      await Performance.trace(
-        TraceType.watchServiceInit,
-        WearOsService.instance.initialize,
-        parentSpan: span,
-      );
-
-      Performance.trace(
+    unawaited(() async {
+      await _runInitializationStep(
+        'remote DB profile update',
         TraceType.remoteDbProfileUpdate,
         _updateRemoteDb,
         parentSpan: span,
       );
+    }());
 
+    if (hadInitializationError) {
+      Performance.instance.traceError(span);
+    } else {
       log('App initialization completed successfully');
       Performance.instance.stopTrace(span);
-    } on Exception catch (e, st) {
-      debugPrint('Error initializing app: $e');
-      log('Error initializing app:', error: e, stackTrace: st);
-      // Continue to home even if some services fail to initialize
-      Performance.instance.traceError(span);
     }
 
     _initialized = true;
+  }
+
+  static Future<bool> _runInitializationStep(
+    String name,
+    TraceType traceType,
+    FutureOr<void> Function() initialize, {
+    required Span parentSpan,
+  }) async {
+    try {
+      await Performance.trace(traceType, initialize, parentSpan: parentSpan);
+      return true;
+    } catch (e, st) {
+      debugPrint('Error initializing $name: $e');
+      log('Error initializing $name:', error: e, stackTrace: st);
+      return false;
+    }
+  }
+
+  static Future<void> _loadSavedLanguagePreference() async {
+    // Load saved language preference after DB is initialized
+    final db = DatabaseService.databaseInterface;
+    final languageCode = await db.getLanguageCode();
+    if (languageCode != null) {
+      final locale = AppLocaleUtils.parse(languageCode);
+      await LocaleSettings.setLocale(locale);
+    } else {
+      // Slang will use the default locale (en) if nothing is set.
+      await LocaleSettings.setLocale(AppLocale.en);
+    }
   }
 
   static Future<void> _initializeCrashlytics() async {

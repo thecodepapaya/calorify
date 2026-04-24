@@ -38,8 +38,8 @@ Future<void> main() async {
     config: const MeasureConfig(
       traceSamplingRate: 1,
       samplingRateForErrorFreeSessions: 1,
-      trackHttpHeaders: true,
-      trackHttpBody: true,
+      trackHttpHeaders: false,
+      trackHttpBody: false,
       journeySamplingRate: 1,
       hotLaunchSamplingRate: 1,
       coldLaunchSamplingRate: 1,
