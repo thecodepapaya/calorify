@@ -77,10 +77,13 @@ extension MealInfoMapper on LoggedMeal {
         name: data.mealName,
         quantity: data.mealQuantity,
         type: mealTypeFromLegacyName(data.mealType),
-        health: MealHealth(
-          healthScore: healthScoreFromLegacyName(data.healthScore),
-          healthScoreReason: data.healthScoreReason,
-        ),
+        health:
+            data.healthScore != null
+                ? MealHealth(
+                  healthScore: healthScoreFromLegacyName(data.healthScore),
+                  healthScoreReason: data.healthScoreReason,
+                )
+                : null,
         macros: MealMacro(
           calories: data.calories,
           protein: data.protein,
@@ -102,10 +105,13 @@ extension MealInfoMapper on LoggedMeal {
         name: data.mealName,
         quantity: data.mealQuantity,
         type: mealTypeFromLegacyName(data.mealType),
-        health: MealHealth(
-          healthScore: healthScoreFromLegacyName(data.healthScore),
-          healthScoreReason: data.healthScoreReason,
-        ),
+        health:
+            data.healthScore != null
+                ? MealHealth(
+                  healthScore: healthScoreFromLegacyName(data.healthScore),
+                  healthScoreReason: data.healthScoreReason,
+                )
+                : null,
         macros: MealMacro(
           calories: data.calories,
           protein: data.protein,

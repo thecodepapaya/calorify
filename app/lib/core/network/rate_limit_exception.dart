@@ -1,14 +1,16 @@
 import 'package:dio/dio.dart';
 
 class RateLimitException extends DioException {
+  static const _fallbackMessage = 'Rate limit exceeded';
+
   RateLimitException({
     required super.requestOptions,
     super.response,
-    required this.message,
-  });
+    required String message,
+  }) : super(message: message);
 
   @override
-  final String message;
+  String get message => super.message ?? _fallbackMessage;
 
   @override
   String toString() => message;

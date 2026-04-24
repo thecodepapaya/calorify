@@ -7,14 +7,20 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+/// Background message handler (must be top-level for Firebase Messaging).
+@pragma('vm:entry-point')
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  debugPrint('Background message: ${message.notification?.title}');
+}
+
 /// Service for managing local and push notifications (Android only)
 class NotificationService {
   NotificationService._({
     FlutterLocalNotificationsPlugin? localNotifications,
     FirebaseMessaging? firebaseMessaging,
-  })  : _localNotifications =
-            localNotifications ?? FlutterLocalNotificationsPlugin(),
-        _firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance;
+  }) : _localNotifications =
+           localNotifications ?? FlutterLocalNotificationsPlugin(),
+       _firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance;
 
   static NotificationService _instance = NotificationService._();
   static NotificationService get instance => _instance;
@@ -28,11 +34,10 @@ class NotificationService {
   factory NotificationService.test({
     FlutterLocalNotificationsPlugin? localNotifications,
     FirebaseMessaging? firebaseMessaging,
-  }) =>
-      NotificationService._(
-        localNotifications: localNotifications,
-        firebaseMessaging: firebaseMessaging,
-      );
+  }) => NotificationService._(
+    localNotifications: localNotifications,
+    firebaseMessaging: firebaseMessaging,
+  );
 
   final FlutterLocalNotificationsPlugin _localNotifications;
   final FirebaseMessaging _firebaseMessaging;
@@ -124,7 +129,7 @@ class NotificationService {
       // Set up message handlers
       FirebaseMessaging.onMessage.listen(_onForegroundMessage);
       FirebaseMessaging.onMessageOpenedApp.listen(_onMessageOpenedApp);
-      FirebaseMessaging.onBackgroundMessage(_onBackgroundMessage);
+      FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
     }
   }
 
@@ -150,11 +155,6 @@ class NotificationService {
   void _onMessageOpenedApp(RemoteMessage message) {
     debugPrint('Message opened app: ${message.notification?.title}');
     // Handle navigation based on message data
-  }
-
-  /// Background message handler (must be top-level function)
-  static Future<void> _onBackgroundMessage(RemoteMessage message) async {
-    debugPrint('Background message: ${message.notification?.title}');
   }
 
   /// Request notification permissions (Android only)

@@ -46,7 +46,7 @@ class NetworkClient {
       InterceptorsWrapper(
         onRequest: (options, handler) {
           final authToken = AuthService.instance.authToken;
-          if (authToken != null) {
+          if (authToken != null && _isApiRequest(options)) {
             options.headers['Authorization'] = 'Bearer $authToken';
           }
 
@@ -96,6 +96,13 @@ class NetworkClient {
     }
 
     return dio;
+  }
+
+  static bool _isApiRequest(RequestOptions options) {
+    final apiBaseUri = Uri.parse(EnvConfig.instance.apiBaseUrl);
+    return options.uri.scheme == apiBaseUri.scheme &&
+        options.uri.host == apiBaseUri.host &&
+        options.uri.port == apiBaseUri.port;
   }
 
   Future<RespT>

@@ -89,16 +89,18 @@ class HealthService {
   static const List<HealthDataType> _types = [
     HealthDataType.TOTAL_CALORIES_BURNED,
     HealthDataType.NUTRITION,
-    // HealthDataType.WEIGHT,
-    // HealthDataType.HEIGHT,
+    HealthDataType.STEPS,
+    HealthDataType.WEIGHT,
+    HealthDataType.HEIGHT,
   ];
 
   // Define permissions for each type
   static const List<HealthDataAccess> _permissions = [
     HealthDataAccess.READ,
     HealthDataAccess.READ_WRITE,
-    // HealthDataAccess.READ_WRITE,
-    // HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ,
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
   ];
 
   Future<bool> get isHealthConnectAvailable async {
