@@ -499,7 +499,7 @@
       "requestPermissions": "בקש הרשאות",
       "permissionRequestCancelledOrFailed": "בקשת ההרשאות בוטלה או נכשלה. נסו שוב או העניקו הרשאות ידנית בהגדרות Health Connect.",
       "permissionRequestFailed": "לא ניתן לבקש הרשאות. נסו שוב או העניקו הרשאות ידנית בהגדרות Health Connect.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "מבקש הרשאות..."
     },
     "about": {
       "title": "אודות",

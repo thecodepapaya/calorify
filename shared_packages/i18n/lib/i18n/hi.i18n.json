@@ -499,7 +499,7 @@
       "requestPermissions": "अनुमतियाँ मांगें",
       "permissionRequestCancelledOrFailed": "अनुमति अनुरोध रद्द हो गया या विफल रहा। कृपया फिर से प्रयास करें या स्वास्थ्य कनेक्ट सेटिंग्स में मैन्युअली अनुमतियाँ दें।",
       "permissionRequestFailed": "अनुमतियाँ मांगने में असमर्थ। कृपया फिर से प्रयास करें या स्वास्थ्य कनेक्ट सेटिंग्स में मैन्युअली अनुमतियाँ दें।",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "अनुमतियाँ माँगी जा रही हैं..."
     },
     "about": {
       "title": "हमारे बारे में",

@@ -499,7 +499,7 @@
       "requestPermissions": "Запросить разрешения",
       "permissionRequestCancelledOrFailed": "Запрос разрешения был отменен или не удался. Пожалуйста, попробуйте еще раз или вручную предоставьте разрешения в настройках Health Connect.",
       "permissionRequestFailed": "Не удалось запросить разрешения. Пожалуйста, попробуйте еще раз или вручную предоставьте разрешения в настройках Health Connect.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Запрос разрешений..."
     },
     "about": {
       "title": "О приложении",

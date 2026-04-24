@@ -348,15 +348,15 @@
     "weight": "Gewicht",
     "weightGoal": "Gewichtsziele",
     "activityLevel": "Aktivitätslevel",
-    "metric": "Metric",
+    "metric": "Metrisch",
     "imperial": "Imperial",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
     "unitLbs": "lbs",
-    "metricCm": "Metric (cm)",
+    "metricCm": "Metrisch (cm)",
     "imperialFtIn": "Imperial (ft/in)",
-    "metricKg": "Metric (kg)",
+    "metricKg": "Metrisch (kg)",
     "imperialLbs": "Imperial (lbs)",
     "genders": {
       "male": "Männlich",
@@ -499,7 +499,7 @@
       "requestPermissions": "Berechtigungen anfordern",
       "permissionRequestCancelledOrFailed": "Die Berechtigungsanfrage wurde abgebrochen oder ist fehlgeschlagen. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect-Einstellungen.",
       "permissionRequestFailed": "Berechtigungen konnten nicht angefordert werden. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect-Einstellungen.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Anfrage läuft..."
     },
     "about": {
       "title": "Über",

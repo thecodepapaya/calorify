@@ -499,7 +499,7 @@
       "requestPermissions": "Yêu Cầu Quyền Truy Cập",
       "permissionRequestCancelledOrFailed": "Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.",
       "permissionRequestFailed": "Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Đang yêu cầu quyền..."
     },
     "about": {
       "title": "Giới Thiệu",

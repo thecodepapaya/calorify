@@ -499,7 +499,7 @@
       "requestPermissions": "অনুমতি প্রার্থনা করুন",
       "permissionRequestCancelledOrFailed": "অনুমতি অনুরোধটি বাতিল করা হয়েছে বা ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন অথবা Health Connect সেটিংসে ম্যানুয়ালি অনুমতি দিন।",
       "permissionRequestFailed": "অনুমতি অনুরোধ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন অথবা Health Connect সেটিংসে ম্যানুয়ালি অনুমতি দিন।",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "অনুমতি চাওয়া হচ্ছে..."
     },
     "about": {
       "title": "আমাদের সম্পর্কে",

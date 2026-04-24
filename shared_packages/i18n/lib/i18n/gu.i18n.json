@@ -499,7 +499,7 @@
       "requestPermissions": "પરવાનગીઓ માગો",
       "permissionRequestCancelledOrFailed": "પરવાનગીઓ માટેની વિનંતી રદ થઈ ગઈ અથવા નિષ્ફળ ગઈ. કૃપા કરીને ફરી પ્રયાસ કરો અથવા Health Connect સેટિંગ્સમાં પરવાનગીઓ હાથેથી આપો.",
       "permissionRequestFailed": "પરવાનગીઓ માટે વિનંતી કરી શકાઈ નથી. કૃપા કરીને ફરી પ્રયાસ કરો અથવા Health Connect સેટિંગ્સમાં પરવાનગીઓ હાથેથી આપો.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "પરવાનગીઓ માંગી રહ્યું છે..."
     },
     "about": {
       "title": "અમારા વિશે",

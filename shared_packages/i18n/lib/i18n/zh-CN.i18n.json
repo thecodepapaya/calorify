@@ -499,7 +499,7 @@
       "requestPermissions": "请求权限",
       "permissionRequestCancelledOrFailed": "权限请求已被取消或失败。请再试一次或在健康连接设置中手动授予权限。",
       "permissionRequestFailed": "无法请求权限。请再试一次或在健康连接设置中手动授予权限。",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "正在请求权限..."
     },
     "about": {
       "title": "关于",

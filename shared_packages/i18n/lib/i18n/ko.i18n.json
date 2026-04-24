@@ -499,7 +499,7 @@
       "requestPermissions": "권한 요청하기",
       "permissionRequestCancelledOrFailed": "권한 요청이 취소되었거나 실패했습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 부여하세요.",
       "permissionRequestFailed": "권한을 요청할 수 없습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 부여하세요.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "권한 요청 중..."
     },
     "about": {
       "title": "소개",

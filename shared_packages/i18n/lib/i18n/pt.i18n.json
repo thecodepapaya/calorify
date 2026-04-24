@@ -499,7 +499,7 @@
       "requestPermissions": "Solicitar Permissões",
       "permissionRequestCancelledOrFailed": "A solicitação de permissões foi cancelada ou falhou. Tente novamente ou conceda as permissões manualmente nas configurações do Health Connect.",
       "permissionRequestFailed": "Não foi possível solicitar permissões. Tente novamente ou conceda as permissões manualmente nas configurações do Health Connect.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Solicitando permissões..."
     },
     "about": {
       "title": "Sobre",

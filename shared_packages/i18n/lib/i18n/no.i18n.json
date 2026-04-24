@@ -499,7 +499,7 @@
       "requestPermissions": "Be om tillatelser",
       "permissionRequestCancelledOrFailed": "Forespørselen om tillatelser ble avbrutt eller mislyktes. Prøv igjen eller gi tillatelser manuelt i Health Connect-innstillingene.",
       "permissionRequestFailed": "Kunne ikke be om tillatelser. Prøv igjen eller gi tillatelser manuelt i Health Connect-innstillingene.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Ber om tillatelser..."
     },
     "about": {
       "title": "Om",
@@ -547,7 +547,7 @@
     "breakfast": "Frokost",
     "lunch": "Lunsj",
     "dinner": "Middag",
-    "snack": "Snack",
+    "snack": "Mellommåltid",
     "unknown": "Ukjent",
     "change": "Endre",
     "enableNotifications": "Aktiver Varsler",

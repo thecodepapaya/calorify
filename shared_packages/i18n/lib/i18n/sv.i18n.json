@@ -499,7 +499,7 @@
       "requestPermissions": "Begär behörigheter",
       "permissionRequestCancelledOrFailed": "Behörighetsbegäran avbröts eller misslyckades. Vänligen försök igen eller ge behörigheter manuellt i inställningarna för Health Connect.",
       "permissionRequestFailed": "Det gick inte att begära behörigheter. Vänligen försök igen eller ge behörigheter manuellt i inställningarna för Health Connect.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Begär behörigheter..."
     },
     "about": {
       "title": "Om",

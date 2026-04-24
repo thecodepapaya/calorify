@@ -499,7 +499,7 @@
       "requestPermissions": "Žádat o oprávnění",
       "permissionRequestCancelledOrFailed": "Žádost o oprávnění byla zrušena nebo selhala. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.",
       "permissionRequestFailed": "Nepodařilo se vyžádat oprávnění. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Žádám o oprávnění..."
     },
     "about": {
       "title": "O nás",

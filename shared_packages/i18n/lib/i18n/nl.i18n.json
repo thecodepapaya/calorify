@@ -218,7 +218,7 @@
     "mealSnap": {
       "title": "Neem een Foto & Volg Je Maaltijd",
       "description": "Gebruik je camera om een foto van je voedsel te maken voor AI-analyse.",
-      "openCamera": "Open Camera",
+      "openCamera": "Camera openen",
       "gallery": "Galerij"
     },
     "connectHealth": {
@@ -499,7 +499,7 @@
       "requestPermissions": "Vraag Vergunningen Aan",
       "permissionRequestCancelledOrFailed": "De machtigingsaanvraag is geannuleerd of mislukt. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.",
       "permissionRequestFailed": "Kan geen machtigingen aanvragen. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Bezig met aanvragen..."
     },
     "about": {
       "title": "Over",
