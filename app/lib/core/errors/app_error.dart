@@ -84,7 +84,10 @@ sealed class AppError implements Exception {
     );
   }
 
-  static AppError _fromDioException(DioException error, StackTrace? stackTrace) {
+  static AppError _fromDioException(
+    DioException error,
+    StackTrace? stackTrace,
+  ) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
@@ -118,7 +121,8 @@ sealed class AppError implements Exception {
           );
         }
         return UnknownError(
-          message: error.message ?? 'Something went wrong. Please try again later.',
+          message:
+              error.message ?? 'Something went wrong. Please try again later.',
           cause: error,
           stackTrace: stackTrace,
         );
@@ -141,7 +145,9 @@ sealed class AppError implements Exception {
     }
     if (status == 429) {
       return RateLimitError(
-        message: serverDetail ?? "You've made too many requests. Please wait a moment.",
+        message:
+            serverDetail ??
+            "You've made too many requests. Please wait a moment.",
         retryAfter: _retryAfter(error.response),
         cause: error,
         stackTrace: stackTrace,
@@ -157,7 +163,9 @@ sealed class AppError implements Exception {
     }
     if (status >= 500) {
       return ServerError(
-        message: serverDetail ?? 'The server is having trouble. Please try again shortly.',
+        message:
+            serverDetail ??
+            'The server is having trouble. Please try again shortly.',
         statusCode: status,
         cause: error,
         stackTrace: stackTrace,
@@ -193,11 +201,7 @@ sealed class AppError implements Exception {
 
 /// Connectivity / timeout / DNS / TLS failures. Worth offering a retry.
 final class NetworkError extends AppError {
-  const NetworkError({
-    required super.message,
-    super.cause,
-    super.stackTrace,
-  });
+  const NetworkError({required super.message, super.cause, super.stackTrace});
 
   @override
   bool get isRetryable => true;
@@ -269,11 +273,7 @@ final class ValidationError extends AppError {
 /// Response body could not be decoded / deserialized. Usually a client/server
 /// contract drift; not worth retrying until fixed.
 final class ParseError extends AppError {
-  const ParseError({
-    required super.message,
-    super.cause,
-    super.stackTrace,
-  });
+  const ParseError({required super.message, super.cause, super.stackTrace});
 
   @override
   bool get isRetryable => false;
@@ -282,11 +282,7 @@ final class ParseError extends AppError {
 /// Fallback for anything we couldn't classify. Retryable by default since the
 /// alternative — hiding a retry for a transient failure — is the worse UX.
 final class UnknownError extends AppError {
-  const UnknownError({
-    required super.message,
-    super.cause,
-    super.stackTrace,
-  });
+  const UnknownError({required super.message, super.cause, super.stackTrace});
 
   @override
   bool get isRetryable => true;

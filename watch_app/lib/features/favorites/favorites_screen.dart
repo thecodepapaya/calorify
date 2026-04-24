@@ -187,7 +187,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     onRefresh: () => _load(force: true),
                     color: colorScheme.primary,
                     backgroundColor: colorScheme.surface,
-                    child: CarouselScrollView(
+                    child: CarouselScrollView.builder(
                       physics: const AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics(),
                       ),
@@ -195,22 +195,18 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         horizontal: 12,
                         vertical: 4,
                       ),
-                      children:
-                          favorites
-                              .asMap()
-                              .entries
-                              .map(
-                                (e) => Padding(
-                                  padding: const EdgeInsets.only(bottom: 8),
-                                  child: _FavoriteItem(
-                                    fav: e.value,
-                                    isLogging:
-                                        _loggingClientId == e.value.clientId,
-                                    onLog: () => _logFavorite(e.value),
-                                  ),
-                                ),
-                              )
-                              .toList(),
+                      itemCount: favorites.length,
+                      itemBuilder: (context, index) {
+                        final favorite = favorites[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: _FavoriteItem(
+                            fav: favorite,
+                            isLogging: _loggingClientId == favorite.clientId,
+                            onLog: () => _logFavorite(favorite),
+                          ),
+                        );
+                      },
                     ),
                   );
                 },

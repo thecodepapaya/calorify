@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
@@ -20,44 +18,12 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
-
-  Map<int, int> get _hourlyCalories {
-    final map = <int, int>{};
-    for (final meal in widget.meals) {
-      final hour = meal.dateTime.hour;
-      map[hour] = (map[hour] ?? 0) + meal.meal.macros.calories;
-    }
-    return map;
-  }
-
-  List<FlSpot> get _spots {
-    final hourly = _hourlyCalories;
-    return List.generate(
-      24,
-      (index) => FlSpot(index.toDouble(), (hourly[index] ?? 0).toDouble()),
-    );
-  }
-
-  double get _maxCalories {
-    final maxCalories = _spots.map((spot) => spot.y).reduce(math.max);
-    return maxCalories > 0 ? maxCalories * 1.3 : 100;
-  }
-
-  int get _peakHour {
-    double maxCalories = 0;
-    var peakHour = -1;
-    for (final spot in _spots) {
-      if (spot.y > maxCalories) {
-        maxCalories = spot.y;
-        peakHour = spot.x.toInt();
-      }
-    }
-    return peakHour;
-  }
+  late _CalorieTrendData _chartData;
 
   @override
   void initState() {
     super.initState();
+    _chartData = _CalorieTrendData.fromMeals(widget.meals);
     _controller = AnimationController(
       duration: const Duration(milliseconds: 600),
       vsync: this,
@@ -72,7 +38,14 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
   @override
   void didUpdateWidget(CalorieTrendChart oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.meals.length != widget.meals.length) {
+    if (identical(oldWidget.meals, widget.meals)) {
+      return;
+    }
+
+    final nextData = _CalorieTrendData.fromMeals(widget.meals);
+    final dataChanged = nextData != _chartData;
+    _chartData = nextData;
+    if (dataChanged) {
       _controller
         ..reset()
         ..forward();
@@ -91,7 +64,7 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
     final colorScheme = theme.colorScheme;
     final translations = Translations.of(context);
 
-    if (widget.meals.isEmpty) return const SizedBox.shrink();
+    if (_chartData.isEmpty) return const SizedBox.shrink();
 
     return Semantics(
       label: 'Calorie trend throughout the day',
@@ -125,89 +98,85 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
             ExcludeSemantics(
               child: SizedBox(
                 height: 70,
-                child: AnimatedBuilder(
-                  animation: _animation,
-                  builder:
-                      (context, _) => LineChart(
-                        LineChartData(
-                          gridData: FlGridData(
-                            show: true,
-                            drawVerticalLine: false,
-                            horizontalInterval: _maxCalories / 3,
-                            getDrawingHorizontalLine:
-                                (_) => FlLine(
-                                  color: colorScheme.surfaceContainerHighest
-                                      .withValues(alpha: 0.3),
-                                  strokeWidth: 1,
-                                ),
+                child: LineChart(
+                  LineChartData(
+                    gridData: FlGridData(
+                      show: true,
+                      drawVerticalLine: false,
+                      horizontalInterval: _chartData.maxCalories / 3,
+                      getDrawingHorizontalLine:
+                          (_) => FlLine(
+                            color: colorScheme.surfaceContainerHighest
+                                .withValues(alpha: 0.3),
+                            strokeWidth: 1,
                           ),
-                          titlesData: FlTitlesData(
-                            show: true,
-                            rightTitles: const AxisTitles(
-                              sideTitles: SideTitles(showTitles: false),
-                            ),
-                            topTitles: const AxisTitles(
-                              sideTitles: SideTitles(showTitles: false),
-                            ),
-                            leftTitles: const AxisTitles(
-                              sideTitles: SideTitles(showTitles: false),
-                            ),
-                            bottomTitles: AxisTitles(
-                              sideTitles: SideTitles(
-                                showTitles: true,
-                                reservedSize: 20,
-                                interval: 6,
-                                getTitlesWidget: (value, _) {
-                                  final hour = value.toInt();
-                                  if (hour % 6 != 0 || hour >= 24) {
-                                    return const SizedBox.shrink();
-                                  }
-                                  return Text(
-                                    '${hour}h',
-                                    style: theme.textTheme.labelSmall?.copyWith(
-                                      color: colorScheme.onSurfaceVariant,
-                                      fontSize: 7,
-                                    ),
-                                  );
-                                },
+                    ),
+                    titlesData: FlTitlesData(
+                      show: true,
+                      rightTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      topTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      leftTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          reservedSize: 20,
+                          interval: 6,
+                          getTitlesWidget: (value, _) {
+                            final hour = value.toInt();
+                            if (hour % 6 != 0 || hour >= 24) {
+                              return const SizedBox.shrink();
+                            }
+                            return Text(
+                              '${hour}h',
+                              style: theme.textTheme.labelSmall?.copyWith(
+                                color: colorScheme.onSurfaceVariant,
+                                fontSize: 7,
                               ),
-                            ),
-                          ),
-                          borderData: FlBorderData(show: false),
-                          lineBarsData: [
-                            LineChartBarData(
-                              spots: _spots,
-                              isCurved: true,
-                              color: colorScheme.calorieIconColor,
-                              barWidth: 2.5,
-                              dotData: FlDotData(
-                                show: true,
-                                getDotPainter:
-                                    (spot, isCurrentSpot, barData, index) =>
-                                        FlDotCirclePainter(
-                                          radius: spot.y > 0 ? 3 : 0,
-                                          color: colorScheme.calorieIconColor,
-                                          strokeWidth: 1.5,
-                                          strokeColor: colorScheme.surface,
-                                        ),
-                              ),
-                              belowBarData: BarAreaData(
-                                show: true,
-                                color: colorScheme.calorieIconColor.withValues(
-                                  alpha: 0.12,
-                                ),
-                              ),
-                            ),
-                          ],
-                          minY: 0,
-                          maxY: _maxCalories,
-                          lineTouchData: const LineTouchData(enabled: false),
+                            );
+                          },
                         ),
                       ),
+                    ),
+                    borderData: FlBorderData(show: false),
+                    lineBarsData: [
+                      LineChartBarData(
+                        spots: _chartData.spots,
+                        isCurved: true,
+                        color: colorScheme.calorieIconColor,
+                        barWidth: 2.5,
+                        dotData: FlDotData(
+                          show: true,
+                          getDotPainter:
+                              (spot, isCurrentSpot, barData, index) =>
+                                  FlDotCirclePainter(
+                                    radius: spot.y > 0 ? 3 : 0,
+                                    color: colorScheme.calorieIconColor,
+                                    strokeWidth: 1.5,
+                                    strokeColor: colorScheme.surface,
+                                  ),
+                        ),
+                        belowBarData: BarAreaData(
+                          show: true,
+                          color: colorScheme.calorieIconColor.withValues(
+                            alpha: 0.12,
+                          ),
+                        ),
+                      ),
+                    ],
+                    minY: 0,
+                    maxY: _chartData.maxCalories,
+                    lineTouchData: const LineTouchData(enabled: false),
+                  ),
                 ),
               ),
             ),
-            if (_peakHour >= 0) ...[
+            if (_chartData.peakHour >= 0) ...[
               const SizedBox(height: 6),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -219,7 +188,9 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    translations.home.intakeHistory.peakHour(hour: _peakHour),
+                    translations.home.intakeHistory.peakHour(
+                      hour: _chartData.peakHour,
+                    ),
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                       fontSize: 8,
@@ -233,4 +204,67 @@ class _CalorieTrendChartState extends State<CalorieTrendChart>
       ),
     );
   }
+}
+
+class _CalorieTrendData {
+  const _CalorieTrendData({
+    required this.spots,
+    required this.maxCalories,
+    required this.peakHour,
+    required this.hourlyCalories,
+  });
+
+  factory _CalorieTrendData.fromMeals(List<LoggedMeal> meals) {
+    final hourlyCalories = List<int>.filled(24, 0);
+    var maxCalories = 0;
+    var peakHour = -1;
+
+    for (final meal in meals) {
+      final hour = meal.dateTime.hour;
+      final calories = hourlyCalories[hour] + meal.meal.macros.calories;
+      hourlyCalories[hour] = calories;
+      if (calories > maxCalories) {
+        maxCalories = calories;
+        peakHour = hour;
+      }
+    }
+
+    final spots = List<FlSpot>.generate(
+      24,
+      (index) => FlSpot(index.toDouble(), hourlyCalories[index].toDouble()),
+      growable: false,
+    );
+
+    return _CalorieTrendData(
+      spots: spots,
+      maxCalories: maxCalories > 0 ? maxCalories * 1.3 : 100,
+      peakHour: peakHour,
+      hourlyCalories: hourlyCalories,
+    );
+  }
+
+  final List<FlSpot> spots;
+  final double maxCalories;
+  final int peakHour;
+  final List<int> hourlyCalories;
+
+  bool get isEmpty => peakHour < 0;
+
+  @override
+  bool operator ==(Object other) {
+    if (other is! _CalorieTrendData ||
+        other.peakHour != peakHour ||
+        other.maxCalories != maxCalories) {
+      return false;
+    }
+
+    for (var i = 0; i < hourlyCalories.length; i++) {
+      if (hourlyCalories[i] != other.hourlyCalories[i]) return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode =>
+      Object.hashAll([peakHour, maxCalories, ...hourlyCalories]);
 }

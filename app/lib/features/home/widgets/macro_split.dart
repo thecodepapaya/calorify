@@ -27,12 +27,19 @@ _targetMacrosFromGoal(int dailyGoal) {
 ({double protein, double carbs, double fat, double fiber}) _macrosFromMeals(
   List<LoggedMeal> meals,
 ) {
-  return (
-    protein: meals.fold(0, (sum, m) => sum + m.meal.macros.protein).toDouble(),
-    carbs: meals.fold(0, (sum, m) => sum + m.meal.macros.carbs).toDouble(),
-    fat: meals.fold(0, (sum, m) => sum + m.meal.macros.fat).toDouble(),
-    fiber: meals.fold(0, (sum, m) => sum + m.meal.macros.fiber).toDouble(),
-  );
+  var protein = 0.0;
+  var carbs = 0.0;
+  var fat = 0.0;
+  var fiber = 0.0;
+
+  for (final meal in meals) {
+    protein += meal.meal.macros.protein;
+    carbs += meal.meal.macros.carbs;
+    fat += meal.meal.macros.fat;
+    fiber += meal.meal.macros.fiber;
+  }
+
+  return (protein: protein, carbs: carbs, fat: fat, fiber: fiber);
 }
 
 class MacroSplit extends ConsumerWidget {

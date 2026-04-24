@@ -19,9 +19,22 @@ class CarouselScrollView extends StatefulWidget {
     this.physics,
     this.minScale = 0.90,
     this.scaleRange = 0.10,
-  });
+  }) : itemBuilder = null,
+       itemCount = null;
 
-  final List<Widget> children;
+  const CarouselScrollView.builder({
+    super.key,
+    required this.itemCount,
+    required this.itemBuilder,
+    this.padding,
+    this.physics,
+    this.minScale = 0.90,
+    this.scaleRange = 0.10,
+  }) : children = null;
+
+  final List<Widget>? children;
+  final IndexedWidgetBuilder? itemBuilder;
+  final int? itemCount;
   final EdgeInsetsGeometry? padding;
   final ScrollPhysics? physics;
 
@@ -30,6 +43,14 @@ class CarouselScrollView extends StatefulWidget {
 
   /// How much scale is added moving from edge to centre.
   final double scaleRange;
+
+  int get _effectiveItemCount => itemCount ?? children!.length;
+
+  Widget _buildItem(BuildContext context, int index) {
+    final builder = itemBuilder;
+    if (builder != null) return builder(context, index);
+    return children![index];
+  }
 
   @override
   State<CarouselScrollView> createState() => _CarouselScrollViewState();
@@ -66,14 +87,15 @@ class _CarouselScrollViewState extends State<CarouselScrollView> {
           controller: _scrollController,
           physics: widget.physics ?? const BouncingScrollPhysics(),
           padding: widget.padding,
-          itemCount: widget.children.length,
-          itemBuilder: (context, index) => _CarouselItem(
-            scrollOffsetNotifier: _scrollOffsetNotifier,
-            viewportHeight: viewportHeight,
-            minScale: widget.minScale,
-            scaleRange: widget.scaleRange,
-            child: widget.children[index],
-          ),
+          itemCount: widget._effectiveItemCount,
+          itemBuilder:
+              (context, index) => _CarouselItem(
+                scrollOffsetNotifier: _scrollOffsetNotifier,
+                viewportHeight: viewportHeight,
+                minScale: widget.minScale,
+                scaleRange: widget.scaleRange,
+                child: widget._buildItem(context, index),
+              ),
         );
       },
     );
@@ -138,9 +160,9 @@ class _CarouselItemState extends State<_CarouselItem> {
       valueListenable: widget.scrollOffsetNotifier,
       builder: (context, scrollOffset, child) {
         final scale = _scale(scrollOffset);
-        final opacity =
-            (0.75 + (scale - widget.minScale) / widget.scaleRange * 0.25)
-                .clamp(0.0, 1.0);
+        final opacity = (0.75 +
+                (scale - widget.minScale) / widget.scaleRange * 0.25)
+            .clamp(0.0, 1.0);
         return Transform.scale(
           scale: scale,
           alignment: Alignment.center,

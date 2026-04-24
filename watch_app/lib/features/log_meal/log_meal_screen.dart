@@ -29,7 +29,9 @@ class _LogMealScreenState extends State<LogMealScreen>
 
   // Waveform
   Timer? _waveTimer;
-  List<double> _levels = List.filled(5, 0.0);
+  final ValueNotifier<List<double>> _levelsNotifier = ValueNotifier(
+    List<double>.filled(5, 0.0),
+  );
 
   // Auto-stop countdown
   static const _listenTimeout = 15;
@@ -47,6 +49,7 @@ class _LogMealScreenState extends State<LogMealScreen>
     _speech.cancel();
     _waveTimer?.cancel();
     _countdownTimer?.cancel();
+    _levelsNotifier.dispose();
     super.dispose();
   }
 
@@ -74,9 +77,9 @@ class _LogMealScreenState extends State<LogMealScreen>
       _isListening = true;
       _transcript = '';
       _error = null;
-      _levels = List.filled(5, 0.0);
       _secondsLeft = _listenTimeout;
     });
+    _resetWaveform();
 
     _startCountdown();
     _startWaveform();
@@ -85,15 +88,18 @@ class _LogMealScreenState extends State<LogMealScreen>
       await _speech.listen(
         onResult: (r) {
           if (!mounted) return;
+          final transcript = r.recognizedWords;
+          if (transcript.isNotEmpty) {
+            final boost =
+                0.3 + 0.4 * (transcript.length / 50.0).clamp(0.0, 1.0);
+            final current = _levelsNotifier.value;
+            _levelsNotifier.value = List<double>.generate(
+              5,
+              (i) => (current[i] * 0.7 + boost * 0.3).clamp(0.0, 1.0),
+            );
+          }
           setState(() {
-            _transcript = r.recognizedWords;
-            if (_transcript.isNotEmpty) {
-              final boost = 0.3 +
-                  0.4 * (_transcript.length / 50.0).clamp(0.0, 1.0);
-              for (var i = 0; i < 5; i++) {
-                _levels[i] = (_levels[i] * 0.7 + boost * 0.3).clamp(0.0, 1.0);
-              }
-            }
+            _transcript = transcript;
           });
         },
         listenFor: const Duration(seconds: _listenTimeout),
@@ -139,17 +145,15 @@ class _LogMealScreenState extends State<LogMealScreen>
     _waveTimer = Timer.periodic(const Duration(milliseconds: 150), (_) {
       if (!_isListening || !mounted) return;
       final t = DateTime.now().millisecondsSinceEpoch * 0.003;
-      setState(() {
-        for (var i = 0; i < 5; i++) {
-          final phase = (t + i * 0.3) % (2 * math.pi);
-          _levels[i] = 0.3 +
-              0.7 *
-                  (0.5 +
-                      0.5 *
-                          (phase < math.pi
-                              ? phase / math.pi
-                              : (2 * math.pi - phase) / math.pi));
-        }
+      _levelsNotifier.value = List<double>.generate(5, (i) {
+        final phase = (t + i * 0.3) % (2 * math.pi);
+        return 0.3 +
+            0.7 *
+                (0.5 +
+                    0.5 *
+                        (phase < math.pi
+                            ? phase / math.pi
+                            : (2 * math.pi - phase) / math.pi));
       });
     });
   }
@@ -157,7 +161,11 @@ class _LogMealScreenState extends State<LogMealScreen>
   void _stopWaveform() {
     _waveTimer?.cancel();
     _waveTimer = null;
-    if (mounted) setState(() => _levels = List.filled(5, 0.0));
+    _resetWaveform();
+  }
+
+  void _resetWaveform() {
+    _levelsNotifier.value = List<double>.filled(5, 0.0);
   }
 
   Future<void> _stopListening() async {
@@ -203,7 +211,8 @@ class _LogMealScreenState extends State<LogMealScreen>
       } else {
         setState(() {
           _isProcessing = false;
-          _error = "Couldn't identify that meal. Try describing it differently.";
+          _error =
+              "Couldn't identify that meal. Try describing it differently.";
         });
         unawaited(HapticFeedback.mediumImpact());
       }
@@ -226,35 +235,33 @@ class _LogMealScreenState extends State<LogMealScreen>
     return Scaffold(
       backgroundColor: colorScheme.surface,
       body: SafeArea(
-        child: _isProcessing
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const AppLoader(size: 36),
-                    const SizedBox(height: 14),
-                    Text(
-                      'Identifying meal…',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        fontSize: 11,
-                        color: colorScheme.onSurfaceVariant,
+        child:
+            _isProcessing
+                ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const AppLoader(size: 36),
+                      const SizedBox(height: 14),
+                      Text(
+                        'Identifying meal…',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          fontSize: 11,
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              )
-            : _isListening
-                ? _ListeningView(
-                    transcript: _transcript,
-                    levels: _levels,
-                    secondsLeft: _secondsLeft,
-                    onStop: _stopListening,
-                  )
-                : _IdleView(
-                    error: _error,
-                    onTap: _toggleRecording,
+                    ],
                   ),
+                )
+                : _isListening
+                ? _ListeningView(
+                  transcript: _transcript,
+                  levelsListenable: _levelsNotifier,
+                  secondsLeft: _secondsLeft,
+                  onStop: _stopListening,
+                )
+                : _IdleView(error: _error, onTap: _toggleRecording),
       ),
     );
   }
@@ -265,12 +272,12 @@ class _LogMealScreenState extends State<LogMealScreen>
 class _ListeningView extends StatelessWidget {
   const _ListeningView({
     required this.transcript,
-    required this.levels,
+    required this.levelsListenable,
     required this.secondsLeft,
     required this.onStop,
   });
   final String transcript;
-  final List<double> levels;
+  final ValueListenable<List<double>> levelsListenable;
   final int secondsLeft;
   final VoidCallback onStop;
 
@@ -282,64 +289,74 @@ class _ListeningView extends StatelessWidget {
     return Column(
       children: [
         // Waveform + timer
-        Container(
-          height: 32,
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ...List.generate(5, (i) {
-                final h = 4.0 + 18.0 * levels[i];
-                return Container(
-                  width: 3,
-                  height: h,
-                  margin: const EdgeInsets.symmetric(horizontal: 2),
-                  decoration: BoxDecoration(
-                    color: colorScheme.error
-                        .withValues(alpha: 0.5 + 0.5 * levels[i]),
-                    borderRadius: BorderRadius.circular(2),
+        ValueListenableBuilder<List<double>>(
+          valueListenable: levelsListenable,
+          builder: (context, levels, _) {
+            return Container(
+              height: 32,
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ...List.generate(5, (i) {
+                    final h = 4.0 + 18.0 * levels[i];
+                    return Container(
+                      width: 3,
+                      height: h,
+                      margin: const EdgeInsets.symmetric(horizontal: 2),
+                      decoration: BoxDecoration(
+                        color: colorScheme.error.withValues(
+                          alpha: 0.5 + 0.5 * levels[i],
+                        ),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    );
+                  }),
+                  const SizedBox(width: 10),
+                  Text(
+                    '${secondsLeft}s',
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: colorScheme.onSurfaceVariant.withValues(
+                        alpha: 0.6,
+                      ),
+                      fontSize: 9,
+                    ),
                   ),
-                );
-              }),
-              const SizedBox(width: 10),
-              Text(
-                '${secondsLeft}s',
-                style: theme.textTheme.labelSmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
-                  fontSize: 9,
-                ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
         // Transcript
         Expanded(
           child: Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: transcript.isEmpty
-                ? Center(
-                    child: Text(
-                      'Listening…',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        fontSize: 12,
-                        color: colorScheme.onSurfaceVariant
-                            .withValues(alpha: 0.55),
+            child:
+                transcript.isEmpty
+                    ? Center(
+                      child: Text(
+                        'Listening…',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          fontSize: 12,
+                          color: colorScheme.onSurfaceVariant.withValues(
+                            alpha: 0.55,
+                          ),
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                  )
-                : SingleChildScrollView(
-                    child: Text(
-                      transcript,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        fontSize: 12,
-                        color: colorScheme.onSurface,
+                    )
+                    : SingleChildScrollView(
+                      child: Text(
+                        transcript,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          fontSize: 12,
+                          color: colorScheme.onSurface,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                  ),
           ),
         ),
         // Stop button
@@ -364,8 +381,11 @@ class _ListeningView extends StatelessWidget {
                     ),
                   ],
                 ),
-                child:
-                    Icon(LucideIcons.square, size: 16, color: colorScheme.onError),
+                child: Icon(
+                  LucideIcons.square,
+                  size: 16,
+                  color: colorScheme.onError,
+                ),
               ),
             ),
           ),
@@ -410,8 +430,11 @@ class _IdleView extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Icon(LucideIcons.mic,
-                    size: 26, color: colorScheme.onPrimary),
+                child: Icon(
+                  LucideIcons.mic,
+                  size: 26,
+                  color: colorScheme.onPrimary,
+                ),
               ),
             ),
           ),

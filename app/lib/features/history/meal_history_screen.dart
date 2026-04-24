@@ -27,6 +27,8 @@ class MealHistoryScreen extends ConsumerStatefulWidget {
 
 class _MealHistoryScreenState extends ConsumerState<MealHistoryScreen> {
   final ScrollController _scrollController = ScrollController();
+  List<LoggedMeal>? _lastHistoryMeals;
+  List<_HistoryItem> _cachedHistoryItems = const <_HistoryItem>[];
 
   @override
   void initState() {
@@ -63,18 +65,19 @@ class _MealHistoryScreenState extends ConsumerState<MealHistoryScreen> {
                 onRetry: () => ref.invalidate(mealHistoryProvider),
               ),
           data: (historyState) {
-            final groupedMeals = _groupMealsByDay(historyState.meals);
+            final historyItems = _historyItemsFor(historyState.meals);
 
-            if (groupedMeals.isEmpty && historyState.allMealsLoaded) {
+            if (historyItems.isEmpty && historyState.allMealsLoaded) {
               return Center(child: _emptyView);
             }
 
             return ListView.builder(
               controller: _scrollController,
+              padding: const EdgeInsets.only(bottom: 120),
               itemCount:
-                  groupedMeals.length + (historyState.allMealsLoaded ? 0 : 1),
+                  historyItems.length + (historyState.allMealsLoaded ? 0 : 1),
               itemBuilder: (context, index) {
-                if (index == groupedMeals.length &&
+                if (index == historyItems.length &&
                     !historyState.allMealsLoaded) {
                   return _PaginationStatus(
                     isLoadingMore: historyState.isLoadingMore,
@@ -87,28 +90,18 @@ class _MealHistoryScreenState extends ConsumerState<MealHistoryScreen> {
                         ),
                   );
                 }
-                if (index >= groupedMeals.length) {
+                if (index >= historyItems.length) {
                   return const SizedBox.shrink();
                 }
 
-                final _DayMeals dayData = groupedMeals[index];
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _DateDivider(
-                      date: dayData.date,
-                      totalCalories: dayData.totalCalories,
-                    ),
-                    ...dayData.mealsInDay.map(
-                      (loggedMeal) => MealLogCard(
-                        loggedMeal: loggedMeal,
-                        showTimestamp: false,
-                      ),
-                    ),
-                    if (index == groupedMeals.length - 1)
-                      const SizedBox(height: 120),
-                  ],
-                );
+                return switch (historyItems[index]) {
+                  _DayDividerItem(:final date, :final totalCalories) =>
+                    _DateDivider(date: date, totalCalories: totalCalories),
+                  _MealRowItem(:final meal) => MealLogCard(
+                    loggedMeal: meal,
+                    showTimestamp: false,
+                  ),
+                };
               },
             );
           },
@@ -123,49 +116,55 @@ class _MealHistoryScreenState extends ConsumerState<MealHistoryScreen> {
     subtitle: t.history.emptyMessage,
   );
 
-  List<_DayMeals> _groupMealsByDay(List<LoggedMeal> allMeals) {
+  List<_HistoryItem> _buildHistoryItems(List<LoggedMeal> allMeals) {
     if (allMeals.isEmpty) return [];
 
-    List<_DayMeals> groupedDayMeals = [];
+    final items = <_HistoryItem>[];
     DateTime? currentDay;
-    List<LoggedMeal> mealsForCurrentDay = [];
     int caloriesForCurrentDay = 0;
+    var dividerIndex = -1;
 
     for (final loggedMeal in allMeals) {
       final dateTime = loggedMeal.dateTime;
 
       final mealDate = DateTime(dateTime.year, dateTime.month, dateTime.day);
 
-      if (currentDay == null) {
-        currentDay = mealDate;
-      } else if (currentDay != mealDate) {
-        groupedDayMeals.add(
-          _DayMeals(
+      if (currentDay == null || currentDay != mealDate) {
+        if (currentDay != null && dividerIndex >= 0) {
+          items[dividerIndex] = _DayDividerItem(
             date: currentDay,
-            mealsInDay: List.from(mealsForCurrentDay),
             totalCalories: caloriesForCurrentDay,
-          ),
-        );
-        mealsForCurrentDay.clear();
-        caloriesForCurrentDay = 0;
+          );
+        }
+
         currentDay = mealDate;
+        caloriesForCurrentDay = 0;
+        dividerIndex = items.length;
+        items.add(_DayDividerItem(date: mealDate, totalCalories: 0));
       }
 
-      mealsForCurrentDay.add(loggedMeal);
       caloriesForCurrentDay += loggedMeal.meal.macros.calories;
+      items.add(_MealRowItem(loggedMeal));
     }
 
-    if (currentDay != null && mealsForCurrentDay.isNotEmpty) {
-      groupedDayMeals.add(
-        _DayMeals(
-          date: currentDay,
-          mealsInDay: List.from(mealsForCurrentDay),
-          totalCalories: caloriesForCurrentDay,
-        ),
+    if (currentDay != null && dividerIndex >= 0) {
+      items[dividerIndex] = _DayDividerItem(
+        date: currentDay,
+        totalCalories: caloriesForCurrentDay,
       );
     }
 
-    return groupedDayMeals;
+    return items;
+  }
+
+  List<_HistoryItem> _historyItemsFor(List<LoggedMeal> meals) {
+    if (identical(_lastHistoryMeals, meals)) {
+      return _cachedHistoryItems;
+    }
+
+    _lastHistoryMeals = meals;
+    _cachedHistoryItems = _buildHistoryItems(meals);
+    return _cachedHistoryItems;
   }
 }
 
@@ -228,16 +227,21 @@ class _PaginationStatus extends StatelessWidget {
   }
 }
 
-class _DayMeals {
-  final DateTime date;
-  final List<LoggedMeal> mealsInDay;
-  final int totalCalories;
+sealed class _HistoryItem {
+  const _HistoryItem();
+}
 
-  _DayMeals({
-    required this.date,
-    required this.mealsInDay,
-    required this.totalCalories,
-  });
+class _DayDividerItem extends _HistoryItem {
+  const _DayDividerItem({required this.date, required this.totalCalories});
+
+  final DateTime date;
+  final int totalCalories;
+}
+
+class _MealRowItem extends _HistoryItem {
+  const _MealRowItem(this.meal);
+
+  final LoggedMeal meal;
 }
 
 class _DateDivider extends StatelessWidget {
