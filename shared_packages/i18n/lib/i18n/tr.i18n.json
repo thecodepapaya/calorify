@@ -499,7 +499,7 @@
       "requestPermissions": "İzinleri Talep Et",
       "permissionRequestCancelledOrFailed": "İzin talebi iptal edildi veya başarısız oldu. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.",
       "permissionRequestFailed": "İzinleri talep edemiyorum. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "İzinler isteniyor..."
     },
     "about": {
       "title": "Hakkında",

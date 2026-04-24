@@ -499,7 +499,7 @@
       "requestPermissions": "権限をリクエストする",
       "permissionRequestCancelledOrFailed": "権限のリクエストがキャンセルされたか失敗しました。もう一度試すか、Health Connect の設定で手動で権限を付与してください。",
       "permissionRequestFailed": "権限をリクエストできませんでした。もう一度試すか、Health Connect の設定で手動で権限を付与してください。",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "権限をリクエスト中..."
     },
     "about": {
       "title": "私たちについて",

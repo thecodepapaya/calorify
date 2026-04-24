@@ -499,7 +499,7 @@
       "requestPermissions": "طلب الأذونات",
       "permissionRequestCancelledOrFailed": "تم إلغاء طلب الأذونات أو فشل. يرجى المحاولة مرة أخرى أو منح الأذونات يدويًا في إعدادات Health Connect.",
       "permissionRequestFailed": "تعذر طلب الأذونات. يرجى المحاولة مرة أخرى أو منح الأذونات يدويًا في إعدادات Health Connect.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "جارٍ طلب الأذونات..."
     },
     "about": {
       "title": "حول",

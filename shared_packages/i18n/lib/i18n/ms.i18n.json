@@ -499,7 +499,7 @@
       "requestPermissions": "Minta Kebenaran",
       "permissionRequestCancelledOrFailed": "Permintaan kebenaran dibatalkan atau gagal. Sila cuba lagi atau berikan kebenaran secara manual dalam tetapan Health Connect.",
       "permissionRequestFailed": "Tidak dapat meminta kebenaran. Sila cuba lagi atau berikan kebenaran secara manual dalam tetapan Health Connect.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Meminta kebenaran..."
     },
     "about": {
       "title": "Tentang",

@@ -499,7 +499,7 @@
       "requestPermissions": "اجازتیں طلب کریں",
       "permissionRequestCancelledOrFailed": "اجازت کی درخواست منسوخ یا ناکام ہوگئی۔ براہ کرم دوبارہ کوشش کریں یا صحت کنیکٹ کی ترتیبات میں دستی طور پر اجازت دیں۔",
       "permissionRequestFailed": "اجازت کی درخواست کرنے میں ناکامی۔ براہ کرم دوبارہ کوشش کریں یا صحت کنیکٹ کی ترتیبات میں دستی طور پر اجازت دیں۔",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "اجازتیں طلب کی جا رہی ہیں..."
     },
     "about": {
       "title": "بارے میں",

@@ -499,7 +499,7 @@
       "requestPermissions": "Solicită permisiuni",
       "permissionRequestCancelledOrFailed": "Cererea de permisiuni a fost anulată sau a eșuat. Încercați din nou sau acordați permisiunile manual în setările Health Connect.",
       "permissionRequestFailed": "Nu se pot solicita permisiuni. Încercați din nou sau acordați permisiunile manual în setările Health Connect.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Se solicită permisiuni..."
     },
     "about": {
       "title": "Despre",

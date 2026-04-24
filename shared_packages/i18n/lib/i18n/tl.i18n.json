@@ -499,7 +499,7 @@
       "requestPermissions": "Humiling ng Mga Pahintulot",
       "permissionRequestCancelledOrFailed": "Ang hinihinging pahintulot ay nakansela o nabigo. Pakisubukang muli o bigyan ng pahintulot nang manu-mano sa mga setting ng Health Connect.",
       "permissionRequestFailed": "Hindi makapaghiling ng mga pahintulot. Pakisubukang muli o bigyan ng pahintulot nang manu-mano sa mga setting ng Health Connect.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Humihiling ng mga pahintulot..."
     },
     "about": {
       "title": "Tungkol",

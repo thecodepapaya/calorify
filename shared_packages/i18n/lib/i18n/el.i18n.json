@@ -499,7 +499,7 @@
       "requestPermissions": "Αίτημα Αδειών",
       "permissionRequestCancelledOrFailed": "Το αίτημα αδειών ακυρώθηκε ή απέτυχε. Δοκιμάστε ξανά ή δώστε τις άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.",
       "permissionRequestFailed": "Δεν ήταν δυνατή η αίτηση αδειών. Δοκιμάστε ξανά ή δώστε τις άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Αίτημα αδειών..."
     },
     "about": {
       "title": "Σχετικά",

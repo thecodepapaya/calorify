@@ -499,7 +499,7 @@
       "requestPermissions": "Minta Izin",
       "permissionRequestCancelledOrFailed": "Permintaan izin dibatalkan atau gagal. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.",
       "permissionRequestFailed": "Tidak dapat meminta izin. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Meminta izin..."
     },
     "about": {
       "title": "Tentang",

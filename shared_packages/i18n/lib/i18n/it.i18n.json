@@ -499,7 +499,7 @@
       "requestPermissions": "Richiedi autorizzazioni",
       "permissionRequestCancelledOrFailed": "La richiesta di autorizzazioni è stata annullata o non è riuscita. Riprova oppure concedi le autorizzazioni manualmente nelle impostazioni di Health Connect.",
       "permissionRequestFailed": "Impossibile richiedere le autorizzazioni. Riprova oppure concedi le autorizzazioni manualmente nelle impostazioni di Health Connect.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Richiesta autorizzazioni..."
     },
     "about": {
       "title": "Chi Siamo",

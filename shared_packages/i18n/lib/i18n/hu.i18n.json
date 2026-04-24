@@ -499,7 +499,7 @@
       "requestPermissions": "Engedélyek kérése",
       "permissionRequestCancelledOrFailed": "Az engedélykérés megszakadt vagy sikertelen volt. Próbáld újra, vagy add meg az engedélyeket manuálisan a Health Connect beállításaiban.",
       "permissionRequestFailed": "Nem sikerült engedélyeket kérni. Próbáld újra, vagy add meg az engedélyeket manuálisan a Health Connect beállításaiban.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Engedélyek kérése..."
     },
     "about": {
       "title": "Rólunk",

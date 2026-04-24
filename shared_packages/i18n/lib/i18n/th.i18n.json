@@ -499,7 +499,7 @@
       "requestPermissions": "ขออนุญาต",
       "permissionRequestCancelledOrFailed": "คำขออนุญาตถูกยกเลิกหรือไม่สำเร็จ โปรดลองอีกครั้งหรืออนุญาตการเข้าถึงด้วยตนเองในการตั้งค่า Health Connect",
       "permissionRequestFailed": "ไม่สามารถขออนุญาตได้ โปรดลองอีกครั้งหรืออนุญาตการเข้าถึงด้วยตนเองในการตั้งค่า Health Connect",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "กำลังขอสิทธิ์..."
     },
     "about": {
       "title": "เกี่ยวกับ",

@@ -499,7 +499,7 @@
       "requestPermissions": "Pyydä lupia",
       "permissionRequestCancelledOrFailed": "Lupapyyntö peruutettiin tai epäonnistui. Yritä uudelleen tai myönnä luvat manuaalisesti Health Connectin asetuksista.",
       "permissionRequestFailed": "Lupia ei voitu pyytää. Yritä uudelleen tai myönnä luvat manuaalisesti Health Connectin asetuksista.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Pyydetään käyttöoikeuksia..."
     },
     "about": {
       "title": "Tietoa",

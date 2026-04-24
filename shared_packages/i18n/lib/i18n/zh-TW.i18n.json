@@ -1,18 +1,18 @@
 {
-  "language": "中文（台灣）",
+  "language": "中文（臺灣）",
   "flag": "🇹🇼",
   "appLabel": "Calorify{env}",
   "errors": {
     "rateLimitExceeded": "您已送出過多請求。請稍等片刻再試。",
     "networkError": "網路錯誤。請檢查您的網路連線。",
     "unknownError": "發生錯誤。請稍後再試。",
-    "loadingProfileData": "載入個人資料數據出錯",
+    "loadingProfileData": "載入個人資料資料出錯",
     "somethingWentWrong": "發生了錯誤。",
     "retry": "再試一次"
   },
   "onboarding": {
     "welcome": "歡迎使用 {appLabel}",
-    "subtitle": "您個人的營養夥伴，由 AI 提供支持",
+    "subtitle": "您個人的營養夥伴，由 AI 提供支援",
     "getStarted": "開始使用",
     "features": {
       "foodRecognition": {
@@ -25,7 +25,7 @@
       },
       "healthIntegration": {
         "title": "健康整合",
-        "description": "與 Health Connect 連接以獲取更好的見解"
+        "description": "與 Health Connect 連線以獲取更好的見解"
       }
     },
     "gender": {
@@ -66,10 +66,10 @@
         "obese": "肥胖"
       },
       "messages": {
-        "underweight": "我們可以幫助您制定健康計劃，通過營養豐富的餐點達到平衡體重。",
+        "underweight": "我們可以幫助您制定健康計劃，透過營養豐富的餐點達到平衡體重。",
         "healthy": "太棒了！您處於健康範圍。我們將幫助您保持活力和能量水平。",
         "overweight": "{appLabel} 將簡化您的旅程，利用 AI 驅動的追蹤幫助您舒適地達成目標。",
-        "obese": "我們在這裡支持您，提供個性化指導和可持續策略，實現您的健康目標。"
+        "obese": "我們在這裡支援您，提供個性化指導和可持續策略，實現您的健康目標。"
       }
     },
     "weightGoal": {
@@ -81,8 +81,8 @@
       "description": "這有助於我們更準確地計算您的每日卡路里需求"
     },
     "healthConnect": {
-      "title": "與 Health Connect 連接",
-      "description": "同步您的健康數據以獲取更好的見解和自動卡路里追蹤",
+      "title": "與 Health Connect 連線",
+      "description": "同步您的健康資料以獲取更好的見解和自動卡路里追蹤",
       "automaticTracking": {
         "title": "自動卡路里追蹤",
         "description": "追蹤您從健身應用中燃燒的卡路里"
@@ -93,16 +93,16 @@
       },
       "seamlessIntegration": {
         "title": "無縫整合",
-        "description": "從您最喜愛的健康應用同步數據"
+        "description": "從您最喜愛的健康應用同步資料"
       },
-      "connected": "已連接 Health Connect",
-      "notConnected": "未連接 Health Connect",
-      "setup": "設置 Health Connect",
+      "connected": "已連線 Health Connect",
+      "notConnected": "未連線 Health Connect",
+      "setup": "設定 Health Connect",
       "skipForNow": "先跳過",
-      "statusConnected": "Health Connect 已連接。",
-      "statusSuccess": "Health Connect 已成功連接！",
-      "statusPermissionDenied": "權限被拒絕。請從手機設定中為 {appLabel} 啟用 Health Connect 權限。",
-      "statusError": "設置 Health Connect 錯誤：{error}"
+      "statusConnected": "Health Connect 已連線。",
+      "statusSuccess": "Health Connect 已成功連線！",
+      "statusPermissionDenied": "許可權被拒絕。請從手機設定中為 {appLabel} 啟用 Health Connect 許可權。",
+      "statusError": "設定 Health Connect 錯誤：{error}"
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -120,7 +120,7 @@
       },
       "healthProfile": {
         "title": "您的健康檔案",
-        "bmiDescription": "根據您的數據，您的 BMI 為 {bmi}。",
+        "bmiDescription": "根據您的資料，您的 BMI 為 {bmi}。",
         "finalizeDescription": "讓我們完善您的檔案以客製化您的體驗。",
         "goalGain": "增重",
         "goalLose": "減重",
@@ -141,7 +141,7 @@
     }
   },
   "tabs": {
-    "dashboard": "儀表板",
+    "dashboard": "儀錶板",
     "history": "歷史"
   },
   "home": {
@@ -160,8 +160,8 @@
     "dailyGoal": {
       "title": "設定您的每日目標",
       "titleSet": "您的每日目標",
-      "description": "準備開始您的健康之旅嗎？在下面設定您的每日卡路里目標以啟動您的進程。",
-      "descriptionSet": "您的指北針已設置！這是您的每日卡路里目標，指導您。",
+      "description": "準備開始您的健康之旅嗎？在下面設定您的每日卡路里目標以啟動您的程序。",
+      "descriptionSet": "您的指北針已設定！這是您的每日卡路里目標，指導您。",
       "yourGoal": "您的目標",
       "goal": "目標",
       "dailyCalories": "每日卡路里 (kcal)",
@@ -193,39 +193,39 @@
       "trendTitle": "今日趨勢",
       "peakHour": "高峰時段：{hour}:00",
       "noHistoryYet": "尚未有歷史記錄",
-      "startLogging": "開始記錄餐點以查看您的\n七天宏量趨勢"
+      "startLogging": "開始記錄餐點以檢視您的\n七天宏量趨勢"
     },
     "mealLog": {
       "title": "記錄的餐點",
       "emptyMessage": "拍攝您最後餐點的照片以在這裡記錄。",
       "noMealsToday": "今天尚未記錄任何餐點",
-      "seeAllMeals": "查看所有餐點"
+      "seeAllMeals": "檢視所有餐點"
     },
     "mealDescription": {
-      "title": "用 AI 快速添加",
+      "title": "用 AI 快速新增",
       "description": "描述您的餐點，讓 AI 處理細節。",
       "hint": "例如：早餐我吃了一大碗燕麥片，加上一根切片香蕉和一勺乳清......",
       "analyzeMeal": "分析餐點"
     },
     "favoriteMeals": {
       "title": "最愛餐點",
-      "description": "快速添加您最喜愛的餐點。",
+      "description": "快速新增您最喜愛的餐點。",
       "noFavorites": "尚未有最愛餐點。",
-      "addFavoriteHint": "點擊餐點上的星星，將其標記為最愛。",
-      "seeAll": "查看所有",
-      "add": "添加"
+      "addFavoriteHint": "點選餐點上的星星，將其標記為最愛。",
+      "seeAll": "檢視所有",
+      "add": "新增"
     },
     "mealSnap": {
       "title": "拍攝與追蹤您的餐點",
       "description": "使用您的相機拍攝食物的照片以進行 AI 分析。",
-      "openCamera": "打開相機",
+      "openCamera": "開啟相機",
       "gallery": "相簿"
     },
     "connectHealth": {
       "title": "與 Health Connect 同步",
-      "description": "將您的營養數據與 Health Connect 同步",
+      "description": "將您的營養資料與 Health Connect 同步",
       "install": "安裝",
-      "connect": "連接"
+      "connect": "連線"
     }
   },
   "history": {
@@ -238,16 +238,16 @@
     "ohNo": "哦不！",
     "delete": "刪除",
     "editMeal": "編輯餐點",
-    "addMeal": "添加餐點",
-    "saveMeal": "保存餐點",
-    "save": "保存",
+    "addMeal": "新增餐點",
+    "saveMeal": "儲存餐點",
+    "save": "儲存",
     "mealName": "餐點名稱",
     "mealNameHint": "例如：炒蛋配吐司",
     "mealQuantity": "餐點數量",
     "mealQuantityHint": "例如：1 碗、2 片",
     "timeOfMeal": "用餐時間",
     "timeOfMealHint": "選擇您的用餐時間",
-    "mealType": "餐點類型",
+    "mealType": "餐點型別",
     "nutrition": {
       "calories": "卡路里",
       "carbs": "碳水化合物 (g)",
@@ -261,21 +261,21 @@
       "cancel": "取消",
       "delete": "刪除"
     },
-    "addedToLog": "餐點已添加到您的記錄中！",
-    "couldNotAdd": "無法添加餐點：{error}",
+    "addedToLog": "餐點已新增到您的記錄中！",
+    "couldNotAdd": "無法新增餐點：{error}",
     "savedSuccessfully": "餐點已成功新增！",
     "updatedSuccessfully": "餐點已成功更新！",
     "errorSaving": "儲存餐點時發生錯誤：{error}",
     "removedFromFavorites": "已從最愛中移除！",
-    "savedAsFavorite": "餐點已保存為最愛！",
+    "savedAsFavorite": "餐點已儲存為最愛！",
     "unfavorite": "取消收藏",
     "couldNotUpdateFavorite": "無法更新最愛：{error}",
     "feedbackThanks": "感謝你的回饋！",
     "reanalysisUpdated": "已根據你的回饋更新餐點分析。",
     "failedToProcess": "處理失敗：{error}",
-    "failedToProcessImage": "處理圖像失敗：{error}",
-    "errorCompressingImage": "壓縮圖像時出錯：{error}",
-    "failedToSave": "保存數據失敗。請再試一次。",
+    "failedToProcessImage": "處理影像失敗：{error}",
+    "errorCompressingImage": "壓縮影像時出錯：{error}",
+    "failedToSave": "儲存資料失敗。請再試一次。",
     "skip": "跳過",
     "variation": {
       "question": "第 {current} 題，共 {total} 題",
@@ -299,12 +299,12 @@
   },
   "profile": {
     "title": "個人檔案",
-    "noProfileData": "找不到個人檔案數據",
+    "noProfileData": "找不到個人檔案資料",
     "yourProfile": "您的個人檔案",
-    "viewAndManage": "查看和管理您的健康信息",
+    "viewAndManage": "檢視和管理您的健康資訊",
     "sections": {
       "profile": "個人檔案",
-      "basicInformation": "基本信息",
+      "basicInformation": "基本資訊",
       "goalsAndActivity": "目標與活動",
       "calculatedValues": "計算值"
     },
@@ -338,7 +338,7 @@
   "editProfile": {
     "title": "編輯個人檔案",
     "sections": {
-      "personalInformation": "個人信息",
+      "personalInformation": "個人資訊",
       "physicalMeasurements": "身體測量",
       "goalsAndActivity": "目標與活動"
     },
@@ -401,20 +401,20 @@
     }
   },
   "settings": {
-    "title": "設置",
+    "title": "設定",
     "sections": {
       "profile": "個人檔案",
       "localization": "本地化",
       "notifications": "通知",
-      "healthConnect": "健康連接",
-      "supportAndLegal": "支持與法律",
+      "healthConnect": "健康連線",
+      "supportAndLegal": "支援與法律",
       "about": "關於",
       "dangerZone": "危險區域",
       "developer": "開發者"
     },
     "editProfile": {
       "title": "編輯個人檔案",
-      "subtitle": "更新您的個人信息"
+      "subtitle": "更新您的個人資訊"
     },
     "language": {
       "title": "語言",
@@ -439,13 +439,13 @@
       "system": "系統"
     },
     "sendFeedback": {
-      "title": "發送反饋",
+      "title": "傳送反饋",
       "subtitle": "幫助我們改善 {appLabel}",
       "emailSubject": "{appLabel} 應用反饋",
       "emailBodyPrefix": "請在下面提供您的反饋：",
       "appVersion": "應用版本",
-      "device": "設備",
-      "osVersion": "操作系統版本",
+      "device": "裝置",
+      "osVersion": "作業系統版本",
       "uid": "UID"
     },
     "exportMealHistory": {
@@ -455,67 +455,67 @@
       "failed": "無法匯出餐點記錄：{error}"
     },
     "clearAllData": {
-      "title": "清除所有數據",
-      "subtitle": "不可逆地刪除您的所有信息",
-      "confirmationTitle": "清除所有數據？",
-      "confirmationMessage": "此操作無法撤消。所有記錄的餐點、最愛和個人檔案設置將被永久刪除。",
+      "title": "清除所有資料",
+      "subtitle": "不可逆地刪除您的所有資訊",
+      "confirmationTitle": "清除所有資料？",
+      "confirmationMessage": "此操作無法撤消。所有記錄的餐點、最愛和個人檔案設定將被永久刪除。",
       "cancel": "取消",
       "clearEverything": "清除所有"
     },
     "debugOptions": {
-      "title": "調試選項"
+      "title": "除錯選項"
     },
     "developerModeEnabled": "開發者模式已啟用！",
     "healthConnect": {
-      "title": "健康連接",
-      "subtitle": "查看和管理權限",
+      "title": "健康連線",
+      "subtitle": "檢視和管理許可權",
       "unavailable": {
-        "title": "健康連接不可用",
-        "description": "此設備不支援健康連接。它需要 Android 14 或更高版本。"
+        "title": "健康連線不可用",
+        "description": "此裝置不支援健康連線。它需要 Android 14 或更高版本。"
       },
       "permissions": {
-        "title": "權限",
-        "description": "以下權限是為了提供健康連接整合而請求的：",
+        "title": "許可權",
+        "description": "以下許可權是為了提供健康連線整合而請求的：",
         "granted": "已授予",
         "notGranted": "未授予",
         "caloriesBurned": {
           "title": "讀取總燃燒卡路里",
-          "description": "允許應用從健康連接讀取您的總燃燒卡路里。",
-          "usage": "此權限用於在應用中顯示您的每日卡路里燃燒，幫助您了解全天的總能量消耗。"
+          "description": "允許應用從健康連線讀取您的總燃燒卡路里。",
+          "usage": "此許可權用於在應用中顯示您的每日卡路里燃燒，幫助您瞭解全天的總能量消耗。"
         },
         "nutritionRead": {
-          "title": "讀取營養數據",
-          "description": "允許應用從健康連接讀取營養數據。",
-          "usage": "此權限允許應用讀取可能已由其他連接到健康連接的應用記錄的營養信息，提供您全面的營養視圖。"
+          "title": "讀取營養資料",
+          "description": "允許應用從健康連線讀取營養資料。",
+          "usage": "此許可權允許應用讀取可能已由其他連線到健康連線的應用記錄的營養資訊，提供您全面的營養檢視。"
         },
         "nutritionWrite": {
-          "title": "寫入營養數據",
-          "description": "允許應用將營養數據寫入健康連接。",
-          "usage": "此權限允許應用將您記錄的膳食同步到健康連接，使您的營養數據能夠對您使用的其他健康和健身應用可用。"
+          "title": "寫入營養資料",
+          "description": "允許應用將營養資料寫入健康連線。",
+          "usage": "此許可權允許應用將您記錄的膳食同步到健康連線，使您的營養資料能夠對您使用的其他健康和健身應用可用。"
         }
       },
-      "managePermissions": "管理權限",
-      "openSettings": "打開健康連接設定",
-      "requestPermissions": "請求權限",
-      "permissionRequestCancelledOrFailed": "權限請求已被取消或失敗。請再試一次或在 Health Connect 設定中手動授權權限。",
-      "permissionRequestFailed": "無法請求權限。請再試一次或在 Health Connect 設定中手動授權權限。",
-      "requestingPermissions": "Requesting..."
+      "managePermissions": "管理許可權",
+      "openSettings": "開啟健康連線設定",
+      "requestPermissions": "請求許可權",
+      "permissionRequestCancelledOrFailed": "許可權請求已被取消或失敗。請再試一次或在 Health Connect 設定中手動授權許可權。",
+      "permissionRequestFailed": "無法請求許可權。請再試一次或在 Health Connect 設定中手動授權許可權。",
+      "requestingPermissions": "正在請求許可權..."
     },
     "about": {
       "title": "關於",
       "tagline": "快速、免費且以隱私為先的卡路里認知",
       "ourStory": {
         "title": "我們的故事",
-        "content": "{appLabel} 源於一個簡單的挫折：大多數卡路里追踪應用程式要麼過於複雜，要麼需要不斷的手動輸入，要麼收取高額的訂閱費用，或是在隱私上妥協。\n\n作為一名獨立開發者，我想要創建一款更簡單、更公平的應用程式——一款利用 AI 來減少努力、保持快速且免費使用，並尊重您的健康數據的應用程式。\n\n{appLabel} 是我希望能存在的應用程式：不需要帳戶、無追蹤、無廣告——只有清晰、實用的見解和您的健康目標。"
+        "content": "{appLabel} 源於一個簡單的挫折：大多數卡路里追蹤應用程式要麼過於複雜，要麼需要不斷的手動輸入，要麼收取高額的訂閱費用，或是在隱私上妥協。\n\n作為一名獨立開發者，我想要建立一款更簡單、更公平的應用程式——一款利用 AI 來減少努力、保持快速且免費使用，並尊重您的健康資料的應用程式。\n\n{appLabel} 是我希望能存在的應用程式：不需要帳戶、無追蹤、無廣告——只有清晰、實用的見解和您的健康目標。"
       },
       "privacy": {
         "title": "您的隱私很重要",
         "description": "隱私不是事後之論 — 它是一個設計原則。這在實踐中意味著：",
         "noAccounts": "不需要帳戶\n立即使用應用程式。無需註冊，無身份驗證。",
         "noTracking": "無行為追蹤\n{appLabel} 不會監控您的活動、建立使用檔案或在應用程式或網站之間追蹤您。",
-        "noAds": "無廣告設計\n{appLabel} 的設計不依賴於廣告或數據驅動的變現方式。",
-        "noDataSelling": "不販賣數據\n您的健康數據絕不會出售或分享給第三方。",
-        "localStorage": "本地優先的存儲\n您的數據保持在您的設備上。",
+        "noAds": "無廣告設計\n{appLabel} 的設計不依賴於廣告或資料驅動的變現方式。",
+        "noDataSelling": "不販賣資料\n您的健康資料絕不會出售或分享給第三方。",
+        "localStorage": "本地優先的儲存\n您的資料保持在您的裝置上。",
         "privacyPolicy": "隱私政策"
       },
       "developer": {
@@ -528,7 +528,7 @@
         "title": "喜歡 {appLabel} 嗎？",
         "description": "您的反饋有助於使 {appLabel} 對每個人都變得更好。",
         "rateApp": "在 Play 商店評分",
-        "sendFeedback": "發送反饋"
+        "sendFeedback": "傳送反饋"
       }
     },
     "appInfo": {
@@ -540,7 +540,7 @@
     "title": "透過提醒保持正軌",
     "description": "獲得溫和的提醒以記錄您的餐點，並保持一致的營養目標",
     "notificationsEnabled": "通知已啟用",
-    "notificationsDisabled": "通知已禁用",
+    "notificationsDisabled": "通知已停用",
     "enabledSubtitle": "您將收到用餐提醒",
     "disabledSubtitle": "啟用通知以獲得用餐提醒",
     "mealReminders": "餐點提醒",
@@ -552,11 +552,11 @@
     "change": "更改",
     "enableNotifications": "啟用通知",
     "skipForNow": "暫時跳過",
-    "saveChanges": "保存變更",
+    "saveChanges": "儲存變更",
     "enabledSuccessfully": "通知成功啟用！",
-    "permissionDenied": "通知權限被拒絕",
+    "permissionDenied": "通知許可權被拒絕",
     "errorEnabling": "啟用通知時出錯：{error}",
-    "errorCompletingSetup": "完成設置時出錯：{error}"
+    "errorCompletingSetup": "完成設定時出錯：{error}"
   },
   "notifications": {
     "breakfast": {
@@ -587,7 +587,7 @@
   "disclaimer": {
     "pleaseNote": "請注意",
     "snap": {
-      "description": "{appLabel} 提供估算的營養信息。準確性取決於您的輸入和食物變化。僅作為指導，而非確定的來源。請諮詢專業人士以獲取個性化的飲食建議。",
+      "description": "{appLabel} 提供估算的營養資訊。準確性取決於您的輸入和食物變化。僅作為指導，而非確定的來源。請諮詢專業人士以獲取個性化的飲食建議。",
       "portionSize": {
         "title": "份量大小",
         "description": "估算的準確性在很大程度上依賴於您對份量大小的正確評估。"
@@ -601,8 +601,8 @@
         "description": "包含許多隱藏成分的複雜菜餚可能會導致估計不夠準確。"
       },
       "databaseLimitations": {
-        "title": "數據庫限制",
-        "description": "{appLabel} 的食品數據庫非常廣泛，但可能不包括每個單獨的食物項目或變體。"
+        "title": "資料庫限制",
+        "description": "{appLabel} 的食品資料庫非常廣泛，但可能不包括每個單獨的食物專案或變體。"
       }
     },
     "weightEstimate": {
@@ -626,10 +626,10 @@
       }
     },
     "healthMetrics": {
-      "description": "這些指標有助於您了解身體的能量需求並引導您的營養目標。",
+      "description": "這些指標有助於您瞭解身體的能量需求並引導您的營養目標。",
       "bmr": {
         "title": "基礎代謝率 (BMR)",
-        "description": "基礎代謝率 (BMR) 是您身體在靜息狀態下為了維持基本功能（如呼吸和循環）而燃燒的卡路里數量。BMR 取決於您的年齡、性別、身高和體重。較高的 BMR 意味著您的身體在靜息狀態下自然燃燒更多的卡路里，通常是因為肌肉量較多、年齡較輕或為男性。而較低的 BMR 通常表示肌肉量較少、年齡較大或為女性。"
+        "description": "基礎代謝率 (BMR) 是您身體在靜息狀態下為了維持基本功能（如呼吸和迴圈）而燃燒的卡路里數量。BMR 取決於您的年齡、性別、身高和體重。較高的 BMR 意味著您的身體在靜息狀態下自然燃燒更多的卡路里，通常是因為肌肉量較多、年齡較輕或為男性。而較低的 BMR 通常表示肌肉量較少、年齡較大或為女性。"
       },
       "tdee": {
         "title": "每日總能量消耗 (TDEE)",

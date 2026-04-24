@@ -179,7 +179,7 @@
       "carbs": "Kulhydrater",
       "protein": "Protein",
       "fat": "Fedt",
-      "fiber": "Fiber",
+      "fiber": "Kostfibre",
       "grams": "gram",
       "chartAccessibilityLabel": "Diagram over makronæringsstoffer"
     },
@@ -253,7 +253,7 @@
       "carbs": "Kulhydrater (g)",
       "protein": "Protein (g)",
       "fat": "Fedt (g)",
-      "fiber": "Fiber (g)"
+      "fiber": "Kostfibre (g)"
     },
     "deleteConfirmation": {
       "title": "Slet Måltid",
@@ -348,15 +348,15 @@
     "weight": "Vægt",
     "weightGoal": "Vægtmål",
     "activityLevel": "Aktivitetsniveau",
-    "metric": "Metisk",
+    "metric": "Metrisk",
     "imperial": "Imperial",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
     "unitLbs": "lbs",
-    "metricCm": "Metisk (cm)",
+    "metricCm": "Metrisk (cm)",
     "imperialFtIn": "Imperial (ft/in)",
-    "metricKg": "Metisk (kg)",
+    "metricKg": "Metrisk (kg)",
     "imperialLbs": "Imperial (lbs)",
     "genders": {
       "male": "Mand",
@@ -439,13 +439,13 @@
       "system": "System"
     },
     "sendFeedback": {
-      "title": "Send Feedback",
+      "title": "Send feedback",
       "subtitle": "Hjælp os med at forbedre {appLabel}",
-      "emailSubject": "{appLabel} App Feedback",
+      "emailSubject": "{appLabel} app-feedback",
       "emailBodyPrefix": "Venligst giv din feedback nedenfor:",
-      "appVersion": "App Version",
+      "appVersion": "App-version",
       "device": "Enhed",
-      "osVersion": "OS Version",
+      "osVersion": "OS-version",
       "uid": "UID"
     },
     "exportMealHistory": {
@@ -499,7 +499,7 @@
       "requestPermissions": "Anmod om tilladelser",
       "permissionRequestCancelledOrFailed": "Anmodningen om tilladelser blev annulleret eller mislykkedes. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillinger.",
       "permissionRequestFailed": "Kunne ikke anmode om tilladelser. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillinger.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Anmoder..."
     },
     "about": {
       "title": "Om",
@@ -522,13 +522,13 @@
         "title": "Bygget af en Uafhængig Udvikler",
         "description": "{appLabel} er bygget og vedligeholdt af en enkelt uafhængig udvikler, der fokuserer på at skabe rolig, privatlivsrespekterende sundhedssoftware.\n\nFeedback læses personligt og hjælper med at forme retningen for appen.",
         "website": "Hjemmeside",
-        "email": "Email"
+        "email": "E-mail"
       },
       "feedback": {
         "title": "Nyder du {appLabel}?",
         "description": "Din feedback hjælper med at forbedre {appLabel} for alle.",
         "rateApp": "Bedøm på Play Store",
-        "sendFeedback": "Send Feedback"
+        "sendFeedback": "Send feedback"
       }
     },
     "appInfo": {
@@ -547,7 +547,7 @@
     "breakfast": "Morgenmad",
     "lunch": "Frokost",
     "dinner": "Aftensmad",
-    "snack": "Snack",
+    "snack": "Mellemmåltid",
     "unknown": "Ukendt",
     "change": "Ændre",
     "enableNotifications": "Aktivér Notifikationer",

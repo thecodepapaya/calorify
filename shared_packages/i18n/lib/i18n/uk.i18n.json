@@ -499,7 +499,7 @@
       "requestPermissions": "Запросити дозволи",
       "permissionRequestCancelledOrFailed": "Запит дозволу було скасовано або він не вдався. Будь ласка, спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.",
       "permissionRequestFailed": "Не вдалося надіслати запит на дозволи. Будь ласка, спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.",
-      "requestingPermissions": "Requesting..."
+      "requestingPermissions": "Запит дозволів..."
     },
     "about": {
       "title": "Про нас",
