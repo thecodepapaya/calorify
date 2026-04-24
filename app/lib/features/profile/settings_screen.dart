@@ -34,6 +34,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   int _debugTapCount = 0;
   bool _isExporting = false;
   bool _showDebugOptions = false;
+  late final Future<AppVersionInfo> _appVersionFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _appVersionFuture = getAppVersionInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -482,7 +489,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           }
 
           if (updatedProfile != null) {
-            await ref.read(profileActionsProvider).updateProfile(updatedProfile);
+            await ref
+                .read(profileActionsProvider)
+                .updateProfile(updatedProfile);
             ref.invalidate(userProfileProvider);
           }
         },
@@ -569,7 +578,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           }
 
           if (updatedProfile != null) {
-            await ref.read(profileActionsProvider).updateProfile(updatedProfile);
+            await ref
+                .read(profileActionsProvider)
+                .updateProfile(updatedProfile);
             ref.invalidate(userProfileProvider);
           }
         },
@@ -660,7 +671,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   Widget _buildAppInfo() {
     return FutureBuilder<AppVersionInfo>(
-      future: getAppVersionInfo(),
+      future: _appVersionFuture,
       builder: (context, snapshot) {
         if (!snapshot.hasData) return const SizedBox.shrink();
         final info = snapshot.data!;

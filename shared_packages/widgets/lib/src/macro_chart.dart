@@ -18,20 +18,12 @@ class _MacroChartState extends State<MacroChart>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
-
-  int get _totalProtein =>
-      widget.meals.fold(0, (sum, meal) => sum + meal.meal.macros.protein);
-  int get _totalCarbs =>
-      widget.meals.fold(0, (sum, meal) => sum + meal.meal.macros.carbs);
-  int get _totalFat =>
-      widget.meals.fold(0, (sum, meal) => sum + meal.meal.macros.fat);
-  int get _totalFiber =>
-      widget.meals.fold(0, (sum, meal) => sum + meal.meal.macros.fiber);
-  int get _total => _totalProtein + _totalCarbs + _totalFat;
+  late _MacroTotals _totals;
 
   @override
   void initState() {
     super.initState();
+    _totals = _MacroTotals.fromMeals(widget.meals);
     _controller = AnimationController(
       duration: const Duration(milliseconds: 600),
       vsync: this,
@@ -46,7 +38,10 @@ class _MacroChartState extends State<MacroChart>
   @override
   void didUpdateWidget(MacroChart oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.meals.length != widget.meals.length) {
+    final nextTotals = _MacroTotals.fromMeals(widget.meals);
+    final totalsChanged = nextTotals != _totals;
+    _totals = nextTotals;
+    if (totalsChanged) {
       _controller
         ..reset()
         ..forward();
@@ -67,9 +62,9 @@ class _MacroChartState extends State<MacroChart>
 
     return Semantics(
       label:
-          _total == 0
+          _totals.total == 0
               ? 'Macros: no data yet'
-              : 'Macros: $_totalProtein g protein, $_totalCarbs g carbs, $_totalFat g fat, $_totalFiber g fiber',
+              : 'Macros: ${_totals.protein} g protein, ${_totals.carbs} g carbs, ${_totals.fat} g fat, ${_totals.fiber} g fiber',
       child: FadeTransition(
         opacity: _animation,
         child: Column(
@@ -101,7 +96,7 @@ class _MacroChartState extends State<MacroChart>
               ],
             ),
             const SizedBox(height: 12),
-            if (_total == 0)
+            if (_totals.total == 0)
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -136,17 +131,17 @@ class _MacroChartState extends State<MacroChart>
                                 centerSpaceRadius: 28,
                                 sections: [
                                   _section(
-                                    _totalProtein.toDouble(),
+                                    _totals.protein.toDouble(),
                                     colorScheme.proteinIconColor,
                                     _animation.value,
                                   ),
                                   _section(
-                                    _totalCarbs.toDouble(),
+                                    _totals.carbs.toDouble(),
                                     colorScheme.carbsIconColor,
                                     _animation.value,
                                   ),
                                   _section(
-                                    _totalFat.toDouble(),
+                                    _totals.fat.toDouble(),
                                     colorScheme.fatIconColor,
                                     _animation.value,
                                   ),
@@ -168,7 +163,7 @@ class _MacroChartState extends State<MacroChart>
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        '${_total}g',
+                        '${_totals.total}g',
                         style: theme.textTheme.labelSmall?.copyWith(
                           fontWeight: FontWeight.w700,
                           fontSize: 10,
@@ -187,26 +182,26 @@ class _MacroChartState extends State<MacroChart>
                     icon: LucideIcons.dumbbell,
                     color: colorScheme.proteinIconColor,
                     label: translations.home.dailySummary.protein,
-                    value: _totalProtein,
+                    value: _totals.protein,
                   ),
                   _MacroBadge(
                     icon: LucideIcons.wheat,
                     color: colorScheme.carbsIconColor,
                     label: translations.home.dailySummary.carbs,
-                    value: _totalCarbs,
+                    value: _totals.carbs,
                   ),
                   _MacroBadge(
                     icon: LucideIcons.droplet,
                     color: colorScheme.fatIconColor,
                     label: translations.home.dailySummary.fat,
-                    value: _totalFat,
+                    value: _totals.fat,
                   ),
-                  if (_totalFiber > 0)
+                  if (_totals.fiber > 0)
                     _MacroBadge(
                       icon: LucideIcons.leaf,
                       color: colorScheme.fiberIconColor,
                       label: translations.home.dailySummary.fiber,
-                      value: _totalFiber,
+                      value: _totals.fiber,
                     ),
                 ],
               ),
@@ -225,6 +220,50 @@ class _MacroChartState extends State<MacroChart>
       showTitle: false,
     );
   }
+}
+
+class _MacroTotals {
+  const _MacroTotals({
+    required this.protein,
+    required this.carbs,
+    required this.fat,
+    required this.fiber,
+  });
+
+  factory _MacroTotals.fromMeals(List<LoggedMeal> meals) {
+    var protein = 0;
+    var carbs = 0;
+    var fat = 0;
+    var fiber = 0;
+
+    for (final meal in meals) {
+      protein += meal.meal.macros.protein;
+      carbs += meal.meal.macros.carbs;
+      fat += meal.meal.macros.fat;
+      fiber += meal.meal.macros.fiber;
+    }
+
+    return _MacroTotals(protein: protein, carbs: carbs, fat: fat, fiber: fiber);
+  }
+
+  final int protein;
+  final int carbs;
+  final int fat;
+  final int fiber;
+
+  int get total => protein + carbs + fat;
+
+  @override
+  bool operator ==(Object other) {
+    return other is _MacroTotals &&
+        other.protein == protein &&
+        other.carbs == carbs &&
+        other.fat == fat &&
+        other.fiber == fiber;
+  }
+
+  @override
+  int get hashCode => Object.hash(protein, carbs, fat, fiber);
 }
 
 class _MacroBadge extends StatelessWidget {

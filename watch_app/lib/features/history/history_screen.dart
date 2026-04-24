@@ -179,7 +179,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     onRefresh: _onRefresh,
                     color: colorScheme.primary,
                     backgroundColor: colorScheme.surface,
-                    child: CarouselScrollView(
+                    child: CarouselScrollView.builder(
                       physics: const AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics(),
                       ),
@@ -187,25 +187,21 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         horizontal: 12,
                         vertical: 4,
                       ),
-                      children:
-                          meals
-                              .asMap()
-                              .entries
-                              .map(
-                                (e) => Padding(
-                                  padding: const EdgeInsets.only(bottom: 8),
-                                  child: MealListItem(
-                                    meal: e.value,
-                                    index: e.key,
-                                    onDelete:
-                                        e.value.hasClientId()
-                                            ? () =>
-                                                _deleteMeal(e.value.clientId)
-                                            : null,
-                                  ),
-                                ),
-                              )
-                              .toList(),
+                      itemCount: meals.length,
+                      itemBuilder: (context, index) {
+                        final meal = meals[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: MealListItem(
+                            meal: meal,
+                            index: index,
+                            onDelete:
+                                meal.hasClientId()
+                                    ? () => _deleteMeal(meal.clientId)
+                                    : null,
+                          ),
+                        );
+                      },
                     ),
                   );
                 },
