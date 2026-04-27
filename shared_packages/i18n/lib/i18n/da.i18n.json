@@ -60,7 +60,7 @@
       "overweight": "Overvægt",
       "obese": "Fedme",
       "categories": {
-        "underweight": "Undervejet",
+        "underweight": "Undervægtig",
         "healthyWeight": "Sund vægt",
         "overweight": "Overvægtig",
         "obese": "Fedme"
@@ -101,7 +101,7 @@
       "skipForNow": "Spring over for nu",
       "statusConnected": "Health Connect er forbundet.",
       "statusSuccess": "Health Connect er blevet forbundet med succes!",
-      "statusPermissionDenied": "Adgang nægtet. Aktiver venligst Health Connect-tilladelser fra din telephones indstillinger for {appLabel}.",
+      "statusPermissionDenied": "Adgang nægtet. Aktiver venligst Health Connect-tilladelser fra din telefons indstillinger for {appLabel}.",
       "statusError": "Fejl under opsætning af Health Connect: {error}"
     },
     "reinforcement": {
@@ -467,7 +467,7 @@
     },
     "developerModeEnabled": "Udviklertilstand aktiveret!",
     "healthConnect": {
-      "title": "Sundhedsforbindelse",
+      "title": "Health Connect",
       "subtitle": "Se og administrer tilladelser",
       "unavailable": {
         "title": "Health Connect utilgængelig",
@@ -475,27 +475,27 @@
       },
       "permissions": {
         "title": "Tilladelser",
-        "description": "Følgende tilladelser anmodes om for at give integration med Sundhedsforbindelse:",
+        "description": "Følgende tilladelser anmodes om for at give integration med Health Connect:",
         "granted": "Givet",
         "notGranted": "Ikke Givet",
         "caloriesBurned": {
           "title": "Læs Totale Forbrændte Kalorier",
-          "description": "Giver appen mulighed for at læse dine totale forbrændte kalorier fra Sundhedsforbindelse.",
+          "description": "Giver appen mulighed for at læse dine totale forbrændte kalorier fra Health Connect.",
           "usage": "Denne tilladelse bruges til at vise dit daglige kalorieforbrug i appen, så du bedre kan forstå dit samlede energiforbrug i løbet af dagen."
         },
         "nutritionRead": {
           "title": "Læs Ernæringsdata",
-          "description": "Giver appen mulighed for at læse ernæringsdata fra Sundhedsforbindelse.",
-          "usage": "Denne tilladelse gør det muligt for appen at læse ernæringsoplysninger, der kan være blevet logget af andre apps, der er tilsluttet Sundhedsforbindelse, og giver dig et samlet overblik over din ernæring."
+          "description": "Giver appen mulighed for at læse ernæringsdata fra Health Connect.",
+          "usage": "Denne tilladelse gør det muligt for appen at læse ernæringsoplysninger, der kan være blevet logget af andre apps, der er tilsluttet Health Connect, og giver dig et samlet overblik over din ernæring."
         },
         "nutritionWrite": {
           "title": "Skriv Ernæringsdata",
-          "description": "Giver appen mulighed for at skrive ernæringsdata til Sundhedsforbindelse.",
-          "usage": "Denne tilladelse gør det muligt for appen at synkronisere dine loggede måltider til Sundhedsforbindelse, så dine ernæringsdata bliver tilgængelige for andre sundheds- og fitnessapps, du bruger."
+          "description": "Giver appen mulighed for at skrive ernæringsdata til Health Connect.",
+          "usage": "Denne tilladelse gør det muligt for appen at synkronisere dine loggede måltider til Health Connect, så dine ernæringsdata bliver tilgængelige for andre sundheds- og fitnessapps, du bruger."
         }
       },
       "managePermissions": "Administrer Tilladelser",
-      "openSettings": "Åbn sundhedsforbindelsesindstillinger",
+      "openSettings": "Åbn Health Connect-indstillinger",
       "requestPermissions": "Anmod om tilladelser",
       "permissionRequestCancelledOrFailed": "Anmodningen om tilladelser blev annulleret eller mislykkedes. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillinger.",
       "permissionRequestFailed": "Kunne ikke anmode om tilladelser. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillinger.",
@@ -554,7 +554,7 @@
     "skipForNow": "Spring over for nu",
     "saveChanges": "Gem Ændringer",
     "enabledSuccessfully": "Notifikationer aktiveret med succes!",
-    "permissionDenied": "Notifikations tilladelse nægtet",
+    "permissionDenied": "Notifikationstilladelse nægtet",
     "errorEnabling": "Fejl ved aktivering af notifikationer: {error}",
     "errorCompletingSetup": "Fejl ved færdiggørelse af opsætning: {error}"
   },
@@ -642,7 +642,7 @@
     },
     "calorieExpenditure": {
       "title": "Anslået kalorieforbrug",
-      "description": "Når Health Connect-data ikke er tilgængelige, estimerer vi, hvor mange kalorier du har forbrændt i dag ved at bruge din basale stofskiftehastighed (BMR) og dit aktivitetsniveau (TDEE), tilpasset den del af dagen, der er passeret.",
+      "description": "Når Health Connect-data ikke er tilgængelige, estimerer vi, hvor mange kalorier du har forbrændt i dag ved at bruge din basale stofskiftehastighed (BMR) og dit samlede daglige energiforbrug (TDEE), tilpasset den del af dagen, der er passeret.",
       "howCalculated": {
         "title": "Sådan beregnes estimatet",
         "description": "Vi beregner dit TDEE (baseret på din profil) og ganger det med den andel af dagen, der er gået (timer + minutter) / 24 for at anslå, hvor mange kalorier der er forbrændt indtil nu."
@@ -661,11 +661,11 @@
     "enjoyingQuestion": "Nyder du {appLabel}?",
     "yes": "Ja, jeg nyder den",
     "no": "Ikke rigtigt",
-    "rateStepHeading": "Bedøm os i Google Play",
+    "rateStepHeading": "Bedøm os i Play Store",
     "emailStepHeading": "Giv feedback via e-mail",
     "soloDevMessage": "En hurtig vurdering hjælper andre med at finde {appLabel} og holder udviklingen i gang. Vil du tage et øjeblik til at give en vurdering?",
     "shareFeedbackViaEmail": "Din feedback former, hvad der kommer fremover — vi læser hver besked. Vil du gerne dele dine tanker via e-mail?",
-    "rateCta": "Bedøm i Play Butik",
+    "rateCta": "Bedøm i Play Store",
     "maybeLater": "Måske senere",
     "sendFeedback": "Send os feedback",
     "noThanks": "Nej tak",

@@ -406,7 +406,7 @@
       "profile": "PROFILO",
       "localization": "LOCALIZZAZIONE",
       "notifications": "NOTIFICHE",
-      "healthConnect": "COLLEGAMENTO SALUTE",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "SUPPORTO E LEGALE",
       "about": "CHI SIAMO",
       "dangerZone": "ZONA PERICOLOSA",
@@ -467,7 +467,7 @@
     },
     "developerModeEnabled": "Modalità sviluppatore abilitata!",
     "healthConnect": {
-      "title": "Collegamento Salute",
+      "title": "Health Connect",
       "subtitle": "Visualizza e gestisci le autorizzazioni",
       "unavailable": {
         "title": "Health Connect non disponibile",
@@ -475,23 +475,23 @@
       },
       "permissions": {
         "title": "Autorizzazioni",
-        "description": "Le seguenti autorizzazioni sono richieste per fornire integrazione del Collegamento Salute:",
+        "description": "Le seguenti autorizzazioni sono richieste per fornire integrazione del Health Connect:",
         "granted": "Concesso",
         "notGranted": "Non Concesso",
         "caloriesBurned": {
           "title": "Leggi Calorie Totali Bruciate",
-          "description": "Consente all'app di leggere le tue calorie totali bruciate dal Collegamento Salute.",
+          "description": "Consente all'app di leggere le tue calorie totali bruciate dal Health Connect.",
           "usage": "Questa autorizzazione è utilizzata per visualizzare il tuo consumo calorico giornaliero nell'app, aiutandoti a capire il tuo dispendio energetico totale durante la giornata."
         },
         "nutritionRead": {
           "title": "Leggi Dati Nutrizionali",
-          "description": "Consente all'app di leggere i dati nutrizionali dal Collegamento Salute.",
-          "usage": "Questa autorizzazione permette all'app di leggere le informazioni nutrizionali che potrebbero essere state registrate da altre app collegate al Collegamento Salute, fornendo una visione completa della tua nutrizione."
+          "description": "Consente all'app di leggere i dati nutrizionali dal Health Connect.",
+          "usage": "Questa autorizzazione permette all'app di leggere le informazioni nutrizionali che potrebbero essere state registrate da altre app collegate al Health Connect, fornendo una visione completa della tua nutrizione."
         },
         "nutritionWrite": {
           "title": "Scrivi Dati Nutrizionali",
-          "description": "Consente all'app di scrivere dati nutrizionali nel Collegamento Salute.",
-          "usage": "Questa autorizzazione consente all'app di sincronizzare i tuoi pasti registrati nel Collegamento Salute, rendendo i tuoi dati nutrizionali disponibili per altre app di salute e fitness che utilizzi."
+          "description": "Consente all'app di scrivere dati nutrizionali nel Health Connect.",
+          "usage": "Questa autorizzazione consente all'app di sincronizzare i tuoi pasti registrati nel Health Connect, rendendo i tuoi dati nutrizionali disponibili per altre app di salute e fitness che utilizzi."
         }
       },
       "managePermissions": "Gestisci Autorizzazioni",
@@ -642,7 +642,7 @@
     },
     "calorieExpenditure": {
       "title": "Stima del dispendio calorico",
-      "description": "Quando i dati di Health Connect non sono disponibili, stimiamo le calorie bruciate oggi utilizzando il tuo Metabolismo Basale (BMR) e il livello di attività (TDEE), adeguandole alla porzione della giornata trascorsa.",
+      "description": "Quando i dati di Health Connect non sono disponibili, stimiamo le calorie bruciate oggi utilizzando il tuo Metabolismo Basale (BMR) e il Consumo Totale di Energia Giornaliero (TDEE), adeguandole alla porzione della giornata trascorsa.",
       "howCalculated": {
         "title": "Come viene calcolata la stima",
         "description": "Calcoliamo il tuo TDEE (in base al tuo profilo) e lo moltiplichiamo per la frazione della giornata trascorsa (ore + minuti) / 24 per stimare le calorie bruciate finora."

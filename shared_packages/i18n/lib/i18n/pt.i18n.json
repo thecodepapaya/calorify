@@ -12,15 +12,15 @@
   },
   "onboarding": {
     "welcome": "Bem-vindo ao {appLabel}",
-    "subtitle": "Seu companheiro pessoal de nutrição com tecnologia de IA",
+    "subtitle": "Seu companheiro pessoal de nutrição com tecnologia de AI",
     "getStarted": "Começar",
     "features": {
       "foodRecognition": {
         "title": "Reconhecimento Inteligente de Alimentos",
-        "description": "Tire uma foto e deixe a IA identificar sua refeição"
+        "description": "Tire uma foto e deixe a AI identificar sua refeição"
       },
       "aiAnalysis": {
-        "title": "Análise por IA",
+        "title": "Análise por AI",
         "description": "Obtenha fatos nutricionais instantâneos a partir de suas descrições"
       },
       "healthIntegration": {
@@ -68,7 +68,7 @@
       "messages": {
         "underweight": "Podemos ajudá-lo a construir um plano saudável para alcançar um peso equilibrado com refeições ricas em nutrientes.",
         "healthy": "Ótimo trabalho! Você está em uma faixa saudável. Vamos ajudá-lo a manter sua vitalidade e níveis de energia.",
-        "overweight": "{appLabel} simplificará sua jornada com rastreamento impulsionado por IA para ajudá-lo a alcançar seu objetivo com conforto.",
+        "overweight": "{appLabel} simplificará sua jornada com rastreamento com AI para ajudá-lo a alcançar seu objetivo com conforto.",
         "obese": "Estamos aqui para apoiá-lo com orientações personalizadas e estratégias sustentáveis para suas metas de saúde."
       }
     },
@@ -81,7 +81,7 @@
       "description": "Isso nos ajuda a calcular suas necessidades calóricas diárias com mais precisão"
     },
     "healthConnect": {
-      "title": "Conecte-se com o Health Connect",
+      "title": "Conecte-se ao Health Connect",
       "description": "Sincronize seus dados de saúde para melhores insights e rastreamento automático de calorias",
       "automaticTracking": {
         "title": "Rastreamento Automático de Calorias",
@@ -92,11 +92,11 @@
         "description": "Obtenha insights detalhados sobre suas tendências de saúde"
       },
       "seamlessIntegration": {
-        "title": "Integração Sem Costura",
+        "title": "Integração perfeita",
         "description": "Sincronize dados dos seus aplicativos de saúde favoritos"
       },
-      "connected": "Health Connect Conectado",
-      "notConnected": "Health Connect Não Conectado",
+      "connected": "Health Connect conectado",
+      "notConnected": "Health Connect não conectado",
       "setup": "Configurar Health Connect",
       "skipForNow": "Pular por agora",
       "statusConnected": "Health Connect está conectado.",
@@ -132,7 +132,7 @@
         "title": "Excelente Começo!",
         "description": "Você deu o primeiro passo em direção a {goalText}. Como você está {activityText}, {appLabel} ajustará suas metas para combinar com seu estilo de vida.",
         "personalizedTargets": "Metas calóricas personalizadas",
-        "aiMealDetection": "Detecção de refeição empoderada por IA",
+        "aiMealDetection": "Detecção de refeições com AI",
         "macroBreakdowns": "Distribuições detalhadas de macronutrientes",
         "button": "Vamos lá",
         "defaultGoal": "suas metas",
@@ -146,8 +146,8 @@
   },
   "home": {
     "aiSummary": {
-      "title": "Seu resumo da IA",
-      "logMore": "Registre mais refeições nos próximos dias para obter seus insights personalizados da IA.",
+      "title": "Seu resumo de AI",
+      "logMore": "Registre mais refeições nos próximos dias para obter seus insights personalizados de AI.",
       "loading": "Carregando seu resumo...",
       "mealCount": "{count} refeições registradas",
       "macroBalanceScore": "Pontuação de equilíbrio {score}",
@@ -202,8 +202,8 @@
       "seeAllMeals": "Ver todas as refeições"
     },
     "mealDescription": {
-      "title": "Adicionar Rápido com IA",
-      "description": "Descreva sua refeição e deixe a IA cuidar dos detalhes.",
+      "title": "Adição rápida com AI",
+      "description": "Descreva sua refeição e deixe a AI cuidar dos detalhes.",
       "hint": "ex.: Para o café da manhã, eu comi uma tigela grande de aveia com uma banana fatiada e uma medida de whey ...",
       "analyzeMeal": "Analisar refeição"
     },
@@ -217,7 +217,7 @@
     },
     "mealSnap": {
       "title": "Tire uma Foto e Rastreie Sua Refeição",
-      "description": "Use sua câmera para tirar uma foto da sua comida para análise da IA.",
+      "description": "Use sua câmera para tirar uma foto da sua comida para análise de AI.",
       "openCamera": "Abrir Câmera",
       "gallery": "Galeria"
     },
@@ -290,7 +290,7 @@
     "searchEmptySubtitle": "Tente um nome de refeição, quantidade ou tipo de refeição diferente.",
     "sortLabel": "Ordenar favoritos",
     "undo": "Desfazer",
-    "removed": "Removido {name} dos favoritos",
+    "removed": "{name} removido dos favoritos",
     "sortOptions": {
       "recent": "Recentes",
       "calories": "Calorias",
@@ -330,7 +330,7 @@
   "healthScore": {
     "title": "Pontuação de Saúde",
     "whyThisScore": "Por que essa pontuação?",
-    "note": "Essa pontuação é uma estimativa da IA com base nos ingredientes identificados e na densidade nutricional. Sempre consulte um profissional para obter conselhos dietéticos.",
+    "note": "Essa pontuação é uma estimativa de AI com base nos ingredientes identificados e na densidade nutricional. Sempre consulte um profissional para obter conselhos dietéticos.",
     "unhealthy": "Não saudável",
     "healthy": "Saudável",
     "neutral": "Neutro"
@@ -406,10 +406,10 @@
       "profile": "PERFIL",
       "localization": "LOCALIZAÇÃO",
       "notifications": "NOTIFICAÇÕES",
-      "healthConnect": "CONEXÃO DE SAÚDE",
-      "supportAndLegal": "SUPORTE E LEGAL",
+      "healthConnect": "HEALTH CONNECT",
+      "supportAndLegal": "SUPORTE E INFORMAÇÕES LEGAIS",
       "about": "SOBRE",
-      "dangerZone": "ZONA PERIGOSA",
+      "dangerZone": "ZONA DE PERIGO",
       "developer": "DESENVOLVEDOR"
     },
     "editProfile": {
@@ -467,31 +467,31 @@
     },
     "developerModeEnabled": "Modo de desenvolvedor habilitado!",
     "healthConnect": {
-      "title": "Conexão de Saúde",
+      "title": "Health Connect",
       "subtitle": "Visualize e gerencie permissões",
       "unavailable": {
-        "title": "Health Connect Indisponível",
+        "title": "Health Connect indisponível",
         "description": "O Health Connect não está disponível neste dispositivo. Instale o Health Connect pela Play Store (Android 9+) ou atualize para o Android 14+."
       },
       "permissions": {
         "title": "Permissões",
-        "description": "As seguintes permissões são solicitadas para oferecer integração com a Conexão de Saúde:",
+        "description": "As seguintes permissões são solicitadas para oferecer integração com o Health Connect:",
         "granted": "Concedido",
         "notGranted": "Não Concedido",
         "caloriesBurned": {
           "title": "Ler Calorias Totais Queimadas",
-          "description": "Permite que o aplicativo leia suas calorias totais queimadas da Conexão de Saúde.",
+          "description": "Permite que o aplicativo leia suas calorias totais queimadas do Health Connect.",
           "usage": "Essa permissão é utilizada para exibir a queima calórica diária no aplicativo, ajudando você a entender seu gasto energético total ao longo do dia."
         },
         "nutritionRead": {
           "title": "Ler Dados de Nutrição",
-          "description": "Permite que o aplicativo leia dados de nutrição da Conexão de Saúde.",
-          "usage": "Essa permissão permite que o aplicativo leia informações nutricionais que podem ter sido registradas por outros aplicativos conectados à Conexão de Saúde, proporcionando uma visão abrangente da sua nutrição."
+          "description": "Permite que o aplicativo leia dados de nutrição do Health Connect.",
+          "usage": "Essa permissão permite que o aplicativo leia informações nutricionais que podem ter sido registradas por outros aplicativos conectados ao Health Connect, proporcionando uma visão abrangente da sua nutrição."
         },
         "nutritionWrite": {
           "title": "Registrar Dados de Nutrição",
-          "description": "Permite que o aplicativo registre dados de nutrição na Conexão de Saúde.",
-          "usage": "Essa permissão permite que o aplicativo sincronize suas refeições registradas com a Conexão de Saúde, tornando seus dados de nutrição disponíveis para outros aplicativos de saúde e fitness que você utiliza."
+          "description": "Permite que o aplicativo registre dados de nutrição no Health Connect.",
+          "usage": "Essa permissão permite que o aplicativo sincronize suas refeições registradas com o Health Connect, tornando seus dados de nutrição disponíveis para outros aplicativos de saúde e fitness que você utiliza."
         }
       },
       "managePermissions": "Gerenciar Permissões",
@@ -503,10 +503,10 @@
     },
     "about": {
       "title": "Sobre",
-      "tagline": "Consciência de calorias rápida, gratuita e com foco em privacidade",
+      "tagline": "Controle de calorias rápido, gratuito e com privacidade em primeiro lugar",
       "ourStory": {
         "title": "Nossa História",
-        "content": "{appLabel} nasceu de uma frustração simples: a maioria dos aplicativos de rastreamento de calorias é excessivamente complicada, exige entrada manual constante, cobra altas taxas de assinatura ou compromete a privacidade.\n\nComo um desenvolvedor independente, queria criar algo mais simples e justo — um aplicativo que use IA para reduzir o esforço, que permaneça rápido e gratuito e que trate seus dados de saúde com respeito.\n\n{appLabel} é o aplicativo que eu gostaria que existisse: sem contas, sem rastreamento, sem anúncios — apenas insights claros e práticos e suas metas de saúde."
+        "content": "{appLabel} nasceu de uma frustração simples: a maioria dos aplicativos de rastreamento de calorias é excessivamente complicada, exige entrada manual constante, cobra altas taxas de assinatura ou compromete a privacidade.\n\nComo um desenvolvedor independente, queria criar algo mais simples e justo — um aplicativo que use AI para reduzir o esforço, que permaneça rápido e gratuito e que trate seus dados de saúde com respeito.\n\n{appLabel} é o aplicativo que eu gostaria que existisse: sem contas, sem rastreamento, sem anúncios — apenas insights claros e práticos e suas metas de saúde."
       },
       "privacy": {
         "title": "Sua Privacidade Importa",
@@ -582,10 +582,10 @@
   "login": {
     "title": "Entrar",
     "signInWithGoogle": "Entrar com o Google",
-    "signInFailed": "Falha ao fazer login com o Google ou foi cancelado."
+    "signInFailed": "O login com o Google falhou ou foi cancelado."
   },
   "disclaimer": {
-    "pleaseNote": "Por favor, Note",
+    "pleaseNote": "Atenção",
     "snap": {
       "description": "{appLabel} fornece informações nutricionais estimadas. A precisão depende da sua entrada e das variações dos alimentos. Use como um guia, não como uma fonte definitiva. Consulte um profissional para obter conselhos dietéticos personalizados.",
       "portionSize": {
@@ -610,7 +610,7 @@
       "description": "A mudança de peso projetada é uma estimativa teórica baseada no simples modelo de calorias ingeridas vs. calorias queimadas. É destinada apenas para orientação motivacional, não como previsão do seu peso real.",
       "calorieAccuracy": {
         "title": "Precisão das Calorias",
-        "description": "Esta estimativa é tão precisa quanto sua ingestão calórica e despesa rastreadas. Registros imprecisos resultarão em uma projeção imprecisa."
+        "description": "Esta estimativa é tão precisa quanto sua ingestão e seu gasto calórico registrados. Registros imprecisos resultarão em uma projeção imprecisa."
       },
       "biologicalFactors": {
         "title": "Fatores Biológicos",
@@ -633,7 +633,7 @@
       },
       "tdee": {
         "title": "TDEE",
-        "description": "O Gasto Energético Diário Total (TDEE) é o total de calorias que você queima por dia, incluindo sua GEB mais calorias de atividade física e movimento diário. O TDEE depende da sua GEB e nível de atividade. Um TDEE mais alto significa que você queima mais calorias no total, geralmente por ser mais ativo ou ter uma GEB maior. Um TDEE mais baixo sugere menos atividade diária ou uma GEB menor."
+        "description": "O Gasto Energético Diário Total (TDEE) é o total de calorias que você queima por dia, incluindo sua TMB mais calorias de atividade física e movimento diário. O TDEE depende da sua TMB e do seu nível de atividade. Um TDEE mais alto significa que você queima mais calorias no total, geralmente por ser mais ativo ou ter uma TMB maior. Um TDEE mais baixo sugere menos atividade diária ou uma TMB menor."
       },
       "dailyGoal": {
         "title": "Meta Diária",
@@ -642,14 +642,14 @@
     },
     "calorieExpenditure": {
       "title": "Estimativa de gasto calórico",
-      "description": "Quando os dados do Health Connect não estão disponíveis, estimamos as calorias gastas hoje usando sua Taxa Metabólica Basal (BMR) e seu nível de atividade (TDEE), ajustando para a parte do dia que já passou.",
+      "description": "Quando os dados do Health Connect não estão disponíveis, estimamos as calorias gastas hoje usando sua Taxa Metabólica Basal (TMB) e seu Gasto Energético Diário Total (TDEE), ajustando para a parte do dia que já passou.",
       "howCalculated": {
         "title": "Como a estimativa é calculada",
         "description": "Calculamos seu TDEE (com base no seu perfil) e multiplicamos pela fração do dia que já passou (horas + minutos) / 24 para estimar as calorias gastas até agora."
       },
       "professionalGuidance": {
         "title": "Orientação profissional",
-        "description": "Não use esta estimativa para tomar decisões médicas. Consulte sempre um profissional de saúde ou um nutricionista registrado para obter orientação personalizada sobre manejo/controle de peso."
+        "description": "Não use esta estimativa para tomar decisões médicas. Consulte sempre um profissional de saúde ou um nutricionista registrado para obter orientação personalizada sobre controle de peso."
       }
     }
   },

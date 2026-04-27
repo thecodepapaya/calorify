@@ -184,16 +184,16 @@
       "chartAccessibilityLabel": "Grafik makronutrien"
     },
     "intakeProgress": {
-      "title": "Pemisahan Makro Hari Ini",
+      "title": "Pembagian Makro Hari Ini",
       "target": "Target",
       "current": "Sekarang"
     },
     "intakeHistory": {
-      "title": "Riwayat Makro 7-Hari",
+      "title": "Riwayat Makro 7 Hari",
       "trendTitle": "Tren Hari Ini",
       "peakHour": "Jam puncak: {hour}:00",
       "noHistoryYet": "Belum ada riwayat",
-      "startLogging": "Mulailah mencatat makanan untuk melihat tren makro 7-hari Anda di sini"
+      "startLogging": "Mulailah mencatat makanan untuk melihat tren makro 7 hari Anda di sini"
     },
     "mealLog": {
       "title": "Makanan yang Dicatat",
@@ -406,11 +406,11 @@
       "profile": "PROFIL",
       "localization": "LOKALISASI",
       "notifications": "PEMBERITAHUAN",
-      "healthConnect": "KONEKSI KESEHATAN",
-      "supportAndLegal": "DUKUNGAN & HUKUM",
+      "healthConnect": "HEALTH CONNECT",
+      "supportAndLegal": "DUKUNGAN & LEGAL",
       "about": "TENTANG",
       "dangerZone": "ZONA BAHAYA",
-      "developer": "PEMBANGUN"
+      "developer": "PENGEMBANG"
     },
     "editProfile": {
       "title": "Edit Profil",
@@ -440,7 +440,7 @@
     },
     "sendFeedback": {
       "title": "Kirim Umpan Balik",
-      "subtitle": "Bantu kami memperbaiki {appLabel}",
+      "subtitle": "Bantu kami meningkatkan {appLabel}",
       "emailSubject": "Umpan Balik Aplikasi {appLabel}",
       "emailBodyPrefix": "Silakan berikan umpan balik Anda di bawah ini:",
       "appVersion": "Versi Aplikasi",
@@ -456,7 +456,7 @@
     },
     "clearAllData": {
       "title": "Hapus Semua Data",
-      "subtitle": "Hapus semua informasi Anda secara tidak dapat dibalik",
+      "subtitle": "Hapus semua informasi Anda secara permanen",
       "confirmationTitle": "Hapus Semua Data?",
       "confirmationMessage": "Tindakan ini tidak dapat dibatalkan. Semua makanan yang dicatat, favorit, dan pengaturan profil Anda akan dihapus secara permanen.",
       "cancel": "Batal",
@@ -467,35 +467,35 @@
     },
     "developerModeEnabled": "Mode pengembang diaktifkan!",
     "healthConnect": {
-      "title": "Koneksi Kesehatan",
+      "title": "Health Connect",
       "subtitle": "Lihat dan kelola izin",
       "unavailable": {
-        "title": "Health Connect Tidak Tersedia",
+        "title": "Health Connect tidak tersedia",
         "description": "Health Connect tidak tersedia di perangkat ini. Silakan instal Health Connect dari Play Store (Android 9+) atau perbarui ke Android 14+."
       },
       "permissions": {
         "title": "Izin",
-        "description": "Izin berikut diminta untuk menyediakan integrasi Koneksi Kesehatan:",
+        "description": "Izin berikut diminta untuk menyediakan integrasi Health Connect:",
         "granted": "Diberikan",
         "notGranted": "Tidak Diberikan",
         "caloriesBurned": {
           "title": "Baca Total Kalori yang Terbakar",
-          "description": "Memungkinkan aplikasi untuk membaca total kalori yang terbakar dari Koneksi Kesehatan.",
+          "description": "Memungkinkan aplikasi membaca total kalori yang terbakar dari Health Connect.",
           "usage": "Izin ini digunakan untuk menampilkan pembakaran kalori harian Anda di aplikasi, membantu Anda memahami total pengeluaran energi Anda sepanjang hari."
         },
         "nutritionRead": {
           "title": "Baca Data Nutrisi",
-          "description": "Memungkinkan aplikasi untuk membaca data nutrisi dari Koneksi Kesehatan.",
-          "usage": "Izin ini memungkinkan aplikasi untuk membaca informasi nutrisi yang mungkin telah dicatat oleh aplikasi lain yang terhubung ke Koneksi Kesehatan, memberikan pandangan menyeluruh tentang nutrisi Anda."
+          "description": "Memungkinkan aplikasi membaca data nutrisi dari Health Connect.",
+          "usage": "Izin ini memungkinkan aplikasi membaca informasi nutrisi yang mungkin telah dicatat oleh aplikasi lain yang terhubung ke Health Connect, sehingga memberikan pandangan menyeluruh tentang nutrisi Anda."
         },
         "nutritionWrite": {
           "title": "Tulis Data Nutrisi",
-          "description": "Memungkinkan aplikasi untuk menulis data nutrisi ke Koneksi Kesehatan.",
-          "usage": "Izin ini memungkinkan aplikasi untuk menyinkronkan makanan yang telah dicatat ke Koneksi Kesehatan, sehingga data nutrisi Anda tersedia untuk aplikasi kesehatan dan kebugaran lain yang Anda gunakan."
+          "description": "Memungkinkan aplikasi menulis data nutrisi ke Health Connect.",
+          "usage": "Izin ini memungkinkan aplikasi menyinkronkan makanan yang telah dicatat ke Health Connect, sehingga data nutrisi Anda tersedia untuk aplikasi kesehatan dan kebugaran lain yang Anda gunakan."
         }
       },
       "managePermissions": "Kelola Izin",
-      "openSettings": "Buka Pengaturan Kesehatan Terhubung",
+      "openSettings": "Buka Pengaturan Health Connect",
       "requestPermissions": "Minta Izin",
       "permissionRequestCancelledOrFailed": "Permintaan izin dibatalkan atau gagal. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.",
       "permissionRequestFailed": "Tidak dapat meminta izin. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.",
@@ -503,31 +503,31 @@
     },
     "about": {
       "title": "Tentang",
-      "tagline": "Kesadaran kalori yang cepat, gratis, dan mengutamakan privasi",
+      "tagline": "Pelacakan kalori yang cepat, gratis, dan mengutamakan privasi",
       "ourStory": {
         "title": "Kisah Kami",
-        "content": "{appLabel} lahir dari sebuah frustrasi sederhana: sebagian besar aplikasi pelacak kalori terlalu rumit, membutuhkan input manual yang konstan, memungut biaya berlangganan yang tinggi, atau mengorbankan privasi.\n\nSebagai pengembang solo, saya ingin membuat sesuatu yang lebih sederhana dan adil — sebuah aplikasi yang menggunakan AI untuk mengurangi usaha, tetap cepat dan gratis digunakan, serta menghormati data kesehatan Anda.\n\n{appLabel} adalah aplikasi yang saya harap ada: tanpa akun, tanpa pelacakan, tanpa iklan — hanya wawasan yang jelas dan praktis serta tujuan kesehatan Anda."
+        "content": "{appLabel} lahir dari keluhan sederhana: sebagian besar aplikasi pelacak kalori terlalu rumit, membutuhkan input manual terus-menerus, memungut biaya berlangganan yang tinggi, atau mengorbankan privasi.\n\nSebagai pengembang independen, saya ingin membuat sesuatu yang lebih sederhana dan adil — aplikasi yang menggunakan AI untuk mengurangi usaha, tetap cepat dan gratis digunakan, serta menghormati data kesehatan Anda.\n\n{appLabel} adalah aplikasi yang saya harap sudah ada: tanpa akun, tanpa pelacakan, tanpa iklan — hanya wawasan yang jelas dan praktis serta tujuan kesehatan Anda."
       },
       "privacy": {
         "title": "Privasi Anda Penting",
-        "description": "Privasi bukanlah pemikiran setelahnya — itu adalah prinsip desain. Berikut adalah apa artinya dalam praktik:",
-        "noAccounts": "Tanpa akun yang diperlukan\nGunakan aplikasi segera. Tanpa pendaftaran, tanpa identitas.",
+        "description": "Privasi bukan hal tambahan — privasi adalah prinsip desain. Berikut artinya dalam praktik:",
+        "noAccounts": "Tidak perlu akun\nGunakan aplikasi langsung. Tanpa pendaftaran, tanpa identitas.",
         "noTracking": "Tanpa pelacakan perilaku\n{appLabel} tidak memantau aktivitas Anda, membangun profil penggunaan, atau melacak Anda di aplikasi atau situs web lain.",
-        "noAds": "Tanpa iklan secara desain\n{appLabel} dibangun untuk berfungsi tanpa iklan atau monetisasi berbasis data.",
+        "noAds": "Dirancang tanpa iklan\n{appLabel} dibuat untuk berfungsi tanpa iklan atau monetisasi berbasis data.",
         "noDataSelling": "Tanpa penjualan data\nData kesehatan Anda tidak pernah dijual atau dibagikan dengan pihak ketiga.",
         "localStorage": "Penyimpanan lokal terlebih dahulu\nData Anda tetap di perangkat Anda.",
         "privacyPolicy": "Kebijakan Privasi"
       },
       "developer": {
         "title": "Dibuat oleh Pengembang Solo",
-        "description": "{appLabel} dibangun dan dipelihara oleh seorang pengembang solo tunggal yang fokus pada menciptakan perangkat lunak kesehatan yang tenang dan menghormati privasi.\n\nMasukan dibaca secara pribadi dan membantu membentuk arah aplikasi.",
+        "description": "{appLabel} dibuat dan dipelihara oleh seorang pengembang independen yang berfokus pada perangkat lunak kesehatan yang tenang dan menghormati privasi.\n\nMasukan dibaca secara pribadi dan membantu membentuk arah aplikasi.",
         "website": "Situs Web",
         "email": "Email"
       },
       "feedback": {
         "title": "Menikmati {appLabel}?",
         "description": "Masukan Anda membantu menjadikan {appLabel} lebih baik untuk semua orang.",
-        "rateApp": "Beri Rating di Play Store",
+        "rateApp": "Beri penilaian di Play Store",
         "sendFeedback": "Kirim Masukan"
       }
     },
@@ -582,18 +582,18 @@
   "login": {
     "title": "Masuk",
     "signInWithGoogle": "Masuk dengan Google",
-    "signInFailed": "Masuk Google gagal atau dibatalkan."
+    "signInFailed": "Masuk dengan Google gagal atau dibatalkan."
   },
   "disclaimer": {
     "pleaseNote": "Harap Dicatat",
     "snap": {
-      "description": "{appLabel} memberikan informasi nutrisi yang diperkirakan. Akurasi tergantung pada input Anda & variasi makanan. Gunakan sebagai panduan, bukan sebagai sumber definitif. Konsultasikan dengan profesional untuk saran diet yang dipersonalisasi.",
+      "description": "{appLabel} memberikan perkiraan informasi nutrisi. Akurasinya bergantung pada input Anda dan variasi makanan. Gunakan sebagai panduan, bukan sebagai sumber pasti. Konsultasikan dengan profesional untuk saran pola makan yang dipersonalisasi.",
       "portionSize": {
         "title": "Ukuran Porsi",
         "description": "Akurasi perkiraan sangat bergantung pada penilaian yang benar tentang ukuran porsi Anda."
       },
       "preparationMethods": {
-        "title": "Metode Persiapan",
+        "title": "Metode Memasak",
         "description": "Metode memasak dapat secara signifikan mengubah kandungan nutrisi makanan. Perkiraan {appLabel} mungkin tidak selalu memperhitungkan variasi ini."
       },
       "ingredients": {
@@ -607,10 +607,10 @@
     },
     "weightEstimate": {
       "title": "Tentang Perkiraan Berat",
-      "description": "Perubahan berat yang diproyeksikan adalah perkiraan teoretis berdasarkan model kalori masuk vs. kalori keluar yang sederhana. Itu dimaksudkan untuk panduan motivasi saja, bukan sebagai prediksi berat badan Anda yang sebenarnya.",
+      "description": "Perubahan berat badan yang diproyeksikan adalah perkiraan teoretis berdasarkan model sederhana kalori masuk vs. kalori keluar. Ini hanya ditujukan sebagai panduan motivasi, bukan prediksi berat badan Anda yang sebenarnya.",
       "calorieAccuracy": {
         "title": "Akurasi Kalori",
-        "description": "Perkiraan ini hanya seakurat asupan dan pengeluaran kalori Anda yang dilacak. Pencatatan yang tidak akurat akan menghasilkan proyeksi yang tidak akurat."
+        "description": "Perkiraan ini hanya seakurat asupan dan pengeluaran kalori yang Anda catat. Pencatatan yang tidak akurat akan menghasilkan proyeksi yang tidak akurat."
       },
       "biologicalFactors": {
         "title": "Faktor Biologis",
@@ -629,11 +629,11 @@
       "description": "Metrik ini membantu Anda memahami kebutuhan energi tubuh Anda dan memandu tujuan nutrisi Anda.",
       "bmr": {
         "title": "BMR",
-        "description": "Basal Metabolic Rate (BMR) adalah jumlah kalori yang dibakar tubuh Anda saat dalam keadaan istirahat untuk mempertahankan fungsi dasar seperti bernapas dan sirkulasi. BMR tergantung pada usia, jenis kelamin, tinggi badan, dan berat badan Anda. BMR yang lebih tinggi berarti tubuh Anda secara alami membakar lebih banyak kalori saat istirahat, sering kali disebabkan oleh lebih banyak massa otot, usia yang lebih muda, atau jenis kelamin laki-laki. BMR yang lebih rendah biasanya menunjukkan kurangnya massa otot, usia yang lebih tua, atau jenis kelamin perempuan."
+        "description": "Laju Metabolisme Basal (BMR) adalah jumlah kalori yang dibakar tubuh Anda saat beristirahat untuk mempertahankan fungsi dasar seperti bernapas dan sirkulasi. BMR bergantung pada usia, jenis kelamin, tinggi badan, dan berat badan Anda. BMR yang lebih tinggi berarti tubuh Anda secara alami membakar lebih banyak kalori saat istirahat, sering kali karena massa otot yang lebih besar, usia yang lebih muda, atau jenis kelamin laki-laki. BMR yang lebih rendah biasanya menunjukkan massa otot yang lebih sedikit, usia yang lebih tua, atau jenis kelamin perempuan."
       },
       "tdee": {
         "title": "TDEE",
-        "description": "Total Daily Energy Expenditure (TDEE) adalah total kalori yang Anda bakar per hari, termasuk BMR Anda ditambah kalori dari aktivitas fisik dan pergerakan sehari-hari. TDEE tergantung pada BMR dan tingkat aktivitas Anda. TDEE yang lebih tinggi berarti Anda membakar lebih banyak kalori secara keseluruhan, biasanya karena lebih aktif atau memiliki BMR yang lebih tinggi. TDEE yang lebih rendah menunjukkan kurangnya aktivitas sehari-hari atau BMR yang lebih rendah."
+        "description": "Pengeluaran Energi Harian Total (TDEE) adalah total kalori yang Anda bakar per hari, termasuk BMR Anda ditambah kalori dari aktivitas fisik dan gerakan sehari-hari. TDEE bergantung pada BMR dan tingkat aktivitas Anda. TDEE yang lebih tinggi berarti Anda membakar lebih banyak kalori secara keseluruhan, biasanya karena lebih aktif atau memiliki BMR yang lebih tinggi. TDEE yang lebih rendah menunjukkan aktivitas harian yang lebih sedikit atau BMR yang lebih rendah."
       },
       "dailyGoal": {
         "title": "Tujuan Harian",

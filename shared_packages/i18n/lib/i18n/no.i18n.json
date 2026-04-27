@@ -101,7 +101,7 @@
       "skipForNow": "Hopp over for nå",
       "statusConnected": "Health Connect er tilkoblet.",
       "statusSuccess": "Health Connect har blitt tilkoblet med suksess!",
-      "statusPermissionDenied": "Tillatelse nektet. Vennligst aktiver helseforbindelsestillatelser fra telefoninnstillingene dine for {appLabel}.",
+      "statusPermissionDenied": "Tillatelse nektet. Vennligst aktiver Health Connect-tillatelser fra telefoninnstillingene dine for {appLabel}.",
       "statusError": "Feil under oppsett av Health Connect: {error}"
     },
     "reinforcement": {
@@ -406,7 +406,7 @@
       "profile": "PROFIL",
       "localization": "LOKALISERING",
       "notifications": "NOTIFIKASJONER",
-      "healthConnect": "HELSEKONTAKT",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "HJELP & JURIDISK",
       "about": "OM",
       "dangerZone": "FARLIG SONE",
@@ -467,7 +467,7 @@
     },
     "developerModeEnabled": "Utviklermodus aktivert!",
     "healthConnect": {
-      "title": "Helsekontakt",
+      "title": "Health Connect",
       "subtitle": "Vis og administrer tillatelser",
       "unavailable": {
         "title": "Health Connect utilgjengelig",
@@ -475,27 +475,27 @@
       },
       "permissions": {
         "title": "Tillatelser",
-        "description": "Følgende tillatelser er forespurt for å gi integrering med Helsekontakt:",
+        "description": "Følgende tillatelser er forespurt for å gi integrering med Health Connect:",
         "granted": "Innvilget",
         "notGranted": "Ikke innvilget",
         "caloriesBurned": {
           "title": "Les totale kalorier brent",
-          "description": "Tillater appen å lese dine totale kalorier brent fra Helsekontakt.",
+          "description": "Tillater appen å lese dine totale kalorier brent fra Health Connect.",
           "usage": "Denne tillatelsen brukes til å vise ditt daglige kalori-forbruk i appen, og hjelper deg å forstå ditt totale energiforbruk gjennom dagen."
         },
         "nutritionRead": {
           "title": "Les ernæringsdata",
-          "description": "Tillater appen å lese ernæringsdata fra Helsekontakt.",
-          "usage": "Denne tillatelsen lar appen lese ernæringsinformasjon som kan ha blitt logget av andre apper som er koblet til Helsekontakt, og gir en omfattende oversikt over din ernæring."
+          "description": "Tillater appen å lese ernæringsdata fra Health Connect.",
+          "usage": "Denne tillatelsen lar appen lese ernæringsinformasjon som kan ha blitt logget av andre apper som er koblet til Health Connect, og gir en omfattende oversikt over din ernæring."
         },
         "nutritionWrite": {
           "title": "Skriv ernæringsdata",
-          "description": "Tillater appen å skrive ernæringsdata til Helsekontakt.",
-          "usage": "Denne tillatelsen lar appen synkronisere dine loggede måltider til Helsekontakt, og gjør ernæringsdataene dine tilgjengelige for andre helse- og treningsapper du bruker."
+          "description": "Tillater appen å skrive ernæringsdata til Health Connect.",
+          "usage": "Denne tillatelsen lar appen synkronisere dine loggede måltider til Health Connect, og gjør ernæringsdataene dine tilgjengelige for andre helse- og treningsapper du bruker."
         }
       },
       "managePermissions": "Administrer tillatelser",
-      "openSettings": "Åpne helsetilkoblingsinnstillinger",
+      "openSettings": "Åpne Health Connect-innstillinger",
       "requestPermissions": "Be om tillatelser",
       "permissionRequestCancelledOrFailed": "Forespørselen om tillatelser ble avbrutt eller mislyktes. Prøv igjen eller gi tillatelser manuelt i Health Connect-innstillingene.",
       "permissionRequestFailed": "Kunne ikke be om tillatelser. Prøv igjen eller gi tillatelser manuelt i Health Connect-innstillingene.",
@@ -514,7 +514,7 @@
         "noAccounts": "Ingen kontoer kreves\nBruk appen umiddelbart. Ingen registreringer, ingen identiteter.",
         "noTracking": "Ingen atferdssporing\n{appLabel} overvåker ikke aktiviteten din, lager bruksprofiler, eller sporer deg på tvers av apper eller nettsteder.",
         "noAds": "Ingen annonser ved design\n{appLabel} er bygget for å fungere uten annonser eller datadrevet monetisering.",
-        "noDataSelling": "Ingen datasalgs\nDine helsedata blir aldri solgt eller delt med tredjeparter.",
+        "noDataSelling": "Ingen datasalg\nDine helsedata blir aldri solgt eller delt med tredjeparter.",
         "localStorage": "Lokal lagring først\nDine data forblir på enheten din.",
         "privacyPolicy": "Personvernerklæring"
       },
@@ -642,7 +642,7 @@
     },
     "calorieExpenditure": {
       "title": "Estimert kaloriforbruk",
-      "description": "Når Health Connect-data ikke er tilgjengelig, estimerer vi dagens forbrente kalorier ved å bruke ditt basalstoffskifte (BMR) og aktivitetsnivå (TDEE), justert for den delen av dagen som har gått.",
+      "description": "Når Health Connect-data ikke er tilgjengelig, estimerer vi dagens forbrente kalorier ved å bruke ditt basalstoffskifte (BMR) og totale daglige energiforbruk (TDEE), justert for den delen av dagen som har gått.",
       "howCalculated": {
         "title": "Hvordan estimatet beregnes",
         "description": "Vi beregner ditt TDEE (basert på profilen din) og multipliserer det med andelen av dagen som har gått (timer + minutter)/24 for å anslå hvor mange kalorier som er forbrent så langt."

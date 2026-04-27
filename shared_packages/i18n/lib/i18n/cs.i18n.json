@@ -124,7 +124,7 @@
         "finalizeDescription": "Dokončeme váš profil pro přizpůsobení vašeho zážitku.",
         "goalGain": "přibrat",
         "goalLose": "zhubnout",
-        "goalReach": "Abychom dosáhli vašeho cíle, budete {direction} {diff} {unit}.",
+        "goalReach": "Abyste dosáhli svého cíle, budete muset {direction} {diff} {unit}.",
         "goalReached": "Jste na své cílové hmotnosti! Pomůžeme vám ji udržet.",
         "button": "Jdeme na to"
       },
@@ -161,7 +161,7 @@
       "title": "Nastavte si svůj denní cíl",
       "titleSet": "Váš denní cíl",
       "description": "Připraveni na začátek vaší wellness cesty? Nastavte si svůj denní kalorický cíl níže, abyste zahájili svůj pokrok.",
-      "descriptionSet": "Vaše kompas je nastaven! Toto je váš denní kalorický cíl, který vás povede.",
+      "descriptionSet": "Váš kompas je nastaven! Toto je váš denní kalorický cíl, který vás povede.",
       "yourGoal": "Váš cíl",
       "goal": "Cíl",
       "dailyCalories": "Denní kalorie (kcal)",
@@ -316,7 +316,7 @@
     "targetWeight": "Cílová hmotnost",
     "activityLevel": "Úroveň aktivity",
     "healthMetrics": "Zdravotní metriky",
-    "notSet": "Nastaveno není",
+    "notSet": "Nenastaveno",
     "years": "roky",
     "updatedSuccessfully": "Profil byl úspěšně aktualizován!",
     "calculatedValues": {
@@ -406,7 +406,7 @@
       "profile": "PROFIL",
       "localization": "LOKALIZACE",
       "notifications": "NOTIFIKACE",
-      "healthConnect": "ZDRAVOTNÍ SPOJENÍ",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "POMOC & PRÁVNÍ",
       "about": "O APLIKACI",
       "dangerZone": "NEBEZPEČNÁ ZÓNA",
@@ -467,31 +467,31 @@
     },
     "developerModeEnabled": "Režim vývojáře je povolen!",
     "healthConnect": {
-      "title": "Zdravotní spojení",
+      "title": "Health Connect",
       "subtitle": "Zobrazit a spravovat oprávnění",
       "unavailable": {
         "title": "Health Connect není k dispozici",
-        "description": "Health Connect není na tomto zařízení k dispozici. Nainstalujte si prosím Health Connect z Obchodu Play (Android 9+) nebo aktualizujte na Android 14+."
+        "description": "Health Connect není na tomto zařízení k dispozici. Nainstalujte si prosím Health Connect z Play Store (Android 9+) nebo aktualizujte na Android 14+."
       },
       "permissions": {
         "title": "Oprávnění",
-        "description": "Následující oprávnění jsou požadována k zajištění integrace zdravotního spojení:",
+        "description": "Následující oprávnění jsou požadována k zajištění integrace Health Connect:",
         "granted": "Schváleno",
         "notGranted": "Neschváleno",
         "caloriesBurned": {
           "title": "Číst celkové spálené kalorie",
-          "description": "Umožňuje aplikaci číst vaše celkové spálené kalorie ze zdravotního spojení.",
+          "description": "Umožňuje aplikaci číst vaše celkové spálené kalorie z Health Connect.",
           "usage": "Toto oprávnění se používá k zobrazení vašeho denního spáleného množství kalorií v aplikaci, což vám pomůže pochopit váš celkový energetický výdej během dne."
         },
         "nutritionRead": {
           "title": "Číst údaje o výživě",
-          "description": "Umožňuje aplikaci číst údaje o výživě ze zdravotního spojení.",
-          "usage": "Toto oprávnění umožňuje aplikaci číst informace o výživě, které mohly být zapsány jinými aplikacemi připojenými ke zdravotnímu spojení, a poskytuje komplexní přehled o vaší výživě."
+          "description": "Umožňuje aplikaci číst údaje o výživě z Health Connect.",
+          "usage": "Toto oprávnění umožňuje aplikaci číst informace o výživě, které mohly být zapsány jinými aplikacemi připojenými k Health Connect, a poskytuje komplexní přehled o vaší výživě."
         },
         "nutritionWrite": {
           "title": "Zapsat údaje o výživě",
-          "description": "Umožňuje aplikaci zapsat údaje o výživě do zdravotního spojení.",
-          "usage": "Toto oprávnění umožňuje aplikaci synchronizovat vaše zapsané jídla do zdravotního spojení, což činí vaše údaje o výživě dostupné pro další aplikace týkající se zdraví a fitness, které používáte."
+          "description": "Umožňuje aplikaci zapsat údaje o výživě do Health Connect.",
+          "usage": "Toto oprávnění umožňuje aplikaci synchronizovat vaše zapsaná jídla do Health Connect, což zpřístupní vaše údaje o výživě dalším aplikacím pro zdraví a fitness, které používáte."
         }
       },
       "managePermissions": "Spravovat oprávnění",
@@ -503,7 +503,7 @@
     },
     "about": {
       "title": "O nás",
-      "tagline": "Rychlá, zdarma a s důrazem na soukromí v oblasti kalorické povědomí",
+      "tagline": "Rychlé, bezplatné sledování kalorií s důrazem na soukromí",
       "ourStory": {
         "title": "Náš příběh",
         "content": "{appLabel} vzniklo z jednoduché frustrace: většina aplikací pro sledování kalorií je buď příliš složitá, vyžaduje neustálý ruční vstup, účtuje vysoké poplatky za předplatné nebo kompromituje soukromí.\n\nJako nezávislý vývojář jsem chtěl vytvořit něco jednoduššího a spravedlivějšího - aplikaci, která využívá AI k minimalizaci úsilí, zůstává rychlá a zdarma k použití a zachází s vašimi zdravotními údaji s respektem.\n\n{appLabel} je aplikace, kterou jsem si přál mít: žádné účty, žádné sledování, žádné reklamy - jen jasné, praktické poznatky a vaše zdravotní cíle."
@@ -637,12 +637,12 @@
       },
       "dailyGoal": {
         "title": "Denní cíl",
-        "description": "Denní cíl je vaše doporučená denní příjem kalorií na základě vašeho TDEE a cílové hmotnosti. Při hubnutí konzumujete méně kalorií než vaše TDEE. Pro udržení hmotnosti odpovídáte svému TDEE. Při přibírání na váze konzumujete více kalorií než vaše TDEE. To vám pomůže dosáhnout požadované změny hmotnosti zdravým tempem."
+        "description": "Denní cíl je váš doporučený denní příjem kalorií na základě vašeho TDEE a cílové hmotnosti. Při hubnutí konzumujete méně kalorií než vaše TDEE. Pro udržení hmotnosti odpovídáte svému TDEE. Při přibírání na váze konzumujete více kalorií než vaše TDEE. To vám pomůže dosáhnout požadované změny hmotnosti zdravým tempem."
       }
     },
     "calorieExpenditure": {
       "title": "Odhad spálených kalorií",
-      "description": "Když nejsou k dispozici údaje z Health Connect, odhadneme dnešní spálené kalorie pomocí vašeho bazálního metabolismu (BMR) a úrovně aktivity (TDEE). Výsledek upravíme podle části dne, která již uplynula.",
+      "description": "Když nejsou k dispozici údaje z Health Connect, odhadneme dnešní spálené kalorie pomocí vašeho bazálního metabolismu (BMR) a celkového denního energetického výdeje (TDEE). Výsledek upravíme podle části dne, která již uplynula.",
       "howCalculated": {
         "title": "Jak je odhad vypočítán",
         "description": "Spočítáme vaše TDEE (na základě profilu) a vynásobíme jej poměrem uplynulé části dne (hodiny + minuty) / 24, abychom odhadli dosud spálené kalorie."
@@ -661,11 +661,11 @@
     "enjoyingQuestion": "Líbí se vám {appLabel}?",
     "yes": "Ano, líbí se mi.",
     "no": "Ne, moc ne.",
-    "rateStepHeading": "Ohodnoťte v Obchodě Play",
+    "rateStepHeading": "Ohodnoťte v Play Store",
     "emailStepHeading": "Pošlete zpětnou vazbu e-mailem",
     "soloDevMessage": "Krátké hodnocení pomůže ostatním najít {appLabel} a podpoří další vývoj. Věnujete chvilku a zanecháte hodnocení?",
     "shareFeedbackViaEmail": "Vaše zpětná vazba ovlivní, co přijde dál — čteme každou zprávu. Chcete nám své připomínky poslat e-mailem?",
-    "rateCta": "Ohodnoťte v Obchodu Play",
+    "rateCta": "Ohodnoťte v Play Store",
     "maybeLater": "Možná později",
     "sendFeedback": "Odeslat zpětnou vazbu",
     "noThanks": "Ne, děkuji",
