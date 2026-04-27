@@ -12,7 +12,7 @@
   },
   "onboarding": {
     "welcome": "Welkom bij {appLabel}",
-    "subtitle": "Jouw persoonlijke voedingsgenoot aangedreven door AI",
+    "subtitle": "Jouw persoonlijke voedingscoach, aangedreven door AI",
     "getStarted": "Aan de Slag",
     "features": {
       "foodRecognition": {
@@ -108,7 +108,7 @@
       "trackingSuccess": {
         "title": "Je Bent Niet Alleen",
         "genericMessage": "Onderzoek toont aan dat consistente tracking de belangrijkste voorspeller is van langdurig succes.",
-        "personalizedMessage": "Voor een {age} jaar oude {gender} die {goal} wil, is consistente tracking de belangrijkste voorspeller van succes.",
+        "personalizedMessage": "Voor een {gender} van {age} jaar die {goal} wil, is consistent bijhouden de belangrijkste voorspeller van succes.",
         "closingMessage": "{appLabel} maakt het 10x gemakkelijker dan het handmatig doen.",
         "getStartedTitle": "Klaar om te beginnen?",
         "tipPhoto": "Neem een foto van je maaltijden voor onmiddellijke analyse",
@@ -116,15 +116,15 @@
         "tipProgress": "Volg je voortgang dagelijks om gemotiveerd te blijven",
         "button": "Laten We Gaan",
         "defaultGender": "persoon",
-        "defaultGoal": "gezondere jij"
+        "defaultGoal": "gezonder worden"
       },
       "healthProfile": {
         "title": "Je Gezondheidsprofiel",
         "bmiDescription": "Op basis van je metrics is je BMI {bmi}.",
         "finalizeDescription": "Laten we je profiel afronden om je ervaring te personaliseren.",
-        "goalGain": "gewichtstoename",
-        "goalLose": "gewichtsverlies",
-        "goalReach": "Om je doel te bereiken, moet je {direction} {diff} {unit}.",
+        "goalGain": "aankomen",
+        "goalLose": "afvallen",
+        "goalReach": "Om je doel te bereiken, moet je {diff} {unit} {direction}.",
         "goalReached": "Je bent op je streefgewicht! We helpen je het te behouden.",
         "button": "Laten We Gaan"
       },
@@ -133,7 +133,7 @@
         "description": "Je hebt de eerste stap gezet naar {goalText}. Aangezien je {activityText} bent, past {appLabel} je doelen aan om bij jouw levensstijl te passen.",
         "personalizedTargets": "Gepersonaliseerde calorie-doelen",
         "aiMealDetection": "AI-gestuurde maaltijddetectie",
-        "macroBreakdowns": "Gedetailleerde macro-nutrienten analyses",
+        "macroBreakdowns": "Gedetailleerde macronutriëntenanalyses",
         "button": "Laten We Gaan",
         "defaultGoal": "jouw doelen",
         "defaultActivity": "actief"
@@ -169,8 +169,8 @@
       "intake": "Inname",
       "burned": "Verbrand",
       "weightImpact": "Gewichtsimpact",
-      "estLoss": "Geschatte verlies van",
-      "estGain": "Geschatte winst van",
+      "estLoss": "Geschat verlies van",
+      "estGain": "Geschatte toename van",
       "kcal": "kcal"
     },
     "dailySummary": {
@@ -211,7 +211,7 @@
       "title": "Favoriete Maaltijden",
       "description": "Voeg snel een van je favoriete maaltijden toe.",
       "noFavorites": "Nog geen favoriete maaltijden.",
-      "addFavoriteHint": "Klik op de ster bij een maaltijd om het als favoriet te markeren.",
+      "addFavoriteHint": "Klik op de ster bij een maaltijd om die als favoriet te markeren.",
       "seeAll": "Bekijk alles",
       "add": "Toevoegen"
     },
@@ -306,7 +306,7 @@
       "profile": "PROFIEL",
       "basicInformation": "BASISINFORMATIE",
       "goalsAndActivity": "DOELEN & ACTIVITEIT",
-      "calculatedValues": "GECALCULEERDE WAARDEN"
+      "calculatedValues": "BEREKENDE WAARDEN"
     },
     "gender": "Geslacht",
     "height": "Lengte",
@@ -426,7 +426,7 @@
       "title": "Lengte-eenheid"
     },
     "weightUnit": {
-      "title": "Gewicht-eenheid"
+      "title": "Gewichtseenheid"
     },
     "mealReminders": {
       "title": "Maaltijdherinneringen",
@@ -506,7 +506,7 @@
       "tagline": "Snelle, gratis en privacyvriendelijke caloriebewustheid",
       "ourStory": {
         "title": "Ons Verhaal",
-        "content": "{appLabel} is ontstaan uit een eenvoudige frustratie: de meeste calorie-tracking apps zijn ofwel te gecompliceerd, vereisen constante handmatige invoer, vragen hoge abonnementsprijzen of komen de privacy in gevaar.\n\nAls solo ontwikkelaar wilde ik iets eenvoudigers en eerlijkers bouwen — een app die AI gebruikt om de inspanning te verminderen, snel en gratis te gebruiken blijft en je gezondheidsgegevens met respect behandelt.\n\n{appLabel} is de app die ik wenste dat bestond: geen accounts, geen tracking, geen advertenties — gewoon duidelijke, praktische inzichten en je gezondheidsdoelen."
+        "content": "{appLabel} is ontstaan uit een eenvoudige frustratie: de meeste calorie-trackingapps zijn te ingewikkeld, vereisen voortdurend handmatige invoer, rekenen hoge abonnementskosten of brengen de privacy in gevaar.\n\nAls solo-ontwikkelaar wilde ik iets eenvoudigers en eerlijkers bouwen — een app die AI gebruikt om de inspanning te verminderen, snel en gratis blijft en je gezondheidsgegevens met respect behandelt.\n\n{appLabel} is de app waarvan ik wilde dat die bestond: geen accounts, geen tracking, geen advertenties — alleen duidelijke, praktische inzichten en je gezondheidsdoelen."
       },
       "privacy": {
         "title": "Jouw Privacy Telt",
@@ -585,7 +585,7 @@
     "signInFailed": "Google-inloggen mislukt of geannuleerd."
   },
   "disclaimer": {
-    "pleaseNote": "Gelieve Op Te Merken",
+    "pleaseNote": "Let op",
     "snap": {
       "description": "{appLabel} biedt geschatte voedingsinformatie. De nauwkeurigheid hangt af van jouw invoer en voedselvariaties. Gebruik dit als een richtlijn, niet als een definitieve bron. Raadpleeg een professional voor gepersonaliseerd voedingsadvies.",
       "portionSize": {
@@ -602,19 +602,19 @@
       },
       "databaseLimitations": {
         "title": "Database Beperkingen",
-        "description": "{appLabel}'s voedseldatabase is uitgebreid, maar bevat mogelijk niet elk enkel voedingsmiddel of variatie."
+        "description": "De voedseldatabase van {appLabel} is uitgebreid, maar bevat mogelijk niet elk voedingsmiddel of elke variatie."
       }
     },
     "weightEstimate": {
       "title": "Over Gewichtsschatting",
-      "description": "De verwachte gewichtsverandering is een theoretische schatting op basis van het eenvoudige calorie-in versus calorie-uit model. Het is uitsluitend bedoeld voor motiverende begeleiding, niet als een voorspelling van je werkelijke gewicht.",
+      "description": "De verwachte gewichtsverandering is een theoretische schatting op basis van het eenvoudige model van calorie-inname tegenover calorieverbruik. Het is uitsluitend bedoeld als motiverende begeleiding, niet als voorspelling van je werkelijke gewicht.",
       "calorieAccuracy": {
         "title": "Calorie Nauwkeurigheid",
-        "description": "Deze schatting is alleen zo nauwkeurig als je bijgehouden calorie-inname en -uitgave. Ongenaue logging resulteert in een onjuiste projectie."
+        "description": "Deze schatting is slechts zo nauwkeurig als je bijgehouden calorie-inname en -verbruik. Onnauwkeurige registratie leidt tot een onjuiste prognose."
       },
       "biologicalFactors": {
         "title": "Biologische Factoren",
-        "description": "Werkelijke gewicht verliezen/winnen wordt beïnvloed door metabolisme, hormonen, slaap, stress, hydratatie en andere individuele factoren die {appLabel} niet kan meten."
+        "description": "Werkelijk gewichtsverlies of gewichtstoename wordt beïnvloed door metabolisme, hormonen, slaap, stress, hydratatie en andere individuele factoren die {appLabel} niet kan meten."
       },
       "waterWeight": {
         "title": "Watergewicht & Schommelingen",

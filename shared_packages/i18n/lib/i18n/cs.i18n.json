@@ -24,7 +24,7 @@
         "description": "Získejte okamžité nutriční informace z vašich popisů"
       },
       "healthIntegration": {
-        "title": "Integrace se zdravím",
+        "title": "Integrace se zdravotními daty",
         "description": "Propojte se s Health Connect pro lepší přehledy"
       }
     },
@@ -107,8 +107,8 @@
     "reinforcement": {
       "trackingSuccess": {
         "title": "Nejste sami",
-        "genericMessage": "Výzkum ukazuje, že konzistentní sledování je prvním prediktorem dlouhodobého úspěchu.",
-        "personalizedMessage": "Pro {age}-letého {gender}, který se snaží {goal}, je konzistentní sledování prvním prediktorem úspěchu.",
+        "genericMessage": "Výzkum ukazuje, že pravidelné sledování je nejdůležitějším ukazatelem dlouhodobého úspěchu.",
+        "personalizedMessage": "Pro osobu ve věku {age} let ({gender}), která chce {goal}, je pravidelné sledování nejdůležitějším ukazatelem úspěchu.",
         "closingMessage": "{appLabel} to dělá 10x snazší než to dělat ručně.",
         "getStartedTitle": "Připraveni začít?",
         "tipPhoto": "Pořiďte fotografii svých jídel pro okamžitou analýzu",
@@ -116,7 +116,7 @@
         "tipProgress": "Sledujte svůj pokrok denně, abyste zůstali motivováni",
         "button": "Jdeme na to",
         "defaultGender": "osoba",
-        "defaultGoal": "zdravější vy"
+        "defaultGoal": "být zdravější"
       },
       "healthProfile": {
         "title": "Váš zdravotní profil",
@@ -197,7 +197,7 @@
     },
     "mealLog": {
       "title": "Zaznamenaná jídla",
-      "emptyMessage": "Vyfoťte obrázek vašeho posledního jídla, aby se zaznamenalo zde.",
+      "emptyMessage": "Vyfoťte své poslední jídlo a zaznamenejte ho zde.",
       "noMealsToday": "Žádná jídla nebyla zaznamenána pro dnešek",
       "seeAllMeals": "Zobrazit všechna jídla"
     },
@@ -230,7 +230,7 @@
   },
   "history": {
     "noMeals": "Žádná jídla nebyla zaznamenána",
-    "emptyMessage": "Vyfoťte obrázek vašeho posledního jídla, aby se zaznamenalo zde.",
+    "emptyMessage": "Vyfoťte své poslední jídlo a zaznamenejte ho zde.",
     "today": "Dnes",
     "yesterday": "Včera"
   },
@@ -317,7 +317,7 @@
     "activityLevel": "Úroveň aktivity",
     "healthMetrics": "Zdravotní metriky",
     "notSet": "Nenastaveno",
-    "years": "roky",
+    "years": "let",
     "updatedSuccessfully": "Profil byl úspěšně aktualizován!",
     "calculatedValues": {
       "bmr": "BMR",
@@ -458,7 +458,7 @@
       "title": "Vymazat všechna data",
       "subtitle": "Nevratně smažte všechny své informace",
       "confirmationTitle": "Vymazat všechna data?",
-      "confirmationMessage": "Toto akce nelze vrátit. Všechna vaše zaznamenaná jídla, oblíbená jídla a nastavení profilu budou trvale smazána.",
+      "confirmationMessage": "Tuto akci nelze vrátit zpět. Všechna vaše zaznamenaná jídla, oblíbené položky a nastavení profilu budou trvale smazány.",
       "cancel": "Storno",
       "clearEverything": "Smazat všechno"
     },

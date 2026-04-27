@@ -66,10 +66,10 @@
         "obese": "Lihava"
       },
       "messages": {
-        "underweight": "Voimme auttaa sinua luomaan terveellisen suunnitelman, jotta saavutat tasapainoisen painon ravinteikkalla ruualla.",
+        "underweight": "Voimme auttaa sinua laatimaan terveellisen suunnitelman, jotta saavutat tasapainoisen painon ravinteikkailla aterioilla.",
         "healthy": "Hienoa! Olet terveellisellä alueella. Autamme sinua ylläpitämään elinvoimaasi ja energiatasojasi.",
         "overweight": "{appLabel} helpottaa matkaasi tekoälypohjaisella seurannalla, jotta voit saavuttaa tavoitteesi mukavasti.",
-        "obese": "Olemme täällä tukemassa sinua henkilökohtaisella ohjauksella ja kestävämmillä strategioilla terveyshaaveidesi saavuttamiseksi."
+        "obese": "Olemme täällä tukemassa sinua henkilökohtaisella ohjauksella ja kestävillä strategioilla terveystavoitteidesi saavuttamiseksi."
       }
     },
     "weightGoal": {
@@ -85,7 +85,7 @@
       "description": "Synkronoi terveystietosi saadaksesi parempaa tietoa ja automaattista kalorien seurantaa",
       "automaticTracking": {
         "title": "Automaattinen Kalorien Seuranta",
-        "description": "Seuraa kaloreita, jotka olet kuluttanut kuntoilusovelluksistasi"
+        "description": "Seuraa liikuntasovellustesi kirjaamia kulutettuja kaloreita"
       },
       "progressInsights": {
         "title": "Edistymisen Näkökulmat",
@@ -102,7 +102,7 @@
       "statusConnected": "Health Connect on yhdistetty.",
       "statusSuccess": "Health Connect on onnistuneesti yhdistetty!",
       "statusPermissionDenied": "Käyttöoikeus evätty. Ota käyttöön Health Connect -käyttöoikeudet puhelimesi asetuksista {appLabel} -sovellusta varten.",
-      "statusError": "Virhe Health Connectin asettamiseen: {error}"
+      "statusError": "Virhe Health Connectin käyttöönotossa: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -116,14 +116,14 @@
         "tipProgress": "Seuraa edistymistäsi päivittäin pysyäksesi motivoituneena",
         "button": "Mennään!",
         "defaultGender": "yksilö",
-        "defaultGoal": "terveellisempi sinä"
+        "defaultGoal": "olla terveellisempi"
       },
       "healthProfile": {
         "title": "Terveysprofiilisi",
         "bmiDescription": "Mittariesi perusteella BMI:si on {bmi}.",
         "finalizeDescription": "Viimeistelemme profiilisi, jotta voimme räätälöidä kokemuksesi.",
-        "goalGain": "painon nosto",
-        "goalLose": "painon pudotus",
+        "goalGain": "nostaa painoa",
+        "goalLose": "pudottaa painoa",
         "goalReach": "Saavuttaaksesi tavoitteesi, sinun tulee {direction} {diff} {unit}.",
         "goalReached": "Olet tavoitepainossasi! Autamme sinua ylläpitämään sitä.",
         "button": "Mennään!"
@@ -133,7 +133,7 @@
         "description": "Olet ottanut ensimmäisen askeleen kohti {goalText}. Koska olet {activityText}, {appLabel} säätää tavoitteesi vastaamaan elämäntapaasi.",
         "personalizedTargets": "Personoidut kaloritavoitteet",
         "aiMealDetection": "Tekoälypohjainen ateriatunnistus",
-        "macroBreakdowns": "Yksityiskohtaiset makroravinteiden purkaukset",
+        "macroBreakdowns": "Yksityiskohtaiset makroravinteiden jaottelut",
         "button": "Mennään!",
         "defaultGoal": "tavoitteesi",
         "defaultActivity": "aktiivinen"
@@ -211,7 +211,7 @@
       "title": "Suosikkiateriat",
       "description": "Lisää nopeasti yksi suosikkiaterioistasi.",
       "noFavorites": "Ei suosikkiaterioita vielä.",
-      "addFavoriteHint": "Napsauta tähteä aterialla merkitäksesi sen suosikiksi.",
+      "addFavoriteHint": "Napsauta aterian kohdalla olevaa tähteä merkitäksesi sen suosikiksi.",
       "seeAll": "Näytä kaikki",
       "add": "Lisää"
     },
@@ -329,7 +329,7 @@
   },
   "healthScore": {
     "title": "Terveysarvosana",
-    "whyThisScore": "Miksi tämä piste?",
+    "whyThisScore": "Miksi tämä arvosana?",
     "note": "Tämä piste on tekoälyn arvio, joka perustuu tunnistettuihin ainesosiin ja ravinteiden tiheyteen. Konsultoi aina ammattilaista ravitsemusneuvojen osalta.",
     "unhealthy": "Epäterveellinen",
     "healthy": "Terveellinen",
@@ -366,7 +366,7 @@
     "weightGoals": {
       "loseWeight": {
         "name": "Pudota Painoa",
-        "description": "Luo kalorin vähennys pudottaaksesi painoa"
+        "description": "Luo kalorivaje pudottaaksesi painoa"
       },
       "maintainWeight": {
         "name": "Pidä Paino",
@@ -374,7 +374,7 @@
       },
       "gainWeight": {
         "name": "Nosta Painoa",
-        "description": "Luo kalorin lisäys nostaaksesi painoa"
+        "description": "Luo kaloriylijäämä nostaaksesi painoa"
       }
     },
     "activityLevels": {
@@ -458,7 +458,7 @@
       "title": "Tyhjennä Kaikki Tiedot",
       "subtitle": "Poista peruuttamattomasti kaikki tietosi",
       "confirmationTitle": "Tyhjennä kaikki tiedot?",
-      "confirmationMessage": "Tämä toiminto ei ole palautettavissa. Kaikki kirjattuja aterioita, suosikkeja ja profiiliasetuksia poistetaan pysyvästi.",
+      "confirmationMessage": "Tätä toimintoa ei voi kumota. Kaikki kirjatut ateriasi, suosikkisi ja profiiliasetuksesi poistetaan pysyvästi.",
       "cancel": "Peruuta",
       "clearEverything": "Tyhjennä kaikki"
     },
@@ -505,7 +505,7 @@
       "title": "Tietoa",
       "tagline": "Nopea, ilmainen ja yksityisyyteen keskittyvä kalorilaskuri",
       "ourStory": {
-        "title": "Tarinaamme",
+        "title": "Tarinamme",
         "content": "{appLabel} sai alkunsa yksinkertaisesta turhautumisesta: suurin osa kaloriseuranta-sovelluksista on joko liian monimutkaisia, vaativat jatkuvaa manuaalista syöttämistä, perivät korkeat tilausmaksut tai uhraavat yksityisyyden.\n\nItsenäisenä kehittäjänä halusin rakentaa jotain yksinkertaisempaa ja oikeudenmukaisempaa — sovelluksen, joka käyttää tekoälyä vähentämään vaivannäköä, pysyy nopeana ja ilmaisena käyttää, ja käsittelee terveystietojasi kunnioituksella.\n\n{appLabel} on sovellus, jonka toivoin olevan olemassa: ei tilejä, ei seurantaa, ei mainoksia — vain selkeitä, käytännöllisiä oivalluksia ja tavoitteitasi terveydelle."
       },
       "privacy": {
@@ -537,7 +537,7 @@
     }
   },
   "reminders": {
-    "title": "Pysy askelissa muistutuksilla",
+    "title": "Pysy tavoitteissasi muistutusten avulla",
     "description": "Saat lempeitä muistutuksia aterioiden kirjaamiseksi ja pysyäksesi johdonmukaisena ravitsemustavoitteissasi",
     "notificationsEnabled": "Ilmoitukset käytössä",
     "notificationsDisabled": "Ilmoitukset eivät ole käytössä",
@@ -607,7 +607,7 @@
     },
     "weightEstimate": {
       "title": "Tietoa Painoarviosta",
-      "description": "Arvioitu painon muutos on teoreettinen arvio perus kalori-in vs. kalori-out malli. Se on tarkoitettu vain motivoivaksi oppaaksi, ei ennusteeksi oikeasta painostasi.",
+      "description": "Arvioitu painonmuutos on teoreettinen arvio, joka perustuu yksinkertaiseen kalorit sisään, kalorit ulos -malliin. Se on tarkoitettu vain motivoivaksi ohjeeksi, ei ennusteeksi todellisesta painostasi.",
       "calorieAccuracy": {
         "title": "Kalorin Tarkkuus",
         "description": "Tämä arvio on yhtä tarkka kuin kirjatut kalori saanti ja kulutus. Epätarkka kirjaaminen johtaa epätarkkaan ennusteeseen."
@@ -629,7 +629,7 @@
       "description": "Nämä mittarit auttavat sinua ymmärtämään kehosi energian tarpeet ja ohjaavat ravitsemustavoitteitasi.",
       "bmr": {
         "title": "BMR",
-        "description": "Perusaineenvaihdunta (BMR) on kalorimäärä, jonka kehosi polttaa levossa ylläpitääkseen perustavanlaatuisia toimintoja, kuten hengitystä ja verenkiertoa. BMR riippuu ikäsi, sukupuolesi, pituutesi ja painostasi. Korkeampi BMR tarkoittaa, että kehosi polttaa luonnostaan enemmän kaloreita levossa, yleensä johtuen suuremmasta lihasmassasta, nuoremmasta iästä tai miehisyydestä. Alempi BMR viittaa tyypillisesti pienempään lihasmassaan, vanhempaan ikään tai naisellisuuteen."
+        "description": "Perusaineenvaihdunta (BMR) on kalorimäärä, jonka kehosi kuluttaa levossa ylläpitääkseen perustoimintoja, kuten hengitystä ja verenkiertoa. BMR riippuu iästäsi, sukupuolestasi, pituudestasi ja painostasi. Korkeampi BMR tarkoittaa, että kehosi kuluttaa levossa luonnostaan enemmän kaloreita, usein suuremman lihasmassan, nuoremman iän tai miespuolisuuden vuoksi. Alempi BMR viittaa yleensä pienempään lihasmassaan, korkeampaan ikään tai naispuolisuuteen."
       },
       "tdee": {
         "title": "TDEE",

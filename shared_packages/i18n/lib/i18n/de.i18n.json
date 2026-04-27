@@ -108,7 +108,7 @@
       "trackingSuccess": {
         "title": "Sie sind nicht allein",
         "genericMessage": "Studien zeigen, dass konsequentes Tracking der wichtigste Indikator für langfristigen Erfolg ist.",
-        "personalizedMessage": "Für einen {age} Jahre alten {gender}, der {goal} erreichen möchte, ist konsequentes Tracking der wichtigste Erfolgsfaktor.",
+        "personalizedMessage": "Für eine {age}-jährige Person ({gender}), die {goal} erreichen möchte, ist konsequentes Tracking der wichtigste Erfolgsfaktor.",
         "closingMessage": "{appLabel} macht es 10-mal einfacher als manuell.",
         "getStartedTitle": "Bereit, loszulegen?",
         "tipPhoto": "Mach ein Foto deiner Mahlzeiten für eine sofortige Analyse",
@@ -116,7 +116,7 @@
         "tipProgress": "Verfolge deinen Fortschritt täglich, um motiviert zu bleiben",
         "button": "Loslegen",
         "defaultGender": "Person",
-        "defaultGoal": "gesundere Sie"
+        "defaultGoal": "gesünder leben"
       },
       "healthProfile": {
         "title": "Ihr Gesundheitsprofil",
@@ -124,7 +124,7 @@
         "finalizeDescription": "Lassen Sie uns Ihr Profil vervollständigen, um Ihr Erlebnis zu personalisieren.",
         "goalGain": "zunehmen",
         "goalLose": "abnehmen",
-        "goalReach": "Um Ihr Ziel zu erreichen, müssen Sie {direction} {diff} {unit}.",
+        "goalReach": "Um Ihr Ziel zu erreichen, müssen Sie {diff} {unit} {direction}.",
         "goalReached": "Sie haben Ihr Zielgewicht erreicht! Wir helfen Ihnen, es zu halten.",
         "button": "Loslegen"
       },
@@ -170,7 +170,7 @@
       "burned": "Verbrannt",
       "weightImpact": "Gewichtsauswirkung",
       "estLoss": "Voraussichtlicher Verlust von",
-      "estGain": "Voraussichtlicher Gewinn von",
+      "estGain": "Voraussichtliche Zunahme von",
       "kcal": "kcal"
     },
     "dailySummary": {
@@ -366,7 +366,7 @@
     "weightGoals": {
       "loseWeight": {
         "name": "Gewicht verlieren",
-        "description": "Einen Kaloriendefizit schaffen, um Gewicht zu verlieren"
+        "description": "Ein Kaloriendefizit schaffen, um Gewicht zu verlieren"
       },
       "maintainWeight": {
         "name": "Gewicht halten",
@@ -429,7 +429,7 @@
       "title": "Gewichtseinheit"
     },
     "mealReminders": {
-      "title": "Mahlzeit Erinnerungen",
+      "title": "Mahlzeitenerinnerungen",
       "subtitle": "Bleibe mit zeitgerechten Erinnerungen auf Kurs"
     },
     "theme": {
@@ -543,7 +543,7 @@
     "notificationsDisabled": "Benachrichtigungen deaktiviert",
     "enabledSubtitle": "Du erhältst Erinnerungen für Mahlzeiten",
     "disabledSubtitle": "Aktiviere Benachrichtigungen, um Erinnerungen für Mahlzeiten zu erhalten",
-    "mealReminders": "Mahlzeit Erinnerungen",
+    "mealReminders": "Mahlzeitenerinnerungen",
     "breakfast": "Frühstück",
     "lunch": "Mittagessen",
     "dinner": "Abendessen",
@@ -606,15 +606,15 @@
       }
     },
     "weightEstimate": {
-      "title": "Über Gewichtsprognose",
-      "description": "Die vorausgesagte Gewichtänderung ist eine theoretische Schätzung, die auf dem einfachen Kalorien-in-versus-Kalorien-aus-Modell basiert. Sie dient nur der motivationalen Orientierung, nicht als Vorhersage deines tatsächlichen Gewichts.",
+      "title": "Zur Gewichtsschätzung",
+      "description": "Die geschätzte Gewichtsänderung ist eine theoretische Schätzung, die auf dem einfachen Kalorien-rein-Kalorien-raus-Modell basiert. Sie dient nur als motivierende Orientierung, nicht als Vorhersage deines tatsächlichen Gewichts.",
       "calorieAccuracy": {
         "title": "Kaloriengenauigkeit",
         "description": "Diese Schätzung ist nur so genau wie deine getrackte Kalorienaufnahme und -ausgabe. Ungenaue Protokollierung führt zu einer ungenauen Prognose."
       },
       "biologicalFactors": {
         "title": "Biologische Faktoren",
-        "description": "Das tatsächliche Gewichtsverlust/-zuwachs wird von Faktoren wie Metabolismus, Hormonen, Schlaf, Stress, Hydration und anderen individuellen Faktoren beeinflusst, die {appLabel} nicht messen kann."
+        "description": "Tatsächlicher Gewichtsverlust oder Gewichtszuwachs wird von Stoffwechsel, Hormonen, Schlaf, Stress, Flüssigkeitshaushalt und anderen individuellen Faktoren beeinflusst, die {appLabel} nicht messen kann."
       },
       "waterWeight": {
         "title": "Wassergewicht & Schwankungen",
@@ -637,7 +637,7 @@
       },
       "dailyGoal": {
         "title": "Tagesziel",
-        "description": "Das Tagesziel ist Ihre empfohlene tägliche Kalorienaufnahme basierend auf Ihrem TDEE und Ihrem Gewichtsziel. Für Gewichtsverlust konsumieren Sie weniger Kalorien als Ihr TDEE. Für die Gewichtserhaltung entsprechen Sie Ihrem TDEE. Für Gewichtszunahme konsumieren Sie mehr Kalorien als Ihr TDEE. Dies hilft Ihnen, Ihre gewünschte Gewichtsveränderung in einem gesunden Tempo zu erreichen."
+        "description": "Das Tagesziel ist Ihre empfohlene tägliche Kalorienaufnahme basierend auf Ihrem TDEE und Ihrem Gewichtsziel. Für Gewichtsverlust konsumieren Sie weniger Kalorien als Ihr TDEE. Zur Gewichtserhaltung entspricht Ihre Kalorienaufnahme Ihrem TDEE. Für Gewichtszunahme konsumieren Sie mehr Kalorien als Ihr TDEE. Dies hilft Ihnen, Ihre gewünschte Gewichtsveränderung in einem gesunden Tempo zu erreichen."
       }
     },
     "calorieExpenditure": {

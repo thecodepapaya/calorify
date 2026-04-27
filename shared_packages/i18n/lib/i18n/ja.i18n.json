@@ -24,7 +24,7 @@
         "description": "あなたの説明から即座に栄養情報を取得"
       },
       "healthIntegration": {
-        "title": "健康統合",
+        "title": "ヘルスケア連携",
         "description": "より良いインサイトを得るためにHealth Connectと接続します"
       }
     },
@@ -37,7 +37,7 @@
       "title": "あなたの身長はどれくらいですか？",
       "description": "あなたの身長は、BMIとエネルギーの必要量を正確に計算するのに役立ちます。",
       "metric": "メートル法",
-      "imperial": "インペリアル",
+      "imperial": "ヤード・ポンド法",
       "next": "次へ"
     },
     "weight": {
@@ -46,7 +46,7 @@
       "targetTitle": "目標体重はどれくらいですか？",
       "targetDescription": "目標体重を設定すると、長期的な計画を立てやすくなります。",
       "metric": "メートル法",
-      "imperial": "インペリアル",
+      "imperial": "ヤード・ポンド法",
       "next": "次へ"
     },
     "age": {
@@ -349,15 +349,15 @@
     "weightGoal": "体重目標",
     "activityLevel": "活動レベル",
     "metric": "メートル法",
-    "imperial": "インペリアル",
+    "imperial": "ヤード・ポンド法",
     "unitCm": "㎝",
     "unitFt": "ft",
     "unitKg": "㎏",
     "unitLbs": "lb",
     "metricCm": "メートル法 (cm)",
-    "imperialFtIn": "インペリアル (ft/in)",
+    "imperialFtIn": "ヤード・ポンド法 (ft/in)",
     "metricKg": "メートル法 (kg)",
-    "imperialLbs": "インペリアル (lbs)",
+    "imperialLbs": "ヤード・ポンド法 (lbs)",
     "genders": {
       "male": "男性",
       "female": "女性",
@@ -547,7 +547,7 @@
     "breakfast": "朝食",
     "lunch": "昼食",
     "dinner": "夕食",
-    "snack": "スナック",
+    "snack": "間食",
     "unknown": "不明",
     "change": "変更",
     "enableNotifications": "通知を有効にする",
@@ -572,8 +572,8 @@
       "body": "夕食を記録するのを忘れないでください"
     },
     "snack": {
-      "title": "スナックの時間！🍎",
-      "body": "ヘルシーなスナックの時間です"
+      "title": "間食の時間！🍎",
+      "body": "ヘルシーな間食の時間です"
     },
     "test": {
       "title": "テスト通知"
@@ -589,8 +589,8 @@
     "snap": {
       "description": "{appLabel}は推定栄養情報を提供します。正確性は、入力内容や食材のバリエーションに依存します。ガイドとして使用し、確定的な情報源とは見なさないでください。個別の食事アドバイスについては専門家に相談してください。",
       "portionSize": {
-        "title": "ポーションサイズ",
-        "description": "推定の正確さは、ポーションサイズの正確な評価に大きく依存します。"
+        "title": "1食分の量",
+        "description": "推定の正確さは、1食分の量を正しく評価できるかに大きく依存します。"
       },
       "preparationMethods": {
         "title": "調理方法",
@@ -660,7 +660,7 @@
   "feedbackRating": {
     "enjoyingQuestion": "{appLabel}をお楽しみいただけていますか？",
     "yes": "はい、気に入っています",
-    "no": "あまり良くありません",
+    "no": "あまり楽しめていません",
     "rateStepHeading": "Play Storeで評価する",
     "emailStepHeading": "メールでフィードバックを送る",
     "soloDevMessage": "簡単な評価は他の方が{appLabel}を見つけやすくなり、開発の継続を支えます。少しお時間をいただいて評価を残していただけますか？",

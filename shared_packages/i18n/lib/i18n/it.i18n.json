@@ -20,7 +20,7 @@
         "description": "Scatta una foto e lascia che l'IA identifichi il tuo pasto"
       },
       "aiAnalysis": {
-        "title": "Analisi AI",
+        "title": "Analisi IA",
         "description": "Ottieni informazioni nutrizionali istantanee dalle tue descrizioni"
       },
       "healthIntegration": {
@@ -36,7 +36,7 @@
     "height": {
       "title": "Quanto sei alto?",
       "description": "La tua altezza ci aiuta a calcolare il tuo BMI e le tue esigenze energetiche con precisione.",
-      "metric": "Metriche",
+      "metric": "Metrico",
       "imperial": "Imperiale",
       "next": "Avanti"
     },
@@ -45,7 +45,7 @@
       "currentDescription": "Il tuo peso attuale è essenziale per personalizzare i tuoi obiettivi quotidiani.",
       "targetTitle": "Qual è il tuo peso obiettivo?",
       "targetDescription": "Impostare un peso obiettivo ci aiuta a determinare il tuo piano a lungo termine.",
-      "metric": "Metriche",
+      "metric": "Metrico",
       "imperial": "Imperiale",
       "next": "Avanti"
     },
@@ -108,7 +108,7 @@
       "trackingSuccess": {
         "title": "Non sei Solo",
         "genericMessage": "La ricerca mostra che il monitoraggio costante è il principale indicatore di successo a lungo termine.",
-        "personalizedMessage": "Per un {age} anni {gender} che cerca di {goal}, il monitoraggio costante è il principale indicatore di successo.",
+        "personalizedMessage": "Per una persona di {age} anni ({gender}) che cerca di {goal}, il monitoraggio costante è il principale indicatore di successo.",
         "closingMessage": "{appLabel} rende tutto 10 volte più semplice rispetto a farlo manualmente.",
         "getStartedTitle": "Pronto per iniziare?",
         "tipPhoto": "Scatta una foto dei tuoi pasti per un'analisi immediata",
@@ -170,7 +170,7 @@
       "burned": "Bruciate",
       "weightImpact": "Impatto sul Peso",
       "estLoss": "Perdita stimata di",
-      "estGain": "Guadagno stimato di",
+      "estGain": "Aumento stimato di",
       "kcal": "kcal"
     },
     "dailySummary": {
@@ -184,7 +184,7 @@
       "chartAccessibilityLabel": "Grafico dei macronutrienti"
     },
     "intakeProgress": {
-      "title": "Divisione dei Macros di Oggi",
+      "title": "Ripartizione dei macronutrienti di oggi",
       "target": "Obiettivo",
       "current": "Attuale"
     },
@@ -204,7 +204,7 @@
     "mealDescription": {
       "title": "Aggiunta Veloce con IA",
       "description": "Descrivi il tuo pasto e lascia che l'IA gestisca i dettagli.",
-      "hint": "ad es. Per colazione ho avuto una grande ciotola di avena con una banana affettata e un cucchiaio di proteine...",
+      "hint": "ad es. A colazione ho mangiato una grande ciotola di avena con una banana a fette e un misurino di proteine...",
       "analyzeMeal": "Analizza il pasto"
     },
     "favoriteMeals": {
@@ -348,15 +348,15 @@
     "weight": "Peso",
     "weightGoal": "Obiettivo di Peso",
     "activityLevel": "Livello di Attività",
-    "metric": "Metriche",
+    "metric": "Metrico",
     "imperial": "Imperiale",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
     "unitLbs": "lbs",
-    "metricCm": "Metriche (cm)",
+    "metricCm": "Metrico (cm)",
     "imperialFtIn": "Imperiale (ft/in)",
-    "metricKg": "Metriche (kg)",
+    "metricKg": "Metrico (kg)",
     "imperialLbs": "Imperiale (lbs)",
     "genders": {
       "male": "Maschio",
@@ -475,17 +475,17 @@
       },
       "permissions": {
         "title": "Autorizzazioni",
-        "description": "Le seguenti autorizzazioni sono richieste per fornire integrazione del Health Connect:",
+        "description": "Le seguenti autorizzazioni sono richieste per fornire l’integrazione con Health Connect:",
         "granted": "Concesso",
         "notGranted": "Non Concesso",
         "caloriesBurned": {
           "title": "Leggi Calorie Totali Bruciate",
-          "description": "Consente all'app di leggere le tue calorie totali bruciate dal Health Connect.",
+          "description": "Consente all'app di leggere da Health Connect le calorie totali che hai bruciato.",
           "usage": "Questa autorizzazione è utilizzata per visualizzare il tuo consumo calorico giornaliero nell'app, aiutandoti a capire il tuo dispendio energetico totale durante la giornata."
         },
         "nutritionRead": {
           "title": "Leggi Dati Nutrizionali",
-          "description": "Consente all'app di leggere i dati nutrizionali dal Health Connect.",
+          "description": "Consente all'app di leggere i dati nutrizionali da Health Connect.",
           "usage": "Questa autorizzazione permette all'app di leggere le informazioni nutrizionali che potrebbero essere state registrate da altre app collegate al Health Connect, fornendo una visione completa della tua nutrizione."
         },
         "nutritionWrite": {
@@ -506,7 +506,7 @@
       "tagline": "Consapevolezza calorica veloce, gratuita e rispettosa della privacy",
       "ourStory": {
         "title": "La Nostra Storia",
-        "content": "{appLabel} è nato da una semplice frustrazione: la maggior parte delle app per il monitoraggio delle calorie sono troppo complicate, richiedono un costante input manuale, offrono abbonamenti costosi o compromettono la privacy.\n\nCome sviluppatore indipendente, volevo costruire qualcosa di più semplice e giusto: un'app che utilizza l'intelligenza artificiale per ridurre gli sforzi, rimane veloce e gratuita da usare, e tratta i tuoi dati sulla salute con rispetto.\n\n{appLabel} è l'app che desideravo esistesse: niente account, niente monitoraggio, niente pubblicità — solo informazioni chiare e pratiche e i tuoi obiettivi di salute."
+        "content": "{appLabel} è nato da una semplice frustrazione: la maggior parte delle app per il monitoraggio delle calorie è troppo complicata, richiede un inserimento manuale costante, applica abbonamenti costosi o compromette la privacy.\n\nCome sviluppatore indipendente, volevo costruire qualcosa di più semplice e giusto: un'app che utilizza l'intelligenza artificiale per ridurre lo sforzo, rimane veloce e gratuita da usare e tratta i tuoi dati sulla salute con rispetto.\n\n{appLabel} è l'app che avrei voluto esistesse: niente account, niente tracciamento, niente pubblicità — solo informazioni chiare e pratiche e i tuoi obiettivi di salute."
       },
       "privacy": {
         "title": "La Tua Privacy è Importante",
@@ -587,7 +587,7 @@
   "disclaimer": {
     "pleaseNote": "Si prega di notare",
     "snap": {
-      "description": "{appLabel} fornisce informazioni nutrizionali stimate. L'accuratezza dipende dal tuo input e dalle variazioni alimentari. Utilizzare come guida, non come fonte definitiva. Consulta un professionista per consigli dietetici personalizzati.",
+      "description": "{appLabel} fornisce informazioni nutrizionali stimate. L'accuratezza dipende dai dati inseriti e dalle variazioni degli alimenti. Usalo come guida, non come fonte definitiva. Consulta un professionista per consigli dietetici personalizzati.",
       "portionSize": {
         "title": "Dimensione della Porzione",
         "description": "L'accuratezza delle stime dipende fortemente dalla tua valutazione corretta della dimensione della porzione."
@@ -607,14 +607,14 @@
     },
     "weightEstimate": {
       "title": "Informazioni sulla Stima del Peso",
-      "description": "La variazione di peso prevista è una stima teorica basata sul semplice modello calorie in vs. calorie fuori. È intesa solo come guida motivazionale, non come previsione del tuo peso effettivo.",
+      "description": "La variazione di peso prevista è una stima teorica basata sul semplice modello delle calorie assunte rispetto alle calorie consumate. È intesa solo come guida motivazionale, non come previsione del tuo peso effettivo.",
       "calorieAccuracy": {
         "title": "Accuratezza delle Calorie",
         "description": "Questa stima è tanto precisa quanto la tua assunzione e spesa calorica registrata. Registrazioni inaccurate porteranno a una proiezione imprecisa."
       },
       "biologicalFactors": {
         "title": "Fattori Biologici",
-        "description": "La perdita/aumento di peso reale è influenzato da metabolismo, ormoni, sonno, stress, idratazione e altri fattori individuali che {appLabel} non può misurare."
+        "description": "La perdita o l’aumento di peso reali sono influenzati da metabolismo, ormoni, sonno, stress, idratazione e altri fattori individuali che {appLabel} non può misurare."
       },
       "waterWeight": {
         "title": "Peso dell'Acqua e Fluttuazioni",

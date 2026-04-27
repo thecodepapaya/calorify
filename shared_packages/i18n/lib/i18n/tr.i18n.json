@@ -45,8 +45,8 @@
       "currentDescription": "Mevcut kilonuz günlük hedeflerinizi kişiselleştirmek için önemlidir.",
       "targetTitle": "Hedef kilonuz nedir?",
       "targetDescription": "Bir hedef kiloyu belirlemek, uzun vadeli planınızı belirlememize yardımcı olur.",
-      "metric": "Metrekes",
-      "imperial": "İngilizce",
+      "metric": "Metrik",
+      "imperial": "İngiliz birimi",
       "next": "İleri"
     },
     "age": {
@@ -61,7 +61,7 @@
       "obese": "Obez",
       "categories": {
         "underweight": "Zayıf",
-        "healthyWeight": "Sağlıklı ağırlık",
+        "healthyWeight": "Sağlıklı kilo",
         "overweight": "Kilolu",
         "obese": "Obez"
       },
@@ -101,32 +101,32 @@
       "skipForNow": "Şu an için atla",
       "statusConnected": "Health Connect bağlı.",
       "statusSuccess": "Health Connect başarıyla bağlandı!",
-      "statusPermissionDenied": "İzin reddedildi. Lütfen {appLabel} için telefon ayarlarınızdan Sağlık Bağlantısı izinlerini etkinleştirin.",
+      "statusPermissionDenied": "İzin reddedildi. Lütfen {appLabel} için telefon ayarlarınızdan Health Connect izinlerini etkinleştirin.",
       "statusError": "Health Connect kurulurken hata: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
         "title": "Yalnız Değilsiniz",
         "genericMessage": "Araştırmalar, sürekli takibin uzun vadeli başarının en önemli belirleyicisi olduğunu gösteriyor.",
-        "personalizedMessage": "{goal} hedefini ulaşmak isteyen {gender} bir {age} yaşındaki biri için, sürekli takip başarı için en önemli belirleyicidir.",
+        "personalizedMessage": "Hedefi {goal} olan {age} yaşındaki bir {gender} için sürekli takip, başarının en önemli belirleyicisidir.",
         "closingMessage": "{appLabel}, bunu manuel olarak yapmaktan 10 kat daha kolay hale getiriyor.",
         "getStartedTitle": "Başlamaya hazır mısın?",
         "tipPhoto": "Anında analiz için yemeklerinin fotoğrafını çek",
         "tipConsistency": "Anlamlı ilerleme görmek için düzenli kaydet",
         "tipProgress": "Motivasyonunu korumak için ilerlemeni her gün takip et",
-        "button": "Hadi Gidelim",
+        "button": "Başlayalım",
         "defaultGender": "birey",
-        "defaultGoal": "daha sağlıklı bir siz"
+        "defaultGoal": "daha sağlıklı olmak"
       },
       "healthProfile": {
         "title": "Sağlık Profiliniz",
         "bmiDescription": "Ölçümlerinize dayalı olarak, BMI'niz {bmi}.",
         "finalizeDescription": "Deneyiminizi kişiselleştirmek için profilinizi sonlandıralım.",
-        "goalGain": "kazan",
-        "goalLose": "kaybet",
-        "goalReach": "Hedefinize ulaşmak için {diff} {unit} {direction} yapmalısın.",
+        "goalGain": "almanız",
+        "goalLose": "vermeniz",
+        "goalReach": "Hedefinize ulaşmak için {diff} {unit} {direction} gerekir.",
         "goalReached": "Hedef kilonuzdasınız! Bunu korumanıza yardımcı olacağız.",
-        "button": "Hadi Gidelim"
+        "button": "Başlayalım"
       },
       "goalLifestyle": {
         "title": "Mükemmel Bir Başlangıç!",
@@ -134,7 +134,7 @@
         "personalizedTargets": "Kişiselleştirilmiş kalori hedefleri",
         "aiMealDetection": "AI destekli yemek tespiti",
         "macroBreakdowns": "Detaylı makro besin dağılımları",
-        "button": "Hadi Gidelim",
+        "button": "Başlayalım",
         "defaultGoal": "hedeflerin",
         "defaultActivity": "aktif"
       }
@@ -174,7 +174,7 @@
       "kcal": "kcal"
     },
     "dailySummary": {
-      "title": "Günlük Özeti",
+      "title": "Günlük Özet",
       "calories": "Kaloriler",
       "carbs": "Karbonhidratlar",
       "protein": "Protein",
@@ -330,10 +330,10 @@
   "healthScore": {
     "title": "Sağlık Skoru",
     "whyThisScore": "Bu puan neden?",
-    "note": "Bu puan, tanımlanan bileşenler ve beslenme yoğunluğuna dayanan bir AI tahminidir. Her zaman bir profesyonelle diyet tavsiyesi için danışın.",
+    "note": "Bu puan, belirlenen içerikler ve besin yoğunluğuna dayalı bir AI tahminidir. Beslenme tavsiyesi için her zaman bir uzmana danışın.",
     "unhealthy": "Sağlıksız",
     "healthy": "Sağlıklı",
-    "neutral": "Tarafsız"
+    "neutral": "Nötr"
   },
   "editProfile": {
     "title": "Profili Düzenle",
@@ -348,16 +348,16 @@
     "weight": "Kilo",
     "weightGoal": "Kilo Hedefi",
     "activityLevel": "Aktivite Seviyesi",
-    "metric": "Metrekes",
-    "imperial": "İngilizce",
+    "metric": "Metrik",
+    "imperial": "İngiliz birimi",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
     "unitLbs": "lbs",
-    "metricCm": "Metrekes (cm)",
-    "imperialFtIn": "İngilizce (ft/in)",
-    "metricKg": "Metrekes (kg)",
-    "imperialLbs": "İngilizce (lbs)",
+    "metricCm": "Metrik (cm)",
+    "imperialFtIn": "İngiliz birimi (ft/in)",
+    "metricKg": "Metrik (kg)",
+    "imperialLbs": "İngiliz birimi (lbs)",
     "genders": {
       "male": "Erkek",
       "female": "Kadın",
@@ -396,7 +396,7 @@
       },
       "extremelyActive": {
         "name": "Aşırı Aktif",
-        "description": "Çok zor bir egzersiz, fiziksel iş"
+        "description": "Çok yoğun egzersiz, fiziksel iş"
       }
     }
   },
@@ -406,7 +406,7 @@
       "profile": "PROFİL",
       "localization": "YERELLEŞTİRME",
       "notifications": "BİLDİRİMLER",
-      "healthConnect": "SAĞLIK BAĞLANTISI",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "DESTEK & YASAL",
       "about": "HAKKINDA",
       "dangerZone": "TEHLİKE BÖLGESİ",
@@ -467,38 +467,38 @@
     },
     "developerModeEnabled": "Geliştirici modu etkinleştirildi!",
     "healthConnect": {
-      "title": "Sağlık Bağlantısı",
+      "title": "Health Connect",
       "subtitle": "İzinleri görüntüleyin ve yönetin",
       "unavailable": {
-        "title": "Sağlık Bağlantısı Kullanılamıyor",
-        "description": "Sağlık Bağlantısı bu cihazda kullanılamıyor. Android 14 veya sonrası gerekmektedir."
+        "title": "Health Connect Kullanılamıyor",
+        "description": "Health Connect bu cihazda kullanılamıyor. Lütfen Play Store'dan Health Connect'i yükleyin (Android 9+) veya Android 14+ sürümüne güncelleyin."
       },
       "permissions": {
         "title": "İzinler",
-        "description": "Sağlık Bağlantısı entegrasyonunu sağlamak için aşağıdaki izinler istenmektedir:",
+        "description": "Health Connect entegrasyonunu sağlamak için aşağıdaki izinler istenmektedir:",
         "granted": "Verildi",
         "notGranted": "Verilmedi",
         "caloriesBurned": {
           "title": "Toplam Yakılan Kalorileri Oku",
-          "description": "Uygulamaya, Sağlık Bağlantısından toplam yakılan kalorilerinizi okuma izni verir.",
+          "description": "Uygulamaya, Health Connect'ten toplam yakılan kalorilerinizi okuma izni verir.",
           "usage": "Bu izin, uygulamada günlük kalori yakımınızı görüntülemek için kullanılır ve gün boyunca toplam enerji harcamanızı anlamanıza yardımcı olur."
         },
         "nutritionRead": {
-          "title": "Besin Verilerini Oku",
-          "description": "Uygulamaya, Sağlık Bağlantısından besin verilerini okuma izni verir.",
-          "usage": "Bu izin, diğer uygulamalar tarafından Sağlık Bağlantısına kaydedilen besin bilgilerini okumanızı sağlar ve beslenmenize dair kapsamlı bir görünüm sunar."
+          "title": "Beslenme Verilerini Oku",
+          "description": "Uygulamaya, Health Connect'ten beslenme verilerini okuma izni verir.",
+          "usage": "Bu izin, diğer uygulamalar tarafından Health Connect'e kaydedilen beslenme bilgilerini okumanızı sağlar ve beslenmenize dair kapsamlı bir görünüm sunar."
         },
         "nutritionWrite": {
           "title": "Besin Verilerini Yaz",
-          "description": "Uygulamaya, Sağlık Bağlantısına besin verilerini yazma izni verir.",
-          "usage": "Bu izin, kaydedilen öğünlerinizi Sağlık Bağlantısına senkronize etmenizi sağlar ve besin verilerinizi kullandığınız diğer sağlık ve fitness uygulamalarında erişilebilir hale getirir."
+          "description": "Uygulamaya, Health Connect'e beslenme verilerini yazma izni verir.",
+          "usage": "Bu izin, kaydedilen öğünlerinizi Health Connect'e senkronize etmenizi sağlar ve beslenme verilerinizi kullandığınız diğer sağlık ve fitness uygulamalarında erişilebilir hale getirir."
         }
       },
       "managePermissions": "İzinleri Yönet",
-      "openSettings": "Sağlık Bağlantısı Ayarlarını Aç",
+      "openSettings": "Health Connect Ayarlarını Aç",
       "requestPermissions": "İzinleri Talep Et",
-      "permissionRequestCancelledOrFailed": "İzin talebi iptal edildi veya başarısız oldu. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.",
-      "permissionRequestFailed": "İzinleri talep edemiyorum. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.",
+      "permissionRequestCancelledOrFailed": "İzin isteği iptal edildi veya başarısız oldu. Lütfen tekrar deneyin ya da izinleri Health Connect ayarlarında manuel olarak verin.",
+      "permissionRequestFailed": "İzinler istenemedi. Lütfen tekrar deneyin ya da izinleri Health Connect ayarlarında manuel olarak verin.",
       "requestingPermissions": "İzinler isteniyor..."
     },
     "about": {
@@ -519,8 +519,8 @@
         "privacyPolicy": "Gizlilik Politikası"
       },
       "developer": {
-        "title": "Bir Bağımsız Geliştirici Tarafından İnovasyon",
-        "description": "{appLabel}, sakin ve gizliliğe saygılı sağlık yazılımları oluşturma hedefiyle tek bir bağımsız geliştirici tarafından inşa ve bakım yapılmaktadır.\n\nGeri bildirimler kişisel olarak okunmakta ve uygulamanın yönünü şekillendirmeye yardımcı olmaktadır.",
+        "title": "Bir Bağımsız Geliştirici Tarafından Geliştirildi",
+        "description": "{appLabel}, sakin ve gizliliğe saygılı sağlık yazılımları oluşturma hedefiyle tek bir bağımsız geliştirici tarafından geliştirilmekte ve bakımı yapılmaktadır.\n\nGeri bildirimler kişisel olarak okunur ve uygulamanın yönünü şekillendirmeye yardımcı olur.",
         "website": "Web Sitesi",
         "email": "E-posta"
       },
@@ -607,14 +607,14 @@
     },
     "weightEstimate": {
       "title": "Kilo Tahmini Hakkında",
-      "description": "Proje edilen kilo değişikliği, basit kalori-giriş vs. kalori-çıkış modeline dayanan bir teorik tahmindir. Bu sadece motivasyonel rehberlik içindir, gerçek kilonuzu tahmin etmek için değil.",
+      "description": "Öngörülen kilo değişimi, basit kalori alımı ve kalori harcaması modeline dayalı teorik bir tahmindir. Yalnızca motivasyon amaçlı rehberlik içindir; gerçek kilonuzun kesin bir tahmini değildir.",
       "calorieAccuracy": {
         "title": "Kalori Doğruluğu",
-        "description": "Bu tahmin, yalnızca takip edilen kalori alımınız ve harcamanıza ne kadar doğru olduğuna bağlıdır. Hatalı kayıt, hatalı bir projeksiyona neden olacaktır."
+        "description": "Bu tahmin, takip ettiğiniz kalori alımı ve harcaması kadar doğrudur. Hatalı kayıt, hatalı bir öngörüye neden olur."
       },
       "biologicalFactors": {
         "title": "Biyolojik Faktörler",
-        "description": "Gerçek kilo kaybı/almayı etkileyen metabolizma, hormonlar, uyku, stres, hidrasyon ve diğer bireysel faktörler, {appLabel} tarafından ölçülemez."
+        "description": "Gerçek kilo kaybı veya alımı metabolizma, hormonlar, uyku, stres, hidrasyon ve {appLabel} tarafından ölçülemeyen diğer bireysel faktörlerden etkilenir."
       },
       "waterWeight": {
         "title": "Su Ağırlığı ve Dalgalanmalar",
@@ -622,7 +622,7 @@
       },
       "professionalGuidance": {
         "title": "Profesyonel Rehberlik",
-        "description": "Bu tahmini tıbbi kararlar almak için kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyeleri için her zaman bir sağlık uzmanı veya kayıtlı diyetisyen ile danışın."
+        "description": "Bu tahmini tıbbi kararlar almak için kullanmayın. Kişiselleştirilmiş kilo yönetimi önerileri için her zaman bir sağlık uzmanına veya kayıtlı diyetisyene danışın."
       }
     },
     "healthMetrics": {

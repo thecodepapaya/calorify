@@ -25,7 +25,7 @@
       },
       "healthIntegration": {
         "title": "Tích hợp sức khỏe",
-        "description": "Kết nối với Health Connect để có được cái nhìn sâu sắc hơn"
+      "description": "Kết nối với Health Connect để nhận thông tin chuyên sâu hơn"
       }
     },
     "gender": {
@@ -36,8 +36,8 @@
     "height": {
       "title": "Bạn cao bao nhiêu?",
       "description": "Chiều cao của bạn giúp chúng tôi tính toán chỉ số BMI và nhu cầu năng lượng một cách chính xác.",
-      "metric": "Mét",
-      "imperial": "Imperial",
+      "metric": "Hệ mét",
+      "imperial": "Hệ Anh",
       "next": "Tiếp theo"
     },
     "weight": {
@@ -45,8 +45,8 @@
       "currentDescription": "Cân nặng hiện tại rất quan trọng để cá nhân hóa các mục tiêu hàng ngày của bạn.",
       "targetTitle": "Cân nặng mục tiêu của bạn là bao nhiêu?",
       "targetDescription": "Đặt mục tiêu cân nặng giúp chúng tôi xác định kế hoạch dài hạn của bạn.",
-      "metric": "Kilogram",
-      "imperial": "Imperial",
+      "metric": "Hệ mét",
+      "imperial": "Hệ Anh",
       "next": "Tiếp theo"
     },
     "age": {
@@ -66,7 +66,7 @@
         "obese": "Béo phì"
       },
       "messages": {
-        "underweight": "Chúng tôi có thể giúp bạn xây dựng một kế hoạch lành mạnh để đạt được trọng lượng cân bằng với những bữa ăn giàu dinh dưỡng.",
+        "underweight": "Chúng tôi có thể giúp bạn xây dựng một kế hoạch lành mạnh để đạt cân nặng cân bằng bằng những bữa ăn giàu dinh dưỡng.",
         "healthy": "Tuyệt vời! Bạn đang ở mức độ khỏe mạnh. Chúng tôi sẽ giúp bạn duy trì sức sống và mức năng lượng.",
         "overweight": "{appLabel} sẽ đơn giản hóa hành trình của bạn với việc theo dõi bằng AI để giúp bạn đạt được mục tiêu của mình một cách thoải mái.",
         "obese": "Chúng tôi ở đây để hỗ trợ bạn với hướng dẫn cá nhân hóa và các chiến lược bền vững cho các mục tiêu sức khỏe của bạn."
@@ -107,14 +107,14 @@
     "reinforcement": {
       "trackingSuccess": {
         "title": "Bạn không đơn độc",
-        "genericMessage": "Nghiên cứu cho thấy việc theo dõi liên tục là dự đoán số 1 cho thành công lâu dài.",
-        "personalizedMessage": "Đối với một {age} tuổi {gender} muốn {goal}, việc theo dõi liên tục là dự đoán số 1 cho thành công.",
+        "genericMessage": "Nghiên cứu cho thấy việc theo dõi đều đặn là yếu tố dự báo quan trọng nhất cho thành công lâu dài.",
+        "personalizedMessage": "Với một {gender} {age} tuổi muốn {goal}, theo dõi đều đặn là yếu tố dự báo quan trọng nhất cho thành công.",
         "closingMessage": "{appLabel} giúp bạn dễ dàng hơn gấp 10 lần so với việc thực hiện thủ công.",
         "getStartedTitle": "Sẵn sàng để bắt đầu chưa?",
         "tipPhoto": "Chụp ảnh bữa ăn của bạn để phân tích ngay lập tức",
         "tipConsistency": "Ghi chép thường xuyên để thấy được tiến bộ rõ rệt",
         "tipProgress": "Theo dõi tiến trình hàng ngày để giữ động lực",
-        "button": "Đi nào",
+        "button": "Bắt đầu",
         "defaultGender": "người",
         "defaultGoal": "khỏe mạnh hơn"
       },
@@ -126,15 +126,15 @@
         "goalLose": "giảm",
         "goalReach": "Để đạt được mục tiêu của bạn, bạn sẽ {direction} {diff} {unit}.",
         "goalReached": "Bạn đã đạt được trọng lượng mong muốn! Chúng tôi sẽ giúp bạn duy trì nó.",
-        "button": "Đi nào"
+        "button": "Bắt đầu"
       },
       "goalLifestyle": {
         "title": "Khởi đầu tuyệt vời!",
-        "description": "Bạn đã bước những bước đầu tiên hướng tới {goalText}. Vì bạn đang {activityText}, {appLabel} sẽ điều chỉnh các mục tiêu của bạn để phù hợp với lối sống của bạn.",
+        "description": "Bạn đã thực hiện bước đầu tiên hướng tới {goalText}. Vì bạn {activityText}, {appLabel} sẽ điều chỉnh mục tiêu để phù hợp với lối sống của bạn.",
         "personalizedTargets": "Mục tiêu calo cá nhân hóa",
         "aiMealDetection": "Nhận diện bữa ăn được hỗ trợ bởi AI",
         "macroBreakdowns": "Chi tiết về phân bổ chất dinh dưỡng",
-        "button": "Đi nào",
+        "button": "Bắt đầu",
         "defaultGoal": "các mục tiêu của bạn",
         "defaultActivity": "năng động"
       }
@@ -161,7 +161,7 @@
       "title": "Đặt mục tiêu hàng ngày của bạn",
       "titleSet": "Mục tiêu hàng ngày của bạn",
       "description": "Sẵn sàng để bắt đầu hành trình sức khỏe? Đặt mục tiêu calo hàng ngày của bạn bên dưới để khởi đầu tiến trình.",
-      "descriptionSet": "La bàn của bạn đã được đặt! Đây là mục tiêu calo hàng ngày của bạn để hướng dẫn bạn.",
+      "descriptionSet": "Mục tiêu dẫn đường của bạn đã được đặt! Đây là mục tiêu calo hàng ngày để định hướng cho bạn.",
       "yourGoal": "Mục tiêu của bạn",
       "goal": "Mục tiêu",
       "dailyCalories": "Calo hàng ngày (kcal)",
@@ -184,16 +184,16 @@
       "chartAccessibilityLabel": "Biểu đồ các chất dinh dưỡng chính"
     },
     "intakeProgress": {
-      "title": "Phân chia Macro hôm nay",
+      "title": "Phân bổ macro hôm nay",
       "target": "Mục tiêu",
       "current": "Hiện tại"
     },
     "intakeHistory": {
-      "title": "Lịch sử Macro 7 ngày",
+      "title": "Lịch sử macro 7 ngày",
       "trendTitle": "Xu hướng hôm nay",
       "peakHour": "Giờ cao điểm: {hour}:00",
       "noHistoryYet": "Chưa có lịch sử nào",
-      "startLogging": "Bắt đầu ghi chú bữa ăn để xem xu hướng macro 7 ngày của bạn ở đây"
+      "startLogging": "Bắt đầu ghi bữa ăn để xem xu hướng macro\n7 ngày của bạn tại đây"
     },
     "mealLog": {
       "title": "Bữa ăn đã ghi",
@@ -278,7 +278,7 @@
     "failedToSave": "Không thể lưu dữ liệu. Vui lòng thử lại.",
     "skip": "Bỏ qua",
     "variation": {
-      "question": "Câu hỏi {current} trên {total}",
+      "question": "Câu hỏi {current} trong tổng số {total}",
       "noVariationsAvailable": "Không có biến thể nào"
     }
   },
@@ -348,16 +348,16 @@
     "weight": "Cân nặng",
     "weightGoal": "Mục tiêu cân nặng",
     "activityLevel": "Mức độ hoạt động",
-    "metric": "Mét",
-    "imperial": "Imperial",
+      "metric": "Hệ mét",
+      "imperial": "Hệ Anh",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
     "unitLbs": "lbs",
-    "metricCm": "Mét (cm)",
-    "imperialFtIn": "Imperial (ft/in)",
-    "metricKg": "Kilogram (kg)",
-    "imperialLbs": "Pound (lbs)",
+      "metricCm": "Hệ mét (cm)",
+      "imperialFtIn": "Hệ Anh (ft/in)",
+      "metricKg": "Hệ mét (kg)",
+      "imperialLbs": "Hệ Anh (lbs)",
     "genders": {
       "male": "Nam",
       "female": "Nữ",
@@ -366,7 +366,7 @@
     "weightGoals": {
       "loseWeight": {
         "name": "Giảm cân",
-        "description": "Tạo một sự thiếu hụt calo để giảm cân"
+        "description": "Tạo mức thâm hụt calo để giảm cân"
       },
       "maintainWeight": {
         "name": "Giữ cân",
@@ -374,7 +374,7 @@
       },
       "gainWeight": {
         "name": "Tăng cân",
-        "description": "Tạo một lượng calo dư thừa để tăng cân"
+        "description": "Tạo mức dư calo để tăng cân"
       }
     },
     "activityLevels": {
@@ -406,7 +406,7 @@
       "profile": "HỒ SƠ",
       "localization": "ĐỊA PHƯƠNG HÓA",
       "notifications": "THÔNG BÁO",
-      "healthConnect": "KẾT NỐI SỨC KHỎE",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "HỖ TRỢ & PHÁP LÝ",
       "about": "GIỚI THIỆU",
       "dangerZone": "KHU VỰC NGUY HIỂM",
@@ -467,50 +467,50 @@
     },
     "developerModeEnabled": "Chế độ nhà phát triển đã được bật!",
     "healthConnect": {
-      "title": "Kết nối sức khỏe",
+      "title": "Health Connect",
       "subtitle": "Xem và quản lý quyền",
       "unavailable": {
-        "title": "Kết nối sức khỏe không khả dụng",
-        "description": "Kết nối sức khỏe không khả dụng trên thiết bị này. Nó yêu cầu Android 14 hoặc mới hơn."
+        "title": "Health Connect không khả dụng",
+        "description": "Health Connect không khả dụng trên thiết bị này. Vui lòng cài đặt Health Connect từ Play Store (Android 9+) hoặc cập nhật lên Android 14+."
       },
       "permissions": {
         "title": "Quyền",
-        "description": "Các quyền sau đây được yêu cầu để cung cấp tích hợp Kết nối sức khỏe:",
+        "description": "Các quyền sau đây được yêu cầu để cung cấp tích hợp Health Connect:",
         "granted": "Đã cấp",
         "notGranted": "Chưa cấp",
         "caloriesBurned": {
           "title": "Đọc tổng số calo đã đốt",
-          "description": "Cho phép ứng dụng đọc tổng số calo bạn đã đốt từ Kết nối sức khỏe.",
+          "description": "Cho phép ứng dụng đọc tổng số calo bạn đã đốt từ Health Connect.",
           "usage": "Quyền này được sử dụng để hiển thị lượng calo bạn đốt hàng ngày trong ứng dụng, giúp bạn hiểu rõ hơn về tổng lượng năng lượng tiêu thụ trong suốt cả ngày."
         },
         "nutritionRead": {
           "title": "Đọc dữ liệu dinh dưỡng",
-          "description": "Cho phép ứng dụng đọc dữ liệu dinh dưỡng từ Kết nối sức khỏe.",
-          "usage": "Quyền này cho phép ứng dụng đọc thông tin dinh dưỡng có thể đã được ghi lại bởi các ứng dụng khác kết nối với Kết nối sức khỏe, cung cấp cái nhìn toàn diện về dinh dưỡng của bạn."
+          "description": "Cho phép ứng dụng đọc dữ liệu dinh dưỡng từ Health Connect.",
+          "usage": "Quyền này cho phép ứng dụng đọc thông tin dinh dưỡng có thể đã được ghi lại bởi các ứng dụng khác kết nối với Health Connect, cung cấp cái nhìn toàn diện về dinh dưỡng của bạn."
         },
         "nutritionWrite": {
           "title": "Ghi dữ liệu dinh dưỡng",
-          "description": "Cho phép ứng dụng ghi dữ liệu dinh dưỡng vào Kết nối sức khỏe.",
-          "usage": "Quyền này cho phép ứng dụng đồng bộ hóa các bữa ăn bạn đã ghi với Kết nối sức khỏe, làm cho dữ liệu dinh dưỡng của bạn có sẵn cho các ứng dụng sức khỏe và thể dục khác mà bạn sử dụng."
+          "description": "Cho phép ứng dụng ghi dữ liệu dinh dưỡng vào Health Connect.",
+          "usage": "Quyền này cho phép ứng dụng đồng bộ hóa các bữa ăn bạn đã ghi với Health Connect, làm cho dữ liệu dinh dưỡng của bạn có sẵn cho các ứng dụng sức khỏe và thể dục khác mà bạn sử dụng."
         }
       },
-      "managePermissions": "Quản lý Quyền",
-      "openSettings": "Mở Cài Đặt Kết Nối Sức Khỏe",
-      "requestPermissions": "Yêu Cầu Quyền Truy Cập",
+      "managePermissions": "Quản lý quyền",
+      "openSettings": "Mở cài đặt Health Connect",
+      "requestPermissions": "Yêu cầu quyền truy cập",
       "permissionRequestCancelledOrFailed": "Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.",
       "permissionRequestFailed": "Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.",
       "requestingPermissions": "Đang yêu cầu quyền..."
     },
     "about": {
-      "title": "Giới Thiệu",
+      "title": "Giới thiệu",
       "tagline": "Nhận thức về calo nhanh chóng, miễn phí và bảo mật",
       "ourStory": {
-        "title": "Câu Chuyện Của Chúng Tôi",
-        "content": "{appLabel} ra đời từ một nỗi bức xúc đơn giản: hầu hết các ứng dụng theo dõi calo đều quá phức tạp, yêu cầu nhập liệu thủ công liên tục, tính phí cao cho việc đăng ký, hoặc xâm phạm quyền riêng tư.\n\nLà một nhà phát triển độc lập, tôi muốn xây dựng một thứ gì đó đơn giản và công bằng hơn — một ứng dụng sử dụng AI để giảm bớt nỗ lực, giữ cho việc sử dụng nhanh chóng và miễn phí, và tôn trọng dữ liệu sức khỏe của bạn.\n\n{appLabel} là ứng dụng mà tôi ước ao có: không tài khoản, không theo dõi, không quảng cáo — chỉ những hiểu biết rõ ràng, thiết thực và mục tiêu sức khỏe của bạn."
+        "title": "Câu chuyện của chúng tôi",
+        "content": "{appLabel} ra đời từ một nỗi bức xúc đơn giản: hầu hết các ứng dụng theo dõi calo đều quá phức tạp, yêu cầu nhập liệu thủ công liên tục, thu phí đăng ký cao hoặc xâm phạm quyền riêng tư.\n\nLà một nhà phát triển độc lập, tôi muốn xây dựng một thứ đơn giản và công bằng hơn — một ứng dụng dùng AI để giảm bớt công sức, vẫn nhanh và miễn phí, đồng thời tôn trọng dữ liệu sức khỏe của bạn.\n\n{appLabel} là ứng dụng mà tôi ước đã tồn tại: không tài khoản, không theo dõi, không quảng cáo — chỉ có thông tin rõ ràng, thiết thực và các mục tiêu sức khỏe của bạn."
       },
       "privacy": {
-        "title": "Quyền Riêng Tư Của Bạn Quan Trọng",
-        "description": "Quyền riêng tư không phải là một ý tưởng phụ — đó là một nguyên tắc thiết kế. Điều này có ý nghĩa gì trong thực tế:",
+        "title": "Quyền riêng tư của bạn rất quan trọng",
+        "description": "Quyền riêng tư không phải là điều nghĩ đến sau — đó là một nguyên tắc thiết kế. Trong thực tế, điều này có nghĩa là:",
         "noAccounts": "Không yêu cầu tài khoản\nSử dụng ứng dụng ngay lập tức. Không cần đăng ký, không cần danh tính.",
         "noTracking": "Không theo dõi hành vi\n{appLabel} không giám sát hoạt động của bạn, không xây dựng hồ sơ sử dụng, hoặc theo dõi bạn qua các ứng dụng hoặc trang web.",
         "noAds": "Thiết kế không có quảng cáo\n{appLabel} được xây dựng để hoạt động mà không có quảng cáo hoặc kiếm tiền dựa trên dữ liệu.",
@@ -519,8 +519,8 @@
         "privacyPolicy": "Chính sách bảo mật"
       },
       "developer": {
-        "title": "Được Xây Dựng Bởi Một Nhà Phát Triển Độc Lập",
-        "description": "{appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập duy nhất tập trung vào việc tạo ra phần mềm sức khỏe tôn trọng quyền riêng tư.\n\nPhản hồi được đọc cá nhân và giúp định hình hướng đi của ứng dụng.",
+        "title": "Được xây dựng bởi một nhà phát triển độc lập",
+        "description": "{appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập, tập trung vào việc tạo ra phần mềm sức khỏe nhẹ nhàng và tôn trọng quyền riêng tư.\n\nMỗi phản hồi đều được đọc trực tiếp và giúp định hình hướng đi của ứng dụng.",
         "website": "Trang web",
         "email": "Email"
       },
@@ -594,7 +594,7 @@
       },
       "preparationMethods": {
         "title": "Phương pháp chế biến",
-        "description": "Phương pháp chế biến có thể thay đổi đáng kể thành phần dinh dưỡng của thực phẩm. Các ước tính của {appLabel} có thể không luôn dự đoán được những biến đổi này."
+        "description": "Phương pháp chế biến có thể thay đổi đáng kể thành phần dinh dưỡng của thực phẩm. Các ước tính của {appLabel} không phải lúc nào cũng tính đến những thay đổi này."
       },
       "ingredients": {
         "title": "Nguyên liệu",
@@ -602,19 +602,19 @@
       },
       "databaseLimitations": {
         "title": "Giới hạn cơ sở dữ liệu",
-        "description": "Cơ sở dữ liệu thực phẩm của {appLabel} rất phong phú nhưng có thể không bao gồm mọi món ăn hay biến thể nào."
+        "description": "Cơ sở dữ liệu thực phẩm của {appLabel} rất phong phú nhưng có thể không bao gồm mọi loại thực phẩm hoặc biến thể."
       }
     },
     "weightEstimate": {
-      "title": "Về ước tính trọng lượng",
+      "title": "Về ước tính cân nặng",
       "description": "Sự thay đổi trọng lượng dự kiến là một ước tính lý thuyết dựa trên mô hình calo vào so với calo ra. Nó chỉ được dùng để hướng dẫn động lực, không phải dự đoán trọng lượng thực tế của bạn.",
       "calorieAccuracy": {
         "title": "Độ chính xác calo",
-        "description": "Ước tính này chỉ chính xác như lượng calo bạn đã theo dõi vào và ra. Ghi chú kém chính xác sẽ dẫn đến ước tính không chính xác."
+        "description": "Ước tính này chỉ chính xác khi lượng calo nạp vào và tiêu hao được ghi lại chính xác. Việc ghi chép không chính xác sẽ dẫn đến ước tính không chính xác."
       },
       "biologicalFactors": {
         "title": "Các yếu tố sinh học",
-        "description": "Sự thay đổi cân nặng thực tế bị ảnh hưởng bởi chuyển hóa, hormone, giấc ngủ, căng thẳng, độ ẩm, và các yếu tố cá nhân khác mà {appLabel} không thể đo được."
+        "description": "Sự thay đổi cân nặng thực tế bị ảnh hưởng bởi quá trình trao đổi chất, hormone, giấc ngủ, căng thẳng, lượng nước trong cơ thể và các yếu tố cá nhân khác mà {appLabel} không thể đo được."
       },
       "waterWeight": {
         "title": "Trọng lượng nước & Biến động",
