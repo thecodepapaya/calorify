@@ -142,7 +142,7 @@
   },
   "tabs": {
     "dashboard": "Tablero",
-    "history": "Historia"
+    "history": "Historial"
   },
   "home": {
     "aiSummary": {
@@ -618,7 +618,7 @@
       },
       "waterWeight": {
         "title": "Peso del Agua y Fluctuaciones",
-        "description": "El peso diario normal puede fluctuar significativamente debido a la retención de agua, digestión y timing. La estimación no toma en cuenta estos cambios diarios."
+        "description": "El peso diario normal puede fluctuar significativamente debido a la retención de agua, digestión y los horarios. La estimación no toma en cuenta estos cambios diarios."
       },
       "professionalGuidance": {
         "title": "Orientación Profesional",
@@ -642,7 +642,7 @@
     },
     "calorieExpenditure": {
       "title": "Estimación del gasto calórico",
-      "description": "Cuando los datos de Health Connect no están disponibles, estimamos las calorías quemadas hoy usando tu tasa metabólica basal (BMR/TMB) y tu nivel de actividad (TDEE), ajustando el resultado según la fracción del día que ha transcurrido.",
+      "description": "Cuando los datos de Health Connect no están disponibles, estimamos las calorías quemadas hoy usando tu tasa metabólica basal (BMR/TMB) y tu gasto energético diario total (TDEE), ajustando el resultado según la fracción del día que ha transcurrido.",
       "howCalculated": {
         "title": "Cómo se calcula la estimación",
         "description": "Calculamos tu TDEE (según tu perfil) y lo multiplicamos por la fracción del día transcurrido (horas + minutos) / 24 para estimar las calorías quemadas hasta ahora."
@@ -661,7 +661,7 @@
     "enjoyingQuestion": "¿Estás disfrutando de {appLabel}?",
     "yes": "Sí, me está gustando",
     "no": "No, no mucho",
-    "rateStepHeading": "Califica en Google Play",
+    "rateStepHeading": "Califica en Play Store",
     "emailStepHeading": "Envía tus comentarios por correo electrónico",
     "soloDevMessage": "Una valoración rápida ayuda a otros a encontrar {appLabel} y mantiene el desarrollo en marcha. ¿Te tomarías un momento para dejar una?",
     "shareFeedbackViaEmail": "Tus comentarios dan forma a lo que viene — leemos cada mensaje. ¿Te gustaría compartir tus comentarios por correo electrónico?",

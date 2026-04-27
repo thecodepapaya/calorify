@@ -1,7 +1,7 @@
 {
   "language": "한국어",
   "flag": "🇰🇷",
-  "appLabel": "칼로리파이{env}",
+  "appLabel": "Calorify{env}",
   "errors": {
     "rateLimitExceeded": "요청을 너무 많이 하셨습니다. 잠시 후 다시 시도해 주세요.",
     "networkError": "네트워크 오류가 발생했습니다. 인터넷 연결을 확인해 주세요.",
@@ -68,7 +68,7 @@
       "messages": {
         "underweight": "우리는 영양이 풍부한 식사를 통해 균형 잡힌 체중에 도달하기 위한 건강한 계획을 세우도록 도와드릴 수 있습니다.",
         "healthy": "잘하고 계세요! 당신은 건강한 범위에 있습니다. 우리는 당신의 활력과 에너지 수준을 유지하도록 도와드릴 것입니다.",
-        "overweight": "{appLabel}은(A는) AI 기반의 추적을 통해 목표에 쉽게 도달할 수 있도록 여정을 단순화합니다.",
+        "overweight": "{appLabel}은(는) AI 기반의 추적을 통해 목표에 쉽게 도달할 수 있도록 여정을 단순화합니다.",
         "obese": "우리는 개별적인 지침과 지속 가능한 전략으로 여러분의 건강 목표를 지원합니다."
       }
     },
@@ -109,7 +109,7 @@
         "title": "당신은 혼자가 아닙니다",
         "genericMessage": "연구에 따르면, 꾸준한 추적이 장기적인 성공의 #1 예측 요인입니다.",
         "personalizedMessage": "{goal}를 원하시는 {age}세 {gender}님께, 꾸준한 추적이 성공의 #1 예측 요인입니다.",
-        "closingMessage": "{appLabel}을(A를) 사용하면 수작업보다 10배 쉬워집니다.",
+        "closingMessage": "{appLabel}을(를) 사용하면 수작업보다 10배 쉬워집니다.",
         "getStartedTitle": "시작할 준비가 되셨나요?",
         "tipPhoto": "즉각적인 분석을 위해 식사 사진을 촬영하세요",
         "tipConsistency": "의미 있는 변화를 보려면 꾸준히 기록하세요",
@@ -235,7 +235,7 @@
     "yesterday": "어제"
   },
   "meal": {
-    "ohNo": "아니요!",
+    "ohNo": "이런!",
     "delete": "삭제",
     "editMeal": "식사 수정",
     "addMeal": "식사 추가",
@@ -331,8 +331,8 @@
     "title": "건강 점수",
     "whyThisScore": "왜 이 점수인가요?",
     "note": "이 점수는 인식된 재료와 영양 밀도를 기반으로 한 AI 추정치입니다. 항상 전문의와 상담하여 식이 조언을 받으세요.",
-    "unhealthy": "불건전",
-    "healthy": "건전",
+    "unhealthy": "건강에 좋지 않음",
+    "healthy": "건강함",
     "neutral": "중립"
   },
   "editProfile": {
@@ -409,7 +409,7 @@
       "healthConnect": "Health Connect",
       "supportAndLegal": "지원 및 법률",
       "about": "소개",
-      "dangerZone": "위험 지역",
+      "dangerZone": "위험 구역",
       "developer": "개발자"
     },
     "editProfile": {
@@ -440,7 +440,7 @@
     },
     "sendFeedback": {
       "title": "피드백 보내기",
-      "subtitle": "{appLabel}을(A를) 개선하는 데 도움을 주세요",
+      "subtitle": "{appLabel}을(를) 개선하는 데 도움을 주세요",
       "emailSubject": "{appLabel} 앱 피드백",
       "emailBodyPrefix": "아래에 귀하의 피드백을 제공해 주세요:",
       "appVersion": "앱 버전",
@@ -467,7 +467,7 @@
     },
     "developerModeEnabled": "개발자 모드가 활성화되었습니다!",
     "healthConnect": {
-      "title": "헬스 커넥트",
+      "title": "Health Connect",
       "subtitle": "권한 보기 및 관리",
       "unavailable": {
         "title": "Health Connect 사용 불가능",
@@ -475,27 +475,27 @@
       },
       "permissions": {
         "title": "권한",
-        "description": "헬스 커넥트 통합을 제공하기 위해 요청되는 권한은 다음과 같습니다:",
+        "description": "Health Connect 통합을 제공하기 위해 요청되는 권한은 다음과 같습니다:",
         "granted": "허용됨",
         "notGranted": "허용되지 않음",
         "caloriesBurned": {
           "title": "소모된 총 칼로리 읽기",
-          "description": "앱이 헬스 커넥트에서 소모된 총 칼로리를 읽을 수 있도록 허용합니다.",
+          "description": "앱이 Health Connect에서 소모된 총 칼로리를 읽을 수 있도록 허용합니다.",
           "usage": "이 권한은 앱에서 사용자의 일일 칼로리 소모량을 표시하는 데 사용되며, 하루 동안의 총 에너지 소비를 이해하는 데 도움이 됩니다."
         },
         "nutritionRead": {
           "title": "영양 데이터 읽기",
-          "description": "앱이 헬스 커넥트에서 영양 데이터를 읽을 수 있도록 허용합니다.",
-          "usage": "이 권한을 통해 앱은 헬스 커넥트에 연결된 다른 앱에서 기록된 영양 정보를 읽을 수 있으며, 영양에 대한 포괄적인 정보를 제공합니다."
+          "description": "앱이 Health Connect에서 영양 데이터를 읽을 수 있도록 허용합니다.",
+          "usage": "이 권한을 통해 앱은 Health Connect에 연결된 다른 앱에서 기록된 영양 정보를 읽을 수 있으며, 영양에 대한 포괄적인 정보를 제공합니다."
         },
         "nutritionWrite": {
           "title": "영양 데이터 쓰기",
-          "description": "앱이 헬스 커넥트에 영양 데이터를 쓸 수 있도록 허용합니다.",
-          "usage": "이 권한을 통해 앱은 사용자가 기록한 식사를 헬스 커넥트에 동기화하여, 사용자가 사용하는 다른 건강 및 피트니스 앱에서 영양 데이터를 사용할 수 있도록 합니다."
+          "description": "앱이 Health Connect에 영양 데이터를 쓸 수 있도록 허용합니다.",
+          "usage": "이 권한을 통해 앱은 사용자가 기록한 식사를 Health Connect에 동기화하여, 사용자가 사용하는 다른 건강 및 피트니스 앱에서 영양 데이터를 사용할 수 있도록 합니다."
         }
       },
       "managePermissions": "권한 관리",
-      "openSettings": "헬스 커넥트 설정 열기",
+      "openSettings": "Health Connect 설정 열기",
       "requestPermissions": "권한 요청하기",
       "permissionRequestCancelledOrFailed": "권한 요청이 취소되었거나 실패했습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 부여하세요.",
       "permissionRequestFailed": "권한을 요청할 수 없습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 부여하세요.",
@@ -587,7 +587,7 @@
   "disclaimer": {
     "pleaseNote": "참고하세요",
     "snap": {
-      "description": "{appLabel}은(A는) 추정된 영양 정보를 제공합니다. 정확도는 입력 및 음식 변동성에 따라 다릅니다. 참고용으로만 사용하고, 확정적인 출처로는 사용하지 마세요. 개인 맞춤형 식이 조언은 전문가와 상담하세요.",
+      "description": "{appLabel}은(는) 추정된 영양 정보를 제공합니다. 정확도는 입력 및 음식 변동성에 따라 다릅니다. 참고용으로만 사용하고, 확정적인 출처로는 사용하지 마세요. 개인 맞춤형 식이 조언은 전문가와 상담하세요.",
       "portionSize": {
         "title": "부분 크기",
         "description": "추정 정확도는 부분 크기를 올바르게 평가하는 것에 크게 의존합니다."
@@ -642,7 +642,7 @@
     },
     "calorieExpenditure": {
       "title": "칼로리 소모량 추정",
-      "description": "Health Connect 데이터를 사용할 수 없을 때, 기초대사량(BMR)과 활동 수준(TDEE)을 사용해 오늘 소모된 칼로리를 추정하며 경과한 하루 비율에 따라 보정합니다.",
+      "description": "Health Connect 데이터를 사용할 수 없을 때, 기초대사량(BMR)과 일일 총 에너지 소비량(TDEE)을 사용해 오늘 소모된 칼로리를 추정하며 경과한 하루 비율에 따라 보정합니다.",
       "howCalculated": {
         "title": "추정치 계산 방법",
         "description": "프로필을 바탕으로 TDEE를 계산하고, 경과한 하루의 비율 (시간 + 분) / 24 을 곱해 현재까지 소모된 칼로리를 추정합니다."

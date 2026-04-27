@@ -121,7 +121,7 @@
       "healthProfile": {
         "title": "Profil Kesihatan Anda",
         "bmiDescription": "Berdasarkan metrik anda, BMI anda adalah {bmi}.",
-        "finalizeDescription": "Mari kita akhir profil anda untuk menyesuaikan pengalaman anda.",
+        "finalizeDescription": "Mari kita selesaikan profil anda untuk menyesuaikan pengalaman anda.",
         "goalGain": "menambah",
         "goalLose": "mengurangkan",
         "goalReach": "Untuk mencapai matlamat anda, anda perlu {direction} {diff} {unit}.",
@@ -395,7 +395,7 @@
         "description": "Senaman berat 6-7 hari/minggu"
       },
       "extremelyActive": {
-        "name": "Sangat Sangat Aktif",
+        "name": "Amat Aktif",
         "description": "Senaman sangat berat, pekerjaan fizikal"
       }
     }
@@ -404,13 +404,13 @@
     "title": "Tetapan",
     "sections": {
       "profile": "PROFIL",
-      "localization": "PENGANTARABANGSA",
+      "localization": "PENYETEMPATAN",
       "notifications": "NOTIFIKASI",
-      "healthConnect": "SAMBUNGAN KESIHATAN",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "SOKONGAN & PERUNDANGAN",
       "about": "TENTANG",
       "dangerZone": "ZON BAHAYA",
-      "developer": "PENGEMBANG"
+      "developer": "PEMBANGUN"
     },
     "editProfile": {
       "title": "Edit Profil",
@@ -465,9 +465,9 @@
     "debugOptions": {
       "title": "Pilihan Debug"
     },
-    "developerModeEnabled": "Mod pengembang diaktifkan!",
+    "developerModeEnabled": "Mod pembangun diaktifkan!",
     "healthConnect": {
-      "title": "Sambungan Kesihatan",
+      "title": "Health Connect",
       "subtitle": "Lihat dan urus kebenaran",
       "unavailable": {
         "title": "Health Connect Tidak Tersedia",
@@ -475,23 +475,23 @@
       },
       "permissions": {
         "title": "Kebenaran",
-        "description": "Kebenaran berikut diminta untuk menyediakan integrasi Sambungan Kesihatan:",
+        "description": "Kebenaran berikut diminta untuk menyediakan integrasi Health Connect:",
         "granted": "Diberikan",
         "notGranted": "Tidak Diberikan",
         "caloriesBurned": {
           "title": "Baca Jumlah Kalori Dibakar",
-          "description": "Membenarkan aplikasi untuk membaca jumlah kalori yang telah anda bakar dari Sambungan Kesihatan.",
+          "description": "Membenarkan aplikasi untuk membaca jumlah kalori yang telah anda bakar dari Health Connect.",
           "usage": "Kebenaran ini digunakan untuk memaparkan kalori bakar harian anda dalam aplikasi, membantu anda memahami jumlah pengeluaran tenaga anda sepanjang hari."
         },
         "nutritionRead": {
           "title": "Baca Data Pemakanan",
-          "description": "Membenarkan aplikasi untuk membaca data pemakanan dari Sambungan Kesihatan.",
-          "usage": "Kebenaran ini membenarkan aplikasi untuk membaca maklumat pemakanan yang mungkin telah direkod oleh aplikasi lain yang disambungkan ke Sambungan Kesihatan, memberikan pandangan menyeluruh tentang pemakanan anda."
+          "description": "Membenarkan aplikasi untuk membaca data pemakanan dari Health Connect.",
+          "usage": "Kebenaran ini membenarkan aplikasi untuk membaca maklumat pemakanan yang mungkin telah direkod oleh aplikasi lain yang disambungkan ke Health Connect, memberikan pandangan menyeluruh tentang pemakanan anda."
         },
         "nutritionWrite": {
           "title": "Tulis Data Pemakanan",
-          "description": "Membenarkan aplikasi untuk menulis data pemakanan ke Sambungan Kesihatan.",
-          "usage": "Kebenaran ini membenarkan aplikasi untuk menyelaraskan makanan yang anda catat ke Sambungan Kesihatan, menjadikan data pemakanan anda tersedia kepada aplikasi kesihatan dan kecergasan lain yang anda gunakan."
+          "description": "Membenarkan aplikasi untuk menulis data pemakanan ke Health Connect.",
+          "usage": "Kebenaran ini membenarkan aplikasi untuk menyelaraskan makanan yang anda catat ke Health Connect, menjadikan data pemakanan anda tersedia kepada aplikasi kesihatan dan kecergasan lain yang anda gunakan."
         }
       },
       "managePermissions": "Urus Kebenaran",
@@ -642,7 +642,7 @@
     },
     "calorieExpenditure": {
       "title": "Anggaran pembakaran kalori",
-      "description": "Apabila data Health Connect tidak tersedia, kami menganggarkan kalori yang dibakar hari ini menggunakan Kadar Metabolik Asas (BMR) dan tahap aktiviti anda (TDEE), diselaraskan mengikut bahagian hari yang telah berlalu.",
+      "description": "Apabila data Health Connect tidak tersedia, kami menganggarkan kalori yang dibakar hari ini menggunakan Kadar Metabolik Asas (BMR) dan Perbelanjaan Tenaga Harian Keseluruhan (TDEE) anda, diselaraskan mengikut bahagian hari yang telah berlalu.",
       "howCalculated": {
         "title": "Bagaimana anggaran dikira",
         "description": "Kami mengira TDEE anda (berdasarkan profil anda) dan mendarabkannya dengan pecahan hari yang telah berlalu (jam + minit) / 24 untuk menganggarkan kalori yang telah dibakar setakat ini."

@@ -36,7 +36,7 @@
     "height": {
       "title": "Kuinka pitkä olet?",
       "description": "Pituutesi auttaa meitä laskemaan BMI:si ja energiatarpeesi tarkasti.",
-      "metric": "Metri",
+      "metric": "Metrinen",
       "imperial": "Imperiaalinen",
       "next": "Seuraava"
     },
@@ -45,7 +45,7 @@
       "currentDescription": "Nykyinen painosi on keskeinen päivittäisten tavoitteidesi personoimiseksi.",
       "targetTitle": "Mikä on tavoitepainosi?",
       "targetDescription": "Tavoitepainon asettaminen auttaa meitä määrittämään pitkän aikavälin suunnitelmasi.",
-      "metric": "Metri",
+      "metric": "Metrinen",
       "imperial": "Imperiaalinen",
       "next": "Seuraava"
     },
@@ -89,7 +89,7 @@
       },
       "progressInsights": {
         "title": "Edistymisen Näkökulmat",
-        "description": "Saat yksityiskohtaisia näkemyksiä terveytrendisi"
+        "description": "Saat yksityiskohtaisia näkemyksiä terveystrendeistäsi"
       },
       "seamlessIntegration": {
         "title": "Saumaton Integrointi",
@@ -108,7 +108,7 @@
       "trackingSuccess": {
         "title": "Et ole yksin",
         "genericMessage": "Tutkimukset osoittavat, että johdonmukainen seuranta on tärkein pitkäaikaisen menestyksen ennustaja.",
-        "personalizedMessage": " {age}-vuotiaalle {gender}, joka haluaa {goal}, johdonmukainen seuranta on ykköskäyttäjä menestyksen ennustajana.",
+        "personalizedMessage": "{age}-vuotiaalle {gender}, joka haluaa {goal}, johdonmukainen seuranta on tärkein menestyksen ennustaja.",
         "closingMessage": "{appLabel} tekee sen 10 kertaa helpommaksi kuin manuaalisesti tekeminen.",
         "getStartedTitle": "Valmiina aloittamaan?",
         "tipPhoto": "Ota kuva aterioistasi saadaksesi välitöntä analyysiä",
@@ -120,7 +120,7 @@
       },
       "healthProfile": {
         "title": "Terveysprofiilisi",
-        "bmiDescription": "Pohjalta mittarisi mukaan, BMI:si on {bmi}.",
+        "bmiDescription": "Mittariesi perusteella BMI:si on {bmi}.",
         "finalizeDescription": "Viimeistelemme profiilisi, jotta voimme räätälöidä kokemuksesi.",
         "goalGain": "painon nosto",
         "goalLose": "painon pudotus",
@@ -208,7 +208,7 @@
       "analyzeMeal": "Analysoi ateria"
     },
     "favoriteMeals": {
-      "title": "Suosikki Ateriat",
+      "title": "Suosikkiateriat",
       "description": "Lisää nopeasti yksi suosikkiaterioistasi.",
       "noFavorites": "Ei suosikkiaterioita vielä.",
       "addFavoriteHint": "Napsauta tähteä aterialla merkitäksesi sen suosikiksi.",
@@ -336,7 +336,7 @@
     "neutral": "Neutraali"
   },
   "editProfile": {
-    "title": "Muokkaa Profeilia",
+    "title": "Muokkaa Profiilia",
     "sections": {
       "personalInformation": "HENKILÖKOHTAISET TIEDOT",
       "physicalMeasurements": "FYYSISET MITTAUKSET",
@@ -429,7 +429,7 @@
       "title": "Painoyksikkö"
     },
     "mealReminders": {
-      "title": "Ateriavaroitukset",
+      "title": "Ateriamuistutukset",
       "subtitle": "Pysy aikataulussa aterioidesi kanssa"
     },
     "theme": {
@@ -467,31 +467,31 @@
     },
     "developerModeEnabled": "Kehittäjätila käytössä!",
     "healthConnect": {
-      "title": "Terveyteen yhdistäminen",
+      "title": "Health Connect",
       "subtitle": "Näytä ja hallinnoi käyttöoikeuksia",
       "unavailable": {
         "title": "Health Connect ei ole saatavilla",
-        "description": "Health Connect ei ole saatavilla tällä laitteella. Asenna Health Connect Play Kaupasta (Android 9+) tai päivitä Android 14+:ään."
+        "description": "Health Connect ei ole saatavilla tällä laitteella. Asenna Health Connect Play Storesta (Android 9+) tai päivitä Android 14+:ään."
       },
       "permissions": {
         "title": "Käyttöoikeudet",
-        "description": "Seuraavia käyttöoikeuksia pyydetään Terveydeen yhdistämisen tarjoamiseksi:",
+        "description": "Seuraavia käyttöoikeuksia pyydetään Health Connect -integraation tarjoamiseksi:",
         "granted": "Myönnetty",
         "notGranted": "Ei myönnetty",
         "caloriesBurned": {
           "title": "Lue kokonaispoltetut kalorit",
-          "description": "Sallii sovelluksen lukea kokonaispoltetut kalorit Terveyteen yhdistämisestä.",
+          "description": "Sallii sovelluksen lukea kokonaispoltetut kalorit Health Connectista.",
           "usage": "Tätä käyttöoikeutta käytetään päivittäisen kalorien kulutuksen näyttämiseen sovelluksessa, auttaen sinua ymmärtämään kokonaisenergiankulutuksesi päivän aikana."
         },
         "nutritionRead": {
           "title": "Lue ravintotiedot",
-          "description": "Sallii sovelluksen lukea ravintotietoja Terveydeen yhdistämisestä.",
-          "usage": "Tämä käyttöoikeus sallii sovelluksen lukea ravintotietoja, joita muut Terveydeen yhdistämiseen liitetyt sovellukset ovat saattaneet kirjata, tarjoten kattavan näkymän ravitsemukseesi."
+          "description": "Sallii sovelluksen lukea ravintotietoja Health Connectista.",
+          "usage": "Tämä käyttöoikeus sallii sovelluksen lukea ravintotietoja, joita muut Health Connectiin liitetyt sovellukset ovat saattaneet kirjata, tarjoten kattavan näkymän ravitsemukseesi."
         },
         "nutritionWrite": {
           "title": "Kirjoita ravintotiedot",
-          "description": "Sallii sovelluksen kirjoittaa ravintotietoja Terveydeen yhdistämiseen.",
-          "usage": "Tämä käyttöoikeus sallii sovelluksen synkronoida kirjatut ateriasi Terveydeen yhdistämiseen, tehden ravintotietosi saataville muille käyttämillesi terveys- ja liikuntasovelluksille."
+          "description": "Sallii sovelluksen kirjoittaa ravintotietoja Health Connectiin.",
+          "usage": "Tämä käyttöoikeus sallii sovelluksen synkronoida kirjatut ateriasi Health Connectiin, tehden ravintotietosi saataville muille käyttämillesi terveys- ja liikuntasovelluksille."
         }
       },
       "managePermissions": "Hallitse käyttöoikeuksia",
@@ -506,7 +506,7 @@
       "tagline": "Nopea, ilmainen ja yksityisyyteen keskittyvä kalorilaskuri",
       "ourStory": {
         "title": "Tarinaamme",
-        "content": "{appLabel} sai alkunsa yksinkertaisesta turhautumisesta: suurin osa kaloriseuranta-sovelluksista on joko liian monimutkaisia, vaativat jatkuvaa manuaalista syöttämistä, perivät korkeat tilausmaksut tai uhraavat yksityisyyden.\n\nItsenäisen kehittäjänä halusin rakentaa jotain yksinkertaisempaa ja oikeudenmukaisempaa — sovelluksen, joka käyttää tekoälyä vähentämään vaivannäköä, pysyy nopeana ja ilmaisena käyttää, ja käsittelee terveystietojasi kunnioituksella.\n\n{appLabel} on sovellus, jonka toivoin olevan olemassa: ei tilejä, ei seurantaa, ei mainoksia — vain selkeitä, käytännöllisiä oivalluksia ja tavoitteitasi terveydelle."
+        "content": "{appLabel} sai alkunsa yksinkertaisesta turhautumisesta: suurin osa kaloriseuranta-sovelluksista on joko liian monimutkaisia, vaativat jatkuvaa manuaalista syöttämistä, perivät korkeat tilausmaksut tai uhraavat yksityisyyden.\n\nItsenäisenä kehittäjänä halusin rakentaa jotain yksinkertaisempaa ja oikeudenmukaisempaa — sovelluksen, joka käyttää tekoälyä vähentämään vaivannäköä, pysyy nopeana ja ilmaisena käyttää, ja käsittelee terveystietojasi kunnioituksella.\n\n{appLabel} on sovellus, jonka toivoin olevan olemassa: ei tilejä, ei seurantaa, ei mainoksia — vain selkeitä, käytännöllisiä oivalluksia ja tavoitteitasi terveydelle."
       },
       "privacy": {
         "title": "Yksityisyytesi on tärkeää",
@@ -525,7 +525,7 @@
         "email": "Sähköposti"
       },
       "feedback": {
-        "title": "Pitkäaikainen {appLabel}?",
+        "title": "Nautitko {appLabel}:sta?",
         "description": "Palaute auttaa tekemään {appLabel} paremman kaikille.",
         "rateApp": "Arvostele Play Kaupassa",
         "sendFeedback": "Lähetä palautetta"
@@ -543,7 +543,7 @@
     "notificationsDisabled": "Ilmoitukset eivät ole käytössä",
     "enabledSubtitle": "Saat ateriamuistutuksia",
     "disabledSubtitle": "Ota käyttöön ilmoitukset saadaksesi ateriamuistutuksia",
-    "mealReminders": "Ateriavaroitukset",
+    "mealReminders": "Ateriamuistutukset",
     "breakfast": "Aamiainen",
     "lunch": "Lounas",
     "dinner": "Päivällinen",
@@ -560,19 +560,19 @@
   },
   "notifications": {
     "breakfast": {
-      "title": "Aamiainen Aika! 🍳",
+      "title": "Aamiaisen aika! 🍳",
       "body": "Älä unohda kirjata aamiaista"
     },
     "lunch": {
-      "title": "Lounas Aika! 🥗",
+      "title": "Lounaan aika! 🥗",
       "body": "Aika kirjata lounas"
     },
     "dinner": {
-      "title": "Päivällinen Aika! 🍽️",
+      "title": "Päivällisen aika! 🍽️",
       "body": "Älä unohda kirjata päivällistä"
     },
     "snack": {
-      "title": "Välipala Aika! 🍎",
+      "title": "Välipalan aika! 🍎",
       "body": "Aika terveelliselle välipalalle"
     },
     "test": {
@@ -642,7 +642,7 @@
     },
     "calorieExpenditure": {
       "title": "Arvio kalorinkulutuksesta",
-      "description": "Kun Health Connect -dataa ei ole saatavilla, arvioimme tämän päivän poltetut kalorit käyttämällä perusaineenvaihduntaasi (BMR) ja aktiivisuustasoasi (TDEE), skaalattuna kuluneen päivän osuudelle.",
+      "description": "Kun Health Connect -dataa ei ole saatavilla, arvioimme tämän päivän poltetut kalorit käyttämällä perusaineenvaihduntaasi (BMR) ja päivittäistä kokonaisenergiankulutustasi (TDEE), skaalattuna kuluneen päivän osuudelle.",
       "howCalculated": {
         "title": "Miten arvio lasketaan",
         "description": "Laskemme TDEE-arvosi (profiilisi perusteella) ja kerromme sen kuluneen päivän murto-osalla (tunnit + minuutit) / 24 arvioidaksemme tähän mennessä poltetut kalorit."
@@ -661,11 +661,11 @@
     "enjoyingQuestion": "Nautitko {appLabel}:stä?",
     "yes": "Kyllä — pidän siitä",
     "no": "Ei oikeastaan",
-    "rateStepHeading": "Arvostele Play-kaupassa",
+    "rateStepHeading": "Arvostele Play Storessa",
     "emailStepHeading": "Lähetä palautetta sähköpostitse",
     "soloDevMessage": "Nopea arvio auttaa muita löytämään {appLabel} ja pitää kehityksen käynnissä. Haluaisitko käyttää hetken ja jättää arvion?",
     "shareFeedbackViaEmail": "Palautteesi vaikuttaa siihen, mitä teemme seuraavaksi — luemme jokaisen viestin. Haluaisitko jakaa ajatuksesi sähköpostitse?",
-    "rateCta": "Arvostele Play-kaupassa",
+    "rateCta": "Arvostele Play Storessa",
     "maybeLater": "Ehkä myöhemmin",
     "sendFeedback": "Lähetä palautetta",
     "noThanks": "Ei kiitos",

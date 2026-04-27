@@ -34,8 +34,8 @@
       "next": "Dalej"
     },
     "height": {
-      "title": "Jak wysoki jesteś?",
-      "description": "Twoja wysokość pomaga nam dokładnie obliczyć Twój BMI i zapotrzebowanie energetyczne.",
+      "title": "Jaki jest Twój wzrost?",
+      "description": "Twój wzrost pomaga nam dokładnie obliczyć Twój BMI i zapotrzebowanie energetyczne.",
       "metric": "Metryczny",
       "imperial": "Imperialny",
       "next": "Dalej"

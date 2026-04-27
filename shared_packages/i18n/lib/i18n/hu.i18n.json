@@ -77,7 +77,7 @@
       "description": "Válaszd ki a célt, ami legjobban leírja, mit szeretnél elérni"
     },
     "activityLevel": {
-      "title": "Mennyi a aktivitásod?",
+      "title": "Mennyi az aktivitásod?",
       "description": "Ez segít pontosabban kiszámolni a napi kalóriaszükségletedet"
     },
     "healthConnect": {
@@ -85,7 +85,7 @@
       "description": "Szinkronizáld az egészségügyi adatokat jobb betekintésekért és automatikus kalóriaszámlálásért",
       "automaticTracking": {
         "title": "Automatikus Kalóriaszámlálás",
-        "description": "Kövessd a fitness alkalmazásokból égetett kalóriákat"
+        "description": "Kövesd a fitness alkalmazásokból égetett kalóriákat"
       },
       "progressInsights": {
         "title": "Haladási Betekintések",
@@ -142,7 +142,7 @@
   },
   "tabs": {
     "dashboard": "Irányítópult",
-    "history": "Történelem"
+    "history": "Előzmények"
   },
   "home": {
     "aiSummary": {
@@ -189,7 +189,7 @@
       "current": "Jelenlegi"
     },
     "intakeHistory": {
-      "title": "7 Napos Makró Történelem",
+      "title": "7 Napos Makró Előzmények",
       "trendTitle": "Mai trend",
       "peakHour": "Csúcs: {hour}:00",
       "noHistoryYet": "Nincs még történet",
@@ -205,7 +205,7 @@
       "title": "Gyors Hozzáadás AI-val",
       "description": "Írd le az étkezésed, és hagyd, hogy az AI kezelje a részleteket.",
       "hint": "pl. Reggelire egy nagy tál zabliszttel, egy szelet banánnal és egy adag tejsavóval ...",
-      "analyzeMeal": "Éttervezés elemzése"
+      "analyzeMeal": "Étkezés elemzése"
     },
     "favoriteMeals": {
       "title": "Kedvenc Étkezések",
@@ -216,14 +216,14 @@
       "add": "Hozzáadás"
     },
     "mealSnap": {
-      "title": "Képzelj és Kövesd Az Étkezésed",
+      "title": "Fényképezd és Kövesd az Étkezésed",
       "description": "Használj kamerát, hogy fényképet készíts az ételedről az AI elemzése érdekében.",
       "openCamera": "Kamera megnyitása",
       "gallery": "Galéria"
     },
     "connectHealth": {
-      "title": "Szinkronizálás az Health Connect-tel",
-      "description": "Szinkronizáld táplálkozási adataidat az Health Connect-tel",
+      "title": "Szinkronizálás a Health Connect-tel",
+      "description": "Szinkronizáld táplálkozási adataidat a Health Connect-tel",
       "install": "Telepítés",
       "connect": "Csatlakozás"
     }
@@ -408,7 +408,7 @@
       "notifications": "ÉRTESÍTÉSEK",
       "healthConnect": "EGÉSZSÉG KAPCSOLAT",
       "supportAndLegal": "TÁMOGATÁS ÉS JOGI ÜGYEK",
-      "about": "TÁJÉKOZTATÁS",
+      "about": "RÓLUNK",
       "dangerZone": "VESZÉLYES ZÓNA",
       "developer": "FEJLESZTŐ"
     },
@@ -467,7 +467,7 @@
     },
     "developerModeEnabled": "Fejlesztő mód engedélyezve!",
     "healthConnect": {
-      "title": "Egészség Kapcsolat",
+      "title": "Health Connect",
       "subtitle": "Engedélyek megtekintése és kezelése",
       "unavailable": {
         "title": "Health Connect nem elérhető",
@@ -475,7 +475,7 @@
       },
       "permissions": {
         "title": "Engedélyek",
-        "description": "Az alábbi engedélyeket kérjük az Egészség Kapcsolat integráció biztosításához:",
+        "description": "Az alábbi engedélyeket kérjük az Health Connect integráció biztosításához:",
         "granted": "Engedélyezve",
         "notGranted": "Nem Engedélyezve",
         "caloriesBurned": {
@@ -485,17 +485,17 @@
         },
         "nutritionRead": {
           "title": "Tápanyagadatok Olvasása",
-          "description": "Lehetővé teszi az alkalmazás számára, hogy elolvassa a tápanyagadatokat az Egészség Kapcsolattól.",
-          "usage": "Ez az engedély lehetővé teszi az alkalmazás számára, hogy hozzáférjen azokra a tápanyaginformációkra, amelyeket más alkalmazások rögzítettek, amelyek kapcsolódnak az Egészség Kapcsolathoz, átfogó képet adva a táplálkozásodról."
+          "description": "Lehetővé teszi az alkalmazás számára, hogy elolvassa a tápanyagadatokat az Health Connecttól.",
+          "usage": "Ez az engedély lehetővé teszi az alkalmazás számára, hogy hozzáférjen azokra a tápanyaginformációkra, amelyeket más alkalmazások rögzítettek, amelyek kapcsolódnak az Health Connecthoz, átfogó képet adva a táplálkozásodról."
         },
         "nutritionWrite": {
           "title": "Tápanyagadatok Írása",
-          "description": "Lehetővé teszi az alkalmazás számára, hogy tápanyagadatokat írjon az Egészség Kapcsolatra.",
-          "usage": "Ez az engedély lehetővé teszi az alkalmazás számára, hogy szinkronizálja a rögzített ételeidet az Egészség Kapcsolatra, így a táplálkozási adataid más egészségügyi és fitness alkalmazások számára is elérhetővé válnak."
+          "description": "Lehetővé teszi az alkalmazás számára, hogy tápanyagadatokat írjon az Health Connectra.",
+          "usage": "Ez az engedély lehetővé teszi az alkalmazás számára, hogy szinkronizálja a rögzített ételeidet az Health Connectra, így a táplálkozási adataid más egészségügyi és fitness alkalmazások számára is elérhetővé válnak."
         }
       },
       "managePermissions": "Engedélyek Kezelése",
-      "openSettings": "Nyisd meg az Egészségkapcsolat beállításait",
+      "openSettings": "Nyisd meg a Health Connect beállításait",
       "requestPermissions": "Engedélyek kérése",
       "permissionRequestCancelledOrFailed": "Az engedélykérés megszakadt vagy sikertelen volt. Próbáld újra, vagy add meg az engedélyeket manuálisan a Health Connect beállításaiban.",
       "permissionRequestFailed": "Nem sikerült engedélyeket kérni. Próbáld újra, vagy add meg az engedélyeket manuálisan a Health Connect beállításaiban.",
@@ -642,7 +642,7 @@
     },
     "calorieExpenditure": {
       "title": "Kalóriafelhasználás becslése",
-      "description": "Ha a Health Connect adatai nem állnak rendelkezésre, a mai nap során elégetett kalóriákat a nyugalmi anyagcsere (BMR) és az aktivitási szint (TDEE) alapján becsüljük, a napnak már eltelt részével arányosítva.",
+      "description": "Ha a Health Connect adatai nem állnak rendelkezésre, a mai nap során elégetett kalóriákat a nyugalmi anyagcsere (BMR) és a teljes napi energiafelhasználás (TDEE) alapján becsüljük, a napnak már eltelt részével arányosítva.",
       "howCalculated": {
         "title": "Hogyan számítjuk a becslést",
         "description": "Kiszámítjuk a TDEE-t (a profilod alapján), majd megszorozzuk a nap eltelt hányadával ((órák + percek) / 24), hogy megbecsüljük az eddig elégetett kalóriákat."

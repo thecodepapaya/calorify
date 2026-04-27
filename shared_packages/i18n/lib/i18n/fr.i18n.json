@@ -525,7 +525,7 @@
         "email": "Email"
       },
       "feedback": {
-        "title": "Vous Aimez {appLabel}?",
+        "title": "Vous Aimez {appLabel} ?",
         "description": "Vos retours aident à améliorer {appLabel} pour tout le monde.",
         "rateApp": "Évaluer sur le Play Store",
         "sendFeedback": "Envoyer des retours d'information"

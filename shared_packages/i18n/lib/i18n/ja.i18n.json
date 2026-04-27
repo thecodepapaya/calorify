@@ -12,7 +12,7 @@
   },
   "onboarding": {
     "welcome": "{appLabel}へようこそ",
-    "subtitle": "AIによるあなたの個人的な栄養コンパニオン",
+    "subtitle": "AI搭載のパーソナル栄養パートナー",
     "getStarted": "始める",
     "features": {
       "foodRecognition": {
@@ -25,7 +25,7 @@
       },
       "healthIntegration": {
         "title": "健康統合",
-        "description": "より良い洞察のためにHealth Connectと接続する"
+        "description": "より良いインサイトを得るためにHealth Connectと接続します"
       }
     },
     "gender": {
@@ -44,7 +44,7 @@
       "currentTitle": "現在の体重はどれくらいですか？",
       "currentDescription": "現在の体重は、あなたの日々の目標をパーソナライズするために重要です。",
       "targetTitle": "目標体重はどれくらいですか？",
-      "targetDescription": "目標体重を設定することで、長期的な計画を決定する手助けになります。",
+      "targetDescription": "目標体重を設定すると、長期的な計画を立てやすくなります。",
       "metric": "メートル法",
       "imperial": "インペリアル",
       "next": "次へ"
@@ -82,7 +82,7 @@
     },
     "healthConnect": {
       "title": "Health Connectと接続",
-      "description": "健康データを同期して、より良い洞察を得て自動カロリートラッキングを行いましょう",
+      "description": "健康データを同期して、より良いインサイトと自動カロリートラッキングを利用しましょう",
       "automaticTracking": {
         "title": "自動カロリートラッキング",
         "description": "フィットネスアプリから消費カロリーを追跡します"
@@ -101,7 +101,7 @@
       "skipForNow": "今はスキップ",
       "statusConnected": "Health Connectが接続されました。",
       "statusSuccess": "Health Connectが正常に接続されました！",
-      "statusPermissionDenied": "権限が拒否されました。{appLabel}のために、お使いの電話の設定からHealth Connectの権限を有効にしてください。",
+      "statusPermissionDenied": "権限が拒否されました。スマートフォンの設定で{appLabel}のHealth Connect権限を有効にしてください。",
       "statusError": "Health Connectの設定中にエラーが発生しました: {error}"
     },
     "reinforcement": {
@@ -121,17 +121,17 @@
       "healthProfile": {
         "title": "あなたの健康プロフィール",
         "bmiDescription": "あなたの指標に基づくと、あなたのBMIは{bmi}です。",
-        "finalizeDescription": "あなたの体験をカスタマイズするためにプロフィールを最終化しましょう。",
+        "finalizeDescription": "あなたに合わせて体験をカスタマイズするため、プロフィールを完成させましょう。",
         "goalGain": "増加",
         "goalLose": "減少",
-        "goalReach": "目標を達成するには、{direction} {diff} {unit}しなければなりません。",
+        "goalReach": "目標達成には、{diff} {unit}の{direction}が必要です。",
         "goalReached": "あなたは目標体重に達しました！維持を支援します。",
         "button": "行きましょう"
       },
       "goalLifestyle": {
         "title": "素晴らしいスタート！",
         "description": "{goalText}に向けて第一歩を踏み出しましたね。あなたが{activityText}であるため、{appLabel}は生活スタイルに合わせて目標を調整します。",
-        "personalizedTargets": "パーソナライズされたカロリターゲット",
+        "personalizedTargets": "パーソナライズされたカロリー目標",
         "aiMealDetection": "AIによる食事検出",
         "macroBreakdowns": "詳細なマクロ栄養素の内訳",
         "button": "行きましょう",
@@ -159,12 +159,12 @@
     },
     "dailyGoal": {
       "title": "日々の目標を設定",
-      "titleSet": "あなたのデイリーゴール",
-      "description": "ウェルネスの旅を始める準備はできましたか？進捗を促進させるために、下にあなたのデイリーカロリー目標を設定してください。",
-      "descriptionSet": "コンパスが設定されました！これがあなたの進むべきデイリーカロリー目標です。",
+      "titleSet": "あなたの1日の目標",
+      "description": "健康づくりの一歩を始める準備はできましたか？下で1日のカロリー目標を設定して、進捗をスタートしましょう。",
+      "descriptionSet": "目標が設定されました！これが日々の目安となる1日のカロリー目標です。",
       "yourGoal": "あなたの目標",
       "goal": "目標",
-      "dailyCalories": "デイリーカロリー (kcal)",
+      "dailyCalories": "1日のカロリー (kcal)",
       "setGoal": "目標を設定",
       "intake": "摂取",
       "burned": "消費",
@@ -184,27 +184,27 @@
       "chartAccessibilityLabel": "マクロ栄養素のグラフ"
     },
     "intakeProgress": {
-      "title": "今日のマクロ分配",
+      "title": "今日のマクロ栄養素の配分",
       "target": "目標",
       "current": "現在"
     },
     "intakeHistory": {
-      "title": "7日間のマクロ履歴",
+      "title": "7日間のマクロ栄養素履歴",
       "trendTitle": "今日の摂取傾向",
       "peakHour": "ピーク時間: {hour}:00",
       "noHistoryYet": "履歴はまだありません。",
-      "startLogging": "食事を記録し始めて、ここで7日間のマクロトレンドを確認しましょう。"
+      "startLogging": "食事を記録し始めると、ここで7日間のマクロ栄養素トレンドを確認できます。"
     },
     "mealLog": {
-      "title": "ログされた食事",
+      "title": "記録済みの食事",
       "emptyMessage": "最後の食事の写真を撮ってここに記録しましょう。",
       "noMealsToday": "今日の食事はまだ記録されていません",
       "seeAllMeals": "すべての食事を見る"
     },
     "mealDescription": {
       "title": "AIでクイック追加",
-      "description": "食事を説明して、AIに詳細を処理させましょう。",
-      "hint": "例：朝食に大きなオートミールのボウルをバナナスライスとホエイパウダーを加えて食べました...",
+      "description": "食事を説明して、詳細はAIに任せましょう。",
+      "hint": "例：朝食に大きなボウルのオートミール、スライスしたバナナ、ホエイプロテイン1杯を食べました...",
       "analyzeMeal": "食事を分析"
     },
     "favoriteMeals": {
@@ -217,7 +217,7 @@
     },
     "mealSnap": {
       "title": "食事を撮影して追跡",
-      "description": "カメラを使って食べ物の写真を撮ってAI分析を行います。",
+      "description": "カメラで食べ物の写真を撮り、AI分析に使用します。",
       "openCamera": "カメラを開く",
       "gallery": "ギャラリー"
     },
@@ -406,9 +406,9 @@
       "profile": "プロフィール",
       "localization": "ローカライズ",
       "notifications": "通知",
-      "healthConnect": "ヘルスコネクト",
+      "healthConnect": "Health Connect",
       "supportAndLegal": "サポートと法律",
-      "about": "について",
+      "about": "アプリについて",
       "dangerZone": "危険ゾーン",
       "developer": "開発者"
     },
@@ -458,7 +458,7 @@
       "title": "すべてのデータをクリア",
       "subtitle": "すべての情報を取り消し不可能に削除します",
       "confirmationTitle": "すべてのデータをクリアしますか？",
-      "confirmationMessage": "この操作は取り消せません。すべてのログされた食事、お気に入り、プロフィール設定は完全に削除されます。",
+      "confirmationMessage": "この操作は取り消せません。記録済みの食事、お気に入り、プロフィール設定はすべて完全に削除されます。",
       "cancel": "キャンセル",
       "clearEverything": "すべてをクリア"
     },
@@ -467,35 +467,35 @@
     },
     "developerModeEnabled": "開発者モードが有効になりました！",
     "healthConnect": {
-      "title": "ヘルスコネクト",
+      "title": "Health Connect",
       "subtitle": "権限を表示および管理",
       "unavailable": {
         "title": "Health Connect を利用できません",
-        "description": "このデバイスでは Health Connect を利用できません。Play ストア（Android 9+）から Health Connect をインストールするか、Android 14+ に更新してください。"
+        "description": "このデバイスでは Health Connect を利用できません。Play Store（Android 9+）から Health Connect をインストールするか、Android 14+ に更新してください。"
       },
       "permissions": {
         "title": "権限",
-        "description": "ヘルスコネクト統合を提供するために要求される権限は以下の通りです。",
+        "description": "Health Connect連携を提供するため、以下の権限が必要です。",
         "granted": "付与済み",
         "notGranted": "未付与",
         "caloriesBurned": {
           "title": "総消費カロリーの読み取り",
-          "description": "アプリがヘルスコネクトからあなたの総消費カロリーを読み取ることを許可します。",
+          "description": "アプリがHealth Connectからあなたの総消費カロリーを読み取ることを許可します。",
           "usage": "この権限はアプリ内でのあなたの1日のカロリー消費を表示するために使用され、1日の総エネルギー消費を理解するのに役立ちます。"
         },
         "nutritionRead": {
           "title": "栄養データの読み取り",
-          "description": "アプリがヘルスコネクトから栄養データを読み取ることを許可します。",
-          "usage": "この権限により、ヘルスコネクトに接続された他のアプリによって記録された栄養情報を読み取ることができ、包括的な栄養の見通しが得られます。"
+          "description": "アプリがHealth Connectから栄養データを読み取ることを許可します。",
+          "usage": "この権限により、Health Connectに接続された他のアプリによって記録された栄養情報を読み取ることができ、栄養状況を包括的に把握できます。"
         },
         "nutritionWrite": {
           "title": "栄養データの書き込み",
-          "description": "アプリがヘルスコネクトに栄養データを書き込むことを許可します。",
-          "usage": "この権限により、アプリがあなたの記録した食事をヘルスコネクトに同期させ、使用中の他の健康・フィットネスアプリで栄養データを利用できるようにします。"
+          "description": "アプリがHealth Connectに栄養データを書き込むことを許可します。",
+          "usage": "この権限により、アプリがあなたの記録した食事をHealth Connectに同期させ、使用中の他の健康・フィットネスアプリで栄養データを利用できるようにします。"
         }
       },
       "managePermissions": "権限を管理",
-      "openSettings": "ヘルスコネクト設定を開く",
+      "openSettings": "Health Connect設定を開く",
       "requestPermissions": "権限をリクエストする",
       "permissionRequestCancelledOrFailed": "権限のリクエストがキャンセルされたか失敗しました。もう一度試すか、Health Connect の設定で手動で権限を付与してください。",
       "permissionRequestFailed": "権限をリクエストできませんでした。もう一度試すか、Health Connect の設定で手動で権限を付与してください。",
@@ -506,7 +506,7 @@
       "tagline": "迅速で無料、プライバシー重視のカロリー認識",
       "ourStory": {
         "title": "私たちのストーリー",
-        "content": "{appLabel}はシンプルなフラストレーションから生まれました：ほとんどのカロリー追跡アプリは、過度に複雑で、常に手動入力を要求され、高額なサブスクリプション料金を請求し、またはプライバシーを妥協します。\n\nインディー開発者として、私はよりシンプルで公正なものを作りたいと思いました — 努力を減らすためにAIを使用し、すぐに使えて速く、あなたの健康データを尊重するアプリです。\n\n{appLabel}は私が存在してほしかったアプリです：アカウント不要、トラッキングなし、広告なし — 明確で実用的な洞察とあなたの健康目標だけが提供されます。"
+        "content": "{appLabel}は、ほとんどのカロリー追跡アプリが複雑すぎる、手入力を求めすぎる、高額なサブスクリプション料金を請求する、またはプライバシーを犠牲にするという素朴な不満から生まれました。\n\n個人開発者として、私はもっとシンプルで公平なものを作りたいと思いました。AIで手間を減らし、素早く無料で使え、あなたの健康データを尊重するアプリです。\n\n{appLabel}は、私自身が欲しかったアプリです。アカウント不要、トラッキングなし、広告なし。明確で実用的なインサイトと、あなたの健康目標だけに向き合います。"
       },
       "privacy": {
         "title": "あなたのプライバシーは重要です",
@@ -520,14 +520,14 @@
       },
       "developer": {
         "title": "インディー開発者によって構築されました",
-        "description": "{appLabel}は、落ち着いたプライバシーを尊重する健康ソフトウェアを作成することに焦点を当てた単独のインディー開発者によって構築され、維持されています。\n\nフィードバックは個人的に読み、アプリの方向性を形作るのに役立ちます。",
+        "description": "{appLabel}は、落ち着いて使える、プライバシーを尊重した健康ソフトウェアの開発に注力する個人開発者によって作られ、保守されています。\n\nフィードバックは一つひとつ読まれ、アプリの方向性を形作る助けになります。",
         "website": "ウェブサイト",
         "email": "メール"
       },
       "feedback": {
         "title": "{appLabel}を楽しんでいますか？",
         "description": "あなたのフィードバックは、{appLabel}をより良いものにするのに役立ちます。",
-        "rateApp": "Playストアで評価する",
+        "rateApp": "Play Storeで評価する",
         "sendFeedback": "フィードバックを送信"
       }
     },
@@ -642,10 +642,10 @@
     },
     "calorieExpenditure": {
       "title": "消費カロリーの推定値",
-      "description": "Health Connect のデータが利用できない場合、基礎代謝量（BMR）と活動レベル（TDEE）を用いて、本日これまでに消費したカロリーを1日の経過割合に応じて推定します。",
+      "description": "Health Connect のデータが利用できない場合、基礎代謝量（BMR）と1日の総エネルギー消費量（TDEE）を用いて、本日これまでに消費したカロリーを1日の経過割合に応じて推定します。",
       "howCalculated": {
         "title": "推定値の算出方法",
-        "description": "プロフィールに基づいてTDEEを算出し、経過した日数の割合（経過時間（時間＋分）/ 24）を掛け合わせて、これまでの消費カロリーを推定します。"
+        "description": "プロフィールに基づいてTDEEを算出し、経過した1日の割合（経過時間（時間＋分）/ 24）を掛け合わせて、これまでの消費カロリーを推定します。"
       },
       "professionalGuidance": {
         "title": "専門家からの助言",
@@ -661,11 +661,11 @@
     "enjoyingQuestion": "{appLabel}をお楽しみいただけていますか？",
     "yes": "はい、気に入っています",
     "no": "あまり良くありません",
-    "rateStepHeading": "Google Playで評価する",
+    "rateStepHeading": "Play Storeで評価する",
     "emailStepHeading": "メールでフィードバックを送る",
     "soloDevMessage": "簡単な評価は他の方が{appLabel}を見つけやすくなり、開発の継続を支えます。少しお時間をいただいて評価を残していただけますか？",
     "shareFeedbackViaEmail": "ご意見は今後の改善に直結します — いただいたメッセージはすべて拝見しています。メールでご感想を共有されますか？",
-    "rateCta": "Google Playで評価する",
+    "rateCta": "Play Storeで評価する",
     "maybeLater": "また今度",
     "sendFeedback": "フィードバックを送る",
     "noThanks": "いいえ、結構です",

@@ -97,7 +97,7 @@
       },
       "connected": "Health Connect Verbonden",
       "notConnected": "Health Connect Niet Verbonden",
-      "setup": "Instellingen Health Connect",
+      "setup": "Stel Health Connect in",
       "skipForNow": "Voor nu overslaan",
       "statusConnected": "Health Connect is verbonden.",
       "statusSuccess": "Health Connect is succesvol verbonden!",
@@ -184,7 +184,7 @@
       "chartAccessibilityLabel": "Grafiek met macronutriënten"
     },
     "intakeProgress": {
-      "title": "Vandaagse Macro Verhoudingen",
+      "title": "Macroverdeling van Vandaag",
       "target": "Doel",
       "current": "Huidig"
     },
@@ -404,7 +404,7 @@
     "title": "Instellingen",
     "sections": {
       "profile": "PROFIEL",
-      "localization": "LOCALISATIE",
+      "localization": "LOKALISATIE",
       "notifications": "MELDINGEN",
       "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "ONDERSTEUNING & JURIDISCH",
@@ -496,7 +496,7 @@
       },
       "managePermissions": "Beheer Machtigingen",
       "openSettings": "Open Health Connect Instellingen",
-      "requestPermissions": "Vraag Vergunningen Aan",
+      "requestPermissions": "Vraag Machtigingen Aan",
       "permissionRequestCancelledOrFailed": "De machtigingsaanvraag is geannuleerd of mislukt. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.",
       "permissionRequestFailed": "Kan geen machtigingen aanvragen. Probeer het opnieuw of geef de machtigingen handmatig in de Health Connect-instellingen.",
       "requestingPermissions": "Bezig met aanvragen..."
@@ -520,7 +520,7 @@
       },
       "developer": {
         "title": "Gebouwd door een Solo Ontwikkelaar",
-        "description": "{appLabel} is gebouwd en onderhouden door een enkele solo ontwikkelaar die zich richt op het creëren van rustige, privacy-respecterende gezondheidssoftware.\n\nFeedback wordt persoonlijk gelezen en helpt de richting van de app te bepalen.",
+        "description": "{appLabel} is gebouwd en wordt onderhouden door één solo ontwikkelaar die zich richt op het creëren van rustige, privacy-respecterende gezondheidssoftware.\n\nFeedback wordt persoonlijk gelezen en helpt de richting van de app te bepalen.",
         "website": "Website",
         "email": "E-mail"
       },
@@ -568,7 +568,7 @@
       "body": "Tijd om je lunch te registreren"
     },
     "dinner": {
-      "title": "Dinnertijd! 🍽️",
+      "title": "Dinertijd! 🍽️",
       "body": "Vergeet niet je diner te registreren"
     },
     "snack": {
@@ -642,7 +642,7 @@
     },
     "calorieExpenditure": {
       "title": "Schatting van calorieverbruik",
-      "description": "Wanneer Health Connect-gegevens niet beschikbaar zijn, schatten we de vandaag verbrande calorieën op basis van je basale stofwisselingssnelheid (BMR) en je activiteitsniveau (TDEE), geschaald naar het deel van de dag dat verstreken is.",
+      "description": "Wanneer Health Connect-gegevens niet beschikbaar zijn, schatten we de vandaag verbrande calorieën op basis van je basale stofwisselingssnelheid (BMR) en je totale dagelijkse energieverbruik (TDEE), geschaald naar het deel van de dag dat verstreken is.",
       "howCalculated": {
         "title": "Hoe de schatting wordt berekend",
         "description": "We berekenen je TDEE (op basis van je profiel) en vermenigvuldigen deze met de fractie van de dag die verstreken is (uren + minuten) / 24 om de tot nu toe verbrande calorieën te schatten."

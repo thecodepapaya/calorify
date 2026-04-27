@@ -16,7 +16,7 @@
     "getStarted": "Loslegen",
     "features": {
       "foodRecognition": {
-        "title": "Intelligente Lebensmittelkennung",
+        "title": "Intelligente Lebensmittelerkennung",
         "description": "Machen Sie ein Foto und lassen Sie die KI Ihre Mahlzeit identifizieren"
       },
       "aiAnalysis": {
@@ -101,7 +101,7 @@
       "skipForNow": "Für jetzt überspringen",
       "statusConnected": "Health Connect ist verbunden.",
       "statusSuccess": "Health Connect wurde erfolgreich verbunden!",
-      "statusPermissionDenied": "Zugriff verweigert. Bitte aktivieren Sie die Gesundheitsverbindungsberechtigungen in den Einstellungen Ihres Telefons für {appLabel}.",
+      "statusPermissionDenied": "Zugriff verweigert. Bitte aktivieren Sie die Health Connect-Berechtigungen in den Einstellungen Ihres Telefons für {appLabel}.",
       "statusError": "Fehler beim Einrichten von Health Connect: {error}"
     },
     "reinforcement": {
@@ -132,7 +132,7 @@
         "title": "Ausgezeichneter Start!",
         "description": "Sie haben den ersten Schritt in Richtung {goalText} gemacht. Da Sie {activityText} sind, wird {appLabel} Ihre Ziele an Ihren Lebensstil anpassen.",
         "personalizedTargets": "Personalisierte Kalorienziele",
-        "aiMealDetection": "KI-gestützte Essenskennung",
+        "aiMealDetection": "KI-gestützte Essenserkennung",
         "macroBreakdowns": "Detaillierte Makronährstoffaufteilungen",
         "button": "Loslegen",
         "defaultGoal": "Ihrer Ziele",
@@ -243,11 +243,11 @@
     "save": "Speichern",
     "mealName": "Mahlzeitenname",
     "mealNameHint": "z. B. Rührei mit Toast",
-    "mealQuantity": "Mahlmenge",
+    "mealQuantity": "Mahlzeitenmenge",
     "mealQuantityHint": "z. B. 1 Schüssel, 2 Scheiben",
     "timeOfMeal": "Uhrzeit der Mahlzeit",
     "timeOfMealHint": "Wählen Sie die Zeit, zu der Sie Ihre Mahlzeit hatten",
-    "mealType": "Mahlzeittype",
+    "mealType": "Mahlzeitentyp",
     "nutrition": {
       "calories": "Kalorien",
       "carbs": "Kohlenhydrate (g)",
@@ -312,7 +312,7 @@
     "height": "Größe",
     "weight": "Gewicht",
     "age": "Alter",
-    "weightGoal": "Gewichtsziele",
+    "weightGoal": "Gewichtsziel",
     "targetWeight": "Zielgewicht",
     "activityLevel": "Aktivitätslevel",
     "healthMetrics": "Gesundheitsmetriken",
@@ -330,7 +330,7 @@
   "healthScore": {
     "title": "Gesundheitswert",
     "whyThisScore": "Warum dieser Wert?",
-    "note": "Dieser Wert ist eine AI-Schätzung basierend auf den identifizierten Zutaten und der Nährstoffdichte. Konsultieren Sie immer einen Fachmann für diätetische Ratschläge.",
+    "note": "Dieser Wert ist eine KI-Schätzung basierend auf den identifizierten Zutaten und der Nährstoffdichte. Konsultieren Sie immer einen Fachmann für diätetische Ratschläge.",
     "unhealthy": "Ungesund",
     "healthy": "Gesund",
     "neutral": "Neutral"
@@ -346,7 +346,7 @@
     "dateOfBirth": "Geburtsdatum",
     "height": "Größe",
     "weight": "Gewicht",
-    "weightGoal": "Gewichtsziele",
+    "weightGoal": "Gewichtsziel",
     "activityLevel": "Aktivitätslevel",
     "metric": "Metrisch",
     "imperial": "Imperial",
@@ -406,7 +406,7 @@
       "profile": "PROFIL",
       "localization": "LOKALISIERUNG",
       "notifications": "BENACHRICHTIGUNGEN",
-      "healthConnect": "GESUNDHEITSVERBINDUNG",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "UNTERSTÜTZUNG & RECHTLICHES",
       "about": "ÜBER",
       "dangerZone": "GEFAHRENZONE",
@@ -467,7 +467,7 @@
     },
     "developerModeEnabled": "Entwicklermodus aktiviert!",
     "healthConnect": {
-      "title": "Gesundheitsverbindung",
+      "title": "Health Connect",
       "subtitle": "Berechtigungen anzeigen und verwalten",
       "unavailable": {
         "title": "Health Connect nicht verfügbar",
@@ -475,23 +475,23 @@
       },
       "permissions": {
         "title": "Berechtigungen",
-        "description": "Die folgenden Berechtigungen werden angefordert, um die Integration der Gesundheitsverbindung bereitzustellen:",
+        "description": "Die folgenden Berechtigungen werden angefordert, um die Integration mit Health Connect bereitzustellen:",
         "granted": "Erteilt",
         "notGranted": "Nicht Erteilt",
         "caloriesBurned": {
           "title": "Gesamt verbrannte Kalorien lesen",
-          "description": "Erlaubt der App, Ihre insgesamt verbrannten Kalorien aus der Gesundheitsverbindung zu lesen.",
+          "description": "Erlaubt der App, Ihre insgesamt verbrannten Kalorien aus Health Connect zu lesen.",
           "usage": "Diese Berechtigung wird verwendet, um Ihren täglichen Kalorienverbrauch in der App anzuzeigen, damit Sie Ihren gesamten Energieverbrauch im Laufe des Tages verstehen können."
         },
         "nutritionRead": {
           "title": "Ernährungsdaten lesen",
-          "description": "Erlaubt der App, Ernährungsdaten aus der Gesundheitsverbindung zu lesen.",
-          "usage": "Diese Berechtigung ermöglicht es der App, Ernährungsinformationen zu lesen, die möglicherweise von anderen Apps, die mit der Gesundheitsverbindung verbunden sind, protokolliert wurden, wodurch Sie einen umfassenden Überblick über Ihre Ernährung erhalten."
+          "description": "Erlaubt der App, Ernährungsdaten aus Health Connect zu lesen.",
+          "usage": "Diese Berechtigung ermöglicht es der App, Ernährungsinformationen zu lesen, die möglicherweise von anderen Apps, die mit Health Connect verbunden sind, protokolliert wurden, wodurch Sie einen umfassenden Überblick über Ihre Ernährung erhalten."
         },
         "nutritionWrite": {
           "title": "Ernährungsdaten schreiben",
-          "description": "Erlaubt der App, Ernährungsdaten in die Gesundheitsverbindung zu schreiben.",
-          "usage": "Diese Berechtigung ermöglicht es der App, Ihre protokollierten Mahlzeiten mit der Gesundheitsverbindung zu synchronisieren und Ihre Ernährungsdaten anderen Gesundheits- und Fitnessanwendungen, die Sie verwenden, zur Verfügung zu stellen."
+          "description": "Erlaubt der App, Ernährungsdaten in Health Connect zu schreiben.",
+          "usage": "Diese Berechtigung ermöglicht es der App, Ihre protokollierten Mahlzeiten mit Health Connect zu synchronisieren und Ihre Ernährungsdaten anderen Gesundheits- und Fitnessanwendungen, die Sie verwenden, zur Verfügung zu stellen."
         }
       },
       "managePermissions": "Berechtigungen verwalten",
@@ -506,7 +506,7 @@
       "tagline": "Schnelle, kostenlose und datenschutzorientierte Kalorienzählung",
       "ourStory": {
         "title": "Unsere Geschichte",
-        "content": "{appLabel} entstand aus einer einfachen Frustration: Die meisten Kalorienzähler-Apps sind entweder übermäßig kompliziert, verlangen ständige manuelle Eingaben, erheben hohe Abonnementsgebühren oder gehen mit der Privatsphäre um.\n\nAls solo-Entwickler wollte ich etwas Einfacheres und Faireres schaffen — eine App, die KI nutzt, um den Aufwand zu reduzieren, schnell und kostenlos ist und Ihre Gesundheitsdaten respektiert.\n\n{appLabel} ist die App, die ich mir gewünscht hätte: keine Konten, kein Tracking, keine Werbung — nur klare, praktische Einblicke und Ihre Gesundheitsziele."
+        "content": "{appLabel} entstand aus einer einfachen Frustration: Die meisten Kalorienzähler-Apps sind entweder übermäßig kompliziert, verlangen ständige manuelle Eingaben, erheben hohe Abonnementsgebühren oder gefährden den Datenschutz.\n\nAls Solo-Entwickler wollte ich etwas Einfacheres und Faireres schaffen — eine App, die KI nutzt, um den Aufwand zu reduzieren, schnell und kostenlos ist und Ihre Gesundheitsdaten respektiert.\n\n{appLabel} ist die App, die ich mir gewünscht hätte: keine Konten, kein Tracking, keine Werbung — nur klare, praktische Einblicke und Ihre Gesundheitsziele."
       },
       "privacy": {
         "title": "Ihre Privatsphäre zählt",
@@ -637,12 +637,12 @@
       },
       "dailyGoal": {
         "title": "Tagesziel",
-        "description": "Das Tagesziel ist Ihre empfohlene tägliche Kalorienaufnahme basierend auf Ihrem TDEE und Ihrem Gewichtsziel. Für Gewichtsverlust konsumieren Sie weniger Kalorien als Ihr TDEE. Für die Gewichtserhaltung stimmen Sie Ihren TDEE ab. Für Gewichtszunahme konsumieren Sie mehr Kalorien als Ihr TDEE. Dies hilft Ihnen, Ihre gewünschte Gewichtsveränderung in einem gesunden Tempo zu erreichen."
+        "description": "Das Tagesziel ist Ihre empfohlene tägliche Kalorienaufnahme basierend auf Ihrem TDEE und Ihrem Gewichtsziel. Für Gewichtsverlust konsumieren Sie weniger Kalorien als Ihr TDEE. Für die Gewichtserhaltung entsprechen Sie Ihrem TDEE. Für Gewichtszunahme konsumieren Sie mehr Kalorien als Ihr TDEE. Dies hilft Ihnen, Ihre gewünschte Gewichtsveränderung in einem gesunden Tempo zu erreichen."
       }
     },
     "calorieExpenditure": {
       "title": "Schätzung des Kalorienverbrauchs",
-      "description": "Wenn Health Connect-Daten nicht verfügbar sind, schätzen wir, wie viele Kalorien Sie heute verbrannt haben, basierend auf Ihrem Grundumsatz (BMR) und Ihrem Aktivitätsniveau (TDEE). Die Schätzung wird auf den bereits verstrichenen Teil des Tages hochgerechnet.",
+      "description": "Wenn Health Connect-Daten nicht verfügbar sind, schätzen wir, wie viele Kalorien Sie heute verbrannt haben, basierend auf Ihrem Grundumsatz (BMR) und Ihrem gesamten täglichen Energieverbrauch (TDEE). Die Schätzung wird auf den bereits verstrichenen Teil des Tages hochgerechnet.",
       "howCalculated": {
         "title": "Wie die Schätzung berechnet wird",
         "description": "Wir berechnen Ihren TDEE (basierend auf Ihrem Profil) und multiplizieren ihn mit dem bereits verstrichenen Tagesanteil (Stunden + Minuten) / 24, um die bisher verbrannten Kalorien zu schätzen."
