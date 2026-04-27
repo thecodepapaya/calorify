@@ -1,3 +1,6 @@
+# Local OpenAI key for scripts (see scripts/resolve_openai_api_key.py)
+scripts/.openai_api_key
+
 # Miscellaneous
 *.class
 *.log
