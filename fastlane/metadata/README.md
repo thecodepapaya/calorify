@@ -27,9 +27,51 @@ For example:
 
 ## Adding Changelogs
 
-### Automated Method (Recommended)
+### Automated From Git History (Recommended)
 
-Use the `create_changelog.sh` script to automatically create and translate changelogs:
+Use `generate_release_notes.sh` after bumping `app/pubspec.yaml` to the version code you plan to release:
+
+1. **Preview generated release notes:**
+   ```bash
+   ./scripts/generate_release_notes.sh --dry-run
+   ```
+   This will:
+   - Read the current version code from `app/pubspec.yaml`
+   - Find the previous release from `fastlane/metadata/android/en-US/changelogs`
+   - Summarize release-note-worthy git changes with OpenAI `gpt-5-mini`
+   - Translate the notes for app-supported locales from `shared_packages/i18n/lib/i18n` that are also supported by Google Play metadata
+   - Print the generated notes without writing files
+
+2. **Create release notes for the current version:**
+   ```bash
+   ./scripts/generate_release_notes.sh
+   ```
+   Or through Fastlane:
+   ```bash
+   bundle exec fastlane android release_notes
+   ```
+
+3. **Override the release boundary if needed:**
+   ```bash
+   ./scripts/generate_release_notes.sh --since <git-ref>
+   ```
+
+4. **Replace existing notes for the current version:**
+   ```bash
+   ./scripts/generate_release_notes.sh --overwrite
+   ```
+
+The script refuses to overwrite existing changelog files unless `--overwrite` is provided. App locales that do not have a supported Google Play metadata locale are skipped with a warning. Review the generated files before running the Play Store upload lane:
+
+```bash
+bundle exec fastlane android release
+```
+
+The script uses `OPENAI_API_KEY` when set. If it is not set, it falls back to the same local API key source used by the translation generation script.
+
+### Automated From Provided Text
+
+Use the `create_changelog.sh` script when you already have English release notes and only need files/translations:
 
 1. **Create changelog with automatic translations:**
    ```bash
