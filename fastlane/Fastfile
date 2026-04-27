@@ -1,6 +1,11 @@
 default_platform(:android)
 
 platform :android do
+  desc "Draft and translate Google Play release notes"
+  lane :release_notes do
+    sh("./scripts/generate_release_notes.sh")
+  end
+
   desc "Deploy a new version to the Google Play"
   lane :release do    
     # Upload Main App to Production

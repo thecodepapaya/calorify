@@ -1,0 +1,714 @@
+#!/bin/bash
+
+# Draft and translate Google Play release notes from git history.
+# Usage:
+#   ./scripts/generate_release_notes.sh
+#   ./scripts/generate_release_notes.sh --dry-run
+#   ./scripts/generate_release_notes.sh --since <git-ref>
+#   ./scripts/generate_release_notes.sh --overwrite
+
+set -euo pipefail
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/common.sh"
+
+CHANGELOG_MAX_LENGTH=500
+OPENAI_MODEL="gpt-5-mini"
+DRY_RUN=false
+OVERWRITE=false
+SINCE_REF=""
+GIT_ROOT=""
+VERSION_CODE=""
+PREVIOUS_VERSION_CODE=""
+RELEASE_RANGE=""
+TEMP_DIR=""
+API_KEY=""
+
+APP_LOCALES=()
+PLAY_LOCALES=()
+LOCALE_NAMES=()
+GENERATED_FILES=()
+UNSUPPORTED_APP_LOCALES=()
+
+usage() {
+    cat <<EOF
+Usage:
+  ./scripts/generate_release_notes.sh [options]
+
+Options:
+  --dry-run       Draft and translate notes, but do not write changelog files.
+  --since <ref>   Override the detected previous release boundary.
+  --overwrite     Replace existing changelog files for the current version.
+  --help          Show this help message.
+EOF
+}
+
+cleanup() {
+    if [ -n "${TEMP_DIR:-}" ] && [ -d "$TEMP_DIR" ]; then
+        rm -rf "$TEMP_DIR"
+    fi
+}
+trap cleanup EXIT
+
+parse_arguments() {
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --dry-run)
+                DRY_RUN=true
+                shift
+                ;;
+            --overwrite)
+                OVERWRITE=true
+                shift
+                ;;
+            --since)
+                if [ -z "${2:-}" ]; then
+                    print_error "--since requires a git ref"
+                    exit 1
+                fi
+                SINCE_REF="$2"
+                shift 2
+                ;;
+            --help|-h)
+                usage
+                exit 0
+                ;;
+            *)
+                print_error "Unknown argument: $1"
+                usage
+                exit 1
+                ;;
+        esac
+    done
+}
+
+setup_environment() {
+    store_original_dir
+    GIT_ROOT=$(change_to_git_root)
+
+    if ! check_command git || ! check_command python3 || ! check_command curl; then
+        exit 1
+    fi
+
+    TEMP_DIR=$(mktemp -d "/tmp/calorify_release_notes_XXXXXX")
+}
+
+extract_version_code() {
+    VERSION_CODE=$(python3 - "$GIT_ROOT/app/pubspec.yaml" <<'PY'
+import re
+import sys
+from pathlib import Path
+
+pubspec = Path(sys.argv[1]).read_text(encoding="utf-8")
+match = re.search(r"^version:\s*\d+\.\d+\.\d+\+(\d+)\s*$", pubspec, re.MULTILINE)
+if not match:
+    sys.exit(1)
+print(match.group(1))
+PY
+)
+
+    if [ -z "$VERSION_CODE" ]; then
+        print_error "Could not extract version code from app/pubspec.yaml"
+        exit 1
+    fi
+}
+
+resolve_api_key() {
+    if [ -n "${OPENAI_API_KEY:-}" ]; then
+        API_KEY="$OPENAI_API_KEY"
+        return
+    fi
+
+    # Preserve the current local translation workflow without duplicating a key here.
+    API_KEY=$(python3 - "$GIT_ROOT/scripts/generate_translations.sh" <<'PY'
+import re
+import sys
+from pathlib import Path
+
+script = Path(sys.argv[1]).read_text(encoding="utf-8")
+match = re.search(r'^API_KEY="([^"]+)"', script, re.MULTILINE)
+if match:
+    print(match.group(1))
+PY
+)
+
+    if [ -z "$API_KEY" ]; then
+        print_error "OPENAI_API_KEY is not set and no translation API key could be resolved"
+        exit 1
+    fi
+}
+
+app_locale_to_play_locale() {
+    case "$1" in
+        ar) echo "ar" ;;
+        bn) echo "bn-BD" ;;
+        cs) echo "cs-CZ" ;;
+        da) echo "da-DK" ;;
+        de) echo "de-DE" ;;
+        el) echo "el-GR" ;;
+        es) echo "es-ES" ;;
+        fi) echo "fi-FI" ;;
+        fr) echo "fr-FR" ;;
+        gu) echo "" ;;
+        he) echo "iw-IL" ;;
+        hi) echo "hi-IN" ;;
+        hu) echo "hu-HU" ;;
+        id) echo "id" ;;
+        it) echo "it-IT" ;;
+        ja) echo "ja-JP" ;;
+        ko) echo "ko-KR" ;;
+        ms) echo "ms" ;;
+        nl) echo "nl-NL" ;;
+        no) echo "no-NO" ;;
+        pl) echo "pl-PL" ;;
+        pt) echo "pt-BR" ;;
+        ro) echo "ro" ;;
+        ru) echo "ru-RU" ;;
+        sv) echo "sv-SE" ;;
+        te) echo "te-IN" ;;
+        th) echo "th" ;;
+        tl) echo "fil" ;;
+        tr) echo "tr-TR" ;;
+        uk) echo "uk" ;;
+        ur) echo "" ;;
+        vi) echo "vi" ;;
+        zh-CN) echo "zh-CN" ;;
+        zh-TW) echo "zh-TW" ;;
+        *) echo "" ;;
+    esac
+}
+
+play_locale_name() {
+    case "$1" in
+        ar) echo "Arabic" ;;
+        bn-BD) echo "Bengali (Bangladesh)" ;;
+        cs-CZ) echo "Czech (Czechia)" ;;
+        da-DK) echo "Danish (Denmark)" ;;
+        de-DE) echo "German (Germany)" ;;
+        el-GR) echo "Greek (Greece)" ;;
+        en-US) echo "English (United States)" ;;
+        es-ES) echo "Spanish (Spain)" ;;
+        fi-FI) echo "Finnish (Finland)" ;;
+        fil) echo "Filipino" ;;
+        fr-FR) echo "French (France)" ;;
+        hi-IN) echo "Hindi (India)" ;;
+        hu-HU) echo "Hungarian (Hungary)" ;;
+        id) echo "Indonesian" ;;
+        it-IT) echo "Italian (Italy)" ;;
+        iw-IL) echo "Hebrew (Israel)" ;;
+        ja-JP) echo "Japanese (Japan)" ;;
+        ko-KR) echo "Korean (South Korea)" ;;
+        ms) echo "Malay" ;;
+        nl-NL) echo "Dutch (Netherlands)" ;;
+        no-NO) echo "Norwegian (Norway)" ;;
+        pl-PL) echo "Polish (Poland)" ;;
+        pt-BR) echo "Portuguese (Brazil)" ;;
+        ro) echo "Romanian" ;;
+        ru-RU) echo "Russian (Russia)" ;;
+        sv-SE) echo "Swedish (Sweden)" ;;
+        te-IN) echo "Telugu (India)" ;;
+        th) echo "Thai" ;;
+        tr-TR) echo "Turkish (Turkey)" ;;
+        uk) echo "Ukrainian" ;;
+        vi) echo "Vietnamese" ;;
+        zh-CN) echo "Chinese (Simplified)" ;;
+        zh-TW) echo "Chinese (Traditional)" ;;
+        *) echo "" ;;
+    esac
+}
+
+collect_and_validate_locales() {
+    local i18n_dir="$GIT_ROOT/shared_packages/i18n/lib/i18n"
+    local locales_file="$TEMP_DIR/app_locales.txt"
+    local locale
+    local play_locale
+    local locale_name
+
+    python3 - "$i18n_dir" "$locales_file" <<'PY'
+import sys
+from pathlib import Path
+
+i18n_dir = Path(sys.argv[1])
+locales_file = Path(sys.argv[2])
+locales = []
+for path in i18n_dir.glob("*.i18n.json"):
+    locale = path.name[:-len(".i18n.json")]
+    if locale in {"en", "_default_"} or "," in locale:
+        continue
+    locales.append(locale)
+locales_file.write_text("\n".join(sorted(locales)) + "\n", encoding="utf-8")
+PY
+
+    while IFS= read -r locale; do
+        APP_LOCALES+=("$locale")
+    done < "$locales_file"
+
+    if [ ${#APP_LOCALES[@]} -eq 0 ]; then
+        print_error "No app locales found in shared_packages/i18n/lib/i18n"
+        exit 1
+    fi
+
+    PLAY_LOCALES=("en-US")
+    LOCALE_NAMES=("English (United States)")
+
+    for locale in "${APP_LOCALES[@]}"; do
+        play_locale=$(app_locale_to_play_locale "$locale")
+        locale_name=$(play_locale_name "$play_locale")
+
+        if [ -z "$play_locale" ]; then
+            UNSUPPORTED_APP_LOCALES+=("$locale")
+            continue
+        fi
+
+        if [ -z "$locale_name" ]; then
+            print_error "Missing display name for Google Play locale: $play_locale"
+            exit 1
+        fi
+
+        PLAY_LOCALES+=("$play_locale")
+        LOCALE_NAMES+=("$locale_name")
+    done
+
+    if [ ${#UNSUPPORTED_APP_LOCALES[@]} -gt 0 ]; then
+        print_warning "Skipping app locale(s) without Fastlane/Google Play metadata support: ${UNSUPPORTED_APP_LOCALES[*]}"
+    fi
+}
+
+current_changelog_exists() {
+    local found=0
+    local locale
+    for locale in "${PLAY_LOCALES[@]}"; do
+        if [ -f "$GIT_ROOT/fastlane/metadata/android/$locale/changelogs/$VERSION_CODE.txt" ]; then
+            found=1
+            print_warning "Existing changelog: fastlane/metadata/android/$locale/changelogs/$VERSION_CODE.txt"
+        fi
+    done
+    if [ "$found" -eq 1 ]; then
+        return 0
+    fi
+    return 1
+}
+
+find_previous_version_code() {
+    if [ -n "$SINCE_REF" ]; then
+        return
+    fi
+
+    PREVIOUS_VERSION_CODE=$(python3 - "$GIT_ROOT/fastlane/metadata/android/en-US/changelogs" "$VERSION_CODE" <<'PY'
+import sys
+from pathlib import Path
+
+changelog_dir = Path(sys.argv[1])
+current = int(sys.argv[2])
+previous = []
+if changelog_dir.exists():
+    for path in changelog_dir.glob("*.txt"):
+        try:
+            version_code = int(path.stem)
+        except ValueError:
+            continue
+        if version_code < current:
+            previous.append(version_code)
+if previous:
+    print(max(previous))
+PY
+)
+
+    if [ -z "$PREVIOUS_VERSION_CODE" ]; then
+        print_error "No previous English changelog found below version $VERSION_CODE. Use --since <ref>."
+        exit 1
+    fi
+}
+
+determine_release_range() {
+    local boundary_ref=""
+
+    if [ -n "$SINCE_REF" ]; then
+        if ! git rev-parse --verify "$SINCE_REF^{commit}" >/dev/null 2>&1; then
+            print_error "Invalid --since git ref: $SINCE_REF"
+            exit 1
+        fi
+        boundary_ref="$SINCE_REF"
+    else
+        local previous_file="fastlane/metadata/android/en-US/changelogs/$PREVIOUS_VERSION_CODE.txt"
+        boundary_ref=$(git log -1 --format='%H' -- "$previous_file")
+        if [ -z "$boundary_ref" ]; then
+            print_error "Could not find the commit that introduced $previous_file"
+            exit 1
+        fi
+    fi
+
+    RELEASE_RANGE="$boundary_ref..HEAD"
+
+    local commit_count
+    commit_count=$(git rev-list --count "$RELEASE_RANGE")
+    if [ "$commit_count" -eq 0 ]; then
+        print_error "No commits found in release range: $RELEASE_RANGE"
+        exit 1
+    fi
+}
+
+build_release_context() {
+    local context_file="$1"
+    local commits_file="$TEMP_DIR/commits.txt"
+    local files_file="$TEMP_DIR/files.txt"
+    local stats_file="$TEMP_DIR/stats.txt"
+
+    git log --no-merges --pretty=format:'- %s (%h)' "$RELEASE_RANGE" > "$commits_file"
+
+    git diff --name-only "$RELEASE_RANGE" -- . \
+        ':(exclude)shared_packages/i18n/lib/i18n/*.i18n.json' \
+        ':(exclude)**/*.g.dart' \
+        ':(exclude)**/*.lock' \
+        ':(exclude)**/build/**' \
+        ':(exclude).dart_tool/**' \
+        ':(exclude)fastlane/metadata/android/**/changelogs/*.txt' \
+        > "$files_file"
+
+    git diff --stat=80,40 "$RELEASE_RANGE" -- . \
+        ':(exclude)shared_packages/i18n/lib/i18n/*.i18n.json' \
+        ':(exclude)**/*.g.dart' \
+        ':(exclude)**/*.lock' \
+        ':(exclude)**/build/**' \
+        ':(exclude).dart_tool/**' \
+        ':(exclude)fastlane/metadata/android/**/changelogs/*.txt' \
+        > "$stats_file"
+
+    python3 - "$context_file" "$commits_file" "$files_file" "$stats_file" "$VERSION_CODE" "${PREVIOUS_VERSION_CODE:-manual}" "$RELEASE_RANGE" <<'PY'
+import sys
+from pathlib import Path
+
+context_file, commits_file, files_file, stats_file, current, previous, release_range = sys.argv[1:]
+
+def limited_lines(path: str, limit: int) -> str:
+    lines = Path(path).read_text(encoding="utf-8").splitlines()
+    if len(lines) > limit:
+        lines = lines[:limit] + [f"... truncated {len(lines) - limit} more lines"]
+    return "\n".join(lines) if lines else "(none)"
+
+context = f"""App: Calorify, an AI-powered calorie tracking and nutrition companion app.
+Current Android version code: {current}
+Previous release marker: {previous}
+Git range: {release_range}
+
+Commit subjects:
+{limited_lines(commits_file, 120)}
+
+Changed first-party files, excluding generated and noisy files:
+{limited_lines(files_file, 160)}
+
+Compact diff stats:
+{limited_lines(stats_file, 80)}
+"""
+
+Path(context_file).write_text(context, encoding="utf-8")
+PY
+}
+
+write_prompt_file() {
+    local file="$1"
+    shift
+    printf "%s\n" "$*" > "$file"
+}
+
+call_openai_json() {
+    local system_file="$1"
+    local user_file="$2"
+    local field="$3"
+    local output_file="$4"
+    local payload_file="$TEMP_DIR/payload_$(basename "$output_file").json"
+    local response_file="$TEMP_DIR/response_$(basename "$output_file").json"
+    local http_code
+
+    python3 - "$system_file" "$user_file" "$payload_file" "$OPENAI_MODEL" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+system_file, user_file, payload_file, model = sys.argv[1:]
+payload = {
+    "model": model,
+    "messages": [
+        {"role": "system", "content": Path(system_file).read_text(encoding="utf-8")},
+        {"role": "user", "content": Path(user_file).read_text(encoding="utf-8")},
+    ],
+    "response_format": {"type": "json_object"},
+}
+Path(payload_file).write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+PY
+
+    if ! http_code=$(curl -sS -o "$response_file" -w "%{http_code}" \
+        https://api.openai.com/v1/chat/completions \
+        -H "Content-Type: application/json" \
+        -H "Authorization: Bearer $API_KEY" \
+        -d "@$payload_file"); then
+        print_error "OpenAI request failed"
+        return 1
+    fi
+
+    if [ "$http_code" -lt 200 ] || [ "$http_code" -gt 299 ]; then
+        python3 - "$response_file" <<'PY' >&2
+import json
+import sys
+from pathlib import Path
+
+try:
+    data = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+    print(data.get("error", {}).get("message", "OpenAI API error"))
+except Exception:
+    print("OpenAI API error")
+PY
+        return 1
+    fi
+
+    python3 - "$response_file" "$field" "$output_file" <<'PY'
+import json
+import re
+import sys
+from pathlib import Path
+
+response_file, field, output_file = sys.argv[1:]
+data = json.loads(Path(response_file).read_text(encoding="utf-8"))
+content = data["choices"][0]["message"]["content"].strip()
+
+if content.startswith("```"):
+    content = re.sub(r"^```(?:json)?\s*", "", content)
+    content = re.sub(r"\s*```$", "", content)
+
+try:
+    parsed = json.loads(content)
+except json.JSONDecodeError:
+    match = re.search(r"\{.*\}", content, re.S)
+    if not match:
+        raise
+    parsed = json.loads(match.group(0))
+
+value = parsed.get(field)
+if not isinstance(value, str) or not value.strip():
+    raise ValueError(f"Missing JSON string field: {field}")
+
+Path(output_file).write_text(value.strip() + "\n", encoding="utf-8")
+PY
+}
+
+text_length() {
+    python3 - "$1" <<'PY'
+import sys
+from pathlib import Path
+
+text = Path(sys.argv[1]).read_text(encoding="utf-8").rstrip("\n")
+print(len(text))
+PY
+}
+
+validate_text_file_length() {
+    local file="$1"
+    local length
+    length=$(text_length "$file")
+    [ "$length" -le "$CHANGELOG_MAX_LENGTH" ]
+}
+
+compress_text() {
+    local input_file="$1"
+    local locale_name="$2"
+    local output_file="$3"
+    local system_file="$TEMP_DIR/compress_system.txt"
+    local user_file="$TEMP_DIR/compress_user_$(basename "$output_file").txt"
+
+    write_prompt_file "$system_file" "You shorten Google Play release notes for $locale_name. Preserve the meaning, bullet formatting, and language. Do not add new information. Return JSON exactly as {\"text\":\"...\"}. The text must be at most $CHANGELOG_MAX_LENGTH Unicode characters."
+    {
+        echo "Shorten this release note text to at most $CHANGELOG_MAX_LENGTH characters:"
+        echo
+        cat "$input_file"
+    } > "$user_file"
+
+    call_openai_json "$system_file" "$user_file" "text" "$output_file"
+}
+
+ensure_within_limit() {
+    local file="$1"
+    local locale="$2"
+    local locale_name="$3"
+    local compressed_file="$TEMP_DIR/compressed_${locale}.txt"
+    local length
+
+    if validate_text_file_length "$file"; then
+        return 0
+    fi
+
+    length=$(text_length "$file")
+    print_warning "$locale generated text is $length/$CHANGELOG_MAX_LENGTH characters; retrying with a compression prompt"
+
+    compress_text "$file" "$locale_name" "$compressed_file"
+    mv "$compressed_file" "$file"
+
+    if validate_text_file_length "$file"; then
+        return 0
+    fi
+
+    length=$(text_length "$file")
+    print_error "$locale release notes still exceed $CHANGELOG_MAX_LENGTH characters after retry ($length characters)"
+    return 1
+}
+
+draft_english_notes() {
+    local context_file="$1"
+    local output_file="$2"
+    local system_file="$TEMP_DIR/draft_system.txt"
+
+    write_prompt_file "$system_file" "You write concise Google Play Store release notes for Calorify. Use only the provided git context. Include only user-facing changes; ignore internal refactors, generated files, version bumps, CI-only work, and dependency churn unless users benefit directly. Use 2 to 4 short bullet lines, no heading, professional friendly tone, and at most $CHANGELOG_MAX_LENGTH Unicode characters. Return JSON exactly as {\"notes\":\"...\"}."
+
+    call_openai_json "$system_file" "$context_file" "notes" "$output_file"
+    ensure_within_limit "$output_file" "en-US" "English (United States)"
+}
+
+translate_notes() {
+    local english_file="$1"
+    local play_locale="$2"
+    local locale_name="$3"
+    local output_file="$4"
+    local system_file="$TEMP_DIR/translate_system_${play_locale}.txt"
+
+    write_prompt_file "$system_file" "You are a professional app store translator. Translate the provided Calorify Google Play release notes into $locale_name for locale $play_locale. Preserve bullet formatting and line breaks. Do not add, remove, or reinterpret any change. Keep the tone professional, friendly, and natural for app store users. Return JSON exactly as {\"text\":\"...\"}. The translation must be at most $CHANGELOG_MAX_LENGTH Unicode characters."
+
+    call_openai_json "$system_file" "$english_file" "text" "$output_file"
+    ensure_within_limit "$output_file" "$play_locale" "$locale_name"
+}
+
+generate_all_notes() {
+    local context_file="$TEMP_DIR/release_context.txt"
+    local english_file="$TEMP_DIR/en-US.txt"
+    local index
+    local play_locale
+    local locale_name
+    local output_file
+
+    print_step "3" "Collecting release context"
+    build_release_context "$context_file"
+    print_success "Release context ready"
+    echo ""
+
+    print_step "4" "Drafting English release notes"
+    draft_english_notes "$context_file" "$english_file"
+    GENERATED_FILES+=("$english_file")
+    print_success "Drafted en-US ($(text_length "$english_file")/$CHANGELOG_MAX_LENGTH chars)"
+    echo ""
+
+    print_step "5" "Translating release notes"
+    for index in "${!PLAY_LOCALES[@]}"; do
+        play_locale="${PLAY_LOCALES[$index]}"
+        locale_name="${LOCALE_NAMES[$index]}"
+
+        if [ "$play_locale" = "en-US" ]; then
+            continue
+        fi
+
+        output_file="$TEMP_DIR/${play_locale}.txt"
+        echo -e "${BOLD}${BLUE}${ARROW} ${locale_name} (${play_locale})${NC}"
+        translate_notes "$english_file" "$play_locale" "$locale_name" "$output_file"
+        GENERATED_FILES+=("$output_file")
+        print_success "Translated $play_locale ($(text_length "$output_file")/$CHANGELOG_MAX_LENGTH chars)"
+        echo ""
+    done
+}
+
+print_dry_run_output() {
+    local index
+    local play_locale
+    local file
+
+    print_separator
+    print_info "Dry run: generated release notes were not written"
+    echo ""
+
+    for index in "${!PLAY_LOCALES[@]}"; do
+        play_locale="${PLAY_LOCALES[$index]}"
+        file="$TEMP_DIR/${play_locale}.txt"
+        if [ "$play_locale" = "en-US" ]; then
+            file="$TEMP_DIR/en-US.txt"
+        fi
+
+        echo "[$play_locale] ($(text_length "$file")/$CHANGELOG_MAX_LENGTH chars)"
+        cat "$file"
+        echo ""
+    done
+}
+
+write_changelog_files() {
+    local index
+    local play_locale
+    local source_file
+    local target_dir
+    local target_file
+
+    print_step "6" "Writing Fastlane changelog files"
+
+    for index in "${!PLAY_LOCALES[@]}"; do
+        play_locale="${PLAY_LOCALES[$index]}"
+        source_file="$TEMP_DIR/${play_locale}.txt"
+        if [ "$play_locale" = "en-US" ]; then
+            source_file="$TEMP_DIR/en-US.txt"
+        fi
+
+        target_dir="$GIT_ROOT/fastlane/metadata/android/$play_locale/changelogs"
+        target_file="$target_dir/$VERSION_CODE.txt"
+
+        mkdir -p "$target_dir"
+        cp "$source_file" "$target_file"
+        print_success "Created fastlane/metadata/android/$play_locale/changelogs/$VERSION_CODE.txt"
+    done
+}
+
+main() {
+    parse_arguments "$@"
+    setup_environment
+
+    print_header "Release Notes Automation"
+
+    extract_version_code
+    collect_and_validate_locales
+
+    print_step "1" "Checking release metadata"
+    print_info "Current version code: $VERSION_CODE"
+    print_info "Target locales: ${#PLAY_LOCALES[@]}"
+    if current_changelog_exists; then
+        if [ "$DRY_RUN" = true ]; then
+            print_warning "Continuing because --dry-run does not write files"
+        elif [ "$OVERWRITE" = true ]; then
+            print_warning "Continuing because --overwrite was provided"
+        else
+            print_error "Changelog files for version $VERSION_CODE already exist. Use --overwrite to replace them."
+            exit 1
+        fi
+    fi
+    print_success "Release metadata checks completed"
+    echo ""
+
+    print_step "2" "Determining release boundary"
+    find_previous_version_code
+    determine_release_range
+    if [ -n "$SINCE_REF" ]; then
+        print_info "Using manual boundary: $SINCE_REF"
+    else
+        print_info "Previous version code: $PREVIOUS_VERSION_CODE"
+    fi
+    print_info "Git range: $RELEASE_RANGE"
+    print_success "Release boundary detected"
+    echo ""
+
+    resolve_api_key
+    generate_all_notes
+
+    if [ "$DRY_RUN" = true ]; then
+        print_dry_run_output
+    else
+        write_changelog_files
+        print_separator
+        print_summary_all_success "Release notes generated for ${#PLAY_LOCALES[@]} locale(s)"
+    fi
+}
+
+main "$@"
