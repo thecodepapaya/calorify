@@ -44,7 +44,7 @@
       "currentTitle": "Jaka jest Twoja obecna waga?",
       "currentDescription": "Twoja obecna waga jest kluczowa do personalizacji Twoich codziennych celów.",
       "targetTitle": "Jaka jest Twoja docelowa waga?",
-      "targetDescription": "Ustalenie celowanej wagi pomoże nam określić Twój długoterminowy plan.",
+      "targetDescription": "Ustalenie docelowej wagi pomoże nam określić Twój długoterminowy plan.",
       "metric": "Metryczny",
       "imperial": "Imperialny",
       "next": "Dalej"
@@ -108,34 +108,34 @@
       "trackingSuccess": {
         "title": "Nie jesteś sam",
         "genericMessage": "Badania pokazują, że konsekwentne śledzenie jest najlepszym predyktorem długoterminowego sukcesu.",
-        "personalizedMessage": "Dla {age} letniego {gender} dążącego do {goal}, konsekwentne śledzenie jest najlepszym predyktorem sukcesu.",
+        "personalizedMessage": "Dla osoby w wieku {age} lat ({gender}), dążącej do {goal}, konsekwentne śledzenie jest najlepszym predyktorem sukcesu.",
         "closingMessage": "{appLabel} sprawia, że to 10 razy łatwiejsze niż robienie tego ręcznie.",
         "getStartedTitle": "Gotowy, aby zacząć?",
         "tipPhoto": "Zrób zdjęcie swoich posiłków, aby uzyskać natychmiastową analizę",
         "tipConsistency": "Rejestruj regularnie, aby zobaczyć znaczący postęp",
         "tipProgress": "Śledź swoje postępy codziennie, aby utrzymać motywację",
         "button": "Idźmy",
-        "defaultGender": "indywidualna",
-        "defaultGoal": "zdrowsza Ty"
+        "defaultGender": "osoba",
+        "defaultGoal": "zdrowszej wersji siebie"
       },
       "healthProfile": {
         "title": "Twój Profil Zdrowia",
         "bmiDescription": "Na podstawie Twoich parametrów, Twoje BMI wynosi {bmi}.",
         "finalizeDescription": "Sfinalizuj swój profil, aby dostosować swoje doświadczenie.",
-        "goalGain": "zyskać",
-        "goalLose": "stracić",
+        "goalGain": "przybrać",
+        "goalLose": "schudnąć",
         "goalReach": "Aby osiągnąć swój cel, musisz {direction} {diff} {unit}.",
         "goalReached": "Jesteś na swojej docelowej wadze! Pomożemy Ci ją utrzymać.",
         "button": "Idźmy"
       },
       "goalLifestyle": {
         "title": "Świetny Początek!",
-        "description": "Miałeś już pierwszy krok w kierunku {goalText}. Ponieważ jesteś {activityText}, {appLabel} dostosuje Twoje cele, aby odpowiadały Twojemu stylowi życia.",
+        "description": "Zrobiłeś już pierwszy krok w kierunku {goalText}. Ponieważ jesteś {activityText}, {appLabel} dostosuje Twoje cele, aby odpowiadały Twojemu stylowi życia.",
         "personalizedTargets": "Spersonalizowane cele kaloryczne",
         "aiMealDetection": "Wykrywanie posiłków wspierane przez AI",
         "macroBreakdowns": "Szczegółowe podziały makroskładników",
         "button": "Idźmy",
-        "defaultGoal": "Twoje cele",
+        "defaultGoal": "swoich celów",
         "defaultActivity": "aktywny"
       }
     }
@@ -164,7 +164,7 @@
       "descriptionSet": "Kompas ustawiony! To jest Twój dzienny cel kaloryczny do prowadzenia.",
       "yourGoal": "Twój Cel",
       "goal": "Cel",
-      "dailyCalories": "Dziennie kalorie (kcal)",
+      "dailyCalories": "Dzienne kalorie (kcal)",
       "setGoal": "Ustaw Cel",
       "intake": "Spożycie",
       "burned": "Spalone",
@@ -309,7 +309,7 @@
       "calculatedValues": "OBLICZONE WARTOŚCI"
     },
     "gender": "Płeć",
-    "height": "Wysokość",
+    "height": "Wzrost",
     "weight": "Waga",
     "age": "Wiek",
     "weightGoal": "Cel Wagowy",
@@ -344,7 +344,7 @@
     },
     "gender": "Płeć",
     "dateOfBirth": "Data Urodzenia",
-    "height": "Wysokość",
+    "height": "Wzrost",
     "weight": "Waga",
     "weightGoal": "Cel Wagowy",
     "activityLevel": "Poziom Aktywności",
@@ -406,7 +406,7 @@
       "profile": "PROFIL",
       "localization": "LOKALIZACJA",
       "notifications": "POWIADOMIENIA",
-      "healthConnect": "ŁĄCZENIE Z ZDROWIEM",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "WSPARCIE I PRAWO",
       "about": "O APLIKACJI",
       "dangerZone": "STREFA ZAGROŻENIA",
@@ -467,7 +467,7 @@
     },
     "developerModeEnabled": "Tryb dewelopera włączony!",
     "healthConnect": {
-      "title": "Łączenie z Zdrowiem",
+      "title": "Health Connect",
       "subtitle": "Wyświetl i zarządzaj uprawnieniami",
       "unavailable": {
         "title": "Health Connect niedostępne",
@@ -475,23 +475,23 @@
       },
       "permissions": {
         "title": "Uprawnienia",
-        "description": "Następujące uprawnienia są wymagane, aby umożliwić integrację z Łącznością Zdrowotną:",
+        "description": "Następujące uprawnienia są wymagane, aby umożliwić integrację z Health Connect:",
         "granted": "Przyznane",
         "notGranted": "Nieprzyznane",
         "caloriesBurned": {
           "title": "Odczyt Całkowitych Spalonych Kalorii",
-          "description": "Pozwala aplikacji na odczytanie całkowitych spalonych kalorii z Łączności Zdrowotnej.",
+          "description": "Pozwala aplikacji na odczytanie całkowitych spalonych kalorii z Health Connect.",
           "usage": "To uprawnienie jest używane do wyświetlania dziennego spalania kalorii w aplikacji, pomagając Ci zrozumieć całkowite zużycie energii w ciągu dnia."
         },
         "nutritionRead": {
           "title": "Odczyt Danych Żywieniowych",
-          "description": "Pozwala aplikacji na odczytanie danych żywieniowych z Łączności Zdrowotnej.",
-          "usage": "To uprawnienie umożliwia aplikacji odczyt danych żywieniowych, które mogły być zapisane przez inne aplikacje podłączone do Łączności Zdrowotnej, zapewniając kompleksowy przegląd Twojej diety."
+          "description": "Pozwala aplikacji na odczytanie danych żywieniowych z Health Connect.",
+          "usage": "To uprawnienie umożliwia aplikacji odczyt danych żywieniowych, które mogły być zapisane przez inne aplikacje podłączone do Health Connect, zapewniając kompleksowy przegląd Twojej diety."
         },
         "nutritionWrite": {
           "title": "Zapis Danych Żywieniowych",
-          "description": "Pozwala aplikacji na zapis danych żywieniowych w Łączności Zdrowotnej.",
-          "usage": "To uprawnienie umożliwia aplikacji synchronizację zapisanych posiłków z Łącznością Zdrowotną, co sprawia, że Twoje dane żywieniowe są dostępne dla innych aplikacji zdrowotnych i fitness, których używasz."
+          "description": "Pozwala aplikacji na zapis danych żywieniowych do Health Connect.",
+          "usage": "To uprawnienie umożliwia aplikacji synchronizację zapisanych posiłków z Health Connect, co sprawia, że Twoje dane żywieniowe są dostępne dla innych aplikacji zdrowotnych i fitness, których używasz."
         }
       },
       "managePermissions": "Zarządzaj Uprawnieniami",
@@ -607,7 +607,7 @@
     },
     "weightEstimate": {
       "title": "O Szacowaniu Wagi",
-      "description": "Prognozowana zmiana wagi jest teoretycznym oszacowaniem opartym na prostym modelu kaloria wpuszczająca vs. kaloria wypuszczająca. Ma na celu jedynie motywacyjne wskazanie, a nie jako prognoza Twojej rzeczywistej wagi.",
+      "description": "Prognozowana zmiana wagi jest teoretycznym oszacowaniem opartym na prostym modelu kalorii przyjmowanych i spalanych. Służy wyłącznie jako wskazówka motywacyjna, a nie jako prognoza Twojej rzeczywistej wagi.",
       "calorieAccuracy": {
         "title": "Dokładność Kalorii",
         "description": "To oszacowanie jest tylko tak dokładne, jak Twoje rejestrowane spożycie kalorii i ich wydatkowanie. Nieprawidłowe rejestrowanie skutkuje niedokładnym prognozowaniem."
@@ -642,7 +642,7 @@
     },
     "calorieExpenditure": {
       "title": "Szacunkowe spalanie kalorii",
-      "description": "Gdy dane z Health Connect są niedostępne, szacujemy dzisiejsze spalone kalorie na podstawie twojej podstawowej przemiany materii (BMR) i poziomu aktywności (TDEE), przeskalowując je proporcjonalnie do części dnia, która już upłynęła.",
+      "description": "Gdy dane z Health Connect są niedostępne, szacujemy dzisiejsze spalone kalorie na podstawie twojej podstawowej przemiany materii (BMR) i całkowitego dziennego wydatkowania energii (TDEE), przeskalowując je proporcjonalnie do części dnia, która już upłynęła.",
       "howCalculated": {
         "title": "Jak obliczamy szacunek",
         "description": "Obliczamy twoje TDEE (na podstawie danych z profilu), a następnie mnożymy je przez ułamek dnia, który już upłynął (godziny + minuty) / 24, aby oszacować dotychczasowe spalanie kalorii."

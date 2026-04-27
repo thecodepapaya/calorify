@@ -68,7 +68,7 @@
       "messages": {
         "underweight": "Te putem ajuta să creezi un plan sănătos pentru a ajunge la o greutate echilibrată cu mese bogate în nutrienți.",
         "healthy": "Bravo! Ești într-un interval sănătos. Te vom ajuta să îți menții vitalitatea și nivelurile de energie.",
-        "overweight": "{appLabel} îți va simplifica parcursul cu urmărirea powered by AI pentru a te ajuta să îți atingi obiectivul confortabil.",
+        "overweight": "{appLabel} îți va simplifica parcursul cu urmărirea bazată pe AI pentru a te ajuta să îți atingi obiectivul confortabil.",
         "obese": "Suntem aici să te susținem cu îndrumări personalizate și strategii sustenabile pentru obiectivele tale de sănătate."
       }
     },
@@ -85,14 +85,14 @@
       "description": "Sincronizează-ți datele de sănătate pentru informații mai bune și urmărire automată a caloriilor",
       "automaticTracking": {
         "title": "Urmărirea Automată a Caloriilor",
-        "description": "Urmează caloriile arse din aplicațiile tale de fitness"
+        "description": "Urmărește caloriile arse din aplicațiile tale de fitness"
       },
       "progressInsights": {
         "title": "Informații de Progres",
         "description": "Obține informații detaliate despre tendințele tale de sănătate"
       },
       "seamlessIntegration": {
-        "title": "Integrare Fără Sudură",
+        "title": "Integrare Perfectă",
         "description": "Sincronizează datele din aplicațiile tale preferate de sănătate"
       },
       "connected": "Health Connect Conectat",
@@ -107,23 +107,23 @@
     "reinforcement": {
       "trackingSuccess": {
         "title": "Nu ești Singur",
-        "genericMessage": "Cercetările arată că urmărirea constantă este predictorul principal al succesului pe termen lung.",
-        "personalizedMessage": "Pentru un {age} ani {gender} care vrea să {goal}, urmărirea constantă este predictorul principal al succesului.",
+        "genericMessage": "Cercetările arată că urmărirea constantă este cel mai important indicator al succesului pe termen lung.",
+        "personalizedMessage": "Pentru o persoană de {age} ani ({gender}) care vrea să {goal}, urmărirea constantă este cel mai important indicator al succesului.",
         "closingMessage": "{appLabel} face ca totul să fie de 10 ori mai ușor decât să o faci manual.",
         "getStartedTitle": "Ești gata să începi?",
         "tipPhoto": "Fă o fotografie a meselor tale pentru o analiză instantanee",
         "tipConsistency": "Înregistrează constant pentru a vedea progrese semnificative",
         "tipProgress": "Urmărește-ți progresul zilnic pentru a rămâne motivat",
         "button": "Să Mergem",
-        "defaultGender": "individual",
-        "defaultGoal": "să fii mai sănătos"
+        "defaultGender": "persoană",
+        "defaultGoal": "fie mai sănătoasă"
       },
       "healthProfile": {
         "title": "Profilul Tău de Sănătate",
-        "bmiDescription": "Pe baza metrilor tăi, IMC-ul tău este {bmi}.",
+        "bmiDescription": "Pe baza datelor tale, IMC-ul tău este {bmi}.",
         "finalizeDescription": "Să finalizăm profilul tău pentru a personaliza experiența.",
-        "goalGain": "câștig",
-        "goalLose": "pierde",
+        "goalGain": "câștigi",
+        "goalLose": "pierzi",
         "goalReach": "Pentru a atinge obiectivul tău, va trebui să {direction} {diff} {unit}.",
         "goalReached": "Ești la greutatea ta țintă! Te vom ajuta să o menții.",
         "button": "Să Mergem"
@@ -161,7 +161,7 @@
       "title": "Stabilește-ți Obiectivul Zilnic",
       "titleSet": "Obiectivul Tău Zilnic",
       "description": "Ești gata să începi călătoria ta de sănătate? Stabilește-ți ținta zilnică de calorii mai jos pentru a-ți porni progresul.",
-      "descriptionSet": "Busola ta este setată! Aceasta este ținta ta zilnică de calorii pentru a te gândi.",
+      "descriptionSet": "Busola ta este setată! Aceasta este ținta ta zilnică de calorii care te ghidează.",
       "yourGoal": "Obiectivul tău",
       "goal": "Obiectiv",
       "dailyCalories": "Calorii zilnice (kcal)",
@@ -184,7 +184,7 @@
       "chartAccessibilityLabel": "Graficul macronutrienților"
     },
     "intakeProgress": {
-      "title": "Divizarea Macronutrienților de Azi",
+      "title": "Distribuția macronutrienților de azi",
       "target": "Obiectiv",
       "current": "Curent"
     },
@@ -211,7 +211,7 @@
       "title": "Mese Favorite",
       "description": "Adaugă rapid una dintre mesele tale favorite.",
       "noFavorites": "Nu există mese favorite încă.",
-      "addFavoriteHint": "Apasă pe stea pentru a marca o masă ca favorite.",
+      "addFavoriteHint": "Apasă pe stea pentru a marca o masă ca favorită.",
       "seeAll": "Vezi toate",
       "add": "Adaugă"
     },
@@ -242,7 +242,7 @@
     "saveMeal": "Salvează Masa",
     "save": "Salvează",
     "mealName": "Numele Mesei",
-    "mealNameHint": "de exemplu: Ouă bătute cu pâine prăjită",
+    "mealNameHint": "de exemplu: Ouă jumări cu pâine prăjită",
     "mealQuantity": "Cantitatea Mesei",
     "mealQuantityHint": "de ex., 1 bol, 2 felii",
     "timeOfMeal": "Ora Mesei",
@@ -406,7 +406,7 @@
       "profile": "PROFIL",
       "localization": "LOCALIZARE",
       "notifications": "NOTIFICĂRI",
-      "healthConnect": "CONEXIUNE LA SĂNĂTATE",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "SUPORT & LEGAL",
       "about": "DESPRE",
       "dangerZone": "ZONA DE RISC",
@@ -434,7 +434,7 @@
     },
     "theme": {
       "title": "Tema",
-      "light": "Lumină",
+      "light": "Luminos",
       "dark": "Întunecat",
       "system": "Sistem"
     },
@@ -467,46 +467,46 @@
     },
     "developerModeEnabled": "Mod dezvoltator activat!",
     "healthConnect": {
-      "title": "Conexiune la Sănătate",
-      "subtitle": "Vizualizați și gestionați permisiunile",
+      "title": "Health Connect",
+      "subtitle": "Vizualizează și gestionează permisiunile",
       "unavailable": {
         "title": "Health Connect indisponibil",
         "description": "Health Connect nu este disponibil pe acest dispozitiv. Instalează Health Connect din Play Store (Android 9+) sau actualizează la Android 14+."
       },
       "permissions": {
         "title": "Permisiuni",
-        "description": "Următoarele permisiuni sunt solicitate pentru a oferi integrarea Conexiune la Sănătate:",
+        "description": "Următoarele permisiuni sunt solicitate pentru a oferi integrarea Health Connect:",
         "granted": "Acordat",
         "notGranted": "Neacordat",
         "caloriesBurned": {
           "title": "Citește Totalul Caloriilor Arse",
-          "description": "Permite aplicației să citească totalul caloriilor tale arse din Conexiunea la Sănătate.",
+          "description": "Permite aplicației să citească totalul caloriilor tale arse din Health Connect.",
           "usage": "Această permisiune este utilizată pentru a arăta arderea calorică zilnică în aplicație, ajutându-te să înțelegi totalul cheltuielilor tale energetice pe parcursul zilei."
         },
         "nutritionRead": {
           "title": "Citește Datele Nutriției",
-          "description": "Permite aplicației să citească datele nutriționale din Conexiunea la Sănătate.",
-          "usage": "Această permisiune permite aplicației să citească informațiile nutriționale care ar fi putut fi înregistrate de alte aplicații conectate la Conexiunea la Sănătate, oferind o imagine cuprinzătoare a nutriției tale."
+          "description": "Permite aplicației să citească datele nutriționale din Health Connect.",
+          "usage": "Această permisiune permite aplicației să citească informațiile nutriționale care ar fi putut fi înregistrate de alte aplicații conectate la Health Connect, oferind o imagine cuprinzătoare a nutriției tale."
         },
         "nutritionWrite": {
           "title": "Scrie Datele Nutriției",
-          "description": "Permite aplicației să scrie datele nutriționale către Conexiunea la Sănătate.",
-          "usage": "Această permisiune permite aplicației să sincronizeze mesele tale înregistrate cu Conexiunea la Sănătate, făcând datele tale nutriționale disponibile pentru alte aplicații de sănătate și fitness pe care le utilizezi."
+          "description": "Permite aplicației să scrie datele nutriționale către Health Connect.",
+          "usage": "Această permisiune permite aplicației să sincronizeze mesele tale înregistrate cu Health Connect, făcând datele tale nutriționale disponibile pentru alte aplicații de sănătate și fitness pe care le utilizezi."
         }
       },
-      "managePermissions": "Gestionați Permisiunile",
+      "managePermissions": "Gestionează Permisiunile",
       "openSettings": "Deschide setările Health Connect",
       "requestPermissions": "Solicită permisiuni",
-      "permissionRequestCancelledOrFailed": "Cererea de permisiuni a fost anulată sau a eșuat. Încercați din nou sau acordați permisiunile manual în setările Health Connect.",
-      "permissionRequestFailed": "Nu se pot solicita permisiuni. Încercați din nou sau acordați permisiunile manual în setările Health Connect.",
+      "permissionRequestCancelledOrFailed": "Cererea de permisiuni a fost anulată sau a eșuat. Încearcă din nou sau acordă permisiunile manual în setările Health Connect.",
+      "permissionRequestFailed": "Nu se pot solicita permisiuni. Încearcă din nou sau acordă permisiunile manual în setările Health Connect.",
       "requestingPermissions": "Se solicită permisiuni..."
     },
     "about": {
       "title": "Despre",
-      "tagline": "Conștientizare rapidă, gratuită și în respect pentru confidențialitate a caloriilor",
+      "tagline": "Monitorizare rapidă, gratuită și axată pe confidențialitate a caloriilor",
       "ourStory": {
         "title": "Povestea Noastră",
-        "content": "{appLabel} s-a născut dintr-o simplă frustrare: cele mai multe aplicații de urmărire a caloriilor sunt fie prea complicate, necesită input constant manual, percep taxe mari de abonament sau compromit confidențialitatea.\n\nCa dezvoltator solo, am vrut să construiesc ceva mai simplu și mai echitabil — o aplicație care folosește AI pentru a reduce efortul, rămâne rapidă și free de utilizat și tratează datele tale de sănătate cu respect.\n\n{appLabel} este aplicația pe care îmi doream să o existe: fără conturi, fără urmărire, fără reclame — doar informații clare, practice și obiectivele tale de sănătate."
+        "content": "{appLabel} s-a născut dintr-o simplă frustrare: cele mai multe aplicații de urmărire a caloriilor sunt fie prea complicate, necesită introducere manuală constantă, percep taxe mari de abonament sau compromit confidențialitatea.\n\nCa dezvoltator solo, am vrut să construiesc ceva mai simplu și mai echitabil — o aplicație care folosește AI pentru a reduce efortul, rămâne rapidă și gratuită și tratează datele tale de sănătate cu respect.\n\n{appLabel} este aplicația pe care mi-aș fi dorit să existe: fără conturi, fără urmărire, fără reclame — doar informații clare și practice și obiectivele tale de sănătate."
       },
       "privacy": {
         "title": "Confidențialitatea Ta Contează",
@@ -607,7 +607,7 @@
     },
     "weightEstimate": {
       "title": "Despre Estimarea Greutății",
-      "description": "Schimbarea estimată a greutății este o estimare teoretică bazată pe modelul simplu de calorii consumate vs. calorii arse. Este destinată doar pentru îndrumare motivațională, nu ca o predicție a greutății tale reale.",
+      "description": "Schimbarea estimată a greutății este o estimare teoretică bazată pe modelul simplu al caloriilor consumate comparativ cu cele arse. Este destinată doar îndrumării motivaționale, nu ca predicție a greutății tale reale.",
       "calorieAccuracy": {
         "title": "Precizia Caloriilor",
         "description": "Această estimare este la fel de precisă precum aportul tău caloric și cheltuielile urmărite. Înregistrarea imprecisă va duce la o proiecție imprecisă."
@@ -637,12 +637,12 @@
       },
       "dailyGoal": {
         "title": "Obiectiv Zilnic",
-        "description": "Obiectivul Zilnic este aportul tău caloric zilnic recomandat, bazat pe TDEE-ul tău și pe obiectivul tău de greutate. Pentru pierderea în greutate, consumi mai puține calorii decât TDEE-ul tău. Pentru menținerea greutății, îți egalizezi TDEE-ul. Pentru creșterea în greutate, consumi mai multe calorii decât TDEE-ul tău. Acest lucru te ajută să îți atingi schimbarea dorită în greutate într-un ritm sănătos."
+        "description": "Obiectivul zilnic este aportul tău caloric zilnic recomandat, bazat pe TDEE-ul tău și pe obiectivul tău de greutate. Pentru pierderea în greutate, consumi mai puține calorii decât TDEE-ul tău. Pentru menținerea greutății, consumi aproximativ cât TDEE-ul tău. Pentru creșterea în greutate, consumi mai multe calorii decât TDEE-ul tău. Acest lucru te ajută să îți atingi schimbarea dorită în greutate într-un ritm sănătos."
       }
     },
     "calorieExpenditure": {
       "title": "Estimare a caloriilor arse",
-      "description": "Când datele din Health Connect nu sunt disponibile, estimăm caloriile arse astăzi pe baza ratei metabolice bazale (BMR) și a nivelului tău de activitate (TDEE), ajustând estimarea după partea din zi care a trecut.",
+      "description": "Când datele din Health Connect nu sunt disponibile, estimăm caloriile arse astăzi pe baza ratei metabolice bazale (BMR) și a cheltuielii totale zilnice de energie (TDEE), ajustând estimarea după partea din zi care a trecut.",
       "howCalculated": {
         "title": "Cum se calculează estimarea",
         "description": "Calculăm TDEE-ul tău (pe baza profilului) și îl înmulțim cu fracțiunea din zi care a trecut (ore + minute) / 24 pentru a estima caloriile arse până acum."

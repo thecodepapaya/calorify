@@ -8,7 +8,7 @@
     "unknownError": "Valami hiba történt. Kérlek, próbáld meg később újra.",
     "loadingProfileData": "Hiba a profiladatok betöltésekor",
     "somethingWentWrong": "Valami hiba történt.",
-    "retry": "Próbálja újra"
+    "retry": "Próbáld újra"
   },
   "onboarding": {
     "welcome": "Üdvözöljük a(z) {appLabel} alkalmazásban",
@@ -55,7 +55,7 @@
       "next": "Tovább"
     },
     "bmiScale": {
-      "underweight": "Alultáplált",
+      "underweight": "Alulsúlyos",
       "healthy": "Egészséges",
       "overweight": "Túlsúlyos",
       "obese": "Elhízott",
@@ -108,7 +108,7 @@
       "trackingSuccess": {
         "title": "Nem vagy Egyedül",
         "genericMessage": "A kutatások azt mutatják, hogy a következetes nyomon követés a hosszú távú siker legfontosabb előrejelzője.",
-        "personalizedMessage": "Egy {age} éves {gender} számára, aki {goal}-t szeretne elérni, a következetes nyomon követés a siker legfontosabb előrejelzője.",
+        "personalizedMessage": "Egy {age} éves {gender} számára, akinek a célja: {goal}, a következetes nyomon követés a siker legfontosabb előrejelzője.",
         "closingMessage": "A(z) {appLabel} 10-szer könnyebbé teszi a dolgot, mint ha manuálisan csinálná.",
         "getStartedTitle": "Készen állsz a kezdésre?",
         "tipPhoto": "Készíts képet az ételeidről az azonnali elemzéshez",
@@ -124,7 +124,7 @@
         "finalizeDescription": "Fejezzük be a profilod, hogy testre szabhassuk az élményed.",
         "goalGain": "növelni",
         "goalLose": "csökkenteni",
-        "goalReach": "A célod eléréséhez {direction} {diff} {unit}.",
+        "goalReach": "A célod eléréséhez {diff} {unit}-ot kell {direction}.",
         "goalReached": "Elérted a cél súlyodat! Segítünk fenntartani.",
         "button": "Induljunk!"
       },
@@ -135,7 +135,7 @@
         "aiMealDetection": "AI-alapú étkezés-felismerés",
         "macroBreakdowns": "Részletes makrotápanyagbontások",
         "button": "Induljunk!",
-        "defaultGoal": "a céljaid",
+        "defaultGoal": "céljaid",
         "defaultActivity": "aktív"
       }
     }
@@ -406,7 +406,7 @@
       "profile": "PROFIL",
       "localization": "HELYI BEÁLLÍTÁSOK",
       "notifications": "ÉRTESÍTÉSEK",
-      "healthConnect": "EGÉSZSÉG KAPCSOLAT",
+      "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "TÁMOGATÁS ÉS JOGI ÜGYEK",
       "about": "RÓLUNK",
       "dangerZone": "VESZÉLYES ZÓNA",
@@ -481,7 +481,7 @@
         "caloriesBurned": {
           "title": "Összes Kcal Égetése Olvasása",
           "description": "Lehetővé teszi az alkalmazás számára, hogy elolvassa a Health Connect-en a teljes elégetett kalóriát.",
-          "usage": "Ez az engedély szükséges a napi kalóriaégetés megjelenítéséhez az alkalmazásban, segítve a napi energiapazarlás megértését."
+          "usage": "Ez az engedély szükséges a napi kalóriaégetés megjelenítéséhez az alkalmazásban, segítve a napi energiafelhasználásod megértését."
         },
         "nutritionRead": {
           "title": "Tápanyagadatok Olvasása",

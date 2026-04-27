@@ -25,7 +25,7 @@
       },
       "healthIntegration": {
         "title": "Integración de Salud",
-        "description": "Conéctate con Health Connect para obtener mejores insights"
+        "description": "Conéctate con Health Connect para obtener información más útil"
       }
     },
     "gender": {
@@ -82,14 +82,14 @@
     },
     "healthConnect": {
       "title": "Conéctate con Health Connect",
-      "description": "Sincroniza tus datos de salud para obtener mejores insights y seguimiento automático de calorías",
+      "description": "Sincroniza tus datos de salud para obtener información más útil y seguimiento automático de calorías",
       "automaticTracking": {
         "title": "Seguimiento Automático de Calorías",
-        "description": "Rastrea las calorías consumidas desde tus aplicaciones de fitness"
+        "description": "Registra las calorías quemadas desde tus aplicaciones de fitness"
       },
       "progressInsights": {
         "title": "Insights de Progreso",
-        "description": "Obtén insights detallados sobre tus tendencias de salud"
+        "description": "Obtén información detallada sobre tus tendencias de salud"
       },
       "seamlessIntegration": {
         "title": "Integración Sin Problemas",
@@ -107,8 +107,8 @@
     "reinforcement": {
       "trackingSuccess": {
         "title": "No Estás Solo",
-        "genericMessage": "Las investigaciones muestran que el seguimiento constante es el predictor número 1 del éxito a largo plazo.",
-        "personalizedMessage": "Para un {age} años {gender} que busca {goal}, el seguimiento constante es el predictor número 1 del éxito.",
+        "genericMessage": "Las investigaciones muestran que el seguimiento constante es el principal indicador del éxito a largo plazo.",
+        "personalizedMessage": "Para una persona de {age} años ({gender}) que busca {goal}, el seguimiento constante es el principal indicador del éxito.",
         "closingMessage": "{appLabel} lo hace 10 veces más fácil que hacerlo manualmente.",
         "getStartedTitle": "¿Listo para comenzar?",
         "tipPhoto": "Toma una foto de tus comidas para un análisis instantáneo",
@@ -116,7 +116,7 @@
         "tipProgress": "Rastrea tu progreso diariamente para mantenerte motivado",
         "button": "Vamos",
         "defaultGender": "individuo",
-        "defaultGoal": "tú más saludable"
+        "defaultGoal": "ser una versión más saludable de ti"
       },
       "healthProfile": {
         "title": "Tu Perfil de Salud",
@@ -141,7 +141,7 @@
     }
   },
   "tabs": {
-    "dashboard": "Tablero",
+    "dashboard": "Panel",
     "history": "Historial"
   },
   "home": {
@@ -275,7 +275,7 @@
     "failedToProcess": "No se pudo procesar: {error}",
     "failedToProcessImage": "No se pudo procesar la imagen: {error}",
     "errorCompressingImage": "Error al comprimir la imagen: {error}",
-    "failedToSave": "No se pudo guardar los datos. Por favor, inténtalo de nuevo.",
+    "failedToSave": "No se pudieron guardar los datos. Inténtalo de nuevo.",
     "skip": "Omitir",
     "variation": {
       "question": "Pregunta {current} de {total}",
@@ -582,7 +582,7 @@
   "login": {
     "title": "Iniciar Sesión",
     "signInWithGoogle": "Iniciar sesión con Google",
-    "signInFailed": "Fallo en el inicio de sesión de Google o fue cancelado."
+    "signInFailed": "El inicio de sesión con Google falló o se canceló."
   },
   "disclaimer": {
     "pleaseNote": "Ten en cuenta",
@@ -607,7 +607,7 @@
     },
     "weightEstimate": {
       "title": "Acerca de la Estimación de Peso",
-      "description": "El cambio de peso proyectado es una estimación teórica basada en el modelo simple de calorías ingresadas vs. calorías gastadas. Está destinado solo para orientación motivacional, no como predicción de tu peso real.",
+      "description": "El cambio de peso proyectado es una estimación teórica basada en el modelo simple de calorías ingeridas frente a calorías gastadas. Está pensada solo como orientación motivacional, no para predecir tu peso real.",
       "calorieAccuracy": {
         "title": "Precisión Calórica",
         "description": "Esta estimación es tan precisa como tu seguimiento de la ingesta y gasto de calorías. Un registro inexacto resultará en una proyección inexacta."
@@ -637,7 +637,7 @@
       },
       "dailyGoal": {
         "title": "Objetivo Diario",
-        "description": "El Objetivo Diario es tu ingesta calórica diaria recomendada basada en tu TDEE y objetivo de peso. Para perder peso, consumes menos calorías que tu TDEE. Para mantener el peso, igualas tu TDEE. Para ganar peso, consumes más calorías que tu TDEE. Esto te ayuda a lograr tu cambio de peso deseado a un ritmo saludable."
+        "description": "El Objetivo Diario es tu ingesta calórica diaria recomendada basada en tu TDEE y objetivo de peso. Para perder peso, consumes menos calorías que tu TDEE. Para mantener el peso, tu ingesta coincide con tu TDEE. Para ganar peso, consumes más calorías que tu TDEE. Esto te ayuda a lograr tu cambio de peso deseado a un ritmo saludable."
       }
     },
     "calorieExpenditure": {

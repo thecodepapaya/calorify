@@ -82,10 +82,10 @@
     },
     "healthConnect": {
       "title": "Anslut till Health Connect",
-      "description": "Synkronisera din hälsodata för bättre insikter och automatisk kalori spårning",
+      "description": "Synkronisera dina hälsodata för bättre insikter och automatisk kalorispårning",
       "automaticTracking": {
         "title": "Automatisk kalorispårning",
-        "description": "Spåra kalorier brända från dina träningsappar"
+        "description": "Spåra förbrända kalorier från dina träningsappar"
       },
       "progressInsights": {
         "title": "Framstegsinsikter",
@@ -125,7 +125,7 @@
         "goalGain": "gå upp",
         "goalLose": "gå ner",
         "goalReach": "För att nå ditt mål måste du {direction} {diff} {unit}.",
-        "goalReached": "Du är på din målvikten! Vi hjälper dig att bibehålla den.",
+        "goalReached": "Du har nått din målvikt! Vi hjälper dig att bibehålla den.",
         "button": "Låt oss gå"
       },
       "goalLifestyle": {
@@ -141,7 +141,7 @@
     }
   },
   "tabs": {
-    "dashboard": "Instrumentbräda",
+    "dashboard": "Översikt",
     "history": "Historik"
   },
   "home": {
@@ -160,14 +160,14 @@
     "dailyGoal": {
       "title": "Ställ in ditt dagliga mål",
       "titleSet": "Ditt dagliga mål",
-      "description": "Redo att påbörja din wellness-resa? Ställ in ditt dagliga kalorimål nedan för att kickstarta din progress.",
+      "description": "Redo att påbörja din hälsoresa? Ställ in ditt dagliga kalorimål nedan för att komma igång med dina framsteg.",
       "descriptionSet": "Din kompass är inställd! Detta är ditt dagliga kalorimål för att vägleda dig.",
       "yourGoal": "Ditt mål",
       "goal": "Mål",
       "dailyCalories": "Dagliga kalorier (kcal)",
       "setGoal": "Ställ in mål",
       "intake": "Intag",
-      "burned": "Bränt",
+      "burned": "Förbränt",
       "weightImpact": "Viktpåverkan",
       "estLoss": "Beräknad förlust av",
       "estGain": "Beräknad ökning av",
@@ -216,7 +216,7 @@
       "add": "Lägg till"
     },
     "mealSnap": {
-      "title": "Snap & Spåra din måltid",
+      "title": "Fota & Spåra din måltid",
       "description": "Använd din kamera för att ta en bild av din mat för AI-analys.",
       "openCamera": "Öppna kamera",
       "gallery": "Galleri"
@@ -246,7 +246,7 @@
     "mealQuantity": "Måltidens mängd",
     "mealQuantityHint": "t.ex. 1 skål, 2 skivor",
     "timeOfMeal": "Måltidens tid",
-    "timeOfMealHint": "Välj den tid du hade din måltid",
+    "timeOfMealHint": "Välj tidpunkten då du åt din måltid",
     "mealType": "Måltidstyp",
     "nutrition": {
       "calories": "Kalorier",
@@ -287,7 +287,7 @@
     "empty": "Inga favoritmåltider ännu.",
     "searchPlaceholder": "Sök favoriträtter",
     "searchEmptyTitle": "Inga favoriter matchar din sökning",
-    "searchEmptySubtitle": "Prova ett annat maträttsnamn, antal eller måltidstyp.",
+    "searchEmptySubtitle": "Prova ett annat maträttsnamn, en annan mängd eller en annan måltidstyp.",
     "sortLabel": "Sortera favoriter",
     "undo": "Ångra",
     "removed": "Tog bort {name} från favoriterna",
@@ -467,35 +467,35 @@
     },
     "developerModeEnabled": "Utvecklarläge aktiverat!",
     "healthConnect": {
-      "title": "Hälsokoppling",
+      "title": "Health Connect",
       "subtitle": "Visa och hantera behörigheter",
       "unavailable": {
-        "title": "Hälsokoppling Otillgänglig",
-        "description": "Hälsokoppling är inte tillgänglig på denna enhet. Det krävs Android 14 eller senare."
+        "title": "Health Connect Otillgänglig",
+        "description": "Health Connect är inte tillgänglig på denna enhet. Installera Health Connect från Play Store (Android 9+) eller uppdatera till Android 14+."
       },
       "permissions": {
         "title": "Behörigheter",
-        "description": "Följande behörigheter begärs för att tillhandahålla integrering med Hälsokoppling:",
+        "description": "Följande behörigheter begärs för att tillhandahålla integrering med Health Connect:",
         "granted": "Beviljad",
         "notGranted": "Ej Beviljad",
         "caloriesBurned": {
           "title": "Läsa Totala Brända Kalorier",
-          "description": "Tillåter appen att läsa dina totala brända kalorier från Hälsokoppling.",
+          "description": "Tillåter appen att läsa dina totala brända kalorier från Health Connect.",
           "usage": "Denna behörighet används för att visa din dagliga kaloriförbränning i appen, vilket hjälper dig att förstå din totala energiförbrukning under dagen."
         },
         "nutritionRead": {
           "title": "Läsa Näringsdata",
-          "description": "Tillåter appen att läsa näringsdata från Hälsokoppling.",
-          "usage": "Denna behörighet gör att appen kan läsa näringsinformation som kan ha loggats av andra appar kopplade till Hälsokoppling, vilket ger en heltäckande bild av din nutrition."
+          "description": "Tillåter appen att läsa näringsdata från Health Connect.",
+          "usage": "Denna behörighet gör att appen kan läsa näringsinformation som kan ha loggats av andra appar kopplade till Health Connect, vilket ger en heltäckande bild av din nutrition."
         },
         "nutritionWrite": {
           "title": "Skriva Näringsdata",
-          "description": "Tillåter appen att skriva näringsdata till Hälsokoppling.",
-          "usage": "Denna behörighet gör att appen kan synkronisera dina loggade måltider till Hälsokoppling, vilket gör din näringsdata tillgänglig för andra hälso- och fitnessappar du använder."
+          "description": "Tillåter appen att skriva näringsdata till Health Connect.",
+          "usage": "Denna behörighet gör att appen kan synkronisera dina loggade måltider till Health Connect, vilket gör din näringsdata tillgänglig för andra hälso- och fitnessappar du använder."
         }
       },
       "managePermissions": "Hantera Behörigheter",
-      "openSettings": "Öppna inställningar för Hälsokoppling",
+      "openSettings": "Öppna inställningar för Health Connect",
       "requestPermissions": "Begär behörigheter",
       "permissionRequestCancelledOrFailed": "Behörighetsbegäran avbröts eller misslyckades. Vänligen försök igen eller ge behörigheter manuellt i inställningarna för Health Connect.",
       "permissionRequestFailed": "Det gick inte att begära behörigheter. Vänligen försök igen eller ge behörigheter manuellt i inställningarna för Health Connect.",
@@ -512,7 +512,7 @@
         "title": "Din Integritet Är Viktig",
         "description": "Integritet är inte en eftertanke — det är en designprincip. Här är vad det innebär i praktiken:",
         "noAccounts": "Inga konton krävs\nAnvänd appen direkt. Inga registreringar, inga identiteter.",
-        "noTracking": "Ingen beteendesporing\n{appLabel} övervakar inte din aktivitet, bygger användarprofiler, eller spårar dig över appar eller webbplatser.",
+        "noTracking": "Ingen beteendespårning\n{appLabel} övervakar inte din aktivitet, bygger inga användarprofiler och spårar dig inte över appar eller webbplatser.",
         "noAds": "Annonsfri av design\n{appLabel} är byggd för att fungera utan annonser eller datadriven monetisering.",
         "noDataSelling": "Ingen försäljning av data\nDin hälsodata säljs aldrig eller delas med tredje part.",
         "localStorage": "Lokal lagring först\nDin data stannar på din enhet.",
@@ -610,7 +610,7 @@
       "description": "Den projicerade viktförändringen är en teoretisk uppskattning baserad på den enkla modellen kalorier in vs. kalorier ut. Den är avsedd för motivationsvägledning endast, inte som en förutsägelse av din faktiska vikt.",
       "calorieAccuracy": {
         "title": "Kalorinoggrannhet",
-        "description": "Denna uppskattning är bara så noggrann som ditt spårade kaloriintag och dina utgifter. Onoggrann loggning leder till felaktiga projektioner."
+        "description": "Denna uppskattning är bara så noggrann som ditt registrerade kaloriintag och din energiförbrukning. Felaktig loggning leder till en felaktig uppskattning."
       },
       "biologicalFactors": {
         "title": "Biologiska faktorer",
@@ -622,7 +622,7 @@
       },
       "professionalGuidance": {
         "title": "Professionell vägledning",
-        "description": "Använd inte denna uppskattning för att fatta medicinska beslut. Rådgör alltid med en vårdpersonal eller registrerad dietist för personlig viktstyrning rådgivning."
+        "description": "Använd inte denna uppskattning för att fatta medicinska beslut. Rådgör alltid med en vårdpersonal eller registrerad dietist för personliga råd om viktstyrning."
       }
     },
     "healthMetrics": {
@@ -633,7 +633,7 @@
       },
       "tdee": {
         "title": "TDEE",
-        "description": "Totalt Dagligt Energibehov (TDEE) är de totala kalorier du förbränner per dag, inklusive din BMR plus kalorier från fysisk aktivitet och daglig rörelse. TDEE beror på din BMR och aktivitetsnivå. En högre TDEE innebär att du förbränner fler kalorier totalt, vanligtvis på grund av att du är mer aktiv eller har en högre BMR. En lägre TDEE tyder på mindre daglig aktivitet eller en lägre BMR."
+        "description": "Total daglig energiförbrukning (TDEE) är det totala antalet kalorier du förbränner per dag, inklusive din BMR plus kalorier från fysisk aktivitet och daglig rörelse. TDEE beror på din BMR och aktivitetsnivå. En högre TDEE innebär att du förbränner fler kalorier totalt, vanligtvis för att du är mer aktiv eller har en högre BMR. En lägre TDEE tyder på mindre daglig aktivitet eller en lägre BMR."
       },
       "dailyGoal": {
         "title": "Dagligt Mål",
@@ -642,7 +642,7 @@
     },
     "calorieExpenditure": {
       "title": "Uppskattning av kaloriförbrukning",
-      "description": "När Health Connect-data inte är tillgänglig uppskattar vi dagens förbrukade kalorier med hjälp av din basalmetabolism (BMR) och aktivitetsnivå (TDEE), anpassat efter hur stor del av dagen som har passerat.",
+      "description": "När Health Connect-data inte är tillgänglig uppskattar vi dagens förbrukade kalorier med hjälp av din basalmetabolism (BMR) och totala dagliga energibehov (TDEE), anpassat efter hur stor del av dagen som har passerat.",
       "howCalculated": {
         "title": "Hur uppskattningen beräknas",
         "description": "Vi beräknar din TDEE (baserat på din profil) och multiplicerar den med andelen av dagen som förflutit (timmar + minuter) / 24 för att uppskatta hur många kalorier som förbrukats hittills."

@@ -246,7 +246,7 @@
     "mealQuantity": "Kuantiti Hidangan",
     "mealQuantityHint": "cth., 1 mangkuk, 2 keping",
     "timeOfMeal": "Masa Hidangan",
-    "timeOfMealHint": "Pilih masa anda menghidang",
+    "timeOfMealHint": "Pilih masa anda makan hidangan ini",
     "mealType": "Jenis Hidangan",
     "nutrition": {
       "calories": "Kalori",
@@ -456,7 +456,7 @@
     },
     "clearAllData": {
       "title": "Kosongkan Semua Data",
-      "subtitle": "Padam semua maklumat anda secara tidak boleh kembali",
+      "subtitle": "Padam semua maklumat anda secara kekal dan tidak boleh dipulihkan",
       "confirmationTitle": "Kosongkan Semua Data?",
       "confirmationMessage": "Tindakan ini tidak boleh dibatalkan. Semua hidangan yang dicatat, kegemaran, dan tetapan profil anda akan dipadamkan secara kekal.",
       "cancel": "Batal",
@@ -506,7 +506,7 @@
       "tagline": "Kesedaran kalori yang cepat, percuma, dan mengutamakan privasi",
       "ourStory": {
         "title": "Kisah Kami",
-        "content": "{appLabel} lahir dari satu frustrasi yang sederhana: kebanyakan aplikasi penjejakan kalori sama ada terlalu rumit, memerlukan input manual yang berterusan, mengenakan yuran langganan yang tinggi, atau mengorbankan privasi.\n\nSebagai seorang pemaju solo, saya ingin membina sesuatu yang lebih sederhana dan adil — sebuah aplikasi yang menggunakan AI untuk mengurangkan usaha, kekal pantas dan percuma untuk digunakan, dan menghormati data kesihatan anda.\n\n{appLabel} adalah aplikasi yang saya harap wujud: tiada akaun, tiada penjejakan, tiada iklan — hanya panduan yang jelas dan praktikal serta matlamat kesihatan anda."
+        "content": "{appLabel} lahir daripada satu kekecewaan yang mudah: kebanyakan aplikasi penjejakan kalori sama ada terlalu rumit, memerlukan kemasukan data manual yang berterusan, mengenakan yuran langganan yang tinggi, atau mengorbankan privasi.\n\nSebagai seorang pembangun solo, saya ingin membina sesuatu yang lebih ringkas dan adil — sebuah aplikasi yang menggunakan AI untuk mengurangkan usaha, kekal pantas dan percuma untuk digunakan, serta menghormati data kesihatan anda.\n\n{appLabel} ialah aplikasi yang saya harap wujud: tiada akaun, tiada penjejakan, tiada iklan — hanya panduan yang jelas dan praktikal serta matlamat kesihatan anda."
       },
       "privacy": {
         "title": "Privasi Anda Penting",
@@ -515,7 +515,7 @@
         "noTracking": "Tiada penjejakan tingkah laku\n{appLabel} tidak memantau aktiviti anda, membina profil penggunaan, atau menjejak anda di antara aplikasi atau laman web.",
         "noAds": "Tanpa iklan secara reka bentuk\n{appLabel} dibina untuk berfungsi tanpa iklan atau monetisasi berasaskan data.",
         "noDataSelling": "Tiada penjualan data\nData kesihatan anda tidak pernah dijual atau dikongsi dengan pihak ketiga.",
-        "localStorage": "Penyimpanan pertama tempatan\nData anda kekal di peranti anda.",
+        "localStorage": "Storan diutamakan secara setempat\nData anda kekal pada peranti anda.",
         "privacyPolicy": "Dasar Privasi"
       },
       "developer": {
@@ -587,7 +587,7 @@
   "disclaimer": {
     "pleaseNote": "Sila Ambil Perhatian",
     "snap": {
-      "description": "{appLabel} menyediakan info nutrisi anggaran. Ketepatan bergantung pada input anda & variasi makanan. Gunakan sebagai panduan, bukan sumber definitif. Rujuk kepada profesional untuk nasihat diet peribadi.",
+      "description": "{appLabel} menyediakan maklumat nutrisi anggaran. Ketepatan bergantung pada data yang anda masukkan dan variasi makanan. Gunakan sebagai panduan, bukan sumber muktamad. Rujuk profesional untuk nasihat pemakanan peribadi.",
       "portionSize": {
         "title": "Saiz Hidangan",
         "description": "Ketepatan anggaran sangat bergantung pada penilaian saiz hidangan anda yang betul."
@@ -675,7 +675,7 @@
     "thankYouMessage": "Terima kasih! Kami akan bertanya lagi lain kali."
   },
   "health": {
-    "syncFailed": "Tidak dapat menyinkronkan ke Health Connect",
+    "syncFailed": "Tidak dapat menyegerakkan ke Health Connect",
     "mealSynced": "Hidangan disinkronkan dengan Health Connect"
   }
 }

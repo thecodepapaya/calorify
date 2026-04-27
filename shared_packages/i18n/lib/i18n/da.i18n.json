@@ -12,7 +12,7 @@
   },
   "onboarding": {
     "welcome": "Velkommen til {appLabel}",
-    "subtitle": "Din personlige ernæringseftersyn drevet af AI",
+    "subtitle": "Din personlige ernæringsassistent drevet af AI",
     "getStarted": "Kom i gang",
     "features": {
       "foodRecognition": {
@@ -85,11 +85,11 @@
       "description": "Synkroniser din sundhedsdata for bedre indsigt og automatisk kalorieregistrering",
       "automaticTracking": {
         "title": "Automatisk Kalorieregistrering",
-        "description": "Registrer kalorier forbrugt fra dine fitness-apps"
+        "description": "Registrer forbrændte kalorier fra dine fitnessapps"
       },
       "progressInsights": {
         "title": "Fremskridtsindsigt",
-        "description": "Få detaljerede indsigter i dine sundhedstræk"
+        "description": "Få detaljeret indsigt i dine sundhedstendenser"
       },
       "seamlessIntegration": {
         "title": "Problemfri Integration",
@@ -108,7 +108,7 @@
       "trackingSuccess": {
         "title": "Du er ikke alene",
         "genericMessage": "Forskning viser, at konsekvent sporing er den vigtigste indikator for langsigtet succes.",
-        "personalizedMessage": "For en {age} år gammel {gender} der ønsker at {goal}, er konsekvent sporing den vigtigste indikator for succes.",
+        "personalizedMessage": "For en {age}-årig {gender}, der ønsker at {goal}, er konsekvent sporing den vigtigste indikator for succes.",
         "closingMessage": "{appLabel} gør det 10 gange lettere end at gøre det manuelt.",
         "getStartedTitle": "Klar til at komme i gang?",
         "tipPhoto": "Tag et billede af dine måltider for øjeblikkelig analyse",
@@ -141,7 +141,7 @@
     }
   },
   "tabs": {
-    "dashboard": "Instrumentbræt",
+    "dashboard": "Oversigt",
     "history": "Historik"
   },
   "home": {
@@ -170,7 +170,7 @@
       "burned": "Forbrændt",
       "weightImpact": "Vægtpåvirkning",
       "estLoss": "Est. tab af",
-      "estGain": "Est. gevinst af",
+      "estGain": "Est. vægtøgning på",
       "kcal": "kcal"
     },
     "dailySummary": {
@@ -209,14 +209,14 @@
     },
     "favoriteMeals": {
       "title": "Favoritmåltider",
-      "description": "Tilsæt hurtigt et af dine favoritmåltider.",
+      "description": "Tilføj hurtigt et af dine favoritmåltider.",
       "noFavorites": "Ingen favoritmåltider endnu.",
       "addFavoriteHint": "Klik på stjernen på et måltid for at markere det som favorit.",
       "seeAll": "Se alle",
       "add": "Tilføj"
     },
     "mealSnap": {
-      "title": "Tag & Spor Dit Måltid",
+      "title": "Tag et billede og registrér dit måltid",
       "description": "Brug dit kamera til at tage et billede af din mad til AI-analyse.",
       "openCamera": "Åbn Kamera",
       "gallery": "Galleri"
@@ -246,7 +246,7 @@
     "mealQuantity": "Måltid Mængde",
     "mealQuantityHint": "f.eks. 1 skål, 2 skiver",
     "timeOfMeal": "Tidspunkt for Måltid",
-    "timeOfMealHint": "Vælg det tidspunkt, hvornår du havde dit måltid",
+    "timeOfMealHint": "Vælg det tidspunkt, hvor du spiste dit måltid",
     "mealType": "Måltidstype",
     "nutrition": {
       "calories": "Kalorier",
@@ -379,7 +379,7 @@
     },
     "activityLevels": {
       "sedentary": {
-        "name": "Stillestående",
+        "name": "Stillesiddende",
         "description": "Lidt til ingen motion"
       },
       "lightlyActive": {
@@ -506,7 +506,7 @@
       "tagline": "Hurtig, gratis og privatlivsorienteret kaloriebevidsthed",
       "ourStory": {
         "title": "Vores Historie",
-        "content": "{appLabel} opstod fra en simpel frustration: de fleste kaloritæknings-apps er enten alt for komplicerede, kræver konstant manuel indtastning, tager høje abonnementafgifter, eller indskrænker på privatlivets fred.\n\nSom en uafhængig udvikler ønskede jeg at bygge noget enklere og mere retfærdigt — en app, der bruger AI til at reducere indsatsen, forbliver hurtig og gratis at bruge, og behandler dine sundhedsdata med respekt.\n\n{appLabel} er den app, jeg ville ønske fandtes: ingen konti, ingen sporing, ingen annoncer — blot klare, praktiske indsigter og dine sundhedsmål."
+        "content": "{appLabel} opstod af en simpel frustration: De fleste apps til kalorietracking er enten alt for komplicerede, kræver konstant manuel indtastning, tager høje abonnementsgebyrer eller går på kompromis med privatlivet.\n\nSom uafhængig udvikler ønskede jeg at bygge noget enklere og mere retfærdigt — en app, der bruger AI til at reducere indsatsen, forbliver hurtig og gratis at bruge og behandler dine sundhedsdata med respekt.\n\n{appLabel} er den app, jeg ville ønske fandtes: ingen konti, ingen sporing, ingen annoncer — kun klare, praktiske indsigter og dine sundhedsmål."
       },
       "privacy": {
         "title": "Dit Privatliv Tæller",
@@ -587,7 +587,7 @@
   "disclaimer": {
     "pleaseNote": "Bemærk venligst",
     "snap": {
-      "description": "{appLabel} giver estimeret ernæringsinfo. Nøjagtighed afhænger af din input og fødevarevariationer. Brug det som en vejledning, ikke en definit kilde. Konsulter en professionel for personlig kostrådgivning.",
+      "description": "{appLabel} giver estimerede ernæringsoplysninger. Nøjagtigheden afhænger af dine indtastninger og variationer i maden. Brug det som vejledning, ikke som en endelig kilde. Kontakt en fagperson for personlig kostvejledning.",
       "portionSize": {
         "title": "Portionsstørrelse",
         "description": "Nøjagtigheden af estimaterne afhænger i høj grad af din korrekte vurdering af portionsstørrelsen."
@@ -610,7 +610,7 @@
       "description": "Den forventede vægtændring er et teoretisk estimat baseret på den simple kalorie-inde vs. kalorie-ude model. Det er beregnet til motivationsvejledning, ikke som en forudsigelse af din faktiske vægt.",
       "calorieAccuracy": {
         "title": "Kalorie Nøjagtighed",
-        "description": "Dette estimat er kun så præcist som dit registrerede kalorieindtag og udgifter. Unøjagtig registrering vil resultere i en unøjagtig projektion."
+        "description": "Dette estimat er kun så præcist som dit registrerede kalorieindtag og kalorieforbrug. Unøjagtig registrering vil føre til en unøjagtig fremskrivning."
       },
       "biologicalFactors": {
         "title": "Biologiske Faktorer",

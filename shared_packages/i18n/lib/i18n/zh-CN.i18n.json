@@ -25,7 +25,7 @@
       },
       "healthIntegration": {
         "title": "健康整合",
-        "description": "连接 Health Connect 以获得更好的洞察"
+        "description": "连接 Health Connect 以获得更好的分析洞察"
       }
     },
     "gender": {
@@ -34,8 +34,8 @@
       "next": "下一步"
     },
     "height": {
-      "title": "你多高？",
-      "description": "你的身高有助于我们准确计算你的BMI和能量需求。",
+      "title": "您的身高是多少？",
+      "description": "您的身高有助于我们准确计算您的 BMI 和能量需求。",
       "metric": "公制",
       "imperial": "英制",
       "next": "下一步"
@@ -115,7 +115,7 @@
         "tipConsistency": "保持记录以看到有意义的进展",
         "tipProgress": "每天记录您的进展，保持动力",
         "button": "开始吧",
-        "defaultGender": "个体",
+        "defaultGender": "个人",
         "defaultGoal": "更健康的你"
       },
       "healthProfile": {
@@ -129,13 +129,13 @@
         "button": "开始吧"
       },
       "goalLifestyle": {
-        "title": "优秀的开始！",
+        "title": "很棒的开始！",
         "description": "您已迈出了通向{goalText}的第一步。既然您{activityText}，{appLabel}将根据您的生活方式调整目标。",
         "personalizedTargets": "个性化的卡路里目标",
         "aiMealDetection": "AI 驱动的餐点检测",
         "macroBreakdowns": "详细的宏量营养素分析",
         "button": "开始吧",
-        "defaultGoal": "你的目标",
+        "defaultGoal": "您的目标",
         "defaultActivity": "活跃"
       }
     }
@@ -317,7 +317,7 @@
     "activityLevel": "活动水平",
     "healthMetrics": "健康指标",
     "notSet": "未设定",
-    "years": "年",
+    "years": "岁",
     "updatedSuccessfully": "个人资料更新成功！",
     "calculatedValues": {
       "bmr": "基础代谢率",
@@ -520,7 +520,7 @@
       },
       "developer": {
         "title": "由独立开发者构建",
-        "description": "{appLabel}由一位专注于创建平静、尊重隐私的健康软件的独立开发者构建和维护。\n\n反馈会被个人阅读，并帮助塑造应用的发展方向。",
+        "description": "{appLabel}由一位专注于创建平静、尊重隐私的健康软件的独立开发者构建和维护。\n\n开发者会亲自阅读反馈，并据此帮助塑造应用的发展方向。",
         "website": "网站",
         "email": "电子邮件"
       },
@@ -547,7 +547,7 @@
     "breakfast": "早餐",
     "lunch": "午餐",
     "dinner": "晚餐",
-    "snack": "小吃",
+      "snack": "加餐",
     "unknown": "未知",
     "change": "更改",
     "enableNotifications": "启用通知",
@@ -572,8 +572,8 @@
       "body": "别忘了记录您的晚餐"
     },
     "snack": {
-      "title": "小吃时间！🍎",
-      "body": "该享受健康的小吃了"
+      "title": "加餐时间！🍎",
+      "body": "该享用健康加餐了"
     },
     "test": {
       "title": "测试通知"
@@ -587,7 +587,7 @@
   "disclaimer": {
     "pleaseNote": "请注意",
     "snap": {
-      "description": "{appLabel}提供的营养信息为估算值。准确性取决于您的输入和食物变种。请将其用作参考，而非绝对来源。如需个性化的饮食建议，请咨询专业人士。",
+      "description": "{appLabel}提供的营养信息为估算值。准确性取决于您的输入和食物差异。请将其用作参考，而非绝对来源。如需个性化的饮食建议，请咨询专业人士。",
       "portionSize": {
         "title": "食物份量",
         "description": "估计的准确性在很大程度上依赖于您对食物份量的正确评估。"
@@ -602,11 +602,11 @@
       },
       "databaseLimitations": {
         "title": "数据库限制",
-        "description": "{appLabel}的食物数据库庞大，但可能不包括每个单独的食物项目或变种。"
+        "description": "{appLabel}的食物数据库庞大，但可能不包括每一种食物或其变体。"
       }
     },
     "weightEstimate": {
-      "title": "关于体重估计",
+      "title": "关于体重预估",
       "description": "预计的体重变化是基于简单的卡路里摄入与消耗模型的理论估计。仅用于激励指导，而非对您实际体重的预测。",
       "calorieAccuracy": {
         "title": "卡路里准确性",
@@ -614,7 +614,7 @@
       },
       "biologicalFactors": {
         "title": "生物因素",
-        "description": "实际的体重减轻/增加受代谢、荷尔蒙、睡眠、压力、水合作用以及{appLabel}无法测量的其他个体因素影响。"
+        "description": "实际的体重减轻或增加会受到代谢、激素、睡眠、压力、水分状态以及{appLabel}无法测量的其他个体因素影响。"
       },
       "waterWeight": {
         "title": "水分体重与波动",

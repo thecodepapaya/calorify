@@ -12,15 +12,15 @@
   },
   "onboarding": {
     "welcome": "Bem-vindo ao {appLabel}",
-    "subtitle": "Seu companheiro pessoal de nutrição com tecnologia de AI",
+    "subtitle": "O seu companheiro pessoal de nutrição com tecnologia de IA",
     "getStarted": "Começar",
     "features": {
       "foodRecognition": {
         "title": "Reconhecimento Inteligente de Alimentos",
-        "description": "Tire uma foto e deixe a AI identificar sua refeição"
+        "description": "Tire uma fotografia e deixe a IA identificar a sua refeição"
       },
       "aiAnalysis": {
-        "title": "Análise por AI",
+        "title": "Análise por IA",
         "description": "Obtenha fatos nutricionais instantâneos a partir de suas descrições"
       },
       "healthIntegration": {
@@ -68,7 +68,7 @@
       "messages": {
         "underweight": "Podemos ajudá-lo a construir um plano saudável para alcançar um peso equilibrado com refeições ricas em nutrientes.",
         "healthy": "Ótimo trabalho! Você está em uma faixa saudável. Vamos ajudá-lo a manter sua vitalidade e níveis de energia.",
-        "overweight": "{appLabel} simplificará sua jornada com rastreamento com AI para ajudá-lo a alcançar seu objetivo com conforto.",
+        "overweight": "{appLabel} simplificará a sua jornada com acompanhamento por IA para o ajudar a alcançar o seu objetivo com conforto.",
         "obese": "Estamos aqui para apoiá-lo com orientações personalizadas e estratégias sustentáveis para suas metas de saúde."
       }
     },
@@ -116,7 +116,7 @@
         "tipProgress": "Acompanhe seu progresso diariamente para se manter motivado",
         "button": "Vamos lá",
         "defaultGender": "indivíduo",
-        "defaultGoal": "você mais saudável"
+        "defaultGoal": "ser mais saudável"
       },
       "healthProfile": {
         "title": "Seu Perfil de Saúde",
@@ -130,9 +130,9 @@
       },
       "goalLifestyle": {
         "title": "Excelente Começo!",
-        "description": "Você deu o primeiro passo em direção a {goalText}. Como você está {activityText}, {appLabel} ajustará suas metas para combinar com seu estilo de vida.",
+        "description": "Você deu o primeiro passo em direção a {goalText}. Como você é {activityText}, {appLabel} ajustará suas metas para combinar com seu estilo de vida.",
         "personalizedTargets": "Metas calóricas personalizadas",
-        "aiMealDetection": "Detecção de refeições com AI",
+        "aiMealDetection": "Deteção de refeições com IA",
         "macroBreakdowns": "Distribuições detalhadas de macronutrientes",
         "button": "Vamos lá",
         "defaultGoal": "suas metas",
@@ -146,8 +146,8 @@
   },
   "home": {
     "aiSummary": {
-      "title": "Seu resumo de AI",
-      "logMore": "Registre mais refeições nos próximos dias para obter seus insights personalizados de AI.",
+      "title": "O seu resumo de IA",
+      "logMore": "Registe mais refeições nos próximos dias para obter as suas informações personalizadas de IA.",
       "loading": "Carregando seu resumo...",
       "mealCount": "{count} refeições registradas",
       "macroBalanceScore": "Pontuação de equilíbrio {score}",
@@ -193,7 +193,7 @@
       "trendTitle": "Tendência de hoje",
       "peakHour": "Pico: {hour}:00",
       "noHistoryYet": "Sem histórico ainda",
-      "startLogging": "Comece a registrar refeições para ver suas\ntendências de macronutrientes aqui"
+      "startLogging": "Comece a registar refeições para ver aqui as suas\ntendências de macronutrientes dos últimos 7 dias"
     },
     "mealLog": {
       "title": "Refeições Registradas",
@@ -202,8 +202,8 @@
       "seeAllMeals": "Ver todas as refeições"
     },
     "mealDescription": {
-      "title": "Adição rápida com AI",
-      "description": "Descreva sua refeição e deixe a AI cuidar dos detalhes.",
+      "title": "Adição rápida com IA",
+      "description": "Descreva a sua refeição e deixe a IA tratar dos detalhes.",
       "hint": "ex.: Para o café da manhã, eu comi uma tigela grande de aveia com uma banana fatiada e uma medida de whey ...",
       "analyzeMeal": "Analisar refeição"
     },
@@ -217,7 +217,7 @@
     },
     "mealSnap": {
       "title": "Tire uma Foto e Rastreie Sua Refeição",
-      "description": "Use sua câmera para tirar uma foto da sua comida para análise de AI.",
+      "description": "Use a sua câmara para tirar uma fotografia da sua comida para análise de IA.",
       "openCamera": "Abrir Câmera",
       "gallery": "Galeria"
     },
@@ -330,7 +330,7 @@
   "healthScore": {
     "title": "Pontuação de Saúde",
     "whyThisScore": "Por que essa pontuação?",
-    "note": "Essa pontuação é uma estimativa de AI com base nos ingredientes identificados e na densidade nutricional. Sempre consulte um profissional para obter conselhos dietéticos.",
+    "note": "Esta pontuação é uma estimativa de IA com base nos ingredientes identificados e na densidade nutricional. Consulte sempre um profissional para obter aconselhamento alimentar.",
     "unhealthy": "Não saudável",
     "healthy": "Saudável",
     "neutral": "Neutro"
@@ -506,7 +506,7 @@
       "tagline": "Controle de calorias rápido, gratuito e com privacidade em primeiro lugar",
       "ourStory": {
         "title": "Nossa História",
-        "content": "{appLabel} nasceu de uma frustração simples: a maioria dos aplicativos de rastreamento de calorias é excessivamente complicada, exige entrada manual constante, cobra altas taxas de assinatura ou compromete a privacidade.\n\nComo um desenvolvedor independente, queria criar algo mais simples e justo — um aplicativo que use AI para reduzir o esforço, que permaneça rápido e gratuito e que trate seus dados de saúde com respeito.\n\n{appLabel} é o aplicativo que eu gostaria que existisse: sem contas, sem rastreamento, sem anúncios — apenas insights claros e práticos e suas metas de saúde."
+        "content": "{appLabel} nasceu de uma frustração simples: a maioria das aplicações de acompanhamento de calorias é demasiado complicada, exige introdução manual constante, cobra subscrições elevadas ou compromete a privacidade.\n\nComo programador independente, queria criar algo mais simples e justo — uma aplicação que usa IA para reduzir o esforço, permanece rápida e gratuita e trata os seus dados de saúde com respeito.\n\n{appLabel} é a aplicação que eu gostaria que existisse: sem contas, sem rastreamento, sem anúncios — apenas informações claras e práticas e os seus objetivos de saúde."
       },
       "privacy": {
         "title": "Sua Privacidade Importa",
@@ -594,7 +594,7 @@
       },
       "preparationMethods": {
         "title": "Métodos de Preparação",
-        "description": "Os métodos de cocção podem alterar significativamente o conteúdo nutricional dos alimentos. As estimativas do {appLabel} podem não considerar sempre essas variações."
+        "description": "Os métodos de confeção podem alterar significativamente o conteúdo nutricional dos alimentos. As estimativas do {appLabel} podem nem sempre considerar essas variações."
       },
       "ingredients": {
         "title": "Ingredientes",
@@ -617,7 +617,7 @@
         "description": "A perda/aumento de peso real é influenciada pelo metabolismo, hormônios, sono, estresse, hidratação e outros fatores individuais que o {appLabel} não pode medir."
       },
       "waterWeight": {
-        "title": "Peso de Água & Flutuações",
+        "title": "Retenção de líquidos e flutuações",
         "description": "O peso diário normal pode flutuar significativamente devido à retenção de água, digestão e horário. A estimativa não leva em conta essas mudanças diárias."
       },
       "professionalGuidance": {
@@ -629,7 +629,7 @@
       "description": "Essas métricas ajudam você a entender as necessidades energéticas do seu corpo e orientam suas metas nutricionais.",
       "bmr": {
         "title": "TMB",
-        "description": "A Taxa Metabólica Basal (TMB) é o número de calorias que seu corpo queima em repouso para manter funções básicas como respiração e circulação. A TMB depende da sua idade, gênero, altura e peso. Uma TMB mais alta significa que seu corpo queima naturalmente mais calorias em repouso, geralmente devido a mais massa muscular, idade mais jovem ou ser masculino. Uma TMB mais baixa normalmente indica menos massa muscular, idade mais avançada ou ser feminino."
+        "description": "A Taxa Metabólica Basal (TMB) é o número de calorias que o seu corpo queima em repouso para manter funções básicas como respiração e circulação. A TMB depende da sua idade, género, altura e peso. Uma TMB mais alta significa que o seu corpo queima naturalmente mais calorias em repouso, geralmente devido a mais massa muscular, idade mais jovem ou ser do sexo masculino. Uma TMB mais baixa normalmente indica menos massa muscular, idade mais avançada ou ser do sexo feminino."
       },
       "tdee": {
         "title": "TDEE",

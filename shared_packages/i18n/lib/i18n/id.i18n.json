@@ -107,13 +107,13 @@
     "reinforcement": {
       "trackingSuccess": {
         "title": "Anda Tidak Sendirian",
-        "genericMessage": "Penelitian menunjukkan bahwa pelacakan yang konsisten adalah prediktor sukses jangka panjang nomor 1.",
-        "personalizedMessage": "Untuk seorang {age} tahun {gender} yang ingin {goal}, pelacakan yang konsisten adalah prediktor sukses nomor 1.",
+        "genericMessage": "Penelitian menunjukkan bahwa pelacakan yang konsisten adalah indikator terpenting untuk keberhasilan jangka panjang.",
+        "personalizedMessage": "Untuk {gender} berusia {age} tahun yang ingin {goal}, pelacakan yang konsisten adalah indikator terpenting keberhasilan.",
         "closingMessage": "{appLabel} membuatnya 10x lebih mudah dibandingkan melakukannya secara manual.",
         "getStartedTitle": "Siap untuk memulai?",
-        "tipPhoto": "Ambil foto makananmu untuk analisis instan",
+        "tipPhoto": "Ambil foto makanan Anda untuk analisis instan",
         "tipConsistency": "Catat secara konsisten untuk melihat kemajuan yang signifikan",
-        "tipProgress": "Lacak kemajuanmu setiap hari untuk tetap termotivasi",
+        "tipProgress": "Lacak kemajuan Anda setiap hari untuk tetap termotivasi",
         "button": "Ayo Mulai",
         "defaultGender": "individu",
         "defaultGoal": "Anda yang lebih sehat"
@@ -204,7 +204,7 @@
     "mealDescription": {
       "title": "Tambah Cepat dengan AI",
       "description": "Deskripsikan makanan Anda, dan biarkan AI menangani detailnya.",
-      "hint": "misalnya, Untuk sarapan saya memiliki semangkuk besar oatmeal dengan satu pisang iris dan satu sendok whey ...",
+      "hint": "misalnya, Untuk sarapan saya makan semangkuk besar oatmeal dengan irisan pisang dan satu sendok whey ...",
       "analyzeMeal": "Analisis makanan"
     },
     "favoriteMeals": {
@@ -506,7 +506,7 @@
       "tagline": "Pelacakan kalori yang cepat, gratis, dan mengutamakan privasi",
       "ourStory": {
         "title": "Kisah Kami",
-        "content": "{appLabel} lahir dari keluhan sederhana: sebagian besar aplikasi pelacak kalori terlalu rumit, membutuhkan input manual terus-menerus, memungut biaya berlangganan yang tinggi, atau mengorbankan privasi.\n\nSebagai pengembang independen, saya ingin membuat sesuatu yang lebih sederhana dan adil — aplikasi yang menggunakan AI untuk mengurangi usaha, tetap cepat dan gratis digunakan, serta menghormati data kesehatan Anda.\n\n{appLabel} adalah aplikasi yang saya harap sudah ada: tanpa akun, tanpa pelacakan, tanpa iklan — hanya wawasan yang jelas dan praktis serta tujuan kesehatan Anda."
+        "content": "{appLabel} lahir dari keluhan sederhana: sebagian besar aplikasi pelacak kalori terlalu rumit, membutuhkan masukan manual terus-menerus, memungut biaya berlangganan yang tinggi, atau mengorbankan privasi.\n\nSebagai pengembang independen, saya ingin membuat sesuatu yang lebih sederhana dan adil — aplikasi yang menggunakan AI untuk mengurangi usaha, tetap cepat dan gratis digunakan, serta menghormati data kesehatan Anda.\n\n{appLabel} adalah aplikasi yang saya harap sudah ada: tanpa akun, tanpa pelacakan, tanpa iklan — hanya wawasan yang jelas dan praktis serta tujuan kesehatan Anda."
       },
       "privacy": {
         "title": "Privasi Anda Penting",
@@ -587,7 +587,7 @@
   "disclaimer": {
     "pleaseNote": "Harap Dicatat",
     "snap": {
-      "description": "{appLabel} memberikan perkiraan informasi nutrisi. Akurasinya bergantung pada input Anda dan variasi makanan. Gunakan sebagai panduan, bukan sebagai sumber pasti. Konsultasikan dengan profesional untuk saran pola makan yang dipersonalisasi.",
+      "description": "{appLabel} memberikan perkiraan informasi nutrisi. Akurasinya bergantung pada data yang Anda masukkan dan variasi makanan. Gunakan sebagai panduan, bukan sebagai sumber pasti. Konsultasikan dengan profesional untuk saran pola makan yang dipersonalisasi.",
       "portionSize": {
         "title": "Ukuran Porsi",
         "description": "Akurasi perkiraan sangat bergantung pada penilaian yang benar tentang ukuran porsi Anda."

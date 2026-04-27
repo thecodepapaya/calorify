@@ -50,7 +50,7 @@
       "next": "Suivant"
     },
     "age": {
-      "title": "Quand est votre anniversaire ?",
+      "title": "Quelle est votre date de naissance ?",
       "description": "Votre âge nous aide à calculer vos besoins caloriques avec précision.",
       "next": "Suivant"
     },
@@ -77,7 +77,7 @@
       "description": "Choisissez l'objectif qui décrit le mieux ce que vous souhaitez réaliser"
     },
     "activityLevel": {
-      "title": "Quelle est votre activité ?",
+      "title": "Quel est votre niveau d’activité ?",
       "description": "Cela nous aide à calculer plus précisément vos besoins caloriques quotidiens"
     },
     "healthConnect": {
@@ -108,7 +108,7 @@
       "trackingSuccess": {
         "title": "Vous n'êtes pas seul",
         "genericMessage": "Des recherches montrent que le suivi régulier est le meilleur indicateur de succès à long terme.",
-        "personalizedMessage": "Pour un(e) {age} ans {gender} cherchant à {goal}, le suivi régulier est le meilleur indicateur de succès.",
+        "personalizedMessage": "Pour une personne de {age} ans ({gender}) qui cherche à {goal}, le suivi régulier est le meilleur indicateur de succès.",
         "closingMessage": "{appLabel} rend le suivi 10 fois plus facile que de le faire manuellement.",
         "getStartedTitle": "Prêt à commencer ?",
         "tipPhoto": "Prenez une photo de vos repas pour une analyse instantanée",
@@ -116,7 +116,7 @@
         "tipProgress": "Suivez vos progrès quotidiennement pour rester motivé",
         "button": "C'est parti",
         "defaultGender": "individu",
-        "defaultGoal": "vous en meilleure santé"
+        "defaultGoal": "être en meilleure santé"
       },
       "healthProfile": {
         "title": "Votre Profil de Santé",
@@ -178,7 +178,7 @@
       "calories": "Calories",
       "carbs": "Glucides",
       "protein": "Protéines",
-      "fat": "Graisses",
+      "fat": "Lipides",
       "fiber": "Fibres",
       "grams": "grammes",
       "chartAccessibilityLabel": "Graphique des macronutriments"
@@ -252,7 +252,7 @@
       "calories": "Calories",
       "carbs": "Glucides (g)",
       "protein": "Protéines (g)",
-      "fat": "Graisses (g)",
+      "fat": "Lipides (g)",
       "fiber": "Fibres (g)"
     },
     "deleteConfirmation": {
@@ -506,7 +506,7 @@
       "tagline": "Prise de conscience des calories rapide, gratuite et respectueuse de la vie privée",
       "ourStory": {
         "title": "Notre Histoire",
-        "content": "{appLabel} est né d'une frustration simple : la plupart des applications de suivi des calories sont soit trop compliquées, nécessitent une saisie manuelle constante, facturent des frais d'abonnement élevés, ou compromettent la vie privée.\n\nEn tant que développeur indépendant, je voulais créer quelque chose de plus simple et d'équitable : une application qui utilise l'IA pour réduire l'effort, reste rapide et gratuite à utiliser, et traite vos données de santé avec respect.\n\n{appLabel} est l'application que je souhaite qu'il existe : pas de comptes, pas de suivi, pas de publicités — juste des informations claires et pratiques et vos objectifs de santé."
+        "content": "{appLabel} est né d'une frustration simple : la plupart des applications de suivi des calories sont soit trop compliquées, nécessitent une saisie manuelle constante, facturent des frais d'abonnement élevés, ou compromettent la vie privée.\n\nEn tant que développeur indépendant, je voulais créer quelque chose de plus simple et d'équitable : une application qui utilise l'IA pour réduire l'effort, reste rapide et gratuite à utiliser, et traite vos données de santé avec respect.\n\n{appLabel} est l'application que j'aurais aimé voir exister : pas de comptes, pas de suivi, pas de publicités — juste des informations claires et pratiques et vos objectifs de santé."
       },
       "privacy": {
         "title": "Votre Vie Privée Est Importante",
@@ -607,14 +607,14 @@
     },
     "weightEstimate": {
       "title": "À Propos de l'Estimation de Poids",
-      "description": "Le changement de poids projeté est une estimation théorique basée sur le simple modèle calorie-in vs. calorie-out. Il est destiné uniquement à des fins de motivation, pas comme une prédiction de votre poids réel.",
+      "description": "Le changement de poids projeté est une estimation théorique fondée sur le modèle simple des calories consommées par rapport aux calories dépensées. Il sert uniquement de repère motivant, et non de prédiction de votre poids réel.",
       "calorieAccuracy": {
         "title": "Précision des Calories",
         "description": "Cette estimation n'est aussi précise que votre suivi des apports et des dépenses caloriques. Un enregistrement imprécis résultera en une projection inexacte."
       },
       "biologicalFactors": {
         "title": "Facteurs Biologiques",
-        "description": "La perte/gain de poids réel est influencée par le métabolisme, les hormones, le sommeil, le stress, l'hydratation et d'autres facteurs individuels que {appLabel} ne peut pas mesurer."
+        "description": "La perte ou la prise de poids réelle est influencée par le métabolisme, les hormones, le sommeil, le stress, l'hydratation et d'autres facteurs individuels que {appLabel} ne peut pas mesurer."
       },
       "waterWeight": {
         "title": "Poids de l'Eau & Fluctuations",
@@ -637,7 +637,7 @@
       },
       "dailyGoal": {
         "title": "Objectif Quotidien",
-        "description": "L'Objectif Quotidien est votre apport calorique quotidien recommandé basé sur votre DET et votre objectif de poids. Pour perdre du poids, vous consommez moins de calories que votre DET. Pour maintenir votre poids, vous égalisez votre DET. Pour prendre du poids, vous consommez plus de calories que votre DET. Cela vous aide à atteindre votre changement de poids souhaité à un rythme sain."
+        "description": "L'Objectif Quotidien est votre apport calorique quotidien recommandé basé sur votre DET et votre objectif de poids. Pour perdre du poids, vous consommez moins de calories que votre DET. Pour maintenir votre poids, votre apport correspond à votre DET. Pour prendre du poids, vous consommez plus de calories que votre DET. Cela vous aide à atteindre votre changement de poids souhaité à un rythme sain."
       }
     },
     "calorieExpenditure": {

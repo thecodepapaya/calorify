@@ -84,7 +84,7 @@
       "title": "Koble til Health Connect",
       "description": "Synkroniser helsedataene dine for bedre innsikt og automatisk kalori sporing",
       "automaticTracking": {
-        "title": "Automatisk Kaloritracking",
+        "title": "Automatisk kalorisporing",
         "description": "Spor kalorier brent fra treningsappene dine"
       },
       "progressInsights": {
@@ -93,7 +93,7 @@
       },
       "seamlessIntegration": {
         "title": "Sømløs integrasjon",
-        "description": "Synkroniser data fra de favoritt helseappene dine"
+        "description": "Synkroniser data fra favoritthelseappene dine"
       },
       "connected": "Health Connect Tilkoblet",
       "notConnected": "Health Connect Ikke Tilkoblet",
@@ -107,8 +107,8 @@
     "reinforcement": {
       "trackingSuccess": {
         "title": "Du er ikke alene",
-        "genericMessage": "Forskning viser at konsekvent sporing er den største prediktoren for langsiktig suksess.",
-        "personalizedMessage": "For en {age} år gammel {gender} som ønsker å {goal}, er konsekvent sporing den største prediktoren for suksess.",
+        "genericMessage": "Forskning viser at konsekvent sporing er den viktigste indikatoren på langsiktig suksess.",
+        "personalizedMessage": "For en {age} år gammel {gender} som ønsker å {goal}, er konsekvent sporing den viktigste indikatoren på suksess.",
         "closingMessage": "{appLabel} gjør det 10 ganger lettere enn å gjøre det manuelt.",
         "getStartedTitle": "Klar til å komme i gang?",
         "tipPhoto": "Ta et bilde av måltidene dine for umiddelbar analyse",
@@ -122,8 +122,8 @@
         "title": "Din Helseprofil",
         "bmiDescription": "Basert på målingene dine, er BMI-en din {bmi}.",
         "finalizeDescription": "La oss fullføre profilen din for å tilpasse opplevelsen din.",
-        "goalGain": "øke",
-        "goalLose": "miste",
+        "goalGain": "gå opp",
+        "goalLose": "gå ned",
         "goalReach": "For å nå målet ditt, må du {direction} {diff} {unit}.",
         "goalReached": "Du er på målvekten din! Vi hjelper deg med å opprettholde den.",
         "button": "La oss gå"
@@ -374,7 +374,7 @@
       },
       "gainWeight": {
         "name": "Øke Vekt",
-        "description": "Skap et kaloriesurplus for å øke vekt"
+        "description": "Skap et kalorioverskudd for å gå opp i vekt"
       }
     },
     "activityLevels": {
@@ -506,7 +506,7 @@
       "tagline": "Rask, gratis og med fokus på personvern for kalorioversikt",
       "ourStory": {
         "title": "Vår historie",
-        "content": "{appLabel} ble født fra en enkel frustrasjon: de fleste kalorikontrollapper er enten altfor kompliserte, krever konstant manuell input, tar høye abonnementsgebyrer eller kompromitterer personvernet.\n\nSom en indieutvikler ønsket jeg å skape noe enklere og mer rettferdig — en app som bruker AI til å redusere innsatsen, forblir rask og gratis å bruke, og behandler helsedataene dine med respekt.\n\n{appLabel} er appen jeg skulle ønske eksisterte: ingen kontoer, ingen sporing, ingen annonser — bare klare, praktiske innsikter og dine helse-mål."
+        "content": "{appLabel} ble til av en enkel frustrasjon: De fleste apper for kaloritelling er enten altfor kompliserte, krever konstant manuell inntasting, tar høye abonnementsgebyrer eller går på kompromiss med personvernet.\n\nSom solo-utvikler ønsket jeg å lage noe enklere og mer rettferdig — en app som bruker AI til å redusere innsatsen, forblir rask og gratis å bruke, og behandler helsedataene dine med respekt.\n\n{appLabel} er appen jeg skulle ønske fantes: ingen kontoer, ingen sporing, ingen annonser — bare tydelig, praktisk innsikt og helsemålene dine."
       },
       "privacy": {
         "title": "Personvernet ditt er viktig",
@@ -520,7 +520,7 @@
       },
       "developer": {
         "title": "Bygget av en indieutvikler",
-        "description": "{appLabel} er bygget og vedlikeholdt av en enkelt indieutvikler som fokuserer på å lage rolig, personvern-respektiv helsesoftware.\n\nTilbakemeldinger leses personlig og hjelper med å forme retningen til appen.",
+        "description": "{appLabel} er bygget og vedlikeholdt av én uavhengig utvikler som fokuserer på å lage rolig helseprogramvare som respekterer personvernet.\n\nTilbakemeldinger leses personlig og bidrar til å forme retningen for appen.",
         "website": "Nettsted",
         "email": "E-post"
       },
@@ -554,7 +554,7 @@
     "skipForNow": "Hopp over for nå",
     "saveChanges": "Lagre Endringer",
     "enabledSuccessfully": "Varsler aktivert med suksess!",
-    "permissionDenied": "Varslingstillatelse nektert",
+    "permissionDenied": "Varslingstillatelse avvist",
     "errorEnabling": "Feil ved aktivering av varsler: {error}",
     "errorCompletingSetup": "Feil ved fullføring av oppsett: {error}"
   },
@@ -607,17 +607,17 @@
     },
     "weightEstimate": {
       "title": "Om Vekt Estimat",
-      "description": "Den projiserte vektforandringen er et teoretisk estimat basert på den enkle kalori-inn vs. kalori-ut modellen. Det er ment for motivasjonsveiledning, ikke som en prediksjon av din faktiske vekt.",
+      "description": "Den anslåtte vektendringen er et teoretisk estimat basert på den enkle modellen for kaloriinntak og kaloriforbruk. Det er ment som motivasjonsveiledning, ikke som en prediksjon av din faktiske vekt.",
       "calorieAccuracy": {
         "title": "Kalorienøyaktighet",
-        "description": "Dette estimatet er kun så nøyaktig som ditt registrerte kaloriinntak og utgifter. Unøyaktig logging vil resultere i en unøyaktig projeksjon."
+        "description": "Dette estimatet er bare så nøyaktig som ditt registrerte kaloriinntak og kaloriforbruk. Unøyaktig logging vil føre til en unøyaktig beregning."
       },
       "biologicalFactors": {
         "title": "Biologiske Faktorer",
         "description": "Faktisk vekttap/økning påvirkes av metabolisme, hormoner, søvn, stress, hydrering og andre individuelle faktorer som {appLabel} ikke kan måle."
       },
       "waterWeight": {
-        "title": "Vekt av Vann & Svingninger",
+        "title": "Vannvekt og svingninger",
         "description": "Normal daglig vekt kan variere betydelig på grunn av vannretensjon, fordøyelse og timing. Estimatet tar ikke hensyn til disse daglige endringene."
       },
       "professionalGuidance": {
