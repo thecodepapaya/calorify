@@ -117,26 +117,10 @@ PY
 }
 
 resolve_api_key() {
-    if [ -n "${OPENAI_API_KEY:-}" ]; then
-        API_KEY="$OPENAI_API_KEY"
-        return
-    fi
-
-    # Preserve the current local translation workflow without duplicating a key here.
-    API_KEY=$(python3 - "$GIT_ROOT/scripts/generate_translations.sh" <<'PY'
-import re
-import sys
-from pathlib import Path
-
-script = Path(sys.argv[1]).read_text(encoding="utf-8")
-match = re.search(r'^API_KEY="([^"]+)"', script, re.MULTILINE)
-if match:
-    print(match.group(1))
-PY
-)
-
-    if [ -z "$API_KEY" ]; then
-        print_error "OPENAI_API_KEY is not set and no translation API key could be resolved"
+    API_KEY=$(python3 "$SCRIPT_DIR/resolve_openai_api_key.py" "$GIT_ROOT")
+    local status=$?
+    if [ "$status" -ne 0 ] || [ -z "$API_KEY" ]; then
+        print_error "Failed to resolve OpenAI API key; see scripts/resolve_openai_api_key.py"
         exit 1
     fi
 }
