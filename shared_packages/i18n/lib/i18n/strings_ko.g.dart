@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackKo implements TranslationsMealFeedbackEn {
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => '무엇이 잘못된 것 같나요?';
+	@override String get subtitle => '하나 이상의 문제를 선택하여 분석 개선에 도움을 주세요.';
+	@override String get tellUsMore => '더 알려주세요';
+	@override String get describeIncorrect => '무엇이 잘못되었는지 설명해 주세요';
+	@override String get submit => '제출';
+	@override String get issueFoodIdentification => '음식 식별';
+	@override String get issuePortionSize => '1인분 크기';
+	@override String get issueCalorieDistribution => '칼로리 분포';
+	@override String get issueMacrosWrong => '다량 영양소가 잘못됨';
+	@override String get issueMissingItems => '누락된 항목';
+	@override String get issueExtraItems => '추가 항목';
+	@override String get issueOther => '기타';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsKo {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => '무엇이 잘못된 것 같나요?',
+			'meal.feedback.subtitle' => '하나 이상의 문제를 선택하여 분석 개선에 도움을 주세요.',
+			'meal.feedback.tellUsMore' => '더 알려주세요',
+			'meal.feedback.describeIncorrect' => '무엇이 잘못되었는지 설명해 주세요',
+			'meal.feedback.submit' => '제출',
+			'meal.feedback.issueFoodIdentification' => '음식 식별',
+			'meal.feedback.issuePortionSize' => '1인분 크기',
+			'meal.feedback.issueCalorieDistribution' => '칼로리 분포',
+			'meal.feedback.issueMacrosWrong' => '다량 영양소가 잘못됨',
+			'meal.feedback.issueMissingItems' => '누락된 항목',
+			'meal.feedback.issueExtraItems' => '추가 항목',
+			'meal.feedback.issueOther' => '기타',
 			'favorites.title' => '즐겨찾기',
 			'favorites.empty' => '즐겨찾는 식사가 아직 없습니다.',
 			'favorites.searchPlaceholder' => '즐겨찾는 식사 검색',

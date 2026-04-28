@@ -797,18 +797,18 @@ class _TranslationsMealFeedbackId implements TranslationsMealFeedbackEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'Apa yang terlihat salah?';
+	@override String get subtitle => 'Bantu kami meningkatkan analisis dengan memilih satu atau beberapa masalah.';
+	@override String get tellUsMore => 'Beri tahu kami lebih lanjut';
+	@override String get describeIncorrect => 'Jelaskan apa yang salah';
+	@override String get submit => 'Kirim';
+	@override String get issueFoodIdentification => 'Identifikasi makanan';
+	@override String get issuePortionSize => 'Ukuran porsi';
+	@override String get issueCalorieDistribution => 'Distribusi kalori';
+	@override String get issueMacrosWrong => 'Makro salah';
+	@override String get issueMissingItems => 'Item yang hilang';
+	@override String get issueExtraItems => 'Item tambahan';
+	@override String get issueOther => 'Lainnya';
 }
 
 // Path: favorites.sortOptions
@@ -1989,18 +1989,18 @@ extension on TranslationsId {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'Apa yang terlihat salah?',
+			'meal.feedback.subtitle' => 'Bantu kami meningkatkan analisis dengan memilih satu atau beberapa masalah.',
+			'meal.feedback.tellUsMore' => 'Beri tahu kami lebih lanjut',
+			'meal.feedback.describeIncorrect' => 'Jelaskan apa yang salah',
+			'meal.feedback.submit' => 'Kirim',
+			'meal.feedback.issueFoodIdentification' => 'Identifikasi makanan',
+			'meal.feedback.issuePortionSize' => 'Ukuran porsi',
+			'meal.feedback.issueCalorieDistribution' => 'Distribusi kalori',
+			'meal.feedback.issueMacrosWrong' => 'Makro salah',
+			'meal.feedback.issueMissingItems' => 'Item yang hilang',
+			'meal.feedback.issueExtraItems' => 'Item tambahan',
+			'meal.feedback.issueOther' => 'Lainnya',
 			'favorites.title' => 'Favorit',
 			'favorites.empty' => 'Belum ada makanan favorit.',
 			'favorites.searchPlaceholder' => 'Cari makanan favorit',

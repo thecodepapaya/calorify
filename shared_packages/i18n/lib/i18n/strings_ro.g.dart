@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackRo implements TranslationsMealFeedbackEn {
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'Ce pare greșit?';
+	@override String get subtitle => 'Ajută-ne să îmbunătățim analiza selectând una sau mai multe probleme.';
+	@override String get tellUsMore => 'Spune-ne mai multe';
+	@override String get describeIncorrect => 'Descrie ce a fost incorect';
+	@override String get submit => 'Trimite';
+	@override String get issueFoodIdentification => 'Identificarea alimentului';
+	@override String get issuePortionSize => 'Mărimea porției';
+	@override String get issueCalorieDistribution => 'Distribuția caloriilor';
+	@override String get issueMacrosWrong => 'Macronutrienții sunt greșiți';
+	@override String get issueMissingItems => 'Elemente lipsă';
+	@override String get issueExtraItems => 'Elemente în plus';
+	@override String get issueOther => 'Altceva';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsRo {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'Ce pare greșit?',
+			'meal.feedback.subtitle' => 'Ajută-ne să îmbunătățim analiza selectând una sau mai multe probleme.',
+			'meal.feedback.tellUsMore' => 'Spune-ne mai multe',
+			'meal.feedback.describeIncorrect' => 'Descrie ce a fost incorect',
+			'meal.feedback.submit' => 'Trimite',
+			'meal.feedback.issueFoodIdentification' => 'Identificarea alimentului',
+			'meal.feedback.issuePortionSize' => 'Mărimea porției',
+			'meal.feedback.issueCalorieDistribution' => 'Distribuția caloriilor',
+			'meal.feedback.issueMacrosWrong' => 'Macronutrienții sunt greșiți',
+			'meal.feedback.issueMissingItems' => 'Elemente lipsă',
+			'meal.feedback.issueExtraItems' => 'Elemente în plus',
+			'meal.feedback.issueOther' => 'Altceva',
 			'favorites.title' => 'Favorite',
 			'favorites.empty' => 'Încă nu ai mese favorite.',
 			'favorites.searchPlaceholder' => 'Caută mese favorite',

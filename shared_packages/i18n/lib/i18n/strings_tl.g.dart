@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackTl implements TranslationsMealFeedbackEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'Ano ang mukhang mali?';
+	@override String get subtitle => 'Tulungan kaming pagbutihin ang pagsusuri sa pamamagitan ng pagpili ng isa o higit pang isyu.';
+	@override String get tellUsMore => 'Magkuwento pa';
+	@override String get describeIncorrect => 'Ilarawan kung ano ang mali';
+	@override String get submit => 'Isumite';
+	@override String get issueFoodIdentification => 'Pagkilala sa pagkain';
+	@override String get issuePortionSize => 'Laki ng bahagi';
+	@override String get issueCalorieDistribution => 'Pamamahagi ng kaloriya';
+	@override String get issueMacrosWrong => 'Mali ang macros';
+	@override String get issueMissingItems => 'Nawawalang mga item';
+	@override String get issueExtraItems => 'Sobrang mga item';
+	@override String get issueOther => 'Iba pa';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsTl {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'Ano ang mukhang mali?',
+			'meal.feedback.subtitle' => 'Tulungan kaming pagbutihin ang pagsusuri sa pamamagitan ng pagpili ng isa o higit pang isyu.',
+			'meal.feedback.tellUsMore' => 'Magkuwento pa',
+			'meal.feedback.describeIncorrect' => 'Ilarawan kung ano ang mali',
+			'meal.feedback.submit' => 'Isumite',
+			'meal.feedback.issueFoodIdentification' => 'Pagkilala sa pagkain',
+			'meal.feedback.issuePortionSize' => 'Laki ng bahagi',
+			'meal.feedback.issueCalorieDistribution' => 'Pamamahagi ng kaloriya',
+			'meal.feedback.issueMacrosWrong' => 'Mali ang macros',
+			'meal.feedback.issueMissingItems' => 'Nawawalang mga item',
+			'meal.feedback.issueExtraItems' => 'Sobrang mga item',
+			'meal.feedback.issueOther' => 'Iba pa',
 			'favorites.title' => 'Paborito',
 			'favorites.empty' => 'Wala pang paboritong pagkain.',
 			'favorites.searchPlaceholder' => 'Maghanap ng paboritong pagkain',

@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackHu implements TranslationsMealFeedbackEn {
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'Mi tűnik hibásnak?';
+	@override String get subtitle => 'Segíts javítani az elemzést egy vagy több probléma kiválasztásával.';
+	@override String get tellUsMore => 'Mondj el többet';
+	@override String get describeIncorrect => 'Írd le, mi volt helytelen';
+	@override String get submit => 'Beküldés';
+	@override String get issueFoodIdentification => 'Étel azonosítása';
+	@override String get issuePortionSize => 'Adag mérete';
+	@override String get issueCalorieDistribution => 'Kalória-eloszlás';
+	@override String get issueMacrosWrong => 'A makrók hibásak';
+	@override String get issueMissingItems => 'Hiányzó elemek';
+	@override String get issueExtraItems => 'Extra elemek';
+	@override String get issueOther => 'Egyéb';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsHu {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'Mi tűnik hibásnak?',
+			'meal.feedback.subtitle' => 'Segíts javítani az elemzést egy vagy több probléma kiválasztásával.',
+			'meal.feedback.tellUsMore' => 'Mondj el többet',
+			'meal.feedback.describeIncorrect' => 'Írd le, mi volt helytelen',
+			'meal.feedback.submit' => 'Beküldés',
+			'meal.feedback.issueFoodIdentification' => 'Étel azonosítása',
+			'meal.feedback.issuePortionSize' => 'Adag mérete',
+			'meal.feedback.issueCalorieDistribution' => 'Kalória-eloszlás',
+			'meal.feedback.issueMacrosWrong' => 'A makrók hibásak',
+			'meal.feedback.issueMissingItems' => 'Hiányzó elemek',
+			'meal.feedback.issueExtraItems' => 'Extra elemek',
+			'meal.feedback.issueOther' => 'Egyéb',
 			'favorites.title' => 'Kedvencek',
 			'favorites.empty' => 'Még nincsenek kedvenc étkezések.',
 			'favorites.searchPlaceholder' => 'Kedvenc étkezések keresése',

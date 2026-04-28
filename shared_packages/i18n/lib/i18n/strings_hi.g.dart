@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackHi implements TranslationsMealFeedbackEn {
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'क्या ग़लत लग रहा है?';
+	@override String get subtitle => 'एक या अधिक समस्याएँ चुनकर विश्लेषण को बेहतर बनाने में हमारी मदद करें।';
+	@override String get tellUsMore => 'और बताएँ';
+	@override String get describeIncorrect => 'बताएँ कि क्या ग़लत था';
+	@override String get submit => 'सबमिट करें';
+	@override String get issueFoodIdentification => 'भोजन की पहचान';
+	@override String get issuePortionSize => 'हिस्से का आकार';
+	@override String get issueCalorieDistribution => 'कैलोरी वितरण';
+	@override String get issueMacrosWrong => 'मैक्रो ग़लत हैं';
+	@override String get issueMissingItems => 'गायब वस्तुएँ';
+	@override String get issueExtraItems => 'अतिरिक्त वस्तुएँ';
+	@override String get issueOther => 'अन्य';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsHi {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'क्या ग़लत लग रहा है?',
+			'meal.feedback.subtitle' => 'एक या अधिक समस्याएँ चुनकर विश्लेषण को बेहतर बनाने में हमारी मदद करें।',
+			'meal.feedback.tellUsMore' => 'और बताएँ',
+			'meal.feedback.describeIncorrect' => 'बताएँ कि क्या ग़लत था',
+			'meal.feedback.submit' => 'सबमिट करें',
+			'meal.feedback.issueFoodIdentification' => 'भोजन की पहचान',
+			'meal.feedback.issuePortionSize' => 'हिस्से का आकार',
+			'meal.feedback.issueCalorieDistribution' => 'कैलोरी वितरण',
+			'meal.feedback.issueMacrosWrong' => 'मैक्रो ग़लत हैं',
+			'meal.feedback.issueMissingItems' => 'गायब वस्तुएँ',
+			'meal.feedback.issueExtraItems' => 'अतिरिक्त वस्तुएँ',
+			'meal.feedback.issueOther' => 'अन्य',
 			'favorites.title' => 'पसंदीदा',
 			'favorites.empty' => 'अभी तक कोई पसंदीदा भोजन नहीं।',
 			'favorites.searchPlaceholder' => 'पसंदीदा भोजन खोजें',

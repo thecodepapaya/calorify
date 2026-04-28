@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackBn implements TranslationsMealFeedbackEn {
 	final TranslationsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'কী ভুল মনে হচ্ছে?';
+	@override String get subtitle => 'এক বা একাধিক সমস্যা নির্বাচন করে বিশ্লেষণ উন্নত করতে আমাদের সাহায্য করুন।';
+	@override String get tellUsMore => 'আরও বলুন';
+	@override String get describeIncorrect => 'কী ভুল ছিল তা বর্ণনা করুন';
+	@override String get submit => 'জমা দিন';
+	@override String get issueFoodIdentification => 'খাবার শনাক্তকরণ';
+	@override String get issuePortionSize => 'পরিবেশনের আকার';
+	@override String get issueCalorieDistribution => 'ক্যালোরি বণ্টন';
+	@override String get issueMacrosWrong => 'ম্যাক্রো ভুল';
+	@override String get issueMissingItems => 'অনুপস্থিত আইটেম';
+	@override String get issueExtraItems => 'অতিরিক্ত আইটেম';
+	@override String get issueOther => 'অন্যান্য';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsBn {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'কী ভুল মনে হচ্ছে?',
+			'meal.feedback.subtitle' => 'এক বা একাধিক সমস্যা নির্বাচন করে বিশ্লেষণ উন্নত করতে আমাদের সাহায্য করুন।',
+			'meal.feedback.tellUsMore' => 'আরও বলুন',
+			'meal.feedback.describeIncorrect' => 'কী ভুল ছিল তা বর্ণনা করুন',
+			'meal.feedback.submit' => 'জমা দিন',
+			'meal.feedback.issueFoodIdentification' => 'খাবার শনাক্তকরণ',
+			'meal.feedback.issuePortionSize' => 'পরিবেশনের আকার',
+			'meal.feedback.issueCalorieDistribution' => 'ক্যালোরি বণ্টন',
+			'meal.feedback.issueMacrosWrong' => 'ম্যাক্রো ভুল',
+			'meal.feedback.issueMissingItems' => 'অনুপস্থিত আইটেম',
+			'meal.feedback.issueExtraItems' => 'অতিরিক্ত আইটেম',
+			'meal.feedback.issueOther' => 'অন্যান্য',
 			'favorites.title' => 'পছন্দের তালিকা',
 			'favorites.empty' => 'এখনও কোনো পছন্দের মিল নেই।',
 			'favorites.searchPlaceholder' => 'পছন্দের মিল খুঁজুন',

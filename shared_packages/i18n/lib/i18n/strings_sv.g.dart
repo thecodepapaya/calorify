@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackSv implements TranslationsMealFeedbackEn {
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'Vad ser fel ut?';
+	@override String get subtitle => 'Hjälp oss att förbättra analysen genom att välja ett eller flera problem.';
+	@override String get tellUsMore => 'Berätta mer';
+	@override String get describeIncorrect => 'Beskriv vad som var fel';
+	@override String get submit => 'Skicka';
+	@override String get issueFoodIdentification => 'Matidentifiering';
+	@override String get issuePortionSize => 'Portionsstorlek';
+	@override String get issueCalorieDistribution => 'Kalorifördelning';
+	@override String get issueMacrosWrong => 'Makron är fel';
+	@override String get issueMissingItems => 'Saknade objekt';
+	@override String get issueExtraItems => 'Extra objekt';
+	@override String get issueOther => 'Annat';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsSv {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'Vad ser fel ut?',
+			'meal.feedback.subtitle' => 'Hjälp oss att förbättra analysen genom att välja ett eller flera problem.',
+			'meal.feedback.tellUsMore' => 'Berätta mer',
+			'meal.feedback.describeIncorrect' => 'Beskriv vad som var fel',
+			'meal.feedback.submit' => 'Skicka',
+			'meal.feedback.issueFoodIdentification' => 'Matidentifiering',
+			'meal.feedback.issuePortionSize' => 'Portionsstorlek',
+			'meal.feedback.issueCalorieDistribution' => 'Kalorifördelning',
+			'meal.feedback.issueMacrosWrong' => 'Makron är fel',
+			'meal.feedback.issueMissingItems' => 'Saknade objekt',
+			'meal.feedback.issueExtraItems' => 'Extra objekt',
+			'meal.feedback.issueOther' => 'Annat',
 			'favorites.title' => 'Favoriter',
 			'favorites.empty' => 'Inga favoritmåltider ännu.',
 			'favorites.searchPlaceholder' => 'Sök favoritmåltider',

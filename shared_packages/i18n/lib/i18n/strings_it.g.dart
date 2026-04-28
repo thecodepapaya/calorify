@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackIt implements TranslationsMealFeedbackEn {
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'Cosa sembra sbagliato?';
+	@override String get subtitle => 'Aiutaci a migliorare l\'analisi selezionando uno o più problemi.';
+	@override String get tellUsMore => 'Dicci di più';
+	@override String get describeIncorrect => 'Descrivi cosa non andava';
+	@override String get submit => 'Invia';
+	@override String get issueFoodIdentification => 'Identificazione del cibo';
+	@override String get issuePortionSize => 'Dimensione della porzione';
+	@override String get issueCalorieDistribution => 'Distribuzione calorica';
+	@override String get issueMacrosWrong => 'Macro errati';
+	@override String get issueMissingItems => 'Elementi mancanti';
+	@override String get issueExtraItems => 'Elementi in più';
+	@override String get issueOther => 'Altro';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsIt {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'Cosa sembra sbagliato?',
+			'meal.feedback.subtitle' => 'Aiutaci a migliorare l\'analisi selezionando uno o più problemi.',
+			'meal.feedback.tellUsMore' => 'Dicci di più',
+			'meal.feedback.describeIncorrect' => 'Descrivi cosa non andava',
+			'meal.feedback.submit' => 'Invia',
+			'meal.feedback.issueFoodIdentification' => 'Identificazione del cibo',
+			'meal.feedback.issuePortionSize' => 'Dimensione della porzione',
+			'meal.feedback.issueCalorieDistribution' => 'Distribuzione calorica',
+			'meal.feedback.issueMacrosWrong' => 'Macro errati',
+			'meal.feedback.issueMissingItems' => 'Elementi mancanti',
+			'meal.feedback.issueExtraItems' => 'Elementi in più',
+			'meal.feedback.issueOther' => 'Altro',
 			'favorites.title' => 'Preferiti',
 			'favorites.empty' => 'Ancora nessun pasto preferito.',
 			'favorites.searchPlaceholder' => 'Cerca pasti preferiti',

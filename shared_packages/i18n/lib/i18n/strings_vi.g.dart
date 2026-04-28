@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackVi implements TranslationsMealFeedbackEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'Có gì không đúng?';
+	@override String get subtitle => 'Hãy giúp chúng tôi cải thiện phân tích bằng cách chọn một hoặc nhiều vấn đề.';
+	@override String get tellUsMore => 'Cho chúng tôi biết thêm';
+	@override String get describeIncorrect => 'Mô tả điều gì không đúng';
+	@override String get submit => 'Gửi';
+	@override String get issueFoodIdentification => 'Nhận dạng thực phẩm';
+	@override String get issuePortionSize => 'Kích thước khẩu phần';
+	@override String get issueCalorieDistribution => 'Phân bổ calo';
+	@override String get issueMacrosWrong => 'Macro không đúng';
+	@override String get issueMissingItems => 'Mục bị thiếu';
+	@override String get issueExtraItems => 'Mục thừa';
+	@override String get issueOther => 'Khác';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsVi {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'Có gì không đúng?',
+			'meal.feedback.subtitle' => 'Hãy giúp chúng tôi cải thiện phân tích bằng cách chọn một hoặc nhiều vấn đề.',
+			'meal.feedback.tellUsMore' => 'Cho chúng tôi biết thêm',
+			'meal.feedback.describeIncorrect' => 'Mô tả điều gì không đúng',
+			'meal.feedback.submit' => 'Gửi',
+			'meal.feedback.issueFoodIdentification' => 'Nhận dạng thực phẩm',
+			'meal.feedback.issuePortionSize' => 'Kích thước khẩu phần',
+			'meal.feedback.issueCalorieDistribution' => 'Phân bổ calo',
+			'meal.feedback.issueMacrosWrong' => 'Macro không đúng',
+			'meal.feedback.issueMissingItems' => 'Mục bị thiếu',
+			'meal.feedback.issueExtraItems' => 'Mục thừa',
+			'meal.feedback.issueOther' => 'Khác',
 			'favorites.title' => 'Yêu thích',
 			'favorites.empty' => 'Chưa có bữa ăn yêu thích.',
 			'favorites.searchPlaceholder' => 'Tìm bữa ăn yêu thích',

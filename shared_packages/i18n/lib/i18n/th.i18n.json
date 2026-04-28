@@ -309,18 +309,18 @@
       "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
     },
     "feedback": {
-      "title": "What looks wrong?",
-      "subtitle": "Help us improve the analysis by selecting one or more issues.",
-      "tellUsMore": "Tell us more",
-      "describeIncorrect": "Describe what was incorrect",
-      "submit": "Submit",
-      "issueFoodIdentification": "Food identification",
-      "issuePortionSize": "Portion size",
-      "issueCalorieDistribution": "Calorie distribution",
-      "issueMacrosWrong": "Macros are wrong",
-      "issueMissingItems": "Missing items",
-      "issueExtraItems": "Extra items",
-      "issueOther": "Other"
+      "title": "อะไรดูไม่ถูกต้อง?",
+      "subtitle": "ช่วยเราปรับปรุงการวิเคราะห์โดยเลือกหนึ่งหรือหลายปัญหา",
+      "tellUsMore": "บอกเราเพิ่มเติม",
+      "describeIncorrect": "อธิบายสิ่งที่ไม่ถูกต้อง",
+      "submit": "ส่ง",
+      "issueFoodIdentification": "การระบุอาหาร",
+      "issuePortionSize": "ขนาดหนึ่งหน่วยบริโภค",
+      "issueCalorieDistribution": "การกระจายแคลอรี",
+      "issueMacrosWrong": "มาโครไม่ถูกต้อง",
+      "issueMissingItems": "รายการที่ขาดหายไป",
+      "issueExtraItems": "รายการเพิ่มเติม",
+      "issueOther": "อื่น ๆ"
     }
   },
   "favorites": {
