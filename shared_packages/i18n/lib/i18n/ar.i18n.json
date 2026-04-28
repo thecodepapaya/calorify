@@ -279,13 +279,14 @@
     "errorCompressingImage": "خطأ في ضغط الصورة: {error}",
     "failedToSave": "فشل حفظ البيانات. يرجى المحاولة مجددًا.",
     "skip": "تخطي",
-    "variation": {
-      "question": "السؤال {current} من {total}",
-      "noVariationsAvailable": "لا توجد أي تنويعات متاحة"
+    "questionFlow": {
+      "progress": "السؤال {current} من {total}",
+      "noQuestionsAvailable": "لا توجد أسئلة متاحة",
+      "next": "التالي",
+      "continueLabel": "متابعة"
     },
     "analysis": {
       "title": "تحليل الوجبة بالذكاء الاصطناعي",
-      "reassurance": "غالبًا ما يستغرق ذلك بضع ثوانٍ.",
       "stepStarted": "نبدأ الآن…",
       "stepDecomposition": "فهم وجبتك…",
       "stepIngredients": "مطابقة المكوّنات مع بيانات التغذية…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "فهم",
       "progressMatch": "مطابقة",
       "progressCheck": "تحقق",
+      "progressMealType": "جارٍ اختيار نوع الوجبة",
       "progressFinish": "إنهاء",
+      "detectedIngredientHeading": "المكونات التي نلاحظها",
+      "ingredientsOverflow": "{count} مكونات إضافية",
       "ingredientsLine": "تم اكتشاف {count} مكوّن",
       "ingredientsPending": "جارٍ فحص المكوّنات…",
       "mealPreviewDescription": "\"{text}\"",

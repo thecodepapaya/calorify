@@ -279,13 +279,14 @@
     "errorCompressingImage": "Błąd kompresji obrazu: {error}",
     "failedToSave": "Nie udało się zapisać danych. Spróbuj ponownie.",
     "skip": "Pomiń",
-    "variation": {
-      "question": "Pytanie {current} z {total}",
-      "noVariationsAvailable": "Brak dostępnych wariantów"
+    "questionFlow": {
+      "progress": "Pytanie {current} z {total}",
+      "noQuestionsAvailable": "Brak dostępnych pytań",
+      "next": "Dalej",
+      "continueLabel": "Kontynuuj"
     },
     "analysis": {
       "title": "Analiza posiłku przez AI",
-      "reassurance": "To zwykle zajmuje kilka sekund.",
       "stepStarted": "Zaczynamy…",
       "stepDecomposition": "Rozpoznawanie posiłku…",
       "stepIngredients": "Dopasowywanie składników do danych żywieniowych…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Zrozum",
       "progressMatch": "Dopasuj",
       "progressCheck": "Sprawdź",
+      "progressMealType": "Wybieranie rodzaju posiłku",
       "progressFinish": "Zakończ",
+      "detectedIngredientHeading": "Składniki, które rozpoznajemy",
+      "ingredientsOverflow": "jeszcze {count}",
       "ingredientsLine": "Wykryto {count} składników",
       "ingredientsPending": "Skanowanie składników…",
       "mealPreviewDescription": "\"{text}\"",

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { getUtcOffsetForCountry, getCountriesAt3am } from './timezone.js';
+import { getUtcOffsetForCountry, getCountriesAt3am, getCountriesNear3am } from './timezone.js';
 
 // ---------------------------------------------------------------------------
 // getUtcOffsetForCountry
@@ -141,3 +141,26 @@ test('getCountriesAt3am handles fractional UTC offset for IN (UTC+5.5)', () => {
   // LK (Sri Lanka, UTC+5.5) should also be included
   assert.ok(result.includes('LK'));
 });
+
+// ---------------------------------------------------------------------------
+// getCountriesNear3am
+// ---------------------------------------------------------------------------
+
+test('getCountriesNear3am returns an array', () => {
+  assert.ok(Array.isArray(getCountriesNear3am(new Date())));
+});
+
+test('getCountriesNear3am includes IN at 02:30 local (start of ±30 around 3am)', () => {
+  // UTC 21:00 + IN +5.5 → local hour 2.5
+  const utcDate = new Date('2024-01-01T21:00:00Z');
+  const result = getCountriesNear3am(utcDate, 30);
+  assert.ok(result.includes('IN'));
+});
+
+test('getCountriesNear3am excludes IN at 03:30 local (end ±30 is exclusive)', () => {
+  // UTC 22:00 + IN +5.5 → local hour 3.5 → outside [2.5, 3.5)
+  const utcDate = new Date('2024-01-01T22:00:00Z');
+  const result = getCountriesNear3am(utcDate, 30);
+  assert.ok(!result.includes('IN'));
+});
+

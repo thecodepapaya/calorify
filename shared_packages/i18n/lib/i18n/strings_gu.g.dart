@@ -178,7 +178,7 @@ class _TranslationsMealGu implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'છબી કમ્પ્રેસ કરતી વખતે ભૂલ: ${error}';
 	@override String get failedToSave => 'ડેટા સેવ કરવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયત્ન કરો.';
 	@override String get skip => 'છોડો';
-	@override late final _TranslationsMealVariationGu variation = _TranslationsMealVariationGu._(_root);
+	@override late final _TranslationsMealQuestionFlowGu questionFlow = _TranslationsMealQuestionFlowGu._(_root);
 	@override late final _TranslationsMealAnalysisGu analysis = _TranslationsMealAnalysisGu._(_root);
 	@override late final _TranslationsMealFeedbackGu feedback = _TranslationsMealFeedbackGu._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationGu implements TranslationsMealDeleteCon
 	@override String get delete => 'કાઢી નાંખો';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationGu implements TranslationsMealVariationEn {
-	_TranslationsMealVariationGu._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowGu implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowGu._(this._root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'પ્રશ્ન ${current} / ${total}';
-	@override String get noVariationsAvailable => 'કોઈ વિકલ્પો ઉપલબ્ધ નથી';
+	@override String progress({required Object current, required Object total}) => 'પ્રશ્ન ${current} માંથી ${total}';
+	@override String get noQuestionsAvailable => 'કોઈ પ્રશ્ન ઉપલબ્ધ નથી';
+	@override String get next => 'આગલું';
+	@override String get continueLabel => 'જારી રાખો';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisGu implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'AI ભોજન વિશ્લેષણ';
-	@override String get reassurance => 'આમ તો તેમાં થોડા સેકન્ડ લાગે છે.';
 	@override String get stepStarted => 'શરૂ કરતા…';
 	@override String get stepDecomposition => 'તમારા ભોજનને સમજતા…';
 	@override String get stepIngredients => 'પોષણ ડેટા સાથે ઘટકો મૅચ કરતા…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisGu implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'સમજો';
 	@override String get progressMatch => 'મૅચ';
 	@override String get progressCheck => 'ચેક';
+	@override String get progressMealType => 'ભોજનનો પ્રકાર પસંદ કરી રહ્યા છીએ';
 	@override String get progressFinish => 'પૂર્ણ';
+	@override String get detectedIngredientHeading => 'અમે ઓળખી રહ્યા એવા ઘટકો';
+	@override String ingredientsOverflow({required Object count}) => '${count} વધુ';
 	@override String ingredientsLine({required Object count}) => '${count} ઘટકો શોધાયા';
 	@override String get ingredientsPending => 'ઘટકો સ્કૅન કરી રહ્યા છીએ…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsGu {
 			'meal.errorCompressingImage' => ({required Object error}) => 'છબી કમ્પ્રેસ કરતી વખતે ભૂલ: ${error}',
 			'meal.failedToSave' => 'ડેટા સેવ કરવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયત્ન કરો.',
 			'meal.skip' => 'છોડો',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'પ્રશ્ન ${current} / ${total}',
-			'meal.variation.noVariationsAvailable' => 'કોઈ વિકલ્પો ઉપલબ્ધ નથી',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'પ્રશ્ન ${current} માંથી ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'કોઈ પ્રશ્ન ઉપલબ્ધ નથી',
+			'meal.questionFlow.next' => 'આગલું',
+			'meal.questionFlow.continueLabel' => 'જારી રાખો',
 			'meal.analysis.title' => 'AI ભોજન વિશ્લેષણ',
-			'meal.analysis.reassurance' => 'આમ તો તેમાં થોડા સેકન્ડ લાગે છે.',
 			'meal.analysis.stepStarted' => 'શરૂ કરતા…',
 			'meal.analysis.stepDecomposition' => 'તમારા ભોજનને સમજતા…',
 			'meal.analysis.stepIngredients' => 'પોષણ ડેટા સાથે ઘટકો મૅચ કરતા…',
@@ -1897,7 +1902,10 @@ extension on TranslationsGu {
 			'meal.analysis.progressUnderstand' => 'સમજો',
 			'meal.analysis.progressMatch' => 'મૅચ',
 			'meal.analysis.progressCheck' => 'ચેક',
+			'meal.analysis.progressMealType' => 'ભોજનનો પ્રકાર પસંદ કરી રહ્યા છીએ',
 			'meal.analysis.progressFinish' => 'પૂર્ણ',
+			'meal.analysis.detectedIngredientHeading' => 'અમે ઓળખી રહ્યા એવા ઘટકો',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} વધુ',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ઘટકો શોધાયા',
 			'meal.analysis.ingredientsPending' => 'ઘટકો સ્કૅન કરી રહ્યા છીએ…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

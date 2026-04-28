@@ -279,13 +279,14 @@
     "errorCompressingImage": "Görüntü sıkıştırılırken hata: {error}",
     "failedToSave": "Veriler kaydedilemedi. Lütfen tekrar deneyin.",
     "skip": "Atla",
-    "variation": {
-      "question": "{total} sorudan {current}",
-      "noVariationsAvailable": "Varyasyon yok"
+    "questionFlow": {
+      "progress": "Soru {current} / {total}",
+      "noQuestionsAvailable": "Mevcut soru yok",
+      "next": "Sonraki",
+      "continueLabel": "Devam"
     },
     "analysis": {
       "title": "YZ öğün analizi",
-      "reassurance": "Bu genellikle birkaç saniye sürer.",
       "stepStarted": "Başlanıyor…",
       "stepDecomposition": "Öğününüz anlaşılıyor…",
       "stepIngredients": "İçerikler besin verileriyle eşleştiriliyor…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Anla",
       "progressMatch": "Eşle",
       "progressCheck": "Kontrol",
+      "progressMealType": "Yemek türü seçiliyor",
       "progressFinish": "Bitir",
+      "detectedIngredientHeading": "Tespit ettiğimiz malzemeler",
+      "ingredientsOverflow": "{count} tane daha",
       "ingredientsLine": "{count} içerik tespit edildi",
       "ingredientsPending": "İçerikler taranıyor…",
       "mealPreviewDescription": "\"{text}\"",

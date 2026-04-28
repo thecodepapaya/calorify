@@ -279,13 +279,14 @@
     "errorCompressingImage": "Σφάλμα κατά τη συμπίεση εικόνας: {error}",
     "failedToSave": "Αποτυχία αποθήκευσης δεδομένων. Δοκίμασε ξανά.",
     "skip": "Παράλειψη",
-    "variation": {
-      "question": "Ερώτηση {current} από {total}",
-      "noVariationsAvailable": "Δεν υπάρχουν διαθέσιμες παραλλαγές"
+    "questionFlow": {
+      "progress": "Ερώτηση {current} από {total}",
+      "noQuestionsAvailable": "Δεν υπάρχουν διαθέσιμες ερωτήσεις",
+      "next": "Επόμενο",
+      "continueLabel": "Συνέχισε"
     },
     "analysis": {
       "title": "Ανάλυση γεύματος με AI",
-      "reassurance": "Συνήθως διαρκεί λίγα δευτερόλεπτα.",
       "stepStarted": "Ξεκινάμε…",
       "stepDecomposition": "Κατανόηση του γεύματός σου…",
       "stepIngredients": "Αντιστοίχιση συστατικών με διατροφικά δεδομένα…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Κατανόηση",
       "progressMatch": "Αντιστοίχιση",
       "progressCheck": "Έλεγχος",
+      "progressMealType": "Επιλογή τύπου γεύματος",
       "progressFinish": "Τελικό",
+      "detectedIngredientHeading": "Συστατικά που εντοπίζουμε",
+      "ingredientsOverflow": "{count} ακόμη",
       "ingredientsLine": "Εντοπίστηκαν {count} συστατικά",
       "ingredientsPending": "Σάρωση συστατικών…",
       "mealPreviewDescription": "\"{text}\"",

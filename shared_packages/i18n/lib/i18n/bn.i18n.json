@@ -279,13 +279,14 @@
     "errorCompressingImage": "ছবি কম্প্রেস করতে ত্রুটি: {error}",
     "failedToSave": "ডেটা সংরক্ষণ ব্যর্থ। আবার চেষ্টা করুন।",
     "skip": "এড়িয়ে যান",
-    "variation": {
-      "question": "প্রশ্ন {current} / {total}",
-      "noVariationsAvailable": "কোনো ভিন্নতা নেই"
+    "questionFlow": {
+      "progress": "মোট {total}টির মধ্যে {current} নম্বর প্রশ্ন",
+      "noQuestionsAvailable": "কোনও প্রশ্ন উপলব্ধ নেই",
+      "next": "পরবর্তী",
+      "continueLabel": "চালিয়ে যান"
     },
     "analysis": {
       "title": "এআই মিল বিশ্লেষণ",
-      "reassurance": "এটি সাধারণত কয়েক সেকেন্ড সময় নেয়।",
       "stepStarted": "শুরু হচ্ছে…",
       "stepDecomposition": "আপনার মিল বোঝা হচ্ছে…",
       "stepIngredients": "উপাদানগুলিকে পুষ্টি ডেটার সাথে মেলানো হচ্ছে…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "বোঝা",
       "progressMatch": "মিল",
       "progressCheck": "যাচাই",
+      "progressMealType": "খাবারের ধরন নির্বাচন করা হচ্ছে",
       "progressFinish": "শেষ",
+      "detectedIngredientHeading": "আমরা যা শনাক্ত করছি",
+      "ingredientsOverflow": "{count}টি আরও উপকরণ",
       "ingredientsLine": "{count}টি উপাদান শনাক্ত হয়েছে",
       "ingredientsPending": "উপাদান স্ক্যান করা হচ্ছে…",
       "mealPreviewDescription": "\"{text}\"",

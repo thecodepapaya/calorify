@@ -178,7 +178,7 @@ class _TranslationsMealRo implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Eroare la comprimarea imaginii: ${error}';
 	@override String get failedToSave => 'Nu s-au putut salva datele. Te rugăm să încerci din nou.';
 	@override String get skip => 'Sari peste';
-	@override late final _TranslationsMealVariationRo variation = _TranslationsMealVariationRo._(_root);
+	@override late final _TranslationsMealQuestionFlowRo questionFlow = _TranslationsMealQuestionFlowRo._(_root);
 	@override late final _TranslationsMealAnalysisRo analysis = _TranslationsMealAnalysisRo._(_root);
 	@override late final _TranslationsMealFeedbackRo feedback = _TranslationsMealFeedbackRo._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationRo implements TranslationsMealDeleteCon
 	@override String get delete => 'Șterge';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationRo implements TranslationsMealVariationEn {
-	_TranslationsMealVariationRo._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowRo implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowRo._(this._root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Întrebare ${current} din ${total}';
-	@override String get noVariationsAvailable => 'Nu sunt variații disponibile';
+	@override String progress({required Object current, required Object total}) => 'Întrebarea ${current} din ${total}';
+	@override String get noQuestionsAvailable => 'Nu există întrebări disponibile';
+	@override String get next => 'Următor';
+	@override String get continueLabel => 'Continuă';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisRo implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'Analiza mesei cu AI';
-	@override String get reassurance => 'De obicei durează doar câteva secunde.';
 	@override String get stepStarted => 'Pornim…';
 	@override String get stepDecomposition => 'Înțelegem masa…';
 	@override String get stepIngredients => 'Potrivim ingredientele cu baza de date nutrițională…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisRo implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Înțelegere';
 	@override String get progressMatch => 'Potrivire';
 	@override String get progressCheck => 'Verificare';
+	@override String get progressMealType => 'Alegerea tipului de masă';
 	@override String get progressFinish => 'Finalizare';
+	@override String get detectedIngredientHeading => 'Ingrediente detectate';
+	@override String ingredientsOverflow({required Object count}) => '${count} în plus';
 	@override String ingredientsLine({required Object count}) => '${count} ingrediente detectate';
 	@override String get ingredientsPending => 'Scanăm ingredientele…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsRo {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Eroare la comprimarea imaginii: ${error}',
 			'meal.failedToSave' => 'Nu s-au putut salva datele. Te rugăm să încerci din nou.',
 			'meal.skip' => 'Sari peste',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Întrebare ${current} din ${total}',
-			'meal.variation.noVariationsAvailable' => 'Nu sunt variații disponibile',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Întrebarea ${current} din ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Nu există întrebări disponibile',
+			'meal.questionFlow.next' => 'Următor',
+			'meal.questionFlow.continueLabel' => 'Continuă',
 			'meal.analysis.title' => 'Analiza mesei cu AI',
-			'meal.analysis.reassurance' => 'De obicei durează doar câteva secunde.',
 			'meal.analysis.stepStarted' => 'Pornim…',
 			'meal.analysis.stepDecomposition' => 'Înțelegem masa…',
 			'meal.analysis.stepIngredients' => 'Potrivim ingredientele cu baza de date nutrițională…',
@@ -1897,7 +1902,10 @@ extension on TranslationsRo {
 			'meal.analysis.progressUnderstand' => 'Înțelegere',
 			'meal.analysis.progressMatch' => 'Potrivire',
 			'meal.analysis.progressCheck' => 'Verificare',
+			'meal.analysis.progressMealType' => 'Alegerea tipului de masă',
 			'meal.analysis.progressFinish' => 'Finalizare',
+			'meal.analysis.detectedIngredientHeading' => 'Ingrediente detectate',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} în plus',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingrediente detectate',
 			'meal.analysis.ingredientsPending' => 'Scanăm ingredientele…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

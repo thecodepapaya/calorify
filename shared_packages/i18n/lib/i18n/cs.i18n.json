@@ -279,13 +279,14 @@
     "errorCompressingImage": "Chyba při komprimaci obrázku: {error}",
     "failedToSave": "Nepodařilo se uložit data. Zkuste to prosím znovu.",
     "skip": "Přeskočit",
-    "variation": {
-      "question": "Otázka {current} z {total}",
-      "noVariationsAvailable": "Žádné varianty k dispozici"
+    "questionFlow": {
+      "progress": "Otázka {current} z {total}",
+      "noQuestionsAvailable": "Momentálně nejsou k dispozici žádné otázky",
+      "next": "Další",
+      "continueLabel": "Pokračovat"
     },
     "analysis": {
       "title": "Analýza jídla pomocí AI",
-      "reassurance": "Obvykle to trvá jen pár sekund.",
       "stepStarted": "Začínáme…",
       "stepDecomposition": "Analyzujeme vaše jídlo…",
       "stepIngredients": "Přiřazujeme ingredience k nutričním údajům…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Porozumět",
       "progressMatch": "Párovat",
       "progressCheck": "Ověřit",
+      "progressMealType": "Výběr typu jídla",
       "progressFinish": "Dokončit",
+      "detectedIngredientHeading": "Ingredience, které rozpoznáváme",
+      "ingredientsOverflow": "{count} dalších",
       "ingredientsLine": "{count} ingrediencí rozpoznáno",
       "ingredientsPending": "Probíhá skenování ingrediencí…",
       "mealPreviewDescription": "\"{text}\"",

@@ -279,13 +279,14 @@
     "errorCompressingImage": "Помилка оптимізації зображення: {error}",
     "failedToSave": "Не вдалося зберегти дані. Спробуйте ще раз.",
     "skip": "Пропустити",
-    "variation": {
-      "question": "Питання {current} із {total}",
-      "noVariationsAvailable": "Варіацій немає"
+    "questionFlow": {
+      "progress": "Питання {current} з {total}",
+      "noQuestionsAvailable": "Немає доступних запитань",
+      "next": "Далі",
+      "continueLabel": "Продовжити"
     },
     "analysis": {
       "title": "Аналіз прийому їжі ШІ",
-      "reassurance": "Зазвичай це займає кілька секунд.",
       "stepStarted": "Починаємо…",
       "stepDecomposition": "Розуміємо ваш прийом…",
       "stepIngredients": "Зіставляємо інгредієнти з базою харчової цінності…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Аналіз",
       "progressMatch": "Відповідність",
       "progressCheck": "Перевірка",
+      "progressMealType": "Вибір типу прийому їжі",
       "progressFinish": "Завершення",
+      "detectedIngredientHeading": "Інгредієнти, які ми розпізнаємо",
+      "ingredientsOverflow": "ще {count}",
       "ingredientsLine": "Виявлено інгредієнтів: {count}",
       "ingredientsPending": "Сканування інгредієнтів…",
       "mealPreviewDescription": "\"{text}\"",

@@ -22,7 +22,7 @@ class PrimaryButton extends StatelessWidget {
     this.leadingIcon,
     this.trailingIcon,
     this.isLoading = false,
-    this.minimumSize = const Size(double.infinity, 50),
+    this.minimumSize = const Size(double.infinity, appButtonMinHeight),
     this.padding,
   });
 
@@ -42,7 +42,8 @@ class PrimaryButton extends StatelessWidget {
               },
       style: ButtonStyle(
         minimumSize: WidgetStatePropertyAll(minimumSize),
-        padding: WidgetStatePropertyAll(padding),
+        padding:
+            WidgetStatePropertyAll(padding ?? appButtonFilledPadding),
         backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
           if (states.contains(WidgetState.disabled)) {
             if (isLoading) {

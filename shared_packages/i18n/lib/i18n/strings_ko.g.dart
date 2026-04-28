@@ -178,7 +178,7 @@ class _TranslationsMealKo implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => '이미지 압축 중 오류: ${error}';
 	@override String get failedToSave => '데이터를 저장하지 못했습니다. 다시 시도해 주세요.';
 	@override String get skip => '건너뛰기';
-	@override late final _TranslationsMealVariationKo variation = _TranslationsMealVariationKo._(_root);
+	@override late final _TranslationsMealQuestionFlowKo questionFlow = _TranslationsMealQuestionFlowKo._(_root);
 	@override late final _TranslationsMealAnalysisKo analysis = _TranslationsMealAnalysisKo._(_root);
 	@override late final _TranslationsMealFeedbackKo feedback = _TranslationsMealFeedbackKo._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationKo implements TranslationsMealDeleteCon
 	@override String get delete => '삭제';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationKo implements TranslationsMealVariationEn {
-	_TranslationsMealVariationKo._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowKo implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowKo._(this._root);
 
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => '질문 ${current}/${total}';
-	@override String get noVariationsAvailable => '사용 가능한 변형이 없습니다';
+	@override String progress({required Object total, required Object current}) => '${total}개 중 ${current}번째 질문';
+	@override String get noQuestionsAvailable => '사용 가능한 질문이 없습니다';
+	@override String get next => '다음';
+	@override String get continueLabel => '계속';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisKo implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'AI 식사 분석';
-	@override String get reassurance => '보통 몇 초면 완료됩니다.';
 	@override String get stepStarted => '시작하는 중…';
 	@override String get stepDecomposition => '식사 이해 중…';
 	@override String get stepIngredients => '재료를 영양 데이터와 매칭 중…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisKo implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => '이해';
 	@override String get progressMatch => '매칭';
 	@override String get progressCheck => '검토';
+	@override String get progressMealType => '식사 유형 선택 중';
 	@override String get progressFinish => '완료';
+	@override String get detectedIngredientHeading => '감지된 재료';
+	@override String ingredientsOverflow({required Object count}) => '${count}개 더';
 	@override String ingredientsLine({required Object count}) => '재료 ${count}개 감지됨';
 	@override String get ingredientsPending => '재료 스캔 중…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsKo {
 			'meal.errorCompressingImage' => ({required Object error}) => '이미지 압축 중 오류: ${error}',
 			'meal.failedToSave' => '데이터를 저장하지 못했습니다. 다시 시도해 주세요.',
 			'meal.skip' => '건너뛰기',
-			'meal.variation.question' => ({required Object current, required Object total}) => '질문 ${current}/${total}',
-			'meal.variation.noVariationsAvailable' => '사용 가능한 변형이 없습니다',
+			'meal.questionFlow.progress' => ({required Object total, required Object current}) => '${total}개 중 ${current}번째 질문',
+			'meal.questionFlow.noQuestionsAvailable' => '사용 가능한 질문이 없습니다',
+			'meal.questionFlow.next' => '다음',
+			'meal.questionFlow.continueLabel' => '계속',
 			'meal.analysis.title' => 'AI 식사 분석',
-			'meal.analysis.reassurance' => '보통 몇 초면 완료됩니다.',
 			'meal.analysis.stepStarted' => '시작하는 중…',
 			'meal.analysis.stepDecomposition' => '식사 이해 중…',
 			'meal.analysis.stepIngredients' => '재료를 영양 데이터와 매칭 중…',
@@ -1897,7 +1902,10 @@ extension on TranslationsKo {
 			'meal.analysis.progressUnderstand' => '이해',
 			'meal.analysis.progressMatch' => '매칭',
 			'meal.analysis.progressCheck' => '검토',
+			'meal.analysis.progressMealType' => '식사 유형 선택 중',
 			'meal.analysis.progressFinish' => '완료',
+			'meal.analysis.detectedIngredientHeading' => '감지된 재료',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count}개 더',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '재료 ${count}개 감지됨',
 			'meal.analysis.ingredientsPending' => '재료 스캔 중…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

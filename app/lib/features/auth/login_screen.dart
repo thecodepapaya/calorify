@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/services/auth_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:i18n/i18n.dart';
@@ -43,10 +44,9 @@ class LoginScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: colorScheme.primary,
                 foregroundColor: colorScheme.onPrimary,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 12,
-                ),
+                minimumSize: Size(88, appButtonMinHeight),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               ),
             ),
           ),

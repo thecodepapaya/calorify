@@ -198,10 +198,17 @@ class FoodRepository {
 
   /// Server-driven tips for the meal-analysis loading UI (no app update needed to change copy).
   /// Returns an empty list on failure; callers should fall back to bundled tips.
-  Future<List<String>> getMealAnalysisTips() async {
+  ///
+  /// When [count] is set, the server returns at most that many tips chosen at random
+  /// (`GET ...?count=`).
+  Future<List<String>> getMealAnalysisTips({int? count}) async {
     try {
+      final endpoint =
+          count != null
+              ? '/api/v1/food/meal-analysis-tips?count=$count'
+              : '/api/v1/food/meal-analysis-tips';
       final proto = await NetworkClient.instance.apiCall<ApiResult, MealAnalysisTipsResponse>(
-        '/api/v1/food/meal-analysis-tips',
+        endpoint,
         MealAnalysisTipsResponse.new,
         processError: false,
       );

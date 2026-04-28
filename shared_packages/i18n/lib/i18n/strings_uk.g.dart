@@ -178,7 +178,7 @@ class _TranslationsMealUk implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Помилка оптимізації зображення: ${error}';
 	@override String get failedToSave => 'Не вдалося зберегти дані. Спробуйте ще раз.';
 	@override String get skip => 'Пропустити';
-	@override late final _TranslationsMealVariationUk variation = _TranslationsMealVariationUk._(_root);
+	@override late final _TranslationsMealQuestionFlowUk questionFlow = _TranslationsMealQuestionFlowUk._(_root);
 	@override late final _TranslationsMealAnalysisUk analysis = _TranslationsMealAnalysisUk._(_root);
 	@override late final _TranslationsMealFeedbackUk feedback = _TranslationsMealFeedbackUk._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationUk implements TranslationsMealDeleteCon
 	@override String get delete => 'Видалити';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationUk implements TranslationsMealVariationEn {
-	_TranslationsMealVariationUk._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowUk implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowUk._(this._root);
 
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Питання ${current} із ${total}';
-	@override String get noVariationsAvailable => 'Варіацій немає';
+	@override String progress({required Object current, required Object total}) => 'Питання ${current} з ${total}';
+	@override String get noQuestionsAvailable => 'Немає доступних запитань';
+	@override String get next => 'Далі';
+	@override String get continueLabel => 'Продовжити';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisUk implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'Аналіз прийому їжі ШІ';
-	@override String get reassurance => 'Зазвичай це займає кілька секунд.';
 	@override String get stepStarted => 'Починаємо…';
 	@override String get stepDecomposition => 'Розуміємо ваш прийом…';
 	@override String get stepIngredients => 'Зіставляємо інгредієнти з базою харчової цінності…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisUk implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Аналіз';
 	@override String get progressMatch => 'Відповідність';
 	@override String get progressCheck => 'Перевірка';
+	@override String get progressMealType => 'Вибір типу прийому їжі';
 	@override String get progressFinish => 'Завершення';
+	@override String get detectedIngredientHeading => 'Інгредієнти, які ми розпізнаємо';
+	@override String ingredientsOverflow({required Object count}) => 'ще ${count}';
 	@override String ingredientsLine({required Object count}) => 'Виявлено інгредієнтів: ${count}';
 	@override String get ingredientsPending => 'Сканування інгредієнтів…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsUk {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Помилка оптимізації зображення: ${error}',
 			'meal.failedToSave' => 'Не вдалося зберегти дані. Спробуйте ще раз.',
 			'meal.skip' => 'Пропустити',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Питання ${current} із ${total}',
-			'meal.variation.noVariationsAvailable' => 'Варіацій немає',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Питання ${current} з ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Немає доступних запитань',
+			'meal.questionFlow.next' => 'Далі',
+			'meal.questionFlow.continueLabel' => 'Продовжити',
 			'meal.analysis.title' => 'Аналіз прийому їжі ШІ',
-			'meal.analysis.reassurance' => 'Зазвичай це займає кілька секунд.',
 			'meal.analysis.stepStarted' => 'Починаємо…',
 			'meal.analysis.stepDecomposition' => 'Розуміємо ваш прийом…',
 			'meal.analysis.stepIngredients' => 'Зіставляємо інгредієнти з базою харчової цінності…',
@@ -1897,7 +1902,10 @@ extension on TranslationsUk {
 			'meal.analysis.progressUnderstand' => 'Аналіз',
 			'meal.analysis.progressMatch' => 'Відповідність',
 			'meal.analysis.progressCheck' => 'Перевірка',
+			'meal.analysis.progressMealType' => 'Вибір типу прийому їжі',
 			'meal.analysis.progressFinish' => 'Завершення',
+			'meal.analysis.detectedIngredientHeading' => 'Інгредієнти, які ми розпізнаємо',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => 'ще ${count}',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'Виявлено інгредієнтів: ${count}',
 			'meal.analysis.ingredientsPending' => 'Сканування інгредієнтів…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

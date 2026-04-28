@@ -178,7 +178,7 @@ class _TranslationsMealZhCn implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => '压缩图片出错：${error}';
 	@override String get failedToSave => '保存数据失败。请重试。';
 	@override String get skip => '跳过';
-	@override late final _TranslationsMealVariationZhCn variation = _TranslationsMealVariationZhCn._(_root);
+	@override late final _TranslationsMealQuestionFlowZhCn questionFlow = _TranslationsMealQuestionFlowZhCn._(_root);
 	@override late final _TranslationsMealAnalysisZhCn analysis = _TranslationsMealAnalysisZhCn._(_root);
 	@override late final _TranslationsMealFeedbackZhCn feedback = _TranslationsMealFeedbackZhCn._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationZhCn implements TranslationsMealDeleteC
 	@override String get delete => '删除';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationZhCn implements TranslationsMealVariationEn {
-	_TranslationsMealVariationZhCn._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowZhCn implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowZhCn._(this._root);
 
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => '第 ${current}/${total} 题';
-	@override String get noVariationsAvailable => '暂无可用变体';
+	@override String progress({required Object current, required Object total}) => '第 ${current} 个问题，共 ${total} 个';
+	@override String get noQuestionsAvailable => '当前没有可用的问题';
+	@override String get next => '下一题';
+	@override String get continueLabel => '继续';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisZhCn implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'AI 餐食分析';
-	@override String get reassurance => '通常只需几秒。';
 	@override String get stepStarted => '开始处理…';
 	@override String get stepDecomposition => '正在理解你的餐食…';
 	@override String get stepIngredients => '正在匹配营养数据库…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisZhCn implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => '理解';
 	@override String get progressMatch => '匹配';
 	@override String get progressCheck => '检查';
+	@override String get progressMealType => '正在选择餐食类型';
 	@override String get progressFinish => '完成';
+	@override String get detectedIngredientHeading => '我们识别到的食材';
+	@override String ingredientsOverflow({required Object count}) => '另有 ${count} 个食材';
 	@override String ingredientsLine({required Object count}) => '检测到 ${count} 种食材';
 	@override String get ingredientsPending => '正在扫描食材…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsZhCn {
 			'meal.errorCompressingImage' => ({required Object error}) => '压缩图片出错：${error}',
 			'meal.failedToSave' => '保存数据失败。请重试。',
 			'meal.skip' => '跳过',
-			'meal.variation.question' => ({required Object current, required Object total}) => '第 ${current}/${total} 题',
-			'meal.variation.noVariationsAvailable' => '暂无可用变体',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => '第 ${current} 个问题，共 ${total} 个',
+			'meal.questionFlow.noQuestionsAvailable' => '当前没有可用的问题',
+			'meal.questionFlow.next' => '下一题',
+			'meal.questionFlow.continueLabel' => '继续',
 			'meal.analysis.title' => 'AI 餐食分析',
-			'meal.analysis.reassurance' => '通常只需几秒。',
 			'meal.analysis.stepStarted' => '开始处理…',
 			'meal.analysis.stepDecomposition' => '正在理解你的餐食…',
 			'meal.analysis.stepIngredients' => '正在匹配营养数据库…',
@@ -1897,7 +1902,10 @@ extension on TranslationsZhCn {
 			'meal.analysis.progressUnderstand' => '理解',
 			'meal.analysis.progressMatch' => '匹配',
 			'meal.analysis.progressCheck' => '检查',
+			'meal.analysis.progressMealType' => '正在选择餐食类型',
 			'meal.analysis.progressFinish' => '完成',
+			'meal.analysis.detectedIngredientHeading' => '我们识别到的食材',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '另有 ${count} 个食材',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '检测到 ${count} 种食材',
 			'meal.analysis.ingredientsPending' => '正在扫描食材…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

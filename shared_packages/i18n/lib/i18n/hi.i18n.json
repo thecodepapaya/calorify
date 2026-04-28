@@ -279,13 +279,14 @@
     "errorCompressingImage": "छवि संपीड़ित करते समय त्रुटि: {error}",
     "failedToSave": "डेटा सहेजने में विफल। कृपया पुन: प्रयास करें।",
     "skip": "छोड़ें",
-    "variation": {
-      "question": "प्रश्न {total} में से {current}",
-      "noVariationsAvailable": "कोई वैरिएशन उपलब्ध नहीं"
+    "questionFlow": {
+      "progress": "कुल {total} में से प्रश्न {current}",
+      "noQuestionsAvailable": "कोई प्रश्न उपलब्ध नहीं है",
+      "next": "अगला",
+      "continueLabel": "जारी रखें"
     },
     "analysis": {
       "title": "AI भोजन विश्लेषण",
-      "reassurance": "यह आमतौर पर कुछ सेकंड लेता है।",
       "stepStarted": "शुरू किया जा रहा है…",
       "stepDecomposition": "आपके भोजन को समझा जा रहा है…",
       "stepIngredients": "सामग्री को पोषण डेटा से मिलाया जा रहा है…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "समझें",
       "progressMatch": "मिलान",
       "progressCheck": "जांच",
+      "progressMealType": "भोजन प्रकार चुना जा रहा है",
       "progressFinish": "समाप्त",
+      "detectedIngredientHeading": "हम जिन सामग्रियों को पहचान रहे हैं",
+      "ingredientsOverflow": "{count} और",
       "ingredientsLine": "{count} सामग्री पहचानी गई",
       "ingredientsPending": "सामग्री स्कैन की जा रही हैं…",
       "mealPreviewDescription": "\"{text}\"",

@@ -279,13 +279,14 @@
     "errorCompressingImage": "Virhe kuvan pakkaamisessa: {error}",
     "failedToSave": "Tietojen tallennus epäonnistui. Yritä uudelleen.",
     "skip": "Ohita",
-    "variation": {
-      "question": "Kysymys {current}/{total}",
-      "noVariationsAvailable": "Ei muunnelmia saatavilla"
+    "questionFlow": {
+      "progress": "Kysymys {current}/{total}",
+      "noQuestionsAvailable": "Kysymyksiä ei ole saatavilla",
+      "next": "Seuraava",
+      "continueLabel": "Jatka"
     },
     "analysis": {
       "title": "Tekoälyn ateria-analyysi",
-      "reassurance": "Tämä kestää yleensä vain muutaman sekunnin.",
       "stepStarted": "Aloitetaan…",
       "stepDecomposition": "Ymmärretään ateriasi…",
       "stepIngredients": "Yhdistetään ainesosat ravintotietoihin…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Ymmärrys",
       "progressMatch": "Vastaavuus",
       "progressCheck": "Tarkistus",
+      "progressMealType": "Valitaan ateriatyyppi",
       "progressFinish": "Viimeistely",
+      "detectedIngredientHeading": "Tunnistamamme ainesosat",
+      "ingredientsOverflow": "{count} lisää",
       "ingredientsLine": "{count} ainesosaa havaittu",
       "ingredientsPending": "Skannataan ainesosia…",
       "mealPreviewDescription": "\"{text}\"",

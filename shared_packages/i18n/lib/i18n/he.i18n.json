@@ -279,13 +279,14 @@
     "errorCompressingImage": "שגיאה במיטוב התמונה: {error}",
     "failedToSave": "שמירת הנתונים נכשלה. אנא נסה/י שוב.",
     "skip": "דלג/י",
-    "variation": {
-      "question": "שאלה {current} מתוך {total}",
-      "noVariationsAvailable": "אין וריאציות זמינות"
+    "questionFlow": {
+      "progress": "שאלה {current} מתוך {total}",
+      "noQuestionsAvailable": "אין שאלות זמינות",
+      "next": "הבא",
+      "continueLabel": "המשך"
     },
     "analysis": {
       "title": "ניתוח ארוחה בעזרת AI",
-      "reassurance": "לרוב זה לוקח כמה שניות.",
       "stepStarted": "מתחילים…",
       "stepDecomposition": "מבינים את הארוחה שלך…",
       "stepIngredients": "מתאימים רכיבים לנתוני תזונה…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "הבנה",
       "progressMatch": "התאמה",
       "progressCheck": "בדיקה",
+      "progressMealType": "בחירת סוג הארוחה",
       "progressFinish": "סיום",
+      "detectedIngredientHeading": "מרכיבים שאנחנו מזהים",
+      "ingredientsOverflow": "עוד {count}",
       "ingredientsLine": "זוהו {count} רכיבים",
       "ingredientsPending": "סורקים רכיבים…",
       "mealPreviewDescription": "\"{text}\"",

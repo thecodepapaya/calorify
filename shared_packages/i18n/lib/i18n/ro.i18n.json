@@ -279,13 +279,14 @@
     "errorCompressingImage": "Eroare la comprimarea imaginii: {error}",
     "failedToSave": "Nu s-au putut salva datele. Te rugăm să încerci din nou.",
     "skip": "Sari peste",
-    "variation": {
-      "question": "Întrebare {current} din {total}",
-      "noVariationsAvailable": "Nu sunt variații disponibile"
+    "questionFlow": {
+      "progress": "Întrebarea {current} din {total}",
+      "noQuestionsAvailable": "Nu există întrebări disponibile",
+      "next": "Următor",
+      "continueLabel": "Continuă"
     },
     "analysis": {
       "title": "Analiza mesei cu AI",
-      "reassurance": "De obicei durează doar câteva secunde.",
       "stepStarted": "Pornim…",
       "stepDecomposition": "Înțelegem masa…",
       "stepIngredients": "Potrivim ingredientele cu baza de date nutrițională…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Înțelegere",
       "progressMatch": "Potrivire",
       "progressCheck": "Verificare",
+      "progressMealType": "Alegerea tipului de masă",
       "progressFinish": "Finalizare",
+      "detectedIngredientHeading": "Ingrediente detectate",
+      "ingredientsOverflow": "{count} în plus",
       "ingredientsLine": "{count} ingrediente detectate",
       "ingredientsPending": "Scanăm ingredientele…",
       "mealPreviewDescription": "\"{text}\"",

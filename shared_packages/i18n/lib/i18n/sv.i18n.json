@@ -279,13 +279,14 @@
     "errorCompressingImage": "Fel vid komprimering av bild: {error}",
     "failedToSave": "Misslyckades med att spara data. Försök igen.",
     "skip": "Hoppa över",
-    "variation": {
-      "question": "Fråga {current} av {total}",
-      "noVariationsAvailable": "Inga variationer tillgängliga"
+    "questionFlow": {
+      "progress": "Fråga {current} av {total}",
+      "noQuestionsAvailable": "Inga frågor tillgängliga",
+      "next": "Nästa",
+      "continueLabel": "Fortsätt"
     },
     "analysis": {
       "title": "AI-måltidsanalys",
-      "reassurance": "Detta tar vanligtvis bara några sekunder.",
       "stepStarted": "Startar…",
       "stepDecomposition": "Förstår din måltid…",
       "stepIngredients": "Matchar ingredienser med näringsdata…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Förstå",
       "progressMatch": "Matcha",
       "progressCheck": "Kontrollera",
+      "progressMealType": "Väljer måltidstyp",
       "progressFinish": "Slutför",
+      "detectedIngredientHeading": "Ingredienser vi upptäcker",
+      "ingredientsOverflow": "{count} till",
       "ingredientsLine": "{count} ingredienser identifierade",
       "ingredientsPending": "Skannar ingredienser…",
       "mealPreviewDescription": "\"{text}\"",

@@ -64,3 +64,30 @@ export function getCountriesAt3am(nowUtc: Date): string[] {
     })
     .map(([code]) => code);
 }
+
+/** Default margin around local 03:00 for summaries (see {@link getCountriesNear3am}). */
+export const DEFAULT_THREE_AM_PLUS_MINUS_MINUTES = 30;
+
+/**
+ * Countries whose local civil time falls in **[03:00 − m, 03:00 + m)** (half‑open interval):
+ * e.g. `m = 30` ⇒ **02:30 inclusive … 03:30 exclusive**. Same coarse one-offset-per-country model as {@link getCountriesAt3am}.
+ *
+ * With hourly cron ticks at `:00` UTC and a 1‑hour‑wide `[2.5h, 3.5h)` window in **local fractional hours**, each country hits
+ * **at most one** such tick per local night—no duplicate submit hours for the same offset.
+ */
+export function getCountriesNear3am(
+  nowUtc: Date,
+  plusMinusMinutes: number = DEFAULT_THREE_AM_PLUS_MINUS_MINUTES
+): string[] {
+  const halfSpanHours = plusMinusMinutes / 60;
+  const min = 3 - halfSpanHours;
+  const max = 3 + halfSpanHours;
+  const utcHour = nowUtc.getUTCHours() + nowUtc.getUTCMinutes() / 60;
+
+  return Object.entries(COUNTRY_UTC_OFFSET)
+    .filter(([, offset]) => {
+      const localHour = (utcHour + offset + 24) % 24;
+      return localHour >= min && localHour < max;
+    })
+    .map(([code]) => code);
+}

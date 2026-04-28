@@ -27,8 +27,9 @@ class SecondaryButton extends StatelessWidget {
           onPressed?.call();
         },
         style: OutlinedButton.styleFrom(
+          minimumSize: Size(double.infinity, appButtonMinHeight),
           shape: RoundedRectangleBorder(borderRadius: buttonRadius),
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          padding: appButtonSecondaryPadding,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

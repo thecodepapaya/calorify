@@ -178,7 +178,7 @@ class _TranslationsMealTe implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'చిత్రాన్ని కంప్రెస్ చేయడంలో లోపం: ${error}';
 	@override String get failedToSave => 'డేటాను సేవ్ చేయలేకపోయాం. దయచేసి మళ్లీ ప్రయత్నించండి.';
 	@override String get skip => 'దాటవేయండి';
-	@override late final _TranslationsMealVariationTe variation = _TranslationsMealVariationTe._(_root);
+	@override late final _TranslationsMealQuestionFlowTe questionFlow = _TranslationsMealQuestionFlowTe._(_root);
 	@override late final _TranslationsMealAnalysisTe analysis = _TranslationsMealAnalysisTe._(_root);
 	@override late final _TranslationsMealFeedbackTe feedback = _TranslationsMealFeedbackTe._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationTe implements TranslationsMealDeleteCon
 	@override String get delete => 'తొలగించండి';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationTe implements TranslationsMealVariationEn {
-	_TranslationsMealVariationTe._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowTe implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowTe._(this._root);
 
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object total, required Object current}) => '${total} లో ${current} ప్రశ్న';
-	@override String get noVariationsAvailable => 'వేరియేషన్లు లేవు';
+	@override String progress({required Object current, required Object total}) => 'ప్రశ్న ${current} (మొత్తం ${total})';
+	@override String get noQuestionsAvailable => 'ప్రశ్నలు అందుబాటులో లేవు';
+	@override String get next => 'తరువాత';
+	@override String get continueLabel => 'కొనసాగించండి';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisTe implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'AI భోజనం విశ్లేషణ';
-	@override String get reassurance => 'ఇది సాధారణంగా కొన్ని సెకన్లు పడుతుంది.';
 	@override String get stepStarted => 'ప్రారంభిస్తున్నాం…';
 	@override String get stepDecomposition => 'మీ భోజనాన్ని అర్థం చేసుకుంటున్నాం…';
 	@override String get stepIngredients => 'పదార్థాలను పోషక డేటాతో సరిపోలుస్తున్నాం…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisTe implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'అర్థం';
 	@override String get progressMatch => 'మ్యాచ్';
 	@override String get progressCheck => 'చెక్';
+	@override String get progressMealType => 'భోజన రకాన్ని ఎంచుకుంటోంది';
 	@override String get progressFinish => 'ఫినిష్';
+	@override String get detectedIngredientHeading => 'మేము గుర్తిస్తున్న పదార్థాలు';
+	@override String ingredientsOverflow({required Object count}) => '${count} మరిన్ని';
 	@override String ingredientsLine({required Object count}) => '${count} పదార్థాలు గుర్తించబడ్డాయి';
 	@override String get ingredientsPending => 'పదార్థాలను స్కాన్ చేస్తున్నారు…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsTe {
 			'meal.errorCompressingImage' => ({required Object error}) => 'చిత్రాన్ని కంప్రెస్ చేయడంలో లోపం: ${error}',
 			'meal.failedToSave' => 'డేటాను సేవ్ చేయలేకపోయాం. దయచేసి మళ్లీ ప్రయత్నించండి.',
 			'meal.skip' => 'దాటవేయండి',
-			'meal.variation.question' => ({required Object total, required Object current}) => '${total} లో ${current} ప్రశ్న',
-			'meal.variation.noVariationsAvailable' => 'వేరియేషన్లు లేవు',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'ప్రశ్న ${current} (మొత్తం ${total})',
+			'meal.questionFlow.noQuestionsAvailable' => 'ప్రశ్నలు అందుబాటులో లేవు',
+			'meal.questionFlow.next' => 'తరువాత',
+			'meal.questionFlow.continueLabel' => 'కొనసాగించండి',
 			'meal.analysis.title' => 'AI భోజనం విశ్లేషణ',
-			'meal.analysis.reassurance' => 'ఇది సాధారణంగా కొన్ని సెకన్లు పడుతుంది.',
 			'meal.analysis.stepStarted' => 'ప్రారంభిస్తున్నాం…',
 			'meal.analysis.stepDecomposition' => 'మీ భోజనాన్ని అర్థం చేసుకుంటున్నాం…',
 			'meal.analysis.stepIngredients' => 'పదార్థాలను పోషక డేటాతో సరిపోలుస్తున్నాం…',
@@ -1897,7 +1902,10 @@ extension on TranslationsTe {
 			'meal.analysis.progressUnderstand' => 'అర్థం',
 			'meal.analysis.progressMatch' => 'మ్యాచ్',
 			'meal.analysis.progressCheck' => 'చెక్',
+			'meal.analysis.progressMealType' => 'భోజన రకాన్ని ఎంచుకుంటోంది',
 			'meal.analysis.progressFinish' => 'ఫినిష్',
+			'meal.analysis.detectedIngredientHeading' => 'మేము గుర్తిస్తున్న పదార్థాలు',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} మరిన్ని',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} పదార్థాలు గుర్తించబడ్డాయి',
 			'meal.analysis.ingredientsPending' => 'పదార్థాలను స్కాన్ చేస్తున్నారు…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

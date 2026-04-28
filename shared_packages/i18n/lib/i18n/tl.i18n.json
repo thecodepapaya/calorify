@@ -279,13 +279,14 @@
     "errorCompressingImage": "Error sa pag-compress ng larawan: {error}",
     "failedToSave": "Hindi na-save ang data. Pakisubukang muli.",
     "skip": "Laktawan",
-    "variation": {
-      "question": "Tanong {current} ng {total}",
-      "noVariationsAvailable": "Walang available na mga variation"
+    "questionFlow": {
+      "progress": "Tanong {current} ng {total}",
+      "noQuestionsAvailable": "Walang magagamit na tanong",
+      "next": "Susunod",
+      "continueLabel": "Magpatuloy"
     },
     "analysis": {
       "title": "AI na pagsusuri ng pagkain",
-      "reassurance": "Karaniwan ay ilang segundo lang ito.",
       "stepStarted": "Nagsisimula…",
       "stepDecomposition": "Inuunawa ang iyong pagkain…",
       "stepIngredients": "Ibinabagay ang mga sangkap sa datos ng nutrisyon…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Unawain",
       "progressMatch": "Itugma",
       "progressCheck": "Suriin",
+      "progressMealType": "Pinipili ang uri ng pagkain",
       "progressFinish": "Tapos",
+      "detectedIngredientHeading": "Mga sangkap na napapansin namin",
+      "ingredientsOverflow": "{count} pa",
       "ingredientsLine": "{count} sangkap na natukoy",
       "ingredientsPending": "Sinusuri ang mga sangkap…",
       "mealPreviewDescription": "\"{text}\"",

@@ -17,7 +17,8 @@ class AiSummaryCard extends ConsumerWidget {
     final summaryAsync = ref.watch(aiSummaryProvider);
 
     return summaryAsync.when(
-      loading: () => const AiSummarySkeletonCard(),
+      loading:
+          () => const _SummaryCardScaffold(child: AiSummarySkeletonBody()),
       error:
           (error, _) => _SummaryCardScaffold(
             child: _ErrorState(

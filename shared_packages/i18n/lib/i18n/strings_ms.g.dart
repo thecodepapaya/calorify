@@ -178,7 +178,7 @@ class _TranslationsMealMs implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Ralat memampatkan imej: ${error}';
 	@override String get failedToSave => 'Gagal menyimpan data. Sila cuba lagi.';
 	@override String get skip => 'Langkau';
-	@override late final _TranslationsMealVariationMs variation = _TranslationsMealVariationMs._(_root);
+	@override late final _TranslationsMealQuestionFlowMs questionFlow = _TranslationsMealQuestionFlowMs._(_root);
 	@override late final _TranslationsMealAnalysisMs analysis = _TranslationsMealAnalysisMs._(_root);
 	@override late final _TranslationsMealFeedbackMs feedback = _TranslationsMealFeedbackMs._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationMs implements TranslationsMealDeleteCon
 	@override String get delete => 'Padam';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationMs implements TranslationsMealVariationEn {
-	_TranslationsMealVariationMs._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowMs implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowMs._(this._root);
 
 	final TranslationsMs _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Soalan ${current} daripada ${total}';
-	@override String get noVariationsAvailable => 'Tiada variasi tersedia';
+	@override String progress({required Object current, required Object total}) => 'Soalan ${current} daripada ${total}';
+	@override String get noQuestionsAvailable => 'Tiada soalan tersedia';
+	@override String get next => 'Seterusnya';
+	@override String get continueLabel => 'Teruskan';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisMs implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'Analisis hidangan AI';
-	@override String get reassurance => 'Ini biasanya mengambil masa beberapa saat.';
 	@override String get stepStarted => 'Memulakan…';
 	@override String get stepDecomposition => 'Memahami hidangan anda…';
 	@override String get stepIngredients => 'Memadankan bahan dengan data pemakanan…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisMs implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Faham';
 	@override String get progressMatch => 'Padan';
 	@override String get progressCheck => 'Semak';
+	@override String get progressMealType => 'Memilih jenis hidangan';
 	@override String get progressFinish => 'Selesai';
+	@override String get detectedIngredientHeading => 'Bahan yang kami kesan';
+	@override String ingredientsOverflow({required Object count}) => '${count} lagi';
 	@override String ingredientsLine({required Object count}) => '${count} bahan dikesan';
 	@override String get ingredientsPending => 'Mengimbas bahan…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsMs {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Ralat memampatkan imej: ${error}',
 			'meal.failedToSave' => 'Gagal menyimpan data. Sila cuba lagi.',
 			'meal.skip' => 'Langkau',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Soalan ${current} daripada ${total}',
-			'meal.variation.noVariationsAvailable' => 'Tiada variasi tersedia',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Soalan ${current} daripada ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Tiada soalan tersedia',
+			'meal.questionFlow.next' => 'Seterusnya',
+			'meal.questionFlow.continueLabel' => 'Teruskan',
 			'meal.analysis.title' => 'Analisis hidangan AI',
-			'meal.analysis.reassurance' => 'Ini biasanya mengambil masa beberapa saat.',
 			'meal.analysis.stepStarted' => 'Memulakan…',
 			'meal.analysis.stepDecomposition' => 'Memahami hidangan anda…',
 			'meal.analysis.stepIngredients' => 'Memadankan bahan dengan data pemakanan…',
@@ -1897,7 +1902,10 @@ extension on TranslationsMs {
 			'meal.analysis.progressUnderstand' => 'Faham',
 			'meal.analysis.progressMatch' => 'Padan',
 			'meal.analysis.progressCheck' => 'Semak',
+			'meal.analysis.progressMealType' => 'Memilih jenis hidangan',
 			'meal.analysis.progressFinish' => 'Selesai',
+			'meal.analysis.detectedIngredientHeading' => 'Bahan yang kami kesan',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} lagi',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} bahan dikesan',
 			'meal.analysis.ingredientsPending' => 'Mengimbas bahan…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

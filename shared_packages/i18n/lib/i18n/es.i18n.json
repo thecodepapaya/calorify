@@ -279,13 +279,14 @@
     "errorCompressingImage": "Error al comprimir la imagen: {error}",
     "failedToSave": "No se pudieron guardar los datos. Inténtalo de nuevo.",
     "skip": "Omitir",
-    "variation": {
-      "question": "Pregunta {current} de {total}",
-      "noVariationsAvailable": "No hay variaciones disponibles"
+    "questionFlow": {
+      "progress": "Pregunta {current} de {total}",
+      "noQuestionsAvailable": "No hay preguntas disponibles",
+      "next": "Siguiente",
+      "continueLabel": "Continuar"
     },
     "analysis": {
       "title": "Análisis de comida con IA",
-      "reassurance": "Esto suele tardar unos segundos.",
       "stepStarted": "Comenzando…",
       "stepDecomposition": "Entendiendo tu comida…",
       "stepIngredients": "Relacionando ingredientes con datos nutricionales…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Entender",
       "progressMatch": "Relacionar",
       "progressCheck": "Comprobar",
+      "progressMealType": "Seleccionando el tipo de comida",
       "progressFinish": "Finalizar",
+      "detectedIngredientHeading": "Ingredientes detectados",
+      "ingredientsOverflow": "{count} más",
       "ingredientsLine": "{count} ingredientes detectados",
       "ingredientsPending": "Analizando ingredientes…",
       "mealPreviewDescription": "\"{text}\"",

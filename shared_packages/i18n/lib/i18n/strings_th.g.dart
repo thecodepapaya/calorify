@@ -178,7 +178,7 @@ class _TranslationsMealTh implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'เกิดข้อผิดพลาดขณะบีบอัดรูปภาพ: ${error}';
 	@override String get failedToSave => 'บันทึกข้อมูลไม่สำเร็จ โปรดลองอีกครั้ง';
 	@override String get skip => 'ข้าม';
-	@override late final _TranslationsMealVariationTh variation = _TranslationsMealVariationTh._(_root);
+	@override late final _TranslationsMealQuestionFlowTh questionFlow = _TranslationsMealQuestionFlowTh._(_root);
 	@override late final _TranslationsMealAnalysisTh analysis = _TranslationsMealAnalysisTh._(_root);
 	@override late final _TranslationsMealFeedbackTh feedback = _TranslationsMealFeedbackTh._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationTh implements TranslationsMealDeleteCon
 	@override String get delete => 'ลบ';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationTh implements TranslationsMealVariationEn {
-	_TranslationsMealVariationTh._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowTh implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowTh._(this._root);
 
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'คำถาม ${current} จาก ${total}';
-	@override String get noVariationsAvailable => 'ไม่มีรูปแบบให้เลือก';
+	@override String progress({required Object current, required Object total}) => 'คำถามที่ ${current} จาก ${total}';
+	@override String get noQuestionsAvailable => 'ไม่มีคำถามให้ตอบ';
+	@override String get next => 'ถัดไป';
+	@override String get continueLabel => 'ดำเนินการต่อ';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisTh implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'การวิเคราะห์มื้ออาหารด้วย AI';
-	@override String get reassurance => 'โดยปกติจะใช้เวลาเพียงไม่กี่วินาที';
 	@override String get stepStarted => 'เริ่มต้น…';
 	@override String get stepDecomposition => 'กำลังทำความเข้าใจมื้อของคุณ…';
 	@override String get stepIngredients => 'กำลังจับคู่องค์ประกอบกับข้อมูลโภชนาการ…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisTh implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'ทำความเข้าใจ';
 	@override String get progressMatch => 'จับคู่';
 	@override String get progressCheck => 'ตรวจสอบ';
+	@override String get progressMealType => 'กำลังเลือกประเภทมื้ออาหาร';
 	@override String get progressFinish => 'เสร็จสิ้น';
+	@override String get detectedIngredientHeading => 'ส่วนผสมที่เราพบ';
+	@override String ingredientsOverflow({required Object count}) => '${count} รายการเพิ่มเติม';
 	@override String ingredientsLine({required Object count}) => 'ตรวจพบส่วนผสม ${count} รายการ';
 	@override String get ingredientsPending => 'กำลังสแกนส่วนผสม…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsTh {
 			'meal.errorCompressingImage' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะบีบอัดรูปภาพ: ${error}',
 			'meal.failedToSave' => 'บันทึกข้อมูลไม่สำเร็จ โปรดลองอีกครั้ง',
 			'meal.skip' => 'ข้าม',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'คำถาม ${current} จาก ${total}',
-			'meal.variation.noVariationsAvailable' => 'ไม่มีรูปแบบให้เลือก',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'คำถามที่ ${current} จาก ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'ไม่มีคำถามให้ตอบ',
+			'meal.questionFlow.next' => 'ถัดไป',
+			'meal.questionFlow.continueLabel' => 'ดำเนินการต่อ',
 			'meal.analysis.title' => 'การวิเคราะห์มื้ออาหารด้วย AI',
-			'meal.analysis.reassurance' => 'โดยปกติจะใช้เวลาเพียงไม่กี่วินาที',
 			'meal.analysis.stepStarted' => 'เริ่มต้น…',
 			'meal.analysis.stepDecomposition' => 'กำลังทำความเข้าใจมื้อของคุณ…',
 			'meal.analysis.stepIngredients' => 'กำลังจับคู่องค์ประกอบกับข้อมูลโภชนาการ…',
@@ -1897,7 +1902,10 @@ extension on TranslationsTh {
 			'meal.analysis.progressUnderstand' => 'ทำความเข้าใจ',
 			'meal.analysis.progressMatch' => 'จับคู่',
 			'meal.analysis.progressCheck' => 'ตรวจสอบ',
+			'meal.analysis.progressMealType' => 'กำลังเลือกประเภทมื้ออาหาร',
 			'meal.analysis.progressFinish' => 'เสร็จสิ้น',
+			'meal.analysis.detectedIngredientHeading' => 'ส่วนผสมที่เราพบ',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} รายการเพิ่มเติม',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'ตรวจพบส่วนผสม ${count} รายการ',
 			'meal.analysis.ingredientsPending' => 'กำลังสแกนส่วนผสม…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

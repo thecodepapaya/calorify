@@ -178,7 +178,7 @@ class _TranslationsMealVi implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Lỗi nén ảnh: ${error}';
 	@override String get failedToSave => 'Không thể lưu dữ liệu. Vui lòng thử lại.';
 	@override String get skip => 'Bỏ qua';
-	@override late final _TranslationsMealVariationVi variation = _TranslationsMealVariationVi._(_root);
+	@override late final _TranslationsMealQuestionFlowVi questionFlow = _TranslationsMealQuestionFlowVi._(_root);
 	@override late final _TranslationsMealAnalysisVi analysis = _TranslationsMealAnalysisVi._(_root);
 	@override late final _TranslationsMealFeedbackVi feedback = _TranslationsMealFeedbackVi._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationVi implements TranslationsMealDeleteCon
 	@override String get delete => 'Xóa';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationVi implements TranslationsMealVariationEn {
-	_TranslationsMealVariationVi._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowVi implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowVi._(this._root);
 
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Câu hỏi ${current} trên ${total}';
-	@override String get noVariationsAvailable => 'Không có biến thể nào';
+	@override String progress({required Object current, required Object total}) => 'Câu hỏi ${current} trong ${total}';
+	@override String get noQuestionsAvailable => 'Hiện không có câu hỏi nào';
+	@override String get next => 'Tiếp theo';
+	@override String get continueLabel => 'Tiếp tục';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisVi implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'Phân tích bữa ăn bằng AI';
-	@override String get reassurance => 'Thường chỉ mất vài giây.';
 	@override String get stepStarted => 'Bắt đầu…';
 	@override String get stepDecomposition => 'Đang hiểu bữa ăn của bạn…';
 	@override String get stepIngredients => 'Đang khớp nguyên liệu với dữ liệu dinh dưỡng…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisVi implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Hiểu';
 	@override String get progressMatch => 'Khớp';
 	@override String get progressCheck => 'Kiểm tra';
+	@override String get progressMealType => 'Đang chọn loại bữa ăn';
 	@override String get progressFinish => 'Hoàn tất';
+	@override String get detectedIngredientHeading => 'Những nguyên liệu chúng tôi phát hiện';
+	@override String ingredientsOverflow({required Object count}) => '${count} nguyên liệu nữa';
 	@override String ingredientsLine({required Object count}) => 'Đã phát hiện ${count} thành phần';
 	@override String get ingredientsPending => 'Đang quét thành phần…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsVi {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Lỗi nén ảnh: ${error}',
 			'meal.failedToSave' => 'Không thể lưu dữ liệu. Vui lòng thử lại.',
 			'meal.skip' => 'Bỏ qua',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Câu hỏi ${current} trên ${total}',
-			'meal.variation.noVariationsAvailable' => 'Không có biến thể nào',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Câu hỏi ${current} trong ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Hiện không có câu hỏi nào',
+			'meal.questionFlow.next' => 'Tiếp theo',
+			'meal.questionFlow.continueLabel' => 'Tiếp tục',
 			'meal.analysis.title' => 'Phân tích bữa ăn bằng AI',
-			'meal.analysis.reassurance' => 'Thường chỉ mất vài giây.',
 			'meal.analysis.stepStarted' => 'Bắt đầu…',
 			'meal.analysis.stepDecomposition' => 'Đang hiểu bữa ăn của bạn…',
 			'meal.analysis.stepIngredients' => 'Đang khớp nguyên liệu với dữ liệu dinh dưỡng…',
@@ -1897,7 +1902,10 @@ extension on TranslationsVi {
 			'meal.analysis.progressUnderstand' => 'Hiểu',
 			'meal.analysis.progressMatch' => 'Khớp',
 			'meal.analysis.progressCheck' => 'Kiểm tra',
+			'meal.analysis.progressMealType' => 'Đang chọn loại bữa ăn',
 			'meal.analysis.progressFinish' => 'Hoàn tất',
+			'meal.analysis.detectedIngredientHeading' => 'Những nguyên liệu chúng tôi phát hiện',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} nguyên liệu nữa',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'Đã phát hiện ${count} thành phần',
 			'meal.analysis.ingredientsPending' => 'Đang quét thành phần…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

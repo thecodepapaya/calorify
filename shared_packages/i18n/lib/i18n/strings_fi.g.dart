@@ -178,7 +178,7 @@ class _TranslationsMealFi implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Virhe kuvan pakkaamisessa: ${error}';
 	@override String get failedToSave => 'Tietojen tallennus epäonnistui. Yritä uudelleen.';
 	@override String get skip => 'Ohita';
-	@override late final _TranslationsMealVariationFi variation = _TranslationsMealVariationFi._(_root);
+	@override late final _TranslationsMealQuestionFlowFi questionFlow = _TranslationsMealQuestionFlowFi._(_root);
 	@override late final _TranslationsMealAnalysisFi analysis = _TranslationsMealAnalysisFi._(_root);
 	@override late final _TranslationsMealFeedbackFi feedback = _TranslationsMealFeedbackFi._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationFi implements TranslationsMealDeleteCon
 	@override String get delete => 'Poista';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationFi implements TranslationsMealVariationEn {
-	_TranslationsMealVariationFi._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowFi implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowFi._(this._root);
 
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Kysymys ${current}/${total}';
-	@override String get noVariationsAvailable => 'Ei muunnelmia saatavilla';
+	@override String progress({required Object current, required Object total}) => 'Kysymys ${current}/${total}';
+	@override String get noQuestionsAvailable => 'Kysymyksiä ei ole saatavilla';
+	@override String get next => 'Seuraava';
+	@override String get continueLabel => 'Jatka';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisFi implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'Tekoälyn ateria-analyysi';
-	@override String get reassurance => 'Tämä kestää yleensä vain muutaman sekunnin.';
 	@override String get stepStarted => 'Aloitetaan…';
 	@override String get stepDecomposition => 'Ymmärretään ateriasi…';
 	@override String get stepIngredients => 'Yhdistetään ainesosat ravintotietoihin…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisFi implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Ymmärrys';
 	@override String get progressMatch => 'Vastaavuus';
 	@override String get progressCheck => 'Tarkistus';
+	@override String get progressMealType => 'Valitaan ateriatyyppi';
 	@override String get progressFinish => 'Viimeistely';
+	@override String get detectedIngredientHeading => 'Tunnistamamme ainesosat';
+	@override String ingredientsOverflow({required Object count}) => '${count} lisää';
 	@override String ingredientsLine({required Object count}) => '${count} ainesosaa havaittu';
 	@override String get ingredientsPending => 'Skannataan ainesosia…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsFi {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Virhe kuvan pakkaamisessa: ${error}',
 			'meal.failedToSave' => 'Tietojen tallennus epäonnistui. Yritä uudelleen.',
 			'meal.skip' => 'Ohita',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Kysymys ${current}/${total}',
-			'meal.variation.noVariationsAvailable' => 'Ei muunnelmia saatavilla',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Kysymys ${current}/${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Kysymyksiä ei ole saatavilla',
+			'meal.questionFlow.next' => 'Seuraava',
+			'meal.questionFlow.continueLabel' => 'Jatka',
 			'meal.analysis.title' => 'Tekoälyn ateria-analyysi',
-			'meal.analysis.reassurance' => 'Tämä kestää yleensä vain muutaman sekunnin.',
 			'meal.analysis.stepStarted' => 'Aloitetaan…',
 			'meal.analysis.stepDecomposition' => 'Ymmärretään ateriasi…',
 			'meal.analysis.stepIngredients' => 'Yhdistetään ainesosat ravintotietoihin…',
@@ -1897,7 +1902,10 @@ extension on TranslationsFi {
 			'meal.analysis.progressUnderstand' => 'Ymmärrys',
 			'meal.analysis.progressMatch' => 'Vastaavuus',
 			'meal.analysis.progressCheck' => 'Tarkistus',
+			'meal.analysis.progressMealType' => 'Valitaan ateriatyyppi',
 			'meal.analysis.progressFinish' => 'Viimeistely',
+			'meal.analysis.detectedIngredientHeading' => 'Tunnistamamme ainesosat',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} lisää',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ainesosaa havaittu',
 			'meal.analysis.ingredientsPending' => 'Skannataan ainesosia…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

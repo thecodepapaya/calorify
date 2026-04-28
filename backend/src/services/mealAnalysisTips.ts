@@ -70,6 +70,26 @@ function pickTipsForLocale(
   return resolveTipsList(locales);
 }
 
+/** Maximum `count` accepted on GET /meal-analysis-tips (query param). */
+export const MEAL_ANALYSIS_TIPS_QUERY_COUNT_MAX = 100;
+
+/**
+ * Uniform random subset without replacement (partial Fisher–Yates).
+ * When `count` >= `items.length`, returns a copy of all items in original order.
+ */
+export function pickRandomTips<T>(items: readonly T[], count: number): T[] {
+  if (count < 1 || items.length === 0) return [];
+  if (count >= items.length) return [...items];
+  const copy = [...items];
+  for (let i = 0; i < count; i++) {
+    const j = i + Math.floor(Math.random() * (copy.length - i));
+    const tmp = copy[i]!;
+    copy[i] = copy[j]!;
+    copy[j] = tmp;
+  }
+  return copy.slice(0, count);
+}
+
 export function loadMealAnalysisTipsPayload(): MealAnalysisTipsPayload {
   const filePath = resolveTipsFilePath();
   try {

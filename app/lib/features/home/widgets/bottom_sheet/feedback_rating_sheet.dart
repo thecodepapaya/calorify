@@ -321,8 +321,6 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
     );
   }
 
-  static const double _kButtonHeight = 44;
-
   Widget _buildCompactButtonRow({
     required BuildContext context,
     required ColorScheme colorScheme,
@@ -337,7 +335,7 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
       children: [
         Expanded(
           child: SizedBox(
-            height: _kButtonHeight,
+            height: appButtonMinHeight,
             child: OutlinedButton(
               onPressed: isLoading ? null : onSecondary,
               style: OutlinedButton.styleFrom(
@@ -369,7 +367,7 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
         const SizedBox(width: 10),
         Expanded(
           child: SizedBox(
-            height: _kButtonHeight,
+            height: appButtonMinHeight,
             child: ElevatedButton(
               onPressed: isLoading ? null : onPrimary,
               style: ElevatedButton.styleFrom(

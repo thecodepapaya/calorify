@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/core/constants/colors.dart';
+import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:health/health.dart';
@@ -472,7 +473,7 @@ class _HealthConnectPermissionsScreenState
               : t.settings.healthConnect.requestPermissions,
         ),
         style: OutlinedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          padding: appButtonOutlinedPadding,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),

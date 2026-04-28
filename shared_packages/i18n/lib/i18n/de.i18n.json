@@ -279,13 +279,14 @@
     "errorCompressingImage": "Fehler beim Komprimieren des Bildes: {error}",
     "failedToSave": "Daten konnten nicht gespeichert werden. Bitte versuche es erneut.",
     "skip": "Überspringen",
-    "variation": {
-      "question": "Frage {current} von {total}",
-      "noVariationsAvailable": "Keine Varianten verfügbar"
+    "questionFlow": {
+      "progress": "Frage {current} von {total}",
+      "noQuestionsAvailable": "Zurzeit sind keine Fragen verfügbar",
+      "next": "Weiter",
+      "continueLabel": "Fortfahren"
     },
     "analysis": {
       "title": "KI-Mahlzeitenanalyse",
-      "reassurance": "Das dauert normalerweise nur ein paar Sekunden.",
       "stepStarted": "Es geht los …",
       "stepDecomposition": "Wir verstehen deine Mahlzeit …",
       "stepIngredients": "Zutaten werden mit Nährwertdaten abgeglichen …",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Verstehen",
       "progressMatch": "Abgleichen",
       "progressCheck": "Prüfen",
+      "progressMealType": "Mahlzeitart wird ausgewählt",
       "progressFinish": "Fertigstellen",
+      "detectedIngredientHeading": "Zutaten, die wir erkennen",
+      "ingredientsOverflow": "{count} weitere",
       "ingredientsLine": "{count} Zutaten erkannt",
       "ingredientsPending": "Zutaten werden gescannt …",
       "mealPreviewDescription": "\"{text}\"",

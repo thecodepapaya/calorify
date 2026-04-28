@@ -41,7 +41,30 @@ class AuthService {
   User? get currentUser => _firebaseAuth.currentUser;
 
   /// Get the current auth token (synchronous)
+  ///
+  /// Can be briefly null during startup until the first async [resolveAuthToken]
+  /// completes; API code should prefer [resolveAuthToken] on the request path.
   String? get authToken => _authToken;
+
+  /// Loads or refreshes the Firebase ID token into [authToken].
+  ///
+  /// Use from HTTP interceptors before sending: [authToken] is populated
+  /// asynchronously after sign-in/session restore and can race the first frames.
+  Future<String?> resolveAuthToken() async {
+    final user = currentUser;
+    if (user == null) {
+      _authToken = null;
+      return null;
+    }
+    try {
+      _authToken = await user.getIdToken();
+      return _authToken;
+    } catch (e) {
+      _authToken = null;
+      log('Error updating auth token: $e');
+      return null;
+    }
+  }
 
   /// Initialize auth token and listen to auth state changes
   void _initializeToken() {
@@ -56,17 +79,7 @@ class AuthService {
 
   /// Update the cached auth token
   Future<void> _updateToken() async {
-    final user = currentUser;
-    if (user != null) {
-      try {
-        _authToken = await user.getIdToken();
-      } catch (e) {
-        _authToken = null;
-        log('Error updating auth token: $e');
-      }
-    } else {
-      _authToken = null;
-    }
+    await resolveAuthToken();
   }
 
   Future<UserCredential?> signInWithGoogle() async {

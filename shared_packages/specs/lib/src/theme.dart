@@ -4,8 +4,7 @@ import 'package:specs/src/styles.dart';
 import 'package:flutter/material.dart';
 
 class AppThemes {
-  static final ThemeData lightTheme = ThemeData(
-    useMaterial3: true,
+  static final ThemeData lightTheme = _buildTheme(
     brightness: Brightness.light,
     colorScheme: ColorScheme(
       brightness: Brightness.light,
@@ -45,13 +44,9 @@ class AppThemes {
       inversePrimary: lightColors.inversePrimary,
       surfaceTint: lightColors.surfaceTint,
     ),
-    popupMenuTheme: PopupMenuThemeData(
-      shape: RoundedRectangleBorder(borderRadius: globalRadius),
-    ),
   );
 
-  static final ThemeData darkTheme = ThemeData(
-    useMaterial3: true,
+  static final ThemeData darkTheme = _buildTheme(
     brightness: Brightness.dark,
     colorScheme: ColorScheme(
       brightness: Brightness.dark,
@@ -92,8 +87,45 @@ class AppThemes {
       inversePrimary: darkColors.inversePrimary,
       surfaceTint: darkColors.surfaceTint,
     ),
-    popupMenuTheme: PopupMenuThemeData(
-      shape: RoundedRectangleBorder(borderRadius: globalRadius),
-    ),
   );
+
+  static ThemeData _buildTheme({
+    required Brightness brightness,
+    required ColorScheme colorScheme,
+  }) {
+    final buttonShape = RoundedRectangleBorder(borderRadius: buttonRadius);
+    final elevated = ElevatedButton.styleFrom(
+      minimumSize: Size(64, appButtonMinHeight),
+      padding: appButtonFilledPadding,
+      shape: buttonShape,
+    );
+    final filled = FilledButton.styleFrom(
+      minimumSize: Size(64, appButtonMinHeight),
+      padding: appButtonFilledPadding,
+      shape: buttonShape,
+    );
+    final outlined = OutlinedButton.styleFrom(
+      minimumSize: Size(64, appButtonMinHeight),
+      padding: appButtonOutlinedPadding,
+      shape: buttonShape,
+    );
+    final text = TextButton.styleFrom(
+      minimumSize: Size(48, appButtonMinHeight),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      shape: buttonShape,
+    );
+
+    return ThemeData(
+      useMaterial3: true,
+      brightness: brightness,
+      colorScheme: colorScheme,
+      elevatedButtonTheme: ElevatedButtonThemeData(style: elevated),
+      filledButtonTheme: FilledButtonThemeData(style: filled),
+      outlinedButtonTheme: OutlinedButtonThemeData(style: outlined),
+      textButtonTheme: TextButtonThemeData(style: text),
+      popupMenuTheme: PopupMenuThemeData(
+        shape: RoundedRectangleBorder(borderRadius: globalRadius),
+      ),
+    );
+  }
 }

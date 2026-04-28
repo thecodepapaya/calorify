@@ -401,6 +401,8 @@ class _GoalInputState extends State<_GoalInput> {
               _onSetGoal(_controller.value.text);
             },
             text: t.home.dailyGoal.setGoal,
+            minimumSize: const Size(double.infinity, appButtonCompactMinHeight),
+            padding: appButtonCompactPadding,
           ),
         ),
       ],

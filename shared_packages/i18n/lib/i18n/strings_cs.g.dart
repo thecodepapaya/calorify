@@ -178,7 +178,7 @@ class _TranslationsMealCs implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Chyba při komprimaci obrázku: ${error}';
 	@override String get failedToSave => 'Nepodařilo se uložit data. Zkuste to prosím znovu.';
 	@override String get skip => 'Přeskočit';
-	@override late final _TranslationsMealVariationCs variation = _TranslationsMealVariationCs._(_root);
+	@override late final _TranslationsMealQuestionFlowCs questionFlow = _TranslationsMealQuestionFlowCs._(_root);
 	@override late final _TranslationsMealAnalysisCs analysis = _TranslationsMealAnalysisCs._(_root);
 	@override late final _TranslationsMealFeedbackCs feedback = _TranslationsMealFeedbackCs._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationCs implements TranslationsMealDeleteCon
 	@override String get delete => 'Smazat';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationCs implements TranslationsMealVariationEn {
-	_TranslationsMealVariationCs._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowCs implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowCs._(this._root);
 
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Otázka ${current} z ${total}';
-	@override String get noVariationsAvailable => 'Žádné varianty k dispozici';
+	@override String progress({required Object current, required Object total}) => 'Otázka ${current} z ${total}';
+	@override String get noQuestionsAvailable => 'Momentálně nejsou k dispozici žádné otázky';
+	@override String get next => 'Další';
+	@override String get continueLabel => 'Pokračovat';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisCs implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'Analýza jídla pomocí AI';
-	@override String get reassurance => 'Obvykle to trvá jen pár sekund.';
 	@override String get stepStarted => 'Začínáme…';
 	@override String get stepDecomposition => 'Analyzujeme vaše jídlo…';
 	@override String get stepIngredients => 'Přiřazujeme ingredience k nutričním údajům…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisCs implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Porozumět';
 	@override String get progressMatch => 'Párovat';
 	@override String get progressCheck => 'Ověřit';
+	@override String get progressMealType => 'Výběr typu jídla';
 	@override String get progressFinish => 'Dokončit';
+	@override String get detectedIngredientHeading => 'Ingredience, které rozpoznáváme';
+	@override String ingredientsOverflow({required Object count}) => '${count} dalších';
 	@override String ingredientsLine({required Object count}) => '${count} ingrediencí rozpoznáno';
 	@override String get ingredientsPending => 'Probíhá skenování ingrediencí…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsCs {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Chyba při komprimaci obrázku: ${error}',
 			'meal.failedToSave' => 'Nepodařilo se uložit data. Zkuste to prosím znovu.',
 			'meal.skip' => 'Přeskočit',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Otázka ${current} z ${total}',
-			'meal.variation.noVariationsAvailable' => 'Žádné varianty k dispozici',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Otázka ${current} z ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Momentálně nejsou k dispozici žádné otázky',
+			'meal.questionFlow.next' => 'Další',
+			'meal.questionFlow.continueLabel' => 'Pokračovat',
 			'meal.analysis.title' => 'Analýza jídla pomocí AI',
-			'meal.analysis.reassurance' => 'Obvykle to trvá jen pár sekund.',
 			'meal.analysis.stepStarted' => 'Začínáme…',
 			'meal.analysis.stepDecomposition' => 'Analyzujeme vaše jídlo…',
 			'meal.analysis.stepIngredients' => 'Přiřazujeme ingredience k nutričním údajům…',
@@ -1897,7 +1902,10 @@ extension on TranslationsCs {
 			'meal.analysis.progressUnderstand' => 'Porozumět',
 			'meal.analysis.progressMatch' => 'Párovat',
 			'meal.analysis.progressCheck' => 'Ověřit',
+			'meal.analysis.progressMealType' => 'Výběr typu jídla',
 			'meal.analysis.progressFinish' => 'Dokončit',
+			'meal.analysis.detectedIngredientHeading' => 'Ingredience, které rozpoznáváme',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} dalších',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingrediencí rozpoznáno',
 			'meal.analysis.ingredientsPending' => 'Probíhá skenování ingrediencí…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

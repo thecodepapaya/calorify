@@ -1,9 +1,9 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/network/network_client.dart';
 import 'package:calorify/core/repositories/food_repository.dart';
-import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
@@ -12,10 +12,11 @@ import 'package:calorify/core/services/picker_service.dart';
 import 'package:calorify/core/services/wear_os_channel.dart';
 import 'package:calorify/core/services/wear_os_message_log.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_sheet.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/meal_variation_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_question_flow_sheet.dart';
 import 'package:calorify/features/debug/database_inspector_screen.dart';
 import 'package:calorify/features/debug/meal_analysis_observability_screen.dart';
+import 'package:calorify/features/debug/meal_analysis_sheet_debug_previews.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_sheet.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_assets.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_easter_egg_test_screen.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
@@ -93,6 +94,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     final healthConnectOptions = _buildHealthConnectOptions(context);
     final wearOsOptions = _buildWearOsOptions(context);
     final foodApiOptions = _buildFoodApiOptions(context);
+    final mealAnalysisSheetUiOptions = _buildMealAnalysisSheetUiOptions(context);
     final mealObsOptions = _buildMealAnalysisObservabilityOptions(context);
     final profileApiOptions = _buildProfileApiOptions(context);
     final feedbackOptions = _buildFeedbackOptions(context);
@@ -146,6 +148,11 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
             if (foodApiOptions != null) ...[
               _buildSectionTitle(context, 'Food API Tests'),
               foodApiOptions,
+              const SizedBox(height: 24),
+            ],
+            if (mealAnalysisSheetUiOptions != null) ...[
+              _buildSectionTitle(context, 'Meal analysis sheet'),
+              mealAnalysisSheetUiOptions,
               const SizedBox(height: 24),
             ],
             if (mealObsOptions != null) ...[
@@ -633,62 +640,166 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
   Widget? _buildFoodApiOptions(BuildContext context) {
     const section = 'Food API Tests';
     const titleSubtitle = [
-      ('Test Analyze Image', 'Upload hardcoded test image'),
-      ('Test Detect Image', 'Detect meal from image URL'),
+      ('Test Analyze Image', 'POST /api/v1/food/analyze-image (multipart)'),
+      ('Test Detect Image', 'Upload then POST /api/v1/food/detect-image'),
       (
         'Detect Image from Gallery',
-        'Select image, upload to bucket & estimate calories',
-      ),
-      ('Test Detect Text', 'Detect meal from text description'),
-      (
-        'Test Meal Logging with Variations',
-        'Test the full meal logging flow with variations',
+        'Compress, upload, POST /api/v1/food/detect-image',
       ),
       (
-        'Mock meal with variations',
-        'Preview variation + tip sheet UI without logging',
+        'Test Analyze Image (V2)',
+        'Upload + POST /api/v2/food/analyze-image (SSE) → sheet → tip / log',
+      ),
+      ('Test Detect Text', 'POST /api/v1/food/detect-text'),
+      (
+        'Test meal logging with variations',
+        'POST /api/v2/food/analyze-text (SSE) → sheet → tip / log',
+      ),
+      (
+        'Mock meal analysis flow (end to end)',
+        'Offline: question flow → meal tip preview (does not log)',
       ),
     ];
     final items = <Widget>[
       ListTile(
         leading: const Icon(LucideIcons.image),
         title: const Text('Test Analyze Image'),
-        subtitle: const Text('Upload hardcoded test image'),
+        subtitle: const Text('POST /api/v1/food/analyze-image (multipart)'),
         onTap: _testAnalyzeImage,
       ),
       ListTile(
         leading: const Icon(LucideIcons.link),
         title: const Text('Test Detect Image'),
-        subtitle: const Text('Detect meal from image URL'),
+        subtitle: const Text('Upload then POST /api/v1/food/detect-image'),
         onTap: _testDetectImage,
       ),
       ListTile(
         leading: const Icon(LucideIcons.upload),
         title: const Text('Detect Image from Gallery'),
         subtitle: const Text(
-          'Select image, upload to bucket & estimate calories',
+          'Compress, upload, POST /api/v1/food/detect-image',
         ),
         onTap: _testDetectImageFromGallery,
       ),
       ListTile(
+        leading: const Icon(LucideIcons.scanSearch),
+        title: const Text('Test Analyze Image (V2)'),
+        subtitle: const Text(
+          'Upload + POST /api/v2/food/analyze-image (SSE) → sheet → tip / log',
+        ),
+        onTap: _testAnalyzeImageV2,
+      ),
+      ListTile(
         leading: const Icon(LucideIcons.type),
         title: const Text('Test Detect Text'),
-        subtitle: const Text('Detect meal from text description'),
+        subtitle: const Text('POST /api/v1/food/detect-text'),
         onTap: _testDetectText,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.info),
-        title: const Text('Test Meal Logging with Variations'),
-        subtitle: const Text('Test the full meal logging flow with variations'),
-        onTap: _testMealLoggingWithVariations,
+        leading: const Icon(LucideIcons.route),
+        title: const Text('Test meal logging with variations'),
+        subtitle: const Text(
+          'POST /api/v2/food/analyze-text (SSE) → sheet → tip / log',
+        ),
+        onTap: _testMealLoggingWithVariationsV2,
       ),
       ListTile(
         leading: const Icon(LucideIcons.beaker),
-        title: const Text('Mock meal with variations'),
+        title: const Text('Mock meal analysis flow (end to end)'),
         subtitle: const Text(
-          'Preview variation + tip sheet UI without logging',
+          'Offline: question flow → meal tip preview (does not log)',
         ),
-        onTap: _mockMealWithVariations,
+        onTap: _showMockMealAnalysisFlow,
+      ),
+    ];
+    final filtered = <Widget>[];
+    for (var i = 0; i < items.length; i++) {
+      final (t, s) = titleSubtitle[i];
+      if (_matchesQuery(section, t, s)) filtered.add(items[i]);
+    }
+    if (filtered.isEmpty) return null;
+    return Card(child: Column(children: filtered));
+  }
+
+  Widget? _buildMealAnalysisSheetUiOptions(BuildContext context) {
+    const section = 'Meal analysis sheet';
+    const titleSubtitle = [
+      (
+        'Sheet: early pipeline',
+        'Progress only — STARTED step (no preview panel)',
+      ),
+      (
+        'Sheet: decomposition',
+        'Meal title + decomposed ingredient signals',
+      ),
+      (
+        'Sheet: ingredients matched',
+        'Resolved ingredient list (INGREDIENTS step)',
+      ),
+      (
+        'Sheet: progress step 3 / 4',
+        'UNCERTAINTY phase — label progressCheck, bar at 75%',
+      ),
+      (
+        'Sheet: with text banner',
+        'Same as decomposition plus logged meal text preview strip',
+      ),
+      (
+        'Sheet: with photo banner',
+        'Downloads sample image — hero strip + pipeline UI',
+      ),
+    ];
+    final items = <Widget>[
+      ListTile(
+        leading: const Icon(LucideIcons.circleDot),
+        title: const Text('Sheet: early pipeline'),
+        subtitle: const Text(
+          'Progress only — STARTED step (no preview panel)',
+        ),
+        onTap:
+            () => previewMealAnalysisSheetStartedOnly(context),
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.layoutList),
+        title: const Text('Sheet: decomposition'),
+        subtitle: const Text(
+          'Meal title + decomposed ingredient signals',
+        ),
+        onTap:
+            () => previewMealAnalysisSheetDecomposition(context),
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.listChecks),
+        title: const Text('Sheet: ingredients matched'),
+        subtitle: const Text('Resolved ingredient list (INGREDIENTS step)'),
+        onTap:
+            () => previewMealAnalysisSheetIngredients(context),
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.scale),
+        title: const Text('Sheet: progress step 3 / 4'),
+        subtitle: const Text(
+          'UNCERTAINTY phase — label progressCheck, bar at 75%',
+        ),
+        onTap:
+            () => previewMealAnalysisSheetProgressStep3(context),
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.fileText),
+        title: const Text('Sheet: with text banner'),
+        subtitle: const Text(
+          'Plus logged meal text preview strip',
+        ),
+        onTap:
+            () => previewMealAnalysisSheetWithTextBanner(context),
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.imagePlus),
+        title: const Text('Sheet: with photo banner'),
+        subtitle: const Text(
+          'Downloads sample image — hero strip + pipeline UI',
+        ),
+        onTap: _previewMealAnalysisSheetWithPhotoBanner,
       ),
     ];
     final filtered = <Widget>[];
@@ -776,12 +887,12 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     }
   }
 
-  /// Shows the meal variation sheet with mocked API response for UI preview.
-  /// Does not call the API and does not log the meal.
-  Future<void> _mockMealWithVariations() async {
+  /// Mock detection → [showMealQuestionFlowFromDetection] → [showMealTip] (preview).
+  /// Does not call the backend and does not persist a meal.
+  Future<void> _showMockMealAnalysisFlow() async {
     final mockResponse = _createMockMealDetectionResponse();
     if (!mounted) return;
-    await showMealVariation(
+    await showMealQuestionFlowFromDetection(
       context: context,
       response: mockResponse,
       isDebugPreview: true,
@@ -893,9 +1004,15 @@ Fat: ${mealInfo.macros.fat}g
 ''';
   }
 
+  /// Same fields as dialogs for `/api/v1/food/detect-*` and `analyze-image` responses.
+  String _formatMealDetectionSummary(MealDetectionResponse response) {
+    final base = _formatMealResult(response.result).trimRight();
+    return '$base\nVariations (follow-up questions): ${response.variations.length}';
+  }
+
   Future<void> _testAnalyzeImage() async {
     try {
-      _showSnackbar('Testing analyzeImage API...');
+      _showSnackbar('Calling POST /api/v1/food/analyze-image ...');
 
       final testImageUrl =
           'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
@@ -917,8 +1034,50 @@ Fat: ${mealInfo.macros.fat}g
 
       if (!mounted) return;
 
-      final result = apiResponse.result;
-      _showDataDialog('Analyze Image Result', _formatMealResult(result));
+      _showDataDialog(
+        'Analyze Image Result',
+        _formatMealDetectionSummary(apiResponse),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackbar('Error: $e');
+    }
+  }
+
+  /// Upload sample image, stream [POST /api/v2/food/analyze-image], full V2 sheet → meal tip.
+  Future<void> _testAnalyzeImageV2() async {
+    try {
+      _showSnackbar('Upload + POST /api/v2/food/analyze-image ...');
+
+      final testImageUrl =
+          'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
+      final tempDir = Directory.systemTemp;
+      final testImageFile = File(
+        '${tempDir.path}/test_food_image_v2_${DateTime.now().millisecondsSinceEpoch}.jpg',
+      );
+
+      final response = await NetworkClient.instance.client.get<List<int>>(
+        testImageUrl,
+        options: Options(responseType: ResponseType.bytes),
+      );
+      await testImageFile.writeAsBytes(response.data!);
+
+      final repository = FoodRepository();
+      final handle = await repository.analyzeImageV2(imageFile: testImageFile);
+      final bytes = Uint8List.fromList(await testImageFile.readAsBytes());
+
+      try {
+        await testImageFile.delete();
+      } catch (_) {}
+
+      if (!mounted) return;
+
+      await showV2MealAnalysisFlow(
+        context: context,
+        imageBytes: bytes,
+        imageUrl: handle.uploadedImageUrl,
+        startAnalysis: () async => handle.events,
+      );
     } catch (e) {
       if (!mounted) return;
       _showSnackbar('Error: $e');
@@ -927,7 +1086,7 @@ Fat: ${mealInfo.macros.fat}g
 
   Future<void> _testDetectImage() async {
     try {
-      _showSnackbar('Testing detectImage API...');
+      _showSnackbar('Calling POST /api/v1/food/detect-image ...');
 
       const testImageUrl =
           'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
@@ -953,8 +1112,10 @@ Fat: ${mealInfo.macros.fat}g
 
       if (!mounted) return;
 
-      final result = detectResponse.result;
-      _showDataDialog('Detect Image Result', _formatMealResult(result));
+      _showDataDialog(
+        'Detect Image Result',
+        _formatMealDetectionSummary(detectResponse),
+      );
     } catch (e) {
       if (!mounted) return;
       _showSnackbar('Error: $e');
@@ -1012,10 +1173,9 @@ Fat: ${mealInfo.macros.fat}g
 
       if (!mounted) return;
 
-      final result = detectResponse.result;
       _showDataDialog(
         'Detect Image from Gallery Result',
-        _formatMealResult(result),
+        _formatMealDetectionSummary(detectResponse),
       );
     } catch (e) {
       if (!mounted) return;
@@ -1025,7 +1185,7 @@ Fat: ${mealInfo.macros.fat}g
 
   Future<void> _testDetectText() async {
     try {
-      _showSnackbar('Testing detectText API...');
+      _showSnackbar('Calling POST /api/v1/food/detect-text ...');
 
       const testText =
           'I had a large grilled chicken breast with roasted vegetables and quinoa for lunch';
@@ -1035,52 +1195,49 @@ Fat: ${mealInfo.macros.fat}g
 
       if (!mounted) return;
 
-      final result = response.result;
-      final resultText =
-          '${_formatMealResult(result)}Variations: ${response.variations.length}';
-      _showDataDialog('Detect Text Result', resultText);
+      _showDataDialog(
+        'Detect Text Result',
+        _formatMealDetectionSummary(response),
+      );
     } catch (e) {
       if (!mounted) return;
       _showSnackbar('Error: $e');
     }
   }
 
-  Future<void> _testMealLoggingWithVariations() async {
+  /// Full V2 text pipeline: streaming [POST /api/v2/food/analyze-text], pipeline sheet,
+  /// optional clarify / meal-type steps, then meal tip for logging.
+  Future<void> _testMealLoggingWithVariationsV2() async {
     try {
-      _showSnackbar('Testing meal logging flow with variations...');
-
-      // Navigate to Log screen first
-      if (!mounted) return;
-      await context.router.push(const LogRoute());
-
-      // Wait a bit for navigation to complete
-      await Future.delayed(const Duration(milliseconds: 500));
-
-      if (!mounted) return;
-
-      // Trigger meal detection with a test description that should return variations
-      const testText = 'I had a bowl with rice, curry, and a white side dish';
-
+      _showSnackbar('Streaming POST /api/v2/food/analyze-text ...');
+      const testText =
+          'I had a bowl with rice, curry, and a white side dish — portion was medium.';
       final repository = FoodRepository();
-      final response = await repository.detectText(textDescription: testText);
-
+      await showV2MealAnalysisFlow(
+        context: context,
+        textDescription: testText,
+        startAnalysis:
+            () => repository.analyzeTextV2(textDescription: testText),
+      );
+    } catch (e) {
       if (!mounted) return;
+      _showSnackbar('Error: $e');
+    }
+  }
 
-      // Check if variations are present and show the variation sheet
-      if (response.variations.isNotEmpty) {
-        await showMealVariation(context: context, response: response);
-      } else {
-        // No variations, show meal tip sheet directly
-        if (response.result.hasMeal()) {
-          await showMealTip(
-            context: context,
-            purpose: MealDetailsSheetPurpose.debugPreview,
-            mealDetectionResult: response.result,
-          );
-        } else {
-          _showSnackbar('No meal identified in response');
-        }
-      }
+  Future<void> _previewMealAnalysisSheetWithPhotoBanner() async {
+    try {
+      _showSnackbar('Downloading sample image for sheet preview...');
+      const testImageUrl =
+          'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
+      final dio = Dio();
+      final response = await dio.get<List<int>>(
+        testImageUrl,
+        options: Options(responseType: ResponseType.bytes),
+      );
+      final bytes = Uint8List.fromList(response.data!);
+      if (!mounted) return;
+      await previewMealAnalysisSheetWithImageBanner(context, bytes);
     } catch (e) {
       if (!mounted) return;
       _showSnackbar('Error: $e');

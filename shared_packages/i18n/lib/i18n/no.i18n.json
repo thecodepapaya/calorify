@@ -279,13 +279,14 @@
     "errorCompressingImage": "Feil ved komprimering av bilde: {error}",
     "failedToSave": "Kunne ikke lagre data. Prøv igjen.",
     "skip": "Hopp over",
-    "variation": {
-      "question": "Spørsmål {current} av {total}",
-      "noVariationsAvailable": "Ingen variasjoner tilgjengelig"
+    "questionFlow": {
+      "progress": "Spørsmål {current} av {total}",
+      "noQuestionsAvailable": "Ingen spørsmål tilgjengelig",
+      "next": "Neste",
+      "continueLabel": "Fortsett"
     },
     "analysis": {
       "title": "AI-måltidsanalyse",
-      "reassurance": "Dette tar som regel bare noen sekunder.",
       "stepStarted": "Starter …",
       "stepDecomposition": "Forstår måltidet ditt …",
       "stepIngredients": "Matcher ingredienser med næringsdata …",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Forstå",
       "progressMatch": "Match",
       "progressCheck": "Sjekk",
+      "progressMealType": "Velger måltidstype",
       "progressFinish": "Fullfør",
+      "detectedIngredientHeading": "Ingredienser vi gjenkjenner",
+      "ingredientsOverflow": "{count} flere",
       "ingredientsLine": "{count} ingredienser funnet",
       "ingredientsPending": "Skanner ingredienser…",
       "mealPreviewDescription": "\"{text}\"",

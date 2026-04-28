@@ -46,10 +46,12 @@ class NetworkClient {
 
     dio.interceptors.add(
       InterceptorsWrapper(
-        onRequest: (options, handler) {
-          final authToken = AuthService.instance.authToken;
-          if (authToken != null && _isApiRequest(options)) {
-            options.headers['Authorization'] = 'Bearer $authToken';
+        onRequest: (options, handler) async {
+          if (_isApiRequest(options)) {
+            final token = await AuthService.instance.resolveAuthToken();
+            if (token != null) {
+              options.headers['Authorization'] = 'Bearer $token';
+            }
           }
 
           final locale = LocaleSettings.currentLocale.languageCode;

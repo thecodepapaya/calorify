@@ -178,7 +178,7 @@ class _TranslationsMealDa implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Fejl ved komprimering af billede: ${error}';
 	@override String get failedToSave => 'Kunne ikke gemme data. Prøv igen.';
 	@override String get skip => 'Spring over';
-	@override late final _TranslationsMealVariationDa variation = _TranslationsMealVariationDa._(_root);
+	@override late final _TranslationsMealQuestionFlowDa questionFlow = _TranslationsMealQuestionFlowDa._(_root);
 	@override late final _TranslationsMealAnalysisDa analysis = _TranslationsMealAnalysisDa._(_root);
 	@override late final _TranslationsMealFeedbackDa feedback = _TranslationsMealFeedbackDa._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationDa implements TranslationsMealDeleteCon
 	@override String get delete => 'Slet';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationDa implements TranslationsMealVariationEn {
-	_TranslationsMealVariationDa._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowDa implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowDa._(this._root);
 
 	final TranslationsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Spørgsmål ${current} af ${total}';
-	@override String get noVariationsAvailable => 'Ingen variationer tilgængelige';
+	@override String progress({required Object current, required Object total}) => 'Spørgsmål ${current} af ${total}';
+	@override String get noQuestionsAvailable => 'Ingen tilgængelige spørgsmål';
+	@override String get next => 'Næste';
+	@override String get continueLabel => 'Fortsæt';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisDa implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'AI-måltidsanalyse';
-	@override String get reassurance => 'Dette tager normalt få sekunder.';
 	@override String get stepStarted => 'Går i gang…';
 	@override String get stepDecomposition => 'Forstår dit måltid…';
 	@override String get stepIngredients => 'Matcher ingredienser med næringsdata…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisDa implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Forstå';
 	@override String get progressMatch => 'Match';
 	@override String get progressCheck => 'Tjek';
+	@override String get progressMealType => 'Vælger måltidstype';
 	@override String get progressFinish => 'Færdig';
+	@override String get detectedIngredientHeading => 'Ingredienser, vi genkender';
+	@override String ingredientsOverflow({required Object count}) => '${count} flere';
 	@override String ingredientsLine({required Object count}) => '${count} ingredienser registreret';
 	@override String get ingredientsPending => 'Scanner ingredienser…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsDa {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fejl ved komprimering af billede: ${error}',
 			'meal.failedToSave' => 'Kunne ikke gemme data. Prøv igen.',
 			'meal.skip' => 'Spring over',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Spørgsmål ${current} af ${total}',
-			'meal.variation.noVariationsAvailable' => 'Ingen variationer tilgængelige',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Spørgsmål ${current} af ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Ingen tilgængelige spørgsmål',
+			'meal.questionFlow.next' => 'Næste',
+			'meal.questionFlow.continueLabel' => 'Fortsæt',
 			'meal.analysis.title' => 'AI-måltidsanalyse',
-			'meal.analysis.reassurance' => 'Dette tager normalt få sekunder.',
 			'meal.analysis.stepStarted' => 'Går i gang…',
 			'meal.analysis.stepDecomposition' => 'Forstår dit måltid…',
 			'meal.analysis.stepIngredients' => 'Matcher ingredienser med næringsdata…',
@@ -1897,7 +1902,10 @@ extension on TranslationsDa {
 			'meal.analysis.progressUnderstand' => 'Forstå',
 			'meal.analysis.progressMatch' => 'Match',
 			'meal.analysis.progressCheck' => 'Tjek',
+			'meal.analysis.progressMealType' => 'Vælger måltidstype',
 			'meal.analysis.progressFinish' => 'Færdig',
+			'meal.analysis.detectedIngredientHeading' => 'Ingredienser, vi genkender',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} flere',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingredienser registreret',
 			'meal.analysis.ingredientsPending' => 'Scanner ingredienser…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

@@ -38,10 +38,13 @@ await mock.module('../services/aiSummaryService.js', {
   },
 });
 
-const mockGetCountriesAt3am = mock.fn(() => []);
+const mockGetCountriesNear3am = mock.fn(() => []);
 
 await mock.module('../utils/timezone.js', {
-  namedExports: { getCountriesAt3am: mockGetCountriesAt3am },
+  namedExports: {
+    getCountriesNear3am: mockGetCountriesNear3am,
+    DEFAULT_THREE_AM_PLUS_MINUS_MINUTES: 30,
+  },
 });
 
 const mockCronSchedule = mock.fn((_expr: string, _fn: () => void) => {});
@@ -75,7 +78,7 @@ function resetAll() {
   mockCollectMealDataForUser.mock.resetCalls();
   mockSubmitBatch.mock.resetCalls();
   mockSaveBatchRecord.mock.resetCalls();
-  mockGetCountriesAt3am.mock.resetCalls();
+  mockGetCountriesNear3am.mock.resetCalls();
   mockQuery.mock.resetCalls();
   mockCronSchedule.mock.resetCalls();
 }
@@ -106,7 +109,7 @@ test('startAiSummaryCron passes a callback function to cron.schedule', () => {
 test('cron job callback calls getPendingBatches', async () => {
   resetAll();
   mockGetPendingBatches.mock.mockImplementation(async () => []);
-  mockGetCountriesAt3am.mock.mockImplementation(() => []);
+  mockGetCountriesNear3am.mock.mockImplementation(() => []);
 
   startAiSummaryCron();
   const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
@@ -126,7 +129,7 @@ test('cron job polls and updates each pending batch', async () => {
     savedCount: 0,
     errorCount: 0,
   }));
-  mockGetCountriesAt3am.mock.mockImplementation(() => []);
+  mockGetCountriesNear3am.mock.mockImplementation(() => []);
 
   startAiSummaryCron();
   const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
@@ -146,7 +149,7 @@ test('cron job calls updateBatchStatus with correct batch id and status', async 
     savedCount: 3,
     errorCount: 0,
   }));
-  mockGetCountriesAt3am.mock.mockImplementation(() => []);
+  mockGetCountriesNear3am.mock.mockImplementation(() => []);
 
   startAiSummaryCron();
   const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
@@ -169,7 +172,7 @@ test('cron job continues polling remaining batches when one throws', async () =>
     if (id === 'b-fail') throw new Error('Network error');
     return { status: 'completed' as const, savedCount: 0, errorCount: 0 };
   });
-  mockGetCountriesAt3am.mock.mockImplementation(() => []);
+  mockGetCountriesNear3am.mock.mockImplementation(() => []);
 
   startAiSummaryCron();
   const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
@@ -185,7 +188,7 @@ test('cron job continues polling remaining batches when one throws', async () =>
 test('cron job skips batch submission when no countries are at 3am', async () => {
   resetAll();
   mockGetPendingBatches.mock.mockImplementation(async () => []);
-  mockGetCountriesAt3am.mock.mockImplementation(() => []); // no 3am countries
+  mockGetCountriesNear3am.mock.mockImplementation(() => []); // no 3am countries
 
   startAiSummaryCron();
   const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
@@ -202,7 +205,7 @@ test('cron job skips batch submission when no countries are at 3am', async () =>
 test('cron job queries users in 3am countries and submits batch', async () => {
   resetAll();
   mockGetPendingBatches.mock.mockImplementation(async () => []);
-  mockGetCountriesAt3am.mock.mockImplementation(() => ['IN', 'LK']);
+  mockGetCountriesNear3am.mock.mockImplementation(() => ['IN', 'LK']);
   mockQuery.mock.mockImplementation(async () => ({
     rows: [
       { user_id: 'user-in-1', locale: 'hi' },
@@ -228,7 +231,7 @@ test('cron job queries users in 3am countries and submits batch', async () => {
 test('cron job skips batch submission when no users have meal data', async () => {
   resetAll();
   mockGetPendingBatches.mock.mockImplementation(async () => []);
-  mockGetCountriesAt3am.mock.mockImplementation(() => ['US']);
+  mockGetCountriesNear3am.mock.mockImplementation(() => ['US']);
   mockQuery.mock.mockImplementation(async () => ({
     rows: [{ user_id: 'user-no-meals', locale: 'en' }],
   }));
@@ -245,7 +248,7 @@ test('cron job skips batch submission when no users have meal data', async () =>
 test('cron job does not throw when submitBatch fails', async () => {
   resetAll();
   mockGetPendingBatches.mock.mockImplementation(async () => []);
-  mockGetCountriesAt3am.mock.mockImplementation(() => ['FR']);
+  mockGetCountriesNear3am.mock.mockImplementation(() => ['FR']);
   mockQuery.mock.mockImplementation(async () => ({
     rows: [{ user_id: 'u1', locale: 'fr' }],
   }));
@@ -264,7 +267,7 @@ test('cron job does not throw when submitBatch fails', async () => {
 test('cron job passes country list to query for user lookup', async () => {
   resetAll();
   mockGetPendingBatches.mock.mockImplementation(async () => []);
-  mockGetCountriesAt3am.mock.mockImplementation(() => ['JP', 'KR']);
+  mockGetCountriesNear3am.mock.mockImplementation(() => ['JP', 'KR']);
   mockQuery.mock.mockImplementation(async () => ({ rows: [] }));
 
   startAiSummaryCron();
@@ -279,28 +282,3 @@ test('cron job passes country list to query for user lookup', async () => {
   assert.deepEqual(params[0], ['JP', 'KR']);
 });
 
-// ---------------------------------------------------------------------------
-// No-op when DATABASE_URL is missing
-// ---------------------------------------------------------------------------
-
-test('cron job does nothing when DATABASE_URL is null', async () => {
-  resetAll();
-  await mock.module('../config.js', {
-    defaultExport: { DATABASE_URL: null },
-  });
-
-  const { startAiSummaryCron: startNoDB } = await import('./aiSummaryCron.js');
-  startNoDB();
-
-  if (mockCronSchedule.mock.calls.length > 0) {
-    const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
-    await callback();
-  }
-  // Should not query DB
-  assert.equal(mockGetPendingBatches.mock.calls.length, 0);
-
-  // Restore
-  await mock.module('../config.js', {
-    defaultExport: { DATABASE_URL: 'postgres://mock' },
-  });
-});

@@ -292,6 +292,51 @@ test('GET /meal-analysis-tips returns version and non-empty tips when authentica
   await app.close();
 });
 
+test('GET /meal-analysis-tips?count=1 returns a single tip when authenticated', async () => {
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/v1/food/meal-analysis-tips?count=1',
+    headers: {
+      authorization: 'Bearer valid-token',
+      'accept-language': 'en-US,en;q=0.9',
+    },
+  });
+  assert.equal(response.statusCode, 200);
+  const body = response.json() as { tips: string[] };
+  assert.equal(body.tips.length, 1);
+  assert.ok(body.tips[0]!.length > 0);
+  await app.close();
+});
+
+test('GET /meal-analysis-tips?count=0 returns 400', async () => {
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/v1/food/meal-analysis-tips?count=0',
+    headers: {
+      authorization: 'Bearer valid-token',
+      'accept-language': 'en-US,en;q=0.9',
+    },
+  });
+  assert.equal(response.statusCode, 400);
+  await app.close();
+});
+
+test('GET /meal-analysis-tips?count=101 returns 400', async () => {
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/v1/food/meal-analysis-tips?count=101',
+    headers: {
+      authorization: 'Bearer valid-token',
+      'accept-language': 'en-US,en;q=0.9',
+    },
+  });
+  assert.equal(response.statusCode, 400);
+  await app.close();
+});
+
 test('GET /export returns CSV meal history for authenticated user', async () => {
   resetQuery({
     rows: [

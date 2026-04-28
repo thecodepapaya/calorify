@@ -279,13 +279,14 @@
     "errorCompressingImage": "Lỗi nén ảnh: {error}",
     "failedToSave": "Không thể lưu dữ liệu. Vui lòng thử lại.",
     "skip": "Bỏ qua",
-    "variation": {
-      "question": "Câu hỏi {current} trên {total}",
-      "noVariationsAvailable": "Không có biến thể nào"
+    "questionFlow": {
+      "progress": "Câu hỏi {current} trong {total}",
+      "noQuestionsAvailable": "Hiện không có câu hỏi nào",
+      "next": "Tiếp theo",
+      "continueLabel": "Tiếp tục"
     },
     "analysis": {
       "title": "Phân tích bữa ăn bằng AI",
-      "reassurance": "Thường chỉ mất vài giây.",
       "stepStarted": "Bắt đầu…",
       "stepDecomposition": "Đang hiểu bữa ăn của bạn…",
       "stepIngredients": "Đang khớp nguyên liệu với dữ liệu dinh dưỡng…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Hiểu",
       "progressMatch": "Khớp",
       "progressCheck": "Kiểm tra",
+      "progressMealType": "Đang chọn loại bữa ăn",
       "progressFinish": "Hoàn tất",
+      "detectedIngredientHeading": "Những nguyên liệu chúng tôi phát hiện",
+      "ingredientsOverflow": "{count} nguyên liệu nữa",
       "ingredientsLine": "Đã phát hiện {count} thành phần",
       "ingredientsPending": "Đang quét thành phần…",
       "mealPreviewDescription": "\"{text}\"",

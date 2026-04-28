@@ -18,8 +18,8 @@ class AppOutlinedButton extends StatelessWidget {
     return OutlinedButton(
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
-        minimumSize: const Size(0, 50),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        minimumSize: Size(0, appButtonMinHeight),
+        padding: appButtonOutlinedPadding,
         shape: RoundedRectangleBorder(borderRadius: buttonRadius),
       ),
       child: icon != null

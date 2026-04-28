@@ -178,7 +178,7 @@ class _TranslationsMealDe implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Fehler beim Komprimieren des Bildes: ${error}';
 	@override String get failedToSave => 'Daten konnten nicht gespeichert werden. Bitte versuche es erneut.';
 	@override String get skip => 'Überspringen';
-	@override late final _TranslationsMealVariationDe variation = _TranslationsMealVariationDe._(_root);
+	@override late final _TranslationsMealQuestionFlowDe questionFlow = _TranslationsMealQuestionFlowDe._(_root);
 	@override late final _TranslationsMealAnalysisDe analysis = _TranslationsMealAnalysisDe._(_root);
 	@override late final _TranslationsMealFeedbackDe feedback = _TranslationsMealFeedbackDe._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationDe implements TranslationsMealDeleteCon
 	@override String get delete => 'Löschen';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationDe implements TranslationsMealVariationEn {
-	_TranslationsMealVariationDe._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowDe implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowDe._(this._root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Frage ${current} von ${total}';
-	@override String get noVariationsAvailable => 'Keine Varianten verfügbar';
+	@override String progress({required Object current, required Object total}) => 'Frage ${current} von ${total}';
+	@override String get noQuestionsAvailable => 'Zurzeit sind keine Fragen verfügbar';
+	@override String get next => 'Weiter';
+	@override String get continueLabel => 'Fortfahren';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisDe implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'KI-Mahlzeitenanalyse';
-	@override String get reassurance => 'Das dauert normalerweise nur ein paar Sekunden.';
 	@override String get stepStarted => 'Es geht los …';
 	@override String get stepDecomposition => 'Wir verstehen deine Mahlzeit …';
 	@override String get stepIngredients => 'Zutaten werden mit Nährwertdaten abgeglichen …';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisDe implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Verstehen';
 	@override String get progressMatch => 'Abgleichen';
 	@override String get progressCheck => 'Prüfen';
+	@override String get progressMealType => 'Mahlzeitart wird ausgewählt';
 	@override String get progressFinish => 'Fertigstellen';
+	@override String get detectedIngredientHeading => 'Zutaten, die wir erkennen';
+	@override String ingredientsOverflow({required Object count}) => '${count} weitere';
 	@override String ingredientsLine({required Object count}) => '${count} Zutaten erkannt';
 	@override String get ingredientsPending => 'Zutaten werden gescannt …';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsDe {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fehler beim Komprimieren des Bildes: ${error}',
 			'meal.failedToSave' => 'Daten konnten nicht gespeichert werden. Bitte versuche es erneut.',
 			'meal.skip' => 'Überspringen',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Frage ${current} von ${total}',
-			'meal.variation.noVariationsAvailable' => 'Keine Varianten verfügbar',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Frage ${current} von ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Zurzeit sind keine Fragen verfügbar',
+			'meal.questionFlow.next' => 'Weiter',
+			'meal.questionFlow.continueLabel' => 'Fortfahren',
 			'meal.analysis.title' => 'KI-Mahlzeitenanalyse',
-			'meal.analysis.reassurance' => 'Das dauert normalerweise nur ein paar Sekunden.',
 			'meal.analysis.stepStarted' => 'Es geht los …',
 			'meal.analysis.stepDecomposition' => 'Wir verstehen deine Mahlzeit …',
 			'meal.analysis.stepIngredients' => 'Zutaten werden mit Nährwertdaten abgeglichen …',
@@ -1897,7 +1902,10 @@ extension on TranslationsDe {
 			'meal.analysis.progressUnderstand' => 'Verstehen',
 			'meal.analysis.progressMatch' => 'Abgleichen',
 			'meal.analysis.progressCheck' => 'Prüfen',
+			'meal.analysis.progressMealType' => 'Mahlzeitart wird ausgewählt',
 			'meal.analysis.progressFinish' => 'Fertigstellen',
+			'meal.analysis.detectedIngredientHeading' => 'Zutaten, die wir erkennen',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} weitere',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} Zutaten erkannt',
 			'meal.analysis.ingredientsPending' => 'Zutaten werden gescannt …',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

@@ -279,13 +279,14 @@
     "errorCompressingImage": "Hiba a kép tömörítésekor: {error}",
     "failedToSave": "Nem sikerült menteni az adatokat. Kérlek, próbáld újra.",
     "skip": "Kihagyás",
-    "variation": {
-      "question": "Kérdés {current}/{total}",
-      "noVariationsAvailable": "Nem érhetők el variációk"
+    "questionFlow": {
+      "progress": "Kérdés {current} / {total}",
+      "noQuestionsAvailable": "Nincsenek elérhető kérdések",
+      "next": "Következő",
+      "continueLabel": "Folytatás"
     },
     "analysis": {
       "title": "MI étkezéselemzés",
-      "reassurance": "Ez általában csak néhány másodperc.",
       "stepStarted": "Kezdés…",
       "stepDecomposition": "Étkezés értelmezése…",
       "stepIngredients": "Hozzávalók párosítása a tápanyagadatokkal…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Megértés",
       "progressMatch": "Párosítás",
       "progressCheck": "Ellenőrzés",
+      "progressMealType": "Ételfajta kiválasztása",
       "progressFinish": "Befejezés",
+      "detectedIngredientHeading": "Összetevők, amiket észlelünk",
+      "ingredientsOverflow": "{count} további",
       "ingredientsLine": "{count} hozzávaló felismerve",
       "ingredientsPending": "Hozzávalók keresése…",
       "mealPreviewDescription": "\"{text}\"",

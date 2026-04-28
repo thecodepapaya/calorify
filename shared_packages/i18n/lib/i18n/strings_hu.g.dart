@@ -178,7 +178,7 @@ class _TranslationsMealHu implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Hiba a kép tömörítésekor: ${error}';
 	@override String get failedToSave => 'Nem sikerült menteni az adatokat. Kérlek, próbáld újra.';
 	@override String get skip => 'Kihagyás';
-	@override late final _TranslationsMealVariationHu variation = _TranslationsMealVariationHu._(_root);
+	@override late final _TranslationsMealQuestionFlowHu questionFlow = _TranslationsMealQuestionFlowHu._(_root);
 	@override late final _TranslationsMealAnalysisHu analysis = _TranslationsMealAnalysisHu._(_root);
 	@override late final _TranslationsMealFeedbackHu feedback = _TranslationsMealFeedbackHu._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationHu implements TranslationsMealDeleteCon
 	@override String get delete => 'Törlés';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationHu implements TranslationsMealVariationEn {
-	_TranslationsMealVariationHu._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowHu implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowHu._(this._root);
 
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Kérdés ${current}/${total}';
-	@override String get noVariationsAvailable => 'Nem érhetők el variációk';
+	@override String progress({required Object current, required Object total}) => 'Kérdés ${current} / ${total}';
+	@override String get noQuestionsAvailable => 'Nincsenek elérhető kérdések';
+	@override String get next => 'Következő';
+	@override String get continueLabel => 'Folytatás';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisHu implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'MI étkezéselemzés';
-	@override String get reassurance => 'Ez általában csak néhány másodperc.';
 	@override String get stepStarted => 'Kezdés…';
 	@override String get stepDecomposition => 'Étkezés értelmezése…';
 	@override String get stepIngredients => 'Hozzávalók párosítása a tápanyagadatokkal…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisHu implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Megértés';
 	@override String get progressMatch => 'Párosítás';
 	@override String get progressCheck => 'Ellenőrzés';
+	@override String get progressMealType => 'Ételfajta kiválasztása';
 	@override String get progressFinish => 'Befejezés';
+	@override String get detectedIngredientHeading => 'Összetevők, amiket észlelünk';
+	@override String ingredientsOverflow({required Object count}) => '${count} további';
 	@override String ingredientsLine({required Object count}) => '${count} hozzávaló felismerve';
 	@override String get ingredientsPending => 'Hozzávalók keresése…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsHu {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Hiba a kép tömörítésekor: ${error}',
 			'meal.failedToSave' => 'Nem sikerült menteni az adatokat. Kérlek, próbáld újra.',
 			'meal.skip' => 'Kihagyás',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Kérdés ${current}/${total}',
-			'meal.variation.noVariationsAvailable' => 'Nem érhetők el variációk',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Kérdés ${current} / ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Nincsenek elérhető kérdések',
+			'meal.questionFlow.next' => 'Következő',
+			'meal.questionFlow.continueLabel' => 'Folytatás',
 			'meal.analysis.title' => 'MI étkezéselemzés',
-			'meal.analysis.reassurance' => 'Ez általában csak néhány másodperc.',
 			'meal.analysis.stepStarted' => 'Kezdés…',
 			'meal.analysis.stepDecomposition' => 'Étkezés értelmezése…',
 			'meal.analysis.stepIngredients' => 'Hozzávalók párosítása a tápanyagadatokkal…',
@@ -1897,7 +1902,10 @@ extension on TranslationsHu {
 			'meal.analysis.progressUnderstand' => 'Megértés',
 			'meal.analysis.progressMatch' => 'Párosítás',
 			'meal.analysis.progressCheck' => 'Ellenőrzés',
+			'meal.analysis.progressMealType' => 'Ételfajta kiválasztása',
 			'meal.analysis.progressFinish' => 'Befejezés',
+			'meal.analysis.detectedIngredientHeading' => 'Összetevők, amiket észlelünk',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} további',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} hozzávaló felismerve',
 			'meal.analysis.ingredientsPending' => 'Hozzávalók keresése…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

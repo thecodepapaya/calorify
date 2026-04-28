@@ -279,13 +279,14 @@
     "errorCompressingImage": "છબી કમ્પ્રેસ કરતી વખતે ભૂલ: {error}",
     "failedToSave": "ડેટા સેવ કરવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયત્ન કરો.",
     "skip": "છોડો",
-    "variation": {
-      "question": "પ્રશ્ન {current} / {total}",
-      "noVariationsAvailable": "કોઈ વિકલ્પો ઉપલબ્ધ નથી"
+    "questionFlow": {
+      "progress": "પ્રશ્ન {current} માંથી {total}",
+      "noQuestionsAvailable": "કોઈ પ્રશ્ન ઉપલબ્ધ નથી",
+      "next": "આગલું",
+      "continueLabel": "જારી રાખો"
     },
     "analysis": {
       "title": "AI ભોજન વિશ્લેષણ",
-      "reassurance": "આમ તો તેમાં થોડા સેકન્ડ લાગે છે.",
       "stepStarted": "શરૂ કરતા…",
       "stepDecomposition": "તમારા ભોજનને સમજતા…",
       "stepIngredients": "પોષણ ડેટા સાથે ઘટકો મૅચ કરતા…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "સમજો",
       "progressMatch": "મૅચ",
       "progressCheck": "ચેક",
+      "progressMealType": "ભોજનનો પ્રકાર પસંદ કરી રહ્યા છીએ",
       "progressFinish": "પૂર્ણ",
+      "detectedIngredientHeading": "અમે ઓળખી રહ્યા એવા ઘટકો",
+      "ingredientsOverflow": "{count} વધુ",
       "ingredientsLine": "{count} ઘટકો શોધાયા",
       "ingredientsPending": "ઘટકો સ્કૅન કરી રહ્યા છીએ…",
       "mealPreviewDescription": "\"{text}\"",

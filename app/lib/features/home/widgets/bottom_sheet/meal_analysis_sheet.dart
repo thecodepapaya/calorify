@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:calorify/core/constants/analytics_events.dart';
@@ -8,10 +7,12 @@ import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
-import 'package:calorify/features/home/widgets/bottom_sheet/meal_clarification_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_question_flow_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_type_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
+import 'package:calorify/shared_widgets/meal_analysis_tip_line.dart';
+import 'package:flutter/foundation.dart' show listEquals;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
@@ -88,13 +89,11 @@ Future<MealAnalysisPipelineSessionContext?> resolveV2MealAnalysisFlow({
     }
 
     if (outcome.clarifications.isNotEmpty) {
-      Analytics.instance.logEvent(AnalyticsEvent.mealClarificationShown);
-      final answers = await showV2MealClarificationSheet(
+      final answers = await showMealQuestionFlowFromPipeline(
         context: context,
         clarifications: outcome.clarifications,
       );
       if (answers == null || !context.mounted) {
-        Analytics.instance.logEvent(AnalyticsEvent.mealClarificationDismissed);
         return null;
       }
       nextAnalysis =
@@ -127,6 +126,32 @@ Future<MealAnalysisPipelineSessionContext?> resolveV2MealAnalysisFlow({
   }
 
   return null;
+}
+
+/// Debug / UI review: opens the same loading sheet as V2 analysis with a caller-supplied stream.
+///
+/// Does not attach [resolveV2MealAnalysisFlow]; use fake [MealAnalysisPipelineEvent] sequences.
+Future<void> showDebugMealAnalysisPipelineSheet({
+  required BuildContext context,
+  required Future<Stream<MealAnalysisPipelineEvent>> Function() startAnalysis,
+  Uint8List? imageBytes,
+  String? imageUrl,
+  String? textDescription,
+}) async {
+  await showModalBottomSheet<void>(
+    context: context,
+    isDismissible: true,
+    showDragHandle: true,
+    isScrollControlled: true,
+    routeSettings: const RouteSettings(name: RouteNames.mealAnalysisSheet),
+    builder:
+        (context) => _MealAnalysisPipelineSheet(
+          startAnalysis: startAnalysis,
+          imageBytes: imageBytes,
+          imageUrl: imageUrl,
+          textDescription: textDescription,
+        ),
+  );
 }
 
 class _MealAnalysisFlowOutcome {
@@ -169,75 +194,20 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
   bool _sheetDismissed = false;
   late final AnimationController _placeholderPulseController;
   late final Stopwatch _flowStopwatch;
-  Timer? _tipCycleTimer;
-  int _tipIndex = 0;
-  late List<String> _tips;
-
-  List<String> _localOfflineTips() {
-    final m = t.meal.analysis;
-    final raw = <String>[
-      m.offlineTip0,
-      m.offlineTip1,
-      m.offlineTip2,
-      m.offlineTip3,
-      m.offlineTip4,
-      m.offlineTip5,
-    ];
-    return raw.map((s) => s.trim()).where((s) => s.isNotEmpty).toList();
-  }
 
   @override
   void initState() {
     super.initState();
-    _tips = _localOfflineTips();
-    final reassurance = t.meal.analysis.reassurance.trim();
-    if (_tips.isEmpty) {
-      _tips = reassurance.isNotEmpty
-          ? [reassurance]
-          : [t.meal.analysis.stepDefault];
-    } else if (reassurance.isNotEmpty) {
-      _tips = [reassurance, ..._tips];
-    }
     _flowStopwatch = Stopwatch()..start();
     _placeholderPulseController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2200),
+      duration: const Duration(milliseconds: 4000),
     )..repeat();
-    _scheduleTipCycle();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _loadRemoteTips());
     _beginAnalysis();
-  }
-
-  void _scheduleTipCycle() {
-    _tipCycleTimer?.cancel();
-    final count = _tips.isEmpty ? 1 : _tips.length;
-    _tipCycleTimer = Timer.periodic(const Duration(seconds: 8), (_) {
-      if (!mounted) return;
-      setState(() => _tipIndex = (_tipIndex + 1) % count);
-    });
-  }
-
-  void _loadRemoteTips() {
-    final repo =
-        ProviderScope.containerOf(context, listen: false).read(foodRepositoryProvider);
-    unawaited(
-      repo.getMealAnalysisTips().then((remote) {
-        if (!mounted || remote.isEmpty) return;
-        final reassurance = t.meal.analysis.reassurance.trim();
-        setState(() {
-          _tips = reassurance.isNotEmpty
-              ? [reassurance, ...remote]
-              : List<String>.from(remote);
-          _tipIndex = _tipIndex % _tips.length;
-        });
-        _scheduleTipCycle();
-      }),
-    );
   }
 
   @override
   void dispose() {
-    _tipCycleTimer?.cancel();
     _placeholderPulseController.dispose();
     _subscription?.cancel();
     super.dispose();
@@ -245,118 +215,17 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
 
   Widget _analyzingMotionHero(ColorScheme colorScheme) {
     return SizedBox(
-      height: 124,
+      height: 112,
       width: double.infinity,
       child: AnimatedBuilder(
         animation: _placeholderPulseController,
         builder: (context, _) {
-          final u = _placeholderPulseController.value;
-          final breathe = 1 + 0.06 * math.sin(u * 2 * math.pi);
-          final drift = 0.04 * math.sin(u * 2 * math.pi * 0.65);
-          return Stack(
-            alignment: Alignment.center,
-            clipBehavior: Clip.none,
-            children: [
-              for (int i = 0; i < 3; i++)
-                _rippleRing(colorScheme, u, i),
-              Transform.rotate(
-                angle: drift,
-                child: Transform.scale(
-                  scale: breathe,
-                  child: Container(
-                    width: 56,
-                    height: 56,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: RadialGradient(
-                        colors: [
-                          colorScheme.primary.withValues(alpha: 0.2),
-                          colorScheme.primary.withValues(alpha: 0.05),
-                        ],
-                      ),
-                      border: Border.all(
-                        color: colorScheme.primary.withValues(alpha: 0.28),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color:
-                              colorScheme.primary.withValues(alpha: 0.14),
-                          blurRadius: 18,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Icon(
-                      AppIcons.sparkles,
-                      size: 26,
-                      color: colorScheme.primary,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          return MacroIconCycleLoader(
+            progress: _placeholderPulseController.value,
+            haloBaseColor: colorScheme.primary,
           );
         },
       ),
-    );
-  }
-
-  Widget _rippleRing(ColorScheme colorScheme, double u, int index) {
-    final delayed = (u + index * 0.26) % 1.0;
-    final eased = Curves.easeOutCubic.transform(delayed);
-    final diameter = 40 + eased * 86;
-    final opacity =
-        (1.0 - delayed) * (0.22 + 0.2 * math.sin(delayed * math.pi));
-    return IgnorePointer(
-      child: Opacity(
-        opacity: opacity.clamp(0.0, 0.48),
-        child: Container(
-          width: diameter,
-          height: diameter,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: colorScheme.primary.withValues(alpha: 0.5),
-              width: 1.35,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _analyzingDotsPlaceholder(ColorScheme colorScheme) {
-    return AnimatedBuilder(
-      animation: _placeholderPulseController,
-      builder: (context, _) {
-        final t = _placeholderPulseController.value * 2 * math.pi;
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: List<Widget>.generate(3, (i) {
-            final wave = math.sin(t - i * 0.65);
-            final scale = 0.68 + 0.32 * (wave + 1) / 2;
-            final opacity = 0.34 + 0.46 * (wave + 1) / 2;
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Transform.scale(
-                scale: scale,
-                alignment: Alignment.center,
-                child: Container(
-                  width: 9,
-                  height: 9,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: colorScheme.primary.withValues(
-                      alpha: opacity.clamp(0.22, 0.92),
-                    ),
-                  ),
-                ),
-              ),
-            );
-          }),
-        );
-      },
     );
   }
 
@@ -369,33 +238,104 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
     return e.result?.ingredients.length ?? 0;
   }
 
+  /// Fixed viewport for the ingredient list (heading + scroll slot); keeps layout stable.
+  static const double _kIngredientListViewportHeight = 172;
+  static const double _kPreviewMealTitleToListGap = 14;
+
+  String _labelResolved(PipelineResolvedIngredient i) {
+    final canon = i.canonicalName.trim();
+    if (canon.isNotEmpty) return canon;
+    return i.rawName.trim();
+  }
+
+  String _labelDecomposed(PipelineDecomposedIngredient i) {
+    final raw = i.rawName.trim();
+    if (raw.isNotEmpty) return raw;
+    return i.canonicalHint.trim();
+  }
+
+  /// Names from the latest pipeline step that has ingredient data (resolved preferred).
+  List<String> _detectedIngredientNames(MealAnalysisPipelineEvent? e) {
+    if (e == null) return [];
+    if (e.ingredientsStep != null &&
+        e.ingredientsStep!.ingredients.isNotEmpty) {
+      return e.ingredientsStep!.ingredients
+          .map(_labelResolved)
+          .where((s) => s.isNotEmpty)
+          .toList();
+    }
+    if (e.result != null && e.result!.ingredients.isNotEmpty) {
+      return e.result!.ingredients
+          .map(_labelResolved)
+          .where((s) => s.isNotEmpty)
+          .toList();
+    }
+    if (e.decomposition != null &&
+        e.decomposition!.ingredients.isNotEmpty) {
+      return e.decomposition!.ingredients
+          .map(_labelDecomposed)
+          .where((s) => s.isNotEmpty)
+          .toList();
+    }
+    return [];
+  }
+
   int? _pipelinePhaseIndex(PipelineStep? step) {
     if (step == null) return null;
     if (step == PipelineStep.ERROR) return null;
     return switch (step) {
+      PipelineStep.PIPELINE_STEP_UNSPECIFIED ||
       PipelineStep.STARTED ||
       PipelineStep.DECOMPOSITION =>
         0,
       PipelineStep.INGREDIENTS => 1,
-      PipelineStep.UNCERTAINTY ||
-      PipelineStep.MEAL_TYPE_QUESTION =>
-        2,
+      PipelineStep.UNCERTAINTY => 2,
+      PipelineStep.MEAL_TYPE_QUESTION => 2,
       PipelineStep.RESULT => 3,
       _ => null,
     };
   }
 
-  double? _progressValue(PipelineStep? step) {
-    final i = _pipelinePhaseIndex(step);
+  double? _effectiveProgressValue(MealAnalysisPipelineEvent? e) {
+    final step = e?.step;
+    var i = _pipelinePhaseIndex(step);
     if (i == null) return null;
+    // Servers often omit a standalone INGREDIENTS frame; decomposition may already list foods.
+    if (i == 0 &&
+        step == PipelineStep.DECOMPOSITION &&
+        e != null &&
+        _detectedIngredientNames(e).isNotEmpty) {
+      i = 1;
+    }
     return (i + 1) / 4;
   }
 
-  int _displayPhaseIndex(PipelineStep? step) => _pipelinePhaseIndex(step) ?? 0;
+  /// Maps backend [PipelineStep] to the four UX phases shown as "n/4".
+  ///
+  /// Phase index 1 ([progressMatch]) maps to [PipelineStep.INGREDIENTS]. Many backends
+  /// stream DECOMPOSITION with ingredient names but skip INGREDIENTS; we treat that as
+  /// phase 1 so users still see step 2 while ingredients are listed.
+  int _effectiveDisplayPhase(MealAnalysisPipelineEvent? e) {
+    final step = e?.step;
+    var i = _pipelinePhaseIndex(step) ?? 0;
+    if (i == 0 &&
+        step == PipelineStep.DECOMPOSITION &&
+        e != null &&
+        _detectedIngredientNames(e).isNotEmpty) {
+      return 1;
+    }
+    return i;
+  }
 
-  String _rotatingTip(int index) {
-    if (_tips.isEmpty) return '';
-    return _tips[index % _tips.length];
+  String _progressPhaseLabel({
+    required List<String> progressLabels,
+    required MealAnalysisPipelineEvent? event,
+    required int displayPhase,
+  }) {
+    if (event?.step == PipelineStep.MEAL_TYPE_QUESTION) {
+      return t.meal.analysis.progressMealType;
+    }
+    return progressLabels[displayPhase.clamp(0, 3)];
   }
 
   bool _shouldRebuildForDisplay(
@@ -405,9 +345,12 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
     if (previous == null) return true;
     final pName = (previous.mealName ?? '').trim();
     final nName = (next.mealName ?? '').trim();
+    final prevNames = _detectedIngredientNames(previous).join('\u241e');
+    final nextNames = _detectedIngredientNames(next).join('\u241e');
     return previous.step != next.step ||
         pName != nName ||
-        _ingredientCount(previous) != _ingredientCount(next);
+        _ingredientCount(previous) != _ingredientCount(next) ||
+        prevNames != nextNames;
   }
 
   void _runAfterFrame(VoidCallback fn) {
@@ -453,68 +396,94 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
     required bool hasMealName,
     required String? mealName,
     required int ingredientCount,
+    required List<String> ingredientNames,
   }) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final hasNames = ingredientNames.isNotEmpty;
 
-    if (hasMealName && ingredientCount > 0) {
-      final title = mealName!;
-      return Column(
-        key: ValueKey<String>('$title|$ingredientCount'),
-        mainAxisSize: MainAxisSize.min,
+    final trimmedMealName = mealName?.trim();
+    final Widget? mealTitle =
+        trimmedMealName != null && trimmedMealName.isNotEmpty
+            ? Text(
+              trimmedMealName,
+              key: ValueKey<String>('name-$trimmedMealName'),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: textTheme.titleSmall?.copyWith(
+                color: colorScheme.onSurface.withValues(alpha: 0.94),
+                fontWeight: FontWeight.w600,
+                height: 1.25,
+              ),
+            )
+            : null;
+
+    final listViewport = SizedBox(
+      height: _kIngredientListViewportHeight,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            title,
+            t.meal.analysis.detectedIngredientHeading,
             textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: textTheme.titleSmall?.copyWith(
-              color: colorScheme.onSurface.withValues(alpha: 0.94),
-              fontWeight: FontWeight.w600,
-              height: 1.25,
+            style: textTheme.labelSmall?.copyWith(
+              color: colorScheme.onSurface.withValues(alpha: 0.52),
+              fontWeight: FontWeight.w500,
+              letterSpacing: 0.06,
             ),
           ),
-          const SizedBox(height: 6),
-          Text(
-            t.meal.analysis.ingredientsLine(count: ingredientCount),
-            textAlign: TextAlign.center,
-            style: textTheme.bodySmall?.copyWith(
-              color: colorScheme.onSurfaceVariant,
-              height: 1.3,
+          const SizedBox(height: 9),
+          if (ingredientCount > 0 && !hasNames)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                t.meal.analysis.ingredientsLine(count: ingredientCount),
+                textAlign: TextAlign.center,
+                style: textTheme.labelSmall?.copyWith(
+                  color:
+                      colorScheme.onSurfaceVariant.withValues(alpha: 0.74),
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
             ),
+          Expanded(
+            child:
+                hasNames
+                    ? _IngredientNamesSlowScrollList(
+                      names: ingredientNames,
+                      colorScheme: colorScheme,
+                      textTheme: textTheme,
+                    )
+                    : Center(
+                      child: Text(
+                        t.meal.analysis.ingredientsPending,
+                        textAlign: TextAlign.center,
+                        style: textTheme.bodySmall?.copyWith(
+                          color:
+                              colorScheme.onSurface.withValues(alpha: 0.42),
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
           ),
         ],
-      );
-    }
-    if (hasMealName) {
-      final title = mealName!;
-      return Text(
-        title,
-        key: ValueKey<String>(title),
-        textAlign: TextAlign.center,
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-        style: textTheme.titleSmall?.copyWith(
-          color: colorScheme.onSurface.withValues(alpha: 0.94),
-          fontWeight: FontWeight.w600,
-          height: 1.25,
-        ),
-      );
-    }
-    if (ingredientCount > 0) {
-      return Text(
-        t.meal.analysis.ingredientsLine(count: ingredientCount),
-        key: ValueKey<int>(ingredientCount),
-        textAlign: TextAlign.center,
-        style: textTheme.bodyMedium?.copyWith(
-          color: colorScheme.onSurfaceVariant,
-        ),
-      );
-    }
-    return SizedBox(
-      key: const ValueKey<String>('preview-placeholder'),
-      height: 32,
-      child: Center(child: _analyzingDotsPlaceholder(colorScheme)),
+      ),
+    );
+
+    return Column(
+      key: ValueKey<String>(
+        '${mealName ?? ''}|${ingredientNames.join(',')}|$ingredientCount',
+      ),
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (mealTitle != null) ...[
+          mealTitle,
+          const SizedBox(height: _kPreviewMealTitleToListGap),
+        ],
+        listViewport,
+      ],
     );
   }
 
@@ -523,13 +492,14 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
-    final step = _lastEvent?.step;
     final mealName = _lastEvent?.mealName;
     final ingredientCount = _ingredientCount(_lastEvent);
+    final ingredientNames = _detectedIngredientNames(_lastEvent);
 
     final hasMealName = mealName != null && mealName.isNotEmpty;
-    final progressVal = _progressValue(step);
-    final displayPhase = _displayPhaseIndex(step);
+
+    final progressVal = _effectiveProgressValue(_lastEvent);
+    final displayPhase = _effectiveDisplayPhase(_lastEvent);
 
     final progressLabels = [
       t.meal.analysis.progressUnderstand,
@@ -537,44 +507,24 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
       t.meal.analysis.progressCheck,
       t.meal.analysis.progressFinish,
     ];
-    final phaseLabel = progressLabels[displayPhase.clamp(0, 3)];
+    final phaseLabel = _progressPhaseLabel(
+      progressLabels: progressLabels,
+      event: _lastEvent,
+      displayPhase: displayPhase,
+    );
 
     return BaseBottomSheet(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: colorScheme.primary.withValues(alpha: 0.12),
-                ),
-                child: Icon(
-                  AppIcons.wandSparkles,
-                  size: 22,
-                  color: colorScheme.primary,
-                ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 2),
-                  child: Text(
-                    t.meal.analysis.title,
-                    style: textTheme.titleLarge?.copyWith(
-                      color: colorScheme.onSurface,
-                      fontWeight: FontWeight.w600,
-                      height: 1.2,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          Text(
+            t.meal.analysis.title,
+            style: textTheme.titleLarge?.copyWith(
+              color: colorScheme.onSurface,
+              fontWeight: FontWeight.w600,
+              height: 1.2,
+            ),
           ),
           if (widget.imageBytes != null && widget.imageBytes!.isNotEmpty) ...[
             const SizedBox(height: 18),
@@ -596,9 +546,6 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
                 color:
                     colorScheme.surfaceContainerHighest.withValues(alpha: 0.42),
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(
-                  color: colorScheme.outlineVariant.withValues(alpha: 0.28),
-                ),
               ),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
@@ -616,39 +563,39 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
               ),
             ),
           ],
-          const SizedBox(height: 22),
-          ClipRRect(
+          const SizedBox(height: 20),
+          LinearProgressIndicator(
+            value: progressVal,
+            minHeight: 6,
             borderRadius: BorderRadius.circular(999),
-            child: LinearProgressIndicator(
-              value: progressVal,
-              minHeight: 5,
-              color: colorScheme.primary,
-              backgroundColor:
-                  colorScheme.surfaceContainerHighest.withValues(alpha: 0.88),
-            ),
+            color: colorScheme.primary,
+            backgroundColor:
+                colorScheme.surfaceContainerHighest.withValues(alpha: 0.88),
           ),
           const SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Text(
                     phaseLabel,
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: textTheme.labelLarge?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                      fontWeight: FontWeight.w500,
+                    style: textTheme.titleSmall?.copyWith(
+                      color: colorScheme.onSurface.withValues(alpha: 0.75),
+                      fontWeight: FontWeight.w600,
+                      height: 1.28,
                     ),
                   ),
                 ),
+                const SizedBox(width: 10),
                 Text(
                   '${displayPhase + 1}/4',
-                  style: textTheme.labelMedium?.copyWith(
-                    color: colorScheme.onSurface.withValues(alpha: 0.45),
+                  style: textTheme.labelLarge?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
                     fontWeight: FontWeight.w600,
-                    letterSpacing: 0.2,
                   ),
                 ),
               ],
@@ -657,63 +604,31 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
           const SizedBox(height: 8),
           _analyzingMotionHero(colorScheme),
           const SizedBox(height: 12),
-          DecoratedBox(
-            decoration: BoxDecoration(
-              color: colorScheme.surfaceContainerHigh.withValues(alpha: 0.42),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: colorScheme.outlineVariant.withValues(alpha: 0.22),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 320),
+            switchInCurve: Curves.easeOut,
+            switchOutCurve: Curves.easeIn,
+            transitionBuilder: (child, animation) =>
+                FadeTransition(opacity: animation, child: child),
+            child: KeyedSubtree(
+              key: ValueKey<Object>(
+                '$hasMealName|$ingredientCount|${ingredientNames.join('|')}',
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 320),
-                switchInCurve: Curves.easeOut,
-                switchOutCurve: Curves.easeIn,
-                transitionBuilder: (child, animation) =>
-                    FadeTransition(opacity: animation, child: child),
-                child: _emergingPreviewContent(
-                  hasMealName: hasMealName,
-                  mealName: mealName,
-                  ingredientCount: ingredientCount,
-                ),
+              child: _emergingPreviewContent(
+                hasMealName: hasMealName,
+                mealName: mealName,
+                ingredientCount: ingredientCount,
+                ingredientNames: ingredientNames,
               ),
             ),
           ),
-          const SizedBox(height: 18),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 2),
-                child: Icon(
-                  AppIcons.lightbulb,
-                  size: 17,
-                  color: colorScheme.primary.withValues(alpha: 0.75),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 380),
-                  switchInCurve: Curves.easeOut,
-                  switchOutCurve: Curves.easeIn,
-                  transitionBuilder: (child, animation) =>
-                      FadeTransition(opacity: animation, child: child),
-                  child: Text(
-                    _rotatingTip(_tipIndex),
-                    key: ValueKey<int>(_tipIndex),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onSurface.withValues(alpha: 0.5),
-                      height: 1.4,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          const SizedBox(height: 12),
+          MealAnalysisTipLine(
+            textAlign: TextAlign.center,
+            textStyle: textTheme.bodySmall?.copyWith(
+              color: colorScheme.onSurface.withValues(alpha: 0.58),
+              height: 1.45,
+            ),
           ),
         ],
       ),
@@ -826,5 +741,140 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
         _dismissSheetAndShowMessage('$error');
       });
     }
+  }
+}
+
+/// Fully lists ingredient names; when taller than the viewport, scrolls slowly on a loop.
+class _IngredientNamesSlowScrollList extends StatefulWidget {
+  const _IngredientNamesSlowScrollList({
+    required this.names,
+    required this.colorScheme,
+    required this.textTheme,
+  });
+
+  final List<String> names;
+  final ColorScheme colorScheme;
+  final TextTheme textTheme;
+
+  @override
+  State<_IngredientNamesSlowScrollList> createState() =>
+      _IngredientNamesSlowScrollListState();
+}
+
+class _IngredientNamesSlowScrollListState
+    extends State<_IngredientNamesSlowScrollList> {
+  late final ScrollController _controller;
+  int _scrollEpoch = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = ScrollController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _kickMarquee());
+  }
+
+  @override
+  void didUpdateWidget(covariant _IngredientNamesSlowScrollList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!listEquals(oldWidget.names, widget.names)) {
+      if (_controller.hasClients) {
+        _controller.jumpTo(0);
+      }
+      WidgetsBinding.instance.addPostFrameCallback((_) => _kickMarquee());
+    }
+  }
+
+  void _kickMarquee() {
+    _scrollEpoch++;
+    final epoch = _scrollEpoch;
+    unawaited(_marqueeLoop(epoch));
+  }
+
+  Future<void> _marqueeLoop(int epoch) async {
+    await Future<void>.delayed(Duration.zero);
+    while (mounted && epoch == _scrollEpoch) {
+      await WidgetsBinding.instance.endOfFrame;
+      if (!mounted || epoch != _scrollEpoch) return;
+      if (!_controller.hasClients) {
+        await Future<void>.delayed(const Duration(milliseconds: 24));
+        continue;
+      }
+      final max = _controller.position.maxScrollExtent;
+      if (max <= 8) return;
+      final ms = (max * 42).round().clamp(5200, 24000);
+      await _controller.animateTo(
+        max,
+        duration: Duration(milliseconds: ms),
+        curve: Curves.linear,
+      );
+      if (!mounted || epoch != _scrollEpoch) return;
+      await Future<void>.delayed(const Duration(milliseconds: 850));
+      if (!mounted || epoch != _scrollEpoch) return;
+      _controller.jumpTo(0);
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollEpoch++;
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final names = widget.names;
+    final colorScheme = widget.colorScheme;
+    final textTheme = widget.textTheme;
+
+    return ClipRect(
+      child: SingleChildScrollView(
+        controller: _controller,
+        physics: const NeverScrollableScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: List<Widget>.generate(names.length, (index) {
+            final isLast = index == names.length - 1;
+            return Padding(
+              padding: EdgeInsets.only(bottom: isLast ? 0 : 7),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 20,
+                    child: Text(
+                      '${index + 1}.',
+                      textAlign: TextAlign.right,
+                      style: textTheme.labelSmall?.copyWith(
+                        color:
+                            colorScheme.primary.withValues(alpha: 0.52),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 1),
+                      child: Text(
+                        names[index],
+                        style: textTheme.bodySmall?.copyWith(
+                          color: colorScheme.onSurface.withValues(
+                            alpha: 0.66,
+                          ),
+                          height: 1.34,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
+        ),
+      ),
+    );
   }
 }

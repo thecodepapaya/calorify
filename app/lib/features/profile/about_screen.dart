@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/app_constants.dart';
+import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/utilities/app_version.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
@@ -420,8 +421,10 @@ class AboutScreen extends StatelessWidget {
     return OutlinedButton(
       onPressed: onTap,
       style: OutlinedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        minimumSize: Size(double.infinity, appButtonMinHeight),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         side: BorderSide(
           color: colorScheme.outlineVariant.withValues(alpha: 0.5),
         ),

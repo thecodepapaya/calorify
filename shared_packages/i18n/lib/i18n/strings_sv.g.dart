@@ -178,7 +178,7 @@ class _TranslationsMealSv implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Fel vid komprimering av bild: ${error}';
 	@override String get failedToSave => 'Misslyckades med att spara data. Försök igen.';
 	@override String get skip => 'Hoppa över';
-	@override late final _TranslationsMealVariationSv variation = _TranslationsMealVariationSv._(_root);
+	@override late final _TranslationsMealQuestionFlowSv questionFlow = _TranslationsMealQuestionFlowSv._(_root);
 	@override late final _TranslationsMealAnalysisSv analysis = _TranslationsMealAnalysisSv._(_root);
 	@override late final _TranslationsMealFeedbackSv feedback = _TranslationsMealFeedbackSv._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationSv implements TranslationsMealDeleteCon
 	@override String get delete => 'Ta bort';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationSv implements TranslationsMealVariationEn {
-	_TranslationsMealVariationSv._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowSv implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowSv._(this._root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Fråga ${current} av ${total}';
-	@override String get noVariationsAvailable => 'Inga variationer tillgängliga';
+	@override String progress({required Object current, required Object total}) => 'Fråga ${current} av ${total}';
+	@override String get noQuestionsAvailable => 'Inga frågor tillgängliga';
+	@override String get next => 'Nästa';
+	@override String get continueLabel => 'Fortsätt';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisSv implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'AI-måltidsanalys';
-	@override String get reassurance => 'Detta tar vanligtvis bara några sekunder.';
 	@override String get stepStarted => 'Startar…';
 	@override String get stepDecomposition => 'Förstår din måltid…';
 	@override String get stepIngredients => 'Matchar ingredienser med näringsdata…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisSv implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Förstå';
 	@override String get progressMatch => 'Matcha';
 	@override String get progressCheck => 'Kontrollera';
+	@override String get progressMealType => 'Väljer måltidstyp';
 	@override String get progressFinish => 'Slutför';
+	@override String get detectedIngredientHeading => 'Ingredienser vi upptäcker';
+	@override String ingredientsOverflow({required Object count}) => '${count} till';
 	@override String ingredientsLine({required Object count}) => '${count} ingredienser identifierade';
 	@override String get ingredientsPending => 'Skannar ingredienser…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsSv {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fel vid komprimering av bild: ${error}',
 			'meal.failedToSave' => 'Misslyckades med att spara data. Försök igen.',
 			'meal.skip' => 'Hoppa över',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Fråga ${current} av ${total}',
-			'meal.variation.noVariationsAvailable' => 'Inga variationer tillgängliga',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Fråga ${current} av ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Inga frågor tillgängliga',
+			'meal.questionFlow.next' => 'Nästa',
+			'meal.questionFlow.continueLabel' => 'Fortsätt',
 			'meal.analysis.title' => 'AI-måltidsanalys',
-			'meal.analysis.reassurance' => 'Detta tar vanligtvis bara några sekunder.',
 			'meal.analysis.stepStarted' => 'Startar…',
 			'meal.analysis.stepDecomposition' => 'Förstår din måltid…',
 			'meal.analysis.stepIngredients' => 'Matchar ingredienser med näringsdata…',
@@ -1897,7 +1902,10 @@ extension on TranslationsSv {
 			'meal.analysis.progressUnderstand' => 'Förstå',
 			'meal.analysis.progressMatch' => 'Matcha',
 			'meal.analysis.progressCheck' => 'Kontrollera',
+			'meal.analysis.progressMealType' => 'Väljer måltidstyp',
 			'meal.analysis.progressFinish' => 'Slutför',
+			'meal.analysis.detectedIngredientHeading' => 'Ingredienser vi upptäcker',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} till',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingredienser identifierade',
 			'meal.analysis.ingredientsPending' => 'Skannar ingredienser…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

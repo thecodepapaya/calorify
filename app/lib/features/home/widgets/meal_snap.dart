@@ -47,7 +47,7 @@ class _MealSnapState extends State<MealSnap> {
                 _buildImagePreview(context, colorScheme, textTheme)
               else
                 _buildCameraButton(context, colorScheme, textTheme),
-              SizedBox(height: 12),
+              SizedBox(height: 8),
               // Secondary action buttons
               if (!_isLoading)
                 _buildSecondaryActions(context, colorScheme, textTheme),
@@ -77,7 +77,7 @@ class _MealSnapState extends State<MealSnap> {
       borderRadius: globalRadius,
       child: Container(
         width: double.infinity,
-        height: 144,
+        height: 112,
         decoration: BoxDecoration(
           borderRadius: globalRadius,
           border: Border.all(
@@ -97,7 +97,7 @@ class _MealSnapState extends State<MealSnap> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: colorScheme.primary,
                 shape: BoxShape.circle,
@@ -108,10 +108,10 @@ class _MealSnapState extends State<MealSnap> {
                 color: colorScheme.onPrimary,
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 6),
             Text(
               t.home.mealSnap.openCamera,
-              style: textTheme.titleMedium?.copyWith(
+              style: textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: colorScheme.onSurface,
               ),
@@ -129,7 +129,7 @@ class _MealSnapState extends State<MealSnap> {
             : t.home.mealSnap.compressingPhoto;
     return Container(
       width: double.infinity,
-      height: 200,
+      height: 160,
       decoration: BoxDecoration(
         borderRadius: globalRadius,
         image: DecorationImage(image: FileImage(_file!), fit: BoxFit.cover),
@@ -142,7 +142,7 @@ class _MealSnapState extends State<MealSnap> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           AppLoader(color: colorScheme.surface),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
@@ -216,7 +216,7 @@ class _MealSnapState extends State<MealSnap> {
         onPressed();
       },
       style: OutlinedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(vertical: 12),
+        padding: appButtonOutlinedPadding,
         side: BorderSide(color: colorScheme.outline),
         shape: RoundedRectangleBorder(borderRadius: buttonRadius),
       ),
