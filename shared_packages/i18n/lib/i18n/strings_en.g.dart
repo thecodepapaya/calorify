@@ -1264,8 +1264,8 @@ class TranslationsMealAnalysisEn {
 
 	// Translations
 
-	/// en: 'AI meal analysis'
-	String get title => 'AI meal analysis';
+	/// en: 'Analyzing your meal'
+	String get title => 'Analyzing your meal';
 
 	/// en: 'This usually takes a few seconds.'
 	String get reassurance => 'This usually takes a few seconds.';
@@ -2892,7 +2892,7 @@ extension on Translations {
 			'meal.skip' => 'Skip',
 			'meal.variation.question' => ({required Object current, required Object total}) => 'Question ${current} of ${total}',
 			'meal.variation.noVariationsAvailable' => 'No variations available',
-			'meal.analysis.title' => 'AI meal analysis',
+			'meal.analysis.title' => 'Analyzing your meal',
 			'meal.analysis.reassurance' => 'This usually takes a few seconds.',
 			'meal.analysis.stepStarted' => 'Getting started…',
 			'meal.analysis.stepDecomposition' => 'Understanding your meal…',

@@ -20,34 +20,25 @@ class AiSummarySkeletonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const _HomeCardSkeleton(
+      titleToBodySpacing: 12,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Wrap(
             spacing: 8,
-            runSpacing: 8,
+            runSpacing: 6,
             children: [
-              _PillSkeleton(width: 116),
-              _PillSkeleton(width: 128),
-              _PillSkeleton(width: 132),
+              _PillSkeleton(width: 96, height: 26),
+              _PillSkeleton(width: 104, height: 26),
+              _PillSkeleton(width: 100, height: 26),
             ],
           ),
-          SizedBox(height: 14),
-          ShimmerBox(width: double.infinity, height: 14, borderRadius: 7),
-          SizedBox(height: 8),
-          ShimmerBox(width: 260, height: 14, borderRadius: 7),
-          SizedBox(height: 14),
-          ShimmerBox(width: 92, height: 12, borderRadius: 6),
-          SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              _PillSkeleton(width: 88),
-              _PillSkeleton(width: 76),
-              _PillSkeleton(width: 96),
-            ],
-          ),
+          SizedBox(height: 10),
+          ShimmerBox(width: double.infinity, height: 11, borderRadius: 5.5),
+          SizedBox(height: 6),
+          ShimmerBox(width: double.infinity, height: 11, borderRadius: 5.5),
+          SizedBox(height: 6),
+          ShimmerBox(width: 196, height: 11, borderRadius: 5.5),
         ],
       ),
     );
@@ -159,10 +150,15 @@ class MealLogSkeleton extends StatelessWidget {
 }
 
 class _HomeCardSkeleton extends StatelessWidget {
-  const _HomeCardSkeleton({required this.body, this.titleWidth = 144});
+  const _HomeCardSkeleton({
+    required this.body,
+    this.titleWidth = 144,
+    this.titleToBodySpacing = 16,
+  });
 
   final Widget body;
   final double titleWidth;
+  final double titleToBodySpacing;
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +167,7 @@ class _HomeCardSkeleton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _TitleRowSkeleton(titleWidth: titleWidth),
-          const SizedBox(height: 16),
+          SizedBox(height: titleToBodySpacing),
           body,
         ],
       ),
@@ -264,12 +260,13 @@ class _MealLogRowSkeleton extends StatelessWidget {
 }
 
 class _PillSkeleton extends StatelessWidget {
-  const _PillSkeleton({required this.width});
+  const _PillSkeleton({required this.width, this.height = 34});
 
   final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
-    return ShimmerBox(width: width, height: 34, borderRadius: 17);
+    return ShimmerBox(width: width, height: height, borderRadius: height / 2);
   }
 }
