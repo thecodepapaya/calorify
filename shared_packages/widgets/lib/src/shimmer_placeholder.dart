@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 class ShimmerScope extends StatefulWidget {
@@ -14,17 +16,18 @@ class ShimmerScope extends StatefulWidget {
 
 class _ShimmerScopeState extends State<ShimmerScope>
     with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-  late Animation<double> shimmer;
+  late final AnimationController controller;
+
+  /// Constant-speed sweep (controller uses linear tick); reads smoother than easeInOut.
+  Animation<double> get shimmer => controller;
 
   @override
   void initState() {
     super.initState();
     controller = AnimationController(
-      duration: const Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 1600),
       vsync: this,
     )..repeat();
-    shimmer = CurvedAnimation(parent: controller, curve: Curves.easeInOut);
   }
 
   @override
@@ -68,8 +71,12 @@ class ShimmerBox extends StatelessWidget {
       builder: (context, _) {
         final colorScheme = Theme.of(context).colorScheme;
         final base = colorScheme.surfaceContainerHighest;
-        final highlight = Color.lerp(base, colorScheme.onSurface, 0.10)!;
-        final value = shimmer.value;
+        final peak = Color.lerp(base, colorScheme.onSurface, 0.07)!;
+        final edge = Color.lerp(base, peak, 0.35)!;
+        // Map linear 0→1 animation to a periodic phase so the frame at t=0 matches
+        // t=1 (no discontinuity when [AnimationController.repeat] wraps).
+        final phase = shimmer.value * 2 * math.pi - math.pi / 2;
+        final center = (math.sin(phase) + 1) / 2;
         return Container(
           width: width,
           height: height,
@@ -77,11 +84,13 @@ class ShimmerBox extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              colors: [base, highlight, base],
+              colors: [base, edge, peak, edge, base],
               stops: [
-                (value - 0.3).clamp(0.0, 1.0),
-                value.clamp(0.0, 1.0),
-                (value + 0.3).clamp(0.0, 1.0),
+                (center - 0.5).clamp(0.0, 1.0),
+                (center - 0.2).clamp(0.0, 1.0),
+                center.clamp(0.0, 1.0),
+                (center + 0.2).clamp(0.0, 1.0),
+                (center + 0.5).clamp(0.0, 1.0),
               ],
             ),
             borderRadius: BorderRadius.circular(borderRadius),
