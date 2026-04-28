@@ -58,7 +58,6 @@ class TranslationsId with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsCommonId common = _TranslationsCommonId._(_root);
 	@override late final _TranslationsFeedbackRatingId feedbackRating = _TranslationsFeedbackRatingId._(_root);
 	@override late final _TranslationsHealthId health = _TranslationsHealthId._(_root);
-	@override late final _TranslationsAboutId about = _TranslationsAboutId._(_root);
 }
 
 // Path: errors
@@ -411,22 +410,6 @@ class _TranslationsHealthId implements TranslationsHealthEn {
 	// Translations
 	@override String get syncFailed => 'Tidak dapat menyinkronkan ke Health Connect';
 	@override String get mealSynced => 'Makanan tersinkron dengan Health Connect';
-}
-
-// Path: about
-class _TranslationsAboutId implements TranslationsAboutEn {
-	_TranslationsAboutId._(this._root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Tentang';
-	@override String get tagline => 'Kesadaran kalori yang cepat, gratis, dan mengutamakan privasi';
-	@override late final _TranslationsAboutOurStoryId ourStory = _TranslationsAboutOurStoryId._(_root);
-	@override late final _TranslationsAboutPrivacyId privacy = _TranslationsAboutPrivacyId._(_root);
-	@override late final _TranslationsAboutDeveloperId developer = _TranslationsAboutDeveloperId._(_root);
-	@override late final _TranslationsAboutFeedbackId feedback = _TranslationsAboutFeedbackId._(_root);
-	@override late final _TranslationsAboutAppInfoId appInfo = _TranslationsAboutAppInfoId._(_root);
 }
 
 // Path: onboarding.features
@@ -1192,71 +1175,6 @@ class _TranslationsDisclaimerCalorieExpenditureId implements TranslationsDisclai
 	@override String get description => 'Saat data Health Connect tidak tersedia, kami memperkirakan kalori yang terbakar hari ini menggunakan Laju Metabolisme Basal (BMR) dan tingkat aktivitas (TDEE), disesuaikan dengan porsi hari yang telah berlalu.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedId howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedId._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceId professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceId._(_root);
-}
-
-// Path: about.ourStory
-class _TranslationsAboutOurStoryId implements TranslationsAboutOurStoryEn {
-	_TranslationsAboutOurStoryId._(this._root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Kisah Kami';
-	@override String content({required Object appLabel}) => '${appLabel} lahir dari satu kegelisahan sederhana: sebagian besar aplikasi pelacak kalori terlalu rumit, menuntut input manual terus-menerus, mematok biaya langganan tinggi, atau mengorbankan privasi.\n\nSebagai pengembang tunggal, saya ingin membangun sesuatu yang lebih sederhana dan adil — aplikasi yang menggunakan AI untuk mengurangi usaha, tetap cepat dan gratis digunakan, serta menghormati data kesehatan Anda.\n\n${appLabel} adalah aplikasi yang saya harap sudah ada: tanpa akun, tanpa pelacakan, tanpa iklan — hanya wawasan yang jelas, praktis, dan sesuai tujuan kesehatan Anda.';
-}
-
-// Path: about.privacy
-class _TranslationsAboutPrivacyId implements TranslationsAboutPrivacyEn {
-	_TranslationsAboutPrivacyId._(this._root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Privasi Anda Penting';
-	@override String get description => 'Privasi bukan pemikiran belakangan — ini adalah prinsip desain. Berikut artinya dalam praktik:';
-	@override String get noAccounts => 'Tanpa akun diperlukan\nGunakan aplikasi segera. Tanpa pendaftaran, tanpa identitas.';
-	@override String noTracking({required Object appLabel}) => 'Tanpa pelacakan perilaku\n${appLabel} tidak memantau aktivitas Anda, membangun profil penggunaan, atau melacak Anda di aplikasi atau situs.';
-	@override String noAds({required Object appLabel}) => 'Bebas iklan sejak awal\n${appLabel} dibuat untuk bekerja tanpa iklan atau monetisasi berbasis data.';
-	@override String get noDataSelling => 'Tanpa penjualan data\nData kesehatan Anda tidak pernah dijual atau dibagikan ke pihak ketiga.';
-	@override String get localStorage => 'Penyimpanan berpusat pada perangkat\nData Anda tetap berada di perangkat Anda.';
-	@override String get privacyPolicy => 'Kebijakan Privasi';
-}
-
-// Path: about.developer
-class _TranslationsAboutDeveloperId implements TranslationsAboutDeveloperEn {
-	_TranslationsAboutDeveloperId._(this._root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Dibuat oleh Pengembang Tunggal';
-	@override String description({required Object appLabel}) => '${appLabel} dibuat dan dikelola oleh satu pengembang yang fokus menciptakan perangkat lunak kesehatan yang tenang dan menghormati privasi.\n\nMasukan dibaca secara pribadi dan membantu menentukan arah aplikasi.';
-	@override String get website => 'Situs web';
-	@override String get email => 'Email';
-}
-
-// Path: about.feedback
-class _TranslationsAboutFeedbackId implements TranslationsAboutFeedbackEn {
-	_TranslationsAboutFeedbackId._(this._root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String title({required Object appLabel}) => 'Menikmati ${appLabel}?';
-	@override String description({required Object appLabel}) => 'Masukan Anda membantu membuat ${appLabel} lebih baik untuk semua orang.';
-	@override String get rateApp => 'Beri rating di Play Store';
-	@override String get sendFeedback => 'Kirim Masukan';
-}
-
-// Path: about.appInfo
-class _TranslationsAboutAppInfoId implements TranslationsAboutAppInfoEn {
-	_TranslationsAboutAppInfoId._(this._root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
-	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2253,30 +2171,6 @@ extension on TranslationsId {
 			'feedbackRating.thankYouMessage' => 'Terima kasih! Kami akan menanyakannya lagi lain waktu.',
 			'health.syncFailed' => 'Tidak dapat menyinkronkan ke Health Connect',
 			'health.mealSynced' => 'Makanan tersinkron dengan Health Connect',
-			'about.title' => 'Tentang',
-			'about.tagline' => 'Kesadaran kalori yang cepat, gratis, dan mengutamakan privasi',
-			'about.ourStory.title' => 'Kisah Kami',
-			'about.ourStory.content' => ({required Object appLabel}) => '${appLabel} lahir dari satu kegelisahan sederhana: sebagian besar aplikasi pelacak kalori terlalu rumit, menuntut input manual terus-menerus, mematok biaya langganan tinggi, atau mengorbankan privasi.\n\nSebagai pengembang tunggal, saya ingin membangun sesuatu yang lebih sederhana dan adil — aplikasi yang menggunakan AI untuk mengurangi usaha, tetap cepat dan gratis digunakan, serta menghormati data kesehatan Anda.\n\n${appLabel} adalah aplikasi yang saya harap sudah ada: tanpa akun, tanpa pelacakan, tanpa iklan — hanya wawasan yang jelas, praktis, dan sesuai tujuan kesehatan Anda.',
-			'about.privacy.title' => 'Privasi Anda Penting',
-			'about.privacy.description' => 'Privasi bukan pemikiran belakangan — ini adalah prinsip desain. Berikut artinya dalam praktik:',
-			'about.privacy.noAccounts' => 'Tanpa akun diperlukan\nGunakan aplikasi segera. Tanpa pendaftaran, tanpa identitas.',
-			'about.privacy.noTracking' => ({required Object appLabel}) => 'Tanpa pelacakan perilaku\n${appLabel} tidak memantau aktivitas Anda, membangun profil penggunaan, atau melacak Anda di aplikasi atau situs.',
-			'about.privacy.noAds' => ({required Object appLabel}) => 'Bebas iklan sejak awal\n${appLabel} dibuat untuk bekerja tanpa iklan atau monetisasi berbasis data.',
-			'about.privacy.noDataSelling' => 'Tanpa penjualan data\nData kesehatan Anda tidak pernah dijual atau dibagikan ke pihak ketiga.',
-			'about.privacy.localStorage' => 'Penyimpanan berpusat pada perangkat\nData Anda tetap berada di perangkat Anda.',
-			'about.privacy.privacyPolicy' => 'Kebijakan Privasi',
-			'about.developer.title' => 'Dibuat oleh Pengembang Tunggal',
-			'about.developer.description' => ({required Object appLabel}) => '${appLabel} dibuat dan dikelola oleh satu pengembang yang fokus menciptakan perangkat lunak kesehatan yang tenang dan menghormati privasi.\n\nMasukan dibaca secara pribadi dan membantu menentukan arah aplikasi.',
-			'about.developer.website' => 'Situs web',
-			'about.developer.email' => 'Email',
-			'about.feedback.title' => ({required Object appLabel}) => 'Menikmati ${appLabel}?',
-			'about.feedback.description' => ({required Object appLabel}) => 'Masukan Anda membantu membuat ${appLabel} lebih baik untuk semua orang.',
-			'about.feedback.rateApp' => 'Beri rating di Play Store',
-			'about.feedback.sendFeedback' => 'Kirim Masukan',
-			_ => null,
-		} ?? switch (path) {
-			'about.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
-			'about.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
 			_ => null,
 		};
 	}

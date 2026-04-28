@@ -718,39 +718,5 @@
   "health": {
     "syncFailed": "Tidak dapat menyinkronkan ke Health Connect",
     "mealSynced": "Makanan tersinkron dengan Health Connect"
-  },
-  "about": {
-    "title": "Tentang",
-    "tagline": "Kesadaran kalori yang cepat, gratis, dan mengutamakan privasi",
-    "ourStory": {
-      "title": "Kisah Kami",
-      "content": "{appLabel} lahir dari satu kegelisahan sederhana: sebagian besar aplikasi pelacak kalori terlalu rumit, menuntut input manual terus-menerus, mematok biaya langganan tinggi, atau mengorbankan privasi.\n\nSebagai pengembang tunggal, saya ingin membangun sesuatu yang lebih sederhana dan adil — aplikasi yang menggunakan AI untuk mengurangi usaha, tetap cepat dan gratis digunakan, serta menghormati data kesehatan Anda.\n\n{appLabel} adalah aplikasi yang saya harap sudah ada: tanpa akun, tanpa pelacakan, tanpa iklan — hanya wawasan yang jelas, praktis, dan sesuai tujuan kesehatan Anda."
-    },
-    "privacy": {
-      "title": "Privasi Anda Penting",
-      "description": "Privasi bukan pemikiran belakangan — ini adalah prinsip desain. Berikut artinya dalam praktik:",
-      "noAccounts": "Tanpa akun diperlukan\nGunakan aplikasi segera. Tanpa pendaftaran, tanpa identitas.",
-      "noTracking": "Tanpa pelacakan perilaku\n{appLabel} tidak memantau aktivitas Anda, membangun profil penggunaan, atau melacak Anda di aplikasi atau situs.",
-      "noAds": "Bebas iklan sejak awal\n{appLabel} dibuat untuk bekerja tanpa iklan atau monetisasi berbasis data.",
-      "noDataSelling": "Tanpa penjualan data\nData kesehatan Anda tidak pernah dijual atau dibagikan ke pihak ketiga.",
-      "localStorage": "Penyimpanan berpusat pada perangkat\nData Anda tetap berada di perangkat Anda.",
-      "privacyPolicy": "Kebijakan Privasi"
-    },
-    "developer": {
-      "title": "Dibuat oleh Pengembang Tunggal",
-      "description": "{appLabel} dibuat dan dikelola oleh satu pengembang yang fokus menciptakan perangkat lunak kesehatan yang tenang dan menghormati privasi.\n\nMasukan dibaca secara pribadi dan membantu menentukan arah aplikasi.",
-      "website": "Situs web",
-      "email": "Email"
-    },
-    "feedback": {
-      "title": "Menikmati {appLabel}?",
-      "description": "Masukan Anda membantu membuat {appLabel} lebih baik untuk semua orang.",
-      "rateApp": "Beri rating di Play Store",
-      "sendFeedback": "Kirim Masukan"
-    },
-    "appInfo": {
-      "version": "Calorify v{version}",
-      "build": "Build {buildNumber}"
-    }
   }
 }
