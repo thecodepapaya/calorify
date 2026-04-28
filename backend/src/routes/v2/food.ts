@@ -45,20 +45,20 @@ const analyzeImageBodySchema = z.object({
 });
 type AnalyzeImageBody = z.infer<typeof analyzeImageBodySchema>;
 
-/** Accepts proto3 camelCase or legacy snake_case nested keys (older clients). */
+/** Accepts proto3 camelCase or snake_case nested keys. */
 const clarifyAnswerItemSchema = z.preprocess((raw) => {
   if (raw && typeof raw === 'object' && raw !== null && !Array.isArray(raw)) {
     const o = raw as Record<string, unknown>;
-    const name = o.ingredientName ?? o.ingredient_name;
-    const idx = o.selectedOptionIndex ?? o.selected_option_index;
-    if (typeof name === 'string' && typeof idx === 'number') {
-      return { ingredientName: name, selectedOptionIndex: idx };
+    const clarificationId = o.clarificationId ?? o.clarification_id;
+    const selectedOptionId = o.selectedOptionId ?? o.selected_option_id;
+    if (typeof clarificationId === 'string' && typeof selectedOptionId === 'string') {
+      return { clarificationId, selectedOptionId };
     }
   }
   return raw;
 }, z.object({
-  ingredientName: nonEmptyString,
-  selectedOptionIndex: z.number().int().nonnegative(),
+  clarificationId: nonEmptyString,
+  selectedOptionId: nonEmptyString,
 }));
 
 const clarifyBodySchema = z.object({

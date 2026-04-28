@@ -55,6 +55,7 @@ Future<MealAnalysisPipelineSessionContext?> resolveV2MealAnalysisFlow({
   String? textDescription,
 }) async {
   var nextAnalysis = startAnalysis;
+  String? seedMealName;
 
   while (context.mounted) {
     final repository = ProviderScope.containerOf(
@@ -73,6 +74,7 @@ Future<MealAnalysisPipelineSessionContext?> resolveV2MealAnalysisFlow({
             imageBytes: imageBytes,
             imageUrl: imageUrl,
             textDescription: textDescription,
+            seedMealName: seedMealName,
           ),
     );
 
@@ -83,6 +85,8 @@ Future<MealAnalysisPipelineSessionContext?> resolveV2MealAnalysisFlow({
     if (outcome.resultContext != null) {
       return outcome.resultContext;
     }
+
+    seedMealName = outcome.lastMealName ?? seedMealName;
 
     if (!context.mounted || outcome.analysisId == null) {
       return null;
@@ -137,6 +141,7 @@ Future<void> showDebugMealAnalysisPipelineSheet({
   Uint8List? imageBytes,
   String? imageUrl,
   String? textDescription,
+  String? seedMealName,
 }) async {
   await showModalBottomSheet<void>(
     context: context,
@@ -150,6 +155,7 @@ Future<void> showDebugMealAnalysisPipelineSheet({
           imageBytes: imageBytes,
           imageUrl: imageUrl,
           textDescription: textDescription,
+          seedMealName: seedMealName,
         ),
   );
 }
@@ -160,12 +166,14 @@ class _MealAnalysisFlowOutcome {
     this.analysisId,
     this.clarifications = const [],
     this.mealTypeQuestion,
+    this.lastMealName,
   });
 
   final MealAnalysisPipelineSessionContext? resultContext;
   final String? analysisId;
   final List<PipelineClarification> clarifications;
   final PipelineMealTypeQuestionData? mealTypeQuestion;
+  final String? lastMealName;
 }
 
 class _MealAnalysisPipelineSheet extends StatefulWidget {
@@ -174,22 +182,29 @@ class _MealAnalysisPipelineSheet extends StatefulWidget {
     this.imageBytes,
     this.imageUrl,
     this.textDescription,
+    this.seedMealName,
   });
 
   final Future<Stream<MealAnalysisPipelineEvent>> Function() startAnalysis;
   final Uint8List? imageBytes;
   final String? imageUrl;
   final String? textDescription;
+  final String? seedMealName;
 
   @override
   State<_MealAnalysisPipelineSheet> createState() =>
       _MealAnalysisPipelineSheetState();
 }
 
+enum _IngredientStage { none, decomposition, resolved }
+
 class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
     with SingleTickerProviderStateMixin {
   StreamSubscription<MealAnalysisPipelineEvent>? _subscription;
   MealAnalysisPipelineEvent? _lastEvent;
+  _IngredientStage _ingredientStage = _IngredientStage.none;
+  List<String> _ingredientNames = const [];
+  bool _headerResolvedLogged = false;
 
   bool _sheetDismissed = false;
   late final AnimationController _placeholderPulseController;
@@ -203,6 +218,7 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
       vsync: this,
       duration: const Duration(milliseconds: 4000),
     )..repeat();
+    _maybeLogHeaderResolved(fromSeed: true);
     _beginAnalysis();
   }
 
@@ -240,7 +256,6 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
 
   /// Fixed viewport for the ingredient list (heading + scroll slot); keeps layout stable.
   static const double _kIngredientListViewportHeight = 172;
-  static const double _kPreviewMealTitleToListGap = 14;
 
   String _labelResolved(PipelineResolvedIngredient i) {
     final canon = i.canonicalName.trim();
@@ -270,8 +285,7 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
           .where((s) => s.isNotEmpty)
           .toList();
     }
-    if (e.decomposition != null &&
-        e.decomposition!.ingredients.isNotEmpty) {
+    if (e.decomposition != null && e.decomposition!.ingredients.isNotEmpty) {
       return e.decomposition!.ingredients
           .map(_labelDecomposed)
           .where((s) => s.isNotEmpty)
@@ -280,14 +294,98 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
     return [];
   }
 
+  List<String> _resolvedIngredientNames(MealAnalysisPipelineEvent e) {
+    if (e.ingredientsStep != null &&
+        e.ingredientsStep!.ingredients.isNotEmpty) {
+      return e.ingredientsStep!.ingredients
+          .map(_labelResolved)
+          .where((s) => s.isNotEmpty)
+          .toList();
+    }
+    if (e.result != null && e.result!.ingredients.isNotEmpty) {
+      return e.result!.ingredients
+          .map(_labelResolved)
+          .where((s) => s.isNotEmpty)
+          .toList();
+    }
+    return const [];
+  }
+
+  List<String> _decompositionIngredientNames(MealAnalysisPipelineEvent e) {
+    if (e.decomposition != null && e.decomposition!.ingredients.isNotEmpty) {
+      return e.decomposition!.ingredients
+          .map(_labelDecomposed)
+          .where((s) => s.isNotEmpty)
+          .toList();
+    }
+    return const [];
+  }
+
+  void _updateIngredientAccumulator(MealAnalysisPipelineEvent event) {
+    final resolvedNames = _resolvedIngredientNames(event);
+    if (_ingredientStage != _IngredientStage.resolved &&
+        resolvedNames.isNotEmpty) {
+      _ingredientStage = _IngredientStage.resolved;
+      _ingredientNames = resolvedNames;
+      return;
+    }
+
+    final decompositionNames = _decompositionIngredientNames(event);
+    if (_ingredientStage == _IngredientStage.none &&
+        decompositionNames.isNotEmpty) {
+      _ingredientStage = _IngredientStage.decomposition;
+      _ingredientNames = decompositionNames;
+    }
+  }
+
+  String _mealNameFromEvent(MealAnalysisPipelineEvent? event) =>
+      (event?.mealName ?? '').trim();
+
+  String get _currentMealName {
+    final eventName = _mealNameFromEvent(_lastEvent);
+    if (eventName.isNotEmpty) return eventName;
+    return (widget.seedMealName ?? '').trim();
+  }
+
+  String _headerPhaseForEvent(MealAnalysisPipelineEvent? event) {
+    if (event == null) return 'seed';
+    return switch (event.step) {
+      PipelineStep.DECOMPOSITION => 'decomposition',
+      PipelineStep.RESULT => 'result',
+      PipelineStep.STARTED ||
+      PipelineStep.INGREDIENTS ||
+      PipelineStep.UNCERTAINTY ||
+      PipelineStep.MEAL_TYPE_QUESTION => 'ingredients',
+      _ => 'ingredients',
+    };
+  }
+
+  void _maybeLogHeaderResolved({
+    MealAnalysisPipelineEvent? event,
+    bool fromSeed = false,
+  }) {
+    if (_headerResolvedLogged) return;
+    final mealName =
+        fromSeed
+            ? (widget.seedMealName ?? '').trim()
+            : _mealNameFromEvent(event);
+    if (mealName.isEmpty) return;
+    _headerResolvedLogged = true;
+    Analytics.instance.logEvent(
+      AnalyticsEvent.mealAnalysisHeaderResolvedToName,
+      parameters: <String, Object>{
+        'phaseAtResolution': fromSeed ? 'seed' : _headerPhaseForEvent(event),
+      },
+    );
+  }
+
   int? _pipelinePhaseIndex(PipelineStep? step) {
     if (step == null) return null;
     if (step == PipelineStep.ERROR) return null;
     return switch (step) {
       PipelineStep.PIPELINE_STEP_UNSPECIFIED ||
       PipelineStep.STARTED ||
-      PipelineStep.DECOMPOSITION =>
-        0,
+      PipelineStep.DECOMPOSITION => 0,
       PipelineStep.INGREDIENTS => 1,
       PipelineStep.UNCERTAINTY => 2,
       PipelineStep.MEAL_TYPE_QUESTION => 2,
@@ -341,16 +439,17 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
   bool _shouldRebuildForDisplay(
     MealAnalysisPipelineEvent? previous,
     MealAnalysisPipelineEvent next,
+    String previousMealName,
+    List<String> previousIngredientNames,
+    _IngredientStage previousIngredientStage,
   ) {
     if (previous == null) return true;
-    final pName = (previous.mealName ?? '').trim();
-    final nName = (next.mealName ?? '').trim();
-    final prevNames = _detectedIngredientNames(previous).join('\u241e');
-    final nextNames = _detectedIngredientNames(next).join('\u241e');
+    final nName = _mealNameFromEvent(next);
     return previous.step != next.step ||
-        pName != nName ||
+        previousMealName != (nName.isNotEmpty ? nName : _currentMealName) ||
         _ingredientCount(previous) != _ingredientCount(next) ||
-        prevNames != nextNames;
+        previousIngredientStage != _ingredientStage ||
+        !listEquals(previousIngredientNames, _ingredientNames);
   }
 
   void _runAfterFrame(VoidCallback fn) {
@@ -393,31 +492,12 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
   }
 
   Widget _emergingPreviewContent({
-    required bool hasMealName,
-    required String? mealName,
     required int ingredientCount,
     required List<String> ingredientNames,
   }) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final hasNames = ingredientNames.isNotEmpty;
-
-    final trimmedMealName = mealName?.trim();
-    final Widget? mealTitle =
-        trimmedMealName != null && trimmedMealName.isNotEmpty
-            ? Text(
-              trimmedMealName,
-              key: ValueKey<String>('name-$trimmedMealName'),
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: textTheme.titleSmall?.copyWith(
-                color: colorScheme.onSurface.withValues(alpha: 0.94),
-                fontWeight: FontWeight.w600,
-                height: 1.25,
-              ),
-            )
-            : null;
 
     final listViewport = SizedBox(
       height: _kIngredientListViewportHeight,
@@ -441,8 +521,7 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
                 t.meal.analysis.ingredientsLine(count: ingredientCount),
                 textAlign: TextAlign.center,
                 style: textTheme.labelSmall?.copyWith(
-                  color:
-                      colorScheme.onSurfaceVariant.withValues(alpha: 0.74),
+                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.74),
                   fontWeight: FontWeight.w400,
                 ),
               ),
@@ -460,8 +539,7 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
                         t.meal.analysis.ingredientsPending,
                         textAlign: TextAlign.center,
                         style: textTheme.bodySmall?.copyWith(
-                          color:
-                              colorScheme.onSurface.withValues(alpha: 0.42),
+                          color: colorScheme.onSurface.withValues(alpha: 0.42),
                           height: 1.4,
                         ),
                       ),
@@ -472,18 +550,10 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
     );
 
     return Column(
-      key: ValueKey<String>(
-        '${mealName ?? ''}|${ingredientNames.join(',')}|$ingredientCount',
-      ),
+      key: ValueKey<String>('${ingredientNames.join(',')}|$ingredientCount'),
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        if (mealTitle != null) ...[
-          mealTitle,
-          const SizedBox(height: _kPreviewMealTitleToListGap),
-        ],
-        listViewport,
-      ],
+      children: [listViewport],
     );
   }
 
@@ -492,11 +562,14 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
-    final mealName = _lastEvent?.mealName;
-    final ingredientCount = _ingredientCount(_lastEvent);
-    final ingredientNames = _detectedIngredientNames(_lastEvent);
-
-    final hasMealName = mealName != null && mealName.isNotEmpty;
+    final mealName = _currentMealName;
+    final hasHeaderMealName = mealName.trim().isNotEmpty;
+    final headerTitle = hasHeaderMealName ? mealName : t.meal.analysis.title;
+    final ingredientNames = _ingredientNames;
+    final ingredientCount =
+        ingredientNames.isNotEmpty
+            ? ingredientNames.length
+            : _ingredientCount(_lastEvent);
 
     final progressVal = _effectiveProgressValue(_lastEvent);
     final displayPhase = _effectiveDisplayPhase(_lastEvent);
@@ -518,12 +591,23 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            t.meal.analysis.title,
-            style: textTheme.titleLarge?.copyWith(
-              color: colorScheme.onSurface,
-              fontWeight: FontWeight.w600,
-              height: 1.2,
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 320),
+            switchInCurve: Curves.easeOut,
+            switchOutCurve: Curves.easeIn,
+            transitionBuilder:
+                (child, animation) =>
+                    FadeTransition(opacity: animation, child: child),
+            child: Text(
+              headerTitle,
+              key: ValueKey<String>('header-$headerTitle'),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: textTheme.titleLarge?.copyWith(
+                color: colorScheme.onSurface,
+                fontWeight: FontWeight.w600,
+                height: 1.2,
+              ),
             ),
           ),
           if (widget.imageBytes != null && widget.imageBytes!.isNotEmpty) ...[
@@ -543,8 +627,9 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
             const SizedBox(height: 14),
             DecoratedBox(
               decoration: BoxDecoration(
-                color:
-                    colorScheme.surfaceContainerHighest.withValues(alpha: 0.42),
+                color: colorScheme.surfaceContainerHighest.withValues(
+                  alpha: 0.42,
+                ),
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Padding(
@@ -569,8 +654,9 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
             minHeight: 6,
             borderRadius: BorderRadius.circular(999),
             color: colorScheme.primary,
-            backgroundColor:
-                colorScheme.surfaceContainerHighest.withValues(alpha: 0.88),
+            backgroundColor: colorScheme.surfaceContainerHighest.withValues(
+              alpha: 0.88,
+            ),
           ),
           const SizedBox(height: 10),
           Padding(
@@ -608,15 +694,14 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
             duration: const Duration(milliseconds: 320),
             switchInCurve: Curves.easeOut,
             switchOutCurve: Curves.easeIn,
-            transitionBuilder: (child, animation) =>
-                FadeTransition(opacity: animation, child: child),
+            transitionBuilder:
+                (child, animation) =>
+                    FadeTransition(opacity: animation, child: child),
             child: KeyedSubtree(
               key: ValueKey<Object>(
-                '$hasMealName|$ingredientCount|${ingredientNames.join('|')}',
+                '$ingredientCount|${ingredientNames.join('|')}',
               ),
               child: _emergingPreviewContent(
-                hasMealName: hasMealName,
-                mealName: mealName,
                 ingredientCount: ingredientCount,
                 ingredientNames: ingredientNames,
               ),
@@ -661,6 +746,15 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
             return;
           }
 
+          final previousMealName = _currentMealName;
+          final previousIngredientNames = List<String>.of(_ingredientNames);
+          final previousIngredientStage = _ingredientStage;
+          _updateIngredientAccumulator(event);
+          _maybeLogHeaderResolved(event: event);
+          final eventMealName = _mealNameFromEvent(event);
+          final lastMealName =
+              eventMealName.isNotEmpty ? eventMealName : _currentMealName;
+
           if (event.uncertainty != null &&
               event.uncertainty!.needsClarification &&
               event.uncertainty!.clarifications.isNotEmpty) {
@@ -670,6 +764,7 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
                 _MealAnalysisFlowOutcome(
                   analysisId: event.analysisId,
                   clarifications: event.uncertainty!.clarifications,
+                  lastMealName: lastMealName.isNotEmpty ? lastMealName : null,
                 ),
               );
             });
@@ -683,6 +778,7 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
                 _MealAnalysisFlowOutcome(
                   analysisId: event.analysisId,
                   mealTypeQuestion: event.mealTypeQuestion,
+                  lastMealName: lastMealName.isNotEmpty ? lastMealName : null,
                 ),
               );
             });
@@ -704,6 +800,7 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
               if (!mounted || _sheetDismissed) return;
               _safePopSheet(
                 _MealAnalysisFlowOutcome(
+                  lastMealName: lastMealName.isNotEmpty ? lastMealName : null,
                   resultContext: MealAnalysisPipelineSessionContext(
                     result: event.result!,
                     imageBytes: widget.imageBytes,
@@ -716,7 +813,13 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
             return;
           }
 
-          if (_shouldRebuildForDisplay(_lastEvent, event)) {
+          if (_shouldRebuildForDisplay(
+            _lastEvent,
+            event,
+            previousMealName,
+            previousIngredientNames,
+            previousIngredientStage,
+          )) {
             setState(() => _lastEvent = event);
           } else {
             _lastEvent = event;
@@ -777,11 +880,23 @@ class _IngredientNamesSlowScrollListState
   void didUpdateWidget(covariant _IngredientNamesSlowScrollList oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!listEquals(oldWidget.names, widget.names)) {
-      if (_controller.hasClients) {
+      final shouldReset = _shouldResetForNamesChange(
+        oldWidget.names,
+        widget.names,
+      );
+      if (shouldReset && _controller.hasClients) {
         _controller.jumpTo(0);
       }
       WidgetsBinding.instance.addPostFrameCallback((_) => _kickMarquee());
     }
+  }
+
+  bool _shouldResetForNamesChange(List<String> oldNames, List<String> names) {
+    if (names.length < oldNames.length) return true;
+    for (var i = 0; i < oldNames.length; i++) {
+      if (oldNames[i] != names[i]) return true;
+    }
+    return false;
   }
 
   void _kickMarquee() {
@@ -791,7 +906,6 @@ class _IngredientNamesSlowScrollListState
   }
 
   Future<void> _marqueeLoop(int epoch) async {
-    await Future<void>.delayed(Duration.zero);
     while (mounted && epoch == _scrollEpoch) {
       await WidgetsBinding.instance.endOfFrame;
       if (!mounted || epoch != _scrollEpoch) return;
@@ -847,8 +961,7 @@ class _IngredientNamesSlowScrollListState
                       '${index + 1}.',
                       textAlign: TextAlign.right,
                       style: textTheme.labelSmall?.copyWith(
-                        color:
-                            colorScheme.primary.withValues(alpha: 0.52),
+                        color: colorScheme.primary.withValues(alpha: 0.52),
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -860,9 +973,7 @@ class _IngredientNamesSlowScrollListState
                       child: Text(
                         names[index],
                         style: textTheme.bodySmall?.copyWith(
-                          color: colorScheme.onSurface.withValues(
-                            alpha: 0.66,
-                          ),
+                          color: colorScheme.onSurface.withValues(alpha: 0.66),
                           height: 1.34,
                           fontWeight: FontWeight.w400,
                         ),

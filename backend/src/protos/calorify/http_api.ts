@@ -83,8 +83,8 @@ export interface MealAnalysisConfirmLogRequest {
 }
 
 export interface MealClarificationAnswer {
-  ingredientName: string;
-  selectedOptionIndex: number;
+  clarificationId: string;
+  selectedOptionId: string;
 }
 
 export interface MealAnalysisClarifyRequest {

@@ -180,22 +180,22 @@ final $typed_data.Uint8List mealAnalysisConfirmLogRequestDescriptor =
 const MealClarificationAnswer$json = {
   '1': 'MealClarificationAnswer',
   '2': [
-    {'1': 'ingredient_name', '3': 1, '4': 1, '5': 9, '10': 'ingredientName'},
+    {'1': 'clarification_id', '3': 1, '4': 1, '5': 9, '10': 'clarificationId'},
     {
-      '1': 'selected_option_index',
+      '1': 'selected_option_id',
       '3': 2,
       '4': 1,
-      '5': 5,
-      '10': 'selectedOptionIndex'
+      '5': 9,
+      '10': 'selectedOptionId'
     },
   ],
 };
 
 /// Descriptor for `MealClarificationAnswer`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List mealClarificationAnswerDescriptor = $convert.base64Decode(
-    'ChdNZWFsQ2xhcmlmaWNhdGlvbkFuc3dlchInCg9pbmdyZWRpZW50X25hbWUYASABKAlSDmluZ3'
-    'JlZGllbnROYW1lEjIKFXNlbGVjdGVkX29wdGlvbl9pbmRleBgCIAEoBVITc2VsZWN0ZWRPcHRp'
-    'b25JbmRleA==');
+    'ChdNZWFsQ2xhcmlmaWNhdGlvbkFuc3dlchIpChBjbGFyaWZpY2F0aW9uX2lkGAEgASgJUg9jbG'
+    'FyaWZpY2F0aW9uSWQSLAoSc2VsZWN0ZWRfb3B0aW9uX2lkGAIgASgJUhBzZWxlY3RlZE9wdGlv'
+    'bklk');
 
 @$core.Deprecated('Use mealAnalysisClarifyRequestDescriptor instead')
 const MealAnalysisClarifyRequest$json = {

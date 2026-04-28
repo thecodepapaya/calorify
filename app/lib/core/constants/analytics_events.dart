@@ -47,6 +47,7 @@ enum AnalyticsEvent {
   mealAnalysisV2Started,
   mealAnalysisV2Completed,
   mealAnalysisV2Failed,
+  mealAnalysisHeaderResolvedToName,
   mealQuestionFlowContinue,
   mealTypeQuestionShown,
   mealTypeQuestionAnswered,

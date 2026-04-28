@@ -289,7 +289,7 @@ test('POST /clarify returns 400 when analysisId is missing', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/clarify',
-    payload: { answers: [{ ingredient_name: 'rice', selected_option_index: 1 }] },
+    payload: { answers: [{ clarification_id: 'clr-rice', selected_option_id: 'regular' }] },
   });
   assert.equal(response.statusCode, 400);
   assertClientError(response.json(), 'analysisId');
@@ -326,7 +326,7 @@ test('POST /clarify streams events for valid payload', async () => {
     url: '/api/v2/food/clarify',
     payload: {
       analysisId: 'valid-analysis-id',
-      answers: [{ ingredient_name: 'rice', selected_option_index: 1 }],
+      answers: [{ clarification_id: 'clr-rice', selected_option_id: 'regular' }],
     },
   });
   assert.equal(response.statusCode, 200);
@@ -342,7 +342,7 @@ test('POST /clarify accepts proto3 camelCase answer keys', async () => {
     url: '/api/v2/food/clarify',
     payload: {
       analysisId: 'valid-analysis-id',
-      answers: [{ ingredientName: 'rice', selectedOptionIndex: 1 }],
+      answers: [{ clarificationId: 'clr-rice', selectedOptionId: 'regular' }],
     },
   });
   assert.equal(response.statusCode, 200);
@@ -355,12 +355,12 @@ test('POST /clarify calls continueMealAnalysis with correct args', async () => {
   mockContinueMealAnalysis.mock.resetCalls();
   const app = await buildTestApp();
   const answers = [
-    { ingredientName: 'rice', selectedOptionIndex: 0 },
-    { ingredientName: 'dal', selectedOptionIndex: 2 },
+    { clarificationId: 'clr-rice', selectedOptionId: 'small' },
+    { clarificationId: 'clr-dal', selectedOptionId: 'large' },
   ];
   const expectedDto = [
-    { ingredient_name: 'rice', selected_option_index: 0 },
-    { ingredient_name: 'dal', selected_option_index: 2 },
+    { clarificationId: 'clr-rice', selectedOptionId: 'small' },
+    { clarificationId: 'clr-dal', selectedOptionId: 'large' },
   ];
   await app.inject({
     method: 'POST',

@@ -413,13 +413,12 @@ class MealAnalysisConfirmLogRequest extends $pb.GeneratedMessage {
 
 class MealClarificationAnswer extends $pb.GeneratedMessage {
   factory MealClarificationAnswer({
-    $core.String? ingredientName,
-    $core.int? selectedOptionIndex,
+    $core.String? clarificationId,
+    $core.String? selectedOptionId,
   }) {
     final result = create();
-    if (ingredientName != null) result.ingredientName = ingredientName;
-    if (selectedOptionIndex != null)
-      result.selectedOptionIndex = selectedOptionIndex;
+    if (clarificationId != null) result.clarificationId = clarificationId;
+    if (selectedOptionId != null) result.selectedOptionId = selectedOptionId;
     return result;
   }
 
@@ -436,8 +435,8 @@ class MealClarificationAnswer extends $pb.GeneratedMessage {
       _omitMessageNames ? '' : 'MealClarificationAnswer',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
       createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'ingredientName')
-    ..aI(2, _omitFieldNames ? '' : 'selectedOptionIndex')
+    ..aOS(1, _omitFieldNames ? '' : 'clarificationId')
+    ..aOS(2, _omitFieldNames ? '' : 'selectedOptionId')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -461,22 +460,22 @@ class MealClarificationAnswer extends $pb.GeneratedMessage {
   static MealClarificationAnswer? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get ingredientName => $_getSZ(0);
+  $core.String get clarificationId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set ingredientName($core.String value) => $_setString(0, value);
+  set clarificationId($core.String value) => $_setString(0, value);
   @$pb.TagNumber(1)
-  $core.bool hasIngredientName() => $_has(0);
+  $core.bool hasClarificationId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearIngredientName() => $_clearField(1);
+  void clearClarificationId() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.int get selectedOptionIndex => $_getIZ(1);
+  $core.String get selectedOptionId => $_getSZ(1);
   @$pb.TagNumber(2)
-  set selectedOptionIndex($core.int value) => $_setSignedInt32(1, value);
+  set selectedOptionId($core.String value) => $_setString(1, value);
   @$pb.TagNumber(2)
-  $core.bool hasSelectedOptionIndex() => $_has(1);
+  $core.bool hasSelectedOptionId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearSelectedOptionIndex() => $_clearField(2);
+  void clearSelectedOptionId() => $_clearField(2);
 }
 
 class MealAnalysisClarifyRequest extends $pb.GeneratedMessage {

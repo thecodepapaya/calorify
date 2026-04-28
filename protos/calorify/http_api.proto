@@ -52,8 +52,8 @@ message MealAnalysisConfirmLogRequest {
 
 
 message MealClarificationAnswer {
-  string ingredient_name = 1;
-  int32 selected_option_index = 2;
+  string clarification_id = 1;
+  string selected_option_id = 2;
 }
 
 message MealAnalysisClarifyRequest {

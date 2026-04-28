@@ -67,6 +67,27 @@ export const mealAnalysisTraceStepSeconds = new Histogram({
   registers: [registry],
 });
 
+/**
+ * Why an ingredient row was skipped during clarification generation.
+ * Lets us tell "model is great" apart from "all our skip rules collude".
+ */
+export const mealAnalysisClarificationSkipsTotal = new Counter({
+  name: 'meal_analysis_clarification_skips_total',
+  help: 'Count of clarification skip events, labeled by reason.',
+  labelNames: ['reason'] as const,
+  registers: [registry],
+});
+
+/**
+ * Counts decomposition-time data quality issues (count dropped from text, sanity clamp triggered).
+ */
+export const mealAnalysisDecompositionIssuesTotal = new Counter({
+  name: 'meal_analysis_decomposition_issues_total',
+  help: 'Count of decomposition data-quality issues, labeled by issue type.',
+  labelNames: ['issue'] as const,
+  registers: [registry],
+});
+
 const circuitBreakerState = new Gauge({
   name: 'circuit_breaker_state',
   help: 'Circuit breaker state. 0 = CLOSED, 1 = HALF_OPEN, 2 = OPEN.',

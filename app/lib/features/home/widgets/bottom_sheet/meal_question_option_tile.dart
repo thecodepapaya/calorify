@@ -8,11 +8,13 @@ class MealQuestionOptionTile extends StatefulWidget {
   const MealQuestionOptionTile({
     super.key,
     required this.label,
+    this.detail,
     required this.isSelected,
     required this.onTap,
   });
 
   final String label;
+  final String? detail;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -64,6 +66,12 @@ class _MealQuestionOptionTileState extends State<MealQuestionOptionTile>
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
+    final detail = widget.detail?.trim();
+    final hasDetail = detail != null && detail.isNotEmpty;
+    final foregroundColor =
+        widget.isSelected
+            ? colorScheme.onPrimaryContainer
+            : colorScheme.onSurface;
 
     return GestureDetector(
       onTap: widget.onTap,
@@ -85,16 +93,40 @@ class _MealQuestionOptionTileState extends State<MealQuestionOptionTile>
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              widget.label,
-              style: textTheme.bodyMedium?.copyWith(
-                color:
-                    widget.isSelected
-                        ? colorScheme.onPrimaryContainer
-                        : colorScheme.onSurface,
-                fontWeight:
-                    widget.isSelected ? FontWeight.w600 : FontWeight.normal,
+            Flexible(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.label,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: foregroundColor,
+                      fontWeight:
+                          widget.isSelected
+                              ? FontWeight.w600
+                              : FontWeight.normal,
+                      height: 1.22,
+                    ),
+                  ),
+                  if (hasDetail) ...[
+                    const SizedBox(height: 3),
+                    Text(
+                      detail,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.labelSmall?.copyWith(
+                        color: foregroundColor.withValues(alpha: 0.72),
+                        fontWeight: FontWeight.w400,
+                        height: 1.2,
+                      ),
+                    ),
+                  ],
+                ],
               ),
             ),
             if (widget.isSelected) ...[
