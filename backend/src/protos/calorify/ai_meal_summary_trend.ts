@@ -8,7 +8,6 @@
 
 export const protobufPackage = "calorify.ai_meal_summary";
 
-/** Calorie trend vs prior window for GET /api/v1/food/ai-summary (proto3 JSON: UNSPECIFIED, UP, DOWN, STEADY). */
 export const AiMealSummaryTrend = {
   UNSPECIFIED: "UNSPECIFIED",
   UP: "UP",

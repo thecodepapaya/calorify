@@ -6,51 +6,51 @@ import "protos/meal/meal.proto";
 
 import "protos/calorify/ai_meal_summary_trend.proto";
 
-// Standard JSON body for simple API acks (2xx) and application/json errors (4xx/5xx)
-// when no other payload is returned: `ok` plus a human-readable `message`.
-// Used for e.g. POST /api/v1/user/profile, POST /api/v2/food/feedback, /confirm-log.
+
+
+
 message ApiResult {
   bool ok = 1;
   string message = 2;
 }
 
-// GET /api/v1/food/ai-summary
+
 message AiMealSummaryResponse {
   optional string summary = 1;
-  optional string generated_at = 2; // JSON key: generatedAt
+  optional string generated_at = 2; 
   int32 meal_count = 3;
   repeated string top_foods = 4;
   int32 macro_balance_score = 5;
   calorify.ai_meal_summary.AiMealSummaryTrend trend = 6;
 }
 
-// GET /api/v1/food/meal-analysis-tips
+
 message MealAnalysisTipsResponse {
   int32 version = 1;
   repeated string tips = 2;
 }
 
-// POST /api/v2/food/feedback — proto3 JSON uses enumerator names ("SIGNAL_UNSPECIFIED", "UP", "DOWN", …).
+
 enum MealAnalysisFeedbackSignal {
   SIGNAL_UNSPECIFIED = 0;
   UP = 1;
   DOWN = 2;
 }
 
-// POST /api/v2/food/feedback
+
 message MealAnalysisFeedbackRequest {
   string analysis_id = 1;
   MealAnalysisFeedbackSignal signal = 2;
 }
 
-// POST /api/v2/food/confirm-log
+
 message MealAnalysisConfirmLogRequest {
   string analysis_id = 1;
   string logged_at = 2;
   meal.Meal meal = 3;
 }
 
-// POST /api/v2/food/clarify (proto3 JSON uses camelCase for nested keys).
+
 message MealClarificationAnswer {
   string ingredient_name = 1;
   int32 selected_option_index = 2;
@@ -61,13 +61,13 @@ message MealAnalysisClarifyRequest {
   repeated MealClarificationAnswer answers = 2;
 }
 
-// POST /api/v2/food/meal-type
+
 message MealAnalysisMealTypeRequest {
   string analysis_id = 1;
   meal.MealType meal_type = 2;
 }
 
-// POST /api/v2/food/reanalyze — JSON array uses enumerator names (e.g. "PORTION_SIZE").
+
 enum MealReanalyzeFeedbackIssue {
   ISSUE_UNSPECIFIED = 0;
   FOOD_IDENTIFICATION = 1;

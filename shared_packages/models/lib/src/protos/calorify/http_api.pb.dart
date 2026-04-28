@@ -22,9 +22,6 @@ export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 export 'http_api.pbenum.dart';
 
-/// Standard JSON body for simple API acks (2xx) and application/json errors (4xx/5xx)
-/// when no other payload is returned: `ok` plus a human-readable `message`.
-/// Used for e.g. POST /api/v1/user/profile, POST /api/v2/food/feedback, /confirm-log.
 class ApiResult extends $pb.GeneratedMessage {
   factory ApiResult({
     $core.bool? ok,
@@ -90,7 +87,6 @@ class ApiResult extends $pb.GeneratedMessage {
   void clearMessage() => $_clearField(2);
 }
 
-/// GET /api/v1/food/ai-summary
 class AiMealSummaryResponse extends $pb.GeneratedMessage {
   factory AiMealSummaryResponse({
     $core.String? summary,
@@ -201,7 +197,6 @@ class AiMealSummaryResponse extends $pb.GeneratedMessage {
   void clearTrend() => $_clearField(6);
 }
 
-/// GET /api/v1/food/meal-analysis-tips
 class MealAnalysisTipsResponse extends $pb.GeneratedMessage {
   factory MealAnalysisTipsResponse({
     $core.int? version,
@@ -263,7 +258,6 @@ class MealAnalysisTipsResponse extends $pb.GeneratedMessage {
   $pb.PbList<$core.String> get tips => $_getList(1);
 }
 
-/// POST /api/v2/food/feedback
 class MealAnalysisFeedbackRequest extends $pb.GeneratedMessage {
   factory MealAnalysisFeedbackRequest({
     $core.String? analysisId,
@@ -334,7 +328,6 @@ class MealAnalysisFeedbackRequest extends $pb.GeneratedMessage {
   void clearSignal() => $_clearField(2);
 }
 
-/// POST /api/v2/food/confirm-log
 class MealAnalysisConfirmLogRequest extends $pb.GeneratedMessage {
   factory MealAnalysisConfirmLogRequest({
     $core.String? analysisId,
@@ -418,7 +411,6 @@ class MealAnalysisConfirmLogRequest extends $pb.GeneratedMessage {
   $0.Meal ensureMeal() => $_ensure(2);
 }
 
-/// POST /api/v2/food/clarify (proto3 JSON uses camelCase for nested keys).
 class MealClarificationAnswer extends $pb.GeneratedMessage {
   factory MealClarificationAnswer({
     $core.String? ingredientName,
@@ -550,7 +542,6 @@ class MealAnalysisClarifyRequest extends $pb.GeneratedMessage {
   $pb.PbList<MealClarificationAnswer> get answers => $_getList(1);
 }
 
-/// POST /api/v2/food/meal-type
 class MealAnalysisMealTypeRequest extends $pb.GeneratedMessage {
   factory MealAnalysisMealTypeRequest({
     $core.String? analysisId,

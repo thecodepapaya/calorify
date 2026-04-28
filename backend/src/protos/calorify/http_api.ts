@@ -10,7 +10,6 @@ import type { AiMealSummaryTrend } from "./ai_meal_summary_trend";
 
 export const protobufPackage = "calorify";
 
-/** POST /api/v2/food/feedback — proto3 JSON uses enumerator names ("SIGNAL_UNSPECIFIED", "UP", "DOWN", …). */
 export const MealAnalysisFeedbackSignal = {
   SIGNAL_UNSPECIFIED: "SIGNAL_UNSPECIFIED",
   UP: "UP",
@@ -27,7 +26,6 @@ export namespace MealAnalysisFeedbackSignal {
   export type UNRECOGNIZED = typeof MealAnalysisFeedbackSignal.UNRECOGNIZED;
 }
 
-/** POST /api/v2/food/reanalyze — JSON array uses enumerator names (e.g. "PORTION_SIZE"). */
 export const MealReanalyzeFeedbackIssue = {
   ISSUE_UNSPECIFIED: "ISSUE_UNSPECIFIED",
   FOOD_IDENTIFICATION: "FOOD_IDENTIFICATION",
@@ -54,22 +52,13 @@ export namespace MealReanalyzeFeedbackIssue {
   export type UNRECOGNIZED = typeof MealReanalyzeFeedbackIssue.UNRECOGNIZED;
 }
 
-/**
- * Standard JSON body for simple API acks (2xx) and application/json errors (4xx/5xx)
- * when no other payload is returned: `ok` plus a human-readable `message`.
- * Used for e.g. POST /api/v1/user/profile, POST /api/v2/food/feedback, /confirm-log.
- */
 export interface ApiResult {
   ok: boolean;
   message: string;
 }
 
-/** GET /api/v1/food/ai-summary */
 export interface AiMealSummaryResponse {
-  summary?:
-    | string
-    | undefined;
-  /** JSON key: generatedAt */
+  summary?: string | undefined;
   generatedAt?: string | undefined;
   mealCount: number;
   topFoods: string[];
@@ -77,26 +66,22 @@ export interface AiMealSummaryResponse {
   trend: AiMealSummaryTrend;
 }
 
-/** GET /api/v1/food/meal-analysis-tips */
 export interface MealAnalysisTipsResponse {
   version: number;
   tips: string[];
 }
 
-/** POST /api/v2/food/feedback */
 export interface MealAnalysisFeedbackRequest {
   analysisId: string;
   signal: MealAnalysisFeedbackSignal;
 }
 
-/** POST /api/v2/food/confirm-log */
 export interface MealAnalysisConfirmLogRequest {
   analysisId: string;
   loggedAt: string;
   meal?: Meal | undefined;
 }
 
-/** POST /api/v2/food/clarify (proto3 JSON uses camelCase for nested keys). */
 export interface MealClarificationAnswer {
   ingredientName: string;
   selectedOptionIndex: number;
@@ -107,7 +92,6 @@ export interface MealAnalysisClarifyRequest {
   answers: MealClarificationAnswer[];
 }
 
-/** POST /api/v2/food/meal-type */
 export interface MealAnalysisMealTypeRequest {
   analysisId: string;
   mealType: MealType;

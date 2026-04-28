@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package calorify;
+
+message Banner {
+  bool enabled = 1;
+  map<string, string> messages_by_locale = 2;
+  BannerPriority priority = 3;
+  bool dismissible = 4;
+  optional string link_url = 5;
+  optional int64 minimum_build_inclusive = 6;
+  optional int64 maximum_build_exclusive = 7;
+  optional int64 created_at = 8;
+}
+
+enum BannerPriority {
+  LOW = 0;
+  MEDIUM = 1;
+  HIGH = 2;
+}

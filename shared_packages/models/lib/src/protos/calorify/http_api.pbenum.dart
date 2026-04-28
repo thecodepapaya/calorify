@@ -14,7 +14,6 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-/// POST /api/v2/food/feedback — proto3 JSON uses enumerator names ("SIGNAL_UNSPECIFIED", "UP", "DOWN", …).
 class MealAnalysisFeedbackSignal extends $pb.ProtobufEnum {
   static const MealAnalysisFeedbackSignal SIGNAL_UNSPECIFIED =
       MealAnalysisFeedbackSignal._(
@@ -39,7 +38,6 @@ class MealAnalysisFeedbackSignal extends $pb.ProtobufEnum {
   const MealAnalysisFeedbackSignal._(super.value, super.name);
 }
 
-/// POST /api/v2/food/reanalyze — JSON array uses enumerator names (e.g. "PORTION_SIZE").
 class MealReanalyzeFeedbackIssue extends $pb.ProtobufEnum {
   static const MealReanalyzeFeedbackIssue ISSUE_UNSPECIFIED =
       MealReanalyzeFeedbackIssue._(

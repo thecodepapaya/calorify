@@ -1325,7 +1325,6 @@ class PipelineErrorData extends $pb.GeneratedMessage {
   void clearMessage() => $_clearField(2);
 }
 
-/// Session state after a successful pipeline result (client-only; shared by app + watch).
 class MealAnalysisPipelineSessionContext extends $pb.GeneratedMessage {
   factory MealAnalysisPipelineSessionContext({
     PipelineResultData? result,

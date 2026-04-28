@@ -14,7 +14,6 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-/// Calorie trend vs prior window for GET /api/v1/food/ai-summary (proto3 JSON: UNSPECIFIED, UP, DOWN, STEADY).
 class AiMealSummaryTrend extends $pb.ProtobufEnum {
   static const AiMealSummaryTrend UNSPECIFIED =
       AiMealSummaryTrend._(0, _omitEnumNames ? '' : 'UNSPECIFIED');

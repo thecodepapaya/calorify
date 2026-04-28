@@ -4,7 +4,7 @@ package calorify;
 
 import "protos/meal/meal.proto";
 
-// V2 NDJSON/SSE line field `step` (string on the wire matches enum value names).
+
 enum PipelineStep {
   PIPELINE_STEP_UNSPECIFIED = 0;
   STARTED = 1;
@@ -16,7 +16,7 @@ enum PipelineStep {
   ERROR = 7;
 }
 
-// V2 meal analysis NDJSON/SSE stream payloads (proto3 JSON: lowerCamelCase keys).
+
 
 message PipelineCalorieBand {
   int32 min = 1;
@@ -119,7 +119,7 @@ message PipelineErrorData {
   string message = 2;
 }
 
-// Session state after a successful pipeline result (client-only; shared by app + watch).
+
 message MealAnalysisPipelineSessionContext {
   PipelineResultData result = 1;
   optional bytes image_bytes = 2;
