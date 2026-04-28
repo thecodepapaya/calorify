@@ -9,6 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:measure_flutter/measure_flutter.dart';
+import 'package:calorify/shared_widgets/app_banner_shell.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
 
 final _appRouter = AppRouter();
@@ -34,9 +35,11 @@ class CalorifyApp extends ConsumerWidget {
           (context, child) => CatOverlay(
             child: Builder(
               builder: (ctx) {
+                final stacked =
+                    AppBannerShell(child: child ?? const SizedBox.shrink());
                 return flushbarBuilder != null
-                    ? flushbarBuilder(ctx, child)
-                    : (child ?? const SizedBox.shrink());
+                    ? flushbarBuilder(ctx, stacked)
+                    : stacked;
               },
             ),
           ),

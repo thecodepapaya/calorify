@@ -10,6 +10,8 @@ export 'src/protos/app/sync.pb.dart';
 export 'src/protos/app/sync.pbenum.dart';
 export 'src/protos/calorify/common.pb.dart';
 export 'src/protos/calorify/common.pbenum.dart';
+export 'src/protos/calorify/app_banner.pb.dart';
+export 'src/protos/calorify/app_banner.pbenum.dart';
 export 'src/protos/calorify/ai_meal_summary_trend.pb.dart';
 export 'src/protos/calorify/ai_meal_summary_trend.pbenum.dart';
 export 'src/protos/calorify/http_api.pb.dart';

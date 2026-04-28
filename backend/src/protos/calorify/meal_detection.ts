@@ -38,21 +38,15 @@ export interface MealDetectionResult {
 }
 
 export interface ImageMealDetectionRequest {
-  /** URL to image */
   imageUrl: string;
-  /** MIME type for image_data (e.g., "image/jpeg", "image/png") */
   mimeType?: string | undefined;
 }
 
 export interface TextMealDetectionRequest {
-  /** Text description of the meal */
   textDescription: string;
 }
 
 export interface MealDetectionResponse {
-  result?:
-    | MealDetectionResult
-    | undefined;
-  /** Questions to improve confidence when confidence is not HIGH/VERY_HIGH */
+  result?: MealDetectionResult | undefined;
   variations: Variation[];
 }

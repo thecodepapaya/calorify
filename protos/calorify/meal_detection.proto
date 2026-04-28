@@ -29,16 +29,16 @@ message MealDetectionResult {
 }
 
 message ImageMealDetectionRequest {
-  string image_url = 1; // URL to image
-  optional string mime_type = 3; // MIME type for image_data (e.g., "image/jpeg", "image/png")
+  string image_url = 1; 
+  optional string mime_type = 3; 
 }
 
 message TextMealDetectionRequest {
-  string text_description = 1; // Text description of the meal
+  string text_description = 1; 
 }
 
 message MealDetectionResponse {
   MealDetectionResult result = 1;
-  repeated Variation variations = 2; // Questions to improve confidence when confidence is not HIGH/VERY_HIGH
+  repeated Variation variations = 2; 
 }
 

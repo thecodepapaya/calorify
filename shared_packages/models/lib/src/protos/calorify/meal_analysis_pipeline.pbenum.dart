@@ -14,7 +14,6 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-/// V2 NDJSON/SSE line field `step` (string on the wire matches enum value names).
 class PipelineStep extends $pb.ProtobufEnum {
   static const PipelineStep PIPELINE_STEP_UNSPECIFIED =
       PipelineStep._(0, _omitEnumNames ? '' : 'PIPELINE_STEP_UNSPECIFIED');

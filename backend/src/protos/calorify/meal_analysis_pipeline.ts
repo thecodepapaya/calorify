@@ -9,7 +9,6 @@ import type { CalorieConfidence, HealthScore, MealType } from "../meal/meal";
 
 export const protobufPackage = "calorify";
 
-/** V2 NDJSON/SSE line field `step` (string on the wire matches enum value names). */
 export const PipelineStep = {
   PIPELINE_STEP_UNSPECIFIED: "PIPELINE_STEP_UNSPECIFIED",
   STARTED: "STARTED",
@@ -137,7 +136,6 @@ export interface PipelineErrorData {
   message: string;
 }
 
-/** Session state after a successful pipeline result (client-only; shared by app + watch). */
 export interface MealAnalysisPipelineSessionContext {
   result?: PipelineResultData | undefined;
   imageBytes?: Uint8Array | undefined;
