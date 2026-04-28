@@ -18,6 +18,7 @@ import {
   type MealTypeSource,
   upsertMealAnalysisSession,
 } from './mealAnalysisStore.js';
+import { mealAnalysisTraceStepSeconds } from './metrics.js';
 
 interface LLMIngredient {
   raw_name: string;
@@ -103,13 +104,13 @@ interface UncertaintyReport {
 }
 
 export const FEEDBACK_ISSUES = [
-  'food_identification',
-  'portion_size',
-  'calorie_distribution',
-  'macros_wrong',
-  'missing_items',
-  'extra_items',
-  'other',
+  'FOOD_IDENTIFICATION',
+  'PORTION_SIZE',
+  'CALORIE_DISTRIBUTION',
+  'MACROS_WRONG',
+  'MISSING_ITEMS',
+  'EXTRA_ITEMS',
+  'OTHER',
 ] as const;
 
 export type MealFeedbackIssue = (typeof FEEDBACK_ISSUES)[number];
@@ -117,19 +118,19 @@ export const MEAL_TYPES = ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK'] as const;
 export type MealTypeValue = (typeof MEAL_TYPES)[number] | 'UNKNOWN';
 export type HealthScoreValue = 'HEALTHY' | 'NEUTRAL' | 'UNHEALTHY';
 
-export interface DecomposedIngredientDTO {
-  raw_name: string;
-  canonical_hint: string;
-  grams_estimated: number;
-  min_grams: number;
-  max_grams: number;
+export interface PipelineDecomposedIngredient {
+  rawName: string;
+  canonicalHint: string;
+  gramsEstimated: number;
+  minGrams: number;
+  maxGrams: number;
   notes: string;
 }
 
-export interface ResolvedIngredientDTO {
-  raw_name: string;
-  canonical_name: string;
-  match_type: string;
+export interface PipelineResolvedIngredient {
+  rawName: string;
+  canonicalName: string;
+  matchType: string;
   grams: number;
   macros: Macros;
   source: 'db' | 'llm_fallback';
@@ -173,55 +174,76 @@ interface PresentationResult {
   health: MealHealthDTO | null;
 }
 
+export interface PipelineClarificationOptionWire {
+  label: string;
+  grams: number;
+  calorieDelta: number;
+}
+
+export interface PipelineClarificationWire {
+  ingredientName: string;
+  question: string;
+  options: PipelineClarificationOptionWire[];
+  defaultOptionIndex: number;
+}
+
 export interface PipelineEventBase {
-  analysis_id: string;
+  analysisId: string;
 }
 
 export type PipelineEvent =
   | {
-      step: 'decomposition';
+      step: 'STARTED';
+      data: PipelineEventBase;
+    }
+  | {
+      step: 'DECOMPOSITION';
       data: PipelineEventBase & {
-        meal_name: string;
+        mealName: string;
         confidence: number;
-        ingredients: DecomposedIngredientDTO[];
-        inferred_meal_type: MealTypeValue;
-        meal_type_confident: boolean;
+        ingredients: PipelineDecomposedIngredient[];
+        inferredMealType: MealTypeValue;
+        mealTypeConfident: boolean;
       };
     }
   | {
-      step: 'ingredients';
-      data: PipelineEventBase & { ingredients: ResolvedIngredientDTO[] };
+      step: 'INGREDIENTS';
+      data: PipelineEventBase & { ingredients: PipelineResolvedIngredient[] };
     }
   | {
-      step: 'uncertainty';
+      step: 'UNCERTAINTY';
       data: PipelineEventBase & {
-        variance_percent: number;
-        needs_clarification: boolean;
-        calorie_band: { min: number; max: number };
-        clarifications: ClarificationDTO[];
+        variancePercent: number;
+        needsClarification: boolean;
+        calorieBand: { min: number; max: number };
+        clarifications: PipelineClarificationWire[];
       };
     }
   | {
-      step: 'meal_type_question';
-      data: PipelineEventBase & MealTypeQuestionDTO;
+      step: 'MEAL_TYPE_QUESTION';
+      data: PipelineEventBase & {
+        question: string;
+        options: MealTypeValue[];
+        inferredMealType?: MealTypeValue;
+      };
     }
   | {
-      step: 'result';
+      step: 'RESULT';
       data: PipelineEventBase & {
-        meal_name: string;
+        mealName: string;
         quantity: string;
-        meal_type: MealTypeValue;
-        meal_type_source: MealTypeSource;
+        mealType: MealTypeValue;
+        mealTypeSource: MealTypeSource;
         tip: string;
-        health: MealHealthDTO | null;
+        health: { healthScore: HealthScoreValue; healthScoreReason: string } | null;
         macros: Macros;
-        calorie_confidence: string;
-        calorie_band: { min: number; max: number };
-        ingredients: ResolvedIngredientDTO[];
+        calorieConfidence: string;
+        calorieBand: { min: number; max: number };
+        ingredients: PipelineResolvedIngredient[];
       };
     }
   | {
-      step: 'error';
+      step: 'ERROR';
       data: PipelineEventBase & { message: string };
     };
 
@@ -466,22 +488,35 @@ function varianceToCalorieConfidence(variancePercent: number): string {
   return 'LOW';
 }
 
-function toDecompositionDto(decomposition: LLMDecomposition): DecomposedIngredientDTO[] {
+function clarificationsToWire(clarifications: ClarificationDTO[]): PipelineClarificationWire[] {
+  return clarifications.map((c) => ({
+    ingredientName: c.ingredient_name,
+    question: c.question,
+    options: c.options.map((o) => ({
+      label: o.label,
+      grams: o.grams,
+      calorieDelta: o.calorie_delta,
+    })),
+    defaultOptionIndex: c.default_option_index,
+  }));
+}
+
+function toDecompositionWire(decomposition: LLMDecomposition): PipelineDecomposedIngredient[] {
   return decomposition.ingredients.map((ingredient) => ({
-    raw_name: ingredient.raw_name,
-    canonical_hint: ingredient.canonical_hint,
-    grams_estimated: ingredient.grams_estimated,
-    min_grams: ingredient.min_grams,
-    max_grams: ingredient.max_grams,
+    rawName: ingredient.raw_name,
+    canonicalHint: ingredient.canonical_hint,
+    gramsEstimated: ingredient.grams_estimated,
+    minGrams: ingredient.min_grams,
+    maxGrams: ingredient.max_grams,
     notes: ingredient.notes,
   }));
 }
 
-function toResolvedIngredientDto(resolved: ResolvedIngredient[]): ResolvedIngredientDTO[] {
+function toResolvedIngredientWire(resolved: ResolvedIngredient[]): PipelineResolvedIngredient[] {
   return resolved.map((ingredient) => ({
-    raw_name: ingredient.rawName,
-    canonical_name: ingredient.match.canonicalName,
-    match_type: ingredient.match.matchType,
+    rawName: ingredient.rawName,
+    canonicalName: ingredient.match.canonicalName,
+    matchType: ingredient.match.matchType,
     grams: ingredient.grams,
     macros: ingredient.macros,
     source: ingredient.source,
@@ -537,6 +572,7 @@ async function traceAsync<T>(
   try {
     const result = await fn();
     const durationMs = Date.now() - startedAt;
+    mealAnalysisTraceStepSeconds.labels(category, name).observe(durationMs / 1000);
     if (trace) {
       trace.steps.push({ category, name, durationMs, meta });
       if (category === 'llm') trace.llmCallCount += 1;
@@ -546,6 +582,7 @@ async function traceAsync<T>(
     return result;
   } catch (error) {
     const durationMs = Date.now() - startedAt;
+    mealAnalysisTraceStepSeconds.labels(category, name).observe(durationMs / 1000);
     if (trace) {
       trace.steps.push({
         category,
@@ -613,7 +650,7 @@ function detectExplicitMealTypeFromText(input: string): MealTypeValue | undefine
 }
 
 function buildErrorEvent(analysisId: string, message: string): PipelineEvent {
-  return { step: 'error', data: { analysis_id: analysisId, message } };
+  return { step: 'ERROR', data: { analysisId, message } };
 }
 
 function getOpenAiClient(): OpenAI {
@@ -1014,26 +1051,29 @@ async function* runPipelineFromDecomposition(
   const trace = context.trace;
 
   const decompositionEvent: PipelineEvent = {
-    step: 'decomposition',
+    step: 'DECOMPOSITION',
     data: {
-      analysis_id: context.analysisId,
-      meal_name: decomposition.meal_name,
+      analysisId: context.analysisId,
+      mealName: decomposition.meal_name,
       confidence: decomposition.confidence,
-      ingredients: toDecompositionDto(decomposition),
+      ingredients: toDecompositionWire(decomposition),
       // Persisted so /clarify and /meal-type can reuse the decomposition-time
       // meal-type inference without re-running the presentation LLM.
-      inferred_meal_type: decomposition.inferred_meal_type,
-      meal_type_confident: decomposition.meal_type_confident,
+      inferredMealType: decomposition.inferred_meal_type,
+      mealTypeConfident: decomposition.meal_type_confident,
     },
   };
-  await traceAsync(
+  if (emitDecomposition) yield decompositionEvent;
+
+  // Overlap first session write with USDA resolution so the client gets the
+  // decomposition event earlier while we still await persistence before later stages.
+  const persistDecompositionPromise = traceAsync(
     trace,
     'db',
     'persist_session_snapshot',
-    { analysisId: context.analysisId, stage: 'decomposition' },
+    { analysisId: context.analysisId, stage: 'DECOMPOSITION' },
     () => persistSessionSnapshot(context, { decompositionData: decompositionEvent.data })
   );
-  if (emitDecomposition) yield decompositionEvent;
 
   logAnalysis(logger, 'info', 'decomposition_complete', {
     analysisId: context.analysisId,
@@ -1051,19 +1091,20 @@ async function* runPipelineFromDecomposition(
     { analysisId: context.analysisId, source: context.source, ingredientCount: decomposition.ingredients.length },
     () => resolveIngredients(client, decomposition, logger, context.analysisId, trace)
   );
+  await persistDecompositionPromise;
   let sourceSummary = summarizeResolvedSources(resolved);
   const ingredientsEvent: PipelineEvent = {
-    step: 'ingredients',
+    step: 'INGREDIENTS',
     data: {
-      analysis_id: context.analysisId,
-      ingredients: toResolvedIngredientDto(resolved),
+      analysisId: context.analysisId,
+      ingredients: toResolvedIngredientWire(resolved),
     },
   };
   await traceAsync(
     trace,
     'db',
     'persist_session_snapshot',
-    { analysisId: context.analysisId, stage: 'ingredients' },
+    { analysisId: context.analysisId, stage: 'INGREDIENTS' },
     () =>
       persistSessionSnapshot(context, {
         decompositionData: decompositionEvent.data,
@@ -1105,24 +1146,24 @@ async function* runPipelineFromDecomposition(
   }
 
   const uncertaintyEvent: PipelineEvent = {
-    step: 'uncertainty',
+    step: 'UNCERTAINTY',
     data: {
-      analysis_id: context.analysisId,
-      variance_percent: uncertainty.variancePercent,
-      needs_clarification: clarifications.length > 0,
-      calorie_band: { min: uncertainty.minTotal.calories, max: uncertainty.maxTotal.calories },
-      clarifications,
+      analysisId: context.analysisId,
+      variancePercent: uncertainty.variancePercent,
+      needsClarification: clarifications.length > 0,
+      calorieBand: { min: uncertainty.minTotal.calories, max: uncertainty.maxTotal.calories },
+      clarifications: clarificationsToWire(clarifications),
     },
   };
   await traceAsync(
     trace,
     'db',
     'persist_session_snapshot',
-    { analysisId: context.analysisId, stage: 'uncertainty' },
+    { analysisId: context.analysisId, stage: 'UNCERTAINTY' },
     () =>
       persistSessionSnapshot(context, {
         decompositionData: decompositionEvent.data,
-        ingredientsData: { analysis_id: context.analysisId, ingredients: toResolvedIngredientDto(resolved) },
+        ingredientsData: { analysisId: context.analysisId, ingredients: toResolvedIngredientWire(resolved) },
         uncertaintyData: uncertaintyEvent.data,
         clarificationAnswers,
       })
@@ -1165,12 +1206,12 @@ async function* runPipelineFromDecomposition(
 
   if (!preResolvedMealType) {
     const mealTypeQuestionEvent: PipelineEvent = {
-      step: 'meal_type_question',
+      step: 'MEAL_TYPE_QUESTION',
       data: {
-        analysis_id: context.analysisId,
+        analysisId: context.analysisId,
         question: 'Which meal is this?',
         options: [...MEAL_TYPES],
-        inferred_meal_type:
+        inferredMealType:
           decomposition.inferred_meal_type !== 'UNKNOWN' ? decomposition.inferred_meal_type : undefined,
       },
     };
@@ -1178,11 +1219,11 @@ async function* runPipelineFromDecomposition(
       trace,
       'db',
       'persist_session_snapshot',
-      { analysisId: context.analysisId, stage: 'meal_type_question' },
+      { analysisId: context.analysisId, stage: 'MEAL_TYPE_QUESTION' },
       () =>
         persistSessionSnapshot(context, {
           decompositionData: decompositionEvent.data,
-          ingredientsData: { analysis_id: context.analysisId, ingredients: toResolvedIngredientDto(resolved) },
+          ingredientsData: { analysisId: context.analysisId, ingredients: toResolvedIngredientWire(resolved) },
           uncertaintyData: uncertaintyEvent.data,
           mealTypeQuestionData: mealTypeQuestionEvent.data,
           clarificationAnswers,
@@ -1236,30 +1277,35 @@ async function* runPipelineFromDecomposition(
   );
 
   const resultEvent: PipelineEvent = {
-    step: 'result',
+    step: 'RESULT',
     data: {
-      analysis_id: context.analysisId,
-      meal_name: presentation.meal_name,
+      analysisId: context.analysisId,
+      mealName: presentation.meal_name,
       quantity: presentation.quantity,
-      meal_type: finalMealType,
-      meal_type_source: mealTypeSource,
+      mealType: finalMealType,
+      mealTypeSource: mealTypeSource,
       tip: presentation.tip,
-      health: presentation.health,
+      health: presentation.health
+        ? {
+            healthScore: presentation.health.health_score,
+            healthScoreReason: presentation.health.health_score_reason,
+          }
+        : null,
       macros: totalMacros,
-      calorie_confidence: varianceToCalorieConfidence(uncertainty.variancePercent),
-      calorie_band: { min: uncertainty.minTotal.calories, max: uncertainty.maxTotal.calories },
-      ingredients: toResolvedIngredientDto(resolved),
+      calorieConfidence: varianceToCalorieConfidence(uncertainty.variancePercent),
+      calorieBand: { min: uncertainty.minTotal.calories, max: uncertainty.maxTotal.calories },
+      ingredients: toResolvedIngredientWire(resolved),
     },
   };
   await traceAsync(
     trace,
     'db',
     'persist_session_snapshot',
-    { analysisId: context.analysisId, stage: 'result' },
+    { analysisId: context.analysisId, stage: 'RESULT' },
     () =>
       persistSessionSnapshot(context, {
         decompositionData: decompositionEvent.data,
-        ingredientsData: { analysis_id: context.analysisId, ingredients: toResolvedIngredientDto(resolved) },
+        ingredientsData: { analysisId: context.analysisId, ingredients: toResolvedIngredientWire(resolved) },
         uncertaintyData: uncertaintyEvent.data,
         resultData: resultEvent.data,
         clarificationAnswers,
@@ -1280,29 +1326,33 @@ async function* runPipelineFromDecomposition(
 }
 
 function sessionToDecomposition(session: Awaited<ReturnType<typeof getMealAnalysisSession>>): LLMDecomposition | undefined {
-  const decompositionData = session?.decompositionData as
-    | (PipelineEventBase & {
-        meal_name: string;
-        confidence: number;
-        ingredients: DecomposedIngredientDTO[];
-        inferred_meal_type?: MealTypeValue;
-        meal_type_confident?: boolean;
-      })
-    | undefined;
-  if (!decompositionData) return undefined;
+  const raw = session?.decompositionData as Record<string, unknown> | undefined;
+  if (!raw || typeof raw !== 'object') return undefined;
+
+  const mealName = raw.mealName ?? raw.meal_name;
+  if (typeof mealName !== 'string') return undefined;
+
+  const ingredientsRaw = raw.ingredients;
+  if (!Array.isArray(ingredientsRaw)) return undefined;
+
+  const ingredients = ingredientsRaw.map((item) => {
+    const ing = item as Record<string, unknown>;
+    return {
+      raw_name: String(ing.rawName ?? ing.raw_name ?? ''),
+      canonical_hint: String(ing.canonicalHint ?? ing.canonical_hint ?? ''),
+      grams_estimated: Number(ing.gramsEstimated ?? ing.grams_estimated ?? 0),
+      min_grams: Number(ing.minGrams ?? ing.min_grams ?? 0),
+      max_grams: Number(ing.maxGrams ?? ing.max_grams ?? 0),
+      notes: String(ing.notes ?? ''),
+    };
+  });
+
   return {
-    meal_name: decompositionData.meal_name,
-    confidence: decompositionData.confidence,
-    ingredients: decompositionData.ingredients.map((ingredient) => ({
-      raw_name: ingredient.raw_name,
-      canonical_hint: ingredient.canonical_hint,
-      grams_estimated: ingredient.grams_estimated,
-      min_grams: ingredient.min_grams,
-      max_grams: ingredient.max_grams,
-      notes: ingredient.notes,
-    })),
-    inferred_meal_type: decompositionData.inferred_meal_type ?? 'UNKNOWN',
-    meal_type_confident: decompositionData.meal_type_confident ?? false,
+    meal_name: mealName,
+    confidence: Number(raw.confidence ?? 0),
+    ingredients,
+    inferred_meal_type: (raw.inferredMealType ?? raw.inferred_meal_type ?? 'UNKNOWN') as MealTypeValue,
+    meal_type_confident: Boolean(raw.mealTypeConfident ?? raw.meal_type_confident ?? false),
   };
 }
 
@@ -1337,6 +1387,7 @@ export async function* analyzeTextMeal(
       textLength: input.length,
       hasFeedbackContext: Boolean(options.feedbackIssues?.length || options.otherText),
     });
+    yield { step: 'STARTED', data: { analysisId } };
     const client = getOpenAiClient();
     const decomposition = await traceAsync(
       trace,
@@ -1403,6 +1454,7 @@ export async function* analyzeImageMeal(
       })(),
       hasFeedbackContext: Boolean(options.feedbackIssues?.length || options.otherText),
     });
+    yield { step: 'STARTED', data: { analysisId } };
     const client = getOpenAiClient();
     const decomposition = await traceAsync(
       trace,

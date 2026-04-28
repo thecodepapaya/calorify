@@ -280,6 +280,8 @@ class TranslationsMealEn {
 	String get skip => 'Skip';
 
 	late final TranslationsMealVariationEn variation = TranslationsMealVariationEn._(_root);
+	late final TranslationsMealAnalysisEn analysis = TranslationsMealAnalysisEn._(_root);
+	late final TranslationsMealFeedbackEn feedback = TranslationsMealFeedbackEn._(_root);
 }
 
 // Path: favorites
@@ -1165,6 +1167,12 @@ class TranslationsHomeMealSnapEn {
 
 	/// en: 'Gallery'
 	String get gallery => 'Gallery';
+
+	/// en: 'Optimizing photo…'
+	String get compressingPhoto => 'Optimizing photo…';
+
+	/// en: 'Uploading photo…'
+	String get uploadingPhoto => 'Uploading photo…';
 }
 
 // Path: home.connectHealth
@@ -1246,6 +1254,129 @@ class TranslationsMealVariationEn {
 
 	/// en: 'No variations available'
 	String get noVariationsAvailable => 'No variations available';
+}
+
+// Path: meal.analysis
+class TranslationsMealAnalysisEn {
+	TranslationsMealAnalysisEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'AI meal analysis'
+	String get title => 'AI meal analysis';
+
+	/// en: 'This usually takes a few seconds.'
+	String get reassurance => 'This usually takes a few seconds.';
+
+	/// en: 'Getting started…'
+	String get stepStarted => 'Getting started…';
+
+	/// en: 'Understanding your meal…'
+	String get stepDecomposition => 'Understanding your meal…';
+
+	/// en: 'Matching ingredients to nutrition data…'
+	String get stepIngredients => 'Matching ingredients to nutrition data…';
+
+	/// en: 'Checking confidence…'
+	String get stepUncertainty => 'Checking confidence…';
+
+	/// en: 'Almost there…'
+	String get stepMealTypeQuestion => 'Almost there…';
+
+	/// en: 'Finalizing your result…'
+	String get stepResult => 'Finalizing your result…';
+
+	/// en: 'Something went wrong'
+	String get stepError => 'Something went wrong';
+
+	/// en: 'Analyzing your meal…'
+	String get stepDefault => 'Analyzing your meal…';
+
+	/// en: 'Understand'
+	String get progressUnderstand => 'Understand';
+
+	/// en: 'Match'
+	String get progressMatch => 'Match';
+
+	/// en: 'Check'
+	String get progressCheck => 'Check';
+
+	/// en: 'Finish'
+	String get progressFinish => 'Finish';
+
+	/// en: '{count} ingredients detected'
+	String ingredientsLine({required Object count}) => '${count} ingredients detected';
+
+	/// en: 'Scanning ingredients…'
+	String get ingredientsPending => 'Scanning ingredients…';
+
+	/// en: '"{text}"'
+	String mealPreviewDescription({required Object text}) => '"${text}"';
+
+	/// en: 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.'
+	String get offlineTip0 => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.';
+
+	/// en: 'Tip: For photos, natural light and a top-down view help with portion accuracy.'
+	String get offlineTip1 => 'Tip: For photos, natural light and a top-down view help with portion accuracy.';
+
+	/// en: 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.'
+	String get offlineTip2 => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.';
+
+	/// en: 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.'
+	String get offlineTip3 => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.';
+
+	/// en: 'Tip: Logging after the meal still builds the habit; perfection is optional.'
+	String get offlineTip4 => 'Tip: Logging after the meal still builds the habit; perfection is optional.';
+
+	/// en: 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).'
+	String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
+}
+
+// Path: meal.feedback
+class TranslationsMealFeedbackEn {
+	TranslationsMealFeedbackEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'What looks wrong?'
+	String get title => 'What looks wrong?';
+
+	/// en: 'Help us improve the analysis by selecting one or more issues.'
+	String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
+
+	/// en: 'Tell us more'
+	String get tellUsMore => 'Tell us more';
+
+	/// en: 'Describe what was incorrect'
+	String get describeIncorrect => 'Describe what was incorrect';
+
+	/// en: 'Submit'
+	String get submit => 'Submit';
+
+	/// en: 'Food identification'
+	String get issueFoodIdentification => 'Food identification';
+
+	/// en: 'Portion size'
+	String get issuePortionSize => 'Portion size';
+
+	/// en: 'Calorie distribution'
+	String get issueCalorieDistribution => 'Calorie distribution';
+
+	/// en: 'Macros are wrong'
+	String get issueMacrosWrong => 'Macros are wrong';
+
+	/// en: 'Missing items'
+	String get issueMissingItems => 'Missing items';
+
+	/// en: 'Extra items'
+	String get issueExtraItems => 'Extra items';
+
+	/// en: 'Other'
+	String get issueOther => 'Other';
 }
 
 // Path: favorites.sortOptions
@@ -2711,6 +2842,8 @@ extension on Translations {
 			'home.mealSnap.description' => 'Use your camera to take a picture of your food for AI analysis.',
 			'home.mealSnap.openCamera' => 'Open Camera',
 			'home.mealSnap.gallery' => 'Gallery',
+			'home.mealSnap.compressingPhoto' => 'Optimizing photo…',
+			'home.mealSnap.uploadingPhoto' => 'Uploading photo…',
 			'home.connectHealth.title' => 'Sync with Health Connect',
 			'home.connectHealth.description' => 'Sync your nutrition data with Health Connect',
 			'home.connectHealth.install' => 'Install',
@@ -2759,6 +2892,41 @@ extension on Translations {
 			'meal.skip' => 'Skip',
 			'meal.variation.question' => ({required Object current, required Object total}) => 'Question ${current} of ${total}',
 			'meal.variation.noVariationsAvailable' => 'No variations available',
+			'meal.analysis.title' => 'AI meal analysis',
+			'meal.analysis.reassurance' => 'This usually takes a few seconds.',
+			'meal.analysis.stepStarted' => 'Getting started…',
+			'meal.analysis.stepDecomposition' => 'Understanding your meal…',
+			'meal.analysis.stepIngredients' => 'Matching ingredients to nutrition data…',
+			'meal.analysis.stepUncertainty' => 'Checking confidence…',
+			'meal.analysis.stepMealTypeQuestion' => 'Almost there…',
+			'meal.analysis.stepResult' => 'Finalizing your result…',
+			'meal.analysis.stepError' => 'Something went wrong',
+			'meal.analysis.stepDefault' => 'Analyzing your meal…',
+			'meal.analysis.progressUnderstand' => 'Understand',
+			'meal.analysis.progressMatch' => 'Match',
+			'meal.analysis.progressCheck' => 'Check',
+			'meal.analysis.progressFinish' => 'Finish',
+			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingredients detected',
+			'meal.analysis.ingredientsPending' => 'Scanning ingredients…',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.offlineTip0' => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.',
+			'meal.analysis.offlineTip1' => 'Tip: For photos, natural light and a top-down view help with portion accuracy.',
+			'meal.analysis.offlineTip2' => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.',
+			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
+			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
+			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
+			'meal.feedback.title' => 'What looks wrong?',
+			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
+			'meal.feedback.tellUsMore' => 'Tell us more',
+			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
+			'meal.feedback.submit' => 'Submit',
+			'meal.feedback.issueFoodIdentification' => 'Food identification',
+			'meal.feedback.issuePortionSize' => 'Portion size',
+			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
+			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
+			'meal.feedback.issueMissingItems' => 'Missing items',
+			'meal.feedback.issueExtraItems' => 'Extra items',
+			'meal.feedback.issueOther' => 'Other',
 			'favorites.title' => 'Favorites',
 			'favorites.empty' => 'No favorite meals yet.',
 			'favorites.searchPlaceholder' => 'Search favorite meals',

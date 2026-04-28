@@ -110,13 +110,13 @@ const {
 // ---------------------------------------------------------------------------
 
 test('FEEDBACK_ISSUES contains expected issue types', () => {
-  assert.ok(FEEDBACK_ISSUES.includes('food_identification'));
-  assert.ok(FEEDBACK_ISSUES.includes('portion_size'));
-  assert.ok(FEEDBACK_ISSUES.includes('calorie_distribution'));
-  assert.ok(FEEDBACK_ISSUES.includes('macros_wrong'));
-  assert.ok(FEEDBACK_ISSUES.includes('missing_items'));
-  assert.ok(FEEDBACK_ISSUES.includes('extra_items'));
-  assert.ok(FEEDBACK_ISSUES.includes('other'));
+  assert.ok(FEEDBACK_ISSUES.includes('FOOD_IDENTIFICATION'));
+  assert.ok(FEEDBACK_ISSUES.includes('PORTION_SIZE'));
+  assert.ok(FEEDBACK_ISSUES.includes('CALORIE_DISTRIBUTION'));
+  assert.ok(FEEDBACK_ISSUES.includes('MACROS_WRONG'));
+  assert.ok(FEEDBACK_ISSUES.includes('MISSING_ITEMS'));
+  assert.ok(FEEDBACK_ISSUES.includes('EXTRA_ITEMS'));
+  assert.ok(FEEDBACK_ISSUES.includes('OTHER'));
   assert.equal(FEEDBACK_ISSUES.length, 7);
 });
 
@@ -140,7 +140,7 @@ async function collectEvents(gen: AsyncGenerator<any>): Promise<any[]> {
   return events;
 }
 
-test('analyzeTextMeal emits decomposition event first', async () => {
+test('analyzeTextMeal emits started then decomposition', async () => {
   mockChatCreate.mock.mockImplementation(async () => ({
     choices: [{
       message: {
@@ -161,26 +161,27 @@ test('analyzeTextMeal emits decomposition event first', async () => {
   }));
 
   const events = await collectEvents(analyzeTextMeal('1 cup rice'));
-  const decomp = events.find((e) => e.step === 'decomposition');
+  assert.equal(events[0]?.step, 'STARTED');
+  const decomp = events.find((e) => e.step === 'DECOMPOSITION');
   assert.ok(decomp !== undefined);
-  assert.ok(typeof decomp.data.analysis_id === 'string');
-  assert.equal(decomp.data.meal_name, 'Rice');
+  assert.ok(typeof decomp.data.analysisId === 'string');
+  assert.equal(decomp.data.mealName, 'Rice');
 });
 
 test('analyzeTextMeal emits ingredients event', async () => {
   const events = await collectEvents(analyzeTextMeal('1 cup rice'));
-  const ingr = events.find((e) => e.step === 'ingredients');
+  const ingr = events.find((e) => e.step === 'INGREDIENTS');
   assert.ok(ingr !== undefined);
   assert.ok(Array.isArray(ingr.data.ingredients));
 });
 
 test('analyzeTextMeal emits uncertainty event', async () => {
   const events = await collectEvents(analyzeTextMeal('1 cup rice'));
-  const unc = events.find((e) => e.step === 'uncertainty');
+  const unc = events.find((e) => e.step === 'UNCERTAINTY');
   assert.ok(unc !== undefined);
-  assert.ok(typeof unc.data.variance_percent === 'number');
-  assert.ok(typeof unc.data.needs_clarification === 'boolean');
-  assert.ok('calorie_band' in unc.data);
+  assert.ok(typeof unc.data.variancePercent === 'number');
+  assert.ok(typeof unc.data.needsClarification === 'boolean');
+  assert.ok('calorieBand' in unc.data);
 });
 
 test('analyzeTextMeal emits result event when no clarification needed', async () => {
@@ -218,6 +219,8 @@ test('analyzeTextMeal emits result event when no clarification needed', async ()
               notes: '',
             }],
             confidence: 0.95,
+            inferred_meal_type: 'LUNCH',
+            meal_type_confident: true,
           }),
         },
       }],
@@ -225,9 +228,9 @@ test('analyzeTextMeal emits result event when no clarification needed', async ()
   });
 
   const events = await collectEvents(analyzeTextMeal('1 cup rice'));
-  const result = events.find((e) => e.step === 'result');
+  const result = events.find((e) => e.step === 'RESULT');
   assert.ok(result !== undefined);
-  assert.ok(typeof result.data.meal_name === 'string');
+  assert.ok(typeof result.data.mealName === 'string');
   assert.ok(typeof result.data.macros === 'object');
   assert.ok('calories' in result.data.macros);
 });
@@ -236,8 +239,9 @@ test('analyzeTextMeal uses provided analysisId option', async () => {
   const events = await collectEvents(
     analyzeTextMeal('dal', { analysisId: 'fixed-id-123' })
   );
-  const first = events[0];
-  assert.equal(first?.data?.analysis_id, 'fixed-id-123');
+  const withId = events.find((e) => e.data && 'analysisId' in e.data);
+  assert.equal(withId?.data?.analysisId, 'fixed-id-123');
+  assert.equal(events[0]?.step, 'STARTED');
 });
 
 test('analyzeTextMeal emits error event when OPENAI_API_KEY is missing', async () => {
@@ -246,7 +250,7 @@ test('analyzeTextMeal emits error event when OPENAI_API_KEY is missing', async (
   });
   const { analyzeTextMeal: analyzeNoKey } = await import('./nutritionEngineV2.js');
   const events = await collectEvents(analyzeNoKey('rice'));
-  const err = events.find((e) => e.step === 'error');
+  const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
   assert.ok(err.data.message.includes('OPENAI_API_KEY'));
   // Restore
@@ -260,7 +264,7 @@ test('analyzeTextMeal emits error event when LLM throws', async () => {
     throw new Error('LLM network error');
   });
   const events = await collectEvents(analyzeTextMeal('some food'));
-  const err = events.find((e) => e.step === 'error');
+  const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
   assert.ok(err.data.message.includes('LLM network error'));
 });
@@ -286,13 +290,13 @@ test('analyzeTextMeal emits clarification event when variance is high', async ()
   }));
 
   const events = await collectEvents(analyzeTextMeal('some rice'));
-  const unc = events.find((e) => e.step === 'uncertainty');
+  const unc = events.find((e) => e.step === 'UNCERTAINTY');
   assert.ok(unc !== undefined);
   // High variance triggers needs_clarification = true
-  if (unc.data.needs_clarification) {
+  if (unc.data.needsClarification) {
     assert.ok(Array.isArray(unc.data.clarifications));
     // No result event should be emitted (waiting for answers)
-    const result = events.find((e) => e.step === 'result');
+    const result = events.find((e) => e.step === 'RESULT');
     assert.equal(result, undefined);
   }
 });
@@ -301,7 +305,7 @@ test('analyzeTextMeal emits clarification event when variance is high', async ()
 // analyzeImageMeal
 // ---------------------------------------------------------------------------
 
-test('analyzeImageMeal emits decomposition event for image analysis', async () => {
+test('analyzeImageMeal emits started then decomposition for image analysis', async () => {
   mockChatCreate.mock.mockImplementation(async () => ({
     choices: [{
       message: {
@@ -324,9 +328,10 @@ test('analyzeImageMeal emits decomposition event for image analysis', async () =
   const events = await collectEvents(
     analyzeImageMeal('https://example.com/meal.jpg')
   );
-  const decomp = events.find((e) => e.step === 'decomposition');
+  assert.equal(events[0]?.step, 'STARTED');
+  const decomp = events.find((e) => e.step === 'DECOMPOSITION');
   assert.ok(decomp !== undefined);
-  assert.equal(decomp.data.meal_name, 'Biryani');
+  assert.equal(decomp.data.mealName, 'Biryani');
 });
 
 test('analyzeImageMeal emits error event when image URL causes LLM failure', async () => {
@@ -334,7 +339,8 @@ test('analyzeImageMeal emits error event when image URL causes LLM failure', asy
     throw new Error('Image analysis failed: unsupported format');
   });
   const events = await collectEvents(analyzeImageMeal('https://example.com/bad.bmp'));
-  const err = events.find((e) => e.step === 'error');
+  assert.equal(events[0]?.step, 'STARTED');
+  const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
   assert.ok(err.data.message.includes('Image analysis failed'));
 });
@@ -376,7 +382,7 @@ test('continueMealAnalysis emits error when session not found', async () => {
   const events = await collectEvents(
     continueMealAnalysis('nonexistent-id', [{ ingredient_name: 'rice', selected_option_index: 1 }])
   );
-  const err = events.find((e) => e.step === 'error');
+  const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
   assert.ok(err.data.message.includes('session not found'));
 });
@@ -393,7 +399,7 @@ test('continueMealAnalysis emits error when session has no decomposition data', 
   const events = await collectEvents(
     continueMealAnalysis('sess-1', [{ ingredient_name: 'dal', selected_option_index: 0 }])
   );
-  const err = events.find((e) => e.step === 'error');
+  const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
   assert.ok(err.data.message.includes('missing decomposition data'));
 });
@@ -405,19 +411,21 @@ test('continueMealAnalysis resumes pipeline with stored decomposition', async ()
     locale: 'en',
     requestPayload: { textDescription: 'dal rice' },
     decompositionData: {
-      analysis_id: 'sess-resume',
-      meal_name: 'Dal Rice',
+      analysisId: 'sess-resume',
+      mealName: 'Dal Rice',
       confidence: 0.9,
       ingredients: [
         {
-          raw_name: 'rice',
-          canonical_hint: 'rice',
-          grams_estimated: 185,
-          min_grams: 150,
-          max_grams: 220,
+          rawName: 'rice',
+          canonicalHint: 'rice',
+          gramsEstimated: 185,
+          minGrams: 150,
+          maxGrams: 220,
           notes: '',
         },
       ],
+      inferredMealType: 'UNKNOWN',
+      mealTypeConfident: false,
     },
     selectedMealType: undefined,
     selectedMealTypeSource: undefined,
@@ -444,7 +452,7 @@ test('continueMealAnalysis resumes pipeline with stored decomposition', async ()
   );
 
   // Should emit at least ingredients event
-  const ingr = events.find((e) => e.step === 'ingredients');
+  const ingr = events.find((e) => e.step === 'INGREDIENTS');
   assert.ok(ingr !== undefined);
 });
 
@@ -457,7 +465,7 @@ test('continueMealAnalysisWithMealType emits error when session not found', asyn
   const events = await collectEvents(
     continueMealAnalysisWithMealType('missing-session', 'BREAKFAST')
   );
-  const err = events.find((e) => e.step === 'error');
+  const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
   assert.ok(err.data.message.includes('session not found'));
 });
@@ -469,17 +477,19 @@ test('continueMealAnalysisWithMealType resumes with user-selected meal type', as
     locale: 'en',
     requestPayload: { textDescription: 'poha' },
     decompositionData: {
-      analysis_id: 'sess-mt',
-      meal_name: 'Poha',
+      analysisId: 'sess-mt',
+      mealName: 'Poha',
       confidence: 0.9,
       ingredients: [{
-        raw_name: 'flattened rice',
-        canonical_hint: 'rice flattened',
-        grams_estimated: 100,
-        min_grams: 90,
-        max_grams: 110,
+        rawName: 'flattened rice',
+        canonicalHint: 'rice flattened',
+        gramsEstimated: 100,
+        minGrams: 90,
+        maxGrams: 110,
         notes: '',
       }],
+      inferredMealType: 'UNKNOWN',
+      mealTypeConfident: false,
     },
     clarificationAnswers: null,
     selectedMealType: undefined,
@@ -506,10 +516,10 @@ test('continueMealAnalysisWithMealType resumes with user-selected meal type', as
     continueMealAnalysisWithMealType('sess-mt', 'BREAKFAST')
   );
 
-  const result = events.find((e) => e.step === 'result');
+  const result = events.find((e) => e.step === 'RESULT');
   if (result) {
-    assert.equal(result.data.meal_type, 'BREAKFAST');
-    assert.equal(result.data.meal_type_source, 'user');
+    assert.equal(result.data.mealType, 'BREAKFAST');
+    assert.equal(result.data.mealTypeSource, 'user');
   }
 });
 
@@ -520,9 +530,9 @@ test('continueMealAnalysisWithMealType resumes with user-selected meal type', as
 test('reanalyzeMeal emits error when original session not found', async () => {
   mockGetSession.mock.mockImplementation(async () => undefined);
   const events = await collectEvents(
-    reanalyzeMeal('missing-id', ['portion_size'])
+    reanalyzeMeal('missing-id', ['PORTION_SIZE'])
   );
-  const err = events.find((e) => e.step === 'error');
+  const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
   assert.ok(err.data.message.includes('session not found'));
 });
@@ -540,7 +550,7 @@ test('reanalyzeMeal emits error when text session has no textDescription', async
   const events = await collectEvents(
     reanalyzeMeal('sess-reanalyze', ['macros_wrong'])
   );
-  const err = events.find((e) => e.step === 'error');
+  const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
   assert.ok(err.data.message.includes('missing textDescription'));
 });
@@ -556,9 +566,9 @@ test('reanalyzeMeal emits error when image session has no imageUrl', async () =>
     selectedMealTypeSource: undefined,
   }));
   const events = await collectEvents(
-    reanalyzeMeal('sess-img-reanalyze', ['food_identification'])
+    reanalyzeMeal('sess-img-reanalyze', ['FOOD_IDENTIFICATION'])
   );
-  const err = events.find((e) => e.step === 'error');
+  const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
   assert.ok(err.data.message.includes('missing imageUrl'));
 });
@@ -596,19 +606,19 @@ test('reanalyzeMeal creates new analysis with parent reference for text source',
   }));
 
   const events = await collectEvents(
-    reanalyzeMeal('original-id', ['portion_size'], 'it was smaller')
+    reanalyzeMeal('original-id', ['PORTION_SIZE'], 'it was smaller')
   );
 
   // Should emit some events (at least decomposition or error)
   assert.ok(events.length > 0);
-  const errEvent = events.find((e) => e.step === 'error');
+  const errEvent = events.find((e) => e.step === 'ERROR');
   // We don't assert no error because the mock might not be set up for the full pipeline
   // but the reanalysis should have started with a new analysis ID
   if (!errEvent) {
-    const decomp = events.find((e) => e.step === 'decomposition');
+    const decomp = events.find((e) => e.step === 'DECOMPOSITION');
     if (decomp) {
       // New analysis ID should differ from original
-      assert.notEqual(decomp.data.analysis_id, 'original-id');
+      assert.notEqual(decomp.data.analysisId, 'original-id');
     }
   }
 });

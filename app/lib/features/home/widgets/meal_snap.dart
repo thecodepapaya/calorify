@@ -26,6 +26,7 @@ class MealSnap extends StatefulWidget {
 
 class _MealSnapState extends State<MealSnap> {
   bool _isLoading = false;
+  bool _isUploadingImage = false;
   File? _file;
 
   @override
@@ -43,7 +44,7 @@ class _MealSnapState extends State<MealSnap> {
             children: [
               // Large, prominent camera button area
               if (_isLoading && _file != null)
-                _buildImagePreview(context, colorScheme)
+                _buildImagePreview(context, colorScheme, textTheme)
               else
                 _buildCameraButton(context, colorScheme, textTheme),
               SizedBox(height: 12),
@@ -121,7 +122,11 @@ class _MealSnapState extends State<MealSnap> {
     );
   }
 
-  Widget _buildImagePreview(BuildContext context, ColorScheme colorScheme) {
+  Widget _buildImagePreview(BuildContext context, ColorScheme colorScheme, TextTheme textTheme) {
+    final status =
+        _isUploadingImage
+            ? t.home.mealSnap.uploadingPhoto
+            : t.home.mealSnap.compressingPhoto;
     return Container(
       width: double.infinity,
       height: 200,
@@ -133,7 +138,24 @@ class _MealSnapState extends State<MealSnap> {
         color: colorScheme.shadow.withValues(alpha: 0.5),
         borderRadius: globalRadius,
       ),
-      child: Center(child: AppLoader(color: colorScheme.surface)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          AppLoader(color: colorScheme.surface),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              status,
+              textAlign: TextAlign.center,
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.surface,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -223,6 +245,7 @@ class _MealSnapState extends State<MealSnap> {
     setState(() {
       _file = image;
       _isLoading = true;
+      _isUploadingImage = false;
     });
 
     // Compress image using shared service
@@ -249,15 +272,14 @@ class _MealSnapState extends State<MealSnap> {
 
       try {
         final repository = container.read(foodRepositoryProvider);
-        final analysisHandle = await repository.analyzeImageV2(
-          imageFile: compressedFile,
-        );
+        setState(() => _isUploadingImage = true);
+        final uploadUrl = await repository.uploadMealImage(compressedFile);
         if (!mounted) return;
         await showV2MealAnalysisFlow(
           context: context,
-          startAnalysis: () async => analysisHandle.events,
+          startAnalysis: () => repository.analyzeImageFromUrlV2(imageUrl: uploadUrl),
           imageBytes: compressedImageByte,
-          imageUrl: analysisHandle.uploadedImageUrl,
+          imageUrl: uploadUrl,
         );
       } on Exception catch (e) {
         Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);
@@ -291,6 +313,7 @@ class _MealSnapState extends State<MealSnap> {
   void _reset() {
     setState(() {
       _isLoading = false;
+      _isUploadingImage = false;
       _file = null;
     });
   }

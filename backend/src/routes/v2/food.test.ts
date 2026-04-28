@@ -15,27 +15,29 @@ function makeTextStream(events: any[]): AsyncGenerator<any> {
 }
 
 const mockAnalyzeTextMeal = mock.fn(function* () {
-  yield { step: 'decomposition', data: { analysis_id: 'mock-id', meal_name: 'Test', confidence: 0.9, ingredients: [] } };
-  yield { step: 'ingredients', data: { analysis_id: 'mock-id', ingredients: [] } };
-  yield { step: 'uncertainty', data: { analysis_id: 'mock-id', variance_percent: 0.05, needs_clarification: false, calorie_band: { min: 400, max: 500 }, clarifications: [] } };
-  yield { step: 'result', data: { analysis_id: 'mock-id', meal_name: 'Test Meal', quantity: '1 bowl', meal_type: 'LUNCH', meal_type_source: 'model', tip: 'Healthy', health: null, macros: { calories: 450, protein: 15, carbs: 60, fat: 10, fiber: 5 }, calorie_confidence: 'HIGH', calorie_band: { min: 400, max: 500 }, ingredients: [] } };
+  yield { step: 'STARTED', data: { analysisId: 'mock-id' } };
+  yield { step: 'DECOMPOSITION', data: { analysisId: 'mock-id', mealName: 'Test', confidence: 0.9, ingredients: [], inferredMealType: 'UNKNOWN', mealTypeConfident: false } };
+  yield { step: 'INGREDIENTS', data: { analysisId: 'mock-id', ingredients: [] } };
+  yield { step: 'UNCERTAINTY', data: { analysisId: 'mock-id', variancePercent: 0.05, needsClarification: false, calorieBand: { min: 400, max: 500 }, clarifications: [] } };
+  yield { step: 'RESULT', data: { analysisId: 'mock-id', mealName: 'Test Meal', quantity: '1 bowl', mealType: 'LUNCH', mealTypeSource: 'model', tip: 'Healthy', health: null, macros: { calories: 450, protein: 15, carbs: 60, fat: 10, fiber: 5 }, calorieConfidence: 'HIGH', calorieBand: { min: 400, max: 500 }, ingredients: [] } };
 });
 
 const mockAnalyzeImageMeal = mock.fn(function* () {
-  yield { step: 'decomposition', data: { analysis_id: 'img-id', meal_name: 'Biryani', confidence: 0.85, ingredients: [] } };
-  yield { step: 'result', data: { analysis_id: 'img-id', meal_name: 'Biryani', quantity: '1 plate', meal_type: 'DINNER', meal_type_source: 'model', tip: 'Rich', health: null, macros: { calories: 600, protein: 20, carbs: 80, fat: 15, fiber: 3 }, calorie_confidence: 'HIGH', calorie_band: { min: 550, max: 650 }, ingredients: [] } };
+  yield { step: 'STARTED', data: { analysisId: 'img-id' } };
+  yield { step: 'DECOMPOSITION', data: { analysisId: 'img-id', mealName: 'Biryani', confidence: 0.85, ingredients: [], inferredMealType: 'UNKNOWN', mealTypeConfident: false } };
+  yield { step: 'RESULT', data: { analysisId: 'img-id', mealName: 'Biryani', quantity: '1 plate', mealType: 'DINNER', mealTypeSource: 'model', tip: 'Rich', health: null, macros: { calories: 600, protein: 20, carbs: 80, fat: 15, fiber: 3 }, calorieConfidence: 'HIGH', calorieBand: { min: 550, max: 650 }, ingredients: [] } };
 });
 
 const mockContinueMealAnalysis = mock.fn(function* () {
-  yield { step: 'result', data: { analysis_id: 'clarified-id', meal_name: 'Rice', quantity: '1 cup', meal_type: 'LUNCH', meal_type_source: 'model', tip: 'Carbs', health: null, macros: { calories: 200, protein: 4, carbs: 44, fat: 1, fiber: 1 }, calorie_confidence: 'HIGH', calorie_band: { min: 180, max: 220 }, ingredients: [] } };
+  yield { step: 'RESULT', data: { analysisId: 'clarified-id', mealName: 'Rice', quantity: '1 cup', mealType: 'LUNCH', mealTypeSource: 'model', tip: 'Carbs', health: null, macros: { calories: 200, protein: 4, carbs: 44, fat: 1, fiber: 1 }, calorieConfidence: 'HIGH', calorieBand: { min: 180, max: 220 }, ingredients: [] } };
 });
 
 const mockContinueMealAnalysisWithMealType = mock.fn(function* () {
-  yield { step: 'result', data: { analysis_id: 'mt-id', meal_name: 'Oats', quantity: '1 bowl', meal_type: 'BREAKFAST', meal_type_source: 'user', tip: 'Fiber rich', health: null, macros: { calories: 300, protein: 8, carbs: 55, fat: 5, fiber: 6 }, calorie_confidence: 'HIGH', calorie_band: { min: 280, max: 320 }, ingredients: [] } };
+  yield { step: 'RESULT', data: { analysisId: 'mt-id', mealName: 'Oats', quantity: '1 bowl', mealType: 'BREAKFAST', mealTypeSource: 'user', tip: 'Fiber rich', health: null, macros: { calories: 300, protein: 8, carbs: 55, fat: 5, fiber: 6 }, calorieConfidence: 'HIGH', calorieBand: { min: 280, max: 320 }, ingredients: [] } };
 });
 
 const mockReanalyzeMeal = mock.fn(function* () {
-  yield { step: 'result', data: { analysis_id: 'reanalyzed-id', meal_name: 'Corrected Meal', quantity: '1 serving', meal_type: 'SNACK', meal_type_source: 'model', tip: 'Light', health: null, macros: { calories: 150, protein: 5, carbs: 25, fat: 3, fiber: 2 }, calorie_confidence: 'MEDIUM', calorie_band: { min: 130, max: 170 }, ingredients: [] } };
+  yield { step: 'RESULT', data: { analysisId: 'reanalyzed-id', mealName: 'Corrected Meal', quantity: '1 serving', mealType: 'SNACK', mealTypeSource: 'model', tip: 'Light', health: null, macros: { calories: 150, protein: 5, carbs: 25, fat: 3, fiber: 2 }, calorieConfidence: 'MEDIUM', calorieBand: { min: 130, max: 170 }, ingredients: [] } };
 });
 
 const mockRecordMealAnalysisFeedback = mock.fn(async () => {});
@@ -48,7 +50,7 @@ await mock.module('../../services/nutritionEngineV2.js', {
     continueMealAnalysis: mockContinueMealAnalysis,
     continueMealAnalysisWithMealType: mockContinueMealAnalysisWithMealType,
     reanalyzeMeal: mockReanalyzeMeal,
-    FEEDBACK_ISSUES: ['food_identification', 'portion_size', 'calorie_distribution', 'macros_wrong', 'missing_items', 'extra_items', 'other'],
+    FEEDBACK_ISSUES: ['FOOD_IDENTIFICATION', 'PORTION_SIZE', 'CALORIE_DISTRIBUTION', 'MACROS_WRONG', 'MISSING_ITEMS', 'EXTRA_ITEMS', 'OTHER'],
     MEAL_TYPES: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK'],
   },
 });
@@ -98,6 +100,18 @@ async function buildTestApp() {
   return fastify;
 }
 
+function assertClientError(body: unknown, needle: string) {
+  assert.ok(body !== null && typeof body === 'object');
+  const o = body as Record<string, unknown>;
+  const text = [o.message, o.detail]
+    .filter((x): x is string => typeof x === 'string')
+    .join(' ');
+  assert.ok(
+    text.toLowerCase().includes(needle.toLowerCase()),
+    `expected "${needle}" in error body, got ${JSON.stringify(body)}`
+  );
+}
+
 // Helper to collect NDJSON stream from response
 function parseNdjson(body: string): any[] {
   return body
@@ -118,8 +132,7 @@ test('POST /analyze-text returns 400 when textDescription is missing', async () 
     payload: {},
   });
   assert.equal(response.statusCode, 400);
-  const body = response.json();
-  assert.ok(body.detail.includes('textDescription is required'));
+  assertClientError(response.json(), 'textDescription');
   await app.close();
 });
 
@@ -147,8 +160,9 @@ test('POST /analyze-text streams NDJSON events for valid input', async () => {
 
   const events = parseNdjson(response.body);
   assert.ok(events.length > 0);
+  assert.equal(events[0]!.step, 'STARTED');
   const steps = events.map((e) => e.step);
-  assert.ok(steps.includes('decomposition'));
+  assert.ok(steps.includes('DECOMPOSITION'));
   await app.close();
 });
 
@@ -176,7 +190,7 @@ test('POST /analyze-text result event has all required macro fields', async () =
     payload: { textDescription: 'rice' },
   });
   const events = parseNdjson(response.body);
-  const result = events.find((e) => e.step === 'result');
+  const result = events.find((e) => e.step === 'RESULT');
   assert.ok(result !== undefined);
   assert.ok('calories' in result.data.macros);
   assert.ok('protein' in result.data.macros);
@@ -211,8 +225,8 @@ test('POST /analyze-image returns 400 when imageUrl is missing', async () => {
     payload: {},
   });
   assert.equal(response.statusCode, 400);
-  const body = response.json();
-  assert.ok(body.detail.includes('imageUrl is required'));
+  assert.equal(response.statusCode, 400);
+  assertClientError(response.json(), 'imageUrl');
   await app.close();
 });
 
@@ -235,8 +249,7 @@ test('POST /analyze-image returns 400 for invalid URL format', async () => {
     payload: { imageUrl: 'not-a-url' },
   });
   assert.equal(response.statusCode, 400);
-  const body = response.json();
-  assert.ok(body.detail.includes('Invalid imageUrl format'));
+  assertClientError(response.json(), 'valid URL');
   await app.close();
 });
 
@@ -279,8 +292,7 @@ test('POST /clarify returns 400 when analysisId is missing', async () => {
     payload: { answers: [{ ingredient_name: 'rice', selected_option_index: 1 }] },
   });
   assert.equal(response.statusCode, 400);
-  const body = response.json();
-  assert.ok(body.detail.includes('analysisId is required'));
+  assertClientError(response.json(), 'analysisId');
   await app.close();
 });
 
@@ -292,8 +304,7 @@ test('POST /clarify returns 400 when answers is empty array', async () => {
     payload: { analysisId: 'some-id', answers: [] },
   });
   assert.equal(response.statusCode, 400);
-  const body = response.json();
-  assert.ok(body.detail.includes('answers are required'));
+  assertClientError(response.json(), 'answers');
   await app.close();
 });
 
@@ -324,10 +335,30 @@ test('POST /clarify streams events for valid payload', async () => {
   await app.close();
 });
 
+test('POST /clarify accepts proto3 camelCase answer keys', async () => {
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/clarify',
+    payload: {
+      analysisId: 'valid-analysis-id',
+      answers: [{ ingredientName: 'rice', selectedOptionIndex: 1 }],
+    },
+  });
+  assert.equal(response.statusCode, 200);
+  const events = parseNdjson(response.body);
+  assert.ok(events.length > 0);
+  await app.close();
+});
+
 test('POST /clarify calls continueMealAnalysis with correct args', async () => {
   mockContinueMealAnalysis.mock.resetCalls();
   const app = await buildTestApp();
   const answers = [
+    { ingredientName: 'rice', selectedOptionIndex: 0 },
+    { ingredientName: 'dal', selectedOptionIndex: 2 },
+  ];
+  const expectedDto = [
     { ingredient_name: 'rice', selected_option_index: 0 },
     { ingredient_name: 'dal', selected_option_index: 2 },
   ];
@@ -339,7 +370,7 @@ test('POST /clarify calls continueMealAnalysis with correct args', async () => {
   assert.equal(mockContinueMealAnalysis.mock.calls.length, 1);
   const args = mockContinueMealAnalysis.mock.calls[0]!.arguments;
   assert.equal(args[0], 'clarify-test-id');
-  assert.deepEqual(args[1], answers);
+  assert.deepEqual(args[1], expectedDto);
   await app.close();
 });
 
@@ -352,24 +383,22 @@ test('POST /feedback returns 400 when analysisId is missing', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/feedback',
-    payload: { signal: 'up' },
+    payload: { signal: 'UP' },
   });
   assert.equal(response.statusCode, 400);
-  const body = response.json();
-  assert.ok(body.detail.includes('analysisId is required'));
+  assertClientError(response.json(), 'analysisId');
   await app.close();
 });
 
-test('POST /feedback returns 400 when signal is not "up"', async () => {
+test('POST /feedback returns 400 when signal is invalid', async () => {
   const app = await buildTestApp();
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/feedback',
-    payload: { analysisId: 'fb-id', signal: 'down' },
+    payload: { analysisId: 'fb-id', signal: 'maybe' },
   });
   assert.equal(response.statusCode, 400);
-  const body = response.json();
-  assert.ok(body.detail.includes('signal must be up'));
+  assertClientError(response.json(), 'signal');
   await app.close();
 });
 
@@ -379,25 +408,25 @@ test('POST /feedback returns { ok: true } for valid positive feedback', async ()
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/feedback',
-    payload: { analysisId: 'fb-analysis', signal: 'up' },
+    payload: { analysisId: 'fb-analysis', signal: 'UP' },
   });
   assert.equal(response.statusCode, 200);
-  assert.deepEqual(response.json(), { ok: true });
+  assert.deepEqual(response.json(), { ok: true, message: '' });
   await app.close();
 });
 
-test('POST /feedback calls recordMealAnalysisFeedback with up signal', async () => {
+test('POST /feedback calls recordMealAnalysisFeedback with UP signal', async () => {
   mockRecordMealAnalysisFeedback.mock.resetCalls();
   const app = await buildTestApp();
   await app.inject({
     method: 'POST',
     url: '/api/v2/food/feedback',
-    payload: { analysisId: 'fb-test-id', signal: 'up' },
+    payload: { analysisId: 'fb-test-id', signal: 'UP' },
   });
   assert.equal(mockRecordMealAnalysisFeedback.mock.calls.length, 1);
   const args = mockRecordMealAnalysisFeedback.mock.calls[0]!.arguments[0];
   assert.equal(args.analysisId, 'fb-test-id');
-  assert.equal(args.signal, 'up');
+  assert.equal(args.signal, 'UP');
   await app.close();
 });
 
@@ -413,8 +442,7 @@ test('POST /meal-type returns 400 when analysisId is missing', async () => {
     payload: { mealType: 'LUNCH' },
   });
   assert.equal(response.statusCode, 400);
-  const body = response.json();
-  assert.ok(body.detail.includes('analysisId is required'));
+  assertClientError(response.json(), 'analysisId');
   await app.close();
 });
 
@@ -426,8 +454,7 @@ test('POST /meal-type returns 400 when mealType is invalid', async () => {
     payload: { analysisId: 'mt-id', mealType: 'BRUNCH' },
   });
   assert.equal(response.statusCode, 400);
-  const body = response.json();
-  assert.ok(body.detail.includes('mealType is required'));
+  assertClientError(response.json(), 'mealType');
   await app.close();
 });
 
@@ -492,11 +519,10 @@ test('POST /reanalyze returns 400 when analysisId is missing', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/reanalyze',
-    payload: { issues: ['portion_size'] },
+    payload: { issues: ['PORTION_SIZE'] },
   });
   assert.equal(response.statusCode, 400);
-  const body = response.json();
-  assert.ok(body.detail.includes('analysisId is required'));
+  assertClientError(response.json(), 'analysisId');
   await app.close();
 });
 
@@ -508,8 +534,7 @@ test('POST /reanalyze returns 400 when issues is empty array', async () => {
     payload: { analysisId: 'ra-id', issues: [] },
   });
   assert.equal(response.statusCode, 400);
-  const body = response.json();
-  assert.ok(body.detail.includes('issues are required'));
+  assertClientError(response.json(), 'issues');
   await app.close();
 });
 
@@ -521,8 +546,7 @@ test('POST /reanalyze returns 400 for unsupported issue type', async () => {
     payload: { analysisId: 'ra-id', issues: ['unknown_issue'] },
   });
   assert.equal(response.statusCode, 400);
-  const body = response.json();
-  assert.ok(body.detail.includes('Unsupported issue'));
+  assertClientError(response.json(), 'allowed values');
   await app.close();
 });
 
@@ -531,7 +555,7 @@ test('POST /reanalyze streams events for valid feedback', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/reanalyze',
-    payload: { analysisId: 'ra-valid-id', issues: ['portion_size'] },
+    payload: { analysisId: 'ra-valid-id', issues: ['PORTION_SIZE'] },
   });
   assert.equal(response.statusCode, 200);
   const events = parseNdjson(response.body);
@@ -547,14 +571,14 @@ test('POST /reanalyze records feedback before streaming', async () => {
     url: '/api/v2/food/reanalyze',
     payload: {
       analysisId: 'ra-feedback-id',
-      issues: ['food_identification', 'macros_wrong'],
+      issues: ['FOOD_IDENTIFICATION', 'MACROS_WRONG'],
       otherText: 'The food was completely wrong',
     },
   });
   assert.equal(mockRecordMealAnalysisFeedback.mock.calls.length, 1);
   const args = mockRecordMealAnalysisFeedback.mock.calls[0]!.arguments[0];
-  assert.equal(args.signal, 'down');
-  assert.deepEqual(args.issues, ['food_identification', 'macros_wrong']);
+  assert.equal(args.signal, 'DOWN');
+  assert.deepEqual(args.issues, ['FOOD_IDENTIFICATION', 'MACROS_WRONG']);
   assert.equal(args.otherText, 'The food was completely wrong');
   await app.close();
 });
@@ -562,8 +586,8 @@ test('POST /reanalyze records feedback before streaming', async () => {
 test('POST /reanalyze accepts all valid FEEDBACK_ISSUES', async () => {
   const app = await buildTestApp();
   const allIssues = [
-    'food_identification', 'portion_size', 'calorie_distribution',
-    'macros_wrong', 'missing_items', 'extra_items', 'other',
+    'FOOD_IDENTIFICATION', 'PORTION_SIZE', 'CALORIE_DISTRIBUTION',
+    'MACROS_WRONG', 'MISSING_ITEMS', 'EXTRA_ITEMS', 'OTHER',
   ];
   const response = await app.inject({
     method: 'POST',
@@ -585,19 +609,16 @@ test('POST /confirm-log returns 400 when analysisId is missing', async () => {
     url: '/api/v2/food/confirm-log',
     payload: {
       loggedAt: '2024-01-15T12:00:00Z',
-      mealName: 'Dal Rice',
-      calories: 450,
-      protein: 15,
-      carbs: 70,
-      fat: 8,
-      fiber: 5,
-      mealType: 'LUNCH',
-      quantity: '1 bowl',
+      meal: {
+        name: 'Dal Rice',
+        quantity: '1 bowl',
+        type: 'LUNCH',
+        macros: { calories: 450, protein: 15, carbs: 70, fat: 8, fiber: 5 },
+      },
     },
   });
   assert.equal(response.statusCode, 400);
-  const body = response.json();
-  assert.ok(body.detail.includes('analysisId is required'));
+  assertClientError(response.json(), 'analysisId');
   await app.close();
 });
 
@@ -610,18 +631,16 @@ test('POST /confirm-log returns { ok: true } for valid payload', async () => {
     payload: {
       analysisId: 'log-analysis-id',
       loggedAt: '2024-01-15T12:00:00Z',
-      mealName: 'Dal Rice',
-      calories: 450,
-      protein: 15,
-      carbs: 70,
-      fat: 8,
-      fiber: 5,
-      mealType: 'LUNCH',
-      quantity: '1 bowl',
+      meal: {
+        name: 'Dal Rice',
+        quantity: '1 bowl',
+        type: 'LUNCH',
+        macros: { calories: 450, protein: 15, carbs: 70, fat: 8, fiber: 5 },
+      },
     },
   });
   assert.equal(response.statusCode, 200);
-  assert.deepEqual(response.json(), { ok: true });
+  assert.deepEqual(response.json(), { ok: true, message: '' });
   await app.close();
 });
 
@@ -631,14 +650,12 @@ test('POST /confirm-log calls confirmMealAnalysisLogged with full record', async
   const payload = {
     analysisId: 'log-call-id',
     loggedAt: '2024-01-15T19:00:00Z',
-    mealName: 'Chicken Curry',
-    calories: 520,
-    protein: 35,
-    carbs: 40,
-    fat: 18,
-    fiber: 4,
-    mealType: 'DINNER',
-    quantity: '1 serving',
+    meal: {
+      name: 'Chicken Curry',
+      quantity: '1 serving',
+      type: 'DINNER',
+      macros: { calories: 520, protein: 35, carbs: 40, fat: 18, fiber: 4 },
+    },
   };
   await app.inject({
     method: 'POST',

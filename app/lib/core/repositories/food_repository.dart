@@ -1,11 +1,9 @@
 import 'dart:io';
 
-import 'package:calorify/core/models/ai_summary_result.dart';
-import 'package:calorify/core/models/meal_analysis_v2.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/network/network_client.dart';
 import 'package:calorify/core/services/auth_service.dart';
 import 'package:dio/dio.dart';
-import 'package:models/models.dart';
 import 'package:uuid/uuid.dart';
 import 'package:utils/utils.dart';
 
@@ -16,7 +14,7 @@ class V2ImageAnalysisHandle {
   });
 
   final String uploadedImageUrl;
-  final Stream<V2MealAnalysisEvent> events;
+  final Stream<MealAnalysisPipelineEvent> events;
 }
 
 class FoodRepository {
@@ -43,8 +41,7 @@ class FoodRepository {
 
     // Send the full authenticated upload URL
     final request = ImageMealDetectionRequest(imageUrl: uploadUrl);
-    return NetworkClient.instance
-        .apiCall<ImageMealDetectionRequest, MealDetectionResponse>(
+    return NetworkClient.instance.apiCall<ImageMealDetectionRequest, MealDetectionResponse>(
           '/api/v1/food/detect-image',
           MealDetectionResponse.new,
           request: request,
@@ -53,72 +50,79 @@ class FoodRepository {
 
   Future<MealDetectionResponse> detectText({required String textDescription}) {
     final request = TextMealDetectionRequest(textDescription: textDescription);
-    return NetworkClient.instance
-        .apiCall<TextMealDetectionRequest, MealDetectionResponse>(
+    return NetworkClient.instance.apiCall<TextMealDetectionRequest, MealDetectionResponse>(
           '/api/v1/food/detect-text',
           MealDetectionResponse.new,
           request: request,
         );
   }
 
-  Future<Stream<V2MealAnalysisEvent>> analyzeTextV2({
+  Future<Stream<MealAnalysisPipelineEvent>> analyzeTextV2({
     required String textDescription,
   }) {
-    return NetworkClient.instance.streamPost<V2MealAnalysisEvent>(
+    return NetworkClient.instance.streamPost<MealAnalysisPipelineEvent>(
       '/api/v2/food/analyze-text',
-      V2MealAnalysisEvent.fromJson,
-      data: {'textDescription': textDescription},
+      MealAnalysisPipelineEvent.fromJson,
+      data: TextMealDetectionRequest(textDescription: textDescription),
+    );
+  }
+
+  /// Uploads a local meal image and returns the authenticated object URL used by the V2 API.
+  Future<String> uploadMealImage(File imageFile) => _uploadImage(imageFile);
+
+  /// Streams analysis events for an image already stored at [imageUrl] (upload URL from [uploadMealImage]).
+  Future<Stream<MealAnalysisPipelineEvent>> analyzeImageFromUrlV2({
+    required String imageUrl,
+  }) {
+    return NetworkClient.instance.streamPost<MealAnalysisPipelineEvent>(
+      '/api/v2/food/analyze-image',
+      MealAnalysisPipelineEvent.fromJson,
+      data: ImageMealDetectionRequest(imageUrl: imageUrl),
     );
   }
 
   Future<V2ImageAnalysisHandle> analyzeImageV2({required File imageFile}) async {
     final uploadUrl = await _uploadImage(imageFile);
-    final events = await NetworkClient.instance.streamPost<V2MealAnalysisEvent>(
-      '/api/v2/food/analyze-image',
-      V2MealAnalysisEvent.fromJson,
-      data: {'imageUrl': uploadUrl},
-    );
+    final events = await analyzeImageFromUrlV2(imageUrl: uploadUrl);
     return V2ImageAnalysisHandle(uploadedImageUrl: uploadUrl, events: events);
   }
 
-  Future<Stream<V2MealAnalysisEvent>> clarifyV2({
+  Future<Stream<MealAnalysisPipelineEvent>> clarifyV2({
     required String analysisId,
-    required List<V2MealClarificationAnswer> answers,
+    required List<MealClarificationAnswer> answers,
   }) {
-    return NetworkClient.instance.streamPost<V2MealAnalysisEvent>(
+    return NetworkClient.instance.streamPost<MealAnalysisPipelineEvent>(
       '/api/v2/food/clarify',
-      V2MealAnalysisEvent.fromJson,
-      data: {
-        'analysisId': analysisId,
-        'answers': answers.map((answer) => answer.toJson()).toList(),
-      },
+      MealAnalysisPipelineEvent.fromJson,
+      data: MealAnalysisClarifyRequest(
+        analysisId: analysisId,
+        answers: answers,
+      ),
     );
   }
 
-  Future<Stream<V2MealAnalysisEvent>> submitMealTypeV2({
+  Future<Stream<MealAnalysisPipelineEvent>> submitMealTypeV2({
     required String analysisId,
     required MealType mealType,
   }) {
-    return NetworkClient.instance.streamPost<V2MealAnalysisEvent>(
+    return NetworkClient.instance.streamPost<MealAnalysisPipelineEvent>(
       '/api/v2/food/meal-type',
-      V2MealAnalysisEvent.fromJson,
-      data: {
-        'analysisId': analysisId,
-        'mealType': switch (mealType) {
-          MealType.BREAKFAST => 'BREAKFAST',
-          MealType.LUNCH => 'LUNCH',
-          MealType.DINNER => 'DINNER',
-          MealType.SNACK => 'SNACK',
-          _ => 'UNKNOWN',
-        },
-      },
+      MealAnalysisPipelineEvent.fromJson,
+      data: MealAnalysisMealTypeRequest(
+        analysisId: analysisId,
+        mealType: mealType,
+      ),
     );
   }
 
   Future<void> submitPositiveFeedbackV2({required String analysisId}) async {
-    await NetworkClient.instance.client.post(
+    await NetworkClient.instance.apiCall<MealAnalysisFeedbackRequest, ApiResult>(
       '/api/v2/food/feedback',
-      data: {'analysisId': analysisId, 'signal': 'up'},
+      ApiResult.new,
+      request: MealAnalysisFeedbackRequest(
+        analysisId: analysisId,
+        signal: MealAnalysisFeedbackSignal.UP,
+      ),
     );
   }
 
@@ -127,42 +131,30 @@ class FoodRepository {
     required Meal meal,
     required DateTime loggedAt,
   }) async {
-    await NetworkClient.instance.client.post(
+    await NetworkClient.instance.apiCall<MealAnalysisConfirmLogRequest, ApiResult>(
       '/api/v2/food/confirm-log',
-      data: {
-        'analysisId': analysisId,
-        'loggedAt': loggedAt.toUtc().toIso8601String(),
-        'mealName': meal.name,
-        'calories': meal.macros.calories,
-        'protein': meal.macros.protein,
-        'carbs': meal.macros.carbs,
-        'fat': meal.macros.fat,
-        'fiber': meal.macros.fiber,
-        'mealType': switch (meal.type) {
-          MealType.BREAKFAST => 'BREAKFAST',
-          MealType.LUNCH => 'LUNCH',
-          MealType.DINNER => 'DINNER',
-          MealType.SNACK => 'SNACK',
-          _ => 'UNKNOWN',
-        },
-        'quantity': meal.quantity,
-      },
+      ApiResult.new,
+      request: MealAnalysisConfirmLogRequest(
+        analysisId: analysisId,
+        loggedAt: loggedAt.toUtc().toIso8601String(),
+        meal: meal,
+      ),
     );
   }
 
-  Future<Stream<V2MealAnalysisEvent>> reanalyzeV2({
+  Future<Stream<MealAnalysisPipelineEvent>> reanalyzeV2({
     required String analysisId,
-    required List<V2MealFeedbackIssue> issues,
+    required List<MealReanalyzeFeedbackIssue> issues,
     String? otherText,
   }) {
-    return NetworkClient.instance.streamPost<V2MealAnalysisEvent>(
+    return NetworkClient.instance.streamPost<MealAnalysisPipelineEvent>(
       '/api/v2/food/reanalyze',
-      V2MealAnalysisEvent.fromJson,
-      data: {
-        'analysisId': analysisId,
-        'issues': issues.map((issue) => issue.apiValue).toList(),
-        if (otherText != null && otherText.isNotEmpty) 'otherText': otherText,
-      },
+      MealAnalysisPipelineEvent.fromJson,
+      data: MealAnalysisReanalyzeRequest(
+        analysisId: analysisId,
+        issues: issues,
+        otherText: otherText,
+      ),
     );
   }
 
@@ -193,31 +185,33 @@ class FoodRepository {
     return uploadUrl;
   }
 
-  Future<AiSummaryResult?> getAiSummary() async {
-    final response = await NetworkClient.instance.client
-        .get<Map<String, dynamic>>('/api/v1/food/ai-summary');
-    final data = response.data;
-    if (data == null || data['summary'] == null || data['generatedAt'] == null) {
+  Future<AiMealSummaryResponse?> getAiSummary() async {
+    final proto = await NetworkClient.instance.apiCall<ApiResult, AiMealSummaryResponse>(
+      '/api/v1/food/ai-summary',
+      AiMealSummaryResponse.new,
+    );
+    if (!proto.hasSummary() || !proto.hasGeneratedAt()) {
       return null;
     }
+    return proto;
+  }
 
-    final trend = switch (data['trend']) {
-      'up' => AiSummaryTrend.up,
-      'down' => AiSummaryTrend.down,
-      _ => AiSummaryTrend.steady,
-    };
-
-    return AiSummaryResult(
-      summary: data['summary'] as String,
-      generatedAt: DateTime.parse(data['generatedAt'] as String),
-      mealCount: (data['mealCount'] as num?)?.toInt() ?? 0,
-      topFoods:
-          ((data['topFoods'] as List?) ?? const <dynamic>[])
-              .whereType<String>()
-              .toList(),
-      macroBalanceScore: (data['macroBalanceScore'] as num?)?.toInt() ?? 0,
-      trend: trend,
-    );
+  /// Server-driven tips for the meal-analysis loading UI (no app update needed to change copy).
+  /// Returns an empty list on failure; callers should fall back to bundled tips.
+  Future<List<String>> getMealAnalysisTips() async {
+    try {
+      final proto = await NetworkClient.instance.apiCall<ApiResult, MealAnalysisTipsResponse>(
+        '/api/v1/food/meal-analysis-tips',
+        MealAnalysisTipsResponse.new,
+        processError: false,
+      );
+      return proto.tips
+          .map((s) => s.trim())
+          .where((s) => s.isNotEmpty)
+          .toList();
+    } on DioException {
+      return const [];
+    }
   }
 
   Future<String> exportMealHistoryCsv() async {

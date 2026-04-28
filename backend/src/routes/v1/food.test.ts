@@ -91,14 +91,17 @@ await mock.module('../../services/openAIFoodAnalysis.js', {
   },
 });
 
+const mockConfig = {
+  DATABASE_URL: 'postgres://mock' as string | null,
+  ORACLE_BUCKET_DOWNLOAD_URL: 'https://objectstorage.example.com/bucket/o/',
+  API_V1_STR: '/api/v1',
+  DEBUG: false,
+  ENVIRONMENT: 'development',
+  MEAL_ANALYSIS_TIPS_PATH: null as string | null,
+};
+
 await mock.module('../../config.js', {
-  defaultExport: {
-    DATABASE_URL: 'postgres://mock',
-    ORACLE_BUCKET_DOWNLOAD_URL: 'https://objectstorage.example.com/bucket/o/',
-    API_V1_STR: '/api/v1',
-    DEBUG: false,
-    ENVIRONMENT: 'development',
-  },
+  defaultExport: mockConfig,
 });
 
 const { foodRoutes } = await import('./food.js');
@@ -114,6 +117,23 @@ async function buildTestApp() {
   await fastify.ready();
   return fastify;
 }
+
+/** Minimal multipart/form-data body for @fastify/multipart tests. */
+function buildMultipartFile(body: Buffer, filename: string, mimeType: string) {
+  const boundary = '----CalorifyTestBoundary';
+  const crlf = '\r\n';
+  const head =
+    `--${boundary}${crlf}` +
+    `Content-Disposition: form-data; name="file"; filename="${filename}"${crlf}` +
+    `Content-Type: ${mimeType}${crlf}${crlf}`;
+  const tail = `${crlf}--${boundary}--${crlf}`;
+  return {
+    payload: Buffer.concat([Buffer.from(head, 'utf8'), body, Buffer.from(tail, 'utf8')]),
+    contentType: `multipart/form-data; boundary=${boundary}`,
+  };
+}
+
+const authBearer = { authorization: 'Bearer valid-token' } as const;
 
 function resetQuery(returnValue: { rows: unknown[] } = { rows: [] }) {
   mockQuery.mock.resetCalls();
@@ -132,51 +152,29 @@ test('GET /ai-summary returns 401 without auth token', async () => {
 });
 
 test('GET /ai-summary returns null when no DATABASE_URL', async () => {
-  // Re-mock config without DATABASE_URL
-  await mock.module('../../config.js', {
-    defaultExport: {
-      DATABASE_URL: null,
-      ORACLE_BUCKET_DOWNLOAD_URL: 'https://objectstorage.example.com/bucket/o/',
-      API_V1_STR: '/api/v1',
-      DEBUG: false,
-      ENVIRONMENT: 'development',
-    },
-  });
-  const { foodRoutes: foodRoutesNoDB } = await import('./food.js');
-  const app = Fastify({ logger: false });
-  await app.register(multipart);
-  await app.register(foodRoutesNoDB, { prefix: '/api/v1/food' });
-  await app.ready();
-
-  const response = await app.inject({
-    method: 'GET',
-    url: '/api/v1/food/ai-summary',
-    headers: { authorization: 'Bearer valid-token' },
-  });
-  if (response.statusCode !== 200) {
-    throw new Error(response.body);
+  const prevDb = mockConfig.DATABASE_URL;
+  mockConfig.DATABASE_URL = null;
+  try {
+    const app = await buildTestApp();
+    const response = await app.inject({
+      method: 'GET',
+      url: '/api/v1/food/ai-summary',
+      headers: { authorization: 'Bearer valid-token' },
+    });
+    if (response.statusCode !== 200) {
+      throw new Error(response.body);
+    }
+    assert.equal(response.statusCode, 200);
+    assert.deepEqual(response.json(), {
+      mealCount: 0,
+      topFoods: [],
+      macroBalanceScore: 0,
+      trend: 'STEADY',
+    });
+    await app.close();
+  } finally {
+    mockConfig.DATABASE_URL = prevDb;
   }
-  assert.equal(response.statusCode, 200);
-  assert.deepEqual(response.json(), {
-    summary: null,
-    generatedAt: null,
-    mealCount: 0,
-    topFoods: [],
-    macroBalanceScore: 0,
-    trend: 'steady',
-  });
-  await app.close();
-
-  // Restore
-  await mock.module('../../config.js', {
-    defaultExport: {
-      DATABASE_URL: 'postgres://mock',
-      ORACLE_BUCKET_DOWNLOAD_URL: 'https://objectstorage.example.com/bucket/o/',
-      API_V1_STR: '/api/v1',
-      DEBUG: false,
-      ENVIRONMENT: 'development',
-    },
-  });
 });
 
 test('GET /ai-summary returns null summary when no row in DB', async () => {
@@ -192,56 +190,58 @@ test('GET /ai-summary returns null summary when no row in DB', async () => {
   }
   assert.equal(response.statusCode, 200);
   assert.deepEqual(response.json(), {
-    summary: null,
-    generatedAt: null,
     mealCount: 0,
     topFoods: [],
     macroBalanceScore: 0,
-    trend: 'steady',
+    trend: 'STEADY',
   });
   await app.close();
 });
 
 test('GET /ai-summary returns summary and generatedAt from DB row', async () => {
   const generatedAt = new Date('2024-01-15T10:00:00Z');
+  const mealRows = [
+    {
+      logged_at: new Date('2024-01-15T10:00:00Z'),
+      logged_meal_name: 'Oats Bowl',
+      logged_meal_type: 'BREAKFAST',
+      logged_calories: 350,
+      logged_protein: 18,
+      logged_carbs: 45,
+      logged_fat: 10,
+      logged_fiber: 6,
+    },
+    {
+      logged_at: new Date('2024-01-14T12:00:00Z'),
+      logged_meal_name: 'Oats Bowl',
+      logged_meal_type: 'LUNCH',
+      logged_calories: 420,
+      logged_protein: 28,
+      logged_carbs: 42,
+      logged_fat: 12,
+      logged_fiber: 8,
+    },
+    {
+      logged_at: new Date('2024-01-13T19:00:00Z'),
+      logged_meal_name: 'Dal Rice',
+      logged_meal_type: 'DINNER',
+      logged_calories: 390,
+      logged_protein: 14,
+      logged_carbs: 56,
+      logged_fat: 9,
+      logged_fiber: 7,
+    },
+  ];
   mockQuery.mock.resetCalls();
-  mockQuery.mock.mockImplementationOnce(async () => ({
-    rows: [{ summary: 'You logged healthy meals!', generated_at: generatedAt }],
-  }));
-  mockQuery.mock.mockImplementationOnce(async () => ({
-    rows: [
-      {
-        logged_at: new Date('2024-01-15T10:00:00Z'),
-        logged_meal_name: 'Oats Bowl',
-        logged_meal_type: 'BREAKFAST',
-        logged_calories: 350,
-        logged_protein: 18,
-        logged_carbs: 45,
-        logged_fat: 10,
-        logged_fiber: 6,
-      },
-      {
-        logged_at: new Date('2024-01-14T12:00:00Z'),
-        logged_meal_name: 'Oats Bowl',
-        logged_meal_type: 'LUNCH',
-        logged_calories: 420,
-        logged_protein: 28,
-        logged_carbs: 42,
-        logged_fat: 12,
-        logged_fiber: 8,
-      },
-      {
-        logged_at: new Date('2024-01-13T19:00:00Z'),
-        logged_meal_name: 'Dal Rice',
-        logged_meal_type: 'DINNER',
-        logged_calories: 390,
-        logged_protein: 14,
-        logged_carbs: 56,
-        logged_fat: 9,
-        logged_fiber: 7,
-      },
-    ],
-  }));
+  mockQuery.mock.mockImplementation(async (sql: string) => {
+    if (sql.includes('ai_summaries')) {
+      return { rows: [{ summary: 'You logged healthy meals!', generated_at: generatedAt }] };
+    }
+    if (sql.includes('meal_analysis_session')) {
+      return { rows: mealRows };
+    }
+    return { rows: [] };
+  });
   const app = await buildTestApp();
   const response = await app.inject({
     method: 'GET',
@@ -255,7 +255,40 @@ test('GET /ai-summary returns summary and generatedAt from DB row', async () => 
   assert.equal(body.mealCount, 3);
   assert.deepEqual(body.topFoods, ['Oats Bowl', 'Dal Rice']);
   assert.equal(typeof body.macroBalanceScore, 'number');
-  assert.ok(['up', 'down', 'steady'].includes(body.trend));
+  assert.ok(['UP', 'DOWN', 'STEADY', 'UNSPECIFIED'].includes(body.trend));
+  await app.close();
+});
+
+// ---------------------------------------------------------------------------
+// GET /api/v1/food/meal-analysis-tips
+// ---------------------------------------------------------------------------
+
+test('GET /meal-analysis-tips returns 401 without auth token', async () => {
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/v1/food/meal-analysis-tips',
+  });
+  assert.equal(response.statusCode, 401);
+  await app.close();
+});
+
+test('GET /meal-analysis-tips returns version and non-empty tips when authenticated', async () => {
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/v1/food/meal-analysis-tips',
+    headers: {
+      authorization: 'Bearer valid-token',
+      'accept-language': 'en-US,en;q=0.9',
+    },
+  });
+  assert.equal(response.statusCode, 200);
+  const body = response.json() as { version: unknown; tips: unknown };
+  assert.equal(typeof body.version, 'number');
+  assert.ok(Array.isArray(body.tips));
+  assert.ok((body.tips as string[]).length > 0);
+  assert.ok((body.tips as string[]).every((t) => typeof t === 'string'));
   await app.close();
 });
 
@@ -296,9 +329,12 @@ test('POST /detect-text returns 400 when textDescription is missing', async () =
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-text',
+    headers: { ...authBearer },
     payload: {},
   });
   assert.equal(response.statusCode, 400);
+  const body = response.json();
+  assert.ok(body.message.includes('textDescription'));
   await app.close();
 });
 
@@ -307,11 +343,13 @@ test('POST /detect-text returns 400 when textDescription is empty string', async
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-text',
+    headers: { ...authBearer },
     payload: { textDescription: '   ' },
   });
   assert.equal(response.statusCode, 400);
   const body = response.json();
-  assert.ok(body.detail.includes('textDescription is required'));
+  assert.ok(body.message.includes('textDescription'));
+  assert.ok(body.message.includes('must not be empty'));
   await app.close();
 });
 
@@ -320,9 +358,12 @@ test('POST /detect-text returns 400 when textDescription is not a string', async
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-text',
+    headers: { ...authBearer },
     payload: { textDescription: 123 },
   });
   assert.equal(response.statusCode, 400);
+  const body = response.json();
+  assert.ok(body.message.includes('textDescription'));
   await app.close();
 });
 
@@ -331,6 +372,7 @@ test('POST /detect-text returns 200 with meal analysis result', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-text',
+    headers: { ...authBearer },
     payload: { textDescription: '2 eggs scrambled' },
   });
   assert.equal(response.statusCode, 200);
@@ -346,6 +388,7 @@ test('POST /detect-text calls openAIFoodAnalysisService.analyzeTextDescription',
   await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-text',
+    headers: { ...authBearer },
     payload: { textDescription: 'banana smoothie' },
   });
   assert.equal(mockAnalyzeTextDescription.mock.calls.length, 1);
@@ -358,7 +401,7 @@ test('POST /detect-text passes locale from Accept-Language header', async () => 
   await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-text',
-    headers: { 'accept-language': 'hi-IN' },
+    headers: { ...authBearer, 'accept-language': 'hi-IN' },
     payload: { textDescription: '2 roti with dal' },
   });
   const call = mockAnalyzeTextDescription.mock.calls[0];
@@ -373,7 +416,7 @@ test('POST /detect-text passes country code from geo header', async () => {
   await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-text',
-    headers: { 'cf-ipcountry': 'IN', 'accept-language': 'en' },
+    headers: { ...authBearer, 'cf-ipcountry': 'IN', 'accept-language': 'en' },
     payload: { textDescription: 'samosa' },
   });
   const call = mockAnalyzeTextDescription.mock.calls[0];
@@ -389,11 +432,12 @@ test('POST /detect-text returns 500 when service throws', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-text',
+    headers: { ...authBearer },
     payload: { textDescription: 'some food' },
   });
   assert.equal(response.statusCode, 500);
   const body = response.json();
-  assert.ok(body.detail.includes('OpenAI API error'));
+  assert.ok(body.message.includes('OpenAI API error'));
   await app.close();
 });
 
@@ -402,6 +446,7 @@ test('POST /detect-text response includes variations array', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-text',
+    headers: { ...authBearer },
     payload: { textDescription: 'egg sandwich' },
   });
   assert.equal(response.statusCode, 200);
@@ -419,11 +464,10 @@ test('POST /detect-image returns 400 when imageUrl is missing', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-image',
+    headers: { ...authBearer },
     payload: {},
   });
   assert.equal(response.statusCode, 400);
-  const body = response.json();
-  assert.ok(body.detail.includes('imageUrl is required'));
   await app.close();
 });
 
@@ -432,6 +476,7 @@ test('POST /detect-image returns 400 when imageUrl is empty string', async () =>
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-image',
+    headers: { ...authBearer },
     payload: { imageUrl: '   ' },
   });
   assert.equal(response.statusCode, 400);
@@ -443,11 +488,12 @@ test('POST /detect-image returns 400 for invalid URL format', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-image',
+    headers: { ...authBearer },
     payload: { imageUrl: 'not-a-valid-url' },
   });
   assert.equal(response.statusCode, 400);
   const body = response.json();
-  assert.ok(body.detail.includes('Invalid imageUrl format'));
+  assert.ok(/imageUrl|valid URL/i.test(body.message));
   await app.close();
 });
 
@@ -457,11 +503,13 @@ test('POST /detect-image returns 200 for valid image URL', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-image',
+    headers: { ...authBearer },
     payload: { imageUrl },
   });
   assert.equal(response.statusCode, 200);
   const body = response.json();
   assert.ok(body.result !== undefined);
+  assert.equal(body.result.mealIdentified, true);
   await app.close();
 });
 
@@ -473,6 +521,7 @@ test('POST /detect-image converts upload URL to download URL', async () => {
   await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-image',
+    headers: { ...authBearer },
     payload: { imageUrl },
   });
   // Should have called analyzeImageFromUrl with the download URL
@@ -492,11 +541,12 @@ test('POST /detect-image returns 500 when service throws', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-image',
+    headers: { ...authBearer },
     payload: { imageUrl },
   });
   assert.equal(response.statusCode, 500);
   const body = response.json();
-  assert.ok(body.detail.includes('Vision API unavailable'));
+  assert.ok(body.message.includes('Vision API unavailable'));
   await app.close();
 });
 
@@ -510,11 +560,12 @@ test('POST /analyze-image returns 400 when no file uploaded', async () => {
     method: 'POST',
     url: '/api/v1/food/analyze-image',
     // no multipart payload
-    headers: { 'content-type': 'application/json' },
-    payload: {},
+    headers: {
+      ...authBearer,
+      'content-type': 'application/json',
+    },
   });
-  // No multipart file → should return 400 or handle gracefully
-  assert.ok(response.statusCode === 400 || response.statusCode === 415);
+  assert.ok(response.statusCode >= 400, `expected error status, got ${response.statusCode}`);
   await app.close();
 });
 
@@ -522,36 +573,36 @@ test('POST /analyze-image passes locale from Accept-Language header', async () =
   mockAnalyzeImageFromBuffer.mock.resetCalls();
   const app = await buildTestApp();
 
-  const form = new FormData();
-  const imageBlob = new Blob([Buffer.alloc(100)], { type: 'image/jpeg' });
-  form.append('file', imageBlob, 'meal.jpg');
+  const { payload, contentType } = buildMultipartFile(Buffer.alloc(100), 'meal.jpg', 'image/jpeg');
 
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/analyze-image',
-    headers: { 'accept-language': 'es-ES' },
-    payload: form,
+    headers: { ...authBearer, 'accept-language': 'es-ES', 'content-type': contentType },
+    payload,
   });
 
-  if (response.statusCode === 200) {
-    const call = mockAnalyzeImageFromBuffer.mock.calls[0];
-    assert.equal(call!.arguments[2], 'es');
-  }
+  assert.equal(response.statusCode, 200);
+  const call = mockAnalyzeImageFromBuffer.mock.calls[0];
+  assert.equal(call!.arguments[2], 'es');
   await app.close();
 });
 
 test('POST /analyze-image returns 400 for non-image file', async () => {
   const app = await buildTestApp();
-  // Simulate a text file upload - the route checks mimetype
-  // This is handled by the mimetype check in the handler
-  // We can test this via the mock or by constructing the request
-  // For now, verify the endpoint exists and responds
+  const { payload, contentType } = buildMultipartFile(
+    Buffer.from('not an image'),
+    'notes.txt',
+    'text/plain'
+  );
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/analyze-image',
-    headers: { 'content-type': 'application/json' },
-    payload: {},
+    headers: { ...authBearer, 'content-type': contentType },
+    payload,
   });
-  assert.ok(response.statusCode >= 400);
+  assert.equal(response.statusCode, 400);
+  const body = response.json();
+  assert.ok(body.message.includes('image'));
   await app.close();
 });

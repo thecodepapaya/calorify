@@ -1,14 +1,11 @@
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
-
-export interface ApiError {
-  detail: string;
-}
+import type { ApiResult } from '../protos/calorify/http_api.js';
 
 /**
- * Create a standardized API error response
+ * Create a standardized API error body (`calorify.ApiResult` with `ok: false`).
  */
-export function createErrorResponse(detail: string): ApiError {
-  return { detail };
+export function createErrorResponse(message: string): ApiResult {
+  return { ok: false, message };
 }
 
 /**

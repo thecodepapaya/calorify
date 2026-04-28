@@ -224,7 +224,9 @@
         "title": "Snap & Track Your Meal",
         "description": "Use your camera to take a picture of your food for AI analysis.",
         "openCamera": "Open Camera",
-        "gallery": "Gallery"
+        "gallery": "Gallery",
+        "compressingPhoto": "Optimizing photo…",
+        "uploadingPhoto": "Uploading photo…"
       },
       "connectHealth": {
         "title": "Sync with Health Connect",
@@ -285,6 +287,45 @@
       "variation": {
         "question": "Question {current} of {total}",
         "noVariationsAvailable": "No variations available"
+      },
+      "analysis": {
+        "title": "AI meal analysis",
+        "reassurance": "This usually takes a few seconds.",
+        "stepStarted": "Getting started…",
+        "stepDecomposition": "Understanding your meal…",
+        "stepIngredients": "Matching ingredients to nutrition data…",
+        "stepUncertainty": "Checking confidence…",
+        "stepMealTypeQuestion": "Almost there…",
+        "stepResult": "Finalizing your result…",
+        "stepError": "Something went wrong",
+        "stepDefault": "Analyzing your meal…",
+        "progressUnderstand": "Understand",
+        "progressMatch": "Match",
+        "progressCheck": "Check",
+        "progressFinish": "Finish",
+        "ingredientsLine": "{count} ingredients detected",
+        "ingredientsPending": "Scanning ingredients…",
+        "mealPreviewDescription": "\"{text}\"",
+        "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
+        "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
+        "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
+        "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
+        "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
+        "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+      },
+      "feedback": {
+        "title": "What looks wrong?",
+        "subtitle": "Help us improve the analysis by selecting one or more issues.",
+        "tellUsMore": "Tell us more",
+        "describeIncorrect": "Describe what was incorrect",
+        "submit": "Submit",
+        "issueFoodIdentification": "Food identification",
+        "issuePortionSize": "Portion size",
+        "issueCalorieDistribution": "Calorie distribution",
+        "issueMacrosWrong": "Macros are wrong",
+        "issueMissingItems": "Missing items",
+        "issueExtraItems": "Extra items",
+        "issueOther": "Other"
       }
     },
     "favorites": {
@@ -697,7 +738,42 @@
   "he": {},
   "hi": {},
   "hu": {},
-  "id": {},
+  "id": {
+    "about": {
+      "title": "Tentang",
+      "tagline": "Kesadaran kalori yang cepat, gratis, dan mengutamakan privasi",
+      "ourStory": {
+        "title": "Kisah Kami",
+        "content": "{appLabel} lahir dari satu kegelisahan sederhana: sebagian besar aplikasi pelacak kalori terlalu rumit, menuntut input manual terus-menerus, mematok biaya langganan tinggi, atau mengorbankan privasi.\n\nSebagai pengembang tunggal, saya ingin membangun sesuatu yang lebih sederhana dan adil — aplikasi yang menggunakan AI untuk mengurangi usaha, tetap cepat dan gratis digunakan, serta menghormati data kesehatan Anda.\n\n{appLabel} adalah aplikasi yang saya harap sudah ada: tanpa akun, tanpa pelacakan, tanpa iklan — hanya wawasan yang jelas, praktis, dan sesuai tujuan kesehatan Anda."
+      },
+      "privacy": {
+        "title": "Privasi Anda Penting",
+        "description": "Privasi bukan pemikiran belakangan — ini adalah prinsip desain. Berikut artinya dalam praktik:",
+        "noAccounts": "Tanpa akun diperlukan\nGunakan aplikasi segera. Tanpa pendaftaran, tanpa identitas.",
+        "noTracking": "Tanpa pelacakan perilaku\n{appLabel} tidak memantau aktivitas Anda, membangun profil penggunaan, atau melacak Anda di aplikasi atau situs.",
+        "noAds": "Bebas iklan sejak awal\n{appLabel} dibuat untuk bekerja tanpa iklan atau monetisasi berbasis data.",
+        "noDataSelling": "Tanpa penjualan data\nData kesehatan Anda tidak pernah dijual atau dibagikan ke pihak ketiga.",
+        "localStorage": "Penyimpanan berpusat pada perangkat\nData Anda tetap berada di perangkat Anda.",
+        "privacyPolicy": "Kebijakan Privasi"
+      },
+      "developer": {
+        "title": "Dibuat oleh Pengembang Tunggal",
+        "description": "{appLabel} dibuat dan dikelola oleh satu pengembang yang fokus menciptakan perangkat lunak kesehatan yang tenang dan menghormati privasi.\n\nMasukan dibaca secara pribadi dan membantu menentukan arah aplikasi.",
+        "website": "Situs web",
+        "email": "Email"
+      },
+      "feedback": {
+        "title": "Menikmati {appLabel}?",
+        "description": "Masukan Anda membantu membuat {appLabel} lebih baik untuk semua orang.",
+        "rateApp": "Beri rating di Play Store",
+        "sendFeedback": "Kirim Masukan"
+      },
+      "appInfo": {
+        "version": "Calorify v{version}",
+        "build": "Build {buildNumber}"
+      }
+    }
+  },
   "it": {},
   "ja": {},
   "ko": {},

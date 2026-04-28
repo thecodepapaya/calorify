@@ -67,11 +67,11 @@ class _TranslationsErrorsVi implements TranslationsErrorsEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get rateLimitExceeded => 'Bạn đã thực hiện quá nhiều yêu cầu. Vui lòng chờ một lát rồi thử lại.';
-	@override String get networkError => 'Lỗi mạng. Vui lòng kiểm tra kết nối Internet của bạn.';
-	@override String get unknownError => 'Đã xảy ra lỗi. Vui lòng thử lại sau.';
-	@override String get loadingProfileData => 'Lỗi khi tải dữ liệu hồ sơ';
-	@override String get somethingWentWrong => 'Đã xảy ra lỗi.';
+	@override String get rateLimitExceeded => 'Bạn đã gửi quá nhiều yêu cầu. Vui lòng đợi một lát trước khi thử lại.';
+	@override String get networkError => 'Lỗi mạng. Vui lòng kiểm tra kết nối internet của bạn.';
+	@override String get unknownError => 'Đã xảy ra sự cố. Vui lòng thử lại sau.';
+	@override String get loadingProfileData => 'Lỗi tải dữ liệu hồ sơ';
+	@override String get somethingWentWrong => 'Đã xảy ra sự cố.';
 	@override String get retry => 'Thử lại';
 }
 
@@ -82,8 +82,8 @@ class _TranslationsOnboardingVi implements TranslationsOnboardingEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String welcome({required Object appLabel}) => 'Chào mừng bạn đến với ${appLabel}';
-	@override String get subtitle => 'Người bạn đồng hành dinh dưỡng cá nhân của bạn được hỗ trợ bởi AI';
+	@override String welcome({required Object appLabel}) => 'Chào mừng đến với ${appLabel}';
+	@override String get subtitle => 'Người bạn đồng hành dinh dưỡng cá nhân được hỗ trợ bởi AI';
 	@override String get getStarted => 'Bắt đầu';
 	@override late final _TranslationsOnboardingFeaturesVi features = _TranslationsOnboardingFeaturesVi._(_root);
 	@override late final _TranslationsOnboardingGenderVi gender = _TranslationsOnboardingGenderVi._(_root);
@@ -104,7 +104,7 @@ class _TranslationsTabsVi implements TranslationsTabsEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get dashboard => 'Bảng điều khiển';
+	@override String get dashboard => 'Tổng quan';
 	@override String get history => 'Lịch sử';
 }
 
@@ -134,8 +134,8 @@ class _TranslationsHistoryVi implements TranslationsHistoryEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get noMeals => 'Chưa ghi nhận bữa ăn nào';
-	@override String get emptyMessage => 'Chụp ảnh bữa ăn cuối cùng của bạn để ghi chú ở đây.';
+	@override String get noMeals => 'Chưa có bữa ăn nào';
+	@override String get emptyMessage => 'Chụp ảnh bữa ăn gần nhất của bạn để ghi tại đây.';
 	@override String get today => 'Hôm nay';
 	@override String get yesterday => 'Hôm qua';
 }
@@ -154,31 +154,33 @@ class _TranslationsMealVi implements TranslationsMealEn {
 	@override String get saveMeal => 'Lưu bữa ăn';
 	@override String get save => 'Lưu';
 	@override String get mealName => 'Tên bữa ăn';
-	@override String get mealNameHint => 'ví dụ: Trứng bác với bánh mì nướng';
-	@override String get mealQuantity => 'Số lượng bữa ăn';
-	@override String get mealQuantityHint => 'vd: 1 bát, 2 lát';
-	@override String get timeOfMeal => 'Thời gian bữa ăn';
-	@override String get timeOfMealHint => 'Chọn thời gian bạn đã ăn bữa ăn';
+	@override String get mealNameHint => 'vd., Trứng bác với bánh mì nướng';
+	@override String get mealQuantity => 'Số lượng bữa';
+	@override String get mealQuantityHint => 'vd., 1 bát, 2 lát';
+	@override String get timeOfMeal => 'Thời gian ăn';
+	@override String get timeOfMealHint => 'Chọn thời điểm bạn ăn bữa này';
 	@override String get mealType => 'Loại bữa ăn';
 	@override late final _TranslationsMealNutritionVi nutrition = _TranslationsMealNutritionVi._(_root);
 	@override late final _TranslationsMealDeleteConfirmationVi deleteConfirmation = _TranslationsMealDeleteConfirmationVi._(_root);
-	@override String get addedToLog => 'Bữa ăn đã được thêm vào nhật ký của bạn!';
+	@override String get addedToLog => 'Đã thêm bữa ăn vào nhật ký!';
 	@override String couldNotAdd({required Object error}) => 'Không thể thêm bữa ăn: ${error}';
-	@override String get savedSuccessfully => 'Bữa ăn đã được thêm thành công!';
-	@override String get updatedSuccessfully => 'Bữa ăn đã được cập nhật thành công!';
+	@override String get savedSuccessfully => 'Thêm bữa ăn thành công!';
+	@override String get updatedSuccessfully => 'Cập nhật bữa ăn thành công!';
 	@override String errorSaving({required Object error}) => 'Lỗi khi lưu bữa ăn: ${error}';
 	@override String get removedFromFavorites => 'Đã xóa khỏi yêu thích!';
-	@override String get savedAsFavorite => 'Bữa ăn đã được lưu làm yêu thích!';
+	@override String get savedAsFavorite => 'Đã lưu bữa ăn vào mục yêu thích!';
 	@override String get unfavorite => 'Bỏ yêu thích';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Không thể cập nhật yêu thích: ${error}';
-	@override String get feedbackThanks => 'Cảm ơn bạn đã phản hồi!';
+	@override String get feedbackThanks => 'Cảm ơn phản hồi!';
 	@override String get reanalysisUpdated => 'Đã cập nhật phân tích bữa ăn dựa trên phản hồi của bạn.';
-	@override String failedToProcess({required Object error}) => 'Không thể xử lý: ${error}';
-	@override String failedToProcessImage({required Object error}) => 'Không thể xử lý hình ảnh: ${error}';
-	@override String errorCompressingImage({required Object error}) => 'Lỗi nén hình ảnh: ${error}';
+	@override String failedToProcess({required Object error}) => 'Xử lý thất bại: ${error}';
+	@override String failedToProcessImage({required Object error}) => 'Xử lý ảnh thất bại: ${error}';
+	@override String errorCompressingImage({required Object error}) => 'Lỗi nén ảnh: ${error}';
 	@override String get failedToSave => 'Không thể lưu dữ liệu. Vui lòng thử lại.';
 	@override String get skip => 'Bỏ qua';
 	@override late final _TranslationsMealVariationVi variation = _TranslationsMealVariationVi._(_root);
+	@override late final _TranslationsMealAnalysisVi analysis = _TranslationsMealAnalysisVi._(_root);
+	@override late final _TranslationsMealFeedbackVi feedback = _TranslationsMealFeedbackVi._(_root);
 }
 
 // Path: favorites
@@ -189,13 +191,13 @@ class _TranslationsFavoritesVi implements TranslationsFavoritesEn {
 
 	// Translations
 	@override String get title => 'Yêu thích';
-	@override String get empty => 'Chưa có bữa ăn yêu thích nào.';
+	@override String get empty => 'Chưa có bữa ăn yêu thích.';
 	@override String get searchPlaceholder => 'Tìm bữa ăn yêu thích';
-	@override String get searchEmptyTitle => 'Không có mục yêu thích nào phù hợp với tìm kiếm của bạn';
-	@override String get searchEmptySubtitle => 'Thử tên bữa khác, số lượng hoặc loại bữa.';
+	@override String get searchEmptyTitle => 'Không có mục yêu thích phù hợp';
+	@override String get searchEmptySubtitle => 'Hãy thử tên bữa ăn, số lượng hoặc loại bữa khác.';
 	@override String get sortLabel => 'Sắp xếp mục yêu thích';
 	@override String get undo => 'Hoàn tác';
-	@override String removed({required Object name}) => 'Đã xóa ${name} khỏi danh sách yêu thích';
+	@override String removed({required Object name}) => 'Đã xóa ${name} khỏi mục yêu thích';
 	@override late final _TranslationsFavoritesSortOptionsVi sortOptions = _TranslationsFavoritesSortOptionsVi._(_root);
 }
 
@@ -207,7 +209,7 @@ class _TranslationsProfileVi implements TranslationsProfileEn {
 
 	// Translations
 	@override String get title => 'Hồ sơ';
-	@override String get noProfileData => 'Chưa tìm thấy dữ liệu hồ sơ';
+	@override String get noProfileData => 'Không tìm thấy dữ liệu hồ sơ';
 	@override String get yourProfile => 'Hồ sơ của bạn';
 	@override String get viewAndManage => 'Xem và quản lý thông tin sức khỏe của bạn';
 	@override late final _TranslationsProfileSectionsVi sections = _TranslationsProfileSectionsVi._(_root);
@@ -218,10 +220,10 @@ class _TranslationsProfileVi implements TranslationsProfileEn {
 	@override String get weightGoal => 'Mục tiêu cân nặng';
 	@override String get targetWeight => 'Cân nặng mục tiêu';
 	@override String get activityLevel => 'Mức độ hoạt động';
-	@override String get healthMetrics => 'Các chỉ số sức khỏe';
+	@override String get healthMetrics => 'Chỉ số sức khỏe';
 	@override String get notSet => 'Chưa đặt';
-	@override String get years => 'năm';
-	@override String get updatedSuccessfully => 'Hồ sơ đã được cập nhật thành công!';
+	@override String get years => 'tuổi';
+	@override String get updatedSuccessfully => 'Cập nhật hồ sơ thành công!';
 	@override late final _TranslationsProfileCalculatedValuesVi calculatedValues = _TranslationsProfileCalculatedValuesVi._(_root);
 }
 
@@ -233,11 +235,11 @@ class _TranslationsHealthScoreVi implements TranslationsHealthScoreEn {
 
 	// Translations
 	@override String get title => 'Điểm sức khỏe';
-	@override String get whyThisScore => 'Tại sao điểm này?';
-	@override String get note => 'Điểm này là ước lượng của AI dựa trên các thành phần và hàm lượng dinh dưỡng đã xác định. Luôn tham khảo ý kiến của chuyên gia cho lời khuyên về chế độ ăn uống.';
-	@override String get unhealthy => 'Không khỏe mạnh';
-	@override String get healthy => 'Khỏe mạnh';
-	@override String get neutral => 'Trung lập';
+	@override String get whyThisScore => 'Vì sao điểm này?';
+	@override String get note => 'Điểm số này là ước tính của AI dựa trên thành phần và mật độ dinh dưỡng được nhận diện. Luôn tham khảo chuyên gia cho tư vấn dinh dưỡng.';
+	@override String get unhealthy => 'Không lành mạnh';
+	@override String get healthy => 'Lành mạnh';
+	@override String get neutral => 'Trung tính';
 }
 
 // Path: editProfile
@@ -255,16 +257,16 @@ class _TranslationsEditProfileVi implements TranslationsEditProfileEn {
 	@override String get weight => 'Cân nặng';
 	@override String get weightGoal => 'Mục tiêu cân nặng';
 	@override String get activityLevel => 'Mức độ hoạt động';
-	@override String get metric => 'Mét';
-	@override String get imperial => 'Imperial';
+	@override String get metric => 'Hệ mét';
+	@override String get imperial => 'Hệ Anh';
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
 	@override String get unitLbs => 'lbs';
-	@override String get metricCm => 'Mét (cm)';
-	@override String get imperialFtIn => 'Imperial (ft/in)';
-	@override String get metricKg => 'Kilogram (kg)';
-	@override String get imperialLbs => 'Pound (lbs)';
+	@override String get metricCm => 'Hệ mét (cm)';
+	@override String get imperialFtIn => 'Hệ Anh (ft/in)';
+	@override String get metricKg => 'Hệ mét (kg)';
+	@override String get imperialLbs => 'Hệ Anh (lbs)';
 	@override late final _TranslationsEditProfileGendersVi genders = _TranslationsEditProfileGendersVi._(_root);
 	@override late final _TranslationsEditProfileWeightGoalsVi weightGoals = _TranslationsEditProfileWeightGoalsVi._(_root);
 	@override late final _TranslationsEditProfileActivityLevelsVi activityLevels = _TranslationsEditProfileActivityLevelsVi._(_root);
@@ -289,7 +291,7 @@ class _TranslationsSettingsVi implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsExportMealHistoryVi exportMealHistory = _TranslationsSettingsExportMealHistoryVi._(_root);
 	@override late final _TranslationsSettingsClearAllDataVi clearAllData = _TranslationsSettingsClearAllDataVi._(_root);
 	@override late final _TranslationsSettingsDebugOptionsVi debugOptions = _TranslationsSettingsDebugOptionsVi._(_root);
-	@override String get developerModeEnabled => 'Chế độ nhà phát triển đã được bật!';
+	@override String get developerModeEnabled => 'Đã bật chế độ nhà phát triển!';
 	@override late final _TranslationsSettingsHealthConnectVi healthConnect = _TranslationsSettingsHealthConnectVi._(_root);
 	@override late final _TranslationsSettingsAboutVi about = _TranslationsSettingsAboutVi._(_root);
 	@override late final _TranslationsSettingsAppInfoVi appInfo = _TranslationsSettingsAppInfoVi._(_root);
@@ -302,26 +304,26 @@ class _TranslationsRemindersVi implements TranslationsRemindersEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Giữ đúng tiến trình với nhắc nhở';
-	@override String get description => 'Nhận những nhắc nhở nhẹ nhàng để ghi lại bữa ăn và duy trì tính nhất quán với các mục tiêu dinh dưỡng của bạn';
-	@override String get notificationsEnabled => 'Thông báo đã được bật';
-	@override String get notificationsDisabled => 'Thông báo đã bị tắt';
+	@override String get title => 'Giữ đúng lộ trình với nhắc nhở';
+	@override String get description => 'Nhận nhắc nhở nhẹ nhàng để ghi bữa ăn và duy trì đều đặn với mục tiêu dinh dưỡng';
+	@override String get notificationsEnabled => 'Đã bật thông báo';
+	@override String get notificationsDisabled => 'Đã tắt thông báo';
 	@override String get enabledSubtitle => 'Bạn sẽ nhận được nhắc nhở bữa ăn';
 	@override String get disabledSubtitle => 'Bật thông báo để nhận nhắc nhở bữa ăn';
 	@override String get mealReminders => 'Nhắc nhở bữa ăn';
 	@override String get breakfast => 'Bữa sáng';
 	@override String get lunch => 'Bữa trưa';
 	@override String get dinner => 'Bữa tối';
-	@override String get snack => 'Bữa ăn nhẹ';
+	@override String get snack => 'Bữa phụ';
 	@override String get unknown => 'Không xác định';
 	@override String get change => 'Thay đổi';
 	@override String get enableNotifications => 'Bật thông báo';
-	@override String get skipForNow => 'Bỏ qua tạm thời';
+	@override String get skipForNow => 'Bỏ qua lúc này';
 	@override String get saveChanges => 'Lưu thay đổi';
-	@override String get enabledSuccessfully => 'Thông báo đã được bật thành công!';
-	@override String get permissionDenied => 'Quyền thông báo đã bị từ chối';
+	@override String get enabledSuccessfully => 'Đã bật thông báo thành công!';
+	@override String get permissionDenied => 'Quyền thông báo bị từ chối';
 	@override String errorEnabling({required Object error}) => 'Lỗi khi bật thông báo: ${error}';
-	@override String errorCompletingSetup({required Object error}) => 'Lỗi khi hoàn tất cài đặt: ${error}';
+	@override String errorCompletingSetup({required Object error}) => 'Lỗi khi hoàn tất thiết lập: ${error}';
 }
 
 // Path: notifications
@@ -346,8 +348,8 @@ class _TranslationsLoginVi implements TranslationsLoginEn {
 
 	// Translations
 	@override String get title => 'Đăng nhập';
-	@override String get signInWithGoogle => 'Đăng nhập bằng Google';
-	@override String get signInFailed => 'Đăng nhập bằng Google thất bại hoặc đã bị hủy.';
+	@override String get signInWithGoogle => 'Đăng nhập với Google';
+	@override String get signInFailed => 'Đăng nhập Google thất bại hoặc đã bị hủy.';
 }
 
 // Path: disclaimer
@@ -357,7 +359,7 @@ class _TranslationsDisclaimerVi implements TranslationsDisclaimerEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get pleaseNote => 'Xin lưu ý';
+	@override String get pleaseNote => 'Lưu ý';
 	@override late final _TranslationsDisclaimerSnapVi snap = _TranslationsDisclaimerSnapVi._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateVi weightEstimate = _TranslationsDisclaimerWeightEstimateVi._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsVi healthMetrics = _TranslationsDisclaimerHealthMetricsVi._(_root);
@@ -383,20 +385,20 @@ class _TranslationsFeedbackRatingVi implements TranslationsFeedbackRatingEn {
 
 	// Translations
 	@override String enjoyingQuestion({required Object appLabel}) => 'Bạn có thích ${appLabel} không?';
-	@override String get yes => 'Có, tôi thích nó';
-	@override String get no => 'Không lắm';
+	@override String get yes => 'Có, tôi đang rất thích';
+	@override String get no => 'Không hẳn';
 	@override String get rateStepHeading => 'Đánh giá trên Play Store';
 	@override String get emailStepHeading => 'Gửi phản hồi qua email';
-	@override String soloDevMessage({required Object appLabel}) => 'Một đánh giá nhanh sẽ giúp người khác tìm thấy ${appLabel} và giúp quá trình phát triển tiếp tục. Bạn có thể dành chút thời gian để để lại một đánh giá không?';
-	@override String get shareFeedbackViaEmail => 'Phản hồi của bạn góp phần định hình những cải tiến tiếp theo — chúng tôi đọc từng phản hồi. Bạn có muốn chia sẻ suy nghĩ qua email không?';
-	@override String get rateCta => 'Đánh giá trên Cửa hàng Play';
+	@override String soloDevMessage({required Object appLabel}) => 'Một đánh giá nhanh giúp người khác tìm thấy ${appLabel} và tiếp thêm động lực phát triển. Bạn có thể dành chút thời gian để đánh giá không?';
+	@override String get shareFeedbackViaEmail => 'Phản hồi của bạn định hình những gì tiếp theo — chúng tôi đọc mọi tin nhắn. Bạn có muốn chia sẻ suy nghĩ qua email không?';
+	@override String get rateCta => 'Đánh giá trên Play Store';
 	@override String get maybeLater => 'Để sau';
 	@override String get sendFeedback => 'Gửi phản hồi';
 	@override String get noThanks => 'Không, cảm ơn';
-	@override String get aboutUsDescription => 'Được tạo nên với sự chăm chút bởi một nhóm nhỏ. Chúng tôi tập trung vào quyền riêng tư, tính đơn giản và hỗ trợ bạn xây dựng thói quen ăn uống lành mạnh hơn.';
-	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Bạn tò mò ai đứng sau ${appLabel}? Xem ';
-	@override String get aboutUsLinkLabel => 'Về chúng tôi';
-	@override String get thankYouMessage => 'Cảm ơn! Chúng tôi sẽ hỏi lại bạn vào dịp khác.';
+	@override String get aboutUsDescription => 'Được làm với sự chăm chút bởi một nhóm nhỏ. Chúng tôi tập trung vào quyền riêng tư, sự đơn giản, và giúp bạn xây dựng thói quen ăn uống tốt hơn.';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Tò mò ai đứng sau ${appLabel}? Xem ';
+	@override String get aboutUsLinkLabel => 'Giới thiệu về chúng tôi';
+	@override String get thankYouMessage => 'Cảm ơn! Chúng tôi sẽ hỏi lại vào lúc khác.';
 }
 
 // Path: health
@@ -407,7 +409,7 @@ class _TranslationsHealthVi implements TranslationsHealthEn {
 
 	// Translations
 	@override String get syncFailed => 'Không thể đồng bộ với Health Connect';
-	@override String get mealSynced => 'Bữa ăn đã được đồng bộ với Health Connect';
+	@override String get mealSynced => 'Đã đồng bộ bữa ăn với Health Connect';
 }
 
 // Path: onboarding.features
@@ -430,8 +432,8 @@ class _TranslationsOnboardingGenderVi implements TranslationsOnboardingGenderEn 
 
 	// Translations
 	@override String get title => 'Giới tính của bạn là gì?';
-	@override String get description => 'Giới tính giúp chúng tôi tính toán chính xác tỷ lệ trao đổi chất cơ bản (BMR) của bạn.';
-	@override String get next => 'Tiếp theo';
+	@override String get description => 'Giới tính giúp chúng tôi tính toán chính xác tỷ lệ trao đổi chất cơ bản (BMR).';
+	@override String get next => 'Tiếp';
 }
 
 // Path: onboarding.height
@@ -441,11 +443,11 @@ class _TranslationsOnboardingHeightVi implements TranslationsOnboardingHeightEn 
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Bạn cao bao nhiêu?';
-	@override String get description => 'Chiều cao của bạn giúp chúng tôi tính toán chỉ số BMI và nhu cầu năng lượng một cách chính xác.';
-	@override String get metric => 'Mét';
-	@override String get imperial => 'Imperial';
-	@override String get next => 'Tiếp theo';
+	@override String get title => 'Chiều cao của bạn?';
+	@override String get description => 'Chiều cao giúp chúng tôi tính BMI và nhu cầu năng lượng chính xác.';
+	@override String get metric => 'Hệ mét';
+	@override String get imperial => 'Hệ Anh';
+	@override String get next => 'Tiếp';
 }
 
 // Path: onboarding.weight
@@ -455,13 +457,13 @@ class _TranslationsOnboardingWeightVi implements TranslationsOnboardingWeightEn 
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get currentTitle => 'Cân nặng hiện tại của bạn là bao nhiêu?';
-	@override String get currentDescription => 'Cân nặng hiện tại rất quan trọng để cá nhân hóa các mục tiêu hàng ngày của bạn.';
-	@override String get targetTitle => 'Cân nặng mục tiêu của bạn là bao nhiêu?';
-	@override String get targetDescription => 'Đặt mục tiêu cân nặng giúp chúng tôi xác định kế hoạch dài hạn của bạn.';
-	@override String get metric => 'Kilogram';
-	@override String get imperial => 'Imperial';
-	@override String get next => 'Tiếp theo';
+	@override String get currentTitle => 'Cân nặng hiện tại của bạn?';
+	@override String get currentDescription => 'Cân nặng hiện tại rất quan trọng để cá nhân hóa mục tiêu hằng ngày.';
+	@override String get targetTitle => 'Cân nặng mục tiêu của bạn?';
+	@override String get targetDescription => 'Đặt mục tiêu cân nặng giúp chúng tôi xây dựng kế hoạch dài hạn.';
+	@override String get metric => 'Hệ mét';
+	@override String get imperial => 'Hệ Anh';
+	@override String get next => 'Tiếp';
 }
 
 // Path: onboarding.age
@@ -471,9 +473,9 @@ class _TranslationsOnboardingAgeVi implements TranslationsOnboardingAgeEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ngày sinh của bạn là khi nào?';
-	@override String get description => 'Tuổi của bạn giúp chúng tôi tính toán nhu cầu calo một cách chính xác.';
-	@override String get next => 'Tiếp theo';
+	@override String get title => 'Ngày sinh của bạn?';
+	@override String get description => 'Tuổi tác giúp chúng tôi tính toán nhu cầu calo chính xác.';
+	@override String get next => 'Tiếp';
 }
 
 // Path: onboarding.bmiScale
@@ -483,9 +485,9 @@ class _TranslationsOnboardingBmiScaleVi implements TranslationsOnboardingBmiScal
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Thiếu cân';
+	@override String get underweight => 'Thiếu';
 	@override String get healthy => 'Khỏe mạnh';
-	@override String get overweight => 'Thừa cân';
+	@override String get overweight => 'Thừa';
 	@override String get obese => 'Béo phì';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesVi categories = _TranslationsOnboardingBmiScaleCategoriesVi._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesVi messages = _TranslationsOnboardingBmiScaleMessagesVi._(_root);
@@ -499,7 +501,7 @@ class _TranslationsOnboardingWeightGoalVi implements TranslationsOnboardingWeigh
 
 	// Translations
 	@override String get title => 'Mục tiêu của bạn là gì?';
-	@override String get description => 'Chọn mục tiêu mà bạn muốn đạt được nhất';
+	@override String get description => 'Chọn mục tiêu phù hợp nhất với điều bạn muốn đạt được';
 }
 
 // Path: onboarding.activityLevel
@@ -509,8 +511,8 @@ class _TranslationsOnboardingActivityLevelVi implements TranslationsOnboardingAc
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Bạn hoạt động như thế nào?';
-	@override String get description => 'Điều này giúp chúng tôi tính toán nhu cầu calo hàng ngày của bạn một cách chính xác hơn';
+	@override String get title => 'Mức độ hoạt động của bạn?';
+	@override String get description => 'Điều này giúp chúng tôi tính nhu cầu calo hằng ngày chính xác hơn';
 }
 
 // Path: onboarding.healthConnect
@@ -521,18 +523,18 @@ class _TranslationsOnboardingHealthConnectVi implements TranslationsOnboardingHe
 
 	// Translations
 	@override String get title => 'Kết nối với Health Connect';
-	@override String get description => 'Đồng bộ dữ liệu sức khỏe của bạn để có cái nhìn sâu sắc hơn và theo dõi calo tự động';
+	@override String get description => 'Đồng bộ dữ liệu sức khỏe để có góc nhìn tốt hơn và tự động theo dõi calo';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingVi automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingVi._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsVi progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsVi._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationVi seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationVi._(_root);
 	@override String get connected => 'Đã kết nối Health Connect';
 	@override String get notConnected => 'Chưa kết nối Health Connect';
-	@override String get setup => 'Cài đặt Health Connect';
-	@override String get skipForNow => 'Bỏ qua tạm thời';
+	@override String get setup => 'Thiết lập Health Connect';
+	@override String get skipForNow => 'Bỏ qua lúc này';
 	@override String get statusConnected => 'Health Connect đã được kết nối.';
-	@override String get statusSuccess => 'Health Connect đã được kết nối thành công!';
-	@override String statusPermissionDenied({required Object appLabel}) => 'Quyền truy cập đã bị từ chối. Vui lòng bật quyền truy cập Health Connect từ cài đặt điện thoại của bạn để sử dụng ${appLabel}.';
-	@override String statusError({required Object error}) => 'Lỗi cài đặt Health Connect: ${error}';
+	@override String get statusSuccess => 'Đã kết nối Health Connect thành công!';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Bị từ chối quyền. Vui lòng bật quyền Health Connect từ cài đặt điện thoại cho ${appLabel}.';
+	@override String statusError({required Object error}) => 'Lỗi thiết lập Health Connect: ${error}';
 }
 
 // Path: onboarding.reinforcement
@@ -554,15 +556,15 @@ class _TranslationsHomeAiSummaryVi implements TranslationsHomeAiSummaryEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tóm tắt AI của bạn';
-	@override String get logMore => 'Ghi lại thêm bữa ăn trong vài ngày tới để nhận được những phân tích cá nhân hóa từ AI.';
+	@override String get title => 'Tóm tắt bởi AI';
+	@override String get logMore => 'Ghi thêm bữa ăn trong vài ngày tới để nhận góc nhìn cá nhân hóa từ AI.';
 	@override String get loading => 'Đang tải tóm tắt của bạn...';
-	@override String mealCount({required Object count}) => '${count} bữa đã ghi';
+	@override String mealCount({required Object count}) => '${count} bữa ăn đã ghi';
 	@override String macroBalanceScore({required Object score}) => 'Điểm cân bằng ${score}';
 	@override String get topFoods => 'Thực phẩm hàng đầu';
-	@override String get trendUp => 'Lượng calo đang tăng';
-	@override String get trendDown => 'Lượng calo đang giảm';
-	@override String get trendSteady => 'Lượng calo ổn định';
+	@override String get trendUp => 'Calo có xu hướng tăng';
+	@override String get trendDown => 'Calo có xu hướng giảm';
+	@override String get trendSteady => 'Calo đang ổn định';
 	@override String generatedAt({required Object time}) => 'Cập nhật ${time}';
 }
 
@@ -573,19 +575,19 @@ class _TranslationsHomeDailyGoalVi implements TranslationsHomeDailyGoalEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Đặt mục tiêu hàng ngày của bạn';
-	@override String get titleSet => 'Mục tiêu hàng ngày của bạn';
-	@override String get description => 'Sẵn sàng để bắt đầu hành trình sức khỏe? Đặt mục tiêu calo hàng ngày của bạn bên dưới để khởi đầu tiến trình.';
-	@override String get descriptionSet => 'La bàn của bạn đã được đặt! Đây là mục tiêu calo hàng ngày của bạn để hướng dẫn bạn.';
+	@override String get title => 'Đặt mục tiêu hằng ngày';
+	@override String get titleSet => 'Mục tiêu hằng ngày của bạn';
+	@override String get description => 'Sẵn sàng cho hành trình khỏe mạnh? Hãy đặt mục tiêu calo hằng ngày bên dưới để khởi động tiến trình.';
+	@override String get descriptionSet => 'La bàn đã sẵn sàng! Đây là mục tiêu calo hằng ngày để dẫn đường cho bạn.';
 	@override String get yourGoal => 'Mục tiêu của bạn';
 	@override String get goal => 'Mục tiêu';
-	@override String get dailyCalories => 'Calo hàng ngày (kcal)';
+	@override String get dailyCalories => 'Calo mỗi ngày (kcal)';
 	@override String get setGoal => 'Đặt mục tiêu';
-	@override String get intake => 'Tiêu thụ';
-	@override String get burned => 'Đã đốt cháy';
-	@override String get weightImpact => 'Tác động đến trọng lượng';
-	@override String get estLoss => 'Dự kiến giảm';
-	@override String get estGain => 'Dự kiến tăng';
+	@override String get intake => 'Nạp vào';
+	@override String get burned => 'Tiêu hao';
+	@override String get weightImpact => 'Ảnh hưởng cân nặng';
+	@override String get estLoss => 'Ước tính giảm';
+	@override String get estGain => 'Ước tính tăng';
 	@override String get kcal => 'kcal';
 }
 
@@ -596,14 +598,14 @@ class _TranslationsHomeDailySummaryVi implements TranslationsHomeDailySummaryEn 
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tóm tắt hàng ngày';
+	@override String get title => 'Tóm tắt hằng ngày';
 	@override String get calories => 'Calo';
-	@override String get carbs => 'Carbohydrate';
+	@override String get carbs => 'Carb';
 	@override String get protein => 'Protein';
 	@override String get fat => 'Chất béo';
 	@override String get fiber => 'Chất xơ';
 	@override String get grams => 'gam';
-	@override String get chartAccessibilityLabel => 'Biểu đồ các chất dinh dưỡng chính';
+	@override String get chartAccessibilityLabel => 'Biểu đồ các chất đa lượng';
 }
 
 // Path: home.intakeProgress
@@ -613,7 +615,7 @@ class _TranslationsHomeIntakeProgressVi implements TranslationsHomeIntakeProgres
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Phân chia Macro hôm nay';
+	@override String get title => 'Tỷ lệ chất đa lượng hôm nay';
 	@override String get target => 'Mục tiêu';
 	@override String get current => 'Hiện tại';
 }
@@ -625,11 +627,11 @@ class _TranslationsHomeIntakeHistoryVi implements TranslationsHomeIntakeHistoryE
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Lịch sử Macro 7 ngày';
+	@override String get title => 'Lịch sử chất đa lượng 7 ngày';
 	@override String get trendTitle => 'Xu hướng hôm nay';
-	@override String peakHour({required Object hour}) => 'Giờ cao điểm: ${hour}:00';
-	@override String get noHistoryYet => 'Chưa có lịch sử nào';
-	@override String get startLogging => 'Bắt đầu ghi chú bữa ăn để xem xu hướng macro 7 ngày của bạn ở đây';
+	@override String peakHour({required Object hour}) => 'Đỉnh: ${hour}:00';
+	@override String get noHistoryYet => 'Chưa có lịch sử';
+	@override String get startLogging => 'Bắt đầu ghi bữa ăn để xem\nxu hướng vĩ mô 7 ngày tại đây';
 }
 
 // Path: home.mealLog
@@ -640,8 +642,8 @@ class _TranslationsHomeMealLogVi implements TranslationsHomeMealLogEn {
 
 	// Translations
 	@override String get title => 'Bữa ăn đã ghi';
-	@override String get emptyMessage => 'Chụp ảnh bữa ăn cuối cùng của bạn để ghi chú ở đây.';
-	@override String get noMealsToday => 'Chưa ghi nhận bữa ăn nào cho hôm nay';
+	@override String get emptyMessage => 'Chụp ảnh bữa ăn gần nhất của bạn để ghi tại đây.';
+	@override String get noMealsToday => 'Hôm nay chưa có bữa ăn nào';
 	@override String get seeAllMeals => 'Xem tất cả bữa ăn';
 }
 
@@ -653,8 +655,8 @@ class _TranslationsHomeMealDescriptionVi implements TranslationsHomeMealDescript
 
 	// Translations
 	@override String get title => 'Thêm nhanh với AI';
-	@override String get description => 'Mô tả bữa ăn của bạn, và hãy để AI xử lý các chi tiết.';
-	@override String get hint => 'ví dụ: Vào bữa sáng tôi đã ăn một bát lớn yến mạch với một quả chuối thái lát và một muỗng whey ...';
+	@override String get description => 'Mô tả bữa ăn của bạn, và để AI lo phần còn lại.';
+	@override String get hint => 'vd. Bữa sáng mình ăn một bát yến mạch lớn với một quả chuối thái lát và một muỗng whey ...';
 	@override String get analyzeMeal => 'Phân tích bữa ăn';
 }
 
@@ -666,9 +668,9 @@ class _TranslationsHomeFavoriteMealsVi implements TranslationsHomeFavoriteMealsE
 
 	// Translations
 	@override String get title => 'Bữa ăn yêu thích';
-	@override String get description => 'Thêm nhanh một trong những bữa ăn yêu thích của bạn.';
-	@override String get noFavorites => 'Chưa có bữa ăn yêu thích nào.';
-	@override String get addFavoriteHint => 'Nhấn vào ngôi sao trên một bữa ăn để đánh dấu nó là yêu thích.';
+	@override String get description => 'Thêm nhanh một trong các bữa yêu thích của bạn.';
+	@override String get noFavorites => 'Chưa có bữa ăn yêu thích.';
+	@override String get addFavoriteHint => 'Nhấn vào ngôi sao trên bữa ăn để đánh dấu là yêu thích.';
 	@override String get seeAll => 'Xem tất cả';
 	@override String get add => 'Thêm';
 }
@@ -680,10 +682,12 @@ class _TranslationsHomeMealSnapVi implements TranslationsHomeMealSnapEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Chụp & Theo dõi Bữa ăn của bạn';
-	@override String get description => 'Sử dụng camera của bạn để chụp ảnh thực phẩm cho phân tích AI.';
-	@override String get openCamera => 'Mở Camera';
+	@override String get title => 'Chụp & theo dõi bữa ăn';
+	@override String get description => 'Dùng máy ảnh để chụp món ăn của bạn cho AI phân tích.';
+	@override String get openCamera => 'Mở máy ảnh';
 	@override String get gallery => 'Thư viện';
+	@override String get compressingPhoto => 'Đang tối ưu ảnh…';
+	@override String get uploadingPhoto => 'Đang tải ảnh lên…';
 }
 
 // Path: home.connectHealth
@@ -707,7 +711,7 @@ class _TranslationsMealNutritionVi implements TranslationsMealNutritionEn {
 
 	// Translations
 	@override String get calories => 'Calo';
-	@override String get carbs => 'Carbohydrate (g)';
+	@override String get carbs => 'Carb (g)';
 	@override String get protein => 'Protein (g)';
 	@override String get fat => 'Chất béo (g)';
 	@override String get fiber => 'Chất xơ (g)';
@@ -721,7 +725,7 @@ class _TranslationsMealDeleteConfirmationVi implements TranslationsMealDeleteCon
 
 	// Translations
 	@override String get title => 'Xóa bữa ăn';
-	@override String get message => 'Bạn có chắc chắn muốn xóa mục bữa ăn này không?';
+	@override String get message => 'Bạn có chắc muốn xóa mục bữa ăn này?';
 	@override String get cancel => 'Hủy';
 	@override String get delete => 'Xóa';
 }
@@ -735,6 +739,59 @@ class _TranslationsMealVariationVi implements TranslationsMealVariationEn {
 	// Translations
 	@override String question({required Object current, required Object total}) => 'Câu hỏi ${current} trên ${total}';
 	@override String get noVariationsAvailable => 'Không có biến thể nào';
+}
+
+// Path: meal.analysis
+class _TranslationsMealAnalysisVi implements TranslationsMealAnalysisEn {
+	_TranslationsMealAnalysisVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Phân tích bữa ăn bằng AI';
+	@override String get reassurance => 'Thường chỉ mất vài giây.';
+	@override String get stepStarted => 'Bắt đầu…';
+	@override String get stepDecomposition => 'Đang hiểu bữa ăn của bạn…';
+	@override String get stepIngredients => 'Đang khớp nguyên liệu với dữ liệu dinh dưỡng…';
+	@override String get stepUncertainty => 'Đang kiểm tra độ tin cậy…';
+	@override String get stepMealTypeQuestion => 'Sắp xong…';
+	@override String get stepResult => 'Hoàn tất kết quả…';
+	@override String get stepError => 'Đã xảy ra sự cố';
+	@override String get stepDefault => 'Đang phân tích bữa ăn…';
+	@override String get progressUnderstand => 'Hiểu';
+	@override String get progressMatch => 'Khớp';
+	@override String get progressCheck => 'Kiểm tra';
+	@override String get progressFinish => 'Hoàn tất';
+	@override String ingredientsLine({required Object count}) => 'Đã phát hiện ${count} thành phần';
+	@override String get ingredientsPending => 'Đang quét thành phần…';
+	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String get offlineTip0 => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.';
+	@override String get offlineTip1 => 'Tip: For photos, natural light and a top-down view help with portion accuracy.';
+	@override String get offlineTip2 => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.';
+	@override String get offlineTip3 => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.';
+	@override String get offlineTip4 => 'Tip: Logging after the meal still builds the habit; perfection is optional.';
+	@override String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
+}
+
+// Path: meal.feedback
+class _TranslationsMealFeedbackVi implements TranslationsMealFeedbackEn {
+	_TranslationsMealFeedbackVi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'What looks wrong?';
+	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
+	@override String get tellUsMore => 'Tell us more';
+	@override String get describeIncorrect => 'Describe what was incorrect';
+	@override String get submit => 'Submit';
+	@override String get issueFoodIdentification => 'Food identification';
+	@override String get issuePortionSize => 'Portion size';
+	@override String get issueCalorieDistribution => 'Calorie distribution';
+	@override String get issueMacrosWrong => 'Macros are wrong';
+	@override String get issueMissingItems => 'Missing items';
+	@override String get issueExtraItems => 'Extra items';
+	@override String get issueOther => 'Other';
 }
 
 // Path: favorites.sortOptions
@@ -759,7 +816,7 @@ class _TranslationsProfileSectionsVi implements TranslationsProfileSectionsEn {
 	@override String get profile => 'HỒ SƠ';
 	@override String get basicInformation => 'THÔNG TIN CƠ BẢN';
 	@override String get goalsAndActivity => 'MỤC TIÊU & HOẠT ĐỘNG';
-	@override String get calculatedValues => 'CÁC GIÁ TRỊ TÍNH TOÁN';
+	@override String get calculatedValues => 'GIÁ TRỊ TÍNH TOÁN';
 }
 
 // Path: profile.calculatedValues
@@ -771,9 +828,9 @@ class _TranslationsProfileCalculatedValuesVi implements TranslationsProfileCalcu
 	// Translations
 	@override String get bmr => 'BMR';
 	@override String get tdee => 'TDEE';
-	@override String get dailyGoal => 'Mục tiêu hàng ngày';
+	@override String get dailyGoal => 'Mục tiêu hằng ngày';
 	@override String get calPerDay => 'cal/ngày';
-	@override String get notAvailable => 'Không có sẵn';
+	@override String get notAvailable => 'Không khả dụng';
 }
 
 // Path: editProfile.sections
@@ -784,7 +841,7 @@ class _TranslationsEditProfileSectionsVi implements TranslationsEditProfileSecti
 
 	// Translations
 	@override String get personalInformation => 'THÔNG TIN CÁ NHÂN';
-	@override String get physicalMeasurements => 'THÔNG SỐ VẬT LÝ';
+	@override String get physicalMeasurements => 'SỐ ĐO CƠ THỂ';
 	@override String get goalsAndActivity => 'MỤC TIÊU & HOẠT ĐỘNG';
 }
 
@@ -834,9 +891,9 @@ class _TranslationsSettingsSectionsVi implements TranslationsSettingsSectionsEn 
 
 	// Translations
 	@override String get profile => 'HỒ SƠ';
-	@override String get localization => 'ĐỊA PHƯƠNG HÓA';
+	@override String get localization => 'BẢN ĐỊA HÓA';
 	@override String get notifications => 'THÔNG BÁO';
-	@override String get healthConnect => 'KẾT NỐI SỨC KHỎE';
+	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'HỖ TRỢ & PHÁP LÝ';
 	@override String get about => 'GIỚI THIỆU';
 	@override String get dangerZone => 'KHU VỰC NGUY HIỂM';
@@ -862,8 +919,8 @@ class _TranslationsSettingsLanguageVi implements TranslationsSettingsLanguageEn 
 
 	// Translations
 	@override String get title => 'Ngôn ngữ';
-	@override String get subtitle => 'Chọn ngôn ngữ bạn ưa thích';
-	@override String get searchHint => 'Tìm kiếm ngôn ngữ...';
+	@override String get subtitle => 'Chọn ngôn ngữ ưa thích của bạn';
+	@override String get searchHint => 'Tìm ngôn ngữ...';
 	@override String get noResults => 'Không tìm thấy kết quả';
 }
 
@@ -895,7 +952,7 @@ class _TranslationsSettingsMealRemindersVi implements TranslationsSettingsMealRe
 
 	// Translations
 	@override String get title => 'Nhắc nhở bữa ăn';
-	@override String get subtitle => 'Giúp bạn theo dõi đúng thời gian với những thông báo kịp thời';
+	@override String get subtitle => 'Giữ đúng lộ trình với các thông báo kịp thời';
 }
 
 // Path: settings.theme
@@ -905,7 +962,7 @@ class _TranslationsSettingsThemeVi implements TranslationsSettingsThemeEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Chủ đề';
+	@override String get title => 'Giao diện';
 	@override String get light => 'Sáng';
 	@override String get dark => 'Tối';
 	@override String get system => 'Hệ thống';
@@ -920,11 +977,11 @@ class _TranslationsSettingsSendFeedbackVi implements TranslationsSettingsSendFee
 	// Translations
 	@override String get title => 'Gửi phản hồi';
 	@override String subtitle({required Object appLabel}) => 'Giúp chúng tôi cải thiện ${appLabel}';
-	@override String emailSubject({required Object appLabel}) => 'Phản hồi về ứng dụng ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => 'Phản hồi ứng dụng ${appLabel}';
 	@override String get emailBodyPrefix => 'Vui lòng cung cấp phản hồi của bạn bên dưới:';
 	@override String get appVersion => 'Phiên bản ứng dụng';
 	@override String get device => 'Thiết bị';
-	@override String get osVersion => 'Phiên bản hệ điều hành';
+	@override String get osVersion => 'Phiên bản HĐH';
 	@override String get uid => 'UID';
 }
 
@@ -936,8 +993,8 @@ class _TranslationsSettingsExportMealHistoryVi implements TranslationsSettingsEx
 
 	// Translations
 	@override String get title => 'Xuất lịch sử bữa ăn';
-	@override String get subtitle => 'Chia sẻ một tệp CSV chứa các bữa bạn đã ghi';
-	@override String get shareText => 'Tệp xuất lịch sử bữa ăn của bạn từ Calorify';
+	@override String get subtitle => 'Chia sẻ tệp CSV các bữa ăn đã ghi';
+	@override String get shareText => 'Bản xuất lịch sử bữa ăn Calorify của bạn';
 	@override String failed({required Object error}) => 'Không thể xuất lịch sử bữa ăn: ${error}';
 }
 
@@ -948,10 +1005,10 @@ class _TranslationsSettingsClearAllDataVi implements TranslationsSettingsClearAl
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Xóa tất cả dữ liệu';
+	@override String get title => 'Xóa toàn bộ dữ liệu';
 	@override String get subtitle => 'Xóa vĩnh viễn tất cả thông tin của bạn';
-	@override String get confirmationTitle => 'Có chắc chắn xóa tất cả dữ liệu?';
-	@override String get confirmationMessage => 'Hành động này không thể hoàn tác. Tất cả các bữa ăn bạn đã ghi, yêu thích và cài đặt hồ sơ sẽ bị xóa vĩnh viễn.';
+	@override String get confirmationTitle => 'Xóa toàn bộ dữ liệu?';
+	@override String get confirmationMessage => 'Hành động này không thể hoàn tác. Tất cả bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ của bạn sẽ bị xóa vĩnh viễn.';
 	@override String get cancel => 'Hủy';
 	@override String get clearEverything => 'Xóa tất cả';
 }
@@ -973,16 +1030,16 @@ class _TranslationsSettingsHealthConnectVi implements TranslationsSettingsHealth
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kết nối sức khỏe';
+	@override String get title => 'Health Connect';
 	@override String get subtitle => 'Xem và quản lý quyền';
 	@override late final _TranslationsSettingsHealthConnectUnavailableVi unavailable = _TranslationsSettingsHealthConnectUnavailableVi._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsVi permissions = _TranslationsSettingsHealthConnectPermissionsVi._(_root);
-	@override String get managePermissions => 'Quản lý Quyền';
-	@override String get openSettings => 'Mở Cài Đặt Kết Nối Sức Khỏe';
-	@override String get requestPermissions => 'Yêu Cầu Quyền Truy Cập';
+	@override String get managePermissions => 'Quản lý quyền';
+	@override String get openSettings => 'Mở cài đặt Health Connect';
+	@override String get requestPermissions => 'Yêu cầu quyền';
 	@override String get permissionRequestCancelledOrFailed => 'Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.';
 	@override String get permissionRequestFailed => 'Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.';
-	@override String get requestingPermissions => 'Requesting...';
+	@override String get requestingPermissions => 'Đang yêu cầu...';
 }
 
 // Path: settings.about
@@ -992,8 +1049,8 @@ class _TranslationsSettingsAboutVi implements TranslationsSettingsAboutEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Giới Thiệu';
-	@override String get tagline => 'Nhận thức về calo nhanh chóng, miễn phí và bảo mật';
+	@override String get title => 'Giới thiệu';
+	@override String get tagline => 'Nhận biết calo nhanh, miễn phí và ưu tiên quyền riêng tư';
 	@override late final _TranslationsSettingsAboutOurStoryVi ourStory = _TranslationsSettingsAboutOurStoryVi._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyVi privacy = _TranslationsSettingsAboutPrivacyVi._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperVi developer = _TranslationsSettingsAboutDeveloperVi._(_root);
@@ -1018,7 +1075,7 @@ class _TranslationsNotificationsBreakfastVi implements TranslationsNotifications
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Giờ ăn sáng! 🍳';
+	@override String get title => 'Đến giờ bữa sáng! 🍳';
 	@override String get body => 'Đừng quên ghi lại bữa sáng của bạn';
 }
 
@@ -1029,8 +1086,8 @@ class _TranslationsNotificationsLunchVi implements TranslationsNotificationsLunc
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Giờ ăn trưa! 🥗';
-	@override String get body => 'Đến lúc ghi lại bữa trưa của bạn';
+	@override String get title => 'Đến giờ bữa trưa! 🥗';
+	@override String get body => 'Đã đến lúc ghi lại bữa trưa';
 }
 
 // Path: notifications.dinner
@@ -1040,7 +1097,7 @@ class _TranslationsNotificationsDinnerVi implements TranslationsNotificationsDin
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Giờ ăn tối! 🍽️';
+	@override String get title => 'Đến giờ bữa tối! 🍽️';
 	@override String get body => 'Đừng quên ghi lại bữa tối của bạn';
 }
 
@@ -1051,8 +1108,8 @@ class _TranslationsNotificationsSnackVi implements TranslationsNotificationsSnac
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Giờ ăn nhẹ! 🍎';
-	@override String get body => 'Đến lúc cho một món ăn nhẹ lành mạnh';
+	@override String get title => 'Đến giờ bữa phụ! 🍎';
+	@override String get body => 'Đã đến lúc cho một bữa phụ lành mạnh';
 }
 
 // Path: notifications.test
@@ -1062,7 +1119,7 @@ class _TranslationsNotificationsTestVi implements TranslationsNotificationsTestE
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Thông báo thử nghiệm';
+	@override String get title => 'Thông báo kiểm thử';
 }
 
 // Path: disclaimer.snap
@@ -1072,7 +1129,7 @@ class _TranslationsDisclaimerSnapVi implements TranslationsDisclaimerSnapEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String description({required Object appLabel}) => '${appLabel} cung cấp thông tin dinh dưỡng ước tính. Độ chính xác phụ thuộc vào dữ liệu bạn nhập và các biến thể thực phẩm. Sử dụng như một hướng dẫn, không phải là nguồn thông tin chính xác. Hãy tham khảo ý kiến chuyên gia để được tư vấn dinh dưỡng cá nhân.';
+	@override String description({required Object appLabel}) => '${appLabel} cung cấp thông tin dinh dưỡng ước tính. Độ chính xác phụ thuộc vào dữ liệu bạn cung cấp và sự khác biệt của thực phẩm. Hãy dùng như tài liệu tham khảo, không phải nguồn xác định. Tham khảo chuyên gia cho tư vấn dinh dưỡng cá nhân.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeVi portionSize = _TranslationsDisclaimerSnapPortionSizeVi._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsVi preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsVi._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsVi ingredients = _TranslationsDisclaimerSnapIngredientsVi._(_root);
@@ -1086,8 +1143,8 @@ class _TranslationsDisclaimerWeightEstimateVi implements TranslationsDisclaimerW
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Về ước tính trọng lượng';
-	@override String get description => 'Sự thay đổi trọng lượng dự kiến là một ước tính lý thuyết dựa trên mô hình calo vào so với calo ra. Nó chỉ được dùng để hướng dẫn động lực, không phải dự đoán trọng lượng thực tế của bạn.';
+	@override String get title => 'Về ước tính cân nặng';
+	@override String get description => 'Mức thay đổi cân nặng dự báo là ước tính lý thuyết dựa trên mô hình calo nạp vào vs. calo tiêu hao. Chỉ nhằm mục đích tạo động lực, không phải dự đoán cân nặng thực tế của bạn.';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyVi calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyVi._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsVi biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsVi._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightVi waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightVi._(_root);
@@ -1101,7 +1158,7 @@ class _TranslationsDisclaimerHealthMetricsVi implements TranslationsDisclaimerHe
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Các chỉ số này giúp bạn hiểu nhu cầu năng lượng của cơ thể và hướng dẫn các mục tiêu dinh dưỡng của bạn.';
+	@override String get description => 'Các chỉ số này giúp bạn hiểu nhu cầu năng lượng của cơ thể và định hướng mục tiêu dinh dưỡng.';
 	@override late final _TranslationsDisclaimerHealthMetricsBmrVi bmr = _TranslationsDisclaimerHealthMetricsBmrVi._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTdeeVi tdee = _TranslationsDisclaimerHealthMetricsTdeeVi._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalVi dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalVi._(_root);
@@ -1114,8 +1171,8 @@ class _TranslationsDisclaimerCalorieExpenditureVi implements TranslationsDisclai
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ước tính calo tiêu hao';
-	@override String get description => 'Khi dữ liệu từ Health Connect không có sẵn, chúng tôi ước tính số calo bạn đã tiêu hao trong ngày dựa trên tỷ lệ trao đổi chất cơ bản (BMR) và mức độ hoạt động của bạn (TDEE), rồi điều chỉnh theo phần ngày đã trôi qua.';
+	@override String get title => 'Ước tính năng lượng tiêu hao';
+	@override String get description => 'Khi không có dữ liệu Health Connect, chúng tôi ước tính calo tiêu hao hôm nay bằng BMR và mức độ hoạt động (TDEE) của bạn, được tỷ lệ theo phần thời gian trong ngày đã trôi qua.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedVi howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedVi._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceVi professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceVi._(_root);
 }
@@ -1127,8 +1184,8 @@ class _TranslationsOnboardingFeaturesFoodRecognitionVi implements TranslationsOn
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Nhận diện thực phẩm thông minh';
-	@override String get description => 'Chụp một bức ảnh và để AI xác định bữa ăn của bạn';
+	@override String get title => 'Nhận diện món ăn thông minh';
+	@override String get description => 'Chụp ảnh và để AI nhận diện bữa ăn của bạn';
 }
 
 // Path: onboarding.features.aiAnalysis
@@ -1138,8 +1195,8 @@ class _TranslationsOnboardingFeaturesAiAnalysisVi implements TranslationsOnboard
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Phân tích AI';
-	@override String get description => 'Nhận thông tin dinh dưỡng ngay lập tức từ mô tả của bạn';
+	@override String get title => 'Phân tích bằng AI';
+	@override String get description => 'Nhận thông tin dinh dưỡng tức thì từ mô tả của bạn';
 }
 
 // Path: onboarding.features.healthIntegration
@@ -1149,8 +1206,8 @@ class _TranslationsOnboardingFeaturesHealthIntegrationVi implements Translations
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tích hợp sức khỏe';
-	@override String get description => 'Kết nối với Health Connect để có được cái nhìn sâu sắc hơn';
+	@override String get title => 'Tích hợp Health';
+	@override String get description => 'Kết nối với Health Connect để có góc nhìn tốt hơn';
 }
 
 // Path: onboarding.bmiScale.categories
@@ -1160,7 +1217,7 @@ class _TranslationsOnboardingBmiScaleCategoriesVi implements TranslationsOnboard
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Gầy';
+	@override String get underweight => 'Thiếu cân';
 	@override String get healthyWeight => 'Cân nặng khỏe mạnh';
 	@override String get overweight => 'Thừa cân';
 	@override String get obese => 'Béo phì';
@@ -1173,10 +1230,10 @@ class _TranslationsOnboardingBmiScaleMessagesVi implements TranslationsOnboardin
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Chúng tôi có thể giúp bạn xây dựng một kế hoạch lành mạnh để đạt được trọng lượng cân bằng với những bữa ăn giàu dinh dưỡng.';
-	@override String get healthy => 'Tuyệt vời! Bạn đang ở mức độ khỏe mạnh. Chúng tôi sẽ giúp bạn duy trì sức sống và mức năng lượng.';
-	@override String overweight({required Object appLabel}) => '${appLabel} sẽ đơn giản hóa hành trình của bạn với việc theo dõi bằng AI để giúp bạn đạt được mục tiêu của mình một cách thoải mái.';
-	@override String get obese => 'Chúng tôi ở đây để hỗ trợ bạn với hướng dẫn cá nhân hóa và các chiến lược bền vững cho các mục tiêu sức khỏe của bạn.';
+	@override String get underweight => 'Chúng tôi có thể giúp bạn xây dựng kế hoạch lành mạnh để đạt cân nặng cân bằng với các bữa giàu dinh dưỡng.';
+	@override String get healthy => 'Tuyệt vời! Bạn đang trong phạm vi khỏe mạnh. Chúng tôi sẽ giúp bạn duy trì sức sống và năng lượng.';
+	@override String overweight({required Object appLabel}) => '${appLabel} sẽ đơn giản hóa hành trình của bạn với theo dõi bằng AI để giúp bạn đạt mục tiêu một cách thoải mái.';
+	@override String get obese => 'Chúng tôi ở đây để hỗ trợ bạn bằng hướng dẫn cá nhân hóa và chiến lược bền vững cho mục tiêu sức khỏe.';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1187,7 +1244,7 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingVi implements Transla
 
 	// Translations
 	@override String get title => 'Theo dõi calo tự động';
-	@override String get description => 'Theo dõi calo đã đốt cháy từ các ứng dụng thể dục của bạn';
+	@override String get description => 'Theo dõi calo tiêu hao từ ứng dụng thể dục của bạn';
 }
 
 // Path: onboarding.healthConnect.progressInsights
@@ -1197,8 +1254,8 @@ class _TranslationsOnboardingHealthConnectProgressInsightsVi implements Translat
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Thông tin tiến độ';
-	@override String get description => 'Nhận thông tin chi tiết về xu hướng sức khỏe của bạn';
+	@override String get title => 'Thông tin tiến trình';
+	@override String get description => 'Nhận góc nhìn chi tiết về xu hướng sức khỏe';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1209,7 +1266,7 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationVi implements Trans
 
 	// Translations
 	@override String get title => 'Tích hợp liền mạch';
-	@override String get description => 'Đồng bộ dữ liệu từ các ứng dụng sức khỏe yêu thích của bạn';
+	@override String get description => 'Đồng bộ dữ liệu từ các ứng dụng sức khỏe yêu thích';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1220,16 +1277,16 @@ class _TranslationsOnboardingReinforcementTrackingSuccessVi implements Translati
 
 	// Translations
 	@override String get title => 'Bạn không đơn độc';
-	@override String get genericMessage => 'Nghiên cứu cho thấy việc theo dõi liên tục là dự đoán số 1 cho thành công lâu dài.';
-	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Đối với một ${age} tuổi ${gender} muốn ${goal}, việc theo dõi liên tục là dự đoán số 1 cho thành công.';
-	@override String closingMessage({required Object appLabel}) => '${appLabel} giúp bạn dễ dàng hơn gấp 10 lần so với việc thực hiện thủ công.';
-	@override String get getStartedTitle => 'Sẵn sàng để bắt đầu chưa?';
-	@override String get tipPhoto => 'Chụp ảnh bữa ăn của bạn để phân tích ngay lập tức';
-	@override String get tipConsistency => 'Ghi chép thường xuyên để thấy được tiến bộ rõ rệt';
-	@override String get tipProgress => 'Theo dõi tiến trình hàng ngày để giữ động lực';
-	@override String get button => 'Đi nào';
-	@override String get defaultGender => 'người';
-	@override String get defaultGoal => 'khỏe mạnh hơn';
+	@override String get genericMessage => 'Nghiên cứu cho thấy theo dõi đều đặn là yếu tố dự báo số 1 cho thành công dài hạn.';
+	@override String personalizedMessage({required Object gender, required Object age, required Object goal}) => 'Với một ${gender} ${age} tuổi đang muốn ${goal}, theo dõi đều đặn là yếu tố dự báo số 1 cho thành công.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} giúp việc này dễ hơn gấp 10 lần so với làm thủ công.';
+	@override String get getStartedTitle => 'Sẵn sàng bắt đầu?';
+	@override String get tipPhoto => 'Chụp ảnh bữa ăn để phân tích tức thì';
+	@override String get tipConsistency => 'Ghi chép đều đặn để thấy tiến bộ có ý nghĩa';
+	@override String get tipProgress => 'Theo dõi tiến trình hằng ngày để duy trì động lực';
+	@override String get button => 'Bắt đầu thôi';
+	@override String get defaultGender => 'cá nhân';
+	@override String get defaultGoal => 'một bạn khỏe mạnh hơn';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1240,13 +1297,13 @@ class _TranslationsOnboardingReinforcementHealthProfileVi implements Translation
 
 	// Translations
 	@override String get title => 'Hồ sơ sức khỏe của bạn';
-	@override String bmiDescription({required Object bmi}) => 'Dựa trên các chỉ số của bạn, chỉ số BMI của bạn là ${bmi}.';
-	@override String get finalizeDescription => 'Hãy hoàn thiện hồ sơ của bạn để tùy chỉnh trải nghiệm của bạn.';
+	@override String bmiDescription({required Object bmi}) => 'Dựa trên chỉ số của bạn, BMI là ${bmi}.';
+	@override String get finalizeDescription => 'Hãy hoàn tất hồ sơ để tùy chỉnh trải nghiệm của bạn.';
 	@override String get goalGain => 'tăng';
 	@override String get goalLose => 'giảm';
-	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'Để đạt được mục tiêu của bạn, bạn sẽ ${direction} ${diff} ${unit}.';
-	@override String get goalReached => 'Bạn đã đạt được trọng lượng mong muốn! Chúng tôi sẽ giúp bạn duy trì nó.';
-	@override String get button => 'Đi nào';
+	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'Để đạt mục tiêu, bạn sẽ cần ${direction} ${diff} ${unit}.';
+	@override String get goalReached => 'Bạn đang ở cân nặng mục tiêu! Chúng tôi sẽ giúp bạn duy trì nó.';
+	@override String get button => 'Bắt đầu thôi';
 }
 
 // Path: onboarding.reinforcement.goalLifestyle
@@ -1257,12 +1314,12 @@ class _TranslationsOnboardingReinforcementGoalLifestyleVi implements Translation
 
 	// Translations
 	@override String get title => 'Khởi đầu tuyệt vời!';
-	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Bạn đã bước những bước đầu tiên hướng tới ${goalText}. Vì bạn đang ${activityText}, ${appLabel} sẽ điều chỉnh các mục tiêu của bạn để phù hợp với lối sống của bạn.';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Bạn đã thực hiện bước đầu tiên hướng tới ${goalText}. Vì bạn ${activityText}, ${appLabel} sẽ điều chỉnh mục tiêu để phù hợp với lối sống của bạn.';
 	@override String get personalizedTargets => 'Mục tiêu calo cá nhân hóa';
-	@override String get aiMealDetection => 'Nhận diện bữa ăn được hỗ trợ bởi AI';
-	@override String get macroBreakdowns => 'Chi tiết về phân bổ chất dinh dưỡng';
-	@override String get button => 'Đi nào';
-	@override String get defaultGoal => 'các mục tiêu của bạn';
+	@override String get aiMealDetection => 'Nhận diện bữa ăn bằng AI';
+	@override String get macroBreakdowns => 'Phân tích chi tiết chất đa lượng';
+	@override String get button => 'Bắt đầu thôi';
+	@override String get defaultGoal => 'mục tiêu của bạn';
 	@override String get defaultActivity => 'năng động';
 }
 
@@ -1274,7 +1331,7 @@ class _TranslationsEditProfileWeightGoalsLoseWeightVi implements TranslationsEdi
 
 	// Translations
 	@override String get name => 'Giảm cân';
-	@override String get description => 'Tạo một sự thiếu hụt calo để giảm cân';
+	@override String get description => 'Tạo thâm hụt calo để giảm cân';
 }
 
 // Path: editProfile.weightGoals.maintainWeight
@@ -1284,8 +1341,8 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightVi implements Translation
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Giữ cân';
-	@override String get description => 'Duy trì cân nặng hiện tại của bạn';
+	@override String get name => 'Duy trì cân nặng';
+	@override String get description => 'Duy trì cân nặng hiện tại';
 }
 
 // Path: editProfile.weightGoals.gainWeight
@@ -1296,7 +1353,7 @@ class _TranslationsEditProfileWeightGoalsGainWeightVi implements TranslationsEdi
 
 	// Translations
 	@override String get name => 'Tăng cân';
-	@override String get description => 'Tạo một lượng calo dư thừa để tăng cân';
+	@override String get description => 'Tạo thặng dư calo để tăng cân';
 }
 
 // Path: editProfile.activityLevels.sedentary
@@ -1306,8 +1363,8 @@ class _TranslationsEditProfileActivityLevelsSedentaryVi implements TranslationsE
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Ít hoạt động';
-	@override String get description => 'Ít hoặc không tập thể dục';
+	@override String get name => 'Ít vận động';
+	@override String get description => 'Ít hoặc không tập luyện';
 }
 
 // Path: editProfile.activityLevels.lightlyActive
@@ -1318,7 +1375,7 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveVi implements Translati
 
 	// Translations
 	@override String get name => 'Hoạt động nhẹ';
-	@override String get description => 'Tập thể dục nhẹ 1-3 ngày/tuần';
+	@override String get description => 'Tập nhẹ 1-3 ngày/tuần';
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
@@ -1328,8 +1385,8 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveVi implements Transl
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Hoạt động vừa phải';
-	@override String get description => 'Tập thể dục vừa phải 3-5 ngày/tuần';
+	@override String get name => 'Hoạt động vừa';
+	@override String get description => 'Tập vừa 3-5 ngày/tuần';
 }
 
 // Path: editProfile.activityLevels.veryActive
@@ -1340,7 +1397,7 @@ class _TranslationsEditProfileActivityLevelsVeryActiveVi implements Translations
 
 	// Translations
 	@override String get name => 'Rất năng động';
-	@override String get description => 'Tập thể dục mạnh mẽ 6-7 ngày/tuần';
+	@override String get description => 'Tập nặng 6-7 ngày/tuần';
 }
 
 // Path: editProfile.activityLevels.extremelyActive
@@ -1351,7 +1408,7 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveVi implements Transla
 
 	// Translations
 	@override String get name => 'Cực kỳ năng động';
-	@override String get description => 'Tập thể dục rất nặng, công việc thể chất';
+	@override String get description => 'Tập rất nặng, công việc tay chân';
 }
 
 // Path: settings.healthConnect.unavailable
@@ -1361,8 +1418,8 @@ class _TranslationsSettingsHealthConnectUnavailableVi implements TranslationsSet
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kết nối sức khỏe không khả dụng';
-	@override String get description => 'Kết nối sức khỏe không khả dụng trên thiết bị này. Nó yêu cầu Android 14 hoặc mới hơn.';
+	@override String get title => 'Health Connect không khả dụng';
+	@override String get description => 'Health Connect không có trên thiết bị này. Vui lòng cài đặt Health Connect từ Play Store (Android 9+) hoặc cập nhật lên Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1373,7 +1430,7 @@ class _TranslationsSettingsHealthConnectPermissionsVi implements TranslationsSet
 
 	// Translations
 	@override String get title => 'Quyền';
-	@override String get description => 'Các quyền sau đây được yêu cầu để cung cấp tích hợp Kết nối sức khỏe:';
+	@override String get description => 'Các quyền sau được yêu cầu để cung cấp tích hợp Health Connect:';
 	@override String get granted => 'Đã cấp';
 	@override String get notGranted => 'Chưa cấp';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedVi caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedVi._(_root);
@@ -1388,8 +1445,8 @@ class _TranslationsSettingsAboutOurStoryVi implements TranslationsSettingsAboutO
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Câu Chuyện Của Chúng Tôi';
-	@override String content({required Object appLabel}) => '${appLabel} ra đời từ một nỗi bức xúc đơn giản: hầu hết các ứng dụng theo dõi calo đều quá phức tạp, yêu cầu nhập liệu thủ công liên tục, tính phí cao cho việc đăng ký, hoặc xâm phạm quyền riêng tư.\n\nLà một nhà phát triển độc lập, tôi muốn xây dựng một thứ gì đó đơn giản và công bằng hơn — một ứng dụng sử dụng AI để giảm bớt nỗ lực, giữ cho việc sử dụng nhanh chóng và miễn phí, và tôn trọng dữ liệu sức khỏe của bạn.\n\n${appLabel} là ứng dụng mà tôi ước ao có: không tài khoản, không theo dõi, không quảng cáo — chỉ những hiểu biết rõ ràng, thiết thực và mục tiêu sức khỏe của bạn.';
+	@override String get title => 'Câu chuyện của chúng tôi';
+	@override String content({required Object appLabel}) => '${appLabel} ra đời từ một nỗi bực mình đơn giản: hầu hết các ứng dụng theo dõi calo đều quá phức tạp, đòi hỏi nhập liệu thủ công liên tục, thu phí đăng ký cao, hoặc làm ảnh hưởng đến quyền riêng tư.\n\nLà một nhà phát triển độc lập, tôi muốn xây dựng thứ gì đó đơn giản và công bằng hơn — một ứng dụng dùng AI để giảm nỗ lực, luôn nhanh và miễn phí, và tôn trọng dữ liệu sức khỏe của bạn.\n\n${appLabel} là ứng dụng mà tôi mong có: không tài khoản, không theo dõi hành vi, không quảng cáo — chỉ là thông tin rõ ràng, thiết thực và các mục tiêu sức khỏe của bạn.';
 }
 
 // Path: settings.about.privacy
@@ -1399,14 +1456,14 @@ class _TranslationsSettingsAboutPrivacyVi implements TranslationsSettingsAboutPr
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Quyền Riêng Tư Của Bạn Quan Trọng';
-	@override String get description => 'Quyền riêng tư không phải là một ý tưởng phụ — đó là một nguyên tắc thiết kế. Điều này có ý nghĩa gì trong thực tế:';
-	@override String get noAccounts => 'Không yêu cầu tài khoản\nSử dụng ứng dụng ngay lập tức. Không cần đăng ký, không cần danh tính.';
-	@override String noTracking({required Object appLabel}) => 'Không theo dõi hành vi\n${appLabel} không giám sát hoạt động của bạn, không xây dựng hồ sơ sử dụng, hoặc theo dõi bạn qua các ứng dụng hoặc trang web.';
-	@override String noAds({required Object appLabel}) => 'Thiết kế không có quảng cáo\n${appLabel} được xây dựng để hoạt động mà không có quảng cáo hoặc kiếm tiền dựa trên dữ liệu.';
-	@override String get noDataSelling => 'Không bán dữ liệu\nDữ liệu sức khỏe của bạn không bao giờ bị bán hoặc chia sẻ cho bên thứ ba.';
-	@override String get localStorage => 'Lưu trữ ưu tiên cục bộ\nDữ liệu của bạn sẽ ở lại trên thiết bị của bạn.';
-	@override String get privacyPolicy => 'Chính sách bảo mật';
+	@override String get title => 'Quyền riêng tư của bạn là quan trọng';
+	@override String get description => 'Quyền riêng tư không phải là suy nghĩ sau cùng — đó là nguyên tắc thiết kế. Điều này có nghĩa là:';
+	@override String get noAccounts => 'Không cần tài khoản\nDùng ứng dụng ngay. Không đăng ký, không danh tính.';
+	@override String noTracking({required Object appLabel}) => 'Không theo dõi hành vi\n${appLabel} không giám sát hoạt động của bạn, không xây dựng hồ sơ sử dụng, và không theo dõi bạn trên các ứng dụng hay website.';
+	@override String noAds({required Object appLabel}) => 'Không quảng cáo theo thiết kế\n${appLabel} được xây dựng để hoạt động mà không cần quảng cáo hay kiếm tiền dựa trên dữ liệu.';
+	@override String get noDataSelling => 'Không bán dữ liệu\nDữ liệu sức khỏe của bạn không bao giờ được bán hay chia sẻ với bên thứ ba.';
+	@override String get localStorage => 'Lưu trữ ưu tiên cục bộ\nDữ liệu của bạn ở lại trên thiết bị.';
+	@override String get privacyPolicy => 'Chính sách quyền riêng tư';
 }
 
 // Path: settings.about.developer
@@ -1416,9 +1473,9 @@ class _TranslationsSettingsAboutDeveloperVi implements TranslationsSettingsAbout
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Được Xây Dựng Bởi Một Nhà Phát Triển Độc Lập';
-	@override String description({required Object appLabel}) => '${appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập duy nhất tập trung vào việc tạo ra phần mềm sức khỏe tôn trọng quyền riêng tư.\n\nPhản hồi được đọc cá nhân và giúp định hình hướng đi của ứng dụng.';
-	@override String get website => 'Trang web';
+	@override String get title => 'Được xây dựng bởi một nhà phát triển độc lập';
+	@override String description({required Object appLabel}) => '${appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập, tập trung vào việc tạo ra phần mềm sức khỏe êm dịu và tôn trọng quyền riêng tư.\n\nPhản hồi được đọc trực tiếp và góp phần định hướng ứng dụng.';
+	@override String get website => 'Website';
 	@override String get email => 'Email';
 }
 
@@ -1430,9 +1487,9 @@ class _TranslationsSettingsAboutFeedbackVi implements TranslationsSettingsAboutF
 
 	// Translations
 	@override String title({required Object appLabel}) => 'Bạn có thích ${appLabel} không?';
-	@override String description({required Object appLabel}) => 'Phản hồi của bạn giúp cải thiện ${appLabel} cho mọi người.';
+	@override String description({required Object appLabel}) => 'Phản hồi của bạn giúp ${appLabel} tốt hơn cho mọi người.';
 	@override String get rateApp => 'Đánh giá trên Play Store';
-	@override String get sendFeedback => 'Gửi Phản hồi';
+	@override String get sendFeedback => 'Gửi phản hồi';
 }
 
 // Path: disclaimer.snap.portionSize
@@ -1442,8 +1499,8 @@ class _TranslationsDisclaimerSnapPortionSizeVi implements TranslationsDisclaimer
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kích thước phần';
-	@override String get description => 'Độ chính xác của các ước tính phụ thuộc rất nhiều vào việc bạn đánh giá đúng kích thước phần.';
+	@override String get title => 'Khẩu phần';
+	@override String get description => 'Độ chính xác của ước tính phụ thuộc nhiều vào việc bạn ước lượng đúng kích thước khẩu phần.';
 }
 
 // Path: disclaimer.snap.preparationMethods
@@ -1453,8 +1510,8 @@ class _TranslationsDisclaimerSnapPreparationMethodsVi implements TranslationsDis
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Phương pháp chế biến';
-	@override String description({required Object appLabel}) => 'Phương pháp chế biến có thể thay đổi đáng kể thành phần dinh dưỡng của thực phẩm. Các ước tính của ${appLabel} có thể không luôn dự đoán được những biến đổi này.';
+	@override String get title => 'Cách chế biến';
+	@override String description({required Object appLabel}) => 'Phương pháp nấu nướng có thể làm thay đổi đáng kể hàm lượng dinh dưỡng. Ước tính của ${appLabel} có thể không luôn tính hết các thay đổi này.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1464,8 +1521,8 @@ class _TranslationsDisclaimerSnapIngredientsVi implements TranslationsDisclaimer
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Nguyên liệu';
-	@override String get description => 'Những món ăn phức tạp với nhiều nguyên liệu ẩn có thể dẫn đến ước tính kém chính xác.';
+	@override String get title => 'Thành phần';
+	@override String get description => 'Các món phức tạp với nhiều thành phần ẩn có thể dẫn đến ước tính kém chính xác hơn.';
 }
 
 // Path: disclaimer.snap.databaseLimitations
@@ -1476,7 +1533,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsVi implements TranslationsDi
 
 	// Translations
 	@override String get title => 'Giới hạn cơ sở dữ liệu';
-	@override String description({required Object appLabel}) => 'Cơ sở dữ liệu thực phẩm của ${appLabel} rất phong phú nhưng có thể không bao gồm mọi món ăn hay biến thể nào.';
+	@override String description({required Object appLabel}) => 'Cơ sở dữ liệu thực phẩm của ${appLabel} rất lớn nhưng có thể không bao phủ mọi món hoặc biến thể.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1487,7 +1544,7 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyVi implements Translat
 
 	// Translations
 	@override String get title => 'Độ chính xác calo';
-	@override String get description => 'Ước tính này chỉ chính xác như lượng calo bạn đã theo dõi vào và ra. Ghi chú kém chính xác sẽ dẫn đến ước tính không chính xác.';
+	@override String get description => 'Ước tính này chỉ chính xác khi lượng calo bạn nạp và tiêu hao được theo dõi chính xác. Ghi chép không chuẩn sẽ cho ra dự báo không chính xác.';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1497,8 +1554,8 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsVi implements Transl
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Các yếu tố sinh học';
-	@override String description({required Object appLabel}) => 'Sự thay đổi cân nặng thực tế bị ảnh hưởng bởi chuyển hóa, hormone, giấc ngủ, căng thẳng, độ ẩm, và các yếu tố cá nhân khác mà ${appLabel} không thể đo được.';
+	@override String get title => 'Yếu tố sinh học';
+	@override String description({required Object appLabel}) => 'Giảm/tăng cân thực tế chịu ảnh hưởng bởi trao đổi chất, hormone, giấc ngủ, căng thẳng, nước, và các yếu tố cá nhân khác mà ${appLabel} không thể đo lường.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1508,8 +1565,8 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightVi implements Translations
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Trọng lượng nước & Biến động';
-	@override String get description => 'Trọng lượng hàng ngày bình thường có thể biến động đáng kể do giữ nước, tiêu hóa và thời gian. Ước tính không tính đến những thay đổi hàng ngày này.';
+	@override String get title => 'Nước & dao động cân';
+	@override String get description => 'Cân nặng hằng ngày có thể dao động đáng kể do giữ nước, tiêu hóa và thời điểm cân. Ước tính không tính đến các dao động này.';
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
@@ -1519,8 +1576,8 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceVi implements Tra
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Hướng dẫn chuyên nghiệp';
-	@override String get description => 'Đừng sử dụng ước tính này để đưa ra quyết định y tế. Luôn tham khảo ý kiến bác sĩ hoặc chuyên gia dinh dưỡng được chứng nhận cho lời khuyên quản lý trọng lượng cá nhân hóa.';
+	@override String get title => 'Hướng dẫn chuyên môn';
+	@override String get description => 'Không dùng ước tính này để đưa ra quyết định y khoa. Luôn tham khảo chuyên gia y tế hoặc chuyên gia dinh dưỡng cho tư vấn cá nhân.';
 }
 
 // Path: disclaimer.healthMetrics.bmr
@@ -1530,8 +1587,8 @@ class _TranslationsDisclaimerHealthMetricsBmrVi implements TranslationsDisclaime
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tỷ lệ chuyển hóa cơ bản (BMR)';
-	@override String get description => 'Tỷ lệ chuyển hóa cơ bản (BMR) là số calo mà cơ thể bạn đốt cháy khi nghỉ ngơi để duy trì các chức năng cơ bản như hô hấp và tuần hoàn. BMR phụ thuộc vào độ tuổi, giới tính, chiều cao và cân nặng của bạn. Một BMR cao có nghĩa là cơ thể bạn tự nhiên đốt cháy nhiều calo hơn khi nghỉ ngơi, thường do lượng cơ bắp nhiều hơn, độ tuổi trẻ hơn hoặc là nam giới. Một BMR thấp hơn thường chỉ ra ít khối lượng cơ bắp hơn, độ tuổi lớn hơn, hoặc là nữ giới.';
+	@override String get title => 'BMR';
+	@override String get description => 'Tốc độ trao đổi chất cơ bản (BMR) là lượng calo cơ thể bạn đốt khi nghỉ ngơi để duy trì chức năng cơ bản như hô hấp và tuần hoàn. BMR phụ thuộc vào tuổi, giới tính, chiều cao và cân nặng. BMR cao nghĩa là cơ thể tự đốt nhiều calo hơn khi nghỉ, thường do nhiều khối cơ, trẻ tuổi, hoặc nam giới. BMR thấp thường cho thấy ít cơ hơn, lớn tuổi hơn, hoặc nữ giới.';
 }
 
 // Path: disclaimer.healthMetrics.tdee
@@ -1542,7 +1599,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeVi implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'TDEE';
-	@override String get description => 'Chi tiêu năng lượng hàng ngày tổng cộng (TDEE) là tổng số calo mà bạn đốt cháy mỗi ngày, bao gồm BMR của bạn cộng với calo từ hoạt động thể chất và di chuyển hàng ngày. TDEE phụ thuộc vào BMR và mức độ hoạt động của bạn. Một TDEE cao có nghĩa là bạn đốt cháy nhiều calo hơn tổng thể, thường là do hoạt động nhiều hơn hoặc có BMR cao hơn. Một TDEE thấp hơn cho thấy hoạt động hàng ngày ít hơn hoặc BMR thấp hơn.';
+	@override String get description => 'Tổng năng lượng tiêu hao hằng ngày (TDEE) là tổng calo bạn đốt mỗi ngày, gồm BMR cộng calo từ vận động và hoạt động thường nhật. TDEE phụ thuộc vào BMR và mức độ hoạt động. TDEE cao nghĩa là bạn đốt nhiều calo hơn tổng thể, thường do hoạt động nhiều hoặc BMR cao. TDEE thấp cho thấy hoạt động hằng ngày ít hơn hoặc BMR thấp.';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1552,8 +1609,8 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalVi implements TranslationsDis
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Mục tiêu hàng ngày';
-	@override String get description => 'Mục tiêu hàng ngày là lượng calo mà bạn được khuyên nên tiêu thụ hàng ngày dựa trên TDEE và mục tiêu cân nặng của bạn. Để giảm cân, bạn tiêu thụ ít calo hơn TDEE của mình. Để duy trì cân nặng, bạn cần khớp với TDEE của mình. Để tăng cân, bạn tiêu thụ nhiều calo hơn TDEE của mình. Điều này giúp bạn đạt được thay đổi cân nặng mong muốn một cách lành mạnh.';
+	@override String get title => 'Mục tiêu hằng ngày';
+	@override String get description => 'Mục tiêu hằng ngày là lượng calo khuyến nghị dựa trên TDEE và mục tiêu cân nặng của bạn. Để giảm cân, bạn nạp ít calo hơn TDEE. Để duy trì, bạn khớp TDEE. Để tăng cân, bạn nạp nhiều hơn TDEE. Điều này giúp bạn đạt thay đổi cân nặng theo nhịp độ lành mạnh.';
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
@@ -1564,7 +1621,7 @@ class _TranslationsDisclaimerCalorieExpenditureHowCalculatedVi implements Transl
 
 	// Translations
 	@override String get title => 'Cách tính ước tính';
-	@override String get description => 'Chúng tôi tính TDEE của bạn (dựa trên hồ sơ cá nhân) và nhân với tỷ lệ phần ngày đã trôi qua (giờ + phút) / 24 để ước tính số calo đã tiêu hao cho đến hiện tại.';
+	@override String get description => 'Chúng tôi tính TDEE (dựa trên hồ sơ của bạn) và nhân với tỷ lệ thời gian đã qua trong ngày (giờ + phút) / 24 để ước tính calo đã tiêu hao đến hiện tại.';
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
@@ -1575,7 +1632,7 @@ class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceVi implements
 
 	// Translations
 	@override String get title => 'Hướng dẫn chuyên môn';
-	@override String get description => 'Không sử dụng ước tính này để đưa ra quyết định y tế. Luôn tham khảo ý kiến bác sĩ, chuyên gia chăm sóc sức khỏe hoặc chuyên gia dinh dưỡng được đăng ký để nhận lời khuyên cá nhân hóa về quản lý cân nặng.';
+	@override String get description => 'Không dùng ước tính này để đưa ra quyết định y khoa. Luôn tham khảo chuyên gia y tế hoặc chuyên gia dinh dưỡng cho tư vấn cá nhân.';
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
@@ -1585,9 +1642,9 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedVi implements T
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Đọc tổng số calo đã đốt';
-	@override String get description => 'Cho phép ứng dụng đọc tổng số calo bạn đã đốt từ Kết nối sức khỏe.';
-	@override String get usage => 'Quyền này được sử dụng để hiển thị lượng calo bạn đốt hàng ngày trong ứng dụng, giúp bạn hiểu rõ hơn về tổng lượng năng lượng tiêu thụ trong suốt cả ngày.';
+	@override String get title => 'Đọc tổng calo tiêu hao';
+	@override String get description => 'Cho phép ứng dụng đọc tổng lượng calo bạn tiêu hao từ Health Connect.';
+	@override String get usage => 'Quyền này dùng để hiển thị calo tiêu hao hằng ngày trong ứng dụng, giúp bạn hiểu tổng năng lượng tiêu hao trong ngày.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
@@ -1598,8 +1655,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadVi implements Tr
 
 	// Translations
 	@override String get title => 'Đọc dữ liệu dinh dưỡng';
-	@override String get description => 'Cho phép ứng dụng đọc dữ liệu dinh dưỡng từ Kết nối sức khỏe.';
-	@override String get usage => 'Quyền này cho phép ứng dụng đọc thông tin dinh dưỡng có thể đã được ghi lại bởi các ứng dụng khác kết nối với Kết nối sức khỏe, cung cấp cái nhìn toàn diện về dinh dưỡng của bạn.';
+	@override String get description => 'Cho phép ứng dụng đọc dữ liệu dinh dưỡng từ Health Connect.';
+	@override String get usage => 'Quyền này cho phép ứng dụng đọc thông tin dinh dưỡng có thể đã được ghi bởi các ứng dụng khác kết nối với Health Connect, mang lại góc nhìn toàn diện về dinh dưỡng của bạn.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1610,8 +1667,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteVi implements T
 
 	// Translations
 	@override String get title => 'Ghi dữ liệu dinh dưỡng';
-	@override String get description => 'Cho phép ứng dụng ghi dữ liệu dinh dưỡng vào Kết nối sức khỏe.';
-	@override String get usage => 'Quyền này cho phép ứng dụng đồng bộ hóa các bữa ăn bạn đã ghi với Kết nối sức khỏe, làm cho dữ liệu dinh dưỡng của bạn có sẵn cho các ứng dụng sức khỏe và thể dục khác mà bạn sử dụng.';
+	@override String get description => 'Cho phép ứng dụng ghi dữ liệu dinh dưỡng vào Health Connect.';
+	@override String get usage => 'Quyền này cho phép ứng dụng đồng bộ bữa ăn bạn đã ghi lên Health Connect, giúp dữ liệu dinh dưỡng sẵn có cho các ứng dụng sức khỏe và thể dục khác bạn dùng.';
 }
 
 /// The flat map containing all translations for locale <vi>.
@@ -1625,164 +1682,166 @@ extension on TranslationsVi {
 			'language' => 'Tiếng Việt',
 			'flag' => '🇻🇳',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
-			'errors.rateLimitExceeded' => 'Bạn đã thực hiện quá nhiều yêu cầu. Vui lòng chờ một lát rồi thử lại.',
-			'errors.networkError' => 'Lỗi mạng. Vui lòng kiểm tra kết nối Internet của bạn.',
-			'errors.unknownError' => 'Đã xảy ra lỗi. Vui lòng thử lại sau.',
-			'errors.loadingProfileData' => 'Lỗi khi tải dữ liệu hồ sơ',
-			'errors.somethingWentWrong' => 'Đã xảy ra lỗi.',
+			'errors.rateLimitExceeded' => 'Bạn đã gửi quá nhiều yêu cầu. Vui lòng đợi một lát trước khi thử lại.',
+			'errors.networkError' => 'Lỗi mạng. Vui lòng kiểm tra kết nối internet của bạn.',
+			'errors.unknownError' => 'Đã xảy ra sự cố. Vui lòng thử lại sau.',
+			'errors.loadingProfileData' => 'Lỗi tải dữ liệu hồ sơ',
+			'errors.somethingWentWrong' => 'Đã xảy ra sự cố.',
 			'errors.retry' => 'Thử lại',
-			'onboarding.welcome' => ({required Object appLabel}) => 'Chào mừng bạn đến với ${appLabel}',
-			'onboarding.subtitle' => 'Người bạn đồng hành dinh dưỡng cá nhân của bạn được hỗ trợ bởi AI',
+			'onboarding.welcome' => ({required Object appLabel}) => 'Chào mừng đến với ${appLabel}',
+			'onboarding.subtitle' => 'Người bạn đồng hành dinh dưỡng cá nhân được hỗ trợ bởi AI',
 			'onboarding.getStarted' => 'Bắt đầu',
-			'onboarding.features.foodRecognition.title' => 'Nhận diện thực phẩm thông minh',
-			'onboarding.features.foodRecognition.description' => 'Chụp một bức ảnh và để AI xác định bữa ăn của bạn',
-			'onboarding.features.aiAnalysis.title' => 'Phân tích AI',
-			'onboarding.features.aiAnalysis.description' => 'Nhận thông tin dinh dưỡng ngay lập tức từ mô tả của bạn',
-			'onboarding.features.healthIntegration.title' => 'Tích hợp sức khỏe',
-			'onboarding.features.healthIntegration.description' => 'Kết nối với Health Connect để có được cái nhìn sâu sắc hơn',
+			'onboarding.features.foodRecognition.title' => 'Nhận diện món ăn thông minh',
+			'onboarding.features.foodRecognition.description' => 'Chụp ảnh và để AI nhận diện bữa ăn của bạn',
+			'onboarding.features.aiAnalysis.title' => 'Phân tích bằng AI',
+			'onboarding.features.aiAnalysis.description' => 'Nhận thông tin dinh dưỡng tức thì từ mô tả của bạn',
+			'onboarding.features.healthIntegration.title' => 'Tích hợp Health',
+			'onboarding.features.healthIntegration.description' => 'Kết nối với Health Connect để có góc nhìn tốt hơn',
 			'onboarding.gender.title' => 'Giới tính của bạn là gì?',
-			'onboarding.gender.description' => 'Giới tính giúp chúng tôi tính toán chính xác tỷ lệ trao đổi chất cơ bản (BMR) của bạn.',
-			'onboarding.gender.next' => 'Tiếp theo',
-			'onboarding.height.title' => 'Bạn cao bao nhiêu?',
-			'onboarding.height.description' => 'Chiều cao của bạn giúp chúng tôi tính toán chỉ số BMI và nhu cầu năng lượng một cách chính xác.',
-			'onboarding.height.metric' => 'Mét',
-			'onboarding.height.imperial' => 'Imperial',
-			'onboarding.height.next' => 'Tiếp theo',
-			'onboarding.weight.currentTitle' => 'Cân nặng hiện tại của bạn là bao nhiêu?',
-			'onboarding.weight.currentDescription' => 'Cân nặng hiện tại rất quan trọng để cá nhân hóa các mục tiêu hàng ngày của bạn.',
-			'onboarding.weight.targetTitle' => 'Cân nặng mục tiêu của bạn là bao nhiêu?',
-			'onboarding.weight.targetDescription' => 'Đặt mục tiêu cân nặng giúp chúng tôi xác định kế hoạch dài hạn của bạn.',
-			'onboarding.weight.metric' => 'Kilogram',
-			'onboarding.weight.imperial' => 'Imperial',
-			'onboarding.weight.next' => 'Tiếp theo',
-			'onboarding.age.title' => 'Ngày sinh của bạn là khi nào?',
-			'onboarding.age.description' => 'Tuổi của bạn giúp chúng tôi tính toán nhu cầu calo một cách chính xác.',
-			'onboarding.age.next' => 'Tiếp theo',
-			'onboarding.bmiScale.underweight' => 'Thiếu cân',
+			'onboarding.gender.description' => 'Giới tính giúp chúng tôi tính toán chính xác tỷ lệ trao đổi chất cơ bản (BMR).',
+			'onboarding.gender.next' => 'Tiếp',
+			'onboarding.height.title' => 'Chiều cao của bạn?',
+			'onboarding.height.description' => 'Chiều cao giúp chúng tôi tính BMI và nhu cầu năng lượng chính xác.',
+			'onboarding.height.metric' => 'Hệ mét',
+			'onboarding.height.imperial' => 'Hệ Anh',
+			'onboarding.height.next' => 'Tiếp',
+			'onboarding.weight.currentTitle' => 'Cân nặng hiện tại của bạn?',
+			'onboarding.weight.currentDescription' => 'Cân nặng hiện tại rất quan trọng để cá nhân hóa mục tiêu hằng ngày.',
+			'onboarding.weight.targetTitle' => 'Cân nặng mục tiêu của bạn?',
+			'onboarding.weight.targetDescription' => 'Đặt mục tiêu cân nặng giúp chúng tôi xây dựng kế hoạch dài hạn.',
+			'onboarding.weight.metric' => 'Hệ mét',
+			'onboarding.weight.imperial' => 'Hệ Anh',
+			'onboarding.weight.next' => 'Tiếp',
+			'onboarding.age.title' => 'Ngày sinh của bạn?',
+			'onboarding.age.description' => 'Tuổi tác giúp chúng tôi tính toán nhu cầu calo chính xác.',
+			'onboarding.age.next' => 'Tiếp',
+			'onboarding.bmiScale.underweight' => 'Thiếu',
 			'onboarding.bmiScale.healthy' => 'Khỏe mạnh',
-			'onboarding.bmiScale.overweight' => 'Thừa cân',
+			'onboarding.bmiScale.overweight' => 'Thừa',
 			'onboarding.bmiScale.obese' => 'Béo phì',
-			'onboarding.bmiScale.categories.underweight' => 'Gầy',
+			'onboarding.bmiScale.categories.underweight' => 'Thiếu cân',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Cân nặng khỏe mạnh',
 			'onboarding.bmiScale.categories.overweight' => 'Thừa cân',
 			'onboarding.bmiScale.categories.obese' => 'Béo phì',
-			'onboarding.bmiScale.messages.underweight' => 'Chúng tôi có thể giúp bạn xây dựng một kế hoạch lành mạnh để đạt được trọng lượng cân bằng với những bữa ăn giàu dinh dưỡng.',
-			'onboarding.bmiScale.messages.healthy' => 'Tuyệt vời! Bạn đang ở mức độ khỏe mạnh. Chúng tôi sẽ giúp bạn duy trì sức sống và mức năng lượng.',
-			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} sẽ đơn giản hóa hành trình của bạn với việc theo dõi bằng AI để giúp bạn đạt được mục tiêu của mình một cách thoải mái.',
-			'onboarding.bmiScale.messages.obese' => 'Chúng tôi ở đây để hỗ trợ bạn với hướng dẫn cá nhân hóa và các chiến lược bền vững cho các mục tiêu sức khỏe của bạn.',
+			'onboarding.bmiScale.messages.underweight' => 'Chúng tôi có thể giúp bạn xây dựng kế hoạch lành mạnh để đạt cân nặng cân bằng với các bữa giàu dinh dưỡng.',
+			'onboarding.bmiScale.messages.healthy' => 'Tuyệt vời! Bạn đang trong phạm vi khỏe mạnh. Chúng tôi sẽ giúp bạn duy trì sức sống và năng lượng.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} sẽ đơn giản hóa hành trình của bạn với theo dõi bằng AI để giúp bạn đạt mục tiêu một cách thoải mái.',
+			'onboarding.bmiScale.messages.obese' => 'Chúng tôi ở đây để hỗ trợ bạn bằng hướng dẫn cá nhân hóa và chiến lược bền vững cho mục tiêu sức khỏe.',
 			'onboarding.weightGoal.title' => 'Mục tiêu của bạn là gì?',
-			'onboarding.weightGoal.description' => 'Chọn mục tiêu mà bạn muốn đạt được nhất',
-			'onboarding.activityLevel.title' => 'Bạn hoạt động như thế nào?',
-			'onboarding.activityLevel.description' => 'Điều này giúp chúng tôi tính toán nhu cầu calo hàng ngày của bạn một cách chính xác hơn',
+			'onboarding.weightGoal.description' => 'Chọn mục tiêu phù hợp nhất với điều bạn muốn đạt được',
+			'onboarding.activityLevel.title' => 'Mức độ hoạt động của bạn?',
+			'onboarding.activityLevel.description' => 'Điều này giúp chúng tôi tính nhu cầu calo hằng ngày chính xác hơn',
 			'onboarding.healthConnect.title' => 'Kết nối với Health Connect',
-			'onboarding.healthConnect.description' => 'Đồng bộ dữ liệu sức khỏe của bạn để có cái nhìn sâu sắc hơn và theo dõi calo tự động',
+			'onboarding.healthConnect.description' => 'Đồng bộ dữ liệu sức khỏe để có góc nhìn tốt hơn và tự động theo dõi calo',
 			'onboarding.healthConnect.automaticTracking.title' => 'Theo dõi calo tự động',
-			'onboarding.healthConnect.automaticTracking.description' => 'Theo dõi calo đã đốt cháy từ các ứng dụng thể dục của bạn',
-			'onboarding.healthConnect.progressInsights.title' => 'Thông tin tiến độ',
-			'onboarding.healthConnect.progressInsights.description' => 'Nhận thông tin chi tiết về xu hướng sức khỏe của bạn',
+			'onboarding.healthConnect.automaticTracking.description' => 'Theo dõi calo tiêu hao từ ứng dụng thể dục của bạn',
+			'onboarding.healthConnect.progressInsights.title' => 'Thông tin tiến trình',
+			'onboarding.healthConnect.progressInsights.description' => 'Nhận góc nhìn chi tiết về xu hướng sức khỏe',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Tích hợp liền mạch',
-			'onboarding.healthConnect.seamlessIntegration.description' => 'Đồng bộ dữ liệu từ các ứng dụng sức khỏe yêu thích của bạn',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'Đồng bộ dữ liệu từ các ứng dụng sức khỏe yêu thích',
 			'onboarding.healthConnect.connected' => 'Đã kết nối Health Connect',
 			'onboarding.healthConnect.notConnected' => 'Chưa kết nối Health Connect',
-			'onboarding.healthConnect.setup' => 'Cài đặt Health Connect',
-			'onboarding.healthConnect.skipForNow' => 'Bỏ qua tạm thời',
+			'onboarding.healthConnect.setup' => 'Thiết lập Health Connect',
+			'onboarding.healthConnect.skipForNow' => 'Bỏ qua lúc này',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect đã được kết nối.',
-			'onboarding.healthConnect.statusSuccess' => 'Health Connect đã được kết nối thành công!',
-			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Quyền truy cập đã bị từ chối. Vui lòng bật quyền truy cập Health Connect từ cài đặt điện thoại của bạn để sử dụng ${appLabel}.',
-			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Lỗi cài đặt Health Connect: ${error}',
+			'onboarding.healthConnect.statusSuccess' => 'Đã kết nối Health Connect thành công!',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Bị từ chối quyền. Vui lòng bật quyền Health Connect từ cài đặt điện thoại cho ${appLabel}.',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Lỗi thiết lập Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Bạn không đơn độc',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Nghiên cứu cho thấy việc theo dõi liên tục là dự đoán số 1 cho thành công lâu dài.',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Đối với một ${age} tuổi ${gender} muốn ${goal}, việc theo dõi liên tục là dự đoán số 1 cho thành công.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} giúp bạn dễ dàng hơn gấp 10 lần so với việc thực hiện thủ công.',
-			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Sẵn sàng để bắt đầu chưa?',
-			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Chụp ảnh bữa ăn của bạn để phân tích ngay lập tức',
-			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Ghi chép thường xuyên để thấy được tiến bộ rõ rệt',
-			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Theo dõi tiến trình hàng ngày để giữ động lực',
-			'onboarding.reinforcement.trackingSuccess.button' => 'Đi nào',
-			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'người',
-			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'khỏe mạnh hơn',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Nghiên cứu cho thấy theo dõi đều đặn là yếu tố dự báo số 1 cho thành công dài hạn.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object gender, required Object age, required Object goal}) => 'Với một ${gender} ${age} tuổi đang muốn ${goal}, theo dõi đều đặn là yếu tố dự báo số 1 cho thành công.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} giúp việc này dễ hơn gấp 10 lần so với làm thủ công.',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Sẵn sàng bắt đầu?',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Chụp ảnh bữa ăn để phân tích tức thì',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Ghi chép đều đặn để thấy tiến bộ có ý nghĩa',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Theo dõi tiến trình hằng ngày để duy trì động lực',
+			'onboarding.reinforcement.trackingSuccess.button' => 'Bắt đầu thôi',
+			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'cá nhân',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'một bạn khỏe mạnh hơn',
 			'onboarding.reinforcement.healthProfile.title' => 'Hồ sơ sức khỏe của bạn',
-			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Dựa trên các chỉ số của bạn, chỉ số BMI của bạn là ${bmi}.',
-			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Hãy hoàn thiện hồ sơ của bạn để tùy chỉnh trải nghiệm của bạn.',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Dựa trên chỉ số của bạn, BMI là ${bmi}.',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Hãy hoàn tất hồ sơ để tùy chỉnh trải nghiệm của bạn.',
 			'onboarding.reinforcement.healthProfile.goalGain' => 'tăng',
 			'onboarding.reinforcement.healthProfile.goalLose' => 'giảm',
-			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'Để đạt được mục tiêu của bạn, bạn sẽ ${direction} ${diff} ${unit}.',
-			'onboarding.reinforcement.healthProfile.goalReached' => 'Bạn đã đạt được trọng lượng mong muốn! Chúng tôi sẽ giúp bạn duy trì nó.',
-			'onboarding.reinforcement.healthProfile.button' => 'Đi nào',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'Để đạt mục tiêu, bạn sẽ cần ${direction} ${diff} ${unit}.',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'Bạn đang ở cân nặng mục tiêu! Chúng tôi sẽ giúp bạn duy trì nó.',
+			'onboarding.reinforcement.healthProfile.button' => 'Bắt đầu thôi',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Khởi đầu tuyệt vời!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Bạn đã bước những bước đầu tiên hướng tới ${goalText}. Vì bạn đang ${activityText}, ${appLabel} sẽ điều chỉnh các mục tiêu của bạn để phù hợp với lối sống của bạn.',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Bạn đã thực hiện bước đầu tiên hướng tới ${goalText}. Vì bạn ${activityText}, ${appLabel} sẽ điều chỉnh mục tiêu để phù hợp với lối sống của bạn.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Mục tiêu calo cá nhân hóa',
-			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Nhận diện bữa ăn được hỗ trợ bởi AI',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Chi tiết về phân bổ chất dinh dưỡng',
-			'onboarding.reinforcement.goalLifestyle.button' => 'Đi nào',
-			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'các mục tiêu của bạn',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Nhận diện bữa ăn bằng AI',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Phân tích chi tiết chất đa lượng',
+			'onboarding.reinforcement.goalLifestyle.button' => 'Bắt đầu thôi',
+			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'mục tiêu của bạn',
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'năng động',
-			'tabs.dashboard' => 'Bảng điều khiển',
+			'tabs.dashboard' => 'Tổng quan',
 			'tabs.history' => 'Lịch sử',
-			'home.aiSummary.title' => 'Tóm tắt AI của bạn',
-			'home.aiSummary.logMore' => 'Ghi lại thêm bữa ăn trong vài ngày tới để nhận được những phân tích cá nhân hóa từ AI.',
+			'home.aiSummary.title' => 'Tóm tắt bởi AI',
+			'home.aiSummary.logMore' => 'Ghi thêm bữa ăn trong vài ngày tới để nhận góc nhìn cá nhân hóa từ AI.',
 			'home.aiSummary.loading' => 'Đang tải tóm tắt của bạn...',
-			'home.aiSummary.mealCount' => ({required Object count}) => '${count} bữa đã ghi',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} bữa ăn đã ghi',
 			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Điểm cân bằng ${score}',
 			'home.aiSummary.topFoods' => 'Thực phẩm hàng đầu',
-			'home.aiSummary.trendUp' => 'Lượng calo đang tăng',
-			'home.aiSummary.trendDown' => 'Lượng calo đang giảm',
-			'home.aiSummary.trendSteady' => 'Lượng calo ổn định',
+			'home.aiSummary.trendUp' => 'Calo có xu hướng tăng',
+			'home.aiSummary.trendDown' => 'Calo có xu hướng giảm',
+			'home.aiSummary.trendSteady' => 'Calo đang ổn định',
 			'home.aiSummary.generatedAt' => ({required Object time}) => 'Cập nhật ${time}',
-			'home.dailyGoal.title' => 'Đặt mục tiêu hàng ngày của bạn',
-			'home.dailyGoal.titleSet' => 'Mục tiêu hàng ngày của bạn',
-			'home.dailyGoal.description' => 'Sẵn sàng để bắt đầu hành trình sức khỏe? Đặt mục tiêu calo hàng ngày của bạn bên dưới để khởi đầu tiến trình.',
-			'home.dailyGoal.descriptionSet' => 'La bàn của bạn đã được đặt! Đây là mục tiêu calo hàng ngày của bạn để hướng dẫn bạn.',
+			'home.dailyGoal.title' => 'Đặt mục tiêu hằng ngày',
+			'home.dailyGoal.titleSet' => 'Mục tiêu hằng ngày của bạn',
+			'home.dailyGoal.description' => 'Sẵn sàng cho hành trình khỏe mạnh? Hãy đặt mục tiêu calo hằng ngày bên dưới để khởi động tiến trình.',
+			'home.dailyGoal.descriptionSet' => 'La bàn đã sẵn sàng! Đây là mục tiêu calo hằng ngày để dẫn đường cho bạn.',
 			'home.dailyGoal.yourGoal' => 'Mục tiêu của bạn',
 			'home.dailyGoal.goal' => 'Mục tiêu',
-			'home.dailyGoal.dailyCalories' => 'Calo hàng ngày (kcal)',
+			'home.dailyGoal.dailyCalories' => 'Calo mỗi ngày (kcal)',
 			'home.dailyGoal.setGoal' => 'Đặt mục tiêu',
-			'home.dailyGoal.intake' => 'Tiêu thụ',
-			'home.dailyGoal.burned' => 'Đã đốt cháy',
-			'home.dailyGoal.weightImpact' => 'Tác động đến trọng lượng',
-			'home.dailyGoal.estLoss' => 'Dự kiến giảm',
-			'home.dailyGoal.estGain' => 'Dự kiến tăng',
+			'home.dailyGoal.intake' => 'Nạp vào',
+			'home.dailyGoal.burned' => 'Tiêu hao',
+			'home.dailyGoal.weightImpact' => 'Ảnh hưởng cân nặng',
+			'home.dailyGoal.estLoss' => 'Ước tính giảm',
+			'home.dailyGoal.estGain' => 'Ước tính tăng',
 			'home.dailyGoal.kcal' => 'kcal',
-			'home.dailySummary.title' => 'Tóm tắt hàng ngày',
+			'home.dailySummary.title' => 'Tóm tắt hằng ngày',
 			'home.dailySummary.calories' => 'Calo',
-			'home.dailySummary.carbs' => 'Carbohydrate',
+			'home.dailySummary.carbs' => 'Carb',
 			'home.dailySummary.protein' => 'Protein',
 			'home.dailySummary.fat' => 'Chất béo',
 			'home.dailySummary.fiber' => 'Chất xơ',
 			'home.dailySummary.grams' => 'gam',
-			'home.dailySummary.chartAccessibilityLabel' => 'Biểu đồ các chất dinh dưỡng chính',
-			'home.intakeProgress.title' => 'Phân chia Macro hôm nay',
+			'home.dailySummary.chartAccessibilityLabel' => 'Biểu đồ các chất đa lượng',
+			'home.intakeProgress.title' => 'Tỷ lệ chất đa lượng hôm nay',
 			'home.intakeProgress.target' => 'Mục tiêu',
 			'home.intakeProgress.current' => 'Hiện tại',
-			'home.intakeHistory.title' => 'Lịch sử Macro 7 ngày',
+			'home.intakeHistory.title' => 'Lịch sử chất đa lượng 7 ngày',
 			'home.intakeHistory.trendTitle' => 'Xu hướng hôm nay',
-			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Giờ cao điểm: ${hour}:00',
-			'home.intakeHistory.noHistoryYet' => 'Chưa có lịch sử nào',
-			'home.intakeHistory.startLogging' => 'Bắt đầu ghi chú bữa ăn để xem xu hướng macro 7 ngày của bạn ở đây',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Đỉnh: ${hour}:00',
+			'home.intakeHistory.noHistoryYet' => 'Chưa có lịch sử',
+			'home.intakeHistory.startLogging' => 'Bắt đầu ghi bữa ăn để xem\nxu hướng vĩ mô 7 ngày tại đây',
 			'home.mealLog.title' => 'Bữa ăn đã ghi',
-			'home.mealLog.emptyMessage' => 'Chụp ảnh bữa ăn cuối cùng của bạn để ghi chú ở đây.',
-			'home.mealLog.noMealsToday' => 'Chưa ghi nhận bữa ăn nào cho hôm nay',
+			'home.mealLog.emptyMessage' => 'Chụp ảnh bữa ăn gần nhất của bạn để ghi tại đây.',
+			'home.mealLog.noMealsToday' => 'Hôm nay chưa có bữa ăn nào',
 			'home.mealLog.seeAllMeals' => 'Xem tất cả bữa ăn',
 			'home.mealDescription.title' => 'Thêm nhanh với AI',
-			'home.mealDescription.description' => 'Mô tả bữa ăn của bạn, và hãy để AI xử lý các chi tiết.',
-			'home.mealDescription.hint' => 'ví dụ: Vào bữa sáng tôi đã ăn một bát lớn yến mạch với một quả chuối thái lát và một muỗng whey ...',
+			'home.mealDescription.description' => 'Mô tả bữa ăn của bạn, và để AI lo phần còn lại.',
+			'home.mealDescription.hint' => 'vd. Bữa sáng mình ăn một bát yến mạch lớn với một quả chuối thái lát và một muỗng whey ...',
 			'home.mealDescription.analyzeMeal' => 'Phân tích bữa ăn',
 			'home.favoriteMeals.title' => 'Bữa ăn yêu thích',
-			'home.favoriteMeals.description' => 'Thêm nhanh một trong những bữa ăn yêu thích của bạn.',
-			'home.favoriteMeals.noFavorites' => 'Chưa có bữa ăn yêu thích nào.',
-			'home.favoriteMeals.addFavoriteHint' => 'Nhấn vào ngôi sao trên một bữa ăn để đánh dấu nó là yêu thích.',
+			'home.favoriteMeals.description' => 'Thêm nhanh một trong các bữa yêu thích của bạn.',
+			'home.favoriteMeals.noFavorites' => 'Chưa có bữa ăn yêu thích.',
+			'home.favoriteMeals.addFavoriteHint' => 'Nhấn vào ngôi sao trên bữa ăn để đánh dấu là yêu thích.',
 			'home.favoriteMeals.seeAll' => 'Xem tất cả',
 			'home.favoriteMeals.add' => 'Thêm',
-			'home.mealSnap.title' => 'Chụp & Theo dõi Bữa ăn của bạn',
-			'home.mealSnap.description' => 'Sử dụng camera của bạn để chụp ảnh thực phẩm cho phân tích AI.',
-			'home.mealSnap.openCamera' => 'Mở Camera',
+			'home.mealSnap.title' => 'Chụp & theo dõi bữa ăn',
+			'home.mealSnap.description' => 'Dùng máy ảnh để chụp món ăn của bạn cho AI phân tích.',
+			'home.mealSnap.openCamera' => 'Mở máy ảnh',
 			'home.mealSnap.gallery' => 'Thư viện',
+			'home.mealSnap.compressingPhoto' => 'Đang tối ưu ảnh…',
+			'home.mealSnap.uploadingPhoto' => 'Đang tải ảnh lên…',
 			'home.connectHealth.title' => 'Đồng bộ với Health Connect',
 			'home.connectHealth.description' => 'Đồng bộ dữ liệu dinh dưỡng của bạn với Health Connect',
 			'home.connectHealth.install' => 'Cài đặt',
 			'home.connectHealth.connect' => 'Kết nối',
-			'history.noMeals' => 'Chưa ghi nhận bữa ăn nào',
-			'history.emptyMessage' => 'Chụp ảnh bữa ăn cuối cùng của bạn để ghi chú ở đây.',
+			'history.noMeals' => 'Chưa có bữa ăn nào',
+			'history.emptyMessage' => 'Chụp ảnh bữa ăn gần nhất của bạn để ghi tại đây.',
 			'history.today' => 'Hôm nay',
 			'history.yesterday' => 'Hôm qua',
 			'meal.ohNo' => 'Ôi không!',
@@ -1792,58 +1851,93 @@ extension on TranslationsVi {
 			'meal.saveMeal' => 'Lưu bữa ăn',
 			'meal.save' => 'Lưu',
 			'meal.mealName' => 'Tên bữa ăn',
-			'meal.mealNameHint' => 'ví dụ: Trứng bác với bánh mì nướng',
-			'meal.mealQuantity' => 'Số lượng bữa ăn',
-			'meal.mealQuantityHint' => 'vd: 1 bát, 2 lát',
-			'meal.timeOfMeal' => 'Thời gian bữa ăn',
-			'meal.timeOfMealHint' => 'Chọn thời gian bạn đã ăn bữa ăn',
+			'meal.mealNameHint' => 'vd., Trứng bác với bánh mì nướng',
+			'meal.mealQuantity' => 'Số lượng bữa',
+			'meal.mealQuantityHint' => 'vd., 1 bát, 2 lát',
+			'meal.timeOfMeal' => 'Thời gian ăn',
+			'meal.timeOfMealHint' => 'Chọn thời điểm bạn ăn bữa này',
 			'meal.mealType' => 'Loại bữa ăn',
 			'meal.nutrition.calories' => 'Calo',
-			'meal.nutrition.carbs' => 'Carbohydrate (g)',
+			'meal.nutrition.carbs' => 'Carb (g)',
 			'meal.nutrition.protein' => 'Protein (g)',
 			'meal.nutrition.fat' => 'Chất béo (g)',
 			'meal.nutrition.fiber' => 'Chất xơ (g)',
 			'meal.deleteConfirmation.title' => 'Xóa bữa ăn',
-			'meal.deleteConfirmation.message' => 'Bạn có chắc chắn muốn xóa mục bữa ăn này không?',
+			'meal.deleteConfirmation.message' => 'Bạn có chắc muốn xóa mục bữa ăn này?',
 			'meal.deleteConfirmation.cancel' => 'Hủy',
 			'meal.deleteConfirmation.delete' => 'Xóa',
-			'meal.addedToLog' => 'Bữa ăn đã được thêm vào nhật ký của bạn!',
+			'meal.addedToLog' => 'Đã thêm bữa ăn vào nhật ký!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Không thể thêm bữa ăn: ${error}',
-			'meal.savedSuccessfully' => 'Bữa ăn đã được thêm thành công!',
-			'meal.updatedSuccessfully' => 'Bữa ăn đã được cập nhật thành công!',
+			'meal.savedSuccessfully' => 'Thêm bữa ăn thành công!',
+			'meal.updatedSuccessfully' => 'Cập nhật bữa ăn thành công!',
 			'meal.errorSaving' => ({required Object error}) => 'Lỗi khi lưu bữa ăn: ${error}',
 			'meal.removedFromFavorites' => 'Đã xóa khỏi yêu thích!',
-			'meal.savedAsFavorite' => 'Bữa ăn đã được lưu làm yêu thích!',
+			'meal.savedAsFavorite' => 'Đã lưu bữa ăn vào mục yêu thích!',
 			'meal.unfavorite' => 'Bỏ yêu thích',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Không thể cập nhật yêu thích: ${error}',
-			'meal.feedbackThanks' => 'Cảm ơn bạn đã phản hồi!',
+			'meal.feedbackThanks' => 'Cảm ơn phản hồi!',
 			'meal.reanalysisUpdated' => 'Đã cập nhật phân tích bữa ăn dựa trên phản hồi của bạn.',
-			'meal.failedToProcess' => ({required Object error}) => 'Không thể xử lý: ${error}',
-			'meal.failedToProcessImage' => ({required Object error}) => 'Không thể xử lý hình ảnh: ${error}',
-			'meal.errorCompressingImage' => ({required Object error}) => 'Lỗi nén hình ảnh: ${error}',
+			'meal.failedToProcess' => ({required Object error}) => 'Xử lý thất bại: ${error}',
+			'meal.failedToProcessImage' => ({required Object error}) => 'Xử lý ảnh thất bại: ${error}',
+			'meal.errorCompressingImage' => ({required Object error}) => 'Lỗi nén ảnh: ${error}',
 			'meal.failedToSave' => 'Không thể lưu dữ liệu. Vui lòng thử lại.',
 			'meal.skip' => 'Bỏ qua',
 			'meal.variation.question' => ({required Object current, required Object total}) => 'Câu hỏi ${current} trên ${total}',
 			'meal.variation.noVariationsAvailable' => 'Không có biến thể nào',
+			'meal.analysis.title' => 'Phân tích bữa ăn bằng AI',
+			'meal.analysis.reassurance' => 'Thường chỉ mất vài giây.',
+			'meal.analysis.stepStarted' => 'Bắt đầu…',
+			'meal.analysis.stepDecomposition' => 'Đang hiểu bữa ăn của bạn…',
+			'meal.analysis.stepIngredients' => 'Đang khớp nguyên liệu với dữ liệu dinh dưỡng…',
+			'meal.analysis.stepUncertainty' => 'Đang kiểm tra độ tin cậy…',
+			'meal.analysis.stepMealTypeQuestion' => 'Sắp xong…',
+			'meal.analysis.stepResult' => 'Hoàn tất kết quả…',
+			'meal.analysis.stepError' => 'Đã xảy ra sự cố',
+			'meal.analysis.stepDefault' => 'Đang phân tích bữa ăn…',
+			'meal.analysis.progressUnderstand' => 'Hiểu',
+			'meal.analysis.progressMatch' => 'Khớp',
+			'meal.analysis.progressCheck' => 'Kiểm tra',
+			'meal.analysis.progressFinish' => 'Hoàn tất',
+			'meal.analysis.ingredientsLine' => ({required Object count}) => 'Đã phát hiện ${count} thành phần',
+			'meal.analysis.ingredientsPending' => 'Đang quét thành phần…',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.offlineTip0' => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.',
+			'meal.analysis.offlineTip1' => 'Tip: For photos, natural light and a top-down view help with portion accuracy.',
+			'meal.analysis.offlineTip2' => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.',
+			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
+			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
+			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
+			'meal.feedback.title' => 'What looks wrong?',
+			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
+			'meal.feedback.tellUsMore' => 'Tell us more',
+			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
+			'meal.feedback.submit' => 'Submit',
+			'meal.feedback.issueFoodIdentification' => 'Food identification',
+			'meal.feedback.issuePortionSize' => 'Portion size',
+			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
+			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
+			'meal.feedback.issueMissingItems' => 'Missing items',
+			'meal.feedback.issueExtraItems' => 'Extra items',
+			'meal.feedback.issueOther' => 'Other',
 			'favorites.title' => 'Yêu thích',
-			'favorites.empty' => 'Chưa có bữa ăn yêu thích nào.',
+			'favorites.empty' => 'Chưa có bữa ăn yêu thích.',
 			'favorites.searchPlaceholder' => 'Tìm bữa ăn yêu thích',
-			'favorites.searchEmptyTitle' => 'Không có mục yêu thích nào phù hợp với tìm kiếm của bạn',
-			'favorites.searchEmptySubtitle' => 'Thử tên bữa khác, số lượng hoặc loại bữa.',
+			'favorites.searchEmptyTitle' => 'Không có mục yêu thích phù hợp',
+			'favorites.searchEmptySubtitle' => 'Hãy thử tên bữa ăn, số lượng hoặc loại bữa khác.',
 			'favorites.sortLabel' => 'Sắp xếp mục yêu thích',
 			'favorites.undo' => 'Hoàn tác',
-			'favorites.removed' => ({required Object name}) => 'Đã xóa ${name} khỏi danh sách yêu thích',
+			'favorites.removed' => ({required Object name}) => 'Đã xóa ${name} khỏi mục yêu thích',
 			'favorites.sortOptions.recent' => 'Gần đây',
 			'favorites.sortOptions.calories' => 'Calo',
 			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'Hồ sơ',
-			'profile.noProfileData' => 'Chưa tìm thấy dữ liệu hồ sơ',
+			'profile.noProfileData' => 'Không tìm thấy dữ liệu hồ sơ',
 			'profile.yourProfile' => 'Hồ sơ của bạn',
 			'profile.viewAndManage' => 'Xem và quản lý thông tin sức khỏe của bạn',
 			'profile.sections.profile' => 'HỒ SƠ',
 			'profile.sections.basicInformation' => 'THÔNG TIN CƠ BẢN',
 			'profile.sections.goalsAndActivity' => 'MỤC TIÊU & HOẠT ĐỘNG',
-			'profile.sections.calculatedValues' => 'CÁC GIÁ TRỊ TÍNH TOÁN',
+			'profile.sections.calculatedValues' => 'GIÁ TRỊ TÍNH TOÁN',
 			'profile.gender' => 'Giới tính',
 			'profile.height' => 'Chiều cao',
 			'profile.weight' => 'Cân nặng',
@@ -1851,24 +1945,24 @@ extension on TranslationsVi {
 			'profile.weightGoal' => 'Mục tiêu cân nặng',
 			'profile.targetWeight' => 'Cân nặng mục tiêu',
 			'profile.activityLevel' => 'Mức độ hoạt động',
-			'profile.healthMetrics' => 'Các chỉ số sức khỏe',
+			'profile.healthMetrics' => 'Chỉ số sức khỏe',
 			'profile.notSet' => 'Chưa đặt',
-			'profile.years' => 'năm',
-			'profile.updatedSuccessfully' => 'Hồ sơ đã được cập nhật thành công!',
+			'profile.years' => 'tuổi',
+			'profile.updatedSuccessfully' => 'Cập nhật hồ sơ thành công!',
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
-			'profile.calculatedValues.dailyGoal' => 'Mục tiêu hàng ngày',
+			'profile.calculatedValues.dailyGoal' => 'Mục tiêu hằng ngày',
 			'profile.calculatedValues.calPerDay' => 'cal/ngày',
-			'profile.calculatedValues.notAvailable' => 'Không có sẵn',
+			'profile.calculatedValues.notAvailable' => 'Không khả dụng',
 			'healthScore.title' => 'Điểm sức khỏe',
-			'healthScore.whyThisScore' => 'Tại sao điểm này?',
-			'healthScore.note' => 'Điểm này là ước lượng của AI dựa trên các thành phần và hàm lượng dinh dưỡng đã xác định. Luôn tham khảo ý kiến của chuyên gia cho lời khuyên về chế độ ăn uống.',
-			'healthScore.unhealthy' => 'Không khỏe mạnh',
-			'healthScore.healthy' => 'Khỏe mạnh',
-			'healthScore.neutral' => 'Trung lập',
+			'healthScore.whyThisScore' => 'Vì sao điểm này?',
+			'healthScore.note' => 'Điểm số này là ước tính của AI dựa trên thành phần và mật độ dinh dưỡng được nhận diện. Luôn tham khảo chuyên gia cho tư vấn dinh dưỡng.',
+			'healthScore.unhealthy' => 'Không lành mạnh',
+			'healthScore.healthy' => 'Lành mạnh',
+			'healthScore.neutral' => 'Trung tính',
 			'editProfile.title' => 'Chỉnh sửa hồ sơ',
 			'editProfile.sections.personalInformation' => 'THÔNG TIN CÁ NHÂN',
-			'editProfile.sections.physicalMeasurements' => 'THÔNG SỐ VẬT LÝ',
+			'editProfile.sections.physicalMeasurements' => 'SỐ ĐO CƠ THỂ',
 			'editProfile.sections.goalsAndActivity' => 'MỤC TIÊU & HOẠT ĐỘNG',
 			'editProfile.gender' => 'Giới tính',
 			'editProfile.dateOfBirth' => 'Ngày sinh',
@@ -1876,40 +1970,40 @@ extension on TranslationsVi {
 			'editProfile.weight' => 'Cân nặng',
 			'editProfile.weightGoal' => 'Mục tiêu cân nặng',
 			'editProfile.activityLevel' => 'Mức độ hoạt động',
-			'editProfile.metric' => 'Mét',
-			'editProfile.imperial' => 'Imperial',
+			'editProfile.metric' => 'Hệ mét',
+			'editProfile.imperial' => 'Hệ Anh',
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
 			'editProfile.unitLbs' => 'lbs',
-			'editProfile.metricCm' => 'Mét (cm)',
-			'editProfile.imperialFtIn' => 'Imperial (ft/in)',
-			'editProfile.metricKg' => 'Kilogram (kg)',
-			'editProfile.imperialLbs' => 'Pound (lbs)',
+			'editProfile.metricCm' => 'Hệ mét (cm)',
+			'editProfile.imperialFtIn' => 'Hệ Anh (ft/in)',
+			'editProfile.metricKg' => 'Hệ mét (kg)',
+			'editProfile.imperialLbs' => 'Hệ Anh (lbs)',
 			'editProfile.genders.male' => 'Nam',
 			'editProfile.genders.female' => 'Nữ',
 			'editProfile.genders.other' => 'Khác',
 			'editProfile.weightGoals.loseWeight.name' => 'Giảm cân',
-			'editProfile.weightGoals.loseWeight.description' => 'Tạo một sự thiếu hụt calo để giảm cân',
-			'editProfile.weightGoals.maintainWeight.name' => 'Giữ cân',
-			'editProfile.weightGoals.maintainWeight.description' => 'Duy trì cân nặng hiện tại của bạn',
+			'editProfile.weightGoals.loseWeight.description' => 'Tạo thâm hụt calo để giảm cân',
+			'editProfile.weightGoals.maintainWeight.name' => 'Duy trì cân nặng',
+			'editProfile.weightGoals.maintainWeight.description' => 'Duy trì cân nặng hiện tại',
 			'editProfile.weightGoals.gainWeight.name' => 'Tăng cân',
-			'editProfile.weightGoals.gainWeight.description' => 'Tạo một lượng calo dư thừa để tăng cân',
-			'editProfile.activityLevels.sedentary.name' => 'Ít hoạt động',
-			'editProfile.activityLevels.sedentary.description' => 'Ít hoặc không tập thể dục',
+			'editProfile.weightGoals.gainWeight.description' => 'Tạo thặng dư calo để tăng cân',
+			'editProfile.activityLevels.sedentary.name' => 'Ít vận động',
+			'editProfile.activityLevels.sedentary.description' => 'Ít hoặc không tập luyện',
 			'editProfile.activityLevels.lightlyActive.name' => 'Hoạt động nhẹ',
-			'editProfile.activityLevels.lightlyActive.description' => 'Tập thể dục nhẹ 1-3 ngày/tuần',
-			'editProfile.activityLevels.moderatelyActive.name' => 'Hoạt động vừa phải',
-			'editProfile.activityLevels.moderatelyActive.description' => 'Tập thể dục vừa phải 3-5 ngày/tuần',
+			'editProfile.activityLevels.lightlyActive.description' => 'Tập nhẹ 1-3 ngày/tuần',
+			'editProfile.activityLevels.moderatelyActive.name' => 'Hoạt động vừa',
+			'editProfile.activityLevels.moderatelyActive.description' => 'Tập vừa 3-5 ngày/tuần',
 			'editProfile.activityLevels.veryActive.name' => 'Rất năng động',
-			'editProfile.activityLevels.veryActive.description' => 'Tập thể dục mạnh mẽ 6-7 ngày/tuần',
+			'editProfile.activityLevels.veryActive.description' => 'Tập nặng 6-7 ngày/tuần',
 			'editProfile.activityLevels.extremelyActive.name' => 'Cực kỳ năng động',
-			'editProfile.activityLevels.extremelyActive.description' => 'Tập thể dục rất nặng, công việc thể chất',
+			'editProfile.activityLevels.extremelyActive.description' => 'Tập rất nặng, công việc tay chân',
 			'settings.title' => 'Cài đặt',
 			'settings.sections.profile' => 'HỒ SƠ',
-			'settings.sections.localization' => 'ĐỊA PHƯƠNG HÓA',
+			'settings.sections.localization' => 'BẢN ĐỊA HÓA',
 			'settings.sections.notifications' => 'THÔNG BÁO',
-			'settings.sections.healthConnect' => 'KẾT NỐI SỨC KHỎE',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'HỖ TRỢ & PHÁP LÝ',
 			'settings.sections.about' => 'GIỚI THIỆU',
 			'settings.sections.dangerZone' => 'KHU VỰC NGUY HIỂM',
@@ -1917,166 +2011,166 @@ extension on TranslationsVi {
 			'settings.editProfile.title' => 'Chỉnh sửa hồ sơ',
 			'settings.editProfile.subtitle' => 'Cập nhật thông tin cá nhân của bạn',
 			'settings.language.title' => 'Ngôn ngữ',
-			'settings.language.subtitle' => 'Chọn ngôn ngữ bạn ưa thích',
-			'settings.language.searchHint' => 'Tìm kiếm ngôn ngữ...',
+			'settings.language.subtitle' => 'Chọn ngôn ngữ ưa thích của bạn',
+			'settings.language.searchHint' => 'Tìm ngôn ngữ...',
 			'settings.language.noResults' => 'Không tìm thấy kết quả',
 			'settings.heightUnit.title' => 'Đơn vị chiều cao',
 			'settings.weightUnit.title' => 'Đơn vị cân nặng',
 			'settings.mealReminders.title' => 'Nhắc nhở bữa ăn',
-			'settings.mealReminders.subtitle' => 'Giúp bạn theo dõi đúng thời gian với những thông báo kịp thời',
-			'settings.theme.title' => 'Chủ đề',
+			'settings.mealReminders.subtitle' => 'Giữ đúng lộ trình với các thông báo kịp thời',
+			'settings.theme.title' => 'Giao diện',
 			'settings.theme.light' => 'Sáng',
 			'settings.theme.dark' => 'Tối',
 			'settings.theme.system' => 'Hệ thống',
 			'settings.sendFeedback.title' => 'Gửi phản hồi',
 			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Giúp chúng tôi cải thiện ${appLabel}',
-			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'Phản hồi về ứng dụng ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'Phản hồi ứng dụng ${appLabel}',
 			'settings.sendFeedback.emailBodyPrefix' => 'Vui lòng cung cấp phản hồi của bạn bên dưới:',
 			'settings.sendFeedback.appVersion' => 'Phiên bản ứng dụng',
 			'settings.sendFeedback.device' => 'Thiết bị',
-			'settings.sendFeedback.osVersion' => 'Phiên bản hệ điều hành',
+			'settings.sendFeedback.osVersion' => 'Phiên bản HĐH',
 			'settings.sendFeedback.uid' => 'UID',
 			'settings.exportMealHistory.title' => 'Xuất lịch sử bữa ăn',
-			'settings.exportMealHistory.subtitle' => 'Chia sẻ một tệp CSV chứa các bữa bạn đã ghi',
-			'settings.exportMealHistory.shareText' => 'Tệp xuất lịch sử bữa ăn của bạn từ Calorify',
+			'settings.exportMealHistory.subtitle' => 'Chia sẻ tệp CSV các bữa ăn đã ghi',
+			'settings.exportMealHistory.shareText' => 'Bản xuất lịch sử bữa ăn Calorify của bạn',
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Không thể xuất lịch sử bữa ăn: ${error}',
-			'settings.clearAllData.title' => 'Xóa tất cả dữ liệu',
+			'settings.clearAllData.title' => 'Xóa toàn bộ dữ liệu',
 			'settings.clearAllData.subtitle' => 'Xóa vĩnh viễn tất cả thông tin của bạn',
-			'settings.clearAllData.confirmationTitle' => 'Có chắc chắn xóa tất cả dữ liệu?',
-			'settings.clearAllData.confirmationMessage' => 'Hành động này không thể hoàn tác. Tất cả các bữa ăn bạn đã ghi, yêu thích và cài đặt hồ sơ sẽ bị xóa vĩnh viễn.',
+			'settings.clearAllData.confirmationTitle' => 'Xóa toàn bộ dữ liệu?',
+			'settings.clearAllData.confirmationMessage' => 'Hành động này không thể hoàn tác. Tất cả bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ của bạn sẽ bị xóa vĩnh viễn.',
 			'settings.clearAllData.cancel' => 'Hủy',
 			'settings.clearAllData.clearEverything' => 'Xóa tất cả',
 			'settings.debugOptions.title' => 'Tùy chọn gỡ lỗi',
-			'settings.developerModeEnabled' => 'Chế độ nhà phát triển đã được bật!',
-			'settings.healthConnect.title' => 'Kết nối sức khỏe',
+			'settings.developerModeEnabled' => 'Đã bật chế độ nhà phát triển!',
+			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Xem và quản lý quyền',
-			'settings.healthConnect.unavailable.title' => 'Kết nối sức khỏe không khả dụng',
-			'settings.healthConnect.unavailable.description' => 'Kết nối sức khỏe không khả dụng trên thiết bị này. Nó yêu cầu Android 14 hoặc mới hơn.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect không khả dụng',
+			'settings.healthConnect.unavailable.description' => 'Health Connect không có trên thiết bị này. Vui lòng cài đặt Health Connect từ Play Store (Android 9+) hoặc cập nhật lên Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Quyền',
-			'settings.healthConnect.permissions.description' => 'Các quyền sau đây được yêu cầu để cung cấp tích hợp Kết nối sức khỏe:',
+			'settings.healthConnect.permissions.description' => 'Các quyền sau được yêu cầu để cung cấp tích hợp Health Connect:',
 			'settings.healthConnect.permissions.granted' => 'Đã cấp',
 			'settings.healthConnect.permissions.notGranted' => 'Chưa cấp',
-			'settings.healthConnect.permissions.caloriesBurned.title' => 'Đọc tổng số calo đã đốt',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'Cho phép ứng dụng đọc tổng số calo bạn đã đốt từ Kết nối sức khỏe.',
-			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Quyền này được sử dụng để hiển thị lượng calo bạn đốt hàng ngày trong ứng dụng, giúp bạn hiểu rõ hơn về tổng lượng năng lượng tiêu thụ trong suốt cả ngày.',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Đọc tổng calo tiêu hao',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Cho phép ứng dụng đọc tổng lượng calo bạn tiêu hao từ Health Connect.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Quyền này dùng để hiển thị calo tiêu hao hằng ngày trong ứng dụng, giúp bạn hiểu tổng năng lượng tiêu hao trong ngày.',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'Đọc dữ liệu dinh dưỡng',
-			'settings.healthConnect.permissions.nutritionRead.description' => 'Cho phép ứng dụng đọc dữ liệu dinh dưỡng từ Kết nối sức khỏe.',
-			'settings.healthConnect.permissions.nutritionRead.usage' => 'Quyền này cho phép ứng dụng đọc thông tin dinh dưỡng có thể đã được ghi lại bởi các ứng dụng khác kết nối với Kết nối sức khỏe, cung cấp cái nhìn toàn diện về dinh dưỡng của bạn.',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Cho phép ứng dụng đọc dữ liệu dinh dưỡng từ Health Connect.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Quyền này cho phép ứng dụng đọc thông tin dinh dưỡng có thể đã được ghi bởi các ứng dụng khác kết nối với Health Connect, mang lại góc nhìn toàn diện về dinh dưỡng của bạn.',
 			'settings.healthConnect.permissions.nutritionWrite.title' => 'Ghi dữ liệu dinh dưỡng',
-			'settings.healthConnect.permissions.nutritionWrite.description' => 'Cho phép ứng dụng ghi dữ liệu dinh dưỡng vào Kết nối sức khỏe.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Quyền này cho phép ứng dụng đồng bộ hóa các bữa ăn bạn đã ghi với Kết nối sức khỏe, làm cho dữ liệu dinh dưỡng của bạn có sẵn cho các ứng dụng sức khỏe và thể dục khác mà bạn sử dụng.',
-			'settings.healthConnect.managePermissions' => 'Quản lý Quyền',
-			'settings.healthConnect.openSettings' => 'Mở Cài Đặt Kết Nối Sức Khỏe',
-			'settings.healthConnect.requestPermissions' => 'Yêu Cầu Quyền Truy Cập',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Cho phép ứng dụng ghi dữ liệu dinh dưỡng vào Health Connect.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Quyền này cho phép ứng dụng đồng bộ bữa ăn bạn đã ghi lên Health Connect, giúp dữ liệu dinh dưỡng sẵn có cho các ứng dụng sức khỏe và thể dục khác bạn dùng.',
+			'settings.healthConnect.managePermissions' => 'Quản lý quyền',
+			'settings.healthConnect.openSettings' => 'Mở cài đặt Health Connect',
+			'settings.healthConnect.requestPermissions' => 'Yêu cầu quyền',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.',
 			'settings.healthConnect.permissionRequestFailed' => 'Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.',
-			'settings.healthConnect.requestingPermissions' => 'Requesting...',
-			'settings.about.title' => 'Giới Thiệu',
-			'settings.about.tagline' => 'Nhận thức về calo nhanh chóng, miễn phí và bảo mật',
-			'settings.about.ourStory.title' => 'Câu Chuyện Của Chúng Tôi',
-			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} ra đời từ một nỗi bức xúc đơn giản: hầu hết các ứng dụng theo dõi calo đều quá phức tạp, yêu cầu nhập liệu thủ công liên tục, tính phí cao cho việc đăng ký, hoặc xâm phạm quyền riêng tư.\n\nLà một nhà phát triển độc lập, tôi muốn xây dựng một thứ gì đó đơn giản và công bằng hơn — một ứng dụng sử dụng AI để giảm bớt nỗ lực, giữ cho việc sử dụng nhanh chóng và miễn phí, và tôn trọng dữ liệu sức khỏe của bạn.\n\n${appLabel} là ứng dụng mà tôi ước ao có: không tài khoản, không theo dõi, không quảng cáo — chỉ những hiểu biết rõ ràng, thiết thực và mục tiêu sức khỏe của bạn.',
-			'settings.about.privacy.title' => 'Quyền Riêng Tư Của Bạn Quan Trọng',
-			'settings.about.privacy.description' => 'Quyền riêng tư không phải là một ý tưởng phụ — đó là một nguyên tắc thiết kế. Điều này có ý nghĩa gì trong thực tế:',
-			'settings.about.privacy.noAccounts' => 'Không yêu cầu tài khoản\nSử dụng ứng dụng ngay lập tức. Không cần đăng ký, không cần danh tính.',
-			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Không theo dõi hành vi\n${appLabel} không giám sát hoạt động của bạn, không xây dựng hồ sơ sử dụng, hoặc theo dõi bạn qua các ứng dụng hoặc trang web.',
-			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Thiết kế không có quảng cáo\n${appLabel} được xây dựng để hoạt động mà không có quảng cáo hoặc kiếm tiền dựa trên dữ liệu.',
-			'settings.about.privacy.noDataSelling' => 'Không bán dữ liệu\nDữ liệu sức khỏe của bạn không bao giờ bị bán hoặc chia sẻ cho bên thứ ba.',
-			'settings.about.privacy.localStorage' => 'Lưu trữ ưu tiên cục bộ\nDữ liệu của bạn sẽ ở lại trên thiết bị của bạn.',
-			'settings.about.privacy.privacyPolicy' => 'Chính sách bảo mật',
-			'settings.about.developer.title' => 'Được Xây Dựng Bởi Một Nhà Phát Triển Độc Lập',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập duy nhất tập trung vào việc tạo ra phần mềm sức khỏe tôn trọng quyền riêng tư.\n\nPhản hồi được đọc cá nhân và giúp định hình hướng đi của ứng dụng.',
-			'settings.about.developer.website' => 'Trang web',
+			'settings.healthConnect.requestingPermissions' => 'Đang yêu cầu...',
+			'settings.about.title' => 'Giới thiệu',
+			'settings.about.tagline' => 'Nhận biết calo nhanh, miễn phí và ưu tiên quyền riêng tư',
+			'settings.about.ourStory.title' => 'Câu chuyện của chúng tôi',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} ra đời từ một nỗi bực mình đơn giản: hầu hết các ứng dụng theo dõi calo đều quá phức tạp, đòi hỏi nhập liệu thủ công liên tục, thu phí đăng ký cao, hoặc làm ảnh hưởng đến quyền riêng tư.\n\nLà một nhà phát triển độc lập, tôi muốn xây dựng thứ gì đó đơn giản và công bằng hơn — một ứng dụng dùng AI để giảm nỗ lực, luôn nhanh và miễn phí, và tôn trọng dữ liệu sức khỏe của bạn.\n\n${appLabel} là ứng dụng mà tôi mong có: không tài khoản, không theo dõi hành vi, không quảng cáo — chỉ là thông tin rõ ràng, thiết thực và các mục tiêu sức khỏe của bạn.',
+			'settings.about.privacy.title' => 'Quyền riêng tư của bạn là quan trọng',
+			'settings.about.privacy.description' => 'Quyền riêng tư không phải là suy nghĩ sau cùng — đó là nguyên tắc thiết kế. Điều này có nghĩa là:',
+			'settings.about.privacy.noAccounts' => 'Không cần tài khoản\nDùng ứng dụng ngay. Không đăng ký, không danh tính.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Không theo dõi hành vi\n${appLabel} không giám sát hoạt động của bạn, không xây dựng hồ sơ sử dụng, và không theo dõi bạn trên các ứng dụng hay website.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Không quảng cáo theo thiết kế\n${appLabel} được xây dựng để hoạt động mà không cần quảng cáo hay kiếm tiền dựa trên dữ liệu.',
+			'settings.about.privacy.noDataSelling' => 'Không bán dữ liệu\nDữ liệu sức khỏe của bạn không bao giờ được bán hay chia sẻ với bên thứ ba.',
+			'settings.about.privacy.localStorage' => 'Lưu trữ ưu tiên cục bộ\nDữ liệu của bạn ở lại trên thiết bị.',
+			'settings.about.privacy.privacyPolicy' => 'Chính sách quyền riêng tư',
+			'settings.about.developer.title' => 'Được xây dựng bởi một nhà phát triển độc lập',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập, tập trung vào việc tạo ra phần mềm sức khỏe êm dịu và tôn trọng quyền riêng tư.\n\nPhản hồi được đọc trực tiếp và góp phần định hướng ứng dụng.',
+			'settings.about.developer.website' => 'Website',
 			'settings.about.developer.email' => 'Email',
 			'settings.about.feedback.title' => ({required Object appLabel}) => 'Bạn có thích ${appLabel} không?',
-			'settings.about.feedback.description' => ({required Object appLabel}) => 'Phản hồi của bạn giúp cải thiện ${appLabel} cho mọi người.',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Phản hồi của bạn giúp ${appLabel} tốt hơn cho mọi người.',
 			'settings.about.feedback.rateApp' => 'Đánh giá trên Play Store',
-			'settings.about.feedback.sendFeedback' => 'Gửi Phản hồi',
+			'settings.about.feedback.sendFeedback' => 'Gửi phản hồi',
 			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Bản dựng ${buildNumber}',
-			'reminders.title' => 'Giữ đúng tiến trình với nhắc nhở',
-			'reminders.description' => 'Nhận những nhắc nhở nhẹ nhàng để ghi lại bữa ăn và duy trì tính nhất quán với các mục tiêu dinh dưỡng của bạn',
-			'reminders.notificationsEnabled' => 'Thông báo đã được bật',
-			'reminders.notificationsDisabled' => 'Thông báo đã bị tắt',
+			'reminders.title' => 'Giữ đúng lộ trình với nhắc nhở',
+			'reminders.description' => 'Nhận nhắc nhở nhẹ nhàng để ghi bữa ăn và duy trì đều đặn với mục tiêu dinh dưỡng',
+			'reminders.notificationsEnabled' => 'Đã bật thông báo',
+			'reminders.notificationsDisabled' => 'Đã tắt thông báo',
 			'reminders.enabledSubtitle' => 'Bạn sẽ nhận được nhắc nhở bữa ăn',
 			'reminders.disabledSubtitle' => 'Bật thông báo để nhận nhắc nhở bữa ăn',
 			'reminders.mealReminders' => 'Nhắc nhở bữa ăn',
 			'reminders.breakfast' => 'Bữa sáng',
 			'reminders.lunch' => 'Bữa trưa',
 			'reminders.dinner' => 'Bữa tối',
-			'reminders.snack' => 'Bữa ăn nhẹ',
+			'reminders.snack' => 'Bữa phụ',
 			'reminders.unknown' => 'Không xác định',
 			'reminders.change' => 'Thay đổi',
 			'reminders.enableNotifications' => 'Bật thông báo',
-			'reminders.skipForNow' => 'Bỏ qua tạm thời',
+			'reminders.skipForNow' => 'Bỏ qua lúc này',
 			'reminders.saveChanges' => 'Lưu thay đổi',
-			'reminders.enabledSuccessfully' => 'Thông báo đã được bật thành công!',
-			'reminders.permissionDenied' => 'Quyền thông báo đã bị từ chối',
+			'reminders.enabledSuccessfully' => 'Đã bật thông báo thành công!',
+			'reminders.permissionDenied' => 'Quyền thông báo bị từ chối',
 			'reminders.errorEnabling' => ({required Object error}) => 'Lỗi khi bật thông báo: ${error}',
-			'reminders.errorCompletingSetup' => ({required Object error}) => 'Lỗi khi hoàn tất cài đặt: ${error}',
-			'notifications.breakfast.title' => 'Giờ ăn sáng! 🍳',
+			'reminders.errorCompletingSetup' => ({required Object error}) => 'Lỗi khi hoàn tất thiết lập: ${error}',
+			'notifications.breakfast.title' => 'Đến giờ bữa sáng! 🍳',
 			'notifications.breakfast.body' => 'Đừng quên ghi lại bữa sáng của bạn',
-			'notifications.lunch.title' => 'Giờ ăn trưa! 🥗',
-			'notifications.lunch.body' => 'Đến lúc ghi lại bữa trưa của bạn',
-			'notifications.dinner.title' => 'Giờ ăn tối! 🍽️',
+			'notifications.lunch.title' => 'Đến giờ bữa trưa! 🥗',
+			'notifications.lunch.body' => 'Đã đến lúc ghi lại bữa trưa',
+			'notifications.dinner.title' => 'Đến giờ bữa tối! 🍽️',
 			'notifications.dinner.body' => 'Đừng quên ghi lại bữa tối của bạn',
-			'notifications.snack.title' => 'Giờ ăn nhẹ! 🍎',
-			'notifications.snack.body' => 'Đến lúc cho một món ăn nhẹ lành mạnh',
-			'notifications.test.title' => 'Thông báo thử nghiệm',
+			'notifications.snack.title' => 'Đến giờ bữa phụ! 🍎',
+			'notifications.snack.body' => 'Đã đến lúc cho một bữa phụ lành mạnh',
+			'notifications.test.title' => 'Thông báo kiểm thử',
 			'login.title' => 'Đăng nhập',
-			'login.signInWithGoogle' => 'Đăng nhập bằng Google',
-			'login.signInFailed' => 'Đăng nhập bằng Google thất bại hoặc đã bị hủy.',
-			'disclaimer.pleaseNote' => 'Xin lưu ý',
-			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} cung cấp thông tin dinh dưỡng ước tính. Độ chính xác phụ thuộc vào dữ liệu bạn nhập và các biến thể thực phẩm. Sử dụng như một hướng dẫn, không phải là nguồn thông tin chính xác. Hãy tham khảo ý kiến chuyên gia để được tư vấn dinh dưỡng cá nhân.',
-			'disclaimer.snap.portionSize.title' => 'Kích thước phần',
-			'disclaimer.snap.portionSize.description' => 'Độ chính xác của các ước tính phụ thuộc rất nhiều vào việc bạn đánh giá đúng kích thước phần.',
-			'disclaimer.snap.preparationMethods.title' => 'Phương pháp chế biến',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Phương pháp chế biến có thể thay đổi đáng kể thành phần dinh dưỡng của thực phẩm. Các ước tính của ${appLabel} có thể không luôn dự đoán được những biến đổi này.',
-			'disclaimer.snap.ingredients.title' => 'Nguyên liệu',
-			'disclaimer.snap.ingredients.description' => 'Những món ăn phức tạp với nhiều nguyên liệu ẩn có thể dẫn đến ước tính kém chính xác.',
+			'login.signInWithGoogle' => 'Đăng nhập với Google',
+			'login.signInFailed' => 'Đăng nhập Google thất bại hoặc đã bị hủy.',
+			'disclaimer.pleaseNote' => 'Lưu ý',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} cung cấp thông tin dinh dưỡng ước tính. Độ chính xác phụ thuộc vào dữ liệu bạn cung cấp và sự khác biệt của thực phẩm. Hãy dùng như tài liệu tham khảo, không phải nguồn xác định. Tham khảo chuyên gia cho tư vấn dinh dưỡng cá nhân.',
+			'disclaimer.snap.portionSize.title' => 'Khẩu phần',
+			'disclaimer.snap.portionSize.description' => 'Độ chính xác của ước tính phụ thuộc nhiều vào việc bạn ước lượng đúng kích thước khẩu phần.',
+			'disclaimer.snap.preparationMethods.title' => 'Cách chế biến',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Phương pháp nấu nướng có thể làm thay đổi đáng kể hàm lượng dinh dưỡng. Ước tính của ${appLabel} có thể không luôn tính hết các thay đổi này.',
+			'disclaimer.snap.ingredients.title' => 'Thành phần',
+			'disclaimer.snap.ingredients.description' => 'Các món phức tạp với nhiều thành phần ẩn có thể dẫn đến ước tính kém chính xác hơn.',
 			'disclaimer.snap.databaseLimitations.title' => 'Giới hạn cơ sở dữ liệu',
-			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Cơ sở dữ liệu thực phẩm của ${appLabel} rất phong phú nhưng có thể không bao gồm mọi món ăn hay biến thể nào.',
-			'disclaimer.weightEstimate.title' => 'Về ước tính trọng lượng',
-			'disclaimer.weightEstimate.description' => 'Sự thay đổi trọng lượng dự kiến là một ước tính lý thuyết dựa trên mô hình calo vào so với calo ra. Nó chỉ được dùng để hướng dẫn động lực, không phải dự đoán trọng lượng thực tế của bạn.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Cơ sở dữ liệu thực phẩm của ${appLabel} rất lớn nhưng có thể không bao phủ mọi món hoặc biến thể.',
+			'disclaimer.weightEstimate.title' => 'Về ước tính cân nặng',
+			'disclaimer.weightEstimate.description' => 'Mức thay đổi cân nặng dự báo là ước tính lý thuyết dựa trên mô hình calo nạp vào vs. calo tiêu hao. Chỉ nhằm mục đích tạo động lực, không phải dự đoán cân nặng thực tế của bạn.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Độ chính xác calo',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Ước tính này chỉ chính xác như lượng calo bạn đã theo dõi vào và ra. Ghi chú kém chính xác sẽ dẫn đến ước tính không chính xác.',
-			'disclaimer.weightEstimate.biologicalFactors.title' => 'Các yếu tố sinh học',
-			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Sự thay đổi cân nặng thực tế bị ảnh hưởng bởi chuyển hóa, hormone, giấc ngủ, căng thẳng, độ ẩm, và các yếu tố cá nhân khác mà ${appLabel} không thể đo được.',
-			'disclaimer.weightEstimate.waterWeight.title' => 'Trọng lượng nước & Biến động',
-			'disclaimer.weightEstimate.waterWeight.description' => 'Trọng lượng hàng ngày bình thường có thể biến động đáng kể do giữ nước, tiêu hóa và thời gian. Ước tính không tính đến những thay đổi hàng ngày này.',
-			'disclaimer.weightEstimate.professionalGuidance.title' => 'Hướng dẫn chuyên nghiệp',
-			'disclaimer.weightEstimate.professionalGuidance.description' => 'Đừng sử dụng ước tính này để đưa ra quyết định y tế. Luôn tham khảo ý kiến bác sĩ hoặc chuyên gia dinh dưỡng được chứng nhận cho lời khuyên quản lý trọng lượng cá nhân hóa.',
-			'disclaimer.healthMetrics.description' => 'Các chỉ số này giúp bạn hiểu nhu cầu năng lượng của cơ thể và hướng dẫn các mục tiêu dinh dưỡng của bạn.',
-			'disclaimer.healthMetrics.bmr.title' => 'Tỷ lệ chuyển hóa cơ bản (BMR)',
-			'disclaimer.healthMetrics.bmr.description' => 'Tỷ lệ chuyển hóa cơ bản (BMR) là số calo mà cơ thể bạn đốt cháy khi nghỉ ngơi để duy trì các chức năng cơ bản như hô hấp và tuần hoàn. BMR phụ thuộc vào độ tuổi, giới tính, chiều cao và cân nặng của bạn. Một BMR cao có nghĩa là cơ thể bạn tự nhiên đốt cháy nhiều calo hơn khi nghỉ ngơi, thường do lượng cơ bắp nhiều hơn, độ tuổi trẻ hơn hoặc là nam giới. Một BMR thấp hơn thường chỉ ra ít khối lượng cơ bắp hơn, độ tuổi lớn hơn, hoặc là nữ giới.',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Ước tính này chỉ chính xác khi lượng calo bạn nạp và tiêu hao được theo dõi chính xác. Ghi chép không chuẩn sẽ cho ra dự báo không chính xác.',
+			'disclaimer.weightEstimate.biologicalFactors.title' => 'Yếu tố sinh học',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Giảm/tăng cân thực tế chịu ảnh hưởng bởi trao đổi chất, hormone, giấc ngủ, căng thẳng, nước, và các yếu tố cá nhân khác mà ${appLabel} không thể đo lường.',
+			'disclaimer.weightEstimate.waterWeight.title' => 'Nước & dao động cân',
+			'disclaimer.weightEstimate.waterWeight.description' => 'Cân nặng hằng ngày có thể dao động đáng kể do giữ nước, tiêu hóa và thời điểm cân. Ước tính không tính đến các dao động này.',
+			'disclaimer.weightEstimate.professionalGuidance.title' => 'Hướng dẫn chuyên môn',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'Không dùng ước tính này để đưa ra quyết định y khoa. Luôn tham khảo chuyên gia y tế hoặc chuyên gia dinh dưỡng cho tư vấn cá nhân.',
+			'disclaimer.healthMetrics.description' => 'Các chỉ số này giúp bạn hiểu nhu cầu năng lượng của cơ thể và định hướng mục tiêu dinh dưỡng.',
+			'disclaimer.healthMetrics.bmr.title' => 'BMR',
+			'disclaimer.healthMetrics.bmr.description' => 'Tốc độ trao đổi chất cơ bản (BMR) là lượng calo cơ thể bạn đốt khi nghỉ ngơi để duy trì chức năng cơ bản như hô hấp và tuần hoàn. BMR phụ thuộc vào tuổi, giới tính, chiều cao và cân nặng. BMR cao nghĩa là cơ thể tự đốt nhiều calo hơn khi nghỉ, thường do nhiều khối cơ, trẻ tuổi, hoặc nam giới. BMR thấp thường cho thấy ít cơ hơn, lớn tuổi hơn, hoặc nữ giới.',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
-			'disclaimer.healthMetrics.tdee.description' => 'Chi tiêu năng lượng hàng ngày tổng cộng (TDEE) là tổng số calo mà bạn đốt cháy mỗi ngày, bao gồm BMR của bạn cộng với calo từ hoạt động thể chất và di chuyển hàng ngày. TDEE phụ thuộc vào BMR và mức độ hoạt động của bạn. Một TDEE cao có nghĩa là bạn đốt cháy nhiều calo hơn tổng thể, thường là do hoạt động nhiều hơn hoặc có BMR cao hơn. Một TDEE thấp hơn cho thấy hoạt động hàng ngày ít hơn hoặc BMR thấp hơn.',
-			'disclaimer.healthMetrics.dailyGoal.title' => 'Mục tiêu hàng ngày',
-			'disclaimer.healthMetrics.dailyGoal.description' => 'Mục tiêu hàng ngày là lượng calo mà bạn được khuyên nên tiêu thụ hàng ngày dựa trên TDEE và mục tiêu cân nặng của bạn. Để giảm cân, bạn tiêu thụ ít calo hơn TDEE của mình. Để duy trì cân nặng, bạn cần khớp với TDEE của mình. Để tăng cân, bạn tiêu thụ nhiều calo hơn TDEE của mình. Điều này giúp bạn đạt được thay đổi cân nặng mong muốn một cách lành mạnh.',
-			'disclaimer.calorieExpenditure.title' => 'Ước tính calo tiêu hao',
-			'disclaimer.calorieExpenditure.description' => 'Khi dữ liệu từ Health Connect không có sẵn, chúng tôi ước tính số calo bạn đã tiêu hao trong ngày dựa trên tỷ lệ trao đổi chất cơ bản (BMR) và mức độ hoạt động của bạn (TDEE), rồi điều chỉnh theo phần ngày đã trôi qua.',
+			'disclaimer.healthMetrics.tdee.description' => 'Tổng năng lượng tiêu hao hằng ngày (TDEE) là tổng calo bạn đốt mỗi ngày, gồm BMR cộng calo từ vận động và hoạt động thường nhật. TDEE phụ thuộc vào BMR và mức độ hoạt động. TDEE cao nghĩa là bạn đốt nhiều calo hơn tổng thể, thường do hoạt động nhiều hoặc BMR cao. TDEE thấp cho thấy hoạt động hằng ngày ít hơn hoặc BMR thấp.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Mục tiêu hằng ngày',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Mục tiêu hằng ngày là lượng calo khuyến nghị dựa trên TDEE và mục tiêu cân nặng của bạn. Để giảm cân, bạn nạp ít calo hơn TDEE. Để duy trì, bạn khớp TDEE. Để tăng cân, bạn nạp nhiều hơn TDEE. Điều này giúp bạn đạt thay đổi cân nặng theo nhịp độ lành mạnh.',
+			'disclaimer.calorieExpenditure.title' => 'Ước tính năng lượng tiêu hao',
+			'disclaimer.calorieExpenditure.description' => 'Khi không có dữ liệu Health Connect, chúng tôi ước tính calo tiêu hao hôm nay bằng BMR và mức độ hoạt động (TDEE) của bạn, được tỷ lệ theo phần thời gian trong ngày đã trôi qua.',
 			'disclaimer.calorieExpenditure.howCalculated.title' => 'Cách tính ước tính',
-			'disclaimer.calorieExpenditure.howCalculated.description' => 'Chúng tôi tính TDEE của bạn (dựa trên hồ sơ cá nhân) và nhân với tỷ lệ phần ngày đã trôi qua (giờ + phút) / 24 để ước tính số calo đã tiêu hao cho đến hiện tại.',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Chúng tôi tính TDEE (dựa trên hồ sơ của bạn) và nhân với tỷ lệ thời gian đã qua trong ngày (giờ + phút) / 24 để ước tính calo đã tiêu hao đến hiện tại.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Hướng dẫn chuyên môn',
-			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Không sử dụng ước tính này để đưa ra quyết định y tế. Luôn tham khảo ý kiến bác sĩ, chuyên gia chăm sóc sức khỏe hoặc chuyên gia dinh dưỡng được đăng ký để nhận lời khuyên cá nhân hóa về quản lý cân nặng.',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Không dùng ước tính này để đưa ra quyết định y khoa. Luôn tham khảo chuyên gia y tế hoặc chuyên gia dinh dưỡng cho tư vấn cá nhân.',
 			'common.close' => 'Đóng',
 			'common.kContinue' => 'Tiếp tục',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Bạn có thích ${appLabel} không?',
-			'feedbackRating.yes' => 'Có, tôi thích nó',
-			'feedbackRating.no' => 'Không lắm',
+			'feedbackRating.yes' => 'Có, tôi đang rất thích',
+			'feedbackRating.no' => 'Không hẳn',
 			'feedbackRating.rateStepHeading' => 'Đánh giá trên Play Store',
 			'feedbackRating.emailStepHeading' => 'Gửi phản hồi qua email',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Một đánh giá nhanh sẽ giúp người khác tìm thấy ${appLabel} và giúp quá trình phát triển tiếp tục. Bạn có thể dành chút thời gian để để lại một đánh giá không?',
-			'feedbackRating.shareFeedbackViaEmail' => 'Phản hồi của bạn góp phần định hình những cải tiến tiếp theo — chúng tôi đọc từng phản hồi. Bạn có muốn chia sẻ suy nghĩ qua email không?',
-			'feedbackRating.rateCta' => 'Đánh giá trên Cửa hàng Play',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Một đánh giá nhanh giúp người khác tìm thấy ${appLabel} và tiếp thêm động lực phát triển. Bạn có thể dành chút thời gian để đánh giá không?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Phản hồi của bạn định hình những gì tiếp theo — chúng tôi đọc mọi tin nhắn. Bạn có muốn chia sẻ suy nghĩ qua email không?',
+			'feedbackRating.rateCta' => 'Đánh giá trên Play Store',
 			'feedbackRating.maybeLater' => 'Để sau',
 			'feedbackRating.sendFeedback' => 'Gửi phản hồi',
 			'feedbackRating.noThanks' => 'Không, cảm ơn',
-			'feedbackRating.aboutUsDescription' => 'Được tạo nên với sự chăm chút bởi một nhóm nhỏ. Chúng tôi tập trung vào quyền riêng tư, tính đơn giản và hỗ trợ bạn xây dựng thói quen ăn uống lành mạnh hơn.',
-			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Bạn tò mò ai đứng sau ${appLabel}? Xem ',
-			'feedbackRating.aboutUsLinkLabel' => 'Về chúng tôi',
-			'feedbackRating.thankYouMessage' => 'Cảm ơn! Chúng tôi sẽ hỏi lại bạn vào dịp khác.',
+			'feedbackRating.aboutUsDescription' => 'Được làm với sự chăm chút bởi một nhóm nhỏ. Chúng tôi tập trung vào quyền riêng tư, sự đơn giản, và giúp bạn xây dựng thói quen ăn uống tốt hơn.',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Tò mò ai đứng sau ${appLabel}? Xem ',
+			'feedbackRating.aboutUsLinkLabel' => 'Giới thiệu về chúng tôi',
+			'feedbackRating.thankYouMessage' => 'Cảm ơn! Chúng tôi sẽ hỏi lại vào lúc khác.',
 			'health.syncFailed' => 'Không thể đồng bộ với Health Connect',
-			'health.mealSynced' => 'Bữa ăn đã được đồng bộ với Health Connect',
+			'health.mealSynced' => 'Đã đồng bộ bữa ăn với Health Connect',
 			_ => null,
 		};
 	}

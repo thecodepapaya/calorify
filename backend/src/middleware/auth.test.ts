@@ -48,7 +48,10 @@ test('authenticateUser returns 401 when Authorization header is absent', async (
   const reply = makeReply();
   await authenticateUser(makeRequest({}), reply as FastifyReply);
   assert.equal(reply.sentStatus, 401);
-  assert.deepEqual(reply.sentBody, { detail: 'Invalid or expired authentication token' });
+  assert.deepEqual(reply.sentBody, {
+    ok: false,
+    message: 'Invalid or expired authentication token',
+  });
 });
 
 test('authenticateUser returns 401 for malformed Authorization header (no space)', async () => {
@@ -67,7 +70,7 @@ test('authenticateUser returns 401 when token is invalid', async () => {
   const reply = makeReply();
   await authenticateUser(makeRequest({ authorization: 'Bearer bad-token' }), reply as FastifyReply);
   assert.equal(reply.sentStatus, 401);
-  assert.ok((reply.sentBody as any).detail.includes('Invalid or expired authentication token'));
+  assert.ok((reply.sentBody as any).message.includes('Invalid or expired authentication token'));
 });
 
 test('authenticateUser returns 401 for empty bearer value', async () => {
@@ -77,10 +80,10 @@ test('authenticateUser returns 401 for empty bearer value', async () => {
   assert.equal(reply.sentStatus, 401);
 });
 
-test('authenticateUser error detail comes from thrown error message', async () => {
+test('authenticateUser error message comes from thrown error message', async () => {
   const reply = makeReply();
   await authenticateUser(makeRequest({ authorization: 'Bearer expired-token' }), reply as FastifyReply);
-  assert.ok(typeof (reply.sentBody as any).detail === 'string');
+  assert.ok(typeof (reply.sentBody as any).message === 'string');
 });
 
 // ---------------------------------------------------------------------------

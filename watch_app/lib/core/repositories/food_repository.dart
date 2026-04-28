@@ -12,8 +12,7 @@ class WatchFoodRepository {
     final request = TextMealDetectionRequest(
       textDescription: textDescription,
     );
-    return WatchNetworkClient.instance.apiCall<TextMealDetectionRequest,
-        MealDetectionResponse>(
+    return WatchNetworkClient.instance.apiCall<TextMealDetectionRequest, MealDetectionResponse>(
       '/api/v1/food/detect-text',
       MealDetectionResponse.new,
       request: request,

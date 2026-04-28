@@ -3,175 +3,175 @@
   "flag": "🇮🇱",
   "appLabel": "Calorify{env}",
   "errors": {
-    "rateLimitExceeded": "נראה שנשלחו יותר מדי בקשות. אנא המתן רגע ונסה שוב.",
-    "networkError": "שגיאת רשת. בדוק את חיבור האינטרנט ונסה שוב.",
-    "unknownError": "משהו השתבש. אנא נסה שוב מאוחר יותר.",
-    "loadingProfileData": "שגיאה בהטענת נתוני פרופיל",
+    "rateLimitExceeded": "ביצעת יותר מדי בקשות. אנא המתן/י רגע ונסה/י שוב.",
+    "networkError": "שגיאת רשת. בדוק/י את חיבור האינטרנט שלך.",
+    "unknownError": "משהו השתבש. אנא נסה/י שוב מאוחר יותר.",
+    "loadingProfileData": "שגיאה בטעינת נתוני הפרופיל",
     "somethingWentWrong": "משהו השתבש.",
-    "retry": "נסה שוב"
+    "retry": "נסה/י שוב"
   },
   "onboarding": {
-    "welcome": "ברוך הבא ל{appLabel}",
-    "subtitle": "עוזר התזונה האישי שלך, מבוסס בינה מלאכותית",
-    "getStarted": "בוא נתחיל",
+    "welcome": "ברוך/ה הבא/ה אל {appLabel}",
+    "subtitle": "בן/בת הלוויה התזונתי/ת האישי/ת שלך, מופעל/ת ב-AI",
+    "getStarted": "התחל/י",
     "features": {
       "foodRecognition": {
         "title": "זיהוי מזון חכם",
-        "description": "צלם תמונה ותן לבינה מלאכותית לזהות את הארוחה שלך"
+        "description": "צלם/י תמונה ותן/י ל-AI לזהות את הארוחה שלך"
       },
       "aiAnalysis": {
-        "title": "ניתוח בינה מלאכותית",
-        "description": "קבל עובדות תזונה מיידיות מתיאורים שלך"
+        "title": "ניתוח בעזרת AI",
+        "description": "קבל/י מיד נתוני תזונה מהתיאור שלך"
       },
       "healthIntegration": {
-        "title": "שילוב בריאות",
-        "description": "חבר את הנתונים שלך עם Health Connect לקבלת תובנות טובות יותר"
+        "title": "אינטגרציה עם Health Connect",
+        "description": "התחבר/י ל-Health Connect לתובנות טובות יותר"
       }
     },
     "gender": {
-      "title": "מהו המגדר שלך?",
-      "description": "המגדר עוזר לנו לחשב את שיעור חילוף החומרים הבסיסי (BMR) שלך בצורה מדויקת.",
+      "title": "מה המגדר שלך?",
+      "description": "מגדר עוזר לנו לחשב במדויק את קצב חילוף החומרים הבסיסי (BMR).",
       "next": "הבא"
     },
     "height": {
-      "title": "כמה גבוה אתה?",
-      "description": "גובהך עוזר לנו לחשב את ה-BMI ואת צרכי האנרגיה שלך בצורה מדויקת.",
+      "title": "מה הגובה שלך?",
+      "description": "הגובה עוזר לנו לחשב במדויק את ה-BMI וצרכי האנרגיה שלך.",
       "metric": "מטרי",
       "imperial": "אימפריאלי",
       "next": "הבא"
     },
     "weight": {
-      "currentTitle": "מהו המשקל הנוכחי שלך?",
-      "currentDescription": "המשקל הנוכחי שלך חיוני להתאמת המטרות היומיות שלך.",
+      "currentTitle": "מה המשקל הנוכחי שלך?",
+      "currentDescription": "המשקל הנוכחי חיוני להתאמה אישית של היעדים היומיים שלך.",
       "targetTitle": "מהו משקל היעד שלך?",
-      "targetDescription": "קביעת משקל יעד עוזרת לנו לקבוע את התוכנית ארוכת הטווח שלך.",
+      "targetDescription": "קביעת משקל יעד עוזרת לנו לבנות תוכנית לטווח ארוך.",
       "metric": "מטרי",
       "imperial": "אימפריאלי",
       "next": "הבא"
     },
     "age": {
-      "title": "מתי יום ההולדת שלך?",
-      "description": "גילך עוזר לנו לחשב את צרכי הקלוריות שלך בצורה מדויקת.",
+      "title": "מהי תאריך הלידה שלך?",
+      "description": "הגיל עוזר לנו לחשב במדויק את צריכת הקלוריות המומלצת עבורך.",
       "next": "הבא"
     },
     "bmiScale": {
-      "underweight": "תת-משקל",
-      "healthy": "משקל בריא",
-      "overweight": "עודף משקל",
+      "underweight": "תת",
+      "healthy": "תקין",
+      "overweight": "עודף",
       "obese": "השמנה",
       "categories": {
-        "underweight": "תת משקל",
-        "healthyWeight": "משקל בריא",
+        "underweight": "תת־משקל",
+        "healthyWeight": "משקל תקין",
         "overweight": "עודף משקל",
-        "obese": "השמנה"
+        "obese": "השמנת יתר"
       },
       "messages": {
-        "underweight": "נוכל לעזור לך לבנות תוכנית בריאה להגיע למשקל מאוזן עם ארוחות עשירות בחומרים המזינים.",
-        "healthy": "עבודה מצוינת! אתה בטווח בריא. נעזור לך לשמור על חיוניות ורמות אנרגיה.",
-        "overweight": "{appLabel} יפשט את המסע שלך עם מעקב מבוסס בינה מלאכותית כדי לעזור לך להגיע למטרה שלך בנוחות.",
-        "obese": "אנחנו כאן כדי לתמוך בך עם הנחיות מותאמות ואסטרטגיות ברות קיימא למטרות הבריאות שלך."
+        "underweight": "נוכל לעזור לך לבנות תוכנית בריאה להגיע למשקל מאוזן עם ארוחות עשירות בערכים תזונתיים.",
+        "healthy": "כל הכבוד! את/ה בטווח בריא. נעזור לך לשמור על חיוניות ורמות אנרגיה.",
+        "overweight": "{appLabel} תהפוך את הדרך שלך לפשוטה יותר עם מעקב מונע-AI שיעזור לך להגיע ליעד בנוחות.",
+        "obese": "אנחנו כאן כדי לתמוך בך עם הנחיות מותאמות אישית ואסטרטגיות ברות־קיימא להשגת מטרות הבריאות שלך."
       }
     },
     "weightGoal": {
-      "title": "מהי מטרתך?",
-      "description": "בחר את המטרה שמתארת בצורה הטובה ביותר מה אתה רוצה להשיג"
+      "title": "מה המטרה שלך?",
+      "description": "בחר/י את המטרה שמתארת הכי טוב את מה שתרצה/י להשיג"
     },
     "activityLevel": {
-      "title": "כמה פעיל אתה?",
-      "description": "זה עוזר לנו לחשב את צרכי הקלוריות היומיות שלך בצורה מדויקת יותר"
+      "title": "כמה את/ה פעיל/ה?",
+      "description": "זה יעזור לנו לחשב במדויק יותר את צריכת הקלוריות היומית שלך"
     },
     "healthConnect": {
-      "title": "חבר עם Health Connect",
-      "description": "סנכרן את נתוני הבריאות שלך לקבלת תובנות טובות יותר ומעקב אוטומטי אחרי קלוריות",
+      "title": "התחבר/י ל-Health Connect",
+      "description": "סנכרן/ני את נתוני הבריאות שלך לתובנות טובות יותר ומעקב קלוריות אוטומטי",
       "automaticTracking": {
         "title": "מעקב קלוריות אוטומטי",
-        "description": "עקוב אחר קלוריות שנשרפו מאפליקציות הכושר שלך"
+        "description": "עקוב/י אחרי קלוריות שנשרפו מאפליקציות הכושר שלך"
       },
       "progressInsights": {
         "title": "תובנות התקדמות",
-        "description": "קבל תובנות מפורטות על מגמות הבריאות שלך"
+        "description": "קבל/י תובנות מפורטות על מגמות הבריאות שלך"
       },
       "seamlessIntegration": {
-        "title": "שילוב חלק",
-        "description": "סנכרן נתונים מאפליקציות הבריאות האהובות עליך"
+        "title": "אינטגרציה חלקה",
+        "description": "סנכרון נתונים מאפליקציות הבריאות האהובות עליך"
       },
       "connected": "Health Connect מחובר",
       "notConnected": "Health Connect לא מחובר",
-      "setup": "הגדר את Health Connect",
-      "skipForNow": "דלג לעכשיו",
+      "setup": "הגדרת Health Connect",
+      "skipForNow": "דלג/י לעת עתה",
       "statusConnected": "Health Connect מחובר.",
-      "statusSuccess": "Health Connect הוגדר בהצלחה!",
-      "statusPermissionDenied": "גישה נדחתה. אנא אפשר את הרשאות Health Connect בהגדרות הטלפון שלך עבור {appLabel}.",
+      "statusSuccess": "Health Connect חובר בהצלחה!",
+      "statusPermissionDenied": "ההרשאה נדחתה. אנא אפשר/י הרשאות Health Connect מהגדרות הטלפון עבור {appLabel}.",
       "statusError": "שגיאה בהגדרת Health Connect: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
-        "title": "אתה לא לבד",
-        "genericMessage": "מחקרים מראים שמעקב מתמיד הוא המנבא מספר 1 להצלחה ארוכת טווח.",
-        "personalizedMessage": "עבור אדם בגיל {age} ({gender}) שהמטרה שלו היא {goal}, מעקב עקבי הוא המנבא מספר 1 להצלחה.",
-        "closingMessage": "{appLabel} מקל 10 פעמים יותר מאשר לעשות את זה ידנית.",
-        "getStartedTitle": "מוכן להתחיל?",
-        "tipPhoto": "צלם תמונה של הארוחות שלך לניתוח מיידי",
-        "tipConsistency": "נהל יומן באופן קבוע כדי לראות שיפורים משמעותיים",
-        "tipProgress": "עקוב אחר ההתקדמות שלך יומית כדי להישאר במוטיבציה",
-        "button": "בוא נלך",
+        "title": "את/ה לא לבד",
+        "genericMessage": "מחקרים מראים שמעקב עקבי הוא המנבא מספר 1 להצלחה ארוכת טווח.",
+        "personalizedMessage": "עבור {gender} בגיל {age} השואפ/ת ל{goal}, מעקב עקבי הוא המנבא מספר 1 להצלחה.",
+        "closingMessage": "{appLabel} הופכת את זה לקל פי 10 מביצוע ידני.",
+        "getStartedTitle": "מוכנים להתחיל?",
+        "tipPhoto": "צלם/י את הארוחות שלך לניתוח מיידי",
+        "tipConsistency": "תעד/י בעקביות כדי לראות התקדמות משמעותית",
+        "tipProgress": "עקוב/י מדי יום אחרי ההתקדמות שלך כדי להישאר במוטיבציה",
+        "button": "בואו נתחיל",
         "defaultGender": "אדם",
-        "defaultGoal": "גרסה בריאה יותר"
+        "defaultGoal": "בריאה/בריא יותר"
       },
       "healthProfile": {
         "title": "פרופיל הבריאות שלך",
-        "bmiDescription": "בהתבסס על המדדים שלך, ה-BMI שלך הוא {bmi}.",
-        "finalizeDescription": "בוא נשלים את הפרופיל שלך כדי להתאים אישית את החוויה שלך.",
-        "goalGain": "לעלות",
+        "bmiDescription": "בהתבסס על המדדים שלך, ה-BMI הוא {bmi}.",
+        "finalizeDescription": "בוא/י נסיים את הפרופיל כדי להתאים את החוויה אישית.",
+        "goalGain": "להעלות",
         "goalLose": "להוריד",
-        "goalReach": "כדי להשיג את המטרה שלך, אתה צריך {direction} {diff} {unit}.",
-        "goalReached": "אתה במשקל היעד שלך! נעזור לך לשמור עליו.",
-        "button": "בוא נלך"
+        "goalReach": "כדי להגיע ליעד, תצטרך/י {direction} {diff} {unit}.",
+        "goalReached": "את/ה במשקל היעד! נעזור לך לשמור עליו.",
+        "button": "בואו נתחיל"
       },
       "goalLifestyle": {
-        "title": "התחלה מצוינת!",
-        "description": "עשית את הצעד הראשון לקראת {goalText}. מכיוון ש{activityText}, {appLabel} יתאים את המטרות שלך כדי להתאים לאורח החיים שלך.",
+        "title": "תחילת דרך מצוינת!",
+        "description": "עשית את הצעד הראשון לקראת {goalText}. מאחר שאת/ה {activityText}, {appLabel} תתאים את היעדים שלך לסגנון החיים שלך.",
         "personalizedTargets": "יעדי קלוריות מותאמים אישית",
-        "aiMealDetection": "זיהוי ארוחות המונע על ידי בינה מלאכותית",
-        "macroBreakdowns": "פירוטים מפורטים של מאקרו-נוטריינטים",
-        "button": "בוא נלך",
-        "defaultGoal": "היעדים שלך",
-        "defaultActivity": "פעיל"
+        "aiMealDetection": "זיהוי ארוחות מונע-AI",
+        "macroBreakdowns": "פירוט מפורט של מקרו-נוטריינטים",
+        "button": "בואו נתחיל",
+        "defaultGoal": "המטרות שלך",
+        "defaultActivity": "פעיל/ה"
       }
     }
   },
   "tabs": {
-    "dashboard": "לוח בקרה",
+    "dashboard": "ראשי",
     "history": "היסטוריה"
   },
   "home": {
     "aiSummary": {
-      "title": "הסיכום שלך מבוסס בינה מלאכותית",
-      "logMore": "תעד עוד ארוחות בימים הקרובים כדי לקבל תובנות מותאמות אישית מבוססות בינה מלאכותית.",
-      "loading": "טוען את הסיכום שלך...",
-      "mealCount": "נרשמו {count} ארוחות",
+      "title": "סיכום ה-AI שלך",
+      "logMore": "תעד/י עוד ארוחות בימים הקרובים כדי לקבל תובנות מותאמות אישית מה-AI.",
+      "loading": "טוען/ת את הסיכום שלך...",
+      "mealCount": "{count} ארוחות תועדו",
       "macroBalanceScore": "ציון איזון {score}",
-      "topFoods": "מזונות מובילים",
-      "trendUp": "קלוריות במגמת עלייה",
-      "trendDown": "קלוריות במגמת ירידה",
-      "trendSteady": "קלוריות יציבות",
+      "topFoods": "המזונות המובילים",
+      "trendUp": "הקלוריות במגמת עלייה",
+      "trendDown": "הקלוריות במגמת ירידה",
+      "trendSteady": "הקלוריות יציבות",
       "generatedAt": "עודכן {time}"
     },
     "dailyGoal": {
-      "title": "קבע את המטרה היומית שלך",
-      "titleSet": "המטרה היומית שלך",
-      "description": "מוכן לצאת לדרך לבריאותך? קבע את יעד הקלוריות היומי שלך למטה כדי להתחיל את ההתקדמות שלך.",
-      "descriptionSet": "המצפן שלך מוגדר! זהו יעד הקלוריות היומי שלך להנחות אותך.",
-      "yourGoal": "המטרה שלך",
+      "title": "הגדר/י את היעד היומי שלך",
+      "titleSet": "היעד היומי שלך",
+      "description": "מוכנים לצאת לדרך הבריאותית? קבע/י למטה את יעד הקלוריות היומי כדי להתחיל להתקדם.",
+      "descriptionSet": "המצפן מכוון! זהו יעד הקלוריות היומי שלך להנחיה.",
+      "yourGoal": "היעד שלך",
       "goal": "יעד",
-      "dailyCalories": "קלוריות יומיות (קק\"ל)",
-      "setGoal": "קבע מטרה",
-      "intake": "צריכה",
+      "dailyCalories": "קלוריות יומיות (kcal)",
+      "setGoal": "קבע/י יעד",
+      "intake": "נצרך",
       "burned": "נשרף",
-      "weightImpact": "השפעה על המשקל",
-      "estLoss": "הערכה של ירידה ב-",
-      "estGain": "הערכה של עלייה ב-",
-      "kcal": "קק\"ל"
+      "weightImpact": "השפעת המשקל",
+      "estLoss": "הפסד משוער של",
+      "estGain": "עלייה משוערת של",
+      "kcal": "kcal"
     },
     "dailySummary": {
       "title": "סיכום יומי",
@@ -180,57 +180,59 @@
       "protein": "חלבון",
       "fat": "שומן",
       "fiber": "סיבים",
-      "grams": "גרמים",
-      "chartAccessibilityLabel": "תרשים מאקרו-תזונה"
+      "grams": "גרם",
+      "chartAccessibilityLabel": "תרשים מאקרו"
     },
     "intakeProgress": {
-      "title": "חלוקת המקרו להיום",
+      "title": "פיצול המאקרו של היום",
       "target": "יעד",
       "current": "נוכחי"
     },
     "intakeHistory": {
-      "title": "היסטוריית המקרו של 7 ימים",
-      "trendTitle": "מגמת היום",
-      "peakHour": "שיא בשעה {hour}:00",
+      "title": "היסטוריית מאקרו ל-7 ימים",
+      "trendTitle": "המגמה של היום",
+      "peakHour": "שיא: {hour}:00",
       "noHistoryYet": "אין היסטוריה עדיין",
-      "startLogging": "התחל לרשום ארוחות כדי לראות את מגמות המקרו שלך כאן במהלך 7 הימים"
+      "startLogging": "התחל/י לתעד ארוחות כדי לראות כאן\nמגמות מאקרו ל-7 ימים"
     },
     "mealLog": {
-      "title": "ארוחות רשומות",
-      "emptyMessage": "צלם תמונה של הארוחה האחרונה שלך כדי לרשום כאן.",
-      "noMealsToday": "אין ארוחות מוקלטות להיום",
-      "seeAllMeals": "ראה את כל הארוחות"
+      "title": "ארוחות מתועדות",
+      "emptyMessage": "צלם/י תמונה של הארוחה האחרונה כדי לתעד כאן.",
+      "noMealsToday": "אין ארוחות רשומות להיום",
+      "seeAllMeals": "הצג את כל הארוחות"
     },
     "mealDescription": {
-      "title": "הוסף במהירות עם בינה מלאכותית",
-      "description": "תאר את הארוחה שלך, ותן לבינה המלאכותית לטפל בפרטים.",
-      "hint": "למשל, לארוחת הבוקר אכלתי קערה גדולה של קוואקר עם בננה פרוסה וכף של מי גבינה ...",
-      "analyzeMeal": "נתח את הארוחה"
+      "title": "הוספה מהירה עם AI",
+      "description": "תאר/י את הארוחה שלך, וה-AI יטפל בפרטים.",
+      "hint": "לדוגמה: לארוחת בוקר אכלתי קערה גדולה של שיבולת שועל עם בננה פרוסה וכף מי גבינה...",
+      "analyzeMeal": "נתח ארוחה"
     },
     "favoriteMeals": {
-      "title": "ארוחות אהובות",
-      "description": "הוסף במהירות אחת מהארוחות האהובות עליך.",
-      "noFavorites": "אין ארוחות אהובות עדיין.",
-      "addFavoriteHint": "לחץ על הכוכב בארוחה כדי לסמן אותה כאהובה.",
-      "seeAll": "ראה הכל",
+      "title": "ארוחות מועדפות",
+      "description": "הוספה מהירה של אחת מהארוחות המועדפות עליך.",
+      "noFavorites": "עדיין אין ארוחות מועדפות.",
+      "addFavoriteHint": "לחץ/י על הכוכב בארוחה כדי לסמן כמועדף.",
+      "seeAll": "הצג הכל",
       "add": "הוסף"
     },
     "mealSnap": {
-      "title": "צלם ועקוב אחרי הארוחה שלך",
-      "description": "השתמש במצלמה שלך כדי לצלם תמונה של האוכל שלך לניתוח בינה מלאכותית.",
-      "openCamera": "פתח מצלמה",
-      "gallery": "גלריה"
+      "title": "צלם/י ותעד/י את הארוחה שלך",
+      "description": "השתמש/י במצלמה כדי לצלם את האוכל לניתוח AI.",
+      "openCamera": "פתח/י מצלמה",
+      "gallery": "גלריה",
+      "compressingPhoto": "מיטוב התמונה…",
+      "uploadingPhoto": "מעלה את התמונה…"
     },
     "connectHealth": {
-      "title": "סנכרן עם Health Connect",
-      "description": "סנכרן את נתוני התזונה שלך עם Health Connect",
+      "title": "סנכרון עם Health Connect",
+      "description": "סנכרן/ני את נתוני התזונה שלך עם Health Connect",
       "install": "התקן",
-      "connect": "חבר"
+      "connect": "התחבר/י"
     }
   },
   "history": {
-    "noMeals": "אין ארוחות מוקלטות",
-    "emptyMessage": "צלם תמונה של הארוחה האחרונה שלך כדי לרשום כאן.",
+    "noMeals": "אין ארוחות רשומות",
+    "emptyMessage": "צלם/י תמונה של הארוחה האחרונה כדי לתעד כאן.",
     "today": "היום",
     "yesterday": "אתמול"
   },
@@ -242,12 +244,12 @@
     "saveMeal": "שמור ארוחה",
     "save": "שמור",
     "mealName": "שם הארוחה",
-    "mealNameHint": "למשל: ביצים מקושקשות עם טוסט",
+    "mealNameHint": "לדוגמה, חביתת ביצים עם טוסט",
     "mealQuantity": "כמות הארוחה",
-    "mealQuantityHint": "למשל, 1 קערה, 2 פרוסות",
+    "mealQuantityHint": "לדוגמה, קערה אחת, 2 פרוסות",
     "timeOfMeal": "שעת הארוחה",
-    "timeOfMealHint": "בחר את השעה שבה אכלת את הארוחה",
-    "mealType": "סוג הארוחה",
+    "timeOfMealHint": "בחר/י את השעה שבה אכלת את הארוחה",
+    "mealType": "סוג ארוחה",
     "nutrition": {
       "calories": "קלוריות",
       "carbs": "פחמימות (גרם)",
@@ -256,55 +258,94 @@
       "fiber": "סיבים (גרם)"
     },
     "deleteConfirmation": {
-      "title": "מחק ארוחה",
-      "message": "האם אתה בטוח שברצונך למחוק רשומה זו של הארוחה?",
-      "cancel": "ביטול",
+      "title": "מחיקת ארוחה",
+      "message": "למחוק את רשומת הארוחה הזו?",
+      "cancel": "בטל",
       "delete": "מחק"
     },
-    "addedToLog": "הארוחה נוספה לרשומתך!",
-    "couldNotAdd": "לא ניתן להוסיף ארוחה: {error}",
+    "addedToLog": "הארוחה נוספה ליומן שלך!",
+    "couldNotAdd": "לא ניתן היה להוסיף ארוחה: {error}",
     "savedSuccessfully": "הארוחה נוספה בהצלחה!",
     "updatedSuccessfully": "הארוחה עודכנה בהצלחה!",
     "errorSaving": "שגיאה בשמירת הארוחה: {error}",
-    "removedFromFavorites": "הוסר מהאהובים!",
-    "savedAsFavorite": "הארוחה נשמרה כאהובה!",
-    "unfavorite": "הסר מהמועדפים",
-    "couldNotUpdateFavorite": "לא ניתן לעדכן אהוב: {error}",
+    "removedFromFavorites": "הוסר מהמועדפים!",
+    "savedAsFavorite": "הארוחה נשמרה כמועדפת!",
+    "unfavorite": "הסר ממועדפים",
+    "couldNotUpdateFavorite": "לא ניתן היה לעדכן מועדף: {error}",
     "feedbackThanks": "תודה על המשוב!",
-    "reanalysisUpdated": "ניתוח הארוחה עודכן בהתאם למשוב שלך.",
-    "failedToProcess": "נכשל בעיבוד: {error}",
-    "failedToProcessImage": "נכשל בעיבוד התמונה: {error}",
-    "errorCompressingImage": "שגיאה בצמצום התמונה: {error}",
-    "failedToSave": "נכשל בשמירת הנתונים. אנא נסה שוב.",
-    "skip": "דלג",
+    "reanalysisUpdated": "הניתוח עודכן בהתאם למשוב שלך.",
+    "failedToProcess": "העיבוד נכשל: {error}",
+    "failedToProcessImage": "עיבוד התמונה נכשל: {error}",
+    "errorCompressingImage": "שגיאה במיטוב התמונה: {error}",
+    "failedToSave": "שמירת הנתונים נכשלה. אנא נסה/י שוב.",
+    "skip": "דלג/י",
     "variation": {
       "question": "שאלה {current} מתוך {total}",
       "noVariationsAvailable": "אין וריאציות זמינות"
+    },
+    "analysis": {
+      "title": "ניתוח ארוחה בעזרת AI",
+      "reassurance": "לרוב זה לוקח כמה שניות.",
+      "stepStarted": "מתחילים…",
+      "stepDecomposition": "מבינים את הארוחה שלך…",
+      "stepIngredients": "מתאימים רכיבים לנתוני תזונה…",
+      "stepUncertainty": "בודקים רמת ביטחון…",
+      "stepMealTypeQuestion": "כמעט סיימנו…",
+      "stepResult": "מסיימים את התוצאה…",
+      "stepError": "משהו השתבש",
+      "stepDefault": "מנתחים את הארוחה…",
+      "progressUnderstand": "הבנה",
+      "progressMatch": "התאמה",
+      "progressCheck": "בדיקה",
+      "progressFinish": "סיום",
+      "ingredientsLine": "זוהו {count} רכיבים",
+      "ingredientsPending": "סורקים רכיבים…",
+      "mealPreviewDescription": "\"{text}\"",
+      "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
+      "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
+      "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
+      "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
+      "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
+      "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+    },
+    "feedback": {
+      "title": "What looks wrong?",
+      "subtitle": "Help us improve the analysis by selecting one or more issues.",
+      "tellUsMore": "Tell us more",
+      "describeIncorrect": "Describe what was incorrect",
+      "submit": "Submit",
+      "issueFoodIdentification": "Food identification",
+      "issuePortionSize": "Portion size",
+      "issueCalorieDistribution": "Calorie distribution",
+      "issueMacrosWrong": "Macros are wrong",
+      "issueMissingItems": "Missing items",
+      "issueExtraItems": "Extra items",
+      "issueOther": "Other"
     }
   },
   "favorites": {
-    "title": "אהובים",
-    "empty": "אין ארוחות אהובות עדיין.",
-    "searchPlaceholder": "חפש מנות מועדפות",
-    "searchEmptyTitle": "אין מועדפים שמתאימים לחיפוש שלך",
-    "searchEmptySubtitle": "נסה להשתמש בשם מנה, בכמות או בסוג ארוחה שונים.",
-    "sortLabel": "מיין מועדפים",
+    "title": "מועדפים",
+    "empty": "עדיין אין ארוחות מועדפות.",
+    "searchPlaceholder": "חפש/י ארוחות מועדפות",
+    "searchEmptyTitle": "אין מועדפים תואמים לחיפוש",
+    "searchEmptySubtitle": "נסו שם ארוחה אחר, כמות או סוג ארוחה שונה.",
+    "sortLabel": "מיון מועדפים",
     "undo": "בטל",
-    "removed": "הוסר {name} מהמועדפים",
+    "removed": "{name} הוסר מהמועדפים",
     "sortOptions": {
-      "recent": "לאחרונה",
+      "recent": "אחרונים",
       "calories": "קלוריות",
-      "alphabetical": "לפי סדר אלפביתי"
+      "alphabetical": "א-ת"
     }
   },
   "profile": {
     "title": "פרופיל",
     "noProfileData": "לא נמצאו נתוני פרופיל",
     "yourProfile": "הפרופיל שלך",
-    "viewAndManage": "צפה ונהל את המידע הבריאותי שלך",
+    "viewAndManage": "צפה/י ונהלי/ה את פרטי הבריאות שלך",
     "sections": {
       "profile": "פרופיל",
-      "basicInformation": "מידע בסיסי",
+      "basicInformation": "פרטים בסיסיים",
       "goalsAndActivity": "מטרות ופעילות",
       "calculatedValues": "ערכים מחושבים"
     },
@@ -316,30 +357,30 @@
     "targetWeight": "משקל יעד",
     "activityLevel": "רמת פעילות",
     "healthMetrics": "מדדי בריאות",
-    "notSet": "לא מוגדר",
+    "notSet": "לא הוגדר",
     "years": "שנים",
     "updatedSuccessfully": "הפרופיל עודכן בהצלחה!",
     "calculatedValues": {
       "bmr": "BMR",
       "tdee": "TDEE",
-      "dailyGoal": "מטרה יומית",
-      "calPerDay": "קל ביום",
-      "notAvailable": "לא זמין"
+      "dailyGoal": "יעד יומי",
+      "calPerDay": "cal/day",
+      "notAvailable": "N/A"
     }
   },
   "healthScore": {
     "title": "ציון בריאות",
-    "whyThisScore": "למה ציון זה?",
-    "note": "הציון הזה הוא הערכה על סמך המרכיבים המזוהים ואת צפיפות התזונה. תמיד התייעץ עם מקצוען לגבי תזונה.",
+    "whyThisScore": "למה הציון הזה?",
+    "note": "ציון זה הוא הערכה של ה-AI המבוססת על הרכיבים שזוהו ועל צפיפות תזונתית. תמיד כדאי להתייעץ עם איש מקצוע לקבלת ייעוץ תזונתי.",
     "unhealthy": "לא בריא",
     "healthy": "בריא",
     "neutral": "ניטרלי"
   },
   "editProfile": {
-    "title": "ערוך פרופיל",
+    "title": "עריכת פרופיל",
     "sections": {
-      "personalInformation": "מידע אישי",
-      "physicalMeasurements": "מדידות פיזיות",
+      "personalInformation": "פרטים אישיים",
+      "physicalMeasurements": "מדדים גופניים",
       "goalsAndActivity": "מטרות ופעילות"
     },
     "gender": "מגדר",
@@ -350,14 +391,14 @@
     "activityLevel": "רמת פעילות",
     "metric": "מטרי",
     "imperial": "אימפריאלי",
-    "unitCm": "ס\"מ",
-    "unitFt": "רגל",
-    "unitKg": "ק\"ג",
-    "unitLbs": "ליב'",
+    "unitCm": "cm",
+    "unitFt": "ft",
+    "unitKg": "kg",
+    "unitLbs": "lbs",
     "metricCm": "מטרי (ס\"מ)",
-    "imperialFtIn": "אימפריאלי (רגל/אינצ'ס)",
+    "imperialFtIn": "אימפריאלי (ft/in)",
     "metricKg": "מטרי (ק\"ג)",
-    "imperialLbs": "אימפריאלי (ליברות)",
+    "imperialLbs": "אימפריאלי (lbs)",
     "genders": {
       "male": "זכר",
       "female": "נקבה",
@@ -365,38 +406,38 @@
     },
     "weightGoals": {
       "loseWeight": {
-        "name": "לרדת במשקל",
-        "description": "צור חיסור קלורי כדי לרדת במשקל"
+        "name": "ירידה במשקל",
+        "description": "יצירת גירעון קלורי לירידה במשקל"
       },
       "maintainWeight": {
-        "name": "לשמור על משקל",
-        "description": "שמור על המשקל הנוכחי שלך"
+        "name": "שמירה על משקל",
+        "description": "שמירה על המשקל הנוכחי שלך"
       },
       "gainWeight": {
-        "name": "לעלות במשקל",
-        "description": "צור תוספת קלורית כדי לעלות במשקל"
+        "name": "עלייה במשקל",
+        "description": "יצירת עודף קלורי לעלייה במשקל"
       }
     },
     "activityLevels": {
       "sedentary": {
         "name": "יושבני",
-        "description": "מעט מאוד פעילות גופנית"
+        "description": "מעט או ללא פעילות גופנית"
       },
       "lightlyActive": {
-        "name": "פעיל מעט",
-        "description": "פעילות גופנית קלה 1-3 ימים בשבוע"
+        "name": "פעילות קלה",
+        "description": "פעילות קלה 1–3 ימים בשבוע"
       },
       "moderatelyActive": {
-        "name": "פעיל עד בינוני",
-        "description": "פעילות גופנית בינונית 3-5 ימים בשבוע"
+        "name": "פעילות מתונה",
+        "description": "פעילות מתונה 3–5 ימים בשבוע"
       },
       "veryActive": {
-        "name": "פעיל מאוד",
-        "description": "פעילות גופנית קשה 6-7 ימים בשבוע"
+        "name": "פעילות גבוהה",
+        "description": "אימונים קשים 6–7 ימים בשבוע"
       },
       "extremelyActive": {
-        "name": "פעיל ביותר",
-        "description": "פעילות גופנית קשה מאוד, עבודה פיזית"
+        "name": "פעילות קיצונית",
+        "description": "מאמץ קשה מאוד, עבודה פיזית"
       }
     }
   },
@@ -404,22 +445,22 @@
     "title": "הגדרות",
     "sections": {
       "profile": "פרופיל",
-      "localization": "התאמה מקומית",
+      "localization": "התאמה לשפה ואזור",
       "notifications": "התראות",
       "healthConnect": "Health Connect",
-      "supportAndLegal": "תמיכה ומשפטי",
+      "supportAndLegal": "תמיכה וחוקיות",
       "about": "אודות",
       "dangerZone": "אזור מסוכן",
-      "developer": "מפתחים"
+      "developer": "מפתח"
     },
     "editProfile": {
-      "title": "ערוך פרופיל",
-      "subtitle": "עדכן את המידע האישי שלך"
+      "title": "עריכת פרופיל",
+      "subtitle": "עדכון המידע האישי שלך"
     },
     "language": {
       "title": "שפה",
-      "subtitle": "בחר את השפה המועדפת עליך",
-      "searchHint": "חפש שפות...",
+      "subtitle": "בחר/י את השפה המועדפת",
+      "searchHint": "חפש/י שפות...",
       "noResults": "לא נמצאו תוצאות"
     },
     "heightUnit": {
@@ -430,129 +471,129 @@
     },
     "mealReminders": {
       "title": "תזכורות לארוחות",
-      "subtitle": "שמור על הקצב עם התראות בזמן"
+      "subtitle": "הישאר/י על המסלול עם התראות בזמן"
     },
     "theme": {
-      "title": "נושא",
+      "title": "ערכת נושא",
       "light": "בהיר",
       "dark": "כהה",
       "system": "מערכת"
     },
     "sendFeedback": {
-      "title": "שלח משוב",
-      "subtitle": "עזור לנו לשפר את {appLabel}",
-      "emailSubject": "{appLabel} משוב על האפליקציה",
-      "emailBodyPrefix": "אנא ספק את המשוב שלך למטה:",
+      "title": "שליחת משוב",
+      "subtitle": "עזר/י לנו לשפר את {appLabel}",
+      "emailSubject": "משוב על {appLabel}",
+      "emailBodyPrefix": "אנא ספק/י את המשוב שלך כאן:",
       "appVersion": "גרסת אפליקציה",
       "device": "מכשיר",
       "osVersion": "גרסת מערכת הפעלה",
       "uid": "UID"
     },
     "exportMealHistory": {
-      "title": "ייצוא היסטוריית הארוחות",
-      "subtitle": "שתף קובץ CSV של הארוחות שנרשמו",
-      "shareText": "ייצוא היסטוריית הארוחות שלך מ‑Calorify",
-      "failed": "לא ניתן לייצא את היסטוריית הארוחות: {error}"
+      "title": "ייצוא היסטוריית ארוחות",
+      "subtitle": "שיתוף קובץ CSV של הארוחות שתיעדת",
+      "shareText": "ייצוא היסטוריית הארוחות שלך מ-Calorify",
+      "failed": "לא ניתן היה לייצא את היסטוריית הארוחות: {error}"
     },
     "clearAllData": {
-      "title": "מחק את כל הנתונים",
-      "subtitle": "מחק לצמיתות את כל המידע שלך",
-      "confirmationTitle": "מחק את כל הנתונים?",
-      "confirmationMessage": "פעולה זאת אינה ניתנת לביטול. כל הארוחות המוקלטות שלך, מועדפים, והגדרות פרופיל יימחקו לצמיתות.",
-      "cancel": "ביטול",
-      "clearEverything": "מחק את הכל"
+      "title": "מחיקת כל הנתונים",
+      "subtitle": "מחיקה בלתי הפיכה של כל המידע שלך",
+      "confirmationTitle": "למחוק את כל הנתונים?",
+      "confirmationMessage": "לא ניתן לבטל פעולה זו. כל הארוחות, המועדפים והגדרות הפרופיל יימחקו לצמיתות.",
+      "cancel": "בטל",
+      "clearEverything": "מחק הכל"
     },
     "debugOptions": {
-      "title": "אפשרויות דיבוג"
+      "title": "אפשרויות ניפוי שגיאות"
     },
     "developerModeEnabled": "מצב מפתח הופעל!",
     "healthConnect": {
       "title": "Health Connect",
-      "subtitle": "הצג ונהל הרשאות",
+      "subtitle": "צפייה וניהול הרשאות",
       "unavailable": {
-        "title": "Health Connect לא זמין",
-        "description": "Health Connect אינו זמין במכשיר זה. נא להתקין את Health Connect מחנות Play ‏(Android 9+) או לעדכן ל-Android 14+."
+        "title": "Health Connect אינו זמין",
+        "description": "Health Connect אינו זמין במכשיר זה. אנא התקן/י את Health Connect מחנות Play (Android 9+) או עדכן/י ל-Android 14+."
       },
       "permissions": {
         "title": "הרשאות",
         "description": "ההרשאות הבאות נדרשות כדי לספק אינטגרציה עם Health Connect:",
-        "granted": "ניתן",
-        "notGranted": "לא ניתן",
+        "granted": "מאושרת",
+        "notGranted": "לא מאושרת",
         "caloriesBurned": {
-          "title": "קריאת קלוריות שנשרפות בסך הכל",
+          "title": "קריאת סך הקלוריות שנשרפו",
           "description": "מאפשר לאפליקציה לקרוא את סך הקלוריות שנשרפו מ-Health Connect.",
-          "usage": "הרשאה זו משמשת כדי להציג את שריפת הקלוריות היומית שלך באפליקציה, ועוזרת לך להבין את סך הוצאת האנרגיה שלך במהלך היום."
+          "usage": "הרשאה זו משמשת להצגת שריפת הקלוריות היומית שלך באפליקציה, כדי לעזור לך להבין את הוצאה האנרגטית הכוללת לאורך היום."
         },
         "nutritionRead": {
           "title": "קריאת נתוני תזונה",
           "description": "מאפשר לאפליקציה לקרוא נתוני תזונה מ-Health Connect.",
-          "usage": "הרשאה זו מאפשרת לאפליקציה לקרוא מידע תזונתי שייתכן שנרשם על ידי אפליקציות אחרות המחוברות ל-Health Connect, ומספקת תמונה מקיפה של התזונה שלך."
+          "usage": "הרשאה זו מאפשרת לאפליקציה לקרוא מידע תזונתי שעשוי להיות מתועד באפליקציות אחרות המחוברות ל-Health Connect, כדי לספק תמונה מקיפה של התזונה שלך."
         },
         "nutritionWrite": {
           "title": "כתיבת נתוני תזונה",
           "description": "מאפשר לאפליקציה לכתוב נתוני תזונה ל-Health Connect.",
-          "usage": "הרשאה זו מאפשרת לאפליקציה לסנכרן את הארוחות הרשומות שלך עם Health Connect, וכך להפוך את נתוני התזונה שלך לזמינים לאפליקציות בריאות וכושר אחרות שבהן אתה משתמש."
+          "usage": "הרשאה זו מאפשרת לאפליקציה לסנכרן את הארוחות שתיעדת ל-Health Connect, כך שנתוני התזונה שלך יהיו זמינים גם באפליקציות בריאות וכושר אחרות שבהן את/ה משתמש/ת."
         }
       },
       "managePermissions": "ניהול הרשאות",
-      "openSettings": "פתח את הגדרות Health Connect",
-      "requestPermissions": "בקש הרשאות",
-      "permissionRequestCancelledOrFailed": "בקשת ההרשאות בוטלה או נכשלה. נסו שוב או העניקו הרשאות ידנית בהגדרות Health Connect.",
-      "permissionRequestFailed": "לא ניתן לבקש הרשאות. נסו שוב או העניקו הרשאות ידנית בהגדרות Health Connect.",
-      "requestingPermissions": "מבקש הרשאות..."
+      "openSettings": "פתח/י את הגדרות Health Connect",
+      "requestPermissions": "בקש/י הרשאות",
+      "permissionRequestCancelledOrFailed": "בקשת ההרשאות בוטלה או נכשלה. נסה/י שוב או אשר/י הרשאות ידנית בהגדרות Health Connect.",
+      "permissionRequestFailed": "אין אפשרות לבקש הרשאות. נסה/י שוב או אשר/י הרשאות ידנית בהגדרות Health Connect.",
+      "requestingPermissions": "מבקשים הרשאות..."
     },
     "about": {
       "title": "אודות",
-      "tagline": "מודעות קלוריות מהירה, חינמית ושומרת על פרטיות",
+      "tagline": "מודעות לקלוריות מהירה, חינמית ומבוססת פרטיות",
       "ourStory": {
         "title": "הסיפור שלנו",
-        "content": "{appLabel} נוצר מתוך תסכול פשוט: רוב אפליקציות המעקב אחרי קלוריות הן מסובכות מדי, דורשות קלט ידני מתמשך, גובות תשלומים גבוהים עבור מנוי, או פוגעות בפרטיות.\n\nכמפתח עצמאי, רציתי לבנות משהו פשוט יותר והוגן יותר — אפליקציה שמשתמשת בבינה מלאכותית כדי להפחית מאמץ, נותרת מהירה וחינמית לשימוש, ומתייחסת לנתוני הבריאות שלך בכבוד.\n\n{appLabel} היא האפליקציה שאני מאחל שהיא הייתה קיימת: ללא חשבונות, ללא מעקב, ללא פרסומות — רק תובנות בריאותיות ברורות ומעשיות ומטרות הבריאות שלך."
+        "content": "{appLabel} נולדה מתסכול פשוט: רוב אפליקציות ספירת הקלוריות מורכבות מדי, דורשות הזנה ידנית מתמדת, גובות דמי מנוי גבוהים או פוגעות בפרטיות.\n\nכמפתח יחיד, רציתי לבנות משהו פשוט והוגן יותר — אפליקציה שמשתמשת ב-AI כדי להפחית מאמץ, נשארת מהירה וחינמית, ומתייחסת לנתוני הבריאות שלך בכבוד.\n\n{appLabel} היא האפליקציה שרציתי שתתקיים: בלי חשבונות, בלי מעקב, בלי פרסומות — רק תובנות ברורות ומעשיות ומטרות הבריאות שלך."
       },
       "privacy": {
         "title": "הפרטיות שלך חשובה",
-        "description": "הפרטיות אינה מחשבה מאוחרת — זהו עיקרון עיצובי. הנה מה שזה אומר הלכה למעשה:",
-        "noAccounts": "אין צורך בחשבונות\nשימוש מיידי באפליקציה. אין רישום, אין זהויות.",
-        "noTracking": "אין מעקב התנהגותי\n{appLabel} אינה עוקבת אחרי הפעילות שלך, אינה בונה פרופילי שימוש, ואינה עוקבת אחריך באפליקציות או באתרי אינטרנט.",
-        "noAds": "ללא פרסומות בעיצוב\n{appLabel} נבנתה לפעול ללא פרסומות או מונטיזציה מבוססת נתונים.",
-        "noDataSelling": "אין מכירת נתונים\nנתוני הבריאות שלך לא נמכרים ולא משותפים עם צדדים שלישיים.",
-        "localStorage": "אחסון מקומי קודם\nהנתונים שלך נשמרים במכשיר שלך.",
+        "description": "הפרטיות אינה מחשבה מאוחרת — היא עקרון תכנוני. כך זה נראה בפועל:",
+        "noAccounts": "אין צורך בחשבונות\nהשתמש/י באפליקציה מיד. בלי הרשמה, בלי זיהוי.",
+        "noTracking": "ללא מעקב התנהגותי\n{appLabel} אינה עוקבת אחרי הפעילות שלך, אינה בונה פרופילי שימוש ואינה עוקבת אחריך באפליקציות או אתרים.",
+        "noAds": "ללא פרסומות כברירת מחדל\n{appLabel} בנויה לפעול ללא פרסומות או מוניטיזציה מבוססת נתונים.",
+        "noDataSelling": "ללא מכירת נתונים\nנתוני הבריאות שלך לעולם לא נמכרים או משותפים לצדדים שלישיים.",
+        "localStorage": "אחסון מקומי תחילה\nהנתונים שלך נשארים במכשיר שלך.",
         "privacyPolicy": "מדיניות פרטיות"
       },
       "developer": {
-        "title": "נבנה על ידי מפתח עצמאי",
-        "description": "{appLabel} נבנית ונתמכת על ידי מפתח עצמאי יחיד שמתרכז ביצירת תוכנת בריאות שלווה ומכבדת פרטיות.\n\nפידבק נקרא באופן אישי ועוזר לעצב את כיוון האפליקציה.",
-        "website": "אתר האינטרנט",
+        "title": "פותחה על ידי מפתח יחיד",
+        "description": "{appLabel} מפותחת ומתוחזקת על ידי מפתח יחיד, המתמקד ביצירת תוכנת בריאות שקטה ומכבדת פרטיות.\n\nמשוב נקרא אישית ותורם לעיצוב כיוון האפליקציה.",
+        "website": "אתר",
         "email": "דוא\"ל"
       },
       "feedback": {
-        "title": "נהנים מ-{appLabel}?",
-        "description": "הפידבק שלכם עוזר לשפר את {appLabel} לכולם.",
-        "rateApp": "דרגו בחנות Play",
-        "sendFeedback": "שלחו פידבק"
+        "title": "נהנ/ית מ-{appLabel}?",
+        "description": "המשוב שלך עוזר להפוך את {appLabel} לטובה יותר עבור כולם.",
+        "rateApp": "דרג/י בחנות Play",
+        "sendFeedback": "שליחת משוב"
       }
     },
     "appInfo": {
       "version": "Calorify v{version}",
-      "build": "בניית גרסה {buildNumber}"
+      "build": "Build {buildNumber}"
     }
   },
   "reminders": {
-    "title": "שמור על הקצב עם תזכורות",
-    "description": "קבל תזכורות עדינות לרשום את הארוחות שלך ולשמור על עקביות עם מטרות התזונה שלך",
-    "notificationsEnabled": "התראות הופעלו",
-    "notificationsDisabled": "התראות הופסקו",
-    "enabledSubtitle": "תקבל תזכורות לארוחות",
-    "disabledSubtitle": "אפשר התראות כדי לקבל תזכורות לארוחות",
+    "title": "הישאר/י על המסלול עם תזכורות",
+    "description": "קבל/י תזכורות עדינות לתעד את הארוחות ולהתמיד ביעדי התזונה שלך",
+    "notificationsEnabled": "התראות מופעלות",
+    "notificationsDisabled": "התראות כבויות",
+    "enabledSubtitle": "תקבל/י תזכורות לארוחות",
+    "disabledSubtitle": "אפשר/י התראות כדי לקבל תזכורות לארוחות",
     "mealReminders": "תזכורות לארוחות",
     "breakfast": "ארוחת בוקר",
     "lunch": "ארוחת צהריים",
     "dinner": "ארוחת ערב",
-    "snack": "נשנוש",
+    "snack": "חטיף",
     "unknown": "לא ידוע",
-    "change": "שנה",
-    "enableNotifications": "אפשר התראות",
-    "skipForNow": "דלג לעכשיו",
-    "saveChanges": "שמור שינויים",
+    "change": "שנה/י",
+    "enableNotifications": "אפשר/י התראות",
+    "skipForNow": "דלג/י לעת עתה",
+    "saveChanges": "שמור/י שינויים",
     "enabledSuccessfully": "התראות הופעלו בהצלחה!",
     "permissionDenied": "הרשאת התראות נדחתה",
     "errorEnabling": "שגיאה בהפעלת התראות: {error}",
@@ -560,96 +601,96 @@
   },
   "notifications": {
     "breakfast": {
-      "title": "זמן ארוחת בוקר! 🍳",
-      "body": "אל תשכח לרשום את ארוחת הבוקר שלך"
+      "title": "זמן לארוחת בוקר! 🍳",
+      "body": "אל תשכח/י לתעד את ארוחת הבוקר"
     },
     "lunch": {
-      "title": "זמן ארוחת צהריים! 🥗",
-      "body": "הגיע הזמן לרשום את ארוחת הצהריים שלך"
+      "title": "זמן לארוחת צהריים! 🥗",
+      "body": "זה הזמן לתעד את ארוחת הצהריים"
     },
     "dinner": {
-      "title": "זמן ארוחת ערב! 🍽️",
-      "body": "אל תשכח לרשום את ארוחת ערב שלך"
+      "title": "זמן לארוחת ערב! 🍽️",
+      "body": "אל תשכח/י לתעד את ארוחת הערב"
     },
     "snack": {
-      "title": "זמן נשנוש! 🍎",
-      "body": "הגיע הזמן לנשנוש בריא"
+      "title": "זמן לחטיף! 🍎",
+      "body": "זה הזמן לחטיף בריא"
     },
     "test": {
-      "title": "התראת ניסיון"
+      "title": "התראת בדיקה"
     }
   },
   "login": {
     "title": "התחברות",
-    "signInWithGoogle": "התחבר עם גוגל",
-    "signInFailed": "ההתחברות עם גוגל נכשלה או בוטלה."
+    "signInWithGoogle": "התחבר/י עם Google",
+    "signInFailed": "ההתחברות עם Google נכשלה או בוטלה."
   },
   "disclaimer": {
-    "pleaseNote": "אנא שים לב",
+    "pleaseNote": "לתשומת לבך",
     "snap": {
-      "description": "{appLabel} מספק מידע תזונתי משוער. דיוק תלוי בקלט שלך ובשונות המזון. השתמש בזה כמדריך, ולא כמקור סופי. התייעץ עם מקצוען עבור ייעוץ תזונתי מותאם אישית.",
+      "description": "{appLabel} מספקת מידע תזונתי משוער. הדיוק תלוי בקלט שלך ובשונות בין מזונות. השתמש/י בכך כהנחיה, לא כמקור מוחלט. תמיד התייעצ/י עם איש מקצוע לייעוץ תזונתי אישי.",
       "portionSize": {
-        "title": "גודל המנה",
-        "description": "הדיוק של ההערכות תלוי במידה רבה בהערכה הנכונה שלך של גודל המנה."
+        "title": "גודל מנה",
+        "description": "הדיוק של ההערכות תלוי מאוד בהערכתך הנכונה של גודל המנה."
       },
       "preparationMethods": {
         "title": "שיטות הכנה",
-        "description": "שיטות הבישול יכולות לשנות באופן משמעותי את התוכן התזונתי של המזון. ההערכות של {appLabel} עשויות שלא לקחת תמיד בחשבון את השונות הללו."
+        "description": "שיטות בישול עשויות להשפיע באופן משמעותי על הערך התזונתי. ההערכות של {appLabel} אינן תמיד לוקחות בחשבון את כל השינויים הללו."
       },
       "ingredients": {
-        "title": "מרכיבים",
-        "description": "מנות מורכבות עם מרכיבים מוסתרים רבים עשויות להוביל להערכות פחות מדויקות."
+        "title": "רכיבים",
+        "description": "מנות מורכבות עם רכיבים רבים ונסתרים עשויות להוביל להערכות פחות מדויקות."
       },
       "databaseLimitations": {
-        "title": "מגבלות בסיס נתונים",
-        "description": "המאגר המזון של {appLabel} רחב מאוד אך עשוי שלא לכלול כל פריט מזון או וריאציה."
+        "title": "מגבלות מאגר המידע",
+        "description": "מאגר המזון של {appLabel} רחב, אך ייתכן שאינו כולל כל פריט מזון או וריאציה."
       }
     },
     "weightEstimate": {
-      "title": "על הערכת המשקל",
-      "description": "שינוי המשקל המשוער הוא הערכה תיאורטית המבוססת על מודל הקלוריות הנכנסות מול הקלוריות היוצאות. היא מיועדת למדריך מוטיבציה בלבד, לא ככלי לחזות את המשקל שלך.",
+      "title": "אודות הערכת משקל",
+      "description": "השינוי החזוי במשקל הוא הערכה תיאורטית המבוססת על מודל פשוט של קלוריות נכנסות מול קלוריות נשרפות. זה מיועד כהנחיה למוטיבציה בלבד, ולא כניבוי למשקל בפועל.",
       "calorieAccuracy": {
-        "title": "דיוק קלורי",
-        "description": "ההערכה הזו מדויקת רק כמו צריכת הקלוריות שעקבת אחריה וההוצאות. רישום לא מדויק יגרום להערכה לא מדויקת."
+        "title": "דיוק הקלוריות",
+        "description": "ההערכה מדויקת רק כפי דיוק המעקב אחרי צריכת ושריפת הקלוריות שלך. תיעוד לא מדויק יוביל להערכה לא מדויקת."
       },
       "biologicalFactors": {
         "title": "גורמים ביולוגיים",
-        "description": "ירידה/עלייה במשקל בפועל מושפעת מהמטבוליזם, הורמונים, שינה, לחץ, הידרציה וגורמים אישיים אחרים ש{appLabel} לא יכול למדוד."
+        "description": "ירידה/עלייה בפועל במשקל מושפעת מחילוף חומרים, הורמונים, שינה, סטרס, הידרציה ועוד גורמים אישיים ש-{appLabel} אינה יכולה למדוד."
       },
       "waterWeight": {
         "title": "משקל מים ותנודות",
-        "description": "משקל יומי רגיל יכול להשתנות באופן משמעותי בגלל החזקת מים, עיכול וזמן. ההערכה לא לוקחת בחשבון את השינויים היומיים הללו."
+        "description": "משקל יומי תקין יכול להשתנות משמעותית עקב אגירת נוזלים, עיכול ותזמון. ההערכה אינה מתחשבת בשינויים היומיים הללו."
       },
       "professionalGuidance": {
         "title": "הנחיה מקצועית",
-        "description": "אל תשתמש בהערכה זו כדי לקבל החלטות רפואיות. תמיד התייעץ עם איש מקצוע בריאות או דיאטנית רשומה להמלצות ניהול משקל מותאמות אישית."
+        "description": "אל תשתמש/י בהערכה זו לקבלת החלטות רפואיות. תמיד התייעצ/י עם איש מקצוע רפואי או דיאטנ/ית קליני/ת לניהול משקל מותאם אישית."
       }
     },
     "healthMetrics": {
-      "description": "מטריקות אלו עוזרות לך להבין את צורכי האנרגיה של הגוף שלך ומנחות את מטרות התזונה שלך.",
+      "description": "מדדים אלה עוזרים לך להבין את צרכי האנרגיה של הגוף ולהנחות את יעדי התזונה שלך.",
       "bmr": {
         "title": "BMR",
-        "description": "קצב חילוף החומרים הבסיסי (BMR) הוא מספר הקלוריות שהגוף שלך שורף במנוחה כדי לשמור על פונקציות בסיסיות כמו נשימה וזרימת דם. ה-BMR תלוי בגיל, במגדר, בגובה ובמשקל שלך. BMR גבוה יותר פירושו שהגוף שלך שורף באופן טבעי יותר קלוריות במנוחה, לעיתים קרובות בגלל מסת שריר גבוהה יותר, גיל צעיר יותר או היותך גבר. BMR נמוך יותר בדרך כלל מצביע על פחות מסת שריר, גיל מבוגר יותר או היותך אישה."
+        "description": "קצב חילוף החומרים הבסיסי (BMR) הוא מספר הקלוריות שהגוף שורף במנוחה כדי לקיים תפקודים בסיסיים כמו נשימה וזרימת דם. BMR תלוי בגיל, מגדר, גובה ומשקל. BMR גבוה יותר משמעו שהגוף שורף יותר קלוריות במנוחה, לעיתים בשל מסת שריר גבוהה יותר, גיל צעיר יותר, או היותך זכר. BMR נמוך יותר מעיד לרוב על מסת שריר נמוכה יותר, גיל מבוגר יותר, או היותך נקבה."
       },
       "tdee": {
         "title": "TDEE",
-        "description": "ההוצאה הקולורית היומית הכוללת (TDEE) היא סך הקלוריות שאתה שורף ביום, כולל את ה-BMR שלך פלוס קלוריות מפעילות גופנית ותנועה יומית. ה-TDEE תלוי ב-BMR שלך וברמת הפעילות שלך. TDEE גבוה יותר פירושו שאתה שורף יותר קלוריות בסך הכל, בדרך כלל כתוצאה מפעילות רבה יותר או BMR גבוה יותר. TDEE נמוך יותר מצביע על פחות פעילות יומיומית או BMR נמוך יותר."
+        "description": "הוצאה אנרגטית יומית כוללת (TDEE) היא סך הקלוריות שאת/ה שורפ/ת ביום, כולל ה-BMR שלך בתוספת קלוריות מפעילות גופנית ותנועה יומית. TDEE תלוי ב-BMR וברמת הפעילות שלך. TDEE גבוה יותר משמעו שאת/ה שורפ/ת יותר קלוריות בסך הכול, בדרך כלל עקב פעילות גבוהה יותר או BMR גבוה יותר. TDEE נמוך יותר מצביע על פעילות יומית מועטה יותר או BMR נמוך."
       },
       "dailyGoal": {
-        "title": "מטרה יומית",
-        "description": "המטרה היומית היא צריכת הקלוריות היומית המומלצת שלך בהתבסס על ה-TDEE שלך ומטרת המשקל שלך. לצורך ירידת משקל, אתה צורך פחות קלוריות מה-TDEE שלך. לשמירה על משקל, אתה תואם את ה-TDEE שלך. לצורך עליית משקל, אתה צורך יותר קלוריות מה-TDEE שלך. זה עוזר לך להגיע לשינוי המשקל הרצוי שלך בקצב בריא."
+        "title": "יעד יומי",
+        "description": "היעד היומי הוא צריכת הקלוריות היומית המומלצת שלך בהתבסס על ה-TDEE ומטרת המשקל. לירידה במשקל, צורכים פחות קלוריות מה-TDEE. לשמירה על משקל, מתאימים ל-TDEE. לעלייה במשקל, צורכים יותר קלוריות מה-TDEE. זה עוזר לך להשיג שינוי משקל בקצב בריא."
       }
     },
     "calorieExpenditure": {
-      "title": "אומדן קלוריות שנשרפו",
-      "description": "כאשר נתוני Health Connect אינם זמינים, אנו מעריכים את הקלוריות שנשרפו היום באמצעות קצב חילוף החומרים הבסיסי שלך (BMR) וההוצאה הקולורית היומית הכוללת (TDEE), ומתאימים את ההערכה לפי החלק מהיום שעבר.",
+      "title": "הערכת הוצאת קלוריות",
+      "description": "כאשר נתוני Health Connect אינם זמינים, אנו מעריכים את הקלוריות שנשרפו היום באמצעות קצב חילוף החומרים הבסיסי (BMR) ורמת הפעילות (TDEE), מותאמים לחלק היום שעבר.",
       "howCalculated": {
         "title": "כיצד מחושבת ההערכה",
-        "description": "אנו מחשבים את ה‑TDEE שלך (בהתבסס על הפרופיל שלך) וכופלים אותו בשבר של היום שעבר (שעות + דקות) / 24 כדי לאמוד את הקלוריות שנשרפו עד כה."
+        "description": "אנחנו מחשבים את ה-TDEE שלך (על בסיס הפרופיל) ומכפילים אותו בשבריר היום שעבר (שעות + דקות) / 24 כדי להעריך את הקלוריות שנשרפו עד כה."
       },
       "professionalGuidance": {
-        "title": "הנחיות מקצועיות",
-        "description": "אין להשתמש בהערכה זו לקבלת החלטות רפואיות. תמיד יש להיוועץ עם איש מקצוע בתחום הבריאות או עם דיאטן/ית רשום/ה לצורך קבלת ייעוץ מותאם לניהול המשקל."
+        "title": "הנחיה מקצועית",
+        "description": "אל תשתמש/י בהערכה זו לקבלת החלטות רפואיות. תמיד התייעצ/י עם איש מקצוע רפואי או דיאטנ/ית קליני/ת להמלצות מותאמות אישית."
       }
     }
   },
@@ -658,24 +699,24 @@
     "continue": "המשך"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "נהנים מהשימוש ב{appLabel}?",
-    "yes": "כן, אני נהנה/נהנית",
+    "enjoyingQuestion": "נהנ/ית מ-{appLabel}?",
+    "yes": "כן, אני נהנ/ית",
     "no": "לא ממש",
-    "rateStepHeading": "דרג בחנות Play",
-    "emailStepHeading": "שלח משוב בדואר אלקטרוני",
-    "soloDevMessage": "דירוג קצר עוזר לאחרים למצוא את {appLabel} ומאפשר לנו להמשיך בפיתוח. האם ברצונך להקדיש רגע ולהשאיר דירוג?",
-    "shareFeedbackViaEmail": "המשוב שלך מעצב את הצעדים הבאים — אנחנו קוראים כל הודעה. האם ברצונך לשתף את מחשבותיך בדוא\"ל?",
-    "rateCta": "דרגו אותנו ב-Google Play",
+    "rateStepHeading": "דרג/י בחנות Play",
+    "emailStepHeading": "שליחת משוב בדוא\"ל",
+    "soloDevMessage": "דירוג קצר עוזר לאחרים למצוא את {appLabel} ושומר על המשך הפיתוח. תקדיש/י רגע להשאיר אחד?",
+    "shareFeedbackViaEmail": "המשוב שלך מעצב את הצעד הבא — אנחנו קוראים כל הודעה. לשתף מחשבות בדוא\"ל?",
+    "rateCta": "דרג/י בחנות Play",
     "maybeLater": "אולי אחר כך",
-    "sendFeedback": "שלח משוב",
+    "sendFeedback": "שלח/י משוב",
     "noThanks": "לא תודה",
-    "aboutUsDescription": "נוצר בקפידה על ידי צוות קטן. אנו שמים דגש על פרטיות, על פשטות, ועל סיוע לך בפיתוח הרגלי אכילה בריאים יותר.",
-    "aboutUsMentionBeforeLink": "סקרנים מי עומד מאחורי {appLabel}? ראה ",
-    "aboutUsLinkLabel": "עלינו",
-    "thankYouMessage": "תודה! נשאל שוב בהזדמנות אחרת."
+    "aboutUsDescription": "נבנה באהבה על ידי צוות קטן. אנחנו מתמקדים בפרטיות, פשטות ובבניית הרגלי אכילה טובים יותר.",
+    "aboutUsMentionBeforeLink": "סקרנים מי עומד מאחורי {appLabel}? ראו ",
+    "aboutUsLinkLabel": "אודותינו",
+    "thankYouMessage": "תודה! נשאל שוב בפעם אחרת."
   },
   "health": {
-    "syncFailed": "לא ניתן לסנכרן עם Health Connect",
+    "syncFailed": "לא ניתן היה לסנכרן ל-Health Connect",
     "mealSynced": "הארוחה סונכרנה עם Health Connect"
   }
 }

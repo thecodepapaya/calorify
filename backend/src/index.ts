@@ -217,8 +217,8 @@ async function buildApp() {
       return {
         statusCode: 429,
         error: 'Too Many Requests',
+        ok: false,
         message: `Rate limit exceeded. Try again in ${context.after}.`,
-        detail: 'RATE_LIMIT_EXCEEDED',
       };
     },
   });

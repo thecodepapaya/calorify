@@ -54,13 +54,11 @@ class WatchNetworkClient {
     return dio;
   }
 
-  /// POST [endpoint] with [request] serialised as proto3 JSON; deserialise the
-  /// response into a new [RespT] instance produced by [parseResponse].
-  Future<RespT>
-  apiCall<ReqT extends GeneratedMessage, RespT extends GeneratedMessage>(
+  /// Proto3 JSON over HTTP: GET when [request] is null, otherwise POST.
+  Future<RespT> apiCall<ReqT extends GeneratedMessage, RespT extends GeneratedMessage>(
     String endpoint,
     RespT Function() parseResponse, {
-    required ReqT request,
+    ReqT? request,
   }) async {
     final session = await WatchAuthSession.instance.getSession(
       refreshIfNeeded: true,
@@ -71,10 +69,12 @@ class WatchNetworkClient {
       );
     }
 
-    final response = await _dio.post<Map<String, dynamic>>(
-      endpoint,
-      data: request.toProto3Json(),
-    );
+    final response = request == null
+        ? await _dio.get<Map<String, dynamic>>(endpoint)
+        : await _dio.post<Map<String, dynamic>>(
+            endpoint,
+            data: request.toProto3Json(),
+          );
     final data = response.data;
     if (data == null) {
       throw StateError(

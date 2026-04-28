@@ -2,7 +2,7 @@ import config from '../config.js';
 import { query, withTransaction } from './database.js';
 
 export type MealAnalysisSource = 'text' | 'image';
-export type FeedbackSignal = 'up' | 'down';
+export type FeedbackSignal = 'UP' | 'DOWN';
 export type MealTypeSource = 'model' | 'user';
 
 export interface MealAnalysisSessionRecord {

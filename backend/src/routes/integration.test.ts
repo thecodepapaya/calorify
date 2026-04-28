@@ -1,6 +1,11 @@
 import { after, before, describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { mock } from 'node:test';
+import Fastify, { type FastifyInstance } from 'fastify';
+import cors from '@fastify/cors';
+import multipart from '@fastify/multipart';
+import rateLimit from '@fastify/rate-limit';
+import { errorHandler } from '../utils/errors.js';
 
 // ---------------------------------------------------------------------------
 // Mocks — must be registered before any import that transitively loads them.
@@ -50,7 +55,7 @@ await mock.module('../services/nutritionEngineV2.js', {
   namedExports: {
     analyzeTextMeal: mock.fn(async function* () {
       yield {
-        step: 'result',
+        step: 'RESULT',
         data: {
           meal_name: 'Test',
           macros: {},
@@ -61,25 +66,25 @@ await mock.module('../services/nutritionEngineV2.js', {
       };
     }),
     analyzeImageMeal: mock.fn(async function* () {
-      yield { step: 'result', data: {} };
+      yield { step: 'RESULT', data: {} };
     }),
     continueMealAnalysis: mock.fn(async function* () {
-      yield { step: 'result', data: {} };
+      yield { step: 'RESULT', data: {} };
     }),
     continueMealAnalysisWithMealType: mock.fn(async function* () {
-      yield { step: 'result', data: {} };
+      yield { step: 'RESULT', data: {} };
     }),
     reanalyzeMeal: mock.fn(async function* () {
-      yield { step: 'result', data: {} };
+      yield { step: 'RESULT', data: {} };
     }),
     FEEDBACK_ISSUES: [
-      'portion_size',
-      'macros_wrong',
-      'wrong_food',
-      'missing_ingredient',
-      'extra_ingredient',
-      'wrong_meal_type',
-      'other',
+      'FOOD_IDENTIFICATION',
+      'PORTION_SIZE',
+      'CALORIE_DISTRIBUTION',
+      'MACROS_WRONG',
+      'MISSING_ITEMS',
+      'EXTRA_ITEMS',
+      'OTHER',
     ],
     MEAL_TYPES: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK'],
   },
@@ -116,16 +121,11 @@ await mock.module('../utils/locale.js', {
   },
 });
 
+const { registerRoutes } = await import('../routes/index.js');
+
 // ---------------------------------------------------------------------------
 // Build the test app (mirrors src/index.ts buildApp(), minus swagger/logging)
 // ---------------------------------------------------------------------------
-
-import Fastify, { type FastifyInstance } from 'fastify';
-import cors from '@fastify/cors';
-import multipart from '@fastify/multipart';
-import rateLimit from '@fastify/rate-limit';
-import { registerRoutes } from '../routes/index.js';
-import { errorHandler } from '../utils/errors.js';
 
 async function buildTestApp(rateLimitMax = 100): Promise<FastifyInstance> {
   const fastify = Fastify({ logger: false });
@@ -149,8 +149,8 @@ async function buildTestApp(rateLimitMax = 100): Promise<FastifyInstance> {
     errorResponseBuilder: (_request: any, context: any) => ({
       statusCode: 429,
       error: 'Too Many Requests',
+      ok: false,
       message: `Rate limit exceeded. Try again in ${context.after}.`,
-      detail: 'RATE_LIMIT_EXCEEDED',
     }),
   });
 
@@ -208,12 +208,23 @@ describe('Route registration', () => {
     assert.equal(res.statusCode, 401);
   });
 
+  it('GET /api/v1/food/meal-analysis-tips without auth returns 401', async () => {
+    const res = await app.inject({
+      method: 'GET',
+      url: '/api/v1/food/meal-analysis-tips',
+    });
+    assert.equal(res.statusCode, 401);
+  });
+
   it('POST /api/v1/food/detect-text with missing body returns 400', async () => {
     const res = await app.inject({
       method: 'POST',
       url: '/api/v1/food/detect-text',
-      headers: { 'content-type': 'application/json' },
-      payload: JSON.stringify({}),
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer valid-token',
+      },
+      payload: {},
     });
     assert.equal(res.statusCode, 400);
   });
@@ -222,8 +233,11 @@ describe('Route registration', () => {
     const res = await app.inject({
       method: 'POST',
       url: '/api/v1/food/detect-image',
-      headers: { 'content-type': 'application/json' },
-      payload: JSON.stringify({}),
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer valid-token',
+      },
+      payload: {},
     });
     assert.equal(res.statusCode, 400);
   });
@@ -366,19 +380,23 @@ describe('404 for unknown routes', () => {
 // ---------------------------------------------------------------------------
 
 describe('Error handler format', () => {
-  it('unhandled thrown error returns 500 JSON with detail field', async () => {
-    // Register a one-off route on the shared app to trigger the error handler.
-    app.get('/test-error', async () => {
+  it('unhandled thrown error returns 500 JSON with ApiResult shape', async () => {
+    const errApp = Fastify({ logger: false });
+    errApp.setErrorHandler(errorHandler);
+    errApp.get('/test-error', async () => {
       throw new Error('Test error');
     });
+    await errApp.ready();
 
-    const res = await app.inject({ method: 'GET', url: '/test-error' });
+    const res = await errApp.inject({ method: 'GET', url: '/test-error' });
     assert.equal(res.statusCode, 500);
 
     const body = res.json();
     assert.equal(typeof body, 'object');
-    assert.ok('detail' in body, 'Expected response body to have a "detail" field');
-    assert.equal(typeof body.detail, 'string');
+    assert.equal(body.ok, false);
+    assert.ok('message' in body, 'Expected response body to have a "message" field');
+    assert.equal(typeof body.message, 'string');
+    await errApp.close();
   });
 });
 
@@ -387,7 +405,7 @@ describe('Error handler format', () => {
 // ---------------------------------------------------------------------------
 
 describe('Rate limit response format', () => {
-  it('third request on a max-2 app returns 429 with RATE_LIMIT_EXCEEDED detail', async () => {
+  it('third request on a max-2 app returns 429 with rate limit message', async () => {
     const limitedApp = await buildTestApp(2);
 
     try {
@@ -403,10 +421,10 @@ describe('Rate limit response format', () => {
       assert.equal(res3.statusCode, 429);
 
       const body = res3.json();
-      assert.equal(
-        body.detail,
-        'RATE_LIMIT_EXCEEDED',
-        'Expected detail to be RATE_LIMIT_EXCEEDED'
+      assert.equal(body.ok, false);
+      assert.ok(
+        typeof body.message === 'string' && body.message.toLowerCase().includes('rate limit'),
+        `Expected rate limit message, got ${JSON.stringify(body)}`
       );
     } finally {
       await limitedApp.close();

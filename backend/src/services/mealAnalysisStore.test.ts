@@ -292,25 +292,25 @@ test('recordMealAnalysisMealType updates session with meal type and source', asy
 
 test('recordMealAnalysisFeedback inserts into meal_analysis_feedback', async () => {
   resetQuery();
-  await recordMealAnalysisFeedback({ analysisId: 'fb-1', signal: 'up' });
+  await recordMealAnalysisFeedback({ analysisId: 'fb-1', signal: 'UP' });
   const [sql] = mockQuery.mock.calls[0]!.arguments as [string];
   assert.ok(sql.includes('INSERT INTO meal_analysis_feedback'));
 });
 
 test('recordMealAnalysisFeedback passes analysisId and signal', async () => {
   resetQuery();
-  await recordMealAnalysisFeedback({ analysisId: 'fb-2', userId: 'u1', signal: 'up' });
+  await recordMealAnalysisFeedback({ analysisId: 'fb-2', userId: 'u1', signal: 'UP' });
   const [, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
   assert.equal(params[0], 'fb-2');
   assert.equal(params[1], 'u1');
-  assert.equal(params[2], 'up');
+  assert.equal(params[2], 'UP');
 });
 
 test('recordMealAnalysisFeedback passes issues array for down signal', async () => {
   resetQuery();
   await recordMealAnalysisFeedback({
     analysisId: 'fb-3',
-    signal: 'down',
+    signal: 'DOWN',
     issues: ['portion_size', 'macros_wrong'],
     otherText: 'too small',
   });
@@ -321,21 +321,21 @@ test('recordMealAnalysisFeedback passes issues array for down signal', async () 
 
 test('recordMealAnalysisFeedback uses null userId when not provided', async () => {
   resetQuery();
-  await recordMealAnalysisFeedback({ analysisId: 'fb-4', signal: 'up' });
+  await recordMealAnalysisFeedback({ analysisId: 'fb-4', signal: 'UP' });
   const [, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
   assert.equal(params[1], null);
 });
 
 test('recordMealAnalysisFeedback uses empty array for missing issues', async () => {
   resetQuery();
-  await recordMealAnalysisFeedback({ analysisId: 'fb-5', signal: 'down' });
+  await recordMealAnalysisFeedback({ analysisId: 'fb-5', signal: 'DOWN' });
   const [, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
   assert.deepEqual(params[3], []);
 });
 
 test('recordMealAnalysisFeedback uses null otherText when not provided', async () => {
   resetQuery();
-  await recordMealAnalysisFeedback({ analysisId: 'fb-6', signal: 'down', issues: ['other'] });
+  await recordMealAnalysisFeedback({ analysisId: 'fb-6', signal: 'DOWN', issues: ['other'] });
   const [, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
   assert.equal(params[4], null);
 });

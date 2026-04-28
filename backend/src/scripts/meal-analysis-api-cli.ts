@@ -83,29 +83,35 @@ type Args = {
 
 type V2Event =
   | {
-      step: 'decomposition';
+      step: 'STARTED';
       data: {
-        analysis_id: string;
-        meal_name: string;
+        analysisId: string;
+      };
+    }
+  | {
+      step: 'DECOMPOSITION';
+      data: {
+        analysisId: string;
+        mealName: string;
         confidence: number;
         ingredients: Array<{
-          raw_name: string;
-          canonical_hint: string;
-          grams_estimated: number;
-          min_grams: number;
-          max_grams: number;
+          rawName: string;
+          canonicalHint: string;
+          gramsEstimated: number;
+          minGrams: number;
+          maxGrams: number;
           notes: string;
         }>;
       };
     }
   | {
-      step: 'ingredients';
+      step: 'INGREDIENTS';
       data: {
-        analysis_id: string;
+        analysisId: string;
         ingredients: Array<{
-          raw_name: string;
-          canonical_name: string;
-          match_type: string;
+          rawName: string;
+          canonicalName: string;
+          matchType: string;
           grams: number;
           source: 'db' | 'llm_fallback';
           macros: {
@@ -119,44 +125,44 @@ type V2Event =
       };
     }
   | {
-      step: 'uncertainty';
+      step: 'UNCERTAINTY';
       data: {
-        analysis_id: string;
-        variance_percent: number;
-        needs_clarification: boolean;
-        calorie_band: { min: number; max: number };
+        analysisId: string;
+        variancePercent: number;
+        needsClarification: boolean;
+        calorieBand: { min: number; max: number };
         clarifications: Array<{
-          ingredient_name: string;
+          ingredientName: string;
           question: string;
-          default_option_index: number;
+          defaultOptionIndex: number;
           options: Array<{
             label: string;
             grams: number;
-            calorie_delta: number;
+            calorieDelta: number;
           }>;
         }>;
       };
     }
   | {
-      step: 'meal_type_question';
+      step: 'MEAL_TYPE_QUESTION';
       data: {
-        analysis_id: string;
+        analysisId: string;
         question: string;
         options: string[];
-        inferred_meal_type?: string;
+        inferredMealType?: string;
       };
     }
   | {
-      step: 'result';
+      step: 'RESULT';
       data: {
-        analysis_id: string;
-        meal_name: string;
+        analysisId: string;
+        mealName: string;
         quantity: string;
-        meal_type: string;
-        meal_type_source: string;
+        mealType: string;
+        mealTypeSource: string;
         tip: string;
-        calorie_confidence: string;
-        calorie_band: { min: number; max: number };
+        calorieConfidence: string;
+        calorieBand: { min: number; max: number };
         macros: {
           calories: number;
           protein: number;
@@ -165,13 +171,13 @@ type V2Event =
           fiber: number;
         };
         health: null | {
-          health_score: string;
-          health_score_reason: string;
+          healthScore: string;
+          healthScoreReason: string;
         };
         ingredients: Array<{
-          raw_name: string;
-          canonical_name: string;
-          match_type: string;
+          rawName: string;
+          canonicalName: string;
+          matchType: string;
           grams: number;
           source: 'db' | 'llm_fallback';
           macros: {
@@ -185,17 +191,17 @@ type V2Event =
       };
     }
   | {
-      step: 'error';
+      step: 'ERROR';
       data: {
-        analysis_id: string;
+        analysisId: string;
         message: string;
       };
     };
 
 type StreamOutcome =
-  | { kind: 'result'; analysisId: string; result: Extract<V2Event, { step: 'result' }>['data'] }
-  | { kind: 'clarification'; analysisId: string; clarifications: Extract<V2Event, { step: 'uncertainty' }>['data']['clarifications'] }
-  | { kind: 'meal-type'; analysisId: string; question: Extract<V2Event, { step: 'meal_type_question' }>['data'] }
+  | { kind: 'result'; analysisId: string; result: Extract<V2Event, { step: 'RESULT' }>['data'] }
+  | { kind: 'clarification'; analysisId: string; clarifications: Extract<V2Event, { step: 'UNCERTAINTY' }>['data']['clarifications'] }
+  | { kind: 'meal-type'; analysisId: string; question: Extract<V2Event, { step: 'MEAL_TYPE_QUESTION' }>['data'] }
   | { kind: 'error'; analysisId?: string; message: string };
 
 // Records what happened in each HTTP call for the flow summary.
@@ -461,21 +467,25 @@ function printEvent(
   const tag = C(`[${ts(sinceStartMs)}]`);
 
   switch (event.step) {
-    case 'decomposition': {
+    case 'STARTED':
+      console.log(`${tag} ${B('STARTED')}  analysisId=${D(event.data.analysisId)}`);
+      break;
+
+    case 'DECOMPOSITION': {
       const conf = event.data.confidence >= 0.8 ? G : event.data.confidence >= 0.5 ? Y : R;
-      console.log(`${tag} ${B('decomposition')}  ${event.data.meal_name}  confidence=${conf(String(event.data.confidence))}`);
+      console.log(`${tag} ${B('DECOMPOSITION')}  ${event.data.mealName}  confidence=${conf(String(event.data.confidence))}`);
       const rows = event.data.ingredients.map((ing) => [
-        ing.raw_name,
-        ing.canonical_hint,
-        `${ing.grams_estimated}g`,
-        `${ing.min_grams}–${ing.max_grams}g`,
+        ing.rawName,
+        ing.canonicalHint,
+        `${ing.gramsEstimated}g`,
+        `${ing.minGrams}–${ing.maxGrams}g`,
       ]);
       console.log(renderTable(['Ingredient', 'Canonical hint', 'Est', 'Range'], rows)
         .split('\n').map((l) => `  ${l}`).join('\n'));
       break;
     }
 
-    case 'ingredients': {
+    case 'INGREDIENTS': {
       const n = event.data.ingredients.length;
       const db = event.data.ingredients.filter((i) => i.source === 'db').length;
       const ai = n - db;
@@ -483,12 +493,12 @@ function printEvent(
       const aiTag = ai > 0 ? Y(`AI: ${ai}`) : D(`AI: 0`);
 
       if (isContinuation) {
-        console.log(`${tag} ${B('ingredients')}  ${n} resolved  ${dbTag}  ${aiTag}  ${D('(unchanged — loaded from session)')}`);
+        console.log(`${tag} ${B('INGREDIENTS')}  ${n} resolved  ${dbTag}  ${aiTag}  ${D('(unchanged — loaded from session)')}`);
       } else {
-        console.log(`${tag} ${B('ingredients')}  ${n} resolved  ${dbTag}  ${aiTag}`);
+        console.log(`${tag} ${B('INGREDIENTS')}  ${n} resolved  ${dbTag}  ${aiTag}`);
         const rows = event.data.ingredients.map((ing) => [
-          ing.raw_name,
-          ing.canonical_name,
+          ing.rawName,
+          ing.canonicalName,
           sourceBadge(ing.source),
           `${ing.grams}g`,
         ]);
@@ -498,19 +508,19 @@ function printEvent(
       break;
     }
 
-    case 'uncertainty': {
-      const v = event.data.variance_percent;
+    case 'UNCERTAINTY': {
+      const v = event.data.variancePercent;
       const vStr = pct(v);
-      const band = `${event.data.calorie_band.min}–${event.data.calorie_band.max} kcal`;
+      const band = `${event.data.calorieBand.min}–${event.data.calorieBand.max} kcal`;
 
-      if (event.data.needs_clarification) {
-        console.log(`${tag} ${B('uncertainty')}  variance=${Y(vStr)}  band=${band}  ${Y('→ clarification needed')}`);
+      if (event.data.needsClarification) {
+        console.log(`${tag} ${B('UNCERTAINTY')}  variance=${Y(vStr)}  band=${band}  ${Y('→ clarification needed')}`);
         for (const clarification of event.data.clarifications) {
           console.log(`\n  ${B('?')} ${clarification.question}`);
           const rows = clarification.options.map((opt, idx) => {
-            const isDefault = idx === clarification.default_option_index;
+            const isDefault = idx === clarification.defaultOptionIndex;
             const label = isDefault ? `${opt.label} [default]` : opt.label;
-            const delta = opt.calorie_delta === 0 ? '±0' : opt.calorie_delta > 0 ? `+${opt.calorie_delta}` : String(opt.calorie_delta);
+            const delta = opt.calorieDelta === 0 ? '±0' : opt.calorieDelta > 0 ? `+${opt.calorieDelta}` : String(opt.calorieDelta);
             return [`${idx + 1}`, label, `${opt.grams}g`, `${delta} kcal`];
           });
           console.log(renderTable(['#', 'Option', 'Grams', 'Calorie delta'], rows)
@@ -518,24 +528,24 @@ function printEvent(
         }
       } else {
         const vColor = v <= 0.1 ? G : v <= 0.2 ? Y : R;
-        console.log(`${tag} ${B('uncertainty')}  variance=${vColor(vStr)}  band=${G(band)}  ${G('✓ no clarification needed')}`);
+        console.log(`${tag} ${B('UNCERTAINTY')}  variance=${vColor(vStr)}  band=${G(band)}  ${G('✓ no clarification needed')}`);
       }
       break;
     }
 
-    case 'meal_type_question':
+    case 'MEAL_TYPE_QUESTION':
       console.log(
-        `${tag} ${B('meal_type_question')}  ${event.data.question}  options=${event.data.options.join(' | ')}${
-          event.data.inferred_meal_type ? `  ${D(`inferred=${event.data.inferred_meal_type}`)}` : ''
+        `${tag} ${B('MEAL_TYPE_QUESTION')}  ${event.data.question}  options=${event.data.options.join(' | ')}${
+          event.data.inferredMealType ? `  ${D(`inferred=${event.data.inferredMealType}`)}` : ''
         }`
       );
       break;
 
-    case 'result': {
+    case 'RESULT': {
       const m = event.data.macros;
-      const confColor = event.data.calorie_confidence === 'HIGH' ? G : event.data.calorie_confidence === 'MEDIUM' ? Y : R;
+      const confColor = event.data.calorieConfidence === 'HIGH' ? G : event.data.calorieConfidence === 'MEDIUM' ? Y : R;
       console.log(
-        `${tag} ${G(B('result'))}  ${B(event.data.meal_name)}  ·  ${event.data.meal_type}  ·  confidence=${confColor(event.data.calorie_confidence)}`
+        `${tag} ${G(B('RESULT'))}  ${B(event.data.mealName)}  ·  ${event.data.mealType}  ·  confidence=${confColor(event.data.calorieConfidence)}`
       );
 
       // Macros table
@@ -549,15 +559,15 @@ function printEvent(
       console.log(renderTable(['Macro', 'Amount'], macroRows)
         .split('\n').map((l) => `  ${l}`).join('\n'));
 
-      const band = `${event.data.calorie_band.min}–${event.data.calorie_band.max} kcal`;
+      const band = `${event.data.calorieBand.min}–${event.data.calorieBand.max} kcal`;
       console.log(`  ${D('Band:')} ${band}  (${event.data.quantity})`);
 
       if (event.data.health) {
         const healthColor =
-          event.data.health.health_score === 'HEALTHY' ? G :
-          event.data.health.health_score === 'NEUTRAL' ? Y : R;
-        console.log(`  ${D('Health:')} ${healthColor(event.data.health.health_score)}`);
-        console.log(`  ${D('       ')} ${event.data.health.health_score_reason}`);
+          event.data.health.healthScore === 'HEALTHY' ? G :
+          event.data.health.healthScore === 'NEUTRAL' ? Y : R;
+        console.log(`  ${D('Health:')} ${healthColor(event.data.health.healthScore)}`);
+        console.log(`  ${D('       ')} ${event.data.health.healthScoreReason}`);
       }
       if (event.data.tip) {
         console.log(`  ${D('Tip:')}    ${event.data.tip}`);
@@ -566,8 +576,8 @@ function printEvent(
       // Ingredient breakdown table
       console.log(`\n  ${B('Ingredients')}`);
       const ingRows = event.data.ingredients.map((ing) => [
-        ing.raw_name,
-        ing.canonical_name,
+        ing.rawName,
+        ing.canonicalName,
         sourceBadge(ing.source),
         `${ing.grams}g`,
         `${ing.macros.calories}`,
@@ -582,8 +592,8 @@ function printEvent(
       break;
     }
 
-    case 'error':
-      console.log(`${tag} ${R(B('error'))}  ${event.data.message}`);
+    case 'ERROR':
+      console.log(`${tag} ${R(B('ERROR'))}  ${event.data.message}`);
       break;
   }
 }
@@ -668,28 +678,28 @@ async function postStream(
       console.log(`${D('[raw]')} ${line}`);
     }
     const event = JSON.parse(line) as V2Event;
-    analysisId = (event as { data?: { analysis_id?: string } }).data?.analysis_id ?? analysisId;
+    analysisId = (event as { data?: { analysisId?: string } }).data?.analysisId ?? analysisId;
     const now = Date.now();
     printEvent(event, now - startedAt, isContinuation);
 
-    if (event.step === 'result') {
-      outcome = { kind: 'result', analysisId: event.data.analysis_id, result: event.data };
+    if (event.step === 'RESULT') {
+      outcome = { kind: 'result', analysisId: event.data.analysisId, result: event.data };
       return;
     }
-    if (event.step === 'error') {
-      outcome = { kind: 'error', analysisId: event.data.analysis_id, message: event.data.message };
+    if (event.step === 'ERROR') {
+      outcome = { kind: 'error', analysisId: event.data.analysisId, message: event.data.message };
       return;
     }
-    if (event.step === 'uncertainty' && event.data.needs_clarification && event.data.clarifications.length > 0) {
+    if (event.step === 'UNCERTAINTY' && event.data.needsClarification && event.data.clarifications.length > 0) {
       outcome = {
         kind: 'clarification',
-        analysisId: event.data.analysis_id,
+        analysisId: event.data.analysisId,
         clarifications: event.data.clarifications,
       };
       return;
     }
-    if (event.step === 'meal_type_question') {
-      outcome = { kind: 'meal-type', analysisId: event.data.analysis_id, question: event.data };
+    if (event.step === 'MEAL_TYPE_QUESTION') {
+      outcome = { kind: 'meal-type', analysisId: event.data.analysisId, question: event.data };
     }
   });
 
@@ -704,18 +714,21 @@ async function postStream(
 
 async function promptForClarifications(
   clarifications: Extract<StreamOutcome, { kind: 'clarification' }>['clarifications']
-): Promise<Array<{ ingredient_name: string; selected_option_index: number }>> {
+): Promise<Array<{ ingredientName: string; selectedOptionIndex: number }>> {
   const rl = createInterface({ input: process.stdin, output: process.stdout });
   try {
-    const answers: Array<{ ingredient_name: string; selected_option_index: number }> = [];
+    const answers: Array<{ ingredientName: string; selectedOptionIndex: number }> = [];
     for (const clarification of clarifications) {
-      const raw = await rl.question(`\nSelect option for "${clarification.ingredient_name}" (1–${clarification.options.length}): `);
+      const raw = await rl.question(`\nSelect option for "${clarification.ingredientName}" (1–${clarification.options.length}): `);
       const numeric = Number.parseInt(raw.trim(), 10);
       const selected =
         Number.isFinite(numeric) && numeric >= 1 && numeric <= clarification.options.length
           ? numeric - 1
-          : clarification.default_option_index;
-      answers.push({ ingredient_name: clarification.ingredient_name, selected_option_index: selected });
+          : clarification.defaultOptionIndex;
+      answers.push({
+        ingredientName: clarification.ingredientName,
+        selectedOptionIndex: selected,
+      });
     }
     return answers;
   } finally {
@@ -730,7 +743,7 @@ async function promptForMealType(
   try {
     console.log(`\n  ${B(question.question)}`);
     question.options.forEach((option, index) => {
-      const inferred = option === question.inferred_meal_type ? D(' (inferred)') : '';
+      const inferred = option === question.inferredMealType ? D(' (inferred)') : '';
       console.log(`    ${index + 1}.  ${option}${inferred}`);
     });
     const raw = await rl.question('  Select number: ');
@@ -987,7 +1000,7 @@ async function run(args: Args): Promise<number> {
   switch (outcome.kind) {
     case 'result':
       console.log(`  ${G('Analysis completed.')}  analysisId=${outcome.analysisId}`);
-      console.log(`  ${D('Meal:')} ${outcome.result.meal_name}`);
+      console.log(`  ${D('Meal:')} ${outcome.result.mealName}`);
       break;
     case 'clarification':
       console.log(`  ${Y('Stopped at clarification.')}  analysisId=${outcome.analysisId}`);

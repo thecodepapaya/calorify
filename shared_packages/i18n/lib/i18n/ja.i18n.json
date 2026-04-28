@@ -3,140 +3,140 @@
   "flag": "🇯🇵",
   "appLabel": "Calorify{env}",
   "errors": {
-    "rateLimitExceeded": "リクエストが多すぎます。しばらく待ってからもう一度お試しください。",
-    "networkError": "ネットワークエラーです。インターネット接続を確認してください。",
-    "unknownError": "問題が発生しました。後でもう一度お試しください。",
-    "loadingProfileData": "プロフィールデータの読み込みエラー",
-    "somethingWentWrong": "何かがうまくいきませんでした。",
-    "retry": "もう一度試す"
+    "rateLimitExceeded": "リクエストが多すぎます。少し待ってからもう一度お試しください。",
+    "networkError": "ネットワークエラー。インターネット接続を確認してください。",
+    "unknownError": "問題が発生しました。しばらくしてからもう一度お試しください。",
+    "loadingProfileData": "プロフィールデータの読み込みでエラーが発生しました",
+    "somethingWentWrong": "問題が発生しました。",
+    "retry": "再試行"
   },
   "onboarding": {
-    "welcome": "{appLabel}へようこそ",
-    "subtitle": "AI搭載のパーソナル栄養パートナー",
-    "getStarted": "始める",
+    "welcome": "{appLabel} へようこそ",
+    "subtitle": "AI 搭載のあなた専用の栄養コンパニオン",
+    "getStarted": "はじめる",
     "features": {
       "foodRecognition": {
-        "title": "スマートフード認識",
-        "description": "写真を撮ってAIに食事を特定させましょう"
+        "title": "スマートな食品認識",
+        "description": "写真を撮るだけで AI が食事を特定します"
       },
       "aiAnalysis": {
-        "title": "AI分析",
-        "description": "あなたの説明から即座に栄養情報を取得"
+        "title": "AI 解析",
+        "description": "説明文から瞬時に栄養情報を取得"
       },
       "healthIntegration": {
-        "title": "ヘルスケア連携",
-        "description": "より良いインサイトを得るためにHealth Connectと接続します"
+        "title": "ヘルス連携",
+        "description": "Health Connect と接続して、より良いインサイトを"
       }
     },
     "gender": {
-      "title": "あなたの性別は何ですか？",
-      "description": "性別は基礎代謝率 (BMR) を正確に計算するのに役立ちます。",
+      "title": "性別を教えてください",
+      "description": "性別は基礎代謝量（BMR）の正確な計算に役立ちます。",
       "next": "次へ"
     },
     "height": {
-      "title": "あなたの身長はどれくらいですか？",
-      "description": "あなたの身長は、BMIとエネルギーの必要量を正確に計算するのに役立ちます。",
+      "title": "身長はどのくらいですか？",
+      "description": "身長は BMI とエネルギー必要量の正確な計算に役立ちます。",
       "metric": "メートル法",
       "imperial": "ヤード・ポンド法",
       "next": "次へ"
     },
     "weight": {
-      "currentTitle": "現在の体重はどれくらいですか？",
-      "currentDescription": "現在の体重は、あなたの日々の目標をパーソナライズするために重要です。",
-      "targetTitle": "目標体重はどれくらいですか？",
-      "targetDescription": "目標体重を設定すると、長期的な計画を立てやすくなります。",
+      "currentTitle": "現在の体重は？",
+      "currentDescription": "日々の目標をパーソナライズするために必要です。",
+      "targetTitle": "目標体重は？",
+      "targetDescription": "目標体重の設定は、長期プランの策定に役立ちます。",
       "metric": "メートル法",
       "imperial": "ヤード・ポンド法",
       "next": "次へ"
     },
     "age": {
-      "title": "あなたの誕生日はいつですか？",
-      "description": "あなたの年齢は、カロリーの必要量を正確に計算するのに役立ちます。",
+      "title": "誕生日はいつですか？",
+      "description": "年齢は正確なカロリー必要量の計算に役立ちます。",
       "next": "次へ"
     },
     "bmiScale": {
       "underweight": "低体重",
-      "healthy": "健康",
+      "healthy": "標準",
       "overweight": "過体重",
       "obese": "肥満",
       "categories": {
         "underweight": "低体重",
-        "healthyWeight": "健康体重",
+        "healthyWeight": "標準体重",
         "overweight": "過体重",
         "obese": "肥満"
       },
       "messages": {
-        "underweight": "栄養価の高い食事でバランスの取れた体重に到達するための健康的なプランを一緒に作りましょう。",
-        "healthy": "素晴らしい！あなたは健康的な範囲にいます。活力とエネルギーレベルを維持するお手伝いをします。",
-        "overweight": "{appLabel}は、AIを活用したトラッキングで、快適に目標を達成する手助けをします。",
-        "obese": "あなたの健康目標のために、個別の指導と持続可能な戦略でサポートします。"
+        "underweight": "栄養価の高い食事でバランスのとれた体重に近づく健康的なプラン作りをお手伝いします。",
+        "healthy": "素晴らしいですね！健康的な範囲にあります。活力とエネルギーの維持をサポートします。",
+        "overweight": "{appLabel} は AI を活用したトラッキングで、無理なく目標に近づく旅をシンプルにします。",
+        "obese": "あなたの健康目標に向けて、パーソナライズされたガイダンスと持続可能な戦略で寄り添います。"
       }
     },
     "weightGoal": {
-      "title": "あなたの目標は何ですか？",
-      "description": "達成したいことを最もよく表す目標を選んでください。"
+      "title": "目標は何ですか？",
+      "description": "あなたが達成したい内容に最も近い目標を選びましょう"
     },
     "activityLevel": {
-      "title": "あなたはどれくらい活動的ですか？",
-      "description": "これにより、日々のカロリー必要量をより正確に計算できます。"
+      "title": "普段の活動量は？",
+      "description": "より正確な 1 日のカロリー必要量の計算に役立ちます"
     },
     "healthConnect": {
-      "title": "Health Connectと接続",
-      "description": "健康データを同期して、より良いインサイトと自動カロリートラッキングを利用しましょう",
+      "title": "Health Connect と連携",
+      "description": "健康データを同期して、より良いインサイトと自動カロリートラッキングを",
       "automaticTracking": {
         "title": "自動カロリートラッキング",
-        "description": "フィットネスアプリから消費カロリーを追跡します"
+        "description": "フィットネスアプリからの消費カロリーを記録"
       },
       "progressInsights": {
-        "title": "進捗の洞察",
-        "description": "健康トレンドに関する詳細な洞察を得ましょう"
+        "title": "進捗インサイト",
+        "description": "健康の傾向を詳しく把握"
       },
       "seamlessIntegration": {
         "title": "シームレスな統合",
-        "description": "お気に入りの健康アプリからデータを同期します"
+        "description": "お気に入りのヘルスアプリとデータを同期"
       },
-      "connected": "Health Connectに接続済み",
-      "notConnected": "Health Connectに未接続",
-      "setup": "Health Connectを設定",
+      "connected": "Health Connect 連携済み",
+      "notConnected": "Health Connect 未連携",
+      "setup": "Health Connect を設定",
       "skipForNow": "今はスキップ",
-      "statusConnected": "Health Connectが接続されました。",
-      "statusSuccess": "Health Connectが正常に接続されました！",
-      "statusPermissionDenied": "権限が拒否されました。スマートフォンの設定で{appLabel}のHealth Connect権限を有効にしてください。",
-      "statusError": "Health Connectの設定中にエラーが発生しました: {error}"
+      "statusConnected": "Health Connect は接続済みです。",
+      "statusSuccess": "Health Connect の接続に成功しました！",
+      "statusPermissionDenied": "権限が拒否されました。{appLabel} の設定から Health Connect の権限を有効にしてください。",
+      "statusError": "Health Connect の設定中にエラーが発生しました: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
-        "title": "あなたは一人じゃない",
-        "genericMessage": "研究によると、一貫したトラッキングは長期的な成功の最も大きな予測因子です。",
-        "personalizedMessage": "{age}歳の{gender}が{goal}を目指すためには、一貫したトラッキングが成功の最も大きな予測因子です。",
-        "closingMessage": "{appLabel}は手動で行うよりも10倍簡単にします。",
-        "getStartedTitle": "始める準備はできましたか？",
-        "tipPhoto": "食事の写真を撮影して瞬時に分析します",
-        "tipConsistency": "一貫して記録して、意味のある進捗を確認しましょう",
-        "tipProgress": "やる気を保つために、毎日進捗を追跡しましょう",
-        "button": "行きましょう",
-        "defaultGender": "個人",
-        "defaultGoal": "より健康的な自分"
+        "title": "一人じゃありません",
+        "genericMessage": "研究によると、継続的な記録が長期的な成功の最も強力な指標です。",
+        "personalizedMessage": "{goal} を目指す {age} 歳の{gender}にとっても、継続的な記録が成功のいちばんの近道です。",
+        "closingMessage": "{appLabel} なら、手作業の 10 分の 1 の手間で続けられます。",
+        "getStartedTitle": "さあ、始めましょうか？",
+        "tipPhoto": "食事の写真を撮れば即座に分析できます",
+        "tipConsistency": "継続して記録すると、意味のある進捗が見えてきます",
+        "tipProgress": "毎日進捗を振り返ってモチベーションを維持",
+        "button": "はじめる",
+        "defaultGender": "方",
+        "defaultGoal": "より健康なあなた"
       },
       "healthProfile": {
         "title": "あなたの健康プロフィール",
-        "bmiDescription": "あなたの指標に基づくと、あなたのBMIは{bmi}です。",
-        "finalizeDescription": "あなたに合わせて体験をカスタマイズするため、プロフィールを完成させましょう。",
-        "goalGain": "増加",
-        "goalLose": "減少",
-        "goalReach": "目標達成には、{diff} {unit}の{direction}が必要です。",
-        "goalReached": "あなたは目標体重に達しました！維持を支援します。",
-        "button": "行きましょう"
+        "bmiDescription": "あなたの指標に基づく BMI は {bmi} です。",
+        "finalizeDescription": "プロフィールを仕上げて、体験をあなた向けに最適化しましょう。",
+        "goalGain": "増やす",
+        "goalLose": "減らす",
+        "goalReach": "目標に到達するには、{direction} {diff}{unit} が必要です。",
+        "goalReached": "すでに目標体重です！維持をサポートします。",
+        "button": "はじめる"
       },
       "goalLifestyle": {
         "title": "素晴らしいスタート！",
-        "description": "{goalText}に向けて第一歩を踏み出しましたね。あなたが{activityText}であるため、{appLabel}は生活スタイルに合わせて目標を調整します。",
+        "description": "{goalText} に向けて最初の一歩を踏み出しました。あなたは {activityText} なので、{appLabel} がライフスタイルに合わせて目標を調整します。",
         "personalizedTargets": "パーソナライズされたカロリー目標",
-        "aiMealDetection": "AIによる食事検出",
-        "macroBreakdowns": "詳細なマクロ栄養素の内訳",
-        "button": "行きましょう",
+        "aiMealDetection": "AI による食事検出",
+        "macroBreakdowns": "詳細なマクロ栄養の内訳",
+        "button": "はじめる",
         "defaultGoal": "あなたの目標",
-        "defaultActivity": "活動的"
+        "defaultActivity": "アクティブ"
       }
     }
   },
@@ -146,91 +146,93 @@
   },
   "home": {
     "aiSummary": {
-      "title": "あなたのAIサマリー",
-      "logMore": "今後数日間に食事をもっと記録すると、あなたに合わせたAIのインサイトが得られます。",
-      "loading": "サマリーを読み込んでいます…",
-      "mealCount": "{count}件の食事を記録しました",
+      "title": "あなたの AI サマリー",
+      "logMore": "今後数日で食事をさらに記録すると、パーソナライズされた AI インサイトが得られます。",
+      "loading": "サマリーを読み込み中…",
+      "mealCount": "記録した食事 {count} 件",
       "macroBalanceScore": "バランススコア {score}",
-      "topFoods": "よく摂った食品",
-      "trendUp": "摂取カロリーが上昇中",
-      "trendDown": "摂取カロリーが減少傾向",
-      "trendSteady": "摂取カロリーが安定しています",
-      "generatedAt": "更新: {time}"
+      "topFoods": "よく食べる食品",
+      "trendUp": "カロリーは増加傾向",
+      "trendDown": "カロリーは減少傾向",
+      "trendSteady": "カロリーは安定傾向",
+      "generatedAt": "更新 {time}"
     },
     "dailyGoal": {
-      "title": "日々の目標を設定",
-      "titleSet": "あなたの1日の目標",
-      "description": "健康づくりの一歩を始める準備はできましたか？下で1日のカロリー目標を設定して、進捗をスタートしましょう。",
-      "descriptionSet": "目標が設定されました！これが日々の目安となる1日のカロリー目標です。",
+      "title": "1日の目標を設定",
+      "titleSet": "あなたの 1 日の目標",
+      "description": "ウェルネスの旅を始めませんか？下で 1 日のカロリー目標を設定しましょう。",
+      "descriptionSet": "コンパスはセット完了！これがあなたの 1 日のカロリー目標です。",
       "yourGoal": "あなたの目標",
       "goal": "目標",
-      "dailyCalories": "1日のカロリー (kcal)",
+      "dailyCalories": "1 日のカロリー（kcal）",
       "setGoal": "目標を設定",
       "intake": "摂取",
       "burned": "消費",
       "weightImpact": "体重への影響",
-      "estLoss": "推定減少量",
-      "estGain": "推定増加量",
+      "estLoss": "推定減少",
+      "estGain": "推定増加",
       "kcal": "kcal"
     },
     "dailySummary": {
-      "title": "デイリーサマリー",
+      "title": "1 日のまとめ",
       "calories": "カロリー",
       "carbs": "炭水化物",
-      "protein": "タンパク質",
-      "fat": "脂肪",
-      "fiber": "繊維",
+      "protein": "たんぱく質",
+      "fat": "脂質",
+      "fiber": "食物繊維",
       "grams": "グラム",
-      "chartAccessibilityLabel": "マクロ栄養素のグラフ"
+      "chartAccessibilityLabel": "マクロのチャート"
     },
     "intakeProgress": {
-      "title": "今日のマクロ栄養素の配分",
+      "title": "今日のマクロ比",
       "target": "目標",
       "current": "現在"
     },
     "intakeHistory": {
-      "title": "7日間のマクロ栄養素履歴",
-      "trendTitle": "今日の摂取傾向",
-      "peakHour": "ピーク時間: {hour}:00",
-      "noHistoryYet": "履歴はまだありません。",
-      "startLogging": "食事を記録し始めると、ここで7日間のマクロ栄養素トレンドを確認できます。"
+      "title": "7 日間のマクロ履歴",
+      "trendTitle": "今日のトレンド",
+      "peakHour": "ピーク: {hour}:00",
+      "noHistoryYet": "履歴はまだありません",
+      "startLogging": "ここに 7 日間のマクロ傾向を表示するには\n食事の記録を始めましょう"
     },
     "mealLog": {
-      "title": "記録済みの食事",
-      "emptyMessage": "最後の食事の写真を撮ってここに記録しましょう。",
-      "noMealsToday": "今日の食事はまだ記録されていません",
+      "title": "記録された食事",
+      "emptyMessage": "直近の食事を撮影して、ここに記録しましょう。",
+      "noMealsToday": "今日は食事が記録されていません",
       "seeAllMeals": "すべての食事を見る"
     },
     "mealDescription": {
-      "title": "AIでクイック追加",
-      "description": "食事を説明して、詳細はAIに任せましょう。",
-      "hint": "例：朝食に大きなボウルのオートミール、スライスしたバナナ、ホエイプロテイン1杯を食べました...",
-      "analyzeMeal": "食事を分析"
+      "title": "AI でクイック追加",
+      "description": "食事内容を説明するだけで、詳細は AI にお任せ。",
+      "hint": "例: 朝食に大盛りのオートミールにスライスバナナとホエイプロテインを 1 スクープ…",
+      "analyzeMeal": "食事を解析"
     },
     "favoriteMeals": {
       "title": "お気に入りの食事",
-      "description": "お気に入りの食事をすぐに追加します。",
-      "noFavorites": "まだお気に入りの食事はありません。",
-      "addFavoriteHint": "食事の星をクリックしてお気に入りにマークします。",
-      "seeAll": "すべてを見る",
+      "description": "よく食べる食事を素早く追加できます。",
+      "noFavorites": "お気に入りはまだありません。",
+      "addFavoriteHint": "星マークをタップすると、お気に入りに登録できます。",
+      "seeAll": "すべて見る",
       "add": "追加"
     },
     "mealSnap": {
-      "title": "食事を撮影して追跡",
-      "description": "カメラで食べ物の写真を撮り、AI分析に使用します。",
+      "title": "撮って記録",
+      "description": "カメラで食事を撮影して、AI に分析させましょう。",
       "openCamera": "カメラを開く",
-      "gallery": "ギャラリー"
+      "gallery": "ギャラリー",
+      "compressingPhoto": "写真を最適化中…",
+      "uploadingPhoto": "写真をアップロード中…"
     },
     "connectHealth": {
-      "title": "Health Connectと同期",
-      "description": "あなたの栄養データをHealth Connectと同期します",
+      "title": "Health Connect と同期",
+      "description": "栄養データを Health Connect と同期",
       "install": "インストール",
       "connect": "接続"
     }
   },
   "history": {
-    "noMeals": "記録された食事はありません",
-    "emptyMessage": "最後の食事の写真を撮ってここに記録しましょう。",
+    "noMeals": "食事は記録されていません",
+    "emptyMessage": "直近の食事を撮影して、ここに記録しましょう。",
     "today": "今日",
     "yesterday": "昨日"
   },
@@ -241,59 +243,98 @@
     "addMeal": "食事を追加",
     "saveMeal": "食事を保存",
     "save": "保存",
-    "mealName": "食事の名前",
-    "mealNameHint": "例：スクランブルエッグとトースト",
-    "mealQuantity": "食事の分量",
-    "mealQuantityHint": "例：1杯、2枚",
+    "mealName": "食事名",
+    "mealNameHint": "例: スクランブルエッグとトースト",
+    "mealQuantity": "量",
+    "mealQuantityHint": "例: 1 杯、2 枚",
     "timeOfMeal": "食事の時間",
-    "timeOfMealHint": "食事をした時間を選択してください",
+    "timeOfMealHint": "食事をした時間を選択",
     "mealType": "食事の種類",
     "nutrition": {
       "calories": "カロリー",
       "carbs": "炭水化物 (g)",
       "protein": "たんぱく質 (g)",
-      "fat": "脂肪 (g)",
-      "fiber": "繊維 (g)"
+      "fat": "脂質 (g)",
+      "fiber": "食物繊維 (g)"
     },
     "deleteConfirmation": {
       "title": "食事を削除",
-      "message": "本当にこの食事のエントリーを削除してもよろしいですか？",
+      "message": "この食事の記録を削除してもよろしいですか？",
       "cancel": "キャンセル",
       "delete": "削除"
     },
-    "addedToLog": "食事がログに追加されました！",
+    "addedToLog": "食事を記録に追加しました！",
     "couldNotAdd": "食事を追加できませんでした: {error}",
     "savedSuccessfully": "食事を追加しました！",
     "updatedSuccessfully": "食事を更新しました！",
-    "errorSaving": "食事の保存中にエラーが発生しました：{error}",
-    "removedFromFavorites": "お気に入りから削除されました！",
-    "savedAsFavorite": "食事がお気に入りとして保存されました！",
+    "errorSaving": "食事の保存中にエラーが発生しました: {error}",
+    "removedFromFavorites": "お気に入りから削除しました！",
+    "savedAsFavorite": "食事をお気に入りに保存しました！",
     "unfavorite": "お気に入り解除",
-    "couldNotUpdateFavorite": "お気に入りの更新に失敗しました: {error}",
+    "couldNotUpdateFavorite": "お気に入りを更新できませんでした: {error}",
     "feedbackThanks": "フィードバックありがとうございます！",
-    "reanalysisUpdated": "フィードバックに基づいて食事の解析を更新しました。",
+    "reanalysisUpdated": "フィードバックに基づいて分析を更新しました。",
     "failedToProcess": "処理に失敗しました: {error}",
     "failedToProcessImage": "画像の処理に失敗しました: {error}",
-    "errorCompressingImage": "画像の圧縮エラー: {error}",
-    "failedToSave": "データの保存に失敗しました。再試行してください。",
+    "errorCompressingImage": "画像の圧縮中にエラーが発生しました: {error}",
+    "failedToSave": "データを保存できませんでした。もう一度お試しください。",
     "skip": "スキップ",
     "variation": {
-      "question": "全{total}問中 {current}問目",
-      "noVariationsAvailable": "利用可能なバリエーションはありません"
+      "question": "{total} 問中 {current} 問目",
+      "noVariationsAvailable": "バリエーションはありません"
+    },
+    "analysis": {
+      "title": "AI の食事分析",
+      "reassurance": "通常は数秒で完了します。",
+      "stepStarted": "開始しています…",
+      "stepDecomposition": "食事内容を理解しています…",
+      "stepIngredients": "栄養データに食材を照合しています…",
+      "stepUncertainty": "信頼度を確認しています…",
+      "stepMealTypeQuestion": "もう少しで完了です…",
+      "stepResult": "結果を確定しています…",
+      "stepError": "問題が発生しました",
+      "stepDefault": "食事を分析しています…",
+      "progressUnderstand": "理解",
+      "progressMatch": "照合",
+      "progressCheck": "確認",
+      "progressFinish": "完了",
+      "ingredientsLine": "{count} 個の食材を検出",
+      "ingredientsPending": "食材をスキャン中…",
+      "mealPreviewDescription": "「{text}」",
+      "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
+      "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
+      "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
+      "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
+      "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
+      "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+    },
+    "feedback": {
+      "title": "What looks wrong?",
+      "subtitle": "Help us improve the analysis by selecting one or more issues.",
+      "tellUsMore": "Tell us more",
+      "describeIncorrect": "Describe what was incorrect",
+      "submit": "Submit",
+      "issueFoodIdentification": "Food identification",
+      "issuePortionSize": "Portion size",
+      "issueCalorieDistribution": "Calorie distribution",
+      "issueMacrosWrong": "Macros are wrong",
+      "issueMissingItems": "Missing items",
+      "issueExtraItems": "Extra items",
+      "issueOther": "Other"
     }
   },
   "favorites": {
     "title": "お気に入り",
-    "empty": "まだお気に入りの食事はありません。",
-    "searchPlaceholder": "お気に入りの食事を検索",
-    "searchEmptyTitle": "検索に一致するお気に入りはありません",
-    "searchEmptySubtitle": "別の食事名、量、または食事の種類を試してみてください。",
-    "sortLabel": "お気に入りを並び替え",
+    "empty": "お気に入りの食事はまだありません。",
+    "searchPlaceholder": "お気に入りを検索",
+    "searchEmptyTitle": "検索条件に一致するお気に入りはありません",
+    "searchEmptySubtitle": "別の食事名、量、または食事の種類でお試しください。",
+    "sortLabel": "並べ替え",
     "undo": "元に戻す",
-    "removed": "{name}をお気に入りから削除しました",
+    "removed": "{name} をお気に入りから削除しました",
     "sortOptions": {
       "recent": "最近",
-      "calories": "カロリー順",
+      "calories": "カロリー",
       "alphabetical": "アルファベット順"
     }
   },
@@ -301,63 +342,63 @@
     "title": "プロフィール",
     "noProfileData": "プロフィールデータが見つかりません",
     "yourProfile": "あなたのプロフィール",
-    "viewAndManage": "健康情報を表示・管理",
+    "viewAndManage": "健康情報の表示と管理",
     "sections": {
       "profile": "プロフィール",
       "basicInformation": "基本情報",
-      "goalsAndActivity": "目標と活動",
-      "calculatedValues": "計算された値"
+      "goalsAndActivity": "目標と活動量",
+      "calculatedValues": "算出値"
     },
     "gender": "性別",
     "height": "身長",
     "weight": "体重",
     "age": "年齢",
-    "weightGoal": "体重目標",
+    "weightGoal": "体重の目標",
     "targetWeight": "目標体重",
-    "activityLevel": "活動レベル",
+    "activityLevel": "活動量",
     "healthMetrics": "健康指標",
     "notSet": "未設定",
-    "years": "年",
-    "updatedSuccessfully": "プロフィールが正常に更新されました！",
+    "years": "歳",
+    "updatedSuccessfully": "プロフィールを更新しました！",
     "calculatedValues": {
-      "bmr": "基礎代謝率 (BMR)",
-      "tdee": "1日の総消費カロリー (TDEE)",
-      "dailyGoal": "1日の目標",
-      "calPerDay": "カロリー/日",
-      "notAvailable": "利用不可"
+      "bmr": "BMR",
+      "tdee": "TDEE",
+      "dailyGoal": "1 日の目標",
+      "calPerDay": "kcal/日",
+      "notAvailable": "N/A"
     }
   },
   "healthScore": {
-    "title": "健康スコア",
-    "whyThisScore": "このスコアの理由は？",
-    "note": "このスコアは、特定された成分と栄養密度に基づくAIの推定値です。食事に関するアドバイスは常に専門家に相談してください。",
+    "title": "ヘルススコア",
+    "whyThisScore": "このスコアの理由",
+    "note": "このスコアは、特定された食材と栄養密度に基づく AI の推定値です。食事に関するアドバイスは、必ず専門家にご相談ください。",
     "unhealthy": "不健康",
-    "healthy": "健康",
+    "healthy": "健康的",
     "neutral": "中立"
   },
   "editProfile": {
     "title": "プロフィールを編集",
     "sections": {
       "personalInformation": "個人情報",
-      "physicalMeasurements": "身体測定",
-      "goalsAndActivity": "目標と活動"
+      "physicalMeasurements": "身体計測",
+      "goalsAndActivity": "目標と活動量"
     },
     "gender": "性別",
     "dateOfBirth": "生年月日",
     "height": "身長",
     "weight": "体重",
-    "weightGoal": "体重目標",
-    "activityLevel": "活動レベル",
+    "weightGoal": "体重の目標",
+    "activityLevel": "活動量",
     "metric": "メートル法",
     "imperial": "ヤード・ポンド法",
-    "unitCm": "㎝",
+    "unitCm": "cm",
     "unitFt": "ft",
-    "unitKg": "㎏",
-    "unitLbs": "lb",
-    "metricCm": "メートル法 (cm)",
-    "imperialFtIn": "ヤード・ポンド法 (ft/in)",
-    "metricKg": "メートル法 (kg)",
-    "imperialLbs": "ヤード・ポンド法 (lbs)",
+    "unitKg": "kg",
+    "unitLbs": "lbs",
+    "metricCm": "メートル法（cm）",
+    "imperialFtIn": "ヤード・ポンド法（ft/in）",
+    "metricKg": "メートル法（kg）",
+    "imperialLbs": "ヤード・ポンド法（lbs）",
     "genders": {
       "male": "男性",
       "female": "女性",
@@ -365,38 +406,38 @@
     },
     "weightGoals": {
       "loseWeight": {
-        "name": "体重を減らす",
-        "description": "体重を減らすためにカロリー不足を作る"
+        "name": "減量",
+        "description": "カロリー赤字を作って体重を減らす"
       },
       "maintainWeight": {
-        "name": "体重を維持する",
+        "name": "現状維持",
         "description": "現在の体重を維持する"
       },
       "gainWeight": {
-        "name": "体重を増やす",
-        "description": "体重を増やすためにカロリー過剰を作る"
+        "name": "増量",
+        "description": "カロリー黒字を作って体重を増やす"
       }
     },
     "activityLevels": {
       "sedentary": {
         "name": "座りがち",
-        "description": "ほとんど運動しない"
+        "description": "運動はほとんどしない"
       },
       "lightlyActive": {
-        "name": "軽度に活動的",
-        "description": "週に1-3日の軽い運動"
+        "name": "ややアクティブ",
+        "description": "軽い運動を週 1〜3 日"
       },
       "moderatelyActive": {
-        "name": "中程度に活動的",
-        "description": "週に3-5日の中程度の運動"
+        "name": "適度にアクティブ",
+        "description": "中程度の運動を週 3〜5 日"
       },
       "veryActive": {
-        "name": "非常に活動的",
-        "description": "週に6-7日のハードな運動"
+        "name": "とてもアクティブ",
+        "description": "激しい運動を週 6〜7 日"
       },
       "extremelyActive": {
-        "name": "極度に活動的",
-        "description": "非常にハードな運動や肉体労働"
+        "name": "超アクティブ",
+        "description": "非常に激しい運動／肉体労働"
       }
     }
   },
@@ -407,8 +448,8 @@
       "localization": "ローカライズ",
       "notifications": "通知",
       "healthConnect": "Health Connect",
-      "supportAndLegal": "サポートと法律",
-      "about": "アプリについて",
+      "supportAndLegal": "サポートと法務",
+      "about": "情報",
       "dangerZone": "危険ゾーン",
       "developer": "開発者"
     },
@@ -418,7 +459,7 @@
     },
     "language": {
       "title": "言語",
-      "subtitle": "お好みの言語を選択してください",
+      "subtitle": "使用する言語を選択",
       "searchHint": "言語を検索...",
       "noResults": "結果が見つかりません"
     },
@@ -430,7 +471,7 @@
     },
     "mealReminders": {
       "title": "食事リマインダー",
-      "subtitle": "タイムリーなアラートで進捗を維持"
+      "subtitle": "タイムリーな通知で習慣化をサポート"
     },
     "theme": {
       "title": "テーマ",
@@ -439,28 +480,28 @@
       "system": "システム"
     },
     "sendFeedback": {
-      "title": "フィードバックを送信",
-      "subtitle": "{appLabel}の改善にご協力ください",
-      "emailSubject": "{appLabel}アプリフィードバック",
+      "title": "フィードバックを送る",
+      "subtitle": "{appLabel} の改善にご協力ください",
+      "emailSubject": "{appLabel} アプリのフィードバック",
       "emailBodyPrefix": "以下にフィードバックをご記入ください:",
       "appVersion": "アプリのバージョン",
       "device": "デバイス",
-      "osVersion": "OSバージョン",
+      "osVersion": "OS バージョン",
       "uid": "UID"
     },
     "exportMealHistory": {
       "title": "食事履歴をエクスポート",
-      "subtitle": "記録した食事をCSVファイルで共有する",
-      "shareText": "Calorifyの食事履歴のエクスポート",
+      "subtitle": "記録した食事の CSV を共有",
+      "shareText": "Calorify の食事履歴エクスポート",
       "failed": "食事履歴をエクスポートできませんでした: {error}"
     },
     "clearAllData": {
-      "title": "すべてのデータをクリア",
-      "subtitle": "すべての情報を取り消し不可能に削除します",
-      "confirmationTitle": "すべてのデータをクリアしますか？",
-      "confirmationMessage": "この操作は取り消せません。記録済みの食事、お気に入り、プロフィール設定はすべて完全に削除されます。",
+      "title": "すべてのデータを削除",
+      "subtitle": "すべての情報を元に戻せない形で削除します",
+      "confirmationTitle": "すべてのデータを削除しますか？",
+      "confirmationMessage": "この操作は元に戻せません。記録した食事、お気に入り、プロフィール設定はすべて完全に削除されます。",
       "cancel": "キャンセル",
-      "clearEverything": "すべてをクリア"
+      "clearEverything": "すべて削除"
     },
     "debugOptions": {
       "title": "デバッグオプション"
@@ -468,67 +509,67 @@
     "developerModeEnabled": "開発者モードが有効になりました！",
     "healthConnect": {
       "title": "Health Connect",
-      "subtitle": "権限を表示および管理",
+      "subtitle": "権限の表示と管理",
       "unavailable": {
-        "title": "Health Connect を利用できません",
-        "description": "このデバイスでは Health Connect を利用できません。Play Store（Android 9+）から Health Connect をインストールするか、Android 14+ に更新してください。"
+        "title": "Health Connect が利用できません",
+        "description": "この端末では Health Connect を利用できません。Play ストアから Health Connect をインストール（Android 9+）するか、Android 14 以上にアップデートしてください。"
       },
       "permissions": {
         "title": "権限",
-        "description": "Health Connect連携を提供するため、以下の権限が必要です。",
-        "granted": "付与済み",
-        "notGranted": "未付与",
+        "description": "Health Connect 連携のために、次の権限をリクエストします。",
+        "granted": "許可済み",
+        "notGranted": "未許可",
         "caloriesBurned": {
           "title": "総消費カロリーの読み取り",
-          "description": "アプリがHealth Connectからあなたの総消費カロリーを読み取ることを許可します。",
-          "usage": "この権限はアプリ内でのあなたの1日のカロリー消費を表示するために使用され、1日の総エネルギー消費を理解するのに役立ちます。"
+          "description": "Health Connect から総消費カロリーを読み取れるようにします。",
+          "usage": "この権限は、1 日の消費カロリーをアプリに表示し、1 日の総エネルギー消費を把握するために使用します。"
         },
         "nutritionRead": {
           "title": "栄養データの読み取り",
-          "description": "アプリがHealth Connectから栄養データを読み取ることを許可します。",
-          "usage": "この権限により、Health Connectに接続された他のアプリによって記録された栄養情報を読み取ることができ、栄養状況を包括的に把握できます。"
+          "description": "Health Connect から栄養データを読み取れるようにします。",
+          "usage": "この権限により、Health Connect と連携した他アプリが記録した栄養情報を読み取り、あなたの栄養状態を包括的に表示できます。"
         },
         "nutritionWrite": {
           "title": "栄養データの書き込み",
-          "description": "アプリがHealth Connectに栄養データを書き込むことを許可します。",
-          "usage": "この権限により、アプリがあなたの記録した食事をHealth Connectに同期させ、使用中の他の健康・フィットネスアプリで栄養データを利用できるようにします。"
+          "description": "Health Connect に栄養データを書き込めるようにします。",
+          "usage": "この権限により、記録した食事を Health Connect と同期し、他のヘルス・フィットネスアプリでも栄養データを利用できるようにします。"
         }
       },
       "managePermissions": "権限を管理",
-      "openSettings": "Health Connect設定を開く",
-      "requestPermissions": "権限をリクエストする",
-      "permissionRequestCancelledOrFailed": "権限のリクエストがキャンセルされたか失敗しました。もう一度試すか、Health Connect の設定で手動で権限を付与してください。",
-      "permissionRequestFailed": "権限をリクエストできませんでした。もう一度試すか、Health Connect の設定で手動で権限を付与してください。",
-      "requestingPermissions": "権限をリクエスト中..."
+      "openSettings": "Health Connect の設定を開く",
+      "requestPermissions": "権限をリクエスト",
+      "permissionRequestCancelledOrFailed": "権限リクエストがキャンセルまたは失敗しました。もう一度お試しになるか、Health Connect の設定で手動で許可してください。",
+      "permissionRequestFailed": "権限をリクエストできませんでした。もう一度お試しになるか、Health Connect の設定で手動で許可してください。",
+      "requestingPermissions": "リクエスト中..."
     },
     "about": {
-      "title": "私たちについて",
-      "tagline": "迅速で無料、プライバシー重視のカロリー認識",
+      "title": "このアプリについて",
+      "tagline": "速く、無料、プライバシー最優先のカロリー可視化",
       "ourStory": {
         "title": "私たちのストーリー",
-        "content": "{appLabel}は、ほとんどのカロリー追跡アプリが複雑すぎる、手入力を求めすぎる、高額なサブスクリプション料金を請求する、またはプライバシーを犠牲にするという素朴な不満から生まれました。\n\n個人開発者として、私はもっとシンプルで公平なものを作りたいと思いました。AIで手間を減らし、素早く無料で使え、あなたの健康データを尊重するアプリです。\n\n{appLabel}は、私自身が欲しかったアプリです。アカウント不要、トラッキングなし、広告なし。明確で実用的なインサイトと、あなたの健康目標だけに向き合います。"
+        "content": "{appLabel} は単純なフラストレーションから生まれました。多くのカロリー記録アプリは複雑すぎたり、常に手入力を求めたり、高額なサブスクを請求したり、プライバシーを犠牲にしたりするからです。\n\nソロ開発者として、もっとシンプルで公正なものを作りたいと思いました。AI を使って手間を減らし、軽快で無料、そしてあなたの健康データを尊重するアプリです。\n\n{appLabel} は私が望んでいたアプリそのもの。アカウント不要、トラッキングなし、広告なし——明快で実践的なインサイトと、あなたの健康目標だけを。"
       },
       "privacy": {
-        "title": "あなたのプライバシーは重要です",
-        "description": "プライバシーは後から考慮されるものではありません — デザイン原則です。これは実際に何を意味するのでしょうか：",
-        "noAccounts": "アカウント不要\nすぐにアプリを使用できます。サインアップなし、個人情報なし。",
-        "noTracking": "行動追跡なし\n{appLabel}はあなたの活動を監視せず、利用プロファイルを構築せず、アプリやウェブサイトを通じてあなたを追跡しません。",
-        "noAds": "設計から広告なし\n{appLabel}は広告やデータ主導のマネタイズなしで機能するように構築されています。",
-        "noDataSelling": "データ販売なし\nあなたの健康データは第三者に販売または共有されることはありません。",
-        "localStorage": "ローカル優先のストレージ\nあなたのデータはデバイスに保存されます。",
+        "title": "あなたのプライバシーを大切に",
+        "description": "プライバシーは後付けではなく設計思想です。具体的には次のことを意味します。",
+        "noAccounts": "アカウント不要\nすぐに使い始められます。サインアップも個人情報も不要です。",
+        "noTracking": "行動トラッキングなし\n{appLabel} はあなたの行動を監視したり、利用プロファイルを作成したり、他のアプリやウェブサイトを横断して追跡したりしません。",
+        "noAds": "広告なしの設計\n{appLabel} は広告やデータ駆動のマネタイズに依存しません。",
+        "noDataSelling": "データ販売なし\nあなたの健康データが第三者に販売・共有されることはありません。",
+        "localStorage": "ローカル優先の保存\nあなたのデータは端末内に保存されます。",
         "privacyPolicy": "プライバシーポリシー"
       },
       "developer": {
-        "title": "インディー開発者によって構築されました",
-        "description": "{appLabel}は、落ち着いて使える、プライバシーを尊重した健康ソフトウェアの開発に注力する個人開発者によって作られ、保守されています。\n\nフィードバックは一つひとつ読まれ、アプリの方向性を形作る助けになります。",
+        "title": "ソロ開発者が制作",
+        "description": "{appLabel} は、落ち着きがありプライバシーを尊重するヘルスソフトウェアを目指して、ひとりの開発者が開発・保守しています。\n\nいただいたフィードバックはすべて目を通し、今後の方向性に活かします。",
         "website": "ウェブサイト",
         "email": "メール"
       },
       "feedback": {
-        "title": "{appLabel}を楽しんでいますか？",
-        "description": "あなたのフィードバックは、{appLabel}をより良いものにするのに役立ちます。",
-        "rateApp": "Play Storeで評価する",
-        "sendFeedback": "フィードバックを送信"
+        "title": "{appLabel} を気に入っていただけましたか？",
+        "description": "あなたの声が {appLabel} をより良くします。",
+        "rateApp": "Play ストアで評価する",
+        "sendFeedback": "フィードバックを送る"
       }
     },
     "appInfo": {
@@ -537,10 +578,10 @@
     }
   },
   "reminders": {
-    "title": "リマインダーで進捗を維持",
-    "description": "食事を記録し、栄養目標を一貫して守るための穏やかなリマインダーを受け取ります",
-    "notificationsEnabled": "通知が有効",
-    "notificationsDisabled": "通知が無効",
+    "title": "リマインダーで継続をサポート",
+    "description": "食事を記録するやさしいリマインドで、栄養目標の継続を後押しします",
+    "notificationsEnabled": "通知は有効です",
+    "notificationsDisabled": "通知は無効です",
     "enabledSubtitle": "食事リマインダーを受け取ります",
     "disabledSubtitle": "通知を有効にして食事リマインダーを受け取りましょう",
     "mealReminders": "食事リマインダー",
@@ -553,27 +594,27 @@
     "enableNotifications": "通知を有効にする",
     "skipForNow": "今はスキップ",
     "saveChanges": "変更を保存",
-    "enabledSuccessfully": "通知が正常に有効になりました！",
-    "permissionDenied": "通知の許可が拒否されました",
-    "errorEnabling": "通知を有効にする際のエラー: {error}",
-    "errorCompletingSetup": "セットアップの完了に関するエラー: {error}"
+    "enabledSuccessfully": "通知を有効にしました！",
+    "permissionDenied": "通知の権限が拒否されました",
+    "errorEnabling": "通知の有効化中にエラーが発生しました: {error}",
+    "errorCompletingSetup": "設定の完了中にエラーが発生しました: {error}"
   },
   "notifications": {
     "breakfast": {
-      "title": "朝食の時間！🍳",
-      "body": "朝食を記録するのを忘れないでください"
+      "title": "朝食の時間です！🍳",
+      "body": "朝食の記録をお忘れなく"
     },
     "lunch": {
-      "title": "昼食の時間！🥗",
-      "body": "昼食を記録する時間です"
+      "title": "昼食の時間です！🥗",
+      "body": "昼食を記録しましょう"
     },
     "dinner": {
-      "title": "夕食の時間！🍽️",
-      "body": "夕食を記録するのを忘れないでください"
+      "title": "夕食の時間です！🍽️",
+      "body": "夕食の記録をお忘れなく"
     },
     "snack": {
       "title": "間食の時間！🍎",
-      "body": "ヘルシーな間食の時間です"
+      "body": "ヘルシーなスナックの記録をどうぞ"
     },
     "test": {
       "title": "テスト通知"
@@ -581,75 +622,75 @@
   },
   "login": {
     "title": "ログイン",
-    "signInWithGoogle": "Googleでサインイン",
-    "signInFailed": "Googleサインインに失敗しました、またはキャンセルされました。"
+    "signInWithGoogle": "Google でログイン",
+    "signInFailed": "Google でのログインに失敗したか、キャンセルされました。"
   },
   "disclaimer": {
     "pleaseNote": "ご注意ください",
     "snap": {
-      "description": "{appLabel}は推定栄養情報を提供します。正確性は、入力内容や食材のバリエーションに依存します。ガイドとして使用し、確定的な情報源とは見なさないでください。個別の食事アドバイスについては専門家に相談してください。",
+      "description": "{appLabel} は推定の栄養情報を提供します。精度は入力内容や食品の違いに依存します。目安として活用し、確定的な情報源としては使用しないでください。パーソナライズされた食事指導は専門家にご相談ください。",
       "portionSize": {
-        "title": "1食分の量",
-        "description": "推定の正確さは、1食分の量を正しく評価できるかに大きく依存します。"
+        "title": "ポーションサイズ",
+        "description": "推定の正確さは、あなたの適切な分量評価に大きく依存します。"
       },
       "preparationMethods": {
         "title": "調理方法",
-        "description": "調理方法は食材の栄養価に大きく影響します。{appLabel}の推定値は、これらのバリエーションを常に考慮しているわけではありません。"
+        "description": "調理方法によって栄養価は大きく変化します。{appLabel} の推定がこれらの違いを常に反映できるとは限りません。"
       },
       "ingredients": {
-        "title": "材料",
-        "description": "隠れた材料が多い複雑な料理は、あまり正確な推定をもたらさない可能性があります。"
+        "title": "食材",
+        "description": "隠し食材の多い複雑な料理では、推定が不正確になる場合があります。"
       },
       "databaseLimitations": {
-        "title": "データベースの制限",
-        "description": "{appLabel}の食品データベースは広範囲ですが、すべての食品アイテムやバリエーションが含まれていない場合があります。"
+        "title": "データベースの限界",
+        "description": "{appLabel} の食品データベースは充実していますが、すべての食品やバリエーションを網羅しているわけではありません。"
       }
     },
     "weightEstimate": {
-      "title": "体重の推定について",
-      "description": "予測される体重変化は、単純なカロリー摂取対カロリー消費のモデルに基づく理論的な推定です。これはモチベーションのガイダンスを目的としており、実際の体重の予測として使わないでください。",
+      "title": "体重推定について",
+      "description": "表示される体重変化は、単純な摂取カロリーと消費カロリーの差に基づく理論上の推定です。実際の体重を予測するものではなく、あくまでモチベーションの目安としてご利用ください。",
       "calorieAccuracy": {
         "title": "カロリーの正確性",
-        "description": "この推定値は、追跡されたカロリー摂取と消費の正確さに依存しています。不正確な記録は不正確な推定をもたらします。"
+        "description": "この推定は、記録した摂取・消費カロリーの正確さに依存します。不正確な記録は、不正確な推定につながります。"
       },
       "biologicalFactors": {
-        "title": "生物的要因",
-        "description": "実際の体重減少/増加は、代謝、ホルモン、睡眠、ストレス、水分補給、その他の個々の要因によって影響され、{appLabel}では測定できません。"
+        "title": "生理学的要因",
+        "description": "実際の増減は、代謝、ホルモン、睡眠、ストレス、水分状態など、{appLabel} では測定できない個人差の影響を受けます。"
       },
       "waterWeight": {
-        "title": "水分による体重の変動",
-        "description": "通常の体重は、水分貯留、消化、タイミングによる影響で大きく変動することがあります。推定値はこれらの毎日の変動を考慮していません。"
+        "title": "水分と体重変動",
+        "description": "日々の体重は、水分貯留、消化、タイミングによって大きく変動します。本推定はこうした日々の変動を考慮していません。"
       },
       "professionalGuidance": {
-        "title": "専門家のガイダンス",
-        "description": "この推定を医療の決定に使用しないでください。個別の体重管理アドバイスについては、常に医療専門家または登録栄養士に相談してください。"
+        "title": "専門家の助言",
+        "description": "医療判断には使用しないでください。体重管理の個別アドバイスは、必ず医療専門家または管理栄養士にご相談ください。"
       }
     },
     "healthMetrics": {
-      "description": "これらの指標は、あなたの体のエネルギーの必要性を理解し、栄養の目標を導くのに役立ちます。",
+      "description": "これらの指標は、あなたのエネルギー必要量の理解と栄養目標の設定に役立ちます。",
       "bmr": {
-        "title": "基礎代謝量 (BMR)",
-        "description": "基礎代謝量 (BMR) は、呼吸や循環などの基本的な機能を維持するために、静止状態であなたの体が消費するカロリーの量です。BMRは年齢、性別、身長、体重によって異なります。BMRが高いと、通常は筋肉量が多い、若い、または男性であるために、静止時に自然に多くのカロリーを消費します。BMRが低い場合は、通常、筋肉量が少ない、高齢、または女性であることを示しています。"
+        "title": "BMR",
+        "description": "基礎代謝量（BMR）は、呼吸や循環などの生命維持に体が安静時に消費するカロリーです。BMR は年齢・性別・身長・体重に依存します。BMR が高いほど安静時に自然と多くのカロリーを消費し、一般に筋肉量が多い、年齢が若い、男性であることなどが要因です。BMR が低い場合は、筋肉量が少ない、年齢が高い、女性であることなどを示すことがあります。"
       },
       "tdee": {
-        "title": "1日の総エネルギー消費量 (TDEE)",
-        "description": "1日の総エネルギー消費量 (TDEE) は、BMRと身体活動や日常の動きからのカロリーを含めた、1日に消費する総カロリー量です。TDEEはあなたのBMRと活動レベルによって異なります。TDEEが高いと、一般的にはよりアクティブであるか、またはBMRが高いために、全体的に多くのカロリーを消費します。TDEEが低い場合は、日常の活動が少ないか、BMRが低いことを示唆しています。"
+        "title": "TDEE",
+        "description": "総消費エネルギー量（TDEE）は、BMR に加えて身体活動や日常の動きによるカロリーを含む、1 日に消費する総カロリーです。TDEE は BMR と活動量に依存します。TDEE が高いほど総消費カロリーが多く、一般に活動的であるか BMR が高いことを示します。TDEE が低い場合は、日々の活動が少ないか BMR が低い可能性を示します。"
       },
       "dailyGoal": {
-        "title": "1日の目標",
-        "description": "1日の目標は、あなたのTDEEと体重目標に基づく推奨される1日のカロリー摂取量です。減量のためには、TDEEよりも少ないカロリーを摂取します。体重維持のためには、TDEEに合わせます。増量のためには、TDEEよりも多くのカロリーを摂取します。これにより、健康的なペースで望ましい体重の変化を達成することができます。"
+        "title": "1 日の目標",
+        "description": "1 日の目標は、あなたの TDEE と体重目標に基づく推奨摂取カロリーです。減量では TDEE より少なく、維持では TDEE と同程度、増量では TDEE より多く摂取します。これにより、健康的なペースで望む体重変化を達成しやすくなります。"
       }
     },
     "calorieExpenditure": {
-      "title": "消費カロリーの推定値",
-      "description": "Health Connect のデータが利用できない場合、基礎代謝量（BMR）と1日の総エネルギー消費量（TDEE）を用いて、本日これまでに消費したカロリーを1日の経過割合に応じて推定します。",
+      "title": "消費カロリーの推定",
+      "description": "Health Connect のデータが利用できない場合は、基礎代謝量（BMR）と活動量（TDEE）をもとに、今日これまでに消費したカロリーを推定します。",
       "howCalculated": {
-        "title": "推定値の算出方法",
-        "description": "プロフィールに基づいてTDEEを算出し、経過した1日の割合（経過時間（時間＋分）/ 24）を掛け合わせて、これまでの消費カロリーを推定します。"
+        "title": "推定方法",
+        "description": "プロフィールから TDEE を計算し、経過した 1 日の割合（時間＋分）/ 24 を乗じて、これまでの推定消費カロリーを算出します。"
       },
       "professionalGuidance": {
-        "title": "専門家からの助言",
-        "description": "この推定値を医療的な判断に用いないでください。個別の体重管理については、必ず医療専門家や登録栄養士に相談してください。"
+        "title": "専門家の助言",
+        "description": "医療判断には使用しないでください。個別のアドバイスは、必ず医療専門家または管理栄養士にご相談ください。"
       }
     }
   },
@@ -658,24 +699,24 @@
     "continue": "続ける"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "{appLabel}をお楽しみいただけていますか？",
+    "enjoyingQuestion": "{appLabel} を気に入っていただけていますか？",
     "yes": "はい、気に入っています",
-    "no": "あまり楽しめていません",
-    "rateStepHeading": "Play Storeで評価する",
+    "no": "あまり…",
+    "rateStepHeading": "Play ストアで評価する",
     "emailStepHeading": "メールでフィードバックを送る",
-    "soloDevMessage": "簡単な評価は他の方が{appLabel}を見つけやすくなり、開発の継続を支えます。少しお時間をいただいて評価を残していただけますか？",
-    "shareFeedbackViaEmail": "ご意見は今後の改善に直結します — いただいたメッセージはすべて拝見しています。メールでご感想を共有されますか？",
-    "rateCta": "Play Storeで評価する",
+    "soloDevMessage": "短い評価でも、{appLabel} を見つけてもらう助けになり、開発の継続に繋がります。よろしければ評価をお願いできますか？",
+    "shareFeedbackViaEmail": "あなたの声が次の一歩を形作ります。すべてのメッセージに目を通します。メールで感想を共有しませんか？",
+    "rateCta": "Play ストアで評価",
     "maybeLater": "また今度",
     "sendFeedback": "フィードバックを送る",
-    "noThanks": "いいえ、結構です",
-    "aboutUsDescription": "小さなチームが心を込めて作りました。プライバシーとシンプルさを重視し、あなたがより良い食習慣を身につけられるようサポートします。",
-    "aboutUsMentionBeforeLink": "{appLabel} の開発者について知りたいですか？こちらをご覧ください ",
-    "aboutUsLinkLabel": "私たちについて",
-    "thankYouMessage": "ありがとうございます！また別の機会にぜひご意見をお聞かせください。"
+    "noThanks": "結構です",
+    "aboutUsDescription": "小さなチームが心を込めて作りました。私たちはプライバシー、シンプルさ、より良い食習慣づくりに焦点を当てています。",
+    "aboutUsMentionBeforeLink": "{appLabel} の裏側にいる人に興味がありますか？こちらをご覧ください ",
+    "aboutUsLinkLabel": "開発者情報",
+    "thankYouMessage": "ありがとうございます！また別の機会にお伺いします。"
   },
   "health": {
-    "syncFailed": "Health Connectへの同期に失敗しました。",
-    "mealSynced": "食事がHealth Connectと同期されました。"
+    "syncFailed": "Health Connect に同期できませんでした",
+    "mealSynced": "Health Connect と同期しました"
   }
 }

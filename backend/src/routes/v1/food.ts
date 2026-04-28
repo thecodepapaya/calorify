@@ -5,25 +5,28 @@ import { getLocaleFromRequest, getCountryFromRequest } from '../../utils/locale.
 import config from '../../config.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import { query } from '../../services/database.js';
+import { getMealAnalysisTipsForLocale } from '../../services/mealAnalysisTips.js';
 import { nonEmptyString, parseBody, urlString, z } from '../../utils/validation.js';
-import type {
-  ImageMealDetectionRequest,
-  TextMealDetectionRequest,
-} from '../../protos/calorify/meal_detection.js';
+import type { AiMealSummaryResponse, MealAnalysisTipsResponse } from '../../protos/calorify/http_api.js';
+import { AiMealSummaryTrend } from '../../protos/calorify/ai_meal_summary_trend.js';
+import type { ImageMealDetectionRequest, TextMealDetectionRequest } from '../../protos/calorify/meal_detection.js';
 
 const imageDetectionBodySchema = z.object({
   imageUrl: urlString,
 });
 
+/** Matches protos/calorify/meal_detection.proto ImageMealDetectionRequest (imageUrl only over HTTP). */
+
+/** Matches protos/calorify/meal_detection.proto TextMealDetectionRequest (+ Zod max length). */
 const textDetectionBodySchema = z.object({
   textDescription: nonEmptyString.max(2000, 'must be at most 2000 characters'),
 });
 // IMPORTANT: Use schema generator functions to keep documentation in sync with proto definitions
 // See: src/utils/schema-generator.ts and SCHEMA_SYNC.md
 import {
+  getAiMealSummaryResponseSchema,
+  getMealAnalysisTipsResponseSchema,
   getMealDetectionResponseSchema,
-  getImageMealDetectionRequestSchema,
-  getTextMealDetectionRequestSchema,
   getStandardErrorResponses,
 } from '../../utils/schema-generator.js';
 
@@ -63,7 +66,7 @@ function computeAiSummaryStats(meals: RecentMealRow[]) {
       mealCount: 0,
       topFoods: [] as string[],
       macroBalanceScore: 0,
-      trend: 'steady' as const,
+      trend: AiMealSummaryTrend.STEADY,
     };
   }
 
@@ -116,13 +119,13 @@ function computeAiSummaryStats(meals: RecentMealRow[]) {
 
   const previousAverage = averageCalories(previousMeals);
   const latestAverage = averageCalories(latestMeals);
-  let trend: 'up' | 'down' | 'steady' = 'steady';
+  let trend: AiMealSummaryTrend = AiMealSummaryTrend.STEADY;
   if (previousAverage > 0 && latestAverage > 0) {
     const change = (latestAverage - previousAverage) / previousAverage;
     if (change >= 0.1) {
-      trend = 'up';
+      trend = AiMealSummaryTrend.UP;
     } else if (change <= -0.1) {
-      trend = 'down';
+      trend = AiMealSummaryTrend.DOWN;
     }
   }
 
@@ -177,35 +180,21 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
         security: [{ bearerAuth: [] }],
         response: {
           200: {
-            type: 'object',
-            properties: {
-              summary: { type: 'string', nullable: true },
-              generatedAt: { type: 'string', nullable: true },
-              mealCount: { type: 'integer' },
-              topFoods: {
-                type: 'array',
-                items: { type: 'string' },
-              },
-              macroBalanceScore: { type: 'integer' },
-              trend: {
-                type: 'string',
-                enum: ['up', 'down', 'steady'],
-              },
-            },
+            description: 'Latest summary and trailing stats (calorify.AiMealSummaryResponse)',
+            ...getAiMealSummaryResponseSchema(),
           },
         },
       } as any,
     },
     async (request: FastifyRequest, reply: FastifyReply) => {
       if (!config.DATABASE_URL) {
-        reply.send({
-          summary: null,
-          generatedAt: null,
+        const body: AiMealSummaryResponse = {
           mealCount: 0,
           topFoods: [],
           macroBalanceScore: 0,
-          trend: 'steady',
-        });
+          trend: AiMealSummaryTrend.STEADY,
+        };
+        reply.send(body);
         return;
       }
 
@@ -221,14 +210,13 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
 
       const row = rows[0];
       if (!row) {
-        reply.send({
-          summary: null,
-          generatedAt: null,
+        const body: AiMealSummaryResponse = {
           mealCount: 0,
           topFoods: [],
           macroBalanceScore: 0,
-          trend: 'steady',
-        });
+          trend: AiMealSummaryTrend.STEADY,
+        };
+        reply.send(body);
         return;
       }
 
@@ -251,14 +239,44 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
       );
       const stats = computeAiSummaryStats(recentMeals);
 
-      reply.send({
+      const body: AiMealSummaryResponse = {
         summary: row.summary,
         generatedAt: toIsoString(row.generated_at),
         mealCount: stats.mealCount,
         topFoods: stats.topFoods,
         macroBalanceScore: stats.macroBalanceScore,
         trend: stats.trend,
-      });
+      };
+      reply.send(body);
+    }
+  );
+
+  /**
+   * GET /api/v1/food/meal-analysis-tips
+   * Rotating tips for the meal analysis loading UI; editable via data file without an app release.
+   */
+  fastify.get(
+    '/meal-analysis-tips',
+    {
+      preHandler: [authenticateUser],
+      schema: {
+        description:
+          'Localized one-line tips shown during AI meal analysis. Content is loaded from server config.',
+        tags: ['Food'],
+        security: [{ bearerAuth: [] }],
+        response: {
+          200: {
+            description: 'Localized tips payload (calorify.MealAnalysisTipsResponse)',
+            ...getMealAnalysisTipsResponseSchema(),
+          },
+        },
+      } as any,
+    },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const locale = getLocaleFromRequest(request);
+      const { version, tips } = getMealAnalysisTipsForLocale(locale);
+      const body: MealAnalysisTipsResponse = { version, tips };
+      reply.send(body);
     }
   );
 
@@ -396,7 +414,7 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
       schema: {
         description: 'Detect meal from image URL using OpenAI. Returns MealDetectionResponse with variations if confidence is LOW/MEDIUM.',
         tags: ['Food'],
-        body: getImageMealDetectionRequestSchema(),
+        // Body validation: Zod (imageDetectionBodySchema) aligned with meal_detection.proto — not duplicate AJV body, to avoid coercion + response-serialization mismatch on 400.
         response: {
           200: {
             description: 'Successful detection',
@@ -472,7 +490,7 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
       schema: {
         description: 'Detect meal from text description using OpenAI. Returns MealDetectionResponse with variations if confidence is LOW/MEDIUM.',
         tags: ['Food'],
-        body: getTextMealDetectionRequestSchema(),
+        // Body validation: Zod (textDetectionBodySchema) aligned with meal_detection.proto — not duplicate AJV body (see detect-image).
         response: {
           200: {
             description: 'Successful detection',

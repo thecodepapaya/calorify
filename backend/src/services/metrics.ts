@@ -57,6 +57,16 @@ export const aiRequestDurationSeconds = new Histogram({
   registers: [registry],
 });
 
+/** Internal meal analysis pipeline and DB steps (from nutritionEngineV2 traceAsync). */
+export const mealAnalysisTraceStepSeconds = new Histogram({
+  name: 'meal_analysis_trace_step_seconds',
+  help:
+    'Duration of meal analysis internal trace steps in seconds (LLM, USDA, DB writes, pipeline).',
+  labelNames: ['category', 'name'] as const,
+  buckets: [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2, 5, 10, 30, 60],
+  registers: [registry],
+});
+
 const circuitBreakerState = new Gauge({
   name: 'circuit_breaker_state',
   help: 'Circuit breaker state. 0 = CLOSED, 1 = HALF_OPEN, 2 = OPEN.',

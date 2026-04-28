@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:calorify/core/constants/analytics_events.dart';
-import 'package:calorify/core/models/meal_analysis_v2.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/analytics.dart';
@@ -13,11 +13,12 @@ import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart'
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:i18n/i18n.dart';
+import 'package:widgets/widgets.dart';
 
 Future<void> showV2MealAnalysisFlow({
   required BuildContext context,
-  required Future<Stream<V2MealAnalysisEvent>> Function() startAnalysis,
+  required Future<Stream<MealAnalysisPipelineEvent>> Function() startAnalysis,
   Uint8List? imageBytes,
   String? imageUrl,
   String? textDescription,
@@ -35,15 +36,18 @@ Future<void> showV2MealAnalysisFlow({
   await showMealTip(
     context: context,
     purpose: MealDetailsSheetPurpose.mealAddition,
-    imageBytes: finalContext.imageBytes,
+    imageBytes:
+        finalContext.hasImageBytes() && finalContext.imageBytes.isNotEmpty
+            ? Uint8List.fromList(finalContext.imageBytes)
+            : null,
     mealDetectionResult: finalContext.toMealDetectionResult(),
-    v2Analysis: finalContext,
+    pipelineContext: finalContext,
   );
 }
 
-Future<V2MealAnalysisContext?> resolveV2MealAnalysisFlow({
+Future<MealAnalysisPipelineSessionContext?> resolveV2MealAnalysisFlow({
   required BuildContext context,
-  required Future<Stream<V2MealAnalysisEvent>> Function() startAnalysis,
+  required Future<Stream<MealAnalysisPipelineEvent>> Function() startAnalysis,
   Uint8List? imageBytes,
   String? imageUrl,
   String? textDescription,
@@ -55,14 +59,14 @@ Future<V2MealAnalysisContext?> resolveV2MealAnalysisFlow({
       context,
       listen: false,
     ).read(foodRepositoryProvider);
-    final outcome = await showModalBottomSheet<_V2MealAnalysisOutcome>(
+    final outcome = await showModalBottomSheet<_MealAnalysisFlowOutcome>(
       context: context,
       isDismissible: true,
       showDragHandle: true,
       isScrollControlled: true,
       routeSettings: const RouteSettings(name: RouteNames.mealAnalysisSheet),
       builder:
-          (context) => _V2MealAnalysisSheet(
+          (context) => _MealAnalysisPipelineSheet(
             startAnalysis: nextAnalysis,
             imageBytes: imageBytes,
             imageUrl: imageUrl,
@@ -124,57 +128,107 @@ Future<V2MealAnalysisContext?> resolveV2MealAnalysisFlow({
   return null;
 }
 
-class _V2MealAnalysisOutcome {
-  const _V2MealAnalysisOutcome({
+class _MealAnalysisFlowOutcome {
+  const _MealAnalysisFlowOutcome({
     this.resultContext,
     this.analysisId,
     this.clarifications = const [],
     this.mealTypeQuestion,
   });
 
-  final V2MealAnalysisContext? resultContext;
+  final MealAnalysisPipelineSessionContext? resultContext;
   final String? analysisId;
-  final List<V2MealClarification> clarifications;
-  final V2MealTypeQuestion? mealTypeQuestion;
+  final List<PipelineClarification> clarifications;
+  final PipelineMealTypeQuestionData? mealTypeQuestion;
 }
 
-class _V2MealAnalysisSheet extends StatefulWidget {
-  const _V2MealAnalysisSheet({
+class _MealAnalysisPipelineSheet extends StatefulWidget {
+  const _MealAnalysisPipelineSheet({
     required this.startAnalysis,
     this.imageBytes,
     this.imageUrl,
     this.textDescription,
   });
 
-  final Future<Stream<V2MealAnalysisEvent>> Function() startAnalysis;
+  final Future<Stream<MealAnalysisPipelineEvent>> Function() startAnalysis;
   final Uint8List? imageBytes;
   final String? imageUrl;
   final String? textDescription;
 
   @override
-  State<_V2MealAnalysisSheet> createState() => _V2MealAnalysisSheetState();
+  State<_MealAnalysisPipelineSheet> createState() =>
+      _MealAnalysisPipelineSheetState();
 }
 
-class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
+class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
     with SingleTickerProviderStateMixin {
-  StreamSubscription<V2MealAnalysisEvent>? _subscription;
-  V2MealAnalysisEvent? _lastEvent;
+  StreamSubscription<MealAnalysisPipelineEvent>? _subscription;
+  MealAnalysisPipelineEvent? _lastEvent;
   bool _isLoading = true;
 
   late final AnimationController _shimmerController;
+  late final Stopwatch _flowStopwatch;
+  Timer? _tipCycleTimer;
+  int _tipIndex = 0;
+  late List<String> _tips;
+
+  List<String> _localOfflineTips() {
+    final m = t.meal.analysis;
+    final raw = <String>[
+      m.offlineTip0,
+      m.offlineTip1,
+      m.offlineTip2,
+      m.offlineTip3,
+      m.offlineTip4,
+      m.offlineTip5,
+    ];
+    return raw.map((s) => s.trim()).where((s) => s.isNotEmpty).toList();
+  }
 
   @override
   void initState() {
     super.initState();
+    _tips = _localOfflineTips();
+    if (_tips.isEmpty) {
+      _tips = [t.meal.analysis.reassurance];
+    }
+    _flowStopwatch = Stopwatch()..start();
     _shimmerController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1400),
     )..repeat();
+    _scheduleTipCycle();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _loadRemoteTips());
     _beginAnalysis();
+  }
+
+  void _scheduleTipCycle() {
+    _tipCycleTimer?.cancel();
+    final count = _tips.isEmpty ? 1 : _tips.length;
+    _tipCycleTimer = Timer.periodic(const Duration(seconds: 5), (_) {
+      if (!mounted) return;
+      setState(() => _tipIndex = (_tipIndex + 1) % count);
+    });
+  }
+
+  void _loadRemoteTips() {
+    final repo =
+        ProviderScope.containerOf(context, listen: false).read(foodRepositoryProvider);
+    unawaited(
+      repo.getMealAnalysisTips().then((remote) {
+        if (!mounted || remote.isEmpty) return;
+        setState(() {
+          _tips = List<String>.from(remote);
+          _tipIndex = _tipIndex % _tips.length;
+        });
+        _scheduleTipCycle();
+      }),
+    );
   }
 
   @override
   void dispose() {
+    _tipCycleTimer?.cancel();
     _shimmerController.dispose();
     _subscription?.cancel();
     super.dispose();
@@ -206,31 +260,91 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
     );
   }
 
+  int _ingredientCount(MealAnalysisPipelineEvent? e) {
+    if (e == null) return 0;
+    final d = e.decomposition?.ingredients.length ?? 0;
+    if (d > 0) return d;
+    final i = e.ingredientsStep?.ingredients.length ?? 0;
+    if (i > 0) return i;
+    return e.result?.ingredients.length ?? 0;
+  }
+
+  String _statusForStep(PipelineStep? step) {
+    final m = t.meal.analysis;
+    return switch (step) {
+      null => m.stepDefault,
+      PipelineStep.STARTED => m.stepStarted,
+      PipelineStep.DECOMPOSITION => m.stepDecomposition,
+      PipelineStep.INGREDIENTS => m.stepIngredients,
+      PipelineStep.UNCERTAINTY => m.stepUncertainty,
+      PipelineStep.MEAL_TYPE_QUESTION => m.stepMealTypeQuestion,
+      PipelineStep.RESULT => m.stepResult,
+      PipelineStep.ERROR => m.stepError,
+      _ => m.stepDefault,
+    };
+  }
+
+  double? _progressValue(PipelineStep? step) {
+    if (step == null) return null;
+    if (step == PipelineStep.ERROR) return null;
+    final idx = switch (step) {
+      PipelineStep.STARTED ||
+      PipelineStep.DECOMPOSITION =>
+        0,
+      PipelineStep.INGREDIENTS => 1,
+      PipelineStep.UNCERTAINTY ||
+      PipelineStep.MEAL_TYPE_QUESTION =>
+        2,
+      PipelineStep.RESULT => 3,
+      _ => null,
+    };
+    if (idx == null) return null;
+    return (idx + 1) / 4;
+  }
+
+  int _completedProgressDots(PipelineStep? step) {
+    if (step == null) return 0;
+    return switch (step) {
+      PipelineStep.STARTED ||
+      PipelineStep.DECOMPOSITION =>
+        0,
+      PipelineStep.INGREDIENTS => 1,
+      PipelineStep.UNCERTAINTY ||
+      PipelineStep.MEAL_TYPE_QUESTION =>
+        2,
+      PipelineStep.RESULT => 3,
+      PipelineStep.ERROR ||
+      PipelineStep.PIPELINE_STEP_UNSPECIFIED =>
+        0,
+      _ => 0,
+    };
+  }
+
+  String _rotatingTip(int index) {
+    if (_tips.isEmpty) return '';
+    return _tips[index % _tips.length];
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
-
-    final statusText = switch (_lastEvent?.step) {
-      V2MealAnalysisStep.decomposition => 'Understanding your meal...',
-      V2MealAnalysisStep.ingredients => 'Matching ingredients...',
-      V2MealAnalysisStep.uncertainty => 'Checking confidence...',
-      V2MealAnalysisStep.mealTypeQuestion =>
-        'Waiting for a quick confirmation...',
-      V2MealAnalysisStep.result => 'Finalizing result...',
-      V2MealAnalysisStep.error => 'Something went wrong',
-      null => 'Analyzing your meal...',
-    };
-
+    final step = _lastEvent?.step;
+    final statusText = _statusForStep(step);
     final mealName = _lastEvent?.mealName ?? _lastEvent?.result?.mealName;
-    final ingredientCount =
-        _lastEvent?.decomposedIngredients.length ??
-        _lastEvent?.ingredients.length ??
-        _lastEvent?.result?.ingredients.length ??
-        0;
+    final ingredientCount = _ingredientCount(_lastEvent);
 
     final hasMealName = mealName != null && mealName.isNotEmpty;
+    final progressVal = _progressValue(step);
+    final doneDots = _completedProgressDots(step);
+
+    final progressLabels = [
+      t.meal.analysis.progressUnderstand,
+      t.meal.analysis.progressMatch,
+      t.meal.analysis.progressCheck,
+      t.meal.analysis.progressFinish,
+    ];
 
     return BaseBottomSheet(
       child: Column(
@@ -240,10 +354,10 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(LucideIcons.wandSparkles, color: colorScheme.primary),
+              Icon(AppIcons.wandSparkles, color: colorScheme.primary),
               const SizedBox(width: 8),
               Text(
-                'AI meal analysis',
+                t.meal.analysis.title,
                 style: textTheme.titleLarge?.copyWith(
                   color: colorScheme.onSurface,
                   fontWeight: FontWeight.w600,
@@ -251,10 +365,100 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          if (widget.imageBytes != null && widget.imageBytes!.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.memory(
+                widget.imageBytes!,
+                height: 120,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ] else if (widget.textDescription != null &&
+              widget.textDescription!.trim().isNotEmpty) ...[
+            const SizedBox(height: 16),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                t.meal.analysis.mealPreviewDescription(
+                  text: _shortText(widget.textDescription!.trim(), 120),
+                ),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurface.withValues(alpha: 0.75),
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ),
+          ],
+          const SizedBox(height: 20),
+          if (progressVal == null)
+            LinearProgressIndicator(
+              borderRadius: BorderRadius.circular(4),
+              color: colorScheme.primary,
+              backgroundColor: colorScheme.surfaceContainerHighest,
+            )
+          else
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: LinearProgressIndicator(
+                value: progressVal,
+                color: colorScheme.primary,
+                backgroundColor: colorScheme.surfaceContainerHighest,
+              ),
+            ),
+          const SizedBox(height: 8),
+          Row(
+            children: List.generate(4, (i) {
+              final active = i <= doneDots;
+              return Expanded(
+                child: Column(
+                  children: [
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      height: 8,
+                      width: 8,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color:
+                            active
+                                ? colorScheme.primary
+                                : colorScheme.outline.withValues(alpha: 0.35),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      progressLabels[i],
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.labelSmall?.copyWith(
+                        color:
+                            active
+                                ? colorScheme.onSurface
+                                : colorScheme.onSurface.withValues(alpha: 0.45),
+                        fontWeight: active ? FontWeight.w600 : FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ),
+          const SizedBox(height: 20),
           if (_isLoading) ...[
-            CircularProgressIndicator(color: colorScheme.primary),
-            const SizedBox(height: 20),
+            SizedBox(
+              width: 28,
+              height: 28,
+              child: CircularProgressIndicator(
+                strokeWidth: 3,
+                color: colorScheme.primary,
+              ),
+            ),
+            const SizedBox(height: 16),
           ],
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
@@ -267,6 +471,30 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
               textAlign: TextAlign.center,
               style: textTheme.titleMedium?.copyWith(
                 color: colorScheme.onSurface,
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            t.meal.analysis.reassurance,
+            textAlign: TextAlign.center,
+            style: textTheme.bodySmall?.copyWith(
+              color: colorScheme.onSurface.withValues(alpha: 0.55),
+            ),
+          ),
+          const SizedBox(height: 6),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 400),
+            transitionBuilder:
+                (child, animation) =>
+                    FadeTransition(opacity: animation, child: child),
+            child: Text(
+              _rotatingTip(_tipIndex),
+              key: ValueKey<int>(_tipIndex),
+              textAlign: TextAlign.center,
+              style: textTheme.bodySmall?.copyWith(
+                color: colorScheme.onSurface.withValues(alpha: 0.5),
+                height: 1.35,
               ),
             ),
           ),
@@ -307,7 +535,7 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
             child:
                 ingredientCount > 0
                     ? Text(
-                      '$ingredientCount ingredients detected',
+                      t.meal.analysis.ingredientsLine(count: ingredientCount),
                       key: ValueKey<int>(ingredientCount),
                       textAlign: TextAlign.center,
                       style: textTheme.bodySmall?.copyWith(
@@ -319,7 +547,16 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
                       width: double.infinity,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [_shimmerBox(width: 140, height: 13)],
+                        children: [
+                          Text(
+                            t.meal.analysis.ingredientsPending,
+                            style: textTheme.bodySmall?.copyWith(
+                              color: colorScheme.onSurface.withValues(alpha: 0.45),
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          _shimmerBox(width: 140, height: 13),
+                        ],
                       ),
                     ),
           ),
@@ -327,6 +564,11 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
         ],
       ),
     );
+  }
+
+  String _shortText(String value, int maxChars) {
+    if (value.length <= maxChars) return value;
+    return '${value.substring(0, maxChars).trim()}…';
   }
 
   Future<void> _beginAnalysis() async {
@@ -341,10 +583,10 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
             _lastEvent = event;
           });
 
-          if (event.step == V2MealAnalysisStep.error) {
+          if (event.step == PipelineStep.ERROR) {
             Analytics.instance.logEvent(AnalyticsEvent.mealAnalysisV2Failed);
             showFlushbar(
-              event.errorMessage ?? 'Failed to analyze meal',
+              event.errorMessage ?? t.meal.analysis.stepError,
               context: context,
             );
             Navigator.of(context).pop();
@@ -355,7 +597,7 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
               event.uncertainty!.needsClarification &&
               event.uncertainty!.clarifications.isNotEmpty) {
             Navigator.of(context).pop(
-              _V2MealAnalysisOutcome(
+              _MealAnalysisFlowOutcome(
                 analysisId: event.analysisId,
                 clarifications: event.uncertainty!.clarifications,
               ),
@@ -365,7 +607,7 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
 
           if (event.mealTypeQuestion != null) {
             Navigator.of(context).pop(
-              _V2MealAnalysisOutcome(
+              _MealAnalysisFlowOutcome(
                 analysisId: event.analysisId,
                 mealTypeQuestion: event.mealTypeQuestion,
               ),
@@ -374,10 +616,19 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
           }
 
           if (event.result != null) {
-            Analytics.instance.logEvent(AnalyticsEvent.mealAnalysisV2Completed);
+            Analytics.instance.logEvent(
+              AnalyticsEvent.mealAnalysisV2Completed,
+              parameters: <String, Object>{
+                'duration_ms': _flowStopwatch.elapsedMilliseconds,
+                'source':
+                    widget.imageBytes != null && widget.imageBytes!.isNotEmpty
+                        ? 'image'
+                        : 'text',
+              },
+            );
             Navigator.of(context).pop(
-              _V2MealAnalysisOutcome(
-                resultContext: V2MealAnalysisContext(
+              _MealAnalysisFlowOutcome(
+                resultContext: MealAnalysisPipelineSessionContext(
                   result: event.result!,
                   imageBytes: widget.imageBytes,
                   imageUrl: widget.imageUrl,
@@ -395,7 +646,7 @@ class _V2MealAnalysisSheetState extends State<_V2MealAnalysisSheet>
           if (!mounted) return;
           Analytics.instance.logEvent(AnalyticsEvent.mealAnalysisV2Failed);
           showFlushbar(
-            error is Exception ? '$error' : 'Failed to analyze meal',
+            error is Exception ? '$error' : t.meal.analysis.stepError,
             context: context,
           );
           Navigator.of(context).pop();

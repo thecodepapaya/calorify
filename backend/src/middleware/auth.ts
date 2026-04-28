@@ -1,17 +1,19 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { verifyFirebaseToken, getUserIdFromToken } from '../services/firebase.js';
+import { createErrorResponse } from '../utils/errors.js';
 
 /**
  * Extract Bearer token from Authorization header
  */
 function extractToken(request: FastifyRequest): string | null {
-  const authHeader = request.headers.authorization;
-  if (!authHeader) {
+  const raw = request.headers.authorization;
+  const authHeader = Array.isArray(raw) ? raw[0] : raw;
+  if (!authHeader || typeof authHeader !== 'string') {
     return null;
   }
 
-  const parts = authHeader.split(' ');
-  if (parts.length !== 2 || parts[0] !== 'Bearer') {
+  const parts = authHeader.trim().split(/\s+/);
+  if (parts.length !== 2 || parts[0]!.toLowerCase() !== 'bearer') {
     return null;
   }
 
@@ -50,9 +52,9 @@ export async function authenticateUser(
   const token = extractToken(request);
 
   if (!token) {
-    reply.status(401).send({
-      detail: 'Invalid or expired authentication token',
-    });
+    reply
+      .status(401)
+      .send(createErrorResponse('Invalid or expired authentication token'));
     return;
   }
 
@@ -63,9 +65,11 @@ export async function authenticateUser(
     // Attach user ID to request for use in route handlers
     (request as FastifyRequest & { userId: string }).userId = userId;
   } catch (error) {
-    reply.status(401).send({
-      detail: error instanceof Error ? error.message : 'Invalid or expired authentication token',
-    });
+    reply.status(401).send(
+      createErrorResponse(
+        error instanceof Error ? error.message : 'Invalid or expired authentication token'
+      )
+    );
     return;
   }
 }
