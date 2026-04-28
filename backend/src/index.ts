@@ -14,6 +14,7 @@ import { initializeFirebase } from './services/firebase.js';
 import { runMigrations } from './services/migrate.js';
 import { startAiSummaryCron } from './jobs/aiSummaryCron.js';
 import { startUsdaRefreshCron } from './jobs/usdaRefreshCron.js';
+import { bootstrapUsdaIfNeeded } from './services/usdaBootstrap.js';
 import {
   registry as metricsRegistry,
   httpRequestsTotal,
@@ -330,6 +331,14 @@ async function start() {
       initializeDatabase();
       console.log('✅ Database connection initialized');
       await runMigrations();
+      bootstrapUsdaIfNeeded({
+        zipUrl: config.USDA_ZIP_URL,
+        datasetVersion: config.USDA_DATASET_VERSION ?? 'usda-2025-12-18',
+        sourceReleaseDate: config.USDA_SOURCE_RELEASE_DATE ?? '2025-12-18',
+        dataDir: config.USDA_DATA_DIR,
+      }).catch((err) =>
+        console.error('[usda:bootstrap] startup failed:', err instanceof Error ? err.message : err)
+      );
     } else {
       console.warn('⚠️  DATABASE_URL not set, database features will be unavailable');
     }

@@ -1,3 +1,6 @@
+# USDA CSV data (downloaded at runtime; only .gitkeep is committed)
+data/usda/*.csv
+
 # Dependencies
 node_modules/
 

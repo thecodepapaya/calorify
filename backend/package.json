@@ -13,7 +13,6 @@
         "type-check": "tsc --noEmit",
         "analysis:v2:cli": "tsx src/scripts/meal-analysis-api-cli.ts",
         "push-banner": "tsx src/scripts/push-banner.ts",
-        "usda:import": "tsx src/scripts/import-usda.ts",
         "usda:refresh": "tsx src/scripts/usda-refresh.ts",
         "usda:bootstrap": "tsx src/scripts/usda-bootstrap.ts",
         "docker:up:staging": "docker compose --profile staging up -d --build",

@@ -37,6 +37,7 @@ interface Config {
     readonly USDA_DATA_DIR: string;
     readonly USDA_DATASET_VERSION: string | null;
     readonly USDA_SOURCE_RELEASE_DATE: string | null;
+    readonly USDA_ZIP_URL: string;
     /** Optional path to meal analysis rotating tips JSON; default backend/data/meal_analysis_tips.json */
     readonly MEAL_ANALYSIS_TIPS_PATH: string | null;
 }
@@ -164,6 +165,10 @@ const config: Config = {
     USDA_DATA_DIR: getEnvVar('USDA_DATA_DIR', join(process.cwd(), 'data', 'usda')),
     USDA_DATASET_VERSION: getEnvVarOptional('USDA_DATASET_VERSION'),
     USDA_SOURCE_RELEASE_DATE: getEnvVarOptional('USDA_SOURCE_RELEASE_DATE'),
+    USDA_ZIP_URL: getEnvVar(
+        'USDA_ZIP_URL',
+        'https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_csv_2025-12-18.zip'
+    ),
     MEAL_ANALYSIS_TIPS_PATH: getEnvVarOptional('MEAL_ANALYSIS_TIPS_PATH'),
 } as const;
 
