@@ -178,7 +178,7 @@ class _TranslationsMealBn implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'ছবি কম্প্রেস করতে ত্রুটি: ${error}';
 	@override String get failedToSave => 'ডেটা সংরক্ষণ ব্যর্থ। আবার চেষ্টা করুন।';
 	@override String get skip => 'এড়িয়ে যান';
-	@override late final _TranslationsMealVariationBn variation = _TranslationsMealVariationBn._(_root);
+	@override late final _TranslationsMealQuestionFlowBn questionFlow = _TranslationsMealQuestionFlowBn._(_root);
 	@override late final _TranslationsMealAnalysisBn analysis = _TranslationsMealAnalysisBn._(_root);
 	@override late final _TranslationsMealFeedbackBn feedback = _TranslationsMealFeedbackBn._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationBn implements TranslationsMealDeleteCon
 	@override String get delete => 'মুছুন';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationBn implements TranslationsMealVariationEn {
-	_TranslationsMealVariationBn._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowBn implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowBn._(this._root);
 
 	final TranslationsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'প্রশ্ন ${current} / ${total}';
-	@override String get noVariationsAvailable => 'কোনো ভিন্নতা নেই';
+	@override String progress({required Object total, required Object current}) => 'মোট ${total}টির মধ্যে ${current} নম্বর প্রশ্ন';
+	@override String get noQuestionsAvailable => 'কোনও প্রশ্ন উপলব্ধ নেই';
+	@override String get next => 'পরবর্তী';
+	@override String get continueLabel => 'চালিয়ে যান';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisBn implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'এআই মিল বিশ্লেষণ';
-	@override String get reassurance => 'এটি সাধারণত কয়েক সেকেন্ড সময় নেয়।';
 	@override String get stepStarted => 'শুরু হচ্ছে…';
 	@override String get stepDecomposition => 'আপনার মিল বোঝা হচ্ছে…';
 	@override String get stepIngredients => 'উপাদানগুলিকে পুষ্টি ডেটার সাথে মেলানো হচ্ছে…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisBn implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'বোঝা';
 	@override String get progressMatch => 'মিল';
 	@override String get progressCheck => 'যাচাই';
+	@override String get progressMealType => 'খাবারের ধরন নির্বাচন করা হচ্ছে';
 	@override String get progressFinish => 'শেষ';
+	@override String get detectedIngredientHeading => 'আমরা যা শনাক্ত করছি';
+	@override String ingredientsOverflow({required Object count}) => '${count}টি আরও উপকরণ';
 	@override String ingredientsLine({required Object count}) => '${count}টি উপাদান শনাক্ত হয়েছে';
 	@override String get ingredientsPending => 'উপাদান স্ক্যান করা হচ্ছে…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsBn {
 			'meal.errorCompressingImage' => ({required Object error}) => 'ছবি কম্প্রেস করতে ত্রুটি: ${error}',
 			'meal.failedToSave' => 'ডেটা সংরক্ষণ ব্যর্থ। আবার চেষ্টা করুন।',
 			'meal.skip' => 'এড়িয়ে যান',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'প্রশ্ন ${current} / ${total}',
-			'meal.variation.noVariationsAvailable' => 'কোনো ভিন্নতা নেই',
+			'meal.questionFlow.progress' => ({required Object total, required Object current}) => 'মোট ${total}টির মধ্যে ${current} নম্বর প্রশ্ন',
+			'meal.questionFlow.noQuestionsAvailable' => 'কোনও প্রশ্ন উপলব্ধ নেই',
+			'meal.questionFlow.next' => 'পরবর্তী',
+			'meal.questionFlow.continueLabel' => 'চালিয়ে যান',
 			'meal.analysis.title' => 'এআই মিল বিশ্লেষণ',
-			'meal.analysis.reassurance' => 'এটি সাধারণত কয়েক সেকেন্ড সময় নেয়।',
 			'meal.analysis.stepStarted' => 'শুরু হচ্ছে…',
 			'meal.analysis.stepDecomposition' => 'আপনার মিল বোঝা হচ্ছে…',
 			'meal.analysis.stepIngredients' => 'উপাদানগুলিকে পুষ্টি ডেটার সাথে মেলানো হচ্ছে…',
@@ -1897,7 +1902,10 @@ extension on TranslationsBn {
 			'meal.analysis.progressUnderstand' => 'বোঝা',
 			'meal.analysis.progressMatch' => 'মিল',
 			'meal.analysis.progressCheck' => 'যাচাই',
+			'meal.analysis.progressMealType' => 'খাবারের ধরন নির্বাচন করা হচ্ছে',
 			'meal.analysis.progressFinish' => 'শেষ',
+			'meal.analysis.detectedIngredientHeading' => 'আমরা যা শনাক্ত করছি',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count}টি আরও উপকরণ',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count}টি উপাদান শনাক্ত হয়েছে',
 			'meal.analysis.ingredientsPending' => 'উপাদান স্ক্যান করা হচ্ছে…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

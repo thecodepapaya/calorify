@@ -279,13 +279,14 @@
     "errorCompressingImage": "Error compressing image: {error}",
     "failedToSave": "Failed to save data. Please try again.",
     "skip": "Skip",
-    "variation": {
-      "question": "Question {current} of {total}",
-      "noVariationsAvailable": "No variations available"
+    "questionFlow": {
+      "progress": "Question {current} of {total}",
+      "noQuestionsAvailable": "No questions available",
+      "next": "Next",
+      "continueLabel": "Continue"
     },
     "analysis": {
       "title": "Analyzing your meal",
-      "reassurance": "This usually takes a few seconds.",
       "stepStarted": "Getting started…",
       "stepDecomposition": "Understanding your meal…",
       "stepIngredients": "Matching ingredients to nutrition data…",
@@ -294,10 +295,13 @@
       "stepResult": "Finalizing your result…",
       "stepError": "Something went wrong",
       "stepDefault": "Analyzing your meal…",
-      "progressUnderstand": "Understand",
-      "progressMatch": "Match",
-      "progressCheck": "Check",
-      "progressFinish": "Finish",
+      "progressUnderstand": "Understanding your meal",
+      "progressMatch": "Looking up ingredient nutrition",
+      "progressCheck": "Checking portions and confidence",
+      "progressMealType": "Choosing meal type",
+      "progressFinish": "Calculating calories and macros",
+      "detectedIngredientHeading": "Ingredients we're spotting",
+      "ingredientsOverflow": "{count} more",
       "ingredientsLine": "{count} ingredients detected",
       "ingredientsPending": "Scanning ingredients…",
       "mealPreviewDescription": "\"{text}\"",

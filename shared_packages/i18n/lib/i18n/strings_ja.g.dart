@@ -178,7 +178,7 @@ class _TranslationsMealJa implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => '画像の圧縮中にエラーが発生しました: ${error}';
 	@override String get failedToSave => 'データを保存できませんでした。もう一度お試しください。';
 	@override String get skip => 'スキップ';
-	@override late final _TranslationsMealVariationJa variation = _TranslationsMealVariationJa._(_root);
+	@override late final _TranslationsMealQuestionFlowJa questionFlow = _TranslationsMealQuestionFlowJa._(_root);
 	@override late final _TranslationsMealAnalysisJa analysis = _TranslationsMealAnalysisJa._(_root);
 	@override late final _TranslationsMealFeedbackJa feedback = _TranslationsMealFeedbackJa._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationJa implements TranslationsMealDeleteCon
 	@override String get delete => '削除';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationJa implements TranslationsMealVariationEn {
-	_TranslationsMealVariationJa._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowJa implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowJa._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object total, required Object current}) => '${total} 問中 ${current} 問目';
-	@override String get noVariationsAvailable => 'バリエーションはありません';
+	@override String progress({required Object current, required Object total}) => '質問 ${current}/${total}';
+	@override String get noQuestionsAvailable => '現在利用できる質問はありません';
+	@override String get next => '次へ';
+	@override String get continueLabel => '続ける';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisJa implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'AI の食事分析';
-	@override String get reassurance => '通常は数秒で完了します。';
 	@override String get stepStarted => '開始しています…';
 	@override String get stepDecomposition => '食事内容を理解しています…';
 	@override String get stepIngredients => '栄養データに食材を照合しています…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisJa implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => '理解';
 	@override String get progressMatch => '照合';
 	@override String get progressCheck => '確認';
+	@override String get progressMealType => '食事の種類を選択しています';
 	@override String get progressFinish => '完了';
+	@override String get detectedIngredientHeading => '確認できた食材';
+	@override String ingredientsOverflow({required Object count}) => 'さらに${count}件';
 	@override String ingredientsLine({required Object count}) => '${count} 個の食材を検出';
 	@override String get ingredientsPending => '食材をスキャン中…';
 	@override String mealPreviewDescription({required Object text}) => '「${text}」';
@@ -1882,10 +1886,11 @@ extension on TranslationsJa {
 			'meal.errorCompressingImage' => ({required Object error}) => '画像の圧縮中にエラーが発生しました: ${error}',
 			'meal.failedToSave' => 'データを保存できませんでした。もう一度お試しください。',
 			'meal.skip' => 'スキップ',
-			'meal.variation.question' => ({required Object total, required Object current}) => '${total} 問中 ${current} 問目',
-			'meal.variation.noVariationsAvailable' => 'バリエーションはありません',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => '質問 ${current}/${total}',
+			'meal.questionFlow.noQuestionsAvailable' => '現在利用できる質問はありません',
+			'meal.questionFlow.next' => '次へ',
+			'meal.questionFlow.continueLabel' => '続ける',
 			'meal.analysis.title' => 'AI の食事分析',
-			'meal.analysis.reassurance' => '通常は数秒で完了します。',
 			'meal.analysis.stepStarted' => '開始しています…',
 			'meal.analysis.stepDecomposition' => '食事内容を理解しています…',
 			'meal.analysis.stepIngredients' => '栄養データに食材を照合しています…',
@@ -1897,7 +1902,10 @@ extension on TranslationsJa {
 			'meal.analysis.progressUnderstand' => '理解',
 			'meal.analysis.progressMatch' => '照合',
 			'meal.analysis.progressCheck' => '確認',
+			'meal.analysis.progressMealType' => '食事の種類を選択しています',
 			'meal.analysis.progressFinish' => '完了',
+			'meal.analysis.detectedIngredientHeading' => '確認できた食材',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => 'さらに${count}件',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} 個の食材を検出',
 			'meal.analysis.ingredientsPending' => '食材をスキャン中…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '「${text}」',

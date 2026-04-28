@@ -279,13 +279,14 @@
     "errorCompressingImage": "Fout bij het comprimeren van de afbeelding: {error}",
     "failedToSave": "Opslaan van gegevens mislukt. Probeer het opnieuw.",
     "skip": "Overslaan",
-    "variation": {
-      "question": "Vraag {current} van {total}",
-      "noVariationsAvailable": "Geen varianten beschikbaar"
+    "questionFlow": {
+      "progress": "Vraag {current} van {total}",
+      "noQuestionsAvailable": "Geen vragen beschikbaar",
+      "next": "Volgende",
+      "continueLabel": "Doorgaan"
     },
     "analysis": {
       "title": "AI-maalanalyse",
-      "reassurance": "Dit duurt meestal een paar seconden.",
       "stepStarted": "Bezig met starten…",
       "stepDecomposition": "Je maaltijd begrijpen…",
       "stepIngredients": "Ingrediënten koppelen aan voedingsgegevens…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Begrijpen",
       "progressMatch": "Koppelen",
       "progressCheck": "Controleren",
+      "progressMealType": "Maaltijdtype kiezen",
       "progressFinish": "Afronden",
+      "detectedIngredientHeading": "Ingrediënten die we herkennen",
+      "ingredientsOverflow": "{count} meer",
       "ingredientsLine": "{count} ingrediënten gedetecteerd",
       "ingredientsPending": "Ingrediënten scannen…",
       "mealPreviewDescription": "\"{text}\"",

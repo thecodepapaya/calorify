@@ -21,7 +21,7 @@ class LogScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: MediaQuery.of(context).padding.top + 16),
+            SizedBox(height: MediaQuery.of(context).padding.top + 12),
             Padding(
               padding: globalMargin,
               child: Column(
@@ -44,9 +44,9 @@ class LogScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             const MealSnap(),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             const DescribeMeal(),
             const SizedBox(height: 24),
             const FavoriteMeals(),

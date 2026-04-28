@@ -178,7 +178,7 @@ class _TranslationsMealUr implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'تصویر کمپریس کرنے میں خرابی: ${error}';
 	@override String get failedToSave => 'ڈیٹا محفوظ نہ ہو سکا۔ براہ کرم دوبارہ کوشش کریں۔';
 	@override String get skip => 'اسکپ';
-	@override late final _TranslationsMealVariationUr variation = _TranslationsMealVariationUr._(_root);
+	@override late final _TranslationsMealQuestionFlowUr questionFlow = _TranslationsMealQuestionFlowUr._(_root);
 	@override late final _TranslationsMealAnalysisUr analysis = _TranslationsMealAnalysisUr._(_root);
 	@override late final _TranslationsMealFeedbackUr feedback = _TranslationsMealFeedbackUr._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationUr implements TranslationsMealDeleteCon
 	@override String get delete => 'حذف کریں';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationUr implements TranslationsMealVariationEn {
-	_TranslationsMealVariationUr._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowUr implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowUr._(this._root);
 
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'سوال ${current} از ${total}';
-	@override String get noVariationsAvailable => 'کوئی مختلف شکلیں دستیاب نہیں';
+	@override String progress({required Object total, required Object current}) => 'مجموعی ${total} میں سے سوال نمبر ${current}';
+	@override String get noQuestionsAvailable => 'کوئی سوال دستیاب نہیں ہے';
+	@override String get next => 'اگلا';
+	@override String get continueLabel => 'جاری رکھیں';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisUr implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'AI کھانے کا تجزیہ';
-	@override String get reassurance => 'یہ عموماً چند سیکنڈ لیتا ہے۔';
 	@override String get stepStarted => 'آغاز ہو رہا ہے…';
 	@override String get stepDecomposition => 'آپ کے کھانے کو سمجھا جا رہا ہے…';
 	@override String get stepIngredients => 'اجزاء کو غذائی ڈیٹا سے ملایا جا رہا ہے…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisUr implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'سمجھیں';
 	@override String get progressMatch => 'ملاپ';
 	@override String get progressCheck => 'چیک';
+	@override String get progressMealType => 'کھانے کی قسم منتخب کی جا رہی ہے';
 	@override String get progressFinish => 'اختتام';
+	@override String get detectedIngredientHeading => 'ہم جو اجزاء پہچان رہے ہیں';
+	@override String ingredientsOverflow({required Object count}) => '${count} مزید';
 	@override String ingredientsLine({required Object count}) => '${count} اجزاء شناخت ہوئے';
 	@override String get ingredientsPending => 'اجزاء اسکین کیے جا رہے ہیں…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsUr {
 			'meal.errorCompressingImage' => ({required Object error}) => 'تصویر کمپریس کرنے میں خرابی: ${error}',
 			'meal.failedToSave' => 'ڈیٹا محفوظ نہ ہو سکا۔ براہ کرم دوبارہ کوشش کریں۔',
 			'meal.skip' => 'اسکپ',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'سوال ${current} از ${total}',
-			'meal.variation.noVariationsAvailable' => 'کوئی مختلف شکلیں دستیاب نہیں',
+			'meal.questionFlow.progress' => ({required Object total, required Object current}) => 'مجموعی ${total} میں سے سوال نمبر ${current}',
+			'meal.questionFlow.noQuestionsAvailable' => 'کوئی سوال دستیاب نہیں ہے',
+			'meal.questionFlow.next' => 'اگلا',
+			'meal.questionFlow.continueLabel' => 'جاری رکھیں',
 			'meal.analysis.title' => 'AI کھانے کا تجزیہ',
-			'meal.analysis.reassurance' => 'یہ عموماً چند سیکنڈ لیتا ہے۔',
 			'meal.analysis.stepStarted' => 'آغاز ہو رہا ہے…',
 			'meal.analysis.stepDecomposition' => 'آپ کے کھانے کو سمجھا جا رہا ہے…',
 			'meal.analysis.stepIngredients' => 'اجزاء کو غذائی ڈیٹا سے ملایا جا رہا ہے…',
@@ -1897,7 +1902,10 @@ extension on TranslationsUr {
 			'meal.analysis.progressUnderstand' => 'سمجھیں',
 			'meal.analysis.progressMatch' => 'ملاپ',
 			'meal.analysis.progressCheck' => 'چیک',
+			'meal.analysis.progressMealType' => 'کھانے کی قسم منتخب کی جا رہی ہے',
 			'meal.analysis.progressFinish' => 'اختتام',
+			'meal.analysis.detectedIngredientHeading' => 'ہم جو اجزاء پہچان رہے ہیں',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} مزید',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} اجزاء شناخت ہوئے',
 			'meal.analysis.ingredientsPending' => 'اجزاء اسکین کیے جا رہے ہیں…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

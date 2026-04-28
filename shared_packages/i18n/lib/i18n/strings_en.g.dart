@@ -279,7 +279,7 @@ class TranslationsMealEn {
 	/// en: 'Skip'
 	String get skip => 'Skip';
 
-	late final TranslationsMealVariationEn variation = TranslationsMealVariationEn._(_root);
+	late final TranslationsMealQuestionFlowEn questionFlow = TranslationsMealQuestionFlowEn._(_root);
 	late final TranslationsMealAnalysisEn analysis = TranslationsMealAnalysisEn._(_root);
 	late final TranslationsMealFeedbackEn feedback = TranslationsMealFeedbackEn._(_root);
 }
@@ -1241,19 +1241,25 @@ class TranslationsMealDeleteConfirmationEn {
 	String get delete => 'Delete';
 }
 
-// Path: meal.variation
-class TranslationsMealVariationEn {
-	TranslationsMealVariationEn._(this._root);
+// Path: meal.questionFlow
+class TranslationsMealQuestionFlowEn {
+	TranslationsMealQuestionFlowEn._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
 	/// en: 'Question {current} of {total}'
-	String question({required Object current, required Object total}) => 'Question ${current} of ${total}';
+	String progress({required Object current, required Object total}) => 'Question ${current} of ${total}';
 
-	/// en: 'No variations available'
-	String get noVariationsAvailable => 'No variations available';
+	/// en: 'No questions available'
+	String get noQuestionsAvailable => 'No questions available';
+
+	/// en: 'Next'
+	String get next => 'Next';
+
+	/// en: 'Continue'
+	String get continueLabel => 'Continue';
 }
 
 // Path: meal.analysis
@@ -1266,9 +1272,6 @@ class TranslationsMealAnalysisEn {
 
 	/// en: 'Analyzing your meal'
 	String get title => 'Analyzing your meal';
-
-	/// en: 'This usually takes a few seconds.'
-	String get reassurance => 'This usually takes a few seconds.';
 
 	/// en: 'Getting started…'
 	String get stepStarted => 'Getting started…';
@@ -1294,17 +1297,26 @@ class TranslationsMealAnalysisEn {
 	/// en: 'Analyzing your meal…'
 	String get stepDefault => 'Analyzing your meal…';
 
-	/// en: 'Understand'
-	String get progressUnderstand => 'Understand';
+	/// en: 'Understanding your meal'
+	String get progressUnderstand => 'Understanding your meal';
 
-	/// en: 'Match'
-	String get progressMatch => 'Match';
+	/// en: 'Looking up ingredient nutrition'
+	String get progressMatch => 'Looking up ingredient nutrition';
 
-	/// en: 'Check'
-	String get progressCheck => 'Check';
+	/// en: 'Checking portions and confidence'
+	String get progressCheck => 'Checking portions and confidence';
 
-	/// en: 'Finish'
-	String get progressFinish => 'Finish';
+	/// en: 'Choosing meal type'
+	String get progressMealType => 'Choosing meal type';
+
+	/// en: 'Calculating calories and macros'
+	String get progressFinish => 'Calculating calories and macros';
+
+	/// en: 'Ingredients we're spotting'
+	String get detectedIngredientHeading => 'Ingredients we\'re spotting';
+
+	/// en: '{count} more'
+	String ingredientsOverflow({required Object count}) => '${count} more';
 
 	/// en: '{count} ingredients detected'
 	String ingredientsLine({required Object count}) => '${count} ingredients detected';
@@ -2890,10 +2902,11 @@ extension on Translations {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Error compressing image: ${error}',
 			'meal.failedToSave' => 'Failed to save data. Please try again.',
 			'meal.skip' => 'Skip',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Question ${current} of ${total}',
-			'meal.variation.noVariationsAvailable' => 'No variations available',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Question ${current} of ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'No questions available',
+			'meal.questionFlow.next' => 'Next',
+			'meal.questionFlow.continueLabel' => 'Continue',
 			'meal.analysis.title' => 'Analyzing your meal',
-			'meal.analysis.reassurance' => 'This usually takes a few seconds.',
 			'meal.analysis.stepStarted' => 'Getting started…',
 			'meal.analysis.stepDecomposition' => 'Understanding your meal…',
 			'meal.analysis.stepIngredients' => 'Matching ingredients to nutrition data…',
@@ -2902,10 +2915,13 @@ extension on Translations {
 			'meal.analysis.stepResult' => 'Finalizing your result…',
 			'meal.analysis.stepError' => 'Something went wrong',
 			'meal.analysis.stepDefault' => 'Analyzing your meal…',
-			'meal.analysis.progressUnderstand' => 'Understand',
-			'meal.analysis.progressMatch' => 'Match',
-			'meal.analysis.progressCheck' => 'Check',
-			'meal.analysis.progressFinish' => 'Finish',
+			'meal.analysis.progressUnderstand' => 'Understanding your meal',
+			'meal.analysis.progressMatch' => 'Looking up ingredient nutrition',
+			'meal.analysis.progressCheck' => 'Checking portions and confidence',
+			'meal.analysis.progressMealType' => 'Choosing meal type',
+			'meal.analysis.progressFinish' => 'Calculating calories and macros',
+			'meal.analysis.detectedIngredientHeading' => 'Ingredients we\'re spotting',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} more',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingredients detected',
 			'meal.analysis.ingredientsPending' => 'Scanning ingredients…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

@@ -178,7 +178,7 @@ class _TranslationsMealEl implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Σφάλμα κατά τη συμπίεση εικόνας: ${error}';
 	@override String get failedToSave => 'Αποτυχία αποθήκευσης δεδομένων. Δοκίμασε ξανά.';
 	@override String get skip => 'Παράλειψη';
-	@override late final _TranslationsMealVariationEl variation = _TranslationsMealVariationEl._(_root);
+	@override late final _TranslationsMealQuestionFlowEl questionFlow = _TranslationsMealQuestionFlowEl._(_root);
 	@override late final _TranslationsMealAnalysisEl analysis = _TranslationsMealAnalysisEl._(_root);
 	@override late final _TranslationsMealFeedbackEl feedback = _TranslationsMealFeedbackEl._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationEl implements TranslationsMealDeleteCon
 	@override String get delete => 'Διαγραφή';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationEl implements TranslationsMealVariationEn {
-	_TranslationsMealVariationEl._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowEl implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowEl._(this._root);
 
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Ερώτηση ${current} από ${total}';
-	@override String get noVariationsAvailable => 'Δεν υπάρχουν διαθέσιμες παραλλαγές';
+	@override String progress({required Object current, required Object total}) => 'Ερώτηση ${current} από ${total}';
+	@override String get noQuestionsAvailable => 'Δεν υπάρχουν διαθέσιμες ερωτήσεις';
+	@override String get next => 'Επόμενο';
+	@override String get continueLabel => 'Συνέχισε';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisEl implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'Ανάλυση γεύματος με AI';
-	@override String get reassurance => 'Συνήθως διαρκεί λίγα δευτερόλεπτα.';
 	@override String get stepStarted => 'Ξεκινάμε…';
 	@override String get stepDecomposition => 'Κατανόηση του γεύματός σου…';
 	@override String get stepIngredients => 'Αντιστοίχιση συστατικών με διατροφικά δεδομένα…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisEl implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Κατανόηση';
 	@override String get progressMatch => 'Αντιστοίχιση';
 	@override String get progressCheck => 'Έλεγχος';
+	@override String get progressMealType => 'Επιλογή τύπου γεύματος';
 	@override String get progressFinish => 'Τελικό';
+	@override String get detectedIngredientHeading => 'Συστατικά που εντοπίζουμε';
+	@override String ingredientsOverflow({required Object count}) => '${count} ακόμη';
 	@override String ingredientsLine({required Object count}) => 'Εντοπίστηκαν ${count} συστατικά';
 	@override String get ingredientsPending => 'Σάρωση συστατικών…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsEl {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Σφάλμα κατά τη συμπίεση εικόνας: ${error}',
 			'meal.failedToSave' => 'Αποτυχία αποθήκευσης δεδομένων. Δοκίμασε ξανά.',
 			'meal.skip' => 'Παράλειψη',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Ερώτηση ${current} από ${total}',
-			'meal.variation.noVariationsAvailable' => 'Δεν υπάρχουν διαθέσιμες παραλλαγές',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Ερώτηση ${current} από ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Δεν υπάρχουν διαθέσιμες ερωτήσεις',
+			'meal.questionFlow.next' => 'Επόμενο',
+			'meal.questionFlow.continueLabel' => 'Συνέχισε',
 			'meal.analysis.title' => 'Ανάλυση γεύματος με AI',
-			'meal.analysis.reassurance' => 'Συνήθως διαρκεί λίγα δευτερόλεπτα.',
 			'meal.analysis.stepStarted' => 'Ξεκινάμε…',
 			'meal.analysis.stepDecomposition' => 'Κατανόηση του γεύματός σου…',
 			'meal.analysis.stepIngredients' => 'Αντιστοίχιση συστατικών με διατροφικά δεδομένα…',
@@ -1897,7 +1902,10 @@ extension on TranslationsEl {
 			'meal.analysis.progressUnderstand' => 'Κατανόηση',
 			'meal.analysis.progressMatch' => 'Αντιστοίχιση',
 			'meal.analysis.progressCheck' => 'Έλεγχος',
+			'meal.analysis.progressMealType' => 'Επιλογή τύπου γεύματος',
 			'meal.analysis.progressFinish' => 'Τελικό',
+			'meal.analysis.detectedIngredientHeading' => 'Συστατικά που εντοπίζουμε',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} ακόμη',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'Εντοπίστηκαν ${count} συστατικά',
 			'meal.analysis.ingredientsPending' => 'Σάρωση συστατικών…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

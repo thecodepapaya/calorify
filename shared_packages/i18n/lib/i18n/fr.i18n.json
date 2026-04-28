@@ -279,13 +279,14 @@
     "errorCompressingImage": "Erreur lors de la compression de l’image : {error}",
     "failedToSave": "Échec de l’enregistrement des données. Veuillez réessayer.",
     "skip": "Ignorer",
-    "variation": {
-      "question": "Question {current} sur {total}",
-      "noVariationsAvailable": "Aucune variante disponible"
+    "questionFlow": {
+      "progress": "Question {current} sur {total}",
+      "noQuestionsAvailable": "Aucune question disponible",
+      "next": "Suivant",
+      "continueLabel": "Continuer"
     },
     "analysis": {
       "title": "Analyse du repas par IA",
-      "reassurance": "Cela prend généralement quelques secondes.",
       "stepStarted": "Démarrage…",
       "stepDecomposition": "Compréhension de votre repas…",
       "stepIngredients": "Association des ingrédients à la base nutritionnelle…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Comprendre",
       "progressMatch": "Associer",
       "progressCheck": "Vérifier",
+      "progressMealType": "Sélection du type de repas",
       "progressFinish": "Terminer",
+      "detectedIngredientHeading": "Ingrédients détectés",
+      "ingredientsOverflow": "{count} de plus",
       "ingredientsLine": "{count} ingrédients détectés",
       "ingredientsPending": "Analyse des ingrédients…",
       "mealPreviewDescription": "\"{text}\"",

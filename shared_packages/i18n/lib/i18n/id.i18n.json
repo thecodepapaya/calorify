@@ -279,13 +279,14 @@
     "errorCompressingImage": "Kesalahan mengompresi gambar: {error}",
     "failedToSave": "Gagal menyimpan data. Silakan coba lagi.",
     "skip": "Lewati",
-    "variation": {
-      "question": "Pertanyaan {current} dari {total}",
-      "noVariationsAvailable": "Tidak ada variasi tersedia"
+    "questionFlow": {
+      "progress": "Pertanyaan {current} dari {total}",
+      "noQuestionsAvailable": "Tidak ada pertanyaan yang tersedia",
+      "next": "Berikutnya",
+      "continueLabel": "Lanjutkan"
     },
     "analysis": {
       "title": "Analisis makanan oleh AI",
-      "reassurance": "Biasanya hanya beberapa detik.",
       "stepStarted": "Memulai…",
       "stepDecomposition": "Memahami makanan Anda…",
       "stepIngredients": "Mencocokkan bahan dengan data gizi…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Memahami",
       "progressMatch": "Mencocokkan",
       "progressCheck": "Memeriksa",
+      "progressMealType": "Memilih jenis makanan",
       "progressFinish": "Selesai",
+      "detectedIngredientHeading": "Bahan yang kami deteksi",
+      "ingredientsOverflow": "{count} lainnya",
       "ingredientsLine": "{count} bahan terdeteksi",
       "ingredientsPending": "Memindai bahan…",
       "mealPreviewDescription": "\"{text}\"",

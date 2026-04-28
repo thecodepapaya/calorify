@@ -178,7 +178,7 @@ class _TranslationsMealNl implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Fout bij het comprimeren van de afbeelding: ${error}';
 	@override String get failedToSave => 'Opslaan van gegevens mislukt. Probeer het opnieuw.';
 	@override String get skip => 'Overslaan';
-	@override late final _TranslationsMealVariationNl variation = _TranslationsMealVariationNl._(_root);
+	@override late final _TranslationsMealQuestionFlowNl questionFlow = _TranslationsMealQuestionFlowNl._(_root);
 	@override late final _TranslationsMealAnalysisNl analysis = _TranslationsMealAnalysisNl._(_root);
 	@override late final _TranslationsMealFeedbackNl feedback = _TranslationsMealFeedbackNl._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationNl implements TranslationsMealDeleteCon
 	@override String get delete => 'Verwijderen';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationNl implements TranslationsMealVariationEn {
-	_TranslationsMealVariationNl._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowNl implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowNl._(this._root);
 
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Vraag ${current} van ${total}';
-	@override String get noVariationsAvailable => 'Geen varianten beschikbaar';
+	@override String progress({required Object current, required Object total}) => 'Vraag ${current} van ${total}';
+	@override String get noQuestionsAvailable => 'Geen vragen beschikbaar';
+	@override String get next => 'Volgende';
+	@override String get continueLabel => 'Doorgaan';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisNl implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'AI-maalanalyse';
-	@override String get reassurance => 'Dit duurt meestal een paar seconden.';
 	@override String get stepStarted => 'Bezig met starten…';
 	@override String get stepDecomposition => 'Je maaltijd begrijpen…';
 	@override String get stepIngredients => 'Ingrediënten koppelen aan voedingsgegevens…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisNl implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Begrijpen';
 	@override String get progressMatch => 'Koppelen';
 	@override String get progressCheck => 'Controleren';
+	@override String get progressMealType => 'Maaltijdtype kiezen';
 	@override String get progressFinish => 'Afronden';
+	@override String get detectedIngredientHeading => 'Ingrediënten die we herkennen';
+	@override String ingredientsOverflow({required Object count}) => '${count} meer';
 	@override String ingredientsLine({required Object count}) => '${count} ingrediënten gedetecteerd';
 	@override String get ingredientsPending => 'Ingrediënten scannen…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsNl {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fout bij het comprimeren van de afbeelding: ${error}',
 			'meal.failedToSave' => 'Opslaan van gegevens mislukt. Probeer het opnieuw.',
 			'meal.skip' => 'Overslaan',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Vraag ${current} van ${total}',
-			'meal.variation.noVariationsAvailable' => 'Geen varianten beschikbaar',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Vraag ${current} van ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Geen vragen beschikbaar',
+			'meal.questionFlow.next' => 'Volgende',
+			'meal.questionFlow.continueLabel' => 'Doorgaan',
 			'meal.analysis.title' => 'AI-maalanalyse',
-			'meal.analysis.reassurance' => 'Dit duurt meestal een paar seconden.',
 			'meal.analysis.stepStarted' => 'Bezig met starten…',
 			'meal.analysis.stepDecomposition' => 'Je maaltijd begrijpen…',
 			'meal.analysis.stepIngredients' => 'Ingrediënten koppelen aan voedingsgegevens…',
@@ -1897,7 +1902,10 @@ extension on TranslationsNl {
 			'meal.analysis.progressUnderstand' => 'Begrijpen',
 			'meal.analysis.progressMatch' => 'Koppelen',
 			'meal.analysis.progressCheck' => 'Controleren',
+			'meal.analysis.progressMealType' => 'Maaltijdtype kiezen',
 			'meal.analysis.progressFinish' => 'Afronden',
+			'meal.analysis.detectedIngredientHeading' => 'Ingrediënten die we herkennen',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} meer',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingrediënten gedetecteerd',
 			'meal.analysis.ingredientsPending' => 'Ingrediënten scannen…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

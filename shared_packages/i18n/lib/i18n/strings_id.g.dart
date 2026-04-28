@@ -178,7 +178,7 @@ class _TranslationsMealId implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Kesalahan mengompresi gambar: ${error}';
 	@override String get failedToSave => 'Gagal menyimpan data. Silakan coba lagi.';
 	@override String get skip => 'Lewati';
-	@override late final _TranslationsMealVariationId variation = _TranslationsMealVariationId._(_root);
+	@override late final _TranslationsMealQuestionFlowId questionFlow = _TranslationsMealQuestionFlowId._(_root);
 	@override late final _TranslationsMealAnalysisId analysis = _TranslationsMealAnalysisId._(_root);
 	@override late final _TranslationsMealFeedbackId feedback = _TranslationsMealFeedbackId._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationId implements TranslationsMealDeleteCon
 	@override String get delete => 'Hapus';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationId implements TranslationsMealVariationEn {
-	_TranslationsMealVariationId._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowId implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowId._(this._root);
 
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Pertanyaan ${current} dari ${total}';
-	@override String get noVariationsAvailable => 'Tidak ada variasi tersedia';
+	@override String progress({required Object current, required Object total}) => 'Pertanyaan ${current} dari ${total}';
+	@override String get noQuestionsAvailable => 'Tidak ada pertanyaan yang tersedia';
+	@override String get next => 'Berikutnya';
+	@override String get continueLabel => 'Lanjutkan';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisId implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'Analisis makanan oleh AI';
-	@override String get reassurance => 'Biasanya hanya beberapa detik.';
 	@override String get stepStarted => 'Memulai…';
 	@override String get stepDecomposition => 'Memahami makanan Anda…';
 	@override String get stepIngredients => 'Mencocokkan bahan dengan data gizi…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisId implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Memahami';
 	@override String get progressMatch => 'Mencocokkan';
 	@override String get progressCheck => 'Memeriksa';
+	@override String get progressMealType => 'Memilih jenis makanan';
 	@override String get progressFinish => 'Selesai';
+	@override String get detectedIngredientHeading => 'Bahan yang kami deteksi';
+	@override String ingredientsOverflow({required Object count}) => '${count} lainnya';
 	@override String ingredientsLine({required Object count}) => '${count} bahan terdeteksi';
 	@override String get ingredientsPending => 'Memindai bahan…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsId {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Kesalahan mengompresi gambar: ${error}',
 			'meal.failedToSave' => 'Gagal menyimpan data. Silakan coba lagi.',
 			'meal.skip' => 'Lewati',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Pertanyaan ${current} dari ${total}',
-			'meal.variation.noVariationsAvailable' => 'Tidak ada variasi tersedia',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Pertanyaan ${current} dari ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Tidak ada pertanyaan yang tersedia',
+			'meal.questionFlow.next' => 'Berikutnya',
+			'meal.questionFlow.continueLabel' => 'Lanjutkan',
 			'meal.analysis.title' => 'Analisis makanan oleh AI',
-			'meal.analysis.reassurance' => 'Biasanya hanya beberapa detik.',
 			'meal.analysis.stepStarted' => 'Memulai…',
 			'meal.analysis.stepDecomposition' => 'Memahami makanan Anda…',
 			'meal.analysis.stepIngredients' => 'Mencocokkan bahan dengan data gizi…',
@@ -1897,7 +1902,10 @@ extension on TranslationsId {
 			'meal.analysis.progressUnderstand' => 'Memahami',
 			'meal.analysis.progressMatch' => 'Mencocokkan',
 			'meal.analysis.progressCheck' => 'Memeriksa',
+			'meal.analysis.progressMealType' => 'Memilih jenis makanan',
 			'meal.analysis.progressFinish' => 'Selesai',
+			'meal.analysis.detectedIngredientHeading' => 'Bahan yang kami deteksi',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} lainnya',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} bahan terdeteksi',
 			'meal.analysis.ingredientsPending' => 'Memindai bahan…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

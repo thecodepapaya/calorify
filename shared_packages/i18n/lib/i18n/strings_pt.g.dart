@@ -178,7 +178,7 @@ class _TranslationsMealPt implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Erro ao comprimir a imagem: ${error}';
 	@override String get failedToSave => 'Falha ao salvar os dados. Tente novamente.';
 	@override String get skip => 'Pular';
-	@override late final _TranslationsMealVariationPt variation = _TranslationsMealVariationPt._(_root);
+	@override late final _TranslationsMealQuestionFlowPt questionFlow = _TranslationsMealQuestionFlowPt._(_root);
 	@override late final _TranslationsMealAnalysisPt analysis = _TranslationsMealAnalysisPt._(_root);
 	@override late final _TranslationsMealFeedbackPt feedback = _TranslationsMealFeedbackPt._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationPt implements TranslationsMealDeleteCon
 	@override String get delete => 'Excluir';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationPt implements TranslationsMealVariationEn {
-	_TranslationsMealVariationPt._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowPt implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowPt._(this._root);
 
 	final TranslationsPt _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Pergunta ${current} de ${total}';
-	@override String get noVariationsAvailable => 'Nenhuma variação disponível';
+	@override String progress({required Object current, required Object total}) => 'Pergunta ${current} de ${total}';
+	@override String get noQuestionsAvailable => 'Não há perguntas disponíveis';
+	@override String get next => 'Próxima';
+	@override String get continueLabel => 'Continuar';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisPt implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'Análise da refeição por IA';
-	@override String get reassurance => 'Isso geralmente leva alguns segundos.';
 	@override String get stepStarted => 'Iniciando…';
 	@override String get stepDecomposition => 'Entendendo sua refeição…';
 	@override String get stepIngredients => 'Relacionando ingredientes aos dados nutricionais…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisPt implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Entender';
 	@override String get progressMatch => 'Relacionar';
 	@override String get progressCheck => 'Verificar';
+	@override String get progressMealType => 'Selecionando o tipo de refeição';
 	@override String get progressFinish => 'Concluir';
+	@override String get detectedIngredientHeading => 'Ingredientes que identificamos';
+	@override String ingredientsOverflow({required Object count}) => '${count} a mais';
 	@override String ingredientsLine({required Object count}) => '${count} ingredientes detectados';
 	@override String get ingredientsPending => 'Analisando ingredientes…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsPt {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Erro ao comprimir a imagem: ${error}',
 			'meal.failedToSave' => 'Falha ao salvar os dados. Tente novamente.',
 			'meal.skip' => 'Pular',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Pergunta ${current} de ${total}',
-			'meal.variation.noVariationsAvailable' => 'Nenhuma variação disponível',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Pergunta ${current} de ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Não há perguntas disponíveis',
+			'meal.questionFlow.next' => 'Próxima',
+			'meal.questionFlow.continueLabel' => 'Continuar',
 			'meal.analysis.title' => 'Análise da refeição por IA',
-			'meal.analysis.reassurance' => 'Isso geralmente leva alguns segundos.',
 			'meal.analysis.stepStarted' => 'Iniciando…',
 			'meal.analysis.stepDecomposition' => 'Entendendo sua refeição…',
 			'meal.analysis.stepIngredients' => 'Relacionando ingredientes aos dados nutricionais…',
@@ -1897,7 +1902,10 @@ extension on TranslationsPt {
 			'meal.analysis.progressUnderstand' => 'Entender',
 			'meal.analysis.progressMatch' => 'Relacionar',
 			'meal.analysis.progressCheck' => 'Verificar',
+			'meal.analysis.progressMealType' => 'Selecionando o tipo de refeição',
 			'meal.analysis.progressFinish' => 'Concluir',
+			'meal.analysis.detectedIngredientHeading' => 'Ingredientes que identificamos',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} a mais',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingredientes detectados',
 			'meal.analysis.ingredientsPending' => 'Analisando ingredientes…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

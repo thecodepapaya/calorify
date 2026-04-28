@@ -279,13 +279,14 @@
     "errorCompressingImage": "Error compressing image: {error}",
     "failedToSave": "Failed to save data. Please try again.",
     "skip": "Skip",
-    "variation": {
-      "question": "Question {current} of {total}",
-      "noVariationsAvailable": "No variations available"
+    "questionFlow": {
+      "progress": "第 {current} 題，共 {total} 題",
+      "noQuestionsAvailable": "目前沒有可用的問題",
+      "next": "下一題",
+      "continueLabel": "繼續"
     },
     "analysis": {
       "title": "AI meal analysis",
-      "reassurance": "This usually takes a few seconds.",
       "stepStarted": "Getting started…",
       "stepDecomposition": "Understanding your meal…",
       "stepIngredients": "Matching ingredients to nutrition data…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Understand",
       "progressMatch": "Match",
       "progressCheck": "Check",
+      "progressMealType": "正在選擇餐點類型",
       "progressFinish": "Finish",
+      "detectedIngredientHeading": "我們偵測到的食材",
+      "ingredientsOverflow": "還有 {count} 項食材",
       "ingredientsLine": "{count} ingredients detected",
       "ingredientsPending": "Scanning ingredients…",
       "mealPreviewDescription": "\"{text}\"",

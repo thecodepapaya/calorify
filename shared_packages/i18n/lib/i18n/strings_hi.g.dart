@@ -178,7 +178,7 @@ class _TranslationsMealHi implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'छवि संपीड़ित करते समय त्रुटि: ${error}';
 	@override String get failedToSave => 'डेटा सहेजने में विफल। कृपया पुन: प्रयास करें।';
 	@override String get skip => 'छोड़ें';
-	@override late final _TranslationsMealVariationHi variation = _TranslationsMealVariationHi._(_root);
+	@override late final _TranslationsMealQuestionFlowHi questionFlow = _TranslationsMealQuestionFlowHi._(_root);
 	@override late final _TranslationsMealAnalysisHi analysis = _TranslationsMealAnalysisHi._(_root);
 	@override late final _TranslationsMealFeedbackHi feedback = _TranslationsMealFeedbackHi._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationHi implements TranslationsMealDeleteCon
 	@override String get delete => 'हटाएं';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationHi implements TranslationsMealVariationEn {
-	_TranslationsMealVariationHi._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowHi implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowHi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object total, required Object current}) => 'प्रश्न ${total} में से ${current}';
-	@override String get noVariationsAvailable => 'कोई वैरिएशन उपलब्ध नहीं';
+	@override String progress({required Object total, required Object current}) => 'कुल ${total} में से प्रश्न ${current}';
+	@override String get noQuestionsAvailable => 'कोई प्रश्न उपलब्ध नहीं है';
+	@override String get next => 'अगला';
+	@override String get continueLabel => 'जारी रखें';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisHi implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'AI भोजन विश्लेषण';
-	@override String get reassurance => 'यह आमतौर पर कुछ सेकंड लेता है।';
 	@override String get stepStarted => 'शुरू किया जा रहा है…';
 	@override String get stepDecomposition => 'आपके भोजन को समझा जा रहा है…';
 	@override String get stepIngredients => 'सामग्री को पोषण डेटा से मिलाया जा रहा है…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisHi implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'समझें';
 	@override String get progressMatch => 'मिलान';
 	@override String get progressCheck => 'जांच';
+	@override String get progressMealType => 'भोजन प्रकार चुना जा रहा है';
 	@override String get progressFinish => 'समाप्त';
+	@override String get detectedIngredientHeading => 'हम जिन सामग्रियों को पहचान रहे हैं';
+	@override String ingredientsOverflow({required Object count}) => '${count} और';
 	@override String ingredientsLine({required Object count}) => '${count} सामग्री पहचानी गई';
 	@override String get ingredientsPending => 'सामग्री स्कैन की जा रही हैं…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsHi {
 			'meal.errorCompressingImage' => ({required Object error}) => 'छवि संपीड़ित करते समय त्रुटि: ${error}',
 			'meal.failedToSave' => 'डेटा सहेजने में विफल। कृपया पुन: प्रयास करें।',
 			'meal.skip' => 'छोड़ें',
-			'meal.variation.question' => ({required Object total, required Object current}) => 'प्रश्न ${total} में से ${current}',
-			'meal.variation.noVariationsAvailable' => 'कोई वैरिएशन उपलब्ध नहीं',
+			'meal.questionFlow.progress' => ({required Object total, required Object current}) => 'कुल ${total} में से प्रश्न ${current}',
+			'meal.questionFlow.noQuestionsAvailable' => 'कोई प्रश्न उपलब्ध नहीं है',
+			'meal.questionFlow.next' => 'अगला',
+			'meal.questionFlow.continueLabel' => 'जारी रखें',
 			'meal.analysis.title' => 'AI भोजन विश्लेषण',
-			'meal.analysis.reassurance' => 'यह आमतौर पर कुछ सेकंड लेता है।',
 			'meal.analysis.stepStarted' => 'शुरू किया जा रहा है…',
 			'meal.analysis.stepDecomposition' => 'आपके भोजन को समझा जा रहा है…',
 			'meal.analysis.stepIngredients' => 'सामग्री को पोषण डेटा से मिलाया जा रहा है…',
@@ -1897,7 +1902,10 @@ extension on TranslationsHi {
 			'meal.analysis.progressUnderstand' => 'समझें',
 			'meal.analysis.progressMatch' => 'मिलान',
 			'meal.analysis.progressCheck' => 'जांच',
+			'meal.analysis.progressMealType' => 'भोजन प्रकार चुना जा रहा है',
 			'meal.analysis.progressFinish' => 'समाप्त',
+			'meal.analysis.detectedIngredientHeading' => 'हम जिन सामग्रियों को पहचान रहे हैं',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} और',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} सामग्री पहचानी गई',
 			'meal.analysis.ingredientsPending' => 'सामग्री स्कैन की जा रही हैं…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

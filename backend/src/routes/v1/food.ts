@@ -5,7 +5,11 @@ import { getLocaleFromRequest, getCountryFromRequest } from '../../utils/locale.
 import config from '../../config.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import { query } from '../../services/database.js';
-import { getMealAnalysisTipsForLocale } from '../../services/mealAnalysisTips.js';
+import {
+  getMealAnalysisTipsForLocale,
+  MEAL_ANALYSIS_TIPS_QUERY_COUNT_MAX,
+  pickRandomTips,
+} from '../../services/mealAnalysisTips.js';
 import { nonEmptyString, parseBody, urlString, z } from '../../utils/validation.js';
 import type { AiMealSummaryResponse, MealAnalysisTipsResponse } from '../../protos/calorify/http_api.js';
 import { AiMealSummaryTrend } from '../../protos/calorify/ai_meal_summary_trend.js';
@@ -29,6 +33,34 @@ import {
   getMealDetectionResponseSchema,
   getStandardErrorResponses,
 } from '../../utils/schema-generator.js';
+
+function parseMealAnalysisTipsQueryCount(
+  query: unknown
+): { ok: true; limit?: number } | { ok: false; message: string } {
+  if (query === null || query === undefined || typeof query !== 'object') {
+    return { ok: true, limit: undefined };
+  }
+  const raw = (query as Record<string, unknown>).count;
+  if (raw === undefined || raw === null || raw === '') {
+    return { ok: true, limit: undefined };
+  }
+  const n =
+    typeof raw === 'number'
+      ? raw
+      : typeof raw === 'string'
+        ? Number.parseInt(raw, 10)
+        : NaN;
+  if (!Number.isInteger(n) || n < 1) {
+    return { ok: false, message: 'count must be a positive integer' };
+  }
+  if (n > MEAL_ANALYSIS_TIPS_QUERY_COUNT_MAX) {
+    return {
+      ok: false,
+      message: `count must be at most ${MEAL_ANALYSIS_TIPS_QUERY_COUNT_MAX}`,
+    };
+  }
+  return { ok: true, limit: n };
+}
 
 interface AiSummaryRow {
   summary: string;
@@ -254,6 +286,7 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
   /**
    * GET /api/v1/food/meal-analysis-tips
    * Rotating tips for the meal analysis loading UI; editable via data file without an app release.
+   * Optional `count` returns up to that many tips chosen uniformly at random without replacement.
    */
   fastify.get(
     '/meal-analysis-tips',
@@ -261,7 +294,7 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
       preHandler: [authenticateUser],
       schema: {
         description:
-          'Localized one-line tips shown during AI meal analysis. Content is loaded from server config.',
+          'Localized one-line tips shown during AI meal analysis. Content is loaded from server config. Optional query `count` (1–100): return at most that many tips chosen uniformly at random without replacement; omit for the full list.',
         tags: ['Food'],
         security: [{ bearerAuth: [] }],
         response: {
@@ -273,9 +306,16 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
       } as any,
     },
     async (request: FastifyRequest, reply: FastifyReply) => {
+      const parsed = parseMealAnalysisTipsQueryCount(request.query);
+      if (!parsed.ok) {
+        reply.status(400).send(createErrorResponse(parsed.message));
+        return;
+      }
       const locale = getLocaleFromRequest(request);
       const { version, tips } = getMealAnalysisTipsForLocale(locale);
-      const body: MealAnalysisTipsResponse = { version, tips };
+      const outTips =
+        parsed.limit !== undefined ? pickRandomTips(tips, parsed.limit) : tips;
+      const body: MealAnalysisTipsResponse = { version, tips: outTips };
       reply.send(body);
     }
   );

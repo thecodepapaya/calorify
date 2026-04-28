@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
-import 'package:calorify/core/constants/styles.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/router/route_names.dart';
@@ -280,10 +279,6 @@ class _MealTipState extends State<_MealTip> {
       Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-        decoration: BoxDecoration(
-          color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-          borderRadius: globalRadius,
-        ),
         child: Column(
           children: [
             Row(
@@ -371,9 +366,6 @@ class _MealTipState extends State<_MealTip> {
                   onPressed: () => Navigator.of(context).pop(),
                   icon: Icon(LucideIcons.x, size: 20),
                   label: Text(t.common.close),
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                  ),
                 ),
               )
               : PrimaryButton(
@@ -452,9 +444,6 @@ class _MealTipState extends State<_MealTip> {
         onPressed: () => Navigator.of(context).pop(),
         icon: Icon(LucideIcons.x, size: 20),
         label: Text(t.common.close),
-        style: OutlinedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-        ),
       ),
     );
   }

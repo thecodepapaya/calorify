@@ -178,7 +178,7 @@ class _TranslationsMealRu implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Ошибка сжатия изображения: ${error}';
 	@override String get failedToSave => 'Не удалось сохранить данные. Пожалуйста, попробуйте снова.';
 	@override String get skip => 'Пропустить';
-	@override late final _TranslationsMealVariationRu variation = _TranslationsMealVariationRu._(_root);
+	@override late final _TranslationsMealQuestionFlowRu questionFlow = _TranslationsMealQuestionFlowRu._(_root);
 	@override late final _TranslationsMealAnalysisRu analysis = _TranslationsMealAnalysisRu._(_root);
 	@override late final _TranslationsMealFeedbackRu feedback = _TranslationsMealFeedbackRu._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationRu implements TranslationsMealDeleteCon
 	@override String get delete => 'Удалить';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationRu implements TranslationsMealVariationEn {
-	_TranslationsMealVariationRu._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowRu implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowRu._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Вопрос ${current} из ${total}';
-	@override String get noVariationsAvailable => 'Доступных вариантов нет';
+	@override String progress({required Object current, required Object total}) => 'Вопрос ${current} из ${total}';
+	@override String get noQuestionsAvailable => 'Нет доступных вопросов';
+	@override String get next => 'Далее';
+	@override String get continueLabel => 'Продолжить';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisRu implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'Анализ блюда ИИ';
-	@override String get reassurance => 'Обычно это занимает несколько секунд.';
 	@override String get stepStarted => 'Начинаем…';
 	@override String get stepDecomposition => 'Понимаем ваше блюдо…';
 	@override String get stepIngredients => 'Сопоставляем ингредиенты с базой питания…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisRu implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Понять';
 	@override String get progressMatch => 'Сопоставить';
 	@override String get progressCheck => 'Проверить';
+	@override String get progressMealType => 'Выбор типа приёма пищи';
 	@override String get progressFinish => 'Завершить';
+	@override String get detectedIngredientHeading => 'Ингредиенты, которые мы распознаём';
+	@override String ingredientsOverflow({required Object count}) => 'ещё ${count}';
 	@override String ingredientsLine({required Object count}) => 'Обнаружено ${count} ингредиентов';
 	@override String get ingredientsPending => 'Сканирование ингредиентов…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsRu {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Ошибка сжатия изображения: ${error}',
 			'meal.failedToSave' => 'Не удалось сохранить данные. Пожалуйста, попробуйте снова.',
 			'meal.skip' => 'Пропустить',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Вопрос ${current} из ${total}',
-			'meal.variation.noVariationsAvailable' => 'Доступных вариантов нет',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Вопрос ${current} из ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Нет доступных вопросов',
+			'meal.questionFlow.next' => 'Далее',
+			'meal.questionFlow.continueLabel' => 'Продолжить',
 			'meal.analysis.title' => 'Анализ блюда ИИ',
-			'meal.analysis.reassurance' => 'Обычно это занимает несколько секунд.',
 			'meal.analysis.stepStarted' => 'Начинаем…',
 			'meal.analysis.stepDecomposition' => 'Понимаем ваше блюдо…',
 			'meal.analysis.stepIngredients' => 'Сопоставляем ингредиенты с базой питания…',
@@ -1897,7 +1902,10 @@ extension on TranslationsRu {
 			'meal.analysis.progressUnderstand' => 'Понять',
 			'meal.analysis.progressMatch' => 'Сопоставить',
 			'meal.analysis.progressCheck' => 'Проверить',
+			'meal.analysis.progressMealType' => 'Выбор типа приёма пищи',
 			'meal.analysis.progressFinish' => 'Завершить',
+			'meal.analysis.detectedIngredientHeading' => 'Ингредиенты, которые мы распознаём',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => 'ещё ${count}',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'Обнаружено ${count} ингредиентов',
 			'meal.analysis.ingredientsPending' => 'Сканирование ингредиентов…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

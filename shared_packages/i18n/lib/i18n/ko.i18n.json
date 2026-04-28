@@ -279,13 +279,14 @@
     "errorCompressingImage": "이미지 압축 중 오류: {error}",
     "failedToSave": "데이터를 저장하지 못했습니다. 다시 시도해 주세요.",
     "skip": "건너뛰기",
-    "variation": {
-      "question": "질문 {current}/{total}",
-      "noVariationsAvailable": "사용 가능한 변형이 없습니다"
+    "questionFlow": {
+      "progress": "{total}개 중 {current}번째 질문",
+      "noQuestionsAvailable": "사용 가능한 질문이 없습니다",
+      "next": "다음",
+      "continueLabel": "계속"
     },
     "analysis": {
       "title": "AI 식사 분석",
-      "reassurance": "보통 몇 초면 완료됩니다.",
       "stepStarted": "시작하는 중…",
       "stepDecomposition": "식사 이해 중…",
       "stepIngredients": "재료를 영양 데이터와 매칭 중…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "이해",
       "progressMatch": "매칭",
       "progressCheck": "검토",
+      "progressMealType": "식사 유형 선택 중",
       "progressFinish": "완료",
+      "detectedIngredientHeading": "감지된 재료",
+      "ingredientsOverflow": "{count}개 더",
       "ingredientsLine": "재료 {count}개 감지됨",
       "ingredientsPending": "재료 스캔 중…",
       "mealPreviewDescription": "\"{text}\"",

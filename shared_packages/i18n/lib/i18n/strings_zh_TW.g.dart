@@ -178,7 +178,7 @@ class _TranslationsMealZhTw implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Error compressing image: ${error}';
 	@override String get failedToSave => 'Failed to save data. Please try again.';
 	@override String get skip => 'Skip';
-	@override late final _TranslationsMealVariationZhTw variation = _TranslationsMealVariationZhTw._(_root);
+	@override late final _TranslationsMealQuestionFlowZhTw questionFlow = _TranslationsMealQuestionFlowZhTw._(_root);
 	@override late final _TranslationsMealAnalysisZhTw analysis = _TranslationsMealAnalysisZhTw._(_root);
 	@override late final _TranslationsMealFeedbackZhTw feedback = _TranslationsMealFeedbackZhTw._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationZhTw implements TranslationsMealDeleteC
 	@override String get delete => 'Delete';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationZhTw implements TranslationsMealVariationEn {
-	_TranslationsMealVariationZhTw._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowZhTw implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowZhTw._(this._root);
 
 	final TranslationsZhTw _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Question ${current} of ${total}';
-	@override String get noVariationsAvailable => 'No variations available';
+	@override String progress({required Object current, required Object total}) => '第 ${current} 題，共 ${total} 題';
+	@override String get noQuestionsAvailable => '目前沒有可用的問題';
+	@override String get next => '下一題';
+	@override String get continueLabel => '繼續';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisZhTw implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'AI meal analysis';
-	@override String get reassurance => 'This usually takes a few seconds.';
 	@override String get stepStarted => 'Getting started…';
 	@override String get stepDecomposition => 'Understanding your meal…';
 	@override String get stepIngredients => 'Matching ingredients to nutrition data…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisZhTw implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Understand';
 	@override String get progressMatch => 'Match';
 	@override String get progressCheck => 'Check';
+	@override String get progressMealType => '正在選擇餐點類型';
 	@override String get progressFinish => 'Finish';
+	@override String get detectedIngredientHeading => '我們偵測到的食材';
+	@override String ingredientsOverflow({required Object count}) => '還有 ${count} 項食材';
 	@override String ingredientsLine({required Object count}) => '${count} ingredients detected';
 	@override String get ingredientsPending => 'Scanning ingredients…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsZhTw {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Error compressing image: ${error}',
 			'meal.failedToSave' => 'Failed to save data. Please try again.',
 			'meal.skip' => 'Skip',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Question ${current} of ${total}',
-			'meal.variation.noVariationsAvailable' => 'No variations available',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => '第 ${current} 題，共 ${total} 題',
+			'meal.questionFlow.noQuestionsAvailable' => '目前沒有可用的問題',
+			'meal.questionFlow.next' => '下一題',
+			'meal.questionFlow.continueLabel' => '繼續',
 			'meal.analysis.title' => 'AI meal analysis',
-			'meal.analysis.reassurance' => 'This usually takes a few seconds.',
 			'meal.analysis.stepStarted' => 'Getting started…',
 			'meal.analysis.stepDecomposition' => 'Understanding your meal…',
 			'meal.analysis.stepIngredients' => 'Matching ingredients to nutrition data…',
@@ -1897,7 +1902,10 @@ extension on TranslationsZhTw {
 			'meal.analysis.progressUnderstand' => 'Understand',
 			'meal.analysis.progressMatch' => 'Match',
 			'meal.analysis.progressCheck' => 'Check',
+			'meal.analysis.progressMealType' => '正在選擇餐點類型',
 			'meal.analysis.progressFinish' => 'Finish',
+			'meal.analysis.detectedIngredientHeading' => '我們偵測到的食材',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '還有 ${count} 項食材',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingredients detected',
 			'meal.analysis.ingredientsPending' => 'Scanning ingredients…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

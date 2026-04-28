@@ -14,33 +14,32 @@ class HomeDashboardShimmer extends StatelessWidget {
   }
 }
 
-class AiSummarySkeletonCard extends StatelessWidget {
-  const AiSummarySkeletonCard({super.key});
+/// Shimmer placeholder for AI summary metrics and description while loading.
+/// The card’s section header is rendered separately without shimmer.
+class AiSummarySkeletonBody extends StatelessWidget {
+  const AiSummarySkeletonBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const _HomeCardSkeleton(
-      titleToBodySpacing: 12,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Wrap(
-            spacing: 8,
-            runSpacing: 6,
-            children: [
-              _PillSkeleton(width: 96, height: 26),
-              _PillSkeleton(width: 104, height: 26),
-              _PillSkeleton(width: 100, height: 26),
-            ],
-          ),
-          SizedBox(height: 10),
-          ShimmerBox(width: double.infinity, height: 11, borderRadius: 5.5),
-          SizedBox(height: 6),
-          ShimmerBox(width: double.infinity, height: 11, borderRadius: 5.5),
-          SizedBox(height: 6),
-          ShimmerBox(width: 196, height: 11, borderRadius: 5.5),
-        ],
-      ),
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Wrap(
+          spacing: 8,
+          runSpacing: 6,
+          children: [
+            _PillSkeleton(width: 96, height: 26),
+            _PillSkeleton(width: 104, height: 26),
+            _PillSkeleton(width: 100, height: 26),
+          ],
+        ),
+        SizedBox(height: 10),
+        ShimmerBox(width: double.infinity, height: 11, borderRadius: 5.5),
+        SizedBox(height: 6),
+        ShimmerBox(width: double.infinity, height: 11, borderRadius: 5.5),
+        SizedBox(height: 6),
+        ShimmerBox(width: 196, height: 11, borderRadius: 5.5),
+      ],
     );
   }
 }
@@ -59,17 +58,17 @@ class DailyGoalSkeleton extends StatelessWidget {
         SizedBox(height: 18),
         Row(
           children: [
-            Expanded(child: ShimmerBox(width: double.infinity, height: 52)),
+            Expanded(child: ShimmerBox(width: double.infinity, height: 46)),
             SizedBox(width: 12),
-            ShimmerBox(width: 88, height: 44, borderRadius: 22),
+            ShimmerBox(width: 88, height: 40, borderRadius: 22),
           ],
         ),
         SizedBox(height: 16),
         Row(
           children: [
-            Expanded(child: ShimmerBox(width: double.infinity, height: 60)),
+            Expanded(child: ShimmerBox(width: double.infinity, height: 54)),
             SizedBox(width: 12),
-            Expanded(child: ShimmerBox(width: double.infinity, height: 60)),
+            Expanded(child: ShimmerBox(width: double.infinity, height: 54)),
           ],
         ),
       ],
@@ -153,12 +152,10 @@ class _HomeCardSkeleton extends StatelessWidget {
   const _HomeCardSkeleton({
     required this.body,
     this.titleWidth = 144,
-    this.titleToBodySpacing = 16,
   });
 
   final Widget body;
   final double titleWidth;
-  final double titleToBodySpacing;
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +164,7 @@ class _HomeCardSkeleton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _TitleRowSkeleton(titleWidth: titleWidth),
-          SizedBox(height: titleToBodySpacing),
+          const SizedBox(height: 16),
           body,
         ],
       ),

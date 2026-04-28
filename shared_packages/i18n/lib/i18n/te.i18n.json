@@ -279,13 +279,14 @@
     "errorCompressingImage": "చిత్రాన్ని కంప్రెస్ చేయడంలో లోపం: {error}",
     "failedToSave": "డేటాను సేవ్ చేయలేకపోయాం. దయచేసి మళ్లీ ప్రయత్నించండి.",
     "skip": "దాటవేయండి",
-    "variation": {
-      "question": "{total} లో {current} ప్రశ్న",
-      "noVariationsAvailable": "వేరియేషన్లు లేవు"
+    "questionFlow": {
+      "progress": "ప్రశ్న {current} (మొత్తం {total})",
+      "noQuestionsAvailable": "ప్రశ్నలు అందుబాటులో లేవు",
+      "next": "తరువాత",
+      "continueLabel": "కొనసాగించండి"
     },
     "analysis": {
       "title": "AI భోజనం విశ్లేషణ",
-      "reassurance": "ఇది సాధారణంగా కొన్ని సెకన్లు పడుతుంది.",
       "stepStarted": "ప్రారంభిస్తున్నాం…",
       "stepDecomposition": "మీ భోజనాన్ని అర్థం చేసుకుంటున్నాం…",
       "stepIngredients": "పదార్థాలను పోషక డేటాతో సరిపోలుస్తున్నాం…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "అర్థం",
       "progressMatch": "మ్యాచ్",
       "progressCheck": "చెక్",
+      "progressMealType": "భోజన రకాన్ని ఎంచుకుంటోంది",
       "progressFinish": "ఫినిష్",
+      "detectedIngredientHeading": "మేము గుర్తిస్తున్న పదార్థాలు",
+      "ingredientsOverflow": "{count} మరిన్ని",
       "ingredientsLine": "{count} పదార్థాలు గుర్తించబడ్డాయి",
       "ingredientsPending": "పదార్థాలను స్కాన్ చేస్తున్నారు…",
       "mealPreviewDescription": "\"{text}\"",

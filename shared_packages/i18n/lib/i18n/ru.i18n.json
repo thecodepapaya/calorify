@@ -279,13 +279,14 @@
     "errorCompressingImage": "Ошибка сжатия изображения: {error}",
     "failedToSave": "Не удалось сохранить данные. Пожалуйста, попробуйте снова.",
     "skip": "Пропустить",
-    "variation": {
-      "question": "Вопрос {current} из {total}",
-      "noVariationsAvailable": "Доступных вариантов нет"
+    "questionFlow": {
+      "progress": "Вопрос {current} из {total}",
+      "noQuestionsAvailable": "Нет доступных вопросов",
+      "next": "Далее",
+      "continueLabel": "Продолжить"
     },
     "analysis": {
       "title": "Анализ блюда ИИ",
-      "reassurance": "Обычно это занимает несколько секунд.",
       "stepStarted": "Начинаем…",
       "stepDecomposition": "Понимаем ваше блюдо…",
       "stepIngredients": "Сопоставляем ингредиенты с базой питания…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Понять",
       "progressMatch": "Сопоставить",
       "progressCheck": "Проверить",
+      "progressMealType": "Выбор типа приёма пищи",
       "progressFinish": "Завершить",
+      "detectedIngredientHeading": "Ингредиенты, которые мы распознаём",
+      "ingredientsOverflow": "ещё {count}",
       "ingredientsLine": "Обнаружено {count} ингредиентов",
       "ingredientsPending": "Сканирование ингредиентов…",
       "mealPreviewDescription": "\"{text}\"",

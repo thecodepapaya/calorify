@@ -279,13 +279,14 @@
     "errorCompressingImage": "เกิดข้อผิดพลาดขณะบีบอัดรูปภาพ: {error}",
     "failedToSave": "บันทึกข้อมูลไม่สำเร็จ โปรดลองอีกครั้ง",
     "skip": "ข้าม",
-    "variation": {
-      "question": "คำถาม {current} จาก {total}",
-      "noVariationsAvailable": "ไม่มีรูปแบบให้เลือก"
+    "questionFlow": {
+      "progress": "คำถามที่ {current} จาก {total}",
+      "noQuestionsAvailable": "ไม่มีคำถามให้ตอบ",
+      "next": "ถัดไป",
+      "continueLabel": "ดำเนินการต่อ"
     },
     "analysis": {
       "title": "การวิเคราะห์มื้ออาหารด้วย AI",
-      "reassurance": "โดยปกติจะใช้เวลาเพียงไม่กี่วินาที",
       "stepStarted": "เริ่มต้น…",
       "stepDecomposition": "กำลังทำความเข้าใจมื้อของคุณ…",
       "stepIngredients": "กำลังจับคู่องค์ประกอบกับข้อมูลโภชนาการ…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "ทำความเข้าใจ",
       "progressMatch": "จับคู่",
       "progressCheck": "ตรวจสอบ",
+      "progressMealType": "กำลังเลือกประเภทมื้ออาหาร",
       "progressFinish": "เสร็จสิ้น",
+      "detectedIngredientHeading": "ส่วนผสมที่เราพบ",
+      "ingredientsOverflow": "{count} รายการเพิ่มเติม",
       "ingredientsLine": "ตรวจพบส่วนผสม {count} รายการ",
       "ingredientsPending": "กำลังสแกนส่วนผสม…",
       "mealPreviewDescription": "\"{text}\"",

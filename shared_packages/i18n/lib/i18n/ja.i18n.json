@@ -279,13 +279,14 @@
     "errorCompressingImage": "画像の圧縮中にエラーが発生しました: {error}",
     "failedToSave": "データを保存できませんでした。もう一度お試しください。",
     "skip": "スキップ",
-    "variation": {
-      "question": "{total} 問中 {current} 問目",
-      "noVariationsAvailable": "バリエーションはありません"
+    "questionFlow": {
+      "progress": "質問 {current}/{total}",
+      "noQuestionsAvailable": "現在利用できる質問はありません",
+      "next": "次へ",
+      "continueLabel": "続ける"
     },
     "analysis": {
       "title": "AI の食事分析",
-      "reassurance": "通常は数秒で完了します。",
       "stepStarted": "開始しています…",
       "stepDecomposition": "食事内容を理解しています…",
       "stepIngredients": "栄養データに食材を照合しています…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "理解",
       "progressMatch": "照合",
       "progressCheck": "確認",
+      "progressMealType": "食事の種類を選択しています",
       "progressFinish": "完了",
+      "detectedIngredientHeading": "確認できた食材",
+      "ingredientsOverflow": "さらに{count}件",
       "ingredientsLine": "{count} 個の食材を検出",
       "ingredientsPending": "食材をスキャン中…",
       "mealPreviewDescription": "「{text}」",

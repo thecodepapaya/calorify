@@ -178,7 +178,7 @@ class _TranslationsMealFr implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Erreur lors de la compression de l’image : ${error}';
 	@override String get failedToSave => 'Échec de l’enregistrement des données. Veuillez réessayer.';
 	@override String get skip => 'Ignorer';
-	@override late final _TranslationsMealVariationFr variation = _TranslationsMealVariationFr._(_root);
+	@override late final _TranslationsMealQuestionFlowFr questionFlow = _TranslationsMealQuestionFlowFr._(_root);
 	@override late final _TranslationsMealAnalysisFr analysis = _TranslationsMealAnalysisFr._(_root);
 	@override late final _TranslationsMealFeedbackFr feedback = _TranslationsMealFeedbackFr._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationFr implements TranslationsMealDeleteCon
 	@override String get delete => 'Supprimer';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationFr implements TranslationsMealVariationEn {
-	_TranslationsMealVariationFr._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowFr implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowFr._(this._root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Question ${current} sur ${total}';
-	@override String get noVariationsAvailable => 'Aucune variante disponible';
+	@override String progress({required Object current, required Object total}) => 'Question ${current} sur ${total}';
+	@override String get noQuestionsAvailable => 'Aucune question disponible';
+	@override String get next => 'Suivant';
+	@override String get continueLabel => 'Continuer';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisFr implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'Analyse du repas par IA';
-	@override String get reassurance => 'Cela prend généralement quelques secondes.';
 	@override String get stepStarted => 'Démarrage…';
 	@override String get stepDecomposition => 'Compréhension de votre repas…';
 	@override String get stepIngredients => 'Association des ingrédients à la base nutritionnelle…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisFr implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Comprendre';
 	@override String get progressMatch => 'Associer';
 	@override String get progressCheck => 'Vérifier';
+	@override String get progressMealType => 'Sélection du type de repas';
 	@override String get progressFinish => 'Terminer';
+	@override String get detectedIngredientHeading => 'Ingrédients détectés';
+	@override String ingredientsOverflow({required Object count}) => '${count} de plus';
 	@override String ingredientsLine({required Object count}) => '${count} ingrédients détectés';
 	@override String get ingredientsPending => 'Analyse des ingrédients…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsFr {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Erreur lors de la compression de l’image : ${error}',
 			'meal.failedToSave' => 'Échec de l’enregistrement des données. Veuillez réessayer.',
 			'meal.skip' => 'Ignorer',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Question ${current} sur ${total}',
-			'meal.variation.noVariationsAvailable' => 'Aucune variante disponible',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Question ${current} sur ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Aucune question disponible',
+			'meal.questionFlow.next' => 'Suivant',
+			'meal.questionFlow.continueLabel' => 'Continuer',
 			'meal.analysis.title' => 'Analyse du repas par IA',
-			'meal.analysis.reassurance' => 'Cela prend généralement quelques secondes.',
 			'meal.analysis.stepStarted' => 'Démarrage…',
 			'meal.analysis.stepDecomposition' => 'Compréhension de votre repas…',
 			'meal.analysis.stepIngredients' => 'Association des ingrédients à la base nutritionnelle…',
@@ -1897,7 +1902,10 @@ extension on TranslationsFr {
 			'meal.analysis.progressUnderstand' => 'Comprendre',
 			'meal.analysis.progressMatch' => 'Associer',
 			'meal.analysis.progressCheck' => 'Vérifier',
+			'meal.analysis.progressMealType' => 'Sélection du type de repas',
 			'meal.analysis.progressFinish' => 'Terminer',
+			'meal.analysis.detectedIngredientHeading' => 'Ingrédients détectés',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} de plus',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingrédients détectés',
 			'meal.analysis.ingredientsPending' => 'Analyse des ingrédients…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

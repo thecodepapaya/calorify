@@ -178,7 +178,7 @@ class _TranslationsMealTr implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Görüntü sıkıştırılırken hata: ${error}';
 	@override String get failedToSave => 'Veriler kaydedilemedi. Lütfen tekrar deneyin.';
 	@override String get skip => 'Atla';
-	@override late final _TranslationsMealVariationTr variation = _TranslationsMealVariationTr._(_root);
+	@override late final _TranslationsMealQuestionFlowTr questionFlow = _TranslationsMealQuestionFlowTr._(_root);
 	@override late final _TranslationsMealAnalysisTr analysis = _TranslationsMealAnalysisTr._(_root);
 	@override late final _TranslationsMealFeedbackTr feedback = _TranslationsMealFeedbackTr._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationTr implements TranslationsMealDeleteCon
 	@override String get delete => 'Sil';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationTr implements TranslationsMealVariationEn {
-	_TranslationsMealVariationTr._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowTr implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowTr._(this._root);
 
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object total, required Object current}) => '${total} sorudan ${current}';
-	@override String get noVariationsAvailable => 'Varyasyon yok';
+	@override String progress({required Object current, required Object total}) => 'Soru ${current} / ${total}';
+	@override String get noQuestionsAvailable => 'Mevcut soru yok';
+	@override String get next => 'Sonraki';
+	@override String get continueLabel => 'Devam';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisTr implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'YZ öğün analizi';
-	@override String get reassurance => 'Bu genellikle birkaç saniye sürer.';
 	@override String get stepStarted => 'Başlanıyor…';
 	@override String get stepDecomposition => 'Öğününüz anlaşılıyor…';
 	@override String get stepIngredients => 'İçerikler besin verileriyle eşleştiriliyor…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisTr implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Anla';
 	@override String get progressMatch => 'Eşle';
 	@override String get progressCheck => 'Kontrol';
+	@override String get progressMealType => 'Yemek türü seçiliyor';
 	@override String get progressFinish => 'Bitir';
+	@override String get detectedIngredientHeading => 'Tespit ettiğimiz malzemeler';
+	@override String ingredientsOverflow({required Object count}) => '${count} tane daha';
 	@override String ingredientsLine({required Object count}) => '${count} içerik tespit edildi';
 	@override String get ingredientsPending => 'İçerikler taranıyor…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsTr {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Görüntü sıkıştırılırken hata: ${error}',
 			'meal.failedToSave' => 'Veriler kaydedilemedi. Lütfen tekrar deneyin.',
 			'meal.skip' => 'Atla',
-			'meal.variation.question' => ({required Object total, required Object current}) => '${total} sorudan ${current}',
-			'meal.variation.noVariationsAvailable' => 'Varyasyon yok',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Soru ${current} / ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Mevcut soru yok',
+			'meal.questionFlow.next' => 'Sonraki',
+			'meal.questionFlow.continueLabel' => 'Devam',
 			'meal.analysis.title' => 'YZ öğün analizi',
-			'meal.analysis.reassurance' => 'Bu genellikle birkaç saniye sürer.',
 			'meal.analysis.stepStarted' => 'Başlanıyor…',
 			'meal.analysis.stepDecomposition' => 'Öğününüz anlaşılıyor…',
 			'meal.analysis.stepIngredients' => 'İçerikler besin verileriyle eşleştiriliyor…',
@@ -1897,7 +1902,10 @@ extension on TranslationsTr {
 			'meal.analysis.progressUnderstand' => 'Anla',
 			'meal.analysis.progressMatch' => 'Eşle',
 			'meal.analysis.progressCheck' => 'Kontrol',
+			'meal.analysis.progressMealType' => 'Yemek türü seçiliyor',
 			'meal.analysis.progressFinish' => 'Bitir',
+			'meal.analysis.detectedIngredientHeading' => 'Tespit ettiğimiz malzemeler',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} tane daha',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} içerik tespit edildi',
 			'meal.analysis.ingredientsPending' => 'İçerikler taranıyor…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

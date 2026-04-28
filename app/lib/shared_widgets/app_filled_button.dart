@@ -25,8 +25,8 @@ class AppFilledButton extends StatelessWidget {
       child: FilledButton(
         onPressed: isLoading || onPressed == null ? null : onPressed,
         style: FilledButton.styleFrom(
-          minimumSize: const Size(double.infinity, 50),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          minimumSize: Size(double.infinity, appButtonMinHeight),
+          padding: appButtonFilledPadding,
           shape: RoundedRectangleBorder(borderRadius: buttonRadius),
         ),
         child: isLoading

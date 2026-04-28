@@ -279,13 +279,14 @@
     "errorCompressingImage": "压缩图片出错：{error}",
     "failedToSave": "保存数据失败。请重试。",
     "skip": "跳过",
-    "variation": {
-      "question": "第 {current}/{total} 题",
-      "noVariationsAvailable": "暂无可用变体"
+    "questionFlow": {
+      "progress": "第 {current} 个问题，共 {total} 个",
+      "noQuestionsAvailable": "当前没有可用的问题",
+      "next": "下一题",
+      "continueLabel": "继续"
     },
     "analysis": {
       "title": "AI 餐食分析",
-      "reassurance": "通常只需几秒。",
       "stepStarted": "开始处理…",
       "stepDecomposition": "正在理解你的餐食…",
       "stepIngredients": "正在匹配营养数据库…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "理解",
       "progressMatch": "匹配",
       "progressCheck": "检查",
+      "progressMealType": "正在选择餐食类型",
       "progressFinish": "完成",
+      "detectedIngredientHeading": "我们识别到的食材",
+      "ingredientsOverflow": "另有 {count} 个食材",
       "ingredientsLine": "检测到 {count} 种食材",
       "ingredientsPending": "正在扫描食材…",
       "mealPreviewDescription": "\"{text}\"",

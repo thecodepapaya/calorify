@@ -178,7 +178,7 @@ class _TranslationsMealTl implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Error sa pag-compress ng larawan: ${error}';
 	@override String get failedToSave => 'Hindi na-save ang data. Pakisubukang muli.';
 	@override String get skip => 'Laktawan';
-	@override late final _TranslationsMealVariationTl variation = _TranslationsMealVariationTl._(_root);
+	@override late final _TranslationsMealQuestionFlowTl questionFlow = _TranslationsMealQuestionFlowTl._(_root);
 	@override late final _TranslationsMealAnalysisTl analysis = _TranslationsMealAnalysisTl._(_root);
 	@override late final _TranslationsMealFeedbackTl feedback = _TranslationsMealFeedbackTl._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationTl implements TranslationsMealDeleteCon
 	@override String get delete => 'Burahin';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationTl implements TranslationsMealVariationEn {
-	_TranslationsMealVariationTl._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowTl implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowTl._(this._root);
 
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Tanong ${current} ng ${total}';
-	@override String get noVariationsAvailable => 'Walang available na mga variation';
+	@override String progress({required Object current, required Object total}) => 'Tanong ${current} ng ${total}';
+	@override String get noQuestionsAvailable => 'Walang magagamit na tanong';
+	@override String get next => 'Susunod';
+	@override String get continueLabel => 'Magpatuloy';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisTl implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'AI na pagsusuri ng pagkain';
-	@override String get reassurance => 'Karaniwan ay ilang segundo lang ito.';
 	@override String get stepStarted => 'Nagsisimula…';
 	@override String get stepDecomposition => 'Inuunawa ang iyong pagkain…';
 	@override String get stepIngredients => 'Ibinabagay ang mga sangkap sa datos ng nutrisyon…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisTl implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'Unawain';
 	@override String get progressMatch => 'Itugma';
 	@override String get progressCheck => 'Suriin';
+	@override String get progressMealType => 'Pinipili ang uri ng pagkain';
 	@override String get progressFinish => 'Tapos';
+	@override String get detectedIngredientHeading => 'Mga sangkap na napapansin namin';
+	@override String ingredientsOverflow({required Object count}) => '${count} pa';
 	@override String ingredientsLine({required Object count}) => '${count} sangkap na natukoy';
 	@override String get ingredientsPending => 'Sinusuri ang mga sangkap…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsTl {
 			'meal.errorCompressingImage' => ({required Object error}) => 'Error sa pag-compress ng larawan: ${error}',
 			'meal.failedToSave' => 'Hindi na-save ang data. Pakisubukang muli.',
 			'meal.skip' => 'Laktawan',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Tanong ${current} ng ${total}',
-			'meal.variation.noVariationsAvailable' => 'Walang available na mga variation',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Tanong ${current} ng ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Walang magagamit na tanong',
+			'meal.questionFlow.next' => 'Susunod',
+			'meal.questionFlow.continueLabel' => 'Magpatuloy',
 			'meal.analysis.title' => 'AI na pagsusuri ng pagkain',
-			'meal.analysis.reassurance' => 'Karaniwan ay ilang segundo lang ito.',
 			'meal.analysis.stepStarted' => 'Nagsisimula…',
 			'meal.analysis.stepDecomposition' => 'Inuunawa ang iyong pagkain…',
 			'meal.analysis.stepIngredients' => 'Ibinabagay ang mga sangkap sa datos ng nutrisyon…',
@@ -1897,7 +1902,10 @@ extension on TranslationsTl {
 			'meal.analysis.progressUnderstand' => 'Unawain',
 			'meal.analysis.progressMatch' => 'Itugma',
 			'meal.analysis.progressCheck' => 'Suriin',
+			'meal.analysis.progressMealType' => 'Pinipili ang uri ng pagkain',
 			'meal.analysis.progressFinish' => 'Tapos',
+			'meal.analysis.detectedIngredientHeading' => 'Mga sangkap na napapansin namin',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} pa',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} sangkap na natukoy',
 			'meal.analysis.ingredientsPending' => 'Sinusuri ang mga sangkap…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

@@ -279,13 +279,14 @@
     "errorCompressingImage": "تصویر کمپریس کرنے میں خرابی: {error}",
     "failedToSave": "ڈیٹا محفوظ نہ ہو سکا۔ براہ کرم دوبارہ کوشش کریں۔",
     "skip": "اسکپ",
-    "variation": {
-      "question": "سوال {current} از {total}",
-      "noVariationsAvailable": "کوئی مختلف شکلیں دستیاب نہیں"
+    "questionFlow": {
+      "progress": "مجموعی {total} میں سے سوال نمبر {current}",
+      "noQuestionsAvailable": "کوئی سوال دستیاب نہیں ہے",
+      "next": "اگلا",
+      "continueLabel": "جاری رکھیں"
     },
     "analysis": {
       "title": "AI کھانے کا تجزیہ",
-      "reassurance": "یہ عموماً چند سیکنڈ لیتا ہے۔",
       "stepStarted": "آغاز ہو رہا ہے…",
       "stepDecomposition": "آپ کے کھانے کو سمجھا جا رہا ہے…",
       "stepIngredients": "اجزاء کو غذائی ڈیٹا سے ملایا جا رہا ہے…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "سمجھیں",
       "progressMatch": "ملاپ",
       "progressCheck": "چیک",
+      "progressMealType": "کھانے کی قسم منتخب کی جا رہی ہے",
       "progressFinish": "اختتام",
+      "detectedIngredientHeading": "ہم جو اجزاء پہچان رہے ہیں",
+      "ingredientsOverflow": "{count} مزید",
       "ingredientsLine": "{count} اجزاء شناخت ہوئے",
       "ingredientsPending": "اجزاء اسکین کیے جا رہے ہیں…",
       "mealPreviewDescription": "\"{text}\"",

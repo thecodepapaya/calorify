@@ -8,6 +8,7 @@ import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dar
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:i18n/i18n.dart';
+import 'package:calorify/shared_widgets/meal_analysis_tip_line.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,7 +24,6 @@ class DescribeMeal extends StatefulWidget {
 class _DescribeMealState extends State<DescribeMeal> {
   final _textController = TextEditingController();
   bool _isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -55,13 +55,6 @@ class _DescribeMealState extends State<DescribeMeal> {
                   ),
                 ],
               ),
-              SizedBox(height: 6),
-              Text(
-                t.home.mealDescription.description,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
               SizedBox(height: 14),
               TextFormField(
                 controller: _textController,
@@ -79,7 +72,15 @@ class _DescribeMealState extends State<DescribeMeal> {
                 minLines: 2,
                 maxLines: 3,
               ),
-              SizedBox(height: 12),
+              SizedBox(height: 10),
+              MealAnalysisTipLine(
+                textAlign: TextAlign.start,
+                textStyle: textTheme.bodySmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                  height: 1.35,
+                ),
+              ),
+              SizedBox(height: 10),
               PrimaryButton(
                 analyticsEvent: AnalyticsEvent.addMealFromDescription,
                 onPressed: _onProcessMealDescription,

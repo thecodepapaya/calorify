@@ -279,13 +279,14 @@
     "errorCompressingImage": "Ralat memampatkan imej: {error}",
     "failedToSave": "Gagal menyimpan data. Sila cuba lagi.",
     "skip": "Langkau",
-    "variation": {
-      "question": "Soalan {current} daripada {total}",
-      "noVariationsAvailable": "Tiada variasi tersedia"
+    "questionFlow": {
+      "progress": "Soalan {current} daripada {total}",
+      "noQuestionsAvailable": "Tiada soalan tersedia",
+      "next": "Seterusnya",
+      "continueLabel": "Teruskan"
     },
     "analysis": {
       "title": "Analisis hidangan AI",
-      "reassurance": "Ini biasanya mengambil masa beberapa saat.",
       "stepStarted": "Memulakan…",
       "stepDecomposition": "Memahami hidangan anda…",
       "stepIngredients": "Memadankan bahan dengan data pemakanan…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Faham",
       "progressMatch": "Padan",
       "progressCheck": "Semak",
+      "progressMealType": "Memilih jenis hidangan",
       "progressFinish": "Selesai",
+      "detectedIngredientHeading": "Bahan yang kami kesan",
+      "ingredientsOverflow": "{count} lagi",
       "ingredientsLine": "{count} bahan dikesan",
       "ingredientsPending": "Mengimbas bahan…",
       "mealPreviewDescription": "\"{text}\"",

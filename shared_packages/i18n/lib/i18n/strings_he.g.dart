@@ -178,7 +178,7 @@ class _TranslationsMealHe implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'שגיאה במיטוב התמונה: ${error}';
 	@override String get failedToSave => 'שמירת הנתונים נכשלה. אנא נסה/י שוב.';
 	@override String get skip => 'דלג/י';
-	@override late final _TranslationsMealVariationHe variation = _TranslationsMealVariationHe._(_root);
+	@override late final _TranslationsMealQuestionFlowHe questionFlow = _TranslationsMealQuestionFlowHe._(_root);
 	@override late final _TranslationsMealAnalysisHe analysis = _TranslationsMealAnalysisHe._(_root);
 	@override late final _TranslationsMealFeedbackHe feedback = _TranslationsMealFeedbackHe._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationHe implements TranslationsMealDeleteCon
 	@override String get delete => 'מחק';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationHe implements TranslationsMealVariationEn {
-	_TranslationsMealVariationHe._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowHe implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowHe._(this._root);
 
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'שאלה ${current} מתוך ${total}';
-	@override String get noVariationsAvailable => 'אין וריאציות זמינות';
+	@override String progress({required Object current, required Object total}) => 'שאלה ${current} מתוך ${total}';
+	@override String get noQuestionsAvailable => 'אין שאלות זמינות';
+	@override String get next => 'הבא';
+	@override String get continueLabel => 'המשך';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisHe implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'ניתוח ארוחה בעזרת AI';
-	@override String get reassurance => 'לרוב זה לוקח כמה שניות.';
 	@override String get stepStarted => 'מתחילים…';
 	@override String get stepDecomposition => 'מבינים את הארוחה שלך…';
 	@override String get stepIngredients => 'מתאימים רכיבים לנתוני תזונה…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisHe implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'הבנה';
 	@override String get progressMatch => 'התאמה';
 	@override String get progressCheck => 'בדיקה';
+	@override String get progressMealType => 'בחירת סוג הארוחה';
 	@override String get progressFinish => 'סיום';
+	@override String get detectedIngredientHeading => 'מרכיבים שאנחנו מזהים';
+	@override String ingredientsOverflow({required Object count}) => 'עוד ${count}';
 	@override String ingredientsLine({required Object count}) => 'זוהו ${count} רכיבים';
 	@override String get ingredientsPending => 'סורקים רכיבים…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsHe {
 			'meal.errorCompressingImage' => ({required Object error}) => 'שגיאה במיטוב התמונה: ${error}',
 			'meal.failedToSave' => 'שמירת הנתונים נכשלה. אנא נסה/י שוב.',
 			'meal.skip' => 'דלג/י',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'שאלה ${current} מתוך ${total}',
-			'meal.variation.noVariationsAvailable' => 'אין וריאציות זמינות',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'שאלה ${current} מתוך ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'אין שאלות זמינות',
+			'meal.questionFlow.next' => 'הבא',
+			'meal.questionFlow.continueLabel' => 'המשך',
 			'meal.analysis.title' => 'ניתוח ארוחה בעזרת AI',
-			'meal.analysis.reassurance' => 'לרוב זה לוקח כמה שניות.',
 			'meal.analysis.stepStarted' => 'מתחילים…',
 			'meal.analysis.stepDecomposition' => 'מבינים את הארוחה שלך…',
 			'meal.analysis.stepIngredients' => 'מתאימים רכיבים לנתוני תזונה…',
@@ -1897,7 +1902,10 @@ extension on TranslationsHe {
 			'meal.analysis.progressUnderstand' => 'הבנה',
 			'meal.analysis.progressMatch' => 'התאמה',
 			'meal.analysis.progressCheck' => 'בדיקה',
+			'meal.analysis.progressMealType' => 'בחירת סוג הארוחה',
 			'meal.analysis.progressFinish' => 'סיום',
+			'meal.analysis.detectedIngredientHeading' => 'מרכיבים שאנחנו מזהים',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => 'עוד ${count}',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'זוהו ${count} רכיבים',
 			'meal.analysis.ingredientsPending' => 'סורקים רכיבים…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

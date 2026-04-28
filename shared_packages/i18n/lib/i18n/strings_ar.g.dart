@@ -178,7 +178,7 @@ class _TranslationsMealAr implements TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'خطأ في ضغط الصورة: ${error}';
 	@override String get failedToSave => 'فشل حفظ البيانات. يرجى المحاولة مجددًا.';
 	@override String get skip => 'تخطي';
-	@override late final _TranslationsMealVariationAr variation = _TranslationsMealVariationAr._(_root);
+	@override late final _TranslationsMealQuestionFlowAr questionFlow = _TranslationsMealQuestionFlowAr._(_root);
 	@override late final _TranslationsMealAnalysisAr analysis = _TranslationsMealAnalysisAr._(_root);
 	@override late final _TranslationsMealFeedbackAr feedback = _TranslationsMealFeedbackAr._(_root);
 }
@@ -730,15 +730,17 @@ class _TranslationsMealDeleteConfirmationAr implements TranslationsMealDeleteCon
 	@override String get delete => 'حذف';
 }
 
-// Path: meal.variation
-class _TranslationsMealVariationAr implements TranslationsMealVariationEn {
-	_TranslationsMealVariationAr._(this._root);
+// Path: meal.questionFlow
+class _TranslationsMealQuestionFlowAr implements TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowAr._(this._root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'السؤال ${current} من ${total}';
-	@override String get noVariationsAvailable => 'لا توجد أي تنويعات متاحة';
+	@override String progress({required Object current, required Object total}) => 'السؤال ${current} من ${total}';
+	@override String get noQuestionsAvailable => 'لا توجد أسئلة متاحة';
+	@override String get next => 'التالي';
+	@override String get continueLabel => 'متابعة';
 }
 
 // Path: meal.analysis
@@ -749,7 +751,6 @@ class _TranslationsMealAnalysisAr implements TranslationsMealAnalysisEn {
 
 	// Translations
 	@override String get title => 'تحليل الوجبة بالذكاء الاصطناعي';
-	@override String get reassurance => 'غالبًا ما يستغرق ذلك بضع ثوانٍ.';
 	@override String get stepStarted => 'نبدأ الآن…';
 	@override String get stepDecomposition => 'فهم وجبتك…';
 	@override String get stepIngredients => 'مطابقة المكوّنات مع بيانات التغذية…';
@@ -761,7 +762,10 @@ class _TranslationsMealAnalysisAr implements TranslationsMealAnalysisEn {
 	@override String get progressUnderstand => 'فهم';
 	@override String get progressMatch => 'مطابقة';
 	@override String get progressCheck => 'تحقق';
+	@override String get progressMealType => 'جارٍ اختيار نوع الوجبة';
 	@override String get progressFinish => 'إنهاء';
+	@override String get detectedIngredientHeading => 'المكونات التي نلاحظها';
+	@override String ingredientsOverflow({required Object count}) => '${count} مكونات إضافية';
 	@override String ingredientsLine({required Object count}) => 'تم اكتشاف ${count} مكوّن';
 	@override String get ingredientsPending => 'جارٍ فحص المكوّنات…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
@@ -1882,10 +1886,11 @@ extension on TranslationsAr {
 			'meal.errorCompressingImage' => ({required Object error}) => 'خطأ في ضغط الصورة: ${error}',
 			'meal.failedToSave' => 'فشل حفظ البيانات. يرجى المحاولة مجددًا.',
 			'meal.skip' => 'تخطي',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'السؤال ${current} من ${total}',
-			'meal.variation.noVariationsAvailable' => 'لا توجد أي تنويعات متاحة',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'السؤال ${current} من ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'لا توجد أسئلة متاحة',
+			'meal.questionFlow.next' => 'التالي',
+			'meal.questionFlow.continueLabel' => 'متابعة',
 			'meal.analysis.title' => 'تحليل الوجبة بالذكاء الاصطناعي',
-			'meal.analysis.reassurance' => 'غالبًا ما يستغرق ذلك بضع ثوانٍ.',
 			'meal.analysis.stepStarted' => 'نبدأ الآن…',
 			'meal.analysis.stepDecomposition' => 'فهم وجبتك…',
 			'meal.analysis.stepIngredients' => 'مطابقة المكوّنات مع بيانات التغذية…',
@@ -1897,7 +1902,10 @@ extension on TranslationsAr {
 			'meal.analysis.progressUnderstand' => 'فهم',
 			'meal.analysis.progressMatch' => 'مطابقة',
 			'meal.analysis.progressCheck' => 'تحقق',
+			'meal.analysis.progressMealType' => 'جارٍ اختيار نوع الوجبة',
 			'meal.analysis.progressFinish' => 'إنهاء',
+			'meal.analysis.detectedIngredientHeading' => 'المكونات التي نلاحظها',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} مكونات إضافية',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'تم اكتشاف ${count} مكوّن',
 			'meal.analysis.ingredientsPending' => 'جارٍ فحص المكوّنات…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',

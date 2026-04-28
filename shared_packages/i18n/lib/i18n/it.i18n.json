@@ -279,13 +279,14 @@
     "errorCompressingImage": "Errore durante la compressione dell'immagine: {error}",
     "failedToSave": "Impossibile salvare i dati. Riprova.",
     "skip": "Salta",
-    "variation": {
-      "question": "Domanda {current} di {total}",
-      "noVariationsAvailable": "Nessuna variante disponibile"
+    "questionFlow": {
+      "progress": "Domanda {current} di {total}",
+      "noQuestionsAvailable": "Nessuna domanda disponibile",
+      "next": "Avanti",
+      "continueLabel": "Continua"
     },
     "analysis": {
       "title": "Analisi del pasto con l'IA",
-      "reassurance": "Di solito richiede pochi secondi.",
       "stepStarted": "Avvio…",
       "stepDecomposition": "Comprensione del tuo pasto…",
       "stepIngredients": "Abbinamento degli ingredienti ai dati nutrizionali…",
@@ -297,7 +298,10 @@
       "progressUnderstand": "Comprendi",
       "progressMatch": "Abbina",
       "progressCheck": "Verifica",
+      "progressMealType": "Scelta del tipo di pasto",
       "progressFinish": "Completa",
+      "detectedIngredientHeading": "Ingredienti che stiamo rilevando",
+      "ingredientsOverflow": "{count} in più",
       "ingredientsLine": "{count} ingredienti rilevati",
       "ingredientsPending": "Scansione degli ingredienti…",
       "mealPreviewDescription": "\"{text}\"",
