@@ -380,7 +380,7 @@ test('analyzeImageMeal uses image source in session record', async () => {
 test('continueMealAnalysis emits error when session not found', async () => {
   mockGetSession.mock.mockImplementation(async () => undefined);
   const events = await collectEvents(
-    continueMealAnalysis('nonexistent-id', [{ ingredient_name: 'rice', selected_option_index: 1 }])
+    continueMealAnalysis('nonexistent-id', [{ ingredientName: 'rice', selectedOptionIndex: 1 }])
   );
   const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
@@ -397,7 +397,7 @@ test('continueMealAnalysis emits error when session has no decomposition data', 
   }));
 
   const events = await collectEvents(
-    continueMealAnalysis('sess-1', [{ ingredient_name: 'dal', selected_option_index: 0 }])
+    continueMealAnalysis('sess-1', [{ ingredientName: 'dal', selectedOptionIndex: 0 }])
   );
   const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
@@ -448,7 +448,7 @@ test('continueMealAnalysis resumes pipeline with stored decomposition', async ()
   }));
 
   const events = await collectEvents(
-    continueMealAnalysis('sess-resume', [{ ingredient_name: 'rice', selected_option_index: 1 }])
+    continueMealAnalysis('sess-resume', [{ ingredientName: 'rice', selectedOptionIndex: 1 }])
   );
 
   // Should emit at least ingredients event

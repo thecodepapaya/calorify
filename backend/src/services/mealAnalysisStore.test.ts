@@ -230,7 +230,7 @@ test('getMealAnalysisSession uses LIMIT 1', async () => {
 
 test('recordMealAnalysisClarification runs two queries', async () => {
   resetQuery();
-  await recordMealAnalysisClarification('sess-clr', [{ ingredient_name: 'rice', selected_option_index: 1 }]);
+  await recordMealAnalysisClarification('sess-clr', [{ ingredientName: 'rice', selectedOptionIndex: 1 }]);
   assert.equal(mockQuery.mock.calls.length, 2);
 });
 
@@ -251,7 +251,7 @@ test('recordMealAnalysisClarification second query updates meal_analysis_session
 
 test('recordMealAnalysisClarification serializes answers as JSON', async () => {
   resetQuery();
-  const answers = [{ ingredient_name: 'dal', selected_option_index: 0 }];
+  const answers = [{ ingredientName: 'dal', selectedOptionIndex: 0 }];
   await recordMealAnalysisClarification('sess-clr4', answers);
   const [, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
   assert.equal(params[1], JSON.stringify(answers));
