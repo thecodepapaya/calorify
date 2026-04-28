@@ -19,6 +19,7 @@ import {
   upsertMealAnalysisSession,
 } from './mealAnalysisStore.js';
 import { mealAnalysisTraceStepSeconds } from './metrics.js';
+import { MealClarificationAnswer } from '../protos/calorify/http_api.js';
 
 interface LLMIngredient {
   raw_name: string;
@@ -147,11 +148,6 @@ export interface ClarificationDTO {
   question: string;
   options: ClarificationOptionDTO[];
   default_option_index: number;
-}
-
-export interface ClarificationAnswerDTO {
-  ingredient_name: string;
-  selected_option_index: number;
 }
 
 export interface MealTypeQuestionDTO {
@@ -875,13 +871,13 @@ function recalculateIngredient(ingredient: ResolvedIngredient, nextGrams: number
 function applyClarificationAnswers(
   resolved: ResolvedIngredient[],
   clarifications: ClarificationDTO[],
-  answers: ClarificationAnswerDTO[]
+  answers: MealClarificationAnswer[]
 ): ResolvedIngredient[] {
   const clarificationMap = new Map(
     clarifications.map((clarification) => [normalize(clarification.ingredient_name), clarification])
   );
   const answerMap = new Map(
-    answers.map((answer) => [normalize(answer.ingredient_name), answer.selected_option_index])
+    answers.map((answer) => [normalize(answer.ingredientName), answer.selectedOptionIndex])
   );
 
   return resolved.map((ingredient) => {
@@ -1016,7 +1012,7 @@ async function persistSessionSnapshot(
     uncertaintyData?: unknown;
     mealTypeQuestionData?: unknown;
     resultData?: unknown;
-    clarificationAnswers?: ClarificationAnswerDTO[];
+    clarificationAnswers?: MealClarificationAnswer[];
   }
 ): Promise<void> {
   await upsertMealAnalysisSession({
@@ -1042,7 +1038,7 @@ async function* runPipelineFromDecomposition(
   client: OpenAI,
   decomposition: LLMDecomposition,
   context: PipelineRunContext,
-  clarificationAnswers?: ClarificationAnswerDTO[],
+  clarificationAnswers?: MealClarificationAnswer[],
   emitDecomposition: boolean = true,
   persistClarificationAnswers: boolean = true
 ): AsyncGenerator<PipelineEvent> {
@@ -1486,7 +1482,7 @@ export async function* analyzeImageMeal(
 
 export async function* continueMealAnalysis(
   analysisId: string,
-  answers: ClarificationAnswerDTO[],
+  answers: MealClarificationAnswer[],
   options: AnalysisRequestOptions = {}
 ): AsyncGenerator<PipelineEvent> {
   const trace = options.trace ?? createAnalysisTrace();
@@ -1573,7 +1569,7 @@ export async function* continueMealAnalysisWithMealType(
       client,
       decomposition,
       context,
-      session.clarificationAnswers as ClarificationAnswerDTO[] | undefined,
+      session.clarificationAnswers as MealClarificationAnswer[] | undefined,
       false,
       false
     );

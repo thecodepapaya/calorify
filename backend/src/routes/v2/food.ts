@@ -14,7 +14,6 @@ import {
   FEEDBACK_ISSUES,
   MEAL_TYPES,
   reanalyzeMeal,
-  type ClarificationAnswerDTO,
   type PipelineEvent,
 } from '../../services/nutritionEngineV2.js';
 import { createErrorResponse } from '../../utils/errors.js';
@@ -125,13 +124,6 @@ function confirmLogBodyToStoreRecord(body: ConfirmLogBody): MealLogConfirmationR
     mealType: m.type,
     quantity: m.quantity,
   };
-}
-
-function clarificationAnswersToDto(answers: MealClarificationAnswer[]): ClarificationAnswerDTO[] {
-  return answers.map((a) => ({
-    ingredient_name: a.ingredientName,
-    selected_option_index: a.selectedOptionIndex,
-  }));
 }
 
 // Preserve the public Fastify route typing (used by <{Body: ...}> generics below).
@@ -367,7 +359,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
         request.headers.accept,
         continueMealAnalysis(
           parsed.analysisId,
-          clarificationAnswersToDto(parsed.answers as MealClarificationAnswer[]),
+          parsed.answers as MealClarificationAnswer[],
           {
             logger: request.log,
           }
